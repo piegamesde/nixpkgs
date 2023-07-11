@@ -32,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     yattag
   ];
 
-  # "running build_ext" fails with no output
+    # "running build_ext" fails with no output
   doCheck = false;
 
   passthru.updateScript = unstableGitUpdater { branch = "py3"; };

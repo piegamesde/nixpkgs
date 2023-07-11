@@ -38,7 +38,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Pythonic library to aid with serialisation and deserialisation to/from JSON and XML";
+      "Pythonic library to aid with serialisation and deserialisation to/from JSON and XML"
+      ;
     homepage = "https://github.com/madpah/serializable";
     changelog =
       "https://github.com/madpah/serializable/blob/${version}/CHANGELOG.md";

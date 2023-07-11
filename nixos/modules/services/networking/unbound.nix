@@ -9,15 +9,18 @@ with lib;
 let
   cfg = config.services.unbound;
 
-  yesOrNo = v:
+  yesOrNo =
+    v:
     if v then
       "yes"
     else
-      "no";
+      "no"
+    ;
 
   toOption = indent: n: v: "${indent}${toString n}: ${v}";
 
-  toConf = indent: n: v:
+  toConf =
+    indent: n: v:
     if builtins.isFloat v then
       (toOption indent n (builtins.toJSON v))
     else if isInt v then
@@ -32,7 +35,8 @@ let
       (concatStringsSep "\n"
         ([ "${indent}${n}:" ] ++ (mapAttrsToList (toConf "${indent}  ") v)))
     else
-      throw (traceSeq v "services.unbound.settings: unexpected type");
+      throw (traceSeq v "services.unbound.settings: unexpected type")
+    ;
 
   confNoServer = concatStringsSep "\n" ((mapAttrsToList (toConf "")
     (builtins.removeAttrs cfg.settings [ "server" ])) ++ [ "" ]);
@@ -102,10 +106,10 @@ in {
 
       localControlSocketPath = mkOption {
         default = null;
-        # FIXME: What is the proper type here so users can specify strings,
-        # paths and null?
-        # My guess would be `types.nullOr (types.either types.str types.path)`
-        # but I haven't verified yet.
+          # FIXME: What is the proper type here so users can specify strings,
+          # paths and null?
+          # My guess would be `types.nullOr (types.either types.str types.path)`
+          # but I haven't verified yet.
         type = types.nullOr types.str;
         example = "/run/unbound/unbound.ctl";
         description = lib.mdDoc ''
@@ -127,34 +131,35 @@ in {
         type = with types;
           submodule {
 
-            freeformType = let
-              validSettingsPrimitiveTypes = oneOf [
-                int
-                str
-                bool
-                float
-              ];
-              validSettingsTypes = oneOf [
-                validSettingsPrimitiveTypes
-                (listOf validSettingsPrimitiveTypes)
-              ];
-              settingsType = oneOf [
-                str
-                (attrsOf validSettingsTypes)
-              ];
-            in
-            attrsOf (oneOf [
-              settingsType
-              (listOf settingsType)
-            ]) // {
-              description = ''
-                unbound.conf configuration type. The format consist of an attribute
-                set of settings. Each settings can be either one value, a list of
-                values or an attribute set. The allowed values are integers,
-                strings, booleans or floats.
-              '';
-            }
-            ;
+            freeformType =
+              let
+                validSettingsPrimitiveTypes = oneOf [
+                  int
+                  str
+                  bool
+                  float
+                ];
+                validSettingsTypes = oneOf [
+                  validSettingsPrimitiveTypes
+                  (listOf validSettingsPrimitiveTypes)
+                ];
+                settingsType = oneOf [
+                  str
+                  (attrsOf validSettingsTypes)
+                ];
+              in
+              attrsOf (oneOf [
+                settingsType
+                (listOf settingsType)
+              ]) // {
+                description = ''
+                  unbound.conf configuration type. The format consist of an attribute
+                  set of settings. Each settings can be either one value, a list of
+                  values or an attribute set. The allowed values are integers,
+                  strings, booleans or floats.
+                '';
+              }
+              ;
 
             options = {
               remote-control.control-enable = mkOption {
@@ -194,7 +199,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -204,7 +209,7 @@ in {
         username = cfg.user;
         chroot = ''""'';
         pidfile = ''""'';
-        # when running under systemd there is no need to daemonize
+          # when running under systemd there is no need to daemonize
         do-daemonize = false;
         interface = mkDefault
           ([ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1"));
@@ -213,8 +218,8 @@ in {
         auto-trust-anchor-file =
           mkIf cfg.enableRootTrustAnchor rootTrustAnchorFile;
         tls-cert-bundle = mkDefault "/etc/ssl/certs/ca-certificates.crt";
-        # prevent race conditions on system startup when interfaces are not yet
-        # configured
+          # prevent race conditions on system startup when interfaces are not yet
+          # configured
         ip-freebind = mkDefault true;
         define-tag = mkDefault "";
       };
@@ -282,7 +287,7 @@ in {
         NotifyAccess = "main";
         Type = "notify";
 
-        # FIXME: Which of these do we actually need, can we drop the chroot flag?
+          # FIXME: Which of these do we actually need, can we drop the chroot flag?
         AmbientCapabilities = [
           "CAP_NET_BIND_SERVICE"
           "CAP_NET_RAW"

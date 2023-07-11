@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     sha256 = "091ip2iwb6b67bhjsj05l0sxyq2whqjycbzqpkfbpm4dlyxx0v04";
   };
 
-  # FIXME: This package does not support `distmp3', `eject', etc.
+    # FIXME: This package does not support `distmp3', `eject', etc.
 
   configurePhase = ''
     sed -i "s|^[[:blank:]]*prefix *=.*$|prefix = $out|g ;

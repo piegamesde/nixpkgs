@@ -16,14 +16,15 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/andrenth/ocaml-stdint/releases/download/${version}/stdint-${version}.tbz";
+      "https://github.com/andrenth/ocaml-stdint/releases/download/${version}/stdint-${version}.tbz"
+      ;
     sha256 = "sha256-FWAZjYvJx68+qVLEDavoJmZpQhDsw/35u/60MhHpd+Y=";
   };
 
-  # 1. disable remaining broken tests, see
-  #    https://github.com/andrenth/ocaml-stdint/issues/59
-  # 2. fix tests to liberal test range
-  #    https://github.com/andrenth/ocaml-stdint/pull/61
+    # 1. disable remaining broken tests, see
+    #    https://github.com/andrenth/ocaml-stdint/issues/59
+    # 2. fix tests to liberal test range
+    #    https://github.com/andrenth/ocaml-stdint/pull/61
   postPatch = ''
     substituteInPlace tests/stdint_test.ml \
       --replace 'test "An integer should perform left-shifts correctly"' \

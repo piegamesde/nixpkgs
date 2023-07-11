@@ -80,8 +80,7 @@ stdenv.mkDerivation rec {
       libnice
     ]);
 
-  cmakeFlags =
-    [ "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389
+  cmakeFlags = [ "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389
     ];
 
   preFixup = lib.optionalString voipSupport ''
@@ -98,8 +97,8 @@ stdenv.mkDerivation rec {
       fpletz
     ];
     platforms = platforms.all;
-    # Should be fixable if a higher clang version is used, see:
-    # https://github.com/NixOS/nixpkgs/pull/85922#issuecomment-619287177
+      # Should be fixable if a higher clang version is used, see:
+      # https://github.com/NixOS/nixpkgs/pull/85922#issuecomment-619287177
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

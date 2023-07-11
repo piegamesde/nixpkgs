@@ -42,7 +42,7 @@ in {
     "keyPath"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -110,7 +110,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -127,8 +127,8 @@ in {
 
     environment.systemPackages = [ pkgs.opendkim ];
 
-    systemd.tmpfiles.rules =
-      [ "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = [ "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -" ]
+      ;
 
     systemd.services.opendkim = {
       description = "OpenDKIM signing and verification daemon";

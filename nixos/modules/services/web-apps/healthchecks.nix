@@ -12,11 +12,13 @@ let
   defaultUser = "healthchecks";
   cfg = config.services.healthchecks;
   pkg = cfg.package;
-  boolToPython = b:
+  boolToPython =
+    b:
     if b then
       "True"
     else
-      "False";
+      "False"
+    ;
   environment = {
     PYTHONPATH = pkg.pythonPath;
     STATIC_ROOT = cfg.dataDir + "/static";
@@ -171,78 +173,80 @@ in {
       ];
     };
 
-    systemd.services = let
-      commonConfig = {
-        WorkingDirectory = cfg.dataDir;
-        User = cfg.user;
-        Group = cfg.group;
-        EnvironmentFile = [ environmentFile ];
-        StateDirectory =
-          mkIf (cfg.dataDir == "/var/lib/healthchecks") "healthchecks";
-        StateDirectoryMode =
-          mkIf (cfg.dataDir == "/var/lib/healthchecks") "0750";
-      };
-    in {
-      healthchecks-migration = {
-        description = "Healthchecks migrations";
-        wantedBy = [ "healthchecks.target" ];
-
-        serviceConfig = commonConfig // {
-          Restart = "on-failure";
-          Type = "oneshot";
-          ExecStart = ''
-            ${pkg}/opt/healthchecks/manage.py migrate
-          '';
+    systemd.services =
+      let
+        commonConfig = {
+          WorkingDirectory = cfg.dataDir;
+          User = cfg.user;
+          Group = cfg.group;
+          EnvironmentFile = [ environmentFile ];
+          StateDirectory =
+            mkIf (cfg.dataDir == "/var/lib/healthchecks") "healthchecks";
+          StateDirectoryMode =
+            mkIf (cfg.dataDir == "/var/lib/healthchecks") "0750";
         };
-      };
+      in {
+        healthchecks-migration = {
+          description = "Healthchecks migrations";
+          wantedBy = [ "healthchecks.target" ];
 
-      healthchecks = {
-        description = "Healthchecks WSGI Service";
-        wantedBy = [ "healthchecks.target" ];
-        after = [ "healthchecks-migration.service" ];
-
-        preStart = ''
-          ${pkg}/opt/healthchecks/manage.py collectstatic --no-input
-          ${pkg}/opt/healthchecks/manage.py remove_stale_contenttypes --no-input
-          ${pkg}/opt/healthchecks/manage.py compress
-        '';
-
-        serviceConfig = commonConfig // {
-          Restart = "always";
-          ExecStart = ''
-            ${pkgs.python3Packages.gunicorn}/bin/gunicorn hc.wsgi \
-              --bind ${cfg.listenAddress}:${toString cfg.port} \
-              --pythonpath ${pkg}/opt/healthchecks
-          '';
+          serviceConfig = commonConfig // {
+            Restart = "on-failure";
+            Type = "oneshot";
+            ExecStart = ''
+              ${pkg}/opt/healthchecks/manage.py migrate
+            '';
+          };
         };
-      };
 
-      healthchecks-sendalerts = {
-        description = "Healthchecks Alert Service";
-        wantedBy = [ "healthchecks.target" ];
-        after = [ "healthchecks.service" ];
+        healthchecks = {
+          description = "Healthchecks WSGI Service";
+          wantedBy = [ "healthchecks.target" ];
+          after = [ "healthchecks-migration.service" ];
 
-        serviceConfig = commonConfig // {
-          Restart = "always";
-          ExecStart = ''
-            ${pkg}/opt/healthchecks/manage.py sendalerts
+          preStart = ''
+            ${pkg}/opt/healthchecks/manage.py collectstatic --no-input
+            ${pkg}/opt/healthchecks/manage.py remove_stale_contenttypes --no-input
+            ${pkg}/opt/healthchecks/manage.py compress
           '';
-        };
-      };
 
-      healthchecks-sendreports = {
-        description = "Healthchecks Reporting Service";
-        wantedBy = [ "healthchecks.target" ];
-        after = [ "healthchecks.service" ];
-
-        serviceConfig = commonConfig // {
-          Restart = "always";
-          ExecStart = ''
-            ${pkg}/opt/healthchecks/manage.py sendreports --loop
-          '';
+          serviceConfig = commonConfig // {
+            Restart = "always";
+            ExecStart = ''
+              ${pkgs.python3Packages.gunicorn}/bin/gunicorn hc.wsgi \
+                --bind ${cfg.listenAddress}:${toString cfg.port} \
+                --pythonpath ${pkg}/opt/healthchecks
+            '';
+          };
         };
-      };
-    } ;
+
+        healthchecks-sendalerts = {
+          description = "Healthchecks Alert Service";
+          wantedBy = [ "healthchecks.target" ];
+          after = [ "healthchecks.service" ];
+
+          serviceConfig = commonConfig // {
+            Restart = "always";
+            ExecStart = ''
+              ${pkg}/opt/healthchecks/manage.py sendalerts
+            '';
+          };
+        };
+
+        healthchecks-sendreports = {
+          description = "Healthchecks Reporting Service";
+          wantedBy = [ "healthchecks.target" ];
+          after = [ "healthchecks.service" ];
+
+          serviceConfig = commonConfig // {
+            Restart = "always";
+            ExecStart = ''
+              ${pkg}/opt/healthchecks/manage.py sendreports --loop
+            '';
+          };
+        };
+      }
+      ;
 
     users.users = optionalAttrs (cfg.user == defaultUser) {
       ${defaultUser} = {

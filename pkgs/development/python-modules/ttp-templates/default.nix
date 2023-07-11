@@ -27,7 +27,7 @@ buildPythonPackage rec {
     sed -i '/ttp =/d' pyproject.toml
   '';
 
-  # Circular dependency on ttp
+    # Circular dependency on ttp
   doCheck = false;
 
   meta = with lib; {

@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }: {
     name = "xfce";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }:
@@ -24,12 +25,14 @@ import ./make-test-python.nix ({
 
         services.xserver.desktopManager.xfce.enable = true;
 
-        hardware.pulseaudio.enable =
-          true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
+        hardware.pulseaudio.enable = true
+          ; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
 
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -49,5 +52,6 @@ import ./make-test-python.nix ({
         machine.wait_for_window("Terminal")
         machine.sleep(10)
         machine.screenshot("screen")
-      '' ;
+      ''
+      ;
   })

@@ -6,14 +6,16 @@ import ./make-test-python.nix ({
   {
     name = "power-profiles-daemon";
     meta = with pkgs.lib.maintainers; { maintainers = [ mvnetbiz ]; };
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         security.polkit.enable = true;
         services.power-profiles-daemon.enable = true;
         environment.systemPackages = [ pkgs.glib ];
-      };
+      }
+      ;
 
     testScript = ''
       def get_profile():

@@ -27,14 +27,16 @@ stdenv.mkDerivation rec {
     postgresql
   ];
 
-  postInstall = let
-    pdfdoc = fetchurl {
-      url = "https://jmvdveer.home.xs4all.nl/learning-algol-68-genie.pdf";
-      hash = "sha256-QCwn1e/lVfTYTeolCFErvfMhvwCgsBnASqq2K+NYmlU=";
-    };
-  in ''
-    install -m644 ${pdfdoc} $out/share/doc/${pname}/learning-algol-68-genie.pdf
-  '' ;
+  postInstall =
+    let
+      pdfdoc = fetchurl {
+        url = "https://jmvdveer.home.xs4all.nl/learning-algol-68-genie.pdf";
+        hash = "sha256-QCwn1e/lVfTYTeolCFErvfMhvwCgsBnASqq2K+NYmlU=";
+      };
+    in ''
+      install -m644 ${pdfdoc} $out/share/doc/${pname}/learning-algol-68-genie.pdf
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://jmvdveer.home.xs4all.nl/en.algol-68-genie.html";

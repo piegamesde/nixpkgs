@@ -8,13 +8,15 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  redmineTest = {
+  redmineTest =
+    {
       name,
       type,
     }:
     makeTest {
       name = "redmine-${name}";
-      nodes.machine = {
+      nodes.machine =
+        {
           config,
           pkgs,
           ...
@@ -33,12 +35,14 @@ let
             themes = {
               dkuk-redmine_alex_skin = pkgs.fetchurl {
                 url =
-                  "https://bitbucket.org/dkuk/redmine_alex_skin/get/1842ef675ef3.zip";
+                  "https://bitbucket.org/dkuk/redmine_alex_skin/get/1842ef675ef3.zip"
+                  ;
                 sha256 = "0hrin9lzyi50k4w2bd2b30vrf1i4fi1c0gyas5801wn8i7kpm9yl";
               };
             };
           };
-        };
+        }
+        ;
 
       testScript = ''
         start_all()
@@ -48,7 +52,8 @@ let
       '';
     } // {
       meta.maintainers = [ maintainers.aanderse ];
-    };
+    }
+    ;
 in {
   mysql = redmineTest {
     name = "mysql";

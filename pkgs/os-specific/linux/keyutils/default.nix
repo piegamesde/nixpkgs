@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git/snapshot/${pname}-${version}.tar.gz";
+      "https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git/snapshot/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-ph1XBhNq5MBb1I+GGGvP29iN2L1RB+Phlckkz8Gzm7Q=";
   };
 
@@ -29,7 +30,8 @@ stdenv.mkDerivation rec {
     # Fix build for s390-linux, where size_t is different from ptrdiff_t.
     (fetchurl {
       url =
-        "https://lore.kernel.org/keyrings/20230301134250.301819-1-hi@alyssa.is/raw";
+        "https://lore.kernel.org/keyrings/20230301134250.301819-1-hi@alyssa.is/raw"
+        ;
       sha256 = "1cbgwxq28fw5ldh38ngcs7xiqvpnmrw0hw9zzhbhb1hdxkavrc1s";
     })
   ];

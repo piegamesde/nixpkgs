@@ -16,8 +16,8 @@
 let
   columnar = stdenv.mkDerivation rec {
     pname = "columnar";
-    version =
-      "c16-s5"; # see NEED_COLUMNAR_API/NEED_SECONDARY_API in Manticore's GetColumnar.cmake
+    version = "c16-s5"
+      ; # see NEED_COLUMNAR_API/NEED_SECONDARY_API in Manticore's GetColumnar.cmake
     src = fetchFromGitHub {
       owner = "manticoresoftware";
       repo = "columnar";

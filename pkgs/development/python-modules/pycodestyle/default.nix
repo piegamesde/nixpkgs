@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-NHGHvbR2Mp2Y9pXCE9cpWoRtEVL/T+m6y4qVkLjucFM=";
   };
 
-  # https://github.com/PyCQA/pycodestyle/blob/2.10.0/tox.ini#L13
+    # https://github.com/PyCQA/pycodestyle/blob/2.10.0/tox.ini#L13
   checkPhase = ''
     ${python.interpreter} -m pycodestyle --statistics pycodestyle.py
     ${python.interpreter} -m pycodestyle --max-doc-length=72 --testsuite testsuite

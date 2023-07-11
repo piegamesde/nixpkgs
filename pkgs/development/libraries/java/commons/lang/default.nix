@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://apache/commons/lang/binaries/commons-lang3-${version}-bin.tar.gz";
+      "mirror://apache/commons/lang/binaries/commons-lang3-${version}-bin.tar.gz"
+      ;
     sha256 = "sha256-MwEkZd/Lf3kKyjM+CevxBeKl+5XCxjiz33kNPvqQjig=";
   };
 

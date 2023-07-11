@@ -9,10 +9,10 @@ stdenv.mkDerivation {
   pname = "mrpeach";
   version = "1.1";
 
-  # this was to only usable url I could find:
-  # - The main url changes hash: http://pure-data.cvs.sourceforge.net/viewvc/pure-data/externals/mrpeach/?view=tar
-  # - There are lot's of places where this SW is available as part of a big pkg: pd-extended, pd-l2ork
-  # - It's just 211K
+    # this was to only usable url I could find:
+    # - The main url changes hash: http://pure-data.cvs.sourceforge.net/viewvc/pure-data/externals/mrpeach/?view=tar
+    # - There are lot's of places where this SW is available as part of a big pkg: pd-extended, pd-l2ork
+    # - It's just 211K
 
   src = fetchurl {
     url =

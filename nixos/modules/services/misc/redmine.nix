@@ -50,7 +50,8 @@ let
 
   unpackTheme = unpack "theme";
   unpackPlugin = unpack "plugin";
-  unpack = id:
+  unpack =
+    id:
     (name: source:
       pkgs.stdenv.mkDerivation {
         name = "redmine-${id}-${name}";
@@ -60,7 +61,8 @@ let
           cd $out
           unpackFile ${source}
         '';
-      });
+      })
+    ;
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql2";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "postgresql";
@@ -80,7 +82,7 @@ in {
     ] "Use services.redmine.database.passwordFile instead.")
   ];
 
-  # interface
+    # interface
   options = {
     services.redmine = {
       enable = mkEnableOption (lib.mdDoc "Redmine");
@@ -201,10 +203,12 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if cfg.database.type == "postgresql" then
-            5432
-          else
-            3306;
+          default =
+            if cfg.database.type == "postgresql" then
+              5432
+            else
+              3306
+            ;
           defaultText = literalExpression "3306";
           description = lib.mdDoc "Database host port.";
         };
@@ -233,12 +237,14 @@ in {
 
         socket = mkOption {
           type = types.nullOr types.path;
-          default = if mysqlLocal then
-            "/run/mysqld/mysqld.sock"
-          else if pgsqlLocal then
-            "/run/postgresql"
-          else
-            null;
+          default =
+            if mysqlLocal then
+              "/run/mysqld/mysqld.sock"
+            else if pgsqlLocal then
+              "/run/postgresql"
+            else
+              null
+            ;
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           example = "/run/mysqld/mysqld.sock";
           description =
@@ -307,37 +313,42 @@ in {
     };
   };
 
-  # implementation
+    # implementation
   config = mkIf cfg.enable {
 
     assertions = [
       {
-        assertion = cfg.database.passwordFile != null || cfg.database.socket
-          != null;
+        assertion =
+          cfg.database.passwordFile != null || cfg.database.socket != null;
         message =
-          "one of services.redmine.database.socket or services.redmine.database.passwordFile must be set";
+          "one of services.redmine.database.socket or services.redmine.database.passwordFile must be set"
+          ;
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.user == cfg.user;
         message =
-          "services.redmine.database.user must be set to ${cfg.user} if services.redmine.database.createLocally is set true";
+          "services.redmine.database.user must be set to ${cfg.user} if services.redmine.database.createLocally is set true"
+          ;
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.socket != null;
         message =
-          "services.redmine.database.socket must be set if services.redmine.database.createLocally is set to true";
+          "services.redmine.database.socket must be set if services.redmine.database.createLocally is set to true"
+          ;
       }
       {
-        assertion = cfg.database.createLocally -> cfg.database.host
-          == "localhost";
+        assertion =
+          cfg.database.createLocally -> cfg.database.host == "localhost";
         message =
-          "services.redmine.database.host must be set to localhost if services.redmine.database.createLocally is set to true";
+          "services.redmine.database.host must be set to localhost if services.redmine.database.createLocally is set to true"
+          ;
       }
       {
         assertion = cfg.components.imagemagick
           -> cfg.components.minimagick_font_path != "";
         message =
-          "services.redmine.components.minimagick_font_path must be configured with a path to a font file if services.redmine.components.imagemagick is set to true.";
+          "services.redmine.components.minimagick_font_path must be configured with a path to a font file if services.redmine.components.imagemagick is set to true."
+          ;
       }
     ];
 
@@ -355,8 +366,9 @@ in {
           optionalString cfg.components.breezy "${pkgs.breezy}/bin/bzr";
         imagemagick_convert_command = optionalString cfg.components.imagemagick
           "${pkgs.imagemagick}/bin/convert";
-        gs_command = optionalString cfg.components.ghostscript
-          "${pkgs.ghostscript}/bin/gs";
+        gs_command =
+          optionalString cfg.components.ghostscript "${pkgs.ghostscript}/bin/gs"
+          ;
         minimagick_font_path = "${cfg.components.minimagick_font_path}";
       };
     };
@@ -387,7 +399,7 @@ in {
       } ];
     };
 
-    # create symlinks for the basic directory layout the redmine package expects
+      # create symlinks for the basic directory layout the redmine package expects
     systemd.tmpfiles.rules = [
       "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
       "d '${cfg.stateDir}/cache' 0750 ${cfg.user} ${cfg.group} - -"

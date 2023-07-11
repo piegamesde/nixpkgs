@@ -1,7 +1,8 @@
 import ./make-test-python.nix ({
   name = "zrepl";
 
-  nodes.host = {
+  nodes.host =
+    {
       config,
       pkgs,
       ...
@@ -19,7 +20,7 @@ import ./make-test-python.nix ({
               type = "prometheus";
               listen = ":9811";
             } ];
-            # Create a periodic snapshot job for an ephemeral zpool.
+              # Create a periodic snapshot job for an ephemeral zpool.
             jobs = [ {
               name = "snap_test";
               type = "snap";
@@ -39,7 +40,8 @@ import ./make-test-python.nix ({
           };
         };
       };
-    };
+    }
+    ;
 
   testScript = ''
     start_all()

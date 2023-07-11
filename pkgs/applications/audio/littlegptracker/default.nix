@@ -39,14 +39,17 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optional stdenv.isDarwin "-framework Foundation";
 
-  installPhase = let
-    extension = if stdenv.isDarwin then
-      "app"
-    else
-      "deb-exe";
-  in
-  "install -Dm555 lgpt.${extension} $out/bin/lgpt"
-  ;
+  installPhase =
+    let
+      extension =
+        if stdenv.isDarwin then
+          "app"
+        else
+          "deb-exe"
+        ;
+    in
+    "install -Dm555 lgpt.${extension} $out/bin/lgpt"
+    ;
 
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/Mdashdotdashn/littlegptracker.git";
@@ -54,7 +57,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A music tracker similar to lsdj optimised to run on portable game consoles";
+      "A music tracker similar to lsdj optimised to run on portable game consoles"
+      ;
     longDescription = ''
       LittleGPTracker (a.k.a 'The piggy', 'lgpt') is a music tracker optimised
       to run on portable game consoles. It is currently running on Game Park's
@@ -74,7 +78,7 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;
-    # https://github.com/NixOS/nixpkgs/pull/91766#issuecomment-688751821
+      # https://github.com/NixOS/nixpkgs/pull/91766#issuecomment-688751821
     broken = stdenv.isDarwin;
   };
 }

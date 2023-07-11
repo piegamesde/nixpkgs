@@ -26,14 +26,15 @@ buildPythonPackage rec {
     token-bucket
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "limiter" ];
 
   meta = with lib; {
     description =
-      "Python rate-limiting, thread-safe and asynchronous decorators and context managers";
+      "Python rate-limiting, thread-safe and asynchronous decorators and context managers"
+      ;
     homepage = "https://github.com/alexdelorenzo/limiter";
     license = with licenses; [ agpl3Only ];
     maintainers = with maintainers; [ fab ];

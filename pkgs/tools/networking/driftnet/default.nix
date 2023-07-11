@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Watches network traffic, and picks out and displays JPEG and GIF images for display";
+      "Watches network traffic, and picks out and displays JPEG and GIF images for display"
+      ;
     homepage = "https://github.com/deiv/driftnet";
     changelog = "https://github.com/deiv/driftnet/releases/tag/v${version}";
     license = licenses.gpl2Plus;

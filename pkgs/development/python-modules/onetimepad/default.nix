@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "1eaade76d8036e1cb79e944b75874bfe5ee4046a571c0724564e1721565c73fd";
   };
 
-  # upstream has no tests
+    # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "onetimepad" ];

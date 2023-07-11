@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.nongnu.org/lzip/${pname}.html";
     description =
-      "Data compression library providing in-memory LZMA compression and decompression functions, including integrity checking of the decompressed data";
+      "Data compression library providing in-memory LZMA compression and decompression functions, including integrity checking of the decompressed data"
+      ;
     license = licenses.bsd2;
     platforms = platforms.all;
     maintainers = with maintainers; [ ehmry ];

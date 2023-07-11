@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-GHMnDRxXkaKDTaawwPtMqa7EZJ8Y35+ScgtfEP9PJGs=";
   };
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "AWSIoTPythonSDK" ];

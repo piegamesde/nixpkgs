@@ -17,10 +17,11 @@ buildGoModule rec {
     sha256 = "sha256-XWIDo5msTMTLr60x1R9cwsiZIDG6G+uHWx8idt4F2iA=";
   };
 
-  # https://github.com/zmwangx/ets/pull/18/
+    # https://github.com/zmwangx/ets/pull/18/
   patches = [ (fetchpatch {
     url =
-      "https://github.com/zmwangx/ets/commit/600ec17a9c86ca63cd022d00439cdc4978e2afa9.patch";
+      "https://github.com/zmwangx/ets/commit/600ec17a9c86ca63cd022d00439cdc4978e2afa9.patch"
+      ;
     sha256 = "sha256-SGCISHkWNFubgKkQYx8Vf5/fknNDfPNYkSuw1mMhZaE=";
   }) ];
 

@@ -4,7 +4,8 @@
   python,
 }:
 let
-  mkScript = bin: entrypoint:
+  mkScript =
+    bin: entrypoint:
     let
       elem = builtins.elemAt (builtins.split ":" entrypoint);
       module = elem 0;
@@ -25,7 +26,8 @@ let
           sys.exit(${fn}())
       EOF
       chmod +x $out/bin/${bin}
-    '' ;
+    ''
+    ;
 in
 python.pkgs.buildPythonPackage {
   name = "poetry2nix-env-scripts";

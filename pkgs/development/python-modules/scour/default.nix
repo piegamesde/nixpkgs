@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  # No tests included in archive
+    # No tests included in archive
   doCheck = false;
 
   meta = with lib; {

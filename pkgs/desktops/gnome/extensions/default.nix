@@ -7,14 +7,15 @@
 let
   buildShellExtension = callPackage ./buildGnomeExtension.nix { };
 
-  # Index of all scraped extensions (with supported versions)
+    # Index of all scraped extensions (with supported versions)
   extensionsIndex = lib.importJSON ./extensions.json;
 
-  # A list of UUIDs that have the same pname and we need to rename them
+    # A list of UUIDs that have the same pname and we need to rename them
   extensionRenames = import ./extensionRenames.nix;
 
-  # Take all extensions from the index that match the gnome version, build them and put them into a list of derivations
-  produceExtensionsList = shell-version:
+    # Take all extensions from the index that match the gnome version, build them and put them into a list of derivations
+  produceExtensionsList =
+    shell-version:
     lib.trivial.pipe extensionsIndex [
       # Does a given extension match our current shell version?
       (builtins.filter (extension:
@@ -30,18 +31,22 @@ let
       }))
       # Build them
       (map buildShellExtension)
-    ];
+    ]
+    ;
 
-  # Map the list of extensions to an attrset based on the UUID as key
-  mapUuidNames = extensions:
+    # Map the list of extensions to an attrset based on the UUID as key
+  mapUuidNames =
+    extensions:
     lib.trivial.pipe extensions [
       (map (extension: lib.nameValuePair extension.extensionUuid extension))
       builtins.listToAttrs
-    ];
+    ]
+    ;
 
-  # Map the list of extensions to an attrset based on the pname as key, which is more human readable than the UUID
-  # We also take care of conflict renaming in here
-  mapReadableNames = extensionsList:
+    # Map the list of extensions to an attrset based on the pname as key, which is more human readable than the UUID
+    # We also take care of conflict renaming in here
+  mapReadableNames =
+    extensionsList:
     lib.trivial.pipe extensionsList [
       # Filter out all extensions that map to null
       (lib.filter (extension:
@@ -54,7 +59,8 @@ let
         (extensionRenames.${extension.extensionUuid} or extension.extensionPortalSlug)
         extension))
       builtins.listToAttrs
-    ];
+    ]
+    ;
 
 in rec {
   # Remember to import all these in all-packages.nix
@@ -65,7 +71,7 @@ in rec {
   gnome43Extensions = mapUuidNames (produceExtensionsList "43");
   gnome44Extensions = mapUuidNames (produceExtensionsList "44");
 
-  # Keep the last three versions in here
+    # Keep the last three versions in here
   gnomeExtensions = lib.trivial.pipe
     (gnome42Extensions // gnome43Extensions // gnome44Extensions) [
       # Apply some custom patches for automatically packaged extensions
@@ -81,14 +87,18 @@ in rec {
           unite-shell = gnomeExtensions.unite; # added 2021-01-19
           arc-menu = gnomeExtensions.arcmenu; # added 2021-02-14
           disable-unredirect =
-            gnomeExtensions.disable-unredirect-fullscreen-windows; # added 2021-11-20
+            gnomeExtensions.disable-unredirect-fullscreen-windows
+            ; # added 2021-11-20
 
           nohotcorner = throw
-            "gnomeExtensions.nohotcorner removed since 2019-10-09: Since 3.34, it is a part of GNOME Shell configurable through GNOME Tweaks.";
+            "gnomeExtensions.nohotcorner removed since 2019-10-09: Since 3.34, it is a part of GNOME Shell configurable through GNOME Tweaks."
+            ;
           mediaplayer = throw
-            "gnomeExtensions.mediaplayer deprecated since 2019-09-23: retired upstream https://github.com/JasonLG1979/gnome-shell-extensions-mediaplayer/blob/master/README.md";
+            "gnomeExtensions.mediaplayer deprecated since 2019-09-23: retired upstream https://github.com/JasonLG1979/gnome-shell-extensions-mediaplayer/blob/master/README.md"
+            ;
           remove-dropdown-arrows = throw
-            "gnomeExtensions.remove-dropdown-arrows removed since 2021-05-25: The extensions has not seen an update sine GNOME 3.34. Furthermore, the functionality it provides is obsolete as of GNOME 40.";
+            "gnomeExtensions.remove-dropdown-arrows removed since 2021-05-25: The extensions has not seen an update sine GNOME 3.34. Furthermore, the functionality it provides is obsolete as of GNOME 40."
+            ;
         })
       # Export buildShellExtension function
       (extensions: extensions // { inherit buildShellExtension; })

@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/pqwy/ocb-stubblr/releases/download/v${version}/ocb-stubblr-${version}.tbz";
+      "https://github.com/pqwy/ocb-stubblr/releases/download/v${version}/ocb-stubblr-${version}.tbz"
+      ;
     name = "src.tar.bz";
     sha256 = "0hpds1lkq4j8wgslv7hnirgfrjmqi36h5rarpw9mwf24gfp5ays2";
   };

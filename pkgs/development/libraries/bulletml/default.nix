@@ -10,13 +10,16 @@
 let
   version = "0.0.6";
   debianRevision = "7";
-  debianPatch = patchname: hash:
+  debianPatch =
+    patchname: hash:
     fetchpatch {
       name = "${patchname}.patch";
       url =
-        "https://sources.debian.org/data/main/b/bulletml/${version}-${debianRevision}/debian/patches/${patchname}.patch";
+        "https://sources.debian.org/data/main/b/bulletml/${version}-${debianRevision}/debian/patches/${patchname}.patch"
+        ;
       sha256 = hash;
-    };
+    }
+    ;
 
 in
 stdenv.mkDerivation {
@@ -82,8 +85,8 @@ stdenv.mkDerivation {
     homepage = "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml/index_e.html";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fgaz ];
-    # See https://github.com/NixOS/nixpkgs/pull/35482
-    # for some attempts in getting it to build on darwin
+      # See https://github.com/NixOS/nixpkgs/pull/35482
+      # for some attempts in getting it to build on darwin
     platforms = platforms.linux;
   };
 }

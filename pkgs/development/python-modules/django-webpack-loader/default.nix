@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  # django.core.exceptions.ImproperlyConfigured (path issue with DJANGO_SETTINGS_MODULE?)
+    # django.core.exceptions.ImproperlyConfigured (path issue with DJANGO_SETTINGS_MODULE?)
   doCheck = false;
 
   pythonImportsCheck = [ "webpack_loader" ];

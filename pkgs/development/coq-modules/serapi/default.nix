@@ -94,7 +94,8 @@ in
     meta = with lib; {
       homepage = "https://github.com/ejgallego/coq-serapi";
       description =
-        "SerAPI is a library for machine-to-machine interaction with the Coq proof assistant";
+        "SerAPI is a library for machine-to-machine interaction with the Coq proof assistant"
+        ;
       license = licenses.lgpl21Plus;
       maintainers = with maintainers; [
         alizter
@@ -116,16 +117,18 @@ in
         sha256 = release."${version}".sha256;
       };
 
-      patches = if version == "8.10.0+0.7.2" then
-        [ ./8.10.0+0.7.2.patch ]
-      else if version == "8.11.0+0.11.1" then
-        [ ./8.11.0+0.11.1.patch ]
-      else if version == "8.12.0+0.12.1" || version == "8.13.0+0.13.0" then
-        [ ./8.12.0+0.12.1.patch ]
-      else if version == "8.14.0+0.14.0" || version == "8.15.0+0.15.0" then
-        [ ./janestreet-0.15.patch ]
-      else
-        [ ];
+      patches =
+        if version == "8.10.0+0.7.2" then
+          [ ./8.10.0+0.7.2.patch ]
+        else if version == "8.11.0+0.11.1" then
+          [ ./8.11.0+0.11.1.patch ]
+        else if version == "8.12.0+0.12.1" || version == "8.13.0+0.13.0" then
+          [ ./8.12.0+0.12.1.patch ]
+        else if version == "8.14.0+0.14.0" || version == "8.15.0+0.15.0" then
+          [ ./janestreet-0.15.patch ]
+        else
+          [ ]
+        ;
 
       propagatedBuildInputs = o.propagatedBuildInputs
         ++ lib.optional (version == "8.16.0+0.16.3" || version == "dev")

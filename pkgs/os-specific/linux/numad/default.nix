@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A user-level daemon that monitors NUMA topology and processes resource consumption to facilitate good NUMA resource access";
+      "A user-level daemon that monitors NUMA topology and processes resource consumption to facilitate good NUMA resource access"
+      ;
     homepage = "https://fedoraproject.org/wiki/Features/numad";
     license = licenses.lgpl21;
     platforms = platforms.linux;

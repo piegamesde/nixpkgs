@@ -22,7 +22,7 @@ buildPythonPackage rec {
     pycountry
   ];
 
-  # This module has no tests
+    # This module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "itunespy" ];

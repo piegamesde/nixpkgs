@@ -26,7 +26,8 @@ mkYarnPackage rec {
 
   micropad-core = fetchzip {
     url =
-      "https://github.com/MicroPad/MicroPad-Core/releases/download/v${version}/micropad.tar.xz";
+      "https://github.com/MicroPad/MicroPad-Core/releases/download/v${version}/micropad.tar.xz"
+      ;
     sha256 = "0mzyd2p4mmnc19ffvd4sd75x7xwb1g5masdaqpn2n3h91687jmsf";
   };
 
@@ -71,11 +72,11 @@ mkYarnPackage rec {
     runHook postInstall
   '';
 
-  # Do not attempt generating a tarball for micropad again.
+    # Do not attempt generating a tarball for micropad again.
   doDist = false;
 
-  # The desktop item properties should be kept in sync with data from upstream:
-  # https://github.com/MicroPad/MicroPad-Electron/blob/master/package.json
+    # The desktop item properties should be kept in sync with data from upstream:
+    # https://github.com/MicroPad/MicroPad-Electron/blob/master/package.json
   desktopItems = [ (makeDesktopItem {
     name = "micropad";
     exec = "${executableName} %u";
@@ -90,7 +91,8 @@ mkYarnPackage rec {
 
   meta = with lib; {
     description =
-      "A powerful note-taking app that helps you organise + take notes without restrictions";
+      "A powerful note-taking app that helps you organise + take notes without restrictions"
+      ;
     homepage = "https://getmicropad.com/";
     license = licenses.mpl20;
     maintainers = with maintainers; [ rhysmdnz ];

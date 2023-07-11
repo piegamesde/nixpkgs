@@ -14,8 +14,8 @@ stdenvNoCC.mkDerivation rec {
     url = "https://dl.dell.com/FOLDER09074160M/1/PERCCLI_7.211.0_Linux.tar.gz";
     sha256 = "sha256-8gk+0CrgeisfN2hNpaO1oFey57y7KuNy2i6PWTikDls=";
 
-    # Dell seems to block "uncommon" user-agents, such as Nixpkgs's custom one.
-    # Sending no user-agent at all seems to be fine though.
+      # Dell seems to block "uncommon" user-agents, such as Nixpkgs's custom one.
+      # Sending no user-agent at all seems to be fine though.
     curlOptsList = [
       "--user-agent"
       ""
@@ -32,19 +32,20 @@ stdenvNoCC.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  installPhase = let
-    inherit (stdenvNoCC.hostPlatform) system;
-    platforms = {
-      x86_64-linux = ''
-        install -D ./opt/MegaRAID/perccli/perccli64 $out/bin/perccli64
-        ln -s perccli64 $out/bin/perccli
-      '';
-    };
-  in
-  platforms.${system} or (throw "unsupported system: ${system}")
-  ;
+  installPhase =
+    let
+      inherit (stdenvNoCC.hostPlatform) system;
+      platforms = {
+        x86_64-linux = ''
+          install -D ./opt/MegaRAID/perccli/perccli64 $out/bin/perccli64
+          ln -s perccli64 $out/bin/perccli
+        '';
+      };
+    in
+    platforms.${system} or (throw "unsupported system: ${system}")
+    ;
 
-  # Not needed because the binary is statically linked
+    # Not needed because the binary is statically linked
   dontFixup = true;
 
   meta = with lib; {

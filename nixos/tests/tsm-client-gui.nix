@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
 
     enableOCR = true;
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -30,7 +31,8 @@ import ./make-test-python.nix ({
             passwdDir = "/tmp";
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed("which dsmj")  # fail early if this is missing

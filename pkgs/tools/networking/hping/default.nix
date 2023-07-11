@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/antirez/hping/pull/64/commits/d057b9309aec3a5a53aaee1ac3451a8a5b71b4e8.patch";
+        "https://github.com/antirez/hping/pull/64/commits/d057b9309aec3a5a53aaee1ac3451a8a5b71b4e8.patch"
+        ;
       sha256 = "0bqr7kdlziijja588ipj8g5hv2109wq01c6x2qadbhjfnsps1b6l";
     })
   ];

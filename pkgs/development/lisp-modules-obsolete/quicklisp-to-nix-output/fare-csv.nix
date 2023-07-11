@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/fare-csv/2017-12-27/fare-csv-20171227-git.tgz";
+      "http://beta.quicklisp.org/archive/fare-csv/2017-12-27/fare-csv-20171227-git.tgz"
+      ;
     sha256 = "1hkzg05kq2c4xihsfx4wk1k6mmjq2fw40id8vy0315rpa47a5i7x";
   };
 

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     pandas
   ];
 
-  # Circular test dependency on bokeh
+    # Circular test dependency on bokeh
   doCheck = false;
 
   meta = {

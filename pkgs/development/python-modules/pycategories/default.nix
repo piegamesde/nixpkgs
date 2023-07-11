@@ -21,8 +21,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pytest-runner ];
 
-  # Is private because the author states it's unmaintained
-  # and shouldn't be used in production code
+    # Is private because the author states it's unmaintained
+    # and shouldn't be used in production code
   propagatedBuildInputs = [ (callPackage ./infix.nix { }) ];
 
   nativeCheckInputs = [

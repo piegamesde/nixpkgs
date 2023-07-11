@@ -34,7 +34,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # some tests require loopback networking
+    # some tests require loopback networking
   __darwinAllowLocalNetworking = true;
 
   pythonImportsCheck = [ "google_auth_oauthlib" ];
@@ -42,7 +42,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Google Authentication Library: oauthlib integration";
     homepage =
-      "https://github.com/GoogleCloudPlatform/google-auth-library-python-oauthlib";
+      "https://github.com/GoogleCloudPlatform/google-auth-library-python-oauthlib"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [
       SuperSandro2000

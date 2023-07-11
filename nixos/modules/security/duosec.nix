@@ -10,11 +10,13 @@ with lib;
 let
   cfg = config.security.duosec;
 
-  boolToStr = b:
+  boolToStr =
+    b:
     if b then
       "yes"
     else
-      "no";
+      "no"
+    ;
 
   configFilePam = ''
     [duo]
@@ -263,9 +265,9 @@ in {
       '';
     };
 
-    /* If PAM *and* SSH are enabled, then don't do anything special.
-       If PAM isn't used, set the default SSH-only options.
-    */
+      /* If PAM *and* SSH are enabled, then don't do anything special.
+         If PAM isn't used, set the default SSH-only options.
+      */
     services.openssh.extraConfig = mkIf (cfg.ssh.enable || cfg.pam.enable)
       (if cfg.pam.enable then
         "UseDNS no"

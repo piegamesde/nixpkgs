@@ -42,14 +42,16 @@ buildGoModule rec {
 
   ldflags = [ "-X=github.com/sagernet/sing-box/constant.Version=${version}" ];
 
-  postInstall = let
-    emulator = stdenv.hostPlatform.emulator buildPackages;
-  in ''
-    installShellCompletion --cmd sing-box \
-      --bash <(${emulator} $out/bin/sing-box completion bash) \
-      --fish <(${emulator} $out/bin/sing-box completion fish) \
-      --zsh  <(${emulator} $out/bin/sing-box completion zsh )
-  '' ;
+  postInstall =
+    let
+      emulator = stdenv.hostPlatform.emulator buildPackages;
+    in ''
+      installShellCompletion --cmd sing-box \
+        --bash <(${emulator} $out/bin/sing-box completion bash) \
+        --fish <(${emulator} $out/bin/sing-box completion fish) \
+        --zsh  <(${emulator} $out/bin/sing-box completion zsh )
+    ''
+    ;
 
   passthru.updateScript = nix-update-script { };
 

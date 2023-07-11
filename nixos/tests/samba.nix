@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     meta.maintainers = [ pkgs.lib.maintainers.eelco ];
 
     nodes = {
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
@@ -20,9 +21,11 @@ import ./make-test-python.nix ({
               options = [ "guest" ];
             };
           };
-        };
+        }
+        ;
 
-      server = {
+      server =
+        {
           ...
         }: {
           services.samba.enable = true;
@@ -34,10 +37,11 @@ import ./make-test-python.nix ({
             "guest ok" = "yes";
             comment = "Public samba share.";
           };
-        };
+        }
+        ;
     };
 
-    # client# [    4.542997] mount[777]: sh: systemd-ask-password: command not found
+      # client# [    4.542997] mount[777]: sh: systemd-ask-password: command not found
 
     testScript = ''
       server.start()

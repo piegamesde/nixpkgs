@@ -35,7 +35,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "remove-asnyc.patch";
       url =
-        "https://github.com/molobrakos/volvooncall/commit/ef0df403250288c00ed4c600e9dfa79dcba8941e.patch";
+        "https://github.com/molobrakos/volvooncall/commit/ef0df403250288c00ed4c600e9dfa79dcba8941e.patch"
+        ;
       hash = "sha256-U+hM7vzD9JSEUumvjPSLpVQcc8jAuZHG3/1dQ3wnIcA=";
     })
   ];

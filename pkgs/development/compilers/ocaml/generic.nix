@@ -8,8 +8,10 @@
 let
   versionNoPatch = "${toString major_version}.${toString minor_version}";
   version = "${versionNoPatch}.${toString patch_version}";
-  safeX11 = stdenv:
-    !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic);
+  safeX11 =
+    stdenv:
+    !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic)
+    ;
 
 in
 {
@@ -42,7 +44,8 @@ assert framePointerSupport -> lib.versionAtLeast version "4.01";
 let
   src = args.src or (fetchurl {
     url =
-      args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
+      args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz"
+      ;
     inherit (args) sha256;
   });
 
@@ -68,11 +71,13 @@ in let
   x11lib = x11env + "/lib";
   x11inc = x11env + "/include";
 
-  fetchpatch' = x:
+  fetchpatch' =
+    x:
     if builtins.isAttrs x then
       fetchpatch x
     else
-      x;
+      x
+    ;
 
 in
 stdenv.mkDerivation (args // {
@@ -84,73 +89,78 @@ stdenv.mkDerivation (args // {
   strictDeps = true;
 
   prefixKey = "-prefix ";
-  configureFlags = let
-    flags = new: old:
-      if lib.versionAtLeast version "4.08" then
-        new
-      else
-        old;
-  in
-  optionals useX11 (flags [
-    "--x-libraries=${x11lib}"
-    "--x-includes=${x11inc}"
-  ] [
-    "-x11lib"
-    x11lib
-    "-x11include"
-    x11inc
-  ]) ++ optional aflSupport (flags "--with-afl" "-afl-instrument")
-  ++ optional flambdaSupport (flags "--enable-flambda" "-flambda")
-  ++ optional spaceTimeSupport (flags "--enable-spacetime" "-spacetime")
-  ++ optional framePointerSupport
-  (flags "--enable-frame-pointers" "-with-frame-pointers")
-  ++ optionals unsafeStringSupport [
-    "--disable-force-safe-string"
-    "DEFAULT_STRING=unsafe"
-  ] ++ optional
-  (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08"))
-  "-no-shared-libs" ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform
-    && lib.versionOlder version "4.08") [
-      "-host ${stdenv.hostPlatform.config}"
-      "-target ${stdenv.targetPlatform.config}"
-    ]
-  ;
+  configureFlags =
+    let
+      flags =
+        new: old:
+        if lib.versionAtLeast version "4.08" then
+          new
+        else
+          old
+        ;
+    in
+    optionals useX11 (flags [
+      "--x-libraries=${x11lib}"
+      "--x-includes=${x11inc}"
+    ] [
+      "-x11lib"
+      x11lib
+      "-x11include"
+      x11inc
+    ]) ++ optional aflSupport (flags "--with-afl" "-afl-instrument")
+    ++ optional flambdaSupport (flags "--enable-flambda" "-flambda")
+    ++ optional spaceTimeSupport (flags "--enable-spacetime" "-spacetime")
+    ++ optional framePointerSupport
+    (flags "--enable-frame-pointers" "-with-frame-pointers")
+    ++ optionals unsafeStringSupport [
+      "--disable-force-safe-string"
+      "DEFAULT_STRING=unsafe"
+    ] ++ optional
+    (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08"))
+    "-no-shared-libs" ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform
+      && lib.versionOlder version "4.08") [
+        "-host ${stdenv.hostPlatform.config}"
+        "-target ${stdenv.targetPlatform.config}"
+      ]
+    ;
   dontAddStaticConfigureFlags = lib.versionOlder version "4.08";
 
-  # on aarch64-darwin using --host and --target causes the build to invoke
-  # `aarch64-apple-darwin-clang` while using assembler. However, such binary
-  # does not exist. So, disable these configure flags on `aarch64-darwin`.
-  # See #144785 for details.
+    # on aarch64-darwin using --host and --target causes the build to invoke
+    # `aarch64-apple-darwin-clang` while using assembler. However, such binary
+    # does not exist. So, disable these configure flags on `aarch64-darwin`.
+    # See #144785 for details.
   configurePlatforms = lib.optionals (lib.versionAtLeast version "4.08"
     && !(stdenv.isDarwin && stdenv.isAarch64)) [
       "host"
       "target"
     ];
-  # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
+    # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
   hardeningDisable = lib.optional
     (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl) "pie"
     ++ lib.optional (lib.versionAtLeast version "5.0" && stdenv.cc.isClang)
     "strictoverflow"
     ++ lib.optionals (args ? hardeningDisable) args.hardeningDisable;
 
-  # Older versions have some race:
-  #  cp: cannot stat 'boot/ocamlrun': No such file or directory
-  #  make[2]: *** [Makefile:199: backup] Error 1
+    # Older versions have some race:
+    #  cp: cannot stat 'boot/ocamlrun': No such file or directory
+    #  make[2]: *** [Makefile:199: backup] Error 1
   enableParallelBuilding = lib.versionAtLeast version "4.08";
 
-  # Workaround missing dependencies for install parallelism:
-  #  install: target '...-ocaml-4.14.0/lib/ocaml/threads': No such file or directory
-  #  make[1]: *** [Makefile:140: installopt] Error 1
+    # Workaround missing dependencies for install parallelism:
+    #  install: target '...-ocaml-4.14.0/lib/ocaml/threads': No such file or directory
+    #  make[1]: *** [Makefile:140: installopt] Error 1
   enableParallelInstalling = false;
 
-  # Workaround lack of parallelism support among top-level targets:
-  # we place nixpkgs-specific targets to a separate file and set
-  # sequential order among them as a single rule.
+    # Workaround lack of parallelism support among top-level targets:
+    # we place nixpkgs-specific targets to a separate file and set
+    # sequential order among them as a single rule.
   makefile = ./Makefile.nixpkgs;
-  buildFlags = if useNativeCompilers then
-    [ "nixpkgs_world_bootstrap_world_opt" ]
-  else
-    [ "nixpkgs_world" ];
+  buildFlags =
+    if useNativeCompilers then
+      [ "nixpkgs_world_bootstrap_world_opt" ]
+    else
+      [ "nixpkgs_world" ]
+    ;
   buildInputs = optional (lib.versionOlder version "4.07") ncurses
     ++ optionals useX11 [
       libX11
@@ -184,7 +194,8 @@ stdenv.mkDerivation (args // {
       lgpl2 # library
     ];
     description =
-      "OCaml is an industrial-strength programming language supporting functional, imperative and object-oriented styles";
+      "OCaml is an industrial-strength programming language supporting functional, imperative and object-oriented styles"
+      ;
 
     longDescription = ''
       OCaml is a general purpose programming language with an emphasis on expressiveness and safety. Developed for more than 20 years at Inria by a group of leading researchers, it has an advanced type system that helps catch your mistakes without getting in your way. It's used in environments where a single mistake can cost millions and speed matters, is supported by an active community, and has a rich set of libraries and development tools. It's widely used in teaching for its power and simplicity.

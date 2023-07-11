@@ -9,8 +9,8 @@ let
     "deployment"
     "autoLuks"
   ];
-  hasAutoLuksConfig = lib.hasAttrByPath path config
-    && (lib.attrByPath path { } config) != { };
+  hasAutoLuksConfig =
+    lib.hasAttrByPath path config && (lib.attrByPath path { } config) != { };
 
   inherit (config.nixops) enableDeprecatedAutoLuks;
 in {
@@ -19,10 +19,12 @@ in {
 
   config = {
     assertions = [ {
-      assertion = if hasAutoLuksConfig then
-        hasAutoLuksConfig && enableDeprecatedAutoLuks
-      else
-        true;
+      assertion =
+        if hasAutoLuksConfig then
+          hasAutoLuksConfig && enableDeprecatedAutoLuks
+        else
+          true
+        ;
       message = ''
         ⚠️  !!! WARNING !!! ⚠️
 

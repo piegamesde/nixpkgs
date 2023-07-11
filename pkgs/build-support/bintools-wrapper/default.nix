@@ -72,29 +72,39 @@ let
   bintoolsVersion = lib.getVersion bintools;
   bintoolsName = lib.removePrefix targetPrefix (lib.getName bintools);
 
-  libc_bin = if libc == null then
-    ""
-  else
-    getBin libc;
-  libc_dev = if libc == null then
-    ""
-  else
-    getDev libc;
-  libc_lib = if libc == null then
-    ""
-  else
-    getLib libc;
-  bintools_bin = if nativeTools then
-    ""
-  else
-    getBin bintools;
-  # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
-  coreutils_bin = if nativeTools then
-    ""
-  else
-    getBin coreutils;
+  libc_bin =
+    if libc == null then
+      ""
+    else
+      getBin libc
+    ;
+  libc_dev =
+    if libc == null then
+      ""
+    else
+      getDev libc
+    ;
+  libc_lib =
+    if libc == null then
+      ""
+    else
+      getLib libc
+    ;
+  bintools_bin =
+    if nativeTools then
+      ""
+    else
+      getBin bintools
+    ;
+    # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
+  coreutils_bin =
+    if nativeTools then
+      ""
+    else
+      getBin coreutils
+    ;
 
-  # See description in cc-wrapper.
+    # See description in cc-wrapper.
   suffixSalt = replaceStrings [
     "-"
     "."
@@ -103,48 +113,50 @@ let
     "_"
   ] targetPlatform.config;
 
-  # The dynamic linker has different names on different platforms. This is a
-  # shell glob that ought to match it.
-  dynamicLinker = if sharedLibraryLoader == null then
-    ""
-  else if targetPlatform.libc == "musl" then
-    "${sharedLibraryLoader}/lib/ld-musl-*"
-  else if targetPlatform.libc == "uclibc" then
-    "${sharedLibraryLoader}/lib/ld*-uClibc.so.1"
-  else if (targetPlatform.libc == "bionic" && targetPlatform.is32bit) then
-    "/system/bin/linker"
-  else if (targetPlatform.libc == "bionic" && targetPlatform.is64bit) then
-    "/system/bin/linker64"
-  else if targetPlatform.libc == "nblibc" then
-    "${sharedLibraryLoader}/libexec/ld.elf_so"
-  else if targetPlatform.system == "i686-linux" then
-    "${sharedLibraryLoader}/lib/ld-linux.so.2"
-  else if targetPlatform.system == "x86_64-linux" then
-    "${sharedLibraryLoader}/lib/ld-linux-x86-64.so.2"
-  else if targetPlatform.system == "powerpc64le-linux" then
-    "${sharedLibraryLoader}/lib/ld64.so.2"
-    # ARM with a wildcard, which can be "" or "-armhf".
-  else if (with targetPlatform; isAarch32 && isLinux) then
-    "${sharedLibraryLoader}/lib/ld-linux*.so.3"
-  else if targetPlatform.system == "aarch64-linux" then
-    "${sharedLibraryLoader}/lib/ld-linux-aarch64.so.1"
-  else if targetPlatform.system == "powerpc-linux" then
-    "${sharedLibraryLoader}/lib/ld.so.1"
-  else if targetPlatform.isMips then
-    "${sharedLibraryLoader}/lib/ld.so.1"
-    # `ld-linux-riscv{32,64}-<abi>.so.1`
-  else if targetPlatform.isRiscV then
-    "${sharedLibraryLoader}/lib/ld-linux-riscv*.so.1"
-  else if targetPlatform.isLoongArch64 then
-    "${sharedLibraryLoader}/lib/ld-linux-loongarch*.so.1"
-  else if targetPlatform.isDarwin then
-    "/usr/lib/dyld"
-  else if targetPlatform.isFreeBSD then
-    "/libexec/ld-elf.so.1"
-  else if lib.hasSuffix "pc-gnu" targetPlatform.config then
-    "ld.so.1"
-  else
-    "";
+    # The dynamic linker has different names on different platforms. This is a
+    # shell glob that ought to match it.
+  dynamicLinker =
+    if sharedLibraryLoader == null then
+      ""
+    else if targetPlatform.libc == "musl" then
+      "${sharedLibraryLoader}/lib/ld-musl-*"
+    else if targetPlatform.libc == "uclibc" then
+      "${sharedLibraryLoader}/lib/ld*-uClibc.so.1"
+    else if (targetPlatform.libc == "bionic" && targetPlatform.is32bit) then
+      "/system/bin/linker"
+    else if (targetPlatform.libc == "bionic" && targetPlatform.is64bit) then
+      "/system/bin/linker64"
+    else if targetPlatform.libc == "nblibc" then
+      "${sharedLibraryLoader}/libexec/ld.elf_so"
+    else if targetPlatform.system == "i686-linux" then
+      "${sharedLibraryLoader}/lib/ld-linux.so.2"
+    else if targetPlatform.system == "x86_64-linux" then
+      "${sharedLibraryLoader}/lib/ld-linux-x86-64.so.2"
+    else if targetPlatform.system == "powerpc64le-linux" then
+      "${sharedLibraryLoader}/lib/ld64.so.2"
+      # ARM with a wildcard, which can be "" or "-armhf".
+    else if (with targetPlatform; isAarch32 && isLinux) then
+      "${sharedLibraryLoader}/lib/ld-linux*.so.3"
+    else if targetPlatform.system == "aarch64-linux" then
+      "${sharedLibraryLoader}/lib/ld-linux-aarch64.so.1"
+    else if targetPlatform.system == "powerpc-linux" then
+      "${sharedLibraryLoader}/lib/ld.so.1"
+    else if targetPlatform.isMips then
+      "${sharedLibraryLoader}/lib/ld.so.1"
+      # `ld-linux-riscv{32,64}-<abi>.so.1`
+    else if targetPlatform.isRiscV then
+      "${sharedLibraryLoader}/lib/ld-linux-riscv*.so.1"
+    else if targetPlatform.isLoongArch64 then
+      "${sharedLibraryLoader}/lib/ld-linux-loongarch*.so.1"
+    else if targetPlatform.isDarwin then
+      "/usr/lib/dyld"
+    else if targetPlatform.isFreeBSD then
+      "/libexec/ld-elf.so.1"
+    else if lib.hasSuffix "pc-gnu" targetPlatform.config then
+      "ld.so.1"
+    else
+      ""
+    ;
 
   expand-response-params = lib.optionalString (buildPackages ? stdenv
     && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null")
@@ -156,10 +168,12 @@ stdenv.mkDerivation {
     name
   else
     "${bintoolsName}-wrapper");
-  version = if bintools == null then
-    ""
-  else
-    bintoolsVersion;
+  version =
+    if bintools == null then
+      ""
+    else
+      bintoolsVersion
+    ;
 
   preferLocalBuild = true;
 
@@ -170,16 +184,18 @@ stdenv.mkDerivation {
     inherit targetPrefix suffixSalt;
     inherit bintools libc nativeTools nativeLibc nativePrefix isGNU isLLVM;
 
-    emacsBufferSetup = pkgs: ''
-      ; We should handle propagation here too
-      (mapc
-        (lambda (arg)
-          (when (file-directory-p (concat arg "/lib"))
-            (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib")))
-          (when (file-directory-p (concat arg "/lib64"))
-            (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib64"))))
-        '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
-    '';
+    emacsBufferSetup =
+      pkgs: ''
+        ; We should handle propagation here too
+        (mapc
+          (lambda (arg)
+            (when (file-directory-p (concat arg "/lib"))
+              (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib")))
+            (when (file-directory-p (concat arg "/lib64"))
+              (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib64"))))
+          '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
+      ''
+      ;
   };
 
   dontBuild = true;
@@ -469,31 +485,36 @@ stdenv.mkDerivation {
     expandResponseParams =
       "${expand-response-params}/bin/expand-response-params";
     shell = getBin shell + shell.shellPath or "";
-    gnugrep_bin = if nativeTools then
-      ""
-    else
-      gnugrep;
+    gnugrep_bin =
+      if nativeTools then
+        ""
+      else
+        gnugrep
+      ;
     wrapperName = "BINTOOLS_WRAPPER";
     inherit dynamicLinker targetPrefix suffixSalt coreutils_bin;
     inherit bintools_bin libc_bin libc_dev libc_lib;
   };
 
-  meta = let
-    bintools_ = if bintools != null then
-      bintools
+  meta =
+    let
+      bintools_ =
+        if bintools != null then
+          bintools
+        else
+          { }
+        ;
+    in
+    (if bintools_ ? meta then
+      removeAttrs bintools.meta [ "priority" ]
     else
-      { };
-  in
-  (if bintools_ ? meta then
-    removeAttrs bintools.meta [ "priority" ]
-  else
-    { }) // {
-      description = lib.attrByPath [
-        "meta"
-        "description"
-      ] "System binary utilities" bintools_ + " (wrapper script)";
-      priority = 10;
-    }
-  // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; }
-  ;
+      { }) // {
+        description = lib.attrByPath [
+          "meta"
+          "description"
+        ] "System binary utilities" bintools_ + " (wrapper script)";
+        priority = 10;
+      }
+    // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; }
+    ;
 }

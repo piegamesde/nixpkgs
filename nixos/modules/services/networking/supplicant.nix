@@ -12,11 +12,14 @@ let
 
   cfg = config.networking.supplicant;
 
-  # We must escape interfaces due to the systemd interpretation
-  subsystemDevice = interface:
-    "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
+    # We must escape interfaces due to the systemd interpretation
+  subsystemDevice =
+    interface:
+    "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device"
+    ;
 
-  serviceName = iface:
+  serviceName =
+    iface:
     "supplicant-${
       if (iface == "WLAN") then
         "wlan@"
@@ -28,10 +31,12 @@ let
             "dbus"
           else
             (replaceStrings [ " " ] [ "-" ] iface)))
-    }";
+    }"
+    ;
 
-  # TODO: Use proper privilege separation for wpa_supplicant
-  supplicantService = iface: suppl:
+    # TODO: Use proper privilege separation for wpa_supplicant
+  supplicantService =
+    iface: suppl:
     let
       deps = (if (iface == "WLAN" || iface == "LAN") then
         [ "sys-subsystem-net-devices-%i.device" ]
@@ -88,7 +93,8 @@ let
               ifaceArg)
         }";
 
-    } ;
+    }
+    ;
 
 in {
 
@@ -156,7 +162,8 @@ in {
               default = "";
               example = "-e/run/wpa_supplicant/entropy.bin";
               description = lib.mdDoc
-                "Command line arguments to add when executing `wpa_supplicant`.";
+                "Command line arguments to add when executing `wpa_supplicant`."
+                ;
             };
 
             driver = mkOption {
@@ -169,7 +176,8 @@ in {
               type = types.str;
               default = "";
               description = lib.mdDoc
-                "Name of the bridge interface that wpa_supplicant should listen at.";
+                "Name of the bridge interface that wpa_supplicant should listen at."
+                ;
             };
 
             userControlled = {
@@ -241,7 +249,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (cfg != { }) {
 

@@ -42,17 +42,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GRY6aW6Kvy5sDQRiOVz2cUgKEG0IMveh80S26/rGWdM=";
   };
 
-  # TODO:
-  # * Build outputs that are unclear:
-  #   * `-- FONT_ENCODINGS_DIRECTORY = /var/empty/share/X11/fonts/encodings`
-  #     Maybe relevant what the tigervnc and tightvnc derivations
-  #     do with their `fontDirectories`?
-  #   * `SERVER_MISC_CONFIG_PATH = /var/empty/lib64/xorg`
-  #   * The thing about xorg `protocol.txt`
-  # * Does SSH support require `openssh` on PATH?
-  # * Add `enableClient ? true` flag that disables the client GUI
-  #   so that the server can be built without openjdk dependency.
-  # * Perhaps allow to build the client on non-Linux platforms.
+    # TODO:
+    # * Build outputs that are unclear:
+    #   * `-- FONT_ENCODINGS_DIRECTORY = /var/empty/share/X11/fonts/encodings`
+    #     Maybe relevant what the tigervnc and tightvnc derivations
+    #     do with their `fontDirectories`?
+    #   * `SERVER_MISC_CONFIG_PATH = /var/empty/lib64/xorg`
+    #   * The thing about xorg `protocol.txt`
+    # * Does SSH support require `openssh` on PATH?
+    # * Add `enableClient ? true` flag that disables the client GUI
+    #   so that the server can be built without openjdk dependency.
+    # * Perhaps allow to build the client on non-Linux platforms.
 
   nativeBuildInputs = [
     cmake

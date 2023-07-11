@@ -75,37 +75,41 @@ assert buildType == "release" || buildType == "debug";
 
 let
 
-  cargoDeps = if cargoVendorDir != null then
-    null
-  else if cargoLock != null then
-    importCargoLock cargoLock
-  else
-    fetchCargoTarball ({
-      inherit
-        src
-        srcs
-        sourceRoot
-        preUnpack
-        unpackPhase
-        postUnpack
-        cargoUpdateHook
-        ;
-      name = cargoDepsName;
-      patches = cargoPatches;
-    } // lib.optionalAttrs (args ? cargoHash) { hash = args.cargoHash; }
-      // lib.optionalAttrs (args ? cargoSha256) { sha256 = args.cargoSha256; }
-      // depsExtraArgs);
+  cargoDeps =
+    if cargoVendorDir != null then
+      null
+    else if cargoLock != null then
+      importCargoLock cargoLock
+    else
+      fetchCargoTarball ({
+        inherit
+          src
+          srcs
+          sourceRoot
+          preUnpack
+          unpackPhase
+          postUnpack
+          cargoUpdateHook
+          ;
+        name = cargoDepsName;
+        patches = cargoPatches;
+      } // lib.optionalAttrs (args ? cargoHash) { hash = args.cargoHash; }
+        // lib.optionalAttrs (args ? cargoSha256) { sha256 = args.cargoSha256; }
+        // depsExtraArgs)
+    ;
 
   target = rust.toRustTargetSpec stdenv.hostPlatform;
   targetIsJSON = lib.hasSuffix ".json" target;
   useSysroot = targetIsJSON && !__internal_dontAddSysroot;
 
-  # see https://github.com/rust-lang/cargo/blob/964a16a28e234a3d397b2a7031d4ab4a428b1391/src/cargo/core/compiler/compile_kind.rs#L151-L168
-  # the "${}" is needed to transform the path into a /nix/store path before baseNameOf
-  shortTarget = if targetIsJSON then
-    (lib.removeSuffix ".json" (builtins.baseNameOf "${target}"))
-  else
-    target;
+    # see https://github.com/rust-lang/cargo/blob/964a16a28e234a3d397b2a7031d4ab4a428b1391/src/cargo/core/compiler/compile_kind.rs#L151-L168
+    # the "${}" is needed to transform the path into a /nix/store path before baseNameOf
+  shortTarget =
+    if targetIsJSON then
+      (lib.removeSuffix ".json" (builtins.baseNameOf "${target}"))
+    else
+      target
+    ;
 
   sysroot = callPackage ./sysroot { } {
     inherit target shortTarget;
@@ -161,10 +165,12 @@ stdenv.mkDerivation ((removeAttrs args [
 
   patches = cargoPatches ++ patches;
 
-  PKG_CONFIG_ALLOW_CROSS = if stdenv.buildPlatform != stdenv.hostPlatform then
-    1
-  else
-    0;
+  PKG_CONFIG_ALLOW_CROSS =
+    if stdenv.buildPlatform != stdenv.hostPlatform then
+      1
+    else
+      0
+    ;
 
   postUnpack = ''
     eval "$cargoDepsHook"

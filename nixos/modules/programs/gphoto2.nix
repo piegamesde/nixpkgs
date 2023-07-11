@@ -10,7 +10,7 @@ with lib;
 {
   meta.maintainers = [ maintainers.league ];
 
-  ###### interface
+    ###### interface
   options = {
     programs.gphoto2 = {
       enable = mkOption {
@@ -26,7 +26,7 @@ with lib;
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf config.programs.gphoto2.enable {
     services.udev.packages = [ pkgs.libgphoto2 ];
     environment.systemPackages = [ pkgs.gphoto2 ];

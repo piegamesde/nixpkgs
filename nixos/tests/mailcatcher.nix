@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     name = "mailcatcher";
     meta.maintainers = [ lib.maintainers.aanderse ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -22,7 +23,8 @@ import ./make-test-python.nix ({
         };
 
         environment.systemPackages = [ pkgs.mailutils ];
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

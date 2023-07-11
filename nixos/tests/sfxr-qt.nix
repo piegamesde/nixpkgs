@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "sfxr-qt";
     meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
-    machine = {
+    machine =
+      {
         config,
         pkgs,
         ...
@@ -15,7 +16,8 @@ import ./make-test-python.nix ({
         services.xserver.enable = true;
         sound.enable = true;
         environment.systemPackages = [ pkgs.sfxr-qt ];
-      };
+      }
+      ;
 
     enableOCR = true;
 

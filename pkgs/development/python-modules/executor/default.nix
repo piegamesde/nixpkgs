@@ -40,7 +40,7 @@ buildPythonPackage rec {
     virtualenv
   ];
 
-  # ignore impure tests
+    # ignore impure tests
   disabledTests = [
     "option"
     "retry"

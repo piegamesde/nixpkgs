@@ -33,7 +33,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "The original high performance and small footprint system-on-chip based on Migen";
+      "The original high performance and small footprint system-on-chip based on Migen"
+      ;
     homepage = "https://github.com/m-labs/misoc";
     license = licenses.bsd2;
     maintainers = with maintainers; [ doronbehar ];

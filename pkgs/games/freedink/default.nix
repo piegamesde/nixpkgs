@@ -79,8 +79,8 @@ stdenv.mkDerivation rec {
       with close compatibility, under multiple platforms.
     '';
 
-    homepage =
-      "https://www.gnu.org/software/freedink/"; # Formerly http://www.freedink.org
+    homepage = "https://www.gnu.org/software/freedink/"
+      ; # Formerly http://www.freedink.org
     license = lib.licenses.gpl3Plus;
 
     maintainers = [ ];

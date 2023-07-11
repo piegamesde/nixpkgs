@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     "import"
   ];
 
-  # TODO: symlink libraries?
+    # TODO: symlink libraries?
   installPhase = ''
     mkdir -p "$out"/bin
     mkdir -p "$out"/share/man/man1

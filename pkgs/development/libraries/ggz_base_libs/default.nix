@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://mirrors.ibiblio.org/pub/mirrors/ggzgamingzone/ggz/snapshots/ggz-base-libs-snapshot-${version}.tar.gz";
+      "http://mirrors.ibiblio.org/pub/mirrors/ggzgamingzone/ggz/snapshots/ggz-base-libs-snapshot-${version}.tar.gz"
+      ;
     sha256 = "1cw1vg0fbj36zyggnzidx9cbjwfc1yr4zqmsipxnvns7xa2awbdk";
   };
 

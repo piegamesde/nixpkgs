@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://repo.spring.io/release/org/springframework/boot/${pname}/${version}.RELEASE/${pname}-${version}.RELEASE-bin.zip";
+      "https://repo.spring.io/release/org/springframework/boot/${pname}/${version}.RELEASE/${pname}-${version}.RELEASE-bin.zip"
+      ;
     sha256 = "1zqfnxz57234227rp303iwis0mjkkjkpcqnj9jgw78gykjnqdmmq";
   };
 

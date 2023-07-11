@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-drvF+0PSOdrha2rfpntrM8xIbeb0S7eNtfioxkdjEKw=";
   };
 
-  # Optional import, but fixes some re known bugs & allows advanced regex features
+    # Optional import, but fixes some re known bugs & allows advanced regex features
   propagatedBuildInputs = [ regex ];
 
   pythonImportsCheck = [
@@ -36,7 +36,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A modern parsing library for Python, implementing Earley & LALR(1) and an easy interface";
+      "A modern parsing library for Python, implementing Earley & LALR(1) and an easy interface"
+      ;
     homepage = "https://lark-parser.readthedocs.io/";
     changelog = "https://github.com/lark-parser/lark/releases/tag/${version}";
     license = licenses.mit;

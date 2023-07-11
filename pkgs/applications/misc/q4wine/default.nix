@@ -42,7 +42,7 @@ mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  # Add runtime deps.
+    # Add runtime deps.
   postInstall = ''
     wrapProgram $out/bin/q4wine \
       --prefix PATH : ${

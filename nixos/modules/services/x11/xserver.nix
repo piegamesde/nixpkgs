@@ -14,7 +14,7 @@ let
   cfg = config.services.xserver;
   xorg = pkgs.xorg;
 
-  # Map video driver names to driver packages. FIXME: move into card-specific modules.
+    # Map video driver names to driver packages. FIXME: move into card-specific modules.
   knownVideoDrivers = {
     # Alias so people can keep using "virtualbox" instead of "vboxvideo".
     virtualbox = {
@@ -22,13 +22,13 @@ let
       driverName = "vboxvideo";
     };
 
-    # Alias so that "radeon" uses the xf86-video-ati driver.
+      # Alias so that "radeon" uses the xf86-video-ati driver.
     radeon = {
       modules = [ xorg.xf86videoati ];
       driverName = "ati";
     };
 
-    # modesetting does not have a xf86videomodesetting package as it is included in xorgserver
+      # modesetting does not have a xf86videomodesetting package as it is included in xorgserver
     modesetting = { };
   };
 
@@ -77,53 +77,60 @@ let
     };
   };
 
-  # Just enumerate all heads without discarding XRandR output information.
-  xrandrHeads = let
-    mkHead = num: config: {
-      name = "multihead${toString num}";
-      inherit config;
-    };
-  in
-  imap1 mkHead cfg.xrandrHeads
-  ;
+    # Just enumerate all heads without discarding XRandR output information.
+  xrandrHeads =
+    let
+      mkHead =
+        num: config: {
+          name = "multihead${toString num}";
+          inherit config;
+        }
+        ;
+    in
+    imap1 mkHead cfg.xrandrHeads
+    ;
 
-  xrandrDeviceSection = let
-    monitors = forEach xrandrHeads (h: ''
-      Option "monitor-${h.config.output}" "${h.name}"
-    '');
-  in
-  concatStrings monitors
-  ;
+  xrandrDeviceSection =
+    let
+      monitors = forEach xrandrHeads (h: ''
+        Option "monitor-${h.config.output}" "${h.name}"
+      '');
+    in
+    concatStrings monitors
+    ;
 
-  # Here we chain every monitor from the left to right, so we have:
-  # m4 right of m3 right of m2 right of m1   .----.----.----.----.
-  # Which will end up in reverse ----------> | m1 | m2 | m3 | m4 |
-  #                                          `----^----^----^----'
-  xrandrMonitorSections = let
-    mkMonitor = previous: current:
-      singleton {
-        inherit (current) name;
-        value = ''
-          Section "Monitor"
-            Identifier "${current.name}"
-            ${
-              optionalString (current.config.primary) ''
-                Option "Primary" "true"
-              ''
-            }
-            ${
-              optionalString (previous != [ ]) ''
-                Option "RightOf" "${(head previous).name}"
-              ''
-            }
-            ${current.config.monitorConfig}
-          EndSection
-        '';
-      } ++ previous;
-    monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
-  in
-  concatMapStrings (getAttr "value") monitors
-  ;
+    # Here we chain every monitor from the left to right, so we have:
+    # m4 right of m3 right of m2 right of m1   .----.----.----.----.
+    # Which will end up in reverse ----------> | m1 | m2 | m3 | m4 |
+    #                                          `----^----^----^----'
+  xrandrMonitorSections =
+    let
+      mkMonitor =
+        previous: current:
+        singleton {
+          inherit (current) name;
+          value = ''
+            Section "Monitor"
+              Identifier "${current.name}"
+              ${
+                optionalString (current.config.primary) ''
+                  Option "Primary" "true"
+                ''
+              }
+              ${
+                optionalString (previous != [ ]) ''
+                  Option "RightOf" "${(head previous).name}"
+                ''
+              }
+              ${current.config.monitorConfig}
+            EndSection
+          '';
+        } ++ previous
+        ;
+      monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
+    in
+    concatMapStrings (getAttr "value") monitors
+    ;
 
   configFile = pkgs.runCommand "xserver.conf" {
     fontpath =
@@ -155,16 +162,18 @@ let
     echo "$config" >> $out
   ''; # */
 
-  prefixStringLines = prefix: str:
-    concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
+  prefixStringLines =
+    prefix: str:
+    concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str)
+    ;
 
   indent = prefixStringLines "  ";
 
-  # A scalable variant of the X11 "core" cursor
-  #
-  # If not running a fancy desktop environment, the cursor is likely set to
-  # the default `cursor.pcf` bitmap font. This is 17px wide, so it's very
-  # small and almost invisible on 4K displays.
+    # A scalable variant of the X11 "core" cursor
+    #
+    # If not running a fancy desktop environment, the cursor is likely set to
+    # the default `cursor.pcf` bitmap font. This is 17px wide, so it's very
+    # small and almost invisible on 4K displays.
   fontcursormisc_hidpi = pkgs.xorg.fontxfree86type1.overrideAttrs (old:
     let
       # The scaling constant is 230/96: the scalable `left_ptr` glyph at
@@ -209,7 +218,7 @@ in {
       "Option services.xserver.useGlamor was removed because it is unnecessary. Drivers that uses Glamor will use it automatically.")
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -235,8 +244,9 @@ in {
         default = [ ];
         example = literalExpression "[ pkgs.xterm ]";
         type = types.listOf types.package;
-        description = lib.mdDoc
-          "Which X11 packages to exclude from the default environment";
+        description =
+          lib.mdDoc "Which X11 packages to exclude from the default environment"
+          ;
       };
 
       exportConfiguration = mkOption {
@@ -286,7 +296,8 @@ in {
           ]
         '';
         description = lib.mdDoc
-          "Content of additional InputClass sections of the X server configuration file.";
+          "Content of additional InputClass sections of the X server configuration file."
+          ;
       };
 
       modules = mkOption {
@@ -330,7 +341,7 @@ in {
           "nvidiaLegacy304"
           "amdgpu-pro"
         ];
-        # TODO(@oxij): think how to easily add the rest, like those nvidia things
+          # TODO(@oxij): think how to easily add the rest, like those nvidia things
         relatedPackages = concatLists (mapAttrsToList (n: v:
           optional (hasPrefix "xf86video" n) {
             path = [
@@ -455,7 +466,8 @@ in {
         default = "";
         example = ''FontPath "/path/to/my/fonts"'';
         description = lib.mdDoc
-          "Contents of the first `Files` section of the X server configuration file.";
+          "Contents of the first `Files` section of the X server configuration file."
+          ;
       };
 
       deviceSection = mkOption {
@@ -463,7 +475,8 @@ in {
         default = "";
         example = "VideoRAM 131072";
         description = lib.mdDoc
-          "Contents of the first Device section of the X server configuration file.";
+          "Contents of the first Device section of the X server configuration file."
+          ;
       };
 
       screenSection = mkOption {
@@ -473,7 +486,8 @@ in {
           Option "RandRRotation" "on"
         '';
         description = lib.mdDoc
-          "Contents of the first Screen section of the X server configuration file.";
+          "Contents of the first Screen section of the X server configuration file."
+          ;
       };
 
       monitorSection = mkOption {
@@ -481,14 +495,16 @@ in {
         default = "";
         example = "HorizSync 28-49";
         description = lib.mdDoc
-          "Contents of the first Monitor section of the X server configuration file.";
+          "Contents of the first Monitor section of the X server configuration file."
+          ;
       };
 
       extraConfig = mkOption {
         type = types.lines;
         default = "";
         description = lib.mdDoc
-          "Additional contents (sections) included in the X server configuration file";
+          "Additional contents (sections) included in the X server configuration file"
+          ;
       };
 
       xrandrHeads = mkOption {
@@ -507,9 +523,10 @@ in {
         type = with types;
           listOf (coercedTo str (output: { inherit output; })
             (submodule { options = xrandrOptions; }));
-        # Set primary to true for the first head if no other has been set
-        # primary already.
-        apply = heads:
+          # Set primary to true for the first head if no other has been set
+          # primary already.
+        apply =
+          heads:
           let
             hasPrimary = any (x: x.primary) heads;
             firstPrimary = head heads // { primary = true; };
@@ -517,7 +534,8 @@ in {
           in if heads != [ ] && !hasPrimary then
             newHeads
           else
-            heads;
+            heads
+          ;
         description = lib.mdDoc ''
           Multiple monitor configuration, just specify a list of XRandR
           outputs. The individual elements should be either simple strings or
@@ -554,7 +572,8 @@ in {
           Option "OffTime" "0"
         '';
         description = lib.mdDoc
-          "Contents of the ServerFlags section of the X server configuration file.";
+          "Contents of the ServerFlags section of the X server configuration file."
+          ;
       };
 
       moduleSection = mkOption {
@@ -575,7 +594,8 @@ in {
           Option "AIGLX" "true"
         '';
         description = lib.mdDoc
-          "Contents of the ServerLayout section of the X server configuration file.";
+          "Contents of the ServerLayout section of the X server configuration file."
+          ;
       };
 
       extraDisplaySettings = mkOption {
@@ -583,7 +603,8 @@ in {
         default = "";
         example = "Virtual 2048 2048";
         description = lib.mdDoc
-          "Lines to be added to every Display subsection of the Screen section.";
+          "Lines to be added to every Display subsection of the Screen section."
+          ;
       };
 
       defaultDepth = mkOption {
@@ -680,34 +701,36 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
-    services.xserver.displayManager.lightdm.enable = let
-      dmConf = cfg.displayManager;
-      default = !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable
-        || dmConf.sx.enable || dmConf.startx.enable
-        || config.services.greetd.enable);
-    in
-    mkIf (default) (mkDefault true)
-    ;
+    services.xserver.displayManager.lightdm.enable =
+      let
+        dmConf = cfg.displayManager;
+        default = !(dmConf.gdm.enable || dmConf.sddm.enable
+          || dmConf.xpra.enable || dmConf.sx.enable || dmConf.startx.enable
+          || config.services.greetd.enable);
+      in
+      mkIf (default) (mkDefault true)
+      ;
 
-    # so that the service won't be enabled when only startx is used
-    systemd.services.display-manager.enable = let
-      dmConf = cfg.displayManager;
-      noDmUsed = !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable
-        || dmConf.lightdm.enable);
-    in
-    mkIf (noDmUsed) (mkDefault false)
-    ;
+      # so that the service won't be enabled when only startx is used
+    systemd.services.display-manager.enable =
+      let
+        dmConf = cfg.displayManager;
+        noDmUsed = !(dmConf.gdm.enable || dmConf.sddm.enable
+          || dmConf.xpra.enable || dmConf.lightdm.enable);
+      in
+      mkIf (noDmUsed) (mkDefault false)
+      ;
 
     hardware.opengl.enable = mkDefault true;
 
     services.xserver.videoDrivers =
       mkIf (cfg.videoDriver != null) [ cfg.videoDriver ];
 
-    # FIXME: somehow check for unknown driver names.
+      # FIXME: somehow check for unknown driver names.
     services.xserver.drivers = flip concatMap cfg.videoDrivers (name:
       let
         driver = attrByPath [ name ] (if xorg ? ${"xf86video" + name} then
@@ -736,13 +759,14 @@ in {
       {
         assertion = cfg.upscaleDefaultCursor -> cfg.dpi != null;
         message =
-          "Specify `config.services.xserver.dpi` to upscale the default cursor.";
+          "Specify `config.services.xserver.dpi` to upscale the default cursor."
+          ;
       }
     ];
 
     environment.etc = (optionalAttrs cfg.exportConfiguration {
       "X11/xorg.conf".source = "${configFile}";
-      # -xkbdir command line option does not seems to be passed to xkbcomp.
+        # -xkbdir command line option does not seems to be passed to xkbcomp.
       "X11/xkb".source = "${cfg.xkbDir}";
     })
     # localectl looks into 00-keyboard.conf
@@ -793,9 +817,9 @@ in {
       icons.enable = true;
     };
 
-    # The default max inotify watches is 8192.
-    # Nowadays most apps require a good number of inotify watches,
-    # the value below is used by default on several other distros.
+      # The default max inotify watches is 8192.
+      # Nowadays most apps require a good number of inotify watches,
+      # the value below is used by default on several other distros.
     boot.kernel.sysctl."fs.inotify.max_user_instances" = mkDefault 524288;
     boot.kernel.sysctl."fs.inotify.max_user_watches" = mkDefault 524288;
 
@@ -823,12 +847,12 @@ in {
         rm -f /tmp/.X0-lock
       '';
 
-      # TODO: move declaring the systemd service to its own mkIf
+        # TODO: move declaring the systemd service to its own mkIf
       script = mkIf (config.systemd.services.display-manager.enable == true)
         "${cfg.displayManager.job.execCmd}";
 
-      # Stop restarting if the display manager stops (crashes) 2 times
-      # in one minute. Starting X typically takes 3-4s.
+        # Stop restarting if the display manager stops (crashes) 2 times
+        # in one minute. Starting X typically takes 3-4s.
       startLimitIntervalSec = 30;
       startLimitBurst = 3;
       serviceConfig = {
@@ -947,25 +971,27 @@ in {
               optionalString (driver.name != "virtualbox" && (cfg.resolutions
                 != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen
                 != null)) (let
-                  f = depth: ''
-                    SubSection "Display"
-                      Depth ${toString depth}
-                      ${
-                        optionalString (cfg.resolutions != [ ]) "Modes ${
-                          concatMapStrings
-                          (res: ''"${toString res.x}x${toString res.y}"'')
-                          cfg.resolutions
-                        }"
-                      }
-                    ${indent cfg.extraDisplaySettings}
-                      ${
-                        optionalString (cfg.virtualScreen != null)
-                        "Virtual ${toString cfg.virtualScreen.x} ${
-                          toString cfg.virtualScreen.y
-                        }"
-                      }
-                    EndSubSection
-                  '';
+                  f =
+                    depth: ''
+                      SubSection "Display"
+                        Depth ${toString depth}
+                        ${
+                          optionalString (cfg.resolutions != [ ]) "Modes ${
+                            concatMapStrings
+                            (res: ''"${toString res.x}x${toString res.y}"'')
+                            cfg.resolutions
+                          }"
+                        }
+                      ${indent cfg.extraDisplaySettings}
+                        ${
+                          optionalString (cfg.virtualScreen != null)
+                          "Virtual ${toString cfg.virtualScreen.x} ${
+                            toString cfg.virtualScreen.y
+                          }"
+                        }
+                      EndSubSection
+                    ''
+                    ;
                 in
                 concatMapStrings f [
                   8
@@ -995,6 +1021,6 @@ in {
 
   };
 
-  # uses relatedPackages
+    # uses relatedPackages
   meta.buildDocsInSandbox = false;
 }

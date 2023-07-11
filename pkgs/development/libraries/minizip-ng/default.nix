@@ -79,7 +79,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description =
-      "Fork of the popular zip manipulation library found in the zlib distribution";
+      "Fork of the popular zip manipulation library found in the zlib distribution"
+      ;
     homepage = "https://github.com/zlib-ng/minizip-ng";
     license = licenses.zlib;
     maintainers = with maintainers; [

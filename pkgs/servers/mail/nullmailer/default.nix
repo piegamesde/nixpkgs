@@ -27,15 +27,15 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "DESTDIR=$(out)" ];
 
-  # We have to remove the ''var'' directory, since nix can't handle named pipes
-  # and we can't use it in the store anyway. Same for ''etc''.
-  # The second line is need, because the installer of nullmailer will copy its
-  # own prepared version of ''etc'' and ''var'' and also uses the prefix path (configure phase)
-  # for hardcoded absolute references to its own binary farm, e.g. sendmail binary is
-  # calling nullmailer-inject binary. Since we can't configure inside the store of
-  # the derivation we need both directories in the root, but don't want to put them there
-  # during install, hence we have to fix mumbling inside the install directory.
-  # This is kind of a hack, but the only way I know of, yet.
+    # We have to remove the ''var'' directory, since nix can't handle named pipes
+    # and we can't use it in the store anyway. Same for ''etc''.
+    # The second line is need, because the installer of nullmailer will copy its
+    # own prepared version of ''etc'' and ''var'' and also uses the prefix path (configure phase)
+    # for hardcoded absolute references to its own binary farm, e.g. sendmail binary is
+    # calling nullmailer-inject binary. Since we can't configure inside the store of
+    # the derivation we need both directories in the root, but don't want to put them there
+    # during install, hence we have to fix mumbling inside the install directory.
+    # This is kind of a hack, but the only way I know of, yet.
   postInstall = ''
     rm -rf $out/var/ $out/etc/
     mv $out/$out/* $out/

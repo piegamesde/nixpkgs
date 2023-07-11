@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     "--sbindir=$(out)/bin"
   ] ++ (lib.optionals (_kernel != null) [ "--with-linux" ]);
 
-  # Leave /var out of this!
+    # Leave /var out of this!
   installFlags = [
     "LOGDIR=$(TMPDIR)/dummy"
     "RUNDIR=$(TMPDIR)/dummy"

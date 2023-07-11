@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-meR2V7T4hrJFXFPLENHoAgmOILxxynDBk0BLqzsAZvQ=";
   };
 
-  # Only copies udevs rules
+    # Only copies udevs rules
   dontConfigure = true;
   dontBuild = true;
   dontFixup = true;
@@ -32,6 +32,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ davidak ];
     platforms = platforms.linux;
     homepage =
-      "https://github.com/zsa/wally/wiki/Linux-install#2-create-a-udev-rule-file";
+      "https://github.com/zsa/wally/wiki/Linux-install#2-create-a-udev-rule-file"
+      ;
   };
 }

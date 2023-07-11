@@ -11,12 +11,13 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           services.nzbget.enable = true;
 
-          # provide some test settings
+            # provide some test settings
           services.nzbget.settings = {
             "MainDir" = "/var/lib/nzbget";
             "DirectRename" = true;
@@ -24,13 +25,15 @@ import ./make-test-python.nix ({
             "Server1.Name" = "this is a test";
           };
 
-          # hack, don't add (unfree) unrar to nzbget's path,
-          # so we can run this test in CI
+            # hack, don't add (unfree) unrar to nzbget's path,
+            # so we can run this test in CI
           systemd.services.nzbget.path = pkgs.lib.mkForce [ pkgs.p7zip ];
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -53,5 +56,6 @@ import ./make-test-python.nix ({
         assert 'DirectRename = "yes"' in config
         assert 'DiskSpace = "0"' in config
         assert 'Server1.Name = "this is a test"' in config
-      '';
+      ''
+      ;
   })

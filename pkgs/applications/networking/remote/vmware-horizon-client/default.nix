@@ -13,14 +13,16 @@
 let
   version = "2303";
 
-  sysArch = if stdenv.hostPlatform.system == "x86_64-linux" then
-    "x64"
-  else
-    throw "Unsupported system: ${stdenv.hostPlatform.system}";
-  # The downloaded archive also contains ARM binaries, but these have not been tested.
+  sysArch =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "x64"
+    else
+      throw "Unsupported system: ${stdenv.hostPlatform.system}"
+    ;
+    # The downloaded archive also contains ARM binaries, but these have not been tested.
 
-  # For USB support, ensure that /var/run/vmware/<YOUR-UID>
-  # exists and is owned by you. Then run vmware-usbarbitrator as root.
+    # For USB support, ensure that /var/run/vmware/<YOUR-UID>
+    # exists and is owned by you. Then run vmware-usbarbitrator as root.
   bins = [
     "vmware-view"
     "vmware-usbarbitrator"
@@ -28,21 +30,24 @@ let
 
   mainProgram = "vmware-view";
 
-  # This forces the default GTK theme (Adwaita) because Horizon is prone to
-  # UI usability issues when using non-default themes, such as Adwaita-dark.
-  wrapBinCommands = name: ''
-    makeWrapper "$out/bin/${name}" "$out/bin/${name}_wrapper" \
-    --set GTK_THEME Adwaita \
-    --suffix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}" \
-    --suffix LD_LIBRARY_PATH : "$out/lib/vmware/view/crtbora:$out/lib/vmware"
-  '';
+    # This forces the default GTK theme (Adwaita) because Horizon is prone to
+    # UI usability issues when using non-default themes, such as Adwaita-dark.
+  wrapBinCommands =
+    name: ''
+      makeWrapper "$out/bin/${name}" "$out/bin/${name}_wrapper" \
+      --set GTK_THEME Adwaita \
+      --suffix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}" \
+      --suffix LD_LIBRARY_PATH : "$out/lib/vmware/view/crtbora:$out/lib/vmware"
+    ''
+    ;
 
   vmwareHorizonClientFiles = stdenv.mkDerivation {
     pname = "vmware-horizon-files";
     inherit version;
     src = fetchurl {
       url =
-        "https://download3.vmware.com/software/CART24FQ1_LIN_2303_TARBALL/VMware-Horizon-Client-Linux-2303-8.9.0-21435420.tar.gz";
+        "https://download3.vmware.com/software/CART24FQ1_LIN_2303_TARBALL/VMware-Horizon-Client-Linux-2303-8.9.0-21435420.tar.gz"
+        ;
       sha256 =
         "a4dcc6afc0be7641e10e922ccbbab0a10adbf8f2a83e4b5372dfba095091fb78";
     };
@@ -70,13 +75,15 @@ let
     '';
   };
 
-  vmwareFHSUserEnv = name:
+  vmwareFHSUserEnv =
+    name:
     buildFHSEnvChroot {
       inherit name;
 
       runScript = "${vmwareHorizonClientFiles}/bin/${name}_wrapper";
 
-      targetPkgs = pkgs:
+      targetPkgs =
+        pkgs:
         with pkgs; [
           at-spi2-atk
           atk
@@ -115,8 +122,10 @@ let
           zlib
 
           (writeTextDir "etc/vmware/config" configText)
-        ];
-    };
+        ]
+        ;
+    }
+    ;
 
   desktopItem = makeDesktopItem {
     name = "vmware-view";

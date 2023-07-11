@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An in-memory computing platform consisting of a database and an application server";
+      "An in-memory computing platform consisting of a database and an application server"
+      ;
     homepage = "https://www.tarantool.io/";
     license = licenses.bsd2;
     mainProgram = "tarantool";

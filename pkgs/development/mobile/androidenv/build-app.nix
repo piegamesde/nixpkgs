@@ -31,8 +31,8 @@ let
     removeAttrs args ([ "name" ] ++ builtins.attrNames androidSdkFormalArgs);
 in
 stdenv.mkDerivation ({
-  name = lib.replaceStrings [ " " ] [ "" ]
-    name; # Android APKs may contain white spaces in their names, but Nix store paths cannot
+  name = lib.replaceStrings [ " " ] [ "" ] name
+    ; # Android APKs may contain white spaces in their names, but Nix store paths cannot
   ANDROID_HOME = "${androidsdk}/libexec/android-sdk";
   buildInputs = [
     jdk

@@ -37,7 +37,7 @@ in with lib;
 
     systemd.packages = [ cfg.package ];
 
-    # Workaround for https://github.com/NixOS/nixpkgs/issues/81138
+      # Workaround for https://github.com/NixOS/nixpkgs/issues/81138
     systemd.services.joycond.wantedBy = [ "multi-user.target" ];
   };
 }

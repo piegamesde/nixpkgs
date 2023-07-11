@@ -10,7 +10,8 @@ with lib.types; {
       type = str;
       example = literalExpression ''"''${pkgs.curl} -f http://localhost:80"'';
       description = lib.mdDoc
-        "(Path of) Script command to execute followed by args, i.e. cmd [args]...";
+        "(Path of) Script command to execute followed by args, i.e. cmd [args]..."
+        ;
     };
 
     interval = mkOption {
@@ -61,8 +62,9 @@ with lib.types; {
     extraConfig = mkOption {
       type = lines;
       default = "";
-      description = lib.mdDoc
-        "Extra lines to be added verbatim to the vrrp_script section.";
+      description =
+        lib.mdDoc "Extra lines to be added verbatim to the vrrp_script section."
+        ;
     };
 
   };

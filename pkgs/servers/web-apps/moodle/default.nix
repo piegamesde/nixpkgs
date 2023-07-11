@@ -11,7 +11,7 @@ let
   version = "4.1.2";
 
   versionParts = lib.take 2 (lib.splitVersion version);
-  # 4.2 -> 402, 3.11 -> 311
+    # 4.2 -> 402, 3.11 -> 311
   stableVersion = lib.removePrefix "0" (lib.concatMapStrings (p:
     if (lib.toInt p) < 10 then
       (lib.concatStrings [
@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.moodle.org/stable${stableVersion}/${pname}-${version}.tgz";
+      "https://download.moodle.org/stable${stableVersion}/${pname}-${version}.tgz"
+      ;
     sha256 = "sha256-ddXldOQLefV6Kjla+IeFwD50Vye4kholJD5R6X6A2Og=";
   };
 
@@ -47,21 +48,23 @@ stdenv.mkDerivation rec {
 
     ${lib.concatStringsSep "\n" (map (p:
       let
-        dir = if p.pluginType == "mod" then
-          "mod"
-        else if p.pluginType == "theme" then
-          "theme"
-        else if p.pluginType == "block" then
-          "blocks"
-        else if p.pluginType == "question" then
-          "question/type"
-        else if p.pluginType == "course" then
-          "course/format"
-        else if p.pluginType == "report" then
-          "admin/report"
-        else
-          throw "unknown moodle plugin type";
-        # we have to copy it, because the plugins have refrences to .. inside
+        dir =
+          if p.pluginType == "mod" then
+            "mod"
+          else if p.pluginType == "theme" then
+            "theme"
+          else if p.pluginType == "block" then
+            "blocks"
+          else if p.pluginType == "question" then
+            "question/type"
+          else if p.pluginType == "course" then
+            "course/format"
+          else if p.pluginType == "report" then
+            "admin/report"
+          else
+            throw "unknown moodle plugin type"
+          ;
+          # we have to copy it, because the plugins have refrences to .. inside
       in ''
         mkdir -p $out/share/moodle/${dir}/${p.name}
         cp -r ${p}/* $out/share/moodle/${dir}/${p.name}/

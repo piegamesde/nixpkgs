@@ -50,15 +50,16 @@ stdenv.mkDerivation rec {
     HOME=$TMPDIR $out/bin/openrgb --help > /dev/null
   '';
 
-  passthru.withPlugins = plugins:
+  passthru.withPlugins =
+    plugins:
     let
       pluginsDir = symlinkJoin {
         name = "openrgb-plugins";
         paths = plugins;
-        # Remove all library version symlinks except one,
-        # or they will result in duplicates in the UI.
-        # We leave the one pointing to the actual library, usually the most
-        # qualified one (eg. libOpenRGBHardwareSyncPlugin.so.1.0.0).
+          # Remove all library version symlinks except one,
+          # or they will result in duplicates in the UI.
+          # We leave the one pointing to the actual library, usually the most
+          # qualified one (eg. libOpenRGBHardwareSyncPlugin.so.1.0.0).
         postBuild = ''
           for f in $out/lib/*; do
             if [ "$(dirname $(readlink "$f"))" == "." ]; then
@@ -81,7 +82,7 @@ stdenv.mkDerivation rec {
           }/lib\\\""''
       ];
     })
-  ;
+    ;
 
   meta = with lib; {
     description = "Open source RGB lighting control";

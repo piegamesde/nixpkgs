@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://tw2.bitbusters.club/";
     description =
-      "Tile World 2: Tile World is a reimplementation of the game Chip's Challenge";
+      "Tile World 2: Tile World is a reimplementation of the game Chip's Challenge"
+      ;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ drperceptron ];
     platforms = platforms.linux;

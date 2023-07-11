@@ -10,11 +10,13 @@ let
   cfg = config.services.listmonk;
   tomlFormat = pkgs.formats.toml { };
   cfgFile = tomlFormat.generate "listmonk.toml" cfg.settings;
-  # Escaping is done according to https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
-  setDatabaseOption = key: value:
+    # Escaping is done according to https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
+  setDatabaseOption =
+    key: value:
     "UPDATE settings SET value = '${
       lib.replaceStrings [ "'" ] [ "''" ] (builtins.toJSON value)
-    }' WHERE key = '${key}';";
+    }' WHERE key = '${key}';"
+    ;
   updateDatabaseConfigSQL = pkgs.writeText "update-database-config.sql"
     (concatStringsSep "\n" (mapAttrsToList setDatabaseOption
       (if (cfg.database.settings != null) then
@@ -59,14 +61,16 @@ let
           "link_clicks"
         ];
         description = lib.mdDoc
-          "List of fields which can be exported through an automatic export request";
+          "List of fields which can be exported through an automatic export request"
+          ;
       };
 
       "privacy.domain_blocklist" = mkOption {
         type = listOf str;
         default = [ ];
         description = lib.mdDoc
-          "E-mail addresses with these domains are disallowed from subscribing.";
+          "E-mail addresses with these domains are disallowed from subscribing."
+          ;
       };
 
       smtp = mkOption {
@@ -110,7 +114,7 @@ let
         description = lib.mdDoc "List of outgoing SMTP servers";
       };
 
-      # TODO: refine this type based on the smtp one.
+        # TODO: refine this type based on the smtp one.
       "bounce.mailboxes" = mkOption {
         type = listOf (submodule {
           freeformType = with types;
@@ -128,7 +132,8 @@ let
         type = listOf str;
         default = [ ];
         description = lib.mdDoc
-          "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options.";
+          "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options."
+          ;
       };
     };
   };
@@ -150,7 +155,8 @@ in {
           default = null;
           type = with types; nullOr (submodule databaseSettingsOpts);
           description = lib.mdDoc
-            "Dynamic settings in the PostgreSQL database, set by a SQL script, see <https://github.com/knadh/listmonk/blob/master/schema.sql#L177-L230> for details.";
+            "Dynamic settings in the PostgreSQL database, set by a SQL script, see <https://github.com/knadh/listmonk/blob/master/schema.sql#L177-L230> for details."
+            ;
         };
         mutableSettings = mkOption {
           type = types.bool;
@@ -173,12 +179,13 @@ in {
         type = types.nullOr types.str;
         default = null;
         description = lib.mdDoc
-          "A file containing secrets as environment variables. See <https://listmonk.app/docs/configuration/#environment-variables> for details on supported values.";
+          "A file containing secrets as environment variables. See <https://listmonk.app/docs/configuration/#environment-variables> for details on supported values."
+          ;
       };
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     # Default parameters from https://github.com/knadh/listmonk/blob/master/config.toml.sample
     services.listmonk.settings."app".address = mkDefault "localhost:9000";

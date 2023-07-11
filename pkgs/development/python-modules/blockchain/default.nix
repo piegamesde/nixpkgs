@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ future ];
 
-  # tests are interacting with the API and not mocking the calls
+    # tests are interacting with the API and not mocking the calls
   doCheck = false;
 
   pythonImportsCheck = [ "blockchain" ];

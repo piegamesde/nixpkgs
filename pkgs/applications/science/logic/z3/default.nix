@@ -20,7 +20,8 @@ assert ocamlBindings -> ocaml != null && findlib != null && zarith != null;
 with lib;
 
 let
-  common = {
+  common =
+    {
       version,
       sha256,
       patches ? [ ],
@@ -44,8 +45,8 @@ let
           ocaml
           findlib
         ];
-      propagatedBuildInputs = [ python.pkgs.setuptools ]
-        ++ optionals ocamlBindings [ zarith ];
+      propagatedBuildInputs =
+        [ python.pkgs.setuptools ] ++ optionals ocamlBindings [ zarith ];
       enableParallelBuilding = true;
 
       postPatch = optionalString ocamlBindings ''
@@ -57,8 +58,8 @@ let
         ([ "${python.pythonForBuild.interpreter} scripts/mk_make.py --prefix=$out" ]
           ++ optional javaBindings "--java" ++ optional ocamlBindings "--ml"
           ++ optional pythonBindings
-          "--python --pypkgdir=$out/${python.sitePackages}") + "\n"
-        + "cd build";
+          "--python --pypkgdir=$out/${python.sitePackages}") + "\n" + "cd build"
+        ;
 
       doCheck = true;
       checkPhase = ''
@@ -97,7 +98,8 @@ let
           ttuegel
         ];
       };
-    };
+    }
+    ;
 in {
   z3_4_11 = common {
     version = "4.11.0";

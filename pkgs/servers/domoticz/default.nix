@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       "https://github.com/domoticz/domoticz/blob/${version}/History.txt";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    broken =
-      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/domoticz.x86_64-darwin
+    broken = stdenv.isDarwin
+      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/domoticz.x86_64-darwin
   };
 }

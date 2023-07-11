@@ -9,12 +9,14 @@ import ./make-test-python.nix ({
     name = "fluidd";
     meta.maintainers = with maintainers; [ vtuan10 ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         services.fluidd = { enable = true; };
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests.py" ];
 
-  # disable failing tests
+    # disable failing tests
   disabledTests = [
     "test_no_hooks_defined"
     "test_no_attribute"
@@ -34,7 +34,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Define your own hooks for mkdocs, without having to create a new package.";
+      "Define your own hooks for mkdocs, without having to create a new package."
+      ;
     homepage = "https://github.com/aklajnert/mkdocs-simple-hooks";
     license = licenses.mit;
     maintainers = with maintainers; [ arjan-s ];

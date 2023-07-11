@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  # Can't build distribute, see https://github.com/NixOS/nixpkgs/pull/49340
+    # Can't build distribute, see https://github.com/NixOS/nixpkgs/pull/49340
   doCheck = false;
 
   meta = with lib; {

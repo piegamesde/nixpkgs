@@ -37,7 +37,8 @@ in {
       default = "info";
       example = "debug";
       description = lib.mdDoc
-        "Garage log level, see <https://garagehq.deuxfleurs.fr/documentation/quick-start/#launching-the-garage-server> for examples.";
+        "Garage log level, see <https://garagehq.deuxfleurs.fr/documentation/quick-start/#launching-the-garage-server> for examples."
+        ;
     };
 
     settings = mkOption {
@@ -49,14 +50,16 @@ in {
             default = "/var/lib/garage/meta";
             type = types.path;
             description = lib.mdDoc
-              "The metadata directory, put this on a fast disk (e.g. SSD) if possible.";
+              "The metadata directory, put this on a fast disk (e.g. SSD) if possible."
+              ;
           };
 
           data_dir = mkOption {
             default = "/var/lib/garage/data";
             type = types.path;
             description = lib.mdDoc
-              "The main data storage, put this on your large storage (e.g. high capacity HDD)";
+              "The main data storage, put this on your large storage (e.g. high capacity HDD)"
+              ;
           };
 
           replication_mode = mkOption {
@@ -72,24 +75,29 @@ in {
             ]);
             apply = v: toString v;
             description = lib.mdDoc
-              "Garage replication mode, defaults to none, see: <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/#replication-mode> for reference.";
+              "Garage replication mode, defaults to none, see: <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/#replication-mode> for reference."
+              ;
           };
         };
       };
       description = lib.mdDoc
-        "Garage configuration, see <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/> for reference.";
+        "Garage configuration, see <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/> for reference."
+        ;
     };
 
     package = mkOption {
       # TODO: when 23.05 is released and if Garage 0.9 is the default, put a stateVersion check.
-      default = if versionAtLeast config.system.stateVersion "23.05" then
-        pkgs.garage_0_8
-      else
-        pkgs.garage_0_7;
+      default =
+        if versionAtLeast config.system.stateVersion "23.05" then
+          pkgs.garage_0_8
+        else
+          pkgs.garage_0_7
+        ;
       defaultText = literalExpression "pkgs.garage_0_7";
       type = types.package;
       description = lib.mdDoc
-        "Garage package to use, if you are upgrading from a major version, please read NixOS and Garage release notes for upgrade instructions.";
+        "Garage package to use, if you are upgrading from a major version, please read NixOS and Garage release notes for upgrade instructions."
+        ;
     };
   };
 

@@ -13,18 +13,22 @@ let
   ];
 
 in rec {
-  makePaths = {
+  makePaths =
+    {
       extraClasspaths ? [ ]
     }:
     (builtins.map (dep:
       if builtins.hasAttr "jar" dep.path then
         dep.path.jar
       else
-        dep.path) packages) ++ extraClasspaths;
-  makeClasspaths = {
+        dep.path) packages) ++ extraClasspaths
+    ;
+  makeClasspaths =
+    {
       extraClasspaths ? [ ]
     }:
-    builtins.concatStringsSep ":" (makePaths { inherit extraClasspaths; });
+    builtins.concatStringsSep ":" (makePaths { inherit extraClasspaths; })
+    ;
 
   packages = [
     {
@@ -34,7 +38,8 @@ in rec {
         artifactId = "javax.inject";
         groupId = "javax.inject";
         sha512 =
-          "e126b7ccf3e42fd1984a0beef1004a7269a337c202e59e04e8e2af714280d2f2d8d2ba5e6f59481b8dcd34aaf35c966a688d0b48ec7e96f102c274dc0d3b381e";
+          "e126b7ccf3e42fd1984a0beef1004a7269a337c202e59e04e8e2af714280d2f2d8d2ba5e6f59481b8dcd34aaf35c966a688d0b48ec7e96f102c274dc0d3b381e"
+          ;
         version = "1";
       };
     }
@@ -46,7 +51,8 @@ in rec {
         artifactId = "data.json";
         groupId = "org.clojure";
         sha512 =
-          "b767973db8b5b36aeb5c55f082e020a5c3f657bee1eede018e68ccaa2c535005759bc8a162fce7bb63eee1c14c6f29ec1c6080978a08817189864cbd40f154fa";
+          "b767973db8b5b36aeb5c55f082e020a5c3f657bee1eede018e68ccaa2c535005759bc8a162fce7bb63eee1c14c6f29ec1c6080978a08817189864cbd40f154fa"
+          ;
         version = "2.3.1";
       };
     }
@@ -58,7 +64,8 @@ in rec {
         artifactId = "clojure";
         groupId = "org.clojure";
         sha512 =
-          "f28178179483531862afae13e246386f8fda081afa523d3c4ea3a083ab607d23575d38ecb9ec0ee7f4d65cbe39a119f680e6de4669bc9cf593aa92be0c61562b";
+          "f28178179483531862afae13e246386f8fda081afa523d3c4ea3a083ab607d23575d38ecb9ec0ee7f4d65cbe39a119f680e6de4669bc9cf593aa92be0c61562b"
+          ;
         version = "1.10.1";
       };
     }
@@ -70,7 +77,8 @@ in rec {
         artifactId = "sjacket";
         groupId = "net.cgrand";
         sha512 =
-          "34a359a0a633f116147e5bd52d4f4a9cd755636ce0e8abf155da9c3f04b07f93bbbf7c1f8e370db922e14da0efd36a5b127ff9e564141ca7a843f0498a8b860a";
+          "34a359a0a633f116147e5bd52d4f4a9cd755636ce0e8abf155da9c3f04b07f93bbbf7c1f8e370db922e14da0efd36a5b127ff9e564141ca7a843f0498a8b860a"
+          ;
         version = "0.1.1";
       };
     }
@@ -82,7 +90,8 @@ in rec {
         artifactId = "clojupyter";
         groupId = "clojupyter";
         sha512 =
-          "d030ae69cdadecbcec9a052e4ad91ba4f47cdc4bb3fb780317f337af62d8c34d12ef05d132d6c9a4ce790008c979919c22162432c1b9bcf4e0a470020d585dbe";
+          "d030ae69cdadecbcec9a052e4ad91ba4f47cdc4bb3fb780317f337af62d8c34d12ef05d132d6c9a4ce790008c979919c22162432c1b9bcf4e0a470020d585dbe"
+          ;
         version = "0.3.3";
       };
     }
@@ -94,7 +103,8 @@ in rec {
         artifactId = "commons-codec";
         groupId = "commons-codec";
         sha512 =
-          "b65531ead8500493e3dd14a860224851b80f438fc53bf8868b443a0557d839a2b0c868e4fedcf99579ae04b6b2bbd8cdb37f9921ad785983c37569aa9d2e8102";
+          "b65531ead8500493e3dd14a860224851b80f438fc53bf8868b443a0557d839a2b0c868e4fedcf99579ae04b6b2bbd8cdb37f9921ad785983c37569aa9d2e8102"
+          ;
         version = "1.9";
       };
     }
@@ -106,7 +116,8 @@ in rec {
         artifactId = "tools.analyzer";
         groupId = "org.clojure";
         sha512 =
-          "e02d7baec926e0e0a7d9c71f09fee627fbde59ae7f3cbd4abcdf0533c8a87fba8c7cf4503df34bf33777063f4b6353a022552fd003fdbea9fad5752d53609bb8";
+          "e02d7baec926e0e0a7d9c71f09fee627fbde59ae7f3cbd4abcdf0533c8a87fba8c7cf4503df34bf33777063f4b6353a022552fd003fdbea9fad5752d53609bb8"
+          ;
         version = "1.0.0";
       };
     }
@@ -118,7 +129,8 @@ in rec {
         artifactId = "plexus-component-annotations";
         groupId = "org.codehaus.plexus";
         sha512 =
-          "e20aa9fdb3fda4126f55ef45c36362138c6554ede40fa266ff6b63fe1c3b4d699f9eb95793f26527e096ec7567874aa7af5fe84124815729fdb2d4abaa9ddea8";
+          "e20aa9fdb3fda4126f55ef45c36362138c6554ede40fa266ff6b63fe1c3b4d699f9eb95793f26527e096ec7567874aa7af5fe84124815729fdb2d4abaa9ddea8"
+          ;
         version = "1.7.1";
       };
     }
@@ -130,7 +142,8 @@ in rec {
         artifactId = "commons-compress";
         groupId = "org.apache.commons";
         sha512 =
-          "f3e077ff7f69992961d744dc513eca93606e472e3733657636808a7f50c17f39e3de8367a1af7972cb158f05725808627b6232585a81f197c0da3eff0336913e";
+          "f3e077ff7f69992961d744dc513eca93606e472e3733657636808a7f50c17f39e3de8367a1af7972cb158f05725808627b6232585a81f197c0da3eff0336913e"
+          ;
         version = "1.8";
       };
     }
@@ -142,7 +155,8 @@ in rec {
         artifactId = "commons-lang3";
         groupId = "org.apache.commons";
         sha512 =
-          "9e6ff20e891b6835d5926c90f237d55931e75723c8b88d6417926393e077e71013dab006372d34a6b5801e6ca3ce080a00f202cba700cab5aabfc17bbbdcab36";
+          "9e6ff20e891b6835d5926c90f237d55931e75723c8b88d6417926393e077e71013dab006372d34a6b5801e6ca3ce080a00f202cba700cab5aabfc17bbbdcab36"
+          ;
         version = "3.5";
       };
     }
@@ -154,7 +168,8 @@ in rec {
         artifactId = "core.specs.alpha";
         groupId = "org.clojure";
         sha512 =
-          "348c0ea0911bc0dcb08655e61b97ba040649b4b46c32a62aa84d0c29c245a8af5c16d44a4fa5455d6ab076f4bb5bbbe1ad3064a7befe583f13aeb9e32a169bf4";
+          "348c0ea0911bc0dcb08655e61b97ba040649b4b46c32a62aa84d0c29c245a8af5c16d44a4fa5455d6ab076f4bb5bbbe1ad3064a7befe583f13aeb9e32a169bf4"
+          ;
         version = "0.2.44";
       };
     }
@@ -166,7 +181,8 @@ in rec {
         artifactId = "xz";
         groupId = "org.tukaani";
         sha512 =
-          "c5c130bf22f24f61b57fc0c6243e7f961ca2a8928416e8bb288aec6650c1c1c06ace4383913cd1277fc6785beb9a74458807ea7e3d6b2e09189cfaf2fb9ab7e1";
+          "c5c130bf22f24f61b57fc0c6243e7f961ca2a8928416e8bb288aec6650c1c1c06ace4383913cd1277fc6785beb9a74458807ea7e3d6b2e09189cfaf2fb9ab7e1"
+          ;
         version = "1.5";
       };
     }
@@ -178,7 +194,8 @@ in rec {
         artifactId = "jeromq";
         groupId = "org.zeromq";
         sha512 =
-          "0965b82a10136a656dfe48268008536a57b26be9190ff2f3d5dbf3fa298e21bc754e70b1e7fae1aca782d25c397c9ce8fa3832783665391142b31dc4a1bd0233";
+          "0965b82a10136a656dfe48268008536a57b26be9190ff2f3d5dbf3fa298e21bc754e70b1e7fae1aca782d25c397c9ce8fa3832783665391142b31dc4a1bd0233"
+          ;
         version = "0.5.1";
       };
     }
@@ -190,7 +207,8 @@ in rec {
         artifactId = "spec.alpha";
         groupId = "org.clojure";
         sha512 =
-          "18c97fb2b74c0bc2ff4f6dc722a3edec539f882ee85d0addf22bbf7e6fe02605d63f40c2b8a2905868ccd6f96cfc36a65f5fb70ddac31c6ec93da228a456edbd";
+          "18c97fb2b74c0bc2ff4f6dc722a3edec539f882ee85d0addf22bbf7e6fe02605d63f40c2b8a2905868ccd6f96cfc36a65f5fb70ddac31c6ec93da228a456edbd"
+          ;
         version = "0.2.176";
       };
     }
@@ -202,7 +220,8 @@ in rec {
         artifactId = "pandect";
         groupId = "pandect";
         sha512 =
-          "8c265289f46a94cf2400f05223cdd3f9faee9a39e6ed5a55a3e89b09334a61e928c0f27e2db834edf3b544e2148a511bccf1ef73132bd9263659bed381abb59a";
+          "8c265289f46a94cf2400f05223cdd3f9faee9a39e6ed5a55a3e89b09334a61e928c0f27e2db834edf3b544e2148a511bccf1ef73132bd9263659bed381abb59a"
+          ;
         version = "0.6.1";
       };
     }
@@ -214,7 +233,8 @@ in rec {
         artifactId = "tools.cli";
         groupId = "org.clojure";
         sha512 =
-          "9baf3fafe2e92b846404ef1bd897a4a335fe4bc1f78a2408ee93c09dc960a630f58a0e863b2d299624783f2851bb5d83f93fa627276d28d66c92764c46f27efe";
+          "9baf3fafe2e92b846404ef1bd897a4a335fe4bc1f78a2408ee93c09dc960a630f58a0e863b2d299624783f2851bb5d83f93fa627276d28d66c92764c46f27efe"
+          ;
         version = "0.4.2";
       };
     }
@@ -226,7 +246,8 @@ in rec {
         artifactId = "encore";
         groupId = "com.taoensso";
         sha512 =
-          "bb9510a88bca86f9cfc4a2e5c8a85782bc71d961a0a639735edafb61df130422488ee40d1db4cb6ad961e40acdb07259052937391c32f1e54c71f09dd63d33e5";
+          "bb9510a88bca86f9cfc4a2e5c8a85782bc71d961a0a639735edafb61df130422488ee40d1db4cb6ad961e40acdb07259052937391c32f1e54c71f09dd63d33e5"
+          ;
         version = "3.12.1";
       };
     }
@@ -238,7 +259,8 @@ in rec {
         artifactId = "maven-resolver-transport-wagon";
         groupId = "org.apache.maven.resolver";
         sha512 =
-          "b7a4dcd2f9bb39bfd561e9b2a8fc087bd9e7e59136ea7787341c173fa22c6b8e9370117ed6c30b0c930dd5b188fab2f2b060042861df19e79772a74c703fcf64";
+          "b7a4dcd2f9bb39bfd561e9b2a8fc087bd9e7e59136ea7787341c173fa22c6b8e9370117ed6c30b0c930dd5b188fab2f2b060042861df19e79772a74c703fcf64"
+          ;
         version = "1.0.3";
       };
     }
@@ -250,7 +272,8 @@ in rec {
         artifactId = "jcl-over-slf4j";
         groupId = "org.slf4j";
         sha512 =
-          "d9c08c3e4cb18b2d69ba8bcd4bbf3955dbc287e20141d244486f6237c36e8e2cf86ae48c295b5dd579219b5c7b1197658153f10fce73d155a4a1d4e6c7943952";
+          "d9c08c3e4cb18b2d69ba8bcd4bbf3955dbc287e20141d244486f6237c36e8e2cf86ae48c295b5dd579219b5c7b1197658153f10fce73d155a4a1d4e6c7943952"
+          ;
         version = "1.7.22";
       };
     }
@@ -262,7 +285,8 @@ in rec {
         artifactId = "tools.analyzer.jvm";
         groupId = "org.clojure";
         sha512 =
-          "ce9c7b51fa61c12c539f3c5c1c7fa1caf123497553d4e566c13895312faad2d2657fe6e54fe88110a6c87accb10c4c3b6ccfa87a035a7321da6c859da1d192d0";
+          "ce9c7b51fa61c12c539f3c5c1c7fa1caf123497553d4e566c13895312faad2d2657fe6e54fe88110a6c87accb10c4c3b6ccfa87a035a7321da6c859da1d192d0"
+          ;
         version = "1.1.0";
       };
     }
@@ -274,7 +298,8 @@ in rec {
         artifactId = "wagon-provider-api";
         groupId = "org.apache.maven.wagon";
         sha512 =
-          "4571002ad5bfc0442bb2eaf32ec42675dc0a179413230615475842bba12fb561159ffc0213127cf241088641a218627e84049b715b9e71ed83d960f4f09da985";
+          "4571002ad5bfc0442bb2eaf32ec42675dc0a179413230615475842bba12fb561159ffc0213127cf241088641a218627e84049b715b9e71ed83d960f4f09da985"
+          ;
         version = "3.0.0";
       };
     }
@@ -286,7 +311,8 @@ in rec {
         artifactId = "pedestal.log";
         groupId = "io.pedestal";
         sha512 =
-          "f6c4d8e1b202af9ef7950ec6d02b96f0e598e8d1f9ffffe8e5650e8ffdebd6c4919166aa83e34f47407870473024d28e7a49a2a0ad2b9af221514e42c518baae";
+          "f6c4d8e1b202af9ef7950ec6d02b96f0e598e8d1f9ffffe8e5650e8ffdebd6c4919166aa83e34f47407870473024d28e7a49a2a0ad2b9af221514e42c518baae"
+          ;
         version = "0.5.7";
       };
     }
@@ -298,7 +324,8 @@ in rec {
         artifactId = "tools.macro";
         groupId = "org.clojure";
         sha512 =
-          "18fb889ec7f0c8f23084f01587582be3c1baaa475249c40cfa8edc78c75079807ed49f2fb714a5c79b16bcf233142abcf571b12fff4e29cd78850c0016d6b4b9";
+          "18fb889ec7f0c8f23084f01587582be3c1baaa475249c40cfa8edc78c75079807ed49f2fb714a5c79b16bcf233142abcf571b12fff4e29cd78850c0016d6b4b9"
+          ;
         version = "0.1.1";
       };
     }
@@ -310,7 +337,8 @@ in rec {
         artifactId = "jackson-dataformat-cbor";
         groupId = "com.fasterxml.jackson.dataformat";
         sha512 =
-          "575a00fec1760571403aaadbe0aa6c74f8bb01f40feae00741df6604e7c2bf199ac739a789bbd5d83af75ec6d9fcc55f5a1515b05aef33e0d3cc3046acad9e89";
+          "575a00fec1760571403aaadbe0aa6c74f8bb01f40feae00741df6604e7c2bf199ac739a789bbd5d83af75ec6d9fcc55f5a1515b05aef33e0d3cc3046acad9e89"
+          ;
         version = "2.10.2";
       };
     }
@@ -322,7 +350,8 @@ in rec {
         artifactId = "useful";
         groupId = "org.flatland";
         sha512 =
-          "b97c92692e36be3e4bdfe4a6b1f1ecb2729c960c25884d1cb12218d0b807789dc37120022b4dd0fd5daba1dd16f892ac134576f84ef301c23525ba55cb041e2d";
+          "b97c92692e36be3e4bdfe4a6b1f1ecb2729c960c25884d1cb12218d0b807789dc37120022b4dd0fd5daba1dd16f892ac134576f84ef301c23525ba55cb041e2d"
+          ;
         version = "0.11.6";
       };
     }
@@ -334,7 +363,8 @@ in rec {
         artifactId = "maven-resolver-transport-http";
         groupId = "org.apache.maven.resolver";
         sha512 =
-          "97c23620a57406a8d87a08ab2897355afcce4b53b397ef7d13b4254cb07e965b51f05e21ce2d77ea93c4dbc63f32b3f07ff2171bccfe2b4f21116569968a003e";
+          "97c23620a57406a8d87a08ab2897355afcce4b53b397ef7d13b4254cb07e965b51f05e21ce2d77ea93c4dbc63f32b3f07ff2171bccfe2b4f21116569968a003e"
+          ;
         version = "1.0.3";
       };
     }
@@ -346,7 +376,8 @@ in rec {
         artifactId = "parsley";
         groupId = "net.cgrand";
         sha512 =
-          "e114f9e5709b9a38214aabc2b7bb33984693a4302fd8570bb91956bce2755d69b6ee2eaa7224137e306ab1f830672eee928e030677f50739edc62314429fa1f7";
+          "e114f9e5709b9a38214aabc2b7bb33984693a4302fd8570bb91956bce2755d69b6ee2eaa7224137e306ab1f830672eee928e030677f50739edc62314429fa1f7"
+          ;
         version = "0.9.3";
       };
     }
@@ -358,7 +389,8 @@ in rec {
         artifactId = "cats";
         groupId = "funcool";
         sha512 =
-          "83ccb058078c3c380435512e6f92cfc117244fab4819db776eb963d3b488ac92ca70a783b5d3b776d9d4cf06d9de5d3730c07ce6e7013e6717ba28335601ece8";
+          "83ccb058078c3c380435512e6f92cfc117244fab4819db776eb963d3b488ac92ca70a783b5d3b776d9d4cf06d9de5d3730c07ce6e7013e6717ba28335601ece8"
+          ;
         version = "2.3.2";
       };
     }
@@ -370,7 +402,8 @@ in rec {
         artifactId = "maven-model-builder";
         groupId = "org.apache.maven";
         sha512 =
-          "6684b58d14e7d037f240ae15ee0456d27354c9dd93a1dc2bdbb66f399b012ffe8ff67a1dd83ee1e45c07fd91af77909a9c19d6b29791002d5b5acf23ca75dcb2";
+          "6684b58d14e7d037f240ae15ee0456d27354c9dd93a1dc2bdbb66f399b012ffe8ff67a1dd83ee1e45c07fd91af77909a9c19d6b29791002d5b5acf23ca75dcb2"
+          ;
         version = "3.5.3";
       };
     }
@@ -382,7 +415,8 @@ in rec {
         artifactId = "pretty";
         groupId = "io.aviso";
         sha512 =
-          "512454e5296c54e2d2f3ddb3122e99edae3286b7e7f9a63dd453c96225b6aa5d0fb0972d58d7dac434b297f47a1f27d1b2021c126064af020f0c3040097226d6";
+          "512454e5296c54e2d2f3ddb3122e99edae3286b7e7f9a63dd453c96225b6aa5d0fb0972d58d7dac434b297f47a1f27d1b2021c126064af020f0c3040097226d6"
+          ;
         version = "0.1.37";
       };
     }
@@ -394,7 +428,8 @@ in rec {
         artifactId = "rewrite-clj";
         groupId = "rewrite-clj";
         sha512 =
-          "14018072e5c9466e8cafc08d68633f0d0a410ceb6631bd48cf7d67056e5bc972618f1b3f80ba00c4fdf88ad884fe58b636945ec6f053cbe14aee61ef173e12d3";
+          "14018072e5c9466e8cafc08d68633f0d0a410ceb6631bd48cf7d67056e5bc972618f1b3f80ba00c4fdf88ad884fe58b636945ec6f053cbe14aee61ef173e12d3"
+          ;
         version = "0.6.1";
       };
     }
@@ -406,7 +441,8 @@ in rec {
         artifactId = "plexus-utils";
         groupId = "org.codehaus.plexus";
         sha512 =
-          "3805c57b7297459c5e2754d0fd56abd454eee08691974fb930ebb9b79a529fd874f16d40cec66e7fd90d4146c9d1fef45cdb59f9e359fce0c48ac77526fc320d";
+          "3805c57b7297459c5e2754d0fd56abd454eee08691974fb930ebb9b79a529fd874f16d40cec66e7fd90d4146c9d1fef45cdb59f9e359fce0c48ac77526fc320d"
+          ;
         version = "3.1.0";
       };
     }
@@ -418,7 +454,8 @@ in rec {
         artifactId = "maven-resolver-transport-file";
         groupId = "org.apache.maven.resolver";
         sha512 =
-          "a83cc067c0857f091787120dcbde00f2df5cd6379a02cca95a091aa243ca22dfbae634406c58373b391caf911dd6db3b4ff4a3d51768f4a61b1081e7c78bb252";
+          "a83cc067c0857f091787120dcbde00f2df5cd6379a02cca95a091aa243ca22dfbae634406c58373b391caf911dd6db3b4ff4a3d51768f4a61b1081e7c78bb252"
+          ;
         version = "1.0.3";
       };
     }
@@ -430,7 +467,8 @@ in rec {
         artifactId = "slingshot";
         groupId = "slingshot";
         sha512 =
-          "ff2b2a27b441d230261c7f3ec8c38aa551865e05ab6438a74bd12bfcbc5f6bdc88199d42aaf5932b47df84f3d2700c8f514b9f4e9b5da28d29da7ff6b09a7fb5";
+          "ff2b2a27b441d230261c7f3ec8c38aa551865e05ab6438a74bd12bfcbc5f6bdc88199d42aaf5932b47df84f3d2700c8f514b9f4e9b5da28d29da7ff6b09a7fb5"
+          ;
         version = "0.12.2";
       };
     }
@@ -442,7 +480,8 @@ in rec {
         artifactId = "ordered";
         groupId = "org.flatland";
         sha512 =
-          "16ba9c232cefcf363c603af95343db3f86538e3829dce9fba9adce48c3bf2e80c24e4e30a4583750d124aeb9f1031cdbe93d08796366484495b1b22857de3045";
+          "16ba9c232cefcf363c603af95343db3f86538e3829dce9fba9adce48c3bf2e80c24e4e30a4583750d124aeb9f1031cdbe93d08796366484495b1b22857de3045"
+          ;
         version = "1.5.7";
       };
     }
@@ -454,7 +493,8 @@ in rec {
         artifactId = "commons-io";
         groupId = "commons-io";
         sha512 =
-          "1f6bfc215da9ae661dbabba80a0f29101a2d5e49c7d0c6ed760d1cafea005b7f0ff177b3b741e75b8e59804b0280fa453a76940b97e52b800ec03042f1692b07";
+          "1f6bfc215da9ae661dbabba80a0f29101a2d5e49c7d0c6ed760d1cafea005b7f0ff177b3b741e75b8e59804b0280fa453a76940b97e52b800ec03042f1692b07"
+          ;
         version = "2.5";
       };
     }
@@ -466,7 +506,8 @@ in rec {
         artifactId = "wagon-http-shared";
         groupId = "org.apache.maven.wagon";
         sha512 =
-          "d4ef092c8ca8efd4295323d7bdb98315fcf574c2e5e227840847b936ab36095217583c5a807a27e21b831ade4cfbaa570278aa0d1a0144e92b90a42099b541f1";
+          "d4ef092c8ca8efd4295323d7bdb98315fcf574c2e5e227840847b936ab36095217583c5a807a27e21b831ade4cfbaa570278aa0d1a0144e92b90a42099b541f1"
+          ;
         version = "3.0.0";
       };
     }
@@ -478,7 +519,8 @@ in rec {
         artifactId = "jackson-core";
         groupId = "com.fasterxml.jackson.core";
         sha512 =
-          "5055943790cea2c3abbacbe91e63634e6d2e977cd59b08ce102c0ee7d859995eb5d150d530da3848235b2b1b751a8df55cff2c33d43da695659248187ddf1bff";
+          "5055943790cea2c3abbacbe91e63634e6d2e977cd59b08ce102c0ee7d859995eb5d150d530da3848235b2b1b751a8df55cff2c33d43da695659248187ddf1bff"
+          ;
         version = "2.10.2";
       };
     }
@@ -490,7 +532,8 @@ in rec {
         artifactId = "snakeyaml";
         groupId = "org.yaml";
         sha512 =
-          "b7ef491ded21c61260d6ad68b1541d0c753f01f3f065b66a31c8e4d8f5f6b5eff31e82a7cc68562567811cc0d540c980e8a42714574f50e7713b4799192f50f9";
+          "b7ef491ded21c61260d6ad68b1541d0c753f01f3f065b66a31c8e4d8f5f6b5eff31e82a7cc68562567811cc0d540c980e8a42714574f50e7713b4799192f50f9"
+          ;
         version = "1.19";
       };
     }
@@ -502,7 +545,8 @@ in rec {
         artifactId = "asm";
         groupId = "org.ow2.asm";
         sha512 =
-          "40614e658138f2eb95bc26999545f996794c622c4d68efb9e10093743504c4b58bf22590767bc6bd93b77cdfb202c507144ba867bbc8b54d74fe7621cbc55e3a";
+          "40614e658138f2eb95bc26999545f996794c622c4d68efb9e10093743504c4b58bf22590767bc6bd93b77cdfb202c507144ba867bbc8b54d74fe7621cbc55e3a"
+          ;
         version = "5.2";
       };
     }
@@ -514,7 +558,8 @@ in rec {
         artifactId = "jul-to-slf4j";
         groupId = "org.slf4j";
         sha512 =
-          "e76ee7ee3e1852be55c18ccb7a8f4a7005807da3cbd97f4b4895632fee92cc64785491d4f6384ae4ebd0f73a1ee4893dc1adf7119da056300f21eb2e7d3f233f";
+          "e76ee7ee3e1852be55c18ccb7a8f4a7005807da3cbd97f4b4895632fee92cc64785491d4f6384ae4ebd0f73a1ee4893dc1adf7119da056300f21eb2e7d3f233f"
+          ;
         version = "1.7.14";
       };
     }
@@ -526,7 +571,8 @@ in rec {
         artifactId = "httpcore";
         groupId = "org.apache.httpcomponents";
         sha512 =
-          "10814bfb8dcce31034f8fd6822f9da29299529b900616b78d8caf846748cf2b1e093f7b99db26a8580266e3346b822b5edb347004b0d13580e6df85cb327c93c";
+          "10814bfb8dcce31034f8fd6822f9da29299529b900616b78d8caf846748cf2b1e093f7b99db26a8580266e3346b822b5edb347004b0d13580e6df85cb327c93c"
+          ;
         version = "4.4.6";
       };
     }
@@ -538,7 +584,8 @@ in rec {
         artifactId = "pedestal.interceptor";
         groupId = "io.pedestal";
         sha512 =
-          "9767bb8df4ec3d1ee1468c22afd64adc689bb0ae15e98dfc04ef98e65f237f67ded3ade9c1514d2e44e1dd56dbff6cafbc9795a5c57e166cb924f43175c3be83";
+          "9767bb8df4ec3d1ee1468c22afd64adc689bb0ae15e98dfc04ef98e65f237f67ded3ade9c1514d2e44e1dd56dbff6cafbc9795a5c57e166cb924f43175c3be83"
+          ;
         version = "0.5.7";
       };
     }
@@ -550,7 +597,8 @@ in rec {
         artifactId = "metrics-core";
         groupId = "io.dropwizard.metrics";
         sha512 =
-          "4b500efcc88e717dbbfff9629e12db0f23380bc7dbae820039ed730cdaf26fb6d5be6e58434bd6f688ea3d675576e2057ec183472aac99189817fc28b3c3489e";
+          "4b500efcc88e717dbbfff9629e12db0f23380bc7dbae820039ed730cdaf26fb6d5be6e58434bd6f688ea3d675576e2057ec183472aac99189817fc28b3c3489e"
+          ;
         version = "4.1.0";
       };
     }
@@ -562,7 +610,8 @@ in rec {
         artifactId = "omniconf";
         groupId = "com.grammarly";
         sha512 =
-          "f9b162b98676cb5073310309aac9678725cb4a7eec3fe00803b21ce4abcea3cc1c41df5e970105ed18352619dfab40c0736ae78e9206165f17b0094107b2594b";
+          "f9b162b98676cb5073310309aac9678725cb4a7eec3fe00803b21ce4abcea3cc1c41df5e970105ed18352619dfab40c0736ae78e9206165f17b0094107b2594b"
+          ;
         version = "0.3.2";
       };
     }
@@ -574,7 +623,8 @@ in rec {
         artifactId = "clj-tuple";
         groupId = "clj-tuple";
         sha512 =
-          "dd626944d0aba679a21b164ed0c77ea84449359361496cba810f83b9fdeab751e5889963888098ce4bf8afa112dbda0a46ed60348a9c01ad36a2e255deb7ab6d";
+          "dd626944d0aba679a21b164ed0c77ea84449359361496cba810f83b9fdeab751e5889963888098ce4bf8afa112dbda0a46ed60348a9c01ad36a2e255deb7ab6d"
+          ;
         version = "0.2.2";
       };
     }
@@ -586,7 +636,8 @@ in rec {
         artifactId = "jnacl";
         groupId = "eu.neilalexander";
         sha512 =
-          "addba1eae1975a71a204557dafb111c5c2aab39d9a7bb6428a26107935d95290139381c0a283b77e67b44e1d8110d3fa3919d7e7fc73e0023771beece4eab994";
+          "addba1eae1975a71a204557dafb111c5c2aab39d9a7bb6428a26107935d95290139381c0a283b77e67b44e1d8110d3fa3919d7e7fc73e0023771beece4eab994"
+          ;
         version = "1.0.0";
       };
     }
@@ -598,7 +649,8 @@ in rec {
         artifactId = "zprint";
         groupId = "zprint";
         sha512 =
-          "379b6f9228ec0b5ae1a24b0cce4c41e273534b456cf356ac67b7f72a7506345eddf7f7ac75c2c200864d5372c1fb0331d2b31bc22a21c496cafdfe839241e9f9";
+          "379b6f9228ec0b5ae1a24b0cce4c41e273534b456cf356ac67b7f72a7506345eddf7f7ac75c2c200864d5372c1fb0331d2b31bc22a21c496cafdfe839241e9f9"
+          ;
         version = "0.4.15";
       };
     }
@@ -610,7 +662,8 @@ in rec {
         artifactId = "truss";
         groupId = "com.taoensso";
         sha512 =
-          "79a515306228e8e8f1c1cf5bb65ac8c979954f3a6e8461c059a7b9402967163a1eb7a70de3ad41e8195d9dbfac2d17af8cc03e09bf72f8e9f6704b842656c0b9";
+          "79a515306228e8e8f1c1cf5bb65ac8c979954f3a6e8461c059a7b9402967163a1eb7a70de3ad41e8195d9dbfac2d17af8cc03e09bf72f8e9f6704b842656c0b9"
+          ;
         version = "1.6.0";
       };
     }
@@ -622,7 +675,8 @@ in rec {
         artifactId = "maven-resolver-api";
         groupId = "org.apache.maven.resolver";
         sha512 =
-          "d00cd4ec92bfafe88d9c4f4ce91e6c2d581d416a096743d396c1712a5788239cf2d55f910e1c0024034f7e0d8028ff602339b87c8fd3ad54f665a8b63d142e67";
+          "d00cd4ec92bfafe88d9c4f4ce91e6c2d581d416a096743d396c1712a5788239cf2d55f910e1c0024034f7e0d8028ff602339b87c8fd3ad54f665a8b63d142e67"
+          ;
         version = "1.1.1";
       };
     }
@@ -634,7 +688,8 @@ in rec {
         artifactId = "hiccup";
         groupId = "hiccup";
         sha512 =
-          "419dd67281135feb31f74528907b785679066e22cf397f14a6d9439cb9c463d0db66436c214b2b1b5944be6b9d28e3fc7d9e4042de52f9633bf0825548c0f524";
+          "419dd67281135feb31f74528907b785679066e22cf397f14a6d9439cb9c463d0db66436c214b2b1b5944be6b9d28e3fc7d9e4042de52f9633bf0825548c0f524"
+          ;
         version = "2.0.0-alpha2";
       };
     }
@@ -646,7 +701,8 @@ in rec {
         artifactId = "opentracing-api";
         groupId = "io.opentracing";
         sha512 =
-          "931197ca33e509570e389cd163af96e277bb3635f019e34e2fc97d3fa9c34bb9042f25b2ba8aa59f8516cc044ec3e9584462601b8aa5f954bbc6ad88e5fbe5cd";
+          "931197ca33e509570e389cd163af96e277bb3635f019e34e2fc97d3fa9c34bb9042f25b2ba8aa59f8516cc044ec3e9584462601b8aa5f954bbc6ad88e5fbe5cd"
+          ;
         version = "0.33.0";
       };
     }
@@ -658,7 +714,8 @@ in rec {
         artifactId = "maven-resolver-provider";
         groupId = "org.apache.maven";
         sha512 =
-          "ec9e402084886554d247232b3dc5a971f6cbc93206759104ee7f94c7ba3ea2d69a715c68e479d2c64f6fe5045b6d7bd75cc3bb239462464ac608b0db1a5f0db5";
+          "ec9e402084886554d247232b3dc5a971f6cbc93206759104ee7f94c7ba3ea2d69a715c68e479d2c64f6fe5045b6d7bd75cc3bb239462464ac608b0db1a5f0db5"
+          ;
         version = "3.5.3";
       };
     }
@@ -670,7 +727,8 @@ in rec {
         artifactId = "commons-logging";
         groupId = "commons-logging";
         sha512 =
-          "ed00dbfabd9ae00efa26dd400983601d076fe36408b7d6520084b447e5d1fa527ce65bd6afdcb58506c3a808323d28e88f26cb99c6f5db9ff64f6525ecdfa557";
+          "ed00dbfabd9ae00efa26dd400983601d076fe36408b7d6520084b447e5d1fa527ce65bd6afdcb58506c3a808323d28e88f26cb99c6f5db9ff64f6525ecdfa557"
+          ;
         version = "1.2";
       };
     }
@@ -682,7 +740,8 @@ in rec {
         artifactId = "guava";
         groupId = "com.google.guava";
         sha512 =
-          "d8736b5151df2dd052c09548a118af15a8b8b40999954cd093cfd301445accb8b7e9532b36bac8b2fab9234a24e2e05009a33d0a8e149e841ebddbcc733a8e4c";
+          "d8736b5151df2dd052c09548a118af15a8b8b40999954cd093cfd301445accb8b7e9532b36bac8b2fab9234a24e2e05009a33d0a8e149e841ebddbcc733a8e4c"
+          ;
         version = "20.0";
       };
     }
@@ -694,7 +753,8 @@ in rec {
         artifactId = "slf4j-timbre";
         groupId = "com.fzakaria";
         sha512 =
-          "93ecc0e133a3f02f521cac125fd8842f94f2c284000b6b9f1cda7ef2841567bd674facea1f8c4e32da2321f414c1f2590ac58abf37f23347f6f551fcd9039339";
+          "93ecc0e133a3f02f521cac125fd8842f94f2c284000b6b9f1cda7ef2841567bd674facea1f8c4e32da2321f414c1f2590ac58abf37f23347f6f551fcd9039339"
+          ;
         version = "0.3.14";
       };
     }
@@ -706,7 +766,8 @@ in rec {
         artifactId = "clojure.java-time";
         groupId = "clojure.java-time";
         sha512 =
-          "a7111b5c78d7f920d74793d410f81c9ca3c9a8c4d652f132be55eb15f6d03a413cee1ae46bad6d3189c045d422a33c7320fbd02055c351779c379f75db48cbbd";
+          "a7111b5c78d7f920d74793d410f81c9ca3c9a8c4d652f132be55eb15f6d03a413cee1ae46bad6d3189c045d422a33c7320fbd02055c351779c379f75db48cbbd"
+          ;
         version = "0.3.2";
       };
     }
@@ -718,7 +779,8 @@ in rec {
         artifactId = "maven-resolver-spi";
         groupId = "org.apache.maven.resolver";
         sha512 =
-          "bb58083c5ef2b6d3915acb368c80bd55ca6318925c606ad74e3e4ab2fc0066c7fa2480cefa34487c5349f1edff02131bbaa4c3a426f9a52d5a6a66a4a023d452";
+          "bb58083c5ef2b6d3915acb368c80bd55ca6318925c606ad74e3e4ab2fc0066c7fa2480cefa34487c5349f1edff02131bbaa4c3a426f9a52d5a6a66a4a023d452"
+          ;
         version = "1.1.1";
       };
     }
@@ -730,7 +792,8 @@ in rec {
         artifactId = "algo.generic";
         groupId = "org.clojure";
         sha512 =
-          "2ded22096f7bf051fcc649d56fdb0ef2dddcb5490e22ce4d7e6f714d910db0cc7d453862b2180169641c21f0754b799036e4b0e7944c79f29d22dcb4152e384d";
+          "2ded22096f7bf051fcc649d56fdb0ef2dddcb5490e22ce4d7e6f714d910db0cc7d453862b2180169641c21f0754b799036e4b0e7944c79f29d22dcb4152e384d"
+          ;
         version = "0.1.3";
       };
     }
@@ -742,7 +805,8 @@ in rec {
         artifactId = "timbre";
         groupId = "com.taoensso";
         sha512 =
-          "2570f1d59d98034d8425598ab676f4c1e17f9da9926def2e142296377ddccf0fe3a894ba023114d614ca728c77c11d50927a709bfa896e9c5cce0854be31e32d";
+          "2570f1d59d98034d8425598ab676f4c1e17f9da9926def2e142296377ddccf0fe3a894ba023114d614ca728c77c11d50927a709bfa896e9c5cce0854be31e32d"
+          ;
         version = "5.1.2";
       };
     }
@@ -754,7 +818,8 @@ in rec {
         artifactId = "java.jdbc";
         groupId = "org.clojure";
         sha512 =
-          "50c263853f0b88d4b46746bf8f5efb8536f38dde2a08c26e5d26c2bd3bd851c0c0f0814d7899019c3879de2667b3b432a23de091bd8f8cea3e28bd00f0b715cb";
+          "50c263853f0b88d4b46746bf8f5efb8536f38dde2a08c26e5d26c2bd3bd851c0c0f0814d7899019c3879de2667b3b432a23de091bd8f8cea3e28bd00f0b715cb"
+          ;
         version = "0.7.9";
       };
     }
@@ -766,7 +831,8 @@ in rec {
         artifactId = "wagon-http";
         groupId = "org.apache.maven.wagon";
         sha512 =
-          "e565e6541d53a5c2823a211586163707a5dbf5d9b3dd9f4a8d1d9dd2ffc0c8cf3ef2adb78d455235d22ede99d2e4619eb7f94d2a52eb0ffd119b52b33f9d89ba";
+          "e565e6541d53a5c2823a211586163707a5dbf5d9b3dd9f4a8d1d9dd2ffc0c8cf3ef2adb78d455235d22ede99d2e4619eb7f94d2a52eb0ffd119b52b33f9d89ba"
+          ;
         version = "3.0.0";
       };
     }
@@ -778,7 +844,8 @@ in rec {
         artifactId = "opentracing-noop";
         groupId = "io.opentracing";
         sha512 =
-          "c727bcf20504fa72bfc07456bdde3b0b50988632d85c7af78df742efd90a431c125f5d644273203fa211a62fc4a282455cf281c7c82b82df4695afbc5488577f";
+          "c727bcf20504fa72bfc07456bdde3b0b50988632d85c7af78df742efd90a431c125f5d644273203fa211a62fc4a282455cf281c7c82b82df4695afbc5488577f"
+          ;
         version = "0.33.0";
       };
     }
@@ -790,7 +857,8 @@ in rec {
         artifactId = "regex";
         groupId = "net.cgrand";
         sha512 =
-          "f0dfa4727818765364ce1793337597b06a2f95364245ab6c860e2373a98da55771e77a7eb772dcf415a336d8caad35673d5054e18b9494c3e1b9f882fecfb4d9";
+          "f0dfa4727818765364ce1793337597b06a2f95364245ab6c860e2373a98da55771e77a7eb772dcf415a336d8caad35673d5054e18b9494c3e1b9f882fecfb4d9"
+          ;
         version = "1.1.0";
       };
     }
@@ -802,7 +870,8 @@ in rec {
         artifactId = "cider-nrepl";
         groupId = "cider";
         sha512 =
-          "e201944e32ce9b8fa328327c84f31d11cf5507a97b4fd3189a0304f4ebfd3bd557a1886335f295831941ac30d2b2394ad79a2897cb9bce506c0cbd8e04bbc40f";
+          "e201944e32ce9b8fa328327c84f31d11cf5507a97b4fd3189a0304f4ebfd3bd557a1886335f295831941ac30d2b2394ad79a2897cb9bce506c0cbd8e04bbc40f"
+          ;
         version = "0.26.0";
       };
     }
@@ -814,7 +883,8 @@ in rec {
         artifactId = "pomegranate";
         groupId = "com.cemerick";
         sha512 =
-          "a08137b575305aeff9858b93fc1febba92aaff27d9994e884c0e614f43704403cfb7e3e8d819a8151966c6439c178f4fb371003c392591dbc87b9e0fa64788fd";
+          "a08137b575305aeff9858b93fc1febba92aaff27d9994e884c0e614f43704403cfb7e3e8d819a8151966c6439c178f4fb371003c392591dbc87b9e0fa64788fd"
+          ;
         version = "1.1.0";
       };
     }
@@ -826,7 +896,8 @@ in rec {
         artifactId = "plexus-interpolation";
         groupId = "org.codehaus.plexus";
         sha512 =
-          "d9183dc0920fb996901644903194883d1e1d1e8c4863f3c55bd6a9b14de996ee30651849435a92c8c55fc82be0e4524f1b2741957f9464434da292188ffcee70";
+          "d9183dc0920fb996901644903194883d1e1d1e8c4863f3c55bd6a9b14de996ee30651849435a92c8c55fc82be0e4524f1b2741957f9464434da292188ffcee70"
+          ;
         version = "1.24";
       };
     }
@@ -838,7 +909,8 @@ in rec {
         artifactId = "httpclient";
         groupId = "org.apache.httpcomponents";
         sha512 =
-          "f8d4a960ed235770570afaf793c4596404adfa777e08bdb87ae2db92575db5e11755025fe43969f852ef505a390833e79bdd1fccd5f3fb7dee87625607b504a2";
+          "f8d4a960ed235770570afaf793c4596404adfa777e08bdb87ae2db92575db5e11755025fe43969f852ef505a390833e79bdd1fccd5f3fb7dee87625607b504a2"
+          ;
         version = "4.5.3";
       };
     }
@@ -850,7 +922,8 @@ in rec {
         artifactId = "cheshire";
         groupId = "cheshire";
         sha512 =
-          "5b2a339f8d90951a80105729a080b841e0de671f576bfa164a78bccc08691d548cff6a7124224444f7b3a267c9aca69c18e347657f1d66e407167c9b5b8b52cb";
+          "5b2a339f8d90951a80105729a080b841e0de671f576bfa164a78bccc08691d548cff6a7124224444f7b3a267c9aca69c18e347657f1d66e407167c9b5b8b52cb"
+          ;
         version = "5.10.0";
       };
     }
@@ -862,7 +935,8 @@ in rec {
         artifactId = "tigris";
         groupId = "tigris";
         sha512 =
-          "fdff4ef5e7175a973aaef98de4f37dee8e125fc711c495382e280aaf3e11341fe8925d52567ca60f3f1795511ade11bc23461c88959632dfae3cf50374d02bf6";
+          "fdff4ef5e7175a973aaef98de4f37dee8e125fc711c495382e280aaf3e11341fe8925d52567ca60f3f1795511ade11bc23461c88959632dfae3cf50374d02bf6"
+          ;
         version = "0.1.2";
       };
     }
@@ -874,7 +948,8 @@ in rec {
         artifactId = "core.match";
         groupId = "org.clojure";
         sha512 =
-          "d69ed23bad115ed665b402886e1946fcecacbbfd05150f3eb66dce9ffc0381d0e02ed6f41cb390a6dfb74f4f26e3b0f6793dec38f6a4622dc53c0739d79f5f5e";
+          "d69ed23bad115ed665b402886e1946fcecacbbfd05150f3eb66dce9ffc0381d0e02ed6f41cb390a6dfb74f4f26e3b0f6793dec38f6a4622dc53c0739d79f5f5e"
+          ;
         version = "0.3.0";
       };
     }
@@ -886,7 +961,8 @@ in rec {
         artifactId = "tools.reader";
         groupId = "org.clojure";
         sha512 =
-          "03677c7eb85d294f878f13066bbd841e788ec1267285690e65c2eb342b02aecd028679509b7f1d192cf5631b0839a92abfe36e93237bf5e2544c14e6cebe7452";
+          "03677c7eb85d294f878f13066bbd841e788ec1267285690e65c2eb342b02aecd028679509b7f1d192cf5631b0839a92abfe36e93237bf5e2544c14e6cebe7452"
+          ;
         version = "1.3.3";
       };
     }
@@ -898,7 +974,8 @@ in rec {
         artifactId = "dynapath";
         groupId = "org.tcrawley";
         sha512 =
-          "1b0caf390515212e6b151d6c227b1a62e430e682b6c811736edba3cc918344053e35c092e12afd523198ed6244018450931776f8388e61a593f266476b6db19e";
+          "1b0caf390515212e6b151d6c227b1a62e430e682b6c811736edba3cc918344053e35c092e12afd523198ed6244018450931776f8388e61a593f266476b6db19e"
+          ;
         version = "1.0.0";
       };
     }
@@ -910,7 +987,8 @@ in rec {
         artifactId = "opentracing-util";
         groupId = "io.opentracing";
         sha512 =
-          "fbba29ff3d6018561077e9539ad9b72876424600eca3addb6a26981a4a3e52cb3dfd30f27945aff2b6c222c42454ce3ba67597171fd809a74c65b920f3a47c7a";
+          "fbba29ff3d6018561077e9539ad9b72876424600eca3addb6a26981a4a3e52cb3dfd30f27945aff2b6c222c42454ce3ba67597171fd809a74c65b920f3a47c7a"
+          ;
         version = "0.33.0";
       };
     }
@@ -922,7 +1000,8 @@ in rec {
         artifactId = "jsoup";
         groupId = "org.jsoup";
         sha512 =
-          "8119ec44ee622c75f47a80dedeadf557744208dc49d3d9f579660929a0be3f71d3b8cb4aed64ee31f6bf7488bfc3516fb3980137d2fc63063caf46c9921f19f0";
+          "8119ec44ee622c75f47a80dedeadf557744208dc49d3d9f579660929a0be3f71d3b8cb4aed64ee31f6bf7488bfc3516fb3980137d2fc63063caf46c9921f19f0"
+          ;
         version = "1.7.2";
       };
     }
@@ -934,7 +1013,8 @@ in rec {
         artifactId = "nrepl";
         groupId = "nrepl";
         sha512 =
-          "663906ff1c8768c4a73fa9f32619da4c244cc86c93d86e8439eb8de81c79486be5a04140c1df6199ba475b3a3e7fd36304faef8b330672dd644945820cc6eb67";
+          "663906ff1c8768c4a73fa9f32619da4c244cc86c93d86e8439eb8de81c79486be5a04140c1df6199ba475b3a3e7fd36304faef8b330672dd644945820cc6eb67"
+          ;
         version = "0.8.3";
       };
     }
@@ -946,7 +1026,8 @@ in rec {
         artifactId = "maven-resolver-connector-basic";
         groupId = "org.apache.maven.resolver";
         sha512 =
-          "c8c14480ed89cf5d4cfec5dee7dae366b0b5d003cd835d4b1358add81253b205a53f6a62e5ecc145f09406fc8c57adb5fbf8f4521a044ac3d37b5fa8e67d4e21";
+          "c8c14480ed89cf5d4cfec5dee7dae366b0b5d003cd835d4b1358add81253b205a53f6a62e5ecc145f09406fc8c57adb5fbf8f4521a044ac3d37b5fa8e67d4e21"
+          ;
         version = "1.0.3";
       };
     }
@@ -958,7 +1039,8 @@ in rec {
         artifactId = "sqlite-jdbc";
         groupId = "org.xerial";
         sha512 =
-          "efd1ea26d7f4f9bc66bf0d5f80234a0c535829bd498e4c5a0cab42873b58ac69133497d8c45689a1d3a39e657a2d0474d6b930c7bc415dd623801ee4a7354ffb";
+          "efd1ea26d7f4f9bc66bf0d5f80234a0c535829bd498e4c5a0cab42873b58ac69133497d8c45689a1d3a39e657a2d0474d6b930c7bc415dd623801ee4a7354ffb"
+          ;
         version = "3.25.2";
       };
     }
@@ -970,7 +1052,8 @@ in rec {
         artifactId = "maven-resolver-impl";
         groupId = "org.apache.maven.resolver";
         sha512 =
-          "3ffcac7ed4a05b2b58669ce05cc348acad627be3e0941ee28a9a665fea43a571d554005dd72ec51130083f792e31894880525df3cd6962d7c95885340abfb7da";
+          "3ffcac7ed4a05b2b58669ce05cc348acad627be3e0941ee28a9a665fea43a571d554005dd72ec51130083f792e31894880525df3cd6962d7c95885340abfb7da"
+          ;
         version = "1.1.1";
       };
     }
@@ -982,7 +1065,8 @@ in rec {
         artifactId = "slf4j-api";
         groupId = "org.slf4j";
         sha512 =
-          "a944468440a883bb3bde1f78d39abe43a90b6091fd9f1a70430ac10ea91b308b2ef035e4836d68ba97afdba2b04f62edece204278aaa416276a5f8596f8688af";
+          "a944468440a883bb3bde1f78d39abe43a90b6091fd9f1a70430ac10ea91b308b2ef035e4836d68ba97afdba2b04f62edece204278aaa416276a5f8596f8688af"
+          ;
         version = "1.7.26";
       };
     }
@@ -994,7 +1078,8 @@ in rec {
         artifactId = "maven-model";
         groupId = "org.apache.maven";
         sha512 =
-          "888a778101774265e0d8dbc96305274053d275c0b261e81c6aae8765f92b13d1e06c5aa8f51c7d53d5267e46041adc9218686e53fc47cc15563a1b178291bc16";
+          "888a778101774265e0d8dbc96305274053d275c0b261e81c6aae8765f92b13d1e06c5aa8f51c7d53d5267e46041adc9218686e53fc47cc15563a1b178291bc16"
+          ;
         version = "3.5.3";
       };
     }
@@ -1006,7 +1091,8 @@ in rec {
         artifactId = "test.check";
         groupId = "org.clojure";
         sha512 =
-          "ba7b5c915c1e7bd5e9e398f8cd9d74340ca3c4846483bae8f2191e40ea42bdd4d8019ec108c2bd64451f418abebed2258cf0ee5be597cc0bc8a02d772c6385ed";
+          "ba7b5c915c1e7bd5e9e398f8cd9d74340ca3c4846483bae8f2191e40ea42bdd4d8019ec108c2bd64451f418abebed2258cf0ee5be597cc0bc8a02d772c6385ed"
+          ;
         version = "0.10.0-RC1";
       };
     }
@@ -1018,7 +1104,8 @@ in rec {
         artifactId = "maven-resolver-util";
         groupId = "org.apache.maven.resolver";
         sha512 =
-          "91dcbb8184f06e64da35d40c7b96e854f7311b6232d74b4b6d3489a51e0c05ebbee44f59367ab118974cdb6c5b3747981a41869cc7372691b2c2e1d0daa2ffa3";
+          "91dcbb8184f06e64da35d40c7b96e854f7311b6232d74b4b6d3489a51e0c05ebbee44f59367ab118974cdb6c5b3747981a41869cc7372691b2c2e1d0daa2ffa3"
+          ;
         version = "1.1.1";
       };
     }
@@ -1030,7 +1117,8 @@ in rec {
         artifactId = "metrics-jmx";
         groupId = "io.dropwizard.metrics";
         sha512 =
-          "706f7428b967923d2792b0587684e972b1404d663a6ac3d661772a57edf096f0de0efac8bbfcead4576c008b096c33f77499e8f193ccbb8b072d7aa6e6d7a40d";
+          "706f7428b967923d2792b0587684e972b1404d663a6ac3d661772a57edf096f0de0efac8bbfcead4576c008b096c33f77499e8f193ccbb8b072d7aa6e6d7a40d"
+          ;
         version = "4.1.0";
       };
     }
@@ -1042,7 +1130,8 @@ in rec {
         artifactId = "yaml";
         groupId = "io.forward";
         sha512 =
-          "561cfe0e92689b95008948a0a8aa839b9932ffd13791fdbd9ce55e0b0e3c895be6441ccd050b62ff671c747373fcba1199246c8bfb4206cb05584d06dea99b7c";
+          "561cfe0e92689b95008948a0a8aa839b9932ffd13791fdbd9ce55e0b0e3c895be6441ccd050b62ff671c747373fcba1199246c8bfb4206cb05584d06dea99b7c"
+          ;
         version = "1.0.9";
       };
     }
@@ -1054,7 +1143,8 @@ in rec {
         artifactId = "fs";
         groupId = "me.raynes";
         sha512 =
-          "b72af0093c1feccf78ea0632ba523eca89436b0575abc0af484e03570011aa89f429f9820a9fc27f60da113d728d2bbc09ba26d3a0cdd63d9d9c7775643f6852";
+          "b72af0093c1feccf78ea0632ba523eca89436b0575abc0af484e03570011aa89f429f9820a9fc27f60da113d728d2bbc09ba26d3a0cdd63d9d9c7775643f6852"
+          ;
         version = "1.4.6";
       };
     }
@@ -1066,7 +1156,8 @@ in rec {
         artifactId = "core.memoize";
         groupId = "org.clojure";
         sha512 =
-          "37308fcbbe64d0a2802917ef5a589075f81086d63e08c71a9a1b648b73dd362e5bdc8f756084fde1f4b1964ba82a6dc06b2119460281b7949a271d82e6a47a7e";
+          "37308fcbbe64d0a2802917ef5a589075f81086d63e08c71a9a1b648b73dd362e5bdc8f756084fde1f4b1964ba82a6dc06b2119460281b7949a271d82e6a47a7e"
+          ;
         version = "1.0.236";
       };
     }
@@ -1078,7 +1169,8 @@ in rec {
         artifactId = "camel-snake-kebab";
         groupId = "camel-snake-kebab";
         sha512 =
-          "3108a207378e8b6199ae6c71517fcc65dde97d2bab67d533a618c7ff50ea8b849ead3880857d00629d6c269499384b564ed43b631e6b06f283af94e8cae89144";
+          "3108a207378e8b6199ae6c71517fcc65dde97d2bab67d533a618c7ff50ea8b849ead3880857d00629d6c269499384b564ed43b631e6b06f283af94e8cae89144"
+          ;
         version = "0.4.0";
       };
     }
@@ -1090,7 +1182,8 @@ in rec {
         artifactId = "maven-repository-metadata";
         groupId = "org.apache.maven";
         sha512 =
-          "6d898373d483ac7f24ab0256406f4be45035f95a247bb19ac7102ea7f5e336976381c5125b30a7148bc9a8e1df6d27b456d1f8e9b55b99d9688e37dfd03733a3";
+          "6d898373d483ac7f24ab0256406f4be45035f95a247bb19ac7102ea7f5e336976381c5125b30a7148bc9a8e1df6d27b456d1f8e9b55b99d9688e37dfd03733a3"
+          ;
         version = "3.5.3";
       };
     }
@@ -1102,7 +1195,8 @@ in rec {
         artifactId = "compose";
         groupId = "io.simplect";
         sha512 =
-          "0aceab86d4a97285ddd6d40abdeb5b9bea16a16b6509ef2fcd80e547d772185041e26abcc12ae11938d7b78fed175850f811d5cb2a2f0590524c2c11975bacd1";
+          "0aceab86d4a97285ddd6d40abdeb5b9bea16a16b6509ef2fcd80e547d772185041e26abcc12ae11938d7b78fed175850f811d5cb2a2f0590524c2c11975bacd1"
+          ;
         version = "0.7.27";
       };
     }
@@ -1114,7 +1208,8 @@ in rec {
         artifactId = "data.priority-map";
         groupId = "org.clojure";
         sha512 =
-          "fb2d703468fb6d5f28c38f25e8e7acdaf02d2fa1ac23c14a9ff065873e88c9b74e155e73e5069436d674d7ef8547f01bc9777b7ae3b9dcde67cbd327d4a20c06";
+          "fb2d703468fb6d5f28c38f25e8e7acdaf02d2fa1ac23c14a9ff065873e88c9b74e155e73e5069436d674d7ef8547f01bc9777b7ae3b9dcde67cbd327d4a20c06"
+          ;
         version = "1.0.0";
       };
     }
@@ -1126,7 +1221,8 @@ in rec {
         artifactId = "maven-builder-support";
         groupId = "org.apache.maven";
         sha512 =
-          "1b2ca4427772532cfb93b4d643b17eca5843f1e1a9c4b26089eed8c10028344fb85d593d133fdffaff07b552c3027a9f24e1a92d68ed4696682be04069e84583";
+          "1b2ca4427772532cfb93b4d643b17eca5843f1e1a9c4b26089eed8c10028344fb85d593d133fdffaff07b552c3027a9f24e1a92d68ed4696682be04069e84583"
+          ;
         version = "3.5.3";
       };
     }
@@ -1138,7 +1234,8 @@ in rec {
         artifactId = "log4j-over-slf4j";
         groupId = "org.slf4j";
         sha512 =
-          "d0a13ae82823b921b308c897ec9a11ef86cb1b52dd81343f856224c65851f70eae0890a88550daa3a4ed57e7e2c150018a3cdc2345924a4e489a88827fc639b6";
+          "d0a13ae82823b921b308c897ec9a11ef86cb1b52dd81343f856224c65851f70eae0890a88550daa3a4ed57e7e2c150018a3cdc2345924a4e489a88827fc639b6"
+          ;
         version = "1.7.14";
       };
     }
@@ -1150,7 +1247,8 @@ in rec {
         artifactId = "core.cache";
         groupId = "org.clojure";
         sha512 =
-          "6e4e126f23b20120c50a4dbefbe1b3b9bd98f0a7b8fa83affa267ff7f0de09542d2727243859a1ea346bda5b782d4ae0110f6c2b169c298261707a1fdadaedb0";
+          "6e4e126f23b20120c50a4dbefbe1b3b9bd98f0a7b8fa83affa267ff7f0de09542d2727243859a1ea346bda5b782d4ae0110f6c2b169c298261707a1fdadaedb0"
+          ;
         version = "1.0.207";
       };
     }
@@ -1162,7 +1260,8 @@ in rec {
         artifactId = "rewrite-cljs";
         groupId = "rewrite-cljs";
         sha512 =
-          "d87c07d510247e1b13dcb505436b3a43d8bb9a4bfebbd2ae0430249d2c8a859032affe2b2a4cda8f987e983f584fd999a3f9b87944d44b8837cdf4e2560c5ab9";
+          "d87c07d510247e1b13dcb505436b3a43d8bb9a4bfebbd2ae0430249d2c8a859032affe2b2a4cda8f987e983f584fd999a3f9b87944d44b8837cdf4e2560c5ab9"
+          ;
         version = "0.4.4";
       };
     }
@@ -1174,7 +1273,8 @@ in rec {
         artifactId = "core.async";
         groupId = "org.clojure";
         sha512 =
-          "7c8640769a68256f5cf131ed2436713c3c63bba2c4167f3593a1671ef65931d67b9b43eccfa6e5a20467ca7c6f5efd9cbf58d6c14e035757714f71220a754d0b";
+          "7c8640769a68256f5cf131ed2436713c3c63bba2c4167f3593a1671ef65931d67b9b43eccfa6e5a20467ca7c6f5efd9cbf58d6c14e035757714f71220a754d0b"
+          ;
         version = "1.3.618";
       };
     }
@@ -1186,7 +1286,8 @@ in rec {
         artifactId = "jackson-dataformat-smile";
         groupId = "com.fasterxml.jackson.dataformat";
         sha512 =
-          "8998346f7039df868f3387d219efa0c04fc022a948d098296f3d7ac3f7a9a82bde6ec4a8f83b11994ad50318b5aca37781faacb1f20a65ba2ecc6d6d6eb9468e";
+          "8998346f7039df868f3387d219efa0c04fc022a948d098296f3d7ac3f7a9a82bde6ec4a8f83b11994ad50318b5aca37781faacb1f20a65ba2ecc6d6d6eb9468e"
+          ;
         version = "2.10.2";
       };
     }
@@ -1198,7 +1299,8 @@ in rec {
         artifactId = "maven-artifact";
         groupId = "org.apache.maven";
         sha512 =
-          "a4cafc89d66c8f074c5c3f9454e5077abc0de6242c29904d8ee5816348af21b1006da67f3118478bc9eb067725c39be9b88e4a019eb8368c936f971f0499c2ca";
+          "a4cafc89d66c8f074c5c3f9454e5077abc0de6242c29904d8ee5816348af21b1006da67f3118478bc9eb067725c39be9b88e4a019eb8368c936f971f0499c2ca"
+          ;
         version = "3.5.3";
       };
     }
@@ -1210,7 +1312,8 @@ in rec {
         artifactId = "data.codec";
         groupId = "org.clojure";
         sha512 =
-          "cb6910fc0ee47ce6959a442ba3ef456dd91fe8589a576526d20fd661c8d305962f64a8e8ebde69f0bd00082027dbd0ac52b642fcd4950b4f0e5b7a1205f95138";
+          "cb6910fc0ee47ce6959a442ba3ef456dd91fe8589a576526d20fd661c8d305962f64a8e8ebde69f0bd00082027dbd0ac52b642fcd4950b4f0e5b7a1205f95138"
+          ;
         version = "0.1.1";
       };
     }

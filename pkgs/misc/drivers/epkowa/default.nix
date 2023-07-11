@@ -286,9 +286,8 @@ in let
         '';
         hw = "GT-S650, Perfection V19, Perfection V39";
       };
-      meta = common_meta // {
-        description = "iscan GT-S650 for " + passthru.hw;
-      };
+      meta =
+        common_meta // { description = "iscan GT-S650 for " + passthru.hw; };
     };
     x750 = stdenv.mkDerivation rec {
       name = "iscan-gt-x750-bundle";
@@ -323,13 +322,12 @@ in let
         '';
         hw = "GT-X750, Perfection 4490";
       };
-      meta = common_meta // {
-        description = "iscan GT-X750 for " + passthru.hw;
-      };
+      meta =
+        common_meta // { description = "iscan GT-X750 for " + passthru.hw; };
     };
     network = stdenv.mkDerivation rec {
       pname = "iscan-nt-bundle";
-      # for the version, look for the driver of XP-750 in the search page
+        # for the version, look for the driver of XP-750 in the search page
       version = "2.30.4";
 
       buildInputs = [ stdenv.cc.cc.lib ];

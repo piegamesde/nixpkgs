@@ -28,11 +28,13 @@ in rec {
     ""
   ];
 
-  # a type for options that take a unit name
+    # a type for options that take a unit name
   unitNameType = types.strMatching
-    "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)";
+    "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)"
+    ;
 
-  makeUnit = name: unit:
+  makeUnit =
+    name: unit:
     if unit.enable then
       pkgs.runCommand "unit-${mkPathSafeName name}" {
         preferLocalBuild = true;
@@ -51,7 +53,8 @@ in rec {
         name=${shellEscape name}
         mkdir -p "$out/$(dirname "$name")"
         ln -s /dev/null "$out/$name"
-      '';
+      ''
+    ;
 
   boolValues = [
     true
@@ -62,7 +65,8 @@ in rec {
 
   digits = map toString (range 0 9);
 
-  isByteFormat = s:
+  isByteFormat =
+    s:
     let
       l = reverseList (stringToCharacters s);
       suffix = head l;
@@ -74,62 +78,82 @@ in rec {
       "G"
       "T"
     ] ++ digits) && all (num: elem num digits) nums
-  ;
+    ;
 
-  assertByteFormat = name: group: attr:
+  assertByteFormat =
+    name: group: attr:
     optional (attr ? ${name} && !isByteFormat attr.${name})
-    "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT].";
+    "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT]."
+    ;
 
   hexChars = stringToCharacters "0123456789abcdefABCDEF";
 
-  isMacAddress = s:
+  isMacAddress =
+    s:
     stringLength s == 17 && flip all (splitString ":" s)
-    (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes));
+    (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes))
+    ;
 
-  assertMacAddress = name: group: attr:
+  assertMacAddress =
+    name: group: attr:
     optional (attr ? ${name} && !isMacAddress attr.${name})
-    "Systemd ${group} field `${name}' must be a valid mac address.";
+    "Systemd ${group} field `${name}' must be a valid mac address."
+    ;
 
   isPort = i: i >= 0 && i <= 65535;
 
-  assertPort = name: group: attr:
+  assertPort =
+    name: group: attr:
     optional (attr ? ${name} && !isPort attr.${name})
-    "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number.";
+    "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number."
+    ;
 
-  assertValueOneOf = name: values: group: attr:
+  assertValueOneOf =
+    name: values: group: attr:
     optional (attr ? ${name} && !elem attr.${name} values)
     "Systemd ${group} field `${name}' cannot have value `${
       toString attr.${name}
-    }'.";
+    }'."
+    ;
 
-  assertHasField = name: group: attr:
-    optional (!(attr ? ${name})) "Systemd ${group} field `${name}' must exist.";
+  assertHasField =
+    name: group: attr:
+    optional (!(attr ? ${name})) "Systemd ${group} field `${name}' must exist."
+    ;
 
-  assertRange = name: min: max: group: attr:
+  assertRange =
+    name: min: max: group: attr:
     optional (attr ? ${name} && !(min <= attr.${name} && max >= attr.${name}))
     "Systemd ${group} field `${name}' is outside the range [${toString min},${
       toString max
-    }]";
+    }]"
+    ;
 
-  assertMinimum = name: min: group: attr:
+  assertMinimum =
+    name: min: group: attr:
     optional (attr ? ${name} && attr.${name} < min)
     "Systemd ${group} field `${name}' must be greater than or equal to ${
       toString min
-    }";
+    }"
+    ;
 
-  assertOnlyFields = fields: group: attr:
+  assertOnlyFields =
+    fields: group: attr:
     let
       badFields = filter (name: !elem name fields) (attrNames attr);
     in
     optional (badFields != [ ])
     "Systemd ${group} has extra fields [${concatStringsSep " " badFields}]."
-  ;
+    ;
 
-  assertInt = name: group: attr:
+  assertInt =
+    name: group: attr:
     optional (attr ? ${name} && !isInt attr.${name})
-    "Systemd ${group} field `${name}' is not an integer";
+    "Systemd ${group} field `${name}' is not an integer"
+    ;
 
-  checkUnitConfig = group: checks: attrs:
+  checkUnitConfig =
+    group: checks: attrs:
     let
       # We're applied at the top-level type (attrsOf unitOption), so the actual
       # unit options might contain attributes from mkOverride and mkIf that we need to
@@ -145,26 +169,32 @@ in rec {
     in if errors == [ ] then
       true
     else
-      builtins.trace (concatStringsSep "\n" errors) false;
+      builtins.trace (concatStringsSep "\n" errors) false
+    ;
 
-  toOption = x:
+  toOption =
+    x:
     if x == true then
       "true"
     else if x == false then
       "false"
     else
-      toString x;
+      toString x
+    ;
 
-  attrsToSection = as:
+  attrsToSection =
+    as:
     concatStrings (concatLists (mapAttrsToList (name: value:
       map (x: ''
         ${name}=${toOption x}
       '') (if isList value then
         value
       else
-        [ value ])) as));
+        [ value ])) as))
+    ;
 
-  generateUnits = {
+  generateUnits =
+    {
       allowCollisions ? true,
       type,
       units,
@@ -315,9 +345,10 @@ in rec {
         ln -s ../remote-fs.target $out/multi-user.target.wants/
       ''}
     ''
-  ; # */
+    ; # */
 
-  makeJobScript = name: text:
+  makeJobScript =
+    name: text:
     let
       scriptName = replaceStrings [
         "\\"
@@ -336,9 +367,10 @@ in rec {
       });
     in
     "${out}/bin/${scriptName}"
-  ;
+    ;
 
-  unitConfig = {
+  unitConfig =
+    {
       config,
       options,
       ...
@@ -380,9 +412,11 @@ in rec {
             StartLimitBurst = toString config.startLimitBurst;
           };
       };
-    };
+    }
+    ;
 
-  serviceConfig = {
+  serviceConfig =
+    {
       config,
       ...
     }: {
@@ -390,11 +424,12 @@ in rec {
         "${makeBinPath config.path}:${
           makeSearchPathOutput "bin" "sbin" config.path
         }";
-    };
+    }
+    ;
 
   stage2ServiceConfig = {
     imports = [ serviceConfig ];
-    # Default path for systemd services. Should be quite minimal.
+      # Default path for systemd services. Should be quite minimal.
     config.path = mkAfter [
       pkgs.coreutils
       pkgs.findutils
@@ -406,7 +441,8 @@ in rec {
 
   stage1ServiceConfig = serviceConfig;
 
-  mountConfig = {
+  mountConfig =
+    {
       config,
       ...
     }: {
@@ -417,112 +453,134 @@ in rec {
         } // optionalAttrs (config.type != "") { Type = config.type; }
           // optionalAttrs (config.options != "") { Options = config.options; };
       };
-    };
+    }
+    ;
 
-  automountConfig = {
+  automountConfig =
+    {
       config,
       ...
     }: {
       config = { automountConfig = { Where = config.where; }; };
-    };
+    }
+    ;
 
-  commonUnitText = def: ''
-    [Unit]
-    ${attrsToSection def.unitConfig}
-  '';
-
-  targetToUnit = name: def: {
-    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-    text = ''
+  commonUnitText =
+    def: ''
       [Unit]
       ${attrsToSection def.unitConfig}
-    '';
-  };
+    ''
+    ;
 
-  serviceToUnit = name: def: {
-    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-    text = commonUnitText def + ''
-      [Service]
-      ${let
-        env = cfg.globalEnvironment // def.environment;
-      in
-      concatMapStrings (n:
-        let
-          s = optionalString (env.${n} != null) ''
-            Environment=${builtins.toJSON "${n}=${env.${n}}"}
-          '';
-          # systemd max line length is now 1MiB
-          # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
-        in if stringLength s >= 1048576 then
-          throw
-          "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
+  targetToUnit =
+    name: def: {
+      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      text = ''
+        [Unit]
+        ${attrsToSection def.unitConfig}
+      '';
+    }
+    ;
+
+  serviceToUnit =
+    name: def: {
+      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      text = commonUnitText def + ''
+        [Service]
+        ${let
+          env = cfg.globalEnvironment // def.environment;
+        in
+        concatMapStrings (n:
+          let
+            s = optionalString (env.${n} != null) ''
+              Environment=${builtins.toJSON "${n}=${env.${n}}"}
+            '';
+              # systemd max line length is now 1MiB
+              # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
+          in if stringLength s >= 1048576 then
+            throw
+            "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
+          else
+            s) (attrNames env)
+        }
+        ${if def ? reloadIfChanged && def.reloadIfChanged then
+          ''
+            X-ReloadIfChanged=true
+          ''
+        else if (def ? restartIfChanged && !def.restartIfChanged) then
+          ''
+            X-RestartIfChanged=false
+          ''
         else
-          s) (attrNames env)
-      }
-      ${if def ? reloadIfChanged && def.reloadIfChanged then
-        ''
-          X-ReloadIfChanged=true
-        ''
-      else if (def ? restartIfChanged && !def.restartIfChanged) then
-        ''
-          X-RestartIfChanged=false
-        ''
-      else
-        ""}
-      ${optionalString (def ? stopIfChanged && !def.stopIfChanged)
-      "X-StopIfChanged=false"}
-      ${attrsToSection def.serviceConfig}
-    '';
-  };
+          ""}
+        ${optionalString (def ? stopIfChanged && !def.stopIfChanged)
+        "X-StopIfChanged=false"}
+        ${attrsToSection def.serviceConfig}
+      '';
+    }
+    ;
 
-  socketToUnit = name: def: {
-    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-    text = commonUnitText def + ''
-      [Socket]
-      ${attrsToSection def.socketConfig}
-      ${concatStringsSep "\n" (map (s: "ListenStream=${s}") def.listenStreams)}
-      ${concatStringsSep "\n"
-      (map (s: "ListenDatagram=${s}") def.listenDatagrams)}
-    '';
-  };
+  socketToUnit =
+    name: def: {
+      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      text = commonUnitText def + ''
+        [Socket]
+        ${attrsToSection def.socketConfig}
+        ${concatStringsSep "\n"
+        (map (s: "ListenStream=${s}") def.listenStreams)}
+        ${concatStringsSep "\n"
+        (map (s: "ListenDatagram=${s}") def.listenDatagrams)}
+      '';
+    }
+    ;
 
-  timerToUnit = name: def: {
-    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-    text = commonUnitText def + ''
-      [Timer]
-      ${attrsToSection def.timerConfig}
-    '';
-  };
+  timerToUnit =
+    name: def: {
+      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      text = commonUnitText def + ''
+        [Timer]
+        ${attrsToSection def.timerConfig}
+      '';
+    }
+    ;
 
-  pathToUnit = name: def: {
-    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-    text = commonUnitText def + ''
-      [Path]
-      ${attrsToSection def.pathConfig}
-    '';
-  };
+  pathToUnit =
+    name: def: {
+      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      text = commonUnitText def + ''
+        [Path]
+        ${attrsToSection def.pathConfig}
+      '';
+    }
+    ;
 
-  mountToUnit = name: def: {
-    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-    text = commonUnitText def + ''
-      [Mount]
-      ${attrsToSection def.mountConfig}
-    '';
-  };
+  mountToUnit =
+    name: def: {
+      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      text = commonUnitText def + ''
+        [Mount]
+        ${attrsToSection def.mountConfig}
+      '';
+    }
+    ;
 
-  automountToUnit = name: def: {
-    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-    text = commonUnitText def + ''
-      [Automount]
-      ${attrsToSection def.automountConfig}
-    '';
-  };
+  automountToUnit =
+    name: def: {
+      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      text = commonUnitText def + ''
+        [Automount]
+        ${attrsToSection def.automountConfig}
+      '';
+    }
+    ;
 
-  sliceToUnit = name: def: {
-    inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
-    text = commonUnitText def + ''
-      [Slice]
-      ${attrsToSection def.sliceConfig}
-    '';
-  };
+  sliceToUnit =
+    name: def: {
+      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      text = commonUnitText def + ''
+        [Slice]
+        ${attrsToSection def.sliceConfig}
+      '';
+    }
+    ;
 }

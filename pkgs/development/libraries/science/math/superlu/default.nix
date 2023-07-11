@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     homepage = "http://crd-legacy.lbl.gov/~xiaoye/SuperLU/";
     license = "http://crd-legacy.lbl.gov/~xiaoye/SuperLU/License.txt";
     description =
-      "A library for the solution of large, sparse, nonsymmetric systems of linear equations";
+      "A library for the solution of large, sparse, nonsymmetric systems of linear equations"
+      ;
     platforms = lib.platforms.unix;
   };
 }

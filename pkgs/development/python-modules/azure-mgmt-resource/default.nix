@@ -27,7 +27,7 @@ buildPythonPackage rec {
     msrest
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonNamespaces = [ "azure.mgmt" ];

@@ -29,20 +29,23 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   makefile = "unix/Makefile";
-  buildFlags = if stdenv.isCygwin then
-    [ "cygwin" ]
-  else
-    [ "generic" ];
+  buildFlags =
+    if stdenv.isCygwin then
+      [ "cygwin" ]
+    else
+      [ "generic" ]
+    ;
   installFlags = [
     "prefix=${placeholder "out"}"
     "INSTALL=cp"
   ];
 
-  patches = lib.optionals
-    (enableNLS && !stdenv.isCygwin) [ ./natspec-gentoo.patch.bz2 ];
+  patches =
+    lib.optionals (enableNLS && !stdenv.isCygwin) [ ./natspec-gentoo.patch.bz2 ]
+    ;
 
-  buildInputs = lib.optional enableNLS libnatspec
-    ++ lib.optional stdenv.isCygwin libiconv;
+  buildInputs =
+    lib.optional enableNLS libnatspec ++ lib.optional stdenv.isCygwin libiconv;
 
   meta = with lib; {
     description = "Compressor/archiver for creating and modifying zipfiles";

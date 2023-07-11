@@ -13,7 +13,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/fare-utils/2017-01-24/fare-utils-20170124-git.tgz";
+      "http://beta.quicklisp.org/archive/fare-utils/2017-01-24/fare-utils-20170124-git.tgz"
+      ;
     sha256 = "0jhb018ccn3spkgjywgd0524m5qacn8x15fdiban4zz3amj9dapq";
   };
 

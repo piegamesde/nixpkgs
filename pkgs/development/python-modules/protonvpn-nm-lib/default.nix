@@ -63,15 +63,16 @@ buildPythonPackage rec {
       --prefix PYTHONPATH : "$PYTHONPATH"
   '';
 
-  # Checks cannot be run in the sandbox
-  # "Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory"
+    # Checks cannot be run in the sandbox
+    # "Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory"
   doCheck = false;
 
   pythonImportsCheck = [ "protonvpn_nm_lib" ];
 
   meta = with lib; {
     description =
-      "ProtonVPN NetworkManager Library intended for every ProtonVPN service user";
+      "ProtonVPN NetworkManager Library intended for every ProtonVPN service user"
+      ;
     homepage = "https://github.com/ProtonVPN/protonvpn-nm-lib";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ wolfangaukang ];

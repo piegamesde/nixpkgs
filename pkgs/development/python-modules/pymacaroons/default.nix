@@ -20,7 +20,7 @@ buildPythonPackage rec {
     pynacl
   ];
 
-  # Tests require an old version of hypothesis
+    # Tests require an old version of hypothesis
   doCheck = false;
 
   meta = with lib; {

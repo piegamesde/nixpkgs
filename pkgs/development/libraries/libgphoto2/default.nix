@@ -46,25 +46,29 @@ stdenv.mkDerivation rec {
     gd
   ];
 
-  # These are mentioned in the Requires line of libgphoto's pkg-config file.
+    # These are mentioned in the Requires line of libgphoto's pkg-config file.
   propagatedBuildInputs = [ libexif ];
 
   hardeningDisable = [ "format" ];
 
-  postInstall = let
-    executablePrefix = if stdenv.buildPlatform == stdenv.hostPlatform then
-      "$out"
-    else
-      buildPackages.libgphoto2;
-  in ''
-    mkdir -p $out/lib/udev/{rules.d,hwdb.d}
-    ${executablePrefix}/lib/libgphoto2/print-camera-list \
-        udev-rules version 201 group camera \
-        >$out/lib/udev/rules.d/40-libgphoto2.rules
-    ${executablePrefix}/lib/libgphoto2/print-camera-list \
-        hwdb version 201 group camera \
-        >$out/lib/udev/hwdb.d/20-gphoto.hwdb
-  '' ;
+  postInstall =
+    let
+      executablePrefix =
+        if stdenv.buildPlatform == stdenv.hostPlatform then
+          "$out"
+        else
+          buildPackages.libgphoto2
+        ;
+    in ''
+      mkdir -p $out/lib/udev/{rules.d,hwdb.d}
+      ${executablePrefix}/lib/libgphoto2/print-camera-list \
+          udev-rules version 201 group camera \
+          >$out/lib/udev/rules.d/40-libgphoto2.rules
+      ${executablePrefix}/lib/libgphoto2/print-camera-list \
+          hwdb version 201 group camera \
+          >$out/lib/udev/hwdb.d/20-gphoto.hwdb
+    ''
+    ;
 
   meta = {
     homepage = "http://www.gphoto.org/proj/libgphoto2/";
@@ -74,7 +78,7 @@ stdenv.mkDerivation rec {
       MTP, and other vendor specific protocols for controlling and transferring data
       from digital cameras.
     '';
-    # XXX: the homepage claims LGPL, but several src files are lgpl21Plus
+      # XXX: the homepage claims LGPL, but several src files are lgpl21Plus
     license = lib.licenses.lgpl21Plus;
     platforms = with lib.platforms; unix;
     maintainers = with lib.maintainers; [ jcumming ];

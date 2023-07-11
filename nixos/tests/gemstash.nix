@@ -14,15 +14,17 @@ in {
     name = "gemstash-works";
     meta = common_meta;
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
       }: {
         services.gemstash = { enable = true; };
-      };
+      }
+      ;
 
-    # gemstash responds to http requests
+      # gemstash responds to http requests
     testScript = ''
       machine.wait_for_unit("gemstash.service")
       machine.wait_for_file("/var/lib/gemstash")
@@ -35,7 +37,8 @@ in {
     name = "gemstash-custom-port";
     meta = common_meta;
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -45,9 +48,10 @@ in {
           openFirewall = true;
           settings = { bind = "tcp://0.0.0.0:12345"; };
         };
-      };
+      }
+      ;
 
-    # gemstash responds to http requests
+      # gemstash responds to http requests
     testScript = ''
       machine.wait_for_unit("gemstash.service")
       machine.wait_for_file("/var/lib/gemstash")

@@ -66,63 +66,67 @@ let
 
   isx86 = stdenv.hostPlatform.isx86;
 
-  # Dell isn't supported on Aarch64
+    # Dell isn't supported on Aarch64
   haveDell = isx86;
 
-  # only redfish for x86_64
+    # only redfish for x86_64
   haveRedfish = stdenv.isx86_64;
 
-  # only use msr if x86 (requires cpuid)
+    # only use msr if x86 (requires cpuid)
   haveMSR = isx86;
 
-  # # Currently broken on Aarch64
-  # haveFlashrom = isx86;
-  # Experimental
+    # # Currently broken on Aarch64
+    # haveFlashrom = isx86;
+    # Experimental
   haveFlashrom = isx86 && enableFlashrom;
 
-  runPythonCommand = name: buildCommandPython:
+  runPythonCommand =
+    name: buildCommandPython:
 
     runCommand name {
       nativeBuildInputs = [ python3 ];
       inherit buildCommandPython;
     } ''
       exec python3 -c "$buildCommandPython"
-    '';
+    ''
+    ;
 
-  test-firmware = let
-    version = "unstable-2022-04-02";
-    src = fetchFromGitHub {
-      name = "fwupd-test-firmware-${version}";
-      owner = "fwupd";
-      repo = "fwupd-test-firmware";
-      rev = "39954e434d63e20e85870dd1074818f48a0c08b7";
-      hash = "sha256-d4qG3fKyxkfN91AplRYqARFz+aRr+R37BpE450bPxi0=";
-      passthru = {
-        inherit src version; # For update script
-        updateScript =
-          unstableGitUpdater { url = "${test-firmware.meta.homepage}.git"; };
+  test-firmware =
+    let
+      version = "unstable-2022-04-02";
+      src = fetchFromGitHub {
+        name = "fwupd-test-firmware-${version}";
+        owner = "fwupd";
+        repo = "fwupd-test-firmware";
+        rev = "39954e434d63e20e85870dd1074818f48a0c08b7";
+        hash = "sha256-d4qG3fKyxkfN91AplRYqARFz+aRr+R37BpE450bPxi0=";
+        passthru = {
+          inherit src version; # For update script
+          updateScript =
+            unstableGitUpdater { url = "${test-firmware.meta.homepage}.git"; };
+        };
       };
-    };
-  in
-  src // {
-    meta = src.meta // {
-      # For update script
-      position = let
-        pos = builtins.unsafeGetAttrPos "updateScript" test-firmware;
-      in
-      pos.file + ":" + toString pos.line
-      ;
-    };
-  }
-  ;
+    in
+    src // {
+      meta = src.meta // {
+        # For update script
+        position =
+          let
+            pos = builtins.unsafeGetAttrPos "updateScript" test-firmware;
+          in
+          pos.file + ":" + toString pos.line
+          ;
+      };
+    }
+    ;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "fwupd";
   version = "1.8.14";
 
-  # libfwupd goes to lib
-  # daemon, plug-ins and libfwupdplugin go to out
-  # CLI programs go to out
+    # libfwupd goes to lib
+    # daemon, plug-ins and libfwupdplugin go to out
+    # CLI programs go to out
   outputs = [
     "out"
     "lib"
@@ -232,26 +236,27 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals (!haveFlashrom) [ "-Dplugin_flashrom=disabled" ]
     ++ lib.optionals (!haveMSR) [ "-Dplugin_msr=disabled" ];
 
-  # TODO: wrapGAppsHook wraps efi capsule even though it is not ELF
+    # TODO: wrapGAppsHook wraps efi capsule even though it is not ELF
   dontWrapGApps = true;
 
   doCheck = true;
 
-  # Environment variables
+    # Environment variables
 
-  # Fontconfig error: Cannot load default config file
-  FONTCONFIG_FILE = let
-    fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
-  in
-  fontsConf
-  ;
+    # Fontconfig error: Cannot load default config file
+  FONTCONFIG_FILE =
+    let
+      fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
+    in
+    fontsConf
+    ;
 
-  # error: “PolicyKit files are missing”
-  # https://github.com/NixOS/nixpkgs/pull/67625#issuecomment-525788428
+    # error: “PolicyKit files are missing”
+    # https://github.com/NixOS/nixpkgs/pull/67625#issuecomment-525788428
   PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR =
     "/run/current-system/sw/share/polkit-1/actions";
 
-  # Phase hooks
+    # Phase hooks
 
   postPatch = ''
     patchShebangs \
@@ -297,19 +302,21 @@ stdenv.mkDerivation (finalAttrs: {
     cp --recursive --dereference "${test-firmware}/installed-tests/tests" "$installedTests/libexec/installed-tests/fwupd"
   '';
 
-  preFixup = let
-    binPath = [
-      efibootmgr
-      bubblewrap
-      tpm2-tools
-    ];
-  in ''
-    gappsWrapperArgs+=(
-      --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
-      # See programs reached with fu_common_find_program_in_path in source
-      --prefix PATH : "${lib.makeBinPath binPath}"
-    )
-  '' ;
+  preFixup =
+    let
+      binPath = [
+        efibootmgr
+        bubblewrap
+        tpm2-tools
+      ];
+    in ''
+      gappsWrapperArgs+=(
+        --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
+        # See programs reached with fu_common_find_program_in_path in source
+        --prefix PATH : "${lib.makeBinPath binPath}"
+      )
+    ''
+    ;
 
   postFixup = ''
     # Since we had to disable wrapGAppsHook, we need to wrap the executables manually.
@@ -348,13 +355,13 @@ stdenv.mkDerivation (finalAttrs: {
       ++ lib.optionals haveMSR [ "fwupd/msr.conf" ]
       ++ lib.optionals isx86 [ "fwupd/thunderbolt.conf" ];
 
-    # DisabledPlugins key in fwupd/daemon.conf
+      # DisabledPlugins key in fwupd/daemon.conf
     defaultDisabledPlugins = [
       "test"
       "test_ble"
     ];
 
-    # For updating.
+      # For updating.
     inherit
       test-firmware
       ;
@@ -362,34 +369,38 @@ stdenv.mkDerivation (finalAttrs: {
       # For downstream consumers that need the fwupd-efi this was built with.
     inherit fwupd-efi;
 
-    tests = let
-      listToPy = list: "[${lib.concatMapStringsSep ", " (f: "'${f}'") list}]";
-    in {
-      installedTests = nixosTests.installed-tests.fwupd;
+    tests =
+      let
+        listToPy = list: "[${lib.concatMapStringsSep ", " (f: "'${f}'") list}]";
+      in {
+        installedTests = nixosTests.installed-tests.fwupd;
 
-      passthruMatches = runPythonCommand "fwupd-test-passthru-matches" ''
-        import itertools
-        import configparser
-        import os
-        import pathlib
+        passthruMatches = runPythonCommand "fwupd-test-passthru-matches" ''
+          import itertools
+          import configparser
+          import os
+          import pathlib
 
-        etc = '${finalAttrs.finalPackage}/etc'
-        package_etc = set(itertools.chain.from_iterable([[os.path.relpath(os.path.join(prefix, file), etc) for file in files] for (prefix, dirs, files) in os.walk(etc)]))
-        passthru_etc = set(${listToPy finalAttrs.passthru.filesInstalledToEtc})
-        assert len(package_etc - passthru_etc) == 0, f'fwupd package contains the following paths in /etc that are not listed in passthru.filesInstalledToEtc: {package_etc - passthru_etc}'
-        assert len(passthru_etc - package_etc) == 0, f'fwupd package lists the following paths in passthru.filesInstalledToEtc that are not contained in /etc: {passthru_etc - package_etc}'
+          etc = '${finalAttrs.finalPackage}/etc'
+          package_etc = set(itertools.chain.from_iterable([[os.path.relpath(os.path.join(prefix, file), etc) for file in files] for (prefix, dirs, files) in os.walk(etc)]))
+          passthru_etc = set(${
+            listToPy finalAttrs.passthru.filesInstalledToEtc
+          })
+          assert len(package_etc - passthru_etc) == 0, f'fwupd package contains the following paths in /etc that are not listed in passthru.filesInstalledToEtc: {package_etc - passthru_etc}'
+          assert len(passthru_etc - package_etc) == 0, f'fwupd package lists the following paths in passthru.filesInstalledToEtc that are not contained in /etc: {passthru_etc - package_etc}'
 
-        config = configparser.RawConfigParser()
-        config.read('${finalAttrs.finalPackage}/etc/fwupd/daemon.conf')
-        package_disabled_plugins = config.get('fwupd', 'DisabledPlugins').rstrip(';').split(';')
-        passthru_disabled_plugins = ${
-          listToPy finalAttrs.passthru.defaultDisabledPlugins
-        }
-        assert package_disabled_plugins == passthru_disabled_plugins, f'Default disabled plug-ins in the package {package_disabled_plugins} do not match those listed in passthru.defaultDisabledPlugins {passthru_disabled_plugins}'
+          config = configparser.RawConfigParser()
+          config.read('${finalAttrs.finalPackage}/etc/fwupd/daemon.conf')
+          package_disabled_plugins = config.get('fwupd', 'DisabledPlugins').rstrip(';').split(';')
+          passthru_disabled_plugins = ${
+            listToPy finalAttrs.passthru.defaultDisabledPlugins
+          }
+          assert package_disabled_plugins == passthru_disabled_plugins, f'Default disabled plug-ins in the package {package_disabled_plugins} do not match those listed in passthru.defaultDisabledPlugins {passthru_disabled_plugins}'
 
-        pathlib.Path(os.getenv('out')).touch()
-      '';
-    } ;
+          pathlib.Path(os.getenv('out')).touch()
+        '';
+      }
+      ;
   };
 
   meta = with lib; {

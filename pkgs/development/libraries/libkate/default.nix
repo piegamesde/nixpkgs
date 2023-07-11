@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libkate/${pname}-${version}.tar.gz";
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libkate/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0s3vr2nxfxlf1k75iqpp4l78yf4gil3f0v778kvlngbchvaq23n4";
   };
 

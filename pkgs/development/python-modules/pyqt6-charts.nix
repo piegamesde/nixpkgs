@@ -22,7 +22,7 @@ buildPythonPackage rec {
     sha256 = "sha256-b/APZbJRf5m/EG3dKMdvPKNE+R7PW6aBkeIKLZACSWI=";
   };
 
-  # fix include path and increase verbosity
+    # fix include path and increase verbosity
   postPatch = ''
     sed -i \
       '/\[tool.sip.project\]/a\
@@ -32,12 +32,12 @@ buildPythonPackage rec {
   '';
 
   enableParallelBuilding = true;
-  # HACK: paralellize compilation of make calls within pyqt's setup.py
-  # pkgs/stdenv/generic/setup.sh doesn't set this for us because
-  # make gets called by python code and not its build phase
-  # format=pyproject means the pip-build-hook hook gets used to build this project
-  # pkgs/development/interpreters/python/hooks/pip-build-hook.sh
-  # does not use the enableParallelBuilding flag
+    # HACK: paralellize compilation of make calls within pyqt's setup.py
+    # pkgs/stdenv/generic/setup.sh doesn't set this for us because
+    # make gets called by python code and not its build phase
+    # format=pyproject means the pip-build-hook hook gets used to build this project
+    # pkgs/development/interpreters/python/hooks/pip-build-hook.sh
+    # does not use the enableParallelBuilding flag
   preBuild = ''
     export MAKEFLAGS+="''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
   '';
@@ -57,7 +57,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "PyQt6.QtCharts" ];

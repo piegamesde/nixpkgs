@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with lib.maintainers; [ leona ];
 
     nodes = {
-      vikunjaSqlite = {
+      vikunjaSqlite =
+        {
           ...
         }: {
           services.vikunja = {
@@ -18,8 +19,10 @@ import ./make-test-python.nix ({
             frontendHostname = "localhost";
           };
           services.nginx.enable = true;
-        };
-      vikunjaPostgresql = {
+        }
+        ;
+      vikunjaPostgresql =
+        {
           pkgs,
           ...
         }: {
@@ -45,7 +48,8 @@ import ./make-test-python.nix ({
             } ];
           };
           services.nginx.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

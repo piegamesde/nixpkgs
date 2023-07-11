@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  # patch does not apply to PyPI tarball due to different line endings
+    # patch does not apply to PyPI tarball due to different line endings
   src = fetchFromGitHub {
     owner = "xflr6";
     repo = "graphviz";
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" setup.cfg
   '';
 
-  # Fontconfig error: Cannot load default config file
+    # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 
   nativeCheckInputs = [
@@ -56,7 +56,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  # Too many failures due to attempting to connect to com.apple.fonts daemon
+    # Too many failures due to attempting to connect to com.apple.fonts daemon
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

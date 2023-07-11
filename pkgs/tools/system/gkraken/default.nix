@@ -64,7 +64,7 @@ python3Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  # Extract udev rules from python code
+    # Extract udev rules from python code
   postInstall = ''
     mkdir -p $out/lib/udev/rules.d
     sed -e '/\s*\(from\|@singleton\|@inject\)/d' $src/gkraken/interactor/udev_interactor.py > udev_interactor.py
@@ -79,7 +79,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "GUI that allows to control the cooling (fan and/or pump profiles) of NZXT Kraken AIO liquid coolers from Linux";
+      "GUI that allows to control the cooling (fan and/or pump profiles) of NZXT Kraken AIO liquid coolers from Linux"
+      ;
     homepage = "https://gitlab.com/leinardi/gkraken";
     changelog = "https://gitlab.com/leinardi/gkraken/-/tags/${version}";
     license = licenses.gpl3Plus;

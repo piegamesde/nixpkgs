@@ -50,7 +50,8 @@ in {
         type = types.str;
         default = "/var/lib/heartbeat";
         description = lib.mdDoc
-          "The state directory. heartbeat's own logs and other data are stored here.";
+          "The state directory. heartbeat's own logs and other data are stored here."
+          ;
       };
 
       extraConfig = mkOption {
@@ -82,7 +83,8 @@ in {
         User = "nobody";
         AmbientCapabilities = "cap_net_raw";
         ExecStart = ''
-          ${cfg.package}/bin/heartbeat -c "${heartbeatYml}" -path.data "${cfg.stateDir}/data" -path.logs "${cfg.stateDir}/logs"'';
+          ${cfg.package}/bin/heartbeat -c "${heartbeatYml}" -path.data "${cfg.stateDir}/data" -path.logs "${cfg.stateDir}/logs"''
+          ;
       };
     };
   };

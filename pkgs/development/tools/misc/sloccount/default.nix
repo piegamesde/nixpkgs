@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ perl ];
 
-  # Make sure the Flex-generated files are newer than the `.l' files, so that
-  # Flex isn't needed to recompile them.
+    # Make sure the Flex-generated files are newer than the `.l' files, so that
+    # Flex isn't needed to recompile them.
   patchPhase = ''
     for file in *
     do

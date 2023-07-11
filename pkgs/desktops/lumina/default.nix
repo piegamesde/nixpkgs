@@ -4,7 +4,8 @@
 }:
 
 let
-  packages = self:
+  packages =
+    self:
     with self; {
 
       lumina = callPackage ./lumina { };
@@ -25,7 +26,8 @@ let
         lumina-pdf
       ];
 
-    };
+    }
+    ;
 
 in
 pkgs.lib.makeScope libsForQt5.newScope packages

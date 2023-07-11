@@ -74,7 +74,7 @@ buildPythonPackage rec {
     vision = [ pillow ];
   };
 
-  # Many tests require internet access.
+    # Many tests require internet access.
   doCheck = false;
 
   pythonImportsCheck = [ "transformers" ];

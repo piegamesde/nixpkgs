@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
     name = "bazarr";
     meta.maintainers = with maintainers; [ d-xo ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -19,7 +20,8 @@ import ./make-test-python.nix ({
           enable = true;
           listenPort = port;
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("bazarr.service")

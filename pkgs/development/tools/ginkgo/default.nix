@@ -18,8 +18,8 @@ buildGoModule rec {
   };
   vendorHash = "sha256-1+uB/UuwrZw17eSRLwcER67z/Qxg2H04vbBdk2FKYf0=";
 
-  # integration tests expect more file changes
-  # types tests are missing CodeLocation
+    # integration tests expect more file changes
+    # types tests are missing CodeLocation
   excludedPackages = [
     "integration"
     "types"

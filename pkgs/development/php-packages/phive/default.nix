@@ -12,7 +12,8 @@ mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/phar-io/phive/releases/download/${version}/phive-${version}.phar";
+      "https://github.com/phar-io/phive/releases/download/${version}/phive-${version}.phar"
+      ;
     sha256 = "K7B2dT7F1nL14vlql6D+fo6ewkpDnu0A/SnvlCx5Bfk=";
   };
 

@@ -43,7 +43,7 @@ python3.pkgs.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  # Only script available
+    # Only script available
   doCheck = false;
 
   meta = with lib; {

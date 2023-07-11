@@ -51,7 +51,7 @@ buildPythonPackage rec {
     pysqlcipher3
   ];
 
-  # tests require docker-compose and vagrant
+    # tests require docker-compose and vagrant
   doCheck = false;
 
   meta = with lib; {

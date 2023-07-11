@@ -119,11 +119,11 @@ in {
     };
     users.groups.crossfire = { };
 
-    # Merge the cfg.configFiles setting with the default files shipped with
-    # Crossfire.
-    # For most files this consists of reading ${crossfire}/etc/crossfire/${name}
-    # and appending the user setting to it; the motd, news, and rules are handled
-    # specially, with user-provided values completely replacing the original.
+      # Merge the cfg.configFiles setting with the default files shipped with
+      # Crossfire.
+      # For most files this consists of reading ${crossfire}/etc/crossfire/${name}
+      # and appending the user setting to it; the motd, news, and rules are handled
+      # specially, with user-provided values completely replacing the original.
     environment.etc = lib.attrsets.mapAttrs' (name: value:
       lib.attrsets.nameValuePair "crossfire/${name}" {
         mode = "0644";
@@ -155,7 +155,8 @@ in {
       serviceConfig = mkMerge [
         {
           ExecStart =
-            "${cfg.package}/bin/crossfire-server -conf /etc/crossfire -local '${cfg.stateDir}' -data '${cfg.dataDir}'";
+            "${cfg.package}/bin/crossfire-server -conf /etc/crossfire -local '${cfg.stateDir}' -data '${cfg.dataDir}'"
+            ;
           Restart = "always";
           User = "crossfire";
           Group = "crossfire";
@@ -166,14 +167,14 @@ in {
         })
       ];
 
-      # The crossfire server needs access to a bunch of files at runtime that
-      # are not created automatically at server startup; they're meant to be
-      # installed in $PREFIX/var/crossfire by `make install`. And those files
-      # need to be writeable, so we can't just point at the ones in the nix
-      # store. Instead we take the approach of copying them out of the store
-      # on first run. If `bookarch` already exists, we assume the rest of the
-      # files do as well, and copy nothing -- otherwise we risk ovewriting
-      # server state information every time the server is upgraded.
+        # The crossfire server needs access to a bunch of files at runtime that
+        # are not created automatically at server startup; they're meant to be
+        # installed in $PREFIX/var/crossfire by `make install`. And those files
+        # need to be writeable, so we can't just point at the ones in the nix
+        # store. Instead we take the approach of copying them out of the store
+        # on first run. If `bookarch` already exists, we assume the rest of the
+        # files do as well, and copy nothing -- otherwise we risk ovewriting
+        # server state information every time the server is upgraded.
       preStart = ''
         if [ ! -e "${cfg.stateDir}"/bookarch ]; then
           ${pkgs.rsync}/bin/rsync -a --chmod=u=rwX,go=rX \

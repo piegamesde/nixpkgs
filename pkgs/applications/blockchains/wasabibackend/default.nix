@@ -17,7 +17,8 @@ buildDotnetModule rec {
     repo = "WalletWasabi";
     rev = "refs/tags/v${version}";
     hash =
-      "sha512-JuCl3SyejzwUd2n8Fy7EdxUuO4bIcGb8yMWZQOhZzsY4fvg9prFOnVZEquxahD0a41MLKHRNA1R2N3NMapcc0A==";
+      "sha512-JuCl3SyejzwUd2n8Fy7EdxUuO4bIcGb8yMWZQOhZzsY4fvg9prFOnVZEquxahD0a41MLKHRNA1R2N3NMapcc0A=="
+      ;
   };
 
   projectFile = "WalletWasabi.Backend/WalletWasabi.Backend.csproj";

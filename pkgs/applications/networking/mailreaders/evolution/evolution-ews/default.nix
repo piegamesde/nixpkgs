@@ -76,26 +76,28 @@ stdenv.mkDerivation rec {
       };
     };
 
-    updateScript = let
-      updateSource = gnome.updateScript {
-        packageName = "evolution-ews";
-        versionPolicy = "odd-unstable";
-      };
-      updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile
-        "evolution-ews.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
-    in
-    _experimental-update-script-combinators.sequence [
-      updateSource
-      updatePatch
-    ]
-    ;
+    updateScript =
+      let
+        updateSource = gnome.updateScript {
+          packageName = "evolution-ews";
+          versionPolicy = "odd-unstable";
+        };
+        updatePatch =
+          _experimental-update-script-combinators.copyAttrOutputToFile
+          "evolution-ews.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
+      in
+      _experimental-update-script-combinators.sequence [
+        updateSource
+        updatePatch
+      ]
+      ;
   };
 
   meta = with lib; {
     description = "Evolution connector for Microsoft Exchange Server protocols";
     homepage = "https://gitlab.gnome.org/GNOME/evolution-ews";
-    license =
-      licenses.lgpl21Plus; # https://gitlab.gnome.org/GNOME/evolution-ews/issues/111
+    license = licenses.lgpl21Plus
+      ; # https://gitlab.gnome.org/GNOME/evolution-ews/issues/111
     maintainers = [ maintainers.dasj19 ];
     platforms = platforms.linux;
   };

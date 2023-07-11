@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
     eliom
   ];
 
-  # Remove widgets not compatible with jsoo 4.1.0
-  # https://github.com/ocsigen/ocsigen-toolkit/issues/221
+    # Remove widgets not compatible with jsoo 4.1.0
+    # https://github.com/ocsigen/ocsigen-toolkit/issues/221
   preConfigure = ''
     rm src/widgets/ot_{carousel,drawer,swipe,tongue}.eliom{,i}
   '';

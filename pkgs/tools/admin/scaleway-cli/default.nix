@@ -27,7 +27,7 @@ buildGoModule rec {
     "-X main.BuildDate=unknown"
   ];
 
-  # some tests require network access to scaleway's API, failing when sandboxed
+    # some tests require network access to scaleway's API, failing when sandboxed
   doCheck = false;
 
   meta = with lib; {

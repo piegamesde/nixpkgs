@@ -54,8 +54,8 @@ symlinkJoin {
   paths = (optional withBaseWrapper baseWrapper) ++ [ sway ];
 
   strictDeps = false;
-  nativeBuildInputs = [ makeWrapper ]
-    ++ (optional withGtkWrapper wrapGAppsHook);
+  nativeBuildInputs =
+    [ makeWrapper ] ++ (optional withGtkWrapper wrapGAppsHook);
 
   buildInputs = optionals withGtkWrapper [
     gdk-pixbuf
@@ -63,7 +63,7 @@ symlinkJoin {
     gtk3
   ];
 
-  # We want to run wrapProgram manually
+    # We want to run wrapProgram manually
   dontWrapGApps = true;
 
   postBuild = ''

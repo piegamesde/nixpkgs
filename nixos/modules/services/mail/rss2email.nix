@@ -86,7 +86,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     users.groups = { rss2email.gid = config.ids.gids.rss2email; };
@@ -103,30 +103,33 @@ in {
 
     services.rss2email.config.to = cfg.to;
 
-    systemd.tmpfiles.rules =
-      [ "d /var/rss2email 0700 rss2email rss2email - -" ];
+    systemd.tmpfiles.rules = [ "d /var/rss2email 0700 rss2email rss2email - -" ]
+      ;
 
-    systemd.services.rss2email = let
-      conf = pkgs.writeText "rss2email.cfg" (lib.generators.toINI { } ({
-        DEFAULT = cfg.config;
-      } // lib.mapAttrs' (name: feed:
-        nameValuePair "feed.${name}" ({
-          inherit (feed) url;
-        } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }))
-        cfg.feeds));
-    in {
-      preStart = ''
-        if [ ! -f /var/rss2email/db.json ]; then
-          echo '{"version":2,"feeds":[]}' > /var/rss2email/db.json
-        fi
-      '';
-      path = [ pkgs.system-sendmail ];
-      serviceConfig = {
-        ExecStart =
-          "${pkgs.rss2email}/bin/r2e -c ${conf} -d /var/rss2email/db.json run";
-        User = "rss2email";
-      };
-    } ;
+    systemd.services.rss2email =
+      let
+        conf = pkgs.writeText "rss2email.cfg" (lib.generators.toINI { } ({
+          DEFAULT = cfg.config;
+        } // lib.mapAttrs' (name: feed:
+          nameValuePair "feed.${name}" ({
+            inherit (feed) url;
+          } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }))
+          cfg.feeds));
+      in {
+        preStart = ''
+          if [ ! -f /var/rss2email/db.json ]; then
+            echo '{"version":2,"feeds":[]}' > /var/rss2email/db.json
+          fi
+        '';
+        path = [ pkgs.system-sendmail ];
+        serviceConfig = {
+          ExecStart =
+            "${pkgs.rss2email}/bin/r2e -c ${conf} -d /var/rss2email/db.json run"
+            ;
+          User = "rss2email";
+        };
+      }
+      ;
 
     systemd.timers.rss2email = {
       partOf = [ "rss2email.service" ];

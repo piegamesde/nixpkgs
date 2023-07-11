@@ -26,11 +26,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.openldap.org/software/download/OpenLDAP/openldap-release/${pname}-${version}.tgz";
+      "https://www.openldap.org/software/download/OpenLDAP/openldap-release/${pname}-${version}.tgz"
+      ;
     hash = "sha256-1RcE5QF4QwwGzz2KoXTaZrrfVZdHpH2SC7VLLUqkCZE=";
   };
 
-  # TODO: separate "out" and "bin"
+    # TODO: separate "out" and "bin"
   outputs = [
     "out"
     "dev"
@@ -102,7 +103,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # The directory is empty and serve no purpose.
+    # The directory is empty and serve no purpose.
   preFixup = ''
     rm -r $out/var
   '';
@@ -126,7 +127,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.openldap.org/";
     description =
-      "An open source implementation of the Lightweight Directory Access Protocol";
+      "An open source implementation of the Lightweight Directory Access Protocol"
+      ;
     license = licenses.openldap;
     maintainers = with maintainers; [
       ajs124

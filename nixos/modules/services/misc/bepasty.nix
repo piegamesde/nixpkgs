@@ -129,7 +129,7 @@ in {
 
     environment.systemPackages = [ bepasty ];
 
-    # creates gunicorn systemd service for each configured server
+      # creates gunicorn systemd service for each configured server
     systemd.services = mapAttrs' (name: server:
       nameValuePair ("bepasty-server-${name}-gunicorn") ({
         description = "Bepasty Server ${name}";
@@ -137,17 +137,19 @@ in {
         after = [ "network.target" ];
         restartIfChanged = true;
 
-        environment = let
-          penv = python.buildEnv.override {
-            extraLibs = [
-              bepasty
-              gevent
-            ];
-          };
-        in {
-          BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
-          PYTHONPATH = "${penv}/${python.sitePackages}/";
-        } ;
+        environment =
+          let
+            penv = python.buildEnv.override {
+              extraLibs = [
+                bepasty
+                gevent
+              ];
+            };
+          in {
+            BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
+            PYTHONPATH = "${penv}/${python.sitePackages}/";
+          }
+          ;
 
         serviceConfig = {
           Type = "simple";

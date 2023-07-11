@@ -33,7 +33,8 @@ import ./make-test-python.nix ({
   in {
     name = "systemd-misc";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -52,7 +53,8 @@ import ./make-test-python.nix ({
             TasksMax=100
           '';
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

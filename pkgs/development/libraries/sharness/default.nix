@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "FCYskpIqkrpNaWCi2LkhEkiow4/rXLe+lfEWNUthLUg=";
   };
 
-  # Used for testing
+    # Used for testing
   nativeBuildInputs = [
     perl
     perlPackages.IOTty
@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Portable shell library to write, run and analyze automated tests adhering to Test Anything Protocol (TAP)";
+      "Portable shell library to write, run and analyze automated tests adhering to Test Anything Protocol (TAP)"
+      ;
     homepage = "https://github.com/chriscool/sharness";
     license = licenses.gpl2Only;
     maintainers = [ maintainers.spacefrogg ];

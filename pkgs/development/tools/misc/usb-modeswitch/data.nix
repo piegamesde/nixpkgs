@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     sed -i 's@usb_modeswitch@${usb-modeswitch}/lib/udev/usb_modeswitch@g' 40-usb_modeswitch.rules
   '';
 
-  # we add tcl here so we can patch in support for new devices by dropping config into
-  # the usb_modeswitch.d directory
+    # we add tcl here so we can patch in support for new devices by dropping config into
+    # the usb_modeswitch.d directory
   nativeBuildInputs = [ tcl ];
 
   meta = with lib; {

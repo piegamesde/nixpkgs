@@ -21,7 +21,7 @@ buildPythonPackage rec {
     netpbm
   ];
 
-  # There are no tests
+    # There are no tests
   doCheck = false;
 
   meta = with lib; {

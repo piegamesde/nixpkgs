@@ -29,7 +29,7 @@ buildPythonPackage rec {
     reportlab
   ];
 
-  # Tests require a Django instance which is setup
+    # Tests require a Django instance which is setup
   doCheck = false;
 
   pythonImportsCheck = [ "easy_thumbnails" ];
@@ -38,7 +38,8 @@ buildPythonPackage rec {
     description = "Easy thumbnails for Django";
     homepage = "https://github.com/SmileyChris/easy-thumbnails";
     changelog =
-      "https://github.com/SmileyChris/easy-thumbnails/blob/${version}/CHANGES.rst";
+      "https://github.com/SmileyChris/easy-thumbnails/blob/${version}/CHANGES.rst"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

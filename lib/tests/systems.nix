@@ -7,10 +7,12 @@
 # sanity check before committing :).
 let
   lib = import ../default.nix;
-  mseteq = x: y: {
-    expr = lib.sort lib.lessThan x;
-    expected = lib.sort lib.lessThan y;
-  };
+  mseteq =
+    x: y: {
+      expr = lib.sort lib.lessThan x;
+      expected = lib.sort lib.lessThan y;
+    }
+    ;
 in with lib.systems.doubles;
 lib.runTests {
   testall = mseteq all (linux ++ darwin ++ freebsd ++ openbsd ++ netbsd

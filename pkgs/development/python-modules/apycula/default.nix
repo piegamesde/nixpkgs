@@ -34,7 +34,7 @@ buildPythonPackage rec {
     openpyxl
   ];
 
-  # tests require a physical FPGA
+    # tests require a physical FPGA
   doCheck = false;
 
   pythonImportsCheck = [ "apycula" ];

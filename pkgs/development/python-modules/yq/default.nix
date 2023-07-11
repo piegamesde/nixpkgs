@@ -43,7 +43,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Command-line YAML/XML/TOML processor - jq wrapper for YAML, XML, TOML documents";
+      "Command-line YAML/XML/TOML processor - jq wrapper for YAML, XML, TOML documents"
+      ;
     homepage = "https://github.com/kislyuk/yq";
     license = licenses.asl20;
     maintainers = with maintainers; [

@@ -57,7 +57,8 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "switch-to-poetry-core.patch";
     url =
-      "https://github.com/strawberry-graphql/strawberry/commit/710bb96f47c244e78fc54c921802bcdb48f5f421.patch";
+      "https://github.com/strawberry-graphql/strawberry/commit/710bb96f47c244e78fc54c921802bcdb48f5f421.patch"
+      ;
     hash = "sha256-ekUZ2hDPCqwXp9n0YjBikwSkhCmVKUzQk7LrPECcD7Y=";
   }) ];
 
@@ -109,10 +110,10 @@ buildPythonPackage rec {
       flask
       pytest-flask
     ];
-    # opentelemetry = [
-    #   opentelemetry-api
-    #   opentelemetry-sdk
-    # ];
+      # opentelemetry = [
+      #   opentelemetry-api
+      #   opentelemetry-sdk
+      # ];
     pydantic = [ pydantic ];
     sanic = [ sanic ];
     fastapi = [
@@ -126,9 +127,9 @@ buildPythonPackage rec {
       rich
       libcst
     ];
-    # starlite = [
-    #   starlite
-    # ];
+      # starlite = [
+      #   starlite
+      # ];
     pyinstrument = [ pyinstrument ];
   };
 
@@ -165,7 +166,8 @@ buildPythonPackage rec {
       "A GraphQL library for Python that leverages type annotations";
     homepage = "https://strawberry.rocks";
     changelog =
-      "https://github.com/strawberry-graphql/strawberry/blob/${version}/CHANGELOG.md";
+      "https://github.com/strawberry-graphql/strawberry/blob/${version}/CHANGELOG.md"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ izorkin ];
   };

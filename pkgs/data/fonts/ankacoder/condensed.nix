@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/anka-coder-fonts/AnkaCoderCondensed.${version}.zip";
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/anka-coder-fonts/AnkaCoderCondensed.${version}.zip"
+      ;
     stripRoot = false;
     hash = "sha256-NHrkV4Sb7i+DC4e4lToEYzah3pI+sKyYf2rGbhWj7iY=";
   };

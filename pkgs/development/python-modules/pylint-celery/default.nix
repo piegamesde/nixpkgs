@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pylint-plugin-utils ];
 
-  # Testing requires a very old version of pylint, incompatible with other dependencies
+    # Testing requires a very old version of pylint, incompatible with other dependencies
   doCheck = false;
 
   meta = with lib; {

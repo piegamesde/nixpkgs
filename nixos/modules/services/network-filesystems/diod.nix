@@ -8,11 +8,13 @@ with lib;
 let
   cfg = config.services.diod;
 
-  diodBool = b:
+  diodBool =
+    b:
     if b then
       "1"
     else
-      "0";
+      "0"
+    ;
 
   diodConfig = pkgs.writeText "diod.conf" ''
     allsquash = ${diodBool cfg.allsquash}

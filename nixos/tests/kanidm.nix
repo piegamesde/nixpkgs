@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
       Flakebi
     ];
 
-    nodes.server = {
+    nodes.server =
+      {
         config,
         pkgs,
         lib,
@@ -42,9 +43,11 @@ import ./make-test-python.nix ({
           openldap
           ripgrep
         ];
-      };
+      }
+      ;
 
-    nodes.client = {
+    nodes.client =
+      {
         pkgs,
         nodes,
         ...
@@ -60,13 +63,15 @@ import ./make-test-python.nix ({
           unixSettings = { pam_allowed_login_groups = [ "shell" ]; };
         };
 
-        networking.hosts."${nodes.server.networking.primaryIPAddress}" =
-          [ serverDomain ];
+        networking.hosts."${nodes.server.networking.primaryIPAddress}" = [ serverDomain ]
+          ;
 
         security.pki.certificateFiles = [ certs.ca.cert ];
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -74,7 +79,7 @@ import ./make-test-python.nix ({
         ldapBaseDN = builtins.concatStringsSep ","
           (map (s: "dc=" + s) (pkgs.lib.splitString "." serverDomain));
 
-        # We need access to the config file in the test script.
+          # We need access to the config file in the test script.
         filteredConfig =
           pkgs.lib.converge (pkgs.lib.filterAttrsRecursive (_: v: v != null))
           nodes.server.services.kanidm.serverSettings;
@@ -91,5 +96,6 @@ import ./make-test-python.nix ({
         assert rv == 0
         client.wait_for_unit("kanidm-unixd.service")
         client.succeed("kanidm_unixd_status | grep working!")
-      '' ;
+      ''
+      ;
   } )

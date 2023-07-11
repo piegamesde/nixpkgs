@@ -10,7 +10,8 @@ let
     if (builtins.hasAttr stdenv.hostPlatform.system sources.platforms) then
       builtins.getAttr (stdenv.hostPlatform.system) sources.platforms
     else
-      throw "Not supported on ${stdenv.hostPlatform.system}";
+      throw "Not supported on ${stdenv.hostPlatform.system}"
+    ;
 in
 stdenv.mkDerivation {
   pname = "tabnine";
@@ -18,14 +19,15 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://update.tabnine.com/bundles/${sources.version}/${platform.name}/TabNine.zip";
+      "https://update.tabnine.com/bundles/${sources.version}/${platform.name}/TabNine.zip"
+      ;
     inherit (platform) hash;
   };
 
   dontBuild = true;
 
-  # Work around the "unpacker appears to have produced no directories"
-  # case that happens when the archive doesn't have a subdirectory.
+    # Work around the "unpacker appears to have produced no directories"
+    # case that happens when the archive doesn't have a subdirectory.
   setSourceRoot = "sourceRoot=`pwd`";
 
   nativeBuildInputs = [ unzip ];
@@ -47,7 +49,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://tabnine.com";
     description =
-      "Smart Compose for code that uses deep learning to help you write code faster";
+      "Smart Compose for code that uses deep learning to help you write code faster"
+      ;
     license = licenses.unfree;
     platforms = attrNames sources.platforms;
     maintainers = with maintainers; [ lovesegfault ];

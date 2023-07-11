@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "ncurses-6.3.patch";
       url =
-        "https://github.com/bchretien/tcptrack/commit/409007afbce8ec5a81312a2a4123dd83b62b4494.patch";
+        "https://github.com/bchretien/tcptrack/commit/409007afbce8ec5a81312a2a4123dd83b62b4494.patch"
+        ;
       sha256 = "00641jyr52ksww5bbzvxlprmbb36jnvzg2w1aj1jgnm75jiajcfc";
     })
   ];

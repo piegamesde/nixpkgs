@@ -20,8 +20,8 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  # re date: https://github.com/NixOS/nixpkgs/pull/45997#issuecomment-418186178
-  # > .. keep the derivation deterministic. Otherwise, we would have to rebuild it every time.
+    # re date: https://github.com/NixOS/nixpkgs/pull/45997#issuecomment-418186178
+    # > .. keep the derivation deterministic. Otherwise, we would have to rebuild it every time.
   ldflags = [
     "-X main.version=v${version}"
     "-X main.commit=${rev}"
@@ -40,11 +40,12 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A systray utility written in go, using json over stdio for control and events";
+      "A systray utility written in go, using json over stdio for control and events"
+      ;
     homepage = "https://github.com/ssbc/systrayhelper";
     maintainers = with maintainers; [ cryptix ];
     license = licenses.mit;
-    # It depends on the inputs, i guess? not sure about solaris, for instance. go supports it though
-    # I hope nix can figure this out?! ¯\\_(ツ)_/¯
+      # It depends on the inputs, i guess? not sure about solaris, for instance. go supports it though
+      # I hope nix can figure this out?! ¯\\_(ツ)_/¯
   };
 }

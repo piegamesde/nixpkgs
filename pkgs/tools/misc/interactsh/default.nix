@@ -23,7 +23,7 @@ buildGoModule rec {
     "cmd/interactsh-server"
   ];
 
-  # Test files are not part of the release tarball
+    # Test files are not part of the release tarball
   doCheck = false;
 
   meta = with lib; {

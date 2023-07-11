@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # Some tests are expected to fail on ARM64
-  # See: https://gitlab.com/spectre.app/cli/-/issues/27#note_962950844 (mpw is a predecessor to spectre-cli and this issue is relevant to mpw as well)
+    # Some tests are expected to fail on ARM64
+    # See: https://gitlab.com/spectre.app/cli/-/issues/27#note_962950844 (mpw is a predecessor to spectre-cli and this issue is relevant to mpw as well)
   doCheck = !(stdenv.isLinux && stdenv.isAarch64);
 
   checkPhase = ''

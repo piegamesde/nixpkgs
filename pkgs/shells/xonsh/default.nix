@@ -11,7 +11,7 @@ python3Packages.buildPythonApplication rec {
   pname = "xonsh";
   version = "0.13.4";
 
-  # fetch from github because the pypi package ships incomplete tests
+    # fetch from github because the pypi package ships incomplete tests
   src = fetchFromGitHub {
     owner = "xonsh";
     repo = "xonsh";

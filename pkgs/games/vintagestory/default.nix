@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://cdn.vintagestory.at/gamefiles/stable/vs_archive_${version}.tar.gz";
+      "https://cdn.vintagestory.at/gamefiles/stable/vs_archive_${version}.tar.gz"
+      ;
     sha256 = "sha256-iIQRwnJX+7GJcOqXJutInqpSX2fKlPmwFFAq6TqNWWY=";
   };
 

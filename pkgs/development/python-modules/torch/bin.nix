@@ -33,7 +33,7 @@ buildPythonPackage {
   inherit version;
 
   pname = "torch";
-  # Don't forget to update torch to the same version.
+    # Don't forget to update torch to the same version.
 
   format = "wheel";
 
@@ -97,21 +97,22 @@ buildPythonPackage {
     popd || exit 1
   '';
 
-  # The wheel-binary is not stripped to avoid the error of `ImportError: libtorch_cuda_cpp.so: ELF load command address/offset not properly aligned.`.
+    # The wheel-binary is not stripped to avoid the error of `ImportError: libtorch_cuda_cpp.so: ELF load command address/offset not properly aligned.`.
   dontStrip = true;
 
   pythonImportsCheck = [ "torch" ];
 
   meta = with lib; {
     description =
-      "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
+      "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration"
+      ;
     homepage = "https://pytorch.org/";
     changelog = "https://github.com/pytorch/pytorch/releases/tag/v${version}";
-    # Includes CUDA and Intel MKL, but redistributions of the binary are not limited.
-    # https://docs.nvidia.com/cuda/eula/index.html
-    # https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html
-    # torch's license is BSD3.
-    # torch-bin includes CUDA and MKL binaries, therefore unfreeRedistributable is set.
+      # Includes CUDA and Intel MKL, but redistributions of the binary are not limited.
+      # https://docs.nvidia.com/cuda/eula/index.html
+      # https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html
+      # torch's license is BSD3.
+      # torch-bin includes CUDA and MKL binaries, therefore unfreeRedistributable is set.
     license = with licenses; [
       bsd3
       issl

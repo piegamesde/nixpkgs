@@ -21,8 +21,8 @@ stdenv.mkDerivation {
   pname = "sqitch";
   version = sqitch.version;
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+  nativeBuildInputs =
+    [ makeWrapper ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
 
   src = sqitch;
   dontBuild = true;

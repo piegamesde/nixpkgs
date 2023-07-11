@@ -28,9 +28,9 @@ buildPythonPackage rec {
     owner = "alisaifee";
     repo = pname;
     rev = "refs/tags/${version}";
-    # Upstream uses versioneer, which relies on git attributes substitution.
-    # This leads to non-reproducible archives on github. Remove the substituted
-    # file here, and recreate it later based on our version info.
+      # Upstream uses versioneer, which relies on git attributes substitution.
+      # This leads to non-reproducible archives on github. Remove the substituted
+      # file here, and recreate it later based on our version info.
     postFetch = ''
       rm "$out/limits/_version.py"
     '';
@@ -78,7 +78,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Rate limiting using various strategies and storage backends such as redis & memcached";
+      "Rate limiting using various strategies and storage backends such as redis & memcached"
+      ;
     homepage = "https://github.com/alisaifee/limits";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

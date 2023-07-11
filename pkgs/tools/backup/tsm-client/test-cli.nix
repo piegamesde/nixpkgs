@@ -23,15 +23,16 @@ let
 
   env.nativeBuildInputs = [ tsm-client_ ];
 
-  versionString = let
-    inherit (tsm-client_.passthru.unwrapped) version;
-    major = lib.versions.major version;
-    minor = lib.versions.minor version;
-    patch = lib.versions.patch version;
-    fixup = lib.lists.elemAt (lib.versions.splitVersion version) 3;
-  in
-  "Client Version ${major}, Release ${minor}, Level ${patch}.${fixup}"
-  ;
+  versionString =
+    let
+      inherit (tsm-client_.passthru.unwrapped) version;
+      major = lib.versions.major version;
+      minor = lib.versions.minor version;
+      patch = lib.versions.patch version;
+      fixup = lib.lists.elemAt (lib.versions.splitVersion version) 3;
+    in
+    "Client Version ${major}, Release ${minor}, Level ${patch}.${fixup}"
+    ;
 
 in
 runCommand "${tsm-client.name}-test-cli" env ''

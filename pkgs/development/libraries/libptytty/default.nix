@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ rnhmjoj ];
     platforms = platforms.unix;
     license = licenses.gpl2;
-    # pkgsMusl.pkgsStatic errors as:
-    #   ln: failed to create symbolic link './include': File exists
+      # pkgsMusl.pkgsStatic errors as:
+      #   ln: failed to create symbolic link './include': File exists
     broken = isStatic && isMusl;
   };
 

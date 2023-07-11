@@ -5,7 +5,8 @@ import ../make-test-python.nix ({
   }: {
     name = "phylactery";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.phylactery = rec {
@@ -13,7 +14,8 @@ import ../make-test-python.nix ({
           port = 8080;
           library = "/tmp";
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

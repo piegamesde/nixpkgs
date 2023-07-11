@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ azure-nspkg ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   meta = with lib; {

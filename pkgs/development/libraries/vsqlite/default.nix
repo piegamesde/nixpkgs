@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://evilissimo.fedorapeople.org/releases/vsqlite--/0.3.13/vsqlite++-${version}.tar.gz";
+      "https://evilissimo.fedorapeople.org/releases/vsqlite--/0.3.13/vsqlite++-${version}.tar.gz"
+      ;
     sha256 = "17fkj0d2jh0xkjpcayhs1xvbnh1d69f026i7vs1zqnbiwbkpz237";
   };
 

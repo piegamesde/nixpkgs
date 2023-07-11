@@ -60,17 +60,21 @@ stdenv.mkDerivation (overridable // {
   buildInputs = buildInputs ++ builtins.attrValues mixNixDeps;
 
   MIX_ENV = mixEnv;
-  MIX_DEBUG = if enableDebugInfo then
-    1
-  else
-    0;
+  MIX_DEBUG =
+    if enableDebugInfo then
+      1
+    else
+      0
+    ;
   HEX_OFFLINE = 1;
-  DEBUG = if enableDebugInfo then
-    1
-  else
-    0; # for Rebar3 compilation
-  # the api with `mix local.rebar rebar path` makes a copy of the binary
-  # some older dependencies still use rebar
+  DEBUG =
+    if enableDebugInfo then
+      1
+    else
+      0
+    ; # for Rebar3 compilation
+    # the api with `mix local.rebar rebar path` makes a copy of the binary
+    # some older dependencies still use rebar
   MIX_REBAR = "${rebar}/bin/rebar";
   MIX_REBAR3 = "${rebar3}/bin/rebar3";
 
@@ -121,9 +125,9 @@ stdenv.mkDerivation (overridable // {
     runHook postInstall
   '';
 
-  # Stripping of the binary is intentional
-  # even though it does not affect beam files
-  # it is necessary for NIFs binaries
+    # Stripping of the binary is intentional
+    # even though it does not affect beam files
+    # it is necessary for NIFs binaries
   postFixup = ''
     if [ -e "$out/bin/${pname}.bat" ]; then # absent in special cases, i.e. elixir-ls
       rm "$out/bin/${pname}.bat" # windows file
@@ -155,8 +159,8 @@ stdenv.mkDerivation (overridable // {
     erl -noinput -eval 'lists:foreach(fun(F) -> io:format("Stripping ~p.~n", [F]), beam_lib:strip(F) end, filelib:wildcard("'"$out"'/**/*.beam"))' -s init stop
   '';
 
-  # TODO investigate why the resulting closure still has
-  # a reference to erlang.
-  # uncommenting the following will fail the build
-  # disallowedReferences = [ erlang ];
+    # TODO investigate why the resulting closure still has
+    # a reference to erlang.
+    # uncommenting the following will fail the build
+    # disallowedReferences = [ erlang ];
 })

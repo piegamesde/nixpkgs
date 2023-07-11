@@ -27,8 +27,8 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "colobot";
-  # Maybe require an update to package colobot-data as well
-  # in file data.nix next to this one
+    # Maybe require an update to package colobot-data as well
+    # in file data.nix next to this one
   version = "0.2.0-alpha";
 
   src = fetchFromGitHub {
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = false;
 
-  # The binary ends in games directoy
+    # The binary ends in games directoy
   postInstall = ''
     mv $out/games $out/bin
     for contents in ${colobot-data}/share/games/colobot/*; do
@@ -72,7 +72,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://colobot.info/";
     description =
-      "Colobot: Gold Edition is a real-time strategy game, where you can program your bots";
+      "Colobot: Gold Edition is a real-time strategy game, where you can program your bots"
+      ;
     license = licenses.gpl3;
     maintainers = with maintainers; [ freezeboy ];
     platforms = platforms.linux;

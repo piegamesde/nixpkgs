@@ -18,17 +18,17 @@ import ./make-test-python.nix ({
       # completely-default network configuration.
       client_defaults.networking.interfaces = lib.mkForce { };
 
-      # Both of these clients should obtain temporary addresses, but
-      # not use them as the default source IP. We thus run the same
-      # checks against them — but the configuration resulting in this
-      # behaviour is different.
+        # Both of these clients should obtain temporary addresses, but
+        # not use them as the default source IP. We thus run the same
+        # checks against them — but the configuration resulting in this
+        # behaviour is different.
 
-      # Here, by using an altered default value for the global setting...
+        # Here, by using an altered default value for the global setting...
       client_global_setting = {
         networking.interfaces = lib.mkForce { };
         networking.tempAddresses = "enabled";
       };
-      # and here, by setting this on the interface explicitly.
+        # and here, by setting this on the interface explicitly.
       client_interface_setting = {
         networking.tempAddresses = "disabled";
         networking.interfaces = lib.mkForce { eth1.tempAddress = "enabled"; };
@@ -40,7 +40,8 @@ import ./make-test-python.nix ({
         networking.firewall.allowedTCPPorts = [ 80 ];
       };
 
-      router = {
+      router =
+        {
           ...
         }: {
           services.radvd.enable = true;
@@ -51,7 +52,8 @@ import ./make-test-python.nix ({
               prefix fd60:cc69:b537:1::/64 { };
             };
           '';
-        };
+        }
+        ;
     };
 
     testScript = ''

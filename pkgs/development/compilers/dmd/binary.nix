@@ -13,10 +13,12 @@
 
 let
   inherit (stdenv) hostPlatform;
-  OS = if hostPlatform.isDarwin then
-    "osx"
-  else
-    hostPlatform.parsed.kernel.name;
+  OS =
+    if hostPlatform.isDarwin then
+      "osx"
+    else
+      hostPlatform.parsed.kernel.name
+    ;
   MODEL = toString hostPlatform.parsed.cpu.bits;
 in
 stdenv.mkDerivation {
@@ -63,15 +65,15 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # Stripping on Darwin started to break libphobos2.a
-  # Undefined symbols for architecture x86_64:
-  #   "_rt_envvars_enabled", referenced from:
-  #       __D2rt6config16rt_envvarsOptionFNbNiAyaMDFNbNiQkZQnZQq in libphobos2.a(config_99a_6c3.o)
+    # Stripping on Darwin started to break libphobos2.a
+    # Undefined symbols for architecture x86_64:
+    #   "_rt_envvars_enabled", referenced from:
+    #       __D2rt6config16rt_envvarsOptionFNbNiAyaMDFNbNiQkZQnZQq in libphobos2.a(config_99a_6c3.o)
   dontStrip = hostPlatform.isDarwin;
 
   meta = with lib; {
     description = "Digital Mars D Compiler Package";
-    # As of 2.075 all sources and binaries use the boost license
+      # As of 2.075 all sources and binaries use the boost license
     license = licenses.boost;
     maintainers = [ maintainers.lionello ];
     homepage = "https://dlang.org/";

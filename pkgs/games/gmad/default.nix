@@ -30,12 +30,14 @@ stdenv.mkDerivation rec {
     bootil
   ];
 
-  targetName = if stdenv.isLinux then
-    "gmad_linux"
-  else if stdenv.isDarwin then
-    "gmad_osx"
-  else
-    "gmad";
+  targetName =
+    if stdenv.isLinux then
+      "gmad_linux"
+    else if stdenv.isDarwin then
+      "gmad_osx"
+    else
+      "gmad"
+    ;
 
   premakeFlags = [
     "--bootil_lib=${bootil}/lib"

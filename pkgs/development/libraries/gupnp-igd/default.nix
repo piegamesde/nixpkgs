@@ -58,9 +58,9 @@ stdenv.mkDerivation rec {
     }"
   ];
 
-  # Seems to get stuck sometimes.
-  # https://github.com/NixOS/nixpkgs/issues/119288
-  #doCheck = true;
+    # Seems to get stuck sometimes.
+    # https://github.com/NixOS/nixpkgs/issues/119288
+    #doCheck = true;
 
   passthru = {
     updateScript = gnome.updateScript {

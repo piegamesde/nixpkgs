@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "124zajv43wx9l8rvdvmzcnbh0xpzmbn253pznpbjwvygfx16gq02";
   };
 
-  # The tlsh library's name is just "tlsh"
+    # The tlsh library's name is just "tlsh"
   postPatch = ''
     substituteInPlace requirements.txt \
        --replace "python-tlsh" "tlsh" \

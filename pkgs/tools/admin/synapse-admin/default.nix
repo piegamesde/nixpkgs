@@ -27,7 +27,7 @@ mkYarnPackage rec {
       null
   } = baseUrl;
 
-  # error:0308010C:digital envelope routines::unsupported
+    # error:0308010C:digital envelope routines::unsupported
   NODE_OPTIONS = "--openssl-legacy-provider";
 
   buildPhase = ''

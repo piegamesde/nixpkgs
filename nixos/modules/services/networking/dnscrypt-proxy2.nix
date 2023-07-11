@@ -86,7 +86,8 @@ in {
         CacheDirectory = "dnscrypt-proxy";
         DynamicUser = true;
         ExecStart =
-          "${pkgs.dnscrypt-proxy2}/bin/dnscrypt-proxy -config ${cfg.configFile}";
+          "${pkgs.dnscrypt-proxy2}/bin/dnscrypt-proxy -config ${cfg.configFile}"
+          ;
         LockPersonality = true;
         LogsDirectory = "dnscrypt-proxy";
         MemoryDenyWriteExecute = true;
@@ -124,6 +125,6 @@ in {
     };
   };
 
-  # uses attributes of the linked package
+    # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

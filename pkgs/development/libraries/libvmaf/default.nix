@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     # Backport fix for non-Linux, non-Darwin platforms.
     (fetchpatch {
       url =
-        "https://github.com/Netflix/vmaf/commit/f47640f9ffee9494571bd7c9622e353660c93fc4.patch";
+        "https://github.com/Netflix/vmaf/commit/f47640f9ffee9494571bd7c9622e353660c93fc4.patch"
+        ;
       stripLen = 1;
       sha256 = "rsTKuqp8VJG5DBDpixPke3LrdfjKzUO945i+iL0n7CY=";
     })

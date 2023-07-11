@@ -22,7 +22,8 @@ let
     };
     logo = fetchurl {
       url =
-        "https://raw.githubusercontent.com/ecsec/open-ecard/1.2.3/gui/graphics/src/main/ext/oec_logo_bg-transparent.svg";
+        "https://raw.githubusercontent.com/ecsec/open-ecard/1.2.3/gui/graphics/src/main/ext/oec_logo_bg-transparent.svg"
+        ;
       sha256 = "0rpmyv10vjx2yfpm03mqliygcww8af2wnrnrppmsazdplksaxkhs";
     };
   };
@@ -69,7 +70,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = ''
       Client side implementation of the eCard-API-Framework (BSI
-            TR-03112) and related international standards, such as ISO/IEC 24727'';
+            TR-03112) and related international standards, such as ISO/IEC 24727''
+      ;
     homepage = "https://www.openecard.org/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.gpl3;

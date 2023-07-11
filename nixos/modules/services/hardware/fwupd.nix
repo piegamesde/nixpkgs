@@ -13,9 +13,11 @@ let
   cfg = config.services.fwupd;
 
   format = pkgs.formats.ini {
-    listToValue = l:
+    listToValue =
+      l:
       lib.concatStringsSep ";"
-      (map (s: generators.mkValueStringDefault { } s) l);
+      (map (s: generators.mkValueStringDefault { } s) l)
+      ;
     mkKeyValue = generators.mkKeyValueDefault { } "=";
   };
 
@@ -31,26 +33,30 @@ let
     };
   };
 
-  originalEtc = let
-    mkEtcFile = n: nameValuePair n { source = "${cfg.package}/etc/${n}"; };
-  in
-  listToAttrs (map mkEtcFile cfg.package.filesInstalledToEtc)
-  ;
-  extraTrustedKeys = let
-    mkName = p: "pki/fwupd/${baseNameOf (toString p)}";
-    mkEtcFile = p: nameValuePair (mkName p) { source = p; };
-  in
-  listToAttrs (map mkEtcFile cfg.extraTrustedKeys)
-  ;
+  originalEtc =
+    let
+      mkEtcFile = n: nameValuePair n { source = "${cfg.package}/etc/${n}"; };
+    in
+    listToAttrs (map mkEtcFile cfg.package.filesInstalledToEtc)
+    ;
+  extraTrustedKeys =
+    let
+      mkName = p: "pki/fwupd/${baseNameOf (toString p)}";
+      mkEtcFile = p: nameValuePair (mkName p) { source = p; };
+    in
+    listToAttrs (map mkEtcFile cfg.extraTrustedKeys)
+    ;
 
-  enableRemote = base: remote: {
-    "fwupd/remotes.d/${remote}.conf" = {
-      source = pkgs.runCommand "${remote}-enabled.conf" { } ''
-        sed "s,^Enabled=false,Enabled=true," \
-        "${base}/etc/fwupd/remotes.d/${remote}.conf" > "$out"
-      '';
-    };
-  };
+  enableRemote =
+    base: remote: {
+      "fwupd/remotes.d/${remote}.conf" = {
+        source = pkgs.runCommand "${remote}-enabled.conf" { } ''
+          sed "s,^Enabled=false,Enabled=true," \
+          "${base}/etc/fwupd/remotes.d/${remote}.conf" > "$out"
+        '';
+      };
+    }
+    ;
   remotes = (foldl'
     (configFiles: remote: configFiles // (enableRemote cfg.package remote)) { }
     cfg.extraRemotes) // (
@@ -207,7 +213,7 @@ in {
     ])
   ];
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     # Disable test related plug-ins implicitly so that users do not have to care about them.
     services.fwupd.daemonSettings = {
@@ -217,14 +223,14 @@ in {
 
     environment.systemPackages = [ cfg.package ];
 
-    # customEtc overrides some files from the package
+      # customEtc overrides some files from the package
     environment.etc = originalEtc // customEtc // extraTrustedKeys // remotes;
 
     services.dbus.packages = [ cfg.package ];
 
     services.udev.packages = [ cfg.package ];
 
-    # required to update the firmware of disks
+      # required to update the firmware of disks
     services.udisks2.enable = true;
 
     systemd.packages = [ cfg.package ];

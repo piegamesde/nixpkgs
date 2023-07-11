@@ -23,7 +23,8 @@ python3Packages.buildPythonApplication rec {
     (fetchpatch {
       name = "configurable-listening-address.patch";
       url =
-        "https://patch-diff.githubusercontent.com/raw/jvstein/bitcoin-prometheus-exporter/pull/11.patch";
+        "https://patch-diff.githubusercontent.com/raw/jvstein/bitcoin-prometheus-exporter/pull/11.patch"
+        ;
       sha256 = "0a2l8aqgprc1d5k8yg1gisn6imh9hzg6j0irid3pjvp5i5dcnhyq";
     })
   ];

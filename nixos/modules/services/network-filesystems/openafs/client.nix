@@ -202,7 +202,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -210,12 +210,14 @@ in {
       {
         assertion = cfg.afsdb || cfg.cellServDB != [ ];
         message =
-          "You should specify all cell-local database servers in config.services.openafsClient.cellServDB or set config.services.openafsClient.afsdb.";
+          "You should specify all cell-local database servers in config.services.openafsClient.cellServDB or set config.services.openafsClient.afsdb."
+          ;
       }
       {
         assertion = cfg.cellName != "";
         message =
-          "You must specify the local cell name in config.services.openafsClient.cellName.";
+          "You must specify the local cell name in config.services.openafsClient.cellName."
+          ;
       }
     ];
 
@@ -286,10 +288,10 @@ in {
         "${openafsBin}/bin/fs discon offline"}
       '';
 
-      # Doing this in preStop, because after these commands AFS is basically
-      # stopped, so systemd has nothing to do, just noticing it.  If done in
-      # postStop, then we get a hang + kernel oops, because AFS can't be
-      # stopped simply by sending signals to processes.
+        # Doing this in preStop, because after these commands AFS is basically
+        # stopped, so systemd has nothing to do, just noticing it.  If done in
+        # postStop, then we get a hang + kernel oops, because AFS can't be
+        # stopped simply by sending signals to processes.
       preStop = ''
         ${pkgs.util-linux}/bin/umount ${cfg.mountPoint}
         ${openafsBin}/sbin/afsd -shutdown

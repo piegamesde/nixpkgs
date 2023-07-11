@@ -32,8 +32,8 @@ buildPythonPackage rec {
     capturer
   ];
 
-  # capturer is broken on darwin / py38, so we skip the test until a fix for
-  # https://github.com/xolox/python-capturer/issues/10 is released.
+    # capturer is broken on darwin / py38, so we skip the test until a fix for
+    # https://github.com/xolox/python-capturer/issues/10 is released.
   doCheck = !stdenv.isDarwin;
 
   preCheck = ''

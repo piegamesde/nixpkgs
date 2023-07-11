@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
 
     nodes = {
-      client = {
+      client =
+        {
           pkgs,
           lib,
           ...
@@ -37,9 +38,11 @@ import ./make-test-python.nix ({
               } ];
             };
           };
-        };
+        }
+        ;
 
-      local_router = {
+      local_router =
+        {
           pkgs,
           lib,
           ...
@@ -102,8 +105,10 @@ import ./make-test-python.nix ({
               redistribute local deny
             '';
           };
-        };
-      remote_router = {
+        }
+        ;
+      remote_router =
+        {
           pkgs,
           lib,
           ...
@@ -167,7 +172,8 @@ import ./make-test-python.nix ({
             '';
           };
 
-        };
+        }
+        ;
     };
 
     testScript = ''

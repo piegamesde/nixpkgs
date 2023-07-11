@@ -77,9 +77,9 @@ buildPythonPackage rec {
     trustme
   ];
 
-  # takes 30-180 mins to run entire test suite, not worth the CPU resources, slows down reviews
-  # with pytest-xdist, it still takes around 10 mins with 32 cores
-  # just run the csv tests, as this should give some indictation of correctness
+    # takes 30-180 mins to run entire test suite, not worth the CPU resources, slows down reviews
+    # with pytest-xdist, it still takes around 10 mins with 32 cores
+    # just run the csv tests, as this should give some indictation of correctness
   pytestFlagsArray = [ "tests/test_csv.py" ];
 
   disabledTests = [

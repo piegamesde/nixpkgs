@@ -13,7 +13,8 @@ let
 
   defaultBackend = options.virtualisation.oci-containers.backend.default;
 
-  containerOptions = {
+  containerOptions =
+    {
       ...
     }: {
 
@@ -67,8 +68,9 @@ let
         cmd = mkOption {
           type = with types; listOf str;
           default = [ ];
-          description = lib.mdDoc
-            "Commandline arguments to pass to the image's entrypoint.";
+          description =
+            lib.mdDoc "Commandline arguments to pass to the image's entrypoint."
+            ;
           example = literalExpression ''
             ["--port=9000"]
           '';
@@ -233,13 +235,17 @@ let
           '';
         };
       };
-    };
+    }
+    ;
 
-  isValidLogin = login:
+  isValidLogin =
+    login:
     login.username != null && login.passwordFile != null && login.registry
-    != null;
+    != null
+    ;
 
-  mkService = name: container:
+  mkService =
+    name: container:
     let
       dependsOn = map (x: "${cfg.backend}-${x}.service") container.dependsOn;
       escapedName = escapeShellArg name;
@@ -255,12 +261,14 @@ let
       requires = dependsOn;
       environment = proxy_env;
 
-      path = if cfg.backend == "docker" then
-        [ config.virtualisation.docker.package ]
-      else if cfg.backend == "podman" then
-        [ config.virtualisation.podman.package ]
-      else
-        throw "Unhandled backend: ${cfg.backend}";
+      path =
+        if cfg.backend == "docker" then
+          [ config.virtualisation.docker.package ]
+        else if cfg.backend == "podman" then
+          [ config.virtualisation.podman.package ]
+        else
+          throw "Unhandled backend: ${cfg.backend}"
+        ;
 
       preStart = ''
         ${cfg.backend} rm -f ${name} || true
@@ -305,14 +313,18 @@ let
         ++ map escapeShellArg container.extraOptions ++ [ container.image ]
         ++ map escapeShellArg container.cmd);
 
-      preStop = if cfg.backend == "podman" then
-        "[ $SERVICE_RESULT = success ] || podman stop --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
-      else
-        "[ $SERVICE_RESULT = success ] || ${cfg.backend} stop ${name}";
-      postStop = if cfg.backend == "podman" then
-        "podman rm -f --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
-      else
-        "${cfg.backend} rm -f ${name} || true";
+      preStop =
+        if cfg.backend == "podman" then
+          "[ $SERVICE_RESULT = success ] || podman stop --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
+        else
+          "[ $SERVICE_RESULT = success ] || ${cfg.backend} stop ${name}"
+        ;
+      postStop =
+        if cfg.backend == "podman" then
+          "podman rm -f --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
+        else
+          "${cfg.backend} rm -f ${name} || true"
+        ;
 
       serviceConfig = {
         ### There is no generalized way of supporting `reload` for docker
@@ -339,7 +351,8 @@ let
         Type = "notify";
         NotifyAccess = "all";
       };
-    } ;
+    }
+    ;
 
 in {
   imports = [ (lib.mkChangedOptionModule [ "docker-containers" ] [
@@ -360,10 +373,12 @@ in {
         "podman"
         "docker"
       ];
-      default = if versionAtLeast config.system.stateVersion "22.05" then
-        "podman"
-      else
-        "docker";
+      default =
+        if versionAtLeast config.system.stateVersion "22.05" then
+          "podman"
+        else
+          "docker"
+        ;
       description = lib.mdDoc "The underlying Docker implementation to use.";
     };
 

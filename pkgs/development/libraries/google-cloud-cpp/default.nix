@@ -72,33 +72,34 @@ stdenv.mkDerivation rec {
 
   doInstallCheck = true;
 
-  preInstallCheck = let
-    # These paths are added to (DY)LD_LIBRARY_PATH because they contain
-    # testing-only shared libraries that do not need to be installed, but
-    # need to be loadable by the test executables.
-    #
-    # Setting (DY)LD_LIBRARY_PATH is only necessary when building shared libraries.
-    additionalLibraryPaths = [
-      "$PWD/google/cloud/bigtable"
-      "$PWD/google/cloud/bigtable/benchmarks"
-      "$PWD/google/cloud/pubsub"
-      "$PWD/google/cloud/spanner"
-      "$PWD/google/cloud/spanner/benchmarks"
-      "$PWD/google/cloud/storage"
-      "$PWD/google/cloud/storage/benchmarks"
-      "$PWD/google/cloud/testing_util"
-    ];
-    ldLibraryPathName =
-      "${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH";
-  in
-  lib.optionalString doInstallCheck (lib.optionalString (!staticOnly) ''
-    export ${ldLibraryPathName}=${
-      lib.concatStringsSep ":" additionalLibraryPaths
-    }
-  '' + ''
-    export GTEST_FILTER="-${lib.concatStringsSep ":" excludedTests.cases}"
-  '')
-  ;
+  preInstallCheck =
+    let
+      # These paths are added to (DY)LD_LIBRARY_PATH because they contain
+      # testing-only shared libraries that do not need to be installed, but
+      # need to be loadable by the test executables.
+      #
+      # Setting (DY)LD_LIBRARY_PATH is only necessary when building shared libraries.
+      additionalLibraryPaths = [
+        "$PWD/google/cloud/bigtable"
+        "$PWD/google/cloud/bigtable/benchmarks"
+        "$PWD/google/cloud/pubsub"
+        "$PWD/google/cloud/spanner"
+        "$PWD/google/cloud/spanner/benchmarks"
+        "$PWD/google/cloud/storage"
+        "$PWD/google/cloud/storage/benchmarks"
+        "$PWD/google/cloud/testing_util"
+      ];
+      ldLibraryPathName =
+        "${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH";
+    in
+    lib.optionalString doInstallCheck (lib.optionalString (!staticOnly) ''
+      export ${ldLibraryPathName}=${
+        lib.concatStringsSep ":" additionalLibraryPaths
+      }
+    '' + ''
+      export GTEST_FILTER="-${lib.concatStringsSep ":" excludedTests.cases}"
+    '')
+    ;
 
   installCheckPhase = lib.optionalString doInstallCheck ''
     runHook preInstallCheck

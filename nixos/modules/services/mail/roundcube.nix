@@ -74,7 +74,8 @@ in {
       password = mkOption {
         type = types.str;
         description = lib.mdDoc
-          "Password for the postgresql connection. Do not use: the password will be stored world readable in the store; use `passwordFile` instead.";
+          "Password for the postgresql connection. Do not use: the password will be stored world readable in the store; use `passwordFile` instead."
+          ;
         default = "";
       };
       passwordFile = mkOption {
@@ -119,8 +120,10 @@ in {
         Note: Since roundcube only uses 70% of max upload values configured in php
         30% is added automatically to [](#opt-services.roundcube.maxAttachmentSize).
       '';
-      apply = configuredMaxAttachmentSize:
-        "${toString (configuredMaxAttachmentSize * 1.3)}M";
+      apply =
+        configuredMaxAttachmentSize:
+        "${toString (configuredMaxAttachmentSize * 1.3)}M"
+        ;
     };
 
     extraConfig = mkOption {
@@ -137,7 +140,8 @@ in {
       mkIf (!localDB && cfg.database.password != "") (mkDefault
         ("${pkgs.writeText "roundcube-password" cfg.database.password}"));
     warnings = lib.optional (!localDB && cfg.database.password != "")
-      "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead";
+      "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead"
+      ;
 
     environment.etc."roundcube/config.inc.php".text = ''
       <?php
@@ -233,10 +237,12 @@ in {
     users.groups.${user} = mkIf localDB { };
 
     services.phpfpm.pools.roundcube = {
-      user = if localDB then
-        user
-      else
-        "nginx";
+      user =
+        if localDB then
+          user
+        else
+          "nginx"
+        ;
       phpOptions = ''
         error_log = 'stderr'
         log_errors = on
@@ -261,9 +267,9 @@ in {
     };
     systemd.services.phpfpm-roundcube.after = [ "roundcube-setup.service" ];
 
-    # Restart on config changes.
-    systemd.services.phpfpm-roundcube.restartTriggers =
-      [ config.environment.etc."roundcube/config.inc.php".source ];
+      # Restart on config changes.
+    systemd.services.phpfpm-roundcube.restartTriggers = [ config.environment.etc."roundcube/config.inc.php".source ]
+      ;
 
     systemd.services.roundcube-setup = mkMerge [
       (mkIf (cfg.database.host == "localhost") {
@@ -274,37 +280,41 @@ in {
       {
         after = [ "network-online.target" ];
         wantedBy = [ "multi-user.target" ];
-        script = let
-          psql = "${
-              lib.optionalString (!localDB)
-              "PGPASSFILE=${cfg.database.passwordFile}"
-            } ${pkgs.postgresql}/bin/psql ${
-              lib.optionalString (!localDB)
-              "-h ${cfg.database.host} -U ${cfg.database.username} "
-            } ${cfg.database.dbname}";
-        in ''
-          version="$(${psql} -t <<< "select value from system where name = 'roundcube-version';" || true)"
-          if ! (grep -E '[a-zA-Z0-9]' <<< "$version"); then
-            ${psql} -f ${cfg.package}/SQL/postgres.initial.sql
-          fi
+        script =
+          let
+            psql = "${
+                lib.optionalString (!localDB)
+                "PGPASSFILE=${cfg.database.passwordFile}"
+              } ${pkgs.postgresql}/bin/psql ${
+                lib.optionalString (!localDB)
+                "-h ${cfg.database.host} -U ${cfg.database.username} "
+              } ${cfg.database.dbname}";
+          in ''
+            version="$(${psql} -t <<< "select value from system where name = 'roundcube-version';" || true)"
+            if ! (grep -E '[a-zA-Z0-9]' <<< "$version"); then
+              ${psql} -f ${cfg.package}/SQL/postgres.initial.sql
+            fi
 
-          if [ ! -f /var/lib/roundcube/des_key ]; then
-            base64 /dev/urandom | head -c 24 > /var/lib/roundcube/des_key;
-            # we need to log out everyone in case change the des_key
-            # from the default when upgrading from nixos 19.09
-            ${psql} <<< 'TRUNCATE TABLE session;'
-          fi
+            if [ ! -f /var/lib/roundcube/des_key ]; then
+              base64 /dev/urandom | head -c 24 > /var/lib/roundcube/des_key;
+              # we need to log out everyone in case change the des_key
+              # from the default when upgrading from nixos 19.09
+              ${psql} <<< 'TRUNCATE TABLE session;'
+            fi
 
-          ${phpWithPspell}/bin/php ${cfg.package}/bin/update.sh
-        '' ;
+            ${phpWithPspell}/bin/php ${cfg.package}/bin/update.sh
+          ''
+          ;
         serviceConfig = {
           Type = "oneshot";
           StateDirectory = "roundcube";
-          User = if localDB then
-            user
-          else
-            "nginx";
-          # so that the des_key is not world readable
+          User =
+            if localDB then
+              user
+            else
+              "nginx"
+            ;
+            # so that the des_key is not world readable
           StateDirectoryMode = "0700";
         };
       }

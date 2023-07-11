@@ -10,8 +10,9 @@ let
   moonraker = config.services.moonraker;
 in {
   options.services.fluidd = {
-    enable = mkEnableOption (lib.mdDoc
-      "Fluidd, a Klipper web interface for managing your 3d printer");
+    enable = mkEnableOption
+      (lib.mdDoc "Fluidd, a Klipper web interface for managing your 3d printer")
+      ;
 
     package = mkOption {
       type = types.package;

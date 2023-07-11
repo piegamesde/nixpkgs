@@ -16,14 +16,16 @@ let
   sources = callPackage ../sources.nix { };
   generated = swiftpm2nix.helpers ./generated;
 
-  # On Darwin, we only want ncurses in the linker search path, because headers
-  # are part of libsystem. Adding its headers to the search path causes strange
-  # mixing and errors.
-  # TODO: Find a better way to prevent this conflict.
-  ncursesInput = if stdenv.isDarwin then
-    ncurses.out
-  else
-    ncurses;
+    # On Darwin, we only want ncurses in the linker search path, because headers
+    # are part of libsystem. Adding its headers to the search path causes strange
+    # mixing and errors.
+    # TODO: Find a better way to prevent this conflict.
+  ncursesInput =
+    if stdenv.isDarwin then
+      ncurses.out
+    else
+      ncurses
+    ;
 in
 stdenv.mkDerivation {
   pname = "sourcekit-lsp";
@@ -60,8 +62,8 @@ stdenv.mkDerivation {
     export SWIFTTSC_MACOS_DEPLOYMENT_TARGET=10.12
   '';
 
-  # TODO: BuildServerBuildSystemTests fails
-  #doCheck = true;
+    # TODO: BuildServerBuildSystemTests fails
+    #doCheck = true;
 
   installPhase = ''
     binPath="$(swiftpmBinPath)"
@@ -69,8 +71,8 @@ stdenv.mkDerivation {
     cp $binPath/sourcekit-lsp $out/bin/
   '';
 
-  # Canary to verify output of our Swift toolchain does not depend on the Swift
-  # compiler itself. (Only its 'lib' output.)
+    # Canary to verify output of our Swift toolchain does not depend on the Swift
+    # compiler itself. (Only its 'lib' output.)
   disallowedRequisites = [ swift.swift ];
 
   meta = {

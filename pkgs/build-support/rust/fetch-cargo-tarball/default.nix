@@ -37,21 +37,25 @@ in
 }@args:
 
 let
-  hash_ = if args ? hash then
-    {
-      outputHashAlgo = if args.hash == "" then
-        "sha256"
-      else
-        null;
-      outputHash = args.hash;
-    }
-  else if args ? sha256 then
-    {
-      outputHashAlgo = "sha256";
-      outputHash = args.sha256;
-    }
-  else
-    throw "fetchCargoTarball requires a hash for ${name}";
+  hash_ =
+    if args ? hash then
+      {
+        outputHashAlgo =
+          if args.hash == "" then
+            "sha256"
+          else
+            null
+          ;
+        outputHash = args.hash;
+      }
+    else if args ? sha256 then
+      {
+        outputHashAlgo = "sha256";
+        outputHash = args.sha256;
+      }
+    else
+      throw "fetchCargoTarball requires a hash for ${name}"
+    ;
 in
 stdenv.mkDerivation ({
   name = "${name}-vendor.tar.gz";
@@ -128,7 +132,7 @@ stdenv.mkDerivation ({
     runHook postBuild
   '';
 
-  # Build a reproducible tar, per instructions at https://reproducible-builds.org/docs/archives/
+    # Build a reproducible tar, per instructions at https://reproducible-builds.org/docs/archives/
   installPhase = ''
     tar --owner=0 --group=0 --numeric-owner --format=gnu \
         --sort=name --mtime="@$SOURCE_DATE_EPOCH" \

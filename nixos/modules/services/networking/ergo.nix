@@ -76,7 +76,8 @@ in {
           example =
             "324dcf027dd4a30a932c441f365a25e86b173defa4b8e58948253471b81b72cf";
           description = lib.mdDoc
-            "Hex-encoded Blake2b256 hash of an API key as a 64-chars long Base16 string.";
+            "Hex-encoded Blake2b256 hash of an API key as a 64-chars long Base16 string."
+            ;
         };
 
         listen = {
@@ -84,14 +85,16 @@ in {
             type = types.str;
             default = "0.0.0.0";
             description = lib.mdDoc
-              "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined.";
+              "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined."
+              ;
           };
 
           port = mkOption {
             type = types.port;
             default = 9052;
             description = lib.mdDoc
-              "Listen port for the API endpoint if {option}`api.keyHash` is defined.";
+              "Listen port for the API endpoint if {option}`api.keyHash` is defined."
+              ;
           };
         };
       };
@@ -99,8 +102,9 @@ in {
       testnet = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Connect to testnet network instead of the default mainnet.";
+        description =
+          lib.mdDoc "Connect to testnet network instead of the default mainnet."
+          ;
       };
 
       user = mkOption {
@@ -127,8 +131,8 @@ in {
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules =
-      [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ]
+      ;
 
     systemd.services.ergo = {
       description = "ergo server";

@@ -27,7 +27,7 @@ buildPythonApplication rec {
   pname = "cpupower-gui";
   version = "1.0.0";
 
-  # This packages doesn't have a setup.py
+    # This packages doesn't have a setup.py
   format = "other";
 
   src = fetchFromGitHub {
@@ -42,7 +42,8 @@ buildPythonApplication rec {
     # https://hydra.nixos.org/build/171052557/nixlog/1
     (fetchpatch {
       url =
-        "https://github.com/vagnum08/cpupower-gui/commit/97f8ac02fe33e412b59d3f3968c16a217753e74b.patch";
+        "https://github.com/vagnum08/cpupower-gui/commit/97f8ac02fe33e412b59d3f3968c16a217753e74b.patch"
+        ;
       sha256 = "XYnpm03kq8JLMjAT73BMCJWlzz40IAuHESm715VV6G0=";
     })
   ];

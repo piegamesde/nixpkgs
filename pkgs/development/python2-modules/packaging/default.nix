@@ -31,7 +31,7 @@ buildPythonPackage rec {
     pretend
   ];
 
-  # Prevent circular dependency
+    # Prevent circular dependency
   doCheck = false;
 
   meta = with lib; {

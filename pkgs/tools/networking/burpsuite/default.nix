@@ -20,7 +20,8 @@ let
 
   name = "burpsuite-${version}";
   description =
-    "An integrated platform for performing security testing of web applications";
+    "An integrated platform for performing security testing of web applications"
+    ;
   desktopItem = makeDesktopItem rec {
     name = "burpsuite";
     exec = name;
@@ -40,7 +41,8 @@ buildFHSEnv {
 
   runScript = "${jdk}/bin/java -jar ${src}";
 
-  targetPkgs = pkgs:
+  targetPkgs =
+    pkgs:
     with pkgs; [
       alsa-lib
       at-spi2-core
@@ -64,7 +66,8 @@ buildFHSEnv {
       xorg.libXext
       xorg.libXfixes
       xorg.libXrandr
-    ];
+    ]
+    ;
 
   extraInstallCommands = ''
     mv "$out/bin/${name}" "$out/bin/burpsuite" # name includes the version number

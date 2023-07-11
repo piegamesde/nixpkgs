@@ -21,7 +21,7 @@ buildPythonPackage {
     six
   ];
 
-  # contains no tests
+    # contains no tests
   doCheck = false;
   pythonImportsCheck = [ "dopy" ];
 

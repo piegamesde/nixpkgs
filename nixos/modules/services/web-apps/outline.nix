@@ -64,9 +64,9 @@ in {
       '';
     };
 
-    #
-    # Required options
-    #
+      #
+      # Required options
+      #
 
     secretKeyFile = lib.mkOption {
       type = lib.types.str;
@@ -190,9 +190,9 @@ in {
       };
     };
 
-    #
-    # Authentication
-    #
+      #
+      # Authentication
+      #
 
     slackAuthentication = lib.mkOption {
       description = lib.mdDoc ''
@@ -326,9 +326,9 @@ in {
       });
     };
 
-    #
-    # Optional configuration
-    #
+      #
+      # Optional configuration
+      #
 
     sslKeyFile = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -597,239 +597,250 @@ in {
       port = 0; # Disable the TCP listener
     };
 
-    systemd.services.outline = let
-      localRedisUrl = "redis+unix:///run/redis-outline/redis.sock";
-      localPostgresqlUrl = "postgres://localhost/outline?host=/run/postgresql";
+    systemd.services.outline =
+      let
+        localRedisUrl = "redis+unix:///run/redis-outline/redis.sock";
+        localPostgresqlUrl = "postgres://localhost/outline?host=/run/postgresql"
+          ;
 
-      # Create an outline-sequalize wrapper (a wrapper around the wrapper) that
-      # has the config file's path baked in. This is necessary because there is
-      # at least one occurrence of outline calling this from its own code.
-      sequelize = pkgs.writeShellScriptBin "outline-sequelize" ''
-        exec ${cfg.package}/bin/outline-sequelize \
-          --config $RUNTIME_DIRECTORY/database.json \
-          ${cfg.sequelizeArguments} \
-          "$@"
-      '';
-    in {
-      description = "Outline wiki and knowledge base";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ]
-        ++ lib.optional (cfg.databaseUrl == "local") "postgresql.service"
-        ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
-      requires = lib.optional (cfg.databaseUrl == "local") "postgresql.service"
-        ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
-      path = [
-        pkgs.openssl # Required by the preStart script
-        sequelize
-      ];
+          # Create an outline-sequalize wrapper (a wrapper around the wrapper) that
+          # has the config file's path baked in. This is necessary because there is
+          # at least one occurrence of outline calling this from its own code.
+        sequelize = pkgs.writeShellScriptBin "outline-sequelize" ''
+          exec ${cfg.package}/bin/outline-sequelize \
+            --config $RUNTIME_DIRECTORY/database.json \
+            ${cfg.sequelizeArguments} \
+            "$@"
+        '';
+      in {
+        description = "Outline wiki and knowledge base";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "networking.target" ]
+          ++ lib.optional (cfg.databaseUrl == "local") "postgresql.service"
+          ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
+        requires =
+          lib.optional (cfg.databaseUrl == "local") "postgresql.service"
+          ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
+        path = [
+          pkgs.openssl # Required by the preStart script
+          sequelize
+        ];
 
-      environment = lib.mkMerge [
-        {
-          NODE_ENV = "production";
+        environment = lib.mkMerge [
+          {
+            NODE_ENV = "production";
 
-          REDIS_URL = if cfg.redisUrl == "local" then
-            localRedisUrl
-          else
-            cfg.redisUrl;
-          URL = cfg.publicUrl;
-          PORT = builtins.toString cfg.port;
+            REDIS_URL =
+              if cfg.redisUrl == "local" then
+                localRedisUrl
+              else
+                cfg.redisUrl
+              ;
+            URL = cfg.publicUrl;
+            PORT = builtins.toString cfg.port;
 
-          AWS_ACCESS_KEY_ID = cfg.storage.accessKey;
-          AWS_REGION = cfg.storage.region;
-          AWS_S3_UPLOAD_BUCKET_URL = cfg.storage.uploadBucketUrl;
-          AWS_S3_UPLOAD_BUCKET_NAME = cfg.storage.uploadBucketName;
-          AWS_S3_UPLOAD_MAX_SIZE = builtins.toString cfg.storage.uploadMaxSize;
-          AWS_S3_FORCE_PATH_STYLE =
-            builtins.toString cfg.storage.forcePathStyle;
-          AWS_S3_ACL = cfg.storage.acl;
+            AWS_ACCESS_KEY_ID = cfg.storage.accessKey;
+            AWS_REGION = cfg.storage.region;
+            AWS_S3_UPLOAD_BUCKET_URL = cfg.storage.uploadBucketUrl;
+            AWS_S3_UPLOAD_BUCKET_NAME = cfg.storage.uploadBucketName;
+            AWS_S3_UPLOAD_MAX_SIZE =
+              builtins.toString cfg.storage.uploadMaxSize;
+            AWS_S3_FORCE_PATH_STYLE =
+              builtins.toString cfg.storage.forcePathStyle;
+            AWS_S3_ACL = cfg.storage.acl;
 
-          CDN_URL = cfg.cdnUrl;
-          FORCE_HTTPS = builtins.toString cfg.forceHttps;
-          ENABLE_UPDATES = builtins.toString cfg.enableUpdateCheck;
-          WEB_CONCURRENCY = builtins.toString cfg.concurrency;
-          MAXIMUM_IMPORT_SIZE = builtins.toString cfg.maximumImportSize;
-          DEBUG = cfg.debugOutput;
-          GOOGLE_ANALYTICS_ID =
-            lib.optionalString (cfg.googleAnalyticsId != null)
-            cfg.googleAnalyticsId;
-          SENTRY_DSN = lib.optionalString (cfg.sentryDsn != null) cfg.sentryDsn;
-          SENTRY_TUNNEL =
-            lib.optionalString (cfg.sentryTunnel != null) cfg.sentryTunnel;
-          TEAM_LOGO = lib.optionalString (cfg.logo != null) cfg.logo;
-          DEFAULT_LANGUAGE = cfg.defaultLanguage;
+            CDN_URL = cfg.cdnUrl;
+            FORCE_HTTPS = builtins.toString cfg.forceHttps;
+            ENABLE_UPDATES = builtins.toString cfg.enableUpdateCheck;
+            WEB_CONCURRENCY = builtins.toString cfg.concurrency;
+            MAXIMUM_IMPORT_SIZE = builtins.toString cfg.maximumImportSize;
+            DEBUG = cfg.debugOutput;
+            GOOGLE_ANALYTICS_ID =
+              lib.optionalString (cfg.googleAnalyticsId != null)
+              cfg.googleAnalyticsId;
+            SENTRY_DSN =
+              lib.optionalString (cfg.sentryDsn != null) cfg.sentryDsn;
+            SENTRY_TUNNEL =
+              lib.optionalString (cfg.sentryTunnel != null) cfg.sentryTunnel;
+            TEAM_LOGO = lib.optionalString (cfg.logo != null) cfg.logo;
+            DEFAULT_LANGUAGE = cfg.defaultLanguage;
 
-          RATE_LIMITER_ENABLED = builtins.toString cfg.rateLimiter.enable;
-          RATE_LIMITER_REQUESTS = builtins.toString cfg.rateLimiter.requests;
-          RATE_LIMITER_DURATION_WINDOW =
-            builtins.toString cfg.rateLimiter.durationWindow;
-        }
+            RATE_LIMITER_ENABLED = builtins.toString cfg.rateLimiter.enable;
+            RATE_LIMITER_REQUESTS = builtins.toString cfg.rateLimiter.requests;
+            RATE_LIMITER_DURATION_WINDOW =
+              builtins.toString cfg.rateLimiter.durationWindow;
+          }
 
-        (lib.mkIf (cfg.slackAuthentication != null) {
-          SLACK_CLIENT_ID = cfg.slackAuthentication.clientId;
-        })
+          (lib.mkIf (cfg.slackAuthentication != null) {
+            SLACK_CLIENT_ID = cfg.slackAuthentication.clientId;
+          })
 
-        (lib.mkIf (cfg.googleAuthentication != null) {
-          GOOGLE_CLIENT_ID = cfg.googleAuthentication.clientId;
-        })
+          (lib.mkIf (cfg.googleAuthentication != null) {
+            GOOGLE_CLIENT_ID = cfg.googleAuthentication.clientId;
+          })
 
-        (lib.mkIf (cfg.azureAuthentication != null) {
-          AZURE_CLIENT_ID = cfg.azureAuthentication.clientId;
-          AZURE_RESOURCE_APP_ID = cfg.azureAuthentication.resourceAppId;
-        })
+          (lib.mkIf (cfg.azureAuthentication != null) {
+            AZURE_CLIENT_ID = cfg.azureAuthentication.clientId;
+            AZURE_RESOURCE_APP_ID = cfg.azureAuthentication.resourceAppId;
+          })
 
-        (lib.mkIf (cfg.oidcAuthentication != null) {
-          OIDC_CLIENT_ID = cfg.oidcAuthentication.clientId;
-          OIDC_AUTH_URI = cfg.oidcAuthentication.authUrl;
-          OIDC_TOKEN_URI = cfg.oidcAuthentication.tokenUrl;
-          OIDC_USERINFO_URI = cfg.oidcAuthentication.userinfoUrl;
-          OIDC_USERNAME_CLAIM = cfg.oidcAuthentication.usernameClaim;
-          OIDC_DISPLAY_NAME = cfg.oidcAuthentication.displayName;
-          OIDC_SCOPES = lib.concatStringsSep " " cfg.oidcAuthentication.scopes;
-        })
+          (lib.mkIf (cfg.oidcAuthentication != null) {
+            OIDC_CLIENT_ID = cfg.oidcAuthentication.clientId;
+            OIDC_AUTH_URI = cfg.oidcAuthentication.authUrl;
+            OIDC_TOKEN_URI = cfg.oidcAuthentication.tokenUrl;
+            OIDC_USERINFO_URI = cfg.oidcAuthentication.userinfoUrl;
+            OIDC_USERNAME_CLAIM = cfg.oidcAuthentication.usernameClaim;
+            OIDC_DISPLAY_NAME = cfg.oidcAuthentication.displayName;
+            OIDC_SCOPES =
+              lib.concatStringsSep " " cfg.oidcAuthentication.scopes;
+          })
 
-        (lib.mkIf (cfg.slackIntegration != null) {
-          SLACK_APP_ID = cfg.slackIntegration.appId;
-          SLACK_MESSAGE_ACTIONS =
-            builtins.toString cfg.slackIntegration.messageActions;
-        })
+          (lib.mkIf (cfg.slackIntegration != null) {
+            SLACK_APP_ID = cfg.slackIntegration.appId;
+            SLACK_MESSAGE_ACTIONS =
+              builtins.toString cfg.slackIntegration.messageActions;
+          })
 
-        (lib.mkIf (cfg.smtp != null) {
-          SMTP_HOST = cfg.smtp.host;
-          SMTP_PORT = builtins.toString cfg.smtp.port;
-          SMTP_USERNAME = cfg.smtp.username;
-          SMTP_FROM_EMAIL = cfg.smtp.fromEmail;
-          SMTP_REPLY_EMAIL = cfg.smtp.replyEmail;
-          SMTP_TLS_CIPHERS = cfg.smtp.tlsCiphers;
-          SMTP_SECURE = builtins.toString cfg.smtp.secure;
-        })
-      ];
+          (lib.mkIf (cfg.smtp != null) {
+            SMTP_HOST = cfg.smtp.host;
+            SMTP_PORT = builtins.toString cfg.smtp.port;
+            SMTP_USERNAME = cfg.smtp.username;
+            SMTP_FROM_EMAIL = cfg.smtp.fromEmail;
+            SMTP_REPLY_EMAIL = cfg.smtp.replyEmail;
+            SMTP_TLS_CIPHERS = cfg.smtp.tlsCiphers;
+            SMTP_SECURE = builtins.toString cfg.smtp.secure;
+          })
+        ];
 
-      preStart = ''
-        if [ ! -s ${lib.escapeShellArg cfg.secretKeyFile} ]; then
-          openssl rand -hex 32 > ${lib.escapeShellArg cfg.secretKeyFile}
-        fi
-        if [ ! -s ${lib.escapeShellArg cfg.utilsSecretFile} ]; then
-          openssl rand -hex 32 > ${lib.escapeShellArg cfg.utilsSecretFile}
-        fi
+        preStart = ''
+          if [ ! -s ${lib.escapeShellArg cfg.secretKeyFile} ]; then
+            openssl rand -hex 32 > ${lib.escapeShellArg cfg.secretKeyFile}
+          fi
+          if [ ! -s ${lib.escapeShellArg cfg.utilsSecretFile} ]; then
+            openssl rand -hex 32 > ${lib.escapeShellArg cfg.utilsSecretFile}
+          fi
 
-        # The config file is required for the CLI, the DATABASE_URL environment
-        # variable is read by the app.
-        ${if (cfg.databaseUrl == "local") then
-          ''
-            cat <<EOF > $RUNTIME_DIRECTORY/database.json
-            {
-              "production": {
-                "dialect": "postgres",
-                "host": "/run/postgresql",
-                "username": null,
-                "password": null
-              }
-            }
-            EOF
-            export DATABASE_URL=${lib.escapeShellArg localPostgresqlUrl}
-            export PGSSLMODE=disable
-          ''
-        else
-          ''
-            cat <<EOF > $RUNTIME_DIRECTORY/database.json
-            {
-              "production": {
-                "use_env_variable": "DATABASE_URL",
-                "dialect": "postgres",
-                "dialectOptions": {
-                  "ssl": {
-                    "rejectUnauthorized": false
-                  }
+          # The config file is required for the CLI, the DATABASE_URL environment
+          # variable is read by the app.
+          ${if (cfg.databaseUrl == "local") then
+            ''
+              cat <<EOF > $RUNTIME_DIRECTORY/database.json
+              {
+                "production": {
+                  "dialect": "postgres",
+                  "host": "/run/postgresql",
+                  "username": null,
+                  "password": null
                 }
-              },
-              "production-ssl-disabled": {
-                "use_env_variable": "DATABASE_URL",
-                "dialect": "postgres"
               }
-            }
-            EOF
-            export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
+              EOF
+              export DATABASE_URL=${lib.escapeShellArg localPostgresqlUrl}
+              export PGSSLMODE=disable
+            ''
+          else
+            ''
+              cat <<EOF > $RUNTIME_DIRECTORY/database.json
+              {
+                "production": {
+                  "use_env_variable": "DATABASE_URL",
+                  "dialect": "postgres",
+                  "dialectOptions": {
+                    "ssl": {
+                      "rejectUnauthorized": false
+                    }
+                  }
+                },
+                "production-ssl-disabled": {
+                  "use_env_variable": "DATABASE_URL",
+                  "dialect": "postgres"
+                }
+              }
+              EOF
+              export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
+            ''}
+
+          cd $RUNTIME_DIRECTORY
+          ${sequelize}/bin/outline-sequelize db:migrate
+        '';
+
+        script = ''
+          export SECRET_KEY="$(head -n1 ${
+            lib.escapeShellArg cfg.secretKeyFile
+          })"
+          export UTILS_SECRET="$(head -n1 ${
+            lib.escapeShellArg cfg.utilsSecretFile
+          })"
+          export AWS_SECRET_ACCESS_KEY="$(head -n1 ${
+            lib.escapeShellArg cfg.storage.secretKeyFile
+          })"
+          ${lib.optionalString (cfg.slackAuthentication != null) ''
+            export SLACK_CLIENT_SECRET="$(head -n1 ${
+              lib.escapeShellArg cfg.slackAuthentication.secretFile
+            })"
+          ''}
+          ${lib.optionalString (cfg.googleAuthentication != null) ''
+            export GOOGLE_CLIENT_SECRET="$(head -n1 ${
+              lib.escapeShellArg cfg.googleAuthentication.clientSecretFile
+            })"
+          ''}
+          ${lib.optionalString (cfg.azureAuthentication != null) ''
+            export AZURE_CLIENT_SECRET="$(head -n1 ${
+              lib.escapeShellArg cfg.azureAuthentication.clientSecretFile
+            })"
+          ''}
+          ${lib.optionalString (cfg.oidcAuthentication != null) ''
+            export OIDC_CLIENT_SECRET="$(head -n1 ${
+              lib.escapeShellArg cfg.oidcAuthentication.clientSecretFile
+            })"
+          ''}
+          ${lib.optionalString (cfg.sslKeyFile != null) ''
+            export SSL_KEY="$(head -n1 ${lib.escapeShellArg cfg.sslKeyFile})"
+          ''}
+          ${lib.optionalString (cfg.sslCertFile != null) ''
+            export SSL_CERT="$(head -n1 ${lib.escapeShellArg cfg.sslCertFile})"
+          ''}
+          ${lib.optionalString (cfg.slackIntegration != null) ''
+            export SLACK_VERIFICATION_TOKEN="$(head -n1 ${
+              lib.escapeShellArg cfg.slackIntegration.verificationTokenFile
+            })"
+          ''}
+          ${lib.optionalString (cfg.smtp != null) ''
+            export SMTP_PASSWORD="$(head -n1 ${
+              lib.escapeShellArg cfg.smtp.passwordFile
+            })"
           ''}
 
-        cd $RUNTIME_DIRECTORY
-        ${sequelize}/bin/outline-sequelize db:migrate
-      '';
+          ${if (cfg.databaseUrl == "local") then
+            ''
+              export DATABASE_URL=${lib.escapeShellArg localPostgresqlUrl}
+              export PGSSLMODE=disable
+            ''
+          else
+            ''
+              export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
+            ''}
 
-      script = ''
-        export SECRET_KEY="$(head -n1 ${lib.escapeShellArg cfg.secretKeyFile})"
-        export UTILS_SECRET="$(head -n1 ${
-          lib.escapeShellArg cfg.utilsSecretFile
-        })"
-        export AWS_SECRET_ACCESS_KEY="$(head -n1 ${
-          lib.escapeShellArg cfg.storage.secretKeyFile
-        })"
-        ${lib.optionalString (cfg.slackAuthentication != null) ''
-          export SLACK_CLIENT_SECRET="$(head -n1 ${
-            lib.escapeShellArg cfg.slackAuthentication.secretFile
-          })"
-        ''}
-        ${lib.optionalString (cfg.googleAuthentication != null) ''
-          export GOOGLE_CLIENT_SECRET="$(head -n1 ${
-            lib.escapeShellArg cfg.googleAuthentication.clientSecretFile
-          })"
-        ''}
-        ${lib.optionalString (cfg.azureAuthentication != null) ''
-          export AZURE_CLIENT_SECRET="$(head -n1 ${
-            lib.escapeShellArg cfg.azureAuthentication.clientSecretFile
-          })"
-        ''}
-        ${lib.optionalString (cfg.oidcAuthentication != null) ''
-          export OIDC_CLIENT_SECRET="$(head -n1 ${
-            lib.escapeShellArg cfg.oidcAuthentication.clientSecretFile
-          })"
-        ''}
-        ${lib.optionalString (cfg.sslKeyFile != null) ''
-          export SSL_KEY="$(head -n1 ${lib.escapeShellArg cfg.sslKeyFile})"
-        ''}
-        ${lib.optionalString (cfg.sslCertFile != null) ''
-          export SSL_CERT="$(head -n1 ${lib.escapeShellArg cfg.sslCertFile})"
-        ''}
-        ${lib.optionalString (cfg.slackIntegration != null) ''
-          export SLACK_VERIFICATION_TOKEN="$(head -n1 ${
-            lib.escapeShellArg cfg.slackIntegration.verificationTokenFile
-          })"
-        ''}
-        ${lib.optionalString (cfg.smtp != null) ''
-          export SMTP_PASSWORD="$(head -n1 ${
-            lib.escapeShellArg cfg.smtp.passwordFile
-          })"
-        ''}
+          ${cfg.package}/bin/outline-server
+        '';
 
-        ${if (cfg.databaseUrl == "local") then
-          ''
-            export DATABASE_URL=${lib.escapeShellArg localPostgresqlUrl}
-            export PGSSLMODE=disable
-          ''
-        else
-          ''
-            export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
-          ''}
+        serviceConfig = {
+          User = cfg.user;
+          Group = cfg.group;
+          Restart = "always";
+          ProtectSystem = "strict";
+          PrivateHome = true;
+          PrivateTmp = true;
+          UMask = "0007";
 
-        ${cfg.package}/bin/outline-server
-      '';
-
-      serviceConfig = {
-        User = cfg.user;
-        Group = cfg.group;
-        Restart = "always";
-        ProtectSystem = "strict";
-        PrivateHome = true;
-        PrivateTmp = true;
-        UMask = "0007";
-
-        StateDirectory = "outline";
-        StateDirectoryMode = "0750";
-        RuntimeDirectory = "outline";
-        RuntimeDirectoryMode = "0750";
-        # This working directory is required to find stuff like the set of
-        # onboarding files:
-        WorkingDirectory = "${cfg.package}/share/outline/build";
-      };
-    } ;
+          StateDirectory = "outline";
+          StateDirectoryMode = "0750";
+          RuntimeDirectory = "outline";
+          RuntimeDirectoryMode = "0750";
+            # This working directory is required to find stuff like the set of
+            # onboarding files:
+          WorkingDirectory = "${cfg.package}/share/outline/build";
+        };
+      }
+      ;
   };
 }

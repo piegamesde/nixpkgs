@@ -3,13 +3,15 @@ import ./make-test-python.nix ({
   }: {
     name = "fscrypt";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         imports = [ ./common/user-account.nix ];
         security.pam.enableFscrypt = true;
-      };
+      }
+      ;
 
     testScript = ''
       def login_as_alice():

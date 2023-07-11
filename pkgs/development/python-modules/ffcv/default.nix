@@ -19,12 +19,12 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "libffcv";
     repo = pname;
-    # See https://github.com/libffcv/ffcv/issues/158.
+      # See https://github.com/libffcv/ffcv/issues/158.
     rev = "131d56235eca3f1497bb84eeaec82c3434ef25d8";
     sha256 = "0f7q2x48lknnf98mqaa35my05qwvdgv0h8l9lpagdw6yhx0a6p2x";
   };
 
-  # See https://github.com/libffcv/ffcv/issues/159.
+    # See https://github.com/libffcv/ffcv/issues/159.
   postPatch = ''
     substituteInPlace setup.py \
       --replace "'assertpy'," "" \
@@ -47,8 +47,8 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  # `ffcv._libffcv*.so` cannot be loaded in the nix build environment for some
-  # reason. See https://github.com/NixOS/nixpkgs/pull/160441#issuecomment-1045204722.
+    # `ffcv._libffcv*.so` cannot be loaded in the nix build environment for some
+    # reason. See https://github.com/NixOS/nixpkgs/pull/160441#issuecomment-1045204722.
   doCheck = false;
 
   pythonImportsCheck = [ "ffcv" ];

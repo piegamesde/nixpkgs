@@ -20,7 +20,7 @@ buildPythonPackage rec {
     psutil
   ];
 
-  # No tests included in archive
+    # No tests included in archive
   doCheck = false;
 
   meta = {

@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
       libnotify
     ];
 
-  # Silences many warnings
+    # Silences many warnings
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-Wno-inconsistent-missing-override";
 

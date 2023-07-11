@@ -44,7 +44,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "optax" ];
 
-  # check in passthru.tests.pytest to escape infinite recursion with flax
+    # check in passthru.tests.pytest to escape infinite recursion with flax
   doCheck = false;
 
   passthru.tests = { pytest = callPackage ./tests.nix { }; };

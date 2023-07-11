@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.caida.org/projects/spoofer/downloads/${pname}-${version}.tar.gz";
+      "https://www.caida.org/projects/spoofer/downloads/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-FCGFOweeL4o31H/JgqeGiLm3uBjYHz6zzor2ockpA/w=";
   };
 

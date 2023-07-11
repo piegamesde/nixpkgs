@@ -20,7 +20,8 @@ stdenv.mkDerivation {
 
   srcs = fetchurl {
     url =
-      "https://web.archive.org/web/20220821013214/https://www.banana.ch/accounting/files/bananaplus/exe/bananaplus.tgz";
+      "https://web.archive.org/web/20220821013214/https://www.banana.ch/accounting/files/bananaplus/exe/bananaplus.tgz"
+      ;
     hash = "sha256-Xs7K/Z6qM1fKKfYMkwAGznNR0Kt/gY7qTr8ZOriIdYw=";
   };
 

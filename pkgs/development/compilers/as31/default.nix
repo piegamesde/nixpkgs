@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://wiki.erazor-zone.de/_media/wiki:projects:linux:as31:${pname}-${version}.tar.gz";
+      "http://wiki.erazor-zone.de/_media/wiki:projects:linux:as31:${pname}-${version}.tar.gz"
+      ;
     name = "${pname}-${version}.tar.gz";
     hash = "sha256-zSEyWHFon5nyq717Mpmdv1XZ5Hz0e8ZABqsP8M83c1U=";
   };

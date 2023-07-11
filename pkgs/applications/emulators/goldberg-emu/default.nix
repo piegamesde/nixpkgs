@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-goOgMNjtDmIKOAv9sZwnPOY0WqTN90LFJ5iEp3Vkzog=";
   };
 
-  # It attempts to install windows-only libraries which we never build
+    # It attempts to install windows-only libraries which we never build
   patches = [ ./dont-install-unsupported.patch ];
 
   nativeBuildInputs = [ cmake ];

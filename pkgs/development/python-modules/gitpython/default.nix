@@ -35,7 +35,7 @@ buildPythonPackage rec {
       --replace 'git_exec_name = "git"' 'git_exec_name = "${pkgs.gitMinimal}/bin/git"'
   '';
 
-  # Tests require a git repo
+    # Tests require a git repo
   doCheck = false;
 
   pythonImportsCheck = [ "git" ];
@@ -44,7 +44,8 @@ buildPythonPackage rec {
     description = "Python Git Library";
     homepage = "https://github.com/gitpython-developers/GitPython";
     changelog =
-      "https://github.com/gitpython-developers/GitPython/blob/${version}/doc/source/changes.rst";
+      "https://github.com/gitpython-developers/GitPython/blob/${version}/doc/source/changes.rst"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];
   };

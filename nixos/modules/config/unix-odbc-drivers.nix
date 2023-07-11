@@ -10,11 +10,13 @@ with lib;
 # ask the admin to add a driver.. but it's simple and works
 
 let
-  iniDescription = pkg: ''
-    [${pkg.fancyName}]
-    Description = ${pkg.meta.description}
-    Driver = ${pkg}/${pkg.driver}
-  '';
+  iniDescription =
+    pkg: ''
+      [${pkg.fancyName}]
+      Description = ${pkg.meta.description}
+      Driver = ${pkg}/${pkg.driver}
+    ''
+    ;
 
 in {
   ###### interface
@@ -33,12 +35,12 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (config.environment.unixODBCDrivers != [ ]) {
     environment.etc."odbcinst.ini".text =
-      concatMapStringsSep "\n" iniDescription
-      config.environment.unixODBCDrivers;
+      concatMapStringsSep "\n" iniDescription config.environment.unixODBCDrivers
+      ;
   };
 
 }

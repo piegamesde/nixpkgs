@@ -10,7 +10,8 @@ makeTest {
   meta = with pkgs.lib.maintainers; { maintainers = [ lheckemann ]; };
 
   nodes = {
-    server = {
+    server =
+      {
         pkgs,
         ...
       }: {
@@ -20,16 +21,19 @@ makeTest {
           imagemagickBig # for display with working label: support
         ];
         networking.firewall.allowedTCPPorts = [ 5901 ];
-      };
+      }
+      ;
 
-    client = {
+    client =
+      {
         pkgs,
         ...
       }: {
         imports = [ ./common/x11.nix ];
-        # for vncviewer
+          # for vncviewer
         environment.systemPackages = [ pkgs.tigervnc ];
-      };
+      }
+      ;
   };
 
   enableOCR = true;

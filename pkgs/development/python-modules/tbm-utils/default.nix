@@ -24,14 +24,14 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  # this versioning was done to prevent normal pip users from encountering
-  # issues with package failing to build from source, but nixpkgs is better
+    # this versioning was done to prevent normal pip users from encountering
+    # issues with package failing to build from source, but nixpkgs is better
   postPatch = ''
     substituteInPlace setup.py \
       --replace "'attrs>=18.2,<19.4'" "'attrs'"
   '';
 
-  # No tests in archive.
+    # No tests in archive.
   doCheck = false;
 
   meta = {

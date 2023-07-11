@@ -9,12 +9,15 @@
 }:
 
 let
-  ldLibPathEnvName = if stdenv.isDarwin then
-    "DYLD_LIBRARY_PATH"
-  else
-    "LD_LIBRARY_PATH";
+  ldLibPathEnvName =
+    if stdenv.isDarwin then
+      "DYLD_LIBRARY_PATH"
+    else
+      "LD_LIBRARY_PATH"
+    ;
 
-  generic = {
+  generic =
+    {
       version,
       hash,
       patches ? [ ],
@@ -42,10 +45,10 @@ let
         "-DCMAKE_INSTALL_LIBDIR=lib"
       ] ++ lib.optional buildShared "-DBUILD_SHARED_LIBS=ON";
 
-      # The autoconf build is broken as of 2.9.1, resulting in the following error:
-      # libressl-2.9.1/tls/.libs/libtls.a', needed by 'handshake_table'.
-      # Fortunately LibreSSL provides a CMake build as well, so opt for CMake by
-      # removing ./configure pre-config.
+        # The autoconf build is broken as of 2.9.1, resulting in the following error:
+        # libressl-2.9.1/tls/.libs/libtls.a', needed by 'handshake_table'.
+        # Fortunately LibreSSL provides a CMake build as well, so opt for CMake by
+        # removing ./configure pre-config.
       preConfigure = ''
         rm configure
         substituteInPlace CMakeLists.txt \
@@ -111,7 +114,8 @@ let
         ];
         inherit knownVulnerabilities;
       };
-    };
+    }
+    ;
 
 in {
   libressl_3_4 = generic {
@@ -122,7 +126,8 @@ in {
       # https://marc.info/?l=libressl&m=167582148932407&w=2
       name = "backport-type-confusion-fix.patch";
       url =
-        "https://raw.githubusercontent.com/libressl/portable/30dc760ed1d7c70766b135500950d8ca9d17b13a/patches/x509_genn.c.diff";
+        "https://raw.githubusercontent.com/libressl/portable/30dc760ed1d7c70766b135500950d8ca9d17b13a/patches/x509_genn.c.diff"
+        ;
       sha256 = "sha256-N9jsOueqposDWZwaR+n/v/cHgNiZbZ644d8/wKjN2/M=";
       stripLen = 2;
       extraPrefix = "crypto/";
@@ -138,7 +143,8 @@ in {
       (fetchpatch {
         name = "fix-endian-header-detection.patch";
         url =
-          "https://patch-diff.githubusercontent.com/raw/libressl-portable/portable/pull/771.patch";
+          "https://patch-diff.githubusercontent.com/raw/libressl-portable/portable/pull/771.patch"
+          ;
         sha256 = "sha256-in5U6+sl0HB9qMAtUL6Py4X2rlv0HsqRMIQhhM1oThE=";
       })
     ];

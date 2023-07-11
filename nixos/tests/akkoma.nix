@@ -56,14 +56,17 @@ import ./make-test-python.nix ({
       done
     '';
 
-    hosts = nodes: ''
-      ${nodes.akkoma.networking.primaryIPAddress} akkoma.nixos.test
-      ${nodes.client.networking.primaryIPAddress} client.nixos.test
-    '';
+    hosts =
+      nodes: ''
+        ${nodes.akkoma.networking.primaryIPAddress} akkoma.nixos.test
+        ${nodes.client.networking.primaryIPAddress} client.nixos.test
+      ''
+      ;
   in {
     name = "akkoma";
     nodes = {
-      client = {
+      client =
+        {
           nodes,
           pkgs,
           config,
@@ -71,9 +74,11 @@ import ./make-test-python.nix ({
         }: {
           security.pki.certificateFiles = [ "${tlsCert}/cert.pem" ];
           networking.extraHosts = hosts nodes;
-        };
+        }
+        ;
 
-      akkoma = {
+      akkoma =
+        {
           nodes,
           pkgs,
           config,
@@ -112,10 +117,12 @@ import ./make-test-python.nix ({
 
           services.nginx.enable = true;
           services.postgresql.enable = true;
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -128,6 +135,7 @@ import ./make-test-python.nix ({
         akkoma.wait_for_unit('nginx.service')
         client.succeed('${sendToot}/bin/sendToot')
         client.succeed('${checkFe}/bin/checkFe')
-      '';
+      ''
+      ;
   } )
 

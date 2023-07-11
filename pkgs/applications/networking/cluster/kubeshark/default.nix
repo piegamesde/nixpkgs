@@ -22,17 +22,19 @@ buildGoModule rec {
 
   vendorHash = "sha256-ckIjmrXkn1AVBQRwM6+wdRwwYHytxKm3rKEe+csORdU=";
 
-  ldflags = let
-    t = "github.com/kubeshark/kubeshark";
-  in [
-    "-s"
-    "-w"
-    "-X ${t}/misc.GitCommitHash=${src.rev}"
-    "-X ${t}/misc.Branch=master"
-    "-X ${t}/misc.BuildTimestamp=0"
-    "-X ${t}/misc.Platform=unknown"
-    "-X ${t}/misc.Ver=${version}"
-  ] ;
+  ldflags =
+    let
+      t = "github.com/kubeshark/kubeshark";
+    in [
+      "-s"
+      "-w"
+      "-X ${t}/misc.GitCommitHash=${src.rev}"
+      "-X ${t}/misc.Branch=master"
+      "-X ${t}/misc.BuildTimestamp=0"
+      "-X ${t}/misc.Platform=unknown"
+      "-X ${t}/misc.Ver=${version}"
+    ]
+    ;
 
   nativeBuildInputs = [ installShellFiles ];
 

@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "containers-ephemeral";
     meta = { maintainers = with lib.maintainers; [ patryk27 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -30,7 +31,8 @@ import ./make-test-python.nix ({
             networking.firewall.allowedTCPPorts = [ 80 ];
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       assert "webserver" in machine.succeed("nixos-container list")

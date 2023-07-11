@@ -61,11 +61,13 @@ let
   unsupportedCustomGpuTargets =
     lists.subtractLists supportedCustomGpuTargets gpuTargets;
 
-  # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
-  gpuArchWarner = supported: unsupported:
+    # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
+  gpuArchWarner =
+    supported: unsupported:
     trivial.throwIf (supported == [ ])
     ("No supported GPU targets specified. Requested GPU targets: "
-      + strings.concatStringsSep ", " unsupported) supported;
+      + strings.concatStringsSep ", " unsupported) supported
+    ;
 
   gpuTargetString = strings.concatStringsSep "," (if
     gpuTargets != [ ]
@@ -79,24 +81,25 @@ let
   else
     throw "No GPU targets specified");
 
-  # E.g. [ "80" "86" "90" ]
+    # E.g. [ "80" "86" "90" ]
   cudaArchitectures = (builtins.map cudaFlags.dropDot cudaCapabilities);
 
   cudaArchitecturesString = strings.concatStringsSep ";" cudaArchitectures;
-  minArch = let
-    minArch' =
-      builtins.head (builtins.sort strings.versionOlder cudaArchitectures);
-    # "75" -> "750"  Cf. https://bitbucket.org/icl/magma/src/f4ec79e2c13a2347eff8a77a3be6f83bc2daec20/CMakeLists.txt#lines-273
-  in
-  "${minArch'}0"
-  ;
+  minArch =
+    let
+      minArch' =
+        builtins.head (builtins.sort strings.versionOlder cudaArchitectures);
+      # "75" -> "750"  Cf. https://bitbucket.org/icl/magma/src/f4ec79e2c13a2347eff8a77a3be6f83bc2daec20/CMakeLists.txt#lines-273
+    in
+    "${minArch'}0"
+    ;
 
   cuda-common-redist = with cudaPackages; [
     libcublas # cublas_v2.h
     libcusparse # cusparse.h
   ];
 
-  # Build-time dependencies
+    # Build-time dependencies
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
     paths = with cudaPackages;
@@ -110,7 +113,7 @@ let
       ] ++ cuda-common-redist;
   };
 
-  # Run-time dependencies
+    # Run-time dependencies
   cuda-redist = symlinkJoin {
     name = "cuda-redist-${cudaVersion}";
     paths = cuda-common-redist;
@@ -126,7 +129,8 @@ stdenv.mkDerivation {
   src = fetchurl {
     name = "magma-${version}.tar.gz";
     url =
-      "https://icl.cs.utk.edu/projectsfiles/magma/downloads/magma-${version}.tar.gz";
+      "https://icl.cs.utk.edu/projectsfiles/magma/downloads/magma-${version}.tar.gz"
+      ;
     inherit hash;
   };
 
@@ -176,7 +180,7 @@ stdenv.mkDerivation {
     homepage = "http://icl.cs.utk.edu/magma/index.html";
     platforms = platforms.unix;
     maintainers = with maintainers; [ connorbaker ];
-    # CUDA and ROCm are mutually exclusive
+      # CUDA and ROCm are mutually exclusive
     broken = cudaSupport && rocmSupport || cudaSupport
       && strings.versionOlder cudaVersion "9";
   };

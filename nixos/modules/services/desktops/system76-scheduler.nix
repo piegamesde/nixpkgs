@@ -21,11 +21,13 @@ let
     ;
   inherit (types) nullOr listOf bool int ints float str enum;
 
-  withDefaults = optionSpecs: defaults:
+  withDefaults =
+    optionSpecs: defaults:
     lib.genAttrs (attrNames optionSpecs) (name:
       mkOption (optionSpecs.${name} // {
         default = optionSpecs.${name}.default or defaults.${name} or null;
-      }));
+      }))
+    ;
 
   latencyProfile = withDefaults {
     latency = {
@@ -101,7 +103,8 @@ let
     };
   };
 
-  cfsProfileToString = name:
+  cfsProfileToString =
+    name:
     let
       p = cfg.settings.cfsProfiles.${name};
     in
@@ -111,15 +114,18 @@ let
       } wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${
         toString p.bandwidth-size
       } preempt="${p.preempt}"''
-  ;
+    ;
 
-  prioToString = class: prio:
+  prioToString =
+    class: prio:
     if prio == null then
       ''"${class}"''
     else
-      "(${class})${toString prio}";
+      "(${class})${toString prio}"
+    ;
 
-  schedulerProfileToString = name: a: indent:
+  schedulerProfileToString =
+    name: a: indent:
     concatStringsSep " " ([ "${indent}${name}" ]
       ++ (optional (a.nice != null) "nice=${toString a.nice}")
       ++ (optional (a.class != null) "sched=${prioToString a.class a.prio}")
@@ -127,7 +133,8 @@ let
       ++ (optional ((builtins.length a.matchers) != 0) (''
         {
         ${concatStringsSep "\n" (map (m: "  ${indent}${m}") a.matchers)}
-        ${indent}}'')));
+        ${indent}}'')))
+    ;
 
 in {
   options = {
@@ -276,7 +283,8 @@ in {
 
     systemd.services.system76-scheduler = {
       description =
-        "Manage process priorities and CFS scheduler latencies for improved responsiveness on the desktop";
+        "Manage process priorities and CFS scheduler latencies for improved responsiveness on the desktop"
+        ;
       wantedBy = [ "multi-user.target" ];
       path = [
         # execsnoop needs those to extract kernel headers:
@@ -300,7 +308,8 @@ in {
         "system76-scheduler/process-scheduler/00-dist.kdl".source =
           "${cfg.package}/data/pop_os.kdl";
         "system76-scheduler/process-scheduler/01-fix-pipewire-paths.kdl".source =
-          ../../../../pkgs/os-specific/linux/system76-scheduler/01-fix-pipewire-paths.kdl;
+          ../../../../pkgs/os-specific/linux/system76-scheduler/01-fix-pipewire-paths.kdl
+          ;
       })
 
       (let

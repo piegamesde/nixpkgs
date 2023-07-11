@@ -17,7 +17,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A cargo-subcommand to speed up Rust Docker builds using Docker layer caching";
+      "A cargo-subcommand to speed up Rust Docker builds using Docker layer caching"
+      ;
     homepage = "https://github.com/LukeMathWalker/cargo-chef";
     license = licenses.mit;
     maintainers = with maintainers; [ kkharji ];

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     pyserial
   ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pypca" ];

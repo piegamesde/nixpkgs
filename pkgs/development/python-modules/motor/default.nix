@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ mockupdb ];
 
-  # network connections
+    # network connections
   doCheck = false;
 
   pythonImportsCheck = [ "motor" ];

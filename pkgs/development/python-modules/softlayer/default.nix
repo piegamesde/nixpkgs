@@ -59,8 +59,8 @@ buildPythonPackage rec {
     zeep
   ];
 
-  # Otherwise soap_tests.py will fail to create directory
-  # Permission denied: '/homeless-shelter'
+    # Otherwise soap_tests.py will fail to create directory
+    # Permission denied: '/homeless-shelter'
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
@@ -76,7 +76,8 @@ buildPythonPackage rec {
     description = "Python libraries that assist in calling the SoftLayer API";
     homepage = "https://github.com/softlayer/softlayer-python";
     changelog =
-      "https://github.com/softlayer/softlayer-python/blob/v${version}/CHANGELOG.md";
+      "https://github.com/softlayer/softlayer-python/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];
   };

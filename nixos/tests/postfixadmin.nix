@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ globin ]; };
 
     nodes = {
-      postfixadmin = {
+      postfixadmin =
+        {
           config,
           pkgs,
           ...
@@ -21,7 +22,8 @@ import ./make-test-python.nix ({
             forceSSL = false;
             enableACME = false;
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

@@ -19,7 +19,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/platformsh/platformsh-cli/releases/download/v${version}/platform.phar";
+      "https://github.com/platformsh/platformsh-cli/releases/download/v${version}/platform.phar"
+      ;
     sha256 = "sha256-STGMKWgI4C6ccg8DGUhdnEENOB2//gtpU0ljM4cQCXI=";
   };
 
@@ -59,7 +60,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "The unified tool for managing your Platform.sh services from the command line.";
+      "The unified tool for managing your Platform.sh services from the command line."
+      ;
     homepage = "https://github.com/platformsh/platformsh-cli";
     license = licenses.mit;
     maintainers = with maintainers; [ shyim ];

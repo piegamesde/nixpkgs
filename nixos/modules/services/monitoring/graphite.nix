@@ -50,19 +50,22 @@ let
     ];
   };
 
-  carbonOpts = name:
+  carbonOpts =
+    name:
     with config.ids; ''
       --nodaemon --syslog --prefix=${name} --pidfile /run/${name}/${name}.pid ${name}
-    '';
+    ''
+    ;
 
   carbonEnv = {
-    PYTHONPATH = let
-      cenv = pkgs.python3.buildEnv.override {
-        extraLibs = [ pkgs.python3Packages.carbon ];
-      };
-    in
-    "${cenv}/${pkgs.python3.sitePackages}"
-    ;
+    PYTHONPATH =
+      let
+        cenv = pkgs.python3.buildEnv.override {
+          extraLibs = [ pkgs.python3Packages.carbon ];
+        };
+      in
+      "${cenv}/${pkgs.python3.sitePackages}"
+      ;
     GRAPHITE_ROOT = dataDir;
     GRAPHITE_CONF_DIR = configDir;
     GRAPHITE_STORAGE_DIR = dataDir;
@@ -88,7 +91,7 @@ in {
     ] "")
   ];
 
-  ###### interface
+    ###### interface
 
   options.services.graphite = {
     dataDir = mkOption {
@@ -178,7 +181,8 @@ in {
 
       blacklist = mkOption {
         description = lib.mdDoc
-          "Any metrics received which match one of the expressions will be dropped.";
+          "Any metrics received which match one of the expressions will be dropped."
+          ;
         default = null;
         type = types.nullOr types.str;
         example = "^some\\.noisy\\.metric\\.prefix\\..*";
@@ -186,7 +190,8 @@ in {
 
       whitelist = mkOption {
         description = lib.mdDoc
-          "Only metrics received which match one of the expressions will be persisted.";
+          "Only metrics received which match one of the expressions will be persisted."
+          ;
         default = null;
         type = types.nullOr types.str;
         example = ".*";
@@ -208,7 +213,8 @@ in {
 
       enableRelay = mkOption {
         description = lib.mdDoc
-          "Whether to enable carbon relay, the carbon replication and sharding service.";
+          "Whether to enable carbon relay, the carbon replication and sharding service."
+          ;
         default = false;
         type = types.bool;
       };
@@ -268,7 +274,8 @@ in {
       graphiteUrl = mkOption {
         default = "http://${cfg.web.listenAddress}:${toString cfg.web.port}";
         defaultText = literalExpression ''
-          "http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
+          "http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"''
+          ;
         description = lib.mdDoc "Host where graphite service runs.";
         type = types.str;
       };
@@ -298,70 +305,76 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
     (mkIf cfg.carbon.enableCache {
-      systemd.services.carbonCache = let
-        name = "carbon-cache";
-      in {
-        description = "Graphite Data Storage Backend";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        environment = carbonEnv;
-        serviceConfig = {
-          RuntimeDirectory = name;
-          ExecStart =
-            "${pkgs.python3Packages.twisted}/bin/twistd ${carbonOpts name}";
-          User = "graphite";
-          Group = "graphite";
-          PermissionsStartOnly = true;
-          PIDFile = "/run/${name}/${name}.pid";
-        };
-        preStart = ''
-          install -dm0700 -o graphite -g graphite ${cfg.dataDir}
-          install -dm0700 -o graphite -g graphite ${cfg.dataDir}/whisper
-        '';
-      } ;
+      systemd.services.carbonCache =
+        let
+          name = "carbon-cache";
+        in {
+          description = "Graphite Data Storage Backend";
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          environment = carbonEnv;
+          serviceConfig = {
+            RuntimeDirectory = name;
+            ExecStart =
+              "${pkgs.python3Packages.twisted}/bin/twistd ${carbonOpts name}";
+            User = "graphite";
+            Group = "graphite";
+            PermissionsStartOnly = true;
+            PIDFile = "/run/${name}/${name}.pid";
+          };
+          preStart = ''
+            install -dm0700 -o graphite -g graphite ${cfg.dataDir}
+            install -dm0700 -o graphite -g graphite ${cfg.dataDir}/whisper
+          '';
+        }
+        ;
     })
 
     (mkIf cfg.carbon.enableAggregator {
-      systemd.services.carbonAggregator = let
-        name = "carbon-aggregator";
-      in {
-        enable = cfg.carbon.enableAggregator;
-        description = "Carbon Data Aggregator";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        environment = carbonEnv;
-        serviceConfig = {
-          RuntimeDirectory = name;
-          ExecStart =
-            "${pkgs.python3Packages.twisted}/bin/twistd ${carbonOpts name}";
-          User = "graphite";
-          Group = "graphite";
-          PIDFile = "/run/${name}/${name}.pid";
-        };
-      } ;
+      systemd.services.carbonAggregator =
+        let
+          name = "carbon-aggregator";
+        in {
+          enable = cfg.carbon.enableAggregator;
+          description = "Carbon Data Aggregator";
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          environment = carbonEnv;
+          serviceConfig = {
+            RuntimeDirectory = name;
+            ExecStart =
+              "${pkgs.python3Packages.twisted}/bin/twistd ${carbonOpts name}";
+            User = "graphite";
+            Group = "graphite";
+            PIDFile = "/run/${name}/${name}.pid";
+          };
+        }
+        ;
     })
 
     (mkIf cfg.carbon.enableRelay {
-      systemd.services.carbonRelay = let
-        name = "carbon-relay";
-      in {
-        description = "Carbon Data Relay";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        environment = carbonEnv;
-        serviceConfig = {
-          RuntimeDirectory = name;
-          ExecStart =
-            "${pkgs.python3Packages.twisted}/bin/twistd ${carbonOpts name}";
-          User = "graphite";
-          Group = "graphite";
-          PIDFile = "/run/${name}/${name}.pid";
-        };
-      } ;
+      systemd.services.carbonRelay =
+        let
+          name = "carbon-relay";
+        in {
+          description = "Carbon Data Relay";
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          environment = carbonEnv;
+          serviceConfig = {
+            RuntimeDirectory = name;
+            ExecStart =
+              "${pkgs.python3Packages.twisted}/bin/twistd ${carbonOpts name}";
+            User = "graphite";
+            Group = "graphite";
+            PIDFile = "/run/${name}/${name}.pid";
+          };
+        }
+        ;
     })
 
     (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator
@@ -376,19 +389,20 @@ in {
         after = [ "network.target" ];
         path = [ pkgs.perl ];
         environment = {
-          PYTHONPATH = let
-            penv = pkgs.python3.buildEnv.override {
-              extraLibs = [ pkgs.python3Packages.graphite-web ];
-            };
-            penvPack = "${penv}/${pkgs.python3.sitePackages}";
-          in
-          concatStringsSep ":" [
-            "${graphiteLocalSettingsDir}"
-            "${penvPack}"
-            # explicitly adding pycairo in path because it cannot be imported via buildEnv
-            "${pkgs.python3Packages.pycairo}/${pkgs.python3.sitePackages}"
-          ]
-          ;
+          PYTHONPATH =
+            let
+              penv = pkgs.python3.buildEnv.override {
+                extraLibs = [ pkgs.python3Packages.graphite-web ];
+              };
+              penvPack = "${penv}/${pkgs.python3.sitePackages}";
+            in
+            concatStringsSep ":" [
+              "${graphiteLocalSettingsDir}"
+              "${penvPack}"
+              # explicitly adding pycairo in path because it cannot be imported via buildEnv
+              "${pkgs.python3Packages.pycairo}/${pkgs.python3.sitePackages}"
+            ]
+            ;
           DJANGO_SETTINGS_MODULE = "graphite.settings";
           GRAPHITE_SETTINGS_MODULE = "graphite_local_settings";
           GRAPHITE_CONF_DIR = configDir;

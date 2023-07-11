@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # https://github.com/minetest/minetest/pull/10729
+    # https://github.com/minetest/minetest/pull/10729
   postPatch = lib.optionalString (!withTouchSupport) ''
     sed -i '1i #define NO_IRR_LINUX_X11_XINPUT2_' include/IrrCompileConfig.h
 
@@ -59,6 +59,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.zlib;
     maintainers = with lib.maintainers; [ DeeUnderscore ];
     description =
-      "Minetest project's fork of Irrlicht, a realtime 3D engine written in C++";
+      "Minetest project's fork of Irrlicht, a realtime 3D engine written in C++"
+      ;
   };
 }

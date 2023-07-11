@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-${version}.tar.gz";
+      "https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-${version}.tar.gz"
+      ;
     hash = "sha256-n5zUwEH5m1xJ/7e1nZ8S2VtoPYhYVgiqVqYwdmeysh8=";
   };
 

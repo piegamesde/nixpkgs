@@ -28,7 +28,7 @@ buildGoModule rec {
     "cmd/spire-server"
   ];
 
-  # Usually either the agent or server is needed for a given use case, but not both
+    # Usually either the agent or server is needed for a given use case, but not both
   postInstall = ''
     mkdir -vp $agent/bin $server/bin
     mv -v $out/bin/spire-agent $agent/bin/

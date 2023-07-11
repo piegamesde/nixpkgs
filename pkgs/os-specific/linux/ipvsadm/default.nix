@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
     popt
   ];
 
-  # Disable parallel build, errors:
-  #  *** No rule to make target 'libipvs/libipvs.a', needed by 'ipvsadm'.  Stop.
+    # Disable parallel build, errors:
+    #  *** No rule to make target 'libipvs/libipvs.a', needed by 'ipvsadm'.  Stop.
   enableParallelBuilding = false;
 
   preBuild = ''

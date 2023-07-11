@@ -17,7 +17,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/plump/2021-06-30/plump-20210630-git.tgz";
+      "http://beta.quicklisp.org/archive/plump/2021-06-30/plump-20210630-git.tgz"
+      ;
     sha256 = "0wx5l2q5hsdshdrmlpnjdlyksw6rl5f2snad18xkmmyiwwn7wv2h";
   };
 

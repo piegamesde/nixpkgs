@@ -27,13 +27,15 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-strncat-build-failure.patch";
       url =
-        "https://github.com/OpenZWave/open-zwave/commit/601e5fb16232a7984885e67fdddaf5b9c9dd8105.patch";
+        "https://github.com/OpenZWave/open-zwave/commit/601e5fb16232a7984885e67fdddaf5b9c9dd8105.patch"
+        ;
       sha256 = "1n1k5arwk1dyc12xz6xl4n8yw28vghzhv27j65z1nca4zqsxgza1";
     })
     (fetchpatch {
       name = "fix-text-uninitialized.patch";
       url =
-        "https://github.com/OpenZWave/open-zwave/commit/3b029a467e83bc7f0054e4dbba1e77e6eac7bc7f.patch";
+        "https://github.com/OpenZWave/open-zwave/commit/3b029a467e83bc7f0054e4dbba1e77e6eac7bc7f.patch"
+        ;
       sha256 = "183mrzjh1zx2b2wzkj4jisiw8br7g7bbs167afls4li0fm01d638";
     })
   ];

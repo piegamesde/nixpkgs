@@ -32,8 +32,8 @@ buildDunePackage {
   inherit (dns) version src;
   duneVersion = "3";
 
-  # no need to propagate as this is primarily
-  # an executable package
+    # no need to propagate as this is primarily
+    # an executable package
   buildInputs = [
     dns
     dns-tsig

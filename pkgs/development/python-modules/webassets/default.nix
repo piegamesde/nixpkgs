@@ -26,13 +26,14 @@ buildPythonPackage rec {
     pytest
   ];
 
-  # Needs Babel CLI tool
+    # Needs Babel CLI tool
   doCheck = false;
   checkPhase = "py.test";
 
   meta = with lib; {
     description =
-      "Media asset management for Python, with glue code for various web frameworks";
+      "Media asset management for Python, with glue code for various web frameworks"
+      ;
     homepage = "https://github.com/miracle2k/webassets/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ abbradar ];

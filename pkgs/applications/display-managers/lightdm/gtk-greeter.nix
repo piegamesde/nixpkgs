@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     # Release tarball differs from source tarball.
     url =
-      "https://github.com/Xubuntu/lightdm-gtk-greeter/releases/download/lightdm-gtk-greeter-${version}/lightdm-gtk-greeter-${version}.tar.gz";
+      "https://github.com/Xubuntu/lightdm-gtk-greeter/releases/download/lightdm-gtk-greeter-${version}/lightdm-gtk-greeter-${version}.tar.gz"
+      ;
     sha256 = "vvuzAMezT/IYZf28iBIB9zD8fFYOngHRfomelHcVBhM=";
   };
 

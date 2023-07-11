@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
     sha256 = "0ifwzk99rzjws0ixzimbvs83x6cxqk1xzmg84wa1p7bs6rypaxs0";
   };
 
-  # This patch makes sure that `docbook2texi --to-stdout' actually
-  # writes its output to stdout instead of creating a file.
+    # This patch makes sure that `docbook2texi --to-stdout' actually
+    # writes its output to stdout instead of creating a file.
   patches = [ ./db2x_texixml-to-stdout.patch ];
 
   nativeBuildInputs = [

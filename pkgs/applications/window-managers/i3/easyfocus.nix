@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     glib.dev
   ];
 
-  # Makefile has no rule for 'install'
+    # Makefile has no rule for 'install'
   installPhase = ''
     mkdir -p $out/bin
     cp i3-easyfocus $out/bin

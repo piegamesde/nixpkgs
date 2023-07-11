@@ -76,8 +76,8 @@ stdenv.mkDerivation rec {
     "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp"
     ++ lib.optional (!withRuby) "--without-ruby";
 
-  # Notmuch doesn't use autoconf and consequently doesn't tag --bindir and
-  # friends
+    # Notmuch doesn't use autoconf and consequently doesn't tag --bindir and
+    # friends
   setOutputFlags = false;
   enableParallelBuilding = true;
   makeFlags = [ "V=1" ];
@@ -94,16 +94,18 @@ stdenv.mkDerivation rec {
     "bindingconfig"
   ] ++ lib.optional withEmacs "emacs" ++ lib.optional withRuby "ruby";
 
-  preCheck = let
-    test-database = fetchurl {
-      url =
-        "https://notmuchmail.org/releases/test-databases/database-v1.tar.xz";
-      sha256 = "1lk91s00y4qy4pjh8638b5lfkgwyl282g1m27srsf7qfn58y16a2";
-    };
-  in ''
-    mkdir -p test/test-databases
-    ln -s ${test-database} test/test-databases/database-v1.tar.xz
-  '' ;
+  preCheck =
+    let
+      test-database = fetchurl {
+        url =
+          "https://notmuchmail.org/releases/test-databases/database-v1.tar.xz";
+        sha256 = "1lk91s00y4qy4pjh8638b5lfkgwyl282g1m27srsf7qfn58y16a2";
+      };
+    in ''
+      mkdir -p test/test-databases
+      ln -s ${test-database} test/test-databases/database-v1.tar.xz
+    ''
+    ;
 
   doCheck = !stdenv.hostPlatform.isDarwin
     && (lib.versionAtLeast gmime3.version "3.0.3");

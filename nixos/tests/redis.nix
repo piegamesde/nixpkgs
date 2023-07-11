@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ flokli ]; };
 
     nodes = {
-      machine = {
+      machine =
+        {
           pkgs,
           lib,
           ...
@@ -27,10 +28,12 @@ import ./make-test-python.nix ({
               ""
               "-test"
             ]);
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -58,5 +61,6 @@ import ./make-test-python.nix ({
         machine.succeed("redis-cli -s ${
           redis.servers."test".unixSocket
         } ping | grep PONG")
-      '' ;
+      ''
+      ;
   })

@@ -16,12 +16,14 @@
 }:
 
 let
-  pname-suffix = if amd && nvidia then
-    ""
-  else if amd then
-    "-amd"
-  else
-    "-nvidia";
+  pname-suffix =
+    if amd && nvidia then
+      ""
+    else if amd then
+      "-amd"
+    else
+      "-nvidia"
+    ;
   nvidia-postFixup = "addOpenGLRunpath $out/bin/nvtop";
   libPath = lib.makeLibraryPath [
     libdrm
@@ -67,7 +69,7 @@ stdenv.mkDerivation rec {
       udev
     ] ++ optional nvidia cudatoolkit ++ optional amd libdrm;
 
-  # ordering of fixups is important
+    # ordering of fixups is important
   postFixup = (lib.optionalString amd amd-postFixup)
     + (lib.optionalString nvidia nvidia-postFixup);
 

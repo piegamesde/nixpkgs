@@ -30,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/tvrzna/emptty";
     license = licenses.mit;
     maintainers = with maintainers; [ urandom ];
-    # many undefined functions
+      # many undefined functions
     broken = stdenv.isDarwin;
   };
 }

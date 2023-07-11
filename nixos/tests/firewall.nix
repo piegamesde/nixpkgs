@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
     nodes = {
-      walled = {
+      walled =
+        {
           ...
         }: {
           networking.firewall.enable = true;
@@ -17,39 +18,47 @@ import ./make-test-python.nix ({
           networking.nftables.enable = nftables;
           services.httpd.enable = true;
           services.httpd.adminAddr = "foo@example.org";
-        };
+        }
+        ;
 
-      # Dummy configuration to check whether firewall.service will be honored
-      # during system activation. This only needs to be different to the
-      # original walled configuration so that there is a change in the service
-      # file.
-      walled2 = {
+        # Dummy configuration to check whether firewall.service will be honored
+        # during system activation. This only needs to be different to the
+        # original walled configuration so that there is a change in the service
+        # file.
+      walled2 =
+        {
           ...
         }: {
           networking.firewall.enable = true;
           networking.firewall.rejectPackets = true;
           networking.nftables.enable = nftables;
-        };
+        }
+        ;
 
-      attacker = {
+      attacker =
+        {
           ...
         }: {
           services.httpd.enable = true;
           services.httpd.adminAddr = "foo@example.org";
           networking.firewall.enable = false;
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
       let
         newSystem = nodes.walled2.config.system.build.toplevel;
-        unit = if nftables then
-          "nftables"
-        else
-          "firewall";
+        unit =
+          if nftables then
+            "nftables"
+          else
+            "firewall"
+          ;
       in ''
         start_all()
 
@@ -76,5 +85,6 @@ import ./make-test-python.nix ({
         walled.succeed(
             "${newSystem}/bin/switch-to-configuration test 2>&1 | grep -qF ${unit}.service"
         )
-      '' ;
+      ''
+      ;
   })

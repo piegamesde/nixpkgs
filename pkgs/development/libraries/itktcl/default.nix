@@ -13,7 +13,8 @@ tcl.mkTclDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/incrtcl/%5BIncr%20Tcl_Tk%5D-source/3.4/itk${version}.tar.gz";
+      "mirror://sourceforge/incrtcl/%5BIncr%20Tcl_Tk%5D-source/3.4/itk${version}.tar.gz"
+      ;
     sha256 = "1iy964jfgsfnc1agk1w6bbm44x18ily8d4wmr7cc9z9f4acn2r6s";
   };
 

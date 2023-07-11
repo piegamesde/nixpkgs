@@ -146,10 +146,10 @@ let
     hash = "sha256-2nwjW0MYrMVk+dllrAv9yn+YNA6/loZzoK8mbFIZ8Xs=";
   };
 
-  # see https://github.com/xbmc/xbmc/blob/${kodiVersion}-${rel}/tools/depends/target/ to get suggested versions for all dependencies
+    # see https://github.com/xbmc/xbmc/blob/${kodiVersion}-${rel}/tools/depends/target/ to get suggested versions for all dependencies
 
-  # kodi 20.0 moved to ffmpeg 5, *but* there is a bug making the compilation fail which will
-  # only been fixed in kodi 21, so stick to ffmpeg 4 for now
+    # kodi 20.0 moved to ffmpeg 5, *but* there is a bug making the compilation fail which will
+    # only been fixed in kodi 21, so stick to ffmpeg 4 for now
   ffmpeg = stdenv.mkDerivation rec {
     pname = "kodi-ffmpeg";
     version = "4.4.1";
@@ -185,8 +185,8 @@ let
     ];
   };
 
-  # We can build these externally but FindLibDvd.cmake forces us to build it
-  # them, so we currently just use them for the src.
+    # We can build these externally but FindLibDvd.cmake forces us to build it
+    # them, so we currently just use them for the src.
   libdvdcss = fetchFromGitHub {
     owner = "xbmc";
     repo = "libdvdcss";
@@ -378,10 +378,11 @@ stdenv.mkDerivation {
     # webserver whitelist to avoid this problem.
     "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
   ] ++ lib.optionals
-    waylandSupport [ "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++" ];
+    waylandSupport [ "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++" ]
+    ;
 
-  # 14 tests fail but the biggest issue is that every test takes 30 seconds -
-  # I'm guessing there is a thing waiting to time out
+    # 14 tests fail but the biggest issue is that every test takes 30 seconds -
+    # I'm guessing there is a thing waiting to time out
   doCheck = false;
 
   preConfigure = ''

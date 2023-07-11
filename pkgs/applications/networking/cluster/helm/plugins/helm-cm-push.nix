@@ -19,7 +19,7 @@ buildGoModule rec {
 
   subPackage = [ "cmd/helm-cm-push" ];
 
-  # Remove hooks.
+    # Remove hooks.
   postPatch = ''
     sed -e '/^hooks:/,+2 d' -i plugin.yaml
   '';
@@ -36,7 +36,7 @@ buildGoModule rec {
     mv $out/bin $out/helm-cm-push
   '';
 
-  # Tests require the ChartMuseum service.
+    # Tests require the ChartMuseum service.
   doCheck = false;
 
   meta = with lib; {

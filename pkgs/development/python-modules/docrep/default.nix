@@ -22,7 +22,7 @@ buildPythonPackage rec {
     py.test
   '';
 
-  # tests not packaged with PyPi download
+    # tests not packaged with PyPi download
   doCheck = false;
 
   meta = {

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mUi0DU99XV3FzUZ8/9uJZU+W3fc6Bk6+y6Z78IRZ9Qs=";
   };
 
-  # reco: encode libaom slowest but best, decode dav1d fastest
+    # reco: encode libaom slowest but best, decode dav1d fastest
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"

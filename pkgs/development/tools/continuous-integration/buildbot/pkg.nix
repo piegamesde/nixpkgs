@@ -21,7 +21,7 @@ buildPythonPackage rec {
     substituteInPlace buildbot_pkg.py --replace "os.listdir = listdir" ""
   '';
 
-  # No tests
+    # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "buildbot_pkg" ];

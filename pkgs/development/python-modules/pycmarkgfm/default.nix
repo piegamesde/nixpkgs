@@ -22,11 +22,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cffi ];
 
-  # I would gladly use pytestCheckHook, but pycmarkgfm relies on a native
-  # extension (cmark.so, built through setup.py), and pytestCheckHook runs
-  # pytest in an environment that does not contain this extension, which fails.
-  # cmarkgfm has virtually the same build setup as this package, and uses the
-  # same trick: pkgs/development/python-modules/cmarkgfm/default.nix
+    # I would gladly use pytestCheckHook, but pycmarkgfm relies on a native
+    # extension (cmark.so, built through setup.py), and pytestCheckHook runs
+    # pytest in an environment that does not contain this extension, which fails.
+    # cmarkgfm has virtually the same build setup as this package, and uses the
+    # same trick: pkgs/development/python-modules/cmarkgfm/default.nix
   nativeCheckInputs = [ pytest ];
   checkPhase = ''
     pytest
@@ -35,7 +35,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/zopieux/pycmarkgfm";
     description =
-      "Bindings to GitHub's Flavored Markdown (cmark-gfm), with enhanced support for task lists";
+      "Bindings to GitHub's Flavored Markdown (cmark-gfm), with enhanced support for task lists"
+      ;
     changelog =
       "https://github.com/zopieux/pycmarkgfm/raw/v${version}/CHANGELOG.md";
     platforms = platforms.linux ++ platforms.darwin;

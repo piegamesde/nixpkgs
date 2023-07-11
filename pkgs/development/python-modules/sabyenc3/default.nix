@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-89ZfKnC8sT7xvq4P9rs7aa2uGElwNfjNT/5OWvGqL0E=";
   };
 
-  # Tests are not included in pypi distribution
+    # Tests are not included in pypi distribution
   doCheck = false;
 
   pythonImportsCheck = [ "sabyenc3" ];

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1gv0hrgdl4wp562virpf9sib6pdhapwv4zvwbl0d5f5xyx04il11";
   };
 
-  # Prebuilt Java package.
+    # Prebuilt Java package.
   installPhase = ''
     mkdir -p "$out/bin"
     mkdir -p "$out/share/smc"

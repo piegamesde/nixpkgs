@@ -47,7 +47,7 @@ buildPythonPackage rec {
     NO_NET=1 NO_CDL=1 ${python.interpreter} run_all.py
   '';
 
-  # Variables used to configure the build process
+    # Variables used to configure the build process
   USE_NCCONFIG = "0";
   HDF5_DIR = lib.getDev hdf5;
   NETCDF4_DIR = netcdf;

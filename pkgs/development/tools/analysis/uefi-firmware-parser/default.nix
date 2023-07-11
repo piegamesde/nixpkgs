@@ -10,7 +10,7 @@ buildPythonApplication rec {
   pname = "uefi-firmware-parser";
   version = "1.8";
 
-  # Version 1.8 is not published on pypi
+    # Version 1.8 is not published on pypi
   src = fetchFromGitHub {
     owner = "theopolis";
     repo = "uefi-firmware-parser";
@@ -21,8 +21,9 @@ buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/theopolis/uefi-firmware-parser/";
     description =
-      "Parse BIOS/Intel ME/UEFI firmware related structures: Volumes, FileSystems, Files, etc";
-    # MIT + license headers in some files
+      "Parse BIOS/Intel ME/UEFI firmware related structures: Volumes, FileSystems, Files, etc"
+      ;
+      # MIT + license headers in some files
     license = with licenses; [
       mit
       zlib # uefi_firmware/me.py

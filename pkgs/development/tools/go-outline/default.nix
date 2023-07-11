@@ -19,7 +19,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Utility to extract JSON representation of declarations from a Go source file";
+      "Utility to extract JSON representation of declarations from a Go source file"
+      ;
     homepage = "https://github.com/ramya-rao-a/go-outline";
     maintainers = with maintainers; [
       SuperSandro2000

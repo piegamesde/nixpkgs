@@ -215,7 +215,7 @@ in {
     services.xserver.updateDbusEnvironment = true;
     services.xserver.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
-    # Enable helpful DBus services.
+      # Enable helpful DBus services.
     services.udisks2.enable = true;
     security.polkit.enable = true;
     services.accounts-daemon.enable = true;
@@ -225,17 +225,17 @@ in {
     services.tumbler.enable = true;
     services.system-config-printer.enable =
       (mkIf config.services.printing.enable (mkDefault true));
-    services.xserver.libinput.enable =
-      mkDefault true; # used in xfce4-settings-manager
+    services.xserver.libinput.enable = mkDefault true
+      ; # used in xfce4-settings-manager
 
-    # Enable default programs
+      # Enable default programs
     programs.dconf.enable = true;
 
-    # Shell integration for VTE terminals
+      # Shell integration for VTE terminals
     programs.bash.vteIntegration = mkDefault true;
     programs.zsh.vteIntegration = mkDefault true;
 
-    # Systemd services
+      # Systemd services
     systemd.packages = with pkgs.xfce; [ xfce4-notifyd ];
 
     security.pam.services.xfce4-screensaver.unixAuth = cfg.enableScreensaver;

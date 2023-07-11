@@ -16,7 +16,8 @@ let
 
   pypkgs = python3Packages;
 
-  generic = {
+  generic =
+    {
       pname,
       withGUI,
     }:
@@ -106,7 +107,8 @@ let
         ];
         platforms = platforms.all;
       };
-    };
+    }
+    ;
 
 in rec {
   deluge-gtk = generic {

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     patchShebangs tests/test.sh
   '';
 
-  # copying files so that we dont need to patch the test.sh
+    # copying files so that we dont need to patch the test.sh
   checkPhase = ''
     (
     cp AtomicParsley ../tests
@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A CLI program for reading, parsing and setting metadata into MPEG-4 files";
+      "A CLI program for reading, parsing and setting metadata into MPEG-4 files"
+      ;
     homepage = "https://github.com/wez/atomicparsley";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

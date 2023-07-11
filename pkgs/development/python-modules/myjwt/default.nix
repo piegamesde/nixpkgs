@@ -66,7 +66,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/tyki6/MyJWT/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
-    # Build failures
+      # Build failures
     broken = stdenv.isDarwin;
   };
 }

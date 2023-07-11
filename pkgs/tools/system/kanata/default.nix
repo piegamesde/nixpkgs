@@ -27,7 +27,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A tool to improve keyboard comfort and usability with advanced customization";
+      "A tool to improve keyboard comfort and usability with advanced customization"
+      ;
     homepage = "https://github.com/jtroo/kanata";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ linj ];

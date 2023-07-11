@@ -28,7 +28,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  # Project has no tests, only a test script which looks like anusage example
+    # Project has no tests, only a test script which looks like anusage example
   doCheck = false;
 
   pythonImportsCheck = [ "pyskyqremote" ];

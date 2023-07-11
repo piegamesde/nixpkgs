@@ -47,7 +47,7 @@ in {
     services.xserver.displayManager.sessionPackages = [ pkgs.deepin.startdde ];
     services.xserver.displayManager.defaultSession = mkDefault "deepin";
 
-    # Update the DBus activation environment after launching the desktop manager.
+      # Update the DBus activation environment after launching the desktop manager.
     services.xserver.displayManager.sessionCommands = ''
       ${
         lib.getBin pkgs.dbus
@@ -87,9 +87,10 @@ in {
 
     environment.sessionVariables = {
       NIX_GSETTINGS_OVERRIDES_DIR =
-        "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
-      DDE_POLKIT_AGENT_PLUGINS_DIRS =
-        [ "${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins" ];
+        "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas"
+        ;
+      DDE_POLKIT_AGENT_PLUGINS_DIRS = [ "${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins" ]
+        ;
     };
 
     environment.pathsToLink = [
@@ -191,7 +192,7 @@ in {
       in
       requiredPackages ++ utils.removePackagesByName optionalPackages
       config.environment.deepin.excludePackages
-    ;
+      ;
 
     services.dbus.packages = with pkgs.deepin; [
       dde-dock

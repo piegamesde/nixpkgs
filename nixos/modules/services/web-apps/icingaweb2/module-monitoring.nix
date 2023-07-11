@@ -15,20 +15,23 @@ let
     }"
   '';
 
-  backendsIni = let
-    formatBool = b:
-      if b then
-        "1"
-      else
-        "0";
-  in
-  concatStringsSep "\n" (mapAttrsToList (name: config: ''
-    [${name}]
-    type = "ido"
-    resource = "${config.resource}"
-    disabled = "${formatBool config.disabled}"
-  '') cfg.backends)
-  ;
+  backendsIni =
+    let
+      formatBool =
+        b:
+        if b then
+          "1"
+        else
+          "0"
+        ;
+    in
+    concatStringsSep "\n" (mapAttrsToList (name: config: ''
+      [${name}]
+      type = "ido"
+      resource = "${config.resource}"
+      disabled = "${formatBool config.disabled}"
+    '') cfg.backends)
+    ;
 
   transportsIni = concatStringsSep "\n" (mapAttrsToList (name: config: ''
     [${name}]
@@ -62,7 +65,8 @@ in {
         type = bool;
         default = false;
         description = lib.mdDoc
-          "Make config.ini of the monitoring module mutable (e.g. via the web interface).";
+          "Make config.ini of the monitoring module mutable (e.g. via the web interface)."
+          ;
       };
 
       protectedVars = mkOption {
@@ -73,7 +77,8 @@ in {
           "community"
         ];
         description = lib.mdDoc
-          "List of string patterns for custom variables which should be excluded from user’s view.";
+          "List of string patterns for custom variables which should be excluded from user’s view."
+          ;
       };
     };
 
@@ -81,7 +86,8 @@ in {
       type = bool;
       default = false;
       description = lib.mdDoc
-        "Make backends.ini of the monitoring module mutable (e.g. via the web interface).";
+        "Make backends.ini of the monitoring module mutable (e.g. via the web interface)."
+        ;
     };
 
     backends = mkOption {
@@ -117,7 +123,8 @@ in {
       type = bool;
       default = true;
       description = lib.mdDoc
-        "Make commandtransports.ini of the monitoring module mutable (e.g. via the web interface).";
+        "Make commandtransports.ini of the monitoring module mutable (e.g. via the web interface)."
+        ;
     };
 
     transports = mkOption {

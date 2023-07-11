@@ -22,23 +22,28 @@ let
 
   cfg = config.services.strongswan;
 
-  ipsecSecrets = secrets:
+  ipsecSecrets =
+    secrets:
     toFile "ipsec.secrets"
-    (concatMapStringsSep "\n" (f: "include ${f}") secrets);
+    (concatMapStringsSep "\n" (f: "include ${f}") secrets)
+    ;
 
-  ipsecConf = {
+  ipsecConf =
+    {
       setup,
       connections,
       ca,
     }:
     let
       # https://wiki.strongswan.org/projects/strongswan/wiki/IpsecConf
-      makeSections = type: sections:
+      makeSections =
+        type: sections:
         concatStringsSep "\n\n" (mapAttrsToList (sec: attrs:
           ''
             ${type} ${sec}
           '' + (concatStringsSep "\n"
-            (mapAttrsToList (k: v: "  ${k}=${v}") attrs))) sections);
+            (mapAttrsToList (k: v: "  ${k}=${v}") attrs))) sections)
+        ;
       setupConf = makeSections "config" { inherit setup; };
       connectionsConf = makeSections "conn" connections;
       caConf = makeSections "ca" ca;
@@ -49,9 +54,10 @@ let
       ${connectionsConf}
       ${caConf}
     ''
-  ;
+    ;
 
-  strongswanConf = {
+  strongswanConf =
+    {
       setup,
       connections,
       ca,
@@ -76,7 +82,8 @@ let
       starter {
         config_file = ${ipsecConf { inherit setup connections ca; }}
       }
-    '';
+    ''
+    ;
 
 in {
   options.services.strongswan = {
@@ -210,6 +217,6 @@ in {
         '';
       };
     }
-  ;
+    ;
 }
 

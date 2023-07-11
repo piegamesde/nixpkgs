@@ -6,7 +6,7 @@
 
 let
   version = "1.3.1";
-  # nixpkgs-update: no auto update
+    # nixpkgs-update: no auto update
 
   suffix = {
     x86_64-linux = "x86_64";
@@ -17,11 +17,13 @@ let
   baseurl =
     "https://github.com/firecracker-microvm/firecracker/releases/download";
 
-  dlbin = sha256:
+  dlbin =
+    sha256:
     fetchurl {
       url = "${baseurl}/v${version}/firecracker-v${version}-${suffix}.tgz";
       sha256 = sha256."${stdenv.hostPlatform.system}";
-    };
+    }
+    ;
 
 in
 stdenv.mkDerivation {

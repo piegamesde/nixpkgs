@@ -59,21 +59,26 @@ stdenv.mkDerivation rec {
     python3
     gtest
   ];
-  # two tests fail on darwin and 3 on aarch64-linux
+    # two tests fail on darwin and 3 on aarch64-linux
   doCheck = stdenv.hostPlatform.isLinux && (!stdenv.hostPlatform.isAarch64);
-  preCheck = let
-    var = if stdenv.isDarwin then
-      "DYLD_LIBRARY_PATH"
-    else
-      "LD_LIBRARY_PATH";
-  in ''
-    export ${var}=$(readlink -f lib)
-    patchShebangs ..
-  '' ;
+  preCheck =
+    let
+      var =
+        if stdenv.isDarwin then
+          "DYLD_LIBRARY_PATH"
+        else
+          "LD_LIBRARY_PATH"
+        ;
+    in ''
+      export ${var}=$(readlink -f lib)
+      patchShebangs ..
+    ''
+    ;
 
   meta = with lib; {
     description =
-      "A SMT solver for fixed-size bit-vectors, floating-point arithmetic, arrays, and uninterpreted functions";
+      "A SMT solver for fixed-size bit-vectors, floating-point arithmetic, arrays, and uninterpreted functions"
+      ;
     homepage = "https://bitwuzla.github.io";
     license = licenses.mit;
     platforms = platforms.unix;

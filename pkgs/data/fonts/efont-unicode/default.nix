@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://openlab.ring.gr.jp/efont/dist/unicode-bdf/${pname}-bdf-${version}.tar.bz2";
+      "http://openlab.ring.gr.jp/efont/dist/unicode-bdf/${pname}-bdf-${version}.tar.bz2"
+      ;
     sha256 = "sha256-fT7SsYlV3dCQrf0IZfiNI1grj3ngDgr8IkWdg+f9m3M=";
   };
 

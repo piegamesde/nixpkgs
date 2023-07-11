@@ -27,7 +27,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/anmonteiro/piaf/releases/download/${version}/piaf-${version}.tbz";
+      "https://github.com/anmonteiro/piaf/releases/download/${version}/piaf-${version}.tbz"
+      ;
     hash = "sha256-AMO+ptGox33Bi7u/H0SaeCU88XORrRU3UbLof3EwcmU=";
   };
 
@@ -48,7 +49,7 @@ buildDunePackage rec {
     alcotest-lwt
     dune-site
   ];
-  # Check fails with OpenSSL 3
+    # Check fails with OpenSSL 3
   doCheck = false;
 
   meta = {

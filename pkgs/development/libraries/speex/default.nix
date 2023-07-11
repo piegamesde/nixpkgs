@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     speexdsp
   ];
 
-  # TODO: Remove this will help with immediate backward compatability
+    # TODO: Remove this will help with immediate backward compatability
   propagatedBuildInputs = [ speexdsp ];
 
   configureFlags = [ "--with-fft=gpl-fftw3" ];
@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.speex.org/";
     description =
-      "An Open Source/Free Software patent-free audio compression format designed for speech";
+      "An Open Source/Free Software patent-free audio compression format designed for speech"
+      ;
     license = licenses.bsd3;
     platforms = platforms.unix;
   };

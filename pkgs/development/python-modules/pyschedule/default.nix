@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pulp ];
 
-  # tests not included with pypi release (in examples)
+    # tests not included with pypi release (in examples)
   doCheck = false;
 
   meta = with lib; {

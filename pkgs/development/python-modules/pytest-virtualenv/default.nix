@@ -37,7 +37,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Create a Python virtual environment in your test that cleans up on teardown. The fixture has utility methods to install packages and list what’s installed.";
+      "Create a Python virtual environment in your test that cleans up on teardown. The fixture has utility methods to install packages and list what’s installed."
+      ;
     homepage = "https://github.com/manahl/pytest-plugins";
     license = licenses.mit;
     maintainers = with maintainers; [ ryansydnor ];

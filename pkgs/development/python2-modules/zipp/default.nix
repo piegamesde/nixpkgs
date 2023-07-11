@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pytest
   '';
 
-  # Prevent infinite recursion with pytest
+    # Prevent infinite recursion with pytest
   doCheck = false;
 
   meta = with lib; {

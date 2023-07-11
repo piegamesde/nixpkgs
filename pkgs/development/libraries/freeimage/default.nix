@@ -28,7 +28,7 @@ stdenv.mkDerivation {
   };
   sourceRoot = "svn-r1900/FreeImage/trunk";
 
-  # Ensure that the bundled libraries are not used at all
+    # Ensure that the bundled libraries are not used at all
   prePatch = ''
     rm -rf Source/Lib* Source/OpenEXR Source/ZLib
   '';

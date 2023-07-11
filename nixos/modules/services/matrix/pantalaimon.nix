@@ -11,7 +11,8 @@ let
 
   iniFmt = pkgs.formats.ini { };
 
-  mkConfigFile = name: instanceConfig:
+  mkConfigFile =
+    name: instanceConfig:
     iniFmt.generate "pantalaimon.conf" {
       Default = {
         LogLevel = instanceConfig.logLevel;
@@ -24,16 +25,19 @@ let
         ListenPort = instanceConfig.listenPort;
         SSL = instanceConfig.ssl;
 
-        # Set some settings to prevent user interaction for headless operation
+          # Set some settings to prevent user interaction for headless operation
         IgnoreVerification = true;
         UseKeyring = false;
       } instanceConfig.extraSettings);
-    };
+    }
+    ;
 
-  mkPantalaimonService = name: instanceConfig:
+  mkPantalaimonService =
+    name: instanceConfig:
     nameValuePair "pantalaimon-${name}" {
       description =
-        "pantalaimon instance ${name} - E2EE aware proxy daemon for matrix clients";
+        "pantalaimon instance ${name} - E2EE aware proxy daemon for matrix clients"
+        ;
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
@@ -51,7 +55,8 @@ let
         ProtectSystem = "strict";
         StateDirectory = "pantalaimon-${name}";
       };
-    };
+    }
+    ;
 in {
   options.services.pantalaimon-headless.instances = mkOption {
     default = { };

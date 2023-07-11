@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     mkdir -p $out/include/aruco
   '';
 
-  # copy headers required by main package
+    # copy headers required by main package
   postInstall = ''
     cp $src/src/*.h $out/include/aruco
   '';

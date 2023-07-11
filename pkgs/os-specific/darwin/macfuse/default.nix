@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/osxfuse/osxfuse/releases/download/macfuse-${version}/macfuse-${version}.dmg";
+      "https://github.com/osxfuse/osxfuse/releases/download/macfuse-${version}/macfuse-${version}.dmg"
+      ;
     sha256 = "2a2d0f37ec5fcff547c5efa7d08539103a0b46bc16080c2b41a7e749f6e65c61";
   };
 
@@ -44,8 +45,8 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  # NOTE: Keep in mind that different parts of macFUSE are distributed under a
-  # different license
+    # NOTE: Keep in mind that different parts of macFUSE are distributed under a
+    # different license
   installPhase = ''
     mkdir -p $out/include $out/lib/pkgconfig
     cp usr/local/lib/*.tbd $out/lib
@@ -64,9 +65,9 @@ stdenv.mkDerivation rec {
     platforms = platforms.darwin;
     maintainers = with maintainers; [ midchildan ];
 
-    # macFUSE as a whole includes code with restrictions on commercial
-    # redistribution. However, the build artifacts that we actually touch for
-    # this derivation are distributed under a free license.
+      # macFUSE as a whole includes code with restrictions on commercial
+      # redistribution. However, the build artifacts that we actually touch for
+      # this derivation are distributed under a free license.
     license = with licenses; [ lgpl2Plus # libfuse
       ];
   };

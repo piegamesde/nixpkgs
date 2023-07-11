@@ -23,7 +23,7 @@ mkXfceDerivation {
     gspell
   ];
 
-  # Use the GSettings keyfile backend rather than DConf
+    # Use the GSettings keyfile backend rather than DConf
   configureFlags = [ "--enable-keyfile-settings" ];
 
   meta = with lib; {

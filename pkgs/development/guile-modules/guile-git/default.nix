@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Skipping proxy tests since it requires network access.
+    # Skipping proxy tests since it requires network access.
   postConfigure = ''
     sed -i -e '94i (test-skip 1)' ./tests/proxy.scm
   '';

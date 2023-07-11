@@ -28,7 +28,8 @@ stdenvNoCC.mkDerivation rec {
     # See https://github.com/jml/undistract-me/pull/69
     (fetchpatch {
       url =
-        "https://github.com/jml/undistract-me/commit/2356ebbe8bf2bcb4b95af1ae2bcdc786ce7cc6e8.patch";
+        "https://github.com/jml/undistract-me/commit/2356ebbe8bf2bcb4b95af1ae2bcdc786ce7cc6e8.patch"
+        ;
       sha256 = "sha256-Ij3OXTOnIQsYhKVmqjChhN1q4ASZ7waOkfQTTp5XfPo=";
     })
 
@@ -41,16 +42,17 @@ stdenvNoCC.mkDerivation rec {
     # See https://github.com/jml/undistract-me/pull/71
     (fetchpatch {
       url =
-        "https://github.com/jml/undistract-me/commit/3f4ceaf5a4eba8e3cb02236c48247f87e3d1124f.patch";
+        "https://github.com/jml/undistract-me/commit/3f4ceaf5a4eba8e3cb02236c48247f87e3d1124f.patch"
+        ;
       sha256 = "sha256-9AK9Jp3TXJ75Y+jwZXlwQ6j54FW1rOBddoktrm0VX68=";
     })
   ];
 
   strictDeps = true;
 
-  # Patch in dependencies. Can't use makeWrapper because the bash
-  # functions will be sourced and invoked in a different environment
-  # for each command invocation.
+    # Patch in dependencies. Can't use makeWrapper because the bash
+    # functions will be sourced and invoked in a different environment
+    # for each command invocation.
   postPatch = ''
     for script in *.bash *.sh; do
       substituteInPlace "$script" \

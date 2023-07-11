@@ -41,7 +41,8 @@ buildPythonPackage rec {
     # https://github.com/anyoptimization/pymoo/pull/407
     (fetchpatch {
       url =
-        "https://github.com/anyoptimization/pymoo/commit/be57ece64275469daece1e8ef12b2b6ee05362c9.diff";
+        "https://github.com/anyoptimization/pymoo/commit/be57ece64275469daece1e8ef12b2b6ee05362c9.diff"
+        ;
       hash = "sha256-BLPrUqNbAsAecfYahESEJF6LD+kehUYmkTvl/nvyqII=";
     })
   ];
@@ -80,14 +81,14 @@ buildPythonPackage rec {
     notebook
     numba
   ];
-  # Select some lightweight tests
+    # Select some lightweight tests
   pytestFlagsArray = [ "-m 'not long'" ];
   disabledTests = [
     # ModuleNotFoundError: No module named 'pymoo.cython.non_dominated_sorting'
     "test_fast_non_dominated_sorting"
     "test_efficient_non_dominated_sort"
   ];
-  # Avoid crashing sandboxed build on macOS
+    # Avoid crashing sandboxed build on macOS
   MATPLOTLIBRC = writeText "" ''
     backend: Agg
   '';

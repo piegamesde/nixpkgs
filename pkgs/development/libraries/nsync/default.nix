@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # Needed for case-insensitive filesystems like on macOS
-  # because a file named BUILD exists already.
+    # Needed for case-insensitive filesystems like on macOS
+    # because a file named BUILD exists already.
   cmakeBuildDir = "build_dir";
 
   meta = {

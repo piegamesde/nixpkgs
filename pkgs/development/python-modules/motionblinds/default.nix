@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pycryptodomex ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "motionblinds" ];

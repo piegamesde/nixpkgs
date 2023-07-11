@@ -119,7 +119,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     boot.blacklistedKernelModules = [ "ip_tables" ];
@@ -131,35 +131,37 @@ in {
       wants = [ "network-pre.target" ];
       wantedBy = [ "multi-user.target" ];
       reloadIfChanged = true;
-      serviceConfig = let
-        rulesScript = pkgs.writeTextFile {
-          name = "nftables-rules";
-          executable = true;
-          text = ''
-            #! ${pkgs.nftables}/bin/nft -f
-            flush ruleset
-            ${if cfg.rulesetFile != null then
-              ''
-                include "${cfg.rulesetFile}"
-              ''
-            else
-              cfg.ruleset}
-          '';
-          checkPhase = lib.optionalString cfg.checkRuleset ''
-            cp $out ruleset.conf
-            ${cfg.preCheckRuleset}
-            export NIX_REDIRECTS=/etc/protocols=${pkgs.buildPackages.iana-etc}/etc/protocols:/etc/services=${pkgs.buildPackages.iana-etc}/etc/services
-            LD_PRELOAD="${pkgs.buildPackages.libredirect}/lib/libredirect.so ${pkgs.buildPackages.lklWithFirewall.lib}/lib/liblkl-hijack.so" \
-              ${pkgs.buildPackages.nftables}/bin/nft --check --file ruleset.conf
-          '';
-        };
-      in {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStart = rulesScript;
-        ExecReload = rulesScript;
-        ExecStop = "${pkgs.nftables}/bin/nft flush ruleset";
-      } ;
+      serviceConfig =
+        let
+          rulesScript = pkgs.writeTextFile {
+            name = "nftables-rules";
+            executable = true;
+            text = ''
+              #! ${pkgs.nftables}/bin/nft -f
+              flush ruleset
+              ${if cfg.rulesetFile != null then
+                ''
+                  include "${cfg.rulesetFile}"
+                ''
+              else
+                cfg.ruleset}
+            '';
+            checkPhase = lib.optionalString cfg.checkRuleset ''
+              cp $out ruleset.conf
+              ${cfg.preCheckRuleset}
+              export NIX_REDIRECTS=/etc/protocols=${pkgs.buildPackages.iana-etc}/etc/protocols:/etc/services=${pkgs.buildPackages.iana-etc}/etc/services
+              LD_PRELOAD="${pkgs.buildPackages.libredirect}/lib/libredirect.so ${pkgs.buildPackages.lklWithFirewall.lib}/lib/liblkl-hijack.so" \
+                ${pkgs.buildPackages.nftables}/bin/nft --check --file ruleset.conf
+            '';
+          };
+        in {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStart = rulesScript;
+          ExecReload = rulesScript;
+          ExecStop = "${pkgs.nftables}/bin/nft flush ruleset";
+        }
+        ;
     };
   };
 }

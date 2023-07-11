@@ -23,65 +23,72 @@ let
           "org.nixos.bootspec.v1" = {
             system = config.boot.kernelPackages.stdenv.hostPlatform.system;
             kernel =
-              "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}";
+              "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}"
+              ;
             kernelParams = config.boot.kernelParams;
             label =
-              "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} (Linux ${config.boot.kernelPackages.kernel.modDirVersion})";
+              "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} (Linux ${config.boot.kernelPackages.kernel.modDirVersion})"
+              ;
           } // lib.optionalAttrs config.boot.initrd.enable {
             initrd =
-              "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}";
+              "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}"
+              ;
             initrdSecrets =
-              "${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets";
+              "${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets"
+              ;
           };
         }));
 
-      generator = let
-        # NOTE: Be careful to not introduce excess newlines at the end of the
-        # injectors, as that may affect the pipes and redirects.
+      generator =
+        let
+          # NOTE: Be careful to not introduce excess newlines at the end of the
+          # injectors, as that may affect the pipes and redirects.
 
-        # Inject toplevel and init into the bootspec.
-        # This can only be done here because we *cannot* depend on $out
-        # referring to the toplevel, except by living in the toplevel itself.
-        toplevelInjector = lib.escapeShellArgs [
-          "${pkgs.jq}/bin/jq"
-          ''
-            ."org.nixos.bootspec.v1".toplevel = $toplevel |
-            ."org.nixos.bootspec.v1".init = $init
-          ''
-          "--sort-keys"
-          "--arg"
-          "toplevel"
-          "${placeholder "out"}"
-          "--arg"
-          "init"
-          "${placeholder "out"}/init"
-        ] + " < ${json}";
+          # Inject toplevel and init into the bootspec.
+          # This can only be done here because we *cannot* depend on $out
+          # referring to the toplevel, except by living in the toplevel itself.
+          toplevelInjector = lib.escapeShellArgs [
+            "${pkgs.jq}/bin/jq"
+            ''
+              ."org.nixos.bootspec.v1".toplevel = $toplevel |
+              ."org.nixos.bootspec.v1".init = $init
+            ''
+            "--sort-keys"
+            "--arg"
+            "toplevel"
+            "${placeholder "out"}"
+            "--arg"
+            "init"
+            "${placeholder "out"}/init"
+          ] + " < ${json}";
 
-        # We slurp all specialisations and inject them as values, such that
-        # `.specialisations.${name}` embeds the specialisation's bootspec
-        # document.
-        specialisationInjector = let
-          specialisationLoader = (lib.mapAttrsToList (childName: childToplevel:
+            # We slurp all specialisations and inject them as values, such that
+            # `.specialisations.${name}` embeds the specialisation's bootspec
+            # document.
+          specialisationInjector =
+            let
+              specialisationLoader = (lib.mapAttrsToList
+                (childName: childToplevel:
+                  lib.escapeShellArgs [
+                    "--slurpfile"
+                    childName
+                    "${childToplevel}/${filename}"
+                  ]) children);
+            in
             lib.escapeShellArgs [
-              "--slurpfile"
-              childName
-              "${childToplevel}/${filename}"
-            ]) children);
+              "${pkgs.jq}/bin/jq"
+              "--sort-keys"
+              ''
+                ."org.nixos.specialisation.v1" = ($ARGS.named | map_values(. | first))''
+            ] + " ${lib.concatStringsSep " " specialisationLoader}"
+            ;
         in
-        lib.escapeShellArgs [
-          "${pkgs.jq}/bin/jq"
-          "--sort-keys"
-          ''
-            ."org.nixos.specialisation.v1" = ($ARGS.named | map_values(. | first))''
-        ] + " ${lib.concatStringsSep " " specialisationLoader}"
+        "${toplevelInjector} | ${specialisationInjector} > $out/${filename}"
         ;
-      in
-      "${toplevelInjector} | ${specialisationInjector} > $out/${filename}"
-      ;
 
       validator = pkgs.writeCueValidator ./bootspec.cue {
-        document =
-          "Document"; # Universal validator for any version as long the schema is correctly set.
+        document = "Document"
+          ; # Universal validator for any version as long the schema is correctly set.
       };
     };
   };
@@ -101,8 +108,8 @@ in {
 
     extensions = lib.mkOption {
       # NOTE(RaitoBezarius): this is not enough to validate: extensions."osRelease" = drv; those are picked up by cue validation.
-      type = lib.types.attrsOf
-        lib.types.anything; # <namespace>: { ...namespace-specific fields }
+      type = lib.types.attrsOf lib.types.anything
+        ; # <namespace>: { ...namespace-specific fields }
       default = { };
       description = lib.mdDoc ''
         User-defined data that extends the bootspec document.
@@ -113,10 +120,10 @@ in {
       '';
     };
 
-    # This will be run as a part of the `systemBuilder` in ./top-level.nix. This
-    # means `$out` points to the output of `config.system.build.toplevel` and can
-    # be used for a variety of things (though, for now, it's only used to report
-    # the path of the `toplevel` itself and the `init` executable).
+      # This will be run as a part of the `systemBuilder` in ./top-level.nix. This
+      # means `$out` points to the output of `config.system.build.toplevel` and can
+      # be used for a variety of things (though, for now, it's only used to report
+      # the path of the `toplevel` itself and the `init` executable).
     writer = lib.mkOption {
       internal = true;
       default = schemas.v1.generator;

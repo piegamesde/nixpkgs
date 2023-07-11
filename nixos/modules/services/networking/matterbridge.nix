@@ -12,10 +12,12 @@ let
 
   cfg = config.services.matterbridge;
 
-  matterbridgeConfToml = if cfg.configPath == null then
-    pkgs.writeText "matterbridge.toml" (cfg.configFile)
-  else
-    cfg.configPath;
+  matterbridgeConfToml =
+    if cfg.configPath == null then
+      pkgs.writeText "matterbridge.toml" (cfg.configFile)
+    else
+      cfg.configPath
+    ;
 
 in {
   options = {
@@ -93,7 +95,8 @@ in {
 
   config = mkIf cfg.enable {
     warnings = optional options.services.matterbridge.configFile.isDefined
-      "The option services.matterbridge.configFile is insecure and should be replaced with services.matterbridge.configPath";
+      "The option services.matterbridge.configFile is insecure and should be replaced with services.matterbridge.configPath"
+      ;
 
     users.users = optionalAttrs (cfg.user == "matterbridge") {
       matterbridge = {

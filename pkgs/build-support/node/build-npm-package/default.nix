@@ -75,7 +75,7 @@ stdenv.mkDerivation (args // {
 
   strictDeps = true;
 
-  # Stripping takes way too long with the amount of files required by a typical Node.js project.
+    # Stripping takes way too long with the amount of files required by a typical Node.js project.
   dontStrip = args.dontStrip or true;
 
   passthru = { inherit npmDeps; } // (args.passthru or { });

@@ -32,29 +32,30 @@ buildPythonPackage rec {
     six
   ];
 
-  # tests need a postgres database
+    # tests need a postgres database
   doCheck = false;
 
-  # keeping the dependencies below as comment for reference
-  # checkPhase = ''
-  # python manage.py test
-  # '';
+    # keeping the dependencies below as comment for reference
+    # checkPhase = ''
+    # python manage.py test
+    # '';
 
-  # buildInputs = [
-  # djangorestframework
-  # psycopg2
-  # ];
+    # buildInputs = [
+    # djangorestframework
+    # psycopg2
+    # ];
 
-  # Requires psycopg2
-  # pythonImportsCheck = [
-  #   "netfields"
-  # ];
+    # Requires psycopg2
+    # pythonImportsCheck = [
+    #   "netfields"
+    # ];
 
   meta = with lib; {
     description = "Django PostgreSQL netfields implementation";
     homepage = "https://github.com/jimfunk/django-postgresql-netfields";
     changelog =
-      "https://github.com/jimfunk/django-postgresql-netfields/blob/v${version}/CHANGELOG";
+      "https://github.com/jimfunk/django-postgresql-netfields/blob/v${version}/CHANGELOG"
+      ;
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };

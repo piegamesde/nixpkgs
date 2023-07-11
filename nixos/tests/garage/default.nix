@@ -6,7 +6,8 @@
 with pkgs.lib;
 
 let
-  mkNode = package:
+  mkNode =
+    package:
     {
       replicationMode,
       publicV6Address ? "::1"
@@ -51,9 +52,10 @@ let
       };
       environment.systemPackages = [ pkgs.minio-client ];
 
-      # Garage requires at least 1GiB of free disk space to run.
+        # Garage requires at least 1GiB of free disk space to run.
       virtualisation.diskSize = 2 * 1024;
-    };
+    }
+    ;
 in
 foldl (matrix: ver:
   matrix // {

@@ -30,7 +30,7 @@ mkDerivation rec {
     qmake
   ];
 
-  # Hack to avoid TMPDIR in RPATHs.
+    # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" '';
 
   meta = with lib; {

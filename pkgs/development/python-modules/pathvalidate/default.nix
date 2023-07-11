@@ -17,14 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-X/V9D6vl7Lek8eSVe/61rYq1q0wPpx95xrvCS9m30U0=";
   };
 
-  # Requires `pytest-md-report`, causing infinite recursion.
+    # Requires `pytest-md-report`, causing infinite recursion.
   doCheck = false;
 
   pythonImportsCheck = [ "pathvalidate" ];
 
   meta = with lib; {
     description =
-      "A Python library to sanitize/validate a string such as filenames/file-paths/etc";
+      "A Python library to sanitize/validate a string such as filenames/file-paths/etc"
+      ;
     homepage = "https://github.com/thombashi/pathvalidate";
     license = licenses.mit;
     maintainers = with maintainers; [ oxalica ];

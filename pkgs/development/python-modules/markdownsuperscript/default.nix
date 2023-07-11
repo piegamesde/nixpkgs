@@ -40,7 +40,7 @@ buildPythonPackage rec {
       "An extension to the Python Markdown package enabling superscript text";
     homepage = "https://github.com/jambonrose/markdown_superscript_extension";
     license = licenses.bsd2;
-    broken =
-      true; # unmaintained in nixpkgs, barely maintained in pypi, added 2020-11-29
+    broken = true
+      ; # unmaintained in nixpkgs, barely maintained in pypi, added 2020-11-29
   };
 }

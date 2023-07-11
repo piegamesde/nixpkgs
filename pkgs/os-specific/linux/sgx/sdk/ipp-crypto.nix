@@ -20,7 +20,7 @@ gcc11Stdenv.mkDerivation rec {
     hash = "sha256-QEJXvQ//zhQqibFxXwPMdS1MHewgyb24LRmkycVSGrM=";
   };
 
-  # Fix typo: https://github.com/intel/ipp-crypto/pull/33
+    # Fix typo: https://github.com/intel/ipp-crypto/pull/33
   postPatch = ''
     substituteInPlace sources/cmake/ippcp-gen-config.cmake \
       --replace 'ippcpo-config.cmake' 'ippcp-config.cmake'

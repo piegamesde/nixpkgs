@@ -71,7 +71,8 @@ let
     if stdenv.hostPlatform == stdenv.buildPlatform then
       "$out/bin/python"
     else
-      pythonForBuild.interpreter;
+      pythonForBuild.interpreter
+    ;
 
   passthru = passthruFun rec {
     inherit self sourceVersion packageOverrides;
@@ -90,10 +91,11 @@ let
     inherit ucsEncoding;
   };
 
-  version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
+  version = with sourceVersion;
+    "${major}.${minor}.${patch}${suffix}";
 
-  # ActiveState is a fork of cpython that includes fixes for security
-  # issues after its EOL
+    # ActiveState is a fork of cpython that includes fixes for security
+    # issues after its EOL
   src = fetchFromGitHub {
     owner = "ActiveState";
     repo = "cpython";
@@ -254,19 +256,21 @@ let
       buildPackages.python
     ];
 
-  mkPaths = paths: {
-    C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" paths;
-    LIBRARY_PATH = lib.makeLibraryPath paths;
-  };
+  mkPaths =
+    paths: {
+      C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" paths;
+      LIBRARY_PATH = lib.makeLibraryPath paths;
+    }
+    ;
 
-  # Python 2.7 needs this
+    # Python 2.7 needs this
   crossCompileEnv =
     lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
       _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config;
     };
 
-  # Build the basic Python interpreter without modules that have
-  # external dependencies.
+    # Build the basic Python interpreter without modules that have
+    # external dependencies.
 
 in with passthru;
 stdenv.mkDerivation ({
@@ -366,8 +370,7 @@ stdenv.mkDerivation ({
       fridh
       thiagokokada
     ];
-    knownVulnerabilities =
-      [ "Python 2.7 has reached its end of life after 2020-01-01. See https://www.python.org/doc/sunset-python-2/."
+    knownVulnerabilities = [ "Python 2.7 has reached its end of life after 2020-01-01. See https://www.python.org/doc/sunset-python-2/."
       # Quote: That means that we will not improve it anymore after that day,
       # even if someone finds a security problem in it. You should upgrade to
       # Python 3 as soon as you can. [..] So, in 2008, we announced that we

@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "systemd-initrd-luks-tpm2";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -14,8 +15,8 @@ import ./make-test-python.nix ({
           emptyDiskImages = [ 512 ];
           useBootLoader = true;
           useEFIBoot = true;
-          qemu.options =
-            [ "-chardev socket,id=chrtpm,path=/tmp/mytpm1/swtpm-sock -tpmdev emulator,id=tpm0,chardev=chrtpm -device tpm-tis,tpmdev=tpm0" ];
+          qemu.options = [ "-chardev socket,id=chrtpm,path=/tmp/mytpm1/swtpm-sock -tpmdev emulator,id=tpm0,chardev=chrtpm -device tpm-tis,tpmdev=tpm0" ]
+            ;
         };
         boot.loader.systemd-boot.enable = true;
 
@@ -33,7 +34,8 @@ import ./make-test-python.nix ({
           };
           virtualisation.rootDevice = "/dev/mapper/cryptroot";
         };
-      };
+      }
+      ;
 
     testScript = ''
       import subprocess

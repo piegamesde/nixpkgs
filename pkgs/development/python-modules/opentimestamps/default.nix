@@ -32,8 +32,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Remove a failing test which expects the test source file to reside in the
-  # project's Git repo
+    # Remove a failing test which expects the test source file to reside in the
+    # project's Git repo
   postPatch = ''
     rm opentimestamps/tests/core/test_git.py
   '';
@@ -44,7 +44,8 @@ buildPythonPackage rec {
     description = "Create and verify OpenTimestamps proofs";
     homepage = "https://github.com/opentimestamps/python-opentimestamps";
     changelog =
-      "https://github.com/opentimestamps/python-opentimestamps/releases/tag/python-opentimestamps-v${version}";
+      "https://github.com/opentimestamps/python-opentimestamps/releases/tag/python-opentimestamps-v${version}"
+      ;
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ erikarvstedt ];
   };

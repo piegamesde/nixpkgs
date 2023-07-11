@@ -6,23 +6,26 @@ import ../make-test-python.nix ({
 
   let
 
-    client = {
+    client =
+      {
         pkgs,
         ...
       }: {
         virtualisation.fileSystems = {
-          "/data" =
-            { # nfs4 exports the export with fsid=0 as a virtual root directory
-              device = if (version == 4) then
+          "/data" = { # nfs4 exports the export with fsid=0 as a virtual root directory
+            device =
+              if (version == 4) then
                 "server:/"
               else
-                "server:/data";
-              fsType = "nfs";
-              options = [ "vers=${toString version}" ];
-            };
+                "server:/data"
+              ;
+            fsType = "nfs";
+            options = [ "vers=${toString version}" ];
+          };
         };
         networking.firewall.enable = false; # FIXME: only open statd
-      };
+      }
+      ;
 
   in {
     name = "nfs";
@@ -32,7 +35,8 @@ import ../make-test-python.nix ({
       client1 = client;
       client2 = client;
 
-      server = {
+      server =
+        {
           ...
         }: {
           services.nfs.server.enable = true;
@@ -42,7 +46,8 @@ import ../make-test-python.nix ({
           services.nfs.server.createMountPoints = true;
           networking.firewall.enable =
             false; # FIXME: figure out what ports need to be allowed
-        };
+        }
+        ;
     };
 
     testScript = ''

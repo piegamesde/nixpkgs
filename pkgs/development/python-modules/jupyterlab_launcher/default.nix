@@ -21,7 +21,7 @@ buildPythonPackage rec {
     notebook
   ];
 
-  # depends on requests and a bunch of other libraries
+    # depends on requests and a bunch of other libraries
   doCheck = false;
 
   meta = with lib; {

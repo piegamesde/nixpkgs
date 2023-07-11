@@ -5,7 +5,8 @@
 }:
 
 let
-  packages = self:
+  packages =
+    self:
     let
       callPackage = newScope self;
 
@@ -48,7 +49,8 @@ let
         callPackage ../development/dhall-modules/dhall-kubernetes.nix { };
 
       Prelude = callPackage ../development/dhall-modules/Prelude.nix { };
-    } ;
+    }
+    ;
 
 in
 lib.fix' (lib.extends overrides packages)

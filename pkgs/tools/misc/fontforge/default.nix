@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/RYhvL+Z4n4hJ8dmm+jbA1Ful23ni2DbCRZC5A3+pP0=";
   };
 
-  # use $SOURCE_DATE_EPOCH instead of non-deterministic timestamps
+    # use $SOURCE_DATE_EPOCH instead of non-deterministic timestamps
   postPatch = ''
     find . -type f -name '*.c' -exec sed -r -i 's#\btime\(&(.+)\)#if (getenv("SOURCE_DATE_EPOCH")) \1=atol(getenv("SOURCE_DATE_EPOCH")); else &#g' {} \;
     sed -r -i 's#author\s*!=\s*NULL#& \&\& !getenv("SOURCE_DATE_EPOCH")#g'                            fontforge/cvexport.c fontforge/dumppfa.c fontforge/print.c fontforge/svg.c fontforge/splineutil2.c
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     sed -r -i 's#sprintf\(.+ author \);#if (!getenv("SOURCE_DATE_EPOCH")) &#g'                        fontforgeexe/fontinfo.c
   '';
 
-  # do not use x87's 80-bit arithmetic, rouding errors result in very different font binaries
+    # do not use x87's 80-bit arithmetic, rouding errors result in very different font binaries
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isi686 "-msse2 -mfpmath=sse";
 

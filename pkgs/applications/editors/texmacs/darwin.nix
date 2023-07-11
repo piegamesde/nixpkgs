@@ -33,7 +33,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "http://www.texmacs.org/Download/ftp/tmftp/source/TeXmacs-${version}-src.tar.gz";
+      "http://www.texmacs.org/Download/ftp/tmftp/source/TeXmacs-${version}-src.tar.gz"
+      ;
     sha256 = "1z8sj0xd1ncbl7ipzfsib6lmc7ahgvmiw61ln5zxm2l88jf7qc1a";
   };
 
@@ -51,7 +52,8 @@ stdenv.mkDerivation {
   ];
 
   GUILE_CPPFLAGS =
-    "-D_THREAD_SAFE -I${guile_1_8.dev}/include -I${guile_1_8.dev}/include/guile ";
+    "-D_THREAD_SAFE -I${guile_1_8.dev}/include -I${guile_1_8.dev}/include/guile "
+    ;
 
   NIX_LDFLAGS = "${zlib}/lib/libz.dylib";
 

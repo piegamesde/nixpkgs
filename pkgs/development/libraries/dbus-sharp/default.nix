@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  # Use msbuild when https://github.com/NixOS/nixpkgs/pull/43680 is merged
-  # See: https://github.com/NixOS/nixpkgs/pull/46060
+    # Use msbuild when https://github.com/NixOS/nixpkgs/pull/43680 is merged
+    # See: https://github.com/NixOS/nixpkgs/pull/46060
   buildInputs = [ mono4 ];
 
   dontStrip = true;

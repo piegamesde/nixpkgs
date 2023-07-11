@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "1ajlqr3z6zj4fyslqzpwpfkvh8xjx94wsznzij0vx0q7jp43bqig";
   };
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pyflexit" ];

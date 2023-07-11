@@ -9,7 +9,8 @@ let
 
   inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
 
-  mkOCITest = backend:
+  mkOCITest =
+    backend:
     makeTest {
       name = "oci-containers-${backend}";
 
@@ -23,7 +24,8 @@ let
       };
 
       nodes = {
-        ${backend} = {
+        ${backend} =
+          {
             pkgs,
             ...
           }: {
@@ -35,7 +37,8 @@ let
                 ports = [ "8181:80" ];
               };
             };
-          };
+          }
+          ;
       };
 
       testScript = ''
@@ -44,7 +47,8 @@ let
         ${backend}.wait_for_open_port(8181)
         ${backend}.wait_until_succeeds("curl -f http://localhost:8181 | grep Hello")
       '';
-    };
+    }
+    ;
 
 in
 lib.foldl' (attrs: backend: attrs // { ${backend} = mkOCITest backend; }) { } [

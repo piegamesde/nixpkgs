@@ -44,7 +44,7 @@ buildPythonPackage rec {
     pytest-remotedata
   ];
 
-  # pytest-astropy is a meta package that only propagates requirements
+    # pytest-astropy is a meta package that only propagates requirements
   doCheck = false;
 
   meta = with lib; {

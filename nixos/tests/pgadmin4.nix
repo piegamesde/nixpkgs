@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
       gador
     ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -40,7 +41,8 @@ import ./make-test-python.nix ({
           initialEmail = "bruh@localhost.de";
           initialPasswordFile = pkgs.writeText "pw" "bruh2012!";
         };
-      };
+      }
+      ;
 
     testScript = ''
       with subtest("Check pgadmin module"):

@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     pylast
   ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
   pythonImportsCheck = [ "mopidy_scrobbler" ];
 

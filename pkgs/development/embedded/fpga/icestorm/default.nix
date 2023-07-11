@@ -24,10 +24,12 @@ stdenv.mkDerivation rec {
   version = "2020.12.04";
 
   passthru = rec {
-    pythonPkg = if (false && usePyPy) then
-      pypy3
-    else
-      python3;
+    pythonPkg =
+      if (false && usePyPy) then
+        pypy3
+      else
+        python3
+      ;
     pythonInterp = pythonPkg.interpreter;
   };
 
@@ -47,11 +49,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # fix icebox_vlog chipdb path. icestorm issue:
-  #   https://github.com/cliffordwolf/icestorm/issues/125
-  #
-  # also, fix up the path to the chosen Python interpreter. for pypy-compatible
-  # platforms, it offers significant performance improvements.
+    # fix icebox_vlog chipdb path. icestorm issue:
+    #   https://github.com/cliffordwolf/icestorm/issues/125
+    #
+    # also, fix up the path to the chosen Python interpreter. for pypy-compatible
+    # platforms, it offers significant performance improvements.
   patchPhase = ''
     substituteInPlace ./icebox/icebox_vlog.py \
       --replace /usr/local/share "$out/share"

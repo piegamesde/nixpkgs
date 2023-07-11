@@ -18,8 +18,10 @@
   makeWrapper,
 }:
 let
-  makeXinePluginPath = l:
-    lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
+  makeXinePluginPath =
+    l:
+    lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l)
+    ;
 
   self = stdenv.mkDerivation rec {
     pname = "vdr-xineliboutput";
@@ -27,7 +29,8 @@ let
 
     src = fetchurl {
       url =
-        "mirror://sourceforge/project/xineliboutput/xineliboutput/${pname}-${version}/${pname}-${version}.tgz";
+        "mirror://sourceforge/project/xineliboutput/xineliboutput/${pname}-${version}/${pname}-${version}.tgz"
+        ;
       sha256 = "0a24hs5nr7ncf51c5agyfn1xrvb4p70y3i0s6dlyyd9bwbfjldns";
     };
 
@@ -37,7 +40,7 @@ let
         --replace "X11  opengl" "X11  gl"
     '';
 
-    # configure don't accept argument --prefix
+      # configure don't accept argument --prefix
     dontAddPrefix = true;
 
     postConfigure = ''

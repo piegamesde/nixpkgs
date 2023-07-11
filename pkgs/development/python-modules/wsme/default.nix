@@ -56,14 +56,15 @@ buildPythonPackage rec {
     webtest
   ];
 
-  # from tox.ini, tests don't work with pytest
+    # from tox.ini, tests don't work with pytest
   checkPhase = ''
     nosetests wsme/tests tests/pecantest tests/test_sphinxext.py tests/test_flask.py --verbose
   '';
 
   meta = with lib; {
     description =
-      "Simplify the writing of REST APIs, and extend them with additional protocols";
+      "Simplify the writing of REST APIs, and extend them with additional protocols"
+      ;
     homepage = "https://pythonhosted.org/WSME/";
     changelog = "https://pythonhosted.org/WSME/changes.html";
     license = licenses.mit;

@@ -14,8 +14,8 @@
 buildPythonPackage rec {
   pname = "uncompyle6";
   version = "3.9.0";
-  disabled = pythonAtLeast
-    "3.9"; # See: https://github.com/rocky/python-uncompyle6/issues/331
+  disabled = pythonAtLeast "3.9"
+    ; # See: https://github.com/rocky/python-uncompyle6/issues/331
 
   src = fetchPypi {
     inherit pname version;
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     xdis
   ];
 
-  # six import errors (yet it is supplied...)
+    # six import errors (yet it is supplied...)
   checkPhase = ''
     runHook preCheck
     pytest ./pytest --ignore=pytest/test_function_call.py

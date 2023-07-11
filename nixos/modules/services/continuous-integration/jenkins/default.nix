@@ -103,7 +103,8 @@ in {
           pkgs.nix
         ];
         defaultText = literalExpression
-          "[ pkgs.stdenv pkgs.git pkgs.jdk17 config.programs.ssh.package pkgs.nix ]";
+          "[ pkgs.stdenv pkgs.git pkgs.jdk17 config.programs.ssh.package pkgs.nix ]"
+          ;
         type = types.listOf types.package;
         description = lib.mdDoc ''
           Packages to add to PATH for the jenkins process.
@@ -175,8 +176,8 @@ in {
   config = mkIf cfg.enable {
     environment = {
       # server references the dejavu fonts
-      systemPackages = [ pkgs.dejavu_fonts ]
-        ++ optional cfg.withCLI cfg.package;
+      systemPackages =
+        [ pkgs.dejavu_fonts ] ++ optional cfg.withCLI cfg.package;
 
       variables = { } // optionalAttrs cfg.withCLI {
         # Make it more convenient to use the `jenkins-cli`.
@@ -205,39 +206,44 @@ in {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      environment = let
-        selectedSessionVars =
-          lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
-          config.environment.sessionVariables;
-      in
-      selectedSessionVars // {
-        JENKINS_HOME = cfg.home;
-        NIX_REMOTE = "daemon";
-      } // cfg.environment
-      ;
+      environment =
+        let
+          selectedSessionVars =
+            lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
+            config.environment.sessionVariables;
+        in
+        selectedSessionVars // {
+          JENKINS_HOME = cfg.home;
+          NIX_REMOTE = "daemon";
+        } // cfg.environment
+        ;
 
       path = cfg.packages;
 
-      # Force .war (re)extraction, or else we might run stale Jenkins.
+        # Force .war (re)extraction, or else we might run stale Jenkins.
 
-      preStart = let
-        replacePlugins = if cfg.plugins == null then
-          ""
-        else
-          let
-            pluginCmds = lib.attrsets.mapAttrsToList
-              (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi") cfg.plugins;
-          in ''
-            rm -r ${cfg.home}/plugins || true
-            mkdir -p ${cfg.home}/plugins
-            ${lib.strings.concatStringsSep "\n" pluginCmds}
-          '' ;
-      in ''
-        rm -rf ${cfg.home}/war
-        ${replacePlugins}
-      '' ;
+      preStart =
+        let
+          replacePlugins =
+            if cfg.plugins == null then
+              ""
+            else
+              let
+                pluginCmds = lib.attrsets.mapAttrsToList
+                  (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi") cfg.plugins;
+              in ''
+                rm -r ${cfg.home}/plugins || true
+                mkdir -p ${cfg.home}/plugins
+                ${lib.strings.concatStringsSep "\n" pluginCmds}
+              ''
+            ;
+        in ''
+          rm -rf ${cfg.home}/war
+          ${replacePlugins}
+        ''
+        ;
 
-      # For reference: https://wiki.jenkins.io/display/JENKINS/JenkinsLinuxStartupScript
+        # For reference: https://wiki.jenkins.io/display/JENKINS/JenkinsLinuxStartupScript
       script = ''
         ${pkgs.jdk17}/bin/java ${
           concatStringsSep " " cfg.extraJavaOptions

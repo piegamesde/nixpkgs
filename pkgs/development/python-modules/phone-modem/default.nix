@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aioserial ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "phone_modem" ];

@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/dgud/wings/commit/94b3a3c6a0cfdcdbd98edce055d5c83ecb361f37.patch";
+      "https://github.com/dgud/wings/commit/94b3a3c6a0cfdcdbd98edce055d5c83ecb361f37.patch"
+      ;
     hash = "sha256-DHT1TiYoowloIWrdutBu70mL+557cTFr1dRcNgwbkpE=";
   }) ];
 
@@ -45,7 +46,7 @@ stdenv.mkDerivation rec {
 
   ERL_LIBS = "${cl}/lib/erlang/lib";
 
-  # I did not test the *cl* part. I added the -pa just by imitation.
+    # I did not test the *cl* part. I added the -pa just by imitation.
   installPhase = ''
     mkdir -p $out/bin $out/lib/wings-${version}/ebin
     cp ebin/* $out/lib/wings-${version}/ebin

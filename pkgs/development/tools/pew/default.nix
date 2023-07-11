@@ -20,7 +20,7 @@ buildPythonApplication rec {
     setuptools
   ];
 
-  # no tests are packaged
+    # no tests are packaged
   checkPhase = ''
     $out/bin/pew > /dev/null
   '';

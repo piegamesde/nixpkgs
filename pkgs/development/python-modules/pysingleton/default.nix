@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "singleton" ];
 
-  # No tests in the Pypi package.
+    # No tests in the Pypi package.
   doCheck = false;
 
   meta = with lib; {

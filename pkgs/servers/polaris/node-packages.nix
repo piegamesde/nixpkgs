@@ -18,9 +18,11 @@ let
       version = "7.16.7";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.16.7.tgz";
+          "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.16.7.tgz"
+          ;
         sha512 =
-          "iAXqUn8IIeBTNd72xsFlgaXHkMBMt6y4HJp1tIaK465CWLT/fG1aqB7ykr95gHHmlBdGbFeWWfyB4NJJ0nmeIg==";
+          "iAXqUn8IIeBTNd72xsFlgaXHkMBMt6y4HJp1tIaK465CWLT/fG1aqB7ykr95gHHmlBdGbFeWWfyB4NJJ0nmeIg=="
+          ;
       };
     };
     "@babel/helper-validator-identifier-7.16.7" = {
@@ -29,9 +31,11 @@ let
       version = "7.16.7";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.16.7.tgz";
+          "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.16.7.tgz"
+          ;
         sha512 =
-          "hsEnFemeiW4D08A5gUAZxLBTXpZ39P+a+DGDsHw1yxqyQ/jzFEnxf5uTEGp+3bzAbNOxU1paTgYS4ECU/IgfDw==";
+          "hsEnFemeiW4D08A5gUAZxLBTXpZ39P+a+DGDsHw1yxqyQ/jzFEnxf5uTEGp+3bzAbNOxU1paTgYS4ECU/IgfDw=="
+          ;
       };
     };
     "@babel/highlight-7.16.10" = {
@@ -42,7 +46,8 @@ let
         url =
           "https://registry.npmjs.org/@babel/highlight/-/highlight-7.16.10.tgz";
         sha512 =
-          "5FnTQLSLswEj6IkgVw5KusNUUFY9ZGqe/TRFnP/BKYHYgfh7tc+C7mwiy95/yNP7Dh9x580Vv8r7u7ZfTBFxdw==";
+          "5FnTQLSLswEj6IkgVw5KusNUUFY9ZGqe/TRFnP/BKYHYgfh7tc+C7mwiy95/yNP7Dh9x580Vv8r7u7ZfTBFxdw=="
+          ;
       };
     };
     "@babel/parser-7.17.8" = {
@@ -52,7 +57,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@babel/parser/-/parser-7.17.8.tgz";
         sha512 =
-          "BoHhDJrJXqcg+ZL16Xv39H9n+AqJ4pcDrQBGZN+wHxIysrLZ3/ECwCBUch/1zUNhnsXULcONU3Ei5Hmkfk6kiQ==";
+          "BoHhDJrJXqcg+ZL16Xv39H9n+AqJ4pcDrQBGZN+wHxIysrLZ3/ECwCBUch/1zUNhnsXULcONU3Ei5Hmkfk6kiQ=="
+          ;
       };
     };
     "@cypress/listr-verbose-renderer-0.4.1" = {
@@ -61,7 +67,8 @@ let
       version = "0.4.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@cypress/listr-verbose-renderer/-/listr-verbose-renderer-0.4.1.tgz";
+          "https://registry.npmjs.org/@cypress/listr-verbose-renderer/-/listr-verbose-renderer-0.4.1.tgz"
+          ;
         sha1 = "a77492f4b11dcc7c446a34b3e28721afd33c642a";
       };
     };
@@ -73,7 +80,8 @@ let
         url =
           "https://registry.npmjs.org/@cypress/request/-/request-2.88.10.tgz";
         sha512 =
-          "Zp7F+R93N0yZyG34GutyTNr+okam7s/Fzc1+i3kcqOP8vk6OuajuE9qZJ6Rs+10/1JFtXFYMdyarnU1rZuJesg==";
+          "Zp7F+R93N0yZyG34GutyTNr+okam7s/Fzc1+i3kcqOP8vk6OuajuE9qZJ6Rs+10/1JFtXFYMdyarnU1rZuJesg=="
+          ;
       };
     };
     "@cypress/xvfb-1.2.4" = {
@@ -83,7 +91,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@cypress/xvfb/-/xvfb-1.2.4.tgz";
         sha512 =
-          "skbBzPggOVYCbnGgV+0dmBdW/s77ZkAOXIC1knS8NagwDjBrNC1LuXtQJeiN6l+m7lzmHtaoUw/ctJKdqkG57Q==";
+          "skbBzPggOVYCbnGgV+0dmBdW/s77ZkAOXIC1knS8NagwDjBrNC1LuXtQJeiN6l+m7lzmHtaoUw/ctJKdqkG57Q=="
+          ;
       };
     };
     "@parcel/bundler-default-2.3.2" = {
@@ -92,9 +101,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/bundler-default/-/bundler-default-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/bundler-default/-/bundler-default-2.3.2.tgz"
+          ;
         sha512 =
-          "JUrto4mjSD0ic9dEqRp0loL5o3HVYHja1ZIYSq+rBl2UWRV6/9cGTb07lXOCqqm0BWE+hQ4krUxB76qWaF0Lqw==";
+          "JUrto4mjSD0ic9dEqRp0loL5o3HVYHja1ZIYSq+rBl2UWRV6/9cGTb07lXOCqqm0BWE+hQ4krUxB76qWaF0Lqw=="
+          ;
       };
     };
     "@parcel/cache-2.3.2" = {
@@ -104,7 +115,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/cache/-/cache-2.3.2.tgz";
         sha512 =
-          "Xxq+ekgcFEme6Fn1v7rEOBkyMOUOUu7eNqQw0l6HQS+INZ2Q7YzzfdW7pI8rEOAAICVg5BWKpmBQZpgJlT+HxQ==";
+          "Xxq+ekgcFEme6Fn1v7rEOBkyMOUOUu7eNqQw0l6HQS+INZ2Q7YzzfdW7pI8rEOAAICVg5BWKpmBQZpgJlT+HxQ=="
+          ;
       };
     };
     "@parcel/codeframe-2.3.2" = {
@@ -115,7 +127,8 @@ let
         url =
           "https://registry.npmjs.org/@parcel/codeframe/-/codeframe-2.3.2.tgz";
         sha512 =
-          "ireQALcxxrTdIEpzTOoMo/GpfbFm1qlyezeGl3Hce3PMvHLg3a5S6u/Vcy7SAjdld5GfhHEqVY+blME6Z4CyXQ==";
+          "ireQALcxxrTdIEpzTOoMo/GpfbFm1qlyezeGl3Hce3PMvHLg3a5S6u/Vcy7SAjdld5GfhHEqVY+blME6Z4CyXQ=="
+          ;
       };
     };
     "@parcel/compressor-raw-2.3.2" = {
@@ -124,9 +137,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/compressor-raw/-/compressor-raw-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/compressor-raw/-/compressor-raw-2.3.2.tgz"
+          ;
         sha512 =
-          "8dIoFwinYK6bOTpnZOAwwIv0v73y0ezsctPmfMnIqVQPn7wJwfhw/gbKVcmK5AkgQMkyid98hlLZoaZtGF1Mdg==";
+          "8dIoFwinYK6bOTpnZOAwwIv0v73y0ezsctPmfMnIqVQPn7wJwfhw/gbKVcmK5AkgQMkyid98hlLZoaZtGF1Mdg=="
+          ;
       };
     };
     "@parcel/config-default-2.3.2" = {
@@ -135,9 +150,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/config-default/-/config-default-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/config-default/-/config-default-2.3.2.tgz"
+          ;
         sha512 =
-          "E7/iA7fGCYvXU3u6zF9nxjeDVsgjCN6MVvDjymjaxYMoDWTIsPV245SBEXqzgtmzbMAV+VAl4rVWLMB4pzMt9g==";
+          "E7/iA7fGCYvXU3u6zF9nxjeDVsgjCN6MVvDjymjaxYMoDWTIsPV245SBEXqzgtmzbMAV+VAl4rVWLMB4pzMt9g=="
+          ;
       };
     };
     "@parcel/core-2.3.2" = {
@@ -147,7 +164,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/core/-/core-2.3.2.tgz";
         sha512 =
-          "gdJzpsgeUhv9H8T0UKVmyuptiXdduEfKIUx0ci+/PGhq8cCoiFnlnuhW6H7oLr79OUc+YJStabDJuG4U2A6ysw==";
+          "gdJzpsgeUhv9H8T0UKVmyuptiXdduEfKIUx0ci+/PGhq8cCoiFnlnuhW6H7oLr79OUc+YJStabDJuG4U2A6ysw=="
+          ;
       };
     };
     "@parcel/diagnostic-2.3.2" = {
@@ -156,9 +174,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/diagnostic/-/diagnostic-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/diagnostic/-/diagnostic-2.3.2.tgz"
+          ;
         sha512 =
-          "/xW93Az4AOiifuYW/c4CDbUcu3lx5FcUDAj9AGiR9NSTsF/ROC/RqnxvQ3AGtqa14R7vido4MXEpY3JEp6FsqA==";
+          "/xW93Az4AOiifuYW/c4CDbUcu3lx5FcUDAj9AGiR9NSTsF/ROC/RqnxvQ3AGtqa14R7vido4MXEpY3JEp6FsqA=="
+          ;
       };
     };
     "@parcel/events-2.3.2" = {
@@ -168,7 +188,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/events/-/events-2.3.2.tgz";
         sha512 =
-          "WiYIwXMo4Vd+pi58vRoHkul8TPE5VEfMY+3FYwVCKPl/LYqSD+vz6wMx9uG18mEbB1d/ofefv5ZFQNtPGKO4tQ==";
+          "WiYIwXMo4Vd+pi58vRoHkul8TPE5VEfMY+3FYwVCKPl/LYqSD+vz6wMx9uG18mEbB1d/ofefv5ZFQNtPGKO4tQ=="
+          ;
       };
     };
     "@parcel/fs-2.3.2" = {
@@ -178,7 +199,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/fs/-/fs-2.3.2.tgz";
         sha512 =
-          "XV+OsnRpN01QKU37lBN0TFKvv7uPKfQGbqFqYOrMbXH++Ae8rBU0Ykz+Yu4tv2h7shMlde+AMKgRnRTAJZpWEQ==";
+          "XV+OsnRpN01QKU37lBN0TFKvv7uPKfQGbqFqYOrMbXH++Ae8rBU0Ykz+Yu4tv2h7shMlde+AMKgRnRTAJZpWEQ=="
+          ;
       };
     };
     "@parcel/fs-search-2.3.2" = {
@@ -189,7 +211,8 @@ let
         url =
           "https://registry.npmjs.org/@parcel/fs-search/-/fs-search-2.3.2.tgz";
         sha512 =
-          "u3DTEFnPtKuZvEtgGzfVjQUytegSSn3POi7WfwMwPIaeDPfYcyyhfl+c96z7VL9Gk/pqQ99/cGyAwFdFsnxxXA==";
+          "u3DTEFnPtKuZvEtgGzfVjQUytegSSn3POi7WfwMwPIaeDPfYcyyhfl+c96z7VL9Gk/pqQ99/cGyAwFdFsnxxXA=="
+          ;
       };
     };
     "@parcel/graph-2.3.2" = {
@@ -199,7 +222,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/graph/-/graph-2.3.2.tgz";
         sha512 =
-          "ltTBM3IEqumgmy4ABBFETT8NtAwSsjD9mY3WCyJ5P8rUshfVCg093rvBPbpuJYMaH/TV1AHVaWfZqaZ4JQDIQQ==";
+          "ltTBM3IEqumgmy4ABBFETT8NtAwSsjD9mY3WCyJ5P8rUshfVCg093rvBPbpuJYMaH/TV1AHVaWfZqaZ4JQDIQQ=="
+          ;
       };
     };
     "@parcel/hash-2.3.2" = {
@@ -209,7 +233,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/hash/-/hash-2.3.2.tgz";
         sha512 =
-          "SMtYTsHihws/wqdVnOr0QAGyGYsW9rJSJkkoRujUxo8l2ctnBN1ztv89eOUrdtgHsmcnj/oz1yw6sN38X+BUng==";
+          "SMtYTsHihws/wqdVnOr0QAGyGYsW9rJSJkkoRujUxo8l2ctnBN1ztv89eOUrdtgHsmcnj/oz1yw6sN38X+BUng=="
+          ;
       };
     };
     "@parcel/logger-2.3.2" = {
@@ -219,7 +244,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/logger/-/logger-2.3.2.tgz";
         sha512 =
-          "jIWd8TXDQf+EnNWSa7Q10lSQ6C1LSH8OZkTlaINrfVIw7s+3tVxO3I4pjp7/ARw7RX2gdNPlw6fH4Gn/HvvYbw==";
+          "jIWd8TXDQf+EnNWSa7Q10lSQ6C1LSH8OZkTlaINrfVIw7s+3tVxO3I4pjp7/ARw7RX2gdNPlw6fH4Gn/HvvYbw=="
+          ;
       };
     };
     "@parcel/markdown-ansi-2.3.2" = {
@@ -228,9 +254,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/markdown-ansi/-/markdown-ansi-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/markdown-ansi/-/markdown-ansi-2.3.2.tgz"
+          ;
         sha512 =
-          "l01ggmag5QScCk9mYA0xHh5TWSffR84uPFP2KvaAMQQ9NLNufcFiU0mn/Mtr3pCb5L5dSzmJ+Oo9s7P1Kh/Fmg==";
+          "l01ggmag5QScCk9mYA0xHh5TWSffR84uPFP2KvaAMQQ9NLNufcFiU0mn/Mtr3pCb5L5dSzmJ+Oo9s7P1Kh/Fmg=="
+          ;
       };
     };
     "@parcel/namer-default-2.3.2" = {
@@ -239,9 +267,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/namer-default/-/namer-default-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/namer-default/-/namer-default-2.3.2.tgz"
+          ;
         sha512 =
-          "3QUMC0+5+3KMKfoAxYAbpZtuRqTgyZKsGDWzOpuqwemqp6P8ahAvNPwSCi6QSkGcTmvtYwBu9/NHPSONxIFOfg==";
+          "3QUMC0+5+3KMKfoAxYAbpZtuRqTgyZKsGDWzOpuqwemqp6P8ahAvNPwSCi6QSkGcTmvtYwBu9/NHPSONxIFOfg=="
+          ;
       };
     };
     "@parcel/node-resolver-core-2.3.2" = {
@@ -250,9 +280,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/node-resolver-core/-/node-resolver-core-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/node-resolver-core/-/node-resolver-core-2.3.2.tgz"
+          ;
         sha512 =
-          "wmrnMNzJN4GuHw2Ftho+BWgSWR6UCkW3XoMdphqcxpw/ieAdS2a+xYSosYkZgQZ6lGutSvLyJ1CkVvP6RLIdQQ==";
+          "wmrnMNzJN4GuHw2Ftho+BWgSWR6UCkW3XoMdphqcxpw/ieAdS2a+xYSosYkZgQZ6lGutSvLyJ1CkVvP6RLIdQQ=="
+          ;
       };
     };
     "@parcel/optimizer-cssnano-2.3.2" = {
@@ -261,9 +293,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/optimizer-cssnano/-/optimizer-cssnano-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/optimizer-cssnano/-/optimizer-cssnano-2.3.2.tgz"
+          ;
         sha512 =
-          "wTBOxMiBI38NAB9XIlQZRCjS59+EWjWR9M04D3TWyxl+dL5gYMc1cl4GNynUnmcPdz+3s1UbOdo5/8V90wjiiw==";
+          "wTBOxMiBI38NAB9XIlQZRCjS59+EWjWR9M04D3TWyxl+dL5gYMc1cl4GNynUnmcPdz+3s1UbOdo5/8V90wjiiw=="
+          ;
       };
     };
     "@parcel/optimizer-htmlnano-2.3.2" = {
@@ -272,9 +306,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/optimizer-htmlnano/-/optimizer-htmlnano-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/optimizer-htmlnano/-/optimizer-htmlnano-2.3.2.tgz"
+          ;
         sha512 =
-          "U8C0TDSxsx8HmHaLW0Zc7ha1fXQynzhvBjCRMGYnOiLiw0MOfLQxzQ2WKVSeCotmdlF63ayCwxWsd6BuqStiKQ==";
+          "U8C0TDSxsx8HmHaLW0Zc7ha1fXQynzhvBjCRMGYnOiLiw0MOfLQxzQ2WKVSeCotmdlF63ayCwxWsd6BuqStiKQ=="
+          ;
       };
     };
     "@parcel/optimizer-image-2.3.2" = {
@@ -283,9 +319,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/optimizer-image/-/optimizer-image-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/optimizer-image/-/optimizer-image-2.3.2.tgz"
+          ;
         sha512 =
-          "HOk3r5qdvY/PmI7Q3i2qEgFH3kP2QWG4Wq3wmC4suaF1+c2gpiQc+HKHWp4QvfbH3jhT00c5NxQyqPhbXeNI9Q==";
+          "HOk3r5qdvY/PmI7Q3i2qEgFH3kP2QWG4Wq3wmC4suaF1+c2gpiQc+HKHWp4QvfbH3jhT00c5NxQyqPhbXeNI9Q=="
+          ;
       };
     };
     "@parcel/optimizer-svgo-2.3.2" = {
@@ -294,9 +332,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/optimizer-svgo/-/optimizer-svgo-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/optimizer-svgo/-/optimizer-svgo-2.3.2.tgz"
+          ;
         sha512 =
-          "l7WvZ5+e7D1mVmLUxMVaSb29cviXzuvSY2OpQs0ukdPACDqag+C65hWMzwTiOSSRGPMIu96kQKpeVru2YjibhA==";
+          "l7WvZ5+e7D1mVmLUxMVaSb29cviXzuvSY2OpQs0ukdPACDqag+C65hWMzwTiOSSRGPMIu96kQKpeVru2YjibhA=="
+          ;
       };
     };
     "@parcel/optimizer-terser-2.3.2" = {
@@ -305,9 +345,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/optimizer-terser/-/optimizer-terser-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/optimizer-terser/-/optimizer-terser-2.3.2.tgz"
+          ;
         sha512 =
-          "dOapHhfy0xiNZa2IoEyHGkhhla07xsja79NPem14e5jCqY6Oi40jKNV4ab5uu5u1elWUjJuw69tiYbkDZWbKQw==";
+          "dOapHhfy0xiNZa2IoEyHGkhhla07xsja79NPem14e5jCqY6Oi40jKNV4ab5uu5u1elWUjJuw69tiYbkDZWbKQw=="
+          ;
       };
     };
     "@parcel/package-manager-2.3.2" = {
@@ -316,9 +358,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/package-manager/-/package-manager-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/package-manager/-/package-manager-2.3.2.tgz"
+          ;
         sha512 =
-          "pAQfywKVORY8Ee+NHAyKzzQrKbnz8otWRejps7urwhDaTVLfAd5C/1ZV64ATZ9ALYP9jyoQ8bTaxVd4opcSuwg==";
+          "pAQfywKVORY8Ee+NHAyKzzQrKbnz8otWRejps7urwhDaTVLfAd5C/1ZV64ATZ9ALYP9jyoQ8bTaxVd4opcSuwg=="
+          ;
       };
     };
     "@parcel/packager-css-2.3.2" = {
@@ -327,9 +371,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/packager-css/-/packager-css-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/packager-css/-/packager-css-2.3.2.tgz"
+          ;
         sha512 =
-          "ByuF9xDnQnpVL1Hdu9aY6SpxOuZowd3TH7joh1qdRPLeMHTEvUywHBXoiAyNdrhnLGum8uPEdY8Ra5Xuo1U7kg==";
+          "ByuF9xDnQnpVL1Hdu9aY6SpxOuZowd3TH7joh1qdRPLeMHTEvUywHBXoiAyNdrhnLGum8uPEdY8Ra5Xuo1U7kg=="
+          ;
       };
     };
     "@parcel/packager-html-2.3.2" = {
@@ -338,9 +384,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/packager-html/-/packager-html-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/packager-html/-/packager-html-2.3.2.tgz"
+          ;
         sha512 =
-          "YqAptdU+uqfgwSii76mRGcA/3TpuC6yHr8xG+11brqj/tEFLsurmX0naombzd7FgmrTE9w+kb0HUIMl2vRBn0A==";
+          "YqAptdU+uqfgwSii76mRGcA/3TpuC6yHr8xG+11brqj/tEFLsurmX0naombzd7FgmrTE9w+kb0HUIMl2vRBn0A=="
+          ;
       };
     };
     "@parcel/packager-js-2.3.2" = {
@@ -349,9 +397,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/packager-js/-/packager-js-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/packager-js/-/packager-js-2.3.2.tgz"
+          ;
         sha512 =
-          "3OP0Ro9M1J+PIKZK4Ec2N5hjIPiqk++B2kMFeiUqvaNZjJgKrPPEICBhjS52rma4IE/NgmIMB3aI5pWqE/KwNA==";
+          "3OP0Ro9M1J+PIKZK4Ec2N5hjIPiqk++B2kMFeiUqvaNZjJgKrPPEICBhjS52rma4IE/NgmIMB3aI5pWqE/KwNA=="
+          ;
       };
     };
     "@parcel/packager-raw-2.3.2" = {
@@ -360,9 +410,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/packager-raw/-/packager-raw-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/packager-raw/-/packager-raw-2.3.2.tgz"
+          ;
         sha512 =
-          "RnoZ7WgNAFWkEPrEefvyDqus7xfv9XGprHyTbfLittPaVAZpl+4eAv43nXyMfzk77Cgds6KcNpkosj3acEpNIQ==";
+          "RnoZ7WgNAFWkEPrEefvyDqus7xfv9XGprHyTbfLittPaVAZpl+4eAv43nXyMfzk77Cgds6KcNpkosj3acEpNIQ=="
+          ;
       };
     };
     "@parcel/packager-svg-2.3.2" = {
@@ -371,9 +423,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/packager-svg/-/packager-svg-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/packager-svg/-/packager-svg-2.3.2.tgz"
+          ;
         sha512 =
-          "iIC0VeczOXynS7M5jCi3naMBRyAznBVJ3iMg92/GaI9duxPlUMGAlHzLAKNtoXkc00HMXDH7rrmMb04VX6FYSg==";
+          "iIC0VeczOXynS7M5jCi3naMBRyAznBVJ3iMg92/GaI9duxPlUMGAlHzLAKNtoXkc00HMXDH7rrmMb04VX6FYSg=="
+          ;
       };
     };
     "@parcel/plugin-2.0.0-beta.2" = {
@@ -384,7 +438,8 @@ let
         url =
           "https://registry.npmjs.org/@parcel/plugin/-/plugin-2.0.0-beta.2.tgz";
         sha512 =
-          "I89k7uc+yeSe6LrREajkvR6HnfcZzMDoz/TjnfG0W+iQYdKKaAuggf9zlQ6aOr8moGM1orcVSx5X+77u/tX0gg==";
+          "I89k7uc+yeSe6LrREajkvR6HnfcZzMDoz/TjnfG0W+iQYdKKaAuggf9zlQ6aOr8moGM1orcVSx5X+77u/tX0gg=="
+          ;
       };
     };
     "@parcel/plugin-2.3.2" = {
@@ -394,7 +449,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/plugin/-/plugin-2.3.2.tgz";
         sha512 =
-          "SaLZAJX4KH+mrAmqmcy9KJN+V7L+6YNTlgyqYmfKlNiHu7aIjLL+3prX8QRcgGtjAYziCxvPj0cl1CCJssaiGg==";
+          "SaLZAJX4KH+mrAmqmcy9KJN+V7L+6YNTlgyqYmfKlNiHu7aIjLL+3prX8QRcgGtjAYziCxvPj0cl1CCJssaiGg=="
+          ;
       };
     };
     "@parcel/reporter-cli-2.3.2" = {
@@ -403,9 +459,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/reporter-cli/-/reporter-cli-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/reporter-cli/-/reporter-cli-2.3.2.tgz"
+          ;
         sha512 =
-          "VYetmTXqW83npsvVvqlQZTbF3yVL3k/FCCl3kSWvOr9LZA0lmyqJWPjMHq37yIIOszQN/p5guLtgCjsP0UQw1Q==";
+          "VYetmTXqW83npsvVvqlQZTbF3yVL3k/FCCl3kSWvOr9LZA0lmyqJWPjMHq37yIIOszQN/p5guLtgCjsP0UQw1Q=="
+          ;
       };
     };
     "@parcel/reporter-dev-server-2.3.2" = {
@@ -414,9 +472,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/reporter-dev-server/-/reporter-dev-server-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/reporter-dev-server/-/reporter-dev-server-2.3.2.tgz"
+          ;
         sha512 =
-          "E7LtnjAX4iiWMw2qKUyFBi3+bDz0UGjqgHoPQylUYYLi6opXjJz/oC+cCcCy4e3RZlkrl187XonvagS59YjDxA==";
+          "E7LtnjAX4iiWMw2qKUyFBi3+bDz0UGjqgHoPQylUYYLi6opXjJz/oC+cCcCy4e3RZlkrl187XonvagS59YjDxA=="
+          ;
       };
     };
     "@parcel/resolver-default-2.3.2" = {
@@ -425,9 +485,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/resolver-default/-/resolver-default-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/resolver-default/-/resolver-default-2.3.2.tgz"
+          ;
         sha512 =
-          "y3r+xOwWsATrNGUWuZ6soA7q24f8E5tY1AZ9lHCufnkK2cdKZJ5O1cyd7ohkAiKZx2/pMd+FgmVZ/J3oxetXkA==";
+          "y3r+xOwWsATrNGUWuZ6soA7q24f8E5tY1AZ9lHCufnkK2cdKZJ5O1cyd7ohkAiKZx2/pMd+FgmVZ/J3oxetXkA=="
+          ;
       };
     };
     "@parcel/runtime-browser-hmr-2.3.2" = {
@@ -436,9 +498,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/runtime-browser-hmr/-/runtime-browser-hmr-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/runtime-browser-hmr/-/runtime-browser-hmr-2.3.2.tgz"
+          ;
         sha512 =
-          "nRD6uOyF1+HGylP9GASbYmvUDOsDaNwvaxuGTSh8+5M0mmCgib+hVBiPEKbwdmKjGbUPt9wRFPyMa/JpeQZsIQ==";
+          "nRD6uOyF1+HGylP9GASbYmvUDOsDaNwvaxuGTSh8+5M0mmCgib+hVBiPEKbwdmKjGbUPt9wRFPyMa/JpeQZsIQ=="
+          ;
       };
     };
     "@parcel/runtime-js-2.3.2" = {
@@ -447,9 +511,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/runtime-js/-/runtime-js-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/runtime-js/-/runtime-js-2.3.2.tgz"
+          ;
         sha512 =
-          "SJepcHvYO/7CEe/Q85sngk+smcJ6TypuPh4D2R8kN+cAJPi5WvbQEe7+x5BEgbN+5Jumi/Uo3FfOOE5mYh+F6g==";
+          "SJepcHvYO/7CEe/Q85sngk+smcJ6TypuPh4D2R8kN+cAJPi5WvbQEe7+x5BEgbN+5Jumi/Uo3FfOOE5mYh+F6g=="
+          ;
       };
     };
     "@parcel/runtime-react-refresh-2.3.2" = {
@@ -458,9 +524,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/runtime-react-refresh/-/runtime-react-refresh-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/runtime-react-refresh/-/runtime-react-refresh-2.3.2.tgz"
+          ;
         sha512 =
-          "P+GRPO2XVDSBQ4HmRSj2xfbHSQvL9+ahTE/AB74IJExLTITv5l4SHAV3VsiKohuHYUAYHW3A/Oe7tEFCAb6Cug==";
+          "P+GRPO2XVDSBQ4HmRSj2xfbHSQvL9+ahTE/AB74IJExLTITv5l4SHAV3VsiKohuHYUAYHW3A/Oe7tEFCAb6Cug=="
+          ;
       };
     };
     "@parcel/runtime-service-worker-2.3.2" = {
@@ -469,9 +537,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/runtime-service-worker/-/runtime-service-worker-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/runtime-service-worker/-/runtime-service-worker-2.3.2.tgz"
+          ;
         sha512 =
-          "iREHj/eapphC4uS/zGUkiTJvG57q+CVbTrfE42kB8ECtf/RYNo5YC9htdvPZjRSXDPrEPc5NCoKp4X09ENNikw==";
+          "iREHj/eapphC4uS/zGUkiTJvG57q+CVbTrfE42kB8ECtf/RYNo5YC9htdvPZjRSXDPrEPc5NCoKp4X09ENNikw=="
+          ;
       };
     };
     "@parcel/source-map-2.0.2" = {
@@ -480,9 +550,11 @@ let
       version = "2.0.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/source-map/-/source-map-2.0.2.tgz";
+          "https://registry.npmjs.org/@parcel/source-map/-/source-map-2.0.2.tgz"
+          ;
         sha512 =
-          "NnUrPYLpYB6qyx2v6bcRPn/gVigmGG6M6xL8wIg/i0dP1GLkuY1nf+Hqdf63FzPTqqT7K3k6eE5yHPQVMO5jcA==";
+          "NnUrPYLpYB6qyx2v6bcRPn/gVigmGG6M6xL8wIg/i0dP1GLkuY1nf+Hqdf63FzPTqqT7K3k6eE5yHPQVMO5jcA=="
+          ;
       };
     };
     "@parcel/transformer-babel-2.3.2" = {
@@ -491,9 +563,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-babel/-/transformer-babel-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-babel/-/transformer-babel-2.3.2.tgz"
+          ;
         sha512 =
-          "QpWfH2V6jJ+kcUBIMM/uBBG8dGFvNaOGS+8jD6b+eTP+1owzm83RoWgqhRV2D/hhv2qMXEQzIljoc/wg2y+X4g==";
+          "QpWfH2V6jJ+kcUBIMM/uBBG8dGFvNaOGS+8jD6b+eTP+1owzm83RoWgqhRV2D/hhv2qMXEQzIljoc/wg2y+X4g=="
+          ;
       };
     };
     "@parcel/transformer-css-2.3.2" = {
@@ -502,9 +576,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-css/-/transformer-css-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-css/-/transformer-css-2.3.2.tgz"
+          ;
         sha512 =
-          "8lzvDny+78DIAqhcXam2Bf9FyaUoqzHdUQdNFn+PuXTHroG/QGPvln1kvqngJjn4/cpJS9vYmAPVXe+nai3P8g==";
+          "8lzvDny+78DIAqhcXam2Bf9FyaUoqzHdUQdNFn+PuXTHroG/QGPvln1kvqngJjn4/cpJS9vYmAPVXe+nai3P8g=="
+          ;
       };
     };
     "@parcel/transformer-html-2.3.2" = {
@@ -513,9 +589,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-html/-/transformer-html-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-html/-/transformer-html-2.3.2.tgz"
+          ;
         sha512 =
-          "idT1I/8WM65IFYBqzRwpwT7sf0xGur4EDQDHhuPX1w+pIVZnh0lkLMAnEqs6ar1SPRMys4chzkuDNnqh0d76hg==";
+          "idT1I/8WM65IFYBqzRwpwT7sf0xGur4EDQDHhuPX1w+pIVZnh0lkLMAnEqs6ar1SPRMys4chzkuDNnqh0d76hg=="
+          ;
       };
     };
     "@parcel/transformer-image-2.3.2" = {
@@ -524,9 +602,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-image/-/transformer-image-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-image/-/transformer-image-2.3.2.tgz"
+          ;
         sha512 =
-          "0K7cJHXysli6hZsUz/zVGO7WCoaaIeVdzAxKpLA1Yl3LKw/ODiMyXKt08LiV/ljQ2xT5qb9EsXUWDRvcZ0b96A==";
+          "0K7cJHXysli6hZsUz/zVGO7WCoaaIeVdzAxKpLA1Yl3LKw/ODiMyXKt08LiV/ljQ2xT5qb9EsXUWDRvcZ0b96A=="
+          ;
       };
     };
     "@parcel/transformer-js-2.3.2" = {
@@ -535,9 +615,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-js/-/transformer-js-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-js/-/transformer-js-2.3.2.tgz"
+          ;
         sha512 =
-          "U1fbIoAoqR5P49S+DMhH8BUd9IHRPwrTTv6ARYGsYnhuNsjTFhNYE0kkfRYboe/e0z7vEbeJICZXjnZ7eQDw5A==";
+          "U1fbIoAoqR5P49S+DMhH8BUd9IHRPwrTTv6ARYGsYnhuNsjTFhNYE0kkfRYboe/e0z7vEbeJICZXjnZ7eQDw5A=="
+          ;
       };
     };
     "@parcel/transformer-json-2.3.2" = {
@@ -546,9 +628,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-json/-/transformer-json-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-json/-/transformer-json-2.3.2.tgz"
+          ;
         sha512 =
-          "Pv2iPaxKINtFwOk5fDbHjQlSm2Vza/NLimQY896FLxiXPNAJxWGvMwdutgOPEBKksxRx9LZPyIOHiRVZ0KcA3w==";
+          "Pv2iPaxKINtFwOk5fDbHjQlSm2Vza/NLimQY896FLxiXPNAJxWGvMwdutgOPEBKksxRx9LZPyIOHiRVZ0KcA3w=="
+          ;
       };
     };
     "@parcel/transformer-postcss-2.3.2" = {
@@ -557,9 +641,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-postcss/-/transformer-postcss-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-postcss/-/transformer-postcss-2.3.2.tgz"
+          ;
         sha512 =
-          "Rpdxc1rt2aJFCh/y/ccaBc9J1crDjNY5o44xYoOemBoUNDMREsmg5sR5iO81qKKO5GxfoosGb2zh59aeTmywcg==";
+          "Rpdxc1rt2aJFCh/y/ccaBc9J1crDjNY5o44xYoOemBoUNDMREsmg5sR5iO81qKKO5GxfoosGb2zh59aeTmywcg=="
+          ;
       };
     };
     "@parcel/transformer-posthtml-2.3.2" = {
@@ -568,9 +654,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-posthtml/-/transformer-posthtml-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-posthtml/-/transformer-posthtml-2.3.2.tgz"
+          ;
         sha512 =
-          "tMdVExfdM+1G8A9KSHDsjg+S9xEGbhH5mApF2NslPnNZ4ciLKRNuHU2sSV/v8i0a6kacKvDTrwQXYBQJGOodBw==";
+          "tMdVExfdM+1G8A9KSHDsjg+S9xEGbhH5mApF2NslPnNZ4ciLKRNuHU2sSV/v8i0a6kacKvDTrwQXYBQJGOodBw=="
+          ;
       };
     };
     "@parcel/transformer-raw-2.3.2" = {
@@ -579,9 +667,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-raw/-/transformer-raw-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-raw/-/transformer-raw-2.3.2.tgz"
+          ;
         sha512 =
-          "lY7eOCaALZ90+GH+4PZRmAPGQRXoZ66NakSdhEtH6JSSAYOmZKDvNLGTMRo/vK1oELzWMuAHGdqvbcPDtNLLVw==";
+          "lY7eOCaALZ90+GH+4PZRmAPGQRXoZ66NakSdhEtH6JSSAYOmZKDvNLGTMRo/vK1oELzWMuAHGdqvbcPDtNLLVw=="
+          ;
       };
     };
     "@parcel/transformer-react-refresh-wrap-2.3.2" = {
@@ -590,9 +680,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-react-refresh-wrap/-/transformer-react-refresh-wrap-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-react-refresh-wrap/-/transformer-react-refresh-wrap-2.3.2.tgz"
+          ;
         sha512 =
-          "FZaderyCExn0SBZ6D+zHPWc8JSn9YDcbfibv0wkCl+D7sYfeWZ22i7MRp5NwCe/TZ21WuxDWySCggEp/Waz2xg==";
+          "FZaderyCExn0SBZ6D+zHPWc8JSn9YDcbfibv0wkCl+D7sYfeWZ22i7MRp5NwCe/TZ21WuxDWySCggEp/Waz2xg=="
+          ;
       };
     };
     "@parcel/transformer-svg-2.3.2" = {
@@ -601,9 +693,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-svg/-/transformer-svg-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-svg/-/transformer-svg-2.3.2.tgz"
+          ;
         sha512 =
-          "k9My6bePsaGgUh+tidDjFbbVgKPTzwCAQfoloZRMt7y396KgUbvCfqDruk04k6k+cJn7Jl1o/5lUpTEruBze7g==";
+          "k9My6bePsaGgUh+tidDjFbbVgKPTzwCAQfoloZRMt7y396KgUbvCfqDruk04k6k+cJn7Jl1o/5lUpTEruBze7g=="
+          ;
       };
     };
     "@parcel/transformer-vue-2.3.2" = {
@@ -612,9 +706,11 @@ let
       version = "2.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@parcel/transformer-vue/-/transformer-vue-2.3.2.tgz";
+          "https://registry.npmjs.org/@parcel/transformer-vue/-/transformer-vue-2.3.2.tgz"
+          ;
         sha512 =
-          "6s72rpAropKkGctrAj+ILay7c87Fm9QecZIUeLHfHE+d/3ka6Cw256Ol3/kjRAlRskddbPA+/rfpDpcGEtLziw==";
+          "6s72rpAropKkGctrAj+ILay7c87Fm9QecZIUeLHfHE+d/3ka6Cw256Ol3/kjRAlRskddbPA+/rfpDpcGEtLziw=="
+          ;
       };
     };
     "@parcel/types-2.0.0-beta.2" = {
@@ -625,7 +721,8 @@ let
         url =
           "https://registry.npmjs.org/@parcel/types/-/types-2.0.0-beta.2.tgz";
         sha512 =
-          "ri2BPGAFDntQbA5p3m/4QgnEqWYToUMkAtLelXSPbwnTM0KARavTAwSRqz1xwTdXa8gQyv4SSV7xURwaPaZ3GA==";
+          "ri2BPGAFDntQbA5p3m/4QgnEqWYToUMkAtLelXSPbwnTM0KARavTAwSRqz1xwTdXa8gQyv4SSV7xURwaPaZ3GA=="
+          ;
       };
     };
     "@parcel/types-2.3.2" = {
@@ -635,7 +732,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/types/-/types-2.3.2.tgz";
         sha512 =
-          "C77Ct1xNM7LWjPTfe/dQ/9rq1efdsX5VJu2o8/TVi6qoFh64Wp/c5/vCHwKInOTBZUTchVO6z4PGJNIZoUVJuA==";
+          "C77Ct1xNM7LWjPTfe/dQ/9rq1efdsX5VJu2o8/TVi6qoFh64Wp/c5/vCHwKInOTBZUTchVO6z4PGJNIZoUVJuA=="
+          ;
       };
     };
     "@parcel/utils-2.3.2" = {
@@ -645,7 +743,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/utils/-/utils-2.3.2.tgz";
         sha512 =
-          "xzZ+0vWhrXlLzGoz7WlANaO5IPtyWGeCZruGtepUL3yheRWb1UU4zFN9xz7Z+j++Dmf1Fgkc3qdk/t4O8u9HLQ==";
+          "xzZ+0vWhrXlLzGoz7WlANaO5IPtyWGeCZruGtepUL3yheRWb1UU4zFN9xz7Z+j++Dmf1Fgkc3qdk/t4O8u9HLQ=="
+          ;
       };
     };
     "@parcel/watcher-2.0.5" = {
@@ -655,7 +754,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/watcher/-/watcher-2.0.5.tgz";
         sha512 =
-          "x0hUbjv891omnkcHD7ZOhiyyUqUUR6MNjq89JhEI3BxppeKWAm6NPQsqqRrAkCJBogdT/o/My21sXtTI9rJIsw==";
+          "x0hUbjv891omnkcHD7ZOhiyyUqUUR6MNjq89JhEI3BxppeKWAm6NPQsqqRrAkCJBogdT/o/My21sXtTI9rJIsw=="
+          ;
       };
     };
     "@parcel/workers-2.3.2" = {
@@ -665,7 +765,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@parcel/workers/-/workers-2.3.2.tgz";
         sha512 =
-          "JbOm+Ceuyymd1SuKGgodC2EXAiPuFRpaNUSJpz3NAsS3lVIt2TDAPMOWBivS7sML/KltspUfl/Q9YwO0TPUFNw==";
+          "JbOm+Ceuyymd1SuKGgodC2EXAiPuFRpaNUSJpz3NAsS3lVIt2TDAPMOWBivS7sML/KltspUfl/Q9YwO0TPUFNw=="
+          ;
       };
     };
     "@samverschueren/stream-to-observable-0.3.1" = {
@@ -674,9 +775,11 @@ let
       version = "0.3.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.1.tgz";
+          "https://registry.npmjs.org/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.1.tgz"
+          ;
         sha512 =
-          "c/qwwcHyafOQuVQJj0IlBjf5yYgBI7YPJ77k4fOJYesb41jio65eaJODRUmfYKhTOFBrIZ66kgvGPlNbjuoRdQ==";
+          "c/qwwcHyafOQuVQJj0IlBjf5yYgBI7YPJ77k4fOJYesb41jio65eaJODRUmfYKhTOFBrIZ66kgvGPlNbjuoRdQ=="
+          ;
       };
     };
     "@swc/helpers-0.2.14" = {
@@ -686,7 +789,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@swc/helpers/-/helpers-0.2.14.tgz";
         sha512 =
-          "wpCQMhf5p5GhNg2MmGKXzUNwxe7zRiCsmqYsamez2beP7mKPCSiu+BjZcdN95yYSzO857kr0VfQewmGpS77nqA==";
+          "wpCQMhf5p5GhNg2MmGKXzUNwxe7zRiCsmqYsamez2beP7mKPCSiu+BjZcdN95yYSzO857kr0VfQewmGpS77nqA=="
+          ;
       };
     };
     "@trysound/sax-0.2.0" = {
@@ -696,7 +800,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@trysound/sax/-/sax-0.2.0.tgz";
         sha512 =
-          "L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==";
+          "L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA=="
+          ;
       };
     };
     "@types/parse-json-4.0.0" = {
@@ -707,7 +812,8 @@ let
         url =
           "https://registry.npmjs.org/@types/parse-json/-/parse-json-4.0.0.tgz";
         sha512 =
-          "//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==";
+          "//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA=="
+          ;
       };
     };
     "@types/sinonjs__fake-timers-6.0.4" = {
@@ -716,9 +822,11 @@ let
       version = "6.0.4";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@types/sinonjs__fake-timers/-/sinonjs__fake-timers-6.0.4.tgz";
+          "https://registry.npmjs.org/@types/sinonjs__fake-timers/-/sinonjs__fake-timers-6.0.4.tgz"
+          ;
         sha512 =
-          "IFQTJARgMUBF+xVd2b+hIgXWrZEjND3vJtRCvIelcFB5SIXfjV4bOHbHJ0eXKh+0COrBRc8MqteKAz/j88rE0A==";
+          "IFQTJARgMUBF+xVd2b+hIgXWrZEjND3vJtRCvIelcFB5SIXfjV4bOHbHJ0eXKh+0COrBRc8MqteKAz/j88rE0A=="
+          ;
       };
     };
     "@types/sizzle-2.3.3" = {
@@ -728,7 +836,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@types/sizzle/-/sizzle-2.3.3.tgz";
         sha512 =
-          "JYM8x9EGF163bEyhdJBpR2QX1R5naCJHC8ucJylJ3w9/CVBaskdQ8WqBf8MmQrd1kRvp/a4TS8HJ+bxzR7ZJYQ==";
+          "JYM8x9EGF163bEyhdJBpR2QX1R5naCJHC8ucJylJ3w9/CVBaskdQ8WqBf8MmQrd1kRvp/a4TS8HJ+bxzR7ZJYQ=="
+          ;
       };
     };
     "@vue/compiler-core-3.2.31" = {
@@ -737,9 +846,11 @@ let
       version = "3.2.31";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@vue/compiler-core/-/compiler-core-3.2.31.tgz";
+          "https://registry.npmjs.org/@vue/compiler-core/-/compiler-core-3.2.31.tgz"
+          ;
         sha512 =
-          "aKno00qoA4o+V/kR6i/pE+aP+esng5siNAVQ422TkBNM6qA4veXiZbSe8OTXHXquEi/f6Akc+nLfB4JGfe4/WQ==";
+          "aKno00qoA4o+V/kR6i/pE+aP+esng5siNAVQ422TkBNM6qA4veXiZbSe8OTXHXquEi/f6Akc+nLfB4JGfe4/WQ=="
+          ;
       };
     };
     "@vue/compiler-dom-3.2.31" = {
@@ -748,9 +859,11 @@ let
       version = "3.2.31";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@vue/compiler-dom/-/compiler-dom-3.2.31.tgz";
+          "https://registry.npmjs.org/@vue/compiler-dom/-/compiler-dom-3.2.31.tgz"
+          ;
         sha512 =
-          "60zIlFfzIDf3u91cqfqy9KhCKIJgPeqxgveH2L+87RcGU/alT6BRrk5JtUso0OibH3O7NXuNOQ0cDc9beT0wrg==";
+          "60zIlFfzIDf3u91cqfqy9KhCKIJgPeqxgveH2L+87RcGU/alT6BRrk5JtUso0OibH3O7NXuNOQ0cDc9beT0wrg=="
+          ;
       };
     };
     "@vue/compiler-sfc-3.2.31" = {
@@ -759,9 +872,11 @@ let
       version = "3.2.31";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@vue/compiler-sfc/-/compiler-sfc-3.2.31.tgz";
+          "https://registry.npmjs.org/@vue/compiler-sfc/-/compiler-sfc-3.2.31.tgz"
+          ;
         sha512 =
-          "748adc9msSPGzXgibHiO6T7RWgfnDcVQD+VVwYgSsyyY8Ans64tALHZANrKtOzvkwznV/F4H7OAod/jIlp/dkQ==";
+          "748adc9msSPGzXgibHiO6T7RWgfnDcVQD+VVwYgSsyyY8Ans64tALHZANrKtOzvkwznV/F4H7OAod/jIlp/dkQ=="
+          ;
       };
     };
     "@vue/compiler-ssr-3.2.31" = {
@@ -770,9 +885,11 @@ let
       version = "3.2.31";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@vue/compiler-ssr/-/compiler-ssr-3.2.31.tgz";
+          "https://registry.npmjs.org/@vue/compiler-ssr/-/compiler-ssr-3.2.31.tgz"
+          ;
         sha512 =
-          "mjN0rqig+A8TVDnsGPYJM5dpbjlXeHUm2oZHZwGyMYiGT/F4fhJf/cXy8QpjnLQK4Y9Et4GWzHn9PS8AHUnSkw==";
+          "mjN0rqig+A8TVDnsGPYJM5dpbjlXeHUm2oZHZwGyMYiGT/F4fhJf/cXy8QpjnLQK4Y9Et4GWzHn9PS8AHUnSkw=="
+          ;
       };
     };
     "@vue/devtools-api-6.1.3" = {
@@ -781,9 +898,11 @@ let
       version = "6.1.3";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.1.3.tgz";
+          "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.1.3.tgz"
+          ;
         sha512 =
-          "79InfO2xHv+WHIrH1bHXQUiQD/wMls9qBk6WVwGCbdwP7/3zINtvqPNMtmSHXsIKjvUAHc8L0ouOj6ZQQRmcXg==";
+          "79InfO2xHv+WHIrH1bHXQUiQD/wMls9qBk6WVwGCbdwP7/3zINtvqPNMtmSHXsIKjvUAHc8L0ouOj6ZQQRmcXg=="
+          ;
       };
     };
     "@vue/reactivity-3.2.31" = {
@@ -794,7 +913,8 @@ let
         url =
           "https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.2.31.tgz";
         sha512 =
-          "HVr0l211gbhpEKYr2hYe7hRsV91uIVGFYNHj73njbARVGHQvIojkImKMaZNDdoDZOIkMsBc9a1sMqR+WZwfSCw==";
+          "HVr0l211gbhpEKYr2hYe7hRsV91uIVGFYNHj73njbARVGHQvIojkImKMaZNDdoDZOIkMsBc9a1sMqR+WZwfSCw=="
+          ;
       };
     };
     "@vue/reactivity-transform-3.2.31" = {
@@ -803,9 +923,11 @@ let
       version = "3.2.31";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@vue/reactivity-transform/-/reactivity-transform-3.2.31.tgz";
+          "https://registry.npmjs.org/@vue/reactivity-transform/-/reactivity-transform-3.2.31.tgz"
+          ;
         sha512 =
-          "uS4l4z/W7wXdI+Va5pgVxBJ345wyGFKvpPYtdSgvfJfX/x2Ymm6ophQlXXB6acqGHtXuBqNyyO3zVp9b1r0MOA==";
+          "uS4l4z/W7wXdI+Va5pgVxBJ345wyGFKvpPYtdSgvfJfX/x2Ymm6ophQlXXB6acqGHtXuBqNyyO3zVp9b1r0MOA=="
+          ;
       };
     };
     "@vue/runtime-core-3.2.31" = {
@@ -814,9 +936,11 @@ let
       version = "3.2.31";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@vue/runtime-core/-/runtime-core-3.2.31.tgz";
+          "https://registry.npmjs.org/@vue/runtime-core/-/runtime-core-3.2.31.tgz"
+          ;
         sha512 =
-          "Kcog5XmSY7VHFEMuk4+Gap8gUssYMZ2+w+cmGI6OpZWYOEIcbE0TPzzPHi+8XTzAgx1w/ZxDFcXhZeXN5eKWsA==";
+          "Kcog5XmSY7VHFEMuk4+Gap8gUssYMZ2+w+cmGI6OpZWYOEIcbE0TPzzPHi+8XTzAgx1w/ZxDFcXhZeXN5eKWsA=="
+          ;
       };
     };
     "@vue/runtime-dom-3.2.31" = {
@@ -825,9 +949,11 @@ let
       version = "3.2.31";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@vue/runtime-dom/-/runtime-dom-3.2.31.tgz";
+          "https://registry.npmjs.org/@vue/runtime-dom/-/runtime-dom-3.2.31.tgz"
+          ;
         sha512 =
-          "N+o0sICVLScUjfLG7u9u5XCjvmsexAiPt17GNnaWHJUfsKed5e85/A3SWgKxzlxx2SW/Hw7RQxzxbXez9PtY3g==";
+          "N+o0sICVLScUjfLG7u9u5XCjvmsexAiPt17GNnaWHJUfsKed5e85/A3SWgKxzlxx2SW/Hw7RQxzxbXez9PtY3g=="
+          ;
       };
     };
     "@vue/server-renderer-3.2.31" = {
@@ -836,9 +962,11 @@ let
       version = "3.2.31";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/@vue/server-renderer/-/server-renderer-3.2.31.tgz";
+          "https://registry.npmjs.org/@vue/server-renderer/-/server-renderer-3.2.31.tgz"
+          ;
         sha512 =
-          "8CN3Zj2HyR2LQQBHZ61HexF5NReqngLT3oahyiVRfSSvak+oAvVmu8iNLSu6XR77Ili2AOpnAt1y8ywjjqtmkg==";
+          "8CN3Zj2HyR2LQQBHZ61HexF5NReqngLT3oahyiVRfSSvak+oAvVmu8iNLSu6XR77Ili2AOpnAt1y8ywjjqtmkg=="
+          ;
       };
     };
     "@vue/shared-3.2.31" = {
@@ -848,7 +976,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@vue/shared/-/shared-3.2.31.tgz";
         sha512 =
-          "ymN2pj6zEjiKJZbrf98UM2pfDd6F2H7ksKw7NDt/ZZ1fh5Ei39X5tABugtT03ZRlWd9imccoK0hE8hpjpU7irQ==";
+          "ymN2pj6zEjiKJZbrf98UM2pfDd6F2H7ksKw7NDt/ZZ1fh5Ei39X5tABugtT03ZRlWd9imccoK0hE8hpjpU7irQ=="
+          ;
       };
     };
     "abortcontroller-polyfill-1.7.3" = {
@@ -857,9 +986,11 @@ let
       version = "1.7.3";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/abortcontroller-polyfill/-/abortcontroller-polyfill-1.7.3.tgz";
+          "https://registry.npmjs.org/abortcontroller-polyfill/-/abortcontroller-polyfill-1.7.3.tgz"
+          ;
         sha512 =
-          "zetDJxd89y3X99Kvo4qFx8GKlt6GsvN3UcRZHwU6iFA/0KiOmhkTVhe8oRoTBiTVPZu09x3vCra47+w8Yz1+2Q==";
+          "zetDJxd89y3X99Kvo4qFx8GKlt6GsvN3UcRZHwU6iFA/0KiOmhkTVhe8oRoTBiTVPZu09x3vCra47+w8Yz1+2Q=="
+          ;
       };
     };
     "acorn-8.7.0" = {
@@ -869,7 +1000,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/acorn/-/acorn-8.7.0.tgz";
         sha512 =
-          "V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ==";
+          "V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ=="
+          ;
       };
     };
     "ansi-escapes-3.2.0" = {
@@ -880,7 +1012,8 @@ let
         url =
           "https://registry.npmjs.org/ansi-escapes/-/ansi-escapes-3.2.0.tgz";
         sha512 =
-          "cBhpre4ma+U0T1oM5fXg7Dy1Jw7zzwv7lt/GoCpr+hDQJoYnKVPLL4dCvSEFMmQurOQvSrwT7SL/DAlhBI97RQ==";
+          "cBhpre4ma+U0T1oM5fXg7Dy1Jw7zzwv7lt/GoCpr+hDQJoYnKVPLL4dCvSEFMmQurOQvSrwT7SL/DAlhBI97RQ=="
+          ;
       };
     };
     "ansi-regex-2.1.1" = {
@@ -917,7 +1050,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/ansi-styles/-/ansi-styles-3.2.1.tgz";
         sha512 =
-          "VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==";
+          "VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA=="
+          ;
       };
     };
     "ansi-styles-4.3.0" = {
@@ -927,7 +1061,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz";
         sha512 =
-          "zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==";
+          "zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg=="
+          ;
       };
     };
     "any-observable-0.3.0" = {
@@ -936,9 +1071,11 @@ let
       version = "0.3.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/any-observable/-/any-observable-0.3.0.tgz";
+          "https://registry.npmjs.org/any-observable/-/any-observable-0.3.0.tgz"
+          ;
         sha512 =
-          "/FQM1EDkTsf63Ub2C6O7GuYFDsSXUwsaZDurV0np41ocwq0jthUAYCmhBX9f+KwlaCgIuWyr/4WlUQUBfKfZog==";
+          "/FQM1EDkTsf63Ub2C6O7GuYFDsSXUwsaZDurV0np41ocwq0jthUAYCmhBX9f+KwlaCgIuWyr/4WlUQUBfKfZog=="
+          ;
       };
     };
     "arch-2.2.0" = {
@@ -948,7 +1085,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/arch/-/arch-2.2.0.tgz";
         sha512 =
-          "Of/R0wqp83cgHozfIYLbBMnej79U/SVGOOyuB3VVFv1NRM/PSFMK12x9KVtiYzJqmnU5WR2qp0Z5rHb7sWGnFQ==";
+          "Of/R0wqp83cgHozfIYLbBMnej79U/SVGOOyuB3VVFv1NRM/PSFMK12x9KVtiYzJqmnU5WR2qp0Z5rHb7sWGnFQ=="
+          ;
       };
     };
     "asn1-0.2.4" = {
@@ -958,7 +1096,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/asn1/-/asn1-0.2.4.tgz";
         sha512 =
-          "jxwzQpLQjSmWXgwaCZE9Nz+glAG01yF1QnWgbhGwHI5A6FRIEY6IVqtHhIepHqI7/kyEyQEagBC5mBEFlIYvdg==";
+          "jxwzQpLQjSmWXgwaCZE9Nz+glAG01yF1QnWgbhGwHI5A6FRIEY6IVqtHhIepHqI7/kyEyQEagBC5mBEFlIYvdg=="
+          ;
       };
     };
     "assert-plus-1.0.0" = {
@@ -977,7 +1116,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/async/-/async-3.2.3.tgz";
         sha512 =
-          "spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==";
+          "spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g=="
+          ;
       };
     };
     "asynckit-0.4.0" = {
@@ -1005,7 +1145,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/aws4/-/aws4-1.9.1.tgz";
         sha512 =
-          "wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==";
+          "wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug=="
+          ;
       };
     };
     "balanced-match-1.0.0" = {
@@ -1014,7 +1155,8 @@ let
       version = "1.0.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz";
+          "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz"
+          ;
         sha1 = "89b4d199ab2bee49de164ea02b89ce462d71b767";
       };
     };
@@ -1025,7 +1167,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/base-x/-/base-x-3.0.9.tgz";
         sha512 =
-          "H7JU6iBHTal1gp56aKoaa//YUxEaAOUiydvrV/pILqIHXTtqxSkATOnDA2u+jZ/61sD+L/412+7kzXRtWukhpQ==";
+          "H7JU6iBHTal1gp56aKoaa//YUxEaAOUiydvrV/pILqIHXTtqxSkATOnDA2u+jZ/61sD+L/412+7kzXRtWukhpQ=="
+          ;
       };
     };
     "bcrypt-pbkdf-1.0.2" = {
@@ -1045,7 +1188,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/bluebird/-/bluebird-3.7.2.tgz";
         sha512 =
-          "XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==";
+          "XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg=="
+          ;
       };
     };
     "boolbase-1.0.0" = {
@@ -1063,9 +1207,11 @@ let
       version = "1.1.11";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz";
+          "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz"
+          ;
         sha512 =
-          "iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==";
+          "iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA=="
+          ;
       };
     };
     "browserslist-4.20.2" = {
@@ -1076,7 +1222,8 @@ let
         url =
           "https://registry.npmjs.org/browserslist/-/browserslist-4.20.2.tgz";
         sha512 =
-          "CQOBCqp/9pDvDbx3xfMi+86pr4KXIf2FDkTTdeuYw8OxS9t898LA1Khq57gtufFILXpfgsSx5woNgsBgvGjpsA==";
+          "CQOBCqp/9pDvDbx3xfMi+86pr4KXIf2FDkTTdeuYw8OxS9t898LA1Khq57gtufFILXpfgsSx5woNgsBgvGjpsA=="
+          ;
       };
     };
     "buffer-crc32-0.2.13" = {
@@ -1096,7 +1243,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/buffer-from/-/buffer-from-1.1.1.tgz";
         sha512 =
-          "MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==";
+          "MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A=="
+          ;
       };
     };
     "cachedir-2.3.0" = {
@@ -1106,7 +1254,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/cachedir/-/cachedir-2.3.0.tgz";
         sha512 =
-          "A+Fezp4zxnit6FanDmv9EqXNAi3vt9DWp51/71UEhXukb7QUuvtv9344h91dyAxuTLoSYJFU299qzR3tzwPAhw==";
+          "A+Fezp4zxnit6FanDmv9EqXNAi3vt9DWp51/71UEhXukb7QUuvtv9344h91dyAxuTLoSYJFU299qzR3tzwPAhw=="
+          ;
       };
     };
     "callsites-3.1.0" = {
@@ -1116,7 +1265,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/callsites/-/callsites-3.1.0.tgz";
         sha512 =
-          "P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==";
+          "P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ=="
+          ;
       };
     };
     "caniuse-api-3.0.0" = {
@@ -1126,7 +1276,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/caniuse-api/-/caniuse-api-3.0.0.tgz";
         sha512 =
-          "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
+          "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw=="
+          ;
       };
     };
     "caniuse-lite-1.0.30001319" = {
@@ -1135,9 +1286,11 @@ let
       version = "1.0.30001319";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001319.tgz";
+          "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001319.tgz"
+          ;
         sha512 =
-          "xjlIAFHucBRSMUo1kb5D4LYgcN1M45qdKP++lhqowDpwJwGkpIRTt5qQqnhxjj1vHcI7nrJxWhCC1ATrCEBTcw==";
+          "xjlIAFHucBRSMUo1kb5D4LYgcN1M45qdKP++lhqowDpwJwGkpIRTt5qQqnhxjj1vHcI7nrJxWhCC1ATrCEBTcw=="
+          ;
       };
     };
     "caseless-0.12.0" = {
@@ -1165,7 +1318,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz";
         sha512 =
-          "Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==";
+          "Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ=="
+          ;
       };
     };
     "chalk-4.1.2" = {
@@ -1175,7 +1329,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz";
         sha512 =
-          "oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==";
+          "oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="
+          ;
       };
     };
     "check-more-types-2.24.0" = {
@@ -1184,7 +1339,8 @@ let
       version = "2.24.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/check-more-types/-/check-more-types-2.24.0.tgz";
+          "https://registry.npmjs.org/check-more-types/-/check-more-types-2.24.0.tgz"
+          ;
         sha1 = "1420ffb10fd444dcfc79b43891bbfffd32a84600";
       };
     };
@@ -1194,9 +1350,11 @@ let
       version = "1.0.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/chrome-trace-event/-/chrome-trace-event-1.0.2.tgz";
+          "https://registry.npmjs.org/chrome-trace-event/-/chrome-trace-event-1.0.2.tgz"
+          ;
         sha512 =
-          "9e/zx1jw7B4CO+c/RXoCsfg/x1AfUBioy4owYH0bJprEYAx5hRFLRhWBqHAG57D0ZM4H7vxbP7bPe0VwhQRYDQ==";
+          "9e/zx1jw7B4CO+c/RXoCsfg/x1AfUBioy4owYH0bJprEYAx5hRFLRhWBqHAG57D0ZM4H7vxbP7bPe0VwhQRYDQ=="
+          ;
       };
     };
     "ci-info-2.0.0" = {
@@ -1206,7 +1364,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/ci-info/-/ci-info-2.0.0.tgz";
         sha512 =
-          "5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==";
+          "5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ=="
+          ;
       };
     };
     "cli-cursor-1.0.2" = {
@@ -1234,7 +1393,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/cli-table3/-/cli-table3-0.5.1.tgz";
         sha512 =
-          "7Qg2Jrep1S/+Q3EceiZtQcDPWxhAvBw+ERf1162v4sikJrvojMHFqXt8QIVha8UlH9rgU0BeWPytZ9/TzYqlUw==";
+          "7Qg2Jrep1S/+Q3EceiZtQcDPWxhAvBw+ERf1162v4sikJrvojMHFqXt8QIVha8UlH9rgU0BeWPytZ9/TzYqlUw=="
+          ;
       };
     };
     "cli-truncate-0.2.1" = {
@@ -1274,7 +1434,8 @@ let
         url =
           "https://registry.npmjs.org/color-convert/-/color-convert-1.9.3.tgz";
         sha512 =
-          "QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==";
+          "QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg=="
+          ;
       };
     };
     "color-convert-2.0.1" = {
@@ -1285,7 +1446,8 @@ let
         url =
           "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz";
         sha512 =
-          "RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==";
+          "RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ=="
+          ;
       };
     };
     "color-name-1.1.3" = {
@@ -1304,7 +1466,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz";
         sha512 =
-          "dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==";
+          "dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA=="
+          ;
       };
     };
     "colord-2.9.2" = {
@@ -1314,7 +1477,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/colord/-/colord-2.9.2.tgz";
         sha512 =
-          "Uqbg+J445nc1TKn4FoDPS6ZZqAvEDnwrH42yo8B40JSOgSLxMZ/gt3h4nmCtPLQeXhjJJkqBx7SCY35WnIixaQ==";
+          "Uqbg+J445nc1TKn4FoDPS6ZZqAvEDnwrH42yo8B40JSOgSLxMZ/gt3h4nmCtPLQeXhjJJkqBx7SCY35WnIixaQ=="
+          ;
       };
     };
     "colorette-1.2.2" = {
@@ -1324,7 +1488,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/colorette/-/colorette-1.2.2.tgz";
         sha512 =
-          "MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==";
+          "MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w=="
+          ;
       };
     };
     "colors-1.4.0" = {
@@ -1334,7 +1499,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/colors/-/colors-1.4.0.tgz";
         sha512 =
-          "a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==";
+          "a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA=="
+          ;
       };
     };
     "combined-stream-1.0.8" = {
@@ -1343,9 +1509,11 @@ let
       version = "1.0.8";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz";
+          "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz"
+          ;
         sha512 =
-          "FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==";
+          "FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg=="
+          ;
       };
     };
     "commander-2.20.3" = {
@@ -1355,7 +1523,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz";
         sha512 =
-          "GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==";
+          "GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ=="
+          ;
       };
     };
     "commander-4.1.1" = {
@@ -1365,7 +1534,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/commander/-/commander-4.1.1.tgz";
         sha512 =
-          "NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==";
+          "NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA=="
+          ;
       };
     };
     "commander-7.2.0" = {
@@ -1375,7 +1545,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/commander/-/commander-7.2.0.tgz";
         sha512 =
-          "QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==";
+          "QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw=="
+          ;
       };
     };
     "common-tags-1.8.2" = {
@@ -1385,7 +1556,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/common-tags/-/common-tags-1.8.2.tgz";
         sha512 =
-          "gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==";
+          "gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA=="
+          ;
       };
     };
     "concat-map-0.0.1" = {
@@ -1405,7 +1577,8 @@ let
         url =
           "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.2.tgz";
         sha512 =
-          "27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==";
+          "27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw=="
+          ;
       };
     };
     "consolidate-0.16.0" = {
@@ -1415,7 +1588,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/consolidate/-/consolidate-0.16.0.tgz";
         sha512 =
-          "Nhl1wzCslqXYTJVDyJCu3ODohy9OfBMB5uD2BiBTzd7w+QY0lBzafkR8y8755yMYHAaMD4NuzbAw03/xzfw+eQ==";
+          "Nhl1wzCslqXYTJVDyJCu3ODohy9OfBMB5uD2BiBTzd7w+QY0lBzafkR8y8755yMYHAaMD4NuzbAw03/xzfw+eQ=="
+          ;
       };
     };
     "core-util-is-1.0.2" = {
@@ -1435,7 +1609,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/cosmiconfig/-/cosmiconfig-7.0.1.tgz";
         sha512 =
-          "a1YWNUV2HwGimB7dU2s1wUMurNKjpx60HxBB6xUM8Re+2s1g1IIfJvFR0/iCF+XHdE0GMTKTuLR32UQff4TEyQ==";
+          "a1YWNUV2HwGimB7dU2s1wUMurNKjpx60HxBB6xUM8Re+2s1g1IIfJvFR0/iCF+XHdE0GMTKTuLR32UQff4TEyQ=="
+          ;
       };
     };
     "cross-spawn-6.0.5" = {
@@ -1445,7 +1620,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/cross-spawn/-/cross-spawn-6.0.5.tgz";
         sha512 =
-          "eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==";
+          "eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ=="
+          ;
       };
     };
     "css-declaration-sorter-6.1.4" = {
@@ -1454,9 +1630,11 @@ let
       version = "6.1.4";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/css-declaration-sorter/-/css-declaration-sorter-6.1.4.tgz";
+          "https://registry.npmjs.org/css-declaration-sorter/-/css-declaration-sorter-6.1.4.tgz"
+          ;
         sha512 =
-          "lpfkqS0fctcmZotJGhnxkIyJWvBXgpyi2wsFd4J8VB7wzyrT6Ch/3Q+FMNJpjK4gu1+GN5khOnpU2ZVKrLbhCw==";
+          "lpfkqS0fctcmZotJGhnxkIyJWvBXgpyi2wsFd4J8VB7wzyrT6Ch/3Q+FMNJpjK4gu1+GN5khOnpU2ZVKrLbhCw=="
+          ;
       };
     };
     "css-select-4.2.1" = {
@@ -1466,7 +1644,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/css-select/-/css-select-4.2.1.tgz";
         sha512 =
-          "/aUslKhzkTNCQUB2qTX84lVmfia9NyjP3WpDGtj/WxhwBzWBYUV3DgUpurHTme8UTPcPlAD1DJ+b0nN/t50zDQ==";
+          "/aUslKhzkTNCQUB2qTX84lVmfia9NyjP3WpDGtj/WxhwBzWBYUV3DgUpurHTme8UTPcPlAD1DJ+b0nN/t50zDQ=="
+          ;
       };
     };
     "css-tree-1.1.3" = {
@@ -1476,7 +1655,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/css-tree/-/css-tree-1.1.3.tgz";
         sha512 =
-          "tRpdppF7TRazZrjJ6v3stzv93qxRcSsFmW6cX0Zm2NVKpxE1WV1HblnghVv9TreireHkqI/VDEsfolRF1p6y7Q==";
+          "tRpdppF7TRazZrjJ6v3stzv93qxRcSsFmW6cX0Zm2NVKpxE1WV1HblnghVv9TreireHkqI/VDEsfolRF1p6y7Q=="
+          ;
       };
     };
     "css-what-5.1.0" = {
@@ -1486,7 +1666,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/css-what/-/css-what-5.1.0.tgz";
         sha512 =
-          "arSMRWIIFY0hV8pIxZMEfmMI47Wj3R/aWpZDDxWYCPEiOMv6tfOrnpDtgxBYPEQD4V0Y/958+1TdC3iWTFcUPw==";
+          "arSMRWIIFY0hV8pIxZMEfmMI47Wj3R/aWpZDDxWYCPEiOMv6tfOrnpDtgxBYPEQD4V0Y/958+1TdC3iWTFcUPw=="
+          ;
       };
     };
     "cssesc-3.0.0" = {
@@ -1496,7 +1677,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz";
         sha512 =
-          "/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==";
+          "/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg=="
+          ;
       };
     };
     "cssnano-5.1.5" = {
@@ -1506,7 +1688,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/cssnano/-/cssnano-5.1.5.tgz";
         sha512 =
-          "VZO1e+bRRVixMeia1zKagrv0lLN1B/r/u12STGNNUFxnp97LIFgZHQa0JxqlwEkvzUyA9Oz/WnCTAFkdEbONmg==";
+          "VZO1e+bRRVixMeia1zKagrv0lLN1B/r/u12STGNNUFxnp97LIFgZHQa0JxqlwEkvzUyA9Oz/WnCTAFkdEbONmg=="
+          ;
       };
     };
     "cssnano-preset-default-5.2.5" = {
@@ -1515,9 +1698,11 @@ let
       version = "5.2.5";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/cssnano-preset-default/-/cssnano-preset-default-5.2.5.tgz";
+          "https://registry.npmjs.org/cssnano-preset-default/-/cssnano-preset-default-5.2.5.tgz"
+          ;
         sha512 =
-          "WopL7PzN7sos3X8B54/QGl+CZUh1f0qN4ds+y2d5EPwRSSc3jsitVw81O+Uyop0pXyOfPfZxnc+LmA8w/Ki/WQ==";
+          "WopL7PzN7sos3X8B54/QGl+CZUh1f0qN4ds+y2d5EPwRSSc3jsitVw81O+Uyop0pXyOfPfZxnc+LmA8w/Ki/WQ=="
+          ;
       };
     };
     "cssnano-utils-3.1.0" = {
@@ -1528,7 +1713,8 @@ let
         url =
           "https://registry.npmjs.org/cssnano-utils/-/cssnano-utils-3.1.0.tgz";
         sha512 =
-          "JQNR19/YZhz4psLX/rQ9M83e3z2Wf/HdJbryzte4a3NSuafyp9w/I4U+hx5C2S9g41qlstH7DEWnZaaj83OuEA==";
+          "JQNR19/YZhz4psLX/rQ9M83e3z2Wf/HdJbryzte4a3NSuafyp9w/I4U+hx5C2S9g41qlstH7DEWnZaaj83OuEA=="
+          ;
       };
     };
     "csso-4.2.0" = {
@@ -1538,7 +1724,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/csso/-/csso-4.2.0.tgz";
         sha512 =
-          "wvlcdIbf6pwKEk7vHj8/Bkc0B4ylXZruLvOgs9doS5eOsOpuodOV2zJChSpkp+pRpYQLQMeF04nr3Z68Sta9jA==";
+          "wvlcdIbf6pwKEk7vHj8/Bkc0B4ylXZruLvOgs9doS5eOsOpuodOV2zJChSpkp+pRpYQLQMeF04nr3Z68Sta9jA=="
+          ;
       };
     };
     "csstype-2.6.20" = {
@@ -1548,7 +1735,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/csstype/-/csstype-2.6.20.tgz";
         sha512 =
-          "/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA==";
+          "/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA=="
+          ;
       };
     };
     "cypress-4.12.1" = {
@@ -1558,7 +1746,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/cypress/-/cypress-4.12.1.tgz";
         sha512 =
-          "9SGIPEmqU8vuRA6xst2CMTYd9sCFCxKSzrHt0wr+w2iAQMCIIsXsQ5Gplns1sT6LDbZcmLv6uehabAOl3fhc9Q==";
+          "9SGIPEmqU8vuRA6xst2CMTYd9sCFCxKSzrHt0wr+w2iAQMCIIsXsQ5Gplns1sT6LDbZcmLv6uehabAOl3fhc9Q=="
+          ;
       };
     };
     "dashdash-1.14.1" = {
@@ -1577,7 +1766,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz";
         sha512 =
-          "hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==";
+          "hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw=="
+          ;
       };
     };
     "debug-2.6.9" = {
@@ -1587,7 +1777,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz";
         sha512 =
-          "bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==";
+          "bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="
+          ;
       };
     };
     "debug-3.2.7" = {
@@ -1597,7 +1788,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/debug/-/debug-3.2.7.tgz";
         sha512 =
-          "CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==";
+          "CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ=="
+          ;
       };
     };
     "debug-4.1.1" = {
@@ -1607,7 +1799,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/debug/-/debug-4.1.1.tgz";
         sha512 =
-          "pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==";
+          "pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw=="
+          ;
       };
     };
     "delayed-stream-1.0.0" = {
@@ -1616,7 +1809,8 @@ let
       version = "1.0.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz";
+          "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz"
+          ;
         sha1 = "df3ae199acadfb7d440aaae0b29e2272b24ec619";
       };
     };
@@ -1635,9 +1829,11 @@ let
       version = "1.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/dom-serializer/-/dom-serializer-1.3.2.tgz";
+          "https://registry.npmjs.org/dom-serializer/-/dom-serializer-1.3.2.tgz"
+          ;
         sha512 =
-          "5c54Bk5Dw4qAxNOI1pFEizPSjVsx5+bpJKmL2kPn8JhBUq2q09tTCa3mjijun2NfK78NMouDYNMBkOrPZiS+ig==";
+          "5c54Bk5Dw4qAxNOI1pFEizPSjVsx5+bpJKmL2kPn8JhBUq2q09tTCa3mjijun2NfK78NMouDYNMBkOrPZiS+ig=="
+          ;
       };
     };
     "domelementtype-2.2.0" = {
@@ -1646,9 +1842,11 @@ let
       version = "2.2.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/domelementtype/-/domelementtype-2.2.0.tgz";
+          "https://registry.npmjs.org/domelementtype/-/domelementtype-2.2.0.tgz"
+          ;
         sha512 =
-          "DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A==";
+          "DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A=="
+          ;
       };
     };
     "domhandler-4.3.1" = {
@@ -1658,7 +1856,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/domhandler/-/domhandler-4.3.1.tgz";
         sha512 =
-          "GrwoxYN+uWlzO8uhUXRl0P+kHE4GtVPfYzVLcUxPL7KNdHKj66vvlhiweIHqYYXWlw+T8iLMp42Lm67ghw4WMQ==";
+          "GrwoxYN+uWlzO8uhUXRl0P+kHE4GtVPfYzVLcUxPL7KNdHKj66vvlhiweIHqYYXWlw+T8iLMp42Lm67ghw4WMQ=="
+          ;
       };
     };
     "domutils-2.8.0" = {
@@ -1668,7 +1867,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/domutils/-/domutils-2.8.0.tgz";
         sha512 =
-          "w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A==";
+          "w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A=="
+          ;
       };
     };
     "dotenv-7.0.0" = {
@@ -1678,7 +1878,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/dotenv/-/dotenv-7.0.0.tgz";
         sha512 =
-          "M3NhsLbV1i6HuGzBUH8vXrtxOk+tWmzWKDMbAVSUp3Zsjm7ywFeuwrUXhmhQyRK1q5B5GGy7hcXPbj3bnfZg2g==";
+          "M3NhsLbV1i6HuGzBUH8vXrtxOk+tWmzWKDMbAVSUp3Zsjm7ywFeuwrUXhmhQyRK1q5B5GGy7hcXPbj3bnfZg2g=="
+          ;
       };
     };
     "dotenv-expand-5.1.0" = {
@@ -1689,7 +1890,8 @@ let
         url =
           "https://registry.npmjs.org/dotenv-expand/-/dotenv-expand-5.1.0.tgz";
         sha512 =
-          "YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==";
+          "YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA=="
+          ;
       };
     };
     "ecc-jsbn-0.1.2" = {
@@ -1707,9 +1909,11 @@ let
       version = "1.4.89";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.89.tgz";
+          "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.89.tgz"
+          ;
         sha512 =
-          "z1Axg0Fu54fse8wN4fd+GAINdU5mJmLtcl6bqIcYyzNVGONcfHAeeJi88KYMQVKalhXlYuVPzKkFIU5VD0raUw==";
+          "z1Axg0Fu54fse8wN4fd+GAINdU5mJmLtcl6bqIcYyzNVGONcfHAeeJi88KYMQVKalhXlYuVPzKkFIU5VD0raUw=="
+          ;
       };
     };
     "elegant-spinner-1.0.1" = {
@@ -1718,7 +1922,8 @@ let
       version = "1.0.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/elegant-spinner/-/elegant-spinner-1.0.1.tgz";
+          "https://registry.npmjs.org/elegant-spinner/-/elegant-spinner-1.0.1.tgz"
+          ;
         sha1 = "db043521c95d7e303fd8f345bedc3349cfb0729e";
       };
     };
@@ -1730,7 +1935,8 @@ let
         url =
           "https://registry.npmjs.org/end-of-stream/-/end-of-stream-1.4.4.tgz";
         sha512 =
-          "+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==";
+          "+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q=="
+          ;
       };
     };
     "entities-2.2.0" = {
@@ -1740,7 +1946,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/entities/-/entities-2.2.0.tgz";
         sha512 =
-          "p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==";
+          "p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A=="
+          ;
       };
     };
     "entities-3.0.1" = {
@@ -1750,7 +1957,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/entities/-/entities-3.0.1.tgz";
         sha512 =
-          "WiyBqoomrwMdFG1e0kqvASYfnlb0lp8M5o5Fw2OFq1hNZxxcNk8Ik0Xm7LxzBhuidnZB/UtBqVCgUz3kBOP51Q==";
+          "WiyBqoomrwMdFG1e0kqvASYfnlb0lp8M5o5Fw2OFq1hNZxxcNk8Ik0Xm7LxzBhuidnZB/UtBqVCgUz3kBOP51Q=="
+          ;
       };
     };
     "error-ex-1.3.2" = {
@@ -1760,7 +1968,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/error-ex/-/error-ex-1.3.2.tgz";
         sha512 =
-          "7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==";
+          "7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g=="
+          ;
       };
     };
     "escalade-3.1.1" = {
@@ -1770,7 +1979,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/escalade/-/escalade-3.1.1.tgz";
         sha512 =
-          "k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==";
+          "k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw=="
+          ;
       };
     };
     "escape-string-regexp-1.0.5" = {
@@ -1779,7 +1989,8 @@ let
       version = "1.0.5";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz";
+          "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz"
+          ;
         sha1 = "1b61c0562190a8dff6ae3bb2cf0200ca130b86d4";
       };
     };
@@ -1791,7 +2002,8 @@ let
         url =
           "https://registry.npmjs.org/estree-walker/-/estree-walker-2.0.2.tgz";
         sha512 =
-          "Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==";
+          "Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w=="
+          ;
       };
     };
     "eventemitter2-6.4.5" = {
@@ -1802,7 +2014,8 @@ let
         url =
           "https://registry.npmjs.org/eventemitter2/-/eventemitter2-6.4.5.tgz";
         sha512 =
-          "bXE7Dyc1i6oQElDG0jMRZJrRAn9QR2xyyFGmBdZleNmyQX0FqGYmhZIrIrpPfm/w//LTo4tVQGOGQcGCb5q9uw==";
+          "bXE7Dyc1i6oQElDG0jMRZJrRAn9QR2xyyFGmBdZleNmyQX0FqGYmhZIrIrpPfm/w//LTo4tVQGOGQcGCb5q9uw=="
+          ;
       };
     };
     "execa-1.0.0" = {
@@ -1812,7 +2025,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/execa/-/execa-1.0.0.tgz";
         sha512 =
-          "adbxcyWV46qiHyvSp50TKt05tB4tK3HcmF7/nxfAdhnox83seTDbwnaqKO4sXRy7roHAIFqJP/Rw/AuEbX61LA==";
+          "adbxcyWV46qiHyvSp50TKt05tB4tK3HcmF7/nxfAdhnox83seTDbwnaqKO4sXRy7roHAIFqJP/Rw/AuEbX61LA=="
+          ;
       };
     };
     "executable-4.1.1" = {
@@ -1822,7 +2036,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/executable/-/executable-4.1.1.tgz";
         sha512 =
-          "8iA79xD3uAch729dUG8xaaBBFGaEa0wdD2VkYLFHwlqosEj/jT66AzcreRDSgV7ehnNLBW2WR5jIXwGKjVdTLg==";
+          "8iA79xD3uAch729dUG8xaaBBFGaEa0wdD2VkYLFHwlqosEj/jT66AzcreRDSgV7ehnNLBW2WR5jIXwGKjVdTLg=="
+          ;
       };
     };
     "exit-hook-1.1.1" = {
@@ -1841,7 +2056,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/extend/-/extend-3.0.2.tgz";
         sha512 =
-          "fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==";
+          "fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g=="
+          ;
       };
     };
     "extract-zip-1.7.0" = {
@@ -1851,7 +2067,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/extract-zip/-/extract-zip-1.7.0.tgz";
         sha512 =
-          "xoh5G1W/PB0/27lXgMQyIhP5DSY/LhoCsOyZgb+6iMmRtCwVBo55uKaMoEYrDCKQhWvqEip5ZPKAc6eFNyf/MA==";
+          "xoh5G1W/PB0/27lXgMQyIhP5DSY/LhoCsOyZgb+6iMmRtCwVBo55uKaMoEYrDCKQhWvqEip5ZPKAc6eFNyf/MA=="
+          ;
       };
     };
     "extsprintf-1.3.0" = {
@@ -1907,7 +2124,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/form-data/-/form-data-2.3.3.tgz";
         sha512 =
-          "1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==";
+          "1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ=="
+          ;
       };
     };
     "fs-extra-8.1.0" = {
@@ -1917,7 +2135,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/fs-extra/-/fs-extra-8.1.0.tgz";
         sha512 =
-          "yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==";
+          "yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g=="
+          ;
       };
     };
     "fs.realpath-1.0.0" = {
@@ -1936,7 +2155,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/get-port/-/get-port-4.2.0.tgz";
         sha512 =
-          "/b3jarXkH8KJoOMQc3uVGHASwGLPq3gSFJ7tgJm2diza+bydJPTGOibin2steecKeOylE8oY2JERlVWkAJO6yw==";
+          "/b3jarXkH8KJoOMQc3uVGHASwGLPq3gSFJ7tgJm2diza+bydJPTGOibin2steecKeOylE8oY2JERlVWkAJO6yw=="
+          ;
       };
     };
     "get-stream-4.1.0" = {
@@ -1946,7 +2166,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/get-stream/-/get-stream-4.1.0.tgz";
         sha512 =
-          "GMat4EJ5161kIy2HevLlr4luNjBgvmj413KaQA7jt4V8B4RDsfpHk7WQ9GVqfYyyx8OS/L66Kox+rJRNklLK7w==";
+          "GMat4EJ5161kIy2HevLlr4luNjBgvmj413KaQA7jt4V8B4RDsfpHk7WQ9GVqfYyyx8OS/L66Kox+rJRNklLK7w=="
+          ;
       };
     };
     "getos-3.2.1" = {
@@ -1956,7 +2177,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/getos/-/getos-3.2.1.tgz";
         sha512 =
-          "U56CfOK17OKgTVqozZjUKNdkfEv6jk5WISBJ8SHoagjE6L69zOwl3Z+O8myjY9MEW3i2HPWQBt/LTbCgcC973Q==";
+          "U56CfOK17OKgTVqozZjUKNdkfEv6jk5WISBJ8SHoagjE6L69zOwl3Z+O8myjY9MEW3i2HPWQBt/LTbCgcC973Q=="
+          ;
       };
     };
     "getpass-0.1.7" = {
@@ -1975,7 +2197,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/glob/-/glob-7.1.6.tgz";
         sha512 =
-          "LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==";
+          "LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA=="
+          ;
       };
     };
     "global-dirs-2.1.0" = {
@@ -1985,7 +2208,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/global-dirs/-/global-dirs-2.1.0.tgz";
         sha512 =
-          "MG6kdOUh/xBnyo9cJFeIKkLEc1AyFq42QTU4XiX51i2NEdxLxLWXIjEjmqKeSuKR7pAZjTqUVoT2b2huxVLgYQ==";
+          "MG6kdOUh/xBnyo9cJFeIKkLEc1AyFq42QTU4XiX51i2NEdxLxLWXIjEjmqKeSuKR7pAZjTqUVoT2b2huxVLgYQ=="
+          ;
       };
     };
     "globals-13.13.0" = {
@@ -1995,7 +2219,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/globals/-/globals-13.13.0.tgz";
         sha512 =
-          "EQ7Q18AJlPwp3vUDL4mKA0KXrXyNIQyWon6T6XQiBQF0XHvRsiCSrWmmeATpUzdJN2HhWZU6Pdl0a9zdep5p6A==";
+          "EQ7Q18AJlPwp3vUDL4mKA0KXrXyNIQyWon6T6XQiBQF0XHvRsiCSrWmmeATpUzdJN2HhWZU6Pdl0a9zdep5p6A=="
+          ;
       };
     };
     "graceful-fs-4.2.3" = {
@@ -2005,7 +2230,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.3.tgz";
         sha512 =
-          "a30VEBm4PEdx1dRB7MFK7BejejvCvBronbLjht+sHuGYj8PHs7M/5Z+rt5lw551vZ7yfTCj4Vuyy3mSJytDWRQ==";
+          "a30VEBm4PEdx1dRB7MFK7BejejvCvBronbLjht+sHuGYj8PHs7M/5Z+rt5lw551vZ7yfTCj4Vuyy3mSJytDWRQ=="
+          ;
       };
     };
     "has-ansi-2.0.0" = {
@@ -2033,7 +2259,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/has-flag/-/has-flag-4.0.0.tgz";
         sha512 =
-          "EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==";
+          "EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ=="
+          ;
       };
     };
     "htmlnano-2.0.0" = {
@@ -2043,7 +2270,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/htmlnano/-/htmlnano-2.0.0.tgz";
         sha512 =
-          "thKQfhcp2xgtsWNE27A2bliEeqVL5xjAgGn0wajyttvFFsvFWWah1ntV9aEX61gz0T6MBQ5xK/1lXuEumhJTcg==";
+          "thKQfhcp2xgtsWNE27A2bliEeqVL5xjAgGn0wajyttvFFsvFWWah1ntV9aEX61gz0T6MBQ5xK/1lXuEumhJTcg=="
+          ;
       };
     };
     "htmlparser2-7.2.0" = {
@@ -2053,7 +2281,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/htmlparser2/-/htmlparser2-7.2.0.tgz";
         sha512 =
-          "H7MImA4MS6cw7nbyURtLPO1Tms7C5H602LRETv95z1MxO/7CP7rDVROehUYeYBUYEON94NXXDEPmZuq+hX4sog==";
+          "H7MImA4MS6cw7nbyURtLPO1Tms7C5H602LRETv95z1MxO/7CP7rDVROehUYeYBUYEON94NXXDEPmZuq+hX4sog=="
+          ;
       };
     };
     "http-signature-1.3.6" = {
@@ -2062,9 +2291,11 @@ let
       version = "1.3.6";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/http-signature/-/http-signature-1.3.6.tgz";
+          "https://registry.npmjs.org/http-signature/-/http-signature-1.3.6.tgz"
+          ;
         sha512 =
-          "3adrsD6zqo4GsTqtO7FyrejHNv+NgiIfAfv68+jVlFmSr9OGy7zrxONceFRLKvnnZA5jbxQBX1u9PpB6Wi32Gw==";
+          "3adrsD6zqo4GsTqtO7FyrejHNv+NgiIfAfv68+jVlFmSr9OGy7zrxONceFRLKvnnZA5jbxQBX1u9PpB6Wi32Gw=="
+          ;
       };
     };
     "import-fresh-3.3.0" = {
@@ -2075,7 +2306,8 @@ let
         url =
           "https://registry.npmjs.org/import-fresh/-/import-fresh-3.3.0.tgz";
         sha512 =
-          "veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==";
+          "veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw=="
+          ;
       };
     };
     "indent-string-3.2.0" = {
@@ -2104,7 +2336,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz";
         sha512 =
-          "k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==";
+          "k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ=="
+          ;
       };
     };
     "ini-1.3.7" = {
@@ -2114,7 +2347,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/ini/-/ini-1.3.7.tgz";
         sha512 =
-          "iKpRpXP+CrP2jyrxvg1kMUpXDyRUFDWurxbnVT1vQPx+Wz9uCYsMIqYuSBLV+PAaZG/d7kRLKRFc9oDMsH+mFQ==";
+          "iKpRpXP+CrP2jyrxvg1kMUpXDyRUFDWurxbnVT1vQPx+Wz9uCYsMIqYuSBLV+PAaZG/d7kRLKRFc9oDMsH+mFQ=="
+          ;
       };
     };
     "is-arrayish-0.2.1" = {
@@ -2133,7 +2367,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/is-ci/-/is-ci-2.0.0.tgz";
         sha512 =
-          "YfJT7rkpQB0updsdHLGWrvhBJfcfzNNawYDNIyQXJz0IViGf75O8EBPKSdvw2rF+LGCsX4FZ8tcr3b19LcZq4w==";
+          "YfJT7rkpQB0updsdHLGWrvhBJfcfzNNawYDNIyQXJz0IViGf75O8EBPKSdvw2rF+LGCsX4FZ8tcr3b19LcZq4w=="
+          ;
       };
     };
     "is-fullwidth-code-point-1.0.0" = {
@@ -2142,7 +2377,8 @@ let
       version = "1.0.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-1.0.0.tgz";
+          "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-1.0.0.tgz"
+          ;
         sha1 = "ef9e31386f031a7f0d643af82fde50c457ef00cb";
       };
     };
@@ -2152,7 +2388,8 @@ let
       version = "2.0.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz";
+          "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz"
+          ;
         sha1 = "a3b30a5c4f199183167aaab93beefae3ddfb654f";
       };
     };
@@ -2162,9 +2399,11 @@ let
       version = "0.3.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/is-installed-globally/-/is-installed-globally-0.3.2.tgz";
+          "https://registry.npmjs.org/is-installed-globally/-/is-installed-globally-0.3.2.tgz"
+          ;
         sha512 =
-          "wZ8x1js7Ia0kecP/CHM/3ABkAmujX7WPvQk6uu3Fly/Mk44pySulQpnHG46OMjHGXApINnV4QhY3SWnECO2z5g==";
+          "wZ8x1js7Ia0kecP/CHM/3ABkAmujX7WPvQk6uu3Fly/Mk44pySulQpnHG46OMjHGXApINnV4QhY3SWnECO2z5g=="
+          ;
       };
     };
     "is-json-2.0.1" = {
@@ -2184,7 +2423,8 @@ let
         url =
           "https://registry.npmjs.org/is-observable/-/is-observable-1.1.0.tgz";
         sha512 =
-          "NqCa4Sa2d+u7BWc6CukaObG3Fh+CU9bvixbpcXYhy2VvYS7vVGIdAgnIS5Ks3A/cqk4rebLJ9s8zBstT2aKnIA==";
+          "NqCa4Sa2d+u7BWc6CukaObG3Fh+CU9bvixbpcXYhy2VvYS7vVGIdAgnIS5Ks3A/cqk4rebLJ9s8zBstT2aKnIA=="
+          ;
       };
     };
     "is-path-inside-3.0.3" = {
@@ -2193,9 +2433,11 @@ let
       version = "3.0.3";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/is-path-inside/-/is-path-inside-3.0.3.tgz";
+          "https://registry.npmjs.org/is-path-inside/-/is-path-inside-3.0.3.tgz"
+          ;
         sha512 =
-          "Fd4gABb+ycGAmKou8eMftCupSir5lRxqf4aD/vd0cD2qc4HL07OjCeuHMr8Ro4CoMaeCKDB0/ECBOVWjTwUvPQ==";
+          "Fd4gABb+ycGAmKou8eMftCupSir5lRxqf4aD/vd0cD2qc4HL07OjCeuHMr8Ro4CoMaeCKDB0/ECBOVWjTwUvPQ=="
+          ;
       };
     };
     "is-promise-2.2.2" = {
@@ -2205,7 +2447,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/is-promise/-/is-promise-2.2.2.tgz";
         sha512 =
-          "+lP4/6lKUBfQjZ2pdxThZvLUAafmZb8OAxFb8XXtiQmS35INgr85hdOGoEs124ez1FCnZJt6jau/T+alh58QFQ==";
+          "+lP4/6lKUBfQjZ2pdxThZvLUAafmZb8OAxFb8XXtiQmS35INgr85hdOGoEs124ez1FCnZJt6jau/T+alh58QFQ=="
+          ;
       };
     };
     "is-stream-1.1.0" = {
@@ -2261,7 +2504,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz";
         sha512 =
-          "RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==";
+          "RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="
+          ;
       };
     };
     "jsbn-0.1.1" = {
@@ -2279,9 +2523,11 @@ let
       version = "2.3.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz";
+          "https://registry.npmjs.org/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz"
+          ;
         sha512 =
-          "xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==";
+          "xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w=="
+          ;
       };
     };
     "json-schema-0.4.0" = {
@@ -2291,7 +2537,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/json-schema/-/json-schema-0.4.0.tgz";
         sha512 =
-          "es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA==";
+          "es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA=="
+          ;
       };
     };
     "json-source-map-0.6.1" = {
@@ -2300,9 +2547,11 @@ let
       version = "0.6.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/json-source-map/-/json-source-map-0.6.1.tgz";
+          "https://registry.npmjs.org/json-source-map/-/json-source-map-0.6.1.tgz"
+          ;
         sha512 =
-          "1QoztHPsMQqhDq0hlXY5ZqcEdUzxQEIxgFkKl4WUp2pgShObl+9ovi4kRh2TfvAfxAoHOJ9vIMEqk3k4iex7tg==";
+          "1QoztHPsMQqhDq0hlXY5ZqcEdUzxQEIxgFkKl4WUp2pgShObl+9ovi4kRh2TfvAfxAoHOJ9vIMEqk3k4iex7tg=="
+          ;
       };
     };
     "json-stringify-safe-5.0.1" = {
@@ -2311,7 +2560,8 @@ let
       version = "5.0.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz";
+          "https://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz"
+          ;
         sha1 = "1296a2d58fd45f19a0f6ce01d65701e2c735b6eb";
       };
     };
@@ -2322,7 +2572,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz";
         sha512 =
-          "1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==";
+          "1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA=="
+          ;
       };
     };
     "jsonfile-4.0.0" = {
@@ -2341,7 +2592,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/jsprim/-/jsprim-2.0.2.tgz";
         sha512 =
-          "gqXddjPqQ6G40VdnI6T6yObEC+pDNvyP95wdQhkWkg7crHH3km5qP1FsOXEkzEQwnz6gz5qGTn1c2Y52wP3OyQ==";
+          "gqXddjPqQ6G40VdnI6T6yObEC+pDNvyP95wdQhkWkg7crHH3km5qP1FsOXEkzEQwnz6gz5qGTn1c2Y52wP3OyQ=="
+          ;
       };
     };
     "lazy-ass-1.6.0" = {
@@ -2360,7 +2612,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/lilconfig/-/lilconfig-2.0.4.tgz";
         sha512 =
-          "bfTIN7lEsiooCocSISTWXkiWJkRqtL9wYtYy+8EK3Y41qh3mpwPU0ycTOgjdY9ErwXCc8QyrQp82bdL0Xkm9yA==";
+          "bfTIN7lEsiooCocSISTWXkiWJkRqtL9wYtYy+8EK3Y41qh3mpwPU0ycTOgjdY9ErwXCc8QyrQp82bdL0Xkm9yA=="
+          ;
       };
     };
     "lines-and-columns-1.2.4" = {
@@ -2369,9 +2622,11 @@ let
       version = "1.2.4";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz";
+          "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz"
+          ;
         sha512 =
-          "7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==";
+          "7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg=="
+          ;
       };
     };
     "listr-0.14.3" = {
@@ -2381,7 +2636,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/listr/-/listr-0.14.3.tgz";
         sha512 =
-          "RmAl7su35BFd/xoMamRjpIE4j3v+L28o8CT5YhAXQJm1fD+1l9ngXY8JAQRJ+tFK2i5njvi0iRUKV09vPwA0iA==";
+          "RmAl7su35BFd/xoMamRjpIE4j3v+L28o8CT5YhAXQJm1fD+1l9ngXY8JAQRJ+tFK2i5njvi0iRUKV09vPwA0iA=="
+          ;
       };
     };
     "listr-silent-renderer-1.1.1" = {
@@ -2390,7 +2646,8 @@ let
       version = "1.1.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/listr-silent-renderer/-/listr-silent-renderer-1.1.1.tgz";
+          "https://registry.npmjs.org/listr-silent-renderer/-/listr-silent-renderer-1.1.1.tgz"
+          ;
         sha1 = "924b5a3757153770bf1a8e3fbf74b8bbf3f9242e";
       };
     };
@@ -2400,9 +2657,11 @@ let
       version = "0.5.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/listr-update-renderer/-/listr-update-renderer-0.5.0.tgz";
+          "https://registry.npmjs.org/listr-update-renderer/-/listr-update-renderer-0.5.0.tgz"
+          ;
         sha512 =
-          "tKRsZpKz8GSGqoI/+caPmfrypiaq+OQCbd+CovEC24uk1h952lVj5sC7SqyFUm+OaJ5HN/a1YLt5cit2FMNsFA==";
+          "tKRsZpKz8GSGqoI/+caPmfrypiaq+OQCbd+CovEC24uk1h952lVj5sC7SqyFUm+OaJ5HN/a1YLt5cit2FMNsFA=="
+          ;
       };
     };
     "listr-verbose-renderer-0.5.0" = {
@@ -2411,9 +2670,11 @@ let
       version = "0.5.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/listr-verbose-renderer/-/listr-verbose-renderer-0.5.0.tgz";
+          "https://registry.npmjs.org/listr-verbose-renderer/-/listr-verbose-renderer-0.5.0.tgz"
+          ;
         sha512 =
-          "04PDPqSlsqIOaaaGZ+41vq5FejI9auqTInicFRndCBgE3bXG8D6W1I+mWhk+1nqbHmyhla/6BUrd5OSiHwKRXw==";
+          "04PDPqSlsqIOaaaGZ+41vq5FejI9auqTInicFRndCBgE3bXG8D6W1I+mWhk+1nqbHmyhla/6BUrd5OSiHwKRXw=="
+          ;
       };
     };
     "lmdb-2.2.6" = {
@@ -2423,7 +2684,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/lmdb/-/lmdb-2.2.6.tgz";
         sha512 =
-          "UmQV0oZZcV3EN6rjcAjIiuWcc3MYZGWQ0GUYz46Ron5fuTa/dUow7WSQa6leFkvZIKVUdECBWVw96tckfEzUFQ==";
+          "UmQV0oZZcV3EN6rjcAjIiuWcc3MYZGWQ0GUYz46Ron5fuTa/dUow7WSQa6leFkvZIKVUdECBWVw96tckfEzUFQ=="
+          ;
       };
     };
     "lodash-4.17.21" = {
@@ -2433,7 +2695,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
         sha512 =
-          "v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==";
+          "v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
+          ;
       };
     };
     "lodash.memoize-4.1.2" = {
@@ -2442,7 +2705,8 @@ let
       version = "4.1.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz";
+          "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz"
+          ;
         sha1 = "bcc6c49a42a2840ed997f323eada5ecd182e0bfe";
       };
     };
@@ -2480,7 +2744,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/log-symbols/-/log-symbols-3.0.0.tgz";
         sha512 =
-          "dSkNGuI7iG3mfvDzUuYZyvk5dD9ocYCYzNU6CYDE6+Xqd+gwme6Z00NS3dUh8mq/73HaEtT7m6W+yUPtU6BZnQ==";
+          "dSkNGuI7iG3mfvDzUuYZyvk5dD9ocYCYzNU6CYDE6+Xqd+gwme6Z00NS3dUh8mq/73HaEtT7m6W+yUPtU6BZnQ=="
+          ;
       };
     };
     "log-update-2.3.0" = {
@@ -2500,7 +2765,8 @@ let
         url =
           "https://registry.npmjs.org/magic-string/-/magic-string-0.25.9.tgz";
         sha512 =
-          "RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==";
+          "RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ=="
+          ;
       };
     };
     "mdn-data-2.0.14" = {
@@ -2510,7 +2776,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/mdn-data/-/mdn-data-2.0.14.tgz";
         sha512 =
-          "dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==";
+          "dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow=="
+          ;
       };
     };
     "mime-db-1.43.0" = {
@@ -2520,7 +2787,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/mime-db/-/mime-db-1.43.0.tgz";
         sha512 =
-          "+5dsGEEovYbT8UY9yD7eE4XTc4UwJ1jBYlgaQQF38ENsKR3wj/8q8RFZrF9WIZpB2V1ArTVFUva8sAul1NzRzQ==";
+          "+5dsGEEovYbT8UY9yD7eE4XTc4UwJ1jBYlgaQQF38ENsKR3wj/8q8RFZrF9WIZpB2V1ArTVFUva8sAul1NzRzQ=="
+          ;
       };
     };
     "mime-types-2.1.26" = {
@@ -2530,7 +2798,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/mime-types/-/mime-types-2.1.26.tgz";
         sha512 =
-          "01paPWYgLrkqAyrlDorC1uDwl2p3qZT7yl806vW7DvDoxwXi46jsjFbg+WdwotBIk6/MbEhO/dh5aZ5sNj/dWQ==";
+          "01paPWYgLrkqAyrlDorC1uDwl2p3qZT7yl806vW7DvDoxwXi46jsjFbg+WdwotBIk6/MbEhO/dh5aZ5sNj/dWQ=="
+          ;
       };
     };
     "mimic-fn-1.2.0" = {
@@ -2540,7 +2809,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/mimic-fn/-/mimic-fn-1.2.0.tgz";
         sha512 =
-          "jf84uxzwiuiIVKiOLpfYk7N46TSy8ubTonmneY9vrpHNAnp0QBt2BxWV9dO3/j+BoVAb+a5G6YDPW3M5HOdMWQ==";
+          "jf84uxzwiuiIVKiOLpfYk7N46TSy8ubTonmneY9vrpHNAnp0QBt2BxWV9dO3/j+BoVAb+a5G6YDPW3M5HOdMWQ=="
+          ;
       };
     };
     "minimatch-3.0.4" = {
@@ -2550,7 +2820,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz";
         sha512 =
-          "yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==";
+          "yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA=="
+          ;
       };
     };
     "minimist-1.2.5" = {
@@ -2560,7 +2831,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz";
         sha512 =
-          "FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==";
+          "FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw=="
+          ;
       };
     };
     "mkdirp-0.5.5" = {
@@ -2570,7 +2842,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.5.tgz";
         sha512 =
-          "NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==";
+          "NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ=="
+          ;
       };
     };
     "moment-2.29.1" = {
@@ -2580,7 +2853,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz";
         sha512 =
-          "kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==";
+          "kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
+          ;
       };
     };
     "ms-2.0.0" = {
@@ -2599,7 +2873,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz";
         sha512 =
-          "sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==";
+          "sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="
+          ;
       };
     };
     "msgpackr-1.5.5" = {
@@ -2609,7 +2884,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/msgpackr/-/msgpackr-1.5.5.tgz";
         sha512 =
-          "JG0V47xRIQ9pyUnx6Hb4+3TrQoia2nA3UIdmyTldhxaxtKFkekkKpUW/N6fwHwod9o4BGuJGtouxOk+yCP5PEA==";
+          "JG0V47xRIQ9pyUnx6Hb4+3TrQoia2nA3UIdmyTldhxaxtKFkekkKpUW/N6fwHwod9o4BGuJGtouxOk+yCP5PEA=="
+          ;
       };
     };
     "msgpackr-extract-1.0.16" = {
@@ -2618,9 +2894,11 @@ let
       version = "1.0.16";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/msgpackr-extract/-/msgpackr-extract-1.0.16.tgz";
+          "https://registry.npmjs.org/msgpackr-extract/-/msgpackr-extract-1.0.16.tgz"
+          ;
         sha512 =
-          "fxdRfQUxPrL/TizyfYfMn09dK58e+d65bRD/fcaVH4052vj30QOzzqxcQIS7B0NsqlypEQ/6Du3QmP2DhWFfCA==";
+          "fxdRfQUxPrL/TizyfYfMn09dK58e+d65bRD/fcaVH4052vj30QOzzqxcQIS7B0NsqlypEQ/6Du3QmP2DhWFfCA=="
+          ;
       };
     };
     "nan-2.15.0" = {
@@ -2630,7 +2908,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/nan/-/nan-2.15.0.tgz";
         sha512 =
-          "8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==";
+          "8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ=="
+          ;
       };
     };
     "nanoid-3.1.22" = {
@@ -2640,7 +2919,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/nanoid/-/nanoid-3.1.22.tgz";
         sha512 =
-          "/2ZUaJX2ANuLtTvqTlgqBQNJoQO398KyJgZloL0PZkC0dpysjncRUPsFe3DUPzz/y3h+u7C46np8RMuvF3jsSQ==";
+          "/2ZUaJX2ANuLtTvqTlgqBQNJoQO398KyJgZloL0PZkC0dpysjncRUPsFe3DUPzz/y3h+u7C46np8RMuvF3jsSQ=="
+          ;
       };
     };
     "nanoid-3.3.1" = {
@@ -2650,7 +2930,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/nanoid/-/nanoid-3.3.1.tgz";
         sha512 =
-          "n6Vs/3KGyxPQd6uO0eH4Bv0ojGSUvuLlIHtC3Y0kEO23YRge8H9x1GCzLn28YX0H66pMkxuaeESFq4tKISKwdw==";
+          "n6Vs/3KGyxPQd6uO0eH4Bv0ojGSUvuLlIHtC3Y0kEO23YRge8H9x1GCzLn28YX0H66pMkxuaeESFq4tKISKwdw=="
+          ;
       };
     };
     "nice-try-1.0.5" = {
@@ -2660,7 +2941,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/nice-try/-/nice-try-1.0.5.tgz";
         sha512 =
-          "1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==";
+          "1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ=="
+          ;
       };
     };
     "node-addon-api-3.2.1" = {
@@ -2669,9 +2951,11 @@ let
       version = "3.2.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.2.1.tgz";
+          "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.2.1.tgz"
+          ;
         sha512 =
-          "mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==";
+          "mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A=="
+          ;
       };
     };
     "node-gyp-build-4.2.3" = {
@@ -2680,9 +2964,11 @@ let
       version = "4.2.3";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.2.3.tgz";
+          "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.2.3.tgz"
+          ;
         sha512 =
-          "MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==";
+          "MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg=="
+          ;
       };
     };
     "node-gyp-build-4.3.0" = {
@@ -2691,9 +2977,11 @@ let
       version = "4.3.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.3.0.tgz";
+          "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.3.0.tgz"
+          ;
         sha512 =
-          "iWjXZvmboq0ja1pUGULQBexmxq8CV4xBhX7VDOTbL7ZR4FOowwY/VOtRxBN/yKxmdGoIp4j5ysNT4u3S2pDQ3Q==";
+          "iWjXZvmboq0ja1pUGULQBexmxq8CV4xBhX7VDOTbL7ZR4FOowwY/VOtRxBN/yKxmdGoIp4j5ysNT4u3S2pDQ3Q=="
+          ;
       };
     };
     "node-releases-2.0.2" = {
@@ -2704,7 +2992,8 @@ let
         url =
           "https://registry.npmjs.org/node-releases/-/node-releases-2.0.2.tgz";
         sha512 =
-          "XxYDdcQ6eKqp/YjI+tb2C5WM2LgjnZrfYg4vgQt49EK268b6gYCHsBLrK2qvJo4FmCtqmKezb0WZFK4fkrZNsg==";
+          "XxYDdcQ6eKqp/YjI+tb2C5WM2LgjnZrfYg4vgQt49EK268b6gYCHsBLrK2qvJo4FmCtqmKezb0WZFK4fkrZNsg=="
+          ;
       };
     };
     "normalize-url-6.1.0" = {
@@ -2715,7 +3004,8 @@ let
         url =
           "https://registry.npmjs.org/normalize-url/-/normalize-url-6.1.0.tgz";
         sha512 =
-          "DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A==";
+          "DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A=="
+          ;
       };
     };
     "npm-run-path-2.0.2" = {
@@ -2735,7 +3025,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/nth-check/-/nth-check-2.0.1.tgz";
         sha512 =
-          "it1vE95zF6dTT9lBsYbxvqh0Soy4SPowchj0UBGj/V6cTPnXXtQOPUbhZ6CmGzAD/rW22LQK6E96pcdJXk4A4w==";
+          "it1vE95zF6dTT9lBsYbxvqh0Soy4SPowchj0UBGj/V6cTPnXXtQOPUbhZ6CmGzAD/rW22LQK6E96pcdJXk4A4w=="
+          ;
       };
     };
     "nullthrows-1.1.1" = {
@@ -2745,7 +3036,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/nullthrows/-/nullthrows-1.1.1.tgz";
         sha512 =
-          "2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw==";
+          "2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw=="
+          ;
       };
     };
     "number-is-nan-1.0.1" = {
@@ -2801,9 +3093,11 @@ let
       version = "1.2.4";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/ordered-binary/-/ordered-binary-1.2.4.tgz";
+          "https://registry.npmjs.org/ordered-binary/-/ordered-binary-1.2.4.tgz"
+          ;
         sha512 =
-          "A/csN0d3n+igxBPfUrjbV5GC69LWj2pjZzAAeeHXLukQ4+fytfP4T1Lg0ju7MSPSwq7KtHkGaiwO8URZN5IpLg==";
+          "A/csN0d3n+igxBPfUrjbV5GC69LWj2pjZzAAeeHXLukQ4+fytfP4T1Lg0ju7MSPSwq7KtHkGaiwO8URZN5IpLg=="
+          ;
       };
     };
     "ospath-1.2.2" = {
@@ -2831,7 +3125,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/p-map/-/p-map-2.1.0.tgz";
         sha512 =
-          "y3b8Kpd8OAN444hxfBbFfj1FY/RjtTd8tzYwhUqNYXx0fXx2iX4maP4Qr6qhIKbQXI02wTLAda4fYUbDagTUFw==";
+          "y3b8Kpd8OAN444hxfBbFfj1FY/RjtTd8tzYwhUqNYXx0fXx2iX4maP4Qr6qhIKbQXI02wTLAda4fYUbDagTUFw=="
+          ;
       };
     };
     "parcel-2.3.2" = {
@@ -2841,7 +3136,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/parcel/-/parcel-2.3.2.tgz";
         sha512 =
-          "4jhgoBcQaiGKmnmBvNyKyOvZrxCgzgUzdEoVup/fRCOP99hNmvYIN5IErIIJxsU9ObcG/RGCFF8wa4kVRsWfIg==";
+          "4jhgoBcQaiGKmnmBvNyKyOvZrxCgzgUzdEoVup/fRCOP99hNmvYIN5IErIIJxsU9ObcG/RGCFF8wa4kVRsWfIg=="
+          ;
       };
     };
     "parcel-reporter-static-files-copy-1.2.2" = {
@@ -2850,9 +3146,11 @@ let
       version = "1.2.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/parcel-reporter-static-files-copy/-/parcel-reporter-static-files-copy-1.2.2.tgz";
+          "https://registry.npmjs.org/parcel-reporter-static-files-copy/-/parcel-reporter-static-files-copy-1.2.2.tgz"
+          ;
         sha512 =
-          "DMtv5QVoEp5Jp07G1QKF6IB6uns8/+joGiTh1SU71x8qsm5BBR7AqmzaKed1CAlzYPyzu0It6IjzIC8mFvn4iw==";
+          "DMtv5QVoEp5Jp07G1QKF6IB6uns8/+joGiTh1SU71x8qsm5BBR7AqmzaKed1CAlzYPyzu0It6IjzIC8mFvn4iw=="
+          ;
       };
     };
     "parent-module-1.0.1" = {
@@ -2863,7 +3161,8 @@ let
         url =
           "https://registry.npmjs.org/parent-module/-/parent-module-1.0.1.tgz";
         sha512 =
-          "GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==";
+          "GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g=="
+          ;
       };
     };
     "parse-json-5.2.0" = {
@@ -2873,7 +3172,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/parse-json/-/parse-json-5.2.0.tgz";
         sha512 =
-          "ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==";
+          "ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg=="
+          ;
       };
     };
     "path-is-absolute-1.0.1" = {
@@ -2882,7 +3182,8 @@ let
       version = "1.0.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz";
+          "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz"
+          ;
         sha1 = "174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f";
       };
     };
@@ -2902,7 +3203,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz";
         sha512 =
-          "gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==";
+          "gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw=="
+          ;
       };
     };
     "pend-1.2.0" = {
@@ -2920,7 +3222,8 @@ let
       version = "2.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/performance-now/-/performance-now-2.1.0.tgz";
+          "https://registry.npmjs.org/performance-now/-/performance-now-2.1.0.tgz"
+          ;
         sha1 = "6309f4e0e5fa913ec1c69307ae364b4b377c9e7b";
       };
     };
@@ -2931,7 +3234,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/picocolors/-/picocolors-1.0.0.tgz";
         sha512 =
-          "1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==";
+          "1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ=="
+          ;
       };
     };
     "pify-2.3.0" = {
@@ -2950,7 +3254,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/postcss/-/postcss-8.2.8.tgz";
         sha512 =
-          "1F0Xb2T21xET7oQV9eKuctbM9S7BC0fetoHCc4H13z0PT6haiRLP4T0ZY4XWh7iLP0usgqykT6p9B2RtOf4FPw==";
+          "1F0Xb2T21xET7oQV9eKuctbM9S7BC0fetoHCc4H13z0PT6haiRLP4T0ZY4XWh7iLP0usgqykT6p9B2RtOf4FPw=="
+          ;
       };
     };
     "postcss-8.4.12" = {
@@ -2960,7 +3265,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/postcss/-/postcss-8.4.12.tgz";
         sha512 =
-          "lg6eITwYe9v6Hr5CncVbK70SoioNQIq81nsaG86ev5hAidQvmOeETBqs7jm43K2F5/Ley3ytDtriImV6TpNiSg==";
+          "lg6eITwYe9v6Hr5CncVbK70SoioNQIq81nsaG86ev5hAidQvmOeETBqs7jm43K2F5/Ley3ytDtriImV6TpNiSg=="
+          ;
       };
     };
     "postcss-calc-8.2.4" = {
@@ -2971,7 +3277,8 @@ let
         url =
           "https://registry.npmjs.org/postcss-calc/-/postcss-calc-8.2.4.tgz";
         sha512 =
-          "SmWMSJmB8MRnnULldx0lQIyhSNvuDl9HfrZkaqqE/WHAhToYsAvDq+yAsA/kIyINDszOp3Rh0GFoNuH5Ypsm3Q==";
+          "SmWMSJmB8MRnnULldx0lQIyhSNvuDl9HfrZkaqqE/WHAhToYsAvDq+yAsA/kIyINDszOp3Rh0GFoNuH5Ypsm3Q=="
+          ;
       };
     };
     "postcss-colormin-5.3.0" = {
@@ -2980,9 +3287,11 @@ let
       version = "5.3.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-colormin/-/postcss-colormin-5.3.0.tgz";
+          "https://registry.npmjs.org/postcss-colormin/-/postcss-colormin-5.3.0.tgz"
+          ;
         sha512 =
-          "WdDO4gOFG2Z8n4P8TWBpshnL3JpmNmJwdnfP2gbk2qBA8PWwOYcmjmI/t3CmMeL72a7Hkd+x/Mg9O2/0rD54Pg==";
+          "WdDO4gOFG2Z8n4P8TWBpshnL3JpmNmJwdnfP2gbk2qBA8PWwOYcmjmI/t3CmMeL72a7Hkd+x/Mg9O2/0rD54Pg=="
+          ;
       };
     };
     "postcss-convert-values-5.1.0" = {
@@ -2991,9 +3300,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-convert-values/-/postcss-convert-values-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-convert-values/-/postcss-convert-values-5.1.0.tgz"
+          ;
         sha512 =
-          "GkyPbZEYJiWtQB0KZ0X6qusqFHUepguBCNFi9t5JJc7I2OTXG7C0twbTLvCfaKOLl3rSXmpAwV7W5txd91V84g==";
+          "GkyPbZEYJiWtQB0KZ0X6qusqFHUepguBCNFi9t5JJc7I2OTXG7C0twbTLvCfaKOLl3rSXmpAwV7W5txd91V84g=="
+          ;
       };
     };
     "postcss-discard-comments-5.1.1" = {
@@ -3002,9 +3313,11 @@ let
       version = "5.1.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-discard-comments/-/postcss-discard-comments-5.1.1.tgz";
+          "https://registry.npmjs.org/postcss-discard-comments/-/postcss-discard-comments-5.1.1.tgz"
+          ;
         sha512 =
-          "5JscyFmvkUxz/5/+TB3QTTT9Gi9jHkcn8dcmmuN68JQcv3aQg4y88yEHHhwFB52l/NkaJ43O0dbksGMAo49nfQ==";
+          "5JscyFmvkUxz/5/+TB3QTTT9Gi9jHkcn8dcmmuN68JQcv3aQg4y88yEHHhwFB52l/NkaJ43O0dbksGMAo49nfQ=="
+          ;
       };
     };
     "postcss-discard-duplicates-5.1.0" = {
@@ -3013,9 +3326,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-discard-duplicates/-/postcss-discard-duplicates-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-discard-duplicates/-/postcss-discard-duplicates-5.1.0.tgz"
+          ;
         sha512 =
-          "zmX3IoSI2aoenxHV6C7plngHWWhUOV3sP1T8y2ifzxzbtnuhk1EdPwm0S1bIUNaJ2eNbWeGLEwzw8huPD67aQw==";
+          "zmX3IoSI2aoenxHV6C7plngHWWhUOV3sP1T8y2ifzxzbtnuhk1EdPwm0S1bIUNaJ2eNbWeGLEwzw8huPD67aQw=="
+          ;
       };
     };
     "postcss-discard-empty-5.1.1" = {
@@ -3024,9 +3339,11 @@ let
       version = "5.1.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-discard-empty/-/postcss-discard-empty-5.1.1.tgz";
+          "https://registry.npmjs.org/postcss-discard-empty/-/postcss-discard-empty-5.1.1.tgz"
+          ;
         sha512 =
-          "zPz4WljiSuLWsI0ir4Mcnr4qQQ5e1Ukc3i7UfE2XcrwKK2LIPIqE5jxMRxO6GbI3cv//ztXDsXwEWT3BHOGh3A==";
+          "zPz4WljiSuLWsI0ir4Mcnr4qQQ5e1Ukc3i7UfE2XcrwKK2LIPIqE5jxMRxO6GbI3cv//ztXDsXwEWT3BHOGh3A=="
+          ;
       };
     };
     "postcss-discard-overridden-5.1.0" = {
@@ -3035,9 +3352,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-discard-overridden/-/postcss-discard-overridden-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-discard-overridden/-/postcss-discard-overridden-5.1.0.tgz"
+          ;
         sha512 =
-          "21nOL7RqWR1kasIVdKs8HNqQJhFxLsyRfAnUDm4Fe4t4mCWL9OJiHvlHPjcd8zc5Myu89b/7wZDnOSjFgeWRtw==";
+          "21nOL7RqWR1kasIVdKs8HNqQJhFxLsyRfAnUDm4Fe4t4mCWL9OJiHvlHPjcd8zc5Myu89b/7wZDnOSjFgeWRtw=="
+          ;
       };
     };
     "postcss-merge-longhand-5.1.3" = {
@@ -3046,9 +3365,11 @@ let
       version = "5.1.3";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-merge-longhand/-/postcss-merge-longhand-5.1.3.tgz";
+          "https://registry.npmjs.org/postcss-merge-longhand/-/postcss-merge-longhand-5.1.3.tgz"
+          ;
         sha512 =
-          "lX8GPGvZ0iGP/IboM7HXH5JwkXvXod1Rr8H8ixwiA372hArk0zP4ZcCy4z4Prg/bfNlbbTf0KCOjCF9kKnpP/w==";
+          "lX8GPGvZ0iGP/IboM7HXH5JwkXvXod1Rr8H8ixwiA372hArk0zP4ZcCy4z4Prg/bfNlbbTf0KCOjCF9kKnpP/w=="
+          ;
       };
     };
     "postcss-merge-rules-5.1.1" = {
@@ -3057,9 +3378,11 @@ let
       version = "5.1.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-merge-rules/-/postcss-merge-rules-5.1.1.tgz";
+          "https://registry.npmjs.org/postcss-merge-rules/-/postcss-merge-rules-5.1.1.tgz"
+          ;
         sha512 =
-          "8wv8q2cXjEuCcgpIB1Xx1pIy8/rhMPIQqYKNzEdyx37m6gpq83mQQdCxgIkFgliyEnKvdwJf/C61vN4tQDq4Ww==";
+          "8wv8q2cXjEuCcgpIB1Xx1pIy8/rhMPIQqYKNzEdyx37m6gpq83mQQdCxgIkFgliyEnKvdwJf/C61vN4tQDq4Ww=="
+          ;
       };
     };
     "postcss-minify-font-values-5.1.0" = {
@@ -3068,9 +3391,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-minify-font-values/-/postcss-minify-font-values-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-minify-font-values/-/postcss-minify-font-values-5.1.0.tgz"
+          ;
         sha512 =
-          "el3mYTgx13ZAPPirSVsHqFzl+BBBDrXvbySvPGFnQcTI4iNslrPaFq4muTkLZmKlGk4gyFAYUBMH30+HurREyA==";
+          "el3mYTgx13ZAPPirSVsHqFzl+BBBDrXvbySvPGFnQcTI4iNslrPaFq4muTkLZmKlGk4gyFAYUBMH30+HurREyA=="
+          ;
       };
     };
     "postcss-minify-gradients-5.1.1" = {
@@ -3079,9 +3404,11 @@ let
       version = "5.1.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-minify-gradients/-/postcss-minify-gradients-5.1.1.tgz";
+          "https://registry.npmjs.org/postcss-minify-gradients/-/postcss-minify-gradients-5.1.1.tgz"
+          ;
         sha512 =
-          "VGvXMTpCEo4qHTNSa9A0a3D+dxGFZCYwR6Jokk+/3oB6flu2/PnPXAh2x7x52EkY5xlIHLm+Le8tJxe/7TNhzw==";
+          "VGvXMTpCEo4qHTNSa9A0a3D+dxGFZCYwR6Jokk+/3oB6flu2/PnPXAh2x7x52EkY5xlIHLm+Le8tJxe/7TNhzw=="
+          ;
       };
     };
     "postcss-minify-params-5.1.2" = {
@@ -3090,9 +3417,11 @@ let
       version = "5.1.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-minify-params/-/postcss-minify-params-5.1.2.tgz";
+          "https://registry.npmjs.org/postcss-minify-params/-/postcss-minify-params-5.1.2.tgz"
+          ;
         sha512 =
-          "aEP+p71S/urY48HWaRHasyx4WHQJyOYaKpQ6eXl8k0kxg66Wt/30VR6/woh8THgcpRbonJD5IeD+CzNhPi1L8g==";
+          "aEP+p71S/urY48HWaRHasyx4WHQJyOYaKpQ6eXl8k0kxg66Wt/30VR6/woh8THgcpRbonJD5IeD+CzNhPi1L8g=="
+          ;
       };
     };
     "postcss-minify-selectors-5.2.0" = {
@@ -3101,9 +3430,11 @@ let
       version = "5.2.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-minify-selectors/-/postcss-minify-selectors-5.2.0.tgz";
+          "https://registry.npmjs.org/postcss-minify-selectors/-/postcss-minify-selectors-5.2.0.tgz"
+          ;
         sha512 =
-          "vYxvHkW+iULstA+ctVNx0VoRAR4THQQRkG77o0oa4/mBS0OzGvvzLIvHDv/nNEM0crzN2WIyFU5X7wZhaUK3RA==";
+          "vYxvHkW+iULstA+ctVNx0VoRAR4THQQRkG77o0oa4/mBS0OzGvvzLIvHDv/nNEM0crzN2WIyFU5X7wZhaUK3RA=="
+          ;
       };
     };
     "postcss-normalize-charset-5.1.0" = {
@@ -3112,9 +3443,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-normalize-charset/-/postcss-normalize-charset-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-normalize-charset/-/postcss-normalize-charset-5.1.0.tgz"
+          ;
         sha512 =
-          "mSgUJ+pd/ldRGVx26p2wz9dNZ7ji6Pn8VWBajMXFf8jk7vUoSrZ2lt/wZR7DtlZYKesmZI680qjr2CeFF2fbUg==";
+          "mSgUJ+pd/ldRGVx26p2wz9dNZ7ji6Pn8VWBajMXFf8jk7vUoSrZ2lt/wZR7DtlZYKesmZI680qjr2CeFF2fbUg=="
+          ;
       };
     };
     "postcss-normalize-display-values-5.1.0" = {
@@ -3123,9 +3456,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-normalize-display-values/-/postcss-normalize-display-values-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-normalize-display-values/-/postcss-normalize-display-values-5.1.0.tgz"
+          ;
         sha512 =
-          "WP4KIM4o2dazQXWmFaqMmcvsKmhdINFblgSeRgn8BJ6vxaMyaJkwAzpPpuvSIoG/rmX3M+IrRZEz2H0glrQNEA==";
+          "WP4KIM4o2dazQXWmFaqMmcvsKmhdINFblgSeRgn8BJ6vxaMyaJkwAzpPpuvSIoG/rmX3M+IrRZEz2H0glrQNEA=="
+          ;
       };
     };
     "postcss-normalize-positions-5.1.0" = {
@@ -3134,9 +3469,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-normalize-positions/-/postcss-normalize-positions-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-normalize-positions/-/postcss-normalize-positions-5.1.0.tgz"
+          ;
         sha512 =
-          "8gmItgA4H5xiUxgN/3TVvXRoJxkAWLW6f/KKhdsH03atg0cB8ilXnrB5PpSshwVu/dD2ZsRFQcR1OEmSBDAgcQ==";
+          "8gmItgA4H5xiUxgN/3TVvXRoJxkAWLW6f/KKhdsH03atg0cB8ilXnrB5PpSshwVu/dD2ZsRFQcR1OEmSBDAgcQ=="
+          ;
       };
     };
     "postcss-normalize-repeat-style-5.1.0" = {
@@ -3145,9 +3482,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-normalize-repeat-style/-/postcss-normalize-repeat-style-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-normalize-repeat-style/-/postcss-normalize-repeat-style-5.1.0.tgz"
+          ;
         sha512 =
-          "IR3uBjc+7mcWGL6CtniKNQ4Rr5fTxwkaDHwMBDGGs1x9IVRkYIT/M4NelZWkAOBdV6v3Z9S46zqaKGlyzHSchw==";
+          "IR3uBjc+7mcWGL6CtniKNQ4Rr5fTxwkaDHwMBDGGs1x9IVRkYIT/M4NelZWkAOBdV6v3Z9S46zqaKGlyzHSchw=="
+          ;
       };
     };
     "postcss-normalize-string-5.1.0" = {
@@ -3156,9 +3495,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-normalize-string/-/postcss-normalize-string-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-normalize-string/-/postcss-normalize-string-5.1.0.tgz"
+          ;
         sha512 =
-          "oYiIJOf4T9T1N4i+abeIc7Vgm/xPCGih4bZz5Nm0/ARVJ7K6xrDlLwvwqOydvyL3RHNf8qZk6vo3aatiw/go3w==";
+          "oYiIJOf4T9T1N4i+abeIc7Vgm/xPCGih4bZz5Nm0/ARVJ7K6xrDlLwvwqOydvyL3RHNf8qZk6vo3aatiw/go3w=="
+          ;
       };
     };
     "postcss-normalize-timing-functions-5.1.0" = {
@@ -3167,9 +3508,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-normalize-timing-functions/-/postcss-normalize-timing-functions-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-normalize-timing-functions/-/postcss-normalize-timing-functions-5.1.0.tgz"
+          ;
         sha512 =
-          "DOEkzJ4SAXv5xkHl0Wa9cZLF3WCBhF3o1SKVxKQAa+0pYKlueTpCgvkFAHfk+Y64ezX9+nITGrDZeVGgITJXjg==";
+          "DOEkzJ4SAXv5xkHl0Wa9cZLF3WCBhF3o1SKVxKQAa+0pYKlueTpCgvkFAHfk+Y64ezX9+nITGrDZeVGgITJXjg=="
+          ;
       };
     };
     "postcss-normalize-unicode-5.1.0" = {
@@ -3178,9 +3521,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-normalize-unicode/-/postcss-normalize-unicode-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-normalize-unicode/-/postcss-normalize-unicode-5.1.0.tgz"
+          ;
         sha512 =
-          "J6M3MizAAZ2dOdSjy2caayJLQT8E8K9XjLce8AUQMwOrCvjCHv24aLC/Lps1R1ylOfol5VIDMaM/Lo9NGlk1SQ==";
+          "J6M3MizAAZ2dOdSjy2caayJLQT8E8K9XjLce8AUQMwOrCvjCHv24aLC/Lps1R1ylOfol5VIDMaM/Lo9NGlk1SQ=="
+          ;
       };
     };
     "postcss-normalize-url-5.1.0" = {
@@ -3189,9 +3534,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-normalize-url/-/postcss-normalize-url-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-normalize-url/-/postcss-normalize-url-5.1.0.tgz"
+          ;
         sha512 =
-          "5upGeDO+PVthOxSmds43ZeMeZfKH+/DKgGRD7TElkkyS46JXAUhMzIKiCa7BabPeIy3AQcTkXwVVN7DbqsiCew==";
+          "5upGeDO+PVthOxSmds43ZeMeZfKH+/DKgGRD7TElkkyS46JXAUhMzIKiCa7BabPeIy3AQcTkXwVVN7DbqsiCew=="
+          ;
       };
     };
     "postcss-normalize-whitespace-5.1.1" = {
@@ -3200,9 +3547,11 @@ let
       version = "5.1.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-normalize-whitespace/-/postcss-normalize-whitespace-5.1.1.tgz";
+          "https://registry.npmjs.org/postcss-normalize-whitespace/-/postcss-normalize-whitespace-5.1.1.tgz"
+          ;
         sha512 =
-          "83ZJ4t3NUDETIHTa3uEg6asWjSBYL5EdkVB0sDncx9ERzOKBVJIUeDO9RyA9Zwtig8El1d79HBp0JEi8wvGQnA==";
+          "83ZJ4t3NUDETIHTa3uEg6asWjSBYL5EdkVB0sDncx9ERzOKBVJIUeDO9RyA9Zwtig8El1d79HBp0JEi8wvGQnA=="
+          ;
       };
     };
     "postcss-ordered-values-5.1.1" = {
@@ -3211,9 +3560,11 @@ let
       version = "5.1.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-ordered-values/-/postcss-ordered-values-5.1.1.tgz";
+          "https://registry.npmjs.org/postcss-ordered-values/-/postcss-ordered-values-5.1.1.tgz"
+          ;
         sha512 =
-          "7lxgXF0NaoMIgyihL/2boNAEZKiW0+HkMhdKMTD93CjW8TdCy2hSdj8lsAo+uwm7EDG16Da2Jdmtqpedl0cMfw==";
+          "7lxgXF0NaoMIgyihL/2boNAEZKiW0+HkMhdKMTD93CjW8TdCy2hSdj8lsAo+uwm7EDG16Da2Jdmtqpedl0cMfw=="
+          ;
       };
     };
     "postcss-reduce-initial-5.1.0" = {
@@ -3222,9 +3573,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-reduce-initial/-/postcss-reduce-initial-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-reduce-initial/-/postcss-reduce-initial-5.1.0.tgz"
+          ;
         sha512 =
-          "5OgTUviz0aeH6MtBjHfbr57tml13PuedK/Ecg8szzd4XRMbYxH4572JFG067z+FqBIf6Zp/d+0581glkvvWMFw==";
+          "5OgTUviz0aeH6MtBjHfbr57tml13PuedK/Ecg8szzd4XRMbYxH4572JFG067z+FqBIf6Zp/d+0581glkvvWMFw=="
+          ;
       };
     };
     "postcss-reduce-transforms-5.1.0" = {
@@ -3233,9 +3586,11 @@ let
       version = "5.1.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-reduce-transforms/-/postcss-reduce-transforms-5.1.0.tgz";
+          "https://registry.npmjs.org/postcss-reduce-transforms/-/postcss-reduce-transforms-5.1.0.tgz"
+          ;
         sha512 =
-          "2fbdbmgir5AvpW9RLtdONx1QoYG2/EtqpNQbFASDlixBbAYuTcJ0dECwlqNqH7VbaUnEnh8SrxOe2sRIn24XyQ==";
+          "2fbdbmgir5AvpW9RLtdONx1QoYG2/EtqpNQbFASDlixBbAYuTcJ0dECwlqNqH7VbaUnEnh8SrxOe2sRIn24XyQ=="
+          ;
       };
     };
     "postcss-selector-parser-6.0.9" = {
@@ -3244,9 +3599,11 @@ let
       version = "6.0.9";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-selector-parser/-/postcss-selector-parser-6.0.9.tgz";
+          "https://registry.npmjs.org/postcss-selector-parser/-/postcss-selector-parser-6.0.9.tgz"
+          ;
         sha512 =
-          "UO3SgnZOVTwu4kyLR22UQ1xZh086RyNZppb7lLAKBFK8a32ttG5i87Y/P3+2bRSjZNyJ1B7hfFNo273tKe9YxQ==";
+          "UO3SgnZOVTwu4kyLR22UQ1xZh086RyNZppb7lLAKBFK8a32ttG5i87Y/P3+2bRSjZNyJ1B7hfFNo273tKe9YxQ=="
+          ;
       };
     };
     "postcss-svgo-5.1.0" = {
@@ -3257,7 +3614,8 @@ let
         url =
           "https://registry.npmjs.org/postcss-svgo/-/postcss-svgo-5.1.0.tgz";
         sha512 =
-          "D75KsH1zm5ZrHyxPakAxJWtkyXew5qwS70v56exwvw542d9CRtTo78K0WeFxZB4G7JXKKMbEZtZayTGdIky/eA==";
+          "D75KsH1zm5ZrHyxPakAxJWtkyXew5qwS70v56exwvw542d9CRtTo78K0WeFxZB4G7JXKKMbEZtZayTGdIky/eA=="
+          ;
       };
     };
     "postcss-unique-selectors-5.1.1" = {
@@ -3266,9 +3624,11 @@ let
       version = "5.1.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-unique-selectors/-/postcss-unique-selectors-5.1.1.tgz";
+          "https://registry.npmjs.org/postcss-unique-selectors/-/postcss-unique-selectors-5.1.1.tgz"
+          ;
         sha512 =
-          "5JiODlELrz8L2HwxfPnhOWZYWDxVHWL83ufOv84NrcgipI7TaeRsatAhK4Tr2/ZiYldpK/wBvw5BD3qfaK96GA==";
+          "5JiODlELrz8L2HwxfPnhOWZYWDxVHWL83ufOv84NrcgipI7TaeRsatAhK4Tr2/ZiYldpK/wBvw5BD3qfaK96GA=="
+          ;
       };
     };
     "postcss-value-parser-4.2.0" = {
@@ -3277,9 +3637,11 @@ let
       version = "4.2.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz";
+          "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz"
+          ;
         sha512 =
-          "1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==";
+          "1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ=="
+          ;
       };
     };
     "posthtml-0.16.6" = {
@@ -3289,7 +3651,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/posthtml/-/posthtml-0.16.6.tgz";
         sha512 =
-          "JcEmHlyLK/o0uGAlj65vgg+7LIms0xKXe60lcDOTU7oVX/3LuEuLwrQpW3VJ7de5TaFKiW4kWkaIpJL42FEgxQ==";
+          "JcEmHlyLK/o0uGAlj65vgg+7LIms0xKXe60lcDOTU7oVX/3LuEuLwrQpW3VJ7de5TaFKiW4kWkaIpJL42FEgxQ=="
+          ;
       };
     };
     "posthtml-parser-0.10.2" = {
@@ -3298,9 +3661,11 @@ let
       version = "0.10.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/posthtml-parser/-/posthtml-parser-0.10.2.tgz";
+          "https://registry.npmjs.org/posthtml-parser/-/posthtml-parser-0.10.2.tgz"
+          ;
         sha512 =
-          "PId6zZ/2lyJi9LiKfe+i2xv57oEjJgWbsHGGANwos5AvdQp98i6AtamAl8gzSVFGfQ43Glb5D614cvZf012VKg==";
+          "PId6zZ/2lyJi9LiKfe+i2xv57oEjJgWbsHGGANwos5AvdQp98i6AtamAl8gzSVFGfQ43Glb5D614cvZf012VKg=="
+          ;
       };
     };
     "posthtml-parser-0.11.0" = {
@@ -3309,9 +3674,11 @@ let
       version = "0.11.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/posthtml-parser/-/posthtml-parser-0.11.0.tgz";
+          "https://registry.npmjs.org/posthtml-parser/-/posthtml-parser-0.11.0.tgz"
+          ;
         sha512 =
-          "QecJtfLekJbWVo/dMAA+OSwY79wpRmbqS5TeXvXSX+f0c6pW4/SE6inzZ2qkU7oAMCPqIDkZDvd/bQsSFUnKyw==";
+          "QecJtfLekJbWVo/dMAA+OSwY79wpRmbqS5TeXvXSX+f0c6pW4/SE6inzZ2qkU7oAMCPqIDkZDvd/bQsSFUnKyw=="
+          ;
       };
     };
     "posthtml-render-3.0.0" = {
@@ -3320,9 +3687,11 @@ let
       version = "3.0.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/posthtml-render/-/posthtml-render-3.0.0.tgz";
+          "https://registry.npmjs.org/posthtml-render/-/posthtml-render-3.0.0.tgz"
+          ;
         sha512 =
-          "z+16RoxK3fUPgwaIgH9NGnK1HKY9XIDpydky5eQGgAFVXTCSezalv9U2jQuNV+Z9qV1fDWNzldcw4eK0SSbqKA==";
+          "z+16RoxK3fUPgwaIgH9NGnK1HKY9XIDpydky5eQGgAFVXTCSezalv9U2jQuNV+Z9qV1fDWNzldcw4eK0SSbqKA=="
+          ;
       };
     };
     "pretty-bytes-5.6.0" = {
@@ -3333,7 +3702,8 @@ let
         url =
           "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-5.6.0.tgz";
         sha512 =
-          "FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==";
+          "FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg=="
+          ;
       };
     };
     "process-nextick-args-2.0.1" = {
@@ -3342,9 +3712,11 @@ let
       version = "2.0.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz";
+          "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz"
+          ;
         sha512 =
-          "3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==";
+          "3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag=="
+          ;
       };
     };
     "psl-1.7.0" = {
@@ -3354,7 +3726,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/psl/-/psl-1.7.0.tgz";
         sha512 =
-          "5NsSEDv8zY70ScRnOTn7bK7eanl2MvFrOrS/R6x+dBt5g1ghnj9Zv90kO8GwT8gxcu2ANyFprnFYB85IogIJOQ==";
+          "5NsSEDv8zY70ScRnOTn7bK7eanl2MvFrOrS/R6x+dBt5g1ghnj9Zv90kO8GwT8gxcu2ANyFprnFYB85IogIJOQ=="
+          ;
       };
     };
     "pump-3.0.0" = {
@@ -3364,7 +3737,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/pump/-/pump-3.0.0.tgz";
         sha512 =
-          "LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww==";
+          "LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww=="
+          ;
       };
     };
     "punycode-1.3.2" = {
@@ -3383,7 +3757,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz";
         sha512 =
-          "XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==";
+          "XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A=="
+          ;
       };
     };
     "qs-6.5.2" = {
@@ -3393,7 +3768,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/qs/-/qs-6.5.2.tgz";
         sha512 =
-          "N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==";
+          "N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA=="
+          ;
       };
     };
     "querystring-0.2.0" = {
@@ -3412,7 +3788,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/ramda/-/ramda-0.26.1.tgz";
         sha512 =
-          "hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==";
+          "hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ=="
+          ;
       };
     };
     "react-refresh-0.9.0" = {
@@ -3423,7 +3800,8 @@ let
         url =
           "https://registry.npmjs.org/react-refresh/-/react-refresh-0.9.0.tgz";
         sha512 =
-          "Gvzk7OZpiqKSkxsQvO/mbTN1poglhmAV7gR/DdIrRrSMXraRQQlfikRJOr3Nb9GTMPC5kof948Zy6jJZIFtDvQ==";
+          "Gvzk7OZpiqKSkxsQvO/mbTN1poglhmAV7gR/DdIrRrSMXraRQQlfikRJOr3Nb9GTMPC5kof948Zy6jJZIFtDvQ=="
+          ;
       };
     };
     "readable-stream-2.3.7" = {
@@ -3432,9 +3810,11 @@ let
       version = "2.3.7";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.7.tgz";
+          "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.7.tgz"
+          ;
         sha512 =
-          "Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==";
+          "Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw=="
+          ;
       };
     };
     "regenerator-runtime-0.13.9" = {
@@ -3443,9 +3823,11 @@ let
       version = "0.13.9";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz";
+          "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz"
+          ;
         sha512 =
-          "p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==";
+          "p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA=="
+          ;
       };
     };
     "request-progress-3.0.0" = {
@@ -3454,7 +3836,8 @@ let
       version = "3.0.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/request-progress/-/request-progress-3.0.0.tgz";
+          "https://registry.npmjs.org/request-progress/-/request-progress-3.0.0.tgz"
+          ;
         sha1 = "4ca754081c7fec63f505e4faa825aa06cd669dbe";
       };
     };
@@ -3466,7 +3849,8 @@ let
         url =
           "https://registry.npmjs.org/resolve-from/-/resolve-from-4.0.0.tgz";
         sha512 =
-          "pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==";
+          "pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g=="
+          ;
       };
     };
     "restore-cursor-1.0.1" = {
@@ -3475,7 +3859,8 @@ let
       version = "1.0.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/restore-cursor/-/restore-cursor-1.0.1.tgz";
+          "https://registry.npmjs.org/restore-cursor/-/restore-cursor-1.0.1.tgz"
+          ;
         sha1 = "34661f46886327fed2991479152252df92daa541";
       };
     };
@@ -3485,7 +3870,8 @@ let
       version = "2.0.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/restore-cursor/-/restore-cursor-2.0.0.tgz";
+          "https://registry.npmjs.org/restore-cursor/-/restore-cursor-2.0.0.tgz"
+          ;
         sha1 = "9f7ee287f82fd326d4fd162923d62129eee0dfaf";
       };
     };
@@ -3496,7 +3882,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/rimraf/-/rimraf-2.7.1.tgz";
         sha512 =
-          "uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==";
+          "uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w=="
+          ;
       };
     };
     "rxjs-6.6.7" = {
@@ -3506,7 +3893,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/rxjs/-/rxjs-6.6.7.tgz";
         sha512 =
-          "hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==";
+          "hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ=="
+          ;
       };
     };
     "safe-buffer-5.1.2" = {
@@ -3516,7 +3904,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz";
         sha512 =
-          "Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==";
+          "Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g=="
+          ;
       };
     };
     "safer-buffer-2.1.2" = {
@@ -3527,7 +3916,8 @@ let
         url =
           "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz";
         sha512 =
-          "YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==";
+          "YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg=="
+          ;
       };
     };
     "semver-5.7.1" = {
@@ -3537,7 +3927,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz";
         sha512 =
-          "sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==";
+          "sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ=="
+          ;
       };
     };
     "shebang-command-1.2.0" = {
@@ -3546,7 +3937,8 @@ let
       version = "1.2.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz";
+          "https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz"
+          ;
         sha1 = "44aac65b695b03398968c39f363fee5deafdf1ea";
       };
     };
@@ -3585,7 +3977,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz";
         sha512 =
-          "UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==";
+          "UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g=="
+          ;
       };
     };
     "source-map-0.7.3" = {
@@ -3595,7 +3988,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/source-map/-/source-map-0.7.3.tgz";
         sha512 =
-          "CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==";
+          "CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ=="
+          ;
       };
     };
     "source-map-js-1.0.2" = {
@@ -3606,7 +4000,8 @@ let
         url =
           "https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.2.tgz";
         sha512 =
-          "R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==";
+          "R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw=="
+          ;
       };
     };
     "source-map-support-0.5.21" = {
@@ -3615,9 +4010,11 @@ let
       version = "0.5.21";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.21.tgz";
+          "https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.21.tgz"
+          ;
         sha512 =
-          "uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==";
+          "uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w=="
+          ;
       };
     };
     "sourcemap-codec-1.4.8" = {
@@ -3626,9 +4023,11 @@ let
       version = "1.4.8";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz";
+          "https://registry.npmjs.org/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz"
+          ;
         sha512 =
-          "9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==";
+          "9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA=="
+          ;
       };
     };
     "sshpk-1.16.1" = {
@@ -3638,7 +4037,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/sshpk/-/sshpk-1.16.1.tgz";
         sha512 =
-          "HXXqVUq7+pcKeLqqZj6mHFUMvXtOJt1uoUx09pFW6011inTMxqI8BA8PM95myrIyyKwdnzjdFjLiE6KBPVtJIg==";
+          "HXXqVUq7+pcKeLqqZj6mHFUMvXtOJt1uoUx09pFW6011inTMxqI8BA8PM95myrIyyKwdnzjdFjLiE6KBPVtJIg=="
+          ;
       };
     };
     "stable-0.1.8" = {
@@ -3648,7 +4048,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/stable/-/stable-0.1.8.tgz";
         sha512 =
-          "ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==";
+          "ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w=="
+          ;
       };
     };
     "string-width-1.0.2" = {
@@ -3669,7 +4070,8 @@ let
         url =
           "https://registry.npmjs.org/string-width/-/string-width-2.1.1.tgz";
         sha512 =
-          "nOqH59deCq9SRHlxq1Aw85Jnt4w6KvLKqWVik6oA9ZklXLNIOlqg4F2yrT1MVaTjAqvVwdfeZ7w7aCvJD7ugkw==";
+          "nOqH59deCq9SRHlxq1Aw85Jnt4w6KvLKqWVik6oA9ZklXLNIOlqg4F2yrT1MVaTjAqvVwdfeZ7w7aCvJD7ugkw=="
+          ;
       };
     };
     "string_decoder-1.1.1" = {
@@ -3678,9 +4080,11 @@ let
       version = "1.1.1";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz";
+          "https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz"
+          ;
         sha512 =
-          "n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==";
+          "n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg=="
+          ;
       };
     };
     "strip-ansi-3.0.1" = {
@@ -3717,7 +4121,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/stylehacks/-/stylehacks-5.1.0.tgz";
         sha512 =
-          "SzLmvHQTrIWfSgljkQCw2++C9+Ne91d/6Sp92I8c5uHTcy/PgeHamwITIbBW9wnFTY/3ZfSXR9HIL6Ikqmcu6Q==";
+          "SzLmvHQTrIWfSgljkQCw2++C9+Ne91d/6Sp92I8c5uHTcy/PgeHamwITIbBW9wnFTY/3ZfSXR9HIL6Ikqmcu6Q=="
+          ;
       };
     };
     "supports-color-2.0.0" = {
@@ -3726,7 +4131,8 @@ let
       version = "2.0.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz";
+          "https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz"
+          ;
         sha1 = "535d045ce6b6363fa40117084629995e9df324c7";
       };
     };
@@ -3736,9 +4142,11 @@ let
       version = "5.5.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/supports-color/-/supports-color-5.5.0.tgz";
+          "https://registry.npmjs.org/supports-color/-/supports-color-5.5.0.tgz"
+          ;
         sha512 =
-          "QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==";
+          "QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow=="
+          ;
       };
     };
     "supports-color-7.2.0" = {
@@ -3747,9 +4155,11 @@ let
       version = "7.2.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/supports-color/-/supports-color-7.2.0.tgz";
+          "https://registry.npmjs.org/supports-color/-/supports-color-7.2.0.tgz"
+          ;
         sha512 =
-          "qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==";
+          "qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="
+          ;
       };
     };
     "svgo-2.8.0" = {
@@ -3759,7 +4169,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/svgo/-/svgo-2.8.0.tgz";
         sha512 =
-          "+N/Q9kV1+F+UeWYoSiULYo4xYSDQlTgb+ayMobAXPwMnLvop7oxKMo9OzIrX5x3eS4L4f2UHhc9axXwY8DpChg==";
+          "+N/Q9kV1+F+UeWYoSiULYo4xYSDQlTgb+ayMobAXPwMnLvop7oxKMo9OzIrX5x3eS4L4f2UHhc9axXwY8DpChg=="
+          ;
       };
     };
     "symbol-observable-1.2.0" = {
@@ -3768,9 +4179,11 @@ let
       version = "1.2.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.2.0.tgz";
+          "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.2.0.tgz"
+          ;
         sha512 =
-          "e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==";
+          "e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ=="
+          ;
       };
     };
     "terser-5.12.1" = {
@@ -3780,7 +4193,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/terser/-/terser-5.12.1.tgz";
         sha512 =
-          "NXbs+7nisos5E+yXwAD+y7zrcTkMqb0dEJxIGtSKPdCBzopf7ni4odPul2aechpV7EXNvOudYOX2bb5tln1jbQ==";
+          "NXbs+7nisos5E+yXwAD+y7zrcTkMqb0dEJxIGtSKPdCBzopf7ni4odPul2aechpV7EXNvOudYOX2bb5tln1jbQ=="
+          ;
       };
     };
     "throttleit-1.0.0" = {
@@ -3808,7 +4222,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/tmp/-/tmp-0.1.0.tgz";
         sha512 =
-          "J7Z2K08jbGcdA1kkQpJSqLF6T0tdQqpR2pnSUXsIchbPdTI9v3e85cLW0d6WDhwuAleOV71j2xWs8qMPfK7nKw==";
+          "J7Z2K08jbGcdA1kkQpJSqLF6T0tdQqpR2pnSUXsIchbPdTI9v3e85cLW0d6WDhwuAleOV71j2xWs8qMPfK7nKw=="
+          ;
       };
     };
     "tough-cookie-2.5.0" = {
@@ -3819,7 +4234,8 @@ let
         url =
           "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.5.0.tgz";
         sha512 =
-          "nlLsUzgm1kfLXSXfRZMc1KLAugd4hqJHDTvc2hDIwS3mZAfMEuMbc03SujMF+GEcpaX/qboeycw6iO8JwVv2+g==";
+          "nlLsUzgm1kfLXSXfRZMc1KLAugd4hqJHDTvc2hDIwS3mZAfMEuMbc03SujMF+GEcpaX/qboeycw6iO8JwVv2+g=="
+          ;
       };
     };
     "tslib-1.13.0" = {
@@ -3829,7 +4245,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/tslib/-/tslib-1.13.0.tgz";
         sha512 =
-          "i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==";
+          "i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q=="
+          ;
       };
     };
     "tunnel-agent-0.6.0" = {
@@ -3858,7 +4275,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/type-fest/-/type-fest-0.20.2.tgz";
         sha512 =
-          "Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==";
+          "Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ=="
+          ;
       };
     };
     "typedarray-0.0.6" = {
@@ -3878,7 +4296,8 @@ let
         url =
           "https://registry.npmjs.org/universalify/-/universalify-0.1.2.tgz";
         sha512 =
-          "rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==";
+          "rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg=="
+          ;
       };
     };
     "untildify-4.0.0" = {
@@ -3888,7 +4307,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/untildify/-/untildify-4.0.0.tgz";
         sha512 =
-          "KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==";
+          "KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw=="
+          ;
       };
     };
     "url-0.11.0" = {
@@ -3906,7 +4326,8 @@ let
       version = "1.0.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz";
+          "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
+          ;
         sha1 = "450d4dc9fa70de732762fbd2d4a28981419a0ccf";
       };
     };
@@ -3918,7 +4339,8 @@ let
         url =
           "https://registry.npmjs.org/utility-types/-/utility-types-3.10.0.tgz";
         sha512 =
-          "O11mqxmi7wMKCo6HKFt5AhO4BwY3VV68YU07tgxfz8zJTIxr4BpsezN49Ffwy9j3ZpwwJp4fkRwjRzq3uWE6Rg==";
+          "O11mqxmi7wMKCo6HKFt5AhO4BwY3VV68YU07tgxfz8zJTIxr4BpsezN49Ffwy9j3ZpwwJp4fkRwjRzq3uWE6Rg=="
+          ;
       };
     };
     "uuid-8.3.2" = {
@@ -3928,7 +4350,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz";
         sha512 =
-          "+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==";
+          "+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="
+          ;
       };
     };
     "v8-compile-cache-2.3.0" = {
@@ -3937,9 +4360,11 @@ let
       version = "2.3.0";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz";
+          "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz"
+          ;
         sha512 =
-          "l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==";
+          "l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA=="
+          ;
       };
     };
     "verror-1.10.0" = {
@@ -3958,7 +4383,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/vue/-/vue-3.2.31.tgz";
         sha512 =
-          "odT3W2tcffTiQCy57nOT93INw1auq5lYLLYtWpPYQQYQOOdHiqFct9Xhna6GJ+pJQaF67yZABraH47oywkJgFw==";
+          "odT3W2tcffTiQCy57nOT93INw1auq5lYLLYtWpPYQQYQOOdHiqFct9Xhna6GJ+pJQaF67yZABraH47oywkJgFw=="
+          ;
       };
     };
     "vue-router-4.0.14" = {
@@ -3968,7 +4394,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/vue-router/-/vue-router-4.0.14.tgz";
         sha512 =
-          "wAO6zF9zxA3u+7AkMPqw9LjoUCjSxfFvINQj3E/DceTt6uEz1XZLraDhdg2EYmvVwTBSGlLYsUw8bDmx0754Mw==";
+          "wAO6zF9zxA3u+7AkMPqw9LjoUCjSxfFvINQj3E/DceTt6uEz1XZLraDhdg2EYmvVwTBSGlLYsUw8bDmx0754Mw=="
+          ;
       };
     };
     "vuex-4.0.2" = {
@@ -3978,7 +4405,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/vuex/-/vuex-4.0.2.tgz";
         sha512 =
-          "M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==";
+          "M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q=="
+          ;
       };
     };
     "weak-lru-cache-1.2.2" = {
@@ -3987,9 +4415,11 @@ let
       version = "1.2.2";
       src = fetchurl {
         url =
-          "https://registry.npmjs.org/weak-lru-cache/-/weak-lru-cache-1.2.2.tgz";
+          "https://registry.npmjs.org/weak-lru-cache/-/weak-lru-cache-1.2.2.tgz"
+          ;
         sha512 =
-          "DEAoo25RfSYMuTGc9vPJzZcZullwIqRDSI9LOy+fkCJPi6hykCnfKaXTuPBDuXAUcqHXyOgFtHNp/kB2FjYHbw==";
+          "DEAoo25RfSYMuTGc9vPJzZcZullwIqRDSI9LOy+fkCJPi6hykCnfKaXTuPBDuXAUcqHXyOgFtHNp/kB2FjYHbw=="
+          ;
       };
     };
     "which-1.3.1" = {
@@ -3999,7 +4429,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/which/-/which-1.3.1.tgz";
         sha512 =
-          "HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==";
+          "HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ=="
+          ;
       };
     };
     "wrap-ansi-3.0.1" = {
@@ -4027,7 +4458,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/xxhash-wasm/-/xxhash-wasm-0.4.2.tgz";
         sha512 =
-          "/eyHVRJQCirEkSZ1agRSCwriMhwlyUcFkXD5TPVSLP+IPzjsqMVzZwdoczLp1SoQU0R3dxz1RpIK+4YNQbCVOA==";
+          "/eyHVRJQCirEkSZ1agRSCwriMhwlyUcFkXD5TPVSLP+IPzjsqMVzZwdoczLp1SoQU0R3dxz1RpIK+4YNQbCVOA=="
+          ;
       };
     };
     "yaml-1.10.2" = {
@@ -4037,7 +4469,8 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/yaml/-/yaml-1.10.2.tgz";
         sha512 =
-          "r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==";
+          "r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg=="
+          ;
       };
     };
     "yauzl-2.10.0" = {
@@ -4055,7 +4488,8 @@ let
     packageName = "polaris-web";
     version = "1.0.0";
     src =
-      ../../../../../../../../../nix/store/fgp5qgah5zc0x8fx5la4fvnnmp45avzw-source;
+      ../../../../../../../../../nix/store/fgp5qgah5zc0x8fx5la4fvnnmp45avzw-source
+      ;
     dependencies = [
       sources."@babel/code-frame-7.16.7"
       (sources."@babel/highlight-7.16.10" // {

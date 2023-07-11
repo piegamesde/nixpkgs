@@ -19,10 +19,12 @@
 }:
 
 let
-  os-specific-buildInputs = if stdenv.isDarwin then
-    [ mesa_drivers.dev ]
-  else
-    [ ocl-icd ];
+  os-specific-buildInputs =
+    if stdenv.isDarwin then
+      [ mesa_drivers.dev ]
+    else
+      [ ocl-icd ]
+    ;
 in
 buildPythonPackage rec {
   pname = "pyopencl";
@@ -50,7 +52,7 @@ buildPythonPackage rec {
     hash = "sha256-Sj2w/mG1zclSZ1Jt7r1xp+HXlWlNSw/idh8GMLzKNiE=";
   };
 
-  # py.test is not needed during runtime, so remove it from `install_requires`
+    # py.test is not needed during runtime, so remove it from `install_requires`
   postPatch = ''
     substituteInPlace setup.py --replace "pytest>=2" ""
   '';
@@ -59,7 +61,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  # gcc: error: pygpu_language_opencl.cpp: No such file or directory
+    # gcc: error: pygpu_language_opencl.cpp: No such file or directory
   doCheck = false;
 
   meta = with lib; {

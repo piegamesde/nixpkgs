@@ -19,23 +19,25 @@ buildGoModule rec {
     hash = "sha256-SkZf8LFU4/HFEWVEEj7Gl2jVwIL834GRwyua4cw9nh4=";
   };
 
-  nativeBuildInputs = let
-    fakeGit = writeShellScriptBin "git" ''
-      if [[ $@ = "describe --tags --always --abbrev=10" ]]; then
-          echo "${version}"
-      else
-          >&2 echo "Unknown command: $@"
-          exit 1
-      fi
-    '';
-  in [
-    fakeGit
-    mage
-  ] ;
+  nativeBuildInputs =
+    let
+      fakeGit = writeShellScriptBin "git" ''
+        if [[ $@ = "describe --tags --always --abbrev=10" ]]; then
+            echo "${version}"
+        else
+            >&2 echo "Unknown command: $@"
+            exit 1
+        fi
+      '';
+    in [
+      fakeGit
+      mage
+    ]
+    ;
 
   vendorSha256 = "sha256-TY6xJnz6phIrybZ2Ix7xwuMzGQ1f0xk0KwgPnaTaKYw=";
 
-  # checks need to be disabled because of needed internet for some checks
+    # checks need to be disabled because of needed internet for some checks
   doCheck = false;
 
   buildPhase = ''

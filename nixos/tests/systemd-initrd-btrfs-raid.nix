@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "systemd-initrd-btrfs-raid";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -31,7 +32,8 @@ import ./make-test-python.nix ({
           fileSystems = lib.mkVMOverride { "/".fsType = lib.mkForce "btrfs"; };
           virtualisation.rootDevice = "/dev/vdb";
         };
-      };
+      }
+      ;
 
     testScript = ''
       # Create RAID

@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "dee-1.2.7-deprecated-g_type_class_add_private.patch";
       url =
-        "https://src.fedoraproject.org/rpms/dee/raw/1a9a4ce3377074fabfca653ffe0287cd73aef82f/f/dee-1.2.7-deprecated-g_type_class_add_private.patch";
+        "https://src.fedoraproject.org/rpms/dee/raw/1a9a4ce3377074fabfca653ffe0287cd73aef82f/f/dee-1.2.7-deprecated-g_type_class_add_private.patch"
+        ;
       sha256 = "13nyprq7bb7lnzkcb7frcpzidbl836ycn5bvmwa2k0nhmj6ycbx5";
     })
   ];
@@ -65,15 +66,16 @@ stdenv.mkDerivation rec {
     }/${python3.sitePackages}/gi/overrides"
   ];
 
-  # Compilation fails after a change in glib where
-  # g_string_free now returns a value
+    # Compilation fails after a change in glib where
+    # g_string_free now returns a value
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-result";
 
   enableParallelBuilding = true;
 
   meta = with lib; {
     description =
-      "A library that uses DBus to provide objects allowing you to create Model-View-Controller type programs across DBus";
+      "A library that uses DBus to provide objects allowing you to create Model-View-Controller type programs across DBus"
+      ;
     homepage = "https://launchpad.net/dee";
     license = licenses.lgpl3;
     platforms = platforms.linux;

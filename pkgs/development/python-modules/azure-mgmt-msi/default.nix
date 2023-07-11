@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   pythonNamespaces = [ "azure.mgmt" ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "azure.mgmt.msi" ];
@@ -38,7 +38,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "This is the Microsoft Azure MSI Management Client Library";
     homepage =
-      "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/resources/azure-mgmt-msi";
+      "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/resources/azure-mgmt-msi"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ maxwilson ];
   };

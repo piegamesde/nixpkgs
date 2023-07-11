@@ -21,7 +21,7 @@ buildPythonApplication rec {
     libevdev
   ];
 
-  # no tests
+    # no tests
   doCheck = false;
   pythonImportsCheck = [ "remarkable_mouse" ];
 

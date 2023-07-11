@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
     name = "btrbk-section-order";
     meta.maintainers = with lib.maintainers; [ oxalica ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.btrbk.instances.local = {
@@ -32,7 +33,8 @@ import ./make-test-python.nix ({
             };
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("basic.target")

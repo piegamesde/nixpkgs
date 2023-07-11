@@ -3,16 +3,19 @@ import ./make-test-python.nix ({
     ...
   }:
   let
-    ifAddr = node: iface:
+    ifAddr =
+      node: iface:
       (pkgs.lib.head
-        node.config.networking.interfaces.${iface}.ipv4.addresses).address;
+        node.config.networking.interfaces.${iface}.ipv4.addresses).address
+      ;
   in {
     name = "gobgpd";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ higebu ]; };
 
     nodes = {
-      node1 = {
+      node1 =
+        {
           nodes,
           ...
         }: {
@@ -35,8 +38,10 @@ import ./make-test-python.nix ({
               } ];
             };
           };
-        };
-      node2 = {
+        }
+        ;
+      node2 =
+        {
           nodes,
           ...
         }: {
@@ -59,10 +64,12 @@ import ./make-test-python.nix ({
               } ];
             };
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -81,5 +88,6 @@ import ./make-test-python.nix ({
         with subtest("should show neighbors by gobgp cli and BGP state should be ESTABLISHED"):
             node1.wait_until_succeeds("gobgp neighbor ${addr2} | grep -q ESTABLISHED")
             node2.wait_until_succeeds("gobgp neighbor ${addr1} | grep -q ESTABLISHED")
-      '' ;
+      ''
+      ;
   } )

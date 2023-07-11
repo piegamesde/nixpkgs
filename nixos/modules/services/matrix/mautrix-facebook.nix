@@ -180,7 +180,8 @@ in {
             {
               exclusive = true;
               regex = escapeRegex
-                "@${cfg.settings.appservice.bot_username}:${cfg.settings.homeserver.domain}";
+                "@${cfg.settings.appservice.bot_username}:${cfg.settings.homeserver.domain}"
+                ;
             }
             {
               exclusive = true;

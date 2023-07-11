@@ -15,11 +15,13 @@ let
   defaultShortcut = "b";
   defaultTerminal = "screen";
 
-  boolToStr = value:
+  boolToStr =
+    value:
     if value then
       "on"
     else
-      "off";
+      "off"
+    ;
 
   tmuxConf = ''
     set  -g default-terminal "${cfg.terminal}"
@@ -115,7 +117,8 @@ in {
         default = false;
         type = types.bool;
         description = lib.mdDoc
-          "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode.";
+          "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode."
+          ;
       };
 
       escapeTime = mkOption {
@@ -156,7 +159,8 @@ in {
         default = false;
         type = types.bool;
         description = lib.mdDoc
-          "Automatically spawn a session if trying to attach and none are running.";
+          "Automatically spawn a session if trying to attach and none are running."
+          ;
       };
 
       reverseSplit = mkOption {
@@ -218,7 +222,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     environment = {

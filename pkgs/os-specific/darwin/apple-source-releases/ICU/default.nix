@@ -7,18 +7,21 @@
 }:
 
 let
-  formatVersionNumeric = version:
+  formatVersionNumeric =
+    version:
     let
       versionParts = lib.versions.splitVersion version;
       major = lib.toInt (lib.elemAt versionParts 0);
       minor = lib.toInt (lib.elemAt versionParts 1);
-      patch = if lib.length versionParts > 2 then
-        lib.toInt (lib.elemAt versionParts 2)
-      else
-        0;
+      patch =
+        if lib.length versionParts > 2 then
+          lib.toInt (lib.elemAt versionParts 2)
+        else
+          0
+        ;
     in
     toString (major * 10000 + minor * 100 + patch)
-  ;
+    ;
 
 in
 appleDerivation {
@@ -59,8 +62,8 @@ appleDerivation {
       --replace '$($(ENV_BUILDHOST))' '$(ENV_BUILDHOST)'
   '';
 
-  # APPLE is using makefile to save its default configuration and call ./configure, so we hack makeFlags
-  # instead of configuring ourself, trying to stay abreast of APPLE.
+    # APPLE is using makefile to save its default configuration and call ./configure, so we hack makeFlags
+    # instead of configuring ourself, trying to stay abreast of APPLE.
   dontConfigure = true;
   makeFlags = [
     "DSTROOT=$(out)"

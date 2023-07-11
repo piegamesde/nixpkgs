@@ -97,12 +97,13 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "A suite of integrated tools for game developers to design and build games, simulations, and visualizations";
+      "A suite of integrated tools for game developers to design and build games, simulations, and visualizations"
+      ;
     homepage = "https://www.unrealengine.com/what-is-unreal-engine-4";
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
     maintainers = [ ];
-    # See issue https://github.com/NixOS/nixpkgs/issues/17162
+      # See issue https://github.com/NixOS/nixpkgs/issues/17162
     broken = true;
   };
 }

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sed -e "s|QWT_INSTALL_PREFIX.*=.*|QWT_INSTALL_PREFIX = $out|g" -i qwtconfig.pri
   '';
 
-  # qwt.framework output includes a relative reference to itself, which breaks dependents
+    # qwt.framework output includes a relative reference to itself, which breaks dependents
   preFixup = lib.optionalString stdenv.isDarwin ''
     echo "Attempting to repair qwt"
     install_name_tool -id "$out/lib/qwt.framework/Versions/6/qwt" "$out/lib/qwt.framework/Versions/6/qwt"
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Qt widgets for technical applications";
     homepage = "http://qwt.sourceforge.net/";
-    # LGPL 2.1 plus a few exceptions (more liberal)
+      # LGPL 2.1 plus a few exceptions (more liberal)
     license = lib.licenses.qwt;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = [ maintainers.bjornfor ];

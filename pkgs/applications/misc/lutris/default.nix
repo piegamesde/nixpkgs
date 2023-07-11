@@ -109,7 +109,7 @@ buildPythonApplication rec {
     gstreamer
   ]);
 
-  # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
+    # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
   propagatedBuildInputs = [
     certifi
     dbus-python
@@ -142,7 +142,7 @@ buildPythonApplication rec {
     runHook postCheck
   '';
 
-  # avoid double wrapping
+    # avoid double wrapping
   dontWrapGApps = true;
   makeWrapperArgs = [
     "--prefix PATH : ${lib.makeBinPath requiredTools}"

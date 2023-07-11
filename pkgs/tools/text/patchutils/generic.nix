@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://cyberelk.net/tim/data/patchutils/stable/${pname}-${version}.tar.xz";
+      "http://cyberelk.net/tim/data/patchutils/stable/${pname}-${version}.tar.xz"
+      ;
     inherit sha256;
   };
 
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ perl ] ++ extraBuildInputs;
   hardeningDisable = [ "format" ];
 
-  # tests fail when building in parallel
+    # tests fail when building in parallel
   enableParallelBuilding = false;
 
   postInstall = ''

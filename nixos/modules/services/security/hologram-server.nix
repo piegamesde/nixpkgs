@@ -85,14 +85,16 @@ in {
         type = types.bool;
         default = false;
         description = lib.mdDoc
-          "Whether to assign user roles based on the user's LDAP group memberships";
+          "Whether to assign user roles based on the user's LDAP group memberships"
+          ;
       };
 
       groupClassAttr = mkOption {
         type = types.str;
         default = "groupOfNames";
         description = lib.mdDoc
-          "The objectclass attribute to search for groups when enableLdapRoles is true";
+          "The objectclass attribute to search for groups when enableLdapRoles is true"
+          ;
       };
 
       roleAttr = mkOption {

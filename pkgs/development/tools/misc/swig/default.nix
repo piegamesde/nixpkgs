@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   doCheck = !stdenv.isCygwin;
-  # 'make check' uses boost and tcl
+    # 'make check' uses boost and tcl
   buildInputs = lib.optionals doCheck [
     boost
     tcl
@@ -26,9 +26,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "SWIG, an interface compiler that connects C/C++ code to higher-level languages";
+      "SWIG, an interface compiler that connects C/C++ code to higher-level languages"
+      ;
     homepage = "https://swig.org/";
-    # Different types of licenses available: http://www.swig.org/Release/LICENSE .
+      # Different types of licenses available: http://www.swig.org/Release/LICENSE .
     license = licenses.gpl3Plus;
     platforms = with platforms; linux ++ darwin;
   };

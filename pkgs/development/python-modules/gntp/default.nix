@@ -18,13 +18,14 @@ buildPythonPackage rec {
     "gntp.notifier"
   ];
 
-  # requires a growler service to be running
+    # requires a growler service to be running
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/kfdm/gntp/";
     description =
-      "Python library for working with the Growl Notification Transport Protocol";
+      "Python library for working with the Growl Notification Transport Protocol"
+      ;
     license = licenses.mit;
     maintainers = [ maintainers.jfroche ];
   };

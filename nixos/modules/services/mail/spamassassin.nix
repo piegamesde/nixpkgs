@@ -62,11 +62,13 @@ in {
       initPreConf = mkOption {
         type = with types; either str path;
         description = lib.mdDoc "The SpamAssassin init.pre config.";
-        apply = val:
+        apply =
+          val:
           if builtins.isPath val then
             val
           else
-            pkgs.writeText "init.pre" val;
+            pkgs.writeText "init.pre" val
+          ;
         default = ''
           #
           # to update this list, run this command in the rules directory:
@@ -122,7 +124,7 @@ in {
     environment.etc."mail/spamassassin/init.pre".source = cfg.initPreConf;
     environment.etc."mail/spamassassin/local.cf".source = spamassassin-local-cf;
 
-    # Allow users to run 'spamc'.
+      # Allow users to run 'spamc'.
     environment.systemPackages = [ pkgs.spamassassin ];
 
     users.users.spamd = {
@@ -144,7 +146,8 @@ in {
         Group = "spamd";
         StateDirectory = "spamassassin";
         ExecStartPost =
-          "+${config.systemd.package}/bin/systemctl -q --no-block try-reload-or-restart spamd.service";
+          "+${config.systemd.package}/bin/systemctl -q --no-block try-reload-or-restart spamd.service"
+          ;
       };
 
       script = ''
@@ -193,7 +196,8 @@ in {
         Group = "spamd";
         ExecStart = "+${pkgs.spamassassin}/bin/spamd ${
             optionalString cfg.debug "-D"
-          } --username=spamd --groupname=spamd --virtual-config-dir=%S/spamassassin/user-%u --allow-tell --pidfile=/run/spamd.pid";
+          } --username=spamd --groupname=spamd --virtual-config-dir=%S/spamassassin/user-%u --allow-tell --pidfile=/run/spamd.pid"
+          ;
         ExecReload = "+${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         StateDirectory = "spamassassin";
       };

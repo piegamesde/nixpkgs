@@ -11,36 +11,39 @@ let
   cfg = config.services.smokeping;
   smokepingHome = "/var/lib/smokeping";
   smokepingPidDir = "/run";
-  configFile = if cfg.config == null then
-    ''
-      *** General ***
-      cgiurl   = ${cfg.cgiUrl}
-      contact = ${cfg.ownerEmail}
-      datadir  = ${smokepingHome}/data
-      imgcache = ${smokepingHome}/cache
-      imgurl   = ${cfg.imgUrl}
-      linkstyle = ${cfg.linkStyle}
-      ${lib.optionalString (cfg.mailHost != "") "mailhost = ${cfg.mailHost}"}
-      owner = ${cfg.owner}
-      pagedir = ${smokepingHome}/cache
-      piddir  = ${smokepingPidDir}
-      ${lib.optionalString (cfg.sendmail != null) "sendmail = ${cfg.sendmail}"}
-      smokemail = ${cfg.smokeMailTemplate}
-      *** Presentation ***
-      template = ${cfg.presentationTemplate}
-      ${cfg.presentationConfig}
-      *** Alerts ***
-      ${cfg.alertConfig}
-      *** Database ***
-      ${cfg.databaseConfig}
-      *** Probes ***
-      ${cfg.probeConfig}
-      *** Targets ***
-      ${cfg.targetConfig}
-      ${cfg.extraConfig}
-    ''
-  else
-    cfg.config;
+  configFile =
+    if cfg.config == null then
+      ''
+        *** General ***
+        cgiurl   = ${cfg.cgiUrl}
+        contact = ${cfg.ownerEmail}
+        datadir  = ${smokepingHome}/data
+        imgcache = ${smokepingHome}/cache
+        imgurl   = ${cfg.imgUrl}
+        linkstyle = ${cfg.linkStyle}
+        ${lib.optionalString (cfg.mailHost != "") "mailhost = ${cfg.mailHost}"}
+        owner = ${cfg.owner}
+        pagedir = ${smokepingHome}/cache
+        piddir  = ${smokepingPidDir}
+        ${lib.optionalString (cfg.sendmail != null)
+        "sendmail = ${cfg.sendmail}"}
+        smokemail = ${cfg.smokeMailTemplate}
+        *** Presentation ***
+        template = ${cfg.presentationTemplate}
+        ${cfg.presentationConfig}
+        *** Alerts ***
+        ${cfg.alertConfig}
+        *** Database ***
+        ${cfg.databaseConfig}
+        *** Probes ***
+        ${cfg.probeConfig}
+        *** Targets ***
+        ${cfg.targetConfig}
+        ${cfg.extraConfig}
+      ''
+    else
+      cfg.config
+    ;
 
   configPath = pkgs.writeText "smokeping.conf" configFile;
   cgiHome = pkgs.writeScript "smokeping.fcgi" ''
@@ -293,7 +296,8 @@ in {
         type = types.str;
         default = "smokeping";
         description = lib.mdDoc
-          "User that runs smokeping and (optionally) thttpd. A group of the same name will be created as well.";
+          "User that runs smokeping and (optionally) thttpd. A group of the same name will be created as well."
+          ;
       };
       webService = mkOption {
         type = types.bool;
@@ -327,16 +331,16 @@ in {
       description = "smokeping daemon user";
       home = smokepingHome;
       createHome = true;
-      # When `cfg.webService` is enabled, `thttpd` makes SmokePing available
-      # under `${cfg.host}:${cfg.port}/smokeping.fcgi` as per the `ln -s` below.
-      # We also want that going to `${cfg.host}:${cfg.port}` without `smokeping.fcgi`
-      # makes it easy for the user to find SmokePing.
-      # However `thttpd` does not seem to support easy redirections from `/` to `smokeping.fcgi`
-      # and only allows directory listings or `/` -> `index.html` resolution if the directory
-      # has `chmod 755` (see https://acme.com/software/thttpd/thttpd_man.html#PERMISSIONS,
-      # " directories should be 755 if you want to allow indexing").
-      # Otherwise it shows `403 Forbidden` on `/`.
-      # Thus, we need to make `smokepingHome` (which is given to `thttpd -d` below) `755`.
+        # When `cfg.webService` is enabled, `thttpd` makes SmokePing available
+        # under `${cfg.host}:${cfg.port}/smokeping.fcgi` as per the `ln -s` below.
+        # We also want that going to `${cfg.host}:${cfg.port}` without `smokeping.fcgi`
+        # makes it easy for the user to find SmokePing.
+        # However `thttpd` does not seem to support easy redirections from `/` to `smokeping.fcgi`
+        # and only allows directory listings or `/` -> `index.html` resolution if the directory
+        # has `chmod 755` (see https://acme.com/software/thttpd/thttpd_man.html#PERMISSIONS,
+        # " directories should be 755 if you want to allow indexing").
+        # Otherwise it shows `403 Forbidden` on `/`.
+        # Thus, we need to make `smokepingHome` (which is given to `thttpd -d` below) `755`.
       homeMode = "755";
     };
     users.groups.${cfg.user} = { };
@@ -347,7 +351,8 @@ in {
         User = cfg.user;
         Restart = "on-failure";
         ExecStart =
-          "${cfg.package}/bin/smokeping --config=/etc/smokeping.conf --nodaemon";
+          "${cfg.package}/bin/smokeping --config=/etc/smokeping.conf --nodaemon"
+          ;
       };
       preStart = ''
         mkdir -m 0755 -p ${smokepingHome}/cache ${smokepingHome}/data

@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-  # requires network access
+    # requires network access
   doCheck = false;
 
   meta = with lib; {

@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ dmidecode ];
 
-  # Project has no tests.
+    # Project has no tests.
   doCheck = false;
   pythonImportsCheck = [ "dmidecode" ];
 

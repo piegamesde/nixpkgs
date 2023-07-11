@@ -13,12 +13,14 @@ let
   srcs = {
     x86_64-linux = fetchurl {
       url =
-        "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}.AppImage";
+        "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}.AppImage"
+        ;
       hash = "sha256-i5/haQHsw3BAOFGsHO41oiop1JgMISTr1Dw0tAeYupU=";
     };
     x86_64-darwin = fetchurl {
       url =
-        "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}.dmg";
+        "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}.dmg"
+        ;
       hash = "sha256-Ibojcg5To288c+v6IKMOjuLz970osiKJU7/K0VnIs8k=";
     };
   };
@@ -30,13 +32,15 @@ let
   linux = appimageTools.wrapType2 rec {
     inherit pname version src meta;
 
-    extraPkgs = p: [
-      p.ayatana-ido
-      p.libayatana-appindicator
-      p.libayatana-indicator
-      p.libdbusmenu
-      p.libepoxy
-    ];
+    extraPkgs =
+      p: [
+        p.ayatana-ido
+        p.libayatana-appindicator
+        p.libayatana-indicator
+        p.libdbusmenu
+        p.libepoxy
+      ]
+      ;
 
     extraInstallCommands = ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}

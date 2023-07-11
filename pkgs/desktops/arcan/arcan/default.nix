@@ -55,13 +55,15 @@
 }:
 
 let
-  cmakeFeatureFlag = feature: flag:
+  cmakeFeatureFlag =
+    feature: flag:
     "-D${feature}=${
       if flag then
         "on"
       else
         "off"
-    }";
+    }"
+    ;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "arcan" + lib.optionalString useStaticOpenAL "-static-openal";
@@ -129,33 +131,34 @@ stdenv.mkDerivation (finalAttrs: {
     ./002-libuvc.patch
   ];
 
-  # Emulate external/git/clone.sh
-  postUnpack = let
-    inherit (import ./clone-sources.nix { inherit fetchFromGitHub fetchgit; })
-      letoram-openal-src
-      freetype-src
-      libuvc-src
-      luajit-src
-      ;
-  in
-  ''
-    pushd $sourceRoot/external/git/
-  '' + (lib.optionalString useStaticOpenAL ''
-    cp -a ${letoram-openal-src}/ openal
-    chmod --recursive 744 openal
-  '') + (lib.optionalString useStaticFreetype ''
-    cp -a ${freetype-src}/ freetype
-    chmod --recursive 744 freetype
-  '') + (lib.optionalString useStaticLibuvc ''
-    cp -a ${libuvc-src}/ libuvc
-    chmod --recursive 744 libuvc
-  '') + (lib.optionalString useBuiltinLua ''
-    cp -a ${luajit-src}/ luajit
-    chmod --recursive 744 luajit
-  '') + ''
-    popd
-  ''
-  ;
+    # Emulate external/git/clone.sh
+  postUnpack =
+    let
+      inherit (import ./clone-sources.nix { inherit fetchFromGitHub fetchgit; })
+        letoram-openal-src
+        freetype-src
+        libuvc-src
+        luajit-src
+        ;
+    in
+    ''
+      pushd $sourceRoot/external/git/
+    '' + (lib.optionalString useStaticOpenAL ''
+      cp -a ${letoram-openal-src}/ openal
+      chmod --recursive 744 openal
+    '') + (lib.optionalString useStaticFreetype ''
+      cp -a ${freetype-src}/ freetype
+      chmod --recursive 744 freetype
+    '') + (lib.optionalString useStaticLibuvc ''
+      cp -a ${libuvc-src}/ libuvc
+      chmod --recursive 744 libuvc
+    '') + (lib.optionalString useBuiltinLua ''
+      cp -a ${luajit-src}/ luajit
+      chmod --recursive 744 luajit
+    '') + ''
+      popd
+    ''
+    ;
 
   postPatch = ''
     substituteInPlace ./src/platform/posix/paths.c \
@@ -165,8 +168,8 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace ./src/CMakeLists.txt --replace "SETUID" "# SETUID"
   '';
 
-  # INFO: Arcan build scripts require the manpages to be generated before the
-  # `configure` phase
+    # INFO: Arcan build scripts require the manpages to be generated before the
+    # `configure` phase
   preConfigure = lib.optionalString buildManPages ''
     pushd doc
     ruby docgen.rb mangen

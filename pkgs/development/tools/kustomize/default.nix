@@ -9,13 +9,15 @@ buildGoModule rec {
   pname = "kustomize";
   version = "4.5.4";
 
-  ldflags = let
-    t = "sigs.k8s.io/kustomize/api/provenance";
-  in [
-    "-s"
-    "-X ${t}.version=${version}"
-    "-X ${t}.gitCommit=${src.rev}"
-  ] ;
+  ldflags =
+    let
+      t = "sigs.k8s.io/kustomize/api/provenance";
+    in [
+      "-s"
+      "-X ${t}.version=${version}"
+      "-X ${t}.gitCommit=${src.rev}"
+    ]
+    ;
 
   src = fetchFromGitHub {
     owner = "kubernetes-sigs";
@@ -24,7 +26,7 @@ buildGoModule rec {
     sha256 = "sha256-7Ode+ONgWJRNSbIpvIjhuT+oVvZgJfByFqS/iSUhcXw=";
   };
 
-  # avoid finding test and development commands
+    # avoid finding test and development commands
   modRoot = "kustomize";
 
   vendorSha256 = "sha256-beIbeY/+k2NgotGw5zQFkYuqMKlwctoxuToZfiFlCm4=";

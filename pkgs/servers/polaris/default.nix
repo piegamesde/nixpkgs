@@ -16,11 +16,11 @@ rustPlatform.buildRustPackage rec {
     rev = "${version}";
     sha256 = "sp1KDTzKvcGtuqL37fFnVgcnkIsmj5ZQji72BeyiFQE=";
 
-    # The polaris version upstream in Cargo.lock is "0.0.0".
-    # We're unable to simply patch it in the patch phase due to
-    # rustPlatform.buildRustPackage fetching dependencies before applying patches.
-    # If we patch it after fetching dependencies we get an error when
-    # validating consistency between the final build and the prefetched deps.
+      # The polaris version upstream in Cargo.lock is "0.0.0".
+      # We're unable to simply patch it in the patch phase due to
+      # rustPlatform.buildRustPackage fetching dependencies before applying patches.
+      # If we patch it after fetching dependencies we get an error when
+      # validating consistency between the final build and the prefetched deps.
     postFetch = ''
       # 'substituteInPlace' does not support multiline replacements?
       sed -i $out/Cargo.lock -z \
@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-0VHrlUoyYu+UTUQUioftBDlQJfLd/axz6bGJs+YXSmE=";
 
-  # Compile-time environment variables for where to find assets needed at runtime
+    # Compile-time environment variables for where to find assets needed at runtime
   POLARIS_WEB_DIR = "${polaris-web}/share/polaris-web";
   POLARIS_SWAGGER_DIR = "${placeholder "out"}/share/polaris-swagger";
 
@@ -48,7 +48,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Self-host your music collection, and access it from any computer and mobile device";
+      "Self-host your music collection, and access it from any computer and mobile device"
+      ;
     longDescription = ''
       Polaris is a FOSS music streaming application, designed to let you enjoy your music collection
       from any computer or mobile device. Polaris works by streaming your music directly from your

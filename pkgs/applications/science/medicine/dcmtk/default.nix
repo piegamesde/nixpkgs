@@ -33,14 +33,15 @@ stdenv.mkDerivation rec {
     libiconv
   ];
 
-  # This is only needed until https://github.com/DCMTK/dcmtk/pull/75/files is merged
+    # This is only needed until https://github.com/DCMTK/dcmtk/pull/75/files is merged
   patches = [ ./0001-Fix-cmake.patch ];
 
   doCheck = true;
 
   meta = {
     description =
-      "Collection of libraries and applications implementing large parts of the DICOM standard";
+      "Collection of libraries and applications implementing large parts of the DICOM standard"
+      ;
     longDescription = ''
       DCMTK is a collection of libraries and applications implementing large parts of the DICOM standard.
       It includes software for examining, constructing and converting DICOM image files, handling offline media,

@@ -18,11 +18,13 @@
 }:
 
 let
-  shouldUsePkg = pkg:
+  shouldUsePkg =
+    pkg:
     if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then
       pkg
     else
-      null;
+      null
+    ;
 
   optLz4 = shouldUsePkg lz4;
   optSnappy = shouldUsePkg snappy;

@@ -51,7 +51,7 @@ buildPythonPackage rec {
     pytest test
   '';
 
-  # tests will be included in next release
+    # tests will be included in next release
   doCheck = false;
 
   meta = with lib; {

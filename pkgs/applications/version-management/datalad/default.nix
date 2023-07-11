@@ -84,7 +84,7 @@ python3.pkgs.buildPythonApplication rec {
     wrapProgram $out/bin/datalad --prefix PYTHONPATH : "$PYTHONPATH"
   '';
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "datalad" ];

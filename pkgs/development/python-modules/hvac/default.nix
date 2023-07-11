@@ -26,7 +26,7 @@ buildPythonPackage rec {
     six
   ];
 
-  # Requires running a Vault server
+    # Requires running a Vault server
   doCheck = false;
 
   pythonImportsCheck = [ "hvac" ];

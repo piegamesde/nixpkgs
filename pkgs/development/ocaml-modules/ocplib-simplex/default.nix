@@ -36,7 +36,8 @@ stdenv.mkDerivation {
 
   meta = {
     description =
-      "An OCaml library implementing a simplex algorithm, in a functional style, for solving systems of linear inequalities";
+      "An OCaml library implementing a simplex algorithm, in a functional style, for solving systems of linear inequalities"
+      ;
     homepage = "https://github.com/OCamlPro-Iguernlala/ocplib-simplex";
     inherit (ocaml.meta) platforms;
     license = lib.licenses.lgpl21;

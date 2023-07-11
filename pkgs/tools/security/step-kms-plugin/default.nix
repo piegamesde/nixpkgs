@@ -48,7 +48,7 @@ buildGoModule rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ qbit ];
     mainProgram = "step-kms-plugin";
-    # can't find pcsclite header files
+      # can't find pcsclite header files
     broken = stdenv.isDarwin;
   };
 }

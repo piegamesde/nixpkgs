@@ -20,13 +20,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.chiark.greenend.org.uk/~sgtatham/puzzles/puzzles-${version}.tar.gz";
+      "http://www.chiark.greenend.org.uk/~sgtatham/puzzles/puzzles-${version}.tar.gz"
+      ;
     hash = "sha256-fj1XWuXcW01uuC5dK2wDIrweyruSRdfEZBfmEj99zZE=";
   };
 
   sgt-puzzles-menu = fetchurl {
     url =
-      "https://raw.githubusercontent.com/gentoo/gentoo/720e614d0107e86fc1e520bac17726578186843d/games-puzzle/sgt-puzzles/files/sgt-puzzles.menu";
+      "https://raw.githubusercontent.com/gentoo/gentoo/720e614d0107e86fc1e520bac17726578186843d/games-puzzle/sgt-puzzles/files/sgt-puzzles.menu"
+      ;
     sha256 = "088w0x9g3j8pn725ix8ny8knhdsfgjr3hpswsh9fvfkz5vlg2xkm";
   };
 

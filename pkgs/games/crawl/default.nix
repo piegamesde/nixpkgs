@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SM8dSDV+88QGMqoFkITop1PHh9EakdgiV4tkXCw9pjM=";
   };
 
-  # Patch hard-coded paths and remove force library builds
+    # Patch hard-coded paths and remove force library builds
   patches = [ ./crawl_purify.patch ];
 
   nativeBuildInputs = [
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     advancecomp
   ];
 
-  # Still unstable with luajit
+    # Still unstable with luajit
   buildInputs = [
     lua5_1
     zlib

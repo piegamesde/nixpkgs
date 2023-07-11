@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
       "--without-x"
     ] ++ lib.optionals gstreamerSupport [ "--enable-cogl-gst" ];
 
-  # TODO: this shouldn't propagate so many things
-  # especially not gobject-introspection
+    # TODO: this shouldn't propagate so many things
+    # especially not gobject-introspection
   propagatedBuildInputs = [
     glib
     gdk-pixbuf
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       "-I${harfbuzz.dev}/include/harfbuzz"
     ]);
 
-  #doCheck = true; # all tests fail (no idea why)
+    #doCheck = true; # all tests fail (no idea why)
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -112,7 +112,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A small open source library for using 3D graphics hardware for rendering";
+      "A small open source library for using 3D graphics hardware for rendering"
+      ;
     maintainers = with maintainers; [ lovek323 ];
 
     longDescription = ''

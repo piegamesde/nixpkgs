@@ -36,7 +36,7 @@ in {
     "extraConfig"
   ] "Use services.zabbixAgent.settings instead.") ];
 
-  # interface
+    # interface
 
   options = {
 
@@ -137,7 +137,7 @@ in {
 
   };
 
-  # implementation
+    # implementation
 
   config = mkIf cfg.enable {
 
@@ -173,9 +173,9 @@ in {
 
       wantedBy = [ "multi-user.target" ];
 
-      # https://www.zabbix.com/documentation/current/manual/config/items/userparameters
-      # > User parameters are commands executed by Zabbix agent.
-      # > /bin/sh is used as a command line interpreter under UNIX operating systems.
+        # https://www.zabbix.com/documentation/current/manual/config/items/userparameters
+        # > User parameters are commands executed by Zabbix agent.
+        # > /bin/sh is used as a command line interpreter under UNIX operating systems.
       path = with pkgs;
         [
           bash
@@ -184,7 +184,8 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "@${cfg.package}/sbin/zabbix_agentd zabbix_agentd -f --config ${configFile}";
+          "@${cfg.package}/sbin/zabbix_agentd zabbix_agentd -f --config ${configFile}"
+          ;
         Restart = "always";
         RestartSec = 2;
 

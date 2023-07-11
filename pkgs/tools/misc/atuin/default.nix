@@ -22,11 +22,13 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-mfeHgUCnt/DkdKxFlYx/t2LLjiqDX5mBMHto9A4mj78=";
   };
 
-  # TODO: unify this to one hash because updater do not support this
-  cargoHash = if stdenv.isLinux then
-    "sha256-oaBTj+ZSJ36AFwIrB6d0cZppoAzV4QDr3+EylYqY7cw="
-  else
-    "sha256-UNuoW/EOGtuNROm1qZJ4afDfMlecziVsem1m3Z1ZsOU=";
+    # TODO: unify this to one hash because updater do not support this
+  cargoHash =
+    if stdenv.isLinux then
+      "sha256-oaBTj+ZSJ36AFwIrB6d0cZppoAzV4QDr3+EylYqY7cw="
+    else
+      "sha256-UNuoW/EOGtuNROm1qZJ4afDfMlecziVsem1m3Z1ZsOU="
+    ;
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -55,7 +57,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Replacement for a shell history which records additional commands context with optional encrypted synchronization between machines";
+      "Replacement for a shell history which records additional commands context with optional encrypted synchronization between machines"
+      ;
     homepage = "https://github.com/ellie/atuin";
     license = licenses.mit;
     maintainers = with maintainers; [

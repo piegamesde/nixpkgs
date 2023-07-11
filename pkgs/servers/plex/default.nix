@@ -23,7 +23,7 @@ buildFHSEnv {
     # running and refuses to start.
   unsharePid = false;
 
-  # This script is run when we start our Plex binary
+    # This script is run when we start our Plex binary
   runScript = writeScript "plex-run-script" ''
     #!${stdenv.shell}
 

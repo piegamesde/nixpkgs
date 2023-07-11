@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "resume.patch";
       url =
-        "https://github.com/robertdavidgraham/masscan/commit/90791550bbdfac8905917a109ed74024161f14b3.patch";
+        "https://github.com/robertdavidgraham/masscan/commit/90791550bbdfac8905917a109ed74024161f14b3.patch"
+        ;
       sha256 = "sha256-A7Fk3MBNxaad69MrUYg7fdMG77wba5iESDTIRigYslw=";
     })
   ];

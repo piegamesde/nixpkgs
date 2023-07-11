@@ -49,9 +49,9 @@ let
         default = null;
       };
 
-      # Note: It does not make sense to provide a way to declaratively
-      # set an authentication cookie, because they have to be requested
-      # for every new connection and would only work once.
+        # Note: It does not make sense to provide a way to declaratively
+        # set an authentication cookie, because they have to be requested
+        # for every new connection and would only work once.
       passwordFile = mkOption {
         description = lib.mdDoc ''
           File containing the password to authenticate with. This
@@ -97,14 +97,17 @@ let
       };
     };
   };
-  generateExtraConfig = extra_cfg:
+  generateExtraConfig =
+    extra_cfg:
     strings.concatStringsSep "\n" (attrsets.mapAttrsToList (name: value:
       if (value == true) then
         name
       else
         "${name}=${value}")
-      (attrsets.filterAttrs (_: value: value != false) extra_cfg));
-  generateConfig = name: icfg:
+      (attrsets.filterAttrs (_: value: value != false) extra_cfg))
+    ;
+  generateConfig =
+    name: icfg:
     pkgs.writeText "config" ''
       interface=${name}
       ${optionalString (icfg.protocol != null) "protocol=${icfg.protocol}"}
@@ -115,27 +118,30 @@ let
       ${optionalString (icfg.privateKey != null) "sslkey=${icfg.privateKey}"}
 
       ${generateExtraConfig icfg.extraOptions}
-    '';
-  generateUnit = name: icfg: {
-    description = "OpenConnect Interface - ${name}";
-    requires = [ "network-online.target" ];
-    after = [
-      "network.target"
-      "network-online.target"
-    ];
-    wantedBy = optional icfg.autoStart "multi-user.target";
+    ''
+    ;
+  generateUnit =
+    name: icfg: {
+      description = "OpenConnect Interface - ${name}";
+      requires = [ "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
+      wantedBy = optional icfg.autoStart "multi-user.target";
 
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${openconnect}/bin/openconnect --config=${
-          generateConfig name icfg
-        } ${icfg.gateway}";
-      StandardInput =
-        lib.mkIf (icfg.passwordFile != null) "file:${icfg.passwordFile}";
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${openconnect}/bin/openconnect --config=${
+            generateConfig name icfg
+          } ${icfg.gateway}";
+        StandardInput =
+          lib.mkIf (icfg.passwordFile != null) "file:${icfg.passwordFile}";
 
-      ProtectHome = true;
-    };
-  };
+        ProtectHome = true;
+      };
+    }
+    ;
 in {
   options.networking.openconnect = {
     package = mkPackageOptionMD pkgs "openconnect" { };

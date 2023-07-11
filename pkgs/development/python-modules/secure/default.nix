@@ -24,14 +24,15 @@ buildPythonPackage rec {
     requests
   ];
 
-  # no tests in release
+    # no tests in release
   doCheck = false;
 
   pythonImportsCheck = [ "secure" ];
 
   meta = with lib; {
     description =
-      "Adds optional security headers and cookie attributes for Python web frameworks";
+      "Adds optional security headers and cookie attributes for Python web frameworks"
+      ;
     homepage = "https://github.com/TypeError/secure.py";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

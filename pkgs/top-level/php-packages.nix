@@ -57,9 +57,10 @@ lib.makeScope pkgs.newScope (self:
       inherit (pkgs) stdenv autoreconfHook fetchurl re2c nix-update-script;
     };
 
-    # Wrap mkDerivation to prepend pname with "php-" to make names consistent
-    # with how buildPecl does it and make the file easier to overview.
-    mkDerivation = origArgs:
+      # Wrap mkDerivation to prepend pname with "php-" to make names consistent
+      # with how buildPecl does it and make the file easier to overview.
+    mkDerivation =
+      origArgs:
       let
         args = lib.fix (lib.extends (_: previousAttrs: {
           pname = "php-${previousAttrs.pname}";
@@ -75,16 +76,16 @@ lib.makeScope pkgs.newScope (self:
           (_: origArgs)));
       in
       pkgs.stdenv.mkDerivation args
-    ;
+      ;
 
-    # Function to build an extension which is shipped as part of the php
-    # source, based on the php version.
-    #
-    # Name passed is the name of the extension and is automatically used
-    # to add the configureFlag "--enable-${name}", which can be overridden.
-    #
-    # Build inputs is used for extra deps that may be needed. And zendExtension
-    # will mark the extension as a zend extension or not.
+      # Function to build an extension which is shipped as part of the php
+      # source, based on the php version.
+      #
+      # Name passed is the name of the extension and is automatically used
+      # to add the configureFlag "--enable-${name}", which can be overridden.
+      #
+      # Build inputs is used for extra deps that may be needed. And zendExtension
+      # will mark the extension as a zend extension or not.
     mkExtension = lib.makeOverridable ({
         name,
         configureFlags ? [ "--enable-${extName}" ],
@@ -174,7 +175,7 @@ lib.makeScope pkgs.newScope (self:
 
     php = phpPackage;
 
-    # This is a set of interactive tools based on PHP.
+      # This is a set of interactive tools based on PHP.
     tools = {
       box = callPackage ../development/php-packages/box { };
 
@@ -208,9 +209,9 @@ lib.makeScope pkgs.newScope (self:
       psysh = callPackage ../development/php-packages/psysh { };
     };
 
-    # This is a set of PHP extensions meant to be used in php.buildEnv
-    # or php.withExtensions to extend the functionality of the PHP
-    # interpreter.
+      # This is a set of PHP extensions meant to be used in php.buildEnv
+      # or php.withExtensions to extend the functionality of the PHP
+      # interpreter.
     extensions = {
       amqp = callPackage ../development/php-packages/amqp { };
 
@@ -266,8 +267,8 @@ lib.makeScope pkgs.newScope (self:
         sourceRoot = "php-${version}/ext/pdo_oci";
 
         buildInputs = [ pkgs.oracle-instantclient ];
-        configureFlags =
-          [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ];
+        configureFlags = [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ]
+          ;
 
         internalDeps = [ php.extensions.pdo ];
 
@@ -370,7 +371,8 @@ lib.makeScope pkgs.newScope (self:
           name = "gettext";
           buildInputs = [ gettext ];
           postPhpize = ''
-            substituteInPlace configure --replace 'as_fn_error $? "Cannot locate header file libintl.h" "$LINENO" 5' ':' '';
+            substituteInPlace configure --replace 'as_fn_error $? "Cannot locate header file libintl.h" "$LINENO" 5' ':' ''
+            ;
           configureFlags = [ "--with-gettext=${gettext}" ];
         }
         {
@@ -442,13 +444,13 @@ lib.makeScope pkgs.newScope (self:
             zlib
             openssl
           ];
-          # The configure script doesn't correctly add library link
-          # flags, so we add them to the variable used by the Makefile
-          # when linking.
+            # The configure script doesn't correctly add library link
+            # flags, so we add them to the variable used by the Makefile
+            # when linking.
           MYSQLND_SHARED_LIBADD = "-lssl -lcrypto";
-          # The configure script builds a config.h which is never
-          # included. Let's include it in the main header file
-          # included by all .c-files.
+            # The configure script builds a config.h which is never
+            # included. Let's include it in the main header file
+            # included by all .c-files.
           patches = [ (pkgs.writeText "mysqlnd_config.patch" ''
             --- a/ext/mysqlnd/mysqlnd.h
             +++ b/ext/mysqlnd/mysqlnd.h
@@ -463,8 +465,8 @@ lib.makeScope pkgs.newScope (self:
         }
         {
           name = "opcache";
-          buildInputs = [ pcre2 ]
-            ++ lib.optionals (!stdenv.isDarwin) [ valgrind.dev ];
+          buildInputs =
+            [ pcre2 ] ++ lib.optionals (!stdenv.isDarwin) [ valgrind.dev ];
           zendExtension = true;
           postPatch = lib.optionalString stdenv.isDarwin ''
             # Tests are flaky on darwin
@@ -475,15 +477,17 @@ lib.makeScope pkgs.newScope (self:
             rm ext/opcache/tests/issue0149.phpt
             rm ext/opcache/tests/revalidate_path_01.phpt
           '';
-          # Tests launch the builtin webserver.
+            # Tests launch the builtin webserver.
           __darwinAllowLocalNetworking = true;
         }
         {
           name = "openssl";
-          buildInputs = if (lib.versionAtLeast php.version "8.1") then
-            [ openssl ]
-          else
-            [ openssl_1_1 ];
+          buildInputs =
+            if (lib.versionAtLeast php.version "8.1") then
+              [ openssl ]
+            else
+              [ openssl_1_1 ]
+            ;
           configureFlags = [ "--with-openssl" ];
           doCheck = false;
         }
@@ -506,7 +510,7 @@ lib.makeScope pkgs.newScope (self:
           name = "pdo_dblib";
           internalDeps = [ php.extensions.pdo ];
           configureFlags = [ "--with-pdo-dblib=${freetds}" ];
-          # Doesn't seem to work on darwin.
+            # Doesn't seem to work on darwin.
           enable = (!stdenv.isDarwin);
           doCheck = false;
         }
@@ -593,7 +597,7 @@ lib.makeScope pkgs.newScope (self:
             openssl
           ];
           configureFlags = [ "--with-snmp" ];
-          # net-snmp doesn't build on darwin.
+            # net-snmp doesn't build on darwin.
           enable = (!stdenv.isDarwin);
           doCheck = false;
         }
@@ -676,20 +680,20 @@ lib.makeScope pkgs.newScope (self:
         }
       ];
 
-      # Convert the list of attrs:
-      # [ { name = <name>; ... } ... ]
-      # to a list of
-      # [ { name = <name>; value = <extension drv>; } ... ]
-      #
-      # which we later use listToAttrs to make all attrs available by name.
-      #
-      # Also filter out extensions based on the enable property.
+        # Convert the list of attrs:
+        # [ { name = <name>; ... } ... ]
+        # to a list of
+        # [ { name = <name>; value = <extension drv>; } ... ]
+        #
+        # which we later use listToAttrs to make all attrs available by name.
+        #
+        # Also filter out extensions based on the enable property.
       namedExtensions = builtins.map (drv: {
         name = drv.name;
         value = mkExtension drv;
       }) (builtins.filter (i: i.enable or true) extensionData);
 
-      # Produce the final attribute set of all extensions defined.
+        # Produce the final attribute set of all extensions defined.
     in
     builtins.listToAttrs namedExtensions
     );

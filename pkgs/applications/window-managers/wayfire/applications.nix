@@ -16,9 +16,11 @@ lib.makeExtensible (self:
 
     wrapWayfireApplication = callPackage ./wrapper.nix { };
 
-    withPlugins = selector:
+    withPlugins =
+      selector:
       self // {
         wayfire = wrapWayfireApplication wayfire selector;
         wcm = wrapWayfireApplication wcm selector;
-      };
+      }
+      ;
   })

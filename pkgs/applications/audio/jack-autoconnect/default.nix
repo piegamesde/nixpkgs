@@ -10,7 +10,7 @@
 mkDerivation rec {
   pname = "jack_autoconnect";
 
-  # It does not have any versions (yet?)
+    # It does not have any versions (yet?)
   version = "unstable-2021-02-01";
 
   src = fetchFromGitHub {
@@ -37,7 +37,8 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/kripton/jack_autoconnect";
     description =
-      "Tiny application that reacts on port registrations by clients and connects them";
+      "Tiny application that reacts on port registrations by clients and connects them"
+      ;
     maintainers = with maintainers; [ unclechu ];
     license = licenses.gpl2Only;
     platforms = platforms.linux;

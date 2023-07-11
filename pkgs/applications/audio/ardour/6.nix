@@ -60,8 +60,8 @@ stdenv.mkDerivation rec {
   pname = "ardour";
   version = "6.9";
 
-  # We can't use `fetchFromGitea` here, as attempting to fetch release archives from git.ardour.org
-  # result in an empty archive. See https://tracker.ardour.org/view.php?id=7328 for more info.
+    # We can't use `fetchFromGitea` here, as attempting to fetch release archives from git.ardour.org
+    # result in an empty archive. See https://tracker.ardour.org/view.php?id=7328 for more info.
   src = fetchgit {
     url = "git://git.ardour.org/ardour/ardour.git";
     rev = version;
@@ -144,11 +144,11 @@ stdenv.mkDerivation rec {
     "--run-tests"
     "--test"
   ];
-  # removed because it fixes https://tracker.ardour.org/view.php?id=8161 and https://tracker.ardour.org/view.php?id=8437
-  # "--use-external-libs"
+    # removed because it fixes https://tracker.ardour.org/view.php?id=8161 and https://tracker.ardour.org/view.php?id=8437
+    # "--use-external-libs"
 
-  # Ardour's wscript requires git revision and date to be available.
-  # Since they are not, let's generate the file manually.
+    # Ardour's wscript requires git revision and date to be available.
+    # Since they are not, let's generate the file manually.
   postPatch = ''
     printf '#include "libs/ardour/ardour/revision.h"\nnamespace ARDOUR { const char* revision = "${version}"; const char* date = ""; }\n' > libs/ardour/revision.cc
     sed 's|/usr/include/libintl.h|${glibc.dev}/include/libintl.h|' -i wscript

@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/macports/macports-ports/raw/4df1fc235a708ff28200ffc0a39120974ed4b6e1/multimedia/sfml/files/patch-apple-silicon.diff";
+      "https://github.com/macports/macports-ports/raw/4df1fc235a708ff28200ffc0a39120974ed4b6e1/multimedia/sfml/files/patch-apple-silicon.diff"
+      ;
     extraPrefix = "";
     sha256 = "sha256-9dNawJaYtkugR+2NvhQOhgsf6w9ZXHkBgsDRh8yAJc0=";
   }) ];

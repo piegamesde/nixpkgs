@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
   '';
 
-  # TODO: package mavlink so we can build from a normal source tarball
+    # TODO: package mavlink so we can build from a normal source tarball
   src = fetchFromGitHub {
     owner = "mavlink";
     repo = pname;
@@ -103,7 +103,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Provides full ground station support and configuration for the PX4 and APM Flight Stacks";
+      "Provides full ground station support and configuration for the PX4 and APM Flight Stacks"
+      ;
     homepage = "http://qgroundcontrol.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

@@ -5,20 +5,30 @@
   chickenEggs,
 }:
 let
-  addToBuildInputs = pkg: old: {
-    buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg;
-  };
-  addToPropagatedBuildInputs = pkg: old: {
-    propagatedBuildInputs = (old.propagatedBuildInputs or [ ])
-      ++ lib.toList pkg;
-  };
-  addPkgConfig = old: {
-    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
-  };
-  addToBuildInputsWithPkgConfig = pkg: old:
-    (addPkgConfig old) // (addToBuildInputs pkg old);
-  addToPropagatedBuildInputsWithPkgConfig = pkg: old:
-    (addPkgConfig old) // (addToPropagatedBuildInputs pkg old);
+  addToBuildInputs =
+    pkg: old: {
+      buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg;
+    }
+    ;
+  addToPropagatedBuildInputs =
+    pkg: old: {
+      propagatedBuildInputs =
+        (old.propagatedBuildInputs or [ ]) ++ lib.toList pkg;
+    }
+    ;
+  addPkgConfig =
+    old: {
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+    }
+    ;
+  addToBuildInputsWithPkgConfig =
+    pkg: old:
+    (addPkgConfig old) // (addToBuildInputs pkg old)
+    ;
+  addToPropagatedBuildInputsWithPkgConfig =
+    pkg: old:
+    (addPkgConfig old) // (addToPropagatedBuildInputs pkg old)
+    ;
   broken = old: { meta = old.meta // { broken = true; }; };
   brokenOnDarwin = old: { meta = old.meta // { broken = stdenv.isDarwin; }; };
 in {
@@ -30,12 +40,14 @@ in {
   breadline = addToBuildInputs pkgs.readline;
   blas = addToBuildInputsWithPkgConfig pkgs.blas;
   blosc = addToBuildInputs pkgs.c-blosc;
-  cairo = old:
+  cairo =
+    old:
     (addToBuildInputsWithPkgConfig pkgs.cairo old)
     // (addToPropagatedBuildInputs (with chickenEggs; [
       srfi-1
       srfi-13
-    ]) old);
+    ]) old)
+    ;
   cmark = addToBuildInputs pkgs.cmark;
   dbus = addToBuildInputsWithPkgConfig pkgs.dbus;
   epoxy = addToPropagatedBuildInputsWithPkgConfig pkgs.libepoxy;
@@ -45,16 +57,18 @@ in {
   ezxdisp = addToBuildInputsWithPkgConfig pkgs.xorg.libX11;
   freetype = addToBuildInputsWithPkgConfig pkgs.freetype;
   fuse = addToBuildInputsWithPkgConfig pkgs.fuse;
-  # git = addToBuildInputsWithPkgConfig pkgs.libgit2;
+    # git = addToBuildInputsWithPkgConfig pkgs.libgit2;
   gl-utils = addPkgConfig;
   glfw3 = addToBuildInputsWithPkgConfig pkgs.glfw3;
   glls = addPkgConfig;
   iconv = addToBuildInputs (lib.optional stdenv.isDarwin pkgs.libiconv);
   icu = addToBuildInputsWithPkgConfig pkgs.icu;
   imlib2 = addToBuildInputsWithPkgConfig pkgs.imlib2;
-  lazy-ffi = old:
+  lazy-ffi =
+    old:
     # fatal error: 'ffi/ffi.h' file not found
-    (brokenOnDarwin old) // (addToBuildInputs pkgs.libffi old);
+    (brokenOnDarwin old) // (addToBuildInputs pkgs.libffi old)
+    ;
   leveldb = addToBuildInputs pkgs.leveldb;
   magic = addToBuildInputs pkgs.file;
   mdh = addToBuildInputs pkgs.pcre;
@@ -65,12 +79,14 @@ in {
     pkgs.ocl-icd
   ] ++ lib.optionals
     stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenCL ]);
-  opengl = old:
+  opengl =
+    old:
     # csc: invalid option `-framework OpenGL'
     (brokenOnDarwin old) // (addToBuildInputsWithPkgConfig [
       pkgs.libGL
       pkgs.libGLU
-    ] old);
+    ] old)
+    ;
   openssl = addToBuildInputs pkgs.openssl;
   plot = addToBuildInputs pkgs.plotutils;
   postgresql = addToBuildInputsWithPkgConfig pkgs.postgresql;
@@ -82,15 +98,19 @@ in {
   sdl2-ttf = addToBuildInputs pkgs.SDL2_ttf;
   soil = addToPropagatedBuildInputsWithPkgConfig pkgs.libepoxy;
   sqlite3 = addToBuildInputs pkgs.sqlite;
-  stemmer = old:
+  stemmer =
+    old:
     # Undefined symbols for architecture arm64: "_sb_stemmer_delete"
-    (brokenOnDarwin old) // (addToBuildInputs pkgs.libstemmer old);
-  stfl = old:
+    (brokenOnDarwin old) // (addToBuildInputs pkgs.libstemmer old)
+    ;
+  stfl =
+    old:
     # Undefined symbols for architecture arm64: "_clearok"
     (brokenOnDarwin old) // (addToBuildInputs [
       pkgs.ncurses
       pkgs.stfl
-    ] old);
+    ] old)
+    ;
   taglib = addToBuildInputs [
     pkgs.zlib
     pkgs.taglib
@@ -103,11 +123,15 @@ in {
   zmq = addToBuildInputs pkgs.zeromq;
   zstd = addToBuildInputs pkgs.zstd;
 
-  # platform changes
+    # platform changes
   pledge = old: { meta = old.meta // { platforms = lib.platforms.openbsd; }; };
-  unveil = old: { meta = old.meta // { platforms = lib.platforms.openbsd; }; };
+  unveil =
+    old: {
+      meta = old.meta // { platforms = lib.platforms.openbsd; };
+    }
+    ;
 
-  # mark broken
+    # mark broken
   "ephem-v1.1" = broken;
   F-operator = broken;
   atom = broken;
@@ -134,16 +158,16 @@ in {
   transducers = broken;
   webview = broken;
 
-  # mark broken darwin
+    # mark broken darwin
 
-  # fatal error: 'sys/inotify.h' file not found
+    # fatal error: 'sys/inotify.h' file not found
   inotify = brokenOnDarwin;
-  # fatal error: 'mqueue.h' file not found
+    # fatal error: 'mqueue.h' file not found
   posix-mq = brokenOnDarwin;
-  # ld: library not found for -lrt
+    # ld: library not found for -lrt
   posix-shm = brokenOnDarwin;
-  # Undefined symbols for architecture arm64: "_pthread_setschedprio"
+    # Undefined symbols for architecture arm64: "_pthread_setschedprio"
   pthreads = brokenOnDarwin;
-  # error: use of undeclared identifier 'B4000000'
+    # error: use of undeclared identifier 'B4000000'
   stty = brokenOnDarwin;
 }

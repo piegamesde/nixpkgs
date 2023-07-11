@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://http.debian.net/debian/pool/main/p/pmccabe/pmccabe_${version}.tar.gz";
+      "http://http.debian.net/debian/pool/main/p/pmccabe/pmccabe_${version}.tar.gz"
+      ;
     sha256 = "0a3h1b9fb87c82d5fbql5lc4gp338pa5s9i66dhw7zk8jdygx474";
   };
 

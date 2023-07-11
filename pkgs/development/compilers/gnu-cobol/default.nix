@@ -56,10 +56,10 @@ stdenv.mkDerivation rec {
     "lib"
     "out"
   ];
-  # XXX: Without this, we get a cycle between bin and dev
+    # XXX: Without this, we get a cycle between bin and dev
   propagatedBuildOutputs = [ ];
 
-  # Skips a broken test
+    # Skips a broken test
   postPatch = ''
     sed -i '/^AT_CHECK.*crud\.cob/i AT_SKIP_IF([true])' tests/testsuite.src/listings.at
   '';
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     "localedir=$out/share/locale"
   ];
 
-  # Tests must run after install.
+    # Tests must run after install.
   doCheck = false;
 
   doInstallCheck = true;

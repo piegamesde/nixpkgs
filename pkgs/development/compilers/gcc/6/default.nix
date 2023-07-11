@@ -103,7 +103,8 @@ let
       (fetchurl {
         name = "fix-bug-80431.patch";
         url =
-          "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
+          "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0"
+          ;
         sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
       })
     ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
@@ -122,7 +123,8 @@ let
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32)
     (fetchpatch {
       url =
-        "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
+        "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb"
+        ;
       sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
     })
 
@@ -137,8 +139,8 @@ let
     sha256 = "0jz7hvc0s6iydmhgh5h2m15yza7p2rlss2vkif30vm9y77m97qcx";
   };
 
-  # Antlr (optional) allows the Java `gjdoc' tool to be built.  We want a
-  # binary distribution here to allow the whole chain to be bootstrapped.
+    # Antlr (optional) allows the Java `gjdoc' tool to be built.  We want a
+    # binary distribution here to allow the whole chain to be bootstrapped.
   javaAntlr = fetchurl {
     url = "https://www.antlr.org/download/antlr-4.4-complete.jar";
     sha256 = "02lda2imivsvsis8rnzmbrbp8rh1kb8vmq4i67pqhkwz7lf8y6dz";
@@ -158,13 +160,15 @@ let
 
   javaAwtGtk = langJava && x11Support;
 
-  # Cross-gcc settings (build == host != target)
-  crossMingw = targetPlatform != hostPlatform && targetPlatform.libc
-    == "msvcrt";
-  stageNameAddon = if crossStageStatic then
-    "stage-static"
-  else
-    "stage-final";
+    # Cross-gcc settings (build == host != target)
+  crossMingw =
+    targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
+  stageNameAddon =
+    if crossStageStatic then
+      "stage-static"
+    else
+      "stage-final"
+    ;
   crossNameAddon = optionalString (targetPlatform != hostPlatform)
     "${targetPlatform.config}-${stageNameAddon}-";
 
@@ -262,41 +266,45 @@ stdenv.mkDerivation ({
 
   builder = ../builder.sh;
 
-  src = if stdenv.targetPlatform.isVc4 then
-    fetchFromGitHub {
-      owner = "itszor";
-      repo = "gcc-vc4";
-      rev = "e90ff43f9671c760cf0d1dd62f569a0fb9bf8918";
-      sha256 = "0gxf66hwqk26h8f853sybphqa5ca0cva2kmrw5jsiv6139g0qnp8";
-    }
-  else if stdenv.targetPlatform.isRedox then
-    fetchFromGitHub {
-      owner = "redox-os";
-      repo = "gcc";
-      rev = "f360ac095028d286fc6dde4d02daed48f59813fa"; # `redox` branch
-      sha256 = "1an96h8l58pppyh3qqv90g8hgcfd9hj7igvh2gigmkxbrx94khfl";
-    }
-  else
-    fetchurl {
-      url = "mirror://gnu/gcc/gcc-${version}/gcc-${version}.tar.xz";
-      sha256 = "0i89fksfp6wr1xg9l8296aslcymv2idn60ip31wr9s4pwin7kwby";
-    };
+  src =
+    if stdenv.targetPlatform.isVc4 then
+      fetchFromGitHub {
+        owner = "itszor";
+        repo = "gcc-vc4";
+        rev = "e90ff43f9671c760cf0d1dd62f569a0fb9bf8918";
+        sha256 = "0gxf66hwqk26h8f853sybphqa5ca0cva2kmrw5jsiv6139g0qnp8";
+      }
+    else if stdenv.targetPlatform.isRedox then
+      fetchFromGitHub {
+        owner = "redox-os";
+        repo = "gcc";
+        rev = "f360ac095028d286fc6dde4d02daed48f59813fa"; # `redox` branch
+        sha256 = "1an96h8l58pppyh3qqv90g8hgcfd9hj7igvh2gigmkxbrx94khfl";
+      }
+    else
+      fetchurl {
+        url = "mirror://gnu/gcc/gcc-${version}/gcc-${version}.tar.xz";
+        sha256 = "0i89fksfp6wr1xg9l8296aslcymv2idn60ip31wr9s4pwin7kwby";
+      }
+    ;
 
   inherit patches;
 
-  outputs = if langJava || langGo || langJit then
-    [
-      "out"
-      "man"
-      "info"
-    ]
-  else
-    [
-      "out"
-      "lib"
-      "man"
-      "info"
-    ];
+  outputs =
+    if langJava || langGo || langJit then
+      [
+        "out"
+        "man"
+        "info"
+      ]
+    else
+      [
+        "out"
+        "lib"
+        "man"
+        "info"
+      ]
+    ;
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
 
@@ -324,10 +332,12 @@ stdenv.mkDerivation ({
       # On NixOS, use the right path to the dynamic linker instead of
       # `/lib/ld*.so'.
       (let
-        libc = if libcCross != null then
-          libcCross
-        else
-          stdenv.cc.libc;
+        libc =
+          if libcCross != null then
+            libcCross
+          else
+            stdenv.cc.libc
+          ;
       in
       (''
         echo "fixing the \`GLIBC_DYNAMIC_LINKER', \`UCLIBC_DYNAMIC_LINKER', and \`MUSL_DYNAMIC_LINKER' macros..."
@@ -375,10 +385,12 @@ stdenv.mkDerivation ({
 
   configureFlags = callFile ../common/configure-flags.nix { };
 
-  targetConfig = if targetPlatform != hostPlatform then
-    targetPlatform.config
-  else
-    null;
+  targetConfig =
+    if targetPlatform != hostPlatform then
+      targetPlatform.config
+    else
+      null
+    ;
 
   buildFlags =
     optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
@@ -393,10 +405,10 @@ stdenv.mkDerivation ({
     preFixup
     ;
 
-  doCheck =
-    false; # requires a lot of tools, causes a dependency cycle for stdenv
+  doCheck = false
+    ; # requires a lot of tools, causes a dependency cycle for stdenv
 
-  # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
+    # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
   ${
     if hostPlatform.system == "x86_64-solaris" then
       "CC"
@@ -404,19 +416,19 @@ stdenv.mkDerivation ({
       null
   } = "gcc -m64";
 
-  # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
-  # library headers and binaries, regarless of the language being compiled.
-  #
-  # Note: When building the Java AWT GTK peer, the build system doesn't honor
-  # `--with-gmp' et al., e.g., when building
-  # `libjava/classpath/native/jni/java-math/gnu_java_math_GMP.c', so we just add
-  # them to $CPATH and $LIBRARY_PATH in this case.
-  #
-  # Likewise, the LTO code doesn't find zlib.
-  #
-  # Cross-compiling, we need gcc not to read ./specs in order to build the g++
-  # compiler (after the specs for the cross-gcc are created). Having
-  # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
+    # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
+    # library headers and binaries, regarless of the language being compiled.
+    #
+    # Note: When building the Java AWT GTK peer, the build system doesn't honor
+    # `--with-gmp' et al., e.g., when building
+    # `libjava/classpath/native/jni/java-math/gnu_java_math_GMP.c', so we just add
+    # them to $CPATH and $LIBRARY_PATH in this case.
+    #
+    # Likewise, the LTO code doesn't find zlib.
+    #
+    # Cross-compiling, we need gcc not to read ./specs in order to build the g++
+    # compiler (after the specs for the cross-gcc are created). Having
+    # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
   CPATH = optionals (targetPlatform == hostPlatform)
     (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib

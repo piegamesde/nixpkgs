@@ -56,8 +56,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-paths.patch ];
 
-  # Setup hook replaces ${prefix} in pc files so we cannot use
-  # --define-variable=prefix=$prefix
+    # Setup hook replaces ${prefix} in pc files so we cannot use
+    # --define-variable=prefix=$prefix
   PKG_CONFIG_LIBXFCE4PANEL_1_0_LIBDIR = "$(out)/lib";
 
   meta = with lib; {
@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     broken = desktopSupport == "gnomeflashback" || desktopSupport == "xfce4";
     description =
-      "An applet that will display XMonad log information (${desktopSupport} version)";
+      "An applet that will display XMonad log information (${desktopSupport} version)"
+      ;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];
   };

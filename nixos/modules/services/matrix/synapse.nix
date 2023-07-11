@@ -12,7 +12,7 @@ let
   cfg = config.services.matrix-synapse;
   format = pkgs.formats.yaml { };
 
-  # remove null values from the final configuration
+    # remove null values from the final configuration
   finalSettings = lib.filterAttrsRecursive (_: v: v != null) cfg.settings;
   configFile = format.generate "homeserver.yaml" finalSettings;
   logConfigFile = format.generate "log_config.yaml" cfg.logConfig;
@@ -21,47 +21,51 @@ let
     cfg.package.python.buildEnv.override { extraLibs = cfg.plugins; };
 
   usePostgresql = cfg.settings.database.name == "psycopg2";
-  hasLocalPostgresDB = let
-    args = cfg.settings.database.args;
-  in
-  usePostgresql && (!(args ? host) || (elem args.host [
-    "localhost"
-    "127.0.0.1"
-    "::1"
-  ]))
-  ;
+  hasLocalPostgresDB =
+    let
+      args = cfg.settings.database.args;
+    in
+    usePostgresql && (!(args ? host) || (elem args.host [
+      "localhost"
+      "127.0.0.1"
+      "::1"
+    ]))
+    ;
 
-  registerNewMatrixUser = let
-    isIpv6 = x: lib.length (lib.splitString ":" x) > 1;
-    listener = lib.findFirst (listener:
-      lib.any (resource: lib.any (name: name == "client") resource.names)
-      listener.resources) (lib.last cfg.settings.listeners)
-      cfg.settings.listeners;
-    # FIXME: Handle cases with missing client listener properly,
-    # don't rely on lib.last, this will not work.
+  registerNewMatrixUser =
+    let
+      isIpv6 = x: lib.length (lib.splitString ":" x) > 1;
+      listener = lib.findFirst (listener:
+        lib.any (resource: lib.any (name: name == "client") resource.names)
+        listener.resources) (lib.last cfg.settings.listeners)
+        cfg.settings.listeners;
+        # FIXME: Handle cases with missing client listener properly,
+        # don't rely on lib.last, this will not work.
 
-    # add a tail, so that without any bind_addresses we still have a useable address
-    bindAddress = head (listener.bind_addresses ++ [ "127.0.0.1" ]);
-    listenerProtocol = if listener.tls then
-      "https"
-    else
-      "http";
-  in
-  pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
-    exec ${cfg.package}/bin/register_new_matrix_user \
-      $@ \
-      ${
-        lib.concatMapStringsSep " " (x: "-c ${x}")
-        ([ configFile ] ++ cfg.extraConfigFiles)
-      } \
-      "${listenerProtocol}://${
-        if (isIpv6 bindAddress) then
-          "[${bindAddress}]"
+        # add a tail, so that without any bind_addresses we still have a useable address
+      bindAddress = head (listener.bind_addresses ++ [ "127.0.0.1" ]);
+      listenerProtocol =
+        if listener.tls then
+          "https"
         else
-          "${bindAddress}"
-      }:${builtins.toString listener.port}/"
-  ''
-  ;
+          "http"
+        ;
+    in
+    pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
+      exec ${cfg.package}/bin/register_new_matrix_user \
+        $@ \
+        ${
+          lib.concatMapStringsSep " " (x: "-c ${x}")
+          ([ configFile ] ++ cfg.extraConfigFiles)
+        } \
+        "${listenerProtocol}://${
+          if (isIpv6 bindAddress) then
+            "[${bindAddress}]"
+          else
+            "${bindAddress}"
+        }:${builtins.toString listener.port}/"
+    ''
+    ;
 in {
 
   imports = [
@@ -557,9 +561,11 @@ in {
                   if lib.versionAtLeast config.system.stateVersion "22.05" then
                     "${cfg.dataDir}/media_store"
                   else
-                    "${cfg.dataDir}/media";
+                    "${cfg.dataDir}/media"
+                  ;
                 defaultText =
-                  "${cfg.dataDir}/media_store for when system.stateVersion is at least 22.05, ${cfg.dataDir}/media when lower than 22.05";
+                  "${cfg.dataDir}/media_store for when system.stateVersion is at least 22.05, ${cfg.dataDir}/media when lower than 22.05"
+                  ;
                 description = lib.mdDoc ''
                   Directory where uploaded images and attachments are stored.
                 '';
@@ -737,7 +743,8 @@ in {
                   if versionAtLeast config.system.stateVersion "18.03" then
                     "psycopg2"
                   else
-                    "sqlite3";
+                    "sqlite3"
+                  ;
                 defaultText = literalExpression ''
                   if versionAtLeast config.system.stateVersion "18.03"
                   then "psycopg2"
@@ -1036,8 +1043,8 @@ in {
         Restart = "on-failure";
         UMask = "0077";
 
-        # Security Hardening
-        # Refer to systemd.exec(5) for option descriptions.
+          # Security Hardening
+          # Refer to systemd.exec(5) for option descriptions.
         CapabilityBoundingSet = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;

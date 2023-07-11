@@ -21,10 +21,10 @@ let
     cfg.loginOptions
   ] ++ cfg.extraArgs;
 
-  gettyCmd = args:
-    "@${pkgs.util-linux}/sbin/agetty agetty ${
-      escapeShellArgs baseArgs
-    } ${args}";
+  gettyCmd =
+    args:
+    "@${pkgs.util-linux}/sbin/agetty agetty ${escapeShellArgs baseArgs} ${args}"
+    ;
 
 in {
 
@@ -114,7 +114,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = {
     # Note: this is set here rather than up there so that changing

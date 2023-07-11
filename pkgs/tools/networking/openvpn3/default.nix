@@ -30,7 +30,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "openvpn3";
-  # also update openvpn3-core
+    # also update openvpn3-core
   version = "20";
 
   src = fetchFromGitHub {
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     tinyxml-2
   ];
 
-  # runtime deps
+    # runtime deps
   pythonPath = with python3.pkgs; [
     dbus-python
     pygobject3

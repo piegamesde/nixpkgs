@@ -66,8 +66,8 @@ in {
     services.qdrant.settings = {
       storage.storage_path = mkDefault "/var/lib/qdrant/storage";
       storage.snapshots_path = mkDefault "/var/lib/qdrant/snapshots";
-      # The following default values are the same as in the default config,
-      # they are just written here for convenience.
+        # The following default values are the same as in the default config,
+        # they are just written here for convenience.
       storage.on_disk_payload = mkDefault true;
       storage.wal.wal_capacity_mb = mkDefault 32;
       storage.wal.wal_segments_ahead = mkDefault 0;
@@ -93,7 +93,7 @@ in {
       service.grpc_port = mkDefault 6334;
       service.enable_cors = mkDefault true;
       cluster.enabled = mkDefault false;
-      # the following have been altered for security
+        # the following have been altered for security
       service.host = mkDefault "127.0.0.1";
       telemetry_disabled = mkDefault true;
     };

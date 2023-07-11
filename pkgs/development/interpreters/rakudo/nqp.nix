@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/raku/nqp/releases/download/${version}/nqp-${version}.tar.gz";
+      "https://github.com/raku/nqp/releases/download/${version}/nqp-${version}.tar.gz"
+      ;
     hash = "sha256-417V7ZTsMqbXMO6BW/hcX8+IqGf6xlZjaMGtSf5jtT8=";
   };
 
@@ -20,9 +21,9 @@ stdenv.mkDerivation rec {
 
   configureScript = "${perl}/bin/perl ./Configure.pl";
 
-  # Fix for issue where nqp expects to find files from moarvm in the same output:
-  # https://github.com/Raku/nqp/commit/e6e069507de135cc71f77524455fc6b03b765b2f
-  #
+    # Fix for issue where nqp expects to find files from moarvm in the same output:
+    # https://github.com/Raku/nqp/commit/e6e069507de135cc71f77524455fc6b03b765b2f
+    #
   preBuild = ''
     share_dir="share/nqp/lib/MAST"
     mkdir -p $out/$share_dir
@@ -38,7 +39,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Not Quite Perl -- a lightweight Raku-like environment for virtual machines";
+      "Not Quite Perl -- a lightweight Raku-like environment for virtual machines"
+      ;
     homepage = "https://github.com/Raku/nqp";
     license = licenses.artistic2;
     platforms = platforms.unix;

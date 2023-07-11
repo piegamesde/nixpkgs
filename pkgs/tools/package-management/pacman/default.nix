@@ -76,40 +76,43 @@ stdenv.mkDerivation rec {
     # Add keyringdir meson option to configure the keyring directory
     (fetchpatch {
       url =
-        "https://gitlab.archlinux.org/pacman/pacman/-/commit/79bd512181af12ec80fd8f79486fc9508fa4a1b3.patch";
+        "https://gitlab.archlinux.org/pacman/pacman/-/commit/79bd512181af12ec80fd8f79486fc9508fa4a1b3.patch"
+        ;
       hash = "sha256-ivTPwWe06Q5shn++R6EY0x3GC0P4X0SuC+F5sndfAtM=";
     })
   ];
 
-  postPatch = let
-    compressionTools = [
-      gzip
-      bzip2
-      xz
-      zstd
-      lrzip
-      lzop
-      ncompress
-      lz4
-      lzip
-    ];
-  in ''
-    echo 'export PATH=${
-      lib.makeBinPath compressionTools
-    }:$PATH' >> scripts/libmakepkg/util/compress.sh.in
-    substituteInPlace meson.build \
-      --replace "install_dir : SYSCONFDIR" "install_dir : '$out/etc'" \
-      --replace "join_paths(DATAROOTDIR, 'libalpm/hooks/')" "'${sysHookDir}'" \
-      --replace "join_paths(PREFIX, DATAROOTDIR, get_option('keyringdir'))" "'\$KEYRING_IMPORT_DIR'"
-    substituteInPlace doc/meson.build \
-      --replace "/bin/true" "${coreutils}/bin/true"
-    substituteInPlace scripts/repo-add.sh.in \
-      --replace bsdtar "${libarchive}/bin/bsdtar"
-    substituteInPlace scripts/pacman-key.sh.in \
-      --replace "local KEYRING_IMPORT_DIR='@keyringdir@'" "" \
-      --subst-var-by keyringdir '\$KEYRING_IMPORT_DIR' \
-      --replace "--batch --check-trustdb" "--batch --check-trustdb --allow-weak-key-signatures"
-  '' ; # the line above should be removed once Arch migrates to gnupg 2.3.x
+  postPatch =
+    let
+      compressionTools = [
+        gzip
+        bzip2
+        xz
+        zstd
+        lrzip
+        lzop
+        ncompress
+        lz4
+        lzip
+      ];
+    in ''
+      echo 'export PATH=${
+        lib.makeBinPath compressionTools
+      }:$PATH' >> scripts/libmakepkg/util/compress.sh.in
+      substituteInPlace meson.build \
+        --replace "install_dir : SYSCONFDIR" "install_dir : '$out/etc'" \
+        --replace "join_paths(DATAROOTDIR, 'libalpm/hooks/')" "'${sysHookDir}'" \
+        --replace "join_paths(PREFIX, DATAROOTDIR, get_option('keyringdir'))" "'\$KEYRING_IMPORT_DIR'"
+      substituteInPlace doc/meson.build \
+        --replace "/bin/true" "${coreutils}/bin/true"
+      substituteInPlace scripts/repo-add.sh.in \
+        --replace bsdtar "${libarchive}/bin/bsdtar"
+      substituteInPlace scripts/pacman-key.sh.in \
+        --replace "local KEYRING_IMPORT_DIR='@keyringdir@'" "" \
+        --subst-var-by keyringdir '\$KEYRING_IMPORT_DIR' \
+        --replace "--batch --check-trustdb" "--batch --check-trustdb --allow-weak-key-signatures"
+    ''
+    ; # the line above should be removed once Arch migrates to gnupg 2.3.x
 
   mesonFlags = [
     "--sysconfdir=/etc"

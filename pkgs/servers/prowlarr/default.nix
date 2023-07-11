@@ -20,12 +20,14 @@ let
   unsupported =
     throw "Unsupported system ${stdenv.hostPlatform.system} for ${pname}";
 
-  os = if stdenv.isDarwin then
-    "osx"
-  else if stdenv.isLinux then
-    "linux"
-  else
-    unsupported;
+  os =
+    if stdenv.isDarwin then
+      "osx"
+    else if stdenv.isLinux then
+      "linux"
+    else
+      unsupported
+    ;
 
   arch = {
     aarch64-darwin = "arm64";
@@ -48,7 +50,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Prowlarr/Prowlarr/releases/download/v${version}/Prowlarr.master.${version}.${os}-core-${arch}.tar.gz";
+      "https://github.com/Prowlarr/Prowlarr/releases/download/v${version}/Prowlarr.master.${version}.${os}-core-${arch}.tar.gz"
+      ;
     inherit hash;
   };
 
@@ -84,7 +87,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An indexer manager/proxy built on the popular arr .net/reactjs base stack";
+      "An indexer manager/proxy built on the popular arr .net/reactjs base stack"
+      ;
     homepage = "https://wiki.servarr.com/prowlarr";
     changelog = "https://github.com/Prowlarr/Prowlarr/releases/tag/v${version}";
     license = licenses.gpl3Only;

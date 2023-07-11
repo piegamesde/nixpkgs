@@ -72,8 +72,8 @@ stdenv.mkDerivation rec {
     fig2dev
   ];
 
-  # TODO: dblatex tries to execute texindy command, but nixpkgs doesn't have
-  # that yet. In Ubuntu, texindy is a part of the xindy package.
+    # TODO: dblatex tries to execute texindy command, but nixpkgs doesn't have
+    # that yet. In Ubuntu, texindy is a part of the xindy package.
   preConfigure = ''
     sed -i 's|self.install_layout == "deb"|False|' setup.py
   '' + lib.optionalString enableAllFeatures ''
@@ -106,7 +106,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "A program to convert DocBook to DVI, PostScript or PDF via LaTeX or ConTeXt";
+      "A program to convert DocBook to DVI, PostScript or PDF via LaTeX or ConTeXt"
+      ;
     homepage = "https://dblatex.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;

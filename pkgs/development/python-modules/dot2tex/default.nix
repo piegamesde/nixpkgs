@@ -28,8 +28,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyparsing ];
 
-  nativeCheckInputs =
-    [ (texlive.combine { inherit (texlive) scheme-small preview pstricks; }) ];
+  nativeCheckInputs = [ (texlive.combine {
+    inherit (texlive) scheme-small preview pstricks;
+  }) ];
 
   checkPhase = ''
     ${python.interpreter} tests/test_dot2tex.py

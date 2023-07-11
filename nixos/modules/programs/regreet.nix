@@ -60,22 +60,28 @@ in {
     };
 
     environment.etc = {
-      "greetd/regreet.css" = if lib.isPath cfg.extraCss then
-        { source = cfg.extraCss; }
-      else
-        { text = cfg.extraCss; };
+      "greetd/regreet.css" =
+        if lib.isPath cfg.extraCss then
+          { source = cfg.extraCss; }
+        else
+          { text = cfg.extraCss; }
+        ;
 
-      "greetd/regreet.toml".source = if lib.isPath cfg.settings then
-        cfg.settings
-      else
-        settingsFormat.generate "regreet.toml" cfg.settings;
+      "greetd/regreet.toml".source =
+        if lib.isPath cfg.settings then
+          cfg.settings
+        else
+          settingsFormat.generate "regreet.toml" cfg.settings
+        ;
     };
 
-    systemd.tmpfiles.rules = let
-      user = config.services.greetd.settings.default_session.user;
-    in [
-      "d /var/log/regreet 0755 greeter ${user} - -"
-      "d /var/cache/regreet 0755 greeter ${user} - -"
-    ] ;
+    systemd.tmpfiles.rules =
+      let
+        user = config.services.greetd.settings.default_session.user;
+      in [
+        "d /var/log/regreet 0755 greeter ${user} - -"
+        "d /var/cache/regreet 0755 greeter ${user} - -"
+      ]
+      ;
   };
 }

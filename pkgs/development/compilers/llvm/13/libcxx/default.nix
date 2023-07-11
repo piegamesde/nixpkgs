@@ -27,10 +27,12 @@
 assert stdenv.isDarwin -> cxxabi.pname == "libcxxabi";
 
 stdenv.mkDerivation rec {
-  pname = if headersOnly then
-    "cxx-headers"
-  else
-    "libcxx";
+  pname =
+    if headersOnly then
+      "cxx-headers"
+    else
+      "libcxx"
+    ;
   inherit version;
 
   inherit src;
@@ -79,8 +81,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # At this point, cxxabi headers would be installed in the dev output, which
-  # prevents moveToOutput from doing its job later in the build process.
+    # At this point, cxxabi headers would be installed in the dev output, which
+    # prevents moveToOutput from doing its job later in the build process.
   postInstall = lib.optionalString (!headersOnly) ''
     mv "$dev/include/c++/v1/"* "$out/include/c++/v1/"
     pushd "$dev"
@@ -101,8 +103,8 @@ stdenv.mkDerivation rec {
       C++14 and above.
     '';
 
-    # "All of the code in libc++ is dual licensed under the MIT license and the
-    # UIUC License (a BSD-like license)":
+      # "All of the code in libc++ is dual licensed under the MIT license and the
+      # UIUC License (a BSD-like license)":
     license = with lib.licenses; [
       mit
       ncsa

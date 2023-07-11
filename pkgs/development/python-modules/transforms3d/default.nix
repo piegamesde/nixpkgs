@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   disabled = isPy27;
 
-  # no Git tag or PyPI release in some time
+    # no Git tag or PyPI release in some time
   src = fetchFromGitHub {
     owner = "matthew-brett";
     repo = pname;

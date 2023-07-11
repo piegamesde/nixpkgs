@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "django-js-reverse";
-  # Support for Django 4.0 not yet released
+    # Support for Django 4.0 not yet released
   version = "unstable-2022-09-16";
 
   src = fetchFromGitHub {
@@ -25,7 +25,8 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "fix-requires_system_checks-list-or-tuple";
     url =
-      "https://github.com/ierror/django-js-reverse/commit/1477ba44b62c419d12ebec86e56973f1ae56f712.patch";
+      "https://github.com/ierror/django-js-reverse/commit/1477ba44b62c419d12ebec86e56973f1ae56f712.patch"
+      ;
     hash = "sha256-xUtCziewVhnCOaNWddJBH4/Vvhwjjq/wcQDvh2YzWMQ=";
   }) ];
 

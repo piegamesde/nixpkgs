@@ -31,11 +31,13 @@ import ./make-test-python.nix ({
     name = "beanstalkd";
     meta.maintainers = [ lib.maintainers.aanderse ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.beanstalkd.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

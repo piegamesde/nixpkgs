@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-Np0Ibn51qL0ORwq1IY8lUle05MQDdb5XkI1uzGOKJno=";
   };
 
-  # apparently torch API changed a bit at 1.6
+    # apparently torch API changed a bit at 1.6
   postPatch = ''
     substituteInPlace tensorboardX/pytorch_graph.py --replace \
       "torch.onnx.set_training(model, False)" \
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  # required to make tests deterministic
+    # required to make tests deterministic
   PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION = "python";
 
   propagatedBuildInputs = [

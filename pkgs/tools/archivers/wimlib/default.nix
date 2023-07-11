@@ -39,20 +39,22 @@ stdenv.mkDerivation rec {
       --replace '/usr/lib/syslinux' "${syslinux}/share/syslinux"
   '';
 
-  postInstall = let
-    path = lib.makeBinPath ([
-      cabextract
-      mtools
-      ntfs3g
-    ] ++ lib.optionals (!stdenv.isDarwin) [
-      cdrkit
-      syslinux
-    ]);
-  in ''
-    for prog in $out/bin/*; do
-      wrapProgram $prog --prefix PATH : ${path}
-    done
-  '' ;
+  postInstall =
+    let
+      path = lib.makeBinPath ([
+        cabextract
+        mtools
+        ntfs3g
+      ] ++ lib.optionals (!stdenv.isDarwin) [
+        cdrkit
+        syslinux
+      ]);
+    in ''
+      for prog in $out/bin/*; do
+        wrapProgram $prog --prefix PATH : ${path}
+      done
+    ''
+    ;
 
   doCheck = (!stdenv.isDarwin);
 

@@ -72,7 +72,8 @@ stdenv.mkDerivation rec {
         lib.replaceStrings [ "." ] [ "" ] version
       }/ghostscript-${version}.tar.xz";
     hash =
-      "sha512-2US+norvaNEXbWTEDbb6htVdDJ4wBH8hR8AoBqthz+msLLANTlshj/PFHMbtR87/4brE3Z1MwXYLeXTzDGwnNQ==";
+      "sha512-2US+norvaNEXbWTEDbb6htVdDJ4wBH8hR8AoBqthz+msLLANTlshj/PFHMbtR87/4brE3Z1MwXYLeXTzDGwnNQ=="
+      ;
   };
 
   patches = [
@@ -142,10 +143,10 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional x11Support [ "--with-x" ]
     ++ lib.optionals cupsSupport [ "--enable-cups" ];
 
-  # make check does nothing useful
+    # make check does nothing useful
   doCheck = false;
 
-  # don't build/install statically linked bin/gs
+    # don't build/install statically linked bin/gs
   buildFlags = [ "so" ];
   installTargets = [ "soinstall" ];
 
@@ -161,13 +162,13 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # dynamic library name only contains maj.min, eg. '9.53'
+    # dynamic library name only contains maj.min, eg. '9.53'
   dylib_version = lib.versions.majorMinor version;
   preFixup = lib.optionalString stdenv.isDarwin ''
     install_name_tool -change libgs.dylib.$dylib_version $out/lib/libgs.dylib.$dylib_version $out/bin/gs
   '';
 
-  # validate dynamic linkage
+    # validate dynamic linkage
   doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck

@@ -23,26 +23,28 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-E9birF4HmyDZKmwuTb5K4AMmvZQFTmnhFGSxD5bS2qQ=";
   };
 
-  patches = let
-    patchelfPatch = runCommand "0001-dynamically-patchelf-binaries.patch" {
-      CC = stdenv.cc;
-      patchelf = patchelf;
-      libPath = "$ORIGIN/../lib:${lib.makeLibraryPath [ zlib ]}";
-    } ''
-      export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
-      substitute ${./0001-dynamically-patchelf-binaries.patch} $out \
-        --subst-var patchelf \
-        --subst-var dynamicLinker \
-        --subst-var libPath
-    '';
-  in
-  lib.optionals stdenv.isLinux [ patchelfPatch ] ++ [ (fetchpatch {
-    name = "fix-cli-date-bounds-checking.patch";
-    url =
-      "https://github.com/rust-lang/cargo-bisect-rustc/commit/baffa98e1a1ae53f6f3605303e0d765015d9d3ae.patch";
-    hash = "sha256-IQlwQvaPUzPK5T4Mbsrdt7Ea3elaPCw2pBCCdBhjtzM=";
-  }) ]
-  ;
+  patches =
+    let
+      patchelfPatch = runCommand "0001-dynamically-patchelf-binaries.patch" {
+        CC = stdenv.cc;
+        patchelf = patchelf;
+        libPath = "$ORIGIN/../lib:${lib.makeLibraryPath [ zlib ]}";
+      } ''
+        export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
+        substitute ${./0001-dynamically-patchelf-binaries.patch} $out \
+          --subst-var patchelf \
+          --subst-var dynamicLinker \
+          --subst-var libPath
+      '';
+    in
+    lib.optionals stdenv.isLinux [ patchelfPatch ] ++ [ (fetchpatch {
+      name = "fix-cli-date-bounds-checking.patch";
+      url =
+        "https://github.com/rust-lang/cargo-bisect-rustc/commit/baffa98e1a1ae53f6f3605303e0d765015d9d3ae.patch"
+        ;
+      hash = "sha256-IQlwQvaPUzPK5T4Mbsrdt7Ea3elaPCw2pBCCdBhjtzM=";
+    }) ]
+    ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];

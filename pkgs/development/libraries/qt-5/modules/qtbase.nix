@@ -307,13 +307,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   prefixKey = "-prefix ";
 
-  # PostgreSQL autodetection fails sporadically because Qt omits the "-lpq" flag
-  # if dependency paths contain the string "pq", which can occur in the hash.
-  # To prevent these failures, we need to override PostgreSQL detection.
+    # PostgreSQL autodetection fails sporadically because Qt omits the "-lpq" flag
+    # if dependency paths contain the string "pq", which can occur in the hash.
+    # To prevent these failures, we need to override PostgreSQL detection.
   PSQL_LIBS =
     lib.optionalString (postgresql != null) "-L${postgresql.lib}/lib -lpq";
 
-  # TODO Remove obsolete and useless flags once the build will be totally mastered
+    # TODO Remove obsolete and useless flags once the build will be totally mastered
   configureFlags = [
     "-plugindir $(out)/$(qtPluginPrefix)"
     "-qmldir $(out)/$(qtQmlPrefix)"
@@ -440,7 +440,7 @@ stdenv.mkDerivation (finalAttrs: {
         "${libmysqlclient}/include"
       ]);
 
-  # Move selected outputs.
+    # Move selected outputs.
   postInstall = ''
     moveToOutput "mkspecs" "$dev"
   '';

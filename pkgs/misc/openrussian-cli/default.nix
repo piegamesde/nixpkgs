@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  # Can't use "make install" here
+    # Can't use "make install" here
   installPhase = ''
     runHook preInstall
 

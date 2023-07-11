@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "clang.patch";
       url =
-        "https://github.com/behdad/bicon/commit/20f5a79571f222f96e07d7c0c5e76e2c9ff1c59a.patch";
+        "https://github.com/behdad/bicon/commit/20f5a79571f222f96e07d7c0c5e76e2c9ff1c59a.patch"
+        ;
       sha256 = "0l1dm7w52k57nv3lvz5pkbwp021mlsk3csyalxi90np1lx5sqbd1";
     })
   ];

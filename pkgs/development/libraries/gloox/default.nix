@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-a0WzkNOwNGo89swRjVzK/N8Q1RvlegKwB27fBkAzq28=";
   };
 
-  # needed since gcc12
+    # needed since gcc12
   postPatch = ''
     sed '1i#include <ctime>' -i \
       src/tests/{tag/tag_perf.cpp,zlib/zlib_perf.cpp} \

@@ -41,7 +41,8 @@ let
     "sublime3"
   ];
   downloadUrl =
-    "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2";
+    "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2"
+    ;
   versionUrl = "https://download.sublimetext.com/latest/${
       if dev then
         "dev"
@@ -49,14 +50,18 @@ let
         "stable"
     }";
   versionFile = builtins.toString ./packages.nix;
-  archSha256 = if stdenv.hostPlatform.system == "i686-linux" then
-    x32sha256
-  else
-    x64sha256;
-  arch = if stdenv.hostPlatform.system == "i686-linux" then
-    "x32"
-  else
-    "x64";
+  archSha256 =
+    if stdenv.hostPlatform.system == "i686-linux" then
+      x32sha256
+    else
+      x64sha256
+    ;
+  arch =
+    if stdenv.hostPlatform.system == "i686-linux" then
+      "x32"
+    else
+      "x64"
+    ;
 
   libPath = lib.makeLibraryPath [
     xorg.libX11
@@ -89,7 +94,7 @@ in let
       wrapGAppsHook
     ];
 
-    # make exec.py in Default.sublime-package use own bash with an LD_PRELOAD instead of "/bin/bash"
+      # make exec.py in Default.sublime-package use own bash with an LD_PRELOAD instead of "/bin/bash"
     patchPhase = ''
       runHook prePatch
 

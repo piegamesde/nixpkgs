@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
   pname = "networking-ts-cxx";
   version = "2019-02-27";
 
-  # Used until https://github.com/chriskohlhoff/networking-ts-impl/issues/17 is
-  # resolved and we can generate in Nix.
+    # Used until https://github.com/chriskohlhoff/networking-ts-impl/issues/17 is
+    # resolved and we can generate in Nix.
   src = fetchFromGitHub {
     owner = "chriskohlhoff";
     repo = "networking-ts-impl";
@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Experimental implementation of the C++ Networking Technical Specification";
+      "Experimental implementation of the C++ Networking Technical Specification"
+      ;
     homepage = "https://github.com/chriskohlhoff/networking-ts-impl";
     license = licenses.boost;
     maintainers = with maintainers; [ bhipple ];

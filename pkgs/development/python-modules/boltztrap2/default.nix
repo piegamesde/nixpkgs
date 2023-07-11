@@ -43,7 +43,7 @@ buildPythonPackage rec {
     netcdf4
   ];
 
-  # pypi release does no include files for tests
+    # pypi release does no include files for tests
   doCheck = false;
 
   pythonImportsCheck = [ "BoltzTraP2" ];

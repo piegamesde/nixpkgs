@@ -27,7 +27,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "aemet_opendata.interface" ];

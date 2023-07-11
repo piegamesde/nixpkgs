@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://hyperledger.jfrog.io/artifactory/${pname}-binaries/${pname}/${version}/${pname}-${version}.tar.gz";
+      "https://hyperledger.jfrog.io/artifactory/${pname}-binaries/${pname}/${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-PTpwmjqrmToIAbQSpHGddOMZ+ULdwT+w8ws8SlTRJTg=";
   };
 

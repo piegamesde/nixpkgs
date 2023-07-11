@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests/test.py" ];
 
-  # A test needs the HOME directory to be different from $TMPDIR.
+    # A test needs the HOME directory to be different from $TMPDIR.
   preCheck = ''
     export HOME=$(mktemp -d)
   '';

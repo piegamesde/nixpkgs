@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Library for reading and writing the IPTC metadata in images and other files";
+      "Library for reading and writing the IPTC metadata in images and other files"
+      ;
     homepage = "https://github.com/ianw/libiptcdata";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

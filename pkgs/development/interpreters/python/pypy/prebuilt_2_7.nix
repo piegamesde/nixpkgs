@@ -39,7 +39,7 @@ let
     sitePackages = "site-packages";
     hasDistutilsCxxPatch = false;
 
-    # Not possible to cross-compile with.
+      # Not possible to cross-compile with.
     pythonOnBuildForBuild = throw "${pname} does not support cross compilation";
     pythonOnBuildForHost = self;
     pythonOnBuildForTarget =
@@ -55,13 +55,17 @@ let
 
   downloadUrls = {
     aarch64-linux =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-aarch64.tar.bz2";
+      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-aarch64.tar.bz2"
+      ;
     x86_64-linux =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-linux64.tar.bz2";
+      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-linux64.tar.bz2"
+      ;
     aarch64-darwin =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-macos_arm64.tar.bz2";
+      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-macos_arm64.tar.bz2"
+      ;
     x86_64-darwin =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-macos_x86_64.tar.bz2";
+      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-macos_x86_64.tar.bz2"
+      ;
   };
 
 in with passthru;
@@ -142,19 +146,21 @@ stdenv.mkDerivation {
 
   doInstallCheck = true;
 
-  # Check whether importing of (extension) modules functions
-  installCheckPhase = let
-    modules = [
-      "ssl"
-      "sys"
-      "curses"
-    ] ++ lib.optionals (!isPy3k) [ "Tkinter" ]
-      ++ lib.optionals isPy3k [ "tkinter" ];
-    imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
-  in ''
-    echo "Testing whether we can import modules"
-    $out/bin/${executable} -c '${imports}'
-  '' ;
+    # Check whether importing of (extension) modules functions
+  installCheckPhase =
+    let
+      modules = [
+        "ssl"
+        "sys"
+        "curses"
+      ] ++ lib.optionals (!isPy3k) [ "Tkinter" ]
+        ++ lib.optionals isPy3k [ "tkinter" ];
+      imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
+    in ''
+      echo "Testing whether we can import modules"
+      $out/bin/${executable} -c '${imports}'
+    ''
+    ;
 
   setupHook = python-setup-hook sitePackages;
 
@@ -166,7 +172,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "http://pypy.org/";
     description =
-      "Fast, compliant alternative implementation of the Python language (${pythonVersion})";
+      "Fast, compliant alternative implementation of the Python language (${pythonVersion})"
+      ;
     license = licenses.mit;
     platforms = lib.mapAttrsToList (arch: _: arch) downloadUrls;
   };

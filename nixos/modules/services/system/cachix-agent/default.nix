@@ -64,10 +64,10 @@ in {
       path = [ config.nix.package ];
       wantedBy = [ "multi-user.target" ];
 
-      # Cachix requires $USER to be set
+        # Cachix requires $USER to be set
       environment.USER = "root";
 
-      # don't stop the service if the unit disappears
+        # don't stop the service if the unit disappears
       unitConfig.X-StopOnRemoval = false;
 
       serviceConfig = {

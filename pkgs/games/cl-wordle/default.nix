@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Wordle TUI in Rust";
     homepage = "https://github.com/conradludgate/wordle";
-    # repo has no license, but crates.io says it's MIT
+      # repo has no license, but crates.io says it's MIT
     license = licenses.mit;
     maintainers = with maintainers; [ lom ];
     mainProgram = "wordle";

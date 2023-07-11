@@ -35,7 +35,7 @@ buildPythonPackage rec {
     uamqp
   ];
 
-  # Tests require dev-tools
+    # Tests require dev-tools
   doCheck = false;
 
   pythonImportsCheck = [ "azure.servicebus" ];

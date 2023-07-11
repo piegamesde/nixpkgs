@@ -10,44 +10,47 @@ with lib;
 let
   cfg = config.programs.yabar;
 
-  mapExtra = v:
+  mapExtra =
+    v:
     lib.concatStringsSep "\n" (mapAttrsToList (key: val:
       "${key} = ${
         if (isString val) then
           ''"${val}"''
         else
           "${builtins.toString val}"
-      };") v);
+      };") v)
+    ;
 
   listKeys = r: concatStringsSep "," (map (n: ''"${n}"'') (attrNames r));
 
-  configFile = let
-    bars = mapAttrsToList (name: cfg: ''
-      ${name}: {
-        font: "${cfg.font}";
-        position: "${cfg.position}";
+  configFile =
+    let
+      bars = mapAttrsToList (name: cfg: ''
+        ${name}: {
+          font: "${cfg.font}";
+          position: "${cfg.position}";
 
-        ${mapExtra cfg.extra}
+          ${mapExtra cfg.extra}
 
-        block-list: [${listKeys cfg.indicators}]
+          block-list: [${listKeys cfg.indicators}]
 
-        ${
-          concatStringsSep "\n" (mapAttrsToList (name: cfg: ''
-            ${name}: {
-              exec: "${cfg.exec}";
-              align: "${cfg.align}";
-              ${mapExtra cfg.extra}
-            };
-          '') cfg.indicators)
-        }
-      };
-    '') cfg.bars;
-  in
-  pkgs.writeText "yabar.conf" ''
-    bar-list = [${listKeys cfg.bars}];
-    ${concatStringsSep "\n" bars}
-  ''
-  ;
+          ${
+            concatStringsSep "\n" (mapAttrsToList (name: cfg: ''
+              ${name}: {
+                exec: "${cfg.exec}";
+                align: "${cfg.align}";
+                ${mapExtra cfg.extra}
+              };
+            '') cfg.indicators)
+          }
+        };
+      '') cfg.bars;
+    in
+    pkgs.writeText "yabar.conf" ''
+      bar-list = [${listKeys cfg.bars}];
+      ${concatStringsSep "\n" bars}
+    ''
+    ;
 in {
   options.programs.yabar = {
     enable = mkEnableOption (lib.mdDoc "yabar");
@@ -58,8 +61,9 @@ in {
       example = literalExpression "pkgs.yabar";
       type = types.package;
 
-      # `yabar-stable` segfaults under certain conditions.
-      apply = x:
+        # `yabar-stable` segfaults under certain conditions.
+      apply =
+        x:
         if x == pkgs.yabar-unstable then
           x
         else
@@ -73,7 +77,8 @@ in {
 
             Most of them don't occur on master anymore, until a new release is published, it's recommended
             to use `yabar-unstable'.
-          '';
+          ''
+        ;
 
       description = lib.mdDoc ''
         The package which contains the `yabar` binary.

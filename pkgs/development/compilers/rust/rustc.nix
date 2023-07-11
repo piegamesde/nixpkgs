@@ -50,22 +50,22 @@ stdenv.mkDerivation rec {
 
   __darwinAllowLocalNetworking = true;
 
-  # rustc complains about modified source files otherwise
+    # rustc complains about modified source files otherwise
   dontUpdateAutotoolsGnuConfigScripts = true;
 
-  # Running the default `strip -S` command on Darwin corrupts the
-  # .rlib files in "lib/".
-  #
-  # See https://github.com/NixOS/nixpkgs/pull/34227
-  #
-  # Running `strip -S` when cross compiling can harm the cross rlibs.
-  # See: https://github.com/NixOS/nixpkgs/pull/56540#issuecomment-471624656
+    # Running the default `strip -S` command on Darwin corrupts the
+    # .rlib files in "lib/".
+    #
+    # See https://github.com/NixOS/nixpkgs/pull/34227
+    #
+    # Running `strip -S` when cross compiling can harm the cross rlibs.
+    # See: https://github.com/NixOS/nixpkgs/pull/56540#issuecomment-471624656
   stripDebugList = [ "bin" ];
 
-  # The Rust pkg-config crate does not support prefixed pkg-config executables[1],
-  # but it does support checking these idiosyncratic PKG_CONFIG_${TRIPLE}
-  # environment variables.
-  # [1]: https://github.com/rust-lang/pkg-config-rs/issues/53
+    # The Rust pkg-config crate does not support prefixed pkg-config executables[1],
+    # but it does support checking these idiosyncratic PKG_CONFIG_${TRIPLE}
+    # environment variables.
+    # [1]: https://github.com/rust-lang/pkg-config-rs/issues/53
   "PKG_CONFIG_${
     builtins.replaceStrings [ "-" ] [ "_" ]
     (rust.toRustTarget stdenv.buildPlatform)
@@ -78,99 +78,108 @@ stdenv.mkDerivation rec {
     ++ optional (stdenv.isDarwin && !withBundledLLVM) "-lc++"
     ++ optional stdenv.isDarwin "-rpath ${llvmSharedForHost}/lib");
 
-  # Increase codegen units to introduce parallelism within the compiler.
+    # Increase codegen units to introduce parallelism within the compiler.
   RUSTFLAGS = "-Ccodegen-units=10";
 
-  # We need rust to build rust. If we don't provide it, configure will try to download it.
-  # Reference: https://github.com/rust-lang/rust/blob/master/src/bootstrap/configure.py
-  configureFlags = let
-    setBuild = "--set=target.${rust.toRustTarget stdenv.buildPlatform}";
-    setHost = "--set=target.${rust.toRustTarget stdenv.hostPlatform}";
-    setTarget = "--set=target.${rust.toRustTarget stdenv.targetPlatform}";
-    ccForBuild =
-      "${pkgsBuildBuild.targetPackages.stdenv.cc}/bin/${pkgsBuildBuild.targetPackages.stdenv.cc.targetPrefix}cc";
-    cxxForBuild =
-      "${pkgsBuildBuild.targetPackages.stdenv.cc}/bin/${pkgsBuildBuild.targetPackages.stdenv.cc.targetPrefix}c++";
-    ccForHost =
-      "${pkgsBuildHost.targetPackages.stdenv.cc}/bin/${pkgsBuildHost.targetPackages.stdenv.cc.targetPrefix}cc";
-    cxxForHost =
-      "${pkgsBuildHost.targetPackages.stdenv.cc}/bin/${pkgsBuildHost.targetPackages.stdenv.cc.targetPrefix}c++";
-    ccForTarget =
-      "${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}cc";
-    cxxForTarget =
-      "${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}c++";
-  in
-  [
-    "--release-channel=stable"
-    "--set=build.rustc=${rustPlatform.rust.rustc}/bin/rustc"
-    "--set=build.cargo=${rustPlatform.rust.cargo}/bin/cargo"
-    "--enable-rpath"
-    "--enable-vendor"
-    "--build=${rust.toRustTargetSpec stdenv.buildPlatform}"
-    "--host=${rust.toRustTargetSpec stdenv.hostPlatform}"
-    # std is built for all platforms in --target.
-    "--target=${
-      concatStringsSep "," ([ (rust.toRustTargetSpec stdenv.targetPlatform)
+    # We need rust to build rust. If we don't provide it, configure will try to download it.
+    # Reference: https://github.com/rust-lang/rust/blob/master/src/bootstrap/configure.py
+  configureFlags =
+    let
+      setBuild = "--set=target.${rust.toRustTarget stdenv.buildPlatform}";
+      setHost = "--set=target.${rust.toRustTarget stdenv.hostPlatform}";
+      setTarget = "--set=target.${rust.toRustTarget stdenv.targetPlatform}";
+      ccForBuild =
+        "${pkgsBuildBuild.targetPackages.stdenv.cc}/bin/${pkgsBuildBuild.targetPackages.stdenv.cc.targetPrefix}cc"
+        ;
+      cxxForBuild =
+        "${pkgsBuildBuild.targetPackages.stdenv.cc}/bin/${pkgsBuildBuild.targetPackages.stdenv.cc.targetPrefix}c++"
+        ;
+      ccForHost =
+        "${pkgsBuildHost.targetPackages.stdenv.cc}/bin/${pkgsBuildHost.targetPackages.stdenv.cc.targetPrefix}cc"
+        ;
+      cxxForHost =
+        "${pkgsBuildHost.targetPackages.stdenv.cc}/bin/${pkgsBuildHost.targetPackages.stdenv.cc.targetPrefix}c++"
+        ;
+      ccForTarget =
+        "${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}cc"
+        ;
+      cxxForTarget =
+        "${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}c++"
+        ;
+    in
+    [
+      "--release-channel=stable"
+      "--set=build.rustc=${rustPlatform.rust.rustc}/bin/rustc"
+      "--set=build.cargo=${rustPlatform.rust.cargo}/bin/cargo"
+      "--enable-rpath"
+      "--enable-vendor"
+      "--build=${rust.toRustTargetSpec stdenv.buildPlatform}"
+      "--host=${rust.toRustTargetSpec stdenv.hostPlatform}"
+      # std is built for all platforms in --target.
+      "--target=${
+        concatStringsSep "," ([ (rust.toRustTargetSpec stdenv.targetPlatform)
 
-      # (build!=target): When cross-building a compiler we need to add
-      # the build platform as well so rustc can compile build.rs
-      # scripts.
-        ] ++ optionals
-        (stdenv.buildPlatform != stdenv.targetPlatform) [ (rust.toRustTargetSpec
-          stdenv.buildPlatform)
+        # (build!=target): When cross-building a compiler we need to add
+        # the build platform as well so rustc can compile build.rs
+        # scripts.
+          ] ++ optionals (stdenv.buildPlatform
+            != stdenv.targetPlatform) [ (rust.toRustTargetSpec
+              stdenv.buildPlatform)
 
-        # (host!=target): When building a cross-targeting compiler we
-        # need to add the host platform as well so rustc can compile
-        # build.rs scripts.
-        ] ++ optionals
-        (stdenv.hostPlatform != stdenv.targetPlatform) [ (rust.toRustTargetSpec
-          stdenv.hostPlatform) ])
-    }"
+            # (host!=target): When building a cross-targeting compiler we
+            # need to add the host platform as well so rustc can compile
+            # build.rs scripts.
+          ] ++ optionals (stdenv.hostPlatform
+            != stdenv.targetPlatform) [ (rust.toRustTargetSpec
+              stdenv.hostPlatform) ])
+      }"
 
-    "${setBuild}.cc=${ccForBuild}"
-    "${setHost}.cc=${ccForHost}"
-    "${setTarget}.cc=${ccForTarget}"
+      "${setBuild}.cc=${ccForBuild}"
+      "${setHost}.cc=${ccForHost}"
+      "${setTarget}.cc=${ccForTarget}"
 
-    "${setBuild}.linker=${ccForBuild}"
-    "${setHost}.linker=${ccForHost}"
-    "${setTarget}.linker=${ccForTarget}"
+      "${setBuild}.linker=${ccForBuild}"
+      "${setHost}.linker=${ccForHost}"
+      "${setTarget}.linker=${ccForTarget}"
 
-    "${setBuild}.cxx=${cxxForBuild}"
-    "${setHost}.cxx=${cxxForHost}"
-    "${setTarget}.cxx=${cxxForTarget}"
+      "${setBuild}.cxx=${cxxForBuild}"
+      "${setHost}.cxx=${cxxForHost}"
+      "${setTarget}.cxx=${cxxForTarget}"
 
-    "${setBuild}.crt-static=${lib.boolToString stdenv.buildPlatform.isStatic}"
-    "${setHost}.crt-static=${lib.boolToString stdenv.hostPlatform.isStatic}"
-    "${setTarget}.crt-static=${lib.boolToString stdenv.targetPlatform.isStatic}"
-  ] ++ optionals (!withBundledLLVM) [
-    "--enable-llvm-link-shared"
-    "${setBuild}.llvm-config=${llvmSharedForBuild.dev}/bin/llvm-config"
-    "${setHost}.llvm-config=${llvmSharedForHost.dev}/bin/llvm-config"
-    "${setTarget}.llvm-config=${llvmSharedForTarget.dev}/bin/llvm-config"
-  ] ++ optionals (stdenv.isLinux
-    && !stdenv.targetPlatform.isRedox) [ "--enable-profiler" # build libprofiler_builtins
-  ] ++ optionals
-  stdenv.buildPlatform.isMusl [ "${setBuild}.musl-root=${pkgsBuildBuild.targetPackages.stdenv.cc.libc}" ]
-  ++ optionals
-  stdenv.hostPlatform.isMusl [ "${setHost}.musl-root=${pkgsBuildHost.targetPackages.stdenv.cc.libc}" ]
-  ++ optionals
-  stdenv.targetPlatform.isMusl [ "${setTarget}.musl-root=${pkgsBuildTarget.targetPackages.stdenv.cc.libc}" ]
-  ++ optionals (rust.IsNoStdTarget stdenv.targetPlatform) [ "--disable-docs" ]
-  ++ optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    # https://github.com/rust-lang/rust/issues/92173
-    "--set rust.jemalloc"
-  ]
-  ;
+      "${setBuild}.crt-static=${lib.boolToString stdenv.buildPlatform.isStatic}"
+      "${setHost}.crt-static=${lib.boolToString stdenv.hostPlatform.isStatic}"
+      "${setTarget}.crt-static=${
+        lib.boolToString stdenv.targetPlatform.isStatic
+      }"
+    ] ++ optionals (!withBundledLLVM) [
+      "--enable-llvm-link-shared"
+      "${setBuild}.llvm-config=${llvmSharedForBuild.dev}/bin/llvm-config"
+      "${setHost}.llvm-config=${llvmSharedForHost.dev}/bin/llvm-config"
+      "${setTarget}.llvm-config=${llvmSharedForTarget.dev}/bin/llvm-config"
+    ] ++ optionals (stdenv.isLinux
+      && !stdenv.targetPlatform.isRedox) [ "--enable-profiler" # build libprofiler_builtins
+    ] ++ optionals
+    stdenv.buildPlatform.isMusl [ "${setBuild}.musl-root=${pkgsBuildBuild.targetPackages.stdenv.cc.libc}" ]
+    ++ optionals
+    stdenv.hostPlatform.isMusl [ "${setHost}.musl-root=${pkgsBuildHost.targetPackages.stdenv.cc.libc}" ]
+    ++ optionals
+    stdenv.targetPlatform.isMusl [ "${setTarget}.musl-root=${pkgsBuildTarget.targetPackages.stdenv.cc.libc}" ]
+    ++ optionals (rust.IsNoStdTarget stdenv.targetPlatform) [ "--disable-docs" ]
+    ++ optionals (stdenv.isDarwin && stdenv.isx86_64) [
+      # https://github.com/rust-lang/rust/issues/92173
+      "--set rust.jemalloc"
+    ]
+    ;
 
-  # The bootstrap.py will generated a Makefile that then executes the build.
-  # The BOOTSTRAP_ARGS used by this Makefile must include all flags to pass
-  # to the bootstrap builder.
+    # The bootstrap.py will generated a Makefile that then executes the build.
+    # The BOOTSTRAP_ARGS used by this Makefile must include all flags to pass
+    # to the bootstrap builder.
   postConfigure = ''
     substituteInPlace Makefile \
       --replace 'BOOTSTRAP_ARGS :=' 'BOOTSTRAP_ARGS := --jobs $(NIX_BUILD_CORES)'
   '';
 
-  # the rust build system complains that nix alters the checksums
+    # the rust build system complains that nix alters the checksums
   dontFixLibtool = true;
 
   inherit patches;
@@ -205,8 +214,8 @@ stdenv.mkDerivation rec {
       export JEMALLOC_SYS_WITH_LG_VADDR=48
     '';
 
-  # rustc unfortunately needs cmake to compile llvm-rt but doesn't
-  # use it for the normal build. This disables cmake in Nix.
+    # rustc unfortunately needs cmake to compile llvm-rt but doesn't
+    # use it for the normal build. This disables cmake in Nix.
   dontUseCmakeConfigure = true;
 
   depsBuildBuild = [

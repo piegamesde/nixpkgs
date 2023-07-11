@@ -101,7 +101,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/linuxmint/muffin";
     description =
-      "The window management library for the Cinnamon desktop (libmuffin) and its sample WM binary (muffin)";
+      "The window management library for the Cinnamon desktop (libmuffin) and its sample WM binary (muffin)"
+      ;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;

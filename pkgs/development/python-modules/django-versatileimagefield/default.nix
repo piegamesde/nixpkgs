@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ django ];
 
-  # tests not included with pypi release
+    # tests not included with pypi release
   doCheck = false;
 
   pythonImportsCheck = [ "versatileimagefield" ];

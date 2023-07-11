@@ -10,10 +10,12 @@
 
 let
 
-  arch = if stdenv.system == "x86_64-linux" then
-    "x86_64"
-  else
-    "i386";
+  arch =
+    if stdenv.system == "x86_64-linux" then
+      "x86_64"
+    else
+      "i386"
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -23,7 +25,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     sha256 = "1a7ngd03x0bkdl7pszy5zqqic0plxvdxqm5w7klr6hbdskx1lir9";
     url =
-      "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz";
+      "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz"
+      ;
   };
 
   buildInputs = [
@@ -112,10 +115,10 @@ stdenv.mkDerivation rec {
     ln -s ${stdenv.cc.cc.lib}/lib/libstdc++.so.6 $out/lib/
   '';
 
-  # all binaries are already stripped
+    # all binaries are already stripped
   dontStrip = true;
 
-  # we did this in prefixup already
+    # we did this in prefixup already
   dontPatchELF = true;
 
   meta = with lib; {
@@ -125,8 +128,8 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
 
-    # Tested on linux-x86_64. Might work on linux-i386.
-    # Probably won't work on anything else.
+      # Tested on linux-x86_64. Might work on linux-i386.
+      # Probably won't work on anything else.
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
   };

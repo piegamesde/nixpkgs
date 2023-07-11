@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "7cARRJWRxF1kMySX6KcB6nrVf8k1p/nr3OyAwNLmztc=";
 
-  # a nightly compiler is required unless we use this cheat code.
+    # a nightly compiler is required unless we use this cheat code.
   RUSTC_BOOTSTRAP = 1;
 
   buildInputs = lib.optional stdenv.isDarwin Security;

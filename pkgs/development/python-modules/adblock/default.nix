@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  # Pypi only has binary releases
+    # Pypi only has binary releases
   src = fetchFromGitHub {
     owner = "ArniDagur";
     repo = "python-adblock";
@@ -36,7 +36,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "pep-621-compat.patch";
       url =
-        "https://github.com/ArniDagur/python-adblock/commit/2a8716e0723b60390f0aefd0e05f40ba598ac73f.patch";
+        "https://github.com/ArniDagur/python-adblock/commit/2a8716e0723b60390f0aefd0e05f40ba598ac73f.patch"
+        ;
       hash = "sha256-n9+LDs0no66OdNZxw3aU57ngWrAbmm6hx4qIuxXoatM=";
     })
   ];
@@ -89,7 +90,8 @@ buildPythonPackage rec {
     description = "Python wrapper for Brave's adblocking library";
     homepage = "https://github.com/ArniDagur/python-adblock/";
     changelog =
-      "https://github.com/ArniDagur/python-adblock/blob/${version}/CHANGELOG.md";
+      "https://github.com/ArniDagur/python-adblock/blob/${version}/CHANGELOG.md"
+      ;
     maintainers = with maintainers; [ dotlambda ];
     license = with licenses; [
       asl20 # or

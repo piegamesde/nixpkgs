@@ -125,7 +125,7 @@ in {
     };
   };
 
-  ##### implementation
+    ##### implementation
   config = mkIf cfg.enable {
     services.nomad.settings = {
       # Agrees with `StateDirectory = "nomad"` set below.
@@ -155,17 +155,19 @@ in {
         {
           DynamicUser = cfg.dropPrivileges;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          ExecStart = let
-            pluginsDir = pkgs.symlinkJoin {
-              name = "nomad-plugins";
-              paths = cfg.extraSettingsPlugins;
-            };
-          in
-          "${cfg.package}/bin/nomad agent -config=/etc/nomad.json -plugin-dir=${pluginsDir}/bin"
-          + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
-          + concatMapStrings (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
-          (lib.attrNames cfg.credentials)
-          ;
+          ExecStart =
+            let
+              pluginsDir = pkgs.symlinkJoin {
+                name = "nomad-plugins";
+                paths = cfg.extraSettingsPlugins;
+              };
+            in
+            "${cfg.package}/bin/nomad agent -config=/etc/nomad.json -plugin-dir=${pluginsDir}/bin"
+            + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
+            + concatMapStrings
+            (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
+            (lib.attrNames cfg.credentials)
+            ;
           KillMode = "process";
           KillSignal = "SIGINT";
           LimitNOFILE = 65536;
@@ -192,13 +194,14 @@ in {
     };
 
     assertions = [ {
-      assertion = cfg.dropPrivileges -> cfg.settings.data_dir
-        == "/var/lib/nomad";
+      assertion =
+        cfg.dropPrivileges -> cfg.settings.data_dir == "/var/lib/nomad";
       message = ''
-        settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
+        settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true''
+        ;
     } ];
 
-    # Docker support requires the Docker daemon to be running.
+      # Docker support requires the Docker daemon to be running.
     virtualisation.docker.enable = mkIf cfg.enableDocker true;
   };
 }

@@ -54,7 +54,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     services.xserver.videoDrivers = [ "dummy" ];

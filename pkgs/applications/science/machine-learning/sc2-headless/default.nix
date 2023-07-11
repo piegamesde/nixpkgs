@@ -67,7 +67,8 @@ else
       license = {
         fullName = "BLIZZARD® STARCRAFT® II AI AND MACHINE LEARNING LICENSE";
         url =
-          "https://blzdistsc2-a.akamaihd.net/AI_AND_MACHINE_LEARNING_LICENSE.html";
+          "https://blzdistsc2-a.akamaihd.net/AI_AND_MACHINE_LEARNING_LICENSE.html"
+          ;
         free = false;
       };
       maintainers = with lib.maintainers; [ ];

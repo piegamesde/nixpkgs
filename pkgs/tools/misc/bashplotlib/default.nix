@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication {
     sha256 = "sha256-0S6mgy6k7CcqsDR1kE5xcXGidF1t061e+M+ZuP2Gk3c=";
   };
 
-  # No tests
+    # No tests
   doCheck = false;
 
   meta = with lib; {

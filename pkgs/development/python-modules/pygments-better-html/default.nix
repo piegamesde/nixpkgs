@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pygments ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pygments_better_html" ];

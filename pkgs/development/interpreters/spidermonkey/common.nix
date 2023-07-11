@@ -48,7 +48,8 @@ stdenv.mkDerivation (finalAttrs: rec {
 
   src = fetchurl {
     url =
-      "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
+      "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz"
+      ;
     inherit hash;
   };
 
@@ -57,9 +58,11 @@ stdenv.mkDerivation (finalAttrs: rec {
     # Upstream bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1526653
     (fetchpatch {
       url =
-        "https://salsa.debian.org/mozilla-team/firefox/commit/fd6847c9416f9eebde636e21d794d25d1be8791d.patch";
+        "https://salsa.debian.org/mozilla-team/firefox/commit/fd6847c9416f9eebde636e21d794d25d1be8791d.patch"
+        ;
       hash =
-        "sha512-K8U3Qyo7g4si2r/8kJdXyRoTrDHAY48x/YJ7YL+YBwlpfNQcHxX+EZvhRzW8FHYW+f7kOnJu9QykhE8PhSQ9zQ==";
+        "sha512-K8U3Qyo7g4si2r/8kJdXyRoTrDHAY48x/YJ7YL+YBwlpfNQcHxX+EZvhRzW8FHYW+f7kOnJu9QykhE8PhSQ9zQ=="
+        ;
     })
 
     # Remove this when updating to 79 - The patches are already applied upstream
@@ -140,14 +143,14 @@ stdenv.mkDerivation (finalAttrs: rec {
       "--target=${stdenv.hostPlatform.config}"
     ];
 
-  # mkDerivation by default appends --build/--host to configureFlags when cross compiling
-  # These defaults are bogus for Spidermonkey - avoid passing them by providing an empty list
+    # mkDerivation by default appends --build/--host to configureFlags when cross compiling
+    # These defaults are bogus for Spidermonkey - avoid passing them by providing an empty list
   configurePlatforms = [ ];
 
   enableParallelBuilding = true;
 
-  # cc-rs insists on using -mabi=lp64 (soft-float) for riscv64,
-  # while we have a double-float toolchain
+    # cc-rs insists on using -mabi=lp64 (soft-float) for riscv64,
+    # while we have a double-float toolchain
   env.NIX_CFLAGS_COMPILE = lib.optionalString (with stdenv.hostPlatform;
     isRiscV && is64bit && lib.versionOlder version "91") "-mabi=lp64d";
 
@@ -183,7 +186,7 @@ stdenv.mkDerivation (finalAttrs: rec {
     configureScript=../js/src/configure
   '';
 
-  # Remove unnecessary static lib
+    # Remove unnecessary static lib
   preFixup = ''
     moveToOutput bin/js${lib.versions.major version}-config "$dev"
     rm $out/lib/libjs_static.ajs

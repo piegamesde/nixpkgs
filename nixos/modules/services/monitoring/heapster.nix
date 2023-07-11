@@ -49,7 +49,8 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/heapster --source=${cfg.source} --sink=${cfg.sink} ${cfg.extraOpts}";
+          "${cfg.package}/bin/heapster --source=${cfg.source} --sink=${cfg.sink} ${cfg.extraOpts}"
+          ;
         User = "heapster";
       };
     };

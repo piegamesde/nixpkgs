@@ -43,7 +43,7 @@ in {
         ExecStart = "${pkgs.vnstat}/bin/vnstatd -n";
         ExecReload = "${pkgs.procps}/bin/kill -HUP $MAINPID";
 
-        # Hardening (from upstream example service)
+          # Hardening (from upstream example service)
         ProtectSystem = "strict";
         StateDirectory = "vnstat";
         PrivateDevices = true;

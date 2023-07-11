@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  # Beware: non-bootstrap libidn2 is overridden by ./hack.nix
+    # Beware: non-bootstrap libidn2 is overridden by ./hack.nix
   outputs = [
     "bin"
     "dev"
@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # The above patch causes the documentation to be regenerated, so the
-  # documentation tools are required.
+    # The above patch causes the documentation to be regenerated, so the
+    # documentation tools are required.
   nativeBuildInputs = lib.optionals stdenv.isDarwin [
     help2man
     texinfo

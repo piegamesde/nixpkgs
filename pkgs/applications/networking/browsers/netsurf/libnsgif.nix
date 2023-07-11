@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
+      "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz"
+      ;
     sha256 = "sha256-nq6lNM1wtTxar0UxeulXcBaFprSojb407Sb0+q6Hmks=";
   };
 

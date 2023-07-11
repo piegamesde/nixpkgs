@@ -28,18 +28,21 @@
 assert lib.isList enabledFlavors && enabledFlavors != [ ];
 
 let
-  pinentryMkDerivation = if (builtins.elem "qt" enabledFlavors) then
-    mkDerivation
-  else
-    stdenv.mkDerivation;
+  pinentryMkDerivation =
+    if (builtins.elem "qt" enabledFlavors) then
+      mkDerivation
+    else
+      stdenv.mkDerivation
+    ;
 
-  enableFeaturePinentry = f:
+  enableFeaturePinentry =
+    f:
     let
       flag = flavorInfo.${f}.flag or null;
     in
     lib.optionalString (flag != null)
     (lib.enableFeature (lib.elem f enabledFlavors) ("pinentry-" + flag))
-  ;
+    ;
 
   flavorInfo = {
     curses = {
@@ -103,7 +106,8 @@ pinentryMkDerivation rec {
   patches = [ ./autoconf-ar.patch ]
     ++ lib.optionals (lib.elem "gtk2" enabledFlavors) [ (fetchpatch {
       url =
-        "https://salsa.debian.org/debian/pinentry/raw/debian/1.1.0-1/debian/patches/0007-gtk2-When-X11-input-grabbing-fails-try-again-over-0..patch";
+        "https://salsa.debian.org/debian/pinentry/raw/debian/1.1.0-1/debian/patches/0007-gtk2-When-X11-input-grabbing-fails-try-again-over-0..patch"
+        ;
       sha256 = "15r1axby3fdlzz9wg5zx7miv7gqx2jy4immaw4xmmw5skiifnhfd";
     }) ];
 

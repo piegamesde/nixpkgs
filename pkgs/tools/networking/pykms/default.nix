@@ -62,7 +62,7 @@ pypkgs.buildPythonApplication rec {
 
   format = "other";
 
-  # there are no tests
+    # there are no tests
   doCheck = false;
 
   installPhase = ''

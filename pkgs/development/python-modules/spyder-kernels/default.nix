@@ -42,7 +42,7 @@ buildPythonPackage rec {
       --replace "ipython>=7.31.1,<8" "ipython"
   '';
 
-  # No tests
+    # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "spyder_kernels" ];

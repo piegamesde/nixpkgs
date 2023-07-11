@@ -47,12 +47,14 @@ let
 
   '';
 
-  mkSetuidRoot = source: {
-    setuid = true;
-    owner = "root";
-    group = "root";
-    inherit source;
-  };
+  mkSetuidRoot =
+    source: {
+      setuid = true;
+      owner = "root";
+      group = "root";
+      inherit source;
+    }
+    ;
 
 in {
 
@@ -74,7 +76,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = {
 
@@ -83,18 +85,17 @@ in {
       ++ lib.optional (types.shellPackage.check config.users.defaultUserShell)
       config.users.defaultUserShell;
 
-    environment.etc =
-      { # /etc/login.defs: global configuration for pwdutils.  You
-        # cannot login without it!
-        "login.defs".source = pkgs.writeText "login.defs" loginDefs;
+    environment.etc = { # /etc/login.defs: global configuration for pwdutils.  You
+      # cannot login without it!
+      "login.defs".source = pkgs.writeText "login.defs" loginDefs;
 
         # /etc/default/useradd: configuration for useradd.
-        "default/useradd".source = pkgs.writeText "useradd" ''
-          GROUP=100
-          HOME=/home
-          SHELL=${utils.toShellPath config.users.defaultUserShell}
-        '';
-      };
+      "default/useradd".source = pkgs.writeText "useradd" ''
+        GROUP=100
+        HOME=/home
+        SHELL=${utils.toShellPath config.users.defaultUserShell}
+      '';
+    };
 
     security.pam.services = {
       chsh = { rootOK = true; };
@@ -105,9 +106,9 @@ in {
         logFailures = true;
       };
       passwd = { };
-      # Note: useradd, groupadd etc. aren't setuid root, so it
-      # doesn't really matter what the PAM config says as long as it
-      # lets root in.
+        # Note: useradd, groupadd etc. aren't setuid root, so it
+        # doesn't really matter what the PAM config says as long as it
+        # lets root in.
       useradd = { rootOK = true; };
       usermod = { rootOK = true; };
       userdel = { rootOK = true; };

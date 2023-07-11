@@ -29,7 +29,8 @@ let
     disableCabalFlag
     ;
   getPackages = version: haskell.packages."ghc${version}";
-  tunedHls = hsPkgs:
+  tunedHls =
+    hsPkgs:
     lib.pipe hsPkgs.haskell-language-server ([
       (haskell.lib.compose.overrideCabal (old: {
         enableSharedExecutables = dynamic;
@@ -48,16 +49,21 @@ let
         enableCabalFlag
       else
         disableCabalFlag) "dynamic")
-    ] ++ optionals (!dynamic) [ justStaticExecutables ]);
-  targets = version:
+    ] ++ optionals (!dynamic) [ justStaticExecutables ])
+    ;
+  targets =
+    version:
     let
       packages = getPackages version;
-    in [ "haskell-language-server-${packages.ghc.version}" ] ;
-  makeSymlinks = version:
+    in [ "haskell-language-server-${packages.ghc.version}" ]
+    ;
+  makeSymlinks =
+    version:
     concatMapStringsSep "\n" (x:
       "ln -s ${
         tunedHls (getPackages version)
-      }/bin/haskell-language-server $out/bin/${x}") (targets version);
+      }/bin/haskell-language-server $out/bin/${x}") (targets version)
+    ;
 in
 assert supportedGhcVersions != [ ];
 stdenv.mkDerivation {

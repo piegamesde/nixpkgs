@@ -10,7 +10,8 @@ stdenv.mkDerivation {
   version = "0.6.5";
 
   installPhase =
-    "\n    sed -i -e 's+/usr++' Makefile\n    sed -i -e 's+^\\(.*putenv(\"PATH=\\).*$+\\1${pciutils}/sbin\");+' i810switch.c\n    make clean\n    make install DESTDIR=\${out}\n  ";
+    "\n    sed -i -e 's+/usr++' Makefile\n    sed -i -e 's+^\\(.*putenv(\"PATH=\\).*$+\\1${pciutils}/sbin\");+' i810switch.c\n    make clean\n    make install DESTDIR=\${out}\n  "
+    ;
 
   src = fetchurl {
     url =
@@ -20,7 +21,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "A utility for switching between the LCD and external VGA display on Intel graphics cards";
+      "A utility for switching between the LCD and external VGA display on Intel graphics cards"
+      ;
     homepage = "http://www16.plala.or.jp/mano-a-mano/i810switch.html";
     maintainers = with maintainers; [ ];
     license = licenses.gpl2;

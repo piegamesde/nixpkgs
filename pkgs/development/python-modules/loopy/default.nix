@@ -44,7 +44,7 @@ buildPythonPackage rec {
     pytools
   ];
 
-  # pyopencl._cl.LogicError: clGetPlatformIDs failed: PLATFORM_NOT_FOUND_KHR
+    # pyopencl._cl.LogicError: clGetPlatformIDs failed: PLATFORM_NOT_FOUND_KHR
   doCheck = false;
 
   meta = with lib; {

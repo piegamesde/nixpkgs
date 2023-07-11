@@ -20,7 +20,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/volatilityfoundation/dwarf2json";
     description =
-      "Convert ELF/DWARF symbol and type information into vol3's intermediate JSON";
+      "Convert ELF/DWARF symbol and type information into vol3's intermediate JSON"
+      ;
     license = licenses.vol-sl;
     platforms = platforms.unix;
     maintainers = with maintainers; [ arkivm ];

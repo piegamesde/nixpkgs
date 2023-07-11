@@ -25,8 +25,8 @@
 let
 
   # OpenJPEG version is hardcoded in package source
-  openJpegVersion = with stdenv;
-    lib.versions.majorMinor (lib.getVersion openjpeg);
+  openJpegVersion =
+    with stdenv; lib.versions.majorMinor (lib.getVersion openjpeg);
 
 in
 stdenv.mkDerivation rec {
@@ -123,7 +123,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://mupdf.com";
     description =
-      "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
+      "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C"
+      ;
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [
       vrthra

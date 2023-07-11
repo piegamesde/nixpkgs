@@ -102,7 +102,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/googleapis/google-auth-library-python";
     changelog =
-      "https://github.com/googleapis/google-auth-library-python/blob/v${version}/CHANGELOG.md";
+      "https://github.com/googleapis/google-auth-library-python/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

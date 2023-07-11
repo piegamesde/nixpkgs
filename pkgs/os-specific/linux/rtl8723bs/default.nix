@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # The Makefile doesn't use env-vars well, so install manually:
+    # The Makefile doesn't use env-vars well, so install manually:
   installPhase = ''
     mkdir -p      $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless
     cp r8723bs.ko $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless

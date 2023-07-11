@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://media.avocode.com/download/avocode-app/${version}/avocode-${version}-linux.zip";
+      "https://media.avocode.com/download/avocode-app/${version}/avocode-${version}-linux.zip"
+      ;
     sha256 = "sha256-vNQT4jyMIIAk1pV3Hrp40nawFutWCv7xtwg2gU6ejy0=";
   };
 
@@ -100,8 +101,8 @@ stdenv.mkDerivation rec {
     gnome.adwaita-icon-theme
   ];
 
-  # src is producing multiple folder on unzip so we must
-  # override unpackCmd to extract it into newly created folder
+    # src is producing multiple folder on unzip so we must
+    # override unpackCmd to extract it into newly created folder
   unpackCmd = ''
     mkdir out
     unzip $curSrc -d out

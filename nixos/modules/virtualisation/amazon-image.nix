@@ -58,19 +58,21 @@ in {
       "random.trust_cpu=on"
     ];
 
-    # Prevent the nouveau kernel module from being loaded, as it
-    # interferes with the nvidia/nvidia-uvm modules needed for CUDA.
-    # Also blacklist xen_fbfront to prevent a 30 second delay during
-    # boot.
+      # Prevent the nouveau kernel module from being loaded, as it
+      # interferes with the nvidia/nvidia-uvm modules needed for CUDA.
+      # Also blacklist xen_fbfront to prevent a 30 second delay during
+      # boot.
     boot.blacklistedKernelModules = [
       "nouveau"
       "xen_fbfront"
     ];
 
-    boot.loader.grub.device = if cfg.efi then
-      "nodev"
-    else
-      "/dev/xvda";
+    boot.loader.grub.device =
+      if cfg.efi then
+        "nodev"
+      else
+        "/dev/xvda"
+      ;
     boot.loader.grub.efiSupport = cfg.efi;
     boot.loader.grub.efiInstallAsRemovable = cfg.efi;
     boot.loader.timeout = 1;
@@ -89,28 +91,28 @@ in {
       serviceConfig.StandardOutput = "journal+console";
     };
 
-    # Allow root logins only using the SSH key that the user specified
-    # at instance creation time.
+      # Allow root logins only using the SSH key that the user specified
+      # at instance creation time.
     services.openssh.enable = true;
     services.openssh.settings.PermitRootLogin = "prohibit-password";
 
-    # Enable the serial console on ttyS0
+      # Enable the serial console on ttyS0
     systemd.services."serial-getty@ttyS0".enable = true;
 
-    # Creates symlinks for block device names.
+      # Creates symlinks for block device names.
     services.udev.packages = [ pkgs.amazon-ec2-utils ];
 
-    # Force getting the hostname from EC2.
+      # Force getting the hostname from EC2.
     networking.hostName = mkDefault "";
 
-    # Always include cryptsetup so that Charon can use it.
+      # Always include cryptsetup so that Charon can use it.
     environment.systemPackages = [ pkgs.cryptsetup ];
 
-    # EC2 has its own NTP server provided by the hypervisor
+      # EC2 has its own NTP server provided by the hypervisor
     networking.timeServers = [ "169.254.169.123" ];
 
-    # udisks has become too bloated to have in a headless system
-    # (e.g. it depends on GTK).
+      # udisks has become too bloated to have in a headless system
+      # (e.g. it depends on GTK).
     services.udisks2.enable = false;
   };
 }

@@ -17,7 +17,7 @@ pypkgs.buildPythonApplication rec {
     sha256 = "sha256-QAk+rcNYjhAgkJX2fa0bl3dHrB4yyYQ/oNlUX3IQMR8=";
   };
 
-  # No tests in archive
+    # No tests in archive
   doCheck = false;
 
   nativeBuildInputs = [ installShellFiles ];

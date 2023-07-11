@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "1aa178b5lxdzfa4z7sjw6ky39dkfazp7dqs9dq78z2zay2sqgmgr";
   };
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "somfy_mylink_synergy" ];

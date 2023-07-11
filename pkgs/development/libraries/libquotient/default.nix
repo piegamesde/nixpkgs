@@ -31,7 +31,7 @@ mkDerivation rec {
 
   cmakeFlags = [ "-DQuotient_ENABLE_E2EE=ON" ];
 
-  # https://github.com/quotient-im/libQuotient/issues/551
+    # https://github.com/quotient-im/libQuotient/issues/551
   postPatch = ''
     substituteInPlace Quotient.pc.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \

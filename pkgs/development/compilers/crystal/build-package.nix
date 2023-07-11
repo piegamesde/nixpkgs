@@ -49,13 +49,15 @@ let
 
   crystalLib = linkFarm "crystal-lib" (lib.mapAttrsToList (name: value: {
     inherit name;
-    path = if (builtins.hasAttr "url" value) then
-      fetchgit value
-    else
-      fetchFromGitHub value;
+    path =
+      if (builtins.hasAttr "url" value) then
+        fetchgit value
+      else
+        fetchFromGitHub value
+      ;
   }) (import shardsFile));
 
-  # We no longer use --no-debug in accordance with upstream's recommendation
+    # We no longer use --no-debug in accordance with upstream's recommendation
   defaultOptions = [
     "--release"
     "--progress"
@@ -64,7 +66,8 @@ let
 
   buildDirectly = shardsFile == null || crystalBinaries != { };
 
-  mkCrystalBuildArgs = bin: attrs:
+  mkCrystalBuildArgs =
+    bin: attrs:
     lib.concatStringsSep " " ([
       "crystal"
       "build"
@@ -76,7 +79,8 @@ let
       bin
       (attrs.src or (throw "No source file for crystal binary ${bin} provided"))
       (lib.concatStringsSep " " (attrs.options or defaultOptions))
-    ]);
+    ])
+    ;
 
 in
 stdenv.mkDerivation (mkDerivationArgs // {

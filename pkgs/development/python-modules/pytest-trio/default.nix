@@ -35,7 +35,7 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  # broken with pytest 5 and 6
+    # broken with pytest 5 and 6
   doCheck = false;
   checkPhase = ''
     rm pytest.ini

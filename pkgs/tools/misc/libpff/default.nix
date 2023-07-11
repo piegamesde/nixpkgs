@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/libyal/libpff/releases/download/${version}/libpff-alpha-${version}.tar.gz";
+      "https://github.com/libyal/libpff/releases/download/${version}/libpff-alpha-${version}.tar.gz"
+      ;
     sha256 = "sha256-UmGRBgi78nDSuuOXi/WmODojWU5AbQGKNQwLseoh714=";
   };
 
@@ -28,7 +29,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Library and tools to access the Personal Folder File (PFF) and the Offline Folder File (OFF) format";
+      "Library and tools to access the Personal Folder File (PFF) and the Offline Folder File (OFF) format"
+      ;
     homepage = "https://github.com/libyal/libpff";
     downloadPage = "https://github.com/libyal/libpff/releases";
     changelog = "https://github.com/libyal/libpff/blob/${version}/ChangeLog";

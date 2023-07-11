@@ -150,7 +150,7 @@ in with lib; {
         Restart = "always";
         RestartSec = "5s";
 
-        # hardening
+          # hardening
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;

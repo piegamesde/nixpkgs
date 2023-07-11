@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ zhaofengli ]; };
 
     nodes = {
-      printer = {
+      printer =
+        {
           config,
           pkgs,
           ...
@@ -33,10 +34,11 @@ import ./make-test-python.nix ({
             user = "moonraker";
             group = "moonraker";
 
-            # No mcu configured so won't even enter `ready` state
+              # No mcu configured so won't even enter `ready` state
             settings = { };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

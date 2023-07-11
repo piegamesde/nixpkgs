@@ -17,7 +17,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      webserver = {
+      webserver =
+        {
           pkgs,
           lib,
           ...
@@ -77,10 +78,12 @@ import ./make-test-python.nix ({
             services.nginx.virtualHosts."!@$$(#*%".locations."~@#*$*!)".proxyPass =
               ";;;";
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -88,11 +91,14 @@ import ./make-test-python.nix ({
         etagSystem =
           "${nodes.webserver.system.build.toplevel}/specialisation/etagSystem";
         justReloadSystem =
-          "${nodes.webserver.system.build.toplevel}/specialisation/justReloadSystem";
+          "${nodes.webserver.system.build.toplevel}/specialisation/justReloadSystem"
+          ;
         reloadRestartSystem =
-          "${nodes.webserver.system.build.toplevel}/specialisation/reloadRestartSystem";
+          "${nodes.webserver.system.build.toplevel}/specialisation/reloadRestartSystem"
+          ;
         reloadWithErrorsSystem =
-          "${nodes.webserver.system.build.toplevel}/specialisation/reloadWithErrorsSystem";
+          "${nodes.webserver.system.build.toplevel}/specialisation/reloadWithErrorsSystem"
+          ;
       in ''
         url = "http://localhost/index.html"
 
@@ -147,5 +153,6 @@ import ./make-test-python.nix ({
             webserver.fail(
                 "${reloadWithErrorsSystem}/bin/switch-to-configuration test >&2"
             )
-      '' ;
+      ''
+      ;
   })

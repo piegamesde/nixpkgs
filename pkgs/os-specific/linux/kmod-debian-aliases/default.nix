@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://snapshot.debian.org/archive/debian/20160404T220610Z/pool/main/k/kmod/kmod_${version}.debian.tar.xz";
+      "https://snapshot.debian.org/archive/debian/20160404T220610Z/pool/main/k/kmod/kmod_${version}.debian.tar.xz"
+      ;
     sha256 = "0daap2n4bvjqcnksaayy6csmdb1px4r02w3xp36bcp6w3lbnqamh";
   };
 

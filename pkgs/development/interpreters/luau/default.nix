@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://luau-lang.org/";
     description =
-      "A fast, small, safe, gradually typed embeddable scripting language derived from Lua";
+      "A fast, small, safe, gradually typed embeddable scripting language derived from Lua"
+      ;
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = [ maintainers.marsam ];

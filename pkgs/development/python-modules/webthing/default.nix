@@ -32,7 +32,7 @@ buildPythonPackage rec {
     zeroconf
   ];
 
-  # No tests are present
+    # No tests are present
   doCheck = false;
 
   pythonImportsCheck = [ "webthing" ];

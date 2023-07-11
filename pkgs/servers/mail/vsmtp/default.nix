@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     "syslog"
   ];
 
-  # tests do not run well in the nix sandbox
+    # tests do not run well in the nix sandbox
   doCheck = false;
 
   postInstall = ''

@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "use-cmake-install-full-dir.patch";
       url =
-        "https://github.com/blitzpp/blitz/commit/020f1d768c7fa3265cec244dc28f3dc8572719c5.patch";
+        "https://github.com/blitzpp/blitz/commit/020f1d768c7fa3265cec244dc28f3dc8572719c5.patch"
+        ;
       hash = "sha256-8hYFNyWrejjIWPN/HzIOphD4Aq6Soe0FFUBmwV4tpWQ=";
     })
   ];
@@ -65,9 +66,9 @@ stdenv.mkDerivation rec {
   cmakeFlags = optional enablePadding "-DARRAY_LENGTH_PADDING=ON"
     ++ optional enableSerialization "-DENABLE_SERIALISATION=ON"
     ++ optional stdenv.is64bit "-DBZ_FULLY64BIT=ON";
-  # FIXME ++ optional doCheck "-DBUILD_TESTING=ON";
+    # FIXME ++ optional doCheck "-DBUILD_TESTING=ON";
 
-  # skip broken library name detection
+    # skip broken library name detection
   ax_boost_user_serialization_lib =
     lib.optionalString stdenv.isDarwin "boost_serialization";
 

@@ -48,53 +48,56 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   dontBuild = true;
 
-  preFixup = let
-    libPath = lib.makeLibraryPath [
-      glib
-      nss
-      nspr
-      gtk3-x11
-      pango
-      atk
-      cairo
-      gdk-pixbuf
-      xorg.libX11
-      xorg.libxcb
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXi
-      xorg.libXrender
-      xorg.libxshmfence
-      xorg.libXtst
-      xorg_sys_opengl
-      util-linux
-      xorg.libXrandr
-      xorg.libXScrnSaver
-      alsa-lib
-      dbus.lib
-      at-spi2-atk
-      at-spi2-core
-      cups.lib
-      libpulseaudio
-      systemd
-      vivaldi-ffmpeg-codecs
-      libxkbcommon
-      mesa
-    ];
-  in ''
-    patchelf \
-      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${libPath}" \
-      $out/Exodus
-  '' ;
+  preFixup =
+    let
+      libPath = lib.makeLibraryPath [
+        glib
+        nss
+        nspr
+        gtk3-x11
+        pango
+        atk
+        cairo
+        gdk-pixbuf
+        xorg.libX11
+        xorg.libxcb
+        xorg.libXcomposite
+        xorg.libXcursor
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXi
+        xorg.libXrender
+        xorg.libxshmfence
+        xorg.libXtst
+        xorg_sys_opengl
+        util-linux
+        xorg.libXrandr
+        xorg.libXScrnSaver
+        alsa-lib
+        dbus.lib
+        at-spi2-atk
+        at-spi2-core
+        cups.lib
+        libpulseaudio
+        systemd
+        vivaldi-ffmpeg-codecs
+        libxkbcommon
+        mesa
+      ];
+    in ''
+      patchelf \
+        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath "${libPath}" \
+        $out/Exodus
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://www.exodus.io/";
     description =
-      "Top-rated cryptocurrency wallet with Trezor integration and built-in Exchange";
+      "Top-rated cryptocurrency wallet with Trezor integration and built-in Exchange"
+      ;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = platforms.linux;

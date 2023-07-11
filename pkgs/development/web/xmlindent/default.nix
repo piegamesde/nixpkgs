@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/xmlindent/xmlindent/${version}/${pname}-${version}.tar.gz";
+      "mirror://sourceforge/project/xmlindent/xmlindent/${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0k15rxh51a5r4bvfm6c4syxls8al96cx60a9mn6pn24nns3nh3rs";
   };
 

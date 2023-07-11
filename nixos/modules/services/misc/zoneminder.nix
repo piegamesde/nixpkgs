@@ -21,10 +21,12 @@ let
   useNginx = cfg.webserver == "nginx";
 
   defaultDir = "/var/lib/${user}";
-  home = if useCustomDir then
-    cfg.storageDir
-  else
-    defaultDir;
+  home =
+    if useCustomDir then
+      cfg.storageDir
+    else
+      defaultDir
+    ;
 
   useCustomDir = cfg.storageDir != null;
 
@@ -40,9 +42,11 @@ let
     "sounds"
   ];
 
-  dirStanzas = baseDir:
+  dirStanzas =
+    baseDir:
     lib.concatStringsSep "\n"
-    (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs);
+    (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs)
+    ;
 
   defaultsFile = pkgs.writeText "60-defaults.conf" ''
     # 01-system-paths.conf
@@ -203,7 +207,8 @@ in {
     assertions = [ {
       assertion = cfg.database.createLocally -> cfg.database.username == user;
       message =
-        "services.zoneminder.database.username must be set to ${user} if services.zoneminder.database.createLocally is set true";
+        "services.zoneminder.database.username must be set to ${user} if services.zoneminder.database.createLocally is set true"
+        ;
     } ];
 
     environment.etc = {
@@ -243,57 +248,59 @@ in {
               addr = "0.0.0.0";
               inherit (cfg) port;
             } ];
-            extraConfig = let
-              fcgi = config.services.fcgiwrap;
-            in ''
-              index index.php;
+            extraConfig =
+              let
+                fcgi = config.services.fcgiwrap;
+              in ''
+                index index.php;
 
-              location / {
-                try_files $uri $uri/ /index.php?$args =404;
+                location / {
+                  try_files $uri $uri/ /index.php?$args =404;
 
-                rewrite ^/skins/.*/css/fonts/(.*)$ /fonts/$1 permanent;
+                  rewrite ^/skins/.*/css/fonts/(.*)$ /fonts/$1 permanent;
 
-                location ~ /api/(css|img|ico) {
-                  rewrite ^/api(.+)$ /api/app/webroot/$1 break;
-                  try_files $uri $uri/ =404;
+                  location ~ /api/(css|img|ico) {
+                    rewrite ^/api(.+)$ /api/app/webroot/$1 break;
+                    try_files $uri $uri/ =404;
+                  }
+
+                  location ~ \.(gif|ico|jpg|jpeg|png)$ {
+                    access_log off;
+                    expires 30d;
+                  }
+
+                  location /api {
+                    rewrite ^/api(.+)$ /api/app/webroot/index.php?p=$1 last;
+                  }
+
+                  location /cgi-bin {
+                    gzip off;
+
+                    include ${config.services.nginx.package}/conf/fastcgi_params;
+                    fastcgi_param SCRIPT_FILENAME ${pkg}/libexec/zoneminder/${zms};
+                    fastcgi_param HTTP_PROXY "";
+                    fastcgi_intercept_errors on;
+
+                    fastcgi_pass ${fcgi.socketType}:${fcgi.socketAddress};
+                  }
+
+                  location /cache/ {
+                    alias /var/cache/${dirName}/;
+                  }
+
+                  location ~ \.php$ {
+                    try_files $uri =404;
+                    fastcgi_index index.php;
+
+                    include ${config.services.nginx.package}/conf/fastcgi_params;
+                    fastcgi_param SCRIPT_FILENAME $request_filename;
+                    fastcgi_param HTTP_PROXY "";
+
+                    fastcgi_pass unix:${fpm.socket};
+                  }
                 }
-
-                location ~ \.(gif|ico|jpg|jpeg|png)$ {
-                  access_log off;
-                  expires 30d;
-                }
-
-                location /api {
-                  rewrite ^/api(.+)$ /api/app/webroot/index.php?p=$1 last;
-                }
-
-                location /cgi-bin {
-                  gzip off;
-
-                  include ${config.services.nginx.package}/conf/fastcgi_params;
-                  fastcgi_param SCRIPT_FILENAME ${pkg}/libexec/zoneminder/${zms};
-                  fastcgi_param HTTP_PROXY "";
-                  fastcgi_intercept_errors on;
-
-                  fastcgi_pass ${fcgi.socketType}:${fcgi.socketAddress};
-                }
-
-                location /cache/ {
-                  alias /var/cache/${dirName}/;
-                }
-
-                location ~ \.php$ {
-                  try_files $uri =404;
-                  fastcgi_index index.php;
-
-                  include ${config.services.nginx.package}/conf/fastcgi_params;
-                  fastcgi_param SCRIPT_FILENAME $request_filename;
-                  fastcgi_param HTTP_PROXY "";
-
-                  fastcgi_pass unix:${fpm.socket};
-                }
-              }
-            '' ;
+              ''
+              ;
           };
         };
       };

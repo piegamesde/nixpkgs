@@ -7,52 +7,58 @@ import ../make-test-python.nix ({
   with lib; {
     name = "hadoop-hdfs";
 
-    nodes = let
-      coreSite = {
-        "fs.defaultFS" = "hdfs://namenode:8020";
-        "hadoop.proxyuser.httpfs.groups" = "*";
-        "hadoop.proxyuser.httpfs.hosts" = "*";
-      };
-    in {
-      namenode = {
-          pkgs,
-          ...
-        }: {
-          services.hadoop = {
-            inherit package;
-            hdfs = {
-              namenode = {
+    nodes =
+      let
+        coreSite = {
+          "fs.defaultFS" = "hdfs://namenode:8020";
+          "hadoop.proxyuser.httpfs.groups" = "*";
+          "hadoop.proxyuser.httpfs.hosts" = "*";
+        };
+      in {
+        namenode =
+          {
+            pkgs,
+            ...
+          }: {
+            services.hadoop = {
+              inherit package;
+              hdfs = {
+                namenode = {
+                  enable = true;
+                  openFirewall = true;
+                  formatOnInit = true;
+                };
+                httpfs = {
+                  # The NixOS hadoop module only support webHDFS on 3.3 and newer
+                  enable = mkIf (versionAtLeast package.version "3.3") true;
+                  openFirewall = true;
+                };
+              };
+              inherit coreSite;
+            };
+          }
+          ;
+        datanode =
+          {
+            pkgs,
+            ...
+          }: {
+            services.hadoop = {
+              inherit package;
+              hdfs.datanode = {
                 enable = true;
                 openFirewall = true;
-                formatOnInit = true;
+                dataDirs = [ {
+                  type = "DISK";
+                  path = "/tmp/dn1";
+                } ];
               };
-              httpfs = {
-                # The NixOS hadoop module only support webHDFS on 3.3 and newer
-                enable = mkIf (versionAtLeast package.version "3.3") true;
-                openFirewall = true;
-              };
+              inherit coreSite;
             };
-            inherit coreSite;
-          };
-        };
-      datanode = {
-          pkgs,
-          ...
-        }: {
-          services.hadoop = {
-            inherit package;
-            hdfs.datanode = {
-              enable = true;
-              openFirewall = true;
-              dataDirs = [ {
-                type = "DISK";
-                path = "/tmp/dn1";
-              } ];
-            };
-            inherit coreSite;
-          };
-        };
-    } ;
+          }
+          ;
+      }
+      ;
 
     testScript = ''
       start_all()

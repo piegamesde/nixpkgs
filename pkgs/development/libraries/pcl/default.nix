@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JDiDAmdpwUR3Sff63ehyvetIFXAgGOrI+HEaZ5lURps=";
   };
 
-  # remove attempt to prevent (x86/x87-specific) extended precision use
-  # when SSE not detected
+    # remove attempt to prevent (x86/x87-specific) extended precision use
+    # when SSE not detected
   postPatch = lib.optionalString (!stdenv.hostPlatform.isx86) ''
     sed -i '/-ffloat-store/d' cmake/pcl_find_sse.cmake
   '';

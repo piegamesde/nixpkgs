@@ -18,9 +18,9 @@ buildPythonPackage rec {
   pname = "pysam";
   version = "0.20.0";
 
-  # Fetching from GitHub instead of PyPi cause the 0.13 src release on PyPi is
-  # missing some files which cause test failures.
-  # Tracked at: https://github.com/pysam-developers/pysam/issues/616
+    # Fetching from GitHub instead of PyPi cause the 0.13 src release on PyPi is
+    # missing some files which cause test failures.
+    # Tracked at: https://github.com/pysam-developers/pysam/issues/616
   src = fetchFromGitHub {
     owner = "pysam-developers";
     repo = "pysam";
@@ -38,9 +38,9 @@ buildPythonPackage rec {
     zlib
   ];
 
-  # Use nixpkgs' htslib instead of the bundled one
-  # See https://pysam.readthedocs.io/en/latest/installation.html#external
-  # NOTE that htslib should be version compatible with pysam
+    # Use nixpkgs' htslib instead of the bundled one
+    # See https://pysam.readthedocs.io/en/latest/installation.html#external
+    # NOTE that htslib should be version compatible with pysam
   preBuild = ''
     export HTSLIB_MODE=shared
     export HTSLIB_LIBRARY_DIR=${htslib}/lib
@@ -53,8 +53,8 @@ buildPythonPackage rec {
     htslib
   ];
 
-  # See https://github.com/NixOS/nixpkgs/pull/100823 for why we aren't using
-  # disabledTests and pytestFlagsArray through pytestCheckHook
+    # See https://github.com/NixOS/nixpkgs/pull/100823 for why we aren't using
+    # disabledTests and pytestFlagsArray through pytestCheckHook
   checkPhase = ''
     # Needed to avoid /homeless-shelter error
     export HOME=$(mktemp -d)

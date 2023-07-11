@@ -34,12 +34,13 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-${version}.tar.gz";
+      "https://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-${version}.tar.gz"
+      ;
     hash = "sha256-ukjZbfGM68P/I/aXlyB64VgszmL0WWtpuuMAyjwj2zM=";
   };
 
-  nativeBuildInputs = [ pkg-config ]
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs =
+    [ pkg-config ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
     curl

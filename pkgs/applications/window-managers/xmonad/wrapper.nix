@@ -22,7 +22,7 @@ stdenv.mkDerivation {
       --set XMONAD_XMESSAGE "${xmessage}/bin/xmessage"
   '';
 
-  # trivial derivation
+    # trivial derivation
   preferLocalBuild = true;
   allowSubstitutes = false;
 }

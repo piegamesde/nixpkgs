@@ -29,10 +29,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = if withGtk then
-    "snes9x-gtk"
-  else
-    "snes9x";
+  pname =
+    if withGtk then
+      "snes9x-gtk"
+    else
+      "snes9x"
+    ;
   version = "1.62.3";
 
   src = fetchFromGitHub {
@@ -93,23 +95,28 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  preConfigure = if withGtk then
-    "cd gtk"
-  else
-    "cd unix";
+  preConfigure =
+    if withGtk then
+      "cd gtk"
+    else
+      "cd unix"
+    ;
 
   enableParallelBuilding = true;
 
   meta = with lib;
     let
-      interface = if withGtk then
-        "GTK"
-      else
-        "X11";
+      interface =
+        if withGtk then
+          "GTK"
+        else
+          "X11"
+        ;
     in {
       homepage = "https://www.snes9x.com";
       description =
-        "Super Nintendo Entertainment System (SNES) emulator, ${interface} version";
+        "Super Nintendo Entertainment System (SNES) emulator, ${interface} version"
+        ;
 
       longDescription = ''
         Snes9x is a portable, freeware Super Nintendo Entertainment System (SNES)

@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   name = "nvidiabl-${version}-${kernel.version}";
   version = "2020-10-01";
 
-  # We use a fork which adds support for newer kernels -- upstream has been abandoned.
+    # We use a fork which adds support for newer kernels -- upstream has been abandoned.
   src = fetchFromGitHub {
     owner = "yorickvP";
     repo = "nvidiabl";
@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Linux driver for setting the backlight brightness on laptops using NVIDIA GPU";
+      "Linux driver for setting the backlight brightness on laptops using NVIDIA GPU"
+      ;
     homepage = "https://github.com/yorickvP/nvidiabl";
     license = licenses.gpl2;
     platforms = [

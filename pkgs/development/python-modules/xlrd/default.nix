@@ -16,13 +16,14 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # No tests in archive
+    # No tests in archive
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://www.python-excel.org/";
     description =
-      "Library for developers to extract data from Microsoft Excel (tm) spreadsheet files";
+      "Library for developers to extract data from Microsoft Excel (tm) spreadsheet files"
+      ;
     license = licenses.bsd0;
   };
 

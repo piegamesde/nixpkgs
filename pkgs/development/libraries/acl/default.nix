@@ -31,11 +31,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ gettext ];
   buildInputs = [ attr ];
 
-  # causes failures in coreutils test suite
+    # causes failures in coreutils test suite
   hardeningDisable = [ "fortify3" ];
 
-  # Upstream use C++-style comments in C code. Remove them.
-  # This comment breaks compilation if too strict gcc flags are used.
+    # Upstream use C++-style comments in C code. Remove them.
+    # This comment breaks compilation if too strict gcc flags are used.
   patchPhase = ''
     echo "Removing C++-style comments from include/acl.h"
     sed -e '/^\/\//d' -i include/acl.h

@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     # Fix Darwin build (https://github.com/JasonFerrara/jmtpfs/pull/12)
     (fetchpatch {
       url =
-        "https://github.com/JasonFerrara/jmtpfs/commit/b89084303477d1bc4dc9a887ba9cdd75221f497d.patch";
+        "https://github.com/JasonFerrara/jmtpfs/commit/b89084303477d1bc4dc9a887ba9cdd75221f497d.patch"
+        ;
       sha256 = "0s7x3jfk8i86rd5bwhj7mb1lffcdlpj9bd7b41s1768ady91rb29";
     })
   ];

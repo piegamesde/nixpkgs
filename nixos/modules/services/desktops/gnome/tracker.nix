@@ -30,7 +30,7 @@ in {
     ])
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -58,7 +58,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -69,14 +69,15 @@ in {
     systemd.packages = [ pkgs.tracker ];
 
     environment.variables = {
-      TRACKER_CLI_SUBCOMMANDS_DIR = let
-        subcommandPackagesTree = pkgs.symlinkJoin {
-          name = "tracker-with-subcommands-${pkgs.tracker.version}";
-          paths = [ pkgs.tracker ] ++ cfg.subcommandPackages;
-        };
-      in
-      "${subcommandPackagesTree}/libexec/tracker3"
-      ;
+      TRACKER_CLI_SUBCOMMANDS_DIR =
+        let
+          subcommandPackagesTree = pkgs.symlinkJoin {
+            name = "tracker-with-subcommands-${pkgs.tracker.version}";
+            paths = [ pkgs.tracker ] ++ cfg.subcommandPackages;
+          };
+        in
+        "${subcommandPackagesTree}/libexec/tracker3"
+        ;
     };
 
   };

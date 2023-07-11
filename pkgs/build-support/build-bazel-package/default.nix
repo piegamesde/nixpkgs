@@ -64,7 +64,8 @@ let
   };
   fBuildAttrs = fArgs // buildAttrs;
   fFetchAttrs = fArgs // removeAttrs fetchAttrs [ "sha256" ];
-  bazelCmd = {
+  bazelCmd =
+    {
       cmd,
       additionalFlags,
       targets,
@@ -87,9 +88,10 @@ let
         $bazelFlags \
         ${lib.strings.concatStringsSep " " additionalFlags} \
         ${lib.strings.concatStringsSep " " targets}
-    '';
-  # we need this to chmod dangling symlinks on darwin, gnu coreutils refuses to do so:
-  # chmod: cannot operate on dangling symlink '$symlink'
+    ''
+    ;
+    # we need this to chmod dangling symlinks on darwin, gnu coreutils refuses to do so:
+    # chmod: cannot operate on dangling symlink '$symlink'
   chmodder = writeCBin "chmodder" ''
     #include <stdio.h>
     #include <stdlib.h>
@@ -116,8 +118,8 @@ stdenv.mkDerivation (fBuildAttrs // {
   deps = stdenv.mkDerivation (fFetchAttrs // {
     name = "${name}-deps.tar.gz";
 
-    impureEnvVars = lib.fetchers.proxyImpureEnvVars
-      ++ fFetchAttrs.impureEnvVars or [ ];
+    impureEnvVars =
+      lib.fetchers.proxyImpureEnvVars ++ fFetchAttrs.impureEnvVars or [ ];
 
     nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [ ] ++ [ bazel ];
 
@@ -137,10 +139,12 @@ stdenv.mkDerivation (fBuildAttrs // {
       runHook preBuild
 
       ${bazelCmd {
-        cmd = if fetchConfigured then
-          "build --nobuild"
-        else
-          "fetch";
+        cmd =
+          if fetchConfigured then
+            "build --nobuild"
+          else
+            "fetch"
+          ;
         additionalFlags = [
           # We disable multithreading for the fetching phase since it can lead to timeouts with many dependencies/threads:
           # https://github.com/bazelbuild/bazel/issues/6502
@@ -268,8 +272,8 @@ stdenv.mkDerivation (fBuildAttrs // {
 
     ${bazelCmd {
       cmd = "test";
-      additionalFlags = [ "--test_output=errors" ]
-        ++ fBuildAttrs.bazelTestFlags;
+      additionalFlags =
+        [ "--test_output=errors" ] ++ fBuildAttrs.bazelTestFlags;
       targets = fBuildAttrs.bazelTestTargets;
     }}
     ${bazelCmd {

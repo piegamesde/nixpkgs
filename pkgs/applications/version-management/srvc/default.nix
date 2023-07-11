@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ git ];
 
-  # remove timeouts in tests to make them less flaky
+    # remove timeouts in tests to make them less flaky
   TEST_SRVC_DISABLE_TIMEOUT = 1;
 
   meta = with lib; {

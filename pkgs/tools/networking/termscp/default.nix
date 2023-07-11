@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     Security
   ];
 
-  # Needed to get openssl-sys to use pkg-config.
+    # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     "AppKit"
   ]);
 
-  # Requires network access
+    # Requires network access
   doCheck = false;
 
   meta = with lib; {

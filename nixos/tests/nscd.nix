@@ -16,7 +16,8 @@ import ./make-test-python.nix ({
   in {
     name = "nscd";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -45,21 +46,27 @@ import ./make-test-python.nix ({
         };
 
         specialisation = {
-          withGlibcNscd.configuration = {
+          withGlibcNscd.configuration =
+            {
               ...
             }: {
               services.nscd.enableNsncd = false;
-            };
-          withUnscd.configuration = {
+            }
+            ;
+          withUnscd.configuration =
+            {
               ...
             }: {
               services.nscd.enableNsncd = false;
               services.nscd.package = pkgs.unscd;
-            };
+            }
+            ;
         };
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -150,5 +157,6 @@ import ./make-test-python.nix ({
 
             # known to fail, unscd doesn't load external NSS modules
             # test_nss_myhostname()
-      '' ;
+      ''
+      ;
   } )

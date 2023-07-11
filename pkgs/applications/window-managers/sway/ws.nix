@@ -16,15 +16,16 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoSha256 = "sha256-VYT6wV59fraAoJgR/i6GlO8s7LUoehGtxPAggEL1eLo=";
-  # Required patch until upstream fixes https://gitlab.com/w0lff/swayws/-/issues/1
+    # Required patch until upstream fixes https://gitlab.com/w0lff/swayws/-/issues/1
   cargoPatches = [ ./ws-update-Cargo-lock.patch ];
 
-  # swayws does not have any tests
+    # swayws does not have any tests
   doCheck = false;
 
   meta = with lib; {
     description =
-      "A sway workspace tool which allows easy moving of workspaces to and from outputs";
+      "A sway workspace tool which allows easy moving of workspaces to and from outputs"
+      ;
     homepage = "https://gitlab.com/w0lff/swayws";
     license = licenses.mit;
     maintainers = [ maintainers.atila ];

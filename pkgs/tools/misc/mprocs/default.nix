@@ -17,15 +17,16 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-H9oHppG7sew/3JrUtWq2Pip1S9H36qYeHu6x/sPfwV0=";
 
-  # Package tests are currently failing (even upstream) but the package seems to work fine.
-  # Relevant issues:
-  # https://github.com/pvolok/mprocs/issues/50
-  # https://github.com/pvolok/mprocs/issues/61
+    # Package tests are currently failing (even upstream) but the package seems to work fine.
+    # Relevant issues:
+    # https://github.com/pvolok/mprocs/issues/50
+    # https://github.com/pvolok/mprocs/issues/61
   doCheck = false;
 
   meta = with lib; {
     description =
-      "A TUI tool to run multiple commands in parallel and show the output of each command separately";
+      "A TUI tool to run multiple commands in parallel and show the output of each command separately"
+      ;
     homepage = "https://github.com/pvolok/mprocs";
     license = licenses.mit;
     maintainers = with maintainers; [

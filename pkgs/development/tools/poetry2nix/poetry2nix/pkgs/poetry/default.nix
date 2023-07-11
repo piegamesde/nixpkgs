@@ -16,7 +16,7 @@ poetry2nix.mkPoetryApplication {
 
   src = fetchFromGitHub (lib.importJSON ./src.json);
 
-  # "Vendor" dependencies (for build-system support)
+    # "Vendor" dependencies (for build-system support)
   postPatch = ''
     # Figure out the location of poetry.core
     # As poetry.core is using the same root import name as the poetry package and the python module system wont look for the root
@@ -40,13 +40,13 @@ poetry2nix.mkPoetryApplication {
     "$out/bin/poetry" completions fish > "$out/share/fish/vendor_completions.d/poetry.fish"
   '';
 
-  # Propagating dependencies leads to issues downstream
-  # We've already patched poetry to prefer "vendored" dependencies
+    # Propagating dependencies leads to issues downstream
+    # We've already patched poetry to prefer "vendored" dependencies
   postFixup = ''
     rm $out/nix-support/propagated-build-inputs
   '';
 
-  # Fails because of impurities (network, git etc etc)
+    # Fails because of impurities (network, git etc etc)
   doCheck = false;
 
   meta = with lib; {

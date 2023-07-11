@@ -72,9 +72,9 @@ stdenv.mkDerivation rec {
     categories = [ "Game" ];
   }) ];
 
-  # patch shebangs so that e.g. the fake-editor script works:
-  # error: /usr/bin/env 'perl': No such file or directory
-  # error: There was a problem with the editor
+    # patch shebangs so that e.g. the fake-editor script works:
+    # error: /usr/bin/env 'perl': No such file or directory
+    # error: There was a problem with the editor
   postPatch = ''
     patchShebangs scripts
   '';

@@ -6,7 +6,8 @@
 }:
 
 let
-  packages = self:
+  packages =
+    self:
     with self; {
 
       # Libs
@@ -18,7 +19,7 @@ let
         libsForQt5.callPackage ../applications/misc/cubocore-packages/libcsys
         { };
 
-      # Apps
+        # Apps
       coreaction = libsForQt5.callPackage
         ../applications/misc/cubocore-packages/coreaction {
           inherit libcprime libcsys;
@@ -119,6 +120,7 @@ let
         ../applications/misc/cubocore-packages/coreuniverse {
           inherit libcprime libcsys;
         };
-    };
+    }
+    ;
 in
 lib.makeScope newScope packages

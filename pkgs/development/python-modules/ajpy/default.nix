@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "173wm207zyi86m2ms7vscakdi4mmjqfxqsdx1gn0j9nn0gsf241h";
   };
 
-  # ajpy doesn't have tests
+    # ajpy doesn't have tests
   doCheck = false;
 
   meta = with lib; {

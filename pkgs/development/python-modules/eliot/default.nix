@@ -43,7 +43,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "eliot" ];
 
-  # Tests run eliot-prettyprint in out/bin.
+    # Tests run eliot-prettyprint in out/bin.
   preCheck = ''
     export PATH=$out/bin:$PATH
   '';

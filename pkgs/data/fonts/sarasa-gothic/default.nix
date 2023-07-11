@@ -13,7 +13,8 @@ stdenvNoCC.mkDerivation rec {
     # Use the 'ttc' files here for a smaller closure size.
     # (Using 'ttf' files gives a closure size about 15x larger, as of November 2021.)
     url =
-      "https://github.com/be5invis/Sarasa-Gothic/releases/download/v${version}/sarasa-gothic-ttc-${version}.7z";
+      "https://github.com/be5invis/Sarasa-Gothic/releases/download/v${version}/sarasa-gothic-ttc-${version}.7z"
+      ;
     hash = "sha256-AHslDiYBQXcxo8XVh1GMZDR8LJXvzJHl4hrisfhltEM=";
   };
 

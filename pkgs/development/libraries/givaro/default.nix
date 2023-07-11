@@ -81,8 +81,8 @@ stdenv.mkDerivation rec {
       }-fma4"
     ];
 
-  # On darwin, tests are linked to dylib in the nix store, so we need to make
-  # sure tests run after installPhase.
+    # On darwin, tests are linked to dylib in the nix store, so we need to make
+    # sure tests run after installPhase.
   doInstallCheck = true;
   installCheckTarget = "check";
   doCheck = false;

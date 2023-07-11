@@ -23,7 +23,8 @@ let
 
       web = callPackage ./web.nix { };
 
-      buildEnvs = {
+      buildEnvs =
+        {
           web ? self.web,
           mailman ? self.mailman,
           mailman-hyperkitty ? self.mailman-hyperkitty,
@@ -47,7 +48,8 @@ let
               ps.python-ldap
               ps.django-auth-ldap
             ]);
-        };
+        }
+        ;
     } );
 
 in

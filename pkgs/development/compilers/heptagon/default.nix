@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     lablgtk
   ];
 
-  # the heptagon library in lib/heptagon is not executable
+    # the heptagon library in lib/heptagon is not executable
   postInstall = ''
     find $out/lib/heptagon -type f -exec chmod -x {} \;
   '';

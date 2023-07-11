@@ -28,7 +28,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  # There too many integration tests.
+    # There too many integration tests.
   doCheck = false;
 
   installPhase = ''
@@ -49,7 +49,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A microservice orchestration platform which enables developers to build scalable applications without sacrificing productivity or reliability";
+      "A microservice orchestration platform which enables developers to build scalable applications without sacrificing productivity or reliability"
+      ;
     homepage = "https://temporal.io";
     changelog =
       "https://github.com/temporalio/temporal/releases/tag/v${version}";

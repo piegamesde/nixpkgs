@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=docs_blog_2021_08_31_seeding_databases_tutorial_dot_md"
   ];
 
-  # requires unstable rust features
+    # requires unstable rust features
   RUSTC_BOOTSTRAP = 1;
 
   meta = with lib; {

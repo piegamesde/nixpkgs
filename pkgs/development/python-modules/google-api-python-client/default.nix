@@ -34,7 +34,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  # No tests included in archive
+    # No tests included in archive
   doCheck = false;
 
   pythonImportsCheck = [ "googleapiclient" ];
@@ -50,7 +50,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/google/google-api-python-client";
     changelog =
-      "https://github.com/googleapis/google-api-python-client/releases/tag/v${version}";
+      "https://github.com/googleapis/google-api-python-client/releases/tag/v${version}"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };

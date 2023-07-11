@@ -13,7 +13,7 @@ with lib;
 
   meta = { maintainers = teams.gnome.members; };
 
-  # Added 2021-05-07
+    # Added 2021-05-07
   imports = [ (mkRenamedOptionModule [
     "services"
     "gnome3"
@@ -26,7 +26,7 @@ with lib;
     "enable"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -46,7 +46,7 @@ with lib;
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.gnome.gnome-keyring.enable {
 

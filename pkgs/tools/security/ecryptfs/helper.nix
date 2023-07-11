@@ -12,7 +12,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://gist.githubusercontent.com/obadz/ec053fdb00dcb48441d8313169874e30/raw/4b657a4b7c3dc684e4d5e3ffaf46ced1b7675163/ecryptfs-helper.py";
+      "https://gist.githubusercontent.com/obadz/ec053fdb00dcb48441d8313169874e30/raw/4b657a4b7c3dc684e4d5e3ffaf46ced1b7675163/ecryptfs-helper.py"
+      ;
     sha256 = "0gp4m22zc80814ng80s38hp930aa8r4zqihr7jr23m0m2iq4pdpg";
   };
 
@@ -20,7 +21,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  # Do not hardcode PATH to ${ecryptfs} as we need the script to invoke executables from /run/wrappers/bin
+    # Do not hardcode PATH to ${ecryptfs} as we need the script to invoke executables from /run/wrappers/bin
   installPhase = ''
     mkdir -p $out/bin $out/libexec
     cp $src $out/libexec/ecryptfs-helper.py
@@ -29,7 +30,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Helper script to create/mount/unemount encrypted directories using eCryptfs without needing root permissions";
+      "Helper script to create/mount/unemount encrypted directories using eCryptfs without needing root permissions"
+      ;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ obadz ];
     platforms = platforms.linux;

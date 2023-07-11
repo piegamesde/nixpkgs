@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "1f8qlijiwn10jxg1bsi6q42fznbg8rw039yaxfh6rzbaj2gaxbz1";
   };
 
-  # remove at next bump, tag is one commit early for 0.8.0
+    # remove at next bump, tag is one commit early for 0.8.0
   postPatch = ''
     substituteInPlace pygtail/core.py \
       --replace 0.7.0 0.8.0

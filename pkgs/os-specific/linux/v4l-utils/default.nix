@@ -21,7 +21,7 @@
 let
   withQt = withUtils && withGUI;
 
-  # we need to use stdenv.mkDerivation in order not to pollute the libv4l’s closure with Qt
+    # we need to use stdenv.mkDerivation in order not to pollute the libv4l’s closure with Qt
 in
 stdenv.mkDerivation rec {
   pname = "v4l-utils";
@@ -71,10 +71,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "V4L utils and libv4l, provide common image formats regardless of the v4l device";
+      "V4L utils and libv4l, provide common image formats regardless of the v4l device"
+      ;
     homepage = "https://linuxtv.org/projects.php";
     changelog =
-      "https://git.linuxtv.org/v4l-utils.git/plain/ChangeLog?h=v4l-utils-${version}";
+      "https://git.linuxtv.org/v4l-utils.git/plain/ChangeLog?h=v4l-utils-${version}"
+      ;
     license = with licenses; [
       lgpl21Plus
       gpl2Plus

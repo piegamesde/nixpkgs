@@ -21,7 +21,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchzip {
     url =
-      "https://github.com/yarnpkg/yarn/releases/download/v${finalAttrs.version}/yarn-v${finalAttrs.version}.tar.gz";
+      "https://github.com/yarnpkg/yarn/releases/download/v${finalAttrs.version}/yarn-v${finalAttrs.version}.tar.gz"
+      ;
     sha256 = "sha256-12wUuWH+kkqxAgVYkyhIYVtexjv8DFP9kLpFLWg+h0o=";
   };
 
@@ -42,7 +43,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       "Fast, reliable, and secure dependency management for javascript";
     homepage = "https://classic.yarnpkg.com/";
     changelog =
-      "https://github.com/yarnpkg/yarn/blob/v${finalAttrs.version}/CHANGELOG.md";
+      "https://github.com/yarnpkg/yarn/blob/v${finalAttrs.version}/CHANGELOG.md"
+      ;
     license = licenses.bsd2;
     maintainers = with maintainers; [
       offline

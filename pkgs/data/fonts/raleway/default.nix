@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchzip {
     url =
-      "https://github.com/theleagueof/raleway/releases/download/${finalAttrs.version}/Raleway-${finalAttrs.version}.tar.xz";
+      "https://github.com/theleagueof/raleway/releases/download/${finalAttrs.version}/Raleway-${finalAttrs.version}.tar.xz"
+      ;
     hash = "sha256-itNHIMoRjiaqYAJoDNetkCquv47VAfel8MAzwsd//Ww=";
   };
 

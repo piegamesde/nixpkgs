@@ -34,7 +34,7 @@ buildGoModule rec {
       --zsh  <("$out/bin/go-licenses" completion zsh)
   '';
 
-  # Tests require internet connection
+    # Tests require internet connection
   doCheck = false;
 
   meta = with lib; {

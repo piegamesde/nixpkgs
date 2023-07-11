@@ -77,16 +77,17 @@ stdenv.mkDerivation (finalAttrs: {
     gtkCleanImmodulesCache
   ];
 
-  src = let
-    inherit (finalAttrs) version;
-  in
-  fetchurl {
-    url = "mirror://gnome/sources/gtk+/${
-        lib.versions.majorMinor version
-      }/gtk+-${version}.tar.xz";
-    sha256 = "sha256-Z0XwtMBTeUFR/Q8OJHSwd8zP9fg+ndG/PTn+n+X7f1c=";
-  }
-  ;
+  src =
+    let
+      inherit (finalAttrs) version;
+    in
+    fetchurl {
+      url = "mirror://gnome/sources/gtk+/${
+          lib.versions.majorMinor version
+        }/gtk+-${version}.tar.xz";
+      sha256 = "sha256-Z0XwtMBTeUFR/Q8OJHSwd8zP9fg+ndG/PTn+n+X7f1c=";
+    }
+    ;
 
   patches = [
     ./patches/3.0-immodules.cache.patch
@@ -126,7 +127,7 @@ stdenv.mkDerivation (finalAttrs: {
     isocodes
   ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ++ lib.optionals trackerSupport [ tracker ];
-  #TODO: colord?
+    #TODO: colord?
 
   propagatedBuildInputs = with xorg;
     [
@@ -173,8 +174,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   separateDebugInfo = stdenv.isLinux;
 
-  # These are the defines that'd you'd get with --enable-debug=minimum (default).
-  # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
+    # These are the defines that'd you'd get with --enable-debug=minimum (default).
+    # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
   env.NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
 
   postPatch = ''
@@ -213,7 +214,7 @@ stdenv.mkDerivation (finalAttrs: {
     GTK_PATH="''${out:?}/lib/gtk-3.0/3.0.0/immodules/" ''${dev:?}/bin/gtk-query-immodules-3.0 > "''${out:?}/lib/gtk-3.0/3.0.0/immodules.cache"
   '';
 
-  # Wrap demos
+    # Wrap demos
   postFixup = lib.optionalString (!stdenv.isDarwin) ''
     demos=(gtk3-demo gtk3-demo-application gtk3-icon-browser gtk3-widget-factory)
 

@@ -12,7 +12,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml-community/yojson/releases/download/${version}/yojson-${version}.tbz";
+      "https://github.com/ocaml-community/yojson/releases/download/${version}/yojson-${version}.tbz"
+      ;
     sha256 = "sha256-h2u284r3OoSilDij2jXkhXxgoUVWpgZSWxSMb9vlRhs=";
   };
 

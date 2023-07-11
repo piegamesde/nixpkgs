@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     rm -r scons
   '';
 
-  # a distinct dev output makes python-mapnik fail
+    # a distinct dev output makes python-mapnik fail
   outputs = [ "out" ];
 
   patches = [
@@ -90,9 +90,9 @@ stdenv.mkDerivation rec {
     "-DBUILD_DEMO_VIEWER=OFF"
   ];
 
-  # mapnik-config is currently not build with CMake. So we use the SCons for
-  # this one. We can't add SCons to nativeBuildInputs though, as stdenv would
-  # then try to build everything with scons.
+    # mapnik-config is currently not build with CMake. So we use the SCons for
+    # this one. We can't add SCons to nativeBuildInputs though, as stdenv would
+    # then try to build everything with scons.
   preBuild = ''
     cd ..
     ${buildPackages.scons}/bin/scons utils/mapnik-config

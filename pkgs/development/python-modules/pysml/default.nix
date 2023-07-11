@@ -28,14 +28,15 @@ buildPythonPackage rec {
     pyserial-asyncio
   ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "sml" ];
 
   meta = with lib; {
     description =
-      "Python library for EDL21 smart meters using Smart Message Language (SML)";
+      "Python library for EDL21 smart meters using Smart Message Language (SML)"
+      ;
     homepage = "https://github.com/mtdcr/pysml";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

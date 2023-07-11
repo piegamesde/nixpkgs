@@ -22,7 +22,7 @@ let
       sha256 = "14pfy80q2flgzjcx8jkracvnxxnr59kjzp3kdm5nh232gk1v6g6h";
     };
 
-    # circular dependencies if enabled by default
+      # circular dependencies if enabled by default
     doCheck = false;
     nativeCheckInputs = [
       jinja2
@@ -40,7 +40,8 @@ let
     meta = with lib; {
       homepage = "https://github.com/pyparsing/pyparsing";
       description =
-        "An alternative approach to creating and executing simple grammars, vs. the traditional lex/yacc approach, or the use of regular expressions";
+        "An alternative approach to creating and executing simple grammars, vs. the traditional lex/yacc approach, or the use of regular expressions"
+        ;
       license = licenses.mit;
     };
   };

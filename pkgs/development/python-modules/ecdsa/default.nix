@@ -16,7 +16,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ six ];
-  # Only needed for tests
+    # Only needed for tests
   nativeCheckInputs = [ pkgs.openssl ];
 
   meta = with lib; {

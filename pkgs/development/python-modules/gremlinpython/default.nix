@@ -17,7 +17,7 @@ buildPythonPackage rec {
   pname = "gremlinpython";
   version = "3.6.1";
 
-  # pypi tarball doesn't include tests
+    # pypi tarball doesn't include tests
   src = fetchFromGitHub {
     owner = "apache";
     repo = "tinkerpop";
@@ -36,7 +36,7 @@ buildPythonPackage rec {
       --replace "os.getenv('VERSION', '?').replace('-SNAPSHOT', '.dev-%d' % timestamp)" '"${version}"'
   '';
 
-  # setup-requires requirements
+    # setup-requires requirements
   nativeBuildInputs = [ importlib-metadata ];
 
   propagatedBuildInputs = [
@@ -53,13 +53,13 @@ buildPythonPackage rec {
     radish-bdd
   ];
 
-  # disable custom pytest report generation
+    # disable custom pytest report generation
   preCheck = ''
     substituteInPlace setup.cfg --replace 'addopts' '#addopts'
     export TEST_TRANSACTIONS='false'
   '';
 
-  # many tests expect a running tinkerpop server
+    # many tests expect a running tinkerpop server
   disabledTestPaths = [
     "tests/driver/test_client.py"
     "tests/driver/test_driver_remote_connection.py"
@@ -74,7 +74,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Gremlin-Python implements Gremlin, the graph traversal language of Apache TinkerPop, within the Python language";
+      "Gremlin-Python implements Gremlin, the graph traversal language of Apache TinkerPop, within the Python language"
+      ;
     homepage = "https://tinkerpop.apache.org/";
     license = licenses.asl20;
     maintainers = with maintainers; [

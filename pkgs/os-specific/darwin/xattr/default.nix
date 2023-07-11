@@ -35,14 +35,14 @@ buildPythonPackage rec {
     "OSV=${placeholder "doc"}/share/xattr/OpenSourceVersions"
   ];
 
-  # need to use `out` instead of `bin` since buildPythonPackage ignores the latter
+    # need to use `out` instead of `bin` since buildPythonPackage ignores the latter
   outputs = [
     "out"
     "doc"
     "python"
   ];
 
-  # We need to patch a reference to gnutar in an included Makefile
+    # We need to patch a reference to gnutar in an included Makefile
   postUnpack = ''
     chmod u+w $sourceRoot/..
   '';
@@ -61,7 +61,7 @@ buildPythonPackage rec {
     mkdir -p "$python/lib/${python.libPrefix}"
   '';
 
-  # move python package to its own output to reduce clutter
+    # move python package to its own output to reduce clutter
   postInstall = ''
     mv "$out/lib/python" "$python/${python.sitePackages}"
     rmdir "$out/lib"

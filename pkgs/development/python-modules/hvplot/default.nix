@@ -28,7 +28,7 @@ buildPythonPackage rec {
     pandas
   ];
 
-  # Many tests require a network connection
+    # Many tests require a network connection
   doCheck = false;
 
   pythonImportsCheck = [ "hvplot.pandas" ];

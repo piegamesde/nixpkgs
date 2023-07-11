@@ -31,7 +31,8 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     # https://gitlab.mister-muffin.de/josch/img2pdf/issues/148
     url =
-      "https://gitlab.mister-muffin.de/josch/img2pdf/commit/57d7e07e6badb252c12015388b58fcb5285d3158.patch";
+      "https://gitlab.mister-muffin.de/josch/img2pdf/commit/57d7e07e6badb252c12015388b58fcb5285d3158.patch"
+      ;
     hash = "sha256-H/g55spe/oVJRxO2Vh+F+ZgR6aLoRUrNeu5WnuU7k/k=";
   }) ];
 
@@ -40,7 +41,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  # https://gitlab.mister-muffin.de/josch/img2pdf/issues/128
+    # https://gitlab.mister-muffin.de/josch/img2pdf/issues/128
   doCheck = !stdenv.isAarch64;
 
   nativeCheckInputs = [

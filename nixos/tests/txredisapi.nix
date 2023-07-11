@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ dandellion ]; };
 
     nodes = {
-      machine = {
+      machine =
+        {
           pkgs,
           ...
         }:
@@ -19,10 +20,12 @@ import ./make-test-python.nix ({
             ps.txredisapi
             ps.mock
           ])) ];
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -35,5 +38,6 @@ import ./make-test-python.nix ({
         machine.succeed("ln -s ${redis.servers."".unixSocket} /tmp/redis.sock")
 
         tests = machine.succeed("PYTHONPATH=\"${pkgs.python3Packages.txredisapi.src}\" python -m twisted.trial ${pkgs.python3Packages.txredisapi.src}/tests")
-      '' ;
+      ''
+      ;
   })

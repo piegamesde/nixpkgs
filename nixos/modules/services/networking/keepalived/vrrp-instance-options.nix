@@ -105,7 +105,7 @@ with lib; {
       type = types.listOf
         (types.submodule (import ./virtual-ip-options.nix { inherit lib; }));
       default = [ ];
-      # TODO: example
+        # TODO: example
       description = lib.mdDoc "Declarative vhost config";
     };
 

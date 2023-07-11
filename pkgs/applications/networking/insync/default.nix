@@ -9,15 +9,18 @@
 stdenv.mkDerivation rec {
   pname = "insync";
   version = "1.5.7.37371";
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
-    fetchurl {
-      url =
-        "http://s.insynchq.com/builds/insync-portable_${version}_amd64.tar.bz2";
-      sha256 = "1cm3q6y2crw6pcsvh21sbkmh1hin7xl4fyslc96nbyql8rxsky5n";
-    }
-  else
-    throw
-    "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}";
+  src =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      fetchurl {
+        url =
+          "http://s.insynchq.com/builds/insync-portable_${version}_amd64.tar.bz2"
+          ;
+        sha256 = "1cm3q6y2crw6pcsvh21sbkmh1hin7xl4fyslc96nbyql8rxsky5n";
+      }
+    else
+      throw
+      "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}"
+    ;
 
   nativeBuildInputs = [
     makeWrapper
@@ -49,7 +52,7 @@ stdenv.mkDerivation rec {
 
       There is a 15-day free trial, and it is a paid application after that.
     '';
-    # download URL removed
+      # download URL removed
     broken = true;
   };
 }

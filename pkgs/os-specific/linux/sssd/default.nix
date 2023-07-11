@@ -56,7 +56,8 @@
 
 let
   docbookFiles =
-    "${docbook_xsl}/share/xml/docbook-xsl/catalog.xml:${docbook_xml_dtd_44}/xml/dtd/docbook/catalog.xml";
+    "${docbook_xsl}/share/xml/docbook-xsl/catalog.xml:${docbook_xml_dtd_44}/xml/dtd/docbook/catalog.xml"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "sssd";
@@ -73,7 +74,7 @@ stdenv.mkDerivation rec {
     patchShebangs ./sbus_generate.sh.in
   '';
 
-  # Something is looking for <libxml/foo.h> instead of <libxml2/libxml/foo.h>
+    # Something is looking for <libxml/foo.h> instead of <libxml2/libxml/foo.h>
   env.NIX_CFLAGS_COMPILE = "-I${libxml2.dev}/include/libxml2";
 
   preConfigure = ''
@@ -101,8 +102,8 @@ stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
-  # Disable parallel install due to missing depends:
-  #   libtool:   error: error: relink '_py3sss.la' with the above command before installing i
+    # Disable parallel install due to missing depends:
+    #   libtool:   error: error: relink '_py3sss.la' with the above command before installing i
   enableParallelInstalling = false;
   nativeBuildInputs = [
     autoreconfHook

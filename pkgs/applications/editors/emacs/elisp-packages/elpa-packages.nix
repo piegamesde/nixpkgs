@@ -32,19 +32,23 @@
 self:
 let
 
-  markBroken = pkg:
+  markBroken =
+    pkg:
     pkg.override {
-      elpaBuild = args:
+      elpaBuild =
+        args:
         self.elpaBuild
-        (args // { meta = (args.meta or { }) // { broken = true; }; });
-    };
+        (args // { meta = (args.meta or { }) // { broken = true; }; })
+        ;
+    }
+    ;
 
   elpaBuild = import ../../../../build-support/emacs/elpa.nix {
     inherit lib stdenv texinfo writeText gcc;
     inherit (self) emacs;
   };
 
-  # Use custom elpa url fetcher with fallback/uncompress
+    # Use custom elpa url fetcher with fallback/uncompress
   fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
 
   generateElpa = lib.makeOverridable ({
@@ -53,29 +57,35 @@ let
     let
 
       imported = import generated {
-        callPackage = pkgs: args:
-          self.callPackage pkgs (args // { inherit fetchurl; });
+        callPackage =
+          pkgs: args:
+          self.callPackage pkgs (args // { inherit fetchurl; })
+          ;
       };
 
       super = removeAttrs imported [ "dash" ];
 
       overrides = {
         # upstream issue: Wrong type argument: arrayp, nil
-        org-transclusion = if super.org-transclusion.version == "1.2.0" then
-          markBroken super.org-transclusion
-        else
-          super.org-transclusion;
+        org-transclusion =
+          if super.org-transclusion.version == "1.2.0" then
+            markBroken super.org-transclusion
+          else
+            super.org-transclusion
+          ;
         rcirc-menu = markBroken super.rcirc-menu; # Missing file header
         cl-lib = null; # builtin
         cl-print = null; # builtin
         tle = null; # builtin
         advice = null; # builtin
-        seq = if lib.versionAtLeast self.emacs.version "27" then
-          null
-        else
-          super.seq;
-        # Compilation instructions for the Ada executables:
-        # https://www.nongnu.org/ada-mode/
+        seq =
+          if lib.versionAtLeast self.emacs.version "27" then
+            null
+          else
+            super.seq
+          ;
+          # Compilation instructions for the Ada executables:
+          # https://www.nongnu.org/ada-mode/
         ada-mode = super.ada-mode.overrideAttrs (old: {
           # actually unpack source of ada-mode and wisi
           # which are both needed to compile the tools
@@ -107,9 +117,8 @@ let
             ./install.sh --prefix=$out
           '';
 
-          meta = old.meta // {
-            maintainers = [ lib.maintainers.sternenseemann ];
-          };
+          meta =
+            old.meta // { maintainers = [ lib.maintainers.sternenseemann ]; };
         });
 
         jinx = super.jinx.overrideAttrs (old:
@@ -118,8 +127,8 @@ let
           in {
             dontUnpack = false;
 
-            nativeBuildInputs = (old.nativeBuildInputs or [ ])
-              ++ [ pkgs.pkg-config ];
+            nativeBuildInputs =
+              (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
 
             buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.enchant2 ];
 
@@ -134,9 +143,8 @@ let
               rm $outd/jinx-mod.c $outd/emacs-module.h
             '';
 
-            meta = old.meta // {
-              maintainers = [ lib.maintainers.DamienCassou ];
-            };
+            meta =
+              old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
           } );
 
         plz = super.plz.overrideAttrs (old: {

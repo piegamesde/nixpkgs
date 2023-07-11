@@ -28,6 +28,6 @@ buildPythonPackage rec {
     six
   ];
 
-  # tests need a postgres database
+    # tests need a postgres database
   doCheck = false;
 }

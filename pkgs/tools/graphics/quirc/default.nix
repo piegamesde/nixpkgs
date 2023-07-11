@@ -34,7 +34,7 @@ stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE =
     "-I${lib.getDev SDL}/include/SDL -I${SDL_gfx}/include/SDL";
 
-  # Disable building of linux-only demos on darwin systems
+    # Disable building of linux-only demos on darwin systems
   patches = lib.optionals stdenv.isDarwin [ ./0001-dont-build-demos.patch ];
 
   buildPhase = lib.optionalString stdenv.isDarwin ''

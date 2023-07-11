@@ -90,9 +90,12 @@ let
     "1.6.4".sha256 = "09ww48qbjsvpjmy1g9yhm0rrkq800ffq21p6fjkbwd34qvd82raz";
     "1.6.1".sha256 = "1ilw6vm4dlsdv9cd7kmf0vfrh2kkzr45wrqr8m37miy0byzr4p9i";
   };
-  releaseRev = v: "mathcomp-${v}";
+  releaseRev =
+    v:
+    "mathcomp-${v}"
+    ;
 
-  # list of core mathcomp packages sorted by dependency order
+    # list of core mathcomp packages sorted by dependency order
   packages = [
     "ssreflect"
     "fingroup"
@@ -103,20 +106,27 @@ let
     "all"
   ];
 
-  mathcomp_ = package:
+  mathcomp_ =
+    package:
     let
-      mathcomp-deps = if package == "single" then
-        [ ]
-      else
-        map mathcomp_ (head (splitList (lib.pred.equal package) packages));
-      pkgpath = if package == "single" then
-        "mathcomp"
-      else
-        "mathcomp/${package}";
-      pname = if package == "single" then
-        "mathcomp"
-      else
-        "mathcomp-${package}";
+      mathcomp-deps =
+        if package == "single" then
+          [ ]
+        else
+          map mathcomp_ (head (splitList (lib.pred.equal package) packages))
+        ;
+      pkgpath =
+        if package == "single" then
+          "mathcomp"
+        else
+          "mathcomp/${package}"
+        ;
+      pname =
+        if package == "single" then
+          "mathcomp"
+        else
+          "mathcomp-${package}"
+        ;
       pkgallMake = ''
         echo "all.v"  > Make
         echo "-I ." >>   Make
@@ -160,22 +170,24 @@ let
       } // optionalAttrs withDoc {
         htmldoc_template = fetchzip {
           url =
-            "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip";
+            "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip"
+            ;
           sha256 = "0y1352ha2yy6k2dl375sb1r68r1qi9dyyy7dyzj5lp9hxhhq69x8";
         };
         postBuild = ''
           cp -rf _build_doc/* .
           rm -r _build_doc
         '';
-        postInstall = let
-          tgt = "$out/share/coq/${coq.coq-version}/";
-        in
-        optionalString withDoc ''
-          mkdir -p ${tgt}
-          cp -r htmldoc ${tgt}
-          cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
-        ''
-        ;
+        postInstall =
+          let
+            tgt = "$out/share/coq/${coq.coq-version}/";
+          in
+          optionalString withDoc ''
+            mkdir -p ${tgt}
+            cp -r htmldoc ${tgt}
+            cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
+          ''
+          ;
         buildTargets = "doc";
         extraInstallFlags = [ "-f Makefile.coq" ];
       });
@@ -193,7 +205,7 @@ let
           });
     in
     patched-derivation
-  ;
+    ;
 in
 mathcomp_ (if single then
   "single"

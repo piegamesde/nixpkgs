@@ -111,12 +111,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description =
-      "Simplifies administration and addresses infrastructure challenges in cluster and datacenter environments";
+      "Simplifies administration and addresses infrastructure challenges in cluster and datacenter environments"
+      ;
     homepage = "https://github.com/RadeonOpenCompute/rdc";
     license = with licenses; [ mit ];
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version
-      != versions.minor rocm-smi.version;
+    broken =
+      versions.minor finalAttrs.version != versions.minor rocm-smi.version;
   };
 })

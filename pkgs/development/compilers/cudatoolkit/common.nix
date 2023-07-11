@@ -54,18 +54,20 @@ backendStdenv.mkDerivation rec {
   dontPatchELF = true;
   dontStrip = true;
 
-  src = if developerProgram then
-    requireFile {
-      message = ''
-        This nix expression requires that ${args.name} is already part of the store.
-        Register yourself to NVIDIA Accelerated Computing Developer Program, retrieve the CUDA toolkit
-        at https://developer.nvidia.com/cuda-toolkit, and run the following command in the download directory:
-        nix-prefetch-url file://\$PWD/${args.name}
-      '';
-      inherit (args) name sha256;
-    }
-  else
-    fetchurl { inherit (args) url sha256; };
+  src =
+    if developerProgram then
+      requireFile {
+        message = ''
+          This nix expression requires that ${args.name} is already part of the store.
+          Register yourself to NVIDIA Accelerated Computing Developer Program, retrieve the CUDA toolkit
+          at https://developer.nvidia.com/cuda-toolkit, and run the following command in the download directory:
+          nix-prefetch-url file://\$PWD/${args.name}
+        '';
+        inherit (args) name sha256;
+      }
+    else
+      fetchurl { inherit (args) url sha256; }
+    ;
 
   outputs = [
     "out"
@@ -133,8 +135,8 @@ backendStdenv.mkDerivation rec {
     xorg.libxkbfile
   ];
 
-  # Prepended to runpaths by autoPatchelf.
-  # The order inherited from older rpath preFixup code
+    # Prepended to runpaths by autoPatchelf.
+    # The order inherited from older rpath preFixup code
   runtimeDependencies = [
     (placeholder "lib")
     (placeholder "out")
@@ -313,27 +315,29 @@ backendStdenv.mkDerivation rec {
     done
   '';
 
-  # cuda-gdb doesn't run correctly when not using sandboxing, so
-  # temporarily disabling the install check.  This should be set to true
-  # when we figure out how to get `cuda-gdb --version` to run correctly
-  # when not using sandboxing.
+    # cuda-gdb doesn't run correctly when not using sandboxing, so
+    # temporarily disabling the install check.  This should be set to true
+    # when we figure out how to get `cuda-gdb --version` to run correctly
+    # when not using sandboxing.
   doInstallCheck = false;
-  postInstallCheck = let
-  in ''
-    # Smoke test binaries
-    pushd $out/bin
-    for f in *; do
-      case $f in
-        crt)                           continue;;
-        nvcc.profile)                  continue;;
-        nsight_ee_plugins_manage.sh)   continue;;
-        uninstall_cuda_toolkit_6.5.pl) continue;;
-        computeprof|nvvp|nsight)       continue;; # GUIs don't feature "--version"
-        *)                             echo "Executing '$f --version':"; ./$f --version;;
-      esac
-    done
-    popd
-  '' ;
+  postInstallCheck =
+    let
+    in ''
+      # Smoke test binaries
+      pushd $out/bin
+      for f in *; do
+        case $f in
+          crt)                           continue;;
+          nvcc.profile)                  continue;;
+          nsight_ee_plugins_manage.sh)   continue;;
+          uninstall_cuda_toolkit_6.5.pl) continue;;
+          computeprof|nvvp|nsight)       continue;; # GUIs don't feature "--version"
+          *)                             echo "Executing '$f --version':"; ./$f --version;;
+        esac
+      done
+      popd
+    ''
+    ;
   passthru = {
     inherit (backendStdenv) cc;
     majorMinorVersion = lib.versions.majorMinor version;

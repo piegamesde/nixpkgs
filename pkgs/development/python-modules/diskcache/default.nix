@@ -33,7 +33,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" tox.ini
   '';
 
-  # Darwin sandbox causes most tests to fail
+    # Darwin sandbox causes most tests to fail
   doCheck = !stdenv.isDarwin;
 
   disabledTests = [

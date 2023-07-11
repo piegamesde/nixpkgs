@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     ./log-stdout.patch
   ];
 
-  # Read all configuration from /run/longview
+    # Read all configuration from /run/longview
   postPatch = ''
     substituteInPlace Linode/Longview/Util.pm \
         --replace /var/run/longview.pid /run/longview/longview.pid \

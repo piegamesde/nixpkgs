@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
 
   patches = lib.optionals (!useBundledLuaJIT) [ ./remove-bundled-luajit.patch ];
 
-  # error: unknown type name 'NSUInteger'
+    # error: unknown type name 'NSUInteger'
   postPatch = ''
     substituteInPlace src/dialog_colorpicker.cpp \
       --replace "NSUInteger" "size_t"
@@ -161,8 +161,8 @@ stdenv.mkDerivation rec {
       audio, and features many powerful tools for styling them, including a
       built-in real-time video preview.
     '';
-    # The Aegisub sources are itself BSD/ISC, but they are linked against GPL'd
-    # softwares - so the resulting program will be GPL
+      # The Aegisub sources are itself BSD/ISC, but they are linked against GPL'd
+      # softwares - so the resulting program will be GPL
     license = licenses.bsd3;
     maintainers = with maintainers; [
       AndersonTorres

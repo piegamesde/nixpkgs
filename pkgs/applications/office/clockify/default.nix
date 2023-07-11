@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://web.archive.org/web/20211118160803/https://clockify-resources.s3.eu-central-1.amazonaws.com/downloads/Clockify_Setup.deb";
+      "https://web.archive.org/web/20211118160803/https://clockify-resources.s3.eu-central-1.amazonaws.com/downloads/Clockify_Setup.deb"
+      ;
     sha256 = "sha256-eVZ3OqM1eoWfST7Qu9o8VmLm8ntD+ETf/0aes6RY4Y8=";
   };
 
@@ -46,7 +47,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Free time tracker and timesheet app that lets you track work hours across projects";
+      "Free time tracker and timesheet app that lets you track work hours across projects"
+      ;
     homepage = "https://clockify.me";
     license = licenses.unfree;
     maintainers = with maintainers; [ wolfangaukang ];

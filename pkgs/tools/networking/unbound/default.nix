@@ -122,12 +122,14 @@ stdenv.mkDerivation rec {
 
   PROTOC_C = lib.optionalString withDNSTAP "${protobufc}/bin/protoc-c";
 
-  # Remove references to compile-time dependencies that are included in the configure flags
-  postConfigure = let
-    inherit (builtins) storeDir;
-  in ''
-    sed -E '/CONFCMDLINE/ s;${storeDir}/[a-z0-9]{32}-;${storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-;g' -i config.h
-  '' ;
+    # Remove references to compile-time dependencies that are included in the configure flags
+  postConfigure =
+    let
+      inherit (builtins) storeDir;
+    in ''
+      sed -E '/CONFCMDLINE/ s;${storeDir}/[a-z0-9]{32}-;${storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-;g' -i config.h
+    ''
+    ;
 
   nativeCheckInputs = [ bison ];
 

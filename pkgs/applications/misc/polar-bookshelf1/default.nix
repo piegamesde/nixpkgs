@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/burtonator/polar-bookshelf/releases/download/v${version}/polar-bookshelf-${version}-amd64.deb";
+      "https://github.com/burtonator/polar-bookshelf/releases/download/v${version}/polar-bookshelf-${version}-amd64.deb"
+      ;
     hash = "sha256-5xa+Nwu0p1x5DLn1GNI0HDt7GtBGoFQ/9qGTeq9uBgU=";
   };
 
@@ -117,7 +118,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://getpolarized.io/";
     description =
-      "Personal knowledge repository for PDF and web content supporting incremental reading and document annotation";
+      "Personal knowledge repository for PDF and web content supporting incremental reading and document annotation"
+      ;
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.dansbandit ];
     platforms = lib.platforms.linux;

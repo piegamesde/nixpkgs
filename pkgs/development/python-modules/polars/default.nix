@@ -13,7 +13,8 @@ let
   version = "0.15.13";
   rootSource = fetchzip {
     url =
-      "https://github.com/pola-rs/${pname}/archive/refs/tags/py-${version}.tar.gz";
+      "https://github.com/pola-rs/${pname}/archive/refs/tags/py-${version}.tar.gz"
+      ;
     hash = "sha256-bk2opNLN3L+fkzXVfUU5O37UmA27ijmnAElCHjsuI+o=";
   };
 in
@@ -23,9 +24,9 @@ buildPythonPackage {
   disabled = pythonOlder "3.6";
   src = rootSource;
 
-  # Cargo.lock files is sometimes behind actual release which throws an error,
-  # thus the `sed` command
-  # Make sure to check that the right substitutions are made when updating the package
+    # Cargo.lock files is sometimes behind actual release which throws an error,
+    # thus the `sed` command
+    # Make sure to check that the right substitutions are made when updating the package
   preBuild = ''
     cd py-polars
     sed -i 's/version = "0.15.11"/version = "${version}"/g' Cargo.lock
@@ -41,7 +42,7 @@ buildPythonPackage {
   };
   cargoRoot = "py-polars";
 
-  # Revisit this whenever package or Rust is upgraded
+    # Revisit this whenever package or Rust is upgraded
   RUSTC_BOOTSTRAP = 1;
 
   propagatedBuildInputs =
@@ -55,15 +56,15 @@ buildPythonPackage {
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
   pythonImportsCheck = [ "polars" ];
-  # nativeCheckInputs = [
-  #   pytestCheckHook
-  #   fixtures
-  #   graphviz
-  #   matplotlib
-  #   networkx
-  #   numpy
-  #   pydot
-  # ];
+    # nativeCheckInputs = [
+    #   pytestCheckHook
+    #   fixtures
+    #   graphviz
+    #   matplotlib
+    #   networkx
+    #   numpy
+    #   pydot
+    # ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;

@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  # maybe add nvidia-settings later on
+    # maybe add nvidia-settings later on
   buildInputs = [
     gtk3
     libxml2

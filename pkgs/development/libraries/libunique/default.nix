@@ -19,15 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "1fsgvmncd9caw552lyfg8swmsd6bh4ijjsph69bwacwfxwf09j75";
   };
 
-  # Don't make deprecated usages hard errors
+    # Don't make deprecated usages hard errors
   prePatch = ''
     substituteInPlace configure --replace "-Werror" "";
   '';
 
-  # glib-2.62 deprecations
+    # glib-2.62 deprecations
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
-  # Patches from Gentoo portage
+    # Patches from Gentoo portage
   patches = [
     ./1.1.6-compiler-warnings.patch
     ./1.1.6-fix-test.patch

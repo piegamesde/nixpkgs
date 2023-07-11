@@ -1,9 +1,11 @@
 {
   description = "Library of low-level helper functions for nix expressions.";
 
-  outputs = {
+  outputs =
+    {
       self,
     }: {
       lib = import ./.;
-    };
+    }
+    ;
 }

@@ -44,7 +44,7 @@ buildPythonPackage rec {
     glibcLocales
   ];
 
-  # tests depend on network
+    # tests depend on network
   doCheck = false;
 
   checkPhase = ''

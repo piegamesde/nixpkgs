@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
   version = "1.0.2";
   src = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf103925/hll3230cdwpdrv-${version}-0.i386.deb";
+      "https://download.brother.com/welcome/dlf103925/hll3230cdwpdrv-${version}-0.i386.deb"
+      ;
     sha256 = "9d49abc584bf22bc381510618a34107ead6ab14562b51831fefd6009947aa5a9";
   };
 
@@ -51,16 +52,16 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # Fix global references and replace auto discovery mechanism
-  # with hardcoded values.
-  #
-  # The configuration binary 'brprintconf_hll3230cdw' and lpd filter
-  # 'brhll3230cdwfilter' has hardcoded /opt format strings.  There isn't
-  # sufficient space in the binaries to substitute a path in the store, so use
-  # libredirect to get it to see the correct path.  The configuration binary
-  # also uses this format string to print configuration locations.  Here the
-  # wrapper output is processed to point into the correct location in the
-  # store.
+    # Fix global references and replace auto discovery mechanism
+    # with hardcoded values.
+    #
+    # The configuration binary 'brprintconf_hll3230cdw' and lpd filter
+    # 'brhll3230cdwfilter' has hardcoded /opt format strings.  There isn't
+    # sufficient space in the binaries to substitute a path in the store, so use
+    # libredirect to get it to see the correct path.  The configuration binary
+    # also uses this format string to print configuration locations.  Here the
+    # wrapper output is processed to point into the correct location in the
+    # store.
 
   postFixup = ''
     substituteInPlace $out/opt/brother/Printers/hll3230cdw/lpd/filter_hll3230cdw \
@@ -94,6 +95,7 @@ stdenv.mkDerivation rec {
     ];
     homepage = "http://www.brother.com/";
     downloadPage =
-      "https://support.brother.com/g/b/downloadend.aspx?c=us&lang=en&prod=hll3230cdw_us_eu_as&os=128&dlid=dlf103925_000&flang=4&type3=10283";
+      "https://support.brother.com/g/b/downloadend.aspx?c=us&lang=en&prod=hll3230cdw_us_eu_as&os=128&dlid=dlf103925_000&flang=4&type3=10283"
+      ;
   };
 }

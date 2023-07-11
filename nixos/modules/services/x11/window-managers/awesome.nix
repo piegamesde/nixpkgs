@@ -30,7 +30,8 @@ in {
         default = [ ];
         type = types.listOf types.package;
         description = lib.mdDoc
-          "List of lua packages available for being used in the Awesome configuration.";
+          "List of lua packages available for being used in the Awesome configuration."
+          ;
         example = literalExpression "[ pkgs.luaPackages.vicious ]";
       };
 
@@ -38,24 +39,27 @@ in {
         default = null;
         type = types.nullOr types.package;
         description = lib.mdDoc "Package to use for running the Awesome WM.";
-        apply = pkg:
+        apply =
+          pkg:
           if pkg == null then
             pkgs.awesome
           else
-            pkg;
+            pkg
+          ;
       };
 
       noArgb = mkOption {
         default = false;
         type = types.bool;
         description = lib.mdDoc
-          "Disable client transparency support, which can be greatly detrimental to performance in some setups";
+          "Disable client transparency support, which can be greatly detrimental to performance in some setups"
+          ;
       };
     };
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

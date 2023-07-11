@@ -47,7 +47,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     description = "Cut videos and concat them automatically";
     homepage = "https://github.com/rushmj/mpv-video-cutter";
-    # repo doesn't have a license
+      # repo doesn't have a license
     license = licenses.unfree;
     maintainers = with maintainers; [ lom ];
   };

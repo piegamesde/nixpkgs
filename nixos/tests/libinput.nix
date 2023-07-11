@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   {
     name = "libinput";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [
@@ -24,7 +25,8 @@ import ./make-test-python.nix ({
             horizontalScrolling = false;
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       def expect_xserver_option(option, value):

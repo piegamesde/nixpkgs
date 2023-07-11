@@ -52,28 +52,30 @@ buildGoModule rec {
 
   subPackages = [ "cmd/pomerium" ];
 
-  # patch pomerium to allow use of external envoy
+    # patch pomerium to allow use of external envoy
   patches = [ ./external-envoy.diff ];
 
-  ldflags = let
-    # Set a variety of useful meta variables for stamping the build with.
-    setVars = {
-      "github.com/pomerium/pomerium/internal/version" = {
-        Version = "v${version}";
-        BuildMeta = "nixpkgs";
-        ProjectName = "pomerium";
-        ProjectURL = "github.com/pomerium/pomerium";
+  ldflags =
+    let
+      # Set a variety of useful meta variables for stamping the build with.
+      setVars = {
+        "github.com/pomerium/pomerium/internal/version" = {
+          Version = "v${version}";
+          BuildMeta = "nixpkgs";
+          ProjectName = "pomerium";
+          ProjectURL = "github.com/pomerium/pomerium";
+        };
+        "github.com/pomerium/pomerium/pkg/envoy" = {
+          OverrideEnvoyPath = "${envoy}/bin/envoy";
+        };
       };
-      "github.com/pomerium/pomerium/pkg/envoy" = {
-        OverrideEnvoyPath = "${envoy}/bin/envoy";
-      };
-    };
-    concatStringsSpace = list: concatStringsSep " " list;
-    mapAttrsToFlatList = fn: list: concatMap id (mapAttrsToList fn list);
-    varFlags = concatStringsSpace (mapAttrsToFlatList (package: packageVars:
-      mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}")
-      packageVars) setVars);
-  in [ "${varFlags}" ] ;
+      concatStringsSpace = list: concatStringsSep " " list;
+      mapAttrsToFlatList = fn: list: concatMap id (mapAttrsToList fn list);
+      varFlags = concatStringsSpace (mapAttrsToFlatList (package: packageVars:
+        mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}")
+        packageVars) setVars);
+    in [ "${varFlags}" ]
+    ;
 
   preBuild = ''
     # Replace embedded envoy with nothing.

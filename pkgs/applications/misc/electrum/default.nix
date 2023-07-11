@@ -14,21 +14,25 @@
 let
   version = "4.4.0";
 
-  libsecp256k1_name = if stdenv.isLinux then
-    "libsecp256k1.so.0"
-  else if stdenv.isDarwin then
-    "libsecp256k1.0.dylib"
-  else
-    "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libsecp256k1_name =
+    if stdenv.isLinux then
+      "libsecp256k1.so.0"
+    else if stdenv.isDarwin then
+      "libsecp256k1.0.dylib"
+    else
+      "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}"
+    ;
 
-  libzbar_name = if stdenv.isLinux then
-    "libzbar.so.0"
-  else if stdenv.isDarwin then
-    "libzbar.0.dylib"
-  else
-    "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libzbar_name =
+    if stdenv.isLinux then
+      "libzbar.so.0"
+    else if stdenv.isDarwin then
+      "libzbar.0.dylib"
+    else
+      "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}"
+    ;
 
-  # Not provided in official source releases, which are what upstream signs.
+    # Not provided in official source releases, which are what upstream signs.
   tests = fetchFromGitHub {
     owner = "spesmilo";
     repo = "electrum";

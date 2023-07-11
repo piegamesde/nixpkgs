@@ -8,7 +8,8 @@ import ../make-test-python.nix ({
     name = "lvm2-thinpool";
     meta.maintainers = with pkgs.lib.maintainers; [ ajs124 ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -24,7 +25,8 @@ import ../make-test-python.nix ({
           activation/thin_pool_autoextend_threshold = 80
         '';
         boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed("vgcreate test_vg /dev/vdb")

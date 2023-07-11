@@ -49,14 +49,14 @@ in {
     environment = {
       systemPackages = [ cfg.package ];
 
-      # tell mandoc about man pages
+        # tell mandoc about man pages
       etc."man.conf".text = lib.concatMapStrings (path: ''
         manpath /run/current-system/sw/${path}
       '') cfg.manPath;
 
-      # create mandoc.db for whatis(1), apropos(1) and man(1) -k
-      # TODO(@sternenseemman): fix symlinked directories not getting indexed,
-      # see: https://inbox.vuxu.org/mandoc-tech/20210906171231.GF83680@athene.usta.de/T/#e85f773c1781e3fef85562b2794f9cad7b2909a3c
+        # create mandoc.db for whatis(1), apropos(1) and man(1) -k
+        # TODO(@sternenseemman): fix symlinked directories not getting indexed,
+        # see: https://inbox.vuxu.org/mandoc-tech/20210906171231.GF83680@athene.usta.de/T/#e85f773c1781e3fef85562b2794f9cad7b2909a3c
       extraSetup = lib.mkIf config.documentation.man.generateCaches ''
         ${makewhatis} -T utf8 ${
           lib.concatMapStringsSep " " (path: "$out/" + lib.escapeShellArg path)

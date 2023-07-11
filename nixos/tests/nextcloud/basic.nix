@@ -22,7 +22,8 @@ args@{
 
     nodes = rec {
       # The only thing the client needs to do is download a file.
-      client = {
+      client =
+        {
           ...
         }: {
           services.davfs2.enable = true;
@@ -34,19 +35,24 @@ args@{
             "/mnt/dav" = {
               device = "http://nextcloud/remote.php/webdav/";
               fsType = "davfs";
-              options = let
-                davfs2Conf =
-                  (pkgs.writeText "davfs2.conf" "secrets /tmp/davfs2-secrets");
-              in [
-                "conf=${davfs2Conf}"
-                "x-systemd.automount"
-                "noauto"
-              ] ;
+              options =
+                let
+                  davfs2Conf =
+                    (pkgs.writeText "davfs2.conf" "secrets /tmp/davfs2-secrets")
+                    ;
+                in [
+                  "conf=${davfs2Conf}"
+                  "x-systemd.automount"
+                  "noauto"
+                ]
+                ;
             };
           };
-        };
+        }
+        ;
 
-      nextcloud = {
+      nextcloud =
+        {
           config,
           pkgs,
           ...
@@ -56,8 +62,8 @@ args@{
         in {
           networking.firewall.allowedTCPPorts = [ 80 ];
 
-          systemd.tmpfiles.rules =
-            [ "d /var/lib/nextcloud-data 0750 nextcloud nginx - -" ];
+          systemd.tmpfiles.rules = [ "d /var/lib/nextcloud-data 0750 nextcloud nginx - -" ]
+            ;
 
           system.stateVersion =
             "22.11"; # stateVersion >=21.11 to make sure that we use OpenSSL3
@@ -68,8 +74,8 @@ args@{
             hostName = "nextcloud";
             config = {
               # Don't inherit adminuser since "root" is supposed to be the default
-              adminpassFile = "${pkgs.writeText "adminpass"
-                adminpass}"; # Don't try this at home!
+              adminpassFile = "${pkgs.writeText "adminpass" adminpass}"
+                ; # Don't try this at home!
               dbtableprefix = "nixos_";
             };
             package = pkgs.${"nextcloud" + (toString nextcloudVersion)};
@@ -81,9 +87,11 @@ args@{
           };
 
           environment.systemPackages = [ cfg.services.nextcloud.occ ];
-        } ;
+        }
+        ;
 
-      nextcloudWithoutMagick = args@{
+      nextcloudWithoutMagick =
+        args@{
           config,
           pkgs,
           lib,
@@ -92,10 +100,12 @@ args@{
         lib.mkMerge [
           (nextcloud args)
           { services.nextcloud.enableImagemagick = false; }
-        ];
+        ]
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -119,7 +129,8 @@ args@{
           diff <(echo 'hi') <(${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file)
         '';
 
-        findInClosure = what: drv:
+        findInClosure =
+          what: drv:
           pkgs.runCommand "find-in-closure" {
             exportReferencesGraph = [
               "graph"
@@ -129,7 +140,8 @@ args@{
           } ''
             test -e graph
             grep "$what" graph >$out || true
-          '';
+          ''
+          ;
         nextcloudUsesImagick =
           findInClosure "imagick" nodes.nextcloud.config.system.build.vm;
         nextcloudWithoutDoesntUseIt = findInClosure "imagick"
@@ -158,5 +170,6 @@ args@{
         )
         assert "hi" in client.succeed("cat /mnt/dav/test-shared-file")
         nextcloud.succeed("grep -vE '^HBEGIN:oc_encryption_module' /var/lib/nextcloud-data/data/root/files/test-shared-file")
-      '' ;
+      ''
+      ;
   } )) args

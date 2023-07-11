@@ -31,9 +31,10 @@ in {
           };
 
           environmentFile = mkOption {
-            type = with types; nullOr str;
-            # added on 2021-08-28, s3CredentialsFile should
-            # be removed in the future (+ remember the warning)
+            type = with types;
+              nullOr str;
+              # added on 2021-08-28, s3CredentialsFile should
+              # be removed in the future (+ remember the warning)
             default = config.s3CredentialsFile;
             description = lib.mdDoc ''
               file containing the credentials to access the repository, in the
@@ -194,8 +195,8 @@ in {
             description = lib.mdDoc ''
               Extra extended options to be passed to the restic --option flag.
             '';
-            example =
-              [ "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'" ];
+            example = [ "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'" ]
+              ;
           };
 
           initialize = mkOption {
@@ -283,8 +284,8 @@ in {
         paths = [ "/home" ];
         repository = "sftp:backup@host:/backups/home";
         passwordFile = "/etc/nixos/secrets/restic-password";
-        extraOptions =
-          [ "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'" ];
+        extraOptions = [ "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'" ]
+          ;
         timerConfig = {
           OnCalendar = "00:05";
           RandomizedDelaySec = "5h";
@@ -301,42 +302,53 @@ in {
     assertions = mapAttrsToList (n: v: {
       assertion = (v.repository == null) != (v.repositoryFile == null);
       message =
-        "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set";
+        "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set"
+        ;
     }) config.services.restic.backups;
     systemd.services = mapAttrs' (name: backup:
       let
         extraOptions = concatMapStrings (arg: " -o ${arg}") backup.extraOptions;
         resticCmd = "${backup.package}/bin/restic${extraOptions}";
-        excludeFlags = if (backup.exclude != [ ]) then
-          [ "--exclude-file=${
-            pkgs.writeText "exclude-patterns"
-            (concatStringsSep "\n" backup.exclude)
-          }" ]
-        else
-          [ ];
+        excludeFlags =
+          if (backup.exclude != [ ]) then
+            [ "--exclude-file=${
+              pkgs.writeText "exclude-patterns"
+              (concatStringsSep "\n" backup.exclude)
+            }" ]
+          else
+            [ ]
+          ;
         filesFromTmpFile = "/run/restic-backups-${name}/includes";
-        backupPaths = if (backup.dynamicFilesFrom == null) then
-          optionalString (backup.paths != null)
-          (concatStringsSep " " backup.paths)
-        else
-          "--files-from ${filesFromTmpFile}";
+        backupPaths =
+          if (backup.dynamicFilesFrom == null) then
+            optionalString (backup.paths != null)
+            (concatStringsSep " " backup.paths)
+          else
+            "--files-from ${filesFromTmpFile}"
+          ;
         pruneCmd = optionals (builtins.length backup.pruneOpts > 0) [
           (resticCmd + " forget --prune "
             + (concatStringsSep " " backup.pruneOpts))
           (resticCmd + " check " + (concatStringsSep " " backup.checkOpts))
         ];
-        # Helper functions for rclone remotes
+          # Helper functions for rclone remotes
         rcloneRemoteName =
           builtins.elemAt (splitString ":" backup.repository) 1;
-        rcloneAttrToOpt = v:
-          "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v);
-        rcloneAttrToConf = v:
-          "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
-        toRcloneVal = v:
+        rcloneAttrToOpt =
+          v:
+          "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v)
+          ;
+        rcloneAttrToConf =
+          v:
+          "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v)
+          ;
+        toRcloneVal =
+          v:
           if lib.isBool v then
             lib.boolToString v
           else
-            v;
+            v
+          ;
       in
       nameValuePair "restic-backups-${name}" ({
         environment = {

@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
     patchShebangs tests
   '';
 
-  # The share/ subdir only contains a doc/ with a README.md that just describes
-  # how to compile the library, which clearly isn't very useful! So just get
-  # rid of it anyway.
+    # The share/ subdir only contains a doc/ with a README.md that just describes
+    # how to compile the library, which clearly isn't very useful! So just get
+    # rid of it anyway.
   postInstall = ''
     rm -rf $out/share
   '';

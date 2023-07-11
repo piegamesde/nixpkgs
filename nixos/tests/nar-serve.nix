@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "nar-serve";
     meta.maintainers = [ lib.maintainers.rizary ];
     nodes = {
-      server = {
+      server =
+        {
           pkgs,
           ...
         }: {
@@ -16,8 +17,8 @@ import ./make-test-python.nix ({
           };
           services.nar-serve = {
             enable = true;
-            # Connect to the localhost nginx instead of the default
-            # https://cache.nixos.org
+              # Connect to the localhost nginx instead of the default
+              # https://cache.nixos.org
             cacheURL = "http://localhost/";
           };
           environment.systemPackages = [
@@ -27,8 +28,9 @@ import ./make-test-python.nix ({
 
           networking.firewall.allowedTCPPorts = [ 8383 ];
 
-          # virtualisation.diskSize = 2 * 1024;
-        };
+            # virtualisation.diskSize = 2 * 1024;
+        }
+        ;
     };
     testScript = ''
       start_all()

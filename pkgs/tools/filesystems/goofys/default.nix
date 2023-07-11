@@ -12,7 +12,7 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "kahing";
     repo = "goofys";
-    # Same as v0.24.0 but migrated to Go modules
+      # Same as v0.24.0 but migrated to Go modules
     rev = "829d8e5ce20faa3f9f6f054077a14325e00e9249";
     sha256 = "sha256-6yVMNSwwPZlADXuPBDRlgoz4Stuz2pgv6r6+y2/C8XY=";
   };
@@ -21,7 +21,7 @@ buildGoModule {
 
   subPackages = [ "." ];
 
-  # Tests are using networking
+    # Tests are using networking
   postPatch = ''
     rm internal/*_test.go
   '';
@@ -32,8 +32,8 @@ buildGoModule {
       "A high-performance, POSIX-ish Amazon S3 file system written in Go.";
     license = [ lib.licenses.mit ];
     maintainers = [ lib.maintainers.adisbladis ];
-    broken =
-      stdenv.isDarwin; # needs to update gopsutil to at least v3.21.3 to include https://github.com/shirou/gopsutil/pull/1042
+    broken = stdenv.isDarwin
+      ; # needs to update gopsutil to at least v3.21.3 to include https://github.com/shirou/gopsutil/pull/1042
   };
 
 }

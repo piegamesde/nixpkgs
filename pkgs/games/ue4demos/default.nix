@@ -9,13 +9,16 @@
 }:
 
 let
-  urls = file: [
-    # Untrusted mirrors - do not update hashes
-    "https://ludios.org/mirror/ue4demos/${file}"
-    "https://web.archive.org/web/20140824192039/http://ue4linux.raxxy.com/${file}"
-  ];
+  urls =
+    file: [
+      # Untrusted mirrors - do not update hashes
+      "https://ludios.org/mirror/ue4demos/${file}"
+      "https://web.archive.org/web/20140824192039/http://ue4linux.raxxy.com/${file}"
+    ]
+    ;
 
-  buildDemo = {
+  buildDemo =
+    {
       name,
       src,
     }:
@@ -68,7 +71,8 @@ let
         platforms = [ "x86_64-linux" ];
         license = lib.licenses.unfree;
       };
-    };
+    }
+    ;
 
 in {
   tappy_chicken = buildDemo {

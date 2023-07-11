@@ -52,9 +52,12 @@ let
     "1.1-8.15".sha256 = "sha256-qCD3wFW4E+8vSVk4XoZ0EU4PVya0al+JorzS9nzmR/0=";
     "1.1-8.16".sha256 = "sha256-cTK4ptxpPPlqxAhasZFX3RpSlsoTZwhTqs2A3BZy9sA=";
   };
-  releaseRev = v: "v${v}";
+  releaseRev =
+    v:
+    "v${v}"
+    ;
 
-  # list of core metacoq packages sorted by dependency order
+    # list of core metacoq packages sorted by dependency order
   packages = [
     "template-coq"
     "pcuic"
@@ -65,20 +68,27 @@ let
 
   template-coq = metacoq_ "template-coq";
 
-  metacoq_ = package:
+  metacoq_ =
+    package:
     let
-      metacoq-deps = if package == "single" then
-        [ ]
-      else
-        map metacoq_ (head (splitList (lib.pred.equal package) packages));
-      pkgpath = if package == "single" then
-        "./"
-      else
-        "./${package}";
-      pname = if package == "all" then
-        "metacoq"
-      else
-        "metacoq-${package}";
+      metacoq-deps =
+        if package == "single" then
+          [ ]
+        else
+          map metacoq_ (head (splitList (lib.pred.equal package) packages))
+        ;
+      pkgpath =
+        if package == "single" then
+          "./"
+        else
+          "./${package}"
+        ;
+      pname =
+        if package == "all" then
+          "metacoq"
+        else
+          "metacoq-${package}"
+        ;
       pkgallMake = ''
         mkdir all
         echo "all:" > all/Makefile
@@ -137,7 +147,7 @@ let
         } );
     in
     derivation
-  ;
+    ;
 in
 metacoq_ (if single then
   "single"

@@ -28,7 +28,8 @@ mkDerivation rec {
     (fetchpatch {
       name = "sconstruct-python3.patch";
       url =
-        "https://github.com/kampfschlaefer/jackmix/commit/3a0c868b267728fdbc69cc3dc1941edac27d97f6.patch";
+        "https://github.com/kampfschlaefer/jackmix/commit/3a0c868b267728fdbc69cc3dc1941edac27d97f6.patch"
+        ;
       hash = "sha256-MLgxIiZ0+C1IVEci9Q347DR+SJUlPG2N3iPvuhRptJU=";
     })
   ];

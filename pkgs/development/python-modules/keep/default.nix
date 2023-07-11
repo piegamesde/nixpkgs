@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pygithub
   ];
 
-  # no tests
+    # no tests
   doCheck = false;
   pythonImportsCheck = [ "keep" ];
 

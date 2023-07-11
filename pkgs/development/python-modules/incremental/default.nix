@@ -18,7 +18,7 @@ let
 
     propagatedBuildInputs = [ click ];
 
-    # escape infinite recursion with twisted
+      # escape infinite recursion with twisted
     doCheck = false;
 
     nativeCheckInputs = [ twisted ];

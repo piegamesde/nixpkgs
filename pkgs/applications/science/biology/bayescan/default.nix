@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ unzip ];
   buildInputs = lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
-  # Disable FORTIFY_SOURCE or the binary fails with "buffer overflow"
+    # Disable FORTIFY_SOURCE or the binary fails with "buffer overflow"
   hardeningDisable = [ "fortify" ];
 
   sourceRoot = "BayeScan${version}/source";

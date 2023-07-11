@@ -13,7 +13,7 @@ stdenv.mkDerivation {
   pname = "agedu";
   version = "${date}.${rev}";
 
-  # upstream provides tarballs but it seems they disappear after the next version is released
+    # upstream provides tarballs but it seems they disappear after the next version is released
   src = fetchgit {
     url = "https://git.tartarus.org/simon/agedu.git";
     inherit rev;

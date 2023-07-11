@@ -35,11 +35,12 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchurl {
     url =
-      "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-lisp/gcl/files/gcl-2.6.12-gcc5.patch";
+      "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-lisp/gcl/files/gcl-2.6.12-gcc5.patch"
+      ;
     sha256 = "00jbsn0qp8ki2w7dx8caha7g2hr9076xa6bg48j3qqqncff93zdh";
   }) ];
 
-  # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=902475
+    # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=902475
   postPatch = ''
     substituteInPlace h/elf64_i386_reloc.h \
       --replace 'case R_X86_64_PC32:' 'case R_X86_64_PC32: case R_X86_64_PLT32:'
@@ -70,9 +71,9 @@ stdenv.mkDerivation rec {
     "bindnow"
   ];
 
-  # -fcommon: workaround build failure on -fno-common toolchains:
-  #   ld: ./libgclp.a(user_match.o):(.bss+0x18): multiple definition of
-  #     `tf'; ./libpre_gcl.a(main.o):(.bss+0x326d90): first defined here
+    # -fcommon: workaround build failure on -fno-common toolchains:
+    #   ld: ./libgclp.a(user_match.o):(.bss+0x18): multiple definition of
+    #     `tf'; ./libpre_gcl.a(main.o):(.bss+0x326d90): first defined here
   env.NIX_CFLAGS_COMPILE = "-fgnu89-inline -fcommon";
 
   meta = with lib; {

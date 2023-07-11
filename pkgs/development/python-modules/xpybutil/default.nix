@@ -10,7 +10,7 @@ buildPythonPackage rec {
   pname = "xpybutil";
   version = "0.0.6";
 
-  # Pypi only offers a wheel
+    # Pypi only offers a wheel
   src = fetchFromGitHub {
     owner = "BurntSushi";
     repo = pname;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "17gbqq955fcl29aayn8l0x14azc60cxgkvdxblz9q8x3l50w0xpg";
   };
 
-  # pillow is a dependency in image.py which is not listed in setup.py
+    # pillow is a dependency in image.py which is not listed in setup.py
   propagatedBuildInputs = [
     pillow
     xcffib
@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   propagatedNativeBuildInputs = [ xcffib ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "xpybutil" ];

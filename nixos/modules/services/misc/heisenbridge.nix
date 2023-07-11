@@ -16,12 +16,12 @@ let
   jsonType = (pkgs.formats.json { }).type;
 
   registrationFile = "/var/lib/heisenbridge/registration.yml";
-  # JSON is a proper subset of YAML
+    # JSON is a proper subset of YAML
   bridgeConfig = builtins.toFile "heisenbridge-registration.yml"
     (builtins.toJSON {
       id = "heisenbridge";
       url = cfg.registrationUrl;
-      # Don't specify as_token and hs_token
+        # Don't specify as_token and hs_token
       rate_limited = false;
       sender_localpart = "heisenbridge";
       namespaces = cfg.namespaces;
@@ -89,8 +89,9 @@ in {
 
     namespaces = mkOption {
       description = lib.mdDoc
-        "Configure the 'namespaces' section of the registration.yml for the bridge and the server";
-      # TODO link to Matrix documentation of the format
+        "Configure the 'namespaces' section of the registration.yml for the bridge and the server"
+        ;
+        # TODO link to Matrix documentation of the format
       type = types.submodule { freeformType = jsonType; };
 
       default = {
@@ -113,7 +114,8 @@ in {
     extraArgs = mkOption {
       type = types.listOf types.str;
       description = lib.mdDoc
-        "Heisenbridge is configured over the command line. Append extra arguments here";
+        "Heisenbridge is configured over the command line. Append extra arguments here"
+        ;
       default = [ ];
     };
   };
@@ -121,8 +123,8 @@ in {
   config = mkIf cfg.enable {
     systemd.services.heisenbridge = {
       description = "Matrix<->IRC bridge";
-      before =
-        [ "matrix-synapse.service" ]; # So the registration file can be used by Synapse
+      before = [ "matrix-synapse.service" ]
+        ; # So the registration file can be used by Synapse
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''
@@ -176,7 +178,7 @@ in {
         ]) ++ [ (lib.escapeShellArg cfg.homeserver) ]
           ++ (map (lib.escapeShellArg) cfg.extraArgs));
 
-        # Hardening options
+          # Hardening options
 
         User = "heisenbridge";
         Group = "heisenbridge";

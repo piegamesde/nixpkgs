@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     dbus-python
   ];
 
-  # upstream has no code tests, but uses its "tests" for linting and formatting checks
+    # upstream has no code tests, but uses its "tests" for linting and formatting checks
   doCheck = false;
 
   meta = with lib; {

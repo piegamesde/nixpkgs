@@ -39,7 +39,7 @@ buildPythonPackage {
   '';
 
   meta = pkgs.mxnet.meta // {
-    broken = (pkgs.mxnet.broken or false)
-      || (isPy310 && pkgs.mxnet.cudaSupport);
+    broken =
+      (pkgs.mxnet.broken or false) || (isPy310 && pkgs.mxnet.cudaSupport);
   };
 }

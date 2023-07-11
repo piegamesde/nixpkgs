@@ -21,8 +21,8 @@ stdenv.mkDerivation {
 
   buildInputs = lib.optional (stdenv.isDarwin) Security;
 
-  # This is not cross-compile safe, don't have time to fix right now
-  # but noting for future travellers.
+    # This is not cross-compile safe, don't have time to fix right now
+    # but noting for future travellers.
   nativeBuildInputs = [
     autoconf-archive
     autoreconfHook

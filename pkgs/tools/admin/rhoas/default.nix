@@ -28,7 +28,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # Networking tests fail.
+    # Networking tests fail.
   doCheck = false;
 
   postInstall = ''
@@ -49,7 +49,8 @@ buildGoModule rec {
     license = licenses.asl20;
     homepage = "https://github.com/redhat-developer/app-services-cli";
     changelog =
-      "https://github.com/redhat-developer/app-services-cli/releases/v${version}";
+      "https://github.com/redhat-developer/app-services-cli/releases/v${version}"
+      ;
     maintainers = with maintainers; [ stehessel ];
   };
 }

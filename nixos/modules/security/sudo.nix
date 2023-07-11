@@ -13,29 +13,36 @@ let
 
   inherit (pkgs) sudo;
 
-  toUserString = user:
+  toUserString =
+    user:
     if (isInt user) then
       "#${toString user}"
     else
-      "${user}";
-  toGroupString = group:
+      "${user}"
+    ;
+  toGroupString =
+    group:
     if (isInt group) then
       "%#${toString group}"
     else
-      "%${group}";
+      "%${group}"
+    ;
 
-  toCommandOptionsString = options:
+  toCommandOptionsString =
+    options:
     "${concatStringsSep ":" options}${
       optionalString (length options != 0) ":"
-    } ";
+    } "
+    ;
 
-  toCommandsString = commands:
+  toCommandsString =
+    commands:
     concatStringsSep ", " (map (command:
       if (isString command) then
         command
       else
-        "${toCommandOptionsString command.options}${command.command}")
-      commands);
+        "${toCommandOptionsString command.options}${command.command}") commands)
+    ;
 
 in {
 
@@ -83,8 +90,8 @@ in {
 
     security.sudo.configFile = mkOption {
       type = types.lines;
-      # Note: if syntax errors are detected in this file, the NixOS
-      # configuration will fail to build.
+        # Note: if syntax errors are detected in this file, the NixOS
+        # configuration will fail to build.
       description = lib.mdDoc ''
         This string contains the contents of the
         {file}`sudoers` file.
@@ -210,7 +217,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -259,27 +266,33 @@ in {
       ${cfg.extraConfig}
     '';
 
-    security.wrappers = let
-      owner = "root";
-      group = if cfg.execWheelOnly then
-        "wheel"
-      else
-        "root";
-      setuid = true;
-      permissions = if cfg.execWheelOnly then
-        "u+rx,g+x"
-      else
-        "u+rx,g+x,o+x";
-    in {
-      sudo = {
-        source = "${cfg.package.out}/bin/sudo";
-        inherit owner group setuid permissions;
-      };
-      sudoedit = {
-        source = "${cfg.package.out}/bin/sudoedit";
-        inherit owner group setuid permissions;
-      };
-    } ;
+    security.wrappers =
+      let
+        owner = "root";
+        group =
+          if cfg.execWheelOnly then
+            "wheel"
+          else
+            "root"
+          ;
+        setuid = true;
+        permissions =
+          if cfg.execWheelOnly then
+            "u+rx,g+x"
+          else
+            "u+rx,g+x,o+x"
+          ;
+      in {
+        sudo = {
+          source = "${cfg.package.out}/bin/sudo";
+          inherit owner group setuid permissions;
+        };
+        sudoedit = {
+          source = "${cfg.package.out}/bin/sudoedit";
+          inherit owner group setuid permissions;
+        };
+      }
+      ;
 
     environment.systemPackages = [ sudo ];
 

@@ -21,21 +21,23 @@ stdenv.mkDerivation rec {
     sed -i 's|$vars = Installer::getExistingLocalSettings();|$vars = null;|' includes/installer/CliInstaller.php
   '';
 
-  installPhase = let
-    phpConfig = writeText "LocalSettings.php" ''
-      <?php
-        return require(getenv('MEDIAWIKI_CONFIG'));
-      ?>
-    '';
-  in ''
-    runHook preInstall
+  installPhase =
+    let
+      phpConfig = writeText "LocalSettings.php" ''
+        <?php
+          return require(getenv('MEDIAWIKI_CONFIG'));
+        ?>
+      '';
+    in ''
+      runHook preInstall
 
-    mkdir -p $out/share/mediawiki
-    cp -r * $out/share/mediawiki
-    cp ${phpConfig} $out/share/mediawiki/LocalSettings.php
+      mkdir -p $out/share/mediawiki
+      cp -r * $out/share/mediawiki
+      cp ${phpConfig} $out/share/mediawiki/LocalSettings.php
 
-    runHook postInstall
-  '' ;
+      runHook postInstall
+    ''
+    ;
 
   passthru.tests = { inherit (nixosTests.mediawiki) mysql postgresql; };
 

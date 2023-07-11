@@ -9,12 +9,14 @@ import ./make-test-python.nix ({
     name = "jirafeau";
     meta.maintainers = with maintainers; [ davidtwco ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         services.jirafeau = { enable = true; };
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

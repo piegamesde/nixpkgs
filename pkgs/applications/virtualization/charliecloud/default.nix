@@ -39,12 +39,14 @@ stdenv.mkDerivation rec {
     ]))
   ];
 
-  configureFlags = let
-    pythonEnv = python3.withPackages (ps: [
-      ps.lark
-      ps.requests
-    ]);
-  in [ "--with-python=${pythonEnv}/bin/python3" ] ;
+  configureFlags =
+    let
+      pythonEnv = python3.withPackages (ps: [
+        ps.lark
+        ps.requests
+      ]);
+    in [ "--with-python=${pythonEnv}/bin/python3" ]
+    ;
 
   preConfigure = ''
     patchShebangs test/
@@ -56,8 +58,8 @@ stdenv.mkDerivation rec {
     "LIBEXEC_DIR=lib/charliecloud"
   ];
 
-  # Charliecloud calls some external system tools.
-  # Here we wrap those deps so they are resolved inside nixpkgs.
+    # Charliecloud calls some external system tools.
+    # Here we wrap those deps so they are resolved inside nixpkgs.
   postInstall = ''
     for file in $out/bin/* ; do \
       wrapProgram $file --prefix PATH : ${
@@ -78,7 +80,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "User-defined software stacks (UDSS) for high-performance computing (HPC) centers";
+      "User-defined software stacks (UDSS) for high-performance computing (HPC) centers"
+      ;
     longDescription = ''
       Charliecloud uses Linux user namespaces to run containers with no
       privileged operations or daemons and minimal configuration changes on

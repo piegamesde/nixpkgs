@@ -14,7 +14,7 @@ let
   foofile = writeText "foofile" "foo";
   barfile = writeText "barfile" "bar";
 
-  # Wrapped binaries
+    # Wrapped binaries
   wrappedArgv0 = writeCBin "wrapped-argv0" ''
     #include <stdio.h>
     #include <stdlib.h>
@@ -31,7 +31,8 @@ let
     echo "$@"
   '';
 
-  mkWrapperBinary = {
+  mkWrapperBinary =
+    {
       name,
       args,
       wrapped ? wrappedBinaryVar
@@ -39,21 +40,24 @@ let
     runCommand name { nativeBuildInputs = [ makeWrapper ]; } ''
       mkdir -p $out/bin
       makeWrapper "${wrapped}" "$out/bin/${name}" ${lib.escapeShellArgs args}
-    '';
+    ''
+    ;
 
-  mkTest = cmd: toExpect: ''
-    output="$(${cmd})"
-    if [[ "$output" != '${toExpect}' ]]; then
-      echo "test failed: the output of ${cmd} was '$output', expected '${toExpect}'"
-      echo "the wrapper contents:"
-      for i in ${cmd}; do
-        if [[ $i =~ ^test- ]]; then
-          cat $(which $i)
-        fi
-      done
-      exit 1
-    fi
-  '';
+  mkTest =
+    cmd: toExpect: ''
+      output="$(${cmd})"
+      if [[ "$output" != '${toExpect}' ]]; then
+        echo "test failed: the output of ${cmd} was '$output', expected '${toExpect}'"
+        echo "the wrapper contents:"
+        for i in ${cmd}; do
+          if [[ $i =~ ^test- ]]; then
+            cat $(which $i)
+          fi
+        done
+        exit 1
+      fi
+    ''
+    ;
 in
 runCommand "make-wrapper-test" {
   nativeBuildInputs = [

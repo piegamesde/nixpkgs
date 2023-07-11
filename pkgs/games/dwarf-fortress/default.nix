@@ -49,14 +49,16 @@ with lib;
 let
   callPackage = newScope self;
 
-  # The latest Dwarf Fortress version. Maintainers: when a new version comes
-  # out, ensure that (unfuck|dfhack|twbt) are all up to date before changing
-  # this.
+    # The latest Dwarf Fortress version. Maintainers: when a new version comes
+    # out, ensure that (unfuck|dfhack|twbt) are all up to date before changing
+    # this.
   latestVersion = "0.47.05";
 
-  # Converts a version to a package name.
-  versionToName = version:
-    "dwarf-fortress_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    # Converts a version to a package name.
+  versionToName =
+    version:
+    "dwarf-fortress_${lib.replaceStrings [ "." ] [ "_" ] version}"
+    ;
 
   dwarf-therapist-original = libsForQt5.callPackage ./dwarf-therapist {
     texlive = texlive.combine {
@@ -73,45 +75,46 @@ let
     };
   };
 
-  # A map of names to each Dwarf Fortress package we know about.
+    # A map of names to each Dwarf Fortress package we know about.
   df-games = lib.listToAttrs (map (dfVersion: {
     name = versionToName dfVersion;
-    value = let
-      # I can't believe this syntax works. Spikes of Nix code indeed...
-      dwarf-fortress = callPackage ./game.nix {
-        inherit dfVersion;
-        inherit dwarf-fortress-unfuck;
-      };
+    value =
+      let
+        # I can't believe this syntax works. Spikes of Nix code indeed...
+        dwarf-fortress = callPackage ./game.nix {
+          inherit dfVersion;
+          inherit dwarf-fortress-unfuck;
+        };
 
-      dwarf-fortress-unfuck = callPackage ./unfuck.nix { inherit dfVersion; };
+        dwarf-fortress-unfuck = callPackage ./unfuck.nix { inherit dfVersion; };
 
-      twbt = callPackage ./twbt { inherit dfVersion; };
+        twbt = callPackage ./twbt { inherit dfVersion; };
 
-      dfhack = callPackage ./dfhack {
-        inherit (perlPackages) XMLLibXML XMLLibXSLT;
-        inherit dfVersion;
-        stdenv = gccStdenv;
-      };
+        dfhack = callPackage ./dfhack {
+          inherit (perlPackages) XMLLibXML XMLLibXSLT;
+          inherit dfVersion;
+          stdenv = gccStdenv;
+        };
 
-      dwarf-therapist = libsForQt5.callPackage ./dwarf-therapist/wrapper.nix {
-        inherit dwarf-fortress;
-        dwarf-therapist = dwarf-therapist-original;
-      };
-    in
-    callPackage ./wrapper {
-      inherit (self) themes;
-      inherit dwarf-fortress twbt dfhack dwarf-therapist;
+        dwarf-therapist = libsForQt5.callPackage ./dwarf-therapist/wrapper.nix {
+          inherit dwarf-fortress;
+          dwarf-therapist = dwarf-therapist-original;
+        };
+      in
+      callPackage ./wrapper {
+        inherit (self) themes;
+        inherit dwarf-fortress twbt dfhack dwarf-therapist;
 
-      jdk =
-        jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
-    }
-    ;
+        jdk = jdk8
+          ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+      }
+      ;
   }) (lib.attrNames self.df-hashes));
 
   self = rec {
     df-hashes = lib.importJSON ./game.json;
 
-    # Aliases for the latest Dwarf Fortress and the selected Therapist install
+      # Aliases for the latest Dwarf Fortress and the selected Therapist install
     dwarf-fortress = getAttr (versionToName latestVersion) df-games;
     inherit dwarf-therapist-original;
     dwarf-therapist = dwarf-fortress.dwarf-therapist;
@@ -124,13 +127,13 @@ let
     soundSense = callPackage ./soundsense.nix { };
 
     legends-browser = callPackage ./legends-browser {
-      jre =
-        jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+      jre = jre8
+        ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
     };
 
     themes = recurseIntoAttrs (callPackage ./themes { stdenv = stdenvNoCC; });
 
-    # Theme aliases
+      # Theme aliases
     phoebus-theme = themes.phoebus;
     cla-theme = themes.cla;
   };

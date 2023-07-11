@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  # tests are determined to use /var/tmp on unix
+    # tests are determined to use /var/tmp on unix
   postPatch = ''
     cat <(find . -name tmpDir.h) <(echo src/test/OpenEXRCoreTest/main.cpp) | while read -r f ; do
       substituteInPlace $f --replace '/var/tmp' "$TMPDIR"
@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  # Without 'sse' enforcement tests fail on i686 as due to excessive precision as:
-  #   error reading back channel B pixel 21,-76 got -nan expected -nan
+    # Without 'sse' enforcement tests fail on i686 as due to excessive precision as:
+    #   error reading back channel B pixel 21,-76 got -nan expected -nan
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isi686 "-msse2 -mfpmath=sse";
 

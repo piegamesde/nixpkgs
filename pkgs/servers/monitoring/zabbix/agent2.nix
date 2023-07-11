@@ -56,7 +56,7 @@ import ./versions.nix ({
         --replace '`date +"%b %_d %Y"`' "Jan 1 1970"
     '';
 
-    # manually configure the c dependencies
+      # manually configure the c dependencies
     preConfigure = ''
       ./configure \
         --prefix=${placeholder "out"} \
@@ -67,8 +67,8 @@ import ./versions.nix ({
         --with-openssl=${openssl.dev}
     '';
 
-    # zabbix build process is complex to get right in nix...
-    # use automake to build the go project ensuring proper access to the go vendor directory
+      # zabbix build process is complex to get right in nix...
+      # use automake to build the go project ensuring proper access to the go vendor directory
     buildPhase = ''
       cd ../..
       make
@@ -86,7 +86,8 @@ import ./versions.nix ({
 
     meta = with lib; {
       description =
-        "An enterprise-class open source distributed monitoring solution (client-side agent)";
+        "An enterprise-class open source distributed monitoring solution (client-side agent)"
+        ;
       homepage = "https://www.zabbix.com/";
       license = licenses.gpl2Plus;
       maintainers = [ maintainers.aanderse ];

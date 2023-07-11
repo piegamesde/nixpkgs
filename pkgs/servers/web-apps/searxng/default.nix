@@ -45,7 +45,7 @@ python3.pkgs.buildPythonApplication rec {
     ] ++ httpx.optional-dependencies.http2
     ++ httpx-socks.optional-dependencies.asyncio;
 
-  # tests try to connect to network
+    # tests try to connect to network
   doCheck = false;
 
   postInstall = ''

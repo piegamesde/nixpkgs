@@ -100,9 +100,8 @@ let
       inherit rockspecVersion;
 
       __structuredAttrs = true;
-      env = {
-        LUAROCKS_CONFIG = "$PWD/${luarocks_config}";
-      } // attrs.env or { };
+      env =
+        { LUAROCKS_CONFIG = "$PWD/${luarocks_config}"; } // attrs.env or { };
 
       generatedRockspecFilename =
         "${rockspecDir}/${pname}-${rockspecVersion}.rockspec";
@@ -121,42 +120,45 @@ let
         nativeCheckInputs
         ;
 
-      buildInputs = let
-        # example externalDeps': [ { name = "CRYPTO"; dep = pkgs.openssl; } ]
-        externalDeps' =
-          lib.filter (dep: !lib.isDerivation dep) self.externalDeps;
-      in
-      [ lua.pkgs.luarocks ] ++ buildInputs ++ lib.optionals self.doCheck
-      ([ luarocksCheckHook ] ++ self.nativeCheckInputs)
-      ++ (map (d: d.dep) externalDeps')
-      ;
+      buildInputs =
+        let
+          # example externalDeps': [ { name = "CRYPTO"; dep = pkgs.openssl; } ]
+          externalDeps' =
+            lib.filter (dep: !lib.isDerivation dep) self.externalDeps;
+        in
+        [ lua.pkgs.luarocks ] ++ buildInputs ++ lib.optionals self.doCheck
+        ([ luarocksCheckHook ] ++ self.nativeCheckInputs)
+        ++ (map (d: d.dep) externalDeps')
+        ;
 
-      # propagate lua to active setup-hook in nix-shell
+        # propagate lua to active setup-hook in nix-shell
       propagatedBuildInputs = propagatedBuildInputs ++ [ lua ];
 
-      # @-patterns do not capture formal argument default values, so we need to
-      # explicitly inherit this for it to be available as a shell variable in the
-      # builder
+        # @-patterns do not capture formal argument default values, so we need to
+        # explicitly inherit this for it to be available as a shell variable in the
+        # builder
       rocksSubdir = "${self.pname}-${self.version}-rocks";
-      luarocks_content = let
-        externalDepsGenerated = lib.filter (drv: !drv ? luaModule)
-          (self.nativeBuildInputs ++ self.propagatedBuildInputs
-            ++ self.buildInputs);
-        generatedConfig = luaLib.generateLuarocksConfig {
-          externalDeps =
-            lib.unique (self.externalDeps ++ externalDepsGenerated);
-          # Filter out the lua derivation itself from the Lua module dependency
-          # closure, as it doesn't have a rock tree :)
-          # luaLib.hasLuaModule
-          requiredLuaRocks = lib.filter luaLib.hasLuaModule
-            (lua.pkgs.requiredLuaModules
-              (self.nativeBuildInputs ++ self.propagatedBuildInputs));
-          inherit (self) extraVariables rocksSubdir;
-        };
-      in ''
-        ${generatedConfig}
-        ${extraConfig}
-      '' ;
+      luarocks_content =
+        let
+          externalDepsGenerated = lib.filter (drv: !drv ? luaModule)
+            (self.nativeBuildInputs ++ self.propagatedBuildInputs
+              ++ self.buildInputs);
+          generatedConfig = luaLib.generateLuarocksConfig {
+            externalDeps =
+              lib.unique (self.externalDeps ++ externalDepsGenerated);
+              # Filter out the lua derivation itself from the Lua module dependency
+              # closure, as it doesn't have a rock tree :)
+              # luaLib.hasLuaModule
+            requiredLuaRocks = lib.filter luaLib.hasLuaModule
+              (lua.pkgs.requiredLuaModules
+                (self.nativeBuildInputs ++ self.propagatedBuildInputs));
+            inherit (self) extraVariables rocksSubdir;
+          };
+        in ''
+          ${generatedConfig}
+          ${extraConfig}
+        ''
+        ;
 
       configurePhase = ''
         runHook preConfigure
@@ -230,7 +232,7 @@ let
 
       meta = {
         platforms = lua.meta.platforms;
-        # add extra maintainer(s) to every package
+          # add extra maintainer(s) to every package
         maintainers = (attrs.meta.maintainers or [ ]) ++ [ ];
         broken = disabled;
       } // attrs.meta or { };

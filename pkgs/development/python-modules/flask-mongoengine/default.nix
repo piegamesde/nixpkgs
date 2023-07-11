@@ -45,23 +45,25 @@ buildPythonPackage rec {
       flask-wtf
       wtforms
     ] ++ wtforms.optional-dependencies.email;
-    # toolbar = [
-    #   flask-debugtoolbar
-    # ];
+      # toolbar = [
+      #   flask-debugtoolbar
+      # ];
     legacy = [ markupsafe ];
   };
 
-  # Tests require working mongodb connection
+    # Tests require working mongodb connection
   doCheck = false;
 
   pythonImportsCheck = [ "flask_mongoengine" ];
 
   meta = with lib; {
     description =
-      "Flask extension that provides integration with MongoEngine and WTF model forms";
+      "Flask extension that provides integration with MongoEngine and WTF model forms"
+      ;
     homepage = "https://github.com/mongoengine/flask-mongoengine";
     changelog =
-      "https://github.com/MongoEngine/flask-mongoengine/releases/tag/v${version}";
+      "https://github.com/MongoEngine/flask-mongoengine/releases/tag/v${version}"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
   };

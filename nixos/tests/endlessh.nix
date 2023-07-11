@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with lib.maintainers; [ azahi ];
 
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           services.endlessh = {
@@ -20,9 +21,11 @@ import ./make-test-python.nix ({
 
             privileged.configuration.services.endlessh.port = 22;
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
@@ -30,7 +33,8 @@ import ./make-test-python.nix ({
             curl
             netcat
           ];
-        };
+        }
+        ;
     };
 
     testScript = ''

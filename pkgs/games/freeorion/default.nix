@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  # as of 0.5 FreeOrion doesn't work with "-DOpenGL_GL_PREFERENCE=GLVND"
+    # as of 0.5 FreeOrion doesn't work with "-DOpenGL_GL_PREFERENCE=GLVND"
   cmakeFlags = [ "-DOpenGL_GL_PREFERENCE=LEGACY" ];
 
   postInstall = ''
@@ -83,7 +83,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A free, open source, turn-based space empire and galactic conquest (4X) computer game";
+      "A free, open source, turn-based space empire and galactic conquest (4X) computer game"
+      ;
     homepage = "https://www.freeorion.org/";
     license = with licenses; [
       gpl2

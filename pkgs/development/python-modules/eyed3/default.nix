@@ -19,8 +19,8 @@ buildPythonPackage rec {
     hash = "sha256-k7GOk5M3akURT5QJ18yhGftvT5o31LaXtQCvSLTFzw8=";
   };
 
-  # requires special test data:
-  # https://github.com/nicfit/eyeD3/blob/103198e265e3279384f35304e8218be6717c2976/Makefile#L97
+    # requires special test data:
+    # https://github.com/nicfit/eyeD3/blob/103198e265e3279384f35304e8218be6717c2976/Makefile#L97
   doCheck = false;
 
   propagatedBuildInputs = [

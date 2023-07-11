@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common";
       url =
-        "https://github.com/MycroftAI/mimic1/commit/77b36eaeb2c38eba571b8db7e9bb0fd507774e6d.patch";
+        "https://github.com/MycroftAI/mimic1/commit/77b36eaeb2c38eba571b8db7e9bb0fd507774e6d.patch"
+        ;
       sha256 = "0n3hqrfpbdp44y0c8bq55ay9m4c96r09k18hjxka4x54j5c7lw1m";
     })
   ];

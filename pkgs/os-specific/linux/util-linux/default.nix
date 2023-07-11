@@ -53,10 +53,10 @@ stdenv.mkDerivation rec {
       --replace "/bin/umount" "$bin/bin/umount"
   '';
 
-  # !!! It would be better to obtain the path to the mount helpers
-  # (/sbin/mount.*) through an environment variable, but that's
-  # somewhat risky because we have to consider that mount can setuid
-  # root...
+    # !!! It would be better to obtain the path to the mount helpers
+    # (/sbin/mount.*) through an environment variable, but that's
+    # somewhat risky because we have to consider that mount can setuid
+    # root...
   configureFlags = [
     "--localstatedir=/var"
     "--enable-write"
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
     changelog = "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v${
         lib.versions.majorMinor version
       }/v${version}-ReleaseNotes";
-    # https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/README.licensing
+      # https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/README.licensing
     license = with licenses; [
       gpl2Only
       gpl2Plus
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
       publicDomain
     ];
     platforms = platforms.linux;
-    priority =
-      6; # lower priority than coreutils ("kill") and shadow ("login" etc.) packages
+    priority = 6
+      ; # lower priority than coreutils ("kill") and shadow ("login" etc.) packages
   };
 }

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "0v2fa18n50iy18n22klkgjral728iplj6yk3b6hjkzas5dk9wd9c";
   };
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "panacotta" ];

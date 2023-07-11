@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
     license = licenses.epl20;
     homepage = "https://github.com/coin-or/CoinUtils";
     description =
-      "Collection of classes and helper functions that are generally useful to multiple COIN-OR projects";
+      "Collection of classes and helper functions that are generally useful to multiple COIN-OR projects"
+      ;
     maintainers = with maintainers; [ tmarkus ];
   };
 }

@@ -31,10 +31,10 @@ stdenv.mkDerivation {
     mbedtls_2
   ];
 
-  # The start_page and home settings refer to /usr.
-  # We can't change /usr to $out because dillorc is copied to the home directory
-  # on first launch, so the paths would quickly become outdated.
-  # So we just comment them out, and let dillong use the defaults.
+    # The start_page and home settings refer to /usr.
+    # We can't change /usr to $out because dillorc is copied to the home directory
+    # on first launch, so the paths would quickly become outdated.
+    # So we just comment them out, and let dillong use the defaults.
   postPatch = ''
     substituteInPlace dillorc \
       --replace "start_page=" "#start_page=" \
@@ -43,9 +43,9 @@ stdenv.mkDerivation {
 
   configureFlags = [ "--enable-ssl=yes" ];
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: main.o:/build/dillo-3.0.5/dpid/dpid.h:64: multiple definition of `sock_set';
-  #     dpid.o:/build/dillo-3.0.5/dpid/dpid.h:64: first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: main.o:/build/dillo-3.0.5/dpid/dpid.h:64: multiple definition of `sock_set';
+    #     dpid.o:/build/dillo-3.0.5/dpid/dpid.h:64: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = with lib; {

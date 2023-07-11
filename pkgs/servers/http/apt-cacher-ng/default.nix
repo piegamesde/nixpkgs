@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://ftp.debian.org/debian/pool/main/a/apt-cacher-ng/apt-cacher-ng_${version}.orig.tar.xz";
+      "https://ftp.debian.org/debian/pool/main/a/apt-cacher-ng/apt-cacher-ng_${version}.orig.tar.xz"
+      ;
     sha256 = "0pwsj9rf6a6q7cnfbpcrfq2gjcy7sylqzqqr49g2zi39lrrh8533";
   };
 

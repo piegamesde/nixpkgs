@@ -24,7 +24,8 @@ let
 
     src = fetchurl {
       url =
-        "https://www.expressvpn.works/clients/linux/expressvpn_${version}-1_amd64.deb";
+        "https://www.expressvpn.works/clients/linux/expressvpn_${version}-1_amd64.deb"
+        ;
       hash = "sha256-lyDjG346FrgT7SZbsWET+Hexl9Un6mzMukfO2PwlInA=";
     };
 
@@ -52,9 +53,9 @@ let
   expressvpndFHS = buildFHSEnv {
     name = "expressvpnd";
 
-    # When connected, it directly creates/deletes resolv.conf to change the DNS entries.
-    # Since it's running in an FHS environment, it has no effect on actual resolv.conf.
-    # Hence, place a watcher that updates host resolv.conf when FHS resolv.conf changes.
+      # When connected, it directly creates/deletes resolv.conf to change the DNS entries.
+      # Since it's running in an FHS environment, it has no effect on actual resolv.conf.
+      # Hence, place a watcher that updates host resolv.conf when FHS resolv.conf changes.
     runScript = writeScript "${pname}-wrapper" ''
       cp /host/etc/resolv.conf /etc/resolv.conf;
       while inotifywait /etc 2>/dev/null;
@@ -64,21 +65,23 @@ let
       expressvpnd --client-version ${clientVersion} --client-build ${clientBuild}
     '';
 
-    # expressvpnd binary has hard-coded the path /sbin/sysctl hence below workaround.
+      # expressvpnd binary has hard-coded the path /sbin/sysctl hence below workaround.
     extraBuildCommands = ''
       chmod +w sbin
       ln -s ${sysctl}/bin/sysctl sbin/sysctl
     '';
 
-    # The expressvpnd binary also uses hard-coded paths to the other binaries and files
-    # it ships with, hence the FHS environment.
+      # The expressvpnd binary also uses hard-coded paths to the other binaries and files
+      # it ships with, hence the FHS environment.
 
-    targetPkgs = pkgs:
+    targetPkgs =
+      pkgs:
       with pkgs; [
         expressvpnBase
         inotify-tools
         iproute2
-      ];
+      ]
+      ;
   };
 in
 stdenvNoCC.mkDerivation {

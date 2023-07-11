@@ -111,51 +111,56 @@ assert !(MPISupport && cudaSupport) || mpi.cudatoolkit == cudatoolkit;
 assert !cudaSupport || magma.cudaPackages.cudatoolkit == cudatoolkit;
 
 let
-  setBool = v:
+  setBool =
+    v:
     if v then
       "1"
     else
-      "0";
+      "0"
+    ;
 
-  # https://github.com/pytorch/pytorch/blob/v1.13.1/torch/utils/cpp_extension.py#L1751
-  supportedTorchCudaCapabilities = let
-    real = [
-      "3.5"
-      "3.7"
-      "5.0"
-      "5.2"
-      "5.3"
-      "6.0"
-      "6.1"
-      "6.2"
-      "7.0"
-      "7.2"
-      "7.5"
-      "8.0"
-      "8.6"
-    ];
-    ptx = lists.map (x: "${x}+PTX") real;
-  in
-  real ++ ptx
-  ;
+    # https://github.com/pytorch/pytorch/blob/v1.13.1/torch/utils/cpp_extension.py#L1751
+  supportedTorchCudaCapabilities =
+    let
+      real = [
+        "3.5"
+        "3.7"
+        "5.0"
+        "5.2"
+        "5.3"
+        "6.0"
+        "6.1"
+        "6.2"
+        "7.0"
+        "7.2"
+        "7.5"
+        "8.0"
+        "8.6"
+      ];
+      ptx = lists.map (x: "${x}+PTX") real;
+    in
+    real ++ ptx
+    ;
 
-  # NOTE: The lists.subtractLists function is perhaps a bit unintuitive. It subtracts the elements
-  #   of the first list *from* the second list. That means:
-  #   lists.subtractLists a b = b - a
+    # NOTE: The lists.subtractLists function is perhaps a bit unintuitive. It subtracts the elements
+    #   of the first list *from* the second list. That means:
+    #   lists.subtractLists a b = b - a
 
-  # For CUDA
+    # For CUDA
   supportedCudaCapabilities = lists.intersectLists cudaFlags.cudaCapabilities
     supportedTorchCudaCapabilities;
   unsupportedCudaCapabilities =
     lists.subtractLists supportedCudaCapabilities cudaFlags.cudaCapabilities;
 
-  # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
-  gpuArchWarner = supported: unsupported:
+    # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
+  gpuArchWarner =
+    supported: unsupported:
     trivial.throwIf (supported == [ ])
     ("No supported GPU targets specified. Requested GPU targets: "
-      + strings.concatStringsSep ", " unsupported) supported;
+      + strings.concatStringsSep ", " unsupported) supported
+    ;
 
-  # Create the gpuTargetString.
+    # Create the gpuTargetString.
   gpuTargetString = strings.concatStringsSep ";" (if
     gpuTargets != [ ]
   then
@@ -170,7 +175,7 @@ let
 
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-unsplit";
-    # nccl is here purely for semantic grouping it could be moved to nativeBuildInputs
+      # nccl is here purely for semantic grouping it could be moved to nativeBuildInputs
     paths = [
       cudatoolkit.out
       cudatoolkit.lib
@@ -179,10 +184,10 @@ let
     ];
   };
 
-  # Normally libcuda.so.1 is provided at runtime by nvidia-x11 via
-  # LD_LIBRARY_PATH=/run/opengl-driver/lib.  We only use the stub
-  # libcuda.so from cudatoolkit for running tests, so that we don’t have
-  # to recompile pytorch on every update to nvidia-x11 or the kernel.
+    # Normally libcuda.so.1 is provided at runtime by nvidia-x11 via
+    # LD_LIBRARY_PATH=/run/opengl-driver/lib.  We only use the stub
+    # libcuda.so from cudatoolkit for running tests, so that we don’t have
+    # to recompile pytorch on every update to nvidia-x11 or the kernel.
   cudaStub = linkFarm "cuda-stub" [ {
     name = "libcuda.so.1";
     path = "${cudatoolkit}/lib/stubs/libcuda.so";
@@ -225,7 +230,7 @@ let
 in
 buildPythonPackage rec {
   pname = "torch";
-  # Don't forget to update torch-bin to the same version.
+    # Don't forget to update torch-bin to the same version.
   version = "2.0.0";
   format = "setuptools";
 
@@ -301,23 +306,23 @@ buildPythonPackage rec {
     python tools/amd_build/build_amd.py
   '';
 
-  # Use pytorch's custom configurations
+    # Use pytorch's custom configurations
   dontUseCmakeConfigure = true;
 
   BUILD_NAMEDTENSOR = setBool true;
   BUILD_DOCS = setBool buildDocs;
 
-  # We only do an imports check, so do not build tests either.
+    # We only do an imports check, so do not build tests either.
   BUILD_TEST = setBool false;
 
-  # Unlike MKL, oneDNN (née MKLDNN) is FOSS, so we enable support for
-  # it by default. PyTorch currently uses its own vendored version
-  # of oneDNN through Intel iDeep.
+    # Unlike MKL, oneDNN (née MKLDNN) is FOSS, so we enable support for
+    # it by default. PyTorch currently uses its own vendored version
+    # of oneDNN through Intel iDeep.
   USE_MKLDNN = setBool mklDnnSupport;
   USE_MKLDNN_CBLAS = setBool mklDnnSupport;
 
-  # Avoid using pybind11 from git submodule
-  # Also avoids pytorch exporting the headers of pybind11
+    # Avoid using pybind11 from git submodule
+    # Also avoids pytorch exporting the headers of pybind11
   USE_SYSTEM_BIND11 = true;
 
   preBuild = ''
@@ -341,22 +346,22 @@ buildPythonPackage rec {
     done
   '';
 
-  # Override the (weirdly) wrong version set by default. See
-  # https://github.com/NixOS/nixpkgs/pull/52437#issuecomment-449718038
-  # https://github.com/pytorch/pytorch/blob/v1.0.0/setup.py#L267
+    # Override the (weirdly) wrong version set by default. See
+    # https://github.com/NixOS/nixpkgs/pull/52437#issuecomment-449718038
+    # https://github.com/pytorch/pytorch/blob/v1.0.0/setup.py#L267
   PYTORCH_BUILD_VERSION = version;
   PYTORCH_BUILD_NUMBER = 0;
 
-  USE_SYSTEM_NCCL =
-    setBool useSystemNccl; # don't build pytorch's third_party NCCL
+  USE_SYSTEM_NCCL = setBool useSystemNccl
+    ; # don't build pytorch's third_party NCCL
 
-  # Suppress a weird warning in mkl-dnn, part of ideep in pytorch
-  # (upstream seems to have fixed this in the wrong place?)
-  # https://github.com/intel/mkl-dnn/commit/8134d346cdb7fe1695a2aa55771071d455fae0bc
-  # https://github.com/pytorch/pytorch/issues/22346
-  #
-  # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
-  # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
+    # Suppress a weird warning in mkl-dnn, part of ideep in pytorch
+    # (upstream seems to have fixed this in the wrong place?)
+    # https://github.com/intel/mkl-dnn/commit/8134d346cdb7fe1695a2aa55771071d455fae0bc
+    # https://github.com/pytorch/pytorch/issues/22346
+    #
+    # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
+    # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
   env.NIX_CFLAGS_COMPILE = toString
     ((lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
       # Suppress gcc regression: avx512 math function raises uninitialized variable warning
@@ -430,7 +435,7 @@ buildPythonPackage rec {
     # so we include it for the cuda build as well
     ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ];
 
-  # Tests take a long time and may be flaky, so just sanity-check imports
+    # Tests take a long time and may be flaky, so just sanity-check imports
   doCheck = false;
 
   pythonImportsCheck = [ "torch" ];
@@ -507,7 +512,7 @@ buildPythonPackage rec {
     install_name_tool -change @rpath/libc10.dylib $lib/lib/libc10.dylib $lib/lib/libshm.dylib
   '';
 
-  # Builds in 2+h with 2 cores, and ~15m with a big-parallel builder.
+    # Builds in 2+h with 2 cores, and ~15m with a big-parallel builder.
   requiredSystemFeatures = [ "big-parallel" ];
 
   passthru = {
@@ -526,9 +531,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog = "https://github.com/pytorch/pytorch/releases/tag/v${version}";
-    # keep PyTorch in the description so the package can be found under that name on search.nixos.org
+      # keep PyTorch in the description so the package can be found under that name on search.nixos.org
     description =
-      "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
+      "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration"
+      ;
     homepage = "https://pytorch.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [

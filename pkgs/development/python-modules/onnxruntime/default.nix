@@ -40,14 +40,14 @@ buildPythonPackage {
     pythonRelaxDepsHook
   ];
 
-  # This project requires fairly large dependencies such as sympy which we really don't always need.
+    # This project requires fairly large dependencies such as sympy which we really don't always need.
   pythonRemoveDeps = [
     "flatbuffers"
     "protobuf"
     "sympy"
   ];
 
-  # Libraries are not linked correctly.
+    # Libraries are not linked correctly.
   buildInputs = [
     oneDNN
     onnxruntime.protobuf

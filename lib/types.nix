@@ -64,11 +64,17 @@ let
   outer_types = rec {
     isType = type: x: (x._type or "") == type;
 
-    setType = typeName: value: value // { _type = typeName; };
+    setType =
+      typeName: value:
+      value // {
+        _type = typeName;
+      }
+      ;
 
-    # Default type merging function
-    # takes two type functors and return the merged type
-    defaultTypeMerge = f: f':
+      # Default type merging function
+      # takes two type functors and return the merged type
+    defaultTypeMerge =
+      f: f':
       let
         wrapped = f.wrapped.typeMerge f'.wrapped.functor;
         payload = f.binOp f.payload f'.payload;
@@ -92,16 +98,19 @@ let
       then
         f.type payload
       else
-        null;
+        null
+      ;
 
-    # Default type functor
-    defaultFunctor = name: {
-      inherit name;
-      type = types.${name} or null;
-      wrapped = null;
-      payload = null;
-      binOp = a: b: null;
-    };
+      # Default type functor
+    defaultFunctor =
+      name: {
+        inherit name;
+        type = types.${name} or null;
+        wrapped = null;
+        payload = null;
+        binOp = a: b: null;
+      }
+      ;
 
     isOptionType = isType "option-type";
     mkOptionType =
@@ -185,40 +194,45 @@ let
           nestedTypes
           descriptionClass
           ;
-        description = if description == null then
-          name
-        else
-          description;
-      };
+        description =
+          if description == null then
+            name
+          else
+            description
+          ;
+      }
+      ;
 
-    # optionDescriptionPhrase :: (str -> bool) -> optionType -> str
-    #
-    # Helper function for producing unambiguous but readable natural language
-    # descriptions of types.
-    #
-    # Parameters
-    #
-    #     optionDescriptionPhase unparenthesize optionType
-    #
-    # `unparenthesize`: A function from descriptionClass string to boolean.
-    #   It must return true when the class of phrase will fit unambiguously into
-    #   the description of the caller.
-    #
-    # `optionType`: The option type to parenthesize or not.
-    #   The option whose description we're returning.
-    #
-    # Return value
-    #
-    # The description of the `optionType`, with parentheses if there may be an
-    # ambiguity.
-    optionDescriptionPhrase = unparenthesize: t:
+      # optionDescriptionPhrase :: (str -> bool) -> optionType -> str
+      #
+      # Helper function for producing unambiguous but readable natural language
+      # descriptions of types.
+      #
+      # Parameters
+      #
+      #     optionDescriptionPhase unparenthesize optionType
+      #
+      # `unparenthesize`: A function from descriptionClass string to boolean.
+      #   It must return true when the class of phrase will fit unambiguously into
+      #   the description of the caller.
+      #
+      # `optionType`: The option type to parenthesize or not.
+      #   The option whose description we're returning.
+      #
+      # Return value
+      #
+      # The description of the `optionType`, with parentheses if there may be an
+      # ambiguity.
+    optionDescriptionPhrase =
+      unparenthesize: t:
       if unparenthesize (t.descriptionClass or null) then
         t.description
       else
-        "(${t.description})";
+        "(${t.description})"
+      ;
 
-    # When adding new types don't forget to document them in
-    # nixos/doc/manual/development/option-types.xml!
+      # When adding new types don't forget to document them in
+      # nixos/doc/manual/development/option-types.xml!
     types = rec {
 
       raw = mkOptionType rec {
@@ -234,16 +248,19 @@ let
         description = "anything";
         descriptionClass = "noun";
         check = value: true;
-        merge = loc: defs:
+        merge =
+          loc: defs:
           let
-            getType = value:
+            getType =
+              value:
               if isAttrs value && isStringLike value then
                 "stringCoercibleSet"
               else
-                builtins.typeOf value;
+                builtins.typeOf value
+              ;
 
-            # Returns the common type of all definitions, throws an error if they
-            # don't have the same type
+              # Returns the common type of all definitions, throws an error if they
+              # don't have the same type
             commonType = foldl' (type: def:
               if getType def.value == type then
                 type
@@ -257,28 +274,32 @@ let
             mergeFunction = {
               # Recursively merge attribute sets
               set = (attrsOf anything).merge;
-              # Safe and deterministic behavior for lists is to only accept one definition
-              # listOf only used to apply mkIf and co.
-              list = if length defs > 1 then
-                throw "The option `${
-                  showOption loc
-                }' has conflicting definitions, in ${
-                  showFiles (getFiles defs)
-                }."
-              else
-                (listOf anything).merge;
-              # This is the type of packages, only accept a single definition
+                # Safe and deterministic behavior for lists is to only accept one definition
+                # listOf only used to apply mkIf and co.
+              list =
+                if length defs > 1 then
+                  throw "The option `${
+                    showOption loc
+                  }' has conflicting definitions, in ${
+                    showFiles (getFiles defs)
+                  }."
+                else
+                  (listOf anything).merge
+                ;
+                # This is the type of packages, only accept a single definition
               stringCoercibleSet = mergeOneOption;
-              lambda = loc: defs: arg:
+              lambda =
+                loc: defs: arg:
                 anything.merge (loc ++ [ "<function body>" ]) (map (def: {
                   file = def.file;
                   value = def.value arg;
-                }) defs);
-              # Otherwise fall back to only allowing all equal definitions
+                }) defs)
+                ;
+                # Otherwise fall back to only allowing all equal definitions
             }.${commonType} or mergeEqualOption;
           in
           mergeFunction loc defs
-        ;
+          ;
       };
 
       unspecified = mkOptionType {
@@ -303,62 +324,75 @@ let
         merge = mergeEqualOption;
       };
 
-      # Specialized subdomains of int
-      ints = let
-        betweenDesc = lowest: highest:
-          "${toString lowest} and ${toString highest} (both inclusive)";
-        between = lowest: highest:
-          assert lib.assertMsg (lowest <= highest)
-            "ints.between: lowest must be smaller than highest";
-          addCheck int (x: x >= lowest && x <= highest) // {
-            name = "intBetween";
-            description = "integer between ${betweenDesc lowest highest}";
+        # Specialized subdomains of int
+      ints =
+        let
+          betweenDesc =
+            lowest: highest:
+            "${toString lowest} and ${toString highest} (both inclusive)"
+            ;
+          between =
+            lowest: highest:
+            assert lib.assertMsg (lowest <= highest)
+              "ints.between: lowest must be smaller than highest";
+            addCheck int (x: x >= lowest && x <= highest) // {
+              name = "intBetween";
+              description = "integer between ${betweenDesc lowest highest}";
+            }
+            ;
+          ign =
+            lowest: highest: name: docStart:
+            between lowest highest // {
+              inherit name;
+              description =
+                docStart + "; between ${betweenDesc lowest highest}";
+            }
+            ;
+          unsign =
+            bit: range:
+            ign 0 (range - 1) "unsignedInt${toString bit}"
+            "${toString bit} bit unsigned integer"
+            ;
+          sign =
+            bit: range:
+            ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}"
+            "${toString bit} bit signed integer"
+            ;
+
+        in {
+          # An int with a fixed range.
+          #
+          # Example:
+          #   (ints.between 0 100).check (-1)
+          #   => false
+          #   (ints.between 0 100).check (101)
+          #   => false
+          #   (ints.between 0 0).check 0
+          #   => true
+          inherit between;
+
+          unsigned = addCheck types.int (x: x >= 0) // {
+            name = "unsignedInt";
+            description = "unsigned integer, meaning >=0";
           };
-        ign = lowest: highest: name: docStart:
-          between lowest highest // {
-            inherit name;
-            description = docStart + "; between ${betweenDesc lowest highest}";
+          positive = addCheck types.int (x: x > 0) // {
+            name = "positiveInt";
+            description = "positive integer, meaning >0";
           };
-        unsign = bit: range:
-          ign 0 (range - 1) "unsignedInt${toString bit}"
-          "${toString bit} bit unsigned integer";
-        sign = bit: range:
-          ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}"
-          "${toString bit} bit signed integer";
+          u8 = unsign 8 256;
+          u16 = unsign 16 65536;
+            # the biggest int Nix accepts is 2^63 - 1 (9223372036854775808)
+            # the smallest int Nix accepts is -2^63 (-9223372036854775807)
+          u32 = unsign 32 4294967296;
+            # u64 = unsign 64 18446744073709551616;
 
-      in {
-        # An int with a fixed range.
-        #
-        # Example:
-        #   (ints.between 0 100).check (-1)
-        #   => false
-        #   (ints.between 0 100).check (101)
-        #   => false
-        #   (ints.between 0 0).check 0
-        #   => true
-        inherit between;
+          s8 = sign 8 256;
+          s16 = sign 16 65536;
+          s32 = sign 32 4294967296;
+        }
+        ;
 
-        unsigned = addCheck types.int (x: x >= 0) // {
-          name = "unsignedInt";
-          description = "unsigned integer, meaning >=0";
-        };
-        positive = addCheck types.int (x: x > 0) // {
-          name = "positiveInt";
-          description = "positive integer, meaning >0";
-        };
-        u8 = unsign 8 256;
-        u16 = unsign 16 65536;
-        # the biggest int Nix accepts is 2^63 - 1 (9223372036854775808)
-        # the smallest int Nix accepts is -2^63 (-9223372036854775807)
-        u32 = unsign 32 4294967296;
-        # u64 = unsign 64 18446744073709551616;
-
-        s8 = sign 8 256;
-        s16 = sign 16 65536;
-        s32 = sign 32 4294967296;
-      } ;
-
-      # Alias of u16 for a port number
+        # Alias of u16 for a port number
       port = ints.u16;
 
       float = mkOptionType {
@@ -371,32 +405,39 @@ let
 
       number = either int float;
 
-      numbers = let
-        betweenDesc = lowest: highest:
-          "${builtins.toJSON lowest} and ${
-            builtins.toJSON highest
-          } (both inclusive)";
-      in {
-        between = lowest: highest:
-          assert lib.assertMsg (lowest <= highest)
-            "numbers.between: lowest must be smaller than highest";
-          addCheck number (x: x >= lowest && x <= highest) // {
-            name = "numberBetween";
-            description = "integer or floating point number between ${
-                betweenDesc lowest highest
-              }";
-          };
+      numbers =
+        let
+          betweenDesc =
+            lowest: highest:
+            "${builtins.toJSON lowest} and ${
+              builtins.toJSON highest
+            } (both inclusive)"
+            ;
+        in {
+          between =
+            lowest: highest:
+            assert lib.assertMsg (lowest <= highest)
+              "numbers.between: lowest must be smaller than highest";
+            addCheck number (x: x >= lowest && x <= highest) // {
+              name = "numberBetween";
+              description = "integer or floating point number between ${
+                  betweenDesc lowest highest
+                }";
+            }
+            ;
 
-        nonnegative = addCheck number (x: x >= 0) // {
-          name = "numberNonnegative";
-          description =
-            "nonnegative integer or floating point number, meaning >=0";
-        };
-        positive = addCheck number (x: x > 0) // {
-          name = "numberPositive";
-          description = "positive integer or floating point number, meaning >0";
-        };
-      } ;
+          nonnegative = addCheck number (x: x >= 0) // {
+            name = "numberNonnegative";
+            description =
+              "nonnegative integer or floating point number, meaning >=0";
+          };
+          positive = addCheck number (x: x > 0) // {
+            name = "numberPositive";
+            description =
+              "positive integer or floating point number, meaning >0";
+          };
+        }
+        ;
 
       str = mkOptionType {
         name = "str";
@@ -410,82 +451,96 @@ let
         name = "nonEmptyStr";
         description = "non-empty string";
         descriptionClass = "noun";
-        check = x:
+        check =
+          x:
           str.check x && builtins.match ''
             [ 	
-            ]*'' x == null;
+            ]*'' x == null
+          ;
         inherit (str) merge;
       };
 
-      # Allow a newline character at the end and trim it in the merge function.
-      singleLineStr = let
-        inherit (strMatching ''
-          [^
-          ]*
-          ?'')
-          check
-          merge
-          ;
-      in
-      mkOptionType {
-        name = "singleLineStr";
-        description = "(optionally newline-terminated) single-line string";
-        descriptionClass = "noun";
-        inherit check;
-        merge = loc: defs: lib.removeSuffix "\n" (merge loc defs);
-      }
-      ;
+        # Allow a newline character at the end and trim it in the merge function.
+      singleLineStr =
+        let
+          inherit (strMatching ''
+            [^
+            ]*
+            ?'')
+            check
+            merge
+            ;
+        in
+        mkOptionType {
+          name = "singleLineStr";
+          description = "(optionally newline-terminated) single-line string";
+          descriptionClass = "noun";
+          inherit check;
+          merge = loc: defs: lib.removeSuffix "\n" (merge loc defs);
+        }
+        ;
 
-      strMatching = pattern:
+      strMatching =
+        pattern:
         mkOptionType {
           name = "strMatching ${escapeNixString pattern}";
           description = "string matching the pattern ${pattern}";
           descriptionClass = "noun";
           check = x: str.check x && builtins.match pattern x != null;
           inherit (str) merge;
-        };
+        }
+        ;
 
-      # Merge multiple definitions by concatenating them (with the given
-      # separator between the values).
-      separatedString = sep:
+        # Merge multiple definitions by concatenating them (with the given
+        # separator between the values).
+      separatedString =
+        sep:
         mkOptionType rec {
           name = "separatedString";
-          description = if sep == "" then
-            "Concatenated string" # for types.string.
-          else
-            "strings concatenated with ${builtins.toJSON sep}";
+          description =
+            if sep == "" then
+              "Concatenated string" # for types.string.
+            else
+              "strings concatenated with ${builtins.toJSON sep}"
+            ;
           descriptionClass = "noun";
           check = isString;
           merge = loc: defs: concatStringsSep sep (getValues defs);
           functor = (defaultFunctor name) // {
             payload = sep;
-            binOp = sepLhs: sepRhs:
+            binOp =
+              sepLhs: sepRhs:
               if sepLhs == sepRhs then
                 sepLhs
               else
-                null;
+                null
+              ;
           };
-        };
+        }
+        ;
 
       lines = separatedString "\n";
       commas = separatedString ",";
       envVar = separatedString ":";
 
-      # Deprecated; should not be used because it quietly concatenates
-      # strings, which is usually not what you want.
+        # Deprecated; should not be used because it quietly concatenates
+        # strings, which is usually not what you want.
       string = separatedString "" // {
         name = "string";
         deprecationMessage =
-          "See https://github.com/NixOS/nixpkgs/pull/66346 for better alternative types.";
+          "See https://github.com/NixOS/nixpkgs/pull/66346 for better alternative types."
+          ;
       };
 
-      passwdEntry = entryType:
+      passwdEntry =
+        entryType:
         addCheck entryType (str: !(hasInfix ":" str || hasInfix "\n" str)) // {
           name = "passwdEntry ${entryType.name}";
           description = "${
               optionDescriptionPhrase (class: class == "noun") entryType
             }, not containing newlines or colons";
-        };
+        }
+        ;
 
       attrs = mkOptionType {
         name = "attrs";
@@ -495,18 +550,19 @@ let
         emptyValue = { value = { }; };
       };
 
-      # A package is a top-level store path (/nix/store/hash-name). This includes:
-      # - derivations
-      # - more generally, attribute sets with an `outPath` or `__toString` attribute
-      #   pointing to a store path, e.g. flake inputs
-      # - strings with context, e.g. "${pkgs.foo}" or (toString pkgs.foo)
-      # - hardcoded store path literals (/nix/store/hash-foo) or strings without context
-      #   ("/nix/store/hash-foo"). These get a context added to them using builtins.storePath.
+        # A package is a top-level store path (/nix/store/hash-name). This includes:
+        # - derivations
+        # - more generally, attribute sets with an `outPath` or `__toString` attribute
+        #   pointing to a store path, e.g. flake inputs
+        # - strings with context, e.g. "${pkgs.foo}" or (toString pkgs.foo)
+        # - hardcoded store path literals (/nix/store/hash-foo) or strings without context
+        #   ("/nix/store/hash-foo"). These get a context added to them using builtins.storePath.
       package = mkOptionType {
         name = "package";
         descriptionClass = "noun";
         check = x: isDerivation x || isStorePath x;
-        merge = loc: defs:
+        merge =
+          loc: defs:
           let
             res = mergeOneOption loc defs;
           in if
@@ -515,12 +571,12 @@ let
           then
             toDerivation res
           else
-            res;
+            res
+          ;
       };
 
-      shellPackage = package // {
-        check = x: isDerivation x && hasAttr "shellPath" x;
-      };
+      shellPackage =
+        package // { check = x: isDerivation x && hasAttr "shellPath" x; };
 
       path = mkOptionType {
         name = "path";
@@ -529,7 +585,8 @@ let
         merge = mergeEqualOption;
       };
 
-      listOf = elemType:
+      listOf =
+        elemType:
         mkOptionType rec {
           name = "listOf";
           description = "list of ${
@@ -538,7 +595,8 @@ let
             }";
           descriptionClass = "composite";
           check = isList;
-          merge = loc: defs:
+          merge =
+            loc: defs:
             map (x: x.value) (filter (x: x ? value) (concatLists (imap1 (n: def:
               imap1 (m: def':
                 (mergeDefinitions
@@ -546,28 +604,32 @@ let
                   elemType [ {
                     inherit (def) file;
                     value = def';
-                  } ]).optionalValue) def.value) defs)));
+                  } ]).optionalValue) def.value) defs)))
+            ;
           emptyValue = { value = [ ]; };
           getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: listOf (elemType.substSubModules m);
           functor = (defaultFunctor name) // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
-        };
+        }
+        ;
 
-      nonEmptyListOf = elemType:
+      nonEmptyListOf =
+        elemType:
         let
           list = addCheck (types.listOf elemType) (l: l != [ ]);
         in
         list // {
-          description = "non-empty ${
-              optionDescriptionPhrase (class: class == "noun") list
-            }";
+          description =
+            "non-empty ${optionDescriptionPhrase (class: class == "noun") list}"
+            ;
           emptyValue = { }; # no .value attr, meaning unset
         }
-      ;
+        ;
 
-      attrsOf = elemType:
+      attrsOf =
+        elemType:
         mkOptionType rec {
           name = "attrsOf";
           description = "attribute set of ${
@@ -576,7 +638,8 @@ let
             }";
           descriptionClass = "composite";
           check = isAttrs;
-          merge = loc: defs:
+          merge =
+            loc: defs:
             mapAttrs (n: v: v.value) (filterAttrs (n: v: v ? value)
               (zipAttrsWith (name: defs:
                 (mergeDefinitions (loc ++ [ name ]) elemType
@@ -586,22 +649,27 @@ let
                   mapAttrs (n: v: {
                     inherit (def) file;
                     value = v;
-                  }) def.value) defs)));
+                  }) def.value) defs)))
+            ;
           emptyValue = { value = { }; };
-          getSubOptions = prefix:
-            elemType.getSubOptions (prefix ++ [ "<name>" ]);
+          getSubOptions =
+            prefix:
+            elemType.getSubOptions (prefix ++ [ "<name>" ])
+            ;
           getSubModules = elemType.getSubModules;
           substSubModules = m: attrsOf (elemType.substSubModules m);
           functor = (defaultFunctor name) // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
-        };
+        }
+        ;
 
-      # A version of attrsOf that's lazy in its values at the expense of
-      # conditional definitions not working properly. E.g. defining a value with
-      # `foo.attr = mkIf false 10`, then `foo ? attr == true`, whereas with
-      # attrsOf it would correctly be `false`. Accessing `foo.attr` would throw an
-      # error that it's not defined. Use only if conditional definitions don't make sense.
-      lazyAttrsOf = elemType:
+        # A version of attrsOf that's lazy in its values at the expense of
+        # conditional definitions not working properly. E.g. defining a value with
+        # `foo.attr = mkIf false 10`, then `foo ? attr == true`, whereas with
+        # attrsOf it would correctly be `false`. Accessing `foo.attr` would throw an
+        # error that it's not defined. Use only if conditional definitions don't make sense.
+      lazyAttrsOf =
+        elemType:
         mkOptionType rec {
           name = "lazyAttrsOf";
           description = "lazy attribute set of ${
@@ -610,11 +678,12 @@ let
             }";
           descriptionClass = "composite";
           check = isAttrs;
-          merge = loc: defs:
+          merge =
+            loc: defs:
             zipAttrsWith (name: defs:
               let
                 merged = mergeDefinitions (loc ++ [ name ]) elemType defs;
-                # mergedValue will trigger an appropriate error when accessed
+                  # mergedValue will trigger an appropriate error when accessed
               in
               merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue
             )
@@ -623,28 +692,36 @@ let
               mapAttrs (n: v: {
                 inherit (def) file;
                 value = v;
-              }) def.value) defs);
+              }) def.value) defs)
+            ;
           emptyValue = { value = { }; };
-          getSubOptions = prefix:
-            elemType.getSubOptions (prefix ++ [ "<name>" ]);
+          getSubOptions =
+            prefix:
+            elemType.getSubOptions (prefix ++ [ "<name>" ])
+            ;
           getSubModules = elemType.getSubModules;
           substSubModules = m: lazyAttrsOf (elemType.substSubModules m);
           functor = (defaultFunctor name) // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
-        };
+        }
+        ;
 
-      # TODO: deprecate this in the future:
-      loaOf = elemType:
+        # TODO: deprecate this in the future:
+      loaOf =
+        elemType:
         types.attrsOf elemType // {
           name = "loaOf";
           deprecationMessage = "Mixing lists with attribute values is no longer"
             + " possible; please use `types.attrsOf` instead. See"
-            + " https://github.com/NixOS/nixpkgs/issues/1800 for the motivation.";
+            + " https://github.com/NixOS/nixpkgs/issues/1800 for the motivation."
+            ;
           nestedTypes.elemType = elemType;
-        };
+        }
+        ;
 
-      # Value of given type but with no merging (i.e. `uniq list`s are not concatenated).
-      uniq = elemType:
+        # Value of given type but with no merging (i.e. `uniq list`s are not concatenated).
+      uniq =
+        elemType:
         mkOptionType rec {
           name = "uniq";
           inherit (elemType) description descriptionClass check;
@@ -655,9 +732,11 @@ let
           substSubModules = m: uniq (elemType.substSubModules m);
           functor = (defaultFunctor name) // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
-        };
+        }
+        ;
 
-      unique = {
+      unique =
+        {
           message,
         }:
         type:
@@ -671,10 +750,12 @@ let
           substSubModules = m: uniq (type.substSubModules m);
           functor = (defaultFunctor name) // { wrapped = type; };
           nestedTypes.elemType = type;
-        };
+        }
+        ;
 
-      # Null or value of ...
-      nullOr = elemType:
+        # Null or value of ...
+      nullOr =
+        elemType:
         mkOptionType rec {
           name = "nullOr";
           description = "null or ${
@@ -683,7 +764,8 @@ let
             }";
           descriptionClass = "conjunction";
           check = x: x == null || elemType.check x;
-          merge = loc: defs:
+          merge =
+            loc: defs:
             let
               nrNulls = count (def: def.value == null) defs;
             in if nrNulls == length defs then
@@ -695,16 +777,19 @@ let
                 showFiles (getFiles defs)
               }."
             else
-              elemType.merge loc defs;
+              elemType.merge loc defs
+            ;
           emptyValue = { value = null; };
           getSubOptions = elemType.getSubOptions;
           getSubModules = elemType.getSubModules;
           substSubModules = m: nullOr (elemType.substSubModules m);
           functor = (defaultFunctor name) // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
-        };
+        }
+        ;
 
-      functionTo = elemType:
+      functionTo =
+        elemType:
         mkOptionType {
           name = "functionTo";
           description = "function that evaluates to a(n) ${
@@ -713,34 +798,42 @@ let
             }";
           descriptionClass = "composite";
           check = isFunction;
-          merge = loc: defs: fnArgs:
+          merge =
+            loc: defs: fnArgs:
             (mergeDefinitions (loc ++ [ "<function body>" ]) elemType (map
               (fn: {
                 inherit (fn) file;
                 value = fn.value fnArgs;
-              }) defs)).mergedValue;
-          getSubOptions = prefix:
-            elemType.getSubOptions (prefix ++ [ "<function body>" ]);
+              }) defs)).mergedValue
+            ;
+          getSubOptions =
+            prefix:
+            elemType.getSubOptions (prefix ++ [ "<function body>" ])
+            ;
           getSubModules = elemType.getSubModules;
           substSubModules = m: functionTo (elemType.substSubModules m);
           functor = (defaultFunctor "functionTo") // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
-        };
+        }
+        ;
 
-      # A submodule (like typed attribute set). See NixOS manual.
-      submodule = modules:
+        # A submodule (like typed attribute set). See NixOS manual.
+      submodule =
+        modules:
         submoduleWith {
           shorthandOnlyDefinesConfig = true;
           modules = toList modules;
-        };
+        }
+        ;
 
-      # A module to be imported in some other part of the configuration.
+        # A module to be imported in some other part of the configuration.
       deferredModule = deferredModuleWith { };
 
-      # A module to be imported in some other part of the configuration.
-      # `staticModules`' options will be added to the documentation, unlike
-      # options declared via `config`.
-      deferredModuleWith = attrs@{
+        # A module to be imported in some other part of the configuration.
+        # `staticModules`' options will be added to the documentation, unlike
+        # options declared via `config`.
+      deferredModuleWith =
+        attrs@{
           staticModules ? [ ]
         }:
         mkOptionType {
@@ -748,33 +841,41 @@ let
           description = "module";
           descriptionClass = "noun";
           check = x: isAttrs x || isFunction x || path.check x;
-          merge = loc: defs: {
-            imports = staticModules ++ map (def:
-              lib.setDefaultModuleLocation
-              "${def.file}, via option ${showOption loc}" def.value) defs;
-          };
+          merge =
+            loc: defs: {
+              imports = staticModules ++ map (def:
+                lib.setDefaultModuleLocation
+                "${def.file}, via option ${showOption loc}" def.value) defs;
+            }
+            ;
           inherit (submoduleWith { modules = staticModules; })
             getSubOptions
             getSubModules
             ;
-          substSubModules = m:
-            deferredModuleWith (attrs // { staticModules = m; });
+          substSubModules =
+            m:
+            deferredModuleWith (attrs // { staticModules = m; })
+            ;
           functor = defaultFunctor "deferredModuleWith" // {
             type = types.deferredModuleWith;
             payload = { inherit staticModules; };
-            binOp = lhs: rhs: {
-              staticModules = lhs.staticModules ++ rhs.staticModules;
-            };
+            binOp =
+              lhs: rhs: {
+                staticModules = lhs.staticModules ++ rhs.staticModules;
+              }
+              ;
           };
-        };
+        }
+        ;
 
-      # The type of a type!
+        # The type of a type!
       optionType = mkOptionType {
         name = "optionType";
         description = "optionType";
         descriptionClass = "noun";
         check = value: value._type or null == "option-type";
-        merge = loc: defs:
+        merge =
+          loc: defs:
           if length defs == 1 then
             (head defs).value
           else
@@ -786,20 +887,21 @@ let
                   file,
                 }: {
                   _file = file;
-                  # There's no way to merge types directly from the module system,
-                  # but we can cheat a bit by just declaring an option with the type
+                    # There's no way to merge types directly from the module system,
+                    # but we can cheat a bit by just declaring an option with the type
                   options = lib.mkOption { type = value; };
                 }) defs;
-              # Merges all the types into a single one, including submodule merging.
-              # This also propagates file information to all submodules
+                # Merges all the types into a single one, including submodule merging.
+                # This also propagates file information to all submodules
               mergedOption =
                 fixupOptionType loc (mergeOptionDecls loc optionModules);
             in
             mergedOption.type
-        ;
+          ;
       };
 
-      submoduleWith = {
+      submoduleWith =
+        {
           modules,
           specialArgs ? { },
           shorthandOnlyDefinesConfig ? false,
@@ -808,7 +910,8 @@ let
         let
           inherit (lib.modules) evalModules;
 
-          allModules = defs:
+          allModules =
+            defs:
             map ({
                 value,
                 file,
@@ -822,7 +925,8 @@ let
                 {
                   _file = file;
                   imports = [ value ];
-                }) defs;
+                }) defs
+            ;
 
           base = evalModules {
             inherit specialArgs;
@@ -853,26 +957,32 @@ let
         in
         mkOptionType {
           inherit name;
-          description = if description != null then
-            description
-          else
-            freeformType.description or name;
+          description =
+            if description != null then
+              description
+            else
+              freeformType.description or name
+            ;
           check = x: isAttrs x || isFunction x || path.check x;
-          merge = loc: defs:
+          merge =
+            loc: defs:
             (base.extendModules {
-              modules = [ { _module.args.name = last loc; } ]
-                ++ allModules defs;
+              modules =
+                [ { _module.args.name = last loc; } ] ++ allModules defs;
               prefix = loc;
-            }).config;
+            }).config
+            ;
           emptyValue = { value = { }; };
-          getSubOptions = prefix:
+          getSubOptions =
+            prefix:
             (base.extendModules { inherit prefix; }).options
             // optionalAttrs (freeformType != null) {
               # Expose the sub options of the freeform type. Note that the option
               # discovery doesn't care about the attribute name used here, so this
               # is just to avoid conflicts with potential options from the submodule
               _freeformOptions = freeformType.getSubOptions prefix;
-            };
+            }
+            ;
           getSubModules = modules;
           substSubModules = m: submoduleWith (attrs // { modules = m; });
           nestedTypes = lib.optionalAttrs (freeformType != null) {
@@ -888,50 +998,59 @@ let
                 description
                 ;
             };
-            binOp = lhs: rhs: {
-              modules = lhs.modules ++ rhs.modules;
-              specialArgs = let
-                intersecting =
-                  builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
-              in if intersecting == { } then
-                lhs.specialArgs // rhs.specialArgs
-              else
-                throw ''
-                  A submoduleWith option is declared multiple times with the same specialArgs "${
-                    toString (attrNames intersecting)
-                  }"'';
-              shorthandOnlyDefinesConfig =
-                if lhs.shorthandOnlyDefinesConfig == null then
-                  rhs.shorthandOnlyDefinesConfig
-                else if rhs.shorthandOnlyDefinesConfig == null then
-                  lhs.shorthandOnlyDefinesConfig
-                else if
-                  lhs.shorthandOnlyDefinesConfig
-                  == rhs.shorthandOnlyDefinesConfig
-                then
-                  lhs.shorthandOnlyDefinesConfig
-                else
-                  throw
-                  "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
-              description = if lhs.description == null then
-                rhs.description
-              else if rhs.description == null then
-                lhs.description
-              else if lhs.description == rhs.description then
-                lhs.description
-              else
-                throw
-                "A submoduleWith option is declared multiple times with conflicting descriptions";
-            };
+            binOp =
+              lhs: rhs: {
+                modules = lhs.modules ++ rhs.modules;
+                specialArgs =
+                  let
+                    intersecting =
+                      builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
+                  in if intersecting == { } then
+                    lhs.specialArgs // rhs.specialArgs
+                  else
+                    throw ''
+                      A submoduleWith option is declared multiple times with the same specialArgs "${
+                        toString (attrNames intersecting)
+                      }"''
+                  ;
+                shorthandOnlyDefinesConfig =
+                  if lhs.shorthandOnlyDefinesConfig == null then
+                    rhs.shorthandOnlyDefinesConfig
+                  else if rhs.shorthandOnlyDefinesConfig == null then
+                    lhs.shorthandOnlyDefinesConfig
+                  else if
+                    lhs.shorthandOnlyDefinesConfig
+                    == rhs.shorthandOnlyDefinesConfig
+                  then
+                    lhs.shorthandOnlyDefinesConfig
+                  else
+                    throw
+                    "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values"
+                  ;
+                description =
+                  if lhs.description == null then
+                    rhs.description
+                  else if rhs.description == null then
+                    lhs.description
+                  else if lhs.description == rhs.description then
+                    lhs.description
+                  else
+                    throw
+                    "A submoduleWith option is declared multiple times with conflicting descriptions"
+                  ;
+              }
+              ;
           };
         }
-      ;
+        ;
 
-      # A value from a set of allowed ones.
-      enum = values:
+        # A value from a set of allowed ones.
+      enum =
+        values:
         let
           inherit (lib.lists) unique;
-          show = v:
+          show =
+            v:
             if builtins.isString v then
               ''"${v}"''
             else if builtins.isInt v then
@@ -939,7 +1058,8 @@ let
             else if builtins.isBool v then
               boolToString v
             else
-              "<${builtins.typeOf v}>";
+              "<${builtins.typeOf v}>"
+            ;
         in
         mkOptionType rec {
           name = "enum";
@@ -953,11 +1073,14 @@ let
             else if builtins.length values == 1 then
               "value ${show (builtins.head values)} (singular enum)"
             else
-              "one of ${concatMapStringsSep ", " show values}";
-          descriptionClass = if builtins.length values < 2 then
-            "noun"
-          else
-            "conjunction";
+              "one of ${concatMapStringsSep ", " show values}"
+            ;
+          descriptionClass =
+            if builtins.length values < 2 then
+              "noun"
+            else
+              "conjunction"
+            ;
           check = flip elem values;
           merge = mergeEqualOption;
           functor = (defaultFunctor name) // {
@@ -965,10 +1088,11 @@ let
             binOp = a: b: unique (a ++ b);
           };
         }
-      ;
+        ;
 
-      # Either value of type `t1` or `t2`.
-      either = t1: t2:
+        # Either value of type `t1` or `t2`.
+      either =
+        t1: t2:
         mkOptionType rec {
           name = "either";
           description = "${
@@ -981,7 +1105,8 @@ let
             }";
           descriptionClass = "conjunction";
           check = x: t1.check x || t2.check x;
-          merge = loc: defs:
+          merge =
+            loc: defs:
             let
               defList = map (d: d.value) defs;
             in if all (x: t1.check x) defList then
@@ -989,15 +1114,18 @@ let
             else if all (x: t2.check x) defList then
               t2.merge loc defs
             else
-              mergeOneOption loc defs;
-          typeMerge = f':
+              mergeOneOption loc defs
+            ;
+          typeMerge =
+            f':
             let
               mt1 = t1.typeMerge (elemAt f'.wrapped 0).functor;
               mt2 = t2.typeMerge (elemAt f'.wrapped 1).functor;
             in if (name == f'.name) && (mt1 != null) && (mt2 != null) then
               functor.type mt1 mt2
             else
-              null;
+              null
+            ;
           functor = (defaultFunctor name) // {
             wrapped = [
               t1
@@ -1006,23 +1134,28 @@ let
           };
           nestedTypes.left = t1;
           nestedTypes.right = t2;
-        };
+        }
+        ;
 
-      # Any of the types in the given list
-      oneOf = ts:
+        # Any of the types in the given list
+      oneOf =
+        ts:
         let
-          head' = if ts == [ ] then
-            throw "types.oneOf needs to get at least one type in its argument"
-          else
-            head ts;
+          head' =
+            if ts == [ ] then
+              throw "types.oneOf needs to get at least one type in its argument"
+            else
+              head ts
+            ;
           tail' = tail ts;
         in
         foldl' either head' tail'
-      ;
+        ;
 
-      # Either value of type `coercedType` or `finalType`, the former is
-      # converted to `finalType` using `coerceFunc`.
-      coercedTo = coercedType: coerceFunc: finalType:
+        # Either value of type `coercedType` or `finalType`, the former is
+        # converted to `finalType` using `coerceFunc`.
+      coercedTo =
+        coercedType: coerceFunc: finalType:
         assert lib.assertMsg (coercedType.getSubModules == null)
           "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
         mkOptionType rec {
@@ -1031,36 +1164,46 @@ let
             "${optionDescriptionPhrase (class: class == "noun") finalType} or ${
               optionDescriptionPhrase (class: class == "noun") coercedType
             } convertible to it";
-          check = x:
+          check =
+            x:
             (coercedType.check x && finalType.check (coerceFunc x))
-            || finalType.check x;
-          merge = loc: defs:
+            || finalType.check x
+            ;
+          merge =
+            loc: defs:
             let
-              coerceVal = val:
+              coerceVal =
+                val:
                 if coercedType.check val then
                   coerceFunc val
                 else
-                  val;
+                  val
+                ;
             in
             finalType.merge loc
             (map (def: def // { value = coerceVal def.value; }) defs)
-          ;
+            ;
           emptyValue = finalType.emptyValue;
           getSubOptions = finalType.getSubOptions;
           getSubModules = finalType.getSubModules;
-          substSubModules = m:
-            coercedTo coercedType coerceFunc (finalType.substSubModules m);
+          substSubModules =
+            m:
+            coercedTo coercedType coerceFunc (finalType.substSubModules m)
+            ;
           typeMerge = t1: t2: null;
           functor = (defaultFunctor name) // { wrapped = finalType; };
           nestedTypes.coercedType = coercedType;
           nestedTypes.finalType = finalType;
-        };
+        }
+        ;
 
-      # Augment the given type with an additional type check function.
-      addCheck = elemType: check:
+        # Augment the given type with an additional type check function.
+      addCheck =
+        elemType: check:
         elemType // {
           check = x: elemType.check x && check x;
-        };
+        }
+        ;
 
     };
   };

@@ -108,7 +108,7 @@ with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
   monotone = linux;
   mutt = linux;
   mysql = linux;
-  # netcat broken on darwin
+    # netcat broken on darwin
   netcat = linux;
   nfs-utils = linux;
   nix = all;

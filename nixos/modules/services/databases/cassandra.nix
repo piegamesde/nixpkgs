@@ -108,7 +108,7 @@ let
     # Sufficient for cassandra 2.x, 3.x
     CASSANDRA_CONF = "${cassandraEtc}";
 
-    # Required since cassandra 4
+      # Required since cassandra 4
     CASSANDRA_LOGBACK_CONF = "${cassandraEtc}/logback.xml";
   };
 
@@ -445,12 +445,15 @@ in {
 
     jmxRolesFile = mkOption {
       type = types.nullOr types.path;
-      default = if atLeast3_11 then
-        pkgs.writeText "jmx-roles-file" defaultJmxRolesFile
-      else
-        null;
+      default =
+        if atLeast3_11 then
+          pkgs.writeText "jmx-roles-file" defaultJmxRolesFile
+        else
+          null
+        ;
       defaultText = literalMD
-        "generated configuration file if version is at least 3.11, otherwise `null`";
+        "generated configuration file if version is at least 3.11, otherwise `null`"
+        ;
       example = "/var/lib/cassandra/jmx.password";
       description = lib.mdDoc ''
         Specify your own jmx roles file.
@@ -464,8 +467,8 @@ in {
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = (cfg.listenAddress == null)
-          != (cfg.listenInterface == null);
+        assertion =
+          (cfg.listenAddress == null) != (cfg.listenInterface == null);
         message = "You have to set either listenAddress or listenInterface";
       }
       {
@@ -475,7 +478,8 @@ in {
       {
         assertion = (cfg.maxHeapSize == null) == (cfg.heapNewSize == null);
         message =
-          "If you set either of maxHeapSize or heapNewSize you have to set both";
+          "If you set either of maxHeapSize or heapNewSize you have to set both"
+          ;
       }
       {
         assertion = cfg.remoteJmx -> cfg.jmxRolesFile != null;
@@ -505,10 +509,12 @@ in {
         MAX_HEAP_SIZE = toString cfg.maxHeapSize;
         HEAP_NEWSIZE = toString cfg.heapNewSize;
         MALLOC_ARENA_MAX = toString cfg.mallocArenaMax;
-        LOCAL_JMX = if cfg.remoteJmx then
-          "no"
-        else
-          "yes";
+        LOCAL_JMX =
+          if cfg.remoteJmx then
+            "no"
+          else
+            "yes"
+          ;
         JMX_PORT = toString cfg.jmxPort;
       };
       wantedBy = [ "multi-user.target" ];

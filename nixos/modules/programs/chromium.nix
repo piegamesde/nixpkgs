@@ -66,7 +66,8 @@ in {
         description = lib.mdDoc "Chromium default search provider url.";
         default = null;
         example =
-          "https://encrypted.google.com/search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}{google:instantExtendedEnabledParameter}ie={inputEncoding}";
+          "https://encrypted.google.com/search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}{google:instantExtendedEnabledParameter}ie={inputEncoding}"
+          ;
       };
 
       defaultSearchProviderSuggestURL = mkOption {
@@ -75,7 +76,8 @@ in {
           lib.mdDoc "Chromium default search provider url for suggestions.";
         default = null;
         example =
-          "https://encrypted.google.com/complete/search?output=chrome&q={searchTerms}";
+          "https://encrypted.google.com/complete/search?output=chrome&q={searchTerms}"
+          ;
       };
 
       extraOpts = mkOption {
@@ -103,7 +105,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = lib.mkIf cfg.enable {
     # for chromium
@@ -111,12 +113,12 @@ in {
       builtins.toJSON defaultProfile;
     environment.etc."chromium/policies/managed/extra.json".text =
       builtins.toJSON cfg.extraOpts;
-    # for google-chrome https://www.chromium.org/administrators/linux-quick-start
+      # for google-chrome https://www.chromium.org/administrators/linux-quick-start
     environment.etc."opt/chrome/policies/managed/default.json".text =
       builtins.toJSON defaultProfile;
     environment.etc."opt/chrome/policies/managed/extra.json".text =
       builtins.toJSON cfg.extraOpts;
-    # for brave
+      # for brave
     environment.etc."brave/policies/managed/default.json".text =
       builtins.toJSON defaultProfile;
     environment.etc."brave/policies/managed/extra.json".text =

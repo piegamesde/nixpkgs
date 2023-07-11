@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     # GNOME 44 compatibility
     (fetchpatch {
       url =
-        "https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/pull/788/commits/e69349942791140807c01d472dfe5e0ddf5c73c0.patch";
+        "https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/pull/788/commits/e69349942791140807c01d472dfe5e0ddf5c73c0.patch"
+        ;
       hash = "sha256-g5Ocpvp7eO/pBkDBZsxgXH7e8rdPBUUxDSwK2hJHKbY=";
     })
     (substituteAll {

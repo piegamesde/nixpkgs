@@ -16,7 +16,8 @@ bundlerApp {
 
   meta = with lib; {
     description =
-      "The Chef Infra Client is a powerful agent that applies your configurations on remote Linux, macOS, Windows and cloud-based systems";
+      "The Chef Infra Client is a powerful agent that applies your configurations on remote Linux, macOS, Windows and cloud-based systems"
+      ;
     homepage = "https://chef.io/";
     license = licenses.asl20;
     maintainers = with maintainers; [ dylanmtaylor ];

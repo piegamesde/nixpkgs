@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-DKwjBQXC7O/8bFxq5shJJxRV3HYgBeS7tJXg4m3vQMY=";
   };
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
   pythonImportsCheck = [ "pylutron" ];
 

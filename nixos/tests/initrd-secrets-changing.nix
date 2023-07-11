@@ -14,7 +14,8 @@ in
 testing.makeTest {
   name = "initrd-secrets-changing";
 
-  nodes.machine = {
+  nodes.machine =
+    {
       ...
     }: {
       virtualisation.useBootLoader = true;
@@ -34,7 +35,8 @@ testing.makeTest {
           "/run/keys/test" = secret2InStore;
         };
       };
-    };
+    }
+    ;
 
   testScript = ''
     start_all()

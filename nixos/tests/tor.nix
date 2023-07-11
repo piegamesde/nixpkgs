@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     name = "tor";
     meta.maintainers = with maintainers; [ joachifm ];
 
-    nodes.client = {
+    nodes.client =
+      {
         pkgs,
         ...
       }: {
@@ -24,7 +25,8 @@ import ./make-test-python.nix ({
         services.tor.enable = true;
         services.tor.client.enable = true;
         services.tor.settings.ControlPort = 9051;
-      };
+      }
+      ;
 
     testScript = ''
       client.wait_for_unit("tor.service")

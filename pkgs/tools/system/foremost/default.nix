@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./makefile.patch ];
 
-  # -fcommon: Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: api.o:(.bss+0xbdba0): multiple definition of `wildcard'; main.o:(.bss+0xbd760): first defined here
+    # -fcommon: Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: api.o:(.bss+0xbdba0): multiple definition of `wildcard'; main.o:(.bss+0xbd760): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   makeFlags = [ "PREFIX=$(out)" ] ++ lib.optionals stdenv.isDarwin [ "mac" ];

@@ -15,7 +15,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pycryptodome_test_vectors" ];

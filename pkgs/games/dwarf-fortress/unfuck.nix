@@ -66,10 +66,12 @@ let
     };
   };
 
-  release = if hasAttr dfVersion unfuck-releases then
-    getAttr dfVersion unfuck-releases
-  else
-    throw "[unfuck] Unknown Dwarf Fortress version: ${dfVersion}";
+  release =
+    if hasAttr dfVersion unfuck-releases then
+      getAttr dfVersion unfuck-releases
+    else
+      throw "[unfuck] Unknown Dwarf Fortress version: ${dfVersion}"
+    ;
 
 in
 stdenv.mkDerivation {
@@ -115,14 +117,14 @@ stdenv.mkDerivation {
     else
       [ gtk3 ]);
 
-  # Don't strip unused symbols; dfhack hooks into some of them.
+    # Don't strip unused symbols; dfhack hooks into some of them.
   dontStrip = true;
 
   installPhase = ''
     install -D -m755 ../build/libgraphics.so $out/lib/libgraphics.so
   '';
 
-  # Breaks dfhack because of inlining.
+    # Breaks dfhack because of inlining.
   hardeningDisable = [ "fortify" ];
 
   passthru = { inherit dfVersion; };

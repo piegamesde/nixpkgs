@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/jimevins/glabels/commit/f64e3f34e3631330fff2fb48ab271ff9c6160229.patch";
+        "https://github.com/jimevins/glabels/commit/f64e3f34e3631330fff2fb48ab271ff9c6160229.patch"
+        ;
       sha256 = "13q6g4bxzvzwjnvzkvijds2b6yvc4xqbdwgqnwmj65ln6ngxz8sa";
     })
   ];

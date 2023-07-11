@@ -13,7 +13,8 @@ import ../make-test-python.nix ({
     meta = with pkgs.lib; { maintainers = teams.matrix.members; };
 
     nodes = {
-      homeserver = {
+      homeserver =
+        {
           pkgs,
           ...
         }: {
@@ -29,16 +30,16 @@ import ../make-test-python.nix ({
           };
 
           networking.firewall.allowedTCPPorts = [ 8008 ];
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
-          environment.systemPackages =
-            [ (pkgs.writers.writePython3Bin "do_test" {
-              libraries = [ pkgs.python3Packages.matrix-nio ];
-            } ''
+          environment.systemPackages = [ (pkgs.writers.writePython3Bin
+            "do_test" { libraries = [ pkgs.python3Packages.matrix-nio ]; } ''
               import asyncio
 
               from nio import AsyncClient
@@ -86,7 +87,8 @@ import ../make-test-python.nix ({
 
               asyncio.get_event_loop().run_until_complete(main())
             '') ];
-        };
+        }
+        ;
     };
 
     testScript = ''

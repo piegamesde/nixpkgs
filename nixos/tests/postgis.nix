@@ -6,20 +6,24 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ lsix ]; };
 
     nodes = {
-      master = {
+      master =
+        {
           pkgs,
           ...
         }:
 
         {
-          services.postgresql = let
-            mypg = pkgs.postgresql_11;
-          in {
-            enable = true;
-            package = mypg;
-            extraPlugins = with mypg.pkgs; [ postgis ];
-          } ;
-        };
+          services.postgresql =
+            let
+              mypg = pkgs.postgresql_11;
+            in {
+              enable = true;
+              package = mypg;
+              extraPlugins = with mypg.pkgs; [ postgis ];
+            }
+            ;
+        }
+        ;
     };
 
     testScript = ''

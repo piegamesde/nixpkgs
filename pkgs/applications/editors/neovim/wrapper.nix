@@ -14,7 +14,8 @@
 neovim:
 
 let
-  wrapper = {
+  wrapper =
+    {
       extraName ? ""
         # should contain all args but the binary. Can be either a string or list
       ,
@@ -44,13 +45,15 @@ let
     }@args:
     let
 
-      wrapperArgsStr = if lib.isString wrapperArgs then
-        wrapperArgs
-      else
-        lib.escapeShellArgs wrapperArgs;
+      wrapperArgsStr =
+        if lib.isString wrapperArgs then
+          wrapperArgs
+        else
+          lib.escapeShellArgs wrapperArgs
+        ;
 
-      # "--add-flags" (lib.escapeShellArgs flags)
-      # wrapper args used both when generating the manifest and in the final neovim executable
+        # "--add-flags" (lib.escapeShellArgs flags)
+        # wrapper args used both when generating the manifest and in the final neovim executable
       commonWrapperArgs = (lib.optionals (lib.isList wrapperArgs) wrapperArgs)
       # vim accepts a limited number of commands so we join them all
         ++ [
@@ -66,14 +69,14 @@ let
           ];
 
       providerLuaRc = neovimUtils.generateProviderRc args;
-      # providerLuaRc = "toto";
+        # providerLuaRc = "toto";
 
-      # If configure != {}, we can't generate the rplugin.vim file with e.g
-      # NVIM_SYSTEM_RPLUGIN_MANIFEST *and* NVIM_RPLUGIN_MANIFEST env vars set in
-      # the wrapper. That's why only when configure != {} (tested both here and
-      # when postBuild is evaluated), we call makeWrapper once to generate a
-      # wrapper with most arguments we need, excluding those that cause problems to
-      # generate rplugin.vim, but still required for the final wrapper.
+        # If configure != {}, we can't generate the rplugin.vim file with e.g
+        # NVIM_SYSTEM_RPLUGIN_MANIFEST *and* NVIM_RPLUGIN_MANIFEST env vars set in
+        # the wrapper. That's why only when configure != {} (tested both here and
+        # when postBuild is evaluated), we call makeWrapper once to generate a
+        # wrapper with most arguments we need, excluding those that cause problems to
+        # generate rplugin.vim, but still required for the final wrapper.
       finalMakeWrapperArgs = [
         "${neovim}/bin/nvim"
         "${placeholder "out"}/bin/nvim"
@@ -91,8 +94,8 @@ let
 
     symlinkJoin {
       name = "neovim-${lib.getVersion neovim}${extraName}";
-      # Remove the symlinks created by symlinkJoin which we need to perform
-      # extra actions upon
+        # Remove the symlinks created by symlinkJoin which we need to perform
+        # extra actions upon
       postBuild = lib.optionalString stdenv.isLinux ''
         rm $out/share/applications/nvim.desktop
         substitute ${neovim}/share/applications/nvim.desktop $out/share/applications/nvim.desktop \
@@ -166,10 +169,10 @@ let
       meta = neovim.meta // {
         # To prevent builds on hydra
         hydraPlatforms = [ ];
-        # prefer wrapper over the package
+          # prefer wrapper over the package
         priority = (neovim.meta.priority or 0) - 1;
       };
     }
-  ;
+    ;
 in
 lib.makeOverridable wrapper

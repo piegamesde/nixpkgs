@@ -12,7 +12,7 @@ buildPythonPackage rec {
   version = "0.3.4";
   disabled = pythonOlder "3.5";
 
-  # provides no sdist on pypi
+    # provides no sdist on pypi
   src = fetchFromGitHub {
     owner = "nipunsadvilkar";
     repo = "pySBD";
@@ -31,7 +31,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Pysbd (Python Sentence Boundary Disambiguation) is a rule-based sentence boundary detection that works out-of-the-box across many languages";
+      "Pysbd (Python Sentence Boundary Disambiguation) is a rule-based sentence boundary detection that works out-of-the-box across many languages"
+      ;
     homepage = "https://github.com/nipunsadvilkar/pySBD";
     license = licenses.mit;
     maintainers = teams.tts.members;

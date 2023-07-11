@@ -16,8 +16,8 @@ buildPythonPackage rec {
     sha256 = "7942fe2e7821d09206002ea7e820e694094b3f964885123eb6eee1167f39b8da";
   };
 
-  # Replace pypandoc dependency by m2r
-  # See https://github.com/roger-/pyrtlsdr/pull/78
+    # Replace pypandoc dependency by m2r
+    # See https://github.com/roger-/pyrtlsdr/pull/78
   patches = [
     (fetchpatch {
       url = "${meta.homepage}/commit/2b7df0b.patch";
@@ -35,12 +35,13 @@ buildPythonPackage rec {
     sed "s|driver_files =.*|driver_files = ['${rtl-sdr}/lib/librtlsdr.so']|" -i rtlsdr/librtlsdr.py
   '';
 
-  # No tests that can be used.
+    # No tests that can be used.
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Python wrapper for librtlsdr (a driver for Realtek RTL2832U based SDR's)";
+      "Python wrapper for librtlsdr (a driver for Realtek RTL2832U based SDR's)"
+      ;
     homepage = "https://github.com/roger-/pyrtlsdr";
     license = licenses.gpl3;
     platforms = platforms.unix;

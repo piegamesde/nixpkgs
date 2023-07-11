@@ -11,7 +11,8 @@
     ];
   };
 
-  nodes.machine = {
+  nodes.machine =
+    {
       lib,
       ...
     }: {
@@ -24,31 +25,35 @@
         };
       };
 
-      # Should have access to the AESM socket
+        # Should have access to the AESM socket
       users.users."sgxtest" = {
         isNormalUser = true;
         extraGroups = [ "sgx" ];
       };
 
-      # Should NOT have access to the AESM socket
+        # Should NOT have access to the AESM socket
       users.users."nosgxtest".isNormalUser = true;
 
-      # We don't have a real SGX machine in NixOS tests
+        # We don't have a real SGX machine in NixOS tests
       systemd.services.aesmd.unitConfig.AssertPathExists = lib.mkForce [ ];
 
       specialisation = {
-        withQuoteProvider.configuration = {
+        withQuoteProvider.configuration =
+          {
             ...
           }: {
             services.aesmd = {
               quoteProviderLibrary = pkgs.sgx-azure-dcap-client;
               environment = { AZDCAP_DEBUG_LOG_LEVEL = "INFO"; };
             };
-          };
+          }
+          ;
       };
-    };
+    }
+    ;
 
-  testScript = {
+  testScript =
+    {
       nodes,
       ...
     }:
@@ -110,5 +115,6 @@
       with subtest("aesmd.service with quote provider library has set AZDCAP_DEBUG_LOG_LEVEL"):
         azdcp_debug_log_level = machine.succeed(f"xargs -0 -L1 -a /proc/{main_pid}/environ | grep AZDCAP_DEBUG_LOG_LEVEL")
         assert azdcp_debug_log_level == "AZDCAP_DEBUG_LOG_LEVEL=INFO\n", "AZDCAP_DEBUG_LOG_LEVEL is not set to INFO"
-    '' ;
+    ''
+    ;
 }

@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   patches = [ ./honor-XKB_CONFIG_ROOT.patch ]
     ++ lib.optionals stdenv.isDarwin [ (fetchpatch {
       url =
-        "https://gitlab.freedesktop.org/archived-projects/libxklavier/-/commit/1387c21a788ec1ea203c8392ea1460fc29d83f70.patch";
+        "https://gitlab.freedesktop.org/archived-projects/libxklavier/-/commit/1387c21a788ec1ea203c8392ea1460fc29d83f70.patch"
+        ;
       sha256 = "sha256-fyWu7sVfDv/ozjhLSLCVsv+iNFawWgJqHUsQHHSkQn4=";
     }) ];
 
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
     "dev"
   ] ++ lib.optionals withDoc [ "devdoc" ];
 
-  # TODO: enable xmodmap support, needs xmodmap DB
+    # TODO: enable xmodmap support, needs xmodmap DB
   propagatedBuildInputs = with xorg; [
     libX11
     libXi

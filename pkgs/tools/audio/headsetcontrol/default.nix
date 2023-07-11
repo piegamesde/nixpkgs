@@ -21,12 +21,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ hidapi ];
 
-  # Test depends on having the apropiate headsets connected.
+    # Test depends on having the apropiate headsets connected.
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Sidetone and Battery status for Logitech G930, G533, G633, G933 SteelSeries Arctis 7/PRO 2019 and Corsair VOID (Pro)";
+      "Sidetone and Battery status for Logitech G930, G533, G633, G933 SteelSeries Arctis 7/PRO 2019 and Corsair VOID (Pro)"
+      ;
     longDescription = ''
       A tool to control certain aspects of USB-connected headsets on Linux. Currently,
       support is provided for adjusting sidetone, getting battery state, controlling

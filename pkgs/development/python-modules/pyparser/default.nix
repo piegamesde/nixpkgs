@@ -9,7 +9,7 @@ buildPythonPackage rec {
   pname = "pyparser";
   version = "1.0";
 
-  # Missing tests on Pypi
+    # Missing tests on Pypi
   src = fetchFromBitbucket {
     owner = "rw_grim";
     repo = pname;

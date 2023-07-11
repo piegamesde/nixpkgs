@@ -41,14 +41,14 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Pixel-oriented paint program, modelled on Deluxe Paint";
-    homepage =
-      "https://github.com/bcampbell/evilpixie"; # http://evilpixie.scumways.com/ is gone
+    homepage = "https://github.com/bcampbell/evilpixie"
+      ; # http://evilpixie.scumways.com/ is gone
     downloadPage = "https://github.com/bcampbell/evilpixie/releases";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;
-    # Undefined symbols for architecture x86_64:
-    # "_bundle_path", referenced from: App::SetupPaths() in src_app.cpp.o
+      # Undefined symbols for architecture x86_64:
+      # "_bundle_path", referenced from: App::SetupPaths() in src_app.cpp.o
     broken = stdenv.isDarwin ||
       # https://github.com/bcampbell/evilpixie/issues/28
       stdenv.isAarch64;

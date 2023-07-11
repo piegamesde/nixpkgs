@@ -20,14 +20,17 @@ let
   version = "${versionMajor}.${versionMinor}";
 in
 stdenv.mkDerivation {
-  pname = if dedicatedServer then
-    "armagetronad-dedicated"
-  else
-    "armagetronad";
+  pname =
+    if dedicatedServer then
+      "armagetronad-dedicated"
+    else
+      "armagetronad"
+    ;
   inherit version;
   src = fetchurl {
     url =
-      "https://launchpad.net/armagetronad/${versionMajor}/${version}/+download/armagetronad-${version}.tbz";
+      "https://launchpad.net/armagetronad/${versionMajor}/${version}/+download/armagetronad-${version}.tbz"
+      ;
     sha256 = "sha256-WbbHwBzj+MylQ34z+XSmN1KVQaEapPUsGlwXSZ4m9qE";
   };
 

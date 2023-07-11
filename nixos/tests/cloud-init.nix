@@ -64,7 +64,8 @@ makeTest {
     lewo
     illustris
   ];
-  nodes.machine = {
+  nodes.machine =
+    {
       ...
     }: {
       virtualisation.qemu.options = [
@@ -78,7 +79,8 @@ makeTest {
       services.openssh.enable = true;
       networking.hostName = "";
       networking.useDHCP = false;
-    };
+    }
+    ;
   testScript = ''
     # To wait until cloud-init terminates its run
     unnamed.wait_for_unit("cloud-final.service")

@@ -41,7 +41,7 @@ mkYarnPackage rec {
     makeWrapper
   ];
 
-  # Fixes "SQLite package has not been found installed" at launch
+    # Fixes "SQLite package has not been found installed" at launch
   pkgConfig.sqlite3 = {
     nativeBuildInputs = [
       nodejs.pkgs.node-pre-gyp

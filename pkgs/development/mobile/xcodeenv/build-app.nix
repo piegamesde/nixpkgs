@@ -36,28 +36,34 @@ assert enableWirelessDistribution -> installURL != null && bundleId != null
 let
   # Set some default values here
 
-  _target = if target == null then
-    name
-  else
-    target;
-
-  _configuration = if configuration == null then
-    if release then
-      "Release"
+  _target =
+    if target == null then
+      name
     else
-      "Debug"
-  else
-    configuration;
+      target
+    ;
 
-  _sdk = if sdk == null then
-    if release then
-      "iphoneos" + sdkVersion
+  _configuration =
+    if configuration == null then
+      if release then
+        "Release"
+      else
+        "Debug"
     else
-      "iphonesimulator" + sdkVersion
-  else
-    sdk;
+      configuration
+    ;
 
-  # The following is to prevent repetition
+  _sdk =
+    if sdk == null then
+      if release then
+        "iphoneos" + sdkVersion
+      else
+        "iphonesimulator" + sdkVersion
+    else
+      sdk
+    ;
+
+    # The following is to prevent repetition
   deleteKeychain = ''
     security default-keychain -s login.keychain
     security delete-keychain $keychainName
@@ -85,8 +91,8 @@ let
   ] ++ builtins.attrNames xcodewrapperFormalArgs);
 in
 stdenv.mkDerivation ({
-  name = lib.replaceStrings [ " " ] [ "" ]
-    name; # iOS app names can contain spaces, but in the Nix store this is not allowed
+  name = lib.replaceStrings [ " " ] [ "" ] name
+    ; # iOS app names can contain spaces, but in the Nix store this is not allowed
   buildPhase = ''
     # Be sure that the Xcode wrapper has priority over everything else.
     # When using buildInputs this does not seem to be the case.

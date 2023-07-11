@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     patchShebangs genversion.sh
   '';
 
-  # https://github.com/xrootd/xrootd/blob/master/packaging/rhel/xrootd.spec.in#L665-L675=
+    # https://github.com/xrootd/xrootd/blob/master/packaging/rhel/xrootd.spec.in#L665-L675=
   postInstall = ''
     mkdir -p "$out/lib/tmpfiles.d"
     install -m 644 -T ../packaging/rhel/xrootd.tmpfiles "$out/lib/tmpfiles.d/xrootd.conf"

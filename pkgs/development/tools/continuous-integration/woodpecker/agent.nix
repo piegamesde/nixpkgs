@@ -16,7 +16,6 @@ buildGoModule {
 
   CGO_ENABLED = 0;
 
-  meta = common.meta // {
-    description = "Woodpecker Continuous Integration agent";
-  };
+  meta =
+    common.meta // { description = "Woodpecker Continuous Integration agent"; };
 }

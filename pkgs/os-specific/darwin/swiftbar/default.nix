@@ -11,7 +11,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/swiftbar/SwiftBar/releases/download/v${version}/SwiftBar.zip";
+      "https://github.com/swiftbar/SwiftBar/releases/download/v${version}/SwiftBar.zip"
+      ;
     sha256 = "sha256-Ut+lr1E7bMp8Uz1aL7EV0ZsfdTh9t7zUjDU/DScRpHY=";
     stripRoot = false;
   };

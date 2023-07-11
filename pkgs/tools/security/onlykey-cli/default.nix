@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     six
   ];
 
-  # Requires having the physical onlykey (a usb security key)
+    # Requires having the physical onlykey (a usb security key)
   doCheck = false;
   pythonImportsCheck = [ "onlykey.cli" ];
 

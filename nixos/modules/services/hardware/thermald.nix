@@ -13,8 +13,9 @@ in {
   ###### interface
   options = {
     services.thermald = {
-      enable = mkEnableOption
-        (lib.mdDoc "thermald, the temperature management daemon");
+      enable =
+        mkEnableOption (lib.mdDoc "thermald, the temperature management daemon")
+        ;
 
       debug = mkOption {
         type = types.bool;
@@ -39,7 +40,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     services.dbus.packages = [ cfg.package ];
 

@@ -52,7 +52,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "PyAutoGUI lets Python control the mouse and keyboard, and other GUI automation tasks.";
+      "PyAutoGUI lets Python control the mouse and keyboard, and other GUI automation tasks."
+      ;
     homepage = "https://github.com/asweigart/pyautogui";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lucasew ];

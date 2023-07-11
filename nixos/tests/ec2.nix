@@ -23,13 +23,13 @@ let
           ln -s vda1 /dev/xvda1
         '';
 
-        # In a NixOS test the serial console is occupied by the "backdoor"
-        # (see testing/test-instrumentation.nix) and is incompatible with
-        # the configuration in virtualisation/amazon-image.nix.
+          # In a NixOS test the serial console is occupied by the "backdoor"
+          # (see testing/test-instrumentation.nix) and is incompatible with
+          # the configuration in virtualisation/amazon-image.nix.
         systemd.services."serial-getty@ttyS0".enable = mkForce false;
 
-        # Needed by nixos-rebuild due to the lack of network
-        # access. Determined by trial and error.
+          # Needed by nixos-rebuild due to the lack of network
+          # access. Determined by trial and error.
         system.extraDependencies = with pkgs; ([
           # Needed for a nixos-rebuild.
           busybox
@@ -66,8 +66,8 @@ in {
   boot-ec2-nixops = makeEc2Test {
     name = "nixops-userdata";
     inherit image;
-    sshPublicKey =
-      snakeOilPublicKey; # That's right folks! My user's key is also the host key!
+    sshPublicKey = snakeOilPublicKey
+      ; # That's right folks! My user's key is also the host key!
 
     userData = ''
       SSH_HOST_ED25519_KEY_PUB:${snakeOilPublicKey}
@@ -114,12 +114,12 @@ in {
 
   boot-ec2-config = makeEc2Test {
     name = "config-userdata";
-    meta.broken =
-      true; # amazon-init wants to download from the internet while building the system
+    meta.broken = true
+      ; # amazon-init wants to download from the internet while building the system
     inherit image;
     sshPublicKey = snakeOilPublicKey;
 
-    # ### https://nixos.org/channels/nixos-unstable nixos
+      # ### https://nixos.org/channels/nixos-unstable nixos
     userData = ''
       { pkgs, ... }:
 

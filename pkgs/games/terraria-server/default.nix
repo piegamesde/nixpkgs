@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
+      "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip"
+      ;
     sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
   };
 

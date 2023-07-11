@@ -20,8 +20,9 @@ in {
     type = types.bool;
     default = true;
     example = true;
-    description = lib.mdDoc
-      "Whether to reconfigure the system from Digital Ocean user data";
+    description =
+      lib.mdDoc "Whether to reconfigure the system from Digital Ocean user data"
+      ;
   };
   options.virtualisation.digitalOcean.defaultConfigFile = mkOption {
     type = types.path;

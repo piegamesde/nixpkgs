@@ -17,10 +17,12 @@ let
       cp ${filePath} $out/${fileName}
     '') cfg.configDir)}
   '';
-  configPath = if cfg.enableReload then
-    "/etc/freeswitch"
-  else
-    configDirectory;
+  configPath =
+    if cfg.enableReload then
+      "/etc/freeswitch"
+    else
+      configDirectory
+    ;
 in {
   options = {
     services.freeswitch = {
@@ -40,9 +42,11 @@ in {
         default =
           "${config.services.freeswitch.package}/share/freeswitch/conf/vanilla";
         defaultText = literalExpression ''
-          "''${config.services.freeswitch.package}/share/freeswitch/conf/vanilla"'';
+          "''${config.services.freeswitch.package}/share/freeswitch/conf/vanilla"''
+          ;
         example = literalExpression ''
-          "''${config.services.freeswitch.package}/share/freeswitch/conf/minimal"'';
+          "''${config.services.freeswitch.package}/share/freeswitch/conf/minimal"''
+          ;
         description = lib.mdDoc ''
           Configuration template to use.
           See available templates in [FreeSWITCH repository](https://github.com/signalwire/freeswitch/tree/master/conf).
@@ -86,7 +90,8 @@ in {
       restartTriggers = [ configDirectory ];
       serviceConfig = {
         ExecStart =
-          "/run/current-system/systemd/bin/systemctl try-reload-or-restart freeswitch.service";
+          "/run/current-system/systemd/bin/systemctl try-reload-or-restart freeswitch.service"
+          ;
         RemainAfterExit = true;
         Type = "oneshot";
       };

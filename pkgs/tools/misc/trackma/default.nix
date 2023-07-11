@@ -15,14 +15,16 @@
   withQT ? false
 }:
 let
-  mkDesktopItem = name: desktopName: comment: terminal:
+  mkDesktopItem =
+    name: desktopName: comment: terminal:
     makeDesktopItem {
       inherit name desktopName comment terminal;
       icon = "trackma";
       exec = name + " %u";
       type = "Application";
       categories = [ "Network" ];
-    };
+    }
+    ;
 in
 python3.pkgs.buildPythonApplication rec {
   pname = "trackma";

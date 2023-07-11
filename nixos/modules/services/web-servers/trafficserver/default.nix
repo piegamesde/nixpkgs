@@ -12,20 +12,25 @@ let
   user = config.users.users.trafficserver.name;
   group = config.users.groups.trafficserver.name;
 
-  getManualUrl = name:
-    "https://docs.trafficserver.apache.org/en/latest/admin-guide/files/${name}.en.html";
+  getManualUrl =
+    name:
+    "https://docs.trafficserver.apache.org/en/latest/admin-guide/files/${name}.en.html"
+    ;
 
   yaml = pkgs.formats.yaml { };
 
-  mkYamlConf = name: cfg:
+  mkYamlConf =
+    name: cfg:
     if cfg != null then
       {
         "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg;
       }
     else
-      { "trafficserver/${name}.yaml".text = ""; };
+      { "trafficserver/${name}.yaml".text = ""; }
+    ;
 
-  mkRecordLines = path: value:
+  mkRecordLines =
+    path: value:
     if isAttrs value then
       lib.mapAttrsToList (n: v: mkRecordLines (path ++ [ n ]) v) value
     else if isInt value then
@@ -33,12 +38,17 @@ let
     else if isFloat value then
       "CONFIG ${concatStringsSep "." path} FLOAT ${toString value}"
     else
-      "CONFIG ${concatStringsSep "." path} STRING ${toString value}";
+      "CONFIG ${concatStringsSep "." path} STRING ${toString value}"
+    ;
 
-  mkRecordsConfig = cfg:
-    concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg));
-  mkPluginConfig = cfg:
-    concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg);
+  mkRecordsConfig =
+    cfg:
+    concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg))
+    ;
+  mkPluginConfig =
+    cfg:
+    concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg)
+    ;
 in {
   options.services.trafficserver = {
     enable = mkEnableOption (lib.mdDoc "Apache Traffic Server");
@@ -162,7 +172,7 @@ in {
           };
         in
         valueType
-      ;
+        ;
       default = { };
       example = { proxy.config.proxy_name = "my_server"; };
       description = lib.mdDoc ''
@@ -304,19 +314,19 @@ in {
     environment.systemPackages = [ pkgs.trafficserver ];
     systemd.packages = [ pkgs.trafficserver ];
 
-    # Traffic Server does privilege handling independently of systemd, and
-    # therefore should be started as root
+      # Traffic Server does privilege handling independently of systemd, and
+      # therefore should be started as root
     systemd.services.trafficserver = {
       enable = true;
       wantedBy = [ "multi-user.target" ];
     };
 
-    # These directories can't be created by systemd because:
-    #
-    #   1. Traffic Servers starts as root and switches to an unprivileged user
-    #      afterwards. The runtime directories defined below are assumed to be
-    #      owned by that user.
-    #   2. The bin/trafficserver script assumes these directories exist.
+      # These directories can't be created by systemd because:
+      #
+      #   1. Traffic Servers starts as root and switches to an unprivileged user
+      #      afterwards. The runtime directories defined below are assumed to be
+      #      owned by that user.
+      #   2. The bin/trafficserver script assumes these directories exist.
     systemd.tmpfiles.rules = [
       "d '/run/trafficserver' - ${user} ${group} - -"
       "d '/var/cache/trafficserver' - ${user} ${group} - -"

@@ -74,20 +74,22 @@ stdenv.mkDerivation rec {
     xorgproto
   ];
 
-  # Use "debugoptimized" instead of "debug" so perhaps picom works better in
-  # normal usage too, not just temporary debugging.
-  mesonBuildType = if withDebug then
-    "debugoptimized"
-  else
-    "release";
+    # Use "debugoptimized" instead of "debug" so perhaps picom works better in
+    # normal usage too, not just temporary debugging.
+  mesonBuildType =
+    if withDebug then
+      "debugoptimized"
+    else
+      "release"
+    ;
   dontStrip = withDebug;
 
   mesonFlags = [ "-Dwith_docs=true" ];
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  # In debug mode, also copy src directory to store. If you then run `gdb picom`
-  # in the bin directory of picom store path, gdb finds the source files.
+    # In debug mode, also copy src directory to store. If you then run `gdb picom`
+    # in the bin directory of picom store path, gdb finds the source files.
   postInstall = ''
     wrapProgram $out/bin/picom-trans \
       --prefix PATH : ${lib.makeBinPath [ xwininfo ]}

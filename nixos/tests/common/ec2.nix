@@ -6,7 +6,8 @@
 with pkgs.lib;
 
 {
-  makeEc2Test = {
+  makeEc2Test =
+    {
       name,
       image,
       userData,
@@ -84,5 +85,5 @@ with pkgs.lib;
 
       inherit meta;
     }
-  ;
+    ;
 }

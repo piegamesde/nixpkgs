@@ -58,7 +58,7 @@ let
 
   bootGhcjs = haskellLib.justStaticExecutables passthru.bootPkgs.ghcjs;
 
-  # This provides the stuff we need from the emsdk
+    # This provides the stuff we need from the emsdk
   emsdk = linkFarm "emsdk" [
     {
       name = "upstream/bin";
@@ -89,8 +89,8 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontInstall = true;
 
-  # Newer versions of `config.sub` reject the `js-ghcjs` host string, but the
-  # older `config.sub` filed vendored within `ghc` still works
+    # Newer versions of `config.sub` reject the `js-ghcjs` host string, but the
+    # older `config.sub` filed vendored within `ghc` still works
   dontUpdateAutotoolsGnuConfigScripts = true;
 
   buildPhase = ''
@@ -124,11 +124,12 @@ stdenv.mkDerivation {
   inherit passthru;
 
   meta = {
-    platforms = with lib.platforms; linux ++ darwin;
+    platforms = with lib.platforms;
+      linux ++ darwin;
 
-    # Hydra limits jobs to only outputting 1 gigabyte worth of files.
-    # GHCJS outputs over 3 gigabytes.
-    # https://github.com/NixOS/nixpkgs/pull/137066#issuecomment-922335563
+      # Hydra limits jobs to only outputting 1 gigabyte worth of files.
+      # GHCJS outputs over 3 gigabytes.
+      # https://github.com/NixOS/nixpkgs/pull/137066#issuecomment-922335563
     hydraPlatforms = lib.platforms.none;
 
     maintainers = with lib.maintainers; [ obsidian-systems-maintenance ];

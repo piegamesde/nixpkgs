@@ -39,7 +39,7 @@ python3.pkgs.buildPythonApplication rec {
     dbus-python
   ];
 
-  # Prevent double wrapping because of wrapGAppsHook
+    # Prevent double wrapping because of wrapGAppsHook
   dontWrapGApps = true;
 
   preFixup = ''
@@ -49,10 +49,10 @@ python3.pkgs.buildPythonApplication rec {
       )
   '';
 
-  # screenkey does not have any tests
+    # screenkey does not have any tests
   doCheck = false;
 
-  # Fix CDLL python calls for non absolute paths of xorg libraries
+    # Fix CDLL python calls for non absolute paths of xorg libraries
   postPatch = ''
     substituteInPlace Screenkey/xlib.py \
       --replace libX11.so.6 ${lib.getLib xorg.libX11}/lib/libX11.so.6 \

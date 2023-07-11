@@ -25,17 +25,19 @@ stdenv.mkDerivation {
   dontStrip = true;
   dontPatchELF = true;
 
-  preInstall = let
-    substitutions = [
-      ''--replace "convert" "${imagemagick}/bin/convert"''
-      ''--replace "qrencode" "${qrencode.bin}/bin/qrencode"''
-    ] ++ lib.optionals testQR [
-      ''--replace "hash zbarimg" "true"'' # hash does not work on NixOS
-      ''--replace "$(zbarimg --raw" "$(${zbar.out}/bin/zbarimg --raw"''
-    ];
-  in ''
-    substituteInPlace asc-to-gif.sh ${lib.concatStringsSep " " substitutions}
-  '' ;
+  preInstall =
+    let
+      substitutions = [
+        ''--replace "convert" "${imagemagick}/bin/convert"''
+        ''--replace "qrencode" "${qrencode.bin}/bin/qrencode"''
+      ] ++ lib.optionals testQR [
+        ''--replace "hash zbarimg" "true"'' # hash does not work on NixOS
+        ''--replace "$(zbarimg --raw" "$(${zbar.out}/bin/zbarimg --raw"''
+      ];
+    in ''
+      substituteInPlace asc-to-gif.sh ${lib.concatStringsSep " " substitutions}
+    ''
+    ;
 
   installPhase = ''
     mkdir -p $out/bin

@@ -6,7 +6,8 @@
 }:
 
 let
-  mkDataset = {
+  mkDataset =
+    {
       pname,
       version,
       sha256,
@@ -42,7 +43,8 @@ let
         license = licenses.g4sl;
         platforms = platforms.all;
       };
-    };
+    }
+    ;
 in
 builtins.listToAttrs (map (a: {
   name = a.pname;

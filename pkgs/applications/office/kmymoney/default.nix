@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     "-DENABLE_WEBENGINE=ON"
   ];
 
-  # Hidden dependency that wasn't included in CMakeLists.txt:
+    # Hidden dependency that wasn't included in CMakeLists.txt:
   env.NIX_CFLAGS_COMPILE = "-I${kitemmodels.dev}/include/KF5";
 
   nativeBuildInputs = [
@@ -111,8 +111,8 @@ stdenv.mkDerivation rec {
       ARGS="-E '(reports-chart-test)'" # Test fails, so exclude it for now.
   '';
 
-  # libpython is required by the python interpreter embedded in kmymoney, so we
-  # need to explicitly tell autoPatchelf about it.
+    # libpython is required by the python interpreter embedded in kmymoney, so we
+    # need to explicitly tell autoPatchelf about it.
   postFixup = ''
     patchelf --debug --add-needed libpython${python3.pythonVersion}.so \
       "$out/bin/.kmymoney-wrapped"

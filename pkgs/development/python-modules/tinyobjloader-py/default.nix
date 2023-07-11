@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pybind11 ];
 
-  # No tests are included upstream
+    # No tests are included upstream
   doCheck = false;
   pythonImportsCheck = [ "tinyobjloader" ];
 

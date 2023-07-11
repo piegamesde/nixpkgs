@@ -22,7 +22,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-  # No tests distributed. https://github.com/cablehead/python-consul/issues/133
+    # No tests distributed. https://github.com/cablehead/python-consul/issues/133
   doCheck = false;
 
   meta = with lib; {

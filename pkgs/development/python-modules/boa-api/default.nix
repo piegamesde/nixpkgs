@@ -20,7 +20,8 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://github.com/boalang/api-python";
     description =
-      "Python client API for communicating with Boa's (https://boa.cs.iastate.edu/) XML-RPC based services";
+      "Python client API for communicating with Boa's (https://boa.cs.iastate.edu/) XML-RPC based services"
+      ;
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ swflint ];
   };

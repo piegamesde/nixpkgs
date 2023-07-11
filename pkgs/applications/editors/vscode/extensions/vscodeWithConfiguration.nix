@@ -29,7 +29,7 @@ let
       }";
   });
 
-  #removed not defined extensions
+    #removed not defined extensions
   rmExtensions =
     lib.optionalString (nixExtensions ++ mutableExtensions != [ ]) ''
       find ${vscodeExtsFolderName} -mindepth 1 -maxdepth 1 ${
@@ -38,7 +38,7 @@ let
         (e: "! -iname ${e.publisher}.${e.name}-${e.version} ") mutableExtensions
       } -exec rm -rf {} \;
     '';
-  #copy mutable extension out of the nix store
+    #copy mutable extension out of the nix store
   cpExtensions = ''
     ${lib.concatMapStringsSep "\n"
     (e: "ln -sfn ${e}/share/vscode/extensions/* ${vscodeExtsFolderName}/")

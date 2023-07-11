@@ -60,10 +60,10 @@ in {
       ++ (utils.removePackagesByName pkgs.lxqt.optionalPackages
         config.environment.lxqt.excludePackages);
 
-    # Link some extra directories in /run/current-system/software/share
+      # Link some extra directories in /run/current-system/software/share
     environment.pathsToLink = [ "/share" ];
 
-    # virtual file systems support for PCManFM-QT
+      # virtual file systems support for PCManFM-QT
     services.gvfs.enable = true;
 
     services.upower.enable = config.powerManagement.enable;

@@ -16,7 +16,8 @@ import ./make-test-python.nix ({
     name = "musescore";
     meta = with pkgs.lib.maintainers; { maintainers = [ turion ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }:
 
@@ -28,11 +29,13 @@ import ./make-test-python.nix ({
           musescore
           pdfgrep
         ];
-      };
+      }
+      ;
 
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         ...
       }: ''
         start_all()
@@ -104,5 +107,6 @@ import ./make-test-python.nix ({
         machine.succeed('pdfgrep "Untitled score" "/root/Documents/MuseScore4/Scores/Untitled score.pdf"')
 
         machine.screenshot("MuseScore5")
-      '';
+      ''
+      ;
   } )

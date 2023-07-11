@@ -33,19 +33,22 @@ let
   '';
   planExample = "1h=>10min,1d=>1h,1w=>1d,1m=>1w,1y=>1m";
 
-  # A type for a string of the form number{b|k|M|G}
+    # A type for a string of the form number{b|k|M|G}
   mbufferSizeType = str // {
-    check = x:
-      str.check x && builtins.isList (builtins.match "^[0-9]+[bkMG]$" x);
+    check =
+      x:
+      str.check x && builtins.isList (builtins.match "^[0-9]+[bkMG]$" x)
+      ;
     description = "string of the form number{b|k|M|G}";
   };
 
   enabledFeatures = concatLists
     (mapAttrsToList (name: enabled: optional enabled name) cfg.features);
 
-  # Type for a string that must contain certain other strings (the list parameter).
-  # Note that these would need regex escaping.
-  stringContainingStrings = list:
+    # Type for a string that must contain certain other strings (the list parameter).
+    # Note that these would need regex escaping.
+  stringContainingStrings =
+    list:
     let
       matching = s: map (str: builtins.match ".*${str}.*" s) list;
     in
@@ -54,7 +57,7 @@ let
       description =
         "string containing all of the characters ${concatStringsSep ", " list}";
     }
-  ;
+    ;
 
   timestampType = stringContainingStrings [
     "%Y"
@@ -65,7 +68,8 @@ let
     "%S"
   ];
 
-  destType = srcConfig:
+  destType =
+    srcConfig:
     submodule ({
         name,
         ...
@@ -129,7 +133,8 @@ let
           label = mkDefault name;
           plan = mkDefault srcConfig.plan;
         };
-      });
+      })
+    ;
 
   srcType = submodule ({
       name,
@@ -268,39 +273,48 @@ let
 
     });
 
-  ### Generating the configuration from here
+    ### Generating the configuration from here
 
   cfg = config.services.znapzend;
 
-  onOff = b:
+  onOff =
+    b:
     if b then
       "on"
     else
-      "off";
-  nullOff = b:
+      "off"
+    ;
+  nullOff =
+    b:
     if b == null then
       "off"
     else
-      toString b;
+      toString b
+    ;
   stripSlashes = replaceStrings [ "/" ] [ "." ];
 
-  attrsToFile = config:
+  attrsToFile =
+    config:
     concatStringsSep "\n"
-    (builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config));
+    (builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config))
+    ;
 
-  mkDestAttrs = dst:
+  mkDestAttrs =
+    dst:
     with dst;
     mapAttrs' (n: v: nameValuePair "dst_${label}${n}" v) ({
       "" = optionalString (host != null) "${host}:" + dataset;
       _plan = plan;
     } // optionalAttrs (presend != null) { _precmd = presend; }
-      // optionalAttrs (postsend != null) { _pstcmd = postsend; });
+      // optionalAttrs (postsend != null) { _pstcmd = postsend; })
+    ;
 
-  mkSrcAttrs = srcCfg:
+  mkSrcAttrs =
+    srcCfg:
     with srcCfg;
     {
       enabled = onOff enable;
-      # mbuffer is not referenced by its full path to accommodate non-NixOS systems or differing mbuffer versions between source and target
+        # mbuffer is not referenced by its full path to accommodate non-NixOS systems or differing mbuffer versions between source and target
       mbuffer = with mbuffer;
         if enable then
           "mbuffer" + optionalString (port != null) ":${toString port}"
@@ -315,7 +329,8 @@ let
       tsformat = timestampFormat;
       zend_delay = toString sendDelay;
     } // foldr (a: b: a // b) { }
-    (map mkDestAttrs (builtins.attrValues destinations));
+    (map mkDestAttrs (builtins.attrValues destinations))
+    ;
 
   files = mapAttrs' (n: srcCfg:
     let
@@ -493,20 +508,21 @@ in {
           # service timeout of 90 seconds. Increase the timeout so it doesn't
           # make the service fail in that case.
           TimeoutStartSec = 180;
-          # Needs to have write access to ZFS
+            # Needs to have write access to ZFS
           User = "root";
-          ExecStart = let
-            args = concatStringsSep " " [
-              "--logto=${cfg.logTo}"
-              "--loglevel=${cfg.logLevel}"
-              (optionalString cfg.noDestroy "--nodestroy")
-              (optionalString cfg.autoCreation "--autoCreation")
-              (optionalString (enabledFeatures != [ ])
-                "--features=${concatStringsSep "," enabledFeatures}")
-            ];
-          in
-          "${pkgs.znapzend}/bin/znapzend ${args}"
-          ;
+          ExecStart =
+            let
+              args = concatStringsSep " " [
+                "--logto=${cfg.logTo}"
+                "--loglevel=${cfg.logLevel}"
+                (optionalString cfg.noDestroy "--nodestroy")
+                (optionalString cfg.autoCreation "--autoCreation")
+                (optionalString (enabledFeatures != [ ])
+                  "--features=${concatStringsSep "," enabledFeatures}")
+              ];
+            in
+            "${pkgs.znapzend}/bin/znapzend ${args}"
+            ;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "on-failure";
         };

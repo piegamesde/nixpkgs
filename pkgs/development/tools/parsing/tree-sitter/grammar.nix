@@ -44,8 +44,8 @@ stdenv.mkDerivation ({
     cd ${location}
   '';
 
-  # When both scanner.{c,cc} exist, we should not link both since they may be the same but in
-  # different languages. Just randomly prefer C++ if that happens.
+    # When both scanner.{c,cc} exist, we should not link both since they may be the same but in
+    # different languages. Just randomly prefer C++ if that happens.
   buildPhase = ''
     runHook preBuild
     if [[ -e src/scanner.cc ]]; then

@@ -18,7 +18,7 @@ buildPythonPackage {
 
   preConfigure = "cd python";
 
-  # No test suite
+    # No test suite
   doCheck = false;
 
   meta = with lib; {

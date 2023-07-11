@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "libresprite";
     meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -17,7 +18,8 @@ import ./make-test-python.nix ({
           pkgs.imagemagick
           pkgs.libresprite
         ];
-      };
+      }
+      ;
 
     enableOCR = true;
 

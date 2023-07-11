@@ -17,11 +17,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-blaSgQZweDmkiU0Tck9qmIgpQGDZhgxb1+hs6a4D6Qg=";
 
-  # Some tests fail because they need network access to install the `wasm32-unknown-unknown` target.
-  # However, GitHub Actions ensures a proper build.
-  # See also:
-  #   https://github.com/bytecodealliance/wit-bindgen/actions
-  #   https://github.com/bytecodealliance/wit-bindgen/blob/main/.github/workflows/main.yml
+    # Some tests fail because they need network access to install the `wasm32-unknown-unknown` target.
+    # However, GitHub Actions ensures a proper build.
+    # See also:
+    #   https://github.com/bytecodealliance/wit-bindgen/actions
+    #   https://github.com/bytecodealliance/wit-bindgen/blob/main/.github/workflows/main.yml
   doCheck = false;
 
   meta = with lib; {

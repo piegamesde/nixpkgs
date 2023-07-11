@@ -28,7 +28,8 @@ let
       # https://github.com/mamba-org/boa-forge/tree/master/libsolv
       (fetchpatch {
         url =
-          "https://raw.githubusercontent.com/mamba-org/boa-forge/20530f80e2e15012078d058803b6e2c75ed54224/libsolv/conda_variant_priorization.patch";
+          "https://raw.githubusercontent.com/mamba-org/boa-forge/20530f80e2e15012078d058803b6e2c75ed54224/libsolv/conda_variant_priorization.patch"
+          ;
         sha256 = "1iic0yx7h8s662hi2jqx68w5kpyrab4fr017vxd4wyxb6wyk35dd";
       })
     ];

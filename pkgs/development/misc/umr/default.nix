@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     SDL2
   ];
 
-  # Remove static libraries (there are no dynamic libraries in there)
+    # Remove static libraries (there are no dynamic libraries in there)
   postInstall = ''
     rm -r $out/lib
   '';

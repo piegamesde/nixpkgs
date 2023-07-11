@@ -14,20 +14,24 @@ stdenv.mkDerivation rec {
   pname = "opendylan";
   version = "2013.2";
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
-    fetchurl {
-      url =
-        "https://opendylan.org/downloads/opendylan/${version}/opendylan-${version}-x86_64-linux.tar.bz2";
-      sha256 = "035brbw3hm7zrs593q4zc42yglj1gmmkw3b1r7zzlw3ks4i2lg7h";
-    }
-  else if stdenv.hostPlatform.system == "i686-linux" then
-    fetchurl {
-      url =
-        "https://opendylan.org/downloads/opendylan/${version}/opendylan-${version}-x86-linux.tar.bz2";
-      sha256 = "0c61ihvblcsjrw6ncr8x8ylhskcrqs8pajs4mg5di36cvqw12nq5";
-    }
-  else
-    throw "platform ${stdenv.hostPlatform.system} not supported.";
+  src =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      fetchurl {
+        url =
+          "https://opendylan.org/downloads/opendylan/${version}/opendylan-${version}-x86_64-linux.tar.bz2"
+          ;
+        sha256 = "035brbw3hm7zrs593q4zc42yglj1gmmkw3b1r7zzlw3ks4i2lg7h";
+      }
+    else if stdenv.hostPlatform.system == "i686-linux" then
+      fetchurl {
+        url =
+          "https://opendylan.org/downloads/opendylan/${version}/opendylan-${version}-x86-linux.tar.bz2"
+          ;
+        sha256 = "0c61ihvblcsjrw6ncr8x8ylhskcrqs8pajs4mg5di36cvqw12nq5";
+      }
+    else
+      throw "platform ${stdenv.hostPlatform.system} not supported."
+    ;
 
   nativeBuildInputs = [
     patchelf

@@ -12,13 +12,13 @@ stdenv.mkDerivation rec {
   pname = "findimagedupes";
   version = "2.20.1";
 
-  # fetching this from GitHub does not contain the correct version number
+    # fetching this from GitHub does not contain the correct version number
   src = fetchurl {
     url = "http://www.jhnc.org/findimagedupes/findimagedupes-${version}.tar.gz";
     sha256 = "sha256-VYqSnOD/Ntr0RnktJ/R0t+Z8+NRExA2mAHT2unPt9/o=";
   };
 
-  # Work around the "unpacker appears to have produced no directories"
+    # Work around the "unpacker appears to have produced no directories"
   setSourceRoot = "sourceRoot=$(pwd)";
 
   nativeBuildInputs = [
@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
     ParseRecDescent
   ]);
 
-  # use /tmp as a storage
-  # replace GraphicsMagick with ImageMagick, because perl bindings are not yet available
+    # use /tmp as a storage
+    # replace GraphicsMagick with ImageMagick, because perl bindings are not yet available
   postPatch = ''
     substituteInPlace findimagedupes \
       --replace "DIRECTORY => '/usr/local/lib/findimagedupes';" "DIRECTORY => '/tmp';" \
@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
   '';
 
   buildPhase =
-    "\n    runHook preBuild\n    ${perl}/bin/pod2man findimagedupes > findimagedupes.1\n    runHook postBuild\n  ";
+    "\n    runHook preBuild\n    ${perl}/bin/pod2man findimagedupes > findimagedupes.1\n    runHook postBuild\n  "
+    ;
 
   installPhase = ''
     runHook preInstall

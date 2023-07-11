@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     # Fix function detection for btf__type_cnt()
     (fetchpatch {
       url =
-        "https://github.com/xdp-project/xdp-tools/commit/a7df567634af77381832a2212c5f5099b07734f3.patch";
+        "https://github.com/xdp-project/xdp-tools/commit/a7df567634af77381832a2212c5f5099b07734f3.patch"
+        ;
       sha256 = "n6qG/bojSGUowrAaJWxecYpWdv9OceHkoaGlhbl81hA=";
     })
   ];
@@ -60,7 +61,7 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ wireshark-cli # for tshark
     ];
 
-  # When building BPF, the default CC wrapper is interfering a bit too much.
+    # When building BPF, the default CC wrapper is interfering a bit too much.
   BPF_CFLAGS = "-fno-stack-protector -Wno-error=unused-command-line-argument";
 
   PRODUCTION = 1;

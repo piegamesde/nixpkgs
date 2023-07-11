@@ -26,25 +26,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0sww+ppctXvxMouclG3OdXpcNgrrOZJw9z8s2GhJ+IE=";
   };
 
-  assets = if unfree_assets then
-    requireFile rec {
-      name = "keeperrl_data_${version}.tar.gz";
-      message = ''
-        This nix expression requires that the KeeperRL art assets are already
-        part of the store. These can be obtained from a purchased copy of the game
-        and found in the "data" directory. Make a tar archive of this directory
-        with
+  assets =
+    if unfree_assets then
+      requireFile rec {
+        name = "keeperrl_data_${version}.tar.gz";
+        message = ''
+          This nix expression requires that the KeeperRL art assets are already
+          part of the store. These can be obtained from a purchased copy of the game
+          and found in the "data" directory. Make a tar archive of this directory
+          with
 
-        "tar czf ${name} data"
+          "tar czf ${name} data"
 
-        Then add this archive to the nix store with
+          Then add this archive to the nix store with
 
-        "nix-prefetch-url file://\$PWD/${name}".
-      '';
-      sha256 = "0115pxdzdyma2vicxgr0j21pp82gxdyrlj090s8ihp0b50f0nlll";
-    }
-  else
-    null;
+          "nix-prefetch-url file://\$PWD/${name}".
+        '';
+        sha256 = "0115pxdzdyma2vicxgr0j21pp82gxdyrlj090s8ihp0b50f0nlll";
+      }
+    else
+      null
+    ;
 
   sourceRoot = "source";
 
@@ -92,7 +94,7 @@ stdenv.mkDerivation rec {
     homepage = "https://keeperrl.com/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ onny ];
-    # TODO: Add OS X
+      # TODO: Add OS X
     platforms = [
       "i686-linux"
       "x86_64-linux"

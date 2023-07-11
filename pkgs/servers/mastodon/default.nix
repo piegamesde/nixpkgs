@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
 
     # Using overrideAttrs on src does not build the gems and modules with the overridden src.
     # Putting the callPackage up in the arguments list also does not work.
-  src = if srcOverride != null then
-    srcOverride
-  else
-    callPackage ./source.nix { };
+  src =
+    if srcOverride != null then
+      srcOverride
+    else
+      callPackage ./source.nix { }
+    ;
 
   mastodonGems = bundlerEnv {
     name = "${pname}-gems-${version}";
@@ -44,9 +46,9 @@ stdenv.mkDerivation rec {
     ruby = ruby_3_0;
     gemdir = src;
     gemset = dependenciesDir + "/gemset.nix";
-    # This fix (copied from https://github.com/NixOS/nixpkgs/pull/76765) replaces the gem
-    # symlinks with directories, resolving this error when running rake:
-    #   /nix/store/451rhxkggw53h7253izpbq55nrhs7iv0-mastodon-gems-3.0.1/lib/ruby/gems/2.6.0/gems/bundler-1.17.3/lib/bundler/settings.rb:6:in `<module:Bundler>': uninitialized constant Bundler::Settings (NameError)
+      # This fix (copied from https://github.com/NixOS/nixpkgs/pull/76765) replaces the gem
+      # symlinks with directories, resolving this error when running rake:
+      #   /nix/store/451rhxkggw53h7253izpbq55nrhs7iv0-mastodon-gems-3.0.1/lib/ruby/gems/2.6.0/gems/bundler-1.17.3/lib/bundler/settings.rb:6:in `<module:Bundler>': uninitialized constant Bundler::Settings (NameError)
     postBuild = ''
       for gem in "$out"/lib/ruby/gems/*/gems/*; do
         cp -a "$gem/" "$gem.new"
@@ -163,16 +165,18 @@ stdenv.mkDerivation rec {
     ln -s /tmp tmp
   '';
 
-  installPhase = let
-    run-streaming = writeShellScript "run-streaming.sh" ''
-      # NixOS helper script to consistently use the same NodeJS version the package was built with.
-      ${nodejs-slim}/bin/node ./streaming
-    '';
-  in ''
-    mkdir -p $out
-    cp -r * $out/
-    ln -s ${run-streaming} $out/run-streaming.sh
-  '' ;
+  installPhase =
+    let
+      run-streaming = writeShellScript "run-streaming.sh" ''
+        # NixOS helper script to consistently use the same NodeJS version the package was built with.
+        ${nodejs-slim}/bin/node ./streaming
+      '';
+    in ''
+      mkdir -p $out
+      cp -r * $out/
+      ln -s ${run-streaming} $out/run-streaming.sh
+    ''
+    ;
 
   passthru = {
     tests.mastodon = nixosTests.mastodon;
@@ -181,7 +185,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Self-hosted, globally interconnected microblogging software based on ActivityPub";
+      "Self-hosted, globally interconnected microblogging software based on ActivityPub"
+      ;
     homepage = "https://joinmastodon.org";
     license = licenses.agpl3Plus;
     platforms = [

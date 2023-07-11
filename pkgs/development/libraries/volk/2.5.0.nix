@@ -11,8 +11,8 @@
 
 stdenv.mkDerivation rec {
   pname = "volk";
-  # Version 2.5.1 seems to cause a build issue for aarch64-darwin, see:
-  # https://github.com/NixOS/nixpkgs/pull/160152#issuecomment-1043380478A
+    # Version 2.5.1 seems to cause a build issue for aarch64-darwin, see:
+    # https://github.com/NixOS/nixpkgs/pull/160152#issuecomment-1043380478A
   version = "2.5.0";
 
   src = fetchFromGitHub {
@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://raw.githubusercontent.com/macports/macports-ports/e83a55ef196d4283be438c052295b2fc44f3df5b/science/volk/files/patch-cpu_features-add-support-for-ARM64.diff";
+      "https://raw.githubusercontent.com/macports/macports-ports/e83a55ef196d4283be438c052295b2fc44f3df5b/science/volk/files/patch-cpu_features-add-support-for-ARM64.diff"
+      ;
     sha256 = "sha256-MNUntVvKZC4zuQsxGQCItaUaaQ1d31re2qjyPFbySmI=";
     extraPrefix = "";
   }) ];

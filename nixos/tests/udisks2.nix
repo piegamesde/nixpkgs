@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
     name = "udisks2";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.udisks2.enable = true;
@@ -25,7 +26,8 @@ import ./make-test-python.nix ({
             if (subject.user == "alice") return "yes";
           });
         '';
-      };
+      }
+      ;
 
     testScript = ''
       import lzma

@@ -19,7 +19,8 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "CVE-2021-29063.patch";
     url =
-      "https://github.com/fredrik-johansson/mpmath/commit/46d44c3c8f3244017fe1eb102d564eb4ab8ef750.patch";
+      "https://github.com/fredrik-johansson/mpmath/commit/46d44c3c8f3244017fe1eb102d564eb4ab8ef750.patch"
+      ;
     hash = "sha256-DaZ6nj9rEsjTAomu481Ujun364bL5E6lkXFvgBfHyeA=";
   }) ];
 

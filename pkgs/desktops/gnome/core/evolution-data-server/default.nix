@@ -159,25 +159,28 @@ stdenv.mkDerivation rec {
       };
       inherit src;
     };
-    updateScript = let
-      updateSource = gnome.updateScript {
-        packageName = "evolution-data-server";
-        versionPolicy = "odd-unstable";
-      };
-      updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile
-        "evolution-data-server.hardcodeGsettingsPatch"
-        ./hardcode-gsettings.patch;
-    in
-    _experimental-update-script-combinators.sequence [
-      updateSource
-      updatePatch
-    ]
-    ;
+    updateScript =
+      let
+        updateSource = gnome.updateScript {
+          packageName = "evolution-data-server";
+          versionPolicy = "odd-unstable";
+        };
+        updatePatch =
+          _experimental-update-script-combinators.copyAttrOutputToFile
+          "evolution-data-server.hardcodeGsettingsPatch"
+          ./hardcode-gsettings.patch;
+      in
+      _experimental-update-script-combinators.sequence [
+        updateSource
+        updatePatch
+      ]
+      ;
   };
 
   meta = with lib; {
     description =
-      "Unified backend for programs that work with contacts, tasks, and calendar information";
+      "Unified backend for programs that work with contacts, tasks, and calendar information"
+      ;
     homepage = "https://wiki.gnome.org/Apps/Evolution";
     license = licenses.lgpl2Plus;
     maintainers = teams.gnome.members;

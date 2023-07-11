@@ -58,64 +58,66 @@ let
       find . -name package-lock.json -delete
     '';
 
-    postInstall = let
-      runtimeDeps = [
-        nodejs
-        bash
-      ];
-    in ''
-      mkdir -p $out/{bin,libexec,share/doc/epgstation,share/man/man1}
+    postInstall =
+      let
+        runtimeDeps = [
+          nodejs
+          bash
+        ];
+      in ''
+        mkdir -p $out/{bin,libexec,share/doc/epgstation,share/man/man1}
 
-      pushd $out/lib/node_modules/epgstation
+        pushd $out/lib/node_modules/epgstation
 
-      cp -r ${client}/lib/node_modules/epgstation-client/{package-lock.json,node_modules} client/
-      chmod -R u+w client/{package-lock.json,node_modules}
+        cp -r ${client}/lib/node_modules/epgstation-client/{package-lock.json,node_modules} client/
+        chmod -R u+w client/{package-lock.json,node_modules}
 
-      npm run build
+        npm run build
 
-      npm prune --production
-      pushd client
-      npm prune --production
-      popd
+        npm prune --production
+        pushd client
+        npm prune --production
+        popd
 
-      mv config/enc.js.template $out/libexec/enc.js
-      mv LICENSE Readme.md $out/share/doc/epgstation
-      mv doc/* $out/share/doc/epgstation
-      sed 's/@DESCRIPTION@/${drv.meta.description}/g' ${./epgstation.1} \
-        | ${gzip}/bin/gzip > $out/share/man/man1/epgstation.1.gz
-      rm -rf doc
+        mv config/enc.js.template $out/libexec/enc.js
+        mv LICENSE Readme.md $out/share/doc/epgstation
+        mv doc/* $out/share/doc/epgstation
+        sed 's/@DESCRIPTION@/${drv.meta.description}/g' ${./epgstation.1} \
+          | ${gzip}/bin/gzip > $out/share/man/man1/epgstation.1.gz
+        rm -rf doc
 
-      # just log to stdout and let journald do its job
-      rm -rf logs
+        # just log to stdout and let journald do its job
+        rm -rf logs
 
-      # Replace the existing configuration and runtime state directories with
-      # symlinks. Without this, they would all be non-writable because they
-      # reside in the Nix store. Note that the source path won't be accessible
-      # at build time.
-      rm -r config data recorded thumbnail
-      ln -sfT /etc/epgstation config
-      ln -sfT /var/lib/epgstation data
-      ln -sfT /var/lib/epgstation/recorded recorded
-      ln -sfT /var/lib/epgstation/thumbnail thumbnail
+        # Replace the existing configuration and runtime state directories with
+        # symlinks. Without this, they would all be non-writable because they
+        # reside in the Nix store. Note that the source path won't be accessible
+        # at build time.
+        rm -r config data recorded thumbnail
+        ln -sfT /etc/epgstation config
+        ln -sfT /var/lib/epgstation data
+        ln -sfT /var/lib/epgstation/recorded recorded
+        ln -sfT /var/lib/epgstation/thumbnail thumbnail
 
-      makeWrapper ${nodejs}/bin/npm $out/bin/epgstation \
-       --chdir "$out/lib/node_modules/epgstation" \
-       --prefix PATH : ${lib.makeBinPath runtimeDeps} \
-       --set APP_ROOT_PATH "$out/lib/node_modules/epgstation"
+        makeWrapper ${nodejs}/bin/npm $out/bin/epgstation \
+         --chdir "$out/lib/node_modules/epgstation" \
+         --prefix PATH : ${lib.makeBinPath runtimeDeps} \
+         --set APP_ROOT_PATH "$out/lib/node_modules/epgstation"
 
-      popd
-    '' ;
+        popd
+      ''
+      ;
 
-    # NOTE: this may take a while since it has to update all packages in
-    # nixpkgs.nodePackages
+      # NOTE: this may take a while since it has to update all packages in
+      # nixpkgs.nodePackages
     passthru.updateScript = callPackage ./update.nix { };
 
-    # nodePackages.epgstation is a stub package to fetch npm dependencies and
-    # its meta.platforms is made empty to prevent users from installing it
-    # directly. This technique ensures epgstation can share npm packages with
-    # the rest of nixpkgs while still allowing us to heavily customize the
-    # build. It also allows us to provide devDependencies for the epgstation
-    # build process without doing the same for all the other node packages.
+      # nodePackages.epgstation is a stub package to fetch npm dependencies and
+      # its meta.platforms is made empty to prevent users from installing it
+      # directly. This technique ensures epgstation can share npm packages with
+      # the rest of nixpkgs while still allowing us to heavily customize the
+      # build. It also allows us to provide devDependencies for the epgstation
+      # build process without doing the same for all the other node packages.
     meta = drv.meta // { inherit (nodejs.meta) platforms; };
   });
 in
@@ -126,7 +128,7 @@ server // {
     server.meta // {
       maintainers = with maintainers; [ midchildan ];
 
-      # NOTE: updateScript relies on this being correct
+        # NOTE: updateScript relies on this being correct
       position = toString ./default.nix + ":1";
     };
 }

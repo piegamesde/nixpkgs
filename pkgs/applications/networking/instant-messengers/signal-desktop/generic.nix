@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://updates.signal.org/desktop/apt/pool/main/s/${pname}/${pname}_${version}_amd64.deb";
+      "https://updates.signal.org/desktop/apt/pool/main/s/${pname}/${pname}_${version}_amd64.deb"
+      ;
     inherit hash;
   };
 
@@ -127,8 +128,8 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   dontConfigure = true;
   dontPatchELF = true;
-  # We need to run autoPatchelf manually with the "no-recurse" option, see
-  # https://github.com/NixOS/nixpkgs/pull/78413 for the reasons.
+    # We need to run autoPatchelf manually with the "no-recurse" option, see
+    # https://github.com/NixOS/nixpkgs/pull/78413 for the reasons.
   dontAutoPatchelf = true;
 
   installPhase = ''
@@ -170,7 +171,7 @@ stdenv.mkDerivation rec {
     patchelf --add-needed ${libpulseaudio}/lib/libpulse.so "$out/lib/${dir}/resources/app.asar.unpacked/node_modules/@signalapp/ringrtc/build/linux/libringrtc-x64.node"
   '';
 
-  # Tests if the application launches and waits for "Link your phone to Signal Desktop":
+    # Tests if the application launches and waits for "Link your phone to Signal Desktop":
   passthru.tests.application-launch = nixosTests.signal-desktop;
 
   meta = {

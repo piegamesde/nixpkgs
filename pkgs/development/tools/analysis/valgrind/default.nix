@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     # https://bugs.kde.org/show_bug.cgi?id=398883
     (fetchurl {
       url =
-        "https://github.com/void-linux/void-packages/raw/3e16b4606235885463fc9ab45b4c120f1a51aa28/srcpkgs/valgrind/patches/elfv2-ppc64-be.patch";
+        "https://github.com/void-linux/void-packages/raw/3e16b4606235885463fc9ab45b4c120f1a51aa28/srcpkgs/valgrind/patches/elfv2-ppc64-be.patch"
+        ;
       sha256 = "NV/F+5aqFZz7+OF5oN5MUTpThv4H5PEY9sBgnnWohQY=";
     })
     # Fix checks on Musl.
@@ -63,8 +64,8 @@ stdenv.mkDerivation rec {
     "stackprotector"
   ];
 
-  # GDB is needed to provide a sane default for `--db-command'.
-  # Perl is needed for `callgrind_{annotate,control}'.
+    # GDB is needed to provide a sane default for `--db-command'.
+    # Perl is needed for `callgrind_{annotate,control}'.
   buildInputs = [
     gdb
     perl
@@ -73,7 +74,7 @@ stdenv.mkDerivation rec {
     xnu
   ];
 
-  # Perl is also a native build input.
+    # Perl is also a native build input.
   nativeBuildInputs = [
     autoreconfHook
     perl
@@ -158,7 +159,7 @@ stdenv.mkDerivation rec {
     platforms = with lib.platforms;
       lib.intersectLists (x86 ++ power ++ s390x ++ armv7 ++ aarch64 ++ mips)
       (darwin ++ freebsd ++ illumos ++ linux);
-    broken = stdenv.isDarwin
-      || stdenv.hostPlatform.isStatic; # https://hydra.nixos.org/build/128521440/nixlog/2
+    broken = stdenv.isDarwin || stdenv.hostPlatform.isStatic
+      ; # https://hydra.nixos.org/build/128521440/nixlog/2
   };
 }

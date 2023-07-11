@@ -7,13 +7,16 @@
   autoPatchelfHook,
 }:
 let
-  toGoKernel = platform:
+  toGoKernel =
+    platform:
     if platform.isDarwin then
       "darwin"
     else
-      platform.parsed.kernel.name;
+      platform.parsed.kernel.name
+    ;
 
-  toGoCPU = platform:
+  toGoCPU =
+    platform:
     {
       "i686" = "386";
       "x86_64" = "amd64";
@@ -22,7 +25,8 @@ let
       "armv7l" = "armv6l";
       "powerpc64le" = "ppc64le";
     }.${platform.parsed.cpu.name} or (throw
-      "Unsupported CPU ${platform.parsed.cpu.name}");
+      "Unsupported CPU ${platform.parsed.cpu.name}")
+    ;
 
   toGoPlatform = platform: "${toGoKernel platform}-${toGoCPU platform}";
 
@@ -39,7 +43,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  # We must preserve the signature on Darwin
+    # We must preserve the signature on Darwin
   dontStrip = stdenv.hostPlatform.isDarwin;
 
   installPhase = ''

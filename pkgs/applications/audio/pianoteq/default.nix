@@ -17,7 +17,8 @@
 let
   versionForFile = v: builtins.replaceStrings [ "." ] [ "" ] v;
 
-  mkPianoteq = {
+  mkPianoteq =
+    {
       name,
       src,
       version,
@@ -70,7 +71,8 @@ let
       meta = with lib; {
         homepage = "https://www.modartt.com/pianoteq";
         description =
-          "Software synthesizer that features real-time MIDI-control of digital physically modeled pianos and related instruments";
+          "Software synthesizer that features real-time MIDI-control of digital physically modeled pianos and related instruments"
+          ;
         license = licenses.unfree;
         platforms = [
           "x86_64-linux"
@@ -78,9 +80,11 @@ let
         ];
         maintainers = [ maintainers.mausch ];
       };
-    };
+    }
+    ;
 
-  fetchWithCurlScript = {
+  fetchWithCurlScript =
+    {
       name,
       sha256,
       script,
@@ -120,9 +124,11 @@ let
         # This variable allows the user to pass additional options to curl
         "NIX_CURL_FLAGS"
       ];
-    };
+    }
+    ;
 
-  fetchPianoteqTrial = {
+  fetchPianoteqTrial =
+    {
       name,
       sha256,
     }:
@@ -156,9 +162,11 @@ let
         fi
         "''${curl[@]}" --progress-bar --cookie cookies -o $out "$url"
       '';
-    };
+    }
+    ;
 
-  fetchPianoteqWithLogin = {
+  fetchPianoteqWithLogin =
+    {
       name,
       sha256,
     }:
@@ -204,7 +212,8 @@ let
         url=$(echo $json | ${jq}/bin/jq -r .url)
         "''${curl[@]}" --progress-bar --cookie cookies -o $out "$url"
       '';
-    };
+    }
+    ;
 
 in {
   # TODO currently can't install more than one because `lame` clashes
@@ -227,10 +236,12 @@ in {
   stage-6 = mkPianoteq rec {
     name = "stage-6";
     version = "6.7.3";
-    archdir = if (stdenv.hostPlatform.system == "aarch64-linux") then
-      throw "Pianoteq stage-6 is not supported on aarch64-linux"
-    else
-      "amd64";
+    archdir =
+      if (stdenv.hostPlatform.system == "aarch64-linux") then
+        throw "Pianoteq stage-6 is not supported on aarch64-linux"
+      else
+        "amd64"
+      ;
     src = fetchPianoteqWithLogin {
       name = "pianoteq_stage_linux_v${versionForFile version}.7z";
       sha256 = "0jy0hkdynhwv0zhrqkby0hdphgmcc09wxmy74rhg9afm1pzl91jy";
@@ -244,5 +255,5 @@ in {
       sha256 = "05w7sv9v38r6ljz9xai816w5z2qqwx88hcfjm241fvgbs54125hx";
     };
   };
-  # TODO other paid binaries, I don't own that so I don't know their hash.
+    # TODO other paid binaries, I don't own that so I don't know their hash.
 }

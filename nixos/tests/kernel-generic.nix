@@ -7,7 +7,8 @@
 with pkgs.lib;
 
 let
-  testsForLinuxPackages = linuxPackages:
+  testsForLinuxPackages =
+    linuxPackages:
     (import ./make-test-python.nix ({
         pkgs,
         ...
@@ -20,17 +21,20 @@ let
           ];
         };
 
-        nodes.machine = {
+        nodes.machine =
+          {
             ...
           }: {
             boot.kernelPackages = linuxPackages;
-          };
+          }
+          ;
 
         testScript = ''
           assert "Linux" in machine.succeed("uname -s")
           assert "${linuxPackages.kernel.modDirVersion}" in machine.succeed("uname -a")
         '';
-      }) args);
+      }) args)
+    ;
   kernels = pkgs.linuxKernel.vanillaPackages // {
     inherit (pkgs.linuxKernel.packages)
       linux_4_14_hardened

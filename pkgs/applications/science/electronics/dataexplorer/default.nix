@@ -28,10 +28,10 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck = false;
-  # Missing dependencies (e.g. junit). Does not work.
-  #checkPhase = ''
-  #  ant -f build/build.xml check
-  #'';
+    # Missing dependencies (e.g. junit). Does not work.
+    #checkPhase = ''
+    #  ant -f build/build.xml check
+    #'';
 
   installPhase = ''
     ant -Dprefix=$out/share/ -f build/build.xml install

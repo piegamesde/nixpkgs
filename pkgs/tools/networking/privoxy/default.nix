@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/ijbswa/Sources/${version}%20%28stable%29/${pname}-${version}-stable-src.tar.gz";
+      "mirror://sourceforge/ijbswa/Sources/${version}%20%28stable%29/${pname}-${version}-stable-src.tar.gz"
+      ;
     sha256 = "sha256-5sy8oWVvTmFrRlf4UU4zpw9ml+nXKUNWV3g5Mio8XSw=";
   };
 
@@ -54,8 +55,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.privoxy.org/";
     description = "Non-caching web proxy with advanced filtering capabilities";
-    # When linked with mbedtls, the license becomes GPLv3 (or later), otherwise
-    # GPLv2 (or later). See https://www.privoxy.org/user-manual/copyright.html
+      # When linked with mbedtls, the license becomes GPLv3 (or later), otherwise
+      # GPLv2 (or later). See https://www.privoxy.org/user-manual/copyright.html
     license = licenses.gpl2Plus;
     platforms = platforms.all;
     maintainers = [ ];

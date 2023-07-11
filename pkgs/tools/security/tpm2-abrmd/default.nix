@@ -41,19 +41,19 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Emulate the required behavior of ./bootstrap in the original
-  # package
+    # Emulate the required behavior of ./bootstrap in the original
+    # package
   preAutoreconf = ''
     echo "${version}" > VERSION
   '';
 
-  # Unit tests are currently broken as the check phase attempts to start a dbus daemon etc.
-  #configureFlags = [ "--enable-unit" ];
+    # Unit tests are currently broken as the check phase attempts to start a dbus daemon etc.
+    #configureFlags = [ "--enable-unit" ];
   doCheck = false;
 
-  # Even though tpm2-tss is in the RUNPATH, starting from 2.3.0 abrmd
-  # seems to require the path to the device TCTI (used for accessing
-  # /dev/tpm0) in it's LD_LIBRARY_PATH
+    # Even though tpm2-tss is in the RUNPATH, starting from 2.3.0 abrmd
+    # seems to require the path to the device TCTI (used for accessing
+    # /dev/tpm0) in it's LD_LIBRARY_PATH
   postFixup = ''
     wrapProgram $out/bin/tpm2-abrmd \
       --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ tpm2-tss ]}"

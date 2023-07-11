@@ -111,9 +111,9 @@ assert enableZfs -> isLinux;
 # if you update, also bump <nixpkgs/pkgs/development/python-modules/libvirt/default.nix> and SysVirt in <nixpkgs/pkgs/top-level/perl-packages.nix>
 stdenv.mkDerivation rec {
   pname = "libvirt";
-  # NOTE: You must also bump:
-  # <nixpkgs/pkgs/development/python-modules/libvirt/default.nix>
-  # SysVirt in <nixpkgs/pkgs/top-level/perl-packages.nix>
+    # NOTE: You must also bump:
+    # <nixpkgs/pkgs/development/python-modules/libvirt/default.nix>
+    # SysVirt in <nixpkgs/pkgs/top-level/perl-packages.nix>
   version = "9.2.0";
 
   src = fetchFromGitLab {
@@ -132,7 +132,7 @@ stdenv.mkDerivation rec {
       zpool = "${zfs}/bin/zpool";
     }) ];
 
-  # remove some broken tests
+    # remove some broken tests
   postPatch = ''
     sed -i '/commandtest/d' tests/meson.build
     sed -i '/virnetsockettest/d' tests/meson.build
@@ -225,121 +225,128 @@ stdenv.mkDerivation rec {
       openiscsi
     ] ++ lib.optionals enableXen [ xen ] ++ lib.optionals enableZfs [ zfs ];
 
-  preConfigure = let
-    overrides = {
-      QEMU_BRIDGE_HELPER = "/run/wrappers/bin/qemu-bridge-helper";
-      QEMU_PR_HELPER = "/run/libvirt/nix-helpers/qemu-pr-helper";
-    };
+  preConfigure =
+    let
+      overrides = {
+        QEMU_BRIDGE_HELPER = "/run/wrappers/bin/qemu-bridge-helper";
+        QEMU_PR_HELPER = "/run/libvirt/nix-helpers/qemu-pr-helper";
+      };
 
-    patchBuilder = var: value: ''
-      sed -i meson.build -e "s|conf.set_quoted('${var}',.*|conf.set_quoted('${var}','${value}')|"
-    '';
-  in
-  ''
-    PATH="${binPath}:$PATH"
-    # the path to qemu-kvm will be stored in VM's .xml and .save files
-    # do not use "''${qemu_kvm}/bin/qemu-kvm" to avoid bound VMs to particular qemu derivations
-    substituteInPlace src/lxc/lxc_conf.c \
-      --replace 'lxc_path,' '"/run/libvirt/nix-emulators/libvirt_lxc",'
+      patchBuilder =
+        var: value: ''
+          sed -i meson.build -e "s|conf.set_quoted('${var}',.*|conf.set_quoted('${var}','${value}')|"
+        ''
+        ;
+    in
+    ''
+      PATH="${binPath}:$PATH"
+      # the path to qemu-kvm will be stored in VM's .xml and .save files
+      # do not use "''${qemu_kvm}/bin/qemu-kvm" to avoid bound VMs to particular qemu derivations
+      substituteInPlace src/lxc/lxc_conf.c \
+        --replace 'lxc_path,' '"/run/libvirt/nix-emulators/libvirt_lxc",'
 
-    substituteInPlace build-aux/meson.build \
-      --replace "gsed" "sed" \
-      --replace "gmake" "make" \
-      --replace "ggrep" "grep"
+      substituteInPlace build-aux/meson.build \
+        --replace "gsed" "sed" \
+        --replace "gmake" "make" \
+        --replace "ggrep" "grep"
 
-    substituteInPlace src/util/virpolkit.h \
-      --replace '"/usr/bin/pkttyagent"' '"${
-        if isLinux then
-          polkit.bin
-        else
-          "/usr"
-      }/bin/pkttyagent"'
+      substituteInPlace src/util/virpolkit.h \
+        --replace '"/usr/bin/pkttyagent"' '"${
+          if isLinux then
+            polkit.bin
+          else
+            "/usr"
+        }/bin/pkttyagent"'
 
-    patchShebangs .
-  '' + (lib.concatStringsSep "\n" (lib.mapAttrsToList patchBuilder overrides))
-  ;
+      patchShebangs .
+    '' + (lib.concatStringsSep "\n" (lib.mapAttrsToList patchBuilder overrides))
+    ;
 
   mesonAutoFeatures = "disabled";
 
-  mesonFlags = let
-    cfg = option: val: "-D${option}=${val}";
-    feat = option: enable:
-      cfg option (if enable then
-        "enabled"
+  mesonFlags =
+    let
+      cfg = option: val: "-D${option}=${val}";
+      feat =
+        option: enable:
+        cfg option (if enable then
+          "enabled"
+        else
+          "disabled")
+        ;
+      driver = name: feat "driver_${name}";
+      storage = name: feat "storage_${name}";
+    in [
+      "--sysconfdir=/var/lib"
+      (cfg "install_prefix" (placeholder "out"))
+      (cfg "localstatedir" "/var")
+      (cfg "runstatedir" "/run")
+
+      (cfg "init_script" (if isDarwin then
+        "none"
       else
-        "disabled");
-    driver = name: feat "driver_${name}";
-    storage = name: feat "storage_${name}";
-  in [
-    "--sysconfdir=/var/lib"
-    (cfg "install_prefix" (placeholder "out"))
-    (cfg "localstatedir" "/var")
-    (cfg "runstatedir" "/run")
+        "systemd"))
+      (cfg "qemu_datadir" (lib.optionalString isDarwin "${qemu}/share/qemu"))
 
-    (cfg "init_script" (if isDarwin then
-      "none"
-    else
-      "systemd"))
-    (cfg "qemu_datadir" (lib.optionalString isDarwin "${qemu}/share/qemu"))
+      (feat "apparmor" isLinux)
+      (feat "attr" isLinux)
+      (feat "audit" isLinux)
+      (feat "bash_completion" true)
+      (feat "blkid" isLinux)
+      (feat "capng" isLinux)
+      (feat "curl" true)
+      (feat "docs" true)
+      (feat "expensive_tests" true)
+      (feat "firewalld" isLinux)
+      (feat "firewalld_zone" isLinux)
+      (feat "fuse" isLinux)
+      (feat "glusterfs" enableGlusterfs)
+      (feat "host_validate" true)
+      (feat "libiscsi" enableIscsi)
+      (feat "libnl" isLinux)
+      (feat "libpcap" true)
+      (feat "libssh2" true)
+      (feat "login_shell" isLinux)
+      (feat "nss" (isLinux && !stdenv.hostPlatform.isMusl))
+      (feat "numactl" isLinux)
+      (feat "numad" isLinux)
+      (feat "pciaccess" isLinux)
+      (feat "polkit" isLinux)
+      (feat "readline" true)
+      (feat "secdriver_apparmor" isLinux)
+      (feat "tests" true)
+      (feat "udev" isLinux)
+      (feat "yajl" true)
 
-    (feat "apparmor" isLinux)
-    (feat "attr" isLinux)
-    (feat "audit" isLinux)
-    (feat "bash_completion" true)
-    (feat "blkid" isLinux)
-    (feat "capng" isLinux)
-    (feat "curl" true)
-    (feat "docs" true)
-    (feat "expensive_tests" true)
-    (feat "firewalld" isLinux)
-    (feat "firewalld_zone" isLinux)
-    (feat "fuse" isLinux)
-    (feat "glusterfs" enableGlusterfs)
-    (feat "host_validate" true)
-    (feat "libiscsi" enableIscsi)
-    (feat "libnl" isLinux)
-    (feat "libpcap" true)
-    (feat "libssh2" true)
-    (feat "login_shell" isLinux)
-    (feat "nss" (isLinux && !stdenv.hostPlatform.isMusl))
-    (feat "numactl" isLinux)
-    (feat "numad" isLinux)
-    (feat "pciaccess" isLinux)
-    (feat "polkit" isLinux)
-    (feat "readline" true)
-    (feat "secdriver_apparmor" isLinux)
-    (feat "tests" true)
-    (feat "udev" isLinux)
-    (feat "yajl" true)
+      (driver "ch" isLinux)
+      (driver "esx" true)
+      (driver "interface" isLinux)
+      (driver "libvirtd" true)
+      (driver "libxl" enableXen)
+      (driver "lxc" isLinux)
+      (driver "network" true)
+      (driver "openvz" isLinux)
+      (driver "qemu" true)
+      (driver "remote" true)
+      (driver "secrets" true)
+      (driver "test" true)
+      (driver "vbox" true)
+      (driver "vmware" true)
 
-    (driver "ch" isLinux)
-    (driver "esx" true)
-    (driver "interface" isLinux)
-    (driver "libvirtd" true)
-    (driver "libxl" enableXen)
-    (driver "lxc" isLinux)
-    (driver "network" true)
-    (driver "openvz" isLinux)
-    (driver "qemu" true)
-    (driver "remote" true)
-    (driver "secrets" true)
-    (driver "test" true)
-    (driver "vbox" true)
-    (driver "vmware" true)
-
-    (storage "dir" true)
-    (storage "disk" isLinux)
-    (storage "fs" isLinux)
-    (storage "gluster" enableGlusterfs)
-    (storage "iscsi" enableIscsi)
-    (storage "iscsi_direct" enableIscsi)
-    (storage "lvm" isLinux)
-    (storage "mpath" isLinux)
-    (storage "rbd" enableCeph)
-    (storage "scsi" true)
-    (storage "vstorage" isLinux)
-    (storage "zfs" enableZfs)
-  ] ;
+      (storage "dir" true)
+      (storage "disk" isLinux)
+      (storage "fs" isLinux)
+      (storage "gluster" enableGlusterfs)
+      (storage "iscsi" enableIscsi)
+      (storage "iscsi_direct" enableIscsi)
+      (storage "lvm" isLinux)
+      (storage "mpath" isLinux)
+      (storage "rbd" enableCeph)
+      (storage "scsi" true)
+      (storage "vstorage" isLinux)
+      (storage "zfs" enableZfs)
+    ]
+    ;
 
   doCheck = true;
 
@@ -383,7 +390,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A toolkit to interact with the virtualization capabilities of recent versions of Linux and other OSes";
+      "A toolkit to interact with the virtualization capabilities of recent versions of Linux and other OSes"
+      ;
     homepage = "https://libvirt.org/";
     changelog = "https://gitlab.com/libvirt/libvirt/-/raw/v${version}/NEWS.rst";
     license = licenses.lgpl2Plus;

@@ -9,16 +9,19 @@ with lib;
 
 let
   cfg = config.services.jitsi-videobridge;
-  attrsToArgs = a:
-    concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") a);
+  attrsToArgs =
+    a:
+    concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") a)
+    ;
 
-  # HOCON is a JSON superset that videobridge2 uses for configuration.
-  # It can substitute environment variables which we use for passwords here.
-  # https://github.com/lightbend/config/blob/master/README.md
-  #
-  # Substitution for environment variable FOO is represented as attribute set
-  # { __hocon_envvar = "FOO"; }
-  toHOCON = x:
+    # HOCON is a JSON superset that videobridge2 uses for configuration.
+    # It can substitute environment variables which we use for passwords here.
+    # https://github.com/lightbend/config/blob/master/README.md
+    #
+    # Substitution for environment variable FOO is represented as attribute set
+    # { __hocon_envvar = "FOO"; }
+  toHOCON =
+    x:
     if isAttrs x && x ? __hocon_envvar then
       ("\${" + x.__hocon_envvar + "}")
     else if isAttrs x then
@@ -28,16 +31,19 @@ let
     else if isList x then
       "[${concatMapStringsSep "," toHOCON x}]"
     else
-      builtins.toJSON x;
+      builtins.toJSON x
+    ;
 
-  # We're passing passwords in environment variables that have names generated
-  # from an attribute name, which may not be a valid bash identifier.
-  toVarName = s:
+    # We're passing passwords in environment variables that have names generated
+    # from an attribute name, which may not be a valid bash identifier.
+  toVarName =
+    s:
     "XMPP_PASSWORD_" + stringAsChars (c:
       if builtins.match "[A-Za-z0-9]" c != null then
         c
       else
-        "_") s;
+        "_") s
+    ;
 
   defaultJvbConfig = {
     videobridge = {
@@ -66,7 +72,7 @@ let
     };
   };
 
-  # Allow overriding leaves of the default config despite types.attrs not doing any merging.
+    # Allow overriding leaves of the default config despite types.attrs not doing any merging.
   jvbConfig = recursiveUpdate defaultJvbConfig cfg.config;
 in {
   options.services.jitsi-videobridge = with types; {
@@ -236,73 +242,76 @@ in {
           cfg.nat.publicAddress;
       };
 
-    systemd.services.jitsi-videobridge2 = let
-      jvbProps = {
-        "-Dnet.java.sip.communicator.SC_HOME_DIR_LOCATION" = "/etc/jitsi";
-        "-Dnet.java.sip.communicator.SC_HOME_DIR_NAME" = "videobridge";
-        "-Djava.util.logging.config.file" =
-          "/etc/jitsi/videobridge/logging.properties";
-        "-Dconfig.file" = pkgs.writeText "jvb.conf" (toHOCON jvbConfig);
-        # Mitigate CVE-2021-44228
-        "-Dlog4j2.formatMsgNoLookups" = true;
-      } // (mapAttrs' (k: v: nameValuePair "-D${k}" v) cfg.extraProperties);
-    in {
-      aliases = [ "jitsi-videobridge.service" ];
-      description = "Jitsi Videobridge";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+    systemd.services.jitsi-videobridge2 =
+      let
+        jvbProps = {
+          "-Dnet.java.sip.communicator.SC_HOME_DIR_LOCATION" = "/etc/jitsi";
+          "-Dnet.java.sip.communicator.SC_HOME_DIR_NAME" = "videobridge";
+          "-Djava.util.logging.config.file" =
+            "/etc/jitsi/videobridge/logging.properties";
+          "-Dconfig.file" = pkgs.writeText "jvb.conf" (toHOCON jvbConfig);
+            # Mitigate CVE-2021-44228
+          "-Dlog4j2.formatMsgNoLookups" = true;
+        } // (mapAttrs' (k: v: nameValuePair "-D${k}" v) cfg.extraProperties);
+      in {
+        aliases = [ "jitsi-videobridge.service" ];
+        description = "Jitsi Videobridge";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
 
-      environment.JAVA_SYS_PROPS = attrsToArgs jvbProps;
+        environment.JAVA_SYS_PROPS = attrsToArgs jvbProps;
 
-      script = (concatStrings (mapAttrsToList (name: xmppConfig: ''
-        export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
-      '') cfg.xmppConfigs)) + ''
-        ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
-          if (cfg.apis == [ ]) then
-            "none"
-          else
-            concatStringsSep "," cfg.apis
-        }
-      '';
+        script = (concatStrings (mapAttrsToList (name: xmppConfig: ''
+          export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
+        '') cfg.xmppConfigs)) + ''
+          ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
+            if (cfg.apis == [ ]) then
+              "none"
+            else
+              concatStringsSep "," cfg.apis
+          }
+        '';
 
-      serviceConfig = {
-        Type = "exec";
+        serviceConfig = {
+          Type = "exec";
 
-        DynamicUser = true;
-        User = "jitsi-videobridge";
-        Group = "jitsi-meet";
+          DynamicUser = true;
+          User = "jitsi-videobridge";
+          Group = "jitsi-meet";
 
-        CapabilityBoundingSet = "";
-        NoNewPrivileges = true;
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
-        ProtectHostname = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectControlGroups = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-          "AF_UNIX"
-        ];
-        RestrictNamespaces = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
+          CapabilityBoundingSet = "";
+          NoNewPrivileges = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectHostname = true;
+          ProtectKernelTunables = true;
+          ProtectKernelModules = true;
+          ProtectControlGroups = true;
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_UNIX"
+          ];
+          RestrictNamespaces = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
 
-        TasksMax = 65000;
-        LimitNPROC = 65000;
-        LimitNOFILE = 65000;
-      };
-    } ;
+          TasksMax = 65000;
+          LimitNPROC = 65000;
+          LimitNOFILE = 65000;
+        };
+      }
+      ;
 
     environment.etc."jitsi/videobridge/logging.properties".source = mkDefault
-      "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal";
+      "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal"
+      ;
 
-    # (from videobridge2 .deb)
-    # this sets the max, so that we can bump the JVB UDP single port buffer size.
+      # (from videobridge2 .deb)
+      # this sets the max, so that we can bump the JVB UDP single port buffer size.
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 10485760;
     boot.kernel.sysctl."net.core.netdev_max_backlog" = mkDefault 100000;
 
@@ -313,8 +322,8 @@ in {
 
     assertions = [ {
       message = "publicAddress must be set if and only if localAddress is set";
-      assertion = (cfg.nat.publicAddress == null)
-        == (cfg.nat.localAddress == null);
+      assertion =
+        (cfg.nat.publicAddress == null) == (cfg.nat.localAddress == null);
     } ];
   };
 

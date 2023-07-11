@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://binaries.webex.com/WebexDesktop-Ubuntu-Gold/20230214022524/Webex_ubuntu.7z";
+      "https://binaries.webex.com/WebexDesktop-Ubuntu-Gold/20230214022524/Webex_ubuntu.7z"
+      ;
     sha256 = "c58a0da26c8f64302cc612c60980dbd68c074d6d8a567b3d870d7d6d06b420ad";
   };
 

@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     install -Dm644 doc/proot/man.1 $out/share/man/man1/proot.1
   '';
 
-  # proot provides tests with `make -C test` however they do not run in the sandbox
+    # proot provides tests with `make -C test` however they do not run in the sandbox
   doCheck = false;
 
   meta = with lib; {

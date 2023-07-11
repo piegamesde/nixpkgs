@@ -23,7 +23,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Pass mouse wheel commands to secondary screens (screen, less, nano, etc)";
+      "Pass mouse wheel commands to secondary screens (screen, less, nano, etc)"
+      ;
     homepage = "https://aur.archlinux.org/packages/urxvt-vtwheel";
     license = licenses.mit;
     maintainers = with maintainers; [ danbst ];

@@ -40,10 +40,12 @@ let
 
 in let
   result = stdenv.mkDerivation rec {
-    pname = if sourcePerArch.packageType == "jdk" then
-      "adoptopenjdk-${sourcePerArch.vmType}-bin"
-    else
-      "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin";
+    pname =
+      if sourcePerArch.packageType == "jdk" then
+        "adoptopenjdk-${sourcePerArch.vmType}-bin"
+      else
+        "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin"
+      ;
 
     version =
       sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
@@ -68,7 +70,7 @@ in let
       makeWrapper
     ];
 
-    # See: https://github.com/NixOS/patchelf/issues/10
+      # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
 
     installPhase = ''
@@ -115,7 +117,7 @@ in let
         patchelf --add-needed libfontconfig.so {} \;
     '';
 
-    # FIXME: use multiple outputs or return actual JRE package
+      # FIXME: use multiple outputs or return actual JRE package
     passthru.jre = result;
 
     passthru.home = result;
@@ -127,8 +129,8 @@ in let
         binaryBytecode
       ];
       description = "AdoptOpenJDK, prebuilt OpenJDK binary";
-      platforms = lib.mapAttrsToList (arch: _: arch + "-linux")
-        sourcePerArch; # some inherit jre.meta.platforms
+      platforms = lib.mapAttrsToList (arch: _: arch + "-linux") sourcePerArch
+        ; # some inherit jre.meta.platforms
       maintainers = with lib.maintainers; [ taku0 ];
       inherit knownVulnerabilities;
       mainProgram = "java";

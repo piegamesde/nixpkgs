@@ -130,13 +130,13 @@ let
 
     dontAutoPatchelf = true;
 
-    # Includes runtimeDependencies in the RPATH of the included Node modules
-    # so that dynamic loading works. We cannot use directly runtimeDependencies
-    # here, since the libraries from runtimeDependencies are not propagated
-    # to the dynamically loadable node modules because of a condition in
-    # autoPatchElfHook since *.node modules have Type: DYN (Shared object file)
-    # instead of EXEC or INTERP it expects.
-    # Fixes: https://github.com/NixOS/nixpkgs/issues/85449
+      # Includes runtimeDependencies in the RPATH of the included Node modules
+      # so that dynamic loading works. We cannot use directly runtimeDependencies
+      # here, since the libraries from runtimeDependencies are not propagated
+      # to the dynamically loadable node modules because of a condition in
+      # autoPatchElfHook since *.node modules have Type: DYN (Shared object file)
+      # instead of EXEC or INTERP it expects.
+      # Fixes: https://github.com/NixOS/nixpkgs/issues/85449
     postFixup = ''
       autoPatchelf "$out"
 
@@ -159,7 +159,8 @@ let
 
     src = fetchurl {
       url =
-        "https://statics.teams.cdn.office.net/production-osx/${versions.darwin}/Teams_osx.pkg";
+        "https://statics.teams.cdn.office.net/production-osx/${versions.darwin}/Teams_osx.pkg"
+        ;
       hash = hashes.darwin;
     };
 

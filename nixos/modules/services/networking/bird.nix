@@ -64,7 +64,7 @@ in {
     ] "Use services.bird2 instead")
   ];
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.bird ];
 

@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-ujH9KDwFRjPIKwdMg79Mab9BfA2HooY5+2PESUgnGDY=";
   };
 
-  # Fix "No known features for CXX compiler", see
-  # https://cmake.org/pipermail/cmake/2016-December/064733.html and the note at
-  # https://cmake.org/cmake/help/v3.10/command/cmake_minimum_required.html
+    # Fix "No known features for CXX compiler", see
+    # https://cmake.org/pipermail/cmake/2016-December/064733.html and the note at
+    # https://cmake.org/cmake/help/v3.10/command/cmake_minimum_required.html
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt --replace \
         'cmake_minimum_required(VERSION 2.8.12)' 'cmake_minimum_required(VERSION 3.1.0)'

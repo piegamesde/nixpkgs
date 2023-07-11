@@ -47,19 +47,21 @@ buildGoModule rec {
     "-w"
   ];
 
-  preCheck = let
-    skippedTests = [
-      "TestClosest" # Requiring Wayland or X
-      "TestEveryMinute" # Blocking
-      "TestNewSimpleEvent" # Blocking
-    ];
-  in ''
-    export XDG_RUNTIME_DIR=`mktemp -d`
+  preCheck =
+    let
+      skippedTests = [
+        "TestClosest" # Requiring Wayland or X
+        "TestEveryMinute" # Blocking
+        "TestNewSimpleEvent" # Blocking
+      ];
+    in ''
+      export XDG_RUNTIME_DIR=`mktemp -d`
 
-    buildFlagsArray+=("-run" "[^(${
-      builtins.concatStringsSep "|" skippedTests
-    })]")
-  '' ;
+      buildFlagsArray+=("-run" "[^(${
+        builtins.concatStringsSep "|" skippedTests
+      })]")
+    ''
+    ;
 
   meta = {
     description =

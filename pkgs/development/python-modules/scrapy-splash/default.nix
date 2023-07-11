@@ -20,7 +20,7 @@ buildPythonPackage rec {
     six
   ];
 
-  # no tests
+    # no tests
   doCheck = false;
   pythonImportsCheck = [ "scrapy_splash" ];
 

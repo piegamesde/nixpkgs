@@ -54,7 +54,7 @@ let
   update = "362";
   build = "ga";
 
-  # when building a headless jdk, also bootstrap it with a headless jdk
+    # when building a headless jdk, also bootstrap it with a headless jdk
   openjdk-bootstrap = openjdk8-bootstrap.override { gtkSupport = !headless; };
 
   openjdk8 = stdenv.mkDerivation rec {
@@ -117,7 +117,7 @@ let
     ] ++ lib.optionals
       (!headless && enableGnome2) [ ./swing-use-gtk-jdk8.patch ];
 
-    # Hotspot cares about the host(!) version otherwise
+      # Hotspot cares about the host(!) version otherwise
     DISABLE_HOTSPOT_OS_VERSION_CHECK = "ok";
 
     preConfigure = ''
@@ -168,10 +168,10 @@ let
       "-lgconf-2"
     ]);
 
-    # -j flag is explicitly rejected by the build system:
-    #     Error: 'make -jN' is not supported, use 'make JOBS=N'
-    # Note: it does not make build sequential. Build system
-    # still runs in parallel.
+      # -j flag is explicitly rejected by the build system:
+      #     Error: 'make -jN' is not supported, use 'make JOBS=N'
+      # Note: it does not make build sequential. Build system
+      # still runs in parallel.
     enableParallelBuilding = false;
 
     buildFlags = [ "all" ];

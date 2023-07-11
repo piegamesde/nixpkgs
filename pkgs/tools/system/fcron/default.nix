@@ -34,10 +34,10 @@ stdenv.mkDerivation rec {
     "--disable-checks"
   ];
 
-  installTargets =
-    [ "install-staged" ]; # install does also try to change permissions of /etc/* files
+  installTargets = [ "install-staged" ]
+    ; # install does also try to change permissions of /etc/* files
 
-  # fcron tries to install pid into system directory on install
+    # fcron tries to install pid into system directory on install
   installFlags = [
     "ETC=."
     "PIDDIR=."

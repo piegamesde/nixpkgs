@@ -37,7 +37,8 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Python app to convert comic/manga files or folders to EPUB, Panel View MOBI or E-Ink optimized CBZ";
+      "Python app to convert comic/manga files or folders to EPUB, Panel View MOBI or E-Ink optimized CBZ"
+      ;
     homepage = "https://kcc.iosphe.re";
     license = licenses.isc;
     maintainers = with maintainers; [ dawidsowa ];

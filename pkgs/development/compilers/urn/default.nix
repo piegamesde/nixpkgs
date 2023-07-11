@@ -13,19 +13,21 @@
 
 let
   version = "0.7.2";
-  # Build a sort of "union package" with all the native dependencies we
-  # have: Lua (or LuaJIT), readline, etc. Then, we can depend on this
-  # and refer to ${urn-rt} instead of ${lua}, ${readline}, etc.
+    # Build a sort of "union package" with all the native dependencies we
+    # have: Lua (or LuaJIT), readline, etc. Then, we can depend on this
+    # and refer to ${urn-rt} instead of ${lua}, ${readline}, etc.
   urn-rt = buildEnv {
     name = "urn-rt-${version}";
     ignoreCollisions = true;
-    paths = if useLuaJit then
-      [
-        luajit
-        readline
-      ]
-    else
-      [ lua ];
+    paths =
+      if useLuaJit then
+        [
+          luajit
+          readline
+        ]
+      else
+        [ lua ]
+      ;
   };
 
   inherit (lib) optionalString concatMapStringsSep;
@@ -43,8 +45,8 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  # Any packages that depend on the compiler have a transitive
-  # dependency on the Urn runtime support.
+    # Any packages that depend on the compiler have a transitive
+    # dependency on the Urn runtime support.
   propagatedBuildInputs = [ urn-rt ];
 
   makeFlags = [ "-B" ];

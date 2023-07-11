@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = "source/libclc";
 
-  # cmake expects all required binaries to be in the same place, so it will not be able to find clang without the patch
+    # cmake expects all required binaries to be in the same place, so it will not be able to find clang without the patch
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace 'find_program( LLVM_CLANG clang PATHS ''${LLVM_BINDIR} NO_DEFAULT_PATH )' \
@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
     broken = stdenv.isDarwin;
     homepage = "http://libclc.llvm.org/";
     description =
-      "Implementation of the library requirements of the OpenCL C programming language";
+      "Implementation of the library requirements of the OpenCL C programming language"
+      ;
     license = licenses.mit;
     platforms = platforms.all;
   };

@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/niklasso/minisat/commit/7eb6015313561a2586032574788fcb133eeaa19f.patch";
+      "https://github.com/niklasso/minisat/commit/7eb6015313561a2586032574788fcb133eeaa19f.patch"
+      ;
     stripLen = 1;
     extraPrefix = "lib/";
     sha256 = "sha256:01ln7hi6nvvkqkhn9hciqizizz5qspvqffgksvgmzn9x7kdd9pnh";

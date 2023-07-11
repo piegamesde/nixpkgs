@@ -49,7 +49,8 @@ in {
 
          (lazyDerivation { inherit derivation }).pythonPath
   */
-  lazyDerivation = args@{
+  lazyDerivation =
+    args@{
     # The derivation to be wrapped.
       derivation, # Optional meta attribute.
       #
@@ -85,9 +86,9 @@ in {
       # when actual derivation values are accessed later.
       type = "derivation";
 
-      # A fixed set of derivation values, so that `lazyDerivation` can return
-      # its attrset before evaluating `derivation`.
-      # This must only list attributes that are available on _all_ derivations.
+        # A fixed set of derivation values, so that `lazyDerivation` can return
+        # its attrset before evaluating `derivation`.
+        # This must only list attributes that are available on _all_ derivations.
       inherit (checked)
         outputs
         out
@@ -102,5 +103,5 @@ in {
         # `lazyDerivation` caller knew a shortcut, be taken from there.
       meta = args.meta or checked.meta;
     } // passthru
-  ;
+    ;
 }

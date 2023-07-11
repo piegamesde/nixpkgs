@@ -1,6 +1,7 @@
 let
   # shared across all versions
-  generic = {
+  generic =
+    {
       version,
       hash,
       lib,
@@ -79,7 +80,8 @@ let
 
         src = fetchurl {
           url =
-            "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
+            "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz"
+            ;
           inherit hash;
         };
 
@@ -192,7 +194,7 @@ let
           rm -r $out/lib/pkgconfig
         '';
 
-        # perlPackages.DBDmysql is broken on darwin
+          # perlPackages.DBDmysql is broken on darwin
         postFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
           wrapProgram $out/bin/mytop --set PATH ${
             lib.makeBinPath [
@@ -202,18 +204,20 @@ let
           }
         '';
 
-        passthru.tests = let
-          testVersion = "mariadb_${
-              builtins.replaceStrings [ "." ] [ "" ]
-              (lib.versions.majorMinor version)
-            }";
-        in {
-          mariadb-galera-rsync = nixosTests.mariadb-galera.${testVersion};
-          mysql = nixosTests.mysql.${testVersion};
-          mysql-autobackup = nixosTests.mysql-autobackup.${testVersion};
-          mysql-backup = nixosTests.mysql-backup.${testVersion};
-          mysql-replication = nixosTests.mysql-replication.${testVersion};
-        } ;
+        passthru.tests =
+          let
+            testVersion = "mariadb_${
+                builtins.replaceStrings [ "." ] [ "" ]
+                (lib.versions.majorMinor version)
+              }";
+          in {
+            mariadb-galera-rsync = nixosTests.mariadb-galera.${testVersion};
+            mysql = nixosTests.mysql.${testVersion};
+            mysql-autobackup = nixosTests.mysql-autobackup.${testVersion};
+            mysql-backup = nixosTests.mysql-backup.${testVersion};
+            mysql-replication = nixosTests.mysql-replication.${testVersion};
+          }
+          ;
 
         meta = with lib; {
           description = "An enhanced, drop-in replacement for MySQL";
@@ -340,7 +344,7 @@ let
       });
     in
     server // { inherit client server; }
-  ;
+    ;
 in
 self: {
   # see https://mariadb.org/about/#maintenance-policy for EOLs

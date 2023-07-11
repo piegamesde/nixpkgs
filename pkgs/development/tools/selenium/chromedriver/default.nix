@@ -26,7 +26,8 @@
 
 let
   upstream-info = (lib.importJSON
-    ../../../../applications/networking/browsers/chromium/upstream-info.json).stable.chromedriver;
+    ../../../../applications/networking/browsers/chromium/upstream-info.json).stable.chromedriver
+    ;
   allSpecs = {
     x86_64-linux = {
       system = "linux64";
@@ -73,7 +74,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://chromedriver.storage.googleapis.com/${version}/chromedriver_${spec.system}.zip";
+      "https://chromedriver.storage.googleapis.com/${version}/chromedriver_${spec.system}.zip"
+      ;
     sha256 = spec.sha256;
   };
 
@@ -109,8 +111,8 @@ stdenv.mkDerivation rec {
       marsam
       primeos
     ];
-    # Note from primeos: By updating Chromium I also update Google Chrome and
-    # ChromeDriver.
+      # Note from primeos: By updating Chromium I also update Google Chrome and
+      # ChromeDriver.
     platforms = attrNames allSpecs;
   };
 }

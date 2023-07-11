@@ -87,8 +87,8 @@ stdenv.mkDerivation {
       libc++ is an implementation of the C++ standard library, targeting C++11,
       C++14 and above.
     '';
-    # "All of the code in libc++ is dual licensed under the MIT license and the
-    # UIUC License (a BSD-like license)":
+      # "All of the code in libc++ is dual licensed under the MIT license and the
+      # UIUC License (a BSD-like license)":
     license = with lib.licenses; [
       mit
       ncsa

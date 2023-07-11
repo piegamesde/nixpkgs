@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "0pyka09h8nb0vlzh14npq4nxmzg1046lr3klgn97dsf5k0iflapb";
   };
 
-  # data files missing
+    # data files missing
   doCheck = false;
 
   nativeCheckInputs = [

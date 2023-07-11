@@ -73,26 +73,30 @@ let
       # Enable building with udisks support
       (fetchpatch {
         url =
-          "https://salsa.debian.org/qt-kde-team/qt/qtsystems/-/raw/a23fd92222c33479d7f3b59e48116def6b46894c/debian/patches/2001_build_with_udisk.patch";
+          "https://salsa.debian.org/qt-kde-team/qt/qtsystems/-/raw/a23fd92222c33479d7f3b59e48116def6b46894c/debian/patches/2001_build_with_udisk.patch"
+          ;
         hash = "sha256-B/z/+tai01RU/bAJSCp5a0/dGI8g36nwso8MiJv27YM=";
       })
     ];
     qtwebengine = [
       (fetchpatch {
         url =
-          "https://raw.githubusercontent.com/Homebrew/formula-patches/a6f16c6daea3b5a1f7bc9f175d1645922c131563/qt5/qt5-webengine-python3.patch";
+          "https://raw.githubusercontent.com/Homebrew/formula-patches/a6f16c6daea3b5a1f7bc9f175d1645922c131563/qt5/qt5-webengine-python3.patch"
+          ;
         hash = "sha256-rUSDwTucXVP3Obdck7LRTeKZ+JYQSNhQ7+W31uHZ9yM=";
       })
       (fetchpatch {
         url =
-          "https://raw.githubusercontent.com/Homebrew/formula-patches/7ae178a617d1e0eceb742557e63721af949bd28a/qt5/qt5-webengine-chromium-python3.patch";
+          "https://raw.githubusercontent.com/Homebrew/formula-patches/7ae178a617d1e0eceb742557e63721af949bd28a/qt5/qt5-webengine-chromium-python3.patch"
+          ;
         stripLen = 1;
         extraPrefix = "src/3rdparty/";
         hash = "sha256-MZGYeMdGzwypfKoSUaa56K3inbcGRx7he/+AFyk5ekA=";
       })
       (fetchpatch {
         url =
-          "https://raw.githubusercontent.com/Homebrew/formula-patches/7ae178a617d1e0eceb742557e63721af949bd28a/qt5/qt5-webengine-gcc12.patch";
+          "https://raw.githubusercontent.com/Homebrew/formula-patches/7ae178a617d1e0eceb742557e63721af949bd28a/qt5/qt5-webengine-gcc12.patch"
+          ;
         stripLen = 1;
         extraPrefix = "src/3rdparty/";
         hash = "sha256-s4GsGMJTBNWw2gTJuIEP3tqT82AmTsR2mbj59m2p6rM=";
@@ -106,19 +110,22 @@ let
       (fetchpatch {
         name = "qtwebkit-bison-3.7-build.patch";
         url =
-          "https://github.com/qtwebkit/qtwebkit/commit/d92b11fea65364fefa700249bd3340e0cd4c5b31.patch";
+          "https://github.com/qtwebkit/qtwebkit/commit/d92b11fea65364fefa700249bd3340e0cd4c5b31.patch"
+          ;
         sha256 = "0h8ymfnwgkjkwaankr3iifiscsvngqpwb91yygndx344qdiw9y0n";
       })
       (fetchpatch {
         name = "qtwebkit-glib-2.68.patch";
         url =
-          "https://github.com/qtwebkit/qtwebkit/pull/1058/commits/5b698ba3faffd4e198a45be9fe74f53307395e4b.patch";
+          "https://github.com/qtwebkit/qtwebkit/pull/1058/commits/5b698ba3faffd4e198a45be9fe74f53307395e4b.patch"
+          ;
         sha256 = "0a3xv0h4lv8wggckgy8cg8xnpkg7n9h45312pdjdnnwy87xvzss0";
       })
       (fetchpatch {
         name = "qtwebkit-darwin-handle.patch";
         url =
-          "https://github.com/qtwebkit/qtwebkit/commit/5c272a21e621a66862821d3ae680f27edcc64c19.patch";
+          "https://github.com/qtwebkit/qtwebkit/commit/5c272a21e621a66862821d3ae680f27edcc64c19.patch"
+          ;
         sha256 = "9hjqLyABz372QDgoq7nXXXQ/3OXBGcYN1/92ekcC3WE=";
       })
       ./qtwebkit.patch
@@ -130,7 +137,8 @@ let
     qttools = [ ./qttools.patch ];
   };
 
-  addPackages = self:
+  addPackages =
+    self:
     with self;
     let
       qtModule = import ../qtModule.nix {
@@ -324,7 +332,7 @@ let
         qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".''
         self.overrideScope;
     }
-  ;
+    ;
 
 in
 makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { }) (_: { })

@@ -29,7 +29,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Translates human-readable Butane configs into machine-readable Ignition configs";
+      "Translates human-readable Butane configs into machine-readable Ignition configs"
+      ;
     license = licenses.asl20;
     homepage = "https://github.com/coreos/butane";
     maintainers = with maintainers; [

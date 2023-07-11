@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pytest
   '';
 
-  # Tests seem to hang
+    # Tests seem to hang
   doCheck = false;
 
   propagatedBuildInputs = [

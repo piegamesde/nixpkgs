@@ -33,8 +33,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "zmq" ];
 
-  pytestFlagsArray =
-    [ "$out/${python.sitePackages}/zmq/tests/" # Folder with tests
+  pytestFlagsArray = [ "$out/${python.sitePackages}/zmq/tests/" # Folder with tests
     ];
 
   disabledTests = [
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     "TestPubLog"
   ];
 
-  # Some of the tests use localhost networking.
+    # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {

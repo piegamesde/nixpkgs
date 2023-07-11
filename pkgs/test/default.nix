@@ -90,11 +90,11 @@ with pkgs;
 
   trivial-builders = recurseIntoAttrs {
     writeStringReferencesToFile = callPackage
-      ../build-support/trivial-builders/test/writeStringReferencesToFile.nix
-      { };
+      ../build-support/trivial-builders/test/writeStringReferencesToFile.nix { }
+      ;
     writeTextFile =
-      callPackage ../build-support/trivial-builders/test/write-text-file.nix
-      { };
+      callPackage ../build-support/trivial-builders/test/write-text-file.nix { }
+      ;
     writeShellScript =
       callPackage ../build-support/trivial-builders/test/write-shell-script.nix
       { };

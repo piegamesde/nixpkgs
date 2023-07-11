@@ -21,7 +21,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPDS/3_15_1_001/export/MSPDebugStack_OS_Package_3_15_1_1.zip";
+      "http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPDS/3_15_1_001/export/MSPDebugStack_OS_Package_3_15_1_1.zip"
+      ;
     sha256 = "1j5sljqwc20zrb50mrji4mnmw5i680qc7n0lb0pakrrxqjc9m9g3";
   };
   sourceRoot = ".";

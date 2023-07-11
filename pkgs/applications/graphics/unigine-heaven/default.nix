@@ -19,12 +19,14 @@
 let
   version = "4.0";
 
-  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
-    "x64"
-  else if stdenv.hostPlatform.system == "i686-linux" then
-    "x86"
-  else
-    throw "Unsupported platform ${stdenv.hostPlatform.system}";
+  arch =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "x64"
+    else if stdenv.hostPlatform.system == "i686-linux" then
+      "x86"
+    else
+      throw "Unsupported platform ${stdenv.hostPlatform.system}"
+    ;
 
   desktopItem = makeDesktopItem {
     name = "Heaven";

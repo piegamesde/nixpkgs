@@ -6,7 +6,8 @@
   cacert,
 }:
 let
-  urlToName = url: rev:
+  urlToName =
+    url: rev:
     let
       inherit (lib) removeSuffix splitString last;
       base = last (splitString ":" (baseNameOf (removeSuffix "/" url)));
@@ -25,7 +26,7 @@ let
       else
         builtins.head matched
     }${appendShort}"
-  ;
+    ;
 in
 {
   url,
@@ -93,25 +94,31 @@ else
 
     nativeBuildInputs = [ git ] ++ lib.optionals fetchLFS [ git-lfs ];
 
-    outputHashAlgo = if hash != "" then
-      null
-    else
-      "sha256";
+    outputHashAlgo =
+      if hash != "" then
+        null
+      else
+        "sha256"
+      ;
     outputHashMode = "recursive";
-    outputHash = if hash != "" then
-      hash
-    else if sha256 != "" then
-      sha256
-    else
-      lib.fakeSha256;
+    outputHash =
+      if hash != "" then
+        hash
+      else if sha256 != "" then
+        sha256
+      else
+        lib.fakeSha256
+      ;
 
-    # git-sparse-checkout(1) says:
-    # > When the --stdin option is provided, the directories or patterns are read
-    # > from standard in as a newline-delimited list instead of from the arguments.
-    sparseCheckout = if builtins.isString sparseCheckout then
-      sparseCheckout
-    else
-      builtins.concatStringsSep "\n" sparseCheckout;
+      # git-sparse-checkout(1) says:
+      # > When the --stdin option is provided, the directories or patterns are read
+      # > from standard in as a newline-delimited list instead of from the arguments.
+    sparseCheckout =
+      if builtins.isString sparseCheckout then
+        sparseCheckout
+      else
+        builtins.concatStringsSep "\n" sparseCheckout
+      ;
 
     inherit
       url
@@ -125,15 +132,17 @@ else
       postFetch
       ;
 
-    postHook = if netrcPhase == null then
-      null
-    else
-      ''
-        ${netrcPhase}
-        # required that git uses the netrc file
-        mv {,.}netrc
-        export HOME=$PWD
-      '';
+    postHook =
+      if netrcPhase == null then
+        null
+      else
+        ''
+          ${netrcPhase}
+          # required that git uses the netrc file
+          mv {,.}netrc
+          export HOME=$PWD
+        ''
+      ;
 
     GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 

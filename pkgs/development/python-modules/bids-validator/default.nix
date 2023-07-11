@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-WJb9EENkYFVgKuByHFJhed/Slt6ayG31LeQk1+14/Ys=";
   };
 
-  # needs packages which are not available in nixpkgs
+    # needs packages which are not available in nixpkgs
   doCheck = false;
 
   pythonImportsCheck = [ "bids_validator" ];

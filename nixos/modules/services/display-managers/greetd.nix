@@ -47,8 +47,9 @@ in {
     restart = mkOption {
       type = types.bool;
       default = !(cfg.settings ? initial_session);
-      defaultText = literalExpression
-        "!(config.services.greetd.settings ? initial_session)";
+      defaultText =
+        literalExpression "!(config.services.greetd.settings ? initial_session)"
+        ;
       description = lib.mdDoc ''
         Whether to restart greetd when it terminates (e.g. on failure).
         This is usually desirable so a user can always log in, but should be disabled when using 'settings.initial_session' (autologin),
@@ -66,7 +67,7 @@ in {
       startSession = true;
     };
 
-    # This prevents nixos-rebuild from killing greetd by activating getty again
+      # This prevents nixos-rebuild from killing greetd by activating getty again
     systemd.services."autovt@${tty}".enable = false;
 
     systemd.services.greetd = {
@@ -87,7 +88,7 @@ in {
 
         Restart = mkIf cfg.restart "always";
 
-        # Defaults from greetd upstream configuration
+          # Defaults from greetd upstream configuration
         IgnoreSIGPIPE = false;
         SendSIGHUP = true;
         TimeoutStopSec = "30s";
@@ -96,7 +97,7 @@ in {
         Type = "idle";
       };
 
-      # Don't kill a user session when using nixos-rebuild
+        # Don't kill a user session when using nixos-rebuild
       restartIfChanged = false;
 
       wantedBy = [ "graphical.target" ];

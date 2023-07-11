@@ -9,21 +9,26 @@
 
 # here we wrap fetchurl and fetchFromGitHub, in order to be able to pass additional args around it
 let
-  fetchurl = args@{
+  fetchurl =
+    args@{
       url,
       hash,
       ...
     }:
-    pkgs.fetchurl { inherit url hash; } // args;
-  fetchFromGitHub = args@{
+    pkgs.fetchurl { inherit url hash; } // args
+    ;
+  fetchFromGitHub =
+    args@{
       owner,
       repo,
       rev,
       hash,
       ...
     }:
-    pkgs.fetchFromGitHub { inherit owner repo rev hash; } // args;
-  fetchFromGitLab = args@{
+    pkgs.fetchFromGitHub { inherit owner repo rev hash; } // args
+    ;
+  fetchFromGitLab =
+    args@{
       domain,
       owner,
       repo,
@@ -31,7 +36,8 @@ let
       hash,
       ...
     }:
-    pkgs.fetchFromGitLab { inherit domain owner repo rev hash; } // args;
+    pkgs.fetchFromGitLab { inherit domain owner repo rev hash; } // args
+    ;
 
   updateScriptPreamble = ''
     set -eou pipefail
@@ -59,25 +65,28 @@ in rec {
     url = "https://dl.winehq.org/wine/source/8.0/wine-${version}.tar.xz";
     hash = "sha256-AnLCCTj4chrkUQr6qLNgN0V91XZh5NZkIxB5uekceS4=";
 
-    ## see http://wiki.winehq.org/Gecko
+      ## see http://wiki.winehq.org/Gecko
     gecko32 = fetchurl rec {
       version = "2.47.3";
       url =
-        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
+        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi"
+        ;
       hash = "sha256-5bmwbTzjVWRqjS5y4ETjfh4MjRhGTrGYWtzRh6f0jgE=";
     };
     gecko64 = fetchurl rec {
       version = "2.47.3";
       url =
-        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
+        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi"
+        ;
       hash = "sha256-pT7pVDkrbR/j1oVF9uTiqXr7yNyLA6i0QzSVRc4TlnU=";
     };
 
-    ## see http://wiki.winehq.org/Mono
+      ## see http://wiki.winehq.org/Mono
     mono = fetchurl rec {
       version = "7.4.0";
       url =
-        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
+        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi"
+        ;
       hash = "sha256-ZBP/Mo679+x2icZI/rNUbYEC3thlB50fvwMxsUs6sOw=";
     };
 
@@ -115,7 +124,8 @@ in rec {
     mono = fetchurl rec {
       version = "7.4.0";
       url =
-        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
+        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi"
+        ;
       hash = "sha256-ZBP/Mo679+x2icZI/rNUbYEC3thlB50fvwMxsUs6sOw=";
     };
 

@@ -37,7 +37,7 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
-  # Tests require network access
+    # Tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "syncedlyrics" ];

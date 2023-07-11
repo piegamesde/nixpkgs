@@ -26,7 +26,7 @@ buildPythonPackage rec {
       --replace "'oletools>=0.54'," ""
   '';
 
-  # Module doesn't have tests
+    # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "pcodedmp" ];

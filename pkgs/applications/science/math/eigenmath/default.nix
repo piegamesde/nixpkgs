@@ -17,17 +17,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-GZkC/Tvep7fL5nJyz0ZN7z0lUhGX4EJlXVswwAyegUE=";
   };
 
-  checkPhase = let
-    emulator = stdenv.hostPlatform.emulator buildPackages;
-  in ''
-    runHook preCheck
+  checkPhase =
+    let
+      emulator = stdenv.hostPlatform.emulator buildPackages;
+    in ''
+      runHook preCheck
 
-    for testcase in selftest1 selftest2; do
-      ${emulator} ./eigenmath "test/$testcase"
-    done
+      for testcase in selftest1 selftest2; do
+        ${emulator} ./eigenmath "test/$testcase"
+      done
 
-    runHook postCheck
-  '' ;
+      runHook postCheck
+    ''
+    ;
 
   installPhase = ''
     runHook preInstall

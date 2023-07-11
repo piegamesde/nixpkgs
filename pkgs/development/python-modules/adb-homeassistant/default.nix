@@ -12,7 +12,7 @@ buildPythonPackage {
   pname = "adb-homeassistant";
   version = "1.3.1";
 
-  # pypi does not contain tests, using github sources instead
+    # pypi does not contain tests, using github sources instead
   src = fetchFromGitHub {
     owner = "JeffLIrion";
     repo = "python-adb";

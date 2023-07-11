@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       --prefix PATH : "${lib.makeBinPath [ ctags ]}"
   '';
 
-  # Sanity check.
+    # Sanity check.
   checkPhase = ''
     $releaseDir/ptags --help > /dev/null
   '';

@@ -12,7 +12,7 @@ buildPythonPackage rec {
     sha256 = "2fe02c9305f53168441948f4a03dfbfa2eacc73db30db4a93309083cb0e250a5";
   };
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "banal" ];

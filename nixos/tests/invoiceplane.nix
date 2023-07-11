@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
 
     nodes = {
-      invoiceplane_caddy = {
+      invoiceplane_caddy =
+        {
           ...
         }: {
           services.invoiceplane.webserver = "caddy";
@@ -30,7 +31,8 @@ import ./make-test-python.nix ({
             "site1.local"
             "site2.local"
           ];
-        };
+        }
+        ;
     };
 
     testScript = ''

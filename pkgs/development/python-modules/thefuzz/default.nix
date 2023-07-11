@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ levenshtein ];
 
-  # Skip linting
+    # Skip linting
   postPatch = ''
     substituteInPlace test_thefuzz.py --replace "import pycodestyle" ""
   '';

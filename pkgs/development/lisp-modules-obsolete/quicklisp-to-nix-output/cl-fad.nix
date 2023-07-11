@@ -19,7 +19,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-fad/2021-01-24/cl-fad-20210124-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-fad/2021-01-24/cl-fad-20210124-git.tgz"
+      ;
     sha256 = "17vkvkwg4wpyny5x2nsazgpip5nxxahsjngaxjyrj5z15d4lkrm0";
   };
 

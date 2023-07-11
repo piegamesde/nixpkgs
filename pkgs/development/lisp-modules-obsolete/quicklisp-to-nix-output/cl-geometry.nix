@@ -15,7 +15,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-geometry/2016-05-31/cl-geometry-20160531-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-geometry/2016-05-31/cl-geometry-20160531-git.tgz"
+      ;
     sha256 = "0v451w2dx9llvd2kgp3m5jn2n8n0xwynxf8zl436cngh63ag6s7p";
   };
 

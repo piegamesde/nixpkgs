@@ -30,11 +30,11 @@ let
   # Stage 1
   # Base
   llvm = callPackage ./llvm.nix {
-    isBroken =
-      stdenv.isAarch64; # https://github.com/RadeonOpenCompute/ROCm/issues/1831#issuecomment-1278205344
+    isBroken = stdenv.isAarch64
+      ; # https://github.com/RadeonOpenCompute/ROCm/issues/1831#issuecomment-1278205344
   };
 
-  # Projects
+    # Projects
   clang-unwrapped = callPackage ./llvm.nix rec {
     targetName = "clang";
     targetDir = targetName;
@@ -79,7 +79,7 @@ let
     checkTargets = [ "check-lld" ];
   };
 
-  # Runtimes
+    # Runtimes
   runtimes = callPackage ./llvm.nix {
     buildDocs = false;
     buildMan = false;
@@ -105,8 +105,8 @@ let
     extraLicenses = [ lib.licenses.mit ];
   };
 
-  # Stage 2
-  # Helpers
+    # Stage 2
+    # Helpers
   rStdenv = overrideCC stdenv (wrapCCWith rec {
     inherit bintools;
     libcxx = runtimes;
@@ -256,7 +256,7 @@ in rec {
       "-DLIBCXXABI_INSTALL_HEADERS=OFF"
     ];
 
-    # Most of these can't find `bash` or `mkdir`, might just be hard-coded paths, or PATH is altered
+      # Most of these can't find `bash` or `mkdir`, might just be hard-coded paths, or PATH is altered
     extraPostPatch = ''
       chmod +w -R ../libcxx/test/{libcxx,std}
       rm -rf ../libcxx/test/libcxx/input.output/filesystems
@@ -325,8 +325,8 @@ in rec {
     extraLicenses = [ lib.licenses.mit ];
   };
 
-  # Stage 3
-  # Helpers
+    # Stage 3
+    # Helpers
   rocmClangStdenv = overrideCC stdenv clang;
 
   clang = wrapCCWith rec {
@@ -394,12 +394,12 @@ in rec {
     '';
   };
 
-  # Base
-  # Unfortunately, we cannot build `clang-tools-extra` separately.
+    # Base
+    # Unfortunately, we cannot build `clang-tools-extra` separately.
   clang-tools-extra = callPackage ./llvm.nix {
     stdenv = rocmClangStdenv;
-    buildTests =
-      false; # `invalid operands to binary expression ('std::basic_stringstream<char>' and 'const llvm::StringRef')`
+    buildTests = false
+      ; # `invalid operands to binary expression ('std::basic_stringstream<char>' and 'const llvm::StringRef')`
     targetName = "clang-tools-extra";
 
     targetProjects = [
@@ -430,36 +430,37 @@ in rec {
     '';
   };
 
-  # Projects
-  libclc = let
-    spirv = (spirv-llvm-translator.override { inherit llvm; });
-  in
-  callPackage ./llvm.nix rec {
-    stdenv = rocmClangStdenv;
-    buildDocs = false; # No documentation to build
-    buildMan = false; # No man pages to build
-    targetName = "libclc";
-    targetDir = targetName;
-    extraBuildInputs = [ spirv ];
+    # Projects
+  libclc =
+    let
+      spirv = (spirv-llvm-translator.override { inherit llvm; });
+    in
+    callPackage ./llvm.nix rec {
+      stdenv = rocmClangStdenv;
+      buildDocs = false; # No documentation to build
+      buildMan = false; # No man pages to build
+      targetName = "libclc";
+      targetDir = targetName;
+      extraBuildInputs = [ spirv ];
 
-    # `spirv-mesa3d` isn't compiling with LLVM 15.0.0, it does with LLVM 14.0.0
-    # Try removing the `spirv-mesa3d` and `clspv` patches next update
-    # `clspv` tests fail, unresolved calls
-    extraPostPatch = ''
-      substituteInPlace CMakeLists.txt \
-        --replace "find_program( LLVM_CLANG clang PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
-          "find_program( LLVM_CLANG clang PATHS \"${clang}/bin\" NO_DEFAULT_PATH )" \
-        --replace "find_program( LLVM_SPIRV llvm-spirv PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
-          "find_program( LLVM_SPIRV llvm-spirv PATHS \"${spirv}/bin\" NO_DEFAULT_PATH )" \
-        --replace "  spirv-mesa3d-" "" \
-        --replace "  spirv64-mesa3d-" "" \
-        --replace "NOT \''${t} MATCHES" \
-          "NOT \''${ARCH} STREQUAL \"clspv\" AND NOT \''${ARCH} STREQUAL \"clspv64\" AND NOT \''${t} MATCHES"
-    '';
+        # `spirv-mesa3d` isn't compiling with LLVM 15.0.0, it does with LLVM 14.0.0
+        # Try removing the `spirv-mesa3d` and `clspv` patches next update
+        # `clspv` tests fail, unresolved calls
+      extraPostPatch = ''
+        substituteInPlace CMakeLists.txt \
+          --replace "find_program( LLVM_CLANG clang PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
+            "find_program( LLVM_CLANG clang PATHS \"${clang}/bin\" NO_DEFAULT_PATH )" \
+          --replace "find_program( LLVM_SPIRV llvm-spirv PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
+            "find_program( LLVM_SPIRV llvm-spirv PATHS \"${spirv}/bin\" NO_DEFAULT_PATH )" \
+          --replace "  spirv-mesa3d-" "" \
+          --replace "  spirv64-mesa3d-" "" \
+          --replace "NOT \''${t} MATCHES" \
+            "NOT \''${ARCH} STREQUAL \"clspv\" AND NOT \''${ARCH} STREQUAL \"clspv64\" AND NOT \''${t} MATCHES"
+      '';
 
-    checkTargets = [ ];
-  }
-  ;
+      checkTargets = [ ];
+    }
+    ;
 
   lldb = callPackage ./llvm.nix rec {
     stdenv = rocmClangStdenv;
@@ -604,7 +605,7 @@ in rec {
     extraLicenses = [ lib.licenses.mit ];
   };
 
-  # Runtimes
+    # Runtimes
   pstl = callPackage ./llvm.nix rec {
     stdenv = rocmClangStdenv;
     buildDocs = false; # No documentation to build

@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "stat64.patch";
       url =
-        "https://github.com/ninja-build/ninja/commit/7bba11ae704efc84cac5fde5e9be53f653f237d1.diff";
+        "https://github.com/ninja-build/ninja/commit/7bba11ae704efc84cac5fde5e9be53f653f237d1.diff"
+        ;
       hash = "sha256-tINS57xLh1lwnYFWCQs5OudfgtIShaOh5zbmv7w5BnQ=";
     })
   ];

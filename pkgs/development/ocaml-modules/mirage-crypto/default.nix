@@ -20,7 +20,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/mirage-crypto/releases/download/v${version}/mirage-crypto-${version}.tbz";
+      "https://github.com/mirage/mirage-crypto/releases/download/v${version}/mirage-crypto-${version}.tbz"
+      ;
     sha256 = "sha256-A5SCuVmcIJo3dL0Tu//fQqEV0v3FuCxuANWnBo7hUeQ=";
   };
 

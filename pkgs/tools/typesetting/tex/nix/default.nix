@@ -2,7 +2,8 @@ pkgs:
 
 rec {
 
-  runLaTeX = {
+  runLaTeX =
+    {
       rootFile,
       generatePDF ? true # generate PDF, not DVI
       ,
@@ -48,20 +49,22 @@ rec {
         pkgs.perl
       ] ++ packages;
     }
-  ;
+    ;
 
-  # Returns the closure of the "dependencies" of a LaTeX source file.
-  # Dependencies are other LaTeX source files (e.g. included using
-  # \input{}), images (e.g. \includegraphics{}), bibliographies, and
-  # so on.
-  findLaTeXIncludes = {
+    # Returns the closure of the "dependencies" of a LaTeX source file.
+    # Dependencies are other LaTeX source files (e.g. included using
+    # \input{}), images (e.g. \includegraphics{}), bibliographies, and
+    # so on.
+  findLaTeXIncludes =
+    {
       rootFile,
     }:
 
     builtins.genericClosure {
       startSet = [ { key = rootFile; } ];
 
-      operator = {
+      operator =
+        {
           key,
           ...
         }:
@@ -78,38 +81,44 @@ rec {
             src = key;
           } "${pkgs.perl}/bin/perl ${./find-includes.pl}");
 
-          # Look for the dependencies of `key', trying various
-          # extensions determined by the type of each dependency.
-          # TODO: support a search path.
-          foundDeps = dep: xs:
+            # Look for the dependencies of `key', trying various
+            # extensions determined by the type of each dependency.
+            # TODO: support a search path.
+          foundDeps =
+            dep: xs:
             let
-              exts = if dep.type == "img" then
-                [
-                  ".pdf"
-                  ".png"
-                  ".ps"
-                  ".jpg"
-                ]
-              else if dep.type == "tex" then
-                [
-                  ".tex"
-                  ""
-                ]
-              else
-                [ "" ];
+              exts =
+                if dep.type == "img" then
+                  [
+                    ".pdf"
+                    ".png"
+                    ".ps"
+                    ".jpg"
+                  ]
+                else if dep.type == "tex" then
+                  [
+                    ".tex"
+                    ""
+                  ]
+                else
+                  [ "" ]
+                ;
               fn = pkgs.lib.findFirst (fn: builtins.pathExists fn) null
                 (map (ext: dirOf key + ("/" + dep.name + ext)) exts);
             in if fn != null then
               [ { key = fn; } ] ++ xs
             else
-              xs;
+              xs
+            ;
 
         in
         pkgs.lib.foldr foundDeps [ ] deps
-      ;
-    };
+        ;
+    }
+    ;
 
-  findLhs2TeXIncludes = {
+  findLhs2TeXIncludes =
+    {
       lib,
       rootFile,
     }:
@@ -117,7 +126,8 @@ rec {
     builtins.genericClosure {
       startSet = [ { key = rootFile; } ];
 
-      operator = {
+      operator =
+        {
           key,
           ...
         }:
@@ -131,10 +141,12 @@ rec {
         pkgs.lib.concatMap
         (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
         (map (x: dirOf key + ("/" + x)) deps)
-      ;
-    };
+        ;
+    }
+    ;
 
-  dot2pdf = {
+  dot2pdf =
+    {
       dotGraph,
     }:
 
@@ -146,9 +158,11 @@ rec {
         pkgs.perl
         pkgs.graphviz
       ];
-    };
+    }
+    ;
 
-  dot2ps = {
+  dot2ps =
+    {
       dotGraph,
     }:
 
@@ -161,9 +175,11 @@ rec {
         pkgs.graphviz
         pkgs.ghostscript
       ];
-    };
+    }
+    ;
 
-  lhs2tex = {
+  lhs2tex =
+    {
       source,
       flags ? null
     }:
@@ -180,18 +196,22 @@ rec {
         x.key
         (baseNameOf (toString x.key))
       ]) (findLhs2TeXIncludes { rootFile = source; });
-    };
+    }
+    ;
 
-  animateDot = dotGraph: nrFrames:
+  animateDot =
+    dotGraph: nrFrames:
     pkgs.stdenv.mkDerivation {
       name = "dot-frames";
       builder = ./animatedot.sh;
       inherit dotGraph nrFrames;
-    };
+    }
+    ;
 
-  # Wrap a piece of TeX code in a document.  Useful when generating
-  # inline images from TeX code.
-  wrapSimpleTeX = {
+    # Wrap a piece of TeX code in a document.  Useful when generating
+    # inline images from TeX code.
+  wrapSimpleTeX =
+    {
       preamble ? null,
       body,
       name ? baseNameOf (toString body)
@@ -208,11 +228,13 @@ rec {
         cat $body >> $out
         echo '\end{document}' >> $out
       '';
-    };
+    }
+    ;
 
-  # Convert a Postscript file to a PNG image, trimming it so that
-  # there is no unnecessary surrounding whitespace.
-  postscriptToPNG = {
+    # Convert a Postscript file to a PNG image, trimming it so that
+    # there is no unnecessary surrounding whitespace.
+  postscriptToPNG =
+    {
       postscript,
     }:
 
@@ -244,10 +266,12 @@ rec {
           $input \
           "$out/$(basename $input .ps).png"
       ''; # */
-    };
+    }
+    ;
 
-  # Convert a piece of TeX code to a PNG image.
-  simpleTeXToPNG = {
+    # Convert a piece of TeX code to a PNG image.
+  simpleTeXToPNG =
+    {
       preamble ? null,
       body,
       packages ? [ ]
@@ -260,10 +284,12 @@ rec {
         generatePDF = false;
         generatePS = true;
       };
-    };
+    }
+    ;
 
-  # Convert a piece of TeX code to a PDF.
-  simpleTeXToPDF = {
+    # Convert a piece of TeX code to a PDF.
+  simpleTeXToPDF =
+    {
       preamble ? null,
       body,
       packages ? [ ]
@@ -272,11 +298,12 @@ rec {
     runLaTeX {
       rootFile = wrapSimpleTeX { inherit body preamble; };
       inherit packages;
-    };
+    }
+    ;
 
-  # Some tools (like dot) need a fontconfig configuration file.
-  # This should be extended to allow the called to add additional
-  # fonts.
+    # Some tools (like dot) need a fontconfig configuration file.
+    # This should be extended to allow the called to add additional
+    # fonts.
   fontsConf = pkgs.makeFontsConf {
     fontDirectories = [ "${pkgs.ghostscript}/share/ghostscript/fonts" ];
   };

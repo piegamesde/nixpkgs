@@ -22,7 +22,7 @@ stdenv.mkDerivation {
       --set NIX_GHC "${termonadEnv}/bin/ghc"
   '';
 
-  # trivial derivation
+    # trivial derivation
   preferLocalBuild = true;
   allowSubstitutes = false;
 

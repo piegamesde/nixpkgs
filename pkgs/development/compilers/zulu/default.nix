@@ -33,24 +33,32 @@ let
   sha256_x64_darwin = "sha256-nRRWTWiog8bRblmmPIPE5YibA34St3ZrJpZN91qEDUg=";
   sha256_aarch64_darwin = "sha256-TBTrBxOfGo6MV+Md49P3sDfqVG1e+NraqfVbw9WTppk=";
 
-  platform = if stdenv.isDarwin then
-    "macosx"
-  else
-    "linux";
-  hash = if stdenv.isAarch64 && stdenv.isDarwin then
-    sha256_aarch64_darwin
-  else if stdenv.isDarwin then
-    sha256_x64_darwin
-  else
-    sha256_x64_linux;
-  extension = if stdenv.isDarwin then
-    "zip"
-  else
-    "tar.gz";
-  architecture = if stdenv.isAarch64 then
-    "aarch64"
-  else
-    "x64";
+  platform =
+    if stdenv.isDarwin then
+      "macosx"
+    else
+      "linux"
+    ;
+  hash =
+    if stdenv.isAarch64 && stdenv.isDarwin then
+      sha256_aarch64_darwin
+    else if stdenv.isDarwin then
+      sha256_x64_darwin
+    else
+      sha256_x64_linux
+    ;
+  extension =
+    if stdenv.isDarwin then
+      "zip"
+    else
+      "tar.gz"
+    ;
+  architecture =
+    if stdenv.isAarch64 then
+      "aarch64"
+    else
+      "x64"
+    ;
 
   runtimeDependencies = [ cups ] ++ lib.optionals gtkSupport [
     cairo
@@ -67,7 +75,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://cdn.azul.com/zulu/bin/zulu${version}-ca-jdk${openjdk}-${platform}_${architecture}.${extension}";
+      "https://cdn.azul.com/zulu/bin/zulu${version}-ca-jdk${openjdk}-${platform}_${architecture}.${extension}"
+      ;
     sha256 = hash;
   };
 

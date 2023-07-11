@@ -16,8 +16,8 @@ let
   version = "0.3.3";
   pname = "lensfun";
 
-  # Fetch a more recent version of the repo containing a more recent lens
-  # database
+    # Fetch a more recent version of the repo containing a more recent lens
+    # database
   lensfunDatabase = fetchFromGitHub {
     owner = "lensfun";
     repo = "lensfun";
@@ -39,14 +39,15 @@ stdenv.mkDerivation {
   patches = [ (fetchpatch {
     name = "fix-compilation-with-clang.patch";
     url =
-      "https://github.com/lensfun/lensfun/commit/5c2065685a22f19f8138365c0e5acf0be8329c02.patch";
+      "https://github.com/lensfun/lensfun/commit/5c2065685a22f19f8138365c0e5acf0be8329c02.patch"
+      ;
     sha256 = "sha256-tAOCNL37pKE7hfQCu+hUTKLFnRHWF5Dplqf+GaucG+4=";
   }) ];
 
-  # replace database with a more recent snapshot
-  # the mastr branch uses version 2 profiles, while 0.3.3 requires version 1 profiles,
-  # so we run the conversion tool the project provides,
-  # then untar the verson 1 profiles into the source dir before we build
+    # replace database with a more recent snapshot
+    # the mastr branch uses version 2 profiles, while 0.3.3 requires version 1 profiles,
+    # so we run the conversion tool the project provides,
+    # then untar the verson 1 profiles into the source dir before we build
   prePatch = ''
     rm -R data/db
     python3 ${lensfunDatabase}/tools/lensfun_convert_db_v2_to_v1.py $TMPDIR ${lensfunDatabase}/data/db

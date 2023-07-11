@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4+H0IXjAwbL5mAWfsIVhW0BSJhcWjkQx4j2TrzZ3aIo=";
   };
 
-  # Fix linkage issues on X11 (https://github.com/NixOS/nixpkgs/issues/142583)
+    # Fix linkage issues on X11 (https://github.com/NixOS/nixpkgs/issues/142583)
   patches = lib.optional (!waylandSupport) ./x11.patch;
 
   propagatedBuildInputs = [ libGL ];
@@ -40,24 +40,26 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
     ++ lib.optional waylandSupport extra-cmake-modules;
 
-  buildInputs = if waylandSupport then
-    [
-      wayland
-      wayland-protocols
-      libxkbcommon
-    ]
-  else
-    [
-      libX11
-      libXrandr
-      libXinerama
-      libXcursor
-      libXi
-      libXext
-    ] ++ lib.optionals stdenv.isDarwin [
-      Cocoa
-      Kernel
-    ];
+  buildInputs =
+    if waylandSupport then
+      [
+        wayland
+        wayland-protocols
+        libxkbcommon
+      ]
+    else
+      [
+        libX11
+        libXrandr
+        libXinerama
+        libXcursor
+        libXi
+        libXext
+      ] ++ lib.optionals stdenv.isDarwin [
+        Cocoa
+        Kernel
+      ]
+    ;
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ] ++ lib.optionals
     (!stdenv.isDarwin) [ "-DCMAKE_C_FLAGS=-D_GLFW_GLX_LIBRARY='\"${
@@ -78,7 +80,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Multi-platform library for creating OpenGL contexts and managing input, including keyboard, mouse, joystick and time";
+      "Multi-platform library for creating OpenGL contexts and managing input, including keyboard, mouse, joystick and time"
+      ;
     homepage = "https://www.glfw.org/";
     license = licenses.zlib;
     maintainers = with maintainers; [

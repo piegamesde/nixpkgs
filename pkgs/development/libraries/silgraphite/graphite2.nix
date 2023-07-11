@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = lib.optionals static [ "-DBUILD_SHARED_LIBS=OFF" ];
 
-  # Remove a test that fails to statically link (undefined reference to png and
-  # freetype symbols)
+    # Remove a test that fails to statically link (undefined reference to png and
+    # freetype symbols)
   postConfigure = lib.optionalString static ''
     sed -e '/freetype freetype.c/d' -i ../tests/examples/CMakeLists.txt
   '';

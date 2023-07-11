@@ -31,13 +31,15 @@ let
     ]; # Right- or left-handed.
   };
   product = lib.cartesianProductOfSets dimensions;
-  variantName = {
+  variantName =
+    {
       color,
       opacity,
       thickness,
       handedness,
     }:
-    "${handedness}${opacity}${thickness}${color}";
+    "${handedness}${opacity}${thickness}${color}"
+    ;
   variants =
     # (The order of this list is already good looking enough to show in the
     # meta.longDescription.)
@@ -50,7 +52,7 @@ stdenvNoCC.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "limitland";
     repo = "comixcursors";
-    # https://gitlab.com/limitland/comixcursors/-/issues/3
+      # https://gitlab.com/limitland/comixcursors/-/issues/3
     rev = "8c327c8514ab3a352583605c1ddcb7eb3d1d302b";
     sha256 = "0bpxqw4izj7m0zb9lnxnmsjicfw60ppkdyv5nwrrz4x865wb296a";
   };
@@ -67,17 +69,17 @@ stdenvNoCC.mkDerivation rec {
     patchShebangs ./install-all ./bin/
   '';
 
-  # install-all is used instead of the directions in upstream's INSTALL file,
-  # because using its Makefile directly is broken.  Upstream itself seems to use
-  # its build-distribution script instead, which also uses install-all, but we
-  # do not use it because it does extra things for other distros.
-  #
-  # When not all of the variants, i.e. only a smaller subset of them, are
-  # desired (i.e. when a subset of outputs are chosen), install-all will still
-  # build all of them.  While upstream appears to provide old functionality for
-  # building only a subset, it is broken and we do not use it.  With prebuilt
-  # substitutions, installers of this package will get only the outputs they
-  # chose.
+    # install-all is used instead of the directions in upstream's INSTALL file,
+    # because using its Makefile directly is broken.  Upstream itself seems to use
+    # its build-distribution script instead, which also uses install-all, but we
+    # do not use it because it does extra things for other distros.
+    #
+    # When not all of the variants, i.e. only a smaller subset of them, are
+    # desired (i.e. when a subset of outputs are chosen), install-all will still
+    # build all of them.  While upstream appears to provide old functionality for
+    # building only a subset, it is broken and we do not use it.  With prebuilt
+    # substitutions, installers of this package will get only the outputs they
+    # chose.
   buildPhase = ''
     ICONSDIR=$TMP/staged ./install-all
   '';
@@ -100,19 +102,20 @@ stdenvNoCC.mkDerivation rec {
     mkdir -p $out
   '';
 
-  outputs = let
-    default = "Opaque_Black";
-    # Have the most-traditional variant be the default output (as the first).
-    # Even with outputsToInstall=[], the default/first still has an effect on
-    # some Nix tools (e.g. nix-build).
-  in
-  [ default ] ++ (lib.remove default variants)
-  # Need a dummy "out" output to prevent the builder scripts from breaking.
-  ++ [ "out" ]
-  ;
+  outputs =
+    let
+      default = "Opaque_Black";
+      # Have the most-traditional variant be the default output (as the first).
+      # Even with outputsToInstall=[], the default/first still has an effect on
+      # some Nix tools (e.g. nix-build).
+    in
+    [ default ] ++ (lib.remove default variants)
+    # Need a dummy "out" output to prevent the builder scripts from breaking.
+    ++ [ "out" ]
+    ;
 
-  # No default output (to the extent possible).  Instead, the outputs'
-  # attributes are used to choose which variant(s) to have.
+    # No default output (to the extent possible).  Instead, the outputs'
+    # attributes are used to choose which variant(s) to have.
   outputsToInstall = [ ];
 
   meta = with lib; {

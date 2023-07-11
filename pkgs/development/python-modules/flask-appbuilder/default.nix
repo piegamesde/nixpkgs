@@ -70,7 +70,7 @@ buildPythonPackage rec {
       --replace "prison>=0.2.1, <1.0.0" "prison"
   '';
 
-  # Majority of tests require network access or mongo
+    # Majority of tests require network access or mongo
   doCheck = false;
 
   pythonImportsCheck = [ "flask_appbuilder" ];
@@ -79,10 +79,11 @@ buildPythonPackage rec {
     description = "Application development framework, built on top of Flask";
     homepage = "https://github.com/dpgaspar/flask-appbuilder/";
     changelog =
-      "https://github.com/dpgaspar/Flask-AppBuilder/blob/v${version}/CHANGELOG.rst";
+      "https://github.com/dpgaspar/Flask-AppBuilder/blob/v${version}/CHANGELOG.rst"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
-    # Support for flask-sqlalchemy >= 3.0 is missing, https://github.com/dpgaspar/Flask-AppBuilder/pull/1940
+      # Support for flask-sqlalchemy >= 3.0 is missing, https://github.com/dpgaspar/Flask-AppBuilder/pull/1940
     broken = true;
   };
 }

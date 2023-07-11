@@ -9,7 +9,7 @@ buildGoModule rec {
   pname = "itd";
   version = "1.0.0";
 
-  # https://gitea.arsenm.dev/Arsen6331/itd/tags
+    # https://gitea.arsenm.dev/Arsen6331/itd/tags
   src = fetchFromGitea {
     domain = "gitea.arsenm.dev";
     owner = "Arsen6331";

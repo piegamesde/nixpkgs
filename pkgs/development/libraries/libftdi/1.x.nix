@@ -18,11 +18,13 @@
 
 let
   inherit (lib) optionals optionalString;
-  onOff = a:
+  onOff =
+    a:
     if a then
       "ON"
     else
-      "OFF";
+      "OFF"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "libftdi";

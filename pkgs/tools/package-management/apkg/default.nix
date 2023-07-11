@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "duZz2Kwjgek5pMJTDH8gMZAZ13uFwaIYT5E1brW7I7U=";
   };
 
-  # TODO: solve this properly.  Detection won't work anymore.
+    # TODO: solve this properly.  Detection won't work anymore.
   postPatch = ''
     patch <<-EOF
       --- a/setup.py
@@ -46,18 +46,17 @@ python3Packages.buildPythonApplication rec {
     toml # config files
   ];
 
-  makeWrapperArgs =
-    [ # deps for `srcpkg` operation for other distros; could be optional
-      "--prefix"
-      "PATH"
-      ":"
-      (lib.makeBinPath [
-        gitMinimal
-        rpm
-        dpkg
-        fakeroot
-      ])
-    ];
+  makeWrapperArgs = [ # deps for `srcpkg` operation for other distros; could be optional
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      gitMinimal
+      rpm
+      dpkg
+      fakeroot
+    ])
+  ];
 
   nativeCheckInputs = with python3Packages; [ pytest ];
   checkPhase = ''

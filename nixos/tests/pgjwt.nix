@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      master = {
+      master =
+        {
           ...
         }: {
           services.postgresql = {
@@ -24,10 +25,12 @@ import ./make-test-python.nix ({
               pgtap
             ];
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -43,5 +46,6 @@ import ./make-test-python.nix ({
         master.succeed(
             "${pkgs.sudo}/bin/sudo -u ${sqlSU} PGOPTIONS=--search_path=tap,public ${pgProve}/bin/pg_prove -d postgres -v -f /tmp/test.sql"
         )
-      '' ;
+      ''
+      ;
   })

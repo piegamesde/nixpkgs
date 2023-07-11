@@ -33,13 +33,15 @@ lib.warnIf (extraPostFetch != "")
 "use 'postFetch' instead of 'extraPostFetch' with 'fetchzip' and 'fetchFromGitHub'."
 
 (let
-  tmpFilename = if extension != null then
-    "download.${extension}"
-  else
-    baseNameOf (if url != "" then
-      url
+  tmpFilename =
+    if extension != null then
+      "download.${extension}"
     else
-      builtins.head urls);
+      baseNameOf (if url != "" then
+        url
+      else
+        builtins.head urls)
+    ;
 
 in
 fetchurl ((if (pname != "" && version != "") then
@@ -53,9 +55,9 @@ else
 
     downloadToTemp = true;
 
-    # Have to pull in glibcLocalesUtf8 for unzip in setup-hook.sh to handle
-    # UTF-8 aware locale:
-    #   https://github.com/NixOS/nixpkgs/issues/176225#issuecomment-1146617263
+      # Have to pull in glibcLocalesUtf8 for unzip in setup-hook.sh to handle
+      # UTF-8 aware locale:
+      #   https://github.com/NixOS/nixpkgs/issues/176225#issuecomment-1146617263
     nativeBuildInputs = [
       unzip
       glibcLocalesUtf8

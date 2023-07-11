@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
   srcs = [
     (fetchurl {
       url =
-        "https://cdn.mysql.com//Downloads/MySQL-Shell/mysql-shell-${version}-src.tar.gz";
+        "https://cdn.mysql.com//Downloads/MySQL-Shell/mysql-shell-${version}-src.tar.gz"
+        ;
       hash = "sha256-ElcAOvyQjXNns35p4J+jnGu8orZR81Itz/fxYh7Usbs=";
     })
     (fetchurl {

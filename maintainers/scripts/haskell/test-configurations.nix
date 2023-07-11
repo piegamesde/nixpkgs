@@ -71,11 +71,11 @@ let
 
   packageSetsWithVersionedHead = pkgs.haskell.packages // (let
     headSet = pkgs.haskell.packages.ghcHEAD;
-    # Determine the next GHC release version following GHC HEAD.
-    # GHC HEAD always has an uneven, tentative version number, e.g. 9.7.
-    # GHC releases always have even numbers, i.e. GHC 9.8 is branched off from
-    # GHC HEAD 9.7. Since we use the to be release number for GHC HEAD's
-    # configuration file, we need to calculate this here.
+      # Determine the next GHC release version following GHC HEAD.
+      # GHC HEAD always has an uneven, tentative version number, e.g. 9.7.
+      # GHC releases always have even numbers, i.e. GHC 9.8 is branched off from
+      # GHC HEAD 9.7. Since we use the to be release number for GHC HEAD's
+      # configuration file, we need to calculate this here.
     headVersion = lib.pipe headSet.ghc.version [
       lib.versions.splitVersion
       (lib.take 2)
@@ -88,15 +88,16 @@ let
     "ghc${headVersion}" = headSet;
   } );
 
-  setsForFile = fileName:
+  setsForFile =
+    fileName:
     let
       # extract the unique part of the config's file name
       configName =
         builtins.head (builtins.match "configuration-(.+).nix" fileName);
-      # match the major and minor version of the GHC the config is intended for, if any
+        # match the major and minor version of the GHC the config is intended for, if any
       configVersion =
         lib.concatStrings (builtins.match "ghc-([0-9]+).([0-9]+).x" configName);
-      # return all package sets under haskell.packages matching the version components
+        # return all package sets under haskell.packages matching the version components
       setsForVersion = builtins.map (name: packageSetsWithVersionedHead.${name})
         (builtins.filter (setName:
           lib.hasPrefix "ghc${configVersion}" setName
@@ -113,25 +114,27 @@ let
       "arm" = defaultSets;
       "darwin" = defaultSets;
     }.${configName} or setsForVersion
-  ;
+    ;
 
-  # attribute set that has all the attributes of haskellPackages set to null
+    # attribute set that has all the attributes of haskellPackages set to null
   availableHaskellPackages = builtins.listToAttrs
     (builtins.map (attr: lib.nameValuePair attr null)
       (builtins.attrNames pkgs.haskellPackages));
 
-  # evaluate a configuration and only return the attributes changed by it,
-  # pass availableHaskellPackages as super in case intersectAttrs is used
-  overriddenAttrs = fileName:
+    # evaluate a configuration and only return the attributes changed by it,
+    # pass availableHaskellPackages as super in case intersectAttrs is used
+  overriddenAttrs =
+    fileName:
     builtins.attrNames (lib.fix (self:
       import (nixpkgsPath + "/pkgs/development/haskell-modules/${fileName}") {
         haskellLib = pkgs.haskell.lib.compose;
         inherit pkgs;
-      } self availableHaskellPackages));
+      } self availableHaskellPackages))
+    ;
 
-  # list of derivations that are affected by overrides in the given configuration
-  # overlays. For common, nix, darwin etc. only the derivation from the default
-  # package set will be emitted.
+    # list of derivations that are affected by overrides in the given configuration
+    # overlays. For common, nix, darwin etc. only the derivation from the default
+    # package set will be emitted.
   packages = builtins.filter (v:
     lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (v
       != null

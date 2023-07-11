@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/denesb/xfce4-i3-workspaces-plugin";
     description =
-      "Workspace switcher plugin for xfce4-panel which can be used for the i3 window manager";
+      "Workspace switcher plugin for xfce4-panel which can be used for the i3 window manager"
+      ;
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ berbiche ] ++ teams.xfce.members;

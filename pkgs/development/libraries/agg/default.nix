@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       --replace 'line_profile_aa& profile() {' 'const line_profile_aa& profile() {'
   '';
 
-  # fix build with new automake, from Gentoo ebuild
+    # fix build with new automake, from Gentoo ebuild
   preConfigure = ''
     sed -i '/^AM_C_PROTOTYPES/d' configure.in
     sh autogen.sh
@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
     "--x-libraries=${lib.getLib libX11}/lib"
   ];
 
-  # libtool --tag=CXX --mode=link g++ -g -O2 libexamples.la ../src/platform/X11/libaggplatformX11.la ../src/libagg.la -o alpha_mask2 alpha_mask2.o
-  # libtool: error: cannot find the library 'libexamples.la'
+    # libtool --tag=CXX --mode=link g++ -g -O2 libexamples.la ../src/platform/X11/libaggplatformX11.la ../src/libagg.la -o alpha_mask2 alpha_mask2.o
+    # libtool: error: cannot find the library 'libexamples.la'
   enableParallelBuilding = false;
 
   meta = {

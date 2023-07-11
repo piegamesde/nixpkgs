@@ -74,7 +74,8 @@ let
     meta = with lib; {
       homepage = "https://github.com/jketterl/owrx_connector";
       description =
-        "A set of connectors that are used by OpenWebRX to interface with SDR hardware";
+        "A set of connectors that are used by OpenWebRX to interface with SDR hardware"
+        ;
       license = licenses.gpl3Only;
       platforms = platforms.unix;
       maintainers = teams.c3d2.members;

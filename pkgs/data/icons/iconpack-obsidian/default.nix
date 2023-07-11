@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
     mint-x-icons
     hicolor-icon-theme
   ];
-  # still missing parent themes: Ambiant-MATE, Faenza-Dark, KFaenza
+    # still missing parent themes: Ambiant-MATE, Faenza-Dark, KFaenza
 
   dontDropIconThemeCache = true;
 
@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Gnome icon pack based upon Faenza";
     homepage = "https://github.com/madmaxms/iconpack-obsidian";
     license = licenses.gpl3Only;
-    # darwin cannot deal with file names differing only in case
+      # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];
   };

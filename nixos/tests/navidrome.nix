@@ -4,11 +4,13 @@ import ./make-test-python.nix ({
   }: {
     name = "navidrome";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.navidrome.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("navidrome")

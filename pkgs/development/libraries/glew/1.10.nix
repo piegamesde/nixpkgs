@@ -21,18 +21,22 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "01zki46dr5khzlyywr3cg615bcal32dazfazkf360s1znqh17i4r";
   };
 
-  buildInputs = if stdenv.isDarwin then
-    [ AGL ]
-  else
-    [
-      libXmu
-      libXi
-      libXext
-    ];
-  propagatedBuildInputs = if stdenv.isDarwin then
-    [ OpenGL ]
-  else
-    [ libGLU ]; # GL/glew.h includes GL/glu.h
+  buildInputs =
+    if stdenv.isDarwin then
+      [ AGL ]
+    else
+      [
+        libXmu
+        libXi
+        libXext
+      ]
+    ;
+  propagatedBuildInputs =
+    if stdenv.isDarwin then
+      [ OpenGL ]
+    else
+      [ libGLU ]
+    ; # GL/glew.h includes GL/glu.h
 
   outputs = [
     "out"
@@ -73,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "An OpenGL extension loading library for C(++)";
     homepage = "https://glew.sourceforge.net/";
     license = licenses.free; # different files under different licenses
-    #["BSD" "GLX" "SGI-B" "GPL2"]
+      #["BSD" "GLX" "SGI-B" "GPL2"]
     pkgConfigModules = [ "glew" ];
     platforms = platforms.mesaPlatforms;
   };

@@ -52,14 +52,15 @@ python3.pkgs.buildPythonApplication rec {
     installManPage docs/offlineimapui.7
   '';
 
-  # Test requires credentials
+    # Test requires credentials
   doCheck = false;
 
   pythonImportsCheck = [ "offlineimap" ];
 
   meta = with lib; {
     description =
-      "Synchronize emails between two repositories, so that you can read the same mailbox from multiple computers";
+      "Synchronize emails between two repositories, so that you can read the same mailbox from multiple computers"
+      ;
     homepage = "http://offlineimap.org";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ endocrimes ];

@@ -31,7 +31,8 @@ buildPythonPackage rec {
     # https://github.com/enthought/apptools/issues/303
     (fetchpatch {
       url =
-        "https://github.com/enthought/apptools/commit/10fb73916124f7ae7edf6c6688a05ad95678488f.patch";
+        "https://github.com/enthought/apptools/commit/10fb73916124f7ae7edf6c6688a05ad95678488f.patch"
+        ;
       hash = "sha256-izAcP5RWobLvnk2PQx31SX/TUGkw+prbYbjamYVmtjY=";
       name = "fix_python310_tests.patch";
     })
@@ -40,7 +41,8 @@ buildPythonPackage rec {
     # in the next release after 5.1.0.
     (fetchpatch {
       url =
-        "https://github.com/enthought/apptools/commit/0ae4f52f19a8c0ca9d7926e17c7de949097f24b4.patch";
+        "https://github.com/enthought/apptools/commit/0ae4f52f19a8c0ca9d7926e17c7de949097f24b4.patch"
+        ;
       sha256 = "165aiwjisr5c3lasg7xblcha7y1y5bq23vi3g9gc80c24bzwcbsw";
       name = "fix_importlib-resources_naming.patch";
     })
@@ -66,7 +68,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Set of packages that Enthought has found useful in creating a number of applications";
+      "Set of packages that Enthought has found useful in creating a number of applications"
+      ;
     homepage = "https://github.com/enthought/apptools";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ knedlsepp ];

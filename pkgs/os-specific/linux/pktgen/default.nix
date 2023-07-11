@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     # Ealier DPDK deprecated some macros, which were finally removed in >= 22.11
     url =
-      "https://github.com/pktgen/Pktgen-DPDK/commit/089ef94ac04629f7380f5e618443bcacb2cef5ab.patch";
+      "https://github.com/pktgen/Pktgen-DPDK/commit/089ef94ac04629f7380f5e618443bcacb2cef5ab.patch"
+      ;
     sha256 = "sha256-ITU/dIfu7QPpdIVYuCuDhDG9rVF+n8i1YYn9bFmQUME=";
   }) ];
 
@@ -59,7 +60,7 @@ stdenv.mkDerivation rec {
     "-Wno-error=use-after-free"
   ];
 
-  # requires symbols from this file
+    # requires symbols from this file
   NIX_LDFLAGS = "-lrte_net_bond";
 
   postPatch = ''

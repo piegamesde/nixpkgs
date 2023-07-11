@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     export INSTALL="${coreutils}/bin/install"
   '';
 
-  # everything is done in `make install`
+    # everything is done in `make install`
   buildPhase = "true";
 
   installFlags = [ "PREFIX=$(out)" ];
@@ -29,22 +29,26 @@ stdenv.mkDerivation rec {
     # hardcode values for some variables.
     (fetchpatch {
       url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/rubiks/patches/dietz-cu2-Makefile.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/rubiks/patches/dietz-cu2-Makefile.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba"
+        ;
       sha256 = "1ry3w1mk9q4jqd91zlaa1bdiiplld4hpfjaldbhlmzlgrrc99qmq";
     })
     (fetchpatch {
       url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/rubiks/patches/dietz-mcube-Makefile.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/rubiks/patches/dietz-mcube-Makefile.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba"
+        ;
       sha256 = "0zsbh6k3kqdg82fv0kzghr1x7pafisv943gmssqscp107bhg77bz";
     })
     (fetchpatch {
       url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/rubiks/patches/dietz-solver-Makefile.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/rubiks/patches/dietz-solver-Makefile.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba"
+        ;
       sha256 = "0vhw70ylnmydgjhwx8jjlb2slccj4pfqn6vzirkyz1wp8apsmfhp";
     })
     (fetchpatch {
       url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/rubiks/patches/reid-Makefile.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/rubiks/patches/reid-Makefile.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba"
+        ;
       sha256 = "1r311sn012xs135s0d21qwsig2kld7rdcq19nm0zbnklviid57df";
     })
   ];
@@ -52,7 +56,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.sagemath.org/spkg/rubiks";
     description = "Several programs for working with Rubik's cubes";
-    # The individual websites are no longer available
+      # The individual websites are no longer available
     longDescription = ''
       There are several programs for working with Rubik's cubes, by three
       different people. Look inside the directories under /src to see

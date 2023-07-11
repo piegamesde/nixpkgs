@@ -27,20 +27,22 @@ buildGoModule rec {
 
   subPackages = [ "cmd/authelia" ];
 
-  ldflags = let
-    p = "github.com/authelia/authelia/v${
-        lib.versions.major version
-      }/internal/utils";
-  in [
-    "-s"
-    "-w"
-    "-X ${p}.BuildTag=v${version}"
-    "-X '${p}.BuildState=tagged clean'"
-    "-X ${p}.BuildBranch=v${version}"
-    "-X ${p}.BuildExtra=nixpkgs"
-  ] ;
+  ldflags =
+    let
+      p = "github.com/authelia/authelia/v${
+          lib.versions.major version
+        }/internal/utils";
+    in [
+      "-s"
+      "-w"
+      "-X ${p}.BuildTag=v${version}"
+      "-X '${p}.BuildState=tagged clean'"
+      "-X ${p}.BuildBranch=v${version}"
+      "-X ${p}.BuildExtra=nixpkgs"
+    ]
+    ;
 
-  # several tests with networking and several that want chromium
+    # several tests with networking and several that want chromium
   doCheck = false;
 
   postInstall = ''

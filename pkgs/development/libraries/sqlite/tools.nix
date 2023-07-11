@@ -10,7 +10,8 @@
 
 let
   archiveVersion = import ./archive-version.nix lib;
-  mkTool = {
+  mkTool =
+    {
       pname,
       makeTarget,
       description,
@@ -21,7 +22,7 @@ let
       inherit pname;
       version = "3.41.2";
 
-      # nixpkgs-update: no auto update
+        # nixpkgs-update: no auto update
       src = assert version == sqlite.version;
         fetchurl {
           url =
@@ -43,7 +44,8 @@ let
         maintainers = with maintainers; [ johnazoidberg ];
         platforms = platforms.unix;
       };
-    };
+    }
+    ;
 in {
   sqldiff = mkTool {
     pname = "sqldiff";

@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ regex ];
 
-  # loops forever
+    # loops forever
   doCheck = !stdenv.isDarwin;
 
   pythonImportsCheck = [ "somajo" ];

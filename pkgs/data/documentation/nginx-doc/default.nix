@@ -26,13 +26,13 @@ stdenv.mkDerivation {
     libxml2
   ];
 
-  # Generated documentation is not local-friendly, since it assumes that link to directory
-  # is the same as link to index.html in that directory, which is not how browsers behave
-  # with local filesystem.
-  #
-  # TODO: patch all relative links that do not end with .html.
+    # Generated documentation is not local-friendly, since it assumes that link to directory
+    # is the same as link to index.html in that directory, which is not how browsers behave
+    # with local filesystem.
+    #
+    # TODO: patch all relative links that do not end with .html.
 
-  # /en subdirectory must exist, relative links expect it.
+    # /en subdirectory must exist, relative links expect it.
   installPhase = ''
     mkdir -p $out/share/doc/nginx
     mv libxslt/en $out/share/doc/nginx

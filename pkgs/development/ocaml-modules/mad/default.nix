@@ -23,7 +23,8 @@ buildDunePackage rec {
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-mad";
     description =
-      "Bindings for the mad library which provides functions for encoding wave audio files into mp3";
+      "Bindings for the mad library which provides functions for encoding wave audio files into mp3"
+      ;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ dandellion ];
   };

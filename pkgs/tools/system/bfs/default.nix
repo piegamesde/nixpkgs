@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     acl
   ];
 
-  # Disable LTO on darwin. See https://github.com/NixOS/nixpkgs/issues/19098
+    # Disable LTO on darwin. See https://github.com/NixOS/nixpkgs/issues/19098
   preConfigure = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile --replace "-flto -DNDEBUG" "-DNDEBUG"
   '';

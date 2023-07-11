@@ -47,13 +47,13 @@ stdenv.mkDerivation rec {
     sed -i -e 's|/bin/pwd|pwd|g' configure
   '';
 
-  # The tests fail on darwin because of install_name if they run
-  # before the frameworks are installed.
+    # The tests fail on darwin because of install_name if they run
+    # before the frameworks are installed.
   doCheck = false;
   doInstallCheck = true;
   installCheckTarget = "check";
 
-  # Hack to avoid TMPDIR in RPATHs.
+    # Hack to avoid TMPDIR in RPATHs.
   preFixup = "rm -rf lib";
 
   meta = with lib; {

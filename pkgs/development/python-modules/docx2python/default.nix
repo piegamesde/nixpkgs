@@ -9,7 +9,7 @@ buildPythonPackage rec {
   pname = "docx2python";
   version = "unstable-2020-11-15";
 
-  # Pypi does not contain tests
+    # Pypi does not contain tests
   src = fetchFromGitHub {
     owner = "ShayHill";
     repo = pname;
@@ -30,7 +30,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/ShayHill/docx2python";
     description =
-      "Extract docx headers, footers, (formatted) text, footnotes, endnotes, properties, and images";
+      "Extract docx headers, footers, (formatted) text, footnotes, endnotes, properties, and images"
+      ;
     maintainers = [ maintainers.ivar ];
     license = licenses.mit;
   };

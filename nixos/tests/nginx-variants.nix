@@ -11,7 +11,8 @@ builtins.listToAttrs (builtins.map (nginxName: {
   value = makeTest {
     name = "nginx-variant-${nginxName}";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -20,7 +21,8 @@ builtins.listToAttrs (builtins.map (nginxName: {
           virtualHosts.localhost.locations."/".return = "200 'foo'";
           package = pkgs."${nginxName}";
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("nginx")

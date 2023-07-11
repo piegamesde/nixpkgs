@@ -1,7 +1,8 @@
 import ./make-test-python.nix {
   name = "nginx-pubhtml";
 
-  nodes.machine = {
+  nodes.machine =
+    {
       pkgs,
       ...
     }: {
@@ -11,7 +12,8 @@ import ./make-test-python.nix {
         locations."~ ^/\\~([a-z0-9_]+)(/.*)?$".alias = "/home/$1/public_html$2";
       };
       users.users.foo.isNormalUser = true;
-    };
+    }
+    ;
 
   testScript = ''
     machine.wait_for_unit("nginx")

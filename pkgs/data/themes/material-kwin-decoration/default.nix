@@ -27,7 +27,7 @@ mkDerivation rec {
     sha256 = "sha256-Ncn5jxkuN4ZBWihfycdQwpJ0j4sRpBGMCl6RNiH4mXg=";
   };
 
-  # Remove -Werror since it uses deprecated methods
+    # Remove -Werror since it uses deprecated methods
   postPatch = ''
     substituteInPlace ./CMakeLists.txt \
       --replace "add_definitions (-Wall -Werror)" "add_definitions (-Wall)"

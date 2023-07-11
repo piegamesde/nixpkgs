@@ -53,7 +53,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/deepmind/distrax";
     license = licenses.asl20;
     maintainers = with maintainers; [ onny ];
-    # Broken on all platforms (starting 2022-07-27)
+      # Broken on all platforms (starting 2022-07-27)
     broken = true;
   };
 }

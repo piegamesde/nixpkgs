@@ -13,8 +13,8 @@
 let
   stdenv = stdenvNoCC;
 
-  darwinCodeSign = stdenv.targetPlatform.isDarwin
-    && stdenv.targetPlatform.isAarch64;
+  darwinCodeSign =
+    stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64;
 
 in
 stdenv.mkDerivation {
@@ -37,8 +37,10 @@ stdenv.mkDerivation {
 
   inherit (builtins) storeDir;
   shell = lib.getBin shell + (shell.shellPath or "");
-  signingUtils = if darwinCodeSign then
-    signingUtils
-  else
-    null;
+  signingUtils =
+    if darwinCodeSign then
+      signingUtils
+    else
+      null
+    ;
 }

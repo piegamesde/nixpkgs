@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta.maintainers = [ lib.maintainers.elvishjerricco ];
 
     nodes = with lib; {
-      server = {
+      server =
+        {
           config,
           pkgs,
           ...
@@ -29,19 +30,21 @@ import ./make-test-python.nix ({
               enable = true;
               ssh = {
                 enable = true;
-                authorizedKeys =
-                  [ (readFile ./initrd-network-ssh/id_ed25519.pub) ];
+                authorizedKeys = [ (readFile
+                  ./initrd-network-ssh/id_ed25519.pub) ];
                 port = 22;
-                # Terrible hack so it works with useBootLoader
+                  # Terrible hack so it works with useBootLoader
                 hostKeys = [ {
                   outPath = "${./initrd-network-ssh/ssh_host_ed25519_key}";
                 } ];
               };
             };
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           config,
           ...
         }: {
@@ -62,7 +65,8 @@ import ./make-test-python.nix ({
               mode = "0600";
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

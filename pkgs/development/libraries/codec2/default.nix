@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals freedvSupport [ lpcnetfreedv ];
 
-  # Install a binary that is used by openwebrx
+    # Install a binary that is used by openwebrx
   postInstall = ''
     install -Dm0755 src/freedv_rx -t $out/bin/
   '';
 
-  # Swap keyword order to satisfy SWIG parser
+    # Swap keyword order to satisfy SWIG parser
   postFixup = ''
     sed -r -i 's/(\<_Complex)(\s+)(float|double)/\3\2\1/' $out/include/$pname/freedv_api.h
   '';
@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Speech codec designed for communications quality speech at low data rates";
+      "Speech codec designed for communications quality speech at low data rates"
+      ;
     homepage = "https://www.rowetel.com/codec2.html";
     license = licenses.lgpl21Only;
     platforms = platforms.unix;

@@ -13,7 +13,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/listadmin/${version}/listadmin-${version}.tar.gz";
+      "mirror://sourceforge/project/listadmin/${version}/listadmin-${version}.tar.gz"
+      ;
     sha256 = "00333d65ygdbm1hqr4yp2j8vh1cgh3hyfm7iy9y1alf0p0f6aqac";
   };
 
@@ -23,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
     installShellFiles
   ];
 
-  # There is a Makefile, but we don’t need it, and it prints errors
+    # There is a Makefile, but we don’t need it, and it prints errors
   dontBuild = true;
 
   installPhase = ''

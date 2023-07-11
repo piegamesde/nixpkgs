@@ -36,7 +36,7 @@ buildGoModule rec {
     "dfssh"
   ];
 
-  # There are no tests for cmd/trdl.
+    # There are no tests for cmd/trdl.
   doCheck = false;
 
   passthru.tests.version = testers.testVersion {

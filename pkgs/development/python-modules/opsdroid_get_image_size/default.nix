@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "124j2xvfxv09q42qfb8nqlcn55y7f09iayrix3yfyrs2qyzav78a";
   };
 
-  # test data not included on pypi
+    # test data not included on pypi
   doCheck = false;
 
   pythonImportsCheck = [ "get_image_size" ];

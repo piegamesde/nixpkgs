@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.wrapPython
   ];
 
-  # There is no setup.py
+    # There is no setup.py
   dontConfigure = true;
   dontBuild = true;
   doCheck = false;

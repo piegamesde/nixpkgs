@@ -15,8 +15,8 @@ buildGoModule rec {
     repo = pname;
     rev = "v${version}";
     hash = "sha256-IrNOslrH2EN2q/d4m4bFbaIHvOaAjYgVRTDRMZRKefs=";
-    # populate values that require us to use git. By doing this in postFetch we
-    # can delete .git afterwards and maintain better reproducibility of the src.
+      # populate values that require us to use git. By doing this in postFetch we
+      # can delete .git afterwards and maintain better reproducibility of the src.
     leaveDotGit = true;
     postFetch = ''
       cd "$out"
@@ -26,7 +26,7 @@ buildGoModule rec {
       find "$out" -name .git -print0 | xargs -0 rm -rf
     '';
   };
-  # hash mismatch with darwin
+    # hash mismatch with darwin
   proxyVendor = true;
   vendorHash = "sha256-QWKcRu781cRkNSToLQvMQ4ViGYd2klBIlLkB7EyaKmI=";
 
@@ -47,7 +47,7 @@ buildGoModule rec {
     ldflags+=" -X github.com/anchore/syft/internal/version.buildDate=$(cat SOURCE_DATE_EPOCH)"
   '';
 
-  # tests require a running docker instance
+    # tests require a running docker instance
   doCheck = false;
 
   postInstall = ''
@@ -75,7 +75,8 @@ buildGoModule rec {
     homepage = "https://github.com/anchore/syft";
     changelog = "https://github.com/anchore/syft/releases/tag/v${version}";
     description =
-      "CLI tool and library for generating a Software Bill of Materials from container images and filesystems";
+      "CLI tool and library for generating a Software Bill of Materials from container images and filesystems"
+      ;
     longDescription = ''
       A CLI tool and Go library for generating a Software Bill of Materials
       (SBOM) from container images and filesystems. Exceptional for

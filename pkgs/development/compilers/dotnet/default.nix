@@ -15,7 +15,7 @@ let
     buildNetSdk = attrs: buildDotnet (attrs // { type = "sdk"; });
   };
 
-  ## Files in versions/ are generated automatically by update.sh ##
+    ## Files in versions/ are generated automatically by update.sh ##
   dotnet_6_0 = import ./versions/6.0.nix buildAttrs;
   dotnet_7_0 = import ./versions/7.0.nix buildAttrs;
   dotnet_8_0 = import ./versions/8.0.nix buildAttrs;
@@ -29,17 +29,21 @@ let
     "i686-windows" = "win-x86";
   };
 
-  # Convert a "stdenv.hostPlatform.system" to a dotnet RID
-  systemToDotnetRid = system:
-    runtimeIdentifierMap.${system} or (throw "unsupported platform ${system}");
+    # Convert a "stdenv.hostPlatform.system" to a dotnet RID
+  systemToDotnetRid =
+    system:
+    runtimeIdentifierMap.${system} or (throw "unsupported platform ${system}")
+    ;
 in
 rec {
   inherit systemToDotnetRid;
 
-  combinePackages = attrs:
-    callPackage (import ./combine-packages.nix attrs) { };
+  combinePackages =
+    attrs:
+    callPackage (import ./combine-packages.nix attrs) { }
+    ;
 
-  # EOL
+    # EOL
   sdk_2_1 =
     throw "Dotnet SDK 2.1 is EOL, please use 6.0 (LTS) or 7.0 (Current)";
   sdk_2_2 =

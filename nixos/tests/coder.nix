@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
       ];
     };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -18,7 +19,8 @@ import ./make-test-python.nix ({
           enable = true;
           accessUrl = "http://localhost:3000";
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

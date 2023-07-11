@@ -8,9 +8,10 @@
 argsFun:
 
 let
-  wrapDerivation = f:
-    pkgs.stdenv.mkDerivation
-    (finalAttrs: f (lib.toFunction argsFun finalAttrs));
+  wrapDerivation =
+    f:
+    pkgs.stdenv.mkDerivation (finalAttrs: f (lib.toFunction argsFun finalAttrs))
+    ;
 in
 wrapDerivation ({
     buildInputs ? [ ],
@@ -37,10 +38,10 @@ wrapDerivation ({
       python3
     ] ++ nativeBuildInputs;
 
-    # fake conftest results with emscripten's python magic
+      # fake conftest results with emscripten's python magic
     EMCONFIGURE_JS = 2;
 
-    # removes archive indices
+      # removes archive indices
     dontStrip = args.dontStrip or true;
 
     configurePhase = args.configurePhase or ''
@@ -86,7 +87,7 @@ wrapDerivation ({
     meta = {
       # Add default meta information
       platforms = lib.platforms.all;
-      # Do not build this automatically
+        # Do not build this automatically
       hydraPlatforms = [ ];
     } // meta // {
       # add an extra maintainer to every package

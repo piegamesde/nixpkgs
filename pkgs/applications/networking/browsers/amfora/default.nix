@@ -29,6 +29,7 @@ buildGoModule rec {
     license = with licenses; [ gpl3 ];
     maintainers = with maintainers; [ deifactor ];
     changelog =
-      "https://github.com/makeworld-the-better-one/amfora/blob/v${version}/CHANGELOG.md";
+      "https://github.com/makeworld-the-better-one/amfora/blob/v${version}/CHANGELOG.md"
+      ;
   };
 }

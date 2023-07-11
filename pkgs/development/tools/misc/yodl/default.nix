@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     substituteInPlace scripts/yodl2whatever.in --replace getopt ${util-linux}/bin/getopt
   '';
 
-  # Set TERM because icmbuild calls tput.
+    # Set TERM because icmbuild calls tput.
   TERM = "xterm";
 
   buildPhase = ''
@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A package that implements a pre-document language and tools to process it";
+      "A package that implements a pre-document language and tools to process it"
+      ;
     homepage = "https://fbb-git.gitlab.io/yodl/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ pSub ];

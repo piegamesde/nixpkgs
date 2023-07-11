@@ -33,7 +33,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Pytest plugin to create a tmpdir containing predefined files/directories";
+      "Pytest plugin to create a tmpdir containing predefined files/directories"
+      ;
     homepage = "https://github.com/omarkohl/pytest-datafiles";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

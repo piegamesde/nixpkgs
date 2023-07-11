@@ -62,7 +62,7 @@ in {
     ./heimdal.nix
   ];
 
-  ###### interface
+    ###### interface
   options = {
     services.kerberos_server = {
       enable =
@@ -77,7 +77,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ kerberos ];

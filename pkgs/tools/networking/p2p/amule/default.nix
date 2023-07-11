@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://sources.debian.org/data/main/a/amule/1%3A2.3.3-3/debian/patches/wx3.2.patch";
+      "https://sources.debian.org/data/main/a/amule/1%3A2.3.3-3/debian/patches/wx3.2.patch"
+      ;
     hash = "sha256-OX5Ef80bL+dQqHo2OBLZvzMUrU6aOHfsF7AtoE1r7rs=";
   }) ];
 
@@ -102,8 +103,8 @@ stdenv.mkDerivation rec {
     echo "find_package(Threads)" >> cmake/options.cmake
   '';
 
-  # aMule will try to `dlopen' libupnp and libixml, so help it
-  # find them.
+    # aMule will try to `dlopen' libupnp and libixml, so help it
+    # find them.
   postInstall = lib.optionalString monolithic ''
     wrapProgram $out/bin/amule \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libupnp ]}
@@ -126,7 +127,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;
-    # Undefined symbols for architecture arm64: "_FSFindFolder"
+      # Undefined symbols for architecture arm64: "_FSFindFolder"
     broken = stdenv.isDarwin;
   };
 }

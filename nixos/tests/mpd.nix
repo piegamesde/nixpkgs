@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
 
       name = "Blue_Wave_Theory-Skyhawk_Beach.mp3";
       url =
-        "https://freemusicarchive.org/file/music/ccCommunity/Blue_Wave_Theory/Surf_Music_Month_Challenge/Blue_Wave_Theory_-_04_-_Skyhawk_Beach.mp3";
+        "https://freemusicarchive.org/file/music/ccCommunity/Blue_Wave_Theory/Surf_Music_Month_Challenge/Blue_Wave_Theory_-_04_-_Skyhawk_Beach.mp3"
+        ;
       sha256 = "0xw417bxkx4gqqy139bb21yldi37xx8xjfxrwaqa0gyw19dl6mgp";
     };
 
@@ -26,7 +27,8 @@ import ./make-test-python.nix ({
       enable = true;
     };
 
-    musicService = {
+    musicService =
+      {
         user,
         group,
         musicDirectory,
@@ -42,9 +44,11 @@ import ./make-test-python.nix ({
           User = user;
           Group = group;
         };
-      };
+      }
+      ;
 
-    mkServer = {
+    mkServer =
+      {
         mpd,
         musicService,
       }: {
@@ -52,18 +56,22 @@ import ./make-test-python.nix ({
         sound.enable = true;
         services.mpd = mpd;
         systemd.services.musicService = musicService;
-      };
+      }
+      ;
   in {
     name = "mpd";
     meta = with pkgs.lib.maintainers; { maintainers = [ emmanuelrosa ]; };
 
     nodes = {
-      client = {
+      client =
+        {
           ...
         }:
-        { };
+        { }
+        ;
 
-      serverALSA = {
+      serverALSA =
+        {
           ...
         }:
         lib.mkMerge [
@@ -82,9 +90,11 @@ import ./make-test-python.nix ({
               musicService { inherit user group musicDirectory; };
           })
           { networking.firewall.allowedTCPPorts = [ 6600 ]; }
-        ];
+        ]
+        ;
 
-      serverPulseAudio = {
+      serverPulseAudio =
+        {
           ...
         }:
         lib.mkMerge [
@@ -110,7 +120,8 @@ import ./make-test-python.nix ({
             };
             systemd.services.mpd.environment.PULSE_SERVER = "localhost";
           }
-        ];
+        ]
+        ;
     };
 
     testScript = ''

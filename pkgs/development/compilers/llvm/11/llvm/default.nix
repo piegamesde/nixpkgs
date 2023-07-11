@@ -41,30 +41,32 @@ let
   shortVersion = with lib;
     concatStringsSep "." (take 1 (splitString "." release_version));
 
-  # Ordinarily we would just the `doCheck` and `checkDeps` functionality
-  # `mkDerivation` gives us to manage our test dependencies (instead of breaking
-  # out `doCheck` as a package level attribute).
-  #
-  # Unfortunately `lit` does not forward `$PYTHONPATH` to children processes, in
-  # particular the children it uses to do feature detection.
-  #
-  # This means that python deps we add to `checkDeps` (which the python
-  # interpreter is made aware of via `$PYTHONPATH` – populated by the python
-  # setup hook) are not picked up by `lit` which causes it to skip tests.
-  #
-  # Adding `python3.withPackages (ps: [ ... ])` to `checkDeps` also doesn't work
-  # because this package is shadowed in `$PATH` by the regular `python3`
-  # package.
-  #
-  # So, we "manually" assemble one python derivation for the package to depend
-  # on, taking into account whether checks are enabled or not:
-  python = if doCheck then
-    let
-      checkDeps = ps: with ps; [ psutil ];
-    in
-    python3.withPackages checkDeps
-  else
-    python3;
+    # Ordinarily we would just the `doCheck` and `checkDeps` functionality
+    # `mkDerivation` gives us to manage our test dependencies (instead of breaking
+    # out `doCheck` as a package level attribute).
+    #
+    # Unfortunately `lit` does not forward `$PYTHONPATH` to children processes, in
+    # particular the children it uses to do feature detection.
+    #
+    # This means that python deps we add to `checkDeps` (which the python
+    # interpreter is made aware of via `$PYTHONPATH` – populated by the python
+    # setup hook) are not picked up by `lit` which causes it to skip tests.
+    #
+    # Adding `python3.withPackages (ps: [ ... ])` to `checkDeps` also doesn't work
+    # because this package is shadowed in `$PATH` by the regular `python3`
+    # package.
+    #
+    # So, we "manually" assemble one python derivation for the package to depend
+    # on, taking into account whether checks are enabled or not:
+  python =
+    if doCheck then
+      let
+        checkDeps = ps: with ps; [ psutil ];
+      in
+      python3.withPackages checkDeps
+    else
+      python3
+    ;
 
 in
 stdenv.mkDerivation (rec {
@@ -127,7 +129,8 @@ stdenv.mkDerivation (rec {
     # gcc-11 compat upstream patch
     (fetchpatch {
       url =
-        "https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch";
+        "https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch"
+        ;
       sha256 = "sha256:0nh123kld0dgz2h941lng331dkj3wbm5lfxm375k1f569gv83hlk";
       stripLen = 1;
     })
@@ -136,14 +139,16 @@ stdenv.mkDerivation (rec {
     (fetchpatch {
       name = "nvptx-gcc-12.patch";
       url =
-        "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
+        "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch"
+        ;
       sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
       stripLen = 1;
     })
     (fetchpatch {
       name = "dfaemitter-gcc-12.patch";
       url =
-        "https://github.com/llvm/llvm-project/commit/0841916e87a39e3c223c986e8da31e4a9a1432e3.patch";
+        "https://github.com/llvm/llvm-project/commit/0841916e87a39e3c223c986e8da31e4a9a1432e3.patch"
+        ;
       sha256 = "1kckghvsngs51mqm82asy0s9vr19h8aqbw43a0w44mccqw6bzrwf";
       stripLen = 1;
     })
@@ -213,13 +218,13 @@ stdenv.mkDerivation (rec {
     )
   '';
 
-  # hacky fix: created binaries need to be run before installation
+    # hacky fix: created binaries need to be run before installation
   preBuild = ''
     mkdir -p $out/
     ln -sv $PWD/lib $out
   '';
 
-  # E.g. mesa.drivers use the build-id as a cache key (see #93946):
+    # E.g. mesa.drivers use the build-id as a cache key (see #93946):
   LDFLAGS = optionalString (enableSharedLibraries && !stdenv.isDarwin)
     "-Wl,--build-id=sha1";
 
@@ -289,8 +294,8 @@ stdenv.mkDerivation (rec {
           "-DCMAKE_STRIP=${nativeBintools}/bin/${nativeBintools.targetPrefix}strip"
           "-DCMAKE_RANLIB=${nativeBintools}/bin/${nativeBintools.targetPrefix}ranlib"
         ];
-        # We need to repass the custom GNUInstallDirs values, otherwise CMake
-        # will choose them for us, leading to wrong results in llvm-config-native
+          # We need to repass the custom GNUInstallDirs values, otherwise CMake
+          # will choose them for us, leading to wrong results in llvm-config-native
         nativeInstallFlags = [
           "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
           "-DCMAKE_INSTALL_BINDIR=${placeholder "out"}/bin"
@@ -307,7 +312,7 @@ stdenv.mkDerivation (rec {
       ])
       )
     ]
-  ;
+    ;
 
   postBuild = ''
     rm -fR $out
@@ -346,7 +351,8 @@ stdenv.mkDerivation (rec {
   meta = llvm_meta // {
     homepage = "https://llvm.org/";
     description =
-      "A collection of modular and reusable compiler and toolchain technologies";
+      "A collection of modular and reusable compiler and toolchain technologies"
+      ;
     longDescription = ''
       The LLVM Project is a collection of modular and reusable compiler and
       toolchain technologies. Despite its name, LLVM has little to do with

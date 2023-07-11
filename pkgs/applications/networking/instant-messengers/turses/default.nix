@@ -7,26 +7,28 @@
 
 let
   py = python3.override {
-    packageOverrides = self: super: {
+    packageOverrides =
+      self: super: {
 
-      # Support for later tweepy releases is missing
-      # https://github.com/louipc/turses/issues/12
-      tweepy = super.tweepy.overridePythonAttrs (oldAttrs: rec {
-        version = "3.10.0";
+        # Support for later tweepy releases is missing
+        # https://github.com/louipc/turses/issues/12
+        tweepy = super.tweepy.overridePythonAttrs (oldAttrs: rec {
+          version = "3.10.0";
 
-        src = fetchFromGitHub {
-          owner = "tweepy";
-          repo = "tweepy";
-          rev = "v${version}";
-          sha256 = "0k4bdlwjna6f1k19jki4xqgckrinkkw8b9wihzymr1l04rwd05nw";
-        };
-        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
-          super.six
-          super.requests.optional-dependencies.socks
-        ];
-        doCheck = false;
-      });
-    };
+          src = fetchFromGitHub {
+            owner = "tweepy";
+            repo = "tweepy";
+            rev = "v${version}";
+            sha256 = "0k4bdlwjna6f1k19jki4xqgckrinkkw8b9wihzymr1l04rwd05nw";
+          };
+          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
+            super.six
+            super.requests.optional-dependencies.socks
+          ];
+          doCheck = false;
+        });
+      }
+      ;
   };
 in with py.pkgs;
 
@@ -57,13 +59,15 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       url =
-        "https://github.com/louipc/turses/commit/be0961b51f502d49fd9e2e5253ac130e543a31c7.patch";
+        "https://github.com/louipc/turses/commit/be0961b51f502d49fd9e2e5253ac130e543a31c7.patch"
+        ;
       sha256 = "17s1n0275mcj03vkf3n39dmc09niwv4y7ssrfk7k3vqx22kppzg3";
     })
     # python 3.7+ support
     (fetchpatch {
       url =
-        "https://github.com/booxter/turses/commit/e6e285eae50fc3d2042a476185fe60daef1e758e.patch";
+        "https://github.com/booxter/turses/commit/e6e285eae50fc3d2042a476185fe60daef1e758e.patch"
+        ;
       sha256 = "0g2zsrny955viwgs2l6gpiiz8m67b5sgdcxkjmfimfvvih5sg79f";
     })
   ];

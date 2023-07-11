@@ -36,7 +36,7 @@ buildGoPackage rec {
     cp -v build/bin/geth build/bin/bootnode build/bin/swarm $out/bin
   '';
 
-  # fails with `GOFLAGS=-trimpath`
+    # fails with `GOFLAGS=-trimpath`
   allowGoReference = true;
   preFixup = ''
     find $out -type f -exec ${removeReferencesTo}/bin/remove-references-to -t ${go} '{}' +

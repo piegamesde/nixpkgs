@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://desktop.briarproject.org/jars/linux/${version}/briar-desktop-linux-${version}.jar";
+      "https://desktop.briarproject.org/jars/linux/${version}/briar-desktop-linux-${version}.jar"
+      ;
     hash = "sha256-7zeIWsdPvROHGaf5igodlZss6Gow3kp6PX+QAzmxMnw=";
   };
 

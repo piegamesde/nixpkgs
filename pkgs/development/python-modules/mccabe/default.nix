@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  # https://github.com/PyCQA/mccabe/issues/93
+    # https://github.com/PyCQA/mccabe/issues/93
   doCheck = false;
 
   meta = with lib; {

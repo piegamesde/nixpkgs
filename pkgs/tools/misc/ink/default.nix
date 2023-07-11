@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A command line tool for checking the ink level of your locally connected printer";
+      "A command line tool for checking the ink level of your locally connected printer"
+      ;
     longDescription = ''
       Ink is a command line tool for checking the ink level of your locally connected printer on a system which runs Linux or FreeBSD. Canon BJNP network printers are supported too.
     '';

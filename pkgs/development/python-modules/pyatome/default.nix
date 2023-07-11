@@ -27,7 +27,7 @@ buildPythonPackage rec {
     fake-useragent
   ];
 
-  # No tests in PyPI tarballs
+    # No tests in PyPI tarballs
   doCheck = false;
 
   pythonImportsCheck = [ "pyatome" ];

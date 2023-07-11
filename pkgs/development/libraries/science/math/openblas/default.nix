@@ -48,18 +48,22 @@ let
   blas64_ = blas64;
 
 in let
-  setTarget = x:
+  setTarget =
+    x:
     if target == null then
       x
     else
-      target;
-  setDynamicArch = x:
+      target
+    ;
+  setDynamicArch =
+    x:
     if dynamicArch == null then
       x
     else
-      dynamicArch;
+      dynamicArch
+    ;
 
-  # To add support for a new platform, add an element to this set.
+    # To add support for a new platform, add an element to this set.
   configs = {
     armv6l-linux = {
       BINARY = 32;
@@ -141,21 +145,25 @@ in let
     "unsupported system: ${stdenv.hostPlatform.system}");
 
 in let
-  blas64 = if blas64_ != null then
-    blas64_
-  else
-    lib.hasPrefix "x86_64" stdenv.hostPlatform.system;
-  # Convert flag values to format OpenBLAS's build expects.
-  # `toString` is almost what we need other than bools,
-  # which we need to map {true -> 1, false -> 0}
-  # (`toString` produces empty string `""` for false instead of `0`)
-  mkMakeFlagValue = val:
+  blas64 =
+    if blas64_ != null then
+      blas64_
+    else
+      lib.hasPrefix "x86_64" stdenv.hostPlatform.system
+    ;
+    # Convert flag values to format OpenBLAS's build expects.
+    # `toString` is almost what we need other than bools,
+    # which we need to map {true -> 1, false -> 0}
+    # (`toString` produces empty string `""` for false instead of `0`)
+  mkMakeFlagValue =
+    val:
     if !builtins.isBool val then
       toString val
     else if val then
       "1"
     else
-      "0";
+      "0"
+    ;
   mkMakeFlagsFromConfig =
     lib.mapAttrsToList (var: val: "${var}=${mkMakeFlagValue val}");
 
@@ -183,7 +191,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "openblas-0.3.21-fix-loong.patch";
       url =
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/openblas/files/openblas-0.3.21-fix-loong.patch?id=37ee4c70278eb41181f69e175575b0152b941655";
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/openblas/files/openblas-0.3.21-fix-loong.patch?id=37ee4c70278eb41181f69e175575b0152b941655"
+        ;
       hash = "sha256-iWy11l3wEvzNV08LbhOjnSPj1SjPH8RMnb3ORz7V+gc";
     })
   ];
@@ -242,24 +251,26 @@ stdenv.mkDerivation rec {
     NO_SHARED = !enableShared;
     CROSS = stdenv.hostPlatform != stdenv.buildPlatform;
     HOSTCC = "cc";
-    # Makefile.system only checks defined status
-    # This seems to be a bug in the openblas Makefile:
-    # on x86_64 it expects NO_BINARY_MODE=
-    # but on aarch64 it expects NO_BINARY_MODE=0
-    NO_BINARY_MODE = if stdenv.isx86_64 then
-      toString (stdenv.hostPlatform != stdenv.buildPlatform)
-    else
-      stdenv.hostPlatform != stdenv.buildPlatform;
-    # This disables automatic build job count detection (which honours neither enableParallelBuilding nor NIX_BUILD_CORES)
-    # and uses the main make invocation's job count, falling back to 1 if no parallelism is used.
-    # https://github.com/xianyi/OpenBLAS/blob/v0.3.20/getarch.c#L1781-L1792
+      # Makefile.system only checks defined status
+      # This seems to be a bug in the openblas Makefile:
+      # on x86_64 it expects NO_BINARY_MODE=
+      # but on aarch64 it expects NO_BINARY_MODE=0
+    NO_BINARY_MODE =
+      if stdenv.isx86_64 then
+        toString (stdenv.hostPlatform != stdenv.buildPlatform)
+      else
+        stdenv.hostPlatform != stdenv.buildPlatform
+      ;
+      # This disables automatic build job count detection (which honours neither enableParallelBuilding nor NIX_BUILD_CORES)
+      # and uses the main make invocation's job count, falling back to 1 if no parallelism is used.
+      # https://github.com/xianyi/OpenBLAS/blob/v0.3.20/getarch.c#L1781-L1792
     MAKE_NB_JOBS = 0;
   } // (lib.optionalAttrs singleThreaded {
     # As described on https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
     USE_THREAD = false;
     USE_LOCKING = true; # available with openblas >= 0.3.7
-    USE_OPENMP =
-      false; # openblas will refuse building with both USE_OPENMP=1 and USE_THREAD=0
+    USE_OPENMP = false
+      ; # openblas will refuse building with both USE_OPENMP=1 and USE_THREAD=0
   }));
 
   doCheck = true;

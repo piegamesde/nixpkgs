@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.boomerangsworld.de/cms/worker/downloads/${pname}-${version}.tar.gz";
+      "http://www.boomerangsworld.de/cms/worker/downloads/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-11tSOVuGuCU0IvqpEKiKvUZj9DtjWJErLpM8IsTtvcs=";
   };
 

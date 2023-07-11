@@ -43,12 +43,12 @@ stdenv.mkDerivation rec {
       --replace "CFLAGS += -I/opt/local/include" "CFLAGS += -I${SDL2.dev}/include/SDL2 -I${SDL2_image}/include/SDL2"
   '';
 
-  # The prince binary expects two things of the working directory it is called from:
-  # (1) There is a subdirectory "data" containing the level data.
-  # (2) The working directory is writable, so save and quicksave files can be created.
-  # Our solution is to ensure that ~/.local/share/sdlpop is the working
-  # directory, symlinking the data files into it. This is the task of the
-  # prince.sh wrapper.
+    # The prince binary expects two things of the working directory it is called from:
+    # (1) There is a subdirectory "data" containing the level data.
+    # (2) The working directory is writable, so save and quicksave files can be created.
+    # Our solution is to ensure that ~/.local/share/sdlpop is the working
+    # directory, symlinking the data files into it. This is the task of the
+    # prince.sh wrapper.
 
   installPhase = ''
     runHook preInstall

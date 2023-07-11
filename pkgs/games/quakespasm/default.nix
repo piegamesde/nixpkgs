@@ -83,10 +83,12 @@ stdenv.mkDerivation rec {
     "USE_SDL2=1"
   ];
 
-  makefile = if (stdenv.isDarwin) then
-    "Makefile.darwin"
-  else
-    "Makefile";
+  makefile =
+    if (stdenv.isDarwin) then
+      "Makefile.darwin"
+    else
+      "Makefile"
+    ;
 
   preInstall = ''
     mkdir -p "$out/bin"

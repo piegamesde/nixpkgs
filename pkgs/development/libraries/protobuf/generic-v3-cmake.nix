@@ -34,7 +34,7 @@ let
       inherit sha256;
     };
 
-    # re-create submodule logic
+      # re-create submodule logic
     postPatch = ''
       rm -rf gmock
       cp -r ${gtest.src}/googlemock third_party/gmock
@@ -54,30 +54,32 @@ let
       # https://github.com/protocolbuffers/protobuf/pull/10090
       (fetchpatch {
         url =
-          "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch";
+          "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch"
+          ;
         sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
       })
     ] ++ lib.optionals
       stdenv.hostPlatform.isStatic [ ./static-executables-have-no-rpath.patch ];
 
-    nativeBuildInputs = let
-      protobufVersion =
-        "${lib.versions.major version}_${lib.versions.minor version}";
-    in
-    [ cmake ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      # protoc of the same version must be available for build. For non-cross builds, it's able to
-      # re-use the executable generated as part of the build
-      buildPackages."protobuf${protobufVersion}"
-    ]
-    ;
+    nativeBuildInputs =
+      let
+        protobufVersion =
+          "${lib.versions.major version}_${lib.versions.minor version}";
+      in
+      [ cmake ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        # protoc of the same version must be available for build. For non-cross builds, it's able to
+        # re-use the executable generated as part of the build
+        buildPackages."protobuf${protobufVersion}"
+      ]
+      ;
 
     buildInputs = [
       abseil-cpp
       zlib
     ];
 
-    # After 3.20, CMakeLists.txt can now be found at the top-level, however
-    # a stub cmake/CMakeLists.txt still exists for compatibility with previous build assumptions
+      # After 3.20, CMakeLists.txt can now be found at the top-level, however
+      # a stub cmake/CMakeLists.txt still exists for compatibility with previous build assumptions
     cmakeDir = "../cmake";
     cmakeFlags = [ "-Dprotobuf_ABSL_PROVIDER=package" ] ++ lib.optionals
       (!stdenv.targetPlatform.isStatic) [ "-Dprotobuf_BUILD_SHARED_LIBS=ON" ]
@@ -87,7 +89,7 @@ let
       (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
       "-Dprotobuf_BUILD_TESTS=OFF";
 
-    # unfortunately the shared libraries have yet to been patched by nix, thus tests will fail
+      # unfortunately the shared libraries have yet to been patched by nix, thus tests will fail
     doCheck = false;
 
     passthru = {

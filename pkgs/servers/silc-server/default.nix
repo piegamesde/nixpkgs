@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://silcnet.org/download/server/sources/silc-server-${version}.tar.bz2";
+      "http://silcnet.org/download/server/sources/silc-server-${version}.tar.bz2"
+      ;
     sha256 = "0nr0hrwr4kbi611qazmrify7a27nzxb5n7d97f5i9cw3avxlw38s";
   };
 

@@ -51,68 +51,72 @@ in {
     }));
 
   config = lib.mkIf cfg.enable {
-    systemd.services.nextcloud-notify_push = let
-      nextcloudUrl = "http${
-          lib.optionalString config.services.nextcloud.https "s"
-        }://${config.services.nextcloud.hostName}";
-    in {
-      description = "Push daemon for Nextcloud clients";
-      documentation = [ "https://github.com/nextcloud/notify_push" ];
-      after = [ "phpfpm-nextcloud.service" ];
-      wantedBy = [ "multi-user.target" ];
-      environment = {
-        NEXTCLOUD_URL = nextcloudUrl;
-        SOCKET_PATH = cfg.socketPath;
-        DATABASE_PREFIX = cfg.dbtableprefix;
-        LOG = cfg.logLevel;
-      };
-      postStart = ''
-        ${config.services.nextcloud.occ}/bin/nextcloud-occ notify_push:setup ${nextcloudUrl}/push
-      '';
-      script = let
-        dbType = if cfg.dbtype == "pgsql" then
-          "postgresql"
-        else
-          cfg.dbtype;
-        dbUser = lib.optionalString (cfg.dbuser != null) cfg.dbuser;
-        dbPass =
-          lib.optionalString (cfg.dbpassFile != null) ":$DATABASE_PASSWORD";
-        isSocket = lib.hasPrefix "/" (toString cfg.dbhost);
-        dbHost = lib.optionalString (cfg.dbhost != null) (if isSocket then
-          if dbType == "postgresql" then
-            "?host=${cfg.dbhost}"
-          else if dbType == "mysql" then
-            "?socket=${cfg.dbhost}"
-          else
-            throw "unsupported dbtype"
-        else
-          "@${cfg.dbhost}");
-        dbName = lib.optionalString (cfg.dbname != null) "/${cfg.dbname}";
-        dbUrl = "${dbType}://${dbUser}${dbPass}${
-            lib.optionalString (!isSocket) dbHost
-          }${dbName}${lib.optionalString isSocket dbHost}";
-      in
-      lib.optionalString (dbPass != "") ''
-        export DATABASE_PASSWORD="$(<"${cfg.dbpassFile}")"
-      '' + ''
-        export DATABASE_URL="${dbUrl}"
-        ${cfg.package}/bin/notify_push '${config.services.nextcloud.datadir}/config/config.php'
-      ''
+    systemd.services.nextcloud-notify_push =
+      let
+        nextcloudUrl = "http${
+            lib.optionalString config.services.nextcloud.https "s"
+          }://${config.services.nextcloud.hostName}";
+      in {
+        description = "Push daemon for Nextcloud clients";
+        documentation = [ "https://github.com/nextcloud/notify_push" ];
+        after = [ "phpfpm-nextcloud.service" ];
+        wantedBy = [ "multi-user.target" ];
+        environment = {
+          NEXTCLOUD_URL = nextcloudUrl;
+          SOCKET_PATH = cfg.socketPath;
+          DATABASE_PREFIX = cfg.dbtableprefix;
+          LOG = cfg.logLevel;
+        };
+        postStart = ''
+          ${config.services.nextcloud.occ}/bin/nextcloud-occ notify_push:setup ${nextcloudUrl}/push
+        '';
+        script =
+          let
+            dbType =
+              if cfg.dbtype == "pgsql" then
+                "postgresql"
+              else
+                cfg.dbtype
+              ;
+            dbUser = lib.optionalString (cfg.dbuser != null) cfg.dbuser;
+            dbPass =
+              lib.optionalString (cfg.dbpassFile != null) ":$DATABASE_PASSWORD";
+            isSocket = lib.hasPrefix "/" (toString cfg.dbhost);
+            dbHost = lib.optionalString (cfg.dbhost != null) (if isSocket then
+              if dbType == "postgresql" then
+                "?host=${cfg.dbhost}"
+              else if dbType == "mysql" then
+                "?socket=${cfg.dbhost}"
+              else
+                throw "unsupported dbtype"
+            else
+              "@${cfg.dbhost}");
+            dbName = lib.optionalString (cfg.dbname != null) "/${cfg.dbname}";
+            dbUrl = "${dbType}://${dbUser}${dbPass}${
+                lib.optionalString (!isSocket) dbHost
+              }${dbName}${lib.optionalString isSocket dbHost}";
+          in
+          lib.optionalString (dbPass != "") ''
+            export DATABASE_PASSWORD="$(<"${cfg.dbpassFile}")"
+          '' + ''
+            export DATABASE_URL="${dbUrl}"
+            ${cfg.package}/bin/notify_push '${config.services.nextcloud.datadir}/config/config.php'
+          ''
+          ;
+        serviceConfig = {
+          User = "nextcloud";
+          Group = "nextcloud";
+          RuntimeDirectory = [ "nextcloud-notify_push" ];
+          Restart = "on-failure";
+          RestartSec = "5s";
+        };
+      }
       ;
-      serviceConfig = {
-        User = "nextcloud";
-        Group = "nextcloud";
-        RuntimeDirectory = [ "nextcloud-notify_push" ];
-        Restart = "on-failure";
-        RestartSec = "5s";
-      };
-    } ;
 
-    services.nginx.virtualHosts.${config.services.nextcloud.hostName}.locations."^~ /push/" =
-      {
-        proxyPass = "http://unix:${cfg.socketPath}";
-        proxyWebsockets = true;
-        recommendedProxySettings = true;
-      };
+    services.nginx.virtualHosts.${config.services.nextcloud.hostName}.locations."^~ /push/" = {
+      proxyPass = "http://unix:${cfg.socketPath}";
+      proxyWebsockets = true;
+      recommendedProxySettings = true;
+    };
   };
 }

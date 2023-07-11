@@ -20,23 +20,28 @@ import ./make-test-python.nix ({
 
     nodes = {
       # no proxy
-      machine = {
+      machine =
+        {
           ...
         }:
 
-        default-config;
+        default-config
+        ;
 
-      # proxy default
-      machine2 = {
+        # proxy default
+      machine2 =
+        {
           ...
         }:
 
         default-config // {
           networking.proxy.default = "http://user:pass@host:port";
-        };
+        }
+        ;
 
-      # specific proxy options
-      machine3 = {
+        # specific proxy options
+      machine3 =
+        {
           ...
         }:
 
@@ -44,17 +49,19 @@ import ./make-test-python.nix ({
           networking.proxy = {
             # useless because overridden by the next options
             default = "http://user:pass@host:port";
-            # advanced proxy setup
+              # advanced proxy setup
             httpProxy = "123-http://user:pass@http-host:port";
             httpsProxy = "456-http://user:pass@https-host:port";
             rsyncProxy = "789-http://user:pass@rsync-host:port";
             ftpProxy = "101112-http://user:pass@ftp-host:port";
             noProxy = "131415-127.0.0.1,localhost,.localdomain";
           };
-        };
+        }
+        ;
 
-      # mix default + proxy options
-      machine4 = {
+        # mix default + proxy options
+      machine4 =
+        {
           ...
         }:
 
@@ -62,11 +69,12 @@ import ./make-test-python.nix ({
           networking.proxy = {
             # open for all *_proxy env var
             default = "000-http://user:pass@default-host:port";
-            # except for those 2
+              # except for those 2
             rsyncProxy = "123-http://user:pass@http-host:port";
             noProxy = "131415-127.0.0.1,localhost,.localdomain";
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

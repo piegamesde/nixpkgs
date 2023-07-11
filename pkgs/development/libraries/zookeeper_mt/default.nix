@@ -17,9 +17,11 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://apache/zookeeper/${zookeeper.pname}-${version}/apache-${zookeeper.pname}-${version}.tar.gz";
+      "mirror://apache/zookeeper/${zookeeper.pname}-${version}/apache-${zookeeper.pname}-${version}.tar.gz"
+      ;
     sha512 =
-      "sha512-ttYbATvfe+uRYhQWfeG1WGXl5GOztcrITfl/4EQierAzSaDvTmVxSb582hYQOdBpxw2QrVbIdnTm3/Xt4ifecg==";
+      "sha512-ttYbATvfe+uRYhQWfeG1WGXl5GOztcrITfl/4EQierAzSaDvTmVxSb582hYQOdBpxw2QrVbIdnTm3/Xt4ifecg=="
+      ;
   };
 
   sourceRoot =
@@ -36,8 +38,8 @@ stdenv.mkDerivation rec {
     zookeeper
   ];
 
-  # Generate the C marshallers/unmarshallers for the Jute-encoded
-  # definitions.
+    # Generate the C marshallers/unmarshallers for the Jute-encoded
+    # definitions.
   preConfigure = ''
     mkdir generated
     cd generated

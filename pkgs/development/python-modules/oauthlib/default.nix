@@ -39,7 +39,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Generic, spec-compliant, thorough implementation of the OAuth request-signing logic";
+      "Generic, spec-compliant, thorough implementation of the OAuth request-signing logic"
+      ;
     homepage = "https://github.com/idan/oauthlib";
     license = licenses.bsd3;
     maintainers = with maintainers; [ prikhi ];

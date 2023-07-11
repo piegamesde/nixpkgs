@@ -38,7 +38,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  # Requires internet access
+    # Requires internet access
   doCheck = false;
 
   pythonImportsCheck = [ "mathlibtools" ];
@@ -47,7 +47,8 @@ buildPythonPackage rec {
     description = "Supporting tool for Lean's mathlib";
     homepage = "https://github.com/leanprover-community/mathlib-tools";
     changelog =
-      "https://github.com/leanprover-community/mathlib-tools/raw/v${version}/CHANGELOG.md";
+      "https://github.com/leanprover-community/mathlib-tools/raw/v${version}/CHANGELOG.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ gebner ];
   };

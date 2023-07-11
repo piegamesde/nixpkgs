@@ -58,8 +58,8 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    # not compatible with fido2 >= 1.0.0
-    # https://github.com/solokeys/solo1-cli/issues/157
+      # not compatible with fido2 >= 1.0.0
+      # https://github.com/solokeys/solo1-cli/issues/157
     broken = versionAtLeast fido2.version "1.0.0";
   };
 }

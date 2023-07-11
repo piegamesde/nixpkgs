@@ -49,7 +49,8 @@ buildPythonPackage rec {
     description = "Python library for accessing GeoRSS feeds";
     homepage = "https://github.com/exxamalte/python-aio-georss-client";
     changelog =
-      "https://github.com/exxamalte/python-aio-georss-client/blob/v${version}/CHANGELOG.md";
+      "https://github.com/exxamalte/python-aio-georss-client/blob/v${version}/CHANGELOG.md"
+      ;
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

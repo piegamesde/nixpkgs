@@ -19,7 +19,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://gitlab.com/pine64-org/quartz-bsp/rkdeveloptool/-/archive/${rev}/rkdeveloptool-${rev}.tar.gz";
+      "https://gitlab.com/pine64-org/quartz-bsp/rkdeveloptool/-/archive/${rev}/rkdeveloptool-${rev}.tar.gz"
+      ;
     sha256 = "sha256-u/x1Y1zZ19SYwNLVAvpqjH247RijyDJ1HTDWIsmqlFk=";
   };
 
@@ -39,13 +40,16 @@ stdenv.mkDerivation {
 
   buildInputs = [ libusb1 ];
 
-  meta = let
-    inherit (lib) maintainers;
-  in {
-    homepage = "https://gitlab.com/pine64-org/quartz-bsp/rkdeveloptool/";
-    description =
-      "A tool from Rockchip to communicate with Rockusb devices (pine64 fork)";
-    license = lib.licenses.gpl2;
-    maintainers = [ maintainers.adisbladis ];
-  } ;
+  meta =
+    let
+      inherit (lib) maintainers;
+    in {
+      homepage = "https://gitlab.com/pine64-org/quartz-bsp/rkdeveloptool/";
+      description =
+        "A tool from Rockchip to communicate with Rockusb devices (pine64 fork)"
+        ;
+      license = lib.licenses.gpl2;
+      maintainers = [ maintainers.adisbladis ];
+    }
+    ;
 }

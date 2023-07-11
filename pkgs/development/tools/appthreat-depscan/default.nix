@@ -42,7 +42,8 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Tool to audit dependencies based on known vulnerabilities and advisories";
+      "Tool to audit dependencies based on known vulnerabilities and advisories"
+      ;
     homepage = "https://github.com/AppThreat/dep-scan";
     changelog =
       "https://github.com/AppThreat/dep-scan/releases/tag/v${version}";

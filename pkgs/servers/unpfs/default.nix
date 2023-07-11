@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ raskin ];
 
-    # macOS build fails: https://github.com/pfpacket/rust-9p/issues/7
+      # macOS build fails: https://github.com/pfpacket/rust-9p/issues/7
     platforms = with platforms; linux;
   };
 }

@@ -49,8 +49,8 @@ buildPythonPackage rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
 
-  nativeBuildInputs = [ numpy ]
-    ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs =
+    [ numpy ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
   propagatedBuildInputs = [
     numpy
@@ -68,7 +68,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "fix-test-cache-invalidate-readonly.patch";
       url =
-        "https://github.com/numba/numba/commit/993e8c424055a7677b2755b184fc9e07549713b9.patch";
+        "https://github.com/numba/numba/commit/993e8c424055a7677b2755b184fc9e07549713b9.patch"
+        ;
       hash = "sha256-IhIqRLmP8gazx+KWIyCxZrNLMT4jZT8CWD3KcH4KjOo=";
     })
     # Backport numpy 1.24 support from https://github.com/numba/numba/pull/8691
@@ -86,10 +87,10 @@ buildPythonPackage rec {
     done
   '';
 
-  # run a smoke test in a temporary directory so that
-  # a) Python picks up the installed library in $out instead of the build files
-  # b) we have somewhere to put $HOME so some caching tests work
-  # c) it doesn't take 6 CPU hours for the full suite
+    # run a smoke test in a temporary directory so that
+    # a) Python picks up the installed library in $out instead of the build files
+    # b) we have somewhere to put $HOME so some caching tests work
+    # c) it doesn't take 6 CPU hours for the full suite
   checkPhase = ''
     runHook preCheck
 

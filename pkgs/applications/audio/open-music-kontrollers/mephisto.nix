@@ -26,7 +26,7 @@ callPackage ./generic.nix (args // rec {
     fira-code
   ];
 
-  # see: https://github.com/OpenMusicKontrollers/mephisto.lv2/issues/6
+    # see: https://github.com/OpenMusicKontrollers/mephisto.lv2/issues/6
   postPatch = ''
     sed -i 's/llvm-c-dsp/llvm-dsp-c/g' mephisto.c
   '';

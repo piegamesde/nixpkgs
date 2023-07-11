@@ -12,15 +12,18 @@ let
 
   runtimeDir = "/run/phpfpm";
 
-  toStr = value:
+  toStr =
+    value:
     if true == value then
       "yes"
     else if false == value then
       "no"
     else
-      toString value;
+      toString value
+    ;
 
-  fpmCfgFile = pool: poolOpts:
+  fpmCfgFile =
+    pool: poolOpts:
     pkgs.writeText "phpfpm-${pool}.conf" ''
       [global]
       ${concatStringsSep "\n"
@@ -33,18 +36,22 @@ let
       ${concatStringsSep "\n"
       (mapAttrsToList (n: v: "env[${n}] = ${toStr v}") poolOpts.phpEnv)}
       ${optionalString (poolOpts.extraConfig != null) poolOpts.extraConfig}
-    '';
+    ''
+    ;
 
-  phpIni = poolOpts:
+  phpIni =
+    poolOpts:
     pkgs.runCommand "php.ini" {
       inherit (poolOpts) phpPackage phpOptions;
       preferLocalBuild = true;
       passAsFile = [ "phpOptions" ];
     } ''
       cat ${poolOpts.phpPackage}/etc/php.ini $phpOptionsPath > $out
-    '';
+    ''
+    ;
 
-  poolOpts = {
+  poolOpts =
+    {
       name,
       ...
     }:
@@ -154,10 +161,12 @@ let
       };
 
       config = {
-        socket = if poolOpts.listen == "" then
-          "${runtimeDir}/${name}.sock"
-        else
-          poolOpts.listen;
+        socket =
+          if poolOpts.listen == "" then
+            "${runtimeDir}/${name}.sock"
+          else
+            poolOpts.listen
+          ;
         group = mkDefault poolOpts.user;
         phpOptions = mkBefore cfg.phpOptions;
 
@@ -167,7 +176,8 @@ let
           group = poolOpts.group;
         };
       };
-    } ;
+    }
+    ;
 
 in {
   imports = [
@@ -294,26 +304,28 @@ in {
         after = [ "network.target" ];
         wantedBy = [ "phpfpm.target" ];
         partOf = [ "phpfpm.target" ];
-        serviceConfig = let
-          cfgFile = fpmCfgFile pool poolOpts;
-          iniFile = phpIni poolOpts;
-        in {
-          Slice = "phpfpm.slice";
-          PrivateDevices = true;
-          PrivateTmp = true;
-          ProtectSystem = "full";
-          ProtectHome = true;
-          # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
-          RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
-          Type = "notify";
-          ExecStart =
-            "${poolOpts.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
-          ExecReload = "${pkgs.coreutils}/bin/kill -USR2 $MAINPID";
-          RuntimeDirectory = "phpfpm";
-          RuntimeDirectoryPreserve =
-            true; # Relevant when multiple processes are running
-          Restart = "always";
-        } ;
+        serviceConfig =
+          let
+            cfgFile = fpmCfgFile pool poolOpts;
+            iniFile = phpIni poolOpts;
+          in {
+            Slice = "phpfpm.slice";
+            PrivateDevices = true;
+            PrivateTmp = true;
+            ProtectSystem = "full";
+            ProtectHome = true;
+              # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
+            RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+            Type = "notify";
+            ExecStart =
+              "${poolOpts.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
+            ExecReload = "${pkgs.coreutils}/bin/kill -USR2 $MAINPID";
+            RuntimeDirectory = "phpfpm";
+            RuntimeDirectoryPreserve =
+              true; # Relevant when multiple processes are running
+            Restart = "always";
+          }
+          ;
       }) cfg.pools;
   };
 }

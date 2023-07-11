@@ -6,16 +6,20 @@ import ./make-test-python.nix ({
     name = "sabnzbd";
     meta = with pkgs.lib; { maintainers = with maintainers; [ jojosch ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         services.sabnzbd = { enable = true; };
 
-        # unrar is unfree
-        nixpkgs.config.allowUnfreePredicate = pkg:
-          builtins.elem (lib.getName pkg) [ "unrar" ];
-      };
+          # unrar is unfree
+        nixpkgs.config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [ "unrar" ]
+          ;
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("sabnzbd.service")

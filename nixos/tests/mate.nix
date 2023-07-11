@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
 
     meta = { maintainers = lib.teams.mate.members; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [ ./common/user-account.nix ];
@@ -24,12 +25,14 @@ import ./make-test-python.nix ({
 
         services.xserver.desktopManager.mate.enable = true;
 
-        # Silence log spam due to no sound drivers loaded:
-        # ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
+          # Silence log spam due to no sound drivers loaded:
+          # ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
         hardware.pulseaudio.enable = true;
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -58,5 +61,6 @@ import ./make-test-python.nix ({
             machine.wait_for_window("Terminal")
             machine.sleep(20)
             machine.screenshot("screen")
-      '' ;
+      ''
+      ;
   })

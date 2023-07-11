@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.chiark.greenend.org.uk/~sgtatham/ipbt/ipbt-${version}.tar.gz";
+      "https://www.chiark.greenend.org.uk/~sgtatham/ipbt/ipbt-${version}.tar.gz"
+      ;
     sha256 = "0w6blpv22jjivzr58y440zv6djvi5iccdmj4y2md52fbpjngmsha";
   };
 

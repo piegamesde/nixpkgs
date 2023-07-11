@@ -30,15 +30,16 @@ buildPythonPackage rec {
     six
   ];
 
-  # PyPI source has no tests included
-  # https://github.com/mediawiki-utilities/python-mwoauth/issues/44
+    # PyPI source has no tests included
+    # https://github.com/mediawiki-utilities/python-mwoauth/issues/44
   doCheck = false;
 
   pythonImportsCheck = [ "mwoauth" ];
 
   meta = with lib; {
     description =
-      "Python library to perform OAuth handshakes with a MediaWiki installation";
+      "Python library to perform OAuth handshakes with a MediaWiki installation"
+      ;
     homepage = "https://github.com/mediawiki-utilities/python-mwoauth";
     license = licenses.mit;
     maintainers = with maintainers; [ ixxie ];

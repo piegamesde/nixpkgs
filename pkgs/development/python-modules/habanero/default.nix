@@ -39,7 +39,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "habanero" ];
 
-  # almost the entirety of the test suite makes network calls
+    # almost the entirety of the test suite makes network calls
   pytestFlagsArray = [ "test/test-filters.py" ];
 
   meta = with lib; {

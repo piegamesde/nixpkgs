@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libpng ];
 
   LDFLAGS = lib.optional static "-static";
-  # Workaround for crash in cexcept.h. See
-  # https://github.com/NixOS/nixpkgs/issues/28106
+    # Workaround for crash in cexcept.h. See
+    # https://github.com/NixOS/nixpkgs/issues/28106
   preConfigure = ''
     export LD=$CC
   '';
@@ -33,14 +33,17 @@ stdenv.mkDerivation rec {
     #"-prefix=$out"
   ];
 
-  postInstall = if
-    stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isWindows
-  then
-    ''
-      mv "$out"/bin/optipng{,.exe}
-    ''
-  else
-    null;
+  postInstall =
+    if
+      stdenv.hostPlatform != stdenv.buildPlatform
+      && stdenv.hostPlatform.isWindows
+    then
+      ''
+        mv "$out"/bin/optipng{,.exe}
+      ''
+    else
+      null
+    ;
 
   meta = with lib; {
     homepage = "https://optipng.sourceforge.net/";

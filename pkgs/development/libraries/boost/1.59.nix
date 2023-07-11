@@ -13,7 +13,8 @@ callPackage ./generic.nix (args // rec {
     # https://github.com/boostorg/build/pull/238
     (fetchpatch {
       url =
-        "https://github.com/boostorg/build/commit/48e9017139dd94446633480661e5447c7e0d8b1b.diff";
+        "https://github.com/boostorg/build/commit/48e9017139dd94446633480661e5447c7e0d8b1b.diff"
+        ;
       excludes = [
         # Doesn't apply, isn't critical.
         "src/engine/filesys.h"

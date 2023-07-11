@@ -12,8 +12,9 @@ let
 in {
   options = {
     services.atuin = {
-      enable = mkEnableOption
-        (mdDoc "Enable server for shell history sync with atuin");
+      enable =
+        mkEnableOption (mdDoc "Enable server for shell history sync with atuin")
+        ;
 
       openRegistration = mkOption {
         type = types.bool;
@@ -92,8 +93,8 @@ in {
         ATUIN_OPEN_REGISTRATION = boolToString cfg.openRegistration;
         ATUIN_DB_URI = "postgresql:///atuin";
         ATUIN_PATH = cfg.path;
-        ATUIN_CONFIG_DIR =
-          "/run/atuin"; # required to start, but not used as configuration is via environment variables
+        ATUIN_CONFIG_DIR = "/run/atuin"
+          ; # required to start, but not used as configuration is via environment variables
       };
     };
 

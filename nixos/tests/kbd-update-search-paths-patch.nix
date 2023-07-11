@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }: {
     name = "kbd-update-search-paths-patch";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         options,
         ...
@@ -12,7 +13,8 @@ import ./make-test-python.nix ({
         console = {
           packages = options.console.packages.default ++ [ pkgs.terminus_font ];
         };
-      };
+      }
+      ;
 
     testScript = ''
       command = "${pkgs.kbd}/bin/setfont ter-112n 2>&1"

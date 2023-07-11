@@ -28,7 +28,7 @@ buildPythonPackage rec {
       --replace "lib_location = None" "lib_location = '${snap7}/lib/libsnap7.so'"
   '';
 
-  # Tests require root privileges to open privilaged ports
+    # Tests require root privileges to open privilaged ports
   doCheck = false;
 
   pythonImportsCheck = [

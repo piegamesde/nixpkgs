@@ -15,13 +15,13 @@ in
 buildBazelPackage rec {
   pname = "verible";
 
-  # These environment variables are read in bazel/build-version.py to create
-  # a build string shown in the tools --version output.
-  # If env variables not set, it would attempt to extract it from .git/.
+    # These environment variables are read in bazel/build-version.py to create
+    # a build string shown in the tools --version output.
+    # If env variables not set, it would attempt to extract it from .git/.
   GIT_DATE = "2023-04-14";
   GIT_VERSION = "v0.0-3179-g525ffaf7";
 
-  # Derive nix package version from GIT_VERSION: "v1.2-345-abcde" -> "1.2.345"
+    # Derive nix package version from GIT_VERSION: "v1.2-345-abcde" -> "1.2.345"
   version = builtins.concatStringsSep "."
     (lib.take 3 (lib.drop 1 (builtins.splitVersion GIT_VERSION)));
 
@@ -101,7 +101,8 @@ buildBazelPackage rec {
   meta = with lib; {
     homepage = "https://github.com/chipsalliance/verible";
     description =
-      "Suite of SystemVerilog developer tools. Including a style-linter, indexer, formatter, and language server.";
+      "Suite of SystemVerilog developer tools. Including a style-linter, indexer, formatter, and language server."
+      ;
     license = licenses.asl20;
     platforms = platforms.linux;
     maintainers = with maintainers; [

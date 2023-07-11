@@ -18,8 +18,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sphinx ];
 
-  # all tests fail; don't know why:
-  # test_absolute_paths_made_relative (hieroglyph.tests.test_path_fixing.PostProcessImageTests) ... ERROR
+    # all tests fail; don't know why:
+    # test_absolute_paths_made_relative (hieroglyph.tests.test_path_fixing.PostProcessImageTests) ... ERROR
   doCheck = false;
 
   meta = with lib; {

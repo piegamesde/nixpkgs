@@ -24,12 +24,13 @@ import ./make-test-python.nix ({
       '';
       environment.etc."ipsec.d/tunnel.secrets" = {
         text = ''
-          @alice @bob : PSK "j1JbIi9WY07rxwcNQ6nbyThKCf9DGxWOyokXIQcAQUnafsNTUJxfsxwk9WYK8fHj"'';
+          @alice @bob : PSK "j1JbIi9WY07rxwcNQ6nbyThKCf9DGxWOyokXIQcAQUnafsNTUJxfsxwk9WYK8fHj"''
+          ;
         mode = "600";
       };
     };
 
-    # Common network setup
+      # Common network setup
     baseNetwork = {
       # shared hosts file
       extraHosts = lib.mkVMOverride ''
@@ -37,51 +38,60 @@ import ./make-test-python.nix ({
         fd::b bob
         fd::e eve
       '';
-      # remove all automatic addresses
+        # remove all automatic addresses
       useDHCP = false;
       interfaces.eth1.ipv4.addresses = lib.mkVMOverride [ ];
       interfaces.eth2.ipv4.addresses = lib.mkVMOverride [ ];
-      # open a port for testing
+        # open a port for testing
       firewall.allowedUDPPorts = [ 1234 ];
     };
 
-    # Adds an address and route from a to b via Eve
-    addRoute = a: b: {
-      interfaces.eth1.ipv6.addresses = [ {
-        address = a;
-        prefixLength = 64;
-      } ];
-      interfaces.eth1.ipv6.routes = [ {
-        address = b;
-        prefixLength = 128;
-        via = "fd::e";
-      } ];
-    };
+      # Adds an address and route from a to b via Eve
+    addRoute =
+      a: b: {
+        interfaces.eth1.ipv6.addresses = [ {
+          address = a;
+          prefixLength = 64;
+        } ];
+        interfaces.eth1.ipv6.routes = [ {
+          address = b;
+          prefixLength = 128;
+          via = "fd::e";
+        } ];
+      }
+      ;
 
   in {
     name = "libreswan";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ rnhmjoj ];
+    };
 
-    # Our protagonist
-    nodes.alice = {
+      # Our protagonist
+    nodes.alice =
+      {
         ...
       }:
       {
         virtualisation.vlans = [ 1 ];
         networking = baseNetwork // addRoute "fd::a" "fd::b";
-      } // tunnelConfig;
+      } // tunnelConfig
+      ;
 
-    # Her best friend
-    nodes.bob = {
+      # Her best friend
+    nodes.bob =
+      {
         ...
       }:
       {
         virtualisation.vlans = [ 2 ];
         networking = baseNetwork // addRoute "fd::b" "fd::a";
-      } // tunnelConfig;
+      } // tunnelConfig
+      ;
 
-    # The malicious network operator
-    nodes.eve = {
+      # The malicious network operator
+    nodes.eve =
+      {
         ...
       }: {
         virtualisation.vlans = [
@@ -103,7 +113,8 @@ import ./make-test-python.nix ({
         ];
         environment.systemPackages = [ pkgs.tcpdump ];
         boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
-      };
+      }
+      ;
 
     testScript = ''
       def alice_to_bob(msg: str):

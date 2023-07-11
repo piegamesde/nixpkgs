@@ -11,16 +11,20 @@
 with pkgs.lib;
 
 let
-  tests = let
-    callTest = p: args: import p ({ inherit system pkgs; } // args);
-  in {
-    basic = callTest ./basic.nix;
-    namespaces = callTest ./namespaces.nix;
-    wg-quick = callTest ./wg-quick.nix;
-    wg-quick-nftables = args:
-      callTest ./wg-quick.nix ({ nftables = true; } // args);
-    generated = callTest ./generated.nix;
-  } ;
+  tests =
+    let
+      callTest = p: args: import p ({ inherit system pkgs; } // args);
+    in {
+      basic = callTest ./basic.nix;
+      namespaces = callTest ./namespaces.nix;
+      wg-quick = callTest ./wg-quick.nix;
+      wg-quick-nftables =
+        args:
+        callTest ./wg-quick.nix ({ nftables = true; } // args)
+        ;
+      generated = callTest ./generated.nix;
+    }
+    ;
 
 in
 listToAttrs (flip concatMap kernelVersionsToTest (version:

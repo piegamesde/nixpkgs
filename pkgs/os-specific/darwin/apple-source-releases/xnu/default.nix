@@ -18,10 +18,12 @@ appleDerivation' (if headersOnly then
   stdenvNoCC
 else
   stdenv) (let
-    arch = if stdenv.isx86_64 then
-      "x86_64"
-    else
-      "arm64";
+    arch =
+      if stdenv.isx86_64 then
+        "x86_64"
+      else
+        "arm64"
+      ;
   in
   {
     depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -101,30 +103,32 @@ else
 
     env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-    preBuild = let
-      macosVersion =
-        "10.0 10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 10.10 10.11"
-        + lib.optionalString stdenv.isAarch64 " 10.12 10.13 10.14 10.15 11.0";
-    in ''
-      # This is a bit of a hack...
-      mkdir -p sdk/usr/local/libexec
+    preBuild =
+      let
+        macosVersion =
+          "10.0 10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 10.10 10.11"
+          + lib.optionalString stdenv.isAarch64 " 10.12 10.13 10.14 10.15 11.0";
+      in ''
+        # This is a bit of a hack...
+        mkdir -p sdk/usr/local/libexec
 
-      cat > sdk/usr/local/libexec/availability.pl <<EOF
-        #!$SHELL
-        if [ "\$1" == "--macosx" ]; then
-          echo ${macosVersion}
-        elif [ "\$1" == "--ios" ]; then
-          echo 2.0 2.1 2.2 3.0 3.1 3.2 4.0 4.1 4.2 4.3 5.0 5.1 6.0 6.1 7.0 8.0 9.0
-        fi
-      EOF
-      chmod +x sdk/usr/local/libexec/availability.pl
+        cat > sdk/usr/local/libexec/availability.pl <<EOF
+          #!$SHELL
+          if [ "\$1" == "--macosx" ]; then
+            echo ${macosVersion}
+          elif [ "\$1" == "--ios" ]; then
+            echo 2.0 2.1 2.2 3.0 3.1 3.2 4.0 4.1 4.2 4.3 5.0 5.1 6.0 6.1 7.0 8.0 9.0
+          fi
+        EOF
+        chmod +x sdk/usr/local/libexec/availability.pl
 
-      export SDKROOT_RESOLVED=$PWD/sdk
-      export HOST_SDKROOT_RESOLVED=$PWD/sdk
+        export SDKROOT_RESOLVED=$PWD/sdk
+        export HOST_SDKROOT_RESOLVED=$PWD/sdk
 
-      export BUILT_PRODUCTS_DIR=.
-      export DSTROOT=$out
-    '' ;
+        export BUILT_PRODUCTS_DIR=.
+        export DSTROOT=$out
+      ''
+      ;
 
     buildFlags = lib.optional headersOnly "exporthdrs";
     installTargets = lib.optional headersOnly "installhdrs";

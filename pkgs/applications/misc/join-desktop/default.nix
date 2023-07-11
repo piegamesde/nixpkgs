@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/joaomgcd/JoinDesktop/releases/download/v${version}/com.joaomgcd.join_${version}_amd64.deb";
+      "https://github.com/joaomgcd/JoinDesktop/releases/download/v${version}/com.joaomgcd.join_${version}_amd64.deb"
+      ;
     sha256 = "sha256-k1LX/HC3tfL4Raipo7wp/LnfrPa38x8NBeKRyHJ72CU=";
   };
 
@@ -66,7 +67,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/joaomgcd/JoinDesktop/";
     description = "Desktop app for Join";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    # on https://joaoapps.com/join/desktop/ "Join Desktop is an open source app" but no license
+      # on https://joaoapps.com/join/desktop/ "Join Desktop is an open source app" but no license
     license = licenses.free;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ SuperSandro2000 ];

@@ -12,7 +12,8 @@
 
 let
   hashes = (import ./hashes.nix).${engineVersion} or (throw
-    "There are no known artifact hashes for Flutter engine version ${engineVersion}.");
+    "There are no known artifact hashes for Flutter engine version ${engineVersion}.")
+    ;
 
   artifacts = {
     common = {
@@ -83,17 +84,20 @@ let
     };
   };
 
-  mkArtifactDerivation = {
+  mkArtifactDerivation =
+    {
       platform ? null,
       variant ? null,
       archive,
       ...
     }@args:
     let
-      artifactDirectory = if platform == null then
-        null
-      else
-        "${platform}${lib.optionalString (variant != null) "-${variant}"}";
+      artifactDirectory =
+        if platform == null then
+          null
+        else
+          "${platform}${lib.optionalString (variant != null) "-${variant}"}"
+        ;
       archiveBasename =
         lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}" archive;
     in
@@ -119,7 +123,7 @@ let
 
       installPhase = "cp -r . $out";
     } // args)
-  ;
+    ;
 
   artifactDerivations = {
     common = builtins.mapAttrs (name: mkArtifactDerivation) artifacts.common;

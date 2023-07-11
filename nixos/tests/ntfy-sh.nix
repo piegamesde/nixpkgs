@@ -1,11 +1,13 @@
 import ./make-test-python.nix {
   name = "ntfy-sh";
 
-  nodes.machine = {
+  nodes.machine =
+    {
       ...
     }: {
       services.ntfy-sh.enable = true;
-    };
+    }
+    ;
 
   testScript = ''
     import json

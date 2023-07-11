@@ -32,8 +32,8 @@ buildPythonPackage rec {
     stevedore
   ];
 
-  # Framework is Tox, tox performs 'pip install' inside the virtual-env
-  #   and this requires Network Connectivity
+    # Framework is Tox, tox performs 'pip install' inside the virtual-env
+    #   and this requires Network Connectivity
   doCheck = false;
 
   pythonImportsCheck = [ "bandit" ];

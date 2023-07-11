@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X=github.com/netlify/gotrue/internal/utilities.Version=${version}"
   ];
 
-  # integration tests require network to connect to postgres database
+    # integration tests require network to connect to postgres database
   doCheck = false;
 
   passthru.tests.version = testers.testVersion {

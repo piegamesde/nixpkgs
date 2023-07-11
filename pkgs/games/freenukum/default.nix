@@ -71,7 +71,8 @@ rustPlatform.buildRustPackage rec {
     description = "Clone of the original Duke Nukum 1 Jump'n Run game";
     homepage = "https://salsa.debian.org/silwol/freenukum";
     changelog =
-      "https://salsa.debian.org/silwol/freenukum/-/blob/v${version}/CHANGELOG.md";
+      "https://salsa.debian.org/silwol/freenukum/-/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ _0x4A6F ];
     broken = stdenv.isDarwin;

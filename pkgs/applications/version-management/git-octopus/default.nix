@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  # perl provides shasum
+    # perl provides shasum
   postInstall = ''
     for f in $out/bin/*; do
       wrapProgram $f --prefix PATH : ${

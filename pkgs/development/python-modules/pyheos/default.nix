@@ -31,7 +31,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Async python library for controlling HEOS devices through the HEOS CLI Protocol";
+      "Async python library for controlling HEOS devices through the HEOS CLI Protocol"
+      ;
     homepage = "https://github.com/andrewsayre/pyheos";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];

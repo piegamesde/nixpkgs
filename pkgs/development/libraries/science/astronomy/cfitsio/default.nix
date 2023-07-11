@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-${version}.tar.gz";
+      "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-${version}.tar.gz"
+      ;
     sha256 = "sha256-66U9Gz9uNFYyuwmnt1LsfO09Y+xRU6hIOA84gMXWGIk=";
   };
 
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  # Shared-only build
+    # Shared-only build
   buildFlags = [ "shared" ];
   postPatch = ''
     sed -e '/^install:/s/libcfitsio.a //' -e 's@/bin/@@g' -i Makefile.in

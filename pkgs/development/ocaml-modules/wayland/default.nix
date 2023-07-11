@@ -20,7 +20,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/talex5/ocaml-wayland/releases/download/v${version}/wayland-${version}.tbz";
+      "https://github.com/talex5/ocaml-wayland/releases/download/v${version}/wayland-${version}.tbz"
+      ;
     sha256 = "0b7czgh08i6xcx3fsz6vd19sfyngwi0i27jdzg8cnjgrgwnagv6d";
   };
 

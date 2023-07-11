@@ -11,11 +11,11 @@ let
 
   mirrors = import ./mirrors.nix;
 
-  # Write the list of mirrors to a file that we can reuse between
-  # fetchurl instantiations, instead of passing the mirrors to
-  # fetchurl instantiations via environment variables.  This makes the
-  # resulting store derivations (.drv files) much smaller, which in
-  # turn makes nix-env/nix-instantiate faster.
+    # Write the list of mirrors to a file that we can reuse between
+    # fetchurl instantiations, instead of passing the mirrors to
+    # fetchurl instantiations via environment variables.  This makes the
+    # resulting store derivations (.drv files) much smaller, which in
+    # turn makes nix-env/nix-instantiate faster.
   mirrorsFile = buildPackages.stdenvNoCC.mkDerivation ({
     name = "mirrors-list";
     strictDeps = true;
@@ -23,8 +23,8 @@ let
     preferLocalBuild = true;
   } // mirrors);
 
-  # Names of the master sites that are mirrored (i.e., "sourceforge",
-  # "gnu", etc.).
+    # Names of the master sites that are mirrored (i.e., "sourceforge",
+    # "gnu", etc.).
   sites = builtins.attrNames mirrors;
 
   impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
@@ -119,18 +119,20 @@ in
 }:
 
 let
-  urls_ = if urls != [ ] && url == "" then
-    (if lib.isList urls then
-      urls
+  urls_ =
+    if urls != [ ] && url == "" then
+      (if lib.isList urls then
+        urls
+      else
+        throw "`urls` is not a list")
+    else if urls == [ ] && url != "" then
+      (if lib.isString url then
+        [ url ]
+      else
+        throw "`url` is not a string")
     else
-      throw "`urls` is not a list")
-  else if urls == [ ] && url != "" then
-    (if lib.isString url then
-      [ url ]
-    else
-      throw "`url` is not a string")
-  else
-    throw "fetchurl requires either `url` or `urls` to be set";
+      throw "fetchurl requires either `url` or `urls` to be set"
+    ;
 
   hash_ =
     # Many other combinations don't make sense, but this is the most common one:
@@ -170,19 +172,22 @@ let
     else
       throw "fetchurl requires a hash for fixed-output derivation: ${
         lib.concatStringsSep ", " urls_
-      }";
+      }"
+    ;
 
 in
 stdenvNoCC.mkDerivation ((if (pname != "" && version != "") then
   { inherit pname version; }
 else
   {
-    name = if showURLs then
-      "urls"
-    else if name != "" then
-      name
-    else
-      baseNameOf (toString (builtins.head urls_));
+    name =
+      if showURLs then
+        "urls"
+      else if name != "" then
+        name
+      else
+        baseNameOf (toString (builtins.head urls_))
+      ;
   }) // {
     builder = ./builder.sh;
 
@@ -190,26 +195,30 @@ else
 
     urls = urls_;
 
-    # If set, prefer the content-addressable mirrors
-    # (http://tarballs.nixos.org) over the original URLs.
+      # If set, prefer the content-addressable mirrors
+      # (http://tarballs.nixos.org) over the original URLs.
     preferHashedMirrors = true;
 
-    # New-style output content requirements.
+      # New-style output content requirements.
     inherit (hash_) outputHashAlgo outputHash;
 
-    SSL_CERT_FILE = if
-      (hash_.outputHash == "" || hash_.outputHash == lib.fakeSha256
-        || hash_.outputHash == lib.fakeSha512 || hash_.outputHash
-        == lib.fakeHash)
-    then
-      "${cacert}/etc/ssl/certs/ca-bundle.crt"
-    else
-      "/no-cert-file.crt";
+    SSL_CERT_FILE =
+      if
+        (hash_.outputHash == "" || hash_.outputHash == lib.fakeSha256
+          || hash_.outputHash == lib.fakeSha512 || hash_.outputHash
+          == lib.fakeHash)
+      then
+        "${cacert}/etc/ssl/certs/ca-bundle.crt"
+      else
+        "/no-cert-file.crt"
+      ;
 
-    outputHashMode = if (recursiveHash || executable) then
-      "recursive"
-    else
-      "flat";
+    outputHashMode =
+      if (recursiveHash || executable) then
+        "recursive"
+      else
+        "flat"
+      ;
 
     curlOpts = lib.warnIf (lib.isList curlOpts) ''
       fetchurl for ${toString (builtins.head urls_)}: curlOpts is a list (${
@@ -230,13 +239,15 @@ else
 
     inherit preferLocalBuild;
 
-    postHook = if netrcPhase == null then
-      null
-    else
-      ''
-        ${netrcPhase}
-        curlOpts="$curlOpts --netrc-file $PWD/netrc"
-      '';
+    postHook =
+      if netrcPhase == null then
+        null
+      else
+        ''
+          ${netrcPhase}
+          curlOpts="$curlOpts --netrc-file $PWD/netrc"
+        ''
+      ;
 
     inherit meta;
     passthru = { inherit url; } // passthru;

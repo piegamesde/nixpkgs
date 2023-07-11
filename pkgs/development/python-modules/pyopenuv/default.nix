@@ -32,7 +32,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "remove-asynctest.patch";
       url =
-        "https://github.com/bachya/pyopenuv/commit/af15736b0d82ef811c3f380f5da32007752644fe.patch";
+        "https://github.com/bachya/pyopenuv/commit/af15736b0d82ef811c3f380f5da32007752644fe.patch"
+        ;
       hash = "sha256-5uQS3DoM91mhfyxLTNii3JBxwXIDK4/GwtadkVagjuw=";
     })
   ];

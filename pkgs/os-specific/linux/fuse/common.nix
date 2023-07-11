@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     (!isFuse3 && (stdenv.isAarch64 || stdenv.hostPlatform.isLoongArch64))
     (fetchpatch {
       url =
-        "https://github.com/libfuse/libfuse/commit/914871b20a901e3e1e981c92bc42b1c93b7ab81b.patch";
+        "https://github.com/libfuse/libfuse/commit/914871b20a901e3e1e981c92bc42b1c93b7ab81b.patch"
+        ;
       sha256 = "1w4j6f1awjrycycpvmlv0x5v9gprllh4dnbjxl4dyl2jgbkaw6pa";
     }) ++ (if isFuse3 then
       [
@@ -52,22 +53,25 @@ stdenv.mkDerivation rec {
         ./fuse2-Do-not-set-FUSERMOUNT_DIR.patch
         (fetchpatch {
           url =
-            "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-fs/fuse/files/fuse-2.9.9-closefrom-glibc-2-34.patch?id=8a970396fca7aca2d5a761b8e7a8242f1eef14c9";
+            "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-fs/fuse/files/fuse-2.9.9-closefrom-glibc-2-34.patch?id=8a970396fca7aca2d5a761b8e7a8242f1eef14c9"
+            ;
           sha256 = "sha256-ELYBW/wxRcSMssv7ejCObrpsJHtOPJcGq33B9yHQII4=";
         })
       ]);
 
-  nativeBuildInputs = if isFuse3 then
-    [
-      meson
-      ninja
-      pkg-config
-    ]
-  else
-    [
-      autoreconfHook
-      gettext
-    ];
+  nativeBuildInputs =
+    if isFuse3 then
+      [
+        meson
+        ninja
+        pkg-config
+      ]
+    else
+      [
+        autoreconfHook
+        gettext
+      ]
+    ;
 
   outputs = [ "out" ] ++ lib.optional isFuse3 "common";
 

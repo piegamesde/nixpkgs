@@ -24,32 +24,40 @@ let
 
   namePrefix = python.libPrefix + "-";
 
-  # Derivations built with `buildPythonPackage` can already be overridden with `override`, `overrideAttrs`, and `overrideDerivation`.
-  # This function introduces `overridePythonAttrs` and it overrides the call to `buildPythonPackage`.
-  makeOverridablePythonPackage = f: origArgs:
+    # Derivations built with `buildPythonPackage` can already be overridden with `override`, `overrideAttrs`, and `overrideDerivation`.
+    # This function introduces `overridePythonAttrs` and it overrides the call to `buildPythonPackage`.
+  makeOverridablePythonPackage =
+    f: origArgs:
     let
       args = lib.fix (lib.extends (_: previousAttrs: {
         passthru = (previousAttrs.passthru or { }) // {
-          overridePythonAttrs = newArgs:
-            makeOverridablePythonPackage f (overrideWith newArgs);
+          overridePythonAttrs =
+            newArgs:
+            makeOverridablePythonPackage f (overrideWith newArgs)
+            ;
         };
       }) (_: origArgs));
       result = f args;
-      overrideWith = newArgs:
+      overrideWith =
+        newArgs:
         args // (if pkgs.lib.isFunction newArgs then
           newArgs args
         else
-          newArgs);
+          newArgs)
+        ;
     in if builtins.isAttrs result then
       result
     else if builtins.isFunction result then
       {
-        overridePythonAttrs = newArgs:
-          makeOverridablePythonPackage f (overrideWith newArgs);
+        overridePythonAttrs =
+          newArgs:
+          makeOverridablePythonPackage f (overrideWith newArgs)
+          ;
         __functor = self: result;
       }
     else
-      result;
+      result
+    ;
 
   buildPythonPackage = makeOverridablePythonPackage (lib.makeOverridable
     (callPackage ./mk-python-derivation.nix {
@@ -65,30 +73,37 @@ let
       toPythonModule = x: x; # Application does not provide modules.
     }));
 
-  # See build-setupcfg/default.nix for documentation.
+    # See build-setupcfg/default.nix for documentation.
   buildSetupcfg = import ../../../build-support/build-setupcfg lib self;
 
-  # Check whether a derivation provides a Python module.
-  hasPythonModule = drv: drv ? pythonModule && drv.pythonModule == python;
+    # Check whether a derivation provides a Python module.
+  hasPythonModule =
+    drv:
+    drv ? pythonModule && drv.pythonModule == python
+    ;
 
-  # Get list of required Python modules given a list of derivations.
-  requiredPythonModules = drvs:
+    # Get list of required Python modules given a list of derivations.
+  requiredPythonModules =
+    drvs:
     let
       modules = lib.filter hasPythonModule drvs;
     in
     lib.unique ([ python ] ++ modules
       ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules))
-  ;
+    ;
 
-  # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
-  # providing Python modules.
-  makePythonPath = drvs:
-    lib.makeSearchPath python.sitePackages (requiredPythonModules drvs);
+    # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
+    # providing Python modules.
+  makePythonPath =
+    drvs:
+    lib.makeSearchPath python.sitePackages (requiredPythonModules drvs)
+    ;
 
   removePythonPrefix = lib.removePrefix namePrefix;
 
-  # Convert derivation to a Python module.
-  toPythonModule = drv:
+    # Convert derivation to a Python module.
+  toPythonModule =
+    drv:
     drv.overrideAttrs (oldAttrs: {
       # Use passthru in order to prevent rebuilds when possible.
       passthru = (oldAttrs.passthru or { }) // {
@@ -96,10 +111,12 @@ let
         pythonPath = [ ]; # Deprecated, for compatibility.
         requiredPythonModules = requiredPythonModules drv.propagatedBuildInputs;
       };
-    });
+    })
+    ;
 
-  # Convert a Python library to an application.
-  toPythonApplication = drv:
+    # Convert a Python library to an application.
+  toPythonApplication =
+    drv:
     drv.overrideAttrs (oldAttrs: {
       passthru = (oldAttrs.passthru or { }) // {
         # Remove Python prefix from name so we have a "normal" name.
@@ -108,18 +125,23 @@ let
         name = removePythonPrefix oldAttrs.name;
         pythonModule = false;
       };
-    });
+    })
+    ;
 
-  disabled = drv:
+  disabled =
+    drv:
     throw "${
       removePythonPrefix (drv.pname or drv.name)
-    } not supported for interpreter ${python.executable}";
+    } not supported for interpreter ${python.executable}"
+    ;
 
-  disabledIf = x: drv:
+  disabledIf =
+    x: drv:
     if x then
       disabled drv
     else
-      drv;
+      drv
+    ;
 
 in {
 
@@ -149,10 +171,10 @@ in {
   inherit buildSetupcfg;
 
   python = toPythonModule python;
-  # Dont take pythonPackages from "global" pkgs scope to avoid mixing python versions
+    # Dont take pythonPackages from "global" pkgs scope to avoid mixing python versions
   pythonPackages = self;
 
-  # Remove?
+    # Remove?
   recursivePthLoader = toPythonModule
     (callPackage ../../../development/python-modules/recursive-pth-loader { });
 

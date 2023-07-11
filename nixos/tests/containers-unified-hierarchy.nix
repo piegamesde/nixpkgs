@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "containers-unified-hierarchy";
     meta = { maintainers = with lib.maintainers; [ farnoy ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         containers = {
@@ -15,7 +16,8 @@ import ./make-test-python.nix ({
             config = { };
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("default.target")

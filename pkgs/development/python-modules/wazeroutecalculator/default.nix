@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # there are no tests
+    # there are no tests
   doCheck = false;
 
   pythonImportsCheck = [ "WazeRouteCalculator" ];

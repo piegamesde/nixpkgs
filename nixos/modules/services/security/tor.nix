@@ -14,23 +14,29 @@ let
   opt = options.services.tor;
   stateDir = "/var/lib/tor";
   runDir = "/run/tor";
-  descriptionGeneric = option: ''
-    See [torrc manual](https://2019.www.torproject.org/docs/tor-manual.html.en#${option}).
-  '';
+  descriptionGeneric =
+    option: ''
+      See [torrc manual](https://2019.www.torproject.org/docs/tor-manual.html.en#${option}).
+    ''
+    ;
   bindsPrivilegedPort = any (p0:
     let
-      p1 = if p0 ? "port" then
-        p0.port
-      else
-        p0;
+      p1 =
+        if p0 ? "port" then
+          p0.port
+        else
+          p0
+        ;
     in if p1 == "auto" then
       false
     else
       let
-        p2 = if isInt p1 then
-          p1
-        else
-          toInt p1;
+        p2 =
+          if isInt p1 then
+            p1
+          else
+            toInt p1
+          ;
       in
       p1 != null && 0 < p2 && p2 < 1024
   ) (flatten [
@@ -43,30 +49,38 @@ let
     cfg.settings.SOCKSPort
     cfg.settings.TransPort
   ]);
-  optionBool = optionName:
+  optionBool =
+    optionName:
     mkOption {
       type = with types; nullOr bool;
       default = null;
       description = lib.mdDoc (descriptionGeneric optionName);
-    };
-  optionInt = optionName:
+    }
+    ;
+  optionInt =
+    optionName:
     mkOption {
       type = with types; nullOr int;
       default = null;
       description = lib.mdDoc (descriptionGeneric optionName);
-    };
-  optionString = optionName:
+    }
+    ;
+  optionString =
+    optionName:
     mkOption {
       type = with types; nullOr str;
       default = null;
       description = lib.mdDoc (descriptionGeneric optionName);
-    };
-  optionStrings = optionName:
+    }
+    ;
+  optionStrings =
+    optionName:
     mkOption {
       type = with types; listOf str;
       default = [ ];
       description = lib.mdDoc (descriptionGeneric optionName);
-    };
+    }
+    ;
   optionAddress = mkOption {
     type = with types; nullOr str;
     default = null;
@@ -90,12 +104,14 @@ let
       ]);
     default = null;
   };
-  optionPorts = optionName:
+  optionPorts =
+    optionName:
     mkOption {
       type = with types; listOf port;
       default = [ ];
       description = lib.mdDoc (descriptionGeneric optionName);
-    };
+    }
+    ;
   optionIsolablePort = with types;
     oneOf [
       port
@@ -124,12 +140,14 @@ let
           };
         }))
     ];
-  optionIsolablePorts = optionName:
+  optionIsolablePorts =
+    optionName:
     mkOption {
       default = [ ];
       type = with types; either optionIsolablePort (listOf optionIsolablePort);
       description = lib.mdDoc (descriptionGeneric optionName);
-    };
+    }
+    ;
   isolateFlags = [
     "IsolateClientAddr"
     "IsolateClientProtocol"
@@ -138,7 +156,8 @@ let
     "IsolateSOCKSAuth"
     "KeepAliveIsolateSOCKSAuth"
   ];
-  optionSOCKSPort = doConfig:
+  optionSOCKSPort =
+    doConfig:
     let
       flags = [
         "CacheDNS"
@@ -186,12 +205,14 @@ let
                 "SessionGroup=${toString config.SessionGroup}";
             };
         }))
-    ];
+    ]
+    ;
   optionFlags = mkOption {
     type = with types; listOf str;
     default = [ ];
   };
-  optionORPort = optionName:
+  optionORPort =
+    optionName:
     mkOption {
       default = [ ];
       example = 443;
@@ -230,21 +251,27 @@ let
           ]))
         ];
       description = lib.mdDoc (descriptionGeneric optionName);
-    };
-  optionBandwidth = optionName:
+    }
+    ;
+  optionBandwidth =
+    optionName:
     mkOption {
       type = with types; nullOr (either int str);
       default = null;
       description = lib.mdDoc (descriptionGeneric optionName);
-    };
-  optionPath = optionName:
+    }
+    ;
+  optionPath =
+    optionName:
     mkOption {
       type = with types; nullOr path;
       default = null;
       description = lib.mdDoc (descriptionGeneric optionName);
-    };
+    }
+    ;
 
-  mkValueString = k: v:
+  mkValueString =
+    k: v:
     if v == null then
       ""
     else if isBool v then
@@ -265,12 +292,16 @@ let
     else if k == "HidServAuth" then
       v.onion + " " + v.auth
     else
-      generators.mkValueStringDefault { } v;
-  genTorrc = settings:
+      generators.mkValueStringDefault { } v
+    ;
+  genTorrc =
+    settings:
     generators.toKeyValue {
       listsAsDuplicateKeys = true;
-      mkKeyValue = k:
-        generators.mkKeyValueDefault { mkValueString = mkValueString k; } " " k;
+      mkKeyValue =
+        k:
+        generators.mkKeyValueDefault { mkValueString = mkValueString k; } " " k
+        ;
     } (lib.mapAttrs (k: v:
       # Not necesssary, but prettier rendering
       if
@@ -283,7 +314,8 @@ let
       then
         concatStringsSep "," v
       else
-        v) (lib.filterAttrs (k: v: !(v == null || v == "")) settings));
+        v) (lib.filterAttrs (k: v: !(v == null || v == "")) settings))
+    ;
   torrc = pkgs.writeText "torrc" (genTorrc cfg.settings + concatStrings
     (mapAttrsToList (name: onion:
       ''
@@ -553,7 +585,8 @@ in {
       client = {
         enable = mkEnableOption (lib.mdDoc ''
           the routing of application connections.
-                    You might want to disable this if you plan running a dedicated Tor relay'');
+                    You might want to disable this if you plan running a dedicated Tor relay'')
+          ;
 
         transparentProxy.enable =
           mkEnableOption (lib.mdDoc "transparent proxy");
@@ -720,8 +753,8 @@ in {
           example = {
             "example.org/www" = {
               map = [ 80 ];
-              authorizedClients =
-                [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ];
+              authorizedClients = [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ]
+                ;
             };
           };
           type = types.attrsOf (types.submodule ({
@@ -794,8 +827,8 @@ in {
                 '';
                 type = with types; listOf str;
                 default = [ ];
-                example =
-                  [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ];
+                example = [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ]
+                  ;
               };
               options.map = mkOption {
                 description =
@@ -898,7 +931,8 @@ in {
                     config.authorizeClient.authType + " "
                     + concatStringsSep "," config.authorizeClient.clientNames
                   else
-                    null;
+                    null
+                  ;
                 settings.HiddenServicePort = map
                   (p: mkValueString "" p.port + " " + mkValueString "" p.target)
                   config.map;
@@ -950,12 +984,12 @@ in {
           options.BridgeAuthoritativeDir = optionBool "BridgeAuthoritativeDir";
           options.BridgeRecordUsageByCountry =
             optionBool "BridgeRecordUsageByCountry";
-          options.BridgeRelay = optionBool "BridgeRelay" // {
-            default = false;
-          };
+          options.BridgeRelay =
+            optionBool "BridgeRelay" // { default = false; };
           options.CacheDirectory = optionPath "CacheDirectory";
-          options.CacheDirectoryGroupReadable = optionBool
-            "CacheDirectoryGroupReadable"; # default is null and like "auto"
+          options.CacheDirectoryGroupReadable =
+            optionBool "CacheDirectoryGroupReadable"
+            ; # default is null and like "auto"
           options.CellStatistics = optionBool "CellStatistics";
           options.ClientAutoIPv6ORPort = optionBool "ClientAutoIPv6ORPort";
           options.ClientDNSRejectInternalAddresses =
@@ -965,10 +999,10 @@ in {
             default = null;
             type = with types; nullOr path;
           };
-          options.ClientPreferIPv6DirPort = optionBool
-            "ClientPreferIPv6DirPort"; # default is null and like "auto"
-          options.ClientPreferIPv6ORPort = optionBool
-            "ClientPreferIPv6ORPort"; # default is null and like "auto"
+          options.ClientPreferIPv6DirPort = optionBool "ClientPreferIPv6DirPort"
+            ; # default is null and like "auto"
+          options.ClientPreferIPv6ORPort = optionBool "ClientPreferIPv6ORPort"
+            ; # default is null and like "auto"
           options.ClientRejectInternalAddresses =
             optionBool "ClientRejectInternalAddresses";
           options.ClientUseIPv4 = optionBool "ClientUseIPv4";
@@ -1026,9 +1060,8 @@ in {
           options.CookieAuthFileGroupReadable =
             optionBool "CookieAuthFileGroupReadable";
           options.CookieAuthentication = optionBool "CookieAuthentication";
-          options.DataDirectory = optionPath "DataDirectory" // {
-            default = stateDir;
-          };
+          options.DataDirectory =
+            optionPath "DataDirectory" // { default = stateDir; };
           options.DataDirectoryGroupReadable =
             optionBool "DataDirectoryGroupReadable";
           options.DirPortFrontPage = optionPath "DirPortFrontPage";
@@ -1090,11 +1123,13 @@ in {
                     };
                   }))
               ]);
-            apply = p:
+            apply =
+              p:
               if isInt p || isString p then
                 { port = p; }
               else
-                p;
+                p
+              ;
           };
           options.ExtORPortCookieAuthFile =
             optionPath "ExtORPortCookieAuthFile";
@@ -1194,7 +1229,7 @@ in {
           options.RejectPlaintextPorts = optionPorts "RejectPlaintextPorts";
           options.RelayBandwidthBurst = optionBandwidth "RelayBandwidthBurst";
           options.RelayBandwidthRate = optionBandwidth "RelayBandwidthRate";
-          #options.RunAsDaemon
+            #options.RunAsDaemon
           options.Sandbox = optionBool "Sandbox";
           options.ServerDNSAllowBrokenConfig =
             optionBool "ServerDNSAllowBrokenConfig";
@@ -1237,15 +1272,16 @@ in {
             default = 30;
             description = lib.mdDoc (descriptionGeneric "ShutdownWaitLength");
           };
-          options.SocksPolicy = optionStrings "SocksPolicy" // {
-            example = [ "accept *:*" ];
-          };
+          options.SocksPolicy =
+            optionStrings "SocksPolicy" // { example = [ "accept *:*" ]; };
           options.SOCKSPort = mkOption {
             description = lib.mdDoc (descriptionGeneric "SOCKSPort");
-            default = if cfg.settings.HiddenServiceNonAnonymousMode == true then
-              [ { port = 0; } ]
-            else
-              [ ];
+            default =
+              if cfg.settings.HiddenServiceNonAnonymousMode == true then
+                [ { port = 0; } ]
+              else
+                [ ]
+              ;
             defaultText = literalExpression ''
               if config.${opt.settings}.HiddenServiceNonAnonymousMode == true
               then [ { port = 0; } ]
@@ -1267,7 +1303,7 @@ in {
               ]);
             default = null;
           };
-          #options.TruncateLogFile
+            #options.TruncateLogFile
           options.UnixSocksGroupWritable = optionBool "UnixSocksGroupWritable";
           options.UseDefaultFallbackDirs = optionBool "UseDefaultFallbackDirs";
           options.UseMicrodescriptors = optionBool "UseMicrodescriptors";
@@ -1453,8 +1489,8 @@ in {
         ExecStart = "${cfg.package}/bin/tor -f ${torrc}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         KillSignal = "SIGINT";
-        TimeoutSec = cfg.settings.ShutdownWaitLength
-          + 30; # Wait a bit longer than ShutdownWaitLength before actually timing out
+        TimeoutSec = cfg.settings.ShutdownWaitLength + 30
+          ; # Wait a bit longer than ShutdownWaitLength before actually timing out
         Restart = "on-failure";
         LimitNOFILE = 32768;
         RuntimeDirectory = [
@@ -1472,11 +1508,11 @@ in {
         ] ++ flatten (mapAttrsToList
           (name: onion: optional (onion.secretKey == null) "tor/onion/${name}")
           cfg.relay.onionServices);
-        # The following options are only to optimize:
-        # systemd-analyze security tor
+          # The following options are only to optimize:
+          # systemd-analyze security tor
         RootDirectory = runDir + "/root";
         RootDirectoryStartOnly = true;
-        #InaccessiblePaths = [ "-+${runDir}/root" ];
+          #InaccessiblePaths = [ "-+${runDir}/root" ];
         UMask = "0066";
         BindPaths = [ stateDir ];
         BindReadOnlyPaths = [
@@ -1486,11 +1522,11 @@ in {
           "/run/systemd/resolve/stub-resolv.conf"
           "/run/systemd/resolve/resolv.conf"
         ];
-        AmbientCapabilities = [ "" ]
-          ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+        AmbientCapabilities =
+          [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
         CapabilityBoundingSet = [ "" ]
           ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
-        # ProtectClock= adds DeviceAllow=char-rtc r
+          # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -1499,8 +1535,8 @@ in {
         PrivateMounts = true;
         PrivateNetwork = mkDefault false;
         PrivateTmp = true;
-        # Tor cannot currently bind privileged port when PrivateUsers=true,
-        # see https://gitlab.torproject.org/legacy/trac/-/issues/20930
+          # Tor cannot currently bind privileged port when PrivateUsers=true,
+          # see https://gitlab.torproject.org/legacy/trac/-/issues/20930
         PrivateUsers = !bindsPrivilegedPort;
         ProcSubset = "pid";
         ProtectClock = true;
@@ -1522,7 +1558,7 @@ in {
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
-        # See also the finer but experimental option settings.Sandbox
+          # See also the finer but experimental option settings.Sandbox
         SystemCallFilter = [
           "@system-service"
           # Groups in @system-service which do not contain a syscall listed by:

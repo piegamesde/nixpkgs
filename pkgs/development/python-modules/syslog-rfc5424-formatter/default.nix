@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-dvRSOMXRmZf0vEEyX6H7OBSfo/PgyOLKuDS8X6g4qe0=";
   };
 
-  # Tests are not picked up, review later again
+    # Tests are not picked up, review later again
   doCheck = false;
 
   pythonImportsCheck = [ "syslog_rfc5424_formatter" ];

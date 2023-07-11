@@ -57,7 +57,8 @@ buildPythonPackage rec {
     description = "Use Jupyter Notebook in mkdocs";
     homepage = "https://github.com/danielfrg/mkdocs-jupyter";
     changelog =
-      "https://github.com/danielfrg/mkdocs-jupyter/blob/${version}/CHANGELOG.md";
+      "https://github.com/danielfrg/mkdocs-jupyter/blob/${version}/CHANGELOG.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ net-mist ];
   };

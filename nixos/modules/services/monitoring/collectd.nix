@@ -13,24 +13,28 @@ let
   baseDirLine = ''BaseDir "${cfg.dataDir}"'';
   unvalidated_conf = pkgs.writeText "collectd-unvalidated.conf" cfg.extraConfig;
 
-  conf = if cfg.validateConfig then
-    pkgs.runCommand "collectd.conf" { } ''
-      echo testing ${unvalidated_conf}
-      cp ${unvalidated_conf} collectd.conf
-      # collectd -t fails if BaseDir does not exist.
-      substituteInPlace collectd.conf --replace ${
-        lib.escapeShellArgs [ baseDirLine ]
-      } 'BaseDir "."'
-      ${package}/bin/collectd -t -C collectd.conf
-      cp ${unvalidated_conf} $out
-    ''
-  else
-    unvalidated_conf;
+  conf =
+    if cfg.validateConfig then
+      pkgs.runCommand "collectd.conf" { } ''
+        echo testing ${unvalidated_conf}
+        cp ${unvalidated_conf} collectd.conf
+        # collectd -t fails if BaseDir does not exist.
+        substituteInPlace collectd.conf --replace ${
+          lib.escapeShellArgs [ baseDirLine ]
+        } 'BaseDir "."'
+        ${package}/bin/collectd -t -C collectd.conf
+        cp ${unvalidated_conf} $out
+      ''
+    else
+      unvalidated_conf
+    ;
 
-  package = if cfg.buildMinimalPackage then
-    minimalPackage
-  else
-    cfg.package;
+  package =
+    if cfg.buildMinimalPackage then
+      minimalPackage
+    else
+      cfg.package
+    ;
 
   minimalPackage = cfg.package.override {
     enabledPlugins = [ "syslog" ] ++ builtins.attrNames cfg.plugins;

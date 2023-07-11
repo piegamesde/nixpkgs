@@ -48,7 +48,7 @@ buildGoModule rec {
     export CI=true
   '';
 
-  # Allow tests that bind or connect to localhost on macOS.
+    # Allow tests that bind or connect to localhost on macOS.
   __darwinAllowLocalNetworking = true;
 
   installPhase = ''
@@ -79,7 +79,8 @@ buildGoModule rec {
     homepage = "https://buf.build";
     changelog = "https://github.com/bufbuild/buf/releases/tag/v${version}";
     description =
-      "Create consistent Protobuf APIs that preserve compatibility and comply with design best-practices";
+      "Create consistent Protobuf APIs that preserve compatibility and comply with design best-practices"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [
       jk

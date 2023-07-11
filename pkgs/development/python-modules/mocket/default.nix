@@ -55,7 +55,7 @@ buildPythonPackage rec {
     sure
   ] ++ passthru.optional-dependencies.pook;
 
-  # Skip http tests
+    # Skip http tests
   SKIP_TRUE_HTTP = true;
 
   disabledTestPaths = [

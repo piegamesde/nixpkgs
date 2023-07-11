@@ -26,7 +26,7 @@ buildPythonPackage rec {
     google-auth-oauthlib
   ];
 
-  # No tests included
+    # No tests included
   doCheck = false;
 
   pythonImportsCheck = [ "gspread" ];

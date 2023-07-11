@@ -48,7 +48,7 @@ in {
     # Where the communication sockets live
     runDir = "/run/openvswitch";
 
-    # The path to the an initialized version of the database
+      # The path to the an initialized version of the database
     db = pkgs.stdenv.mkDerivation {
       name = "vswitch.db";
       dontUnpack = true;
@@ -75,7 +75,7 @@ in {
         db
         cfg.package
       ];
-      # Create the config database
+        # Create the config database
       preStart = ''
         mkdir -p ${runDir}
         mkdir -p /var/db/openvswitch
@@ -110,7 +110,7 @@ in {
         Restart = "always";
         RestartSec = 3;
         PIDFile = "/run/openvswitch/ovsdb.pid";
-        # Use service type 'forking' to correctly determine when ovsdb-server is ready.
+          # Use service type 'forking' to correctly determine when ovsdb-server is ready.
         Type = "forking";
       };
       postStart = ''
@@ -131,7 +131,7 @@ in {
           --detach
         '';
         PIDFile = "/run/openvswitch/ovs-vswitchd.pid";
-        # Use service type 'forking' to correctly determine when vswitchd is ready.
+          # Use service type 'forking' to correctly determine when vswitchd is ready.
         Type = "forking";
         Restart = "always";
         RestartSec = 3;

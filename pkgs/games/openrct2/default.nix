@@ -32,8 +32,8 @@
 let
   openrct2-version = "0.4.4";
 
-  # Those versions MUST match the pinned versions within the CMakeLists.txt
-  # file. The REPLAYS repository from the CMakeLists.txt is not necessary.
+    # Those versions MUST match the pinned versions within the CMakeLists.txt
+    # file. The REPLAYS repository from the CMakeLists.txt is not necessary.
   objects-version = "1.3.8";
   openmsx-version = "1.1.0";
   opensfx-version = "1.0.2";
@@ -133,10 +133,12 @@ stdenv.mkDerivation {
   preConfigure =
     # Verify that the correct version of each third party repository is used.
     (let
-      versionCheck = cmakeKey: version: ''
-        grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
-          || (echo "${cmakeKey} differs from expected version!"; exit 1)
-      '';
+      versionCheck =
+        cmakeKey: version: ''
+          grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
+            || (echo "${cmakeKey} differs from expected version!"; exit 1)
+        ''
+        ;
     in
     (versionCheck "OBJECTS" objects-version)
     + (versionCheck "OPENMSX" openmsx-version)
@@ -153,7 +155,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Open source re-implementation of RollerCoaster Tycoon 2 (original game required)";
+      "Open source re-implementation of RollerCoaster Tycoon 2 (original game required)"
+      ;
     homepage = "https://openrct2.io/";
     downloadPage = "https://github.com/OpenRCT2/OpenRCT2/releases";
     license = licenses.gpl3Only;

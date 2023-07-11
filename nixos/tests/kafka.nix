@@ -7,20 +7,24 @@
 with pkgs.lib;
 
 let
-  makeKafkaTest = name: kafkaPackage:
+  makeKafkaTest =
+    name: kafkaPackage:
     (import ./make-test-python.nix ({
       inherit name;
       meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
       nodes = {
-        zookeeper1 = {
+        zookeeper1 =
+          {
             ...
           }: {
             services.zookeeper = { enable = true; };
 
             networking.firewall.allowedTCPPorts = [ 2181 ];
-          };
-        kafka = {
+          }
+          ;
+        kafka =
+          {
             ...
           }: {
             services.apache-kafka = {
@@ -34,9 +38,10 @@ let
             };
 
             networking.firewall.allowedTCPPorts = [ 9092 ];
-            # i686 tests: qemu-system-i386 can simulate max 2047MB RAM (not 2048)
+              # i686 tests: qemu-system-i386 can simulate max 2047MB RAM (not 2048)
             virtualisation.memorySize = 2047;
-          };
+          }
+          ;
       };
 
       testScript = ''
@@ -66,7 +71,8 @@ let
             + "--from-beginning --max-messages 1"
         )
       '';
-    }) { inherit system; });
+    }) { inherit system; })
+    ;
 
 in with pkgs; {
   kafka_2_8 = makeKafkaTest "kafka_2_8" apacheKafka_2_8;

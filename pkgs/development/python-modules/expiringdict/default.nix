@@ -14,8 +14,8 @@ buildPythonPackage rec {
   version = "1.2.2";
   format = "setuptools";
 
-  # use fetchFromGitHub instead of fetchPypi because the test suite of
-  # the package is not included into the PyPI tarball
+    # use fetchFromGitHub instead of fetchPypi because the test suite of
+    # the package is not included into the PyPI tarball
   src = fetchFromGitHub {
     owner = "mailgun";
     repo = pname;

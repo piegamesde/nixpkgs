@@ -40,7 +40,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Tool for generating Bash/Fish/Zsh autocompletions based on `--help` output";
+      "Tool for generating Bash/Fish/Zsh autocompletions based on `--help` output"
+      ;
     homepage = "https://github.com/dim-an/cod/";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];

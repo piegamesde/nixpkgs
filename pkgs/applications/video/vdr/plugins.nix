@@ -19,14 +19,16 @@
   callPackage,
 }:
 let
-  mkPlugin = name:
+  mkPlugin =
+    name:
     stdenv.mkDerivation {
       name = "vdr-${name}-${vdr.version}";
       inherit (vdr) src;
       buildInputs = [ vdr ];
       preConfigure = "cd PLUGINS/src/${name}";
       installFlags = [ "DESTDIR=$(out)" ];
-    };
+    }
+    ;
 in {
 
   softhddevice = callPackage ./softhddevice { };

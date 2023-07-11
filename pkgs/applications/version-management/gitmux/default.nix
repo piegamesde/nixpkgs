@@ -19,8 +19,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-talZSkf8lQXwXKdkQliHFv2K+42BFtcg13oB5Szkff0=";
 
-  # GitHub source does contain a regression test for the module
-  # but it requires networking as it git clones a repo from github
+    # GitHub source does contain a regression test for the module
+    # but it requires networking as it git clones a repo from github
   doCheck = false;
 
   ldflags = [ "-X main.version=${version}" ];

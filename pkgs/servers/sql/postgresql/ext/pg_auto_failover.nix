@@ -37,10 +37,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "PostgreSQL extension and service for automated failover and high-availability";
+      "PostgreSQL extension and service for automated failover and high-availability"
+      ;
     homepage = "https://github.com/citusdata/pg_auto_failover";
     changelog =
-      "https://github.com/citusdata/pg_auto_failover/raw/v${version}/CHANGELOG.md";
+      "https://github.com/citusdata/pg_auto_failover/raw/v${version}/CHANGELOG.md"
+      ;
     maintainers = [ maintainers.marsam ];
     platforms = postgresql.meta.platforms;
     license = licenses.postgresql;

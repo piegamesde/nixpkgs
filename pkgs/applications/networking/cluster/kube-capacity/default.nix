@@ -19,7 +19,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A simple CLI that provides an overview of the resource requests, limits, and utilization in a Kubernetes cluster";
+      "A simple CLI that provides an overview of the resource requests, limits, and utilization in a Kubernetes cluster"
+      ;
     homepage = "https://github.com/robscott/kube-capacity";
     changelog =
       "https://github.com/robscott/kube-capacity/releases/tag/v${version}";

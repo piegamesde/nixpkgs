@@ -34,10 +34,10 @@ rustPlatform.buildRustPackage rec {
     Security
   ];
 
-  # Using OPENSSL_NO_VENDOR is not an option on darwin
-  # As of version 0.10.35 rust-openssl looks for openssl on darwin
-  # with a hardcoded path to /usr/lib/libssl.x.x.x.dylib
-  # https://github.com/sfackler/rust-openssl/blob/master/openssl-sys/build/find_normal.rs#L115
+    # Using OPENSSL_NO_VENDOR is not an option on darwin
+    # As of version 0.10.35 rust-openssl looks for openssl on darwin
+    # with a hardcoded path to /usr/lib/libssl.x.x.x.dylib
+    # https://github.com/sfackler/rust-openssl/blob/master/openssl-sys/build/find_normal.rs#L115
   OPENSSL_LIB_DIR = "${lib.getLib openssl}/lib";
   OPENSSL_INCLUDE_DIR = "${openssl.dev}/include";
 

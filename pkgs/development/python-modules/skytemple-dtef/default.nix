@@ -33,7 +33,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A format for standardized rule-based tilesets with 256 adjacency combinations";
+      "A format for standardized rule-based tilesets with 256 adjacency combinations"
+      ;
     homepage = "https://github.com/SkyTemple/skytemple-dtef";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [

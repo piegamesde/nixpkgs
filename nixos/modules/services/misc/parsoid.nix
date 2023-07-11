@@ -41,7 +41,7 @@ in {
     "interwikis"
   ] "Use services.parsoid.wikis instead") ];
 
-  ##### interface
+    ##### interface
 
   options = {
 
@@ -100,7 +100,7 @@ in {
 
   };
 
-  ##### implementation
+    ##### implementation
 
   config = mkIf cfg.enable {
 
@@ -134,7 +134,7 @@ in {
         ];
         RestrictNamespaces = true;
         LockPersonality = true;
-        #MemoryDenyWriteExecute = true;
+          #MemoryDenyWriteExecute = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RemoveIPC = true;

@@ -14,11 +14,13 @@ bundlerApp {
   exes = [ "bolt" ];
   nativeBuildInputs = [ makeWrapper ];
 
-  gemConfig.bolt = attrs: {
-    # scripts in libexec will be executed by remote host,
-    # so shebangs should remain unchanged
-    dontPatchShebangs = true;
-  };
+  gemConfig.bolt =
+    attrs: {
+      # scripts in libexec will be executed by remote host,
+      # so shebangs should remain unchanged
+      dontPatchShebangs = true;
+    }
+    ;
 
   postBuild = ''
     # Set BOLT_GEM=1 to remove warning

@@ -39,7 +39,7 @@ buildPythonPackage rec {
     cp -R tests $testsout/tests
   '';
 
-  # Check in passthru.tests.pytest to escape infinite recursion with sanic
+    # Check in passthru.tests.pytest to escape infinite recursion with sanic
   doCheck = false;
 
   doInstallCheck = false;

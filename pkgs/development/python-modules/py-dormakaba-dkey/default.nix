@@ -31,7 +31,7 @@ buildPythonPackage rec {
     cryptography
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "py_dormakaba_dkey" ];
@@ -40,7 +40,8 @@ buildPythonPackage rec {
     description = "Library to interact with a Dormakaba dkey lock";
     homepage = "https://github.com/emontnemery/py-dormakaba-dkey";
     changelog =
-      "https://github.com/emontnemery/py-dormakaba-dkey/releases/tag/${version}";
+      "https://github.com/emontnemery/py-dormakaba-dkey/releases/tag/${version}"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

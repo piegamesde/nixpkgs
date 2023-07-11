@@ -63,13 +63,14 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://static.getaether.net/Releases/Aether-${version}/2011262249.19338c93/linux/Aether-${version}%2B2011262249.19338c93.tar.gz";
+      "https://static.getaether.net/Releases/Aether-${version}/2011262249.19338c93/linux/Aether-${version}%2B2011262249.19338c93.tar.gz"
+      ;
     sha256 = "1hi8w83zal3ciyzg2m62shkbyh6hj7gwsidg3dn88mhfy68himf7";
-    # % in the url / canonical filename causes an error
+      # % in the url / canonical filename causes an error
     name = "aether-tarball.tar.gz";
   };
 
-  # there is no logo in the tarball so we grab it from github and convert it in the build phase
+    # there is no logo in the tarball so we grab it from github and convert it in the build phase
   buildPhase = ''
     convert ${aether-app-git}/aether-core/aether/client/src/app/ext_dep/images/Linux-Windows-App-Icon.png -resize 512x512 aether.png
   '';
@@ -108,67 +109,69 @@ stdenv.mkDerivation rec {
     mimeTypes = [ "x-scheme-handler/aether" ];
   }) ];
 
-  installPhase = let
-    libPath = lib.makeLibraryPath [
-      libcxx
-      systemd
-      libpulseaudio
-      libdrm
-      mesa
-      stdenv.cc.cc
-      alsa-lib
-      atk
-      at-spi2-atk
-      at-spi2-core
-      cairo
-      cups
-      dbus
-      expat
-      fontconfig
-      freetype
-      gdk-pixbuf
-      glib
-      gtk3
-      libnotify
-      libX11
-      libXcomposite
-      libuuid
-      libXcursor
-      libXdamage
-      libXext
-      libXfixes
-      libXi
-      libXrandr
-      libXrender
-      libXtst
-      nspr
-      nss
-      libxcb
-      pango
-      systemd
-      libXScrnSaver
-      libappindicator-gtk3
-      libdbusmenu
-    ];
-  in ''
-    mkdir -p $out/{bin,opt/${binaryName},share/icons/hicolor/512x512/apps}
-    mv * $out/opt/${binaryName}
+  installPhase =
+    let
+      libPath = lib.makeLibraryPath [
+        libcxx
+        systemd
+        libpulseaudio
+        libdrm
+        mesa
+        stdenv.cc.cc
+        alsa-lib
+        atk
+        at-spi2-atk
+        at-spi2-core
+        cairo
+        cups
+        dbus
+        expat
+        fontconfig
+        freetype
+        gdk-pixbuf
+        glib
+        gtk3
+        libnotify
+        libX11
+        libXcomposite
+        libuuid
+        libXcursor
+        libXdamage
+        libXext
+        libXfixes
+        libXi
+        libXrandr
+        libXrender
+        libXtst
+        nspr
+        nss
+        libxcb
+        pango
+        systemd
+        libXScrnSaver
+        libappindicator-gtk3
+        libdbusmenu
+      ];
+    in ''
+      mkdir -p $out/{bin,opt/${binaryName},share/icons/hicolor/512x512/apps}
+      mv * $out/opt/${binaryName}
 
-    chmod +x $out/opt/${binaryName}/${binaryName}
-    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
-        $out/opt/${binaryName}/${binaryName}
+      chmod +x $out/opt/${binaryName}/${binaryName}
+      patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
+          $out/opt/${binaryName}/${binaryName}
 
-    wrapProgram $out/opt/${binaryName}/${binaryName} \
-        "''${gappsWrapperArgs[@]}" \
-        --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}" \
-        --prefix LD_LIBRARY_PATH : ${libPath}
+      wrapProgram $out/opt/${binaryName}/${binaryName} \
+          "''${gappsWrapperArgs[@]}" \
+          --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}" \
+          --prefix LD_LIBRARY_PATH : ${libPath}
 
-    ln -s $out/opt/${binaryName}/${binaryName} $out/bin/
+      ln -s $out/opt/${binaryName}/${binaryName} $out/bin/
 
-    ln -s $out/opt/${binaryName}/aether.png $out/share/icons/hicolor/512x512/apps/
+      ln -s $out/opt/${binaryName}/aether.png $out/share/icons/hicolor/512x512/apps/
 
-    runHook postInstall
-  '' ;
+      runHook postInstall
+    ''
+    ;
 
   meta = with lib; {
     description = "Peer-to-peer ephemeral public communities";
@@ -177,7 +180,7 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ maxhille ];
-    # other platforms could be supported by building from source
+      # other platforms could be supported by building from source
     platforms = [ "x86_64-linux" ];
   };
 }

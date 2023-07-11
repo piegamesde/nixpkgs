@@ -25,15 +25,18 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = if withGui then
-    "bitcoin-knots"
-  else
-    "bitcoind-knots";
+  pname =
+    if withGui then
+      "bitcoin-knots"
+    else
+      "bitcoind-knots"
+    ;
   version = "23.0.knots20220529";
 
   src = fetchurl {
     url =
-      "https://bitcoinknots.org/files/23.x/${version}/bitcoin-${version}.tar.gz";
+      "https://bitcoinknots.org/files/23.x/${version}/bitcoin-${version}.tar.gz"
+      ;
     sha256 = "0c6l4bvj4ck8gp5vm4dla3l32swsp6ijk12fyf330wgry4mhqxyi";
   };
 

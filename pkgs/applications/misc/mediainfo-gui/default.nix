@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://mediaarea.net/download/source/mediainfo/${version}/mediainfo_${version}.tar.xz";
+      "https://mediaarea.net/download/source/mediainfo/${version}/mediainfo_${version}.tar.xz"
+      ;
     sha256 = "sha256-Uiut1rHk6LV+giW6e0nvgn35ffTLaLbU/HkQ92xf32k=";
   };
 
@@ -44,7 +45,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Supplies technical and tag information about a video or audio file (GUI version)";
+      "Supplies technical and tag information about a video or audio file (GUI version)"
+      ;
     longDescription = ''
       MediaInfo is a convenient unified display of the most relevant technical
       and tag data for video and audio files.

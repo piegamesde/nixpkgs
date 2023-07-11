@@ -24,7 +24,8 @@ stdenv.mkDerivation {
   buildInputs = [ libconfig ];
   meta = {
     description =
-      "C library encapsulating the kernel USB gadget-configfs userspace API functionality";
+      "C library encapsulating the kernel USB gadget-configfs userspace API functionality"
+      ;
     license = with lib.licenses; [
       lgpl21Plus # library
       gpl2Plus # examples

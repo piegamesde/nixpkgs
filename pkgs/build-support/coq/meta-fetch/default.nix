@@ -10,7 +10,8 @@ in let
 in with builtins;
 with lib;
 let
-  default-fetcher = {
+  default-fetcher =
+    {
       domain ? "github.com",
       owner ? "",
       repo,
@@ -20,14 +21,18 @@ let
       ...
     }@args:
     let
-      ext = if args ? sha256 then
-        "zip"
-      else
-        "tar.gz";
-      fmt = if args ? sha256 then
-        "zip"
-      else
-        "tarball";
+      ext =
+        if args ? sha256 then
+          "zip"
+        else
+          "tar.gz"
+        ;
+      fmt =
+        if args ? sha256 then
+          "zip"
+        else
+          "tarball"
+        ;
       pr = match "^#(.*)$" rev;
       url = switch-if [
         {
@@ -43,22 +48,26 @@ let
         {
           cond = pr == null && (match "^gitlab.*" domain) != null;
           out =
-            "https://${domain}/${owner}/${repo}/-/archive/${rev}/${repo}-${rev}.${ext}";
+            "https://${domain}/${owner}/${repo}/-/archive/${rev}/${repo}-${rev}.${ext}"
+            ;
         }
         {
           cond = (match "(www.)?mpi-sws.org" domain) != null;
           out =
-            "https://www.mpi-sws.org/~${owner}/${repo}/download/${repo}-${rev}.${ext}";
+            "https://www.mpi-sws.org/~${owner}/${repo}/download/${repo}-${rev}.${ext}"
+            ;
         }
       ] (throw "meta-fetch: no fetcher found for domain ${domain} on ${rev}");
-      fetch = x:
+      fetch =
+        x:
         if args ? sha256 then
           fetchzip (x // { inherit sha256; })
         else
-          fetchTarball x;
+          fetchTarball x
+        ;
     in
     fetch { inherit url; }
-  ;
+    ;
 in
 {
   fetcher ? default-fetcher,
@@ -68,12 +77,14 @@ in
 }:
 let
   isVersion = x: isString x && match "^/.*" x == null && release ? ${x};
-  shortVersion = x:
+  shortVersion =
+    x:
     if (isString x && match "^/.*" x == null) then
       findFirst (v: versions.majorMinor v == x) null
       (sort versionAtLeast (attrNames release))
     else
-      null;
+      null
+    ;
   isShortVersion = x: shortVersion x != null;
   isPathString = x: isString x && match "^/.*" x != null && pathExists x;
 in
@@ -96,36 +107,44 @@ switch arg [
   }
   {
     case = pred.union isVersion isShortVersion;
-    out = let
-      v = if isVersion arg then
-        arg
-      else
-        shortVersion arg;
-    in let
-      given-sha256 = release.${v}.sha256 or "";
-      sha256 = if given-sha256 == "" then
-        lib.fakeSha256
-      else
-        given-sha256;
-      rv = release.${v} // { inherit sha256; };
-    in {
-      version = rv.version or v;
-      src = rv.src or fetcher (location // { rev = releaseRev v; } // rv);
-    } ;
+    out =
+      let
+        v =
+          if isVersion arg then
+            arg
+          else
+            shortVersion arg
+          ;
+      in let
+        given-sha256 = release.${v}.sha256 or "";
+        sha256 =
+          if given-sha256 == "" then
+            lib.fakeSha256
+          else
+            given-sha256
+          ;
+        rv = release.${v} // { inherit sha256; };
+      in {
+        version = rv.version or v;
+        src = rv.src or fetcher (location // { rev = releaseRev v; } // rv);
+      }
+      ;
   }
   {
     case = isString;
-    out = let
-      splitted = filter isString (split ":" arg);
-      rev = last splitted;
-      has-owner = length splitted > 1;
-      version = "dev";
-    in {
-      inherit version;
-      src = fetcher (location // {
-        inherit rev;
-      } // (optionalAttrs has-owner { owner = head splitted; }));
-    } ;
+    out =
+      let
+        splitted = filter isString (split ":" arg);
+        rev = last splitted;
+        has-owner = length splitted > 1;
+        version = "dev";
+      in {
+        inherit version;
+        src = fetcher (location // {
+          inherit rev;
+        } // (optionalAttrs has-owner { owner = head splitted; }));
+      }
+      ;
   }
   {
     case = isAttrs;

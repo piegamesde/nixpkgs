@@ -39,12 +39,12 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  # runs successfully in 3.9, however, async isn't correctly closed so it will fail after test suite.
+    # runs successfully in 3.9, however, async isn't correctly closed so it will fail after test suite.
   doCheck = pythonOlder "3.9";
 
-  # Some packages are not in NixPkgs; other tests try to build distributed
-  # models, which doesn't work in the sandbox.
-  # avoid tests which need special packages
+    # Some packages are not in NixPkgs; other tests try to build distributed
+    # models, which doesn't work in the sandbox.
+    # avoid tests which need special packages
   pytestFlagsArray = [
     "--ignore=tests/ignite/contrib/handlers/test_clearml_logger.py"
     "--ignore=tests/ignite/contrib/handlers/test_lr_finder.py"
@@ -58,7 +58,7 @@ buildPythonPackage rec {
     "tests/"
   ];
 
-  # disable tests which need specific packages
+    # disable tests which need specific packages
   disabledTests = [
     "idist"
     "mlflow"

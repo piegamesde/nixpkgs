@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vNjXY/Qz6IT7rV+as2EBkSWd4O98slcXLNgAO9Dkc9E=";
   };
 
-  # There are no checks, it seems.
+    # There are no checks, it seems.
   doCheck = false;
 
   buildInputs = [ libjpeg ];

@@ -35,9 +35,11 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/marshmallow-code/marshmallow/blob/${src.rev}/CHANGELOG.rst";
+      "https://github.com/marshmallow-code/marshmallow/blob/${src.rev}/CHANGELOG.rst"
+      ;
     description =
-      "Library for converting complex objects to and from simple Python datatypes";
+      "Library for converting complex objects to and from simple Python datatypes"
+      ;
     homepage = "https://github.com/marshmallow-code/marshmallow";
     license = licenses.mit;
     maintainers = with maintainers; [ cript0nauta ];

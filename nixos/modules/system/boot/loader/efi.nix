@@ -12,7 +12,8 @@ with lib;
       default = false;
       type = types.bool;
       description = lib.mdDoc
-        "Whether the installation process is allowed to modify EFI boot variables.";
+        "Whether the installation process is allowed to modify EFI boot variables."
+        ;
     };
 
     efiSysMountPoint = mkOption {

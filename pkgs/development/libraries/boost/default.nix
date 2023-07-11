@@ -6,7 +6,8 @@
 }:
 
 let
-  makeBoost = file:
+  makeBoost =
+    file:
     lib.fix (self:
       callPackage file {
         boost-build = boost-build.override {
@@ -14,7 +15,8 @@ let
           # the derivation we are building to get a matching b2 version.
           useBoost = self;
         };
-      });
+      })
+    ;
 in {
   boost165 = makeBoost ./1.65.nix;
   boost166 = makeBoost ./1.66.nix;

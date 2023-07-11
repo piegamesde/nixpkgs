@@ -24,7 +24,7 @@ with lib;
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.malcontent.enable {
 

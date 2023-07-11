@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "string_utils" ];
 
-  # tests are not available in pypi tarball
+    # tests are not available in pypi tarball
   doCheck = false;
 
   meta = with lib; {

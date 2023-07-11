@@ -15,12 +15,12 @@ stdenv.mkDerivation rec {
 
   doCheck = true; # not cross;
 
-  # Linking static stubs on cygwin requires correct ordering.
-  # Consider upstreaming this.
+    # Linking static stubs on cygwin requires correct ordering.
+    # Consider upstreaming this.
 
-  # Disable dbmfetch03.at test because it depends on unlink()
-  # failing on a link in a chmod -w directory, which cygwin
-  # apparently allows.
+    # Disable dbmfetch03.at test because it depends on unlink()
+    # failing on a link in a chmod -w directory, which cygwin
+    # apparently allows.
   postPatch = lib.optionalString stdenv.buildPlatform.isCygwin ''
     substituteInPlace tests/Makefile.in --replace \
       '_LDADD = ../src/libgdbm.la ../compat/libgdbm_compat.la' \
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   configureFlags = [ "--enable-libgdbm-compat" ];
 
-  # create symlinks for compatibility
+    # create symlinks for compatibility
   postInstall = ''
     install -dm755 $out/include/gdbm
     (

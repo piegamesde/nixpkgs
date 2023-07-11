@@ -26,7 +26,7 @@ buildGoModule rec {
     "-X main.version=v${version}"
   ];
 
-  # Depends on docker
+    # Depends on docker
   doCheck = false;
 
   passthru.tests.version = testers.testVersion {

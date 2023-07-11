@@ -10,12 +10,13 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/BuGlessRB/procmail/archive/refs/tags/v${version}.tar.gz";
+      "https://github.com/BuGlessRB/procmail/archive/refs/tags/v${version}.tar.gz"
+      ;
     sha256 = "UU6kMzOXg+ld+TIeeUdx5Ih7mCOsVf2yRpcCz2m9OYk=";
   };
 
-  # getline is defined differently in glibc now. So rename it.
-  # Without the .PHONY target "make install" won't install anything on Darwin.
+    # getline is defined differently in glibc now. So rename it.
+    # Without the .PHONY target "make install" won't install anything on Darwin.
   postPatch = ''
     sed -i Makefile \
       -e "s%^RM.*$%#%" \

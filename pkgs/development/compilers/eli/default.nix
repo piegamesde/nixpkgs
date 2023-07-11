@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/eli-project/Eli/Eli%20${version}/${pname}-${version}.tar.bz2";
+      "mirror://sourceforge/project/eli-project/Eli/Eli%20${version}/${pname}-${version}.tar.bz2"
+      ;
     sha256 = "1vran8583hbwrr5dciji4zkhz3f88w4mn8n9sdpr6zw0plpf1whj";
   };
 
@@ -54,11 +55,11 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  # skip interactive browser check
+    # skip interactive browser check
   buildFlags = [ "nobrowsers" ];
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: cexp.o:(.bss+0x40): multiple definition of `obstck'; cccp.o:(.bss+0x0): first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: cexp.o:(.bss+0x40): multiple definition of `obstck'; cccp.o:(.bss+0x0): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preConfigure = ''
@@ -74,7 +75,7 @@ stdenv.mkDerivation rec {
       --set ODIN_LOCALIPC 1
   '';
 
-  # Test if eli starts
+    # Test if eli starts
   doInstallCheck = true;
   installCheckPhase = ''
     export HOME="$TMP/home"

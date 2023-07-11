@@ -31,7 +31,7 @@ buildPythonPackage rec {
     limiter
   ];
 
-  # Tests requires an API token
+    # Tests requires an API token
   doCheck = false;
 
   patches = [
@@ -39,7 +39,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "support-later-limiter.patch";
       url =
-        "https://github.com/spyse-com/spyse-python/commit/ff68164c514dfb28ab77d8690b3a5153962dbe8c.patch";
+        "https://github.com/spyse-com/spyse-python/commit/ff68164c514dfb28ab77d8690b3a5153962dbe8c.patch"
+        ;
       hash = "sha256-PoWPJCK/Scsh4P7lr97u4JpVHXNlY0C9rJgY4TDYmv0=";
     })
   ];

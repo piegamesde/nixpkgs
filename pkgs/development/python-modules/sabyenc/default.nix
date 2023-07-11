@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "1qbymi1626mmcxnsqdwnz2krxg7jvl4qbh8nwjj54z2p681wvjm4";
   };
 
-  # tests are not included in pypi distribution
+    # tests are not included in pypi distribution
   doCheck = false;
 
   meta = {

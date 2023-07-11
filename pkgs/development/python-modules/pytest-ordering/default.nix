@@ -9,8 +9,8 @@ buildPythonPackage rec {
   pname = "pytest-ordering";
   version = "unstable-2019-06-19";
 
-  # Pypi lacks tests/
-  # Resolves PytestUnknownMarkWarning from pytest
+    # Pypi lacks tests/
+    # Resolves PytestUnknownMarkWarning from pytest
   src = fetchFromGitHub {
     owner = "ftobia";
     repo = pname;

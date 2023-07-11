@@ -71,7 +71,8 @@ in {
         default =
           "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
         defaultText = literalExpression ''
-          "''${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf"'';
+          "''${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf"''
+          ;
         type = types.path;
         description = lib.mdDoc ''
           Font file made available for displaying text on the splash screen.
@@ -101,9 +102,10 @@ in {
 
       logo = mkOption {
         type = types.path;
-        # Dimensions are 48x48 to match GDM logo
+          # Dimensions are 48x48 to match GDM logo
         default =
-          "${nixos-icons}/share/icons/hicolor/48x48/apps/nix-snowflake-white.png";
+          "${nixos-icons}/share/icons/hicolor/48x48/apps/nix-snowflake-white.png"
+          ;
         defaultText = literalExpression ''
           pkgs.fetchurl {
                     url = "https://nixos.org/logo/nixos-hires.png";
@@ -131,7 +133,7 @@ in {
 
     boot.kernelParams = [ "splash" ];
 
-    # To be discoverable by systemd.
+      # To be discoverable by systemd.
     environment.systemPackages = [ plymouth ];
 
     environment.etc."plymouth/plymouthd.conf".source = configFile;
@@ -140,7 +142,7 @@ in {
     environment.etc."plymouth/logo.png".source = cfg.logo;
     environment.etc."plymouth/themes".source =
       "${themesEnv}/share/plymouth/themes";
-    # XXX: Needed because we supply a different set of plugins in initrd.
+      # XXX: Needed because we supply a different set of plugins in initrd.
     environment.etc."plymouth/plugins".source = "${plymouth}/lib/plymouth";
 
     systemd.packages = [ plymouth ];
@@ -152,12 +154,12 @@ in {
     systemd.services.plymouth-poweroff.wantedBy = [ "poweroff.target" ];
     systemd.services.plymouth-reboot.wantedBy = [ "reboot.target" ];
     systemd.services.plymouth-read-write.wantedBy = [ "sysinit.target" ];
-    systemd.services.systemd-ask-password-plymouth.wantedBy =
-      [ "multi-user.target" ];
-    systemd.paths.systemd-ask-password-plymouth.wantedBy =
-      [ "multi-user.target" ];
+    systemd.services.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ]
+      ;
+    systemd.paths.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ]
+      ;
 
-    # Prevent Plymouth taking over the screen during system updates.
+      # Prevent Plymouth taking over the screen during system updates.
     systemd.services.plymouth-start.restartIfChanged = false;
 
     boot.initrd.systemd = {
@@ -176,7 +178,7 @@ in {
         "/etc/plymouth/plymouthd.defaults".source =
           "${plymouth}/share/plymouth/plymouthd.defaults";
         "/etc/plymouth/logo.png".source = cfg.logo;
-        # Directories
+          # Directories
         "/etc/plymouth/plugins".source =
           pkgs.runCommand "plymouth-initrd-plugins" { } ''
             # Check if the actual requested theme is here
@@ -215,7 +217,7 @@ in {
             done
           '';
 
-        # Fonts
+          # Fonts
         "/etc/plymouth/fonts".source =
           pkgs.runCommand "plymouth-initrd-fonts" { } ''
             mkdir -p $out
@@ -229,7 +231,7 @@ in {
           </fontconfig>
         '';
       };
-      # Properly enable units. These are the units that arch copies
+        # Properly enable units. These are the units that arch copies
       services = {
         plymouth-halt.wantedBy = [ "halt.target" ];
         plymouth-kexec.wantedBy = [ "kexec.target" ];
@@ -253,10 +255,10 @@ in {
       };
     };
 
-    # Insert required udev rules. We take stage 2 systemd because the udev
-    # rules are only generated when building with logind.
-    boot.initrd.services.udev.packages =
-      [ (pkgs.runCommand "initrd-plymouth-udev-rules" { } ''
+      # Insert required udev rules. We take stage 2 systemd because the udev
+      # rules are only generated when building with logind.
+    boot.initrd.services.udev.packages = [ (pkgs.runCommand
+      "initrd-plymouth-udev-rules" { } ''
         mkdir -p $out/etc/udev/rules.d
         cp ${config.systemd.package.out}/lib/udev/rules.d/{70-uaccess,71-seat}.rules $out/etc/udev/rules.d
         sed -i '/loginctl/d' $out/etc/udev/rules.d/71-seat.rules
@@ -330,7 +332,7 @@ in {
         sed -i '/loginctl/d' $out/71-seat.rules
       '';
 
-    # We use `mkAfter` to ensure that LUKS password prompt would be shown earlier than the splash screen.
+      # We use `mkAfter` to ensure that LUKS password prompt would be shown earlier than the splash screen.
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable)
       (mkAfter ''
         mkdir -p /etc/plymouth
@@ -350,7 +352,7 @@ in {
       plymouth update-root-fs --new-root-dir="$targetRoot"
     '';
 
-    # `mkBefore` to ensure that any custom prompts would be visible.
+      # `mkBefore` to ensure that any custom prompts would be visible.
     boot.initrd.preFailCommands = mkIf (!config.boot.initrd.systemd.enable)
       (mkBefore ''
         plymouth quit --wait

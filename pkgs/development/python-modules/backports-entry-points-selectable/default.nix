@@ -25,7 +25,7 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "backports.entry_points_selectable" ];
@@ -34,9 +34,11 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/jaraco/backports.entry_points_selectable/blob/v${version}/CHANGES.rst";
+      "https://github.com/jaraco/backports.entry_points_selectable/blob/v${version}/CHANGES.rst"
+      ;
     description =
-      "Compatibility shim providing selectable entry points for older implementations";
+      "Compatibility shim providing selectable entry points for older implementations"
+      ;
     homepage = "https://github.com/jaraco/backports.entry_points_selectable";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

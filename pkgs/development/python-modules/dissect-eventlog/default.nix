@@ -42,7 +42,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Dissect module implementing parsers for the Windows EVT, EVTX and WEVT log file formats";
+      "Dissect module implementing parsers for the Windows EVT, EVTX and WEVT log file formats"
+      ;
     homepage = "https://github.com/fox-it/dissect.eventlog";
     changelog =
       "https://github.com/fox-it/dissect.eventlog/releases/tag/${version}";

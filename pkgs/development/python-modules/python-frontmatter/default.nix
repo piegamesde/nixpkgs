@@ -25,8 +25,8 @@ buildPythonPackage rec {
     six
   ];
 
-  # tries to import test.test, which conflicts with module
-  # exported by python interpreter
+    # tries to import test.test, which conflicts with module
+    # exported by python interpreter
   doCheck = false;
   nativeCheckInputs = [ pytest ];
 

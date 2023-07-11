@@ -38,7 +38,8 @@ else
 
     meta = {
       description =
-        "An OCaml module for handling file system paths with POSIX and Windows conventions";
+        "An OCaml module for handling file system paths with POSIX and Windows conventions"
+        ;
       homepage = "https://erratique.ch/software/fpath";
       license = lib.licenses.isc;
       maintainers = [ lib.maintainers.vbgl ];

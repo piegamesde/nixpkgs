@@ -81,26 +81,30 @@ stdenv.mkDerivation rec {
     chown -R $USER: source/libraries/libnbtplusplus
   '';
 
-  qtWrapperArgs = let
-    libpath = with xorg;
-      lib.makeLibraryPath ([
-        libX11
-        libXext
-        libXcursor
-        libXrandr
-        libXxf86vm
-        libpulseaudio
-        libGL
-        glfw
-        openal
-        stdenv.cc.cc.lib
-      ] ++ lib.optional gamemodeSupport gamemode.lib);
-  in [
-    "--set LD_LIBRARY_PATH /run/opengl-driver/lib:${libpath}"
-    "--prefix PRISMLAUNCHER_JAVA_PATHS : ${lib.makeSearchPath "bin/java" jdks}"
-    # xorg.xrandr needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
-    "--prefix PATH : ${lib.makeBinPath [ xorg.xrandr ]}"
-  ] ;
+  qtWrapperArgs =
+    let
+      libpath = with xorg;
+        lib.makeLibraryPath ([
+          libX11
+          libXext
+          libXcursor
+          libXrandr
+          libXxf86vm
+          libpulseaudio
+          libGL
+          glfw
+          openal
+          stdenv.cc.cc.lib
+        ] ++ lib.optional gamemodeSupport gamemode.lib);
+    in [
+      "--set LD_LIBRARY_PATH /run/opengl-driver/lib:${libpath}"
+      "--prefix PRISMLAUNCHER_JAVA_PATHS : ${
+        lib.makeSearchPath "bin/java" jdks
+      }"
+      # xorg.xrandr needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
+      "--prefix PATH : ${lib.makeBinPath [ xorg.xrandr ]}"
+    ]
+    ;
 
   meta = with lib; {
     homepage = "https://prismlauncher.org/";

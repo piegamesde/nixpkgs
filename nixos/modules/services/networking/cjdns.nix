@@ -13,7 +13,8 @@ let
 
   cfg = config.services.cjdns;
 
-  connectToSubmodule = {
+  connectToSubmodule =
+    {
       ...
     }: {
       options = {
@@ -42,12 +43,14 @@ let
           example = "foobar.hype";
           type = types.str;
           description = lib.mdDoc
-            "Optional hostname to add to /etc/hosts; prevents reverse lookup failures.";
+            "Optional hostname to add to /etc/hosts; prevents reverse lookup failures."
+            ;
         };
       };
-    };
+    }
+    ;
 
-  # Additional /etc/hosts entries for peers with an associated hostname
+    # Additional /etc/hosts entries for peers with an associated hostname
   cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" { } ''
     exec >$out
     ${concatStringsSep "\n" (mapAttrsToList (k: v:
@@ -56,12 +59,14 @@ let
       (cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo))}
   '';
 
-  parseModules = x:
+  parseModules =
+    x:
     x // {
       connectTo =
         mapAttrs (name: value: { inherit (value) password publicKey; })
         x.connectTo;
-    };
+    }
+    ;
 
   cjdrouteConf = builtins.toJSON (recursiveUpdate {
     admin = {
@@ -70,14 +75,18 @@ let
     };
     authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
     interfaces = {
-      ETHInterface = if (cfg.ETHInterface.bind != "") then
-        [ (parseModules cfg.ETHInterface) ]
-      else
-        [ ];
-      UDPInterface = if (cfg.UDPInterface.bind != "") then
-        [ (parseModules cfg.UDPInterface) ]
-      else
-        [ ];
+      ETHInterface =
+        if (cfg.ETHInterface.bind != "") then
+          [ (parseModules cfg.ETHInterface) ]
+        else
+          [ ]
+        ;
+      UDPInterface =
+        if (cfg.UDPInterface.bind != "") then
+          [ (parseModules cfg.UDPInterface) ]
+        else
+          [ ]
+        ;
     };
 
     privateKey = "@CJDNS_PRIVATE_KEY@";
@@ -250,11 +259,12 @@ in {
 
     boot.kernelModules = [ "tun" ];
 
-    # networking.firewall.allowedUDPPorts = ...
+      # networking.firewall.allowedUDPPorts = ...
 
     systemd.services.cjdns = {
       description =
-        "cjdns: routing engine designed for security, scalability, speed and ease of use";
+        "cjdns: routing engine designed for security, scalability, speed and ease of use"
+        ;
       wantedBy = [
         "multi-user.target"
         "sleep.target"
@@ -262,29 +272,31 @@ in {
       after = [ "network-online.target" ];
       bindsTo = [ "network-online.target" ];
 
-      preStart = if cfg.confFile != null then
-        ""
-      else
-        ''
-          [ -e /etc/cjdns.keys ] && source /etc/cjdns.keys
+      preStart =
+        if cfg.confFile != null then
+          ""
+        else
+          ''
+            [ -e /etc/cjdns.keys ] && source /etc/cjdns.keys
 
-          if [ -z "$CJDNS_PRIVATE_KEY" ]; then
-              shopt -s lastpipe
-              ${pkg}/bin/makekeys | { read private ipv6 public; }
+            if [ -z "$CJDNS_PRIVATE_KEY" ]; then
+                shopt -s lastpipe
+                ${pkg}/bin/makekeys | { read private ipv6 public; }
 
-              umask 0077
-              echo "CJDNS_PRIVATE_KEY=$private" >> /etc/cjdns.keys
-              echo -e "CJDNS_IPV6=$ipv6\nCJDNS_PUBLIC_KEY=$public" > /etc/cjdns.public
+                umask 0077
+                echo "CJDNS_PRIVATE_KEY=$private" >> /etc/cjdns.keys
+                echo -e "CJDNS_IPV6=$ipv6\nCJDNS_PUBLIC_KEY=$public" > /etc/cjdns.public
 
-              chmod 600 /etc/cjdns.keys
-              chmod 444 /etc/cjdns.public
-          fi
+                chmod 600 /etc/cjdns.keys
+                chmod 444 /etc/cjdns.public
+            fi
 
-          if [ -z "$CJDNS_ADMIN_PASSWORD" ]; then
-              echo "CJDNS_ADMIN_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" \
-                  >> /etc/cjdns.keys
-          fi
-        '';
+            if [ -z "$CJDNS_ADMIN_PASSWORD" ]; then
+                echo "CJDNS_ADMIN_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" \
+                    >> /etc/cjdns.keys
+            fi
+          ''
+        ;
 
       script = (if cfg.confFile != null then
         "${pkg}/bin/cjdroute < ${cfg.confFile}"
@@ -307,7 +319,7 @@ in {
         RestartSec = 1;
         CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_RAW CAP_SETUID";
         ProtectSystem = true;
-        # Doesn't work on i686, causing service to fail
+          # Doesn't work on i686, causing service to fail
         MemoryDenyWriteExecute = !pkgs.stdenv.isi686;
         ProtectHome = true;
         PrivateTmp = true;
@@ -321,7 +333,8 @@ in {
         assertion = (cfg.ETHInterface.bind != "" || cfg.UDPInterface.bind != ""
           || cfg.confFile != null);
         message =
-          "Neither cjdns.ETHInterface.bind nor cjdns.UDPInterface.bind defined.";
+          "Neither cjdns.ETHInterface.bind nor cjdns.UDPInterface.bind defined."
+          ;
       }
       {
         assertion = config.networking.enableIPv6;

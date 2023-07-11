@@ -17,25 +17,29 @@ in
 runCommand "${pname}-${version}" rec {
   inherit (stdenv) shell;
   inherit pname version;
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
-    fetchzip {
-      url =
-        "https://github.com/webtorrent/webtorrent-desktop/releases/download/v${version}/WebTorrent-v${version}-linux.zip";
-      sha256 = "13gd8isq2l10kibsc1bsc15dbgpnwa7nw4cwcamycgx6pfz9a852";
-    }
-  else
-    throw
-    "Webtorrent is not currently supported on ${stdenv.hostPlatform.system}";
+  src =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      fetchzip {
+        url =
+          "https://github.com/webtorrent/webtorrent-desktop/releases/download/v${version}/WebTorrent-v${version}-linux.zip"
+          ;
+        sha256 = "13gd8isq2l10kibsc1bsc15dbgpnwa7nw4cwcamycgx6pfz9a852";
+      }
+    else
+      throw
+      "Webtorrent is not currently supported on ${stdenv.hostPlatform.system}"
+    ;
 
   fhs = buildFHSEnv rec {
     name = "fhsEnterWebTorrent";
     runScript = "${src}/WebTorrent";
-    ## use the trampoline, if you need to shell into the fhsenv
-    # runScript = writeScript "trampoline" ''
-    #   #!/bin/sh
-    #   exec "$@"
-    # '';
-    targetPkgs = pkgs:
+      ## use the trampoline, if you need to shell into the fhsenv
+      # runScript = writeScript "trampoline" ''
+      #   #!/bin/sh
+      #   exec "$@"
+      # '';
+    targetPkgs =
+      pkgs:
       with pkgs;
       with xorg; [
         alsa-lib
@@ -69,25 +73,29 @@ runCommand "${pname}-${version}" rec {
         nss
         stdenv.cc.cc
         udev
-      ];
-    # extraBwrapArgs = [
-    #   "--ro-bind /run/user/$(id -u)/pulse /run/user/$(id -u)/pulse"
-    # ];
+      ]
+      ;
+      # extraBwrapArgs = [
+      #   "--ro-bind /run/user/$(id -u)/pulse /run/user/$(id -u)/pulse"
+      # ];
   };
 
   desktopFile = fetchurl {
     url =
-      "https://raw.githubusercontent.com/webtorrent/webtorrent-desktop/v${version}/static/linux/share/applications/webtorrent-desktop.desktop";
+      "https://raw.githubusercontent.com/webtorrent/webtorrent-desktop/v${version}/static/linux/share/applications/webtorrent-desktop.desktop"
+      ;
     sha256 = "1v16dqbxqds3cqg3xkzxsa5fyd8ssddvjhy9g3i3lz90n47916ca";
   };
   icon256File = fetchurl {
     url =
-      "https://raw.githubusercontent.com/webtorrent/webtorrent-desktop/v${version}/static/linux/share/icons/hicolor/256x256/apps/webtorrent-desktop.png";
+      "https://raw.githubusercontent.com/webtorrent/webtorrent-desktop/v${version}/static/linux/share/icons/hicolor/256x256/apps/webtorrent-desktop.png"
+      ;
     sha256 = "1dapxvvp7cx52zhyaby4bxm4rll9xc7x3wk8k0il4g3mc7zzn3yk";
   };
   icon48File = fetchurl {
     url =
-      "https://raw.githubusercontent.com/webtorrent/webtorrent-desktop/v${version}/static/linux/share/icons/hicolor/48x48/apps/webtorrent-desktop.png";
+      "https://raw.githubusercontent.com/webtorrent/webtorrent-desktop/v${version}/static/linux/share/icons/hicolor/48x48/apps/webtorrent-desktop.png"
+      ;
     sha256 = "00y96w9shbbrdbf6xcjlahqd08154kkrxmqraik7qshiwcqpw7p4";
   };
 

@@ -58,7 +58,8 @@ in {
         type = types.int;
         default = 600;
         description = lib.mdDoc
-          "Set the global minimum timeout, in seconds, until directories are unmounted";
+          "Set the global minimum timeout, in seconds, until directories are unmounted"
+          ;
       };
 
       debug = mkOption {
@@ -73,7 +74,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

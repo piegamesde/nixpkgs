@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YUb4N7J7EaYHHiFI965kUhtNitRTJfmY/ns3MTfkGPs=";
   };
 
-  configureFlags =
-    [ "--with-docbook-xsl-stylesheets=${docbook_xsl}/xml/xsl/docbook" ];
+  configureFlags = [ "--with-docbook-xsl-stylesheets=${docbook_xsl}/xml/xsl/docbook" ]
+    ;
 
   buildInputs = [
     expat
@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Client library for accessing SOAP services of Czech government-provided Databox infomation system";
+      "Client library for accessing SOAP services of Czech government-provided Databox infomation system"
+      ;
     homepage = "http://xpisar.wz.cz/libisds/";
     license = licenses.lgpl3;
     maintainers = [ maintainers.mmahut ];

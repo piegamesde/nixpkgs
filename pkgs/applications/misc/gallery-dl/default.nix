@@ -38,7 +38,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Command-line program to download image-galleries and -collections from several image hosting sites";
+      "Command-line program to download image-galleries and -collections from several image hosting sites"
+      ;
     homepage = "https://github.com/mikf/gallery-dl";
     changelog =
       "https://github.com/mikf/gallery-dl/raw/v${version}/CHANGELOG.md";

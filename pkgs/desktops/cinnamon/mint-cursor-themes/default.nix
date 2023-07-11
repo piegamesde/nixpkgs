@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "linuxmint";
     repo = pname;
-    # They don't really do tags, this is just a named commit.
+      # They don't really do tags, this is just a named commit.
     rev = "e17f8a4620827235dabbe5221bd0ee8c44dad0d5";
     hash = "sha256-yLUmIVh884uDVkNil7qxf6t/gykipzBvPgzwmY3zvQk=";
   };

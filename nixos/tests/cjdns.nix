@@ -4,18 +4,20 @@ let
   carolPassword =
     "678287829ce4c67bc8b227e56d94422ee1b85fa11618157b2f591de6c6322b52";
 
-  basicConfig = {
+  basicConfig =
+    {
       ...
     }: {
       services.cjdns.enable = true;
 
-      # Turning off DHCP isn't very realistic but makes
-      # the sequence of address assignment less stochastic.
+        # Turning off DHCP isn't very realistic but makes
+        # the sequence of address assignment less stochastic.
       networking.useDHCP = false;
 
-      # CJDNS output is incompatible with the XML log.
+        # CJDNS output is incompatible with the XML log.
       systemd.services.cjdns.serviceConfig.StandardOutput = "null";
-    };
+    }
+    ;
 
 in
 import ./make-test-python.nix ({
@@ -26,7 +28,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ ehmry ]; };
 
     nodes = { # Alice finds peers over over ETHInterface.
-      alice = {
+      alice =
+        {
           ...
         }: {
           imports = [ basicConfig ];
@@ -36,10 +39,12 @@ import ./make-test-python.nix ({
           services.httpd.enable = true;
           services.httpd.adminAddr = "foo@example.org";
           networking.firewall.allowedTCPPorts = [ 80 ];
-        };
+        }
+        ;
 
-      # Bob explicitly connects to Carol over UDPInterface.
-      bob = {
+        # Bob explicitly connects to Carol over UDPInterface.
+      bob =
+        {
           ...
         }:
 
@@ -60,11 +65,13 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      # Carol listens on ETHInterface and UDPInterface,
-      # but knows neither Alice or Bob.
-      carol = {
+        # Carol listens on ETHInterface and UDPInterface,
+        # but knows neither Alice or Bob.
+      carol =
+        {
           ...
         }: {
           imports = [ basicConfig ];
@@ -85,7 +92,8 @@ import ./make-test-python.nix ({
             UDPInterface.bind = "192.168.0.1:1024";
           };
           networking.firewall.allowedUDPPorts = [ 1024 ];
-        };
+        }
+        ;
 
     };
 

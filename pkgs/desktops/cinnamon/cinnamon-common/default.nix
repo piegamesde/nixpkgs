@@ -144,9 +144,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  # Use locales from cinnamon-translations.
-  # FIXME: Upstream does not respect localedir option from Meson currently.
-  # https://github.com/linuxmint/cinnamon/pull/11244#issuecomment-1305855783
+    # Use locales from cinnamon-translations.
+    # FIXME: Upstream does not respect localedir option from Meson currently.
+    # https://github.com/linuxmint/cinnamon/pull/11244#issuecomment-1305855783
   postInstall = ''
     ln -s ${cinnamon-translations}/share/locale $out/share/locale
   '';

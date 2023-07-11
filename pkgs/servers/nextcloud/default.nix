@@ -6,7 +6,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       version,
       sha256,
       eol ? false,
@@ -21,11 +22,12 @@ let
 
       src = fetchurl {
         url =
-          "https://download.nextcloud.com/server/releases/${pname}-${version}.tar.bz2";
+          "https://download.nextcloud.com/server/releases/${pname}-${version}.tar.bz2"
+          ;
         inherit sha256;
       };
 
-      # This patch is only necessary for NC version <26.
+        # This patch is only necessary for NC version <26.
       patches = lib.optional (lib.versionOlder major "26") (./patches
         + "/v${major}/0001-Setup-remove-custom-dbuser-creation-behavior.patch");
 
@@ -57,7 +59,7 @@ let
           ++ (optional eol "Nextcloud version ${version} is EOL");
       };
     }
-  ;
+    ;
 in {
   nextcloud24 = throw ''
     Nextcloud v24 has been removed from `nixpkgs` as the support for is dropped
@@ -81,6 +83,6 @@ in {
     sha256 = "sha256-b5xqEkjXyK9K1HPXOkJWX2rautRTHFz6V7w0l7K2T0g=";
   };
 
-  # tip: get the sha with:
-  # curl 'https://download.nextcloud.com/server/releases/nextcloud-${version}.tar.bz2.sha256'
+    # tip: get the sha with:
+    # curl 'https://download.nextcloud.com/server/releases/nextcloud-${version}.tar.bz2.sha256'
 }

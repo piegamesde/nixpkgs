@@ -107,11 +107,11 @@ let
     "useFakeRustfmt"
   ];
 
-  # so we don't accidentally `(rustPlatform.buildRustPackage argsForBuildRustPackage) // { ... }` because
-  # we forgot parentheses
+    # so we don't accidentally `(rustPlatform.buildRustPackage argsForBuildRustPackage) // { ... }` because
+    # we forgot parentheses
   finalArgs = argsForBuildRustPackage // {
-    buildInputs = (args.buildInputs or [ ])
-      ++ lib.optionals stdenv.isDarwin [ Security ];
+    buildInputs =
+      (args.buildInputs or [ ]) ++ lib.optionals stdenv.isDarwin [ Security ];
 
     nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
       cargo-pgx
@@ -166,8 +166,8 @@ let
     RUST_BACKTRACE = "full";
 
     checkNoDefaultFeatures = true;
-    checkFeatures = (args.checkFeatures or [ ])
-      ++ [ "pg_test pg${pgxPostgresMajor}" ];
+    checkFeatures =
+      (args.checkFeatures or [ ]) ++ [ "pg_test pg${pgxPostgresMajor}" ];
   };
 in
 rustPlatform.buildRustPackage finalArgs

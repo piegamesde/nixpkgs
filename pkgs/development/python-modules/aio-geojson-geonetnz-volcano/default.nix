@@ -47,7 +47,8 @@ buildPythonPackage rec {
     homepage =
       "https://github.com/exxamalte/pythonaio-geojson-geonetnz-volcano";
     changelog =
-      "https://github.com/exxamalte/python-aio-geojson-geonetnz-volcano/blob/v${version}/CHANGELOG.md";
+      "https://github.com/exxamalte/python-aio-geojson-geonetnz-volcano/blob/v${version}/CHANGELOG.md"
+      ;
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

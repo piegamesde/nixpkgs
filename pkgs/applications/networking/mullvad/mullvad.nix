@@ -51,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     libmnl
   ];
 
-  # talpid-core wants libwg.a in build/lib/{triple}
+    # talpid-core wants libwg.a in build/lib/{triple}
   preBuild = ''
     dest=build/lib/${stdenv.targetPlatform.config}
     mkdir -p $dest

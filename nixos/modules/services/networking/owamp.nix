@@ -17,7 +17,7 @@ in {
     services.owamp.enable = mkEnableOption (lib.mdDoc "OWAMP server");
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     users.users.owamp = {

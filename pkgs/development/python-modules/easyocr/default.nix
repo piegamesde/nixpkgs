@@ -55,7 +55,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Ready-to-use OCR with 80+ supported languages and all popular writing scripts";
+      "Ready-to-use OCR with 80+ supported languages and all popular writing scripts"
+      ;
     homepage = "https://github.com/JaidedAI/EasyOCR";
     license = licenses.asl20;
     maintainers = with maintainers; [ dit7ya ];

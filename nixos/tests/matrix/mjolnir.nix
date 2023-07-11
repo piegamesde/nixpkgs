@@ -4,8 +4,10 @@ import ../make-test-python.nix ({
   }:
   let
     # Set up SSL certs for Synapse to be happy.
-    runWithOpenSSL = file: cmd:
-      pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
+    runWithOpenSSL =
+      file: cmd:
+      pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd
+      ;
 
     ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
     ca_pem = runWithOpenSSL "ca.pem" ''
@@ -34,7 +36,8 @@ import ../make-test-python.nix ({
     };
 
     nodes = {
-      homeserver = {
+      homeserver =
+        {
           pkgs,
           ...
         }: {
@@ -89,9 +92,11 @@ import ../make-test-python.nix ({
                 http://localhost:8448
             '')
           ];
-        };
+        }
+        ;
 
-      mjolnir = {
+      mjolnir =
+        {
           pkgs,
           ...
         }: {
@@ -105,9 +110,11 @@ import ../make-test-python.nix ({
             };
             managementRoom = "#moderators:homeserver";
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
@@ -140,7 +147,8 @@ import ../make-test-python.nix ({
 
               asyncio.run(main())
             '') ];
-        };
+        }
+        ;
     };
 
     testScript = ''

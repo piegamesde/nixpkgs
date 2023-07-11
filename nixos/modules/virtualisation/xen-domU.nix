@@ -18,9 +18,9 @@
     "xen-scsifront"
   ];
 
-  # Send syslog messages to the Xen console.
+    # Send syslog messages to the Xen console.
   services.syslogd.tty = "hvc0";
 
-  # Don't run ntpd, since we should get the correct time from Dom0.
+    # Don't run ntpd, since we should get the correct time from Dom0.
   services.timesyncd.enable = false;
 }

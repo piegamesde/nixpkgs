@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "cups-pdf";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -22,11 +23,12 @@ import ./make-test-python.nix ({
           model = "CUPS-PDF_noopt.ppd";
           deviceUri = "cups-pdf:/noopt";
         } ];
-      };
+      }
+      ;
 
-    # we cannot check the files with pdftotext, due to
-    # https://github.com/alexivkin/CUPS-PDF-to-PDF/issues/7
-    # we need `imagemagickBig` as it has ghostscript support
+      # we cannot check the files with pdftotext, due to
+      # https://github.com/alexivkin/CUPS-PDF-to-PDF/issues/7
+      # we need `imagemagickBig` as it has ghostscript support
 
     testScript = ''
       from subprocess import run

@@ -22,7 +22,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/paurkedal/ocaml-caqti/releases/download/v${version}/caqti-v${version}.tbz";
+      "https://github.com/paurkedal/ocaml-caqti/releases/download/v${version}/caqti-v${version}.tbz"
+      ;
     sha256 = "sha256-PQBgJBNx3IcE6/vyNIf26a2xStU22LBhff8eM6UPaJ4=";
   };
 

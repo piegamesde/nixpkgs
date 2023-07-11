@@ -97,7 +97,8 @@ python3Packages.buildPythonApplication rec {
     # test_text_proper_indentation requires file >= 5.44
     (fetchpatch {
       url =
-        "https://salsa.debian.org/reproducible-builds/diffoscope/-/commit/9fdb78ec0bbc69f1980499dfdcbf6f1dd5e55cc8.patch";
+        "https://salsa.debian.org/reproducible-builds/diffoscope/-/commit/9fdb78ec0bbc69f1980499dfdcbf6f1dd5e55cc8.patch"
+        ;
       sha256 = "sha256-F0N3L9yymj2NjeIKtSnOEDsxPe+ZTb0m/M4f8LPRHg0=";
     })
   ];
@@ -116,10 +117,10 @@ python3Packages.buildPythonApplication rec {
     installShellFiles
   ];
 
-  # Most of the non-Python dependencies here are optional command-line tools for various file-format parsers.
-  # To help figuring out what's missing from the list, run: ./pkgs/tools/misc/diffoscope/list-missing-tools.sh
-  #
-  # Still missing these tools: docx2txt lipo otool r2pipe
+    # Most of the non-Python dependencies here are optional command-line tools for various file-format parsers.
+    # To help figuring out what's missing from the list, run: ./pkgs/tools/misc/diffoscope/list-missing-tools.sh
+    #
+    # Still missing these tools: docx2txt lipo otool r2pipe
   pythonPath = [
     binutils-unwrapped-all-targets
     bzip2
@@ -235,7 +236,7 @@ python3Packages.buildPythonApplication rec {
     "test_symlink_root"
   ];
 
-  # flaky tests on Darwin
+    # flaky tests on Darwin
   disabledTestPaths = lib.optionals stdenv.isDarwin [
     "tests/comparators/test_git.py"
     "tests/comparators/test_java.py"

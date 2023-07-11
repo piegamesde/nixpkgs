@@ -38,7 +38,7 @@ buildPythonPackage rec {
     python-ldap
   ];
 
-  # ValueError: SCHEMADIR is None, ldap schemas are missing.
+    # ValueError: SCHEMADIR is None, ldap schemas are missing.
   doCheck = false;
 
   checkPhase = ''
@@ -52,7 +52,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Django authentication backend that authenticates against an LDAP service";
+      "Django authentication backend that authenticates against an LDAP service"
+      ;
     homepage = "https://github.com/django-auth-ldap/django-auth-ldap";
     license = licenses.bsd2;
     maintainers = with maintainers; [ mmai ];

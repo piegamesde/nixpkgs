@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  # ./configure is not a standard configure file, errors with:
-  # Option not recognized : --prefix=
+    # ./configure is not a standard configure file, errors with:
+    # Option not recognized : --prefix=
   dontAddPrefix = true;
 
   installFlags = [
@@ -68,7 +68,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://miniupnp.tuxfamily.org/";
     description =
-      "A daemon that implements the UPnP Internet Gateway Device (IGD) specification";
+      "A daemon that implements the UPnP Internet Gateway Device (IGD) specification"
+      ;
     platforms = platforms.linux;
     license = licenses.bsd3;
   };

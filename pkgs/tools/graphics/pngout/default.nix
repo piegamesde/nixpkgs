@@ -27,16 +27,18 @@ let
   };
   platform = platforms."${stdenv.hostPlatform.system}" or (throw
     "Unsupported system: ${stdenv.hostPlatform.system}");
-  download = if stdenv.isDarwin then
-    {
-      extension = "macos.zip";
-      hash = "sha256-MnL6lH7q/BrACG4fFJNfnvoh0JClVeaJIlX+XIj2aG4=";
-    }
-  else
-    {
-      extension = "linux.tar.gz";
-      hash = "sha256-rDi7pvDeKQM96GZTjDr6ZDQTGbaVu+OI77xf2egw6Sg=";
-    };
+  download =
+    if stdenv.isDarwin then
+      {
+        extension = "macos.zip";
+        hash = "sha256-MnL6lH7q/BrACG4fFJNfnvoh0JClVeaJIlX+XIj2aG4=";
+      }
+    else
+      {
+        extension = "linux.tar.gz";
+        hash = "sha256-rDi7pvDeKQM96GZTjDr6ZDQTGbaVu+OI77xf2egw6Sg=";
+      }
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "pngout";
@@ -45,12 +47,13 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     inherit (download) hash;
     url =
-      "http://static.jonof.id.au/dl/kenutils/pngout-${version}-${download.extension}";
+      "http://static.jonof.id.au/dl/kenutils/pngout-${version}-${download.extension}"
+      ;
   };
 
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ unzip ];
 
-  # pngout is code-signed on Darwin, so don’t alter the binary to avoid breaking the signature.
+    # pngout is code-signed on Darwin, so don’t alter the binary to avoid breaking the signature.
   dontFixup = stdenv.isDarwin;
 
   installPhase = ''

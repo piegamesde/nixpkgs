@@ -14,24 +14,27 @@ let
   stateDir = "/var/lib/nsd";
   pidFile = stateDir + "/var/nsd.pid";
 
-  # build nsd with the options needed for the given config
+    # build nsd with the options needed for the given config
   nsdPkg = pkgs.nsd.override {
     bind8Stats = cfg.bind8Stats;
     ipv6 = cfg.ipv6;
     ratelimit = cfg.ratelimit.enable;
     rootServer = cfg.rootServer;
-    zoneStats = length (collect (x: (x.zoneStats or null) != null) cfg.zones)
-      > 0;
+    zoneStats =
+      length (collect (x: (x.zoneStats or null) != null) cfg.zones) > 0;
   };
 
-  mkZoneFileName = name:
+  mkZoneFileName =
+    name:
     if name == "." then
       "root"
     else
-      name;
+      name
+    ;
 
-  # replaces include: directives for keys with fake keys for nsd-checkconf
-  injectFakeKeys = keys:
+    # replaces include: directives for keys with fake keys for nsd-checkconf
+  injectFakeKeys =
+    keys:
     concatStrings (mapAttrsToList (keyName: keyOptions: ''
       fakeKey="$(${pkgs.bind}/bin/tsig-keygen -a ${
         escapeShellArgs [
@@ -40,7 +43,8 @@ let
         ]
       } | grep -oP "\s*secret \"\K.*(?=\";)")"
       sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
-    '') keys);
+    '') keys)
+    ;
 
   nsdEnv = pkgs.buildEnv {
     name = "nsd-env";
@@ -77,14 +81,16 @@ let
     '';
   };
 
-  writeZoneData = name: text:
+  writeZoneData =
+    name: text:
     pkgs.writeTextFile {
       name = "nsd-zone-${mkZoneFileName name}";
       inherit text;
       destination = "/zones/${mkZoneFileName name}";
-    };
+    }
+    ;
 
-  # options are ordered alphanumerically by the nixos option name
+    # options are ordered alphanumerically by the nixos option name
   configFile = pkgs.writeTextDir "nsd.conf" ''
     server:
       chroot:   "${stateDir}"
@@ -149,21 +155,27 @@ let
     ${cfg.extraConfig}
   '';
 
-  yesOrNo = b:
+  yesOrNo =
+    b:
     if b then
       "yes"
     else
-      "no";
-  maybeString = prefix: x:
+      "no"
+    ;
+  maybeString =
+    prefix: x:
     if x == null then
       ""
     else
-      ''${prefix} "${x}"'';
-  maybeToString = prefix: x:
+      ''${prefix} "${x}"''
+    ;
+  maybeToString =
+    prefix: x:
     if x == null then
       ""
     else
-      "${prefix} ${toString x}";
+      "${prefix} ${toString x}"
+    ;
   forEach = pre: l: concatMapStrings (x: pre + x + "\n") l;
 
   keyConfigFile = concatStrings (mapAttrsToList (keyName: keyOptions: ''
@@ -181,32 +193,35 @@ let
     chmod 0400 "$dest"
   '') cfg.keys);
 
-  # options are ordered alphanumerically by the nixos option name
-  zoneConfigFile = name: zone: ''
-    zone:
-      name:         "${name}"
-      zonefile:     "${stateDir}/zones/${mkZoneFileName name}"
-      ${maybeString "outgoing-interface: " zone.outgoingInterface}
-    ${forEach "  rrl-whitelist: " zone.rrlWhitelist}
-      ${maybeString "zonestats: " zone.zoneStats}
+    # options are ordered alphanumerically by the nixos option name
+  zoneConfigFile =
+    name: zone: ''
+      zone:
+        name:         "${name}"
+        zonefile:     "${stateDir}/zones/${mkZoneFileName name}"
+        ${maybeString "outgoing-interface: " zone.outgoingInterface}
+      ${forEach "  rrl-whitelist: " zone.rrlWhitelist}
+        ${maybeString "zonestats: " zone.zoneStats}
 
-      ${maybeToString "max-refresh-time: " zone.maxRefreshSecs}
-      ${maybeToString "min-refresh-time: " zone.minRefreshSecs}
-      ${maybeToString "max-retry-time:   " zone.maxRetrySecs}
-      ${maybeToString "min-retry-time:   " zone.minRetrySecs}
+        ${maybeToString "max-refresh-time: " zone.maxRefreshSecs}
+        ${maybeToString "min-refresh-time: " zone.minRefreshSecs}
+        ${maybeToString "max-retry-time:   " zone.maxRetrySecs}
+        ${maybeToString "min-retry-time:   " zone.minRetrySecs}
 
-      allow-axfr-fallback: ${yesOrNo zone.allowAXFRFallback}
-    ${forEach "  allow-notify: " zone.allowNotify}
-    ${forEach "  request-xfr: " zone.requestXFR}
+        allow-axfr-fallback: ${yesOrNo zone.allowAXFRFallback}
+      ${forEach "  allow-notify: " zone.allowNotify}
+      ${forEach "  request-xfr: " zone.requestXFR}
 
-    ${forEach "  notify: " zone.notify}
-      notify-retry:                        ${toString zone.notifyRetry}
-    ${forEach "  provide-xfr: " zone.provideXFR}
-  '';
+      ${forEach "  notify: " zone.notify}
+        notify-retry:                        ${toString zone.notifyRetry}
+      ${forEach "  provide-xfr: " zone.provideXFR}
+    ''
+    ;
 
   zoneConfigs = zoneConfigs' { } "" { children = cfg.zones; };
 
-  zoneConfigs' = parent: name: zone:
+  zoneConfigs' =
+    parent: name: zone:
     if
       !(zone ? children) || zone.children == null || zone.children == { }
       # leaf -> actual zone
@@ -217,9 +232,10 @@ let
     else
       zipAttrsWith (name: head) (mapAttrsToList (name: child:
         zoneConfigs' (parent // zone // { children = { }; }) name child)
-        zone.children);
+        zone.children)
+    ;
 
-  # options are ordered alphanumerically
+    # options are ordered alphanumerically
   zoneOptions = types.submodule {
     options = {
 
@@ -504,14 +520,17 @@ let
 
     ${concatStrings (mapAttrsToList signZone dnssecZones)}
   '';
-  signZone = name: zone: ''
-    ${dnssecTools}/bin/dnssec-keymgr -g ${dnssecTools}/bin/dnssec-keygen -s ${dnssecTools}/bin/dnssec-settime -K ${stateDir}/dnssec -c ${
-      policyFile name zone.dnssecPolicy
-    } ${name}
-    ${dnssecTools}/bin/dnssec-signzone -S -K ${stateDir}/dnssec -o ${name} -O full -N date ${stateDir}/zones/${name}
-    ${nsdPkg}/sbin/nsd-checkzone ${name} ${stateDir}/zones/${name}.signed && mv -v ${stateDir}/zones/${name}.signed ${stateDir}/zones/${name}
-  '';
-  policyFile = name: policy:
+  signZone =
+    name: zone: ''
+      ${dnssecTools}/bin/dnssec-keymgr -g ${dnssecTools}/bin/dnssec-keygen -s ${dnssecTools}/bin/dnssec-settime -K ${stateDir}/dnssec -c ${
+        policyFile name zone.dnssecPolicy
+      } ${name}
+      ${dnssecTools}/bin/dnssec-signzone -S -K ${stateDir}/dnssec -o ${name} -O full -N date ${stateDir}/zones/${name}
+      ${nsdPkg}/sbin/nsd-checkzone ${name} ${stateDir}/zones/${name}.signed && mv -v ${stateDir}/zones/${name}.signed ${stateDir}/zones/${name}
+    ''
+    ;
+  policyFile =
+    name: policy:
     pkgs.writeText "${name}.policy" ''
       zone ${name} {
         algorithm ${policy.algorithm};
@@ -526,7 +545,8 @@ let
         roll-period ksk ${policy.ksk.rollPeriod};
         coverage ${policy.coverage};
       };
-    '';
+    ''
+    ;
 in {
   # options are ordered alphanumerically
   options.services.nsd = {

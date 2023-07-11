@@ -56,7 +56,8 @@ in let
     libav_12 = libavFun "12.3" "386c18c8b857f23dfcf456ce40370716130211d9";
   };
 
-  libavFun = version: sha1:
+  libavFun =
+    version: sha1:
     stdenv.mkDerivation rec {
       pname = "libav";
       inherit version;
@@ -136,7 +137,7 @@ in let
       ];
       setOutputFlags = false;
 
-      # alltools to build smaller tools, incl. aviocat, ismindex, qt-faststart, etc.
+        # alltools to build smaller tools, incl. aviocat, ismindex, qt-faststart, etc.
       buildFlags = [
         "all"
         "alltools"
@@ -160,7 +161,8 @@ in let
       meta = with lib; {
         homepage = "https://libav.org/";
         description =
-          "A complete, cross-platform solution to record, convert and stream audio and video (fork of ffmpeg)";
+          "A complete, cross-platform solution to record, convert and stream audio and video (fork of ffmpeg)"
+          ;
         license = with licenses;
           if enableUnfree then
             unfree # ToDo: redistributable or not?
@@ -179,7 +181,8 @@ in let
             "CVE-2019-9720"
           ];
       };
-    }; # libavFun
+    }
+    ; # libavFun
 
 in
 result

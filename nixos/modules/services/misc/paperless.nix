@@ -13,7 +13,7 @@ let
   defaultUser = "paperless";
   nltkDir = "/var/cache/paperless/nltk";
 
-  # Don't start a redis instance if the user sets a custom redis connection
+    # Don't start a redis instance if the user sets a custom redis connection
   enableRedis = !hasAttr "PAPERLESS_REDIS" cfg.extraConfig;
   redisServer = config.services.redis.servers.paperless;
 
@@ -29,17 +29,18 @@ let
     PAPERLESS_REDIS = "unix://${redisServer.unixSocket}";
   } // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
-  manage = let
-    setupEnv = lib.concatStringsSep "\n"
-      (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
-  in
-  pkgs.writeShellScript "manage" ''
-    ${setupEnv}
-    exec ${pkg}/bin/paperless-ngx "$@"
-  ''
-  ;
+  manage =
+    let
+      setupEnv = lib.concatStringsSep "\n"
+        (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
+    in
+    pkgs.writeShellScript "manage" ''
+      ${setupEnv}
+      exec ${pkg}/bin/paperless-ngx "$@"
+    ''
+    ;
 
-  # Secure the services
+    # Secure the services
   defaultServiceConfig = {
     TemporaryFileSystem = "/:ro";
     BindReadOnlyPaths = [
@@ -57,7 +58,7 @@ let
     ];
     CacheDirectory = "paperless";
     CapabilityBoundingSet = "";
-    # ProtectClock adds DeviceAllow=char-rtc r
+      # ProtectClock adds DeviceAllow=char-rtc r
     DeviceAllow = "";
     LockPersonality = true;
     MemoryDenyWriteExecute = true;
@@ -68,21 +69,21 @@ let
     PrivateTmp = true;
     PrivateUsers = true;
     ProtectClock = true;
-    # Breaks if the home dir of the user is in /home
-    # Also does not add much value in combination with the TemporaryFileSystem.
-    # ProtectHome = true;
+      # Breaks if the home dir of the user is in /home
+      # Also does not add much value in combination with the TemporaryFileSystem.
+      # ProtectHome = true;
     ProtectHostname = true;
-    # Would re-mount paths ignored by temporary root
-    #ProtectSystem = "strict";
+      # Would re-mount paths ignored by temporary root
+      #ProtectSystem = "strict";
     ProtectControlGroups = true;
     ProtectKernelLogs = true;
     ProtectKernelModules = true;
     ProtectKernelTunables = true;
     ProtectProc = "invisible";
-    # Don't restrict ProcSubset because django-q requires read access to /proc/stat
-    # to query CPU and memory information.
-    # Note that /proc only contains processes of user `paperless`, so this is safe.
-    # ProcSubset = "pid";
+      # Don't restrict ProcSubset because django-q requires read access to /proc/stat
+      # to query CPU and memory information.
+      # Note that /proc only contains processes of user `paperless`, so this is safe.
+      # ProcSubset = "pid";
     RestrictAddressFamilies = [
       "AF_UNIX"
       "AF_INET"
@@ -97,8 +98,8 @@ let
       "@system-service"
       "~@privileged @setuid @keyring"
     ];
-    # Does not work well with the temporary root
-    #UMask = "0066";
+      # Does not work well with the temporary root
+      #UMask = "0066";
   };
 in {
   meta.maintainers = with maintainers; [
@@ -300,15 +301,15 @@ in {
         User = cfg.user;
         ExecStart = "${pkg}/bin/celery --app paperless worker --loglevel INFO";
         Restart = "on-failure";
-        # The `mbind` syscall is needed for running the classifier.
+          # The `mbind` syscall is needed for running the classifier.
         SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "mbind" ];
-        # Needs to talk to mail server for automated import rules
+          # Needs to talk to mail server for automated import rules
         PrivateNetwork = false;
       };
       environment = env;
     };
 
-    # Reading the user-provided password file requires root access
+      # Reading the user-provided password file requires root access
     systemd.services.paperless-copy-password = mkIf (cfg.passwordFile != null) {
       requiredBy = [ "paperless-scheduler.service" ];
       before = [ "paperless-scheduler.service" ];
@@ -321,7 +322,7 @@ in {
       };
     };
 
-    # Download NLTK corpus data
+      # Download NLTK corpus data
     systemd.services.paperless-download-nltk-data = {
       wantedBy = [ "paperless-scheduler.service" ];
       before = [ "paperless-scheduler.service" ];
@@ -329,9 +330,9 @@ in {
       serviceConfig = defaultServiceConfig // {
         User = cfg.user;
         Type = "oneshot";
-        # Enable internet access
+          # Enable internet access
         PrivateNetwork = false;
-        # Restrict write access
+          # Restrict write access
         BindPaths = [ ];
         BindReadOnlyPaths = [
           "/nix/store"
@@ -342,18 +343,20 @@ in {
           "-/etc/hosts"
           "-/etc/localtime"
         ];
-        ExecStart = let
-          pythonWithNltk = pkg.python.withPackages (ps: [ ps.nltk ]);
-        in ''
-          ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
-        '' ;
+        ExecStart =
+          let
+            pythonWithNltk = pkg.python.withPackages (ps: [ ps.nltk ]);
+          in ''
+            ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
+          ''
+          ;
       };
     };
 
     systemd.services.paperless-consumer = {
       description = "Paperless document consumer";
-      # Bind to `paperless-scheduler` so that the consumer never runs
-      # during migrations
+        # Bind to `paperless-scheduler` so that the consumer never runs
+        # during migrations
       bindsTo = [ "paperless-scheduler.service" ];
       after = [ "paperless-scheduler.service" ];
       serviceConfig = defaultServiceConfig // {
@@ -366,8 +369,8 @@ in {
 
     systemd.services.paperless-web = {
       description = "Paperless web server";
-      # Bind to `paperless-scheduler` so that the web server never runs
-      # during migrations
+        # Bind to `paperless-scheduler` so that the web server never runs
+        # during migrations
       bindsTo = [ "paperless-scheduler.service" ];
       after = [ "paperless-scheduler.service" ];
       serviceConfig = defaultServiceConfig // {
@@ -378,10 +381,10 @@ in {
         '';
         Restart = "on-failure";
 
-        # gunicorn needs setuid, liblapack needs mbind
+          # gunicorn needs setuid, liblapack needs mbind
         SystemCallFilter = defaultServiceConfig.SystemCallFilter
           ++ [ "@setuid mbind" ];
-        # Needs to serve web page
+          # Needs to serve web page
         PrivateNetwork = false;
       } // lib.optionalAttrs (cfg.port < 1024) {
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
@@ -393,8 +396,8 @@ in {
             pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs
           }:${pkg}/lib/paperless-ngx/src";
       };
-      # Allow the web interface to access the private /tmp directory of the server.
-      # This is required to support uploading files via the web interface.
+        # Allow the web interface to access the private /tmp directory of the server.
+        # This is required to support uploading files via the web interface.
       unitConfig.JoinsNamespaceOf = "paperless-task-queue.service";
     };
 

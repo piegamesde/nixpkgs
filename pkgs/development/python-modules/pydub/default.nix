@@ -15,7 +15,7 @@ buildPythonPackage rec {
   version = "0.25.1";
   format = "setuptools";
 
-  # pypi version doesn't include required data files for tests
+    # pypi version doesn't include required data files for tests
   src = fetchFromGitHub {
     owner = "jiaaro";
     repo = pname;

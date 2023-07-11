@@ -29,7 +29,8 @@ buildDunePackage rec {
     # remove when a new version is released
     (fetchpatch {
       url =
-        "https://patch-diff.githubusercontent.com/raw/hammerlab/ppx_deriving_cmdliner/pull/50.patch";
+        "https://patch-diff.githubusercontent.com/raw/hammerlab/ppx_deriving_cmdliner/pull/50.patch"
+        ;
       sha256 = "sha256-FfUfEAsyobwZ99+s5sFAaCE6Xgx7jLr/q79OxDbGcvQ=";
     })
   ];
@@ -47,7 +48,8 @@ buildDunePackage rec {
 
   meta = with lib; {
     description =
-      "Ppx_deriving plugin for generating command line interfaces from types for OCaml";
+      "Ppx_deriving plugin for generating command line interfaces from types for OCaml"
+      ;
     homepage = "https://github.com/hammerlab/ppx_deriving_cmdliner";
     license = licenses.asl20;
     maintainers = [ maintainers.romildo ];

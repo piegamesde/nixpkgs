@@ -30,12 +30,12 @@ stdenv.mkDerivation rec {
     xorg.libXaw
   ];
 
-  # Without this, it gets Xmu as a dependency, but without rpath entry
+    # Without this, it gets Xmu as a dependency, but without rpath entry
   NIX_LDFLAGS = "-lXmu";
 
-  # This will not make xfontsel find its app-defaults, but at least the $out
-  # directory will contain them.
-  # hack: Copying the XFontSel app-defaults file to $HOME makes xfontsel work.
+    # This will not make xfontsel find its app-defaults, but at least the $out
+    # directory will contain them.
+    # hack: Copying the XFontSel app-defaults file to $HOME makes xfontsel work.
   installPhase = ''
     make install appdefaultdir=$out/share/X11/app-defaults
     wrapProgram $out/bin/xfontsel \

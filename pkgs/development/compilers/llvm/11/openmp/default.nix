@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     # Fix compilation on aarch64-darwin, remove after the next release.
     (fetchpatch {
       url =
-        "https://github.com/llvm/llvm-project/commit/7b5254223acbf2ef9cd278070c5a84ab278d7e5f.patch";
+        "https://github.com/llvm/llvm-project/commit/7b5254223acbf2ef9cd278070c5a84ab278d7e5f.patch"
+        ;
       sha256 = "sha256-A+9/IVIoazu68FK5H5CiXcOEYe1Hpp4xTx2mIw7m8Es=";
       stripLen = 1;
     })
@@ -46,8 +47,8 @@ stdenv.mkDerivation rec {
       "clang -fopenmp" must be linked before it can run and the library that
       supports offload to target devices.
     '';
-    # "All of the code is dual licensed under the MIT license and the UIUC
-    # License (a BSD-like license)":
+      # "All of the code is dual licensed under the MIT license and the UIUC
+      # License (a BSD-like license)":
     license = with lib.licenses; [
       mit
       ncsa

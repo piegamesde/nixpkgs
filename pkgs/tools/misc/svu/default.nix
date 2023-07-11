@@ -26,7 +26,7 @@ buildGoModule rec {
     "-X=main.builtBy=nixpkgs"
   ];
 
-  # test assumes source directory to be a git repository
+    # test assumes source directory to be a git repository
   postPatch = ''
     rm internal/git/git_test.go
   '';

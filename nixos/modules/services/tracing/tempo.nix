@@ -51,21 +51,25 @@ in {
       description = "Grafana Tempo Service Daemon";
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = let
-        conf = if cfg.configFile == null then
-          settingsFormat.generate "config.yaml" cfg.settings
-        else
-          cfg.configFile;
-      in {
-        ExecStart = "${pkgs.tempo}/bin/tempo --config.file=${conf}";
-        DynamicUser = true;
-        Restart = "always";
-        ProtectSystem = "full";
-        DevicePolicy = "closed";
-        NoNewPrivileges = true;
-        WorkingDirectory = "/var/lib/tempo";
-        StateDirectory = "tempo";
-      } ;
+      serviceConfig =
+        let
+          conf =
+            if cfg.configFile == null then
+              settingsFormat.generate "config.yaml" cfg.settings
+            else
+              cfg.configFile
+            ;
+        in {
+          ExecStart = "${pkgs.tempo}/bin/tempo --config.file=${conf}";
+          DynamicUser = true;
+          Restart = "always";
+          ProtectSystem = "full";
+          DevicePolicy = "closed";
+          NoNewPrivileges = true;
+          WorkingDirectory = "/var/lib/tempo";
+          StateDirectory = "tempo";
+        }
+        ;
     };
   };
 }

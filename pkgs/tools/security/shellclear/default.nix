@@ -21,7 +21,8 @@ rustPlatform.buildRustPackage rec {
     description = "Secure shell history commands by finding sensitive data";
     homepage = "https://github.com/rusty-ferris-club/shellclear";
     changelog =
-      "https://github.com/rusty-ferris-club/shellclear/releases/tag/v${version}";
+      "https://github.com/rusty-ferris-club/shellclear/releases/tag/v${version}"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

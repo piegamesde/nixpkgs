@@ -15,7 +15,8 @@ import ./make-test-python.nix ({
     discourseDomain = certs.domain;
     adminPassword = "eYAX85qmMJ5GZIHLaXGDAoszD7HSZp5d";
     secretKeyBase =
-      "381f4ac6d8f5e49d804dae72aa9c046431d2f34c656a705c41cd52fed9b4f6f76f51549f0b55db3b8b0dded7a00d6a381ebe9a4367d2d44f5e743af6628b4d42";
+      "381f4ac6d8f5e49d804dae72aa9c046431d2f34c656a705c41cd52fed9b4f6f76f51549f0b55db3b8b0dded7a00d6a381ebe9a4367d2d44f5e743af6628b4d42"
+      ;
     admin = {
       email = "alice@${clientDomain}";
       username = "alice";
@@ -26,7 +27,8 @@ import ./make-test-python.nix ({
     name = "discourse";
     meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
 
-    nodes.discourse = {
+    nodes.discourse =
+      {
         nodes,
         ...
       }: {
@@ -82,9 +84,11 @@ import ./make-test-python.nix ({
           25
           465
         ];
-      };
+      }
+      ;
 
-    nodes.client = {
+    nodes.client =
+      {
         nodes,
         ...
       }: {
@@ -115,54 +119,58 @@ import ./make-test-python.nix ({
           };
         };
 
-        environment.systemPackages = let
-          replyToEmail = pkgs.writeScriptBin "reply-to-email" ''
-            #!${pkgs.python3.interpreter}
-            import imaplib
-            import smtplib
-            import ssl
-            import email.header
-            from email import message_from_bytes
-            from email.message import EmailMessage
+        environment.systemPackages =
+          let
+            replyToEmail = pkgs.writeScriptBin "reply-to-email" ''
+              #!${pkgs.python3.interpreter}
+              import imaplib
+              import smtplib
+              import ssl
+              import email.header
+              from email import message_from_bytes
+              from email.message import EmailMessage
 
-            with imaplib.IMAP4('localhost') as imap:
-                imap.login('alice', 'foobar')
-                imap.select()
-                status, data = imap.search(None, 'ALL')
-                assert status == 'OK'
+              with imaplib.IMAP4('localhost') as imap:
+                  imap.login('alice', 'foobar')
+                  imap.select()
+                  status, data = imap.search(None, 'ALL')
+                  assert status == 'OK'
 
-                nums = data[0].split()
-                assert len(nums) == 1
+                  nums = data[0].split()
+                  assert len(nums) == 1
 
-                status, msg_data = imap.fetch(nums[0], '(RFC822)')
-                assert status == 'OK'
+                  status, msg_data = imap.fetch(nums[0], '(RFC822)')
+                  assert status == 'OK'
 
-            msg = email.message_from_bytes(msg_data[0][1])
-            subject = str(email.header.make_header(email.header.decode_header(msg['Subject'])))
-            reply_to = email.header.decode_header(msg['Reply-To'])[0][0]
-            message_id = email.header.decode_header(msg['Message-ID'])[0][0]
-            date = email.header.decode_header(msg['Date'])[0][0]
+              msg = email.message_from_bytes(msg_data[0][1])
+              subject = str(email.header.make_header(email.header.decode_header(msg['Subject'])))
+              reply_to = email.header.decode_header(msg['Reply-To'])[0][0]
+              message_id = email.header.decode_header(msg['Message-ID'])[0][0]
+              date = email.header.decode_header(msg['Date'])[0][0]
 
-            ctx = ssl.create_default_context()
-            with smtplib.SMTP_SSL(host='${discourseDomain}', context=ctx) as smtp:
-                reply = EmailMessage()
-                reply['Subject'] = 'Re: ' + subject
-                reply['To'] = reply_to
-                reply['From'] = 'alice@${clientDomain}'
-                reply['In-Reply-To'] = message_id
-                reply['References'] = message_id
-                reply['Date'] = date
-                reply.set_content("Test reply.")
+              ctx = ssl.create_default_context()
+              with smtplib.SMTP_SSL(host='${discourseDomain}', context=ctx) as smtp:
+                  reply = EmailMessage()
+                  reply['Subject'] = 'Re: ' + subject
+                  reply['To'] = reply_to
+                  reply['From'] = 'alice@${clientDomain}'
+                  reply['In-Reply-To'] = message_id
+                  reply['References'] = message_id
+                  reply['Date'] = date
+                  reply.set_content("Test reply.")
 
-                smtp.send_message(reply)
-                smtp.quit()
-          '';
-        in [ replyToEmail ] ;
+                  smtp.send_message(reply)
+                  smtp.quit()
+            '';
+          in [ replyToEmail ]
+          ;
 
         networking.firewall.allowedTCPPorts = [ 25 ];
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
       }:
       let
@@ -201,5 +209,6 @@ import ./make-test-python.nix ({
         discourse.succeed(
             'curl -sS -f https://${discourseDomain}/t/$(<topic_id) -H "Accept: application/json" -H "Api-Key: $(<api_key)" -H "Api-Username: system" | jq -e \'if .post_stream.posts[1].cooked == "<p>Test reply.</p>" then true else null end\' '
         )
-      '' ;
+      ''
+      ;
   } )

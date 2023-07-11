@@ -21,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  # No test available
+    # No test available
   doCheck = false;
 
   pythonImportsCheck = [ "hyfetch" ];

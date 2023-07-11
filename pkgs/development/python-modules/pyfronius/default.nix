@@ -24,7 +24,8 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     # Python3.10 compatibility; https://github.com/nielstron/pyfronius/pull/7
     url =
-      "https://github.com/nielstron/pyfronius/commit/9deb209d4246ff575cd3c4c5373037bf11df6719.patch";
+      "https://github.com/nielstron/pyfronius/commit/9deb209d4246ff575cd3c4c5373037bf11df6719.patch"
+      ;
     hash = "sha256-srXYCvp86kGYUYZIXMcu68hEbkTspD945J+hc/AhqSw=";
   }) ];
 

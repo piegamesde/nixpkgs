@@ -43,15 +43,18 @@
 with lib;
 
 let
-  boolToCMake = b:
+  boolToCMake =
+    b:
     if b then
       "ON"
     else
-      "OFF";
+      "OFF"
+    ;
 
   irrlichtmtInput = irrlichtmt.override { inherit withTouchSupport; };
 
-  generic = {
+  generic =
+    {
       version,
       rev ? version,
       sha256,
@@ -170,7 +173,7 @@ let
         ];
       };
     }
-  ;
+    ;
 
   v5 = {
     version = "5.7.0";
@@ -178,16 +181,20 @@ let
     dataSha256 = "sha256-wWgeO8513N5jQdWvZrq357fPpAU5ik06mgZraWCQawo=";
   };
 
-  mkClient = version:
+  mkClient =
+    version:
     generic (version // {
       buildClient = true;
       buildServer = false;
-    });
-  mkServer = version:
+    })
+    ;
+  mkServer =
+    version:
     generic (version // {
       buildClient = false;
       buildServer = true;
-    });
+    })
+    ;
 in {
   minetestclient_5 = mkClient v5;
   minetestserver_5 = mkServer v5;

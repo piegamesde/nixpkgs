@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  # Disabled because a test is flaky; see https://github.com/jesec/libtorrent/issues/4.
-  # doCheck = true;
+    # Disabled because a test is flaky; see https://github.com/jesec/libtorrent/issues/4.
+    # doCheck = true;
 
   preCheck = ''
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$PWD
@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/jesec/libtorrent";
     description =
-      "A BitTorrent library written in C++ for *nix, with focus on high performance and good code (jesec's fork)";
+      "A BitTorrent library written in C++ for *nix, with focus on high performance and good code (jesec's fork)"
+      ;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [
       winter

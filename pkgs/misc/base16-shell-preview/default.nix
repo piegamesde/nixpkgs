@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication {
     hash = "sha256-retnbxjdjo+NeA1B0+jpM9kToAX/Rh0ze0yNF9AfDiU=";
   };
 
-  # If enabled, it will attempt to run '__init__.py, failing by trying to write
-  # at "/homeless-shelter" as HOME
+    # If enabled, it will attempt to run '__init__.py, failing by trying to write
+    # at "/homeless-shelter" as HOME
   doCheck = false;
 
   meta = {

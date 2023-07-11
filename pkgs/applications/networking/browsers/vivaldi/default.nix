@@ -63,14 +63,18 @@
 }:
 
 let
-  branch = if isSnapshot then
-    "snapshot"
-  else
-    "stable";
-  vivaldiName = if isSnapshot then
-    "vivaldi-snapshot"
-  else
-    "vivaldi";
+  branch =
+    if isSnapshot then
+      "snapshot"
+    else
+      "stable"
+    ;
+  vivaldiName =
+    if isSnapshot then
+      "vivaldi-snapshot"
+    else
+      "vivaldi"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "vivaldi";
@@ -84,7 +88,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}-1_${suffix}.deb";
+      "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}-1_${suffix}.deb"
+      ;
     hash = {
       aarch64-linux = "sha256-6rETxeExtHxWrKFO0MHzjLgnaHUeREVqsOB9264jZr8=";
       x86_64-linux = "sha256-vvN0AxrKotphYIpkyOKHBgEOQtF4LvYBV1cB591ICbc=";

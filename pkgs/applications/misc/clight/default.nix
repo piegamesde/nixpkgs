@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-m1oKjyy7fMK6mIf5FRuWCbfAM8qlHXRR/rwHsCZADiY=";
   };
 
-  # dbus-1.pc has datadir=/etc
+    # dbus-1.pc has datadir=/etc
   SESSION_BUS_DIR = "${placeholder "out"}/share/dbus-1/services";
 
   postPatch = ''

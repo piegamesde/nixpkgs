@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "pufferpanel";
     meta.maintainers = [ lib.maintainers.tie ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -18,7 +19,8 @@ import ./make-test-python.nix ({
             PUFFER_PANEL_SETTINGS_COMPANYNAME = "NixOS";
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       import shlex

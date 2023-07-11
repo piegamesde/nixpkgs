@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests-oauthlib ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "nest" ];

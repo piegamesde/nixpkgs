@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ unixtools.script ];
 
-  # tests are failing on darwin
+    # tests are failing on darwin
   doCheck = !stdenv.isDarwin;
 
   checkFlags = [

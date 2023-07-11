@@ -32,20 +32,20 @@ let
     ];
   };
 
-  # If you copy this example out of nixpkgs, something like this will work:
-  /* androidEnvNixpkgs = fetchTarball {
-       name = "androidenv";
-       url = "https://github.com/NixOS/nixpkgs/archive/<fill me in from Git>.tar.gz";
-       sha256 = "<fill me in with nix-prefetch-url --unpack>";
-     };
+    # If you copy this example out of nixpkgs, something like this will work:
+    /* androidEnvNixpkgs = fetchTarball {
+         name = "androidenv";
+         url = "https://github.com/NixOS/nixpkgs/archive/<fill me in from Git>.tar.gz";
+         sha256 = "<fill me in with nix-prefetch-url --unpack>";
+       };
 
-     androidEnv = pkgs.callPackage "${androidEnvNixpkgs}/pkgs/development/mobile/androidenv" {
-       inherit config pkgs;
-       licenseAccepted = true;
-     };
-  */
+       androidEnv = pkgs.callPackage "${androidEnvNixpkgs}/pkgs/development/mobile/androidenv" {
+         inherit config pkgs;
+         licenseAccepted = true;
+       };
+    */
 
-  # Otherwise, just use the in-tree androidenv:
+    # Otherwise, just use the in-tree androidenv:
   androidEnv = pkgs.callPackage ./.. {
     inherit
       config
@@ -63,7 +63,7 @@ let
     includeSystemImages = true;
     includeEmulator = true;
 
-    # Accepting more licenses declaratively:
+      # Accepting more licenses declaratively:
     extraLicenses = [
       # Already accepted for you with the global accept_license = true or
       # licenseAccepted = true on androidenv.
@@ -103,7 +103,7 @@ pkgs.mkShell rec {
   LC_ALL = "C.UTF-8";
   JAVA_HOME = jdk.home;
 
-  # Note: ANDROID_HOME is deprecated. Use ANDROID_SDK_ROOT.
+    # Note: ANDROID_HOME is deprecated. Use ANDROID_SDK_ROOT.
   ANDROID_SDK_ROOT = "${androidSdk}/libexec/android-sdk";
   ANDROID_NDK_ROOT = "${ANDROID_SDK_ROOT}/ndk-bundle";
 

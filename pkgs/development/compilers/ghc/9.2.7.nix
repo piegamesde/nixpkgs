@@ -169,46 +169,51 @@ let
       EXTRA_CC_OPTS += -std=gnu99
     '';
 
-  # Splicer will pull out correct variations
-  libDeps = platform:
+    # Splicer will pull out correct variations
+  libDeps =
+    platform:
     lib.optional enableTerminfo ncurses ++ [ libffi ]
     ++ lib.optional (!enableNativeBignum) gmp
     ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
-    libiconv;
+    libiconv
+    ;
 
-  # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
-  # GHC doesn't seem to have {LLC,OPT}_HOST
+    # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
+    # GHC doesn't seem to have {LLC,OPT}_HOST
   toolsForTarget = [ pkgsBuildTarget.targetPackages.stdenv.cc ]
     ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
 
   targetCC = builtins.head toolsForTarget;
 
-  # Sometimes we have to dispatch between the bintools wrapper and the unwrapped
-  # derivation for certain tools depending on the platform.
+    # Sometimes we have to dispatch between the bintools wrapper and the unwrapped
+    # derivation for certain tools depending on the platform.
   bintoolsFor = {
     # GHC needs install_name_tool on all darwin platforms. On aarch64-darwin it is
     # part of the bintools wrapper (due to codesigning requirements), but not on
     # x86_64-darwin.
-    install_name_tool = if stdenv.targetPlatform.isAarch64 then
-      targetCC.bintools
-    else
-      targetCC.bintools.bintools;
-    # Same goes for strip.
+    install_name_tool =
+      if stdenv.targetPlatform.isAarch64 then
+        targetCC.bintools
+      else
+        targetCC.bintools.bintools
+      ;
+      # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
       if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
         targetCC.bintools
       else
-        targetCC.bintools.bintools;
+        targetCC.bintools.bintools
+      ;
   };
 
-  # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
-  # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
-  # see #84670 and #49071 for more background.
+    # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
+    # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
+    # see #84670 and #49071 for more background.
   useLdGold = targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd"
     && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl);
 
-  # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
+    # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
     (lib.optionalString stdenv.hostPlatform.isMusl "-musl")
     (lib.optionalString enableNativeBignum "-native-bignum")
@@ -246,13 +251,15 @@ stdenv.mkDerivation (rec {
     (fetchpatch {
       name = "ghc-docs-sphinx-6.0.patch";
       url =
-        "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch";
+        "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch"
+        ;
       sha256 = "0kmhfamr16w8gch0lgln2912r8aryjky1hfcda3jkcwa5cdzgjdv";
     })
     # fix hyperlinked haddock sources: https://github.com/haskell/haddock/pull/1482
     (fetchpatch {
       url =
-        "https://patch-diff.githubusercontent.com/raw/haskell/haddock/pull/1482.patch";
+        "https://patch-diff.githubusercontent.com/raw/haskell/haddock/pull/1482.patch"
+        ;
       sha256 = "sha256-8w8QUCsODaTvknCDGgTfFNZa8ZmvIKaKS+2ZJZ9foYk=";
       extraPrefix = "utils/haddock/";
       stripLen = 1;
@@ -261,7 +268,8 @@ stdenv.mkDerivation (rec {
     # Can be removed if the Cabal library included with ghc backports the linked fix
     (fetchpatch {
       url =
-        "https://github.com/haskell/cabal/commit/6c796218c92f93c95e94d5ec2d077f6956f68e98.patch";
+        "https://github.com/haskell/cabal/commit/6c796218c92f93c95e94d5ec2d077f6956f68e98.patch"
+        ;
       stripLen = 1;
       extraPrefix = "libraries/Cabal/";
       sha256 = "sha256-yRQ6YmMiwBwiYseC5BsrEtDgFbWvst+maGgDtdD0vAY=";
@@ -279,11 +287,11 @@ stdenv.mkDerivation (rec {
 
   postPatch = "patchShebangs .";
 
-  # GHC needs the locale configured during the Haddock phase.
+    # GHC needs the locale configured during the Haddock phase.
   LANG = "en_US.UTF-8";
 
-  # GHC is a bit confused on its cross terminology.
-  # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
+    # GHC is a bit confused on its cross terminology.
+    # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
   preConfigure = ''
     for env in $(env | grep '^TARGET_' | sed -E 's|\+?=.*||'); do
       export "''${env#TARGET_}=''${!env}"
@@ -342,13 +350,13 @@ stdenv.mkDerivation (rec {
     done
   '';
 
-  # TODO(@Ericson2314): Always pass "--target" and always prefix.
+    # TODO(@Ericson2314): Always pass "--target" and always prefix.
   configurePlatforms = [
     "build"
     "host"
   ] ++ lib.optional (targetPlatform != hostPlatform) "target";
 
-  # `--with` flags for libraries needed for RTS linker
+    # `--with` flags for libraries needed for RTS linker
   configureFlags = [
     "--datadir=$doc/share/doc/ghc"
     "--with-curses-includes=${ncurses.dev}/include"
@@ -373,10 +381,10 @@ stdenv.mkDerivation (rec {
     ] ++ lib.optionals
     (disableLargeAddressSpace) [ "--disable-large-address-space" ];
 
-  # Make sure we never relax`$PATH` and hooks support for compatibility.
+    # Make sure we never relax`$PATH` and hooks support for compatibility.
   strictDeps = true;
 
-  # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
+    # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
   dontAddExtraLibs = true;
 
   nativeBuildInputs = [
@@ -393,7 +401,7 @@ stdenv.mkDerivation (rec {
     (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
     ++ lib.optionals enableDocs [ sphinx ];
 
-  # For building runtime libs
+    # For building runtime libs
   depsBuildTarget = toolsForTarget;
 
   buildInputs = [
@@ -405,10 +413,10 @@ stdenv.mkDerivation (rec {
   depsTargetTargetPropagated =
     map (lib.getOutput "out") (libDeps targetPlatform);
 
-  # required, because otherwise all symbols from HSffi.o are stripped, and
-  # that in turn causes GHCi to abort
-  stripDebugFlags = [ "-S" ]
-    ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
+    # required, because otherwise all symbols from HSffi.o are stripped, and
+    # that in turn causes GHCi to abort
+  stripDebugFlags =
+    [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
   checkTarget = "test";
 
@@ -422,8 +430,8 @@ stdenv.mkDerivation (rec {
     # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
     ++ lib.optional stdenv.targetPlatform.isMusl "pie";
 
-  # big-parallel allows us to build with more than 2 cores on
-  # Hydra which already warrants a significant speedup
+    # big-parallel allows us to build with more than 2 cores on
+    # Hydra which already warrants a significant speedup
   requiredSystemFeatures = [ "big-parallel" ];
 
   postInstall = ''
@@ -443,7 +451,7 @@ stdenv.mkDerivation (rec {
       # the presence of the haddock program.
     hasHaddock = enableHaddockProgram;
 
-    # Our Cabal compiler name
+      # Our Cabal compiler name
     haskellCompilerName = "ghc-${version}";
   };
 

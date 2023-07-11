@@ -16,8 +16,8 @@ mkDerivation rec {
     hash = "sha256-XRCaW94oAgy2GOnFiI9c5A8mEx7AzlbT4pFd+PMmc9o=";
   };
 
-  # The cubical library has several `Everything.agda` files, which are
-  # compiled through the make file they provide.
+    # The cubical library has several `Everything.agda` files, which are
+    # compiled through the make file they provide.
   nativeBuildInputs = [ ghc ];
   buildPhase = ''
     runHook preBuild

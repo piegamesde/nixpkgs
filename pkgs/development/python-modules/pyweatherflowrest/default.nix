@@ -30,7 +30,7 @@ buildPythonPackage rec {
       --replace "--cov=pyweatherflowrest --cov-append" ""
   '';
 
-  # Module has no tests. test.py is a demo script
+    # Module has no tests. test.py is a demo script
   doCheck = false;
 
   pythonImportsCheck = [ "pyweatherflowrest" ];
@@ -39,7 +39,8 @@ buildPythonPackage rec {
     description = "Python module to get data from WeatherFlow Weather Stations";
     homepage = "https://github.com/briis/pyweatherflowrest";
     changelog =
-      "https://github.com/briis/pyweatherflowrest/blob/v${version}/CHANGELOG.md";
+      "https://github.com/briis/pyweatherflowrest/blob/v${version}/CHANGELOG.md"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

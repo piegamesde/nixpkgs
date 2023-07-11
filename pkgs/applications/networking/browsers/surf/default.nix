@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   pname = "surf";
   version = "2.1";
 
-  # tarball is missing file common.h
+    # tarball is missing file common.h
   src = fetchgit {
     url = "git://git.suckless.org/surf";
     rev = version;
@@ -55,21 +55,23 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  # Add run-time dependencies to PATH. Append them to PATH so the user can
-  # override the dependencies with their own PATH.
-  preFixup = let
-    depsPath = lib.makeBinPath [
-      xorg.xprop
-      dmenu
-      findutils
-      gnused
-      coreutils
-    ];
-  in ''
-    gappsWrapperArgs+=(
-      --suffix PATH : ${depsPath}
-    )
-  '' ;
+    # Add run-time dependencies to PATH. Append them to PATH so the user can
+    # override the dependencies with their own PATH.
+  preFixup =
+    let
+      depsPath = lib.makeBinPath [
+        xorg.xprop
+        dmenu
+        findutils
+        gnused
+        coreutils
+      ];
+    in ''
+      gappsWrapperArgs+=(
+        --suffix PATH : ${depsPath}
+      )
+    ''
+    ;
 
   meta = with lib; {
     description = "A simple web browser based on WebKitGTK";

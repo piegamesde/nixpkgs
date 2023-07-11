@@ -8,7 +8,7 @@ buildPythonPackage rec {
   pname = "multitasking";
   version = "0.0.11";
 
-  # GitHub source releases aren't tagged
+    # GitHub source releases aren't tagged
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-TWvDzGX5stynL7Wnh4UKiNro9iDCs2rptVJI5RvNYCY=";

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ readline ];
 
-  # Maybe it clashes with lci scientific logic software package...
+    # Maybe it clashes with lci scientific logic software package...
   postInstall = "mv $out/bin/lci $out/bin/lolcode-lci";
 
   meta = with lib; {

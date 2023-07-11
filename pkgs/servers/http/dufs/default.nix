@@ -26,8 +26,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  # FIXME: checkPhase on darwin will leave some zombie spawn processes
-  # see https://github.com/NixOS/nixpkgs/issues/205620
+    # FIXME: checkPhase on darwin will leave some zombie spawn processes
+    # see https://github.com/NixOS/nixpkgs/issues/205620
   doCheck = !stdenv.isDarwin;
   checkFlags = [
     # tests depend on network interface, may fail with virtual IPs.
@@ -36,7 +36,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A file server that supports static serving, uploading, searching, accessing control, webdav";
+      "A file server that supports static serving, uploading, searching, accessing control, webdav"
+      ;
     homepage = "https://github.com/sigoden/dufs";
     license = with licenses; [
       asl20 # or

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  # ToDo: optional libgda, introspection?
+    # ToDo: optional libgda, introspection?
   buildInputs = [
     goffice
     gtk3

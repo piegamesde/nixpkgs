@@ -22,12 +22,12 @@ buildPerlPackage rec {
 
   patches = [ ./fprintf.patch ];
 
-  # Do not install other Bio-ext packages
+    # Do not install other Bio-ext packages
   preConfigure = ''
     cd Bio/Ext/Align
   '';
 
-  # Disable tests as it requires Bio::Tools::Align which is in a different directory
+    # Disable tests as it requires Bio::Tools::Align which is in a different directory
   buildPhase = ''
     make
   '';

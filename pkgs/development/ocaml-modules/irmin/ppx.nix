@@ -13,7 +13,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/irmin/releases/download/${version}/irmin-${version}.tbz";
+      "https://github.com/mirage/irmin/releases/download/${version}/irmin-${version}.tbz"
+      ;
     hash = "sha256-zXiKjT9KPdGNwWChU9SuyR6vaw+0GtQUZNJsecMEqY4=";
   };
 

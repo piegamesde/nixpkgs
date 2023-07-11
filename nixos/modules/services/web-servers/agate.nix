@@ -87,29 +87,33 @@ in {
         "network-online.target"
       ];
 
-      script = let
-        prefixKeyList = key: list:
-          concatMap (v: [
-            key
-            v
-          ]) list;
-        addresses = prefixKeyList "--addr" cfg.addresses;
-        hostnames = prefixKeyList "--hostname" cfg.hostnames;
-      in ''
-        exec ${cfg.package}/bin/agate ${
-          escapeShellArgs ([
-            "--content"
-            "${cfg.contentDir}"
-            "--certs"
-            "${cfg.certificatesDir}"
-          ] ++ addresses ++ (optionals (cfg.hostnames != [ ]) hostnames)
-            ++ (optionals (cfg.language != null) [
-              "--lang"
-              cfg.language
-            ]) ++ (optionals cfg.onlyTls_1_3 [ "--only-tls13" ])
-            ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs))
-        }
-      '' ;
+      script =
+        let
+          prefixKeyList =
+            key: list:
+            concatMap (v: [
+              key
+              v
+            ]) list
+            ;
+          addresses = prefixKeyList "--addr" cfg.addresses;
+          hostnames = prefixKeyList "--hostname" cfg.hostnames;
+        in ''
+          exec ${cfg.package}/bin/agate ${
+            escapeShellArgs ([
+              "--content"
+              "${cfg.contentDir}"
+              "--certs"
+              "${cfg.certificatesDir}"
+            ] ++ addresses ++ (optionals (cfg.hostnames != [ ]) hostnames)
+              ++ (optionals (cfg.language != null) [
+                "--lang"
+                cfg.language
+              ]) ++ (optionals cfg.onlyTls_1_3 [ "--only-tls13" ])
+              ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs))
+          }
+        ''
+        ;
 
       serviceConfig = {
         Restart = "always";
@@ -117,11 +121,11 @@ in {
         DynamicUser = true;
         StateDirectory = "agate";
 
-        # Security options:
+          # Security options:
         AmbientCapabilities = "";
         CapabilityBoundingSet = "";
 
-        # ProtectClock= adds DeviceAllow=char-rtc r
+          # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
 
         LockPersonality = true;

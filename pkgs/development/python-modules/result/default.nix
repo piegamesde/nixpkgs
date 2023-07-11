@@ -37,7 +37,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A simple Result type for Python 3 inspired by Rust, fully type annotated";
+      "A simple Result type for Python 3 inspired by Rust, fully type annotated"
+      ;
     homepage = "https://github.com/rustedpy/result";
     license = licenses.mit;
     maintainers = [ ];

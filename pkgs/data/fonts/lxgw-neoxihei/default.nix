@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v${version}/LXGWNeoXiHei.ttf";
+      "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v${version}/LXGWNeoXiHei.ttf"
+      ;
     hash = "sha256-IIiQn2Qlac4ZFy/gVubrpqEpJIt0Dav2TEL29xDC7w4=";
   };
 

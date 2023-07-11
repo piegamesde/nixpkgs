@@ -96,11 +96,11 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "apache-arrow-${version}/cpp";
 
-  # versions are all taken from
-  # https://github.com/apache/arrow/blob/apache-arrow-${version}/cpp/thirdparty/versions.txt
+    # versions are all taken from
+    # https://github.com/apache/arrow/blob/apache-arrow-${version}/cpp/thirdparty/versions.txt
 
-  # jemalloc: arrow uses a custom prefix to prevent default allocator symbol
-  # collisions as well as custom build flags
+    # jemalloc: arrow uses a custom prefix to prevent default allocator symbol
+    # collisions as well as custom build flags
   ${
     if enableJemalloc then
       "ARROW_JEMALLOC_URL"
@@ -108,11 +108,12 @@ stdenv.mkDerivation rec {
       null
   } = fetchurl {
     url =
-      "https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2";
+      "https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2"
+      ;
     hash = "sha256-LbgtHnEZ3z5xt2QCGbbf6EeJvAU3mDw7esT3GJrs/qo=";
   };
 
-  # mimalloc: arrow uses custom build flags for mimalloc
+    # mimalloc: arrow uses custom build flags for mimalloc
   ARROW_MIMALLOC_URL = fetchFromGitHub {
     owner = "microsoft";
     repo = "mimalloc";
@@ -274,36 +275,39 @@ stdenv.mkDerivation rec {
     stdenv.isDarwin [ "-DCMAKE_INSTALL_RPATH=@loader_path/../lib" # needed for tools executables
     ] ++ lib.optionals (!stdenv.isx86_64) [ "-DARROW_USE_SIMD=OFF" ]
     ++ lib.optionals
-    enableS3 [ "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h" ];
+    enableS3 [ "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h" ]
+    ;
 
   doInstallCheck = true;
   ARROW_TEST_DATA = lib.optionalString doInstallCheck "${arrow-testing}/data";
   PARQUET_TEST_DATA =
     lib.optionalString doInstallCheck "${parquet-testing}/data";
-  GTEST_FILTER = let
-    # Upstream Issue: https://issues.apache.org/jira/browse/ARROW-11398
-    filteredTests = lib.optionals stdenv.hostPlatform.isAarch64 [
-      "TestFilterKernelWithNumeric/3.CompareArrayAndFilterRandomNumeric"
-      "TestFilterKernelWithNumeric/7.CompareArrayAndFilterRandomNumeric"
-      "TestCompareKernel.PrimitiveRandomTests"
-    ] ++ lib.optionals enableS3 [
-      "S3OptionsTest.FromUri"
-      "S3RegionResolutionTest.NonExistentBucket"
-      "S3RegionResolutionTest.PublicBucket"
-      "S3RegionResolutionTest.RestrictedBucket"
-      "TestMinioServer.Connect"
-      "TestS3FS.*"
-      "TestS3FSGeneric.*"
-    ] ++ lib.optionals stdenv.isDarwin [
-      # TODO: revisit at 12.0.0 or when
-      # https://github.com/apache/arrow/commit/295c6644ca6b67c95a662410b2c7faea0920c989
-      # is available, see
-      # https://github.com/apache/arrow/pull/15288#discussion_r1071244661
-      "ExecPlanExecution.StressSourceSinkStopped"
-    ];
-  in
-  lib.optionalString doInstallCheck "-${lib.concatStringsSep ":" filteredTests}"
-  ;
+  GTEST_FILTER =
+    let
+      # Upstream Issue: https://issues.apache.org/jira/browse/ARROW-11398
+      filteredTests = lib.optionals stdenv.hostPlatform.isAarch64 [
+        "TestFilterKernelWithNumeric/3.CompareArrayAndFilterRandomNumeric"
+        "TestFilterKernelWithNumeric/7.CompareArrayAndFilterRandomNumeric"
+        "TestCompareKernel.PrimitiveRandomTests"
+      ] ++ lib.optionals enableS3 [
+        "S3OptionsTest.FromUri"
+        "S3RegionResolutionTest.NonExistentBucket"
+        "S3RegionResolutionTest.PublicBucket"
+        "S3RegionResolutionTest.RestrictedBucket"
+        "TestMinioServer.Connect"
+        "TestS3FS.*"
+        "TestS3FSGeneric.*"
+      ] ++ lib.optionals stdenv.isDarwin [
+        # TODO: revisit at 12.0.0 or when
+        # https://github.com/apache/arrow/commit/295c6644ca6b67c95a662410b2c7faea0920c989
+        # is available, see
+        # https://github.com/apache/arrow/pull/15288#discussion_r1071244661
+        "ExecPlanExecution.StressSourceSinkStopped"
+      ];
+    in
+    lib.optionalString doInstallCheck
+    "-${lib.concatStringsSep ":" filteredTests}"
+    ;
 
   __darwinAllowLocalNetworking = true;
 

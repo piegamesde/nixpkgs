@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ py4j ];
 
-  # Tests needs java to be present in path
+    # Tests needs java to be present in path
   doCheck = false;
 
   meta = with lib; {

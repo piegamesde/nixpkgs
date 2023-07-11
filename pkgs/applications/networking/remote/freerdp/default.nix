@@ -60,11 +60,13 @@
 }:
 
 let
-  cmFlag = flag:
+  cmFlag =
+    flag:
     if flag then
       "ON"
     else
-      "OFF";
+      "OFF"
+    ;
   disabledTests = [
     # this one is probably due to our sandbox
     {
@@ -167,7 +169,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # https://github.com/FreeRDP/FreeRDP/issues/8526#issuecomment-1357134746
+    # https://github.com/FreeRDP/FreeRDP/issues/8526#issuecomment-1357134746
   cmakeFlags = [
     "-Wno-dev"
     "-DCMAKE_INSTALL_LIBDIR=lib"

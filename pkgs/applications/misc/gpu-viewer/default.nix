@@ -51,7 +51,7 @@ python3.pkgs.buildPythonApplication rec {
     click
   ];
 
-  # Prevent double wrapping
+    # Prevent double wrapping
   dontWrapGApps = true;
 
   postFixup = ''

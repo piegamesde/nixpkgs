@@ -115,7 +115,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (layouts != { }) {
 

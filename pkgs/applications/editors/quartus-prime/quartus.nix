@@ -48,7 +48,8 @@ let
 
   version = "20.1.1.720";
 
-  download = {
+  download =
+    {
       name,
       sha256,
     }:
@@ -63,7 +64,8 @@ let
         }std.${lib.versions.patch version}/${
           lib.elemAt (lib.splitVersion version) 3
         }/ib_installers/${name}";
-    };
+    }
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -86,33 +88,40 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ unstick ];
 
-  buildCommand = let
-    installers = lib.sublist 0 2 src;
-    components = lib.sublist 2 ((lib.length src) - 2) src;
-    copyInstaller = installer: ''
-      # `$(cat $NIX_CC/nix-support/dynamic-linker) $src[0]` often segfaults, so cp + patchelf
-      cp ${installer} $TEMP/${installer.name}
-      chmod u+w,+x $TEMP/${installer.name}
-      patchelf --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $TEMP/${installer.name}
-    '';
-    copyComponent = component: "cp ${component} $TEMP/${component.name}";
-    # leaves enabled: quartus, modelsim_ase, devinfo
-    disabledComponents = [
-      "quartus_help"
-      "quartus_update"
-      # not modelsim_ase
-      "modelsim_ae"
-    ] ++ (lib.attrValues unsupportedDeviceIds);
-  in ''
-    ${lib.concatMapStringsSep "\n" copyInstaller installers}
-    ${lib.concatMapStringsSep "\n" copyComponent components}
+  buildCommand =
+    let
+      installers = lib.sublist 0 2 src;
+      components = lib.sublist 2 ((lib.length src) - 2) src;
+      copyInstaller =
+        installer: ''
+          # `$(cat $NIX_CC/nix-support/dynamic-linker) $src[0]` often segfaults, so cp + patchelf
+          cp ${installer} $TEMP/${installer.name}
+          chmod u+w,+x $TEMP/${installer.name}
+          patchelf --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $TEMP/${installer.name}
+        ''
+        ;
+      copyComponent =
+        component:
+        "cp ${component} $TEMP/${component.name}"
+        ;
+        # leaves enabled: quartus, modelsim_ase, devinfo
+      disabledComponents = [
+        "quartus_help"
+        "quartus_update"
+        # not modelsim_ase
+        "modelsim_ae"
+      ] ++ (lib.attrValues unsupportedDeviceIds);
+    in ''
+      ${lib.concatMapStringsSep "\n" copyInstaller installers}
+      ${lib.concatMapStringsSep "\n" copyComponent components}
 
-    unstick $TEMP/${(builtins.head installers).name} \
-      --disable-components ${lib.concatStringsSep "," disabledComponents} \
-      --mode unattended --installdir $out --accept_eula 1
+      unstick $TEMP/${(builtins.head installers).name} \
+        --disable-components ${lib.concatStringsSep "," disabledComponents} \
+        --mode unattended --installdir $out --accept_eula 1
 
-    rm -r $out/uninstall $out/logs
-  '' ;
+      rm -r $out/uninstall $out/logs
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://fpgasoftware.intel.com";

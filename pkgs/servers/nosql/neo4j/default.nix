@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://neo4j.com/artifact.php?name=neo4j-community-${version}-unix.tar.gz";
+      "https://neo4j.com/artifact.php?name=neo4j-community-${version}-unix.tar.gz"
+      ;
     sha256 = "sha256-KIENqsXeSl1bd84tp9fD2kxczxMoi62IW4M8NblhAMg=";
   };
 

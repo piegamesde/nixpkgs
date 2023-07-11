@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
     ./0001-Implement-read-only-mode-for-ssids.patch
   ];
 
-  # TODO: Patch epoll so that the dbus actually responds
-  # TODO: Figure out how to get privsep working, currently getting SIGBUS
+    # TODO: Patch epoll so that the dbus actually responds
+    # TODO: Figure out how to get privsep working, currently getting SIGBUS
   extraConfig = ''
     #CONFIG_ELOOP_EPOLL=y
     #CONFIG_PRIVSEP=y

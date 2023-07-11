@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/chaos/pdsh/releases/download/pdsh-${version}/pdsh-${version}.tar.gz";
+      "https://github.com/chaos/pdsh/releases/download/pdsh-${version}/pdsh-${version}.tar.gz"
+      ;
     sha256 = "1s91hmhrz7rfb6h3l5k97s393rcm1ww3svp8dx5z8vkkc933wyxl";
   };
 
@@ -29,7 +30,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  # Do not use git to derive a version.
+    # Do not use git to derive a version.
   postPatch = ''
     sed -i 's/m4_esyscmd(\[git describe.*/[${version}])/' configure.ac
   '';

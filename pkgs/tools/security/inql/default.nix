@@ -17,7 +17,7 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ stickytape ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "inql" ];

@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-  # https://github.com/wdas/SeExpr/issues/106
+    # https://github.com/wdas/SeExpr/issues/106
   postPatch = ''
     substituteInPlace src/build/seexpr2.pc.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@

@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   pname = "opae";
   version = "1.0.0";
 
-  # the tag has a silly name for some reason. drop this in the future if
-  # possible
+    # the tag has a silly name for some reason. drop this in the future if
+    # possible
   tver = "${version}-5";
 
   src = fetchFromGitHub {
@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  # Set the Epoch to 1980; otherwise the Python wheel/zip code
-  # gets very angry
+    # Set the Epoch to 1980; otherwise the Python wheel/zip code
+    # gets very angry
   preConfigure = ''
     find . -type f | while read file; do
       touch -d @315532800 $file;

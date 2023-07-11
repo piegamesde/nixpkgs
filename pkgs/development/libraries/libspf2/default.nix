@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     # glibc-2.34 compat
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/gentoo/gentoo/dbb8a5c9f749cc11e61cfe558f164b165cbc30cb/mail-filter/libspf2/files/libspf2-1.2.11-undefined-dn_.patch";
+        "https://raw.githubusercontent.com/gentoo/gentoo/dbb8a5c9f749cc11e61cfe558f164b165cbc30cb/mail-filter/libspf2/files/libspf2-1.2.11-undefined-dn_.patch"
+        ;
       sha256 = "sha256-6JVVkVGCcFJsNeBdVTPcLhW4KoHLY4ai/KXDMliXgPA=";
     })
   ];
@@ -35,7 +36,7 @@ stdenv.mkDerivation rec {
       -e '/bin_PROGRAMS/s/spf_example_static//' src/spf_example/Makefile.am
   '';
 
-  # autoreconf necessary because we modified automake files
+    # autoreconf necessary because we modified automake files
   nativeBuildInputs = [ autoreconfHook ];
 
   doCheck = true;

@@ -18,7 +18,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     # Give users access to the "ratbagctl" tool

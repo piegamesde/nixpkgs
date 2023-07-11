@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://s3.amazonaws.com/fractalsoftworks/starsector/starsector_linux-${version}.zip";
+      "https://s3.amazonaws.com/fractalsoftworks/starsector/starsector_linux-${version}.zip"
+      ;
     sha256 = "sha256-+0zGJHM+SMonx3sytCQNQA/QBgzdPMEfQvOjrCDSOs8=";
   };
 
@@ -43,7 +44,7 @@ stdenv.mkDerivation rec {
     categories = [ "Game" ];
   }) ];
 
-  # need to cd into $out in order for classpath to pick up correct jar files
+    # need to cd into $out in order for classpath to pick up correct jar files
   installPhase = ''
     runHook preInstall
 
@@ -65,9 +66,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # it tries to run everything with relative paths, which makes it CWD dependent
-  # also point mod, screenshot, and save directory to $XDG_DATA_HOME
-  # additionally, add some GC options to improve performance of the game
+    # it tries to run everything with relative paths, which makes it CWD dependent
+    # also point mod, screenshot, and save directory to $XDG_DATA_HOME
+    # additionally, add some GC options to improve performance of the game
   postPatch = ''
     substituteInPlace starsector.sh \
       --replace "./jre_linux/bin/java" "${openjdk}/bin/java" \
@@ -78,7 +79,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Open-world single-player space-combat, roleplaying, exploration, and economic game";
+      "Open-world single-player space-combat, roleplaying, exploration, and economic game"
+      ;
     homepage = "https://fractalsoftworks.com";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.unfree;

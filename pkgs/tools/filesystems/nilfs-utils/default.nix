@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
     }/bin/
   '';
 
-  # According to upstream, libmount should be detected automatically but the
-  # build system fails to do this. This is likely a bug with their build system
-  # hence it is explicitly enabled here.
+    # According to upstream, libmount should be detected automatically but the
+    # build system fails to do this. This is likely a bug with their build system
+    # hence it is explicitly enabled here.
   configureFlags = [ "--with-libmount" ];
 
   installFlags = [
@@ -45,11 +45,11 @@ stdenv.mkDerivation rec {
     "root_sbindir=${placeholder "out"}/sbin"
   ];
 
-  # FIXME: https://github.com/NixOS/patchelf/pull/98 is in, but stdenv
-  # still doesn't use it
-  #
-  # To make sure patchelf doesn't mistakenly keep the reference via
-  # build directory
+    # FIXME: https://github.com/NixOS/patchelf/pull/98 is in, but stdenv
+    # still doesn't use it
+    #
+    # To make sure patchelf doesn't mistakenly keep the reference via
+    # build directory
   postInstall = ''
     find . -name .libs -exec rm -rf -- {} +
   '';

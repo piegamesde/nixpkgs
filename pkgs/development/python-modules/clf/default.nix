@@ -26,8 +26,8 @@ buildPythonPackage rec {
     pygments
   ];
 
-  # Error when running tests:
-  # No local packages or download links found for requests
+    # Error when running tests:
+    # No local packages or download links found for requests
   doCheck = false;
 
   meta = with lib; {

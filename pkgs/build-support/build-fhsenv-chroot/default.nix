@@ -32,7 +32,8 @@ let
 
   chrootenv = callPackage ./chrootenv { };
 
-  init = run:
+  init =
+    run:
     writeScript "${name}-init" ''
       #! ${stdenv.shell}
       for i in ${env}/* /host/*; do
@@ -45,7 +46,8 @@ let
 
       source /etc/profile
       exec ${run} "$@"
-    '';
+    ''
+    ;
 
   versionStr = lib.optionalString (version != null) ("-" + version);
 

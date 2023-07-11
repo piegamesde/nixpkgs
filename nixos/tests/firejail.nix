@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "firejail";
     meta = with pkgs.lib.maintainers; { maintainers = [ sgo ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [ ./common/user-account.nix ];
@@ -45,7 +46,8 @@ import ./make-test-python.nix ({
             echo 'blacklist ''${HOME}/my-secrets' > .config/firejail/globals.local
           '';
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

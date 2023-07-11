@@ -22,7 +22,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Small utility program to perform multiple operations for a given subnet/CIDR ranges";
+      "Small utility program to perform multiple operations for a given subnet/CIDR ranges"
+      ;
     longDescription = ''
       mapCIDR is developed to ease load distribution for mass scanning
       operations, it can be used both as a library and as independent CLI tool.

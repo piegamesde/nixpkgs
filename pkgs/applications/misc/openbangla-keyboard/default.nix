@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ hqurve ];
     platforms = platforms.linux;
-    # never built on aarch64-linux since first introduction in nixpkgs
+      # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

@@ -13,7 +13,7 @@
 buildPythonPackage rec {
   pname = "tatsu";
   version = "5.8.3";
-  # upstream only supports 3.10+
+    # upstream only supports 3.10+
   disabled = pythonOlder "3.10";
 
   src = fetchFromGitHub {

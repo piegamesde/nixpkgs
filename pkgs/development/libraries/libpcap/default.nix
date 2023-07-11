@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isLinux [ pkg-config ]
     ++ lib.optionals withBluez [ bluez.dev ];
 
-  # We need to force the autodetection because detection doesn't
-  # work in pure build environments.
+    # We need to force the autodetection because detection doesn't
+    # work in pure build environments.
   configureFlags = [ "--with-pcap=${
       if stdenv.isLinux then
         "linux"

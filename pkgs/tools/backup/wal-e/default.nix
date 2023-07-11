@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-I6suHkAYzDtlNFNPH4SziY93Ryp+NTHkCBuojDvv+U4=";
   };
 
-  # needs tox
+    # needs tox
   doCheck = false;
 
   propagatedBuildInputs = (with python3Packages; [

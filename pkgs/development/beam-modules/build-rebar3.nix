@@ -31,17 +31,20 @@ let
 
   rebar3 = rebar3WithPlugins { plugins = buildPlugins; };
 
-  shell = drv:
+  shell =
+    drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
-    };
+    }
+    ;
 
   customPhases = lib.filterAttrs (_: v: v != null) {
     inherit setupHook configurePhase buildPhase installPhase;
   };
 
-  pkg = self:
+  pkg =
+    self:
     stdenv.mkDerivation (attrs // {
 
       name = "${name}-${version}";
@@ -96,6 +99,7 @@ let
         env = shell self;
         inherit beamDeps;
       };
-    } // customPhases);
+    } // customPhases)
+    ;
 in
 lib.fix pkg

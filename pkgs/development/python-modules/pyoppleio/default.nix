@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ crc16 ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pyoppleio" ];

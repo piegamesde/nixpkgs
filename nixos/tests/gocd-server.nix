@@ -12,12 +12,14 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ swarren83 ]; };
 
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           virtualisation.memorySize = 2046;
           services.gocd-server.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

@@ -28,21 +28,22 @@
 let
   mkFlag = optSet: flag: "-D${flag}=${lib.boolToString optSet}";
 
-  sphinx-build = let
-    env = python3.withPackages (pp:
-      with pp; [
-        sphinx
-        recommonmark
-        sphinx-rtd-theme
-      ]);
-    # Expose only the sphinx-build binary to avoid contaminating
-    # everything with Sphinx’s Python environment.
-  in
-  runCommand "sphinx-build" { } ''
-    mkdir -p "$out/bin"
-    ln -s "${env}/bin/sphinx-build" "$out/bin"
-  ''
-  ;
+  sphinx-build =
+    let
+      env = python3.withPackages (pp:
+        with pp; [
+          sphinx
+          recommonmark
+          sphinx-rtd-theme
+        ]);
+      # Expose only the sphinx-build binary to avoid contaminating
+      # everything with Sphinx’s Python environment.
+    in
+    runCommand "sphinx-build" { } ''
+      mkdir -p "$out/bin"
+      ln -s "${env}/bin/sphinx-build" "$out/bin"
+    ''
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -127,7 +128,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Handles input devices in Wayland compositors and provides a generic X.Org input driver";
+      "Handles input devices in Wayland compositors and provides a generic X.Org input driver"
+      ;
     homepage = "https://www.freedesktop.org/wiki/Software/libinput/";
     license = licenses.mit;
     platforms = platforms.unix;

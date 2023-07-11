@@ -25,7 +25,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A cli tool for importing and exporting AWS IAM configuration to YAML files";
+      "A cli tool for importing and exporting AWS IAM configuration to YAML files"
+      ;
     homepage = "https://github.com/99designs/iamy";
     license = licenses.mit;
     maintainers = with maintainers; [ suvash ];

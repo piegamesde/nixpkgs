@@ -45,9 +45,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!stdenv.isDarwin) libuuid
     ++ lib.optional (enableThirdPartyCopy) gsoap;
 
-  # using the url below since the github release page states
-  # "please ignore the GitHub-generated tarballs, as they are incomplete"
-  # https://github.com/cern-fts/davix/releases/tag/R_0_8_0
+    # using the url below since the github release page states
+    # "please ignore the GitHub-generated tarballs, as they are incomplete"
+    # https://github.com/cern-fts/davix/releases/tag/R_0_8_0
   src = fetchurl {
     url = "https://github.com/cern-fts/davix/releases/download/R_${
         lib.replaceStrings [ "." ] [ "_" ] version

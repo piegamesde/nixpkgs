@@ -17,7 +17,7 @@ crystal.buildCrystalPackage rec {
     hash = "sha256-Ky4DmClSyAVBAetpZM5tFnQZ74fchCOgcxBftd+gwlE=";
   };
 
-  # the integration tests will try to clone a remote repos
+    # the integration tests will try to clone a remote repos
   postPatch = ''
     rm -rf spec/integration
   '';
@@ -40,7 +40,8 @@ crystal.buildCrystalPackage rec {
 
   meta = with lib; {
     description =
-      "A Crystal library for creating and running tasks. Also generates Lucky projects";
+      "A Crystal library for creating and running tasks. Also generates Lucky projects"
+      ;
     homepage = "https://luckyframework.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg ];

@@ -46,7 +46,7 @@ buildPythonPackage rec {
     pynacl
   ];
 
-  # upstream has no tests
+    # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ xz.bin ];
-  # If no explicit coreutils is given, use the one from stdenv.
+    # If no explicit coreutils is given, use the one from stdenv.
   buildInputs = [ coreutils ];
 
   configureFlags =

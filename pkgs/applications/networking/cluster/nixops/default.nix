@@ -109,7 +109,7 @@ let
     # Workaround for https://github.com/NixOS/nixpkgs/issues/119407
     # TODO after #1199407: Use .overrideAttrs(pkg: old: { passthru.tests = .....; })
     tests = nixosTests.nixops.unstable.override { nixopsPkg = pkg; };
-    # Not strictly necessary, but probably expected somewhere; part of the workaround:
+      # Not strictly necessary, but probably expected somewhere; part of the workaround:
     passthru.tests = tests;
   };
 in

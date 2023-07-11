@@ -53,12 +53,12 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'pyzmq==25.0.2 ; sys_platform == "win32"' ""
   '';
 
-  # Don't use fixed dependencies on Darwin
+    # Don't use fixed dependencies on Darwin
   USE_STATIC_REQUIREMENTS = "0";
 
-  # The tests fail due to socket path length limits at the very least;
-  # possibly there are more issues but I didn't leave the test suite running
-  # as is it rather long.
+    # The tests fail due to socket path length limits at the very least;
+    # possibly there are more issues but I didn't leave the test suite running
+    # as is it rather long.
   doCheck = false;
 
   meta = with lib; {
@@ -66,7 +66,8 @@ python3.pkgs.buildPythonApplication rec {
     changelog =
       "https://docs.saltproject.io/en/latest/topics/releases/${version}.html";
     description =
-      "Portable, distributed, remote execution and configuration management system";
+      "Portable, distributed, remote execution and configuration management system"
+      ;
     maintainers = with maintainers; [ Flakebi ];
     license = licenses.asl20;
   };

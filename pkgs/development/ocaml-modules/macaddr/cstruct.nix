@@ -21,6 +21,7 @@ buildDunePackage {
 
   meta = macaddr.meta // {
     description =
-      "A library for manipulation of MAC address representations using Cstructs";
+      "A library for manipulation of MAC address representations using Cstructs"
+      ;
   };
 }

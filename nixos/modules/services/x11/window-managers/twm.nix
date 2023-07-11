@@ -20,7 +20,7 @@ in {
       mkEnableOption (lib.mdDoc "twm");
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://mednafen.github.io/releases/files/mednafen-server-${version}.tar.xz";
+      "https://mednafen.github.io/releases/files/mednafen-server-${version}.tar.xz"
+      ;
     sha256 = "0xm7dj5nwnrsv69r72rcnlw03jm0l8rmrg3s05gjfvxyqmlb36dq";
   };
 

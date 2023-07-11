@@ -33,14 +33,15 @@ buildPythonPackage rec {
       --replace "'opencv-python>=3'," ""
   '';
 
-  # failing on NixOS
+    # failing on NixOS
   doCheck = false;
 
   pythonImportsCheck = [ "imantics" ];
 
   meta = with lib; {
     description =
-      "Convert and visualize many annotation formats for object dectection and localization";
+      "Convert and visualize many annotation formats for object dectection and localization"
+      ;
     homepage = "https://github.com/jsbroks/imantics";
     license = with licenses; [ mit ];
     maintainers = [ maintainers.rakesh4g ];

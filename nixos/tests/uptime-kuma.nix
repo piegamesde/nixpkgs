@@ -9,12 +9,14 @@ import ./make-test-python.nix ({
     name = "uptime-kuma";
     meta.maintainers = with maintainers; [ julienmalka ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         services.uptime-kuma.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

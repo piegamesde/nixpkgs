@@ -17,8 +17,8 @@ stdenv.mkDerivation {
   };
 
   strictDeps = true;
-  nativeBuildInputs =
-    [ (haskellPackages.ghcWithPackages (hs: with hs; [ posix-escape ])) ];
+  nativeBuildInputs = [ (haskellPackages.ghcWithPackages
+    (hs: with hs; [ posix-escape ])) ];
 
   buildPhase = ''
     runHook preBuild

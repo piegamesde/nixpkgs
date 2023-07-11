@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "mirror://sourceforge/vietunicode/hannom/hannom%20v${version}/hannomH.zip";
+      "mirror://sourceforge/vietunicode/hannom/hannom%20v${version}/hannomH.zip"
+      ;
     stripRoot = false;
     hash = "sha256-Oh8V72tYvVA6Sk0f9UTIkRQYjdUbEB/fmCSaRYfyoP8=";
   };

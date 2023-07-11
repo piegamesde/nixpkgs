@@ -12,8 +12,8 @@
 
 buildPythonPackage rec {
   pname = "keyrings.cryptfile";
-  # NOTE: newer releases are bugged/incompatible
-  # https://github.com/frispete/keyrings.cryptfile/issues/15
+    # NOTE: newer releases are bugged/incompatible
+    # https://github.com/frispete/keyrings.cryptfile/issues/15
   version = "1.3.4";
   disabled = pythonOlder "3.5";
 
@@ -28,7 +28,8 @@ buildPythonPackage rec {
     # change of API in keyrings.testing
     (fetchpatch {
       url =
-        "https://github.com/frispete/keyrings.cryptfile/commit/6fb9e45f559b8b69f7a0a519c0bece6324471d79.patch";
+        "https://github.com/frispete/keyrings.cryptfile/commit/6fb9e45f559b8b69f7a0a519c0bece6324471d79.patch"
+        ;
       hash = "sha256-1878pMO9Ed1zs1pl+7gMjwx77HbDHdE1CryN8TPfPdU=";
     })
   ];

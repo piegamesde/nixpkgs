@@ -30,9 +30,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "1jkkwsn3k2anmzf99x99r9zfnf0gpcjbi5pyakh4agiryqcdyg0j";
 
-  # The BLAKE3 C library is intended to be built by the project depending on it
-  # rather than as a standalone library.
-  # https://github.com/BLAKE3-team/BLAKE3/blob/0.3.1/c/README.md#building
+    # The BLAKE3 C library is intended to be built by the project depending on it
+    # rather than as a standalone library.
+    # https://github.com/BLAKE3-team/BLAKE3/blob/0.3.1/c/README.md#building
   BLAKE3_CSRC = "${blake3-src}/c";
 
   nativeBuildInputs = [

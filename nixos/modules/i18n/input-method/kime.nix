@@ -72,6 +72,6 @@ in {
     '' + imcfg.kime.extraConfig;
   };
 
-  # uses attributes of the linked package
+    # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

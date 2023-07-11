@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/flatpak/xdg-dbus-proxy/releases/download/${version}/${pname}-${version}.tar.xz";
+      "https://github.com/flatpak/xdg-dbus-proxy/releases/download/${version}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-HsDqtT0eSZZtciNSvP1RrEAtzlGQuu3HSahUHnYWcKs=";
   };
 
@@ -35,7 +36,7 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ dbus ];
 
-  # dbus[2345]: Failed to start message bus: Failed to open "/etc/dbus-1/session.conf": No such file or directory
+    # dbus[2345]: Failed to start message bus: Failed to open "/etc/dbus-1/session.conf": No such file or directory
   doCheck = false;
 
   meta = with lib; {

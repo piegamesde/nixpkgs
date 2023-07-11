@@ -39,10 +39,11 @@ let
     else
       lib.escapeShellArg arg);
 
-  /* processArg : { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] } → (String|FilePath) → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
-     Helper reducer function for building a command arguments where file paths are replaced with argv[x] reference.
-  */
-  processArg = {
+    /* processArg : { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] } → (String|FilePath) → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
+       Helper reducer function for building a command arguments where file paths are replaced with argv[x] reference.
+    */
+  processArg =
+    {
       maxArgIndex,
       args,
       paths,
@@ -59,20 +60,24 @@ let
       {
         args = args ++ [ arg ];
         inherit maxArgIndex paths;
-      };
-  /* extractPaths : Int → [ (String|FilePath) ] → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
-     Helper function that extracts file paths from command arguments and replaces them with argv[x] references.
-  */
-  extractPaths = maxArgIndex: command:
+      }
+    ;
+    /* extractPaths : Int → [ (String|FilePath) ] → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
+       Helper function that extracts file paths from command arguments and replaces them with argv[x] references.
+    */
+  extractPaths =
+    maxArgIndex: command:
     builtins.foldl' processArg {
       inherit maxArgIndex;
       args = [ ];
       paths = [ ];
-    } command;
-  /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
-     Helper reducer function for extracting file paths from individual commands.
-  */
-  processCommand = {
+    } command
+    ;
+    /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
+       Helper reducer function for extracting file paths from individual commands.
+    */
+  processCommand =
+    {
       maxArgIndex,
       commands,
       paths,
@@ -84,21 +89,25 @@ let
       commands = commands ++ [ new.args ];
       paths = paths ++ new.paths;
       maxArgIndex = new.maxArgIndex;
-    } ;
-  /* extractCommands : Int → [[ (String|FilePath) ]] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
-     Helper function for extracting file paths from a list of commands and replacing them with argv[x] references.
-  */
-  extractCommands = maxArgIndex: commands:
+    }
+    ;
+    /* extractCommands : Int → [[ (String|FilePath) ]] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
+       Helper function for extracting file paths from a list of commands and replacing them with argv[x] references.
+    */
+  extractCommands =
+    maxArgIndex: commands:
     builtins.foldl' processCommand {
       inherit maxArgIndex;
       commands = [ ];
       paths = [ ];
-    } commands;
+    } commands
+    ;
 
-  /* commandsToShellInvocation : [[ (String|FilePath) ]] → [ (String|FilePath) ]
-     Converts a list of commands into a single command by turning them into a shell script and passing them to `sh -c`.
-  */
-  commandsToShellInvocation = commands:
+    /* commandsToShellInvocation : [[ (String|FilePath) ]] → [ (String|FilePath) ]
+       Converts a list of commands into a single command by turning them into a shell script and passing them to `sh -c`.
+    */
+  commandsToShellInvocation =
+    commands:
     let
       extracted = extractCommands 0 commands;
     in
@@ -109,23 +118,26 @@ let
       # We need paths as separate arguments so that update.nix can ensure they refer to the local directory
       # rather than a store path.
     ] ++ extracted.paths
-  ;
+    ;
 in rec {
   /* normalize : UpdateScript → UpdateScript
      EXPERIMENTAL! Converts a basic update script to the experimental attribute set form.
   */
-  normalize = updateScript:
+  normalize =
+    updateScript:
     {
       command = lib.toList (updateScript.command or updateScript);
       supportedFeatures = updateScript.supportedFeatures or [ ];
     } // lib.optionalAttrs (updateScript ? attrPath) {
       inherit (updateScript) attrPath;
-    };
+    }
+    ;
 
-  /* sequence : [UpdateScript] → UpdateScript
-     EXPERIMENTAL! Combines multiple update scripts to run in sequence.
-  */
-  sequence = scripts:
+    /* sequence : [UpdateScript] → UpdateScript
+       EXPERIMENTAL! Combines multiple update scripts to run in sequence.
+    */
+  sequence =
+    scripts:
 
     let
       scriptsNormalized = builtins.map normalize scripts;
@@ -136,19 +148,21 @@ in rec {
           ...
         }:
         supportedFeatures == [ "commit" ]) null null scripts != null;
-      validateFeatures = if hasCommitSupport then
-        ({
-            supportedFeatures,
-            ...
-          }:
-          supportedFeatures == [ "commit" ] || supportedFeatures
-          == [ "silent" ])
-      else
-        ({
-            supportedFeatures,
-            ...
-          }:
-          supportedFeatures == [ ]);
+      validateFeatures =
+        if hasCommitSupport then
+          ({
+              supportedFeatures,
+              ...
+            }:
+            supportedFeatures == [ "commit" ] || supportedFeatures
+            == [ "silent" ])
+        else
+          ({
+              supportedFeatures,
+              ...
+            }:
+            supportedFeatures == [ ])
+        ;
 
     in
     assert lib.assertMsg (lib.all validateFeatures scripts)
@@ -168,12 +182,13 @@ in rec {
         command) scripts);
       supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
     }
-  ;
+    ;
 
-  /* copyAttrOutputToFile : String → FilePath → UpdateScript
-     EXPERIMENTAL! Simple update script that copies the output of Nix derivation built by `attr` to `path`.
-  */
-  copyAttrOutputToFile = attr: path:
+    /* copyAttrOutputToFile : String → FilePath → UpdateScript
+       EXPERIMENTAL! Simple update script that copies the output of Nix derivation built by `attr` to `path`.
+    */
+  copyAttrOutputToFile =
+    attr: path:
 
     {
       command = [
@@ -183,6 +198,7 @@ in rec {
         path
       ];
       supportedFeatures = [ "silent" ];
-    };
+    }
+    ;
 
 }

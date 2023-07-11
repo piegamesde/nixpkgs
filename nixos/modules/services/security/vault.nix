@@ -93,7 +93,8 @@ in {
         default = null;
         example = "/path/to/your/cert.pem";
         description = lib.mdDoc
-          "TLS certificate file. TLS will be disabled unless this option is set";
+          "TLS certificate file. TLS will be disabled unless this option is set"
+          ;
       };
 
       tlsKeyFile = mkOption {
@@ -101,7 +102,8 @@ in {
         default = null;
         example = "/path/to/your/key.pem";
         description = lib.mdDoc
-          "TLS private key file. TLS will be disabled unless this option is set";
+          "TLS private key file. TLS will be disabled unless this option is set"
+          ;
       };
 
       listenerExtraConfig = mkOption {
@@ -139,7 +141,8 @@ in {
           if cfg.storageBackend == "file" || cfg.storageBackend == "raft" then
             "/var/lib/vault"
           else
-            null;
+            null
+          ;
         defaultText = literalExpression ''
           if config.${opt.storageBackend} == "file" || cfg.storageBackend == "raft"
           then "/var/lib/vault"
@@ -211,7 +214,8 @@ in {
         assertion = cfg.storageBackend == "inmem"
           -> (cfg.storagePath == null && cfg.storageConfig == null);
         message = ''
-          The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
+          The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig''
+          ;
       }
       {
         assertion = ((cfg.storageBackend == "file"
@@ -219,7 +223,8 @@ in {
           && (cfg.storagePath != null
             -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft")));
         message = ''
-          You must set services.vault.storagePath only when using the "file" or "raft" backend'';
+          You must set services.vault.storagePath only when using the "file" or "raft" backend''
+          ;
       }
     ];
 
@@ -242,8 +247,8 @@ in {
         (config.services.consul.enable && cfg.storageBackend == "consul")
         "consul.service";
 
-      restartIfChanged =
-        false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
+      restartIfChanged = false
+        ; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
 
       startLimitIntervalSec = 60;
       startLimitBurst = 3;
@@ -253,7 +258,7 @@ in {
         ExecStart = "${cfg.package}/bin/vault server ${configOptions}";
         ExecReload = "${pkgs.coreutils}/bin/kill -SIGHUP $MAINPID";
         StateDirectory = "vault";
-        # In `dev` mode vault will put its token here
+          # In `dev` mode vault will put its token here
         Environment = lib.optional (cfg.dev) "HOME=/var/lib/vault";
         PrivateDevices = true;
         PrivateTmp = true;

@@ -8,7 +8,7 @@ python3Packages.buildPythonApplication rec {
   pname = "cpplint";
   version = "1.5.5";
 
-  # Fetch from github instead of pypi, since the test cases are not in the pypi archive
+    # Fetch from github instead of pypi, since the test cases are not in the pypi archive
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;

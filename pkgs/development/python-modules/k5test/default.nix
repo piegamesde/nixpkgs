@@ -32,7 +32,7 @@ buildPythonPackage rec {
     which = "${which}/bin/which";
   }) ];
 
-  # No tests
+    # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "k5test" ];

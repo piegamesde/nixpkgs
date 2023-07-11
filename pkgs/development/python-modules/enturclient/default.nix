@@ -34,7 +34,7 @@ buildPythonPackage rec {
       --replace 'async_timeout = "^3.0.1"' 'async_timeout = ">=3.0.1"'
   '';
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "enturclient" ];

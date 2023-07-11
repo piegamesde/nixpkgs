@@ -8,7 +8,8 @@
 
 let
   version = "2.61-1";
-  mkSubProject = {
+  mkSubProject =
+    {
       subprj # The only mandatory argument
       ,
       buildInputs ? [ ],
@@ -37,7 +38,8 @@ let
         # On NixOS we don't need to run ldconfig during build:
         "LDCONFIG=echo"
       ];
-    };
+    }
+    ;
   passthru = {
     inherit mkSubProject;
     wiringPi = mkSubProject {
@@ -78,7 +80,8 @@ symlinkJoin {
   ];
   meta = with lib; {
     description =
-      "Gordon's Arduino wiring-like WiringPi Library for the Raspberry Pi (Unofficial Mirror for WiringPi bindings)";
+      "Gordon's Arduino wiring-like WiringPi Library for the Raspberry Pi (Unofficial Mirror for WiringPi bindings)"
+      ;
     homepage = "https://github.com/WiringPi/WiringPi";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ doronbehar ];

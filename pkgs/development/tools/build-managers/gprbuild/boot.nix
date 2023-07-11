@@ -47,14 +47,14 @@ stdenv.mkDerivation {
     patchShebangs --build bootstrap.sh
   '';
 
-  # This setupHook populates GPR_PROJECT_PATH which is used by
-  # gprbuild to find dependencies. It works quite similar to
-  # the pkg-config setupHook in the sense that it also splits
-  # dependencies into GPR_PROJECT_PATH and GPR_PROJECT_PATH_FOR_BUILD,
-  # but gprbuild itself doesn't support this, so we'll need to
-  # introducing a wrapper for it in the future remains TODO.
-  # For the moment this doesn't matter since we have no situation
-  # were gprbuild is used to build something used at build time.
+    # This setupHook populates GPR_PROJECT_PATH which is used by
+    # gprbuild to find dependencies. It works quite similar to
+    # the pkg-config setupHook in the sense that it also splits
+    # dependencies into GPR_PROJECT_PATH and GPR_PROJECT_PATH_FOR_BUILD,
+    # but gprbuild itself doesn't support this, so we'll need to
+    # introducing a wrapper for it in the future remains TODO.
+    # For the moment this doesn't matter since we have no situation
+    # were gprbuild is used to build something used at build time.
   setupHook = ./gpr-project-path-hook.sh;
 
   installPhase = ''

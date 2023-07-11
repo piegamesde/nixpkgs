@@ -24,14 +24,15 @@ buildPythonPackage {
     six
   ];
 
-  # Project does not contain a test suite
+    # Project does not contain a test suite
   doCheck = false;
 
   pythonImportsCheck = [ "plantuml" ];
 
   meta = with lib; {
     description =
-      "Python interface to a plantuml web service instead of having to run java locally";
+      "Python interface to a plantuml web service instead of having to run java locally"
+      ;
     homepage = "https://github.com/dougn/python-plantuml";
     license = licenses.bsd2;
     maintainers = with maintainers; [ nikstur ];

@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     # Fix compression build. Remove with the next release. https://github.com/yandex/odyssey/pull/441
     (fetchpatch {
       url =
-        "https://github.com/yandex/odyssey/commit/01ca5b345c4483add7425785c9c33dfa2c135d63.patch";
+        "https://github.com/yandex/odyssey/commit/01ca5b345c4483add7425785c9c33dfa2c135d63.patch"
+        ;
       sha256 = "sha256-8UPkZkiI08ZZL6GShhug/5/kOVrmdqYlsD1bcqfxg/w=";
     })
   ];

@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/openconnect/ocserv";
     license = licenses.gpl2Plus;
     description =
-      "OpenConnect VPN server (ocserv), a server for the OpenConnect VPN client";
+      "OpenConnect VPN server (ocserv), a server for the OpenConnect VPN client"
+      ;
     maintainers = with maintainers; [ neverbehave ];
   };
 }

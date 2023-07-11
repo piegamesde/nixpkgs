@@ -15,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-KVh0hhwXP5EBlgu6MyQpu3ftTc2M31zumSLrAOT2vAk=";
   };
 
-  # tests are not included in pypi tarball
+    # tests are not included in pypi tarball
   doCheck = false;
 
   pythonImportsCheck = [ "httptools" ];

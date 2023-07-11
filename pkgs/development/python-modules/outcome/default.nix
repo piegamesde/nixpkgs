@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
   propagatedBuildInputs = [ attrs ];
-  # Has a test dependency on trio, which depends on outcome.
+    # Has a test dependency on trio, which depends on outcome.
   doCheck = false;
 
   meta = {

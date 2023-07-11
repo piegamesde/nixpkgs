@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     homepage = "http://devernay.free.fr/hacks/cminpack/cminpack.html";
     license = lib.licenses.bsd3;
     description =
-      "Software for solving nonlinear equations and nonlinear least squares problems";
+      "Software for solving nonlinear equations and nonlinear least squares problems"
+      ;
     platforms = lib.platforms.all;
   };
 

@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/kythe/kythe/releases/download/v${version}/${pname}-v${version}.tar.gz";
+      "https://github.com/kythe/kythe/releases/download/v${version}/${pname}-v${version}.tar.gz"
+      ;
     sha256 = "12bwhqkxfbkh3mm4wfvqflwhmbzpmlhlfykdpy6h7p9ih9ky8w6r";
   };
 
@@ -43,7 +44,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A pluggable, (mostly) language-agnostic ecosystem for building tools that work with code";
+      "A pluggable, (mostly) language-agnostic ecosystem for building tools that work with code"
+      ;
     longDescription = ''
       The Kythe project was founded to provide and support tools and standards
         that encourage interoperability among programs that manipulate source

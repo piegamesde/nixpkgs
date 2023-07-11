@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   disabled = isPyPy || isPy3k;
 
-  # Same as in buildPythonPackage except that it does not pass --old-and-unmanageable
+    # Same as in buildPythonPackage except that it does not pass --old-and-unmanageable
   installPhase = ''
     runHook preInstall
 
@@ -44,7 +44,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Generic application framework, providing the foundation for other modules";
+      "Generic application framework, providing the foundation for other modules"
+      ;
     homepage = "https://github.com/freevo/kaa-base";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ ];

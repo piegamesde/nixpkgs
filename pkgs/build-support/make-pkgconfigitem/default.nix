@@ -27,36 +27,47 @@ let
   placeholderToSubstVar =
     builtins.replaceStrings [ "${placeholder "out"}" ] [ "@out@" ];
 
-  replacePlaceholderAndListToString = x:
+  replacePlaceholderAndListToString =
+    x:
     if builtins.isList x then
       placeholderToSubstVar (builtins.concatStringsSep " " x)
     else
-      placeholderToSubstVar x;
+      placeholderToSubstVar x
+    ;
 
-  keywordsSection = let
-    mustBeAList = attr: attrName:
-      lib.throwIfNot (lib.isList attr) "'${attrName}' must be a list" attr;
-  in {
-    "Name" = name;
-    "Description" = description;
-    "URL" = url;
-    "Version" = version;
-    "Requires" = mustBeAList requires "requires";
-    "Requires.private" = mustBeAList requiresPrivate "requiresPrivate";
-    "Conflicts" = mustBeAList conflicts "conflicts";
-    "Cflags" = mustBeAList cflags "cflags";
-    "Libs" = mustBeAList libs "libs";
-    "Libs.private" = mustBeAList libsPrivate "libsPrivate";
-  } ;
+  keywordsSection =
+    let
+      mustBeAList =
+        attr: attrName:
+        lib.throwIfNot (lib.isList attr) "'${attrName}' must be a list" attr
+        ;
+    in {
+      "Name" = name;
+      "Description" = description;
+      "URL" = url;
+      "Version" = version;
+      "Requires" = mustBeAList requires "requires";
+      "Requires.private" = mustBeAList requiresPrivate "requiresPrivate";
+      "Conflicts" = mustBeAList conflicts "conflicts";
+      "Cflags" = mustBeAList cflags "cflags";
+      "Libs" = mustBeAList libs "libs";
+      "Libs.private" = mustBeAList libsPrivate "libsPrivate";
+    }
+    ;
 
-  renderVariable = name: value:
+  renderVariable =
+    name: value:
     lib.optionalString (value != "" && value != [ ])
-    "${name}=${replacePlaceholderAndListToString value}";
-  renderKeyword = name: value:
+    "${name}=${replacePlaceholderAndListToString value}"
+    ;
+  renderKeyword =
+    name: value:
     lib.optionalString (value != "" && value != [ ])
-    "${name}: ${replacePlaceholderAndListToString value}";
+    "${name}: ${replacePlaceholderAndListToString value}"
+    ;
 
-  renderSomething = renderFunc: attrs:
+  renderSomething =
+    renderFunc: attrs:
     lib.pipe attrs [
       (lib.mapAttrsToList renderFunc)
       (builtins.filter (v: v != ""))
@@ -64,7 +75,8 @@ let
       (section: ''
         ${section}
       '')
-    ];
+    ]
+    ;
 
   variablesSectionRendered = renderSomething renderVariable variables;
   keywordsSectionRendered = renderSomething renderKeyword keywordsSection;
@@ -79,5 +91,6 @@ writeTextFile {
   destination = "/lib/pkgconfig/${name}.pc";
   text = builtins.concatStringsSep "\n" content;
   checkPhase = ''
-    ${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config --validate "$target"'';
+    ${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config --validate "$target"''
+    ;
 }

@@ -19,57 +19,61 @@ let
 
   genAttrs' = names: f: listToAttrs (map f names);
 
-  regexEscape = let
-    # taken from https://github.com/python/cpython/blob/05cb728d68a278d11466f9a6c8258d914135c96c/Lib/re.py#L251-L266
-    special = [
-      "("
-      ")"
-      "["
-      "]"
-      "{"
-      "}"
-      "?"
-      "*"
-      "+"
-      "-"
-      "|"
-      "^"
-      "$"
-      "\\"
-      "."
-      "&"
-      "~"
-      "#"
-      " "
-      "	"
-      "\n"
-      "\r"
-      "v"
-      "f"
-    ];
-  in
-  replaceStrings special (map (c: "\\${c}") special)
-  ;
+  regexEscape =
+    let
+      # taken from https://github.com/python/cpython/blob/05cb728d68a278d11466f9a6c8258d914135c96c/Lib/re.py#L251-L266
+      special = [
+        "("
+        ")"
+        "["
+        "]"
+        "{"
+        "}"
+        "?"
+        "*"
+        "+"
+        "-"
+        "|"
+        "^"
+        "$"
+        "\\"
+        "."
+        "&"
+        "~"
+        "#"
+        " "
+        "	"
+        "\n"
+        "\r"
+        "v"
+        "f"
+      ];
+    in
+    replaceStrings special (map (c: "\\${c}") special)
+    ;
 
   stripLocation = cfg: removeSuffix "/" cfg.nginx.location;
 
   regexLocation = cfg: regexEscape (stripLocation cfg);
 
-  mkFastcgiPass = cfg: ''
-    ${
-      if cfg.nginx.location == "/" then
-        ''
-          fastcgi_param PATH_INFO $uri;
-        ''
-      else
-        ''
-          fastcgi_split_path_info ^(${regexLocation cfg})(/.+)$;
-          fastcgi_param PATH_INFO $fastcgi_path_info;
-        ''
-    }fastcgi_pass unix:${config.services.fcgiwrap.socketAddress};
-  '';
+  mkFastcgiPass =
+    cfg: ''
+      ${
+        if cfg.nginx.location == "/" then
+          ''
+            fastcgi_param PATH_INFO $uri;
+          ''
+        else
+          ''
+            fastcgi_split_path_info ^(${regexLocation cfg})(/.+)$;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+          ''
+      }fastcgi_pass unix:${config.services.fcgiwrap.socketAddress};
+    ''
+    ;
 
-  cgitrcLine = name: value:
+  cgitrcLine =
+    name: value:
     "${name}=${
       if value == true then
         "1"
@@ -77,9 +81,11 @@ let
         "0"
       else
         toString value
-    }";
+    }"
+    ;
 
-  mkCgitrc = cfg:
+  mkCgitrc =
+    cfg:
     pkgs.writeText "cgitrc" ''
       # global settings
       ${concatStringsSep "\n" (mapAttrsToList cgitrcLine
@@ -96,9 +102,11 @@ let
 
       # extra config
       ${cfg.extraConfig}
-    '';
+    ''
+    ;
 
-  mkCgitReposDir = cfg:
+  mkCgitReposDir =
+    cfg:
     if cfg.scanPath != null then
       cfg.scanPath
     else
@@ -110,7 +118,8 @@ let
         ${concatStrings (mapAttrsToList (name: value: ''
           ln -s ${escapeShellArg value.path} "$out"/${escapeShellArg name}
         '') cfg.repos)}
-      '';
+      ''
+    ;
 
 in {
   options = {
@@ -188,7 +197,8 @@ in {
     assertions = mapAttrsToList (vhost: cfg: {
       assertion = !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
       message =
-        "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
+        "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set."
+        ;
     }) cfgs;
 
     services.fcgiwrap.enable = true;

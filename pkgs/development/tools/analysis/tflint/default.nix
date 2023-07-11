@@ -31,7 +31,8 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.withPlugins = plugins:
+  passthru.withPlugins =
+    plugins:
     let
       actualPlugins = plugins tflint-plugins;
       pluginDir = symlinkJoin {
@@ -43,14 +44,15 @@ buildGoModule rec {
       makeWrapper ${tflint}/bin/tflint $out/bin/tflint \
         --set TFLINT_PLUGIN_DIR "${pluginDir}"
     ''
-  ;
+    ;
 
   meta = with lib; {
     description =
       "Terraform linter focused on possible errors, best practices, and so on";
     homepage = "https://github.com/terraform-linters/tflint";
     changelog =
-      "https://github.com/terraform-linters/tflint/raw/v${version}/CHANGELOG.md";
+      "https://github.com/terraform-linters/tflint/raw/v${version}/CHANGELOG.md"
+      ;
     license = licenses.mpl20;
     maintainers = [ maintainers.marsam ];
   };

@@ -51,10 +51,12 @@ assert withQt -> qt5 != null;
 
 let
   version = "4.0.5";
-  variant = if withQt then
-    "qt"
-  else
-    "cli";
+  variant =
+    if withQt then
+      "qt"
+    else
+      "cli"
+    ;
 in
 stdenv.mkDerivation {
   pname = "wireshark-${variant}";
@@ -92,7 +94,7 @@ stdenv.mkDerivation {
     "-DHAVE_C99_VSNPRINTF_EXITCODE__TRYRUN_OUTPUT="
   ];
 
-  # Avoid referencing -dev paths because of debug assertions.
+    # Avoid referencing -dev paths because of debug assertions.
   env.NIX_CFLAGS_COMPILE = toString [ "-DQT_NO_DEBUG" ];
 
   nativeBuildInputs = [
@@ -196,7 +198,7 @@ stdenv.mkDerivation {
 
   dontFixCmake = true;
 
-  # Prevent double-wrapping, inject wrapper args manually instead.
+    # Prevent double-wrapping, inject wrapper args manually instead.
   dontWrapGApps = true;
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
@@ -225,9 +227,11 @@ stdenv.mkDerivation {
       bjornfor
       fpletz
     ];
-    mainProgram = if withQt then
-      "wireshark"
-    else
-      "tshark";
+    mainProgram =
+      if withQt then
+        "wireshark"
+      else
+        "tshark"
+      ;
   };
 }

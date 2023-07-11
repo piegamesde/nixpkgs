@@ -33,11 +33,13 @@
 with lib;
 
 let
-  optionOnOff = option:
+  optionOnOff =
+    option:
     if option then
       "on"
     else
-      "off";
+      "off"
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -72,7 +74,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" ] ++ optionals buildPythonBindings [ "python" ];
 
-  # "Release" does not work. non-debug mode is Debug compiled with optimization
+    # "Release" does not work. non-debug mode is Debug compiled with optimization
   cmakeBuildType = "Debug";
   cmakeFlags = [
     "-Denable_documentation=${optionOnOff buildDocumentation}"
@@ -101,12 +103,12 @@ stdenv.mkDerivation rec {
   ];
   makeFlags = optional debug "VERBOSE=1";
 
-  # needed to run tests and to ensure correct shabangs in output scripts
+    # needed to run tests and to ensure correct shabangs in output scripts
   preBuild = ''
     patchShebangs ..
   '';
 
-  # needed by tests (so libsimgrid.so is found)
+    # needed by tests (so libsimgrid.so is found)
   preConfigure = ''
     export LD_LIBRARY_PATH="$PWD/build/lib"
   '';
@@ -136,7 +138,7 @@ stdenv.mkDerivation rec {
     }/site-packages/
   '';
 
-  # improve debuggability if requested
+    # improve debuggability if requested
   hardeningDisable = lib.optionals debug [ "fortify" ];
   dontStrip = debug;
 

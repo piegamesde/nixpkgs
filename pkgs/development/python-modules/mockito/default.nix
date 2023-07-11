@@ -23,7 +23,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  # tests are no longer packaged in pypi tarball
+    # tests are no longer packaged in pypi tarball
   doCheck = false;
   checkPhase = ''
     pytest

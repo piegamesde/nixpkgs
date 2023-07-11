@@ -23,7 +23,8 @@ buildPythonPackage rec {
     # <https://github.com/open-iscsi/rtslib-fb/pull/187>
     (fetchpatch {
       url =
-        "https://github.com/zhaofengli/rtslib-fb/commit/1c3c8257940a88e65676f4333363ddf259a06723.patch";
+        "https://github.com/zhaofengli/rtslib-fb/commit/1c3c8257940a88e65676f4333363ddf259a06723.patch"
+        ;
       hash = "sha256-nDzL8pUKwKIej+6rOg7Om5AkwkClKk6qKlImbpoufz4=";
     })
   ];

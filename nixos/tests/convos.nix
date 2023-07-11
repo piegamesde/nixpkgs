@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ sgo ]; };
 
     nodes = {
-      machine = {
+      machine =
+        {
           pkgs,
           ...
         }: {
@@ -20,7 +21,8 @@ import ./make-test-python.nix ({
             enable = true;
             listenPort = port;
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

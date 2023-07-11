@@ -18,7 +18,8 @@
 }:
 
 let
-  buildArmTrustedFirmware = {
+  buildArmTrustedFirmware =
+    {
       filesToInstall,
       installDir ? "$out",
       platform ? null,
@@ -33,8 +34,8 @@ let
     # delete hdcp.bin if either: the platform is thought to
     # not need it or unfreeIncludeHDCPBlob is false
     let
-      deleteHDCPBlobBeforeBuild = !platformCanUseHDCPBlob
-        || !unfreeIncludeHDCPBlob;
+      deleteHDCPBlobBeforeBuild =
+        !platformCanUseHDCPBlob || !unfreeIncludeHDCPBlob;
 
     in
     stdenv.mkDerivation (rec {
@@ -62,7 +63,7 @@ let
 
       depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-      # For Cortex-M0 firmware in RK3399
+        # For Cortex-M0 firmware in RK3399
       nativeBuildInputs = [ pkgsCross.arm-embedded.stdenv.cc ];
 
       buildInputs = [ openssl ];
@@ -88,7 +89,7 @@ let
       hardeningDisable = [ "all" ];
       dontStrip = true;
 
-      # Fatal error: can't create build/sun50iw1p1/release/bl31/sunxi_clocks.o: No such file or directory
+        # Fatal error: can't create build/sun50iw1p1/release/bl31/sunxi_clocks.o: No such file or directory
       enableParallelBuilding = false;
 
       meta = with lib;
@@ -101,7 +102,7 @@ let
           maintainers = with maintainers; [ lopsided98 ];
         } // extraMeta;
     } // builtins.removeAttrs args [ "extraMeta" ])
-  ;
+    ;
 
 in {
   inherit buildArmTrustedFirmware;

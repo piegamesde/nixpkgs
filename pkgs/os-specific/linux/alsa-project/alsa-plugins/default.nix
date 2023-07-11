@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  # ToDo: a52, etc.?
+    # ToDo: a52, etc.?
   buildInputs = [
     alsa-lib
     libogg

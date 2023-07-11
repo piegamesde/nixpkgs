@@ -43,8 +43,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "aiohttp_jinja2" ];
 
-  # Tests are outdated (1.5)
-  # pytest.PytestUnhandledCoroutineWarning: async def functions...
+    # Tests are outdated (1.5)
+    # pytest.PytestUnhandledCoroutineWarning: async def functions...
   doCheck = false;
 
   meta = with lib; {

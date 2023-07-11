@@ -35,7 +35,7 @@ import ./make-test-python.nix ({
         delegatedZone
       ];
     };
-    # DO NOT USE pkgs.writeText IN PRODUCTION. This put secrets in the nix store!
+      # DO NOT USE pkgs.writeText IN PRODUCTION. This put secrets in the nix store!
     tsigFile = pkgs.writeText "tsig.conf" ''
       key:
         - id: xfr_key
@@ -47,13 +47,14 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
 
     nodes = {
-      primary = {
+      primary =
+        {
           lib,
           ...
         }: {
           imports = [ common ];
 
-          # trigger sched_setaffinity syscall
+            # trigger sched_setaffinity syscall
           virtualisation.cores = 2;
 
           networking.interfaces.eth1 = {
@@ -107,9 +108,11 @@ import ./make-test-python.nix ({
               - target: syslog
                 any: info
           '';
-        };
+        }
+        ;
 
-      secondary = {
+      secondary =
+        {
           lib,
           ...
         }: {
@@ -162,8 +165,10 @@ import ./make-test-python.nix ({
               - target: syslog
                 any: info
           '';
-        };
-      client = {
+        }
+        ;
+      client =
+        {
           lib,
           nodes,
           ...
@@ -180,23 +185,29 @@ import ./make-test-python.nix ({
             } ];
           };
           environment.systemPackages = [ pkgs.knot-dns ];
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
       let
         primary4 = (lib.head
-          nodes.primary.config.networking.interfaces.eth1.ipv4.addresses).address;
+          nodes.primary.config.networking.interfaces.eth1.ipv4.addresses).address
+          ;
         primary6 = (lib.head
-          nodes.primary.config.networking.interfaces.eth1.ipv6.addresses).address;
+          nodes.primary.config.networking.interfaces.eth1.ipv6.addresses).address
+          ;
 
         secondary4 = (lib.head
-          nodes.secondary.config.networking.interfaces.eth1.ipv4.addresses).address;
+          nodes.secondary.config.networking.interfaces.eth1.ipv4.addresses).address
+          ;
         secondary6 = (lib.head
-          nodes.secondary.config.networking.interfaces.eth1.ipv6.addresses).address;
+          nodes.secondary.config.networking.interfaces.eth1.ipv6.addresses).address
+          ;
       in ''
         import re
 
@@ -230,5 +241,6 @@ import ./make-test-python.nix ({
                 test(host, "DNSKEY", "example.com", r"DNSSEC key is")
 
         primary.log(primary.succeed("systemd-analyze security knot.service | grep -v '✓'"))
-      '' ;
+      ''
+      ;
   } )

@@ -54,7 +54,8 @@ stdenv.mkDerivation {
     # fix build with openssl 3.0
     (fetchurl {
       url =
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch";
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch"
+        ;
       hash = "sha256-peVrkGck8AfbC9uYNfv1CIu1alIewpca7A6kRXjVlVs=";
     })
   ];
@@ -64,20 +65,24 @@ stdenv.mkDerivation {
     "apparmor"
   ];
 
-  cmakeFlags = let
-    mkFlag = opt:
-      if opt then
-        "ON"
-      else
-        "OFF";
-  in [
-    "-DENABLE_MAC=OFF" # requires xcodebuild
-    "-DENABLE_GTK=${mkFlag enableGTK3}"
-    "-DENABLE_QT=${mkFlag enableQt}"
-    "-DENABLE_DAEMON=${mkFlag enableDaemon}"
-    "-DENABLE_CLI=${mkFlag enableCli}"
-    "-DINSTALL_LIB=${mkFlag installLib}"
-  ] ;
+  cmakeFlags =
+    let
+      mkFlag =
+        opt:
+        if opt then
+          "ON"
+        else
+          "OFF"
+        ;
+    in [
+      "-DENABLE_MAC=OFF" # requires xcodebuild
+      "-DENABLE_GTK=${mkFlag enableGTK3}"
+      "-DENABLE_QT=${mkFlag enableQt}"
+      "-DENABLE_DAEMON=${mkFlag enableDaemon}"
+      "-DENABLE_CLI=${mkFlag enableCli}"
+      "-DINSTALL_LIB=${mkFlag installLib}"
+    ]
+    ;
 
   nativeBuildInputs = [
     pkg-config

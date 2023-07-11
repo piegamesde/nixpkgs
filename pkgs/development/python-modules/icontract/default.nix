@@ -53,8 +53,8 @@ buildPythonPackage rec {
     "tests/test_mypy_decorators.py"
   ];
 
-  # Upstream adds some plain text files direct to the package's root directory
-  # https://github.com/Parquery/icontract/blob/master/setup.py#L63
+    # Upstream adds some plain text files direct to the package's root directory
+    # https://github.com/Parquery/icontract/blob/master/setup.py#L63
   postInstall = ''
     rm -f $out/{LICENSE.txt,README.rst,requirements.txt}
   '';

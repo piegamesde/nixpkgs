@@ -4,7 +4,8 @@ import ../make-test-python.nix ({
   }: {
     name = "hitch";
     meta = with pkgs.lib.maintainers; { maintainers = [ jflanglois ]; };
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -20,7 +21,8 @@ import ../make-test-python.nix ({
           virtualHosts.localhost.documentRoot = ./example;
           adminAddr = "noone@testing.nowhere";
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

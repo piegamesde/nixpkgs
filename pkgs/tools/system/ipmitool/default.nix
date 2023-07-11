@@ -12,7 +12,8 @@ let
 
   iana-enterprise-numbers = fetchurl {
     url =
-      "https://web.archive.org/web/20230312103209id_/https://www.iana.org/assignments/enterprise-numbers.txt";
+      "https://web.archive.org/web/20230312103209id_/https://www.iana.org/assignments/enterprise-numbers.txt"
+      ;
     sha256 = "sha256-huFWygMEylBKBMLV16UE6xLWP6Aw1FGYk5h1q5CErUs=";
   };
 

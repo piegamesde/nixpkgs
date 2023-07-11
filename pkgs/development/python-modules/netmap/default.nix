@@ -23,8 +23,8 @@ buildPythonPackage rec {
     nmap = "${lib.getBin nmap}/bin/nmap";
   }) ];
 
-  # upstream tests require sudo
-  # make sure nmap is found instead
+    # upstream tests require sudo
+    # make sure nmap is found instead
   checkPhase = ''
     runHook preCheck
     ${python.interpreter} -c 'import nmap; nmap.PortScanner()'

@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  # tests require internet access
+    # tests require internet access
   doCheck = false;
 
   postInstall = ''

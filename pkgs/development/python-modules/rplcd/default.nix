@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-AIEiL+IPU76DF+P08c5qokiJcZdNNDJ/Jjng2Z292LY=";
   };
 
-  # Disable check because it depends on a GPIO library
+    # Disable check because it depends on a GPIO library
   doCheck = false;
 
   meta = with lib; {

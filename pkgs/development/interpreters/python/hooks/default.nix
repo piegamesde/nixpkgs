@@ -7,8 +7,10 @@ let
   pythonCheckInterpreter = super.python.interpreter;
   setuppy = ../run_setup.py;
 in {
-  makePythonHook = args:
-    pkgs.makeSetupHook ({ passthru.provides.setupHook = true; } // args);
+  makePythonHook =
+    args:
+    pkgs.makeSetupHook ({ passthru.provides.setupHook = true; } // args)
+    ;
 
   condaInstallHook = callPackage ({
       makePythonHook,
@@ -149,10 +151,12 @@ in {
           "-f"
           "-i -"
         ] ++ lib.optionals isPy3k [ "-j $NIX_BUILD_CORES" ]);
-        bytecodeName = if isPy3k then
-          "__pycache__"
-        else
-          "*.pyc";
+        bytecodeName =
+          if isPy3k then
+            "__pycache__"
+          else
+            "*.pyc"
+          ;
       };
     } ./python-recompile-bytecode-hook.sh) { };
 
@@ -231,9 +235,9 @@ in {
       propagatedBuildInputs = [ wheel ];
     } ./wheel-unpack-hook.sh) { };
 
-  wrapPython = callPackage ../wrap-python.nix {
-    inherit (pkgs.buildPackages) makeWrapper;
-  };
+  wrapPython =
+    callPackage ../wrap-python.nix { inherit (pkgs.buildPackages) makeWrapper; }
+    ;
 
   sphinxHook = callPackage ({
       makePythonHook,

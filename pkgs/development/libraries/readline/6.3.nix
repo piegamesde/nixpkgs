@@ -36,11 +36,13 @@ stdenv.mkDerivation {
     ./no-arch_only-6.3.patch
   ] ++ lib.optional stdenv.hostPlatform.useAndroidPrebuilt ./android.patch
     ++ (let
-      patch = nr: sha256:
+      patch =
+        nr: sha256:
         fetchurl {
           url = "mirror://gnu/readline/readline-6.3-patches/readline63-${nr}";
           inherit sha256;
-        };
+        }
+        ;
     in
     import ./readline-6.3-patches.nix patch
     );

@@ -18,6 +18,7 @@ buildOctavePackage rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Performs an n-dimensional variational analysis (interpolation) of arbitrarily located observations";
+      "Performs an n-dimensional variational analysis (interpolation) of arbitrarily located observations"
+      ;
   };
 }

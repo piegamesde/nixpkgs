@@ -30,7 +30,7 @@ buildPythonPackage rec {
     IOKit
   ]);
 
-  # Fix the USB backend library lookup
+    # Fix the USB backend library lookup
   postPatch = lib.optionalString stdenv.isLinux ''
     libusb=${libusb1.dev}/include/libusb-1.0
     test -d $libusb || { echo "ERROR: $libusb doesn't exist, please update/fix this build expression."; exit 1; }
@@ -43,8 +43,8 @@ buildPythonPackage rec {
     description =
       "A Cython interface to the hidapi from https://github.com/libusb/hidapi";
     homepage = "https://github.com/trezor/cython-hidapi";
-    # license can actually be either bsd3 or gpl3
-    # see https://github.com/trezor/cython-hidapi/blob/master/LICENSE-orig.txt
+      # license can actually be either bsd3 or gpl3
+      # see https://github.com/trezor/cython-hidapi/blob/master/LICENSE-orig.txt
     license = with licenses; [
       bsd3
       gpl3Only

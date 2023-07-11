@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An open-source collection of C++ code designed to augment the C++ standard library";
+      "An open-source collection of C++ code designed to augment the C++ standard library"
+      ;
     homepage = "https://abseil.io/";
     license = licenses.asl20;
     platforms = platforms.all;

@@ -16,7 +16,7 @@ let
       (elemAt parts 0)
       (elemAt parts 1)
     ]
-  ;
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "hyphen";
@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://sourceforge.net/projects/hunspell/files/Hyphen/${folder}/${pname}-${version}.tar.gz";
+      "https://sourceforge.net/projects/hunspell/files/Hyphen/${folder}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "01ap9pr6zzzbp4ky0vy7i1983fwyqy27pl0ld55s30fdxka3ciih";
   };
 

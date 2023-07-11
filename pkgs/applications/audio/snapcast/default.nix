@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  # snapcast also supports building against tremor but as we have libogg, that's
-  # not needed
+    # snapcast also supports building against tremor but as we have libogg, that's
+    # not needed
   buildInputs = [
     boost17x
     asio
@@ -58,8 +58,8 @@ stdenv.mkDerivation rec {
 
   TARGET = lib.optionalString stdenv.isDarwin "MACOS";
 
-  # Upstream systemd unit files are pretty awful, so we provide our own in a
-  # NixOS module. It might make sense to get that upstreamed...
+    # Upstream systemd unit files are pretty awful, so we provide our own in a
+    # NixOS module. It might make sense to get that upstreamed...
   postInstall = ''
     install -d $out/share/doc/snapcast
     cp -r ../doc/* ../*.md $out/share/doc/snapcast

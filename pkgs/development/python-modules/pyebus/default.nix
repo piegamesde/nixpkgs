@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ anytree ];
 
-  # https://github.com/c0fec0de/pyebus/issues/3
+    # https://github.com/c0fec0de/pyebus/issues/3
   doCheck = false;
 
   pythonImportsCheck = [ "pyebus" ];

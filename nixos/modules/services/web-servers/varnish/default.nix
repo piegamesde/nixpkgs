@@ -97,7 +97,8 @@ in {
         Type = "simple";
         PermissionsStartOnly = true;
         ExecStart =
-          "${cfg.package}/sbin/varnishd -a ${cfg.http_address} -n ${cfg.stateDir} -F ${cfg.extraCommandLine} ${commandLine}";
+          "${cfg.package}/sbin/varnishd -a ${cfg.http_address} -n ${cfg.stateDir} -F ${cfg.extraCommandLine} ${commandLine}"
+          ;
         Restart = "always";
         RestartSec = "5s";
         User = "varnish";
@@ -110,7 +111,7 @@ in {
 
     environment.systemPackages = [ cfg.package ];
 
-    # check .vcl syntax at compile time (e.g. before nixops deployment)
+      # check .vcl syntax at compile time (e.g. before nixops deployment)
     system.extraDependencies =
       mkIf cfg.enableConfigCheck [ (pkgs.runCommand "check-varnish-syntax"
         { } ''

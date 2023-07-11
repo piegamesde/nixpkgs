@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
     # https://github.com/ebassi/graphene/issues/246
     (fetchpatch {
       url =
-        "https://github.com/ebassi/graphene/commit/4fbdd07ea3bcd0964cca3966010bf71cb6fa8209.patch";
+        "https://github.com/ebassi/graphene/commit/4fbdd07ea3bcd0964cca3966010bf71cb6fa8209.patch"
+        ;
       sha256 = "uFkkH0u4HuQ/ua1mfO7sJZ7MPrQdV/JON7mTYB4DW80=";
       includes = [ "tests/simd.c" ];
       revert = true;
@@ -64,8 +65,9 @@ stdenv.mkDerivation rec {
     gobject-introspection
     python3
     makeWrapper
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals
+    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
+    ;
 
   buildInputs = [ glib ];
 
@@ -90,16 +92,18 @@ stdenv.mkDerivation rec {
     }/bin:$PATH patchShebangs tests/introspection.py
   '';
 
-  postFixup = let
-    introspectionPy = "${
-        placeholder "installedTests"
-      }/libexec/installed-tests/graphene-1.0/introspection.py";
-  in ''
-    if [ -x '${introspectionPy}' ] ; then
-      wrapProgram '${introspectionPy}' \
-        --prefix GI_TYPELIB_PATH : "$out/lib/girepository-1.0"
-    fi
-  '' ;
+  postFixup =
+    let
+      introspectionPy = "${
+          placeholder "installedTests"
+        }/libexec/installed-tests/graphene-1.0/introspection.py";
+    in ''
+      if [ -x '${introspectionPy}' ] ; then
+        wrapProgram '${introspectionPy}' \
+          --prefix GI_TYPELIB_PATH : "$out/lib/girepository-1.0"
+      fi
+    ''
+    ;
 
   passthru = {
     tests = { installedTests = nixosTests.installed-tests.graphene; };

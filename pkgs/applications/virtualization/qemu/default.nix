@@ -120,8 +120,8 @@ stdenv.mkDerivation rec {
     sha256 = "u2DwNBUxGB1sw5ad0ZoBPQQnqH+RgZOXDZrbkRMeVtA=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ]
-    ++ lib.optionals hexagonSupport [ pkg-config ];
+  depsBuildBuild =
+    [ buildPackages.stdenv.cc ] ++ lib.optionals hexagonSupport [ pkg-config ];
 
   nativeBuildInputs = [
     makeWrapper
@@ -203,7 +203,7 @@ stdenv.mkDerivation rec {
     true; # meson's configurePhase isn't compatible with qemu build
 
   outputs = [ "out" ] ++ lib.optional guestAgentSupport "ga";
-  # On aarch64-linux we would shoot over the Hydra's 2G output limit.
+    # On aarch64-linux we would shoot over the Hydra's 2G output limit.
   separateDebugInfo = !(stdenv.isAarch64 && stdenv.isLinux);
 
   patches = [
@@ -219,14 +219,16 @@ stdenv.mkDerivation rec {
     # Standard about panel requires AppKit and macOS 10.13+
     (fetchpatch {
       url =
-        "https://gitlab.com/qemu-project/qemu/-/commit/99eb313ddbbcf73c1adcdadceba1423b691c6d05.diff";
+        "https://gitlab.com/qemu-project/qemu/-/commit/99eb313ddbbcf73c1adcdadceba1423b691c6d05.diff"
+        ;
       sha256 = "sha256-gTRf9XENAfbFB3asYCXnw4OV4Af6VE1W56K2xpYDhgM=";
       revert = true;
     })
     # Workaround for upstream issue with nested virtualisation: https://gitlab.com/qemu-project/qemu/-/issues/1008
     (fetchpatch {
       url =
-        "https://gitlab.com/qemu-project/qemu/-/commit/3e4546d5bd38a1e98d4bd2de48631abf0398a3a2.diff";
+        "https://gitlab.com/qemu-project/qemu/-/commit/3e4546d5bd38a1e98d4bd2de48631abf0398a3a2.diff"
+        ;
       sha256 = "sha256-oC+bRjEHixv1QEFO9XAm4HHOwoiT+NkhknKGPydnZ5E=";
       revert = true;
     })
@@ -287,10 +289,10 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-  # QEMU attaches entitlements with codesign and strip removes those,
-  # voiding the entitlements and making it non-operational.
-  # The alternative is to re-sign with entitlements after stripping:
-  # * https://github.com/qemu/qemu/blob/v6.1.0/scripts/entitlement.sh#L25
+    # QEMU attaches entitlements with codesign and strip removes those,
+    # voiding the entitlements and making it non-operational.
+    # The alternative is to re-sign with entitlements after stripping:
+    # * https://github.com/qemu/qemu/blob/v6.1.0/scripts/entitlement.sh#L25
   dontStrip = stdenv.isDarwin;
 
   postFixup = ''
@@ -310,7 +312,7 @@ stdenv.mkDerivation rec {
   '';
   preBuild = "cd build";
 
-  # tests can still timeout on slower systems
+    # tests can still timeout on slower systems
   inherit doCheck;
   nativeCheckInputs = [ socat ];
   preCheck = ''
@@ -344,7 +346,7 @@ stdenv.mkDerivation rec {
       --replace "'test-io-channel-command'" "#'test-io-channel-command'"
   '';
 
-  # Add a ‘qemu-kvm’ wrapper for compatibility/convenience.
+    # Add a ‘qemu-kvm’ wrapper for compatibility/convenience.
   postInstall = ''
     ln -s $out/bin/qemu-system-${stdenv.hostPlatform.qemuArch} $out/bin/qemu-kvm
   '';
@@ -354,7 +356,7 @@ stdenv.mkDerivation rec {
     tests = { qemu-tests = qemu.override { doCheck = true; }; };
   };
 
-  # Builds in ~3h with 2 cores, and ~20m with a big-parallel builder.
+    # Builds in ~3h with 2 cores, and ~20m with a big-parallel builder.
   requiredSystemFeatures = [ "big-parallel" ];
 
   meta = with lib; {

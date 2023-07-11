@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://common-lisp.net/project/armedbear/releases/${version}/${pname}-src-${version}.tar.gz";
+      "https://common-lisp.net/project/armedbear/releases/${version}/${pname}-src-${version}.tar.gz"
+      ;
     sha256 = "sha256-pbxnfJRB9KgzwgpUG93Rb/+SZIRmkd6aHa9mmfj/EeI=";
   };
 
@@ -33,8 +34,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ jre ];
 
-  # note for the future:
-  # if you use makeBinaryWrapper, you will trade bash for glibc, the closure will be slightly larger
+    # note for the future:
+    # if you use makeBinaryWrapper, you will trade bash for glibc, the closure will be slightly larger
   nativeBuildInputs = [
     makeWrapper
     ant

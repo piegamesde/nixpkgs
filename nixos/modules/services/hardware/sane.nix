@@ -169,7 +169,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
     (mkIf enabled {
@@ -217,8 +217,8 @@ in {
       users.users.scanner = {
         uid = config.ids.uids.scanner;
         group = "scanner";
-        extraGroups = [ "lp" ]
-          ++ optionals config.services.avahi.enable [ "avahi" ];
+        extraGroups =
+          [ "lp" ] ++ optionals config.services.avahi.enable [ "avahi" ];
       };
     })
   ];

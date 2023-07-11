@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       "--enable-quartz-backend=yes"
     ];
 
-  #doCheck = true; # no tests possible without a display
+    #doCheck = true; # no tests possible without a display
 
   passthru = {
     updateScript = gnome.updateScript {

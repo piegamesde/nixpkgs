@@ -22,8 +22,8 @@ buildPythonPackage rec {
       --replace "pytest" ""
   '';
 
-  # Tests are not shipped and source is not tagged
-  # https://github.com/elden1337/peaqev-core/issues/4
+    # Tests are not shipped and source is not tagged
+    # https://github.com/elden1337/peaqev-core/issues/4
   doCheck = false;
 
   pythonImportsCheck = [ "peaqevcore" ];

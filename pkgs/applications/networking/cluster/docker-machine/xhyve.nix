@@ -16,10 +16,11 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/zchee/docker-machine-driver-xhyve";
 
-  # https://github.com/machine-drivers/docker-machine-driver-xhyve/pull/225
+    # https://github.com/machine-drivers/docker-machine-driver-xhyve/pull/225
   patches = fetchpatch {
     url =
-      "https://github.com/machine-drivers/docker-machine-driver-xhyve/commit/546256494bf2ccc33e4125bf45f504b0e3027d5a.patch";
+      "https://github.com/machine-drivers/docker-machine-driver-xhyve/commit/546256494bf2ccc33e4125bf45f504b0e3027d5a.patch"
+      ;
     sha256 = "1i8wxqccqkxvqrbsyd0g9s0kdskd8xi2jv0c1bji9aj4rq0a8cgz";
   };
 
@@ -49,7 +50,7 @@ buildGoPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ periklis ];
     platforms = platforms.darwin;
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

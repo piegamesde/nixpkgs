@@ -27,13 +27,15 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "support-arm.patch";
       url =
-        "https://github.com/NordicSemiconductor/pc-ble-driver/commit/76a6b31dba7a13ceae40587494cbfa01a29192f4.patch";
+        "https://github.com/NordicSemiconductor/pc-ble-driver/commit/76a6b31dba7a13ceae40587494cbfa01a29192f4.patch"
+        ;
       hash = "sha256-bvK1BXjdlhIXV8R4PiCGaq8oSLzgjMmTgAwssm8N2sk=";
     })
     # Fix build with GCC 11
     (fetchpatch {
       url =
-        "https://github.com/NordicSemiconductor/pc-ble-driver/commit/37258e65bdbcd0b4369ae448faf650dd181816ec.patch";
+        "https://github.com/NordicSemiconductor/pc-ble-driver/commit/37258e65bdbcd0b4369ae448faf650dd181816ec.patch"
+        ;
       hash = "sha256-gOdzIW8YJQC+PE4FJd644I1+I7CMcBY8wpF6g02eI5g=";
     })
   ];

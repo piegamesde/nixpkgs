@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-b6C1FbVXHeJqG9Vh8dqqZ+94T42oRM9kVbDmLuOiPvA=";
 
-  # Disable tests because it attempts to use a mongodb instance
+    # Disable tests because it attempts to use a mongodb instance
   doCheck = false;
 
   subPackages = [ "cmd/juju" ];

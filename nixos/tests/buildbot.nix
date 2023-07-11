@@ -10,20 +10,21 @@ import ./make-test-python.nix {
   name = "buildbot";
 
   nodes = {
-    bbmaster = {
+    bbmaster =
+      {
         pkgs,
         ...
       }: {
         services.buildbot-master = {
           enable = true;
 
-          # NOTE: use fake repo due to no internet in hydra ci
+            # NOTE: use fake repo due to no internet in hydra ci
           factorySteps = [
             "steps.Git(repourl='git://gitrepo/fakerepo.git', mode='incremental')"
             "steps.ShellCommand(command=['bash', 'fakerepo.sh'])"
           ];
-          changeSource =
-            [ "changes.GitPoller('git://gitrepo/fakerepo.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)" ];
+          changeSource = [ "changes.GitPoller('git://gitrepo/fakerepo.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)" ]
+            ;
         };
         networking.firewall.allowedTCPPorts = [
           8010
@@ -34,9 +35,11 @@ import ./make-test-python.nix {
           git
           buildbot-full
         ];
-      };
+      }
+      ;
 
-    bbworker = {
+    bbworker =
+      {
         pkgs,
         ...
       }: {
@@ -48,9 +51,11 @@ import ./make-test-python.nix {
           git
           buildbot-worker
         ];
-      };
+      }
+      ;
 
-    gitrepo = {
+    gitrepo =
+      {
         pkgs,
         ...
       }: {
@@ -97,7 +102,8 @@ import ./make-test-python.nix {
             git daemon --verbose --export-all --base-path=/srv/repos --reuseaddr
           '';
         };
-      };
+      }
+      ;
   };
 
   testScript = ''

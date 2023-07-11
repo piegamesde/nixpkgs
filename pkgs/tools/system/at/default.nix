@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     ./install.patch
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/riscv/riscv-poky/master/meta/recipes-extended/at/at/0001-remove-glibc-assumption.patch";
+        "https://raw.githubusercontent.com/riscv/riscv-poky/master/meta/recipes-extended/at/at/0001-remove-glibc-assumption.patch"
+        ;
       sha256 = "1rk4hskp0c1jqkanzdxf873i6jgki3xhrm609fsam8an8sl1njnm";
     })
   ];
@@ -55,9 +56,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # Ensure that "batch" can invoke the setuid "at" wrapper, if it exists, or
-  # else we get permission errors (on NixOS). "batch" is a shell script, so
-  # when the kernel executes it it drops setuid perms.
+    # Ensure that "batch" can invoke the setuid "at" wrapper, if it exists, or
+    # else we get permission errors (on NixOS). "batch" is a shell script, so
+    # when the kernel executes it it drops setuid perms.
   postInstall = ''
     sed -i "6i test -x ${atWrapperPath} && exec ${atWrapperPath} -qb now  # exec doesn't return" "$out/bin/batch"
   '';

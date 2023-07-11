@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://linux.tlk.fr/games/Powermanga/download/powermanga-${version}.tgz";
+      "https://linux.tlk.fr/games/Powermanga/download/powermanga-${version}.tgz"
+      ;
     sha256 = "sha256-2nU/zoOQWm2z/Y6mXHDFfWYjYshsQp1saVRBcUT5Q+g=";
   };
 

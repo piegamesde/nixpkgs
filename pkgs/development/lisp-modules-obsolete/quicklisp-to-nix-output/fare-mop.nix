@@ -16,7 +16,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/fare-mop/2015-12-18/fare-mop-20151218-git.tgz";
+      "http://beta.quicklisp.org/archive/fare-mop/2015-12-18/fare-mop-20151218-git.tgz"
+      ;
     sha256 = "0bvrwqvacy114xsblrk2w28qk6b484a3p0w14mzl264b3wjrdna9";
   };
 

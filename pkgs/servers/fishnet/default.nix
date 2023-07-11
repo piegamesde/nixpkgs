@@ -32,8 +32,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-BJK7M/pjHRj74xoeciavhkK2YRpeogkELIuXetX73so=";
 
-  # TODO: Cargo.lock is out of date, so fix it. Likely not necessary anymore in
-  # the next update.
+    # TODO: Cargo.lock is out of date, so fix it. Likely not necessary anymore in
+    # the next update.
   cargoPatches = [ ./Cargo.lock.patch ];
 
   meta = with lib; {

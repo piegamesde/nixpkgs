@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     sha256 = "1fvmhrqdjs925hzr2i8bszm50h00gwsh17p2kn2pi51zrxck9xjj";
   };
 
-  configureFlags = [ "--enable-cxx" ]
-    ++ lib.optionals stdenv.isLinux [ "--enable-fat" ];
+  configureFlags =
+    [ "--enable-cxx" ] ++ lib.optionals stdenv.isLinux [ "--enable-fat" ];
 
   meta = {
     description =

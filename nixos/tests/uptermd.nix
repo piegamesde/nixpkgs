@@ -4,18 +4,21 @@ import ./make-test-python.nix ({
   }:
 
   let
-    client = {
+    client =
+      {
         pkgs,
         ...
       }: {
         environment.systemPackages = [ pkgs.upterm ];
-      };
+      }
+      ;
   in {
     name = "uptermd";
     meta = with pkgs.lib.maintainers; { maintainers = [ fleaz ]; };
 
     nodes = {
-      server = {
+      server =
+        {
           config,
           ...
         }: {
@@ -24,7 +27,8 @@ import ./make-test-python.nix ({
             openFirewall = true;
             port = 1337;
           };
-        };
+        }
+        ;
       client1 = client;
       client2 = client;
     };

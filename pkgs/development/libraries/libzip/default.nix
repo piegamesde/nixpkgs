@@ -23,7 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://libzip.org/download/${finalAttrs.pname}-${finalAttrs.version}.tar.gz";
+      "https://libzip.org/download/${finalAttrs.pname}-${finalAttrs.version}.tar.gz"
+      ;
     sha256 = "sha256-/Wp/dF3j1pz1YD7cnLM9KJDwGY5BUlXQmHoM8Q2CTG8=";
   };
 
@@ -43,8 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals withBzip2 [ bzip2 ]
     ++ lib.optionals withOpenssl [ openssl ] ++ lib.optionals withZstd [ zstd ];
 
-  # Don't build the regression tests because they don't build with
-  # pkgsStatic and are not executed anyway.
+    # Don't build the regression tests because they don't build with
+    # pkgsStatic and are not executed anyway.
   cmakeFlags = [ "-DBUILD_REGRESS=0" ];
 
   preCheck = ''

@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = gnome.updateScript {
       packageName = pname;
-      # Does not seem to use the odd-unstable policy: https://gitlab.gnome.org/GNOME/libsecret/issues/30
+        # Does not seem to use the odd-unstable policy: https://gitlab.gnome.org/GNOME/libsecret/issues/30
       versionPolicy = "none";
     };
   };

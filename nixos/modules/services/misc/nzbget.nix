@@ -15,7 +15,8 @@ let
   configOpts = concatStringsSep " "
     (mapAttrsToList (name: value: "-o ${name}=${escapeShellArg (toStr value)}")
       cfg.settings);
-  toStr = v:
+  toStr =
+    v:
     if v == true then
       "yes"
     else if v == false then
@@ -23,7 +24,8 @@ let
     else if isInt v then
       toString v
     else
-      v;
+      v
+    ;
 in {
   imports = [
     (mkRemovedOptionModule [
@@ -48,7 +50,7 @@ in {
       "The port used by nzbget is managed through the web interface so you should adjust your firewall rules accordingly.")
   ];
 
-  # interface
+    # interface
 
   options = {
     services.nzbget = {
@@ -84,22 +86,22 @@ in {
     };
   };
 
-  # implementation
+    # implementation
 
   config = mkIf cfg.enable {
     services.nzbget.settings = {
       # allows nzbget to run as a "simple" service
       OutputMode = "loggable";
-      # use journald for logging
+        # use journald for logging
       WriteLog = "none";
       ErrorTarget = "screen";
       WarningTarget = "screen";
       InfoTarget = "screen";
       DetailTarget = "screen";
-      # required paths
+        # required paths
       ConfigTemplate = "${pkg}/share/nzbget/nzbget.conf";
       WebDir = "${pkg}/share/nzbget/webui";
-      # nixos handles package updates
+        # nixos handles package updates
       UpdateCheck = "none";
     };
 
@@ -126,7 +128,8 @@ in {
         UMask = "0002";
         Restart = "on-failure";
         ExecStart =
-          "${pkg}/bin/nzbget --server --configfile ${stateDir}/nzbget.conf ${configOpts}";
+          "${pkg}/bin/nzbget --server --configfile ${stateDir}/nzbget.conf ${configOpts}"
+          ;
         ExecStop = "${pkg}/bin/nzbget --quit";
       };
     };

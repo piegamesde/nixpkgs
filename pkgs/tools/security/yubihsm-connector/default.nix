@@ -34,7 +34,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "yubihsm-connector performs the communication between the YubiHSM 2 and applications that use it";
+      "yubihsm-connector performs the communication between the YubiHSM 2 and applications that use it"
+      ;
     homepage = "https://developers.yubico.com/yubihsm-connector/";
     maintainers = with maintainers; [ matthewcroughan ];
     license = licenses.asl20;

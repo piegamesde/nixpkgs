@@ -31,8 +31,8 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { pydantic = [ pydantic ]; };
 
-  nativeCheckInputs = [ pytestCheckHook ]
-    ++ passthru.optional-dependencies.pydantic;
+  nativeCheckInputs =
+    [ pytestCheckHook ] ++ passthru.optional-dependencies.pydantic;
 
   pythonImportsCheck = [ "camel_converter" ];
 

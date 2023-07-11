@@ -50,7 +50,8 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/multipassd --logger platform --verbosity ${cfg.logLevel}";
+          "${cfg.package}/bin/multipassd --logger platform --verbosity ${cfg.logLevel}"
+          ;
         SyslogIdentifier = "multipassd";
         Restart = "on-failure";
         TimeoutStopSec = 300;

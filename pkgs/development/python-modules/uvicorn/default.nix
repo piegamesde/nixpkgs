@@ -58,7 +58,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "uvicorn" ];
 
-  # check in passthru.tests.pytest to escape infinite recursion with httpx/httpcore
+    # check in passthru.tests.pytest to escape infinite recursion with httpx/httpcore
   doCheck = false;
 
   passthru.tests = { pytest = callPackage ./tests.nix { }; };

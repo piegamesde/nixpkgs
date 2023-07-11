@@ -13,14 +13,15 @@ let
   securityWrapper =
     pkgs.callPackage ./wrapper.nix { inherit parentWrapperDir; };
 
-  fileModeType = let
-    # taken from the chmod(1) man page
-    symbolic = "[ugoa]*([-+=]([rwxXst]*|[ugo]))+|[-+=][0-7]+";
-    numeric = "[-+=]?[0-7]{0,4}";
-    mode = "((${symbolic})(,${symbolic})*)|(${numeric})";
-  in
-  lib.types.strMatching mode // { description = "file mode string"; }
-  ;
+  fileModeType =
+    let
+      # taken from the chmod(1) man page
+      symbolic = "[ugoa]*([-+=]([rwxXst]*|[ugo]))+|[-+=][0-7]+";
+      numeric = "[-+=]?[0-7]{0,4}";
+      mode = "((${symbolic})(,${symbolic})*)|(${numeric})";
+    in
+    lib.types.strMatching mode // { description = "file mode string"; }
+    ;
 
   wrapperType = lib.types.submodule ({
       name,
@@ -90,8 +91,9 @@ let
       };
     });
 
-  ###### Activation script for the setcap wrappers
-  mkSetcapProgram = {
+    ###### Activation script for the setcap wrappers
+  mkSetcapProgram =
+    {
       program,
       capabilities,
       source,
@@ -114,10 +116,12 @@ let
 
       # Set the executable bit
       chmod ${permissions} "$wrapperDir/${program}"
-    '';
+    ''
+    ;
 
-  ###### Activation script for the setuid wrappers
-  mkSetuidProgram = {
+    ###### Activation script for the setuid wrappers
+  mkSetuidProgram =
+    {
       program,
       source,
       owner,
@@ -145,7 +149,8 @@ let
         else
           "-"
       }s,${permissions}" "$wrapperDir/${program}"
-    '';
+    ''
+    ;
 
   mkWrappedPrograms = builtins.map (opts:
     if opts.capabilities != "" then
@@ -164,7 +169,7 @@ in {
     ] "Use security.wrappers instead")
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
     security.wrappers = lib.mkOption {
@@ -227,7 +232,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = {
 
     assertions = lib.mapAttrsToList (name: opts: {
@@ -238,19 +243,23 @@ in {
       '';
     }) wrappers;
 
-    security.wrappers = let
-      mkSetuidRoot = source: {
-        setuid = true;
-        owner = "root";
-        group = "root";
-        inherit source;
-      };
-    in { # These are mount related wrappers that require the +s permission.
-      fusermount = mkSetuidRoot "${pkgs.fuse}/bin/fusermount";
-      fusermount3 = mkSetuidRoot "${pkgs.fuse3}/bin/fusermount3";
-      mount = mkSetuidRoot "${lib.getBin pkgs.util-linux}/bin/mount";
-      umount = mkSetuidRoot "${lib.getBin pkgs.util-linux}/bin/umount";
-    } ;
+    security.wrappers =
+      let
+        mkSetuidRoot =
+          source: {
+            setuid = true;
+            owner = "root";
+            group = "root";
+            inherit source;
+          }
+          ;
+      in { # These are mount related wrappers that require the +s permission.
+        fusermount = mkSetuidRoot "${pkgs.fuse}/bin/fusermount";
+        fusermount3 = mkSetuidRoot "${pkgs.fuse3}/bin/fusermount3";
+        mount = mkSetuidRoot "${lib.getBin pkgs.util-linux}/bin/mount";
+        umount = mkSetuidRoot "${lib.getBin pkgs.util-linux}/bin/umount";
+      }
+      ;
 
     boot.specialFileSystems.${parentWrapperDir} = {
       fsType = "tmpfs";
@@ -261,8 +270,8 @@ in {
       ];
     };
 
-    # Make sure our wrapperDir exports to the PATH env variable when
-    # initializing the shell
+      # Make sure our wrapperDir exports to the PATH env variable when
+      # initializing the shell
     environment.extraInit = ''
       # Wrappers override other bin directories.
       export PATH="${wrapperDir}:$PATH"
@@ -276,7 +285,7 @@ in {
       }"
     '';
 
-    ###### wrappers activation script
+      ###### wrappers activation script
     system.activationScripts.wrappers = lib.stringAfter [
       "specialfs"
       "users"
@@ -305,7 +314,7 @@ in {
       fi
     '';
 
-    ###### wrappers consistency checks
+      ###### wrappers consistency checks
     system.extraDependencies = lib.singleton
       (pkgs.runCommandLocal "ensure-all-wrappers-paths-exist" { } ''
         # make sure we produce output

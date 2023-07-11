@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-0WkOIgIA1fKn2SeS5QFeLGCGMstdlkU+eDRUVAs3ETA=";
 
-  # Tests want to download a vulnerable Terraform project
+    # Tests want to download a vulnerable Terraform project
   doCheck = false;
 
   meta = with lib; {

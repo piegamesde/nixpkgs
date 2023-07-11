@@ -100,7 +100,8 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/poljar/matrix-nio/blob/${version}/CHANGELOG.md";
     description =
-      "A Python Matrix client library, designed according to sans I/O principles";
+      "A Python Matrix client library, designed according to sans I/O principles"
+      ;
     license = licenses.isc;
     maintainers = with maintainers; [
       tilpner

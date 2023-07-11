@@ -95,7 +95,8 @@ mkDerivation rec {
     # already merged into master, so it can go during the next release
     (fetchpatch {
       url =
-        "https://patch-diff.githubusercontent.com/raw/dfaust/soundkonverter/pull/87.patch";
+        "https://patch-diff.githubusercontent.com/raw/dfaust/soundkonverter/pull/87.patch"
+        ;
       sha256 = "sha256-XIpD4ZMTZVcu+F27OtpRy51H+uQgpd5l22IZ6XsD64w=";
       name = "soundkonverter_taglib.patch";
       stripLen = 1;
@@ -123,10 +124,10 @@ mkDerivation rec {
     phonon
   ];
   buildInputs = [ taglib ] ++ runtimeDeps;
-  # encoder plugins go to ${out}/lib so they're found by kbuildsycoca5
+    # encoder plugins go to ${out}/lib so they're found by kbuildsycoca5
   cmakeFlags = [ "-DCMAKE_INSTALL_PREFIX=$out" ];
   sourceRoot = "source/src";
-  # add runt-time deps to PATH
+    # add runt-time deps to PATH
   postInstall = ''
     wrapProgram $out/bin/soundkonverter --prefix PATH : ${
       lib.makeBinPath runtimeDeps

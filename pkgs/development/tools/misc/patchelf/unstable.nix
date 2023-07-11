@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SC9zZbHN1p5BD6YHr+/ZNelmmZDozEO/vDwuCdJJCcs=";
   };
 
-  # Drop test that fails on musl (?)
+    # Drop test that fails on musl (?)
   postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace tests/Makefile.am \
       --replace "set-rpath-library.sh" ""
@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NixOS/patchelf";
     license = licenses.gpl3;
     description =
-      "A small utility to modify the dynamic linker and RPATH of ELF executables";
+      "A small utility to modify the dynamic linker and RPATH of ELF executables"
+      ;
     maintainers = [ maintainers.eelco ];
     platforms = platforms.all;
   };

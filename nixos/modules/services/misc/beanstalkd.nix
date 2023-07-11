@@ -21,8 +21,9 @@ in {
       listen = {
         port = mkOption {
           type = types.port;
-          description = lib.mdDoc
-            "TCP port that will be used to accept client connections.";
+          description =
+            lib.mdDoc "TCP port that will be used to accept client connections."
+            ;
           default = 11300;
         };
 
@@ -43,7 +44,7 @@ in {
     };
   };
 
-  # implementation
+    # implementation
 
   config = mkIf cfg.enable {
 

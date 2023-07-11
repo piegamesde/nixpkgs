@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Tests cannot seem to open the cpython module.
+    # Tests cannot seem to open the cpython module.
   doCheck = false;
 
   pythonImportsCheck = [ "compreffor" ];

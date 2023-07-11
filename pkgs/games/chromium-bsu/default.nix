@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/chromium-bsu/Chromium%20B.S.U.%20source%20code/${pname}-${version}.tar.gz";
+      "mirror://sourceforge/project/chromium-bsu/Chromium%20B.S.U.%20source%20code/${pname}-${version}.tar.gz"
+      ;
     hash = "sha256-ocFBo00ZpZYHroEWahmGTrjITPhrFVRi/tMabVbhYko=";
   };
 
@@ -47,7 +48,7 @@ stdenv.mkDerivation rec {
     quesoglc
   ];
 
-  # Autodetection is somewhat buggy; this is to avoid SLD1 to be loaded
+    # Autodetection is somewhat buggy; this is to avoid SLD1 to be loaded
   configureFlags = [
     "--disable-sdlimage"
     "--disable-sdlmixer"

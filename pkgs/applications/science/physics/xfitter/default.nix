@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     name = "${pname}-${version}.tgz";
     url =
-      "https://www.xfitter.org/xFitter/xFitter/DownloadPage?action=AttachFile&do=get&target=${pname}-${version}.tgz";
+      "https://www.xfitter.org/xFitter/xFitter/DownloadPage?action=AttachFile&do=get&target=${pname}-${version}.tgz"
+      ;
     sha256 = "sha256-ZHIQ5hOY+k0/wmpE0o4Po+RZ4MkVMk+bK1Rc6eqwwH0=";
   };
 
@@ -69,14 +70,15 @@ stdenv.mkDerivation rec {
     "-I${libtirpc.dev}/include/tirpc";
   NIX_LDFLAGS = lib.optional (stdenv.hostPlatform.libc == "glibc") "-ltirpc";
 
-  # workaround wrong library IDs
+    # workaround wrong library IDs
   postInstall = lib.optionalString stdenv.isDarwin ''
     ln -sv "$out/lib/xfitter/"* "$out/lib/"
   '';
 
   meta = with lib; {
     description =
-      "The xFitter project is an open source QCD fit framework ready to extract PDFs and assess the impact of new data";
+      "The xFitter project is an open source QCD fit framework ready to extract PDFs and assess the impact of new data"
+      ;
     license = licenses.gpl3;
     homepage = "https://www.xfitter.org/xFitter";
     platforms = platforms.unix;

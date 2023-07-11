@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-9aSALE42M/DoQS4PBHIVNDKzNdL5UhdXKAmLUSws3+Y=";
 
-  # disabled because I lack the skill
+    # disabled because I lack the skill
   doCheck = false;
 
   meta = with lib; {

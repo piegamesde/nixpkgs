@@ -40,10 +40,10 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: gmtp-preferences.o:src/main.h:72: multiple definition of
-  #     `scrolledwindowMain'; gmtp-about.o:src/main.h:72: first defined here
-  # TODO: can be removed when 1.4.0 is released.
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: gmtp-preferences.o:src/main.h:72: multiple definition of
+    #     `scrolledwindowMain'; gmtp-about.o:src/main.h:72: first defined here
+    # TODO: can be removed when 1.4.0 is released.
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preFixup = ''

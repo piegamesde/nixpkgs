@@ -67,8 +67,8 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks;
-      "-F${CoreFoundation}/Library/Frameworks");
+    (with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks")
+    ;
 
   configurePhase = ''
     substituteInPlace admin/wrapper.sh --replace '%%OUT%%' $out

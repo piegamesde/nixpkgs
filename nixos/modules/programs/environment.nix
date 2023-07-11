@@ -20,15 +20,15 @@ in {
 
     environment.variables = {
       NIXPKGS_CONFIG = "/etc/nix/nixpkgs-config.nix";
-      # note: many programs exec() this directly, so default options for less must not
-      # be specified here; do so in the default value of programs.less.envVariables instead
+        # note: many programs exec() this directly, so default options for less must not
+        # be specified here; do so in the default value of programs.less.envVariables instead
       PAGER = mkDefault "less";
       EDITOR = mkDefault "nano";
-      XDG_CONFIG_DIRS =
-        [ "/etc/xdg" ]; # needs to be before profile-relative paths to allow changes through environment.etc
+      XDG_CONFIG_DIRS = [ "/etc/xdg" ]
+        ; # needs to be before profile-relative paths to allow changes through environment.etc
     };
 
-    # since we set PAGER to this above, make sure it's installed
+      # since we set PAGER to this above, make sure it's installed
     programs.less.enable = true;
 
     environment.profiles = mkAfter [
@@ -36,7 +36,7 @@ in {
       "/run/current-system/sw"
     ];
 
-    # TODO: move most of these elsewhere
+      # TODO: move most of these elsewhere
     environment.profileRelativeSessionVariables = {
       PATH = [ "/bin" ];
       INFOPATH = [

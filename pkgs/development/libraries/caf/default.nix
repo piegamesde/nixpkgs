@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     platforms = platforms.unix;
     changelog =
-      "https://github.com/actor-framework/actor-framework/raw/${version}/CHANGELOG.md";
+      "https://github.com/actor-framework/actor-framework/raw/${version}/CHANGELOG.md"
+      ;
     maintainers = with maintainers; [
       bobakker
       tobim

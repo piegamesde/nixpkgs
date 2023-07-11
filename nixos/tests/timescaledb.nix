@@ -42,12 +42,14 @@ let
       average(stats)
     FROM t;
   '';
-  make-postgresql-test = postgresql-name: postgresql-package:
+  make-postgresql-test =
+    postgresql-name: postgresql-package:
     makeTest {
       name = postgresql-name;
       meta = with pkgs.lib.maintainers; { maintainers = [ typetetris ]; };
 
-      nodes.machine = {
+      nodes.machine =
+        {
           ...
         }: {
           services.postgresql = {
@@ -61,7 +63,8 @@ let
               shared_preload_libraries = "timescaledb, timescaledb_toolkit";
             };
           };
-        };
+        }
+        ;
 
       testScript = ''
         def check_count(statement, lines):
@@ -85,7 +88,8 @@ let
         machine.shutdown()
       '';
 
-    };
+    }
+    ;
   applicablePostgresqlVersions =
     filterAttrs (_: value: versionAtLeast value.version "12")
     postgresql-versions;

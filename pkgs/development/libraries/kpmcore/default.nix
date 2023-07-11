@@ -12,12 +12,13 @@
 
 stdenv.mkDerivation rec {
   pname = "kpmcore";
-  # NOTE: When changing this version, also change the version of `partition-manager`.
+    # NOTE: When changing this version, also change the version of `partition-manager`.
   version = "22.12.1";
 
   src = fetchurl {
     url =
-      "mirror://kde/stable/release-service/${version}/src/${pname}-${version}.tar.xz";
+      "mirror://kde/stable/release-service/${version}/src/${pname}-${version}.tar.xz"
+      ;
     hash = "sha256-ZJ179jHCLEB0kFMWfCe+U6c7k7yZ3MztwqAcUd25t40=";
   };
 

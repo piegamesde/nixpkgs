@@ -115,10 +115,10 @@ let
     sha256 = "sha256-6hAdJdaUgtRGQanQKuY/q6fcXWXFZ3K/oLbGxvksry0=";
   };
 
-  # Contrib must be built in order to enable Tesseract support:
+    # Contrib must be built in order to enable Tesseract support:
   buildContrib = enableContrib || enableTesseract || enableOvis;
 
-  # See opencv/3rdparty/ippicv/ippicv.cmake
+    # See opencv/3rdparty/ippicv/ippicv.cmake
   ippicv = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -126,21 +126,23 @@ let
       rev = "a56b6ac6f030c312b2dce17430eef13aed9af274";
       sha256 = "1msbkc3zixx61rcg6a04i1bcfhw1phgsrh93glq1n80hgsk3nbjq";
     } + "/ippicv";
-    files = let
-      name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
-    in if stdenv.hostPlatform.system == "x86_64-linux" then
-      { ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607"; }
-    else if stdenv.hostPlatform.system == "i686-linux" then
-      { ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0"; }
-    else if stdenv.hostPlatform.system == "x86_64-darwin" then
-      { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
-    else
-      throw
-      "ICV is not available for this platform (or not yet supported by this package)";
+    files =
+      let
+        name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
+      in if stdenv.hostPlatform.system == "x86_64-linux" then
+        { ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607"; }
+      else if stdenv.hostPlatform.system == "i686-linux" then
+        { ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0"; }
+      else if stdenv.hostPlatform.system == "x86_64-darwin" then
+        { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
+      else
+        throw
+        "ICV is not available for this platform (or not yet supported by this package)"
+      ;
     dst = ".cache/ippicv";
   };
 
-  # See opencv_contrib/modules/xfeatures2d/cmake/download_vgg.cmake
+    # See opencv_contrib/modules/xfeatures2d/cmake/download_vgg.cmake
   vgg = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -157,7 +159,7 @@ let
     dst = ".cache/xfeatures2d/vgg";
   };
 
-  # See opencv_contrib/modules/xfeatures2d/cmake/download_boostdesc.cmake
+    # See opencv_contrib/modules/xfeatures2d/cmake/download_boostdesc.cmake
   boostdesc = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -177,7 +179,7 @@ let
     dst = ".cache/xfeatures2d/boostdesc";
   };
 
-  # See opencv_contrib/modules/face/CMakeLists.txt
+    # See opencv_contrib/modules/face/CMakeLists.txt
   face = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -189,7 +191,7 @@ let
     dst = ".cache/data";
   };
 
-  # See opencv/modules/gapi/cmake/DownloadADE.cmake
+    # See opencv/modules/gapi/cmake/DownloadADE.cmake
   ade = rec {
     src = fetchurl {
       url = "https://github.com/opencv/ade/archive/${name}";
@@ -200,7 +202,7 @@ let
     dst = ".cache/ade";
   };
 
-  # See opencv_contrib/modules/wechat_qrcode/CMakeLists.txt
+    # See opencv_contrib/modules/wechat_qrcode/CMakeLists.txt
   wechat_qrcode = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -217,31 +219,37 @@ let
     dst = ".cache/wechat_qrcode";
   };
 
-  # See opencv/cmake/OpenCVDownload.cmake
-  installExtraFiles = extra:
+    # See opencv/cmake/OpenCVDownload.cmake
+  installExtraFiles =
+    extra:
     with lib;
     ''
       mkdir -p "${extra.dst}"
     '' + concatStrings (flip mapAttrsToList extra.files (name: md5: ''
       ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
-    ''));
-  installExtraFile = extra: ''
-    mkdir -p "${extra.dst}"
-    ln -s "${extra.src}" "${extra.dst}/${extra.md5}-${extra.name}"
-  '';
+    ''))
+    ;
+  installExtraFile =
+    extra: ''
+      mkdir -p "${extra.dst}"
+      ln -s "${extra.src}" "${extra.dst}/${extra.md5}-${extra.name}"
+    ''
+    ;
 
   opencvFlag = name: enabled: "-DWITH_${name}=${printEnabled enabled}";
 
   runAccuracyTests = true;
   runPerformanceTests = false;
-  printEnabled = enabled:
+  printEnabled =
+    enabled:
     if enabled then
       "ON"
     else
-      "OFF";
+      "OFF"
+    ;
   withOpenblas = (enableBlas && blas.provider.pname == "openblas");
-  #multithreaded openblas conflicts with opencv multithreading, which manifest itself in hung tests
-  #https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
+    #multithreaded openblas conflicts with opencv multithreading, which manifest itself in hung tests
+    #https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
   openblas_ = blas.provider.override { singleThreaded = true; };
 
   inherit (cudaPackages) backendStdenv cudaFlags cudaVersion;
@@ -284,12 +292,12 @@ stdenv.mkDerivation {
     cp --no-preserve=mode -r "${contribSrc}/modules" "$NIX_BUILD_TOP/source/opencv_contrib"
   '';
 
-  # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
+    # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
   patches = [ ./cmake-don-t-use-OpenCVFindOpenEXR.patch ]
     ++ lib.optional enableCuda ./cuda_opt_flow.patch;
 
-  # This prevents cmake from using libraries in impure paths (which
-  # causes build failure on non NixOS)
+    # This prevents cmake from using libraries in impure paths (which
+    # causes build failure on non NixOS)
   postPatch = ''
     sed -i '/Add these standard paths to the search paths for FIND_LIBRARY/,/^\s*$/{d}' CMakeLists.txt
   '';
@@ -371,7 +379,7 @@ stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
 
-  # Configure can't find the library without this.
+    # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString withOpenblas openblas_.dev;
   OpenBLAS = lib.optionalString withOpenblas openblas_;
 
@@ -446,18 +454,18 @@ stdenv.mkDerivation {
     mv ./bin/*test* $package_tests/ 
   '' + lib.optionalString runPerformanceTests "mv ./bin/*perf* $package_tests/";
 
-  # By default $out/lib/pkgconfig/opencv4.pc looks something like this:
-  #
-  #   prefix=/nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0
-  #   exec_prefix=${prefix}
-  #   libdir=${exec_prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/lib
-  #   includedir_old=${prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/include/opencv4/opencv
-  #   includedir_new=${prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/include/opencv4
-  #   ...
-  #   Libs: -L${exec_prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/lib ...
-  # Note that ${exec_prefix} is set to $out but that $out is also appended to
-  # ${exec_prefix}. This causes linker errors in downstream packages so we strip
-  # of $out after the ${exec_prefix} and ${prefix} prefixes:
+    # By default $out/lib/pkgconfig/opencv4.pc looks something like this:
+    #
+    #   prefix=/nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0
+    #   exec_prefix=${prefix}
+    #   libdir=${exec_prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/lib
+    #   includedir_old=${prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/include/opencv4/opencv
+    #   includedir_new=${prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/include/opencv4
+    #   ...
+    #   Libs: -L${exec_prefix}//nix/store/g0wnfyjjh4rikkvp22cpkh41naa43i4i-opencv-4.0.0/lib ...
+    # Note that ${exec_prefix} is set to $out but that $out is also appended to
+    # ${exec_prefix}. This causes linker errors in downstream packages so we strip
+    # of $out after the ${exec_prefix} and ${prefix} prefixes:
   postInstall = ''
     sed -i "s|{exec_prefix}/$out|{exec_prefix}|;s|{prefix}/$out|{prefix}|" \
       "$out/lib/pkgconfig/opencv4.pc"

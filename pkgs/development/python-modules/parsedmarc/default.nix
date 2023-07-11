@@ -38,7 +38,8 @@
 let
   dashboard = fetchurl {
     url =
-      "https://raw.githubusercontent.com/domainaware/parsedmarc/77331b55c54cb3269205295bd57d0ab680638964/grafana/Grafana-DMARC_Reports.json";
+      "https://raw.githubusercontent.com/domainaware/parsedmarc/77331b55c54cb3269205295bd57d0ab680638964/grafana/Grafana-DMARC_Reports.json"
+      ;
     sha256 = "0wbihyqbb4ndjg79qs8088zgrcg88km8khjhv2474y7nzjzkf43i";
   };
 in
@@ -88,7 +89,7 @@ buildPythonPackage rec {
     google-auth-oauthlib
   ];
 
-  # no tests on PyPI, no tags on GitHub
+    # no tests on PyPI, no tags on GitHub
   doCheck = false;
 
   pythonImportsCheck = [ "parsedmarc" ];

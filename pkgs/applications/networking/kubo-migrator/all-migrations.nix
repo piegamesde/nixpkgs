@@ -11,14 +11,15 @@
 # when starting it like this: ipfs daemon --migrate
 
 let
-  fs-repo-common = pname: version:
+  fs-repo-common =
+    pname: version:
     buildGoModule {
       inherit pname version;
       inherit (kubo-migrator-unwrapped) src;
       sourceRoot = "source/${pname}";
       vendorSha256 = null;
-      # Fix build on Go 1.17 and later: panic: qtls.ClientHelloInfo doesn't match
-      # See https://github.com/ipfs/fs-repo-migrations/pull/163
+        # Fix build on Go 1.17 and later: panic: qtls.ClientHelloInfo doesn't match
+        # See https://github.com/ipfs/fs-repo-migrations/pull/163
       postPatch = lib.optionalString (lib.elem pname [
         "fs-repo-10-to-11"
         "fs-repo-11-to-12"
@@ -39,9 +40,10 @@ let
         description =
           "Individual migration for the filesystem repository of Kubo clients";
       };
-    };
+    }
+    ;
 
-  # Concatenation of the latest repo version and the version of that migration
+    # Concatenation of the latest repo version and the version of that migration
   version = "13.1.0.0";
 
   fs-repo-12-to-13 = fs-repo-common "fs-repo-12-to-13" "1.0.0";

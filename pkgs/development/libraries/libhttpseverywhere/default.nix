@@ -50,13 +50,15 @@ stdenv.mkDerivation rec {
     # Fixes build with vala >=0.42
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/libhttpseverywhere/commit/6da08ef1ade9ea267cecf14dd5cb2c3e6e5e50cb.patch";
+        "https://gitlab.gnome.org/GNOME/libhttpseverywhere/commit/6da08ef1ade9ea267cecf14dd5cb2c3e6e5e50cb.patch"
+        ;
       sha256 = "1nwjlh8iqgjayccwdh0fbpq2g1h8bg1k1g9i324f2bhhvyhmpq8f";
     })
     # fix build with meson 0.60
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/libhttpseverywhere/-/commit/4c38b2ca25802c464f3204a62815201d8cf549fd.patch";
+        "https://gitlab.gnome.org/GNOME/libhttpseverywhere/-/commit/4c38b2ca25802c464f3204a62815201d8cf549fd.patch"
+        ;
       sha256 = "sha256-1+fmR0bpvJ9ISN2Hr+BTIQz+Bf6VfY1RdVZ/OohUlWU=";
     })
   ];

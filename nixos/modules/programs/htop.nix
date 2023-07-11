@@ -11,7 +11,8 @@ let
 
   cfg = config.programs.htop;
 
-  fmt = value:
+  fmt =
+    value:
     if isList value then
       concatStringsSep " " (map fmt value)
     else if isString value then
@@ -19,7 +20,8 @@ let
     else if isBool value || isInt value then
       toString value
     else
-      throw "Unrecognized type ${typeOf value} in htop settings";
+      throw "Unrecognized type ${typeOf value} in htop settings"
+    ;
 
 in {
 

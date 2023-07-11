@@ -23,7 +23,7 @@ buildGoModule rec {
   ];
 
   subPackages = [ "cmd/policy" ];
-  # disable go workspaces
+    # disable go workspaces
   GOWORK = "off";
 
   doCheck = false;

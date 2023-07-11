@@ -26,7 +26,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/arp242/uni";
     description =
-      "Query the Unicode database from the commandline, with good support for emojis";
+      "Query the Unicode database from the commandline, with good support for emojis"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ chvp ];
   };

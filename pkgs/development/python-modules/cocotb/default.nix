@@ -15,7 +15,7 @@ buildPythonPackage rec {
   pname = "cocotb";
   version = "1.7.2";
 
-  # pypi source doesn't include tests
+    # pypi source doesn't include tests
   src = fetchFromGitHub {
     owner = "cocotb";
     repo = "cocotb";
@@ -66,7 +66,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Coroutine based cosimulation library for writing VHDL and Verilog testbenches in Python";
+      "Coroutine based cosimulation library for writing VHDL and Verilog testbenches in Python"
+      ;
     homepage = "https://github.com/cocotb/cocotb";
     license = licenses.bsd3;
     maintainers = with maintainers; [ matthuszagh ];

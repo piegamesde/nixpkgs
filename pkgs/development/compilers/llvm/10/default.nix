@@ -39,12 +39,15 @@ let
     release_version; # differentiating these (variables) is important for RCs
   targetConfig = stdenv.targetPlatform.config;
 
-  fetch = name: sha256:
+  fetch =
+    name: sha256:
     fetchurl {
       url =
-        "https://github.com/llvm/llvm-project/releases/download/llvmorg-${release_version}/${name}-${version}.src.tar.xz";
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-${release_version}/${name}-${version}.src.tar.xz"
+        ;
       inherit sha256;
-    };
+    }
+    ;
 
   clang-tools-extra_src = fetch "clang-tools-extra"
     "06n1yp638rh24xdxv9v2df0qajxbjz4w59b7dd4ky36drwmpi4yh";
@@ -53,7 +56,7 @@ let
     license = lib.licenses.ncsa;
     maintainers = lib.teams.llvm.members;
 
-    # See llvm/cmake/config-ix.cmake.
+      # See llvm/cmake/config-ix.cmake.
     platforms = lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.mips
       ++ lib.platforms.power ++ lib.platforms.riscv ++ lib.platforms.s390x
       ++ lib.platforms.wasi ++ lib.platforms.x86;
@@ -74,33 +77,41 @@ let
           buildLlvmTools
           ;
       });
-      mkExtraBuildCommands0 = cc: ''
-        rsrc="$out/resource-root"
-        mkdir "$rsrc"
-        ln -s "${cc.lib}/lib/clang/${release_version}/include" "$rsrc"
-        echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
-      '';
-      mkExtraBuildCommands = cc:
+      mkExtraBuildCommands0 =
+        cc: ''
+          rsrc="$out/resource-root"
+          mkdir "$rsrc"
+          ln -s "${cc.lib}/lib/clang/${release_version}/include" "$rsrc"
+          echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
+        ''
+        ;
+      mkExtraBuildCommands =
+        cc:
         mkExtraBuildCommands0 cc + ''
           ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
-        '';
+        ''
+        ;
 
-      bintoolsNoLibc' = if bootBintoolsNoLibc == null then
-        tools.bintoolsNoLibc
-      else
-        bootBintoolsNoLibc;
-      bintools' = if bootBintools == null then
-        tools.bintools
-      else
-        bootBintools;
+      bintoolsNoLibc' =
+        if bootBintoolsNoLibc == null then
+          tools.bintoolsNoLibc
+        else
+          bootBintoolsNoLibc
+        ;
+      bintools' =
+        if bootBintools == null then
+          tools.bintools
+        else
+          bootBintools
+        ;
 
     in {
 
       libllvm = callPackage ./llvm { inherit llvm_meta; };
 
-      # `llvm` historically had the binaries.  When choosing an output explicitly,
-      # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
+        # `llvm` historically had the binaries.  When choosing an output explicitly,
+        # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
       llvm = tools.libllvm;
 
       libclang =
@@ -108,34 +119,36 @@ let
 
       clang-unwrapped = tools.libclang;
 
-      # disabled until recommonmark supports sphinx 3
-      #Llvm-manpages = lowPrio (tools.libllvm.override {
-      #  enableManpages = true;
-      #  python3 = pkgs.python3;  # don't use python-boot
-      #});
+        # disabled until recommonmark supports sphinx 3
+        #Llvm-manpages = lowPrio (tools.libllvm.override {
+        #  enableManpages = true;
+        #  python3 = pkgs.python3;  # don't use python-boot
+        #});
 
       clang-manpages = lowPrio (tools.libclang.override {
         enableManpages = true;
         python3 = pkgs.python3; # don't use python-boot
       });
 
-      # disabled until recommonmark supports sphinx 3
-      # lldb-manpages = lowPrio (tools.lldb.override {
-      #   enableManpages = true;
-      #   python3 = pkgs.python3;  # don't use python-boot
-      # });
+        # disabled until recommonmark supports sphinx 3
+        # lldb-manpages = lowPrio (tools.lldb.override {
+        #   enableManpages = true;
+        #   python3 = pkgs.python3;  # don't use python-boot
+        # });
 
-      # pick clang appropriate for package set we are targeting
-      clang = if stdenv.targetPlatform.useLLVM or false then
-        tools.clangUseLLVM
-      else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
-        tools.libstdcxxClang
-      else
-        tools.libcxxClang;
+        # pick clang appropriate for package set we are targeting
+      clang =
+        if stdenv.targetPlatform.useLLVM or false then
+          tools.clangUseLLVM
+        else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
+          tools.libstdcxxClang
+        else
+          tools.libcxxClang
+        ;
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
-        # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
+          # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
         libcxx = null;
         extraPackages = [ targetLlvmLibraries.compiler-rt ];
         extraBuildCommands = mkExtraBuildCommands cc;
@@ -155,12 +168,12 @@ let
 
       lldb = callPackage ./lldb { inherit llvm_meta; };
 
-      # Below, is the LLVM bootstrapping logic. It handles building a
-      # fully LLVM toolchain from scratch. No GCC toolchain should be
-      # pulled in. As a consequence, it is very quick to build different
-      # targets provided by LLVM and we can also build for what GCC
-      # doesn’t support like LLVM. Probably we should move to some other
-      # file.
+        # Below, is the LLVM bootstrapping logic. It handles building a
+        # fully LLVM toolchain from scratch. No GCC toolchain should be
+        # pulled in. As a consequence, it is very quick to build different
+        # targets provided by LLVM and we can also build for what GCC
+        # doesn’t support like LLVM. Probably we should move to some other
+        # file.
 
       bintools-unwrapped = callPackage ./bintools { };
 
@@ -245,25 +258,31 @@ let
 
       compiler-rt-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
-          overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
-        else
-          stdenv;
+        stdenv =
+          if stdenv.hostPlatform.useLLVM or false then
+            overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
+          else
+            stdenv
+          ;
       };
 
       compiler-rt-no-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
-          overrideCC stdenv buildLlvmTools.clangNoCompilerRt
-        else
-          stdenv;
+        stdenv =
+          if stdenv.hostPlatform.useLLVM or false then
+            overrideCC stdenv buildLlvmTools.clangNoCompilerRt
+          else
+            stdenv
+          ;
       };
 
-      # N.B. condition is safe because without useLLVM both are the same.
-      compiler-rt = if stdenv.hostPlatform.isAndroid then
-        libraries.compiler-rt-libc
-      else
-        libraries.compiler-rt-no-libc;
+        # N.B. condition is safe because without useLLVM both are the same.
+      compiler-rt =
+        if stdenv.hostPlatform.isAndroid then
+          libraries.compiler-rt-libc
+        else
+          libraries.compiler-rt-no-libc
+        ;
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 
@@ -271,26 +290,32 @@ let
 
       libcxx = callPackage ./libcxx {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
-          overrideCC stdenv buildLlvmTools.clangNoLibcxx
-        else
-          stdenv;
+        stdenv =
+          if stdenv.hostPlatform.useLLVM or false then
+            overrideCC stdenv buildLlvmTools.clangNoLibcxx
+          else
+            stdenv
+          ;
       };
 
       libcxxabi = callPackage ./libcxxabi {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
-          overrideCC stdenv buildLlvmTools.clangNoLibcxx
-        else
-          stdenv;
+        stdenv =
+          if stdenv.hostPlatform.useLLVM or false then
+            overrideCC stdenv buildLlvmTools.clangNoLibcxx
+          else
+            stdenv
+          ;
       };
 
       libunwind = callPackage ./libunwind {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
-          overrideCC stdenv buildLlvmTools.clangNoLibcxx
-        else
-          stdenv;
+        stdenv =
+          if stdenv.hostPlatform.useLLVM or false then
+            overrideCC stdenv buildLlvmTools.clangNoLibcxx
+          else
+            stdenv
+          ;
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };

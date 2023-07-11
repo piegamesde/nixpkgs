@@ -22,7 +22,8 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "CVE-2022-4396.patch";
     url =
-      "https://github.com/RDFLib/pyrdfa3/commit/ffd1d62dd50d5f4190013b39cedcdfbd81f3ce3e.patch";
+      "https://github.com/RDFLib/pyrdfa3/commit/ffd1d62dd50d5f4190013b39cedcdfbd81f3ce3e.patch"
+      ;
     hash = "sha256-prRrOwylYcEqKLr/8LIpyJ5Yyt+6+HTUqH5sQXU8tqc=";
   }) ];
 
@@ -37,7 +38,7 @@ buildPythonPackage rec {
     html5lib
   ];
 
-  # Does not work with python3
+    # Does not work with python3
   doCheck = false;
 
   pythonImportsCheck = [ "pyRdfa" ];

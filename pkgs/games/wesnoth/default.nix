@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "The Battle for Wesnoth, a free, turn-based strategy game with a fantasy theme";
+      "The Battle for Wesnoth, a free, turn-based strategy game with a fantasy theme"
+      ;
     longDescription = ''
       The Battle for Wesnoth is a Free, turn-based tactical strategy
       game with a high fantasy theme, featuring both single-player, and

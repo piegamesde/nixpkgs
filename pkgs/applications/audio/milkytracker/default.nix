@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     zziplib
   ];
 
-  # Somehow this does not get set automatically
+    # Somehow this does not get set automatically
   cmakeFlags = [ "-DSDL2MAIN_LIBRARY=${SDL2}/lib/libSDL2.so" ];
 
   postInstall = ''

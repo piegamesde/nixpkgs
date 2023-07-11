@@ -51,7 +51,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Test environment setup broken under Nix for a few tests:
+    # Test environment setup broken under Nix for a few tests:
   disabledTests = [
     "test_bash_completion_with_dot_in_path"
     "test_install_uninstall"

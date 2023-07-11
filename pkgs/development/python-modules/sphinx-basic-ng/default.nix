@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sphinx ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "sphinx_basic_ng" ];

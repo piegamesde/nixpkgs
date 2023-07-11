@@ -25,7 +25,7 @@ stdenv.mkDerivation {
   version = "unstable-2022-08-15";
   disabled = !python.isPy3k;
 
-  # required for third_party directory creation
+    # required for third_party directory creation
   src = fetchFromGitHub {
     owner = "ycm-core";
     repo = "ycmd";
@@ -58,16 +58,16 @@ stdenv.mkDerivation {
 
   dontConfigure = true;
 
-  # remove the tests
-  #
-  # make __main__.py executable and add shebang
-  #
-  # copy over third-party libs
-  # note: if we switch to using our packaged libs, we'll need to symlink them
-  # into the same spots, as YouCompleteMe (the vim plugin) expects those paths
-  # to be available
-  #
-  # symlink completion backends where ycmd expects them
+    # remove the tests
+    #
+    # make __main__.py executable and add shebang
+    #
+    # copy over third-party libs
+    # note: if we switch to using our packaged libs, we'll need to symlink them
+    # into the same spots, as YouCompleteMe (the vim plugin) expects those paths
+    # to be available
+    #
+    # symlink completion backends where ycmd expects them
   installPhase = ''
     rm -rf ycmd/tests
 
@@ -104,8 +104,8 @@ stdenv.mkDerivation {
     ln -sf ${nodePackages.typescript} $TARGET
   '';
 
-  # fixup the argv[0] and replace __file__ with the corresponding path so
-  # python won't be thrown off by argv[0]
+    # fixup the argv[0] and replace __file__ with the corresponding path so
+    # python won't be thrown off by argv[0]
   postFixup = ''
     substituteInPlace $out/lib/ycmd/ycmd/__main__.py \
       --replace __file__ "'$out/lib/ycmd/ycmd/__main__.py'"

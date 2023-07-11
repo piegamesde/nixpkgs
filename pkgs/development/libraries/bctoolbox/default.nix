@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-M2apFibqSKp8ojXl82W+vQb7CUxdbWsmw8PLL/ByYuM=";
   };
 
-  # Do not build static libraries
+    # Do not build static libraries
   cmakeFlags = [
     "-DENABLE_STATIC=NO"
     "-DENABLE_STRICT=NO"

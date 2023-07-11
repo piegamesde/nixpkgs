@@ -55,7 +55,7 @@ rec {
     propagatedBuildInputs = [ zlib ];
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
 
-    # just override it with nothing so it does not fail
+      # just override it with nothing so it does not fail
     autoreconfPhase = "echo autoreconfPhase not used...";
     configurePhase = ''
       HOME=$TMPDIR
@@ -156,7 +156,7 @@ rec {
   zlib = (pkgs.zlib.override { stdenv = pkgs.emscriptenStdenv; }).overrideAttrs
     (old: {
       nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
-      # we need to reset this setting!
+        # we need to reset this setting!
       env = (old.env or { }) // { NIX_CFLAGS_COMPILE = ""; };
       dontStrip = true;
       outputs = [ "out" ];

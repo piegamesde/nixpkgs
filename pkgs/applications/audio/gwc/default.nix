@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "GUI application for removing noise (hiss, pops and clicks) from audio files";
+      "GUI application for removing noise (hiss, pops and clicks) from audio files"
+      ;
     homepage = "https://github.com/AlisterH/gwc/";
     changelog = "https://github.com/AlisterH/gwc/blob/${version}/Changelog";
     license = licenses.gpl2Plus;

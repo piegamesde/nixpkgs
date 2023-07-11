@@ -66,16 +66,16 @@ let
         patchShebangs tests
       '';
 
-      # If we're disabling graphviz, apply the patches and corresponding
-      # configure flag. We also need to override the path to the valac compiler
-      # so that it can be used to regenerate documentation.
+        # If we're disabling graphviz, apply the patches and corresponding
+        # configure flag. We also need to override the path to the valac compiler
+        # so that it can be used to regenerate documentation.
       patches = lib.optionals disableGraphviz [
         graphvizPatch
         ./gvc-compat.patch
       ];
       configureFlags = lib.optional disableGraphviz "--disable-graphviz";
-      # when cross-compiling ./compiler/valac is valac for host
-      # so add the build vala in nativeBuildInputs
+        # when cross-compiling ./compiler/valac is valac for host
+        # so add the build vala in nativeBuildInputs
       preBuild = lib.optionalString
         (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
         ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")'';
@@ -109,14 +109,15 @@ let
 
       passthru = {
         updateScript = gnome.updateScript {
-          attrPath = let
-            roundUpToEven = num: num + lib.mod num 2;
-          in
-          "${pname}_${lib.versions.major version}_${
-            builtins.toString
-            (roundUpToEven (lib.toInt (lib.versions.minor version)))
-          }"
-          ;
+          attrPath =
+            let
+              roundUpToEven = num: num + lib.mod num 2;
+            in
+            "${pname}_${lib.versions.major version}_${
+              builtins.toString
+              (roundUpToEven (lib.toInt (lib.versions.minor version)))
+            }"
+            ;
           packageName = pname;
           freeze = true;
         };

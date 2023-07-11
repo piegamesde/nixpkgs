@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "023hv3gknblhf9lx5kmkcchzmbhkdhmsnknkv7lfy20rcs06k828";
   };
 
-  # PyPi package does not include tests.
+    # PyPi package does not include tests.
   doCheck = false;
 
   meta = with lib; {

@@ -55,8 +55,8 @@ in {
     # "-i may not be used with stdin"), and `stdenvNative' doesn't provide it.
     ++ optionals buildPlatform.isDarwin [ gnused ];
 
-  # For building runtime libs
-  # same for all gcc's
+    # For building runtime libs
+    # same for all gcc's
   depsBuildTarget = (if hostPlatform == buildPlatform then
     [ targetPackages.stdenv.cc.bintools # newly-built gcc will be used
     ]
@@ -85,7 +85,7 @@ in {
     ] ++ xlibs)
     ++ optionals (langGo && stdenv.hostPlatform.isMusl) [ libucontext ];
 
-  # threadsCross.package after gcc6 so i assume its okay for 4.8 and 4.9 too
+    # threadsCross.package after gcc6 so i assume its okay for 4.8 and 4.9 too
   depsTargetTarget = optionals (!crossStageStatic && threadsCross != { }
     && threadsCross.package != null) [ threadsCross.package ];
 }

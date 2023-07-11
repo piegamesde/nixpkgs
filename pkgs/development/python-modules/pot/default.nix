@@ -66,8 +66,8 @@ buildPythonPackage rec {
     sed -i '/sdk_path/d' setup.py
   '';
 
-  # To prevent importing of an incomplete package from the build directory
-  # instead of nix store (`ot` is the top-level package name).
+    # To prevent importing of an incomplete package from the build directory
+    # instead of nix store (`ot` is the top-level package name).
   preCheck = ''
     rm -r ot
   '';

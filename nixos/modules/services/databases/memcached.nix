@@ -61,13 +61,14 @@ in {
         type = types.listOf types.str;
         default = [ ];
         description = lib.mdDoc
-          "A list of extra options that will be added as a suffix when running memcached.";
+          "A list of extra options that will be added as a suffix when running memcached."
+          ;
       };
     };
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.memcached.enable {
 
@@ -87,22 +88,25 @@ in {
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = let
-          networking = if cfg.enableUnixSocket then
-            "-s /run/memcached/memcached.sock"
-          else
-            "-l ${cfg.listen} -p ${toString cfg.port}";
-        in
-        "${memcached}/bin/memcached ${networking} -m ${
-          toString cfg.maxMemory
-        } -c ${toString cfg.maxConnections} ${
-          concatStringsSep " " cfg.extraOptions
-        }"
-        ;
+        ExecStart =
+          let
+            networking =
+              if cfg.enableUnixSocket then
+                "-s /run/memcached/memcached.sock"
+              else
+                "-l ${cfg.listen} -p ${toString cfg.port}"
+              ;
+          in
+          "${memcached}/bin/memcached ${networking} -m ${
+            toString cfg.maxMemory
+          } -c ${toString cfg.maxConnections} ${
+            concatStringsSep " " cfg.extraOptions
+          }"
+          ;
 
         User = cfg.user;
 
-        # Filesystem access
+          # Filesystem access
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
@@ -111,10 +115,10 @@ in {
         ProtectKernelModules = true;
         ProtectControlGroups = true;
         RuntimeDirectory = "memcached";
-        # Caps
+          # Caps
         CapabilityBoundingSet = "";
         NoNewPrivileges = true;
-        # Misc.
+          # Misc.
         LockPersonality = true;
         RestrictRealtime = true;
         PrivateMounts = true;

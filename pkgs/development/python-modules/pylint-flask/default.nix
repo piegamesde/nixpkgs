@@ -21,8 +21,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pylint-plugin-utils ];
 
-  # Tests require a very old version of pylint
-  #   also tests are only available at GitHub, with an old release tag
+    # Tests require a very old version of pylint
+    #   also tests are only available at GitHub, with an old release tag
   doCheck = false;
 
   meta = with lib; {

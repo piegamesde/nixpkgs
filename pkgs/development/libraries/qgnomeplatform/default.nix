@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals (!useQt6) [ adwaita-qt ]
     ++ lib.optionals useQt6 [ adwaita-qt6 ];
 
-  # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
+    # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
   dontWrapQtApps = true;
 
   cmakeFlags = [

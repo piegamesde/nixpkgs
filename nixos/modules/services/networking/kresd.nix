@@ -10,10 +10,11 @@ with lib;
 let
   cfg = config.services.kresd;
 
-  # Convert systemd-style address specification to kresd config line(s).
-  # On Nix level we don't attempt to precisely validate the address specifications.
-  # The optional IPv6 scope spec comes *after* port, perhaps surprisingly.
-  mkListen = kind: addr:
+    # Convert systemd-style address specification to kresd config line(s).
+    # On Nix level we don't attempt to precisely validate the address specifications.
+    # The optional IPv6 scope spec comes *after* port, perhaps surprisingly.
+  mkListen =
+    kind: addr:
     let
       al_v4 = builtins.match "([0-9.]+):([0-9]+)($)" addr;
       al_v6 = builtins.match "\\[(.+)]:([0-9]+)(%.*|$)" addr;
@@ -25,15 +26,18 @@ let
           al_portOnly
         ];
       port = elemAt al 1;
-      addrSpec = if al_portOnly == null then
-        "'${head al}${elemAt al 2}'"
-      else
-        "{'::', '0.0.0.0'}";
+      addrSpec =
+        if al_portOnly == null then
+          "'${head al}${elemAt al 2}'"
+        else
+          "{'::', '0.0.0.0'}"
+        ;
       # freebind is set for compatibility with earlier kresd services;
       # it could be configurable, for example.
     in ''
       net.listen(${addrSpec}, ${port}, { kind = '${kind}', freebind = true })
-    '' ;
+    ''
+    ;
 
   configFile = pkgs.writeText "kresd.conf" (""
     + concatMapStrings (mkListen "dns") cfg.listenPlain
@@ -74,7 +78,7 @@ in {
     ] "Please use (bind-)mounting instead.")
   ];
 
-  ###### interface
+    ###### interface
   options.services.kresd = {
     enable = mkOption {
       type = types.bool;
@@ -150,10 +154,10 @@ in {
         You can dynamically start/stop them at will, so this is just system default.
       '';
     };
-    # TODO: perhaps options for more common stuff like cache size or forwarding
+      # TODO: perhaps options for more common stuff like cache size or forwarding
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     environment.etc."knot-resolver/kresd.conf".source =
       configFile; # not required
@@ -167,8 +171,8 @@ in {
     };
     users.groups.knot-resolver.gid = null;
 
-    systemd.packages =
-      [ cfg.package ]; # the units are patched inside the package a bit
+    systemd.packages = [ cfg.package ]
+      ; # the units are patched inside the package a bit
 
     systemd.targets.kresd = { # configure units started by default
       wantedBy = [ "multi-user.target" ];
@@ -177,18 +181,19 @@ in {
     };
     systemd.services."kresd@".serviceConfig = {
       ExecStart = "${cfg.package}/bin/kresd --noninteractive "
-        + "-c ${cfg.package}/lib/knot-resolver/distro-preconfig.lua -c ${configFile}";
-      # Ensure /run/knot-resolver exists
+        + "-c ${cfg.package}/lib/knot-resolver/distro-preconfig.lua -c ${configFile}"
+        ;
+        # Ensure /run/knot-resolver exists
       RuntimeDirectory = "knot-resolver";
       RuntimeDirectoryMode = "0770";
-      # Ensure /var/lib/knot-resolver exists
+        # Ensure /var/lib/knot-resolver exists
       StateDirectory = "knot-resolver";
       StateDirectoryMode = "0770";
-      # Ensure /var/cache/knot-resolver exists
+        # Ensure /var/cache/knot-resolver exists
       CacheDirectory = "knot-resolver";
       CacheDirectoryMode = "0770";
     };
-    # We don't mind running stop phase from wrong version.  It seems less racy.
+      # We don't mind running stop phase from wrong version.  It seems less racy.
     systemd.services."kresd@".stopIfChanged = false;
   };
 }

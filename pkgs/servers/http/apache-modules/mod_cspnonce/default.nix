@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An Apache2 module that makes it dead simple to add nonce values to the CSP";
+      "An Apache2 module that makes it dead simple to add nonce values to the CSP"
+      ;
     homepage = "https://github.com/wyattoday/mod_cspnonce";
     license = licenses.asl20;
     platforms = platforms.unix;

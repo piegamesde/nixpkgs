@@ -47,32 +47,35 @@ in {
         options.confinement.packages = lib.mkOption {
           type = types.listOf (types.either types.str types.package);
           default = [ ];
-          description = let
-            mkScOption = optName: "{option}`serviceConfig.${optName}`";
-          in
-          lib.mdDoc ''
-            Additional packages or strings with context to add to the closure of
-            the chroot. By default, this includes all the packages from the
-            ${
-              lib.concatMapStringsSep ", " mkScOption [
-                "ExecReload"
-                "ExecStartPost"
-                "ExecStartPre"
-                "ExecStop"
-                "ExecStopPost"
-              ]
-            } and ${mkScOption "ExecStart"} options. If you want to have all the
-            dependencies of this systemd unit, you can use
-            {option}`confinement.fullUnit`.
+          description =
+            let
+              mkScOption = optName: "{option}`serviceConfig.${optName}`";
+            in
+            lib.mdDoc ''
+              Additional packages or strings with context to add to the closure of
+              the chroot. By default, this includes all the packages from the
+              ${
+                lib.concatMapStringsSep ", " mkScOption [
+                  "ExecReload"
+                  "ExecStartPost"
+                  "ExecStartPre"
+                  "ExecStop"
+                  "ExecStopPost"
+                ]
+              } and ${
+                mkScOption "ExecStart"
+              } options. If you want to have all the
+              dependencies of this systemd unit, you can use
+              {option}`confinement.fullUnit`.
 
-            ::: {.note}
-            The store paths listed in {option}`path` are
-            **not** included in the closure as
-            well as paths from other options except those listed
-            above.
-            :::
-          ''
-          ;
+              ::: {.note}
+              The store paths listed in {option}`path` are
+              **not** included in the closure as
+              well as paths from other options except those listed
+              above.
+              :::
+            ''
+            ;
         };
 
         options.confinement.binSh = lib.mkOption {
@@ -113,71 +116,77 @@ in {
           '';
         };
 
-        config = let
-          inherit (config.confinement) binSh fullUnit;
-          wantsAPIVFS =
-            lib.mkDefault (config.confinement.mode == "full-apivfs");
-        in
-        lib.mkIf config.confinement.enable {
-          serviceConfig = {
-            RootDirectory = "/var/empty";
-            TemporaryFileSystem = "/";
-            PrivateMounts = lib.mkDefault true;
-
-            # https://github.com/NixOS/nixpkgs/issues/14645 is a future attempt
-            # to change some of these to default to true.
-            #
-            # If we run in chroot-only mode, having something like PrivateDevices
-            # set to true by default will mount /dev within the chroot, whereas
-            # with "chroot-only" it's expected that there are no /dev, /proc and
-            # /sys file systems available.
-            #
-            # However, if this suddenly becomes true, the attack surface will
-            # increase, so let's explicitly set these options to true/false
-            # depending on the mode.
-            MountAPIVFS = wantsAPIVFS;
-            PrivateDevices = wantsAPIVFS;
-            PrivateTmp = wantsAPIVFS;
-            PrivateUsers = wantsAPIVFS;
-            ProtectControlGroups = wantsAPIVFS;
-            ProtectKernelModules = wantsAPIVFS;
-            ProtectKernelTunables = wantsAPIVFS;
-          };
-          confinement.packages = let
-            execOpts = [
-              "ExecReload"
-              "ExecStart"
-              "ExecStartPost"
-              "ExecStartPre"
-              "ExecStop"
-              "ExecStopPost"
-            ];
-            execPkgs = lib.concatMap (opt:
-              let
-                isSet = config.serviceConfig ? ${opt};
-              in
-              lib.flatten (lib.optional isSet config.serviceConfig.${opt})
-            ) execOpts;
-            unitAttrs = toplevelConfig.systemd.units."${name}.service";
-            allPkgs = lib.singleton (builtins.toJSON unitAttrs);
-            unitPkgs = if fullUnit then
-              allPkgs
-            else
-              execPkgs;
+        config =
+          let
+            inherit (config.confinement) binSh fullUnit;
+            wantsAPIVFS =
+              lib.mkDefault (config.confinement.mode == "full-apivfs");
           in
-          unitPkgs ++ lib.optional (binSh != null) binSh
+          lib.mkIf config.confinement.enable {
+            serviceConfig = {
+              RootDirectory = "/var/empty";
+              TemporaryFileSystem = "/";
+              PrivateMounts = lib.mkDefault true;
+
+                # https://github.com/NixOS/nixpkgs/issues/14645 is a future attempt
+                # to change some of these to default to true.
+                #
+                # If we run in chroot-only mode, having something like PrivateDevices
+                # set to true by default will mount /dev within the chroot, whereas
+                # with "chroot-only" it's expected that there are no /dev, /proc and
+                # /sys file systems available.
+                #
+                # However, if this suddenly becomes true, the attack surface will
+                # increase, so let's explicitly set these options to true/false
+                # depending on the mode.
+              MountAPIVFS = wantsAPIVFS;
+              PrivateDevices = wantsAPIVFS;
+              PrivateTmp = wantsAPIVFS;
+              PrivateUsers = wantsAPIVFS;
+              ProtectControlGroups = wantsAPIVFS;
+              ProtectKernelModules = wantsAPIVFS;
+              ProtectKernelTunables = wantsAPIVFS;
+            };
+            confinement.packages =
+              let
+                execOpts = [
+                  "ExecReload"
+                  "ExecStart"
+                  "ExecStartPost"
+                  "ExecStartPre"
+                  "ExecStop"
+                  "ExecStopPost"
+                ];
+                execPkgs = lib.concatMap (opt:
+                  let
+                    isSet = config.serviceConfig ? ${opt};
+                  in
+                  lib.flatten (lib.optional isSet config.serviceConfig.${opt})
+                ) execOpts;
+                unitAttrs = toplevelConfig.systemd.units."${name}.service";
+                allPkgs = lib.singleton (builtins.toJSON unitAttrs);
+                unitPkgs =
+                  if fullUnit then
+                    allPkgs
+                  else
+                    execPkgs
+                  ;
+              in
+              unitPkgs ++ lib.optional (binSh != null) binSh
+              ;
+          }
           ;
-        }
-        ;
       }));
   };
 
   config.assertions = lib.concatLists (lib.mapAttrsToList (name: cfg:
     let
-      whatOpt = optName:
+      whatOpt =
+        optName:
         "The 'serviceConfig' option '${optName}' for"
         + " service '${name}' is enabled in conjunction with"
-        + " 'confinement.enable'";
+        + " 'confinement.enable'"
+        ;
     in
     lib.optionals cfg.confinement.enable [
       {
@@ -205,11 +214,12 @@ in {
 
   config.systemd.packages = lib.concatLists (lib.mapAttrsToList (name: cfg:
     let
-      rootPaths = let
-        contents = lib.concatStringsSep "\n" cfg.confinement.packages;
-      in
-      pkgs.writeText "${mkPathSafeName name}-string-contexts.txt" contents
-      ;
+      rootPaths =
+        let
+          contents = lib.concatStringsSep "\n" cfg.confinement.packages;
+        in
+        pkgs.writeText "${mkPathSafeName name}-string-contexts.txt" contents
+        ;
 
       chrootPaths = pkgs.runCommand "${mkPathSafeName name}-chroot-paths" {
         closureInfo = pkgs.closureInfo { inherit rootPaths; };

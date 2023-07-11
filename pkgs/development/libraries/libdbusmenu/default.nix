@@ -25,16 +25,17 @@ stdenv.mkDerivation (finalAttrs: {
     }";
   version = "16.04.0";
 
-  src = let
-    inherit (finalAttrs) version;
-  in
-  fetchurl {
-    url = "https://launchpad.net/dbusmenu/${
-        lib.versions.majorMinor version
-      }/${version}/+download/libdbusmenu-${version}.tar.gz";
-    sha256 = "12l7z8dhl917iy9h02sxmpclnhkdjryn08r8i4sr8l3lrlm4mk5r";
-  }
-  ;
+  src =
+    let
+      inherit (finalAttrs) version;
+    in
+    fetchurl {
+      url = "https://launchpad.net/dbusmenu/${
+          lib.versions.majorMinor version
+        }/${version}/+download/libdbusmenu-${version}.tar.gz";
+      sha256 = "12l7z8dhl917iy9h02sxmpclnhkdjryn08r8i4sr8l3lrlm4mk5r";
+    }
+    ;
 
   nativeBuildInputs = [
     vala
@@ -59,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  # https://projects.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/libdbusmenu
+    # https://projects.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/libdbusmenu
   preConfigure = ''
     export HAVE_VALGRIND_TRUE="#"
     export HAVE_VALGRIND_FALSE=""

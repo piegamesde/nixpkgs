@@ -24,15 +24,15 @@ with lib; {
     "hv_storvsc"
   ];
 
-  # Generate a GRUB menu.
+    # Generate a GRUB menu.
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.version = 2;
   boot.loader.timeout = 0;
 
   boot.growPartition = true;
 
-  # Don't put old configurations in the GRUB menu.  The user has no
-  # way to select them anyway.
+    # Don't put old configurations in the GRUB menu.  The user has no
+    # way to select them anyway.
   boot.loader.grub.configurationLimit = 0;
 
   fileSystems."/" = {
@@ -41,17 +41,17 @@ with lib; {
     autoResize = true;
   };
 
-  # Allow root logins only using the SSH key that the user specified
-  # at instance creation time, ping client connections to avoid timeouts
+    # Allow root logins only using the SSH key that the user specified
+    # at instance creation time, ping client connections to avoid timeouts
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "prohibit-password";
   services.openssh.settings.ClientAliveInterval = 180;
 
-  # Force getting the hostname from Azure
+    # Force getting the hostname from Azure
   networking.hostName = mkDefault "";
 
-  # Always include cryptsetup so that NixOps can use it.
-  # sg_scan is needed to finalize disk removal on older kernels
+    # Always include cryptsetup so that NixOps can use it.
+    # sg_scan is needed to finalize disk removal on older kernels
   environment.systemPackages = [
     pkgs.cryptsetup
     pkgs.sg3_utils

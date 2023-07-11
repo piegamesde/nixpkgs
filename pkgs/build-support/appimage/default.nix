@@ -27,21 +27,24 @@ rec {
     ];
   };
 
-  extract = args@{
+  extract =
+    args@{
       name ? "${args.pname}-${args.version}",
       src,
       ...
     }:
     pkgs.runCommand "${name}-extracted" { buildInputs = [ appimage-exec ]; } ''
       appimage-exec.sh -x $out ${src}
-    '';
+    ''
+    ;
 
-  # for compatibility, deprecated
+    # for compatibility, deprecated
   extractType1 = extract;
   extractType2 = extract;
   wrapType1 = wrapType2;
 
-  wrapAppImage = args@{
+  wrapAppImage =
+    args@{
       name ? "${args.pname}-${args.version}",
       src,
       extraPkgs,
@@ -51,9 +54,10 @@ rec {
     buildFHSEnv (defaultFhsEnvArgs // {
       inherit name;
 
-      targetPkgs = pkgs:
-        [ appimage-exec ] ++ defaultFhsEnvArgs.targetPkgs pkgs
-        ++ extraPkgs pkgs;
+      targetPkgs =
+        pkgs:
+        [ appimage-exec ] ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs
+        ;
 
       runScript = "appimage-exec.sh -w ${src} --";
 
@@ -63,9 +67,11 @@ rec {
     } // (removeAttrs args ([
       "pname"
       "version"
-    ] ++ (builtins.attrNames (builtins.functionArgs wrapAppImage)))));
+    ] ++ (builtins.attrNames (builtins.functionArgs wrapAppImage)))))
+    ;
 
-  wrapType2 = args@{
+  wrapType2 =
+    args@{
       name ? "${args.pname}-${args.version}",
       src,
       extraPkgs ? pkgs: [ ],
@@ -75,20 +81,22 @@ rec {
       inherit name extraPkgs;
       src = extract { inherit name src; };
 
-      # passthru src to make nix-update work
-      # hack to keep the origin position (unsafeGetAttrPos)
+        # passthru src to make nix-update work
+        # hack to keep the origin position (unsafeGetAttrPos)
       passthru = lib.pipe args [
         lib.attrNames
         (lib.remove "src")
         (removeAttrs args)
       ] // args.passthru or { };
-    });
+    })
+    ;
 
   defaultFhsEnvArgs = {
     name = "appimage-env";
 
-    # Most of the packages were taken from the Steam chroot
-    targetPkgs = pkgs:
+      # Most of the packages were taken from the Steam chroot
+    targetPkgs =
+      pkgs:
       with pkgs; [
         gtk3
         bashInteractive
@@ -101,11 +109,13 @@ rec {
         krb5
         gsettings-desktop-schemas
         hicolor-icon-theme # dont show a gtk warning about hicolor not being installed
-      ];
+      ]
+      ;
 
-    # list of libraries expected in an appimage environment:
-    # https://github.com/AppImage/pkg2appimage/blob/master/excludelist
-    multiPkgs = pkgs:
+      # list of libraries expected in an appimage environment:
+      # https://github.com/AppImage/pkg2appimage/blob/master/excludelist
+    multiPkgs =
+      pkgs:
       with pkgs; [
         desktop-file-utils
         xorg.libXcomposite
@@ -222,6 +232,7 @@ rec {
         libtool.lib # for Synfigstudio
         xorg.libxshmfence # for apple-music-electron
         at-spi2-core
-      ];
+      ]
+      ;
   };
 }

@@ -18,12 +18,16 @@
 let
   inherit (melpaStablePackages) tree-sitter-langs;
 
-  libSuffix = if stdenv.isDarwin then
-    "dylib"
-  else
-    "so";
-  langName = g:
-    lib.removeSuffix "-grammar" (lib.removePrefix "tree-sitter-" g.pname);
+  libSuffix =
+    if stdenv.isDarwin then
+      "dylib"
+    else
+      "so"
+    ;
+  langName =
+    g:
+    lib.removeSuffix "-grammar" (lib.removePrefix "tree-sitter-" g.pname)
+    ;
   soName = g: langName g + "." + libSuffix;
 
   grammarDir = runCommand "emacs-tree-sitter-grammars" {
@@ -35,7 +39,8 @@ let
   '' + lib.concatStringsSep "\n"
     (map (g: "ln -s ${g}/parser $out/langs/bin/${soName g}") plugins));
   siteDir =
-    "$out/share/emacs/site-lisp/elpa/${tree-sitter-langs.pname}-${tree-sitter-langs.version}";
+    "$out/share/emacs/site-lisp/elpa/${tree-sitter-langs.pname}-${tree-sitter-langs.version}"
+    ;
 
 in
 melpaStablePackages.tree-sitter-langs.overrideAttrs (old: {
@@ -55,8 +60,10 @@ melpaStablePackages.tree-sitter-langs.overrideAttrs (old: {
 
   passthru = old.passthru or { } // {
     inherit plugins;
-    withPlugins = fn:
-      final.tree-sitter-langs.override { plugins = fn tree-sitter-grammars; };
+    withPlugins =
+      fn:
+      final.tree-sitter-langs.override { plugins = fn tree-sitter-grammars; }
+      ;
   };
 
 })

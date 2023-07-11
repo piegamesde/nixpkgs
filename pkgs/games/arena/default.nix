@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     sha256 = "1pzb9sg4lzbbi4gbldvlb85p8xyl9xnplxwyb9pkk2mwzvvxkf0d";
   };
 
-  # stdenv.cc.cc.lib is in that list to pick up libstdc++.so. Is there a better way?
+    # stdenv.cc.cc.lib is in that list to pick up libstdc++.so. Is there a better way?
   buildInputs = [
     gtk2-x11
     glib

@@ -21,7 +21,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      " Implementation of various JWx (Javascript Object Signing and Encryption/JOSE) technologies";
+      " Implementation of various JWx (Javascript Object Signing and Encryption/JOSE) technologies"
+      ;
     homepage = "https://github.com/lestrrat-go/jwx";
     license = licenses.mit;
     maintainers = with maintainers; [

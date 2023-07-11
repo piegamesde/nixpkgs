@@ -21,7 +21,7 @@ buildGoModule rec {
     sha256 = "sha256-cOxIL093Mi+g9Al/SQJ6vdaeBAXUN6ZGsSaVvEIiJpU=";
   };
 
-  # livepeer_cli has a vendoring problem
+    # livepeer_cli has a vendoring problem
   subPackages = [ "cmd/livepeer" ];
 
   nativeBuildInputs = [ pkg-config ];

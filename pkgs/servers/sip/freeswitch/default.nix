@@ -37,8 +37,9 @@ let
 
   availableModules = callPackage ./modules.nix { };
 
-  # the default list from v1.8.7, except with applications/mod_signalwire also disabled
-  defaultModules = mods:
+    # the default list from v1.8.7, except with applications/mod_signalwire also disabled
+  defaultModules =
+    mods:
     with mods;
     [
       applications.commands
@@ -99,19 +100,21 @@ let
       xml_int.cdr
       xml_int.rpc
       xml_int.scgi
-    ] ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ];
+    ] ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ]
+    ;
 
   enabledModules = (if modules != null then
     modules
   else
     defaultModules) availableModules;
 
-  modulesConf = let
-    lst = builtins.map (mod: mod.path) enabledModules;
-    str = lib.strings.concatStringsSep "\n" lst;
-  in
-  builtins.toFile "modules.conf" str
-  ;
+  modulesConf =
+    let
+      lst = builtins.map (mod: mod.path) enabledModules;
+      str = lib.strings.concatStringsSep "\n" lst;
+    in
+    builtins.toFile "modules.conf" str
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -168,8 +171,8 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  # Using c++14 because of build error
-  # gsm_at.h:94:32: error: ISO C++17 does not allow dynamic exception specifications
+    # Using c++14 because of build error
+    # gsm_at.h:94:32: error: ISO C++17 does not allow dynamic exception specifications
   CXXFLAGS = "-std=c++14";
 
   CFLAGS = "-D_ANSI_SOURCE";

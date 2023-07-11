@@ -13,7 +13,7 @@
 buildPythonApplication rec {
   pname = "cmake-format";
   version = "0.6.13";
-  # The source distribution does not build because of missing files.
+    # The source distribution does not build because of missing files.
   format = "wheel";
 
   src = fetchPypi {

@@ -43,8 +43,8 @@ buildPythonPackage rec {
     lxml
   ];
 
-  # don't depend on testFiles unless doFullCheck as it may not be extractable
-  # on some filesystems due to weird filenames
+    # don't depend on testFiles unless doFullCheck as it may not be extractable
+    # on some filesystems due to weird filenames
   preCheck = lib.optionalString doFullCheck ''
     sed -i '/^testFilesDir = /ctestFilesDir = "${testFiles}"' tests/unit/test_testfiles.py
   '';

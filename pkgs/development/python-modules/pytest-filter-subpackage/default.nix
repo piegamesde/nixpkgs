@@ -33,14 +33,15 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # missing some files
+    # missing some files
   disabledTests = [ "with_rst" ];
 
   meta = with lib; {
     description = "Meta-package containing dependencies for testing";
     homepage = "https://github.com/astropy/pytest-filter-subpackage";
     changelog =
-      "https://github.com/astropy/pytest-filter-subpackage/blob/v${version}/CHANGES.rst";
+      "https://github.com/astropy/pytest-filter-subpackage/blob/v${version}/CHANGES.rst"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

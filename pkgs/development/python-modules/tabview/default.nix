@@ -10,7 +10,7 @@ buildPythonPackage rec {
   version = "1.4.4";
   format = "setuptools";
 
-  # newest release only available as wheel on pypi
+    # newest release only available as wheel on pypi
   src = fetchFromGitHub {
     owner = "TabViewer";
     repo = "tabview";

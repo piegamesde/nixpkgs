@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     # Fixes test failure of realpath test with glibc-2.36
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/libcdio/raw/d49ccdd9c8b4e9d57c01539f4c8948f28ce82bca/f/realpath-test-fix.patch";
+        "https://src.fedoraproject.org/rpms/libcdio/raw/d49ccdd9c8b4e9d57c01539f4c8948f28ce82bca/f/realpath-test-fix.patch"
+        ;
       sha256 = "sha256-ldAGlcf79uQ8QAt4Au8Iv6jsI6ICZXtXOKZBpyELtN8=";
     })
 

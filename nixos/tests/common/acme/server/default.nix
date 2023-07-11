@@ -59,18 +59,20 @@ let
   testCerts = import ./snakeoil-certs.nix;
   domain = testCerts.domain;
 
-  resolver = let
-    message = "You need to define a resolver for the acme test module.";
-    firstNS = lib.head config.networking.nameservers;
-  in if config.networking.nameservers == [ ] then
-    throw message
-  else
-    firstNS;
+  resolver =
+    let
+      message = "You need to define a resolver for the acme test module.";
+      firstNS = lib.head config.networking.nameservers;
+    in if config.networking.nameservers == [ ] then
+      throw message
+    else
+      firstNS
+    ;
 
   pebbleConf.pebble = {
     listenAddress = "0.0.0.0:443";
     managementListenAddress = "0.0.0.0:15000";
-    # These certs and keys are used for the Web Front End (WFE)
+      # These certs and keys are used for the Web Front End (WFE)
     certificate = testCerts.${domain}.cert;
     privateKey = testCerts.${domain}.key;
     httpPort = 80;
@@ -108,15 +110,16 @@ in {
 
   config = {
     test-support = {
-      resolver.enable = let
-        isLocalResolver = config.networking.nameservers == [ "127.0.0.1" ];
-      in
-      lib.mkOverride 900 isLocalResolver
-      ;
+      resolver.enable =
+        let
+          isLocalResolver = config.networking.nameservers == [ "127.0.0.1" ];
+        in
+        lib.mkOverride 900 isLocalResolver
+        ;
     };
 
-    # This has priority 140, because modules/testing/test-instrumentation.nix
-    # already overrides this with priority 150.
+      # This has priority 140, because modules/testing/test-instrumentation.nix
+      # already overrides this with priority 150.
     networking.nameservers = lib.mkOverride 140 [ "127.0.0.1" ];
     networking.firewall.allowedTCPPorts = [
       80
@@ -145,7 +148,7 @@ in {
           RuntimeDirectory = "pebble";
           WorkingDirectory = "/run/pebble";
 
-          # Required to bind on privileged ports.
+            # Required to bind on privileged ports.
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
 
           ExecStart = "${pkgs.pebble}/bin/pebble -config ${pebbleConfFile}";

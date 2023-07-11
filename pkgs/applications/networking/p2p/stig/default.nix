@@ -7,8 +7,8 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "stig";
-  # This project has a different concept for pre release / alpha,
-  # Read the project's README for details: https://github.com/rndusr/stig#stig
+    # This project has a different concept for pre release / alpha,
+    # Read the project's README for details: https://github.com/rndusr/stig#stig
   version = "0.12.2a0";
 
   src = fetchFromGitHub {

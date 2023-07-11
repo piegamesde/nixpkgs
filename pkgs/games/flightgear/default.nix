@@ -44,7 +44,8 @@ let
 
     src = fetchurl {
       url =
-        "mirror://sourceforge/flightgear/release-${shortVersion}/FlightGear-${version}-data.txz";
+        "mirror://sourceforge/flightgear/release-${shortVersion}/FlightGear-${version}-data.txz"
+        ;
       sha256 = "sha256-Kl66K5rmejaRKFgzps4/a73z8gIp9YcdfJQOFR1U2Og=";
     };
 
@@ -58,17 +59,18 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "flightgear";
-  # inheriting data for `nix-prefetch-url -A pkgs.flightgear.data.src`
+    # inheriting data for `nix-prefetch-url -A pkgs.flightgear.data.src`
   inherit version data;
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/flightgear/release-${shortVersion}/${pname}-${version}.tar.bz2";
+      "mirror://sourceforge/flightgear/release-${shortVersion}/${pname}-${version}.tar.bz2"
+      ;
     sha256 = "sha256-ZnDe3qyiaDrKd/nwa/nR2AYq4yoqVFnd3IqgmJxfGFQ=";
   };
 
-  # Of all the files in the source and data archives, there doesn't seem to be
-  # a decent icon :-)
+    # Of all the files in the source and data archives, there doesn't seem to be
+    # a decent icon :-)
   iconsrc = fetchurl {
     url = "https://wiki.flightgear.org/w/images/6/62/FlightGear_logo.png";
     sha256 = "1ikz413jia55vfnmx8iwrlxvx8p16ggm81mbrj66wam3q7s2dm5p";

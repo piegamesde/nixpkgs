@@ -35,7 +35,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Dissect module implementing various utility functions for the other Dissect modules";
+      "Dissect module implementing various utility functions for the other Dissect modules"
+      ;
     homepage = "https://github.com/fox-it/dissect.util";
     changelog =
       "https://github.com/fox-it/dissect.util/releases/tag/${version}";

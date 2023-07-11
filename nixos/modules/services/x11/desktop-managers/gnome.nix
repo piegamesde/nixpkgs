@@ -13,7 +13,7 @@ let
   cfg = config.services.xserver.desktopManager.gnome;
   serviceCfg = config.services.gnome;
 
-  # Prioritize nautilus by default when opening directories
+    # Prioritize nautilus by default when opening directories
   mimeAppsList = pkgs.writeTextFile {
     name = "gnome-mimeapps";
     destination = "/share/applications/mimeapps.list";
@@ -31,7 +31,7 @@ let
   nixos-background-light = pkgs.nixos-artwork.wallpapers.simple-blue;
   nixos-background-dark = pkgs.nixos-artwork.wallpapers.simple-dark-gray;
 
-  # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
+    # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
   nixos-gsettings-desktop-schemas =
     pkgs.gnome.nixos-gsettings-overrides.override {
       inherit (cfg)
@@ -62,8 +62,8 @@ let
     destination = "/share/gnome-background-properties/nixos.xml";
   };
 
-  flashbackEnabled = cfg.flashback.enableMetacity
-    || length cfg.flashback.customSessions > 0;
+  flashbackEnabled =
+    cfg.flashback.enableMetacity || length cfg.flashback.customSessions > 0;
   flashbackWms = optional cfg.flashback.enableMetacity {
     wmName = "metacity";
     wmLabel = "Metacity";
@@ -71,8 +71,10 @@ let
     enableGnomePanel = true;
   } ++ cfg.flashback.customSessions;
 
-  notExcluded = pkg:
-    mkDefault (!(lib.elem pkg config.environment.gnome.excludePackages));
+  notExcluded =
+    pkg:
+    mkDefault (!(lib.elem pkg config.environment.gnome.excludePackages))
+    ;
 
 in {
 
@@ -300,7 +302,8 @@ in {
           '''
         '';
         description = lib.mdDoc
-          "List of desktop files to put as favorite apps into gnome-shell. These need to be installed somehow globally.";
+          "List of desktop files to put as favorite apps into gnome-shell. These need to be installed somehow globally."
+          ;
       };
 
       extraGSettingsOverrides = mkOption {
@@ -335,7 +338,8 @@ in {
               wmLabel = mkOption {
                 type = types.str;
                 description = lib.mdDoc
-                  "The name of the window manager to show in the session chooser.";
+                  "The name of the window manager to show in the session chooser."
+                  ;
                 example = "XMonad";
               };
 
@@ -351,8 +355,9 @@ in {
                 type = types.bool;
                 default = true;
                 example = false;
-                description = lib.mdDoc
-                  "Whether to enable the GNOME panel in this session.";
+                description =
+                  lib.mdDoc "Whether to enable the GNOME panel in this session."
+                  ;
               };
             };
           });
@@ -396,8 +401,8 @@ in {
       services.gnome.core-shell.enable = true;
       services.gnome.core-utilities.enable = mkDefault true;
 
-      services.xserver.displayManager.sessionPackages =
-        [ pkgs.gnome.gnome-session.sessions ];
+      services.xserver.displayManager.sessionPackages = [ pkgs.gnome.gnome-session.sessions ]
+        ;
 
       environment.extraInit = ''
         ${concatMapStrings (p: ''
@@ -416,26 +421,28 @@ in {
 
       environment.sessionVariables.GNOME_SESSION_DEBUG = mkIf cfg.debug "1";
 
-      # Override GSettings schemas
+        # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
-        "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+        "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas"
+        ;
 
-      # If gnome is installed, build vim for gtk3 too.
+        # If gnome is installed, build vim for gtk3 too.
       nixpkgs.config.vim.gui = "gtk3";
     })
 
     (mkIf flashbackEnabled {
-      services.xserver.displayManager.sessionPackages = let
-        wmNames = map (wm: wm.wmName) flashbackWms;
-        namesAreUnique = lib.unique wmNames == wmNames;
-      in
-      assert (assertMsg namesAreUnique "Flashback WM names must be unique.");
-      map (wm:
-        pkgs.gnome.gnome-flashback.mkSessionForWm {
-          inherit (wm) wmName wmLabel wmCommand enableGnomePanel;
-          inherit (cfg.flashback) panelModulePackages;
-        }) flashbackWms
-      ;
+      services.xserver.displayManager.sessionPackages =
+        let
+          wmNames = map (wm: wm.wmName) flashbackWms;
+          namesAreUnique = lib.unique wmNames == wmNames;
+        in
+        assert (assertMsg namesAreUnique "Flashback WM names must be unique.");
+        map (wm:
+          pkgs.gnome.gnome-flashback.mkSessionForWm {
+            inherit (wm) wmName wmLabel wmCommand enableGnomePanel;
+            inherit (cfg.flashback) panelModulePackages;
+          }) flashbackWms
+        ;
 
       security.pam.services.gnome-flashback = { enableGnomeKeyring = true; };
 
@@ -443,12 +450,12 @@ in {
         [ gnome-flashback ]
         ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
 
-      # gnome-panel needs these for menu applet
-      environment.sessionVariables.XDG_DATA_DIRS =
-        [ "${pkgs.gnome.gnome-flashback}/share" ];
-      # TODO: switch to sessionVariables (resolve conflict)
-      environment.variables.XDG_CONFIG_DIRS =
-        [ "${pkgs.gnome.gnome-flashback}/etc/xdg" ];
+        # gnome-panel needs these for menu applet
+      environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.gnome.gnome-flashback}/share" ]
+        ;
+        # TODO: switch to sessionVariables (resolve conflict)
+      environment.variables.XDG_CONFIG_DIRS = [ "${pkgs.gnome.gnome-flashback}/etc/xdg" ]
+        ;
     })
 
     (mkIf serviceCfg.core-os-services.enable {
@@ -468,14 +475,14 @@ in {
       services.gnome.tracker-miners.enable = mkDefault true;
       services.gnome.tracker.enable = mkDefault true;
       services.hardware.bolt.enable = mkDefault true;
-      # TODO: Enable once #177946 is resolved
-      # services.packagekit.enable = mkDefault true;
+        # TODO: Enable once #177946 is resolved
+        # services.packagekit.enable = mkDefault true;
       services.udisks2.enable = true;
       services.upower.enable = config.powerManagement.enable;
-      services.xserver.libinput.enable = mkDefault
-        true; # for controlling touchpad settings via gnome control center
+      services.xserver.libinput.enable = mkDefault true
+        ; # for controlling touchpad settings via gnome control center
 
-      # Explicitly enabled since GNOME will be severely broken without these.
+        # Explicitly enabled since GNOME will be severely broken without these.
       xdg.mime.enable = true;
       xdg.icons.enable = true;
 
@@ -488,7 +495,7 @@ in {
         })
       ];
 
-      # Harmonize Qt application style and also make them use the portal for file chooser dialog.
+        # Harmonize Qt application style and also make them use the portal for file chooser dialog.
       qt = {
         enable = mkDefault true;
         platformTheme = mkDefault "gnome";
@@ -499,24 +506,24 @@ in {
 
       services.xserver.updateDbusEnvironment = true;
 
-      # gnome has a custom alert theme but it still
-      # inherits from the freedesktop theme.
+        # gnome has a custom alert theme but it still
+        # inherits from the freedesktop theme.
       environment.systemPackages = with pkgs; [ sound-theme-freedesktop ];
 
-      # Needed for themes and backgrounds
-      environment.pathsToLink =
-        [ "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
+        # Needed for themes and backgrounds
+      environment.pathsToLink = [ "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
         ];
     })
 
     (mkIf serviceCfg.core-shell.enable {
-      services.xserver.desktopManager.gnome.sessionPath = let
-        mandatoryPackages = [ pkgs.gnome.gnome-shell ];
-        optionalPackages = [ pkgs.gnome.gnome-shell-extensions ];
-      in
-      mandatoryPackages ++ utils.removePackagesByName optionalPackages
-      config.environment.gnome.excludePackages
-      ;
+      services.xserver.desktopManager.gnome.sessionPath =
+        let
+          mandatoryPackages = [ pkgs.gnome.gnome-shell ];
+          optionalPackages = [ pkgs.gnome.gnome-shell-extensions ];
+        in
+        mandatoryPackages ++ utils.removePackagesByName optionalPackages
+        config.environment.gnome.excludePackages
+        ;
 
       services.colord.enable = mkDefault true;
       services.gnome.glib-networking.enable = true;
@@ -570,30 +577,31 @@ in {
         source-sans
       ];
 
-      # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-shell.bst
-      environment.systemPackages = let
-        mandatoryPackages = with pkgs.gnome; [ gnome-shell ];
-        optionalPackages = with pkgs.gnome; [
-          adwaita-icon-theme
-          nixos-background-info
-          gnome-backgrounds
-          gnome-bluetooth
-          gnome-color-manager
-          gnome-control-center
-          gnome-shell-extensions
-          gnome-themes-extra
-          pkgs.gnome-tour # GNOME Shell detects the .desktop file on first log-in.
-          pkgs.gnome-user-docs
-          pkgs.orca
-          pkgs.glib # for gsettings program
-          pkgs.gnome-menus
-          pkgs.gtk3.out # for gtk-launch program
-          pkgs.xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
-        ];
-      in
-      mandatoryPackages ++ utils.removePackagesByName optionalPackages
-      config.environment.gnome.excludePackages
-      ;
+        # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-shell.bst
+      environment.systemPackages =
+        let
+          mandatoryPackages = with pkgs.gnome; [ gnome-shell ];
+          optionalPackages = with pkgs.gnome; [
+            adwaita-icon-theme
+            nixos-background-info
+            gnome-backgrounds
+            gnome-bluetooth
+            gnome-color-manager
+            gnome-control-center
+            gnome-shell-extensions
+            gnome-themes-extra
+            pkgs.gnome-tour # GNOME Shell detects the .desktop file on first log-in.
+            pkgs.gnome-user-docs
+            pkgs.orca
+            pkgs.glib # for gsettings program
+            pkgs.gnome-menus
+            pkgs.gtk3.out # for gtk-launch program
+            pkgs.xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
+          ];
+        in
+        mandatoryPackages ++ utils.removePackagesByName optionalPackages
+        config.environment.gnome.excludePackages
+        ;
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst
@@ -629,10 +637,10 @@ in {
           gnome-software
         ]) config.environment.gnome.excludePackages;
 
-      # Enable default program modules
-      # Since some of these have a corresponding package, we only
-      # enable that program module if the package hasn't been excluded
-      # through `environment.gnome.excludePackages`
+        # Enable default program modules
+        # Since some of these have a corresponding package, we only
+        # enable that program module if the package hasn't been excluded
+        # through `environment.gnome.excludePackages`
       programs.evince.enable = notExcluded pkgs.gnome.evince;
       programs.file-roller.enable = notExcluded pkgs.gnome.file-roller;
       programs.geary.enable = notExcluded pkgs.gnome.geary;
@@ -640,16 +648,16 @@ in {
       programs.seahorse.enable = notExcluded pkgs.gnome.seahorse;
       services.gnome.sushi.enable = notExcluded pkgs.gnome.sushi;
 
-      # VTE shell integration for gnome-console
+        # VTE shell integration for gnome-console
       programs.bash.vteIntegration = mkDefault true;
       programs.zsh.vteIntegration = mkDefault true;
 
-      # Let nautilus find extensions
-      # TODO: Create nautilus-with-extensions package
+        # Let nautilus find extensions
+        # TODO: Create nautilus-with-extensions package
       environment.sessionVariables.NAUTILUS_4_EXTENSION_DIR =
         "${config.system.path}/lib/nautilus/extensions-4";
 
-      # Override default mimeapps for nautilus
+        # Override default mimeapps for nautilus
       environment.sessionVariables.XDG_DATA_DIRS = [ "${mimeAppsList}/share" ];
 
       environment.pathsToLink = [ "/share/nautilus-python/extensions" ];

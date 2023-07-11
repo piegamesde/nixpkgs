@@ -19,7 +19,7 @@ stdenv.mkDerivation {
   pname = "ldapvi";
   version = "unstable-2012-04-28";
 
-  # use latest git, it includes some important patches since 2007 release
+    # use latest git, it includes some important patches since 2007 release
   src = fetchgit {
     url = "http://www.lichteblau.com/git/ldapvi.git";
     rev = "f1d42bad66cc4623d1ff21fbd5dddbf5009d3e40";

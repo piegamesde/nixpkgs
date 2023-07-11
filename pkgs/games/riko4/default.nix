@@ -32,7 +32,8 @@ let
     meta = with lib; {
       homepage = "https://github.com/grimfang4/sdl-gpu";
       description =
-        "A library for high-performance, modern 2D graphics with SDL written in C";
+        "A library for high-performance, modern 2D graphics with SDL written in C"
+        ;
       license = licenses.mit;
       maintainers = with maintainers; [ CrazedProgrammer ];
     };
@@ -61,7 +62,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "fortify" ];
   cmakeFlags = [ ''-DSDL2_gpu_INCLUDE_DIR="${sdl-gpu}/include"'' ];
 
-  # Riko4 needs the data/ and scripts/ directories to be in its PWD.
+    # Riko4 needs the data/ and scripts/ directories to be in its PWD.
   installPhase = ''
     install -Dm0755 riko4 $out/bin/.riko4-unwrapped
     mkdir -p $out/lib/riko4

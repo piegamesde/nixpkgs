@@ -31,7 +31,7 @@ let
   version = "0.19.0";
   pname = "tensorflow_probability";
 
-  # first build all binaries and generate setup.py using bazel
+    # first build all binaries and generate setup.py using bazel
   bazel-wheel = buildBazelPackage {
     name = "${pname}-${version}-py2.py3-none-any.whl";
     src = fetchFromGitHub {
@@ -94,8 +94,8 @@ buildPythonPackage {
     keras
   ];
 
-  # Listed here:
-  # https://github.com/tensorflow/probability/blob/f3777158691787d3658b5e80883fe1a933d48989/testing/dependency_install_lib.sh#L83
+    # Listed here:
+    # https://github.com/tensorflow/probability/blob/f3777158691787d3658b5e80883fe1a933d48989/testing/dependency_install_lib.sh#L83
   nativeCheckInputs = [
     hypothesis
     pytest
@@ -106,12 +106,12 @@ buildPythonPackage {
     mock
   ];
 
-  # Ideally, we run unit tests with pytest, but in checkPhase, only the Bazel-build wheel is available.
-  # But it seems not guaranteed that running the tests with pytest will even work, see
-  # https://github.com/tensorflow/probability/blob/c2a10877feb2c4c06a4dc58281e69c37a11315b9/CONTRIBUTING.md?plain=1#L69
-  # Ideally, tests would be run using Bazel. For now, lets's do a...
+    # Ideally, we run unit tests with pytest, but in checkPhase, only the Bazel-build wheel is available.
+    # But it seems not guaranteed that running the tests with pytest will even work, see
+    # https://github.com/tensorflow/probability/blob/c2a10877feb2c4c06a4dc58281e69c37a11315b9/CONTRIBUTING.md?plain=1#L69
+    # Ideally, tests would be run using Bazel. For now, lets's do a...
 
-  # sanity check
+    # sanity check
   pythonImportsCheck = [ "tensorflow_probability" ];
 
   meta = with lib; {

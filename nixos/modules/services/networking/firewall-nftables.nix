@@ -13,9 +13,11 @@ let
 
   ifaceSet = concatStringsSep ", " (map (x: ''"${x}"'') cfg.trustedInterfaces);
 
-  portsToNftSet = ports: portRanges:
+  portsToNftSet =
+    ports: portRanges:
     concatStringsSep ", " (map (x: toString x) ports
-      ++ map (x: "${toString x.from}-${toString x.to}") portRanges);
+      ++ map (x: "${toString x.from}-${toString x.to}") portRanges)
+    ;
 
 in {
 
@@ -55,17 +57,20 @@ in {
       {
         assertion = cfg.extraCommands == "";
         message =
-          "extraCommands is incompatible with the nftables based firewall: ${cfg.extraCommands}";
+          "extraCommands is incompatible with the nftables based firewall: ${cfg.extraCommands}"
+          ;
       }
       {
         assertion = cfg.extraStopCommands == "";
         message =
-          "extraStopCommands is incompatible with the nftables based firewall: ${cfg.extraStopCommands}";
+          "extraStopCommands is incompatible with the nftables based firewall: ${cfg.extraStopCommands}"
+          ;
       }
       {
         assertion = cfg.pingLimit == null || !(hasPrefix "--" cfg.pingLimit);
         message = ''
-          nftables syntax like "2/second" should be used in networking.firewall.pingLimit'';
+          nftables syntax like "2/second" should be used in networking.firewall.pingLimit''
+          ;
       }
       {
         assertion = config.networking.nftables.rulesetFile == null;

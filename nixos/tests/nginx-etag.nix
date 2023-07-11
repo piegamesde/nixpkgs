@@ -2,7 +2,8 @@ import ./make-test-python.nix {
   name = "nginx-etag";
 
   nodes = {
-    server = {
+    server =
+      {
         pkgs,
         lib,
         ...
@@ -38,48 +39,54 @@ import ./make-test-python.nix {
             '');
           };
         };
-      };
+      }
+      ;
 
-    client = {
+    client =
+      {
         pkgs,
         lib,
         ...
       }: {
-        environment.systemPackages = let
-          testRunner = pkgs.writers.writePython3Bin "test-runner" {
-            libraries = [ pkgs.python3Packages.selenium ];
-          } ''
-            import os
-            import time
+        environment.systemPackages =
+          let
+            testRunner = pkgs.writers.writePython3Bin "test-runner" {
+              libraries = [ pkgs.python3Packages.selenium ];
+            } ''
+              import os
+              import time
 
-            from selenium.webdriver import Firefox
-            from selenium.webdriver.firefox.options import Options
+              from selenium.webdriver import Firefox
+              from selenium.webdriver.firefox.options import Options
 
-            options = Options()
-            options.add_argument('--headless')
-            driver = Firefox(options=options)
+              options = Options()
+              options.add_argument('--headless')
+              driver = Firefox(options=options)
 
-            driver.implicitly_wait(20)
-            driver.get('http://server/')
-            driver.find_element('xpath', '//div[@foo="bar"]')
-            open('/tmp/passed_stage1', 'w')
+              driver.implicitly_wait(20)
+              driver.get('http://server/')
+              driver.find_element('xpath', '//div[@foo="bar"]')
+              open('/tmp/passed_stage1', 'w')
 
-            while not os.path.exists('/tmp/proceed'):
-                time.sleep(0.5)
+              while not os.path.exists('/tmp/proceed'):
+                  time.sleep(0.5)
 
-            driver.get('http://server/')
-            driver.find_element('xpath', '//div[@foo="yay"]')
-            open('/tmp/passed', 'w')
-          '';
-        in [
-          pkgs.firefox-unwrapped
-          pkgs.geckodriver
-          testRunner
-        ] ;
-      };
+              driver.get('http://server/')
+              driver.find_element('xpath', '//div[@foo="yay"]')
+              open('/tmp/passed', 'w')
+            '';
+          in [
+            pkgs.firefox-unwrapped
+            pkgs.geckodriver
+            testRunner
+          ]
+          ;
+      }
+      ;
   };
 
-  testScript = {
+  testScript =
+    {
       nodes,
       ...
     }:
@@ -100,5 +107,6 @@ import ./make-test-python.nix {
       client.succeed("touch /tmp/proceed")
 
       client.wait_for_file("/tmp/passed")
-    '' ;
+    ''
+    ;
 }

@@ -40,7 +40,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Implementation of the communication protocol for Power-One Aurora inverters";
+      "Implementation of the communication protocol for Power-One Aurora inverters"
+      ;
     homepage = "https://gitlab.com/energievalsabbia/aurorapy";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

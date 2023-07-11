@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     name = "cage";
     meta = with pkgs.lib.maintainers; { maintainers = [ matthewbauer ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }:
 
@@ -22,13 +23,15 @@ import ./make-test-python.nix ({
           program = "${pkgs.xterm}/bin/xterm";
         };
 
-        # Need to switch to a different GPU driver than the default one (-vga std) so that Cage can launch:
+          # Need to switch to a different GPU driver than the default one (-vga std) so that Cage can launch:
         virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
-      };
+      }
+      ;
 
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -43,5 +46,6 @@ import ./make-test-python.nix ({
             machine.wait_until_succeeds("pgrep xterm")
             machine.wait_for_text("alice@machine")
             machine.screenshot("screen")
-      '' ;
+      ''
+      ;
   })

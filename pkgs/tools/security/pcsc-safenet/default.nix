@@ -16,18 +16,21 @@ stdenv.mkDerivation rec {
   version = "10.8.28";
 
   debName =
-    "Installation/Standard/Ubuntu-2004/safenetauthenticationclient_${version}_amd64.deb";
+    "Installation/Standard/Ubuntu-2004/safenetauthenticationclient_${version}_amd64.deb"
+    ;
 
-  # extract debian package from larger zip file
-  src = let
-    versionWithUnderscores = builtins.replaceStrings [ "." ] [ "_" ] version;
-  in
-  fetchzip {
-    url =
-      "https://www.digicert.com/StaticFiles/SAC_${versionWithUnderscores}_GA_Build.zip";
-    hash = "sha256-7XWj3T9/KnmgQ05urOJV6dqgkAS/A2G7efnqjQO2ing=";
-  }
-  ;
+    # extract debian package from larger zip file
+  src =
+    let
+      versionWithUnderscores = builtins.replaceStrings [ "." ] [ "_" ] version;
+    in
+    fetchzip {
+      url =
+        "https://www.digicert.com/StaticFiles/SAC_${versionWithUnderscores}_GA_Build.zip"
+        ;
+      hash = "sha256-7XWj3T9/KnmgQ05urOJV6dqgkAS/A2G7efnqjQO2ing=";
+    }
+    ;
 
   dontBuild = true;
   dontConfigure = true;
@@ -86,7 +89,7 @@ stdenv.mkDerivation rec {
 
   dontAutoPatchelf = true;
 
-  # Patch DYN shared libraries (autoPatchElfHook only patches EXEC | INTERP).
+    # Patch DYN shared libraries (autoPatchElfHook only patches EXEC | INTERP).
   postFixup = ''
     autoPatchelf "$out"
 
@@ -100,7 +103,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage =
-      "https://safenet.gemalto.com/multi-factor-authentication/security-applications/authentication-client-token-management";
+      "https://safenet.gemalto.com/multi-factor-authentication/security-applications/authentication-client-token-management"
+      ;
     description = "Safenet Authentication Client";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

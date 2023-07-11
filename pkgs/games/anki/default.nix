@@ -51,8 +51,8 @@ let
       mypy-protobuf
     ]);
 
-  # anki shells out to git to check its revision, and also to update submodules
-  # We don't actually need the submodules, so we stub that out
+    # anki shells out to git to check its revision, and also to update submodules
+    # We don't actually need the submodules, so we stub that out
   fakeGit = writeShellScriptBin "git" ''
     case "$*" in
       "rev-parse --short=8 HEAD")
@@ -68,7 +68,7 @@ let
     esac
   '';
 
-  # We don't want to run pip-sync, it does network-io
+    # We don't want to run pip-sync, it does network-io
   fakePipSync = writeShellScriptBin "pip-sync" ''
     exit 0
   '';
@@ -93,7 +93,7 @@ let
     hash = "sha256-jP0ltYVB52LolGtN/GGjM4I7ira16rRTXfyJlrdjTX4=";
   };
 
-  # https://discourse.nixos.org/t/mkyarnpackage-lockfile-has-incorrect-entry/21586/3
+    # https://discourse.nixos.org/t/mkyarnpackage-lockfile-has-incorrect-entry/21586/3
   anki-nodemodules = stdenv.mkDerivation {
     pname = "anki-nodemodules";
     inherit version src yarnOfflineCache;
@@ -202,7 +202,7 @@ python3.pkgs.buildPythonApplication {
       CoreAudio
     ];
 
-  # Activate optimizations
+    # Activate optimizations
   RELEASE = true;
 
   PROTOC_BINARY = lib.getExe protobuf;
@@ -236,10 +236,10 @@ python3.pkgs.buildPythonApplication {
     PIP_USER=1 ./ninja build wheels
   '';
 
-  # tests fail with to many open files
-  # TODO: verify if this is still true (I can't, no mac)
+    # tests fail with to many open files
+    # TODO: verify if this is still true (I can't, no mac)
   doCheck = !stdenv.isDarwin;
-  # mimic https://github.com/ankitects/anki/blob/76d8807315fcc2675e7fa44d9ddf3d4608efc487/build/ninja_gen/src/python.rs#L232-L250
+    # mimic https://github.com/ankitects/anki/blob/76d8807315fcc2675e7fa44d9ddf3d4608efc487/build/ninja_gen/src/python.rs#L232-L250
   checkPhase = ''
     HOME=$TMP ANKI_TEST_MODE=1 PYTHONPATH=$PYTHONPATH:$PWD/out/pylib \
       pytest -p no:cacheprovider pylib/tests

@@ -66,9 +66,10 @@ stdenv.mkDerivation {
     homepage = "http://www.dmst.aueb.gr/dds/sw/dgsh";
     license = with licenses; asl20;
     maintainers = with maintainers; [ vrthra ];
-    platforms = with platforms; all;
-    # lib/freadseek.c:68:3: error: #error "Please port gnulib freadseek.c to your platform! Look at the definition of getc, getc_unlocked on your >
-    # 68 |  #error "Please port gnulib freadseek.c to your platform! Look at the definition of getc, getc_unlocked on your system, then report >
+    platforms = with platforms;
+      all;
+      # lib/freadseek.c:68:3: error: #error "Please port gnulib freadseek.c to your platform! Look at the definition of getc, getc_unlocked on your >
+      # 68 |  #error "Please port gnulib freadseek.c to your platform! Look at the definition of getc, getc_unlocked on your system, then report >
     broken = true; # marked 2022-05-06
   };
 }

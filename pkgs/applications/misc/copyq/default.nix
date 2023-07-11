@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "Clipboard Manager with Advanced Features";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ artturin ];
-    # NOTE: CopyQ supports windows and osx, but I cannot test these.
+      # NOTE: CopyQ supports windows and osx, but I cannot test these.
     platforms = platforms.linux;
     mainProgram = "copyq";
   };

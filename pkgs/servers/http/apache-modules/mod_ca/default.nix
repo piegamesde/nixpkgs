@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
     aprutil
   ];
 
-  # Note that configureFlags and installFlags are inherited by
-  # the various submodules.
-  #
+    # Note that configureFlags and installFlags are inherited by
+    # the various submodules.
+    #
   configureFlags = [ "--with-apxs=${apacheHttpd.dev}/bin/apxs" ];
 
   installFlags = [

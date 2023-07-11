@@ -2,7 +2,8 @@ import ./make-test-python.nix {
   name = "zram-generator";
 
   nodes = {
-    single = {
+    single =
+      {
         ...
       }: {
         virtualisation = { emptyDiskImages = [ 512 ]; };
@@ -15,8 +16,10 @@ import ./make-test-python.nix {
           memoryMax = 10 * 1024 * 1024;
           writebackDevice = "/dev/vdb";
         };
-      };
-    machine = {
+      }
+      ;
+    machine =
+      {
         ...
       }: {
         zramSwap = {
@@ -27,7 +30,8 @@ import ./make-test-python.nix {
           memoryPercent = 30;
           memoryMax = 10 * 1024 * 1024;
         };
-      };
+      }
+      ;
   };
 
   testScript = ''

@@ -14,16 +14,18 @@
 }:
 
 let
-  host_os = if stdenv.hostPlatform.isDarwin then
-    "APPLE"
-  else if stdenv.hostPlatform.isAndroid then
-    "ANDROID"
-  else if stdenv.hostPlatform.isWindows then
-    "WINDOWS"
-  else if stdenv.hostPlatform.isLinux then
-    "LINUX"
-  else
-    throw "Unknown host OS";
+  host_os =
+    if stdenv.hostPlatform.isDarwin then
+      "APPLE"
+    else if stdenv.hostPlatform.isAndroid then
+      "ANDROID"
+    else if stdenv.hostPlatform.isWindows then
+      "WINDOWS"
+    else if stdenv.hostPlatform.isLinux then
+      "LINUX"
+    else
+      throw "Unknown host OS"
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -56,8 +58,8 @@ stdenv.mkDerivation rec {
     rm tests/aws-cpp-sdk-core-tests/aws/client/AdaptiveRetryStrategyTest.cpp
   '';
 
-  # FIXME: might be nice to put different APIs in different outputs
-  # (e.g. libaws-cpp-sdk-s3.so in output "s3").
+    # FIXME: might be nice to put different APIs in different outputs
+    # (e.g. libaws-cpp-sdk-s3.so in output "s3").
   outputs = [
     "out"
     "dev"
@@ -78,9 +80,9 @@ stdenv.mkDerivation rec {
       AudioToolbox
     ];
 
-  # propagation is needed for Security.framework to be available when linking
+    # propagation is needed for Security.framework to be available when linking
   propagatedBuildInputs = [ aws-crt-cpp ];
-  # Ensure the linker is using atomic when compiling for RISC-V, otherwise fails
+    # Ensure the linker is using atomic when compiling for RISC-V, otherwise fails
   LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";
 
   cmakeFlags = [ "-DBUILD_DEPS=OFF" ]
@@ -98,8 +100,8 @@ stdenv.mkDerivation rec {
     "-Wno-error=deprecated-declarations"
   ];
 
-  # aws-cpp-sdk-core-tests/aws/client/AWSClientTest.cpp
-  # seem to have a datarace
+    # aws-cpp-sdk-core-tests/aws/client/AWSClientTest.cpp
+    # seem to have a datarace
   enableParallelChecking = false;
 
   postFixupHooks = [
@@ -110,7 +112,7 @@ stdenv.mkDerivation rec {
 
   __darwinAllowLocalNetworking = true;
 
-  # Builds in 2+h with 2 cores, and ~10m with a big-parallel builder.
+    # Builds in 2+h with 2 cores, and ~10m with a big-parallel builder.
   requiredSystemFeatures = [ "big-parallel" ];
 
   meta = with lib; {
@@ -122,7 +124,7 @@ stdenv.mkDerivation rec {
       eelco
       orivej
     ];
-    # building ec2 runs out of memory: cc1plus: out of memory allocating 33554372 bytes after a total of 74424320 bytes
+      # building ec2 runs out of memory: cc1plus: out of memory allocating 33554372 bytes after a total of 74424320 bytes
     broken = stdenv.buildPlatform.is32bit
       && ((builtins.elem "ec2" apis) || (builtins.elem "*" apis));
   };

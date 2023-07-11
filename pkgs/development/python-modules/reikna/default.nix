@@ -39,7 +39,7 @@ buildPythonPackage rec {
     py.test
   '';
 
-  # Requires device
+    # Requires device
   doCheck = false;
 
   meta = with lib; {

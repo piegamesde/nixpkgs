@@ -29,7 +29,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # Tests are not pick-up automatically by the hook
+    # Tests are not pick-up automatically by the hook
   pytestFlagsArray = [ "aiosqlite/tests/*.py" ];
 
   pythonImportsCheck = [ "aiosqlite" ];

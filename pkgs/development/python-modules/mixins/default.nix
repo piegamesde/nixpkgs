@@ -18,7 +18,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/nickderobertis/py-mixins";
     description =
-      "Mixin classes which may be added to your own classes to add certain functionality to them";
+      "Mixin classes which may be added to your own classes to add certain functionality to them"
+      ;
     maintainers = with maintainers; [ aanderse ];
     license = licenses.mit;
   };

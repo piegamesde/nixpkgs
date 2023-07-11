@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
     # As Threema only offers a Latest Release url, the plan is to upload each
     # new release url to web.archive.org until their Github releases page gets populated.
     url =
-      "https://web.archive.org/web/20230302151220/https://releases.threema.ch/web-electron/v1/release/Threema-Latest.deb";
+      "https://web.archive.org/web/20230302151220/https://releases.threema.ch/web-electron/v1/release/Threema-Latest.deb"
+      ;
     sha256 = "0jx271zwqja7i7qdvhiyq5m6g19a12falfvxbkxrw7ab3ycds2px";
   };
 
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Desktop client for Threema, a privacy-focused end-to-end encrypted mobile messenger";
+      "Desktop client for Threema, a privacy-focused end-to-end encrypted mobile messenger"
+      ;
     homepage = "https://threema.ch";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.agpl3Only;

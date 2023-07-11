@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     }"
   ];
 
-  # Uses define_variable in pkg-config, but we still need it to use the glade output
+    # Uses define_variable in pkg-config, but we still need it to use the glade output
   PKG_CONFIG_GLADEUI_2_0_MODULEDIR = "${placeholder "glade"}/lib/glade/modules";
   PKG_CONFIG_GLADEUI_2_0_CATALOGDIR =
     "${placeholder "glade"}/share/glade/catalogs";
@@ -121,15 +121,16 @@ stdenv.mkDerivation rec {
       versionPolicy = "odd-unstable";
     };
   } // lib.optionalAttrs (!enableGlade) {
-    glade = let
-      libhandyWithGlade = libhandy.override { enableGlade = true; };
-    in
-    runCommand "${libhandy.name}-glade" { } ''
-      cp -r "${libhandyWithGlade.glade}" "$out"
-      chmod -R +w "$out"
-      sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
-    ''
-    ;
+    glade =
+      let
+        libhandyWithGlade = libhandy.override { enableGlade = true; };
+      in
+      runCommand "${libhandy.name}-glade" { } ''
+        cp -r "${libhandyWithGlade.glade}" "$out"
+        chmod -R +w "$out"
+        sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
+      ''
+      ;
   };
 
   meta = with lib; {

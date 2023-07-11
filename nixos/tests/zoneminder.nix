@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     name = "zoneminder";
     meta.maintainers = with lib.maintainers; [ danielfullmer ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.zoneminder = {
@@ -16,7 +17,8 @@ import ./make-test-python.nix ({
           database.username = "zoneminder";
         };
         time.timeZone = "America/New_York";
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("zoneminder.service")

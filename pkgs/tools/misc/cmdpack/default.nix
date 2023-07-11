@@ -4,7 +4,8 @@
   fetchurl,
 }:
 let
-  mkCmdPackDerivation = {
+  mkCmdPackDerivation =
+    {
       pname,
       postInstall ? "",
       description,
@@ -16,7 +17,8 @@ let
 
       src = fetchurl {
         url =
-          "https://web.archive.org/web/20140330233023/http://www.neillcorlett.com/downloads/cmdpack-1.03-src.tar.gz";
+          "https://web.archive.org/web/20140330233023/http://www.neillcorlett.com/downloads/cmdpack-1.03-src.tar.gz"
+          ;
         sha256 = "0v0a9rpv59w8lsp1cs8f65568qj65kd9qp7854z1ivfxfpq0da2n";
       };
 
@@ -41,12 +43,14 @@ let
         inherit description;
 
         homepage =
-          "https://web.archive.org/web/20140330233023/http://www.neillcorlett.com/cmdpack/";
+          "https://web.archive.org/web/20140330233023/http://www.neillcorlett.com/cmdpack/"
+          ;
         platforms = platforms.all;
         license = licenses.gpl3Plus;
         maintainers = with maintainers; [ zane ];
       };
-    };
+    }
+    ;
 in {
   bin2iso = mkCmdPackDerivation {
     pname = "bin2iso";

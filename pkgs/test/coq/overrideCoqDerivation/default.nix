@@ -15,11 +15,11 @@ let
 
   coqPackages = mkCoqPackages coqWithAllPackages;
 
-  # This is the main test.  This uses overrideCoqDerivation to
-  # override arguments to mkCoqDerivation.
-  #
-  # Here, we override the defaultVersion and release arguments to
-  # mkCoqDerivation.
+    # This is the main test.  This uses overrideCoqDerivation to
+    # override arguments to mkCoqDerivation.
+    #
+    # Here, we override the defaultVersion and release arguments to
+    # mkCoqDerivation.
   overriddenQuickChick = coqPackages.lib.overrideCoqDerivation {
     defaultVersion = "9999";
     release."9999".sha256 = lib.fakeSha256;

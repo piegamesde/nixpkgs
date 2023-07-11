@@ -24,8 +24,10 @@
 }:
 let
   # Helper method to reduce redundancy
-  patchExtension = name: override: super:
-    (super // { ${name} = super.${name}.overrideAttrs override; });
+  patchExtension =
+    name: override: super:
+    (super // { ${name} = super.${name}.overrideAttrs override; })
+    ;
   # A set of overrides for automatically packaged extensions that require some small fixes.
   # The input must be an attribute set with the extensions' UUIDs as keys and the extension
   # derivations as values. Output is the same, but with patches applied.
@@ -67,7 +69,8 @@ lib.trivial.pipe super [
   (patchExtension "freon@UshakovVasilii_Github.yahoo.com" (old: {
     patches = [ (substituteAll {
       src =
-        ./extensionOverridesPatches/freon_at_UshakovVasilii_Github.yahoo.com.patch;
+        ./extensionOverridesPatches/freon_at_UshakovVasilii_Github.yahoo.com.patch
+        ;
       inherit hddtemp liquidctl lm_sensors procps smartmontools;
       netcat = netcat-gnu;
       nvmecli = nvme-cli;

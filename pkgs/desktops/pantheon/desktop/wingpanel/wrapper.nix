@@ -14,10 +14,12 @@
 }:
 
 let
-  selectedIndicators = if indicators == null then
-    wingpanelIndicators
-  else
-    indicators ++ (lib.optionals useDefaultIndicators wingpanelIndicators);
+  selectedIndicators =
+    if indicators == null then
+      wingpanelIndicators
+    else
+      indicators ++ (lib.optionals useDefaultIndicators wingpanelIndicators)
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "${wingpanel.pname}-with-indicators";
@@ -34,8 +36,8 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = lib.forEach selectedIndicators (x: x.buildInputs)
-    ++ selectedIndicators;
+  buildInputs =
+    lib.forEach selectedIndicators (x: x.buildInputs) ++ selectedIndicators;
 
   dontUnpack = true;
   dontConfigure = true;

@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
         "no"
     }" ];
 
-  # workaround https://github.com/NixOS/nixpkgs/issues/155458
+    # workaround https://github.com/NixOS/nixpkgs/issues/155458
   preBuild = lib.optionalString stdenv.cc.isClang ''
     rm version
   '';

@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
     # https://github.com/elementary/code/pull/1254
     (fetchpatch {
       url =
-        "https://github.com/elementary/code/commit/1e75388b07c060cc10ecd612076f235b1833fab8.patch";
+        "https://github.com/elementary/code/commit/1e75388b07c060cc10ecd612076f235b1833fab8.patch"
+        ;
       sha256 = "sha256-8Djh1orMcmICdYwQFENJCaYlXK0E52NhCmuhlHCz7oM=";
     })
   ];
@@ -74,7 +75,7 @@ stdenv.mkDerivation rec {
     vte
   ];
 
-  # ctags needed in path by outline plugin
+    # ctags needed in path by outline plugin
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${lib.makeBinPath [ ctags ]}"

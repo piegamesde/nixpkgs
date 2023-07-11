@@ -53,13 +53,15 @@ let
   patches = [ (substituteAll {
     src = ./ctypes.patch;
     libpq =
-      "${postgresql.lib}/lib/libpq${stdenv.hostPlatform.extensions.sharedLibrary}";
+      "${postgresql.lib}/lib/libpq${stdenv.hostPlatform.extensions.sharedLibrary}"
+      ;
     libc = "${stdenv.cc.libc}/lib/libc.so.6";
   }) ];
 
   baseMeta = {
     changelog =
-      "https://github.com/psycopg/psycopg/blob/${version}/docs/news.rst#current-release";
+      "https://github.com/psycopg/psycopg/blob/${version}/docs/news.rst#current-release"
+      ;
     homepage = "https://github.com/psycopg/psycopg";
     license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ hexa ];
@@ -70,7 +72,7 @@ let
     inherit version src;
     format = "pyproject";
 
-    # apply patches to base repo
+      # apply patches to base repo
     inherit
       patches
       ;
@@ -87,12 +89,11 @@ let
       tomli
     ];
 
-    # tested in psycopg
+      # tested in psycopg
     doCheck = false;
 
-    meta = baseMeta // {
-      description = "C optimisation distribution for Psycopg";
-    };
+    meta =
+      baseMeta // { description = "C optimisation distribution for Psycopg"; };
   };
 
   psycopg-pool = buildPythonPackage {
@@ -100,7 +101,7 @@ let
     inherit version src;
     format = "setuptools";
 
-    # apply patches to base repo
+      # apply patches to base repo
     inherit
       patches
       ;
@@ -112,7 +113,7 @@ let
 
     propagatedBuildInputs = [ typing-extensions ];
 
-    # tested in psycopg
+      # tested in psycopg
     doCheck = false;
 
     meta = baseMeta // { description = "Connection Pool for Psycopg"; };
@@ -132,10 +133,11 @@ buildPythonPackage rec {
 
   sphinxRoot = "../docs";
 
-  # Introduce this file necessary for the docs build via environment var
+    # Introduce this file necessary for the docs build via environment var
   LIBPQ_DOCS_FILE = fetchurl {
     url =
-      "https://raw.githubusercontent.com/postgres/postgres/REL_14_STABLE/doc/src/sgml/libpq.sgml";
+      "https://raw.githubusercontent.com/postgres/postgres/REL_14_STABLE/doc/src/sgml/libpq.sgml"
+      ;
     hash = "sha256-yn09fR9+7zQni8SvTG7BUmYRD7MK7u2arVAznWz2oAw=";
   };
 
@@ -223,7 +225,6 @@ buildPythonPackage rec {
     pool = psycopg-pool;
   };
 
-  meta = baseMeta // {
-    description = "PostgreSQL database adapter for Python";
-  };
+  meta =
+    baseMeta // { description = "PostgreSQL database adapter for Python"; };
 }

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     linecache2
   ];
 
-  # circular dependencies for tests
+    # circular dependencies for tests
   doCheck = false;
 
   meta = with lib; {

@@ -14,10 +14,10 @@ buildPythonPackage rec {
     sha256 = "fd246f2fb297ed074dc4349966d33a1c82d0308b7fb0d6ef6e2e76b90cefffb7";
   };
 
-  # Tests aren't run
+    # Tests aren't run
   doCheck = false;
 
-  # Requires Django >= 1.8
+    # Requires Django >= 1.8
   buildInputs = [ django ];
 
   meta = with lib; {

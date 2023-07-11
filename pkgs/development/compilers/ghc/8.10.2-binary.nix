@@ -29,22 +29,22 @@ let
 
   version = "8.10.2";
 
-  # Information about available bindists that we use in the build.
-  #
-  # # Bindist library checking
-  #
-  # The field `archSpecificLibraries` also provides a way for us get notified
-  # early when the upstream bindist changes its dependencies (e.g. because a
-  # newer Debian version is used that uses a new `ncurses` version).
-  #
-  # Usage:
-  #
-  # * You can find the `fileToCheckFor` of libraries by running `readelf -d`
-  #   on the compiler binary (`exePathForLibraryCheck`).
-  # * To skip library checking for an architecture,
-  #   set `exePathForLibraryCheck = null`.
-  # * To skip file checking for a specific arch specfic library,
-  #   set `fileToCheckFor = null`.
+    # Information about available bindists that we use in the build.
+    #
+    # # Bindist library checking
+    #
+    # The field `archSpecificLibraries` also provides a way for us get notified
+    # early when the upstream bindist changes its dependencies (e.g. because a
+    # newer Debian version is used that uses a new `ncurses` version).
+    #
+    # Usage:
+    #
+    # * You can find the `fileToCheckFor` of libraries by running `readelf -d`
+    #   on the compiler binary (`exePathForLibraryCheck`).
+    # * To skip library checking for an architecture,
+    #   set `exePathForLibraryCheck = null`.
+    # * To skip file checking for a specific arch specfic library,
+    #   set `fileToCheckFor = null`.
   ghcBinDists = {
     # Binary distributions for the default libc (e.g. glibc, or libSystem on Darwin)
     # nixpkgs uses for the respective system.
@@ -75,7 +75,8 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-deb10-linux.tar.xz";
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-deb10-linux.tar.xz"
+            ;
           sha256 = "0chnzy9j23b2wa8clx5arwz8wnjfxyjmz9qkj548z14cqf13slcl";
         };
         exePathForLibraryCheck = "ghc/stage2/build/tmp/ghc-stage2";
@@ -94,7 +95,8 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-armv7-deb10-linux.tar.xz";
+            "${downloadsUrl}/${version}/ghc-${version}-armv7-deb10-linux.tar.xz"
+            ;
           sha256 = "1j41cq5d3rmlgz7hzw8f908fs79gc5mn3q5wz277lk8zdf19g75v";
         };
         exePathForLibraryCheck = "ghc/stage2/build/tmp/ghc-stage2";
@@ -113,7 +115,8 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-aarch64-deb10-linux.tar.xz";
+            "${downloadsUrl}/${version}/ghc-${version}-aarch64-deb10-linux.tar.xz"
+            ;
           sha256 = "14smwl3741ixnbgi0l51a7kh7xjkiannfqx15b72svky0y4l3wjw";
         };
         exePathForLibraryCheck = "ghc/stage2/build/tmp/ghc-stage2";
@@ -136,7 +139,8 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz"
+            ;
           sha256 = "1hngyq14l4f950hzhh2d204ca2gfc98pc9xdasxihzqd1jq75dzd";
         };
         exePathForLibraryCheck =
@@ -157,13 +161,14 @@ let
         ];
       };
     };
-    # Binary distributions for the musl libc for the respective system.
+      # Binary distributions for the musl libc for the respective system.
     musl = {
       x86_64-linux = {
         variantSuffix = "-musl";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.10-linux-integer-simple.tar.xz";
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.10-linux-integer-simple.tar.xz"
+            ;
           sha256 = "0xpcbyaxqyhbl6f0i3s4rp2jm67nqpkfh2qlbj3i2fiaix89ml0l";
         };
         exePathForLibraryCheck = "bin/ghc";
@@ -184,14 +189,17 @@ let
     };
   };
 
-  distSetName = if stdenv.hostPlatform.isMusl then
-    "musl"
-  else
-    "defaultLibc";
+  distSetName =
+    if stdenv.hostPlatform.isMusl then
+      "musl"
+    else
+      "defaultLibc"
+    ;
 
   binDistUsed =
     ghcBinDists.${distSetName}.${stdenv.hostPlatform.system} or (throw
-      "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')");
+      "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')")
+    ;
 
   useLLVM = !stdenv.targetPlatform.isx86;
 
@@ -203,8 +211,8 @@ let
       }:
       nixPackage) binDistUsed.archSpecificLibraries);
 
-  libEnvVar = lib.optionalString stdenv.hostPlatform.isDarwin "DY"
-    + "LD_LIBRARY_PATH";
+  libEnvVar =
+    lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
 
   runtimeDeps = [
     targetPackages.stdenv.cc
@@ -222,11 +230,11 @@ stdenv.mkDerivation rec {
 
   src = fetchurl binDistUsed.src;
 
-  # Note that for GHC 8.10 versions <= 8.10.5, the GHC HQ musl bindist
-  # has a `gmp` dependency:
-  # https://gitlab.haskell.org/ghc/ghc/-/commit/8306501020cd66f683ad9c215fa8e16c2d62357d
-  # Related nixpkgs issues:
-  # * https://github.com/NixOS/nixpkgs/pull/130441#issuecomment-922452843
+    # Note that for GHC 8.10 versions <= 8.10.5, the GHC HQ musl bindist
+    # has a `gmp` dependency:
+    # https://gitlab.haskell.org/ghc/ghc/-/commit/8306501020cd66f683ad9c215fa8e16c2d62357d
+    # Related nixpkgs issues:
+    # * https://github.com/NixOS/nixpkgs/pull/130441#issuecomment-922452843
 
   nativeBuildInputs = [ perl ];
   propagatedBuildInputs =
@@ -252,10 +260,10 @@ stdenv.mkDerivation rec {
     # will be made there too.
     lib.optionals stdenv.hostPlatform.isMusl [ gmp ]; # musl bindist needs this
 
-  # Set LD_LIBRARY_PATH or equivalent so that the programs running as part
-  # of the bindist installer can find the libraries they expect.
-  # Cannot patchelf beforehand due to relative RPATHs that anticipate
-  # the final install location.
+    # Set LD_LIBRARY_PATH or equivalent so that the programs running as part
+    # of the bindist installer can find the libraries they expect.
+    # Cannot patchelf beforehand due to relative RPATHs that anticipate
+    # the final install location.
   ${libEnvVar} = libPath;
 
   postUnpack =
@@ -348,7 +356,7 @@ stdenv.mkDerivation rec {
       fi
     '';
 
-  # fix for `configure: error: Your linker is affected by binutils #16177`
+    # fix for `configure: error: Your linker is affected by binutils #16177`
   preConfigure =
     lib.optionalString stdenv.targetPlatform.isAarch32 "LD=ld.gold";
 
@@ -360,11 +368,11 @@ stdenv.mkDerivation rec {
     # From: https://github.com/NixOS/nixpkgs/pull/43369/commits
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
 
-  # No building is necessary, but calling make without flags ironically
-  # calls install-strip ...
+    # No building is necessary, but calling make without flags ironically
+    # calls install-strip ...
   dontBuild = true;
 
-  # Patch scripts to include runtime dependencies in $PATH.
+    # Patch scripts to include runtime dependencies in $PATH.
   postInstall = ''
     for i in "$out/bin/"*; do
       test ! -h "$i" || continue
@@ -373,27 +381,29 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # Apparently necessary for the ghc Alpine (musl) bindist:
-  # When we strip, and then run the
-  #     patchelf --set-rpath "${libPath}:$(patchelf --print-rpath $p)" $p
-  # below, running ghc (e.g. during `installCheckPhase)` gives some apparently
-  # corrupted rpath or whatever makes the loader work on nonsensical strings:
-  #     running install tests
-  #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: : symbol not found
-  #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: ir6zf6c9f86pfx8sr30n2vjy-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/../lib/x86_64-linux-ghc-8.10.5/libHSexceptions-0.10.4-ghc8.10.5.so: symbol not found
-  #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: y/lib/ghc-8.10.5/bin/../lib/x86_64-linux-ghc-8.10.5/libHStemplate-haskell-2.16.0.0-ghc8.10.5.so: symbol not found
-  #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: 8.10.5/libHStemplate-haskell-2.16.0.0-ghc8.10.5.so: symbol not found
-  #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: �: symbol not found
-  #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: �?: symbol not found
-  #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: 64-linux-ghc-8.10.5/libHSexceptions-0.10.4-ghc8.10.5.so: symbol not found
-  # This is extremely bogus and should be investigated.
-  dontStrip = if stdenv.hostPlatform.isMusl then
-    true
-  else
-    false; # `if` for explicitness
+    # Apparently necessary for the ghc Alpine (musl) bindist:
+    # When we strip, and then run the
+    #     patchelf --set-rpath "${libPath}:$(patchelf --print-rpath $p)" $p
+    # below, running ghc (e.g. during `installCheckPhase)` gives some apparently
+    # corrupted rpath or whatever makes the loader work on nonsensical strings:
+    #     running install tests
+    #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: : symbol not found
+    #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: ir6zf6c9f86pfx8sr30n2vjy-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/../lib/x86_64-linux-ghc-8.10.5/libHSexceptions-0.10.4-ghc8.10.5.so: symbol not found
+    #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: y/lib/ghc-8.10.5/bin/../lib/x86_64-linux-ghc-8.10.5/libHStemplate-haskell-2.16.0.0-ghc8.10.5.so: symbol not found
+    #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: 8.10.5/libHStemplate-haskell-2.16.0.0-ghc8.10.5.so: symbol not found
+    #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: �: symbol not found
+    #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: �?: symbol not found
+    #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: 64-linux-ghc-8.10.5/libHSexceptions-0.10.4-ghc8.10.5.so: symbol not found
+    # This is extremely bogus and should be investigated.
+  dontStrip =
+    if stdenv.hostPlatform.isMusl then
+      true
+    else
+      false
+    ; # `if` for explicitness
 
-  # On Linux, use patchelf to modify the executables so that they can
-  # find editline/gmp.
+    # On Linux, use patchelf to modify the executables so that they can
+    # find editline/gmp.
   postFixup = lib.optionalString stdenv.isLinux (if
     stdenv.hostPlatform.isAarch64
   then
@@ -447,13 +457,13 @@ stdenv.mkDerivation rec {
       # They're in $out/share/{doc,man}.
     '';
 
-  # In nixpkgs, musl based builds currently enable `pie` hardening by default
-  # (see `defaultHardeningFlags` in `make-derivation.nix`).
-  # But GHC cannot currently produce outputs that are ready for `-pie` linking.
-  # Thus, disable `pie` hardening, otherwise `recompile with -fPIE` errors appear.
-  # See:
-  # * https://github.com/NixOS/nixpkgs/issues/129247
-  # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
+    # In nixpkgs, musl based builds currently enable `pie` hardening by default
+    # (see `defaultHardeningFlags` in `make-derivation.nix`).
+    # But GHC cannot currently produce outputs that are ready for `-pie` linking.
+    # Thus, disable `pie` hardening, otherwise `recompile with -fPIE` errors appear.
+    # See:
+    # * https://github.com/NixOS/nixpkgs/issues/129247
+    # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
   hardeningDisable = lib.optional stdenv.targetPlatform.isMusl "pie";
 
   doInstallCheck = true;
@@ -496,15 +506,15 @@ stdenv.mkDerivation rec {
     homepage = "http://haskell.org/ghc";
     description = "The Glasgow Haskell Compiler";
     license = lib.licenses.bsd3;
-    # HACK: since we can't encode the libc / abi in platforms, we need
-    # to make the platform list dependent on the evaluation platform
-    # in order to avoid eval errors with musl which supports less
-    # platforms than the default libcs (i. e. glibc / libSystem).
-    # This is done for the benefit of Hydra, so `packagePlatforms`
-    # won't return any platforms that would cause an evaluation
-    # failure for `pkgsMusl.haskell.compiler.ghc8102Binary`, as
-    # long as the evaluator runs on a platform that supports
-    # `pkgsMusl`.
+      # HACK: since we can't encode the libc / abi in platforms, we need
+      # to make the platform list dependent on the evaluation platform
+      # in order to avoid eval errors with musl which supports less
+      # platforms than the default libcs (i. e. glibc / libSystem).
+      # This is done for the benefit of Hydra, so `packagePlatforms`
+      # won't return any platforms that would cause an evaluation
+      # failure for `pkgsMusl.haskell.compiler.ghc8102Binary`, as
+      # long as the evaluator runs on a platform that supports
+      # `pkgsMusl`.
     platforms = builtins.attrNames ghcBinDists.${distSetName};
     hydraPlatforms =
       builtins.filter (p: minimal || p != "aarch64-linux") platforms;

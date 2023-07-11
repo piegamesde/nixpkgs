@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "without-nix";
     meta = with lib.maintainers; { maintainers = [ ericson2314 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         nix.enable = false;
@@ -14,7 +15,7 @@ import ./make-test-python.nix ({
           nixVersions =
             lib.mapAttrs (k: throw "don't want to use pkgs.nixVersions.${k}")
             super.nixVersions;
-          # aliases, some deprecated
+            # aliases, some deprecated
           nix_2_3 = throw "don't want to use pkgs.nix_2_3";
           nix_2_4 = throw "don't want to use pkgs.nix_2_4";
           nix_2_5 = throw "don't want to use pkgs.nix_2_5";
@@ -24,7 +25,8 @@ import ./make-test-python.nix ({
           nixUnstable = throw "don't want to use pkgs.nixUnstable";
           nixStatic = throw "don't want to use pkgs.nixStatic";
         }) ];
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "monocasual";
     repo = pname;
-    # Using master with https://github.com/monocasual/giada/pull/509 till a new release is done.
+      # Using master with https://github.com/monocasual/giada/pull/509 till a new release is done.
     rev = "f117a8b8eef08d904ef1ab22c45f0e1fad6b8a56";
     sha256 = "01hb981lrsyk870zs8xph5fm0z7bbffpkxgw04hq487r804mkx9j";
     fetchSubmodules = true;
@@ -75,7 +75,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A free, minimal, hardcore audio tool for DJs, live performers and electronic musicians";
+      "A free, minimal, hardcore audio tool for DJs, live performers and electronic musicians"
+      ;
     homepage = "https://giadamusic.com/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];

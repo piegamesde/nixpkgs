@@ -27,7 +27,7 @@ buildGoModule {
 
   preCheck = "export HOME=$(mktemp -d)";
 
-  # # TODO investigate why some tests are failing
+    # # TODO investigate why some tests are failing
   doCheck = false;
 
   installCheckPhase = ''

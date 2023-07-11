@@ -12,11 +12,11 @@ buildPythonApplication rec {
   pname = "pwgen-secure";
   version = "0.9.1";
 
-  # it needs `secrets` which was introduced in 3.6
+    # it needs `secrets` which was introduced in 3.6
   disabled = pythonOlder "3.6";
 
-  # GH is newer than Pypi and contains both library *and* the actual program
-  # whereas Pypi only has the library
+    # GH is newer than Pypi and contains both library *and* the actual program
+    # whereas Pypi only has the library
   src = fetchFromGitHub {
     owner = "mjmunger";
     repo = "pwgen_secure";
@@ -38,7 +38,7 @@ buildPythonApplication rec {
     install -Dm444 pwgen_secure/words.txt -t $shareDir
   '';
 
-  # there are no checks
+    # there are no checks
   doCheck = false;
 
   meta = with lib; {

@@ -32,8 +32,8 @@ buildGoModule rec {
     "-X github.com/docker-slim/docker-slim/pkg/version.appVersionRev=${src.rev}"
   ];
 
-  # docker-slim tries to create its state dir next to the binary (inside the nix
-  # store), so we set it to use the working directory at the time of invocation
+    # docker-slim tries to create its state dir next to the binary (inside the nix
+    # store), so we set it to use the working directory at the time of invocation
   postInstall = ''
     wrapProgram "$out/bin/slim" --add-flags '--state-path "$(pwd)"'
   '';

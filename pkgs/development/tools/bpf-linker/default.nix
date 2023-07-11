@@ -32,8 +32,8 @@ rustPlatform.buildRustPackage rec {
     libxml2
   ];
 
-  # fails with: couldn't find crate `core` with expected target triple bpfel-unknown-none
-  # rust-src and `-Z build-std=core` are required to properly run the tests
+    # fails with: couldn't find crate `core` with expected target triple bpfel-unknown-none
+    # rust-src and `-Z build-std=core` are required to properly run the tests
   doCheck = false;
 
   meta = with lib; {
@@ -44,8 +44,8 @@ rustPlatform.buildRustPackage rec {
       mit
     ];
     maintainers = with maintainers; [ nickcao ];
-    # llvm-sys crate locates llvm by calling llvm-config
-    # which is not available when cross compiling
+      # llvm-sys crate locates llvm by calling llvm-config
+      # which is not available when cross compiling
     broken = stdenv.buildPlatform != stdenv.hostPlatform;
   };
 }

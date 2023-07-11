@@ -98,11 +98,13 @@ let
     }
   '') vrrpInstances);
 
-  virtualIpLine = ip:
+  virtualIpLine =
+    ip:
     ip.addr + optionalString (notNullOrEmpty ip.brd) " brd ${ip.brd}"
     + optionalString (notNullOrEmpty ip.dev) " dev ${ip.dev}"
     + optionalString (notNullOrEmpty ip.scope) " scope ${ip.scope}"
-    + optionalString (notNullOrEmpty ip.label) " label ${ip.label}";
+    + optionalString (notNullOrEmpty ip.label) " label ${ip.label}"
+    ;
 
   notNullOrEmpty = s: !(s == null || s == "");
 
@@ -112,47 +114,60 @@ let
   vrrpInstances = mapAttrsToList (iName: iConfig: { name = iName; } // iConfig)
     cfg.vrrpInstances;
 
-  vrrpInstanceAssertions = i:
+  vrrpInstanceAssertions =
+    i:
     [
       {
         assertion = i.interface != "";
         message =
-          "services.keepalived.vrrpInstances.${i.name}.interface option cannot be empty.";
+          "services.keepalived.vrrpInstances.${i.name}.interface option cannot be empty."
+          ;
       }
       {
         assertion = i.virtualRouterId >= 0 && i.virtualRouterId <= 255;
         message =
-          "services.keepalived.vrrpInstances.${i.name}.virtualRouterId must be an integer between 0..255.";
+          "services.keepalived.vrrpInstances.${i.name}.virtualRouterId must be an integer between 0..255."
+          ;
       }
       {
         assertion = i.priority >= 0 && i.priority <= 255;
         message =
-          "services.keepalived.vrrpInstances.${i.name}.priority must be an integer between 0..255.";
+          "services.keepalived.vrrpInstances.${i.name}.priority must be an integer between 0..255."
+          ;
       }
       {
         assertion = i.vmacInterface == null || i.useVmac;
         message =
-          "services.keepalived.vrrpInstances.${i.name}.vmacInterface has no effect when services.keepalived.vrrpInstances.${i.name}.useVmac is not set.";
+          "services.keepalived.vrrpInstances.${i.name}.vmacInterface has no effect when services.keepalived.vrrpInstances.${i.name}.useVmac is not set."
+          ;
       }
       {
         assertion = !i.vmacXmitBase || i.useVmac;
         message =
-          "services.keepalived.vrrpInstances.${i.name}.vmacXmitBase has no effect when services.keepalived.vrrpInstances.${i.name}.useVmac is not set.";
+          "services.keepalived.vrrpInstances.${i.name}.vmacXmitBase has no effect when services.keepalived.vrrpInstances.${i.name}.useVmac is not set."
+          ;
       }
     ] ++ flatten (map (virtualIpAssertions i.name) i.virtualIps)
-    ++ flatten (map (vrrpScriptAssertion i.name) i.trackScripts);
+    ++ flatten (map (vrrpScriptAssertion i.name) i.trackScripts)
+    ;
 
-  virtualIpAssertions = vrrpName: ip: [ {
-    assertion = ip.addr != "";
-    message =
-      "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
-  } ];
+  virtualIpAssertions =
+    vrrpName: ip: [ {
+      assertion = ip.addr != "";
+      message =
+        "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty."
+        ;
+    } ]
+    ;
 
-  vrrpScriptAssertion = vrrpName: scriptName: {
-    assertion = builtins.hasAttr scriptName cfg.vrrpScripts;
-    message =
-      "services.keepalived.vrrpInstances.${vrrpName} trackscript ${scriptName} is not defined in services.keepalived.vrrpScripts.";
-  };
+  vrrpScriptAssertion =
+    vrrpName: scriptName: {
+      assertion = builtins.hasAttr scriptName cfg.vrrpScripts;
+      message =
+        "services.keepalived.vrrpInstances.${vrrpName} trackscript ${scriptName} is not defined in services.keepalived.vrrpScripts."
+        ;
+    }
+    ;
 
   pidFile = "/run/keepalived.pid";
 
@@ -315,37 +330,42 @@ in {
       };
     };
 
-    systemd.services.keepalived = let
-      finalConfigFile = if cfg.secretFile == null then
-        keepalivedConf
-      else
-        "/run/keepalived/keepalived.conf";
-    in {
-      description = "Keepalive Daemon (LVS and VRRP)";
-      after = [
-        "network.target"
-        "network-online.target"
-        "syslog.target"
-      ];
-      wants = [ "network-online.target" ];
-      serviceConfig = {
-        Type = "forking";
-        PIDFile = pidFile;
-        KillMode = "process";
-        RuntimeDirectory = "keepalived";
-        EnvironmentFile = lib.optional (cfg.secretFile != null) cfg.secretFile;
-        ExecStartPre = lib.optional (cfg.secretFile != null)
-          (pkgs.writeShellScript "keepalived-pre-start" ''
-            umask 077
-            ${pkgs.envsubst}/bin/envsubst -i "${keepalivedConf}" > ${finalConfigFile}
-          '');
-        ExecStart = "${pkgs.keepalived}/sbin/keepalived"
-          + " -f ${finalConfigFile}" + " -p ${pidFile}"
-          + optionalString cfg.snmp.enable " --snmp";
-        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-        Restart = "always";
-        RestartSec = "1s";
-      };
-    } ;
+    systemd.services.keepalived =
+      let
+        finalConfigFile =
+          if cfg.secretFile == null then
+            keepalivedConf
+          else
+            "/run/keepalived/keepalived.conf"
+          ;
+      in {
+        description = "Keepalive Daemon (LVS and VRRP)";
+        after = [
+          "network.target"
+          "network-online.target"
+          "syslog.target"
+        ];
+        wants = [ "network-online.target" ];
+        serviceConfig = {
+          Type = "forking";
+          PIDFile = pidFile;
+          KillMode = "process";
+          RuntimeDirectory = "keepalived";
+          EnvironmentFile =
+            lib.optional (cfg.secretFile != null) cfg.secretFile;
+          ExecStartPre = lib.optional (cfg.secretFile != null)
+            (pkgs.writeShellScript "keepalived-pre-start" ''
+              umask 077
+              ${pkgs.envsubst}/bin/envsubst -i "${keepalivedConf}" > ${finalConfigFile}
+            '');
+          ExecStart = "${pkgs.keepalived}/sbin/keepalived"
+            + " -f ${finalConfigFile}" + " -p ${pidFile}"
+            + optionalString cfg.snmp.enable " --snmp";
+          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+          Restart = "always";
+          RestartSec = "1s";
+        };
+      }
+      ;
   };
 }

@@ -57,7 +57,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=test_init_subcommand_without_override"
   ];
 
-  # remove date from version output to make reproducible
+    # remove date from version output to make reproducible
   postPatch = ''
     rm crates/cargo-lambda-cli/build.rs
   '';

@@ -114,7 +114,7 @@ in {
         DynamicUser = true;
         ExecStart = "${pkgs.teeworlds}/bin/teeworlds_srv -f ${teeworldsConf}";
 
-        # Hardening
+          # Hardening
         CapabilityBoundingSet = false;
         PrivateDevices = true;
         PrivateUsers = true;

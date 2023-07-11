@@ -49,14 +49,15 @@ stdenv.mkDerivation rec {
     Cocoa
   ];
 
-  # The tests use cmake's findPackage to find the installed version of
-  # pangolin, which isn't what we want (or available).
+    # The tests use cmake's findPackage to find the installed version of
+    # pangolin, which isn't what we want (or available).
   doCheck = false;
   cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
 
   meta = {
     description =
-      "A lightweight portable rapid development library for managing OpenGL display / interaction and abstracting video input";
+      "A lightweight portable rapid development library for managing OpenGL display / interaction and abstracting video input"
+      ;
     longDescription = ''
       Pangolin is a lightweight portable rapid development library for managing
       OpenGL display / interaction and abstracting video input. At its heart is

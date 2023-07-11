@@ -4,14 +4,16 @@
 let
 
   evalTest = module: lib.evalModules { modules = testModules ++ [ module ]; };
-  runTest = module:
+  runTest =
+    module:
     (evalTest ({
         config,
         ...
       }: {
         imports = [ module ];
         result = config.test;
-      })).config.result;
+      })).config.result
+    ;
 
   testModules = [
     ./call-test.nix

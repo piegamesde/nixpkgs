@@ -14,17 +14,19 @@ let
     ;
 
     # This file exports shell snippets for use in postInstall.
-  mkInstallScript = module: template: ''
-    mkdir -p $out/lib/cmake/${module}
-    (
-      export staticLibExt="${extensions.staticLibrary}"
-      export sharedLibExt="${extensions.sharedLibrary}"
-      export swiftOs="${swift.swiftOs}"
-      substituteAll \
-        ${builtins.toFile "${module}Config.cmake" template} \
-        $out/lib/cmake/${module}/${module}Config.cmake
-    )
-  '';
+  mkInstallScript =
+    module: template: ''
+      mkdir -p $out/lib/cmake/${module}
+      (
+        export staticLibExt="${extensions.staticLibrary}"
+        export sharedLibExt="${extensions.sharedLibrary}"
+        export swiftOs="${swift.swiftOs}"
+        substituteAll \
+          ${builtins.toFile "${module}Config.cmake" template} \
+          $out/lib/cmake/${module}/${module}Config.cmake
+      )
+    ''
+    ;
 
 in
 lib.mapAttrs mkInstallScript {

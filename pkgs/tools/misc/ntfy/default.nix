@@ -14,19 +14,21 @@
 
 let
   python = python39.override {
-    packageOverrides = self: super: {
-      ntfy-webpush = self.callPackage ./webpush.nix { };
+    packageOverrides =
+      self: super: {
+        ntfy-webpush = self.callPackage ./webpush.nix { };
 
-      # databases, on which slack-sdk depends, is incompatible with SQLAlchemy 2.0
-      sqlalchemy = super.sqlalchemy.overridePythonAttrs (old: rec {
-        version = "1.4.46";
-        src = self.fetchPypi {
-          pname = "SQLAlchemy";
-          inherit version;
-          hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-        };
-      });
-    };
+          # databases, on which slack-sdk depends, is incompatible with SQLAlchemy 2.0
+        sqlalchemy = super.sqlalchemy.overridePythonAttrs (old: rec {
+          version = "1.4.46";
+          src = self.fetchPypi {
+            pname = "SQLAlchemy";
+            inherit version;
+            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+          };
+        });
+      }
+      ;
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -65,7 +67,8 @@ python.pkgs.buildPythonApplication rec {
     (fetchpatch {
       name = "ntfy-Swap-Slacker-for-Slack-SDK.patch";
       url =
-        "https://github.com/dschep/ntfy/commit/2346e7cfdca84c8f1afc7462a92145c1789deb3e.patch";
+        "https://github.com/dschep/ntfy/commit/2346e7cfdca84c8f1afc7462a92145c1789deb3e.patch"
+        ;
       sha256 = "13k7jbsdx0jx7l5s8whirric76hml5bznkfcxab5xdp88q52kpk7";
     })
     # Add compatibility with emoji 2.0
@@ -73,7 +76,8 @@ python.pkgs.buildPythonApplication rec {
     (fetchpatch {
       name = "ntfy-Add-compatibility-with-emoji-2.0.patch";
       url =
-        "https://github.com/dschep/ntfy/commit/4128942bb7a706117e7154a50a73b88f531631fe.patch";
+        "https://github.com/dschep/ntfy/commit/4128942bb7a706117e7154a50a73b88f531631fe.patch"
+        ;
       sha256 = "sha256-V8dIy/K957CPFQQS1trSI3gZOjOcVNQLgdWY7g17bRw=";
     })
   ];

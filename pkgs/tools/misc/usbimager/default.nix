@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     udisks
     glib
   ] ++ lib.optional (!withLibui) libX11 ++ lib.optional withLibui gtk3;
-  # libui is bundled with the source of usbimager as a compiled static libary
+    # libui is bundled with the source of usbimager as a compiled static libary
 
   postPatch = ''
     sed -i \
@@ -49,14 +49,16 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A very minimal GUI app that can write compressed disk images to USB drives";
+      "A very minimal GUI app that can write compressed disk images to USB drives"
+      ;
     homepage = "https://gitlab.com/bztsrc/usbimager";
     license = licenses.mit;
     maintainers = with maintainers; [ vdot0x23 ];
-    # windows and darwin could work, but untested
-    # feel free add them if you have a machine to test
-    platforms = with platforms; linux;
-    # never built on aarch64-linux since first introduction in nixpkgs
+      # windows and darwin could work, but untested
+      # feel free add them if you have a machine to test
+    platforms = with platforms;
+      linux;
+      # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

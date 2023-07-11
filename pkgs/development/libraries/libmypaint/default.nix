@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ glib ];
 
-  # for libmypaint.pc
+    # for libmypaint.pc
   propagatedBuildInputs = [ json_c ];
 
   doCheck = true;
@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://mypaint.org/";
     description =
-      "Library for making brushstrokes which is used by MyPaint and other projects";
+      "Library for making brushstrokes which is used by MyPaint and other projects"
+      ;
     license = licenses.isc;
     maintainers = with maintainers; [
       goibhniu

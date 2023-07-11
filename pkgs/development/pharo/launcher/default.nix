@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
   pname = "pharo-launcher";
   src = fetchurl {
     url =
-      "http://files.pharo.org/platform/launcher/PharoLauncher-user-stable-${version}.zip";
+      "http://files.pharo.org/platform/launcher/PharoLauncher-user-stable-${version}.zip"
+      ;
     sha256 = "1hfwjyx0c47s6ivc1zr2sf5mk1xw2zspsv0ns8mj3kcaglzqwiq0";
   };
 
@@ -29,7 +30,7 @@ stdenv.mkDerivation rec {
     categories = [ "Development" ];
   };
 
-  # because upstream tarball has no top-level directory.
+    # because upstream tarball has no top-level directory.
   sourceRoot = ".";
 
   nativeBuildInputs = [ unzip ];

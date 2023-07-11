@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "face_recognition_models" ];

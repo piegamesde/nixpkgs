@@ -29,9 +29,11 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python library for accessing the INGV Centro Nazionale Terremoti GeoRSS feed";
+      "Python library for accessing the INGV Centro Nazionale Terremoti GeoRSS feed"
+      ;
     homepage =
-      "https://github.com/exxamalte/python-georss-ingv-centro-nazionale-terremoti-client";
+      "https://github.com/exxamalte/python-georss-ingv-centro-nazionale-terremoti-client"
+      ;
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

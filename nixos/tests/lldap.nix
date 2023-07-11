@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
   }: {
     name = "lldap";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -15,7 +16,8 @@ import ./make-test-python.nix ({
           };
         };
         environment.systemPackages = [ pkgs.openldap ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("lldap.service")

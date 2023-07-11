@@ -28,9 +28,9 @@ gnustep'.gsmakeDerivation rec {
     gnustep'.back
   ];
 
-  # Fix the Exec and Icon paths in the .desktop file, and save the file in the
-  # correct place.
-  # postInstall gets redefined in gnustep.make's builder.sh, so we use preFixup
+    # Fix the Exec and Icon paths in the .desktop file, and save the file in the
+    # correct place.
+    # postInstall gets redefined in gnustep.make's builder.sh, so we use preFixup
   preFixup = ''
     mkdir -p $out/share/applications
     sed \

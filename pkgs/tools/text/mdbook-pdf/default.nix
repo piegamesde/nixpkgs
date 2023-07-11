@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
-  # No test.
+    # No test.
   doCheck = false;
 
   meta = with lib; {

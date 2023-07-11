@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ dmenu ];
 
-  # No tests existing
+    # No tests existing
   doCheck = false;
 
   meta = {

@@ -7,15 +7,17 @@ import ../make-test-python.nix ({
 
     hosts = lib.attrNames snakeoil-keys;
 
-    subnetOf = name: config:
+    subnetOf =
+      name: config:
       let
         subnets =
           config.services.tinc.networks.myNetwork.hostSettings.${name}.subnets;
       in
       (builtins.head subnets).address
-    ;
+      ;
 
-    makeTincHost = name:
+    makeTincHost =
+      name:
       {
         subnet,
         extraConfig ? { }
@@ -23,15 +25,16 @@ import ../make-test-python.nix ({
       lib.mkMerge [
         {
           subnets = [ { address = subnet; } ];
-          settings = {
-            Ed25519PublicKey = snakeoil-keys.${name}.ed25519Public;
-          };
+          settings = { Ed25519PublicKey = snakeoil-keys.${name}.ed25519Public; }
+            ;
           rsaPublicKey = snakeoil-keys.${name}.rsaPublic;
         }
         extraConfig
-      ];
+      ]
+      ;
 
-    makeTincNode = {
+    makeTincNode =
+      {
         config,
         ...
       }:
@@ -48,8 +51,8 @@ import ../make-test-python.nix ({
             hostSettings = lib.mapAttrs makeTincHost {
               static = {
                 subnet = "10.0.0.11";
-                # Only specify the addresses in the node's vlans, Tinc does not
-                # seem to try each one, unlike the documentation suggests...
+                  # Only specify the addresses in the node's vlans, Tinc does not
+                  # seem to try each one, unlike the documentation suggests...
                 extraConfig.addresses = map (vlan: {
                   address = "192.168.${toString vlan}.11";
                   port = 655;
@@ -71,9 +74,9 @@ import ../make-test-python.nix ({
             } ];
           };
 
-          # Prevents race condition between NixOS service and tinc creating the
-          # interface.
-          # See: https://github.com/NixOS/nixpkgs/issues/27070
+            # Prevents race condition between NixOS service and tinc creating the
+            # interface.
+            # See: https://github.com/NixOS/nixpkgs/issues/27070
           systemd.services."tinc.myNetwork" = {
             after = [ "network-addresses-tinc.myNetwork.service" ];
             requires = [ "network-addresses-tinc.myNetwork.service" ];
@@ -83,7 +86,8 @@ import ../make-test-python.nix ({
           networking.firewall.allowedUDPPorts = [ 655 ];
         }
         extraConfig
-      ];
+      ]
+      ;
 
   in {
     name = "tinc";
@@ -91,7 +95,8 @@ import ../make-test-python.nix ({
 
     nodes = {
 
-      static = {
+      static =
+        {
           ...
         }@args:
         makeTincNode args "static" {
@@ -109,17 +114,22 @@ import ../make-test-python.nix ({
             address = "192.168.2.11";
             prefixLength = 24;
           } ];
-        };
+        }
+        ;
 
-      dynamic1 = {
+      dynamic1 =
+        {
           ...
         }@args:
-        makeTincNode args "dynamic1" { virtualisation.vlans = [ 1 ]; };
+        makeTincNode args "dynamic1" { virtualisation.vlans = [ 1 ]; }
+        ;
 
-      dynamic2 = {
+      dynamic2 =
+        {
           ...
         }@args:
-        makeTincNode args "dynamic2" { virtualisation.vlans = [ 2 ]; };
+        makeTincNode args "dynamic2" { virtualisation.vlans = [ 2 ]; }
+        ;
 
     };
 

@@ -17,7 +17,7 @@ buildPythonApplication rec {
     substituteInPlace setup.py --replace "argparse" ""
   '';
 
-  # no tests are available and it can't be imported (it's only a script, not a module)
+    # no tests are available and it can't be imported (it's only a script, not a module)
   doCheck = false;
 
   meta = with lib; {

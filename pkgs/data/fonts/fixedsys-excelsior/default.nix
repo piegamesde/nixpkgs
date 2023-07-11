@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://raw.githubusercontent.com/chrissimpkins/codeface/master/fonts/fixed-sys-excelsior/FSEX300.ttf";
+      "https://raw.githubusercontent.com/chrissimpkins/codeface/master/fonts/fixed-sys-excelsior/FSEX300.ttf"
+      ;
     hash = "sha256-buDzVzvF4z6TthbvYoL0m8DiJ6Map1Osdu0uPz0CBW0=";
   };
 

@@ -7,25 +7,30 @@ import ../make-test-python.nix ({
     meta = { maintainers = lib.teams.podman.members; };
 
     nodes = {
-      rootful = {
+      rootful =
+        {
           pkgs,
           ...
         }: {
           virtualisation.podman.enable = true;
 
-          # hack to ensure that podman built with and without zfs in extraPackages is cached
+            # hack to ensure that podman built with and without zfs in extraPackages is cached
           boot.supportedFilesystems = [ "zfs" ];
           networking.hostId = "00000000";
-        };
-      rootless = {
+        }
+        ;
+      rootless =
+        {
           pkgs,
           ...
         }: {
           virtualisation.podman.enable = true;
 
           users.users.alice = { isNormalUser = true; };
-        };
-      dns = {
+        }
+        ;
+      dns =
+        {
           pkgs,
           ...
         }: {
@@ -34,8 +39,10 @@ import ../make-test-python.nix ({
           virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
 
           networking.firewall.allowedUDPPorts = [ 53 ];
-        };
-      docker = {
+        }
+        ;
+      docker =
+        {
           pkgs,
           ...
         }: {
@@ -51,7 +58,8 @@ import ../make-test-python.nix ({
           };
 
           users.users.mallory = { isNormalUser = true; };
-        };
+        }
+        ;
     };
 
     testScript = ''

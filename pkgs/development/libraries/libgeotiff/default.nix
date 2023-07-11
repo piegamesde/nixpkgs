@@ -43,11 +43,12 @@ stdenv.mkDerivation rec {
     proj
   ];
 
-  #hardeningDisable = [ "format" ];
+    #hardeningDisable = [ "format" ];
 
   meta = {
     description =
-      "Library implementing attempt to create a tiff based interchange format for georeferenced raster imagery";
+      "Library implementing attempt to create a tiff based interchange format for georeferenced raster imagery"
+      ;
     homepage = "https://github.com/OSGeo/libgeotiff";
     changelog =
       "https://github.com/OSGeo/libgeotiff/blob/${src.rev}/libgeotiff/NEWS";

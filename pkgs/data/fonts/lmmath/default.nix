@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "http://www.gust.org.pl/projects/e-foundry/lm-math/download/latinmodern-math-1959.zip";
+      "http://www.gust.org.pl/projects/e-foundry/lm-math/download/latinmodern-math-1959.zip"
+      ;
     hash = "sha256-et/WMhfZZYgP0S7ZmI6MZK5owv9bSoMBXFX6yGSng5Y=";
   };
 
@@ -27,11 +28,12 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "The Latin Modern Math (LM Math) font completes the modernization of the Computer Modern family of typefaces designed and programmed by Donald E. Knuth";
+      "The Latin Modern Math (LM Math) font completes the modernization of the Computer Modern family of typefaces designed and programmed by Donald E. Knuth"
+      ;
     homepage = "http://www.gust.org.pl/projects/e-foundry/lm-math";
-    # "The Latin Modern Math font is licensed under the GUST Font License (GFL),
-    # which is a free license, legally equivalent to the LaTeX Project Public
-    # License (LPPL), version 1.3c or later." - GUST website
+      # "The Latin Modern Math font is licensed under the GUST Font License (GFL),
+      # which is a free license, legally equivalent to the LaTeX Project Public
+      # License (LPPL), version 1.3c or later." - GUST website
     license = licenses.lppl13c;
     maintainers = with maintainers; [ siddharthist ];
     platforms = platforms.all;

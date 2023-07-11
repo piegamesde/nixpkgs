@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   buildInputs = [ django ];
 
-  # There is no test embedded
+    # There is no test embedded
   doCheck = false;
 
   meta = with lib; {

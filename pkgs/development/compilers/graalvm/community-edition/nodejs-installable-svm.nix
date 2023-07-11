@@ -14,7 +14,7 @@ graalvmCEPackages.buildGraalvmProduct rec {
 
   extraNativeBuildInputs = [ graalvm-ce ];
 
-  # TODO: improve test
+    # TODO: improve test
   graalvmPhases.installCheckPhase = ''
     echo "Testing NodeJS"
     $out/bin/npx --help

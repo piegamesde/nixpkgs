@@ -39,14 +39,15 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     changelog =
-      "https://gitlab.com/AOMediaCodec/SVT-AV1/-/blob/v${finalAttrs.version}/CHANGELOG.md";
+      "https://gitlab.com/AOMediaCodec/SVT-AV1/-/blob/v${finalAttrs.version}/CHANGELOG.md"
+      ;
     license = with licenses; [
       aom
       bsd3
     ];
     maintainers = with maintainers; [ Madouura ];
     platforms = platforms.unix;
-    # error: use of undeclared identifier 'kCVPixelFormatType_444YpCbCr16BiPlanarVideoRange'
+      # error: use of undeclared identifier 'kCVPixelFormatType_444YpCbCr16BiPlanarVideoRange'
     broken = stdenv.isAarch64 && stdenv.isDarwin;
   };
 })

@@ -41,7 +41,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "gensim" ];
 
-  # Test setup takes several minutes
+    # Test setup takes several minutes
   doCheck = false;
 
   pytestFlagsArray = [ "gensim/test" ];
@@ -50,7 +50,8 @@ buildPythonPackage rec {
     description = "Topic-modelling library";
     homepage = "https://radimrehurek.com/gensim/";
     changelog =
-      "https://github.com/RaRe-Technologies/gensim/blob/${version}/CHANGELOG.md";
+      "https://github.com/RaRe-Technologies/gensim/blob/${version}/CHANGELOG.md"
+      ;
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ jyp ];
   };

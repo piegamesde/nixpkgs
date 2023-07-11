@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ gevent ];
 
-  # Tests are not ported to Python 3
+    # Tests are not ported to Python 3
   doCheck = false;
 
   pythonImportsCheck = [ "socketio" ];

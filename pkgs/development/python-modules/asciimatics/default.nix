@@ -34,8 +34,8 @@ buildPythonPackage rec {
     nose
   ];
 
-  # tests require a pty emulator
-  # which is too complicated to setup here
+    # tests require a pty emulator
+    # which is too complicated to setup here
   doCheck = false;
 
   pythonImportsCheck = [
@@ -47,7 +47,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Helps to create full-screen text UIs (from interactive forms to ASCII animations) on any platform";
+      "Helps to create full-screen text UIs (from interactive forms to ASCII animations) on any platform"
+      ;
     homepage = "https://github.com/peterbrittain/asciimatics";
     license = licenses.asl20;
     maintainers = with maintainers; [ cmcdragonkai ];

@@ -17,7 +17,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {
       name = "katriawm";

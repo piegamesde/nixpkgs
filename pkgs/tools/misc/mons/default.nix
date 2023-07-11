@@ -23,17 +23,17 @@ resholve.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  /* Remove reference to `%LIBDIR%/liblist.sh`. This would be linked to the
-     non-resholved of the library in the final derivation.
+    /* Remove reference to `%LIBDIR%/liblist.sh`. This would be linked to the
+       non-resholved of the library in the final derivation.
 
-     Patching out the library check; it's bad on multiple levels:
-     1. The check literally breaks if it fails.
-        See https://github.com/Ventto/mons/pull/49
-     2. It doesn't need to do this; source would fail with a
-        sensible message if the script was missing.
-     3. resholve can't wrestle with test/[] (at least until
-        https://github.com/abathur/resholve/issues/78)
-  */
+       Patching out the library check; it's bad on multiple levels:
+       1. The check literally breaks if it fails.
+          See https://github.com/Ventto/mons/pull/49
+       2. It doesn't need to do this; source would fail with a
+          sensible message if the script was missing.
+       3. resholve can't wrestle with test/[] (at least until
+          https://github.com/abathur/resholve/issues/78)
+    */
   postPatch = ''
     substituteInPlace mons.sh \
       --replace "lib='%LIBDIR%/liblist.sh'" "" \

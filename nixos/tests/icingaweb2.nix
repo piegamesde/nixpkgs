@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ das_j ]; };
 
     nodes = {
-      icingaweb2 = {
+      icingaweb2 =
+        {
           config,
           pkgs,
           ...
@@ -59,7 +60,8 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

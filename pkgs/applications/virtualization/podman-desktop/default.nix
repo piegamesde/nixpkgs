@@ -93,7 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  # see: https://github.com/containers/podman-desktop/blob/main/.flatpak.desktop
+    # see: https://github.com/containers/podman-desktop/blob/main/.flatpak.desktop
   desktopItems = [ (makeDesktopItem {
     name = "podman-desktop";
     exec = "podman-desktop %U";
@@ -110,7 +110,8 @@ stdenv.mkDerivation (finalAttrs: {
       "A graphical tool for developing on containers and Kubernetes";
     homepage = "https://podman-desktop.io";
     changelog =
-      "https://github.com/containers/podman-desktop/releases/tag/v${finalAttrs.version}";
+      "https://github.com/containers/podman-desktop/releases/tag/v${finalAttrs.version}"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ panda2134 ];
     inherit (electron.meta) platforms;

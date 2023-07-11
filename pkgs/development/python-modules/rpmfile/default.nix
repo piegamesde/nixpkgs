@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "sha256-ZxcHe1QxdG2GBIPMNrnJy6Vd8SRgZ4HOtwsks2be8Cs=";
   };
 
-  # Tests access the internet
+    # Tests access the internet
   doCheck = false;
 
   nativeBuildInputs = [ setuptools-scm ];

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "00wlya3kb6qac2crflm86km9r48r29bvngjq1wgzj9w2xv0q32b9";
   };
 
-  # Necessary to avoid using multiple ffmpeg and gtk libs
+    # Necessary to avoid using multiple ffmpeg and gtk libs
   autoPatchelfIgnoreMissingDeps = true;
 
   nativeBuildInputs = [

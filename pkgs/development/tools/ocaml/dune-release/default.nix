@@ -50,7 +50,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocamllabs/${pname}/releases/download/${version}/${pname}-${version}.tbz";
+      "https://github.com/ocamllabs/${pname}/releases/download/${version}/${pname}-${version}.tbz"
+      ;
     sha256 = "sha256-oJ5SL7qNM5izoEpr+nTjbT+YmmNIoy7QgSNse3wNIA4=";
   };
 
@@ -86,7 +87,7 @@ buildDunePackage rec {
     rm -r tests/bin/check
   '';
 
-  # tool specific env vars have been deprecated, use PATH
+    # tool specific env vars have been deprecated, use PATH
   preFixup = ''
     wrapProgram $out/bin/dune-release \
       --prefix PATH : "${lib.makeBinPath runtimeInputs}"

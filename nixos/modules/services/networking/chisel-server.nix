@@ -71,12 +71,12 @@ in {
             ++ optional cfg.socks5 "--socks5"
             ++ optional cfg.reverse "--reverse");
 
-        # Security Hardening
-        # Refer to systemd.exec(5) for option descriptions.
+          # Security Hardening
+          # Refer to systemd.exec(5) for option descriptions.
         CapabilityBoundingSet = "";
 
-        # implies RemoveIPC=, PrivateTmp=, NoNewPrivileges=, RestrictSUIDSGID=,
-        # ProtectSystem=strict, ProtectHome=read-only
+          # implies RemoveIPC=, PrivateTmp=, NoNewPrivileges=, RestrictSUIDSGID=,
+          # ProtectSystem=strict, ProtectHome=read-only
         DynamicUser = true;
         LockPersonality = true;
         PrivateDevices = true;
@@ -99,7 +99,8 @@ in {
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
         SystemCallFilter =
-          "~@clock @cpu-emulation @debug @mount @obsolete @reboot @swap @privileged @resources";
+          "~@clock @cpu-emulation @debug @mount @obsolete @reboot @swap @privileged @resources"
+          ;
         UMask = "0077";
       };
     };

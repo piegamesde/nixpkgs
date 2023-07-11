@@ -26,7 +26,7 @@ in {
     "enable"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -45,7 +45,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.programs.evince.enable {
 

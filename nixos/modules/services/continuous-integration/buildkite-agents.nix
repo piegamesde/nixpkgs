@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.buildkite-agents;
 
-  mkHookOption = {
+  mkHookOption =
+    {
       name,
       description,
       example ? null
@@ -24,28 +25,33 @@ let
         { }
       else
         { inherit example; });
-    };
+    }
+    ;
   mkHookOptions = hooks: listToAttrs (map mkHookOption hooks);
 
-  hooksDir = cfg:
+  hooksDir =
+    cfg:
     let
-      mkHookEntry = name: value: ''
-        cat > $out/${name} <<'EOF'
-        #! ${pkgs.runtimeShell}
-        set -e
-        ${value}
-        EOF
-        chmod 755 $out/${name}
-      '';
+      mkHookEntry =
+        name: value: ''
+          cat > $out/${name} <<'EOF'
+          #! ${pkgs.runtimeShell}
+          set -e
+          ${value}
+          EOF
+          chmod 755 $out/${name}
+        ''
+        ;
     in
     pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
       mkdir $out
       ${concatStringsSep "\n"
       (mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks))}
     ''
-  ;
+    ;
 
-  buildkiteOptions = {
+  buildkiteOptions =
+    {
       name ? "",
       config,
       ...
@@ -129,13 +135,15 @@ let
         privateSshKeyPath = mkOption {
           type = types.nullOr types.path;
           default = null;
-          ## maximum care is taken so that secrets (ssh keys and the CI token)
-          ## don't end up in the Nix store.
-          apply = final:
+            ## maximum care is taken so that secrets (ssh keys and the CI token)
+            ## don't end up in the Nix store.
+          apply =
+            final:
             if final == null then
               null
             else
-              toString final;
+              toString final
+            ;
 
           description = lib.mdDoc ''
             OpenSSH private key
@@ -243,7 +251,8 @@ let
           '';
         };
       };
-    };
+    }
+    ;
   enabledAgents = lib.filterAttrs (n: v: v.enable) cfg;
   mapAgents = function: lib.mkMerge (lib.mapAttrsToList function enabledAgents);
 in {
@@ -286,41 +295,46 @@ in {
         NIX_REMOTE = "daemon";
       };
 
-      ## NB: maximum care is taken so that secrets (ssh keys and the CI token)
-      ##     don't end up in the Nix store.
-      preStart = let
-        sshDir = "${cfg.dataDir}/.ssh";
-        tagStr = name: value:
-          if lib.isList value then
-            lib.concatStringsSep "," (builtins.map (v: "${name}=${v}") value)
-          else
-            "${name}=${value}";
-        tagsStr = lib.concatStringsSep "," (lib.mapAttrsToList tagStr cfg.tags);
-      in
-      optionalString (cfg.privateSshKeyPath != null) ''
-        mkdir -m 0700 -p "${sshDir}"
-        install -m600 "${toString cfg.privateSshKeyPath}" "${sshDir}/id_rsa"
-      '' + ''
-        cat > "${cfg.dataDir}/buildkite-agent.cfg" <<EOF
-        token="$(cat ${toString cfg.tokenPath})"
-        name="${cfg.name}"
-        shell="${cfg.shell}"
-        tags="${tagsStr}"
-        build-path="${cfg.dataDir}/builds"
-        hooks-path="${cfg.hooksPath}"
-        ${cfg.extraConfig}
-        EOF
-      ''
-      ;
+        ## NB: maximum care is taken so that secrets (ssh keys and the CI token)
+        ##     don't end up in the Nix store.
+      preStart =
+        let
+          sshDir = "${cfg.dataDir}/.ssh";
+          tagStr =
+            name: value:
+            if lib.isList value then
+              lib.concatStringsSep "," (builtins.map (v: "${name}=${v}") value)
+            else
+              "${name}=${value}"
+            ;
+          tagsStr =
+            lib.concatStringsSep "," (lib.mapAttrsToList tagStr cfg.tags);
+        in
+        optionalString (cfg.privateSshKeyPath != null) ''
+          mkdir -m 0700 -p "${sshDir}"
+          install -m600 "${toString cfg.privateSshKeyPath}" "${sshDir}/id_rsa"
+        '' + ''
+          cat > "${cfg.dataDir}/buildkite-agent.cfg" <<EOF
+          token="$(cat ${toString cfg.tokenPath})"
+          name="${cfg.name}"
+          shell="${cfg.shell}"
+          tags="${tagsStr}"
+          build-path="${cfg.dataDir}/builds"
+          hooks-path="${cfg.hooksPath}"
+          ${cfg.extraConfig}
+          EOF
+        ''
+        ;
 
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/buildkite-agent start --config ${cfg.dataDir}/buildkite-agent.cfg";
+          "${cfg.package}/bin/buildkite-agent start --config ${cfg.dataDir}/buildkite-agent.cfg"
+          ;
         User = "buildkite-agent-${name}";
         RestartSec = 5;
         Restart = "on-failure";
         TimeoutSec = 10;
-        # set a long timeout to give buildkite-agent a chance to finish current builds
+          # set a long timeout to give buildkite-agent a chance to finish current builds
         TimeoutStopSec = "2 min";
         KillMode = "mixed";
       };
@@ -340,5 +354,6 @@ in {
     "services"
     "buildkite-agent"
   ]
-    "services.buildkite-agent has been upgraded from version 2 to version 3 and moved to an attribute set at services.buildkite-agents. Please consult the 20.03 release notes for more information.") ];
+    "services.buildkite-agent has been upgraded from version 2 to version 3 and moved to an attribute set at services.buildkite-agents. Please consult the 20.03 release notes for more information.") ]
+    ;
 }

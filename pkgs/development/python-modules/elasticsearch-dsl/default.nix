@@ -22,8 +22,8 @@ buildPythonPackage rec {
     six
   ];
 
-  # ImportError: No module named test_elasticsearch_dsl
-  # Tests require a local instance of elasticsearch
+    # ImportError: No module named test_elasticsearch_dsl
+    # Tests require a local instance of elasticsearch
   doCheck = false;
 
   meta = with lib; {

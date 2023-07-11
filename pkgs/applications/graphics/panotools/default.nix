@@ -26,13 +26,14 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ cmake ];
 
-  # one of the tests succeeds on my machine but fails on Hydra (no idea why)
-  #doCheck = true;
+    # one of the tests succeeds on my machine but fails on Hydra (no idea why)
+    #doCheck = true;
 
   meta = {
     homepage = "https://panotools.sourceforge.net/";
     description =
-      "Free software suite for authoring and displaying virtual reality panoramas";
+      "Free software suite for authoring and displaying virtual reality panoramas"
+      ;
     license = lib.licenses.gpl2Plus;
 
     platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice

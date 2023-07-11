@@ -13,7 +13,8 @@
 let
   dynamic-linker = stdenv.cc.bintools.dynamicLinker;
 
-  patchelf = libPath:
+  patchelf =
+    libPath:
     if stdenv.isDarwin then
       ""
     else
@@ -21,26 +22,31 @@ let
         chmod u+w $PURS
         patchelf --interpreter ${dynamic-linker} --set-rpath ${libPath} $PURS
         chmod u-w $PURS
-      '';
+      ''
+    ;
 
 in
 stdenv.mkDerivation rec {
   pname = "purescript";
   version = "0.15.9";
 
-  # These hashes can be updated automatically by running the ./update.sh script.
-  src = if stdenv.isDarwin then
-    fetchurl {
-      url =
-        "https://github.com/${pname}/${pname}/releases/download/v${version}/macos.tar.gz";
-      sha256 = "1xxg79rlf7li9f73wdbwif1dyy4hnzpypy6wx4zbnvap53habq9f";
-    }
-  else
-    fetchurl {
-      url =
-        "https://github.com/${pname}/${pname}/releases/download/v${version}/linux64.tar.gz";
-      sha256 = "0rabinklsd8bs16f03zv7ij6d1lv4w2xwvzzgkwc862gpqvz9jq3";
-    };
+    # These hashes can be updated automatically by running the ./update.sh script.
+  src =
+    if stdenv.isDarwin then
+      fetchurl {
+        url =
+          "https://github.com/${pname}/${pname}/releases/download/v${version}/macos.tar.gz"
+          ;
+        sha256 = "1xxg79rlf7li9f73wdbwif1dyy4hnzpypy6wx4zbnvap53habq9f";
+      }
+    else
+      fetchurl {
+        url =
+          "https://github.com/${pname}/${pname}/releases/download/v${version}/linux64.tar.gz"
+          ;
+        sha256 = "0rabinklsd8bs16f03zv7ij6d1lv4w2xwvzzgkwc862gpqvz9jq3";
+      }
+    ;
 
   buildInputs = [
     zlib
@@ -67,7 +73,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A strongly-typed functional programming language that compiles to JavaScript";
+      "A strongly-typed functional programming language that compiles to JavaScript"
+      ;
     homepage = "https://www.purescript.org/";
     license = licenses.bsd3;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];

@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  # cyclic dependency: tests need freezegun, which depends on python-dateutil
+    # cyclic dependency: tests need freezegun, which depends on python-dateutil
   doCheck = false;
 
   pythonImportsCheck = [

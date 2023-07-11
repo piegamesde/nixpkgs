@@ -51,19 +51,20 @@ python3Packages.buildPythonApplication {
     ++ lib.optional faacSupport faac ++ lib.optional flacSupport flac
     ++ lib.optional soxSupport sox ++ lib.optional vorbisSupport vorbis-tools;
 
-  # pulseaudio-dlna shells out to pactl to configure sinks and sources.
-  # As pactl might not be in $PATH, add --suffix it (so pactl configured by the
-  # user get priority)
+    # pulseaudio-dlna shells out to pactl to configure sinks and sources.
+    # As pactl might not be in $PATH, add --suffix it (so pactl configured by the
+    # user get priority)
   makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ pulseaudio ]}" ];
 
-  # upstream has no tests
+    # upstream has no tests
   checkPhase = ''
     $out/bin/pulseaudio-dlna --help > /dev/null
   '';
 
   meta = with lib; {
     description =
-      "A lightweight streaming server which brings DLNA / UPNP and Chromecast support to PulseAudio and Linux";
+      "A lightweight streaming server which brings DLNA / UPNP and Chromecast support to PulseAudio and Linux"
+      ;
     homepage = "https://github.com/Cygn/pulseaudio-dlna";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ mog ];

@@ -15,8 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-f40blxh/On/mC4m+eLNeWzdYzYoYpFOSBndVnREx68U=";
   };
 
-  # Binaries are booted directly by BIOS/UEFI or bootloader
-  # and should not be patched/stripped
+    # Binaries are booted directly by BIOS/UEFI or bootloader
+    # and should not be patched/stripped
   dontPatchELF = true;
   dontStrip = true;
 

@@ -78,14 +78,18 @@
 let
 
   # Not always evaluated
-  blas' = if use64BitIdx then
-    blas.override { isILP64 = true; }
-  else
-    blas;
-  lapack' = if use64BitIdx then
-    lapack.override { isILP64 = true; }
-  else
-    lapack;
+  blas' =
+    if use64BitIdx then
+      blas.override { isILP64 = true; }
+    else
+      blas
+    ;
+  lapack' =
+    if use64BitIdx then
+      lapack.override { isILP64 = true; }
+    else
+      lapack
+    ;
   qrupdate' = qrupdate.override {
     # If use64BitIdx is false, this override doesn't evaluate to a new
     # derivation, as blas and lapack are not overridden.
@@ -96,14 +100,16 @@ let
     blas = blas';
     lapack = lapack';
   };
-  # Not always suitesparse is required at all
-  suitesparse' = if suitesparse != null then
-    suitesparse.override {
-      blas = blas';
-      lapack = lapack';
-    }
-  else
-    null;
+    # Not always suitesparse is required at all
+  suitesparse' =
+    if suitesparse != null then
+      suitesparse.override {
+        blas = blas';
+        lapack = lapack';
+      }
+    else
+      null
+    ;
 
   octavePackages = import ../../../top-level/octave-packages.nix {
     inherit pkgs;
@@ -185,10 +191,10 @@ let
 
     enableParallelBuilding = true;
 
-    # Fix linker error on Darwin (see https://trac.macports.org/ticket/61865)
+      # Fix linker error on Darwin (see https://trac.macports.org/ticket/61865)
     NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-lobjc";
 
-    # See https://savannah.gnu.org/bugs/?50339
+      # See https://savannah.gnu.org/bugs/?50339
     F77_INTEGER_8_FLAG = lib.optionalString use64BitIdx "-fdefault-integer-8";
 
     configureFlags = [
@@ -203,8 +209,8 @@ let
       ++ lib.optionals stdenv.isDarwin [ "--with-x=no" ]
       ++ lib.optionals enableQt [ "--with-qt=5" ];
 
-    # Keep a copy of the octave tests detailed results in the output
-    # derivation, because someone may care
+      # Keep a copy of the octave tests detailed results in the output
+      # derivation, because someone may care
     postInstall = ''
       cp test/fntests.log $out/share/octave/${pname}-${version}-fntests.log || true
     '';
@@ -241,10 +247,12 @@ let
         doronbehar
       ];
       description = "Scientific Programming Language";
-      platforms = if overridePlatforms == null then
-        (lib.platforms.linux ++ lib.platforms.darwin)
-      else
-        overridePlatforms;
+      platforms =
+        if overridePlatforms == null then
+          (lib.platforms.linux ++ lib.platforms.darwin)
+        else
+          overridePlatforms
+        ;
     };
   };
 

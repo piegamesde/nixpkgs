@@ -13,30 +13,37 @@ let
   cfg = config.services.picom;
   opt = options.services.picom;
 
-  pairOf = x:
+  pairOf =
+    x:
     with types;
     addCheck (listOf x) (y: length y == 2) // {
       description = "pair of ${x.description}";
-    };
+    }
+    ;
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
-  # Basically a tinkered lib.generators.mkKeyValueDefault
-  # It either serializes a top-level definition "key: { values };"
-  # or an expression "key = { values };"
-  mkAttrsString = top:
+    # Basically a tinkered lib.generators.mkKeyValueDefault
+    # It either serializes a top-level definition "key: { values };"
+    # or an expression "key = { values };"
+  mkAttrsString =
+    top:
     mapAttrsToList (k: v:
       let
-        sep = if (top && isAttrs v) then
-          ":"
-        else
-          "=";
+        sep =
+          if (top && isAttrs v) then
+            ":"
+          else
+            "="
+          ;
       in
       "${escape [ sep ] k}${sep}${mkValueString v};"
-    );
+    )
+    ;
 
-  # This serializes a Nix expression to the libconfig format.
-  mkValueString = v:
+    # This serializes a Nix expression to the libconfig format.
+  mkValueString =
+    v:
     if types.bool.check v then
       boolToString v
     else if types.int.check v then
@@ -53,7 +60,8 @@ let
       throw ''
         invalid expression used in option services.picom.settings:
         ${v}
-      '';
+      ''
+    ;
 
   toConf = attrs: concatStringsSep "\n" (mkAttrsString true cfg.settings);
 
@@ -269,7 +277,8 @@ in {
           "opengl-mswc"
         ]);
       default = false;
-      apply = x:
+      apply =
+        x:
         let
           res = x != "none";
           msg = "The type of services.picom.vSync has changed to bool:"
@@ -277,7 +286,8 @@ in {
         in if isBool x then
           x
         else
-          warn msg res;
+          warn msg res
+        ;
 
       description = lib.mdDoc ''
         Enable vertical synchronization. Chooses the best method
@@ -331,7 +341,7 @@ in {
           CONFIGURATION FILES section at `picom(1)`.
         '';
       }
-    ;
+      ;
   };
 
   config = mkIf cfg.enable {
@@ -343,14 +353,14 @@ in {
       fade-out-step = elemAt cfg.fadeSteps 1;
       fade-exclude = cfg.fadeExclude;
 
-      # shadows
+        # shadows
       shadow = cfg.shadow;
       shadow-offset-x = elemAt cfg.shadowOffsets 0;
       shadow-offset-y = elemAt cfg.shadowOffsets 1;
       shadow-opacity = cfg.shadowOpacity;
       shadow-exclude = cfg.shadowExclude;
 
-      # opacity
+        # opacity
       active-opacity = cfg.activeOpacity;
       inactive-opacity = cfg.inactiveOpacity;
 
@@ -358,7 +368,7 @@ in {
 
       opacity-rule = cfg.opacityRules;
 
-      # other options
+        # other options
       backend = cfg.backend;
       vsync = cfg.vSync;
     };
@@ -368,7 +378,7 @@ in {
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
 
-      # Temporarily fixes corrupt colours with Mesa 18
+        # Temporarily fixes corrupt colours with Mesa 18
       environment =
         mkIf (cfg.backend == "glx") { allow_rgb10_configs = "false"; };
 

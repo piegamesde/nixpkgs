@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-SOdIlu0QrQokl9j9Ff594+1K6twU1mCuECFQaVKaPV4=";
 
-  # Used for some of the tests.
+    # Used for some of the tests.
   nativeCheckInputs = [ git ];
 
   preBuild = lib.optionalString (!stdenv.isx86_64) ''
@@ -31,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/burrowers/garble/";
     maintainers = with lib.maintainers; [ davhau ];
     license = lib.licenses.bsd3;
-    broken =
-      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/garble.x86_64-darwin
+    broken = stdenv.isDarwin
+      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/garble.x86_64-darwin
   };
 }

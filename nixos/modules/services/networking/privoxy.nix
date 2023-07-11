@@ -11,7 +11,8 @@ let
 
   cfg = config.services.privoxy;
 
-  serialise = name: val:
+  serialise =
+    name: val:
     if isList val then
       concatMapStrings (serialise name) val
     else if isBool val then
@@ -22,7 +23,8 @@ let
     else
       ''
         ${name} ${toString val}
-      '';
+      ''
+    ;
 
   configType = with types;
     let
@@ -40,11 +42,13 @@ let
         boolean or path) or a list of such values.
       '';
     }
-  ;
+    ;
 
   ageType = types.str // {
-    check = x:
-      isString x && (builtins.match "([0-9]+([smhdw]|min|ms|us)*)+" x != null);
+    check =
+      x:
+      isString x && (builtins.match "([0-9]+([smhdw]|min|ms|us)*)+" x != null)
+      ;
     description = "tmpfiles.d(5) age format";
   };
 
@@ -161,11 +165,13 @@ in {
 
         options.actionsfile = mkOption {
           type = types.listOf types.str;
-          # This must come after all other entries, in order to override the
-          # other actions/filters installed by Privoxy or the user.
-          apply = x:
+            # This must come after all other entries, in order to override the
+            # other actions/filters installed by Privoxy or the user.
+          apply =
+            x:
             x ++ optional (cfg.userActions != "")
-            (toString (pkgs.writeText "user.actions" cfg.userActions));
+            (toString (pkgs.writeText "user.actions" cfg.userActions))
+            ;
           default = [
             "match-all.action"
             "default.action"
@@ -179,9 +185,11 @@ in {
         options.filterfile = mkOption {
           type = types.listOf types.str;
           default = [ "default.filter" ];
-          apply = x:
+          apply =
+            x:
             x ++ optional (cfg.userFilters != "")
-            (toString (pkgs.writeText "user.filter" cfg.userFilters));
+            (toString (pkgs.writeText "user.filter" cfg.userFilters))
+            ;
           description = lib.mdDoc ''
             List of paths to Privoxy filter files. These paths may either be
             absolute or relative to the privoxy configuration directory.
@@ -218,7 +226,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -231,7 +239,8 @@ in {
     users.groups.privoxy = { };
 
     systemd.tmpfiles.rules = optional cfg.inspectHttps
-      "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}";
+      "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}"
+      ;
 
     systemd.services.privoxy = {
       description = "Filtering web proxy";
@@ -268,7 +277,7 @@ in {
 
     services.privoxy.settings = {
       user-manual = "${pkgs.privoxy}/share/doc/privoxy/user-manual";
-      # This is needed for external filters
+        # This is needed for external filters
       temporary-directory = "/tmp";
       filterfile = [ "default.filter" ];
       actionsfile = [
@@ -290,31 +299,37 @@ in {
 
   };
 
-  imports = let
-    top = x: [
-      "services"
-      "privoxy"
-      x
-    ];
-    setting = x: [
-      "services"
-      "privoxy"
-      "settings"
-      x
-    ];
-  in [
-    (mkRenamedOptionModule (top "enableEditActions")
-      (setting "enable-edit-actions"))
-    (mkRenamedOptionModule (top "listenAddress") (setting "listen-address"))
-    (mkRenamedOptionModule (top "actionsFiles") (setting "actionsfile"))
-    (mkRenamedOptionModule (top "filterFiles") (setting "filterfile"))
-    (mkRemovedOptionModule (top "extraConfig") ''
-      Use services.privoxy.settings instead.
-      This is part of the general move to use structured settings instead of raw
-      text for config as introduced by RFC0042:
-      https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md
-    '')
-  ] ;
+  imports =
+    let
+      top =
+        x: [
+          "services"
+          "privoxy"
+          x
+        ]
+        ;
+      setting =
+        x: [
+          "services"
+          "privoxy"
+          "settings"
+          x
+        ]
+        ;
+    in [
+      (mkRenamedOptionModule (top "enableEditActions")
+        (setting "enable-edit-actions"))
+      (mkRenamedOptionModule (top "listenAddress") (setting "listen-address"))
+      (mkRenamedOptionModule (top "actionsFiles") (setting "actionsfile"))
+      (mkRenamedOptionModule (top "filterFiles") (setting "filterfile"))
+      (mkRemovedOptionModule (top "extraConfig") ''
+        Use services.privoxy.settings instead.
+        This is part of the general move to use structured settings instead of raw
+        text for config as introduced by RFC0042:
+        https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md
+      '')
+    ]
+    ;
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
 

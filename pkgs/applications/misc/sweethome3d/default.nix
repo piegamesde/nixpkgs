@@ -20,19 +20,24 @@
 let
 
   # TODO: Should we move this to `lib`? Seems like its would be useful in many cases.
-  extensionOf = filePath:
+  extensionOf =
+    filePath:
     lib.concatStringsSep "."
-    (lib.tail (lib.splitString "." (builtins.baseNameOf filePath)));
+    (lib.tail (lib.splitString "." (builtins.baseNameOf filePath)))
+    ;
 
-  installIcons = iconName: icons:
+  installIcons =
+    iconName: icons:
     lib.concatStringsSep "\n" (lib.mapAttrsToList (size: iconFile: ''
       mkdir -p "$out/share/icons/hicolor/${size}/apps"
       ln -s -T "${iconFile}" "$out/share/icons/hicolor/${size}/apps/${iconName}.${
         extensionOf iconFile
       }"
-    '') icons);
+    '') icons)
+    ;
 
-  mkSweetHome3D = {
+  mkSweetHome3D =
+    {
       pname,
       module,
       version,
@@ -134,7 +139,8 @@ let
         maintainers = [ lib.maintainers.edwtjo ];
         platforms = lib.platforms.linux;
       };
-    };
+    }
+    ;
 
   d2u = lib.replaceStrings [ "." ] [ "_" ];
 
@@ -154,12 +160,14 @@ in {
     icons = {
       "32x32" = fetchurl {
         url =
-          "http://sweethome3d.cvs.sourceforge.net/viewvc/sweethome3d/SweetHome3D/deploy/SweetHome3DIcon32x32.png";
+          "http://sweethome3d.cvs.sourceforge.net/viewvc/sweethome3d/SweetHome3D/deploy/SweetHome3DIcon32x32.png"
+          ;
         sha256 = "1r2fhfg27mx00nfv0qj66rhf719s2g1vhdis7bdc9mqk9x0mb0ir";
       };
       "48x48" = fetchurl {
         url =
-          "http://sweethome3d.cvs.sourceforge.net/viewvc/sweethome3d/SweetHome3D/deploy/SweetHome3DIcon48x48.png";
+          "http://sweethome3d.cvs.sourceforge.net/viewvc/sweethome3d/SweetHome3D/deploy/SweetHome3DIcon48x48.png"
+          ;
         sha256 = "1ap6d75dyqqvx21wddvn8vw2apq3v803vmbxdriwd0dw9rq3zn4g";
       };
     };

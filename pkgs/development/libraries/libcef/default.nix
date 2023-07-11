@@ -82,7 +82,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://cef-builds.spotifycdn.com/cef_binary_${version}+g${gitRevision}+chromium-${chromiumVersion}_${platformInfo.platformStr}_minimal.tar.bz2";
+      "https://cef-builds.spotifycdn.com/cef_binary_${version}+g${gitRevision}+chromium-${chromiumVersion}_${platformInfo.platformStr}_minimal.tar.bz2"
+      ;
     inherit (platformInfo) sha256;
   };
 
@@ -109,7 +110,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Simple framework for embedding Chromium-based browsers in other applications";
+      "Simple framework for embedding Chromium-based browsers in other applications"
+      ;
     homepage = "https://cef-builds.spotifycdn.com/index.html";
     maintainers = with maintainers; [ puffnfresh ];
     sourceProvenance = with sourceTypes; [

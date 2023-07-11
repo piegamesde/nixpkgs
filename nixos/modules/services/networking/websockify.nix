@@ -14,7 +14,8 @@ in {
     services.networking.websockify = {
       enable = mkOption {
         description = lib.mdDoc
-          "Whether to enable websockify to forward websocket connections to TCP connections.";
+          "Whether to enable websockify to forward websocket connections to TCP connections."
+          ;
 
         default = false;
 
@@ -45,7 +46,8 @@ in {
   config = mkIf cfg.enable {
     systemd.services."websockify@" = {
       description =
-        "Service to forward websocket connections to TCP connections (from port:to port %I)";
+        "Service to forward websocket connections to TCP connections (from port:to port %I)"
+        ;
       script = ''
         IFS=':' read -a array <<< "$1"
         ${pkgs.pythonPackages.websockify}/bin/websockify --ssl-only \

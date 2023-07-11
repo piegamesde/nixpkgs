@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "keyutils";
   version = "0.6";
 
-  # github version comes bundled with tests
+    # github version comes bundled with tests
   src = fetchFromGitHub {
     owner = "sassoftware";
     repo = "python-keyutils";

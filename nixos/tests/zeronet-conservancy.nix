@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     name = "zeronet-conservancy";
     meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -18,7 +19,8 @@ import ./make-test-python.nix ({
           package = pkgs.zeronet-conservancy;
           inherit port;
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("zeronet.service")

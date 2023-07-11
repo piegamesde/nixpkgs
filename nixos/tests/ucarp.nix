@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     addrHostA = "192.168.0.10";
     addrHostB = "192.168.0.11";
 
-    mkUcarpHost = addr:
+    mkUcarpHost =
+      addr:
       {
         config,
         pkgs,
@@ -37,7 +38,8 @@ import ./make-test-python.nix ({
             ${pkgs.iproute2}/bin/ip addr del "$2"/24 dev "$1"
           '';
         };
-      };
+      }
+      ;
   in {
     name = "ucarp";
     meta.maintainers = with lib.maintainers; [ oxzi ];

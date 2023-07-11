@@ -33,7 +33,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "setuptools-66-support";
       url =
-        "https://patch-diff.githubusercontent.com/raw/aws/aws-lambda-builders/pull/475.patch";
+        "https://patch-diff.githubusercontent.com/raw/aws/aws-lambda-builders/pull/475.patch"
+        ;
       sha256 = "sha256-EkYQ6DNzbSnvkOads0GFwpGzeuBoLVU42THlSZNOHMc=";
     })
   ];

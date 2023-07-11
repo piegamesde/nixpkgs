@@ -17,12 +17,14 @@ let
     CREATE DATABASE promscale OWNER promscale;
   '';
 
-  make-postgresql-test = postgresql-name: postgresql-package:
+  make-postgresql-test =
+    postgresql-name: postgresql-package:
     makeTest {
       name = postgresql-name;
       meta = with pkgs.lib.maintainers; { maintainers = [ anpin ]; };
 
-      nodes.machine = {
+      nodes.machine =
+        {
           config,
           pkgs,
           ...
@@ -37,7 +39,8 @@ let
             settings = { shared_preload_libraries = "timescaledb, promscale"; };
           };
           environment.systemPackages = with pkgs; [ promscale ];
-        };
+        }
+        ;
 
       testScript = ''
         machine.start()
@@ -51,8 +54,9 @@ let
         machine.succeed("sudo -u postgres psql promscale -c 'SELECT ps_trace.get_trace_retention_period();' | grep '(1 row)'")
         machine.shutdown()
       '';
-    };
-  #version 15 is not supported yet
+    }
+    ;
+    #version 15 is not supported yet
   applicablePostgresqlVersions = filterAttrs (_: value:
     versionAtLeast value.version "12" && !(versionAtLeast value.version "15"))
     postgresql-versions;

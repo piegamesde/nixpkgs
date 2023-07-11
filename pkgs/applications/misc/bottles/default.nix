@@ -45,12 +45,13 @@ python3Packages.buildPythonApplication rec {
     # Remove next version
     (fetchpatch {
       url =
-        "https://github.com/bottlesdevs/Bottles/commit/7cb284f9bac0b71bf632bfc70d94f7a53bc51267.patch";
+        "https://github.com/bottlesdevs/Bottles/commit/7cb284f9bac0b71bf632bfc70d94f7a53bc51267.patch"
+        ;
       hash = "sha256-mRF+BtQ0qM7Yvx7SONeH2wc04F87fEyNRlBuyQrzN8Y=";
     })
   ];
 
-  # https://github.com/bottlesdevs/Bottles/wiki/Packaging
+    # https://github.com/bottlesdevs/Bottles/wiki/Packaging
   nativeBuildInputs = [
     blueprint-compiler
     meson

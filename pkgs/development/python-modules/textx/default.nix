@@ -63,7 +63,7 @@ let
 
     pythonImportsCheck = [ "textx" ];
 
-    # Circular dependencies, do tests in passthru.tests instead.
+      # Circular dependencies, do tests in passthru.tests instead.
     doCheck = false;
 
     passthru.tests = {

@@ -58,7 +58,8 @@ in {
       ];
       default = "qdrant";
       description = lib.mdDoc
-        "This specifies the vector database provider you want to use to store and query embeddings.";
+        "This specifies the vector database provider you want to use to store and query embeddings."
+        ;
     };
 
     qdrantCollection = mkOption {
@@ -76,12 +77,14 @@ in {
       {
         assertion = cfg.bearerTokenPath != "";
         message =
-          "services.chatgpt-retrieval-plugin.bearerTokenPath should not be an empty string.";
+          "services.chatgpt-retrieval-plugin.bearerTokenPath should not be an empty string."
+          ;
       }
       {
         assertion = cfg.openaiApiKeyPath != "";
         message =
-          "services.chatgpt-retrieval-plugin.openaiApiKeyPath should not be an empty string.";
+          "services.chatgpt-retrieval-plugin.openaiApiKeyPath should not be an empty string."
+          ;
       }
     ];
 
@@ -101,8 +104,8 @@ in {
         StateDirectoryMode = "0755";
       };
 
-      # it doesn't make sense to pass secrets as env vars, this is a hack until
-      # upstream has proper secret management.
+        # it doesn't make sense to pass secrets as env vars, this is a hack until
+        # upstream has proper secret management.
       script = ''
         export BEARER_TOKEN=$(${pkgs.systemd}/bin/systemd-creds cat BEARER_TOKEN)
         export OPENAI_API_KEY=$(${pkgs.systemd}/bin/systemd-creds cat OPENAI_API_KEY)

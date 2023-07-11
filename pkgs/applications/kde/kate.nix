@@ -43,9 +43,9 @@ mkDerivation {
     maintainers = [ lib.maintainers.ttuegel ];
   };
 
-  # InitialPreference values are too high and end up making kate &
-  # kwrite defaults for anything considered text/plain. Resetting to
-  # 1, which is the default.
+    # InitialPreference values are too high and end up making kate &
+    # kwrite defaults for anything considered text/plain. Resetting to
+    # 1, which is the default.
   postPatch = ''
     substituteInPlace apps/kate/data/org.kde.kate.desktop \
       --replace InitialPreference=9 InitialPreference=1

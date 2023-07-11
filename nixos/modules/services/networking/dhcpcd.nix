@@ -9,10 +9,12 @@ with lib;
 
 let
 
-  dhcpcd = if !config.boot.isContainer then
-    pkgs.dhcpcd
-  else
-    pkgs.dhcpcd.override { udev = null; };
+  dhcpcd =
+    if !config.boot.isContainer then
+      pkgs.dhcpcd
+    else
+      pkgs.dhcpcd.override { udev = null; }
+    ;
 
   cfg = config.networking.dhcpcd;
 
@@ -21,8 +23,8 @@ let
   enableDHCP = config.networking.dhcpcd.enable
     && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces);
 
-  # Don't start dhcpcd on explicitly configured interfaces or on
-  # interfaces that are part of a bridge, bond or sit device.
+    # Don't start dhcpcd on explicitly configured interfaces or on
+    # interfaces that are part of a bridge, bond or sit device.
   ignoredInterfaces = map (i: i.name) (filter (i:
     if i.useDHCP != null then
       !i.useDHCP
@@ -37,7 +39,8 @@ let
     (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds))
     ++ config.networking.dhcpcd.denyInterfaces;
 
-  arrayAppendOrNull = a1: a2:
+  arrayAppendOrNull =
+    a1: a2:
     if a1 == null && a2 == null then
       null
     else if a1 == null then
@@ -45,10 +48,11 @@ let
     else if a2 == null then
       a1
     else
-      a1 ++ a2;
+      a1 ++ a2
+    ;
 
-  # If dhcp is disabled but explicit interfaces are enabled,
-  # we need to provide dhcp just for those interfaces.
+    # If dhcp is disabled but explicit interfaces are enabled,
+    # we need to provide dhcp just for those interfaces.
   allowInterfaces = arrayAppendOrNull cfg.allowInterfaces
     (if !config.networking.useDHCP && enableDHCP then
       map (i: i.name) (filter (i: i.useDHCP == true) interfaces)
@@ -63,7 +67,7 @@ let
     noipv6rs
   '') staticIPv6Addresses);
 
-  # Config file adapted from the one that ships with dhcpcd.
+    # Config file adapted from the one that ships with dhcpcd.
   dhcpcdConf = pkgs.writeText "dhcpcd.conf" ''
     # Inform the DHCP server of our hostname for DDNS.
     hostname
@@ -202,7 +206,8 @@ in {
       type = types.lines;
       default = "";
       example =
-        "if [[ $reason =~ BOUND ]]; then echo $interface: Routers are $new_routers - were $old_routers; fi";
+        "if [[ $reason =~ BOUND ]]; then echo $interface: Routers are $new_routers - were $old_routers; fi"
+        ;
       description = lib.mdDoc ''
         Shell code that will be run after all other hooks. See
         `man dhcpcd-run-hooks` for details on what is possible.
@@ -233,7 +238,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf enableDHCP {
 
@@ -253,46 +258,48 @@ in {
       '';
     } ];
 
-    systemd.services.dhcpcd = let
-      cfgN = config.networking;
-      hasDefaultGatewaySet =
-        (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
-        && (!cfgN.enableIPv6 || (cfgN.defaultGateway6 != null
-          && cfgN.defaultGateway6.address != ""));
-    in {
-      description = "DHCP Client";
+    systemd.services.dhcpcd =
+      let
+        cfgN = config.networking;
+        hasDefaultGatewaySet =
+          (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
+          && (!cfgN.enableIPv6 || (cfgN.defaultGateway6 != null
+            && cfgN.defaultGateway6.address != ""));
+      in {
+        description = "DHCP Client";
 
-      wantedBy = [ "multi-user.target" ]
-        ++ optional (!hasDefaultGatewaySet) "network-online.target";
-      wants = [ "network.target" ];
-      before = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ]
+          ++ optional (!hasDefaultGatewaySet) "network-online.target";
+        wants = [ "network.target" ];
+        before = [ "network-online.target" ];
 
-      restartTriggers = [ exitHook ];
+        restartTriggers = [ exitHook ];
 
-      # Stopping dhcpcd during a reconfiguration is undesirable
-      # because it brings down the network interfaces configured by
-      # dhcpcd.  So do a "systemctl restart" instead.
-      stopIfChanged = false;
+          # Stopping dhcpcd during a reconfiguration is undesirable
+          # because it brings down the network interfaces configured by
+          # dhcpcd.  So do a "systemctl restart" instead.
+        stopIfChanged = false;
 
-      path = [
-        dhcpcd
-        pkgs.nettools
-        config.networking.resolvconf.package
-      ];
+        path = [
+          dhcpcd
+          pkgs.nettools
+          config.networking.resolvconf.package
+        ];
 
-      unitConfig.ConditionCapability = "CAP_NET_ADMIN";
+        unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 
-      serviceConfig = {
-        Type = "forking";
-        PIDFile = "/run/dhcpcd/pid";
-        RuntimeDirectory = "dhcpcd";
-        ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${
-            optionalString cfg.persistent "--persistent"
-          } --config ${dhcpcdConf}";
-        ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
-        Restart = "always";
-      };
-    } ;
+        serviceConfig = {
+          Type = "forking";
+          PIDFile = "/run/dhcpcd/pid";
+          RuntimeDirectory = "dhcpcd";
+          ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${
+              optionalString cfg.persistent "--persistent"
+            } --config ${dhcpcdConf}";
+          ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
+          Restart = "always";
+        };
+      }
+      ;
 
     users.users.dhcpcd = {
       isSystemUser = true;

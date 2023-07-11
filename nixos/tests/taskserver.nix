@@ -84,8 +84,9 @@ import ./make-test-python.nix ({
         };
       };
 
-      # New generation of the server with manual config
-      newServer = {
+        # New generation of the server with manual config
+      newServer =
+        {
           lib,
           nodes,
           ...
@@ -97,8 +98,8 @@ import ./make-test-python.nix ({
             server.key = snakeOil.key;
             server.crl = snakeOil.crl;
           };
-          # This is to avoid assigning a different network address to the new
-          # generation.
+            # This is to avoid assigning a different network address to the new
+            # generation.
           networking = lib.mapAttrs (lib.const lib.mkForce) {
             interfaces.eth1.ipv4 =
               nodes.server.config.networking.interfaces.eth1.ipv4;
@@ -108,9 +109,11 @@ import ./make-test-python.nix ({
               extraHosts
               ;
           };
-        };
+        }
+        ;
 
-      client1 = {
+      client1 =
+        {
           pkgs,
           ...
         }: {
@@ -122,12 +125,14 @@ import ./make-test-python.nix ({
           users.users.bob.isNormalUser = true;
           users.users.foo.isNormalUser = true;
           users.users.bar.isNormalUser = true;
-        };
+        }
+        ;
 
       client2 = client1;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -311,5 +316,6 @@ import ./make-test-python.nix ({
             setup_clients_for("manualOrg", "alice", init_manual_config)
 
             test_sync("alice")
-      '' ;
+      ''
+      ;
   } )

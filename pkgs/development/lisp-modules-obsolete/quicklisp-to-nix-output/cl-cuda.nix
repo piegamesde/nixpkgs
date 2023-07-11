@@ -31,7 +31,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-cuda/2021-08-07/cl-cuda-20210807-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-cuda/2021-08-07/cl-cuda-20210807-git.tgz"
+      ;
     sha256 = "0q974qrjxdn7c53frpac0hz9wnxhnf3lf8xngrc8zkphp1windc0";
   };
 

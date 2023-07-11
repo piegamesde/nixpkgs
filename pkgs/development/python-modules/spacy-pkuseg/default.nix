@@ -20,8 +20,8 @@ buildPythonPackage rec {
     hash = "sha256-9y2TZROOkIOl54u6jocZD4WtP5Ct3bVfacWKqGLISEw=";
   };
 
-  # Does not seem to have actual tests, but unittest discover
-  # recognizes some non-tests as tests and fails.
+    # Does not seem to have actual tests, but unittest discover
+    # recognizes some non-tests as tests and fails.
   doCheck = false;
 
   nativeBuildInputs = [ cython ];

@@ -31,13 +31,14 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  # The kgb test dependency is not in nixpkgs
+    # The kgb test dependency is not in nixpkgs
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://www.reviewboard.org/docs/rbtools/dev/";
     description =
-      "RBTools is a set of command line tools for working with Review Board and RBCommons";
+      "RBTools is a set of command line tools for working with Review Board and RBCommons"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ domenkozar ];
   };

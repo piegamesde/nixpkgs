@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/lpsolve/lpsolve/${version}/lp_solve_${version}_source.tar.gz";
+      "mirror://sourceforge/project/lpsolve/lpsolve/${version}/lp_solve_${version}_source.tar.gz"
+      ;
     sha256 = "sha256-bUq/9cxqqpM66ObBeiJt8PwLZxxDj2lxXUHQn+gfkC8=";
   };
 
@@ -25,19 +26,23 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  buildPhase = let
-    ccc = if stdenv.isDarwin then
-      "ccc.osx"
-    else
-      "ccc";
-  in ''
-    runHook preBuild
+  buildPhase =
+    let
+      ccc =
+        if stdenv.isDarwin then
+          "ccc.osx"
+        else
+          "ccc"
+        ;
+    in ''
+      runHook preBuild
 
-    (cd lpsolve55 && bash -x -e ${ccc})
-    (cd lp_solve  && bash -x -e ${ccc})
+      (cd lpsolve55 && bash -x -e ${ccc})
+      (cd lp_solve  && bash -x -e ${ccc})
 
-    runHook postBuild
-  '' ;
+      runHook postBuild
+    ''
+    ;
 
   installPhase = ''
     runHook preInstall

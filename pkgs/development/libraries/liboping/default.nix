@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "format-args.patch";
       url =
-        "https://github.com/octo/liboping/commit/7a50e33f2a686564aa43e4920141e6f64e042df1.patch";
+        "https://github.com/octo/liboping/commit/7a50e33f2a686564aa43e4920141e6f64e042df1.patch"
+        ;
       sha256 = "118fl3k84m3iqwfp49g5qil4lw1gcznzmyxnfna0h7za2nm50cxw";
     })
   ];

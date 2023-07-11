@@ -22,17 +22,17 @@ stdenv.mkDerivation (finalAttrs: {
         else
           "free"
       };
-    # remove the unRAR related code from the src drv
-    # > the license requires that you agree to these use restrictions,
-    # > or you must remove the software (source and binary) from your hard disks
-    # https://fedoraproject.org/wiki/Licensing:Unrar
+      # remove the unRAR related code from the src drv
+      # > the license requires that you agree to these use restrictions,
+      # > or you must remove the software (source and binary) from your hard disks
+      # https://fedoraproject.org/wiki/Licensing:Unrar
     postFetch = lib.optionalString (!enableUnfree) ''
       rm -r $out/CPP/7zip/Compress/Rar*
       find $out -name makefile'*' -exec sed -i '/Rar/d' {} +
     '';
   };
 
-  # Default makefile is full of impurities on Darwin. The patch doesn't hurt Linux so I'm leaving it unconditional
+    # Default makefile is full of impurities on Darwin. The patch doesn't hurt Linux so I'm leaving it unconditional
   postPatch = ''
     sed -i '/CC=\/usr/d' makefile.macosx_llvm_64bits
     # Avoid writing timestamps into compressed manpages
@@ -78,7 +78,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://github.com/p7zip-project/p7zip";
     description =
-      "A new p7zip fork with additional codecs and improvements (forked from https://sourceforge.net/projects/p7zip/)";
+      "A new p7zip fork with additional codecs and improvements (forked from https://sourceforge.net/projects/p7zip/)"
+      ;
     license = with licenses;
     # p7zip code is largely lgpl2Plus
     # CPP/7zip/Compress/LzfseDecoder.cpp is bsd3

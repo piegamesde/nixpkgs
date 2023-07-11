@@ -16,7 +16,7 @@ in {
 
   meta.maintainers = teams.pantheon.members;
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -41,7 +41,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf config.services.gsignond.enable {
     environment.etc."gsignond.conf".source = "${package}/etc/gsignond.conf";
     services.dbus.packages = [ package ];

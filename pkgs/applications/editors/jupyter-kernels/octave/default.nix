@@ -33,7 +33,8 @@ in rec {
       --suffix PATH : $octave/bin
   '';
 
-  sizedLogo = size:
+  sizedLogo =
+    size:
     stdenv.mkDerivation {
       pname = "octave-logo-${size}x${size}.png";
       inherit (octave) version;
@@ -48,7 +49,8 @@ in rec {
       buildPhase = ''
         convert ./libgui/src/icons/logo.png -resize ${size}x${size} $out
       '';
-    };
+    }
+    ;
 
   definition = {
     displayName = "Octave";

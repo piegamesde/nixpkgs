@@ -82,9 +82,9 @@ in {
     maintainers = with maintainers; [ ] ++ teams.pantheon.members;
   };
 
-  # Note: the order in which lightdm greeter modules are imported
-  # here determines the default: later modules (if enable) are
-  # preferred.
+    # Note: the order in which lightdm greeter modules are imported
+    # here determines the default: later modules (if enable) are
+    # preferred.
   imports = [
     ./lightdm-greeters/gtk.nix
     ./lightdm-greeters/mini.nix
@@ -172,7 +172,7 @@ in {
 
       background = mkOption {
         type = types.either types.path (types.strMatching "^#[0-9]{6}$");
-        # Manual cannot depend on packages, we are actually setting the default in config below.
+          # Manual cannot depend on packages, we are actually setting the default in config below.
         defaultText = literalExpression
           "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath";
         description = lib.mdDoc ''
@@ -190,7 +190,7 @@ in {
           lib.mdDoc "Extra lines to append to SeatDefaults section.";
       };
 
-      # Configuration for automatic login specific to LightDM
+        # Configuration for automatic login specific to LightDM
       autoLogin.timeout = mkOption {
         type = types.int;
         default = 0;
@@ -212,8 +212,8 @@ in {
         '';
       }
       {
-        assertion = dmcfg.autoLogin.enable -> sessionData.autologinSession
-          != null;
+        assertion =
+          dmcfg.autoLogin.enable -> sessionData.autologinSession != null;
         message = ''
           LightDM auto-login requires that services.xserver.displayManager.defaultSession is set.
         '';
@@ -228,37 +228,37 @@ in {
       }
     ];
 
-    # Keep in sync with the defaultText value from the option definition.
+      # Keep in sync with the defaultText value from the option definition.
     services.xserver.displayManager.lightdm.background = mkDefault
       pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
 
-    # Set default session in session chooser to a specified values – basically ignore session history.
-    # Auto-login is already covered by a config value.
+      # Set default session in session chooser to a specified values – basically ignore session history.
+      # Auto-login is already covered by a config value.
     services.xserver.displayManager.job.preStart = optionalString
       (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null) ''
         ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
       '';
 
-    # setSessionScript needs session-files in XDG_DATA_DIRS
+      # setSessionScript needs session-files in XDG_DATA_DIRS
     services.xserver.displayManager.job.environment.XDG_DATA_DIRS =
       "${dmcfg.sessionData.desktops}/share/";
 
-    # setSessionScript wants AccountsService
+      # setSessionScript wants AccountsService
     systemd.services.display-manager.wants = [ "accounts-daemon.service" ];
 
-    # lightdm relaunches itself via just `lightdm`, so needs to be on the PATH
+      # lightdm relaunches itself via just `lightdm`, so needs to be on the PATH
     services.xserver.displayManager.job.execCmd = ''
       export PATH=${lightdm}/sbin:$PATH
       exec ${lightdm}/sbin/lightdm
     '';
 
-    # Replaces getty
+      # Replaces getty
     systemd.services.display-manager.conflicts = [ "getty@tty7.service"
       # TODO: Add "plymouth-quit.service" so LightDM can control when plymouth
       # quits. Currently this breaks switching to configurations with plymouth.
       ];
 
-    # Pull in dependencies of services we replace.
+      # Pull in dependencies of services we replace.
     systemd.services.display-manager.after = [
       "rc-local.service"
       "systemd-machined.service"
@@ -267,17 +267,17 @@ in {
       "user.slice"
     ];
 
-    # user.slice needs to be present
+      # user.slice needs to be present
     systemd.services.display-manager.requires = [ "user.slice" ];
 
-    # lightdm stops plymouth so when it fails make sure plymouth stops.
+      # lightdm stops plymouth so when it fails make sure plymouth stops.
     systemd.services.display-manager.onFailure = [ "plymouth-quit.service" ];
 
     systemd.services.display-manager.serviceConfig = {
       BusName = "org.freedesktop.DisplayManager";
       IgnoreSIGPIPE = "no";
-      # This allows lightdm to pass the LUKS password through to PAM.
-      # login keyring is unlocked automatic when autologin is used.
+        # This allows lightdm to pass the LUKS password through to PAM.
+        # login keyring is unlocked automatic when autologin is used.
       KeyringMode = "shared";
       KillMode = "mixed";
       StandardError = "inherit";
@@ -289,10 +289,10 @@ in {
     services.dbus.enable = true;
     services.dbus.packages = [ lightdm ];
 
-    # lightdm uses the accounts daemon to remember language/window-manager per user
+      # lightdm uses the accounts daemon to remember language/window-manager per user
     services.accounts-daemon.enable = true;
 
-    # Enable the accounts daemon to find lightdm's dbus interface
+      # Enable the accounts daemon to find lightdm's dbus interface
     environment.systemPackages = [ lightdm ];
 
     security.polkit.enable = true;
@@ -349,9 +349,9 @@ in {
     ];
 
     users.groups.lightdm.gid = config.ids.gids.lightdm;
-    services.xserver.tty =
-      null; # We might start multiple X servers so let the tty increment themselves..
-    services.xserver.display =
-      null; # We specify our own display (and logfile) in xserver-wrapper up there
+    services.xserver.tty = null
+      ; # We might start multiple X servers so let the tty increment themselves..
+    services.xserver.display = null
+      ; # We specify our own display (and logfile) in xserver-wrapper up there
   };
 }

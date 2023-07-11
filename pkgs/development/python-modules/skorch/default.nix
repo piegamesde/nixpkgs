@@ -36,7 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # patch out pytest-cov dep/invocation
+    # patch out pytest-cov dep/invocation
   postPatch = ''
     substituteInPlace setup.cfg  \
       --replace "--cov=skorch" ""  \
@@ -51,7 +51,7 @@ buildPythonPackage rec {
     "test_pickle_load"
   ];
 
-  # tries to import `transformers` and download HuggingFace data
+    # tries to import `transformers` and download HuggingFace data
   disabledTestPaths = [ "skorch/tests/test_hf.py" ];
 
   pythonImportsCheck = [ "skorch" ];

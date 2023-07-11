@@ -17,7 +17,7 @@
 
 let
   version = "1.17.3";
-  # Using two URLs as the first one will break as soon as a new version is released
+    # Using two URLs as the first one will break as soon as a new version is released
   src_bin = fetchurl {
     urls = [
       "http://www.makemkv.com/download/makemkv-bin-${version}.tar.gz"
@@ -59,11 +59,12 @@ mkDerivation {
 
   runtimeDependencies = [ (lib.getLib curl) ];
 
-  qtWrapperArgs = let
-    binPath = lib.makeBinPath [ jre_headless ];
-  in
-  lib.optionals withJava [ "--prefix PATH : ${binPath}" ]
-  ;
+  qtWrapperArgs =
+    let
+      binPath = lib.makeBinPath [ jre_headless ];
+    in
+    lib.optionals withJava [ "--prefix PATH : ${binPath}" ]
+    ;
 
   installPhase = ''
     runHook preInstall

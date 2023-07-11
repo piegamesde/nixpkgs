@@ -39,7 +39,7 @@ buildPythonPackage rec {
       --replace "from collections" "from collections.abc"
   '';
 
-  # Tests are not shipped and source is not tagged
+    # Tests are not shipped and source is not tagged
   doCheck = false;
 
   pythonImportsCheck = [ "attrdict" ];

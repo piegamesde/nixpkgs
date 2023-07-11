@@ -102,7 +102,7 @@ buildPythonPackage rec {
   ] ++ lib.optionals withVisualization visualizationPackages
     ++ lib.optionals withCrosstalkPass crosstalkPackages;
 
-  # *** Tests ***
+    # *** Tests ***
   nativeCheckInputs = [
     pytestCheckHook
     ddt
@@ -182,8 +182,8 @@ buildPythonPackage rec {
       "test_defaults_to_dict_46"
     ];
 
-  # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
-  # cythonized modules and expecting to find some resource files in the test directory.
+    # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
+    # cythonized modules and expecting to find some resource files in the test directory.
   preCheck = ''
     export PACKAGEDIR=$out/${python.sitePackages}
     echo "Moving Qiskit test files to package directory"

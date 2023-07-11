@@ -47,12 +47,12 @@ buildPythonPackage rec {
     pyshp
   ];
 
-  # Standard configurePhase from `buildPythonPackage` seems to break the setup.py script
+    # Standard configurePhase from `buildPythonPackage` seems to break the setup.py script
   preBuild = ''
     export GEOS_DIR=${geos}
   '';
 
-  # test have various problems including requiring internet connection, permissions issues, problems with latest version of pillow
+    # test have various problems including requiring internet connection, permissions issues, problems with latest version of pillow
   doCheck = false;
 
   checkPhase = ''

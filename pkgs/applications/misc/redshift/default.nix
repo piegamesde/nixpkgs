@@ -39,7 +39,8 @@
 }:
 
 let
-  mkRedshift = {
+  mkRedshift =
+    {
       pname,
       version,
       src,
@@ -134,25 +135,28 @@ let
         wrapGApp $out/bin/${pname}
       '';
 
-      # the geoclue agent may inspect these paths and expect them to be
-      # valid without having the correct $PATH set
-      postInstall = if (pname == "gammastep") then
-        ''
-          substituteInPlace $out/share/applications/gammastep.desktop \
-            --replace 'Exec=gammastep' "Exec=$out/bin/gammastep"
-          substituteInPlace $out/share/applications/gammastep-indicator.desktop \
-            --replace 'Exec=gammastep-indicator' "Exec=$out/bin/gammastep-indicator"
-        ''
-      else
-        ''
-          substituteInPlace $out/share/applications/redshift.desktop \
-            --replace 'Exec=redshift' "Exec=$out/bin/redshift"
-          substituteInPlace $out/share/applications/redshift-gtk.desktop \
-            --replace 'Exec=redshift-gtk' "Exec=$out/bin/redshift-gtk"
-        '';
+        # the geoclue agent may inspect these paths and expect them to be
+        # valid without having the correct $PATH set
+      postInstall =
+        if (pname == "gammastep") then
+          ''
+            substituteInPlace $out/share/applications/gammastep.desktop \
+              --replace 'Exec=gammastep' "Exec=$out/bin/gammastep"
+            substituteInPlace $out/share/applications/gammastep-indicator.desktop \
+              --replace 'Exec=gammastep-indicator' "Exec=$out/bin/gammastep-indicator"
+          ''
+        else
+          ''
+            substituteInPlace $out/share/applications/redshift.desktop \
+              --replace 'Exec=redshift' "Exec=$out/bin/redshift"
+            substituteInPlace $out/share/applications/redshift-gtk.desktop \
+              --replace 'Exec=redshift-gtk' "Exec=$out/bin/redshift-gtk"
+          ''
+        ;
 
       enableParallelBuilding = true;
-    };
+    }
+    ;
 in rec {
   redshift = mkRedshift rec {
     pname = "redshift";
@@ -198,8 +202,8 @@ in rec {
 
     meta = redshift.meta // {
       name = "${pname}-${version}";
-      longDescription = "Gammastep"
-        + lib.removePrefix "Redshift" redshift.meta.longDescription;
+      longDescription =
+        "Gammastep" + lib.removePrefix "Redshift" redshift.meta.longDescription;
       homepage = "https://gitlab.com/chinstrap/gammastep";
       maintainers = [ lib.maintainers.primeos ] ++ redshift.meta.maintainers;
     };

@@ -22,8 +22,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-n+ZOWU+sPq9DcHgzQWTxxfMmiz239qdetXypqdy33cM=";
   };
 
-  # RFE: Include Cargo.lock in sources
-  # https://github.com/systemd/zram-generator/issues/65
+    # RFE: Include Cargo.lock in sources
+    # https://github.com/systemd/zram-generator/issues/65
   cargoLock.lockFile = ./Cargo.lock;
 
   postPatch = ''

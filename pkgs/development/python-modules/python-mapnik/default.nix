@@ -35,7 +35,7 @@ buildPythonPackage rec {
     repo = "python-mapnik";
     rev = "a2c2a86eec954b42d7f00093da03807d0834b1b4";
     hash = "sha256-GwDdrutJOHtW7pIWiUAiu1xucmRvp7YFYB3YSCrDsrY=";
-    # Only needed for test data
+      # Only needed for test data
     fetchSubmodules = true;
   };
 
@@ -43,7 +43,8 @@ buildPythonPackage rec {
     # https://github.com/mapnik/python-mapnik/issues/239
     (fetchpatch {
       url =
-        "https://github.com/koordinates/python-mapnik/commit/318b1edac16f48a7f21902c192c1dd86f6210a44.patch";
+        "https://github.com/koordinates/python-mapnik/commit/318b1edac16f48a7f21902c192c1dd86f6210a44.patch"
+        ;
       hash = "sha256-cfU8ZqPPGCqoHEyGvJ8Xy/bGpbN2vSDct6A3N5+I8xM=";
     })
     ./find-pycairo-with-pkg-config.patch
@@ -105,7 +106,7 @@ buildPythonPackage rec {
     rm -r mapnik
   '';
 
-  # https://github.com/mapnik/python-mapnik/issues/255
+    # https://github.com/mapnik/python-mapnik/issues/255
   disabledTests = [
     "test_adding_datasource_to_layer"
     "test_compare_map"

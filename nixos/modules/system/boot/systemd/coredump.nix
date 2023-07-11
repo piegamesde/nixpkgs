@@ -48,7 +48,7 @@ in {
           ${cfg.extraConfig}
         '';
 
-        # install provided sysctl snippets
+          # install provided sysctl snippets
         "sysctl.d/50-coredump.conf".source =
           # Fix systemd-coredump error caused by truncation of `kernel.core_pattern`
           # when the `systemd` derivation name is too long. This works by substituting

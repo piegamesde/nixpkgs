@@ -121,11 +121,11 @@ qtModule {
 
   enableParallelBuilding = true;
 
-  # Don’t use the gn setup hook
+    # Don’t use the gn setup hook
   dontUseGnConfigure = true;
 
-  # ninja builds some components with -Wno-format,
-  # which cannot be set at the same time as -Wformat-security
+    # ninja builds some components with -Wno-format,
+    # which cannot be set at the same time as -Wformat-security
   hardeningDisable = [ "format" ];
 
   postPatch = ''
@@ -340,8 +340,8 @@ qtModule {
     description = "A web engine based on the Chromium web browser";
     maintainers = with maintainers; [ matthewbauer ];
 
-    # qtwebengine-5.15.8: "QtWebEngine can only be built for x86,
-    # x86-64, ARM, Aarch64, and MIPSel architectures."
+      # qtwebengine-5.15.8: "QtWebEngine can only be built for x86,
+      # x86-64, ARM, Aarch64, and MIPSel architectures."
     platforms = lib.trivial.pipe lib.systems.doubles.all [
       (map (double: lib.systems.elaborate { system = double; }))
       (lib.lists.filter (parsedPlatform:
@@ -352,7 +352,7 @@ qtModule {
     ];
     broken = stdenv.isDarwin && stdenv.isx86_64;
 
-    # This build takes a long time; particularly on slow architectures
+      # This build takes a long time; particularly on slow architectures
     timeout = 24 * 3600;
   };
 }

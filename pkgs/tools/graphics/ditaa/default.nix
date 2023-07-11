@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/stathissideris/ditaa/releases/download/v${version}/ditaa-${version}-standalone.jar";
+      "https://github.com/stathissideris/ditaa/releases/download/v${version}/ditaa-${version}-standalone.jar"
+      ;
     sha256 = "1acnl7khz8aasg230nbsx9dyf8716scgb5l3679cb2bdzxisl64l";
   };
 

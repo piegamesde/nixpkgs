@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  # no tests included for now (2018-08-05), but can't hurt to activate
+    # no tests included for now (2018-08-05), but can't hurt to activate
   doCheck = true;
 
   meta = with lib; {

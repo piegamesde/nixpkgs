@@ -17,7 +17,8 @@
 }:
 
 let
-  mkPrefetchScript = tool: src: deps:
+  mkPrefetchScript =
+    tool: src: deps:
     stdenv.mkDerivation {
       name = "nix-prefetch-${tool}";
 
@@ -44,7 +45,8 @@ let
         maintainers = with maintainers; [ bennofs ];
         platforms = platforms.unix;
       };
-    };
+    }
+    ;
 in rec {
   nix-prefetch-bzr = mkPrefetchScript "bzr"
     ../../../build-support/fetchbzr/nix-prefetch-bzr [ breezy ];
@@ -76,7 +78,8 @@ in rec {
 
     meta = with lib; {
       description =
-        "Collection of all the nix-prefetch-* scripts which may be used to obtain source hashes";
+        "Collection of all the nix-prefetch-* scripts which may be used to obtain source hashes"
+        ;
       maintainers = with maintainers; [ bennofs ];
       platforms = platforms.unix;
     };

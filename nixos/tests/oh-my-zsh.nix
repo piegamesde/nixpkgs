@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }: {
     name = "oh-my-zsh";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }:
@@ -14,7 +15,8 @@ import ./make-test-python.nix ({
           enable = true;
           ohMyZsh.enable = true;
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

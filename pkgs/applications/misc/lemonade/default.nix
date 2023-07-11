@@ -18,7 +18,8 @@ buildGoModule rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/lemonade-command/lemonade/commit/2b292b0c9d8dc57f73c30a58b3f0f790a953b212.patch";
+      "https://github.com/lemonade-command/lemonade/commit/2b292b0c9d8dc57f73c30a58b3f0f790a953b212.patch"
+      ;
     sha256 = "sha256-jUcOfsKu1IYa7arZuAvhuD0vw7JTmhzA/VLxOtAnbmI=";
   }) ];
 

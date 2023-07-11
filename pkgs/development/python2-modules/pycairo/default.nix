@@ -31,8 +31,8 @@ buildPythonPackage rec {
 
   buildInputs = [ cairo ];
 
-  # HACK: Don't use the pytestCheckHook because PYTHONPATH
-  # will be added by the Python setuptook breaking meson.
+    # HACK: Don't use the pytestCheckHook because PYTHONPATH
+    # will be added by the Python setuptook breaking meson.
   checkPhase = ''
     ${pytest}/bin/pytest
   '';

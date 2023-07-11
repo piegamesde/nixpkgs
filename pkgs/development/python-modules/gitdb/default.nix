@@ -22,7 +22,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace ",<4" ""
   '';
 
-  # Bunch of tests fail because they need an actual git repo
+    # Bunch of tests fail because they need an actual git repo
   doCheck = false;
 
   meta = {

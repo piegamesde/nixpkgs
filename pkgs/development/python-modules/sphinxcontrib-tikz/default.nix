@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sphinx ];
 
-  # no tests in package
+    # no tests in package
   doCheck = false;
 
   pythonImportsCheck = [ "sphinxcontrib.tikz" ];

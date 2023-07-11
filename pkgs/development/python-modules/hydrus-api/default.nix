@@ -32,7 +32,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "hydrus_api" ];
 
-  # There are no unit tests
+    # There are no unit tests
   doCheck = false;
 
   meta = with lib; {

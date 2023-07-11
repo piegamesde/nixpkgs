@@ -9,7 +9,7 @@ buildPythonPackage rec {
   pname = "fleep";
   version = "1.0.1";
 
-  # Pypi version does not have tests
+    # Pypi version does not have tests
   src = fetchFromGitHub {
     owner = "floyernick";
     repo = "fleep-py";

@@ -12,25 +12,27 @@ let
   dnsmasq = pkgs.dnsmasq;
   stateDir = "/var/lib/dnsmasq";
 
-  # True values are just put as `name` instead of `name=true`, and false values
-  # are turned to comments (false values are expected to be overrides e.g.
-  # mkForce)
-  formatKeyValue = name: value:
+    # True values are just put as `name` instead of `name=true`, and false values
+    # are turned to comments (false values are expected to be overrides e.g.
+    # mkForce)
+  formatKeyValue =
+    name: value:
     if value == true then
       name
     else if value == false then
       "# setting `${name}` explicitly set to false"
     else
-      generators.mkKeyValueDefault { } "=" name value;
+      generators.mkKeyValueDefault { } "=" name value
+    ;
 
   settingsFormat = pkgs.formats.keyValue {
     mkKeyValue = formatKeyValue;
     listsAsDuplicateKeys = true;
   };
 
-  # Because formats.generate is outputting a file, we use of conf-file. Once
-  # `extraConfig` is deprecated we can just use
-  # `dnsmasqConf = format.generate "dnsmasq.conf" cfg.settings`
+    # Because formats.generate is outputting a file, we use of conf-file. Once
+    # `extraConfig` is deprecated we can just use
+    # `dnsmasqConf = format.generate "dnsmasq.conf" cfg.settings`
   dnsmasqConf = pkgs.writeText "dnsmasq.conf" ''
     conf-file=${settingsFormat.generate "dnsmasq.conf" cfg.settings}
     ${cfg.extraConfig}
@@ -49,7 +51,7 @@ in {
     "server"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -133,12 +135,13 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
     warnings = lib.optional (cfg.extraConfig != "")
-      "Text based config is deprecated, dnsmasq now supports `services.dnsmasq.settings` for an attribute-set based config";
+      "Text based config is deprecated, dnsmasq now supports `services.dnsmasq.settings` for an attribute-set based config"
+      ;
 
     services.dnsmasq.settings = {
       dhcp-leasefile = mkDefault "${stateDir}/dnsmasq.leases";
@@ -187,15 +190,18 @@ in {
         Type = "dbus";
         BusName = "uk.org.thekelleys.dnsmasq";
         ExecStart =
-          "${dnsmasq}/bin/dnsmasq -k --enable-dbus --user=dnsmasq -C ${dnsmasqConf}";
+          "${dnsmasq}/bin/dnsmasq -k --enable-dbus --user=dnsmasq -C ${dnsmasqConf}"
+          ;
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         PrivateTmp = true;
         ProtectSystem = true;
         ProtectHome = true;
-        Restart = if cfg.alwaysKeepRunning then
-          "always"
-        else
-          "on-failure";
+        Restart =
+          if cfg.alwaysKeepRunning then
+            "always"
+          else
+            "on-failure"
+          ;
       };
       restartTriggers = [ config.environment.etc.hosts.source ];
     };

@@ -20,7 +20,8 @@ let
     types
     ;
 
-  browserDefault = chromium:
+  browserDefault =
+    chromium:
     concatStringsSep " " [
       ''env XDG_CONFIG_HOME="$PREV_CONFIG_HOME"''
       "${chromium}/bin/chromium"
@@ -32,7 +33,8 @@ let
       "--incognito"
       "-no-default-browser-check"
       "http://cache.nixos.org/"
-    ];
+    ]
+    ;
 
   desktopItem = pkgs.makeDesktopItem {
     name = "captive-browser";
@@ -62,7 +64,7 @@ in {
           lib.mdDoc "your public network interface (wlp3s0, wlan0, eth0, ...)";
       };
 
-      # the options below are the same as in "captive-browser.toml"
+        # the options below are the same as in "captive-browser.toml"
       browser = mkOption {
         type = types.str;
         default = browserDefault pkgs.chromium;
@@ -109,40 +111,43 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages =
-      [ (pkgs.runCommand "captive-browser-desktop-item" { } ''
+    environment.systemPackages = [ (pkgs.runCommand
+      "captive-browser-desktop-item" { } ''
         install -Dm444 -t $out/share/applications ${desktopItem}/share/applications/*.desktop
       '') ];
 
-    programs.captive-browser.dhcp-dns = let
-      iface = prefixes:
-        optionalString cfg.bindInterface
-        (escapeShellArgs (prefixes ++ [ cfg.interface ]));
-    in
-    mkOptionDefault (if config.networking.networkmanager.enable then
-      "${pkgs.networkmanager}/bin/nmcli dev show ${
-        iface [ ]
-      } | ${pkgs.gnugrep}/bin/fgrep IP4.DNS"
-    else if config.networking.dhcpcd.enable then
-      "${pkgs.dhcpcd}/bin/dhcpcd ${
-        iface [ "-U" ]
-      } | ${pkgs.gnugrep}/bin/fgrep domain_name_servers"
-    else if config.networking.useNetworkd then
-      "${cfg.package}/bin/systemd-networkd-dns ${iface [ ]}"
-    else
-      "${config.security.wrapperDir}/udhcpc --quit --now -f ${
-        iface [ "-i" ]
-      } -O dns --script ${
-        pkgs.writeShellScript "udhcp-script" ''
-          if [ "$1" = bound ]; then
-            echo "$dns"
-          fi
-        ''
-      }")
-    ;
+    programs.captive-browser.dhcp-dns =
+      let
+        iface =
+          prefixes:
+          optionalString cfg.bindInterface
+          (escapeShellArgs (prefixes ++ [ cfg.interface ]))
+          ;
+      in
+      mkOptionDefault (if config.networking.networkmanager.enable then
+        "${pkgs.networkmanager}/bin/nmcli dev show ${
+          iface [ ]
+        } | ${pkgs.gnugrep}/bin/fgrep IP4.DNS"
+      else if config.networking.dhcpcd.enable then
+        "${pkgs.dhcpcd}/bin/dhcpcd ${
+          iface [ "-U" ]
+        } | ${pkgs.gnugrep}/bin/fgrep domain_name_servers"
+      else if config.networking.useNetworkd then
+        "${cfg.package}/bin/systemd-networkd-dns ${iface [ ]}"
+      else
+        "${config.security.wrapperDir}/udhcpc --quit --now -f ${
+          iface [ "-i" ]
+        } -O dns --script ${
+          pkgs.writeShellScript "udhcp-script" ''
+            if [ "$1" = bound ]; then
+              echo "$dns"
+            fi
+          ''
+        }")
+      ;
 
     security.wrappers.udhcpc = {
       owner = "root";

@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Improved software detection and extraction of ITS1 and ITS2 from ribosomal ITS sequences of fungi and other eukaryotes for use in environmental sequencing";
+      "Improved software detection and extraction of ITS1 and ITS2 from ribosomal ITS sequences of fungi and other eukaryotes for use in environmental sequencing"
+      ;
     homepage = "https://microbiology.se/software/itsx/";
     license = licenses.gpl3;
     maintainers = [ maintainers.bzizou ];

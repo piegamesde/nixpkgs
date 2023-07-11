@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/OpenPrinting/cups/releases/download/v${version}/cups-${version}-source.tar.gz";
+      "https://github.com/OpenPrinting/cups/releases/download/v${version}/cups-${version}-source.tar.gz"
+      ;
     sha256 = "sha256-8DzLQLCH0eMJQKQOAUHcu6Jj85l0wg658lIQZsnGyQg=";
   };
 
@@ -95,7 +96,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (avahi != null) "--enable-avahi"
     ++ lib.optional (libpaper != null) "--enable-libpaper";
 
-  # AR has to be an absolute path
+    # AR has to be an absolute path
   preConfigure = ''
     export AR="${
       lib.getBin stdenv.cc.bintools.bintools

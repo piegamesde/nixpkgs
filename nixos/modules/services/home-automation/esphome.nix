@@ -20,10 +20,12 @@ let
 
   stateDir = "/var/lib/esphome";
 
-  esphomeParams = if cfg.enableUnixSocket then
-    "--socket /run/esphome/esphome.sock"
-  else
-    "--address ${cfg.address} --port ${toString cfg.port}";
+  esphomeParams =
+    if cfg.enableUnixSocket then
+      "--socket /run/esphome/esphome.sock"
+    else
+      "--address ${cfg.address} --port ${toString cfg.port}"
+    ;
 in {
   meta.maintainers = with maintainers; [ oddlama ];
 
@@ -41,7 +43,8 @@ in {
       type = types.bool;
       default = false;
       description = lib.mdDoc
-        "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port.";
+        "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port."
+        ;
     };
 
     address = mkOption {
@@ -68,8 +71,8 @@ in {
         "char-ttyS"
         "char-ttyUSB"
       ];
-      example =
-        [ "/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0" ];
+      example = [ "/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0" ]
+        ;
       description = lib.mdDoc ''
         A list of device nodes to which {command}`esphome` has access to.
         Refer to DeviceAllow in systemd.resource-control(5) for more information.
@@ -90,7 +93,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       path = [ cfg.package ];
 
-      # platformio fails to determine the home directory when using DynamicUser
+        # platformio fails to determine the home directory when using DynamicUser
       environment.PLATFORMIO_CORE_DIR = "${stateDir}/.platformio";
 
       serviceConfig = {
@@ -106,16 +109,16 @@ in {
         RuntimeDirectory = mkIf cfg.enableUnixSocket "esphome";
         RuntimeDirectoryMode = "0750";
 
-        # Hardening
+          # Hardening
         CapabilityBoundingSet = "";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         DevicePolicy = "closed";
         DeviceAllow = map (d: "${d} rw") cfg.allowedDevices;
         SupplementaryGroups = [ "dialout" ];
-        #NoNewPrivileges = true; # Implied by DynamicUser
+          #NoNewPrivileges = true; # Implied by DynamicUser
         PrivateUsers = true;
-        #PrivateTmp = true; # Implied by DynamicUser
+          #PrivateTmp = true; # Implied by DynamicUser
         ProtectClock = true;
         ProtectControlGroups = true;
         ProtectHome = true;
@@ -126,7 +129,7 @@ in {
         ProtectProc = "invisible";
         ProcSubset = "pid";
         ProtectSystem = "strict";
-        #RemoveIPC = true; # Implied by DynamicUser
+          #RemoveIPC = true; # Implied by DynamicUser
         RestrictAddressFamilies = [
           "AF_INET"
           "AF_INET6"
@@ -135,7 +138,7 @@ in {
         ];
         RestrictNamespaces = false; # Required by platformio for chroot
         RestrictRealtime = true;
-        #RestrictSUIDSGID = true; # Implied by DynamicUser
+          #RestrictSUIDSGID = true; # Implied by DynamicUser
         SystemCallArchitectures = "native";
         SystemCallFilter = [
           "@system-service"

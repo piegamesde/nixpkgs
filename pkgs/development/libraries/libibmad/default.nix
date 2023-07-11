@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.openfabrics.org/downloads/management/${pname}-${version}.tar.gz";
+      "https://www.openfabrics.org/downloads/management/${pname}-${version}.tar.gz"
+      ;
     sha256 = "02sj8k2jpcbiq8s0l2lqk4vwji2dbb2lc730cv1yzv0zr0hxgk8p";
   };
 

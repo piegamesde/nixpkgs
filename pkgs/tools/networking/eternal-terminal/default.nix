@@ -48,10 +48,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Remote shell that automatically reconnects without interrupting the session";
+      "Remote shell that automatically reconnects without interrupting the session"
+      ;
     homepage = "https://eternalterminal.dev/";
     changelog =
-      "https://github.com/MisterTea/EternalTerminal/releases/tag/et-v${version}";
+      "https://github.com/MisterTea/EternalTerminal/releases/tag/et-v${version}"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ dezgeg ];
     platforms = platforms.linux ++ platforms.darwin;

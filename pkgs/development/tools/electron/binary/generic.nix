@@ -46,19 +46,25 @@ let
       "Electron version ${version} is EOL";
   };
 
-  fetcher = vers: tag: hash:
+  fetcher =
+    vers: tag: hash:
     fetchurl {
       url =
-        "https://github.com/electron/electron/releases/download/v${vers}/electron-v${vers}-${tag}.zip";
+        "https://github.com/electron/electron/releases/download/v${vers}/electron-v${vers}-${tag}.zip"
+        ;
       sha256 = hash;
-    };
+    }
+    ;
 
-  headersFetcher = vers: hash:
+  headersFetcher =
+    vers: hash:
     fetchurl {
       url =
-        "https://artifacts.electronjs.org/headers/dist/v${vers}/node-v${vers}-headers.tar.gz";
+        "https://artifacts.electronjs.org/headers/dist/v${vers}/node-v${vers}-headers.tar.gz"
+        ;
       sha256 = hash;
-    };
+    }
+    ;
 
   tags = {
     x86_64-linux = "linux-x64";
@@ -71,14 +77,18 @@ let
     i686-linux = "linux-ia32";
   };
 
-  get = as: platform:
-    as.${platform.system} or (throw "Unsupported system: ${platform.system}");
+  get =
+    as: platform:
+    as.${platform.system} or (throw "Unsupported system: ${platform.system}")
+    ;
 
-  common = platform: {
-    inherit pname version meta;
-    src = fetcher version (get tags platform) (get hashes platform);
-    passthru.headers = headersFetcher version hashes.headers;
-  };
+  common =
+    platform: {
+      inherit pname version meta;
+      src = fetcher version (get tags platform) (get hashes platform);
+      passthru.headers = headersFetcher version hashes.headers;
+    }
+    ;
 
   electronLibPath = with lib;
     makeLibraryPath ([

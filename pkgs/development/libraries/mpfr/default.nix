@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  # mpfr.h requires gmp.h
+    # mpfr.h requires gmp.h
   propagatedBuildInputs = [ gmp ];
 
   configureFlags =

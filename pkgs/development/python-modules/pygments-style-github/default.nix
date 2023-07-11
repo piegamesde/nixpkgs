@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-D8q9IxR9VMhiQPYhZ4xTyZin3vqg0naRHB8t7wpF9Kc=";
   };
 
-  # no tests exist on upstream repo
+    # no tests exist on upstream repo
   doCheck = false;
 
   propagatedBuildInputs = [ pygments ];

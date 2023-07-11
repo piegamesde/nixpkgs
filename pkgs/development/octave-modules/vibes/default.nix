@@ -35,8 +35,8 @@ buildOctavePackage rec {
       separately. Data types from third-party interval arithmetic libraries for
       Octave are also supported.
     '';
-    # Marked this way until KarlJoad gets around to packaging the vibes program.
-    # https://github.com/ENSTABretagneRobotics/VIBES
+      # Marked this way until KarlJoad gets around to packaging the vibes program.
+      # https://github.com/ENSTABretagneRobotics/VIBES
     broken = true;
   };
 }

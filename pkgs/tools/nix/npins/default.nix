@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     (with darwin.apple_sdk.frameworks; [ Security ]);
   nativeBuildInputs = [ makeWrapper ];
 
-  # (Almost) all tests require internet
+    # (Almost) all tests require internet
   doCheck = false;
 
   postFixup = ''

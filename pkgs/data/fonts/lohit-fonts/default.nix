@@ -95,7 +95,8 @@ let
     };
   };
 
-  mkpkg = license: pname:
+  mkpkg =
+    license: pname:
     {
       label,
       version,
@@ -106,7 +107,8 @@ let
 
       src = fetchurl {
         url =
-          "https://releases.pagure.org/lohit/lohit-${pname}-ttf-${version}.tar.gz";
+          "https://releases.pagure.org/lohit/lohit-${pname}-ttf-${version}.tar.gz"
+          ;
         inherit hash;
       };
 
@@ -127,18 +129,19 @@ let
 
       meta = {
         inherit license;
-        description = "Free and open source fonts for Indian languages ("
-          + label + ")";
+        description =
+          "Free and open source fonts for Indian languages (" + label + ")";
         homepage = "https://pagure.io/lohit";
         maintainers = [
           lib.maintainers.mathnerd314
           lib.maintainers.ttuegel
         ];
-        # Set a non-zero priority to allow easy overriding of the
-        # fontconfig configuration files.
+          # Set a non-zero priority to allow easy overriding of the
+          # fontconfig configuration files.
         priority = 5;
       };
-    };
+    }
+    ;
 
   # Technically, GPLv2 with usage exceptions
 in

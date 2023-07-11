@@ -19,8 +19,8 @@ pkgs.recurseIntoAttrs (rec {
     customRC = "";
   };
 
-  ### vim tests
-  ##################
+    ### vim tests
+    ##################
 
   test_vim_with_vim_nix_using_plug = vim-full.customize {
     name = "vim-with-vim-addon-nix-using-plug";

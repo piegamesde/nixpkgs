@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
 
     meta.maintainers = with lib.maintainers; [ oxalica ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -29,7 +30,8 @@ import ./make-test-python.nix ({
           device = "/var/swapfile";
           size = 1; # 1MiB.
         } ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit('var-swapfile.swap')

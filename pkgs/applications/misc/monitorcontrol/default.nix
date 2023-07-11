@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/MonitorControl/${pname}/releases/download/v${version}/MonitorControl.${version}.dmg";
+      "https://github.com/MonitorControl/${pname}/releases/download/v${version}/MonitorControl.${version}.dmg"
+      ;
     sha256 = "iaxM9j78Sq1EH5TCY240N+D5bG6quk2dZj8T7nt9ATo=";
   };
 
@@ -29,9 +30,11 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A macOS system extension to control brightness and volume of external displays with native OSD";
+      "A macOS system extension to control brightness and volume of external displays with native OSD"
+      ;
     longDescription =
-      "Controls your external display brightness and volume and shows native OSD. Use menulet sliders or the keyboard, including native Apple keys!";
+      "Controls your external display brightness and volume and shows native OSD. Use menulet sliders or the keyboard, including native Apple keys!"
+      ;
     homepage = "https://github.com/MonitorControl/MonitorControl#readme";
     license = licenses.mit;
     maintainers = with maintainers; [ cbleslie ];

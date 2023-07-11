@@ -14,12 +14,14 @@ let
   osu-lazer-bin-src = {
     aarch64-darwin = {
       url =
-        "https://github.com/ppy/osu/releases/download/${version}/osu.app.Apple.Silicon.zip";
+        "https://github.com/ppy/osu/releases/download/${version}/osu.app.Apple.Silicon.zip"
+        ;
       sha256 = "sha256-KItS8OykIjinSgm/CtF3YUMUQE9OfZ6aZ6DLBpyyDQE=";
     };
     x86_64-darwin = {
       url =
-        "https://github.com/ppy/osu/releases/download/${version}/osu.app.Intel.zip";
+        "https://github.com/ppy/osu/releases/download/${version}/osu.app.Intel.zip"
+        ;
       sha256 = "sha256-O4MlcawL6wlj6HilSH8wm0GJWN8DqWjNw51YJGu2NMs=";
     };
     x86_64-linux = {
@@ -37,15 +39,17 @@ let
 
     extraPkgs = pkgs: with pkgs; [ icu ];
 
-    extraInstallCommands = let
-      contents = appimageTools.extract { inherit pname version src; };
-    in ''
-      mv -v $out/bin/${pname}-${version} $out/bin/osu\!
-      install -m 444 -D ${contents}/osu\!.desktop -t $out/share/applications
-      for i in 16 32 48 64 96 128 256 512 1024; do
-        install -D ${contents}/osu\!.png $out/share/icons/hicolor/''${i}x$i/apps/osu\!.png
-      done
-    '' ;
+    extraInstallCommands =
+      let
+        contents = appimageTools.extract { inherit pname version src; };
+      in ''
+        mv -v $out/bin/${pname}-${version} $out/bin/osu\!
+        install -m 444 -D ${contents}/osu\!.desktop -t $out/share/applications
+        for i in 16 32 48 64 96 128 256 512 1024; do
+          install -D ${contents}/osu\!.png $out/share/icons/hicolor/''${i}x$i/apps/osu\!.png
+        done
+      ''
+      ;
   };
 
   darwin = stdenv.mkDerivation rec {
@@ -67,7 +71,8 @@ let
 
   meta = with lib; {
     description =
-      "Rhythm is just a *click* away (AppImage version for score submission and multiplayer, and binary distribution for Darwin systems)";
+      "Rhythm is just a *click* away (AppImage version for score submission and multiplayer, and binary distribution for Darwin systems)"
+      ;
     homepage = "https://osu.ppy.sh";
     license = with licenses; [
       mit

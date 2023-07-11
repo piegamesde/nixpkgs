@@ -27,7 +27,7 @@ callPackage ./generic.nix {
       "q"
       "r"
     ];
-    # allow vars executed as commands
+      # allow vars executed as commands
     "$f" = true;
     "$n" = true;
   };

@@ -36,7 +36,8 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://crates.io/crates/cargo-hakari";
     changelog =
-      "https://github.com/guppy-rs/guppy/blob/cargo-hakari-${version}/tools/cargo-hakari/CHANGELOG.md";
+      "https://github.com/guppy-rs/guppy/blob/cargo-hakari-${version}/tools/cargo-hakari/CHANGELOG.md"
+      ;
     license = with licenses; [
       mit
       asl20

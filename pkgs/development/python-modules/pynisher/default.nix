@@ -24,7 +24,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  # No tests in the Pypi archive
+    # No tests in the Pypi archive
   doCheck = false;
 
   pythonImportsCheck = [ "pynisher" ];

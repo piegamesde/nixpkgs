@@ -33,31 +33,34 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  desktopItems = let
-    generateItem = gameName: {
-      name = "${pname}-${gameName}";
-      exec = "${placeholder "out"}/bin/${gameName}";
-      comment = "Ace of Penguins ${gameName} Card Game";
-      desktopName = gameName;
-      genericName = gameName;
-    };
-  in
-  map (x: makeDesktopItem (generateItem x)) [
-    "canfield"
-    "freecell"
-    "golf"
-    "mastermind"
-    "merlin"
-    "minesweeper"
-    "pegged"
-    "penguins"
-    "solitaire"
-    "spider"
-    "taipedit"
-    "taipei"
-    "thornq"
-  ]
-  ;
+  desktopItems =
+    let
+      generateItem =
+        gameName: {
+          name = "${pname}-${gameName}";
+          exec = "${placeholder "out"}/bin/${gameName}";
+          comment = "Ace of Penguins ${gameName} Card Game";
+          desktopName = gameName;
+          genericName = gameName;
+        }
+        ;
+    in
+    map (x: makeDesktopItem (generateItem x)) [
+      "canfield"
+      "freecell"
+      "golf"
+      "mastermind"
+      "merlin"
+      "minesweeper"
+      "pegged"
+      "penguins"
+      "solitaire"
+      "spider"
+      "taipedit"
+      "taipei"
+      "thornq"
+    ]
+    ;
 
   meta = with lib; {
     homepage = "http://www.delorie.com/store/ace/";

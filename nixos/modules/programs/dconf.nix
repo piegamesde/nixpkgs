@@ -32,7 +32,8 @@ in {
         type = types.attrsOf types.path;
         default = { };
         description = lib.mdDoc
-          "Set of dconf profile files, installed at {file}`/etc/dconf/profiles/«name»`.";
+          "Set of dconf profile files, installed at {file}`/etc/dconf/profiles/«name»`."
+          ;
         internal = true;
       };
 
@@ -40,12 +41,13 @@ in {
         type = types.listOf types.package;
         default = [ ];
         description = lib.mdDoc
-          "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`.";
+          "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`."
+          ;
       };
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (cfg.profiles != { } || cfg.enable) {
     environment.etc.dconf =
@@ -55,10 +57,10 @@ in {
 
     systemd.packages = [ pkgs.dconf ];
 
-    # For dconf executable
+      # For dconf executable
     environment.systemPackages = [ pkgs.dconf ];
 
-    # Needed for unwrapped applications
+      # Needed for unwrapped applications
     environment.sessionVariables.GIO_EXTRA_MODULES =
       mkIf cfg.enable [ "${pkgs.dconf.lib}/lib/gio/modules" ];
   };

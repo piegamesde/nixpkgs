@@ -212,13 +212,13 @@ in {
             # See also https://github.com/lau/tzdata#data-directory-and-releases
             STORAGE_DIR = "/var/lib/plausible/elixir_tzdata";
 
-            # Configuration options from
-            # https://plausible.io/docs/self-hosting-configuration
+              # Configuration options from
+              # https://plausible.io/docs/self-hosting-configuration
             PORT = toString cfg.server.port;
             DISABLE_REGISTRATION = boolToString cfg.server.disableRegistration;
 
             RELEASE_TMP = "/var/lib/plausible/tmp";
-            # Home is needed to connect to the node with iex
+              # Home is needed to connect to the node with iex
             HOME = "/var/lib/plausible";
 
             ADMIN_USER_NAME = cfg.adminUser.name;

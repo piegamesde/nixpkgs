@@ -10,44 +10,53 @@ with lib;
 let
   cfg = config.services.moosefs;
 
-  mfsUser = if cfg.runAsUser then
-    "moosefs"
-  else
-    "root";
-
-  settingsFormat = let
-    listSep = " ";
-    allowedTypes = with types; [
-      bool
-      int
-      float
-      str
-    ];
-    valueToString = val:
-      if isList val then
-        concatStringsSep listSep (map (x: valueToString x) val)
-      else if isBool val then
-        (if val then
-          "1"
-        else
-          "0")
-      else
-        toString val;
-
-  in {
-    type = with types;
-      let
-        valueType = oneOf ([ (listOf valueType) ] ++ allowedTypes) // {
-          description = "Flat key-value file";
-        };
-      in
-      attrsOf valueType
+  mfsUser =
+    if cfg.runAsUser then
+      "moosefs"
+    else
+      "root"
     ;
 
-    generate = name: value:
-      pkgs.writeText name (lib.concatStringsSep "\n"
-        (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value));
-  } ;
+  settingsFormat =
+    let
+      listSep = " ";
+      allowedTypes = with types; [
+        bool
+        int
+        float
+        str
+      ];
+      valueToString =
+        val:
+        if isList val then
+          concatStringsSep listSep (map (x: valueToString x) val)
+        else if isBool val then
+          (if val then
+            "1"
+          else
+            "0")
+        else
+          toString val
+        ;
+
+    in {
+      type = with types;
+        let
+          valueType = oneOf ([ (listOf valueType) ] ++ allowedTypes) // {
+            description = "Flat key-value file";
+          };
+        in
+        attrsOf valueType
+        ;
+
+      generate =
+        name: value:
+        pkgs.writeText name (lib.concatStringsSep "\n"
+          (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}")
+            value))
+        ;
+    }
+    ;
 
   initTool = pkgs.writeShellScriptBin "mfsmaster-init" ''
     if [ ! -e ${cfg.master.settings.DATA_PATH}/metadata.mfs ]; then
@@ -59,34 +68,36 @@ let
     fi
   '';
 
-  # master config file
+    # master config file
   masterCfg = settingsFormat.generate "mfsmaster.cfg" cfg.master.settings;
 
-  # metalogger config file
+    # metalogger config file
   metaloggerCfg =
     settingsFormat.generate "mfsmetalogger.cfg" cfg.metalogger.settings;
 
-  # chunkserver config file
+    # chunkserver config file
   chunkserverCfg =
     settingsFormat.generate "mfschunkserver.cfg" cfg.chunkserver.settings;
 
-  # generic template for all daemons
-  systemdService = name: extraConfig: configFile: {
-    wantedBy = [ "multi-user.target" ];
-    wants = [ "network-online.target" ];
-    after = [
-      "network.target"
-      "network-online.target"
-    ];
+    # generic template for all daemons
+  systemdService =
+    name: extraConfig: configFile: {
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
 
-    serviceConfig = {
-      Type = "forking";
-      ExecStart = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} start";
-      ExecStop = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} stop";
-      ExecReload = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} reload";
-      PIDFile = "${cfg."${name}".settings.DATA_PATH}/.mfs${name}.lock";
-    } // extraConfig;
-  };
+      serviceConfig = {
+        Type = "forking";
+        ExecStart = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} start";
+        ExecStop = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} stop";
+        ExecReload = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} reload";
+        PIDFile = "${cfg."${name}".settings.DATA_PATH}/.mfs${name}.lock";
+      } // extraConfig;
+    }
+    ;
 
 in {
   ###### interface
@@ -133,7 +144,8 @@ in {
         openFirewall = mkOption {
           type = types.bool;
           description = lib.mdDoc
-            "Whether to automatically open the necessary ports in the firewall.";
+            "Whether to automatically open the necessary ports in the firewall."
+            ;
           default = false;
         };
 
@@ -177,7 +189,8 @@ in {
         openFirewall = mkOption {
           type = types.bool;
           description = lib.mdDoc
-            "Whether to automatically open the necessary ports in the firewall.";
+            "Whether to automatically open the necessary ports in the firewall."
+            ;
           default = false;
         };
 
@@ -185,7 +198,8 @@ in {
           type = with types; listOf str;
           default = null;
           description = lib.mdDoc
-            "Mount points to be used by chunkserver for storage (see mfshdd.cfg).";
+            "Mount points to be used by chunkserver for storage (see mfshdd.cfg)."
+            ;
           example = [ "/mnt/hdd1" ];
         };
 
@@ -207,7 +221,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (cfg.client.enable || cfg.master.enable || cfg.metalogger.enable
     || cfg.chunkserver.enable) {
@@ -215,7 +229,7 @@ in {
       warnings = [ (mkIf (!cfg.runAsUser)
         "Running moosefs services as root is not recommended.") ];
 
-      # Service settings
+        # Service settings
       services.moosefs = {
         master.settings = mkIf cfg.master.enable {
           WORKING_USER = mfsUser;
@@ -236,7 +250,7 @@ in {
         };
       };
 
-      # Create system user account for daemons
+        # Create system user account for daemons
       users = mkIf (cfg.runAsUser && (cfg.master.enable || cfg.metalogger.enable
         || cfg.chunkserver.enable)) {
           users.moosefs = {
@@ -257,7 +271,7 @@ in {
           9421
         ]) ++ (lib.optional cfg.chunkserver.openFirewall 9422);
 
-      # Ensure storage directories exist
+        # Ensure storage directories exist
       systemd.tmpfiles.rules = optional cfg.master.enable
         "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
         ++ optional cfg.metalogger.enable
@@ -265,7 +279,7 @@ in {
         ++ optional cfg.chunkserver.enable
         "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}";
 
-      # Service definitions
+        # Service definitions
       systemd.services.mfs-master = mkIf cfg.master.enable
         (systemdService "master" {
           TimeoutStartSec = 1800;
@@ -274,8 +288,8 @@ in {
         } masterCfg);
 
       systemd.services.mfs-metalogger = mkIf cfg.metalogger.enable
-        (systemdService "metalogger" { Restart = "on-abnormal"; }
-          metaloggerCfg);
+        (systemdService "metalogger" { Restart = "on-abnormal"; } metaloggerCfg)
+        ;
 
       systemd.services.mfs-chunkserver = mkIf cfg.chunkserver.enable
         (systemdService "chunkserver" { Restart = "on-abnormal"; }

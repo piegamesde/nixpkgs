@@ -33,7 +33,7 @@ buildPythonPackage rec {
       --replace "setup_requires=pytest_runner," "setup_requires=[],"
   '';
 
-  # requires a certificates file
+    # requires a certificates file
   doCheck = false;
 
   pythonImportsCheck = [ "libcloud" ];

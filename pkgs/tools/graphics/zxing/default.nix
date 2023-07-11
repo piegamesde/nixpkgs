@@ -7,15 +7,17 @@
 stdenv.mkDerivation rec {
   pname = "zxing";
   version = "3.1.0";
-  # Maven builds are hard to get right
+    # Maven builds are hard to get right
   core_jar = fetchurl {
     url =
-      "http://repo1.maven.org/maven2/com/google/zxing/core/${version}/core-${version}.jar";
+      "http://repo1.maven.org/maven2/com/google/zxing/core/${version}/core-${version}.jar"
+      ;
     sha256 = "199l4xvlcpafqn69r3k9qjpqkw9lvkl02hzpm0ackvdhl7vk42zh";
   };
   javase_jar = fetchurl {
     url =
-      "http://repo1.maven.org/maven2/com/google/zxing/javase/${version}/javase-${version}.jar";
+      "http://repo1.maven.org/maven2/com/google/zxing/javase/${version}/javase-${version}.jar"
+      ;
     sha256 = "0fzxvvf5dqyrs5m9rqw4ffm9h1s27bi7q3jb1dam34s80q2rp2zq";
   };
   inherit jre;

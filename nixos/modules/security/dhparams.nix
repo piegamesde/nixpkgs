@@ -16,7 +16,8 @@ let
     description = "integer of at least 16 bits";
   };
 
-  paramsSubmodule = {
+  paramsSubmodule =
+    {
       name,
       config,
       ...
@@ -42,15 +43,18 @@ let
         '';
       };
 
-      config.path = let
-        generated = pkgs.runCommand "dhparams-${name}.pem" {
-          nativeBuildInputs = [ pkgs.openssl ];
-        } ''openssl dhparam -out "$out" ${toString config.bits}'';
-      in if cfg.stateful then
-        "${cfg.path}/${name}.pem"
-      else
-        generated;
-    };
+      config.path =
+        let
+          generated = pkgs.runCommand "dhparams-${name}.pem" {
+            nativeBuildInputs = [ pkgs.openssl ];
+          } ''openssl dhparam -out "$out" ${toString config.bits}'';
+        in if cfg.stateful then
+          "${cfg.path}/${name}.pem"
+        else
+          generated
+        ;
+    }
+    ;
 
 in {
   options = {
@@ -69,7 +73,7 @@ in {
             coerce = bits: { inherit bits; };
           in
           attrsOf (coercedTo int coerce (submodule paramsSubmodule))
-        ;
+          ;
         default = { };
         example = lib.literalExpression "{ nginx.bits = 3072; }";
         description = lib.mdDoc ''
@@ -150,7 +154,7 @@ in {
       dhparams-init = {
         description = "Clean Up Old Diffie-Hellman Parameters";
 
-        # Clean up even when no DH params is set
+          # Clean up even when no DH params is set
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig.RemainAfterExit = true;

@@ -25,6 +25,7 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Basic Octave implementation of the matlab arduino extension, allowing communication to a programmed arduino board to control its hardware";
+      "Basic Octave implementation of the matlab arduino extension, allowing communication to a programmed arduino board to control its hardware"
+      ;
   };
 }

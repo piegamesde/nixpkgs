@@ -25,12 +25,13 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.kde.org/stable/gcompris/qt/src/gcompris-qt-${version}.tar.xz";
+      "https://download.kde.org/stable/gcompris/qt/src/gcompris-qt-${version}.tar.xz"
+      ;
     hash = "sha256-WopJB9p7GnfCtUoEKxtzzRXCogcx03ofRjGLhkvW0Rs=";
   };
 
-  cmakeFlags =
-    [ "-DQML_BOX2D_LIBRARY=${qmlbox2d}/${qtbase.qtQmlPrefix}/Box2D.2.1" ];
+  cmakeFlags = [ "-DQML_BOX2D_LIBRARY=${qmlbox2d}/${qtbase.qtQmlPrefix}/Box2D.2.1" ]
+    ;
 
   nativeBuildInputs = [
     cmake
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A high quality educational software suite, including a large number of activities for children aged 2 to 10";
+      "A high quality educational software suite, including a large number of activities for children aged 2 to 10"
+      ;
     homepage = "https://gcompris.net/";
     license = licenses.gpl3Plus;
     mainProgram = "gcompris-qt";

@@ -103,32 +103,34 @@ buildPythonPackage rec {
 
   env.XDG_RUNTIME_DIR = "/tmp";
 
-  # Matplotlib tries to find Tcl/Tk by opening a Tk window and asking the
-  # corresponding interpreter object for its library paths. This fails if
-  # `$DISPLAY` is not set. The fallback option assumes that Tcl/Tk are both
-  # installed under the same path which is not true in Nix.
-  # With the following patch we just hard-code these paths into the install
-  # script.
-  postPatch = let
-    tcl_tk_cache =
-      ''"${tk}/lib", "${tcl}/lib", "${lib.strings.substring 0 3 tk.version}"'';
-  in
-  lib.optionalString enableTk ''
-    sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py
-  '' + lib.optionalString (stdenv.isLinux && interactive) ''
-    # fix paths to libraries in dlopen calls (headless detection)
-    substituteInPlace src/_c_internal_utils.c \
-      --replace libX11.so.6 ${libX11}/lib/libX11.so.6 \
-      --replace libwayland-client.so.0 ${wayland}/lib/libwayland-client.so.0
-  '' +
-  # bring our own system libraries
-  # https://github.com/matplotlib/matplotlib/blob/main/doc/devel/dependencies.rst#c-libraries
-  ''
-    echo "[libs]
-    system_freetype=true
-    system_qhull=true" > mplsetup.cfg
-  ''
-  ;
+    # Matplotlib tries to find Tcl/Tk by opening a Tk window and asking the
+    # corresponding interpreter object for its library paths. This fails if
+    # `$DISPLAY` is not set. The fallback option assumes that Tcl/Tk are both
+    # installed under the same path which is not true in Nix.
+    # With the following patch we just hard-code these paths into the install
+    # script.
+  postPatch =
+    let
+      tcl_tk_cache =
+        ''"${tk}/lib", "${tcl}/lib", "${lib.strings.substring 0 3 tk.version}"''
+        ;
+    in
+    lib.optionalString enableTk ''
+      sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py
+    '' + lib.optionalString (stdenv.isLinux && interactive) ''
+      # fix paths to libraries in dlopen calls (headless detection)
+      substituteInPlace src/_c_internal_utils.c \
+        --replace libX11.so.6 ${libX11}/lib/libX11.so.6 \
+        --replace libwayland-client.so.0 ${wayland}/lib/libwayland-client.so.0
+    '' +
+    # bring our own system libraries
+    # https://github.com/matplotlib/matplotlib/blob/main/doc/devel/dependencies.rst#c-libraries
+    ''
+      echo "[libs]
+      system_freetype=true
+      system_qhull=true" > mplsetup.cfg
+    ''
+    ;
 
   nativeBuildInputs = [
     pkg-config
@@ -151,7 +153,7 @@ buildPythonPackage rec {
       tk
     ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
-  # clang-11: error: argument unused during compilation: '-fno-strict-overflow' [-Werror,-Wunused-command-line-argument]
+    # clang-11: error: argument unused during compilation: '-fno-strict-overflow' [-Werror,-Wunused-command-line-argument]
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
   propagatedBuildInputs = [
@@ -188,8 +190,8 @@ buildPythonPackage rec {
   env.MPLSETUPCFG =
     writeText "mplsetup.cfg" (lib.generators.toINI { } passthru.config);
 
-  # Matplotlib needs to be built against a specific version of freetype in
-  # order for all of the tests to pass.
+    # Matplotlib needs to be built against a specific version of freetype in
+    # order for all of the tests to pass.
   doCheck = false;
 
   meta = with lib; {

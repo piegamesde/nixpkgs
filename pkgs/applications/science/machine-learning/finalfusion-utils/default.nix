@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     openssl
   ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  # Enables build against a generic BLAS.
+    # Enables build against a generic BLAS.
   buildFeatures = [ "netlib" ];
 
   postInstall = ''

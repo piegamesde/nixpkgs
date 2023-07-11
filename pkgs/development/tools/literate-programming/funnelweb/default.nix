@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.ross.net/funnelweb/download/funnelweb_v320/funnelweb_v320_source.tar.gz";
+      "http://www.ross.net/funnelweb/download/funnelweb_v320/funnelweb_v320_source.tar.gz"
+      ;
     sha256 = "0zqhys0j9gabrd12mnk8ibblpc8dal4kbl8vnhxmdlplsdpwn4wg";
   };
 

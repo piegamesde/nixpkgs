@@ -7,11 +7,13 @@
 
 let
   cfg = config.services.ddclient;
-  boolToStr = bool:
+  boolToStr =
+    bool:
     if bool then
       "yes"
     else
-      "no";
+      "no"
+    ;
   dataDir = "/var/lib/ddclient";
   StateDirectory = builtins.baseNameOf dataDir;
   RuntimeDirectory = StateDirectory;
@@ -40,10 +42,12 @@ let
     ${cfg.extraConfig}
     ${lib.concatStringsSep "," cfg.domains}
   '';
-  configFile = if (cfg.configFile != null) then
-    cfg.configFile
-  else
-    configFile';
+  configFile =
+    if (cfg.configFile != null) then
+      cfg.configFile
+    else
+      configFile'
+    ;
 
   preStart = ''
     install --mode=600 --owner=$USER ${configFile} /run/${RuntimeDirectory}/ddclient.conf
@@ -98,7 +102,7 @@ in with lib;
     ] "Use services.ddclient.passwordFile instead.")
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -255,7 +259,7 @@ in with lib;
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.ddclient.enable {
     systemd.services.ddclient = {

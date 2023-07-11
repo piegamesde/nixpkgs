@@ -5,7 +5,8 @@
   stdenv,
 }:
 with lib; {
-  mkModDirDrv = mods: modsDatFile: # a list of mod derivations
+  mkModDirDrv =
+    mods: modsDatFile: # a list of mod derivations
     let
       recursiveDeps = modDrv: [ modDrv ] ++ map recursiveDeps modDrv.deps;
       modDrvs = unique (flatten (map recursiveDeps mods));
@@ -24,9 +25,10 @@ with lib; {
         cp ${modsDatFile} $out/mod-settings.dat
       '');
     }
-  ;
+    ;
 
-  modDrv = {
+  modDrv =
+    {
       allRecommendedMods,
       allOptionalMods,
     }:
@@ -60,5 +62,6 @@ with lib; {
         srcBase=''${srcBase%\?*} # strip querystring leftover from fetchurl
         cp $src $out/$srcBase
       '';
-    };
+    }
+    ;
 }

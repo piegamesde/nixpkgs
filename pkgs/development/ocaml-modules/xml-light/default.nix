@@ -13,7 +13,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ncannasse/xml-light/releases/download/${version}/xml-light-${version}.tbz";
+      "https://github.com/ncannasse/xml-light/releases/download/${version}/xml-light-${version}.tbz"
+      ;
     hash = "sha256-9YwrPbcK0boICw0wauMvgsy7ldq7ksWZzcRn0eROAD0=";
   };
 

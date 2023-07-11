@@ -79,7 +79,7 @@ buildPythonPackage rec {
       imagemagick
     ];
 
-  # Running the tests seems too complicated:
+    # Running the tests seems too complicated:
   doCheck = false;
   nativeCheckInputs = [
     mock

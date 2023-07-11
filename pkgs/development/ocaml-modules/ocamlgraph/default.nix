@@ -11,7 +11,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/backtracking/ocamlgraph/releases/download/${version}/ocamlgraph-${version}.tbz";
+      "https://github.com/backtracking/ocamlgraph/releases/download/${version}/ocamlgraph-${version}.tbz"
+      ;
     sha256 = "029692bvdz3hxpva9a2jg5w5381fkcw55ysdi8424lyyjxvjdzi0";
   };
 

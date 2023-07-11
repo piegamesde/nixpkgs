@@ -26,7 +26,8 @@ let
     mv  ${resultFile}.tmp ${resultFile}
   '';
 
-  mkKeyboardTest = name:
+  mkKeyboardTest =
+    name:
     {
       settings,
       test,
@@ -71,7 +72,8 @@ let
         test = ${builtins.toJSON test}
         run_test_case("openvt -sw --", "${name}", test["press"], test["expect"])
       '';
-    };
+    }
+    ;
 
 in
 pkgs.lib.mapAttrs mkKeyboardTest {

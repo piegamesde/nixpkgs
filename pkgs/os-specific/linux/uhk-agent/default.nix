@@ -8,7 +8,8 @@ let
   version = "2.1.2";
   src = fetchurl {
     url =
-      "https://github.com/UltimateHackingKeyboard/agent/releases/download/v${version}/UHK.Agent-${version}-linux-x86_64.AppImage";
+      "https://github.com/UltimateHackingKeyboard/agent/releases/download/v${version}/UHK.Agent-${version}-linux-x86_64.AppImage"
+      ;
     name = "${pname}-${version}.AppImage";
     sha256 = "sha256-G/UT1ec7rWl8xONZnT+dpHAFOQh6/s0Vq7MTqAcmJSA=";
   };
@@ -21,11 +22,13 @@ in
 appimageTools.wrapType2 {
   inherit pname version src;
 
-  extraPkgs = pkgs:
+  extraPkgs =
+    pkgs:
     with pkgs; [
       polkit
       udev
-    ];
+    ]
+    ;
 
   extraInstallCommands = ''
     mv $out/bin/${pname}-${version} $out/bin/${pname}
@@ -36,7 +39,7 @@ appimageTools.wrapType2 {
       --replace 'Exec=AppRun' 'Exec=${pname}'
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
-  # wrapType2 does not passthru pname+version
+    # wrapType2 does not passthru pname+version
   passthru.version = version;
 
   meta = with lib; {

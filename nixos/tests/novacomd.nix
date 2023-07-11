@@ -5,11 +5,13 @@ import ./make-test-python.nix ({
     name = "novacomd";
     meta = with pkgs.lib.maintainers; { maintainers = [ dtzWill ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.novacomd.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("novacomd.service")

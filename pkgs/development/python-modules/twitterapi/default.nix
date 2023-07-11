@@ -26,7 +26,7 @@ buildPythonPackage rec {
     requests-oauthlib
   ];
 
-  # Tests are interacting with the Twitter API
+    # Tests are interacting with the Twitter API
   doCheck = false;
 
   pythonImportsCheck = [ "TwitterAPI" ];

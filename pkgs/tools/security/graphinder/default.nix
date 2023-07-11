@@ -47,7 +47,8 @@ python3.pkgs.buildPythonApplication rec {
     description = "Tool to find GraphQL endpoints using subdomain enumeration";
     homepage = "https://github.com/Escape-Technologies/graphinder";
     changelog =
-      "https://github.com/Escape-Technologies/graphinder/releases/tag/v${version}";
+      "https://github.com/Escape-Technologies/graphinder/releases/tag/v${version}"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -7,16 +7,18 @@
 buildGoModule rec {
   pname = "kustomize_3";
   version = "3.10.0";
-  # rev is the commit of the tag, mainly for kustomize version command output
+    # rev is the commit of the tag, mainly for kustomize version command output
   rev = "602ad8aa98e2e17f6c9119e027a09757e63c8bec";
 
-  ldflags = let
-    t = "sigs.k8s.io/kustomize/api/provenance";
-  in [
-    "-s -w"
-    "-X ${t}.version=${version}"
-    "-X ${t}.gitCommit=${rev}"
-  ] ;
+  ldflags =
+    let
+      t = "sigs.k8s.io/kustomize/api/provenance";
+    in [
+      "-s -w"
+      "-X ${t}.version=${version}"
+      "-X ${t}.gitCommit=${rev}"
+    ]
+    ;
 
   src = fetchFromGitHub {
     owner = "kubernetes-sigs";
@@ -27,7 +29,7 @@ buildGoModule rec {
 
   doCheck = true;
 
-  # avoid finding test and development commands
+    # avoid finding test and development commands
   sourceRoot = "source/kustomize";
 
   vendorSha256 = "sha256-xLeetcmzvpILLLMhMx7oahWLxguFjG3qbYpeeWpFUlw=";

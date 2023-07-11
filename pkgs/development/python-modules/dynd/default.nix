@@ -20,8 +20,8 @@ buildPythonPackage rec {
     sha256 = "19igd6ibf9araqhq9bxmzbzdz05vp089zxvddkiik3b5gb7l17nh";
   };
 
-  # setup.py invokes git on build but we're fetching a tarball, so
-  # can't retrieve git version. We hardcode:
+    # setup.py invokes git on build but we're fetching a tarball, so
+    # can't retrieve git version. We hardcode:
   preConfigure = ''
     substituteInPlace setup.py --replace "ver = check_output(['git', 'describe', '--dirty'," "ver = '${version}'"
     substituteInPlace setup.py --replace "'--always', '--match', 'v*']).decode('ascii').strip('\n')" ""
@@ -29,8 +29,8 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  # Python 3 works but has a broken import test that I couldn't
-  # figure out.
+    # Python 3 works but has a broken import test that I couldn't
+    # figure out.
   doCheck = !isPy3k;
   nativeBuildInputs = [ pkgs.cmake ];
   buildInputs = [

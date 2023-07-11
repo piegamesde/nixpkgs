@@ -16,14 +16,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # disable tests until upstream fixes build issues with gcc 12
-  # see https://github.com/Neargye/magic_enum/issues/235
+    # disable tests until upstream fixes build issues with gcc 12
+    # see https://github.com/Neargye/magic_enum/issues/235
   doCheck = false;
   cmakeFlags = [ "-DMAGIC_ENUM_OPT_BUILD_TESTS=OFF" ];
 
   meta = with lib; {
     description =
-      "Static reflection for enums (to string, from string, iteration) for modern C++";
+      "Static reflection for enums (to string, from string, iteration) for modern C++"
+      ;
     homepage = "https://github.com/Neargye/magic_enum";
     license = licenses.mit;
     maintainers = with maintainers; [ Alper-Celik ];

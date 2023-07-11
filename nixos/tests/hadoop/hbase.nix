@@ -11,83 +11,99 @@ import ../make-test-python.nix ({
   with pkgs.lib; {
     name = "hadoop-hbase";
 
-    nodes = let
-      coreSite = { "fs.defaultFS" = "hdfs://namenode:8020"; };
-      defOpts = {
-        enable = true;
-        openFirewall = true;
-      };
-      zookeeperQuorum = "zookeeper";
-    in {
-      zookeeper = {
-          ...
-        }: {
-          services.zookeeper.enable = true;
-          networking.firewall.allowedTCPPorts = [ 2181 ];
+    nodes =
+      let
+        coreSite = { "fs.defaultFS" = "hdfs://namenode:8020"; };
+        defOpts = {
+          enable = true;
+          openFirewall = true;
         };
-      namenode = {
-          ...
-        }: {
-          services.hadoop = {
-            hdfs = { namenode = defOpts // { formatOnInit = true; }; };
-            inherit coreSite;
-          };
-        };
-      datanode = {
-          ...
-        }: {
-          virtualisation.diskSize = 8192;
-          services.hadoop = {
-            hdfs.datanode = defOpts;
-            inherit coreSite;
-          };
-        };
+        zookeeperQuorum = "zookeeper";
+      in {
+        zookeeper =
+          {
+            ...
+          }: {
+            services.zookeeper.enable = true;
+            networking.firewall.allowedTCPPorts = [ 2181 ];
+          }
+          ;
+        namenode =
+          {
+            ...
+          }: {
+            services.hadoop = {
+              hdfs = { namenode = defOpts // { formatOnInit = true; }; };
+              inherit coreSite;
+            };
+          }
+          ;
+        datanode =
+          {
+            ...
+          }: {
+            virtualisation.diskSize = 8192;
+            services.hadoop = {
+              hdfs.datanode = defOpts;
+              inherit coreSite;
+            };
+          }
+          ;
 
-      master = {
-          ...
-        }: {
-          services.hadoop = {
-            inherit coreSite;
-            hbase = {
-              inherit zookeeperQuorum;
-              master = defOpts // { initHDFS = true; };
+        master =
+          {
+            ...
+          }: {
+            services.hadoop = {
+              inherit coreSite;
+              hbase = {
+                inherit zookeeperQuorum;
+                master = defOpts // { initHDFS = true; };
+              };
             };
-          };
-        };
-      regionserver = {
-          ...
-        }: {
-          services.hadoop = {
-            inherit coreSite;
-            hbase = {
-              inherit zookeeperQuorum;
-              regionServer = defOpts;
+          }
+          ;
+        regionserver =
+          {
+            ...
+          }: {
+            services.hadoop = {
+              inherit coreSite;
+              hbase = {
+                inherit zookeeperQuorum;
+                regionServer = defOpts;
+              };
             };
-          };
-        };
-      thrift = {
-          ...
-        }: {
-          services.hadoop = {
-            inherit coreSite;
-            hbase = {
-              inherit zookeeperQuorum;
-              thrift = defOpts;
+          }
+          ;
+        thrift =
+          {
+            ...
+          }: {
+            services.hadoop = {
+              inherit coreSite;
+              hbase = {
+                inherit zookeeperQuorum;
+                thrift = defOpts;
+              };
             };
-          };
-        };
-      rest = {
-          ...
-        }: {
-          services.hadoop = {
-            inherit coreSite;
-            hbase = {
-              inherit zookeeperQuorum;
-              rest = defOpts;
+          }
+          ;
+        rest =
+          {
+            ...
+          }: {
+            services.hadoop = {
+              inherit coreSite;
+              hbase = {
+                inherit zookeeperQuorum;
+                rest = defOpts;
+              };
             };
-          };
-        };
-    } ;
+          }
+          ;
+      }
+      ;
 
     testScript = ''
       start_all()

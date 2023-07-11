@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     # https://github.com/NetworkConfiguration/dhcpcd/issues/147
     (fetchpatch {
       url =
-        "https://github.com/NetworkConfiguration/dhcpcd/commit/38befd4e867583002b96ec39df733585d74c4ff5.patch";
+        "https://github.com/NetworkConfiguration/dhcpcd/commit/38befd4e867583002b96ec39df733585d74c4ff5.patch"
+        ;
       hash = "sha256-nS2zmLuQBYhLfoPp0DOwxF803Hh32EE4OUKGBTTukE0=";
     })
   ];
@@ -57,14 +58,14 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  # Hack to make installation succeed.  dhcpcd will still use /var/db
-  # at runtime.
+    # Hack to make installation succeed.  dhcpcd will still use /var/db
+    # at runtime.
   installFlags = [
     "DBDIR=$(TMPDIR)/db"
     "SYSCONFDIR=${placeholder "out"}/etc"
   ];
 
-  # Check that the udev plugin got built.
+    # Check that the udev plugin got built.
   postInstall = lib.optionalString (udev != null)
     "[ -e ${placeholder "out"}/lib/dhcpcd/dev/udev.so ]";
 

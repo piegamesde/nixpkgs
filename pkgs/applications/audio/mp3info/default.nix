@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "ftp://ftp.ibiblio.org/pub/linux/apps/sound/mp3-utils/${pname}/${pname}-${version}.tgz";
+      "ftp://ftp.ibiblio.org/pub/linux/apps/sound/mp3-utils/${pname}/${pname}-${version}.tgz"
+      ;
     sha256 = "042f1czcs9n2sbqvg4rsvfwlqib2gk976mfa2kxlfjghx5laqf04";
   };
 

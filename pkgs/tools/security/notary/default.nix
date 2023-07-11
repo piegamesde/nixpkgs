@@ -35,14 +35,15 @@ buildGoPackage rec {
     runHook postInstall
   '';
 
-  #doCheck = true; # broken by tzdata: 2018g -> 2019a
+    #doCheck = true; # broken by tzdata: 2018g -> 2019a
   checkPhase = ''
     make test PKGS=github.com/theupdateframework/notary/cmd/notary
   '';
 
   meta = with lib; {
     description =
-      "A project that allows anyone to have trust over arbitrary collections of data";
+      "A project that allows anyone to have trust over arbitrary collections of data"
+      ;
     longDescription = ''
       The Notary project comprises a server and a client for running and
       interacting with trusted collections. See the service architecture

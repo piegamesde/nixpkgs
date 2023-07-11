@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.drumgizmo.org/releases/${pname}-${version}/${pname}-${version}.tar.gz";
+      "https://www.drumgizmo.org/releases/${pname}-${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-AF8gQLiB29j963uI84TyNHIC0qwEWOCqmZIUWGq8V2o=";
   };
 

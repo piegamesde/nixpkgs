@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
     name = "misc";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }:
@@ -30,7 +31,7 @@ import ./make-test-python.nix ({
               "noauto"
             ];
           };
-          # Tests https://discourse.nixos.org/t/how-to-make-a-derivations-executables-have-the-s-permission/8555
+            # Tests https://discourse.nixos.org/t/how-to-make-a-derivations-executables-have-the-s-permission/8555
           "/user-mount/point" = {
             device = "/user-mount/source";
             fsType = "none";
@@ -67,7 +68,8 @@ import ./make-test-python.nix ({
         boot.kernel.sysctl."vm.swappiness" = 1;
         boot.kernelParams = [ "vsyscall=emulate" ];
         system.extraDependencies = [ foo ];
-      };
+      }
+      ;
 
     testScript = ''
       import json

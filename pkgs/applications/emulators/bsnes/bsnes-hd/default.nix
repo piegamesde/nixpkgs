@@ -86,7 +86,7 @@ stdenv.mkDerivation {
     makeWrapper $out/{Applications/bsnes.app/Contents/MacOS,bin}/bsnes
   '';
 
-  # https://github.com/bsnes-emu/bsnes/issues/107
+    # https://github.com/bsnes-emu/bsnes/issues/107
   preFixup = lib.optionalString stdenv.isLinux ''
     gappsWrapperArgs+=(
       --prefix GDK_BACKEND : x11

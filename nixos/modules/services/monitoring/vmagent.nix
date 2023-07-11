@@ -83,25 +83,28 @@ in {
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 8429 ];
 
-    systemd.services.vmagent = let
-      prometheusConfig =
-        settingsFormat.generate "prometheusConfig.yaml" cfg.prometheusConfig;
-    in {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      description = "vmagent system service";
-      serviceConfig = {
-        User = cfg.user;
-        Group = cfg.group;
-        Type = "simple";
-        Restart = "on-failure";
-        WorkingDirectory = cfg.dataDir;
-        ExecStart =
-          "${cfg.package}/bin/vmagent -remoteWrite.url=${cfg.remoteWriteUrl} -promscrape.config=${prometheusConfig}";
-      };
-    } ;
+    systemd.services.vmagent =
+      let
+        prometheusConfig =
+          settingsFormat.generate "prometheusConfig.yaml" cfg.prometheusConfig;
+      in {
+        wantedBy = [ "multi-user.target" ];
+        after = [ "network.target" ];
+        description = "vmagent system service";
+        serviceConfig = {
+          User = cfg.user;
+          Group = cfg.group;
+          Type = "simple";
+          Restart = "on-failure";
+          WorkingDirectory = cfg.dataDir;
+          ExecStart =
+            "${cfg.package}/bin/vmagent -remoteWrite.url=${cfg.remoteWriteUrl} -promscrape.config=${prometheusConfig}"
+            ;
+        };
+      }
+      ;
 
-    systemd.tmpfiles.rules =
-      [ "d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} -" ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} -" ]
+      ;
   };
 }

@@ -11,7 +11,7 @@ let
   defaultGroup = "patroni";
   format = pkgs.formats.yaml { };
 
-  #boto doesn't support python 3.10 yet
+    #boto doesn't support python 3.10 yet
   patroni = pkgs.patroni.override { pythonPackages = pkgs.python39Packages; };
 
   configFileName = "patroni-${cfg.scope}-${cfg.name}.yaml";
@@ -33,7 +33,8 @@ in {
     postgresqlDataDir = mkOption {
       type = types.path;
       defaultText = literalExpression ''
-        "/var/lib/postgresql/''${config.services.patroni.postgresqlPackage.psqlSchema}"'';
+        "/var/lib/postgresql/''${config.services.patroni.postgresqlPackage.psqlSchema}"''
+        ;
       example = "/var/lib/postgresql/14";
       default = "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}";
       description = mdDoc ''
@@ -179,7 +180,8 @@ in {
         PATRONI_SUPERUSER_PASSWORD = "/secret/file";
       };
       description = mdDoc
-        "Environment variables made available to Patroni as files content, useful for providing secrets from files.";
+        "Environment variables made available to Patroni as files content, useful for providing secrets from files."
+        ;
     };
   };
 
@@ -254,7 +256,8 @@ in {
             == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
             && cfg.dataDir == "/var/lib/patroni") {
               StateDirectory =
-                "patroni patroni/raft postgresql postgresql/${cfg.postgresqlPackage.psqlSchema}";
+                "patroni patroni/raft postgresql postgresql/${cfg.postgresqlPackage.psqlSchema}"
+                ;
               StateDirectoryMode = "0750";
             })
         ];

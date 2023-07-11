@@ -64,15 +64,15 @@ in {
       };
     };
 
-    # ZeroTier does not issue DHCP leases, but some strangers might...
+      # ZeroTier does not issue DHCP leases, but some strangers might...
     networking.dhcpcd.denyInterfaces = [ "zt*" ];
 
-    # ZeroTier receives UDP transmissions
+      # ZeroTier receives UDP transmissions
     networking.firewall.allowedUDPPorts = [ cfg.port ];
 
     environment.systemPackages = [ cfg.package ];
 
-    # Prevent systemd from potentially changing the MAC address
+      # Prevent systemd from potentially changing the MAC address
     systemd.network.links."50-zerotier" = {
       matchConfig = { OriginalName = "zt*"; };
       linkConfig = {

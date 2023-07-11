@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "03qis6m9r2qh00sqbgwsm883s4bj1ibwpgk86yh4l235mdw8jywv";
   };
 
-  # No tests in archive
+    # No tests in archive
   doCheck = false;
 
   nativeCheckInputs = with python3Packages; [ pytest ];

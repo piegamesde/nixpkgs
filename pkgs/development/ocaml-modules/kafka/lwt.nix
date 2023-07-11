@@ -17,7 +17,6 @@ buildDunePackage rec {
     lwt
   ];
 
-  meta = kafka.meta // {
-    description = "OCaml bindings for Kafka, Lwt bindings";
-  };
+  meta =
+    kafka.meta // { description = "OCaml bindings for Kafka, Lwt bindings"; };
 }

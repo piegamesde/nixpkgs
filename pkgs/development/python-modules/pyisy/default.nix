@@ -40,7 +40,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "pyisy" ];

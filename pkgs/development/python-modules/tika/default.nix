@@ -20,7 +20,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  # Requires network
+    # Requires network
   doCheck = false;
   pythonImportsCheck = [ pname ];
 

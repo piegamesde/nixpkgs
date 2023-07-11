@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     inherit sha256;
     url =
-      "mirror://apache/cassandra/${version}/apache-cassandra-${version}-bin.tar.gz";
+      "mirror://apache/cassandra/${version}/apache-cassandra-${version}-bin.tar.gz"
+      ;
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -107,11 +108,13 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = let
-      test = nixosTests."cassandra_${generation}";
-    in {
-      nixos = assert test.testPackage.version == version; test;
-    } ;
+    tests =
+      let
+        test = nixosTests."cassandra_${generation}";
+      in {
+        nixos = assert test.testPackage.version == version; test;
+      }
+      ;
 
     updateScript = callPackage ./update-script.nix { inherit generation; };
   };

@@ -6,7 +6,8 @@
 }:
 
 let
-  makePackage = {
+  makePackage =
+    {
       family,
       description,
       rev,
@@ -23,7 +24,8 @@ let
 
       src = fetchurl {
         url =
-          "https://github.com/adobe-fonts/source-han-${family}/releases/download/${rev}/SourceHan${Family}.ttc${zip}";
+          "https://github.com/adobe-fonts/source-han-${family}/releases/download/${rev}/SourceHan${Family}.ttc${zip}"
+          ;
         inherit hash;
       };
 
@@ -53,7 +55,7 @@ let
         ];
       };
     }
-  ;
+    ;
 in {
   sans = makePackage {
     family = "sans";

@@ -15,13 +15,13 @@ with lib;
     maintainers = with maintainers; [ ] ++ teams.pantheon.members;
   };
 
-  ###### interface
+    ###### interface
 
   options = {
     services.zeitgeist = { enable = mkEnableOption (lib.mdDoc "zeitgeist"); };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.zeitgeist.enable {
 

@@ -40,7 +40,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # https://github.com/abmantis/whirlpool-sixth-sense/issues/15
+    # https://github.com/abmantis/whirlpool-sixth-sense/issues/15
   doCheck = false;
 
   pythonImportsCheck = [ "whirlpool" ];

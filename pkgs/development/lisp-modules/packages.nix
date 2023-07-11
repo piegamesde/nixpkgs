@@ -27,7 +27,8 @@ let
     # source of the second run.
     #
     # E.g. cl-unicode creating .txt files during compilation
-  build-with-compile-into-pwd = args:
+  build-with-compile-into-pwd =
+    args:
     let
       build = (build-asdf-system
         (args // { version = args.version + "-build"; })).overrideAttrs (o: {
@@ -51,41 +52,42 @@ let
       patches = [ ];
       src = build;
     })
-  ;
+    ;
 
-  # A little hacky
+    # A little hacky
   isJVM = spec.pkg.pname == "abcl";
 
-  # Makes it so packages imported from Quicklisp can be re-used as
-  # lispLibs ofpackages in this file.
+    # Makes it so packages imported from Quicklisp can be re-used as
+    # lispLibs ofpackages in this file.
   ql = quicklispPackagesFor spec;
 
   packages = ql.overrideScope' (self: super: {
 
-    cffi = let
-      jna = pkgs.fetchMavenArtifact {
-        groupId = "net.java.dev.jna";
-        artifactId = "jna";
-        version = "5.9.0";
-        sha256 = "0qbis8acv04fi902qzak1mbagqaxcsv2zyp7b8y4shs5nj0cgz7a";
-      };
-    in
-    build-asdf-system {
-      src = pkgs.fetchzip {
-        url =
-          "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";
-        sha256 = "17ryim4xilb1rzxydfr7595dnhqkk02lmrbkqrkvi9091shi4cj3";
-      };
-      version = "0.24.1";
-      pname = "cffi";
-      lispLibs = with super; [
-        alexandria
-        babel
-        trivial-features
-      ];
-      javaLibs = optionals isJVM [ jna ];
-    }
-    ;
+    cffi =
+      let
+        jna = pkgs.fetchMavenArtifact {
+          groupId = "net.java.dev.jna";
+          artifactId = "jna";
+          version = "5.9.0";
+          sha256 = "0qbis8acv04fi902qzak1mbagqaxcsv2zyp7b8y4shs5nj0cgz7a";
+        };
+      in
+      build-asdf-system {
+        src = pkgs.fetchzip {
+          url =
+            "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";
+          sha256 = "17ryim4xilb1rzxydfr7595dnhqkk02lmrbkqrkvi9091shi4cj3";
+        };
+        version = "0.24.1";
+        pname = "cffi";
+        lispLibs = with super; [
+          alexandria
+          babel
+          trivial-features
+        ];
+        javaLibs = optionals isJVM [ jna ];
+      }
+      ;
 
     cffi-libffi = build-asdf-system {
       inherit (super.cffi-libffi)
@@ -98,7 +100,8 @@ let
         ;
       src = pkgs.fetchzip {
         url =
-          "https://github.com/cffi/cffi/archive/3f842b92ef808900bf20dae92c2d74232c2f6d3a.tar.gz";
+          "https://github.com/cffi/cffi/archive/3f842b92ef808900bf20dae92c2d74232c2f6d3a.tar.gz"
+          ;
         sha256 = "1jilvmbbfrmb23j07lwmkbffc6r35wnvas5s4zjc84i856ccclm2";
       };
     };
@@ -121,7 +124,8 @@ let
     jzon = build-asdf-system {
       src = pkgs.fetchzip {
         url =
-          "https://github.com/Zulu-Inuoe/jzon/archive/6b201d4208ac3f9721c461105b282c94139bed29.tar.gz";
+          "https://github.com/Zulu-Inuoe/jzon/archive/6b201d4208ac3f9721c461105b282c94139bed29.tar.gz"
+          ;
         sha256 = "01d4a78pjb1amx5amdb966qwwk9vblysm1li94n3g26mxy5zc2k3";
       };
       version = "0.0.0-20210905-6b201d4208";
@@ -135,7 +139,8 @@ let
       version = "20080904-138ca7038";
       src = pkgs.fetchzip {
         url =
-          "https://repo.or.cz/cl-notify.git/snapshot/138ca703861f4a1fbccbed557f92cf4d213668a1.tar.gz";
+          "https://repo.or.cz/cl-notify.git/snapshot/138ca703861f4a1fbccbed557f92cf4d213668a1.tar.gz"
+          ;
         sha256 = "0k6ns6fzvjcbpsqgx85r4g5m25fvrdw9481i9vyabwym9q8bbqwx";
       };
       lispLibs = [ self.cffi ];
@@ -146,8 +151,8 @@ let
       inherit (super.cl-liballegro-nuklear) pname version src;
       nativeBuildInputs = [ pkgs.allegro5 ];
       nativeLibs = [ pkgs.allegro5 ];
-      lispLibs = super.cl-liballegro-nuklear.lispLibs
-        ++ [ super.cl-liballegro ];
+      lispLibs =
+        super.cl-liballegro-nuklear.lispLibs ++ [ super.cl-liballegro ];
       patches = [ ./patches/cl-liballegro-nuklear-missing-dll.patch ];
     };
 
@@ -156,7 +161,8 @@ let
       version = "b74bd067d";
       src = pkgs.fetchzip {
         url =
-          "https://fossil.galkowski.xyz/tuple/tarball/b74bd067d4533ac0/tuple.tar.gz";
+          "https://fossil.galkowski.xyz/tuple/tarball/b74bd067d4533ac0/tuple.tar.gz"
+          ;
         sha256 = "0dk356vkv6kwwcmc3j08x7143549m94rd66rpkzq8zkb31cg2va8";
       };
     };
@@ -165,11 +171,12 @@ let
       pname = "cl-tar-file";
       version = "v0.2.1";
       src = pkgs.fetchzip {
-        url = let
-          rev = "0c10bc82f14702c97a26dc25ce075b5d3a2347d1";
-        in
-        "https://gitlab.common-lisp.net/cl-tar/cl-tar-file/-/archive/${rev}/cl-tar-file-${rev}.tar.gz"
-        ;
+        url =
+          let
+            rev = "0c10bc82f14702c97a26dc25ce075b5d3a2347d1";
+          in
+          "https://gitlab.common-lisp.net/cl-tar/cl-tar-file/-/archive/${rev}/cl-tar-file-${rev}.tar.gz"
+          ;
         sha256 = "0i8j05fkgdqy4c4pqj0c68sh4s3klpx9kc5wp73qwzrl3xqd2svy";
       };
       lispLibs = with super; [
@@ -192,11 +199,12 @@ let
       pname = "cl-tar";
       version = "v0.2.1";
       src = pkgs.fetchzip {
-        url = let
-          rev = "7c6e07a10c93d9e311f087b5f6328cddd481669a";
-        in
-        "https://gitlab.common-lisp.net/cl-tar/cl-tar/-/archive/${rev}/cl-tar-${rev}.tar.gz"
-        ;
+        url =
+          let
+            rev = "7c6e07a10c93d9e311f087b5f6328cddd481669a";
+          in
+          "https://gitlab.common-lisp.net/cl-tar/cl-tar/-/archive/${rev}/cl-tar-${rev}.tar.gz"
+          ;
         sha256 = "0wp23cs3i6a89dibifiz6559la5nk58d1n17xvbxq4nrl8cqsllf";
       };
       lispLibs = with super;
@@ -228,7 +236,8 @@ let
       version = "0.2-f8a9e4664";
       src = pkgs.fetchzip {
         url =
-          "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
+          "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz"
+          ;
         sha256 = "0i3ia14dzqwjpygd0zn785ff5vqnnmkn75psfpyx0ni3jr71lkq9";
       };
     };
@@ -238,7 +247,8 @@ let
       version = "0.1-5d3f21fda";
       src = pkgs.fetchzip {
         url =
-          "https://github.com/facts-db/cl-rollback/archive/5d3f21fda8f04f35c5e9d20ee3b87db767915d15.tar.gz";
+          "https://github.com/facts-db/cl-rollback/archive/5d3f21fda8f04f35c5e9d20ee3b87db767915d15.tar.gz"
+          ;
         sha256 = "12dpxsbm2al633y87i8p784k2dn4bbskz6sl40v9f5ljjmjqjzxf";
       };
     };
@@ -248,7 +258,8 @@ let
       version = "0.1-632217602";
       src = pkgs.fetchzip {
         url =
-          "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
+          "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz"
+          ;
         sha256 = "09z1vwzjm7hlb529jl3hcjnfd11gh128lmdg51im7ar4jv4746iw";
       };
       lispLibs = [
@@ -285,7 +296,8 @@ let
       version = "20160825-git";
       src = pkgs.fetchzip {
         url =
-          "http://beta.quicklisp.org/archive/clx-truetype/2016-08-25/clx-truetype-20160825-git.tgz";
+          "http://beta.quicklisp.org/archive/clx-truetype/2016-08-25/clx-truetype-20160825-git.tgz"
+          ;
         sha256 = "079hyp92cjkdfn6bhkxsrwnibiqbz4y4af6nl31lzw6nm91j5j37";
       };
       lispLibs = with super; [
@@ -345,9 +357,9 @@ let
                                          :toplevel #'nyxt:entry-point)
       '';
 
-      # Run with WEBKIT_FORCE_SANDBOX=0 if getting a runtime error
-      # See https://github.com/atlas-engineer/nyxt/issues/1781
-      # TODO(kasper): use wrapGAppsHook
+        # Run with WEBKIT_FORCE_SANDBOX=0 if getting a runtime error
+        # See https://github.com/atlas-engineer/nyxt/issues/1781
+        # TODO(kasper): use wrapGAppsHook
       installPhase = super.nyxt.installPhase + ''
         rm -v $out/nyxt
         mkdir -p $out/bin
@@ -391,50 +403,52 @@ let
     ltk = super.ltk.overrideLispAttrs (o: {
       src = pkgs.fetchzip {
         url =
-          "https://github.com/uthar/ltk/archive/f19162e76d6c7c2f51bd289b811d9ba20dd6555e.tar.gz";
+          "https://github.com/uthar/ltk/archive/f19162e76d6c7c2f51bd289b811d9ba20dd6555e.tar.gz"
+          ;
         sha256 = "0mzikv4abq9yqlj6dsji1wh34mjizr5prv6mvzzj29z1485fh1bj";
       };
       version = "f19162e76";
     });
 
-    qt = let
-      rev = "dffff3ee3dbd0686c85c323f579b8bbf4881e60e";
-    in
-    build-with-compile-into-pwd rec {
-      pname = "commonqt";
-      version = builtins.substring 0 7 rev;
-      src = pkgs.fetchFromGitHub {
-        inherit rev;
-        owner = pname;
-        repo = pname;
-        hash = "sha256-GAgwT0D9mIkYPTHfCH/KxxIv7b6QGwcxwZE7ehH5xug=";
-      };
+    qt =
+      let
+        rev = "dffff3ee3dbd0686c85c323f579b8bbf4881e60e";
+      in
+      build-with-compile-into-pwd rec {
+        pname = "commonqt";
+        version = builtins.substring 0 7 rev;
+        src = pkgs.fetchFromGitHub {
+          inherit rev;
+          owner = pname;
+          repo = pname;
+          hash = "sha256-GAgwT0D9mIkYPTHfCH/KxxIv7b6QGwcxwZE7ehH5xug=";
+        };
 
-      buildInputs = [ pkgs.qt4 ];
-      nativeBuildInputs = [
-        pkgs.smokegen
-        pkgs.smokeqt
-      ];
-      nativeLibs = [
-        pkgs.qt4
-        pkgs.smokegen
-        pkgs.smokeqt
-      ];
+        buildInputs = [ pkgs.qt4 ];
+        nativeBuildInputs = [
+          pkgs.smokegen
+          pkgs.smokeqt
+        ];
+        nativeLibs = [
+          pkgs.qt4
+          pkgs.smokegen
+          pkgs.smokeqt
+        ];
 
-      systems = [ "qt" ];
+        systems = [ "qt" ];
 
-      lispLibs = with super; [
-        cffi
-        named-readtables
-        cl-ppcre
-        alexandria
-        closer-mop
-        iterate
-        trivial-garbage
-        bordeaux-threads
-      ];
-    }
-    ;
+        lispLibs = with super; [
+          cffi
+          named-readtables
+          cl-ppcre
+          alexandria
+          closer-mop
+          iterate
+          trivial-garbage
+          bordeaux-threads
+        ];
+      }
+      ;
 
     qt-libs = build-with-compile-into-pwd {
       inherit (super.qt-libs) pname version src;
@@ -559,8 +573,8 @@ let
         rev = "e18f621b996fd986d9829d590203c690440dee64";
         hash = "sha256-++qydw6db4O3m+DAjutVPN8IuePOxseo9vhWEvwiR6E=";
       };
-      lispLibs = with super;
-        [ cl-gobject-introspection-wrapper ] ++ [ self.cl-gtk4 ];
+      lispLibs =
+        with super; [ cl-gobject-introspection-wrapper ] ++ [ self.cl-gtk4 ];
       nativeBuildInputs = [ pkgs.libadwaita ];
       nativeLibs = [ pkgs.libadwaita ];
     };
@@ -574,8 +588,8 @@ let
         rev = "e18f621b996fd986d9829d590203c690440dee64";
         hash = "sha256-++qydw6db4O3m+DAjutVPN8IuePOxseo9vhWEvwiR6E=";
       };
-      lispLibs = with super;
-        [ cl-gobject-introspection-wrapper ] ++ [ self.cl-gtk4 ];
+      lispLibs =
+        with super; [ cl-gobject-introspection-wrapper ] ++ [ self.cl-gtk4 ];
       nativeBuildInputs = [ pkgs.webkitgtk_6_0 ];
       nativeLibs = [ pkgs.webkitgtk_6_0 ];
     };

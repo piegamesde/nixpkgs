@@ -15,7 +15,8 @@ mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://netix.dl.sourceforge.net/project/beebeep/Linux/beebeep-${version}-qt5-amd64.tar.gz";
+      "https://netix.dl.sourceforge.net/project/beebeep/Linux/beebeep-${version}-qt5-amd64.tar.gz"
+      ;
     sha256 = "sha256-YDgFRXFBM1tjLP99mHYJadgccHJYYPAZ1kqR+FngLKU=";
   };
 
@@ -38,7 +39,8 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.beebeep.net/";
     description =
-      "BeeBEEP is the free office messenger that is indispensable in all those places where privacy and security are an essential requirement.";
+      "BeeBEEP is the free office messenger that is indispensable in all those places where privacy and security are an essential requirement."
+      ;
     platforms = platforms.linux;
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ mglolenstine ];

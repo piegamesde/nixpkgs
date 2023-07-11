@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-XA1MBSqLu/dQ4Fao5lzNMJCG9PDxii6sMGqN+kESpjI=";
   };
 
-  # weird test requirements (spur.local>=0.3.7,<0.4)
+    # weird test requirements (spur.local>=0.3.7,<0.4)
   doCheck = false;
 
   pythonImportsCheck = [ "locket" ];

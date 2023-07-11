@@ -7,7 +7,7 @@ import ./make-test-python.nix ({
     user = "gitolite-admin";
     password = "some_password";
 
-    # not used but needed to setup gitolite
+      # not used but needed to setup gitolite
     adminPublicKey = ''
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7urFhAA90BTpGuEHeWWTY3W/g9PBxXNxfWhfbrm4Le root@client
     '';
@@ -18,7 +18,8 @@ import ./make-test-python.nix ({
 
     nodes = {
 
-      server = {
+      server =
+        {
           config,
           ...
         }: {
@@ -63,20 +64,23 @@ import ./make-test-python.nix ({
             '';
           };
 
-          # WARNING: DON'T DO THIS IN PRODUCTION!
-          # This puts unhashed secrets directly into the Nix store for ease of testing.
+            # WARNING: DON'T DO THIS IN PRODUCTION!
+            # This puts unhashed secrets directly into the Nix store for ease of testing.
           environment.etc."gitolite/htpasswd".source =
             pkgs.runCommand "htpasswd" { } ''
               ${pkgs.apacheHttpd}/bin/htpasswd -bc "$out" ${user} ${password}
             '';
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
           environment.systemPackages = [ pkgs.git ];
-        };
+        }
+        ;
     };
 
     testScript = ''

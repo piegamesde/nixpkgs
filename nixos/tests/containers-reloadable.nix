@@ -10,7 +10,7 @@ import ./make-test-python.nix ({
         config = { environment.etc.check.text = "client_base"; };
       };
 
-      # prevent make-test-python.nix to change IP
+        # prevent make-test-python.nix to change IP
       networking.interfaces = { eth1.ipv4.addresses = lib.mkOverride 0 [ ]; };
     };
   in {
@@ -18,13 +18,16 @@ import ./make-test-python.nix ({
     meta = { maintainers = with lib.maintainers; [ danbst ]; };
 
     nodes = {
-      client = {
+      client =
+        {
           ...
         }: {
           imports = [ client_base ];
-        };
+        }
+        ;
 
-      client_c1 = {
+      client_c1 =
+        {
           lib,
           ...
         }: {
@@ -35,8 +38,10 @@ import ./make-test-python.nix ({
             services.httpd.enable = true;
             services.httpd.adminAddr = "nixos@example.com";
           };
-        };
-      client_c2 = {
+        }
+        ;
+      client_c2 =
+        {
           lib,
           ...
         }: {
@@ -46,10 +51,12 @@ import ./make-test-python.nix ({
             environment.etc.check.text = lib.mkForce "client_c2";
             services.nginx.enable = true;
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -76,6 +83,7 @@ import ./make-test-python.nix ({
                 "systemctl status nginx -M test1 >&2",
             )
             client.fail("systemctl status httpd -M test1 >&2")
-      '' ;
+      ''
+      ;
 
   } )

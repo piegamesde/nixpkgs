@@ -18,7 +18,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ bzizou ]; };
 
     nodes = {
-      host = {
+      host =
+        {
           ...
         }: {
           environment.systemPackages = [ pkgs.charliecloud ];
@@ -27,7 +28,8 @@ import ./make-test-python.nix ({
             isNormalUser = true;
             extraGroups = [ "docker" ];
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

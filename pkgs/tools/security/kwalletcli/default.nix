@@ -43,7 +43,7 @@ mkDerivation rec {
     makeWrapper
     pkg-config
   ];
-  # if using just kwallet, cmake will be added as a buildInput and fail the build
+    # if using just kwallet, cmake will be added as a buildInput and fail the build
   propagatedBuildInputs = [
     kcoreaddons
     ki18n

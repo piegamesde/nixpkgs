@@ -34,8 +34,8 @@ buildPythonPackage rec {
     aiohttp-retry
   ];
 
-  # Currently it's not possible to run the tests
-  # ModuleNotFoundError: No module named 'dvc.testing'
+    # Currently it's not possible to run the tests
+    # ModuleNotFoundError: No module named 'dvc.testing'
   doCheck = false;
 
   pythonImportsCheck = [ "dvc_http" ];

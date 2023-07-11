@@ -80,7 +80,7 @@ stdenv.mkDerivation ({
     runHook postUnpack
   '';
 
-  # Allow autoPatchelf to automatically fix lib references between products
+    # Allow autoPatchelf to automatically fix lib references between products
   fixupPhase = ''
     runHook preFixup
 

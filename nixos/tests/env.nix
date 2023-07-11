@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "environment";
     meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -21,7 +22,8 @@ import ./make-test-python.nix ({
           TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
           NIXCON = "awesome";
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed('[ -L "/etc/plainFile" ]')

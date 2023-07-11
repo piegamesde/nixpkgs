@@ -9,9 +9,9 @@
 
 buildPythonPackage rec {
   pname = "colormath";
-  # Switch to unstable which fixes an deprecation issue with newer numpy
-  # versions, should be included in versions > 3.0
-  # https://github.com/gtaylor/python-colormath/issues/104
+    # Switch to unstable which fixes an deprecation issue with newer numpy
+    # versions, should be included in versions > 3.0
+    # https://github.com/gtaylor/python-colormath/issues/104
   version = "unstable-2021-04-17";
 
   src = fetchFromGitHub {

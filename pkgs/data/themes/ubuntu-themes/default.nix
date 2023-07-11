@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/ubuntu/+archive/primary/+files/${pname}_${version}.orig.tar.gz";
+      "https://launchpad.net/ubuntu/+archive/primary/+files/${pname}_${version}.orig.tar.gz"
+      ;
     sha256 = "00frn2dd4kjhlmwkasrx4a820fwrg8f8hmiwh51m63bpj00vwn0r";
   };
 
@@ -70,7 +71,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Ubuntu monochrome and Suru icon themes, Ambiance and Radiance themes, and Ubuntu artwork";
+      "Ubuntu monochrome and Suru icon themes, Ambiance and Radiance themes, and Ubuntu artwork"
+      ;
     homepage = "https://launchpad.net/ubuntu-themes";
     license = with licenses; [
       cc-by-sa-40

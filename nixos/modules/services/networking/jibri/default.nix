@@ -10,8 +10,9 @@ with lib;
 let
   cfg = config.services.jibri;
 
-  # Copied from the jitsi-videobridge.nix file.
-  toHOCON = x:
+    # Copied from the jitsi-videobridge.nix file.
+  toHOCON =
+    x:
     if isAttrs x && x ? __hocon_envvar then
       ("\${" + x.__hocon_envvar + "}")
     else if isAttrs x then
@@ -21,16 +22,19 @@ let
     else if isList x then
       "[${concatMapStringsSep "," toHOCON x}]"
     else
-      builtins.toJSON x;
+      builtins.toJSON x
+    ;
 
-  # We're passing passwords in environment variables that have names generated
-  # from an attribute name, which may not be a valid bash identifier.
-  toVarName = s:
+    # We're passing passwords in environment variables that have names generated
+    # from an attribute name, which may not be a valid bash identifier.
+  toVarName =
+    s:
     "XMPP_PASSWORD_" + stringAsChars (c:
       if builtins.match "[A-Za-z0-9]" c != null then
         c
       else
-        "_") s;
+        "_") s
+    ;
 
   defaultJibriConfig = {
     id = "";
@@ -96,13 +100,14 @@ let
       default-call-empty-timout = "30 seconds";
     };
   };
-  # Allow overriding leaves of the default config despite types.attrs not doing any merging.
+    # Allow overriding leaves of the default config despite types.attrs not doing any merging.
   jibriConfig = recursiveUpdate defaultJibriConfig cfg.config;
   configFile = pkgs.writeText "jibri.conf" (toHOCON { jibri = jibriConfig; });
 in {
   options.services.jibri = with types; {
     enable = mkEnableOption (lib.mdDoc
-      "Jitsi BRoadcasting Infrastructure. Currently Jibri must be run on a host that is also running {option}`services.jitsi-meet.enable`, so for most use cases it will be simpler to run {option}`services.jitsi-meet.jibri.enable`");
+      "Jitsi BRoadcasting Infrastructure. Currently Jibri must be run on a host that is also running {option}`services.jitsi-meet.enable`, so for most use cases it will be simpler to run {option}`services.jitsi-meet.jibri.enable`")
+      ;
     config = mkOption {
       type = attrs;
       default = { };
@@ -305,15 +310,17 @@ in {
             };
           };
 
-          config = let
-            nick = mkDefault (builtins.replaceStrings [ "." ] [ "-" ]
-              (config.networking.hostName
-                + optionalString (config.networking.domain != null)
-                ".${config.networking.domain}"));
-          in {
-            call.login.username = nick;
-            control.muc.nickname = nick;
-          } ;
+          config =
+            let
+              nick = mkDefault (builtins.replaceStrings [ "." ] [ "-" ]
+                (config.networking.hostName
+                  + optionalString (config.networking.domain != null)
+                  ".${config.networking.domain}"));
+            in {
+              call.login.username = nick;
+              control.muc.nickname = nick;
+            }
+            ;
         }));
     };
   };
@@ -361,7 +368,8 @@ in {
         StateDirectory = "jibri";
 
         ExecStart =
-          "${pkgs.xorg.xorgserver}/bin/Xorg -nocursor -noreset +extension RANDR +extension RENDER -config ${pkgs.jibri}/etc/jitsi/jibri/xorg-video-dummy.conf -logfile /dev/null :0";
+          "${pkgs.xorg.xorgserver}/bin/Xorg -nocursor -noreset +extension RANDR +extension RENDER -config ${pkgs.jibri}/etc/jitsi/jibri/xorg-video-dummy.conf -logfile /dev/null :0"
+          ;
       };
     };
 
@@ -430,11 +438,11 @@ in {
 
     systemd.tmpfiles.rules = [ "d /var/log/jitsi/jibri 755 jibri jibri" ];
 
-    # Configure Chromium to not show the "Chrome is being controlled by automatic test software" message.
+      # Configure Chromium to not show the "Chrome is being controlled by automatic test software" message.
     environment.etc."chromium/policies/managed/managed_policies.json".text =
       builtins.toJSON { CommandLineFlagSecurityWarningsEnabled = false; };
-    warnings =
-      [ "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system." ];
+    warnings = [ "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system." ]
+      ;
 
     boot = {
       extraModprobeConfig = ''

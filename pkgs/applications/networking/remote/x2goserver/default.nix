@@ -33,7 +33,8 @@ let
 
   src = fetchurl {
     url =
-      "https://code.x2go.org/releases/source/${pname}/${pname}-${version}.tar.gz";
+      "https://code.x2go.org/releases/source/${pname}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "Z3aqo1T1pE40nws8F21JiMiKYYwu30bJijeuicBp3NA=";
   };
 

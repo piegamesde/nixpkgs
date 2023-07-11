@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       rushmorem
       shamilton
     ];
-    # 'fprintf' was not declared in this scope
+      # 'fprintf' was not declared in this scope
     broken = true;
   };
 }

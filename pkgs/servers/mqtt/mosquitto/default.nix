@@ -32,10 +32,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = lib.optionals stdenv.isDarwin [ (fetchpatch {
-    name =
-      "revert-cmake-shared-to-module.patch"; # See https://github.com/eclipse/mosquitto/issues/2277
+    name = "revert-cmake-shared-to-module.patch"
+      ; # See https://github.com/eclipse/mosquitto/issues/2277
     url =
-      "https://github.com/eclipse/mosquitto/commit/e21eaeca37196439b3e89bb8fd2eb1903ef94845.patch";
+      "https://github.com/eclipse/mosquitto/commit/e21eaeca37196439b3e89bb8fd2eb1903ef94845.patch"
+      ;
     sha256 = "14syi2c1rks8sl2aw09my276w45yq1iasvzkqcrqwy4drdqrf069";
     revert = true;
   }) ];

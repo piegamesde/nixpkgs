@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
 
   yices-src = fetchurl {
     url =
-      "https://github.com/B-Lang-org/bsc/releases/download/${version}/yices-src-for-bsc-${version}.tar.gz";
+      "https://github.com/B-Lang-org/bsc/releases/download/${version}/yices-src-for-bsc-${version}.tar.gz"
+      ;
     sha256 = "sha256-pyEdCJvmgwOYPMZEtw7aro76tSn/Y/2GcKTyARmIh4E=";
   };
 
@@ -58,7 +59,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  # https://github.com/B-Lang-org/bsc/pull/278
+    # https://github.com/B-Lang-org/bsc/pull/278
   patches = [ ./libstp_stub_makefile.patch ];
 
   postUnpack = ''
@@ -138,8 +139,8 @@ stdenv.mkDerivation rec {
     license = lib.licenses.bsd3;
     platforms = [ "x86_64-linux" ];
     mainProgram = "bsc";
-    # darwin fails at https://github.com/B-Lang-org/bsc/pull/35#issuecomment-583731562
-    # aarch64 fails, as GHC fails with "ghc: could not execute: opt"
+      # darwin fails at https://github.com/B-Lang-org/bsc/pull/35#issuecomment-583731562
+      # aarch64 fails, as GHC fails with "ghc: could not execute: opt"
     maintainers = with lib.maintainers; [
       jcumming
       thoughtpolice

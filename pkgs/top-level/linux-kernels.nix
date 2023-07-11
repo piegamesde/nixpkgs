@@ -23,11 +23,14 @@
 with linuxKernel;
 
 let
-  deblobKernel = kernel:
-    callPackage ../os-specific/linux/kernel/linux-libre.nix { linux = kernel; };
+  deblobKernel =
+    kernel:
+    callPackage ../os-specific/linux/kernel/linux-libre.nix { linux = kernel; }
+    ;
 
-  # Hardened Linux
-  hardenedKernelFor = kernel': overrides:
+    # Hardened Linux
+  hardenedKernelFor =
+    kernel': overrides:
     let
       kernel = kernel'.override overrides;
       version = kernelPatches.hardened.${kernel.meta.branch}.version;
@@ -43,8 +46,8 @@ let
         };
       argsOverride = {
         inherit version;
-        modDirVersion = modDirVersion'
-          + kernelPatches.hardened.${kernel.meta.branch}.extra;
+        modDirVersion =
+          modDirVersion' + kernelPatches.hardened.${kernel.meta.branch}.extra;
         src = fetchurl {
           url =
             "mirror://kernel/linux/kernel/v${major}.x/linux-${version}.tar.xz";
@@ -60,7 +63,7 @@ let
         ++ [ kernelPatches.hardened.${kernel.meta.branch} ];
       isHardened = true;
     }
-  ;
+    ;
 in {
   kernelPatches = callPackage ../os-specific/linux/kernel/patches.nix { };
 
@@ -207,18 +210,20 @@ in {
         ];
       };
 
-      linux_testing = let
-        testing = callPackage ../os-specific/linux/kernel/linux-testing.nix {
-          kernelPatches = [
-            kernelPatches.bridge_stp_helper
-            kernelPatches.request_key_helper
-          ];
-        };
-        latest = packageAliases.linux_latest.kernel;
-      in if latest.kernelAtLeast testing.baseVersion then
-        latest
-      else
-        testing;
+      linux_testing =
+        let
+          testing = callPackage ../os-specific/linux/kernel/linux-testing.nix {
+            kernelPatches = [
+              kernelPatches.bridge_stp_helper
+              kernelPatches.request_key_helper
+            ];
+          };
+          latest = packageAliases.linux_latest.kernel;
+        in if latest.kernelAtLeast testing.baseVersion then
+          latest
+        else
+          testing
+        ;
 
       linux_testing_bcachefs =
         callPackage ../os-specific/linux/kernel/linux-testing-bcachefs.nix {
@@ -244,8 +249,8 @@ in {
           ];
         };
 
-      # Using zenKernels like this due lqx&zen came from one source, but may have different base kernel version
-      # https://github.com/NixOS/nixpkgs/pull/161773#discussion_r820134708
+        # Using zenKernels like this due lqx&zen came from one source, but may have different base kernel version
+        # https://github.com/NixOS/nixpkgs/pull/161773#discussion_r820134708
       zenKernels = callPackage ../os-specific/linux/kernel/zen-kernels.nix;
 
       linux_zen = (zenKernels {
@@ -262,7 +267,7 @@ in {
         ];
       }).lqx;
 
-      # This contains the variants of the XanMod kernel
+        # This contains the variants of the XanMod kernel
       xanmodKernels =
         callPackage ../os-specific/linux/kernel/xanmod-kernels.nix {
           kernelPatches = [
@@ -291,33 +296,40 @@ in {
 
     } // lib.optionalAttrs config.allowAliases {
       linux_4_9 = throw
-        "linux 4.9 was removed because it will reach its end of life within 22.11";
+        "linux 4.9 was removed because it will reach its end of life within 22.11"
+        ;
       linux_5_18 = throw
-        "linux 5.18 was removed because it has reached its end of life upstream";
+        "linux 5.18 was removed because it has reached its end of life upstream"
+        ;
       linux_5_19 = throw
-        "linux 5.19 was removed because it has reached its end of life upstream";
+        "linux 5.19 was removed because it has reached its end of life upstream"
+        ;
       linux_6_0 = throw
         "linux 6.0 was removed because it has reached its end of life upstream";
 
       linux_xanmod_tt = throw
-        "linux_xanmod_tt was removed because upstream no longer offers this option";
+        "linux_xanmod_tt was removed because upstream no longer offers this option"
+        ;
 
       linux_5_18_hardened = throw
-        "linux 5.18 was removed because it has reached its end of life upstream";
+        "linux 5.18 was removed because it has reached its end of life upstream"
+        ;
       linux_5_19_hardened = throw
-        "linux 5.19 was removed because it has reached its end of life upstream";
+        "linux 5.19 was removed because it has reached its end of life upstream"
+        ;
       linux_6_0_hardened = throw
         "linux 6.0 was removed because it has reached its end of life upstream";
     }
   ));
-  /* Linux kernel modules are inherently tied to a specific kernel.  So
-     rather than provide specific instances of those packages for a
-     specific kernel, we have a function that builds those packages
-     for a specific kernel.  This function can then be called for
-     whatever kernel you're using.
-  */
+    /* Linux kernel modules are inherently tied to a specific kernel.  So
+       rather than provide specific instances of those packages for a
+       specific kernel, we have a function that builds those packages
+       for a specific kernel.  This function can then be called for
+       whatever kernel you're using.
+    */
 
-  packagesFor = kernel_:
+  packagesFor =
+    kernel_:
     lib.makeExtensible (self:
       with self;
       let
@@ -350,7 +362,8 @@ in {
             version = "3.3";
             src = fetchurl {
               url =
-                "https://github.com/libffi/libffi/releases/download/v${version}/${orig.pname}-${version}.tar.gz";
+                "https://github.com/libffi/libffi/releases/download/v${version}/${orig.pname}-${version}.tar.gz"
+                ;
               sha256 = "0mi0cpf8aa40ljjmzxb7im6dbj45bb0kllcd09xgmp834y9agyvj";
             };
           });
@@ -385,10 +398,12 @@ in {
 
         dpdk = pkgs.dpdk.override { inherit kernel; };
 
-        exfat-nofuse = if lib.versionOlder kernel.version "5.8" then
-          callPackage ../os-specific/linux/exfat { }
-        else
-          null;
+        exfat-nofuse =
+          if lib.versionOlder kernel.version "5.8" then
+            callPackage ../os-specific/linux/exfat { }
+          else
+            null
+          ;
 
         evdi = callPackage ../os-specific/linux/evdi { };
 
@@ -400,15 +415,19 @@ in {
 
         hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons { };
 
-        e1000e = if lib.versionOlder kernel.version "4.10" then
-          callPackage ../os-specific/linux/e1000e { }
-        else
-          null;
+        e1000e =
+          if lib.versionOlder kernel.version "4.10" then
+            callPackage ../os-specific/linux/e1000e { }
+          else
+            null
+          ;
 
-        intel-speed-select = if lib.versionAtLeast kernel.version "5.3" then
-          callPackage ../os-specific/linux/intel-speed-select { }
-        else
-          null;
+        intel-speed-select =
+          if lib.versionAtLeast kernel.version "5.3" then
+            callPackage ../os-specific/linux/intel-speed-select { }
+          else
+            null
+          ;
 
         ipu6-drivers = callPackage ../os-specific/linux/ipu6-drivers { };
 
@@ -457,8 +476,8 @@ in {
         nvidia_x11_production = nvidiaPackages.production;
         nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
 
-        # this is not a replacement for nvidia_x11*
-        # only the opensource kernel driver exposed for hydra to build
+          # this is not a replacement for nvidia_x11*
+          # only the opensource kernel driver exposed for hydra to build
         nvidia_x11_beta_open = nvidiaPackages.beta.open;
         nvidia_x11_production_open = nvidiaPackages.production.open;
         nvidia_x11_stable_open = nvidiaPackages.stable.open;
@@ -503,21 +522,25 @@ in {
         rtw88 = callPackage ../os-specific/linux/rtw88 { };
         rtlwifi_new = rtw88;
 
-        rtw89 = if lib.versionOlder kernel.version "5.16" then
-          callPackage ../os-specific/linux/rtw89 { }
-        else
-          null;
+        rtw89 =
+          if lib.versionOlder kernel.version "5.16" then
+            callPackage ../os-specific/linux/rtw89 { }
+          else
+            null
+          ;
 
         openafs_1_8 = callPackage ../servers/openafs/1.8/module.nix { };
-        # Current stable release; don't backport release updates!
+          # Current stable release; don't backport release updates!
         openafs = openafs_1_8;
 
         facetimehd = callPackage ../os-specific/linux/facetimehd { };
 
-        tuxedo-keyboard = if lib.versionAtLeast kernel.version "4.14" then
-          callPackage ../os-specific/linux/tuxedo-keyboard { }
-        else
-          null;
+        tuxedo-keyboard =
+          if lib.versionAtLeast kernel.version "4.14" then
+            callPackage ../os-specific/linux/tuxedo-keyboard { }
+          else
+            null
+          ;
 
         jool = callPackage ../os-specific/linux/jool { };
 
@@ -529,18 +552,20 @@ in {
 
         mxu11x0 = callPackage ../os-specific/linux/mxu11x0 { };
 
-        # compiles but has to be integrated into the kernel somehow
-        # Let's have it uncommented and finish it..
+          # compiles but has to be integrated into the kernel somehow
+          # Let's have it uncommented and finish it..
         ndiswrapper = callPackage ../os-specific/linux/ndiswrapper { };
 
         netatop = callPackage ../os-specific/linux/netatop { };
 
         perf = callPackage ../os-specific/linux/kernel/perf { };
 
-        phc-intel = if lib.versionAtLeast kernel.version "4.10" then
-          callPackage ../os-specific/linux/phc-intel { }
-        else
-          null;
+        phc-intel =
+          if lib.versionAtLeast kernel.version "4.10" then
+            callPackage ../os-specific/linux/phc-intel { }
+          else
+            null
+          ;
 
         prl-tools = callPackage ../os-specific/linux/prl-tools { };
 
@@ -599,18 +624,22 @@ in {
 
         vmware = callPackage ../os-specific/linux/vmware { };
 
-        wireguard = if lib.versionOlder kernel.version "5.6" then
-          callPackage ../os-specific/linux/wireguard { }
-        else
-          null;
+        wireguard =
+          if lib.versionOlder kernel.version "5.6" then
+            callPackage ../os-specific/linux/wireguard { }
+          else
+            null
+          ;
 
         x86_energy_perf_policy =
           callPackage ../os-specific/linux/x86_energy_perf_policy { };
 
-        xone = if lib.versionAtLeast kernel.version "5.4" then
-          callPackage ../os-specific/linux/xone { }
-        else
-          null;
+        xone =
+          if lib.versionAtLeast kernel.version "5.4" then
+            callPackage ../os-specific/linux/xone { }
+          else
+            null
+          ;
 
         xpadneo = callPackage ../os-specific/linux/xpadneo { };
 
@@ -634,15 +663,20 @@ in {
         hid-ite8291r3 = callPackage ../os-specific/linux/hid-ite8291r3 { };
 
       } // lib.optionalAttrs config.allowAliases {
-        ati_drivers_x11 = throw
-          "ati drivers are no longer supported by any kernel >=4.1"; # added 2021-05-18;
+        ati_drivers_x11 =
+          throw "ati drivers are no longer supported by any kernel >=4.1"
+          ; # added 2021-05-18;
         xmm7360-pci = throw
-          "Support for the XMM7360 WWAN card was added to the iosm kmod in mainline kernel version 5.18";
+          "Support for the XMM7360 WWAN card was added to the iosm kmod in mainline kernel version 5.18"
+          ;
       }
-    );
+    )
+    ;
 
-  hardenedPackagesFor = kernel: overrides:
-    packagesFor (hardenedKernelFor kernel overrides);
+  hardenedPackagesFor =
+    kernel: overrides:
+    packagesFor (hardenedKernelFor kernel overrides)
+    ;
 
   vanillaPackages = {
     # recurse to build modules for the kernels
@@ -656,13 +690,17 @@ in {
     linux_6_3 = recurseIntoAttrs (packagesFor kernels.linux_6_3);
   } // lib.optionalAttrs config.allowAliases {
     linux_4_9 = throw
-      "linux 4.9 was removed because it will reach its end of life within 22.11"; # Added 2022-11-08
-    linux_5_18 = throw
-      "linux 5.18 was removed because it reached its end of life upstream"; # Added 2022-09-17
-    linux_5_19 = throw
-      "linux 5.19 was removed because it reached its end of life upstream"; # Added 2022-11-01
-    linux_6_0 = throw
-      "linux 6.0 was removed because it reached its end of life upstream"; # Added 2023-01-20
+      "linux 4.9 was removed because it will reach its end of life within 22.11"
+      ; # Added 2022-11-08
+    linux_5_18 =
+      throw "linux 5.18 was removed because it reached its end of life upstream"
+      ; # Added 2022-09-17
+    linux_5_19 =
+      throw "linux 5.19 was removed because it reached its end of life upstream"
+      ; # Added 2022-11-01
+    linux_6_0 =
+      throw "linux 6.0 was removed because it reached its end of life upstream"
+      ; # Added 2023-01-20
   };
 
   rtPackages = {
@@ -693,23 +731,20 @@ in {
     linux_4_14_hardened = recurseIntoAttrs
       (hardenedPackagesFor kernels.linux_4_14 {
         stdenv = gcc10Stdenv;
-        buildPackages = buildPackages // {
-          stdenv = buildPackages.gcc10Stdenv;
-        };
+        buildPackages =
+          buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
       });
     linux_4_19_hardened = recurseIntoAttrs
       (hardenedPackagesFor kernels.linux_4_19 {
         stdenv = gcc10Stdenv;
-        buildPackages = buildPackages // {
-          stdenv = buildPackages.gcc10Stdenv;
-        };
+        buildPackages =
+          buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
       });
     linux_5_4_hardened = recurseIntoAttrs
       (hardenedPackagesFor kernels.linux_5_4 {
         stdenv = gcc10Stdenv;
-        buildPackages = buildPackages // {
-          stdenv = buildPackages.gcc10Stdenv;
-        };
+        buildPackages =
+          buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
       });
     linux_5_10_hardened =
       recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_10 { });
@@ -741,12 +776,13 @@ in {
     linux_6_0_hardened = throw
       "linux 6.0 was removed because it has reached its end of life upstream";
     linux_xanmod_tt = throw
-      "linux_xanmod_tt was removed because upstream no longer offers this option";
+      "linux_xanmod_tt was removed because upstream no longer offers this option"
+      ;
   });
 
   packageAliases = {
     linux_default = packages.linux_6_1;
-    # Update this when adding the newest kernel major version!
+      # Update this when adding the newest kernel major version!
     linux_latest = packages.linux_6_3;
     linux_mptcp = throw
       "'linux_mptcp' has been moved to https://github.com/teto/mptcp-flake";
@@ -757,7 +793,8 @@ in {
 
   manualConfig = callPackage ../os-specific/linux/kernel/manual-config.nix { };
 
-  customPackage = {
+  customPackage =
+    {
       version,
       src,
       modDirVersion ? lib.versions.pad 3 version,
@@ -766,10 +803,12 @@ in {
     }:
     recurseIntoAttrs (packagesFor (manualConfig {
       inherit version src modDirVersion configfile allowImportFromDerivation;
-    }));
+    }))
+    ;
 
-  # Derive one of the default .config files
-  linuxConfig = {
+    # Derive one of the default .config files
+  linuxConfig =
+    {
       src,
       kernelPatches ? [ ],
       version ? (builtins.parseDrvName src.name).version,
@@ -798,7 +837,8 @@ in {
       installPhase = ''
         cp .config $out
       '';
-    };
+    }
+    ;
 
   buildLinux = attrs: callPackage ../os-specific/linux/kernel/generic.nix attrs;
 

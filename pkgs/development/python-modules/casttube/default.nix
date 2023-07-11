@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   meta = with lib; {

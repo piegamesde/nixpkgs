@@ -19,15 +19,19 @@
 }:
 
 let
-  defaultTargetArchitecture = if gcc10Stdenv.targetPlatform.isx86 then
-    "haswell"
-  else
-    "core";
+  defaultTargetArchitecture =
+    if gcc10Stdenv.targetPlatform.isx86 then
+      "haswell"
+    else
+      "core"
+    ;
 
-  targetArch = if targetArchitecture == null then
-    defaultTargetArchitecture
-  else
-    targetArchitecture;
+  targetArch =
+    if targetArchitecture == null then
+      defaultTargetArchitecture
+    else
+      targetArchitecture
+    ;
 
 in
 gcc10Stdenv.mkDerivation rec {
@@ -57,7 +61,7 @@ gcc10Stdenv.mkDerivation rec {
     lzo
   ];
 
-  # prevent failing with "cmake-3.13.4/nix-support/setup-hook: line 10: ./3rdParty/rocksdb/RocksDBConfig.cmake.in: No such file or directory"
+    # prevent failing with "cmake-3.13.4/nix-support/setup-hook: line 10: ./3rdParty/rocksdb/RocksDBConfig.cmake.in: No such file or directory"
   dontFixCmake = true;
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
@@ -93,7 +97,8 @@ gcc10Stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.arangodb.com";
     description =
-      "A native multi-model database with flexible data models for documents, graphs, and key-values";
+      "A native multi-model database with flexible data models for documents, graphs, and key-values"
+      ;
     license = licenses.asl20;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [

@@ -51,7 +51,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "altair" ];
 
-  # avoid examples directory, which fetches web resources
+    # avoid examples directory, which fetches web resources
   preCheck = ''
     cd altair/tests
   '';

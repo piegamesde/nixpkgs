@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
     chmod -R a+w externals/zstd
   '';
 
-  # Fixes https://github.com/NixOS/nixpkgs/issues/171173
+    # Fixes https://github.com/NixOS/nixpkgs/issues/171173
   postInstall = lib.optionalString (enableCubeb && enableSdl2) ''
     wrapProgram "$out/bin/citra" \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpulseaudio ]}
@@ -113,10 +113,12 @@ stdenv.mkDerivation rec {
       Using the canary branch is recommended if you would like to try out
       experimental features, with a cost of stability.
     '';
-    mainProgram = if enableQt then
-      "citra-qt"
-    else
-      "citra";
+    mainProgram =
+      if enableQt then
+        "citra-qt"
+      else
+        "citra"
+      ;
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [

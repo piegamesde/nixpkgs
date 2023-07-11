@@ -124,7 +124,7 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  # No tests
+    # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "grapejuice" ];

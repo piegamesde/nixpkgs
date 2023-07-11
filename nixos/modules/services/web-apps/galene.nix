@@ -162,7 +162,7 @@ in {
                     -recordings ${cfg.recordingsDir} \
                     -static ${cfg.staticDir}'';
         Restart = "always";
-        # Upstream Requirements
+          # Upstream Requirements
         LimitNOFILE = 65536;
         StateDirectory = [ ]
           ++ optional (cfg.stateDir == defaultstateDir) "galene"
@@ -171,7 +171,7 @@ in {
           ++ optional (cfg.recordingsDir == defaultrecordingsDir)
           "galene/recordings";
 
-        # Hardening
+          # Hardening
         CapabilityBoundingSet = [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;

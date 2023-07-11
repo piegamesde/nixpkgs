@@ -61,8 +61,8 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
   };
 
-  patches =
-    [ ./use-default-values-for-libretro_info_path-assets_directory.patch ];
+  patches = [ ./use-default-values-for-libretro_info_path-assets_directory.patch ]
+    ;
 
   nativeBuildInputs = [
     pkg-config
@@ -148,10 +148,10 @@ stdenv.mkDerivation rec {
         kolbycrouch
       ];
     mainProgram = "retroarch";
-    # If you want to (re)-add support for macOS, see:
-    # https://docs.libretro.com/development/retroarch/compilation/osx/
-    # and
-    # https://github.com/libretro/RetroArch/blob/71eb74d256cb4dc5b8b43991aec74980547c5069/.gitlab-ci.yml#L330
+      # If you want to (re)-add support for macOS, see:
+      # https://docs.libretro.com/development/retroarch/compilation/osx/
+      # and
+      # https://github.com/libretro/RetroArch/blob/71eb74d256cb4dc5b8b43991aec74980547c5069/.gitlab-ci.yml#L330
     broken = stdenv.isDarwin;
   };
 }

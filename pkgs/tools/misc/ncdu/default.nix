@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   PREFIX = placeholder "out";
 
-  # Avoid CPU feature impurity, see https://github.com/NixOS/nixpkgs/issues/169461
+    # Avoid CPU feature impurity, see https://github.com/NixOS/nixpkgs/issues/169461
   ZIG_FLAGS = "-Drelease-safe -Dcpu=baseline";
 
   meta = with lib; {

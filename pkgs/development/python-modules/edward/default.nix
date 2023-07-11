@@ -22,7 +22,7 @@ buildPythonPackage rec {
     sha256 = "3818b39e77c26fc1a37767a74fdd5e7d02877d75ed901ead2f40bd03baaa109f";
   };
 
-  # disabled for now due to Tensorflow trying to create files in $HOME:
+    # disabled for now due to Tensorflow trying to create files in $HOME:
   doCheck = false;
 
   propagatedBuildInputs = [

@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/geoserver/GeoServer/${version}/geoserver-${version}-bin.zip";
+      "mirror://sourceforge/geoserver/GeoServer/${version}/geoserver-${version}-bin.zip"
+      ;
     sha256 = "sha256-qoRyU+dZrgYKa6tqe13nHJacOlNiSMuCECtfMFxu1Vg=";
   };
 

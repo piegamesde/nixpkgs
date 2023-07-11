@@ -53,13 +53,14 @@ stdenv.mkDerivation rec {
     # remove with next raylib version > 4.2.0 or when glfw 3.4.0 is released.
     (fetchpatch {
       url =
-        "https://github.com/raysan5/raylib/commit/2ad7967db80644a25ca123536cf2f6efcb869684.patch";
+        "https://github.com/raysan5/raylib/commit/2ad7967db80644a25ca123536cf2f6efcb869684.patch"
+        ;
       sha256 = "sha256-/xgzox1ITeoZ91QWdwnJJ+jJ5nJsMHcEgbIEdNYh4NY=";
       name = "raylib-glfw-fix.patch";
     })
   ];
 
-  # https://github.com/raysan5/raylib/wiki/CMake-Build-Options
+    # https://github.com/raysan5/raylib/wiki/CMake-Build-Options
   cmakeFlags = [
     "-DUSE_EXTERNAL_GLFW=ON"
     "-DBUILD_EXAMPLES=OFF"
@@ -67,7 +68,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional includeEverything "-DINCLUDE_EVERYTHING=ON"
     ++ lib.optional sharedLib "-DBUILD_SHARED_LIBS=ON";
 
-  # fix libasound.so/libpulse.so not being found
+    # fix libasound.so/libpulse.so not being found
   preFixup = ''
     ${lib.optionalString alsaSupport
     "patchelf --add-needed ${alsa-lib}/lib/libasound.so $out/lib/libraylib.so.${version}"}

@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     toolz
   ];
 
-  # Tests run eliot-tree in out/bin.
+    # Tests run eliot-tree in out/bin.
   checkPhase = ''
     export PATH=$out/bin:$PATH
     pytest

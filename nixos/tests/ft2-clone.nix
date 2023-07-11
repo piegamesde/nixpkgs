@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "ft2-clone";
     meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -15,7 +16,8 @@ import ./make-test-python.nix ({
         services.xserver.enable = true;
         sound.enable = true;
         environment.systemPackages = [ pkgs.ft2-clone ];
-      };
+      }
+      ;
 
     enableOCR = true;
 

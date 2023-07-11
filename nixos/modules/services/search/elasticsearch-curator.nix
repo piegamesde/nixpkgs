@@ -61,7 +61,8 @@ in {
     };
     actionYAML = mkOption {
       description = lib.mdDoc
-        "curator action.yaml file contents, alternatively use curator-cli which takes a simple action command";
+        "curator action.yaml file contents, alternatively use curator-cli which takes a simple action command"
+        ;
       type = types.lines;
       example = ''
         ---

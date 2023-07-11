@@ -35,13 +35,13 @@ buildPythonApplication rec {
     tkinter
   ];
 
-  # needed for pystray to access appindicator using GI
+    # needed for pystray to access appindicator using GI
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
   dontWrapGApps = true;
 
-  # does not contain tests
+    # does not contain tests
   doCheck = false;
 
   meta = with lib; {

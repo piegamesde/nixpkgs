@@ -17,9 +17,9 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  # The tests are broken and apparently you need to uncomment some lines in the
-  # code in order for it to work.
-  # See: https://github.com/kayrus/gof5/blob/674485bdf5a0eb2ab57879a32a2cb4bab8d5d44c/pkg/client/http.go#L172-L174
+    # The tests are broken and apparently you need to uncomment some lines in the
+    # code in order for it to work.
+    # See: https://github.com/kayrus/gof5/blob/674485bdf5a0eb2ab57879a32a2cb4bab8d5d44c/pkg/client/http.go#L172-L174
   doCheck = false;
 
   meta = with lib; {

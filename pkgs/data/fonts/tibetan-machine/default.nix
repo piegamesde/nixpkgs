@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://debian/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.bz2";
+      "mirror://debian/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.bz2"
+      ;
     hash = "sha256-c/1Sgv7xKHpsJGjY9ZY2qOJHShGHL1robvphFNJOt5w=";
   };
 

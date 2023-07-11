@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.arrl.org/files/file/LoTW%20Instructions/${pname}-${version}.tar.gz";
+      "https://www.arrl.org/files/file/LoTW%20Instructions/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-UGPMp1mAarHWuLbZu2wWpjgCdf8ZKj0Mwkqp32U5/8w=";
   };
 

@@ -43,18 +43,20 @@ buildGoModule rec {
     # which is needed to fix the build w/glibc-2.36.
     (fetchpatch {
       url =
-        "https://github.com/lxc/distrobuilder/commit/5346bcc77dd7f141a36a8da851f016d0b929835e.patch";
+        "https://github.com/lxc/distrobuilder/commit/5346bcc77dd7f141a36a8da851f016d0b929835e.patch"
+        ;
       sha256 = "sha256-H6cSbY0v/FThx72AvoAvUCs2VCYN/PQ0W4H82mQQ3SI=";
     })
     # Fixup to keep it building after go.mod update.
     (fetchpatch {
       url =
-        "https://github.com/lxc/distrobuilder/commit/2c8cbfbf603e7446efce9f30812812336ccf4f2c.patch";
+        "https://github.com/lxc/distrobuilder/commit/2c8cbfbf603e7446efce9f30812812336ccf4f2c.patch"
+        ;
       sha256 = "sha256-qqofghcHGosR2qycGb02c8rwErFyRRhsRKdQfyah8Ds=";
     })
   ];
 
-  # tests require a local keyserver (mkg20001/nixpkgs branch distrobuilder-with-tests) but gpg is currently broken in tests
+    # tests require a local keyserver (mkg20001/nixpkgs branch distrobuilder-with-tests) but gpg is currently broken in tests
   doCheck = false;
 
   nativeBuildInputs = [

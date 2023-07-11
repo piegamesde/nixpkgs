@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qjfeomeExjsx/6XrUaGm5szbL7XVlekGd4Hsuncv8NY=";
   };
 
-  # Don't build and install html documentation
+    # Don't build and install html documentation
   postPatch = ''
     sed -i -e '/^all:/ s/html//' -e '/^install:/ s/install-html//' \
        Documentation{,/trace-cmd,/libtracecmd}/Makefile
@@ -63,9 +63,9 @@ stdenv.mkDerivation rec {
     "prefix=${placeholder "lib"}"
   ];
 
-  # We do not mention targets (like "doc") explicitly in makeFlags
-  # because the Makefile would not print warnings about too old
-  # libraries (see "warning:" in the Makefile)
+    # We do not mention targets (like "doc") explicitly in makeFlags
+    # because the Makefile would not print warnings about too old
+    # libraries (see "warning:" in the Makefile)
   postBuild = ''
     make libs doc -j$NIX_BUILD_CORES
   '';

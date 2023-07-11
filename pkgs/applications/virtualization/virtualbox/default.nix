@@ -68,8 +68,8 @@ with lib;
 
 let
   buildType = "release";
-  # Use maintainers/scripts/update.nix to update the version and all related hashes or
-  # change the hashes in extpack.nix and guest-additions/default.nix as well manually.
+    # Use maintainers/scripts/update.nix to update the version and all related hashes or
+    # change the hashes in extpack.nix and guest-additions/default.nix as well manually.
   version = "7.0.6";
 in
 stdenv.mkDerivation {
@@ -78,7 +78,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://download.virtualbox.org/virtualbox/${version}/VirtualBox-${version}.tar.bz2";
+      "https://download.virtualbox.org/virtualbox/${version}/VirtualBox-${version}.tar.bz2"
+      ;
     sha256 = "f146d9a86a35af0abb010e628636fd800cb476cc2ce82f95b0c0ca876e1756ff";
   };
 
@@ -96,7 +97,7 @@ stdenv.mkDerivation {
     glslang
   ] ++ optional (!headless) wrapQtAppsHook;
 
-  # Wrap manually because we wrap just a small number of executables.
+    # Wrap manually because we wrap just a small number of executables.
   dontWrapQtApps = true;
 
   buildInputs = [
@@ -187,7 +188,8 @@ stdenv.mkDerivation {
     ++ optional (!headless && enableHardening) (substituteAll {
       src = ./qt-env-vars.patch;
       qtPluginPath =
-        "${qtbase.bin}/${qtbase.qtPluginPrefix}:${qtsvg.bin}/${qtbase.qtPluginPrefix}:${qtwayland.bin}/${qtbase.qtPluginPrefix}";
+        "${qtbase.bin}/${qtbase.qtPluginPrefix}:${qtsvg.bin}/${qtbase.qtPluginPrefix}:${qtwayland.bin}/${qtbase.qtPluginPrefix}"
+        ;
     }) ++ [
       ./qt-dependency-paths.patch
       # https://github.com/NixOS/nixpkgs/issues/123851
@@ -203,7 +205,7 @@ stdenv.mkDerivation {
       --replace PSHCLFORMATDATA PSHCLFORMATS
   '';
 
-  # first line: ugly hack, and it isn't yet clear why it's a problem
+    # first line: ugly hack, and it isn't yet clear why it's a problem
   configurePhase = ''
     NIX_CFLAGS_COMPILE=$(echo "$NIX_CFLAGS_COMPILE" | sed 's,\-isystem ${
       lib.getDev stdenv.cc.libc

@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  # Lots of nice hard-coded paths...
+    # Lots of nice hard-coded paths...
   postPatch = ''
     substituteInPlace unetbootin.cpp \
       --replace /bin/df             ${coreutils}/bin/df \

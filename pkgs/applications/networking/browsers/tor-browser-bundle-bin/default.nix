@@ -93,13 +93,13 @@ let
   ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
     ++ lib.optionals mediaSupport [ ffmpeg ];
 
-  # Library search path for the fte transport
+    # Library search path for the fte transport
   fteLibPath = lib.makeLibraryPath [
     stdenv.cc.cc
     gmp
   ];
 
-  # Upstream source
+    # Upstream source
   version = "12.0.5";
 
   lang = "ALL";
@@ -491,7 +491,8 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.torproject.org/";
     changelog =
-      "https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/Docs/ChangeLog.txt?h=maint-${version}";
+      "https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/Docs/ChangeLog.txt?h=maint-${version}"
+      ;
     platforms = attrNames srcs;
     maintainers = with maintainers; [
       offline
@@ -502,9 +503,9 @@ stdenv.mkDerivation rec {
       KarlJoad
     ];
     mainProgram = "tor-browser";
-    # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
-    # the compound is "libre" in a strict sense (some components place certain
-    # restrictions on redistribution), it's free enough for our purposes.
+      # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
+      # the compound is "libre" in a strict sense (some components place certain
+      # restrictions on redistribution), it's free enough for our purposes.
     license = licenses.free;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };

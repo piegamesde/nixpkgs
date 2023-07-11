@@ -26,7 +26,7 @@ buildPythonPackage rec {
     substituteInPlace pywal/wallpaper.py --subst-var-by feh "${feh}/bin/feh"
   '';
 
-  # Invalid syntax
+    # Invalid syntax
   disabled = !isPy3k;
 
   preCheck = ''
@@ -41,7 +41,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Generate and change colorschemes on the fly. A 'wal' rewrite in Python 3";
+      "Generate and change colorschemes on the fly. A 'wal' rewrite in Python 3"
+      ;
     homepage = "https://github.com/dylanaraps/pywal";
     license = licenses.mit;
     maintainers = with maintainers; [ Fresheyeball ];

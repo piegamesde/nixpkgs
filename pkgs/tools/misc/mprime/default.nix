@@ -75,10 +75,10 @@ stdenv.mkDerivation rec {
       graphical user interface.
     '';
     homepage = "https://www.mersenne.org/";
-    # Unfree, because of a license requirement to share prize money if you find
-    # a suitable prime. http://www.mersenne.org/legal/#EULA
+      # Unfree, because of a license requirement to share prize money if you find
+      # a suitable prime. http://www.mersenne.org/legal/#EULA
     license = licenses.unfree;
-    # Untested on linux-32 and osx. Works in theory.
+      # Untested on linux-32 and osx. Works in theory.
     platforms = [
       "i686-linux"
       "x86_64-linux"

@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  # Don't want prebuilt binaries sneaking in.
+    # Don't want prebuilt binaries sneaking in.
   postUnpack = ''
     rm -r "$sourceRoot/debug" "$sourceRoot/release"
   '';

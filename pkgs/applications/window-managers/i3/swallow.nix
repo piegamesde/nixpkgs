@@ -29,7 +29,7 @@ buildPythonApplication rec {
     six
   ];
 
-  # No tests available
+    # No tests available
   doCheck = false;
 
   meta = with lib; {

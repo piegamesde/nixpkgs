@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
     name = "etebase-server";
     meta = with pkgs.lib.maintainers; { maintainers = [ felschr ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -20,7 +21,8 @@ import ./make-test-python.nix ({
           settings.global.secret_file =
             toString (pkgs.writeText "secret" "123456");
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("etebase-server.service")

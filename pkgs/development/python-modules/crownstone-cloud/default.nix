@@ -29,7 +29,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "remove-asynctest.patch";
       url =
-        "https://github.com/crownstone/crownstone-lib-python-cloud/commit/7f22c9b284bf8d7f6f43e205816787dd3bb37e78.patch";
+        "https://github.com/crownstone/crownstone-lib-python-cloud/commit/7f22c9b284bf8d7f6f43e205816787dd3bb37e78.patch"
+        ;
       hash = "sha256-LS1O9LVB14WyBXfuHf/bs1juJ59zWhJ8pL4aGtVrTG8=";
     })
   ];

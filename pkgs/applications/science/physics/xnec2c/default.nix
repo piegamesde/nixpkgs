@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ mvs ];
     platforms = platforms.unix;
 
-    # Darwin support likely to be fixed upstream in the next release
+      # Darwin support likely to be fixed upstream in the next release
     broken = stdenv.isDarwin;
   };
 }

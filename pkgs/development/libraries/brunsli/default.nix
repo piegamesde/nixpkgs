@@ -27,13 +27,15 @@ stdenv.mkDerivation rec {
     # unvendor brotli
     (fetchpatch {
       url =
-        "https://cgit.freebsd.org/ports/plain/graphics/brunsli/files/patch-CMakeLists.txt";
+        "https://cgit.freebsd.org/ports/plain/graphics/brunsli/files/patch-CMakeLists.txt"
+        ;
       extraPrefix = "";
       hash = "sha256-/WPOG9OcEDj9ObBSXEM8Luq4Rix+PS2MvsYyHhK5mns=";
     })
     (fetchpatch {
       url =
-        "https://cgit.freebsd.org/ports/plain/graphics/brunsli/files/patch-brunsli.cmake";
+        "https://cgit.freebsd.org/ports/plain/graphics/brunsli/files/patch-brunsli.cmake"
+        ;
       extraPrefix = "";
       hash = "sha256-+HXA9Tin+l2St7rRUEBM0AfhAjSoFxz8UX7hsg12aFg=";
     })

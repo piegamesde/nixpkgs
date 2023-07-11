@@ -36,7 +36,8 @@ buildGoModule rec {
   meta = {
     changelog = "https://github.com/hetznercloud/cli/releases/tag/v${version}";
     description =
-      "A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers";
+      "A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers"
+      ;
     homepage = "https://github.com/hetznercloud/cli";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.zauberpony ];

@@ -64,14 +64,16 @@
 # }
 
 let
-  baseName = if (stable) then
-    "kicad"
-  else
-    "kicad-unstable";
+  baseName =
+    if (stable) then
+      "kicad"
+    else
+      "kicad-unstable"
+    ;
   versionsImport = import ./versions.nix;
 
-  # versions.nix does not provide us with version, src and rev. We
-  # need to turn this into approprate fetcher calls.
+    # versions.nix does not provide us with version, src and rev. We
+    # need to turn this into approprate fetcher calls.
   kicadSrcFetch = fetchFromGitLab {
     group = "kicad";
     owner = "code";
@@ -80,41 +82,54 @@ let
     sha256 = versionsImport.${baseName}.kicadVersion.src.sha256;
   };
 
-  libSrcFetch = name:
+  libSrcFetch =
+    name:
     fetchFromGitLab {
       group = "kicad";
       owner = "libraries";
       repo = "kicad-${name}";
       rev = versionsImport.${baseName}.libVersion.libSources.${name}.rev;
       sha256 = versionsImport.${baseName}.libVersion.libSources.${name}.sha256;
-    };
+    }
+    ;
 
-  # only override `src` or `version` if building `kicad-unstable` with
-  # the appropriate attribute defined in `srcs`.
-  srcOverridep = attr: (!stable && builtins.hasAttr attr srcs);
+    # only override `src` or `version` if building `kicad-unstable` with
+    # the appropriate attribute defined in `srcs`.
+  srcOverridep =
+    attr:
+    (!stable && builtins.hasAttr attr srcs)
+    ;
 
-  # use default source and version (as defined in versions.nix) by
-  # default, or use the appropriate attribute from `srcs` if building
-  # unstable with `srcs` properly defined.
-  kicadSrc = if srcOverridep "kicad" then
-    srcs.kicad
-  else
-    kicadSrcFetch;
-  kicadVersion = if srcOverridep "kicadVersion" then
-    srcs.kicadVersion
-  else
-    versionsImport.${baseName}.kicadVersion.version;
+    # use default source and version (as defined in versions.nix) by
+    # default, or use the appropriate attribute from `srcs` if building
+    # unstable with `srcs` properly defined.
+  kicadSrc =
+    if srcOverridep "kicad" then
+      srcs.kicad
+    else
+      kicadSrcFetch
+    ;
+  kicadVersion =
+    if srcOverridep "kicadVersion" then
+      srcs.kicadVersion
+    else
+      versionsImport.${baseName}.kicadVersion.version
+    ;
 
-  libSrc = name:
+  libSrc =
+    name:
     if srcOverridep name then
       srcs.${name}
     else
-      libSrcFetch name;
-  # TODO does it make sense to only have one version for all libs?
-  libVersion = if srcOverridep "libVersion" then
-    srcs.libVersion
-  else
-    versionsImport.${baseName}.libVersion.version;
+      libSrcFetch name
+    ;
+    # TODO does it make sense to only have one version for all libs?
+  libVersion =
+    if srcOverridep "libVersion" then
+      srcs.libVersion
+    else
+      versionsImport.${baseName}.libVersion.version
+    ;
 
   wxGTK = wxGTK32;
   python = python3;
@@ -135,10 +150,12 @@ stdenv.mkDerivation rec {
   };
 
   inherit pname;
-  version = if (stable) then
-    kicadVersion
-  else
-    builtins.substring 0 10 src.src.rev;
+  version =
+    if (stable) then
+      kicadVersion
+    else
+      builtins.substring 0 10 src.src.rev
+    ;
 
   src = base;
   dontUnpack = true;
@@ -155,7 +172,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ]
     ++ optionals (withScripting) [ python.pkgs.wrapPython ];
 
-  # We are emulating wrapGAppsHook, along with other variables to the wrapper
+    # We are emulating wrapGAppsHook, along with other variables to the wrapper
   makeWrapperArgs = with passthru.libraries;
     [
       "--prefix XDG_DATA_DIRS : ${base}/share"
@@ -179,51 +196,55 @@ stdenv.mkDerivation rec {
     (withNgspice) [ "--prefix LD_LIBRARY_PATH : ${libngspice}/lib" ]
 
     # infinisil's workaround for #39493
-    ++ [ "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" ];
+    ++ [ "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" ]
+    ;
 
-  # why does $makeWrapperArgs have to be added explicitly?
-  # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?
-  installPhase = let
-    bin = if stdenv.isDarwin then
-      "*.app/Contents/MacOS"
-    else
-      "bin";
-    tools = [
-      "kicad"
-      "pcbnew"
-      "eeschema"
-      "gerbview"
-      "pcb_calculator"
-      "pl_editor"
-      "bitmap2component"
-    ];
-    utils = [
-      "dxf2idf"
-      "idf2vrml"
-      "idfcyl"
-      "idfrect"
-      "kicad-cli"
-    ];
-  in
-  (concatStringsSep "\n" (flatten [
-    "runHook preInstall"
+    # why does $makeWrapperArgs have to be added explicitly?
+    # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?
+  installPhase =
+    let
+      bin =
+        if stdenv.isDarwin then
+          "*.app/Contents/MacOS"
+        else
+          "bin"
+        ;
+      tools = [
+        "kicad"
+        "pcbnew"
+        "eeschema"
+        "gerbview"
+        "pcb_calculator"
+        "pl_editor"
+        "bitmap2component"
+      ];
+      utils = [
+        "dxf2idf"
+        "idf2vrml"
+        "idfcyl"
+        "idfrect"
+        "kicad-cli"
+      ];
+    in
+    (concatStringsSep "\n" (flatten [
+      "runHook preInstall"
 
-    (optionalString (withScripting) ''
-      buildPythonPath "${base} $pythonPath" 
-    '')
+      (optionalString (withScripting) ''
+        buildPythonPath "${base} $pythonPath" 
+      '')
 
-    # wrap each of the directly usable tools
-    (map (tool:
-      "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
-      + optionalString (withScripting)
-      " --set PYTHONPATH \"$program_PYTHONPATH\"") tools)
+      # wrap each of the directly usable tools
+      (map (tool:
+        "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
+        + optionalString (withScripting)
+        " --set PYTHONPATH \"$program_PYTHONPATH\"") tools)
 
-    # link in the CLI utils
-    (map (util: "ln -s ${base}/${bin}/${util} $out/bin/${util}") utils)
+      # link in the CLI utils
+      (map (util: "ln -s ${base}/${bin}/${util} $out/bin/${util}") utils)
 
-    "runHook postInstall"
-  ]))
-  ;
+      "runHook postInstall"
+    ]))
+    ;
 
   postInstall = ''
     mkdir -p $out/share
@@ -233,11 +254,11 @@ stdenv.mkDerivation rec {
     ln -s ${base}/share/metainfo $out/share/metainfo
   '';
 
-  # can't run this for each pname
-  # stable and unstable are in the same versions.nix
-  # and kicad-small reuses stable
-  # with "all" it updates both, run it manually if you don't want that
-  # and can't git commit if this could be running in parallel with other scripts
+    # can't run this for each pname
+    # stable and unstable are in the same versions.nix
+    # and kicad-small reuses stable
+    # with "all" it updates both, run it manually if you don't want that
+    # and can't git commit if this could be running in parallel with other scripts
   passthru.updateScript = [
     ./update.sh
     "all"
@@ -259,19 +280,21 @@ stdenv.mkDerivation rec {
       evils
       kiwi
     ];
-    # kicad is cross platform
+      # kicad is cross platform
     platforms = lib.platforms.all;
     broken = stdenv.isDarwin;
 
-    hydraPlatforms = if (with3d) then
-      [ ]
-    else
-      platforms;
-    # We can't download the 3d models on Hydra,
-    # they are a ~1 GiB download and they occupy ~5 GiB in store.
-    # as long as the base and libraries (minus 3d) are build,
-    # this wrapper does not need to get built
-    # the kicad-*small "packages" cause this to happen
+    hydraPlatforms =
+      if (with3d) then
+        [ ]
+      else
+        platforms
+      ;
+      # We can't download the 3d models on Hydra,
+      # they are a ~1 GiB download and they occupy ~5 GiB in store.
+      # as long as the base and libraries (minus 3d) are build,
+      # this wrapper does not need to get built
+      # the kicad-*small "packages" cause this to happen
 
     mainProgram = "kicad";
   };

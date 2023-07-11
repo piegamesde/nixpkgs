@@ -16,8 +16,8 @@ buildPythonPackage rec {
   version = "0.6.4";
   pname = "msrestazure";
 
-  # Pypi tarball doesnt include tests
-  # see https://github.com/Azure/msrestazure-for-python/pull/133
+    # Pypi tarball doesnt include tests
+    # see https://github.com/Azure/msrestazure-for-python/pull/133
   src = fetchFromGitHub {
     owner = "Azure";
     repo = "msrestazure-for-python";
@@ -42,7 +42,8 @@ buildPythonPackage rec {
 
   meta = with pkgs.lib; {
     description =
-      "The runtime library 'msrestazure' for AutoRest generated Python clients.";
+      "The runtime library 'msrestazure' for AutoRest generated Python clients."
+      ;
     homepage = "https://azure.microsoft.com/en-us/develop/python/";
     license = licenses.mit;
     maintainers = with maintainers; [

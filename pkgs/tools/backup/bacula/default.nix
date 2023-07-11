@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bgi8vmpKsHDhfp6cTpvE6UTS5b03ZSHKNCxv6WogaH0=";
   };
 
-  # libtool.m4 only matches macOS 10.*
+    # libtool.m4 only matches macOS 10.*
   postPatch = lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
     substituteInPlace configure \
       --replace "10.*)" "*)"

@@ -30,11 +30,11 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  # No tests in archive
+    # No tests in archive
   doCheck = false;
   pythonImportsCheck = [ "wheel" ];
 
-  # We add this flag to ignore the copy installed by bootstrapped-pip
+    # We add this flag to ignore the copy installed by bootstrapped-pip
   pipInstallFlags = [ "--ignore-installed" ];
 
   meta = with lib; {

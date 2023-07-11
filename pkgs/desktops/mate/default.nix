@@ -4,11 +4,13 @@
 }:
 
 let
-  packages = self:
+  packages =
+    self:
     with self; {
 
       # Update script tailored to mate packages from git repository
-      mateUpdateScript = {
+      mateUpdateScript =
+        {
           pname,
           odd-unstable ? true,
           rev-prefix ? "v",
@@ -16,11 +18,14 @@ let
         }:
         pkgs.gitUpdater {
           inherit odd-unstable rev-prefix;
-          url = if url == null then
-            "https://git.mate-desktop.org/${pname}"
-          else
-            url;
-        };
+          url =
+            if url == null then
+              "https://git.mate-desktop.org/${pname}"
+            else
+              url
+            ;
+        }
+        ;
 
       atril = callPackage ./atril { };
       caja = callPackage ./caja { };
@@ -109,7 +114,8 @@ let
         pluma
       ];
 
-    };
+    }
+    ;
 
 in
 lib.makeScope pkgs.newScope packages

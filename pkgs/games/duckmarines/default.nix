@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/SimonLarsen/${pname}/releases/download/v${version}/${pname}-1.0c.love";
+      "https://github.com/SimonLarsen/${pname}/releases/download/v${version}/${pname}-1.0c.love"
+      ;
     sha256 = "1rvgpkvi4h9zhc4fwb4knhsa789yjcx4a14fi4vqfdyybhvg5sh9";
   };
 

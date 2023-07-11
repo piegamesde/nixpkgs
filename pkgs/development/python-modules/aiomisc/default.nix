@@ -57,29 +57,29 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = {
     aiohttp = [ aiohttp ];
-    #asgi = [
-    #  aiohttp-asgi
-    #];
+      #asgi = [
+      #  aiohttp-asgi
+      #];
     cron = [ croniter ];
-    #carbon = [
-    #  aiocarbon
-    #];
-    #raven = [
-    #  raven-aiohttp
-    #];
+      #carbon = [
+      #  aiocarbon
+      #];
+      #raven = [
+      #  raven-aiohttp
+      #];
     uvloop = [ uvloop ];
   };
 
   pythonImportsCheck = [ "aiomisc" ];
 
-  # Upstream stopped tagging with 16.2
+    # Upstream stopped tagging with 16.2
   doCheck = false;
 
-  # disabledTestPaths = [
-  #   # Dependencies are not available at the moment
-  #   "tests/test_entrypoint.py"
-  #   "tests/test_raven_service.py"
-  # ];
+    # disabledTestPaths = [
+    #   # Dependencies are not available at the moment
+    #   "tests/test_entrypoint.py"
+    #   "tests/test_raven_service.py"
+    # ];
 
   meta = with lib; {
     description = "Miscellaneous utils for asyncio";

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib/cmake" ];
-  # testing broken: './minc_wrapper: Permission denied' from Testing/ellipse0.mnc
+    # testing broken: './minc_wrapper: Permission denied' from Testing/ellipse0.mnc
 
   postFixup = ''
     for prog in autocrop mritoself mritotal xfmtool; do

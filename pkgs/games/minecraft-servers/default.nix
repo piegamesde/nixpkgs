@@ -10,8 +10,10 @@ let
     lib.last (builtins.sort lib.versionOlder (builtins.attrNames versions));
   escapeVersion = builtins.replaceStrings [ "." ] [ "-" ];
 
-  getJavaVersion = v:
-    (builtins.getAttr "openjdk${toString v}" javaPackages.compiler).headless;
+  getJavaVersion =
+    v:
+    (builtins.getAttr "openjdk${toString v}" javaPackages.compiler).headless
+    ;
 
   packages = lib.mapAttrs' (version: value: {
     name = "vanilla-${escapeVersion version}";

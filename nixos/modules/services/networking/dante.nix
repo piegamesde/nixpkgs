@@ -55,7 +55,7 @@ in {
         Type = "simple";
         ExecStart = "${pkgs.dante}/bin/sockd -f ${confFile}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-        # Can crash sometimes; see https://github.com/NixOS/nixpkgs/pull/39005#issuecomment-381828708
+          # Can crash sometimes; see https://github.com/NixOS/nixpkgs/pull/39005#issuecomment-381828708
         Restart = "on-failure";
       };
     };

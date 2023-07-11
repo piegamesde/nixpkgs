@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  # tests don't work inside the sandbox
+    # tests don't work inside the sandbox
   doCheck = false;
 
   meta = with lib; {

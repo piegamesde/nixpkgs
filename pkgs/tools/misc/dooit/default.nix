@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-7a6xoqbAmnGVUVppQTSo4hH44XFCqBnF7xO7sOVySY0=";
   };
 
-  # Required versions not available
+    # Required versions not available
   pythonRelaxDeps = [
     "textual"
     "tzlocal"
@@ -36,7 +36,7 @@ python3.pkgs.buildPythonApplication rec {
     appdirs
   ];
 
-  # No tests available
+    # No tests available
   doCheck = false;
 
   meta = with lib; {

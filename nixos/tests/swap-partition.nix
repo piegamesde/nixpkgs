@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "swap-partition";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         lib,
@@ -38,7 +39,8 @@ import ./make-test-python.nix ({
         };
 
         swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

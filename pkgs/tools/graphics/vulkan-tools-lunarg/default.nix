@@ -82,8 +82,8 @@ stdenv.mkDerivation rec {
     ./$update
   '';
 
-  # Include absolute paths to layer libraries in their associated
-  # layer definition json files.
+    # Include absolute paths to layer libraries in their associated
+    # layer definition json files.
   preFixup = ''
     for f in "$out"/etc/vulkan/explicit_layer.d/*.json "$out"/etc/vulkan/implicit_layer.d/*.json; do
       jq <"$f" >tmp.json ".layer.library_path = \"$out/lib/\" + .layer.library_path"
@@ -93,10 +93,10 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gtest.patch ];
 
-  # Same as vulkan-validation-layers
+    # Same as vulkan-validation-layers
   dontPatchELF = true;
 
-  # Help vulkan-loader find the validation layers
+    # Help vulkan-loader find the validation layers
   setupHook = writeText "setup-hook" ''
     export XDG_CONFIG_DIRS=@out@/etc''${XDG_CONFIG_DIRS:+:''${XDG_CONFIG_DIRS}}
   '';

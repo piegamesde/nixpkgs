@@ -96,7 +96,7 @@ let
         };
       });
 
-      # Pinned due to API changes in 10.0
+        # Pinned due to API changes in 10.0
       mcstatus = super.mcstatus.overridePythonAttrs (oldAttrs: rec {
         version = "9.3.0";
         src = fetchFromGitHub {
@@ -107,7 +107,7 @@ let
         };
       });
 
-      # moto tests are a nuissance
+        # moto tests are a nuissance
       moto = super.moto.overridePythonAttrs (_: { doCheck = false; });
 
       notifications-android-tv =
@@ -129,7 +129,7 @@ let
           doCheck = false; # no tests
         });
 
-      # Pinned due to API changes in 1.3.0
+        # Pinned due to API changes in 1.3.0
       ovoenergy = super.ovoenergy.overridePythonAttrs (oldAttrs: rec {
         version = "1.2.0";
         src = fetchFromGitHub {
@@ -140,7 +140,7 @@ let
         };
       });
 
-      # Pinned due to API changes in 0.1.0
+        # Pinned due to API changes in 0.1.0
       poolsense = super.poolsense.overridePythonAttrs (oldAttrs: rec {
         version = "0.0.8";
         src = super.fetchPypi {
@@ -170,7 +170,7 @@ let
           };
         });
 
-      # Pinned due to API changes >0.3.5.3
+        # Pinned due to API changes >0.3.5.3
       pyatag = super.pyatag.overridePythonAttrs (oldAttrs: rec {
         version = "0.3.5.3";
         src = fetchFromGitHub {
@@ -259,7 +259,7 @@ let
         };
       });
 
-      # Pinned due to API changes in 0.3.0
+        # Pinned due to API changes in 0.3.0
       tailscale = super.tailscale.overridePythonAttrs (oldAttrs: rec {
         version = "0.2.0";
         src = fetchFromGitHub {
@@ -270,7 +270,7 @@ let
         };
       });
 
-      # Pinned due to API changes in 0.4.0
+        # Pinned due to API changes in 0.4.0
       vilfo-api-client = super.vilfo-api-client.overridePythonAttrs
         (oldAttrs: rec {
           version = "0.3.3";
@@ -282,7 +282,7 @@ let
           };
         });
 
-      # Pinned due to API changes ~1.0
+        # Pinned due to API changes ~1.0
       vultr = super.vultr.overridePythonAttrs (oldAttrs: rec {
         version = "0.1.2";
         src = fetchFromGitHub {
@@ -303,7 +303,7 @@ let
         };
       });
 
-      # internal python packages only consumed by home-assistant itself
+        # internal python packages only consumed by home-assistant itself
       home-assistant-frontend = self.callPackage ./frontend.nix { };
       home-assistant-intents = self.callPackage ./intents.nix { };
     })
@@ -323,13 +323,13 @@ let
   getPackages = component: componentPackages.components.${component};
 
   componentBuildInputs =
-    lib.concatMap (component: getPackages component python.pkgs)
-    extraComponents;
+    lib.concatMap (component: getPackages component python.pkgs) extraComponents
+    ;
 
-  # Ensure that we are using a consistent package set
+    # Ensure that we are using a consistent package set
   extraBuildInputs = extraPackages python.pkgs;
 
-  # Don't forget to run parse-requirements.py after updating
+    # Don't forget to run parse-requirements.py after updating
   hassVersion = "2023.5.1";
 
 in
@@ -338,19 +338,19 @@ python.pkgs.buildPythonApplication rec {
   version = assert (componentPackages.version == hassVersion); hassVersion;
   format = "pyproject";
 
-  # check REQUIRED_PYTHON_VER in homeassistant/const.py
+    # check REQUIRED_PYTHON_VER in homeassistant/const.py
   disabled = python.pythonOlder "3.10";
 
-  # don't try and fail to strip 6600+ python files, it takes minutes!
+    # don't try and fail to strip 6600+ python files, it takes minutes!
   dontStrip = true;
 
-  # Primary source is the pypi sdist, because it contains translations
+    # Primary source is the pypi sdist, because it contains translations
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-SnNZE2FFL+PVnAoX661d5d4P1drbSPZQsL25mi4TuNI=";
   };
 
-  # Secondary source is git for tests
+    # Secondary source is git for tests
   gitSrc = fetchFromGitHub {
     owner = "home-assistant";
     repo = "core";
@@ -360,48 +360,50 @@ python.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ setuptools ];
 
-  # copy tests early, so patches apply as they would to the git repo
+    # copy tests early, so patches apply as they would to the git repo
   prePatch = ''
     cp --no-preserve=mode --recursive ${gitSrc}/tests ./
     chmod u+x tests/auth/providers/test_command_line_cmd.sh
   '';
 
-  # leave this in, so users don't have to constantly update their downstream patch handling
+    # leave this in, so users don't have to constantly update their downstream patch handling
   patches = [ (substituteAll {
     src = ./patches/ffmpeg-path.patch;
     ffmpeg = "${lib.getBin ffmpeg-headless}/bin/ffmpeg";
   }) ];
 
-  postPatch = let
-    relaxedConstraints = [
-      "aiohttp"
-      "attrs"
-      "awesomeversion"
-      "bcrypt"
-      "ciso8601"
-      "cryptography"
-      "home-assistant-bluetooth"
-      "httpx"
-      "ifaddr"
-      "orjson"
-      "pip"
-      "PyJWT"
-      "pyOpenSSL"
-      "requests"
-      "typing-extensions"
-      "voluptuous-serialize"
-      "yarl"
-    ];
-  in ''
-    sed -r -i \
-      ${
-        lib.concatStringsSep "\n"
-        (map (package: ''-e 's/${package}[<>=]+.*/${package}",/g' \'')
-          relaxedConstraints)
-      }
-      pyproject.toml
-    substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
-  '' ;
+  postPatch =
+    let
+      relaxedConstraints = [
+        "aiohttp"
+        "attrs"
+        "awesomeversion"
+        "bcrypt"
+        "ciso8601"
+        "cryptography"
+        "home-assistant-bluetooth"
+        "httpx"
+        "ifaddr"
+        "orjson"
+        "pip"
+        "PyJWT"
+        "pyOpenSSL"
+        "requests"
+        "typing-extensions"
+        "voluptuous-serialize"
+        "yarl"
+      ];
+    in ''
+      sed -r -i \
+        ${
+          lib.concatStringsSep "\n"
+          (map (package: ''-e 's/${package}[<>=]+.*/${package}",/g' \'')
+            relaxedConstraints)
+        }
+        pyproject.toml
+      substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
+    ''
+    ;
 
   propagatedBuildInputs = with python.pkgs; [
     # Only packages required in pyproject.toml
@@ -437,7 +439,7 @@ python.pkgs.buildPythonApplication rec {
 
   makeWrapperArgs = lib.optional skipPip "--add-flags --skip-pip";
 
-  # upstream only tests on Linux, so do we.
+    # upstream only tests on Linux, so do we.
   doCheck = stdenv.isLinux;
 
   nativeCheckInputs = with python.pkgs;

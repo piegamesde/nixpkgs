@@ -22,49 +22,53 @@ let
     preferLocalBuild = true;
   } "mkdir -p $out; ln -s $nagiosObjectDefs $out/";
 
-  nagiosCfgFile = let
-    default = {
-      log_file = "${nagiosLogDir}/current";
-      log_archive_path = "${nagiosLogDir}/archive";
-      status_file = "${nagiosState}/status.dat";
-      object_cache_file = "${nagiosState}/objects.cache";
-      temp_file = "${nagiosState}/nagios.tmp";
-      lock_file = "/run/nagios.lock";
-      state_retention_file = "${nagiosState}/retention.dat";
-      query_socket = "${nagiosState}/nagios.qh";
-      check_result_path = "${nagiosState}";
-      command_file = "${nagiosState}/nagios.cmd";
-      cfg_dir = "${nagiosObjectDefsDir}";
-      nagios_user = "nagios";
-      nagios_group = "nagios";
-      illegal_macro_output_chars = ''`~$&|'"<>'';
-      retain_state_information = "1";
-    };
-    lines = mapAttrsToList (key: value: "${key}=${value}")
-      (default // cfg.extraConfig);
-    content = concatStringsSep "\n" lines;
-    file = pkgs.writeText "nagios.cfg" content;
-    validated =
-      pkgs.runCommand "nagios-checked.cfg" { preferLocalBuild = true; } ''
-        cp ${file} nagios.cfg
-        # nagios checks the existence of /var/lib/nagios, but
-        # it does not exist in the build sandbox, so we fake it
-        mkdir lib
-        lib=$(readlink -f lib)
-        sed -i s@=${nagiosState}@=$lib@ nagios.cfg
-        ${pkgs.nagios}/bin/nagios -v nagios.cfg && cp ${file} $out
-      '';
-    defaultCfgFile = if cfg.validateConfig then
-      validated
+  nagiosCfgFile =
+    let
+      default = {
+        log_file = "${nagiosLogDir}/current";
+        log_archive_path = "${nagiosLogDir}/archive";
+        status_file = "${nagiosState}/status.dat";
+        object_cache_file = "${nagiosState}/objects.cache";
+        temp_file = "${nagiosState}/nagios.tmp";
+        lock_file = "/run/nagios.lock";
+        state_retention_file = "${nagiosState}/retention.dat";
+        query_socket = "${nagiosState}/nagios.qh";
+        check_result_path = "${nagiosState}";
+        command_file = "${nagiosState}/nagios.cmd";
+        cfg_dir = "${nagiosObjectDefsDir}";
+        nagios_user = "nagios";
+        nagios_group = "nagios";
+        illegal_macro_output_chars = ''`~$&|'"<>'';
+        retain_state_information = "1";
+      };
+      lines = mapAttrsToList (key: value: "${key}=${value}")
+        (default // cfg.extraConfig);
+      content = concatStringsSep "\n" lines;
+      file = pkgs.writeText "nagios.cfg" content;
+      validated =
+        pkgs.runCommand "nagios-checked.cfg" { preferLocalBuild = true; } ''
+          cp ${file} nagios.cfg
+          # nagios checks the existence of /var/lib/nagios, but
+          # it does not exist in the build sandbox, so we fake it
+          mkdir lib
+          lib=$(readlink -f lib)
+          sed -i s@=${nagiosState}@=$lib@ nagios.cfg
+          ${pkgs.nagios}/bin/nagios -v nagios.cfg && cp ${file} $out
+        '';
+      defaultCfgFile =
+        if cfg.validateConfig then
+          validated
+        else
+          file
+        ;
+    in if cfg.mainConfigFile == null then
+      defaultCfgFile
     else
-      file;
-  in if cfg.mainConfigFile == null then
-    defaultCfgFile
-  else
-    cfg.mainConfigFile;
+      cfg.mainConfigFile
+    ;
 
-  # Plain configuration for the Nagios web-interface with no
-  # authentication.
+    # Plain configuration for the Nagios web-interface with no
+    # authentication.
   nagiosCGICfgFile = pkgs.writeText "nagios.cgi.conf" ''
     main_config_file=${cfg.mainConfigFile}
     use_authentication=0
@@ -94,7 +98,8 @@ in {
     "nagios"
     "urlPath"
   ]
-    "The urlPath option has been removed as it is hard coded to /nagios in the nagios package.") ];
+    "The urlPath option has been removed as it is hard coded to /nagios in the nagios package.") ]
+    ;
 
   meta.maintainers = with lib.maintainers; [ symphorien ];
 
@@ -152,7 +157,8 @@ in {
         defaultText = literalExpression
           "pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform";
         description = lib.mdDoc
-          "if true, the syntax of the nagios configuration file is checked at build time";
+          "if true, the syntax of the nagios configuration file is checked at build time"
+          ;
       };
 
       cgiConfigFile = mkOption {
@@ -175,8 +181,9 @@ in {
       };
 
       virtualHost = mkOption {
-        type = types.submodule
-          (import ../web-servers/apache-httpd/vhost-options.nix);
+        type =
+          types.submodule (import ../web-servers/apache-httpd/vhost-options.nix)
+          ;
         example = literalExpression ''
           { hostName = "example.org";
             adminAddr = "webmaster@example.org";
@@ -203,8 +210,8 @@ in {
 
     users.groups.nagios = { };
 
-    # This isn't needed, it's just so that the user can type "nagiostats
-    # -c /etc/nagios.cfg".
+      # This isn't needed, it's just so that the user can type "nagiostats
+      # -c /etc/nagios.cfg".
     environment.etc."nagios.cfg".source = nagiosCfgFile;
 
     environment.systemPackages = [ pkgs.nagios ];

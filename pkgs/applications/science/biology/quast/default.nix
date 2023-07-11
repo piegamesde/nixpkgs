@@ -18,7 +18,8 @@ pythonPackages.buildPythonApplication rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ablab/quast/releases/download/${pname}_${version}/${pname}-${version}.tar.gz";
+      "https://github.com/ablab/quast/releases/download/${pname}_${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "13ml8qywbb4cc7wf2x7z5mz1rjqg51ab8wkizwcg4f6c40zgif6d";
   };
 
@@ -56,7 +57,7 @@ pythonPackages.buildPythonApplication rec {
 
   dontPatchELF = true;
 
-  # Tests need to download data files, so manual run after packaging is needed
+    # Tests need to download data files, so manual run after packaging is needed
   doCheck = false;
 
   meta = with lib; {

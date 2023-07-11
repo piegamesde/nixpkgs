@@ -56,18 +56,23 @@ let
     jq
   ];
 
-  ld32 = if stdenv.hostPlatform.system == "x86_64-linux" then
-    "${stdenv.cc}/nix-support/dynamic-linker-m32"
-  else if stdenv.hostPlatform.system == "i686-linux" then
-    "${stdenv.cc}/nix-support/dynamic-linker"
-  else
-    throw "Unsupported platform for PlayOnLinux: ${stdenv.hostPlatform.system}";
+  ld32 =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "${stdenv.cc}/nix-support/dynamic-linker-m32"
+    else if stdenv.hostPlatform.system == "i686-linux" then
+      "${stdenv.cc}/nix-support/dynamic-linker"
+    else
+      throw
+      "Unsupported platform for PlayOnLinux: ${stdenv.hostPlatform.system}"
+    ;
   ld64 = "${stdenv.cc}/nix-support/dynamic-linker";
-  libs = pkgs:
+  libs =
+    pkgs:
     lib.makeLibraryPath [
       xorg.libX11
       libGL
-    ];
+    ]
+    ;
 
   python = python3.withPackages (ps:
     with ps; [
@@ -83,7 +88,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://www.playonlinux.com/script_files/PlayOnLinux/${version}/PlayOnLinux_${version}.tar.gz";
+      "https://www.playonlinux.com/script_files/PlayOnLinux/${version}/PlayOnLinux_${version}.tar.gz"
+      ;
     sha256 = "0n40927c8cnjackfns68zwl7h4d7dvhf7cyqdkazzwwx4k2xxvma";
   };
 

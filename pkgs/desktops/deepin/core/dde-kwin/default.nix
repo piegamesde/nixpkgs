@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qXN9AwjLnqO5BpnrX5PaSCKZ6ff874r08ubCMM272tA=";
   };
 
-  /* This is the final version of dde-kwin, upstream has been archived.
-     We should remove this package when deepin-kwin release a new version.
-  */
+    /* This is the final version of dde-kwin, upstream has been archived.
+       We should remove this package when deepin-kwin release a new version.
+    */
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     "-DQT_INSTALL_PLUGINS=${placeholder "out"}/${qtbase.qtPluginPrefix}"
   ];
 
-  # kwin_no_scale is a shell script
+    # kwin_no_scale is a shell script
   postFixup = ''
     wrapProgram $out/bin/kwin_no_scale \
       --set QT_QPA_PLATFORM_PLUGIN_PATH "${

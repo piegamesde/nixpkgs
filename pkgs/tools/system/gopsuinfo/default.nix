@@ -17,17 +17,17 @@ buildGoModule rec {
 
   vendorHash = "sha256-S2ZHfrbEjPDweazwWbMbEMcMl/i+8Nru0G0e7RjOJMk=";
 
-  # Remove installing of binary from the Makefile (already taken care of by
-  # `buildGoModule`)
+    # Remove installing of binary from the Makefile (already taken care of by
+    # `buildGoModule`)
   patches = [ ./no_bin_install.patch ];
 
-  # Fix absolute path of icons in the code
+    # Fix absolute path of icons in the code
   postPatch = ''
     substituteInPlace gopsuinfo.go \
       --replace "/usr/share/gopsuinfo" "$out/usr/share/gopsuinfo"
   '';
 
-  # Install icons
+    # Install icons
   postInstall = "make install DESTDIR=$out ";
 
   meta = with lib; {

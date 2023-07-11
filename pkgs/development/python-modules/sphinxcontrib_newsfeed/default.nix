@@ -18,7 +18,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Extension for adding a simple Blog, News or Announcements section to a Sphinx website";
+      "Extension for adding a simple Blog, News or Announcements section to a Sphinx website"
+      ;
     homepage = "https://bitbucket.org/prometheus/sphinxcontrib-newsfeed";
     license = licenses.bsd2;
   };

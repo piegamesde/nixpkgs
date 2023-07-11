@@ -2,7 +2,8 @@ lib: self:
 
 let
 
-  fetcherGenerators = {
+  fetcherGenerators =
+    {
       repo ? null,
       url ? null,
       ...
@@ -66,11 +67,13 @@ let
           url = "https://codeberg.org/${repo}/archive/${commit}.tar.gz";
           inherit sha256;
         }) { };
-    };
+    }
+    ;
 
 in {
 
-  melpaDerivation = variant:
+  melpaDerivation =
+    variant:
     {
       ename,
       fetcher,
@@ -99,25 +102,31 @@ in {
               # Hack: Melpa archives contains versions with parse errors such as [ 4 4 -4 413 ] which should be 4.4-413
               # This filter method is still technically wrong, but it's computationally cheap enough and tapers over the issue
               (builtins.filter (n: n >= 0) version)));
-          # TODO: Broken should not result in src being null (hack to avoid eval errors)
-          src = if (sha256 == null || broken) then
-            null
-          else
-            lib.getAttr fetcher (fetcherGenerators args sourceArgs);
-          recipe = if commit == null then
-            null
-          else
-            fetchurl {
-              name = pname + "-recipe";
-              url =
-                "https://raw.githubusercontent.com/melpa/melpa/${commit}/recipes/${ename}";
-              inherit sha256;
-            };
+            # TODO: Broken should not result in src being null (hack to avoid eval errors)
+          src =
+            if (sha256 == null || broken) then
+              null
+            else
+              lib.getAttr fetcher (fetcherGenerators args sourceArgs)
+            ;
+          recipe =
+            if commit == null then
+              null
+            else
+              fetchurl {
+                name = pname + "-recipe";
+                url =
+                  "https://raw.githubusercontent.com/melpa/melpa/${commit}/recipes/${ename}"
+                  ;
+                inherit sha256;
+              }
+            ;
           packageRequires = lib.optionals (deps != null)
             (map (dep: pkgargs.${dep} or self.${dep} or null) deps);
           meta = (sourceArgs.meta or { }) // { inherit broken; };
         }) { })
     else
-      null;
+      null
+    ;
 
 }

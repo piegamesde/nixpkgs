@@ -8,14 +8,17 @@
 let
   rtpPath = "share/tmux-plugins";
 
-  addRtp = path: rtpFilePath: attrs: derivation:
+  addRtp =
+    path: rtpFilePath: attrs: derivation:
     derivation // {
       rtp = "${derivation}/${path}/${rtpFilePath}";
     } // {
       overrideAttrs = f: mkTmuxPlugin (attrs // f attrs);
-    };
+    }
+    ;
 
-  mkTmuxPlugin = a@{
+  mkTmuxPlugin =
+    a@{
       pluginName,
       rtpFilePath ? (builtins.replaceStrings [ "-" ] [ "_" ] pluginName)
         + ".tmux",
@@ -59,13 +62,15 @@ let
 
           runHook postInstall
         '';
-      }));
+      }))
+    ;
 
 in rec {
   inherit mkTmuxPlugin;
 
   mkDerivation = throw
-    "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"; # added 2021-03-14
+    "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"
+    ; # added 2021-03-14
 
   battery = mkTmuxPlugin {
     pluginName = "battery";
@@ -701,7 +706,8 @@ in rec {
     meta = with lib; {
       homepage = "https://github.com/tmux-plugins/vim-tmux-focus-events";
       description =
-        "Makes FocusGained and FocusLost autocommand events work in vim when using tmux";
+        "Makes FocusGained and FocusLost autocommand events work in vim when using tmux"
+        ;
       license = licenses.mit;
       platforms = platforms.unix;
       maintainers = with maintainers; [ ronanmacf ];

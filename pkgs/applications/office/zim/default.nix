@@ -45,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  # RuntimeError: could not create GtkClipboard object
+    # RuntimeError: could not create GtkClipboard object
   doCheck = false;
 
   checkPhase = ''
@@ -56,10 +56,11 @@ python3Packages.buildPythonApplication rec {
     description = "A desktop wiki";
     homepage = "https://zim-wiki.org/";
     changelog =
-      "https://github.com/zim-desktop-wiki/zim-desktop-wiki/blob/${version}/CHANGELOG.md";
+      "https://github.com/zim-desktop-wiki/zim-desktop-wiki/blob/${version}/CHANGELOG.md"
+      ;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ pSub ];
-    broken =
-      stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/52658#issuecomment-449565790
+    broken = stdenv.isDarwin
+      ; # https://github.com/NixOS/nixpkgs/pull/52658#issuecomment-449565790
   };
 }

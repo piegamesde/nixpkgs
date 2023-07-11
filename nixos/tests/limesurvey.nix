@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "limesurvey";
     meta.maintainers = [ pkgs.lib.maintainers.aanderse ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.limesurvey = {
@@ -16,9 +17,10 @@ import ./make-test-python.nix ({
           };
         };
 
-        # limesurvey won't work without a dot in the hostname
+          # limesurvey won't work without a dot in the hostname
         networking.hosts."127.0.0.1" = [ "example.local" ];
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

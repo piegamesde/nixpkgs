@@ -124,7 +124,8 @@ else
         # distribute binaries produced by compiling modified sources is granted,
         # provided you: ...
         url =
-          "https://sourceforge.net/p/gnuplot/gnuplot-main/ci/master/tree/Copyright";
+          "https://sourceforge.net/p/gnuplot/gnuplot-main/ci/master/tree/Copyright"
+          ;
       };
       maintainers = with maintainers; [ lovek323 ];
     };

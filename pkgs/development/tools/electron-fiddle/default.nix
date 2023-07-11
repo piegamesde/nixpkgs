@@ -101,7 +101,8 @@ in
 buildFHSEnv {
   name = "electron-fiddle";
   runScript =
-    "${electron}/bin/electron ${unwrapped}/lib/electron-fiddle/resources/app.asar";
+    "${electron}/bin/electron ${unwrapped}/lib/electron-fiddle/resources/app.asar"
+    ;
 
   extraInstallCommands = ''
     mkdir -p "$out/share/icons/hicolor/scalable/apps"
@@ -110,7 +111,8 @@ buildFHSEnv {
     cp "${desktopItem}/share/applications"/*.desktop "$out/share/applications/"
   '';
 
-  targetPkgs = pkgs:
+  targetPkgs =
+    pkgs:
     with pkgs;
     map lib.getLib [
       # for electron-fiddle itself
@@ -166,7 +168,8 @@ buildFHSEnv {
 
       # Electron 2.0.8 is the earliest working version, due to
       # https://github.com/electron/electron/issues/13972
-    ];
+    ]
+    ;
 
   meta = with lib; {
     description = "The easiest way to get started with Electron";

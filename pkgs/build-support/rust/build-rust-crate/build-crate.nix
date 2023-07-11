@@ -48,17 +48,20 @@ let
     ++ lib.optional (lib.elem "proc-macro" crateType) "--extern proc_macro";
   rustcMeta = "-C metadata=${metadata} -C extra-filename=-${metadata}";
 
-  # build the final rustc arguments that can be different between different
-  # crates
-  libRustcOpts = lib.concatStringsSep " " (baseRustcOpts ++ [ rustcMeta ]
-    ++ (map (x: "--crate-type ${x}") crateType));
+    # build the final rustc arguments that can be different between different
+    # crates
+  libRustcOpts = lib.concatStringsSep " "
+    (baseRustcOpts ++ [ rustcMeta ] ++ (map (x: "--crate-type ${x}") crateType))
+    ;
 
   binRustcOpts = lib.concatStringsSep " " (baseRustcOpts);
 
-  build_bin = if buildTests then
-    "build_bin_test"
-  else
-    "build_bin";
+  build_bin =
+    if buildTests then
+      "build_bin_test"
+    else
+      "build_bin"
+    ;
 in ''
   runHook preBuild
 
@@ -86,14 +89,16 @@ in ''
   ${lib.optionalString (lib.length crateBin > 0) (lib.concatMapStringsSep "\n"
     (bin:
       let
-        haveRequiredFeature = if
-          bin ? requiredFeatures
-        then
-        # Check that all element in requiredFeatures are also present in crateFeatures
-          lib.intersectLists bin.requiredFeatures crateFeatures
-          == bin.requiredFeatures
-        else
-          true;
+        haveRequiredFeature =
+          if
+            bin ? requiredFeatures
+          then
+          # Check that all element in requiredFeatures are also present in crateFeatures
+            lib.intersectLists bin.requiredFeatures crateFeatures
+            == bin.requiredFeatures
+          else
+            true
+          ;
       in if haveRequiredFeature then
         ''
           mkdir -p target/bin

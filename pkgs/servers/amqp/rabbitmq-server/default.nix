@@ -34,18 +34,19 @@ let
     procps
     gnused
     coreutils # used by helper scripts
-  ] ++ lib.optionals
-    stdenv.isLinux [ systemd ]); # for systemd unit activation check
+  ] ++ lib.optionals stdenv.isLinux [ systemd ])
+    ; # for systemd unit activation check
 
 in
 stdenv.mkDerivation rec {
   pname = "rabbitmq-server";
   version = "3.11.10";
 
-  # when updating, consider bumping elixir version in all-packages.nix
+    # when updating, consider bumping elixir version in all-packages.nix
   src = fetchurl {
     url =
-      "https://github.com/rabbitmq/rabbitmq-server/releases/download/v${version}/${pname}-${version}.tar.xz";
+      "https://github.com/rabbitmq/rabbitmq-server/releases/download/v${version}/${pname}-${version}.tar.xz"
+      ;
     hash = "sha256-gZcUWN8SnCb93zUTqWDYtxUrT5655gfEnMax1NLHh+M=";
   };
 

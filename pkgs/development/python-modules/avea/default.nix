@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ bluepy ];
 
-  # no tests are present
+    # no tests are present
   doCheck = false;
   pythonImportsCheck = [ "avea" ];
 

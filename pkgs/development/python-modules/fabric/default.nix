@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-v+lgwa6QTnYkr51ArVubmVge2cT9CTScDQK3SG4dD4k=";
   };
 
-  # only relevant to python < 3.4
+    # only relevant to python < 3.4
   postPatch = ''
     substituteInPlace setup.py \
         --replace ', "pathlib2"' ' '
@@ -37,10 +37,10 @@ buildPythonPackage rec {
     mock
   ];
 
-  # ==================================== ERRORS ====================================
-  # ________________________ ERROR collecting test session _________________________
-  # Direct construction of SpecModule has been deprecated, please use SpecModule.from_parent
-  # See https://docs.pytest.org/en/stable/deprecations.html#node-construction-changed-to-node-from-parent for more details.
+    # ==================================== ERRORS ====================================
+    # ________________________ ERROR collecting test session _________________________
+    # Direct construction of SpecModule has been deprecated, please use SpecModule.from_parent
+    # See https://docs.pytest.org/en/stable/deprecations.html#node-construction-changed-to-node-from-parent for more details.
   doCheck = false;
 
   pythonImportsCheck = [ "fabric" ];

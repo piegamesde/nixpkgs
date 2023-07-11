@@ -23,7 +23,8 @@ let
       '';
     });
 
-  systemActivationScript = set: onlyDry:
+  systemActivationScript =
+    set: onlyDry:
     let
       set' = mapAttrs (_: v:
         if isString v then
@@ -31,17 +32,18 @@ let
         else
           v) set;
       withHeadlines = addAttributeName set';
-      # When building a dry activation script, this replaces all activation scripts
-      # that do not support dry mode with a comment that does nothing. Filtering these
-      # activation scripts out so they don't get generated into the dry activation script
-      # does not work because when an activation script that supports dry mode depends on
-      # an activation script that does not, the dependency cannot be resolved and the eval
-      # fails.
+        # When building a dry activation script, this replaces all activation scripts
+        # that do not support dry mode with a comment that does nothing. Filtering these
+        # activation scripts out so they don't get generated into the dry activation script
+        # does not work because when an activation script that supports dry mode depends on
+        # an activation script that does not, the dependency cannot be resolved and the eval
+        # fails.
       withDrySnippets = mapAttrs (a: v:
         if onlyDry && !v.supportsDryActivation then
           v // {
             text =
-              "#### Activation script snippet ${a} does not support dry activation.";
+              "#### Activation script snippet ${a} does not support dry activation."
+              ;
           }
         else
           v) withHeadlines;
@@ -77,7 +79,7 @@ let
 
       exit $_status
     ''
-  ;
+    ;
 
   path = with pkgs;
     map getBin [
@@ -91,7 +93,8 @@ let
       util-linux # needed for mount and mountpoint
     ];
 
-  scriptType = withDry:
+  scriptType =
+    withDry:
     with types;
     let
       scriptOptions = {
@@ -121,7 +124,7 @@ let
       };
     in
     either str (submodule { options = scriptOptions; })
-  ;
+    ;
 
 in {
 
@@ -191,30 +194,32 @@ in {
 
       type = with types; attrsOf (scriptType false);
 
-      apply = set: {
-        script = ''
-          unset PATH
-          for i in ${toString path}; do
-            PATH=$PATH:$i/bin:$i/sbin
-          done
+      apply =
+        set: {
+          script = ''
+            unset PATH
+            for i in ${toString path}; do
+              PATH=$PATH:$i/bin:$i/sbin
+            done
 
-          _status=0
-          trap "_status=1 _localstatus=\$?" ERR
+            _status=0
+            trap "_status=1 _localstatus=\$?" ERR
 
-          ${let
-            set' = mapAttrs (n: v:
-              if isString v then
-                noDepEntry v
-              else
-                v) set;
-            withHeadlines = addAttributeName set';
-          in
-          textClosureMap id (withHeadlines) (attrNames withHeadlines)
-          }
+            ${let
+              set' = mapAttrs (n: v:
+                if isString v then
+                  noDepEntry v
+                else
+                  v) set;
+              withHeadlines = addAttributeName set';
+            in
+            textClosureMap id (withHeadlines) (attrNames withHeadlines)
+            }
 
-          exit $_status
-        '';
-      };
+            exit $_status
+          '';
+        }
+        ;
 
     };
 
@@ -231,7 +236,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = {
 
@@ -263,7 +268,8 @@ in {
         ''
           rm -f /usr/bin/env
           rmdir --ignore-fail-on-non-empty /usr/bin /usr
-        '';
+        ''
+      ;
 
     system.activationScripts.specialfs = ''
       specialMount() {

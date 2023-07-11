@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://openlab.ring.gr.jp/efont/dist/tools/bdfresize/${pname}-${version}.tar.gz";
+      "http://openlab.ring.gr.jp/efont/dist/tools/bdfresize/${pname}-${version}.tar.gz"
+      ;
     hash = "sha256-RAz8BiCgI35GNSwUoHdMqj8wWXWbCiDe/vyU6EkIl6Y=";
   };
 

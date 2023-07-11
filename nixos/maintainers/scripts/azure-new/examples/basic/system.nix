@@ -12,9 +12,9 @@ in {
     "${modulesPath}/virtualisation/azure-image.nix"
   ];
 
-  ## NOTE: This is just an example of how to hard-code a user.
-  ## The normal Azure agent IS included and DOES provision a user based
-  ## on the information passed at VM creation time.
+    ## NOTE: This is just an example of how to hard-code a user.
+    ## The normal Azure agent IS included and DOES provision a user based
+    ## on the information passed at VM creation time.
   users.users."${username}" = {
     isNormalUser = true;
     home = "/home/${username}";
@@ -28,7 +28,7 @@ in {
   system.stateVersion = "20.03";
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # test user doesn't have a password
+    # test user doesn't have a password
   services.openssh.passwordAuthentication = false;
   security.sudo.wheelNeedsPassword = false;
 

@@ -4,16 +4,19 @@
 with import ../default.nix;
 
 let
-  testingThrow = expr: {
-    expr = (builtins.tryEval (builtins.seq expr "didn't throw"));
-    expected = {
-      success = false;
-      value = false;
-    };
-  };
+  testingThrow =
+    expr: {
+      expr = (builtins.tryEval (builtins.seq expr "didn't throw"));
+      expected = {
+        success = false;
+        value = false;
+      };
+    }
+    ;
   testingDeepThrow = expr: testingThrow (builtins.deepSeq expr expr);
 
-  testSanitizeDerivationName = {
+  testSanitizeDerivationName =
+    {
       name,
       expected,
     }:
@@ -27,7 +30,8 @@ let
       # Evaluate the derivation so an invalid name would be caught
       expr = builtins.seq drv.drvPath drv.name;
       inherit expected;
-    } ;
+    }
+    ;
 
 in
 runTests {
@@ -72,11 +76,11 @@ runTests {
     '';
   };
 
-  /* testOr = {
-       expr = or true false;
-       expected = true;
-     };
-  */
+    /* testOr = {
+         expr = or true false;
+         expected = true;
+       };
+    */
 
   testAnd = {
     expr = and true false;
@@ -85,62 +89,73 @@ runTests {
 
   testFix = {
     expr = fix (x: {
-      a = if x ? a then
-        "a"
-      else
-        "b";
+      a =
+        if x ? a then
+          "a"
+        else
+          "b"
+        ;
     });
     expected = { a = "a"; };
   };
 
   testComposeExtensions = {
-    expr = let
-      obj = makeExtensible (self: { foo = self.bar; });
-      f = self: super: {
-        bar = false;
-        baz = true;
-      };
-      g = self: super: { bar = super.baz or false; };
-      f_o_g = composeExtensions f g;
-      composed = obj.extend f_o_g;
-    in
-    composed.foo
-    ;
+    expr =
+      let
+        obj = makeExtensible (self: { foo = self.bar; });
+        f =
+          self: super: {
+            bar = false;
+            baz = true;
+          }
+          ;
+        g = self: super: { bar = super.baz or false; };
+        f_o_g = composeExtensions f g;
+        composed = obj.extend f_o_g;
+      in
+      composed.foo
+      ;
     expected = true;
   };
 
   testComposeManyExtensions0 = {
-    expr = let
-      obj = makeExtensible (self: { foo = true; });
-      emptyComposition = composeManyExtensions [ ];
-      composed = obj.extend emptyComposition;
-    in
-    composed.foo
-    ;
+    expr =
+      let
+        obj = makeExtensible (self: { foo = true; });
+        emptyComposition = composeManyExtensions [ ];
+        composed = obj.extend emptyComposition;
+      in
+      composed.foo
+      ;
     expected = true;
   };
 
-  testComposeManyExtensions = let
-    f = self: super: {
-      bar = false;
-      baz = true;
-    };
-    g = self: super: { bar = super.baz or false; };
-    h = self: super: { qux = super.bar or false; };
-    obj = makeExtensible (self: { foo = self.qux; });
-  in {
-    expr = let
-      composition = composeManyExtensions [
-        f
-        g
-        h
-      ];
-      composed = obj.extend composition;
-    in
-    composed.foo
+  testComposeManyExtensions =
+    let
+      f =
+        self: super: {
+          bar = false;
+          baz = true;
+        }
+        ;
+      g = self: super: { bar = super.baz or false; };
+      h = self: super: { qux = super.bar or false; };
+      obj = makeExtensible (self: { foo = self.qux; });
+    in {
+      expr =
+        let
+          composition = composeManyExtensions [
+            f
+            g
+            h
+          ];
+          composed = obj.extend composition;
+        in
+        composed.foo
+        ;
+      expected = (obj.extend (composeExtensions f (composeExtensions g h))).foo;
+    }
     ;
-    expected = (obj.extend (composeExtensions f (composeExtensions g h))).foo;
-  } ;
 
   testBitAnd = {
     expr = (bitAnd 3 10);
@@ -173,12 +188,14 @@ runTests {
 
   testFunctionArgsFunctor = {
     expr = functionArgs {
-      __functor = self:
+      __functor =
+        self:
         {
           a,
           b,
         }:
-        null;
+        null
+        ;
     };
     expected = {
       a = false;
@@ -191,7 +208,7 @@ runTests {
     expected = { x = false; };
   };
 
-  # STRINGS
+    # STRINGS
 
   testConcatMapStrings = {
     expr = concatMapStrings (x: x + ";") [
@@ -336,24 +353,26 @@ runTests {
   };
 
   testIsStorePath = {
-    expr = let
-      goodPath =
-        "${builtins.storeDir}/d945ibfx9x185xf04b890y4f9g3cbb63-python-2.7.11";
-    in {
-      storePath = isStorePath goodPath;
-      storePathDerivation =
-        isStorePath (import ../.. { system = "x86_64-linux"; }).hello;
-      storePathAppendix = isStorePath "${goodPath}/bin/python";
-      nonAbsolute =
-        isStorePath (concatStrings (tail (stringToCharacters goodPath)));
-      asPath = isStorePath (/. + goodPath);
-      otherPath = isStorePath "/something/else";
-      otherVals = {
-        attrset = isStorePath { };
-        list = isStorePath [ ];
-        int = isStorePath 42;
-      };
-    } ;
+    expr =
+      let
+        goodPath =
+          "${builtins.storeDir}/d945ibfx9x185xf04b890y4f9g3cbb63-python-2.7.11";
+      in {
+        storePath = isStorePath goodPath;
+        storePathDerivation =
+          isStorePath (import ../.. { system = "x86_64-linux"; }).hello;
+        storePathAppendix = isStorePath "${goodPath}/bin/python";
+        nonAbsolute =
+          isStorePath (concatStrings (tail (stringToCharacters goodPath)));
+        asPath = isStorePath (/. + goodPath);
+        otherPath = isStorePath "/something/else";
+        otherVals = {
+          attrset = isStorePath { };
+          list = isStorePath [ ];
+          int = isStorePath 42;
+        };
+      }
+      ;
     expected = {
       storePath = true;
       storePathDerivation = true;
@@ -608,7 +627,7 @@ runTests {
     })
   ];
 
-  # LISTS
+    # LISTS
 
   testFilter = {
     expr = filter (x: x != "a") [
@@ -623,33 +642,38 @@ runTests {
     ];
   };
 
-  testFold = let
-    f = op: fold: fold op 0 (range 0 100);
-    # fold with associative operator
-    assoc = f builtins.add;
-    # fold with non-associative operator
-    nonAssoc = f builtins.sub;
-  in {
-    expr = {
-      assocRight = assoc foldr;
-      # right fold with assoc operator is same as left fold
-      assocRightIsLeft = assoc foldr == assoc foldl;
-      nonAssocRight = nonAssoc foldr;
-      nonAssocLeft = nonAssoc foldl;
-      # with non-assoc operator the fold results are not the same
-      nonAssocRightIsNotLeft = nonAssoc foldl != nonAssoc foldr;
-      # fold is an alias for foldr
-      foldIsRight = nonAssoc fold == nonAssoc foldr;
-    };
-    expected = {
-      assocRight = 5050;
-      assocRightIsLeft = true;
-      nonAssocRight = 50;
-      nonAssocLeft = (-5050);
-      nonAssocRightIsNotLeft = true;
-      foldIsRight = true;
-    };
-  } ;
+  testFold =
+    let
+      f =
+        op: fold:
+        fold op 0 (range 0 100)
+        ;
+        # fold with associative operator
+      assoc = f builtins.add;
+        # fold with non-associative operator
+      nonAssoc = f builtins.sub;
+    in {
+      expr = {
+        assocRight = assoc foldr;
+          # right fold with assoc operator is same as left fold
+        assocRightIsLeft = assoc foldr == assoc foldl;
+        nonAssocRight = nonAssoc foldr;
+        nonAssocLeft = nonAssoc foldl;
+          # with non-assoc operator the fold results are not the same
+        nonAssocRightIsNotLeft = nonAssoc foldl != nonAssoc foldr;
+          # fold is an alias for foldr
+        foldIsRight = nonAssoc fold == nonAssoc foldr;
+      };
+      expected = {
+        assocRight = 5050;
+        assocRightIsLeft = true;
+        nonAssocRight = 50;
+        nonAssocLeft = (-5050);
+        nonAssocRightIsNotLeft = true;
+        foldIsRight = true;
+      };
+    }
+    ;
 
   testTake = testAllTrue [
     ([ ] == (take 0 [
@@ -764,7 +788,7 @@ runTests {
     expected = false;
   };
 
-  # ATTRSETS
+    # ATTRSETS
 
   testConcatMapAttrs = {
     expr = concatMapAttrs (name: value: {
@@ -781,7 +805,7 @@ runTests {
     };
   };
 
-  # code from example
+    # code from example
   testFoldlAttrs = {
     expr = {
       example = foldlAttrs (acc: name: value: {
@@ -794,15 +818,15 @@ runTests {
         foo = 1;
         bar = 10;
       };
-      # should just return the initial value
+        # should just return the initial value
       emptySet = foldlAttrs (throw "function not needed") 123 { };
-      # should just evaluate to the last value
+        # should just evaluate to the last value
       accNotNeeded =
         foldlAttrs (_acc: _name: v: v) (throw "accumulator not needed") {
           z = 3;
           a = 2;
         };
-      # the accumulator doesnt have to be an attrset it can be as trivial as being just a number or string
+        # the accumulator doesnt have to be an attrset it can be as trivial as being just a number or string
       trivialAcc = foldlAttrs (acc: _name: v: acc * 10 + v) 1 {
         z = 1;
         a = 2;
@@ -822,7 +846,7 @@ runTests {
     };
   };
 
-  # code from the example
+    # code from the example
   testRecursiveUpdateUntil = {
     expr = recursiveUpdateUntil (path: l: r: path == [ "foo" ]) {
       # first attribute set
@@ -864,9 +888,9 @@ runTests {
     };
   };
 
-  # GENERATORS
-  # these tests assume attributes are converted to lists
-  # in alphabetical order
+    # GENERATORS
+    # these tests assume attributes are converted to lists
+    # in alphabetical order
 
   testMkKeyValueDefault = {
     expr = generators.mkKeyValueDefault { } ":" "f:oo" "bar";
@@ -874,25 +898,26 @@ runTests {
   };
 
   testMkValueString = {
-    expr = let
-      vals = {
-        int = 42;
-        string = ''fo"o'';
-        bool = true;
-        bool2 = false;
-        null = null;
-        # float = 42.23; # floats are strange
-      };
-    in
-    mapAttrs (const (generators.mkValueStringDefault { })) vals
-    ;
+    expr =
+      let
+        vals = {
+          int = 42;
+          string = ''fo"o'';
+          bool = true;
+          bool2 = false;
+          null = null;
+            # float = 42.23; # floats are strange
+        };
+      in
+      mapAttrs (const (generators.mkValueStringDefault { })) vals
+      ;
     expected = {
       int = "42";
       string = ''fo"o'';
       bool = "true";
       bool2 = "false";
       null = "null";
-      # float = "42.23" true false [ "bar" ] ]'';
+        # float = "42.23" true false [ "bar" ] ]'';
     };
   };
 
@@ -957,7 +982,7 @@ runTests {
       "section 1" = {
         attribute1 = 5;
         x = "Me-se JarJar Binx";
-        # booleans are converted verbatim by default
+          # booleans are converted verbatim by default
         boolean = false;
       };
       "foo[]" = { "he\\h=he" = "this is okay"; };
@@ -981,21 +1006,23 @@ runTests {
     expected = "";
   };
 
-  testToINIWithGlobalSectionGlobalEmptyIsTheSameAsToINI = let
-    sections = {
-      "section 1" = {
-        attribute1 = 5;
-        x = "Me-se JarJar Binx";
+  testToINIWithGlobalSectionGlobalEmptyIsTheSameAsToINI =
+    let
+      sections = {
+        "section 1" = {
+          attribute1 = 5;
+          x = "Me-se JarJar Binx";
+        };
+        "foo" = { "he\\h=he" = "this is okay"; };
       };
-      "foo" = { "he\\h=he" = "this is okay"; };
-    };
-  in {
-    expr = generators.toINIWithGlobalSection { } {
-      globalSection = { };
-      sections = sections;
-    };
-    expected = generators.toINI { } sections;
-  } ;
+    in {
+      expr = generators.toINIWithGlobalSection { } {
+        globalSection = { };
+        sections = sections;
+      };
+      expected = generators.toINI { } sections;
+    }
+    ;
 
   testToINIWithGlobalSectionFull = {
     expr = generators.toINIWithGlobalSection { } {
@@ -1024,150 +1051,166 @@ runTests {
     '';
   };
 
-  # right now only invocation check
-  testToJSONSimple = let
-    val = {
-      foobar = [
-        "baz"
-        1
-        2
-        3
-      ];
-    };
-  in {
-    expr = generators.toJSON { } val;
-    # trivial implementation
-    expected = builtins.toJSON val;
-  } ;
-
-  # right now only invocation check
-  testToYAMLSimple = let
-    val = {
-      list = [
-        { one = 1; }
-        { two = 2; }
-      ];
-      all = 42;
-    };
-  in {
-    expr = generators.toYAML { } val;
-    # trivial implementation
-    expected = builtins.toJSON val;
-  } ;
-
-  testToPretty = let
-    deriv = derivation {
-      name = "test";
-      builder = "/bin/sh";
-      system = "aarch64-linux";
-    };
-  in {
-    expr = mapAttrs (const (generators.toPretty { multiline = false; })) rec {
-      int = 42;
-      float = 0.1337;
-      bool = true;
-      emptystring = "";
-      string = ''fn''${o}"r\d'';
-      newlinestring = "\n";
-      path = /. + "/foo";
-      null_ = null;
-      function = x: x;
-      functionArgs = {
-          arg ? 4,
-          foo,
-        }:
-        arg;
-      list = [
-        3
-        4
-        function
-        [ false ]
-      ];
-      emptylist = [ ];
-      attrs = {
-        foo = null;
-        "foo b/ar" = "baz";
+    # right now only invocation check
+  testToJSONSimple =
+    let
+      val = {
+        foobar = [
+          "baz"
+          1
+          2
+          3
+        ];
       };
-      emptyattrs = { };
-      drv = deriv;
-    };
-    expected = rec {
-      int = "42";
-      float = "0.1337";
-      bool = "true";
-      emptystring = ''""'';
-      string = ''"fn\''${o}\"r\\d"'';
-      newlinestring = ''"\n"'';
-      path = "/foo";
-      null_ = "null";
-      function = "<function>";
-      functionArgs = "<function, args: {arg?, foo}>";
-      list = "[ 3 4 ${function} [ false ] ]";
-      emptylist = "[ ]";
-      attrs = ''{ foo = null; "foo b/ar" = "baz"; }'';
-      emptyattrs = "{ }";
-      drv = "<derivation ${deriv.name}>";
-    };
-  } ;
+    in {
+      expr = generators.toJSON { } val;
+        # trivial implementation
+      expected = builtins.toJSON val;
+    }
+    ;
 
-  testToPrettyLimit = let
-    a.b = 1;
-    a.c = a;
-  in {
-    expr = generators.toPretty { } (generators.withRecursion {
-      throwOnDepthLimit = false;
-      depthLimit = 2;
-    } a);
-    expected = ''
-      {
-        b = 1;
-        c = {
-          b = "<unevaluated>";
+    # right now only invocation check
+  testToYAMLSimple =
+    let
+      val = {
+        list = [
+          { one = 1; }
+          { two = 2; }
+        ];
+        all = 42;
+      };
+    in {
+      expr = generators.toYAML { } val;
+        # trivial implementation
+      expected = builtins.toJSON val;
+    }
+    ;
+
+  testToPretty =
+    let
+      deriv = derivation {
+        name = "test";
+        builder = "/bin/sh";
+        system = "aarch64-linux";
+      };
+    in {
+      expr = mapAttrs (const (generators.toPretty { multiline = false; })) rec {
+        int = 42;
+        float = 0.1337;
+        bool = true;
+        emptystring = "";
+        string = ''fn''${o}"r\d'';
+        newlinestring = "\n";
+        path = /. + "/foo";
+        null_ = null;
+        function = x: x;
+        functionArgs =
+          {
+            arg ? 4,
+            foo,
+          }:
+          arg
+          ;
+        list = [
+          3
+          4
+          function
+          [ false ]
+        ];
+        emptylist = [ ];
+        attrs = {
+          foo = null;
+          "foo b/ar" = "baz";
+        };
+        emptyattrs = { };
+        drv = deriv;
+      };
+      expected = rec {
+        int = "42";
+        float = "0.1337";
+        bool = "true";
+        emptystring = ''""'';
+        string = ''"fn\''${o}\"r\\d"'';
+        newlinestring = ''"\n"'';
+        path = "/foo";
+        null_ = "null";
+        function = "<function>";
+        functionArgs = "<function, args: {arg?, foo}>";
+        list = "[ 3 4 ${function} [ false ] ]";
+        emptylist = "[ ]";
+        attrs = ''{ foo = null; "foo b/ar" = "baz"; }'';
+        emptyattrs = "{ }";
+        drv = "<derivation ${deriv.name}>";
+      };
+    }
+    ;
+
+  testToPrettyLimit =
+    let
+      a.b = 1;
+      a.c = a;
+    in {
+      expr = generators.toPretty { } (generators.withRecursion {
+        throwOnDepthLimit = false;
+        depthLimit = 2;
+      } a);
+      expected = ''
+        {
+          b = 1;
           c = {
             b = "<unevaluated>";
-            c = "<unevaluated>";
+            c = {
+              b = "<unevaluated>";
+              c = "<unevaluated>";
+            };
           };
-        };
-      }'';
-  } ;
+        }'';
+    }
+    ;
 
-  testToPrettyLimitThrow = let
-    a.b = 1;
-    a.c = a;
-  in {
-    expr = (builtins.tryEval (generators.toPretty { }
-      (generators.withRecursion { depthLimit = 2; } a))).success;
-    expected = false;
-  } ;
+  testToPrettyLimitThrow =
+    let
+      a.b = 1;
+      a.c = a;
+    in {
+      expr = (builtins.tryEval (generators.toPretty { }
+        (generators.withRecursion { depthLimit = 2; } a))).success;
+      expected = false;
+    }
+    ;
 
-  testWithRecursionDealsWithFunctors = let
-    functor = {
-      __functor = self:
+  testWithRecursionDealsWithFunctors =
+    let
+      functor = {
+        __functor =
+          self:
+          {
+            a,
+            b,
+          }:
+          null
+          ;
+      };
+      a = {
+        value = "1234";
+        b = functor;
+        c.d = functor;
+      };
+    in {
+      expr = generators.toPretty { } (generators.withRecursion {
+        depthLimit = 1;
+        throwOnDepthLimit = false;
+      } a);
+      expected = ''
         {
-          a,
-          b,
-        }:
-        null;
-    };
-    a = {
-      value = "1234";
-      b = functor;
-      c.d = functor;
-    };
-  in {
-    expr = generators.toPretty { } (generators.withRecursion {
-      depthLimit = 1;
-      throwOnDepthLimit = false;
-    } a);
-    expected = ''
-      {
-        b = <function, args: {a, b}>;
-        c = {
-          d = "<unevaluated>";
-        };
-        value = "<unevaluated>";
-      }'';
-  } ;
+          b = <function, args: {a, b}>;
+          c = {
+            d = "<unevaluated>";
+          };
+          value = "<unevaluated>";
+        }'';
+    }
+    ;
 
   testToPrettyMultiline = {
     expr = mapAttrs (const (generators.toPretty { })) rec {
@@ -1352,7 +1395,7 @@ runTests {
       }'';
   };
 
-  # CLI
+    # CLI
 
   testToGNUCommandLine = {
     expr = cli.toGNUCommandLine { } {
@@ -1398,7 +1441,8 @@ runTests {
     };
 
     expected =
-      "'-X' 'PUT' '--data' '{\"id\":0}' '--retry' '3' '--url' 'https://example.com/foo' '--url' 'https://example.com/bar' '--verbose'";
+      "'-X' 'PUT' '--data' '{\"id\":0}' '--retry' '3' '--url' 'https://example.com/foo' '--url' 'https://example.com/bar' '--verbose'"
+      ;
   };
 
   testSanitizeDerivationNameLeadingDots = testSanitizeDerivationName {
@@ -1413,23 +1457,29 @@ runTests {
 
   testSanitizeDerivationNameAscii = testSanitizeDerivationName {
     name =
-      " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+      " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+      ;
     expected =
-      "-+--.-0123456789-=-?-ABCDEFGHIJKLMNOPQRSTUVWXYZ-_-abcdefghijklmnopqrstuvwxyz-";
+      "-+--.-0123456789-=-?-ABCDEFGHIJKLMNOPQRSTUVWXYZ-_-abcdefghijklmnopqrstuvwxyz-"
+      ;
   };
 
   testSanitizeDerivationNameTooLong = testSanitizeDerivationName {
     name =
-      "This string is loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong";
+      "This string is loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong"
+      ;
     expected =
-      "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong";
+      "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong"
+      ;
   };
 
   testSanitizeDerivationNameTooLongWithInvalid = testSanitizeDerivationName {
     name =
-      "Hello there aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&&&&&&&";
+      "Hello there aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&&&&&&&"
+      ;
     expected =
-      "there-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-";
+      "there-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-"
+      ;
   };
 
   testSanitizeDerivationNameEmpty = testSanitizeDerivationName {
@@ -1438,29 +1488,35 @@ runTests {
   };
 
   testFreeformOptions = {
-    expr = let
-      submodule = {
-          lib,
-          ...
-        }: {
-          freeformType = lib.types.attrsOf
-            (lib.types.submodule { options.bar = lib.mkOption { }; });
-          options.bar = lib.mkOption { };
-        };
+    expr =
+      let
+        submodule =
+          {
+            lib,
+            ...
+          }: {
+            freeformType = lib.types.attrsOf
+              (lib.types.submodule { options.bar = lib.mkOption { }; });
+            options.bar = lib.mkOption { };
+          }
+          ;
 
-      module = {
-          lib,
-          ...
-        }: {
-          options.foo = lib.mkOption { type = lib.types.submodule submodule; };
-        };
+        module =
+          {
+            lib,
+            ...
+          }: {
+            options.foo =
+              lib.mkOption { type = lib.types.submodule submodule; };
+          }
+          ;
 
-      options = (evalModules { modules = [ module ]; }).options;
+        options = (evalModules { modules = [ module ]; }).options;
 
-      locs = filter (o: !o.internal) (optionAttrSetToDocList options);
-    in
-    map (o: o.loc) locs
-    ;
+        locs = filter (o: !o.internal) (optionAttrSetToDocList options);
+      in
+      map (o: o.loc) locs
+      ;
     expected = [
       [
         "_module"
@@ -1695,7 +1751,7 @@ runTests {
     ];
   };
 
-  # The example from the showAttrPath documentation
+    # The example from the showAttrPath documentation
   testShowAttrPathExample = {
     expr = showAttrPath [
       "foo"
@@ -1768,7 +1824,7 @@ runTests {
     };
   };
 
-  # The example from the updateManyAttrsByPath documentation
+    # The example from the updateManyAttrsByPath documentation
   testUpdateManyAttrsByPathExample = {
     expr = updateManyAttrsByPath [
       {
@@ -1800,13 +1856,13 @@ runTests {
     };
   };
 
-  # If there are no updates, the value is passed through
+    # If there are no updates, the value is passed through
   testUpdateManyAttrsByPathNone = {
     expr = updateManyAttrsByPath [ ] "something";
     expected = "something";
   };
 
-  # A single update to the root path is just like applying the function directly
+    # A single update to the root path is just like applying the function directly
   testUpdateManyAttrsByPathSingleIncrement = {
     expr = updateManyAttrsByPath [ {
       path = [ ];
@@ -1815,7 +1871,7 @@ runTests {
     expected = 1;
   };
 
-  # Multiple updates can be applied are done in order
+    # Multiple updates can be applied are done in order
   testUpdateManyAttrsByPathMultipleIncrements = {
     expr = updateManyAttrsByPath [
       {
@@ -1834,7 +1890,7 @@ runTests {
     expected = "abc";
   };
 
-  # If an update doesn't use the value, all previous updates are not evaluated
+    # If an update doesn't use the value, all previous updates are not evaluated
   testUpdateManyAttrsByPathLazy = {
     expr = updateManyAttrsByPath [
       {
@@ -1849,7 +1905,7 @@ runTests {
     expected = "untainted";
   };
 
-  # Deeply nested attributes can be updated without affecting others
+    # Deeply nested attributes can be updated without affecting others
   testUpdateManyAttrsByPathDeep = {
     expr = updateManyAttrsByPath [ {
       path = [
@@ -1874,7 +1930,7 @@ runTests {
     };
   };
 
-  # Nested attributes are updated first
+    # Nested attributes are updated first
   testUpdateManyAttrsByPathNestedBeforehand = {
     expr = updateManyAttrsByPath [
       {
@@ -1895,7 +1951,7 @@ runTests {
     };
   };
 
-  ## Levenshtein distance functions and co.
+    ## Levenshtein distance functions and co.
   testCommonPrefixLengthEmpty = {
     expr = strings.commonPrefixLength "" "hello";
     expected = 0;
@@ -1971,8 +2027,8 @@ runTests {
     expected = true;
   };
 
-  # We test levenshteinAtMost 2 particularly well because it uses a complicated
-  # implementation
+    # We test levenshteinAtMost 2 particularly well because it uses a complicated
+    # implementation
   testLevenshteinAtMostTwoIsEmpty = {
     expr = strings.levenshteinAtMost 2 "" "";
     expected = true;
@@ -2048,12 +2104,12 @@ runTests {
     expected = true;
   };
 
-  # lazyDerivation
+    # lazyDerivation
 
   testLazyDerivationIsLazyInDerivationForAttrNames = {
     expr = attrNames (lazyDerivation { derivation = throw "not lazy enough"; });
-    # It's ok to add attribute names here when lazyDerivation is improved
-    # in accordance with its inline comments.
+      # It's ok to add attribute names here when lazyDerivation is improved
+      # in accordance with its inline comments.
     expected = [
       "drvPath"
       "meta"
@@ -2092,22 +2148,24 @@ runTests {
     expected = "whatever is in meta";
   };
 
-  testLazyDerivationReturnsDerivationAttrs = let
-    derivation = {
-      type = "derivation";
-      outputs = [ "out" ];
-      out = "test out";
-      outPath = "test outPath";
-      outputName = "out";
-      drvPath = "test drvPath";
-      name = "test name";
-      system = "test system";
-      meta = "test meta";
-    };
-  in {
-    expr = lazyDerivation { inherit derivation; };
-    expected = derivation;
-  } ;
+  testLazyDerivationReturnsDerivationAttrs =
+    let
+      derivation = {
+        type = "derivation";
+        outputs = [ "out" ];
+        out = "test out";
+        outPath = "test outPath";
+        outputName = "out";
+        drvPath = "test drvPath";
+        name = "test name";
+        system = "test system";
+        meta = "test meta";
+      };
+    in {
+      expr = lazyDerivation { inherit derivation; };
+      expected = derivation;
+    }
+    ;
 
   testTypeDescriptionInt = {
     expr = (with types; int).description;

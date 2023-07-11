@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.ucw.cz/~hubicka/koules/packages/${pname}${version}-src.tar.gz";
+      "https://www.ucw.cz/~hubicka/koules/packages/${pname}${version}-src.tar.gz"
+      ;
     hash = "sha256-w2+T/q/uvVmYO/RBACQOZ6hKi6yr1+5SjJMEbe/kohs=";
   };
 
@@ -39,7 +40,7 @@ stdenv.mkDerivation rec {
     libXext
   ];
 
-  # Debian maintains lots of patches for koules. Let's include all of them.
+    # Debian maintains lots of patches for koules. Let's include all of them.
   prePatch = ''
     patches="$patches $(cat ${debian-extras}/patches/series | sed 's|^|${debian-extras}/patches/|')"
   '';

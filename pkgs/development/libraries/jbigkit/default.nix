@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.cl.cam.ac.uk/~mgk25/jbigkit/download/${pname}-${version}.tar.gz";
+      "https://www.cl.cam.ac.uk/~mgk25/jbigkit/download/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0cnrcdr1dwp7h7m0a56qw09bv08krb37mpf7cml5sjdgpyv0cwfy";
   };
 

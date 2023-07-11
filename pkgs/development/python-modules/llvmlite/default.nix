@@ -25,15 +25,15 @@ buildPythonPackage rec {
   nativeBuildInputs = [ llvm ];
   propagatedBuildInputs = lib.optional (pythonOlder "3.4") enum34;
 
-  # Disable static linking
-  # https://github.com/numba/llvmlite/issues/93
+    # Disable static linking
+    # https://github.com/numba/llvmlite/issues/93
   postPatch = ''
     substituteInPlace ffi/Makefile.linux --replace "-static-libstdc++" ""
 
     substituteInPlace llvmlite/tests/test_binding.py --replace "test_linux" "nope"
   '';
 
-  # Set directory containing llvm-config binary
+    # Set directory containing llvm-config binary
   preConfigure = ''
     export LLVM_CONFIG=${llvm.dev}/bin/llvm-config
   '';

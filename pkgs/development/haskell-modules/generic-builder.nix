@@ -185,28 +185,34 @@ let
 
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
-  packageDbFlag = if isGhcjs || isHaLVM || versionOlder "7.6" ghc.version then
-    "package-db"
-  else
-    "package-conf";
+  packageDbFlag =
+    if isGhcjs || isHaLVM || versionOlder "7.6" ghc.version then
+      "package-db"
+    else
+      "package-conf"
+    ;
 
-  # GHC used for building Setup.hs
-  #
-  # Same as our GHC, unless we're cross, in which case it is native GHC with the
-  # same version, or ghcjs, in which case its the ghc used to build ghcjs.
+    # GHC used for building Setup.hs
+    #
+    # Same as our GHC, unless we're cross, in which case it is native GHC with the
+    # same version, or ghcjs, in which case its the ghc used to build ghcjs.
   nativeGhc = buildHaskellPackages.ghc;
-  nativePackageDbFlag = if versionOlder "7.6" nativeGhc.version then
-    "package-db"
-  else
-    "package-conf";
+  nativePackageDbFlag =
+    if versionOlder "7.6" nativeGhc.version then
+      "package-db"
+    else
+      "package-conf"
+    ;
 
-  # the target dir for haddock documentation
+    # the target dir for haddock documentation
   docdir = docoutput: docoutput + "/share/doc/" + pname + "-" + version;
 
-  binDir = if enableSeparateBinOutput then
-    "$bin/bin"
-  else
-    "$out/bin";
+  binDir =
+    if enableSeparateBinOutput then
+      "$bin/bin"
+    else
+      "$out/bin"
+    ;
 
   newCabalFileUrl =
     "mirror://hackage/${pname}-${version}/revision/${revision}.cabal";
@@ -221,17 +227,17 @@ let
     main = defaultMain
   '';
 
-  # This awk expression transforms a package conf file like
-  #
-  #   author:               John Doe <john-doe@example.com>
-  #   description:
-  #       The purpose of this library is to do
-  #       foo and bar among other things
-  #
-  # into a more easily processeable form:
-  #
-  #   author: John Doe <john-doe@example.com>
-  #   description: The purpose of this library is to do foo and bar among other things
+    # This awk expression transforms a package conf file like
+    #
+    #   author:               John Doe <john-doe@example.com>
+    #   description:
+    #       The purpose of this library is to do
+    #       foo and bar among other things
+    #
+    # into a more easily processeable form:
+    #
+    #   author: John Doe <john-doe@example.com>
+    #   description: The purpose of this library is to do foo and bar among other things
   unprettyConf = builtins.toFile "unpretty-cabal-conf.awk" ''
     /^[^ ]+:/ {
       # When the line starts with a new field, terminate the previous one with a newline
@@ -276,8 +282,8 @@ let
   ] ++ optional (allPkgconfigDepends != [ ])
     "--with-pkg-config=${pkg-config.targetPrefix}pkg-config";
 
-  parallelBuildingFlags = "-j$NIX_BUILD_CORES"
-    + optionalString stdenv.isLinux " +RTS -A64M -RTS";
+  parallelBuildingFlags =
+    "-j$NIX_BUILD_CORES" + optionalString stdenv.isLinux " +RTS -A64M -RTS";
 
   crossCabalFlagsString =
     lib.optionalString isCross (" " + lib.concatStringsSep " " crossCabalFlags);
@@ -338,8 +344,9 @@ let
       ] ++ optionals isGhcjs [ "--ghcjs" ] ++ optionals isCross
     ([ "--configure-option=--host=${stdenv.hostPlatform.config}" ]
       ++ crossCabalFlags)
-    ++ optionals enableSeparateBinOutput [ "--bindir=${binDir}" ] ++ optionals
-    (doHaddockInterfaces && isLibrary) [ "--ghc-options=-haddock" ];
+    ++ optionals enableSeparateBinOutput [ "--bindir=${binDir}" ]
+    ++ optionals (doHaddockInterfaces && isLibrary) [ "--ghc-options=-haddock" ]
+    ;
 
   setupCompileFlags = [
     (optionalString (!coreSetup) "-${nativePackageDbFlag}=$setupPackageConfDir")
@@ -377,7 +384,7 @@ let
     ++ optionals doCheck (testSystemDepends ++ testFrameworkDepends)
     ++ optionals doBenchmark
     (benchmarkSystemDepends ++ benchmarkFrameworkDepends);
-  # TODO next rebuild just define as `otherBuildInputsHaskell ++ otherBuildInputsSystem`
+    # TODO next rebuild just define as `otherBuildInputsHaskell ++ otherBuildInputsSystem`
   otherBuildInputs = extraLibraries ++ librarySystemDepends
     ++ executableSystemDepends ++ executableFrameworkDepends
     ++ allPkgconfigDepends ++ optionals doCheck (testDepends
@@ -387,37 +394,45 @@ let
 
   setupCommand = "./Setup";
 
-  ghcCommand' = if isGhcjs then
-    "ghcjs"
-  else
-    "ghc";
+  ghcCommand' =
+    if isGhcjs then
+      "ghcjs"
+    else
+      "ghc"
+    ;
   ghcCommand = "${ghc.targetPrefix}${ghcCommand'}";
 
   ghcNameWithPrefix = "${ghc.targetPrefix}${ghc.haskellCompilerName}";
-  mkGhcLibdir = ghc:
+  mkGhcLibdir =
+    ghc:
     "lib/${ghc.targetPrefix}${ghc.haskellCompilerName}"
-    + lib.optionalString (ghc ? hadrian) "/lib";
+    + lib.optionalString (ghc ? hadrian) "/lib"
+    ;
   ghcLibdir = mkGhcLibdir ghc;
 
   nativeGhcCommand = "${nativeGhc.targetPrefix}ghc";
 
-  buildPkgDb = thisGhc: packageConfDir: ''
-    # If this dependency has a package database, then copy the contents of it,
-    # unless it is one of our GHCs. These can appear in our dependencies when
-    # we are doing native builds, and they have package databases in them, but
-    # we do not want to copy them over.
-    #
-    # We don't need to, since those packages will be provided by the GHC when
-    # we compile with it, and doing so can result in having multiple copies of
-    # e.g. Cabal in the database with the same name and version, which is
-    # ambiguous.
-    if [ -d "$p/${
-      mkGhcLibdir thisGhc
-    }/package.conf.d" ] && [ "$p" != "${ghc}" ] && [ "$p" != "${nativeGhc}" ]; then
-      cp -f "$p/${mkGhcLibdir thisGhc}/package.conf.d/"*.conf ${packageConfDir}/
-      continue
-    fi
-  '';
+  buildPkgDb =
+    thisGhc: packageConfDir: ''
+      # If this dependency has a package database, then copy the contents of it,
+      # unless it is one of our GHCs. These can appear in our dependencies when
+      # we are doing native builds, and they have package databases in them, but
+      # we do not want to copy them over.
+      #
+      # We don't need to, since those packages will be provided by the GHC when
+      # we compile with it, and doing so can result in having multiple copies of
+      # e.g. Cabal in the database with the same name and version, which is
+      # ambiguous.
+      if [ -d "$p/${
+        mkGhcLibdir thisGhc
+      }/package.conf.d" ] && [ "$p" != "${ghc}" ] && [ "$p" != "${nativeGhc}" ]; then
+        cp -f "$p/${
+          mkGhcLibdir thisGhc
+        }/package.conf.d/"*.conf ${packageConfDir}/
+        continue
+      fi
+    ''
+    ;
 in
 lib.fix (drv:
 
@@ -559,7 +574,7 @@ lib.fix (drv:
       runHook postCompileBuildDriver
     '';
 
-    # Cabal takes flags like `--configure-option=--host=...` instead
+      # Cabal takes flags like `--configure-option=--host=...` instead
     configurePlatforms = [ ];
     inherit
       configureFlags
@@ -699,8 +714,8 @@ lib.fix (drv:
 
       compiler = ghc;
 
-      # All this information is intended just for `shellFor`.  It should be
-      # considered unstable and indeed we knew how to keep it private we would.
+        # All this information is intended just for `shellFor`.  It should be
+        # considered unstable and indeed we knew how to keep it private we would.
       getCabalDeps = {
         inherit
           buildDepends
@@ -739,8 +754,8 @@ lib.fix (drv:
           ;
       };
 
-      # Attributes for the old definition of `shellFor`. Should be removed but
-      # this predates the warning at the top of `getCabalDeps`.
+        # Attributes for the old definition of `shellFor`. Should be removed but
+        # this predates the warning at the top of `getCabalDeps`.
       getBuildInputs = rec {
         inherit propagatedBuildInputs otherBuildInputs allPkgconfigDepends;
         haskellBuildInputs = isHaskellPartition.right;
@@ -751,48 +766,53 @@ lib.fix (drv:
 
       isHaskellLibrary = isLibrary;
 
-      # TODO: ask why the split outputs are configurable at all?
-      # TODO: include tests for split if possible
-      # Given the haskell package, returns
-      # the directory containing the haddock documentation.
-      # `null' if no haddock documentation was built.
-      # TODO: fetch the self from the fixpoint instead
-      haddockDir = self:
+        # TODO: ask why the split outputs are configurable at all?
+        # TODO: include tests for split if possible
+        # Given the haskell package, returns
+        # the directory containing the haddock documentation.
+        # `null' if no haddock documentation was built.
+        # TODO: fetch the self from the fixpoint instead
+      haddockDir =
+        self:
         if doHaddock then
           "${docdir self.doc}/html"
         else
-          null;
+          null
+        ;
 
-      # Creates a derivation containing all of the necessary dependencies for building the
-      # parent derivation. The attribute set that it takes as input can be viewed as:
-      #
-      #    { withHoogle }
-      #
-      # The derivation that it builds contains no outpaths because it is meant for use
-      # as an environment
-      #
-      #   # Example use
-      #   # Creates a shell with all of the dependencies required to build the "hello" package,
-      #   # and with python:
-      #
-      #   > nix-shell -E 'with (import <nixpkgs> {}); \
-      #   >    haskell.packages.ghc865.hello.envFunc { buildInputs = [ python ]; }'
-      envFunc = {
+        # Creates a derivation containing all of the necessary dependencies for building the
+        # parent derivation. The attribute set that it takes as input can be viewed as:
+        #
+        #    { withHoogle }
+        #
+        # The derivation that it builds contains no outpaths because it is meant for use
+        # as an environment
+        #
+        #   # Example use
+        #   # Creates a shell with all of the dependencies required to build the "hello" package,
+        #   # and with python:
+        #
+        #   > nix-shell -E 'with (import <nixpkgs> {}); \
+        #   >    haskell.packages.ghc865.hello.envFunc { buildInputs = [ python ]; }'
+      envFunc =
+        {
           withHoogle ? false
         }:
         let
           name = "ghc-shell-for-${drv.name}";
 
-          withPackages = if withHoogle then
-            ghcWithHoogle
-          else
-            ghcWithPackages;
+          withPackages =
+            if withHoogle then
+              ghcWithHoogle
+            else
+              ghcWithPackages
+            ;
 
-          # We use the `ghcWithPackages` function from `buildHaskellPackages` if we
-          # want a shell for the sake of cross compiling a package. In the native case
-          # we don't use this at all, and instead put the setupDepends in the main
-          # `ghcWithPackages`. This way we don't have two wrapper scripts called `ghc`
-          # shadowing each other on the PATH.
+            # We use the `ghcWithPackages` function from `buildHaskellPackages` if we
+            # want a shell for the sake of cross compiling a package. In the native case
+            # we don't use this at all, and instead put the setupDepends in the main
+            # `ghcWithPackages`. This way we don't have two wrapper scripts called `ghc`
+            # shadowing each other on the PATH.
           ghcEnvForBuild = assert isCross;
             buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends);
 
@@ -818,14 +838,16 @@ lib.fix (drv:
             "${buildPackages.glibcLocales}/lib/locale/locale-archive";
           "NIX_${ghcCommandCaps}" = "${ghcEnv}/bin/${ghcCommand}";
           "NIX_${ghcCommandCaps}PKG" = "${ghcEnv}/bin/${ghcCommand}-pkg";
-          # TODO: is this still valid?
+            # TODO: is this still valid?
           "NIX_${ghcCommandCaps}_DOCDIR" = "${ghcEnv}/share/doc/ghc/html";
-          "NIX_${ghcCommandCaps}_LIBDIR" = if ghc.isHaLVM or false then
-            "${ghcEnv}/lib/HaLVM-${ghc.version}"
-          else
-            "${ghcEnv}/${ghcLibdir}";
+          "NIX_${ghcCommandCaps}_LIBDIR" =
+            if ghc.isHaLVM or false then
+              "${ghcEnv}/lib/HaLVM-${ghc.version}"
+            else
+              "${ghcEnv}/${ghcLibdir}"
+            ;
         })
-      ;
+        ;
 
       env = envFunc { };
 

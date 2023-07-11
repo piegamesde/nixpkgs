@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "sha256-1krw77ij69EbLg5mKmQmxeHpn38uRG9EOboGmRk+StY=";
   };
 
-  # tests require running postgresql cluster
+    # tests require running postgresql cluster
   doCheck = false;
   pythonImportsCheck = [ "pq" ];
 

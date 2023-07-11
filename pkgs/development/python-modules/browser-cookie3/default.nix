@@ -31,7 +31,7 @@ buildPythonPackage rec {
     pycryptodomex
   ];
 
-  # No tests implemented
+    # No tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "browser_cookie3" ];

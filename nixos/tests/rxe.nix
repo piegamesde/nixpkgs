@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
   }:
 
   let
-    node = {
+    node =
+      {
         pkgs,
         ...
       }: {
@@ -22,7 +23,8 @@ import ./make-test-python.nix ({
           rdma-core
           screen
         ];
-      };
+      }
+      ;
 
   in {
     name = "rxe";

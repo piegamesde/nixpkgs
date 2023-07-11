@@ -59,7 +59,7 @@ buildPythonApplication {
     cp hushboard-512.png $out/share/icons/hicolor/512x512/apps/hushboard.png
   '';
 
-  # There are no tests
+    # There are no tests
   doCheck = false;
 
   meta = with lib; {

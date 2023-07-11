@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/unix-options/2015-10-31/unix-options-20151031-git.tgz";
+      "http://beta.quicklisp.org/archive/unix-options/2015-10-31/unix-options-20151031-git.tgz"
+      ;
     sha256 = "0c9vbvvyx5qwvns87624gzxjcbdkbkcwssg29cxjfv3ci3qwqcd5";
   };
 

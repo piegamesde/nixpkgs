@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/dvdstyler/dvdstyler/${version}/DVDStyler-${version}.tar.bz2";
+      "mirror://sourceforge/project/dvdstyler/dvdstyler/${version}/DVDStyler-${version}.tar.bz2"
+      ;
     sha256 = "sha256-C7M0hzn0yTCXRUuBTss6WPa6zo8DD0Fhmp/ur7R0dVg=";
   };
 
@@ -83,17 +84,19 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  preFixup = let
-    binPath = makeBinPath ([
-      cdrtools
-      dvdauthor
-      dvdplusrwtools
-    ] ++ optionals dvdisasterSupport [ dvdisaster ]);
-  in ''
-    gappsWrapperArgs+=(
-      --prefix PATH : "${binPath}"
-    )
-  '' ;
+  preFixup =
+    let
+      binPath = makeBinPath ([
+        cdrtools
+        dvdauthor
+        dvdplusrwtools
+      ] ++ optionals dvdisasterSupport [ dvdisaster ]);
+    in ''
+      gappsWrapperArgs+=(
+        --prefix PATH : "${binPath}"
+      )
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://www.dvdstyler.org/";

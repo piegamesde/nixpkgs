@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     libiconv
   ];
 
-  # TODO export TREMOR_PATH($out/lib) variable
+    # TODO export TREMOR_PATH($out/lib) variable
   postInstall = ''
     # Copy the standard library to $out/lib
     cp -r ${src}/tremor-script/lib/ $out
@@ -59,10 +59,10 @@ rustPlatform.buildRustPackage rec {
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
-  # OPENSSL_NO_VENDOR - If set, always find OpenSSL in the system, even if the vendored feature is enabled.
+    # OPENSSL_NO_VENDOR - If set, always find OpenSSL in the system, even if the vendored feature is enabled.
   OPENSSL_NO_VENDOR = 1;
 
-  # needed for internal protobuf c wrapper library
+    # needed for internal protobuf c wrapper library
   PROTOC = "${protobuf}/bin/protoc";
   PROTOC_INCLUDE = "${protobuf}/include";
 

@@ -64,7 +64,8 @@ mkDerivation rec {
     extraConfig = {
       "GenericName[it]" = "Generatore ed Analizzatore di pacchetti di rete";
       "Comment[it]" =
-        "Generatore ed Analizzatore di pacchetti di rete con interfaccia amichevole";
+        "Generatore ed Analizzatore di pacchetti di rete con interfaccia amichevole"
+        ;
     };
   });
 
@@ -81,8 +82,8 @@ mkDerivation rec {
     EOF
   '';
 
-  # `cd common; qmake ostproto.pro; make pdmlreader.o`:
-  # pdmlprotocol.h:23:25: fatal error: protocol.pb.h: No such file or directory
+    # `cd common; qmake ostproto.pro; make pdmlreader.o`:
+    # pdmlprotocol.h:23:25: fatal error: protocol.pb.h: No such file or directory
   enableParallelBuilding = false;
 
   meta = with lib; {

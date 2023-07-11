@@ -96,14 +96,15 @@ stdenv.mkDerivation rec {
     updateScript = gnome.updateScript {
       packageName = pname;
       versionPolicy = "odd-unstable";
-      # Version 40.alpha preceded version 4.0.
+        # Version 40.alpha preceded version 4.0.
       freeze = "40.alpha";
     };
   };
 
   meta = with lib; {
     description =
-      "A library to access weather information from online services for numerous locations";
+      "A library to access weather information from online services for numerous locations"
+      ;
     homepage = "https://wiki.gnome.org/Projects/LibGWeather";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

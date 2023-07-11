@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
       "Unicode font for glyphs above the Unicode Basic Multilingual Plane";
     homepage = "https://unifoundry.com/unifont/";
 
-    # Basically GPL2+ with font exception.
+      # Basically GPL2+ with font exception.
     license = "https://unifoundry.com/LICENSE.txt";
     maintainers = [
       maintainers.mathnerd314

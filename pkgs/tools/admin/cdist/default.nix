@@ -32,7 +32,7 @@ buildPythonApplication rec {
 
   sphinxRoot = "docs/src";
 
-  # "make man" creates symlinks in docs/src needed by sphinxHook.
+    # "make man" creates symlinks in docs/src needed by sphinxHook.
   postPatch = ''
     echo "VERSION = '$version'" > cdist/version.py
 
@@ -43,10 +43,10 @@ buildPythonApplication rec {
     export HOME=/tmp
   '';
 
-  # Test suite requires either non-chrooted environment or root.
-  #
-  # When "machine_type" explorer figures out that it is running inside
-  # chroot, it assumes that it has enough privileges to escape it.
+    # Test suite requires either non-chrooted environment or root.
+    #
+    # When "machine_type" explorer figures out that it is running inside
+    # chroot, it assumes that it has enough privileges to escape it.
   doCheck = false;
 
   pythonImportsCheck = [ "cdist" ];
@@ -60,9 +60,10 @@ buildPythonApplication rec {
     description = "Minimalistic configuration management system";
     homepage = "https://www.sdi.st";
     changelog =
-      "https://code.ungleich.ch/ungleich-public/cdist/src/tag/${version}/docs/changelog";
+      "https://code.ungleich.ch/ungleich-public/cdist/src/tag/${version}/docs/changelog"
+      ;
 
-    # Mostly. There are still couple types that are gpl3-only.
+      # Mostly. There are still couple types that are gpl3-only.
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kaction ];
     platforms = platforms.unix;

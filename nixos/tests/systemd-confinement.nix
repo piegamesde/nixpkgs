@@ -1,7 +1,8 @@
 import ./make-test-python.nix {
   name = "systemd-confinement";
 
-  nodes.machine = {
+  nodes.machine =
+    {
       pkgs,
       lib,
       ...
@@ -22,7 +23,8 @@ import ./make-test-python.nix {
         exit "''${ret:-1}"
       '';
 
-      mkTestStep = num:
+      mkTestStep =
+        num:
         {
           testScript,
           config ? { },
@@ -50,7 +52,8 @@ import ./make-test-python.nix {
           __testSteps = lib.mkOrder num (''
             machine.succeed("echo ${toString num} > /teststep")
           '' + testScript);
-        };
+        }
+        ;
 
     in {
       imports = lib.imap1 mkTestStep [
@@ -200,9 +203,11 @@ import ./make-test-python.nix {
         description = "Chroot Test User";
         group = "chroot-testgroup";
       };
-    } ;
+    }
+    ;
 
-  testScript = {
+  testScript =
+    {
       nodes,
       ...
     }:
@@ -211,5 +216,6 @@ import ./make-test-python.nix {
           assert a == b, f"{a} != {b}"
 
       machine.wait_for_unit("multi-user.target")
-    '' + nodes.machine.config.__testSteps;
+    '' + nodes.machine.config.__testSteps
+    ;
 }

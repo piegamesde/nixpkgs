@@ -42,7 +42,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/xyz2tex/svg2tikz/blob/${src.rev}/README.md#changes-bug-fixes-and-known-problems-from-the-original";
+      "https://github.com/xyz2tex/svg2tikz/blob/${src.rev}/README.md#changes-bug-fixes-and-known-problems-from-the-original"
+      ;
     homepage = "https://github.com/xyz2tex/svg2tikz";
     description = "Set of tools for converting SVG graphics to TikZ/PGF code";
     license = licenses.gpl2Plus;

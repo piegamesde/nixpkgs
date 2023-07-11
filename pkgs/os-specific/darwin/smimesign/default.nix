@@ -23,12 +23,13 @@ buildGoModule rec {
     "-X main.versionString=v${version}"
   ];
 
-  # Fails in sandbox
+    # Fails in sandbox
   doCheck = false;
 
   meta = with lib; {
     description =
-      "An S/MIME signing utility for macOS and Windows that is compatible with Git";
+      "An S/MIME signing utility for macOS and Windows that is compatible with Git"
+      ;
     homepage = "https://github.com/github/smimesign";
     license = licenses.mit;
     platforms = platforms.darwin ++ platforms.windows;

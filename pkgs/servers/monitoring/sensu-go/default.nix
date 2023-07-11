@@ -5,7 +5,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       subPackages,
       pname,
       postInstall ? "",
@@ -29,22 +30,26 @@ let
 
       doCheck = false;
 
-      ldflags = let
-        versionPkg = "github.com/sensu/sensu-go/version";
-      in [
-        "-X ${versionPkg}.Version=${version}"
-        "-X ${versionPkg}.BuildSHA=${shortRev}"
-      ] ;
+      ldflags =
+        let
+          versionPkg = "github.com/sensu/sensu-go/version";
+        in [
+          "-X ${versionPkg}.Version=${version}"
+          "-X ${versionPkg}.BuildSHA=${shortRev}"
+        ]
+        ;
 
       meta = {
         inherit mainProgram;
         homepage = "https://sensu.io";
         description =
-          "Open source monitoring tool for ephemeral infrastructure & distributed applications";
+          "Open source monitoring tool for ephemeral infrastructure & distributed applications"
+          ;
         license = lib.licenses.mit;
         maintainers = with lib.maintainers; [ thefloweringash ];
       };
-    };
+    }
+    ;
 in {
   sensu-go-cli = generic {
     pname = "sensu-go-cli";

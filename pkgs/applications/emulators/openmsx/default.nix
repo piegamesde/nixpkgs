@@ -59,8 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontAddPrefix = true;
 
-  # Many thanks @mthuurne from OpenMSX project for providing support to
-  # Nixpkgs! :)
+    # Many thanks @mthuurne from OpenMSX project for providing support to
+    # Nixpkgs! :)
   TCL_CONFIG = "${tcl}/lib/";
 
   meta = with lib; {

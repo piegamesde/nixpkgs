@@ -73,7 +73,8 @@ in {
         isSystemUser = true;
         group = cfg.group;
         home =
-          "/var/lib/${config.systemd.services.bazarr.serviceConfig.StateDirectory}";
+          "/var/lib/${config.systemd.services.bazarr.serviceConfig.StateDirectory}"
+          ;
       };
     };
 

@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) podofo
     ++ lib.optional (!stdenv.isLinux) libiconv;
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: serve_pdf.o:offrss.h:75: multiple definition of `cgi_url_path';
-  #     offrss.o:offrss.h:75: first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: serve_pdf.o:offrss.h:75: multiple definition of `cgi_url_path';
+    #     offrss.o:offrss.h:75: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   configurePhase = ''
@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://vicerveza.homeunix.net/~viric/soft/offrss/offrss-${version}.tar.gz";
+      "http://vicerveza.homeunix.net/~viric/soft/offrss/offrss-${version}.tar.gz"
+      ;
     sha256 = "1akw1x84jj2m9z60cvlvmz21qwlaywmw18pl7lgp3bj5nw6250p6";
   };
 

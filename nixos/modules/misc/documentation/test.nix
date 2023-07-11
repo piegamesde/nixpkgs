@@ -19,7 +19,7 @@ let
           # Make sure imports from specialArgs are respected
           imports = [ someArg.myModule ];
 
-          # TODO test this
+            # TODO test this
           meta.doc = ./test-dummy.chapter.xml;
         })
 
@@ -35,7 +35,8 @@ let
         documentation.nixos.includeAllModules = true;
       }
     ];
-    specialArgs.someArg.myModule = {
+    specialArgs.someArg.myModule =
+      {
         lib,
         ...
       }: {
@@ -44,7 +45,8 @@ let
           description = lib.mdDoc "The foobar option was added via specialArgs";
           default = "qux";
         };
-      };
+      }
+      ;
   };
 
 in

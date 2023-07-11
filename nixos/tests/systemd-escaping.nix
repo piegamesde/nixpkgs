@@ -10,8 +10,8 @@ import ./make-test-python.nix ({
         printf '%s\n' "$s"
       done
     '';
-    # deliberately using a local empty file instead of pkgs.emptyFile to have
-    # a non-store path in the test
+      # deliberately using a local empty file instead of pkgs.emptyFile to have
+      # a non-store path in the test
     args = [
       "a%Nything"
       "lang=\${LANG}"
@@ -24,7 +24,8 @@ import ./make-test-python.nix ({
   in {
     name = "systemd-escaping";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         utils,
@@ -46,7 +47,8 @@ import ./make-test-python.nix ({
                 ${echoAll} ${utils.escapeSystemdExecArgs args}
               '';
             };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

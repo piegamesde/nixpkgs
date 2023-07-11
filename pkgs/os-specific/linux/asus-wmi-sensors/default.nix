@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   name = "asus-wmi-sensors-${version}-${kernel.version}";
   version = "unstable-2019-11-07";
 
-  # The original was deleted from github, but this seems to be an active fork
+    # The original was deleted from github, but this seems to be an active fork
   src = fetchFromGitHub {
     owner = "electrified";
     repo = "asus-wmi-sensors";
@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Linux HWMON (lmsensors) sensors driver for various ASUS Ryzen and Threadripper motherboards";
+      "Linux HWMON (lmsensors) sensors driver for various ASUS Ryzen and Threadripper motherboards"
+      ;
     homepage = "https://github.com/electrified/asus-wmi-sensors";
     license = licenses.gpl2;
     platforms = [

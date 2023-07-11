@@ -1016,8 +1016,8 @@ with self; {
     callPackage ../development/python-modules/azure-mgmt-appconfiguration { };
 
   azure-mgmt-applicationinsights =
-    callPackage ../development/python-modules/azure-mgmt-applicationinsights
-    { };
+    callPackage ../development/python-modules/azure-mgmt-applicationinsights { }
+    ;
 
   azure-mgmt-authorization =
     callPackage ../development/python-modules/azure-mgmt-authorization { };
@@ -1154,8 +1154,8 @@ with self; {
     callPackage ../development/python-modules/azure-mgmt-maps { };
 
   azure-mgmt-marketplaceordering =
-    callPackage ../development/python-modules/azure-mgmt-marketplaceordering
-    { };
+    callPackage ../development/python-modules/azure-mgmt-marketplaceordering { }
+    ;
 
   azure-mgmt-media =
     callPackage ../development/python-modules/azure-mgmt-media { };
@@ -1266,8 +1266,8 @@ with self; {
     callPackage ../development/python-modules/azure-servicefabric { };
 
   azure-servicemanagement-legacy =
-    callPackage ../development/python-modules/azure-servicemanagement-legacy
-    { };
+    callPackage ../development/python-modules/azure-servicemanagement-legacy { }
+    ;
 
   azure-storage-blob =
     callPackage ../development/python-modules/azure-storage-blob { };
@@ -1421,10 +1421,12 @@ with self; {
 
   bcdoc = callPackage ../development/python-modules/bcdoc { };
 
-  bcrypt = if stdenv.hostPlatform.system == "i686-linux" then
-    callPackage ../development/python-modules/bcrypt/3.nix { }
-  else
-    callPackage ../development/python-modules/bcrypt { };
+  bcrypt =
+    if stdenv.hostPlatform.system == "i686-linux" then
+      callPackage ../development/python-modules/bcrypt/3.nix { }
+    else
+      callPackage ../development/python-modules/bcrypt { }
+    ;
 
   beaker = callPackage ../development/python-modules/beaker { };
 
@@ -1631,8 +1633,8 @@ with self; {
 
   boolean-py = callPackage ../development/python-modules/boolean-py { };
 
-  # Build boost for this specific Python version
-  # TODO: use separate output for libboost_python.so
+    # Build boost for this specific Python version
+    # TODO: use separate output for libboost_python.so
   boost = toPythonModule (pkgs.boost.override {
     inherit (self) python numpy;
     enablePython = true;
@@ -2863,10 +2865,10 @@ with self; {
 
   django = self.django_3;
 
-  # Current LTS
+    # Current LTS
   django_3 = callPackage ../development/python-modules/django/3.nix { };
 
-  # Current latest
+    # Current latest
   django_4 = callPackage ../development/python-modules/django/4.nix { };
 
   django-admin-sortable2 =
@@ -2991,7 +2993,7 @@ with self; {
     callPackage ../development/python-modules/django-hijack-admin { };
 
   django_hijack = callPackage ../development/python-modules/django-hijack { };
-  # This package may need an older version of Django. Override the package set and set e.g. `django = super.django_1_9`. See the Nixpkgs manual for examples on how to override the package set.
+    # This package may need an older version of Django. Override the package set and set e.g. `django = super.django_1_9`. See the Nixpkgs manual for examples on how to override the package set.
 
   django-import-export =
     callPackage ../development/python-modules/django-import-export { };
@@ -3107,8 +3109,8 @@ with self; {
     { };
 
   djangorestframework-camel-case =
-    callPackage ../development/python-modules/djangorestframework-camel-case
-    { };
+    callPackage ../development/python-modules/djangorestframework-camel-case { }
+    ;
 
   djangorestframework-guardian =
     callPackage ../development/python-modules/djangorestframework-guardian { };
@@ -3769,8 +3771,8 @@ with self; {
   falcon = callPackage ../development/python-modules/falcon { };
 
   faraday-agent-parameters-types =
-    callPackage ../development/python-modules/faraday-agent-parameters-types
-    { };
+    callPackage ../development/python-modules/faraday-agent-parameters-types { }
+    ;
 
   faraday-plugins =
     callPackage ../development/python-modules/faraday-plugins { };
@@ -4525,8 +4527,8 @@ with self; {
     ../development/python-modules/google-cloud-access-context-manager { };
 
   google-cloud-appengine-logging =
-    callPackage ../development/python-modules/google-cloud-appengine-logging
-    { };
+    callPackage ../development/python-modules/google-cloud-appengine-logging { }
+    ;
 
   google-cloud-asset =
     callPackage ../development/python-modules/google-cloud-asset { };
@@ -4653,8 +4655,8 @@ with self; {
     callPackage ../development/python-modules/google-cloud-translate { };
 
   google-cloud-videointelligence =
-    callPackage ../development/python-modules/google-cloud-videointelligence
-    { };
+    callPackage ../development/python-modules/google-cloud-videointelligence { }
+    ;
 
   google-cloud-vision =
     callPackage ../development/python-modules/google-cloud-vision { };
@@ -4785,11 +4787,13 @@ with self; {
   greeneye-monitor =
     callPackage ../development/python-modules/greeneye-monitor { };
 
-  # built-in for pypi
-  greenlet = if isPyPy then
-    null
-  else
-    callPackage ../development/python-modules/greenlet { };
+    # built-in for pypi
+  greenlet =
+    if isPyPy then
+      null
+    else
+      callPackage ../development/python-modules/greenlet { }
+    ;
 
   grequests = callPackage ../development/python-modules/grequests { };
 
@@ -4862,14 +4866,16 @@ with self; {
 
   guppy3 = callPackage ../development/python-modules/guppy3 { };
 
-  gurobipy = if stdenv.hostPlatform.system == "x86_64-darwin" then
-    callPackage ../development/python-modules/gurobipy/darwin.nix {
-      inherit (pkgs.darwin) cctools insert_dylib;
-    }
-  else if stdenv.hostPlatform.system == "x86_64-linux" then
-    callPackage ../development/python-modules/gurobipy/linux.nix { }
-  else
-    throw "gurobipy not yet supported on ${stdenv.hostPlatform.system}";
+  gurobipy =
+    if stdenv.hostPlatform.system == "x86_64-darwin" then
+      callPackage ../development/python-modules/gurobipy/darwin.nix {
+        inherit (pkgs.darwin) cctools insert_dylib;
+      }
+    else if stdenv.hostPlatform.system == "x86_64-linux" then
+      callPackage ../development/python-modules/gurobipy/linux.nix { }
+    else
+      throw "gurobipy not yet supported on ${stdenv.hostPlatform.system}"
+    ;
 
   guzzle_sphinx_theme =
     callPackage ../development/python-modules/guzzle_sphinx_theme { };
@@ -6144,17 +6150,17 @@ with self; {
 
   liblarch = callPackage ../development/python-modules/liblarch { };
 
-  liblzfse = callPackage ../development/python-modules/liblzfse {
-    inherit (pkgs) lzfse;
-  };
+  liblzfse =
+    callPackage ../development/python-modules/liblzfse { inherit (pkgs) lzfse; }
+    ;
 
   libmodulemd = lib.pipe pkgs.libmodulemd [
     toPythonModule
     (p:
       p.overrideAttrs (super: {
         meta = super.meta // {
-          outputsToInstall =
-            [ "py" ]; # The package always builds python3 bindings
+          outputsToInstall = [ "py" ]
+            ; # The package always builds python3 bindings
           broken = (super.meta.broken or false) || !isPy3k;
         };
       }))
@@ -6587,10 +6593,12 @@ with self; {
   matlink-gpapi = callPackage ../development/python-modules/matlink-gpapi { };
 
   matplotlib = callPackage ../development/python-modules/matplotlib {
-    stdenv = if stdenv.isDarwin then
-      pkgs.clangStdenv
-    else
-      pkgs.stdenv;
+    stdenv =
+      if stdenv.isDarwin then
+        pkgs.clangStdenv
+      else
+        pkgs.stdenv
+      ;
     inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
     ghostscript = pkgs.ghostscript_headless;
   };
@@ -7306,9 +7314,9 @@ with self; {
 
   nitransforms = callPackage ../development/python-modules/nitransforms { };
 
-  nix-kernel = callPackage ../development/python-modules/nix-kernel {
-    inherit (pkgs) nix;
-  };
+  nix-kernel =
+    callPackage ../development/python-modules/nix-kernel { inherit (pkgs) nix; }
+    ;
 
   nixpkgs = callPackage ../development/python-modules/nixpkgs { };
 
@@ -8622,13 +8630,13 @@ with self; {
 
   proto-plus = callPackage ../development/python-modules/proto-plus { };
 
-  # Protobuf 4.x
+    # Protobuf 4.x
   protobuf = callPackage ../development/python-modules/protobuf {
     # If a protobuf upgrade causes many Python packages to fail, please pin it here to the previous version.
     inherit (pkgs) protobuf;
   };
 
-  # Protobuf 3.x
+    # Protobuf 3.x
   protobuf3 = callPackage ../development/python-modules/protobuf {
     protobuf = pkgs.protobuf3_20;
   };
@@ -9044,9 +9052,9 @@ with self; {
 
   pydoods = callPackage ../development/python-modules/pydoods { };
 
-  pydot = callPackage ../development/python-modules/pydot {
-    inherit (pkgs) graphviz;
-  };
+  pydot =
+    callPackage ../development/python-modules/pydot { inherit (pkgs) graphviz; }
+    ;
 
   pydrive2 = callPackage ../development/python-modules/pydrive2 { };
 
@@ -9728,10 +9736,10 @@ with self; {
 
   pyqt5_with_qtmultimedia = self.pyqt5.override { withMultimedia = true; };
 
-  /* `pyqt5_with_qtwebkit` should not be used by python libraries in
-     pkgs/development/python-modules/*. Putting this attribute in
-     `propagatedBuildInputs` may cause collisions.
-  */
+    /* `pyqt5_with_qtwebkit` should not be used by python libraries in
+       pkgs/development/python-modules/*. Putting this attribute in
+       `propagatedBuildInputs` may cause collisions.
+    */
   pyqt5_with_qtwebkit = self.pyqt5.override { withWebKit = true; };
 
   pyqt6 = callPackage ../development/python-modules/pyqt/6.x.nix { };
@@ -9849,9 +9857,9 @@ with self; {
 
   pysam = callPackage ../development/python-modules/pysam { };
 
-  pysaml2 = callPackage ../development/python-modules/pysaml2 {
-    inherit (pkgs) xmlsec;
-  };
+  pysaml2 =
+    callPackage ../development/python-modules/pysaml2 { inherit (pkgs) xmlsec; }
+    ;
 
   pysatochip = callPackage ../development/python-modules/pysatochip { };
 
@@ -10542,9 +10550,9 @@ with self; {
 
   python-lzf = callPackage ../development/python-modules/python-lzf { };
 
-  python-lzo = callPackage ../development/python-modules/python-lzo {
-    inherit (pkgs) lzo;
-  };
+  python-lzo =
+    callPackage ../development/python-modules/python-lzo { inherit (pkgs) lzo; }
+    ;
 
   python-magic = callPackage ../development/python-modules/python-magic { };
 
@@ -10634,9 +10642,9 @@ with self; {
 
   python-pae = callPackage ../development/python-modules/python-pae { };
 
-  python-pam = callPackage ../development/python-modules/python-pam {
-    inherit (pkgs) pam;
-  };
+  python-pam =
+    callPackage ../development/python-modules/python-pam { inherit (pkgs) pam; }
+    ;
 
   python-periphery =
     callPackage ../development/python-modules/python-periphery { };
@@ -10909,9 +10917,9 @@ with self; {
 
   pywayland = callPackage ../development/python-modules/pywayland { };
 
-  pywbem = callPackage ../development/python-modules/pywbem {
-    inherit (pkgs) libxml2;
-  };
+  pywbem =
+    callPackage ../development/python-modules/pywbem { inherit (pkgs) libxml2; }
+    ;
 
   pyweatherflowrest =
     callPackage ../development/python-modules/pyweatherflowrest { };
@@ -11421,8 +11429,8 @@ with self; {
   robotframework = callPackage ../development/python-modules/robotframework { };
 
   robotframework-databaselibrary =
-    callPackage ../development/python-modules/robotframework-databaselibrary
-    { };
+    callPackage ../development/python-modules/robotframework-databaselibrary { }
+    ;
 
   robotframework-pythonlibcore =
     callPackage ../development/python-modules/robotframework-pythonlibcore { };
@@ -11435,8 +11443,8 @@ with self; {
     { };
 
   robotframework-seleniumlibrary =
-    callPackage ../development/python-modules/robotframework-seleniumlibrary
-    { };
+    callPackage ../development/python-modules/robotframework-seleniumlibrary { }
+    ;
 
   robotframework-sshlibrary =
     callPackage ../development/python-modules/robotframework-sshlibrary { };
@@ -13140,10 +13148,10 @@ with self; {
 
   tornado = callPackage ../development/python-modules/tornado { };
 
-  # Used by circus and grab-site, 2020-08-29
+    # Used by circus and grab-site, 2020-08-29
   tornado_4 = callPackage ../development/python-modules/tornado/4.nix { };
 
-  # Used by streamlit, 2021-01-29
+    # Used by streamlit, 2021-01-29
   tornado_5 = callPackage ../development/python-modules/tornado/5.nix { };
 
   torpy = callPackage ../development/python-modules/torpy { };
@@ -13223,9 +13231,9 @@ with self; {
   trino-python-client =
     callPackage ../development/python-modules/trino-python-client { };
 
-  trio = callPackage ../development/python-modules/trio {
-    inherit (pkgs) coreutils;
-  };
+  trio =
+    callPackage ../development/python-modules/trio { inherit (pkgs) coreutils; }
+    ;
 
   trio-asyncio = callPackage ../development/python-modules/trio-asyncio { };
 
@@ -13813,8 +13821,9 @@ with self; {
 
   wasm = callPackage ../development/python-modules/wasm { };
 
-  wasmerPackages = pkgs.recurseIntoAttrs
-    (callPackage ../development/python-modules/wasmer { });
+  wasmerPackages =
+    pkgs.recurseIntoAttrs (callPackage ../development/python-modules/wasmer { })
+    ;
   inherit (self.wasmerPackages)
     wasmer
     wasmer-compiler-cranelift

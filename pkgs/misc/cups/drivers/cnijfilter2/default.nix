@@ -19,7 +19,8 @@ stdenv.mkDerivation {
 
   src = fetchzip {
     url =
-      "https://gdlp01.c-wss.com/gds/1/0100011381/01/cnijfilter2-source-6.40-1.tar.gz";
+      "https://gdlp01.c-wss.com/gds/1/0100011381/01/cnijfilter2-source-6.40-1.tar.gz"
+      ;
     sha256 = "3RoG83jLOsdTEmvUkkxb7wa8oBrJA4v1mGtxTGwSowU=";
   };
 
@@ -37,13 +38,13 @@ stdenv.mkDerivation {
 
   patches = [ ./patches/get_protocol.patch ];
 
-  # lgmon3's --enable-libdir flag is used soley for specifying in which
-  # directory the cnnnet.ini cache file should reside.
-  # NixOS uses /var/cache/cups, and given the name, it seems like a reasonable
-  # place to put the cnnet.ini file, and thus we do so.
-  #
-  # Note that the drivers attempt to dlopen
-  # $out/lib/cups/filter/libcnbpcnclapicom2.so
+    # lgmon3's --enable-libdir flag is used soley for specifying in which
+    # directory the cnnnet.ini cache file should reside.
+    # NixOS uses /var/cache/cups, and given the name, it seems like a reasonable
+    # place to put the cnnet.ini file, and thus we do so.
+    #
+    # Note that the drivers attempt to dlopen
+    # $out/lib/cups/filter/libcnbpcnclapicom2.so
   buildPhase = ''
     mkdir -p $out/lib
     cp com/libs_bin_x86_64/* $out/lib

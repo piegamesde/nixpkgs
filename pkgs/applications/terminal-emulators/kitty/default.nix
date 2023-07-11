@@ -127,7 +127,7 @@ buildPythonApplication rec {
     ./disable-test_ssh_bootstrap_with_different_launchers.patch
   ];
 
-  # Causes build failure due to warning
+    # Causes build failure due to warning
   hardeningDisable = lib.optional stdenv.cc.isClang "strictoverflow";
 
   CGO_ENABLED = 0;
@@ -145,37 +145,39 @@ buildPythonApplication rec {
     cp -r --reflink=auto ${go-modules} vendor
   '';
 
-  buildPhase = let
-    commonOptions = ''
-      --update-check-interval=0 \
-      --shell-integration=enabled\ no-rc
-    '';
-    darwinOptions = ''
-      --disable-link-time-optimization \
-      ${commonOptions}
-    '';
-  in ''
-    runHook preBuild
-    ${lib.optionalString (stdenv.isDarwin && stdenv.isx86_64)
-    "export MACOSX_DEPLOYMENT_TARGET=11"}
-    ${if stdenv.isDarwin then
-      ''
-        ${python.pythonForBuild.interpreter} setup.py build ${darwinOptions}
-        make docs
-        ${python.pythonForBuild.interpreter} setup.py kitty.app ${darwinOptions}
-      ''
-    else
-      ''
-        ${python.pythonForBuild.interpreter} setup.py linux-package \
-        --egl-library='${lib.getLib libGL}/lib/libEGL.so.1' \
-        --startup-notification-library='${libstartup_notification}/lib/libstartup-notification-1.so' \
-        --canberra-library='${libcanberra}/lib/libcanberra.so' \
-        --fontconfig-library='${fontconfig.lib}/lib/libfontconfig.so' \
+  buildPhase =
+    let
+      commonOptions = ''
+        --update-check-interval=0 \
+        --shell-integration=enabled\ no-rc
+      '';
+      darwinOptions = ''
+        --disable-link-time-optimization \
         ${commonOptions}
-        ${python.pythonForBuild.interpreter} setup.py build-launcher
-      ''}
-    runHook postBuild
-  '' ;
+      '';
+    in ''
+      runHook preBuild
+      ${lib.optionalString (stdenv.isDarwin && stdenv.isx86_64)
+      "export MACOSX_DEPLOYMENT_TARGET=11"}
+      ${if stdenv.isDarwin then
+        ''
+          ${python.pythonForBuild.interpreter} setup.py build ${darwinOptions}
+          make docs
+          ${python.pythonForBuild.interpreter} setup.py kitty.app ${darwinOptions}
+        ''
+      else
+        ''
+          ${python.pythonForBuild.interpreter} setup.py linux-package \
+          --egl-library='${lib.getLib libGL}/lib/libEGL.so.1' \
+          --startup-notification-library='${libstartup_notification}/lib/libstartup-notification-1.so' \
+          --canberra-library='${libcanberra}/lib/libcanberra.so' \
+          --fontconfig-library='${fontconfig.lib}/lib/libfontconfig.so' \
+          ${commonOptions}
+          ${python.pythonForBuild.interpreter} setup.py build-launcher
+        ''}
+      runHook postBuild
+    ''
+    ;
 
   nativeCheckInputs = [
     pillow
@@ -186,7 +188,7 @@ buildPythonApplication rec {
     fish
   ];
 
-  # skip failing tests due to darwin sandbox
+    # skip failing tests due to darwin sandbox
   preCheck = lib.optionalString stdenv.isDarwin ''
     substituteInPlace kitty_tests/file_transmission.py \
       --replace test_file_get dont_test_file_get \

@@ -38,15 +38,16 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "fix-build-leptonica-1.83.patch";
     url =
-      "https://github.com/agl/jbig2enc/commit/ea050190466f5336c69c6a11baa1cb686677fcab.patch";
+      "https://github.com/agl/jbig2enc/commit/ea050190466f5336c69c6a11baa1cb686677fcab.patch"
+      ;
     hash = "sha256-+kScjFgDEU9F7VOUNAhm2XBjGm49fzAH8hYhmTm8xv8=";
   }) ];
 
-  # This is necessary, because the resulting library has
-  # /tmp/nix-build-jbig2enc/src/.libs before /nix/store/jbig2enc/lib
-  # in its rpath, which means that patchelf --shrink-rpath removes
-  # the /nix/store one.  By cleaning up before fixup, we ensure that
-  # the /tmp/nix-build-jbig2enc/src/.libs directory is gone.
+    # This is necessary, because the resulting library has
+    # /tmp/nix-build-jbig2enc/src/.libs before /nix/store/jbig2enc/lib
+    # in its rpath, which means that patchelf --shrink-rpath removes
+    # the /nix/store one.  By cleaning up before fixup, we ensure that
+    # the /tmp/nix-build-jbig2enc/src/.libs directory is gone.
   preFixup = ''
     make clean
   '';

@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
     "apparmor"
   ];
 
-  # We don't have the required permissions inside the build sandbox:
-  # /build/source/build/ping/ping: socket: Operation not permitted
+    # We don't have the required permissions inside the build sandbox:
+    # /build/source/build/ping/ping: socket: Operation not permitted
   doCheck = false;
 
   mesonFlags = [
@@ -51,8 +51,8 @@ stdenv.mkDerivation rec {
     libxslt.bin
     docbook_xsl_ns
   ];
-  buildInputs = [ libcap ]
-    ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2;
+  buildInputs =
+    [ libcap ] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2;
   nativeCheckInputs = [ iproute2 ];
 
   postInstall = ''

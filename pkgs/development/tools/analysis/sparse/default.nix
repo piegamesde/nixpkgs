@@ -13,7 +13,8 @@
 
 let
   GCC_BASE =
-    "${stdenv.cc.cc}/lib/gcc/${stdenv.hostPlatform.uname.processor}-unknown-linux-gnu/${stdenv.cc.cc.version}";
+    "${stdenv.cc.cc}/lib/gcc/${stdenv.hostPlatform.uname.processor}-unknown-linux-gnu/${stdenv.cc.cc.version}"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "sparse";

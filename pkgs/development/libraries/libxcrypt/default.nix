@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/besser82/libxcrypt/releases/download/v${version}/libxcrypt-${version}.tar.xz";
+      "https://github.com/besser82/libxcrypt/releases/download/v${version}/libxcrypt-${version}.tar.xz"
+      ;
     hash = "sha256-6HrPnGUsVzpHE9VYIVn5jzBdVu1fdUzmT1fUGU1rOm8=";
   };
 

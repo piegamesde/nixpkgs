@@ -38,11 +38,12 @@ let
     version = "1.4";
 
     src = fetchurl {
-      url = let
-        date = "20210408";
-      in
-      "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${date}/AlephOne-${date}.tar.bz2"
-      ;
+      url =
+        let
+          date = "20210408";
+        in
+        "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${date}/AlephOne-${date}.tar.bz2"
+        ;
       sha256 = "sha256-tMwATUhUpo8W2oSWxGSZcAHVkj1PWEvUR/rpMZwWCWA=";
     };
 
@@ -89,7 +90,8 @@ let
 
     meta = with lib; {
       description =
-        "Aleph One is the open source continuation of Bungie’s Marathon 2 game engine";
+        "Aleph One is the open source continuation of Bungie’s Marathon 2 game engine"
+        ;
       homepage = "https://alephone.lhowon.org/";
       license = with licenses; [ gpl3 ];
       maintainers = with maintainers; [ ehmry ];
@@ -99,7 +101,8 @@ let
 
 in
 self // {
-  makeWrapper = {
+  makeWrapper =
+    {
       pname,
       desktopName,
       version,
@@ -142,5 +145,6 @@ self // {
         license = lib.licenses.free;
         hydraPlatforms = [ ];
       } // meta;
-    });
+    })
+    ;
 }

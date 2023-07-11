@@ -6,16 +6,19 @@
 
 let
 
-  python = let
-    packageOverrides = self: super: {
-      typeddep = self.callPackage ./typeddep { };
-    };
-  in
-  interpreter.override {
-    inherit packageOverrides;
-    self = python;
-  }
-  ;
+  python =
+    let
+      packageOverrides =
+        self: super: {
+          typeddep = self.callPackage ./typeddep { };
+        }
+        ;
+    in
+    interpreter.override {
+      inherit packageOverrides;
+      self = python;
+    }
+    ;
 
   pythonEnv = python.withPackages (ps: [
     ps.typeddep

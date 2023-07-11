@@ -37,7 +37,7 @@ mkYarnPackage {
     runHook postInstall
   '';
 
-  # Do not attempt generating a tarball for woodpecker-frontend again.
+    # Do not attempt generating a tarball for woodpecker-frontend again.
   doDist = false;
 
   meta = common.meta // {

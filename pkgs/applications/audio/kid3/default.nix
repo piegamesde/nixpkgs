@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.kde.org/stable/${pname}/${version}/${pname}-${version}.tar.xz";
+      "https://download.kde.org/stable/${pname}/${version}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-D2hrdej2Q69AYjDn2Ey4vBSOmzBY3UzZMUdJSRjurdA=";
   };
 

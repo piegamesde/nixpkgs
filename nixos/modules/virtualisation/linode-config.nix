@@ -20,13 +20,13 @@ with lib; {
     interfaces.eth0 = {
       useDHCP = true;
 
-      # Linode expects IPv6 privacy extensions to be disabled, so disable them
-      # See: https://www.linode.com/docs/guides/manual-network-configuration/#static-vs-dynamic-addressing
+        # Linode expects IPv6 privacy extensions to be disabled, so disable them
+        # See: https://www.linode.com/docs/guides/manual-network-configuration/#static-vs-dynamic-addressing
       tempAddress = "disabled";
     };
   };
 
-  # Install diagnostic tools for Linode support
+    # Install diagnostic tools for Linode support
   environment.systemPackages = with pkgs; [
     inetutils
     mtr
@@ -41,7 +41,7 @@ with lib; {
 
   swapDevices = mkDefault [ { device = "/dev/sdb"; } ];
 
-  # Enable LISH and Linode Booting w/ GRUB
+    # Enable LISH and Linode Booting w/ GRUB
   boot = {
     # Add Required Kernel Modules
     # NOTE: These are not documented in the install guide
@@ -52,7 +52,7 @@ with lib; {
       "sd_mod"
     ];
 
-    # Set Up LISH Serial Connection
+      # Set Up LISH Serial Connection
     kernelParams = [ "console=ttyS0,19200n8" ];
     kernelModules = [ "virtio_net" ];
 
@@ -67,7 +67,7 @@ with lib; {
         forceInstall = true;
         device = "nodev";
 
-        # Allow serial connection for GRUB to be able to use LISH
+          # Allow serial connection for GRUB to be able to use LISH
         extraConfig = ''
           serial --speed=19200 --unit=0 --word=8 --parity=no --stop=1;
           terminal_input serial;

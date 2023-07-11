@@ -54,8 +54,8 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/araujobsd/ifwifi";
     license = with licenses; [ bsd2 ];
     maintainers = with maintainers; [ blaggacao ];
-    # networkmanager doesn't work on darwin
-    # even though the `wifiscanner` crate would work
+      # networkmanager doesn't work on darwin
+      # even though the `wifiscanner` crate would work
     platforms = with platforms; linux; # ++ darwin;
   };
 }

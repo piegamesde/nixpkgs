@@ -9,7 +9,8 @@ import ../make-test-python.nix ({
     name = "unit-php-test";
     meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         lib,
         pkgs,
@@ -38,7 +39,8 @@ import ../make-test-python.nix ({
           };
           groups.testgroup = { gid = 1080; };
         };
-      };
+      }
+      ;
     testScript = ''
       machine.start()
 

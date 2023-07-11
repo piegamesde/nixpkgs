@@ -55,17 +55,18 @@ buildPythonPackage rec {
     xxhash
   ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  # Tests require pervasive internet access.
+    # Tests require pervasive internet access.
   doCheck = false;
 
-  # Module import will attempt to create a cache directory.
+    # Module import will attempt to create a cache directory.
   postFixup = "export HF_MODULES_CACHE=$TMPDIR";
 
   pythonImportsCheck = [ "datasets" ];
 
   meta = with lib; {
     description =
-      "Open-access datasets and evaluation metrics for natural language processing";
+      "Open-access datasets and evaluation metrics for natural language processing"
+      ;
     homepage = "https://github.com/huggingface/datasets";
     changelog =
       "https://github.com/huggingface/datasets/releases/tag/${version}";

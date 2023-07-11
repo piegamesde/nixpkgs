@@ -66,36 +66,40 @@ with lib;
 
   };
 
-  config = let
-    cfg = config.services.xray;
-    settingsFile = if cfg.settingsFile != null then
-      cfg.settingsFile
-    else
-      pkgs.writeTextFile {
-        name = "xray.json";
-        text = builtins.toJSON cfg.settings;
-        checkPhase = ''
-          ${cfg.package}/bin/xray -test -config $out
-        '';
-      };
+  config =
+    let
+      cfg = config.services.xray;
+      settingsFile =
+        if cfg.settingsFile != null then
+          cfg.settingsFile
+        else
+          pkgs.writeTextFile {
+            name = "xray.json";
+            text = builtins.toJSON cfg.settings;
+            checkPhase = ''
+              ${cfg.package}/bin/xray -test -config $out
+            '';
+          }
+        ;
 
-  in
-  mkIf cfg.enable {
-    assertions = [ {
-      assertion = (cfg.settingsFile == null) != (cfg.settings == null);
-      message =
-        "Either but not both `settingsFile` and `settings` should be specified for xray.";
-    } ];
+    in
+    mkIf cfg.enable {
+      assertions = [ {
+        assertion = (cfg.settingsFile == null) != (cfg.settings == null);
+        message =
+          "Either but not both `settingsFile` and `settings` should be specified for xray."
+          ;
+      } ];
 
-    systemd.services.xray = {
-      description = "xray Daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        DynamicUser = true;
-        ExecStart = "${cfg.package}/bin/xray -config ${settingsFile}";
+      systemd.services.xray = {
+        description = "xray Daemon";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          DynamicUser = true;
+          ExecStart = "${cfg.package}/bin/xray -config ${settingsFile}";
+        };
       };
-    };
-  }
-  ;
+    }
+    ;
 }

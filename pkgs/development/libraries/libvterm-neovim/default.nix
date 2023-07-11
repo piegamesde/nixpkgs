@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libvterm-neovim";
-  # Releases are not tagged, look at commit history to find latest release
+    # Releases are not tagged, look at commit history to find latest release
   version = "0.3.1";
 
   src = fetchurl {

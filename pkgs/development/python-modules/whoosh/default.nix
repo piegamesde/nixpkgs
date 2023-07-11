@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-  # Wrong encoding
+    # Wrong encoding
   postPatch = ''
     rm tests/test_reading.py
     substituteInPlace setup.cfg --replace "[pytest]" "[tool:pytest]"

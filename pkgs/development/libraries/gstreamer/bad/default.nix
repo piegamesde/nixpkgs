@@ -118,7 +118,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz"
+      ;
     hash = "sha256-PY+vHONALIU1zjqMThpslg5LVlXb2mtVlD25rHkCLQ8=";
   };
 
@@ -345,7 +346,7 @@ stdenv.mkDerivation rec {
         "-Dx265=disabled"
       ]);
 
-  # Argument list too long
+    # Argument list too long
   strictDeps = true;
 
   postPatch = ''
@@ -353,8 +354,8 @@ stdenv.mkDerivation rec {
       scripts/extract-release-date-from-doap-file.py
   '';
 
-  # This package has some `_("string literal")` string formats
-  # that trip up clang with format security enabled.
+    # This package has some `_("string literal")` string formats
+    # that trip up clang with format security enabled.
   hardeningDisable = [ "format" ];
 
   doCheck = false; # fails 20 out of 58 tests, expensive
@@ -368,10 +369,12 @@ stdenv.mkDerivation rec {
       something - be it a good code review, some documentation, a set of tests,
       a real live maintainer, or some actual wide use.
     '';
-    license = if enableGplPlugins then
-      licenses.gpl2Plus
-    else
-      licenses.lgpl2Plus;
+    license =
+      if enableGplPlugins then
+        licenses.gpl2Plus
+      else
+        licenses.lgpl2Plus
+      ;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ matthewbauer ];
   };

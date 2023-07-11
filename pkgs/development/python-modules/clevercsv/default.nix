@@ -49,8 +49,8 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ]
-    ++ passthru.optional-dependencies.full;
+  nativeCheckInputs =
+    [ pytestCheckHook ] ++ passthru.optional-dependencies.full;
 
   pythonImportsCheck = [
     "clevercsv"
@@ -63,7 +63,7 @@ buildPythonPackage rec {
     ln -s $out/${python.sitePackages}/clevercsv/ clevercsv
   '';
 
-  # their ci only runs unit tests, there are also integration and fuzzing tests
+    # their ci only runs unit tests, there are also integration and fuzzing tests
   pytestFlagsArray = [ "./tests/test_unit" ];
 
   disabledTestPaths = [
@@ -81,7 +81,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/alan-turing-institute/CleverCSV";
     changelog =
-      "https://github.com/alan-turing-institute/CleverCSV/blob/${src.rev}/CHANGELOG.md";
+      "https://github.com/alan-turing-institute/CleverCSV/blob/${src.rev}/CHANGELOG.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/grocy/grocy/releases/download/v${version}/grocy_${version}.zip";
+      "https://github.com/grocy/grocy/releases/download/v${version}/grocy_${version}.zip"
+      ;
     sha256 = "sha256-KF4zxrC8rlRUaBKc4iLIt6TSAHMJ+tOWptMsVcixVWs=";
   };
 
@@ -21,8 +22,8 @@ stdenv.mkDerivation rec {
     unzip ${src} -d .
   '';
 
-  # NOTE: if patches are created from a git checkout, those should be modified
-  # with `unixdos` to make sure those apply here.
+    # NOTE: if patches are created from a git checkout, those should be modified
+    # with `unixdos` to make sure those apply here.
   patches = [
     ./0001-Define-configs-with-env-vars.patch
     ./0002-Remove-check-for-config-file-as-it-s-stored-in-etc-g.patch
@@ -45,7 +46,8 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ma27 ];
     description =
-      "ERP beyond your fridge - grocy is a web-based self-hosted groceries & household management solution for your home";
+      "ERP beyond your fridge - grocy is a web-based self-hosted groceries & household management solution for your home"
+      ;
     homepage = "https://grocy.info/";
   };
 }

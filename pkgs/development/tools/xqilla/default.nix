@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An XQuery and XPath 2 library and command line utility written in C++, implemented on top of the Xerces-C library";
+      "An XQuery and XPath 2 library and command line utility written in C++, implemented on top of the Xerces-C library"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ obadz ];
     platforms = platforms.all;

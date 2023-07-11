@@ -35,7 +35,7 @@ stdenv.mkDerivation {
 
   setupHook = lib.optional (bootstrap-chicken != null) ./setup-hook.sh;
 
-  # -fno-strict-overflow is not a supported argument in clang on darwin
+    # -fno-strict-overflow is not a supported argument in clang on darwin
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
   makeFlags = [
@@ -48,8 +48,8 @@ stdenv.mkDerivation {
     "POSTINSTALL_PROGRAM=install_name_tool"
   ]);
 
-  # We need a bootstrap-chicken to regenerate the c-files after
-  # applying a patch to add support for CHICKEN_REPOSITORY_EXTRA
+    # We need a bootstrap-chicken to regenerate the c-files after
+    # applying a patch to add support for CHICKEN_REPOSITORY_EXTRA
   patches = lib.optionals (bootstrap-chicken
     != null) [ ./0001-Introduce-CHICKEN_REPOSITORY_EXTRA.patch ];
 
@@ -78,7 +78,7 @@ stdenv.mkDerivation {
     done
   '';
 
-  # TODO: Assert csi -R files -p '(pathname-file (repository-path))' == binaryVersion
+    # TODO: Assert csi -R files -p '(pathname-file (repository-path))' == binaryVersion
 
   meta = {
     homepage = "http://www.call-cc.org/";

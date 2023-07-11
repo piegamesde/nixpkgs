@@ -18,7 +18,8 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Provides functions for generating HTML pages that contain the help texts for a set of functions";
+      "Provides functions for generating HTML pages that contain the help texts for a set of functions"
+      ;
     longDescription = ''
       This package provides functions for generating HTML pages that contain
       the help texts for a set of functions. The package is designed to be as

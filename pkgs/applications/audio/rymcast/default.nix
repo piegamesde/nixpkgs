@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://www.inphonik.com/files/rymcast/rymcast-${version}-linux-x64.tar.gz";
+      "https://www.inphonik.com/files/rymcast/rymcast-${version}-linux-x64.tar.gz"
+      ;
     hash = "sha256:0vjjhfrwdibjjgz3awbg30qxkjrzc4cya1f4pigwjh3r0vvrq0ga";
     stripRoot = false;
   };

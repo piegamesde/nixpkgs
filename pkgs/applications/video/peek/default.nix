@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
     # https://github.com/phw/peek/pull/910
     (fetchpatch {
       url =
-        "https://github.com/phw/peek/commit/008d15316ab5428363c512b263ca8138cb8f52ba.patch";
+        "https://github.com/phw/peek/commit/008d15316ab5428363c512b263ca8138cb8f52ba.patch"
+        ;
       sha256 = "xxJ+r5uRk93MEzWTFla88ewZsnUl3+YKTenzDygtKP0=";
     })
   ];

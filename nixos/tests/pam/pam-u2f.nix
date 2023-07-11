@@ -5,7 +5,8 @@ import ../make-test-python.nix ({
   {
     name = "pam-u2f";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         security.pam.u2f = {
@@ -16,7 +17,8 @@ import ../make-test-python.nix ({
           interactive = true;
           origin = "nixos-test";
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

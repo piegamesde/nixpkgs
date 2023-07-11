@@ -23,7 +23,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A simple command line tool for converting Chinese characters to space-separate pinyin words";
+      "A simple command line tool for converting Chinese characters to space-separate pinyin words"
+      ;
     homepage = "https://github.com/briankung/pinyin-tool";
     license = licenses.mit;
     maintainers = with maintainers; [ neonfuz ];

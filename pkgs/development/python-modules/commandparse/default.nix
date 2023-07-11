@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "06mcxc0vs5qdcywalgyx5zm18z4xcsrg5g0wsqqv5qawkrvmvl53";
   };
 
-  # tests only distributed upstream source, not PyPi
+    # tests only distributed upstream source, not PyPi
   doCheck = false;
   pythonImportsCheck = [ "commandparse" ];
 

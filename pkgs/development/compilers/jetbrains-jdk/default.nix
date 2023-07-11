@@ -33,11 +33,11 @@ openjdk17.overrideAttrs (oldAttrs: rec {
   pname = "jetbrains-jdk-jcef";
   javaVersion = "17.0.6";
   build = "829.5";
-  # To get the new tag:
-  # git clone https://github.com/jetbrains/jetbrainsruntime
-  # cd jetbrainsruntime
-  # git reset --hard [revision]
-  # git log --simplify-by-decoration --decorate=short --pretty=short | grep "jdk-" | cut -d "(" -f2 | cut -d ")" -f1 | awk '{print $2}' | sort -t "-" -k 2 -g | tail -n 1
+    # To get the new tag:
+    # git clone https://github.com/jetbrains/jetbrainsruntime
+    # cd jetbrainsruntime
+    # git reset --hard [revision]
+    # git log --simplify-by-decoration --decorate=short --pretty=short | grep "jdk-" | cut -d "(" -f2 | cut -d ")" -f1 | awk '{print $2}' | sort -t "-" -k 2 -g | tail -n 1
   openjdkTag = "jdk-18+0";
   version = "${javaVersion}-b${build}";
 
@@ -53,7 +53,7 @@ openjdk17.overrideAttrs (oldAttrs: rec {
 
   patches = [ ];
 
-  # Configure is done in build phase
+    # Configure is done in build phase
   configurePhase = "true";
 
   buildPhase = ''
@@ -84,22 +84,25 @@ openjdk17.overrideAttrs (oldAttrs: rec {
     runHook postBuild
   '';
 
-  installPhase = let
-    buildType = if debugBuild then
-      "fastdebug"
-    else
-      "release";
-    debugSuffix = lib.optionalString debugBuild "-fastdebug";
-    jcefSuffix = lib.optionalString (!debugBuild) "_jcef";
-  in
-  ''
-    runHook preInstall
+  installPhase =
+    let
+      buildType =
+        if debugBuild then
+          "fastdebug"
+        else
+          "release"
+        ;
+      debugSuffix = lib.optionalString debugBuild "-fastdebug";
+      jcefSuffix = lib.optionalString (!debugBuild) "_jcef";
+    in
+    ''
+      runHook preInstall
 
-    mv build/linux-x86_64-server-${buildType}/images/jdk/man build/linux-x86_64-server-${buildType}/images/jbrsdk${jcefSuffix}-${javaVersion}-linux-x64${debugSuffix}-b${build}
-    rm -rf build/linux-x86_64-server-${buildType}/images/jdk
-    mv build/linux-x86_64-server-${buildType}/images/jbrsdk${jcefSuffix}-${javaVersion}-linux-x64${debugSuffix}-b${build} build/linux-x86_64-server-${buildType}/images/jdk
-  '' + oldAttrs.installPhase + "runHook postInstall"
-  ;
+      mv build/linux-x86_64-server-${buildType}/images/jdk/man build/linux-x86_64-server-${buildType}/images/jbrsdk${jcefSuffix}-${javaVersion}-linux-x64${debugSuffix}-b${build}
+      rm -rf build/linux-x86_64-server-${buildType}/images/jdk
+      mv build/linux-x86_64-server-${buildType}/images/jbrsdk${jcefSuffix}-${javaVersion}-linux-x64${debugSuffix}-b${build} build/linux-x86_64-server-${buildType}/images/jdk
+    '' + oldAttrs.installPhase + "runHook postInstall"
+    ;
 
   postInstall = ''
     chmod +x $out/lib/openjdk/lib/chrome-sandbox

@@ -40,7 +40,7 @@ buildPythonPackage rec {
     hash = "sha256-qgyAaUpyuWVYMxUA4Gg8inlUMlSLo++16+nVvmDMhTQ=";
   };
 
-  # Module has no tests, only a test client
+    # Module has no tests, only a test client
   doCheck = false;
 
   pythonImportsCheck = [ "mitmproxy_wireguard" ];
@@ -49,7 +49,8 @@ buildPythonPackage rec {
     description = "WireGuard frontend for mitmproxy";
     homepage = "https://github.com/decathorpe/mitmproxy_wireguard";
     changelog =
-      "https://github.com/decathorpe/mitmproxy_wireguard/releases/tag/${version}";
+      "https://github.com/decathorpe/mitmproxy_wireguard/releases/tag/${version}"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

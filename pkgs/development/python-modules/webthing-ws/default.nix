@@ -27,7 +27,7 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "webthing_ws" ];
@@ -36,7 +36,8 @@ buildPythonPackage rec {
     description = "WebThing WebSocket consumer and API client";
     homepage = "https://github.com/home-assistant-ecosystem/webthing-ws";
     changelog =
-      "https://github.com/home-assistant-ecosystem/webthing-ws/releases/tag/${version}";
+      "https://github.com/home-assistant-ecosystem/webthing-ws/releases/tag/${version}"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

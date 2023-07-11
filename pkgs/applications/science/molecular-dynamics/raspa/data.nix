@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  # Keep the shebangs of the examples from being patched
+    # Keep the shebangs of the examples from being patched
   dontPatchShebangs = true;
 
   meta = with lib; {

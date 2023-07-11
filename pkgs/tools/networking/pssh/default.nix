@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  # Tests do not run with python3: https://github.com/lilydjwg/pssh/issues/126
+    # Tests do not run with python3: https://github.com/lilydjwg/pssh/issues/126
   doCheck = false;
 
   meta = with lib; {

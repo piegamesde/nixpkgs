@@ -146,7 +146,8 @@ stdenv.mkDerivation (finalAttrs: {
     # fixes EDL error on youtube DASH streams https://github.com/mpv-player/mpv/issues/11392
     # to be removed on next release
     url =
-      "https://github.com/mpv-player/mpv/commit/94c189dae76ba280d9883b16346c3dfb9720687e.patch";
+      "https://github.com/mpv-player/mpv/commit/94c189dae76ba280d9883b16346c3dfb9720687e.patch"
+      ;
     sha256 = "sha256-GeAltLAwkOKk82YfXYSrkNEX08uPauh7+kVbBGPWeT8=";
   }) ];
 
@@ -275,8 +276,8 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r mpv.app $out/Applications
   '';
 
-  # Set RUNPATH so that libcuda in /run/opengl-driver(-32)/lib can be found.
-  # See the explanation in addOpenGLRunpath.
+    # Set RUNPATH so that libcuda in /run/opengl-driver(-32)/lib can be found.
+    # See the explanation in addOpenGLRunpath.
   postFixup = lib.optionalString stdenv.isLinux ''
     addOpenGLRunpath $out/bin/mpv
   '';

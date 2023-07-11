@@ -6,14 +6,17 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ matthewcroughan ]; };
 
     nodes = {
-      client = {
+      client =
+        {
           config,
           pkgs,
           ...
         }: {
           environment.systemPackages = [ pkgs.curl ];
-        };
-      nodered = {
+        }
+        ;
+      nodered =
+        {
           config,
           pkgs,
           ...
@@ -22,7 +25,8 @@ import ./make-test-python.nix ({
             enable = true;
             openFirewall = true;
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

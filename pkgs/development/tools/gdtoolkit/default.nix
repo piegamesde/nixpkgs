@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
   pname = "gdtoolkit";
   version = "3.3.1";
 
-  # If we try to get using fetchPypi it requires GeoIP (but the package dont has that dep!?)
+    # If we try to get using fetchPypi it requires GeoIP (but the package dont has that dep!?)
   src = fetchFromGitHub {
     owner = "Scony";
     repo = "godot-gdscript-toolkit";
@@ -47,33 +47,34 @@ python3Packages.buildPythonApplication rec {
     godot-server
   ];
 
-  preCheck = let
-    godotServerMajorVersion = lib.versions.major godot-server.version;
-    gdtoolkitMajorVersion = lib.versions.major version;
-    msg = ''
-      gdtoolkit major version ${gdtoolkitMajorVersion} does not match godot-server major version ${godotServerMajorVersion}!
-      gdtoolkit needs a matching godot-server for its tests.
-      If you see this error, you can either:
-       - disable doCheck for gdtoolkit, or
-       - provide a compatible godot-server version to gdtoolkit"
-    '';
-  in
-  lib.throwIf (godotServerMajorVersion != gdtoolkitMajorVersion) msg ''
-    # The tests want to run the installed executables
-    export PATH=$out/bin:$PATH
+  preCheck =
+    let
+      godotServerMajorVersion = lib.versions.major godot-server.version;
+      gdtoolkitMajorVersion = lib.versions.major version;
+      msg = ''
+        gdtoolkit major version ${gdtoolkitMajorVersion} does not match godot-server major version ${godotServerMajorVersion}!
+        gdtoolkit needs a matching godot-server for its tests.
+        If you see this error, you can either:
+         - disable doCheck for gdtoolkit, or
+         - provide a compatible godot-server version to gdtoolkit"
+      '';
+    in
+    lib.throwIf (godotServerMajorVersion != gdtoolkitMajorVersion) msg ''
+      # The tests want to run the installed executables
+      export PATH=$out/bin:$PATH
 
-    # gdtoolkit tries to write cache variables to $HOME/.cache
-    export HOME=$TMP
+      # gdtoolkit tries to write cache variables to $HOME/.cache
+      export HOME=$TMP
 
-    # Work around https://github.com/godotengine/godot/issues/20503
-    # Without this, Godot will complain about a missing project file
-    touch project.godot
+      # Work around https://github.com/godotengine/godot/issues/20503
+      # Without this, Godot will complain about a missing project file
+      touch project.godot
 
-    # Remove broken test case
-    # (hard to skip via disabledTests since the test name contains an absolute path)
-    rm tests/potential-godot-bugs/multiline-subscription-expression.gd
-  ''
-  ;
+      # Remove broken test case
+      # (hard to skip via disabledTests since the test name contains an absolute path)
+      rm tests/potential-godot-bugs/multiline-subscription-expression.gd
+    ''
+    ;
 
   pythonImportsCheck = [
     "gdtoolkit"
@@ -84,7 +85,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Independent set of tools for working with Godot's GDScript - parser, linter and formatter";
+      "Independent set of tools for working with Godot's GDScript - parser, linter and formatter"
+      ;
     homepage = "https://github.com/Scony/godot-gdscript-toolkit";
     license = licenses.mit;
     maintainers = with maintainers; [

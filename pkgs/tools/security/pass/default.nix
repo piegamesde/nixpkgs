@@ -48,7 +48,8 @@ assert dmenuSupport && waylandSupport -> dmenu-wayland != null && ydotool
 let
   passExtensions = import ./extensions { inherit pkgs; };
 
-  env = extensions:
+  env =
+    extensions:
     let
       selected = [ pass ] ++ extensions passExtensions
         ++ lib.optional tombPluginSupport passExtensions.tomb;
@@ -77,7 +78,7 @@ let
           --set SYSTEM_EXTENSION_DIR "$out/lib/password-store/extensions"
       '';
     }
-  ;
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -86,7 +87,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.zx2c4.com/password-store/snapshot/${pname}-${version}.tar.xz";
+      "https://git.zx2c4.com/password-store/snapshot/${pname}-${version}.tar.xz"
+      ;
     sha256 = "1h4k6w7g8pr169p5w9n6mkdhxl3pw51zphx7www6pvgjb7vgmafg";
   };
 
@@ -150,8 +152,8 @@ stdenv.mkDerivation rec {
       --prefix PATH : "$out/bin:${wrapperPath}"
   '';
 
-  # Turn "check" into "installcheck", since we want to test our pass,
-  # not the one before the fixup.
+    # Turn "check" into "installcheck", since we want to test our pass,
+    # not the one before the fixup.
   postPatch = ''
     patchShebangs tests
 

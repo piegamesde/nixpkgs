@@ -213,8 +213,8 @@ in {
       thirdparty = pkgs.icingaweb2-thirdparty;
     };
 
-    systemd.services."phpfpm-${poolName}".serviceConfig.ReadWritePaths =
-      [ "/etc/icingaweb2" ];
+    systemd.services."phpfpm-${poolName}".serviceConfig.ReadWritePaths = [ "/etc/icingaweb2" ]
+      ;
 
     services.nginx = {
       enable = true;
@@ -244,39 +244,42 @@ in {
       };
     };
 
-    # /etc/icingaweb2
-    environment.etc = let
-      doModule = name:
-        optionalAttrs (cfg.modules.${name}.enable) {
-          "icingaweb2/enabledModules/${name}".source =
-            "${pkgs.icingaweb2}/modules/${name}";
-        };
-    in
-    { }
-    # Module packages
-    // (mapAttrs'
-      (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
-      cfg.modulePackages)
-    # Built-in modules
-    // doModule "doc" // doModule "migrate" // doModule "setup"
-    // doModule "test" // doModule "translation"
-    # Configs
-    // optionalAttrs (cfg.generalConfig != null) {
-      "icingaweb2/config.ini".text =
-        generators.toINI { } (defaultConfig // cfg.generalConfig);
-    } // optionalAttrs (cfg.resources != null) {
-      "icingaweb2/resources.ini".text = generators.toINI { } cfg.resources;
-    } // optionalAttrs (cfg.authentications != null) {
-      "icingaweb2/authentication.ini".text =
-        generators.toINI { } cfg.authentications;
-    } // optionalAttrs (cfg.groupBackends != null) {
-      "icingaweb2/groups.ini".text = generators.toINI { } cfg.groupBackends;
-    } // optionalAttrs (cfg.roles != null) {
-      "icingaweb2/roles.ini".text = generators.toINI { } cfg.roles;
-    }
-    ;
+      # /etc/icingaweb2
+    environment.etc =
+      let
+        doModule =
+          name:
+          optionalAttrs (cfg.modules.${name}.enable) {
+            "icingaweb2/enabledModules/${name}".source =
+              "${pkgs.icingaweb2}/modules/${name}";
+          }
+          ;
+      in
+      { }
+      # Module packages
+      // (mapAttrs'
+        (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
+        cfg.modulePackages)
+      # Built-in modules
+      // doModule "doc" // doModule "migrate" // doModule "setup"
+      // doModule "test" // doModule "translation"
+      # Configs
+      // optionalAttrs (cfg.generalConfig != null) {
+        "icingaweb2/config.ini".text =
+          generators.toINI { } (defaultConfig // cfg.generalConfig);
+      } // optionalAttrs (cfg.resources != null) {
+        "icingaweb2/resources.ini".text = generators.toINI { } cfg.resources;
+      } // optionalAttrs (cfg.authentications != null) {
+        "icingaweb2/authentication.ini".text =
+          generators.toINI { } cfg.authentications;
+      } // optionalAttrs (cfg.groupBackends != null) {
+        "icingaweb2/groups.ini".text = generators.toINI { } cfg.groupBackends;
+      } // optionalAttrs (cfg.roles != null) {
+        "icingaweb2/roles.ini".text = generators.toINI { } cfg.roles;
+      }
+      ;
 
-    # User and group
+      # User and group
     users.groups.icingaweb2 = { };
     users.users.icingaweb2 = {
       description = "Icingaweb2 service user";

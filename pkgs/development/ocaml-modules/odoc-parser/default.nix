@@ -39,7 +39,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml-doc/odoc-parser/releases/download/${version}/odoc-parser-${version}.tbz";
+      "https://github.com/ocaml-doc/odoc-parser/releases/download/${version}/odoc-parser-${version}.tbz"
+      ;
     inherit (param) sha256;
   };
 

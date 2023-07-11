@@ -28,7 +28,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "fix-variadic-functions-on-aarch64-darwin.patch";
       url =
-        "https://github.com/orion-labs/opuslib/commit/8aee916e4da4b3183d49cff5a986dc2408076d8d.patch";
+        "https://github.com/orion-labs/opuslib/commit/8aee916e4da4b3183d49cff5a986dc2408076d8d.patch"
+        ;
       hash = "sha256-oa1HCFHNS3ejzSf0jxv9NueUKOZgdCtpv+xTrjYW5os=";
     })
     (substituteAll {

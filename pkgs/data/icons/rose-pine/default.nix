@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  # avoid the makefile which is only for the theme maintainers
+    # avoid the makefile which is only for the theme maintainers
   dontBuild = true;
 
   installPhase = ''

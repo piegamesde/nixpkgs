@@ -57,21 +57,25 @@ in {
       description = "mimir Service Daemon";
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = let
-        conf = if cfg.configFile == null then
-          settingsFormat.generate "config.yaml" cfg.configuration
-        else
-          cfg.configFile;
-      in {
-        ExecStart = "${cfg.package}/bin/mimir --config.file=${conf}";
-        DynamicUser = true;
-        Restart = "always";
-        ProtectSystem = "full";
-        DevicePolicy = "closed";
-        NoNewPrivileges = true;
-        WorkingDirectory = "/var/lib/mimir";
-        StateDirectory = "mimir";
-      } ;
+      serviceConfig =
+        let
+          conf =
+            if cfg.configFile == null then
+              settingsFormat.generate "config.yaml" cfg.configuration
+            else
+              cfg.configFile
+            ;
+        in {
+          ExecStart = "${cfg.package}/bin/mimir --config.file=${conf}";
+          DynamicUser = true;
+          Restart = "always";
+          ProtectSystem = "full";
+          DevicePolicy = "closed";
+          NoNewPrivileges = true;
+          WorkingDirectory = "/var/lib/mimir";
+          StateDirectory = "mimir";
+        }
+        ;
     };
   };
 }

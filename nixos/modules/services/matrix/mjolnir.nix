@@ -13,12 +13,14 @@ let
     inherit (cfg) dataPath managementRoom protectedRooms;
 
     accessToken = "@ACCESS_TOKEN@"; # will be replaced in "generateConfig"
-    homeserverUrl = if cfg.pantalaimon.enable then
-      "http://${cfg.pantalaimon.options.listenAddress}:${
-        toString cfg.pantalaimon.options.listenPort
-      }"
-    else
-      cfg.homeserverUrl;
+    homeserverUrl =
+      if cfg.pantalaimon.enable then
+        "http://${cfg.pantalaimon.options.listenAddress}:${
+          toString cfg.pantalaimon.options.listenPort
+        }"
+      else
+        cfg.homeserverUrl
+      ;
 
     rawHomeserverUrl = cfg.homeserverUrl;
 
@@ -37,14 +39,14 @@ let
       cfg.settings
     ])));
 
-  # these config files will be merged one after the other to build the final config
+    # these config files will be merged one after the other to build the final config
   configFiles = [
     "${pkgs.mjolnir}/share/mjolnir/config/default.yaml"
     moduleConfigFile
   ];
 
-  # this will generate the default.yaml file with all configFiles as inputs and
-  # replace all secret strings using replace-secret
+    # this will generate the default.yaml file with all configFiles as inputs and
+    # replace all secret strings using replace-secret
   generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (let
     yqEvalStr = concatImapStringsSep " * "
       (pos: _: "select(fileIndex == ${toString (pos - 1)})") configFiles;
@@ -221,16 +223,16 @@ in {
         User = "mjolnir";
         Restart = "on-failure";
 
-        /* TODO: wait for #102397 to be resolved. Then load secrets from $CREDENTIALS_DIRECTORY+"/NAME"
-           DynamicUser = true;
-           LoadCredential = [] ++
-             optionals (cfg.accessTokenFile != null) [
-               "access_token:${cfg.accessTokenFile}"
-             ] ++
-             optionals (cfg.pantalaimon.passwordFile != null) [
-               "pantalaimon_password:${cfg.pantalaimon.passwordFile}"
-             ];
-        */
+          /* TODO: wait for #102397 to be resolved. Then load secrets from $CREDENTIALS_DIRECTORY+"/NAME"
+             DynamicUser = true;
+             LoadCredential = [] ++
+               optionals (cfg.accessTokenFile != null) [
+                 "access_token:${cfg.accessTokenFile}"
+               ] ++
+               optionals (cfg.pantalaimon.passwordFile != null) [
+                 "pantalaimon_password:${cfg.pantalaimon.passwordFile}"
+               ];
+          */
       };
     };
 

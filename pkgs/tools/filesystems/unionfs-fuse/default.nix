@@ -33,12 +33,12 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ fuse ];
 
-  # Put the unionfs mount helper in place as mount.unionfs-fuse. This makes it
-  # possible to do:
-  #   mount -t unionfs-fuse none /dest -o dirs=/source1=RW,/source2=RO
-  #
-  # This must be done in preConfigure because the build process removes
-  # helper from the source directory during the build.
+    # Put the unionfs mount helper in place as mount.unionfs-fuse. This makes it
+    # possible to do:
+    #   mount -t unionfs-fuse none /dest -o dirs=/source1=RW,/source2=RO
+    #
+    # This must be done in preConfigure because the build process removes
+    # helper from the source directory during the build.
   preConfigure = lib.optionalString (!stdenv.isDarwin) ''
     mkdir -p $out/sbin
     cp -a mount.unionfs $out/sbin/mount.unionfs-fuse

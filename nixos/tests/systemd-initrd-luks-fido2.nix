@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "systemd-initrd-luks-fido2";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         config,
         ...
@@ -34,7 +35,8 @@ import ./make-test-python.nix ({
           };
           virtualisation.rootDevice = "/dev/mapper/cryptroot";
         };
-      };
+      }
+      ;
 
     testScript = ''
       # Create encrypted volume

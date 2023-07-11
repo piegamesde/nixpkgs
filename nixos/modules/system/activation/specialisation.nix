@@ -32,7 +32,8 @@ in {
     specialisation = mkOption {
       default = { };
       example = lib.literalExpression
-        "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }";
+        "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }"
+        ;
       description = lib.mdDoc ''
         Additional configurations to build. If
         `inheritParentConfig` is true, the system
@@ -49,16 +50,19 @@ in {
           ...
         }:
         let
-          extend = if local.config.inheritParentConfig then
-            extendModules
-          else
-            noUserModules.extendModules;
+          extend =
+            if local.config.inheritParentConfig then
+              extendModules
+            else
+              noUserModules.extendModules
+            ;
         in {
           options.inheritParentConfig = mkOption {
             type = types.bool;
             default = true;
             description = lib.mdDoc
-              "Include the entire system's configuration. Set to false to make a completely differently configured system.";
+              "Include the entire system's configuration. Set to false to make a completely differently configured system."
+              ;
           };
 
           options.configuration = mkOption {
@@ -87,6 +91,6 @@ in {
     '';
   };
 
-  # uses extendModules to generate a type
+    # uses extendModules to generate a type
   meta.buildDocsInSandbox = false;
 }

@@ -14,7 +14,7 @@ let
   user = cfg.user;
   group = cfg.group;
 
-  # shell script for local administration
+    # shell script for local administration
   artisan = pkgs.writeScriptBin "monica" ''
     #! ${pkgs.runtimeShell}
     cd ${monica}
@@ -58,10 +58,12 @@ in {
 
     hostname = lib.mkOption {
       type = lib.types.str;
-      default = if config.networking.domain != null then
-        config.networking.fqdn
-      else
-        config.networking.hostName;
+      default =
+        if config.networking.domain != null then
+          config.networking.fqdn
+        else
+          config.networking.hostName
+        ;
       defaultText = lib.literalExpression "config.networking.fqdn";
       example = "monica.example.com";
       description = lib.mdDoc ''
@@ -284,12 +286,14 @@ in {
       {
         assertion = db.createLocally -> db.user == user;
         message =
-          "services.monica.database.user must be set to ${user} if services.monica.database.createLocally is set true.";
+          "services.monica.database.user must be set to ${user} if services.monica.database.createLocally is set true."
+          ;
       }
       {
         assertion = db.createLocally -> db.passwordFile == null;
         message =
-          "services.monica.database.passwordFile cannot be specified if services.monica.database.createLocally is set to true.";
+          "services.monica.database.passwordFile cannot be specified if services.monica.database.createLocally is set to true."
+          ;
       }
     ];
 
@@ -386,62 +390,69 @@ in {
         RuntimeDirectoryMode = 700;
       };
       path = [ pkgs.replace-secret ];
-      script = let
-        isSecret = v: isAttrs v && v ? _secret && isString v._secret;
-        monicaEnvVars = lib.generators.toKeyValue {
-          mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
-            mkValueString = v:
-              with builtins;
-              if isInt v then
-                toString v
-              else if isString v then
-                v
-              else if true == v then
-                "true"
-              else if false == v then
-                "false"
-              else if isSecret v then
-                hashString "sha256" v._secret
-              else
-                throw "unsupported type ${typeOf v}: ${
-                  (lib.generators.toPretty { }) v
-                }";
+      script =
+        let
+          isSecret = v: isAttrs v && v ? _secret && isString v._secret;
+          monicaEnvVars = lib.generators.toKeyValue {
+            mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
+              mkValueString =
+                v:
+                with builtins;
+                if isInt v then
+                  toString v
+                else if isString v then
+                  v
+                else if true == v then
+                  "true"
+                else if false == v then
+                  "false"
+                else if isSecret v then
+                  hashString "sha256" v._secret
+                else
+                  throw "unsupported type ${typeOf v}: ${
+                    (lib.generators.toPretty { }) v
+                  }"
+                ;
+            };
           };
-        };
-        secretPaths = lib.mapAttrsToList (_: v: v._secret)
-          (lib.filterAttrs (_: isSecret) cfg.config);
-        mkSecretReplacement = file: ''
-          replace-secret ${
-            escapeShellArgs [
-              (builtins.hashString "sha256" file)
-              file
-              "${cfg.dataDir}/.env"
-            ]
-          }
-        '';
-        secretReplacements =
-          lib.concatMapStrings mkSecretReplacement secretPaths;
-        filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v:
-          !elem v [
-            { }
-            null
-          ])) cfg.config;
-        monicaEnv = pkgs.writeText "monica.env" (monicaEnvVars filteredConfig);
-      in ''
-        # error handling
-        set -euo pipefail
+          secretPaths = lib.mapAttrsToList (_: v: v._secret)
+            (lib.filterAttrs (_: isSecret) cfg.config);
+          mkSecretReplacement =
+            file: ''
+              replace-secret ${
+                escapeShellArgs [
+                  (builtins.hashString "sha256" file)
+                  file
+                  "${cfg.dataDir}/.env"
+                ]
+              }
+            ''
+            ;
+          secretReplacements =
+            lib.concatMapStrings mkSecretReplacement secretPaths;
+          filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v:
+            !elem v [
+              { }
+              null
+            ])) cfg.config;
+          monicaEnv =
+            pkgs.writeText "monica.env" (monicaEnvVars filteredConfig);
+        in ''
+          # error handling
+          set -euo pipefail
 
-        # create .env file
-        install -T -m 0600 -o ${user} ${monicaEnv} "${cfg.dataDir}/.env"
-        ${secretReplacements}
-        if ! grep 'APP_KEY=base64:' "${cfg.dataDir}/.env" >/dev/null; then
-          sed -i 's/APP_KEY=/APP_KEY=base64:/' "${cfg.dataDir}/.env"
-        fi
+          # create .env file
+          install -T -m 0600 -o ${user} ${monicaEnv} "${cfg.dataDir}/.env"
+          ${secretReplacements}
+          if ! grep 'APP_KEY=base64:' "${cfg.dataDir}/.env" >/dev/null; then
+            sed -i 's/APP_KEY=/APP_KEY=base64:/' "${cfg.dataDir}/.env"
+          fi
 
-        # migrate & seed db
-        ${pkgs.php}/bin/php artisan key:generate --force
-        ${pkgs.php}/bin/php artisan setup:production -v --force
-      '' ;
+          # migrate & seed db
+          ${pkgs.php}/bin/php artisan key:generate --force
+          ${pkgs.php}/bin/php artisan setup:production -v --force
+        ''
+        ;
     };
 
     systemd.services.monica-scheduler = {

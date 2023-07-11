@@ -20,11 +20,11 @@ buildPythonPackage rec {
     sha256 = "5858b1760fbe21848121b826b2463a67ac5a45caf3d73105497a68618c5a6fa6";
   };
 
-  # explicit check:
-  # build/src/cysignals/implementation.c:27:2: error: #error "cysignals must be compiled without _FORTIFY_SOURCE"
+    # explicit check:
+    # build/src/cysignals/implementation.c:27:2: error: #error "cysignals must be compiled without _FORTIFY_SOURCE"
   hardeningDisable = [ "fortify" ];
 
-  # known failure: https://github.com/sagemath/cysignals/blob/582dbf6a7b0f9ade0abe7a7b8720b7fb32435c3c/testgdb.py#L5
+    # known failure: https://github.com/sagemath/cysignals/blob/582dbf6a7b0f9ade0abe7a7b8720b7fb32435c3c/testgdb.py#L5
   doCheck = false;
   checkTarget = "check-install";
 

@@ -14,7 +14,8 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 let
   inherit (pkgs) lib;
 
-  makeCert = {
+  makeCert =
+    {
       caName,
       domain,
     }:
@@ -66,7 +67,8 @@ let
         --load-ca-certificate $out/ca.crt \
         --template server.template        \
         --outfile $out/server.crt
-    '';
+    ''
+    ;
 
   example-good-cert = makeCert {
     caName = "Example good CA";
@@ -109,10 +111,12 @@ let
   curlTest = makeTest {
     name = "custom-ca-curl";
     meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }:
-      webserverConfig;
+      webserverConfig
+      ;
     testScript = ''
       with subtest("Good certificate is trusted in curl"):
           machine.wait_for_unit("nginx")
@@ -124,14 +128,16 @@ let
     '';
   };
 
-  mkBrowserTest = browser: testParams:
+  mkBrowserTest =
+    browser: testParams:
     makeTest {
       name = "custom-ca-${browser}";
       meta.maintainers = with lib.maintainers; [ rnhmjoj ];
 
       enableOCR = true;
 
-      nodes.machine = {
+      nodes.machine =
+        {
           pkgs,
           ...
         }: {
@@ -141,17 +147,18 @@ let
             webserverConfig
           ];
 
-          # chromium-based browsers refuse to run as root
+            # chromium-based browsers refuse to run as root
           test-support.displayManager.auto.user = "alice";
 
-          # browsers may hang with the default memory
+            # browsers may hang with the default memory
           virtualisation.memorySize = 600;
 
           environment.systemPackages = [
             pkgs.xdotool
             pkgs.${browser}
           ];
-        };
+        }
+        ;
 
       testScript = ''
         from typing import Tuple
@@ -197,7 +204,8 @@ let
             machine.wait_for_text("${testParams.error}")
             machine.screenshot("bad${browser}")
       '';
-    };
+    }
+    ;
 
 in
 {

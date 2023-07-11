@@ -34,11 +34,11 @@ stdenvNoCC.mkDerivation rec {
       volunteers who work together on glyphwiki.org.
     '';
 
-    # Dual-licensed under OFL and the following:
-    # This font is a free software.
-    # Unlimited permission is granted to use, copy, and distribute it, with
-    # or without modification, either commercially and noncommercially.
-    # THIS FONT IS PROVIDED "AS IS" WITHOUT WARRANTY.
+      # Dual-licensed under OFL and the following:
+      # This font is a free software.
+      # Unlimited permission is granted to use, copy, and distribute it, with
+      # or without modification, either commercially and noncommercially.
+      # THIS FONT IS PROVIDED "AS IS" WITHOUT WARRANTY.
     license = [
       licenses.ofl
       licenses.free

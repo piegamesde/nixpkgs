@@ -112,13 +112,13 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
 
-    # xrdp can run X11 program even if "services.xserver.enable = false"
+      # xrdp can run X11 program even if "services.xserver.enable = false"
     xdg = {
       autostart.enable = true;
       menus.enable = true;
@@ -170,11 +170,12 @@ in {
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
         description = "xrdp session manager";
-        restartIfChanged =
-          false; # do not restart on "nixos-rebuild switch". like "display-manager", it can have many interactive programs as children
+        restartIfChanged = false
+          ; # do not restart on "nixos-rebuild switch". like "display-manager", it can have many interactive programs as children
         serviceConfig = {
           ExecStart =
-            "${cfg.package}/bin/xrdp-sesman --nodaemon --config ${cfg.confDir}/sesman.ini";
+            "${cfg.package}/bin/xrdp-sesman --nodaemon --config ${cfg.confDir}/sesman.ini"
+            ;
           ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         };
       };

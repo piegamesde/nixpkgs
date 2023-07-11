@@ -69,10 +69,10 @@ buildPythonPackage rec {
 
   dontWrapQtApps = true;
 
-  # Avoid running qmake, which is in nativeBuildInputs
+    # Avoid running qmake, which is in nativeBuildInputs
   dontConfigure = true;
 
-  # Checked using pythonImportsCheck
+    # Checked using pythonImportsCheck
   doCheck = false;
 
   pythonImportsCheck = [

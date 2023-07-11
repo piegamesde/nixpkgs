@@ -11,10 +11,10 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "ANSSI-FR";
     repo = "ultrablue";
-    # Do not use a more recent
+      # Do not use a more recent
     rev = "tags/fosdem-2023";
     hash = "sha256-rnUbgZI+SycYCDUoSziOy+WxRFvyM3XJWJnk3+t0eb4=";
-    # rev = "6de04af6e353e38c030539c5678e5918f64be37e";
+      # rev = "6de04af6e353e38c030539c5678e5918f64be37e";
   };
 
   sourceRoot = "source/server";

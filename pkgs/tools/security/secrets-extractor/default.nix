@@ -23,7 +23,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool to check packets for secrets";
     homepage = "https://github.com/Xenios91/Secrets-Extractor";
-    # https://github.com/Xenios91/Secrets-Extractor/issues/1
+      # https://github.com/Xenios91/Secrets-Extractor/issues/1
     license = with licenses; [ unfree ];
     maintainers = with maintainers; [ fab ];
   };

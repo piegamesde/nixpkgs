@@ -10,8 +10,8 @@ buildPythonPackage rec {
   pname = "mkdocs-exclude";
   version = "1.0.2";
 
-  # Repository has only 3 commits and no tags. Each of these commits has
-  # version of 1.0.0, 1.0.1 and 1.0.2 in setup.py, though.
+    # Repository has only 3 commits and no tags. Each of these commits has
+    # version of 1.0.0, 1.0.1 and 1.0.2 in setup.py, though.
   src = fetchFromGitHub {
     owner = "apenwarr";
     repo = "mkdocs-exclude";
@@ -21,12 +21,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ mkdocs ];
 
-  # Attempt to import "mkdocs_exclude" module in stand-alone mode fails:
-  #
-  #    module 'mkdocs.config' has no attribute 'config_options'
-  #
-  # It works fine when actually used to build documentation of "pydantic",
-  # though. This package has no tests.
+    # Attempt to import "mkdocs_exclude" module in stand-alone mode fails:
+    #
+    #    module 'mkdocs.config' has no attribute 'config_options'
+    #
+    # It works fine when actually used to build documentation of "pydantic",
+    # though. This package has no tests.
   doCheck = false;
 
   meta = with lib; {

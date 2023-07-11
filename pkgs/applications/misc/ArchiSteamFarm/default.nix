@@ -13,7 +13,7 @@
 
 buildDotnetModule rec {
   pname = "archisteamfarm";
-  # nixpkgs-update: no auto update
+    # nixpkgs-update: no auto update
   version = "5.4.4.5";
 
   src = fetchFromGitHub {
@@ -79,7 +79,8 @@ buildDotnetModule rec {
 
   meta = with lib; {
     description =
-      "Application with primary purpose of idling Steam cards from multiple accounts simultaneously";
+      "Application with primary purpose of idling Steam cards from multiple accounts simultaneously"
+      ;
     homepage = "https://github.com/JustArchiNET/ArchiSteamFarm";
     license = licenses.asl20;
     platforms = [

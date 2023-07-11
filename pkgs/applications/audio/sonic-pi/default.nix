@@ -193,7 +193,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # $out/bin/sonic-pi is a shell script, and wrapQtAppsHook doesn't wrap them.
+    # $out/bin/sonic-pi is a shell script, and wrapQtAppsHook doesn't wrap them.
   dontWrapQtApps = true;
   preFixup = ''
     # Wrap Qt GUI (distributed binary)
@@ -249,7 +249,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://sonic-pi.net/";
     description =
-      "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
+      "Free live coding synth for everyone originally designed to support computing and music lessons within schools"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [
       Phlogistique

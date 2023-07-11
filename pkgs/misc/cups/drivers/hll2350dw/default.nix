@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf103566/hll2350dwpdrv-${version}.i386.deb";
+      "https://download.brother.com/welcome/dlf103566/hll2350dwpdrv-${version}.i386.deb"
+      ;
     sha256 = "0b7hhln105agc3rwpi7cjlx5nf4d2yk9iksahdv3725nnd06lg46";
   };
 
@@ -101,7 +102,8 @@ stdenv.mkDerivation rec {
     license = licenses.unfree;
     platforms = builtins.map (arch: "${arch}-linux") arches;
     downloadPage =
-      "https://support.brother.com/g/b/downloadlist.aspx?c=us_ot&lang=en&prod=hll2350dw_us_eu_as&os=128";
+      "https://support.brother.com/g/b/downloadlist.aspx?c=us_ot&lang=en&prod=hll2350dw_us_eu_as&os=128"
+      ;
     maintainers = [ maintainers.sternenseemann ];
   };
 }

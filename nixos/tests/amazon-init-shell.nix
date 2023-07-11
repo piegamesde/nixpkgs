@@ -17,7 +17,8 @@ with pkgs.lib;
 makeTest {
   name = "amazon-init";
   meta = with maintainers; { maintainers = [ urbas ]; };
-  nodes.machine = {
+  nodes.machine =
+    {
       ...
     }: {
       imports = [
@@ -33,7 +34,8 @@ makeTest {
           echo successful > /tmp/evidence
         '';
       };
-    };
+    }
+    ;
   testScript = ''
     # To wait until amazon-init terminates its run
     unnamed.wait_for_unit("amazon-init.service")

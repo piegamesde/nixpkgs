@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "grocy";
     meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -15,7 +16,8 @@ import ./make-test-python.nix ({
           nginx.enableSSL = false;
         };
         environment.systemPackages = [ pkgs.jq ];
-      };
+      }
+      ;
 
     testScript = ''
       from base64 import b64encode

@@ -13,21 +13,23 @@ let
   fetchNodeModules = callPackage ./fetchNodeModules.nix { };
 
   python = python3.override {
-    packageOverrides = self: super: {
-      srht = self.callPackage ./core.nix { inherit fetchNodeModules; };
+    packageOverrides =
+      self: super: {
+        srht = self.callPackage ./core.nix { inherit fetchNodeModules; };
 
-      buildsrht = self.callPackage ./builds.nix { };
-      gitsrht = self.callPackage ./git.nix { };
-      hgsrht = self.callPackage ./hg.nix { };
-      hubsrht = self.callPackage ./hub.nix { };
-      listssrht = self.callPackage ./lists.nix { };
-      mansrht = self.callPackage ./man.nix { };
-      metasrht = self.callPackage ./meta.nix { };
-      pastesrht = self.callPackage ./paste.nix { };
-      todosrht = self.callPackage ./todo.nix { };
+        buildsrht = self.callPackage ./builds.nix { };
+        gitsrht = self.callPackage ./git.nix { };
+        hgsrht = self.callPackage ./hg.nix { };
+        hubsrht = self.callPackage ./hub.nix { };
+        listssrht = self.callPackage ./lists.nix { };
+        mansrht = self.callPackage ./man.nix { };
+        metasrht = self.callPackage ./meta.nix { };
+        pastesrht = self.callPackage ./paste.nix { };
+        todosrht = self.callPackage ./todo.nix { };
 
-      scmsrht = self.callPackage ./scm.nix { };
-    };
+        scmsrht = self.callPackage ./scm.nix { };
+      }
+      ;
   };
 in with python.pkgs;
 recurseIntoAttrs ({
@@ -47,5 +49,6 @@ recurseIntoAttrs ({
 } // lib.optionalAttrs config.allowAliases {
   # Added 2022-10-29
   dispatchsrht = throw
-    "dispatch is deprecated. See https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/ for more information.";
+    "dispatch is deprecated. See https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/ for more information."
+    ;
 })

@@ -35,14 +35,15 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "dissect.ole" ];
 
   meta = with lib; {
     description =
-      "Dissect module implementing a parser for the Object Linking & Embedding (OLE) format";
+      "Dissect module implementing a parser for the Object Linking & Embedding (OLE) format"
+      ;
     homepage = "https://github.com/fox-it/dissect.ole";
     changelog = "https://github.com/fox-it/dissect.ole/releases/tag/${version}";
     license = licenses.agpl3Only;

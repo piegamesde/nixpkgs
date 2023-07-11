@@ -28,7 +28,7 @@ buildPythonPackage rec {
     pytest-xdist
     covCore
   ];
-  # Disable checks because they are not stateless and require internet access.
+    # Disable checks because they are not stateless and require internet access.
   doCheck = false;
 
   LC_ALL = "en_US.UTF-8";

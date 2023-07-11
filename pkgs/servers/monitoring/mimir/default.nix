@@ -33,20 +33,23 @@ buildGoModule rec {
     tests = { inherit (nixosTests) mimir; };
   };
 
-  ldflags = let
-    t = "github.com/grafana/mimir/pkg/util/version";
-  in [
-    ''-extldflags "-static"''
-    "-s"
-    "-w"
-    "-X ${t}.Version=${version}"
-    "-X ${t}.Revision=unknown"
-    "-X ${t}.Branch=unknown"
-  ] ;
+  ldflags =
+    let
+      t = "github.com/grafana/mimir/pkg/util/version";
+    in [
+      ''-extldflags "-static"''
+      "-s"
+      "-w"
+      "-X ${t}.Version=${version}"
+      "-X ${t}.Revision=unknown"
+      "-X ${t}.Branch=unknown"
+    ]
+    ;
 
   meta = with lib; {
     description =
-      "Grafana Mimir provides horizontally scalable, highly available, multi-tenant, long-term storage for Prometheus. ";
+      "Grafana Mimir provides horizontally scalable, highly available, multi-tenant, long-term storage for Prometheus. "
+      ;
     homepage = "https://github.com/grafana/mimir";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [

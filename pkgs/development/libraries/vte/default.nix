@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "0001-Add-W_EXITCODE-macro-for-non-glibc-systems.patch";
       url =
-        "https://git.alpinelinux.org/aports/plain/community/vte3/fix-W_EXITCODE.patch?id=4d35c076ce77bfac7655f60c4c3e4c86933ab7dd";
+        "https://git.alpinelinux.org/aports/plain/community/vte3/fix-W_EXITCODE.patch?id=4d35c076ce77bfac7655f60c4c3e4c86933ab7dd"
+        ;
       sha256 = "FkVyhsM0mRUzZmS2Gh172oqwcfXv6PyD6IEgjBhy2uU=";
     })
   ];
@@ -99,7 +100,7 @@ stdenv.mkDerivation rec {
       "-D_b_symbolic_functions=false"
     ];
 
-  # error: argument unused during compilation: '-pie' [-Werror,-Wunused-command-line-argument]
+    # error: argument unused during compilation: '-pie' [-Werror,-Wunused-command-line-argument]
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isMusl
     "-Wno-unused-command-line-argument";
 

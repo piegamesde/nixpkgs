@@ -9,13 +9,15 @@ with lib;
 let
   cfg = config.services.tinc;
 
-  mkValueString = value:
+  mkValueString =
+    value:
     if value == true then
       "yes"
     else if value == false then
       "no"
     else
-      generators.mkValueStringDefault { } value;
+      generators.mkValueStringDefault { } value
+    ;
 
   toTincConf = generators.toKeyValue {
     listsAsDuplicateKeys = true;
@@ -31,7 +33,7 @@ let
       ];
     in
     attrsOf (either valueType (listOf valueType))
-  ;
+    ;
 
   addressSubmodule = {
     options = {
@@ -98,7 +100,8 @@ let
     };
   };
 
-  hostSubmodule = {
+  hostSubmodule =
+    {
       config,
       ...
     }: {
@@ -167,7 +170,8 @@ let
               toString subnet.weight
             }") config.subnets);
       };
-    };
+    }
+    ;
 
 in {
 
@@ -377,7 +381,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (cfg.networks != { }) (let
     etcConfig = foldr (a: b: a // b) { } (flip mapAttrsToList cfg.networks
@@ -408,8 +412,8 @@ in {
         wantedBy = [ "multi-user.target" ];
         path = [ data.package ];
         reloadTriggers =
-          mkIf (versionAtLeast version "1.1pre") [ (builtins.toJSON
-            etcConfig) ];
+          mkIf (versionAtLeast version "1.1pre") [ (builtins.toJSON etcConfig) ]
+          ;
         restartTriggers =
           mkIf (versionOlder version "1.1pre") [ (builtins.toJSON etcConfig) ];
         serviceConfig = {
@@ -421,9 +425,8 @@ in {
           ExecStart =
             "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${
               optionalString (data.chroot) "-R"
-            } --pidfile /run/tinc.${network}.pid -d ${
-              toString data.debugLevel
-            }";
+            } --pidfile /run/tinc.${network}.pid -d ${toString data.debugLevel}"
+            ;
         };
         preStart = ''
           mkdir -p /etc/tinc/${network}/hosts
@@ -456,21 +459,23 @@ in {
         '';
       } ));
 
-    environment.systemPackages = let
-      cli-wrappers = pkgs.stdenv.mkDerivation {
-        name = "tinc-cli-wrappers";
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-        buildCommand = ''
-          mkdir -p $out/bin
-          ${concatStringsSep "\n" (mapAttrsToList (network: data:
-            optionalString (versionAtLeast data.package.version "1.1pre") ''
-              makeWrapper ${data.package}/bin/tinc "$out/bin/tinc.${network}" \
-                --add-flags "--pidfile=/run/tinc.${network}.pid" \
-                --add-flags "--config=/etc/tinc/${network}"
-            '') cfg.networks)}
-        '';
-      };
-    in [ cli-wrappers ] ;
+    environment.systemPackages =
+      let
+        cli-wrappers = pkgs.stdenv.mkDerivation {
+          name = "tinc-cli-wrappers";
+          nativeBuildInputs = [ pkgs.makeWrapper ];
+          buildCommand = ''
+            mkdir -p $out/bin
+            ${concatStringsSep "\n" (mapAttrsToList (network: data:
+              optionalString (versionAtLeast data.package.version "1.1pre") ''
+                makeWrapper ${data.package}/bin/tinc "$out/bin/tinc.${network}" \
+                  --add-flags "--pidfile=/run/tinc.${network}.pid" \
+                  --add-flags "--config=/etc/tinc/${network}"
+              '') cfg.networks)}
+          '';
+        };
+      in [ cli-wrappers ]
+      ;
 
     users.users = flip mapAttrs' cfg.networks (network: _:
       nameValuePair ("tinc.${network}") ({

@@ -22,7 +22,8 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/soundconverter/trunk/${version}/+download/${pname}-${version}.tar.gz";
+      "https://launchpad.net/soundconverter/trunk/${version}/+download/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-hzIG/4LD3705erPYvXb7uoRwF9LtKKIKB3jrhpYMsZ0=";
   };
 
@@ -57,30 +58,31 @@ python3Packages.buildPythonApplication rec {
       "DATA_PATH = '$out/share/soundconverter'"
   '';
 
-  preCheck = let
-    self = {
-      outPath = "$out";
-      name = "${pname}-${version}";
-    };
-    xdgPaths = lib.concatMapStringsSep ":" glib.getSchemaDataDirPath;
-  in
-  ''
-    export HOME=$TMPDIR
-    export XDG_DATA_DIRS=$XDG_DATA_DIRS:${
-      xdgPaths [
-        gtk3
-        gsettings-desktop-schemas
-        self
-      ]
-    }
-    # FIXME: Fails due to weird Gio.file_parse_name() behavior.
-    sed -i '49 a\    @unittest.skip("Gio.file_parse_name issues")' tests/testcases/names.py
-  '' + lib.optionalString (!faacSupport) ''
-    substituteInPlace tests/testcases/integration.py --replace \
-      "for encoder in ['fdkaacenc', 'faac', 'avenc_aac']:" \
-      "for encoder in ['fdkaacenc', 'avenc_aac']:"
-  ''
-  ;
+  preCheck =
+    let
+      self = {
+        outPath = "$out";
+        name = "${pname}-${version}";
+      };
+      xdgPaths = lib.concatMapStringsSep ":" glib.getSchemaDataDirPath;
+    in
+    ''
+      export HOME=$TMPDIR
+      export XDG_DATA_DIRS=$XDG_DATA_DIRS:${
+        xdgPaths [
+          gtk3
+          gsettings-desktop-schemas
+          self
+        ]
+      }
+      # FIXME: Fails due to weird Gio.file_parse_name() behavior.
+      sed -i '49 a\    @unittest.skip("Gio.file_parse_name issues")' tests/testcases/names.py
+    '' + lib.optionalString (!faacSupport) ''
+      substituteInPlace tests/testcases/integration.py --replace \
+        "for encoder in ['fdkaacenc', 'faac', 'avenc_aac']:" \
+        "for encoder in ['fdkaacenc', 'avenc_aac']:"
+    ''
+    ;
 
   checkPhase = ''
     runHook preCheck
@@ -88,7 +90,7 @@ python3Packages.buildPythonApplication rec {
     runHook postCheck
   '';
 
-  # Necessary to set GDK_PIXBUF_MODULE_FILE.
+    # Necessary to set GDK_PIXBUF_MODULE_FILE.
   strictDeps = false;
 
   meta = with lib; {

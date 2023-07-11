@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://pagure.io/gfs2-utils/archive/${version}/gfs2-utils-${version}.tar.gz";
+      "https://pagure.io/gfs2-utils/archive/${version}/gfs2-utils-${version}.tar.gz"
+      ;
     sha256 = "sha256-gwKxBBG5PtG4/RxX4sUC25ZeG8K2urqVkFDKL7NS4ZI=";
   };
 
@@ -29,7 +30,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "ncurses-6.3.patch";
       url =
-        "https://pagure.io/fork/slyfox/gfs2-utils/c/c927b635f380cca77665195a3aaae804d92870a4.patch";
+        "https://pagure.io/fork/slyfox/gfs2-utils/c/c927b635f380cca77665195a3aaae804d92870a4.patch"
+        ;
       sha256 = "sha256-0M1xAqRXoUi2el03WODF/nqEe9JEE5GehMWs776QZNI=";
     })
   ];

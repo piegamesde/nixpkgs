@@ -59,9 +59,9 @@ import ./make-test-python.nix ({
           };
         };
 
-        # This setting is important to have the router assign the
-        # configured lease based on the client's MAC address. Also see:
-        # https://github.com/systemd/systemd/issues/21368#issuecomment-982193546
+          # This setting is important to have the router assign the
+          # configured lease based on the client's MAC address. Also see:
+          # https://github.com/systemd/systemd/issues/21368#issuecomment-982193546
         systemd.network.networks."40-eth1".dhcpV4Config.ClientIdentifier =
           "mac";
       };

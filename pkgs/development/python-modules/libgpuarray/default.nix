@@ -28,7 +28,7 @@ buildPythonPackage rec {
     sha256 = "0ksil18c9ign4xrv5k323flhvdy6wdxh8szdd3nivv31jc3zsdri";
   };
 
-  # requires a GPU
+    # requires a GPU
   doCheck = false;
 
   configurePhase = "cmakeConfigurePhase";
@@ -68,8 +68,8 @@ buildPythonPackage rec {
     mako
   ];
 
-  nativeBuildInputs = [ cmake ]
-    ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs =
+    [ cmake ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
   buildInputs = [
     cython

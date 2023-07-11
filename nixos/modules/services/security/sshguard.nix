@@ -10,23 +10,26 @@ with lib;
 let
   cfg = config.services.sshguard;
 
-  configFile = let
-    args = lib.concatStringsSep " " ([
-      "-afb"
-      "-p info"
-      "-o cat"
-      "-n1"
-    ] ++ (map (name: "-t ${escapeShellArg name}") cfg.services));
-    backend = if config.networking.nftables.enable then
-      "sshg-fw-nft-sets"
-    else
-      "sshg-fw-ipset";
-  in
-  pkgs.writeText "sshguard.conf" ''
-    BACKEND="${pkgs.sshguard}/libexec/${backend}"
-    LOGREADER="LANG=C ${config.systemd.package}/bin/journalctl ${args}"
-  ''
-  ;
+  configFile =
+    let
+      args = lib.concatStringsSep " " ([
+        "-afb"
+        "-p info"
+        "-o cat"
+        "-n1"
+      ] ++ (map (name: "-t ${escapeShellArg name}") cfg.services));
+      backend =
+        if config.networking.nftables.enable then
+          "sshg-fw-nft-sets"
+        else
+          "sshg-fw-ipset"
+        ;
+    in
+    pkgs.writeText "sshguard.conf" ''
+      BACKEND="${pkgs.sshguard}/libexec/${backend}"
+      LOGREADER="LANG=C ${config.systemd.package}/bin/journalctl ${args}"
+    ''
+    ;
 
 in {
 
@@ -110,7 +113,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -140,12 +143,12 @@ in {
             systemd
           ];
 
-      # The sshguard ipsets must exist before we invoke
-      # iptables. sshguard creates the ipsets after startup if
-      # necessary, but if we let sshguard do it, we can't reliably add
-      # the iptables rules because postStart races with the creation
-      # of the ipsets. So instead, we create both the ipsets and
-      # firewall rules before sshguard starts.
+        # The sshguard ipsets must exist before we invoke
+        # iptables. sshguard creates the ipsets after startup if
+        # necessary, but if we let sshguard do it, we can't reliably add
+        # the iptables rules because postStart races with the creation
+        # of the ipsets. So instead, we create both the ipsets and
+        # firewall rules before sshguard starts.
       preStart = optionalString config.networking.firewall.enable ''
         ${pkgs.ipset}/bin/ipset -quiet create -exist sshguard4 hash:net family inet
         ${pkgs.iptables}/bin/iptables  -I INPUT -m set --match-set sshguard4 src -j DROP
@@ -168,17 +171,18 @@ in {
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = let
-          args = lib.concatStringsSep " " ([
-            "-a ${toString cfg.attack_threshold}"
-            "-p ${toString cfg.blocktime}"
-            "-s ${toString cfg.detection_time}"
-            (optionalString (cfg.blacklist_threshold != null)
-              "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
-          ] ++ (map (name: "-w ${escapeShellArg name}") cfg.whitelist));
-        in
-        "${pkgs.sshguard}/bin/sshguard ${args}"
-        ;
+        ExecStart =
+          let
+            args = lib.concatStringsSep " " ([
+              "-a ${toString cfg.attack_threshold}"
+              "-p ${toString cfg.blocktime}"
+              "-s ${toString cfg.detection_time}"
+              (optionalString (cfg.blacklist_threshold != null)
+                "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
+            ] ++ (map (name: "-w ${escapeShellArg name}") cfg.whitelist));
+          in
+          "${pkgs.sshguard}/bin/sshguard ${args}"
+          ;
         Restart = "always";
         ProtectSystem = "strict";
         ProtectHome = "tmpfs";

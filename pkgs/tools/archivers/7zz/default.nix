@@ -46,10 +46,10 @@ stdenv.mkDerivation rec {
           "free"
       };
     downloadToTemp = (!enableUnfree);
-    # remove the unRAR related code from the src drv
-    # > the license requires that you agree to these use restrictions,
-    # > or you must remove the software (source and binary) from your hard disks
-    # https://fedoraproject.org/wiki/Licensing:Unrar
+      # remove the unRAR related code from the src drv
+      # > the license requires that you agree to these use restrictions,
+      # > or you must remove the software (source and binary) from your hard disks
+      # https://fedoraproject.org/wiki/Licensing:Unrar
     postFetch = lib.optionalString (!enableUnfree) ''
       mkdir tmp
       tar xf $downloadedFile -C ./tmp

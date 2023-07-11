@@ -40,7 +40,8 @@ buildPythonPackage rec {
     description = "Python API for interacting with currencylayer";
     homepage = "https://github.com/home-assistant-ecosystem/aiocurrencylayer";
     changelog =
-      "https://github.com/home-assistant-ecosystem/aiocurrencylayer/releases/tag/${version}";
+      "https://github.com/home-assistant-ecosystem/aiocurrencylayer/releases/tag/${version}"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

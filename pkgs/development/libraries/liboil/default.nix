@@ -25,12 +25,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  # fix "argb_paint_i386.c:53:Incorrect register `%rax' used with `l' suffix"
-  # errors
+    # fix "argb_paint_i386.c:53:Incorrect register `%rax' used with `l' suffix"
+    # errors
   configureFlags =
     lib.optional (stdenv.isDarwin && stdenv.isx86_64) "--build=x86_64";
 
-  # fixes a cast in inline asm: easier than patching
+    # fixes a cast in inline asm: easier than patching
   buildFlags = lib.optional stdenv.isDarwin "CFLAGS=-fheinous-gnu-extensions";
 
   meta = with lib; {

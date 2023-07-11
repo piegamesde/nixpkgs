@@ -16,13 +16,14 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ jupyter-server ];
-  # tests require network
+    # tests require network
   doCheck = false;
   pythonImportsCheck = [ "jupyter_lsp" ];
 
   meta = with lib; {
     description =
-      "Multi-Language Server WebSocket proxy for your Jupyter notebook or lab server";
+      "Multi-Language Server WebSocket proxy for your Jupyter notebook or lab server"
+      ;
     homepage = "https://jupyterlab-lsp.readthedocs.io/en/latest/";
     license = licenses.bsd3;
     platforms = platforms.all;

@@ -96,7 +96,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.dnscache.enable {
     environment.systemPackages = [ pkgs.djbdns ];

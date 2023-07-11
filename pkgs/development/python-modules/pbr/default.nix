@@ -15,10 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-rvxRZ1sLUz1Wu1/RyMbAUi/jGJZnmILhxMY9XkoPzLM=";
   };
 
-  # importlib-metadata could be added here if it wouldn't cause an infinite recursion
+    # importlib-metadata could be added here if it wouldn't cause an infinite recursion
   propagatedBuildInputs = [ setuptools ];
 
-  # check in passthru.tests.pytest to escape infinite recursion with fixtures
+    # check in passthru.tests.pytest to escape infinite recursion with fixtures
   doCheck = false;
 
   passthru.tests = { tests = callPackage ./tests.nix { }; };

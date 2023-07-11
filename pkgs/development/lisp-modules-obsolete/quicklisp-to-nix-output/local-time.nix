@@ -9,7 +9,8 @@ args@{
   parasites = [ "local-time/test" ];
 
   description =
-    "A library for manipulating dates and times, based on a paper by Erik Naggum";
+    "A library for manipulating dates and times, based on a paper by Erik Naggum"
+    ;
 
   deps = [
     args."hu_dot_dwim_dot_stefil"
@@ -18,7 +19,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/local-time/2021-01-24/local-time-20210124-git.tgz";
+      "http://beta.quicklisp.org/archive/local-time/2021-01-24/local-time-20210124-git.tgz"
+      ;
     sha256 = "0bz5z0rd8gfd22bpqkalaijxlrk806zc010cvgd4qjapbrxzjg3s";
   };
 

@@ -57,7 +57,7 @@ buildPythonPackage rec {
   GRPC_PYTHON_BUILD_SYSTEM_ZLIB = 1;
   GRPC_PYTHON_BUILD_SYSTEM_CARES = 1;
 
-  # does not contain any tests
+    # does not contain any tests
   doCheck = false;
 
   enableParallelBuilding = true;

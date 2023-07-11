@@ -6,7 +6,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       patches ? [ ]
     }:
     buildGoPackage rec {
@@ -34,7 +35,8 @@ let
           srhb
         ];
       };
-    };
+    }
+    ;
 in {
   certmgr = generic { };
 

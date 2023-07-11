@@ -70,7 +70,8 @@ in {
   config = mkIf cfg.enable {
 
     warnings = optional (cfg.allow != null && cfg.deny != null)
-      "If `services.incron.allow` is set then `services.incron.deny` will be ignored.";
+      "If `services.incron.allow` is set then `services.incron.deny` will be ignored."
+      ;
 
     environment.systemPackages = [ pkgs.incron ];
 
@@ -81,7 +82,7 @@ in {
       source = "${pkgs.incron}/bin/incrontab";
     };
 
-    # incron won't read symlinks
+      # incron won't read symlinks
     environment.etc."incron.d/system" = {
       mode = "0444";
       text = cfg.systab;

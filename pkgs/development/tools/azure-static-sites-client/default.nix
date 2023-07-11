@@ -17,11 +17,13 @@
 let
   versions = lib.importJSON ./versions.json;
   flavor = with lib; head (filter (x: x.version == versionFlavor) versions);
-  fetchBinary = runtimeId:
+  fetchBinary =
+    runtimeId:
     fetchurl {
       url = flavor.files.${runtimeId}.url;
       sha256 = flavor.files.${runtimeId}.sha;
-    };
+    }
+    ;
   sources = {
     "x86_64-linux" = fetchBinary "linux-x64";
     "x86_64-darwin" = fetchBinary "macOS";
@@ -69,10 +71,10 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # Stripping kills the binary
+    # Stripping kills the binary
   dontStrip = true;
 
-  # Just make sure the binary executes sucessfully
+    # Just make sure the binary executes sucessfully
   doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck

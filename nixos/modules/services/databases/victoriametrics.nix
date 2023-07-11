@@ -59,30 +59,30 @@ in {
               -retentionPeriod ${toString cfg.retentionPeriod} \
               ${lib.escapeShellArgs cfg.extraOptions}
         '';
-        # victoriametrics 1.59 with ~7GB of data seems to eventually panic when merging files and then
-        # begins restart-looping forever. Set LimitNOFILE= to a large number to work around this issue.
-        #
-        # panic: FATAL: unrecoverable error when merging small parts in the partition "/var/lib/victoriametrics/data/small/2021_08":
-        # cannot open source part for merging: cannot open values file in stream mode:
-        # cannot open file "/var/lib/victoriametrics/data/small/2021_08/[...]/values.bin":
-        # open /var/lib/victoriametrics/data/small/2021_08/[...]/values.bin: too many open files
+          # victoriametrics 1.59 with ~7GB of data seems to eventually panic when merging files and then
+          # begins restart-looping forever. Set LimitNOFILE= to a large number to work around this issue.
+          #
+          # panic: FATAL: unrecoverable error when merging small parts in the partition "/var/lib/victoriametrics/data/small/2021_08":
+          # cannot open source part for merging: cannot open values file in stream mode:
+          # cannot open file "/var/lib/victoriametrics/data/small/2021_08/[...]/values.bin":
+          # open /var/lib/victoriametrics/data/small/2021_08/[...]/values.bin: too many open files
         LimitNOFILE = 1048576;
       };
       wantedBy = [ "multi-user.target" ];
 
-      postStart = let
-        bindAddr =
-          (lib.optionalString (lib.hasPrefix ":" cfg.listenAddress) "127.0.0.1")
-          + cfg.listenAddress;
-      in
-      lib.mkBefore ''
-        until ${
-          lib.getBin pkgs.curl
-        }/bin/curl -s -o /dev/null http://${bindAddr}/ping; do
-          sleep 1;
-        done
-      ''
-      ;
+      postStart =
+        let
+          bindAddr = (lib.optionalString (lib.hasPrefix ":" cfg.listenAddress)
+            "127.0.0.1") + cfg.listenAddress;
+        in
+        lib.mkBefore ''
+          until ${
+            lib.getBin pkgs.curl
+          }/bin/curl -s -o /dev/null http://${bindAddr}/ping; do
+            sleep 1;
+          done
+        ''
+        ;
     };
   };
 }

@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3Packages; [ bespon ];
-  # unfortunately upstream doesn't contain tests
+    # unfortunately upstream doesn't contain tests
   checkPhase = ''
     $out/bin/codebraid --help > /dev/null
   '';

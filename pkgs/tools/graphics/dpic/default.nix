@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0Fn/KMBFUgZsFk+xRv7o4BAblT5G51kZs9z6qZsDGuY=";
   };
 
-  # The prefix passed to configure is not used.
+    # The prefix passed to configure is not used.
   makeFlags = [ "DESTDIR=$(out)" ];
 
   meta = with lib; {

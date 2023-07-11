@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoTestFlags = cargoBuildFlags;
 
-  # requires unstable rust features
+    # requires unstable rust features
   RUSTC_BOOTSTRAP = 1;
 
   meta = with lib; {

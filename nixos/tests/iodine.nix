@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
   in {
     name = "iodine";
     nodes = {
-      server = {
+      server =
+        {
           ...
         }:
 
@@ -29,14 +30,16 @@ import ./make-test-python.nix ({
             inherit domain;
           };
 
-          # test resource: accessible only via tunnel
+            # test resource: accessible only via tunnel
           services.openssh = {
             enable = true;
             openFirewall = false;
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           ...
         }: {
           services.iodine.clients.testClient = {
@@ -45,10 +48,11 @@ import ./make-test-python.nix ({
             relay = "server";
             server = domain;
           };
-          systemd.tmpfiles.rules =
-            [ "f /root/pw 0666 root root - ${password}" ];
+          systemd.tmpfiles.rules = [ "f /root/pw 0666 root root - ${password}" ]
+            ;
           environment.systemPackages = [ pkgs.nagiosPluginsOfficial ];
-        };
+        }
+        ;
 
     };
 

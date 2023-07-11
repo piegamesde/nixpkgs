@@ -9,12 +9,15 @@ with lib;
 
 let
   cfg = config.services.errbot;
-  pluginEnv = plugins:
+  pluginEnv =
+    plugins:
     pkgs.buildEnv {
       name = "errbot-plugins";
       paths = plugins;
-    };
-  mkConfigDir = instanceCfg: dataDir:
+    }
+    ;
+  mkConfigDir =
+    instanceCfg: dataDir:
     pkgs.writeTextDir "config.py" ''
       import logging
       BACKEND = '${instanceCfg.backend}'
@@ -31,7 +34,8 @@ let
       BOT_IDENTITY = ${builtins.toJSON instanceCfg.identity}
 
       ${instanceCfg.extraConfig}
-    '';
+    ''
+    ;
 in {
   options = {
     services.errbot.instances = mkOption {
@@ -94,10 +98,12 @@ in {
 
     systemd.services = mapAttrs' (name: instanceCfg:
       nameValuePair "errbot-${name}" (let
-        dataDir = if instanceCfg.dataDir != null then
-          instanceCfg.dataDir
-        else
-          "/var/lib/errbot/${name}";
+        dataDir =
+          if instanceCfg.dataDir != null then
+            instanceCfg.dataDir
+          else
+            "/var/lib/errbot/${name}"
+          ;
       in {
         after = [ "network-online.target" ];
         wantedBy = [ "multi-user.target" ];

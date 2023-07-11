@@ -46,7 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://git.gavinhoward.com/gavin/bc";
     description = "Gavin Howard's BC calculator implementation";
     changelog =
-      "https://git.gavinhoward.com/gavin/bc/raw/tag/${finalAttrs.version}/NEWS.md";
+      "https://git.gavinhoward.com/gavin/bc/raw/tag/${finalAttrs.version}/NEWS.md"
+      ;
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.AndersonTorres ];
     platforms = lib.platforms.unix;

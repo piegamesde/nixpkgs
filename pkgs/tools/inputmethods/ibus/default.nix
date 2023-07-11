@@ -47,8 +47,8 @@ let
       makeWrapper ${glib.dev}/bin/glib-mkenums $out/bin/glib-mkenums --unset PYTHONPATH
     '';
   };
-  # make-dconf-override-db.sh needs to execute dbus-launch in the sandbox,
-  # it will fail to read /etc/dbus-1/session.conf unless we add this flag
+    # make-dconf-override-db.sh needs to execute dbus-launch in the sandbox,
+    # it will fail to read /etc/dbus-1/session.conf unless we add this flag
   dbus-launch =
     runCommand "sandbox-dbus-launch" { nativeBuildInputs = [ makeWrapper ]; } ''
       makeWrapper ${dbus}/bin/dbus-launch $out/bin/dbus-launch \
@@ -78,7 +78,8 @@ stdenv.mkDerivation rec {
     # https://github.com/NixOS/nixpkgs/issues/226526
     (fetchpatch {
       url =
-        "https://github.com/ibus/ibus/commit/7c8abbe89403c2fcb08e3fda42049a97187e53ab.patch";
+        "https://github.com/ibus/ibus/commit/7c8abbe89403c2fcb08e3fda42049a97187e53ab.patch"
+        ;
       hash = "sha256-59HzAdLq8ahrF7K+tFGLjTodwIiTkJGEkFe8quqIkhU=";
     })
   ];
@@ -111,8 +112,8 @@ stdenv.mkDerivation rec {
     "--with-ucd-dir=${unicode-character-database}/share/unicode"
   ];
 
-  # missing make dependency
-  # https://github.com/NixOS/nixpkgs/pull/218120#issuecomment-1514027173
+    # missing make dependency
+    # https://github.com/NixOS/nixpkgs/pull/218120#issuecomment-1514027173
   preBuild = ''
     make -C src ibusenumtypes.h
   '';
@@ -175,9 +176,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru = {
-    tests = { installed-tests = nixosTests.installed-tests.ibus; };
-  };
+  passthru = { tests = { installed-tests = nixosTests.installed-tests.ibus; }; }
+    ;
 
   meta = with lib; {
     homepage = "https://github.com/ibus/ibus";

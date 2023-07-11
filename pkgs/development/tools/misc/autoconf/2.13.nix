@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # Don't fixup "#! /bin/sh" in Autoconf, otherwise it will use the
-  # "fixed" path in generated files!
+    # Don't fixup "#! /bin/sh" in Autoconf, otherwise it will use the
+    # "fixed" path in generated files!
   dontPatchShebangs = true;
 
   postInstall = ''ln -s autoconf "$out"/bin/autoconf-2.13'';

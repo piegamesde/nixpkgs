@@ -21,7 +21,7 @@ buildPythonApplication rec {
     pyserial
   ];
 
-  # No tests
+    # No tests
   doCheck = false;
 
   meta = with lib; {

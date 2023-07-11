@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
     bindTestPort = 18910;
     password = "VERY_secret";
     hashedPassword =
-      "$7$101$/WJc4Mp+I+uYE9sR$o7z9rD1EYXHPwEP5GqQj6A7k4W1yVbePlb8TqNcuOLV9WNCiDgwHOB0JHC1WCtdkssqTBduBNUnUGd6kmZvDSw==";
+      "$7$101$/WJc4Mp+I+uYE9sR$o7z9rD1EYXHPwEP5GqQj6A7k4W1yVbePlb8TqNcuOLV9WNCiDgwHOB0JHC1WCtdkssqTBduBNUnUGd6kmZvDSw=="
+      ;
     topic = "test/foo";
 
     snakeOil = pkgs.runCommand "snakeoil-certs" {
@@ -67,87 +68,93 @@ import ./make-test-python.nix ({
       ];
     };
 
-    nodes = let
-      client = {
-          pkgs,
-          ...
-        }: {
-          environment.systemPackages = with pkgs; [ mosquitto ];
-        };
-    in {
-      server = {
-          pkgs,
-          ...
-        }: {
-          networking.firewall.allowedTCPPorts = [
-            port
-            tlsPort
-            anonPort
-          ];
-          services.mosquitto = {
-            enable = true;
-            settings = { sys_interval = 1; };
-            listeners = [
-              {
-                inherit port;
-                users = {
-                  password_store = { inherit password; };
-                  password_file = {
-                    passwordFile = pkgs.writeText "mqtt-password" password;
-                  };
-                  hashed_store = { inherit hashedPassword; };
-                  hashed_file = {
-                    hashedPasswordFile =
-                      pkgs.writeText "mqtt-hashed-password" hashedPassword;
-                  };
-
-                  reader = {
-                    inherit password;
-                    acl = [
-                      "read ${topic}"
-                      "read $SYS/#" # so we always have something to read
-                    ];
-                  };
-                  writer = {
-                    inherit password;
-                    acl = [ "write ${topic}" ];
-                  };
-                };
-              }
-              {
-                port = tlsPort;
-                users.client1 = { acl = [ "read $SYS/#" ]; };
-                settings = {
-                  cafile = "${snakeOil}/ca.crt";
-                  certfile = "${snakeOil}/server.crt";
-                  keyfile = "${snakeOil}/server.key";
-                  require_certificate = true;
-                  use_identity_as_username = true;
-                };
-              }
-              {
-                port = anonPort;
-                omitPasswordAuth = true;
-                settings.allow_anonymous = true;
-                acl = [ "pattern read #" ];
-                users = {
-                  anonWriter = {
-                    password = "<ignored>" + password;
-                    acl = [ "write ${topic}" ];
-                  };
-                };
-              }
-              {
-                settings.bind_interface = "eth0";
-                port = bindTestPort;
-              }
+    nodes =
+      let
+        client =
+          {
+            pkgs,
+            ...
+          }: {
+            environment.systemPackages = with pkgs; [ mosquitto ];
+          }
+          ;
+      in {
+        server =
+          {
+            pkgs,
+            ...
+          }: {
+            networking.firewall.allowedTCPPorts = [
+              port
+              tlsPort
+              anonPort
             ];
-          };
-        };
+            services.mosquitto = {
+              enable = true;
+              settings = { sys_interval = 1; };
+              listeners = [
+                {
+                  inherit port;
+                  users = {
+                    password_store = { inherit password; };
+                    password_file = {
+                      passwordFile = pkgs.writeText "mqtt-password" password;
+                    };
+                    hashed_store = { inherit hashedPassword; };
+                    hashed_file = {
+                      hashedPasswordFile =
+                        pkgs.writeText "mqtt-hashed-password" hashedPassword;
+                    };
 
-      client1 = client;
-      client2 = client;
-    } ;
+                    reader = {
+                      inherit password;
+                      acl = [
+                        "read ${topic}"
+                        "read $SYS/#" # so we always have something to read
+                      ];
+                    };
+                    writer = {
+                      inherit password;
+                      acl = [ "write ${topic}" ];
+                    };
+                  };
+                }
+                {
+                  port = tlsPort;
+                  users.client1 = { acl = [ "read $SYS/#" ]; };
+                  settings = {
+                    cafile = "${snakeOil}/ca.crt";
+                    certfile = "${snakeOil}/server.crt";
+                    keyfile = "${snakeOil}/server.key";
+                    require_certificate = true;
+                    use_identity_as_username = true;
+                  };
+                }
+                {
+                  port = anonPort;
+                  omitPasswordAuth = true;
+                  settings.allow_anonymous = true;
+                  acl = [ "pattern read #" ];
+                  users = {
+                    anonWriter = {
+                      password = "<ignored>" + password;
+                      acl = [ "write ${topic}" ];
+                    };
+                  };
+                }
+                {
+                  settings.bind_interface = "eth0";
+                  port = bindTestPort;
+                }
+              ];
+            };
+          }
+          ;
+
+        client1 = client;
+        client2 = client;
+      }
+      ;
 
     testScript = ''
       import json

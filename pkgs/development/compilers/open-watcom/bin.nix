@@ -59,11 +59,11 @@ let
     exec ${wrapLegacyBinary} "$TARGET-unwrapped" "$TARGET"
   '';
 
-  # Do a scripted installation of OpenWatcom with its original installer.
-  #
-  # If maintaining this expect script turns out to be too much of a
-  # hassle, we can switch to just using `unzip' on the installer and
-  # the correct file permissions manually.
+    # Do a scripted installation of OpenWatcom with its original installer.
+    #
+    # If maintaining this expect script turns out to be too much of a
+    # hassle, we can switch to just using `unzip' on the installer and
+    # the correct file permissions manually.
   performInstall = writeScriptBin "performInstall" ''
     #!${expect}/bin/expect -f
 
@@ -130,7 +130,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A project to maintain and enhance the Watcom C, C++, and Fortran cross compilers and tools";
+      "A project to maintain and enhance the Watcom C, C++, and Fortran cross compilers and tools"
+      ;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     homepage = "http://www.openwatcom.org/";
     license = licenses.watcom;

@@ -17,7 +17,8 @@ let
   # not use sysdir.h, but provided the same functionality. Luckily it's simple :) hack hack
   sysdir-free-system-directories = fetchurl {
     url =
-      "https://raw.githubusercontent.com/apple/swift-corelibs-foundation/9a5d8420f7793e63a8d5ec1ede516c4ebec939f0/CoreFoundation/Base.subproj/CFSystemDirectories.c";
+      "https://raw.githubusercontent.com/apple/swift-corelibs-foundation/9a5d8420f7793e63a8d5ec1ede516c4ebec939f0/CoreFoundation/Base.subproj/CFSystemDirectories.c"
+      ;
     sha256 = "0krfyghj4f096arvvpf884ra5czqlmbrgf8yyc0b3avqmb613pcc";
   };
 
@@ -82,13 +83,14 @@ stdenv.mkDerivation {
   '';
 
   BUILD_DIR = "./Build";
-  CFLAGS =
-    "-DINCLUDE_OBJC -I${libxml2.dev}/include/libxml2"; # They seem to assume we include objc in some places and not in others, make a PR; also not sure why but libxml2 include path isn't getting picked up from buildInputs
+  CFLAGS = "-DINCLUDE_OBJC -I${libxml2.dev}/include/libxml2"
+    ; # They seem to assume we include objc in some places and not in others, make a PR; also not sure why but libxml2 include path isn't getting picked up from buildInputs
 
-  # I'm guessing at the version here. https://github.com/apple/swift-corelibs-foundation/commit/df3ec55fe6c162d590a7653d89ad669c2b9716b1 imported "high sierra"
-  # and this version is a version from there. No idea how accurate it is.
+    # I'm guessing at the version here. https://github.com/apple/swift-corelibs-foundation/commit/df3ec55fe6c162d590a7653d89ad669c2b9716b1 imported "high sierra"
+    # and this version is a version from there. No idea how accurate it is.
   LDFLAGS =
-    "-current_version 1454.90.0 -compatibility_version 150.0.0 -init ___CFInitialize";
+    "-current_version 1454.90.0 -compatibility_version 150.0.0 -init ___CFInitialize"
+    ;
 
   configurePhase = ''
     ../configure release --sysroot UNUSED
@@ -104,8 +106,8 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
-  # TODO: their build system sorta kinda can do this, but it doesn't seem to work right now
-  # Also, this includes a bunch of private headers in the framework, which is not what we want
+    # TODO: their build system sorta kinda can do this, but it doesn't seem to work right now
+    # Also, this includes a bunch of private headers in the framework, which is not what we want
   installPhase = ''
     base="$out/Library/Frameworks/CoreFoundation.framework"
     mkdir -p $base/Versions/A/{Headers,PrivateHeaders,Modules}

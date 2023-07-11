@@ -1,13 +1,15 @@
 let
-  common = {
+  common =
+    {
       pkgs,
       ...
     }: {
       networking.firewall.enable = false;
       networking.useDHCP = false;
-      # for a host utility with IPv6 support
+        # for a host utility with IPv6 support
       environment.systemPackages = [ pkgs.bind ];
-    };
+    }
+    ;
 in
 import ./make-test-python.nix ({
     pkgs,
@@ -17,35 +19,42 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ aszlig ]; };
 
     nodes = {
-      clientv4 = {
+      clientv4 =
+        {
           lib,
           nodes,
           ...
         }: {
           imports = [ common ];
           networking.nameservers = lib.mkForce [ (lib.head
-            nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address ];
+            nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address ]
+            ;
           networking.interfaces.eth1.ipv4.addresses = [ {
             address = "192.168.0.2";
             prefixLength = 24;
           } ];
-        };
+        }
+        ;
 
-      clientv6 = {
+      clientv6 =
+        {
           lib,
           nodes,
           ...
         }: {
           imports = [ common ];
           networking.nameservers = lib.mkForce [ (lib.head
-            nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address ];
+            nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address ]
+            ;
           networking.interfaces.eth1.ipv4.addresses = [ {
             address = "dead:beef::2";
             prefixLength = 24;
           } ];
-        };
+        }
+        ;
 
-      server = {
+      server =
+        {
           lib,
           ...
         }: {
@@ -76,8 +85,8 @@ import ./make-test-python.nix ({
             ns A 192.168.0.1
             ns AAAA dead:beef::1
           '';
-          services.nsd.zones."example.com.".provideXFR =
-            [ "0.0.0.0 tsig.example.com." ];
+          services.nsd.zones."example.com.".provideXFR = [ "0.0.0.0 tsig.example.com." ]
+            ;
           services.nsd.zones."deleg.example.com.".data = ''
             @ SOA ns.example.com noc.example.com 666 7200 3600 1209600 3600
             @ A 9.8.7.6
@@ -88,7 +97,8 @@ import ./make-test-python.nix ({
             root A 1.8.7.4
             root AAAA acbd::4
           '';
-        };
+        }
+        ;
     };
 
     testScript = ''

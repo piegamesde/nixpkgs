@@ -45,7 +45,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' - peerflix - - -" ];

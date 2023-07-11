@@ -23,6 +23,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/minrk/appnope";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ OPNA2608 ];
-    # Not Darwin-specific because dummy fallback may be used cross-platform
+      # Not Darwin-specific because dummy fallback may be used cross-platform
   };
 }

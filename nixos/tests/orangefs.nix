@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
   }:
 
   let
-    server = {
+    server =
+      {
         pkgs,
         ...
       }: {
@@ -30,9 +31,11 @@ import ./make-test-python.nix ({
             server2 = "tcp://server2:3334";
           };
         };
-      };
+      }
+      ;
 
-    client = {
+    client =
+      {
         lib,
         ...
       }: {
@@ -45,7 +48,8 @@ import ./make-test-python.nix ({
             mountPoint = "/orangefs";
           } ];
         };
-      };
+      }
+      ;
 
   in {
     name = "orangefs";

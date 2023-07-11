@@ -34,7 +34,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "aiolivisi" ];

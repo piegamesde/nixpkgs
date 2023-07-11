@@ -35,12 +35,14 @@ args@{
         enableBrokenCiphersForSSE = false;
       };
     };
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
       let
-        withRcloneEnv = host:
+        withRcloneEnv =
+          host:
           pkgs.writeScript "with-rclone-env" ''
             #!${pkgs.runtimeShell}
             export RCLONE_CONFIG_NEXTCLOUD_TYPE=webdav
@@ -49,7 +51,8 @@ args@{
             export RCLONE_CONFIG_NEXTCLOUD_USER="${adminuser}"
             export RCLONE_CONFIG_NEXTCLOUD_PASS="$(${pkgs.rclone}/bin/rclone obscure ${adminpass})"
             "''${@}"
-          '';
+          ''
+          ;
         withRcloneEnv1 = withRcloneEnv "nextcloudwithopenssl1";
         withRcloneEnv3 = withRcloneEnv "nextcloudwithopenssl3";
         copySharedFile1 = pkgs.writeScript "copy-shared-file" ''
@@ -118,5 +121,6 @@ args@{
             nextcloudwithopenssl1.succeed("${withRcloneEnv3} ${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file | grep hi")
 
         nextcloudwithopenssl1.shutdown()
-      '' ;
+      ''
+      ;
   } )) args

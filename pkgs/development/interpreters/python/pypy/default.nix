@@ -77,7 +77,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-src.tar.bz2";
+      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-src.tar.bz2"
+      ;
     inherit hash;
   };
 
@@ -102,15 +103,15 @@ stdenv.mkDerivation rec {
       Security
     ];
 
-  # Remove bootstrap python from closure
+    # Remove bootstrap python from closure
   dontPatchShebangs = true;
   disallowedReferences = [ python ];
 
   C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" buildInputs;
   LIBRARY_PATH = lib.makeLibraryPath buildInputs;
   LD_LIBRARY_PATH = lib.makeLibraryPath
-    (builtins.filter (x: x.outPath != stdenv.cc.libc.outPath or "")
-      buildInputs);
+    (builtins.filter (x: x.outPath != stdenv.cc.libc.outPath or "") buildInputs)
+    ;
 
   patches = [
     ./dont_fetch_vendored_deps.patch
@@ -195,58 +196,62 @@ stdenv.mkDerivation rec {
 
   setupHook = python-setup-hook sitePackages;
 
-  # TODO: A bunch of tests are failing as of 7.1.1, please feel free to
-  # fix and re-enable if you have the patience and tenacity.
+    # TODO: A bunch of tests are failing as of 7.1.1, please feel free to
+    # fix and re-enable if you have the patience and tenacity.
   doCheck = false;
-  checkPhase = let
-    disabledTests = [
-      # disable shutils because it assumes gid 0 exists
-      "test_shutil"
-      # disable socket because it has two actual network tests that fail
-      "test_socket"
-    ] ++ lib.optionals (!isPy3k) [
-      # disable test_urllib2net, test_urllib2_localnet, and test_urllibnet because they require networking (example.com)
-      "test_urllib2net"
-      "test_urllibnet"
-      "test_urllib2_localnet"
-    ] ++ lib.optionals isPy3k [
-      # disable asyncio due to https://github.com/NixOS/nix/issues/1238
-      "test_asyncio"
-      # disable os due to https://github.com/NixOS/nixpkgs/issues/10496
-      "test_os"
-      # disable pathlib due to https://bitbucket.org/pypy/pypy/pull-requests/594
-      "test_pathlib"
-      # disable tarfile because it assumes gid 0 exists
-      "test_tarfile"
-      # disable __all__ because of spurious imp/importlib warning and
-      # warning-to-error test policy
-      "test___all__"
-    ];
-  in ''
-    export TERMINFO="${ncurses.out}/share/terminfo/";
-    export TERM="xterm";
-    export HOME="$TMPDIR";
+  checkPhase =
+    let
+      disabledTests = [
+        # disable shutils because it assumes gid 0 exists
+        "test_shutil"
+        # disable socket because it has two actual network tests that fail
+        "test_socket"
+      ] ++ lib.optionals (!isPy3k) [
+        # disable test_urllib2net, test_urllib2_localnet, and test_urllibnet because they require networking (example.com)
+        "test_urllib2net"
+        "test_urllibnet"
+        "test_urllib2_localnet"
+      ] ++ lib.optionals isPy3k [
+        # disable asyncio due to https://github.com/NixOS/nix/issues/1238
+        "test_asyncio"
+        # disable os due to https://github.com/NixOS/nixpkgs/issues/10496
+        "test_os"
+        # disable pathlib due to https://bitbucket.org/pypy/pypy/pull-requests/594
+        "test_pathlib"
+        # disable tarfile because it assumes gid 0 exists
+        "test_tarfile"
+        # disable __all__ because of spurious imp/importlib warning and
+        # warning-to-error test policy
+        "test___all__"
+      ];
+    in ''
+      export TERMINFO="${ncurses.out}/share/terminfo/";
+      export TERM="xterm";
+      export HOME="$TMPDIR";
 
-    ${pythonForPypy.interpreter} ./pypy/test_all.py --pypy=./${executable}-c -k 'not (${
-      lib.concatStringsSep " or " disabledTests
-    })' lib-python
-  '' ;
+      ${pythonForPypy.interpreter} ./pypy/test_all.py --pypy=./${executable}-c -k 'not (${
+        lib.concatStringsSep " or " disabledTests
+      })' lib-python
+    ''
+    ;
 
-  # verify cffi modules
+    # verify cffi modules
   doInstallCheck = true;
-  installCheckPhase = let
-    modules = [
-      "curses"
-      "sqlite3"
-    ] ++ lib.optionals (!isPy3k) [ "Tkinter" ] ++ lib.optionals isPy3k [
-      "tkinter"
-      "lzma"
-    ];
-    imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
-  in ''
-    echo "Testing whether we can import modules"
-    $out/bin/${executable} -c '${imports}'
-  '' ;
+  installCheckPhase =
+    let
+      modules = [
+        "curses"
+        "sqlite3"
+      ] ++ lib.optionals (!isPy3k) [ "Tkinter" ] ++ lib.optionals isPy3k [
+        "tkinter"
+        "lzma"
+      ];
+      imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
+    in ''
+      echo "Testing whether we can import modules"
+      $out/bin/${executable} -c '${imports}'
+    ''
+    ;
 
   inherit passthru;
   enableParallelBuilding = true; # almost no parallelization without STM
@@ -254,7 +259,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://pypy.org/";
     description =
-      "Fast, compliant alternative implementation of the Python language (${pythonVersion})";
+      "Fast, compliant alternative implementation of the Python language (${pythonVersion})"
+      ;
     license = licenses.mit;
     platforms = [
       "aarch64-linux"

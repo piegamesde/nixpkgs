@@ -20,14 +20,16 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ six ];
 
   checkPhase =
-    "${python.interpreter} querystring_parser/tests.py -k 'not test_parse_normalized'";
-  # one test fails due to https://github.com/bernii/querystring-parser/issues/35
+    "${python.interpreter} querystring_parser/tests.py -k 'not test_parse_normalized'"
+    ;
+    # one test fails due to https://github.com/bernii/querystring-parser/issues/35
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://github.com/bernii/querystring-parser";
     description =
-      "QueryString parser for Python/Django that correctly handles nested dictionaries";
+      "QueryString parser for Python/Django that correctly handles nested dictionaries"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ tbenst ];
   };

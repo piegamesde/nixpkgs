@@ -5,14 +5,16 @@ import ./make-test-python.nix ({
     name = "overlayfs";
     meta.maintainers = with pkgs.lib.maintainers; [ bachp ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         virtualisation.emptyDiskImages = [ 512 ];
         networking.hostId = "deadbeef";
         environment.systemPackages = with pkgs; [ parted ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed("ls /dev")

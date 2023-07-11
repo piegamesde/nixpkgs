@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kPjS+otVZ8aJmDDd7ywD88J5YLEayiIvoXqnrGE8KJA=";
   };
 
-  # https://github.com/svaarala/duktape/issues/2464
+    # https://github.com/svaarala/duktape/issues/2464
   LDFLAGS = [ "-lm" ];
 
   nativeBuildInputs = [ validatePkgConfig ];
@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An embeddable Javascript engine, with a focus on portability and compact footprint";
+      "An embeddable Javascript engine, with a focus on portability and compact footprint"
+      ;
     homepage = "https://duktape.org/";
     downloadPage = "https://duktape.org/download.html";
     license = licenses.mit;

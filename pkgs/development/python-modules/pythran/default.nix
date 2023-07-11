@@ -62,7 +62,7 @@ buildPythonPackage rec {
     "pythran.spec"
   ];
 
-  # Test suite is huge and has a circular dependency on scipy.
+    # Test suite is huge and has a circular dependency on scipy.
   doCheck = false;
 
   disabled = !isPy3k;

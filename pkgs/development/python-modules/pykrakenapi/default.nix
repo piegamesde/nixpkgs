@@ -27,7 +27,7 @@ buildPythonPackage rec {
     pandas
   ];
 
-  # tests require network connection
+    # tests require network connection
   doCheck = false;
 
   pythonImportsCheck = [ "pykrakenapi" ];

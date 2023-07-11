@@ -16,8 +16,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ rpi-gpio ];
 
-  # Checks depend on rpi-gpio which requires to be run on a Raspberry Pi,
-  # therefore it fails on other systems
+    # Checks depend on rpi-gpio which requires to be run on a Raspberry Pi,
+    # therefore it fails on other systems
   doCheck = false;
 
   meta = with lib; {

@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.ceph;
 
-  # function that translates "camelCaseOptions" to "camel case options", credits to tilpner in #nixos@freenode
+    # function that translates "camelCaseOptions" to "camel case options", credits to tilpner in #nixos@freenode
   expandCamelCase = replaceStrings upperChars (map (s: " ${s}") lowerChars);
   expandCamelCaseAttrs =
     mapAttrs' (name: value: nameValuePair (expandCamelCase name) value);
@@ -47,19 +47,21 @@ let
 
       path = [ pkgs.getopt ];
 
-      # Don't start services that are not yet initialized
+        # Don't start services that are not yet initialized
       unitConfig.ConditionPathExists = "/var/lib/${stateDirectory}/keyring";
-      startLimitBurst = if daemonType == "osd" then
-        30
-      else if
-        lib.elem daemonType [
-          "mgr"
-          "mds"
-        ]
-      then
-        3
-      else
-        5;
+      startLimitBurst =
+        if daemonType == "osd" then
+          30
+        else if
+          lib.elem daemonType [
+            "mgr"
+            "mds"
+          ]
+        then
+          3
+        else
+          5
+        ;
       startLimitIntervalSec = 60 * 30; # 30 mins
 
       serviceConfig = {
@@ -74,10 +76,12 @@ let
         Restart = "on-failure";
         StateDirectory = stateDirectory;
         User = "ceph";
-        Group = if daemonType == "osd" then
-          "disk"
-        else
-          "ceph";
+        Group =
+          if daemonType == "osd" then
+            "disk"
+          else
+            "ceph"
+          ;
         ExecStart = ''
           ${ceph.out}/bin/${
             if daemonType == "rgw" then
@@ -88,7 +92,8 @@ let
                               -f --cluster ${clusterName} --id ${daemonId}'';
       } // optionalAttrs (daemonType == "osd") {
         ExecStartPre =
-          "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
+          "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}"
+          ;
         RestartSec = "20s";
         PrivateDevices = "no"; # osd needs disk access
       } // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
@@ -97,7 +102,8 @@ let
   makeTarget = (daemonType: {
     "ceph-${daemonType}" = {
       description =
-        "Ceph target allowing to start/stop all ceph-${daemonType} services at once";
+        "Ceph target allowing to start/stop all ceph-${daemonType} services at once"
+        ;
       partOf = [ "ceph.target" ];
       wantedBy = [ "ceph.target" ];
       before = [ "ceph.target" ];
@@ -396,7 +402,8 @@ in {
       {
         assertion = cfg.mds.enable == true -> cfg.mds.daemons != [ ];
         message =
-          "have to set id of atleast one MDS if you're going to enable Metadata Service";
+          "have to set id of atleast one MDS if you're going to enable Metadata Service"
+          ;
       }
       {
         assertion = cfg.osd.enable == true -> cfg.osd.daemons != [ ];
@@ -411,27 +418,29 @@ in {
     ];
 
     warnings = optional (cfg.global.monInitialMembers == null)
-      "Not setting up a list of members in monInitialMembers requires that you set the host variable for each mon daemon or else the cluster won't function";
+      "Not setting up a list of members in monInitialMembers requires that you set the host variable for each mon daemon or else the cluster won't function"
+      ;
 
-    environment.etc."ceph/ceph.conf".text = let
-      # Merge the extraConfig set for mgr daemons, as mgr don't have their own section
-      globalSection = expandCamelCaseAttrs (cfg.global // cfg.extraConfig
-        // optionalAttrs cfg.mgr.enable cfg.mgr.extraConfig);
-      # Remove all name-value pairs with null values from the attribute set to avoid making empty sections in the ceph.conf
-      globalSection' = filterAttrs (name: value: value != null) globalSection;
-      totalConfig = {
-        global = globalSection';
-      } // optionalAttrs (cfg.mon.enable && cfg.mon.extraConfig != { }) {
-        mon = cfg.mon.extraConfig;
-      } // optionalAttrs (cfg.mds.enable && cfg.mds.extraConfig != { }) {
-        mds = cfg.mds.extraConfig;
-      } // optionalAttrs (cfg.osd.enable && cfg.osd.extraConfig != { }) {
-        osd = cfg.osd.extraConfig;
-      } // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
-        cfg.client.extraConfig;
-    in
-    generators.toINI { } totalConfig
-    ;
+    environment.etc."ceph/ceph.conf".text =
+      let
+        # Merge the extraConfig set for mgr daemons, as mgr don't have their own section
+        globalSection = expandCamelCaseAttrs (cfg.global // cfg.extraConfig
+          // optionalAttrs cfg.mgr.enable cfg.mgr.extraConfig);
+          # Remove all name-value pairs with null values from the attribute set to avoid making empty sections in the ceph.conf
+        globalSection' = filterAttrs (name: value: value != null) globalSection;
+        totalConfig = {
+          global = globalSection';
+        } // optionalAttrs (cfg.mon.enable && cfg.mon.extraConfig != { }) {
+          mon = cfg.mon.extraConfig;
+        } // optionalAttrs (cfg.mds.enable && cfg.mds.extraConfig != { }) {
+          mds = cfg.mds.extraConfig;
+        } // optionalAttrs (cfg.osd.enable && cfg.osd.extraConfig != { }) {
+          osd = cfg.osd.extraConfig;
+        } // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
+          cfg.client.extraConfig;
+      in
+      generators.toINI { } totalConfig
+      ;
 
     users.users.ceph = {
       uid = config.ids.uids.ceph;
@@ -442,33 +451,36 @@ in {
 
     users.groups.ceph = { gid = config.ids.gids.ceph; };
 
-    systemd.services = let
-      services = [ ]
-        ++ optional cfg.mon.enable (makeServices "mon" cfg.mon.daemons)
-        ++ optional cfg.mds.enable (makeServices "mds" cfg.mds.daemons)
-        ++ optional cfg.osd.enable (makeServices "osd" cfg.osd.daemons)
-        ++ optional cfg.rgw.enable (makeServices "rgw" cfg.rgw.daemons)
-        ++ optional cfg.mgr.enable (makeServices "mgr" cfg.mgr.daemons);
-    in
-    mkMerge services
-    ;
+    systemd.services =
+      let
+        services = [ ]
+          ++ optional cfg.mon.enable (makeServices "mon" cfg.mon.daemons)
+          ++ optional cfg.mds.enable (makeServices "mds" cfg.mds.daemons)
+          ++ optional cfg.osd.enable (makeServices "osd" cfg.osd.daemons)
+          ++ optional cfg.rgw.enable (makeServices "rgw" cfg.rgw.daemons)
+          ++ optional cfg.mgr.enable (makeServices "mgr" cfg.mgr.daemons);
+      in
+      mkMerge services
+      ;
 
-    systemd.targets = let
-      targets = [ {
-        ceph = {
-          description =
-            "Ceph target allowing to start/stop all ceph service instances at once";
-          wantedBy = [ "multi-user.target" ];
-          unitConfig.StopWhenUnneeded = true;
-        };
-      } ] ++ optional cfg.mon.enable (makeTarget "mon")
-        ++ optional cfg.mds.enable (makeTarget "mds")
-        ++ optional cfg.osd.enable (makeTarget "osd")
-        ++ optional cfg.rgw.enable (makeTarget "rgw")
-        ++ optional cfg.mgr.enable (makeTarget "mgr");
-    in
-    mkMerge targets
-    ;
+    systemd.targets =
+      let
+        targets = [ {
+          ceph = {
+            description =
+              "Ceph target allowing to start/stop all ceph service instances at once"
+              ;
+            wantedBy = [ "multi-user.target" ];
+            unitConfig.StopWhenUnneeded = true;
+          };
+        } ] ++ optional cfg.mon.enable (makeTarget "mon")
+          ++ optional cfg.mds.enable (makeTarget "mds")
+          ++ optional cfg.osd.enable (makeTarget "osd")
+          ++ optional cfg.rgw.enable (makeTarget "rgw")
+          ++ optional cfg.mgr.enable (makeTarget "mgr");
+      in
+      mkMerge targets
+      ;
 
     systemd.tmpfiles.rules = [
       "d /etc/ceph - ceph ceph - -"

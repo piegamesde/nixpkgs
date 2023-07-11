@@ -48,11 +48,11 @@ in {
           lib.mdDoc "First separator character in generated addresses";
       };
 
-      # bindAddress = mkOption { # uncomment once 1.5 is released
-      #   type = types.str;
-      #   default = "127.0.0.1";
-      #   description = "Socket listen address";
-      # };
+        # bindAddress = mkOption { # uncomment once 1.5 is released
+        #   type = types.str;
+        #   default = "127.0.0.1";
+        #   description = "Socket listen address";
+        # };
 
       forwardPort = mkOption {
         type = types.int;
@@ -77,7 +77,8 @@ in {
         type = types.listOf types.str;
         default = [ ];
         description = lib.mdDoc
-          "Origin domains to exclude from rewriting in addition to primary domain";
+          "Origin domains to exclude from rewriting in addition to primary domain"
+          ;
       };
 
       user = mkOption {
@@ -96,7 +97,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

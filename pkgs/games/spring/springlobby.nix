@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://springlobby.springrts.com/dl/stable/springlobby-${version}.tar.bz2";
+      "https://springlobby.springrts.com/dl/stable/springlobby-${version}.tar.bz2"
+      ;
     sha256 = "sha256-XkU6i6ABCgw3H9vJu0xjHRO1BglueYM1LyJxcZdOrDk=";
   };
 

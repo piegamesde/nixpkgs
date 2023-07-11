@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://sourceforge.net/projects/gringotts.berlios/files/${pname}-${version}.tar.bz2";
+      "https://sourceforge.net/projects/gringotts.berlios/files/${pname}-${version}.tar.bz2"
+      ;
     sha256 = "1ldz1lyl1aml5ci1mpnys8dg6n7khpcs4zpycak3spcpgdsnypm7";
   };
 

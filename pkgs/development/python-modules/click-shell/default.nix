@@ -12,7 +12,7 @@ buildPythonPackage rec {
   version = "2.1";
   format = "setuptools";
 
-  # PyPi release is missing tests
+    # PyPi release is missing tests
   src = fetchFromGitHub {
     owner = "clarkperkins";
     repo = pname;
@@ -33,7 +33,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "An extension to click that easily turns your click app into a shell utility";
+      "An extension to click that easily turns your click app into a shell utility"
+      ;
     longDescription = ''
       This is an extension to click that easily turns your click app into a
       shell utility. It is built on top of the built in python cmd module,

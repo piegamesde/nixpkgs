@@ -81,7 +81,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -99,7 +99,7 @@ in {
             toString cfg.extraParams
           } -f ${syslogConf} -n";
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/spool/rsyslog";
-        # Prevent syslogd output looping back through journald.
+          # Prevent syslogd output looping back through journald.
         StandardOutput = "null";
       };
     };

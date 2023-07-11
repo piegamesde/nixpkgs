@@ -51,7 +51,8 @@ buildGo120Package rec {
 
   meta = with lib; {
     homepage =
-      "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html";
+      "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html"
+      ;
     description = "Amazon SSM Session Manager Plugin";
     license = licenses.asl20;
     maintainers = with maintainers; [

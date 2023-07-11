@@ -36,23 +36,24 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
     "installedTests";
 
-  src = let
-    inherit (finalAttrs) pname version;
-  in
-  fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.xz";
-    sha256 = "7ptsddE7oJaQei48aye2G80X9cfr6rWltDnS8uOf5Es=";
-  }
-  ;
+  src =
+    let
+      inherit (finalAttrs) pname version;
+    in
+    fetchurl {
+      url = "mirror://gnome/sources/${pname}/${
+          lib.versions.majorMinor version
+        }/${pname}-${version}.tar.xz";
+      sha256 = "7ptsddE7oJaQei48aye2G80X9cfr6rWltDnS8uOf5Es=";
+    }
+    ;
 
   patches = [
     # Move installed tests to a separate output
     ./installed-tests-path.patch
   ];
 
-  # gdk-pixbuf-thumbnailer is not wrapped therefore strictDeps will work
+    # gdk-pixbuf-thumbnailer is not wrapped therefore strictDeps will work
   strictDeps = true;
 
   depsBuildBuild = [ pkg-config ];
@@ -120,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
     } $dev/bin/gdk-pixbuf-query-loaders --update-cache
   '';
 
-  # The fixDarwinDylibNames hook doesn't patch binaries.
+    # The fixDarwinDylibNames hook doesn't patch binaries.
   preFixup = lib.optionalString stdenv.isDarwin ''
     for f in $out/bin/* $dev/bin/*; do
         install_name_tool -change @rpath/libgdk_pixbuf-2.0.0.dylib $out/lib/libgdk_pixbuf-2.0.0.dylib $f
@@ -132,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  # The tests take an excessive amount of time (> 1.5 hours) and memory (> 6 GB).
+    # The tests take an excessive amount of time (> 1.5 hours) and memory (> 6 GB).
   inherit doCheck;
 
   setupHook = ./setup-hook.sh;
@@ -150,7 +151,7 @@ stdenv.mkDerivation (finalAttrs: {
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
     };
 
-    # gdk_pixbuf_moduledir variable from gdk-pixbuf-2.0.pc
+      # gdk_pixbuf_moduledir variable from gdk-pixbuf-2.0.pc
     moduleDir = "lib/gdk-pixbuf-2.0/2.10.0/loaders";
   };
 

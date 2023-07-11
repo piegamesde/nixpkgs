@@ -11,7 +11,7 @@ let
 
   cfg = config.services.ttyd;
 
-  # Command line arguments for the ttyd daemon
+    # Command line arguments for the ttyd daemon
   args = [
     "--port"
     (toString cfg.port)
@@ -85,11 +85,13 @@ in {
       passwordFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        apply = value:
+        apply =
+          value:
           if value == null then
             null
           else
-            toString value;
+            toString value
+          ;
         description = lib.mdDoc ''
           File containing the password to use for basic authentication.
           For insecurely putting the password in the globally readable store use
@@ -165,11 +167,13 @@ in {
       keyFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        apply = value:
+        apply =
+          value:
           if value == null then
             null
           else
-            toString value;
+            toString value
+          ;
         description = lib.mdDoc ''
           SSL key file path.
           For insecurely putting the keyFile in the globally readable store use
@@ -192,7 +196,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -201,7 +205,8 @@ in {
         assertion = cfg.enableSSL -> cfg.certFile != null && cfg.keyFile != null
           && cfg.caFile != null;
         message =
-          "SSL is enabled for ttyd, but no certFile, keyFile or caFile has been specified.";
+          "SSL is enabled for ttyd, but no certFile, keyFile or caFile has been specified."
+          ;
       }
       {
         assertion = !(cfg.interface != null && cfg.socket != null);
@@ -224,18 +229,20 @@ in {
         User = "root";
       };
 
-      script = if cfg.passwordFile != null then
-        ''
-          PASSWORD=$(cat ${escapeShellArg cfg.passwordFile})
-          ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
-            --credential ${escapeShellArg cfg.username}:"$PASSWORD" \
-            ${pkgs.shadow}/bin/login
-        ''
-      else
-        ''
-          ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
-            ${pkgs.shadow}/bin/login
-        '';
+      script =
+        if cfg.passwordFile != null then
+          ''
+            PASSWORD=$(cat ${escapeShellArg cfg.passwordFile})
+            ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
+              --credential ${escapeShellArg cfg.username}:"$PASSWORD" \
+              ${pkgs.shadow}/bin/login
+          ''
+        else
+          ''
+            ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
+              ${pkgs.shadow}/bin/login
+          ''
+        ;
     };
   };
 }

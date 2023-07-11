@@ -2,13 +2,16 @@
   name = "adguardhome";
 
   nodes = {
-    nullConf = {
+    nullConf =
+      {
         ...
       }: {
         services.adguardhome = { enable = true; };
-      };
+      }
+      ;
 
-    emptyConf = {
+    emptyConf =
+      {
         lib,
         ...
       }: {
@@ -16,9 +19,11 @@
           enable = true;
           settings = { };
         };
-      };
+      }
+      ;
 
-    declarativeConf = {
+    declarativeConf =
+      {
         ...
       }: {
         services.adguardhome = {
@@ -33,9 +38,11 @@
             };
           };
         };
-      };
+      }
+      ;
 
-    mixedConf = {
+    mixedConf =
+      {
         ...
       }: {
         services.adguardhome = {
@@ -50,7 +57,8 @@
             };
           };
         };
-      };
+      }
+      ;
   };
 
   testScript = ''

@@ -22,31 +22,34 @@ stdenv.mkDerivation rec {
   inherit (sgx-sdk) version versionTag src;
   pname = "sgx-psw";
 
-  postUnpack = let
-    ae.prebuilt = fetchurl {
-      url =
-        "https://download.01.org/intel-sgx/sgx-linux/${versionTag}/prebuilt_ae_${versionTag}.tar.gz";
-      hash = "sha256-JriA9UGYFkAPuCtRizk8RMM1YOYGR/eO9ILnx47A40s=";
-    };
-    dcap = rec {
-      version = "1.13";
-      filename = "prebuilt_dcap_${version}.tar.gz";
-      prebuilt = fetchurl {
+  postUnpack =
+    let
+      ae.prebuilt = fetchurl {
         url =
-          "https://download.01.org/intel-sgx/sgx-dcap/${version}/linux/${filename}";
-        hash = "sha256-0kD6hxN8qZ/7/H99aboQx7Qg7ewmYPEexoU6nqczAik=";
+          "https://download.01.org/intel-sgx/sgx-linux/${versionTag}/prebuilt_ae_${versionTag}.tar.gz"
+          ;
+        hash = "sha256-JriA9UGYFkAPuCtRizk8RMM1YOYGR/eO9ILnx47A40s=";
       };
-    };
-  in
-  sgx-sdk.postUnpack + ''
-    # Make sure we use the correct version of prebuilt DCAP
-    grep -q 'ae_file_name=${dcap.filename}' "$src/external/dcap_source/QuoteGeneration/download_prebuilt.sh" \
-      || (echo "Could not find expected prebuilt DCAP ${dcap.filename} in linux-sgx source" >&2 && exit 1)
+      dcap = rec {
+        version = "1.13";
+        filename = "prebuilt_dcap_${version}.tar.gz";
+        prebuilt = fetchurl {
+          url =
+            "https://download.01.org/intel-sgx/sgx-dcap/${version}/linux/${filename}"
+            ;
+          hash = "sha256-0kD6hxN8qZ/7/H99aboQx7Qg7ewmYPEexoU6nqczAik=";
+        };
+      };
+    in
+    sgx-sdk.postUnpack + ''
+      # Make sure we use the correct version of prebuilt DCAP
+      grep -q 'ae_file_name=${dcap.filename}' "$src/external/dcap_source/QuoteGeneration/download_prebuilt.sh" \
+        || (echo "Could not find expected prebuilt DCAP ${dcap.filename} in linux-sgx source" >&2 && exit 1)
 
-    tar -zxf ${ae.prebuilt}   -C $sourceRoot/
-    tar -zxf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source/QuoteGeneration/
-  ''
-  ;
+      tar -zxf ${ae.prebuilt}   -C $sourceRoot/
+      tar -zxf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source/QuoteGeneration/
+    ''
+    ;
 
   nativeBuildInputs = [
     cmake
@@ -73,7 +76,7 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-  # Randomly fails if enabled
+    # Randomly fails if enabled
   enableParallelBuilding = false;
 
   buildFlags = [ "psw_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
@@ -125,9 +128,9 @@ stdenv.mkDerivation rec {
     rmdir $sgxPswDir || (echo "Error: The directory $installDir still contains unhandled files: $(ls -A $installDir)" >&2 && exit 1)
   '';
 
-  # Most—if not all—of those fixups are not relevant for NixOS as we have our own
-  # NixOS module which is based on those files without relying on them. Still, it
-  # is helpful to have properly patched versions for non-NixOS distributions.
+    # Most—if not all—of those fixups are not relevant for NixOS as we have our own
+    # NixOS module which is based on those files without relying on them. Still, it
+    # is helpful to have properly patched versions for non-NixOS distributions.
   postFixup = ''
     echo "Fixing aesmd.service"
     substituteInPlace $out/lib/systemd/system/aesmd.service \

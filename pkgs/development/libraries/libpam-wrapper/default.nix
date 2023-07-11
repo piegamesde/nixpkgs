@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ] ++ lib.optionals enablePython [ python ];
 
-  # We must use linux-pam, using openpam will result in broken fprintd.
+    # We must use linux-pam, using openpam will result in broken fprintd.
   buildInputs = [ linux-pam ];
 
   meta = with lib; {

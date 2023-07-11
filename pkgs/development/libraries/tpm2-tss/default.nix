@@ -25,10 +25,12 @@ let
   # needs to be conditional based on isLinux because procps for other systems
   # might not support the withSystemd option.
   procpsWithoutSystemd = procps.override { withSystemd = false; };
-  procps_pkg = if stdenv.isLinux then
-    procpsWithoutSystemd
-  else
-    procps;
+  procps_pkg =
+    if stdenv.isLinux then
+      procpsWithoutSystemd
+    else
+      procps
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -57,8 +59,8 @@ stdenv.mkDerivation rec {
     shadow
   ];
 
-  # cmocka is checked / used(?) in the configure script
-  # when unit and/or integration testing is enabled
+    # cmocka is checked / used(?) in the configure script
+    # when unit and/or integration testing is enabled
   buildInputs = [
     openssl
     json_c

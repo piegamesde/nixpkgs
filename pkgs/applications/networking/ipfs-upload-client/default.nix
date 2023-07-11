@@ -19,7 +19,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A minimal CLI tool to upload files and directories to IPFS via Infura's IPFS or another API endpoint";
+      "A minimal CLI tool to upload files and directories to IPFS via Infura's IPFS or another API endpoint"
+      ;
     homepage = "https://github.com/INFURA/ipfs-upload-client";
     license = licenses.mit;
     maintainers = with maintainers; [ matthewcroughan ];

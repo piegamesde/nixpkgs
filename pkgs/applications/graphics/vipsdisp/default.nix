@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  # No tests implemented.
+    # No tests implemented.
   doCheck = false;
 
   meta = with lib; {

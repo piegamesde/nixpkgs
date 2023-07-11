@@ -43,7 +43,7 @@ buildPythonPackage rec {
     oss2
   ];
 
-  # Most tests require network access
+    # Most tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "ossfs" ];

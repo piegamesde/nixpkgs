@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}";
 
-  # Install static binaries as well.
+    # Install static binaries as well.
   postInstall = ''
     dir=$out/lib/klibc/bin.static
     mkdir $dir

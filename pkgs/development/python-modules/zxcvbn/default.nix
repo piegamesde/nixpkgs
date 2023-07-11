@@ -10,7 +10,7 @@ buildPythonPackage rec {
   version = "4.4.28";
   format = "setuptools";
 
-  # no tests included in PyPI tarball
+    # no tests included in PyPI tarball
   src = fetchFromGitHub {
     owner = "dwolfhub";
     repo = "zxcvbn-python";
@@ -22,7 +22,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python implementation of Dropbox's realistic password strength estimator";
+      "Python implementation of Dropbox's realistic password strength estimator"
+      ;
     homepage = "https://github.com/dwolfhub/zxcvbn-python";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];

@@ -25,7 +25,7 @@ stdenv.mkDerivation {
   ];
   buildInputs = [ gmp ];
 
-  # --disable-static actually enables static linking here...
+    # --disable-static actually enables static linking here...
   dontDisableStatic = true;
 
   makeFlags = [ "LEX=${flex}/bin/flex" ];

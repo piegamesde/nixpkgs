@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/ntrack/main/${version}/+download/${pname}-${version}.tar.gz";
+      "https://launchpad.net/ntrack/main/${version}/+download/${pname}-${version}.tar.gz"
+      ;
     sha256 = "037ig5y0mp327m0hh4pnfr3vmsk3wrxgfjy3645q4ws9vdhx807w";
   };
 
@@ -28,7 +29,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  # error: ISO C does not support '__FUNCTION__' predefined identifier [-Werror=pedantic]
+    # error: ISO C does not support '__FUNCTION__' predefined identifier [-Werror=pedantic]
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
   configureFlags = [
@@ -36,7 +37,7 @@ stdenv.mkDerivation rec {
     "CFLAGS=--std=gnu99"
   ];
 
-  # Remove this patch after version 016
+    # Remove this patch after version 016
   patches = [ ./libnl-fix.patch ];
 
   postPatch = ''

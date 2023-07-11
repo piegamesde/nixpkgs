@@ -10,7 +10,8 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  makeAppTest = unifi:
+  makeAppTest =
+    unifi:
     makeTest {
       name = "unifi-controller-${unifi.version}";
       meta = with pkgs.lib.maintainers; {
@@ -34,7 +35,8 @@ let
         server.wait_for_unit("unifi.service")
         server.wait_until_succeeds("curl -Lk https://localhost:8443 >&2", timeout=300)
       '';
-    };
+    }
+    ;
 in with pkgs; {
   unifiLTS = makeAppTest unifiLTS;
   unifi5 = makeAppTest unifi5;

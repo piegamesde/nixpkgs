@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = [ "fix" ];
 
-  # The tests require network access which is not available in sandboxed Nix builds.
+    # The tests require network access which is not available in sandboxed Nix builds.
   doCheck = false;
 
   meta = with lib; {
@@ -33,7 +33,8 @@ rustPlatform.buildRustPackage rec {
       "Audit Cargo.lock files for crates with security vulnerabilities";
     homepage = "https://rustsec.org";
     changelog =
-      "https://github.com/rustsec/rustsec/blob/cargo-audit/${version}/cargo-audit/CHANGELOG.md";
+      "https://github.com/rustsec/rustsec/blob/cargo-audit/${version}/cargo-audit/CHANGELOG.md"
+      ;
     license = with licenses; [
       mit # or
       asl20

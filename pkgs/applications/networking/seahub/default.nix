@@ -8,16 +8,18 @@
 let
   # Seahub 8.x.x does not support django-webpack-loader >=1.x.x
   python = python3.override {
-    packageOverrides = self: super: {
-      django-webpack-loader = super.django-webpack-loader.overridePythonAttrs
-        (old: rec {
-          version = "0.7.0";
-          src = old.src.override {
-            inherit version;
-            hash = "sha256-ejyIIBqlRIH5OZRlYVy+e5rs6AgUlqbQKHt8uOIy9Ec=";
-          };
-        });
-    };
+    packageOverrides =
+      self: super: {
+        django-webpack-loader = super.django-webpack-loader.overridePythonAttrs
+          (old: rec {
+            version = "0.7.0";
+            src = old.src.override {
+              inherit version;
+              hash = "sha256-ejyIIBqlRIH5OZRlYVy+e5rs6AgUlqbQKHt8uOIy9Ec=";
+            };
+          });
+      }
+      ;
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -28,8 +30,8 @@ python.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "haiwen";
     repo = "seahub";
-    rev =
-      "5971bf25fe67d94ec4d9f53b785c15a098113620"; # using a fixed revision because upstream may re-tag releases :/
+    rev = "5971bf25fe67d94ec4d9f53b785c15a098113620"
+      ; # using a fixed revision because upstream may re-tag releases :/
     sha256 = "sha256-7Exvm3EShb/1EqwA4wzWB9zCdv0P/ISmjKSoqtOMnqk=";
   };
 

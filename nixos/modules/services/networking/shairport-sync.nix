@@ -69,7 +69,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.shairport-sync.enable {
 
@@ -84,8 +84,8 @@ in {
         createHome = true;
         home = "/var/lib/shairport-sync";
         group = cfg.group;
-        extraGroups = [ "audio" ]
-          ++ optional config.hardware.pulseaudio.enable "pulse";
+        extraGroups =
+          [ "audio" ] ++ optional config.hardware.pulseaudio.enable "pulse";
       };
       groups.${cfg.group} = { };
     };

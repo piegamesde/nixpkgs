@@ -24,17 +24,21 @@ let
 
   ipc-config = format.generate "IPC.config" cfg.ipcSettings;
 
-  mkBot = n: c:
+  mkBot =
+    n: c:
     format.generate "${n}.json" (c.settings // {
-      SteamLogin = if c.username == "" then
-        n
-      else
-        c.username;
+      SteamLogin =
+        if c.username == "" then
+          n
+        else
+          c.username
+        ;
       SteamPassword = c.passwordFile;
-      # sets the password format to file (https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Security#file)
+        # sets the password format to file (https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Security#file)
       PasswordFormat = 4;
       Enabled = c.enabled;
-    });
+    })
+    ;
 in {
   options.services.archisteamfarm = {
     enable = mkOption {
@@ -52,7 +56,8 @@ in {
         options = {
           enable = mkEnableOption "" // {
             description = lib.mdDoc
-              "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token.";
+              "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token."
+              ;
           };
 
           package = mkOption {
@@ -74,7 +79,8 @@ in {
       default = pkgs.ArchiSteamFarm;
       defaultText = lib.literalExpression "pkgs.ArchiSteamFarm";
       description = lib.mdDoc
-        "Package to use. Should always be the latest version, for security reasons, since this module uses very new features and to not get out of sync with the Steam API.";
+        "Package to use. Should always be the latest version, for security reasons, since this module uses very new features and to not get out of sync with the Steam API."
+        ;
     };
 
     dataDir = mkOption {
@@ -82,7 +88,8 @@ in {
       default = "/var/lib/asf";
       description = lib.mdDoc ''
         The ASF home directory used to store all data.
-        If left as the default value this directory will automatically be created before the ASF server starts, otherwise the sysadmin is responsible for ensuring the directory exists with appropriate ownership and permissions.'';
+        If left as the default value this directory will automatically be created before the ASF server starts, otherwise the sysadmin is responsible for ensuring the directory exists with appropriate ownership and permissions.''
+        ;
     };
 
     settings = mkOption {
@@ -101,7 +108,8 @@ in {
       type = types.nullOr types.path;
       default = null;
       description = lib.mdDoc
-        "Path to a file containing the password. The file must be readable by the `asf` user/group.";
+        "Path to a file containing the password. The file must be readable by the `asf` user/group."
+        ;
     };
 
     ipcSettings = mkOption {
@@ -121,14 +129,16 @@ in {
         options = {
           username = mkOption {
             type = types.str;
-            description = lib.mdDoc
-              "Name of the user to log in. Default is attribute name.";
+            description =
+              lib.mdDoc "Name of the user to log in. Default is attribute name."
+              ;
             default = "";
           };
           passwordFile = mkOption {
             type = types.path;
             description = lib.mdDoc
-              "Path to a file containing the password. The file must be readable by the `asf` user/group.";
+              "Path to a file containing the password. The file must be readable by the `asf` user/group."
+              ;
           };
           enabled = mkOption {
             type = types.bool;
@@ -187,10 +197,11 @@ in {
             WorkingDirectory = cfg.dataDir;
             Type = "simple";
             ExecStart =
-              "${cfg.package}/bin/ArchiSteamFarm --path ${cfg.dataDir} --process-required --no-restart --service --no-config-migrate";
+              "${cfg.package}/bin/ArchiSteamFarm --path ${cfg.dataDir} --process-required --no-restart --service --no-config-migrate"
+              ;
             Restart = "always";
 
-            # mostly copied from the default systemd service
+              # mostly copied from the default systemd service
             PrivateTmp = true;
             LockPersonality = true;
             PrivateDevices = true;
@@ -213,42 +224,44 @@ in {
           }
         ];
 
-        preStart = let
-          createBotsScript = pkgs.runCommandLocal "ASF-bots" { } ''
-            mkdir -p $out
-            # clean potential removed bots
-            rm -rf $out/*.json
-            for i in ${
-              strings.concatStringsSep " " (lists.map (x: "${getName x},${x}")
-                (attrsets.mapAttrsToList mkBot cfg.bots))
-            }; do IFS=",";
-              set -- $i
-              ln -fs $2 $out/$1
-            done
-          '';
-          replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
-        in ''
-          mkdir -p config
+        preStart =
+          let
+            createBotsScript = pkgs.runCommandLocal "ASF-bots" { } ''
+              mkdir -p $out
+              # clean potential removed bots
+              rm -rf $out/*.json
+              for i in ${
+                strings.concatStringsSep " " (lists.map (x: "${getName x},${x}")
+                  (attrsets.mapAttrsToList mkBot cfg.bots))
+              }; do IFS=",";
+                set -- $i
+                ln -fs $2 $out/$1
+              done
+            '';
+            replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
+          in ''
+            mkdir -p config
 
-          cp --no-preserve=mode ${asf-config} config/ASF.json
+            cp --no-preserve=mode ${asf-config} config/ASF.json
 
-          ${optionalString (cfg.ipcPasswordFile != null) ''
-            ${replaceSecretBin} '#ipcPassword#' '${cfg.ipcPasswordFile}' config/ASF.json
-          ''}
+            ${optionalString (cfg.ipcPasswordFile != null) ''
+              ${replaceSecretBin} '#ipcPassword#' '${cfg.ipcPasswordFile}' config/ASF.json
+            ''}
 
-          ${optionalString (cfg.ipcSettings != { }) ''
-            ln -fs ${ipc-config} config/IPC.config
-          ''}
+            ${optionalString (cfg.ipcSettings != { }) ''
+              ln -fs ${ipc-config} config/IPC.config
+            ''}
 
-          ${optionalString (cfg.ipcSettings != { }) ''
-            ln -fs ${createBotsScript}/* config/
-          ''}
+            ${optionalString (cfg.ipcSettings != { }) ''
+              ln -fs ${createBotsScript}/* config/
+            ''}
 
-          rm -f www
-          ${optionalString cfg.web-ui.enable ''
-            ln -s ${cfg.web-ui.package}/lib/dist www
-          ''}
-        '' ;
+            rm -f www
+            ${optionalString cfg.web-ui.enable ''
+              ln -s ${cfg.web-ui.package}/lib/dist www
+            ''}
+          ''
+          ;
       };
     };
   };

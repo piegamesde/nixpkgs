@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
     install -D -m755 ${buildah-unwrapped.src}/tests/policy.json $out/share/krunvm/containers/policy.json
   '';
 
-  # It attaches entitlements with codesign and strip removes those,
-  # voiding the entitlements and making it non-operational.
+    # It attaches entitlements with codesign and strip removes those,
+    # voiding the entitlements and making it non-operational.
   dontStrip = stdenv.isDarwin;
 
   postFixup = ''

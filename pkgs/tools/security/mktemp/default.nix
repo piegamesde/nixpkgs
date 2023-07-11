@@ -9,10 +9,10 @@ stdenv.mkDerivation rec {
   pname = "mktemp";
   version = "1.7";
 
-  # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
+    # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
   NROFF = "${groff}/bin/nroff";
 
-  # Don't use "install -s"
+    # Don't use "install -s"
   postPatch = ''
     substituteInPlace Makefile.in --replace " 0555 -s " " 0555 "
   '';
@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Simple tool to make temporary file handling in shells scripts safe and simple";
+      "Simple tool to make temporary file handling in shells scripts safe and simple"
+      ;
     homepage = "https://www.mktemp.org";
     license = licenses.isc;
     platforms = platforms.unix;

@@ -51,7 +51,7 @@ buildPythonPackage rec {
     unset NIX_REDIRECTS LD_PRELOAD
   '';
 
-  # somehow effective log level does not change?
+    # somehow effective log level does not change?
   disabledTests = [ "test_logger" ];
 
   pythonImportsCheck = [ "engineio" ];
@@ -64,7 +64,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/miguelgrinberg/python-engineio/";
     changelog =
-      "https://github.com/miguelgrinberg/python-engineio/blob/v${version}/CHANGES.md";
+      "https://github.com/miguelgrinberg/python-engineio/blob/v${version}/CHANGES.md"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ mic92 ];
   };

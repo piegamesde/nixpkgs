@@ -9,18 +9,20 @@ let
   cfg = config.systemd.repart;
   initrdCfg = config.boot.initrd.systemd.repart;
 
-  writeDefinition = name: partitionConfig:
+  writeDefinition =
+    name: partitionConfig:
     pkgs.writeText "${name}.conf"
-    (lib.generators.toINI { } { Partition = partitionConfig; });
+    (lib.generators.toINI { } { Partition = partitionConfig; })
+    ;
 
   listOfDefinitions = lib.mapAttrsToList writeDefinition
     (lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions);
 
-  # Create a directory in the store that contains a copy of all definition
-  # files. This is then passed to systemd-repart in the initrd so it can access
-  # the definition files after the sysroot has been mounted but before
-  # activation. This needs a hard copy of the files and not just symlinks
-  # because otherwise the files do not show up in the sysroot.
+    # Create a directory in the store that contains a copy of all definition
+    # files. This is then passed to systemd-repart in the initrd so it can access
+    # the definition files after the sysroot has been mounted but before
+    # activation. This needs a hard copy of the files and not just symlinks
+    # because otherwise the files do not show up in the sysroot.
   definitionsDirectory = pkgs.runCommand "systemd-repart-definitions" { } ''
     mkdir -p $out
     ${(lib.concatStringsSep "\n"
@@ -86,15 +88,14 @@ in {
     boot.initrd.systemd = lib.mkIf initrdCfg.enable {
       additionalUpstreamUnits = [ "systemd-repart.service" ];
 
-      storePaths =
-        [ "${config.boot.initrd.systemd.package}/bin/systemd-repart" ];
+      storePaths = [ "${config.boot.initrd.systemd.package}/bin/systemd-repart" ]
+        ;
 
-      # Override defaults in upstream unit.
+        # Override defaults in upstream unit.
       services.systemd-repart = {
         # Unset the conditions as they cannot be met before activation because
         # the definition files are not stored in the expected locations.
-        unitConfig.ConditionDirectoryNotEmpty =
-          [ " " # required to unset the previous value.
+        unitConfig.ConditionDirectoryNotEmpty = [ " " # required to unset the previous value.
           ];
         serviceConfig = {
           # systemd-repart runs before the activation script. Thus we cannot
@@ -109,10 +110,10 @@ in {
             ''
           ];
         };
-        # Because the initrd does not have the `initrd-usr-fs.target` the
-        # upestream unit runs too early in the boot process, before the sysroot
-        # is available. However, systemd-repart needs access to the sysroot to
-        # find the definition files.
+          # Because the initrd does not have the `initrd-usr-fs.target` the
+          # upestream unit runs too early in the boot process, before the sysroot
+          # is available. However, systemd-repart needs access to the sysroot to
+          # find the definition files.
         after = [ "sysroot.mount" ];
       };
     };

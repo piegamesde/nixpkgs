@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
         -i ./src/apcagent/Makefile ./autoconf/targets.mak
   '';
 
-  # ./configure ignores --prefix, so we must specify some paths manually
-  # There is no real reason for a bin/sbin split, so just use bin.
+    # ./configure ignores --prefix, so we must specify some paths manually
+    # There is no real reason for a bin/sbin split, so just use bin.
   preConfigure = ''
     export ac_cv_path_SHUTDOWN=${systemd}/sbin/shutdown
     export ac_cv_path_WALL=${wall}/bin/wall

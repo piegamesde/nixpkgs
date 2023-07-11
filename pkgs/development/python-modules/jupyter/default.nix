@@ -28,7 +28,7 @@ buildPythonPackage rec {
     ipywidgets
   ];
 
-  # Meta-package, no tests
+    # Meta-package, no tests
   doCheck = false;
 
   meta = with lib; {

@@ -29,12 +29,14 @@
 }:
 
 let
-  preset = if stdenv.isLinux then
-    "Linux/X11"
-  else if stdenv.isDarwin then
-    "Mac OSX"
-  else
-    throw "unsupported platform";
+  preset =
+    if stdenv.isLinux then
+      "Linux/X11"
+    else if stdenv.isDarwin then
+      "Mac OSX"
+    else
+      throw "unsupported platform"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "lorien";

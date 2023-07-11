@@ -10,10 +10,12 @@ with lib;
 let
   cfg = config.services.monero;
 
-  listToConf = option: list:
+  listToConf =
+    option: list:
     concatMapStrings (value: ''
       ${option}=${value}
-    '') list;
+    '') list
+    ;
 
   login = (cfg.rpc.user != null && cfg.rpc.password != null);
 
@@ -205,7 +207,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -228,7 +230,8 @@ in {
         User = "monero";
         Group = "monero";
         ExecStart =
-          "${pkgs.monero-cli}/bin/monerod --config-file=${configFile} --non-interactive";
+          "${pkgs.monero-cli}/bin/monerod --config-file=${configFile} --non-interactive"
+          ;
         Restart = "always";
         SuccessExitStatus = [
           0

@@ -15,13 +15,16 @@ let
 
   bindUser = "named";
 
-  bindZoneCoerce = list:
+  bindZoneCoerce =
+    list:
     builtins.listToAttrs (lib.forEach list (zone: {
       name = zone.name;
       value = zone;
-    }));
+    }))
+    ;
 
-  bindZoneOptions = {
+  bindZoneOptions =
+    {
       name,
       config,
       ...
@@ -39,7 +42,8 @@ let
         file = mkOption {
           type = types.either types.str types.path;
           description = lib.mdDoc
-            "Zone file resource records contain columns of data, separated by whitespace, that define the record.";
+            "Zone file resource records contain columns of data, separated by whitespace, that define the record."
+            ;
         };
         masters = mkOption {
           type = types.listOf types.str;
@@ -69,7 +73,8 @@ let
           default = "";
         };
       };
-    };
+    }
+    ;
 
   confFile = pkgs.writeText "named.conf" ''
     include "/etc/bind/rndc.key";
@@ -284,7 +289,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

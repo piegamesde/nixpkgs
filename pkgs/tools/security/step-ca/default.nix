@@ -43,18 +43,19 @@ buildGoModule rec {
     install -Dm444 -t $out/lib/systemd/system systemd/step-ca.service
   '';
 
-  # Tests start http servers which need to bind to local addresses:
-  # panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: bind: operation not permitted
+    # Tests start http servers which need to bind to local addresses:
+    # panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: bind: operation not permitted
   __darwinAllowLocalNetworking = true;
-  # Tests need to run in a reproducible order, otherwise they run unreliably on
-  # (at least) x86_64-linux.
+    # Tests need to run in a reproducible order, otherwise they run unreliably on
+    # (at least) x86_64-linux.
   checkFlags = [ "-p 1" ];
 
   passthru.tests.step-ca = nixosTests.step-ca;
 
   meta = with lib; {
     description =
-      "A private certificate authority (X.509 & SSH) & ACME server for secure automated certificate management, so you can use TLS everywhere & SSO for SSH";
+      "A private certificate authority (X.509 & SSH) & ACME server for secure automated certificate management, so you can use TLS everywhere & SSO for SSH"
+      ;
     homepage = "https://smallstep.com/certificates/";
     license = licenses.asl20;
     maintainers = with maintainers; [

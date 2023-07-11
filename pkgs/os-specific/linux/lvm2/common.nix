@@ -94,11 +94,13 @@ stdenv.mkDerivation rec {
   patches = [
     # fixes paths to and checks for tools
     (substituteAll (let
-      optionalTool = cond: pkg:
+      optionalTool =
+        cond: pkg:
         if cond then
           pkg
         else
-          "/run/current-system/sw";
+          "/run/current-system/sw"
+        ;
     in {
       src = ./fix-blkdeactivate.patch;
       inherit coreutils;
@@ -118,14 +120,14 @@ stdenv.mkDerivation rec {
     }/lib/systemd/system-generators" ]
     ++ lib.optionals onlyLib [ "libdm.device-mapper" ];
 
-  # To prevent make install from failing.
+    # To prevent make install from failing.
   installFlags = [
     "OWNER="
     "GROUP="
     "confdir=$(out)/etc"
   ];
 
-  # Install systemd stuff.
+    # Install systemd stuff.
   installTargets = [ "install" ] ++ lib.optionals udevSupport [
     "install_systemd_generators"
     "install_systemd_units"
@@ -143,7 +145,7 @@ stdenv.mkDerivation rec {
     make -C libdm install_pkgconfig
   '';
 
-  # only split bin and lib out from out if cmdlib isn't enabled
+    # only split bin and lib out from out if cmdlib isn't enabled
   outputs = [ "out" ] ++ lib.optionals (!onlyLib) [
     "dev"
     "man"

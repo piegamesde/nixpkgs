@@ -14,8 +14,8 @@ buildGoModule {
     sha256 = "y1SWlBFgX3bFoSRGJ45DdC1DoIK5BfO9Vpi2h57wWtU=";
   };
 
-  # Otherwise, will try to install a "scripts" binary; it's only used in
-  # dockerize.sh, which we don't care about.
+    # Otherwise, will try to install a "scripts" binary; it's only used in
+    # dockerize.sh, which we don't care about.
   subPackages = [ "." ];
 
   vendorSha256 = "W8w66weYzCpZ+hmFyK2F6wdFz6aAZ9UxMhccNy1X1R8=";

@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     spdlog
   ] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
-  #nativeCheckInputs = [ gtest ];
+    #nativeCheckInputs = [ gtest ];
 
   cmakeFlags = [
     "-DDEPENDENCY_CONFIG='../cmake-utils/DependenciesFromLocalSystem.cmake'"
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     }"
   ]; # ++ lib.optional doCheck "-DCMAKE_PREFIX_PATH=${gtest.dev}/lib/cmake";
 
-  # macFUSE needs to be installed for the test to succeed on Darwin
+    # macFUSE needs to be installed for the test to succeed on Darwin
   doCheck = !stdenv.isDarwin;
 
   checkPhase = ''

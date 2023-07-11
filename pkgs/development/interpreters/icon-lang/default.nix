@@ -22,26 +22,31 @@ stdenv.mkDerivation rec {
     libXt
   ];
 
-  configurePhase = let
-    target = if withGraphics then
-      "X-Configure"
-    else
-      "Configure";
-    platform = if stdenv.isLinux then
-      "linux"
-    else if stdenv.isDarwin then
-      "macintosh"
-    else if stdenv.isBSD then
-      "bsd"
-    else if stdenv.isCygwin then
-      "cygwin"
-    else if stdenv.isSunOS then
-      "solaris"
-    else
-      throw "unsupported system";
-  in
-  "make ${target} name=${platform}"
-  ;
+  configurePhase =
+    let
+      target =
+        if withGraphics then
+          "X-Configure"
+        else
+          "Configure"
+        ;
+      platform =
+        if stdenv.isLinux then
+          "linux"
+        else if stdenv.isDarwin then
+          "macintosh"
+        else if stdenv.isBSD then
+          "bsd"
+        else if stdenv.isCygwin then
+          "cygwin"
+        else if stdenv.isSunOS then
+          "solaris"
+        else
+          throw "unsupported system"
+        ;
+    in
+    "make ${target} name=${platform}"
+    ;
 
   installPhase = ''
     make Install dest=$out

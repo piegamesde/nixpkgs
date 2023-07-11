@@ -56,9 +56,9 @@
     mlconfig = true;
     mlcc = true;
     mlterm-menu = true;
-    # Note that according to upstream's ./configure script, to disable
-    # mlimgloader you have to disable _all_ tools. See:
-    # https://github.com/arakiken/mlterm/issues/69
+      # Note that according to upstream's ./configure script, to disable
+      # mlimgloader you have to disable _all_ tools. See:
+      # https://github.com/arakiken/mlterm/issues/69
     mlimgloader = true;
     registobmp = true;
     mlfc = true;
@@ -78,7 +78,7 @@
     m17n = !stdenv.isDarwin;
     ssh2 = true;
     bidi = true;
-    # Open Type layout support, (substituting glyphs with opentype fonts)
+      # Open Type layout support, (substituting glyphs with opentype fonts)
     otl = true;
   }
   # Configure the Exec directive in the generated .desktop file
@@ -97,13 +97,14 @@ let
   # Returns a --with-feature=<comma separated string list of all `true`
   # attributes>, or `--without-feature` if all attributes are false or don't
   # exist. Used later in configureFlags
-  withFeaturesList = featureName: attrset:
+  withFeaturesList =
+    featureName: attrset:
     let
       commaSepList = lib.concatStringsSep ","
         (builtins.attrNames (lib.filterAttrs (n: v: v) attrset));
     in
     lib.withFeatureAs (commaSepList != "") featureName commaSepList
-  ;
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "mlterm";
@@ -141,7 +142,7 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals enableFeatures.ibus [ ibus ]
     ++ lib.optionals enableFeatures.uim [ uim ];
 
-  #bad configure.ac and Makefile.in everywhere
+    #bad configure.ac and Makefile.in everywhere
   preConfigure = ''
     sed -ie 's;-L/usr/local/lib -R/usr/local/lib;;g' \
       main/Makefile.in \

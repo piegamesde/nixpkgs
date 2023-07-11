@@ -81,20 +81,22 @@ buildGoModule rec {
     export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
   '';
 
-  preCheck = let
-    skippedTests = [
-      "TestValidateConfig"
-      "TestConvertNetworkConfig"
-      "TestConvertStorageConfig"
-      "TestSnapshotCommon"
-      "TestContainerTestSuite"
-    ];
-  in ''
-    # Disable tests requiring local operations
-    buildFlagsArray+=("-run" "[^(${
-      builtins.concatStringsSep "|" skippedTests
-    })]")
-  '' ;
+  preCheck =
+    let
+      skippedTests = [
+        "TestValidateConfig"
+        "TestConvertNetworkConfig"
+        "TestConvertStorageConfig"
+        "TestSnapshotCommon"
+        "TestContainerTestSuite"
+      ];
+    in ''
+      # Disable tests requiring local operations
+      buildFlagsArray+=("-run" "[^(${
+        builtins.concatStringsSep "|" skippedTests
+      })]")
+    ''
+    ;
 
   postInstall = ''
     wrapProgram $out/bin/lxd --prefix PATH : ${

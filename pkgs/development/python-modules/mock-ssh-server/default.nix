@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ paramiko ];
 
-  # Tests are running into a timeout on Hydra, they work locally
+    # Tests are running into a timeout on Hydra, they work locally
   doCheck = false;
 
   pythonImportsCheck = [ "mockssh" ];

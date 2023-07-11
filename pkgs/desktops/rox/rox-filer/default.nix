@@ -39,22 +39,23 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/rox-desktop/rox-filer/commit/86b0bb9144186d51ea9b898905111bd8b143b552.patch";
+        "https://github.com/rox-desktop/rox-filer/commit/86b0bb9144186d51ea9b898905111bd8b143b552.patch"
+        ;
       sha256 = "1csyx229i09p00lbdlkdqdhn3x2lb5zby1h9rkjgzlr2qz74gc69";
     })
   ];
 
-  # go to the source directory after unpacking the sources
+    # go to the source directory after unpacking the sources
   setSourceRoot = "export sourceRoot=rox-filer-${version}/ROX-Filer/";
 
-  # account for 'setSourceRoot' offset
+    # account for 'setSourceRoot' offset
   patchFlags = [ "-p2" ];
 
-  # patch the main.c to disable the lookup of the APP_DIR environment variable,
-  # which is used to lookup the location for certain images when rox-filer
-  # starts; rather override the location with an absolute path to the directory
-  # where images are stored to prevent having to use a wrapper, which sets the
-  # APP_DIR environment variable prior to starting rox-filer
+    # patch the main.c to disable the lookup of the APP_DIR environment variable,
+    # which is used to lookup the location for certain images when rox-filer
+    # starts; rather override the location with an absolute path to the directory
+    # where images are stored to prevent having to use a wrapper, which sets the
+    # APP_DIR environment variable prior to starting rox-filer
   preConfigure = ''
     sed -i -e "s:g_strdup(getenv(\"APP_DIR\")):\"$out\":" src/main.c
     mkdir build

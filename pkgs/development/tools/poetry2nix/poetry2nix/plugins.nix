@@ -5,7 +5,8 @@
 let
   inherit (pkgs) stdenv;
 
-  mkPluginDrv = {
+  mkPluginDrv =
+    {
       self,
       plugins,
       drv,
@@ -35,7 +36,7 @@ let
         inherit plugins;
       };
 
-      # Link bin/ from environment, but only if it's in a plugin
+        # Link bin/ from environment, but only if it's in a plugin
       installPhase = ''
         runHook preInstall
 
@@ -54,12 +55,13 @@ let
 
       inherit postInstall;
     }
-  ;
+    ;
 
 in {
 
   # Provide the `withPlugins` function
-  toPluginAble = self:
+  toPluginAble =
+    self:
     {
       drv,
       finalDrv,
@@ -69,13 +71,16 @@ in {
     }:
     drv.overridePythonAttrs (old: {
       passthru = old.passthru // {
-        withPlugins = pluginFn:
+        withPlugins =
+          pluginFn:
           mkPluginDrv {
             plugins = [ finalDrv ] ++ pluginFn self;
             inherit self postInstall nativeBuildInputs buildInputs;
             drv = finalDrv;
-          };
+          }
+          ;
       };
-    });
+    })
+    ;
 
 }

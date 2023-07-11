@@ -52,11 +52,11 @@ mkDerivation rec {
     gst-plugins-ugly
   ]);
 
-  # we carry the patched taglib 1.11.1 that doesn't break ogg but sayonara just
-  # checks for the version
+    # we carry the patched taglib 1.11.1 that doesn't break ogg but sayonara just
+    # checks for the version
   cmakeFlags = [ "-DWITH_SYSTEM_TAGLIB=ON" ];
 
-  # gstreamer cannot otherwise be found
+    # gstreamer cannot otherwise be found
   env.NIX_CFLAGS_COMPILE =
     "-I${gst_all_1.gst-plugins-base.dev}/include/gstreamer-1.0";
 

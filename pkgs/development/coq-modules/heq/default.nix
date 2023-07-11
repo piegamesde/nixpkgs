@@ -7,7 +7,8 @@
 }:
 
 let
-  fetcher = {
+  fetcher =
+    {
       rev,
       repo,
       owner,
@@ -18,7 +19,8 @@ let
     fetchzip {
       url = "https://${domain}/${owner}/${repo}/download/${repo}-${rev}.zip";
       inherit sha256;
-    };
+    }
+    ;
 in
 mkCoqDerivation {
   pname = "heq";
@@ -26,10 +28,12 @@ mkCoqDerivation {
   owner = "gil.hur";
   domain = "sf.snu.ac.kr";
   inherit version fetcher;
-  defaultVersion = if lib.versions.isLt "8.8" coq.coq-version then
-    "0.92"
-  else
-    null;
+  defaultVersion =
+    if lib.versions.isLt "8.8" coq.coq-version then
+      "0.92"
+    else
+      null
+    ;
   release."0.92".sha256 =
     "0cf8y6728n81wwlbpq3vi7l2dbzi7759klypld4gpsjjp1y1fj74";
 

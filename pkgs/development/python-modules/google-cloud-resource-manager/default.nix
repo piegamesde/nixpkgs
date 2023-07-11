@@ -37,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # prevent google directory from shadowing google imports
+    # prevent google directory from shadowing google imports
   preCheck = ''
     rm -r google
   '';
@@ -51,7 +51,8 @@ buildPythonPackage rec {
     description = "Google Cloud Resource Manager API client library";
     homepage = "https://github.com/googleapis/python-resource-manager";
     changelog =
-      "https://github.com/googleapis/python-resource-manager/blob/v${version}/CHANGELOG.md";
+      "https://github.com/googleapis/python-resource-manager/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

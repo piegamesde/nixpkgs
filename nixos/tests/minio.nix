@@ -34,7 +34,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ bachp ]; };
 
     nodes = {
-      machine = {
+      machine =
+        {
           pkgs,
           ...
         }: {
@@ -44,9 +45,10 @@ import ./make-test-python.nix ({
           };
           environment.systemPackages = [ pkgs.minio-client ];
 
-          # Minio requires at least 1GiB of free disk space to run.
+            # Minio requires at least 1GiB of free disk space to run.
           virtualisation.diskSize = 4 * 1024;
-        };
+        }
+        ;
     };
 
     testScript = ''

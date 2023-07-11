@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS =
     lib.optionalString withCplex "-L${cplex}/cplex/bin/${cplex.libArch}";
 
-  # Compile errors
+    # Compile errors
   env.NIX_CFLAGS_COMPILE = "-Wno-cast-qual";
   hardeningDisable = [ "format" ];
 

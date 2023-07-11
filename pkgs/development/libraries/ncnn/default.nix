@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "ncnn is a high-performance neural network inference framework optimized for the mobile platform";
+      "ncnn is a high-performance neural network inference framework optimized for the mobile platform"
+      ;
     homepage = "https://github.com/Tencent/ncnn";
     license = licenses.bsd3;
     maintainers = with maintainers; [ tilcreator ];

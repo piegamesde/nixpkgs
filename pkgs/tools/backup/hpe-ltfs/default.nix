@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/ltfs";
 
-  # include sys/sysctl.h is deprecated in glibc. The sysctl calls are only used
-  # for Apple to determine the kernel version. Because this build only targets
-  # Linux is it safe to remove.
+    # include sys/sysctl.h is deprecated in glibc. The sysctl calls are only used
+    # for Apple to determine the kernel version. Because this build only targets
+    # Linux is it safe to remove.
   patches = [ ./remove-sysctl.patch ];
 
   nativeBuildInputs = [ pkg-config ];

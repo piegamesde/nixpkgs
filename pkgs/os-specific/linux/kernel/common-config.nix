@@ -39,13 +39,13 @@ let
       # Necessary for BTF
       DEBUG_INFO = yes;
       DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT = whenAtLeast "5.18" yes;
-      # Reduced debug info conflict with BTF and have been enabled in
-      # aarch64 defconfig since 5.13
+        # Reduced debug info conflict with BTF and have been enabled in
+        # aarch64 defconfig since 5.13
       DEBUG_INFO_REDUCED = whenAtLeast "5.13" (option no);
       DEBUG_INFO_BTF = whenAtLeast "5.2" (option yes);
-      # Allow loading modules with mismatched BTFs
-      # FIXME: figure out how to actually make BTFs reproducible instead
-      # See https://github.com/NixOS/nixpkgs/pull/181456 for details.
+        # Allow loading modules with mismatched BTFs
+        # FIXME: figure out how to actually make BTFs reproducible instead
+        # See https://github.com/NixOS/nixpkgs/pull/181456 for details.
       MODULE_ALLOW_BTF_MISMATCH = whenAtLeast "5.18" (option yes);
       BPF_LSM = whenAtLeast "5.7" (option yes);
       DEBUG_KERNEL = yes;
@@ -56,9 +56,9 @@ let
       SCHEDSTATS = no;
       DETECT_HUNG_TASK = yes;
       CRASH_DUMP = option no;
-      # Easier debugging of NFS issues.
+        # Easier debugging of NFS issues.
       SUNRPC_DEBUG = yes;
-      # Provide access to tunables like sched_migration_cost_ns
+        # Provide access to tunables like sched_migration_cost_ns
       SCHED_DEBUG = yes;
 
       GDB_SCRIPTS = yes;
@@ -70,13 +70,13 @@ let
       PM_ADVANCED_DEBUG = yes;
       PM_WAKELOCKS = yes;
       POWERCAP = yes;
-      # ACPI Firmware Performance Data Table Support
+        # ACPI Firmware Performance Data Table Support
       ACPI_FPDT = whenAtLeast "5.12" (option yes);
-      # ACPI Heterogeneous Memory Attribute Table Support
+        # ACPI Heterogeneous Memory Attribute Table Support
       ACPI_HMAT = whenAtLeast "5.2" (option yes);
-      # ACPI Platform Error Interface
+        # ACPI Platform Error Interface
       ACPI_APEI = (option yes);
-      # APEI Generic Hardware Error Source
+        # APEI Generic Hardware Error Source
       ACPI_APEI_GHES = (option yes);
     } // optionalAttrs (stdenv.hostPlatform.isx86) {
       INTEL_IDLE = yes;
@@ -84,7 +84,7 @@ let
       X86_INTEL_LPSS = yes;
       X86_INTEL_PSTATE = yes;
       X86_AMD_PSTATE = whenAtLeast "5.17" yes;
-      # Intel DPTF (Dynamic Platform and Thermal Framework) Support
+        # Intel DPTF (Dynamic Platform and Thermal Framework) Support
       ACPI_DPTF = whenAtLeast "5.10" yes;
     };
 
@@ -106,8 +106,8 @@ let
 
     memtest = { MEMTEST = yes; };
 
-    # Include the CFQ I/O scheduler in the kernel, rather than as a
-    # module, so that the initrd gets a good I/O scheduler.
+      # Include the CFQ I/O scheduler in the kernel, rather than as a
+      # module, so that the initrd gets a good I/O scheduler.
     scheduler = {
       IOSCHED_CFQ = whenOlder "5.0" yes; # Removed in 5.0-RC1
       BLK_CGROUP = yes; # required by CFQ"
@@ -125,7 +125,7 @@ let
       NO_HZ_FULL = mkIf stdenv.is64bit yes; # TODO: more precise condition?
     };
 
-    # Enable NUMA.
+      # Enable NUMA.
     numa = { NUMA = option yes; };
 
     networking = {
@@ -141,17 +141,17 @@ let
       CLS_U32_PERF = yes;
       CLS_U32_MARK = yes;
       BPF_JIT = whenPlatformHasEBPFJit yes;
-      BPF_JIT_ALWAYS_ON = whenPlatformHasEBPFJit
-        no; # whenPlatformHasEBPFJit yes; # see https://github.com/NixOS/nixpkgs/issues/79304
+      BPF_JIT_ALWAYS_ON = whenPlatformHasEBPFJit no
+        ; # whenPlatformHasEBPFJit yes; # see https://github.com/NixOS/nixpkgs/issues/79304
       HAVE_EBPF_JIT = whenPlatformHasEBPFJit yes;
       BPF_STREAM_PARSER = whenAtLeast "4.19" yes;
       XDP_SOCKETS = whenAtLeast "4.19" yes;
       XDP_SOCKETS_DIAG = whenAtLeast "5.1" yes;
       WAN = yes;
       TCP_CONG_ADVANCED = yes;
-      TCP_CONG_CUBIC =
-        yes; # This is the default congestion control algorithm since 2.6.19
-      # Required by systemd per-cgroup firewalling
+      TCP_CONG_CUBIC = yes
+        ; # This is the default congestion control algorithm since 2.6.19
+        # Required by systemd per-cgroup firewalling
       CGROUP_BPF = option yes;
       CGROUP_NET_PRIO = yes; # Required by systemd
       IP_ROUTE_VERBOSE = yes;
@@ -186,14 +186,14 @@ let
       PPP_MULTILINK = yes; # PPP multilink support
       PPP_FILTER = yes;
 
-      # needed for iwd WPS support (wpa_supplicant replacement)
+        # needed for iwd WPS support (wpa_supplicant replacement)
       KEY_DH_OPERATIONS = yes;
 
-      # needed for nftables
-      # Networking Options
+        # needed for nftables
+        # Networking Options
       NETFILTER = yes;
       NETFILTER_ADVANCED = yes;
-      # Core Netfilter Configuration
+        # Core Netfilter Configuration
       NF_CONNTRACK_ZONES = yes;
       NF_CONNTRACK_EVENTS = yes;
       NF_CONNTRACK_TIMEOUT = yes;
@@ -209,7 +209,7 @@ let
       ];
       NFT_REJECT_NETDEV = whenAtLeast "5.11" module;
 
-      # IP: Netfilter Configuration
+        # IP: Netfilter Configuration
       NF_TABLES_IPV4 = mkMerge [
         (whenOlder "4.17" module)
         (whenAtLeast "4.17" yes)
@@ -218,39 +218,39 @@ let
         (whenOlder "4.17" module)
         (whenAtLeast "4.17" yes)
       ];
-      # IPv6: Netfilter Configuration
+        # IPv6: Netfilter Configuration
       NF_TABLES_IPV6 = mkMerge [
         (whenOlder "4.17" module)
         (whenAtLeast "4.17" yes)
       ];
-      # Bridge Netfilter Configuration
+        # Bridge Netfilter Configuration
       NF_TABLES_BRIDGE = mkMerge [
         (whenBetween "4.19" "5.3" yes)
         (whenAtLeast "5.3" module)
       ];
 
-      # needed for `dropwatch`
-      # Builtin-only since https://github.com/torvalds/linux/commit/f4b6bcc7002f0e3a3428bac33cf1945abff95450
+        # needed for `dropwatch`
+        # Builtin-only since https://github.com/torvalds/linux/commit/f4b6bcc7002f0e3a3428bac33cf1945abff95450
       NET_DROP_MONITOR = yes;
 
-      # needed for ss
-      # Use a lower priority to allow these options to be overridden in hardened/config.nix
+        # needed for ss
+        # Use a lower priority to allow these options to be overridden in hardened/config.nix
       INET_DIAG = mkDefault module;
       INET_TCP_DIAG = mkDefault module;
       INET_UDP_DIAG = mkDefault module;
       INET_RAW_DIAG = mkDefault module;
       INET_DIAG_DESTROY = mkDefault yes;
 
-      # enable multipath-tcp
+        # enable multipath-tcp
       MPTCP = whenAtLeast "5.6" yes;
       MPTCP_IPV6 = whenAtLeast "5.6" yes;
       INET_MPTCP_DIAG = whenAtLeast "5.9" (mkDefault module);
 
-      # Kernel TLS
+        # Kernel TLS
       TLS = module;
       TLS_DEVICE = whenAtLeast "4.18" yes;
 
-      # infiniband
+        # infiniband
       INFINIBAND = module;
       INFINIBAND_IPOIB = module;
       INFINIBAND_IPOIB_CM = yes;
@@ -295,16 +295,16 @@ let
       FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER = whenAtLeast "4.19" yes;
       FRAMEBUFFER_CONSOLE_ROTATION = yes;
       FB_GEODE = mkIf (stdenv.hostPlatform.system == "i686-linux") yes;
-      # On 5.14 this conflicts with FB_SIMPLE.
+        # On 5.14 this conflicts with FB_SIMPLE.
       DRM_SIMPLEDRM = whenAtLeast "5.14" no;
     };
 
     fonts = {
       FONTS = yes;
-      # Default fonts enabled if FONTS is not set
+        # Default fonts enabled if FONTS is not set
       FONT_8x8 = yes;
       FONT_8x16 = yes;
-      # High DPI font
+        # High DPI font
       FONT_TER16x32 = whenAtLeast "5.0" yes;
     };
 
@@ -312,20 +312,20 @@ let
       DRM_LEGACY = no;
       NOUVEAU_LEGACY_CTX_SUPPORT = whenBetween "5.2" "6.3" no;
 
-      # Allow specifying custom EDID on the kernel command line
+        # Allow specifying custom EDID on the kernel command line
       DRM_LOAD_EDID_FIRMWARE = yes;
       VGA_SWITCHEROO = yes; # Hybrid graphics support
       DRM_GMA500 = whenAtLeast "5.12" module;
       DRM_GMA600 = whenOlder "5.13" yes;
       DRM_GMA3600 = whenOlder "5.12" yes;
       DRM_VMWGFX_FBCON = whenOlder "6.2" yes;
-      # (experimental) amdgpu support for verde and newer chipsets
+        # (experimental) amdgpu support for verde and newer chipsets
       DRM_AMDGPU_SI = yes;
-      # (stable) amdgpu support for bonaire and newer chipsets
+        # (stable) amdgpu support for bonaire and newer chipsets
       DRM_AMDGPU_CIK = yes;
-      # Allow device firmware updates
+        # Allow device firmware updates
       DRM_DP_AUX_CHARDEV = yes;
-      # amdgpu display core (DC) support
+        # amdgpu display core (DC) support
       DRM_AMD_DC_DCN1_0 = whenBetween "4.15" "5.6" yes;
       DRM_AMD_DC_PRE_VEGA = whenBetween "4.15" "4.18" yes;
       DRM_AMD_DC_DCN2_0 = whenBetween "5.3" "5.6" yes;
@@ -338,7 +338,7 @@ let
       # Intel GVT-g graphics virtualization supports 64-bit only
       DRM_I915_GVT = whenAtLeast "4.16" yes;
       DRM_I915_GVT_KVMGT = whenAtLeast "4.16" module;
-      # Enable Hyper-V Synthetic DRM Driver
+        # Enable Hyper-V Synthetic DRM Driver
       DRM_HYPERV = whenAtLeast "5.14" module;
     } // optionalAttrs (stdenv.hostPlatform.system == "aarch64-linux") {
       # enable HDMI-CEC on RPi boards
@@ -350,13 +350,13 @@ let
       SND_AC97_POWER_SAVE = yes; # AC97 Power-Saving Mode
       SND_HDA_INPUT_BEEP = yes; # Support digital beep via input layer
       SND_HDA_RECONFIG = yes; # Support reconfiguration of jack functions
-      # Support configuring jack functions via fw mechanism at boot
+        # Support configuring jack functions via fw mechanism at boot
       SND_HDA_PATCH_LOADER = yes;
-      SND_HDA_CODEC_CA0132_DSP = whenOlder "5.7"
-        yes; # Enable DSP firmware loading on Creative Soundblaster Z/Zx/ZxR/Recon
+      SND_HDA_CODEC_CA0132_DSP = whenOlder "5.7" yes
+        ; # Enable DSP firmware loading on Creative Soundblaster Z/Zx/ZxR/Recon
       SND_OSSEMUL = yes;
       SND_USB_CAIAQ_INPUT = yes;
-      # Enable Sound Open Firmware support
+        # Enable Sound Open Firmware support
     } // optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux"
       && versionAtLeast version "5.5") {
         SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
@@ -420,22 +420,24 @@ let
       };
       USB_EHCI_ROOT_HUB_TT = yes; # Root Hub Transaction Translators
       USB_EHCI_TT_NEWSCHED = yes; # Improved transaction translator scheduling
-      USB_HIDDEV =
-        yes; # USB Raw HID Devices (like monitor controls and Uninterruptable Power Supplies)
+      USB_HIDDEV = yes
+        ; # USB Raw HID Devices (like monitor controls and Uninterruptable Power Supplies)
     };
 
-    # Filesystem options - in particular, enable extended attributes and
-    # ACLs for all filesystems that support them.
+      # Filesystem options - in particular, enable extended attributes and
+      # ACLs for all filesystems that support them.
     filesystem = {
       FANOTIFY = yes;
       FANOTIFY_ACCESS_PERMISSIONS = yes;
 
       TMPFS = yes;
       TMPFS_POSIX_ACL = yes;
-      FS_ENCRYPTION = if (versionAtLeast version "5.1") then
-        yes
-      else
-        option module;
+      FS_ENCRYPTION =
+        if (versionAtLeast version "5.1") then
+          yes
+        else
+          option module
+        ;
 
       EXT2_FS_XATTR = yes;
       EXT2_FS_POSIX_ACL = yes;
@@ -510,14 +512,14 @@ let
       SQUASHFS_LZ4 = yes;
       SQUASHFS_ZSTD = yes;
 
-      # Native Language Support modules, needed by some filesystems
+        # Native Language Support modules, needed by some filesystems
       NLS = yes;
       NLS_DEFAULT = freeform "utf8";
       NLS_UTF8 = module;
       NLS_CODEPAGE_437 = module; # VFAT default for the codepage= mount option
       NLS_ISO8859_1 = module; # VFAT default for the iocharset= mount option
 
-      # Needed to use the installation iso image. Not included in all defconfigs (e.g. arm64)
+        # Needed to use the installation iso image. Not included in all defconfigs (e.g. arm64)
       ISO9660_FS = module;
 
       DEVTMPFS = yes;
@@ -528,18 +530,18 @@ let
     security = {
       FORTIFY_SOURCE = option yes;
 
-      # https://googleprojectzero.blogspot.com/2019/11/bad-binder-android-in-wild-exploit.html
+        # https://googleprojectzero.blogspot.com/2019/11/bad-binder-android-in-wild-exploit.html
       DEBUG_LIST = yes;
       HARDENED_USERCOPY = yes;
       RANDOMIZE_BASE = option yes;
       STRICT_DEVMEM = mkDefault yes; # Filter access to /dev/mem
       IO_STRICT_DEVMEM = mkDefault yes;
-      SECURITY_SELINUX_BOOTPARAM_VALUE =
-        whenOlder "5.1" (freeform "0"); # Disable SELinux by default
-      # Prevent processes from ptracing non-children processes
+      SECURITY_SELINUX_BOOTPARAM_VALUE = whenOlder "5.1" (freeform "0")
+        ; # Disable SELinux by default
+        # Prevent processes from ptracing non-children processes
       SECURITY_YAMA = option yes;
-      # The goal of Landlock is to enable to restrict ambient rights (e.g. global filesystem access) for a set of processes.
-      # This does not have any effect if a program does not support it
+        # The goal of Landlock is to enable to restrict ambient rights (e.g. global filesystem access) for a set of processes.
+        # This does not have any effect if a program does not support it
       SECURITY_LANDLOCK = whenAtLeast "5.13" yes;
       DEVKMEM = whenOlder "5.13" no; # Disable /dev/kmem
 
@@ -550,18 +552,18 @@ let
 
       RANDOM_TRUST_CPU =
         whenOlder "6.2" (whenAtLeast "4.19" yes); # allow RDRAND to seed the RNG
-      RANDOM_TRUST_BOOTLOADER = whenOlder "6.2"
-        (whenAtLeast "5.4" yes); # allow the bootloader to seed the RNG
+      RANDOM_TRUST_BOOTLOADER = whenOlder "6.2" (whenAtLeast "5.4" yes)
+        ; # allow the bootloader to seed the RNG
 
-      MODULE_SIG =
-        no; # r13y, generates a random key during build and bakes it in
-      # Depends on MODULE_SIG and only really helps when you sign your modules
-      # and enforce signatures which we don't do by default.
+      MODULE_SIG = no
+        ; # r13y, generates a random key during build and bakes it in
+        # Depends on MODULE_SIG and only really helps when you sign your modules
+        # and enforce signatures which we don't do by default.
       SECURITY_LOCKDOWN_LSM = whenAtLeast "5.4" no;
 
-      # provides a register of persistent per-UID keyrings, useful for encrypting storage pools in stratis
+        # provides a register of persistent per-UID keyrings, useful for encrypting storage pools in stratis
       PERSISTENT_KEYRINGS = yes;
-      # enable temporary caching of the last request_key() result
+        # enable temporary caching of the last request_key() result
       KEYS_REQUEST_CACHE = whenAtLeast "5.3" yes;
     } // optionalAttrs (!stdenv.hostPlatform.isAarch32) {
 
@@ -573,16 +575,16 @@ let
     } // optionalAttrs stdenv.hostPlatform.isx86_64 {
       # Enable Intel SGX
       X86_SGX = whenAtLeast "5.11" yes;
-      # Allow KVM guests to load SGX enclaves
+        # Allow KVM guests to load SGX enclaves
       X86_SGX_KVM = whenAtLeast "5.13" yes;
 
-      # AMD Cryptographic Coprocessor (CCP)
+        # AMD Cryptographic Coprocessor (CCP)
       CRYPTO_DEV_CCP = yes;
-      # AMD SME
+        # AMD SME
       AMD_MEM_ENCRYPT = yes;
-      # AMD SEV and AMD SEV-SE
+        # AMD SEV and AMD SEV-SE
       KVM_AMD_SEV = whenAtLeast "4.16" yes;
-      # AMD SEV-SNP
+        # AMD SEV-SNP
       SEV_GUEST = whenAtLeast "5.19" module;
     };
 
@@ -590,9 +592,9 @@ let
       MICROCODE = yes;
       MICROCODE_INTEL = yes;
       MICROCODE_AMD = yes;
-      # Write Back Throttling
-      # https://lwn.net/Articles/682582/
-      # https://bugzilla.kernel.org/show_bug.cgi?id=12309#c655
+        # Write Back Throttling
+        # https://lwn.net/Articles/682582/
+        # https://bugzilla.kernel.org/show_bug.cgi?id=12309#c655
       BLK_WBT = yes;
       BLK_WBT_SQ = whenOlder "5.0" yes; # Removed in 5.0-RC1
       BLK_WBT_MQ = yes;
@@ -655,7 +657,7 @@ let
       KVM_VFIO = yes;
       KSM = yes;
       VIRT_DRIVERS = yes;
-      # We need 64 GB (PAE) support for Xen guest support
+        # We need 64 GB (PAE) support for Xen guest support
       HIGHMEM64G = {
         optional = true;
         tristate = mkIf (!stdenv.is64bit) "y";
@@ -663,9 +665,9 @@ let
 
       VFIO_PCI_VGA = mkIf stdenv.is64bit yes;
 
-      # VirtualBox guest drivers in the kernel conflict with the ones in the
-      # official additions package and prevent the vboxsf module from loading,
-      # so disable them for now.
+        # VirtualBox guest drivers in the kernel conflict with the ones in the
+        # official additions package and prevent the vboxsf module from loading,
+        # so disable them for now.
       VBOXGUEST = option no;
       DRM_VBOXVIDEO = option no;
 
@@ -688,7 +690,7 @@ let
       XEN_SCRUB_PAGES = whenOlder "4.19" yes;
       XEN_SELFBALLOONING = whenOlder "5.3" yes;
 
-      # Enable device detection on virtio-mmio hypervisors
+        # Enable device detection on virtio-mmio hypervisors
       VIRTIO_MMIO_CMDLINE_DEVICES = yes;
     };
 
@@ -727,13 +729,13 @@ let
       BRCMFMAC_PCIE = option yes;
     };
 
-    # Support x2APIC (which requires IRQ remapping)
+      # Support x2APIC (which requires IRQ remapping)
     x2apic = optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux") {
       X86_X2APIC = yes;
       IRQ_REMAP = yes;
     };
 
-    # Disable various self-test modules that have no use in a production system
+      # Disable various self-test modules that have no use in a production system
     tests = {
       # This menu disables all/most of them on >= 4.16
       RUNTIME_TESTING_MENU = option no;
@@ -788,326 +790,331 @@ let
       XZ_DEC_TEST = option no;
     };
 
-    criu = if (versionAtLeast version "4.19") then
+    criu =
+      if (versionAtLeast version "4.19") then
+        {
+          # Unconditionally enabled, because it is required for CRIU and
+          # it provides the kcmp() system call that Mesa depends on.
+          CHECKPOINT_RESTORE = yes;
+        }
+      else
+        optionalAttrs (features.criu or false) ({
+          # For older kernels, CHECKPOINT_RESTORE is hidden behind EXPERT.
+          EXPERT = yes;
+          CHECKPOINT_RESTORE = yes;
+        } // optionalAttrs (features.criu_revert_expert or true) {
+          RFKILL_INPUT = option yes;
+          HID_PICOLCD_FB = option yes;
+          HID_PICOLCD_BACKLIGHT = option yes;
+          HID_PICOLCD_LCD = option yes;
+          HID_PICOLCD_LEDS = option yes;
+          HID_PICOLCD_CIR = option yes;
+          DEBUG_MEMORY_INIT = option yes;
+        })
+      ;
+
+    misc =
+      let
+        # Use zstd for kernel compression if 64-bit and newer than 5.9, otherwise xz.
+        # i686 issues: https://github.com/NixOS/nixpkgs/pull/117961#issuecomment-812106375
+        useZstd = stdenv.buildPlatform.is64bit && versionAtLeast version "5.9";
+      in
       {
-        # Unconditionally enabled, because it is required for CRIU and
-        # it provides the kcmp() system call that Mesa depends on.
-        CHECKPOINT_RESTORE = yes;
-      }
-    else
-      optionalAttrs (features.criu or false) ({
-        # For older kernels, CHECKPOINT_RESTORE is hidden behind EXPERT.
-        EXPERT = yes;
-        CHECKPOINT_RESTORE = yes;
-      } // optionalAttrs (features.criu_revert_expert or true) {
-        RFKILL_INPUT = option yes;
-        HID_PICOLCD_FB = option yes;
-        HID_PICOLCD_BACKLIGHT = option yes;
-        HID_PICOLCD_LCD = option yes;
-        HID_PICOLCD_LEDS = option yes;
-        HID_PICOLCD_CIR = option yes;
-        DEBUG_MEMORY_INIT = option yes;
-      });
+        KERNEL_XZ = mkIf (!useZstd) yes;
+        KERNEL_ZSTD = mkIf useZstd yes;
 
-    misc = let
-      # Use zstd for kernel compression if 64-bit and newer than 5.9, otherwise xz.
-      # i686 issues: https://github.com/NixOS/nixpkgs/pull/117961#issuecomment-812106375
-      useZstd = stdenv.buildPlatform.is64bit && versionAtLeast version "5.9";
-    in
-    {
-      KERNEL_XZ = mkIf (!useZstd) yes;
-      KERNEL_ZSTD = mkIf useZstd yes;
+        HID_BATTERY_STRENGTH = yes;
+          # enabled by default in x86_64 but not arm64, so we do that here
+        HIDRAW = yes;
 
-      HID_BATTERY_STRENGTH = yes;
-      # enabled by default in x86_64 but not arm64, so we do that here
-      HIDRAW = yes;
+        HID_ACRUX_FF = yes;
+        DRAGONRISE_FF = yes;
+        GREENASIA_FF = yes;
+        HOLTEK_FF = yes;
+        JOYSTICK_PSXPAD_SPI_FF = yes;
+        LOGIG940_FF = yes;
+        NINTENDO_FF = whenAtLeast "5.16" yes;
+        PLAYSTATION_FF = whenAtLeast "5.12" yes;
+        SONY_FF = yes;
+        SMARTJOYPLUS_FF = yes;
+        THRUSTMASTER_FF = yes;
+        ZEROPLUS_FF = yes;
 
-      HID_ACRUX_FF = yes;
-      DRAGONRISE_FF = yes;
-      GREENASIA_FF = yes;
-      HOLTEK_FF = yes;
-      JOYSTICK_PSXPAD_SPI_FF = yes;
-      LOGIG940_FF = yes;
-      NINTENDO_FF = whenAtLeast "5.16" yes;
-      PLAYSTATION_FF = whenAtLeast "5.12" yes;
-      SONY_FF = yes;
-      SMARTJOYPLUS_FF = yes;
-      THRUSTMASTER_FF = yes;
-      ZEROPLUS_FF = yes;
+        MODULE_COMPRESS = whenOlder "5.13" yes;
+        MODULE_COMPRESS_XZ = yes;
 
-      MODULE_COMPRESS = whenOlder "5.13" yes;
-      MODULE_COMPRESS_XZ = yes;
+        SYSVIPC = yes; # System-V IPC
 
-      SYSVIPC = yes; # System-V IPC
+        AIO = yes; # POSIX asynchronous I/O
 
-      AIO = yes; # POSIX asynchronous I/O
+        UNIX = yes; # Unix domain sockets.
 
-      UNIX = yes; # Unix domain sockets.
+        MD = yes; # Device mapper (RAID, LVM, etc.)
 
-      MD = yes; # Device mapper (RAID, LVM, etc.)
+          # Enable initrd support.
+        BLK_DEV_INITRD = yes;
 
-      # Enable initrd support.
-      BLK_DEV_INITRD = yes;
+        PM_TRACE_RTC = no; # Disable some expensive (?) features.
+        ACCESSIBILITY = yes; # Accessibility support
+        AUXDISPLAY = yes; # Auxiliary Display support
+        DONGLE = whenOlder "4.17" yes; # Serial dongle support
+        HIPPI = yes;
+        MTD_COMPLEX_MAPPINGS = yes; # needed for many devices
 
-      PM_TRACE_RTC = no; # Disable some expensive (?) features.
-      ACCESSIBILITY = yes; # Accessibility support
-      AUXDISPLAY = yes; # Auxiliary Display support
-      DONGLE = whenOlder "4.17" yes; # Serial dongle support
-      HIPPI = yes;
-      MTD_COMPLEX_MAPPINGS = yes; # needed for many devices
+        SCSI_LOWLEVEL = yes; # enable lots of SCSI devices
+        SCSI_LOWLEVEL_PCMCIA = yes;
+        SCSI_SAS_ATA = yes; # added to enable detection of hard drive
 
-      SCSI_LOWLEVEL = yes; # enable lots of SCSI devices
-      SCSI_LOWLEVEL_PCMCIA = yes;
-      SCSI_SAS_ATA = yes; # added to enable detection of hard drive
+        SPI = yes; # needed for many devices
+        SPI_MASTER = yes;
 
-      SPI = yes; # needed for many devices
-      SPI_MASTER = yes;
+        "8139TOO_8129" = yes;
+        "8139TOO_PIO" = no; # PIO is slower
 
-      "8139TOO_8129" = yes;
-      "8139TOO_PIO" = no; # PIO is slower
+        AIC79XX_DEBUG_ENABLE = no;
+        AIC7XXX_DEBUG_ENABLE = no;
+        AIC94XX_DEBUG = no;
 
-      AIC79XX_DEBUG_ENABLE = no;
-      AIC7XXX_DEBUG_ENABLE = no;
-      AIC94XX_DEBUG = no;
+        BLK_DEV_INTEGRITY = yes;
 
-      BLK_DEV_INTEGRITY = yes;
+        BLK_SED_OPAL = yes;
 
-      BLK_SED_OPAL = yes;
+        BSD_PROCESS_ACCT_V3 = yes;
 
-      BSD_PROCESS_ACCT_V3 = yes;
+        SERIAL_DEV_BUS = yes; # enables support for serial devices
+        SERIAL_DEV_CTRL_TTYPORT = yes; # enables support for TTY serial devices
 
-      SERIAL_DEV_BUS = yes; # enables support for serial devices
-      SERIAL_DEV_CTRL_TTYPORT = yes; # enables support for TTY serial devices
+        BT_HCIBTUSB_MTK = whenAtLeast "5.3" yes; # MediaTek protocol support
+        BT_HCIUART_QCA = yes; # Qualcomm Atheros protocol support
+        BT_HCIUART_SERDEV = yes; # required by BT_HCIUART_QCA
+        BT_HCIUART =
+          module; # required for BT devices with serial port interface (QCA6390)
+        BT_HCIUART_BCSP = option yes;
+        BT_HCIUART_H4 = option yes; # UART (H4) protocol support
+        BT_HCIUART_LL = option yes;
+        BT_RFCOMM_TTY = option yes; # RFCOMM TTY support
+        BT_QCA = module; # enables QCA6390 bluetooth
 
-      BT_HCIBTUSB_MTK = whenAtLeast "5.3" yes; # MediaTek protocol support
-      BT_HCIUART_QCA = yes; # Qualcomm Atheros protocol support
-      BT_HCIUART_SERDEV = yes; # required by BT_HCIUART_QCA
-      BT_HCIUART =
-        module; # required for BT devices with serial port interface (QCA6390)
-      BT_HCIUART_BCSP = option yes;
-      BT_HCIUART_H4 = option yes; # UART (H4) protocol support
-      BT_HCIUART_LL = option yes;
-      BT_RFCOMM_TTY = option yes; # RFCOMM TTY support
-      BT_QCA = module; # enables QCA6390 bluetooth
+          # Removed on 5.17 as it was unused
+          # upstream: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0a4ee518185e902758191d968600399f3bc2be31
+        CLEANCACHE = whenOlder "5.17" (option yes);
+        CRASH_DUMP = option no;
 
-      # Removed on 5.17 as it was unused
-      # upstream: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0a4ee518185e902758191d968600399f3bc2be31
-      CLEANCACHE = whenOlder "5.17" (option yes);
-      CRASH_DUMP = option no;
+        DVB_DYNAMIC_MINORS = option yes; # we use udev
 
-      DVB_DYNAMIC_MINORS = option yes; # we use udev
+        EFI_STUB = yes; # EFI bootloader in the bzImage itself
+        EFI_GENERIC_STUB_INITRD_CMDLINE_LOADER =
+          whenOlder "6.2" (whenAtLeast "5.8" yes)
+          ; # initrd kernel parameter for EFI
+        CGROUPS = yes; # used by systemd
+        FHANDLE = yes; # used by systemd
+        SECCOMP = yes; # used by systemd >= 231
+        SECCOMP_FILTER = yes; # ditto
+        POSIX_MQUEUE = yes;
+        FRONTSWAP = yes;
+        FUSION = yes; # Fusion MPT device support
+        IDE = whenOlder "5.14" no; # deprecated IDE support, removed in 5.14
+        IDLE_PAGE_TRACKING = yes;
+        IRDA_ULTRA = whenOlder "4.17" yes; # Ultra (connectionless) protocol
 
-      EFI_STUB = yes; # EFI bootloader in the bzImage itself
-      EFI_GENERIC_STUB_INITRD_CMDLINE_LOADER = whenOlder "6.2"
-        (whenAtLeast "5.8" yes); # initrd kernel parameter for EFI
-      CGROUPS = yes; # used by systemd
-      FHANDLE = yes; # used by systemd
-      SECCOMP = yes; # used by systemd >= 231
-      SECCOMP_FILTER = yes; # ditto
-      POSIX_MQUEUE = yes;
-      FRONTSWAP = yes;
-      FUSION = yes; # Fusion MPT device support
-      IDE = whenOlder "5.14" no; # deprecated IDE support, removed in 5.14
-      IDLE_PAGE_TRACKING = yes;
-      IRDA_ULTRA = whenOlder "4.17" yes; # Ultra (connectionless) protocol
+        JOYSTICK_IFORCE_232 = {
+          optional = true;
+          tristate = whenOlder "5.3" "y";
+        }; # I-Force Serial joysticks and wheels
+        JOYSTICK_IFORCE_USB = {
+          optional = true;
+          tristate = whenOlder "5.3" "y";
+        }; # I-Force USB joysticks and wheels
+        JOYSTICK_XPAD_FF = option yes; # X-Box gamepad rumble support
+        JOYSTICK_XPAD_LEDS =
+          option yes; # LED Support for Xbox360 controller 'BigX' LED
 
-      JOYSTICK_IFORCE_232 = {
-        optional = true;
-        tristate = whenOlder "5.3" "y";
-      }; # I-Force Serial joysticks and wheels
-      JOYSTICK_IFORCE_USB = {
-        optional = true;
-        tristate = whenOlder "5.3" "y";
-      }; # I-Force USB joysticks and wheels
-      JOYSTICK_XPAD_FF = option yes; # X-Box gamepad rumble support
-      JOYSTICK_XPAD_LEDS =
-        option yes; # LED Support for Xbox360 controller 'BigX' LED
+        KEYBOARD_APPLESPI = whenAtLeast "5.3" module;
 
-      KEYBOARD_APPLESPI = whenAtLeast "5.3" module;
+        KEXEC_FILE = option yes;
+        KEXEC_JUMP = option yes;
 
-      KEXEC_FILE = option yes;
-      KEXEC_JUMP = option yes;
+        PARTITION_ADVANCED = yes; # Needed for LDM_PARTITION
+          # Windows Logical Disk Manager (Dynamic Disk) support
+        LDM_PARTITION = yes;
+        LOGIRUMBLEPAD2_FF = yes; # Logitech Rumblepad 2 force feedback
+        LOGO = no; # not needed
+        MEDIA_ATTACH = yes;
+        MEGARAID_NEWGEN = yes;
 
-      PARTITION_ADVANCED = yes; # Needed for LDM_PARTITION
-      # Windows Logical Disk Manager (Dynamic Disk) support
-      LDM_PARTITION = yes;
-      LOGIRUMBLEPAD2_FF = yes; # Logitech Rumblepad 2 force feedback
-      LOGO = no; # not needed
-      MEDIA_ATTACH = yes;
-      MEGARAID_NEWGEN = yes;
+        MLX5_CORE_EN = option yes;
 
-      MLX5_CORE_EN = option yes;
+        NVME_MULTIPATH = whenAtLeast "4.15" yes;
 
-      NVME_MULTIPATH = whenAtLeast "4.15" yes;
+        PSI = whenAtLeast "4.20" yes;
 
-      PSI = whenAtLeast "4.20" yes;
+        MOUSE_ELAN_I2C_SMBUS = yes;
+        MOUSE_PS2_ELANTECH = yes; # Elantech PS/2 protocol extension
+        MOUSE_PS2_VMMOUSE = yes;
+        MTRR_SANITIZER = yes;
+        NET_FC = yes; # Fibre Channel driver support
+          # Needed for touchpads to work on some AMD laptops
+        PINCTRL_AMD = whenAtLeast "5.19" yes;
+          # GPIO on Intel Bay Trail, for some Chromebook internal eMMC disks
+        PINCTRL_BAYTRAIL = yes;
+          # GPIO for Braswell and Cherryview devices
+          # Needs to be built-in to for integrated keyboards to function properly
+        PINCTRL_CHERRYVIEW = yes;
+          # 8 is default. Modern gpt tables on eMMC may go far beyond 8.
+        MMC_BLOCK_MINORS = freeform "32";
 
-      MOUSE_ELAN_I2C_SMBUS = yes;
-      MOUSE_PS2_ELANTECH = yes; # Elantech PS/2 protocol extension
-      MOUSE_PS2_VMMOUSE = yes;
-      MTRR_SANITIZER = yes;
-      NET_FC = yes; # Fibre Channel driver support
-      # Needed for touchpads to work on some AMD laptops
-      PINCTRL_AMD = whenAtLeast "5.19" yes;
-      # GPIO on Intel Bay Trail, for some Chromebook internal eMMC disks
-      PINCTRL_BAYTRAIL = yes;
-      # GPIO for Braswell and Cherryview devices
-      # Needs to be built-in to for integrated keyboards to function properly
-      PINCTRL_CHERRYVIEW = yes;
-      # 8 is default. Modern gpt tables on eMMC may go far beyond 8.
-      MMC_BLOCK_MINORS = freeform "32";
+        REGULATOR = yes; # Voltage and Current Regulator Support
+        RC_DEVICES = option yes; # Enable IR devices
+        RC_DECODERS = option yes; # Required for IR devices to work
 
-      REGULATOR = yes; # Voltage and Current Regulator Support
-      RC_DEVICES = option yes; # Enable IR devices
-      RC_DECODERS = option yes; # Required for IR devices to work
+        RT2800USB_RT53XX = yes;
+        RT2800USB_RT55XX = yes;
 
-      RT2800USB_RT53XX = yes;
-      RT2800USB_RT55XX = yes;
+        SCHED_AUTOGROUP = yes;
+        CFS_BANDWIDTH = yes;
 
-      SCHED_AUTOGROUP = yes;
-      CFS_BANDWIDTH = yes;
+        SCSI_LOGGING = yes; # SCSI logging facility
+        SERIAL_8250 = yes; # 8250/16550 and compatible serial support
 
-      SCSI_LOGGING = yes; # SCSI logging facility
-      SERIAL_8250 = yes; # 8250/16550 and compatible serial support
+        SLAB_FREELIST_HARDENED = yes;
+        SLAB_FREELIST_RANDOM = yes;
 
-      SLAB_FREELIST_HARDENED = yes;
-      SLAB_FREELIST_RANDOM = yes;
+        SLIP_COMPRESSED = yes; # CSLIP compressed headers
+        SLIP_SMART = yes;
 
-      SLIP_COMPRESSED = yes; # CSLIP compressed headers
-      SLIP_SMART = yes;
+        HWMON = yes;
+        THERMAL_HWMON = yes; # Hardware monitoring support
+        NVME_HWMON = whenAtLeast "5.5" yes; # NVMe drives temperature reporting
+        UEVENT_HELPER = no;
 
-      HWMON = yes;
-      THERMAL_HWMON = yes; # Hardware monitoring support
-      NVME_HWMON = whenAtLeast "5.5" yes; # NVMe drives temperature reporting
-      UEVENT_HELPER = no;
+        USERFAULTFD = yes;
+        X86_CHECK_BIOS_CORRUPTION = yes;
+        X86_MCE = yes;
 
-      USERFAULTFD = yes;
-      X86_CHECK_BIOS_CORRUPTION = yes;
-      X86_MCE = yes;
+        RAS = yes; # Needed for EDAC support
 
-      RAS = yes; # Needed for EDAC support
+          # Our initrd init uses shebang scripts, so can't be modular.
+        BINFMT_SCRIPT = yes;
+          # For systemd-binfmt
+        BINFMT_MISC = option yes;
 
-      # Our initrd init uses shebang scripts, so can't be modular.
-      BINFMT_SCRIPT = yes;
-      # For systemd-binfmt
-      BINFMT_MISC = option yes;
+          # Disable the firmware helper fallback, udev doesn't implement it any more
+        FW_LOADER_USER_HELPER_FALLBACK = option no;
 
-      # Disable the firmware helper fallback, udev doesn't implement it any more
-      FW_LOADER_USER_HELPER_FALLBACK = option no;
+        FW_LOADER_COMPRESS = option yes;
 
-      FW_LOADER_COMPRESS = option yes;
+        HOTPLUG_PCI_ACPI = yes; # PCI hotplug using ACPI
+        HOTPLUG_PCI_PCIE = yes; # PCI-Expresscard hotplug support
 
-      HOTPLUG_PCI_ACPI = yes; # PCI hotplug using ACPI
-      HOTPLUG_PCI_PCIE = yes; # PCI-Expresscard hotplug support
+          # Enable AMD's ROCm GPU compute stack
+        HSA_AMD = mkIf stdenv.hostPlatform.is64bit (whenAtLeast "4.20" yes);
+        ZONE_DEVICE = mkIf stdenv.hostPlatform.is64bit (whenAtLeast "5.3" yes);
+        HMM_MIRROR = whenAtLeast "5.3" yes;
+        DRM_AMDGPU_USERPTR = whenAtLeast "5.3" yes;
 
-      # Enable AMD's ROCm GPU compute stack
-      HSA_AMD = mkIf stdenv.hostPlatform.is64bit (whenAtLeast "4.20" yes);
-      ZONE_DEVICE = mkIf stdenv.hostPlatform.is64bit (whenAtLeast "5.3" yes);
-      HMM_MIRROR = whenAtLeast "5.3" yes;
-      DRM_AMDGPU_USERPTR = whenAtLeast "5.3" yes;
+        PREEMPT = no;
+        PREEMPT_VOLUNTARY = yes;
 
-      PREEMPT = no;
-      PREEMPT_VOLUNTARY = yes;
+        X86_AMD_PLATFORM_DEVICE = yes;
+        X86_PLATFORM_DRIVERS_DELL = whenAtLeast "5.12" yes;
 
-      X86_AMD_PLATFORM_DEVICE = yes;
-      X86_PLATFORM_DRIVERS_DELL = whenAtLeast "5.12" yes;
+        LIRC = mkMerge [
+          (whenOlder "4.16" module)
+          (whenAtLeast "4.17" yes)
+        ];
 
-      LIRC = mkMerge [
-        (whenOlder "4.16" module)
-        (whenAtLeast "4.17" yes)
-      ];
+        SCHED_CORE = whenAtLeast "5.14" yes;
 
-      SCHED_CORE = whenAtLeast "5.14" yes;
+        LRU_GEN = whenAtLeast "6.1" yes;
+        LRU_GEN_ENABLED = whenAtLeast "6.1" yes;
 
-      LRU_GEN = whenAtLeast "6.1" yes;
-      LRU_GEN_ENABLED = whenAtLeast "6.1" yes;
+        FSL_MC_UAPI_SUPPORT =
+          mkIf (stdenv.hostPlatform.system == "aarch64-linux")
+          (whenAtLeast "5.12" yes);
 
-      FSL_MC_UAPI_SUPPORT = mkIf (stdenv.hostPlatform.system == "aarch64-linux")
-        (whenAtLeast "5.12" yes);
+        ASHMEM = {
+          optional = true;
+          tristate = whenBetween "5.0" "5.18" "y";
+        };
+        ANDROID = {
+          optional = true;
+          tristate = whenBetween "5.0" "5.19" "y";
+        };
+        ANDROID_BINDER_IPC = {
+          optional = true;
+          tristate = whenAtLeast "5.0" "y";
+        };
+        ANDROID_BINDERFS = {
+          optional = true;
+          tristate = whenAtLeast "5.0" "y";
+        };
+        ANDROID_BINDER_DEVICES = {
+          optional = true;
+          freeform = whenAtLeast "5.0" "binder,hwbinder,vndbinder";
+        };
 
-      ASHMEM = {
-        optional = true;
-        tristate = whenBetween "5.0" "5.18" "y";
-      };
-      ANDROID = {
-        optional = true;
-        tristate = whenBetween "5.0" "5.19" "y";
-      };
-      ANDROID_BINDER_IPC = {
-        optional = true;
-        tristate = whenAtLeast "5.0" "y";
-      };
-      ANDROID_BINDERFS = {
-        optional = true;
-        tristate = whenAtLeast "5.0" "y";
-      };
-      ANDROID_BINDER_DEVICES = {
-        optional = true;
-        freeform = whenAtLeast "5.0" "binder,hwbinder,vndbinder";
-      };
+        TASKSTATS = yes;
+        TASK_DELAY_ACCT = yes;
+        TASK_XACCT = yes;
+        TASK_IO_ACCOUNTING = yes;
 
-      TASKSTATS = yes;
-      TASK_DELAY_ACCT = yes;
-      TASK_XACCT = yes;
-      TASK_IO_ACCOUNTING = yes;
-
-      # Fresh toolchains frequently break -Werror build for minor issues.
-      WERROR = whenAtLeast "5.15" no;
-    } // optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux"
-      || stdenv.hostPlatform.system == "aarch64-linux") {
-        # Enable CPU/memory hotplug support
-        # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
-        ACPI_HOTPLUG_CPU = yes;
-        ACPI_HOTPLUG_MEMORY = yes;
-        MEMORY_HOTPLUG = yes;
-        MEMORY_HOTREMOVE = yes;
-        HOTPLUG_CPU = yes;
-        MIGRATION = yes;
-        SPARSEMEM = yes;
-
-        # Bump the maximum number of CPUs to support systems like EC2 x1.*
-        # instances and Xeon Phi.
-        NR_CPUS = freeform "384";
-      } // optionalAttrs (stdenv.hostPlatform.system == "armv7l-linux"
+          # Fresh toolchains frequently break -Werror build for minor issues.
+        WERROR = whenAtLeast "5.15" no;
+      } // optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux"
         || stdenv.hostPlatform.system == "aarch64-linux") {
-          # Enables support for the Allwinner Display Engine 2.0
-          SUN8I_DE2_CCU = yes;
+          # Enable CPU/memory hotplug support
+          # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
+          ACPI_HOTPLUG_CPU = yes;
+          ACPI_HOTPLUG_MEMORY = yes;
+          MEMORY_HOTPLUG = yes;
+          MEMORY_HOTREMOVE = yes;
+          HOTPLUG_CPU = yes;
+          MIGRATION = yes;
+          SPARSEMEM = yes;
 
-          # See comments on https://github.com/NixOS/nixpkgs/commit/9b67ea9106102d882f53d62890468071900b9647
-          CRYPTO_AEGIS128_SIMD = whenAtLeast "5.4" no;
+            # Bump the maximum number of CPUs to support systems like EC2 x1.*
+            # instances and Xeon Phi.
+          NR_CPUS = freeform "384";
+        } // optionalAttrs (stdenv.hostPlatform.system == "armv7l-linux"
+          || stdenv.hostPlatform.system == "aarch64-linux") {
+            # Enables support for the Allwinner Display Engine 2.0
+            SUN8I_DE2_CCU = yes;
 
-          # Distros should configure the default as a kernel option.
-          # We previously defined it on the kernel command line as cma=
-          # The kernel command line will override a platform-specific configuration from its device tree.
-          # https://github.com/torvalds/linux/blob/856deb866d16e29bd65952e0289066f6078af773/kernel/dma/contiguous.c#L35-L44
-          CMA_SIZE_MBYTES = freeform "32";
+              # See comments on https://github.com/NixOS/nixpkgs/commit/9b67ea9106102d882f53d62890468071900b9647
+            CRYPTO_AEGIS128_SIMD = whenAtLeast "5.4" no;
 
-          # Many ARM SBCs hand off a pre-configured framebuffer.
-          # This always can can be replaced by the actual native driver.
-          # Keeping it a built-in ensures it will be used if possible.
-          FB_SIMPLE = yes;
+              # Distros should configure the default as a kernel option.
+              # We previously defined it on the kernel command line as cma=
+              # The kernel command line will override a platform-specific configuration from its device tree.
+              # https://github.com/torvalds/linux/blob/856deb866d16e29bd65952e0289066f6078af773/kernel/dma/contiguous.c#L35-L44
+            CMA_SIZE_MBYTES = freeform "32";
 
-        } // optionalAttrs (versionAtLeast version "5.4"
-          && (stdenv.hostPlatform.system == "x86_64-linux"
-            || stdenv.hostPlatform.system == "aarch64-linux")) {
-              # Required for various hardware features on Chrome OS devices
-              CHROME_PLATFORMS = yes;
-              CHROMEOS_TBMC = module;
+              # Many ARM SBCs hand off a pre-configured framebuffer.
+              # This always can can be replaced by the actual native driver.
+              # Keeping it a built-in ensures it will be used if possible.
+            FB_SIMPLE = yes;
 
-              CROS_EC = module;
+          } // optionalAttrs (versionAtLeast version "5.4"
+            && (stdenv.hostPlatform.system == "x86_64-linux"
+              || stdenv.hostPlatform.system == "aarch64-linux")) {
+                # Required for various hardware features on Chrome OS devices
+                CHROME_PLATFORMS = yes;
+                CHROMEOS_TBMC = module;
 
-              CROS_EC_I2C = module;
-              CROS_EC_SPI = module;
-              CROS_EC_LPC = module;
-              CROS_EC_ISHTP = module;
+                CROS_EC = module;
 
-              CROS_KBD_LED_BACKLIGHT = module;
-            } // optionalAttrs (versionAtLeast version "5.4"
-              && stdenv.hostPlatform.system == "x86_64-linux") {
-                CHROMEOS_LAPTOP = module;
-                CHROMEOS_PSTORE = module;
-              }
-    ;
+                CROS_EC_I2C = module;
+                CROS_EC_SPI = module;
+                CROS_EC_LPC = module;
+                CROS_EC_ISHTP = module;
+
+                CROS_KBD_LED_BACKLIGHT = module;
+              } // optionalAttrs (versionAtLeast version "5.4"
+                && stdenv.hostPlatform.system == "x86_64-linux") {
+                  CHROMEOS_LAPTOP = module;
+                  CHROMEOS_PSTORE = module;
+                }
+      ;
   };
 in
 flattenKConf options

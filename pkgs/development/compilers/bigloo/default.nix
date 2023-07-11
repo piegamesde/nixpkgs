@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
 
   checkTarget = "test";
 
-  # Hack to avoid TMPDIR in RPATHs.
+    # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" '';
 
   meta = {

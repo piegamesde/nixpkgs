@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "systemd-userdbd";
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -17,7 +18,8 @@ import ./make-test-python.nix ({
           builtins.toJSON { userName = "test-user-dropin"; };
 
         environment.systemPackages = with pkgs; [ libvarlink ];
-      };
+      }
+      ;
     testScript = ''
       import json
       from shlex import quote

@@ -15,7 +15,8 @@ import ./make-test-python.nix ({
     name = "kea";
 
     nodes = {
-      router = {
+      router =
+        {
           config,
           pkgs,
           ...
@@ -60,9 +61,9 @@ import ./make-test-python.nix ({
                 pools = [ { pool = "10.0.0.3 - 10.0.0.3"; } ];
               } ];
 
-              # Enable communication between dhcp4 and a local dhcp-ddns
-              # instance.
-              # https://kea.readthedocs.io/en/kea-2.2.0/arm/dhcp4-srv.html#ddns-for-dhcpv4
+                # Enable communication between dhcp4 and a local dhcp-ddns
+                # instance.
+                # https://kea.readthedocs.io/en/kea-2.2.0/arm/dhcp4-srv.html#ddns-for-dhcpv4
               dhcp-ddns = { enable-updates = true; };
 
               ddns-send-updates = true;
@@ -79,7 +80,7 @@ import ./make-test-python.nix ({
                 # https://kea.readthedocs.io/en/kea-2.2.0/arm/ddns.html#adding-forward-dns-servers
                 ddns-domains = [ {
                   name = "lan.nixos.test.";
-                  # Use a TSIG key in production!
+                    # Use a TSIG key in production!
                   key-name = "";
                   dns-servers = [ {
                     ip-address = "10.0.0.2";
@@ -89,9 +90,11 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      nameserver = {
+      nameserver =
+        {
           config,
           pkgs,
           ...
@@ -115,55 +118,59 @@ import ./make-test-python.nix ({
 
           services.resolved.enable = false;
 
-          # Set up an authoritative nameserver, serving the `lan.nixos.test`
-          # zone and configure an ACL that allows dynamic updates from
-          # the router's ip address.
-          # This ACL is likely insufficient for production usage. Please
-          # use TSIG keys.
-          services.knot = let
-            zone = pkgs.writeTextDir "lan.nixos.test.zone" ''
-              @ SOA ns.nixos.test nox.nixos.test 0 86400 7200 3600000 172800
-              @ NS nameserver
-              nameserver A 10.0.0.3
-              router A 10.0.0.1
-            '';
-            zonesDir = pkgs.buildEnv {
-              name = "knot-zones";
-              paths = [ zone ];
-            };
-          in {
-            enable = true;
-            extraArgs = [ "-v" ];
-            extraConfig = ''
-              server:
-                  listen: 0.0.0.0@53
+            # Set up an authoritative nameserver, serving the `lan.nixos.test`
+            # zone and configure an ACL that allows dynamic updates from
+            # the router's ip address.
+            # This ACL is likely insufficient for production usage. Please
+            # use TSIG keys.
+          services.knot =
+            let
+              zone = pkgs.writeTextDir "lan.nixos.test.zone" ''
+                @ SOA ns.nixos.test nox.nixos.test 0 86400 7200 3600000 172800
+                @ NS nameserver
+                nameserver A 10.0.0.3
+                router A 10.0.0.1
+              '';
+              zonesDir = pkgs.buildEnv {
+                name = "knot-zones";
+                paths = [ zone ];
+              };
+            in {
+              enable = true;
+              extraArgs = [ "-v" ];
+              extraConfig = ''
+                server:
+                    listen: 0.0.0.0@53
 
-              log:
-                - target: syslog
-                  any: debug
+                log:
+                  - target: syslog
+                    any: debug
 
-              acl:
-                - id: dhcp_ddns
-                  address: 10.0.0.1
-                  action: update
+                acl:
+                  - id: dhcp_ddns
+                    address: 10.0.0.1
+                    action: update
 
-              template:
-                - id: default
-                  storage: ${zonesDir}
-                  zonefile-sync: -1
-                  zonefile-load: difference-no-serial
-                  journal-content: all
+                template:
+                  - id: default
+                    storage: ${zonesDir}
+                    zonefile-sync: -1
+                    zonefile-load: difference-no-serial
+                    journal-content: all
 
-              zone:
-                - domain: lan.nixos.test
-                  file: lan.nixos.test.zone
-                  acl: [dhcp_ddns]
-            '';
-          } ;
+                zone:
+                  - domain: lan.nixos.test
+                    file: lan.nixos.test.zone
+                    acl: [dhcp_ddns]
+              '';
+            }
+            ;
 
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           config,
           pkgs,
           ...
@@ -177,9 +184,11 @@ import ./make-test-python.nix ({
             firewall.enable = false;
             interfaces.eth1.useDHCP = true;
           };
-        };
+        }
+        ;
     };
-    testScript = {
+    testScript =
+      {
         ...
       }: ''
         start_all()
@@ -188,5 +197,6 @@ import ./make-test-python.nix ({
         client.wait_until_succeeds("ping -c 5 10.0.0.1")
         router.wait_until_succeeds("ping -c 5 10.0.0.3")
         nameserver.wait_until_succeeds("kdig +short client.lan.nixos.test @10.0.0.2 | grep -q 10.0.0.3")
-      '';
+      ''
+      ;
   })

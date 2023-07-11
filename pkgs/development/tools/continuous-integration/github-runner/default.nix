@@ -23,7 +23,7 @@ buildDotnetModule rec {
     repo = "runner";
     rev = "v${version}";
     hash = "sha256-w5MqFIPTCAqQjdsWdscNnH2KNwUOp5SPFesyprXUvNE=";
-    # Required to obtain HEAD's Git commit hash
+      # Required to obtain HEAD's Git commit hash
     leaveDotGit = true;
   };
 
@@ -83,7 +83,7 @@ buildDotnetModule rec {
       dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system
     }" ];
 
-  # As given here: https://github.com/actions/runner/blob/0befa62/src/dir.proj#L33-L41
+    # As given here: https://github.com/actions/runner/blob/0befa62/src/dir.proj#L33-L41
   projectFile = [
     "src/Sdk/Sdk.csproj"
     "src/Runner.Common/Runner.Common.csproj"
@@ -99,7 +99,7 @@ buildDotnetModule rec {
 
   __darwinAllowLocalNetworking = true;
 
-  # Fully qualified name of disabled tests
+    # Fully qualified name of disabled tests
   disabledTests =
     [ "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync" ]
     ++ map (x:
@@ -218,7 +218,7 @@ buildDotnetModule rec {
     )
   '';
 
-  # List of files to wrap
+    # List of files to wrap
   executables = [
     "config.sh"
     "Runner.Listener"

@@ -27,38 +27,42 @@ buildPythonApplication {
     panflute
   ];
 
-  # Something in the tests does not typecheck, but the tool works well.
+    # Something in the tests does not typecheck, but the tool works well.
   doCheck = false;
 
-  passthru.tests.example-doc = let
-    env = {
-      nativeBuildInputs = [
-        pandoc
-        pandoc-acro
-        (texlive.combine { inherit (texlive) scheme-tetex acro translations; })
-      ];
-    };
-  in
-  runCommand "pandoc-acro-example-docs" env ''
-    set -euo pipefail
-    exampleFile="${pname}-${version}/tests/example.md"
-    metadataFile="${pname}-${version}/tests/metadata.yaml"
-    tar --extract "--file=${src}" "$exampleFile" "$metadataFile"
-    mkdir $out
+  passthru.tests.example-doc =
+    let
+      env = {
+        nativeBuildInputs = [
+          pandoc
+          pandoc-acro
+          (texlive.combine {
+            inherit (texlive) scheme-tetex acro translations;
+          })
+        ];
+      };
+    in
+    runCommand "pandoc-acro-example-docs" env ''
+      set -euo pipefail
+      exampleFile="${pname}-${version}/tests/example.md"
+      metadataFile="${pname}-${version}/tests/metadata.yaml"
+      tar --extract "--file=${src}" "$exampleFile" "$metadataFile"
+      mkdir $out
 
-    pandoc -F pandoc-acro "$exampleFile" "--metadata-file=$metadataFile" \
-      -T pdf -o $out/example.pdf
-    pandoc -F pandoc-acro  "$exampleFile" "--metadata-file=$metadataFile" \
-      -T txt -o $out/example.txt
+      pandoc -F pandoc-acro "$exampleFile" "--metadata-file=$metadataFile" \
+        -T pdf -o $out/example.pdf
+      pandoc -F pandoc-acro  "$exampleFile" "--metadata-file=$metadataFile" \
+        -T txt -o $out/example.txt
 
-    ! grep -q "\+afaik" $out/example.txt
-  ''
-  ;
+      ! grep -q "\+afaik" $out/example.txt
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://pypi.org/project/pandoc-acro/";
     description =
-      "Pandoc filter which manages acronyms in Pandoc flavored Markdown sources";
+      "Pandoc filter which manages acronyms in Pandoc flavored Markdown sources"
+      ;
     license = licenses.bsd2;
     maintainers = with maintainers; [ tfc ];
   };

@@ -51,7 +51,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # prevent google directory from shadowing google imports
+    # prevent google directory from shadowing google imports
   preCheck = ''
     rm -r google
   '';
@@ -81,7 +81,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/googleapis/python-api-core";
     changelog =
-      "https://github.com/googleapis/python-api-core/blob/v${version}/CHANGELOG.md";
+      "https://github.com/googleapis/python-api-core/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

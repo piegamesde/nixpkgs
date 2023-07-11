@@ -81,10 +81,10 @@ let
   zod_launcher = stdenv.mkDerivation {
     inherit version src nativeBuildInputs buildInputs zod_engine zod_map_editor;
     pname = "${name}-launcher";
-    # This is necessary because the zod_launcher has terrible fixed-width window
-    # the Idea is to apply the scalingFactor to all positions and sizes and I tested 1,2,3 and 4
-    # 2,3,4 look acceptable on my 4k monitor and 1 is unreadable.
-    # also the ./ in the run command is removed to have easier time starting the game
+      # This is necessary because the zod_launcher has terrible fixed-width window
+      # the Idea is to apply the scalingFactor to all positions and sizes and I tested 1,2,3 and 4
+      # 2,3,4 look acceptable on my 4k monitor and 1 is unreadable.
+      # also the ./ in the run command is removed to have easier time starting the game
     patches = [ (substituteAll {
       inherit scalingFactor;
       src = ./0002-add-scaling-factor-to-source.patch;

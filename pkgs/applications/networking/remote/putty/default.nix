@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "0gvi8phabszqksj2by5jrjmshm7bpirhgavz0dqyz1xaimxdjz2l";
   };
 
-  # glib-2.62 deprecations
+    # glib-2.62 deprecations
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isUnix ''
@@ -38,19 +38,23 @@ stdenv.mkDerivation rec {
   '';
 
   TOOLPATH = stdenv.cc.targetPrefix;
-  makefile = if stdenv.hostPlatform.isWindows then
-    "Makefile.mgw"
-  else
-    null;
+  makefile =
+    if stdenv.hostPlatform.isWindows then
+      "Makefile.mgw"
+    else
+      null
+    ;
 
-  installPhase = if stdenv.hostPlatform.isWindows then
-    ''
-      for exe in *.exe; do
-         install -D $exe $out/bin/$exe
-      done
-    ''
-  else
-    null;
+  installPhase =
+    if stdenv.hostPlatform.isWindows then
+      ''
+        for exe in *.exe; do
+           install -D $exe $out/bin/$exe
+        done
+      ''
+    else
+      null
+    ;
 
   nativeBuildInputs = [
     autoconf

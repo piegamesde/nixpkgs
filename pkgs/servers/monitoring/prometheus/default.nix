@@ -36,7 +36,8 @@ let
   version = "2.42.0";
   webUiStatic = fetchurl {
     url =
-      "https://github.com/prometheus/prometheus/releases/download/v${version}/prometheus-web-ui-${version}.tar.gz";
+      "https://github.com/prometheus/prometheus/releases/download/v${version}/prometheus-web-ui-${version}.tar.gz"
+      ;
     sha256 = "sha256-QOnt8YZkq+/cmoaI8ZOrVbgVh5MnaKpDBVtPTckl4+A=";
   };
 in
@@ -124,18 +125,20 @@ buildGoModule rec {
 
   tags = [ "builtinassets" ];
 
-  ldflags = let
-    t = "github.com/prometheus/common/version";
-  in [
-    "-s"
-    "-w"
-    "-X ${t}.Version=${version}"
-    "-X ${t}.Revision=unknown"
-    "-X ${t}.Branch=unknown"
-    "-X ${t}.BuildUser=nix@nixpkgs"
-    "-X ${t}.BuildDate=unknown"
-    "-X ${t}.GoVersion=${lib.getVersion go}"
-  ] ;
+  ldflags =
+    let
+      t = "github.com/prometheus/common/version";
+    in [
+      "-s"
+      "-w"
+      "-X ${t}.Version=${version}"
+      "-X ${t}.Revision=unknown"
+      "-X ${t}.Branch=unknown"
+      "-X ${t}.BuildUser=nix@nixpkgs"
+      "-X ${t}.BuildDate=unknown"
+      "-X ${t}.GoVersion=${lib.getVersion go}"
+    ]
+    ;
 
   preInstall = ''
     mkdir -p "$out/share/doc/prometheus" "$out/etc/prometheus"

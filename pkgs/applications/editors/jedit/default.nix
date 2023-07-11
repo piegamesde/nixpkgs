@@ -37,9 +37,9 @@ stdenv.mkDerivation {
     commonsLogging
   ];
 
-  # This patch removes from the build process:
-  #  - the automatic download of dependencies (see configurePhase);
-  #  - the tests
+    # This patch removes from the build process:
+    #  - the automatic download of dependencies (see configurePhase);
+    #  - the tests
   patches = [ ./build.xml.patch ];
 
   configurePhase = ''

@@ -19,8 +19,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-  # running tests through setup.py fails only for python2 for some reason:
-  # AttributeError: 'module' object has no attribute 'suitetests'
+    # running tests through setup.py fails only for python2 for some reason:
+    # AttributeError: 'module' object has no attribute 'suitetests'
   checkPhase = ''
     py.test
   '';

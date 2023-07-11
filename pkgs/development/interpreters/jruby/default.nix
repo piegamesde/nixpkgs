@@ -17,7 +17,8 @@ let
 
     src = fetchurl {
       url =
-        "https://s3.amazonaws.com/jruby.org/downloads/${version}/jruby-bin-${version}.tar.gz";
+        "https://s3.amazonaws.com/jruby.org/downloads/${version}/jruby-bin-${version}.tar.gz"
+        ;
       sha256 = "sha256-JR5t2NHS+CkiyMd414V+G++C/lyiz3e8CTVkIdCwWrg=";
     };
 

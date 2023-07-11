@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    # upstream supports other platforms, but maintainer can only test on linux
+      # upstream supports other platforms, but maintainer can only test on linux
     platforms = platforms.linux;
     maintainers = with maintainers; [ _1000teslas ];
   };

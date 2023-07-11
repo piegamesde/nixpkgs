@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
     description = "Command line internet speedtest tool written in rust";
     homepage = "https://github.com/nelsonjchen/speedtest-rs";
     changelog =
-      "https://github.com/nelsonjchen/speedtest-rs/blob/v${version}/CHANGELOG.md";
+      "https://github.com/nelsonjchen/speedtest-rs/blob/v${version}/CHANGELOG.md"
+      ;
     license = with licenses; [
       mit
       asl20

@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-vJzkVL23fvFO1pGJwdPiqR73K9iNJ6OglVxL5tCVa2U=";
   };
 
-  # NB: The tool uses gcc at runtime to resolve the -march=native flags
+    # NB: The tool uses gcc at runtime to resolve the -march=native flags
   propagatedBuildInputs = [ gcc ];
 
   doCheck = true;

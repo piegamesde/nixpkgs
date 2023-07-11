@@ -15,7 +15,8 @@ alephone.makeWrapper rec {
 
   meta = {
     description = ''
-      Port of the 1993 mac game "Pathways Into Darkness" by Bungie to the Aleph One engine'';
+      Port of the 1993 mac game "Pathways Into Darkness" by Bungie to the Aleph One engine''
+      ;
     homepage = "http://simplici7y.com/items/aleph-one-pathways-into-darkness";
   };
 

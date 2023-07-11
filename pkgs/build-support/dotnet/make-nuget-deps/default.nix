@@ -7,7 +7,8 @@
   nugetDeps,
 }:
 linkFarmFromDrvs "${name}-nuget-deps" (nugetDeps {
-  fetchNuGet = {
+  fetchNuGet =
+    {
       pname,
       version,
       sha256,
@@ -16,5 +17,6 @@ linkFarmFromDrvs "${name}-nuget-deps" (nugetDeps {
     fetchurl {
       name = "${pname}.${version}.nupkg";
       inherit url sha256;
-    };
+    }
+    ;
 })

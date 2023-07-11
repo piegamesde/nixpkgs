@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "cypari2";
-  # upgrade may break sage, please test the sage build or ping @timokau on upgrade
+    # upgrade may break sage, please test the sage build or ping @timokau on upgrade
   version = "2.1.3";
 
   src = fetchPypi {
@@ -26,15 +26,16 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "use-trashcan-for-gen.patch";
       url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/cypari/patches/trashcan.patch?id=b6ea17ef8e4d652de0a85047bac8d41e90b25555";
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/cypari/patches/trashcan.patch?id=b6ea17ef8e4d652de0a85047bac8d41e90b25555"
+        ;
       hash = "sha256-w4kktWb9/aR9z4CjrUvAMOxEwRN2WkubaKzQttN8rU8=";
     })
   ];
 
-  # This differs slightly from the default python installPhase in that it pip-installs
-  # "." instead of "*.whl".
-  # That is because while the default install phase succeeds to build the package,
-  # it fails to generate the file "auto_paridecl.pxd".
+    # This differs slightly from the default python installPhase in that it pip-installs
+    # "." instead of "*.whl".
+    # That is because while the default install phase succeeds to build the package,
+    # it fails to generate the file "auto_paridecl.pxd".
   installPhase = ''
     export PYTHONPATH="$out/${python.sitePackages}:$PYTHONPATH"
 

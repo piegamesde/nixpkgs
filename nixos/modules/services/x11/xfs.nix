@@ -29,7 +29,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.xfs.enable {
     assertions = singleton {

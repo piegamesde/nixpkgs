@@ -20,7 +20,7 @@ buildPythonPackage rec {
     qemu
   ];
 
-  # no tests
+    # no tests
   doCheck = false;
   pythonImportsCheck = [ "guestfs" ];
 

@@ -18,7 +18,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-cow/releases/download/v${version}/cow-v${version}.tbz";
+      "https://github.com/mirage/ocaml-cow/releases/download/v${version}/cow-v${version}.tbz"
+      ;
     sha256 = "1x77lwpskda4zyikwxh500xjn90pgdwz6jm7ca7f36pyav4vl6zx";
   };
 

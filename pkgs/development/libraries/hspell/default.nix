@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     perl
     zlib
   ];
-  #  buildInputs = [ zlib ];
+    #  buildInputs = [ zlib ];
 
   meta = with lib; {
     description = "Hebrew spell checker";

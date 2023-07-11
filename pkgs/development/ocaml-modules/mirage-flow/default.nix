@@ -16,7 +16,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/mirage-flow/releases/download/v${version}/mirage-flow-v${version}.tbz";
+      "https://github.com/mirage/mirage-flow/releases/download/v${version}/mirage-flow-v${version}.tbz"
+      ;
     hash = "sha256-1wvabIXsJ0e+2IvE2V8mnSgQUDuSkT8IB75SkWlhOPw=";
   };
 

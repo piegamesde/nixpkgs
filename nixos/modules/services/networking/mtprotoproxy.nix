@@ -18,7 +18,8 @@ let
   } // lib.optionalAttrs (cfg.adTag != null) { AD_TAG = cfg.adTag; }
     // cfg.extraConfig;
 
-  convertOption = opt:
+  convertOption =
+    opt:
     if isString opt || isInt opt then
       builtins.toJSON opt
     else if isBool opt then
@@ -32,7 +33,8 @@ let
       "{" + concatStringsSep "," (mapAttrsToList
         (name: opt: "${builtins.toJSON name}: ${convertOption opt}") opt) + "}"
     else
-      throw "Invalid option type";
+      throw "Invalid option type"
+    ;
 
   configFile = pkgs.writeText "config.py" (concatStringsSep "\n"
     (mapAttrsToList (name: opt: "${name} = ${convertOption opt}") configOpts));
@@ -77,7 +79,7 @@ in {
       adTag = mkOption {
         type = types.nullOr types.str;
         default = null;
-        # Taken from mtproxyproto's repo.
+          # Taken from mtproxyproto's repo.
         example = "3c09c680b76ee91a4c25ad51f742267d";
         description = lib.mdDoc ''
           Tag for advertising that can be obtained from @MTProxybot.
@@ -97,7 +99,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

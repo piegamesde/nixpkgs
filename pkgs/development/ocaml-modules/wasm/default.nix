@@ -29,7 +29,7 @@ else
     ];
     strictDeps = true;
 
-    # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
+      # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
     hardeningDisable = lib.optional stdenv.hostPlatform.isStatic "pie";
 
     makeFlags = [
@@ -46,7 +46,8 @@ else
 
     meta = {
       description =
-        "An executable and OCaml library to run, read and write Web Assembly (wasm) files and manipulate their AST";
+        "An executable and OCaml library to run, read and write Web Assembly (wasm) files and manipulate their AST"
+        ;
       license = lib.licenses.asl20;
       maintainers = [ lib.maintainers.vbgl ];
       homepage = "https://github.com/WebAssembly/spec/tree/master/interpreter";

@@ -7,10 +7,12 @@
 let
   cfg = config.virtualisation.containerd;
 
-  configFile = if cfg.configFile == null then
-    settingsFormat.generate "containerd.toml" cfg.settings
-  else
-    cfg.configFile;
+  configFile =
+    if cfg.configFile == null then
+      settingsFormat.generate "containerd.toml" cfg.settings
+    else
+      cfg.configFile
+    ;
 
   containerdConfigChecked = pkgs.runCommand "containerd-config-checked.toml" {
     nativeBuildInputs = [ pkgs.containerd ];
@@ -88,7 +90,7 @@ in {
         Restart = "always";
         RestartSec = "10";
 
-        # "limits" defined below are adopted from upstream: https://github.com/containerd/containerd/blob/master/containerd.service
+          # "limits" defined below are adopted from upstream: https://github.com/containerd/containerd/blob/master/containerd.service
         LimitNPROC = "infinity";
         LimitCORE = "infinity";
         LimitNOFILE = "infinity";

@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/JuliaLang/julia/releases/download/v${version}/julia-${version}-full.tar.gz";
+      "https://github.com/JuliaLang/julia/releases/download/v${version}/julia-${version}-full.tar.gz"
+      ;
     hash = "sha256-NVVAgKS0085S7yICVDBr1CrA2I7/nrhVkqV9BmPbXfI=";
   };
 
@@ -56,9 +57,10 @@ stdenv.mkDerivation rec {
     # https://github.com/JuliaCI/julia-buildbot/blob/master/master/inventory.py
     "JULIA_CPU_TARGET=generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1)"
   ] ++ lib.optionals
-    stdenv.isAarch64 [ "JULIA_CPU_TARGET=generic;cortex-a57;thunderx2t99;armv8.2-a,crypto,fullfp16,lse,rdm" ];
+    stdenv.isAarch64 [ "JULIA_CPU_TARGET=generic;cortex-a57;thunderx2t99;armv8.2-a,crypto,fullfp16,lse,rdm" ]
+    ;
 
-  # remove forbidden reference to $TMPDIR
+    # remove forbidden reference to $TMPDIR
   preFixup = ''
     for file in libcurl.so libgmpxx.so; do
       patchelf --shrink-rpath --allowed-rpath-prefixes ${builtins.storeDir} "$out/lib/julia/$file"
@@ -79,7 +81,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "High-level performance-oriented dynamical language for technical computing";
+      "High-level performance-oriented dynamical language for technical computing"
+      ;
     homepage = "https://julialang.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ nickcao ];

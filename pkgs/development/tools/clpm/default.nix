@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # Stripping binaries results in fatal error in SBCL, `Can't find sbcl.core`
+    # Stripping binaries results in fatal error in SBCL, `Can't find sbcl.core`
   dontStrip = true;
 
   meta = with lib; {

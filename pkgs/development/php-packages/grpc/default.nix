@@ -17,7 +17,8 @@ buildPecl {
 
   meta = with lib; {
     description =
-      "A high performance, open source, general RPC framework that puts mobile and HTTP/2 first.";
+      "A high performance, open source, general RPC framework that puts mobile and HTTP/2 first."
+      ;
     license = licenses.asl20;
     homepage = "https://github.com/grpc/grpc/tree/master/src/php/ext/grpc";
     maintainers = teams.php.members;

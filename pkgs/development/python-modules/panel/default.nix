@@ -21,9 +21,9 @@ buildPythonPackage rec {
 
   format = "wheel";
 
-  # We fetch a wheel because while we can fetch the node
-  # artifacts using npm, the bundling invoked in setup.py
-  # tries to fetch even more artifacts
+    # We fetch a wheel because while we can fetch the node
+    # artifacts using npm, the bundling invoked in setup.py
+    # tries to fetch even more artifacts
   src = fetchPypi {
     inherit pname version format;
     hash = "sha256-XOu17oydXwfyowYUmCKF7/RC0RQ0Uf1Ixmn+VTa85Lo=";
@@ -48,7 +48,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "panel" ];
 
-  # infinite recursion in test dependencies (hvplot)
+    # infinite recursion in test dependencies (hvplot)
   doCheck = false;
 
   meta = with lib; {

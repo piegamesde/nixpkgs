@@ -9,7 +9,8 @@
 }:
 
 let
-  generic = args:
+  generic =
+    args:
     let
       imported = import ./generic.nix args;
     in
@@ -19,7 +20,7 @@ let
         kernel = null;
       }).out;
     }
-  ;
+    ;
 
   kernel = callPackage # a hacky way of extracting parameters from callPackage
     ({
@@ -31,20 +32,24 @@ let
       else
         kernel) { };
 
-  selectHighestVersion = a: b:
+  selectHighestVersion =
+    a: b:
     if lib.versionOlder a.version b.version then
       b
     else
-      a;
+      a
+    ;
 in rec {
   # Official Unix Drivers - https://www.nvidia.com/en-us/drivers/unix/
   # Branch/Maturity data - http://people.freedesktop.org/~aplattner/nvidia-versions.txt
 
   # Policy: use the highest stable version as the default (on our master).
-  stable = if stdenv.hostPlatform.system == "i686-linux" then
-    legacy_390
-  else
-    latest;
+  stable =
+    if stdenv.hostPlatform.system == "i686-linux" then
+      legacy_390
+    else
+      latest
+    ;
 
   production = generic {
     version = "525.116.03";
@@ -75,8 +80,8 @@ in rec {
     persistencedSha256 = "sha256-h6iq0iD9F41a7s6jWKPTI+oVzgDRIr1Kk97LNH9rg7E=";
   });
 
-  # Vulkan developer beta driver
-  # See here for more information: https://developer.nvidia.com/vulkan-driver
+    # Vulkan developer beta driver
+    # See here for more information: https://developer.nvidia.com/vulkan-driver
   vulkan_beta = generic rec {
     version = "525.47.22";
     persistencedVersion = "525.85.05";
@@ -90,11 +95,11 @@ in rec {
       }-linux";
   };
 
-  # Update note:
-  # If you add a legacy driver here, also update `top-level/linux-kernels.nix`,
-  # adding to the `nvidia_x11_legacy*` entries.
+    # Update note:
+    # If you add a legacy driver here, also update `top-level/linux-kernels.nix`,
+    # adding to the `nvidia_x11_legacy*` entries.
 
-  # Last one supporting Kepler architecture
+    # Last one supporting Kepler architecture
   legacy_470 = generic {
     version = "470.182.03";
     sha256_64bit = "sha256-PbwUCPxIuGXT3azvxF9KP8E7kLg6Yo7lRrAIKrLD/Hk=";
@@ -109,13 +114,14 @@ in rec {
       # source: https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf
       (fetchpatch {
         url =
-          "https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf/raw/f5d5238bdbaa16cd4008658a0f82b9dd84f1b38f/nvidia-470xx-fix-linux-6.3.patch";
+          "https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf/raw/f5d5238bdbaa16cd4008658a0f82b9dd84f1b38f/nvidia-470xx-fix-linux-6.3.patch"
+          ;
         hash = "sha256-mR+vXDHgVhWC0JeLgGlbNVCH8XTs7XnhEJS6BV75tI8=";
       })
     ];
   };
 
-  # Last one supporting x86
+    # Last one supporting x86
   legacy_390 = generic {
     version = "390.157";
     sha256_32bit = "sha256-VdZeCkU5qct5YgDF8Qgv4mP7CVHeqvlqnP/rioD3B5k=";
@@ -124,38 +130,40 @@ in rec {
     persistencedSha256 = "sha256-NuqUQbVt80gYTXgIcu0crAORfsj9BCRooyH3Gp1y1ns=";
   };
 
-  legacy_340 = let
-    # Source cooresponding to https://aur.archlinux.org/packages/nvidia-340xx-dkms
-    aurPatches = fetchFromGitHub {
-      owner = "archlinux-jerry";
-      repo = "nvidia-340xx";
-      rev = "fe2b38e66f2199777bcede6eb35c5df0210f15dc";
-      hash = "sha256-hPFfzWGo2jF/DLm1OkP+BBnRY69N8kKUZ1EGkoHJlKA=";
-    };
-    patchset = [
-      "0001-kernel-5.7.patch"
-      "0002-kernel-5.8.patch"
-      "0003-kernel-5.9.patch"
-      "0004-kernel-5.10.patch"
-      "0005-kernel-5.11.patch"
-      "0006-kernel-5.14.patch"
-      "0007-kernel-5.15.patch"
-      "0008-kernel-5.16.patch"
-      "0009-kernel-5.17.patch"
-      "0010-kernel-5.18.patch"
-      "0011-kernel-6.0.patch"
-    ];
-  in
-  generic {
-    version = "340.108";
-    sha256_32bit = "1jkwa1phf0x4sgw8pvr9d6krmmr3wkgwyygrxhdazwyr2bbalci0";
-    sha256_64bit = "06xp6c0sa7v1b82gf0pq0i5p0vdhmm3v964v0ypw36y0nzqx8wf6";
-    settingsSha256 = "0zm29jcf0mp1nykcravnzb5isypm8l8mg2gpsvwxipb7nk1ivy34";
-    persistencedSha256 = "1ax4xn3nmxg1y6immq933cqzw6cj04x93saiasdc0kjlv0pvvnkn";
-    useGLVND = false;
+  legacy_340 =
+    let
+      # Source cooresponding to https://aur.archlinux.org/packages/nvidia-340xx-dkms
+      aurPatches = fetchFromGitHub {
+        owner = "archlinux-jerry";
+        repo = "nvidia-340xx";
+        rev = "fe2b38e66f2199777bcede6eb35c5df0210f15dc";
+        hash = "sha256-hPFfzWGo2jF/DLm1OkP+BBnRY69N8kKUZ1EGkoHJlKA=";
+      };
+      patchset = [
+        "0001-kernel-5.7.patch"
+        "0002-kernel-5.8.patch"
+        "0003-kernel-5.9.patch"
+        "0004-kernel-5.10.patch"
+        "0005-kernel-5.11.patch"
+        "0006-kernel-5.14.patch"
+        "0007-kernel-5.15.patch"
+        "0008-kernel-5.16.patch"
+        "0009-kernel-5.17.patch"
+        "0010-kernel-5.18.patch"
+        "0011-kernel-6.0.patch"
+      ];
+    in
+    generic {
+      version = "340.108";
+      sha256_32bit = "1jkwa1phf0x4sgw8pvr9d6krmmr3wkgwyygrxhdazwyr2bbalci0";
+      sha256_64bit = "06xp6c0sa7v1b82gf0pq0i5p0vdhmm3v964v0ypw36y0nzqx8wf6";
+      settingsSha256 = "0zm29jcf0mp1nykcravnzb5isypm8l8mg2gpsvwxipb7nk1ivy34";
+      persistencedSha256 =
+        "1ax4xn3nmxg1y6immq933cqzw6cj04x93saiasdc0kjlv0pvvnkn";
+      useGLVND = false;
 
-    broken = kernel.kernelAtLeast "6.2";
-    patches = map (patch: "${aurPatches}/${patch}") patchset;
-  }
-  ;
+      broken = kernel.kernelAtLeast "6.2";
+      patches = map (patch: "${aurPatches}/${patch}") patchset;
+    }
+    ;
 }

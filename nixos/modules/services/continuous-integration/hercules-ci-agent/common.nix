@@ -26,7 +26,8 @@ let
 
   format = pkgs.formats.toml { };
 
-  settingsModule = {
+  settingsModule =
+    {
       config,
       ...
     }: {
@@ -137,8 +138,9 @@ let
           '';
           type = types.path;
           default = config.staticSecretsDirectory + "/binary-caches.json";
-          defaultText = literalExpression
-            ''staticSecretsDirectory + "/binary-caches.json"'';
+          defaultText =
+            literalExpression ''staticSecretsDirectory + "/binary-caches.json"''
+            ;
         };
         secretsJsonPath = mkOption {
           description = lib.mdDoc ''
@@ -156,32 +158,35 @@ let
             literalExpression ''staticSecretsDirectory + "/secrets.json"'';
         };
       };
-    };
+    }
+    ;
 
-  # TODO (roberth, >=2022) remove
-  checkNix = if !cfg.checkNix then
-    ""
-  else if lib.versionAtLeast config.nix.package.version "2.3.10" then
-    ""
-  else
-    pkgs.stdenv.mkDerivation {
-      name = "hercules-ci-check-system-nix-src";
-      inherit (config.nix.package) src patches;
-      dontConfigure = true;
-      buildPhase = ''
-        echo "Checking in-memory pathInfoCache expiry"
-        if ! grep 'PathInfoCacheValue' src/libstore/store-api.hh >/dev/null; then
-          cat 1>&2 <<EOF
+    # TODO (roberth, >=2022) remove
+  checkNix =
+    if !cfg.checkNix then
+      ""
+    else if lib.versionAtLeast config.nix.package.version "2.3.10" then
+      ""
+    else
+      pkgs.stdenv.mkDerivation {
+        name = "hercules-ci-check-system-nix-src";
+        inherit (config.nix.package) src patches;
+        dontConfigure = true;
+        buildPhase = ''
+          echo "Checking in-memory pathInfoCache expiry"
+          if ! grep 'PathInfoCacheValue' src/libstore/store-api.hh >/dev/null; then
+            cat 1>&2 <<EOF
 
-          You are deploying Hercules CI Agent on a system with an incompatible
-          nix-daemon. Please make sure nix.package is set to a Nix version of at
-          least 2.3.10 or a master version more recent than Mar 12, 2020.
-        EOF
-          exit 1
-        fi
-      '';
-      installPhase = "touch $out";
-    };
+            You are deploying Hercules CI Agent on a system with an incompatible
+            nix-daemon. Please make sure nix.package is set to a Nix version of at
+            least 2.3.10 or a master version more recent than Mar 12, 2020.
+          EOF
+            exit 1
+          fi
+        '';
+        installPhase = "touch $out";
+      }
+    ;
 
 in {
   imports = [
@@ -263,11 +268,11 @@ in {
       type = types.submoduleWith { modules = [ settingsModule ]; };
     };
 
-    /* Internal and/or computed values.
+      /* Internal and/or computed values.
 
-       These are written as options instead of let binding to allow sharing with
-       default.nix on both NixOS and nix-darwin.
-    */
+         These are written as options instead of let binding to allow sharing with
+         default.nix on both NixOS and nix-darwin.
+      */
     tomlFile = mkOption {
       type = types.path;
       internal = true;
@@ -288,13 +293,15 @@ in {
       tomlFile = format.generate "hercules-ci-agent.toml" cfg.settings;
 
       settings.labels = {
-        agent.source = if
-          options.services.hercules-ci-agent.package.highestPrio
-          == (lib.modules.mkOptionDefault { }).priority
-        then
-          "nixpkgs"
-        else
-          lib.mkOptionDefault "override";
+        agent.source =
+          if
+            options.services.hercules-ci-agent.package.highestPrio
+            == (lib.modules.mkOptionDefault { }).priority
+          then
+            "nixpkgs"
+          else
+            lib.mkOptionDefault "override"
+          ;
         pkgs.version = pkgs.lib.version;
         lib.version = lib.version;
       };

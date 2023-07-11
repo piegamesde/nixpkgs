@@ -65,7 +65,8 @@ buildPythonPackage rec {
     description = "Dependency injection microframework for Python";
     homepage = "https://github.com/ets-labs/python-dependency-injector";
     changelog =
-      "https://github.com/ets-labs/python-dependency-injector/blob/${version}/docs/main/changelog.rst";
+      "https://github.com/ets-labs/python-dependency-injector/blob/${version}/docs/main/changelog.rst"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ gerschtli ];
   };

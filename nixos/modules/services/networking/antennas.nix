@@ -37,7 +37,8 @@ in {
         type = types.str;
         default = "2f70c0d7-90a3-4429-8275-cbeeee9cd605";
         description = lib.mdDoc
-          "Device tuner UUID. Change this if you are running multiple instances.";
+          "Device tuner UUID. Change this if you are running multiple instances."
+          ;
       };
     };
   };
@@ -47,7 +48,7 @@ in {
       description = "Antennas HDHomeRun emulator for Tvheadend. ";
       wantedBy = [ "multi-user.target" ];
 
-      # Config
+        # Config
       environment = {
         TVHEADEND_URL = cfg.tvheadendUrl;
         ANTENNAS_URL = cfg.antennasUrl;
@@ -58,10 +59,10 @@ in {
       serviceConfig = {
         ExecStart = "${pkgs.antennas}/bin/antennas";
 
-        # Antennas expects all resources like html and config to be relative to it's working directory
+          # Antennas expects all resources like html and config to be relative to it's working directory
         WorkingDirectory = "${pkgs.antennas}/libexec/antennas/deps/antennas/";
 
-        # Hardening
+          # Hardening
         CapabilityBoundingSet = [ "" ];
         DynamicUser = true;
         LockPersonality = true;

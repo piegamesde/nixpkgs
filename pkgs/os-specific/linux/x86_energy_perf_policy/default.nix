@@ -23,7 +23,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Set the energy versus performance policy preference bias on recent X86 processors";
+      "Set the energy versus performance policy preference bias on recent X86 processors"
+      ;
     homepage = "https://www.kernel.org/";
     license = licenses.gpl2;
     platforms = [

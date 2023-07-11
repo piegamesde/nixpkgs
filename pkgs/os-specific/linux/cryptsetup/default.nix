@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
       "--with-luks2-external-tokens-path=/"
     ];
 
-  nativeBuildInputs = [ pkg-config ]
-    ++ lib.optionals rebuildMan [ asciidoctor ];
+  nativeBuildInputs =
+    [ pkg-config ] ++ lib.optionals rebuildMan [ asciidoctor ];
   buildInputs = [
     lvm2
     json_c
@@ -79,9 +79,9 @@ stdenv.mkDerivation rec {
     popt
   ];
 
-  # The test [7] header backup in compat-test fails with a mysterious
-  # "out of memory" error, even though tons of memory is available.
-  # Issue filed upstream: https://gitlab.com/cryptsetup/cryptsetup/-/issues/763
+    # The test [7] header backup in compat-test fails with a mysterious
+    # "out of memory" error, even though tons of memory is available.
+    # Issue filed upstream: https://gitlab.com/cryptsetup/cryptsetup/-/issues/763
   doCheck = !stdenv.hostPlatform.isMusl;
 
   passthru = {
@@ -97,7 +97,8 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/cryptsetup/cryptsetup/";
     description = "LUKS for dm-crypt";
     changelog =
-      "https://gitlab.com/cryptsetup/cryptsetup/-/raw/v${version}/docs/v${version}-ReleaseNotes";
+      "https://gitlab.com/cryptsetup/cryptsetup/-/raw/v${version}/docs/v${version}-ReleaseNotes"
+      ;
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ ];
     platforms = with lib.platforms; linux;

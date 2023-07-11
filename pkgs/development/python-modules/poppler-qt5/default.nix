@@ -29,7 +29,8 @@ buildPythonPackage rec {
     # Fix for https://github.com/frescobaldi/python-poppler-qt5/issues/43 (from PR #45)
     (fetchpatch {
       url =
-        "https://github.com/frescobaldi/python-poppler-qt5/commit/40e71ad88173d02648bceb2438bc0567e60dacd5.patch";
+        "https://github.com/frescobaldi/python-poppler-qt5/commit/40e71ad88173d02648bceb2438bc0567e60dacd5.patch"
+        ;
       sha256 = "0c93d0k7b1n2s2njl8g92x6vw3z96da1fczah9qx07x08iw8dzi5";
     })
   ];
@@ -57,7 +58,7 @@ buildPythonPackage rec {
     EOF
   '';
 
-  # no tests, just bindings for `poppler_qt5`
+    # no tests, just bindings for `poppler_qt5`
   doCheck = false;
   pythonImportsCheck = [ "popplerqt5" ];
 

@@ -26,7 +26,7 @@ in {
     # ensure the webdav fs this exposes can actually be mounted
     services.davfs2.enable = true;
 
-    # add the udev rule which starts the proxy when the spice socket is present
+      # add the udev rule which starts the proxy when the spice socket is present
     services.udev.packages = [ cfg.package ];
 
     systemd.services.spice-webdavd = {

@@ -31,9 +31,9 @@ buildPythonApplication rec {
     '';
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
-  # tell cli/setup.py to not copy semgrep-core into the result
-  # this means we can share a copy of semgrep-core and avoid an issue where it
-  # copies the binary but doesn't retain the executable bit
+    # tell cli/setup.py to not copy semgrep-core into the result
+    # this means we can share a copy of semgrep-core and avoid an issue where it
+    # copies the binary but doesn't retain the executable bit
   SEMGREP_SKIP_BIN = true;
 
   pythonRelaxDeps = [
@@ -91,8 +91,8 @@ buildPythonApplication rec {
       --replace 'addopts = "--splitting-algorithm=least_duration"' ""
   '';
 
-  # since we stop cli/setup.py from finding semgrep-core and copying it into
-  # the result we need to provide it on the PATH
+    # since we stop cli/setup.py from finding semgrep-core and copying it into
+    # the result we need to provide it on the PATH
   preFixup = ''
     makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ semgrep-core ]})
   '';

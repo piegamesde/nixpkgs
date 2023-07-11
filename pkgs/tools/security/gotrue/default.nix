@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X=github.com/netlify/gotrue/cmd.Version=${version}"
   ];
 
-  # integration tests require network access
+    # integration tests require network access
   doCheck = false;
 
   meta = with lib; {

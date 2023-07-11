@@ -24,7 +24,7 @@ import ./make-test-python.nix ({
   let
     allowESP = "iptables --insert INPUT --protocol ESP --jump ACCEPT";
 
-    # Shared VPN settings:
+      # Shared VPN settings:
     vlan0 = "192.168.0.0/24";
     carolIp = "192.168.1.2";
     moonIp = "192.168.1.3";
@@ -37,7 +37,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with pkgs.lib.maintainers; [ basvandijk ];
     nodes = {
 
-      alice = {
+      alice =
+        {
           ...
         }: {
           virtualisation.vlans = [ 0 ];
@@ -45,9 +46,11 @@ import ./make-test-python.nix ({
             dhcpcd.enable = false;
             defaultGateway = "192.168.0.3";
           };
-        };
+        }
+        ;
 
-      moon = {
+      moon =
+        {
           config,
           ...
         }:
@@ -103,9 +106,11 @@ import ./make-test-python.nix ({
               };
             };
           };
-        } ;
+        }
+        ;
 
-      carol = {
+      carol =
+        {
           config,
           ...
         }:
@@ -153,7 +158,8 @@ import ./make-test-python.nix ({
               };
             };
           };
-        } ;
+        }
+        ;
 
     };
     testScript = ''

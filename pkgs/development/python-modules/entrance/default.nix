@@ -14,22 +14,24 @@
 let
   # The `routerFeatures` flag optionally brings in some somewhat heavy
   # dependencies, in order to enable interacting with routers
-  opts = if routerFeatures then
-    {
-      prePatch = ''
-        substituteInPlace ./setup.py --replace "extra_deps = []" "extra_deps = router_feature_deps"
-      '';
-      extraBuildInputs = [
-        janus
-        ncclient
-        paramiko
-      ];
-    }
-  else
-    {
-      prePatch = "";
-      extraBuildInputs = [ ];
-    };
+  opts =
+    if routerFeatures then
+      {
+        prePatch = ''
+          substituteInPlace ./setup.py --replace "extra_deps = []" "extra_deps = router_feature_deps"
+        '';
+        extraBuildInputs = [
+          janus
+          ncclient
+          paramiko
+        ];
+      }
+    else
+      {
+        prePatch = "";
+        extraBuildInputs = [ ];
+      }
+    ;
 
 in
 buildPythonPackage rec {
@@ -41,10 +43,10 @@ buildPythonPackage rec {
     hash = "sha256-PvsP6HXCllW102h3o7abz9uC2AZTwvg5qIqP+rdkk6Y=";
   };
 
-  # The versions of `sanic` and `websockets` in nixpkgs only support 3.6 or later
+    # The versions of `sanic` and `websockets` in nixpkgs only support 3.6 or later
   disabled = pythonOlder "3.6";
 
-  # No useful tests
+    # No useful tests
   doCheck = false;
 
   propagatedBuildInputs = [

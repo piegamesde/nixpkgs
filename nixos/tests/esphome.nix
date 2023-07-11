@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with pkgs.lib.maintainers; [ oddlama ];
 
     nodes = {
-      esphomeTcp = {
+      esphomeTcp =
+        {
           ...
         }: {
           services.esphome = {
@@ -21,16 +22,19 @@ import ./make-test-python.nix ({
             address = "0.0.0.0";
             openFirewall = true;
           };
-        };
+        }
+        ;
 
-      esphomeUnix = {
+      esphomeUnix =
+        {
           ...
         }: {
           services.esphome = {
             enable = true;
             enableUnixSocket = true;
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

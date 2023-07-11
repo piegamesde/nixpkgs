@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     libGL
   ];
 
-  # JUCE dlopen's these at runtime, crashes without them
+    # JUCE dlopen's these at runtime, crashes without them
   NIX_LDFLAGS = (toString [
     "-lX11"
     "-lXext"

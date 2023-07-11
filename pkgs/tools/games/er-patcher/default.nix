@@ -29,7 +29,8 @@ stdenvNoCC.mkDerivation rec {
     changelog =
       "https://github.com/gurrgur/er-patcher/releases/tag/v${version}";
     description =
-      "Enhancement patches for Elden Ring adding ultrawide support, custom frame rate limits and more";
+      "Enhancement patches for Elden Ring adding ultrawide support, custom frame rate limits and more"
+      ;
     longDescription = ''
       A tool aimed at enhancing the experience when playing the game on linux through proton or natively on windows.
       This tool is based on patching the game executable through hex-edits. However it is done in a safe and non-destructive way,

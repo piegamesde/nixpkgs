@@ -77,9 +77,9 @@ let
   _enableDeckjsBackend = enableExtraPlugins || enableDeckjsBackend;
   _enableOdfBackend = enableExtraPlugins || enableOdfBackend;
 
-  #
-  # filters
-  #
+    #
+    # filters
+    #
 
   ditaaFilterSrc = fetchurl {
     url =
@@ -89,7 +89,8 @@ let
 
   mscgenFilterSrc = fetchurl {
     url =
-      "https://asciidoc-mscgen-filter.googlecode.com/files/mscgen-filter-1.2.zip";
+      "https://asciidoc-mscgen-filter.googlecode.com/files/mscgen-filter-1.2.zip"
+      ;
     sha256 = "1nfwmj375gpv5dn9i770pjv59aihzy2kja0fflsk96xwnlqsqq61";
   };
 
@@ -101,37 +102,40 @@ let
 
   qrcodeFilterSrc = fetchurl {
     url =
-      "https://asciidoc-qrencode-filter.googlecode.com/files/qrcode-filter-1.0.zip";
+      "https://asciidoc-qrencode-filter.googlecode.com/files/qrcode-filter-1.0.zip"
+      ;
     sha256 = "0h4bql1nb4y4fmg2yvlpfjhvy22ln8jsaxdr10f8bfcg5lr0zkxs";
   };
 
-  # there are no archives or tags, using latest commit in master branch as per 2013-09-22
-  matplotlibFilterSrc = let
-    commit = "75f0d009629f93f33fab04b83faca20cc35dd358";
-  in
-  fetchurl {
-    name = "mplw-${commit}.tar.gz";
-    url = "https://api.github.com/repos/lvv/mplw/tarball/${commit}";
-    sha256 = "0yfhkm2dr8gnp0fcg25x89hwiymkri2m5cyqzmzragzwj0hbmcf1";
-  }
-  ;
+    # there are no archives or tags, using latest commit in master branch as per 2013-09-22
+  matplotlibFilterSrc =
+    let
+      commit = "75f0d009629f93f33fab04b83faca20cc35dd358";
+    in
+    fetchurl {
+      name = "mplw-${commit}.tar.gz";
+      url = "https://api.github.com/repos/lvv/mplw/tarball/${commit}";
+      sha256 = "0yfhkm2dr8gnp0fcg25x89hwiymkri2m5cyqzmzragzwj0hbmcf1";
+    }
+    ;
 
   aafigureFilterSrc = fetchurl {
     url =
-      "https://asciidoc-aafigure-filter.googlecode.com/files/aafigure-filter-1.1.zip";
+      "https://asciidoc-aafigure-filter.googlecode.com/files/aafigure-filter-1.1.zip"
+      ;
     sha256 = "1hq2s30dvmv5dqvj0xm1qwdwafhgm9w1iyr0lr0c40cyk8h00j8j";
   };
 
-  #
-  # backends
-  #
+    #
+    # backends
+    #
 
   deckjsBackendSrc = fetchurl {
     url = "https://github.com/downloads/houqp/asciidoc-deckjs/deckjs-1.6.2.zip";
     sha256 = "1siy1j8naj5irrrrv5bfgl4d8nal6j9pyahy4f50wmrr9wv59s46";
   };
 
-  # the odf backend is actually two plugins: odt + odp
+    # the odf backend is actually two plugins: odt + odp
   odtBackendSrc = fetchurl {
     url =
       "https://github.com/downloads/dagwieers/asciidoc-odf/odt-backend-0.1.zip";
@@ -163,7 +167,7 @@ python3.pkgs.buildPythonApplication rec {
     unzip
   ];
 
-  # install filters early, so their shebangs are patched too
+    # install filters early, so their shebangs are patched too
   postPatch = with lib;
     ''
       mkdir -p "$out/etc/asciidoc/filters"
@@ -327,7 +331,8 @@ python3.pkgs.buildPythonApplication rec {
       [ fromSource ] ++ lib.optional _enableDitaaFilter binaryBytecode;
     homepage = "https://asciidoc-py.github.io/";
     changelog =
-      "https://github.com/asciidoc-py/asciidoc-py/blob/${version}/CHANGELOG.adoc";
+      "https://github.com/asciidoc-py/asciidoc-py/blob/${version}/CHANGELOG.adoc"
+      ;
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [

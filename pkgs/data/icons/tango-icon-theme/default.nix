@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://tango.freedesktop.org/releases/tango-icon-theme-${version}.tar.gz";
+      "http://tango.freedesktop.org/releases/tango-icon-theme-${version}.tar.gz"
+      ;
     sha256 = "13n8cpml71w6zfm2jz5fa7r1z18qlzk4gv07r6n1in2p5l1xi63f";
   };
 
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
     gnome-icon-theme
     hicolor-icon-theme
   ];
-  # still missing parent icon themes: cristalsvg
+    # still missing parent icon themes: cristalsvg
 
   dontDropIconThemeCache = true;
 

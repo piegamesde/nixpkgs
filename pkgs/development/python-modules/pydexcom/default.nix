@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # tests are interacting with the Dexcom API
+    # tests are interacting with the Dexcom API
   doCheck = false;
   pythonImportsCheck = [ "pydexcom" ];
 

@@ -58,10 +58,12 @@ assert (privateBuildPlan != null) -> set != null;
 assert (extraParameters != null) -> set != null;
 
 buildNpmPackage rec {
-  pname = if set != null then
-    "iosevka-${set}"
-  else
-    "iosevka";
+  pname =
+    if set != null then
+      "iosevka-${set}"
+    else
+      "iosevka"
+    ;
   version = "22.1.0";
 
   src = fetchFromGitHub {
@@ -81,10 +83,12 @@ buildNpmPackage rec {
     darwin.cctools
   ];
 
-  buildPlan = if builtins.isAttrs privateBuildPlan then
-    builtins.toJSON { buildPlans.${pname} = privateBuildPlan; }
-  else
-    privateBuildPlan;
+  buildPlan =
+    if builtins.isAttrs privateBuildPlan then
+      builtins.toJSON { buildPlans.${pname} = privateBuildPlan; }
+    else
+      privateBuildPlan
+    ;
 
   inherit extraParameters;
   passAsFile = [ "extraParameters" ] ++ lib.optionals

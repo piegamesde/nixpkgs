@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
 
     meta = with lib.maintainers; { maintainers = [ willibutz ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.loki = {
@@ -37,7 +38,8 @@ import ./make-test-python.nix ({
             } ];
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.start

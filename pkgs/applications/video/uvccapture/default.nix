@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://debian/pool/main/u/uvccapture/uvccapture_${version}.orig.tar.gz";
+      "mirror://debian/pool/main/u/uvccapture/uvccapture_${version}.orig.tar.gz"
+      ;
     sha256 = "1b3akkcmr3brbf93akr8xi20w8zqf2g0qfq928500wy04qi6jqpi";
   };
 
@@ -42,7 +43,7 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/bin"
   '';
 
-  # Upstream has no man page, install one from Debian
+    # Upstream has no man page, install one from Debian
   postInstall = ''
     mkdir -p "$out/share/man/man1"
     cp -v debian/uvccapture.1 "$out/share/man/man1/"

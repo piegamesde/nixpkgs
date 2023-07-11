@@ -14,7 +14,7 @@
 let
   downloadPageUrl = "https://dist.torproject.org";
 
-  # See https://support.torproject.org/little-t-tor/#fetching-the-tor-developers-key
+    # See https://support.torproject.org/little-t-tor/#fetching-the-tor-developers-key
   signingKeys = [
     "514102454D0A87DB0767A1EBBE6A0531C18A9179" # Alexander Færøy
     "B74417EDDF22AC9F9E90F49142E86A2A11F48D36" # David Goulet

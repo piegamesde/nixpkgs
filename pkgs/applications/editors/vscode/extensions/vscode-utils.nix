@@ -9,7 +9,8 @@
   jq,
 }:
 let
-  buildVscodeExtension = a@{
+  buildVscodeExtension =
+    a@{
       name,
       src,
       # Same as "Unique Identifier" on the extension's web page.
@@ -55,12 +56,16 @@ let
         runHook postInstall
       '';
 
-    });
+    })
+    ;
 
-  fetchVsixFromVscodeMarketplace = mktplcExtRef:
-    fetchurl (import ./mktplcExtRefToFetchArgs.nix mktplcExtRef);
+  fetchVsixFromVscodeMarketplace =
+    mktplcExtRef:
+    fetchurl (import ./mktplcExtRefToFetchArgs.nix mktplcExtRef)
+    ;
 
-  buildVscodeMarketplaceExtension = a@{
+  buildVscodeMarketplaceExtension =
+    a@{
       name ? "",
       src ? null,
       vsix ? null,
@@ -75,14 +80,17 @@ let
     ]) // {
       name = "${mktplcRef.publisher}-${mktplcRef.name}-${mktplcRef.version}";
       version = mktplcRef.version;
-      src = if (vsix != null) then
-        vsix
-      else
-        fetchVsixFromVscodeMarketplace mktplcRef;
+      src =
+        if (vsix != null) then
+          vsix
+        else
+          fetchVsixFromVscodeMarketplace mktplcRef
+        ;
       vscodeExtPublisher = mktplcRef.publisher;
       vscodeExtName = mktplcRef.name;
       vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
-    });
+    })
+    ;
 
   mktplcRefAttrList = [
     "name"
@@ -92,15 +100,19 @@ let
     "arch"
   ];
 
-  mktplcExtRefToExtDrv = ext:
+  mktplcExtRefToExtDrv =
+    ext:
     buildVscodeMarketplaceExtension (removeAttrs ext mktplcRefAttrList // {
       mktplcRef =
         builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null)) ext;
-    });
+    })
+    ;
 
   extensionFromVscodeMarketplace = mktplcExtRefToExtDrv;
-  extensionsFromVscodeMarketplace = mktplcExtRefList:
-    builtins.map extensionFromVscodeMarketplace mktplcExtRefList;
+  extensionsFromVscodeMarketplace =
+    mktplcExtRefList:
+    builtins.map extensionFromVscodeMarketplace mktplcExtRefList
+    ;
 
   vscodeWithConfiguration = import ./vscodeWithConfiguration.nix {
     inherit lib extensionsFromVscodeMarketplace writeShellScriptBin;
@@ -117,37 +129,41 @@ let
     vscodeDefault = vscode;
   };
 
-  toExtensionJsonEntry = ext: rec {
-    identifier = {
-      id = ext.vscodeExtUniqueId;
-      uuid = "";
-    };
+  toExtensionJsonEntry =
+    ext: rec {
+      identifier = {
+        id = ext.vscodeExtUniqueId;
+        uuid = "";
+      };
 
-    version = ext.version;
+      version = ext.version;
 
-    location = {
-      "$mid" = 1;
-      fsPath = ext.outPath
-        + "/share/vscode/extensions/${ext.vscodeExtUniqueId}";
-      path = location.fsPath;
-      scheme = "file";
-    };
+      location = {
+        "$mid" = 1;
+        fsPath =
+          ext.outPath + "/share/vscode/extensions/${ext.vscodeExtUniqueId}";
+        path = location.fsPath;
+        scheme = "file";
+      };
 
-    metadata = {
-      id = "";
-      publisherId = "";
-      publisherDisplayName = ext.vscodeExtPublisher;
-      targetPlatform = "undefined";
-      isApplicationScoped = false;
-      updated = false;
-      isPreReleaseVersion = false;
-      installedTimestamp = 0;
-      preRelease = false;
-    };
-  };
+      metadata = {
+        id = "";
+        publisherId = "";
+        publisherDisplayName = ext.vscodeExtPublisher;
+        targetPlatform = "undefined";
+        isApplicationScoped = false;
+        updated = false;
+        isPreReleaseVersion = false;
+        installedTimestamp = 0;
+        preRelease = false;
+      };
+    }
+    ;
 
-  toExtensionJson = extensions:
-    builtins.toJSON (map toExtensionJsonEntry extensions);
+  toExtensionJson =
+    extensions:
+    builtins.toJSON (map toExtensionJsonEntry extensions)
+    ;
 in {
   inherit
     fetchVsixFromVscodeMarketplace

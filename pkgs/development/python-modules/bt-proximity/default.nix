@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pybluez ];
 
-  # there are no tests
+    # there are no tests
   doCheck = false;
 
   pythonImportsCheck = [ "bt_proximity" ];

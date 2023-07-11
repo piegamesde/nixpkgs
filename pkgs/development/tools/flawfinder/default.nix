@@ -13,7 +13,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-/lUJgdNwq/oKKWcTRswLA4Ipqb2QsjnqsPAfEiEt9hg=";
   };
 
-  # Project is using a combination of bash/Python for the tests
+    # Project is using a combination of bash/Python for the tests
   doCheck = false;
 
   pythonImportsCheck = [ "flawfinder" ];

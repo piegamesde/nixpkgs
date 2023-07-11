@@ -19,10 +19,10 @@
 stdenv.mkDerivation rec {
   pname = "renpy";
 
-  # https://renpy.org/doc/html/changelog.html#versioning
-  # base_version is of the form major.minor.patch
-  # vc_version is of the form YYMMDDCC
-  # version corresponds to the tag on GitHub
+    # https://renpy.org/doc/html/changelog.html#versioning
+    # base_version is of the form major.minor.patch
+    # vc_version is of the form YYMMDDCC
+    # version corresponds to the tag on GitHub
   base_version = "8.0.3";
   vc_version = "22090809";
   version = "${base_version}.${vc_version}";
@@ -113,8 +113,8 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  env.NIX_CFLAGS_COMPILE = with python3.pkgs;
-    "-I${pygame_sdl2}/include/${python.libPrefix}";
+  env.NIX_CFLAGS_COMPILE =
+    with python3.pkgs; "-I${pygame_sdl2}/include/${python.libPrefix}";
 
   meta = with lib; {
     description = "Visual Novel Engine";

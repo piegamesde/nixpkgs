@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
-  # These fixup steps are slow and unnecessary for this package
+    # These fixup steps are slow and unnecessary for this package
   dontPatchELF = true;
   dontRewriteSymlinks = true;
 
@@ -52,13 +52,14 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Icon theme designed with a minimal flat style using simple geometry and bright colours";
+      "Icon theme designed with a minimal flat style using simple geometry and bright colours"
+      ;
     homepage = "https://snwh.org/moka";
     license = with licenses; [
       cc-by-sa-40
       gpl3Only
     ];
-    # darwin cannot deal with file names differing only in case
+      # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];
   };

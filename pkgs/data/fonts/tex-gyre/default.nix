@@ -5,7 +5,8 @@
 }:
 
 let
-  mkVariant = variant:
+  mkVariant =
+    variant:
     {
       version,
       abbreviation,
@@ -18,7 +19,8 @@ let
 
       src = fetchzip {
         url =
-          "http://www.gust.org.pl/projects/e-foundry/tex-gyre/${variant}/${abbreviation}${version}otf.zip";
+          "http://www.gust.org.pl/projects/e-foundry/tex-gyre/${variant}/${abbreviation}${version}otf.zip"
+          ;
         stripRoot = false;
         inherit sha256;
       };
@@ -36,14 +38,15 @@ let
 
       meta = with lib; {
         homepage = "http://www.gust.org.pl/projects/e-foundry/tex-gyre";
-        # "The TeX Gyre fonts are licensed under the GUST Font License (GFL),
-        # which is a free license, legally equivalent to the LaTeX Project Public
-        # License (LPPL), version 1.3c or later." - GUST website
+          # "The TeX Gyre fonts are licensed under the GUST Font License (GFL),
+          # which is a free license, legally equivalent to the LaTeX Project Public
+          # License (LPPL), version 1.3c or later." - GUST website
         license = licenses.lppl13c;
         maintainers = with maintainers; [ ];
         platforms = platforms.all;
       };
-    };
+    }
+    ;
 in
 lib.mapAttrs mkVariant {
   adventor = {

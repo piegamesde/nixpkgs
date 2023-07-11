@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     libX11
   ];
 
-  # build script tries to run git to get the current tag
+    # build script tries to run git to get the current tag
   postPatch = ''
     echo "fn main() {}" > build.rs
   '';

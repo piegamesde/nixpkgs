@@ -36,32 +36,34 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  # preConfigure = ''
-  #   sed -e '/ifdef SYS_signalfd/atypedef long long loff_t;' -i src/fbterm.cpp
-  #   sed -e '/install-exec-hook:/,/^[^\t]/{d}; /.NOEXPORT/iinstall-exec-hook:\
-  #   ' -i src/Makefile.in
-  #   export HOME=$PWD;
-  #   export NIX_LDFLAGS="$NIX_LDFLAGS -lfreetype"
-  # '';
+    # preConfigure = ''
+    #   sed -e '/ifdef SYS_signalfd/atypedef long long loff_t;' -i src/fbterm.cpp
+    #   sed -e '/install-exec-hook:/,/^[^\t]/{d}; /.NOEXPORT/iinstall-exec-hook:\
+    #   ' -i src/Makefile.in
+    #   export HOME=$PWD;
+    #   export NIX_LDFLAGS="$NIX_LDFLAGS -lfreetype"
+    # '';
 
   preInstall = ''
     export HOME=$PWD
   '';
 
-  postInstall = let
-    fbtermrc = fetchurl {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/fbtermrc?h=fbterm";
-      hash = "sha256-zNIfi2ZjEGc5PLdOIirKGTXESb5Wm5XBAI1sfHa31LY=";
-    };
-  in ''
-    mkdir -p "$out/share/terminfo"
-    tic -a -v2 -o"$out/share/terminfo" terminfo/fbterm
+  postInstall =
+    let
+      fbtermrc = fetchurl {
+        url = "https://aur.archlinux.org/cgit/aur.git/plain/fbtermrc?h=fbterm";
+        hash = "sha256-zNIfi2ZjEGc5PLdOIirKGTXESb5Wm5XBAI1sfHa31LY=";
+      };
+    in ''
+      mkdir -p "$out/share/terminfo"
+      tic -a -v2 -o"$out/share/terminfo" terminfo/fbterm
 
-    mkdir -p "$out/etc/fbterm"
-    cp "${fbtermrc}" "$out/etc/fbterm"
-  '' ;
+      mkdir -p "$out/etc/fbterm"
+      cp "${fbtermrc}" "$out/etc/fbterm"
+    ''
+    ;
 
-  # Patches from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=fbterm
+    # Patches from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=fbterm
   patches = [
     (fetchpatch {
       url =
@@ -70,7 +72,8 @@ stdenv.mkDerivation rec {
     })
     (fetchpatch {
       url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/color_palette.patch?h=fbterm";
+        "https://aur.archlinux.org/cgit/aur.git/plain/color_palette.patch?h=fbterm"
+        ;
       hash = "sha256-SkWxzfapyBTtMpTXkiFHRAw8/uXw7cAWwg5Q3TqWlk8=";
     })
     (fetchpatch {
@@ -80,17 +83,20 @@ stdenv.mkDerivation rec {
     })
     (fetchpatch {
       url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/0001-Fix-build-with-gcc-6.patch?h=fbterm";
+        "https://aur.archlinux.org/cgit/aur.git/plain/0001-Fix-build-with-gcc-6.patch?h=fbterm"
+        ;
       hash = "sha256-3d3zBvr5upICVVkd6tn63IhuB0sF67f62aKnf8KvOwg=";
     })
     (fetchpatch {
       url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/fix_ftbfs_crosscompile.patch?h=fbterm";
+        "https://aur.archlinux.org/cgit/aur.git/plain/fix_ftbfs_crosscompile.patch?h=fbterm"
+        ;
       hash = "sha256-jv/FSG6dHR0jKjPXQIfqsvpiT/XYzwv/VwuV+qUSovM=";
     })
     (fetchpatch {
       url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/fix_ftbfs_epoll.patch?h=fbterm";
+        "https://aur.archlinux.org/cgit/aur.git/plain/fix_ftbfs_epoll.patch?h=fbterm"
+        ;
       hash = "sha256-wkhfG0uY/5ZApcXTERkaKqz5IDpnilxUEcxull4645A=";
     })
   ];

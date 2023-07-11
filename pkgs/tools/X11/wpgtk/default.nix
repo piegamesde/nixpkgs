@@ -35,12 +35,12 @@ python3Packages.buildPythonApplication rec {
     pywal
   ];
 
-  # The $HOME variable must be set to build the package. A "permission denied" error will occur otherwise
+    # The $HOME variable must be set to build the package. A "permission denied" error will occur otherwise
   preBuild = ''
     export HOME=$(pwd)
   '';
 
-  # No test exist
+    # No test exist
   doCheck = false;
 
   meta = with lib; {

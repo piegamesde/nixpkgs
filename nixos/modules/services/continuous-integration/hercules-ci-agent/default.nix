@@ -52,8 +52,8 @@ in {
       };
     };
 
-    # Changes in the secrets do not affect the unit in any way that would cause
-    # a restart, which is currently necessary to reload the secrets.
+      # Changes in the secrets do not affect the unit in any way that would cause
+      # a restart, which is currently necessary to reload the secrets.
     systemd.paths.hercules-ci-agent-restart-files = {
       wantedBy = [ "hercules-ci-agent.service" ];
       pathConfig = {
@@ -82,24 +82,26 @@ in {
       '';
     };
 
-    # Trusted user allows simplified configuration and better performance
-    # when operating in a cluster.
-    nix.settings.trusted-users =
-      [ config.systemd.services.hercules-ci-agent.serviceConfig.User ];
+      # Trusted user allows simplified configuration and better performance
+      # when operating in a cluster.
+    nix.settings.trusted-users = [ config.systemd.services.hercules-ci-agent.serviceConfig.User ]
+      ;
     services.hercules-ci-agent = {
       settings = {
         nixUserIsTrusted = true;
-        labels = let
-          mkIfNotNull = x: mkIf (x != null) x;
-        in {
-          nixos.configurationRevision =
-            mkIfNotNull config.system.configurationRevision;
-          nixos.release = config.system.nixos.release;
-          nixos.label = mkIfNotNull config.system.nixos.label;
-          nixos.codeName = config.system.nixos.codeName;
-          nixos.tags = config.system.nixos.tags;
-          nixos.systemName = mkIfNotNull config.system.name;
-        } ;
+        labels =
+          let
+            mkIfNotNull = x: mkIf (x != null) x;
+          in {
+            nixos.configurationRevision =
+              mkIfNotNull config.system.configurationRevision;
+            nixos.release = config.system.nixos.release;
+            nixos.label = mkIfNotNull config.system.nixos.label;
+            nixos.codeName = config.system.nixos.codeName;
+            nixos.tags = config.system.nixos.tags;
+            nixos.systemName = mkIfNotNull config.system.name;
+          }
+          ;
       };
     };
 

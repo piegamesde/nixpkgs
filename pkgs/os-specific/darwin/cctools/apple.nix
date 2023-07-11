@@ -21,7 +21,8 @@ let
 
     src = fetchurl {
       url =
-        "https://opensource.apple.com/tarballs/cctools/cctools-${version}.tar.gz";
+        "https://opensource.apple.com/tarballs/cctools/cctools-${version}.tar.gz"
+        ;
       hash = "sha256-r/6tsyyfi3R/0cLl+lN/B9ZaOaVF+Z7vJ6xj4LzSgiQ=";
     };
 
@@ -118,7 +119,7 @@ symlinkJoin rec {
     ld64
   ];
 
-  # workaround for the fetch-tarballs script
+    # workaround for the fetch-tarballs script
   passthru = {
     inherit (cctools) src;
     ld64_src = ld64.src;

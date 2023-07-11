@@ -33,7 +33,7 @@ let
     }
   '';
 
-  # UCLIBC_SUSV4_LEGACY defines 'tmpnam', needed for gcc libstdc++ builds.
+    # UCLIBC_SUSV4_LEGACY defines 'tmpnam', needed for gcc libstdc++ builds.
   nixConfig = ''
     RUNTIME_PREFIX "/"
     DEVEL_PREFIX "/"
@@ -63,11 +63,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://downloads.uclibc-ng.org/releases/${version}/uClibc-ng-${version}.tar.xz";
+      "https://downloads.uclibc-ng.org/releases/${version}/uClibc-ng-${version}.tar.xz"
+      ;
     sha256 = "sha256-7G2uRM6GVYiF5WvDvva9TQgjlxFObh/BV5X3HoBNcBY=";
   };
 
-  # 'ftw' needed to build acl, a coreutils dependency
+    # 'ftw' needed to build acl, a coreutils dependency
   configurePhase = ''
     make defconfig
     ${configParser}
@@ -81,7 +82,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "stackprotector" ];
 
-  # Cross stripping hurts.
+    # Cross stripping hurts.
   dontStrip = isCross;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -92,8 +93,8 @@ stdenv.mkDerivation rec {
     "VERBOSE=1"
   ] ++ lib.optionals (isCross) [ "CROSS=${stdenv.cc.targetPrefix}" ];
 
-  # `make libpthread/nptl/sysdeps/unix/sysv/linux/lowlevelrwlock.h`:
-  # error: bits/sysnum.h: No such file or directory
+    # `make libpthread/nptl/sysdeps/unix/sysv/linux/lowlevelrwlock.h`:
+    # error: bits/sysnum.h: No such file or directory
   enableParallelBuilding = false;
 
   installPhase = ''

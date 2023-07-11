@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://ancardia.uk.to/download/adom_noteye_linux_ubuntu_64_${version}.tar.gz";
+      "http://ancardia.uk.to/download/adom_noteye_linux_ubuntu_64_${version}.tar.gz"
+      ;
     sha256 = "0sbn0csaqb9cqi0z5fdwvnymkf84g64csg0s9mm6fzh0sm2mi0hz";
   };
 
@@ -77,7 +78,7 @@ stdenv.mkDerivation rec {
     license = licenses.unfreeRedistributable;
     maintainers = [ maintainers.smironov ];
 
-    # Please, notify me (smironov) if you need the x86 version
+      # Please, notify me (smironov) if you need the x86 version
     platforms = [ "x86_64-linux" ];
     broken = true; # at 2022-09-30, failed download.
   };

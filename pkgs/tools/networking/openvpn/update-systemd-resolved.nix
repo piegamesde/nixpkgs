@@ -11,7 +11,7 @@
 
 stdenv.mkDerivation rec {
   pname = "update-systemd-resolved";
-  # when updating this, check if additional binaries need injecting into PATH
+    # when updating this, check if additional binaries need injecting into PATH
   version = "1.3.0";
 
   src = fetchFromGitHub {
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-lYJTR3oBmpENcqNHa9PFXsw7ly6agwjBWf4UXf1d8Kc=";
   };
 
-  # set SCRIPT_NAME in case we are wrapped and inject PATH
+    # set SCRIPT_NAME in case we are wrapped and inject PATH
   patches = [ ./update-systemd-resolved.patch ];
 
   PREFIX = "${placeholder "out"}/libexec/openvpn";
@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Helper script for OpenVPN to directly update the DNS settings of a link through systemd-resolved via DBus";
+      "Helper script for OpenVPN to directly update the DNS settings of a link through systemd-resolved via DBus"
+      ;
     homepage = "https://github.com/jonathanio/update-systemd-resolved";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ eadwu ];

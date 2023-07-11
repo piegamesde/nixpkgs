@@ -60,7 +60,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  # in the absence of a real test suite, run cli and imports
+    # in the absence of a real test suite, run cli and imports
   checkPhase = ''
     $out/bin/tensorboard --help > /dev/null
   '';

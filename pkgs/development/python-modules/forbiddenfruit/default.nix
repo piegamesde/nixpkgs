@@ -22,7 +22,7 @@ buildPythonPackage rec {
     export FFRUIT_EXTENSION="true";
   '';
 
-  # https://github.com/clarete/forbiddenfruit/pull/47 required to switch to pytest
+    # https://github.com/clarete/forbiddenfruit/pull/47 required to switch to pytest
   checkPhase = ''
     find ./build -name '*.so' -exec mv {} tests/unit \;
     nosetests

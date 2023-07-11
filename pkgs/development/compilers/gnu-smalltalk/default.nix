@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
     sha256 = "1k2ssrapfzhngc7bg1zrnd9n2vyxp9c9m70byvsma6wapbvib6l1";
   };
 
-  # The dependencies and their justification are explained at
-  # http://smalltalk.gnu.org/download
+    # The dependencies and their justification are explained at
+    # http://smalltalk.gnu.org/download
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
     libtool
@@ -65,8 +65,8 @@ stdenv.mkDerivation rec {
   installFlags =
     lib.optional emacsSupport "lispdir=$(out)/share/emacs/site-lisp";
 
-  # For some reason the tests fail if executated with nix-build, but pass if
-  # executed within nix-shell --pure.
+    # For some reason the tests fail if executated with nix-build, but pass if
+    # executed within nix-shell --pure.
   doCheck = false;
 
   meta = with lib; {

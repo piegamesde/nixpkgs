@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     AppKit
   ]);
 
-  # Tests need to write to the theme directory in HOME.
+    # Tests need to write to the theme directory in HOME.
   preCheck = "export HOME=`mktemp -d`";
 
   meta = with lib; {

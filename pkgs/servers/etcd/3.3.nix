@@ -34,7 +34,8 @@ buildGoPackage rec {
 
   meta = with lib; {
     description =
-      "Distributed reliable key-value store for the most critical data of a distributed system";
+      "Distributed reliable key-value store for the most critical data of a distributed system"
+      ;
     license = licenses.asl20;
     homepage = "https://etcd.io/";
     maintainers = with maintainers; [

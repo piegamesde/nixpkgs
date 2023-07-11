@@ -33,8 +33,9 @@ in {
         type = lib.types.path;
         default = pkgs.buildEnv {
           name = "man-paths";
-          paths = lib.subtractLists cfg.skipPackages
-            config.environment.systemPackages;
+          paths =
+            lib.subtractLists cfg.skipPackages config.environment.systemPackages
+            ;
           pathsToLink = [ "/share/man" ];
           extraOutputsToInstall = [ "man" ]
             ++ lib.optionals config.documentation.dev.enable [ "devman" ];
@@ -75,23 +76,26 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
-    environment.etc."man_db.conf".text = let
-      manualCache =
-        pkgs.runCommand "man-cache" { nativeBuildInputs = [ cfg.package ]; } ''
+    environment.etc."man_db.conf".text =
+      let
+        manualCache = pkgs.runCommand "man-cache" {
+          nativeBuildInputs = [ cfg.package ];
+        } ''
           echo "MANDB_MAP ${cfg.manualPages}/share/man $out" > man.conf
           mandb -C man.conf -psc >/dev/null 2>&1
         '';
-    in ''
-      # Manual pages paths for NixOS
-      MANPATH_MAP /run/current-system/sw/bin /run/current-system/sw/share/man
-      MANPATH_MAP /run/wrappers/bin          /run/current-system/sw/share/man
+      in ''
+        # Manual pages paths for NixOS
+        MANPATH_MAP /run/current-system/sw/bin /run/current-system/sw/share/man
+        MANPATH_MAP /run/wrappers/bin          /run/current-system/sw/share/man
 
-      ${lib.optionalString config.documentation.man.generateCaches ''
-        # Generated manual pages cache for NixOS (immutable)
-        MANDB_MAP /run/current-system/sw/share/man ${manualCache}
-      ''}
-      # Manual pages caches for NixOS
-      MANDB_MAP /run/current-system/sw/share/man /var/cache/man/nixos
-    '' ;
+        ${lib.optionalString config.documentation.man.generateCaches ''
+          # Generated manual pages cache for NixOS (immutable)
+          MANDB_MAP /run/current-system/sw/share/man ${manualCache}
+        ''}
+        # Manual pages caches for NixOS
+        MANDB_MAP /run/current-system/sw/share/man /var/cache/man/nixos
+      ''
+      ;
   };
 }

@@ -184,13 +184,15 @@ let
     '';
 
     fsharp = makeFSharpWriter {
-      libraries = {
+      libraries =
+        {
           fetchNuGet,
         }: [ (fetchNuGet {
           pname = "FSharp.SystemTextJson";
           version = "0.17.4";
           sha256 = "1bplzc9ybdqspii4q28l8gmfvzpkmgq5l1hlsiyg2h46w881lwg2";
-        }) ];
+        }) ]
+        ;
     } "test-writers-fsharp" ''
       #r "nuget: FSharp.SystemTextJson, 0.17.4"
 
@@ -246,13 +248,15 @@ let
     '');
   };
 
-  writeTest = expectedValue: name: test:
+  writeTest =
+    expectedValue: name: test:
     writeDash "run-${name}" ''
       if test "$(${test})" != "${expectedValue}"; then
         echo 'test ${test} failed'
         exit 1
       fi
-    '';
+    ''
+    ;
 
 in
 runCommand "test-writers" {

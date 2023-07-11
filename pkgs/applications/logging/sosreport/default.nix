@@ -29,7 +29,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  # requires avocado-framework 94.0, latest version as of writing is 96.0
+    # requires avocado-framework 94.0, latest version as of writing is 96.0
   doCheck = false;
 
   preCheck = ''

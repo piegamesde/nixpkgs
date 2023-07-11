@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.savannah.gnu.org/releases/devilspie2/devilspie2-${version}.tar.xz";
+      "https://download.savannah.gnu.org/releases/devilspie2/devilspie2-${version}.tar.xz"
+      ;
     sha256 = "Cp8erdKyKjGBY+QYAGXUlSIboaQ60gIepoZs0RgEJkA=";
   };
 

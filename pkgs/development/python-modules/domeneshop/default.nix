@@ -27,7 +27,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  # There are none
+    # There are none
   doCheck = false;
 
   pythonImportsCheck = [ "domeneshop" ];

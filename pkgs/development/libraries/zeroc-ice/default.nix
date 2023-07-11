@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
         # FIXME: certificate expired, remove for next release?
         "IceSSL/configuration"
       ];
-      # matches CONFIGS flag in makeFlagsArray
+        # matches CONFIGS flag in makeFlagsArray
       configFlag = optionalString cpp11 "--config=cpp11-shared";
     in ''
       runHook preCheck

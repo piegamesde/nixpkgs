@@ -28,7 +28,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/mgl-pax/2021-12-09/mgl-pax-20211209-git.tgz";
+      "http://beta.quicklisp.org/archive/mgl-pax/2021-12-09/mgl-pax-20211209-git.tgz"
+      ;
     sha256 = "19d47msc8240bldkc0fi60cpzsx1q9392dxhmqn28gn7998pdkgh";
   };
 

@@ -6,8 +6,8 @@ import ./make-test-python.nix ({
   let
     domain = "sourcehut.localdomain";
 
-    # Note that wildcard certificates just under the TLD (eg. *.com)
-    # would be rejected by clients like curl.
+      # Note that wildcard certificates just under the TLD (eg. *.com)
+      # would be rejected by clients like curl.
     tls-cert =
       pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
         openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
@@ -17,116 +17,121 @@ import ./make-test-python.nix ({
       '';
 
     images = {
-      nixos.unstable.x86_64 = let
-        systemConfig = {
-            pkgs,
-            ...
-          }: {
-            # passwordless ssh server
-            services.openssh = {
-              enable = true;
-              settings = {
-                PermitRootLogin = "yes";
-                PermitEmptyPasswords = true;
+      nixos.unstable.x86_64 =
+        let
+          systemConfig =
+            {
+              pkgs,
+              ...
+            }: {
+              # passwordless ssh server
+              services.openssh = {
+                enable = true;
+                settings = {
+                  PermitRootLogin = "yes";
+                  PermitEmptyPasswords = true;
+                };
               };
-            };
 
-            users = {
-              mutableUsers = false;
-              # build user
-              extraUsers."build" = {
-                isNormalUser = true;
-                uid = 1000;
-                extraGroups = [ "wheel" ];
-                password = "";
+              users = {
+                mutableUsers = false;
+                  # build user
+                extraUsers."build" = {
+                  isNormalUser = true;
+                  uid = 1000;
+                  extraGroups = [ "wheel" ];
+                  password = "";
+                };
+                users.root.password = "";
               };
-              users.root.password = "";
-            };
 
-            security.sudo.wheelNeedsPassword = false;
-            nix.settings.trusted-users = [
-              "root"
-              "build"
-            ];
-            documentation.nixos.enable = false;
-
-            # builds.sr.ht-image-specific network settings
-            networking = {
-              hostName = "build";
-              dhcpcd.enable = false;
-              defaultGateway.address = "10.0.2.2";
-              usePredictableInterfaceNames = false;
-              interfaces."eth0".ipv4.addresses = [ {
-                address = "10.0.2.15";
-                prefixLength = 25;
-              } ];
-              enableIPv6 = false;
-              nameservers = [
-                # OpenNIC anycast
-                "185.121.177.177"
-                "169.239.202.202"
-                # Google
-                "8.8.8.8"
+              security.sudo.wheelNeedsPassword = false;
+              nix.settings.trusted-users = [
+                "root"
+                "build"
               ];
-              firewall.allowedTCPPorts = [ 22 ];
-            };
+              documentation.nixos.enable = false;
 
-            environment.systemPackages = [
-              pkgs.gitMinimal
-              #pkgs.mercurial
-              pkgs.curl
-              pkgs.gnupg
-            ];
-          };
-        qemuConfig = {
-            pkgs,
-            ...
-          }: {
-            imports = [ systemConfig ];
-            fileSystems."/".device = "/dev/disk/by-label/nixos";
-            boot.initrd.availableKernelModules = [
-              "ahci"
-              "ehci_pci"
-              "sd_mod"
-              "usb_storage"
-              "usbhid"
-              "virtio_balloon"
-              "virtio_blk"
-              "virtio_pci"
-              "virtio_ring"
-              "xhci_pci"
-            ];
-            boot.loader = {
-              grub = {
-                version = 2;
-                device = "/dev/vda";
+                # builds.sr.ht-image-specific network settings
+              networking = {
+                hostName = "build";
+                dhcpcd.enable = false;
+                defaultGateway.address = "10.0.2.2";
+                usePredictableInterfaceNames = false;
+                interfaces."eth0".ipv4.addresses = [ {
+                  address = "10.0.2.15";
+                  prefixLength = 25;
+                } ];
+                enableIPv6 = false;
+                nameservers = [
+                  # OpenNIC anycast
+                  "185.121.177.177"
+                  "169.239.202.202"
+                  # Google
+                  "8.8.8.8"
+                ];
+                firewall.allowedTCPPorts = [ 22 ];
               };
-              timeout = 0;
-            };
-          };
-        config = (import (pkgs.path + "/nixos/lib/eval-config.nix") {
-          inherit pkgs;
-          modules = [ qemuConfig ];
-          system = "x86_64-linux";
-        }).config;
-      in
-      import (pkgs.path + "/nixos/lib/make-disk-image.nix") {
-        inherit pkgs lib config;
-        diskSize = 16000;
-        format = "qcow2-compressed";
-        contents = [ {
-          source = pkgs.writeText "gitconfig" ''
-            [user]
-              name = builds.sr.ht
-              email = build@sr.ht
-          '';
-          target = "/home/build/.gitconfig";
-          user = "build";
-          group = "users";
-          mode = "644";
-        } ];
-      }
-      ;
+
+              environment.systemPackages = [
+                pkgs.gitMinimal
+                #pkgs.mercurial
+                pkgs.curl
+                pkgs.gnupg
+              ];
+            }
+            ;
+          qemuConfig =
+            {
+              pkgs,
+              ...
+            }: {
+              imports = [ systemConfig ];
+              fileSystems."/".device = "/dev/disk/by-label/nixos";
+              boot.initrd.availableKernelModules = [
+                "ahci"
+                "ehci_pci"
+                "sd_mod"
+                "usb_storage"
+                "usbhid"
+                "virtio_balloon"
+                "virtio_blk"
+                "virtio_pci"
+                "virtio_ring"
+                "xhci_pci"
+              ];
+              boot.loader = {
+                grub = {
+                  version = 2;
+                  device = "/dev/vda";
+                };
+                timeout = 0;
+              };
+            }
+            ;
+          config = (import (pkgs.path + "/nixos/lib/eval-config.nix") {
+            inherit pkgs;
+            modules = [ qemuConfig ];
+            system = "x86_64-linux";
+          }).config;
+        in
+        import (pkgs.path + "/nixos/lib/make-disk-image.nix") {
+          inherit pkgs lib config;
+          diskSize = 16000;
+          format = "qcow2-compressed";
+          contents = [ {
+            source = pkgs.writeText "gitconfig" ''
+              [user]
+                name = builds.sr.ht
+                email = build@sr.ht
+            '';
+            target = "/home/build/.gitconfig";
+            user = "build";
+            group = "users";
+            mode = "644";
+          } ];
+        }
+        ;
     };
 
   in {
@@ -134,7 +139,8 @@ import ./make-test-python.nix ({
 
     meta.maintainers = [ pkgs.lib.maintainers.tomberek ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         nodes,
@@ -169,8 +175,8 @@ import ./make-test-python.nix ({
           meta.enable = true;
           builds = {
             enable = true;
-            # FIXME: see why it does not seem to activate fully.
-            #enableWorker = true;
+              # FIXME: see why it does not seem to activate fully.
+              #enableWorker = true;
             inherit images;
           };
           git.enable = true;
@@ -178,7 +184,8 @@ import ./make-test-python.nix ({
           settings."sr.ht" = {
             global-domain = config.networking.domain;
             service-key = pkgs.writeText "service-key"
-              "8b327279b77e32a3620e2fc9aabce491cc46e7d821fd6713b2a2e650ce114d01";
+              "8b327279b77e32a3620e2fc9aabce491cc46e7d821fd6713b2a2e650ce114d01"
+              ;
             network-key = pkgs.writeText "network-key"
               "cEEmc30BRBGkgQZcHFksiG7hjc6_dK1XR2Oo5Jb9_nQ=";
           };
@@ -196,8 +203,8 @@ import ./make-test-python.nix ({
             "Ra3IjxgFiwG9jxgp4WALQIZw/BMYt30xWiOsqD0J7EA=";
           settings.mail = {
             smtp-from = "root+hut@${domain}";
-            # WARNING: take care to keep pgp-privkey outside the Nix store in production,
-            # or use LoadCredentialEncrypted=
+              # WARNING: take care to keep pgp-privkey outside the Nix store in production,
+              # or use LoadCredentialEncrypted=
             pgp-privkey = toString (pkgs.writeText "sourcehut.pgp-privkey" ''
               -----BEGIN PGP PRIVATE KEY BLOCK-----
 
@@ -250,7 +257,8 @@ import ./make-test-python.nix ({
           enableTCPIP = false;
           settings.unix_socket_permissions = "0770";
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

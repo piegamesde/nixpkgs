@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ glcontext ];
 
-  # Tests need a display to run.
+    # Tests need a display to run.
   doCheck = false;
 
   pythonImportsCheck = [ "moderngl" ];
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/moderngl/moderngl/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ c0deaddict ];
-    # should be mesaPlatforms, darwin build breaks.
+      # should be mesaPlatforms, darwin build breaks.
     platforms = platforms.linux;
   };
 }

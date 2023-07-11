@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
     name = "minecraft-server";
     meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
-    nodes.server = {
+    nodes.server =
+      {
         ...
       }: {
         environment.systemPackages = [ pkgs.mcrcon ];
@@ -33,7 +34,8 @@ import ./make-test-python.nix ({
         };
 
         virtualisation.memorySize = 2047;
-      };
+      }
+      ;
 
     testScript = ''
       server.wait_for_unit("minecraft-server")

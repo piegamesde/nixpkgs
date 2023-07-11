@@ -11,8 +11,8 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "habitat";
-  # Newer versions required protobuf, which requires some finesse to get to
-  # compile with the vendored protobuf crate.
+    # Newer versions required protobuf, which requires some finesse to get to
+    # compile with the vendored protobuf crate.
   version = "0.90.6";
 
   src = fetchFromGitHub {

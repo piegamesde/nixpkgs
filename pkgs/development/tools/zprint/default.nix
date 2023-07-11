@@ -10,7 +10,8 @@ buildGraalvmNativeImage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/kkinnear/${pname}/releases/download/${version}/${pname}-filter-${version}";
+      "https://github.com/kkinnear/${pname}/releases/download/${version}/${pname}-filter-${version}"
+      ;
     sha256 = "sha256-PWdR5jqyzvTk9HoxqDldwtZNik34dmebBtZZ5vtva4A=";
   };
 

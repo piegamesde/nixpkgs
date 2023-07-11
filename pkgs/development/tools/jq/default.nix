@@ -11,10 +11,11 @@ stdenv.mkDerivation rec {
   pname = "jq";
   version = "1.6";
 
-  # Note: do not use fetchpatch or fetchFromGitHub to keep this package available in __bootPackages
+    # Note: do not use fetchpatch or fetchFromGitHub to keep this package available in __bootPackages
   src = fetchurl {
     url =
-      "https://github.com/stedolan/jq/releases/download/jq-${version}/jq-${version}.tar.gz";
+      "https://github.com/stedolan/jq/releases/download/jq-${version}/jq-${version}.tar.gz"
+      ;
     sha256 = "sha256-XejI4pqqP7nMa0e7JymfJxNU67clFOOsytx9OLW7qnI=";
   };
 
@@ -29,17 +30,17 @@ stdenv.mkDerivation rec {
     "out"
   ];
 
-  # Upstream script that writes the version that's eventually compiled
-  # and printed in `jq --help` relies on a .git directory which our src
-  # doesn't keep.
+    # Upstream script that writes the version that's eventually compiled
+    # and printed in `jq --help` relies on a .git directory which our src
+    # doesn't keep.
   preConfigure = ''
     echo "#!/bin/sh" > scripts/version
     echo "echo ${version}" >> scripts/version
     patchShebangs scripts/version
   '';
 
-  # paranoid mode: make sure we never use vendored version of oniguruma
-  # Note: it must be run after automake, or automake will complain
+    # paranoid mode: make sure we never use vendored version of oniguruma
+    # Note: it must be run after automake, or automake will complain
   preBuild = ''
     rm -r ./modules/oniguruma
   '';

@@ -3,10 +3,11 @@
   # Ensures no aliases are in the results.
   allowAliases = false;
 
-  # Enable recursion into attribute sets that nix-env normally doesn't look into
-  # so that we can get a more complete picture of the available packages for the
-  # purposes of the index.
-  packageOverrides = super:
+    # Enable recursion into attribute sets that nix-env normally doesn't look into
+    # so that we can get a more complete picture of the available packages for the
+    # purposes of the index.
+  packageOverrides =
+    super:
     with super;
     lib.mapAttrs (_: set: recurseIntoAttrs set) {
       inherit (super)
@@ -42,11 +43,12 @@
         hs-mesos = null;
       };
 
-      # Make sure haskell.compiler is included, so alternative GHC versions show up,
-      # but don't add haskell.packages.* since they contain the same packages (at
-      # least by name) as haskellPackages.
+        # Make sure haskell.compiler is included, so alternative GHC versions show up,
+        # but don't add haskell.packages.* since they contain the same packages (at
+        # least by name) as haskellPackages.
       haskell = super.haskell // {
         compiler = recurseIntoAttrs super.haskell.compiler;
       };
-    };
+    }
+    ;
 }

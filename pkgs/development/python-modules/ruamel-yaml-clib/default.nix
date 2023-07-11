@@ -15,15 +15,16 @@ buildPythonPackage rec {
     sha256 = "sha256-QNJyJWfCT8zEvrqI65zPlWIMSRZSoDwIAbFU48TfO4U=";
   };
 
-  # no tests
+    # no tests
   doCheck = false;
 
-  # circular dependency with ruamel-yaml
-  # pythonImportsCheck = [ "_ruamel_yaml" ];
+    # circular dependency with ruamel-yaml
+    # pythonImportsCheck = [ "_ruamel_yaml" ];
 
   meta = with lib; {
     description =
-      "YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order";
+      "YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
+      ;
     homepage = "https://sourceforge.net/projects/ruamel-yaml-clib/";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

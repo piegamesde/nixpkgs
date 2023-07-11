@@ -22,11 +22,11 @@ stdenv.mkDerivation {
       --set NIX_GHC "${taffybarEnv}/bin/ghc"
   '';
 
-  # Trivial derivation
+    # Trivial derivation
   preferLocalBuild = true;
   allowSubstitutes = false;
 
-  # For hacking purposes
+    # For hacking purposes
   passthru.env = taffybarEnv;
   buildInputs = [ taffybarEnv ];
   shellHook = "eval $(egrep ^export ${taffybarEnv}/bin/ghc)";

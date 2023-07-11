@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/rafael2k/darkice/releases/download/v${version}/darkice-${version}.tar.gz";
+      "https://github.com/rafael2k/darkice/releases/download/v${version}/darkice-${version}.tar.gz"
+      ;
     sha256 = "05yq7lggxygrkd76yiqby3msrgdn082p0qlvmzzv9xbw8hmyra76";
   };
 

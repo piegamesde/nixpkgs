@@ -19,10 +19,12 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Small tool to convert an IAM Policy in JSON format into a Terraform aws_iam_policy_document ";
+      "Small tool to convert an IAM Policy in JSON format into a Terraform aws_iam_policy_document "
+      ;
     homepage = "https://github.com/flosell/iam-policy-json-to-terraform";
     changelog =
-      "https://github.com/flosell/iam-policy-json-to-terraform/releases/tag/${version}";
+      "https://github.com/flosell/iam-policy-json-to-terraform/releases/tag/${version}"
+      ;
     license = licenses.asl20;
     maintainers = [ maintainers.ivankovnatsky ];
   };

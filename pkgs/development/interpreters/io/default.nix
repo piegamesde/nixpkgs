@@ -47,7 +47,8 @@ stdenv.mkDerivation {
   patches = [ (fetchpatch {
     name = "check-for-sysctl-h.patch";
     url =
-      "https://github.com/IoLanguage/io/pull/446/commits/9f3e4d87b6d4c1bf583134d55d1cf92d3464c49f.patch";
+      "https://github.com/IoLanguage/io/pull/446/commits/9f3e4d87b6d4c1bf583134d55d1cf92d3464c49f.patch"
+      ;
     sha256 = "9f06073ac17f26c2ef6298143bdd1babe7783c228f9667622aa6c91bb7ec7fa0";
   }) ];
 
@@ -106,7 +107,7 @@ stdenv.mkDerivation {
     $out/bin/io_static
   '';
 
-  # for gcc5; c11 inline semantics breaks the build
+    # for gcc5; c11 inline semantics breaks the build
   env.NIX_CFLAGS_COMPILE = "-fgnu89-inline";
 
   meta = with lib; {

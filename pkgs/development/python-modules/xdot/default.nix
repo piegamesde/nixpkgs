@@ -45,8 +45,8 @@ buildPythonPackage rec {
     xvfb-run -s '-screen 0 800x600x24' ${python.interpreter} nix_run_setup test
   '';
 
-  # https://github.com/NixOS/nixpkgs/pull/107872#issuecomment-752175866
-  # cannot import name '_gi' from partially initialized module 'gi' (most likely due to a circular import)
+    # https://github.com/NixOS/nixpkgs/pull/107872#issuecomment-752175866
+    # cannot import name '_gi' from partially initialized module 'gi' (most likely due to a circular import)
   doCheck = false;
 
   meta = with lib; {

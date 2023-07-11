@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Event driven digital circuit simulator with a TCL/TK-based graphical editor";
+      "Event driven digital circuit simulator with a TCL/TK-based graphical editor"
+      ;
     homepage = "http://www.tkgate.org/";
     license = lib.licenses.gpl2Plus;
     hydraPlatforms = lib.platforms.linux;

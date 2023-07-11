@@ -25,7 +25,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (cfg.screenrc != "") {
     environment.etc.screenrc.text = cfg.screenrc;

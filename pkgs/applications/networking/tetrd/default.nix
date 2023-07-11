@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://web.archive.org/web/20211130190525/https://download.tetrd.app/files/tetrd.linux_amd64.pkg.tar.xz";
+      "https://web.archive.org/web/20211130190525/https://download.tetrd.app/files/tetrd.linux_amd64.pkg.tar.xz"
+      ;
     sha256 = "1bxp7rg2dm9nnvkgg48xd156d0jgdf35flaw0bwzkkh3zz9ysry2";
   };
 
@@ -80,7 +81,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Share your internet connection from your device to your PC and vice versa through a USB cable";
+      "Share your internet connection from your device to your PC and vice versa through a USB cable"
+      ;
     homepage = "https://tetrd.app";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  # no tests included in PyPI tarball
+    # no tests included in PyPI tarball
   src = fetchFromGitHub {
     owner = "approvals";
     repo = "ApprovalTests.Python";

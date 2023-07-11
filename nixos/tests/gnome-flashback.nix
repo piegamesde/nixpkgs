@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
       maintainers = teams.gnome.members ++ [ maintainers.chpatrick ];
     };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         nodes,
         ...
       }:
@@ -34,9 +35,11 @@ import ./make-test-python.nix ({
         services.xserver.desktopManager.gnome.flashback.enableMetacity = true;
         services.xserver.displayManager.defaultSession =
           "gnome-flashback-metacity";
-      } ;
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -60,5 +63,6 @@ import ./make-test-python.nix ({
             )
             machine.sleep(20)
             machine.screenshot("screen")
-      '' ;
+      ''
+      ;
   })

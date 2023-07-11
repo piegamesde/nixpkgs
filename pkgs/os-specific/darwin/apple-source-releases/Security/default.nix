@@ -11,7 +11,7 @@ appleDerivation {
     xcbuildHook
     dtrace
   ];
-  # buildInputs = [ Foundation xpc darling ];
+    # buildInputs = [ Foundation xpc darling ];
   buildInputs = [
     xpc
     xnu
@@ -22,7 +22,7 @@ appleDerivation {
     "Security_frameworks_osx"
   ];
 
-  # env.NIX_CFLAGS_COMPILE = "-Wno-error -I${xnu}/include/libkern -DPRIVATE -I${xnu}/Library/Frameworks/System.framework/Headers";
+    # env.NIX_CFLAGS_COMPILE = "-Wno-error -I${xnu}/include/libkern -DPRIVATE -I${xnu}/Library/Frameworks/System.framework/Headers";
 
   preBuild = ''
     dtrace -h -C -s OSX/libsecurity_utilities/lib/security_utilities.d -o OSX/libsecurity_utilities/lib/utilities_dtrace.h

@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Command line interface for processing media filmed on GoPro HERO 3, 4, 5, 6, and 7 cameras";
+      "Command line interface for processing media filmed on GoPro HERO 3, 4, 5, 6, and 7 cameras"
+      ;
     homepage = "https://github.com/KonradIT/gopro-linux";
     platforms = platforms.unix;
     license = licenses.gpl3;

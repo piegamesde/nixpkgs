@@ -39,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     requests
   ];
 
-  # Patch the many hardcoded uses of /usr/share/ and /usr/bin
+    # Patch the many hardcoded uses of /usr/share/ and /usr/bin
   postPatch = ''
     find -type f -exec sed -i -e 's@/usr/share@${
       placeholder "out"
@@ -54,7 +54,7 @@ python3Packages.buildPythonApplication rec {
 
   installFlags = [ "prefix=${placeholder "out"}" ];
 
-  # Prevent double wrapping from wrapGApps and wrapPythonProgram
+    # Prevent double wrapping from wrapGApps and wrapPythonProgram
   dontWrapGApps = true;
   makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
 
@@ -64,7 +64,8 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://bleachbit.sourceforge.net";
     description = "A program to clean your computer";
     longDescription =
-      "BleachBit helps you easily clean your computer to free space and maintain privacy.";
+      "BleachBit helps you easily clean your computer to free space and maintain privacy."
+      ;
     license = licenses.gpl3;
     maintainers = with maintainers; [
       leonardoce

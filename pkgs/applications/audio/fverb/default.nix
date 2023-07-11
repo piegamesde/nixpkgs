@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation rec {
   pname = "fverb";
-  # no release yet: https://github.com/jpcima/fverb/issues/2
+    # no release yet: https://github.com/jpcima/fverb/issues/2
   version = "unstable-2020-06-09";
 
   src = fetchFromGitHub {

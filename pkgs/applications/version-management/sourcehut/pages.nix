@@ -34,8 +34,8 @@ buildGoModule (rec {
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ eadwu ];
   };
-  # There is no ./loaders but this does not cause troubles
-  # to go generate
+    # There is no ./loaders but this does not cause troubles
+    # to go generate
 } // import ./fix-gqlgen-trimpath.nix {
   inherit unzip;
   gqlgenVersion = "0.17.9";

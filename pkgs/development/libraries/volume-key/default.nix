@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A library for manipulating storage volume encryption keys and storing them separately from volumes to handle forgotten passphrases, and the associated command-line tool";
+      "A library for manipulating storage volume encryption keys and storing them separately from volumes to handle forgotten passphrases, and the associated command-line tool"
+      ;
     homepage = "https://pagure.io/volume_key/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ ];

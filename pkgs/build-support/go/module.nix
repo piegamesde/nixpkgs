@@ -90,13 +90,15 @@ assert (vendorSha256 != "_unset" && vendorHash != "_unset")
 let
   hasAnyVendorHash = (vendorSha256 != null && vendorSha256 != "_unset")
     || (vendorHash != null && vendorHash != "_unset");
-  vendorHashType = if hasAnyVendorHash then
-    if vendorSha256 != null && vendorSha256 != "_unset" then
-      "sha256"
+  vendorHashType =
+    if hasAnyVendorHash then
+      if vendorSha256 != null && vendorSha256 != "_unset" then
+        "sha256"
+      else
+        "sri"
     else
-      "sri"
-  else
-    null;
+      null
+    ;
 
   args = removeAttrs args' [
     "overrideModAttrs"
@@ -104,124 +106,126 @@ let
     "vendorHash"
   ];
 
-  go-modules = if hasAnyVendorHash then
-    stdenv.mkDerivation (let
-      modArgs = {
+  go-modules =
+    if hasAnyVendorHash then
+      stdenv.mkDerivation (let
+        modArgs = {
 
-        name = "${name}-go-modules";
+          name = "${name}-go-modules";
 
-        nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
-          go
-          git
-          cacert
-        ];
+          nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+            go
+            git
+            cacert
+          ];
 
-        inherit (args) src;
-        inherit (go)
-          GOOS
-          GOARCH
-          ;
+          inherit (args) src;
+          inherit (go)
+            GOOS
+            GOARCH
+            ;
 
-          # The following inheritence behavior is not trivial to expect, and some may
-          # argue it's not ideal. Changing it may break vendor hashes in Nixpkgs and
-          # out in the wild. In anycase, it's documented in:
-          # doc/languages-frameworks/go.section.md
-        prePatch = args.prePatch or "";
-        patches = args.patches or [ ];
-        patchFlags = args.patchFlags or [ ];
-        postPatch = args.postPatch or "";
-        preBuild = args.preBuild or "";
-        postBuild = args.modPostBuild or "";
-        sourceRoot = args.sourceRoot or "";
+            # The following inheritence behavior is not trivial to expect, and some may
+            # argue it's not ideal. Changing it may break vendor hashes in Nixpkgs and
+            # out in the wild. In anycase, it's documented in:
+            # doc/languages-frameworks/go.section.md
+          prePatch = args.prePatch or "";
+          patches = args.patches or [ ];
+          patchFlags = args.patchFlags or [ ];
+          postPatch = args.postPatch or "";
+          preBuild = args.preBuild or "";
+          postBuild = args.modPostBuild or "";
+          sourceRoot = args.sourceRoot or "";
 
-        GO111MODULE = "on";
+          GO111MODULE = "on";
 
-        impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
-          "GIT_PROXY_COMMAND"
-          "SOCKS_SERVER"
-          "GOPROXY"
-        ];
+          impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
+            "GIT_PROXY_COMMAND"
+            "SOCKS_SERVER"
+            "GOPROXY"
+          ];
 
-        configurePhase = args.modConfigurePhase or ''
-          runHook preConfigure
-          export GOCACHE=$TMPDIR/go-cache
-          export GOPATH="$TMPDIR/go"
-          cd "${modRoot}"
-          runHook postConfigure
-        '';
+          configurePhase = args.modConfigurePhase or ''
+            runHook preConfigure
+            export GOCACHE=$TMPDIR/go-cache
+            export GOPATH="$TMPDIR/go"
+            cd "${modRoot}"
+            runHook postConfigure
+          '';
 
-        buildPhase = args.modBuildPhase or (''
-          runHook preBuild
-        '' + lib.optionalString deleteVendor ''
-          if [ ! -d vendor ]; then
-            echo "vendor folder does not exist, 'deleteVendor' is not needed"
-            exit 10
-          else
-            rm -rf vendor
-          fi
-        '' + ''
-            if [ -d vendor ]; then
-              echo "vendor folder exists, please set 'vendorHash = null;' or 'vendorSha256 = null;' in your expression"
+          buildPhase = args.modBuildPhase or (''
+            runHook preBuild
+          '' + lib.optionalString deleteVendor ''
+            if [ ! -d vendor ]; then
+              echo "vendor folder does not exist, 'deleteVendor' is not needed"
               exit 10
+            else
+              rm -rf vendor
             fi
-
-          ${if proxyVendor then
-            ''
-              mkdir -p "''${GOPATH}/pkg/mod/cache/download"
-              go mod download
-            ''
-          else
-            ''
-              if (( "''${NIX_DEBUG:-0}" >= 1 )); then
-                goModVendorFlags+=(-v)
+          '' + ''
+              if [ -d vendor ]; then
+                echo "vendor folder exists, please set 'vendorHash = null;' or 'vendorSha256 = null;' in your expression"
+                exit 10
               fi
-              go mod vendor "''${goModVendorFlags[@]}"
-            ''}
 
-            mkdir -p vendor
+            ${if proxyVendor then
+              ''
+                mkdir -p "''${GOPATH}/pkg/mod/cache/download"
+                go mod download
+              ''
+            else
+              ''
+                if (( "''${NIX_DEBUG:-0}" >= 1 )); then
+                  goModVendorFlags+=(-v)
+                fi
+                go mod vendor "''${goModVendorFlags[@]}"
+              ''}
 
-            runHook postBuild
-        '');
+              mkdir -p vendor
 
-        installPhase = args.modInstallPhase or ''
-            runHook preInstall
+              runHook postBuild
+          '');
 
-          ${if proxyVendor then
-            ''
-              rm -rf "''${GOPATH}/pkg/mod/cache/download/sumdb"
-              cp -r --reflink=auto "''${GOPATH}/pkg/mod/cache/download" $out
-            ''
-          else
-            ''
-              cp -r --reflink=auto vendor $out
-            ''}
+          installPhase = args.modInstallPhase or ''
+              runHook preInstall
 
-            if ! [ "$(ls -A $out)" ]; then
-              echo "vendor folder is empty, please set 'vendorHash = null;' or 'vendorSha256 = null;' in your expression"
-              exit 10
-            fi
+            ${if proxyVendor then
+              ''
+                rm -rf "''${GOPATH}/pkg/mod/cache/download/sumdb"
+                cp -r --reflink=auto "''${GOPATH}/pkg/mod/cache/download" $out
+              ''
+            else
+              ''
+                cp -r --reflink=auto vendor $out
+              ''}
 
-            runHook postInstall
-        '';
+              if ! [ "$(ls -A $out)" ]; then
+                echo "vendor folder is empty, please set 'vendorHash = null;' or 'vendorSha256 = null;' in your expression"
+                exit 10
+              fi
 
-        dontFixup = true;
-      };
-    in
-    modArgs // ({
-      outputHashMode = "recursive";
-    } // (if (vendorHashType == "sha256") then
-      {
-        outputHashAlgo = "sha256";
-        outputHash = vendorSha256;
-      }
+              runHook postInstall
+          '';
+
+          dontFixup = true;
+        };
+      in
+      modArgs // ({
+        outputHashMode = "recursive";
+      } // (if (vendorHashType == "sha256") then
+        {
+          outputHashAlgo = "sha256";
+          outputHash = vendorSha256;
+        }
+      else
+        { outputHash = vendorHash; })
+        // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") {
+          outputHashAlgo = "sha256";
+        })) // overrideModAttrs modArgs
+      )
     else
-      { outputHash = vendorHash; })
-      // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") {
-        outputHashAlgo = "sha256";
-      })) // overrideModAttrs modArgs
-    )
-  else
-    "";
+      ""
+    ;
 
   package = stdenv.mkDerivation (args // {
     nativeBuildInputs = [ go ] ++ nativeBuildInputs;

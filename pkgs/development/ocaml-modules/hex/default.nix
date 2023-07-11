@@ -14,7 +14,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-${pname}/releases/download/v${version}/hex-${version}.tbz";
+      "https://github.com/mirage/ocaml-${pname}/releases/download/v${version}/hex-${version}.tbz"
+      ;
     hash = "sha256-LmfuyhsDBJMHowgxtc1pS8stPn8qa0+1l/vbZHNRtNw=";
   };
 

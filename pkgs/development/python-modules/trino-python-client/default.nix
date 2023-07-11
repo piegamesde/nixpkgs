@@ -66,7 +66,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/trinodb/trino-python-client/blob/${version}/CHANGES.md";
+      "https://github.com/trinodb/trino-python-client/blob/${version}/CHANGES.md"
+      ;
     description = "Client for the Trino distributed SQL Engine";
     homepage = "https://github.com/trinodb/trino-python-client";
     license = licenses.asl20;

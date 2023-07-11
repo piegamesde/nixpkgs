@@ -97,7 +97,7 @@ mkDerivation rec {
     ++ lib.optional withTotemPlParser totem-pl-parser
     # ++ lib.optional withGrilo grilo
     # ++ lib.optional withRygel rygel
-  ;
+    ;
 
   CFLAGS = [ "-DHAVE_PARANOIA_NEW_INCLUDES" ];
 

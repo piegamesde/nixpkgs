@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-28y4Su6V4JXt+7geXrkmzNJOatpV3Ng8rssmLlz5TSo=";
   };
 
-  # FIXME: -dev depends on -doc
+    # FIXME: -dev depends on -doc
   outputs = [
     "out"
     "dev"
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     sed -i support/apachectl.in -e 's|@LYNX_PATH@|${lynx}/bin/lynx|'
   '';
 
-  # Required for ‘pthread_cancel’.
+    # Required for ‘pthread_cancel’.
   NIX_LDFLAGS = lib.optionalString (!stdenv.isDarwin) "-lgcc_s";
 
   configureFlags = [

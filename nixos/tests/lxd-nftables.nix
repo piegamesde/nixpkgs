@@ -13,7 +13,8 @@ import ./make-test-python.nix ({
 
     meta = with pkgs.lib.maintainers; { maintainers = [ patryk27 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }: {
@@ -41,7 +42,8 @@ import ./make-test-python.nix ({
             }
           '';
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("network.target")

@@ -17,6 +17,7 @@ mkDiscoursePlugin {
     maintainers = with maintainers; [ dpausp ];
     license = licenses.gpl2Only;
     description =
-      "Adds the ability for voting on a topic within a specified category in Discourse";
+      "Adds the ability for voting on a topic within a specified category in Discourse"
+      ;
   };
 }

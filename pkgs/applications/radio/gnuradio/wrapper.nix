@@ -152,37 +152,39 @@ let
     inherit pythonEnv pythonPkgs unwrapped;
     pkgs = packages;
   };
-  self = if doWrap then
-    stdenv.mkDerivation {
-      inherit pname version passthru;
-      nativeBuildInputs = [ makeWrapper ];
-      buildInputs = [ xorg.lndir ];
-      buildCommand = ''
-        mkdir $out
-        cd $out
-        lndir -silent ${unwrapped}
-        ${lib.optionalString (extraPackages != [ ])
-        (builtins.concatStringsSep "\n" (builtins.map (pkg: ''
-          if [[ -d ${lib.getBin pkg}/bin/ ]]; then
-            lndir -silent ${pkg}/bin ./bin
-          fi
-        '') extraPackages))}
-        for i in $out/bin/*; do
-          if [[ ! -x "$i" ]]; then
-            continue
-          fi
-          cp -L "$i" "$i".tmp
-          mv -f "$i".tmp "$i"
-          if head -1 "$i" | grep -q ${unwrapped.python}; then
-            substituteInPlace "$i" \
-              --replace ${unwrapped.python} ${pythonEnv}
-          fi
-          wrapProgram "$i" ${makeWrapperArgs}
-        done
-      '';
-      inherit (unwrapped) meta;
-    }
-  else
-    unwrapped.overrideAttrs (_: { inherit passthru; });
+  self =
+    if doWrap then
+      stdenv.mkDerivation {
+        inherit pname version passthru;
+        nativeBuildInputs = [ makeWrapper ];
+        buildInputs = [ xorg.lndir ];
+        buildCommand = ''
+          mkdir $out
+          cd $out
+          lndir -silent ${unwrapped}
+          ${lib.optionalString (extraPackages != [ ])
+          (builtins.concatStringsSep "\n" (builtins.map (pkg: ''
+            if [[ -d ${lib.getBin pkg}/bin/ ]]; then
+              lndir -silent ${pkg}/bin ./bin
+            fi
+          '') extraPackages))}
+          for i in $out/bin/*; do
+            if [[ ! -x "$i" ]]; then
+              continue
+            fi
+            cp -L "$i" "$i".tmp
+            mv -f "$i".tmp "$i"
+            if head -1 "$i" | grep -q ${unwrapped.python}; then
+              substituteInPlace "$i" \
+                --replace ${unwrapped.python} ${pythonEnv}
+            fi
+            wrapProgram "$i" ${makeWrapperArgs}
+          done
+        '';
+        inherit (unwrapped) meta;
+      }
+    else
+      unwrapped.overrideAttrs (_: { inherit passthru; })
+    ;
 in
 self

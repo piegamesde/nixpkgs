@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/aa-project/bb/${version}/${pname}-${version}.tar.gz";
+      "mirror://sourceforge/aa-project/bb/${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "1i411glxh7g4pfg4gw826lpwngi89yrbmxac8jmnsfvrfb48hgbr";
   };
 
@@ -32,10 +33,10 @@ stdenv.mkDerivation rec {
     sed -i -e '/^#include <malloc.h>$/d' *.c
   '';
 
-  # error: 'regparm' is not valid on this platform
+    # error: 'regparm' is not valid on this platform
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
-    "-D__STRICT_ANSI__";
+    lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) "-D__STRICT_ANSI__"
+    ;
 
   meta = with lib; {
     homepage = "http://aa-project.sourceforge.net/bb";

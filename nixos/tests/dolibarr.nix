@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "dolibarr";
     meta.maintainers = [ lib.maintainers.raitobezarius ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.dolibarr = {
@@ -19,7 +20,8 @@ import ./make-test-python.nix ({
         };
 
         networking.firewall.allowedTCPPorts = [ 80 ];
-      };
+      }
+      ;
 
     testScript = ''
       from html.parser import HTMLParser

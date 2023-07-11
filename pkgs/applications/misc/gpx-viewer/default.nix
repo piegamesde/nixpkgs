@@ -17,13 +17,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/gpx-viewer/trunk/${version}/+download/${pname}-${version}.tar.gz";
+      "https://launchpad.net/gpx-viewer/trunk/${version}/+download/${pname}-${version}.tar.gz"
+      ;
     sha256 = "956acfaf870ac436300cd9953dece630df7fd7dff8e4ae2577a6002884466f80";
   };
 
   patches = fetchurl {
     url =
-      "https://code.launchpad.net/~chkr/gpx-viewer/gtk3-bugfix/+merge/260766/+preview-diff/628965/+files/preview.diff";
+      "https://code.launchpad.net/~chkr/gpx-viewer/gtk3-bugfix/+merge/260766/+preview-diff/628965/+files/preview.diff"
+      ;
     sha256 = "1yl7jk7skkcx10nny5zdixswcymjd9s9c1zhm1i5y3aqhchvmfs7";
   };
   patchFlags = [ "-p0" ];

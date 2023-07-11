@@ -17,12 +17,15 @@ args@{
 
     nodes = {
       # The only thing the client needs to do is download a file.
-      client = {
+      client =
+        {
           ...
         }:
-        { };
+        { }
+        ;
 
-      nextcloud = {
+      nextcloud =
+        {
           config,
           pkgs,
           lib,
@@ -63,48 +66,51 @@ args@{
 
           services.redis.servers."nextcloud".enable = true;
           services.redis.servers."nextcloud".port = 6379;
-        };
+        }
+        ;
     };
 
-    testScript = let
-      configureRedis = pkgs.writeScript "configure-redis" ''
-        #!${pkgs.runtimeShell}
-        nextcloud-occ config:system:set redis 'host' --value 'localhost' --type string
-        nextcloud-occ config:system:set redis 'port' --value 6379 --type integer
-        nextcloud-occ config:system:set memcache.local --value '\OC\Memcache\Redis' --type string
-        nextcloud-occ config:system:set memcache.locking --value '\OC\Memcache\Redis' --type string
-      '';
-      withRcloneEnv = pkgs.writeScript "with-rclone-env" ''
-        #!${pkgs.runtimeShell}
-        export RCLONE_CONFIG_NEXTCLOUD_TYPE=webdav
-        export RCLONE_CONFIG_NEXTCLOUD_URL="http://nextcloud/remote.php/webdav/"
-        export RCLONE_CONFIG_NEXTCLOUD_VENDOR="nextcloud"
-        export RCLONE_CONFIG_NEXTCLOUD_USER="${adminuser}"
-        export RCLONE_CONFIG_NEXTCLOUD_PASS="$(${pkgs.rclone}/bin/rclone obscure ${adminpass})"
-        "''${@}"
-      '';
-      copySharedFile = pkgs.writeScript "copy-shared-file" ''
-        #!${pkgs.runtimeShell}
-        echo 'hi' | ${pkgs.rclone}/bin/rclone rcat nextcloud:test-shared-file
-      '';
+    testScript =
+      let
+        configureRedis = pkgs.writeScript "configure-redis" ''
+          #!${pkgs.runtimeShell}
+          nextcloud-occ config:system:set redis 'host' --value 'localhost' --type string
+          nextcloud-occ config:system:set redis 'port' --value 6379 --type integer
+          nextcloud-occ config:system:set memcache.local --value '\OC\Memcache\Redis' --type string
+          nextcloud-occ config:system:set memcache.locking --value '\OC\Memcache\Redis' --type string
+        '';
+        withRcloneEnv = pkgs.writeScript "with-rclone-env" ''
+          #!${pkgs.runtimeShell}
+          export RCLONE_CONFIG_NEXTCLOUD_TYPE=webdav
+          export RCLONE_CONFIG_NEXTCLOUD_URL="http://nextcloud/remote.php/webdav/"
+          export RCLONE_CONFIG_NEXTCLOUD_VENDOR="nextcloud"
+          export RCLONE_CONFIG_NEXTCLOUD_USER="${adminuser}"
+          export RCLONE_CONFIG_NEXTCLOUD_PASS="$(${pkgs.rclone}/bin/rclone obscure ${adminpass})"
+          "''${@}"
+        '';
+        copySharedFile = pkgs.writeScript "copy-shared-file" ''
+          #!${pkgs.runtimeShell}
+          echo 'hi' | ${pkgs.rclone}/bin/rclone rcat nextcloud:test-shared-file
+        '';
 
-      diffSharedFile = pkgs.writeScript "diff-shared-file" ''
-        #!${pkgs.runtimeShell}
-        diff <(echo 'hi') <(${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file)
-      '';
-    in ''
-      start_all()
-      nextcloud.wait_for_unit("multi-user.target")
-      nextcloud.succeed("${configureRedis}")
-      nextcloud.succeed("curl -sSf http://nextcloud/login")
-      nextcloud.succeed(
-          "${withRcloneEnv} ${copySharedFile}"
-      )
-      client.wait_for_unit("multi-user.target")
-      client.execute("${pkgs.nextcloud-notify_push.passthru.test_client}/bin/test_client http://nextcloud ${adminuser} ${adminpass} >&2 &")
-      client.succeed(
-          "${withRcloneEnv} ${diffSharedFile}"
-      )
-      nextcloud.wait_until_succeeds("journalctl -u nextcloud-notify_push | grep -q \"Sending ping to ${adminuser}\"")
-    '' ;
+        diffSharedFile = pkgs.writeScript "diff-shared-file" ''
+          #!${pkgs.runtimeShell}
+          diff <(echo 'hi') <(${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file)
+        '';
+      in ''
+        start_all()
+        nextcloud.wait_for_unit("multi-user.target")
+        nextcloud.succeed("${configureRedis}")
+        nextcloud.succeed("curl -sSf http://nextcloud/login")
+        nextcloud.succeed(
+            "${withRcloneEnv} ${copySharedFile}"
+        )
+        client.wait_for_unit("multi-user.target")
+        client.execute("${pkgs.nextcloud-notify_push.passthru.test_client}/bin/test_client http://nextcloud ${adminuser} ${adminpass} >&2 &")
+        client.succeed(
+            "${withRcloneEnv} ${diffSharedFile}"
+        )
+        nextcloud.wait_until_succeeds("journalctl -u nextcloud-notify_push | grep -q \"Sending ping to ${adminuser}\"")
+      ''
+      ;
   } )) args

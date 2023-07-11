@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     # Upstream issue: https://gitlab.freedesktop.org/bolt/bolt/-/issues/167
     (fetchpatch {
       url =
-        "https://gitlab.freedesktop.org/bolt/bolt/-/commit/c2f1d5c40ad71b20507e02faa11037b395fac2f8.diff";
+        "https://gitlab.freedesktop.org/bolt/bolt/-/commit/c2f1d5c40ad71b20507e02faa11037b395fac2f8.diff"
+        ;
       revert = true;
       sha256 = "6w7ll65W/CydrWAVi/qgzhrQeDv1PWWShulLxoglF+I=";
     })
@@ -65,7 +66,7 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-  # https://gitlab.freedesktop.org/bolt/bolt/-/issues/181
+    # https://gitlab.freedesktop.org/bolt/bolt/-/issues/181
   doCheck = false;
 
   preCheck = ''

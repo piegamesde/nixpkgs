@@ -16,7 +16,7 @@ buildGoModule rec {
     hash = "sha256-tTHw/rIb2Gs5i5vZKsSgbUePIY7Np6HofBXu4TTjKbw=";
   };
 
-  # upstream tests are broken, see zizzydizzymc/linx-server#34
+    # upstream tests are broken, see zizzydizzymc/linx-server#34
   patches = [ ./test.patch ];
 
   vendorHash = "sha256-/N3AXrPyENp3li4X86LNXsfBYbjJulk+0EAyogPNIpc=";

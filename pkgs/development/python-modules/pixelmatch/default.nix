@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.6";
 
-  # Test fixtures are stored in LFS
+    # Test fixtures are stored in LFS
   src = fetchgit {
     url = "https://github.com/whtsky/pixelmatch-py";
     rev = "v${version}";

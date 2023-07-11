@@ -12,28 +12,33 @@ let
   cfg = config.services.autorandr;
   hookType = types.lines;
 
-  matrixOf = n: m: elemType:
+  matrixOf =
+    n: m: elemType:
     mkOptionType rec {
       name = "matrixOf";
       description =
         "${toString n}×${toString m} matrix of ${elemType.description}s";
-      check = xss:
+      check =
+        xss:
         let
           listOfSize = l: xs: isList xs && length xs == l;
         in
         listOfSize n xss
         && all (xs: listOfSize m xs && all elemType.check xs) xss
-      ;
+        ;
       merge = mergeOneOption;
-      getSubOptions = prefix:
+      getSubOptions =
+        prefix:
         elemType.getSubOptions (prefix ++ [
           "*"
           "*"
-        ]);
+        ])
+        ;
       getSubModules = elemType.getSubModules;
       substSubModules = mod: matrixOf n m (elemType.substSubModules mod);
       functor = (defaultFunctor name) // { wrapped = elemType; };
-    };
+    }
+    ;
 
   profileModule = types.submodule {
     options = {
@@ -218,25 +223,31 @@ let
     };
   };
 
-  hookToFile = folder: name: hook:
+  hookToFile =
+    folder: name: hook:
     nameValuePair "xdg/autorandr/${folder}/${name}" {
       source = "${pkgs.writeShellScriptBin "hook" hook}/bin/hook";
-    };
-  profileToFiles = name: profile:
+    }
+    ;
+  profileToFiles =
+    name: profile:
     with profile;
     mkMerge ([
       {
-        "xdg/autorandr/${name}/setup".text = concatStringsSep "\n"
-          (mapAttrsToList fingerprintToString fingerprint);
+        "xdg/autorandr/${name}/setup".text =
+          concatStringsSep "\n" (mapAttrsToList fingerprintToString fingerprint)
+          ;
         "xdg/autorandr/${name}/config".text =
           concatStringsSep "\n" (mapAttrsToList configToString profile.config);
       }
       (mapAttrs' (hookToFile "${name}/postswitch.d") hooks.postswitch)
       (mapAttrs' (hookToFile "${name}/preswitch.d") hooks.preswitch)
       (mapAttrs' (hookToFile "${name}/predetect.d") hooks.predetect)
-    ]);
+    ])
+    ;
   fingerprintToString = name: edid: "${name} ${edid}";
-  configToString = name: config:
+  configToString =
+    name: config:
     if config.enable then
       concatStringsSep "\n" ([ "output ${name}" ]
         ++ optional (config.position != "") "pos ${config.position}"
@@ -259,7 +270,8 @@ let
       ''
         output ${name}
         off
-      '';
+      ''
+    ;
 
 in {
 

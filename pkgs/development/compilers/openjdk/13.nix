@@ -49,7 +49,7 @@ let
   update = ".0.2";
   build = "-ga";
 
-  # when building a headless jdk, also bootstrap it with a headless jdk
+    # when building a headless jdk, also bootstrap it with a headless jdk
   openjdk-bootstrap = openjdk13-bootstrap.override { gtkSupport = !headless; };
 
   openjdk = stdenv.mkDerivation rec {
@@ -58,7 +58,8 @@ let
 
     src = fetchurl {
       url =
-        "http://hg.openjdk.java.net/jdk-updates/jdk${major}u/archive/jdk-${version}.tar.gz";
+        "http://hg.openjdk.java.net/jdk-updates/jdk${major}u/archive/jdk-${version}.tar.gz"
+        ;
       sha256 = "1871ziss7ny19rw8f7bay5vznmhpqbfi4ihn3yygs06wyxhm0zmv";
     };
 
@@ -114,13 +115,15 @@ let
       # https://src.fedoraproject.org/rpms/java-openjdk/pull-request/24
       (fetchurl {
         url =
-          "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch";
+          "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch"
+          ;
         sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
       })
       # Fix gnumake 4.3 incompatibility
       (fetchpatch {
         url =
-          "https://github.com/openjdk/panama-foreign/commit/af5c725b8109ce83fc04ef0f8bf6aaf0b50c0441.patch";
+          "https://github.com/openjdk/panama-foreign/commit/af5c725b8109ce83fc04ef0f8bf6aaf0b50c0441.patch"
+          ;
         sha256 = "0ja84kih5wkjn58pml53s59qnavb1z92dc88cbgw7vcyqwc1gs0h";
       })
     ] ++ lib.optionals
@@ -131,9 +134,9 @@ let
       patchShebangs --build configure
     '';
 
-    # JDK's build system attempts to specifically detect
-    # and special-case WSL, and we don't want it to do that,
-    # so pass the correct platform names explicitly
+      # JDK's build system attempts to specifically detect
+      # and special-case WSL, and we don't want it to do that,
+      # so pass the correct platform names explicitly
     configurePlatforms = [
       "build"
       "host"
@@ -174,10 +177,10 @@ let
       "-lgconf-2"
     ]);
 
-    # -j flag is explicitly rejected by the build system:
-    #     Error: 'make -jN' is not supported, use 'make JOBS=N'
-    # Note: it does not make build sequential. Build system
-    # still runs in parallel.
+      # -j flag is explicitly rejected by the build system:
+      #     Error: 'make -jN' is not supported, use 'make JOBS=N'
+      # Note: it does not make build sequential. Build system
+      # still runs in parallel.
     enableParallelBuilding = false;
 
     buildFlags = [ "all" ];

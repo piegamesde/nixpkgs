@@ -17,12 +17,14 @@
 }:
 
 let
-  cpuTarget = if stdenv.hostPlatform.system == "x86_64-linux" then
-    "x86_64-linux-user"
-  else if stdenv.hostPlatform.system == "i686-linux" then
-    "i386-linux-user"
-  else
-    throw "afl: no support for ${stdenv.hostPlatform.system}!";
+  cpuTarget =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "x86_64-linux-user"
+    else if stdenv.hostPlatform.system == "i686-linux" then
+      "i386-linux-user"
+    else
+      throw "afl: no support for ${stdenv.hostPlatform.system}!"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "afl-qemu";

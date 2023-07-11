@@ -46,7 +46,7 @@ buildPythonPackage rec {
       --replace "pytest-asyncio" ""
   '';
 
-  # Project only has a dummy test
+    # Project only has a dummy test
   doCheck = false;
 
   pythonImportsCheck = [ "seatconnect" ];

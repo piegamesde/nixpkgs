@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     python3
   ];
 
-  # these tests require network access
+    # these tests require network access
   checkFlags = [
     "--skip=parse_correct_host_addresses"
     "--skip=parse_hosts_file_and_incorrect_hosts"

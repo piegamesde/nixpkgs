@@ -7,22 +7,28 @@
 with lib;
 let
   cfg = config.hardware.printers;
-  ppdOptionsString = options:
+  ppdOptionsString =
+    options:
     optionalString (options != { }) (concatStringsSep " "
-      (mapAttrsToList (name: value: "-o '${name}'='${value}'") options));
-  ensurePrinter = p: ''
-    ${pkgs.cups}/bin/lpadmin -p '${p.name}' -E \
-      ${optionalString (p.location != null) "-L '${p.location}'"} \
-      ${optionalString (p.description != null) "-D '${p.description}'"} \
-      -v '${p.deviceUri}' \
-      -m '${p.model}' \
-      ${ppdOptionsString p.ppdOptions}
-  '';
-  ensureDefaultPrinter = name: ''
-    ${pkgs.cups}/bin/lpadmin -d '${name}'
-  '';
+      (mapAttrsToList (name: value: "-o '${name}'='${value}'") options))
+    ;
+  ensurePrinter =
+    p: ''
+      ${pkgs.cups}/bin/lpadmin -p '${p.name}' -E \
+        ${optionalString (p.location != null) "-L '${p.location}'"} \
+        ${optionalString (p.description != null) "-D '${p.description}'"} \
+        -v '${p.deviceUri}' \
+        -m '${p.model}' \
+        ${ppdOptionsString p.ppdOptions}
+    ''
+    ;
+  ensureDefaultPrinter =
+    name: ''
+      ${pkgs.cups}/bin/lpadmin -d '${name}'
+    ''
+    ;
 
-  # "graph but not # or /" can't be implemented as regex alone due to missing lookahead support
+    # "graph but not # or /" can't be implemented as regex alone due to missing lookahead support
   noInvalidChars = str: all (c: c != "#" && c != "/") (stringToCharacters str);
   printerName =
     (types.addCheck (types.strMatching "[[:graph:]]+") noInvalidChars) // {

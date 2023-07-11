@@ -27,8 +27,8 @@ resholve.mkDerivation rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # these may point to paths on remote systems, calculated at runtime, thus we cannot fix them
-  # we can only set their initial values, and let them remain dynamic
+    # these may point to paths on remote systems, calculated at runtime, thus we cannot fix them
+    # we can only set their initial values, and let them remain dynamic
   postPatch = ''
     substituteInPlace zxfer \
       --replace 'LCAT=""'                'LCAT=${coreutils}/bin/cat' \

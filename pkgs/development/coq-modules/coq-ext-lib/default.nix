@@ -70,7 +70,8 @@ mkCoqDerivation rec {
 
   meta = {
     description =
-      "A collection of theories and plugins that may be useful in other Coq developments";
+      "A collection of theories and plugins that may be useful in other Coq developments"
+      ;
     maintainers = with lib.maintainers; [
       jwiegley
       ptival

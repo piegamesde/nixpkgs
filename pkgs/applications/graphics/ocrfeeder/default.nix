@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/OCRFeeder";
     description =
-      "Complete Optical Character Recognition and Document Analysis and Recognition program";
+      "Complete Optical Character Recognition and Document Analysis and Recognition program"
+      ;
     maintainers = with maintainers; [ doronbehar ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

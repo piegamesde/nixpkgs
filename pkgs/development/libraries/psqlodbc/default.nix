@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://ftp.postgresql.org/pub/odbc/versions/src/${pname}-${version}.tar.gz";
+      "https://ftp.postgresql.org/pub/odbc/versions/src/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0b4w1ahfpp34jpscfk2kv9050lh3xl9pvcysqvaigkcd0vsk1hl9";
   };
 

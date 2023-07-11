@@ -58,11 +58,12 @@ let
   # reported that its `.ttc` file is not picked up by OnlyOffice, see:
   # https://github.com/NixOS/nixpkgs/pull/116343#discussion_r593979816
   noto-fonts-cjk = fetchurl {
-    url = let
-      version = "v20201206-cjk";
-    in
-    "https://github.com/googlefonts/noto-cjk/raw/${version}/NotoSansCJKsc-Regular.otf"
-    ;
+    url =
+      let
+        version = "v20201206-cjk";
+      in
+      "https://github.com/googlefonts/noto-cjk/raw/${version}/NotoSansCJKsc-Regular.otf"
+      ;
     sha256 = "sha256-aJXSVNJ+p6wMAislXUn4JQilLhimNSedbc9nAuPVxo4=";
   };
 
@@ -81,7 +82,8 @@ stdenv.mkDerivation rec {
   minor = null;
   src = fetchurl {
     url =
-      "https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb";
+      "https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb"
+      ;
     sha256 = "sha256-O9gC/b5/eZ1YImuXpEZOJhI1rzCNuFrm5IqablnYo9Y=";
   };
 
@@ -180,7 +182,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents";
+      "Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents"
+      ;
     homepage = "https://www.onlyoffice.com/";
     downloadPage = "https://github.com/ONLYOFFICE/DesktopEditors/releases";
     changelog =

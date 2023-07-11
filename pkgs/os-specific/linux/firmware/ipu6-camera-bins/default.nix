@@ -59,18 +59,20 @@ stdenv.mkDerivation {
 
   passthru = { inherit ipuVersion; };
 
-  meta = let
-    generation = {
-      ipu6 = "Tiger Lake";
-      ipu6ep = "Alder Lake";
-    }.${ipuVersion};
-  in with lib; {
-    description =
-      "${generation} IPU firmware and proprietary image processing libraries";
-    homepage = "https://github.com/intel/ipu6-camera-bins";
-    license = licenses.issl;
-    sourceProvenance = with sourceTypes; [ binaryFirmware ];
-    maintainers = with maintainers; [ hexa ];
-    platforms = [ "x86_64-linux" ];
-  };
+  meta =
+    let
+      generation = {
+        ipu6 = "Tiger Lake";
+        ipu6ep = "Alder Lake";
+      }.${ipuVersion};
+    in with lib; {
+      description =
+        "${generation} IPU firmware and proprietary image processing libraries";
+      homepage = "https://github.com/intel/ipu6-camera-bins";
+      license = licenses.issl;
+      sourceProvenance = with sourceTypes; [ binaryFirmware ];
+      maintainers = with maintainers; [ hexa ];
+      platforms = [ "x86_64-linux" ];
+    }
+    ;
 }

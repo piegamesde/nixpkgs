@@ -69,11 +69,11 @@ stdenv.mkDerivation rec {
       libXext
     ];
 
-  # First, replace port 9090 (rather low, can be used)
-  # with 64237 (much higher, IANA private area, not
-  # anything rememberable).
-  # Also remove reference to a type that disappeared from recent glibc
-  # (seems the correct thing to do, found no reference to any solution)
+    # First, replace port 9090 (rather low, can be used)
+    # with 64237 (much higher, IANA private area, not
+    # anything rememberable).
+    # Also remove reference to a type that disappeared from recent glibc
+    # (seems the correct thing to do, found no reference to any solution)
   postPatch = ''
     sed -e 's@9090@64237@g' -i tests/socket.tst
     sed -i 's@/bin/pwd@${coreutils}&@' src/clisp-link.in
@@ -105,14 +105,14 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     "-O0 ${lib.optionalString (!stdenv.is64bit) "-falign-functions=4"}";
 
-  # TODO : make mod-check fails
+    # TODO : make mod-check fails
   doCheck = false;
 
   meta = {
     description = "ANSI Common Lisp Implementation";
     homepage = "http://clisp.cons.org";
     maintainers = lib.teams.lisp.members;
-    # problems on Darwin: https://github.com/NixOS/nixpkgs/issues/20062
+      # problems on Darwin: https://github.com/NixOS/nixpkgs/issues/20062
     platforms = lib.platforms.linux;
   };
 }

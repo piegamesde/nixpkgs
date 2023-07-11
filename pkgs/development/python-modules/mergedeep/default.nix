@@ -11,7 +11,7 @@ buildPythonPackage rec {
   version = "1.3.4";
   disabled = isPy27;
 
-  # PyPI tarball doesn't include tests directory
+    # PyPI tarball doesn't include tests directory
   src = fetchFromGitHub {
     owner = "clarketm";
     repo = "mergedeep";

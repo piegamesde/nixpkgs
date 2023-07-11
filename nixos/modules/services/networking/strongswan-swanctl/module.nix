@@ -40,14 +40,15 @@ in {
     assertions = [ {
       assertion = !config.services.strongswan.enable;
       message =
-        "cannot enable both services.strongswan and services.strongswan-swanctl. Choose either one.";
+        "cannot enable both services.strongswan and services.strongswan-swanctl. Choose either one."
+        ;
     } ];
 
     environment.etc."swanctl/swanctl.conf".text =
       paramsToConf cfg.swanctl swanctlParams;
 
-    # The swanctl command complains when the following directories don't exist:
-    # See: https://wiki.strongswan.org/projects/strongswan/wiki/Swanctldirectory
+      # The swanctl command complains when the following directories don't exist:
+      # See: https://wiki.strongswan.org/projects/strongswan/wiki/Swanctldirectory
     system.activationScripts.strongswan-swanctl-etc = stringAfter [ "etc" ] ''
       mkdir -p '/etc/swanctl/x509'     # Trusted X.509 end entity certificates
       mkdir -p '/etc/swanctl/x509ca'   # Trusted X.509 Certificate Authority certificates
@@ -81,8 +82,8 @@ in {
         };
         SWANCTL_DIR = "/etc/swanctl";
       };
-      restartTriggers =
-        [ config.environment.etc."swanctl/swanctl.conf".source ];
+      restartTriggers = [ config.environment.etc."swanctl/swanctl.conf".source ]
+        ;
       serviceConfig = {
         ExecStart = "${cfg.package}/sbin/charon-systemd";
         Type = "notify";

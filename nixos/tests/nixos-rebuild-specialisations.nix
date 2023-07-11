@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "nixos-rebuild-specialisations";
 
     nodes = {
-      machine = {
+      machine =
+        {
           lib,
           pkgs,
           ...
@@ -43,94 +44,97 @@ import ./make-test-python.nix ({
             cores = 2;
             memorySize = 2048;
           };
-        };
+        }
+        ;
     };
 
-    testScript = let
-      configFile = pkgs.writeText "configuration.nix" ''
-        { lib, pkgs, ... }: {
-          imports = [
-            ./hardware-configuration.nix
-            <nixpkgs/nixos/modules/testing/test-instrumentation.nix>
-          ];
+    testScript =
+      let
+        configFile = pkgs.writeText "configuration.nix" ''
+          { lib, pkgs, ... }: {
+            imports = [
+              ./hardware-configuration.nix
+              <nixpkgs/nixos/modules/testing/test-instrumentation.nix>
+            ];
 
-          boot.loader.grub = {
-            enable = true;
-            device = "/dev/vda";
-            forceInstall = true;
-          };
-
-          documentation.enable = false;
-
-          environment.systemPackages = [
-            (pkgs.writeShellScriptBin "parent" "")
-          ];
-
-          specialisation.foo = {
-            inheritParentConfig = true;
-
-            configuration = { ... }: {
-              environment.systemPackages = [
-                (pkgs.writeShellScriptBin "foo" "")
-              ];
+            boot.loader.grub = {
+              enable = true;
+              device = "/dev/vda";
+              forceInstall = true;
             };
-          };
 
-          specialisation.bar = {
-            inheritParentConfig = true;
+            documentation.enable = false;
 
-            configuration = { ... }: {
-              environment.systemPackages = [
-                (pkgs.writeShellScriptBin "bar" "")
-              ];
+            environment.systemPackages = [
+              (pkgs.writeShellScriptBin "parent" "")
+            ];
+
+            specialisation.foo = {
+              inheritParentConfig = true;
+
+              configuration = { ... }: {
+                environment.systemPackages = [
+                  (pkgs.writeShellScriptBin "foo" "")
+                ];
+              };
             };
-          };
-        }
-      '';
 
-    in ''
-      machine.start()
-      machine.succeed("udevadm settle")
-      machine.wait_for_unit("multi-user.target")
+            specialisation.bar = {
+              inheritParentConfig = true;
 
-      machine.succeed("nixos-generate-config")
-      machine.copy_from_host(
-          "${configFile}",
-          "/etc/nixos/configuration.nix",
-      )
+              configuration = { ... }: {
+                environment.systemPackages = [
+                  (pkgs.writeShellScriptBin "bar" "")
+                ];
+              };
+            };
+          }
+        '';
 
-      with subtest("Switch to the base system"):
-          machine.succeed("nixos-rebuild switch")
-          machine.succeed("parent")
-          machine.fail("foo")
-          machine.fail("bar")
+      in ''
+        machine.start()
+        machine.succeed("udevadm settle")
+        machine.wait_for_unit("multi-user.target")
 
-      with subtest("Switch from base system into a specialization"):
-          machine.succeed("nixos-rebuild switch --specialisation foo")
-          machine.succeed("parent")
-          machine.succeed("foo")
-          machine.fail("bar")
+        machine.succeed("nixos-generate-config")
+        machine.copy_from_host(
+            "${configFile}",
+            "/etc/nixos/configuration.nix",
+        )
 
-      with subtest("Switch from specialization into another specialization"):
-          machine.succeed("nixos-rebuild switch -c bar")
-          machine.succeed("parent")
-          machine.fail("foo")
-          machine.succeed("bar")
+        with subtest("Switch to the base system"):
+            machine.succeed("nixos-rebuild switch")
+            machine.succeed("parent")
+            machine.fail("foo")
+            machine.fail("bar")
 
-      with subtest("Switch from specialization into the base system"):
-          machine.succeed("nixos-rebuild switch")
-          machine.succeed("parent")
-          machine.fail("foo")
-          machine.fail("bar")
+        with subtest("Switch from base system into a specialization"):
+            machine.succeed("nixos-rebuild switch --specialisation foo")
+            machine.succeed("parent")
+            machine.succeed("foo")
+            machine.fail("bar")
 
-      with subtest("Switch into specialization using `nixos-rebuild test`"):
-          machine.succeed("nixos-rebuild test --specialisation foo")
-          machine.succeed("parent")
-          machine.succeed("foo")
-          machine.fail("bar")
+        with subtest("Switch from specialization into another specialization"):
+            machine.succeed("nixos-rebuild switch -c bar")
+            machine.succeed("parent")
+            machine.fail("foo")
+            machine.succeed("bar")
 
-      with subtest("Make sure nonsense command combinations are forbidden"):
-          machine.fail("nixos-rebuild boot --specialisation foo")
-          machine.fail("nixos-rebuild boot -c foo")
-    '' ;
+        with subtest("Switch from specialization into the base system"):
+            machine.succeed("nixos-rebuild switch")
+            machine.succeed("parent")
+            machine.fail("foo")
+            machine.fail("bar")
+
+        with subtest("Switch into specialization using `nixos-rebuild test`"):
+            machine.succeed("nixos-rebuild test --specialisation foo")
+            machine.succeed("parent")
+            machine.succeed("foo")
+            machine.fail("bar")
+
+        with subtest("Make sure nonsense command combinations are forbidden"):
+            machine.fail("nixos-rebuild boot --specialisation foo")
+            machine.fail("nixos-rebuild boot -c foo")
+      ''
+      ;
   })

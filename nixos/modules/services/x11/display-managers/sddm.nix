@@ -38,12 +38,14 @@ let
     General = {
       HaltCommand = "/run/current-system/systemd/bin/systemctl poweroff";
       RebootCommand = "/run/current-system/systemd/bin/systemctl reboot";
-      Numlock = if cfg.autoNumlock then
-        "on"
-      else
-        "none"; # on, off none
+      Numlock =
+        if cfg.autoNumlock then
+          "on"
+        else
+          "none"
+        ; # on, off none
 
-      # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
+        # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
       DefaultSession = optionalString (dmcfg.defaultSession != null)
         "${dmcfg.defaultSession}.desktop";
     };
@@ -61,10 +63,12 @@ let
     };
 
     X11 = {
-      MinimumVT = if xcfg.tty != null then
-        xcfg.tty
-      else
-        7;
+      MinimumVT =
+        if xcfg.tty != null then
+          xcfg.tty
+        else
+          7
+        ;
       ServerPath = toString xserverWrapper;
       XephyrPath = "${pkgs.xorg.xorgserver.out}/bin/Xephyr";
       SessionCommand = toString dmcfg.sessionData.wrapper;
@@ -87,8 +91,9 @@ let
     };
   };
 
-  cfgFile = iniFmt.generate "sddm.conf"
-    (lib.recursiveUpdate defaultConfig cfg.settings);
+  cfgFile =
+    iniFmt.generate "sddm.conf" (lib.recursiveUpdate defaultConfig cfg.settings)
+    ;
 
   autoLoginSessionName = "${dmcfg.sessionData.autologinSession}.desktop";
 
@@ -209,7 +214,7 @@ in {
         '';
       };
 
-      # Configuration for automatic login specific to SDDM
+        # Configuration for automatic login specific to SDDM
       autoLogin = {
         relogin = mkOption {
           type = types.bool;
@@ -251,10 +256,10 @@ in {
     services.xserver.displayManager.job = {
       environment = {
         # Load themes from system environment
-        QT_PLUGIN_PATH = "/run/current-system/sw/"
-          + pkgs.qt5.qtbase.qtPluginPrefix;
-        QML2_IMPORT_PATH = "/run/current-system/sw/"
-          + pkgs.qt5.qtbase.qtQmlPrefix;
+        QT_PLUGIN_PATH =
+          "/run/current-system/sw/" + pkgs.qt5.qtbase.qtPluginPrefix;
+        QML2_IMPORT_PATH =
+          "/run/current-system/sw/" + pkgs.qt5.qtbase.qtQmlPrefix;
       };
 
       execCmd = "exec /run/current-system/sw/bin/sddm";
@@ -314,7 +319,7 @@ in {
     environment.systemPackages = [ sddm ];
     services.dbus.packages = [ sddm ];
 
-    # To enable user switching, allow sddm to allocate TTYs/displays dynamically.
+      # To enable user switching, allow sddm to allocate TTYs/displays dynamically.
     services.xserver.tty = null;
     services.xserver.display = null;
   };

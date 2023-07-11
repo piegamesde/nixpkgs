@@ -25,13 +25,15 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "ncurses-6.3-p1.patch";
       url =
-        "https://github.com/patroclos/PAmix/commit/3400b9c048706c572373e4617b4d5fcdb8dd2505.patch";
+        "https://github.com/patroclos/PAmix/commit/3400b9c048706c572373e4617b4d5fcdb8dd2505.patch"
+        ;
       sha256 = "0rw56a844pz876ad9p8hfvn2fkd5rh29gpp47h55g08spf0vwb2z";
     })
     (fetchpatch {
       name = "ncurses-6.3-p2.patch";
       url =
-        "https://github.com/patroclos/PAmix/commit/5ef67fc5ef6fc0dc0b48ff07ba48093881561d9c.patch";
+        "https://github.com/patroclos/PAmix/commit/5ef67fc5ef6fc0dc0b48ff07ba48093881561d9c.patch"
+        ;
       sha256 = "0f8shpdv2swxdz04bkqgmkvl6c17r5mn4slzr7xd6pvw8hh51p4h";
     })
   ];

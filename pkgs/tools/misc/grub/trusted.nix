@@ -28,10 +28,12 @@ let
   inPCSystems = lib.any (system: stdenv.hostPlatform.system == system)
     (lib.mapAttrsToList (name: _: name) pcSystems);
 
-  version = if for_HP_laptop then
-    "1.2.1"
-  else
-    "1.2.0";
+  version =
+    if for_HP_laptop then
+      "1.2.1"
+    else
+      "1.2.0"
+    ;
 
   unifont_bdf = fetchurl {
     url = "http://unifoundry.com/unifont-5.1.20080820.bdf.gz";
@@ -54,10 +56,12 @@ stdenv.mkDerivation rec {
     owner = "Sirrix-AG";
     repo = "TrustedGRUB2";
     rev = version;
-    sha256 = if for_HP_laptop then
-      "sha256-H1JzT/RgnbHqnW2/FmvXFuI6gnHI2vQU3W1iq2FqwJw="
-    else
-      "sha256-k8DGHjTIpnjWw7GNN2kyR8rRl2MAq1xkfOndd0znLns=";
+    sha256 =
+      if for_HP_laptop then
+        "sha256-H1JzT/RgnbHqnW2/FmvXFuI6gnHI2vQU3W1iq2FqwJw="
+      else
+        "sha256-k8DGHjTIpnjWw7GNN2kyR8rRl2MAq1xkfOndd0znLns="
+      ;
   };
 
   nativeBuildInputs = [
@@ -117,23 +121,25 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       # glibc-2.26 and above needs '<sys/sysmacros.h>'
       url =
-        "https://github.com/Rohde-Schwarz/TrustedGRUB2/commit/7a5b301e3adb8e054288518a325135a1883c1c6c.patch";
+        "https://github.com/Rohde-Schwarz/TrustedGRUB2/commit/7a5b301e3adb8e054288518a325135a1883c1c6c.patch"
+        ;
       sha256 = "1jfrrmcrd9a8w7n419kszxgbpshx7888wc05smg5q4jvc1ag3xm7";
     })
   ];
 
-  # save target that grub is compiled for
+    # save target that grub is compiled for
   grubTarget = lib.optionalString inPCSystems
     "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
 
   doCheck = false;
-  # On -j16 races with early header creation:
-  #  config.h:38:10: fatal error: ./config-util.h: No such file or directory
+    # On -j16 races with early header creation:
+    #  config.h:38:10: fatal error: ./config-util.h: No such file or directory
   enableParallelBuilding = false;
 
   meta = with lib; {
     description =
-      "GRUB 2.0 extended with TCG (TPM) support for integrity measured boot process (trusted boot)";
+      "GRUB 2.0 extended with TCG (TPM) support for integrity measured boot process (trusted boot)"
+      ;
     homepage = "https://github.com/Sirrix-AG/TrustedGRUB2";
     license = licenses.gpl3Plus;
     platforms = platforms.gnu ++ platforms.linux;

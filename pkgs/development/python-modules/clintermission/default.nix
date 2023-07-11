@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ prompt-toolkit ];
 
-  # repo contains no tests
+    # repo contains no tests
   doCheck = false;
 
   pythonImportsCheck = [ "clintermission" ];

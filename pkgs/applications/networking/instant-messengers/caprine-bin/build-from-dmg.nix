@@ -14,7 +14,8 @@ stdenvNoCC.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/sindresorhus/caprine/releases/download/v${version}/Caprine-${version}.dmg";
+      "https://github.com/sindresorhus/caprine/releases/download/v${version}/Caprine-${version}.dmg"
+      ;
     name = "Caprine-${version}.dmg";
     inherit sha256;
   };

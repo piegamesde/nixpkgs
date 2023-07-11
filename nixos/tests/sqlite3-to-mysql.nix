@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
     name = "sqlite3-to-mysql";
     meta.maintainers = with lib.maintainers; [ gador ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -32,8 +33,8 @@ import ./make-test-python.nix ({
         services.mysql = {
           package = pkgs.mariadb;
           enable = true;
-          # from https://github.com/techouse/sqlite3-to-mysql/blob/master/tests/conftest.py
-          # and https://github.com/techouse/sqlite3-to-mysql/blob/master/.github/workflows/test.yml
+            # from https://github.com/techouse/sqlite3-to-mysql/blob/master/tests/conftest.py
+            # and https://github.com/techouse/sqlite3-to-mysql/blob/master/.github/workflows/test.yml
           initialScript = pkgs.writeText "mysql-init.sql" ''
             create database test_db DEFAULT CHARACTER SET utf8mb4;
             create user tester identified by 'testpass';
@@ -49,7 +50,8 @@ import ./make-test-python.nix ({
             };
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("mysql")

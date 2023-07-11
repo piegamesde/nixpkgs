@@ -63,8 +63,8 @@ perlPackages.buildPerlPackage rec {
     makeWrapper
   ];
 
-  # sed-substitute indirection is more robust against
-  # characters in paths that might need escaping
+    # sed-substitute indirection is more robust against
+    # characters in paths that might need escaping
   prePatch = ''
     sed -Ei 's|^(S?BINSEARCHPATH=).+$|\1"@PATH@"|g' configure.ac
     substituteInPlace configure.ac --subst-var PATH
@@ -92,7 +92,8 @@ perlPackages.buildPerlPackage rec {
 
   meta = {
     changelog =
-      "https://github.com/OpenPrinting/foomatic-db-engine/blob/${src.rev}/ChangeLog";
+      "https://github.com/OpenPrinting/foomatic-db-engine/blob/${src.rev}/ChangeLog"
+      ;
     description = "OpenPrinting printer support database engine";
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";

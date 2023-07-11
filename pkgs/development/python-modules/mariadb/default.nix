@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ libmysqlclient ];
 
-  # Requires a running MariaDB instance
+    # Requires a running MariaDB instance
   doCheck = false;
 
   pythonImportsCheck = [ "mariadb" ];

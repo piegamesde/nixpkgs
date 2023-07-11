@@ -140,30 +140,33 @@ in {
         '');
     };
 
-    warnings = let
-      warn = k:
-        optional (cfg.${k} != "")
-        "config.services.longview.${k} is insecure. Use ${k}File instead.";
-    in
-    concatMap warn [
-      "apiKey"
-      "mysqlPassword"
-    ]
-    ;
+    warnings =
+      let
+        warn =
+          k:
+          optional (cfg.${k} != "")
+          "config.services.longview.${k} is insecure. Use ${k}File instead."
+          ;
+      in
+      concatMap warn [
+        "apiKey"
+        "mysqlPassword"
+      ]
+      ;
 
     assertions = [ {
       assertion = cfg.apiKeyFile != null;
       message = "Longview needs an API key configured";
     } ];
 
-    # Create API key file if not configured.
+      # Create API key file if not configured.
     services.longview.apiKeyFile = mkIf (cfg.apiKey != "") (mkDefault (toString
       (pkgs.writeTextFile {
         name = "longview.key";
         text = cfg.apiKey;
       })));
 
-    # Create MySQL password file if not configured.
+      # Create MySQL password file if not configured.
     services.longview.mysqlPasswordFile = mkDefault (toString
       (pkgs.writeTextFile {
         name = "mysql-password-file";

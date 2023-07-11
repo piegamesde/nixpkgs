@@ -15,7 +15,8 @@ let
 
   nonOverlayedPython =
     pkgs.python3.pythonForBuild.withPackages (ps: [ ps.tomlkit ]);
-  makeRemoveSpecialDependenciesHook = {
+  makeRemoveSpecialDependenciesHook =
+    {
       fields,
       kind,
     }:
@@ -32,15 +33,18 @@ let
           inherit fields;
           inherit kind;
         };
-      } ./remove-special-dependencies.sh) { };
-  makeSetupHookArgs = deps:
+      } ./remove-special-dependencies.sh) { }
+    ;
+  makeSetupHookArgs =
+    deps:
     if
       lib.elem "propagatedBuildInputs"
       (builtins.attrNames (builtins.functionArgs makeSetupHook))
     then
       { propagatedBuildInputs = deps; }
     else
-      { inherit deps; };
+      { inherit deps; }
+    ;
 in {
   removePathDependenciesHook = makeRemoveSpecialDependenciesHook {
     fields = [ "path" ];
@@ -82,10 +86,10 @@ in {
       };
     } ./fixup-hook.sh) { };
 
-  # As of 2023-03 a newer version of packaging introduced a new behaviour where python-requires
-  # cannot contain version wildcards. This behaviour is complaint with PEP440
-  #
-  # The wildcards are a no-op anyway so we can work around this issue by just dropping the precision down to the last known number.
+    # As of 2023-03 a newer version of packaging introduced a new behaviour where python-requires
+    # cannot contain version wildcards. This behaviour is complaint with PEP440
+    #
+    # The wildcards are a no-op anyway so we can work around this issue by just dropping the precision down to the last known number.
   poetry2nixPythonRequiresPatchHook = callPackage (_:
     let
       # Python pre 3.9 does not contain the ast.unparse method.
@@ -102,8 +106,8 @@ in {
         '';
       };
 
-      pythonPath = [ ]
-        ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
+      pythonPath =
+        [ ] ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
 
     in
     makeSetupHook {
@@ -115,8 +119,8 @@ in {
     } ./python-requires-patch-hook.sh
   ) { };
 
-  # When the "wheel" package itself is a wheel the nixpkgs hook (which pulls in "wheel") leads to infinite recursion
-  # It doesn't _really_ depend on wheel though, it just copies the wheel.
+    # When the "wheel" package itself is a wheel the nixpkgs hook (which pulls in "wheel") leads to infinite recursion
+    # It doesn't _really_ depend on wheel though, it just copies the wheel.
   wheelUnpackHook = callPackage
     (_: makeSetupHook { name = "wheel-unpack-hook.sh"; } ./wheel-unpack-hook.sh)
     { };

@@ -27,7 +27,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ midchildan ]; };
 
     nodes = {
-      ats = {
+      ats =
+        {
           pkgs,
           lib,
           config,
@@ -48,7 +49,7 @@ import ./make-test-python.nix ({
             proxy.config.log.max_space_mb_headroom = 0;
             proxy.config.http.push_method_enabled = 1;
 
-            # check that cache storage is usable before accepting traffic
+              # check that cache storage is usable before accepting traffic
             proxy.config.http.wait_for_cache = 2;
           };
 
@@ -79,9 +80,11 @@ import ./make-test-python.nix ({
           services.udev.extraRules = ''
             KERNEL=="vdb", OWNER="${user}", GROUP="${group}"
           '';
-        } ;
+        }
+        ;
 
-      httpbin = {
+      httpbin =
+        {
           pkgs,
           lib,
           ...
@@ -105,18 +108,22 @@ import ./make-test-python.nix ({
           };
 
           networking.firewall.allowedTCPPorts = [ 80 ];
-        } ;
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           lib,
           ...
         }: {
           environment.systemPackages = with pkgs; [ curl ];
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -202,5 +209,6 @@ import ./make-test-python.nix ({
             out = json.loads(ats.succeed(f"traffic_logstats -jf {access_log_path}"))
             assert isinstance(out, dict)
             assert out["total"]["error.total"]["req"] == "0", "unexpected log stat"
-      '' ;
+      ''
+      ;
   })

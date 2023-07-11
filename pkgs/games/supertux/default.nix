@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/SuperTux/supertux/releases/download/v${version}/SuperTux-v${version}-Source.tar.gz";
+      "https://github.com/SuperTux/supertux/releases/download/v${version}/SuperTux-v${version}-Source.tar.gz"
+      ;
     sha256 = "1xkr3ka2sxp5s0spp84iv294i29s1vxqzazb6kmjc0n415h0x57p";
   };
 

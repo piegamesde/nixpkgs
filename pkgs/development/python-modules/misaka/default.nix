@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cffi ];
 
-  # The tests require write access to $out
+    # The tests require write access to $out
   doCheck = false;
 
   meta = with lib; {

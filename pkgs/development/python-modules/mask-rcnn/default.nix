@@ -33,13 +33,14 @@ buildPythonPackage rec {
     # https://github.com/matterport/Mask_RCNN/issues/2734
     (fetchpatch {
       url =
-        "https://github.com/BupyeongHealer/Mask_RCNN_tf_2.x/commit/7957839fe2b248f2f22c7e991ead12068ddc6cfc.diff";
+        "https://github.com/BupyeongHealer/Mask_RCNN_tf_2.x/commit/7957839fe2b248f2f22c7e991ead12068ddc6cfc.diff"
+        ;
       excludes = [ "mrcnn/model.py" ];
       hash = "sha256-70BGrx6X1uJDA2025f0YTlreT2uB3n35yIzuhf+ypVc=";
     })
   ];
 
-  # Fix for recent Keras
+    # Fix for recent Keras
   postPatch = ''
     substituteInPlace mrcnn/model.py \
       --replace "KE." "KL."
@@ -63,7 +64,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Mask R-CNN for object detection and instance segmentation on Keras and TensorFlow";
+      "Mask R-CNN for object detection and instance segmentation on Keras and TensorFlow"
+      ;
     homepage = "https://github.com/matterport/Mask_RCNN";
     license = licenses.mit;
     maintainers = with maintainers; [ rakesh4g ];

@@ -22,7 +22,8 @@ rustPlatform.buildRustPackage rec {
       "Help computing optimal include directives for your Cargo.toml manifest";
     homepage = "https://github.com/the-lean-crate/cargo-diet";
     changelog =
-      "https://github.com/the-lean-crate/cargo-diet/blob/v${version}/CHANGELOG.md";
+      "https://github.com/the-lean-crate/cargo-diet/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

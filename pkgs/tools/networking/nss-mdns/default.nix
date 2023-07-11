@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  # Note: Although `nss-mdns' works by talking to `avahi-daemon', it
-  # doesn't depend on the Avahi libraries.  Instead, it contains
-  # hand-written D-Bus code to talk to the Avahi daemon.
+    # Note: Although `nss-mdns' works by talking to `avahi-daemon', it
+    # doesn't depend on the Avahi libraries.  Instead, it contains
+    # hand-written D-Bus code to talk to the Avahi daemon.
 
   configureFlags = [ # Try to use the Avahi daemon before resolving on our own.
     "--enable-avahi"
@@ -47,9 +47,9 @@ stdenv.mkDerivation rec {
     homepage = "http://0pointer.de/lennart/projects/nss-mdns/";
     license = lib.licenses.lgpl2Plus;
 
-    # Supports both the GNU and FreeBSD NSS.
-    platforms = lib.platforms.gnu ++ lib.platforms.linux
-      ++ lib.platforms.freebsd;
+      # Supports both the GNU and FreeBSD NSS.
+    platforms =
+      lib.platforms.gnu ++ lib.platforms.linux ++ lib.platforms.freebsd;
 
     maintainers = [ ];
   };

@@ -32,8 +32,8 @@ stdenvNoCC.mkDerivation {
 
   nativeCheckInputs = [ bash ];
 
-  # `#!/usr/bin/env` isn't okay for OfBorg
-  # Need external bash to run
+    # `#!/usr/bin/env` isn't okay for OfBorg
+    # Need external bash to run
   checkPhase = ''
     runHook preCheck
     bash ./sample_head.sh -v --file README.md
@@ -49,9 +49,9 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  # As example code,
-  # sample_head.sh shows how users can use opt-parse in their script,
-  # and its shebang (`/usr/bin/env bash`) should not be patched.
+    # As example code,
+    # sample_head.sh shows how users can use opt-parse in their script,
+    # and its shebang (`/usr/bin/env bash`) should not be patched.
   dontPatchShebangs = true;
 
   meta = with lib; {

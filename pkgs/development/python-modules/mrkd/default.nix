@@ -31,7 +31,7 @@ buildPythonPackage rec {
       "Write man pages using Markdown, and convert them to Roff or HTML";
     homepage = "https://github.com/refi64/mrkd";
     license = licenses.bsd2;
-    # https://github.com/refi64/mrkd/pull/6
+      # https://github.com/refi64/mrkd/pull/6
     broken = versionAtLeast mistune.version "2";
   };
 }

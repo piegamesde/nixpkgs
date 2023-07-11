@@ -31,7 +31,7 @@ buildPythonPackage rec {
     tornado
   ];
 
-  # Not all needed files seems to be present
+    # Not all needed files seems to be present
   doCheck = false;
 
   pythonImportsCheck = [ "thriftpy2" ];

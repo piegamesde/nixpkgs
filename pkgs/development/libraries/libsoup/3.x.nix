@@ -76,10 +76,10 @@ stdenv.mkDerivation rec {
     (lib.mesonEnable "vapi" withIntrospection)
   ];
 
-  # TODO: For some reason the pkg-config setup hook does not pick this up.
+    # TODO: For some reason the pkg-config setup hook does not pick this up.
   PKG_CONFIG_PATH = "${libnghttp2.dev}/lib/pkgconfig";
 
-  # HSTS tests fail.
+    # HSTS tests fail.
   doCheck = false;
 
   postPatch = ''

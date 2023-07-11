@@ -6,10 +6,12 @@
 }:
 
 let
-  ghdl = if backend == "llvm" then
-    ghdl-llvm
-  else
-    ghdl-mcode;
+  ghdl =
+    if backend == "llvm" then
+      ghdl-llvm
+    else
+      ghdl-mcode
+    ;
 in
 stdenv.mkDerivation {
   name = "ghdl-test-simple";

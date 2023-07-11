@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  # No tests implemented
+    # No tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "pysensibo" ];

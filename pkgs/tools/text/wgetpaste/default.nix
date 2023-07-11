@@ -12,10 +12,11 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/zlin/wgetpaste/releases/download/${version}/wgetpaste-${version}.tar.xz";
+      "https://github.com/zlin/wgetpaste/releases/download/${version}/wgetpaste-${version}.tar.xz"
+      ;
     sha256 = "sha256-6TWdhKOmO7vRKGIVNcUwLy46heI6UiAOgej6ubd+lxs=";
   };
-  # currently zsh-autocompletion support is not installed
+    # currently zsh-autocompletion support is not installed
 
   prePatch = ''
     substituteInPlace wgetpaste --replace "/usr/bin/env bash" "${bash}/bin/bash"

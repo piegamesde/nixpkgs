@@ -78,30 +78,32 @@ in {
       serviceConfig = {
         # don't put too much stress on the machine when restarting
         RestartSec = 1;
-        # we don't want to kill children processes as those are deployments
+          # we don't want to kill children processes as those are deployments
         KillMode = "process";
         Restart = "on-failure";
         DynamicUser = true;
         LoadCredential = [ "cachix-token:${toString cfg.cachixTokenFile}" ];
       };
-      script = let
-        command = [ "${cfg.package}/bin/cachix" ]
-          ++ (lib.optional cfg.verbose "--verbose")
-          ++ (lib.optionals (cfg.host != null) [
-            "--host"
-            cfg.host
-          ]) ++ [ "watch-store" ]
-          ++ (lib.optionals (cfg.compressionLevel != null) [
-            "--compression-level"
-            (toString cfg.compressionLevel)
-          ]) ++ (lib.optionals (cfg.jobs != null) [
-            "--jobs"
-            (toString cfg.jobs)
-          ]) ++ [ cfg.cacheName ];
-      in ''
-        export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
-        ${lib.escapeShellArgs command}
-      '' ;
+      script =
+        let
+          command = [ "${cfg.package}/bin/cachix" ]
+            ++ (lib.optional cfg.verbose "--verbose")
+            ++ (lib.optionals (cfg.host != null) [
+              "--host"
+              cfg.host
+            ]) ++ [ "watch-store" ]
+            ++ (lib.optionals (cfg.compressionLevel != null) [
+              "--compression-level"
+              (toString cfg.compressionLevel)
+            ]) ++ (lib.optionals (cfg.jobs != null) [
+              "--jobs"
+              (toString cfg.jobs)
+            ]) ++ [ cfg.cacheName ];
+        in ''
+          export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
+          ${lib.escapeShellArgs command}
+        ''
+        ;
     };
   };
 }

@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.intra2net.com/en/developer/libftdi/download/${pname}-${version}.tar.gz";
+      "https://www.intra2net.com/en/developer/libftdi/download/${pname}-${version}.tar.gz"
+      ;
     sha256 = "13l39f6k6gff30hsgh0wa2z422g9pyl91rh8a8zz6f34k2sxaxii";
   };
 
@@ -26,12 +27,12 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ libusb-compat-0_1 ];
 
-  # Hack to avoid TMPDIR in RPATHs.
+    # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" '';
   configureFlags = lib.optional (!stdenv.isDarwin) "--with-async-mode";
 
-  # allow async mode. from ubuntu. see:
-  #   https://bazaar.launchpad.net/~ubuntu-branches/ubuntu/trusty/libftdi/trusty/view/head:/debian/patches/04_async_mode.diff
+    # allow async mode. from ubuntu. see:
+    #   https://bazaar.launchpad.net/~ubuntu-branches/ubuntu/trusty/libftdi/trusty/view/head:/debian/patches/04_async_mode.diff
   patchPhase = ''
     substituteInPlace ./src/ftdi.c \
       --replace "ifdef USB_CLASS_PTP" "if 0"

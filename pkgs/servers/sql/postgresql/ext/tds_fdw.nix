@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation rec {
   pname = "tds_fdw";
-  # Move to stable version when it's released.
+    # Move to stable version when it's released.
   version = "unstable-2021-12-14";
 
   buildInputs = [
@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A PostgreSQL foreign data wrapper to connect to TDS databases (Sybase and Microsoft SQL Server)";
+      "A PostgreSQL foreign data wrapper to connect to TDS databases (Sybase and Microsoft SQL Server)"
+      ;
     homepage = "https://github.com/tds-fdw/tds_fdw";
     maintainers = [ maintainers.steve-chavez ];
     platforms = postgresql.meta.platforms;

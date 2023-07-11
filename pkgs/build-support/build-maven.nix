@@ -32,13 +32,15 @@ let
       authenticated = dep.authenticated or false;
       url = dep.url or "";
 
-      fetch = if (url != "") then
-        ((if authenticated then
-          requireFile
+      fetch =
+        if (url != "") then
+          ((if authenticated then
+            requireFile
+          else
+            fetchurl) { inherit url sha1; })
         else
-          fetchurl) { inherit url sha1; })
-      else
-        "";
+          ""
+        ;
 
       fetchMetadata = (if authenticated then
         requireFile

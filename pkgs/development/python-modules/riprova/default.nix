@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  # PyPI archive doesn't have tests
+    # PyPI archive doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "riprova" ];
@@ -24,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/h2non/riprova";
     description =
-      "Small and versatile library to retry failed operations using different backoff strategies";
+      "Small and versatile library to retry failed operations using different backoff strategies"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ mmilata ];
   };

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     mock
   ];
 
-  # no tests included
+    # no tests included
   doCheck = false;
 
   pythonImportsCheck = [ "vsts_cd_manager" ];

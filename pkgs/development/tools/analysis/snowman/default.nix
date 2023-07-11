@@ -33,7 +33,7 @@ mkDerivation rec {
     description = "Native code to C/C++ decompiler";
     homepage = "http://derevenets.com/";
 
-    # https://github.com/yegord/snowman/blob/master/doc/licenses.asciidoc
+      # https://github.com/yegord/snowman/blob/master/doc/licenses.asciidoc
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dtzWill ];
     platforms = platforms.all;

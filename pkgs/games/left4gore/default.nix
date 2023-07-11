@@ -8,7 +8,7 @@
 let
   version = "2.3";
 
-  # Unwrapped package, for putting into the FHS env
+    # Unwrapped package, for putting into the FHS env
   left4gore-unwrapped = stdenvNoCC.mkDerivation {
     pname = "left4gore-unwrapped";
     inherit version;
@@ -24,7 +24,7 @@ let
     '';
   };
 
-  # FHS env, as patchelf will not work
+    # FHS env, as patchelf will not work
   env = buildFHSEnv {
     name = "left4gore-env-${version}";
     targetPkgs = _: [ left4gore-unwrapped ];

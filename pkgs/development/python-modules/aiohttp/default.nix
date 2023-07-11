@@ -47,7 +47,8 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     # https://github.com/aio-libs/aiohttp/pull/7178
     url =
-      "https://github.com/aio-libs/aiohttp/commit/5718879cdb6a98bf48810a994b78bc02abaf3e07.patch";
+      "https://github.com/aio-libs/aiohttp/commit/5718879cdb6a98bf48810a994b78bc02abaf3e07.patch"
+      ;
     hash = "sha256-4UynkTZOzWzusQ2+MPZszhFA8I/PJNLeT/hHF/fASy8=";
   }) ];
 
@@ -109,8 +110,8 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  # aiohttp in current folder shadows installed version
-  # Probably because we run `python -m pytest` instead of `pytest` in the hook.
+    # aiohttp in current folder shadows installed version
+    # Probably because we run `python -m pytest` instead of `pytest` in the hook.
   preCheck = ''
     cd tests
   '' + lib.optionalString stdenv.isDarwin ''

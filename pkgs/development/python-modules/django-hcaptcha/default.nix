@@ -17,14 +17,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  # No tests
+    # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "hcaptcha" ];
 
   meta = with lib; {
     description =
-      "Django hCaptcha provides a simple way to protect your django forms using hCaptcha";
+      "Django hCaptcha provides a simple way to protect your django forms using hCaptcha"
+      ;
     homepage = "https://github.com/AndrejZbin/django-hcaptcha";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ambroisie ];

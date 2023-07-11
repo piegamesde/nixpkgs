@@ -19,11 +19,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  # Circular dependency on beautifulsoup4
+    # Circular dependency on beautifulsoup4
   doCheck = false;
 
-  # Circular dependency on beautifulsoup4
-  # pythonImportsCheck = [ "soupsieve" ];
+    # Circular dependency on beautifulsoup4
+    # pythonImportsCheck = [ "soupsieve" ];
 
   meta = with lib; {
     description = "A CSS4 selector implementation for Beautiful Soup";

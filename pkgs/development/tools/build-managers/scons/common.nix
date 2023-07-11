@@ -14,10 +14,12 @@ python.pkgs.buildPythonApplication rec {
   inherit version;
 
   src = fetchurl {
-    url = if lib.versionAtLeast version "4.3.0" then
-      "mirror://sourceforge/project/scons/scons/${version}/SCons-${version}.tar.gz"
-    else
-      "mirror://sourceforge/scons/scons-${version}.tar.gz";
+    url =
+      if lib.versionAtLeast version "4.3.0" then
+        "mirror://sourceforge/project/scons/scons/${version}/SCons-${version}.tar.gz"
+      else
+        "mirror://sourceforge/scons/scons-${version}.tar.gz"
+      ;
     inherit sha256;
   };
 
@@ -33,7 +35,7 @@ python.pkgs.buildPythonApplication rec {
       --replace "build/doc/man/" ""
   '';
 
-  # The release tarballs don't contain any tests (runtest.py and test/*):
+    # The release tarballs don't contain any tests (runtest.py and test/*):
   doCheck = lib.versionOlder version "4.0.0";
 
   postInstall = lib.optionalString (lib.versionAtLeast version "4.1.0") ''
@@ -59,7 +61,8 @@ python.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://scons.org/";
     changelog =
-      "https://raw.githubusercontent.com/SConsProject/scons/rel_${version}/src/CHANGES.txt";
+      "https://raw.githubusercontent.com/SConsProject/scons/rel_${version}/src/CHANGES.txt"
+      ;
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = [ ];

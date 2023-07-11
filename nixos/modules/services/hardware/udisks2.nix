@@ -25,7 +25,8 @@ in {
     services.udisks2 = {
 
       enable = mkEnableOption (mdDoc
-        "udisks2, a DBus service that allows applications to query and manipulate storage devices");
+        "udisks2, a DBus service that allows applications to query and manipulate storage devices")
+        ;
 
       mountOnMedia = mkOption {
         type = types.bool;
@@ -69,7 +70,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.udisks2.enable {
 

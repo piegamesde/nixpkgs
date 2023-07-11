@@ -35,7 +35,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Creates CycloneDX Software Bill of Materials (SBOM) from Rust (Cargo) projects";
+      "Creates CycloneDX Software Bill of Materials (SBOM) from Rust (Cargo) projects"
+      ;
     longDescription = ''
       The CycloneDX module for Rust (Cargo) creates a valid CycloneDX Software
       Bill-of-Material (SBOM) containing an aggregate of all project

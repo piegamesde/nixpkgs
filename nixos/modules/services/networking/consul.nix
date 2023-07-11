@@ -179,14 +179,14 @@ in {
         description = "Consul agent daemon user";
         isSystemUser = true;
         group = "consul";
-        # The shell is needed for health checks
+          # The shell is needed for health checks
         shell = "/run/current-system/sw/bin/bash";
       };
       users.groups.consul = { };
 
       environment = {
         etc."consul.json".text = builtins.toJSON configOptions;
-        # We need consul.d to exist for consul to start
+          # We need consul.d to exist for consul to start
         etc."consul.d/dummy.json".text = "{ }";
         systemPackages = [ cfg.package ];
       };
@@ -210,10 +210,12 @@ in {
             + concatMapStrings (n: " -config-file ${n}") configFiles;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           PermissionsStartOnly = true;
-          User = if cfg.dropPrivileges then
-            "consul"
-          else
-            null;
+          User =
+            if cfg.dropPrivileges then
+              "consul"
+            else
+              null
+            ;
           Restart = "on-failure";
           TimeoutStartSec = "infinity";
         } // (optionalAttrs (cfg.leaveOnStop) {
@@ -225,47 +227,50 @@ in {
           gawk
           cfg.package
         ];
-        preStart = let
-          family = if cfg.forceAddrFamily == "ipv6" then
-            "-6"
-          else if cfg.forceAddrFamily == "ipv4" then
-            "-4"
-          else
-            "";
-        in
-        ''
-          mkdir -m 0700 -p ${dataDir}
-          chown -R consul ${dataDir}
-
-          # Determine interface addresses
-          getAddrOnce () {
-            ip ${family} addr show dev "$1" scope global \
-              | awk -F '[ /\t]*' '/inet/ {print $3}' | head -n 1
-          }
-          getAddr () {
-            ADDR="$(getAddrOnce $1)"
-            LEFT=60 # Die after 1 minute
-            while [ -z "$ADDR" ]; do
-              sleep 1
-              LEFT=$(expr $LEFT - 1)
-              if [ "$LEFT" -eq "0" ]; then
-                echo "Address lookup timed out"
-                exit 1
-              fi
-              ADDR="$(getAddrOnce $1)"
-            done
-            echo "$ADDR"
-          }
-          echo "{" > /etc/consul-addrs.json
-          delim=" "
-        '' + concatStrings (flip mapAttrsToList cfg.interface (name: i:
-          optionalString (i != null) ''
-            echo "$delim \"${name}_addr\": \"$(getAddr "${i}")\"" >> /etc/consul-addrs.json
-            delim=","
-          '')) + ''
-            echo "}" >> /etc/consul-addrs.json
+        preStart =
+          let
+            family =
+              if cfg.forceAddrFamily == "ipv6" then
+                "-6"
+              else if cfg.forceAddrFamily == "ipv4" then
+                "-4"
+              else
+                ""
+              ;
+          in
           ''
-        ;
+            mkdir -m 0700 -p ${dataDir}
+            chown -R consul ${dataDir}
+
+            # Determine interface addresses
+            getAddrOnce () {
+              ip ${family} addr show dev "$1" scope global \
+                | awk -F '[ /\t]*' '/inet/ {print $3}' | head -n 1
+            }
+            getAddr () {
+              ADDR="$(getAddrOnce $1)"
+              LEFT=60 # Die after 1 minute
+              while [ -z "$ADDR" ]; do
+                sleep 1
+                LEFT=$(expr $LEFT - 1)
+                if [ "$LEFT" -eq "0" ]; then
+                  echo "Address lookup timed out"
+                  exit 1
+                fi
+                ADDR="$(getAddrOnce $1)"
+              done
+              echo "$ADDR"
+            }
+            echo "{" > /etc/consul-addrs.json
+            delim=" "
+          '' + concatStrings (flip mapAttrsToList cfg.interface (name: i:
+            optionalString (i != null) ''
+              echo "$delim \"${name}_addr\": \"$(getAddr "${i}")\"" >> /etc/consul-addrs.json
+              delim=","
+            '')) + ''
+              echo "}" >> /etc/consul-addrs.json
+            ''
+          ;
       };
     }
 
@@ -289,10 +294,12 @@ in {
               ${optionalString cfg.alerts.watchChecks "--watch-checks"} \
               ${optionalString cfg.alerts.watchEvents "--watch-events"}
           '';
-          User = if cfg.dropPrivileges then
-            "consul"
-          else
-            null;
+          User =
+            if cfg.dropPrivileges then
+              "consul"
+            else
+              null
+            ;
           Restart = "on-failure";
         };
       };

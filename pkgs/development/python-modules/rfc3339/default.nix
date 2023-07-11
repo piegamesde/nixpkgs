@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "1l6l1bh91i2r4dwcm86hlkx8cbh1xwgsk8hb4jvr5y5fxxg3ng6m";
   };
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "rfc3339" ];

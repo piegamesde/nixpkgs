@@ -13,7 +13,8 @@
 }:
 
 let
-  buildBarebox = {
+  buildBarebox =
+    {
       filesToInstall,
       installDir ? "$out",
       defconfig,
@@ -80,7 +81,8 @@ let
           license = licenses.gpl2;
           maintainers = with maintainers; [ emantor ];
         } // extraMeta;
-    } // removeAttrs args [ "extraMeta" ];
+    } // removeAttrs args [ "extraMeta" ]
+    ;
 
 in {
   inherit buildBarebox;

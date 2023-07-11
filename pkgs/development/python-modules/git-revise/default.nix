@@ -12,7 +12,7 @@ buildPythonPackage rec {
   pname = "git-revise";
   version = "0.7.0";
 
-  # Missing tests on PyPI
+    # Missing tests on PyPI
   src = fetchFromGitHub {
     owner = "mystor";
     repo = pname;

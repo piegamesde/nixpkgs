@@ -55,7 +55,8 @@ in {
             bot.comment = mkOption {
               type = types.str;
               default =
-                "Hi, I'm here to play radio, local music or youtube/soundcloud music. Have fun!";
+                "Hi, I'm here to play radio, local music or youtube/soundcloud music. Have fun!"
+                ;
               description = lib.mdDoc "Comment displayed for the bot.";
             };
           };
@@ -81,7 +82,7 @@ in {
         ExecStart = "${cfg.package}/bin/botamusique --config ${configFile}";
         Restart = "always"; # the bot exits when the server connection is lost
 
-        # Hardening
+          # Hardening
         CapabilityBoundingSet = [ "" ];
         DynamicUser = true;
         IPAddressDeny = [

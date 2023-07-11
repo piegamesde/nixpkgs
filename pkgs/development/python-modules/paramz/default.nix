@@ -26,14 +26,15 @@ buildPythonPackage rec {
   ];
   nativeCheckInputs = [ nose ];
 
-  # Ran 113 tests in 3.082s
+    # Ran 113 tests in 3.082s
   checkPhase = ''
     nosetests -v paramz/tests
   '';
 
   meta = with lib; {
     description =
-      "Parameterization framework for parameterized model creation and handling";
+      "Parameterization framework for parameterized model creation and handling"
+      ;
     homepage = "https://github.com/sods/paramz";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bcdarwin ];

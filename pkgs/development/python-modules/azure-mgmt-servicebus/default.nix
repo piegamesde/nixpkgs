@@ -29,7 +29,7 @@ buildPythonPackage rec {
     azure-mgmt-core
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   meta = with lib; {

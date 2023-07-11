@@ -22,7 +22,7 @@ buildPythonPackage rec {
     zope_testing
   ];
 
-  # Huge amount of testing dependencies (including Zope2)
+    # Huge amount of testing dependencies (including Zope2)
   doCheck = false;
 
   meta = {

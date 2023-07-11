@@ -31,7 +31,8 @@ buildGoModule rec {
 
   srcStatic = fetchurl {
     url =
-      "https://dl.grafana.com/oss/release/grafana-${version}.linux-amd64.tar.gz";
+      "https://dl.grafana.com/oss/release/grafana-${version}.linux-amd64.tar.gz"
+      ;
     hash = "sha256-2bdQXN1CmcGDXDZUf/4uYtOw7HYA3KLGRKBRlXLJw4c=";
   };
 
@@ -76,12 +77,12 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  # Tests start http servers which need to bind to local addresses:
-  # panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: bind: operation not permitted
+    # Tests start http servers which need to bind to local addresses:
+    # panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: bind: operation not permitted
   __darwinAllowLocalNetworking = true;
 
-  # On Darwin, files under /usr/share/zoneinfo exist, but fail to open in sandbox:
-  # TestValueAsTimezone: date_formats_test.go:33: Invalid has err for input "Europe/Amsterdam": operation not permitted
+    # On Darwin, files under /usr/share/zoneinfo exist, but fail to open in sandbox:
+    # TestValueAsTimezone: date_formats_test.go:33: Invalid has err for input "Europe/Amsterdam": operation not permitted
   preCheck = ''
     export ZONEINFO=${tzdata}/share/zoneinfo
   '';
@@ -101,7 +102,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB";
+      "Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB"
+      ;
     license = licenses.agpl3;
     homepage = "https://grafana.com";
     maintainers = with maintainers; [

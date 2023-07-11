@@ -25,21 +25,23 @@
 }@attrs:
 
 let
-  shell = drv:
+  shell =
+    drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.pname}";
       buildInputs = [ drv ];
-    };
+    }
+    ;
 
   customPhases = lib.filterAttrs (_: v: v != null) {
     inherit setupHook configurePhase buildPhase installPhase;
   };
 
-  # When using the `beamDeps` argument, it is important that we use
-  # `rebar3WithPlugins` here even when there are no plugins. The vanilla
-  # `rebar3` package is an escript archive with bundled dependencies which can
-  # interfere with those in the app we are trying to build. `rebar3WithPlugins`
-  # doesn't have this issue since it puts its own deps last on the code path.
+    # When using the `beamDeps` argument, it is important that we use
+    # `rebar3WithPlugins` here even when there are no plugins. The vanilla
+    # `rebar3` package is an escript archive with bundled dependencies which can
+    # interfere with those in the app we are trying to build. `rebar3WithPlugins`
+    # doesn't have this issue since it puts its own deps last on the code path.
   rebar3 = rebar3WithPlugins { plugins = buildPlugins; };
 
   pkg = assert beamDeps != [ ] -> checkouts == null;
@@ -55,7 +57,7 @@ let
         openssl
       ] ++ beamDeps;
 
-      # ensure we strip any native binaries (eg. NIFs, ports)
+        # ensure we strip any native binaries (eg. NIFs, ports)
       stripDebugList = lib.optional (releaseType == "release") "rel";
 
       inherit src;

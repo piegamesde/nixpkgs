@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "0001-wlcs-pkgsconfig-Use-better-path-concatenations.patch";
       url =
-        "https://github.com/MirServer/wlcs/pull/260/commits/20f28d82fa4dfa6a6e27212dbd6b0f2e8a833c69.patch";
+        "https://github.com/MirServer/wlcs/pull/260/commits/20f28d82fa4dfa6a6e27212dbd6b0f2e8a833c69.patch"
+        ;
       hash = "sha256-m8zPD27JbX/vN2YQgNhcRsh/O+qLfvoeky5E5ZEeD1I=";
     })
   ];

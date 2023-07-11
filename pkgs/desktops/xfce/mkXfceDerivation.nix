@@ -29,9 +29,11 @@ let
 
   filterAttrNames = f: attrs: filter (n: f (getAttr n attrs)) (attrNames attrs);
 
-  concatAttrLists = attrsets:
+  concatAttrLists =
+    attrsets:
     zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists)
-    attrsets;
+    attrsets
+    ;
 
   template = rec {
     inherit pname version;

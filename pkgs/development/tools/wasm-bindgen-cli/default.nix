@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ nodejs ];
 
-  # other tests require it to be ran in the wasm-bindgen monorepo
+    # other tests require it to be ran in the wasm-bindgen monorepo
   cargoTestFlags = [ "--test=interface-types" ];
 
   meta = with lib; {
@@ -41,7 +41,8 @@ rustPlatform.buildRustPackage rec {
       mit
     ];
     description =
-      "Facilitating high-level interactions between wasm modules and JavaScript";
+      "Facilitating high-level interactions between wasm modules and JavaScript"
+      ;
     maintainers = with maintainers; [
       nitsky
       rizary

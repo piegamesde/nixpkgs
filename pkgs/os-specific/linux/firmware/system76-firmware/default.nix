@@ -11,7 +11,7 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "system76-firmware";
-  # Check Makefile when updating, make sure postInstall matches make install
+    # Check Makefile when updating, make sure postInstall matches make install
   version = "1.0.50";
 
   src = fetchFromGitHub {
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  # Purposefully don't install systemd unit file, that's for NixOS
+    # Purposefully don't install systemd unit file, that's for NixOS
   postInstall = ''
     install -D -m -0644 data/system76-firmware-daemon.conf $out/etc/dbus-1/system.d/system76-firmware-daemon.conf
 

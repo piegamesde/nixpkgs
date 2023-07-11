@@ -2,7 +2,8 @@
 # Don't test properties of pkgs.lib, but rather the lib in the parent directory
   pkgs ? import ../.. { } // {
     lib = throw
-      "pkgs.lib accessed, but the lib tests should use nixpkgs' lib path directly!";
+      "pkgs.lib accessed, but the lib tests should use nixpkgs' lib path directly!"
+      ;
   },
   nix ? pkgs.nix,
 }:

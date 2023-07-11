@@ -180,7 +180,7 @@ stdenv.mkDerivation (rec {
 
   propagatedBuildInputs = [ ];
 
-  # manually install lldb man page
+    # manually install lldb man page
   installPhase = ''
     mkdir -p $out/share/man/man1
     install docs/man/lldb.1 -t $out/share/man/man1/

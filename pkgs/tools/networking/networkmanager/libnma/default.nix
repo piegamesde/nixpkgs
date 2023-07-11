@@ -61,8 +61,9 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
     libxml2
     vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals
+    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
+    ;
 
   buildInputs = [
     gtk3
@@ -95,20 +96,21 @@ stdenv.mkDerivation rec {
       };
       inherit src;
     };
-    updateScript = let
-      updateSource = gnome.updateScript {
-        packageName = "libnma";
-        versionPolicy = "odd-unstable";
-      };
-      updateGsettingsPatch =
-        _experimental-update-script-combinators.copyAttrOutputToFile
-        "libnma.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
-    in
-    _experimental-update-script-combinators.sequence [
-      updateSource
-      updateGsettingsPatch
-    ]
-    ;
+    updateScript =
+      let
+        updateSource = gnome.updateScript {
+          packageName = "libnma";
+          versionPolicy = "odd-unstable";
+        };
+        updateGsettingsPatch =
+          _experimental-update-script-combinators.copyAttrOutputToFile
+          "libnma.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
+      in
+      _experimental-update-script-combinators.sequence [
+        updateSource
+        updateGsettingsPatch
+      ]
+      ;
   };
 
   meta = with lib; {

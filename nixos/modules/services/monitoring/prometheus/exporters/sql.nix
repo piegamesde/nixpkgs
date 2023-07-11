@@ -28,7 +28,8 @@ let
       connections = mkOption {
         type = listOf str;
         description = lib.mdDoc
-          "A list of connection strings of the SQL servers to scrape metrics from";
+          "A list of connection strings of the SQL servers to scrape metrics from"
+          ;
       };
       startupSql = mkOption {
         type = listOf str;
@@ -67,21 +68,24 @@ let
     };
   };
 
-  configFile = if cfg.configFile != null then
-    cfg.configFile
-  else
-    let
-      nameInline = mapAttrsToList (k: v: v // { name = k; });
-      renameStartupSql = j:
-        removeAttrs (j // { startup_sql = j.startupSql; }) [ "startupSql" ];
-      configuration = {
-        jobs = map renameStartupSql (nameInline
-          (mapAttrs (k: v: (v // { queries = nameInline v.queries; }))
-            cfg.configuration.jobs));
-      };
-    in
-    builtins.toFile "config.yaml" (builtins.toJSON configuration)
-  ;
+  configFile =
+    if cfg.configFile != null then
+      cfg.configFile
+    else
+      let
+        nameInline = mapAttrsToList (k: v: v // { name = k; });
+        renameStartupSql =
+          j:
+          removeAttrs (j // { startup_sql = j.startupSql; }) [ "startupSql" ]
+          ;
+        configuration = {
+          jobs = map renameStartupSql (nameInline
+            (mapAttrs (k: v: (v // { queries = nameInline v.queries; }))
+              cfg.configuration.jobs));
+        };
+      in
+      builtins.toFile "config.yaml" (builtins.toJSON configuration)
+    ;
 in {
   extraOpts = {
     configFile = mkOption {

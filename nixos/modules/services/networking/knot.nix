@@ -94,7 +94,8 @@ in {
 
     systemd.services.knot = {
       unitConfig.Documentation =
-        "man:knotd(8) man:knot.conf(5) man:knotc(8) https://www.knot-dns.cz/docs/${cfg.package.version}/html/";
+        "man:knotd(8) man:knot.conf(5) man:knotc(8) https://www.knot-dns.cz/docs/${cfg.package.version}/html/"
+        ;
       description = cfg.package.meta.description;
       wantedBy = [ "multi-user.target" ];
       wants = [ "network.target" ];

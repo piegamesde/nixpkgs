@@ -24,8 +24,8 @@ buildPythonApplication rec {
   pname = "aws-google-auth";
   version = "0.0.38";
 
-  # Pypi doesn't ship the tests, so we fetch directly from GitHub
-  # https://github.com/cevoaustralia/aws-google-auth/issues/120
+    # Pypi doesn't ship the tests, so we fetch directly from GitHub
+    # https://github.com/cevoaustralia/aws-google-auth/issues/120
   src = fetchFromGitHub {
     owner = "cevoaustralia";
     repo = "aws-google-auth";
@@ -59,7 +59,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Acquire AWS STS (temporary) credentials via Google Apps SAML Single Sign On";
+      "Acquire AWS STS (temporary) credentials via Google Apps SAML Single Sign On"
+      ;
     homepage = "https://github.com/cevoaustralia/aws-google-auth";
     maintainers = [ maintainers.marsam ];
     license = licenses.mit;

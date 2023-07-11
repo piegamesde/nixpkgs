@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/flatpak/flatpak-builder/releases/download/${version}/${pname}-${version}.tar.xz";
+      "https://github.com/flatpak/flatpak-builder/releases/download/${version}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-4leCWkf3o+ceMPsPgPLZrG5IAfdG9VLfrw5WTj7jUcg=";
   };
 
@@ -138,12 +139,12 @@ stdenv.mkDerivation rec {
     "installed_test_metadir=${installed_test_metadir}"
   ];
 
-  # Some scripts used by tests  need to use shebangs that are available in Flatpak runtimes.
+    # Some scripts used by tests  need to use shebangs that are available in Flatpak runtimes.
   dontPatchShebangs = true;
 
   enableParallelBuilding = true;
 
-  # Installed tests
+    # Installed tests
   postFixup = ''
     for file in ${installed_testdir}/{test-builder.sh,test-builder-python.sh}; do
       patchShebangs $file

@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "ncurses-6.3.patch";
       url =
-        "https://github.com/tomac/yersinia/commit/d91bbf6f475e7ea39f131b77ce91b2de9646d5ca.patch";
+        "https://github.com/tomac/yersinia/commit/d91bbf6f475e7ea39f131b77ce91b2de9646d5ca.patch"
+        ;
       sha256 = "fl1pZKWA+nLtBm9+3FBFqaeuVZjszQCNkNl6Cf++BAI=";
     })
 
@@ -42,7 +43,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/tomac/yersinia/commit/36247225dc7a6f38c4ba70537e20351f04762749.patch";
+        "https://github.com/tomac/yersinia/commit/36247225dc7a6f38c4ba70537e20351f04762749.patch"
+        ;
       sha256 = "KHaN8gfgNROEico27gWnYiP9ZVhpWz0KjFYy2t5tPBo=";
     })
   ];
@@ -72,11 +74,12 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tomac/yersinia";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ vdot0x23 ];
-    # INSTALL and FAQ in this package seem a little outdated
-    # so not sure, but it could work on openbsd, illumos, and freebsd
-    # if you have a machine to test with, feel free to add these
-    platforms = with platforms; linux;
-    # never built on aarch64-linux since first introduction in nixpkgs
+      # INSTALL and FAQ in this package seem a little outdated
+      # so not sure, but it could work on openbsd, illumos, and freebsd
+      # if you have a machine to test with, feel free to add these
+    platforms = with platforms;
+      linux;
+      # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
 
   disabled = !python3Packages.isPy3k;
 
-  # tests folder is not included in release
+    # tests folder is not included in release
   doCheck = false;
 
   propagatedBuildInputs = with python3Packages;

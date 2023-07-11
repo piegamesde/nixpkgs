@@ -16,7 +16,7 @@ buildPythonApplication rec {
     sha256 = "1fqp6bvq8kzdsf3nna4mn1phdcixpx76bya43xrivxjbzsfl59ib";
   };
 
-  # Tests try to access network
+    # Tests try to access network
   doCheck = false;
 
   checkPhase = ''

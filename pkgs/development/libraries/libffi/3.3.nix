@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/libffi/libffi/releases/download/v${version}/${pname}-${version}.tar.gz";
+      "https://github.com/libffi/libffi/releases/download/v${version}/${pname}-${version}.tar.gz"
+      ;
     hash = "sha256-cvunkicD3fp6Ao1ROsFahcjVTI1n9V+lpIAohdxlIFY=";
   };
 
@@ -47,8 +48,8 @@ stdenv.mkDerivation rec {
     NIX_HARDENING_ENABLE=''${NIX_HARDENING_ENABLE/fortify/}
   '';
 
-  dontStrip = stdenv.hostPlatform
-    != stdenv.buildPlatform; # Don't run the native `strip' when cross-compiling.
+  dontStrip = stdenv.hostPlatform != stdenv.buildPlatform
+    ; # Don't run the native `strip' when cross-compiling.
 
   inherit doCheck;
 
@@ -74,7 +75,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ armeenm ];
     platforms = platforms.all;
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

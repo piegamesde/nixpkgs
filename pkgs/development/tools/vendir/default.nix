@@ -21,7 +21,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "CLI tool to vendor portions of git repos, github releases, helm charts, docker image contents, etc. declaratively";
+      "CLI tool to vendor portions of git repos, github releases, helm charts, docker image contents, etc. declaratively"
+      ;
     homepage = "https://carvel.dev/vendir/";
     license = licenses.asl20;
     maintainers = with maintainers; [ russell ];

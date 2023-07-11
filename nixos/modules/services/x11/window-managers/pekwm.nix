@@ -16,7 +16,7 @@ in {
       mkEnableOption (lib.mdDoc "pekwm");
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {
       name = "pekwm";

@@ -23,6 +23,6 @@ in {
     glibcLocales
   ];
 
-  # Support choosing from any locale
+    # Support choosing from any locale
   i18n.supportedLocales = [ "all" ];
 }

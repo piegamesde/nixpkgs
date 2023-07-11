@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "0r6pg49i0q9idp7pjymj7mlxd63qjvmfvg0l7fmx87y1yd2hfw4h";
   };
 
-  patches =
-    [ ./febio-studio-cmake.patch # Fix Errors that appear with certain Cmake flags
+  patches = [ ./febio-studio-cmake.patch # Fix Errors that appear with certain Cmake flags
     ];
 
   cmakeFlags = [

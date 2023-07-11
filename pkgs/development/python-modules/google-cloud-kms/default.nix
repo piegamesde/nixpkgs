@@ -37,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # Disable tests that need credentials
+    # Disable tests that need credentials
   disabledTests = [ "test_list_global_key_rings" ];
 
   pythonImportsCheck = [

@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # TODO: Fix tests that fail in sandbox build
+    # TODO: Fix tests that fail in sandbox build
   doCheck = false;
 
   meta = with lib; {

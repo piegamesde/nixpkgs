@@ -12,7 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://download.libsodium.org/libsodium/releases/${finalAttrs.pname}-${finalAttrs.version}.tar.gz";
+      "https://download.libsodium.org/libsodium/releases/${finalAttrs.pname}-${finalAttrs.version}.tar.gz"
+      ;
     sha256 = "1h9ncvj23qbbni958knzsli8dvybcswcjbx0qjjgi922nf848l3g";
   };
 
@@ -32,8 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
     (stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32)
     "stackprotector";
 
-  # FIXME: the hardeingDisable attr above does not seems effective, so
-  # the need to disable stackprotector via configureFlags
+    # FIXME: the hardeingDisable attr above does not seems effective, so
+    # the need to disable stackprotector via configureFlags
   configureFlags = lib.optional
     (stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32)
     "--disable-ssp";

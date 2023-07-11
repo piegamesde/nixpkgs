@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ schnusch ]; };
 
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           services.cgit."localhost" = {
@@ -36,10 +37,12 @@ import ./make-test-python.nix ({
           };
 
           environment.systemPackages = [ pkgs.git ];
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -80,5 +83,6 @@ import ./make-test-python.nix ({
         server.succeed(
            "git clone http://localhost/%28c%29git/some-repo && diff -u reference/date.txt some-repo/date.txt"
         )
-      '';
+      ''
+      ;
   } )

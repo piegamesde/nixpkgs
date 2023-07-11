@@ -14,7 +14,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchzip {
     url =
-      "https://dotcolon.net/download/fonts/${finalAttrs.pname}_${majorVersion}${minorVersion}.zip";
+      "https://dotcolon.net/download/fonts/${finalAttrs.pname}_${majorVersion}${minorVersion}.zip"
+      ;
     hash = "sha256-Ht48gwJZrn0djo1yl6jHZ4+0b710FVwStiC1Zk5YXME=";
     stripRoot = false;
   };

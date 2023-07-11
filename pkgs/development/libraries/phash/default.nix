@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ cimg ];
 
-  # CImg.h calls to external binary `convert` from the `imagemagick` package
-  # at runtime
+    # CImg.h calls to external binary `convert` from the `imagemagick` package
+    # at runtime
   propagatedBuildInputs = [ imagemagick ];
 
   nativeBuildInputs = [ pkg-config ];

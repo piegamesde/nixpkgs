@@ -31,7 +31,7 @@ let
   newMeta = meta // {
     homepage = meta.homepage or baseUrl;
 
-    # to indicate where derivation originates, similar to make-derivation.nix's mkDerivation
+      # to indicate where derivation originates, similar to make-derivation.nix's mkDerivation
     position = "${position.file}:${toString position.line}";
   };
   passthruAttrs = removeAttrs args [
@@ -52,12 +52,14 @@ let
     }_GITHUB_PRIVATE_";
   useFetchGit = fetchSubmodules || (leaveDotGit == true) || deepClone
     || forceFetchGit || !(sparseCheckout == "" || sparseCheckout == [ ]);
-  # We prefer fetchzip in cases we don't need submodules as the hash
-  # is more stable in that case.
-  fetcher = if useFetchGit then
-    fetchgit
-  else
-    fetchzip;
+    # We prefer fetchzip in cases we don't need submodules as the hash
+    # is more stable in that case.
+  fetcher =
+    if useFetchGit then
+      fetchgit
+    else
+      fetchzip
+    ;
   privateAttrs = lib.optionalAttrs private {
     netrcPhase = ''
       if [ -z "''$${varBase}USERNAME" -o -z "''$${varBase}PASSWORD" ]; then

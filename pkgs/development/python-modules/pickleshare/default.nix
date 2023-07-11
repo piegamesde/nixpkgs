@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ path ] ++ lib.optional (pythonOlder "3.4") pathlib2;
 
-  # No proper test suite
+    # No proper test suite
   doCheck = false;
 
   meta = with lib; {

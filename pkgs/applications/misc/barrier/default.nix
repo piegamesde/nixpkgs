@@ -31,7 +31,8 @@ mkDerivation rec {
     (fetchpatch {
       name = "add-missing-cstddef-header.patch";
       url =
-        "https://github.com/debauchee/barrier/commit/4b12265ae5d324b942698a3177e1d8b1749414d7.patch";
+        "https://github.com/debauchee/barrier/commit/4b12265ae5d324b942698a3177e1d8b1749414d7.patch"
+        ;
       sha256 = "sha256-ajMxP7szBFi4h8cMT3qswfa3k/QiJ1FGI3q9fkCFQQk=";
     })
   ];

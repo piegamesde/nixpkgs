@@ -35,7 +35,7 @@ mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # NOTE: 2018-05-31: CMake is working but it is not officially supported
+    # NOTE: 2018-05-31: CMake is working but it is not officially supported
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
@@ -47,7 +47,7 @@ mkDerivation rec {
   ] ++ lib.optional guiSupport dbus # D(esktop)-Bus depends on GUI support
     ++ lib.optional trackerSearch python3;
 
-  # Otherwise qm_gen.pri assumes lrelease-qt5, which does not exist.
+    # Otherwise qm_gen.pri assumes lrelease-qt5, which does not exist.
   QMAKE_LRELEASE = "lrelease";
 
   configureFlags = [
@@ -73,7 +73,8 @@ mkDerivation rec {
     description = "Featureful free software BitTorrent client";
     homepage = "https://www.qbittorrent.org/";
     changelog =
-      "https://github.com/qbittorrent/qBittorrent/blob/release-${version}/Changelog";
+      "https://github.com/qbittorrent/qBittorrent/blob/release-${version}/Changelog"
+      ;
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ Anton-Latukha ];

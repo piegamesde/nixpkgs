@@ -70,58 +70,59 @@ in {
         '';
       };
 
-      # TODO: allow signature for other schemes than dkim(c=relaxed/relaxed)?
-      # This being the scheme used by gmail, maybe nothing more is needed for
-      # reasonable use.
+        # TODO: allow signature for other schemes than dkim(c=relaxed/relaxed)?
+        # This being the scheme used by gmail, maybe nothing more is needed for
+        # reasonable use.
     };
   };
 
-  ##### implementation
-  config = let
-    configfile = pkgs.writeText "dkimproxy_out.conf" ''
-      listen ${cfg.listen}
-      relay ${cfg.relay}
+    ##### implementation
+  config =
+    let
+      configfile = pkgs.writeText "dkimproxy_out.conf" ''
+        listen ${cfg.listen}
+        relay ${cfg.relay}
 
-      domain ${concatStringsSep "," cfg.domains}
-      selector ${cfg.selector}
+        domain ${concatStringsSep "," cfg.domains}
+        selector ${cfg.selector}
 
-      signature dkim(c=relaxed/relaxed)
+        signature dkim(c=relaxed/relaxed)
 
-      keyfile ${privkey}
-    '';
-  in
-  mkIf cfg.enable {
-    users.groups.dkimproxy-out = { };
-    users.users.dkimproxy-out = {
-      description = "DKIMproxy_out daemon";
-      group = "dkimproxy-out";
-      isSystemUser = true;
-    };
-
-    systemd.services.dkimproxy-out = {
-      description = "DKIMproxy_out";
-      wantedBy = [ "multi-user.target" ];
-      preStart = ''
-        if [ ! -d "${keydir}" ]; then
-          mkdir -p "${keydir}"
-          chmod 0700 "${keydir}"
-          ${pkgs.openssl}/bin/openssl genrsa -out "${privkey}" ${
-            toString cfg.keySize
-          }
-          ${pkgs.openssl}/bin/openssl rsa -in "${privkey}" -pubout -out "${pubkey}"
-          chown -R dkimproxy-out:dkimproxy-out "${keydir}"
-        fi
+        keyfile ${privkey}
       '';
-      script = ''
-        exec ${pkgs.dkimproxy}/bin/dkimproxy.out --conf_file=${configfile}
-      '';
-      serviceConfig = {
-        User = "dkimproxy-out";
-        PermissionsStartOnly = true;
+    in
+    mkIf cfg.enable {
+      users.groups.dkimproxy-out = { };
+      users.users.dkimproxy-out = {
+        description = "DKIMproxy_out daemon";
+        group = "dkimproxy-out";
+        isSystemUser = true;
       };
-    };
-  }
-  ;
+
+      systemd.services.dkimproxy-out = {
+        description = "DKIMproxy_out";
+        wantedBy = [ "multi-user.target" ];
+        preStart = ''
+          if [ ! -d "${keydir}" ]; then
+            mkdir -p "${keydir}"
+            chmod 0700 "${keydir}"
+            ${pkgs.openssl}/bin/openssl genrsa -out "${privkey}" ${
+              toString cfg.keySize
+            }
+            ${pkgs.openssl}/bin/openssl rsa -in "${privkey}" -pubout -out "${pubkey}"
+            chown -R dkimproxy-out:dkimproxy-out "${keydir}"
+          fi
+        '';
+        script = ''
+          exec ${pkgs.dkimproxy}/bin/dkimproxy.out --conf_file=${configfile}
+        '';
+        serviceConfig = {
+          User = "dkimproxy-out";
+          PermissionsStartOnly = true;
+        };
+      };
+    }
+    ;
 
   meta.maintainers = with lib.maintainers; [ ekleog ];
 }

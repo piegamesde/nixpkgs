@@ -14,41 +14,51 @@ let
 
   isConfig = x: builtins.isAttrs x || lib.isFunction x;
 
-  optCall = f: x:
+  optCall =
+    f: x:
     if lib.isFunction f then
       f x
     else
-      f;
+      f
+    ;
 
-  mergeConfig = lhs_: rhs_:
+  mergeConfig =
+    lhs_: rhs_:
     let
       lhs = optCall lhs_ { inherit pkgs; };
       rhs = optCall rhs_ { inherit pkgs; };
     in
     recursiveUpdate lhs rhs // optionalAttrs (lhs ? packageOverrides) {
-      packageOverrides = pkgs:
+      packageOverrides =
+        pkgs:
         optCall lhs.packageOverrides pkgs
-        // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs;
+        // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs
+        ;
     } // optionalAttrs (lhs ? perlPackageOverrides) {
-      perlPackageOverrides = pkgs:
+      perlPackageOverrides =
+        pkgs:
         optCall lhs.perlPackageOverrides pkgs
-        // optCall (attrByPath [ "perlPackageOverrides" ] { } rhs) pkgs;
+        // optCall (attrByPath [ "perlPackageOverrides" ] { } rhs) pkgs
+        ;
     }
-  ;
+    ;
 
   configType = mkOptionType {
     name = "nixpkgs-config";
     description = "nixpkgs config";
-    check = x:
+    check =
+      x:
       let
-        traceXIfNot = c:
+        traceXIfNot =
+          c:
           if c x then
             true
           else
-            lib.traceSeqN 1 x false;
+            lib.traceSeqN 1 x false
+          ;
       in
       traceXIfNot isConfig
-    ;
+      ;
     merge = args: foldr (def: mergeConfig def.value) { };
   };
 
@@ -66,21 +76,22 @@ let
     check = builtins.isAttrs;
   };
 
-  # Whether `pkgs` was constructed by this module - not if nixpkgs.pkgs or
-  # _module.args.pkgs is set. However, determining whether _module.args.pkgs
-  # is defined elsewhere does not seem feasible.
+    # Whether `pkgs` was constructed by this module - not if nixpkgs.pkgs or
+    # _module.args.pkgs is set. However, determining whether _module.args.pkgs
+    # is defined elsewhere does not seem feasible.
   constructedByMe = !opt.pkgs.isDefined;
 
-  hasBuildPlatform = opt.buildPlatform.highestPrio
-    < (mkOptionDefault { }).priority;
+  hasBuildPlatform =
+    opt.buildPlatform.highestPrio < (mkOptionDefault { }).priority;
   hasHostPlatform = opt.hostPlatform.isDefined;
   hasPlatform = hasHostPlatform || hasBuildPlatform;
 
-  # Context for messages
+    # Context for messages
   hostPlatformLine =
     optionalString hasHostPlatform "${showOptionWithDefLocs opt.hostPlatform}";
-  buildPlatformLine = optionalString hasBuildPlatform
-    "${showOptionWithDefLocs opt.buildPlatform}";
+  buildPlatformLine =
+    optionalString hasBuildPlatform "${showOptionWithDefLocs opt.buildPlatform}"
+    ;
 
   legacyOptionsDefined =
     optional (opt.localSystem.highestPrio < (mkDefault { }).priority) opt.system
@@ -89,25 +100,31 @@ let
     ++ optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
     opt.crossSystem;
 
-  defaultPkgs = if opt.hostPlatform.isDefined then
-    let
-      isCross = cfg.buildPlatform != cfg.hostPlatform;
-      systemArgs = if isCross then
-        {
-          localSystem = cfg.buildPlatform;
-          crossSystem = cfg.hostPlatform;
-        }
-      else
-        { localSystem = cfg.hostPlatform; };
-    in
-    import ../../.. ({ inherit (cfg) config overlays; } // systemArgs)
-  else
-    import ../../.. { inherit (cfg) config overlays localSystem crossSystem; };
+  defaultPkgs =
+    if opt.hostPlatform.isDefined then
+      let
+        isCross = cfg.buildPlatform != cfg.hostPlatform;
+        systemArgs =
+          if isCross then
+            {
+              localSystem = cfg.buildPlatform;
+              crossSystem = cfg.hostPlatform;
+            }
+          else
+            { localSystem = cfg.hostPlatform; }
+          ;
+      in
+      import ../../.. ({ inherit (cfg) config overlays; } // systemArgs)
+    else
+      import ../../.. { inherit (cfg) config overlays localSystem crossSystem; }
+    ;
 
-  finalPkgs = if opt.pkgs.isDefined then
-    cfg.pkgs.appendOverlays cfg.overlays
-  else
-    defaultPkgs;
+  finalPkgs =
+    if opt.pkgs.isDefined then
+      cfg.pkgs.appendOverlays cfg.overlays
+    else
+      defaultPkgs
+    ;
 
 in {
   imports = [
@@ -206,17 +223,18 @@ in {
     };
 
     hostPlatform = mkOption {
-      type = types.either types.str
-        types.attrs; # TODO utilize lib.systems.parsedPlatform
+      type = types.either types.str types.attrs
+        ; # TODO utilize lib.systems.parsedPlatform
       example = {
         system = "aarch64-linux";
         config = "aarch64-unknown-linux-gnu";
       };
-      # Make sure that the final value has all fields for sake of other modules
-      # referring to this. TODO make `lib.systems` itself use the module system.
+        # Make sure that the final value has all fields for sake of other modules
+        # referring to this. TODO make `lib.systems` itself use the module system.
       apply = lib.systems.elaborate;
       defaultText = literalExpression ''
-        (import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform'';
+        (import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
+        ;
       description = lib.mdDoc ''
         Specifies the platform where the NixOS configuration will run.
 
@@ -227,15 +245,15 @@ in {
     };
 
     buildPlatform = mkOption {
-      type = types.either types.str
-        types.attrs; # TODO utilize lib.systems.parsedPlatform
+      type = types.either types.str types.attrs
+        ; # TODO utilize lib.systems.parsedPlatform
       default = cfg.hostPlatform;
       example = {
         system = "x86_64-linux";
         config = "x86_64-unknown-linux-gnu";
       };
-      # Make sure that the final value has all fields for sake of other modules
-      # referring to this.
+        # Make sure that the final value has all fields for sake of other modules
+        # referring to this.
       apply = lib.systems.elaborate;
       defaultText = literalExpression "config.nixpkgs.hostPlatform";
       description = lib.mdDoc ''
@@ -259,11 +277,12 @@ in {
         system = "aarch64-linux";
         config = "aarch64-unknown-linux-gnu";
       };
-      # Make sure that the final value has all fields for sake of other modules
-      # referring to this. TODO make `lib.systems` itself use the module system.
+        # Make sure that the final value has all fields for sake of other modules
+        # referring to this. TODO make `lib.systems` itself use the module system.
       apply = lib.systems.elaborate;
       defaultText = literalExpression ''
-        (import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform'';
+        (import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
+        ;
       description = lib.mdDoc ''
         Systems with a recently generated `hardware-configuration.nix`
         do not need to specify this option, unless cross-compiling, in which case
@@ -286,9 +305,9 @@ in {
       '';
     };
 
-    # TODO deprecate. "crossSystem" is a nonsense identifier, because "cross"
-    #      is a relation between at least 2 systems in the context of a
-    #      specific build step, not a single system.
+      # TODO deprecate. "crossSystem" is a nonsense identifier, because "cross"
+      #      is a relation between at least 2 systems in the context of a
+      #      specific build step, not a single system.
     crossSystem = mkOption {
       type = types.nullOr types.attrs; # TODO utilize lib.systems.parsedPlatform
       default = null;
@@ -316,20 +335,22 @@ in {
     system = mkOption {
       type = types.str;
       example = "i686-linux";
-      default = if opt.hostPlatform.isDefined then
-        throw ''
-          Neither ${opt.system} nor any other option in nixpkgs.* is meant
-          to be read by modules and configurations.
-          Use pkgs.stdenv.hostPlatform instead.
-        ''
-      else
-        throw ''
-          Neither ${opt.hostPlatform} nor the legacy option ${opt.system} has been set.
-          You can set ${opt.hostPlatform} in hardware-configuration.nix by re-running
-          a recent version of nixos-generate-config.
-          The option ${opt.system} is still fully supported for NixOS 22.05 interoperability,
-          but will be deprecated in the future, so we recommend to set ${opt.hostPlatform}.
-        '';
+      default =
+        if opt.hostPlatform.isDefined then
+          throw ''
+            Neither ${opt.system} nor any other option in nixpkgs.* is meant
+            to be read by modules and configurations.
+            Use pkgs.stdenv.hostPlatform instead.
+          ''
+        else
+          throw ''
+            Neither ${opt.hostPlatform} nor the legacy option ${opt.system} has been set.
+            You can set ${opt.hostPlatform} in hardware-configuration.nix by re-running
+            a recent version of nixos-generate-config.
+            The option ${opt.system} is still fully supported for NixOS 22.05 interoperability,
+            but will be deprecated in the future, so we recommend to set ${opt.hostPlatform}.
+          ''
+        ;
       defaultText = lib.literalMD ''
         Traditionally `builtins.currentSystem`, but unset when invoking NixOS through `lib.nixosSystem`.
       '';
@@ -362,28 +383,33 @@ in {
 
     assertions = [
       (let
-        nixosExpectedSystem = if config.nixpkgs.crossSystem != null then
-          config.nixpkgs.crossSystem.system or (lib.systems.parse.doubleFromSystem
-            (lib.systems.parse.mkSystemFromString
-              config.nixpkgs.crossSystem.config))
-        else
-          config.nixpkgs.localSystem.system or (lib.systems.parse.doubleFromSystem
-            (lib.systems.parse.mkSystemFromString
-              config.nixpkgs.localSystem.config));
-        nixosOption = if config.nixpkgs.crossSystem != null then
-          "nixpkgs.crossSystem"
-        else
-          "nixpkgs.localSystem";
+        nixosExpectedSystem =
+          if config.nixpkgs.crossSystem != null then
+            config.nixpkgs.crossSystem.system or (lib.systems.parse.doubleFromSystem
+              (lib.systems.parse.mkSystemFromString
+                config.nixpkgs.crossSystem.config))
+          else
+            config.nixpkgs.localSystem.system or (lib.systems.parse.doubleFromSystem
+              (lib.systems.parse.mkSystemFromString
+                config.nixpkgs.localSystem.config))
+          ;
+        nixosOption =
+          if config.nixpkgs.crossSystem != null then
+            "nixpkgs.crossSystem"
+          else
+            "nixpkgs.localSystem"
+          ;
         pkgsSystem = finalPkgs.stdenv.targetPlatform.system;
       in {
-        assertion = constructedByMe -> !hasPlatform -> nixosExpectedSystem
-          == pkgsSystem;
+        assertion =
+          constructedByMe -> !hasPlatform -> nixosExpectedSystem == pkgsSystem;
         message =
-          "The NixOS nixpkgs.pkgs option was set to a Nixpkgs invocation that compiles to target system ${pkgsSystem} but NixOS was configured for system ${nixosExpectedSystem} via NixOS option ${nixosOption}. The NixOS system settings must match the Nixpkgs target system.";
+          "The NixOS nixpkgs.pkgs option was set to a Nixpkgs invocation that compiles to target system ${pkgsSystem} but NixOS was configured for system ${nixosExpectedSystem} via NixOS option ${nixosOption}. The NixOS system settings must match the Nixpkgs target system."
+          ;
       } )
       {
-        assertion = constructedByMe -> hasPlatform -> legacyOptionsDefined
-          == [ ];
+        assertion =
+          constructedByMe -> hasPlatform -> legacyOptionsDefined == [ ];
         message = ''
           Your system configures nixpkgs with the platform parameter${
             optionalString hasBuildPlatform "s"
@@ -398,6 +424,6 @@ in {
     ];
   };
 
-  # needs a full nixpkgs path to import nixpkgs
+    # needs a full nixpkgs path to import nixpkgs
   meta.buildDocsInSandbox = false;
 }

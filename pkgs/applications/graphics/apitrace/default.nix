@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  # LD_PRELOAD wrappers need to be statically linked to work against all kinds
-  # of games -- so it's fine to use e.g. bundled snappy.
+    # LD_PRELOAD wrappers need to be statically linked to work against all kinds
+    # of games -- so it's fine to use e.g. bundled snappy.
   buildInputs = [
     libX11
     procps
@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  # Don't automatically wrap all binaries, I prefer to explicitly only wrap
-  # `qapitrace`.
+    # Don't automatically wrap all binaries, I prefer to explicitly only wrap
+    # `qapitrace`.
   dontWrapQtApps = true;
 
   postFixup = ''

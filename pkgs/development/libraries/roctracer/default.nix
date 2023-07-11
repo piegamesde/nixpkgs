@@ -71,8 +71,8 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "add_subdirectory(test)" ""
   '';
 
-  # Tests always fail, probably need GPU
-  # doCheck = buildTests;
+    # Tests always fail, probably need GPU
+    # doCheck = buildTests;
 
   postInstall = lib.optionalString buildDocs ''
     mkdir -p $doc

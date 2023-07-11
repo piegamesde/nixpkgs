@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OyfJD19g8cT9wOD0hyJyEw4TbaxZ9eY04396U/7R+hs=";
   };
 
-  # During darwin bootstrap, we have a cp that doesn't understand the
-  # --reflink=auto flag, which is used in the default unpackPhase for dirs
+    # During darwin bootstrap, we have a cp that doesn't understand the
+    # --reflink=auto flag, which is used in the default unpackPhase for dirs
   unpackPhase = ''
     cp -a ${src} ${src.name}
     chmod -R +w ${src.name}
@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
     "-DJSONCPP_WITH_TESTS=OFF"
     ++ lib.optional (!enableStatic) "-DBUILD_STATIC_LIBS=OFF";
 
-  # this is fixed and no longer necessary in 1.9.5 but there they use
-  # memset_s without switching to a different c++ standard in the cmake files
+    # this is fixed and no longer necessary in 1.9.5 but there they use
+    # memset_s without switching to a different c++ standard in the cmake files
   postInstall = lib.optionalString enableStatic ''
     (cd $out/lib && ln -sf libjsoncpp_static.a libjsoncpp.a)
   '';

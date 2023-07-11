@@ -8,11 +8,13 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ tvestelind ]; };
 
     nodes = {
-      haka = {
+      haka =
+        {
           ...
         }: {
           services.haka.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

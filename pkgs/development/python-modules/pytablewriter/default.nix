@@ -43,7 +43,7 @@ buildPythonPackage rec {
     dominate
   ];
   nativeCheckInputs = [ pytestCheckHook ];
-  # Circular dependency
+    # Circular dependency
   disabledTests = [
     "test_normal_from_file"
     "test_normal_from_text"

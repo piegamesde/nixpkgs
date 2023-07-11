@@ -39,7 +39,7 @@ buildOctavePackage rec {
     ];
     maintainers = with maintainers; [ KarlJoad ];
     description = "3D graphics using VRML";
-    # Marked this way until KarlJoad gets freewrl as a runtime dependency.
+      # Marked this way until KarlJoad gets freewrl as a runtime dependency.
     broken = true;
   };
 }

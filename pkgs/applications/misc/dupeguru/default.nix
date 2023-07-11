@@ -46,17 +46,17 @@ python3Packages.buildPythonApplication rec {
     export HOME="$(mktemp -d)"
   '';
 
-  # Avoid double wrapping Python programs.
+    # Avoid double wrapping Python programs.
   dontWrapQtApps = true;
 
-  # TODO: A bug in python wrapper
-  # see https://github.com/NixOS/nixpkgs/pull/75054#discussion_r357656916
+    # TODO: A bug in python wrapper
+    # see https://github.com/NixOS/nixpkgs/pull/75054#discussion_r357656916
   preFixup = ''
     makeWrapperArgs="''${qtWrapperArgs[@]}"
   '';
 
-  # Executable in $out/bin is a symlink to $out/share/dupeguru/run.py
-  # so wrapPythonPrograms hook does not handle it automatically.
+    # Executable in $out/bin is a symlink to $out/share/dupeguru/run.py
+    # so wrapPythonPrograms hook does not handle it automatically.
   postFixup = ''
     wrapPythonProgramsIn "$out/share/dupeguru" "$out $pythonPath"
   '';

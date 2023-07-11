@@ -34,8 +34,8 @@ in {
       aliases = [ "dbus-org.ofono.mms.service" ];
       serviceConfig = {
         Type = "dbus";
-        ExecStart = "${pkgs.mmsd-tng}/bin/mmsdtng "
-          + escapeShellArgs cfg.extraArgs;
+        ExecStart =
+          "${pkgs.mmsd-tng}/bin/mmsdtng " + escapeShellArgs cfg.extraArgs;
         BusName = "org.ofono.mms";
         Restart = "on-failure";
       };

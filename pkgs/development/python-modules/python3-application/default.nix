@@ -31,7 +31,8 @@ buildPythonPackage rec {
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     description =
-      "A collection of modules that are useful when building python applications";
+      "A collection of modules that are useful when building python applications"
+      ;
     homepage = "https://github.com/AGProjects/python3-application";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [

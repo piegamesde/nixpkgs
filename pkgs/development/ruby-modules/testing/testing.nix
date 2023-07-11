@@ -23,22 +23,29 @@ let
      results = run "Examples" underTest tests;
   */
 
-  passed = desc: {
-    result = "pass";
-    description = desc;
-  };
+  passed =
+    desc: {
+      result = "pass";
+      description = desc;
+    }
+    ;
 
-  failed = desc: {
-    result = "failed";
-    description = desc;
-  };
+  failed =
+    desc: {
+      result = "failed";
+      description = desc;
+    }
+    ;
 
-  prefixName = name: res: {
-    inherit (res) result;
-    description = "${name}: ${res.description}";
-  };
+  prefixName =
+    name: res: {
+      inherit (res) result;
+      description = "${name}: ${res.description}";
+    }
+    ;
 
-  run = name: under: tests:
+  run =
+    name: under: tests:
     if isList tests then
       (concatLists (map (run name under) tests))
     else if isAttrs tests then
@@ -61,7 +68,8 @@ let
       [
         failed
         (name ": not a function, list or set")
-      ];
+      ]
+    ;
 in {
   inherit run passed failed;
 }

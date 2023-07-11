@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # Make sure includes are fixed for callers who don't use libassuan-config
+    # Make sure includes are fixed for callers who don't use libassuan-config
   postInstall = ''
     sed -i 's,#include <gpg-error.h>,#include "${libgpg-error.dev}/include/gpg-error.h",g' $dev/include/assuan.h
   '';

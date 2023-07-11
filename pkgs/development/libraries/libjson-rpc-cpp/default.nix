@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "int-to-MHD_Result.patch";
     url =
-      "https://patch-diff.githubusercontent.com/raw/cinemast/libjson-rpc-cpp/pull/299.patch";
+      "https://patch-diff.githubusercontent.com/raw/cinemast/libjson-rpc-cpp/pull/299.patch"
+      ;
     sha256 = "sha256-hiey6etzbOxhMElTMX7offKbey7c2OO/UWeN03k0AaM=";
   }) ];
 
@@ -64,8 +65,8 @@ stdenv.mkDerivation rec {
     pushd Build
   '';
 
-  # this hack is needed because the cmake scripts
-  # require write permission to absolute paths
+    # this hack is needed because the cmake scripts
+    # require write permission to absolute paths
   configurePhase = ''
     runHook preConfigure
     cmake .. -DCMAKE_INSTALL_PREFIX=$(pwd)/Install \

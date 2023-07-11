@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       audit
       libapparmor
     ];
-  # ToDo: optional selinux?
+    # ToDo: optional selinux?
 
   configureFlags = [
     "--enable-user-session"
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     "datadir=${placeholder "out"}/share"
   ];
 
-  # it's executed from $lib by absolute path
+    # it's executed from $lib by absolute path
   postFixup = ''
     moveToOutput bin/dbus-launch "$lib"
     ln -s "$lib/bin/dbus-launch" "$out/bin/"

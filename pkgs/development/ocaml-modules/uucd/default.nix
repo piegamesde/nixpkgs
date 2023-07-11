@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An OCaml module to decode the data of the Unicode character database from its XML representation";
+      "An OCaml module to decode the data of the Unicode character database from its XML representation"
+      ;
     homepage = webpage;
     inherit (ocaml.meta) platforms;
     maintainers = [ maintainers.vbgl ];

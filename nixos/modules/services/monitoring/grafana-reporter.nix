@@ -61,16 +61,18 @@ in {
       description = "Grafana Reporter Service Daemon";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      serviceConfig = let
-        args = lib.concatStringsSep " " [
-          "-proto ${cfg.grafana.protocol}://"
-          "-ip ${cfg.grafana.addr}:${toString cfg.grafana.port}"
-          "-port :${toString cfg.port}"
-          "-templates ${cfg.templateDir}"
-        ];
-      in {
-        ExecStart = "${pkgs.grafana_reporter}/bin/grafana-reporter ${args}";
-      } ;
+      serviceConfig =
+        let
+          args = lib.concatStringsSep " " [
+            "-proto ${cfg.grafana.protocol}://"
+            "-ip ${cfg.grafana.addr}:${toString cfg.grafana.port}"
+            "-port :${toString cfg.port}"
+            "-templates ${cfg.templateDir}"
+          ];
+        in {
+          ExecStart = "${pkgs.grafana_reporter}/bin/grafana-reporter ${args}";
+        }
+        ;
     };
   };
 }

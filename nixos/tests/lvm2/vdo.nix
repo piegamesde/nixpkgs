@@ -8,7 +8,8 @@ import ../make-test-python.nix ({
     name = "lvm2-vdo";
     meta.maintainers = with pkgs.lib.maintainers; [ ajs124 ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -21,7 +22,8 @@ import ../make-test-python.nix ({
         };
         environment.systemPackages = with pkgs; [ xfsprogs ];
         boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed("vgcreate test_vg /dev/vdb")

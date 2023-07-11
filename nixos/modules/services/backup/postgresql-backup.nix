@@ -11,7 +11,8 @@ let
 
   cfg = config.services.postgresqlBackup;
 
-  postgresqlBackupService = db: dumpCmd:
+  postgresqlBackupService =
+    db: dumpCmd:
     let
       compressSuffixes = {
         "none" = "";
@@ -66,7 +67,8 @@ let
       };
 
       startAt = cfg.startAt;
-    } ;
+    }
+    ;
 
 in {
 
@@ -164,7 +166,8 @@ in {
         {
           assertion = cfg.backupAll -> cfg.databases == [ ];
           message =
-            "config.services.postgresqlBackup.backupAll cannot be used together with config.services.postgresqlBackup.databases";
+            "config.services.postgresqlBackup.backupAll cannot be used together with config.services.postgresqlBackup.databases"
+            ;
         }
         {
           assertion = cfg.compression == "none" || (cfg.compression == "gzip"
@@ -172,7 +175,8 @@ in {
             || (cfg.compression == "zstd" && cfg.compressionLevel >= 1
               && cfg.compressionLevel <= 19);
           message =
-            "config.services.postgresqlBackup.compressionLevel must be set between 1 and 9 for gzip and 1 and 19 for zstd";
+            "config.services.postgresqlBackup.compressionLevel must be set between 1 and 9 for gzip and 1 and 19 for zstd"
+            ;
         }
       ];
     }

@@ -26,12 +26,13 @@ buildPythonPackage rec {
     requests
   ] ++ lib.optional (!isPy3k) azure-storage-nspkg;
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Client library for Microsoft Azure Storage services containing common code shared by blob, file and queue";
+      "Client library for Microsoft Azure Storage services containing common code shared by blob, file and queue"
+      ;
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ cmcdragonkai ];

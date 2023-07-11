@@ -113,7 +113,7 @@ mkDerivation {
   license = lib.licenses.asl20;
   maintainers = with lib.maintainers; [ lassulus ];
 
-  # Does not compile with ghc-9.2
+    # Does not compile with ghc-9.2
   hydraPlatforms = lib.platforms.none;
   broken = true;
 }

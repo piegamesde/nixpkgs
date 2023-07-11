@@ -35,8 +35,8 @@ buildPythonPackage rec {
     pythonPackages.setuptools
   ];
   buildInputs = [ qtbase ];
-  propagatedBuildInputs = [ pyqt5 ]
-    ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+  propagatedBuildInputs =
+    [ pyqt5 ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
 
   dontWrapQtApps = true;
 
@@ -71,7 +71,7 @@ buildPythonPackage rec {
     export PYTHONPATH="$out/${python.sitePackages}:$PYTHONPATH"
   '';
 
-  # Checked using pythonImportsCheck
+    # Checked using pythonImportsCheck
   doCheck = false;
 
   pythonImportsCheck = [ "PyQt5.Qsci" ];

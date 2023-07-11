@@ -29,7 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "http://download.savannah.nongnu.org/releases/skribilo/skribilo-${finalAttrs.version}.tar.gz";
+      "http://download.savannah.nongnu.org/releases/skribilo/skribilo-${finalAttrs.version}.tar.gz"
+      ;
     hash = "sha256-jP9I7hds7f1QMmSaNJpGlSvqUOwGcg+CnBzMopIS9Q4=";
   };
 
@@ -50,13 +51,15 @@ stdenv.mkDerivation (finalAttrs: {
   ] ++ optional enableEmacs emacs ++ optional enableLout lout
     ++ optional enableTex tex;
 
-  postInstall = let
-    guileVersion = lib.versions.majorMinor guile.version;
-  in ''
-    wrapProgram $out/bin/skribilo \
-      --prefix GUILE_LOAD_PATH : "$out/share/guile/site/${guileVersion}:$GUILE_LOAD_PATH" \
-      --prefix GUILE_LOAD_COMPILED_PATH : "$out/lib/guile/${guileVersion}/site-ccache:$GUILE_LOAD_COMPILED_PATH"
-  '' ;
+  postInstall =
+    let
+      guileVersion = lib.versions.majorMinor guile.version;
+    in ''
+      wrapProgram $out/bin/skribilo \
+        --prefix GUILE_LOAD_PATH : "$out/share/guile/site/${guileVersion}:$GUILE_LOAD_PATH" \
+        --prefix GUILE_LOAD_COMPILED_PATH : "$out/lib/guile/${guileVersion}/site-ccache:$GUILE_LOAD_COMPILED_PATH"
+    ''
+    ;
 
   meta = {
     homepage = "https://www.nongnu.org/skribilo/";

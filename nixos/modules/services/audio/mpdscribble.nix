@@ -20,13 +20,15 @@ let
     "listenbrainz" = "http://proxy.listenbrainz.org";
   };
 
-  mkSection = secname: secCfg: ''
-    [${secname}]
-    url      = ${secCfg.url}
-    username = ${secCfg.username}
-    password = {{${secname}_PASSWORD}}
-    journal  = /var/lib/mpdscribble/${secname}.journal
-  '';
+  mkSection =
+    secname: secCfg: ''
+      [${secname}]
+      url      = ${secCfg.url}
+      username = ${secCfg.username}
+      password = {{${secname}_PASSWORD}}
+      journal  = /var/lib/mpdscribble/${secname}.journal
+    ''
+    ;
 
   endpoints = concatStringsSep "\n" (mapAttrsToList mkSection cfg.endpoints);
   cfgTemplate = pkgs.writeText "mpdscribble.conf" ''
@@ -66,9 +68,11 @@ let
 
   cfgFile = "/run/mpdscribble/mpdscribble.conf";
 
-  replaceSecret = secretFile: placeholder: targetFile:
+  replaceSecret =
+    secretFile: placeholder: targetFile:
     optionalString (secretFile != null)
-    "${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' ";
+    "${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' "
+    ;
 
   preStart = pkgs.writeShellScript "mpdscribble-pre-start" ''
     cp -f "${cfgTemplate}" "${cfgFile}"
@@ -129,12 +133,14 @@ in {
     };
 
     passwordFile = mkOption {
-      default = if localMpd then
-        (findFirst (c: any (x: x == "read") c.permissions) {
-          passwordFile = null;
-        } mpdCfg.credentials).passwordFile
-      else
-        null;
+      default =
+        if localMpd then
+          (findFirst (c: any (x: x == "read") c.permissions) {
+            passwordFile = null;
+          } mpdCfg.credentials).passwordFile
+        else
+          null
+        ;
       defaultText = literalMD ''
         The first password file with read access configured for MPD when using a local instance,
         otherwise `null`.
@@ -158,7 +164,8 @@ in {
 
     endpoints = mkOption {
       type = (let
-        endpoint = {
+        endpoint =
+          {
             name,
             ...
           }: {
@@ -178,10 +185,12 @@ in {
               passwordFile = mkOption {
                 type = types.nullOr types.str;
                 description = lib.mdDoc
-                  "File containing the password, either as MD5SUM or cleartext.";
+                  "File containing the password, either as MD5SUM or cleartext."
+                  ;
               };
             };
-          };
+          }
+          ;
       in
       types.attrsOf (types.submodule endpoint)
       );
@@ -202,7 +211,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.mpdscribble = {
@@ -214,7 +223,7 @@ in {
         StateDirectory = "mpdscribble";
         RuntimeDirectory = "mpdscribble";
         RuntimeDirectoryMode = "700";
-        # TODO use LoadCredential= instead of running preStart with full privileges?
+          # TODO use LoadCredential= instead of running preStart with full privileges?
         ExecStartPre = "+${preStart}";
         ExecStart =
           "${pkgs.mpdscribble}/bin/mpdscribble --no-daemon --conf ${cfgFile}";

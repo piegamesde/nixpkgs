@@ -26,13 +26,14 @@ buildPythonPackage rec {
     graphviz
   ];
 
-  # Checks require availability of the kicad symbol libraries.
+    # Checks require availability of the kicad symbol libraries.
   doCheck = false;
   pythonImportsCheck = [ "skidl" ];
 
   meta = with lib; {
     description =
-      "Module that extends Python with the ability to design electronic circuits";
+      "Module that extends Python with the ability to design electronic circuits"
+      ;
     homepage = "https://xess.com/skidl/docs/_site/";
     license = licenses.mit;
     maintainers = with maintainers; [ matthuszagh ];

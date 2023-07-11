@@ -112,17 +112,17 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  # realsense is disabled, the build ends with the following error:
-  #
-  # CMake Error in src/xrt/drivers/CMakeLists.txt:
-  # Imported target "realsense2::realsense2" includes non-existent path
-  # "/nix/store/2v95aps14hj3jy4ryp86vl7yymv10mh0-librealsense-2.41.0/include"
-  # in its INTERFACE_INCLUDE_DIRECTORIES.
-  #
-  # for some reason cmake is trying to use ${librealsense}/include
-  # instead of ${librealsense.dev}/include as an include directory
+    # realsense is disabled, the build ends with the following error:
+    #
+    # CMake Error in src/xrt/drivers/CMakeLists.txt:
+    # Imported target "realsense2::realsense2" includes non-existent path
+    # "/nix/store/2v95aps14hj3jy4ryp86vl7yymv10mh0-librealsense-2.41.0/include"
+    # in its INTERFACE_INCLUDE_DIRECTORIES.
+    #
+    # for some reason cmake is trying to use ${librealsense}/include
+    # instead of ${librealsense.dev}/include as an include directory
 
-  # Help openxr-loader find this runtime
+    # Help openxr-loader find this runtime
   setupHook = writeText "setup-hook" ''
     export XDG_CONFIG_DIRS=@out@/etc/xdg''${XDG_CONFIG_DIRS:+:''${XDG_CONFIG_DIRS}}
   '';

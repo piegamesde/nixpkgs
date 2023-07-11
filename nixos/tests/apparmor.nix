@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "apparmor";
     meta = with pkgs.lib.maintainers; { maintainers = [ julm ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         pkgs,
         config,
@@ -13,7 +14,8 @@ import ./make-test-python.nix ({
       }:
       with lib; {
         security.apparmor.enable = mkDefault true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

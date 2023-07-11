@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://developers.yubico.com/yubikey-personalization/Releases/ykpers-${version}.tar.gz";
+      "https://developers.yubico.com/yubikey-personalization/Releases/ykpers-${version}.tar.gz"
+      ;
     sha256 = "14wvlwqnwj0gllkpvfqiy8ns938bwvjsz8x1hmymmx32m074vj0f";
   };
 
@@ -24,7 +25,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "json-c-0.14-support.patch";
       url =
-        "https://github.com/Yubico/yubikey-personalization/commit/0aa2e2cae2e1777863993a10c809bb50f4cde7f8.patch";
+        "https://github.com/Yubico/yubikey-personalization/commit/0aa2e2cae2e1777863993a10c809bb50f4cde7f8.patch"
+        ;
       sha256 = "1wnigf3hbq59i15kgxpq3pwrl1drpbj134x81mmv9xm1r44cjva8";
     })
 
@@ -33,7 +35,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/Yubico/yubikey-personalization/commit/09ea16d9e2030e4da6ad00c1e5147e962aa7ff84.patch";
+        "https://github.com/Yubico/yubikey-personalization/commit/09ea16d9e2030e4da6ad00c1e5147e962aa7ff84.patch"
+        ;
       sha256 = "0n3ka8n7f3ndbxv3k0bi77d850kr2ypglkw81gqycpqyaciidqwa";
     })
   ];

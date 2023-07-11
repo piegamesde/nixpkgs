@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "A simple character graphics game where you drive some kind of car across the moon's surface";
+      "A simple character graphics game where you drive some kind of car across the moon's surface"
+      ;
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.rybern ];
     platforms = lib.platforms.linux;

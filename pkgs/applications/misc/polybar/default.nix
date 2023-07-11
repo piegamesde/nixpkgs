@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./remove-hardcoded-etc.diff ];
 
-  # Replace hardcoded /etc when copying and reading the default config.
+    # Replace hardcoded /etc when copying and reading the default config.
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace "/etc" $out
     substituteAllInPlace src/utils/file.cpp

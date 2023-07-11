@@ -21,7 +21,7 @@ buildPythonPackage rec {
       --replace "'argparse'" ""
   '';
 
-  # Tests require hadoop hdfs
+    # Tests require hadoop hdfs
   doCheck = false;
 
   pythonImportsCheck = [ "snakebite" ];

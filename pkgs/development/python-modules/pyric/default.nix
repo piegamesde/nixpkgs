@@ -23,7 +23,7 @@ buildPythonPackage rec {
       --replace "__version__ = '0.0.3'" "__version__ = '${version}'"
   '';
 
-  # Tests are outdated
+    # Tests are outdated
   doCheck = false;
 
   pythonImportsCheck = [ "pyric" ];

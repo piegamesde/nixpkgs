@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   version = "1.22";
   pname = "cliquer";
 
-  # autotoolized version of the original cliquer
+    # autotoolized version of the original cliquer
   src = fetchFromGitHub {
     owner = "dimpase";
     repo = "autocliquer";

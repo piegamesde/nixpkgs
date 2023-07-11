@@ -62,7 +62,7 @@ buildPythonPackage rec {
     homepage = "https://tensorly.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bcdarwin ];
-    broken = stdenv.isLinux
-      && stdenv.isAarch64; # test failures: test_TTOI and test_validate_tucker_rank
+    broken = stdenv.isLinux && stdenv.isAarch64
+      ; # test failures: test_TTOI and test_validate_tucker_rank
   };
 }

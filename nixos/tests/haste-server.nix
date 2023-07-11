@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "haste-server";
     meta.maintainers = with lib.maintainers; [ mkg20001 ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -16,7 +17,8 @@ import ./make-test-python.nix ({
         ];
 
         services.haste-server = { enable = true; };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("haste-server")

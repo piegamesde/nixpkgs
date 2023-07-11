@@ -28,7 +28,7 @@ buildPythonPackage rec {
     spinners
   ];
 
-  # Tests are not included in the PyPI distribution and the git repo does not have tagged releases
+    # Tests are not included in the PyPI distribution and the git repo does not have tagged releases
   doCheck = false;
   pythonImportsCheck = [ "halo" ];
 

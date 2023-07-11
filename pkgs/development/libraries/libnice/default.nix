@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     # https://gitlab.freedesktop.org/libnice/libnice/merge_requests/35#note_98871
     (fetchpatch {
       url =
-        "https://gitlab.freedesktop.org/libnice/libnice/commit/d470c4bf4f2449f7842df26ca1ce1efb63452bc6.patch";
+        "https://gitlab.freedesktop.org/libnice/libnice/commit/d470c4bf4f2449f7842df26ca1ce1efb63452bc6.patch"
+        ;
       sha256 = "0z74vizf92flfw1m83p7yz824vfykmnm0xbnk748bnnyq186i6mg";
     })
   ];
@@ -83,8 +84,8 @@ stdenv.mkDerivation rec {
     "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
   ];
 
-  # Tests are flaky
-  # see https://github.com/NixOS/nixpkgs/pull/53293#issuecomment-453739295
+    # Tests are flaky
+    # see https://github.com/NixOS/nixpkgs/pull/53293#issuecomment-453739295
   doCheck = false;
 
   meta = with lib; {

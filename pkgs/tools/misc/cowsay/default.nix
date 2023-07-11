@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     # See https://github.com/cowsay-org/cowsay/pull/18
     (fetchpatch {
       url =
-        "https://github.com/cowsay-org/cowsay/commit/9e129fa0933cf1837672c97f5ae5ad4a1a10ec11.patch";
+        "https://github.com/cowsay-org/cowsay/commit/9e129fa0933cf1837672c97f5ae5ad4a1a10ec11.patch"
+        ;
       hash = "sha256-zAYEUAM5MkyMONAl5BXj8hBHRalQVAOdpxgiM+Ewmlw=";
     })
   ];

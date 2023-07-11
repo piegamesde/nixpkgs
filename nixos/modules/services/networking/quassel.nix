@@ -12,10 +12,12 @@ let
   cfg = config.services.quassel;
   opt = options.services.quassel;
   quassel = cfg.package;
-  user = if cfg.user != null then
-    cfg.user
-  else
-    "quassel";
+  user =
+    if cfg.user != null then
+      cfg.user
+    else
+      "quassel"
+    ;
 
 in {
 
@@ -93,7 +95,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     assertions = [ {

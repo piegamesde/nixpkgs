@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ inotify-simple ];
 
-  # No tests included
+    # No tests included
   doCheck = false;
   pythonImportsCheck = [ pname ];
 

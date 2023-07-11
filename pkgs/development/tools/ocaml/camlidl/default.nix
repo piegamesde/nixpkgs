@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ ocaml ];
 
-  # build fails otherwise
+    # build fails otherwise
   enableParallelBuilding = false;
 
   preBuild = ''

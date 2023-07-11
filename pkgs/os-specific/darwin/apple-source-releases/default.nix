@@ -56,14 +56,14 @@ let
       removefile = "41";
       libresolv = "60";
 
-      # Their release page is a bit of a mess here, so I'm going to lie a bit and say this version
-      # is the right one, even though it isn't. The version I have here doesn't appear to be linked
-      # to any OS releases, but Apple also doesn't mention mDNSResponder from 10.11 to 10.11.6, and
-      # neither of those versions are publicly available.
+        # Their release page is a bit of a mess here, so I'm going to lie a bit and say this version
+        # is the right one, even though it isn't. The version I have here doesn't appear to be linked
+        # to any OS releases, but Apple also doesn't mention mDNSResponder from 10.11 to 10.11.6, and
+        # neither of those versions are publicly available.
       libplatform = "125";
       mDNSResponder = "625.41.2";
 
-      # IOKit contains a set of packages with different versions, so we don't have a general version
+        # IOKit contains a set of packages with different versions, so we don't have a general version
       IOKit = "";
 
       libutil = "43";
@@ -130,42 +130,50 @@ let
     "dev-tools-3.2.6" = { bsdmake = "24"; };
   };
 
-  fetchApple' = pname: version: sha256:
+  fetchApple' =
+    pname: version: sha256:
     let
       # When cross-compiling, fetchurl depends on libiconv, resulting
       # in an infinite recursion without this. It's not clear why this
       # worked fine when not cross-compiling
-      fetch = if pname == "libiconv" then
-        stdenv.fetchurlBoot
-      else
-        fetchurl;
+      fetch =
+        if pname == "libiconv" then
+          stdenv.fetchurlBoot
+        else
+          fetchurl
+        ;
     in
     fetch {
       url =
-        "https://github.com/apple-oss-distributions/${pname}/archive/refs/tags/${pname}-${version}.tar.gz";
+        "https://github.com/apple-oss-distributions/${pname}/archive/refs/tags/${pname}-${version}.tar.gz"
+        ;
       inherit sha256;
     }
-  ;
+    ;
 
-  fetchApple = sdkName: sha256: pname:
+  fetchApple =
+    sdkName: sha256: pname:
     let
       version = versions.${sdkName}.${pname};
     in
     fetchApple' pname version sha256
-  ;
+    ;
 
-  appleDerivation'' = stdenv: pname: version: sdkName: sha256: attrs:
+  appleDerivation'' =
+    stdenv: pname: version: sdkName: sha256: attrs:
     stdenv.mkDerivation ({
       inherit pname version;
 
-      src = if attrs ? srcs then
-        null
-      else
-        (fetchApple' pname version sha256);
+      src =
+        if attrs ? srcs then
+          null
+        else
+          (fetchApple' pname version sha256)
+        ;
 
       enableParallelBuilding = true;
 
-      # In rare cases, APPLE may drop some headers quietly on new release.
+        # In rare cases, APPLE may drop some headers quietly on new release.
       doInstallCheck = attrs ? appleHeaders;
       passAsFile = [ "appleHeaders" ];
       installCheckPhase = ''
@@ -189,7 +197,8 @@ let
         platforms = platforms.darwin;
         license = licenses.apsl20;
       }) // (attrs.meta or { });
-    });
+    })
+    ;
 
   IOKitSpecs = {
     IOAudioFamily = fetchApple "osx-10.10.5"
@@ -220,15 +229,16 @@ let
       "sha256-+nyqH6lMPmIkDLYXNVSeR4vBYS165oyJx+DkCkKOGRg=";
     IODVDStorageFamily = fetchApple "osx-10.10.5"
       "sha256-Jy3UuRzdd0bBdhJgI/f8vLXh2GdGs1RVN3G2iEs86kQ=";
-    # There should be an IOStreamFamily project here, but they haven't released it :(
+      # There should be an IOStreamFamily project here, but they haven't released it :(
     IOUSBFamily = fetchApple "osx-10.8.5"
-      "sha256-FwgGoP97Sj47VGXMxbY0oUugKf7jtxAL1RzL6+315cU="; # This is from 10.8 :(
+      "sha256-FwgGoP97Sj47VGXMxbY0oUugKf7jtxAL1RzL6+315cU="
+      ; # This is from 10.8 :(
     IOUSBFamily_older = fetchApple "osx-10.8.4"
-      "sha256-5apCsqtHK0EC8x1uPTTll43x69eal/nsokfS80qLlxs="
-      "IOUSBFamily"; # This is even older :(
+      "sha256-5apCsqtHK0EC8x1uPTTll43x69eal/nsokfS80qLlxs=" "IOUSBFamily"
+      ; # This is even older :(
     IOKitUser = fetchApple "osx-10.10.5"
       "sha256-3UHM3g91v4RugmONbM+SAPr1SfoUPY3QPcTwTpt+zuY=";
-    # There should be an IOVideo here, but they haven't released it :(
+      # There should be an IOVideo here, but they haven't released it :(
   };
 
   IOKitSrcs = lib.mapAttrs (name: value:
@@ -246,26 +256,30 @@ let
   developerToolsPackages_11_3_1 =
     import ./developer-tools-11.3.1.nix { inherit applePackage'; };
 
-  applePackage' = namePath: version: sdkName: sha256:
+  applePackage' =
+    namePath: version: sdkName: sha256:
     let
       pname = builtins.head (lib.splitString "/" namePath);
-      appleDerivation' = stdenv:
-        appleDerivation'' stdenv pname version sdkName sha256;
+      appleDerivation' =
+        stdenv:
+        appleDerivation'' stdenv pname version sdkName sha256
+        ;
       appleDerivation = appleDerivation' stdenv;
       callPackage = self.newScope { inherit appleDerivation' appleDerivation; };
     in
     callPackage (./. + "/${namePath}")
-  ;
+    ;
 
-  applePackage = namePath: sdkName: sha256:
+  applePackage =
+    namePath: sdkName: sha256:
     let
       pname = builtins.head (lib.splitString "/" namePath);
       version = versions.${sdkName}.${pname};
     in
     applePackage' namePath version sdkName sha256
-  ;
+    ;
 
-  # Only used for bootstrapping. It’s convenient because it was the last version to come with a real makefile.
+    # Only used for bootstrapping. It’s convenient because it was the last version to come with a real makefile.
   adv_cmds-boot = applePackage "adv_cmds/boot.nix" "osx-10.5.8"
     "sha256-/OJLNpATyS31W5nWfJgSVO5itp8j55TRwG57/QLT5Fg=" { };
 
@@ -345,14 +359,16 @@ developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
     "sha256-M1zoEjjeKIDUEP6ACbpUJk3OXjobw4g/qzUmxGdX1J0=" { };
   removefile = applePackage "removefile" "osx-10.12.6"
     "sha256-UpNk27kGXnZss1ZXWVJU9jLz/NW63ZAZEDLhyCYoi9M=" { };
-  xnu = if stdenv.isx86_64 then
-    applePackage "xnu" "osx-10.12.6"
-    "sha256-C8TPQlUT3RbzAy8YnZPNtr70hpaVG9Llv0h42s3NENI=" {
-      python3 =
-        pkgs.buildPackages.buildPackages.python3; # TODO(@Ericson2314) this shouldn't be needed.
-    }
-  else
-    macosPackages_11_0_1.xnu;
+  xnu =
+    if stdenv.isx86_64 then
+      applePackage "xnu" "osx-10.12.6"
+      "sha256-C8TPQlUT3RbzAy8YnZPNtr70hpaVG9Llv0h42s3NENI=" {
+        python3 = pkgs.buildPackages.buildPackages.python3
+          ; # TODO(@Ericson2314) this shouldn't be needed.
+      }
+    else
+      macosPackages_11_0_1.xnu
+    ;
   hfs = applePackage "hfs" "osx-10.12.6"
     "sha256-eGi18HQFJrU5UHoBOE0LqO5gQ0xOf8+OJuAWQljfKE4=" { };
   Librpcsvc = applePackage "Librpcsvc" "osx-10.11.6"
@@ -367,11 +383,13 @@ developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
     "sha256-VX+hcZ7JhOA8EhwLloPlM3Yx79RXp9OYHV9Mi10uw3Q=" {
       macosPackages_11_0_1 = macosPackages_11_0_1;
     };
-  network_cmds = if stdenv.isx86_64 then
-    applePackage "network_cmds" "osx-10.11.6"
-    "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M=" { }
-  else
-    macosPackages_11_0_1.network_cmds;
+  network_cmds =
+    if stdenv.isx86_64 then
+      applePackage "network_cmds" "osx-10.11.6"
+      "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M=" { }
+    else
+      macosPackages_11_0_1.network_cmds
+    ;
   file_cmds = applePackage "file_cmds" "osx-10.11.6"
     "sha256-JYy6HwmultKeZtLfaysbsyLoWg+OaTh7eJu54JkJC0Q=" { };
   shell_cmds = applePackage "shell_cmds" "osx-10.11.6"
@@ -385,8 +403,8 @@ developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
   PowerManagement = applePackage "PowerManagement" "osx-10.11.6"
     "sha256-bYGtYnBOcE5W03AZzfVTJXPZ6GgryGAMt/LgLPxFkVk=" { };
 
-  # `configdHeaders` can’t use an override because `pkgs.darwin.configd` on aarch64-darwin will
-  # be replaced by SystemConfiguration.framework from the macOS SDK.
+    # `configdHeaders` can’t use an override because `pkgs.darwin.configd` on aarch64-darwin will
+    # be replaced by SystemConfiguration.framework from the macOS SDK.
   configdHeaders = applePackage "configd" "osx-10.8.5"
     "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI=" {
       headersOnly = true;
@@ -396,8 +414,8 @@ developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
   hfsHeaders = pkgs.darwin.hfs.override { headersOnly = true; };
   libresolvHeaders = pkgs.darwin.libresolv.override { headersOnly = true; };
 
-  # TODO(matthewbauer):
-  # To be removed, once I figure out how to build a newer Security version.
+    # TODO(matthewbauer):
+    # To be removed, once I figure out how to build a newer Security version.
   Security = applePackage "Security/boot.nix" "osx-10.9.5"
     "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI=" { };
 }

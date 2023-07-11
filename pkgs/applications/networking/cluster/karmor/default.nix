@@ -20,7 +20,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # integration tests require network access
+    # integration tests require network access
   doCheck = false;
 
   postInstall = ''

@@ -22,7 +22,7 @@ buildLuarocksPackage {
     fetchSubmodules = true;
   };
 
-  # use zenity because default gtk impl just crashes
+    # use zenity because default gtk impl just crashes
   patches = [ (substituteAll {
     src = ./zenity.patch;
     inherit zenity;
@@ -42,7 +42,8 @@ buildLuarocksPackage {
 
   meta = {
     description =
-      "A tiny, neat lua library that portably invokes native file open and save dialogs.";
+      "A tiny, neat lua library that portably invokes native file open and save dialogs."
+      ;
     homepage = "https://github.com/Alloyed/nativefiledialog/tree/master/lua";
     license = lib.licenses.zlib;
     maintainers = [ lib.maintainers.scoder12 ];

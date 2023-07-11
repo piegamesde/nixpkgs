@@ -7,16 +7,18 @@
 
 let
   python = python3.override {
-    packageOverrides = self: super: {
-      ytmusicapi = super.ytmusicapi.overridePythonAttrs (old: rec {
-        version = "0.25.1";
-        src = self.fetchPypi {
-          inherit (old) pname;
-          inherit version;
-          hash = "sha256-uc/fgDetSYaCRzff0SzfbRhs3TaKrfE2h6roWkkj8yQ=";
-        };
-      });
-    };
+    packageOverrides =
+      self: super: {
+        ytmusicapi = super.ytmusicapi.overridePythonAttrs (old: rec {
+          version = "0.25.1";
+          src = self.fetchPypi {
+            inherit (old) pname;
+            inherit version;
+            hash = "sha256-uc/fgDetSYaCRzff0SzfbRhs3TaKrfE2h6roWkkj8yQ=";
+          };
+        });
+      }
+      ;
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -108,7 +110,8 @@ python.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Download your Spotify playlists and songs along with album art and metadata";
+      "Download your Spotify playlists and songs along with album art and metadata"
+      ;
     homepage = "https://github.com/spotDL/spotify-downloader";
     changelog =
       "https://github.com/spotDL/spotify-downloader/releases/tag/v${version}";

@@ -53,7 +53,7 @@ buildPythonPackage rec {
     packaging # uses packaging.version at runtime
   ];
 
-  # When doing `make distclean`, ignore docs
+    # When doing `make distclean`, ignore docs
   postPatch = ''
     substituteInPlace Makefile --replace "src doc" "src"
     # Force test suite to error when unittest runner fails
@@ -65,7 +65,7 @@ buildPythonPackage rec {
       --replace "blosc2~=2.0.0" "blosc2"
   '';
 
-  # Regenerate C code with Cython
+    # Regenerate C code with Cython
   preBuild = ''
     make distclean
   '';
@@ -83,8 +83,8 @@ buildPythonPackage rec {
     cd ..
   '';
 
-  # Runs the light (yet comprehensive) subset of the test suite.
-  # The whole "heavy" test suite supposedly takes ~4 hours to run.
+    # Runs the light (yet comprehensive) subset of the test suite.
+    # The whole "heavy" test suite supposedly takes ~4 hours to run.
   checkPhase = ''
     runHook preCheck
     ${python.interpreter} -m tables.tests.test_all

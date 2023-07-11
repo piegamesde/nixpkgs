@@ -84,12 +84,13 @@ mkDerivation {
   prePatch = "hpack";
   homepage = "https://ldgallery.pacien.org";
   description =
-    "A static generator which turns a collection of tagged pictures into a searchable web gallery";
+    "A static generator which turns a collection of tagged pictures into a searchable web gallery"
+    ;
   license = lib.licenses.agpl3Only;
   mainProgram = "ldgallery";
   maintainers = [ lib.maintainers.pacien ];
 
-  # Does not compile with ghc-9.2
+    # Does not compile with ghc-9.2
   hydraPlatforms = lib.platforms.none;
   broken = true;
 }

@@ -31,11 +31,12 @@ let
     pname = "runescape-launcher";
     version = "2.2.10";
 
-    # Packages: https://content.runescape.com/downloads/ubuntu/dists/trusty/non-free/binary-amd64/Packages
-    # upstream is https://content.runescape.com/downloads/ubuntu/pool/non-free/r/${pname}/${pname}_${version}_amd64.deb
+      # Packages: https://content.runescape.com/downloads/ubuntu/dists/trusty/non-free/binary-amd64/Packages
+      # upstream is https://content.runescape.com/downloads/ubuntu/pool/non-free/r/${pname}/${pname}_${version}_amd64.deb
     src = fetchurl {
       url =
-        "https://archive.org/download/${pname}_${version}_amd64/${pname}_${version}_amd64.deb";
+        "https://archive.org/download/${pname}_${version}_amd64/${pname}_${version}_amd64.deb"
+        ;
       sha256 = "1v96vjiblphhbqhpp3m7wbvdvcnp76ncdlf4pdcr2z1dz8nh6shg";
     };
 
@@ -112,27 +113,29 @@ let
 in
 buildFHSEnv {
   name = "RuneScape";
-  targetPkgs = pkgs: [
-    runescape
-    cairo
-    dpkg
-    gcc-unwrapped
-    glib
-    glibc
-    gtk2-x11
-    libGL
-    libpulseaudio
-    libSM
-    libXxf86vm
-    libX11
-    openssl_1_1
-    pango
-    SDL2
-    xdg-utils
-    xorg.libX11
-    xorg_sys_opengl
-    zlib
-  ];
+  targetPkgs =
+    pkgs: [
+      runescape
+      cairo
+      dpkg
+      gcc-unwrapped
+      glib
+      glibc
+      gtk2-x11
+      libGL
+      libpulseaudio
+      libSM
+      libXxf86vm
+      libX11
+      openssl_1_1
+      pango
+      SDL2
+      xdg-utils
+      xorg.libX11
+      xorg_sys_opengl
+      zlib
+    ]
+    ;
   multiPkgs = pkgs: [ libGL ];
   runScript = "runescape-launcher";
   extraInstallCommands = ''

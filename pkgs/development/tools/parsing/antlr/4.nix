@@ -23,7 +23,8 @@
 
 let
 
-  mkAntlr = {
+  mkAntlr =
+    {
       version,
       sourceSha256,
       jarSha256,
@@ -107,8 +108,8 @@ let
             ninja
             pkg-config
           ];
-          buildInputs = lib.optional stdenv.isDarwin CoreFoundation
-            ++ extraCppBuildInputs;
+          buildInputs =
+            lib.optional stdenv.isDarwin CoreFoundation ++ extraCppBuildInputs;
 
           cmakeFlags = extraCppCmakeFlags;
 
@@ -120,7 +121,8 @@ let
           };
         };
       };
-    };
+    }
+    ;
 
 in {
   antlr4_12 = (mkAntlr {

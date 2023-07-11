@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AhgWeV/ojB8jM16A5ggrOD1YjWfRVcoQbkd3S2bgdyE=";
   };
 
-  # gcc12; see https://github.com/ivan-tkatchev/tab/commit/673bdac998
+    # gcc12; see https://github.com/ivan-tkatchev/tab/commit/673bdac998
   postPatch = ''
     sed '1i#include <cstring>' -i deps.h
   '';

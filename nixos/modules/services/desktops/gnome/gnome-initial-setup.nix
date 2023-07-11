@@ -49,7 +49,7 @@ in {
 
   meta = { maintainers = teams.gnome.members; };
 
-  # Added 2021-05-07
+    # Added 2021-05-07
   imports = [ (mkRenamedOptionModule [
     "services"
     "gnome3"
@@ -62,20 +62,21 @@ in {
     "enable"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
     services.gnome.gnome-initial-setup = {
 
       enable = mkEnableOption (lib.mdDoc
-        "GNOME Initial Setup, a Simple, easy, and safe way to prepare a new system");
+        "GNOME Initial Setup, a Simple, easy, and safe way to prepare a new system")
+        ;
 
     };
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.gnome.gnome-initial-setup.enable {
 
@@ -91,8 +92,8 @@ in {
       "gnome-welcome-tour.service"
     ];
 
-    systemd.user.targets."gnome-session@gnome-initial-setup".wants =
-      [ "gnome-initial-setup.service" ];
+    systemd.user.targets."gnome-session@gnome-initial-setup".wants = [ "gnome-initial-setup.service" ]
+      ;
 
   };
 

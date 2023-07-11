@@ -30,7 +30,8 @@ let
 
     meta = with lib; {
       description =
-        "Online collaborative whiteboard that is simple, free, easy to use and to deploy";
+        "Online collaborative whiteboard that is simple, free, easy to use and to deploy"
+        ;
       license = licenses.agpl3Plus;
       homepage = "https://github.com/lovasoa/whitebophir";
       maintainers = with maintainers; [ iblech ];

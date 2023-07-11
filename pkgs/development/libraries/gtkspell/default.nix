@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     # https://github.com/archlinux/svntogit-packages/tree/packages/gtkspell/trunk
     (fetchpatch {
       url =
-        "https://github.com/archlinux/svntogit-packages/raw/17fb30b5196db378c18e7c115f28e97b962b95ff/trunk/enchant-2.diff";
+        "https://github.com/archlinux/svntogit-packages/raw/17fb30b5196db378c18e7c115f28e97b962b95ff/trunk/enchant-2.diff"
+        ;
       sha256 = "0d9409bnapwzwhnfpz3dvl6qalskqa4lzmhrmciazsypbw3ry5rf";
     })
   ];

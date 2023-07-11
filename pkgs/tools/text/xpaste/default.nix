@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [ xlib ];
 
-  # no tests, no python module to import, no version output to check
+    # no tests, no python module to import, no version output to check
   doCheck = false;
 
   meta = with lib; {

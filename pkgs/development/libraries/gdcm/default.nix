@@ -71,8 +71,8 @@ stdenv.mkDerivation rec {
     runHook postCheck
   '';
   doCheck = true;
-  # note that when the test data is available to the build via `fetchSubmodules = true`,
-  # a number of additional but much slower tests are enabled
+    # note that when the test data is available to the build via `fetchSubmodules = true`,
+    # a number of additional but much slower tests are enabled
 
   meta = with lib; {
     description = "The grassroots cross-platform DICOM implementation";

@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/loki-lib/Loki/Loki%20${version}/loki-${version}.tar.gz";
+      "mirror://sourceforge/loki-lib/Loki/Loki%20${version}/loki-${version}.tar.gz"
+      ;
     sha256 = "1xhwna961fl4298ac5cc629x5030zlw31vx4h8zws290amw5860g";
   };
 
@@ -25,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A C++ library of designs, containing flexible implementations of common design patterns and idioms";
+      "A C++ library of designs, containing flexible implementations of common design patterns and idioms"
+      ;
     homepage = "https://loki-lib.sourceforge.net";
     license = licenses.mit;
     platforms = platforms.all;

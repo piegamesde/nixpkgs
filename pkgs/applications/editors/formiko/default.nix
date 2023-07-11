@@ -40,7 +40,7 @@ buildPythonApplication rec {
     webkitgtk
   ];
 
-  # Needs a display
+    # Needs a display
   doCheck = false;
 
   meta = with lib; {

@@ -10,7 +10,7 @@ let
   cfg = config.services.tandoor-recipes;
   pkg = cfg.package;
 
-  # SECRET_KEY through an env file
+    # SECRET_KEY through an env file
   env = {
     GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
     DEBUG = "0";
@@ -19,15 +19,16 @@ let
     TIMEZONE = config.time.timeZone;
   } // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
-  manage = let
-    setupEnv = lib.concatStringsSep "\n"
-      (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
-  in
-  pkgs.writeShellScript "manage" ''
-    ${setupEnv}
-    exec ${pkg}/bin/tandoor-recipes "$@"
-  ''
-  ;
+  manage =
+    let
+      setupEnv = lib.concatStringsSep "\n"
+        (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
+    in
+    pkgs.writeShellScript "manage" ''
+      ${setupEnv}
+      exec ${pkg}/bin/tandoor-recipes "$@"
+    ''
+    ;
 in {
   meta.maintainers = with maintainers; [ ambroisie ];
 
@@ -126,7 +127,7 @@ in {
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        # gunicorn needs setuid
+          # gunicorn needs setuid
         SystemCallFilter = [
           "@system-service"
           "~@privileged"

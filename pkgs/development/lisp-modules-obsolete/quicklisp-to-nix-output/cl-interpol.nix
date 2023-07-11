@@ -19,7 +19,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-interpol/2020-12-20/cl-interpol-20201220-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-interpol/2020-12-20/cl-interpol-20201220-git.tgz"
+      ;
     sha256 = "1q3zxsbl5br08lv481jsqmq8r9yayp44x6icixcxx5sdz6fbcd3d";
   };
 

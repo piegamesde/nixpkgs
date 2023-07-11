@@ -8,7 +8,8 @@
   dataPath ? "/var/lib/rainloop"
 }:
 let
-  common = {
+  common =
+    {
       edition,
       sha256,
     }:
@@ -78,7 +79,8 @@ let
         platforms = platforms.all;
         maintainers = with maintainers; [ das_j ];
       };
-    });
+    })
+    ;
 in {
   rainloop-community = common {
     edition = "community";

@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.xserver.desktopManager.phosh;
 
-  # Based on https://source.puri.sm/Librem5/librem5-base/-/blob/4596c1056dd75ac7f043aede07887990fd46f572/default/sm.puri.OSK0.desktop
+    # Based on https://source.puri.sm/Librem5/librem5-base/-/blob/4596c1056dd75ac7f043aede07887990fd46f572/default/sm.puri.OSK0.desktop
   oskItem = pkgs.makeDesktopItem {
     name = "sm.puri.OSK0";
     desktopName = "On-screen keyboard";
@@ -112,18 +112,23 @@ let
     };
   };
 
-  optionalKV = k: v:
+  optionalKV =
+    k: v:
     if v == null then
       ""
     else
-      "${k} = ${builtins.toString v}";
+      "${k} = ${builtins.toString v}"
+    ;
 
-  renderPhocOutput = name: output:
+  renderPhocOutput =
+    name: output:
     let
-      modelines = if builtins.isList output.modeline then
-        output.modeline
-      else
-        [ output.modeline ];
+      modelines =
+        if builtins.isList output.modeline then
+          output.modeline
+        else
+          [ output.modeline ]
+        ;
       renderModeline = l: "modeline = ${l}";
     in ''
       [output:${name}]
@@ -131,9 +136,11 @@ let
       ${optionalKV "mode" output.mode}
       ${optionalKV "scale" output.scale}
       ${optionalKV "rotate" output.rotate}
-    '' ;
+    ''
+    ;
 
-  renderPhocConfig = phoc:
+  renderPhocConfig =
+    phoc:
     let
       outputs = mapAttrsToList renderPhocOutput phoc.outputs;
     in ''
@@ -142,7 +149,8 @@ let
       ${concatStringsSep "\n" outputs}
       [cursor]
       theme = ${phoc.cursorTheme}
-    '' ;
+    ''
+    ;
 
 in {
   options = {
@@ -191,7 +199,7 @@ in {
 
   config = mkIf cfg.enable {
     systemd.defaultUnit = "graphical.target";
-    # Inspired by https://gitlab.gnome.org/World/Phosh/phosh/-/blob/main/data/phosh.service
+      # Inspired by https://gitlab.gnome.org/World/Phosh/phosh/-/blob/main/data/phosh.service
     systemd.services.phosh = {
       wantedBy = [ "graphical.target" ];
       serviceConfig = {
@@ -207,12 +215,12 @@ in {
         TTYVHangup = "yes";
         TTYVTDisallocate = "yes";
 
-        # Fail to start if not controlling the tty.
+          # Fail to start if not controlling the tty.
         StandardInput = "tty-fail";
         StandardOutput = "journal";
         StandardError = "journal";
 
-        # Log this user with utmp, letting it show up with commands 'w' and 'who'.
+          # Log this user with utmp, letting it show up with commands 'w' and 'who'.
         UtmpIdentifier = "tty7";
         UtmpMode = "user";
       };
@@ -243,6 +251,7 @@ in {
       else if builtins.isString cfg.phocConfig then
         pkgs.writeText "phoc.ini" cfg.phocConfig
       else
-        pkgs.writeText "phoc.ini" (renderPhocConfig cfg.phocConfig);
+        pkgs.writeText "phoc.ini" (renderPhocConfig cfg.phocConfig)
+      ;
   };
 }

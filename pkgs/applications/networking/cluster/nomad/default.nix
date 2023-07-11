@@ -7,7 +7,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       buildGoModule,
       version,
       sha256,
@@ -35,9 +36,9 @@ let
         inherit sha256;
       };
 
-      # ui:
-      #  Nomad release commits include the compiled version of the UI, but the file
-      #  is only included if we build with the ui tag.
+        # ui:
+        #  Nomad release commits include the compiled version of the UI, but the file
+        #  is only included if we build with the ui tag.
       tags = [ "ui" ];
 
       meta = with lib; {
@@ -55,7 +56,7 @@ let
         ];
       };
     } // attrs')
-  ;
+    ;
 in rec {
   # Nomad never updates major go versions within a release series and is unsupported
   # on Go versions that it did not ship with. Due to historic bugs when compiled

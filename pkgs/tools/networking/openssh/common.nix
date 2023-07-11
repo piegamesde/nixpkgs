@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
 
     (fetchurl {
       url =
-        "https://git.alpinelinux.org/aports/plain/main/openssh/gss-serv.c.patch?id=a7509603971ce2f3282486a43bb773b1b522af83";
+        "https://git.alpinelinux.org/aports/plain/main/openssh/gss-serv.c.patch?id=a7509603971ce2f3282486a43bb773b1b522af83"
+        ;
       sha256 = "sha256-eFFOd4B2nccRZAQWwdBPBoKWjfEdKEVGJvKZAzLu3HU=";
     })
 
@@ -76,8 +77,8 @@ stdenv.mkDerivation rec {
     unset LD
   '';
 
-  # I set --disable-strip because later we strip anyway. And it fails to strip
-  # properly when cross building.
+    # I set --disable-strip because later we strip anyway. And it fails to strip
+    # properly when cross building.
   configureFlags = [
     "--sbindir=\${out}/bin"
     "--localstatedir=/var"
@@ -156,9 +157,9 @@ stdenv.mkDerivation rec {
     # set up NIX_REDIRECTS for direct invocations
     set -a; source ~/.ssh/environment.base; set +a
   '';
-  # integration tests hard to get working on darwin with its shaky
-  # sandbox
-  # t-exec tests fail on musl
+    # integration tests hard to get working on darwin with its shaky
+    # sandbox
+    # t-exec tests fail on musl
   checkTarget = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl)
     "t-exec"
     # other tests are less demanding of the environment

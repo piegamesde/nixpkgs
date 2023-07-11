@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     description =
       "Devour hides your current window when launching an external program";
     longDescription =
-      "Devour hides your current window before launching an external program and unhides it after quitting";
+      "Devour hides your current window before launching an external program and unhides it after quitting"
+      ;
     homepage = "https://github.com/salman-abedin/devour";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ mazurel ];

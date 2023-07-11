@@ -7,14 +7,15 @@ import ./make-test-python.nix ({
 
     meta = {
       maintainers = with lib.maintainers; [ OPNA2608 ];
-      # Natively running Mir has problems with capturing the first registered libinput device.
-      # In our VM  runners on ARM and on some hardware configs (my RPi4, distro-independent), this misses the keyboard.
-      # It can be worked around by dis- and reconnecting the affected hardware, but we can't do this in these tests.
-      # https://github.com/MirServer/mir/issues/2837
+        # Natively running Mir has problems with capturing the first registered libinput device.
+        # In our VM  runners on ARM and on some hardware configs (my RPi4, distro-independent), this misses the keyboard.
+        # It can be worked around by dis- and reconnecting the affected hardware, but we can't do this in these tests.
+        # https://github.com/MirServer/mir/issues/2837
       broken = pkgs.stdenv.hostPlatform.isAarch;
     };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         ...
       }: {
@@ -23,7 +24,7 @@ import ./make-test-python.nix ({
           ./common/user-account.nix
         ];
 
-        # Seems to very rarely get interrupted by oom-killer
+          # Seems to very rarely get interrupted by oom-killer
         virtualisation.memorySize = 2047;
 
         test-support.displayManager.auto = {
@@ -54,7 +55,8 @@ import ./make-test-python.nix ({
         environment = {
           shellAliases = {
             test-wayland =
-              "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
+              "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok"
+              ;
             test-x11 =
               "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
           };
@@ -66,7 +68,7 @@ import ./make-test-python.nix ({
             alacritty
           ];
 
-          # To help with OCR
+            # To help with OCR
           etc."xdg/foot/foot.ini".text = lib.generators.toINI { } {
             main = { font = "inconsolata:size=16"; };
             colors = rec {
@@ -94,11 +96,13 @@ import ./make-test-python.nix ({
         };
 
         fonts.fonts = [ pkgs.inconsolata ];
-      };
+      }
+      ;
 
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -134,5 +138,6 @@ import ./make-test-python.nix ({
         # machine.send_chars("exit\n")
         # machine.wait_until_fails("pgrep alacritty")
         machine.succeed("pkill alacritty")
-      '';
+      ''
+      ;
   })

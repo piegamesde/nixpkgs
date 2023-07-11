@@ -22,7 +22,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  # Tests require git lfs download of repository
+    # Tests require git lfs download of repository
   doCheck = false;
 
   meta = {

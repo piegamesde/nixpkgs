@@ -30,7 +30,7 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  # Tests require various container and database services running
+    # Tests require various container and database services running
   doCheck = false;
 
   pythonImportsCheck = [ "testcontainers" ];

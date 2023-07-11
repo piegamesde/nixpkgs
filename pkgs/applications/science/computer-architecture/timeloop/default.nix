@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  #link-time optimization fails on darwin
-  #see https://github.com/NixOS/nixpkgs/issues/19098
+    #link-time optimization fails on darwin
+    #see https://github.com/NixOS/nixpkgs/issues/19098
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-fno-lto";
 
   postPatch = ''

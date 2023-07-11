@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   patches = lib.optional stdenv.isDarwin ./UNUSED-darwin.patch;
 
-  # fails to find X on darwin
+    # fails to find X on darwin
   configureFlags = lib.optional stdenv.isDarwin "--without-x";
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;

@@ -17,13 +17,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://mirrors.ctan.org/obsolete/systems/unix/teTeX/${version}/distrib/tetex-src-${version}.tar.gz";
+      "http://mirrors.ctan.org/obsolete/systems/unix/teTeX/${version}/distrib/tetex-src-${version}.tar.gz"
+      ;
     sha256 = "16v44465ipd9yyqri9rgxp6rbgs194k4sh1kckvccvdsnnp7w3ww";
   };
 
   texmf = fetchurl {
     url =
-      "http://mirrors.ctan.org/obsolete/systems/unix/teTeX/${version}/distrib/tetex-texmf-${version}.tar.gz";
+      "http://mirrors.ctan.org/obsolete/systems/unix/teTeX/${version}/distrib/tetex-texmf-${version}.tar.gz"
+      ;
     sha256 = "1hj06qvm02a2hx1a67igp45kxlbkczjlg20gr8lbp73l36k8yfvc";
   };
 
@@ -38,17 +40,19 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  # fixes "error: conflicting types for 'calloc'", etc.
+    # fixes "error: conflicting types for 'calloc'", etc.
   preBuild = lib.optionalString stdenv.isDarwin ''
     sed -i 57d texk/kpathsea/c-std.h
   '';
 
-  preConfigure = if stdenv.isCygwin then
-    ''
-      find ./ -name "config.guess" -exec rm {} \; -exec ln -s ${automake}/share/automake-*/config.guess {} \;
-    ''
-  else
-    null;
+  preConfigure =
+    if stdenv.isCygwin then
+      ''
+        find ./ -name "config.guess" -exec rm {} \; -exec ln -s ${automake}/share/automake-*/config.guess {} \;
+      ''
+    else
+      null
+    ;
 
   patches = [
     ./environment.patch

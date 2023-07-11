@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.freedesktop.org/software/media-player-info/${pname}-${version}.tar.gz";
+      "https://www.freedesktop.org/software/media-player-info/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0d0i7av8v369hzvlynwlrbickv1brlzsmiky80lrjgjh1gdldkz6";
   };
 

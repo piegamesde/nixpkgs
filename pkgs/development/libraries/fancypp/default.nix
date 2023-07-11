@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-E2JsQnvrqrZFYo+xBJr7xDCoPnRQftqUjjBpZzFvIic=";
   };
 
-  # Header-only library.
+    # Header-only library.
   dontBuild = true;
 
   installPhase = ''

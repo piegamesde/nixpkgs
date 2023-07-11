@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "sarif_om" ];
 
-  # no tests included with tarball
+    # no tests included with tarball
   doCheck = false;
 
   meta = with lib; {

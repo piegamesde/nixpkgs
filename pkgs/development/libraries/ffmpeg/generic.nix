@@ -460,7 +460,8 @@ stdenv.mkDerivation (finalAttrs: {
       && lib.versionOlder version "6.1") { # this can be removed post 6.1
         name = "fix_aacps_tablegen";
         url =
-          "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554";
+          "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554"
+          ;
         hash = "sha256-FQV9/PiarPXCm45ldtCsxGHjlrriL8DKpn1LaKJ8owI=";
       }));
 
@@ -628,18 +629,19 @@ stdenv.mkDerivation (finalAttrs: {
       "--cxx=clang++"
     ];
 
-  # ffmpeg embeds the configureFlags verbatim in its binaries and because we
-  # configure binary, include, library dir etc., this causes references in
-  # outputs where we don't want them. Patch the generated config.h to remove all
-  # such references except for data.
-  postConfigure = let
-    toStrip = lib.remove "data"
-      finalAttrs.outputs; # We want to keep references to the data dir.
-  in
-  "remove-references-to ${
-    lib.concatStringsSep " " (map (o: "-t ${placeholder o}") toStrip)
-  } config.h"
-  ;
+    # ffmpeg embeds the configureFlags verbatim in its binaries and because we
+    # configure binary, include, library dir etc., this causes references in
+    # outputs where we don't want them. Patch the generated config.h to remove all
+    # such references except for data.
+  postConfigure =
+    let
+      toStrip = lib.remove "data" finalAttrs.outputs
+        ; # We want to keep references to the data dir.
+    in
+    "remove-references-to ${
+      lib.concatStringsSep " " (map (o: "-t ${placeholder o}") toStrip)
+    } config.h"
+    ;
 
   nativeBuildInputs = [
     removeReferencesTo
@@ -650,7 +652,7 @@ stdenv.mkDerivation (finalAttrs: {
     yasm
   ];
 
-  # TODO This was always in buildInputs before, why?
+    # TODO This was always in buildInputs before, why?
   buildInputs = optionals withFullDeps [ libdc1394 ] ++ optionals (withFullDeps
     && !stdenv.isDarwin) [ libraw1394 ] # TODO where does this belong to
     ++ optionals (withNvdec || withNvenc) [ (if
@@ -723,31 +725,35 @@ stdenv.mkDerivation (finalAttrs: {
       VideoToolbox
     ];
 
-  buildFlags = [ "all" ] ++ optional buildQtFaststart
-    "tools/qt-faststart"; # Build qt-faststart executable
+  buildFlags = [ "all" ] ++ optional buildQtFaststart "tools/qt-faststart"
+    ; # Build qt-faststart executable
 
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 
-  # Fails with SIGABRT otherwise FIXME: Why?
-  checkPhase = let
-    ldLibraryPathEnv = if stdenv.isDarwin then
-      "DYLD_LIBRARY_PATH"
-    else
-      "LD_LIBRARY_PATH";
-    libsToLink = [ ] ++ optional buildAvcodec "libavcodec"
-      ++ optional buildAvdevice "libavdevice"
-      ++ optional buildAvfilter "libavfilter"
-      ++ optional buildAvformat "libavformat"
-      ++ optional buildAvresample "libavresample"
-      ++ optional buildAvutil "libavutil"
-      ++ optional buildPostproc "libpostproc"
-      ++ optional buildSwresample "libswresample"
-      ++ optional buildSwscale "libswscale";
-  in ''
-    ${ldLibraryPathEnv}="${
-      lib.concatStringsSep ":" libsToLink
-    }" make check -j$NIX_BUILD_CORES
-  '' ;
+    # Fails with SIGABRT otherwise FIXME: Why?
+  checkPhase =
+    let
+      ldLibraryPathEnv =
+        if stdenv.isDarwin then
+          "DYLD_LIBRARY_PATH"
+        else
+          "LD_LIBRARY_PATH"
+        ;
+      libsToLink = [ ] ++ optional buildAvcodec "libavcodec"
+        ++ optional buildAvdevice "libavdevice"
+        ++ optional buildAvfilter "libavfilter"
+        ++ optional buildAvformat "libavformat"
+        ++ optional buildAvresample "libavresample"
+        ++ optional buildAvutil "libavutil"
+        ++ optional buildPostproc "libpostproc"
+        ++ optional buildSwresample "libswresample"
+        ++ optional buildSwscale "libswscale";
+    in ''
+      ${ldLibraryPathEnv}="${
+        lib.concatStringsSep ":" libsToLink
+      }" make check -j$NIX_BUILD_CORES
+    ''
+    ;
 
   outputs = optionals
     withBin [ "bin" ] # The first output is the one that gets symlinked by default!
@@ -758,14 +764,14 @@ stdenv.mkDerivation (finalAttrs: {
       "data"
       "out"
     ] # We need an "out" output because we get an error otherwise. It's just an empty dir.
-  ;
+    ;
 
   postInstall = optionalString buildQtFaststart ''
     install -D tools/qt-faststart -t $bin/bin
   '';
 
-  # Set RUNPATH so that libnvcuvid and libcuda in /run/opengl-driver(-32)/lib can be found.
-  # See the explanation in addOpenGLRunpath.
+    # Set RUNPATH so that libnvcuvid and libcuda in /run/opengl-driver(-32)/lib can be found.
+    # See the explanation in addOpenGLRunpath.
   postFixup = optionalString (stdenv.isLinux && withLib) ''
     addOpenGLRunpath ${placeholder "lib"}/lib/libavcodec.so
     addOpenGLRunpath ${placeholder "lib"}/lib/libavutil.so
@@ -777,7 +783,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description =
-      "A complete, cross-platform solution to record, convert and stream audio and video";
+      "A complete, cross-platform solution to record, convert and stream audio and video"
+      ;
     homepage = "https://www.ffmpeg.org/";
     changelog = "https://github.com/FFmpeg/FFmpeg/blob/n${version}/Changelog";
     longDescription = ''

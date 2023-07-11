@@ -19,7 +19,7 @@ buildPythonPackage rec {
   pname = "pvlib";
   version = "0.7.2";
 
-  # Support for Python <3.5 dropped in 0.6.3 on June 1, 2019.
+    # Support for Python <3.5 dropped in 0.6.3 on June 1, 2019.
   disabled = pythonOlder "3.5";
 
   src = fetchPypi {
@@ -31,7 +31,8 @@ buildPythonPackage rec {
     # enable later pandas versions, remove next bump
     (fetchpatch {
       url =
-        "https://github.com/pvlib/pvlib-python/commit/010a2adc9e9ef6fe9f2aea4c02d7e6ede9f96a53.patch";
+        "https://github.com/pvlib/pvlib-python/commit/010a2adc9e9ef6fe9f2aea4c02d7e6ede9f96a53.patch"
+        ;
       sha256 = "0jibn4khixz6hv6racmp86m5mcms0ysz1y5bgpplw1kcvf8sn04x";
       excludes = [
         "pvlib/tests/test_inverter.py"
@@ -55,7 +56,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  # Skip a few tests that try to access some URLs
+    # Skip a few tests that try to access some URLs
   pytestFlagsArray = [ "pvlib/tests" ];
   disabledTests = [
     "read_srml_dt_index"

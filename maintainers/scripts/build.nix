@@ -15,7 +15,8 @@
 let
   pkgs = import ./../../default.nix (removeAttrs args [ "maintainer" ]);
   maintainer_ = pkgs.lib.maintainers.${maintainer};
-  packagesWith = cond: return: set:
+  packagesWith =
+    cond: return: set:
     (pkgs.lib.flatten (pkgs.lib.mapAttrsToList (name: pkg:
       let
         result = builtins.tryEval (if
@@ -34,7 +35,8 @@ let
       in if result.success then
         result.value
       else
-        [ ]) set));
+        [ ]) set))
+    ;
 in
 packagesWith (name: pkg:
   (if

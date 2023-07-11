@@ -39,7 +39,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/williamFalcon/test-tube";
     description =
-      "Framework-agnostic library to track and parallelize hyperparameter search in machine learning experiments";
+      "Framework-agnostic library to track and parallelize hyperparameter search in machine learning experiments"
+      ;
     license = licenses.mit;
     maintainers = [ maintainers.tbenst ];
   };

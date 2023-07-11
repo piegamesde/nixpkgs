@@ -46,13 +46,13 @@ stdenv.mkDerivation rec {
       --prefix LD_LIBRARY_PATH : $out/lib
   '';
 
-  # Fixes /usr/bin/file: No such file or directory
+    # Fixes /usr/bin/file: No such file or directory
   preConfigure = ''
     substituteInPlace configure \
       --replace "/usr/bin/file" "${file}/bin/file"
   '';
 
-  # Hack to avoid TMPDIR in RPATHs.
+    # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" '';
 
   meta = with lib; {

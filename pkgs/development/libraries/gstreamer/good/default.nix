@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz"
+      ;
     hash = "sha256-fIzFlCXysjL2DKfRPlbt1hXaT3Eec90Bp8/6Rua8DN0=";
   };
 
@@ -173,10 +174,10 @@ stdenv.mkDerivation rec {
     "-lncurses"
   ];
 
-  # fails 1 tests with "Unexpected critical/warning: g_object_set_is_valid_property: object class 'GstRtpStorage' has no property named ''"
+    # fails 1 tests with "Unexpected critical/warning: g_object_set_is_valid_property: object class 'GstRtpStorage' has no property named ''"
   doCheck = false;
 
-  # must be explicitly set since 5590e365
+    # must be explicitly set since 5590e365
   dontWrapQtApps = true;
 
   meta = with lib; {

@@ -10,7 +10,8 @@ import ../make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
 
     nodes = {
-      server = {
+      server =
+        {
           options,
           ...
         }: {
@@ -33,8 +34,8 @@ import ../make-test-python.nix ({
                 keyPath = "${certs.${domain}.key}";
               } ];
             };
-            # Enable TLS listeners. Configuring this via the module is not yet
-            # implemented.
+              # Enable TLS listeners. Configuring this via the module is not yet
+              # implemented.
             config = builtins.replaceStrings [
               "imap tcp://0.0.0.0:143"
               "submission tcp://0.0.0.0:587"
@@ -43,14 +44,16 @@ import ../make-test-python.nix ({
               "submission tls://0.0.0.0:465 tcp://0.0.0.0:587"
             ] options.services.maddy.config.default;
           };
-          # Not covered by openFirewall yet
+            # Not covered by openFirewall yet
           networking.firewall.allowedTCPPorts = [
             993
             465
           ];
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           nodes,
           ...
         }: {
@@ -89,7 +92,8 @@ import ../make-test-python.nix ({
                   assert msg[0][1].strip() == b"Hello World"
             '')
           ];
-        };
+        }
+        ;
     };
 
     testScript = ''

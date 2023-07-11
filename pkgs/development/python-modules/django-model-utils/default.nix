@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  # requires postgres database
+    # requires postgres database
   doCheck = false;
 
   nativeCheckInputs = [
@@ -47,7 +47,8 @@ buildPythonPackage rec {
     homepage = "https://github.com/jazzband/django-model-utils";
     description = "Django model mixins and utilities";
     changelog =
-      "https://github.com/jazzband/django-model-utils/blob/${version}/CHANGES.rst";
+      "https://github.com/jazzband/django-model-utils/blob/${version}/CHANGES.rst"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

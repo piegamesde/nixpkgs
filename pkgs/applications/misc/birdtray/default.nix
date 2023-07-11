@@ -43,8 +43,8 @@ mkDerivation rec {
       --subst-var-by qttranslations ${qttranslations}
   '';
 
-  # Wayland support is broken.
-  # https://github.com/gyunaev/birdtray/issues/113#issuecomment-621742315
+    # Wayland support is broken.
+    # https://github.com/gyunaev/birdtray/issues/113#issuecomment-621742315
   qtWrapperArgs = [ "--set QT_QPA_PLATFORM xcb" ];
 
   meta = with lib; {

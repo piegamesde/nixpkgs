@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "nginx-njs";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         lib,
         pkgs,
@@ -28,7 +29,8 @@ import ./make-test-python.nix ({
             js_content http.hello;
           '';
         };
-      };
+      }
+      ;
     testScript = ''
       machine.wait_for_unit("nginx")
 

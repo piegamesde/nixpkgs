@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "ladybird";
     meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -14,7 +15,8 @@ import ./make-test-python.nix ({
 
         services.xserver.enable = true;
         environment.systemPackages = [ pkgs.ladybird ];
-      };
+      }
+      ;
 
     enableOCR = true;
 

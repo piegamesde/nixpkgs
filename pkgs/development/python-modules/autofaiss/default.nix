@@ -68,7 +68,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Automatically create Faiss knn indices with the most optimal similarity search parameters";
+      "Automatically create Faiss knn indices with the most optimal similarity search parameters"
+      ;
     homepage = "https://github.com/criteo/autofaiss";
     changelog =
       "https://github.com/criteo/autofaiss/blob/${version}/CHANGELOG.md";

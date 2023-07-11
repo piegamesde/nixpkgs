@@ -38,9 +38,9 @@ in {
       rustPlatform.bindgenHook
     ];
 
-    # test rely on libindradb and it can't be found
-    # failure at https://github.com/indradb/indradb/blob/master/server/tests/plugins.rs#L63
-    # `let _server = Server::start(&format!("../target/debug/libindradb_plugin_*.{}", LIBRARY_EXTENSION)).unwrap();`
+      # test rely on libindradb and it can't be found
+      # failure at https://github.com/indradb/indradb/blob/master/server/tests/plugins.rs#L63
+      # `let _server = Server::start(&format!("../target/debug/libindradb_plugin_*.{}", LIBRARY_EXTENSION)).unwrap();`
     doCheck = false;
   };
   indradb-client = rustPlatform.buildRustPackage {

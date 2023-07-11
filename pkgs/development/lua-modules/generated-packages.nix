@@ -370,7 +370,8 @@ final: prev: {
       meta = {
         homepage = "https://github.com/keplerproject/lua-compat-5.3";
         description =
-          "Compatibility module providing Lua-5.3-style APIs for Lua 5.2 and 5.1";
+          "Compatibility module providing Lua-5.3-style APIs for Lua 5.2 and 5.1"
+          ;
         maintainers = with lib.maintainers; [ vcunat ];
         license.fullName = "MIT";
       };
@@ -473,7 +474,8 @@ final: prev: {
       meta = {
         homepage = "http://25thandclement.com/~william/projects/cqueues.html";
         description =
-          "Continuation Queues: Embeddable asynchronous networking, threading, and notification framework for Lua on Unix.";
+          "Continuation Queues: Embeddable asynchronous networking, threading, and notification framework for Lua on Unix."
+          ;
         maintainers = with lib.maintainers; [ vcunat ];
         license.fullName = "MIT/X11";
       };
@@ -619,7 +621,8 @@ final: prev: {
       }).outPath;
       src = fetchurl {
         url =
-          "http://dkolf.de/src/dkjson-lua.fsl/tarball/dkjson-2.6.tar.gz?uuid=release_2_6";
+          "http://dkolf.de/src/dkjson-lua.fsl/tarball/dkjson-2.6.tar.gz?uuid=release_2_6"
+          ;
         sha256 = "0wwpdz20fvg5j36902892mnb99craf22697r6v7xdblqnd7fw1xx";
       };
 
@@ -1188,7 +1191,8 @@ final: prev: {
       meta = {
         homepage = "https://github.com/leafo/loadkit";
         description =
-          "Loadkit allows you to load arbitrary files within the Lua package path";
+          "Loadkit allows you to load arbitrary files within the Lua package path"
+          ;
         maintainers = with lib.maintainers; [ alerque ];
         license.fullName = "MIT";
       };
@@ -1636,7 +1640,8 @@ final: prev: {
       }).outPath;
       src = fetchurl {
         url =
-          "https://framagit.org/fperrad/lua-MessagePack/raw/releases/lua-messagepack-0.5.2.tar.gz";
+          "https://framagit.org/fperrad/lua-MessagePack/raw/releases/lua-messagepack-0.5.2.tar.gz"
+          ;
         sha256 = "1jgi944d0vx4zs9lrphys9pw0wrsibip93sh141qjwymrjyjg1nc";
       };
 
@@ -1821,7 +1826,8 @@ final: prev: {
       meta = {
         homepage = "https://github.com/zmartzone/lua-resty-openidc";
         description =
-          "A library for NGINX implementing the OpenID Connect Relying Party (RP) and the OAuth 2.0 Resource Server (RS) functionality";
+          "A library for NGINX implementing the OpenID Connect Relying Party (RP) and the OAuth 2.0 Resource Server (RS) functionality"
+          ;
         license.fullName = "Apache 2.0";
       };
     }) { };
@@ -1903,8 +1909,8 @@ final: prev: {
         homepage = "https://github.com/bungle/lua-resty-session";
         description = "Session Library for OpenResty - Flexible and Secure";
         license.fullName = "BSD";
-        broken =
-          true; # lua_pack and lua-ffi-zlib are unpackaged, causing this package to not evaluate
+        broken = true
+          ; # lua_pack and lua-ffi-zlib are unpackaged, causing this package to not evaluate
       };
     }) { };
 
@@ -1941,7 +1947,8 @@ final: prev: {
       meta = {
         homepage = "https://github.com/xlq/lua-subprocess";
         description =
-          "A Lua module written in C that allows you to create child processes and communicate with them.";
+          "A Lua module written in C that allows you to create child processes and communicate with them."
+          ;
         maintainers = with lib.maintainers; [ scoder12 ];
         license.fullName = "MIT";
       };
@@ -2826,7 +2833,8 @@ final: prev: {
       meta = {
         homepage = "https://github.com/brunoos/luasec/wiki";
         description =
-          "A binding for OpenSSL library to provide TLS/SSL communication over LuaSocket.";
+          "A binding for OpenSSL library to provide TLS/SSL communication over LuaSocket."
+          ;
         maintainers = with lib.maintainers; [ flosse ];
         license.fullName = "MIT";
       };
@@ -3030,7 +3038,8 @@ final: prev: {
       }).outPath;
       src = fetchzip {
         url =
-          "https://github.com/bluebird75/luaunit/releases/download/LUAUNIT_V3_4/rock-luaunit-3.4.zip";
+          "https://github.com/bluebird75/luaunit/releases/download/LUAUNIT_V3_4/rock-luaunit-3.4.zip"
+          ;
         sha256 = "0qf07y3229lq3qq1mfkv83gzbc7dgyr67hysqjb5bbk333flv56r";
       };
 
@@ -3200,7 +3209,8 @@ final: prev: {
       }).outPath;
       src = fetchurl {
         url =
-          "https://github.com/luvit/luv/releases/download/1.44.2-1/luv-1.44.2-1.tar.gz";
+          "https://github.com/luvit/luv/releases/download/1.44.2-1/luv-1.44.2-1.tar.gz"
+          ;
         sha256 = "0c2wkszxw6gwa4l6g1d2zzh660j13lif6c7a910vq7zn8jycgd9y";
       };
 
@@ -3300,7 +3310,8 @@ final: prev: {
       }).outPath;
       src = fetchurl {
         url =
-          "https://github.com/Olivine-Labs/mediator_lua/archive/v1.1.2-0.tar.gz";
+          "https://github.com/Olivine-Labs/mediator_lua/archive/v1.1.2-0.tar.gz"
+          ;
         sha256 = "16zzzhiy3y35v8advmlkzpryzxv5vji7727vwkly86q8sagqbxgs";
       };
 
@@ -3373,7 +3384,8 @@ final: prev: {
       }).outPath;
       src = fetchurl {
         url =
-          "https://github.com/libmpack/libmpack-lua/releases/download/1.0.9/libmpack-lua-1.0.9.tar.gz";
+          "https://github.com/libmpack/libmpack-lua/releases/download/1.0.9/libmpack-lua-1.0.9.tar.gz"
+          ;
         sha256 = "17lyjmnbychacwahqgs128nb00xky777g7zw5wf20vrzkiq7xl0g";
       };
 
@@ -3492,7 +3504,8 @@ final: prev: {
       meta = {
         homepage = "https://lunarmodules.github.io/penlight";
         description =
-          "Lua utility libraries loosely based on the Python standard libraries";
+          "Lua utility libraries loosely based on the Python standard libraries"
+          ;
         maintainers = with lib.maintainers; [ alerque ];
         license.fullName = "MIT/X11";
       };
@@ -3757,7 +3770,8 @@ final: prev: {
       meta = {
         homepage = "https://github.com/tami5/sqlite.lua";
         description =
-          "SQLite/LuaJIT binding and a highly opinionated wrapper for storing, retrieving, caching, and persisting [SQLite] databases";
+          "SQLite/LuaJIT binding and a highly opinionated wrapper for storing, retrieving, caching, and persisting [SQLite] databases"
+          ;
         license.fullName = "MIT";
       };
     }) { };
@@ -3945,7 +3959,8 @@ final: prev: {
       meta = {
         homepage = "https://github.com/mrcjkb/telescope-manix";
         description =
-          "A telescope.nvim extension for Manix - A fast documentation searcher for Nix";
+          "A telescope.nvim extension for Manix - A fast documentation searcher for Nix"
+          ;
         license.fullName = "GPL-2.0";
       };
     }) { };

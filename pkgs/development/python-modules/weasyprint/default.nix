@@ -39,17 +39,23 @@ buildPythonPackage rec {
   patches = [ (substituteAll {
     src = ./library-paths.patch;
     fontconfig =
-      "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
+      "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}"
+      ;
     pangoft2 =
-      "${pango.out}/lib/libpangoft2-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      "${pango.out}/lib/libpangoft2-1.0${stdenv.hostPlatform.extensions.sharedLibrary}"
+      ;
     gobject =
-      "${glib.out}/lib/libgobject-2.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      "${glib.out}/lib/libgobject-2.0${stdenv.hostPlatform.extensions.sharedLibrary}"
+      ;
     pango =
-      "${pango.out}/lib/libpango-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      "${pango.out}/lib/libpango-1.0${stdenv.hostPlatform.extensions.sharedLibrary}"
+      ;
     pangocairo =
-      "${pango.out}/lib/libpangocairo-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      "${pango.out}/lib/libpangocairo-1.0${stdenv.hostPlatform.extensions.sharedLibrary}"
+      ;
     harfbuzz =
-      "${harfbuzz.out}/lib/libharfbuzz${stdenv.hostPlatform.extensions.sharedLibrary}";
+      "${harfbuzz.out}/lib/libharfbuzz${stdenv.hostPlatform.extensions.sharedLibrary}"
+      ;
   }) ];
 
   nativeBuildInputs = [ flit-core ];
@@ -82,7 +88,7 @@ buildPythonPackage rec {
 
   FONTCONFIG_FILE = "${fontconfig.out}/etc/fonts/fonts.conf";
 
-  # Fontconfig error: Cannot load default config file: No such file: (null)
+    # Fontconfig error: Cannot load default config file: No such file: (null)
   makeWrapperArgs = [ "--set FONTCONFIG_FILE ${FONTCONFIG_FILE}" ];
 
   postPatch = ''

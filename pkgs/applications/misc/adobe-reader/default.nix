@@ -18,17 +18,18 @@ stdenv.mkDerivation rec {
   pname = "adobe-reader";
   version = "9.5.5";
 
-  # TODO: convert to phases
+    # TODO: convert to phases
   builder = ./builder.sh;
 
   src = fetchurl {
     url =
-      "http://ardownload.adobe.com/pub/adobe/reader/unix/9.x/${version}/enu/AdbeRdr${version}-1_i486linux_enu.tar.bz2";
+      "http://ardownload.adobe.com/pub/adobe/reader/unix/9.x/${version}/enu/AdbeRdr${version}-1_i486linux_enu.tar.bz2"
+      ;
     sha256 = "0h35misxrqkl5zlmmvray1bqf4ywczkm89n9qw7d9arqbg3aj3pf";
   };
 
-  # !!! Adobe Reader contains copies of OpenSSL, libcurl, and libicu.
-  # We should probably remove those and use the regular Nixpkgs versions.
+    # !!! Adobe Reader contains copies of OpenSSL, libcurl, and libicu.
+    # We should probably remove those and use the regular Nixpkgs versions.
   libPath = lib.makeLibraryPath [
     stdenv.cc.cc
     libX11

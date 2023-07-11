@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ types-urllib3 ];
 
-  # Module doesn't have tests
+    # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "requests-stubs" ];

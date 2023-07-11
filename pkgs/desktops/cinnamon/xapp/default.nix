@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     libdbusmenu-gtk3
   ];
 
-  # Requires in xapp.pc
+    # Requires in xapp.pc
   propagatedBuildInputs = [
     gtk3
     cairo

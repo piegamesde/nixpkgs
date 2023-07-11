@@ -21,8 +21,8 @@ let
 
   withPostgresql = config.services.postgresql.enable;
 
-  # This deliberately doesn't use recursiveUpdate so users can
-  # override the defaults.
+    # This deliberately doesn't use recursiveUpdate so users can
+    # override the defaults.
   webSettings = {
     DEFAULT_FROM_EMAIL = cfg.siteOwner;
     SERVER_EMAIL = cfg.siteOwner;
@@ -48,10 +48,10 @@ let
     };
   } // cfg.webSettings;
 
-  webSettingsJSON =
-    pkgs.writeText "settings.json" (builtins.toJSON webSettings);
+  webSettingsJSON = pkgs.writeText "settings.json" (builtins.toJSON webSettings)
+    ;
 
-  # TODO: Should this be RFC42-ised so that users can set additional options without modifying the module?
+    # TODO: Should this be RFC42-ised so that users can set additional options without modifying the module?
   postfixMtaConfig = pkgs.writeText "mailman-postfix.cfg" ''
     [postfix]
     postmap_command: ${pkgs.postfix}/bin/postmap
@@ -120,7 +120,8 @@ in {
         type = types.bool;
         default = false;
         description = lib.mdDoc
-          "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix).";
+          "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix)."
+          ;
       };
 
       ldap = {
@@ -188,10 +189,12 @@ in {
               "nestedOrganizationalRoleGroup"
             ];
             default = "posixGroup";
-            apply = v:
+            apply =
+              v:
               "${toUpper (substring 0 1 v)}${
                 substring 1 (stringLength v) v
-              }Type";
+              }Type"
+              ;
             description = lib.mdDoc ''
               Type of group to perform a group search against.
             '';
@@ -319,7 +322,8 @@ in {
 
       extraPythonPackages = mkOption {
         description = lib.mdDoc
-          "Packages to add to the python environment used by mailman and mailman-web";
+          "Packages to add to the python environment used by mailman and mailman-web"
+          ;
         type = types.listOf types.package;
         default = [ ];
       };
@@ -347,7 +351,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -370,7 +374,8 @@ in {
         "${postfixMtaConfig}"
       else
         throw
-        "When Mailman Postfix integration is disabled, set `services.mailman.settings.mta.configuration` to the path of the config file required to integrate with your MTA.");
+        "When Mailman Postfix integration is disabled, set `services.mailman.settings.mta.configuration` to the path of the config file required to integrate with your MTA.")
+        ;
 
       "archiver.hyperkitty" = lib.mkIf cfg.hyperkitty.enable {
         class = "mailman_hyperkitty.Archiver";
@@ -399,53 +404,56 @@ in {
     lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
     );
 
-    assertions = let
-      inherit (config.services) postfix;
+    assertions =
+      let
+        inherit (config.services) postfix;
 
-      requirePostfixHash = optionPath: dataFile:
-        with lib;
-        let
-          expected = "hash:/var/lib/mailman/data/${dataFile}";
-          value = attrByPath optionPath [ ] postfix;
-        in {
-          assertion = postfix.enable -> isList value && elem expected value;
-          message = ''
-            services.postfix.${concatStringsSep "." optionPath} must contain
-            "${expected}".
-            See <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>.
-          '';
-        } ;
-    in
-    [ {
-      assertion = cfg.webHosts != [ ];
-      message = ''
-        services.mailman.serve.enable requires there to be at least one entry
-        in services.mailman.webHosts.
-      '';
-    } ] ++ (lib.optionals cfg.enablePostfix [
-      {
-        assertion = postfix.enable;
+        requirePostfixHash =
+          optionPath: dataFile:
+          with lib;
+          let
+            expected = "hash:/var/lib/mailman/data/${dataFile}";
+            value = attrByPath optionPath [ ] postfix;
+          in {
+            assertion = postfix.enable -> isList value && elem expected value;
+            message = ''
+              services.postfix.${concatStringsSep "." optionPath} must contain
+              "${expected}".
+              See <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>.
+            '';
+          }
+          ;
+      in
+      [ {
+        assertion = cfg.webHosts != [ ];
         message = ''
-          Mailman's default NixOS configuration requires Postfix to be enabled.
-
-          If you want to use another MTA, set services.mailman.enablePostfix
-          to false and configure settings in services.mailman.settings.mta.
-
-          Refer to <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>
-          for more info.
+          services.mailman.serve.enable requires there to be at least one entry
+          in services.mailman.webHosts.
         '';
-      }
-      (requirePostfixHash [ "relayDomains" ] "postfix_domains")
-      (requirePostfixHash [
-        "config"
-        "transport_maps"
-      ] "postfix_lmtp")
-      (requirePostfixHash [
-        "config"
-        "local_recipient_maps"
-      ] "postfix_lmtp")
-    ])
-    ;
+      } ] ++ (lib.optionals cfg.enablePostfix [
+        {
+          assertion = postfix.enable;
+          message = ''
+            Mailman's default NixOS configuration requires Postfix to be enabled.
+
+            If you want to use another MTA, set services.mailman.enablePostfix
+            to false and configure settings in services.mailman.settings.mta.
+
+            Refer to <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>
+            for more info.
+          '';
+        }
+        (requirePostfixHash [ "relayDomains" ] "postfix_domains")
+        (requirePostfixHash [
+          "config"
+          "transport_maps"
+        ] "postfix_lmtp")
+        (requirePostfixHash [
+          "config"
+          "local_recipient_maps"
+        ] "postfix_lmtp")
+      ])
+      ;
 
     users.users.mailman = {
       description = "GNU Mailman";
@@ -527,16 +535,16 @@ in {
 
     environment.systemPackages = [ (pkgs.buildEnv {
       name = "mailman-tools";
-      # We don't want to pollute the system PATH with a python
-      # interpreter etc. so let's pick only the stuff we actually
-      # want from {web,mailman}Env
+        # We don't want to pollute the system PATH with a python
+        # interpreter etc. so let's pick only the stuff we actually
+        # want from {web,mailman}Env
       pathsToLink = [ "/bin" ];
       paths = [
         mailmanEnv
         webEnv
       ];
-      # Only mailman-related stuff is installed, the rest is removed
-      # in `postBuild`.
+        # Only mailman-related stuff is installed, the rest is removed
+        # in `postBuild`.
       ignoreCollisions = true;
       postBuild = ''
         find $out/bin/ -mindepth 1 -not -name "mailman*" -delete
@@ -642,8 +650,8 @@ in {
         description = "Prepare mailman-web files and database";
         before = [ "mailman-uwsgi.service" ];
         requiredBy = [ "mailman-uwsgi.service" ];
-        restartTriggers =
-          [ config.environment.etc."mailman3/settings.py".source ];
+        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ]
+          ;
         script = ''
           [[ -e "${webSettings.STATIC_ROOT}" ]] && find "${webSettings.STATIC_ROOT}/" -mindepth 1 -delete
           ${webEnv}/bin/mailman-web migrate
@@ -680,8 +688,8 @@ in {
           "mailman-uwsgi.socket"
           "mailman-web-setup.service"
         ] ++ optional withPostgresql "postgresql.service";
-        restartTriggers =
-          [ config.environment.etc."mailman3/settings.py".source ];
+        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ]
+          ;
         serviceConfig = {
           # Since the mailman-web settings.py obstinately creates a logs
           # dir in the cwd, change to the (writable) runtime directory before
@@ -709,8 +717,8 @@ in {
       hyperkitty = lib.mkIf cfg.hyperkitty.enable {
         description = "GNU Hyperkitty QCluster Process";
         after = [ "network.target" ];
-        restartTriggers =
-          [ config.environment.etc."mailman3/settings.py".source ];
+        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ]
+          ;
         wantedBy = [
           "mailman.service"
           "multi-user.target"
@@ -733,8 +741,8 @@ in {
       lib.nameValuePair "hyperkitty-${name}" (lib.mkIf cfg.hyperkitty.enable {
         description = "Trigger ${name} Hyperkitty events";
         inherit startAt;
-        restartTriggers =
-          [ config.environment.etc."mailman3/settings.py".source ];
+        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ]
+          ;
         serviceConfig = {
           ExecStart = "${webEnv}/bin/mailman-web runjobs ${name}";
           User = cfg.webUser;

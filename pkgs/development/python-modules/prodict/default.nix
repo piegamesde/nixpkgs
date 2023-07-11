@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-c46JEQFg4KRwerqpMSgh6+tYRpKTOX02Lzsq4/meS3o=";
   };
 
-  # make setuptools happy on case-sensitive filesystems
+    # make setuptools happy on case-sensitive filesystems
   postPatch = "if [[ ! -f README.md ]]; then mv README.MD README.md; fi";
 
   nativeCheckInputs = [ pytestCheckHook ];
@@ -27,7 +27,8 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "Access Python dictionary as a class with type hinting and autocompletion";
+      "Access Python dictionary as a class with type hinting and autocompletion"
+      ;
     homepage = "https://github.com/ramazanpolat/prodict";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bcdarwin ];

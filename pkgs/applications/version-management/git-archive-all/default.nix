@@ -18,11 +18,11 @@ buildPythonApplication rec {
     hash = "sha256-fIPjggOx+CEorj1bazz8s81ZdppkTL0OlA5tRqCYZyc=";
   };
 
-  # * Don't use pinned dependencies
-  # * Remove formatter and coverage generator
-  # * Don't fail on warnings. Almost all tests output this warning:
-  #   ResourceWarning: unclosed file [...]/repo.tar
-  #   https://github.com/Kentzo/git-archive-all/issues/90
+    # * Don't use pinned dependencies
+    # * Remove formatter and coverage generator
+    # * Don't fail on warnings. Almost all tests output this warning:
+    #   ResourceWarning: unclosed file [...]/repo.tar
+    #   https://github.com/Kentzo/git-archive-all/issues/90
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace pycodestyle==2.5.0 "" \

@@ -51,7 +51,7 @@
     pkgs.zip
   ];
 
-  # Include support for various filesystems and tools to create / manipulate them.
+    # Include support for various filesystems and tools to create / manipulate them.
   boot.supportedFilesystems = [
     "btrfs"
     "cifs"
@@ -65,6 +65,6 @@
     (lib.meta.availableOn pkgs.stdenv.hostPlatform config.boot.zfs.package)
     "zfs";
 
-  # Configure host id for ZFS to work
+    # Configure host id for ZFS to work
   networking.hostId = lib.mkDefault "8425e349";
 }

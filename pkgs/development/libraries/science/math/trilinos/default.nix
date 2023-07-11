@@ -60,8 +60,8 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "trilinos";
-  # Xyce 7.4 requires version 12.12.1
-  # nixpkgs-update: no auto update
+    # Xyce 7.4 requires version 12.12.1
+    # nixpkgs-update: no auto update
   version = "12.12.1";
 
   src = fetchFromGitHub {
@@ -84,14 +84,16 @@ stdenv.mkDerivation rec {
     suitesparse
   ] ++ lib.optionals withMPI [ mpi ];
 
-  preConfigure = if withMPI then
-    ''
-      cmakeFlagsArray+=(${flagsBase} ${flagsParallel})
-    ''
-  else
-    ''
-      cmakeFlagsArray+=(${flagsBase})
-    '';
+  preConfigure =
+    if withMPI then
+      ''
+        cmakeFlagsArray+=(${flagsBase} ${flagsParallel})
+      ''
+    else
+      ''
+        cmakeFlagsArray+=(${flagsBase})
+      ''
+    ;
 
   passthru = { inherit withMPI; };
 

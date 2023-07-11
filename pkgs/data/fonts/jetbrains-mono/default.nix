@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/JetBrains/JetBrainsMono/releases/download/v${version}/JetBrainsMono-${version}.zip";
+      "https://github.com/JetBrains/JetBrainsMono/releases/download/v${version}/JetBrainsMono-${version}.zip"
+      ;
     sha256 = "sha256-rv5A3F1zdcUJkmw09st1YxmEIkIoYJaMYGyZjic8jfc=";
     stripRoot = false;
   };
@@ -32,7 +33,8 @@ stdenvNoCC.mkDerivation rec {
     description = "A typeface made for developers";
     homepage = "https://jetbrains.com/mono/";
     changelog =
-      "https://github.com/JetBrains/JetBrainsMono/blob/v${version}/Changelog.md";
+      "https://github.com/JetBrains/JetBrainsMono/blob/v${version}/Changelog.md"
+      ;
     license = licenses.ofl;
     maintainers = [ maintainers.marsam ];
     platforms = platforms.all;

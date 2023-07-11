@@ -94,37 +94,40 @@ let
   coqAtLeast = v: coq-version == "dev" || versionAtLeast coq-version v;
   buildIde = args.buildIde or (!coqAtLeast "8.14");
   ideFlags = optionalString (buildIde && !coqAtLeast "8.10")
-    "-lablgtkdir ${ocamlPackages.lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt";
+    "-lablgtkdir ${ocamlPackages.lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt"
+    ;
   csdpPatch = lib.optionalString (csdp != null) ''
     substituteInPlace plugins/micromega/sos.ml --replace "; csdp" "; ${csdp}/bin/csdp"
     substituteInPlace plugins/micromega/coq_micromega.ml --replace "System.is_in_system_path \"csdp\"" "true"
   '';
-  ocamlPackages = if customOCamlPackages != null then
-    customOCamlPackages
-  else
-    with versions;
-    switch coq-version [
-      {
-        case = range "8.16" "8.17";
-        out = ocamlPackages_4_14;
-      }
-      {
-        case = range "8.14" "8.15";
-        out = ocamlPackages_4_12;
-      }
-      {
-        case = range "8.11" "8.13";
-        out = ocamlPackages_4_10;
-      }
-      {
-        case = range "8.7" "8.10";
-        out = ocamlPackages_4_09;
-      }
-      {
-        case = range "8.5" "8.6";
-        out = ocamlPackages_4_05;
-      }
-    ] ocamlPackages_4_14;
+  ocamlPackages =
+    if customOCamlPackages != null then
+      customOCamlPackages
+    else
+      with versions;
+      switch coq-version [
+        {
+          case = range "8.16" "8.17";
+          out = ocamlPackages_4_14;
+        }
+        {
+          case = range "8.14" "8.15";
+          out = ocamlPackages_4_12;
+        }
+        {
+          case = range "8.11" "8.13";
+          out = ocamlPackages_4_10;
+        }
+        {
+          case = range "8.7" "8.10";
+          out = ocamlPackages_4_09;
+        }
+        {
+          case = range "8.5" "8.6";
+          out = ocamlPackages_4_05;
+        }
+      ] ocamlPackages_4_14
+    ;
   ocamlNativeBuildInputs = with ocamlPackages;
     [
       ocaml
@@ -146,52 +149,54 @@ let
         ;
         # For compatibility
       inherit (ocamlPackages) ocaml camlp5 findlib num;
-      emacsBufferSetup = pkgs: ''
-        ; Propagate coq paths to children
-        (inherit-local-permanent coq-prog-name "${self}/bin/coqtop")
-        (inherit-local-permanent coq-dependency-analyzer "${self}/bin/coqdep")
-        (inherit-local-permanent coq-compiler "${self}/bin/coqc")
-        ; If the coq-library path was already set, re-set it based on our current coq
-        (when (fboundp 'get-coq-library-directory)
-          (inherit-local-permanent coq-library-directory (get-coq-library-directory))
-          (coq-prog-args))
-        (mapc (lambda (arg)
-          (when (file-directory-p (concat arg "/lib/coq/${coq-version}/user-contrib"))
-            (setenv "COQPATH" (concat (getenv "COQPATH") ":" arg "/lib/coq/${coq-version}/user-contrib")))) '(${
-              concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)
-            }))
-        ; TODO Abstract this pattern from here and nixBufferBuilders.withPackages!
-        (defvar nixpkgs--coq-buffer-count 0)
-        (when (eq nixpkgs--coq-buffer-count 0)
-          (make-variable-buffer-local 'nixpkgs--is-nixpkgs-coq-buffer)
-          (defun nixpkgs--coq-inherit (buf)
-            (inherit-local-inherit-child buf)
-            (with-current-buffer buf
-              (setq nixpkgs--coq-buffer-count (1+ nixpkgs--coq-buffer-count))
-              (add-hook 'kill-buffer-hook 'nixpkgs--decrement-coq-buffer-count nil t))
-            buf)
-          ; When generating a scomint buffer, do inherit-local inheritance and make it a nixpkgs-coq buffer
-          (defun nixpkgs--around-scomint-make (orig &rest r)
-            (if nixpkgs--is-nixpkgs-coq-buffer
-                (progn
-                  (advice-add 'get-buffer-create :filter-return #'nixpkgs--coq-inherit)
-                  (apply orig r)
-                  (advice-remove 'get-buffer-create #'nixpkgs--coq-inherit))
-              (apply orig r)))
-          (advice-add 'scomint-make :around #'nixpkgs--around-scomint-make)
-          ; When we have no more coq buffers, tear down the buffer handling
-          (defun nixpkgs--decrement-coq-buffer-count ()
-            (setq nixpkgs--coq-buffer-count (1- nixpkgs--coq-buffer-count))
-            (when (eq nixpkgs--coq-buffer-count 0)
-              (advice-remove 'scomint-make #'nixpkgs--around-scomint-make)
-              (fmakunbound 'nixpkgs--around-scomint-make)
-              (fmakunbound 'nixpkgs--coq-inherit)
-              (fmakunbound 'nixpkgs--decrement-coq-buffer-count))))
-        (setq nixpkgs--coq-buffer-count (1+ nixpkgs--coq-buffer-count))
-        (add-hook 'kill-buffer-hook 'nixpkgs--decrement-coq-buffer-count nil t)
-        (setq nixpkgs--is-nixpkgs-coq-buffer t)
-        (inherit-local 'nixpkgs--is-nixpkgs-coq-buffer)
-      '';
+      emacsBufferSetup =
+        pkgs: ''
+          ; Propagate coq paths to children
+          (inherit-local-permanent coq-prog-name "${self}/bin/coqtop")
+          (inherit-local-permanent coq-dependency-analyzer "${self}/bin/coqdep")
+          (inherit-local-permanent coq-compiler "${self}/bin/coqc")
+          ; If the coq-library path was already set, re-set it based on our current coq
+          (when (fboundp 'get-coq-library-directory)
+            (inherit-local-permanent coq-library-directory (get-coq-library-directory))
+            (coq-prog-args))
+          (mapc (lambda (arg)
+            (when (file-directory-p (concat arg "/lib/coq/${coq-version}/user-contrib"))
+              (setenv "COQPATH" (concat (getenv "COQPATH") ":" arg "/lib/coq/${coq-version}/user-contrib")))) '(${
+                concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)
+              }))
+          ; TODO Abstract this pattern from here and nixBufferBuilders.withPackages!
+          (defvar nixpkgs--coq-buffer-count 0)
+          (when (eq nixpkgs--coq-buffer-count 0)
+            (make-variable-buffer-local 'nixpkgs--is-nixpkgs-coq-buffer)
+            (defun nixpkgs--coq-inherit (buf)
+              (inherit-local-inherit-child buf)
+              (with-current-buffer buf
+                (setq nixpkgs--coq-buffer-count (1+ nixpkgs--coq-buffer-count))
+                (add-hook 'kill-buffer-hook 'nixpkgs--decrement-coq-buffer-count nil t))
+              buf)
+            ; When generating a scomint buffer, do inherit-local inheritance and make it a nixpkgs-coq buffer
+            (defun nixpkgs--around-scomint-make (orig &rest r)
+              (if nixpkgs--is-nixpkgs-coq-buffer
+                  (progn
+                    (advice-add 'get-buffer-create :filter-return #'nixpkgs--coq-inherit)
+                    (apply orig r)
+                    (advice-remove 'get-buffer-create #'nixpkgs--coq-inherit))
+                (apply orig r)))
+            (advice-add 'scomint-make :around #'nixpkgs--around-scomint-make)
+            ; When we have no more coq buffers, tear down the buffer handling
+            (defun nixpkgs--decrement-coq-buffer-count ()
+              (setq nixpkgs--coq-buffer-count (1- nixpkgs--coq-buffer-count))
+              (when (eq nixpkgs--coq-buffer-count 0)
+                (advice-remove 'scomint-make #'nixpkgs--around-scomint-make)
+                (fmakunbound 'nixpkgs--around-scomint-make)
+                (fmakunbound 'nixpkgs--coq-inherit)
+                (fmakunbound 'nixpkgs--decrement-coq-buffer-count))))
+          (setq nixpkgs--coq-buffer-count (1+ nixpkgs--coq-buffer-count))
+          (add-hook 'kill-buffer-hook 'nixpkgs--decrement-coq-buffer-count nil t)
+          (setq nixpkgs--is-nixpkgs-coq-buffer t)
+          (inherit-local 'nixpkgs--is-nixpkgs-coq-buffer)
+        ''
+        ;
     };
 
     nativeBuildInputs = [ pkg-config ] ++ ocamlNativeBuildInputs
@@ -228,16 +233,18 @@ let
       addEnvHooks "$targetOffset" addCoqPath
     '';
 
-    preConfigure = if coqAtLeast "8.10" then
-      ''
-        patchShebangs dev/tools/
-      ''
-    else
-      ''
-        configureFlagsArray=(
-          ${ideFlags}
-        )
-      '';
+    preConfigure =
+      if coqAtLeast "8.10" then
+        ''
+          patchShebangs dev/tools/
+        ''
+      else
+        ''
+          configureFlagsArray=(
+            ${ideFlags}
+          )
+        ''
+      ;
 
     prefixKey = "-prefix ";
 
@@ -265,20 +272,21 @@ let
       ];
     });
 
-    postInstall = let
-      suffix = optionalString (coqAtLeast "8.14") "-core";
-    in
-    optionalString (!coqAtLeast "8.17") ''
-      cp bin/votour $out/bin/
-    '' + ''
-      ln -s $out/lib/coq${suffix} $OCAMLFIND_DESTDIR/coq${suffix}
-    '' + optionalString (coqAtLeast "8.14") ''
-      ln -s $out/lib/coqide-server $OCAMLFIND_DESTDIR/coqide-server
-    '' + optionalString buildIde ''
-      mkdir -p "$out/share/pixmaps"
-      ln -s "$out/share/coq/coq.png" "$out/share/pixmaps/"
-    ''
-    ;
+    postInstall =
+      let
+        suffix = optionalString (coqAtLeast "8.14") "-core";
+      in
+      optionalString (!coqAtLeast "8.17") ''
+        cp bin/votour $out/bin/
+      '' + ''
+        ln -s $out/lib/coq${suffix} $OCAMLFIND_DESTDIR/coq${suffix}
+      '' + optionalString (coqAtLeast "8.14") ''
+        ln -s $out/lib/coqide-server $OCAMLFIND_DESTDIR/coqide-server
+      '' + optionalString buildIde ''
+        mkdir -p "$out/share/pixmaps"
+        ln -s "$out/share/coq/coq.png" "$out/share/pixmaps/"
+      ''
+      ;
 
     meta = {
       description = "Coq proof assistant";

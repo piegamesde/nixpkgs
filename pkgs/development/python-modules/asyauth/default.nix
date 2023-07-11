@@ -28,7 +28,7 @@ buildPythonPackage rec {
     unicrypto
   ];
 
-  # Project doesn't have tests
+    # Project doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "asyauth" ];

@@ -17,7 +17,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/mirage-logs/releases/download/v${version}/mirage-logs-${version}.tbz";
+      "https://github.com/mirage/mirage-logs/releases/download/v${version}/mirage-logs-${version}.tbz"
+      ;
     hash = "sha256-c1YQIutqp58TRz+a9Vd/69FCv0jnGRvFnei9BtSbOxA=";
   };
 
@@ -33,7 +34,8 @@ buildDunePackage rec {
 
   meta = {
     description =
-      "A reporter for the Logs library that writes log messages to stderr, using a Mirage `CLOCK` to add timestamps";
+      "A reporter for the Logs library that writes log messages to stderr, using a Mirage `CLOCK` to add timestamps"
+      ;
     homepage = "https://github.com/mirage/mirage-logs";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.vbgl ];

@@ -38,8 +38,8 @@ python3.pkgs.buildPythonApplication rec {
       sqlalchemy
       tld
       yaswfp
-    ] ++ httpx.optional-dependencies.brotli
-    ++ httpx.optional-dependencies.socks;
+    ] ++ httpx.optional-dependencies.brotli ++ httpx.optional-dependencies.socks
+    ;
 
   nativeCheckInputs = with python3.pkgs; [
     respx
@@ -144,7 +144,8 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://wapiti-scanner.github.io/";
     changelog =
-      "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti";
+      "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti"
+      ;
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ fab ];
   };

@@ -46,10 +46,10 @@ stdenv.mkDerivation rec {
     gst-libav
   ]);
 
-  # build-utils/docgen/gen.lua:2: module 'lib.lousy.util' not found
-  # TODO: why is not this the default? The test runner adds
-  # ';./lib/?.lua;./lib/?/init.lua' to package.path, but the build-utils
-  # scripts don't add an equivalent
+    # build-utils/docgen/gen.lua:2: module 'lib.lousy.util' not found
+    # TODO: why is not this the default? The test runner adds
+    # ';./lib/?.lua;./lib/?/init.lua' to package.path, but the build-utils
+    # scripts don't add an equivalent
   preBuild = ''
     export LUA_PATH="$LUA_PATH;./?.lua;./?/init.lua"
   '';
@@ -63,15 +63,18 @@ stdenv.mkDerivation rec {
     "XDGPREFIX=${placeholder "out"}/etc/xdg"
   ];
 
-  preFixup = let
-    luaKitPath = "$out/share/luakit/lib/?/init.lua;$out/share/luakit/lib/?.lua";
-  in ''
-    gappsWrapperArgs+=(
-      --prefix XDG_CONFIG_DIRS : "$out/etc/xdg"
-      --prefix LUA_PATH ';' "${luaKitPath};$LUA_PATH"
-      --prefix LUA_CPATH ';' "$LUA_CPATH"
-    )
-  '' ;
+  preFixup =
+    let
+      luaKitPath =
+        "$out/share/luakit/lib/?/init.lua;$out/share/luakit/lib/?.lua";
+    in ''
+      gappsWrapperArgs+=(
+        --prefix XDG_CONFIG_DIRS : "$out/etc/xdg"
+        --prefix LUA_PATH ';' "${luaKitPath};$LUA_PATH"
+        --prefix LUA_CPATH ';' "$LUA_CPATH"
+      )
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://luakit.github.io/";

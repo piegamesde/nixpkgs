@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Generates playlists such that each song sounds good following the previous song";
+      "Generates playlists such that each song sounds good following the previous song"
+      ;
     homepage = "https://gjay.sourceforge.net/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ pSub ];

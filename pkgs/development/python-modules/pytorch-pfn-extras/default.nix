@@ -35,7 +35,7 @@ buildPythonPackage rec {
     torchvision
   ];
 
-  # ignore all pytest warnings
+    # ignore all pytest warnings
   preCheck = ''
     rm pytest.ini
   '';
@@ -74,7 +74,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Supplementary components to accelerate research and development in PyTorch";
+      "Supplementary components to accelerate research and development in PyTorch"
+      ;
     homepage = "https://github.com/pfnet/pytorch-pfn-extras";
     license = licenses.mit;
     maintainers = with maintainers; [ samuela ];

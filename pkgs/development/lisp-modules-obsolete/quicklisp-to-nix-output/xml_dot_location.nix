@@ -36,7 +36,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/xml.location/2020-03-25/xml.location-20200325-git.tgz";
+      "http://beta.quicklisp.org/archive/xml.location/2020-03-25/xml.location-20200325-git.tgz"
+      ;
     sha256 = "0wfccj1p1al0w9pc5rhxpsvm3wb2lr5fc4cfjyg751pwsasjikwx";
   };
 

@@ -21,7 +21,7 @@ in {
     };
   };
 
-  # implementation
+    # implementation
   config = mkIf cfg.enable {
     assertions = [ {
       assertion = config.services.corosync.enable;
@@ -32,7 +32,7 @@ in {
 
     environment.systemPackages = [ cfg.package ];
 
-    # required by pacemaker
+      # required by pacemaker
     users.users.hacluster = {
       isSystemUser = true;
       group = "pacemaker";
@@ -40,8 +40,8 @@ in {
     };
     users.groups.pacemaker = { };
 
-    systemd.tmpfiles.rules =
-      [ "d /var/log/pacemaker 0700 hacluster pacemaker -" ];
+    systemd.tmpfiles.rules = [ "d /var/log/pacemaker 0700 hacluster pacemaker -" ]
+      ;
 
     systemd.packages = [ cfg.package ];
     systemd.services.pacemaker = {

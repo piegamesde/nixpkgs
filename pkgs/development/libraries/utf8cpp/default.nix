@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # Tests fail on darwin, probably due to a bug in the test framework:
-  # https://github.com/nemtrif/utfcpp/issues/84
+    # Tests fail on darwin, probably due to a bug in the test framework:
+    # https://github.com/nemtrif/utfcpp/issues/84
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

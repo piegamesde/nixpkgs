@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "systemd-cryptenroll";
     meta = with pkgs.lib.maintainers; { maintainers = [ ymatsiuk ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -19,7 +20,8 @@ import ./make-test-python.nix ({
             "-device tpm-tis,tpmdev=tpm0"
           ];
         };
-      };
+      }
+      ;
 
     testScript = ''
       import subprocess

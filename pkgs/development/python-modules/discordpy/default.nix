@@ -38,7 +38,7 @@ buildPythonPackage rec {
       --replace "executable='ffmpeg'" "executable='${ffmpeg}/bin/ffmpeg'"
   '';
 
-  # Only have integration tests with discord
+    # Only have integration tests with discord
   doCheck = false;
 
   pythonImportsCheck = [
@@ -56,7 +56,8 @@ buildPythonPackage rec {
     description = "Python wrapper for the Discord API";
     homepage = "https://discordpy.rtfd.org/";
     changelog =
-      "https://github.com/Rapptz/discord.py/blob/v${version}/docs/whats_new.rst";
+      "https://github.com/Rapptz/discord.py/blob/v${version}/docs/whats_new.rst"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ ivar ];
   };

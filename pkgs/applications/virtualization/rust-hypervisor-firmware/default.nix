@@ -46,13 +46,14 @@ rustPlatform.buildRustPackage rec {
 
   RUSTFLAGS = "-C linker=lld -C linker-flavor=ld.lld";
 
-  # Tests don't work for `no_std`. See https://os.phil-opp.com/testing/
+    # Tests don't work for `no_std`. See https://os.phil-opp.com/testing/
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/cloud-hypervisor/rust-hypervisor-firmware";
     description =
-      "A simple firmware that is designed to be launched from anything that supports loading ELF binaries and running them with the PVH booting standard";
+      "A simple firmware that is designed to be launched from anything that supports loading ELF binaries and running them with the PVH booting standard"
+      ;
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ astro ];
     platforms = [ "x86_64-none" ];

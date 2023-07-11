@@ -25,13 +25,15 @@ python3Packages.buildPythonApplication rec {
     (fetchpatch {
       name = "use-poetry-core.patch";
       url =
-        "https://github.com/timothycrosley/streamdeck-ui/commit/e271656c1f47b1619d1b942e2ebb01ab2d6a68a9.patch";
+        "https://github.com/timothycrosley/streamdeck-ui/commit/e271656c1f47b1619d1b942e2ebb01ab2d6a68a9.patch"
+        ;
       hash = "sha256-wqYwX6eSqMnW6OG7wSprD62Dz818ayFduVrqW9E/ays=";
     })
     (fetchpatch {
       name = "update-python-xlib-0.33.patch";
       url =
-        "https://github.com/timothycrosley/streamdeck-ui/commit/07d7fdd33085b413dd26b02d8a02820edad2d568.patch";
+        "https://github.com/timothycrosley/streamdeck-ui/commit/07d7fdd33085b413dd26b02d8a02820edad2d568.patch"
+        ;
       hash = "sha256-PylTrbfB8RJ0+kbgJlRdcvfdahGoob8LabwhuFNsUpY=";
     })
   ];
@@ -46,19 +48,21 @@ python3Packages.buildPythonApplication rec {
     noDisplay = true;
   }) ];
 
-  postInstall = let
-    udevRules = ''
-      SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", TAG+="uaccess"
-    '';
-  in ''
-    mkdir -p "$out/etc/udev/rules.d"
-    cp ${
-      writeText "70-streamdeck.rules" udevRules
-    } $out/etc/udev/rules.d/70-streamdeck.rules
+  postInstall =
+    let
+      udevRules = ''
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", TAG+="uaccess"
+      '';
+    in ''
+      mkdir -p "$out/etc/udev/rules.d"
+      cp ${
+        writeText "70-streamdeck.rules" udevRules
+      } $out/etc/udev/rules.d/70-streamdeck.rules
 
-    mkdir -p "$out/share/pixmaps"
-    cp streamdeck_ui/logo.png $out/share/pixmaps/streamdeck-ui.png
-  '' ;
+      mkdir -p "$out/share/pixmaps"
+      cp streamdeck_ui/logo.png $out/share/pixmaps/streamdeck-ui.png
+    ''
+    ;
 
   dontWrapQtApps = true;
   makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
@@ -88,9 +92,9 @@ python3Packages.buildPythonApplication rec {
     python3Packages.hypothesis-auto
   ];
 
-  # Ignored tests are not in a running or passing state.
-  # Fixes have been merged upstream but not yet released.
-  # Revisit these ignored tests on each update.
+    # Ignored tests are not in a running or passing state.
+    # Fixes have been merged upstream but not yet released.
+    # Revisit these ignored tests on each update.
   checkPhase = ''
     xvfb-run pytest tests \
       --ignore=tests/test_api.py \

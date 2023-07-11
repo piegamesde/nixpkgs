@@ -66,19 +66,20 @@ stdenv.mkDerivation rec {
     # https://github.com/apache/trafficserver/pull/7697
     (fetchpatch {
       url =
-        "https://github.com/apache/trafficserver/commit/19d3af481cf74c91fbf713fc9d2f8b138ed5fbaf.diff";
+        "https://github.com/apache/trafficserver/commit/19d3af481cf74c91fbf713fc9d2f8b138ed5fbaf.diff"
+        ;
       sha256 = "0z1ikgpp00rzrrcqh97931586yn9wbksgai9xlkcjd5cg8gq0150";
     })
   ];
 
-  # NOTE: The upstream README indicates that flex is needed for some features,
-  # but it actually seems to be unnecessary as of this commit[1]. The detection
-  # logic for bison and flex is still present in the build script[2], but no
-  # other code seems to depend on it. This situation is susceptible to change
-  # though, so it's a good idea to inspect the build scripts periodically.
-  #
-  # [1]: https://github.com/apache/trafficserver/pull/5617
-  # [2]: https://github.com/apache/trafficserver/blob/3fd2c60/configure.ac#L742-L788
+    # NOTE: The upstream README indicates that flex is needed for some features,
+    # but it actually seems to be unnecessary as of this commit[1]. The detection
+    # logic for bison and flex is still present in the build script[2], but no
+    # other code seems to depend on it. This situation is susceptible to change
+    # though, so it's a good idea to inspect the build scripts periodically.
+    #
+    # [1]: https://github.com/apache/trafficserver/pull/5617
+    # [2]: https://github.com/apache/trafficserver/blob/3fd2c60/configure.ac#L742-L788
   nativeBuildInputs = [
     makeWrapper
     pkg-config
@@ -157,29 +158,31 @@ stdenv.mkDerivation rec {
     rmdir $out/.install-trafficserver
   '';
 
-  installCheckPhase = let
-    expected = ''
-      Via header is [uScMsEf p eC:t cCMp sF], Length is 22
-      Via Header Details:
-      Request headers received from client                   :simple request (not conditional)
-      Result of Traffic Server cache lookup for URL          :miss (a cache "MISS")
-      Response information received from origin server       :error in response
-      Result of document write-to-cache:                     :no cache write performed
-      Proxy operation result                                 :unknown
-      Error codes (if any)                                   :connection to server failed
-      Tunnel info                                            :no tunneling
-      Cache Type                                             :cache
-      Cache Lookup Result                                    :cache miss (url not in cache)
-      Parent proxy connection status                         :no parent proxy or unknown
-      Origin server connection status                        :connection open failed
-    '';
-  in ''
-    runHook preInstallCheck
-    diff -Naur <($out/bin/traffic_via '[uScMsEf p eC:t cCMp sF]') - <<EOF
-    ${lib.removeSuffix "\n" expected}
-    EOF
-    runHook postInstallCheck
-  '' ;
+  installCheckPhase =
+    let
+      expected = ''
+        Via header is [uScMsEf p eC:t cCMp sF], Length is 22
+        Via Header Details:
+        Request headers received from client                   :simple request (not conditional)
+        Result of Traffic Server cache lookup for URL          :miss (a cache "MISS")
+        Response information received from origin server       :error in response
+        Result of document write-to-cache:                     :no cache write performed
+        Proxy operation result                                 :unknown
+        Error codes (if any)                                   :connection to server failed
+        Tunnel info                                            :no tunneling
+        Cache Type                                             :cache
+        Cache Lookup Result                                    :cache miss (url not in cache)
+        Parent proxy connection status                         :no parent proxy or unknown
+        Origin server connection status                        :connection open failed
+      '';
+    in ''
+      runHook preInstallCheck
+      diff -Naur <($out/bin/traffic_via '[uScMsEf p eC:t cCMp sF]') - <<EOF
+      ${lib.removeSuffix "\n" expected}
+      EOF
+      runHook postInstallCheck
+    ''
+    ;
 
   doCheck = true;
   doInstallCheck = true;
@@ -190,7 +193,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://trafficserver.apache.org";
     changelog =
-      "https://raw.githubusercontent.com/apache/trafficserver/${version}/CHANGELOG-${version}";
+      "https://raw.githubusercontent.com/apache/trafficserver/${version}/CHANGELOG-${version}"
+      ;
     description = "Fast, scalable, and extensible HTTP caching proxy server";
     longDescription = ''
       Apache Traffic Server is a high-performance web proxy cache that improves

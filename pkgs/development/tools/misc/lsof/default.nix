@@ -38,10 +38,11 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ ncurses ];
 
-  # Stop build scripts from searching global include paths
+    # Stop build scripts from searching global include paths
   LSOF_INCLUDE = "${lib.getDev stdenv.cc.libc}/include";
   configurePhase = ''
-    LINUX_CONF_CC=$CC_FOR_BUILD LSOF_CC=$CC LSOF_AR="$AR cr" LSOF_RANLIB=$RANLIB ./Configure -n ${dialect}'';
+    LINUX_CONF_CC=$CC_FOR_BUILD LSOF_CC=$CC LSOF_AR="$AR cr" LSOF_RANLIB=$RANLIB ./Configure -n ${dialect}''
+    ;
 
   preBuild = ''
     for filepath in $(find dialects/${dialect} -type f); do

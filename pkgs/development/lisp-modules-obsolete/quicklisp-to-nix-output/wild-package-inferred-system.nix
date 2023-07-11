@@ -15,7 +15,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/wild-package-inferred-system/2020-03-25/wild-package-inferred-system-20200325-git.tgz";
+      "http://beta.quicklisp.org/archive/wild-package-inferred-system/2020-03-25/wild-package-inferred-system-20200325-git.tgz"
+      ;
     sha256 = "1ypnpzy9z4zkna29sgl4afc386ksa61302bm5kznxb3zz2v1sjas";
   };
 

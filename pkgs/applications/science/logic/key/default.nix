@@ -23,7 +23,7 @@ let
   };
   sourceRoot = "key-${version}/key";
 
-  # fake build to pre-download deps into fixed-output derivation
+    # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit version src sourceRoot;
@@ -37,7 +37,7 @@ let
       ${lib.optionalString stdenv.isDarwin "export TERM=dumb"}
       gradle --no-daemon classes testClasses
     '';
-    # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+      # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
@@ -70,11 +70,13 @@ stdenv.mkDerivation rec {
     categories = [ "Science" ];
   }) ];
 
-  # disable tests (broken on darwin)
-  gradleAction = if stdenv.isDarwin then
-    "assemble"
-  else
-    "build";
+    # disable tests (broken on darwin)
+  gradleAction =
+    if stdenv.isDarwin then
+      "assemble"
+    else
+      "build"
+    ;
 
   buildPhase = ''
     runHook preBuild

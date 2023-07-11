@@ -61,16 +61,20 @@ stdenv.mkDerivation (finalAttrs: rec {
     "-DEXE_SQLITE3=${buildPackages.sqlite}/bin/sqlite3"
   ];
 
-  preCheck = let
-    libPathEnvVar = if stdenv.isDarwin then
-      "DYLD_LIBRARY_PATH"
-    else
-      "LD_LIBRARY_PATH";
-  in ''
-    export HOME=$TMPDIR
-    export TMP=$TMPDIR
-    export ${libPathEnvVar}=$PWD/lib
-  '' ;
+  preCheck =
+    let
+      libPathEnvVar =
+        if stdenv.isDarwin then
+          "DYLD_LIBRARY_PATH"
+        else
+          "LD_LIBRARY_PATH"
+        ;
+    in ''
+      export HOME=$TMPDIR
+      export TMP=$TMPDIR
+      export ${libPathEnvVar}=$PWD/lib
+    ''
+    ;
 
   doCheck = true;
 

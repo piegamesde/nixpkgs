@@ -38,7 +38,8 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://gitlab.com/freedroid/freedroid-src/-/commit/e610d427374226b79da5258d979936459f30c761.patch";
+        "https://gitlab.com/freedroid/freedroid-src/-/commit/e610d427374226b79da5258d979936459f30c761.patch"
+        ;
       sha256 = "1s7sw4dkc7b6i72j6x47driq6v0k3wss48l9ivd4fw40n3iaxjb1";
     })
 

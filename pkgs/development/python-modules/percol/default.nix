@@ -18,14 +18,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cmigemo ];
 
-  # package has no tests
+    # package has no tests
   doCheck = false;
   pythonImportsCheck = [ "percol" ];
 
   meta = with lib; {
     homepage = "https://github.com/mooz/percol";
     description =
-      "Adds flavor of interactive filtering to the traditional pipe concept of shell";
+      "Adds flavor of interactive filtering to the traditional pipe concept of shell"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ koral ];
   };

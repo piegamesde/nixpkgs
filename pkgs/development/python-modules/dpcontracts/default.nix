@@ -18,14 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-FygJPXo7lZ9tlfqY6KmPJ3PLIilMGLBr3013uj9hCEs=";
   };
 
-  # package does not have any tests
+    # package does not have any tests
   doCheck = false;
 
   pythonImportsCheck = [ "dpcontracts" ];
 
   meta = with lib; {
     description =
-      "Provides a collection of decorators that makes it easy to write software using contracts";
+      "Provides a collection of decorators that makes it easy to write software using contracts"
+      ;
     homepage = "https://github.com/deadpixi/contracts";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ gador ];

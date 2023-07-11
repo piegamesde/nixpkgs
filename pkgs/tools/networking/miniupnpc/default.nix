@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://miniupnp.tuxfamily.org/";
     description =
-      "A client that implements the UPnP Internet Gateway Device (IGD) specification";
+      "A client that implements the UPnP Internet Gateway Device (IGD) specification"
+      ;
     platforms = with platforms; linux ++ freebsd ++ darwin;
     license = licenses.bsd3;
     mainProgram = "upnpc";

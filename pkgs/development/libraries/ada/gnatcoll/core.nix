@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     gnat
   ];
 
-  # propagate since gprbuild needs to find
-  # referenced GPR project definitions
+    # propagate since gprbuild needs to find
+    # referenced GPR project definitions
   propagatedBuildInputs = [ gprbuild # libgpr
     ];
 

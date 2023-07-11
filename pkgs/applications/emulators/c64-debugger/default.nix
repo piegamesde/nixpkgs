@@ -88,7 +88,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://sourceforge.net/projects/c64-debugger";
     description =
-      "Commodore 64, Atari XL/XE and NES code and memory debugger that works in real time";
+      "Commodore 64, Atari XL/XE and NES code and memory debugger that works in real time"
+      ;
     license = with licenses; [
       gpl3Only # c64-debugger
       mit # MTEngine

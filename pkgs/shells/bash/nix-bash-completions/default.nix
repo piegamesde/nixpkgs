@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  # To enable lazy loading via bash-completion we need a symlink to the script
-  # from every command name.
+    # To enable lazy loading via bash-completion we need a symlink to the script
+    # from every command name.
   installPhase = ''
     runHook preInstall
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       hedning
       ncfavier
     ];
-    # Set a lower priority such that Nix wins in case of conflicts.
+      # Set a lower priority such that Nix wins in case of conflicts.
     priority = 10;
   };
 }

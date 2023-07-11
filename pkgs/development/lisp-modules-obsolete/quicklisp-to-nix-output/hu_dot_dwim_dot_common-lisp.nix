@@ -7,13 +7,15 @@ args@{
   version = "stable-git";
 
   description =
-    "A redefinition of the standard Common Lisp package that includes a number of renames and shadows.";
+    "A redefinition of the standard Common Lisp package that includes a number of renames and shadows."
+    ;
 
   deps = [ args."hu_dot_dwim_dot_asdf" ];
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/hu.dwim.common-lisp/2021-02-28/hu.dwim.common-lisp-stable-git.tgz";
+      "http://beta.quicklisp.org/archive/hu.dwim.common-lisp/2021-02-28/hu.dwim.common-lisp-stable-git.tgz"
+      ;
     sha256 = "1v111qvpfs0jml54a4qccyicgq4jg3h72z8484wa1x0acc9hgz76";
   };
 

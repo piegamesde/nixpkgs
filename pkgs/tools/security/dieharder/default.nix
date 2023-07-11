@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://webhome.phy.duke.edu/~rgb/General/dieharder/dieharder-${version}.tgz";
+      "http://webhome.phy.duke.edu/~rgb/General/dieharder/dieharder-${version}.tgz"
+      ;
     hash = "sha256-bP8P+DlMVTVJrHQzNZzPyVX7JnlCYDFGIN+l5M1Lcn8=";
   };
 
@@ -22,9 +23,9 @@ stdenv.mkDerivation rec {
     ./stdint.patch
   ];
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: include/dieharder/parse.h:21: multiple definition of `splitbuf';
-  #     include/dieharder/parse.h:21: first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: include/dieharder/parse.h:21: multiple definition of `splitbuf';
+    #     include/dieharder/parse.h:21: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   buildInputs = [ gsl ];

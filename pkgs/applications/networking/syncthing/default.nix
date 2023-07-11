@@ -11,7 +11,8 @@
 }:
 
 let
-  common = {
+  common =
+    {
       stname,
       target,
       postInstall ? ""
@@ -80,7 +81,8 @@ let
         mainProgram = target;
         platforms = platforms.unix;
       };
-    };
+    }
+    ;
 
 in {
   syncthing = common {

@@ -22,7 +22,7 @@
 stdenv.mkDerivation rec {
   pname = "libgit2";
   version = "1.6.4";
-  # also check the following packages for updates: python3Packages.pygit2 and libgit2-glib
+    # also check the following packages for updates: python3Packages.pygit2 and libgit2-glib
 
   src = fetchFromGitHub {
     owner = "libgit2";
@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Linkable library implementation of Git that you can use in your application";
+      "Linkable library implementation of Git that you can use in your application"
+      ;
     homepage = "https://libgit2.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;

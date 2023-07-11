@@ -24,8 +24,9 @@ in {
       '';
     };
 
-    public = mkEnableOption
-      (mdDoc "access from anywhere (rather than just localhost)");
+    public =
+      mkEnableOption (mdDoc "access from anywhere (rather than just localhost)")
+      ;
 
     allowOrigin = mkOption {
       type = types.nullOr types.str;

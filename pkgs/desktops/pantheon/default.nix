@@ -47,7 +47,7 @@ lib.makeScope pkgs.newScope (self:
 
     mutter = pkgs.gnome.mutter43;
 
-    # Using 43 to match Mutter used in Pantheon
+      # Using 43 to match Mutter used in Pantheon
     gnome-settings-daemon = pkgs.gnome.gnome-settings-daemon43;
 
     elementary-gsettings-schemas =
@@ -55,7 +55,7 @@ lib.makeScope pkgs.newScope (self:
 
     touchegg = pkgs.touchegg.override { withPantheon = true; };
 
-    #### APPS
+      #### APPS
 
     appcenter = callPackage ./apps/appcenter { };
 
@@ -93,7 +93,7 @@ lib.makeScope pkgs.newScope (self:
 
     sideload = callPackage ./apps/sideload { };
 
-    #### DESKTOP
+      #### DESKTOP
 
     elementary-default-settings =
       callPackage ./desktop/elementary-default-settings { };
@@ -127,13 +127,13 @@ lib.makeScope pkgs.newScope (self:
     wingpanel-with-indicators =
       callPackage ./desktop/wingpanel/wrapper.nix { indicators = null; };
 
-    #### LIBRARIES
+      #### LIBRARIES
 
     granite = callPackage ./granite { };
 
     granite7 = callPackage ./granite/7 { };
 
-    #### SERVICES
+      #### SERVICES
 
     contractor = callPackage ./services/contractor { };
 
@@ -154,7 +154,7 @@ lib.makeScope pkgs.newScope (self:
     xdg-desktop-portal-pantheon =
       callPackage ./services/xdg-desktop-portal-pantheon { };
 
-    #### WINGPANEL INDICATORS
+      #### WINGPANEL INDICATORS
 
     wingpanel-applications-menu =
       callPackage ./desktop/wingpanel-indicators/applications-menu { };
@@ -191,7 +191,7 @@ lib.makeScope pkgs.newScope (self:
     wingpanel-indicator-sound =
       callPackage ./desktop/wingpanel-indicators/sound { };
 
-    #### SWITCHBOARD
+      #### SWITCHBOARD
 
     switchboard = callPackage ./apps/switchboard { };
 
@@ -244,7 +244,7 @@ lib.makeScope pkgs.newScope (self:
 
     switchboard-plug-wacom = callPackage ./apps/switchboard-plugs/wacom { };
 
-    ### ARTWORK
+      ### ARTWORK
 
     elementary-gtk-theme = callPackage ./artwork/elementary-gtk-theme { };
 
@@ -257,12 +257,12 @@ lib.makeScope pkgs.newScope (self:
 
     elementary-wallpapers = callPackage ./artwork/elementary-wallpapers { };
 
-    ### THIRD-PARTY
+      ### THIRD-PARTY
 
-    # Put packages that ONLY works with Pantheon in pkgs/desktops/pantheon/third-party,
-    # specifically third party switchboard plugins and wingpanel indicators.
-    # Please call these packages in pkgs/top-level/all-packages.nix instead of this file.
-    # https://github.com/NixOS/nixpkgs/issues/115222#issuecomment-906868654
+      # Put packages that ONLY works with Pantheon in pkgs/desktops/pantheon/third-party,
+      # specifically third party switchboard plugins and wingpanel indicators.
+      # Please call these packages in pkgs/top-level/all-packages.nix instead of this file.
+      # https://github.com/NixOS/nixpkgs/issues/115222#issuecomment-906868654
 
   }) // lib.optionalAttrs config.allowAliases {
 
@@ -271,22 +271,27 @@ lib.makeScope pkgs.newScope (self:
     # They need to be outside the scope or they will shadow the attributes from parent scope.
 
     vala = throw
-      "The ‘pantheon.vala’ alias was removed on 2022-02-02, please use ‘pkgs.vala’ directly."; # added 2019-10-10
+      "The ‘pantheon.vala’ alias was removed on 2022-02-02, please use ‘pkgs.vala’ directly."
+      ; # added 2019-10-10
 
     cerbere = throw
-      "Cerbere is now obsolete https://github.com/elementary/cerbere/releases/tag/2.5.1."; # added 2020-04-06
+      "Cerbere is now obsolete https://github.com/elementary/cerbere/releases/tag/2.5.1."
+      ; # added 2020-04-06
 
     elementary-screenshot-tool = throw
-      "The ‘pantheon.elementary-screenshot-tool’ alias was removed on 2022-02-02, please use ‘pantheon.elementary-screenshot’ directly."; # added 2021-07-21
+      "The ‘pantheon.elementary-screenshot-tool’ alias was removed on 2022-02-02, please use ‘pantheon.elementary-screenshot’ directly."
+      ; # added 2021-07-21
 
     evince = pkgs.gnome.evince; # added 2022-03-18
 
     extra-elementary-contracts = throw
-      "extra-elementary-contracts has been removed as all contracts have been upstreamed."; # added 2021-12-01
+      "extra-elementary-contracts has been removed as all contracts have been upstreamed."
+      ; # added 2021-12-01
 
     file-roller = pkgs.gnome.file-roller; # added 2022-03-12
 
     notes-up = throw
-      "The ‘pantheon.notes-up’ alias was removed on 2022-02-02, please use ‘pkgs.notes-up’ directly."; # added 2021-12-18
+      "The ‘pantheon.notes-up’ alias was removed on 2022-02-02, please use ‘pkgs.notes-up’ directly."
+      ; # added 2021-12-18
 
   }

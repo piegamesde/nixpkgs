@@ -125,9 +125,9 @@ let
   withLibdrm = lib.meta.availableOn stdenv.hostPlatform libdrm;
 
   llvmPackages = llvmPackages_15;
-  # Align all the Mesa versions used. Required to prevent explosions when
-  # two different LLVMs are loaded in the same process.
-  # FIXME: these should really go into some sort of versioned LLVM package set
+    # Align all the Mesa versions used. Required to prevent explosions when
+    # two different LLVMs are loaded in the same process.
+    # FIXME: these should really go into some sort of versioned LLVM package set
   rust-bindgen' = rust-bindgen.override {
     rust-bindgen-unwrapped =
       rust-bindgen.unwrapped.override { clang = llvmPackages.clang; };
@@ -154,9 +154,9 @@ let
       inherit hash;
     };
 
-    # TODO:
-    #  revive ./dricore-gallium.patch when it gets ported (from Ubuntu), as it saved
-    #  ~35 MB in $drivers; watch https://launchpad.net/ubuntu/+source/mesa/+changelog
+      # TODO:
+      #  revive ./dricore-gallium.patch when it gets ported (from Ubuntu), as it saved
+      #  ~35 MB in $drivers; watch https://launchpad.net/ubuntu/+source/mesa/+changelog
     patches = [
       # fixes pkgsMusl.mesa build
       ./musl.patch
@@ -194,15 +194,15 @@ let
       # in case anything wants to use it at some point
       ++ lib.optional haveDozen "spirv2dxil";
 
-    # FIXME: this fixes rusticl/iris segfaulting on startup, _somehow_.
-    # Needs more investigating.
+      # FIXME: this fixes rusticl/iris segfaulting on startup, _somehow_.
+      # Needs more investigating.
     separateDebugInfo = true;
 
     preConfigure = ''
       PATH=${llvmPackages.libllvm.dev}/bin:$PATH
     '';
 
-    # TODO: Figure out how to enable opencl without having a runtime dependency on clang
+      # TODO: Figure out how to enable opencl without having a runtime dependency on clang
     mesonFlags = [
       "--sysconfdir=/etc"
       "--datadir=${placeholder "drivers"}/share" # Vendor files
@@ -418,10 +418,12 @@ let
       inherit (libglvnd) driverLink;
       inherit llvmPackages;
 
-      libdrm = if withLibdrm then
-        libdrm
-      else
-        null;
+      libdrm =
+        if withLibdrm then
+          libdrm
+        else
+          null
+        ;
 
       tests = lib.optionalAttrs stdenv.isLinux {
         devDoesNotDependOnLLVM = stdenv.mkDerivation {

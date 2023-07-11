@@ -32,10 +32,10 @@ buildEnv {
     wrapOctave
   ];
 
-  # During "build" we must first unlink the /share symlink to octave's /share
-  # Then, we can re-symlink the all of octave/share, except for /share/octave
-  # in env/share/octave, re-symlink everything from octave/share/octave and then
-  # perform the pkg install.
+    # During "build" we must first unlink the /share symlink to octave's /share
+    # Then, we can re-symlink the all of octave/share, except for /share/octave
+    # in env/share/octave, re-symlink everything from octave/share/octave and then
+    # perform the pkg install.
   postBuild = ''
     if [ -L "$out/bin" ]; then
        unlink $out/bin

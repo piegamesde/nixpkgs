@@ -14,11 +14,13 @@
 }:
 
 let
-  cmakeBool = b:
+  cmakeBool =
+    b:
     if b then
       "ON"
     else
-      "OFF";
+      "OFF"
+    ;
 in
 stdenv.mkDerivation rec {
   version = "1.5.6";
@@ -32,7 +34,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  # ld: unknown option: --start-group
+    # ld: unknown option: --start-group
   postPatch = ''
     substituteInPlace cmake/draco_targets.cmake \
       --replace "^Clang" "^AppleClang"
@@ -64,7 +66,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Library for compressing and decompressing 3D geometric meshes and point clouds";
+      "Library for compressing and decompressing 3D geometric meshes and point clouds"
+      ;
     homepage = "https://google.github.io/draco/";
     changelog = "https://github.com/google/draco/releases/tag/${version}";
     license = licenses.asl20;

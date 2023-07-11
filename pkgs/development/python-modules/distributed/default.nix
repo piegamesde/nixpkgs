@@ -67,7 +67,7 @@ buildPythonPackage rec {
     zict
   ];
 
-  # When tested random tests would fail and not repeatably
+    # When tested random tests would fail and not repeatably
   doCheck = false;
 
   pythonImportsCheck = [ "distributed" ];
@@ -76,7 +76,8 @@ buildPythonPackage rec {
     description = "Distributed computation in Python";
     homepage = "https://distributed.readthedocs.io/";
     changelog =
-      "https://github.com/dask/distributed/blob/${version}/docs/source/changelog.rst";
+      "https://github.com/dask/distributed/blob/${version}/docs/source/changelog.rst"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [
       teh

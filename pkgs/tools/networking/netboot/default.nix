@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  # Disable parallel build, errors:
-  #  link: `parseopt.lo' is not a valid libtool object
+    # Disable parallel build, errors:
+    #  link: `parseopt.lo' is not a valid libtool object
   enableParallelBuilding = false;
 
   meta = with lib; {

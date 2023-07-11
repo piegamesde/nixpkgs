@@ -11,23 +11,28 @@ let
 
   cfg = config.services.postgresql;
 
-  postgresql = let
-    # ensure that
-    #   services.postgresql = {
-    #     enableJIT = true;
-    #     package = pkgs.postgresql_<major>;
-    #   };
-    # works.
-    base = if cfg.enableJIT && !cfg.package.jitSupport then
-      cfg.package.withJIT
+  postgresql =
+    let
+      # ensure that
+      #   services.postgresql = {
+      #     enableJIT = true;
+      #     package = pkgs.postgresql_<major>;
+      #   };
+      # works.
+      base =
+        if cfg.enableJIT && !cfg.package.jitSupport then
+          cfg.package.withJIT
+        else
+          cfg.package
+        ;
+    in if cfg.extraPlugins == [ ] then
+      base
     else
-      cfg.package;
-  in if cfg.extraPlugins == [ ] then
-    base
-  else
-    base.withPackages (_: cfg.extraPlugins);
+      base.withPackages (_: cfg.extraPlugins)
+    ;
 
-  toStr = value:
+  toStr =
+    value:
     if true == value then
       "yes"
     else if false == value then
@@ -35,9 +40,10 @@ let
     else if isString value then
       "'${lib.replaceStrings [ "'" ] [ "''" ] value}'"
     else
-      toString value;
+      toString value
+    ;
 
-  # The main PostgreSQL configuration file.
+    # The main PostgreSQL configuration file.
   configFile = pkgs.writeTextDir "postgresql.conf" (concatStringsSep "\n"
     (mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings));
 
@@ -55,7 +61,7 @@ in {
     "extraConfig"
   ] "Use services.postgresql.settings instead.") ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -84,14 +90,16 @@ in {
       checkConfig = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc
-          "Check the syntax of the configuration file at compile time";
+        description =
+          lib.mdDoc "Check the syntax of the configuration file at compile time"
+          ;
       };
 
       dataDir = mkOption {
         type = types.path;
         defaultText = literalExpression ''
-          "/var/lib/postgresql/''${config.services.postgresql.package.psqlSchema}"'';
+          "/var/lib/postgresql/''${config.services.postgresql.package.psqlSchema}"''
+          ;
         example = "/var/lib/postgresql/11";
         description = lib.mdDoc ''
           The data directory for PostgreSQL. If left as the default value
@@ -216,132 +224,134 @@ in {
                 The default, `null`, means that the user created will have the default permissions assigned by PostgreSQL. Subsequent server starts will not set or unset the clause, so imperative changes are preserved.
               '';
               type = types.submodule {
-                options = let
-                  defaultText = lib.literalMD ''
-                    `null`: do not set. For newly created roles, use PostgreSQL's default. For existing roles, do not touch this clause.
-                  '';
-                in {
-                  superuser = mkOption {
-                    type = types.nullOr types.bool;
-                    description = lib.mdDoc ''
-                      Grants the user, created by the ensureUser attr, superuser permissions. From the postgres docs:
-
-                      A database superuser bypasses all permission checks,
-                      except the right to log in. This is a dangerous privilege
-                      and should not be used carelessly; it is best to do most
-                      of your work as a role that is not a superuser. To create
-                      a new database superuser, use CREATE ROLE name SUPERUSER.
-                      You must do this as a role that is already a superuser.
-
-                      More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
+                options =
+                  let
+                    defaultText = lib.literalMD ''
+                      `null`: do not set. For newly created roles, use PostgreSQL's default. For existing roles, do not touch this clause.
                     '';
-                    default = null;
-                    inherit defaultText;
-                  };
-                  createrole = mkOption {
-                    type = types.nullOr types.bool;
-                    description = lib.mdDoc ''
-                      Grants the user, created by the ensureUser attr, createrole permissions. From the postgres docs:
+                  in {
+                    superuser = mkOption {
+                      type = types.nullOr types.bool;
+                      description = lib.mdDoc ''
+                        Grants the user, created by the ensureUser attr, superuser permissions. From the postgres docs:
 
-                      A role must be explicitly given permission to create more
-                      roles (except for superusers, since those bypass all
-                      permission checks). To create such a role, use CREATE
-                      ROLE name CREATEROLE. A role with CREATEROLE privilege
-                      can alter and drop other roles, too, as well as grant or
-                      revoke membership in them. However, to create, alter,
-                      drop, or change membership of a superuser role, superuser
-                      status is required; CREATEROLE is insufficient for that.
+                        A database superuser bypasses all permission checks,
+                        except the right to log in. This is a dangerous privilege
+                        and should not be used carelessly; it is best to do most
+                        of your work as a role that is not a superuser. To create
+                        a new database superuser, use CREATE ROLE name SUPERUSER.
+                        You must do this as a role that is already a superuser.
 
-                      More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
-                    '';
-                    default = null;
-                    inherit defaultText;
-                  };
-                  createdb = mkOption {
-                    type = types.nullOr types.bool;
-                    description = lib.mdDoc ''
-                      Grants the user, created by the ensureUser attr, createdb permissions. From the postgres docs:
+                        More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
+                      '';
+                      default = null;
+                      inherit defaultText;
+                    };
+                    createrole = mkOption {
+                      type = types.nullOr types.bool;
+                      description = lib.mdDoc ''
+                        Grants the user, created by the ensureUser attr, createrole permissions. From the postgres docs:
 
-                      A role must be explicitly given permission to create
-                      databases (except for superusers, since those bypass all
-                      permission checks). To create such a role, use CREATE
-                      ROLE name CREATEDB.
+                        A role must be explicitly given permission to create more
+                        roles (except for superusers, since those bypass all
+                        permission checks). To create such a role, use CREATE
+                        ROLE name CREATEROLE. A role with CREATEROLE privilege
+                        can alter and drop other roles, too, as well as grant or
+                        revoke membership in them. However, to create, alter,
+                        drop, or change membership of a superuser role, superuser
+                        status is required; CREATEROLE is insufficient for that.
 
-                      More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
-                    '';
-                    default = null;
-                    inherit defaultText;
-                  };
-                  "inherit" = mkOption {
-                    type = types.nullOr types.bool;
-                    description = lib.mdDoc ''
-                      Grants the user created inherit permissions. From the postgres docs:
+                        More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
+                      '';
+                      default = null;
+                      inherit defaultText;
+                    };
+                    createdb = mkOption {
+                      type = types.nullOr types.bool;
+                      description = lib.mdDoc ''
+                        Grants the user, created by the ensureUser attr, createdb permissions. From the postgres docs:
 
-                      A role is given permission to inherit the privileges of
-                      roles it is a member of, by default. However, to create a
-                      role without the permission, use CREATE ROLE name
-                      NOINHERIT.
+                        A role must be explicitly given permission to create
+                        databases (except for superusers, since those bypass all
+                        permission checks). To create such a role, use CREATE
+                        ROLE name CREATEDB.
 
-                      More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
-                    '';
-                    default = null;
-                    inherit defaultText;
-                  };
-                  login = mkOption {
-                    type = types.nullOr types.bool;
-                    description = lib.mdDoc ''
-                      Grants the user, created by the ensureUser attr, login permissions. From the postgres docs:
+                        More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
+                      '';
+                      default = null;
+                      inherit defaultText;
+                    };
+                    "inherit" = mkOption {
+                      type = types.nullOr types.bool;
+                      description = lib.mdDoc ''
+                        Grants the user created inherit permissions. From the postgres docs:
 
-                      Only roles that have the LOGIN attribute can be used as
-                      the initial role name for a database connection. A role
-                      with the LOGIN attribute can be considered the same as a
-                      “database user”. To create a role with login privilege,
-                      use either:
+                        A role is given permission to inherit the privileges of
+                        roles it is a member of, by default. However, to create a
+                        role without the permission, use CREATE ROLE name
+                        NOINHERIT.
 
-                      CREATE ROLE name LOGIN; CREATE USER name;
+                        More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
+                      '';
+                      default = null;
+                      inherit defaultText;
+                    };
+                    login = mkOption {
+                      type = types.nullOr types.bool;
+                      description = lib.mdDoc ''
+                        Grants the user, created by the ensureUser attr, login permissions. From the postgres docs:
 
-                      (CREATE USER is equivalent to CREATE ROLE except that
-                      CREATE USER includes LOGIN by default, while CREATE ROLE
-                      does not.)
+                        Only roles that have the LOGIN attribute can be used as
+                        the initial role name for a database connection. A role
+                        with the LOGIN attribute can be considered the same as a
+                        “database user”. To create a role with login privilege,
+                        use either:
 
-                      More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
-                    '';
-                    default = null;
-                    inherit defaultText;
-                  };
-                  replication = mkOption {
-                    type = types.nullOr types.bool;
-                    description = lib.mdDoc ''
-                      Grants the user, created by the ensureUser attr, replication permissions. From the postgres docs:
+                        CREATE ROLE name LOGIN; CREATE USER name;
 
-                      A role must explicitly be given permission to initiate
-                      streaming replication (except for superusers, since those
-                      bypass all permission checks). A role used for streaming
-                      replication must have LOGIN permission as well. To create
-                      such a role, use CREATE ROLE name REPLICATION LOGIN.
+                        (CREATE USER is equivalent to CREATE ROLE except that
+                        CREATE USER includes LOGIN by default, while CREATE ROLE
+                        does not.)
 
-                      More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
-                    '';
-                    default = null;
-                    inherit defaultText;
-                  };
-                  bypassrls = mkOption {
-                    type = types.nullOr types.bool;
-                    description = lib.mdDoc ''
-                      Grants the user, created by the ensureUser attr, replication permissions. From the postgres docs:
+                        More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
+                      '';
+                      default = null;
+                      inherit defaultText;
+                    };
+                    replication = mkOption {
+                      type = types.nullOr types.bool;
+                      description = lib.mdDoc ''
+                        Grants the user, created by the ensureUser attr, replication permissions. From the postgres docs:
 
-                      A role must be explicitly given permission to bypass
-                      every row-level security (RLS) policy (except for
-                      superusers, since those bypass all permission checks). To
-                      create such a role, use CREATE ROLE name BYPASSRLS as a
-                      superuser.
+                        A role must explicitly be given permission to initiate
+                        streaming replication (except for superusers, since those
+                        bypass all permission checks). A role used for streaming
+                        replication must have LOGIN permission as well. To create
+                        such a role, use CREATE ROLE name REPLICATION LOGIN.
 
-                      More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
-                    '';
-                    default = null;
-                    inherit defaultText;
-                  };
-                } ;
+                        More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
+                      '';
+                      default = null;
+                      inherit defaultText;
+                    };
+                    bypassrls = mkOption {
+                      type = types.nullOr types.bool;
+                      description = lib.mdDoc ''
+                        Grants the user, created by the ensureUser attr, replication permissions. From the postgres docs:
+
+                        A role must be explicitly given permission to bypass
+                        every row-level security (RLS) policy (except for
+                        superusers, since those bypass all permission checks). To
+                        create such a role, use CREATE ROLE name BYPASSRLS as a
+                        superuser.
+
+                        More information on postgres roles can be found [here](https://www.postgresql.org/docs/current/role-attributes.html)
+                      '';
+                      default = null;
+                      inherit defaultText;
+                    };
+                  }
+                  ;
               };
             };
           };
@@ -457,7 +467,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -466,10 +476,12 @@ in {
       ident_file = "${pkgs.writeText "pg_ident.conf" cfg.identMap}";
       log_destination = "stderr";
       log_line_prefix = cfg.logLinePrefix;
-      listen_addresses = if cfg.enableTCPIP then
-        "*"
-      else
-        "localhost";
+      listen_addresses =
+        if cfg.enableTCPIP then
+          "*"
+        else
+          "localhost"
+        ;
       port = cfg.port;
       jit = mkDefault (if cfg.enableJIT then
         "on"
@@ -477,29 +489,34 @@ in {
         "off");
     };
 
-    services.postgresql.package = let
-      mkThrow = ver:
-        throw
-        "postgresql_${ver} was removed, please upgrade your postgresql version.";
-      base = if versionAtLeast config.system.stateVersion "22.05" then
-        pkgs.postgresql_14
-      else if versionAtLeast config.system.stateVersion "21.11" then
-        pkgs.postgresql_13
-      else if versionAtLeast config.system.stateVersion "20.03" then
-        pkgs.postgresql_11
-      else if versionAtLeast config.system.stateVersion "17.09" then
-        mkThrow "9_6"
+    services.postgresql.package =
+      let
+        mkThrow =
+          ver:
+          throw
+          "postgresql_${ver} was removed, please upgrade your postgresql version."
+          ;
+        base =
+          if versionAtLeast config.system.stateVersion "22.05" then
+            pkgs.postgresql_14
+          else if versionAtLeast config.system.stateVersion "21.11" then
+            pkgs.postgresql_13
+          else if versionAtLeast config.system.stateVersion "20.03" then
+            pkgs.postgresql_11
+          else if versionAtLeast config.system.stateVersion "17.09" then
+            mkThrow "9_6"
+          else
+            mkThrow "9_5"
+          ;
+        # Note: when changing the default, make it conditional on
+        # ‘system.stateVersion’ to maintain compatibility with existing
+        # systems!
+      in
+      mkDefault (if cfg.enableJIT then
+        base.withJIT
       else
-        mkThrow "9_5";
-      # Note: when changing the default, make it conditional on
-      # ‘system.stateVersion’ to maintain compatibility with existing
-      # systems!
-    in
-    mkDefault (if cfg.enableJIT then
-      base.withJIT
-    else
-      base)
-    ;
+        base)
+      ;
 
     services.postgresql.dataDir =
       mkDefault "/var/lib/postgresql/${cfg.package.psqlSchema}";
@@ -559,7 +576,7 @@ in {
         ''}
       '';
 
-      # Wait for PostgreSQL to be ready to accept connections.
+        # Wait for PostgreSQL to be ready to accept connections.
       postStart = ''
         PSQL="psql --port=${toString cfg.port}"
 
@@ -615,28 +632,32 @@ in {
           User = "postgres";
           Group = "postgres";
           RuntimeDirectory = "postgresql";
-          Type = if versionAtLeast cfg.package.version "9.6" then
-            "notify"
-          else
-            "simple";
+          Type =
+            if versionAtLeast cfg.package.version "9.6" then
+              "notify"
+            else
+              "simple"
+            ;
 
-          # Shut down Postgres using SIGINT ("Fast Shutdown mode").  See
-          # http://www.postgresql.org/docs/current/static/server-shutdown.html
+            # Shut down Postgres using SIGINT ("Fast Shutdown mode").  See
+            # http://www.postgresql.org/docs/current/static/server-shutdown.html
           KillSignal = "SIGINT";
           KillMode = "mixed";
 
-          # Give Postgres a decent amount of time to clean up after
-          # receiving systemd's SIGINT.
+            # Give Postgres a decent amount of time to clean up after
+            # receiving systemd's SIGINT.
           TimeoutSec = 120;
 
           ExecStart = "${postgresql}/bin/postgres";
         }
         (mkIf (cfg.dataDir == "/var/lib/postgresql/${cfg.package.psqlSchema}") {
           StateDirectory = "postgresql postgresql/${cfg.package.psqlSchema}";
-          StateDirectoryMode = if groupAccessAvailable then
-            "0750"
-          else
-            "0700";
+          StateDirectoryMode =
+            if groupAccessAvailable then
+              "0750"
+            else
+              "0700"
+            ;
         })
       ];
 

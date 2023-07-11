@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "uptime_kuma_api" ];
 
-  # Tests need an uptime-kuma instance to run
+    # Tests need an uptime-kuma instance to run
   doCheck = false;
 
   meta = with lib; {

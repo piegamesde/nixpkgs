@@ -35,7 +35,7 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  # dissect.fat.exceptions.InvalidBPB: Invalid BS_jmpBoot
+    # dissect.fat.exceptions.InvalidBPB: Invalid BS_jmpBoot
   doCheck = false;
 
   pythonImportsCheck = [ "dissect.fat" ];

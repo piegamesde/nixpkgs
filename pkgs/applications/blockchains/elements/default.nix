@@ -24,10 +24,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = if withGui then
-    "elements"
-  else
-    "elementsd";
+  pname =
+    if withGui then
+      "elements"
+    else
+      "elementsd"
+    ;
   version = "22.1.1";
 
   src = fetchFromGitHub {
@@ -72,8 +74,8 @@ stdenv.mkDerivation rec {
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ];
 
-  # fix "Killed: 9  test/test_bitcoin"
-  # https://github.com/NixOS/nixpkgs/issues/179474
+    # fix "Killed: 9  test/test_bitcoin"
+    # https://github.com/NixOS/nixpkgs/issues/179474
   hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
     "fortify"
     "stackprotector"
@@ -92,7 +94,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Open Source implementation of advanced blockchain features extending the Bitcoin protocol";
+      "Open Source implementation of advanced blockchain features extending the Bitcoin protocol"
+      ;
     longDescription = ''
       The Elements blockchain platform is a collection of feature experiments and extensions to the
       Bitcoin protocol. This platform enables anyone to build their own businesses or networks

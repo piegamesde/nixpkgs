@@ -25,7 +25,7 @@ in {
     "fvwm2"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
     services.xserver.windowManager.fvwm2 = {
@@ -40,7 +40,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {

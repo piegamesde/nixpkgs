@@ -74,7 +74,7 @@ let
       ./autogen.sh
     '';
 
-    # The test suite fails because it uses hard-coded paths, i.e. /usr/bin/gcc.
+      # The test suite fails because it uses hard-coded paths, i.e. /usr/bin/gcc.
     doCheck = false;
 
     passthru = {
@@ -83,7 +83,8 @@ let
       #
       # extraConfig is meant to be sh lines exporting environment
       # variables like DISTCC_HOSTS, DISTCC_DIR, ...
-      links = extraConfig:
+      links =
+        extraConfig:
         (runCommand "distcc-links" { passthru.gcc = gcc.cc; } ''
           mkdir -p $out/bin
           if [ -x "${gcc.cc}/bin/gcc" ]; then
@@ -102,7 +103,8 @@ let
           EOF
             chmod +x $out/bin/g++
           fi
-        '');
+        '')
+        ;
     };
 
     meta = {

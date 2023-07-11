@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A small cross-platform library for verifying Authenticode digital signatures.";
+      "A small cross-platform library for verifying Authenticode digital signatures."
+      ;
     homepage = "https://github.com/trailofbits/uthenticode";
     license = licenses.mit;
     platforms = platforms.unix;

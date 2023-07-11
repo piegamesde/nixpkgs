@@ -53,13 +53,15 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "0001-tests-fix-warnings.patch";
     url =
-      "https://github.com/Aetf/kmscon/commit/b65f4269b03de580923ab390bde795e7956b633f.patch";
+      "https://github.com/Aetf/kmscon/commit/b65f4269b03de580923ab390bde795e7956b633f.patch"
+      ;
     sha256 = "sha256-ngflPwmNMM/2JzhV+hHiH3efQyoSULfqEywzWox9iAQ=";
   }) ];
 
-  # _FORTIFY_SOURCE requires compiling with optimization (-O)
+    # _FORTIFY_SOURCE requires compiling with optimization (-O)
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isGNU "-O"
-    + " -Wno-error=maybe-uninitialized"; # https://github.com/Aetf/kmscon/issues/49
+    + " -Wno-error=maybe-uninitialized"
+    ; # https://github.com/Aetf/kmscon/issues/49
 
   configureFlags = [
     "--enable-multi-seat"

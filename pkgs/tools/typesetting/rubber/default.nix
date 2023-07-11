@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-7sv9N3PES5N41yYyXNWfaZ6IhLW6SqMiCHdamsSPQzg=";
   };
 
-  # I'm sure there is a better way to pass these parameters to the build script...
+    # I'm sure there is a better way to pass these parameters to the build script...
   postPatch = ''
     substituteInPlace setup.py \
       --replace 'pdf = True' 'pdf = False' \

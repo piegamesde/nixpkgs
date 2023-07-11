@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  # thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: invalid option '--test-threads''
+    # thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: invalid option '--test-threads''
   doCheck = false;
 
   meta = with lib; {

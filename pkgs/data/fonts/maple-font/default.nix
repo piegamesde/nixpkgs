@@ -6,7 +6,8 @@
 }:
 
 let
-  maple-font = {
+  maple-font =
+    {
       pname,
       sha256,
       desc,
@@ -17,12 +18,13 @@ let
       version = "6.3";
       src = fetchurl {
         url =
-          "https://github.com/subframe7536/Maple-font/releases/download/v${version}/${pname}.zip";
+          "https://github.com/subframe7536/Maple-font/releases/download/v${version}/${pname}.zip"
+          ;
         inherit sha256;
       };
 
-      # Work around the "unpacker appears to have produced no directories"
-      # case that happens when the archive doesn't have a subdirectory.
+        # Work around the "unpacker appears to have produced no directories"
+        # case that happens when the archive doesn't have a subdirectory.
       setSourceRoot = "sourceRoot=`pwd`";
       nativeBuildInputs = [ unzip ];
       installPhase = ''
@@ -40,7 +42,8 @@ let
         platforms = platforms.all;
         maintainers = with maintainers; [ oluceps ];
       };
-    };
+    }
+    ;
 
 in {
   Mono = maple-font {

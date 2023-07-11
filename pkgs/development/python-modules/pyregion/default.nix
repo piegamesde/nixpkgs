@@ -17,8 +17,8 @@ buildPythonPackage rec {
   pname = "pyregion";
   version = "2.1.1";
 
-  # pypi src contains cython-produced .c files which don't compile
-  # with python3.9
+    # pypi src contains cython-produced .c files which don't compile
+    # with python3.9
   src = fetchFromGitHub {
     owner = "astropy";
     repo = pname;
@@ -32,17 +32,19 @@ buildPythonPackage rec {
     astropy
   ];
 
-  # Upstream patches needed for the tests to pass
-  # See https://github.com/astropy/pyregion/pull/157/
+    # Upstream patches needed for the tests to pass
+    # See https://github.com/astropy/pyregion/pull/157/
   patches = [
     (fetchpatch {
       url =
-        "https://github.com/astropy/pyregion/pull/157/commits/082649730d353a0d0c0ee9619be1aa501aabba62.patch";
+        "https://github.com/astropy/pyregion/pull/157/commits/082649730d353a0d0c0ee9619be1aa501aabba62.patch"
+        ;
       hash = "sha256-4mHZt3S29ZfK+QKavm6DLBwVxGl/ga7W7GEcQ5ewxuo=";
     })
     (fetchpatch {
       url =
-        "https://github.com/astropy/pyregion/pull/157/commits/c448a465dd56887979da62aec6138fc89bb37b19.patch";
+        "https://github.com/astropy/pyregion/pull/157/commits/c448a465dd56887979da62aec6138fc89bb37b19.patch"
+        ;
       hash = "sha256-GEtvScmVbAdE4E5Xx0hNOPommvzcnJ3jNZpBmY3PbyE=";
     })
   ];
@@ -64,12 +66,12 @@ buildPythonPackage rec {
     "test_region"
   ];
 
-  # Disable automatic update of the astropy-helper module
+    # Disable automatic update of the astropy-helper module
   postPatch = ''
     substituteInPlace setup.cfg --replace "auto_use = True" "auto_use = False"
   '';
 
-  # Tests must be run in the build directory
+    # Tests must be run in the build directory
   preCheck = ''
     pushd build/lib.*
   '';

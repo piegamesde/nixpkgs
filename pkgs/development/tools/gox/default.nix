@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  # This is required for wrapProgram.
+    # This is required for wrapProgram.
   allowGoReference = true;
 
   nativeBuildInputs = [ makeWrapper ];

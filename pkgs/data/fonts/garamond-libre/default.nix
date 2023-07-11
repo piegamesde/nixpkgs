@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/dbenjaminmiller/garamond-libre/releases/download/${version}/garamond-libre_${version}.zip";
+      "https://github.com/dbenjaminmiller/garamond-libre/releases/download/${version}/garamond-libre_${version}.zip"
+      ;
     stripRoot = false;
     hash = "sha256-cD/JMICtb6MPIUcWs2VOTHnb/05ma0/KKtPyR4oJlIc=";
   };

@@ -13,7 +13,8 @@ let
 
   inherit (pkgs) openvpn;
 
-  makeOpenVPNJob = cfg: name:
+  makeOpenVPNJob =
+    cfg: name:
     let
 
       path =
@@ -76,19 +77,22 @@ let
       ];
 
       serviceConfig.ExecStart =
-        "@${openvpn}/sbin/openvpn openvpn --suppress-timestamps --config ${configFile}";
+        "@${openvpn}/sbin/openvpn openvpn --suppress-timestamps --config ${configFile}"
+        ;
       serviceConfig.Restart = "always";
       serviceConfig.Type = "notify";
-    } ;
+    }
+    ;
 
   restartService = optionalAttrs cfg.restartAfterSleep {
     openvpn-restart = {
       wantedBy = [ "sleep.target" ];
       path = [ pkgs.procps ];
       script = "pkill --signal SIGHUP --exact openvpn";
-      #SIGHUP makes openvpn process to self-exit and then it got restarted by systemd because of Restart=always
+        #SIGHUP makes openvpn process to self-exit and then it got restarted by systemd because of Restart=always
       description =
-        "Sends a signal to OpenVPN process to trigger a restart after return from sleep";
+        "Sends a signal to OpenVPN process to trigger a restart after return from sleep"
+        ;
     };
   };
 
@@ -99,7 +103,7 @@ in {
     "enable"
   ] "") ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -183,7 +187,8 @@ in {
               default = true;
               type = types.bool;
               description = lib.mdDoc
-                "Whether this OpenVPN instance should be started automatically.";
+                "Whether this OpenVPN instance should be started automatically."
+                ;
             };
 
             updateResolvConf = mkOption {
@@ -236,7 +241,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (cfg.servers != { }) {
 

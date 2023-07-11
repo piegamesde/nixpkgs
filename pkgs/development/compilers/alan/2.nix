@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
 
   makefile = "Makefile.unix";
 
-  # Add a workarounf for -fno-common tollchains like upstream gcc-10.
-  # alan-3 is already fixed, but the backport is nontrivial.
+    # Add a workarounf for -fno-common tollchains like upstream gcc-10.
+    # alan-3 is already fixed, but the backport is nontrivial.
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   installPhase = ''

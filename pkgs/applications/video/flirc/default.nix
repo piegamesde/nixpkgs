@@ -15,7 +15,8 @@ mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://web.archive.org/web/20211021211803/http://apt.flirc.tv/arch/x86_64/flirc.latest.x86_64.tar.gz";
+      "https://web.archive.org/web/20211021211803/http://apt.flirc.tv/arch/x86_64/flirc.latest.x86_64.tar.gz"
+      ;
     sha256 = "0p4pp7j70lbw6m25lmjg6ibc67r6jcy7qs3kki9f86ji1jvrxpga";
   };
 
@@ -30,8 +31,8 @@ mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  # udev rules don't appear in the official package
-  # https://flirc.gitbooks.io/flirc-instructions/content/linux.html
+    # udev rules don't appear in the official package
+    # https://flirc.gitbooks.io/flirc-instructions/content/linux.html
   installPhase = ''
     install -D -t $out/bin/ Flirc flirc_util
     install -D ${./99-flirc.rules} $out/lib/udev/rules.d/99-flirc.rules

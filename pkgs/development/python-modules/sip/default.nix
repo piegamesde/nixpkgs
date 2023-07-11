@@ -32,7 +32,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  # There aren't tests
+    # There aren't tests
   doCheck = false;
 
   pythonImportsCheck = [ "sipbuild" ];

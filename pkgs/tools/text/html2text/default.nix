@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
         --replace CXX=unknown ':'
   '';
 
-  # the --prefix has no effect
+    # the --prefix has no effect
   installPhase = ''
     mkdir -p $out/bin $out/man/man{1,5}
     cp html2text $out/bin

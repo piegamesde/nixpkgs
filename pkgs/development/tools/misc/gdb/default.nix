@@ -54,8 +54,8 @@ in
 assert pythonSupport -> python3 != null;
 
 stdenv.mkDerivation rec {
-  pname = targetPrefix + basename
-    + lib.optionalString hostCpuOnly "-host-cpu-only";
+  pname =
+    targetPrefix + basename + lib.optionalString hostCpuOnly "-host-cpu-only";
   version = "13.1";
 
   src = fetchurl {
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # darwin build fails with format hardening since v7.12
+    # darwin build fails with format hardening since v7.12
   hardeningDisable = lib.optionals stdenv.isDarwin [ "format" ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-format-nonliteral";
@@ -165,7 +165,7 @@ stdenv.mkDerivation rec {
           rm -v $out/share/info/bfd.info
   '';
 
-  # TODO: Investigate & fix the test failures.
+    # TODO: Investigate & fix the test failures.
   doCheck = false;
 
   passthru = {
@@ -195,7 +195,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl3Plus;
 
-    # GDB upstream does not support ARM darwin
+      # GDB upstream does not support ARM darwin
     platforms = with platforms; linux ++ cygwin ++ [ "x86_64-darwin" ];
     maintainers = with maintainers; [
       pierron

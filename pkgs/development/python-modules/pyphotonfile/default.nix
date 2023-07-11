@@ -27,7 +27,8 @@ buildPythonPackage {
     maintainers = [ maintainers.cab404 ];
     license = licenses.gpl3Plus;
     description =
-      "Library for reading and writing files for the Anycubic Photon 3D-Printer";
+      "Library for reading and writing files for the Anycubic Photon 3D-Printer"
+      ;
     homepage = "https://github.com/fookatchu/pyphotonfile";
   };
 

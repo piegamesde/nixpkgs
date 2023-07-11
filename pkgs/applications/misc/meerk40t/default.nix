@@ -24,7 +24,7 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  # prevent double wrapping
+    # prevent double wrapping
   dontWrapGApps = true;
 
   propagatedBuildInputs = with python3.pkgs; [

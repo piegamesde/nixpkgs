@@ -60,8 +60,8 @@ python3Packages.buildPythonApplication rec {
     webkitgtk
   ];
 
-  # Run Linux games using the Steam Runtime by using steam-run in the wrapper
-  # FIXME: not working with makeBinaryWrapper
+    # Run Linux games using the Steam Runtime by using steam-run in the wrapper
+    # FIXME: not working with makeBinaryWrapper
   postFixup = ''
     sed -e 's#exec -a "$0"#exec -a "$0" ${steam-run}/bin/steam-run#' -i $out/bin/minigalaxy
   '';

@@ -21,7 +21,8 @@
 }:
 
 let
-  commonTargetPkgs = pkgs:
+  commonTargetPkgs =
+    pkgs:
     with pkgs;
     [
       # Needed for operating system detection until
@@ -49,7 +50,8 @@ let
       # electron based launchers need newer versions of these libraries than what runtime provides
       mesa
       sqlite
-    ] ++ extraPkgs pkgs;
+    ] ++ extraPkgs pkgs
+    ;
 
   ldPath = lib.optionals stdenv.is64bit [ "/lib64" ] ++ [ "/lib32" ]
     ++ map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x)
@@ -58,7 +60,7 @@ let
     (map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x)
       steam-runtime-wrapped-i686.libs);
 
-  # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
+    # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
   exportLDPath = ''
     export LD_LIBRARY_PATH=${
       lib.concatStringsSep ":" ldPath
@@ -66,8 +68,8 @@ let
     export STEAM_LD_LIBRARY_PATH="$STEAM_LD_LIBRARY_PATH''${STEAM_LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
   '';
 
-  # bootstrap.tar.xz has 444 permissions, which means that simple deletes fail
-  # and steam will not be able to start
+    # bootstrap.tar.xz has 444 permissions, which means that simple deletes fail
+    # and steam will not be able to start
   fixBootstrap = ''
     if [ -r $HOME/.local/share/Steam/bootstrap.tar.xz ]; then
       chmod +w $HOME/.local/share/Steam/bootstrap.tar.xz
@@ -80,15 +82,18 @@ in
 buildFHSEnv rec {
   name = "steam";
 
-  targetPkgs = pkgs:
+  targetPkgs =
+    pkgs:
     with pkgs;
     [
       steamPackages.steam
       # License agreement
       gnome.zenity
-    ] ++ commonTargetPkgs pkgs;
+    ] ++ commonTargetPkgs pkgs
+    ;
 
-  multiPkgs = pkgs:
+  multiPkgs =
+    pkgs:
     with pkgs;
     [
       # These are required by steam with proper errors
@@ -230,8 +235,8 @@ buildFHSEnv rec {
       nghttp2.lib
       openssl_1_1
       rtmpdump
-    ] ++ steamPackages.steam-runtime-wrapped.overridePkgs
-    ++ extraLibraries pkgs;
+    ] ++ steamPackages.steam-runtime-wrapped.overridePkgs ++ extraLibraries pkgs
+    ;
 
   extraInstallCommands = ''
     mkdir -p $out/share/applications
@@ -289,13 +294,13 @@ buildFHSEnv rec {
     description = steam.meta.description + " (without game specific libraries)";
   };
 
-  # allows for some gui applications to share IPC
-  # this fixes certain issues where they don't render correctly
+    # allows for some gui applications to share IPC
+    # this fixes certain issues where they don't render correctly
   unshareIpc = false;
 
-  # Some applications such as Natron need access to MIT-SHM or other
-  # shared memory mechanisms. Unsharing the pid namespace
-  # breaks the ability for application to reference shared memory.
+    # Some applications such as Natron need access to MIT-SHM or other
+    # shared memory mechanisms. Unsharing the pid namespace
+    # breaks the ability for application to reference shared memory.
   unsharePid = false;
 
   passthru.run = buildFHSEnv {

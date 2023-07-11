@@ -9,7 +9,8 @@ let
 in rec {
 
   # Derive a pin file from workspace state.
-  mkPinFile = workspaceState:
+  mkPinFile =
+    workspaceState:
     assert workspaceState.version == 5;
     json.generate "Package.resolved" {
       version = 1;
@@ -18,10 +19,12 @@ in rec {
         repositoryURL = dep.packageRef.location;
         state = dep.state.checkoutState;
       }) workspaceState.object.dependencies;
-    };
+    }
+    ;
 
-  # Make packaging helpers from swiftpm2nix generated output.
-  helpers = generated:
+    # Make packaging helpers from swiftpm2nix generated output.
+  helpers =
+    generated:
     let
       inherit (import generated) workspaceStateFile hashes;
       workspaceState = builtins.fromJSON (builtins.readFile workspaceStateFile);
@@ -36,7 +39,7 @@ in rec {
           sha256 = hashes.${dep.subpath};
         })) workspaceState.object.dependencies);
 
-      # Configure phase snippet for use in packaging.
+        # Configure phase snippet for use in packaging.
       configure = ''
         mkdir -p .build/checkouts
         ln -sf ${pinFile} ./Package.resolved
@@ -53,6 +56,7 @@ in rec {
         }
       '';
 
-    } ;
+    }
+    ;
 
 }

@@ -16,7 +16,7 @@ buildOctavePackage rec {
     sha256 = "0jab5wmrpifqphmrfkqcyrlpc0h4y4m735yc3avqqjajz1rl24lm";
   };
 
-  # Found here: https://build.opensuse.org/package/view_file/science/octave-forge-fits/octave-forge-fits.spec?expand=1
+    # Found here: https://build.opensuse.org/package/view_file/science/octave-forge-fits/octave-forge-fits.spec?expand=1
   patchPhase = ''
     sed -i -s -e 's/D_NINT/octave::math::x_nint/g' src/*.cc
   '';
@@ -32,6 +32,7 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Functions for reading, and writing FITS (Flexible Image Transport System) files using cfitsio";
+      "Functions for reading, and writing FITS (Flexible Image Transport System) files using cfitsio"
+      ;
   };
 }

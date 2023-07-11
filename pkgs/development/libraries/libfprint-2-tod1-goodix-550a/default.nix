@@ -42,9 +42,11 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Goodix 550a driver module for libfprint-2-tod Touch OEM Driver (from Lenovo)";
+      "Goodix 550a driver module for libfprint-2-tod Touch OEM Driver (from Lenovo)"
+      ;
     homepage =
-      "https://support.lenovo.com/us/en/downloads/ds560884-goodix-fingerprint-driver-for-linux-thinkpad-e14-gen-4-e15-gen-4";
+      "https://support.lenovo.com/us/en/downloads/ds560884-goodix-fingerprint-driver-for-linux-thinkpad-e14-gen-4-e15-gen-4"
+      ;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = platforms.linux;

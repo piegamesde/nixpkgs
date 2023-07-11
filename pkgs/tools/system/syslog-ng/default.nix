@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/${pname}/${pname}/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
+      "https://github.com/${pname}/${pname}/releases/download/${pname}-${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-VJH2htC4KbabLg/A1mpi9RmRqvruAFR1v6OPqzmUQfc=";
   };
 
@@ -84,7 +85,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.syslog-ng.com";
     description =
-      "Next-generation syslogd with advanced networking and filtering capabilities";
+      "Next-generation syslogd with advanced networking and filtering capabilities"
+      ;
     license = with licenses; [
       gpl2Plus
       lgpl21Plus

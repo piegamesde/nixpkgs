@@ -31,10 +31,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-  # tests requires hardware
+    # tests requires hardware
   doCheck = false;
 
-  # Remove impossible dependency constraint
+    # Remove impossible dependency constraint
   postPatch = "sed -i -e 's|hidapi==|hidapi>=|' setup.py";
 
   meta = with lib; {

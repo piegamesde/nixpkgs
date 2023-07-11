@@ -18,14 +18,16 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "http://bugseng.com/products/ppl/download/ftp/releases/${version}/ppl-${version}.tar.bz2";
+      "http://bugseng.com/products/ppl/download/ftp/releases/${version}/ppl-${version}.tar.bz2"
+      ;
     sha256 = "1wgxcbgmijgk11df43aiqfzv31r3bkxmgb4yl68g21194q60nird";
   };
 
   patches = [ (fetchpatch {
     name = "clang5-support.patch";
     url =
-      "https://git.sagemath.org/sage.git/plain/build/pkgs/ppl/patches/clang5-support.patch?h=9.2";
+      "https://git.sagemath.org/sage.git/plain/build/pkgs/ppl/patches/clang5-support.patch?h=9.2"
+      ;
     sha256 = "1zj90hm25pkgvk4jlkfzh18ak9b98217gbidl3731fdccbw6hr87";
   }) ];
 
@@ -42,9 +44,9 @@ stdenv.mkDerivation {
     "--disable-ppl_pips"
   ];
 
-  # Beware!  It took ~6 hours to compile PPL and run its tests on a 1.2 GHz
-  # x86_64 box.  Nevertheless, being a dependency of GCC, it probably ought
-  # to be tested.
+    # Beware!  It took ~6 hours to compile PPL and run its tests on a 1.2 GHz
+    # x86_64 box.  Nevertheless, being a dependency of GCC, it probably ought
+    # to be tested.
   doCheck = false;
 
   enableParallelBuilding = true;

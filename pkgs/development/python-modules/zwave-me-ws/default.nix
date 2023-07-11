@@ -29,7 +29,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "zwave_me_ws" ];

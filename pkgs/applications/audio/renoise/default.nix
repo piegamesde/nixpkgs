@@ -25,24 +25,26 @@ stdenv.mkDerivation rec {
   pname = "renoise";
   version = "3.3.2";
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
-    if releasePath == null then
-      fetchurl {
-        urls = [
-          "https://files.renoise.com/demo/Renoise_${
-            urlVersion version
-          }_Demo_Linux.tar.gz"
-          "https://web.archive.org/web/https://files.renoise.com/demo/Renoise_${
-            urlVersion version
-          }_Demo_Linux.tar.gz"
-        ];
-        sha256 = "0d9pnrvs93d4bwbfqxwyr3lg3k6gnzmp81m95gglzwdzczxkw38k";
-      }
+  src =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      if releasePath == null then
+        fetchurl {
+          urls = [
+            "https://files.renoise.com/demo/Renoise_${
+              urlVersion version
+            }_Demo_Linux.tar.gz"
+            "https://web.archive.org/web/https://files.renoise.com/demo/Renoise_${
+              urlVersion version
+            }_Demo_Linux.tar.gz"
+          ];
+          sha256 = "0d9pnrvs93d4bwbfqxwyr3lg3k6gnzmp81m95gglzwdzczxkw38k";
+        }
+      else
+        releasePath
     else
-      releasePath
-  else
-    throw
-    "Platform is not supported. Use instalation native to your platform https://www.renoise.com/";
+      throw
+      "Platform is not supported. Use instalation native to your platform https://www.renoise.com/"
+    ;
 
   buildInputs = [
     alsa-lib

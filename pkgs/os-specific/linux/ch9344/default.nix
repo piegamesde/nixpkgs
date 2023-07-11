@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "KERNELDIR :=" "KERNELDIR ?="
   '';
 
-  makeFlags =
-    [ "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = [ "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ]
+    ;
 
   installPhase = ''
     runHook preInstall
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
       A kernel module for WinChipHead CH9344/CH348 USB To Multi Serial Ports controller.
     '';
-    # Archive contains no license.
+      # Archive contains no license.
     license = licenses.unfree;
     platforms = platforms.linux;
     maintainers = with maintainers; [ MakiseKurisu ];

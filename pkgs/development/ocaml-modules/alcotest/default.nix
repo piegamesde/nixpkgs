@@ -19,7 +19,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/alcotest/releases/download/${version}/alcotest-${version}.tbz";
+      "https://github.com/mirage/alcotest/releases/download/${version}/alcotest-${version}.tbz"
+      ;
     hash = "sha256-gSus2zS0XoiZXgfXMGvasvckee8ZlmN/HV0fQWZ5At8=";
   };
 

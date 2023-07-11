@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ toml ];
 
-  # Requires pytest, circular dependency
+    # Requires pytest, circular dependency
   doCheck = false;
   pythonImportsCheck = [ "setuptools_scm" ];
 

@@ -16,7 +16,8 @@
   moreutils,
 }:
 let
-  buildModelPackage = {
+  buildModelPackage =
+    {
       pname,
       version,
       sha256,
@@ -25,15 +26,16 @@ let
 
     let
       lang = builtins.substring 0 2 pname;
-      requires-protobuf = pname == "fr_dep_news_trf" || pname
-        == "uk_core_news_trf";
+      requires-protobuf =
+        pname == "fr_dep_news_trf" || pname == "uk_core_news_trf";
     in
     buildPythonPackage {
       inherit pname version;
 
       src = fetchurl {
         url =
-          "https://github.com/explosion/spacy-models/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
+          "https://github.com/explosion/spacy-models/releases/download/${pname}-${version}/${pname}-${version}.tar.gz"
+          ;
         inherit sha256;
       };
 
@@ -92,11 +94,13 @@ let
         maintainers = with maintainers; [ rvl ];
       };
     }
-  ;
+    ;
 
-  makeModelSet = models:
+  makeModelSet =
+    models:
     with lib;
-    listToAttrs (map (m: nameValuePair m.pname (buildModelPackage m)) models);
+    listToAttrs (map (m: nameValuePair m.pname (buildModelPackage m)) models)
+    ;
 
 in
 makeModelSet (lib.importJSON ./models.json)

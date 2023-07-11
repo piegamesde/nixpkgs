@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A library for playback of various streamed audio formats used in video games";
+      "A library for playback of various streamed audio formats used in video games"
+      ;
     homepage = "https://vgmstream.org";
     maintainers = with maintainers; [ zane ];
     license = with licenses; isc;

@@ -13,14 +13,15 @@ buildPythonPackage rec {
     hash = "sha256-zLN1H1KcBH4tilhEDYayBTA88P6BRveE0cvNlPCigBA=";
   };
 
-  # no tests in pypi
+    # no tests in pypi
   doCheck = false;
   pythonImportsCheck = [ "proxy_tools" ];
 
   meta = with lib; {
     homepage = "https://github.com/jtushman/proxy_tools";
     description =
-      "Simple (hopefuly useful) Proxy (as in the GoF design pattern) implementation for Python";
+      "Simple (hopefuly useful) Proxy (as in the GoF design pattern) implementation for Python"
+      ;
     license = licenses.bsd2;
     maintainers = with maintainers; [ jojosch ];
   };

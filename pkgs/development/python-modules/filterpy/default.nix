@@ -27,8 +27,8 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  # single test fails (even on master branch of repository)
-  # project does not use CI
+    # single test fails (even on master branch of repository)
+    # project does not use CI
   checkPhase = ''
     pytest --ignore=filterpy/common/tests/test_discretization.py
   '';

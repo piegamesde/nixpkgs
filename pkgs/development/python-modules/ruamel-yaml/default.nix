@@ -17,17 +17,18 @@ buildPythonPackage rec {
     hash = "sha256-i3zml6LyEnUqNcGsQURx3BbEJMlXO+SSa1b/P10jt68=";
   };
 
-  # Tests use relative paths
+    # Tests use relative paths
   doCheck = false;
 
-  propagatedBuildInputs = [ ruamel-base ]
-    ++ lib.optional (!isPyPy) ruamel-yaml-clib;
+  propagatedBuildInputs =
+    [ ruamel-base ] ++ lib.optional (!isPyPy) ruamel-yaml-clib;
 
   pythonImportsCheck = [ "ruamel.yaml" ];
 
   meta = with lib; {
     description =
-      "YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order";
+      "YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
+      ;
     homepage = "https://sourceforge.net/projects/ruamel-yaml/";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

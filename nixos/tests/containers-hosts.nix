@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "containers-hosts";
     meta = { maintainers = with lib.maintainers; [ montag451 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }: {
@@ -18,7 +19,7 @@ import ./make-test-python.nix ({
           prefixLength = 24;
         } ];
 
-        # Force /etc/hosts to be the only source for host name resolution
+          # Force /etc/hosts to be the only source for host name resolution
         environment.etc."nsswitch.conf".text = lib.mkForce ''
           hosts: files
         '';
@@ -40,7 +41,8 @@ import ./make-test-python.nix ({
 
           config = { };
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

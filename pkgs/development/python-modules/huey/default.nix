@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ redis ];
 
-  # connects to redis
+    # connects to redis
   doCheck = false;
 
   meta = with lib; {

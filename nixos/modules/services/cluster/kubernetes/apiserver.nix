@@ -111,7 +111,7 @@ in {
     ])
   ];
 
-  ###### interface
+    ###### interface
   options.services.kubernetes.apiserver = with lib.types; {
 
     advertiseAddress = mkOption {
@@ -260,7 +260,8 @@ in {
 
     extraSANs = mkOption {
       description = lib.mdDoc
-        "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert.";
+        "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert."
+        ;
       default = [ ];
       type = listOf str;
     };
@@ -294,7 +295,8 @@ in {
 
     preferredAddressTypes = mkOption {
       description = lib.mdDoc
-        "List of the preferred NodeAddressTypes to use for kubelet connections.";
+        "List of the preferred NodeAddressTypes to use for kubelet connections."
+        ;
       type = nullOr str;
       default = null;
     };
@@ -425,7 +427,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
   config = mkMerge [
 
     (mkIf cfg.enable {
@@ -570,7 +572,8 @@ in {
         listenPeerUrls = mkDefault [ "https://0.0.0.0:2380" ];
         advertiseClientUrls = mkDefault [ "https://${top.masterAddress}:2379" ];
         initialCluster =
-          mkDefault [ "${top.masterAddress}=https://${top.masterAddress}:2380" ];
+          mkDefault [ "${top.masterAddress}=https://${top.masterAddress}:2380" ]
+          ;
         name = mkDefault top.masterAddress;
         initialAdvertisePeerUrls =
           mkDefault [ "https://${top.masterAddress}:2380" ];

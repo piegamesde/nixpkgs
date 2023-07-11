@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://cppcms.com/sql/cppdb/";
     description =
-      "C++ Connectivity library that supports MySQL, PostgreSQL, Sqlite3 databases and generic ODBC drivers";
+      "C++ Connectivity library that supports MySQL, PostgreSQL, Sqlite3 databases and generic ODBC drivers"
+      ;
     platforms = platforms.linux;
     license = licenses.boost;
     maintainers = [ maintainers.juliendehos ];

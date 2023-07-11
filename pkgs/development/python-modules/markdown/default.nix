@@ -42,7 +42,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/Python-Markdown/markdown/blob/${src.rev}/docs/change_log/index.md";
+      "https://github.com/Python-Markdown/markdown/blob/${src.rev}/docs/change_log/index.md"
+      ;
     description = "Python implementation of John Gruber's Markdown";
     homepage = "https://github.com/Python-Markdown/markdown";
     license = licenses.bsd3;

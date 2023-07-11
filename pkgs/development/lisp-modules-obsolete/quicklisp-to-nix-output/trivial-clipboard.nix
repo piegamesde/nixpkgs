@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/trivial-clipboard/2021-02-28/trivial-clipboard-20210228-git.tgz";
+      "http://beta.quicklisp.org/archive/trivial-clipboard/2021-02-28/trivial-clipboard-20210228-git.tgz"
+      ;
     sha256 = "1fmxkz97qrjkc320w849r1411f7j2ghf3g9xh5lczcapgjwq8f0l";
   };
 

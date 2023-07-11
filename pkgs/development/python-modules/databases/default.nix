@@ -57,7 +57,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/encode/databases/releases/tag/${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
-    # https://github.com/encode/databases/issues/530
+      # https://github.com/encode/databases/issues/530
     broken = lib.versionAtLeast sqlalchemy.version "2.0.0";
   };
 }

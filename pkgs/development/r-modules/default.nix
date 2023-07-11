@@ -15,11 +15,12 @@ let
     inherit (pkgs) gettext gfortran;
   };
 
-  # Generates package templates given per-repository settings
-  #
-  # some packages, e.g. cncaGUI, require X running while installation,
-  # so that we use xvfb-run if requireX is true.
-  mkDerive = {
+    # Generates package templates given per-repository settings
+    #
+    # some packages, e.g. cncaGUI, require X running while installation,
+    # so that we use xvfb-run if requireX is true.
+  mkDerive =
+    {
       mkHomepage,
       mkUrls,
       hydraPlatforms ? null
@@ -58,19 +59,22 @@ let
         meta.broken = broken;
         meta.maintainers = maintainers;
       })
-  ;
+    ;
 
-  # Templates for generating Bioconductor and CRAN packages
-  # from the name, version, sha256, and optional per-package arguments above
-  #
+    # Templates for generating Bioconductor and CRAN packages
+    # from the name, version, sha256, and optional per-package arguments above
+    #
   deriveBioc = mkDerive {
-    mkHomepage = {
+    mkHomepage =
+      {
         name,
         biocVersion,
         ...
       }:
-      "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html";
-    mkUrls = {
+      "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html"
+      ;
+    mkUrls =
+      {
         name,
         version,
         biocVersion,
@@ -78,145 +82,167 @@ let
         "mirror://bioc/${biocVersion}/bioc/src/contrib/${name}_${version}.tar.gz"
         "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}/${name}_${version}.tar.gz"
         "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}_${version}.tar.gz"
-      ];
+      ]
+      ;
   };
   deriveBiocAnn = mkDerive {
-    mkHomepage = {
+    mkHomepage =
+      {
         name,
         ...
       }:
-      "http://www.bioconductor.org/packages/${name}.html";
-    mkUrls = {
+      "http://www.bioconductor.org/packages/${name}.html"
+      ;
+    mkUrls =
+      {
         name,
         version,
         biocVersion,
-      }: [ "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz" ];
+      }: [ "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz" ]
+      ;
     hydraPlatforms = [ ];
   };
   deriveBiocExp = mkDerive {
-    mkHomepage = {
+    mkHomepage =
+      {
         name,
         ...
       }:
-      "http://www.bioconductor.org/packages/${name}.html";
-    mkUrls = {
+      "http://www.bioconductor.org/packages/${name}.html"
+      ;
+    mkUrls =
+      {
         name,
         version,
         biocVersion,
-      }: [ "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz" ];
+      }: [ "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz" ]
+      ;
     hydraPlatforms = [ ];
   };
   deriveCran = mkDerive {
-    mkHomepage = {
+    mkHomepage =
+      {
         name,
         ...
       }:
-      "https://cran.r-project.org/web/packages/${name}/";
-    mkUrls = {
+      "https://cran.r-project.org/web/packages/${name}/"
+      ;
+    mkUrls =
+      {
         name,
         version,
       }: [
         "mirror://cran/${name}_${version}.tar.gz"
         "mirror://cran/Archive/${name}/${name}_${version}.tar.gz"
-      ];
+      ]
+      ;
   };
 
-  # Overrides package definitions with nativeBuildInputs.
-  # For example,
-  #
-  # overrideNativeBuildInputs {
-  #   foo = [ pkgs.bar ]
-  # } old
-  #
-  # results in
-  #
-  # {
-  #   foo = old.foo.overrideAttrs (attrs: {
-  #     nativeBuildInputs = attrs.nativeBuildInputs ++ [ pkgs.bar ];
-  #   });
-  # }
-  overrideNativeBuildInputs = overrides: old:
+    # Overrides package definitions with nativeBuildInputs.
+    # For example,
+    #
+    # overrideNativeBuildInputs {
+    #   foo = [ pkgs.bar ]
+    # } old
+    #
+    # results in
+    #
+    # {
+    #   foo = old.foo.overrideAttrs (attrs: {
+    #     nativeBuildInputs = attrs.nativeBuildInputs ++ [ pkgs.bar ];
+    #   });
+    # }
+  overrideNativeBuildInputs =
+    overrides: old:
     lib.mapAttrs (name: value:
       (builtins.getAttr name old).overrideAttrs
       (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }))
-    overrides;
+    overrides
+    ;
 
-  # Overrides package definitions with buildInputs.
-  # For example,
-  #
-  # overrideBuildInputs {
-  #   foo = [ pkgs.bar ]
-  # } old
-  #
-  # results in
-  #
-  # {
-  #   foo = old.foo.overrideAttrs (attrs: {
-  #     buildInputs = attrs.buildInputs ++ [ pkgs.bar ];
-  #   });
-  # }
-  overrideBuildInputs = overrides: old:
+    # Overrides package definitions with buildInputs.
+    # For example,
+    #
+    # overrideBuildInputs {
+    #   foo = [ pkgs.bar ]
+    # } old
+    #
+    # results in
+    #
+    # {
+    #   foo = old.foo.overrideAttrs (attrs: {
+    #     buildInputs = attrs.buildInputs ++ [ pkgs.bar ];
+    #   });
+    # }
+  overrideBuildInputs =
+    overrides: old:
     lib.mapAttrs (name: value:
       (builtins.getAttr name old).overrideAttrs
-      (attrs: { buildInputs = attrs.buildInputs ++ value; })) overrides;
+      (attrs: { buildInputs = attrs.buildInputs ++ value; })) overrides
+    ;
 
-  # Overrides package definitions with maintainers.
-  # For example,
-  #
-  # overrideMaintainers {
-  #   foo = [ lib.maintainers.jsmith ]
-  # } old
-  #
-  # results in
-  #
-  # {
-  #   foo = old.foo.override {
-  #     maintainers = [ lib.maintainers.jsmith ];
-  #   };
-  # }
-  overrideMaintainers = overrides: old:
+    # Overrides package definitions with maintainers.
+    # For example,
+    #
+    # overrideMaintainers {
+    #   foo = [ lib.maintainers.jsmith ]
+    # } old
+    #
+    # results in
+    #
+    # {
+    #   foo = old.foo.override {
+    #     maintainers = [ lib.maintainers.jsmith ];
+    #   };
+    # }
+  overrideMaintainers =
+    overrides: old:
     lib.mapAttrs
     (name: value: (builtins.getAttr name old).override { maintainers = value; })
-    overrides;
+    overrides
+    ;
 
-  # Overrides package definitions with new R dependencies.
-  # For example,
-  #
-  # overrideRDepends {
-  #   foo = [ self.bar ]
-  # } old
-  #
-  # results in
-  #
-  # {
-  #   foo = old.foo.overrideAttrs (attrs: {
-  #     nativeBuildInputs = attrs.nativeBuildInputs ++ [ self.bar ];
-  #     propagatedNativeBuildInputs = attrs.propagatedNativeBuildInputs ++ [ self.bar ];
-  #   });
-  # }
-  overrideRDepends = overrides: old:
+    # Overrides package definitions with new R dependencies.
+    # For example,
+    #
+    # overrideRDepends {
+    #   foo = [ self.bar ]
+    # } old
+    #
+    # results in
+    #
+    # {
+    #   foo = old.foo.overrideAttrs (attrs: {
+    #     nativeBuildInputs = attrs.nativeBuildInputs ++ [ self.bar ];
+    #     propagatedNativeBuildInputs = attrs.propagatedNativeBuildInputs ++ [ self.bar ];
+    #   });
+    # }
+  overrideRDepends =
+    overrides: old:
     lib.mapAttrs (name: value:
       (builtins.getAttr name old).overrideAttrs (attrs: {
         nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ value;
-        propagatedNativeBuildInputs = (attrs.propagatedNativeBuildInputs or [ ])
-          ++ value;
-      })) overrides;
+        propagatedNativeBuildInputs =
+          (attrs.propagatedNativeBuildInputs or [ ]) ++ value;
+      })) overrides
+    ;
 
-  # Overrides package definition requiring X running to install.
-  # For example,
-  #
-  # overrideRequireX [
-  #   "foo"
-  # ] old
-  #
-  # results in
-  #
-  # {
-  #   foo = old.foo.override {
-  #     requireX = true;
-  #   };
-  # }
-  overrideRequireX = packageNames: old:
+    # Overrides package definition requiring X running to install.
+    # For example,
+    #
+    # overrideRequireX [
+    #   "foo"
+    # ] old
+    #
+    # results in
+    #
+    # {
+    #   foo = old.foo.override {
+    #     requireX = true;
+    #   };
+    # }
+  overrideRequireX =
+    packageNames: old:
     let
       nameValuePairs = map (name: {
         inherit name;
@@ -224,27 +250,28 @@ let
       }) packageNames;
     in
     builtins.listToAttrs nameValuePairs
-  ;
+    ;
 
-  # Overrides package definition requiring a home directory to install or to
-  # run tests.
-  # For example,
-  #
-  # overrideRequireHome [
-  #   "foo"
-  # ] old
-  #
-  # results in
-  #
-  # {
-  #   foo = old.foo.overrideAttrs (oldAttrs:  {
-  #     preInstall = ''
-  #       ${oldAttrs.preInstall or ""}
-  #       export HOME=$(mktemp -d)
-  #     '';
-  #   });
-  # }
-  overrideRequireHome = packageNames: old:
+    # Overrides package definition requiring a home directory to install or to
+    # run tests.
+    # For example,
+    #
+    # overrideRequireHome [
+    #   "foo"
+    # ] old
+    #
+    # results in
+    #
+    # {
+    #   foo = old.foo.overrideAttrs (oldAttrs:  {
+    #     preInstall = ''
+    #       ${oldAttrs.preInstall or ""}
+    #       export HOME=$(mktemp -d)
+    #     '';
+    #   });
+    # }
+  overrideRequireHome =
+    packageNames: old:
     let
       nameValuePairs = map (name: {
         inherit name;
@@ -257,23 +284,24 @@ let
       }) packageNames;
     in
     builtins.listToAttrs nameValuePairs
-  ;
+    ;
 
-  # Overrides package definition to skip check.
-  # For example,
-  #
-  # overrideSkipCheck [
-  #   "foo"
-  # ] old
-  #
-  # results in
-  #
-  # {
-  #   foo = old.foo.override {
-  #     doCheck = false;
-  #   };
-  # }
-  overrideSkipCheck = packageNames: old:
+    # Overrides package definition to skip check.
+    # For example,
+    #
+    # overrideSkipCheck [
+    #   "foo"
+    # ] old
+    #
+    # results in
+    #
+    # {
+    #   foo = old.foo.override {
+    #     doCheck = false;
+    #   };
+    # }
+  overrideSkipCheck =
+    packageNames: old:
     let
       nameValuePairs = map (name: {
         inherit name;
@@ -281,23 +309,24 @@ let
       }) packageNames;
     in
     builtins.listToAttrs nameValuePairs
-  ;
+    ;
 
-  # Overrides package definition to mark it broken.
-  # For example,
-  #
-  # overrideBroken [
-  #   "foo"
-  # ] old
-  #
-  # results in
-  #
-  # {
-  #   foo = old.foo.override {
-  #     broken = true;
-  #   };
-  # }
-  overrideBroken = packageNames: old:
+    # Overrides package definition to mark it broken.
+    # For example,
+    #
+    # overrideBroken [
+    #   "foo"
+    # ] old
+    #
+    # results in
+    #
+    # {
+    #   foo = old.foo.override {
+    #     broken = true;
+    #   };
+    # }
+  overrideBroken =
+    packageNames: old:
     let
       nameValuePairs = map (name: {
         inherit name;
@@ -305,9 +334,10 @@ let
       }) packageNames;
     in
     builtins.listToAttrs nameValuePairs
-  ;
+    ;
 
-  defaultOverrides = old: new:
+  defaultOverrides =
+    old: new:
     let
       old0 = old;
     in let
@@ -315,20 +345,20 @@ let
       old2 = old1 // (overrideRequireHome packagesRequiringHome old1);
       old3 = old2 // (overrideSkipCheck packagesToSkipCheck old2);
       old4 = old3 // (overrideRDepends packagesWithRDepends old3);
-      old5 = old4
-        // (overrideNativeBuildInputs packagesWithNativeBuildInputs old4);
+      old5 =
+        old4 // (overrideNativeBuildInputs packagesWithNativeBuildInputs old4);
       old6 = old5 // (overrideBuildInputs packagesWithBuildInputs old5);
       old7 = old6 // (overrideBroken brokenPackages old6);
       old8 = old7 // (overrideMaintainers packagesWithMaintainers old7);
       old = old8;
     in
     old // (otherOverrides old new)
-  ;
+    ;
 
-  # Recursive override pattern.
-  # `_self` is a collection of packages;
-  # `self` is `_self` with overridden packages;
-  # packages in `_self` may depends on overridden packages.
+    # Recursive override pattern.
+    # `_self` is a collection of packages;
+    # `self` is `_self` with overridden packages;
+    # packages in `_self` may depends on overridden packages.
   self = (defaultOverrides _self self) // overrides;
   _self = {
     inherit buildRPackage;
@@ -346,7 +376,7 @@ let
     derive = deriveCran;
   };
 
-  # tweaks for the individual packages and "in self" follow
+    # tweaks for the individual packages and "in self" follow
 
   packagesWithMaintainers = with lib.maintainers; {
     data_table = [ jbedo ];
@@ -1171,7 +1201,7 @@ let
     "data_table" # fails to rename shared library before check
   ];
 
-  # Packages which cannot be installed due to lack of dependencies or other reasons.
+    # Packages which cannot be installed due to lack of dependencies or other reasons.
   brokenPackages = [
     "av"
     "NetLogoR"
@@ -1210,450 +1240,458 @@ let
     "nullrangesData"
   ];
 
-  otherOverrides = old: new: {
-    gifski = old.gifski.overrideAttrs (attrs: {
-      cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
-        src = attrs.src;
-        sourceRoot = "gifski/src/myrustlib";
-        hash = "sha256-vBrTQ+5JZA8554Aasbqw7mbaOfJNQjrOpG00IXAcamI=";
-      };
-
-      cargoRoot = "src/myrustlib";
-
-      nativeBuildInputs = attrs.nativeBuildInputs ++ [
-        pkgs.rustPlatform.cargoSetupHook
-        pkgs.cargo
-        pkgs.rustc
-      ];
-    });
-
-    stringi = old.stringi.overrideAttrs (attrs: {
-      postInstall = let
-        icuName = "icudt52l";
-        icuSrc = pkgs.fetchzip {
-          url = "http://static.rexamine.com/packages/${icuName}.zip";
-          sha256 = "0hvazpizziq5ibc9017i1bb45yryfl26wzfsv05vk9mc1575r6xj";
-          stripRoot = false;
+  otherOverrides =
+    old: new: {
+      gifski = old.gifski.overrideAttrs (attrs: {
+        cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
+          src = attrs.src;
+          sourceRoot = "gifski/src/myrustlib";
+          hash = "sha256-vBrTQ+5JZA8554Aasbqw7mbaOfJNQjrOpG00IXAcamI=";
         };
-      in ''
-        ${attrs.postInstall or ""}
-        cp ${icuSrc}/${icuName}.dat $out/library/stringi/libs
-      '' ;
-    });
 
-    xml2 = old.xml2.overrideAttrs (attrs: {
-      preConfigure = ''
-        export LIBXML_INCDIR=${pkgs.libxml2.dev}/include/libxml2
-        patchShebangs configure
-      '';
-    });
+        cargoRoot = "src/myrustlib";
 
-    rzmq = old.rzmq.overrideAttrs
-      (attrs: { preConfigure = "patchShebangs configure"; });
+        nativeBuildInputs = attrs.nativeBuildInputs ++ [
+          pkgs.rustPlatform.cargoSetupHook
+          pkgs.cargo
+          pkgs.rustc
+        ];
+      });
 
-    clustermq = old.clustermq.overrideAttrs
-      (attrs: { preConfigure = "patchShebangs configure"; });
+      stringi = old.stringi.overrideAttrs (attrs: {
+        postInstall =
+          let
+            icuName = "icudt52l";
+            icuSrc = pkgs.fetchzip {
+              url = "http://static.rexamine.com/packages/${icuName}.zip";
+              sha256 = "0hvazpizziq5ibc9017i1bb45yryfl26wzfsv05vk9mc1575r6xj";
+              stripRoot = false;
+            };
+          in ''
+            ${attrs.postInstall or ""}
+            cp ${icuSrc}/${icuName}.dat $out/library/stringi/libs
+          ''
+          ;
+      });
 
-    Cairo = old.Cairo.overrideAttrs (attrs: { NIX_LDFLAGS = "-lfontconfig"; });
-
-    curl = old.curl.overrideAttrs
-      (attrs: { preConfigure = "patchShebangs configure"; });
-
-    RcppParallel = old.RcppParallel.overrideAttrs
-      (attrs: { preConfigure = "patchShebangs configure"; });
-
-    purrr = old.purrr.overrideAttrs
-      (attrs: { patchPhase = "patchShebangs configure"; });
-
-    RcppArmadillo = old.RcppArmadillo.overrideAttrs
-      (attrs: { patchPhase = "patchShebangs configure"; });
-
-    data_table = old.data_table.overrideAttrs (attrs: {
-      env = (attrs.env or { }) // {
-        NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE + " -fopenmp";
-      };
-      patchPhase = "patchShebangs configure";
-    });
-
-    ModelMetrics = old.ModelMetrics.overrideAttrs (attrs: {
-      env = (attrs.env or { }) // {
-        NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE
-          + lib.optionalString stdenv.isDarwin " -fopenmp";
-      };
-    });
-
-    rpf = old.rpf.overrideAttrs
-      (attrs: { patchPhase = "patchShebangs configure"; });
-
-    rJava = old.rJava.overrideAttrs (attrs: {
-      preConfigure = ''
-        export JAVA_CPPFLAGS=-I${pkgs.jdk}/include/
-        export JAVA_HOME=${pkgs.jdk}
-      '';
-    });
-
-    JavaGD = old.JavaGD.overrideAttrs (attrs: {
-      preConfigure = ''
-        export JAVA_CPPFLAGS=-I${pkgs.jdk}/include/
-        export JAVA_HOME=${pkgs.jdk}
-      '';
-    });
-
-    jqr = old.jqr.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    pbdZMQ = old.pbdZMQ.overrideAttrs (attrs: {
-      postPatch = lib.optionalString stdenv.isDarwin ''
-        for file in R/*.{r,r.in}; do
-            sed -i 's#system("which \(\w\+\)"[^)]*)#"${pkgs.darwin.cctools}/bin/\1"#g' $file
-        done
-      '';
-    });
-
-    quarto = old.quarto.overrideAttrs (attrs: {
-      postPatch = ''
-        substituteInPlace "R/quarto.R" \
-          --replace "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = NA)" "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = '${
-            lib.getBin pkgs.quarto
-          }/bin/quarto')"
-      '';
-    });
-
-    s2 = old.s2.overrideAttrs (attrs: {
-      PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-      PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-          lib.getLib pkgs.openssl
-        }/lib -lssl -lcrypto";
-    });
-
-    Rmpi = old.Rmpi.overrideAttrs
-      (attrs: { configureFlags = [ "--with-Rmpi-type=OPENMPI" ]; });
-
-    Rmpfr = old.Rmpfr.overrideAttrs (attrs: {
-      configureFlags = [ "--with-mpfr-include=${pkgs.mpfr.dev}/include" ];
-    });
-
-    RVowpalWabbit = old.RVowpalWabbit.overrideAttrs (attrs: {
-      configureFlags = [
-        "--with-boost=${pkgs.boost.dev}"
-        "--with-boost-libdir=${pkgs.boost.out}/lib"
-      ];
-    });
-
-    RAppArmor = old.RAppArmor.overrideAttrs (attrs: {
-      patches = [ ./patches/RAppArmor.patch ];
-      LIBAPPARMOR_HOME = pkgs.libapparmor;
-    });
-
-    RMySQL = old.RMySQL.overrideAttrs (attrs: {
-      MYSQL_DIR = "${pkgs.libmysqlclient}";
-      PKGCONFIG_CFLAGS = "-I${pkgs.libmysqlclient.dev}/include/mysql";
-      NIX_CFLAGS_LINK = "-L${pkgs.libmysqlclient}/lib/mysql -lmysqlclient";
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    devEMF = old.devEMF.overrideAttrs (attrs: {
-      NIX_CFLAGS_LINK = "-L${pkgs.xorg.libXft.out}/lib -lXft";
-      NIX_LDFLAGS = "-lX11";
-    });
-
-    slfm = old.slfm.overrideAttrs (attrs: {
-      PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack";
-    });
-
-    SamplerCompare = old.SamplerCompare.overrideAttrs (attrs: {
-      PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack";
-    });
-
-    spMC =
-      old.spMC.overrideAttrs (attrs: { patches = [ ./patches/spMC.patch ]; });
-
-    openssl = old.openssl.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-      PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-      PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-          lib.getLib pkgs.openssl
-        }/lib -lssl -lcrypto";
-    });
-
-    websocket = old.websocket.overrideAttrs (attrs: {
-      PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-      PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-          lib.getLib pkgs.openssl
-        }/lib -lssl -lcrypto";
-    });
-
-    Rserve = old.Rserve.overrideAttrs (attrs: {
-      patches = [ ./patches/Rserve.patch ];
-      configureFlags = [
-        "--with-server"
-        "--with-client"
-      ];
-    });
-
-    V8 = old.V8.overrideAttrs (attrs: {
-      postPatch = ''
-        substituteInPlace configure \
-          --replace " -lv8_libplatform" ""
-      '';
-
-      preConfigure = ''
-        export INCLUDE_DIR=${pkgs.v8}/include
-        export LIB_DIR=${pkgs.v8}/lib
-        patchShebangs configure
-      '';
-
-      R_MAKEVARS_SITE =
-        lib.optionalString (pkgs.stdenv.system == "aarch64-linux")
-        (pkgs.writeText "Makevars" ''
-          CXX14PICFLAGS = -fPIC
-        '');
-    });
-
-    acs = old.acs.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    gdtools = old.gdtools.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-      NIX_LDFLAGS = "-lfontconfig -lfreetype";
-    });
-
-    magick = old.magick.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    libgeos = old.libgeos.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    protolite = old.protolite.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    rpanel = old.rpanel.overrideAttrs (attrs: {
-      preConfigure = ''
-        export TCLLIBPATH="${pkgs.bwidget}/lib/bwidget${pkgs.bwidget.version}"
-      '';
-      TCLLIBPATH = "${pkgs.bwidget}/lib/bwidget${pkgs.bwidget.version}";
-    });
-
-    RPostgres = old.RPostgres.overrideAttrs (attrs: {
-      preConfigure = ''
-        export INCLUDE_DIR=${pkgs.postgresql}/include
-        export LIB_DIR=${pkgs.postgresql.lib}/lib
-        patchShebangs configure
-      '';
-    });
-
-    OpenMx = old.OpenMx.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    odbc = old.odbc.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    x13binary = old.x13binary.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    geojsonio = old.geojsonio.overrideAttrs
-      (attrs: { buildInputs = [ cacert ] ++ attrs.buildInputs; });
-
-    rstan = old.rstan.overrideAttrs (attrs: {
-      env = (attrs.env or { }) // {
-        NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE
-          + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION";
-      };
-    });
-
-    mongolite = old.mongolite.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-      PKGCONFIG_CFLAGS =
-        "-I${pkgs.openssl.dev}/include -I${pkgs.cyrus_sasl.dev}/include -I${pkgs.zlib.dev}/include";
-      PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-          lib.getLib pkgs.openssl
-        }/lib -L${pkgs.cyrus_sasl.out}/lib -L${pkgs.zlib.out}/lib -lssl -lcrypto -lsasl2 -lz";
-    });
-
-    ps = old.ps.overrideAttrs
-      (attrs: { preConfigure = "patchShebangs configure"; });
-
-    rlang = old.rlang.overrideAttrs
-      (attrs: { preConfigure = "patchShebangs configure"; });
-
-    systemfonts = old.systemfonts.overrideAttrs
-      (attrs: { preConfigure = "patchShebangs configure"; });
-
-    littler = old.littler.overrideAttrs (attrs:
-      with pkgs; {
-        buildInputs = [
-          pcre
-          xz
-          zlib
-          bzip2
-          icu
-          which
-        ] ++ attrs.buildInputs;
-        postInstall = ''
-          install -d $out/bin $out/share/man/man1
-          ln -s ../library/littler/bin/r $out/bin/r
-          ln -s ../library/littler/bin/r $out/bin/lr
-          ln -s ../../../library/littler/man-page/r.1 $out/share/man/man1
-          # these won't run without special provisions, so better remove them
-          rm -r $out/library/littler/script-tests
+      xml2 = old.xml2.overrideAttrs (attrs: {
+        preConfigure = ''
+          export LIBXML_INCDIR=${pkgs.libxml2.dev}/include/libxml2
+          patchShebangs configure
         '';
       });
 
-    lpsymphony = old.lpsymphony.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
+      rzmq = old.rzmq.overrideAttrs
+        (attrs: { preConfigure = "patchShebangs configure"; });
 
-    sodium = old.sodium.overrideAttrs (attrs:
-      with pkgs; {
+      clustermq = old.clustermq.overrideAttrs
+        (attrs: { preConfigure = "patchShebangs configure"; });
+
+      Cairo =
+        old.Cairo.overrideAttrs (attrs: { NIX_LDFLAGS = "-lfontconfig"; });
+
+      curl = old.curl.overrideAttrs
+        (attrs: { preConfigure = "patchShebangs configure"; });
+
+      RcppParallel = old.RcppParallel.overrideAttrs
+        (attrs: { preConfigure = "patchShebangs configure"; });
+
+      purrr = old.purrr.overrideAttrs
+        (attrs: { patchPhase = "patchShebangs configure"; });
+
+      RcppArmadillo = old.RcppArmadillo.overrideAttrs
+        (attrs: { patchPhase = "patchShebangs configure"; });
+
+      data_table = old.data_table.overrideAttrs (attrs: {
+        env = (attrs.env or { }) // {
+          NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE + " -fopenmp";
+        };
+        patchPhase = "patchShebangs configure";
+      });
+
+      ModelMetrics = old.ModelMetrics.overrideAttrs (attrs: {
+        env = (attrs.env or { }) // {
+          NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE
+            + lib.optionalString stdenv.isDarwin " -fopenmp";
+        };
+      });
+
+      rpf = old.rpf.overrideAttrs
+        (attrs: { patchPhase = "patchShebangs configure"; });
+
+      rJava = old.rJava.overrideAttrs (attrs: {
+        preConfigure = ''
+          export JAVA_CPPFLAGS=-I${pkgs.jdk}/include/
+          export JAVA_HOME=${pkgs.jdk}
+        '';
+      });
+
+      JavaGD = old.JavaGD.overrideAttrs (attrs: {
+        preConfigure = ''
+          export JAVA_CPPFLAGS=-I${pkgs.jdk}/include/
+          export JAVA_HOME=${pkgs.jdk}
+        '';
+      });
+
+      jqr = old.jqr.overrideAttrs (attrs: {
         preConfigure = ''
           patchShebangs configure
         '';
-        nativeBuildInputs = [ pkg-config ] ++ attrs.nativeBuildInputs;
-        buildInputs = [ libsodium.dev ] ++ attrs.buildInputs;
       });
 
-    keyring = old.keyring.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    Rhtslib = old.Rhtslib.overrideAttrs (attrs: {
-      preConfigure = ''
-        substituteInPlace R/zzz.R --replace "-lcurl" "-L${pkgs.curl.out}/lib -lcurl"
-      '';
-    });
-
-    h2o = old.h2o.overrideAttrs (attrs: {
-      preConfigure = ''
-        # prevent download of jar file during install and postpone to first use
-        sed -i '/downloadJar()/d' R/zzz.R
-
-        # during runtime the package directory is not writable as it's in the
-        # nix store, so store the jar in the user's cache directory instead
-        substituteInPlace R/connection.R --replace \
-          'dest_file <- file.path(dest_folder, "h2o.jar")' \
-          'dest_file <- file.path("~/.cache/", "h2o.jar")'
-      '';
-    });
-
-    SICtools = old.SICtools.overrideAttrs (attrs: {
-      preConfigure = ''
-        substituteInPlace src/Makefile --replace "-lcurses" "-lncurses"
-      '';
-    });
-
-    arrow = old.arrow.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    sparklyr = old.sparklyr.overrideAttrs (attrs: {
-      # Pyspark's spark is full featured and better maintained than pkgs.spark
-      preConfigure = ''
-        substituteInPlace R/zzz.R \
-          --replace ".onLoad <- function(...) {" \
-            ".onLoad <- function(...) {
-          Sys.setenv(\"SPARK_HOME\" = Sys.getenv(\"SPARK_HOME\", unset = \"${pkgs.python3Packages.pyspark}/lib/${pkgs.python3Packages.python.libPrefix}/site-packages/pyspark\"))
-          Sys.setenv(\"JAVA_HOME\" = Sys.getenv(\"JAVA_HOME\", unset = \"${pkgs.jdk}\"))"
-      '';
-    });
-
-    proj4 = old.proj4.overrideAttrs (attrs: {
-      preConfigure = ''
-        substituteInPlace configure \
-          --replace "-lsqlite3" "-L${
-            lib.makeLibraryPath [ pkgs.sqlite ]
-          } -lsqlite3"
-      '';
-    });
-
-    rrd = old.rrd.overrideAttrs (attrs: {
-      preConfigure = ''
-        patchShebangs configure
-      '';
-    });
-
-    ChIPXpress = old.ChIPXpress.override { hydraPlatforms = [ ]; };
-
-    rgl = old.rgl.overrideAttrs (attrs: { RGL_USE_NULL = "true"; });
-
-    Rrdrand = old.Rrdrand.override {
-      platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
-    };
-
-    RandomFieldsUtils = old.RandomFieldsUtils.override {
-      platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
-    };
-
-    flowClust = old.flowClust.override {
-      platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
-    };
-
-    geomorph = old.geomorph.overrideAttrs (attrs: { RGL_USE_NULL = "true"; });
-
-    Rhdf5lib = let
-      hdf5 = pkgs.hdf5_1_10.overrideAttrs (attrs: {
-        configureFlags = attrs.configureFlags ++ [ "--enable-cxx" ];
+      pbdZMQ = old.pbdZMQ.overrideAttrs (attrs: {
+        postPatch = lib.optionalString stdenv.isDarwin ''
+          for file in R/*.{r,r.in}; do
+              sed -i 's#system("which \(\w\+\)"[^)]*)#"${pkgs.darwin.cctools}/bin/\1"#g' $file
+          done
+        '';
       });
-    in
-    old.Rhdf5lib.overrideAttrs (attrs: {
-      propagatedBuildInputs = attrs.propagatedBuildInputs ++ [
-        hdf5.dev
-        pkgs.libaec
-      ];
-      patches = [ ./patches/Rhdf5lib.patch ];
-      passthru.hdf5 = hdf5;
-    })
+
+      quarto = old.quarto.overrideAttrs (attrs: {
+        postPatch = ''
+          substituteInPlace "R/quarto.R" \
+            --replace "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = NA)" "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = '${
+              lib.getBin pkgs.quarto
+            }/bin/quarto')"
+        '';
+      });
+
+      s2 = old.s2.overrideAttrs (attrs: {
+        PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+            lib.getLib pkgs.openssl
+          }/lib -lssl -lcrypto";
+      });
+
+      Rmpi = old.Rmpi.overrideAttrs
+        (attrs: { configureFlags = [ "--with-Rmpi-type=OPENMPI" ]; });
+
+      Rmpfr = old.Rmpfr.overrideAttrs (attrs: {
+        configureFlags = [ "--with-mpfr-include=${pkgs.mpfr.dev}/include" ];
+      });
+
+      RVowpalWabbit = old.RVowpalWabbit.overrideAttrs (attrs: {
+        configureFlags = [
+          "--with-boost=${pkgs.boost.dev}"
+          "--with-boost-libdir=${pkgs.boost.out}/lib"
+        ];
+      });
+
+      RAppArmor = old.RAppArmor.overrideAttrs (attrs: {
+        patches = [ ./patches/RAppArmor.patch ];
+        LIBAPPARMOR_HOME = pkgs.libapparmor;
+      });
+
+      RMySQL = old.RMySQL.overrideAttrs (attrs: {
+        MYSQL_DIR = "${pkgs.libmysqlclient}";
+        PKGCONFIG_CFLAGS = "-I${pkgs.libmysqlclient.dev}/include/mysql";
+        NIX_CFLAGS_LINK = "-L${pkgs.libmysqlclient}/lib/mysql -lmysqlclient";
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      devEMF = old.devEMF.overrideAttrs (attrs: {
+        NIX_CFLAGS_LINK = "-L${pkgs.xorg.libXft.out}/lib -lXft";
+        NIX_LDFLAGS = "-lX11";
+      });
+
+      slfm = old.slfm.overrideAttrs (attrs: {
+        PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack";
+      });
+
+      SamplerCompare = old.SamplerCompare.overrideAttrs (attrs: {
+        PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack";
+      });
+
+      spMC =
+        old.spMC.overrideAttrs (attrs: { patches = [ ./patches/spMC.patch ]; });
+
+      openssl = old.openssl.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+        PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+            lib.getLib pkgs.openssl
+          }/lib -lssl -lcrypto";
+      });
+
+      websocket = old.websocket.overrideAttrs (attrs: {
+        PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+            lib.getLib pkgs.openssl
+          }/lib -lssl -lcrypto";
+      });
+
+      Rserve = old.Rserve.overrideAttrs (attrs: {
+        patches = [ ./patches/Rserve.patch ];
+        configureFlags = [
+          "--with-server"
+          "--with-client"
+        ];
+      });
+
+      V8 = old.V8.overrideAttrs (attrs: {
+        postPatch = ''
+          substituteInPlace configure \
+            --replace " -lv8_libplatform" ""
+        '';
+
+        preConfigure = ''
+          export INCLUDE_DIR=${pkgs.v8}/include
+          export LIB_DIR=${pkgs.v8}/lib
+          patchShebangs configure
+        '';
+
+        R_MAKEVARS_SITE =
+          lib.optionalString (pkgs.stdenv.system == "aarch64-linux")
+          (pkgs.writeText "Makevars" ''
+            CXX14PICFLAGS = -fPIC
+          '');
+      });
+
+      acs = old.acs.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      gdtools = old.gdtools.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+        NIX_LDFLAGS = "-lfontconfig -lfreetype";
+      });
+
+      magick = old.magick.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      libgeos = old.libgeos.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      protolite = old.protolite.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      rpanel = old.rpanel.overrideAttrs (attrs: {
+        preConfigure = ''
+          export TCLLIBPATH="${pkgs.bwidget}/lib/bwidget${pkgs.bwidget.version}"
+        '';
+        TCLLIBPATH = "${pkgs.bwidget}/lib/bwidget${pkgs.bwidget.version}";
+      });
+
+      RPostgres = old.RPostgres.overrideAttrs (attrs: {
+        preConfigure = ''
+          export INCLUDE_DIR=${pkgs.postgresql}/include
+          export LIB_DIR=${pkgs.postgresql.lib}/lib
+          patchShebangs configure
+        '';
+      });
+
+      OpenMx = old.OpenMx.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      odbc = old.odbc.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      x13binary = old.x13binary.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      geojsonio = old.geojsonio.overrideAttrs
+        (attrs: { buildInputs = [ cacert ] ++ attrs.buildInputs; });
+
+      rstan = old.rstan.overrideAttrs (attrs: {
+        env = (attrs.env or { }) // {
+          NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE
+            + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION";
+        };
+      });
+
+      mongolite = old.mongolite.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+        PKGCONFIG_CFLAGS =
+          "-I${pkgs.openssl.dev}/include -I${pkgs.cyrus_sasl.dev}/include -I${pkgs.zlib.dev}/include"
+          ;
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+            lib.getLib pkgs.openssl
+          }/lib -L${pkgs.cyrus_sasl.out}/lib -L${pkgs.zlib.out}/lib -lssl -lcrypto -lsasl2 -lz"
+          ;
+      });
+
+      ps = old.ps.overrideAttrs
+        (attrs: { preConfigure = "patchShebangs configure"; });
+
+      rlang = old.rlang.overrideAttrs
+        (attrs: { preConfigure = "patchShebangs configure"; });
+
+      systemfonts = old.systemfonts.overrideAttrs
+        (attrs: { preConfigure = "patchShebangs configure"; });
+
+      littler = old.littler.overrideAttrs (attrs:
+        with pkgs; {
+          buildInputs = [
+            pcre
+            xz
+            zlib
+            bzip2
+            icu
+            which
+          ] ++ attrs.buildInputs;
+          postInstall = ''
+            install -d $out/bin $out/share/man/man1
+            ln -s ../library/littler/bin/r $out/bin/r
+            ln -s ../library/littler/bin/r $out/bin/lr
+            ln -s ../../../library/littler/man-page/r.1 $out/share/man/man1
+            # these won't run without special provisions, so better remove them
+            rm -r $out/library/littler/script-tests
+          '';
+        });
+
+      lpsymphony = old.lpsymphony.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      sodium = old.sodium.overrideAttrs (attrs:
+        with pkgs; {
+          preConfigure = ''
+            patchShebangs configure
+          '';
+          nativeBuildInputs = [ pkg-config ] ++ attrs.nativeBuildInputs;
+          buildInputs = [ libsodium.dev ] ++ attrs.buildInputs;
+        });
+
+      keyring = old.keyring.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      Rhtslib = old.Rhtslib.overrideAttrs (attrs: {
+        preConfigure = ''
+          substituteInPlace R/zzz.R --replace "-lcurl" "-L${pkgs.curl.out}/lib -lcurl"
+        '';
+      });
+
+      h2o = old.h2o.overrideAttrs (attrs: {
+        preConfigure = ''
+          # prevent download of jar file during install and postpone to first use
+          sed -i '/downloadJar()/d' R/zzz.R
+
+          # during runtime the package directory is not writable as it's in the
+          # nix store, so store the jar in the user's cache directory instead
+          substituteInPlace R/connection.R --replace \
+            'dest_file <- file.path(dest_folder, "h2o.jar")' \
+            'dest_file <- file.path("~/.cache/", "h2o.jar")'
+        '';
+      });
+
+      SICtools = old.SICtools.overrideAttrs (attrs: {
+        preConfigure = ''
+          substituteInPlace src/Makefile --replace "-lcurses" "-lncurses"
+        '';
+      });
+
+      arrow = old.arrow.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      sparklyr = old.sparklyr.overrideAttrs (attrs: {
+        # Pyspark's spark is full featured and better maintained than pkgs.spark
+        preConfigure = ''
+          substituteInPlace R/zzz.R \
+            --replace ".onLoad <- function(...) {" \
+              ".onLoad <- function(...) {
+            Sys.setenv(\"SPARK_HOME\" = Sys.getenv(\"SPARK_HOME\", unset = \"${pkgs.python3Packages.pyspark}/lib/${pkgs.python3Packages.python.libPrefix}/site-packages/pyspark\"))
+            Sys.setenv(\"JAVA_HOME\" = Sys.getenv(\"JAVA_HOME\", unset = \"${pkgs.jdk}\"))"
+        '';
+      });
+
+      proj4 = old.proj4.overrideAttrs (attrs: {
+        preConfigure = ''
+          substituteInPlace configure \
+            --replace "-lsqlite3" "-L${
+              lib.makeLibraryPath [ pkgs.sqlite ]
+            } -lsqlite3"
+        '';
+      });
+
+      rrd = old.rrd.overrideAttrs (attrs: {
+        preConfigure = ''
+          patchShebangs configure
+        '';
+      });
+
+      ChIPXpress = old.ChIPXpress.override { hydraPlatforms = [ ]; };
+
+      rgl = old.rgl.overrideAttrs (attrs: { RGL_USE_NULL = "true"; });
+
+      Rrdrand = old.Rrdrand.override {
+        platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
+      };
+
+      RandomFieldsUtils = old.RandomFieldsUtils.override {
+        platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
+      };
+
+      flowClust = old.flowClust.override {
+        platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
+      };
+
+      geomorph = old.geomorph.overrideAttrs (attrs: { RGL_USE_NULL = "true"; });
+
+      Rhdf5lib =
+        let
+          hdf5 = pkgs.hdf5_1_10.overrideAttrs (attrs: {
+            configureFlags = attrs.configureFlags ++ [ "--enable-cxx" ];
+          });
+        in
+        old.Rhdf5lib.overrideAttrs (attrs: {
+          propagatedBuildInputs = attrs.propagatedBuildInputs ++ [
+            hdf5.dev
+            pkgs.libaec
+          ];
+          patches = [ ./patches/Rhdf5lib.patch ];
+          passthru.hdf5 = hdf5;
+        })
+        ;
+
+      rhdf5filters = old.rhdf5filters.overrideAttrs (attrs: {
+        propagatedBuildInputs = with pkgs;
+          attrs.propagatedBuildInputs
+          ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
+        patches = [ ./patches/rhdf5filters.patch ];
+      });
+
+      rhdf5 = old.rhdf5.overrideAttrs
+        (attrs: { patches = [ ./patches/rhdf5.patch ]; });
+
+      textshaping = old.textshaping.overrideAttrs
+        (attrs: { env.NIX_LDFLAGS = "-lfribidi -lharfbuzz"; });
+    }
     ;
-
-    rhdf5filters = old.rhdf5filters.overrideAttrs (attrs: {
-      propagatedBuildInputs = with pkgs;
-        attrs.propagatedBuildInputs
-        ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
-      patches = [ ./patches/rhdf5filters.patch ];
-    });
-
-    rhdf5 =
-      old.rhdf5.overrideAttrs (attrs: { patches = [ ./patches/rhdf5.patch ]; });
-
-    textshaping = old.textshaping.overrideAttrs
-      (attrs: { env.NIX_LDFLAGS = "-lfribidi -lharfbuzz"; });
-  };
 in
 self

@@ -16,7 +16,8 @@
 let
   repo = "git@github.com:lihaoyi/Ammonite.git";
 
-  common = {
+  common =
+    {
       scalaVersion,
       sha256,
     }:
@@ -26,7 +27,8 @@ let
 
       src = fetchurl {
         url =
-          "https://github.com/lihaoyi/Ammonite/releases/download/${version}/${scalaVersion}-${version}";
+          "https://github.com/lihaoyi/Ammonite/releases/download/${version}/${scalaVersion}-${version}"
+          ;
         inherit sha256;
       };
 
@@ -93,7 +95,8 @@ let
         mainProgram = "amm";
         platforms = platforms.all;
       };
-    };
+    }
+    ;
 in {
   ammonite_2_12 = common {
     scalaVersion = "2.12";

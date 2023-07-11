@@ -170,7 +170,7 @@ in {
     };
   };
 
-  # Implementation
+    # Implementation
   config = mkIf (enabledNetworks != { }) {
     systemd.services = mkMerge (mapAttrsToList (netName: netCfg:
       let
@@ -197,10 +197,12 @@ in {
           };
           tun = {
             disabled = netCfg.tun.disable;
-            dev = if (netCfg.tun.device != null) then
-              netCfg.tun.device
-            else
-              "nebula.${netName}";
+            dev =
+              if (netCfg.tun.device != null) then
+                netCfg.tun.device
+              else
+                "nebula.${netName}"
+              ;
           };
           firewall = {
             inbound = netCfg.firewall.inbound;
@@ -232,8 +234,8 @@ in {
             DeviceAllow = "/dev/net/tun rw";
             DevicePolicy = "closed";
             PrivateTmp = true;
-            PrivateUsers =
-              false; # CapabilityBoundingSet needs to apply to the host namespace
+            PrivateUsers = false
+              ; # CapabilityBoundingSet needs to apply to the host namespace
             ProtectClock = true;
             ProtectControlGroups = true;
             ProtectHome = true;
@@ -248,16 +250,16 @@ in {
             User = networkId;
             Group = networkId;
           };
-          unitConfig.StartLimitIntervalSec =
-            0; # ensure Restart=always is always honoured (networks can go down for arbitrarily long)
+          unitConfig.StartLimitIntervalSec = 0
+            ; # ensure Restart=always is always honoured (networks can go down for arbitrarily long)
         };
       } ) enabledNetworks);
 
-    # Open the chosen ports for UDP.
+      # Open the chosen ports for UDP.
     networking.firewall.allowedUDPPorts = unique
       (mapAttrsToList (netName: netCfg: netCfg.listen.port) enabledNetworks);
 
-    # Create the service users and groups.
+      # Create the service users and groups.
     users.users = mkMerge (mapAttrsToList (netName: netCfg: {
       ${nameToId netName} = {
         group = nameToId netName;

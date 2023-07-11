@@ -20,7 +20,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Simple output management tool for wlroots based compositors implementing";
+      "Simple output management tool for wlroots based compositors implementing"
+      ;
     homepage = "https://git.sr.ht/~shinyzenith/wayout";
     license = licenses.bsd2;
     maintainers = with maintainers; [ onny ];

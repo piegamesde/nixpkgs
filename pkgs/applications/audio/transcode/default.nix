@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
   version = "1.1.7";
   src = fetchurl {
     url =
-      "https://bitbucket.org/france/transcode-tcforge/downloads/${pname}-${version}.tar.bz2";
+      "https://bitbucket.org/france/transcode-tcforge/downloads/${pname}-${version}.tar.bz2"
+      ;
     sha256 = "1e4e72d8e0dd62a80b8dd90699f5ca64c9b0cb37a5c9325c184166a9654f0a92";
   };
 
@@ -57,15 +58,16 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: tcextract-extract_pcm.o:/build/transcode-1.1.7/import/extract_pcm.c:36: multiple definition of
-  #     `audio'; tcextract-extract_ac3.o:/build/transcode-1.1.7/import/extract_ac3.c:337: first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: tcextract-extract_pcm.o:/build/transcode-1.1.7/import/extract_pcm.c:36: multiple definition of
+    #     `audio'; tcextract-extract_ac3.o:/build/transcode-1.1.7/import/extract_ac3.c:337: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = with lib; {
     description =
-      "Suite of command line utilities for transcoding video and audio codecs, and for converting between different container formats";
+      "Suite of command line utilities for transcoding video and audio codecs, and for converting between different container formats"
+      ;
     homepage = "http://www.transcoding.org/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;

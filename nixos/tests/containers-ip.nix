@@ -1,15 +1,17 @@
 let
-  webserverFor = hostAddress: localAddress: {
-    inherit hostAddress localAddress;
-    privateNetwork = true;
-    config = {
-      services.httpd = {
-        enable = true;
-        adminAddr = "foo@example.org";
+  webserverFor =
+    hostAddress: localAddress: {
+      inherit hostAddress localAddress;
+      privateNetwork = true;
+      config = {
+        services.httpd = {
+          enable = true;
+          adminAddr = "foo@example.org";
+        };
+        networking.firewall.allowedTCPPorts = [ 80 ];
       };
-      networking.firewall.allowedTCPPorts = [ 80 ];
-    };
-  };
+    }
+    ;
 
 in
 import ./make-test-python.nix ({
@@ -27,7 +29,8 @@ import ./make-test-python.nix ({
       ];
     };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -37,9 +40,11 @@ import ./make-test-python.nix ({
         containers.webserver4 = webserverFor "10.231.136.1" "10.231.136.2";
         containers.webserver6 = webserverFor "fc00::2" "fc00::1";
         virtualisation.additionalPaths = [ pkgs.stdenv ];
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -83,5 +88,6 @@ import ./make-test-python.nix ({
 
             # Destroying a declarative container should fail.
             machine.fail(f"nixos-container destroy {container}")
-      '';
+      ''
+      ;
   })

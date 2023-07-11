@@ -29,7 +29,7 @@ mkDerivation {
 
   nativeBuildInputs = [ qmake ];
 
-  # https://github.com/zdenop/qt-box-editor/issues/87
+    # https://github.com/zdenop/qt-box-editor/issues/87
   postPatch = ''
     sed -i '/allheaders.h/a#include <leptonica/pix_internal.h>' src/TessTools.h
 

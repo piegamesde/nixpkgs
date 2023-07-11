@@ -14,7 +14,8 @@ let
 
   manifests = fetchzip {
     url =
-      "https://github.com/fluxcd/flux2/releases/download/v${version}/manifests.tar.gz";
+      "https://github.com/fluxcd/flux2/releases/download/v${version}/manifests.tar.gz"
+      ;
     sha256 = manifestsSha256;
     stripRoot = false;
   };
@@ -48,8 +49,8 @@ buildGoModule rec {
 
   subPackages = [ "cmd/flux" ];
 
-  # Required to workaround test error:
-  #   panic: mkdir /homeless-shelter: permission denied
+    # Required to workaround test error:
+    #   panic: mkdir /homeless-shelter: permission denied
   HOME = "$TMPDIR";
 
   nativeBuildInputs = [ installShellFiles ];

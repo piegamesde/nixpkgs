@@ -13,10 +13,12 @@ let
   useSSL = (cfg.rpc.certificate != null) && (cfg.rpc.key != null);
   useRPC = (cfg.rpc.user != null) && (cfg.rpc.password != null);
 
-  listToConf = option: list:
+  listToConf =
+    option: list:
     concatMapStrings (value: ''
       ${option}=${value}
-    '') list;
+    '') list
+    ;
 
   configFile = pkgs.writeText "namecoin.conf" (''
     server=1
@@ -152,7 +154,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -176,7 +178,8 @@ in {
         User = "namecoin";
         Group = "namecoin";
         ExecStart =
-          "${pkgs.namecoind}/bin/namecoind -conf=${configFile} -datadir=${dataDir} -printtoconsole";
+          "${pkgs.namecoind}/bin/namecoind -conf=${configFile} -datadir=${dataDir} -printtoconsole"
+          ;
         ExecStop = "${pkgs.coreutils}/bin/kill -KILL $MAINPID";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Nice = "10";

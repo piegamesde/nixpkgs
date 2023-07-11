@@ -32,7 +32,7 @@ buildGoModule rec {
     "-X main.Version=v${version}"
   ];
 
-  # prevent `error: 'TARGET_OS_MAC' is not defined`
+    # prevent `error: 'TARGET_OS_MAC' is not defined`
   env.CGO_CFLAGS = "-Wno-undef-prefix";
 
   nativeBuildInputs = [ installShellFiles ];

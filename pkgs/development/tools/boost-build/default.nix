@@ -18,10 +18,12 @@ let
 in
 stdenv.mkDerivation {
   pname = "boost-build";
-  version = if useBoost ? version then
-    "boost-${useBoost.version}"
-  else
-    defaultVersion;
+  version =
+    if useBoost ? version then
+      "boost-${useBoost.version}"
+    else
+      defaultVersion
+    ;
 
   src = useBoost.src or (fetchFromGitHub {
     owner = "boostorg";
@@ -30,14 +32,14 @@ stdenv.mkDerivation {
     sha256 = "1r4rwlq87ydmsdqrik4ly5iai796qalvw7603mridg2nwcbbnf54";
   });
 
-  # b2 is in a subdirectory of boost source tarballs
+    # b2 is in a subdirectory of boost source tarballs
   postUnpack = lib.optionalString (useBoost ? src) ''
     sourceRoot="$sourceRoot/tools/build"
   '';
 
   patches = useBoost.boostBuildPatches or [ ];
 
-  # Upstream defaults to gcc on darwin, but we use clang.
+    # Upstream defaults to gcc on darwin, but we use clang.
   postPatch = ''
     substituteInPlace src/build-system.jam \
     --replace "default-toolset = darwin" "default-toolset = clang-darwin"

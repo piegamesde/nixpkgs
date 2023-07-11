@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jm7lhnzjx4q7gcwlkvsbffcy0zppywyh50d71ami6dnq182vvcc";
   };
 
-  # _FORTIFY_SOURCE requires compiling with optimization (-O)
+    # _FORTIFY_SOURCE requires compiling with optimization (-O)
   env.NIX_CFLAGS_COMPILE = "-O";
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];

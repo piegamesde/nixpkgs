@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     curlOpts = "--user-agent 'Mozilla/5.0'";
   };
 
-  # Optionally, it can use GTK.
+    # Optionally, it can use GTK.
   buildInputs = [
     pam
     libX11
@@ -32,19 +32,21 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ autoreconfHook ];
 
-  # Don't try to install `xlock' setuid. Password authentication works
-  # fine via PAM without super user privileges.
-  configureFlags = [ "--disable-setuid" ]
-    ++ (lib.optional (pam != null) "--enable-pam");
+    # Don't try to install `xlock' setuid. Password authentication works
+    # fine via PAM without super user privileges.
+  configureFlags =
+    [ "--disable-setuid" ] ++ (lib.optional (pam != null) "--enable-pam");
 
-  postPatch = let
-    makePath = p: lib.concatMapStringsSep " " (x: x + "/" + p) buildInputs;
-    inputs = "${makePath "lib"} ${makePath "include"}";
-  in ''
-    sed -i 's,\(for ac_dir in\),\1 ${inputs},' configure.ac
-    sed -i 's,/usr/,/no-such-dir/,g' configure.ac
-    configureFlags+=" --enable-appdefaultdir=$out/share/X11/app-defaults"
-  '' ;
+  postPatch =
+    let
+      makePath = p: lib.concatMapStringsSep " " (x: x + "/" + p) buildInputs;
+      inputs = "${makePath "lib"} ${makePath "include"}";
+    in ''
+      sed -i 's,\(for ac_dir in\),\1 ${inputs},' configure.ac
+      sed -i 's,/usr/,/no-such-dir/,g' configure.ac
+      configureFlags+=" --enable-appdefaultdir=$out/share/X11/app-defaults"
+    ''
+    ;
 
   hardeningDisable = [ "format" ]; # no build output otherwise
 

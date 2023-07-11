@@ -8,10 +8,12 @@ import ./make-test-python.nix ({
   }:
   let
 
-    remoteSystem = if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
-      "x86_64-linux"
-    else
-      "aarch64-linux";
+    remoteSystem =
+      if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
+        "x86_64-linux"
+      else
+        "aarch64-linux"
+      ;
 
     remoteCrossPkgs = import ../.. # nixpkgs
       {
@@ -19,8 +21,8 @@ import ./make-test-python.nix ({
         #       'perspective' of the build script.
         localSystem = remoteSystem;
 
-        # NOTE: Since this file can't control where the test will be _run_ we don't
-        #       cross-compile _to_ a different system but _from_ a different system
+          # NOTE: Since this file can't control where the test will be _run_ we don't
+          #       cross-compile _to_ a different system but _from_ a different system
         crossSystem = pkgs.stdenv.hostPlatform.system;
       };
 
@@ -45,14 +47,16 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ roberth ]; };
 
     nodes = {
-      docker = {
+      docker =
+        {
           ...
         }: {
           virtualisation = {
             diskSize = 2048;
             docker.enable = true;
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

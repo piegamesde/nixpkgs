@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ zope_proxy ];
 
-  # ignore circular dependency on zope_schema
+    # ignore circular dependency on zope_schema
   preBuild = ''
     sed -i '/zope.schema/d' setup.py
   '';

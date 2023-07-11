@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
   let
     lfs = pkgs.fetchurl {
       url =
-        "https://gerrit-ci.gerritforge.com/job/plugin-lfs-bazel-master/90/artifact/bazel-bin/plugins/lfs/lfs.jar";
+        "https://gerrit-ci.gerritforge.com/job/plugin-lfs-bazel-master/90/artifact/bazel-bin/plugins/lfs/lfs.jar"
+        ;
       sha256 = "023b0kd8djm3cn1lf1xl67yv3j12yl8bxccn42lkfmwxjwjfqw6h";
     };
 
@@ -21,7 +22,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      server = {
+      server =
+        {
           config,
           pkgs,
           ...
@@ -50,12 +52,15 @@ import ./make-test-python.nix ({
               sshd.advertisedAddress = "[::]:2222";
             };
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           ...
         }:
-        { };
+        { }
+        ;
     };
 
     testScript = ''

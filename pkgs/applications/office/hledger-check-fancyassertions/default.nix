@@ -13,7 +13,8 @@ stdenvNoCC.mkDerivation rec {
   src = fetchurl {
     name = "hledger-check-fancyassertion-${version}.hs";
     url =
-      "https://raw.githubusercontent.com/simonmichael/hledger/hledger-lib-${version}/bin/hledger-check-fancyassertions.hs";
+      "https://raw.githubusercontent.com/simonmichael/hledger/hledger-lib-${version}/bin/hledger-check-fancyassertions.hs"
+      ;
     sha256 = "0lyyz8dqkknd9d073l613kdkaqd9r6ymdw94d7mwp17pxvfr17wf";
   };
 

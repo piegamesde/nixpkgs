@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-12sASyFAnSuP2xQzr1KL/Am52ez6hiOUH/0zFH2bxhc=";
   };
 
-  # configure don't accept argument --prefix
+    # configure don't accept argument --prefix
   dontAddPrefix = true;
 
   makeFlags = [
@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     inherit (src.meta) homepage;
     description =
-      "This PlugIn is a VDR implementation of the VTP (Video Transfer Protocol) Version 0.0.3 (see file PROTOCOL) and a basic HTTP Streaming Protocol.";
+      "This PlugIn is a VDR implementation of the VTP (Video Transfer Protocol) Version 0.0.3 (see file PROTOCOL) and a basic HTTP Streaming Protocol."
+      ;
     maintainers = [ maintainers.ck3d ];
     license = licenses.gpl2;
     inherit (vdr.meta) platforms;

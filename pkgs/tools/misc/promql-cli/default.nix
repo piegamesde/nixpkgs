@@ -28,7 +28,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Command-line tool to query a Prometheus server with PromQL and visualize the output";
+      "Command-line tool to query a Prometheus server with PromQL and visualize the output"
+      ;
     homepage = "https://github.com/nalbury/promql-cli";
     license = licenses.asl20;
     maintainers = with maintainers; [ arikgrahl ];

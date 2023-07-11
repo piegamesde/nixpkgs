@@ -87,10 +87,10 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # retrofe will look for config files in its install path ($out/bin).
-  # When set it will use $RETROFE_PATH instead. Sadly this behaviour isn't
-  # documented well. To make it behave more like as expected it's set to
-  # $PWD by default here.
+    # retrofe will look for config files in its install path ($out/bin).
+    # When set it will use $RETROFE_PATH instead. Sadly this behaviour isn't
+    # documented well. To make it behave more like as expected it's set to
+    # $PWD by default here.
   postInstall = ''
     wrapProgram "$out/bin/retrofe" \
       --prefix GST_PLUGIN_PATH : "$GST_PLUGIN_SYSTEM_PATH_1_0" \

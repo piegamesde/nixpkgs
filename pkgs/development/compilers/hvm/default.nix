@@ -22,15 +22,16 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals (stdenv.isDarwin
       && stdenv.isx86_64) [ darwin.apple_sdk_11_0.frameworks.Foundation ];
 
-  # tests are broken
+    # tests are broken
   doCheck = false;
 
-  # enable nightly features
+    # enable nightly features
   RUSTC_BOOTSTRAP = true;
 
   meta = with lib; {
     description =
-      "A pure functional compile target that is lazy, non-garbage-collected, and parallel";
+      "A pure functional compile target that is lazy, non-garbage-collected, and parallel"
+      ;
     homepage = "https://github.com/kindelia/hvm";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];

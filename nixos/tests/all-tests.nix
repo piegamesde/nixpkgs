@@ -18,7 +18,8 @@
 with pkgs.lib;
 
 let
-  discoverTests = val:
+  discoverTests =
+    val:
     if isAttrs val then
       if hasAttr "test" val then
         callTest val
@@ -33,14 +34,19 @@ let
     # (if it is a function).
       discoverTests (val { inherit system pkgs; })
     else
-      val;
-  handleTest = path: args:
-    discoverTests (import path ({ inherit system pkgs; } // args));
-  handleTestOn = systems: path: args:
+      val
+    ;
+  handleTest =
+    path: args:
+    discoverTests (import path ({ inherit system pkgs; } // args))
+    ;
+  handleTestOn =
+    systems: path: args:
     if elem system systems then
       handleTest path args
     else
-      { };
+      { }
+    ;
 
   nixosLib = import ../lib {
     # Experimental features need testing too, but there's no point in warning
@@ -50,28 +56,35 @@ let
   evalMinimalConfig = module: nixosLib.evalModules { modules = [ module ]; };
 
   inherit (rec {
-    doRunTest = arg:
+    doRunTest =
+      arg:
       ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest {
         imports = [ arg ];
-      }).config.result;
-    findTests = tree:
+      }).config.result
+      ;
+    findTests =
+      tree:
       if tree ? recurseForDerivations && tree.recurseForDerivations then
         mapAttrs (k: findTests)
         (builtins.removeAttrs tree [ "recurseForDerivations" ])
       else
-        callTest tree;
+        callTest tree
+      ;
 
-    runTest = arg:
+    runTest =
+      arg:
       let
         r = doRunTest arg;
       in
       findTests r
-    ;
-    runTestOn = systems: arg:
+      ;
+    runTestOn =
+      systems: arg:
       if elem system systems then
         runTest arg
       else
-        { };
+        { }
+      ;
   })
     runTest
     runTestOn
@@ -303,9 +316,8 @@ in {
     handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-beta; };
   firefox-devedition =
     handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-devedition; };
-  firefox-esr = handleTest ./firefox.nix {
-    firefoxPackage = pkgs.firefox-esr;
-  }; # used in `tested` job
+  firefox-esr = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr; }
+    ; # used in `tested` job
   firefox-esr-102 =
     handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-102; };
   firejail = handleTest ./firejail.nix { };
@@ -386,9 +398,9 @@ in {
     "x86_64-linux"
   ] ./oci-containers.nix { };
   odoo = handleTest ./odoo.nix { };
-  # 9pnet_virtio used to mount /nix partition doesn't support
-  # hibernation. This test happens to work on x86_64-linux but
-  # not on other platforms.
+    # 9pnet_virtio used to mount /nix partition doesn't support
+    # hibernation. This test happens to work on x86_64-linux but
+    # not on other platforms.
   hibernate = handleTestOn [ "x86_64-linux" ] ./hibernate.nix { };
   hibernate-systemd-stage-1 =
     handleTestOn [ "x86_64-linux" ] ./hibernate.nix { systemdStage1 = true; };
@@ -484,7 +496,7 @@ in {
   lxd = handleTest ./lxd.nix { };
   lxd-nftables = handleTest ./lxd-nftables.nix { };
   lxd-image-server = handleTest ./lxd-image-server.nix { };
-  #logstash = handleTest ./logstash.nix {};
+    #logstash = handleTest ./logstash.nix {};
   lorri = handleTest ./lorri/default.nix { };
   maddy = discoverTests (import ./maddy { inherit handleTest; });
   maestral = handleTest ./maestral.nix { };
@@ -532,8 +544,8 @@ in {
   mtp = handleTest ./mtp.nix { };
   multipass = handleTest ./multipass.nix { };
   mumble = handleTest ./mumble.nix { };
-  # Fails on aarch64-linux at the PDF creation step - need to debug this on an
-  # aarch64 machine..
+    # Fails on aarch64-linux at the PDF creation step - need to debug this on an
+    # aarch64 machine..
   musescore = handleTestOn [ "x86_64-linux" ] ./musescore.nix { };
   munin = handleTest ./munin.nix { };
   mutableUsers = handleTest ./mutable-users.nix { };
@@ -568,11 +580,11 @@ in {
   networking.scripted = handleTest ./networking.nix { networkd = false; };
   netbox = handleTest ./web-apps/netbox.nix { inherit (pkgs) netbox; };
   netbox_3_3 = handleTest ./web-apps/netbox.nix { netbox = pkgs.netbox_3_3; };
-  # TODO: put in networking.nix after the test becomes more complete
+    # TODO: put in networking.nix after the test becomes more complete
   networkingProxy = handleTest ./networking-proxy.nix { };
   nextcloud = handleTest ./nextcloud { };
   nexus = handleTest ./nexus.nix { };
-  # TODO: Test nfsv3 + Kerberos
+    # TODO: Test nfsv3 + Kerberos
   nfs3 = handleTest ./nfs { version = 3; };
   nfs4 = handleTest ./nfs { version = 4; };
   nghttpx = handleTest ./nghttpx.nix { };
@@ -865,7 +877,7 @@ in {
   ] ./traefik.nix { };
   trafficserver = handleTest ./trafficserver.nix { };
   transmission = handleTest ./transmission.nix { };
-  # tracee requires bpf
+    # tracee requires bpf
   tracee = handleTestOn [ "x86_64-linux" ] ./tracee.nix { };
   trezord = handleTest ./trezord.nix { };
   trickster = handleTest ./trickster.nix { };

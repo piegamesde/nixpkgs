@@ -6,8 +6,9 @@
     enable = lib.mkEnableOption (lib.mdDoc "nghttpx");
 
     frontends = lib.mkOption {
-      type = lib.types.listOf
-        (lib.types.submodule (import ./frontend-submodule.nix));
+      type =
+        lib.types.listOf (lib.types.submodule (import ./frontend-submodule.nix))
+        ;
       description = lib.mdDoc ''
         A list of frontend listener specifications.
       '';

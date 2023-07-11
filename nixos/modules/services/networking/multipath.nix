@@ -12,14 +12,18 @@ with lib;
 let
   cfg = config.services.multipath;
 
-  indentLines = n: str:
+  indentLines =
+    n: str:
     concatStringsSep "\n" (map (line: "${fixedWidthString n " " " "}${line}")
-      (filter (x: x != "") (splitString "\n" str)));
+      (filter (x: x != "") (splitString "\n" str)))
+    ;
 
-  addCheckDesc = desc: elemType: check:
+  addCheckDesc =
+    desc: elemType: check:
     types.addCheck elemType check // {
       description = "${elemType.description} (with check: ${desc})";
-    };
+    }
+    ;
   hexChars = stringToCharacters "0123456789abcdef";
   isHexString = s: all (c: elem c hexChars) (stringToCharacters (toLower s));
   hexStr = addCheckDesc "hexadecimal string" types.str isHexString;
@@ -83,21 +87,24 @@ in {
             type = nullOr str;
             default = null;
             description = lib.mdDoc
-              "Products with the given vendor matching this string are blacklisted";
+              "Products with the given vendor matching this string are blacklisted"
+              ;
           };
 
           alias_prefix = mkOption {
             type = nullOr str;
             default = null;
             description = lib.mdDoc
-              "The user_friendly_names prefix to use for this device type, instead of the default mpath";
+              "The user_friendly_names prefix to use for this device type, instead of the default mpath"
+              ;
           };
 
           vpd_vendor = mkOption {
             type = nullOr str;
             default = null;
             description = lib.mdDoc
-              "The vendor specific vpd page information, using the vpd page abbreviation";
+              "The vendor specific vpd page information, using the vpd page abbreviation"
+              ;
           };
 
           hardware_handler = mkOption {
@@ -113,7 +120,7 @@ in {
               lib.mdDoc "The hardware handler to use for this device type";
           };
 
-          # Optional arguments
+            # Optional arguments
           path_grouping_policy = mkOption {
             type = nullOr (enum [
               "failover"
@@ -124,7 +131,8 @@ in {
             ]);
             default = null; # real default: "failover"
             description = lib.mdDoc
-              "The default path grouping policy to apply to unspecified multipaths";
+              "The default path grouping policy to apply to unspecified multipaths"
+              ;
           };
 
           uid_attribute = mkOption {
@@ -152,7 +160,8 @@ in {
             ]);
             default = null; # real default: "service-time 0"
             description = lib.mdDoc
-              "The default path selector algorithm to use; they are offered by the kernel multipath target";
+              "The default path selector algorithm to use; they are offered by the kernel multipath target"
+              ;
           };
 
           path_checker = mkOption {
@@ -210,7 +219,8 @@ in {
             type = nullOr str;
             default = null; # real default: "manual"
             description = lib.mdDoc
-              "Tell multipathd how to manage path group failback. Quote integers as strings";
+              "Tell multipathd how to manage path group failback. Quote integers as strings"
+              ;
           };
 
           rr_weight = mkOption {
@@ -229,7 +239,8 @@ in {
             type = nullOr str;
             default = null; # real default: "fail"
             description = lib.mdDoc
-              "Specify what to do when all paths are down. Quote integers as strings";
+              "Specify what to do when all paths are down. Quote integers as strings"
+              ;
           };
 
           rr_min_io = mkOption {
@@ -390,7 +401,8 @@ in {
             type = nullOr int;
             default = null;
             description = lib.mdDoc
-              "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
+              "One of the four parameters of supporting path check based on accounting IO error such as intermittent error"
+              ;
           };
 
           marginal_path_err_rate_threshold = mkOption {
@@ -404,28 +416,32 @@ in {
             type = nullOr str;
             default = null;
             description = lib.mdDoc
-              "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
+              "One of the four parameters of supporting path check based on accounting IO error such as intermittent error"
+              ;
           };
 
           marginal_path_double_failed_time = mkOption {
             type = nullOr str;
             default = null;
             description = lib.mdDoc
-              "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
+              "One of the four parameters of supporting path check based on accounting IO error such as intermittent error"
+              ;
           };
 
           delay_watch_checks = mkOption {
             type = nullOr str;
             default = null;
             description = lib.mdDoc
-              "This option is deprecated, and mapped to san_path_err_forget_rate";
+              "This option is deprecated, and mapped to san_path_err_forget_rate"
+              ;
           };
 
           delay_wait_checks = mkOption {
             type = nullOr str;
             default = null;
             description = lib.mdDoc
-              "This option is deprecated, and mapped to san_path_err_recovery_time";
+              "This option is deprecated, and mapped to san_path_err_recovery_time"
+              ;
           };
 
           skip_kpartx = mkOption {
@@ -435,28 +451,32 @@ in {
             ]);
             default = null; # real default: "no"
             description = lib.mdDoc
-              "If set to yes, kpartx will not automatically create partitions on the device";
+              "If set to yes, kpartx will not automatically create partitions on the device"
+              ;
           };
 
           max_sectors_kb = mkOption {
             type = nullOr int;
             default = null;
             description = lib.mdDoc
-              "Sets the max_sectors_kb device parameter on all path devices and the multipath device to the specified value";
+              "Sets the max_sectors_kb device parameter on all path devices and the multipath device to the specified value"
+              ;
           };
 
           ghost_delay = mkOption {
             type = nullOr int;
             default = null;
             description = lib.mdDoc
-              "Sets the number of seconds that multipath will wait after creating a device with only ghost paths before marking it ready for use in systemd";
+              "Sets the number of seconds that multipath will wait after creating a device with only ghost paths before marking it ready for use in systemd"
+              ;
           };
 
           all_tg_pt = mkOption {
             type = nullOr str;
             default = null;
             description = lib.mdDoc
-              "Set the 'all targets ports' flag when registering keys with mpathpersist";
+              "Set the 'all targets ports' flag when registering keys with mpathpersist"
+              ;
           };
 
         };
@@ -573,59 +593,66 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.etc."multipath.conf".text = let
-      inherit (cfg) defaults blacklist blacklist_exceptions overrides;
+    environment.etc."multipath.conf".text =
+      let
+        inherit (cfg) defaults blacklist blacklist_exceptions overrides;
 
-      mkDeviceBlock = cfg:
-        let
-          nonNullCfg = lib.filterAttrs (k: v: v != null) cfg;
-          attrs =
-            lib.mapAttrsToList (name: value: "  ${name} ${toString value}")
-            nonNullCfg;
-        in ''
-          device {
-          ${lib.concatStringsSep "\n" attrs}
+        mkDeviceBlock =
+          cfg:
+          let
+            nonNullCfg = lib.filterAttrs (k: v: v != null) cfg;
+            attrs =
+              lib.mapAttrsToList (name: value: "  ${name} ${toString value}")
+              nonNullCfg;
+          in ''
+            device {
+            ${lib.concatStringsSep "\n" attrs}
+            }
+          ''
+          ;
+        devices = lib.concatMapStringsSep "\n" mkDeviceBlock cfg.devices;
+
+        mkMultipathBlock =
+          m: ''
+            multipath {
+              wwid ${m.wwid}
+              alias ${toString m.alias}
+            }
+          ''
+          ;
+        multipaths =
+          lib.concatMapStringsSep "\n" mkMultipathBlock cfg.pathGroups;
+
+      in ''
+        devices {
+        ${indentLines 2 devices}
+        }
+
+        ${optionalString (defaults != null) ''
+          defaults {
+          ${indentLines 2 defaults}
           }
-        '' ;
-      devices = lib.concatMapStringsSep "\n" mkDeviceBlock cfg.devices;
-
-      mkMultipathBlock = m: ''
-        multipath {
-          wwid ${m.wwid}
-          alias ${toString m.alias}
+        ''}
+        ${optionalString (blacklist != null) ''
+          blacklist {
+          ${indentLines 2 blacklist}
+          }
+        ''}
+        ${optionalString (blacklist_exceptions != null) ''
+          blacklist_exceptions {
+          ${indentLines 2 blacklist_exceptions}
+          }
+        ''}
+        ${optionalString (overrides != null) ''
+          overrides {
+          ${indentLines 2 overrides}
+          }
+        ''}
+        multipaths {
+        ${indentLines 2 multipaths}
         }
-      '';
-      multipaths = lib.concatMapStringsSep "\n" mkMultipathBlock cfg.pathGroups;
-
-    in ''
-      devices {
-      ${indentLines 2 devices}
-      }
-
-      ${optionalString (defaults != null) ''
-        defaults {
-        ${indentLines 2 defaults}
-        }
-      ''}
-      ${optionalString (blacklist != null) ''
-        blacklist {
-        ${indentLines 2 blacklist}
-        }
-      ''}
-      ${optionalString (blacklist_exceptions != null) ''
-        blacklist_exceptions {
-        ${indentLines 2 blacklist_exceptions}
-        }
-      ''}
-      ${optionalString (overrides != null) ''
-        overrides {
-        ${indentLines 2 overrides}
-        }
-      ''}
-      multipaths {
-      ${indentLines 2 multipaths}
-      }
-    '' ;
+      ''
+      ;
 
     systemd.packages = [ cfg.package ];
 
@@ -635,9 +662,9 @@ in {
       "dm-service-time"
     ];
 
-    # We do not have systemd in stage-1 boot so must invoke `multipathd`
-    # with the `-1` argument which disables systemd calls. Invoke `multipath`
-    # to display the multipath mappings in the output of `journalctl -b`.
+      # We do not have systemd in stage-1 boot so must invoke `multipathd`
+      # with the `-1` argument which disables systemd calls. Invoke `multipath`
+      # to display the multipath mappings in the output of `journalctl -b`.
     boot.initrd.kernelModules = [
       "dm-multipath"
       "dm-service-time"

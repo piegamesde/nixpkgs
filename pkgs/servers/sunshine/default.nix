@@ -37,10 +37,11 @@
 }:
 let
   libcbs = callPackage ./libcbs.nix { };
-  # get cmake file used to find external ffmpeg from previous sunshine version
+    # get cmake file used to find external ffmpeg from previous sunshine version
   findFfmpeg = fetchurl {
     url =
-      "https://raw.githubusercontent.com/LizardByte/Sunshine/6702802829869547708dfec98db5b8cbef39be89/cmake/FindFFMPEG.cmake";
+      "https://raw.githubusercontent.com/LizardByte/Sunshine/6702802829869547708dfec98db5b8cbef39be89/cmake/FindFFMPEG.cmake"
+      ;
     sha256 = "sha256:1hl3sffv1z8ghdql5y9flk41v74asvh23y6jmaypll84f1s6k1xa";
   };
 in
@@ -56,18 +57,19 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  # remove pre-built ffmpeg; use ffmpeg from nixpkgs
+    # remove pre-built ffmpeg; use ffmpeg from nixpkgs
   patches = [
     ./ffmpeg.diff
     # fix for X11 not being added to libraries unless prebuilt FFmpeg is used: https://github.com/LizardByte/Sunshine/pull/1166
     (fetchpatch {
       url =
-        "https://github.com/LizardByte/Sunshine/commit/a067da6cae72cf36f76acc06fcf1e814032af886.patch";
+        "https://github.com/LizardByte/Sunshine/commit/a067da6cae72cf36f76acc06fcf1e814032af886.patch"
+        ;
       sha256 = "sha256-HMxM7luiFBEmFkvQtkdAMMSjAaYPEFX3LL0T/ActUhM=";
     })
   ];
 
-  # fetch node_modules needed for webui
+    # fetch node_modules needed for webui
   ui = buildNpmPackage {
     inherit src version;
     pname = "sunshine-ui";
@@ -75,7 +77,7 @@ stdenv.mkDerivation rec {
 
     dontNpmBuild = true;
 
-    # use generated package-lock.json as upstream does not provide one
+      # use generated package-lock.json as upstream does not provide one
     postPatch = ''
       cp ${./package-lock.json} ./package-lock.json
     '';
@@ -152,7 +154,7 @@ stdenv.mkDerivation rec {
     cp -r ${ui}/node_modules/* ../node_modules
   '';
 
-  # allow Sunshine to find libvulkan
+    # allow Sunshine to find libvulkan
   postFixup = lib.optionalString cudaSupport ''
     wrapProgram $out/bin/sunshine \
       --set LD_LIBRARY_PATH ${lib.makeLibraryPath [ vulkan-loader ]}

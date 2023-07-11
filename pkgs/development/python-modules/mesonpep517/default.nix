@@ -24,12 +24,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ toml ];
 
-  # postPatch = ''
-  #   # Meson tries to detect ninja as well, so we should patch meson as well.
-  #   substituteInPlace mesonpep517/buildapi.py \
-  #     --replace "'meson'" "'${meson}/bin/meson'" \
-  #     --replace "'ninja'" "'${ninja}/bin/ninja'"
-  # '';
+    # postPatch = ''
+    #   # Meson tries to detect ninja as well, so we should patch meson as well.
+    #   substituteInPlace mesonpep517/buildapi.py \
+    #     --replace "'meson'" "'${meson}/bin/meson'" \
+    #     --replace "'ninja'" "'${ninja}/bin/ninja'"
+    # '';
 
   propagatedNativeBuildInputs = [
     meson

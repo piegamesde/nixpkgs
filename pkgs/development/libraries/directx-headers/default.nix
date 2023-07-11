@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  # tests require WSL2
+    # tests require WSL2
   mesonFlags = [ "-Dbuild-test=false" ];
 
   meta = with lib; {

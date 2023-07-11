@@ -24,9 +24,9 @@ buildPythonPackage rec {
     zope_testing
   ];
 
-  # ImportError: No module named 'zope.event'
-  # even though zope_event has been included.
-  # Package seems to work fine.
+    # ImportError: No module named 'zope.event'
+    # even though zope_event has been included.
+    # Package seems to work fine.
   doCheck = false;
 
   meta = with lib; {

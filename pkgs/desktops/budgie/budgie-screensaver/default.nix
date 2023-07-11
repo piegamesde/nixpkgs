@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A fork of old GNOME Screensaver for purposes of providing an authentication prompt on wake";
+      "A fork of old GNOME Screensaver for purposes of providing an authentication prompt on wake"
+      ;
     homepage = "https://github.com/BuddiesOfBudgie/budgie-screensaver";
     mainProgram = "budgie-screensaver";
     platforms = platforms.linux;

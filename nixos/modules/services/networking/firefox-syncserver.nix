@@ -26,8 +26,8 @@ let
       fxa_email_domain = "api.accounts.firefox.com";
       fxa_oauth_server_url = "https://oauth.accounts.firefox.com/v1";
       run_migrations = true;
-      # if JWK caching is not enabled the token server must verify tokens
-      # using the fxa api, on a thread pool with a static size.
+        # if JWK caching is not enabled the token server must verify tokens
+        # using the fxa api, on a thread pool with a static size.
       additional_blocking_threads_for_fxa_requests = 10;
     } // lib.optionalAttrs cfg.singleNode.enable {
       # Single-node mode is likely to be used on small instances with little
@@ -272,7 +272,7 @@ in {
         ExecStart = "${cfg.package}/bin/syncserver --config ${configFile}";
         EnvironmentFile = lib.mkIf (cfg.secrets != null) "${cfg.secrets}";
 
-        # hardening
+          # hardening
         RemoveIPC = true;
         CapabilityBoundingSet = [ "" ];
         DynamicUser = true;
@@ -283,8 +283,8 @@ in {
         ProtectControlGroups = true;
         ProtectKernelModules = true;
         SystemCallArchitectures = "native";
-        # syncstorage-rs uses python-cffi internally, and python-cffi does not
-        # work with MemoryDenyWriteExecute=true
+          # syncstorage-rs uses python-cffi internally, and python-cffi does not
+          # work with MemoryDenyWriteExecute=true
         MemoryDenyWriteExecute = false;
         RestrictNamespaces = true;
         RestrictSUIDSGID = true;
@@ -327,9 +327,9 @@ in {
         forceSSL = cfg.singleNode.enableTLS;
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString cfg.settings.port}";
-          # We need to pass the Host header that matches the original Host header. Otherwise,
-          # Hawk authentication will fail (because it assumes that the client and server see
-          # the same value of the Host header).
+            # We need to pass the Host header that matches the original Host header. Otherwise,
+            # Hawk authentication will fail (because it assumes that the client and server see
+            # the same value of the Host header).
           recommendedProxySettings = true;
         };
       };

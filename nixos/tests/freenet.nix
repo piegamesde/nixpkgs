@@ -6,11 +6,13 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ nagy ]; };
 
     nodes = {
-      machine = {
+      machine =
+        {
           ...
         }: {
           services.freenet.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

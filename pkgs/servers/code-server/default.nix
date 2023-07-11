@@ -36,7 +36,8 @@ let
   defaultYarnOpts = [ ];
 
   esbuild' = esbuild.override {
-    buildGoModule = args:
+    buildGoModule =
+      args:
       buildGoModule (args // rec {
         version = "0.16.17";
         src = fetchFromGitHub {
@@ -46,16 +47,19 @@ let
           hash = "sha256-8L8h0FaexNsb3Mj6/ohA37nYLFogo5wXkAhGztGUUsQ=";
         };
         vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-      });
+      })
+      ;
   };
 
-  # replaces esbuild's download script with a binary from nixpkgs
-  patchEsbuild = path: version: ''
-    mkdir -p ${path}/node_modules/esbuild/bin
-    jq "del(.scripts.postinstall)" ${path}/node_modules/esbuild/package.json | sponge ${path}/node_modules/esbuild/package.json
-    sed -i 's/${version}/${esbuild'.version}/g' ${path}/node_modules/esbuild/lib/main.js
-    ln -s -f ${esbuild'}/bin/esbuild ${path}/node_modules/esbuild/bin/esbuild
-  '';
+    # replaces esbuild's download script with a binary from nixpkgs
+  patchEsbuild =
+    path: version: ''
+      mkdir -p ${path}/node_modules/esbuild/bin
+      jq "del(.scripts.postinstall)" ${path}/node_modules/esbuild/package.json | sponge ${path}/node_modules/esbuild/package.json
+      sed -i 's/${version}/${esbuild'.version}/g' ${path}/node_modules/esbuild/lib/main.js
+      ln -s -f ${esbuild'}/bin/esbuild ${path}/node_modules/esbuild/bin/esbuild
+    ''
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -117,7 +121,7 @@ stdenv.mkDerivation rec {
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
 
-    # to get hash values use nix-build -A code-server.prefetchYarnCache
+      # to get hash values use nix-build -A code-server.prefetchYarnCache
     outputHash = "sha256-4Vr9u3+W/IhbbTc39jyDyDNQODlmdF+M/N8oJn0Z4+w=";
   };
 

@@ -17,7 +17,8 @@ buildGoModule rec {
     # See https://github.com/PufferPanel/PufferPanel/pull/1240
     (fetchpatch {
       url =
-        "https://github.com/PufferPanel/PufferPanel/pull/1240/commits/3065dca2d9b05a56789971ccf0f43a7079a390b8.patch";
+        "https://github.com/PufferPanel/PufferPanel/pull/1240/commits/3065dca2d9b05a56789971ccf0f43a7079a390b8.patch"
+        ;
       hash = "sha256-ygMrhJoba8swoRBBii7BEiLihqOebLUtSH7os7W3s+k=";
     })
 
@@ -25,7 +26,8 @@ buildGoModule rec {
     # See https://github.com/PufferPanel/PufferPanel/pull/1241
     (fetchpatch {
       url =
-        "https://github.com/PufferPanel/PufferPanel/pull/1241/commits/ffd21bce4bff3040c8e3e783e5b4779222e7a3a5.patch";
+        "https://github.com/PufferPanel/PufferPanel/pull/1241/commits/ffd21bce4bff3040c8e3e783e5b4779222e7a3a5.patch"
+        ;
       hash = "sha256-BzGfcWhzRrCHKkAhWf0uvXiiiutWqthn/ed7bN2hR8U=";
     })
 
@@ -54,14 +56,15 @@ buildGoModule rec {
     hash = "sha256-0Vyi47Rkpe3oODHfsl/7tCerENpiEa3EWBHhfTO/uu4=";
   };
 
-  # PufferPanel is split into two parts: the backend daemon and the
-  # frontend.
-  # Getting the frontend to build in the Nix environment fails even
-  # with all the proper node_modules populated. To work around this,
-  # we just download the built frontend and package that.
+    # PufferPanel is split into two parts: the backend daemon and the
+    # frontend.
+    # Getting the frontend to build in the Nix environment fails even
+    # with all the proper node_modules populated. To work around this,
+    # we just download the built frontend and package that.
   frontend = fetchzip {
     url =
-      "https://github.com/PufferPanel/PufferPanel/releases/download/v${version}/pufferpanel_${version}_linux_arm64.zip";
+      "https://github.com/PufferPanel/PufferPanel/releases/download/v${version}/pufferpanel_${version}_linux_arm64.zip"
+      ;
     hash = "sha256-z7HWhiEBma37OMGEkTGaEbnF++Nat8wAZE2UeOoaO/U=";
     stripRoot = false;
     postFetch = ''

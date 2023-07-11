@@ -58,15 +58,15 @@ buildPythonPackage rec {
     sha256 = "0a1mdhdkda64lnwm1dg0dlrf9rs4gkal3lra6hpqbwn718cf7r80";
   };
 
-  # ld: framework not found System
+    # ld: framework not found System
   postPatch = ''
     for file in ext/wxWidgets/configure*; do
       substituteInPlace $file --replace "-framework System" ""
     done
   '';
 
-  # https://github.com/NixOS/nixpkgs/issues/75759
-  # https://github.com/wxWidgets/Phoenix/issues/1316
+    # https://github.com/NixOS/nixpkgs/issues/75759
+    # https://github.com/wxWidgets/Phoenix/issues/1316
   doCheck = false;
 
   nativeBuildInputs = [

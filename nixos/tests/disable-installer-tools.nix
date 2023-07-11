@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
   {
     name = "disable-installer-tools";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -15,7 +16,8 @@ import ./make-test-python.nix ({
         system.disableInstallerTools = true;
         boot.enableContainers = false;
         environment.defaultPackages = [ ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

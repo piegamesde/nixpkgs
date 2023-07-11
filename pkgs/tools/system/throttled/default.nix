@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     pygobject3
   ];
 
-  # The upstream unit both assumes the install location, and tries to run in a virtualenv
+    # The upstream unit both assumes the install location, and tries to run in a virtualenv
   postPatch = ''
     sed -e 's|ExecStart=.*|ExecStart=${
       placeholder "out"

@@ -21,8 +21,8 @@ let
     hash = "sha256-xt0aK908lLgNlpcI86OSxy96Z/PZnQh7+GXzJ0VMQGA=";
   };
 
-  # Pydicom needs pydicom-data to run some tests. If these files aren't downloaded
-  # before the package creation, it'll try to download during the checkPhase.
+    # Pydicom needs pydicom-data to run some tests. If these files aren't downloaded
+    # before the package creation, it'll try to download during the checkPhase.
   test_data = fetchFromGitHub {
     owner = "pydicom";
     repo = "pydicom-data";
@@ -45,9 +45,9 @@ buildPythonPackage {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Setting $HOME to prevent pytest to try to create a folder inside
-  # /homeless-shelter which is read-only.
-  # Linking pydicom-data dicom files to $HOME/.pydicom/data
+    # Setting $HOME to prevent pytest to try to create a folder inside
+    # /homeless-shelter which is read-only.
+    # Linking pydicom-data dicom files to $HOME/.pydicom/data
   preCheck = ''
     export HOME=$TMP/test-home
     mkdir -p $HOME/.pydicom/

@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     boost
   ];
 
-  # Python is reported as missing during the build, however
-  # including Python does not change the output.
+    # Python is reported as missing during the build, however
+    # including Python does not change the output.
 
   nativeBuildInputs = [
     cmake
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  # we need unar to for multi-archive extraction
+    # we need unar to for multi-archive extraction
   postFixup = lib.optionalString withGog ''
     wrapProgram $out/bin/innoextract \
       --prefix PATH : ${lib.makeBinPath [ unar ]}

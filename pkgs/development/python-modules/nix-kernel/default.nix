@@ -35,7 +35,7 @@ buildPythonPackage rec {
     notebook
   ];
 
-  # no tests in repo
+    # no tests in repo
   doCheck = false;
 
   pythonImportsCheck = [ "nix-kernel" ];

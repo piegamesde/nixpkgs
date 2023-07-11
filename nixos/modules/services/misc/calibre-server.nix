@@ -29,7 +29,7 @@ in {
       ] config;
     in [ libraryDir ] )) ];
 
-  ###### interface
+    ###### interface
 
   options = {
     services.calibre-server = {
@@ -58,7 +58,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

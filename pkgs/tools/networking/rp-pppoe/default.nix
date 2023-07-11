@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.roaringpenguin.com/files/download/rp-pppoe-${version}.tar.gz";
+      "https://www.roaringpenguin.com/files/download/rp-pppoe-${version}.tar.gz"
+      ;
     sha256 = "1hl6rjvplapgsyrap8xj46kc9kqwdlm6ya6gp3lv0ihm0c24wy80";
   };
 

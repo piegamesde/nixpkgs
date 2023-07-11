@@ -23,7 +23,7 @@ buildPythonPackage rec {
     python3-openid
   ];
 
-  # no tests for repo...
+    # no tests for repo...
   doCheck = false;
 
   meta = with lib; {

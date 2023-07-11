@@ -64,7 +64,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -76,7 +76,7 @@ in {
       unitConfig.StopWhenUnneeded = true;
     };
 
-    # Service executed before suspending/hibernating.
+      # Service executed before suspending/hibernating.
     systemd.services.pre-sleep = {
       description = "Pre-Sleep Actions";
       wantedBy = [ "sleep.target" ];

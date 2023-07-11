@@ -22,14 +22,18 @@ stdenv.mkDerivation rec {
   };
 
   doCheck = !stdenv.hostPlatform.isStatic;
-  preCheck = let
-    ldLibraryPathEnv = if stdenv.isDarwin then
-      "DYLD_LIBRARY_PATH"
-    else
-      "LD_LIBRARY_PATH";
-  in ''
-    export ${ldLibraryPathEnv}="$(pwd)/build:''${${ldLibraryPathEnv}}"
-  '' ;
+  preCheck =
+    let
+      ldLibraryPathEnv =
+        if stdenv.isDarwin then
+          "DYLD_LIBRARY_PATH"
+        else
+          "LD_LIBRARY_PATH"
+        ;
+    in ''
+      export ${ldLibraryPathEnv}="$(pwd)/build:''${${ldLibraryPathEnv}}"
+    ''
+    ;
 
   nativeBuildInputs = [
     cmake
@@ -40,27 +44,30 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DMI_BUILD_SHARED=OFF" ]
     ++ lib.optionals (!doCheck) [ "-DMI_BUILD_TESTS=OFF" ];
 
-  postInstall = let
-    rel = lib.versions.majorMinor version;
-    suffix = if stdenv.isLinux then
-      "${soext}.${rel}"
-    else
-      ".${rel}${soext}";
-  in
-  ''
-    # first, move headers and cmake files, that's easy
-    mkdir -p $dev/lib
-    mv $out/lib/cmake $dev/lib/
+  postInstall =
+    let
+      rel = lib.versions.majorMinor version;
+      suffix =
+        if stdenv.isLinux then
+          "${soext}.${rel}"
+        else
+          ".${rel}${soext}"
+        ;
+    in
+    ''
+      # first, move headers and cmake files, that's easy
+      mkdir -p $dev/lib
+      mv $out/lib/cmake $dev/lib/
 
-    find $dev $out -type f
-  '' + (lib.optionalString secureBuild ''
-    # pretend we're normal mimalloc
-    ln -sfv $out/lib/libmimalloc-secure${suffix} $out/lib/libmimalloc${suffix}
-    ln -sfv $out/lib/libmimalloc-secure${suffix} $out/lib/libmimalloc${soext}
-    ln -sfv $out/lib/libmimalloc-secure.a $out/lib/libmimalloc.a
-    ln -sfv $out/lib/mimalloc-secure.o $out/lib/mimalloc.o
-  '')
-  ;
+      find $dev $out -type f
+    '' + (lib.optionalString secureBuild ''
+      # pretend we're normal mimalloc
+      ln -sfv $out/lib/libmimalloc-secure${suffix} $out/lib/libmimalloc${suffix}
+      ln -sfv $out/lib/libmimalloc-secure${suffix} $out/lib/libmimalloc${soext}
+      ln -sfv $out/lib/libmimalloc-secure.a $out/lib/libmimalloc.a
+      ln -sfv $out/lib/mimalloc-secure.o $out/lib/mimalloc.o
+    '')
+    ;
 
   outputs = [
     "out"

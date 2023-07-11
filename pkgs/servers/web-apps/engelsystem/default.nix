@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/engelsystem/engelsystem/releases/download/v3.3.0/engelsystem-v3.3.0.zip";
+      "https://github.com/engelsystem/engelsystem/releases/download/v3.3.0/engelsystem-v3.3.0.zip"
+      ;
     hash = "sha256-DS0klm26udXsiiFToeOJooA1WUR8gk0qf/UJL8E77ps=";
   };
 
@@ -57,7 +58,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Coordinate your volunteers in teams, assign them to work shifts or let them decide for themselves when and where they want to help with what";
+      "Coordinate your volunteers in teams, assign them to work shifts or let them decide for themselves when and where they want to help with what"
+      ;
     homepage = "https://engelsystem.de";
     changelog =
       "https://github.com/engelsystem/engelsystem/releases/tag/v${version}";

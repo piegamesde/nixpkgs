@@ -31,7 +31,7 @@ buildPythonPackage rec {
       --replace "malduck==4.1.0" "malduck"
   '';
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "karton.config_extractor" ];
@@ -40,7 +40,8 @@ buildPythonPackage rec {
     description = "Static configuration extractor for the Karton framework";
     homepage = "https://github.com/CERT-Polska/karton-config-extractor";
     changelog =
-      "https://github.com/CERT-Polska/karton-config-extractor/releases/tag/v${version}";
+      "https://github.com/CERT-Polska/karton-config-extractor/releases/tag/v${version}"
+      ;
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

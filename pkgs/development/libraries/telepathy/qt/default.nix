@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://telepathy.freedesktop.org/releases/telepathy-qt/telepathy-qt-${version}.tar.gz";
+      "https://telepathy.freedesktop.org/releases/telepathy-qt/telepathy-qt-${version}.tar.gz"
+      ;
     sha256 = "bf8e2a09060addb80475a4938105b9b41d9e6837999b7a00e5351783857e18ad";
   };
 
@@ -41,8 +42,8 @@ stdenv.mkDerivation rec {
     dbus-python
   ];
 
-  # No point in building tests if they are not run
-  # On 0.9.7, they do not even build with QT4
+    # No point in building tests if they are not run
+    # On 0.9.7, they do not even build with QT4
   cmakeFlags = lib.optional (!doCheck) "-DENABLE_TESTS=OFF";
 
   dontWrapQtApps = true;

@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  # Should be true for anything built with build2,
-  # but especially important when bootstrapping
+    # Should be true for anything built with build2,
+    # but especially important when bootstrapping
   disallowedReferences = [ build2 ];
 
   postPatch = lib.optionalString stdenv.isLinux ''
@@ -36,8 +36,9 @@ stdenv.mkDerivation rec {
       --replace '"libuuid.so' '"${lib.getLib libuuid}/lib/libuuid.so'
   '';
 
-  build2ConfigureFlags =
-    [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags = [ "config.bin.lib=${
+      build2.configSharedStatic enableShared enableStatic
+    }" ];
 
   doCheck = true;
 

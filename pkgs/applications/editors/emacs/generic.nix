@@ -147,10 +147,12 @@ else
 
       patches = patches fetchpatch
         ++ lib.optionals nativeComp [ (substituteAll {
-          src = if lib.versionOlder finalAttrs.version "29" then
-            ./native-comp-driver-options-28.patch
-          else
-            ./native-comp-driver-options.patch;
+          src =
+            if lib.versionOlder finalAttrs.version "29" then
+              ./native-comp-driver-options-28.patch
+            else
+              ./native-comp-driver-options.patch
+            ;
           backendPath = (lib.concatStringsSep " "
             (builtins.map (x: ''"-B${x}"'') ([
               # Paths necessary so the JIT compiler finds its libraries:
@@ -163,19 +165,21 @@ else
             ])));
         }) ];
 
-      src = if macportVersion != null then
-        fetchFromBitbucket {
-          owner = "mituharu";
-          repo = "emacs-mac";
-          rev = macportVersion;
-          inherit sha256;
-        }
-      else
-        fetchFromSavannah {
-          repo = "emacs";
-          rev = version;
-          inherit sha256;
-        };
+      src =
+        if macportVersion != null then
+          fetchFromBitbucket {
+            owner = "mituharu";
+            repo = "emacs-mac";
+            rev = macportVersion;
+            inherit sha256;
+          }
+        else
+          fetchFromSavannah {
+            repo = "emacs";
+            rev = version;
+            inherit sha256;
+          }
+        ;
 
       enableParallelBuilding = true;
 
@@ -376,10 +380,12 @@ else
         description = "The extensible, customizable GNU text editor"
           + optionalString withMacport
           " with Mitsuharu Yamamoto's macport patches";
-        homepage = if withMacport then
-          "https://bitbucket.org/mituharu/emacs-mac/"
-        else
-          "https://www.gnu.org/software/emacs/";
+        homepage =
+          if withMacport then
+            "https://bitbucket.org/mituharu/emacs-mac/"
+          else
+            "https://www.gnu.org/software/emacs/"
+          ;
         license = licenses.gpl3Plus;
         maintainers = with maintainers; [
           lovek323
@@ -388,10 +394,12 @@ else
           matthewbauer
           atemu
         ];
-        platforms = if withMacport then
-          platforms.darwin
-        else
-          platforms.all;
+        platforms =
+          if withMacport then
+            platforms.darwin
+          else
+            platforms.all
+          ;
         broken = !(stdenv.buildPlatform.canExecute stdenv.hostPlatform);
 
         longDescription = ''

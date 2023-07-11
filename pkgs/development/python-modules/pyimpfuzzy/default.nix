@@ -18,14 +18,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pefile ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pyimpfuzzy" ];
 
   meta = with lib; {
     description =
-      "A Python module which calculates and compares the impfuzzy (import fuzzy hashing)";
+      "A Python module which calculates and compares the impfuzzy (import fuzzy hashing)"
+      ;
     homepage = "https://github.com/JPCERTCC/impfuzzy";
     license = licenses.gpl2Only;
     maintainers = [ ];

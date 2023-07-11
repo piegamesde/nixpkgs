@@ -9,7 +9,8 @@
 }:
 
 let
-  generic = version: sha256:
+  generic =
+    version: sha256:
     stdenv.mkDerivation rec {
       pname = "physfs";
       inherit version;
@@ -42,7 +43,8 @@ let
         license = licenses.zlib;
         platforms = platforms.all;
       };
-    };
+    }
+    ;
 
 in {
   physfs_2 =

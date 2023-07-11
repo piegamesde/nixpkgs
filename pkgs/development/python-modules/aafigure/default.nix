@@ -16,12 +16,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pillow ];
 
-  # error: invalid command 'test'
+    # error: invalid command 'test'
   doCheck = false;
 
-  # Fix impurity. TODO: Do the font lookup using fontconfig instead of this
-  # manual method. Until that is fixed, we get this whenever we run aafigure:
-  #   WARNING: font not found, using PIL default font
+    # Fix impurity. TODO: Do the font lookup using fontconfig instead of this
+    # manual method. Until that is fixed, we get this whenever we run aafigure:
+    #   WARNING: font not found, using PIL default font
   patchPhase = ''
     sed -i "s|/usr/share/fonts|/nonexisting-fonts-path|" aafigure/PILhelper.py
   '';

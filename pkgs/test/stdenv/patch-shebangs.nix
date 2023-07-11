@@ -57,7 +57,8 @@ let
       '';
       passthru = {
         assertion =
-          "grep -v '^#!${pkgs.coreutils}/bin/env -S ${stdenv.shell} --posix' $out/bin/test > /dev/null";
+          "grep -v '^#!${pkgs.coreutils}/bin/env -S ${stdenv.shell} --posix' $out/bin/test > /dev/null"
+          ;
       };
     };
 

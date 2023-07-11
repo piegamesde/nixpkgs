@@ -157,7 +157,7 @@ in {
       services.jack.jackd.session = ''
         ${lib.optionalString bridgeNeeded "${pkgs.a2jmidid}/bin/a2jmidid -e &"}
       '';
-      # https://alsa.opensrc.org/Jack_and_Loopback_device_as_Alsa-to-Jack_bridge#id06
+        # https://alsa.opensrc.org/Jack_and_Loopback_device_as_Alsa-to-Jack_bridge#id06
       services.jack.loopback.config = ''
         pcm.loophw00 {
           type hw
@@ -221,7 +221,8 @@ in {
       assertions = [ {
         assertion = !(cfg.alsa.enable && cfg.loopback.enable);
         message =
-          "For JACK both alsa and loopback options shouldn't be used at the same time.";
+          "For JACK both alsa and loopback options shouldn't be used at the same time."
+          ;
       } ];
 
       users.users.jackaudio = {
@@ -230,7 +231,7 @@ in {
         description = "JACK Audio system service user";
         isSystemUser = true;
       };
-      # http://jackaudio.org/faq/linux_rt_config.html
+        # http://jackaudio.org/faq/linux_rt_config.html
       security.pam.loginLimits = [
         {
           domain = "@jackaudio";

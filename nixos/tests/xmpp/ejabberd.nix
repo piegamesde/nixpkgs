@@ -5,7 +5,8 @@ import ../make-test-python.nix ({
     name = "ejabberd";
     meta = with pkgs.lib.maintainers; { maintainers = [ ajs124 ]; };
     nodes = {
-      client = {
+      client =
+        {
           nodes,
           pkgs,
           ...
@@ -14,12 +15,14 @@ import ../make-test-python.nix ({
             ${nodes.server.config.networking.primaryIPAddress} example.com
           '';
 
-          environment.systemPackages =
-            [ (pkgs.callPackage ./xmpp-sendmessage.nix {
+          environment.systemPackages = [ (pkgs.callPackage
+            ./xmpp-sendmessage.nix {
               connectTo = nodes.server.config.networking.primaryIPAddress;
             }) ];
-        };
-      server = {
+        }
+        ;
+      server =
+        {
           config,
           pkgs,
           ...
@@ -264,10 +267,12 @@ import ../make-test-python.nix ({
           };
 
           networking.firewall.enable = false;
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -287,5 +292,6 @@ import ../make-test-python.nix ({
             ejabberd_prefix + "unregister cthon98 example.com",
             ejabberd_prefix + "unregister azurediamond example.com",
         )
-      '';
+      ''
+      ;
   })

@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  # Tests are inplemented in a custom DSL (RSpec)
+    # Tests are inplemented in a custom DSL (RSpec)
   doCheck = false;
 
   pythonImportsCheck = [ "dict2xml" ];
@@ -31,7 +31,8 @@ buildPythonPackage rec {
     description = "Library to convert a Python dictionary into an XML string";
     homepage = "https://github.com/delfick/python-dict2xml";
     changelog =
-      "https://github.com/delfick/python-dict2xml/releases/tag/release-${version}";
+      "https://github.com/delfick/python-dict2xml/releases/tag/release-${version}"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ johnazoidberg ];
   };

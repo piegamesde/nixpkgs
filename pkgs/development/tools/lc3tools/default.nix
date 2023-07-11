@@ -15,7 +15,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://highered.mheducation.com/sites/dl/free/0072467509/104652/lc3tools_v12.zip";
+      "https://highered.mheducation.com/sites/dl/free/0072467509/104652/lc3tools_v12.zip"
+      ;
     hash = "sha256-PTM0ole8pHiJmUaahjPwcBQY8/hVVgQhADZ4bSABt3I=";
   };
 
@@ -42,12 +43,12 @@ stdenv.mkDerivation {
     readline
   ];
 
-  # lumetta published this a while ago but handrolled his configure
-  # jank in the original packaging makes this necessary:
+    # lumetta published this a while ago but handrolled his configure
+    # jank in the original packaging makes this necessary:
   LIBS = "${flex}/lib:${ncurses}/lib:${readline}/lib";
   INCLUDES = "${flex}/include:${ncurses}/include:${readline}/include";
 
-  # it doesn't take `--prefix`
+    # it doesn't take `--prefix`
   prefixKey = "--installdir ";
 
   postInstall = ''
@@ -64,7 +65,8 @@ stdenv.mkDerivation {
     '';
     description = "Toolchain and emulator for the LC-3 architecture";
     homepage =
-      "https://highered.mheducation.com/sites/0072467509/student_view0/lc-3_simulator.html";
+      "https://highered.mheducation.com/sites/0072467509/student_view0/lc-3_simulator.html"
+      ;
     license = licenses.gpl2;
     maintainers = with maintainers; [ anna328p ];
     mainProgram = "lc3sim-tk";

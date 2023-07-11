@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
 
   LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";
 
-  # You probably shouldn't ever run these! They will reconfigure Linux
-  # NUMA settings, which on my build machine makes the rest of package
-  # building ~5% slower until reboot. Ugh!
+    # You probably shouldn't ever run these! They will reconfigure Linux
+    # NUMA settings, which on my build machine makes the rest of package
+    # building ~5% slower until reboot. Ugh!
   doCheck = false; # never ever!
 
   meta = with lib; {

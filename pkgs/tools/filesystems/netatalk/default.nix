@@ -25,7 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/netatalk/netatalk/netatalk-${finalAttrs.version}.tar.bz2";
+      "mirror://sourceforge/netatalk/netatalk/netatalk-${finalAttrs.version}.tar.bz2"
+      ;
     hash = "sha256-2NSlzA/Yaw2Q4BfWTB9GI+jNv72lcPxCOt4RUak9GfU=";
   };
 

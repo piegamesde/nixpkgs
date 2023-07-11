@@ -49,7 +49,7 @@ buildPythonPackage rec {
     rust.rustc
   ]);
 
-  # Remove when https://github.com/NixOS/nixpkgs/pull/190093 lands.
+    # Remove when https://github.com/NixOS/nixpkgs/pull/190093 lands.
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
   propagatedBuildInputs = [ cffi ];

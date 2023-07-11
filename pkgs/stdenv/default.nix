@@ -23,14 +23,14 @@ let
   # with it (e.g., because they require GNU Make).
   stagesNative = import ./native args;
 
-  # The Nix build environment.
+    # The Nix build environment.
   stagesNix = import ./nix (args // { bootStages = stagesNative; });
 
   stagesFreeBSD = import ./freebsd args;
 
-  # On Linux systems, the standard build environment consists of Nix-built
-  # instances glibc and the `standard' Unix tools, i.e., the Posix utilities,
-  # the GNU C compiler, and so on.
+    # On Linux systems, the standard build environment consists of Nix-built
+    # instances glibc and the `standard' Unix tools, i.e., the Posix utilities,
+    # the GNU C compiler, and so on.
   stagesLinux = import ./linux args;
 
   inherit (import ./darwin args) stagesDarwin;
@@ -39,7 +39,7 @@ let
 
   stagesCustom = import ./custom args;
 
-  # Select the appropriate stages for the platform `system'.
+    # Select the appropriate stages for the platform `system'.
 in if crossSystem != localSystem || crossOverlays != [ ] then
   stagesCross
 else if config ? replaceStdenv then

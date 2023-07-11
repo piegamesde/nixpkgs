@@ -15,8 +15,8 @@ in
 libwacom.overrideAttrs (old: {
   pname = "libwacom-surface";
 
-  # These patches will not be included upstream:
-  # https://github.com/linux-surface/libwacom/issues/2
+    # These patches will not be included upstream:
+    # https://github.com/linux-surface/libwacom/issues/2
   patches = old.patches or [ ]
     ++ map (p: "${libwacom-surface}/patches/v2/${p}") [
       "0001-Add-support-for-BUS_VIRTUAL.patch"

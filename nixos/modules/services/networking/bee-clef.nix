@@ -13,7 +13,7 @@ let
 in {
   meta = { maintainers = with maintainers; [ attila-lendvai ]; };
 
-  ### interface
+    ### interface
 
   options = {
     services.bee-clef = {
@@ -53,14 +53,14 @@ in {
     };
   };
 
-  ### implementation
+    ### implementation
 
   config = mkIf cfg.enable {
     # if we ever want to have rules.js under /etc/bee-clef/
     # environment.etc."bee-clef/rules.js".source = ${pkgs.bee-clef}/rules.js
 
-    systemd.packages =
-      [ pkgs.bee-clef ]; # include the upstream bee-clef.service file
+    systemd.packages = [ pkgs.bee-clef ]
+      ; # include the upstream bee-clef.service file
 
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}/'         0750 ${cfg.user} ${cfg.group}"
@@ -84,7 +84,8 @@ in {
         User = cfg.user;
         Group = cfg.group;
         ExecStartPre = ''
-          ${pkgs.bee-clef}/share/bee-clef/ensure-clef-account "${cfg.dataDir}" "${pkgs.bee-clef}/share/bee-clef/"'';
+          ${pkgs.bee-clef}/share/bee-clef/ensure-clef-account "${cfg.dataDir}" "${pkgs.bee-clef}/share/bee-clef/"''
+          ;
         ExecStart = [
           "" # this hides/overrides what's in the original entry
           "${pkgs.bee-clef}/share/bee-clef/bee-clef-service start"

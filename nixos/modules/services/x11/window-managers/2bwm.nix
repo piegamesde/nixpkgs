@@ -20,7 +20,7 @@ in {
       mkEnableOption (lib.mdDoc "2bwm");
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

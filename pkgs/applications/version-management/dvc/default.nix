@@ -81,7 +81,7 @@ python3.pkgs.buildPythonApplication rec {
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  # Tests require access to real cloud services
+    # Tests require access to real cloud services
   doCheck = false;
 
   meta = with lib; {

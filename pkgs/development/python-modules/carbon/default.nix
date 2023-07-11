@@ -18,8 +18,8 @@ buildPythonPackage rec {
     hash = "sha256-wTtbqRHMWBcM2iFN95yzwCf/BQ+EK0vp5MXT4mKX3lw=";
   };
 
-  # Carbon-s default installation is /opt/graphite. This env variable ensures
-  # carbon is installed as a regular python module.
+    # Carbon-s default installation is /opt/graphite. This env variable ensures
+    # carbon is installed as a regular python module.
   GRAPHITE_NO_PREFIX = "True";
 
   propagatedBuildInputs = [

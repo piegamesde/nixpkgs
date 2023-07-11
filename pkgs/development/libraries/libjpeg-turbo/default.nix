@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1NRoVIL3zXX1D6iOf2FCrwBEcDW7TYFbdIbCTjY1m8Q=";
   };
 
-  # This is needed by freeimage
+    # This is needed by freeimage
   patches = [ ./0001-Compile-transupp.c-as-part-of-the-library.patch ]
     ++ lib.optional (stdenv.hostPlatform.libc or null == "msvcrt")
     ./mingw-boolean.patch;

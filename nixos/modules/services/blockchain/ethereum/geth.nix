@@ -10,7 +10,8 @@ with lib;
 let
   eachGeth = config.services.geth;
 
-  gethOpts = {
+  gethOpts =
+    {
       config,
       lib,
       name,
@@ -141,7 +142,8 @@ let
           ]);
           default = null;
           description = lib.mdDoc
-            "The network to connect to. Mainnet (null) is the default ethereum network.";
+            "The network to connect to. Mainnet (null) is the default ethereum network."
+            ;
         };
 
         syncmode = mkOption {
@@ -183,7 +185,8 @@ let
           description = lib.mdDoc "Package to use as Go Ethereum node.";
         };
       };
-    };
+    }
+    ;
 
 in {
 
@@ -197,7 +200,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (eachGeth != { }) {
 
@@ -224,7 +227,7 @@ in {
           Restart = "always";
           StateDirectory = stateDir;
 
-          # Hardening measures
+            # Hardening measures
           PrivateTmp = "true";
           ProtectSystem = "full";
           NoNewPrivileges = "true";

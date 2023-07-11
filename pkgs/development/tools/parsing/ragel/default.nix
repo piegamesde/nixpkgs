@@ -10,7 +10,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       version,
       sha256,
       broken ? false,
@@ -49,7 +50,8 @@ let
         platforms = platforms.unix;
         maintainers = with maintainers; [ pSub ];
       };
-    };
+    }
+    ;
 
 in {
   ragelStable = generic {

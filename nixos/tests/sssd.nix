@@ -6,12 +6,14 @@ import ./make-test-python.nix ({
   {
     name = "sssd";
     meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         services.sssd.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

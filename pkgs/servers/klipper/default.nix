@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/klippy";
 
-  # NB: This is needed for the postBuild step
+    # NB: This is needed for the postBuild step
   nativeBuildInputs = [ (python3.withPackages (p: with p; [ cffi ])) ];
 
   buildInputs = [ (python3.withPackages (p:
@@ -32,12 +32,12 @@ stdenv.mkDerivation rec {
       numpy
     ])) ];
 
-  # we need to run this to prebuild the chelper.
+    # we need to run this to prebuild the chelper.
   postBuild = ''
     python ./chelper/__init__.py
   '';
 
-  # Python 3 is already supported but shebangs aren't updated yet
+    # Python 3 is already supported but shebangs aren't updated yet
   postPatch = ''
     for file in klippy.py console.py parsedump.py; do
       substituteInPlace $file \
@@ -45,9 +45,9 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # NB: We don't move the main entry point into `/bin`, or even symlink it,
-  # because it uses relative paths to find necessary modules. We could wrap but
-  # this is used 99% of the time as a service, so it's not worth the effort.
+    # NB: We don't move the main entry point into `/bin`, or even symlink it,
+    # because it uses relative paths to find necessary modules. We could wrap but
+    # this is used 99% of the time as a service, so it's not worth the effort.
   installPhase = ''
     runHook preInstall
     mkdir -p $out/lib/klipper

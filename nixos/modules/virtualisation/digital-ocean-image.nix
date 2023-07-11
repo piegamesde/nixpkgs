@@ -49,24 +49,28 @@ in {
     };
   };
 
-  #### implementation
+    #### implementation
   config = {
 
     system.build.digitalOceanImage = import ../../lib/make-disk-image.nix {
       name = "digital-ocean-image";
       format = "qcow2";
-      postVM = let
-        compress = {
-          "gzip" = "${pkgs.gzip}/bin/gzip";
-          "bzip2" = "${pkgs.bzip2}/bin/bzip2";
-        }.${cfg.compressionMethod};
-      in ''
-        ${compress} $diskImage
-      '' ;
-      configFile = if cfg.configFile == null then
-        config.virtualisation.digitalOcean.defaultConfigFile
-      else
-        cfg.configFile;
+      postVM =
+        let
+          compress = {
+            "gzip" = "${pkgs.gzip}/bin/gzip";
+            "bzip2" = "${pkgs.bzip2}/bin/bzip2";
+          }.${cfg.compressionMethod};
+        in ''
+          ${compress} $diskImage
+        ''
+        ;
+      configFile =
+        if cfg.configFile == null then
+          config.virtualisation.digitalOcean.defaultConfigFile
+        else
+          cfg.configFile
+        ;
       inherit (cfg) diskSize;
       inherit config lib pkgs;
     };

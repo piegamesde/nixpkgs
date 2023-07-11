@@ -15,12 +15,13 @@ mkYarnPackage rec {
   pname = "hedgedoc";
   version = "1.9.7";
 
-  # we use the upstream compiled js files because yarn2nix cannot handle different versions of dependencies
-  # in development and production and the web assets muts be compiled with js-yaml 3 while development
-  # uses js-yaml 4 which breaks the text editor
+    # we use the upstream compiled js files because yarn2nix cannot handle different versions of dependencies
+    # in development and production and the web assets muts be compiled with js-yaml 3 while development
+    # uses js-yaml 4 which breaks the text editor
   src = fetchzip {
     url =
-      "https://github.com/hedgedoc/hedgedoc/releases/download/${version}/hedgedoc-${version}.tar.gz";
+      "https://github.com/hedgedoc/hedgedoc/releases/download/${version}/hedgedoc-${version}.tar.gz"
+      ;
     hash = "sha256-tPkhnnKDS5TICsW66YCOy7xWFj5usLyDMbYMYQ3Euoc=";
   };
 

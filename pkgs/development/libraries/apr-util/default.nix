@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
   ];
   outputBin = "dev";
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optional stdenv.isFreeBSD autoreconfHook;
+  nativeBuildInputs =
+    [ makeWrapper ] ++ lib.optional stdenv.isFreeBSD autoreconfHook;
 
   configureFlags = [
     "--with-apr=${apr.dev}"

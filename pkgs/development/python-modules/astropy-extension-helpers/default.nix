@@ -29,7 +29,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # avoid import mismatch errors, as conftest.py is copied to build dir
+    # avoid import mismatch errors, as conftest.py is copied to build dir
   pytestFlagsArray = [ "extension_helpers" ];
 
   disabledTests = [

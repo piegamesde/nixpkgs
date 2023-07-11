@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ostreedev/ostree/releases/download/v${version}/libostree-${version}.tar.xz";
+      "https://github.com/ostreedev/ostree/releases/download/v${version}/libostree-${version}.tar.xz"
+      ;
     sha256 = "sha256-zrB4h1Wgv/VzjURUNVL7+IPPcd9IG6o8pyiNp6QCu4U=";
   };
 
@@ -139,16 +140,18 @@ stdenv.mkDerivation rec {
     env NOCONFIGURE=1 ./autogen.sh
   '';
 
-  postFixup = let
-    typelibPath = lib.makeSearchPath "/lib/girepository-1.0" [
-      (placeholder "out")
-      gobject-introspection
-    ];
-  in ''
-    for test in $installedTests/libexec/installed-tests/libostree/*.js; do
-      wrapProgram "$test" --prefix GI_TYPELIB_PATH : "${typelibPath}"
-    done
-  '' ;
+  postFixup =
+    let
+      typelibPath = lib.makeSearchPath "/lib/girepository-1.0" [
+        (placeholder "out")
+        gobject-introspection
+      ];
+    in ''
+      for test in $installedTests/libexec/installed-tests/libostree/*.js; do
+        wrapProgram "$test" --prefix GI_TYPELIB_PATH : "${typelibPath}"
+      done
+    ''
+    ;
 
   passthru = {
     tests = { installedTests = nixosTests.installed-tests.ostree; };

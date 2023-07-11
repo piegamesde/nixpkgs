@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  propagatedBuildInputs = lib.optional enableButteraugli libjxl
-    ++ lib.optional enableVmaf libvmaf;
+  propagatedBuildInputs =
+    lib.optional enableButteraugli libjxl ++ lib.optional enableVmaf libvmaf;
 
   preConfigure = ''
     # build uses `git describe` to set the build version
@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
     export PATH=$NIX_BUILD_TOP:$PATH
   '';
 
-  # Configuration options:
-  # https://aomedia.googlesource.com/aom/+/refs/heads/master/build/cmake/aom_config_defaults.cmake
+    # Configuration options:
+    # https://aomedia.googlesource.com/aom/+/refs/heads/master/build/cmake/aom_config_defaults.cmake
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"

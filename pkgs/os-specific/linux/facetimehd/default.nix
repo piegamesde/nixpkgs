@@ -9,16 +9,16 @@ stdenv.mkDerivation rec {
   name = "facetimehd-${version}-${kernel.version}";
   version = "0.5.18";
 
-  # Note: When updating this revision:
-  # 1. Also update pkgs/os-specific/linux/firmware/facetimehd-firmware/
-  # 2. Test the module and firmware change via:
-  #    a. Give some applications a try (Skype, Hangouts, Cheese, etc.)
-  #    b. Run: journalctl -f
-  #    c. Then close the lid
-  #    d. Then open the lid (and maybe press a key to wake it up)
-  #    e. see if the module loads back (apps using the camera won't
-  #       recover and will have to be restarted) and the camera
-  #       still works.
+    # Note: When updating this revision:
+    # 1. Also update pkgs/os-specific/linux/firmware/facetimehd-firmware/
+    # 2. Test the module and firmware change via:
+    #    a. Give some applications a try (Skype, Hangouts, Cheese, etc.)
+    #    b. Run: journalctl -f
+    #    c. Then close the lid
+    #    d. Then open the lid (and maybe press a key to wake it up)
+    #    e. see if the module loads back (apps using the camera won't
+    #       recover and will have to be restarted) and the camera
+    #       still works.
   src = fetchFromGitHub {
     owner = "patjak";
     repo = "facetimehd";
@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags =
-    [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ]
+    ;
 
   meta = with lib; {
     homepage = "https://github.com/patjak/bcwc_pcie";

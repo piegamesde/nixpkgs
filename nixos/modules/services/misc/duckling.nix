@@ -34,7 +34,8 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "${pkgs.haskellPackages.duckling}/bin/duckling-example-exe --no-access-log --no-error-log";
+          "${pkgs.haskellPackages.duckling}/bin/duckling-example-exe --no-access-log --no-error-log"
+          ;
         Restart = "always";
         DynamicUser = true;
       };

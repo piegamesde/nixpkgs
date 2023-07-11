@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Debian has outputs like these too
-  # (https://packages.debian.org/source/bullseye/pkgconf), so it is safe to
-  # remove those references
+    # Debian has outputs like these too
+    # (https://packages.debian.org/source/bullseye/pkgconf), so it is safe to
+    # remove those references
   postFixup = ''
     remove-references-to \
       -t "${placeholder "out"}" \

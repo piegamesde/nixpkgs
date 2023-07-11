@@ -39,8 +39,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules =
-      [ "d '${cfg.dataDir}' 0700 nzbhydra2 nzbhydra2 - -" ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 nzbhydra2 nzbhydra2 - -" ]
+      ;
 
     systemd.services.nzbhydra2 = {
       description = "NZBHydra2";
@@ -52,9 +52,10 @@ in {
         User = "nzbhydra2";
         Group = "nzbhydra2";
         ExecStart =
-          "${cfg.package}/bin/nzbhydra2 --nobrowser --datafolder '${cfg.dataDir}'";
+          "${cfg.package}/bin/nzbhydra2 --nobrowser --datafolder '${cfg.dataDir}'"
+          ;
         Restart = "on-failure";
-        # Hardening
+          # Hardening
         NoNewPrivileges = true;
         PrivateTmp = true;
         PrivateDevices = true;

@@ -56,11 +56,13 @@ let
     };
     options.verbosity = mkOption {
       type = types.enum (attrNames logLevels ++ attrValues logLevels);
-      apply = v:
+      apply =
+        v:
         if isString v then
           logLevels.${v}
         else
-          v;
+          v
+        ;
       default = "info";
       description = lib.mdDoc "Log verbosity (syslog keyword/level).";
     };
@@ -110,38 +112,40 @@ in {
         description = "Block-level BTRFS deduplication for %i";
         after = [ "sysinit.target" ];
 
-        serviceConfig = let
-          configOpts = [
-            fs.spec
-            "verbosity=${toString fs.verbosity}"
-            "idxSizeMB=${toString fs.hashTableSizeMB}"
-            "workDir=${fs.workDir}"
-          ];
-          configOptsStr = escapeShellArgs configOpts;
-        in {
-          # Values from https://github.com/Zygo/bees/blob/v0.6.5/scripts/beesd@.service.in
-          ExecStart =
-            "${pkgs.bees}/bin/bees-service-wrapper run ${configOptsStr} -- --no-timestamps ${
-              escapeShellArgs fs.extraOptions
-            }";
-          ExecStopPost =
-            "${pkgs.bees}/bin/bees-service-wrapper cleanup ${configOptsStr}";
-          CPUAccounting = true;
-          CPUSchedulingPolicy = "batch";
-          CPUWeight = 12;
-          IOSchedulingClass = "idle";
-          IOSchedulingPriority = 7;
-          IOWeight = 10;
-          KillMode = "control-group";
-          KillSignal = "SIGTERM";
-          MemoryAccounting = true;
-          Nice = 19;
-          Restart = "on-abnormal";
-          StartupCPUWeight = 25;
-          StartupIOWeight = 25;
-          SyslogIdentifier =
-            "beesd"; # would otherwise be "bees-service-wrapper"
-        } ;
+        serviceConfig =
+          let
+            configOpts = [
+              fs.spec
+              "verbosity=${toString fs.verbosity}"
+              "idxSizeMB=${toString fs.hashTableSizeMB}"
+              "workDir=${fs.workDir}"
+            ];
+            configOptsStr = escapeShellArgs configOpts;
+          in {
+            # Values from https://github.com/Zygo/bees/blob/v0.6.5/scripts/beesd@.service.in
+            ExecStart =
+              "${pkgs.bees}/bin/bees-service-wrapper run ${configOptsStr} -- --no-timestamps ${
+                escapeShellArgs fs.extraOptions
+              }";
+            ExecStopPost =
+              "${pkgs.bees}/bin/bees-service-wrapper cleanup ${configOptsStr}";
+            CPUAccounting = true;
+            CPUSchedulingPolicy = "batch";
+            CPUWeight = 12;
+            IOSchedulingClass = "idle";
+            IOSchedulingPriority = 7;
+            IOWeight = 10;
+            KillMode = "control-group";
+            KillSignal = "SIGTERM";
+            MemoryAccounting = true;
+            Nice = 19;
+            Restart = "on-abnormal";
+            StartupCPUWeight = 25;
+            StartupIOWeight = 25;
+            SyslogIdentifier =
+              "beesd"; # would otherwise be "bees-service-wrapper"
+          }
+          ;
         unitConfig.RequiresMountsFor =
           lib.mkIf (lib.hasPrefix "/" fs.spec) fs.spec;
         wantedBy = [ "multi-user.target" ];

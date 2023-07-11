@@ -22,13 +22,16 @@ let
       (attrsOf (oneOf _base))
     ] ++ _base);
 
-  formatAttrset = attr:
+  formatAttrset =
+    attr:
     "{${
       concatStringsSep "\n" (mapAttrsToList
         (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr)
-    }}";
+    }}"
+    ;
 
-  formatPyValue = value:
+  formatPyValue =
+    value:
     if builtins.isString value then
       builtins.toJSON value
     else if value ? _expr then
@@ -45,11 +48,14 @@ let
     else if builtins.isList value then
       "[${concatStringsSep "\n" (map (v: "${formatPyValue v},") value)}]"
     else
-      throw "Unrecognized type";
+      throw "Unrecognized type"
+    ;
 
-  formatPy = attrs:
+  formatPy =
+    attrs:
     concatStringsSep "\n"
-    (mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs);
+    (mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs)
+    ;
 
   pyType = with types;
     attrsOf (oneOf [
@@ -162,8 +168,8 @@ in {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       requires = [ "network.target" ];
-      # we're adding this optionally so just in case there's any race it'll be caught
-      # in case postgres doesn't start, pgadmin will just start normally
+        # we're adding this optionally so just in case there's any race it'll be caught
+        # in case postgres doesn't start, pgadmin will just start normally
       wants = [ "postgresql.service" ];
 
       path = [

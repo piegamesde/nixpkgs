@@ -56,7 +56,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Module to parse, audit, query, build, and modify Cisco IOS-style configurations";
+      "Module to parse, audit, query, build, and modify Cisco IOS-style configurations"
+      ;
     homepage = "https://github.com/mpenning/ciscoconfparse";
     changelog =
       "https://github.com/mpenning/ciscoconfparse/blob/${version}/CHANGES.md";

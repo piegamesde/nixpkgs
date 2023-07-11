@@ -29,10 +29,12 @@
 let
   version = "2.2.2-0";
 
-  # as of 2.0.10 a suffix is being added. That may or may not disappear and then
-  # come back, so just leave this here.
-  majorMinorPatch = v:
-    builtins.concatStringsSep "." (lib.take 3 (lib.splitVersion v));
+    # as of 2.0.10 a suffix is being added. That may or may not disappear and then
+    # come back, so just leave this here.
+  majorMinorPatch =
+    v:
+    builtins.concatStringsSep "." (lib.take 3 (lib.splitVersion v))
+    ;
 
   overrides = writeText "revision.inc" (lib.concatStringsSep "\n"
     (lib.mapAttrsToList (k: v: "const ${k} = '${v}';") {
@@ -75,8 +77,8 @@ stdenv.mkDerivation rec {
     qtbase
   ];
 
-  # Disable parallel build, errors:
-  #  Fatal: (1018) Compilation aborted
+    # Disable parallel build, errors:
+    #  Fatal: (1018) Compilation aborted
   enableParallelBuilding = false;
 
   nativeBuildInputs = [ makeWrapper ] ++ lib.optional withQt wrapQtAppsHook;
@@ -90,10 +92,12 @@ stdenv.mkDerivation rec {
     "bigide"
   ];
 
-  LCL_PLATFORM = if withQt then
-    "qt5"
-  else
-    "gtk2";
+  LCL_PLATFORM =
+    if withQt then
+      "qt5"
+    else
+      "gtk2"
+    ;
 
   NIX_LDFLAGS = lib.concatStringsSep " " ([
     "-L${stdenv.cc.cc.lib}/lib"
@@ -121,22 +125,24 @@ stdenv.mkDerivation rec {
       --replace '/usr/fpcsrc' "$out/share/fpcsrc"
   '';
 
-  postInstall = let
-    ldFlags = ''$(echo "$NIX_LDFLAGS" | sed -re 's/-rpath [^ ]+//g')'';
-  in ''
-    wrapProgram $out/bin/startlazarus \
-      --prefix NIX_LDFLAGS ' ' "${ldFlags}" \
-      --prefix NIX_LDFLAGS_${binutils.suffixSalt} ' ' "${ldFlags}" \
-      --prefix LCL_PLATFORM ' ' "$LCL_PLATFORM" \
-      --prefix PATH ':' "${
-        lib.makeBinPath [
-          fpc
-          gdb
-          gnumake
-          binutils
-        ]
-      }"
-  '' ;
+  postInstall =
+    let
+      ldFlags = ''$(echo "$NIX_LDFLAGS" | sed -re 's/-rpath [^ ]+//g')'';
+    in ''
+      wrapProgram $out/bin/startlazarus \
+        --prefix NIX_LDFLAGS ' ' "${ldFlags}" \
+        --prefix NIX_LDFLAGS_${binutils.suffixSalt} ' ' "${ldFlags}" \
+        --prefix LCL_PLATFORM ' ' "$LCL_PLATFORM" \
+        --prefix PATH ':' "${
+          lib.makeBinPath [
+            fpc
+            gdb
+            gnumake
+            binutils
+          ]
+        }"
+    ''
+    ;
 
   meta = with lib; {
     description = "Graphical IDE for the FreePascal language";

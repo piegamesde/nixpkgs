@@ -22,7 +22,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  # Tests need network
+    # Tests need network
   doCheck = false;
 
   meta = {

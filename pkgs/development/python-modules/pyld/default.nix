@@ -36,9 +36,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # Unfortunately PyLD does not pass all testcases in the JSON-LD corpus. We
-  # check for at least a minimum amount of successful tests so we know it's not
-  # getting worse, at least.
+    # Unfortunately PyLD does not pass all testcases in the JSON-LD corpus. We
+    # check for at least a minimum amount of successful tests so we know it's not
+    # getting worse, at least.
   checkPhase = ''
     ok_min=401
 

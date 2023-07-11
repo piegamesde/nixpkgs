@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
     sha256 = "0447fv1hmb44nnchdn6p5pd9b44x8p5jn0ahw6crwbqsg7f0hl8i";
   };
 
-  # udns uses a very custom build and hardcodes a .so name in a few places.
-  # Instead of fighting with it to apply the standard dylib script, change
-  # the right place in the Makefile itself.
+    # udns uses a very custom build and hardcodes a .so name in a few places.
+    # Instead of fighting with it to apply the standard dylib script, change
+    # the right place in the Makefile itself.
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile.in \
       --replace --soname, -install_name,$out/lib/
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # keep man3
+    # keep man3
   outputDevdoc = "out";
 
   meta = with lib; {

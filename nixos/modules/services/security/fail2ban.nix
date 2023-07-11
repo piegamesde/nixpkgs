@@ -69,7 +69,8 @@ in {
         defaultText = literalExpression "config.networking.firewall.package";
         type = types.package;
         description = lib.mdDoc
-          "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables).";
+          "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables)."
+          ;
       };
 
       extraPackages = mkOption {
@@ -96,12 +97,15 @@ in {
       };
 
       banaction = mkOption {
-        default = if config.networking.nftables.enable then
-          "nftables-multiport"
-        else
-          "iptables-multiport";
+        default =
+          if config.networking.nftables.enable then
+            "nftables-multiport"
+          else
+            "iptables-multiport"
+          ;
         defaultText = literalExpression ''
-          if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
+          if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"''
+          ;
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -112,12 +116,15 @@ in {
       };
 
       banaction-allports = mkOption {
-        default = if config.networking.nftables.enable then
-          "nftables-allport"
-        else
-          "iptables-allport";
+        default =
+          if config.networking.nftables.enable then
+            "nftables-allport"
+          else
+            "iptables-allport"
+          ;
         defaultText = literalExpression ''
-          if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
+          if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"''
+          ;
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -168,7 +175,8 @@ in {
         default = null;
         type = types.nullOr types.str;
         example =
-          "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
+          "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)"
+          ;
         description = lib.mdDoc ''
           "bantime.formula" used by default to calculate next value of ban time, default value bellow,
           the same ban time growing will be reached by multipliers 1, 2, 4, 8, 16, 32 ...
@@ -294,7 +302,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     assertions = [ {
@@ -306,7 +314,8 @@ in {
     } ];
 
     warnings = mkIf (!config.networking.firewall.enable
-      && !config.networking.nftables.enable) [ "fail2ban can not be used without a firewall" ];
+      && !config.networking.nftables.enable) [ "fail2ban can not be used without a firewall" ]
+      ;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -350,16 +359,16 @@ in {
           "CAP_NET_ADMIN"
           "CAP_NET_RAW"
         ];
-        # Security
+          # Security
         NoNewPrivileges = true;
-        # Directory
+          # Directory
         RuntimeDirectory = "fail2ban";
         RuntimeDirectoryMode = "0750";
         StateDirectory = "fail2ban";
         StateDirectoryMode = "0750";
         LogsDirectory = "fail2ban";
         LogsDirectoryMode = "0750";
-        # Sandboxing
+          # Sandboxing
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
@@ -371,8 +380,8 @@ in {
       };
     };
 
-    # Add some reasonable default jails.  The special "DEFAULT" jail
-    # sets default values for all other jails.
+      # Add some reasonable default jails.  The special "DEFAULT" jail
+      # sets default values for all other jails.
     services.fail2ban.jails.DEFAULT = ''
       # Bantime increment options
       bantime.increment = ${boolToString cfg.bantime-increment.enable}
@@ -407,9 +416,9 @@ in {
         ${generators.toKeyValue { } cfg.extraSettings}
       ''}
     '';
-    # Block SSH if there are too many failing connection attempts.
-    # Benefits from verbose sshd logging to observe failed login attempts,
-    # so we set that here unless the user overrode it.
+      # Block SSH if there are too many failing connection attempts.
+      # Benefits from verbose sshd logging to observe failed login attempts,
+      # so we set that here unless the user overrode it.
     services.openssh.settings.LogLevel = lib.mkDefault "VERBOSE";
     services.fail2ban.jails.sshd = mkDefault ''
       enabled = true

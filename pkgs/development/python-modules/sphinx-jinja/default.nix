@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sphinx ];
 
-  # upstream source is not updated to 2.0.X and pypi does not contain tests
+    # upstream source is not updated to 2.0.X and pypi does not contain tests
   doCheck = false;
 
   pythonImportsCheck = [ "sphinx_jinja" ];

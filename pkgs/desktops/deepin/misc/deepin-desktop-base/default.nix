@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
 
   makeFlags = [ "DESTDIR=${placeholder "out"}" ];
 
-  # distribution_logo_transparent.svg come form nixos-artwork(https://github.com/NixOS/nixos-artwork)/logo/nixos-white.svg under CC-BY license, used for dde-lock
+    # distribution_logo_transparent.svg come form nixos-artwork(https://github.com/NixOS/nixos-artwork)/logo/nixos-white.svg under CC-BY license, used for dde-lock
   postInstall = ''
     rm -r $out/etc
     rm -r $out/usr/share/python-apt

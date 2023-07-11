@@ -13,25 +13,27 @@ let
   gcfg = config.services.tarsnap;
   opt = options.services.tarsnap;
 
-  configFile = name: cfg: ''
-    keyfile ${cfg.keyfile}
-    ${optionalString (cfg.cachedir != null) "cachedir ${cfg.cachedir}"}
-    ${optionalString cfg.nodump "nodump"}
-    ${optionalString cfg.printStats "print-stats"}
-    ${optionalString cfg.printStats "humanize-numbers"}
-    ${optionalString (cfg.checkpointBytes != null)
-    ("checkpoint-bytes " + cfg.checkpointBytes)}
-    ${optionalString cfg.aggressiveNetworking "aggressive-networking"}
-    ${concatStringsSep "\n" (map (v: "exclude ${v}") cfg.excludes)}
-    ${concatStringsSep "\n" (map (v: "include ${v}") cfg.includes)}
-    ${optionalString cfg.lowmem "lowmem"}
-    ${optionalString cfg.verylowmem "verylowmem"}
-    ${optionalString (cfg.maxbw != null) "maxbw ${toString cfg.maxbw}"}
-    ${optionalString (cfg.maxbwRateUp != null)
-    "maxbw-rate-up ${toString cfg.maxbwRateUp}"}
-    ${optionalString (cfg.maxbwRateDown != null)
-    "maxbw-rate-down ${toString cfg.maxbwRateDown}"}
-  '';
+  configFile =
+    name: cfg: ''
+      keyfile ${cfg.keyfile}
+      ${optionalString (cfg.cachedir != null) "cachedir ${cfg.cachedir}"}
+      ${optionalString cfg.nodump "nodump"}
+      ${optionalString cfg.printStats "print-stats"}
+      ${optionalString cfg.printStats "humanize-numbers"}
+      ${optionalString (cfg.checkpointBytes != null)
+      ("checkpoint-bytes " + cfg.checkpointBytes)}
+      ${optionalString cfg.aggressiveNetworking "aggressive-networking"}
+      ${concatStringsSep "\n" (map (v: "exclude ${v}") cfg.excludes)}
+      ${concatStringsSep "\n" (map (v: "include ${v}") cfg.includes)}
+      ${optionalString cfg.lowmem "lowmem"}
+      ${optionalString cfg.verylowmem "verylowmem"}
+      ${optionalString (cfg.maxbw != null) "maxbw ${toString cfg.maxbw}"}
+      ${optionalString (cfg.maxbwRateUp != null)
+      "maxbw-rate-up ${toString cfg.maxbwRateUp}"}
+      ${optionalString (cfg.maxbwRateDown != null)
+      "maxbw-rate-down ${toString cfg.maxbwRateDown}"}
+    ''
+    ;
 in {
   imports = [ (mkRemovedOptionModule [
     "services"
@@ -102,9 +104,9 @@ in {
 
               cachedir = mkOption {
                 type = types.nullOr types.path;
-                default = "/var/cache/tarsnap/${
-                    utils.escapeSystemdPath config.keyfile
-                  }";
+                default =
+                  "/var/cache/tarsnap/${utils.escapeSystemdPath config.keyfile}"
+                  ;
                 defaultText = literalExpression ''
                   "/var/cache/tarsnap/''${utils.escapeSystemdPath config.${options.keyfile}}"
                 '';
@@ -326,44 +328,48 @@ in {
           util-linux
         ];
 
-        # In order for the persistent tarsnap timer to work reliably, we have to
-        # make sure that the tarsnap server is reachable after systemd starts up
-        # the service - therefore we sleep in a loop until we can ping the
-        # endpoint.
+          # In order for the persistent tarsnap timer to work reliably, we have to
+          # make sure that the tarsnap server is reachable after systemd starts up
+          # the service - therefore we sleep in a loop until we can ping the
+          # endpoint.
         preStart = ''
           while ! ping -4 -q -c 1 v1-0-0-server.tarsnap.com &> /dev/null; do sleep 3; done
         '';
 
-        script = let
-          tarsnap = ''tarsnap --configfile "/etc/tarsnap/${name}.conf"'';
-          run = ''
-            ${tarsnap} -c -f "${name}-$(date +"%Y%m%d%H%M%S")" \
-                                    ${optionalString cfg.verbose "-v"} \
-                                    ${
-                                      optionalString cfg.explicitSymlinks "-H"
-                                    } \
-                                    ${optionalString cfg.followSymlinks "-L"} \
-                                    ${concatStringsSep " " cfg.directories}'';
-          cachedir = escapeShellArg cfg.cachedir;
-        in if (cfg.cachedir != null) then
-          ''
-            mkdir -p ${cachedir}
-            chmod 0700 ${cachedir}
+        script =
+          let
+            tarsnap = ''tarsnap --configfile "/etc/tarsnap/${name}.conf"'';
+            run = ''
+              ${tarsnap} -c -f "${name}-$(date +"%Y%m%d%H%M%S")" \
+                                      ${optionalString cfg.verbose "-v"} \
+                                      ${
+                                        optionalString cfg.explicitSymlinks "-H"
+                                      } \
+                                      ${
+                                        optionalString cfg.followSymlinks "-L"
+                                      } \
+                                      ${concatStringsSep " " cfg.directories}'';
+            cachedir = escapeShellArg cfg.cachedir;
+          in if (cfg.cachedir != null) then
+            ''
+              mkdir -p ${cachedir}
+              chmod 0700 ${cachedir}
 
-            ( flock 9
-              if [ ! -e ${cachedir}/firstrun ]; then
-                ( flock 10
-                  flock -u 9
-                  ${tarsnap} --fsck
-                  flock 9
-                ) 10>${cachedir}/firstrun
-              fi
-            ) 9>${cachedir}/lockf
+              ( flock 9
+                if [ ! -e ${cachedir}/firstrun ]; then
+                  ( flock 10
+                    flock -u 9
+                    ${tarsnap} --fsck
+                    flock 9
+                  ) 10>${cachedir}/firstrun
+                fi
+              ) 9>${cachedir}/lockf
 
-             exec flock ${cachedir}/firstrun ${run}
-          ''
-        else
-          "exec ${run}";
+               exec flock ${cachedir}/firstrun ${run}
+            ''
+          else
+            "exec ${run}"
+          ;
 
         serviceConfig = {
           Type = "oneshot";
@@ -385,34 +391,36 @@ in {
             util-linux
           ];
 
-          script = let
-            tarsnap = ''tarsnap --configfile "/etc/tarsnap/${name}.conf"'';
-            lastArchive = "$(${tarsnap} --list-archives | sort | tail -1)";
-            run = ''
-              ${tarsnap} -x -f "${lastArchive}" ${
-                optionalString cfg.verbose "-v"
-              }'';
-            cachedir = escapeShellArg cfg.cachedir;
+          script =
+            let
+              tarsnap = ''tarsnap --configfile "/etc/tarsnap/${name}.conf"'';
+              lastArchive = "$(${tarsnap} --list-archives | sort | tail -1)";
+              run = ''
+                ${tarsnap} -x -f "${lastArchive}" ${
+                  optionalString cfg.verbose "-v"
+                }'';
+              cachedir = escapeShellArg cfg.cachedir;
 
-          in if (cfg.cachedir != null) then
-            ''
-              mkdir -p ${cachedir}
-              chmod 0700 ${cachedir}
+            in if (cfg.cachedir != null) then
+              ''
+                mkdir -p ${cachedir}
+                chmod 0700 ${cachedir}
 
-              ( flock 9
-                if [ ! -e ${cachedir}/firstrun ]; then
-                  ( flock 10
-                    flock -u 9
-                    ${tarsnap} --fsck
-                    flock 9
-                  ) 10>${cachedir}/firstrun
-                fi
-              ) 9>${cachedir}/lockf
+                ( flock 9
+                  if [ ! -e ${cachedir}/firstrun ]; then
+                    ( flock 10
+                      flock -u 9
+                      ${tarsnap} --fsck
+                      flock 9
+                    ) 10>${cachedir}/firstrun
+                  fi
+                ) 9>${cachedir}/lockf
 
-               exec flock ${cachedir}/firstrun ${run}
-            ''
-          else
-            "exec ${run}";
+                 exec flock ${cachedir}/firstrun ${run}
+              ''
+            else
+              "exec ${run}"
+            ;
 
           serviceConfig = {
             Type = "oneshot";
@@ -423,8 +431,8 @@ in {
           };
         }) gcfg.archives);
 
-    # Note: the timer must be Persistent=true, so that systemd will start it even
-    # if e.g. your laptop was asleep while the latest interval occurred.
+      # Note: the timer must be Persistent=true, so that systemd will start it even
+      # if e.g. your laptop was asleep while the latest interval occurred.
     systemd.timers = mapAttrs' (name: cfg:
       nameValuePair "tarsnap-${name}" {
         timerConfig.OnCalendar = cfg.period;

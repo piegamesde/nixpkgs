@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # the build will fail without complaining about a reference to /tmp
+    # the build will fail without complaining about a reference to /tmp
   preFixup = lib.optionalString stdenv.isLinux ''
     patchelf \
       --set-rpath "${lib.makeLibraryPath buildInputs}:$out/lib" \

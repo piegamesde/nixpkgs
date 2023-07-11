@@ -24,7 +24,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/home-assistant-libs/psutil-home-assistant/releases/tag/${version}";
+      "https://github.com/home-assistant-libs/psutil-home-assistant/releases/tag/${version}"
+      ;
     description = "Wrapper of psutil that removes reliance on globals";
     homepage = "https://github.com/home-assistant-libs/psutil-home-assistant";
     license = licenses.asl20;

@@ -290,7 +290,8 @@
     version = "5.27.4";
     src = fetchurl {
       url =
-        "${mirror}/stable/plasma/5.27.4/plasma-browser-integration-5.27.4.tar.xz";
+        "${mirror}/stable/plasma/5.27.4/plasma-browser-integration-5.27.4.tar.xz"
+        ;
       sha256 = "0rpljxnir2nbh4ww5ycgpdrj739cr1dg46mmfqj65h8yn60zfynk";
       name = "plasma-browser-integration-5.27.4.tar.xz";
     };
@@ -420,7 +421,8 @@
     version = "5.27.4.1";
     src = fetchurl {
       url =
-        "${mirror}/stable/plasma/5.27.4/plasma-workspace-wallpapers-5.27.4.1.tar.xz";
+        "${mirror}/stable/plasma/5.27.4/plasma-workspace-wallpapers-5.27.4.1.tar.xz"
+        ;
       sha256 = "0sv58kp088vxqd5dfs3hvc93xlydk7nyxm1ly0xy377r2v3pnkg4";
       name = "plasma-workspace-wallpapers-5.27.4.1.tar.xz";
     };

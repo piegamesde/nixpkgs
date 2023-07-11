@@ -33,7 +33,7 @@ buildPythonPackage rec {
     tenacity
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "yolink" ];

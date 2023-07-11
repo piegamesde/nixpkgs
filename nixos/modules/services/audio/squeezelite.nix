@@ -10,10 +10,12 @@ let
 
   dataDir = "/var/lib/squeezelite";
   cfg = config.services.squeezelite;
-  pkg = if cfg.pulseAudio then
-    pkgs.squeezelite-pulse
-  else
-    pkgs.squeezelite;
+  pkg =
+    if cfg.pulseAudio then
+      pkgs.squeezelite-pulse
+    else
+      pkgs.squeezelite
+    ;
   bin = "${pkg}/bin/${pkg.pname}";
 
 in {
@@ -35,7 +37,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.squeezelite = {

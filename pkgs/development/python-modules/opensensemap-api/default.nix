@@ -24,7 +24,7 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "opensensemap_api" ];
@@ -38,7 +38,8 @@ buildPythonPackage rec {
     homepage =
       "https://github.com/home-assistant-ecosystem/python-opensensemap-api";
     changelog =
-      "https://github.com/home-assistant-ecosystem/python-opensensemap-api/releases/tag/${version}";
+      "https://github.com/home-assistant-ecosystem/python-opensensemap-api/releases/tag/${version}"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

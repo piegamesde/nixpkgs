@@ -24,7 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     ])
   ];
 
-  # has no unit tests
+    # has no unit tests
   doCheck = false;
 
   meta = with lib; {

@@ -43,7 +43,7 @@ python3.pkgs.buildPythonApplication rec {
     pytest-datadir
   ];
 
-  # Disable tests that need root
+    # Disable tests that need root
   disabledTests = [
     "test_smoke"
     "test_multiple_sessions"

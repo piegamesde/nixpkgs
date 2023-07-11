@@ -24,7 +24,8 @@ buildPythonPackage rec {
   };
 
   postPatch =
-    "substituteInPlace riscv_isac/requirements.txt --replace 'pyelftools==0.26' pyelftools";
+    "substituteInPlace riscv_isac/requirements.txt --replace 'pyelftools==0.26' pyelftools"
+    ;
 
   propagatedBuildInputs = [
     click

@@ -38,8 +38,8 @@ python3Packages.buildPythonPackage rec {
       }/bin/pkill'
   '';
 
-  nativeBuildInputs = [ installShellFiles ]
-    ++ (with python3Packages; [ poetry-core ]);
+  nativeBuildInputs =
+    [ installShellFiles ] ++ (with python3Packages; [ poetry-core ]);
 
   propagatedBuildInputs = with python3Packages;
     ([
@@ -85,7 +85,8 @@ python3Packages.buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://developers.yubico.com/yubikey-manager";
     description =
-      "Previous release of command line tool for configuring any YubiKey over all USB transports";
+      "Previous release of command line tool for configuring any YubiKey over all USB transports"
+      ;
     license = licenses.bsd2;
     platforms = platforms.unix;
     maintainers = with maintainers; [

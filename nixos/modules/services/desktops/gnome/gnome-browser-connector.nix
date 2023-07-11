@@ -48,14 +48,18 @@ in {
   config = mkIf config.services.gnome.gnome-browser-connector.enable {
     environment.etc = {
       "chromium/native-messaging-hosts/org.gnome.browser_connector.json".source =
-        "${pkgs.gnome-browser-connector}/etc/chromium/native-messaging-hosts/org.gnome.browser_connector.json";
+        "${pkgs.gnome-browser-connector}/etc/chromium/native-messaging-hosts/org.gnome.browser_connector.json"
+        ;
       "opt/chrome/native-messaging-hosts/org.gnome.browser_connector.json".source =
-        "${pkgs.gnome-browser-connector}/etc/opt/chrome/native-messaging-hosts/org.gnome.browser_connector.json";
-      # Legacy paths.
+        "${pkgs.gnome-browser-connector}/etc/opt/chrome/native-messaging-hosts/org.gnome.browser_connector.json"
+        ;
+        # Legacy paths.
       "chromium/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =
-        "${pkgs.gnome-browser-connector}/etc/chromium/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
+        "${pkgs.gnome-browser-connector}/etc/chromium/native-messaging-hosts/org.gnome.chrome_gnome_shell.json"
+        ;
       "opt/chrome/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =
-        "${pkgs.gnome-browser-connector}/etc/opt/chrome/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
+        "${pkgs.gnome-browser-connector}/etc/opt/chrome/native-messaging-hosts/org.gnome.chrome_gnome_shell.json"
+        ;
     };
 
     environment.systemPackages = [ pkgs.gnome-browser-connector ];

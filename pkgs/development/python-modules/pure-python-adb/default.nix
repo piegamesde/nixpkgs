@@ -22,11 +22,11 @@ buildPythonPackage rec {
 
   doCheck = pythonOlder "3.10"; # all tests result in RuntimeError on 3.10
 
-  nativeCheckInputs = [ pytestCheckHook ]
-    ++ passthru.optional-dependencies.async;
+  nativeCheckInputs =
+    [ pytestCheckHook ] ++ passthru.optional-dependencies.async;
 
-  pythonImportsCheck = [ "ppadb.client" ]
-    ++ lib.optionals doCheck [ "ppadb.client_async" ];
+  pythonImportsCheck =
+    [ "ppadb.client" ] ++ lib.optionals doCheck [ "ppadb.client_async" ];
 
   meta = with lib; {
     description = "Pure python implementation of the adb client";

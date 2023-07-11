@@ -11,7 +11,8 @@ let
 
   icon = fetchurl {
     url =
-      "https://raw.githubusercontent.com/klaussinani/tusk/v${version}/static/Icon.png";
+      "https://raw.githubusercontent.com/klaussinani/tusk/v${version}/static/Icon.png"
+      ;
     sha256 = "1jqclyrjgg6hir45spg75plfmd8k9nrsrzw3plbcg43s5m1qzihb";
   };
 
@@ -30,7 +31,8 @@ appimageTools.wrapType2 rec {
 
   src = fetchurl {
     url =
-      "https://github.com/klaussinani/tusk/releases/download/v${version}/${pname}-${version}-x86_64.AppImage";
+      "https://github.com/klaussinani/tusk/releases/download/v${version}/${pname}-${version}-x86_64.AppImage"
+      ;
     sha256 = "02q7wsnhlyq8z74avflrm7805ny8fzlmsmz4bmafp4b4pghjh5ky";
   };
 

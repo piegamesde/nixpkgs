@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       # Fix build with openssl >= 1.1.0
       url =
-        "https://github.com/networkupstools/nut/commit/612c05efb3c3b243da603a3a050993281888b6e3.patch";
+        "https://github.com/networkupstools/nut/commit/612c05efb3c3b243da603a3a050993281888b6e3.patch"
+        ;
       sha256 = "0jdbii1z5sqyv24286j5px65j7b3gp8zk3ahbph83pig6g46m3hs";
     })
     (substituteAll {

@@ -10,14 +10,15 @@ stdenv.mkDerivation rec {
   version = "3.5.2";
   src = fetchzip {
     url =
-      "https://downloads.apache.org/tinkerpop/${version}/apache-tinkerpop-gremlin-server-${version}-bin.zip";
+      "https://downloads.apache.org/tinkerpop/${version}/apache-tinkerpop-gremlin-server-${version}-bin.zip"
+      ;
     sha256 = "sha256-XFI2PQnvIPYjkJhm73TPSpMqH4+/Qv5RxS5iWkfuBg0=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
 
-  # Note you'll want to prefix any commands with LOG_DIR, PID_DIR, and RUN_DIR
-  # environment variables set to a writable director(y/ies).
+    # Note you'll want to prefix any commands with LOG_DIR, PID_DIR, and RUN_DIR
+    # environment variables set to a writable director(y/ies).
 
   installPhase = ''
     runHook preInstall

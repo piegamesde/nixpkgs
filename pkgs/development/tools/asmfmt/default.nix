@@ -17,8 +17,8 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  # This package comes with its own version of goimports, gofmt and goreturns
-  # but these binaries are outdated and are offered by other packages.
+    # This package comes with its own version of goimports, gofmt and goreturns
+    # but these binaries are outdated and are offered by other packages.
   subPackages = [ "cmd/asmfmt" ];
 
   ldflags = [
@@ -26,7 +26,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  # There are no tests.
+    # There are no tests.
   doCheck = false;
 
   meta = with lib; {

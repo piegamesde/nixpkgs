@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
         *.rules
   '';
 
-  # This is to avoid self-references, which causes the initrd to explode
-  # in size and in turn prevents mdraid systems from booting.
+    # This is to avoid self-references, which causes the initrd to explode
+    # in size and in turn prevents mdraid systems from booting.
   postFixup = ''
     grep -r $out $out/bin && false || true
   '';

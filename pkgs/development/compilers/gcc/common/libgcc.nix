@@ -15,8 +15,8 @@ in
     lib.optionalAttrs ((!langC) || langJit || enableLibGccOutput) {
       outputs = previousAttrs.outputs
         ++ lib.optionals enableLibGccOutput [ "libgcc" ];
-      # This is a separate phase because gcc assembles its phase scripts
-      # in bash instead of nix (we should fix that).
+        # This is a separate phase because gcc assembles its phase scripts
+        # in bash instead of nix (we should fix that).
       preFixupPhases = (previousAttrs.preFixupPhases or [ ]) ++ lib.optionals
         ((!langC) || enableLibGccOutput) [ "preFixupLibGccPhase" ];
       preFixupLibGccPhase =

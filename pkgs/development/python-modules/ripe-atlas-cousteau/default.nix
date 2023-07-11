@@ -48,7 +48,8 @@ buildPythonPackage rec {
     description = "Python client library for RIPE ATLAS API";
     homepage = "https://github.com/RIPE-NCC/ripe-atlas-cousteau";
     changelog =
-      "https://github.com/RIPE-NCC/ripe-atlas-cousteau/blob/v${version}/CHANGES.rst";
+      "https://github.com/RIPE-NCC/ripe-atlas-cousteau/blob/v${version}/CHANGES.rst"
+      ;
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ raitobezarius ];
   };

@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "please";
     meta.maintainers = with lib.maintainers; [ azahi ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         users.users = with lib;
@@ -35,7 +36,8 @@ import ./make-test-python.nix ({
             };
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       with subtest("root: can run anything by default"):

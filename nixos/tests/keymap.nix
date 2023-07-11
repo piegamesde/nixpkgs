@@ -26,7 +26,8 @@ let
     mv  ${resultFile}.tmp ${resultFile}
   '';
 
-  mkKeyboardTest = layout:
+  mkKeyboardTest =
+    layout:
     {
       extraConfig ? { },
       tests,
@@ -115,7 +116,8 @@ let
                         test_data["expect"],
                     )
       '';
-    };
+    }
+    ;
 
 in
 pkgs.lib.mapAttrs mkKeyboardTest {

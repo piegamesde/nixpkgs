@@ -49,7 +49,8 @@
 browser:
 
 let
-  wrapper = {
+  wrapper =
+    {
       applicationName ? browser.binaryName or (lib.getName browser),
       pname ? applicationName,
       version ? lib.getVersion browser,
@@ -88,7 +89,7 @@ let
       pipewireSupport = browser.pipewireSupport or false;
       sndioSupport = browser.sndioSupport or false;
       jackSupport = browser.jackSupport or false;
-      # PCSC-Lite daemon (services.pcscd) also must be enabled for firefox to access smartcards
+        # PCSC-Lite daemon (services.pcscd) also must be enabled for firefox to access smartcards
       smartcardSupport = cfg.smartcardSupport or false;
 
       nativeMessagingHosts = [ ]
@@ -134,36 +135,39 @@ let
 
       launcherName = "${applicationName}${nameSuffix}";
 
-      #########################
-      #                       #
-      #   EXTRA PREF CHANGES  #
-      #                       #
-      #########################
+        #########################
+        #                       #
+        #   EXTRA PREF CHANGES  #
+        #                       #
+        #########################
       policiesJson =
         writeText "policies.json" (builtins.toJSON enterprisePolicies);
 
       usesNixExtensions = nixExtensions != null;
 
-      nameArray = builtins.map (a: a.name)
-        (lib.optionals usesNixExtensions nixExtensions);
+      nameArray =
+        builtins.map (a: a.name) (lib.optionals usesNixExtensions nixExtensions)
+        ;
 
       requiresSigning = browser ? MOZ_REQUIRE_SIGNING
         -> toString browser.MOZ_REQUIRE_SIGNING != "";
 
-      # Check that every extension has a unqiue .name attribute
-      # and an extid attribute
-      extensions = if nameArray != (lib.unique nameArray) then
-        throw "Firefox addon name needs to be unique"
-      else if requiresSigning && !lib.hasSuffix "esr" browser.name then
-        throw
-        "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
-      else
-        builtins.map (a:
-          if !(builtins.hasAttr "extid" a) then
-            throw
-            "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
-          else
-            a) (lib.optionals usesNixExtensions nixExtensions);
+        # Check that every extension has a unqiue .name attribute
+        # and an extid attribute
+      extensions =
+        if nameArray != (lib.unique nameArray) then
+          throw "Firefox addon name needs to be unique"
+        else if requiresSigning && !lib.hasSuffix "esr" browser.name then
+          throw
+          "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
+        else
+          builtins.map (a:
+            if !(builtins.hasAttr "extid" a) then
+              throw
+              "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
+            else
+              a) (lib.optionals usesNixExtensions nixExtensions)
+        ;
 
       enterprisePolicies = {
         policies = {
@@ -203,11 +207,11 @@ let
         };
       '';
 
-      #############################
-      #                           #
-      #   END EXTRA PREF CHANGES  #
-      #                           #
-      #############################
+        #############################
+        #                           #
+        #   END EXTRA PREF CHANGES  #
+        #                           #
+        #############################
 
     in
     stdenv.mkDerivation {
@@ -225,7 +229,8 @@ let
         {
           genericName = "Email Client";
           comment =
-            "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
+            "Read and write e-mails or RSS feeds, or manage tasks on calendars."
+            ;
           categories = [
             "Network"
             "Chat"
@@ -472,10 +477,10 @@ let
       meta = browser.meta // {
         inherit (browser.meta) description;
         hydraPlatforms = [ ];
-        priority = (browser.meta.priority or 0)
-          - 1; # prefer wrapper over the package
+        priority =
+          (browser.meta.priority or 0) - 1; # prefer wrapper over the package
       };
     }
-  ;
+    ;
 in
 lib.makeOverridable wrapper

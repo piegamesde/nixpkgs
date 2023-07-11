@@ -38,19 +38,21 @@ buildGoModule rec {
     npmHooks.npmConfigHook
   ];
 
-  overrideModAttrs = _: {
-    nativeBuildInputs = [
-      enumer
-      go
-      git
-      cacert
-      mockgen
-    ];
+  overrideModAttrs =
+    _: {
+      nativeBuildInputs = [
+        enumer
+        go
+        git
+        cacert
+        mockgen
+      ];
 
-    preBuild = ''
-      make assets
-    '';
-  };
+      preBuild = ''
+        make assets
+      '';
+    }
+    ;
 
   tags = [
     "release"
@@ -68,8 +70,8 @@ buildGoModule rec {
     make ui
   '';
 
-  doCheck =
-    !stdenv.isDarwin; # tries to bind to local network, doesn't work in darwin sandbox
+  doCheck = !stdenv.isDarwin
+    ; # tries to bind to local network, doesn't work in darwin sandbox
 
   preCheck = ''
     # requires network access

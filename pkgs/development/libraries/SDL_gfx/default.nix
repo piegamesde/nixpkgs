@@ -11,16 +11,17 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.ferzkopp.net/Software/SDL_gfx-2.0/${pname}-${version}.tar.gz";
+      "https://www.ferzkopp.net/Software/SDL_gfx-2.0/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0ijljhs0v99dj6y27hc10z6qchyp8gdp4199y6jzngy6dzxlzsvw";
   };
 
-  # SDL_gfx.pc refers to sdl.pc and some SDL_gfx headers import SDL.h
+    # SDL_gfx.pc refers to sdl.pc and some SDL_gfx headers import SDL.h
   propagatedBuildInputs = [ SDL ];
   buildInputs = [ SDL ];
 
-  configureFlags = [ "--disable-mmx" ]
-    ++ lib.optional stdenv.isDarwin "--disable-sdltest";
+  configureFlags =
+    [ "--disable-mmx" ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   meta = with lib; {
     description = "SDL graphics drawing primitives and support functions";

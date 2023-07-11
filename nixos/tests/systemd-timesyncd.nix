@@ -2,19 +2,23 @@
 # upstream providing a migration path. https://github.com/systemd/systemd/issues/12131
 
 import ./make-test-python.nix (let
-  common = {
+  common =
+    {
       lib,
       ...
     }: {
       # override the `false` value from the qemu-vm base profile
       services.timesyncd.enable = lib.mkForce true;
-    };
-  mkVM = conf: {
-    imports = [
-      conf
-      common
-    ];
-  };
+    }
+    ;
+  mkVM =
+    conf: {
+      imports = [
+        conf
+        common
+      ];
+    }
+    ;
 in {
   name = "systemd-timesyncd";
   nodes = {

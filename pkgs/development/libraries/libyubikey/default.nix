@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://developers.yubico.com/yubico-c/Releases/${pname}-${version}.tar.gz";
+      "https://developers.yubico.com/yubico-c/Releases/${pname}-${version}.tar.gz"
+      ;
     sha256 = "009l3k2zyn06dbrlja2d4p2vfnzjhlcqxi88v02mlrnb17mx1v84";
   };
 

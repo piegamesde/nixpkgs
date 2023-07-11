@@ -8,11 +8,12 @@ with lib;
 let
   cfg = config.services.hadoop;
 
-  # Config files for hadoop services
+    # Config files for hadoop services
   hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
 
-  # Generator for HDFS service options
-  hadoopServiceOption = {
+    # Generator for HDFS service options
+  hadoopServiceOption =
+    {
       serviceName,
       firewallOption ? true,
       extraOpts ? null
@@ -51,10 +52,12 @@ let
         default = false;
         description = lib.mdDoc "Open firewall ports for ${serviceName}.";
       };
-    }) // (optionalAttrs (extraOpts != null) extraOpts);
+    }) // (optionalAttrs (extraOpts != null) extraOpts)
+    ;
 
-  # Generator for HDFS service configs
-  hadoopServiceConfig = {
+    # Generator for HDFS service configs
+  hadoopServiceConfig =
+    {
       name,
       serviceOptions ? cfg.hdfs."${toLower name}",
       description ? "Hadoop HDFS ${name}",
@@ -90,7 +93,8 @@ let
               && serviceOptions.openFirewall) allowedTCPPorts;
         }
         extraConfig
-      ]));
+      ]))
+    ;
 
 in {
   options.services.hadoop.hdfs = {
@@ -132,7 +136,8 @@ in {
                 type = path;
                 example = [ "/var/lib/hadoop/hdfs/dn" ];
                 description = lib.mdDoc
-                  "Determines where on the local filesystem a data node should store its blocks.";
+                  "Determines where on the local filesystem a data node should store its blocks."
+                  ;
               };
             };
           }));
@@ -166,24 +171,27 @@ in {
         8019 # dfs.ha.zkfc.port
       ];
       preStart = (mkIf cfg.hdfs.namenode.formatOnInit
-        "${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true");
+        "${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true")
+        ;
     })
 
     (hadoopServiceConfig {
       name = "DataNode";
-      # port numbers for datanode changed between hadoop 2 and 3
-      allowedTCPPorts = if versionAtLeast cfg.package.version "3" then
-        [
-          9864 # datanode.http.address
-          9866 # datanode.address
-          9867 # datanode.ipc.address
-        ]
-      else
-        [
-          50075 # datanode.http.address
-          50010 # datanode.address
-          50020 # datanode.ipc.address
-        ];
+        # port numbers for datanode changed between hadoop 2 and 3
+      allowedTCPPorts =
+        if versionAtLeast cfg.package.version "3" then
+          [
+            9864 # datanode.http.address
+            9866 # datanode.address
+            9867 # datanode.ipc.address
+          ]
+        else
+          [
+            50075 # datanode.http.address
+            50010 # datanode.address
+            50020 # datanode.ipc.address
+          ]
+        ;
       extraConfig.services.hadoop.hdfsSiteInternal."dfs.datanode.data.dir" =
         mkIf (cfg.hdfs.datanode.dataDirs != null)
         (concatMapStringsSep "," (x: "[" + x.type + "]file://" + x.path)

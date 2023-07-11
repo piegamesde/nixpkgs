@@ -57,7 +57,8 @@ import ./make-test-python.nix ({
 
     nodes = {
 
-      server = {
+      server =
+        {
           ...
         }: {
           services.gitolite = {
@@ -65,9 +66,11 @@ import ./make-test-python.nix ({
             adminPubkey = adminPublicKey;
           };
           services.openssh.enable = true;
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
@@ -81,7 +84,8 @@ import ./make-test-python.nix ({
           '';
           users.users.alice = { isNormalUser = true; };
           users.users.bob = { isNormalUser = true; };
-        };
+        }
+        ;
 
     };
 

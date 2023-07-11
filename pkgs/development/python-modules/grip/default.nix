@@ -48,7 +48,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Preview GitHub Markdown files like Readme locally before committing them";
+      "Preview GitHub Markdown files like Readme locally before committing them"
+      ;
     homepage = "https://github.com/joeyespo/grip";
     license = licenses.mit;
     maintainers = with maintainers; [ koral ];

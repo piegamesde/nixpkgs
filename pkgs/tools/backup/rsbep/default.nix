@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Create resilient backups with Reed-Solomon error correction and byte-spreading";
+      "Create resilient backups with Reed-Solomon error correction and byte-spreading"
+      ;
     homepage = "https://www.thanassis.space/rsbep.html";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.erikarvstedt ];

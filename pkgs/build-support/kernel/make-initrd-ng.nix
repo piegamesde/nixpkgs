@@ -3,11 +3,13 @@ let
   # the initramfs file and, if applicable, generating a u-boot image
   # from it.
   compressors = import ./initrd-compressor-meta.nix;
-  # Get the basename of the actual compression program from the whole
-  # compression command, for the purpose of guessing the u-boot
-  # compression type and filename extension.
-  compressorName = fullCommand:
-    builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
+    # Get the basename of the actual compression program from the whole
+    # compression command, for the purpose of guessing the u-boot
+    # compression type and filename extension.
+  compressorName =
+    fullCommand:
+    builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1
+    ;
 in
 {
   stdenvNoCC,
@@ -122,10 +124,12 @@ runCommand name ({
     cpio
   ] ++ lib.optional makeUInitrd ubootTools ++ lib.optional strip binutils;
 
-  STRIP = if strip then
-    "${pkgsBuildHost.binutils.targetPrefix}strip"
-  else
-    null;
+  STRIP =
+    if strip then
+      "${pkgsBuildHost.binutils.targetPrefix}strip"
+    else
+      null
+    ;
 }) ''
   mkdir -p ./root/var/empty
   make-initrd-ng "$contentsPath" ./root

@@ -36,14 +36,14 @@ let
     sha256 = "1qgia6vqb6fhyfj8w925xl6k6zidrp2gj5f32bpi94lwwhi6p9pd";
   };
 
-  # DJV's build system tries to automatically pull in FSeq, another
-  # library by the DJV author.
-  #
-  # When updating, check the following file in the DJV source:
-  # etc/SuperBuild/cmake/Modules/BuildFSeq.cmake
-  #
-  # If there is revision or tag specified, DJV wants to use the most
-  # recent master version
+    # DJV's build system tries to automatically pull in FSeq, another
+    # library by the DJV author.
+    #
+    # When updating, check the following file in the DJV source:
+    # etc/SuperBuild/cmake/Modules/BuildFSeq.cmake
+    #
+    # If there is revision or tag specified, DJV wants to use the most
+    # recent master version
   fseqSrc = fetchFromGitHub {
     owner = "darbyjohnston";
     repo = "fseq";
@@ -113,19 +113,22 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "gcc-11-limits.patch";
       url =
-        "https://github.com/darbyjohnston/DJV/commit/0544ffa1a263a6b8e8518b47277de7601b21b4f4.patch";
+        "https://github.com/darbyjohnston/DJV/commit/0544ffa1a263a6b8e8518b47277de7601b21b4f4.patch"
+        ;
       hash = "sha256-x6ye0xMwTlKyNW4cVFb64RvAayvo71kuOooPj3ROn0g=";
     })
     (fetchpatch {
       name = "gcc-11-IO.patch";
       url =
-        "https://github.com/darbyjohnston/DJV/commit/ce79f2d2cb35d03322648323858834bff942c792.patch";
+        "https://github.com/darbyjohnston/DJV/commit/ce79f2d2cb35d03322648323858834bff942c792.patch"
+        ;
       hash = "sha256-oPbXOnN5Y5QL+bs/bL5eJALu45YHnyTBLQcC8XcJi0c=";
     })
     (fetchpatch {
       name = "gcc-11-sleep_for.patch";
       url =
-        "https://github.com/darbyjohnston/DJV/commit/6989f43db27f66a7691f6048a2eb3299ef43a92e.patch";
+        "https://github.com/darbyjohnston/DJV/commit/6989f43db27f66a7691f6048a2eb3299ef43a92e.patch"
+        ;
       hash = "sha256-1kiF3VrZiO+FSoR7NHCbduQ8tMq/Uuu6Z+sQII4xBAw=";
     })
   ];
@@ -161,7 +164,7 @@ stdenv.mkDerivation rec {
         -e '/OpenColorIO_STATIC/d'
   '';
 
-  # GLFW requires a working X11 session.
+    # GLFW requires a working X11 session.
   doCheck = false;
 
   meta = with lib; {

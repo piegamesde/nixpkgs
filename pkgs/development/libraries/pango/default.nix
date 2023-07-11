@@ -77,12 +77,12 @@ stdenv.mkDerivation rec {
     (lib.mesonEnable "xft" x11Support)
   ];
 
-  # Fontconfig error: Cannot load default config file
+    # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 
-  # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
-  # it should be a build-time dep for build
-  # TODO: send upstream
+    # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
+    # it should be a build-time dep for build
+    # TODO: send upstream
   postPatch = ''
     substituteInPlace meson.build \
       --replace "dependency('gi-docgen', ver" "dependency('gi-docgen', native:true, ver"
@@ -102,14 +102,15 @@ stdenv.mkDerivation rec {
     updateScript = gnome.updateScript {
       packageName = pname;
       versionPolicy = "odd-unstable";
-      # 1.90 is alpha for API 2.
+        # 1.90 is alpha for API 2.
       freeze = true;
     };
   };
 
   meta = with lib; {
     description =
-      "A library for laying out and rendering of text, with an emphasis on internationalization";
+      "A library for laying out and rendering of text, with an emphasis on internationalization"
+      ;
 
     longDescription = ''
       Pango is a library for laying out and rendering of text, with an

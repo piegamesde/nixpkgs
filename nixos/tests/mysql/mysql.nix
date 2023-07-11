@@ -13,8 +13,9 @@ let
     ;
 
   makeTest = import ./../make-test-python.nix;
-  # Setup common users
-  makeMySQLTest = {
+    # Setup common users
+  makeMySQLTest =
+    {
       package,
       name ? mkTestName package,
       useSocketAuth ? true,
@@ -31,7 +32,8 @@ let
       };
 
       nodes = {
-        ${name} = {
+        ${name} =
+          {
             pkgs,
             ...
           }: {
@@ -56,8 +58,8 @@ let
                 name = "testdb3";
                 schema = ./testdb.sql;
               } ];
-              # note that using pkgs.writeText here is generally not a good idea,
-              # as it will store the password in world-readable /nix/store ;)
+                # note that using pkgs.writeText here is generally not a good idea,
+                # as it will store the password in world-readable /nix/store ;)
               initialScript = pkgs.writeText "mysql-init.sql"
                 (if (!useSocketAuth) then
                   ''
@@ -94,7 +96,8 @@ let
                 };
               };
             };
-          };
+          }
+          ;
 
         mariadb = { };
       };
@@ -154,7 +157,8 @@ let
           )
         ''}
       '';
-    };
+    }
+    ;
 in
 lib.mapAttrs (_: package:
   makeMySQLTest {

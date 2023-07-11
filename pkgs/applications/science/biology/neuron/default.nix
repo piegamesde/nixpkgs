@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   pname = "neuron";
   version = "8.2.2";
 
-  # format is for pythonModule conversion
+    # format is for pythonModule conversion
   format = "other";
 
   nativeBuildInputs = [
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./neuron_darwin_rpath.patch ];
 
-  # Patch build shells for cmake (bin, src, cmake) and submodules (external)
+    # Patch build shells for cmake (bin, src, cmake) and submodules (external)
   postPatch = ''
     patchShebangs ./bin ./src ./external ./cmake
     sed -e 's#DESTDIR =#DESTDIR = '"$out"'#' -i external/coreneuron/extra/nrnivmodl_core_makefile.in
@@ -102,13 +102,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/neuronsimulator/nrn/releases/download/${version}/full-src-package-${version}.tar.gz";
+      "https://github.com/neuronsimulator/nrn/releases/download/${version}/full-src-package-${version}.tar.gz"
+      ;
     sha256 = "sha256-orGeBxu3pu4AyAW5P1EGJv8G0dOUZcSOjpUaloqicZU=";
   };
 
   meta = with lib; {
     description =
-      "Simulation environment for empirically-based simulations of neurons and networks of neurons";
+      "Simulation environment for empirically-based simulations of neurons and networks of neurons"
+      ;
     longDescription = ''
       NEURON is a simulation environment for developing and exercising models of
       neurons and networks of neurons. It is particularly well-suited to problems where

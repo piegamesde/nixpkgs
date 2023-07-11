@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "litestream";
     meta = with pkgs.lib.maintainers; { maintainers = [ jwygoda ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -14,8 +15,9 @@ import ./make-test-python.nix ({
           settings = {
             dbs = [ {
               path = "/var/lib/grafana/data/grafana.db";
-              replicas =
-                [ { url = "sftp://foo:bar@127.0.0.1:22/home/foo/grafana"; } ];
+              replicas = [ {
+                url = "sftp://foo:bar@127.0.0.1:22/home/foo/grafana";
+              } ];
             } ];
           };
         };
@@ -56,7 +58,8 @@ import ./make-test-python.nix ({
           port = 3000;
           extraOptions = {
             DATABASE_URL =
-              "sqlite3:///var/lib/grafana/data/grafana.db?cache=private&mode=rwc&_journal_mode=WAL";
+              "sqlite3:///var/lib/grafana/data/grafana.db?cache=private&mode=rwc&_journal_mode=WAL"
+              ;
           };
         };
         users.users.foo = {
@@ -64,7 +67,8 @@ import ./make-test-python.nix ({
           password = "bar";
         };
         users.users.litestream.extraGroups = [ "grafana" ];
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

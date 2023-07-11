@@ -16,7 +16,7 @@ let
       };
     };
 
-  # onlykey requires a patched version of libagent
+    # onlykey requires a patched version of libagent
   lib-agent = with python3Packages;
     libagent.overridePythonAttrs (oa: rec {
       version = "1.0.4";
@@ -34,7 +34,7 @@ let
         wheel
       ];
 
-      # turn off testing because I can't get it to work
+        # turn off testing because I can't get it to work
       doCheck = false;
       pythonImportsCheck = [ "libagent" ];
 
@@ -59,20 +59,21 @@ python3Packages.buildPythonApplication rec {
     onlykey-cli
   ];
 
-  # move the python library into the sitePackages.
+    # move the python library into the sitePackages.
   postInstall = ''
     mkdir $out/${python3Packages.python.sitePackages}/onlykey_agent
     mv $out/bin/onlykey_agent.py $out/${python3Packages.python.sitePackages}/onlykey_agent/__init__.py
     chmod a-x $out/${python3Packages.python.sitePackages}/onlykey_agent/__init__.py
   '';
 
-  # no tests
+    # no tests
   doCheck = false;
   pythonImportsCheck = [ "onlykey_agent" ];
 
   meta = with lib; {
     description =
-      " The OnlyKey agent is essentially middleware that lets you use OnlyKey as a hardware SSH/GPG device.";
+      " The OnlyKey agent is essentially middleware that lets you use OnlyKey as a hardware SSH/GPG device."
+      ;
     homepage = "https://github.com/trustcrypto/onlykey-agent";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ kalbasit ];

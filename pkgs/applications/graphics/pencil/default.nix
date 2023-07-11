@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://pencil.evolus.vn/dl/V${version}.ga/pencil_${version}.ga_amd64.deb";
+      "http://pencil.evolus.vn/dl/V${version}.ga/pencil_${version}.ga_amd64.deb"
+      ;
     sha256 = "01ae54b1a1351b909eb2366c6ec00816e1deba370e58f35601cf7368f10aaba3";
   };
 
@@ -104,23 +105,25 @@ stdenv.mkDerivation rec {
     ln -s $out/opt/pencil/pencil $out/bin/pencil
   '';
 
-  preFixup = let
-    packages = deps;
-    libPathNative = lib.makeLibraryPath packages;
-    libPath64 = lib.makeSearchPathOutput "lib" "lib64" packages;
-    libPath = "${libPathNative}:${libPath64}";
-  in ''
-    # patch executable
-    patchelf \
-      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${libPath}:$out/opt/pencil" \
-      $out/opt/pencil/pencil
+  preFixup =
+    let
+      packages = deps;
+      libPathNative = lib.makeLibraryPath packages;
+      libPath64 = lib.makeSearchPathOutput "lib" "lib64" packages;
+      libPath = "${libPathNative}:${libPath64}";
+    in ''
+      # patch executable
+      patchelf \
+        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath "${libPath}:$out/opt/pencil" \
+        $out/opt/pencil/pencil
 
-    # fix missing libudev
-    ln -s ${lib.getLib systemd}/lib/libudev.so.1 $out/opt/pencil/libudev.so.1
-    wrapProgram $out/opt/pencil/pencil \
-      --prefix LD_LIBRARY_PATH : $out/opt/pencil
-  '' ;
+      # fix missing libudev
+      ln -s ${lib.getLib systemd}/lib/libudev.so.1 $out/opt/pencil/libudev.so.1
+      wrapProgram $out/opt/pencil/pencil \
+        --prefix LD_LIBRARY_PATH : $out/opt/pencil
+    ''
+    ;
 
   meta = with lib; {
     description = "GUI prototyping/mockup tool";

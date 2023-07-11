@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ python3 ];
   buildInputs = [ libxcb ];
 
-  # has not tests
+    # has not tests
   doCheck = false;
 
   meta = with lib; {

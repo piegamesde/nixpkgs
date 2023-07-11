@@ -5,14 +5,16 @@ import ./make-test-python.nix ({
     name = "mailhog";
     meta.maintainers = with lib.maintainers; [ jojosch ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         services.mailhog.enable = true;
 
         environment.systemPackages = with pkgs; [ swaks ];
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

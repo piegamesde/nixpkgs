@@ -54,13 +54,15 @@ assert withReplaygain -> withTaglib;
 assert withLibVlc -> withHttpStream;
 
 let
-  fstat = x: fn:
+  fstat =
+    x: fn:
     "-DENABLE_${fn}=${
       if x then
         "ON"
       else
         "OFF"
-    }";
+    }"
+    ;
 
   withUdisks = (withTaglib && withDevices);
 
@@ -204,8 +206,8 @@ mkDerivation rec {
     homepage = "https://github.com/cdrummond/cantata";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ peterhoeg ];
-    # Technically, Cantata should run on Darwin/Windows so if someone wants to
-    # bother figuring that one out, be my guest.
+      # Technically, Cantata should run on Darwin/Windows so if someone wants to
+      # bother figuring that one out, be my guest.
     platforms = platforms.linux;
   };
 }

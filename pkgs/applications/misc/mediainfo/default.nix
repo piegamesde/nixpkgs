@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://mediaarea.net/download/source/mediainfo/${version}/mediainfo_${version}.tar.xz";
+      "https://mediaarea.net/download/source/mediainfo/${version}/mediainfo_${version}.tar.xz"
+      ;
     sha256 = "sha256-Uiut1rHk6LV+giW6e0nvgn35ffTLaLbU/HkQ92xf32k=";
   };
 

@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
-  # NROFF = "${groff}/bin/nroff";
+    # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
+    # NROFF = "${groff}/bin/nroff";
 
   patches = [ ./01-cygwin.patch ];
 

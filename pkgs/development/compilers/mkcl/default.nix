@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "sys_siglist.patch";
       url =
-        "https://github.com/jcbeaudoin/MKCL/commit/0777dd08254c88676f4f101117b10786b22111d6.patch";
+        "https://github.com/jcbeaudoin/MKCL/commit/0777dd08254c88676f4f101117b10786b22111d6.patch"
+        ;
       sha256 = "1dnr1jzha77nrxs22mclrcqyqvxxn6q1sfn35qjs77fi3jcinjsc";
     })
 
@@ -32,7 +33,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://gitlab.common-lisp.net/mkcl/mkcl/-/commit/ef1981dbf4ceb1793cd6434e66e97b3db48b4ea0.patch";
+        "https://gitlab.common-lisp.net/mkcl/mkcl/-/commit/ef1981dbf4ceb1793cd6434e66e97b3db48b4ea0.patch"
+        ;
       sha256 = "00y6qanwvgb1r4haaqmvz7lbqa51l4wcnns1rwlfgvcvkpjc3dif";
     })
   ];
@@ -48,7 +50,7 @@ stdenv.mkDerivation rec {
     "GMP_LDFLAGS=-L${gmp.out}/lib"
   ];
 
-  # tinycc configure flags copied from the tinycc derivation.
+    # tinycc configure flags copied from the tinycc derivation.
   postConfigure = ''
     (
         cd contrib/tinycc

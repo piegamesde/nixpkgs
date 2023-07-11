@@ -5,7 +5,8 @@
   testers,
 }:
 let
-  testDenoRun = name:
+  testDenoRun =
+    name:
     {
       args ? "",
       dir ? ./. + "/${name}",
@@ -46,7 +47,7 @@ let
         exit 1
       fi
     ''
-  ;
+    ;
 in
 (lib.mapAttrs testDenoRun {
   basic = {

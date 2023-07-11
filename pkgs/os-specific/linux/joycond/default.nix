@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-  # CMake has hardcoded install paths
+    # CMake has hardcoded install paths
   installPhase = ''
     mkdir -p $out/{bin,etc/{systemd/system,udev/rules.d},lib/modules-load.d}
 
@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/DanielOgorchock/joycond";
     description =
-      "Userspace daemon to combine joy-cons from the hid-nintendo kernel driver";
+      "Userspace daemon to combine joy-cons from the hid-nintendo kernel driver"
+      ;
     license = licenses.gpl3Only;
     maintainers = [ maintainers.ivar ];
     platforms = platforms.linux;

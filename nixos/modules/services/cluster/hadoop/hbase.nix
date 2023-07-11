@@ -9,9 +9,13 @@ with lib;
 let
   cfg = config.services.hadoop;
   hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
-  mkIfNotNull = x: mkIf (x != null) x;
-  # generic hbase role options
-  hbaseRoleOption = name: extraOpts:
+  mkIfNotNull =
+    x:
+    mkIf (x != null) x
+    ;
+    # generic hbase role options
+  hbaseRoleOption =
+    name: extraOpts:
     {
       enable = mkEnableOption (mdDoc "HBase ${name}");
 
@@ -44,9 +48,11 @@ let
         '';
         description = mdDoc "Environment variables passed to ${name}.";
       };
-    } // extraOpts;
-  # generic hbase role configs
-  hbaseRoleConfig = name: ports:
+    } // extraOpts
+    ;
+    # generic hbase role configs
+  hbaseRoleConfig =
+    name: ports:
     (mkIf cfg.hbase."${name}".enable {
       services.hadoop.gatewayRole = {
         enable = true;
@@ -95,7 +101,8 @@ let
         };
       };
 
-    });
+    })
+    ;
 in {
   options.services.hadoop = {
 
@@ -171,18 +178,20 @@ in {
         default = null;
       };
     } // (let
-      ports = port: infoPort: {
-        port = mkOption {
-          type = types.int;
-          default = port;
-          description = mdDoc "RPC port";
-        };
-        infoPort = mkOption {
-          type = types.int;
-          default = infoPort;
-          description = mdDoc "web UI port";
-        };
-      };
+      ports =
+        port: infoPort: {
+          port = mkOption {
+            type = types.int;
+            default = port;
+            description = mdDoc "RPC port";
+          };
+          infoPort = mkOption {
+            type = types.int;
+            default = infoPort;
+            description = mdDoc "web UI port";
+          };
+        }
+        ;
     in
     mapAttrs hbaseRoleOption {
       master.initHDFS =

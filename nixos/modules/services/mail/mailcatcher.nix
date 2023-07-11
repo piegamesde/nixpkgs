@@ -51,7 +51,7 @@ in {
 
   };
 
-  # implementation
+    # implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.mailcatcher ];

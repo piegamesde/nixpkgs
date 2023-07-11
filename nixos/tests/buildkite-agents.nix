@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     name = "buildkite-agent";
     meta = with pkgs.lib.maintainers; { maintainers = [ flokli ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -18,7 +19,8 @@ import ./make-test-python.nix ({
           };
           two = { tokenPath = (pkgs.writeText "my-token" "1234"); };
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

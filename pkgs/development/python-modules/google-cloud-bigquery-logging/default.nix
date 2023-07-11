@@ -46,7 +46,8 @@ buildPythonPackage rec {
     description = "Bigquery logging client library";
     homepage = "https://github.com/googleapis/python-bigquery-logging";
     changelog =
-      "https://github.com/googleapis/python-bigquery-logging/blob/v${version}/CHANGELOG.md";
+      "https://github.com/googleapis/python-bigquery-logging/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

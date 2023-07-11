@@ -59,10 +59,10 @@ buildPythonPackage rec {
     sed -i "s/cmdclass={'install': Installer},//" setup.py
   '';
 
-  # tests hang with launched kernel
+    # tests hang with launched kernel
   doCheck = false;
 
-  # install kernel manually
+    # install kernel manually
   postInstall = ''
     mkdir -p $out/share/jupyter/kernels/ansible/
     ln -s ${kernelSpecFile} $out/share/jupyter/kernels/ansible/kernel.json

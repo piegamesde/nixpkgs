@@ -20,8 +20,8 @@ stdenv.mkDerivation {
     sha256 = "iCyvvZJjXb1CR396EJ6GiP6d4e7iAc6QQlAOQoAfehg=";
   };
 
-  # -Wnarrowing is enabled by default in recent GCC versions,
-  # causing compilation to fail.
+    # -Wnarrowing is enabled by default in recent GCC versions,
+    # causing compilation to fail.
   env.NIX_CFLAGS_COMPILE = "-Wno-narrowing";
 
   nativeBuildInputs = [

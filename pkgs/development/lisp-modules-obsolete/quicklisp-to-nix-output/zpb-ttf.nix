@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/zpb-ttf/2021-01-24/zpb-ttf-release-1.0.4.tgz";
+      "http://beta.quicklisp.org/archive/zpb-ttf/2021-01-24/zpb-ttf-release-1.0.4.tgz"
+      ;
     sha256 = "186jzhmklby2pkmwv3zxw09qh8023f7w5ng2ql46l6abx146s3ll";
   };
 

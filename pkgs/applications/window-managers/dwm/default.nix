@@ -29,20 +29,23 @@ stdenv.mkDerivation rec {
     sed -i "s@/usr/local@$out@" config.mk
   '';
 
-  # Allow users set their own list of patches
+    # Allow users set their own list of patches
   inherit
     patches
     ;
 
     # Allow users to set the config.def.h file containing the configuration
-  postPatch = let
-    configFile = if lib.isDerivation conf || builtins.isPath conf then
-      conf
-    else
-      writeText "config.def.h" conf;
-  in
-  lib.optionalString (conf != null) "cp ${configFile} config.def.h"
-  ;
+  postPatch =
+    let
+      configFile =
+        if lib.isDerivation conf || builtins.isPath conf then
+          conf
+        else
+          writeText "config.def.h" conf
+        ;
+    in
+    lib.optionalString (conf != null) "cp ${configFile} config.def.h"
+    ;
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 

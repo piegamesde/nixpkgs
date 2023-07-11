@@ -25,7 +25,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # all tests fail
+    # all tests fail
   doCheck = false;
 
   pythonImportsCheck = [ "memcache" ];

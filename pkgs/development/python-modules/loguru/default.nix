@@ -14,8 +14,8 @@
 
 buildPythonPackage rec {
   pname = "loguru";
-  # No release since Jan 2022, only master is compatible with Python 3.11
-  # https://github.com/Delgan/loguru/issues/740
+    # No release since Jan 2022, only master is compatible with Python 3.11
+    # https://github.com/Delgan/loguru/issues/740
   version = "unstable-2023-01-20";
   format = "setuptools";
 

@@ -41,8 +41,8 @@ buildPythonPackage rec {
     "--asyncio-mode=strict"
   ];
 
-  # Remove performance testing.
-  # Too sensitive for on Hydra.
+    # Remove performance testing.
+    # Too sensitive for on Hydra.
   disabledTests = [ "perf" ];
 
   LC_ALL = "en_US.UTF-8";

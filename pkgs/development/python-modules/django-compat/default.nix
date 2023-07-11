@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "django-compat";
   version = "1.0.15";
 
-  # the pypi packages don't include everything required for the tests
+    # the pypi packages don't include everything required for the tests
   src = fetchFromGitHub {
     owner = "arteria";
     repo = "django-compat";
@@ -41,7 +41,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Forward and backwards compatibility layer for Django 1.4, 1.7, 1.8, 1.9, 1.10 and 1.11";
+      "Forward and backwards compatibility layer for Django 1.4, 1.7, 1.8, 1.9, 1.10 and 1.11"
+      ;
     homepage = "https://github.com/arteria/django-compat";
     license = licenses.mit;
     maintainers = with maintainers; [ ris ];

@@ -7,7 +7,8 @@ args@{
   version = "20191130-git";
 
   description =
-    "Parallel programming library providing the futures/promises synchronization mechanism";
+    "Parallel programming library providing the futures/promises synchronization mechanism"
+    ;
 
   deps = [
     args."alexandria"
@@ -17,7 +18,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/eager-future2/2019-11-30/eager-future2-20191130-git.tgz";
+      "http://beta.quicklisp.org/archive/eager-future2/2019-11-30/eager-future2-20191130-git.tgz"
+      ;
     sha256 = "01pvgcp6d4hz1arpvsv73m8xnbv8qm2d0qychpxc72d0m71p6ks0";
   };
 

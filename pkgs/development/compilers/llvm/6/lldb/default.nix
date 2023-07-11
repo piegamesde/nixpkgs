@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     # Fix PythonString::GetString for >=python-3.7
     (fetchpatch {
       url =
-        "https://github.com/llvm/llvm-project/commit/5457b426f5e15a29c0acc8af1a476132f8be2a36.patch";
+        "https://github.com/llvm/llvm-project/commit/5457b426f5e15a29c0acc8af1a476132f8be2a36.patch"
+        ;
       sha256 = "1zbx4m0m8kbg0wq6740jcw151vb2pb1p25p401wiq8diqqagkjps";
       stripLen = 1;
     })
@@ -105,7 +106,7 @@ stdenv.mkDerivation rec {
       larger LLVM Project, such as the Clang expression parser and LLVM
       disassembler.
     '';
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

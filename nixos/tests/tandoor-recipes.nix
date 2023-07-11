@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "tandoor-recipes";
     meta.maintainers = with lib.maintainers; [ ambroisie ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -33,7 +34,8 @@ import ./make-test-python.nix ({
         systemd.services = {
           tandoor-recipes = { after = [ "postgresql.service" ]; };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("tandoor-recipes.service")

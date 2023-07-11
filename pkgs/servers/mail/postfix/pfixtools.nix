@@ -64,7 +64,8 @@ stdenv.mkDerivation {
   '';
 
   env.NIX_CFLAGS_COMPILE =
-    "-Wno-error=unused-result -Wno-error=nonnull-compare -Wno-error=format-truncation";
+    "-Wno-error=unused-result -Wno-error=nonnull-compare -Wno-error=format-truncation"
+    ;
 
   makeFlags = [
     "DESTDIR=$(out)"

@@ -29,11 +29,13 @@ let
     rev = "renderdoc-modified-7";
     sha256 = "15r2m5kcs0id64pa2fsw58qll3jyh71jzc04wy20pgsh2326zis6";
   };
-  cmakeBool = b:
+  cmakeBool =
+    b:
     if b then
       "ON"
     else
-      "OFF";
+      "OFF"
+    ;
 in
 mkDerivation rec {
   pname = "renderdoc";
@@ -86,7 +88,7 @@ mkDerivation rec {
     "-DENABLE_WAYLAND=${cmakeBool waylandSupport}"
   ];
 
-  # TODO: define these in the above array via placeholders, once those are widely supported
+    # TODO: define these in the above array via placeholders, once those are widely supported
   preConfigure = ''
     cmakeFlags+=" -DVULKAN_LAYER_FOLDER=$out/share/vulkan/implicit_layer.d/"
     cmakeFlags+=" -DRENDERDOC_SWIG_PACKAGE=$PWD/../swig"
@@ -98,7 +100,7 @@ mkDerivation rec {
     wrapProgram $out/bin/renderdoccmd --suffix LD_LIBRARY_PATH : "$out/lib:${vulkan-loader}/lib:${libglvnd}/lib"
   '';
 
-  # The only documentation for this so far is in pkgs/build-support/add-opengl-runpath/setup-hook.sh
+    # The only documentation for this so far is in pkgs/build-support/add-opengl-runpath/setup-hook.sh
   postFixup = ''
     addOpenGLRunpath $out/lib/librenderdoc.so
   '';

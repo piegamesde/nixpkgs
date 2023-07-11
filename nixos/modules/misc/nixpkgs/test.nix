@@ -5,13 +5,15 @@
   stdenv,
 }:
 let
-  eval = mod:
+  eval =
+    mod:
     evalMinimalConfig {
       imports = [
         ../nixpkgs.nix
         mod
       ];
-    };
+    }
+    ;
   withHost = eval { nixpkgs.hostPlatform = "aarch64-linux"; };
   withHostAndBuild = eval {
     nixpkgs.hostPlatform = "aarch64-linux";
@@ -29,7 +31,8 @@ let
       nixpkgs.hostPlatform = "aarch64-linux";
     } ];
   };
-  getErrors = module:
+  getErrors =
+    module:
     let
       uncheckedEval = lib.evalModules {
         modules = [
@@ -40,7 +43,7 @@ let
     in
     map (ass: ass.message)
     (lib.filter (ass: !ass.assertion) uncheckedEval.config.assertions)
-  ;
+    ;
 in
 lib.recurseIntoAttrs {
   invokeNixpkgsSimple = (eval {

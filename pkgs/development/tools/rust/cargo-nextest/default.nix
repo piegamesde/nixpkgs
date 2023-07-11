@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     "cargo-nextest"
   ];
 
-  # TODO: investigate some more why these tests fail in nix
+    # TODO: investigate some more why these tests fail in nix
   checkFlags = [
     "--skip=tests_integration::test_list"
     "--skip=tests_integration::test_relocated_run"

@@ -34,7 +34,7 @@
 
 buildPythonPackage rec {
   pname = "bokeh";
-  # update together with panel which is not straightforward
+    # update together with panel which is not straightforward
   version = "2.4.3";
 
   src = fetchPypi {
@@ -81,7 +81,7 @@ buildPythonPackage rec {
     typing-extensions
   ] ++ lib.optionals (isPy27) [ futures ];
 
-  # This test suite is a complete pain. Somehow it can't find its fixtures.
+    # This test suite is a complete pain. Somehow it can't find its fixtures.
   doCheck = false;
 
   meta = {

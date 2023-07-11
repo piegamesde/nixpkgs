@@ -20,13 +20,14 @@ buildPythonPackage rec {
   buildInputs = [ pytest ];
   checkPhase = "make test";
 
-  # Requires pytest < 3.1
+    # Requires pytest < 3.1
   doCheck = false;
 
   meta = with lib; {
     license = licenses.mit;
     homepage = "https://pypi.python.org/pypi/pytest-catchlog/";
     description =
-      "py.test plugin to catch log messages. This is a fork of pytest-capturelog.";
+      "py.test plugin to catch log messages. This is a fork of pytest-capturelog."
+      ;
   };
 }

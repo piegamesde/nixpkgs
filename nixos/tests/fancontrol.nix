@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "fancontrol";
     meta = with pkgs.lib.maintainers; { maintainers = [ evils ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [ ../modules/profiles/minimal.nix ];
@@ -21,9 +22,10 @@ import ./make-test-python.nix ({
           MINSTART=hwmon1/device/pwm1=150
           MINSTOP=hwmon1/device/pwm1=0
         '';
-      };
+      }
+      ;
 
-    # This configuration cannot be valid for the test VM, so it's expected to get an 'outdated' error.
+      # This configuration cannot be valid for the test VM, so it's expected to get an 'outdated' error.
     testScript = ''
       start_all()
       # can't wait for unit fancontrol.service because it doesn't become active due to invalid config

@@ -13,15 +13,15 @@ let
 
   cfg = config.services.lighttpd;
 
-  # List of known lighttpd modules, ordered by how the lighttpd documentation
-  # recommends them being imported:
-  # http://redmine.lighttpd.net/projects/1/wiki/Server_modulesDetails
-  #
-  # Some modules are always imported and should not appear in the config:
-  # disallowedModules = [ "mod_indexfile" "mod_dirlisting" "mod_staticfile" ];
-  #
-  # For full module list, see the output of running ./configure in the lighttpd
-  # source.
+    # List of known lighttpd modules, ordered by how the lighttpd documentation
+    # recommends them being imported:
+    # http://redmine.lighttpd.net/projects/1/wiki/Server_modulesDetails
+    #
+    # Some modules are always imported and should not appear in the config:
+    # disallowedModules = [ "mod_indexfile" "mod_dirlisting" "mod_staticfile" ];
+    #
+    # For full module list, see the output of running ./configure in the lighttpd
+    # source.
   allKnownModules = [
     "mod_rewrite"
     "mod_redirect"
@@ -68,62 +68,66 @@ let
     "mod_wstunnel" # since v1.4.46
   ];
 
-  maybeModuleString = moduleName:
-    optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"'';
+  maybeModuleString =
+    moduleName:
+    optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"''
+    ;
 
   modulesIncludeString = concatStringsSep ''
     ,
   '' (filter (x: x != "") (map maybeModuleString allKnownModules));
 
-  configFile = if cfg.configText != "" then
-    pkgs.writeText "lighttpd.conf" ''
-      ${cfg.configText}
-    ''
-  else
-    pkgs.writeText "lighttpd.conf" ''
-      server.document-root = "${cfg.document-root}"
-      server.port = ${toString cfg.port}
-      server.username = "lighttpd"
-      server.groupname = "lighttpd"
+  configFile =
+    if cfg.configText != "" then
+      pkgs.writeText "lighttpd.conf" ''
+        ${cfg.configText}
+      ''
+    else
+      pkgs.writeText "lighttpd.conf" ''
+        server.document-root = "${cfg.document-root}"
+        server.port = ${toString cfg.port}
+        server.username = "lighttpd"
+        server.groupname = "lighttpd"
 
-      # As for why all modules are loaded here, instead of having small
-      # server.modules += () entries in each sub-service extraConfig snippet,
-      # read this:
-      #
-      #   http://redmine.lighttpd.net/projects/1/wiki/Server_modulesDetails
-      #   http://redmine.lighttpd.net/issues/2337
-      #
-      # Basically, lighttpd doesn't want to load (or even silently ignore) a
-      # module for a second time, and there is no way to check if a module has
-      # been loaded already. So if two services were to put the same module in
-      # server.modules += (), that would break the lighttpd configuration.
-      server.modules = (
-          ${modulesIncludeString}
-      )
+        # As for why all modules are loaded here, instead of having small
+        # server.modules += () entries in each sub-service extraConfig snippet,
+        # read this:
+        #
+        #   http://redmine.lighttpd.net/projects/1/wiki/Server_modulesDetails
+        #   http://redmine.lighttpd.net/issues/2337
+        #
+        # Basically, lighttpd doesn't want to load (or even silently ignore) a
+        # module for a second time, and there is no way to check if a module has
+        # been loaded already. So if two services were to put the same module in
+        # server.modules += (), that would break the lighttpd configuration.
+        server.modules = (
+            ${modulesIncludeString}
+        )
 
-      # Logging (logs end up in systemd journal)
-      accesslog.use-syslog = "enable"
-      server.errorlog-use-syslog = "enable"
+        # Logging (logs end up in systemd journal)
+        accesslog.use-syslog = "enable"
+        server.errorlog-use-syslog = "enable"
 
-      ${lib.optionalString cfg.enableUpstreamMimeTypes ''
-        include "${pkgs.lighttpd}/share/lighttpd/doc/config/conf.d/mime.conf"
-      ''}
+        ${lib.optionalString cfg.enableUpstreamMimeTypes ''
+          include "${pkgs.lighttpd}/share/lighttpd/doc/config/conf.d/mime.conf"
+        ''}
 
-      static-file.exclude-extensions = ( ".fcgi", ".php", ".rb", "~", ".inc" )
-      index-file.names = ( "index.html" )
+        static-file.exclude-extensions = ( ".fcgi", ".php", ".rb", "~", ".inc" )
+        index-file.names = ( "index.html" )
 
-      ${optionalString cfg.mod_userdir ''
-        userdir.path = "public_html"
-      ''}
+        ${optionalString cfg.mod_userdir ''
+          userdir.path = "public_html"
+        ''}
 
-      ${optionalString cfg.mod_status ''
-        status.status-url = "/server-status"
-        status.statistics-url = "/server-statistics"
-        status.config-url = "/server-config"
-      ''}
+        ${optionalString cfg.mod_status ''
+          status.status-url = "/server-status"
+          status.statistics-url = "/server-statistics"
+          status.config-url = "/server-config"
+        ''}
 
-      ${cfg.extraConfig}
-    '';
+        ${cfg.extraConfig}
+      ''
+    ;
 
 in {
 
@@ -260,7 +264,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       serviceConfig.ExecStart =
         "${cfg.package}/sbin/lighttpd -D -f ${configFile}";
-      # SIGINT => graceful shutdown
+        # SIGINT => graceful shutdown
       serviceConfig.KillSignal = "SIGINT";
     };
 

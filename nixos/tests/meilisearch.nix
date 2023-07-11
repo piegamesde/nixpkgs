@@ -11,14 +11,16 @@ import ./make-test-python.nix ({
     indexJSON = pkgs.writeText "index.json" (builtins.toJSON { inherit uid; });
     moviesJSON = pkgs.fetchurl {
       url =
-        "https://github.com/meilisearch/meilisearch/raw/v0.23.1/datasets/movies/movies.json";
+        "https://github.com/meilisearch/meilisearch/raw/v0.23.1/datasets/movies/movies.json"
+        ;
       sha256 = "1r3srld63dpmg9yrmysm6xl175661j5cspi93mk5q2wf8xwn50c5";
     };
   in {
     name = "meilisearch";
     meta.maintainers = with lib.maintainers; [ Br1ght0ne ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         environment.systemPackages = with pkgs; [
@@ -29,7 +31,8 @@ import ./make-test-python.nix ({
           enable = true;
           inherit listenAddress listenPort;
         };
-      };
+      }
+      ;
 
     testScript = ''
       import json

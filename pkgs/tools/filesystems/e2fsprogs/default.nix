@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-vy/MfuUXj+c6MFf34qo/5S6Yt7tGFQnGewIboA+Uxvc=";
   };
 
-  # fuse2fs adds 14mb of dependencies
+    # fuse2fs adds 14mb of dependencies
   outputs = [
     "bin"
     "dev"
@@ -44,31 +44,34 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch { # avoid using missing __GNUC_PREREQ(X,Y)
     url =
-      "https://raw.githubusercontent.com/void-linux/void-packages/9583597eb3e6e6b33f61dbc615d511ce030bc443/srcpkgs/e2fsprogs/patches/fix-glibcism.patch";
+      "https://raw.githubusercontent.com/void-linux/void-packages/9583597eb3e6e6b33f61dbc615d511ce030bc443/srcpkgs/e2fsprogs/patches/fix-glibcism.patch"
+      ;
     sha256 = "1gfcsr0i3q8q2f0lqza8na0iy4l4p3cbii51ds6zmj0y4hz2dwhb";
     excludes = [ "lib/ext2fs/hashmap.h" ];
     extraPrefix = "";
   }) ];
 
-  configureFlags = if stdenv.isLinux then
-    [
-      # It seems that the e2fsprogs is one of the few packages that cannot be
-      # build with shared and static libs.
-      (if shared then
-        "--enable-elf-shlibs"
-      else
-        "--disable-elf-shlibs")
-      "--enable-symlink-install"
-      "--enable-relative-symlinks"
-      "--with-crond-dir=no"
-      # fsck, libblkid, libuuid and uuidd are in util-linux-ng (the "libuuid" dependency)
-      "--disable-fsck"
-      "--disable-libblkid"
-      "--disable-libuuid"
-      "--disable-uuidd"
-    ]
-  else
-    [ "--enable-libuuid --disable-e2initrd-helper" ];
+  configureFlags =
+    if stdenv.isLinux then
+      [
+        # It seems that the e2fsprogs is one of the few packages that cannot be
+        # build with shared and static libs.
+        (if shared then
+          "--enable-elf-shlibs"
+        else
+          "--disable-elf-shlibs")
+        "--enable-symlink-install"
+        "--enable-relative-symlinks"
+        "--with-crond-dir=no"
+        # fsck, libblkid, libuuid and uuidd are in util-linux-ng (the "libuuid" dependency)
+        "--disable-fsck"
+        "--disable-libblkid"
+        "--disable-libuuid"
+        "--disable-uuidd"
+      ]
+    else
+      [ "--enable-libuuid --disable-e2initrd-helper" ]
+    ;
 
   nativeCheckInputs = [ buildPackages.perl ];
   doCheck = true;

@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "0vwq2zdxir67cn78ls11qf1smd54nppy266v7ajm5rqdc47q7fy2";
   };
 
-  # Nikto searches its configuration file based on its current path
-  # This fixes the current path regex for the wrapped executable.
+    # Nikto searches its configuration file based on its current path
+    # This fixes the current path regex for the wrapped executable.
   patches = [ ./NIKTODIR-nix-wrapper-fix.patch ];
 
   postPatch = ''

@@ -35,7 +35,7 @@ let
       pysdl2
     ];
 
-    # Requires OpenGL acceleration
+      # Requires OpenGL acceleration
     doCheck = false;
     pythonImportsCheck = [ "imgui" ];
   };
@@ -113,7 +113,7 @@ python3.pkgs.buildPythonPackage rec {
     chmod +x $out/bin/steamos-devkit
   '';
 
-  # There are no checks for steamos-devkit
+    # There are no checks for steamos-devkit
   doCheck = false;
   pythonImportsCheck = [ "devkit_client" ];
 

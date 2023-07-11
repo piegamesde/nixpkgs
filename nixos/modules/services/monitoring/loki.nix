@@ -10,10 +10,12 @@ let
 
   cfg = config.services.loki;
 
-  prettyJSON = conf:
+  prettyJSON =
+    conf:
     pkgs.runCommand "loki-config.json" { } ''
       echo '${builtins.toJSON conf}' | ${pkgs.jq}/bin/jq 'del(._module)' > $out
-    '';
+    ''
+    ;
 
 in {
   options.services.loki = {
@@ -98,24 +100,28 @@ in {
       description = "Loki Service Daemon";
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = let
-        conf = if cfg.configFile == null then
-          prettyJSON cfg.configuration
-        else
-          cfg.configFile;
-      in {
-        ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${
-            escapeShellArgs cfg.extraFlags
-          }";
-        User = cfg.user;
-        Restart = "always";
-        PrivateTmp = true;
-        ProtectHome = true;
-        ProtectSystem = "full";
-        DevicePolicy = "closed";
-        NoNewPrivileges = true;
-        WorkingDirectory = cfg.dataDir;
-      } ;
+      serviceConfig =
+        let
+          conf =
+            if cfg.configFile == null then
+              prettyJSON cfg.configuration
+            else
+              cfg.configFile
+            ;
+        in {
+          ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${
+              escapeShellArgs cfg.extraFlags
+            }";
+          User = cfg.user;
+          Restart = "always";
+          PrivateTmp = true;
+          ProtectHome = true;
+          ProtectSystem = "full";
+          DevicePolicy = "closed";
+          NoNewPrivileges = true;
+          WorkingDirectory = cfg.dataDir;
+        }
+        ;
     };
   };
 }

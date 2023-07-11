@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     # https://github.com/mate-desktop/mate-backgrounds/pull/39
     (fetchpatch {
       url =
-        "https://github.com/mate-desktop/mate-backgrounds/commit/0096e237d420e6247a75a1c6940a818e309ac2a7.patch";
+        "https://github.com/mate-desktop/mate-backgrounds/commit/0096e237d420e6247a75a1c6940a818e309ac2a7.patch"
+        ;
       sha256 = "HEF8VWunFO+NCG18fZA7lbE2l8pc6Z3jcD+rSZ1Jsqg=";
     })
   ];

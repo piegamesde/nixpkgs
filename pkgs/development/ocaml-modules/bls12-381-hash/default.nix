@@ -21,7 +21,8 @@ buildDunePackage rec {
 
   meta = {
     description =
-      "Implementation of some cryptographic hash primitives using the scalar field of BLS12-381";
+      "Implementation of some cryptographic hash primitives using the scalar field of BLS12-381"
+      ;
     license = lib.licenses.mit;
     homepage = "https://gitlab.com/nomadic-labs/privacy-team";
     maintainers = [ lib.maintainers.ulrikstrid ];

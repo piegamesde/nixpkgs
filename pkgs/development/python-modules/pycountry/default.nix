@@ -24,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/flyingcircusio/pycountry";
     description =
-      "ISO country, subdivision, language, currency and script definitions and their translations";
+      "ISO country, subdivision, language, currency and script definitions and their translations"
+      ;
     license = licenses.lgpl2;
     maintainers = with maintainers; [ ];
   };

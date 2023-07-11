@@ -20,12 +20,13 @@ python3Packages.buildPythonApplication rec {
     requests
   ];
 
-  # requires network access
+    # requires network access
   doCheck = false;
 
   meta = with lib; {
     description = ''
-      A simple Python wrapper for archive.org's "Save Page Now" capturing service'';
+      A simple Python wrapper for archive.org's "Save Page Now" capturing service''
+      ;
     homepage = "https://github.com/pastpages/savepagenow";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

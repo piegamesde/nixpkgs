@@ -19,7 +19,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  # some tests require a running podman service
+    # some tests require a running podman service
   doCheck = false;
 
   meta = with lib; {

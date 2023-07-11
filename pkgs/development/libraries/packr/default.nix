@@ -31,12 +31,12 @@ let
       license = licenses.mit;
       maintainers = with maintainers; [ mmahut ];
 
-      # golang.org/x/sys needs to be updated due to:
-      #
-      #   https://github.com/golang/go/issues/49219
-      #
-      # but this package is no longer maintained.
-      #
+        # golang.org/x/sys needs to be updated due to:
+        #
+        #   https://github.com/golang/go/issues/49219
+        #
+        # but this package is no longer maintained.
+        #
       broken = stdenv.isDarwin;
     };
   };
@@ -64,12 +64,12 @@ let
       license = licenses.mit;
       maintainers = with maintainers; [ mmahut ];
 
-      # golang.org/x/sys needs to be updated due to:
-      #
-      #   https://github.com/golang/go/issues/49219
-      #
-      # but this package is no longer maintained.
-      #
+        # golang.org/x/sys needs to be updated due to:
+        #
+        #   https://github.com/golang/go/issues/49219
+        #
+        # but this package is no longer maintained.
+        #
       broken = stdenv.isDarwin;
     };
   };

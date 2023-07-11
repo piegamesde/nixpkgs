@@ -45,7 +45,8 @@ buildPythonPackage rec {
     description = "Library for Thermopro BLE devices";
     homepage = "https://github.com/bluetooth-devices/thermopro-ble";
     changelog =
-      "https://github.com/Bluetooth-Devices/thermopro-ble/blob/v${version}/CHANGELOG.md";
+      "https://github.com/Bluetooth-Devices/thermopro-ble/blob/v${version}/CHANGELOG.md"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

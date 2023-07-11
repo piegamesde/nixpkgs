@@ -88,8 +88,8 @@ in {
     services.lemmy.settings = (mapAttrs (name: mkDefault) {
       bind = "127.0.0.1";
       tls_enabled = true;
-      pictrs_url = with config.services.pict-rs;
-        "http://${address}:${toString port}";
+      pictrs_url =
+        with config.services.pict-rs; "http://${address}:${toString port}";
       actor_name_max_length = 20;
 
       rate_limit.message = 180;
@@ -160,7 +160,8 @@ in {
       assertion = cfg.database.createLocally -> cfg.settings.database.host
         == "localhost" || cfg.settings.database.host == "/run/postgresql";
       message =
-        "if you want to create the database locally, you need to use a local database";
+        "if you want to create the database locally, you need to use a local database"
+        ;
     } ];
 
     systemd.services.lemmy = {
@@ -169,9 +170,9 @@ in {
       environment = {
         LEMMY_CONFIG_LOCATION = "/run/lemmy/config.hjson";
 
-        # Verify how this is used, and don't put the password in the nix store
-        LEMMY_DATABASE_URL = with cfg.settings.database;
-          "postgres:///${database}?host=${host}";
+          # Verify how this is used, and don't put the password in the nix store
+        LEMMY_DATABASE_URL =
+          with cfg.settings.database; "postgres:///${database}?host=${host}";
       };
 
       documentation = [

@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uk7+XBKtTGnX/bHBQttmxlu9+gKvFqu3VhzC7uIYCNQ=";
   };
 
-  # just patch interpreter
+    # just patch interpreter
   autoPatchelfIgnoreMissingDeps = true;
   dontConfigure = true;
   dontBuild = true;

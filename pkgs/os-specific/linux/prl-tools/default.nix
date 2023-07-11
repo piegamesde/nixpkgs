@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
   version = "18.2.0-53488";
   pname = "prl-tools";
 
-  # We download the full distribution to extract prl-tools-lin.iso from
-  # => ${dmg}/Parallels\ Desktop.app/Contents/Resources/Tools/prl-tools-lin.iso
+    # We download the full distribution to extract prl-tools-lin.iso from
+    # => ${dmg}/Parallels\ Desktop.app/Contents/Resources/Tools/prl-tools-lin.iso
   src = fetchurl {
     url = "https://download.parallels.com/desktop/v${
         lib.versions.major version

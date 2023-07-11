@@ -36,7 +36,7 @@ buildPythonPackage rec {
     pytest-html
   ];
 
-  # upstream tests are failing, so instead we only check if we can import it
+    # upstream tests are failing, so instead we only check if we can import it
   doCheck = false;
 
   pythonImportsCheck = [ "behave" ];
@@ -54,8 +54,8 @@ buildPythonPackage rec {
     patchShebangs bin
   '';
 
-  # timing-based test flaky on Darwin
-  # https://github.com/NixOS/nixpkgs/pull/97737#issuecomment-691489824
+    # timing-based test flaky on Darwin
+    # https://github.com/NixOS/nixpkgs/pull/97737#issuecomment-691489824
   disabledTests = lib.optionals
     stdenv.isDarwin [ "test_step_decorator_async_run_until_complete" ];
 

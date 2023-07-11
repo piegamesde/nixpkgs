@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./cross-assume-dev-zero-mmappable.patch ];
 
-  # This test needs the net
+    # This test needs the net
   postPatch = ''
     rm test/testsock.*
   '';
@@ -62,8 +62,8 @@ stdenv.mkDerivation rec {
     "ac_cv_header_windows_h=no"
   ];
 
-  # - Update libtool for macOS 11 support
-  # - Regenerate for cross fix patch
+    # - Update libtool for macOS 11 support
+    # - Regenerate for cross fix patch
   nativeBuildInputs = [ autoreconfHook ];
 
   doCheck = true;

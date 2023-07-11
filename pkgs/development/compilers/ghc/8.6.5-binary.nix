@@ -23,18 +23,20 @@ let
   useNcurses6 = stdenv.hostPlatform.system == "x86_64-linux"
     || (with stdenv.hostPlatform; isPower64 && isLittleEndian);
 
-  ourNcurses = if useNcurses6 then
-    ncurses6
-  else
-    ncurses5;
+  ourNcurses =
+    if useNcurses6 then
+      ncurses6
+    else
+      ncurses5
+    ;
 
   libPath = lib.makeLibraryPath ([
     ourNcurses
     gmp
   ] ++ lib.optional (stdenv.hostPlatform.isDarwin) libiconv);
 
-  libEnvVar = lib.optionalString stdenv.hostPlatform.isDarwin "DY"
-    + "LD_LIBRARY_PATH";
+  libEnvVar =
+    lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
 
   glibcDynLinker = assert stdenv.isLinux;
     if
@@ -61,7 +63,7 @@ stdenv.mkDerivation rec {
   version = "8.6.5";
   pname = "ghc-binary";
 
-  # https://downloads.haskell.org/~ghc/8.6.5/
+    # https://downloads.haskell.org/~ghc/8.6.5/
   src = fetchurl ({
     i686-linux = {
       # Don't use the Fedora27 build (as below) because there isn't one!
@@ -73,12 +75,14 @@ stdenv.mkDerivation rec {
       # deb9 one links against ncurses5, see here
       # https://github.com/NixOS/nixpkgs/issues/85924 for a discussion
       url =
-        "${downloadsUrl}/${version}/ghc-${version}-x86_64-fedora27-linux.tar.xz";
+        "${downloadsUrl}/${version}/ghc-${version}-x86_64-fedora27-linux.tar.xz"
+        ;
       sha256 = "18dlqm5d028fqh6ghzn7pgjspr5smw030jjzl3kq6q1kmwzbay6g";
     };
     aarch64-linux = {
       url =
-        "${downloadsUrl}/${version}/ghc-${version}-aarch64-ubuntu18.04-linux.tar.xz";
+        "${downloadsUrl}/${version}/ghc-${version}-aarch64-ubuntu18.04-linux.tar.xz"
+        ;
       sha256 = "11n7l2a36i5vxzzp85la2555q4m34l747g0pnmd81cp46y85hlhq";
     };
     x86_64-darwin = {
@@ -88,7 +92,8 @@ stdenv.mkDerivation rec {
     };
     powerpc64le-linux = {
       url =
-        "https://downloads.haskell.org/~ghc/${version}/ghc-${version}-powerpc64le-fedora29-linux.tar.xz";
+        "https://downloads.haskell.org/~ghc/${version}/ghc-${version}-powerpc64le-fedora29-linux.tar.xz"
+        ;
       sha256 = "sha256-tWSsJdPVrCiqDyIKzpBt5DaXb3b6j951tCya584kWs4=";
     };
   }.${stdenv.hostPlatform.system} or (throw
@@ -96,8 +101,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ perl ];
 
-  # Cannot patchelf beforehand due to relative RPATHs that anticipate
-  # the final install location/
+    # Cannot patchelf beforehand due to relative RPATHs that anticipate
+    # the final install location/
   ${libEnvVar} = libPath;
 
   postUnpack =
@@ -160,11 +165,11 @@ stdenv.mkDerivation rec {
     ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
 
-  # No building is necessary, but calling make without flags ironically
-  # calls install-strip ...
+    # No building is necessary, but calling make without flags ironically
+    # calls install-strip ...
   dontBuild = true;
 
-  # Patch scripts to include runtime dependencies in $PATH.
+    # Patch scripts to include runtime dependencies in $PATH.
   postInstall = ''
     for i in "$out/bin/"*; do
       test ! -h "$i" || continue
@@ -173,8 +178,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # On Linux, use patchelf to modify the executables so that they can
-  # find editline/gmp.
+    # On Linux, use patchelf to modify the executables so that they can
+    # find editline/gmp.
   postFixup = lib.optionalString stdenv.isLinux ''
     for p in $(find "$out" -type f -executable); do
       if isELF "$p"; then
@@ -195,13 +200,13 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # In nixpkgs, musl based builds currently enable `pie` hardening by default
-  # (see `defaultHardeningFlags` in `make-derivation.nix`).
-  # But GHC cannot currently produce outputs that are ready for `-pie` linking.
-  # Thus, disable `pie` hardening, otherwise `recompile with -fPIE` errors appear.
-  # See:
-  # * https://github.com/NixOS/nixpkgs/issues/129247
-  # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
+    # In nixpkgs, musl based builds currently enable `pie` hardening by default
+    # (see `defaultHardeningFlags` in `make-derivation.nix`).
+    # But GHC cannot currently produce outputs that are ready for `-pie` linking.
+    # Thus, disable `pie` hardening, otherwise `recompile with -fPIE` errors appear.
+    # See:
+    # * https://github.com/NixOS/nixpkgs/issues/129247
+    # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
   hardeningDisable = lib.optional stdenv.targetPlatform.isMusl "pie";
 
   doInstallCheck = true;
@@ -239,7 +244,7 @@ stdenv.mkDerivation rec {
       "x86_64-darwin"
       "powerpc64le-linux"
     ];
-    # build segfaults, use ghc8102Binary which has proper musl support instead
+      # build segfaults, use ghc8102Binary which has proper musl support instead
     broken = stdenv.hostPlatform.isMusl;
     maintainers = with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
   };

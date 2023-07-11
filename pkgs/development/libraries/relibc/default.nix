@@ -15,7 +15,8 @@ let
     src = buildPackages.fetchzip {
       name = "redox-rust-toolchain.tar.gz";
       url =
-        "https://www.dropbox.com/s/qt7as0j7cwnin8z/redox-rust-toolchain.tar.gz?dl=1";
+        "https://www.dropbox.com/s/qt7as0j7cwnin8z/redox-rust-toolchain.tar.gz?dl=1"
+        ;
       sha256 = "1g17qp2q6b88p04yclkw6amm374pqlakrmw9kd86vw8z4g70jkxm";
     };
 
@@ -68,7 +69,7 @@ redoxRustPlatform.buildRustPackage rec {
     DESTDIR=$out make install
   '';
 
-  # TODO: should be hostPlatform
+    # TODO: should be hostPlatform
   TARGET = buildPackages.rust.toRustTargetSpec stdenvNoCC.targetPlatform;
 
   cargoLock = {
@@ -79,7 +80,7 @@ redoxRustPlatform.buildRustPackage rec {
     };
   };
 
-  # error: Usage of `RUSTC_WORKSPACE_WRAPPER` requires `-Z unstable-options`
+    # error: Usage of `RUSTC_WORKSPACE_WRAPPER` requires `-Z unstable-options`
   auditable = false;
 
   meta = with lib; {

@@ -11,13 +11,15 @@ import ./make-test-python.nix ({
     ...
   }:
   let
-    unit = if nftables then
-      "nftables"
-    else
-      (if withFirewall then
-        "firewall"
+    unit =
+      if nftables then
+        "nftables"
       else
-        "nat");
+        (if withFirewall then
+          "firewall"
+        else
+          "nat")
+      ;
 
     routerBase = lib.mkMerge [ {
       virtualisation.vlans = [
@@ -44,7 +46,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      client = {
+      client =
+        {
           pkgs,
           nodes,
           ...
@@ -52,27 +55,34 @@ import ./make-test-python.nix ({
         lib.mkMerge [ {
           virtualisation.vlans = [ 1 ];
           networking.defaultGateway = (pkgs.lib.head
-            nodes.router.config.networking.interfaces.eth2.ipv4.addresses).address;
+            nodes.router.config.networking.interfaces.eth2.ipv4.addresses).address
+            ;
           networking.nftables.enable = nftables;
-        } ];
+        } ]
+        ;
 
-      router = {
+      router =
+        {
           ...
         }:
         lib.mkMerge [
           routerBase
           { networking.nat.enable = true; }
-        ];
+        ]
+        ;
 
-      routerDummyNoNat = {
+      routerDummyNoNat =
+        {
           ...
         }:
         lib.mkMerge [
           routerBase
           { networking.nat.enable = false; }
-        ];
+        ]
+        ;
 
-      server = {
+      server =
+        {
           ...
         }: {
           virtualisation.vlans = [ 2 ];
@@ -81,10 +91,12 @@ import ./make-test-python.nix ({
           services.httpd.adminAddr = "foo@example.org";
           services.vsftpd.enable = true;
           services.vsftpd.anonymousUser = true;
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -140,5 +152,6 @@ import ./make-test-python.nix ({
         ''}
         client.succeed("curl --fail http://server/ >&2")
         client.succeed("ping -c 1 server >&2")
-      '' ;
+      ''
+      ;
   } )

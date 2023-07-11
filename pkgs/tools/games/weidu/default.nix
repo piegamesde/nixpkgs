@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "https://weidu.org";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ peterhoeg ];
-    # should work fine on both Darwin and Windows
+      # should work fine on both Darwin and Windows
     platforms = platforms.linux;
   };
 }

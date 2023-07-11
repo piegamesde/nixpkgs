@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://bblanche.gitlabpages.inria.fr/proverif/proverif${version}.tar.gz";
+      "https://bblanche.gitlabpages.inria.fr/proverif/proverif${version}.tar.gz"
+      ;
     sha256 = "sha256:0xgwnp59779xc40sb7ck8rmfn620pilxyq79l3bymj9m7z0mwvm9";
   };
 

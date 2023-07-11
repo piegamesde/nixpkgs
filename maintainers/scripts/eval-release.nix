@@ -4,10 +4,12 @@
 with import ../../lib;
 
 let
-  trace = if builtins.getEnv "VERBOSE" == "1" then
-    builtins.trace
-  else
-    (x: y: y);
+  trace =
+    if builtins.getEnv "VERBOSE" == "1" then
+      builtins.trace
+    else
+      (x: y: y)
+    ;
 
   rel = removeAttrs (import ../../pkgs/top-level/release.nix { }) [
     "tarball"
@@ -15,9 +17,10 @@ let
     "xbursttools"
   ];
 
-  # Add the ‘recurseForDerivations’ attribute to ensure that
-  # nix-instantiate recurses into nested attribute sets.
-  recurse = path: attrs:
+    # Add the ‘recurseForDerivations’ attribute to ensure that
+    # nix-instantiate recurses into nested attribute sets.
+  recurse =
+    path: attrs:
     if (builtins.tryEval attrs).success then
       if isDerivation attrs then
         if (builtins.tryEval attrs.drvPath).success then
@@ -36,7 +39,8 @@ let
           trace path' (recurse path' v)
         ) attrs
     else
-      { };
+      { }
+    ;
 
 in
 recurse [ ] rel

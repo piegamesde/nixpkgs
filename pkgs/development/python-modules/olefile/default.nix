@@ -24,8 +24,8 @@ buildPythonPackage rec {
     description =
       "Python package to parse, read and write Microsoft OLE2 files";
     homepage = "https://www.decalage.info/python/olefileio";
-    # BSD2 + reference to Pillow
-    # http://olefile.readthedocs.io/en/latest/License.html
+      # BSD2 + reference to Pillow
+      # http://olefile.readthedocs.io/en/latest/License.html
     license = with licenses; [
       bsd2 # and
       hpnd

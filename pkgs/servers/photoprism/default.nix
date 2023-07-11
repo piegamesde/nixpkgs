@@ -29,7 +29,8 @@ let
     pkgs.callPackage ./backend.nix { inherit libtensorflow src version; };
   frontend = pkgs.callPackage ./frontend.nix { inherit src version; };
 
-  fetchModel = {
+  fetchModel =
+    {
       name,
       sha256,
     }:
@@ -37,7 +38,8 @@ let
       inherit sha256;
       url = "https://dl.photoprism.org/tensorflow/${name}.zip";
       stripRoot = false;
-    };
+    }
+    ;
 
   facenet = fetchModel {
     name = "facenet";

@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/share/pixmaps/soundux.png" "$out/share/pixmaps/soundux.png"
   '';
 
-  # We need to append /opt to our CMAKE_INSTALL_PREFIX
+    # We need to append /opt to our CMAKE_INSTALL_PREFIX
   dontAddPrefix = true;
 
   preConfigure = ''
@@ -110,9 +110,9 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
 
-  # Somehow some of the install destination paths in the build system still
-  # gets transformed to point to /var/empty/share, even though they are at least
-  # relative to the nix output directory with our earlier patching.
+    # Somehow some of the install destination paths in the build system still
+    # gets transformed to point to /var/empty/share, even though they are at least
+    # relative to the nix output directory with our earlier patching.
   postInstall = ''
     mv "$out/var/empty/share" "$out"
     rm -rf "$out/var"
@@ -122,28 +122,30 @@ stdenv.mkDerivation rec {
       --replace "/opt/soundux/soundux" "soundux"
   '';
 
-  postFixup = let
-    rpaths = lib.makeLibraryPath [
-      libwnck
-      pipewire
-      libpulseaudio
-    ];
-  in ''
-    # Wnck, PipeWire, and PulseAudio are dlopen-ed by Soundux, so they do
-    # not end up on the RPATH during the build process.
-    patchelf --add-rpath "${rpaths}" "$out/opt/soundux-${version}"
+  postFixup =
+    let
+      rpaths = lib.makeLibraryPath [
+        libwnck
+        pipewire
+        libpulseaudio
+      ];
+    in ''
+      # Wnck, PipeWire, and PulseAudio are dlopen-ed by Soundux, so they do
+      # not end up on the RPATH during the build process.
+      patchelf --add-rpath "${rpaths}" "$out/opt/soundux-${version}"
 
-    # Work around upstream bug https://github.com/Soundux/Soundux/issues/435
-    wrapProgram "$out/bin/soundux" \
-      --set WEBKIT_DISABLE_COMPOSITING_MODE 1 \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          yt-dlp
-          ffmpeg
-          lsb-release
-        ]
-      } \
-  '' ;
+      # Work around upstream bug https://github.com/Soundux/Soundux/issues/435
+      wrapProgram "$out/bin/soundux" \
+        --set WEBKIT_DISABLE_COMPOSITING_MODE 1 \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            yt-dlp
+            ffmpeg
+            lsb-release
+          ]
+        } \
+    ''
+    ;
 
   meta = with lib; {
     description = "A cross-platform soundboard.";

@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/dolbybcsoftwaredecode/";
     maintainers = with maintainers; [ lorenz ];
 
-    # Project is has source code available, but has no explicit license.
-    # I asked upstream to assign a license, so maybe this can be free
-    # in the future, but for now let's play it safe and make it unfree.
+      # Project is has source code available, but has no explicit license.
+      # I asked upstream to assign a license, so maybe this can be free
+      # in the future, but for now let's play it safe and make it unfree.
     license = lib.licenses.unfree;
   };
 }

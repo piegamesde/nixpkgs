@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pylint_plugin_utils" ];
 
-  # https://github.com/PyCQA/pylint-plugin-utils/issues/26
+    # https://github.com/PyCQA/pylint-plugin-utils/issues/26
   doCheck = false;
 
   meta = with lib; {

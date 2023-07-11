@@ -22,7 +22,7 @@ in {
 
   security.googleOsLogin.enable = true;
 
-  # Mock google service
+    # Mock google service
   networking.interfaces.lo.ipv4.addresses = [ {
     address = "169.254.169.254";
     prefixLength = 32;

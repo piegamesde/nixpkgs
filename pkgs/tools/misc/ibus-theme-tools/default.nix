@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     pygobject3
   ];
 
-  # No test.
+    # No test.
   doCheck = false;
 
   pythonImportsCheck = [ "ibus_theme_tools" ];

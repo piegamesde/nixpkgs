@@ -17,9 +17,9 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ setuptools-scm ];
-  #   nativeCheckInputs = [ backports ];
+    #   nativeCheckInputs = [ backports ];
 
-  # Requires backports package
+    # Requires backports package
   doCheck = false;
 
   nativeCheckInputs = [ unittestCheckHook ];

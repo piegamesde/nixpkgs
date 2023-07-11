@@ -51,9 +51,11 @@ in rec {
      topological sort of the depstrings.
   */
 
-  textClosureList = predefined: arg:
+  textClosureList =
+    predefined: arg:
     let
-      f = done: todo:
+      f =
+        done: todo:
         if todo == [ ] then
           {
             result = [ ];
@@ -76,23 +78,30 @@ in rec {
             f (done // listToAttrs [ {
               name = entry;
               value = 1;
-            } ]) ([ predefined.${entry} ] ++ tail todo);
+            } ]) ([ predefined.${entry} ] ++ tail todo)
+        ;
     in
     (f { } arg).result
-  ;
+    ;
 
-  textClosureMap = f: predefined: names:
-    concatStringsSep "\n" (map f (textClosureList predefined names));
+  textClosureMap =
+    f: predefined: names:
+    concatStringsSep "\n" (map f (textClosureList predefined names))
+    ;
 
-  noDepEntry = text: {
-    inherit text;
-    deps = [ ];
-  };
+  noDepEntry =
+    text: {
+      inherit text;
+      deps = [ ];
+    }
+    ;
   fullDepEntry = text: deps: { inherit text deps; };
-  packEntry = deps: {
-    inherit deps;
-    text = "";
-  };
+  packEntry =
+    deps: {
+      inherit deps;
+      text = "";
+    }
+    ;
 
   stringAfter = deps: text: { inherit text deps; };
 

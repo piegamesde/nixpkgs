@@ -47,19 +47,21 @@ let
         penlight
         inspect
       ]));
-  codegenLua = if lua.pkgs.isLuaJIT then
-    let
-      deterministicLuajit = lua.override {
-        deterministicStringIds = true;
-        self = deterministicLuajit;
-      };
-    in
-    deterministicLuajit.withPackages (ps: [
-      ps.mpack
-      ps.lpeg
-    ])
-  else
-    lua;
+  codegenLua =
+    if lua.pkgs.isLuaJIT then
+      let
+        deterministicLuajit = lua.override {
+          deterministicStringIds = true;
+          self = deterministicLuajit;
+        };
+      in
+      deterministicLuajit.withPackages (ps: [
+        ps.mpack
+        ps.lpeg
+      ])
+    else
+      lua
+    ;
 
   pyEnv = python3.withPackages (ps:
     with ps; [
@@ -128,20 +130,20 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  # extra programs test via `make functionaltest`
+    # extra programs test via `make functionaltest`
   nativeCheckInputs = [
     fish
     nodejs
     pyEnv # for src/clint.py
   ];
 
-  # nvim --version output retains compilation flags and references to build tools
+    # nvim --version output retains compilation flags and references to build tools
   postPatch = ''
     substituteInPlace src/nvim/version.c --replace NVIM_VERSION_CFLAGS "";
   '';
-  # check that the above patching actually works
-  disallowedReferences = [ stdenv.cc ]
-    ++ lib.optional (lua != codegenLua) codegenLua;
+    # check that the above patching actually works
+  disallowedReferences =
+    [ stdenv.cc ] ++ lib.optional (lua != codegenLua) codegenLua;
 
   cmakeFlags = [
     # Don't use downloaded dependencies. At the end of the configurePhase one
@@ -189,11 +191,11 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.neovim.io";
     mainProgram = "nvim";
-    # "Contributions committed before b17d96 by authors who did not sign the
-    # Contributor License Agreement (CLA) remain under the Vim license.
-    # Contributions committed after b17d96 are licensed under Apache 2.0 unless
-    # those contributions were copied from Vim (identified in the commit logs
-    # by the vim-patch token). See LICENSE for details."
+      # "Contributions committed before b17d96 by authors who did not sign the
+      # Contributor License Agreement (CLA) remain under the Vim license.
+      # Contributions committed after b17d96 are licensed under Apache 2.0 unless
+      # those contributions were copied from Vim (identified in the commit logs
+      # by the vim-patch token). See LICENSE for details."
     license = with licenses; [
       asl20
       vim

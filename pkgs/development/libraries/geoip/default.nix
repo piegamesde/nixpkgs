@@ -12,10 +12,12 @@
 }:
 
 let
-  dataDir = if lib.isDerivation geoipDatabase then
-    "${toString geoipDatabase}/share/GeoIP"
-  else
-    geoipDatabase;
+  dataDir =
+    if lib.isDerivation geoipDatabase then
+      "${toString geoipDatabase}/share/GeoIP"
+    else
+      geoipDatabase
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -31,13 +33,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  # Cross compilation shenanigans
+    # Cross compilation shenanigans
   configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "ac_cv_func_malloc_0_nonnull=yes"
     "ac_cv_func_realloc_0_nonnull=yes"
   ];
 
-  # Fix up the default data directory
+    # Fix up the default data directory
   postConfigure = ''
     find . -name Makefile.in -exec sed -i -r 's#^pkgdatadir\s*=.+$#pkgdatadir = ${dataDir}#' {} \;
   '';

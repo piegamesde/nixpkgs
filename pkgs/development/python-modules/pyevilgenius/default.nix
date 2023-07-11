@@ -26,7 +26,7 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-  # Project has no test
+    # Project has no test
   doCheck = false;
 
   pythonImportsCheck = [ "pyevilgenius" ];
@@ -35,7 +35,8 @@ buildPythonPackage rec {
     description = "Python SDK to interact with Evil Genius Labs devices";
     homepage = "https://github.com/home-assistant-libs/pyevilgenius";
     changelog =
-      "https://github.com/home-assistant-libs/pyevilgenius/releases/tag/${version}";
+      "https://github.com/home-assistant-libs/pyevilgenius/releases/tag/${version}"
+      ;
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

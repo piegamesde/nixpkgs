@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   buildInputs = [ sphinx ];
 
-  # fails to import sphinxcontrib.serializinghtml
+    # fails to import sphinxcontrib.serializinghtml
   doCheck = false;
 
   pythonImportsCheck = [ "sphinxcontrib.programoutput" ];

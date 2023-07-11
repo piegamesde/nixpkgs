@@ -47,7 +47,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      server = {
+      server =
+        {
           pkgs,
           ...
         }: {
@@ -79,7 +80,7 @@ import ./make-test-python.nix ({
                 one_file_system = true;
               };
 
-              # This gets overridden by rcloneConfig.type
+                # This gets overridden by rcloneConfig.type
               rcloneConfigFile = pkgs.writeText "rclone.conf" ''
                 [local]
                 type=ftp
@@ -103,7 +104,8 @@ import ./make-test-python.nix ({
           };
 
           environment.sessionVariables.RCLONE_CONFIG_LOCAL_TYPE = "local";
-        };
+        }
+        ;
     };
 
     testScript = ''

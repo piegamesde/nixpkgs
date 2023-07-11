@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-l7GUA+vlSECi/72eU3Y9COpGtLTRh3vYcHUi+uRkCn8=";
   };
 
-  # remove the -arch flags which are set by default in the build
+    # remove the -arch flags which are set by default in the build
   configureFlags = lib.optionals stdenv.isDarwin [ ''
     --with-archflags="-mmacosx-version-min=10.14"'' ];
 

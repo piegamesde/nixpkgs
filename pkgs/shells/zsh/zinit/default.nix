@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-B+cTGz+U8MR22l6xXdRAAjDr+ulCk+CJ9GllFMK0axE=";
   };
-  # adapted from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=zsh-zplugin-git
+    # adapted from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=zsh-zplugin-git
   dontBuild = true;
   strictDeps = true;
   nativeBuildInputs = [ installShellFiles ];
@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
     # find zmodules/ -type f -exec install -m 744 "{}" "$outdir/{}" \;
 
   '';
-  #TODO:doc output
+    #TODO:doc output
 
   meta = with lib; {
     homepage = "https://github.com/zdharma-continuum/zinit";

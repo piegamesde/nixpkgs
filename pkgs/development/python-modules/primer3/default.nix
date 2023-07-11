@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ] ++ lib.optionals stdenv.isDarwin [ gcc ];
 
-  # pytestCheckHook leads to a circular import issue
+    # pytestCheckHook leads to a circular import issue
   nativeCheckInputs = [ click ];
 
   pythonImportsCheck = [ "primer3" ];

@@ -23,6 +23,6 @@ stdenv.mkDerivation {
     cp -r *.app $out/Applications
   '';
 
-  # 1Password is notarized.
+    # 1Password is notarized.
   dontFixup = true;
 }

@@ -46,7 +46,7 @@ let
   # Python used for KLEE tests.
   kleePython = python3.withPackages (ps: with ps; [ tabulate ]);
 
-  # The klee-uclibc derivation.
+    # The klee-uclibc derivation.
   kleeuClibc = callPackage ./klee-uclibc.nix {
     inherit stdenv clang llvm extraKleeuClibcConfig debugRuntime runtimeAsserts;
   };
@@ -86,40 +86,44 @@ stdenv.mkDerivation rec {
     (lit.override { python = kleePython; })
   ];
 
-  cmakeFlags = let
-    onOff = val:
-      if val then
-        "ON"
-      else
-        "OFF";
-  in [
-    "-DCMAKE_BUILD_TYPE=${
-      if debug then
-        "Debug"
-      else if !debug && includeDebugInfo then
-        "RelWithDebInfo"
-      else
-        "MinSizeRel"
-    }"
-    "-DKLEE_RUNTIME_BUILD_TYPE=${
-      if debugRuntime then
-        "Debug"
-      else
-        "Release"
-    }"
-    "-DKLEE_ENABLE_TIMESTAMP=${onOff false}"
-    "-DENABLE_KLEE_UCLIBC=${onOff true}"
-    "-DKLEE_UCLIBC_PATH=${kleeuClibc}"
-    "-DENABLE_KLEE_ASSERTS=${onOff asserts}"
-    "-DENABLE_POSIX_RUNTIME=${onOff true}"
-    "-DENABLE_UNIT_TESTS=${onOff true}"
-    "-DENABLE_SYSTEM_TESTS=${onOff true}"
-    "-DGTEST_SRC_DIR=${gtest.src}"
-    "-DGTEST_INCLUDE_DIR=${gtest.src}/googletest/include"
-    "-Wno-dev"
-  ] ;
+  cmakeFlags =
+    let
+      onOff =
+        val:
+        if val then
+          "ON"
+        else
+          "OFF"
+        ;
+    in [
+      "-DCMAKE_BUILD_TYPE=${
+        if debug then
+          "Debug"
+        else if !debug && includeDebugInfo then
+          "RelWithDebInfo"
+        else
+          "MinSizeRel"
+      }"
+      "-DKLEE_RUNTIME_BUILD_TYPE=${
+        if debugRuntime then
+          "Debug"
+        else
+          "Release"
+      }"
+      "-DKLEE_ENABLE_TIMESTAMP=${onOff false}"
+      "-DENABLE_KLEE_UCLIBC=${onOff true}"
+      "-DKLEE_UCLIBC_PATH=${kleeuClibc}"
+      "-DENABLE_KLEE_ASSERTS=${onOff asserts}"
+      "-DENABLE_POSIX_RUNTIME=${onOff true}"
+      "-DENABLE_UNIT_TESTS=${onOff true}"
+      "-DENABLE_SYSTEM_TESTS=${onOff true}"
+      "-DGTEST_SRC_DIR=${gtest.src}"
+      "-DGTEST_INCLUDE_DIR=${gtest.src}/googletest/include"
+      "-Wno-dev"
+    ]
+    ;
 
-  # Silence various warnings during the compilation of fortified bitcode.
+    # Silence various warnings during the compilation of fortified bitcode.
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-macro-redefined" ];
 
   prePatch = ''

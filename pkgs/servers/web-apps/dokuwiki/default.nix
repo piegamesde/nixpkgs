@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    combine = {
+    combine =
+      {
         basePackage ? dokuwiki,
         plugins ? [ ],
         templates ? [ ],
@@ -67,17 +68,21 @@ stdenv.mkDerivation rec {
         pname ? (p: "${p.pname}-combined")
       }:
       let
-        isNotEmpty = x:
+        isNotEmpty =
+          x:
           lib.optionalString (!builtins.elem x [
             null
             ""
-          ]);
+          ])
+          ;
       in
       basePackage.overrideAttrs (prev: {
-        pname = if builtins.isFunction pname then
-          pname prev
-        else
-          pname;
+        pname =
+          if builtins.isFunction pname then
+            pname prev
+          else
+            pname
+          ;
 
         postInstall = prev.postInstall or "" + ''
           ${lib.concatMapStringsSep "\n"
@@ -95,13 +100,14 @@ stdenv.mkDerivation rec {
           "ln -sf ${aclConfig} $out/share/dokuwiki/acl.auth.php"}
         '';
       })
-    ;
+      ;
     tests = { inherit (nixosTests) dokuwiki; };
   };
 
   meta = with lib; {
     description =
-      "Simple to use and highly versatile Open Source wiki software that doesn't require a database";
+      "Simple to use and highly versatile Open Source wiki software that doesn't require a database"
+      ;
     license = licenses.gpl2;
     homepage = "https://www.dokuwiki.org";
     platforms = platforms.all;

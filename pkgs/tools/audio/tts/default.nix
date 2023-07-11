@@ -25,34 +25,37 @@ python.pkgs.buildPythonApplication rec {
   patches = [ (fetchpatch {
     # upgrade librosa to 0.10.0
     url =
-      "https://github.com/coqui-ai/TTS/commit/4c829e74a1399ab083b566a70c1b7e879eda6e1e.patch";
+      "https://github.com/coqui-ai/TTS/commit/4c829e74a1399ab083b566a70c1b7e879eda6e1e.patch"
+      ;
     hash = "sha256-QP9AnMbdEpGJywiZBreojHUjq29ihqy6HxvUtS5OKvQ=";
     excludes = [ "requirements.txt" ];
   }) ];
 
-  postPatch = let
-    relaxedConstraints = [
-      "cython"
-      "gruut"
-      "inflect"
-      "librosa"
-      "mecab-python3"
-      "numba"
-      "numpy"
-      "unidic-lite"
-      "trainer"
-    ];
-  in ''
-    sed -r -i \
-      ${
-        lib.concatStringsSep "\n"
-        (map (package: "-e 's/${package}.*[<>=]+.*/${package}/g' \\")
-          relaxedConstraints)
-      }
-    requirements.txt
-    # only used for notebooks and visualization
-    sed -r -i -e '/umap-learn/d' requirements.txt
-  '' ;
+  postPatch =
+    let
+      relaxedConstraints = [
+        "cython"
+        "gruut"
+        "inflect"
+        "librosa"
+        "mecab-python3"
+        "numba"
+        "numpy"
+        "unidic-lite"
+        "trainer"
+      ];
+    in ''
+      sed -r -i \
+        ${
+          lib.concatStringsSep "\n"
+          (map (package: "-e 's/${package}.*[<>=]+.*/${package}/g' \\")
+            relaxedConstraints)
+        }
+      requirements.txt
+      # only used for notebooks and visualization
+      sed -r -i -e '/umap-learn/d' requirements.txt
+    ''
+    ;
 
   nativeBuildInputs = with python.pkgs; [
     cython
@@ -99,7 +102,7 @@ python.pkgs.buildPythonApplication rec {
     )
   '';
 
-  # tests get stuck when run in nixpkgs-review, tested in passthru
+    # tests get stuck when run in nixpkgs-review, tested in passthru
   doCheck = false;
   passthru.tests.pytest = tts.overridePythonAttrs (_: { doCheck = true; });
 
@@ -182,7 +185,8 @@ python.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/coqui-ai/TTS";
     changelog = "https://github.com/coqui-ai/TTS/releases/tag/v${version}";
     description =
-      "Deep learning toolkit for Text-to-Speech, battle-tested in research and production";
+      "Deep learning toolkit for Text-to-Speech, battle-tested in research and production"
+      ;
     license = licenses.mpl20;
     maintainers = teams.tts.members;
   };

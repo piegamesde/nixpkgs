@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ protobuf ];
 
-  # uses currently unstable tokio features
+    # uses currently unstable tokio features
   RUSTFLAGS = "--cfg tokio_unstable";
 
   checkFlags = [

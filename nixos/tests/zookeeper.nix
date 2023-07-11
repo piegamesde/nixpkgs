@@ -16,13 +16,15 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           services.zookeeper = { enable = true; };
 
           networking.firewall.allowedTCPPorts = [ 2181 ];
-        };
+        }
+        ;
     };
 
     testScript = ''

@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage {
   LIBCLANG_PATH = "${libclang.lib}/lib";
   EXECSNOOP_PATH = "${bcc}/bin/execsnoop";
 
-  # tests don't build
+    # tests don't build
   doCheck = false;
 
   postInstall = ''

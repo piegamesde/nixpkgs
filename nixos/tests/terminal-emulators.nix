@@ -23,11 +23,14 @@ with pkgs.lib;
 
 let
   tests = {
-    alacritty.pkg = p: p.alacritty;
+    alacritty.pkg =
+      p:
+      p.alacritty
+      ;
 
-    # times out after spending many hours
-    #contour.pkg = p: p.contour;
-    #contour.cmd = "contour $command";
+      # times out after spending many hours
+      #contour.pkg = p: p.contour;
+      #contour.cmd = "contour $command";
 
     cool-retro-term.pkg = p: p.cool-retro-term;
     cool-retro-term.colourTest = false; # broken by gloss effect
@@ -65,8 +68,8 @@ let
     lxterminal.pkg = p: p.lxterminal;
 
     mate-terminal.pkg = p: p.mate.mate-terminal;
-    mate-terminal.cmd =
-      "SHELL=$command mate-terminal --disable-factory"; # factory mode uses dbus, and we don't have a proper dbus session set up
+    mate-terminal.cmd = "SHELL=$command mate-terminal --disable-factory"
+      ; # factory mode uses dbus, and we don't have a proper dbus session set up
 
     mlterm.pkg = p: p.mlterm;
 
@@ -107,8 +110,8 @@ let
     wayst.pkg = p: p.wayst;
     wayst.pinkValue = "#FF0066";
 
-    # times out after spending many hours
-    #wezterm.pkg = p: p.wezterm;
+      # times out after spending many hours
+      #wezterm.pkg = p: p.wezterm;
 
     xfce4-terminal.pkg = p: p.xfce.xfce4-terminal;
 
@@ -128,7 +131,8 @@ mapAttrs (name:
     name = "terminal-emulator-${name}";
     meta = with pkgs.lib.maintainers; { maintainers = [ jjjollyjim ]; };
 
-    machine = {
+    machine =
+      {
         pkgsInner,
         ...
       }:
@@ -139,7 +143,7 @@ mapAttrs (name:
           ./common/user-account.nix
         ];
 
-        # Hyper (and any other electron-based terminals) won't run as root
+          # Hyper (and any other electron-based terminals) won't run as root
         test-support.displayManager.auto.user = "alice";
 
         environment.systemPackages = [
@@ -170,18 +174,21 @@ mapAttrs (name:
             ''command="$(which "$1")"; ${cmd}'')
         ];
 
-        # Helpful reminder to add this test to passthru.tests
+          # Helpful reminder to add this test to passthru.tests
         warnings =
           if !((pkg pkgs) ? "passthru" && (pkg pkgs).passthru ? "tests") then
             [ "The package for ${name} doesn't have a passthru.tests" ]
           else
-            [ ];
-      };
+            [ ]
+          ;
+      }
+      ;
 
-    # We need imagemagick, though not tesseract
+      # We need imagemagick, though not tesseract
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -235,7 +242,8 @@ mapAttrs (name:
 
               with machine.nested("Waiting for the screen to have pink on it:"):
                   retry(check_for_pink)
-        ''}'' ;
+        ''}''
+      ;
   }
 
 ) tests

@@ -59,7 +59,8 @@ buildPythonPackage rec {
       "Python's missing debug print command and other development tools";
     homepage = "https://python-devtools.helpmanual.io/";
     changelog =
-      "https://github.com/samuelcolvin/python-devtools/releases/tag/v${version}";
+      "https://github.com/samuelcolvin/python-devtools/releases/tag/v${version}"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ jdahm ];
   };

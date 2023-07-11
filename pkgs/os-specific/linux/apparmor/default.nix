@@ -36,7 +36,8 @@
 let
   apparmor-version = "3.1.3";
 
-  apparmor-meta = component:
+  apparmor-meta =
+    component:
     with lib; {
       homepage = "https://apparmor.net/";
       description = "A mandatory access control system - ${component}";
@@ -46,7 +47,8 @@ let
         thoughtpolice
       ];
       platforms = platforms.linux;
-    };
+    }
+    ;
 
   apparmor-sources = fetchFromGitLab {
     owner = "apparmor";
@@ -80,18 +82,19 @@ let
 
   patches = lib.optionals stdenv.hostPlatform.isMusl [ (fetchpatch {
     url =
-      "https://git.alpinelinux.org/aports/plain/testing/apparmor/0003-Added-missing-typedef-definitions-on-parser.patch?id=74b8427cc21f04e32030d047ae92caa618105b53";
+      "https://git.alpinelinux.org/aports/plain/testing/apparmor/0003-Added-missing-typedef-definitions-on-parser.patch?id=74b8427cc21f04e32030d047ae92caa618105b53"
+      ;
     name = "0003-Added-missing-typedef-definitions-on-parser.patch";
     sha256 = "0yyaqz8jlmn1bm37arggprqz0njb4lhjni2d9c8qfqj0kll0bam0";
   }) ];
 
   python = python3.withPackages (ps: with ps; [ setuptools ]);
 
-  # Set to `true` after the next FIXME gets fixed or this gets some
-  # common derivation infra. Too much copy-paste to fix one by one.
+    # Set to `true` after the next FIXME gets fixed or this gets some
+    # common derivation infra. Too much copy-paste to fix one by one.
   doCheck = false;
 
-  # FIXME: convert these to a single multiple-outputs package?
+    # FIXME: convert these to a single multiple-outputs package?
 
   libapparmor = stdenv.mkDerivation {
     pname = "libapparmor";
@@ -99,9 +102,9 @@ let
 
     src = apparmor-sources;
 
-    # checking whether python bindings are enabled... yes
-    # checking for python3... no
-    # configure: error: python is required when enabling python bindings
+      # checking whether python bindings are enabled... yes
+      # checking for python3... no
+      # configure: error: python is required when enabling python bindings
     strictDeps = false;
 
     nativeBuildInputs = [
@@ -118,7 +121,7 @@ let
     buildInputs = [ libxcrypt ] ++ lib.optional withPerl perl
       ++ lib.optional withPython python;
 
-    # required to build apparmor-parser
+      # required to build apparmor-parser
     dontDisableStatic = true;
 
     prePatch = prePatchCommon + ''
@@ -130,7 +133,7 @@ let
       cd ./libraries/libapparmor
     '';
 
-    # https://gitlab.com/apparmor/apparmor/issues/1
+      # https://gitlab.com/apparmor/apparmor/issues/1
     configureFlags = [
       (lib.withFeature withPerl "perl")
       (lib.withFeature withPython "python")
@@ -361,10 +364,10 @@ let
     meta = apparmor-meta "kernel patches";
   };
 
-  # Generate generic AppArmor rules in a file, from the closure of given
-  # rootPaths. To be included in an AppArmor profile like so:
-  #
-  #   include "${apparmorRulesFromClosure { } [ pkgs.hello ]}"
+    # Generate generic AppArmor rules in a file, from the closure of given
+    # rootPaths. To be included in an AppArmor profile like so:
+    #
+    #   include "${apparmorRulesFromClosure { } [ pkgs.hello ]}"
   apparmorRulesFromClosure =
     { # The store path of the derivation is given in $path
       additionalRules ? [ ]
@@ -394,7 +397,8 @@ let
         (baseRules ++ additionalRules)
       }
       done <${closureInfo { inherit rootPaths; }}/store-paths
-    '';
+    ''
+    ;
 in {
   inherit
     libapparmor

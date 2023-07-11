@@ -28,16 +28,17 @@ buildPythonPackage rec {
     coverage
   ];
 
-  # test_prefixedWhitespace fails due to a python3 StringIO issue requiring
-  # bytes rather than str
+    # test_prefixedWhitespace fails due to a python3 StringIO issue requiring
+    # bytes rather than str
   checkPhase = ''
     nosetests -e 'test_prefixedWhitespace'
   '';
 
   meta = with lib; {
     homepage = "https://github.com/metagriffin/pxml";
-    description = ''
-      A python library and command-line tool to "prettify" and colorize XML.'';
+    description =
+      ''A python library and command-line tool to "prettify" and colorize XML.''
+      ;
     maintainers = with maintainers; [ glittershark ];
     license = licenses.gpl3;
   };

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  # https://github.com/nats-io/nats.c/issues/542
+    # https://github.com/nats-io/nats.c/issues/542
   postPatch = ''
     substituteInPlace src/libnats.pc.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@

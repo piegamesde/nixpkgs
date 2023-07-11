@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyftdi ];
 
-  # tests are not shipped with the PyPI source
+    # tests are not shipped with the PyPI source
   doCheck = false;
 
   pythonImportsCheck = [ "i2cflash" ];

@@ -7,7 +7,8 @@ args@{
   version = "css-selectors-20160628-git";
 
   description =
-    "An implementation of css selectors that interacts with cl-html5-parser's simple-tree";
+    "An implementation of css selectors that interacts with cl-html5-parser's simple-tree"
+    ;
 
   deps = [
     args."alexandria"
@@ -38,7 +39,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/css-selectors/2016-06-28/css-selectors-20160628-git.tgz";
+      "http://beta.quicklisp.org/archive/css-selectors/2016-06-28/css-selectors-20160628-git.tgz"
+      ;
     sha256 = "0y9q719w5cv4g7in731q5p98n7pznb05vr7i7wi92mmpah2g1w4b";
   };
 

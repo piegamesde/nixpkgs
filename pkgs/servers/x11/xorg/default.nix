@@ -42,7 +42,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   bdftopcf = callPackage ({
       stdenv,
       pkg-config,
@@ -55,7 +55,8 @@ with self; {
       builder = ./builder.sh;
       src = fetchurl {
         url =
-          "https://xorg.freedesktop.org/archive/individual/util/bdftopcf-1.1.1.tar.xz";
+          "https://xorg.freedesktop.org/archive/individual/util/bdftopcf-1.1.1.tar.xz"
+          ;
         sha256 = "026rzs92h9jsc7r0kvvyvwhm22q0805gp38rs14x6ghg7kam7j8i";
       };
       hardeningDisable = [
@@ -68,7 +69,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   bitmap = callPackage ({
       stdenv,
       pkg-config,
@@ -109,7 +110,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   editres = callPackage ({
       stdenv,
       pkg-config,
@@ -148,7 +149,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   encodings = callPackage ({
       stdenv,
       pkg-config,
@@ -176,7 +177,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobe100dpi = callPackage ({
       stdenv,
       pkg-config,
@@ -207,11 +208,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobe75dpi = callPackage ({
       stdenv,
       pkg-config,
@@ -242,11 +244,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopia100dpi = callPackage ({
       stdenv,
       pkg-config,
@@ -261,7 +264,8 @@ with self; {
       builder = ./builder.sh;
       src = fetchurl {
         url =
-          "mirror://xorg/individual/font/font-adobe-utopia-100dpi-1.0.4.tar.bz2";
+          "mirror://xorg/individual/font/font-adobe-utopia-100dpi-1.0.4.tar.bz2"
+          ;
         sha256 = "19dd9znam1ah72jmdh7i6ny2ss2r6m21z9v0l43xvikw48zmwvyi";
       };
       hardeningDisable = [
@@ -278,11 +282,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopia75dpi = callPackage ({
       stdenv,
       pkg-config,
@@ -314,11 +319,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopiatype1 = callPackage ({
       stdenv,
       pkg-config,
@@ -347,11 +353,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontalias = callPackage ({
       stdenv,
       pkg-config,
@@ -375,7 +382,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontarabicmisc = callPackage ({
       stdenv,
       pkg-config,
@@ -405,11 +412,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbh100dpi = callPackage ({
       stdenv,
       pkg-config,
@@ -440,11 +448,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbh75dpi = callPackage ({
       stdenv,
       pkg-config,
@@ -475,11 +484,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhlucidatypewriter100dpi = callPackage ({
       stdenv,
       pkg-config,
@@ -494,7 +504,8 @@ with self; {
       builder = ./builder.sh;
       src = fetchurl {
         url =
-          "mirror://xorg/individual/font/font-bh-lucidatypewriter-100dpi-1.0.3.tar.bz2";
+          "mirror://xorg/individual/font/font-bh-lucidatypewriter-100dpi-1.0.3.tar.bz2"
+          ;
         sha256 = "1fqzckxdzjv4802iad2fdrkpaxl4w0hhs9lxlkyraq2kq9ik7a32";
       };
       hardeningDisable = [
@@ -511,11 +522,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhlucidatypewriter75dpi = callPackage ({
       stdenv,
       pkg-config,
@@ -530,7 +542,8 @@ with self; {
       builder = ./builder.sh;
       src = fetchurl {
         url =
-          "mirror://xorg/individual/font/font-bh-lucidatypewriter-75dpi-1.0.3.tar.bz2";
+          "mirror://xorg/individual/font/font-bh-lucidatypewriter-75dpi-1.0.3.tar.bz2"
+          ;
         sha256 = "0cfbxdp5m12cm7jsh3my0lym9328cgm7fa9faz2hqj05wbxnmhaa";
       };
       hardeningDisable = [
@@ -547,11 +560,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhttf = callPackage ({
       stdenv,
       pkg-config,
@@ -579,11 +593,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhtype1 = callPackage ({
       stdenv,
       pkg-config,
@@ -611,11 +626,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstream100dpi = callPackage ({
       stdenv,
       pkg-config,
@@ -646,11 +662,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstream75dpi = callPackage ({
       stdenv,
       pkg-config,
@@ -681,11 +698,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstreamtype1 = callPackage ({
       stdenv,
       pkg-config,
@@ -714,11 +732,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontcronyxcyrillic = callPackage ({
       stdenv,
       pkg-config,
@@ -749,11 +768,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontcursormisc = callPackage ({
       stdenv,
       pkg-config,
@@ -783,11 +803,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontdaewoomisc = callPackage ({
       stdenv,
       pkg-config,
@@ -817,11 +838,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontdecmisc = callPackage ({
       stdenv,
       pkg-config,
@@ -851,11 +873,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontibmtype1 = callPackage ({
       stdenv,
       pkg-config,
@@ -883,11 +906,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontisasmisc = callPackage ({
       stdenv,
       pkg-config,
@@ -917,11 +941,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontjismisc = callPackage ({
       stdenv,
       pkg-config,
@@ -951,11 +976,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmicromisc = callPackage ({
       stdenv,
       pkg-config,
@@ -985,11 +1011,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmisccyrillic = callPackage ({
       stdenv,
       pkg-config,
@@ -1019,11 +1046,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscethiopic = callPackage ({
       stdenv,
       pkg-config,
@@ -1051,11 +1079,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscmeltho = callPackage ({
       stdenv,
       pkg-config,
@@ -1083,11 +1112,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscmisc = callPackage ({
       stdenv,
       pkg-config,
@@ -1118,11 +1148,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmuttmisc = callPackage ({
       stdenv,
       pkg-config,
@@ -1152,11 +1183,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontschumachermisc = callPackage ({
       stdenv,
       pkg-config,
@@ -1188,11 +1220,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontscreencyrillic = callPackage ({
       stdenv,
       pkg-config,
@@ -1223,11 +1256,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontsonymisc = callPackage ({
       stdenv,
       pkg-config,
@@ -1257,11 +1291,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontsunmisc = callPackage ({
       stdenv,
       pkg-config,
@@ -1291,11 +1326,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fonttosfnt = callPackage ({
       stdenv,
       pkg-config,
@@ -1326,7 +1362,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontutil = callPackage ({
       stdenv,
       pkg-config,
@@ -1350,7 +1386,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontwinitzkicyrillic = callPackage ({
       stdenv,
       pkg-config,
@@ -1381,11 +1417,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontxfree86type1 = callPackage ({
       stdenv,
       pkg-config,
@@ -1413,11 +1450,12 @@ with self; {
       buildInputs = [ fontutil ];
       configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
       postPatch =
-        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+        "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' "
+        ;
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   gccmakedep = callPackage ({
       stdenv,
       pkg-config,
@@ -1441,7 +1479,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   iceauth = callPackage ({
       stdenv,
       pkg-config,
@@ -1470,7 +1508,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   ico = callPackage ({
       stdenv,
       pkg-config,
@@ -1499,7 +1537,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   imake = callPackage ({
       stdenv,
       pkg-config,
@@ -1524,7 +1562,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libAppleWM = callPackage ({
       stdenv,
       pkg-config,
@@ -1555,7 +1593,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libFS = callPackage ({
       stdenv,
       pkg-config,
@@ -1584,7 +1622,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libICE = callPackage ({
       stdenv,
       pkg-config,
@@ -1613,7 +1651,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libSM = callPackage ({
       stdenv,
       pkg-config,
@@ -1646,7 +1684,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libWindowsWM = callPackage ({
       stdenv,
       pkg-config,
@@ -1677,7 +1715,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libX11 = callPackage ({
       stdenv,
       pkg-config,
@@ -1710,7 +1748,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXScrnSaver = callPackage ({
       stdenv,
       pkg-config,
@@ -1741,7 +1779,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXTrap = callPackage ({
       stdenv,
       pkg-config,
@@ -1774,7 +1812,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXau = callPackage ({
       stdenv,
       pkg-config,
@@ -1799,7 +1837,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXaw = callPackage ({
       stdenv,
       pkg-config,
@@ -1836,7 +1874,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXcomposite = callPackage ({
       stdenv,
       pkg-config,
@@ -1867,7 +1905,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXcursor = callPackage ({
       stdenv,
       pkg-config,
@@ -1900,7 +1938,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXdamage = callPackage ({
       stdenv,
       pkg-config,
@@ -1931,7 +1969,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXdmcp = callPackage ({
       stdenv,
       pkg-config,
@@ -1956,7 +1994,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXext = callPackage ({
       stdenv,
       pkg-config,
@@ -1985,7 +2023,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfixes = callPackage ({
       stdenv,
       pkg-config,
@@ -2014,7 +2052,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfont = callPackage ({
       stdenv,
       pkg-config,
@@ -2049,7 +2087,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfont2 = callPackage ({
       stdenv,
       pkg-config,
@@ -2084,7 +2122,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXft = callPackage ({
       stdenv,
       pkg-config,
@@ -2119,7 +2157,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXi = callPackage ({
       stdenv,
       pkg-config,
@@ -2152,7 +2190,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXinerama = callPackage ({
       stdenv,
       pkg-config,
@@ -2183,7 +2221,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXmu = callPackage ({
       stdenv,
       pkg-config,
@@ -2216,7 +2254,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXp = callPackage ({
       stdenv,
       pkg-config,
@@ -2249,7 +2287,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXpm = callPackage ({
       stdenv,
       pkg-config,
@@ -2286,7 +2324,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXpresent = callPackage ({
       stdenv,
       pkg-config,
@@ -2315,7 +2353,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXrandr = callPackage ({
       stdenv,
       pkg-config,
@@ -2348,7 +2386,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXrender = callPackage ({
       stdenv,
       pkg-config,
@@ -2377,7 +2415,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXres = callPackage ({
       stdenv,
       pkg-config,
@@ -2408,7 +2446,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXt = callPackage ({
       stdenv,
       pkg-config,
@@ -2441,7 +2479,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXtst = callPackage ({
       stdenv,
       pkg-config,
@@ -2474,7 +2512,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXv = callPackage ({
       stdenv,
       pkg-config,
@@ -2505,7 +2543,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXvMC = callPackage ({
       stdenv,
       pkg-config,
@@ -2538,7 +2576,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86dga = callPackage ({
       stdenv,
       pkg-config,
@@ -2569,7 +2607,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86misc = callPackage ({
       stdenv,
       pkg-config,
@@ -2600,7 +2638,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86vm = callPackage ({
       stdenv,
       pkg-config,
@@ -2631,7 +2669,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libdmx = callPackage ({
       stdenv,
       pkg-config,
@@ -2662,7 +2700,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libfontenc = callPackage ({
       stdenv,
       pkg-config,
@@ -2691,7 +2729,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libpciaccess = callPackage ({
       stdenv,
       pkg-config,
@@ -2721,7 +2759,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libpthreadstubs = callPackage ({
       stdenv,
       pkg-config,
@@ -2745,7 +2783,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxcb = callPackage ({
       stdenv,
       pkg-config,
@@ -2784,7 +2822,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxcvt = callPackage ({
       stdenv,
       pkg-config,
@@ -2814,7 +2852,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxkbfile = callPackage ({
       stdenv,
       pkg-config,
@@ -2843,7 +2881,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxshmfence = callPackage ({
       stdenv,
       pkg-config,
@@ -2868,7 +2906,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   listres = callPackage ({
       stdenv,
       pkg-config,
@@ -2901,7 +2939,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   lndir = callPackage ({
       stdenv,
       pkg-config,
@@ -2926,7 +2964,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   luit = callPackage ({
       stdenv,
       pkg-config,
@@ -2950,7 +2988,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   makedepend = callPackage ({
       stdenv,
       pkg-config,
@@ -2975,7 +3013,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   mkfontscale = callPackage ({
       stdenv,
       pkg-config,
@@ -3008,7 +3046,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   oclock = callPackage ({
       stdenv,
       pkg-config,
@@ -3047,7 +3085,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   sessreg = callPackage ({
       stdenv,
       pkg-config,
@@ -3072,7 +3110,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   setxkbmap = callPackage ({
       stdenv,
       pkg-config,
@@ -3101,7 +3139,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   smproxy = callPackage ({
       stdenv,
       pkg-config,
@@ -3134,7 +3172,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   transset = callPackage ({
       stdenv,
       pkg-config,
@@ -3163,7 +3201,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   twm = callPackage ({
       stdenv,
       pkg-config,
@@ -3202,7 +3240,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   utilmacros = callPackage ({
       stdenv,
       pkg-config,
@@ -3226,7 +3264,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   viewres = callPackage ({
       stdenv,
       pkg-config,
@@ -3261,7 +3299,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   x11perf = callPackage ({
       stdenv,
       pkg-config,
@@ -3298,7 +3336,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xauth = callPackage ({
       stdenv,
       pkg-config,
@@ -3333,7 +3371,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xbacklight = callPackage ({
       stdenv,
       pkg-config,
@@ -3362,7 +3400,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xbitmaps = callPackage ({
       stdenv,
       pkg-config,
@@ -3386,7 +3424,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcalc = callPackage ({
       stdenv,
       pkg-config,
@@ -3423,7 +3461,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbproto = callPackage ({
       stdenv,
       pkg-config,
@@ -3451,7 +3489,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutil = callPackage ({
       stdenv,
       pkg-config,
@@ -3486,7 +3524,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilcursor = callPackage ({
       stdenv,
       pkg-config,
@@ -3525,7 +3563,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilerrors = callPackage ({
       stdenv,
       pkg-config,
@@ -3564,7 +3602,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilimage = callPackage ({
       stdenv,
       pkg-config,
@@ -3601,7 +3639,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilkeysyms = callPackage ({
       stdenv,
       pkg-config,
@@ -3636,7 +3674,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilrenderutil = callPackage ({
       stdenv,
       pkg-config,
@@ -3672,7 +3710,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilwm = callPackage ({
       stdenv,
       pkg-config,
@@ -3707,7 +3745,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xclock = callPackage ({
       stdenv,
       pkg-config,
@@ -3752,7 +3790,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcmsdb = callPackage ({
       stdenv,
       pkg-config,
@@ -3777,7 +3815,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcompmgr = callPackage ({
       stdenv,
       pkg-config,
@@ -3812,7 +3850,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xconsole = callPackage ({
       stdenv,
       pkg-config,
@@ -3851,7 +3889,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcursorgen = callPackage ({
       stdenv,
       pkg-config,
@@ -3882,7 +3920,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcursorthemes = callPackage ({
       stdenv,
       pkg-config,
@@ -3907,7 +3945,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdm = callPackage ({
       stdenv,
       pkg-config,
@@ -3960,7 +3998,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdpyinfo = callPackage ({
       stdenv,
       pkg-config,
@@ -4011,7 +4049,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdriinfo = callPackage ({
       stdenv,
       pkg-config,
@@ -4042,7 +4080,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xev = callPackage ({
       stdenv,
       pkg-config,
@@ -4073,7 +4111,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xeyes = callPackage ({
       stdenv,
       pkg-config,
@@ -4114,7 +4152,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputevdev = callPackage ({
       stdenv,
       pkg-config,
@@ -4149,7 +4187,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputjoystick = callPackage ({
       stdenv,
       pkg-config,
@@ -4179,7 +4217,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputkeyboard = callPackage ({
       stdenv,
       pkg-config,
@@ -4209,7 +4247,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputlibinput = callPackage ({
       stdenv,
       pkg-config,
@@ -4241,7 +4279,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputmouse = callPackage ({
       stdenv,
       pkg-config,
@@ -4270,7 +4308,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputsynaptics = callPackage ({
       stdenv,
       pkg-config,
@@ -4308,7 +4346,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputvmmouse = callPackage ({
       stdenv,
       pkg-config,
@@ -4340,7 +4378,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputvoid = callPackage ({
       stdenv,
       pkg-config,
@@ -4369,7 +4407,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoamdgpu = callPackage ({
       stdenv,
       pkg-config,
@@ -4406,7 +4444,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoapm = callPackage ({
       stdenv,
       pkg-config,
@@ -4437,7 +4475,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoark = callPackage ({
       stdenv,
       pkg-config,
@@ -4468,7 +4506,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoast = callPackage ({
       stdenv,
       pkg-config,
@@ -4499,7 +4537,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoati = callPackage ({
       stdenv,
       pkg-config,
@@ -4518,7 +4556,8 @@ with self; {
       builder = ./builder.sh;
       src = fetchurl {
         url =
-          "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/archive/5eba006e4129e8015b822f9e1d2f1e613e252cda/xf86-video-ati-5eba006e4129e8015b822f9e1d2f1e613e252cda.tar.bz2";
+          "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/archive/5eba006e4129e8015b822f9e1d2f1e613e252cda/xf86-video-ati-5eba006e4129e8015b822f9e1d2f1e613e252cda.tar.bz2"
+          ;
         sha256 = "0gmymk8207fd9rjliq05l2gvx220h432rj3h75hv2ylr3k9vmp2b";
       };
       hardeningDisable = [
@@ -4539,7 +4578,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videochips = callPackage ({
       stdenv,
       pkg-config,
@@ -4570,7 +4609,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videocirrus = callPackage ({
       stdenv,
       pkg-config,
@@ -4601,7 +4640,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videodummy = callPackage ({
       stdenv,
       pkg-config,
@@ -4630,7 +4669,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videofbdev = callPackage ({
       stdenv,
       pkg-config,
@@ -4661,7 +4700,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videogeode = callPackage ({
       stdenv,
       pkg-config,
@@ -4693,7 +4732,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoglide = callPackage ({
       stdenv,
       pkg-config,
@@ -4722,7 +4761,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoglint = callPackage ({
       stdenv,
       pkg-config,
@@ -4753,7 +4792,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoi128 = callPackage ({
       stdenv,
       pkg-config,
@@ -4784,7 +4823,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoi740 = callPackage ({
       stdenv,
       pkg-config,
@@ -4815,7 +4854,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videointel = callPackage ({
       stdenv,
       pkg-config,
@@ -4879,7 +4918,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videomga = callPackage ({
       stdenv,
       pkg-config,
@@ -4912,7 +4951,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoneomagic = callPackage ({
       stdenv,
       pkg-config,
@@ -4944,7 +4983,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonewport = callPackage ({
       stdenv,
       pkg-config,
@@ -4974,7 +5013,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonouveau = callPackage ({
       stdenv,
       pkg-config,
@@ -4991,7 +5030,8 @@ with self; {
       builder = ./builder.sh;
       src = fetchurl {
         url =
-          "https://gitlab.freedesktop.org/xorg/driver/xf86-video-nouveau/-/archive/3ee7cbca8f9144a3bb5be7f71ce70558f548d268/xf86-video-nouveau-3ee7cbca8f9144a3bb5be7f71ce70558f548d268.tar.bz2";
+          "https://gitlab.freedesktop.org/xorg/driver/xf86-video-nouveau/-/archive/3ee7cbca8f9144a3bb5be7f71ce70558f548d268/xf86-video-nouveau-3ee7cbca8f9144a3bb5be7f71ce70558f548d268.tar.bz2"
+          ;
         sha256 = "0rhs3z274jdzd82pcsl25xn8hmw6i4cxs2kwfnphpfhxbbkiq7wl";
       };
       hardeningDisable = [
@@ -5010,7 +5050,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonv = callPackage ({
       stdenv,
       pkg-config,
@@ -5041,7 +5081,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoomap = callPackage ({
       stdenv,
       pkg-config,
@@ -5072,7 +5112,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoopenchrome = callPackage ({
       stdenv,
       pkg-config,
@@ -5114,7 +5154,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoqxl = callPackage ({
       stdenv,
       pkg-config,
@@ -5149,7 +5189,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videor128 = callPackage ({
       stdenv,
       pkg-config,
@@ -5182,7 +5222,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videorendition = callPackage ({
       stdenv,
       pkg-config,
@@ -5214,7 +5254,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videos3virge = callPackage ({
       stdenv,
       pkg-config,
@@ -5246,7 +5286,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosavage = callPackage ({
       stdenv,
       pkg-config,
@@ -5279,7 +5319,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosiliconmotion = callPackage ({
       stdenv,
       pkg-config,
@@ -5294,7 +5334,8 @@ with self; {
       builder = ./builder.sh;
       src = fetchurl {
         url =
-          "mirror://xorg/individual/driver/xf86-video-siliconmotion-1.7.9.tar.bz2";
+          "mirror://xorg/individual/driver/xf86-video-siliconmotion-1.7.9.tar.bz2"
+          ;
         sha256 = "1g2r6gxqrmjdff95d42msxdw6vmkg2zn5sqv0rxd420iwy8wdwyh";
       };
       hardeningDisable = [
@@ -5311,7 +5352,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosis = callPackage ({
       stdenv,
       pkg-config,
@@ -5344,7 +5385,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosisusb = callPackage ({
       stdenv,
       pkg-config,
@@ -5375,7 +5416,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosuncg6 = callPackage ({
       stdenv,
       pkg-config,
@@ -5404,7 +5445,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosunffb = callPackage ({
       stdenv,
       pkg-config,
@@ -5433,7 +5474,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosunleo = callPackage ({
       stdenv,
       pkg-config,
@@ -5462,7 +5503,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotdfx = callPackage ({
       stdenv,
       pkg-config,
@@ -5495,7 +5536,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotga = callPackage ({
       stdenv,
       pkg-config,
@@ -5526,7 +5567,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotrident = callPackage ({
       stdenv,
       pkg-config,
@@ -5557,7 +5598,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videov4l = callPackage ({
       stdenv,
       pkg-config,
@@ -5586,7 +5627,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovboxvideo = callPackage ({
       stdenv,
       pkg-config,
@@ -5618,7 +5659,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovesa = callPackage ({
       stdenv,
       pkg-config,
@@ -5649,7 +5690,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovmware = callPackage ({
       stdenv,
       pkg-config,
@@ -5689,7 +5730,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovoodoo = callPackage ({
       stdenv,
       pkg-config,
@@ -5720,7 +5761,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videowsfb = callPackage ({
       stdenv,
       pkg-config,
@@ -5749,7 +5790,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoxgi = callPackage ({
       stdenv,
       pkg-config,
@@ -5782,7 +5823,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfd = callPackage ({
       stdenv,
       pkg-config,
@@ -5829,7 +5870,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfontsel = callPackage ({
       stdenv,
       pkg-config,
@@ -5866,7 +5907,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfs = callPackage ({
       stdenv,
       pkg-config,
@@ -5897,7 +5938,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfsinfo = callPackage ({
       stdenv,
       pkg-config,
@@ -5926,7 +5967,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xgamma = callPackage ({
       stdenv,
       pkg-config,
@@ -5957,7 +5998,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xgc = callPackage ({
       stdenv,
       pkg-config,
@@ -5990,7 +6031,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xhost = callPackage ({
       stdenv,
       pkg-config,
@@ -6027,7 +6068,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xinit = callPackage ({
       stdenv,
       pkg-config,
@@ -6056,7 +6097,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xinput = callPackage ({
       stdenv,
       pkg-config,
@@ -6093,7 +6134,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbcomp = callPackage ({
       stdenv,
       pkg-config,
@@ -6124,7 +6165,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbevd = callPackage ({
       stdenv,
       pkg-config,
@@ -6153,7 +6194,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbprint = callPackage ({
       stdenv,
       pkg-config,
@@ -6184,7 +6225,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbutils = callPackage ({
       stdenv,
       pkg-config,
@@ -6217,7 +6258,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkeyboardconfig = callPackage ({
       stdenv,
       pkg-config,
@@ -6232,7 +6273,8 @@ with self; {
       builder = ./builder.sh;
       src = fetchurl {
         url =
-          "mirror://xorg/individual/data/xkeyboard-config/xkeyboard-config-2.33.tar.bz2";
+          "mirror://xorg/individual/data/xkeyboard-config/xkeyboard-config-2.33.tar.bz2"
+          ;
         sha256 = "1g6kn7l0mixw50kgn7d97gwv1990c5rczr2x776q3xywss8dfzv5";
       };
       hardeningDisable = [
@@ -6251,7 +6293,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkill = callPackage ({
       stdenv,
       pkg-config,
@@ -6282,7 +6324,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xload = callPackage ({
       stdenv,
       pkg-config,
@@ -6323,7 +6365,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsatoms = callPackage ({
       stdenv,
       pkg-config,
@@ -6348,7 +6390,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsclients = callPackage ({
       stdenv,
       pkg-config,
@@ -6373,7 +6415,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsfonts = callPackage ({
       stdenv,
       pkg-config,
@@ -6402,7 +6444,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmag = callPackage ({
       stdenv,
       pkg-config,
@@ -6439,7 +6481,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmessage = callPackage ({
       stdenv,
       pkg-config,
@@ -6472,7 +6514,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmodmap = callPackage ({
       stdenv,
       pkg-config,
@@ -6501,7 +6543,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmore = callPackage ({
       stdenv,
       pkg-config,
@@ -6534,7 +6576,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgcffiles = callPackage ({
       stdenv,
       pkg-config,
@@ -6558,7 +6600,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgdocs = callPackage ({
       stdenv,
       pkg-config,
@@ -6582,7 +6624,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgproto = callPackage ({
       stdenv,
       pkg-config,
@@ -6611,7 +6653,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgserver = callPackage ({
       stdenv,
       pkg-config,
@@ -6662,7 +6704,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgsgmldoctools = callPackage ({
       stdenv,
       pkg-config,
@@ -6686,7 +6728,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xpr = callPackage ({
       stdenv,
       pkg-config,
@@ -6717,7 +6759,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xprop = callPackage ({
       stdenv,
       pkg-config,
@@ -6746,7 +6788,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrandr = callPackage ({
       stdenv,
       pkg-config,
@@ -6779,7 +6821,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrdb = callPackage ({
       stdenv,
       pkg-config,
@@ -6810,7 +6852,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrefresh = callPackage ({
       stdenv,
       pkg-config,
@@ -6839,7 +6881,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xset = callPackage ({
       stdenv,
       pkg-config,
@@ -6874,7 +6916,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xsetroot = callPackage ({
       stdenv,
       pkg-config,
@@ -6909,7 +6951,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xsm = callPackage ({
       stdenv,
       pkg-config,
@@ -6948,7 +6990,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xstdcmap = callPackage ({
       stdenv,
       pkg-config,
@@ -6979,7 +7021,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xtrans = callPackage ({
       stdenv,
       pkg-config,
@@ -7003,7 +7045,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xtrap = callPackage ({
       stdenv,
       pkg-config,
@@ -7034,7 +7076,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xvinfo = callPackage ({
       stdenv,
       pkg-config,
@@ -7065,7 +7107,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwd = callPackage ({
       stdenv,
       pkg-config,
@@ -7096,7 +7138,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwininfo = callPackage ({
       stdenv,
       pkg-config,
@@ -7127,7 +7169,7 @@ with self; {
       meta.platforms = lib.platforms.unix;
     }) { };
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwud = callPackage ({
       stdenv,
       pkg-config,

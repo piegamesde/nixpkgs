@@ -34,10 +34,12 @@
 }:
 
 let
-  hipPlatform = if useNVIDIA then
-    "nvidia"
-  else
-    "amd";
+  hipPlatform =
+    if useNVIDIA then
+      "nvidia"
+    else
+      "amd"
+    ;
 
   wrapperArgs = [
     "--prefix PATH : $out/bin"
@@ -74,7 +76,8 @@ stdenv.mkDerivation (finalAttrs: {
     # https://github.com/ROCm-Developer-Tools/hipamd/commit/be33ec55acc104a59d01df5912261d007c7f3ee9
     (fetchpatch {
       url =
-        "https://github.com/ROCm-Developer-Tools/hipamd/commit/be33ec55acc104a59d01df5912261d007c7f3ee9.patch";
+        "https://github.com/ROCm-Developer-Tools/hipamd/commit/be33ec55acc104a59d01df5912261d007c7f3ee9.patch"
+        ;
       hash = "sha256-eTC4mUIN1FwRce1n38uDOlITFL/vpcOhvnaZTo5R7lo=";
     })
   ];
@@ -180,12 +183,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description =
-      "C++ Heterogeneous-Compute Interface for Portability specifically for AMD platform";
+      "C++ Heterogeneous-Compute Interface for Portability specifically for AMD platform"
+      ;
     homepage = "https://github.com/ROCm-Developer-Tools/hipamd";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
     platforms = platforms.linux;
-    # Tests require GPU, also include issues
+      # Tests require GPU, also include issues
     broken = versions.minor finalAttrs.version
       != versions.minor hip-common.version || versions.minor finalAttrs.version
       != versions.minor hipcc.version || buildTests;

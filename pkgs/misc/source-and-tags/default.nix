@@ -7,22 +7,27 @@
   ctags,
 }: {
   # optional srcDir
-  annotatedWithSourceAndTagInfo = x:
+  annotatedWithSourceAndTagInfo =
+    x:
     (x ? passthru && x.passthru ? sourceWithTags || x ? meta && x.meta
-      ? sourceWithTags);
-  # hack because passthru doesn't work the way I'd expect. Don't have time to spend on this right now
-  # that's why I'm abusing meta for the same purpose in ghcsAndLibs
-  sourceWithTagsFromDerivation = x:
+      ? sourceWithTags)
+    ;
+    # hack because passthru doesn't work the way I'd expect. Don't have time to spend on this right now
+    # that's why I'm abusing meta for the same purpose in ghcsAndLibs
+  sourceWithTagsFromDerivation =
+    x:
     if x ? passthru && x.passthru ? sourceWithTags then
       x.passthru.sourceWithTags
     else if x ? meta && x.meta ? sourceWithTags then
       x.meta.sourceWithTags
     else
-      null;
+      null
+    ;
 
-  # createTagFiles =  [ { name  = "my_tag_name_without_suffix", tagCmd = "ctags -R . -o \$TAG_FILE"; } ]
-  # tag command must create file named $TAG_FILE
-  sourceWithTagsDerivation = {
+    # createTagFiles =  [ { name  = "my_tag_name_without_suffix", tagCmd = "ctags -R . -o \$TAG_FILE"; } ]
+    # tag command must create file named $TAG_FILE
+  sourceWithTagsDerivation =
+    {
       name,
       src,
       srcDir ? ".",
@@ -34,58 +39,67 @@
       inherit src srcDir tagSuffix;
       name = "${name}-source-with-tags";
       nativeBuildInputs = [ unzip ];
-      # using separate tag directory so that you don't have to glob that much files when starting your editor
-      # is this a good choice?
-      buildPhase = let
-        createTags = lib.concatStringsSep "\n" (map (a: ''
-          TAG_FILE="$SRC_DEST/${a.name}$tagSuffix"
-          echo running tag cmd "${a.tagCmd}" in `pwd`
-          ${a.tagCmd}
-          TAG_FILES="$TAG_FILES''${TAG_FILES:+:}$TAG_FILE"
-        '') createTagFiles);
-      in ''
-        SRC_DEST=$out/src/$name
-        mkdir -p $SRC_DEST
-        pwd; ls
-        cp -r $srcDir $SRC_DEST
-        cd $SRC_DEST
-        ${createTags}
+        # using separate tag directory so that you don't have to glob that much files when starting your editor
+        # is this a good choice?
+      buildPhase =
+        let
+          createTags = lib.concatStringsSep "\n" (map (a: ''
+            TAG_FILE="$SRC_DEST/${a.name}$tagSuffix"
+            echo running tag cmd "${a.tagCmd}" in `pwd`
+            ${a.tagCmd}
+            TAG_FILES="$TAG_FILES''${TAG_FILES:+:}$TAG_FILE"
+          '') createTagFiles);
+        in ''
+          SRC_DEST=$out/src/$name
+          mkdir -p $SRC_DEST
+          pwd; ls
+          cp -r $srcDir $SRC_DEST
+          cd $SRC_DEST
+          ${createTags}
 
-        mkdir -p $out/nix-support
-        echo "TAG_FILES=\"\$TAG_FILES\''${TAG_FILES:+:}$TAG_FILES\"" >> $out/nix-support/setup-hook
-      '' ;
-    };
-  # example usage
-  #testSourceWithTags = sourceWithTagsDerivation (ghc68extraLibs ghcsAndLibs.ghc68).happs_server_darcs.passthru.sourceWithTags;
+          mkdir -p $out/nix-support
+          echo "TAG_FILES=\"\$TAG_FILES\''${TAG_FILES:+:}$TAG_FILES\"" >> $out/nix-support/setup-hook
+        ''
+        ;
+    }
+    ;
+    # example usage
+    #testSourceWithTags = sourceWithTagsDerivation (ghc68extraLibs ghcsAndLibs.ghc68).happs_server_darcs.passthru.sourceWithTags;
 
-  # creates annotated derivation (comments see above)
-  addHasktagsTaggingInfo = deriv:
+    # creates annotated derivation (comments see above)
+  addHasktagsTaggingInfo =
+    deriv:
     deriv // {
       passthru = {
         sourceWithTags = {
           inherit (deriv) src;
-          srcDir = if deriv ? srcDir then
-            deriv.srcDir
-          else
-            ".";
+          srcDir =
+            if deriv ? srcDir then
+              deriv.srcDir
+            else
+              "."
+            ;
           name = deriv.name;
           createTagFiles = [ {
             name = "${deriv.name}_haskell";
-            # tagCmd = "${toString ghcsAndLibs.ghc68.ghc}/bin/hasktags --ignore-close-implementation --ctags `find . -type f -name \"*.*hs\"`; sort tags > \$TAG_FILE"; }
-            # *.*hs.* to catch gtk2hs .hs.pp files
+              # tagCmd = "${toString ghcsAndLibs.ghc68.ghc}/bin/hasktags --ignore-close-implementation --ctags `find . -type f -name \"*.*hs\"`; sort tags > \$TAG_FILE"; }
+              # *.*hs.* to catch gtk2hs .hs.pp files
             tagCmd =
               "\n                   srcs=\"`find . -type f -name \"*.*hs\"; find . -type f -name \"*.*hs*\";`\"\n                   [ -z \"$srcs\" ] || {\n                    # without this creating tag files for lifted-base fails\n                    export LC_ALL=en_US.UTF-8\n                    export LANG=en_US.UTF-8\n                    ${
                                     lib.optionalString stdenv.isLinux
                                     "export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive;"
                                   }\n\n                    ${
                                     toString hasktags
-                                  }/bin/hasktags --ignore-close-implementation --ctags .\n                    mv tags $TAG_FILE\n                   }";
+                                  }/bin/hasktags --ignore-close-implementation --ctags .\n                    mv tags $TAG_FILE\n                   }"
+              ;
           } ];
         };
       };
-    };
+    }
+    ;
 
-  addCTaggingInfo = deriv:
+  addCTaggingInfo =
+    deriv:
     deriv // {
       passthru = {
         sourceWithTags = {
@@ -97,7 +111,8 @@
           } ];
         };
       };
-    };
+    }
+    ;
 }
 /* experimental
    idea:

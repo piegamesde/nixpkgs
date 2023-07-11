@@ -15,7 +15,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml-multicore/domainslib/releases/download/v${version}/domainslib-${version}.tbz";
+      "https://github.com/ocaml-multicore/domainslib/releases/download/v${version}/domainslib-${version}.tbz"
+      ;
     hash = "sha256-rty+9DUhTUEcN7BPl8G6Q/G/MJ6z/UAn0RPkG8hACwA=";
   };
 

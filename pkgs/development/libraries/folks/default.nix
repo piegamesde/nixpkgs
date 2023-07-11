@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  # Prevents e-d-s add-contacts-stress-test from timing out
+    # Prevents e-d-s add-contacts-stress-test from timing out
   checkPhase = ''
     runHook preCheck
     meson test --timeout-multiplier 4
@@ -111,7 +111,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A library that aggregates people from multiple sources to create metacontacts";
+      "A library that aggregates people from multiple sources to create metacontacts"
+      ;
     homepage = "https://wiki.gnome.org/Projects/Folks";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

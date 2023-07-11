@@ -136,8 +136,8 @@ stdenv.mkDerivation {
     description = "Microsoft's TrueType core fonts for the Web";
     platforms = platforms.all;
     license = licenses.unfreeRedistributable;
-    # Set a non-zero priority to allow easy overriding of the
-    # fontconfig configuration files.
+      # Set a non-zero priority to allow easy overriding of the
+      # fontconfig configuration files.
     priority = 5;
   };
 }

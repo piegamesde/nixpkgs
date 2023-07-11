@@ -13,12 +13,14 @@ let
   srcs = {
     x86_64-linux = fetchurl {
       url =
-        "https://github.com/Rabbit-Company/Passky-Desktop/releases/download/v${version}/Passky-${version}.AppImage";
+        "https://github.com/Rabbit-Company/Passky-Desktop/releases/download/v${version}/Passky-${version}.AppImage"
+        ;
       sha256 = "1xnhrmmm018mmyzjq05mhbf673f0n81fh1k3kbfarbgk2kbwpq6y";
     };
     x86_64-darwin = fetchurl {
       url =
-        "https://github.com/Rabbit-Company/Passky-Desktop/releases/download/v${version}/Passky-${version}.dmg";
+        "https://github.com/Rabbit-Company/Passky-Desktop/releases/download/v${version}/Passky-${version}.dmg"
+        ;
       sha256 = "0mm7hk4v7zvpjdqyw3nhk33x72j0gh3f59bx3q18azlm4dr61r2d";
     };
   };

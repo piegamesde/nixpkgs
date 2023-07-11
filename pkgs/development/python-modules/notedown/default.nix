@@ -26,7 +26,7 @@ buildPythonPackage rec {
     six
   ];
 
-  # No tests in pypi source
+    # No tests in pypi source
   doCheck = false;
 
   meta = {

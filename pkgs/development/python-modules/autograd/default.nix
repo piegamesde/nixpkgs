@@ -20,8 +20,8 @@ buildPythonPackage rec {
     future
   ];
 
-  # Currently, the PyPI tarball doesn't contain the tests. When that has been
-  # fixed, enable testing. See: https://github.com/HIPS/autograd/issues/404
+    # Currently, the PyPI tarball doesn't contain the tests. When that has been
+    # fixed, enable testing. See: https://github.com/HIPS/autograd/issues/404
   doCheck = false;
 
   meta = with lib; {

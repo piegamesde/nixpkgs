@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "a base Thrift service and a common set of functionality for querying stats, options, and other information from a service";
+      "a base Thrift service and a common set of functionality for querying stats, options, and other information from a service"
+      ;
     homepage = "https://github.com/facebook/fb303";
     license = licenses.asl20;
     platforms = platforms.unix;

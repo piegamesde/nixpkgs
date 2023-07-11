@@ -49,6 +49,6 @@
     { }
   else
     {
-      installFlags =
-        [ "CONTRIB=$(out)/lib/coq/${coq.coq-version}/user-contrib" ];
+      installFlags = [ "CONTRIB=$(out)/lib/coq/${coq.coq-version}/user-contrib" ]
+        ;
     })

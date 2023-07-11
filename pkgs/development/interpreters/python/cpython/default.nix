@@ -96,10 +96,12 @@ with lib;
 let
   # some python packages need legacy ciphers, so we're using openssl 3, but with that config
   # null check for Minimal
-  openssl' = if openssl != null then
-    openssl_legacy
-  else
-    null;
+  openssl' =
+    if openssl != null then
+      openssl_legacy
+    else
+      null
+    ;
 
   buildPackages = pkgsBuildHost;
   inherit (passthru) pythonForBuild;
@@ -108,35 +110,40 @@ let
 
   tzdataSupport = tzdata != null && passthru.pythonAtLeast "3.9";
 
-  passthru = let
-    # When we override the interpreter we also need to override the spliced versions of the interpreter
-    inputs' =
-      lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
-    override = attr:
-      let
-        python = attr.override (inputs' // { self = python; });
-      in
-      python
+  passthru =
+    let
+      # When we override the interpreter we also need to override the spliced versions of the interpreter
+      inputs' =
+        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs
+        ;
+      override =
+        attr:
+        let
+          python = attr.override (inputs' // { self = python; });
+        in
+        python
+        ;
+    in
+    passthruFun rec {
+      inherit self sourceVersion packageOverrides;
+      implementation = "cpython";
+      libPrefix = "python${pythonVersion}";
+      executable = libPrefix;
+      pythonVersion = with sourceVersion; "${major}.${minor}";
+      sitePackages = "lib/${libPrefix}/site-packages";
+      inherit hasDistutilsCxxPatch pythonAttr;
+      pythonOnBuildForBuild = override pkgsBuildBuild.${pythonAttr};
+      pythonOnBuildForHost = override pkgsBuildHost.${pythonAttr};
+      pythonOnBuildForTarget = override pkgsBuildTarget.${pythonAttr};
+      pythonOnHostForHost = override pkgsHostHost.${pythonAttr};
+      pythonOnTargetForTarget =
+        if lib.hasAttr pythonAttr pkgsTargetTarget then
+          (override pkgsTargetTarget.${pythonAttr})
+        else
+          { }
+        ;
+    }
     ;
-  in
-  passthruFun rec {
-    inherit self sourceVersion packageOverrides;
-    implementation = "cpython";
-    libPrefix = "python${pythonVersion}";
-    executable = libPrefix;
-    pythonVersion = with sourceVersion; "${major}.${minor}";
-    sitePackages = "lib/${libPrefix}/site-packages";
-    inherit hasDistutilsCxxPatch pythonAttr;
-    pythonOnBuildForBuild = override pkgsBuildBuild.${pythonAttr};
-    pythonOnBuildForHost = override pkgsBuildHost.${pythonAttr};
-    pythonOnBuildForTarget = override pkgsBuildTarget.${pythonAttr};
-    pythonOnHostForHost = override pkgsHostHost.${pythonAttr};
-    pythonOnTargetForTarget = if lib.hasAttr pythonAttr pkgsTargetTarget then
-      (override pkgsTargetTarget.${pythonAttr})
-    else
-      { };
-  }
-  ;
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
@@ -172,8 +179,8 @@ let
   ] ++ optionals (bluezSupport && stdenv.isLinux) [ bluez ]
     ++ optionals stdenv.isDarwin [ configd ])
 
-    ++ optionals enableFramework [ Cocoa ]
-    ++ optionals tzdataSupport [ tzdata ]; # `zoneinfo` module
+    ++ optionals enableFramework [ Cocoa ] ++ optionals tzdataSupport [ tzdata ]
+    ; # `zoneinfo` module
 
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
 
@@ -181,20 +188,21 @@ let
     if stdenv.hostPlatform == stdenv.buildPlatform then
       "$out/bin/python"
     else
-      pythonForBuild.interpreter;
+      pythonForBuild.interpreter
+    ;
 
-  # The CPython interpreter contains a _sysconfigdata_<platform specific suffix>
-  # module that is imported by the sysconfig and distutils.sysconfig modules.
-  # The sysconfigdata module is generated at build time and contains settings
-  # required for building Python extension modules, such as include paths and
-  # other compiler flags. By default, the sysconfigdata module is loaded from
-  # the currently running interpreter (ie. the build platform interpreter), but
-  # when cross-compiling we want to load it from the host platform interpreter.
-  # This can be done using the _PYTHON_SYSCONFIGDATA_NAME environment variable.
-  # The _PYTHON_HOST_PLATFORM variable also needs to be set to get the correct
-  # platform suffix on extension modules. The correct values for these variables
-  # are not documented, and must be derived from the configure script (see links
-  # below).
+    # The CPython interpreter contains a _sysconfigdata_<platform specific suffix>
+    # module that is imported by the sysconfig and distutils.sysconfig modules.
+    # The sysconfigdata module is generated at build time and contains settings
+    # required for building Python extension modules, such as include paths and
+    # other compiler flags. By default, the sysconfigdata module is loaded from
+    # the currently running interpreter (ie. the build platform interpreter), but
+    # when cross-compiling we want to load it from the host platform interpreter.
+    # This can be done using the _PYTHON_SYSCONFIGDATA_NAME environment variable.
+    # The _PYTHON_HOST_PLATFORM variable also needs to be set to get the correct
+    # platform suffix on extension modules. The correct values for these variables
+    # are not documented, and must be derived from the configure script (see links
+    # below).
   sysconfigdataHook = with stdenv.hostPlatform;
     with passthru;
     let
@@ -202,32 +210,35 @@ let
       # The configure script uses "arm" as the CPU name for all 32-bit ARM
       # variants when cross-compiling, but native builds include the version
       # suffix, so we do the same.
-      pythonHostPlatform = let
-        cpu = {
-          # According to PEP600, Python's name for the Power PC
-          # architecture is "ppc", not "powerpc".  Without the Rosetta
-          # Stone below, the PEP600 requirement that "${ARCH} matches
-          # the return value from distutils.util.get_platform()" fails.
-          # https://peps.python.org/pep-0600/
-          powerpc = "ppc";
-          powerpcle = "ppcle";
-          powerpc64 = "ppc64";
-          powerpc64le = "ppc64le";
-        }.${parsed.cpu.name} or parsed.cpu.name;
-      in
-      "${parsed.kernel.name}-${cpu}"
-      ;
+      pythonHostPlatform =
+        let
+          cpu = {
+            # According to PEP600, Python's name for the Power PC
+            # architecture is "ppc", not "powerpc".  Without the Rosetta
+            # Stone below, the PEP600 requirement that "${ARCH} matches
+            # the return value from distutils.util.get_platform()" fails.
+            # https://peps.python.org/pep-0600/
+            powerpc = "ppc";
+            powerpcle = "ppcle";
+            powerpc64 = "ppc64";
+            powerpc64le = "ppc64le";
+          }.${parsed.cpu.name} or parsed.cpu.name;
+        in
+        "${parsed.kernel.name}-${cpu}"
+        ;
 
-      # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L724
-      multiarchCpu = if isAarch32 then
-        if parsed.cpu.significantByte.name == "littleEndian" then
-          "arm"
+        # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L724
+      multiarchCpu =
+        if isAarch32 then
+          if parsed.cpu.significantByte.name == "littleEndian" then
+            "arm"
+          else
+            "armeb"
+        else if isx86_32 then
+          "i386"
         else
-          "armeb"
-      else if isx86_32 then
-        "i386"
-      else
-        parsed.cpu.name;
+          parsed.cpu.name
+        ;
       pythonAbiName =
         # python's build doesn't support every gnu<extension>, and doesn't
         # differentiate between musl and glibc, so we list those supported in
@@ -247,15 +258,18 @@ let
         then
           parsed.abi.name
         else
-          "gnu";
-      multiarch = if isDarwin then
-        "darwin"
-      else
-        "${multiarchCpu}-${parsed.kernel.name}-${pythonAbiName}";
+          "gnu"
+        ;
+      multiarch =
+        if isDarwin then
+          "darwin"
+        else
+          "${multiarchCpu}-${parsed.kernel.name}-${pythonAbiName}"
+        ;
 
       abiFlags = optionalString isPy37 "m";
 
-      # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L78
+        # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L78
       pythonSysconfigdataName =
         "_sysconfigdata_${abiFlags}_${parsed.kernel.name}_${multiarch}";
     in ''
@@ -279,7 +293,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = with sourceVersion;
-      "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz";
+      "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz"
+      ;
     inherit hash;
   };
 
@@ -298,7 +313,8 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "asyncio-deprecation-3.11.patch";
       url =
-        "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff";
+        "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff"
+        ;
       revert = true;
       excludes = [ "Misc/NEWS.d/*" ];
       hash = "sha256-PmkXf2D9trtW1gXZilRIWgdg2Y47JfELq1z4DuG3wJY=";
@@ -370,7 +386,7 @@ stdenv.mkDerivation {
         "glibc" = "-lgcc_s";
         "musl" = "-lgcc_eh";
       }."${stdenv.hostPlatform.libc}" or "");
-    # Determinism: We fix the hashes of str, bytes and datetime objects.
+      # Determinism: We fix the hashes of str, bytes and datetime objects.
     PYTHONHASHSEED = 0;
   };
 
@@ -455,114 +471,115 @@ stdenv.mkDerivation {
 
   setupHook = python-setup-hook sitePackages;
 
-  postInstall = let
-    # References *not* to nuke from (sys)config files
-    keep-references = concatMapStringsSep " " (val: "-e ${val}") ([
-      (placeholder "out")
-      libxcrypt
-    ] ++ optionals tzdataSupport [ tzdata ]);
-  in
-  lib.optionalString enableFramework ''
-    for dir in include lib share; do
-      ln -s $out/Library/Frameworks/Python.framework/Versions/Current/$dir $out/$dir
-    done
-  '' + ''
-    # needed for some packages, especially packages that backport functionality
-    # to 2.x from 3.x
-    for item in $out/lib/${libPrefix}/test/*; do
-      if [[ "$item" != */test_support.py*
-         && "$item" != */test/support
-         && "$item" != */test/libregrtest
-         && "$item" != */test/regrtest.py* ]]; then
-        rm -rf "$item"
-      else
-        echo $item
-      fi
-    done
-    touch $out/lib/${libPrefix}/test/__init__.py
+  postInstall =
+    let
+      # References *not* to nuke from (sys)config files
+      keep-references = concatMapStringsSep " " (val: "-e ${val}") ([
+        (placeholder "out")
+        libxcrypt
+      ] ++ optionals tzdataSupport [ tzdata ]);
+    in
+    lib.optionalString enableFramework ''
+      for dir in include lib share; do
+        ln -s $out/Library/Frameworks/Python.framework/Versions/Current/$dir $out/$dir
+      done
+    '' + ''
+      # needed for some packages, especially packages that backport functionality
+      # to 2.x from 3.x
+      for item in $out/lib/${libPrefix}/test/*; do
+        if [[ "$item" != */test_support.py*
+           && "$item" != */test/support
+           && "$item" != */test/libregrtest
+           && "$item" != */test/regrtest.py* ]]; then
+          rm -rf "$item"
+        else
+          echo $item
+        fi
+      done
+      touch $out/lib/${libPrefix}/test/__init__.py
 
-    ln -s "$out/include/${executable}m" "$out/include/${executable}"
+      ln -s "$out/include/${executable}m" "$out/include/${executable}"
 
-    # Determinism: Windows installers were not deterministic.
-    # We're also not interested in building Windows installers.
-    find "$out" -name 'wininst*.exe' | xargs -r rm -f
+      # Determinism: Windows installers were not deterministic.
+      # We're also not interested in building Windows installers.
+      find "$out" -name 'wininst*.exe' | xargs -r rm -f
 
-    # Use Python3 as default python
-    ln -s "$out/bin/idle3" "$out/bin/idle"
-    ln -s "$out/bin/pydoc3" "$out/bin/pydoc"
-    ln -s "$out/bin/python3" "$out/bin/python"
-    ln -s "$out/bin/python3-config" "$out/bin/python-config"
-    ln -s "$out/lib/pkgconfig/python3.pc" "$out/lib/pkgconfig/python.pc"
+      # Use Python3 as default python
+      ln -s "$out/bin/idle3" "$out/bin/idle"
+      ln -s "$out/bin/pydoc3" "$out/bin/pydoc"
+      ln -s "$out/bin/python3" "$out/bin/python"
+      ln -s "$out/bin/python3-config" "$out/bin/python-config"
+      ln -s "$out/lib/pkgconfig/python3.pc" "$out/lib/pkgconfig/python.pc"
 
-    # Get rid of retained dependencies on -dev packages, and remove
-    # some $TMPDIR references to improve binary reproducibility.
-    # Note that the .pyc file of _sysconfigdata.py should be regenerated!
-    for i in $out/lib/${libPrefix}/_sysconfigdata*.py $out/lib/${libPrefix}/config-${sourceVersion.major}${sourceVersion.minor}*/Makefile; do
-       sed -i $i -e "s|$TMPDIR|/no-such-path|g"
-    done
+      # Get rid of retained dependencies on -dev packages, and remove
+      # some $TMPDIR references to improve binary reproducibility.
+      # Note that the .pyc file of _sysconfigdata.py should be regenerated!
+      for i in $out/lib/${libPrefix}/_sysconfigdata*.py $out/lib/${libPrefix}/config-${sourceVersion.major}${sourceVersion.minor}*/Makefile; do
+         sed -i $i -e "s|$TMPDIR|/no-such-path|g"
+      done
 
-    # Further get rid of references. https://github.com/NixOS/nixpkgs/issues/51668
-    find $out/lib/python*/config-* -type f -print -exec nuke-refs ${keep-references} '{}' +
-    find $out/lib -name '_sysconfigdata*.py*' -print -exec nuke-refs ${keep-references} '{}' +
+      # Further get rid of references. https://github.com/NixOS/nixpkgs/issues/51668
+      find $out/lib/python*/config-* -type f -print -exec nuke-refs ${keep-references} '{}' +
+      find $out/lib -name '_sysconfigdata*.py*' -print -exec nuke-refs ${keep-references} '{}' +
 
-    # Make the sysconfigdata module accessible on PYTHONPATH
-    # This allows build Python to import host Python's sysconfigdata
-    mkdir -p "$out/${sitePackages}"
-    ln -s "$out/lib/${libPrefix}/"_sysconfigdata*.py "$out/${sitePackages}/"
-  '' + optionalString stripConfig ''
-    rm -R $out/bin/python*-config $out/lib/python*/config-*
-  '' + optionalString stripIdlelib ''
-    # Strip IDLE (and turtledemo, which uses it)
-    rm -R $out/bin/idle* $out/lib/python*/{idlelib,turtledemo}
-  '' + optionalString stripTkinter ''
-    rm -R $out/lib/python*/tkinter
-  '' + optionalString stripTests ''
-    # Strip tests
-    rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
-  '' + optionalString includeSiteCustomize ''
-    # Include a sitecustomize.py file
-    cp ${../sitecustomize.py} $out/${sitePackages}/sitecustomize.py
+      # Make the sysconfigdata module accessible on PYTHONPATH
+      # This allows build Python to import host Python's sysconfigdata
+      mkdir -p "$out/${sitePackages}"
+      ln -s "$out/lib/${libPrefix}/"_sysconfigdata*.py "$out/${sitePackages}/"
+    '' + optionalString stripConfig ''
+      rm -R $out/bin/python*-config $out/lib/python*/config-*
+    '' + optionalString stripIdlelib ''
+      # Strip IDLE (and turtledemo, which uses it)
+      rm -R $out/bin/idle* $out/lib/python*/{idlelib,turtledemo}
+    '' + optionalString stripTkinter ''
+      rm -R $out/lib/python*/tkinter
+    '' + optionalString stripTests ''
+      # Strip tests
+      rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
+    '' + optionalString includeSiteCustomize ''
+      # Include a sitecustomize.py file
+      cp ${../sitecustomize.py} $out/${sitePackages}/sitecustomize.py
 
-  '' + optionalString stripBytecode ''
-    # Determinism: deterministic bytecode
-    # First we delete all old bytecode.
-    find $out -type d -name __pycache__ -print0 | xargs -0 -I {} rm -rf "{}"
-  '' + optionalString rebuildBytecode ''
-    # Python 3.7 implements PEP 552, introducing support for deterministic bytecode.
-    # compileall uses the therein introduced checked-hash method by default when
-    # `SOURCE_DATE_EPOCH` is set.
-    # We exclude lib2to3 because that's Python 2 code which fails
-    # We build 3 levels of optimized bytecode. Note the default level, without optimizations,
-    # is not reproducible yet. https://bugs.python.org/issue29708
-    # Not creating bytecode will result in a large performance loss however, so we do build it.
-    find $out -name "*.py" | ${pythonForBuildInterpreter} -m compileall -q -f -x "lib2to3" -i -
-    find $out -name "*.py" | ${pythonForBuildInterpreter} -O  -m compileall -q -f -x "lib2to3" -i -
-    find $out -name "*.py" | ${pythonForBuildInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
-  '' + ''
-    # *strip* shebang from libpython gdb script - it should be dual-syntax and
-    # interpretable by whatever python the gdb in question is using, which may
-    # not even match the major version of this python. doing this after the
-    # bytecode compilations for the same reason - we don't want bytecode generated.
-    mkdir -p $out/share/gdb
-    sed '/^#!/d' Tools/gdb/libpython.py > $out/share/gdb/libpython.py
-  ''
-  ;
+    '' + optionalString stripBytecode ''
+      # Determinism: deterministic bytecode
+      # First we delete all old bytecode.
+      find $out -type d -name __pycache__ -print0 | xargs -0 -I {} rm -rf "{}"
+    '' + optionalString rebuildBytecode ''
+      # Python 3.7 implements PEP 552, introducing support for deterministic bytecode.
+      # compileall uses the therein introduced checked-hash method by default when
+      # `SOURCE_DATE_EPOCH` is set.
+      # We exclude lib2to3 because that's Python 2 code which fails
+      # We build 3 levels of optimized bytecode. Note the default level, without optimizations,
+      # is not reproducible yet. https://bugs.python.org/issue29708
+      # Not creating bytecode will result in a large performance loss however, so we do build it.
+      find $out -name "*.py" | ${pythonForBuildInterpreter} -m compileall -q -f -x "lib2to3" -i -
+      find $out -name "*.py" | ${pythonForBuildInterpreter} -O  -m compileall -q -f -x "lib2to3" -i -
+      find $out -name "*.py" | ${pythonForBuildInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
+    '' + ''
+      # *strip* shebang from libpython gdb script - it should be dual-syntax and
+      # interpretable by whatever python the gdb in question is using, which may
+      # not even match the major version of this python. doing this after the
+      # bytecode compilations for the same reason - we don't want bytecode generated.
+      mkdir -p $out/share/gdb
+      sed '/^#!/d' Tools/gdb/libpython.py > $out/share/gdb/libpython.py
+    ''
+    ;
 
   preFixup = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     # Ensure patch-shebangs uses shebangs of host interpreter.
     export PATH=${lib.makeBinPath [ "$out" ]}:$PATH
   '';
 
-  # Add CPython specific setup-hook that configures distutils.sysconfig to
-  # always load sysconfigdata from host Python.
+    # Add CPython specific setup-hook that configures distutils.sysconfig to
+    # always load sysconfigdata from host Python.
   postFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     cat << "EOF" >> "$out/nix-support/setup-hook"
     ${sysconfigdataHook}
     EOF
   '';
 
-  # Enforce that we don't have references to the OpenSSL -dev package, which we
-  # explicitly specify in our configure flags above.
+    # Enforce that we don't have references to the OpenSSL -dev package, which we
+    # explicitly specify in our configure flags above.
   disallowedReferences = lib.optionals
     (openssl' != null && !static && !enableFramework) [ openssl'.dev ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
@@ -580,19 +597,21 @@ stdenv.mkDerivation {
 
   meta = {
     homepage = "https://www.python.org";
-    changelog = let
-      majorMinor = lib.versions.majorMinor version;
-      dashedVersion = lib.replaceStrings [
-        "."
-        "a"
-      ] [
-        "-"
-        "-alpha-"
-      ] version;
-    in if sourceVersion.suffix == "" then
-      "https://docs.python.org/release/${version}/whatsnew/changelog.html"
-    else
-      "https://docs.python.org/${majorMinor}/whatsnew/changelog.html#python-${dashedVersion}";
+    changelog =
+      let
+        majorMinor = lib.versions.majorMinor version;
+        dashedVersion = lib.replaceStrings [
+          "."
+          "a"
+        ] [
+          "-"
+          "-alpha-"
+        ] version;
+      in if sourceVersion.suffix == "" then
+        "https://docs.python.org/release/${version}/whatsnew/changelog.html"
+      else
+        "https://docs.python.org/${majorMinor}/whatsnew/changelog.html#python-${dashedVersion}"
+      ;
     description = "A high-level dynamically-typed programming language";
     longDescription = ''
       Python is a remarkably powerful dynamic programming language that

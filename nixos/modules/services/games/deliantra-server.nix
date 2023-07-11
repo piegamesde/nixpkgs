@@ -107,11 +107,11 @@ in {
     };
     users.groups.deliantra = { };
 
-    # Merge the cfg.configFiles setting with the default files shipped with
-    # Deliantra.
-    # For most files this consists of reading
-    # ${deliantra}/etc/deliantra-server/${name} and appending the user setting
-    # to it.
+      # Merge the cfg.configFiles setting with the default files shipped with
+      # Deliantra.
+      # For most files this consists of reading
+      # ${deliantra}/etc/deliantra-server/${name} and appending the user setting
+      # to it.
     environment.etc = lib.attrsets.mapAttrs' (name: value:
       lib.attrsets.nameValuePair "deliantra-server/${name}" {
         mode = "0644";
@@ -153,14 +153,14 @@ in {
         })
       ];
 
-      # The deliantra server needs access to a bunch of files at runtime that
-      # are not created automatically at server startup; they're meant to be
-      # installed in $PREFIX/var/deliantra-server by `make install`. And those
-      # files need to be writeable, so we can't just point at the ones in the
-      # nix store. Instead we take the approach of copying them out of the store
-      # on first run. If `bookarch` already exists, we assume the rest of the
-      # files do as well, and copy nothing -- otherwise we risk ovewriting
-      # server state information every time the server is upgraded.
+        # The deliantra server needs access to a bunch of files at runtime that
+        # are not created automatically at server startup; they're meant to be
+        # installed in $PREFIX/var/deliantra-server by `make install`. And those
+        # files need to be writeable, so we can't just point at the ones in the
+        # nix store. Instead we take the approach of copying them out of the store
+        # on first run. If `bookarch` already exists, we assume the rest of the
+        # files do as well, and copy nothing -- otherwise we risk ovewriting
+        # server state information every time the server is upgraded.
       preStart = ''
         if [ ! -e "${cfg.stateDir}"/bookarch ]; then
           ${pkgs.rsync}/bin/rsync -a --chmod=u=rwX,go=rX \

@@ -38,32 +38,33 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  passthru.optional-dependencies = let
-    extras = {
-      ufo = [ fs ];
-      lxml = [ lxml ];
-      woff = [
-        (if isPyPy then
-          brotlicffi
+  passthru.optional-dependencies =
+    let
+      extras = {
+        ufo = [ fs ];
+        lxml = [ lxml ];
+        woff = [
+          (if isPyPy then
+            brotlicffi
+          else
+            brotli)
+          zopfli
+        ];
+        unicode = lib.optional (pythonOlder "3.11") unicodedata2;
+        graphite = [ lz4 ];
+        interpolatable = [ (if isPyPy then
+          munkres
         else
-          brotli)
-        zopfli
-      ];
-      unicode = lib.optional (pythonOlder "3.11") unicodedata2;
-      graphite = [ lz4 ];
-      interpolatable = [ (if isPyPy then
-        munkres
-      else
-        scipy) ];
-      plot = [ matplotlib ];
-      symfont = [ sympy ];
-      type1 = lib.optional stdenv.isDarwin xattr;
-      pathops = [ skia-pathops ];
-      repacker = [ uharfbuzz ];
-    };
-  in
-  extras // { all = lib.concatLists (lib.attrValues extras); }
-  ;
+          scipy) ];
+        plot = [ matplotlib ];
+        symfont = [ sympy ];
+        type1 = lib.optional stdenv.isDarwin xattr;
+        pathops = [ skia-pathops ];
+        repacker = [ uharfbuzz ];
+      };
+    in
+    extras // { all = lib.concatLists (lib.attrValues extras); }
+    ;
 
   nativeCheckInputs = [ pytestCheckHook ] ++ lib.concatLists (lib.attrVals ([
     "woff"
@@ -78,8 +79,8 @@ buildPythonPackage rec {
     export PATH="$out/bin:$PATH"
   '';
 
-  # Timestamp tests have timing issues probably related
-  # to our file timestamp normalization
+    # Timestamp tests have timing issues probably related
+    # to our file timestamp normalization
   disabledTests = [
     "test_recalc_timestamp_ttf"
     "test_recalc_timestamp_otf"

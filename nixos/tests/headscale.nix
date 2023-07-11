@@ -6,12 +6,14 @@ import ./make-test-python.nix ({
     name = "headscale";
     meta.maintainers = with lib.maintainers; [ misterio77 ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.headscale.enable = true;
         environment.systemPackages = [ pkgs.headscale ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("headscale")

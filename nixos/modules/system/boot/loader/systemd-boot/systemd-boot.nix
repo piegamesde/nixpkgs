@@ -28,15 +28,19 @@ let
     timeout = optionalString (config.boot.loader.timeout != null)
       config.boot.loader.timeout;
 
-    editor = if cfg.editor then
-      "True"
-    else
-      "False";
+    editor =
+      if cfg.editor then
+        "True"
+      else
+        "False"
+      ;
 
-    configurationLimit = if cfg.configurationLimit == null then
-      0
-    else
-      cfg.configurationLimit;
+    configurationLimit =
+      if cfg.configurationLimit == null then
+        0
+      else
+        cfg.configurationLimit
+      ;
 
     inherit (cfg) consoleMode graceful;
 
@@ -111,7 +115,8 @@ in {
       type = types.bool;
 
       description = lib.mdDoc
-        "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
+        "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager"
+        ;
     };
 
     editor = mkOption {
@@ -315,7 +320,8 @@ in {
         assertion = !(hasInfix "nixos/.extra-files" (toLower filename));
         message = "boot.loader.systemd-boot.extraFiles.${
             lib.strings.escapeNixIdentifier filename
-          } is invalid: files cannot be placed in the nixos/.extra-files directory";
+          } is invalid: files cannot be placed in the nixos/.extra-files directory"
+          ;
       }
     ]) (builtins.attrNames cfg.extraFiles);
 

@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
     inherit mpv;
   }) ];
 
-  # No tests
+    # No tests
   doCheck = false;
 
   meta = with lib; {

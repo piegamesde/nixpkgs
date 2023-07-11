@@ -6,12 +6,15 @@
 
 let
   version = "2.4";
-  relArtifact = name: hash:
+  relArtifact =
+    name: hash:
     fetchurl {
       inherit name hash;
       url =
-        "https://github.com/IdreesInc/Monocraft/releases/download/v${version}/${name}";
-    };
+        "https://github.com/IdreesInc/Monocraft/releases/download/v${version}/${name}"
+        ;
+    }
+    ;
 in
 stdenv.mkDerivation {
   pname = "monocraft";

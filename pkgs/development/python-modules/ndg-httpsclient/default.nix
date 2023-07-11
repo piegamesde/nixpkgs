@@ -22,7 +22,7 @@ buildPythonPackage rec {
     pyopenssl
   ];
 
-  # uses networking
+    # uses networking
   doCheck = false;
 
   meta = with lib; {

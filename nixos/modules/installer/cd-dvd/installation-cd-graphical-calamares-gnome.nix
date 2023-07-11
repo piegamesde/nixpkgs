@@ -17,7 +17,7 @@
       favorite-apps=[ 'firefox.desktop', 'nixos-manual.desktop', 'org.gnome.Console.desktop', 'org.gnome.Nautilus.desktop', 'gparted.desktop', 'io.calamares.calamares.desktop' ]
     '';
 
-    # Override GNOME defaults to disable GNOME tour and disable suspend
+      # Override GNOME defaults to disable GNOME tour and disable suspend
     extraGSettingsOverrides = ''
       [org.gnome.shell]
       welcome-dialog-last-shown-version='9999999999'
@@ -33,13 +33,13 @@
     enable = true;
   };
 
-  # Theme calamares with GNOME theme
+    # Theme calamares with GNOME theme
   qt = {
     enable = true;
     platformTheme = "gnome";
   };
 
-  # Fix scaling for calamares on wayland
+    # Fix scaling for calamares on wayland
   environment.variables = {
     QT_QPA_PLATFORM =
       ''$([[ $XDG_SESSION_TYPE = "wayland" ]] && echo "wayland")'';
@@ -48,12 +48,12 @@
   services.xserver.displayManager = {
     gdm = {
       enable = true;
-      # autoSuspend makes the machine automatically suspend after inactivity.
-      # It's possible someone could/try to ssh'd into the machine and obviously
-      # have issues because it's inactive.
-      # See:
-      # * https://github.com/NixOS/nixpkgs/pull/63790
-      # * https://gitlab.gnome.org/GNOME/gnome-control-center/issues/22
+        # autoSuspend makes the machine automatically suspend after inactivity.
+        # It's possible someone could/try to ssh'd into the machine and obviously
+        # have issues because it's inactive.
+        # See:
+        # * https://github.com/NixOS/nixpkgs/pull/63790
+        # * https://gitlab.gnome.org/GNOME/gnome-control-center/issues/22
       autoSuspend = false;
     };
     autoLogin = {

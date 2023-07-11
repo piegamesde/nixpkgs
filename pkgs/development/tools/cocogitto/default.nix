@@ -22,8 +22,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-P/xwE3oLVsIoxPmG+S0htSHhZxCj79z2ARGe2WzWCEo=";
 
-  # Test depend on git configuration that would likly exist in a normal user enviroment
-  # and might be failing to create the test repository it works in.
+    # Test depend on git configuration that would likly exist in a normal user enviroment
+    # and might be failing to create the test repository it works in.
   doCheck = false;
 
   nativeBuildInputs = [ installShellFiles ];
@@ -39,7 +39,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A set of cli tools for the conventional commit and semver specifications";
+      "A set of cli tools for the conventional commit and semver specifications"
+      ;
     homepage = "https://github.com/oknozor/cocogitto";
     license = licenses.mit;
     maintainers = with maintainers; [ travisdavis-ops ];

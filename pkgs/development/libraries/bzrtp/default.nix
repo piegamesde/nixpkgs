@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ cmake ];
 
-  # Do not build static libraries
+    # Do not build static libraries
   cmakeFlags = [
     "-DENABLE_STATIC=NO"
     "-DCMAKE_C_FLAGS=-Wno-error=cast-function-type"
@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An opensource implementation of ZRTP keys exchange protocol. Part of the Linphone project.";
+      "An opensource implementation of ZRTP keys exchange protocol. Part of the Linphone project."
+      ;
     homepage = "https://gitlab.linphone.org/BC/public/bzrtp";
     license = licenses.gpl3Plus;
     platforms = platforms.all;

@@ -38,7 +38,8 @@ buildPythonPackage rec {
     # https://github.com/ReFirmLabs/binwalk/issues/566
     (fetchpatch {
       url =
-        "https://github.com/ReFirmLabs/binwalk/commit/dd4f2efd275c9dd1001130e82e0f985110cd2754.patch";
+        "https://github.com/ReFirmLabs/binwalk/commit/dd4f2efd275c9dd1001130e82e0f985110cd2754.patch"
+        ;
       sha256 = "1707n4nf1d1ay1yn4i8qlrvj2c1120g88hjwyklpsc2s2dcnqj9r";
       includes = [ "testing/tests/test_firmware_zip.py" ];
       revert = true;
@@ -65,12 +66,12 @@ buildPythonPackage rec {
     sasquatch
   ];
 
-  # setup.py only installs version.py during install, not test
+    # setup.py only installs version.py during install, not test
   postPatch = ''
     echo '__version__ = "${version}"' > src/binwalk/core/version.py
   '';
 
-  # binwalk wants to access ~/.config/binwalk/magic
+    # binwalk wants to access ~/.config/binwalk/magic
   preCheck = ''
     HOME=$(mktemp -d)
   '';

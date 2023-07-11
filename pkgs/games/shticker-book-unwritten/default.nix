@@ -10,7 +10,8 @@ let
 in
 buildFHSEnv {
   name = "shticker_book_unwritten";
-  targetPkgs = pkgs:
+  targetPkgs =
+    pkgs:
     with pkgs; [
       alsa-lib
       libglvnd
@@ -19,7 +20,8 @@ buildFHSEnv {
       xorg.libX11
       xorg.libXcursor
       xorg.libXext
-    ];
+    ]
+    ;
   runScript = "shticker_book_unwritten";
 
   meta = with lib; {

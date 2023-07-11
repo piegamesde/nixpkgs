@@ -76,24 +76,26 @@ resholve.mkDerivation rec {
         gnutar
       ];
       fake = {
-        external = if stdenv.isCygwin then
-          [ ]
-        else
-          [ "cygpath" ];
+        external =
+          if stdenv.isCygwin then
+            [ ]
+          else
+            [ "cygpath" ]
+          ;
       };
       fix = {
         "$GPG_PROGRAM" = [ "gpg" ];
         "$OPENSSL_PROGRAM" = [ "openssl" ];
         "$GIT_PROGRAM" = [ "git" ];
         "$AWK_PROGRAM" = [ "awk" ];
-        # see head comment
-        # "$GIT_CRYPT_PROGRAM" = [ "git-crypt" ];
-        # "$TRANSCRYPT_PROGRAM" = [ "transcrypt" ];
+          # see head comment
+          # "$GIT_CRYPT_PROGRAM" = [ "git-crypt" ];
+          # "$TRANSCRYPT_PROGRAM" = [ "transcrypt" ];
         "$J2CLI_PROGRAM" = [ "j2" ];
         "$ESH_PROGRAM" = [ "esh" ];
-        # not in nixpkgs (yet)
-        # "$ENVTPL_PROGRAM" = [ "envtpl" ];
-        # "$LSB_RELEASE_PROGRAM" = [ "lsb_release" ];
+          # not in nixpkgs (yet)
+          # "$ENVTPL_PROGRAM" = [ "envtpl" ];
+          # "$LSB_RELEASE_PROGRAM" = [ "lsb_release" ];
       };
       keep = {
         "$YADM_COMMAND" = true; # internal cmds
@@ -102,13 +104,13 @@ resholve.mkDerivation rec {
         "$hook_command" = true; # ~git hooks?
         "exec" = [ "$YADM_BOOTSTRAP" ]; # yadm bootstrap script
 
-        # not in nixpkgs
+          # not in nixpkgs
         "$ENVTPL_PROGRAM" = true;
         "$LSB_RELEASE_PROGRAM" = true;
       };
-      /* TODO: these should be dropped as fast as they can be dealt
-            with properly in binlore and/or resholve.
-      */
+        /* TODO: these should be dropped as fast as they can be dealt
+              with properly in binlore and/or resholve.
+        */
       execer = [
         "cannot:${j2cli}/bin/j2"
         "cannot:${esh}/bin/esh"

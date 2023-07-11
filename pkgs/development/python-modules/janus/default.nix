@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # also fails upstream: https://github.com/aio-libs/janus/pull/258
+    # also fails upstream: https://github.com/aio-libs/janus/pull/258
   disabledTests = [ "test_format" ];
 
   meta = with lib; {

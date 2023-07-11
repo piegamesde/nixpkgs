@@ -27,12 +27,14 @@ stdenvNoCC.mkDerivation {
     # https://github.com/po5/mpv_sponsorblock/pull/17
     (fetchpatch {
       url =
-        "https://github.com/po5/mpv_sponsorblock/pull/17/commits/e65b360a7d03a3430b4829e457a6670b2f617b09.patch";
+        "https://github.com/po5/mpv_sponsorblock/pull/17/commits/e65b360a7d03a3430b4829e457a6670b2f617b09.patch"
+        ;
       sha256 = "00wv0pvbz0dz2ibka66zhl2jk0pil4pyv6ipjfz37i81q6szyhs5";
     })
     (fetchpatch {
       url =
-        "https://github.com/po5/mpv_sponsorblock/pull/17/commits/3832304d959205e99120a14c0560ed3c37104b08.patch";
+        "https://github.com/po5/mpv_sponsorblock/pull/17/commits/3832304d959205e99120a14c0560ed3c37104b08.patch"
+        ;
       sha256 = "149ffvn714n2m3mqs8mgrbs24bcr74kqfkx7wyql36ndhm88xd2z";
     })
   ];

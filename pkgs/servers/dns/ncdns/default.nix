@@ -16,13 +16,13 @@ let
     sha256 = "sha256-Q/RrUTY4WfrByvQv1eCX29DQNf2vSIR29msmhgS73xk=";
   };
 
-  # script to patch the crypto/x509 package
+    # script to patch the crypto/x509 package
   x509 = fetchFromGitHub {
     owner = "namecoin";
     repo = "x509-compressed";
     rev = "2e30a62a69dac54a977410f283308df232a5d244";
     sha256 = "sha256-/Bd1gYjguj8AiKHyiaIKT+Y3R7kq5gLZlJhY9g/xFXk=";
-    # ncdns must be put in a subdirectory for this to work.
+      # ncdns must be put in a subdirectory for this to work.
     postFetch = ''
       cp -r --no-preserve=mode "${ncdns}" "$out/ncdns"
     '';
@@ -37,8 +37,8 @@ buildGoModule {
 
   vendorSha256 = "sha256-ENtTnDsz5WhRz1kiqnWQ5vyEpZtgi7ZeYvksffgW78k=";
 
-  # Override the go-modules fetcher derivation to apply
-  # upstream's patch of the crypto/x509 library.
+    # Override the go-modules fetcher derivation to apply
+    # upstream's patch of the crypto/x509 library.
   modBuildPhase = ''
     go mod init github.com/namecoin/x509-compressed
     go generate ./...
@@ -52,9 +52,9 @@ buildGoModule {
     go mod tidy
   '';
 
-  # Copy over the lockfiles as well, because the source
-  # doesn't contain it. The fixed-output derivation is
-  # probably not reproducible anyway.
+    # Copy over the lockfiles as well, because the source
+    # doesn't contain it. The fixed-output derivation is
+    # probably not reproducible anyway.
   modInstallPhase = ''
     mv -t vendor go.mod go.sum
     cp -r --reflink=auto vendor "$out"
@@ -62,9 +62,9 @@ buildGoModule {
 
   buildInputs = [ libcap ];
 
-  # The fetcher derivation must run with a different
-  # $sourceRoot, but buildGoModule doesn't allow that,
-  # so we use this ugly hack.
+    # The fetcher derivation must run with a different
+    # $sourceRoot, but buildGoModule doesn't allow that,
+    # so we use this ugly hack.
   unpackPhase = ''
     runHook preUnpack
 
@@ -76,8 +76,8 @@ buildGoModule {
     runHook postUpack
   '';
 
-  # Same as above: can't use `patches` because that would
-  # be also applied to the fetcher derivation, thus failing.
+    # Same as above: can't use `patches` because that would
+    # be also applied to the fetcher derivation, thus failing.
   patchPhase = ''
     runHook prePatch
     patch -p1 < ${./fix-tpl-path.patch}

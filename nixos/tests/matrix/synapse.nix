@@ -4,8 +4,10 @@ import ../make-test-python.nix ({
   }:
   let
 
-    runWithOpenSSL = file: cmd:
-      pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
+    runWithOpenSSL =
+      file: cmd:
+      pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd
+      ;
 
     ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
     ca_pem = runWithOpenSSL "ca.pem" ''
@@ -62,7 +64,8 @@ import ../make-test-python.nix ({
 
     nodes = {
       # Since 0.33.0, matrix-synapse doesn't allow underscores in server names
-      serverpostgres = {
+      serverpostgres =
+        {
           pkgs,
           nodes,
           ...
@@ -94,11 +97,11 @@ import ../make-test-python.nix ({
           services.postgresql = {
             enable = true;
 
-            # The database name and user are configured by the following options:
-            #   - services.matrix-synapse.database_name
-            #   - services.matrix-synapse.database_user
-            #
-            # The values used here represent the default values of the module.
+              # The database name and user are configured by the following options:
+              #   - services.matrix-synapse.database_name
+              #   - services.matrix-synapse.database_user
+              #
+              # The values used here represent the default values of the module.
             initialScript = pkgs.writeText "synapse-init.sql" ''
               CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
               CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
@@ -117,48 +120,53 @@ import ../make-test-python.nix ({
             ca_pem
           ];
 
-          environment.systemPackages = let
-            sendTestMailStarttls =
-              pkgs.writeScriptBin "send-testmail-starttls" ''
-                #!${pkgs.python3.interpreter}
-                import smtplib
-                import ssl
+          environment.systemPackages =
+            let
+              sendTestMailStarttls =
+                pkgs.writeScriptBin "send-testmail-starttls" ''
+                  #!${pkgs.python3.interpreter}
+                  import smtplib
+                  import ssl
 
-                ctx = ssl.create_default_context()
+                  ctx = ssl.create_default_context()
 
-                with smtplib.SMTP('${mailerDomain}') as smtp:
-                  smtp.ehlo()
-                  smtp.starttls(context=ctx)
-                  smtp.ehlo()
-                  smtp.sendmail('matrix@${mailerDomain}', '${testEmail}', 'Subject: Test STARTTLS\n\nTest data.')
-                  smtp.quit()
-              '';
+                  with smtplib.SMTP('${mailerDomain}') as smtp:
+                    smtp.ehlo()
+                    smtp.starttls(context=ctx)
+                    smtp.ehlo()
+                    smtp.sendmail('matrix@${mailerDomain}', '${testEmail}', 'Subject: Test STARTTLS\n\nTest data.')
+                    smtp.quit()
+                '';
 
-            obtainTokenAndRegisterEmail = let
-              # adding the email through the API is quite complicated as it involves more than one step and some
-              # client-side calculation
-              insertEmailForAlice = pkgs.writeText "alice-email.sql" ''
-                INSERT INTO user_threepids (user_id, medium, address, validated_at, added_at) VALUES ('${testUser}@serverpostgres', 'email', '${testEmail}', '1629149927271', '1629149927270');
-              '';
-            in
-            pkgs.writeScriptBin "obtain-token-and-register-email" ''
-              #!${pkgs.runtimeShell}
-              set -o errexit
-              set -o pipefail
-              set -o nounset
-              su postgres -c "psql -d matrix-synapse -f ${insertEmailForAlice}"
-              curl --fail -XPOST 'https://localhost:8448/_matrix/client/r0/account/password/email/requestToken' -d '{"email":"${testEmail}","client_secret":"foobar","send_attempt":1}' -v
-            ''
+              obtainTokenAndRegisterEmail =
+                let
+                  # adding the email through the API is quite complicated as it involves more than one step and some
+                  # client-side calculation
+                  insertEmailForAlice = pkgs.writeText "alice-email.sql" ''
+                    INSERT INTO user_threepids (user_id, medium, address, validated_at, added_at) VALUES ('${testUser}@serverpostgres', 'email', '${testEmail}', '1629149927271', '1629149927270');
+                  '';
+                in
+                pkgs.writeScriptBin "obtain-token-and-register-email" ''
+                  #!${pkgs.runtimeShell}
+                  set -o errexit
+                  set -o pipefail
+                  set -o nounset
+                  su postgres -c "psql -d matrix-synapse -f ${insertEmailForAlice}"
+                  curl --fail -XPOST 'https://localhost:8448/_matrix/client/r0/account/password/email/requestToken' -d '{"email":"${testEmail}","client_secret":"foobar","send_attempt":1}' -v
+                ''
+                ;
+            in [
+              sendTestMailStarttls
+              pkgs.matrix-synapse
+              obtainTokenAndRegisterEmail
+            ]
             ;
-          in [
-            sendTestMailStarttls
-            pkgs.matrix-synapse
-            obtainTokenAndRegisterEmail
-          ] ;
-        } ;
+        }
+        ;
 
-      # test mail delivery
-      mailserver = args:
+        # test mail delivery
+      mailserver =
+        args:
         let
         in {
           security.pki.certificateFiles = [ mailerCerts.ca.cert ];
@@ -168,14 +176,14 @@ import ../make-test-python.nix ({
           services.postfix = {
             enable = true;
             hostname = "${mailerDomain}";
-            # open relay for subnet
+              # open relay for subnet
             networksStyle = "subnet";
             enableSubmission = true;
             tlsTrustedAuthorities = "${mailerCerts.ca.cert}";
             sslCert = "${mailerCerts.${mailerDomain}.cert}";
             sslKey = "${mailerCerts.${mailerDomain}.key}";
 
-            # blackhole transport
+              # blackhole transport
             transport = "example.com discard:silently";
 
             config = {
@@ -185,7 +193,7 @@ import ../make-test-python.nix ({
                 "reject_unauth_destination"
               ];
 
-              # disable obsolete protocols, something old versions of twisted are still using
+                # disable obsolete protocols, something old versions of twisted are still using
               smtpd_tls_protocols =
                 "TLSv1.3, TLSv1.2, !TLSv1.1, !TLSv1, !SSLv2, !SSLv3";
               smtp_tls_protocols =
@@ -196,19 +204,22 @@ import ../make-test-python.nix ({
                 "TLSv1.3, TLSv1.2, !TLSv1.1, !TLSv1, !SSLv2, !SSLv3";
             };
           };
-        } ;
+        }
+        ;
 
-      serversqlite = args: {
-        services.matrix-synapse = {
-          enable = true;
-          settings = {
-            inherit listeners;
-            database.name = "sqlite3";
-            tls_certificate_path = "${cert}";
-            tls_private_key_path = "${key}";
+      serversqlite =
+        args: {
+          services.matrix-synapse = {
+            enable = true;
+            settings = {
+              inherit listeners;
+              database.name = "sqlite3";
+              tls_certificate_path = "${cert}";
+              tls_private_key_path = "${key}";
+            };
           };
-        };
-      };
+        }
+        ;
     };
 
     testScript = ''

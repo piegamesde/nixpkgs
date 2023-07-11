@@ -48,10 +48,12 @@ in {
       nameValuePair svcName (import ./github-runner/service.nix (args // {
         inherit svcName;
         cfg = v // {
-          name = if v.name != null then
-            v.name
-          else
-            n;
+          name =
+            if v.name != null then
+              v.name
+            else
+              n
+            ;
         };
         systemdDir = "github-runner/${n}";
       }))

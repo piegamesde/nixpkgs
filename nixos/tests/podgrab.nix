@@ -9,20 +9,24 @@ import ./make-test-python.nix ({
     name = "podgrab";
 
     nodes = {
-      default = {
+      default =
+        {
           ...
         }: {
           services.podgrab.enable = true;
-        };
+        }
+        ;
 
-      customized = {
+      customized =
+        {
           ...
         }: {
           services.podgrab = {
             enable = true;
             port = customPort;
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

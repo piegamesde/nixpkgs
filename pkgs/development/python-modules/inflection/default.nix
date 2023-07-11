@@ -17,7 +17,7 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ pytest ];
-  # Suppress overly verbose output if tests run successfully
+    # Suppress overly verbose output if tests run successfully
   checkPhase = "pytest >/dev/null || pytest";
 
   meta = {

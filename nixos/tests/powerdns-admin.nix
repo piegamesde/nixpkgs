@@ -13,7 +13,8 @@ let
     PORT = 8000
   '';
 
-  makeAppTest = name: configs:
+  makeAppTest =
+    name: configs:
     makeTest {
       name = "powerdns-admin-${name}";
       meta = with pkgs.lib.maintainers; {
@@ -23,7 +24,8 @@ let
         ];
       };
 
-      nodes.server = {
+      nodes.server =
+        {
           pkgs,
           config,
           ...
@@ -34,18 +36,20 @@ let
             secretKeyFile = "/etc/powerdns-admin/secret";
             saltFile = "/etc/powerdns-admin/salt";
           };
-          # It's insecure to have secrets in the world-readable nix store, but this is just a test
+            # It's insecure to have secrets in the world-readable nix store, but this is just a test
           environment.etc."powerdns-admin/secret".text = "secret key";
           environment.etc."powerdns-admin/salt".text = "salt";
           environment.systemPackages = [ (pkgs.writeShellScriptBin "run-test"
             config.system.build.testScript) ];
-        } ] ++ configs);
+        } ] ++ configs)
+        ;
 
       testScript = ''
         server.wait_for_unit("powerdns-admin.service")
         server.wait_until_succeeds("run-test", timeout=10)
       '';
-    };
+    }
+    ;
 
   matrix = {
     backend = {
@@ -88,9 +92,8 @@ let
           ensureDatabases = [ "powerdnsadmin" ];
           ensureUsers = [ {
             name = "powerdnsadmin";
-            ensurePermissions = {
-              "DATABASE powerdnsadmin" = "ALL PRIVILEGES";
-            };
+            ensurePermissions = { "DATABASE powerdnsadmin" = "ALL PRIVILEGES"; }
+              ;
           } ];
         };
       };

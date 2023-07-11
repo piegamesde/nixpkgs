@@ -23,7 +23,8 @@ let
     ;
 
   needsEscaping = s: null != builtins.match "[a-zA-Z0-9]+" s;
-  escapeIfNeccessary = s:
+  escapeIfNeccessary =
+    s:
     if needsEscaping s then
       s
     else
@@ -35,11 +36,14 @@ let
             "\\"
             "`"
           ] s
-        }"'';
-  attrsToText = attrs:
+        }"''
+    ;
+  attrsToText =
+    attrs:
     concatStringsSep "\n"
     (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs)
-    + "\n";
+    + "\n"
+    ;
 
   osReleaseContents = {
     NAME = "${cfg.distroName}";
@@ -167,19 +171,22 @@ in {
       type = types.nullOr (types.strMatching "^[a-z0-9._-]+$");
       default = null;
       description = lib.mdDoc
-        "A lower-case string identifying a specific variant or edition of the operating system";
+        "A lower-case string identifying a specific variant or edition of the operating system"
+        ;
       example = "installer";
     };
 
     stateVersion = mkOption {
       type = types.str;
-      # TODO Remove this and drop the default of the option so people are forced to set it.
-      # Doing this also means fixing the comment in nixos/modules/testing/test-instrumentation.nix
-      apply = v:
+        # TODO Remove this and drop the default of the option so people are forced to set it.
+        # Doing this also means fixing the comment in nixos/modules/testing/test-instrumentation.nix
+      apply =
+        v:
         lib.warnIf (options.system.stateVersion.highestPrio
           == (lib.mkOptionDefault { }).priority)
         "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
-        v;
+        v
+        ;
       default = cfg.release;
       defaultText = literalExpression "config.${opt.release}";
       description = lib.mdDoc ''
@@ -214,7 +221,8 @@ in {
       type = types.nullOr types.str;
       default = null;
       description = lib.mdDoc
-        "The Git revision of the top-level flake from which this configuration was built.";
+        "The Git revision of the top-level flake from which this configuration was built."
+        ;
     };
 
   };
@@ -227,9 +235,9 @@ in {
       version = mkDefault (cfg.release + cfg.versionSuffix);
     };
 
-    # Generate /etc/os-release.  See
-    # https://www.freedesktop.org/software/systemd/man/os-release.html for the
-    # format.
+      # Generate /etc/os-release.  See
+      # https://www.freedesktop.org/software/systemd/man/os-release.html for the
+      # format.
     environment.etc = {
       "lsb-release".text = attrsToText {
         LSB_VERSION = "${cfg.release} (${cfg.codeName})";
@@ -245,6 +253,6 @@ in {
 
   };
 
-  # uses version info nixpkgs, which requires a full nixpkgs path
+    # uses version info nixpkgs, which requires a full nixpkgs path
   meta.buildDocsInSandbox = false;
 }

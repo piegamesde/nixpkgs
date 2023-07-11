@@ -11,7 +11,7 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  # Has no tests
+    # Has no tests
   doCheck = false;
 
   src = fetchPypi {

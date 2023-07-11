@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     qtbase
   ];
   propagatedBuildInputs = [ qt5compat ];
-  nativeBuildInputs = [ cmake ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   dontWrapQtApps = true;
 
@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Provides access to ZIP archives from Qt programs";
     license = licenses.lgpl21Plus;
-    homepage =
-      "https://stachenov.github.io/quazip/"; # Migrated from http://quazip.sourceforge.net/
+    homepage = "https://stachenov.github.io/quazip/"
+      ; # Migrated from http://quazip.sourceforge.net/
     platforms = with platforms; linux ++ darwin;
   };
 }

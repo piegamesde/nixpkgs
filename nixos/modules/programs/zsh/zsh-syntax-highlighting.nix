@@ -63,7 +63,7 @@ in {
       highlighters = mkOption {
         default = [ "main" ];
 
-        # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+          # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
         type = types.listOf (types.enum ([
           "main"
           "brackets"
@@ -123,8 +123,8 @@ in {
     environment.systemPackages = with pkgs; [ zsh-syntax-highlighting ];
 
     assertions = [ {
-      assertion = length (attrNames cfg.patterns) > 0
-        -> elem "pattern" cfg.highlighters;
+      assertion =
+        length (attrNames cfg.patterns) > 0 -> elem "pattern" cfg.highlighters;
       message = ''
         When highlighting patterns, "pattern" needs to be included in the list of highlighters.
       '';

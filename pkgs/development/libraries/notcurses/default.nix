@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = lib.optional (qrcodegenSupport) "-DUSE_QRCODEGEN=ON"
     ++ lib.optional (!multimediaSupport) "-DUSE_MULTIMEDIA=none";
 
-  # https://github.com/dankamongmen/notcurses/issues/2661
+    # https://github.com/dankamongmen/notcurses/issues/2661
   postPatch = ''
     substituteInPlace tools/notcurses-core.pc.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \

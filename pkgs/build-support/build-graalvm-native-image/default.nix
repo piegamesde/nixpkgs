@@ -54,8 +54,8 @@ stdenv.mkDerivation ({
     glibcLocales
   ];
 
-  nativeImageBuildArgs = nativeImageBuildArgs ++ extraNativeImageBuildArgs
-    ++ [ graalvmXmx ];
+  nativeImageBuildArgs =
+    nativeImageBuildArgs ++ extraNativeImageBuildArgs ++ [ graalvmXmx ];
 
   buildPhase = args.buildPhase or ''
     runHook preBuild
@@ -80,9 +80,9 @@ stdenv.mkDerivation ({
   meta = {
     # default to graalvm's platforms
     platforms = graalvmDrv.meta.platforms;
-    # default to executable name
+      # default to executable name
     mainProgram = executable;
-    # need to have native-image-installable-svm available
+      # need to have native-image-installable-svm available
     broken =
       !(builtins.any (p: (p.product or "") == "native-image-installable-svm")
         graalvmDrv.products);

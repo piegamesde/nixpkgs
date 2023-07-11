@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
-  # Case sensitivity issue
+    # Case sensitivity issue
   preConfigure = lib.optionalString stdenv.isDarwin ''
     rm BUILD
   '';

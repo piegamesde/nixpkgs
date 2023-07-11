@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.supermicro.com/wftp/utility/IPMIView/Linux/IPMIView_${version}_build.${buildVersion}_bundleJRE_Linux_x64.tar.gz";
+      "https://www.supermicro.com/wftp/utility/IPMIView/Linux/IPMIView_${version}_build.${buildVersion}_bundleJRE_Linux_x64.tar.gz"
+      ;
     hash = "sha256-ZN0vadGbjGj9U2wPqvHLjS9fsk3DNCbXoNvzUfnn8IM=";
   };
 
@@ -31,12 +32,14 @@ stdenv.mkDerivation rec {
   ];
   buildPhase = with xorg;
     let
-      stunnelBinary = if stdenv.hostPlatform.system == "x86_64-linux" then
-        "linux/stunnel64"
-      else if stdenv.hostPlatform.system == "i686-linux" then
-        "linux/stunnel32"
-      else
-        throw "IPMIView is not supported on this platform";
+      stunnelBinary =
+        if stdenv.hostPlatform.system == "x86_64-linux" then
+          "linux/stunnel64"
+        else if stdenv.hostPlatform.system == "i686-linux" then
+          "linux/stunnel32"
+        else
+          throw "IPMIView is not supported on this platform"
+        ;
     in ''
       runHook preBuild
 

@@ -22,48 +22,58 @@ let
   # and renames.
   #
   # See docs for crateRenames below.
-  mkRustcDepArgs = dependencies: crateRenames:
+  mkRustcDepArgs =
+    dependencies: crateRenames:
     lib.concatMapStringsSep " " (dep:
       let
         normalizeName = lib.replaceStrings [ "-" ] [ "_" ];
         extern = normalizeName dep.libName;
-        # Find a choice that matches in name and optionally version.
-        findMatchOrUseExtern = choices:
+          # Find a choice that matches in name and optionally version.
+        findMatchOrUseExtern =
+          choices:
           lib.findFirst (choice:
             (!(choice ? version) || choice.version == dep.version or "")) {
               rename = extern;
-            } choices;
-        name = if lib.hasAttr dep.crateName crateRenames then
-          let
-            choices = crateRenames.${dep.crateName};
-          in
-          normalizeName (if builtins.isList choices then
-            (findMatchOrUseExtern choices).rename
+            } choices
+          ;
+        name =
+          if lib.hasAttr dep.crateName crateRenames then
+            let
+              choices = crateRenames.${dep.crateName};
+            in
+            normalizeName (if builtins.isList choices then
+              (findMatchOrUseExtern choices).rename
+            else
+              choices)
           else
-            choices)
-        else
-          extern;
+            extern
+          ;
         opts = lib.optionalString (dep.stdlib or false) "noprelude:";
-        filename = if lib.any (x: x == "lib" || x == "rlib") dep.crateType then
-          "${dep.metadata}.rlib"
-        else
-          "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}";
+        filename =
+          if lib.any (x: x == "lib" || x == "rlib") dep.crateType then
+            "${dep.metadata}.rlib"
+          else
+            "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}"
+          ;
       in
       " --extern ${opts}${name}=${dep.lib}/lib/lib${extern}-${filename}"
-    ) dependencies;
+    ) dependencies
+    ;
 
-  # Create feature arguments for rustc.
+    # Create feature arguments for rustc.
   mkRustcFeatureArgs =
     lib.concatMapStringsSep " " (f: ''--cfg feature=\"${f}\"'');
 
-  # Whether we need to use unstable command line flags
-  #
-  # Currently just needed for standard library dependencies, which have a
-  # special "noprelude:" modifier. If in later versions of Rust this is
-  # stabilized we can account for that here, too, so we don't opt into
-  # instability unnecessarily.
-  needUnstableCLI = dependencies:
-    lib.any (dep: dep.stdlib or false) dependencies;
+    # Whether we need to use unstable command line flags
+    #
+    # Currently just needed for standard library dependencies, which have a
+    # special "noprelude:" modifier. If in later versions of Rust this is
+    # stabilized we can account for that here, too, so we don't opt into
+    # instability unnecessarily.
+  needUnstableCLI =
+    dependencies:
+    lib.any (dep: dep.stdlib or false) dependencies
+    ;
 
   inherit (import ./log.nix { inherit lib; }) noisily echo_colored;
 
@@ -85,8 +95,8 @@ let
 
   installCrate = import ./install-crate.nix { inherit stdenv; };
 
-  # Allow access to the rust attribute set from inside buildRustCrate, which
-  # has a parameter that shadows the name.
+    # Allow access to the rust attribute set from inside buildRustCrate, which
+    # has a parameter that shadows the name.
   rustAttrs = rust;
 
   # The overridable pkgs.buildRustCrate function.
@@ -246,8 +256,8 @@ lib.makeOverridable (
 
   let
     crate = crate_
-      // (lib.attrByPath [ crate_.crateName ] (attr: { }) crateOverrides
-        crate_);
+      // (lib.attrByPath [ crate_.crateName ] (attr: { }) crateOverrides crate_)
+      ;
     dependencies_ = dependencies;
     buildDependencies_ = buildDependencies;
     processedAttrs = [
@@ -278,11 +288,12 @@ lib.makeOverridable (
     extraRustcOptsForBuildRs_ = extraRustcOptsForBuildRs;
     buildTests_ = buildTests;
 
-    # crate2nix has a hack for the old bash based build script that did split
-    # entries at `,`. No we have to work around that hack.
-    # https://github.com/kolloch/crate2nix/blame/5b19c1b14e1b0e5522c3e44e300d0b332dc939e7/crate2nix/templates/build.nix.tera#L89
-    crateBin = lib.filter (bin: !(bin ? name && bin.name == ","))
-      (crate.crateBin or [ ]);
+      # crate2nix has a hack for the old bash based build script that did split
+      # entries at `,`. No we have to work around that hack.
+      # https://github.com/kolloch/crate2nix/blame/5b19c1b14e1b0e5522c3e44e300d0b332dc939e7/crate2nix/templates/build.nix.tera#L89
+    crateBin =
+      lib.filter (bin: !(bin ? name && bin.name == ",")) (crate.crateBin or [ ])
+      ;
     hasCrateBin = crate ? crateBin;
   in
   stdenv.mkDerivation (rec {
@@ -328,58 +339,67 @@ lib.makeOverridable (
       ++ lib.concatMap (dep: dep.completeBuildDeps ++ dep.completeDeps)
       buildDependencies);
 
-    # Create a list of features that are enabled by the crate itself and
-    # through the features argument of buildRustCrate. Exclude features
-    # with a forward slash, since they are passed through to dependencies,
-    # and dep: features, since they're internal-only and do nothing except
-    # enable optional dependencies.
+      # Create a list of features that are enabled by the crate itself and
+      # through the features argument of buildRustCrate. Exclude features
+      # with a forward slash, since they are passed through to dependencies,
+      # and dep: features, since they're internal-only and do nothing except
+      # enable optional dependencies.
     crateFeatures = lib.optionals (crate ? features)
       (builtins.filter (f: !(lib.hasInfix "/" f || lib.hasPrefix "dep:" f))
         (crate.features ++ features));
 
-    libName = if crate ? libName then
-      crate.libName
-    else
-      crate.crateName;
+    libName =
+      if crate ? libName then
+        crate.libName
+      else
+        crate.crateName
+      ;
     libPath = lib.optionalString (crate ? libPath) crate.libPath;
 
-    # Seed the symbol hashes with something unique every time.
-    # https://doc.rust-lang.org/1.0.0/rustc/metadata/loader/index.html#frobbing-symbols
-    metadata = let
-      depsMetadata = lib.foldl' (str: dep: str + dep.metadata) ""
-        (dependencies ++ buildDependencies);
-      hashedMetadata = builtins.hashString "sha256" (crateName + "-"
-        + crateVersion + "___" + toString (mkRustcFeatureArgs crateFeatures)
-        + "___" + depsMetadata + "___"
-        + rustAttrs.toRustTarget stdenv.hostPlatform);
-    in
-    lib.substring 0 10 hashedMetadata
-    ;
+      # Seed the symbol hashes with something unique every time.
+      # https://doc.rust-lang.org/1.0.0/rustc/metadata/loader/index.html#frobbing-symbols
+    metadata =
+      let
+        depsMetadata = lib.foldl' (str: dep: str + dep.metadata) ""
+          (dependencies ++ buildDependencies);
+        hashedMetadata = builtins.hashString "sha256" (crateName + "-"
+          + crateVersion + "___" + toString (mkRustcFeatureArgs crateFeatures)
+          + "___" + depsMetadata + "___"
+          + rustAttrs.toRustTarget stdenv.hostPlatform);
+      in
+      lib.substring 0 10 hashedMetadata
+      ;
 
     build = crate.build or "";
-    # Either set to a concrete sub path to the crate root
-    # or use `null` for auto-detect.
+      # Either set to a concrete sub path to the crate root
+      # or use `null` for auto-detect.
     workspace_member = crate.workspace_member or ".";
     crateVersion = crate.version;
     crateDescription = crate.description or "";
-    crateAuthors = if crate ? authors && lib.isList crate.authors then
-      crate.authors
-    else
-      [ ];
+    crateAuthors =
+      if crate ? authors && lib.isList crate.authors then
+        crate.authors
+      else
+        [ ]
+      ;
     crateHomepage = crate.homepage or "";
-    crateType = if lib.attrByPath [ "procMacro" ] false crate then
-      [ "proc-macro" ]
-    else if lib.attrByPath [ "plugin" ] false crate then
-      [ "dylib" ]
-    else
-      (crate.type or [ "lib" ]);
+    crateType =
+      if lib.attrByPath [ "procMacro" ] false crate then
+        [ "proc-macro" ]
+      else if lib.attrByPath [ "plugin" ] false crate then
+        [ "dylib" ]
+      else
+        (crate.type or [ "lib" ])
+      ;
     colors = lib.attrByPath [ "colors" ] "always" crate;
     extraLinkFlags = lib.concatStringsSep " " (crate.extraLinkFlags or [ ]);
     edition = crate.edition or null;
-    codegenUnits = if crate ? codegenUnits then
-      crate.codegenUnits
-    else
-      1;
+    codegenUnits =
+      if crate ? codegenUnits then
+        crate.codegenUnits
+      else
+        1
+      ;
     extraRustcOpts = lib.optionals (crate ? extraRustcOpts) crate.extraRustcOpts
       ++ extraRustcOpts_
       ++ (lib.optional (edition != null) "--edition ${edition}");
@@ -434,19 +454,23 @@ lib.makeOverridable (
     dontStrip = !release;
     installPhase = installCrate crateName metadata buildTests;
 
-    # depending on the test setting we are either producing something with bins
-    # and libs or just test binaries
-    outputs = if buildTests then
-      [ "out" ]
-    else
-      [
-        "out"
-        "lib"
-      ];
-    outputDev = if buildTests then
-      [ "out" ]
-    else
-      [ "lib" ];
+      # depending on the test setting we are either producing something with bins
+      # and libs or just test binaries
+    outputs =
+      if buildTests then
+        [ "out" ]
+      else
+        [
+          "out"
+          "lib"
+        ]
+      ;
+    outputDev =
+      if buildTests then
+        [ "out" ]
+      else
+        [ "lib" ]
+      ;
 
     meta = { mainProgram = crateName; };
   } // extraDerivationAttrs)

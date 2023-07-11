@@ -23,20 +23,22 @@ let
     sha256 = "sha256:0cz1v7k4d0im749ag632nc34n91b51b0pq4z05rzw1p59a5lza92";
   };
 
-  # tamarin has its own dependencies, but they're kept inside the repo,
-  # no submodules. this factors out the common metadata among all derivations
-  common = pname: src: {
-    inherit pname version src;
+    # tamarin has its own dependencies, but they're kept inside the repo,
+    # no submodules. this factors out the common metadata among all derivations
+  common =
+    pname: src: {
+      inherit pname version src;
 
-    license = lib.licenses.gpl3;
-    homepage = "https://tamarin-prover.github.io";
-    description = "Security protocol verification in the symbolic model";
-    maintainers = [ lib.maintainers.thoughtpolice ];
-    hydraPlatforms = lib.platforms.linux; # maude is broken on darwin
-  };
+      license = lib.licenses.gpl3;
+      homepage = "https://tamarin-prover.github.io";
+      description = "Security protocol verification in the symbolic model";
+      maintainers = [ lib.maintainers.thoughtpolice ];
+      hydraPlatforms = lib.platforms.linux; # maude is broken on darwin
+    }
+    ;
 
-  # tamarin use symlinks to the LICENSE and Setup.hs files, so for these sublibraries
-  # we set the patchPhase to fix that. otherwise, cabal cries a lot.
+    # tamarin use symlinks to the LICENSE and Setup.hs files, so for these sublibraries
+    # we set the patchPhase to fix that. otherwise, cabal cries a lot.
   replaceSymlinks = ''
     cp --remove-destination ${src}/LICENSE .;
     cp --remove-destination ${src}/Setup.hs .;
@@ -85,8 +87,8 @@ let
     (common "tamarin-prover-sapic" (src + "/lib/sapic") // {
       postPatch = "cp --remove-destination ${src}/LICENSE .";
       doHaddock = false; # broken
-      libraryHaskellDepends = (with haskellPackages; [ raw-strings-qq ])
-        ++ [ tamarin-prover-theory ];
+      libraryHaskellDepends =
+        (with haskellPackages; [ raw-strings-qq ]) ++ [ tamarin-prover-theory ];
     });
 
 in
@@ -98,17 +100,18 @@ mkDerivation (common "tamarin-prover" src // {
     # Backport of https://github.com/tamarin-prover/tamarin-prover/pull/536 to 1.6.1
     (fetchpatch {
       url =
-        "https://github.com/tamarin-prover/tamarin-prover/commit/95fbace0c5cbea57b5f320f6bb4d0387a4beab8d.patch";
+        "https://github.com/tamarin-prover/tamarin-prover/commit/95fbace0c5cbea57b5f320f6bb4d0387a4beab8d.patch"
+        ;
       sha256 = "sha256-Wjf7C208kcskEN1op//HQZnhoZopKQS42JvE8kV5NhI=";
     })
   ];
 
-  # strip out unneeded deps manually
+    # strip out unneeded deps manually
   doHaddock = false;
   enableSharedExecutables = false;
   postFixup = "rm -rf $out/lib $out/nix-support $out/share/doc";
 
-  # wrap the prover to be sure it can find maude, sapic, etc
+    # wrap the prover to be sure it can find maude, sapic, etc
   executableToolDepends = [
     makeWrapper
     which

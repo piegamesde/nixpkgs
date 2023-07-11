@@ -35,7 +35,8 @@ let
     java = openjdk17_headless;
   });
 
-  makePackage = args:
+  makePackage =
+    args:
     stdenv.mkDerivation ({
       version = "${major}${update}${build}";
 
@@ -50,13 +51,15 @@ let
         # 8295962: Reference to State in Task.java is ambiguous when building with JDK 19
         (fetchpatch {
           url =
-            "https://github.com/openjdk/jfx/pull/933/commits/cfaee2a52350eff39dd4352484c892716076d3de.patch";
+            "https://github.com/openjdk/jfx/pull/933/commits/cfaee2a52350eff39dd4352484c892716076d3de.patch"
+            ;
           hash = "sha256-hzJMenhvtmHs/6BJj8GfaLp14myV8VCXCLLC8n32yEw=";
         })
         # ditto
         (fetchpatch {
           url =
-            "https://github.com/openjdk/jfx/pull/933/commits/bd46ce12df0a93a56fe0d58d3653d08e58409b7f.patch";
+            "https://github.com/openjdk/jfx/pull/933/commits/bd46ce12df0a93a56fe0d58d3653d08e58409b7f.patch"
+            ;
           hash = "sha256-o9908uw9vYvULmAh/lbfyHhgxz6jpgPq2fcAltWsYoU=";
         })
       ];
@@ -98,15 +101,16 @@ let
 
         runHook postBuild
       '';
-    } // args);
+    } // args)
+    ;
 
-  # Fake build to pre-download deps into fixed-output derivation.
-  # We run nearly full build because I see no other way to download everything that's needed.
-  # Anyone who knows a better way?
+    # Fake build to pre-download deps into fixed-output derivation.
+    # We run nearly full build because I see no other way to download everything that's needed.
+    # Anyone who knows a better way?
   deps = makePackage {
     pname = "openjfx-deps";
 
-    # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+      # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
     installPhase = ''
       find $GRADLE_USER_HOME -type f -regex '.*/modules.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
@@ -116,9 +120,9 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    # suspiciously the same as for openjfx 17 ...
-    # could they really not have changed any of their dependencies?
-    # or did we miss changing another upstream hash when copy-pasting?
+      # suspiciously the same as for openjfx 17 ...
+      # could they really not have changed any of their dependencies?
+      # or did we miss changing another upstream hash when copy-pasting?
     outputHash = "sha256-dV7/U5GpFxhI13smZ587C6cVE4FRNPY0zexZkYK4Yqo=";
   };
 

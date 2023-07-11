@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "08vazw4rszqscjz988k89z28skyj3grm81bm5iwknxxagmrb20fz";
   };
 
-  # The tests are long-running and not that useful
+    # The tests are long-running and not that useful
   doCheck = false;
 
   cargoSha256 = "1wh1yb02w5afghd19i2s0v8mq4lq20djsljrr44xciq68bqfdcp0";

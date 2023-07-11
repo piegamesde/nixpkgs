@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     doxygen
     help2man
   ];
-  # ncurses used due to https://github.com/Nuand/bladeRF/blob/ab4fc672c8bab4f8be34e8917d3f241b1d52d0b8/host/utilities/bladeRF-cli/CMakeLists.txt#L208
+    # ncurses used due to https://github.com/Nuand/bladeRF/blob/ab4fc672c8bab4f8be34e8917d3f241b1d52d0b8/host/utilities/bladeRF-cli/CMakeLists.txt#L208
   buildInputs = [
     tecla
     libusb1
@@ -51,11 +51,11 @@ stdenv.mkDerivation rec {
     cp -r ${noos}/* source/thirdparty/analogdevicesinc/no-OS/
   '';
 
-  # Fixup shebang
+    # Fixup shebang
   prePatch =
     "patchShebangs host/utilities/bladeRF-cli/src/cmd/doc/generate.bash";
 
-  # Let us avoid nettools as a dependency.
+    # Let us avoid nettools as a dependency.
   postPatch = ''
     sed -i 's/$(hostname)/hostname/' host/utilities/bladeRF-cli/src/cmd/doc/generate.bash
   '';

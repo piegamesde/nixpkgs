@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     udev
   ];
 
-  # shell thing didn't work so i replaced it using nix
+    # shell thing didn't work so i replaced it using nix
   prePatch = ''
     substituteInPlace src/brickd/Makefile --replace 'PKG_CONFIG := $(shell which pkg-config 2> /dev/null)' "PKG_CONFIG := $pkgconfig/bin/pkg_config";
   '';
@@ -67,7 +67,8 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://www.tinkerforge.com/";
     description =
-      "A daemon (or service on Windows) that acts as a bridge between the Bricks/Bricklets and the API bindings for the different programming languages";
+      "A daemon (or service on Windows) that acts as a bridge between the Bricks/Bricklets and the API bindings for the different programming languages"
+      ;
     maintainers = [ lib.maintainers.qknight ];
     license = lib.licenses.gpl2;
     platforms = lib.platforms.all;

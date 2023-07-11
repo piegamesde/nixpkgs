@@ -19,8 +19,8 @@ makeImpureTest {
   VK_ICD_FILENAMES = "${amdvlk}/share/vulkan/icd.d/amd_icd64.json";
   XDG_RUNTIME_DIR = "/tmp";
 
-  # AMDVLK needs access to /dev/dri/card0 (or another card), but normally it is rw-rw----
-  # Change the permissions to be rw for everyone
+    # AMDVLK needs access to /dev/dri/card0 (or another card), but normally it is rw-rw----
+    # Change the permissions to be rw for everyone
   prepareRunCommands = ''
     function reset_perms()
     {

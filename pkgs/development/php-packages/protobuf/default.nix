@@ -14,7 +14,8 @@ buildPecl {
 
   meta = with lib; {
     description =
-      "Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data.";
+      "Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data."
+      ;
     license = licenses.bsd3;
     homepage = "https://developers.google.com/protocol-buffers/";
     maintainers = teams.php.members;

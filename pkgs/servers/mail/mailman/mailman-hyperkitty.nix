@@ -32,7 +32,7 @@ buildPythonPackage rec {
     ${python.interpreter} -m nose2 -v
   '';
 
-  # There is an AssertionError
+    # There is an AssertionError
   doCheck = false;
 
   pythonImportsCheck = [ "mailman_hyperkitty" ];

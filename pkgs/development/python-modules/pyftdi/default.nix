@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pyusb
   ];
 
-  # Tests require access to the serial port
+    # Tests require access to the serial port
   doCheck = false;
 
   pythonImportsCheck = [ "pyftdi" ];

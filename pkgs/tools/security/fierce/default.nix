@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'dnspython==1.16.0' 'dnspython'
   '';
 
-  # tests require network access
+    # tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "fierce" ];

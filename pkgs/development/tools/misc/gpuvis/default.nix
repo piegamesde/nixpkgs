@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-29Bv+y0zWzn7QtpsjRV6hr19bCeyVJusPcYiAIEIluk=";
   };
 
-  # patch dlopen path for gtk3
+    # patch dlopen path for gtk3
   postPatch = ''
     substituteInPlace src/hook_gtk3.h \
       --replace "libgtk-3.so" "${lib.getLib gtk3}/lib/libgtk-3.so"

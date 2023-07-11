@@ -55,12 +55,15 @@ let
     }:
     stdenv) { };
 
-  packages = self:
+  packages =
+    self:
     let
 
-      propagate = out:
+      propagate =
+        out:
         let
-          setupHook = {
+          setupHook =
+            {
               writeScript,
             }:
             writeScript "setup-hook" ''
@@ -81,17 +84,19 @@ let
                       propagatedBuildInputs+=" @dev@"
                   fi
               fi
-            '';
+            ''
+            ;
         in
         callPackage setupHook { }
-      ;
+        ;
 
       propagateBin = propagate "bin";
 
       callPackage = self.newScope {
         inherit propagate propagateBin;
 
-        mkDerivation = args:
+        mkDerivation =
+          args:
           let
             inherit (args) pname;
             sname = args.sname or pname;
@@ -101,29 +106,32 @@ let
             hasBin = lib.elem "bin" outputs;
             hasDev = lib.elem "dev" outputs;
 
-            defaultSetupHook = if hasBin && hasDev then
-              propagateBin
-            else
-              null;
+            defaultSetupHook =
+              if hasBin && hasDev then
+                propagateBin
+              else
+                null
+              ;
             setupHook = args.setupHook or defaultSetupHook;
-            nativeBuildInputs = (args.nativeBuildInputs or [ ])
-              ++ [ libsForQt5.wrapQtAppsHook ];
+            nativeBuildInputs =
+              (args.nativeBuildInputs or [ ]) ++ [ libsForQt5.wrapQtAppsHook ];
 
-            meta = let
-              meta = args.meta or { };
-            in
-            meta // {
-              homepage = meta.homepage or "http://www.kde.org";
-              license = meta.license or license;
-              maintainers = (meta.maintainers or [ ]) ++ maintainers;
-              platforms = meta.platforms or lib.platforms.linux;
-            }
-            ;
+            meta =
+              let
+                meta = args.meta or { };
+              in
+              meta // {
+                homepage = meta.homepage or "http://www.kde.org";
+                license = meta.license or license;
+                maintainers = (meta.maintainers or [ ]) ++ maintainers;
+                platforms = meta.platforms or lib.platforms.linux;
+              }
+              ;
           in
           qtStdenv.mkDerivation (args // {
             inherit pname version meta outputs setupHook src nativeBuildInputs;
           })
-        ;
+          ;
       };
 
     in
@@ -188,30 +196,34 @@ let
       systemsettings = callPackage ./systemsettings.nix { };
       xdg-desktop-portal-kde = callPackage ./xdg-desktop-portal-kde.nix { };
 
-      thirdParty = let
-        inherit (libsForQt5) callPackage;
-      in {
-        plasma-applet-caffeine-plus =
-          callPackage ./3rdparty/addons/caffeine-plus.nix { };
-        plasma-applet-virtual-desktop-bar =
-          callPackage ./3rdparty/addons/virtual-desktop-bar.nix { };
-        bismuth = callPackage ./3rdparty/addons/bismuth { };
-        kwin-dynamic-workspaces =
-          callPackage ./3rdparty/kwin/scripts/dynamic-workspaces.nix { };
-        kwin-tiling = callPackage ./3rdparty/kwin/scripts/tiling.nix { };
-        krohnkite = callPackage ./3rdparty/kwin/scripts/krohnkite.nix { };
-        krunner-ssh = callPackage ./3rdparty/addons/krunner-ssh.nix { };
-        krunner-symbols = callPackage ./3rdparty/addons/krunner-symbols.nix { };
-        kzones = callPackage ./3rdparty/kwin/scripts/kzones.nix { };
-        lightly = callPackage ./3rdparty/lightly { };
-        parachute = callPackage ./3rdparty/kwin/scripts/parachute.nix { };
-      } ;
+      thirdParty =
+        let
+          inherit (libsForQt5) callPackage;
+        in {
+          plasma-applet-caffeine-plus =
+            callPackage ./3rdparty/addons/caffeine-plus.nix { };
+          plasma-applet-virtual-desktop-bar =
+            callPackage ./3rdparty/addons/virtual-desktop-bar.nix { };
+          bismuth = callPackage ./3rdparty/addons/bismuth { };
+          kwin-dynamic-workspaces =
+            callPackage ./3rdparty/kwin/scripts/dynamic-workspaces.nix { };
+          kwin-tiling = callPackage ./3rdparty/kwin/scripts/tiling.nix { };
+          krohnkite = callPackage ./3rdparty/kwin/scripts/krohnkite.nix { };
+          krunner-ssh = callPackage ./3rdparty/addons/krunner-ssh.nix { };
+          krunner-symbols =
+            callPackage ./3rdparty/addons/krunner-symbols.nix { };
+          kzones = callPackage ./3rdparty/kwin/scripts/kzones.nix { };
+          lightly = callPackage ./3rdparty/lightly { };
+          parachute = callPackage ./3rdparty/kwin/scripts/parachute.nix { };
+        }
+        ;
 
     } // lib.optionalAttrs config.allowAliases {
       ksysguard = throw "ksysguard has been replaced with plasma-systemmonitor";
       plasma-phone-components = throw
-        "'plasma-phone-components' has been renamed to/replaced by 'plasma-mobile'";
+        "'plasma-phone-components' has been renamed to/replaced by 'plasma-mobile'"
+        ;
     }
-  ;
+    ;
 in
 lib.makeScope libsForQt5.newScope packages

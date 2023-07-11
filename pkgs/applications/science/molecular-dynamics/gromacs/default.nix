@@ -21,7 +21,8 @@ let
   # The possible values are defined in CMakeLists.txt:
   # AUTO None SSE2 SSE4.1 AVX_128_FMA AVX_256 AVX2_256
   # AVX2_128 AVX_512 AVX_512_KNL MIC ARM_NEON ARM_NEON_ASIMD
-  SIMD = x:
+  SIMD =
+    x:
     if (cpuAcceleration != null) then
       x
     else if stdenv.hostPlatform.system == "i686-linux" then
@@ -33,7 +34,8 @@ let
     else if stdenv.hostPlatform.system == "aarch64-linux" then
       "ARM_NEON_ASIMD"
     else
-      "None";
+      "None"
+    ;
 
 in
 stdenv.mkDerivation rec {

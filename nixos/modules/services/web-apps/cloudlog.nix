@@ -9,40 +9,43 @@ with lib;
 
 let
   cfg = config.services.cloudlog;
-  dbFile = let
-    password = if cfg.database.createLocally then
-      "''"
-    else
-      "trim(file_get_contents('${cfg.database.passwordFile}'))";
-  in
-  pkgs.writeText "database.php" ''
-    <?php
-    defined('BASEPATH') OR exit('No direct script access allowed');
-    $active_group = 'default';
-    $query_builder = TRUE;
-    $db['default'] = array(
-      'dsn' => "",
-      'hostname' => '${cfg.database.host}',
-      'username' => '${cfg.database.user}',
-      'password' => ${password},
-      'database' => '${cfg.database.name}',
-      'dbdriver' => 'mysqli',
-      'dbprefix' => "",
-      'pconnect' => TRUE,
-      'db_debug' => (ENVIRONMENT !== 'production'),
-      'cache_on' => FALSE,
-      'cachedir' => "",
-      'char_set' => 'utf8mb4',
-      'dbcollat' => 'utf8mb4_general_ci',
-      'swap_pre' => "",
-      'encrypt' => FALSE,
-      'compress' => FALSE,
-      'stricton' => FALSE,
-      'failover' => array(),
-      'save_queries' => TRUE
-    );
-  ''
-  ;
+  dbFile =
+    let
+      password =
+        if cfg.database.createLocally then
+          "''"
+        else
+          "trim(file_get_contents('${cfg.database.passwordFile}'))"
+        ;
+    in
+    pkgs.writeText "database.php" ''
+      <?php
+      defined('BASEPATH') OR exit('No direct script access allowed');
+      $active_group = 'default';
+      $query_builder = TRUE;
+      $db['default'] = array(
+        'dsn' => "",
+        'hostname' => '${cfg.database.host}',
+        'username' => '${cfg.database.user}',
+        'password' => ${password},
+        'database' => '${cfg.database.name}',
+        'dbdriver' => 'mysqli',
+        'dbprefix' => "",
+        'pconnect' => TRUE,
+        'db_debug' => (ENVIRONMENT !== 'production'),
+        'cache_on' => FALSE,
+        'cachedir' => "",
+        'char_set' => 'utf8mb4',
+        'dbcollat' => 'utf8mb4_general_ci',
+        'swap_pre' => "",
+        'encrypt' => FALSE,
+        'compress' => FALSE,
+        'stricton' => FALSE,
+        'failover' => array(),
+        'save_queries' => TRUE
+      );
+    ''
+    ;
   configFile = pkgs.writeText "config.php" ''
     <?php
     include('${pkgs.cloudlog}/install/config/config.php');
@@ -310,10 +313,11 @@ in {
   config = mkIf cfg.enable {
 
     assertions = [ {
-      assertion = cfg.database.createLocally -> cfg.database.passwordFile
-        == null;
+      assertion =
+        cfg.database.createLocally -> cfg.database.passwordFile == null;
       message =
-        "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true.";
+        "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true."
+        ;
     } ];
 
     services.phpfpm = {
@@ -363,14 +367,16 @@ in {
           };
           wantedBy = [ "phpfpm-cloudlog.service" ];
           after = [ "mysql.service" ];
-          script = let
-            mysql = "${config.services.mysql.package}/bin/mysql";
-          in ''
-            if [ ! -f ${cfg.dataDir}/.dbexists ]; then
-              ${mysql} ${cfg.database.name} < ${pkgs.cloudlog}/install/assets/install.sql
-              touch ${cfg.dataDir}/.dbexists
-            fi
-          '' ;
+          script =
+            let
+              mysql = "${config.services.mysql.package}/bin/mysql";
+            in ''
+              if [ ! -f ${cfg.dataDir}/.dbexists ]; then
+                ${mysql} ${cfg.database.name} < ${pkgs.cloudlog}/install/assets/install.sql
+                touch ${cfg.dataDir}/.dbexists
+              fi
+            ''
+            ;
         };
         cloudlog-upload-lotw = {
           description = "Upload QSOs to LoTW if certs have been provided";
@@ -491,17 +497,19 @@ in {
           };
         };
       };
-      tmpfiles.rules = let
-        group = config.services.nginx.group;
-      in [
-        "d ${cfg.dataDir}                0750 ${cfg.user} ${group} - -"
-        "d ${cfg.dataDir}/updates        0750 ${cfg.user} ${group} - -"
-        "d ${cfg.dataDir}/uploads        0750 ${cfg.user} ${group} - -"
-        "d ${cfg.dataDir}/backup         0750 ${cfg.user} ${group} - -"
-        "d ${cfg.dataDir}/logbook        0750 ${cfg.user} ${group} - -"
-        "d ${cfg.dataDir}/assets/json    0750 ${cfg.user} ${group} - -"
-        "d ${cfg.dataDir}/assets/qslcard 0750 ${cfg.user} ${group} - -"
-      ] ;
+      tmpfiles.rules =
+        let
+          group = config.services.nginx.group;
+        in [
+          "d ${cfg.dataDir}                0750 ${cfg.user} ${group} - -"
+          "d ${cfg.dataDir}/updates        0750 ${cfg.user} ${group} - -"
+          "d ${cfg.dataDir}/uploads        0750 ${cfg.user} ${group} - -"
+          "d ${cfg.dataDir}/backup         0750 ${cfg.user} ${group} - -"
+          "d ${cfg.dataDir}/logbook        0750 ${cfg.user} ${group} - -"
+          "d ${cfg.dataDir}/assets/json    0750 ${cfg.user} ${group} - -"
+          "d ${cfg.dataDir}/assets/qslcard 0750 ${cfg.user} ${group} - -"
+        ]
+        ;
     };
 
     users.users."${cfg.user}" = {

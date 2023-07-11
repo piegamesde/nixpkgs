@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
     "--with-sssd-lib=${sssd}/lib"
   ];
 
-  configureFlagsArray =
-    [ "--with-passprompt=[sudo] password for %p: " # intentional trailing space
+  configureFlagsArray = [ "--with-passprompt=[sudo] password for %p: " # intentional trailing space
     ];
 
   postConfigure = ''

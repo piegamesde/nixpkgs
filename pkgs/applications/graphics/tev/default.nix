@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true; # We also need zenity (see below)
 
-  cmakeFlags =
-    [ "-DTEV_DEPLOY=1" # Only relevant not to append "dev" to the version
+  cmakeFlags = [ "-DTEV_DEPLOY=1" # Only relevant not to append "dev" to the version
     ];
 
   postInstall = ''

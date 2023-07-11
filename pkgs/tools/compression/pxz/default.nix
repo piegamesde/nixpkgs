@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ pashev ];
     description =
-      "compression utility that runs LZMA compression of different parts on multiple cores simultaneously";
+      "compression utility that runs LZMA compression of different parts on multiple cores simultaneously"
+      ;
     longDescription = ''
       Parallel XZ is a compression utility that takes advantage of
       running LZMA compression of different parts of an input file on multiple

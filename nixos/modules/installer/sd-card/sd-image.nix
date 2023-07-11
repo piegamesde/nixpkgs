@@ -47,7 +47,8 @@ in {
   options.sdImage = {
     imageName = mkOption {
       default =
-        "${config.sdImage.imageBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.img";
+        "${config.sdImage.imageBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.img"
+        ;
       description = lib.mdDoc ''
         Name of the generated image file.
       '';
@@ -112,7 +113,7 @@ in {
 
     firmwareSize = mkOption {
       type = types.int;
-      # As of 2019-08-18 the Raspberry pi firmware + u-boot takes ~18MiB
+        # As of 2019-08-18 the Raspberry pi firmware + u-boot takes ~18MiB
       default = 30;
       description = lib.mdDoc ''
         Size of the /boot/firmware partition, in megabytes.
@@ -131,7 +132,8 @@ in {
 
     populateRootCommands = mkOption {
       example = literalExpression
-        "''\${config.boot.loader.generic-extlinux-compatible.populateCmd} -c \${config.system.build.toplevel} -d ./files/boot''";
+        "''\${config.boot.loader.generic-extlinux-compatible.populateCmd} -c \${config.system.build.toplevel} -d ./files/boot''"
+        ;
       description = lib.mdDoc ''
         Shell commands to populate the ./files directory.
         All files in that directory are copied to the
@@ -142,7 +144,8 @@ in {
 
     postBuildCommands = mkOption {
       example = literalExpression
-        "'' dd if=\${pkgs.myBootLoader}/SPL of=$img bs=1024 seek=1 conv=notrunc ''";
+        "'' dd if=\${pkgs.myBootLoader}/SPL of=$img bs=1024 seek=1 conv=notrunc ''"
+        ;
       default = "";
       description = lib.mdDoc ''
         Shell commands to run after the image is built.
@@ -173,9 +176,9 @@ in {
       "/boot/firmware" = {
         device = "/dev/disk/by-label/${config.sdImage.firmwarePartitionName}";
         fsType = "vfat";
-        # Alternatively, this could be removed from the configuration.
-        # The filesystem is not needed at runtime, it could be treated
-        # as an opaque blob instead of a discrete FAT32 filesystem.
+          # Alternatively, this could be removed from the configuration.
+          # The filesystem is not needed at runtime, it could be treated
+          # as an opaque blob instead of a discrete FAT32 filesystem.
         options = [
           "nofail"
           "noauto"

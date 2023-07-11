@@ -39,8 +39,8 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  # Tests depend on quantiphy. To avoid infinite recursion, tests are only
-  # enabled when building passthru.tests.
+    # Tests depend on quantiphy. To avoid infinite recursion, tests are only
+    # enabled when building passthru.tests.
   doCheck = false;
 
   pytestFlagsArray = [
@@ -74,7 +74,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://nestedtext.org";
     changelog =
-      "https://github.com/KenKundert/nestedtext/blob/v${version}/doc/releases.rst";
+      "https://github.com/KenKundert/nestedtext/blob/v${version}/doc/releases.rst"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ jeremyschlatter ];
   };

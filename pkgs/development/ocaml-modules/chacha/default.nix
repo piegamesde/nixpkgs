@@ -22,10 +22,11 @@ buildDunePackage rec {
     hash = "sha256-PmeiFloU0k3SqOK1VjaliiCEzDzrzyMSasgnO5fJS1k=";
   };
 
-  # Ensure compatibility with cstruct ≥ 6.1.0
+    # Ensure compatibility with cstruct ≥ 6.1.0
   patches = [ (fetchpatch {
     url =
-      "https://github.com/abeaumont/ocaml-chacha/commit/fbe4a0a808226229728a68f278adf370251196fd.patch";
+      "https://github.com/abeaumont/ocaml-chacha/commit/fbe4a0a808226229728a68f278adf370251196fd.patch"
+      ;
     sha256 = "sha256-y7X9toFDrgdv3qmFmUs7K7QS+Gy45rRLulKy48m7uqc=";
   }) ];
 
@@ -37,7 +38,7 @@ buildDunePackage rec {
     mirage-crypto
   ];
 
-  # alcotest isn't available for OCaml < 4.05 due to fmt
+    # alcotest isn't available for OCaml < 4.05 due to fmt
   doCheck = lib.versionAtLeast ocaml.version "4.05";
   checkInputs = [ alcotest ];
 

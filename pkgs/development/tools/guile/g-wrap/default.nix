@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  # Note: Glib support is optional, but it's quite useful (e.g., it's used by
-  # Guile-GNOME).
+    # Note: Glib support is optional, but it's quite useful (e.g., it's used by
+    # Guile-GNOME).
   buildInputs = [
     guile
     glib

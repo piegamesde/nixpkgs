@@ -31,7 +31,7 @@ buildGoModule rec {
     "cmd/operator-sdk"
   ];
 
-  # operator-sdk uses the go compiler at runtime
+    # operator-sdk uses the go compiler at runtime
   allowGoReference = true;
 
   postFixup = ''
@@ -40,10 +40,12 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "SDK for building Kubernetes applications. Provides high level APIs, useful abstractions, and project scaffolding";
+      "SDK for building Kubernetes applications. Provides high level APIs, useful abstractions, and project scaffolding"
+      ;
     homepage = "https://github.com/operator-framework/operator-sdk";
     changelog =
-      "https://github.com/operator-framework/operator-sdk/releases/tag/v${version}";
+      "https://github.com/operator-framework/operator-sdk/releases/tag/v${version}"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ arnarg ];
     platforms = platforms.linux ++ platforms.darwin;

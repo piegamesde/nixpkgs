@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [ perl ];
 
-  # On RISC-V platforms, LLVM's libunwind implementation is unsupported by strace.
-  # The build will silently fall back and -k will not work on RISC-V.
+    # On RISC-V platforms, LLVM's libunwind implementation is unsupported by strace.
+    # The build will silently fall back and -k will not work on RISC-V.
   buildInputs = [ libunwind ]; # support -k
 
   configureFlags = [ "--enable-mpers=check" ];

@@ -16,57 +16,62 @@
     libsForQt5 = self;
     callPackage = self.callPackage;
 
-    kdeFrameworks = let
-      mkFrameworks = import ../development/libraries/kde-frameworks;
-      attrs = {
-        inherit libsForQt5;
-        inherit (pkgs) lib fetchurl;
-      };
-    in
-    (lib.makeOverridable mkFrameworks attrs)
-    ;
+    kdeFrameworks =
+      let
+        mkFrameworks = import ../development/libraries/kde-frameworks;
+        attrs = {
+          inherit libsForQt5;
+          inherit (pkgs) lib fetchurl;
+        };
+      in
+      (lib.makeOverridable mkFrameworks attrs)
+      ;
 
-    plasma5 = let
-      mkPlasma5 = import ../desktops/plasma-5;
-      attrs = {
-        inherit libsForQt5;
-        inherit (pkgs) config lib fetchurl;
-        gconf = pkgs.gnome2.GConf;
-        inherit (pkgs) gsettings-desktop-schemas;
-      };
-    in
-    (lib.makeOverridable mkPlasma5 attrs)
-    ;
+    plasma5 =
+      let
+        mkPlasma5 = import ../desktops/plasma-5;
+        attrs = {
+          inherit libsForQt5;
+          inherit (pkgs) config lib fetchurl;
+          gconf = pkgs.gnome2.GConf;
+          inherit (pkgs) gsettings-desktop-schemas;
+        };
+      in
+      (lib.makeOverridable mkPlasma5 attrs)
+      ;
 
-    kdeGear = let
-      mkGear = import ../applications/kde;
-      attrs = {
-        inherit libsForQt5;
-        inherit (pkgs) lib fetchurl;
-      };
-    in
-    (lib.makeOverridable mkGear attrs)
-    ;
+    kdeGear =
+      let
+        mkGear = import ../applications/kde;
+        attrs = {
+          inherit libsForQt5;
+          inherit (pkgs) lib fetchurl;
+        };
+      in
+      (lib.makeOverridable mkGear attrs)
+      ;
 
-    plasmaMobileGear = let
-      mkPlamoGear = import ../applications/plasma-mobile;
-      attrs = {
-        inherit libsForQt5;
-        inherit (pkgs) lib fetchurl;
-      };
-    in
-    (lib.makeOverridable mkPlamoGear attrs)
-    ;
+    plasmaMobileGear =
+      let
+        mkPlamoGear = import ../applications/plasma-mobile;
+        attrs = {
+          inherit libsForQt5;
+          inherit (pkgs) lib fetchurl;
+        };
+      in
+      (lib.makeOverridable mkPlamoGear attrs)
+      ;
 
-    mauiPackages = let
-      mkMaui = import ../applications/maui;
-      attrs = {
-        inherit libsForQt5;
-        inherit (pkgs) lib fetchurl;
-      };
-    in
-    (lib.makeOverridable mkMaui attrs)
-    ;
+    mauiPackages =
+      let
+        mkMaui = import ../applications/maui;
+        attrs = {
+          inherit libsForQt5;
+          inherit (pkgs) lib fetchurl;
+        };
+      in
+      (lib.makeOverridable mkMaui attrs)
+      ;
 
   in
   (kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGear
@@ -84,7 +89,7 @@
         # Alias for backwards compatibility. Added 2021-05-07.
       kdeApplications = kdeGear;
 
-      ### LIBRARIES
+        ### LIBRARIES
 
       accounts-qt = callPackage ../development/libraries/accounts-qt { };
 
@@ -272,8 +277,8 @@
       qtwebkit-plugins =
         callPackage ../development/libraries/qtwebkit-plugins { };
 
-      # Not a library, but we do want it to be built for every qt version there
-      # is, to allow users to choose the right build if needed.
+        # Not a library, but we do want it to be built for every qt version there
+        # is, to allow users to choose the right build if needed.
       sddm = callPackage ../applications/display-managers/sddm { };
 
       signond = callPackage ../development/libraries/signond { };

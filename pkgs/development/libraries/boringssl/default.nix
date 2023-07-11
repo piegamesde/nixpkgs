@@ -27,8 +27,8 @@ buildGoModule {
 
   vendorSha256 = null;
 
-  # hack to get both go and cmake configure phase
-  # (if we use postConfigure then cmake will loop runHook postConfigure)
+    # hack to get both go and cmake configure phase
+    # (if we use postConfigure then cmake will loop runHook postConfigure)
   preBuild = ''
     cmakeConfigurePhase
   '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
@@ -44,7 +44,7 @@ buildGoModule {
     ninjaBuildPhase
   '';
 
-  # CMAKE_OSX_ARCHITECTURES is set to x86_64 by Nix, but it confuses boringssl on aarch64-linux.
+    # CMAKE_OSX_ARCHITECTURES is set to x86_64 by Nix, but it confuses boringssl on aarch64-linux.
   cmakeFlags = [ "-GNinja" ]
     ++ lib.optionals (stdenv.isLinux) [ "-DCMAKE_OSX_ARCHITECTURES=" ];
 

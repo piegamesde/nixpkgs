@@ -18,7 +18,7 @@ let
 
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
-  # assemble list of components
+    # assemble list of components
   components = [
     "basic"
     "sdk"
@@ -26,7 +26,7 @@ let
     "tools"
   ] ++ optional odbcSupport "odbc";
 
-  # determine the version number, there might be different ones per architecture
+    # determine the version number, there might be different ones per architecture
   version = {
     x86_64-linux = "21.9.0.0.0";
     aarch64-linux = "19.10.0.0.0";
@@ -39,7 +39,7 @@ let
     x86_64-darwin = "198000";
   }.${stdenv.hostPlatform.system} or throwSystem;
 
-  # hashes per component and architecture
+    # hashes per component and architecture
   hashes = {
     x86_64-linux = {
       basic = "sha256-wiygUvZFYvjp5pndv3b9yTPxe8sC5HZkJ7jZqO1Mss8=";
@@ -64,10 +64,10 @@ let
     };
   }.${stdenv.hostPlatform.system} or throwSystem;
 
-  # rels per component and architecture, optional
+    # rels per component and architecture, optional
   rels = { }.${stdenv.hostPlatform.system} or { };
 
-  # convert platform to oracle architecture names
+    # convert platform to oracle architecture names
   arch = {
     x86_64-linux = "linux.x64";
     aarch64-linux = "linux.arm64";
@@ -80,20 +80,25 @@ let
     x86_64-darwin = "mac";
   }.${stdenv.hostPlatform.system} or throwSystem;
 
-  # calculate the filename of a single zip file
-  srcFilename = component: arch: version: rel:
+    # calculate the filename of a single zip file
+  srcFilename =
+    component: arch: version: rel:
     "instantclient-${component}-${arch}-${version}"
-    + (optionalString (rel != "") "-${rel}") + "dbru.zip"; # ¯\_(ツ)_/¯
+    + (optionalString (rel != "") "-${rel}") + "dbru.zip"
+    ; # ¯\_(ツ)_/¯
 
-  # fetcher for the non clickthrough artifacts
-  fetcher = srcFilename: hash:
+    # fetcher for the non clickthrough artifacts
+  fetcher =
+    srcFilename: hash:
     fetchurl {
       url =
-        "https://download.oracle.com/otn_software/${shortArch}/instantclient/${directory}/${srcFilename}";
+        "https://download.oracle.com/otn_software/${shortArch}/instantclient/${directory}/${srcFilename}"
+        ;
       sha256 = hash;
-    };
+    }
+    ;
 
-  # assemble srcs
+    # assemble srcs
   srcs = map (component:
     (fetcher (srcFilename component arch version rels.${component} or "")
       hashes.${component} or "")) components;

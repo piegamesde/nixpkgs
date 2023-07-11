@@ -16,12 +16,12 @@ stdenv.mkDerivation rec {
   };
 
   doCheck = true;
-  # attempts to open non-existent file
+    # attempts to open non-existent file
   preCheck = ''
     rm tests/test_conf_parser_save.sh
   '';
 
-  # test suite is not thread safe
+    # test suite is not thread safe
   enableParallelBuilding = false;
 
   nativeBuildInputs = [
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     help2man
   ];
 
-  #Fix, see #28255
+    #Fix, see #28255
   postPatch = ''
     substituteInPlace configure --replace \
       'set -o posix' \

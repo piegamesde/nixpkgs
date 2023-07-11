@@ -18,11 +18,11 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-HLKk64PcJUjKfY4pIwI2OXnjqFF1EkYlWOi0aWOVSbk=";
-  ldflags =
-    [ "-X github.com/cloudflare/cf-terraforming/internal/app/cf-terraforming/cmd.versionString=${version}" ];
+  ldflags = [ "-X github.com/cloudflare/cf-terraforming/internal/app/cf-terraforming/cmd.versionString=${version}" ]
+    ;
 
-  # The test suite insists on downloading a binary release of Terraform from
-  # Hashicorp at runtime, which isn't going to work in a nix build
+    # The test suite insists on downloading a binary release of Terraform from
+    # Hashicorp at runtime, which isn't going to work in a nix build
   doCheck = false;
 
   passthru.tests = testers.testVersion {
@@ -32,7 +32,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A command line utility to facilitate terraforming your existing Cloudflare resources";
+      "A command line utility to facilitate terraforming your existing Cloudflare resources"
+      ;
     homepage = "https://github.com/cloudflare/cf-terraforming/";
     license = licenses.mpl20;
     maintainers = with maintainers; [ benley ];

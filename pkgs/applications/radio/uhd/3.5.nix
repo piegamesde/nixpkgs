@@ -37,18 +37,20 @@
 }:
 
 let
-  onOffBool = b:
+  onOffBool =
+    b:
     if b then
       "ON"
     else
-      "OFF";
+      "OFF"
+    ;
   inherit (lib) optionals;
 
 in
 stdenv.mkDerivation rec {
   pname = "uhd";
-  # UHD seems to use three different version number styles: x.y.z, xxx_yyy_zzz
-  # and xxx.yyy.zzz. Hrmpf... style keeps changing
+    # UHD seems to use three different version number styles: x.y.z, xxx_yyy_zzz
+    # and xxx.yyy.zzz. Hrmpf... style keeps changing
   version = "3.15.0.0";
 
   src = fetchFromGitHub {
@@ -57,10 +59,11 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "0jknln88a69fh244670nb7qrflbyv0vvdxfddb5g8ncpb6hcg8qf";
   };
-  # Firmware images are downloaded (pre-built) from the respective release on Github
+    # Firmware images are downloaded (pre-built) from the respective release on Github
   uhdImagesSrc = fetchurl {
     url =
-      "https://github.com/EttusResearch/uhd/releases/download/v${version}/uhd-images_${version}.tar.xz";
+      "https://github.com/EttusResearch/uhd/releases/download/v${version}/uhd-images_${version}.tar.xz"
+      ;
     sha256 = "1fir1a13ac07mqhm4sr34cixiqj2difxq0870qv1wr7a7cbfw6vp";
   };
 
@@ -93,7 +96,7 @@ stdenv.mkDerivation rec {
   # /nix/store/wd6r25miqbk9ia53pp669gn4wrg9n9cj-gcc-7.3.0/include/c++/7.3.0/bits/vector.tcc:394:7: note: parameter passing for argument of type 'std::vector<uhd::range_t>::iterator {aka __gnu_cxx::__normal_iterator<uhd::range_t*, std::vector<uhd::range_t> >}' changed in GCC 7.1
     ++ [ (lib.optionalString stdenv.isAarch32 "-DCMAKE_CXX_FLAGS=-Wno-psabi") ];
 
-  # Python + mako are always required for the build itself but not necessary for runtime.
+    # Python + mako are always required for the build itself but not necessary for runtime.
   pythonEnv = python3.withPackages (ps:
     with ps;
     [ mako ] ++ optionals (enableLibuhd_Python_api) [
@@ -124,33 +127,35 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # Build only the host software
+    # Build only the host software
   preConfigure = "cd host";
-  # TODO: Check if this still needed, perhaps relevant:
-  # https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html#build_instructions_unix_arm
-  patches = if stdenv.isAarch32 then
-    ./neon.patch
-  else
-    null;
+    # TODO: Check if this still needed, perhaps relevant:
+    # https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html#build_instructions_unix_arm
+  patches =
+    if stdenv.isAarch32 then
+      ./neon.patch
+    else
+      null
+    ;
 
   postPhases = [
     "installFirmware"
     "removeInstalledTests"
   ] ++ optionals (enableUtils) [ "moveUdevRules" ];
 
-  # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
+    # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
   installFirmware = ''
     mkdir -p "$out/share/uhd/images"
     tar --strip-components=1 -xvf "${uhdImagesSrc}" -C "$out/share/uhd/images"
   '';
 
-  # -DENABLE_TESTS=ON installs the tests, we don't need them in the output
+    # -DENABLE_TESTS=ON installs the tests, we don't need them in the output
   removeInstalledTests = ''
     rm -r $out/lib/uhd/tests
   '';
 
-  # Moves the udev rules to the standard location, needed only if utils are
-  # enabled
+    # Moves the udev rules to the standard location, needed only if utils are
+    # enabled
   moveUdevRules = ''
     mkdir -p $out/lib/udev/rules.d
     mv $out/lib/uhd/utils/uhd-usrp.rules $out/lib/udev/rules.d/

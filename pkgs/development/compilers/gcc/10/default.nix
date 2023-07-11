@@ -78,7 +78,8 @@ let
     (fetchurl {
       name = "fix-bug-80431.patch";
       url =
-        "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
+        "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0"
+        ;
       sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
     })
     ../11/fix-struct-redefinition-on-glibc-2.36.patch
@@ -104,17 +105,20 @@ let
     ++ optional (buildPlatform.system == "aarch64-darwin" && targetPlatform
       != buildPlatform) (fetchpatch {
         url =
-          "https://raw.githubusercontent.com/richard-vd/musl-cross-make/5e9e87f06fc3220e102c29d3413fbbffa456fcd6/patches/gcc-${version}/0008-darwin-aarch64-self-host-driver.patch";
+          "https://raw.githubusercontent.com/richard-vd/musl-cross-make/5e9e87f06fc3220e102c29d3413fbbffa456fcd6/patches/gcc-${version}/0008-darwin-aarch64-self-host-driver.patch"
+          ;
         sha256 = "sha256-XtykrPd5h/tsnjY1wGjzSOJ+AyyNLsfnjuOZ5Ryq9vA=";
       });
 
-  # Cross-gcc settings (build == host != target)
-  crossMingw = targetPlatform != hostPlatform && targetPlatform.libc
-    == "msvcrt";
-  stageNameAddon = if crossStageStatic then
-    "stage-static"
-  else
-    "stage-final";
+    # Cross-gcc settings (build == host != target)
+  crossMingw =
+    targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
+  stageNameAddon =
+    if crossStageStatic then
+      "stage-static"
+    else
+      "stage-final"
+    ;
   crossNameAddon = optionalString (targetPlatform != hostPlatform)
     "${targetPlatform.config}-${stageNameAddon}-";
 
@@ -230,10 +234,12 @@ stdenv.mkDerivation ({
       # On NixOS, use the right path to the dynamic linker instead of
       # `/lib/ld*.so'.
       (let
-        libc = if libcCross != null then
-          libcCross
-        else
-          stdenv.cc.libc;
+        libc =
+          if libcCross != null then
+            libcCross
+          else
+            stdenv.cc.libc
+          ;
       in
       (''
         echo "fixing the \`GLIBC_DYNAMIC_LINKER', \`UCLIBC_DYNAMIC_LINKER', and \`MUSL_DYNAMIC_LINKER' macros..."
@@ -281,10 +287,12 @@ stdenv.mkDerivation ({
 
   configureFlags = callFile ../common/configure-flags.nix { };
 
-  targetConfig = if targetPlatform != hostPlatform then
-    targetPlatform.config
-  else
-    null;
+  targetConfig =
+    if targetPlatform != hostPlatform then
+      targetPlatform.config
+    else
+      null
+    ;
 
   buildFlags =
     optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
@@ -307,18 +315,18 @@ stdenv.mkDerivation ({
       null
   } = "gcc -m64";
 
-  # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
-  # library headers and binaries, regarless of the language being compiled.
-  #
-  # Likewise, the LTO code doesn't find zlib.
-  #
-  # Cross-compiling, we need gcc not to read ./specs in order to build the g++
-  # compiler (after the specs for the cross-gcc are created). Having
-  # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
+    # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
+    # library headers and binaries, regarless of the language being compiled.
+    #
+    # Likewise, the LTO code doesn't find zlib.
+    #
+    # Cross-compiling, we need gcc not to read ./specs in order to build the g++
+    # compiler (after the specs for the cross-gcc are created). Having
+    # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
   CPATH = optionals (targetPlatform == hostPlatform)
-    (makeSearchPathOutput "dev" "include"
-      ([ ] ++ optional (zlib != null) zlib));
+    (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib))
+    ;
 
   LIBRARY_PATH = optionals (targetPlatform == hostPlatform)
     (makeLibraryPath (optional (zlib != null) zlib));

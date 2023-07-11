@@ -16,7 +16,7 @@ in {
     maintainers = with maintainers; [ attila-lendvai ];
   };
 
-  ### interface
+    ### interface
 
   options = {
     services.bee = {
@@ -67,7 +67,7 @@ in {
     };
   };
 
-  ### implementation
+    ### implementation
 
   config = mkIf cfg.enable {
     assertions = [
@@ -87,7 +87,8 @@ in {
     ];
 
     warnings = optional (!config.services.bee-clef.enable)
-      "The bee service requires an external signer. Consider setting `config.services.bee-clef.enable` = true";
+      "The bee service requires an external signer. Consider setting `config.services.bee-clef.enable` = true"
+      ;
 
     services.bee.settings = {
       data-dir = lib.mkDefault "/var/lib/bee";
@@ -99,8 +100,8 @@ in {
 
     systemd.packages = [ cfg.package ]; # include the upstream bee.service file
 
-    systemd.tmpfiles.rules =
-      [ "d '${cfg.settings.data-dir}' 0750 ${cfg.user} ${cfg.group}" ];
+    systemd.tmpfiles.rules = [ "d '${cfg.settings.data-dir}' 0750 ${cfg.user} ${cfg.group}" ]
+      ;
 
     systemd.services.bee = {
       requires = optional config.services.bee-clef.enable "bee-clef.service";

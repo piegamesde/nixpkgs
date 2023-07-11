@@ -37,7 +37,7 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  # ParserError: Could not parse timezone expression "America/Nuuk"
+    # ParserError: Could not parse timezone expression "America/Nuuk"
   disabledTests = [ "test_parse_tz_name_zzz" ];
 
   pythonImportsCheck = [ "arrow" ];

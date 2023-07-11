@@ -32,7 +32,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "tago" ];

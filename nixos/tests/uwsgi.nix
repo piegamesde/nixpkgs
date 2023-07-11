@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "uwsgi";
     meta = with pkgs.lib.maintainers; { maintainers = [ lnl7 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -61,7 +62,8 @@ import ./make-test-python.nix ({
             '';
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

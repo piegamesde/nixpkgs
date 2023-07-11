@@ -13,9 +13,9 @@ with lib;
 
   meta = { maintainers = teams.gnome.members; };
 
-  ###### interface
+    ###### interface
 
-  # Added 2021-05-07
+    # Added 2021-05-07
   imports = [ (mkRenamedOptionModule [
     "services"
     "gnome3"
@@ -48,7 +48,7 @@ with lib;
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
     (mkIf config.services.gnome.at-spi2-core.enable {

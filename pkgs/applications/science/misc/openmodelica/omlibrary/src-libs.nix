@@ -223,14 +223,16 @@
   }
   {
     url =
-      "https://github.com/OpenModelica/OpenModelica-ModelicaStandardLibrary.git";
+      "https://github.com/OpenModelica/OpenModelica-ModelicaStandardLibrary.git"
+      ;
     rev = "4a91d52248b0f17415bba1d58881fc730bd94215";
     sha256 = "19caxz6hvlrsls3b2387a24zwwnykbb138jpb42gwpy8jlh93yzi";
     fetchSubmodules = true;
   }
   {
     url =
-      "https://github.com/OpenModelica/OpenModelica-ModelicaStandardLibrary.git";
+      "https://github.com/OpenModelica/OpenModelica-ModelicaStandardLibrary.git"
+      ;
     rev = "cab27240a4a3ed4ea137226f056bbc0d79543f7a";
     sha256 = "06y911i2hs7hg4ykhb8wngvxhwnaww8rsakwa7ssd047a7glzsb0";
     fetchSubmodules = true;

@@ -37,7 +37,7 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  # Huge test suites with several test failures
+    # Huge test suites with several test failures
   doCheck = false;
 
   pythonImportsCheck = [ "statsmodels" ];

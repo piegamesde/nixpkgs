@@ -30,27 +30,32 @@ pkgs.lib.throwIf (args ? specialArgs) ''
 
   inherit pkgs;
 
-  evalTest = module:
+  evalTest =
+    module:
     nixos-lib.evalTest {
       imports = [
         extraTestModule
         module
       ];
-    };
-  runTest = module:
+    }
+    ;
+  runTest =
+    module:
     nixos-lib.runTest {
       imports = [
         extraTestModule
         module
       ];
-    };
+    }
+    ;
 
   extraTestModule = { config = { hostPkgs = pkgs; }; };
 
-  # Make a full-blown test (legacy)
-  # For an official public interface to the tests, see
-  # https://nixos.org/manual/nixos/unstable/index.html#sec-calling-nixos-tests
-  makeTest = {
+    # Make a full-blown test (legacy)
+    # For an official public interface to the tests, see
+    # https://nixos.org/manual/nixos/unstable/index.html#sec-calling-nixos-tests
+  makeTest =
+    {
       machine ? null,
       nodes ? { },
       testScript,
@@ -88,7 +93,7 @@ pkgs.lib.throwIf (args ? specialArgs) ''
     in
     testConfig.test # For nix-build
     // testConfig
-  ; # For all-tests.nix
+    ; # For all-tests.nix
 
   simpleTest = as: (makeTest as).test;
 

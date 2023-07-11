@@ -21,7 +21,7 @@ symlinkJoin rec {
     qgis-unwrapped.py.pkgs.wrapPython
   ];
 
-  # extend to add to the python environment of QGIS without rebuilding QGIS application.
+    # extend to add to the python environment of QGIS without rebuilding QGIS application.
   pythonInputs = qgis-unwrapped.pythonBuildInputs
     ++ (extraPythonPackages qgis-unwrapped.py.pkgs);
 

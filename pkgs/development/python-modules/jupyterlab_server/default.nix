@@ -54,7 +54,7 @@ buildPythonPackage rec {
     rm -r tests/translations/
   '';
 
-  # https://github.com/jupyterlab/jupyterlab_server/blob/v2.15.2/pyproject.toml#L61
+    # https://github.com/jupyterlab/jupyterlab_server/blob/v2.15.2/pyproject.toml#L61
   doCheck = false;
 
   preCheck = ''
@@ -71,10 +71,12 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A set of server components for JupyterLab and JupyterLab like applications";
+      "A set of server components for JupyterLab and JupyterLab like applications"
+      ;
     homepage = "https://jupyterlab-server.readthedocs.io/";
     changelog =
-      "https://github.com/jupyterlab/jupyterlab_server/blob/v${version}/CHANGELOG.md";
+      "https://github.com/jupyterlab/jupyterlab_server/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ costrouc ];
   };

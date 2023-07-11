@@ -32,10 +32,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-WL2uqA0sZ5Q3lZIA9vkLVyfec/jBkfGcWb6XQ7AuM94=";
   };
 
-  # we only need this if we are using a version that hasn't been released. We
-  # could also match on the "VERSION x.y.z" bit but then it would have to be
-  # updated based on whatever is the latest release, so instead just rewrite the
-  # line.
+    # we only need this if we are using a version that hasn't been released. We
+    # could also match on the "VERSION x.y.z" bit but then it would have to be
+    # updated based on whatever is the latest release, so instead just rewrite the
+    # line.
   postPatch = ''
     sed -i CMakeLists.txt \
       -e 's@^project.*@project(Zeal VERSION ${version})@'

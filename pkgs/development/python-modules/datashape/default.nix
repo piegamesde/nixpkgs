@@ -13,7 +13,8 @@ let
   # Fetcher function looks similar to fetchPypi.
   # Allows for easier overriding, without having to know
   # how the source is actually fetched.
-  fetcher = {
+  fetcher =
+    {
       pname,
       version,
       sha256,
@@ -23,7 +24,8 @@ let
       repo = pname;
       rev = version;
       inherit sha256;
-    };
+    }
+    ;
 
 in
 buildPythonPackage rec {
@@ -45,14 +47,14 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  # Disable several tests
-  # https://github.com/blaze/datashape/issues/232
+    # Disable several tests
+    # https://github.com/blaze/datashape/issues/232
   checkPhase = ''
     pytest --ignore datashape/tests/test_str.py \
            --ignore datashape/tests/test_user.py
   '';
 
-  # https://github.com/blaze/datashape/issues/238
+    # https://github.com/blaze/datashape/issues/238
   PYTEST_ADDOPTS = "-k 'not test_record and not test_tuple'";
 
   meta = {

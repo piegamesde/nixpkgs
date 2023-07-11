@@ -11,24 +11,29 @@ with lib.strings;
 rec {
 
   # returns default if env var is not set
-  maybeEnv = name: default:
+  maybeEnv =
+    name: default:
     let
       value = builtins.getEnv name;
     in if value == "" then
       default
     else
-      value;
+      value
+    ;
 
-  defaultMergeArg = x: y:
+  defaultMergeArg =
+    x: y:
     if builtins.isAttrs y then
       y
     else
-      (y x);
+      (y x)
+    ;
   defaultMerge = x: y: x // (defaultMergeArg x y);
-  foldArgs = merger: f: init: x:
+  foldArgs =
+    merger: f: init: x:
     let
       arg = (merger init (defaultMergeArg init x));
-      # now add the function with composed args already applied to the final attrs
+        # now add the function with composed args already applied to the final attrs
       base = (setAttrMerge "passthru" { } (f arg) (z:
         z // {
           function = foldArgs merger f arg;
@@ -40,17 +45,21 @@ rec {
       withStdOverrides = base // { override = base.passthru.function; };
     in
     withStdOverrides
-  ;
+    ;
 
-  # shortcut for attrByPath ["name"] default attrs
+    # shortcut for attrByPath ["name"] default attrs
   maybeAttrNullable = maybeAttr;
 
-  # shortcut for attrByPath ["name"] default attrs
-  maybeAttr = name: default: attrs: attrs.${name} or default;
+    # shortcut for attrByPath ["name"] default attrs
+  maybeAttr =
+    name: default: attrs:
+    attrs.${name} or default
+    ;
 
-  # Return the second argument if the first one is true or the empty version
-  # of the second argument.
-  ifEnable = cond: val:
+    # Return the second argument if the first one is true or the empty version
+    # of the second argument.
+  ifEnable =
+    cond: val:
     if cond then
       val
     else if builtins.isList val then
@@ -61,10 +70,12 @@ rec {
     else if val == true || val == false then
       false
     else
-      null;
+      null
+    ;
 
-  # Return true only if there is an attribute and it is true.
-  checkFlag = attrSet: name:
+    # Return true only if there is an attribute and it is true.
+  checkFlag =
+    attrSet: name:
     if name == "true" then
       true
     else if name == "false" then
@@ -72,11 +83,13 @@ rec {
     else if (elem name (attrByPath [ "flags" ] [ ] attrSet)) then
       true
     else
-      attrByPath [ name ] false attrSet;
+      attrByPath [ name ] false attrSet
+    ;
 
-  # Input : attrSet, [ [name default] ... ], name
-  # Output : its value or default.
-  getValue = attrSet: argList: name:
+    # Input : attrSet, [ [name default] ... ], name
+    # Output : its value or default.
+  getValue =
+    attrSet: argList: name:
     (attrByPath [ name ] (if checkFlag attrSet name then
       true
     else if argList == [ ] then
@@ -87,11 +100,13 @@ rec {
       in if (head x) == name then
         (head (tail x))
       else
-        (getValue attrSet (tail argList) name)) attrSet);
+        (getValue attrSet (tail argList) name)) attrSet)
+    ;
 
-  # Input : attrSet, [[name default] ...], [ [flagname reqs..] ... ]
-  # Output : are reqs satisfied? It's asserted.
-  checkReqs = attrSet: argList: condList:
+    # Input : attrSet, [[name default] ...], [ [flagname reqs..] ... ]
+    # Output : are reqs satisfied? It's asserted.
+  checkReqs =
+    attrSet: argList: condList:
     (foldr lib.and true (map (x:
       let
         name = (head x);
@@ -103,32 +118,38 @@ rec {
         in
         (val != null) && (val != false)
       ) (tail x))))
-    ) condList));
+    ) condList))
+    ;
 
-  # This function has O(n^2) performance.
-  uniqList = {
+    # This function has O(n^2) performance.
+  uniqList =
+    {
       inputList,
       acc ? [ ]
     }:
     let
-      go = xs: acc:
+      go =
+        xs: acc:
         if xs == [ ] then
           [ ]
         else
           let
             x = head xs;
-            y = if elem x acc then
-              [ ]
-            else
-              [ x ];
+            y =
+              if elem x acc then
+                [ ]
+              else
+                [ x ]
+              ;
           in
           y ++ go (tail xs) (y ++ acc)
-      ;
+        ;
     in
     go inputList acc
-  ;
+    ;
 
-  uniqListExt = {
+  uniqListExt =
+    {
       inputList,
       outputList ? [ ],
       getter ? (x: x),
@@ -150,22 +171,26 @@ rec {
         inputList = (tail inputList);
         inherit getter compare;
       }
-  ;
+    ;
 
-  condConcat = name: list: checker:
+  condConcat =
+    name: list: checker:
     if list == [ ] then
       name
     else if checker (head list) then
       condConcat (name + (head (tail list))) (tail (tail list)) checker
     else
-      condConcat name (tail (tail list)) checker;
+      condConcat name (tail (tail list)) checker
+    ;
 
-  lazyGenericClosure = {
+  lazyGenericClosure =
+    {
       startSet,
       operator,
     }:
     let
-      work = list: doneKeys: result:
+      work =
+        list: doneKeys: result:
         if list == [ ] then
           result
         else
@@ -176,19 +201,23 @@ rec {
             work (tail list) doneKeys result
           else
             work (tail list ++ operator x) ([ key ] ++ doneKeys)
-            ([ x ] ++ result);
+            ([ x ] ++ result)
+        ;
     in
     work startSet [ ] [ ]
-  ;
+    ;
 
-  innerModifySumArgs = f: x: a: b:
+  innerModifySumArgs =
+    f: x: a: b:
     if b == null then
       (f a b) // x
     else
-      innerModifySumArgs f x (a // b);
+      innerModifySumArgs f x (a // b)
+    ;
   modifySumArgs = f: x: innerModifySumArgs f x { };
 
-  innerClosePropagation = acc: xs:
+  innerClosePropagation =
+    acc: xs:
     if xs == [ ] then
       acc
     else
@@ -206,24 +235,28 @@ rec {
             ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys;
           acc = acc';
         })
-  ;
+    ;
 
-  closePropagationSlow = list:
-    (uniqList { inputList = (innerClosePropagation [ ] list); });
+  closePropagationSlow =
+    list:
+    (uniqList { inputList = (innerClosePropagation [ ] list); })
+    ;
 
-  # This is an optimisation of lib.closePropagation which avoids the O(n^2) behavior
-  # Using a list of derivations, it generates the full closure of the propagatedXXXBuildInputs
-  # The ordering / sorting / comparison is done based on the `outPath`
-  # attribute of each derivation.
-  # On some benchmarks, it performs up to 15 times faster than lib.closePropagation.
-  # See https://github.com/NixOS/nixpkgs/pull/194391 for details.
-  closePropagationFast = list:
+    # This is an optimisation of lib.closePropagation which avoids the O(n^2) behavior
+    # Using a list of derivations, it generates the full closure of the propagatedXXXBuildInputs
+    # The ordering / sorting / comparison is done based on the `outPath`
+    # attribute of each derivation.
+    # On some benchmarks, it performs up to 15 times faster than lib.closePropagation.
+    # See https://github.com/NixOS/nixpkgs/pull/194391 for details.
+  closePropagationFast =
+    list:
     builtins.map (x: x.val) (builtins.genericClosure {
       startSet = builtins.map (x: {
         key = x.outPath;
         val = x;
       }) (builtins.filter (x: x != null) list);
-      operator = item:
+      operator =
+        item:
         if !builtins.isAttrs item.val then
           [ ]
         else
@@ -235,51 +268,69 @@ rec {
               } ]
             else
               [ ]) ((item.val.propagatedBuildInputs or [ ])
-                ++ (item.val.propagatedNativeBuildInputs or [ ]));
-    });
+                ++ (item.val.propagatedNativeBuildInputs or [ ]))
+        ;
+    })
+    ;
 
-  closePropagation = if builtins ? genericClosure then
-    closePropagationFast
-  else
-    closePropagationSlow;
+  closePropagation =
+    if builtins ? genericClosure then
+      closePropagationFast
+    else
+      closePropagationSlow
+    ;
 
-  # calls a function (f attr value ) for each record item. returns a list
-  mapAttrsFlatten = f: r: map (attr: f attr r.${attr}) (attrNames r);
+    # calls a function (f attr value ) for each record item. returns a list
+  mapAttrsFlatten =
+    f: r:
+    map (attr: f attr r.${attr}) (attrNames r)
+    ;
 
-  # attribute set containing one attribute
-  nvs = name: value: listToAttrs [ (nameValuePair name value) ];
-  # adds / replaces an attribute of an attribute set
-  setAttr = set: name: v: set // (nvs name v);
+    # attribute set containing one attribute
+  nvs =
+    name: value:
+    listToAttrs [ (nameValuePair name value) ]
+    ;
+    # adds / replaces an attribute of an attribute set
+  setAttr =
+    set: name: v:
+    set // (nvs name v)
+    ;
 
-  # setAttrMerge (similar to mergeAttrsWithFunc but only merges the values of a particular name)
-  # setAttrMerge "a" [] { a = [2];} (x: x ++ [3]) -> { a = [2 3]; }
-  # setAttrMerge "a" [] {         } (x: x ++ [3]) -> { a = [  3]; }
-  setAttrMerge = name: default: attrs: f:
-    setAttr attrs name (f (maybeAttr name default attrs));
+    # setAttrMerge (similar to mergeAttrsWithFunc but only merges the values of a particular name)
+    # setAttrMerge "a" [] { a = [2];} (x: x ++ [3]) -> { a = [2 3]; }
+    # setAttrMerge "a" [] {         } (x: x ++ [3]) -> { a = [  3]; }
+  setAttrMerge =
+    name: default: attrs: f:
+    setAttr attrs name (f (maybeAttr name default attrs))
+    ;
 
-  # Using f = a: b = b the result is similar to //
-  # merge attributes with custom function handling the case that the attribute
-  # exists in both sets
-  mergeAttrsWithFunc = f: set1: set2:
+    # Using f = a: b = b the result is similar to //
+    # merge attributes with custom function handling the case that the attribute
+    # exists in both sets
+  mergeAttrsWithFunc =
+    f: set1: set2:
     foldr (n: set:
       if set ? ${n} then
         setAttr set n (f set.${n} set2.${n})
       else
-        set) (set2 // set1) (attrNames set2);
+        set) (set2 // set1) (attrNames set2)
+    ;
 
-  # merging two attribute set concatenating the values of same attribute names
-  # eg { a = 7; } {  a = [ 2 3 ]; } becomes { a = [ 7 2 3 ]; }
+    # merging two attribute set concatenating the values of same attribute names
+    # eg { a = 7; } {  a = [ 2 3 ]; } becomes { a = [ 7 2 3 ]; }
   mergeAttrsConcatenateValues =
     mergeAttrsWithFunc (a: b: (toList a) ++ (toList b));
 
-  # merges attributes using //, if a name exists in both attributes
-  # an error will be triggered unless its listed in mergeLists
-  # so you can mergeAttrsNoOverride { buildInputs = [a]; } { buildInputs = [a]; } {} to get
-  # { buildInputs = [a b]; }
-  # merging buildPhase doesn't really make sense. The cases will be rare where appending /prefixing will fit your needs?
-  # in these cases the first buildPhase will override the second one
-  # ! deprecated, use mergeAttrByFunc instead
-  mergeAttrsNoOverride = {
+    # merges attributes using //, if a name exists in both attributes
+    # an error will be triggered unless its listed in mergeLists
+    # so you can mergeAttrsNoOverride { buildInputs = [a]; } { buildInputs = [a]; } {} to get
+    # { buildInputs = [a b]; }
+    # merging buildPhase doesn't really make sense. The cases will be rare where appending /prefixing will fit your needs?
+    # in these cases the first buildPhase will override the second one
+    # ! deprecated, use mergeAttrByFunc instead
+  mergeAttrsNoOverride =
+    {
       mergeLists ? [
         "buildInputs"
         "propagatedBuildInputs"
@@ -301,20 +352,22 @@ rec {
           "error mergeAttrsNoOverride, attribute ${n} given in both attributes - no merge func defined"
       else
         attrs2.${n} # add attribute not existing in attr1
-      )) attrs1 (attrNames attrs2);
+      )) attrs1 (attrNames attrs2)
+    ;
 
-  # example usage:
-  # mergeAttrByFunc  {
-  #   inherit mergeAttrBy; # defined below
-  #   buildInputs = [ a b ];
-  # } {
-  #  buildInputs = [ c d ];
-  # };
-  # will result in
-  # { mergeAttrsBy = [...]; buildInputs = [ a b c d ]; }
-  # is used by defaultOverridableDelayableArgs and can be used when composing using
-  # foldArgs, composedArgsAndFun or applyAndFun. Example: composableDerivation in all-packages.nix
-  mergeAttrByFunc = x: y:
+    # example usage:
+    # mergeAttrByFunc  {
+    #   inherit mergeAttrBy; # defined below
+    #   buildInputs = [ a b ];
+    # } {
+    #  buildInputs = [ c d ];
+    # };
+    # will result in
+    # { mergeAttrsBy = [...]; buildInputs = [ a b c d ]; }
+    # is used by defaultOverridableDelayableArgs and can be used when composing using
+    # foldArgs, composedArgsAndFun or applyAndFun. Example: composableDerivation in all-packages.nix
+  mergeAttrByFunc =
+    x: y:
     let
       mergeAttrBy2 = {
         mergeAttrBy = lib.mergeAttrs;
@@ -335,12 +388,14 @@ rec {
         # don't merge attrs which are neither in x nor y
         (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))))
     ]
-  ;
+    ;
   mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
-  mergeAttrsByFuncDefaultsClean = list:
-    removeAttrs (mergeAttrsByFuncDefaults list) [ "mergeAttrBy" ];
+  mergeAttrsByFuncDefaultsClean =
+    list:
+    removeAttrs (mergeAttrsByFuncDefaults list) [ "mergeAttrBy" ]
+    ;
 
-  # sane defaults (same name as attr name so that inherit can be used)
+    # sane defaults (same name as attr name so that inherit can be used)
   mergeAttrBy = # { buildInputs = concatList; [...]; passthru = mergeAttr; [..]; }
     listToAttrs (map (n: nameValuePair n lib.concat) [
       "nativeBuildInputs"
@@ -363,7 +418,8 @@ rec {
           "postInstall"
         ]);
 
-  nixType = x:
+  nixType =
+    x:
     if isAttrs x then
       if x ? outPath then
         "derivation"
@@ -382,21 +438,23 @@ rec {
     else if isInt x then
       "int"
     else
-      "string";
+      "string"
+    ;
 
-  /* deprecated:
+    /* deprecated:
 
-     For historical reasons, imap has an index starting at 1.
+       For historical reasons, imap has an index starting at 1.
 
-     But for consistency with the rest of the library we want an index
-     starting at zero.
-  */
+       But for consistency with the rest of the library we want an index
+       starting at zero.
+    */
   imap = imap1;
 
-  # Fake hashes. Can be used as hash placeholders, when computing hash ahead isn't trivial
+    # Fake hashes. Can be used as hash placeholders, when computing hash ahead isn't trivial
   fakeHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   fakeSha256 =
     "0000000000000000000000000000000000000000000000000000000000000000";
   fakeSha512 =
-    "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+    "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    ;
 }

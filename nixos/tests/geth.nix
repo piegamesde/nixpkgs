@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "geth";
     meta = with pkgs.lib; { maintainers = with maintainers; [ bachp ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.geth."mainnet" = {
@@ -21,7 +22,8 @@ import ./make-test-python.nix ({
             port = 18545;
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

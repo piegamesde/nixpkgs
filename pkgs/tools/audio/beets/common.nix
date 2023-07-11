@@ -37,7 +37,8 @@
 let
   inherit (lib) attrNames attrValues concatMap;
 
-  mkPlugin = {
+  mkPlugin =
+    {
       enable ? !disableAllPlugins,
       builtin ? false,
       propagatedBuildInputs ? [ ],
@@ -45,12 +46,14 @@ let
       wrapperBins ? [ ]
     }: {
       inherit enable builtin propagatedBuildInputs testPaths wrapperBins;
-    };
+    }
+    ;
 
   basePlugins = lib.mapAttrs (_: a: { builtin = true; } // a)
     (import ./builtin-plugins.nix inputs);
-  allPlugins = lib.mapAttrs (_: mkPlugin)
-    (lib.recursiveUpdate basePlugins pluginOverrides);
+  allPlugins =
+    lib.mapAttrs (_: mkPlugin) (lib.recursiveUpdate basePlugins pluginOverrides)
+    ;
   builtinPlugins = lib.filterAttrs (_: p: p.builtin) allPlugins;
   enabledPlugins = lib.filterAttrs (_: p: p.enable) allPlugins;
   disabledPlugins = lib.filterAttrs (_: p: !p.enable) allPlugins;
@@ -67,7 +70,8 @@ python3Packages.buildPythonApplication rec {
     (fetchpatch {
       # Fix unidecode>=1.3.5 compat
       url =
-        "https://github.com/beetbox/beets/commit/5ae1e0f3c8d3a450cb39f7933aa49bb78c2bc0d9.patch";
+        "https://github.com/beetbox/beets/commit/5ae1e0f3c8d3a450cb39f7933aa49bb78c2bc0d9.patch"
+        ;
       hash = "sha256-gqkrE+U1j3tt1qPRJufTGS/GftaSw/gweXunO/mCVG8=";
     })
   ];

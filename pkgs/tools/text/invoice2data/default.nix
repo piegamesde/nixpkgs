@@ -49,7 +49,7 @@ python3.pkgs.buildPythonApplication rec {
     ])
   ];
 
-  # Tests fails even when ran manually on my ubuntu machine !!
+    # Tests fails even when ran manually on my ubuntu machine !!
   doCheck = false;
 
   pythonImportsCheck = [ "invoice2data" ];

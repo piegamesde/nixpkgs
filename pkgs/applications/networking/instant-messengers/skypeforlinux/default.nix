@@ -94,17 +94,19 @@ let
     xorg.libxcb
   ] + ":${stdenv.cc.cc.lib}/lib64";
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
-    fetchurl {
-      urls = [
-        "https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${version}_amd64.deb"
-        "https://mirror.cs.uchicago.edu/skype/pool/main/s/skypeforlinux/skypeforlinux_${version}_amd64.deb"
-        "https://web.archive.org/web/https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${version}_amd64.deb"
-      ];
-      sha256 = "sha256-tkOPYFkmc4nzO8Rgat9/VNuzzIW10qSEzbXhjkZV83k=";
-    }
-  else
-    throw "Skype for linux is not supported on ${stdenv.hostPlatform.system}";
+  src =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      fetchurl {
+        urls = [
+          "https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${version}_amd64.deb"
+          "https://mirror.cs.uchicago.edu/skype/pool/main/s/skypeforlinux/skypeforlinux_${version}_amd64.deb"
+          "https://web.archive.org/web/https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${version}_amd64.deb"
+        ];
+        sha256 = "sha256-tkOPYFkmc4nzO8Rgat9/VNuzzIW10qSEzbXhjkZV83k=";
+      }
+    else
+      throw "Skype for linux is not supported on ${stdenv.hostPlatform.system}"
+    ;
 
 in
 stdenv.mkDerivation {

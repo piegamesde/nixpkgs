@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A graphical tool for configuring STM32 microcontrollers and microprocessors";
+      "A graphical tool for configuring STM32 microcontrollers and microprocessors"
+      ;
     longDescription = ''
       A graphical tool that allows a very easy configuration of STM32
       microcontrollers and microprocessors, as well as the generation of the

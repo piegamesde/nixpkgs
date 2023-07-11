@@ -19,14 +19,18 @@ let
     unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
   virtualHosts = mapAttrs (vhostName: vhostConfig:
     let
-      serverName = if vhostConfig.serverName != null then
-        vhostConfig.serverName
-      else
-        vhostName;
-      certName = if vhostConfig.useACMEHost != null then
-        vhostConfig.useACMEHost
-      else
-        serverName;
+      serverName =
+        if vhostConfig.serverName != null then
+          vhostConfig.serverName
+        else
+          vhostName
+        ;
+      certName =
+        if vhostConfig.useACMEHost != null then
+          vhostConfig.useACMEHost
+        else
+          serverName
+        ;
     in
     vhostConfig // {
       inherit serverName certName;
@@ -38,7 +42,8 @@ let
           if vhostConfig.sslTrustedCertificate != null then
             vhostConfig.sslTrustedCertificate
           else
-            "${certs.${certName}.directory}/chain.pem";
+            "${certs.${certName}.directory}/chain.pem"
+          ;
       })
   ) cfg.virtualHosts;
   inherit (config.networking)
@@ -364,10 +369,12 @@ let
     ${cfg.appendConfig}
   '';
 
-  configPath = if cfg.enableReload then
-    "/etc/nginx/nginx.conf"
-  else
-    configFile;
+  configPath =
+    if cfg.enableReload then
+      "/etc/nginx/nginx.conf"
+    else
+      configFile
+    ;
 
   execCommand = "${cfg.package}/bin/nginx -c '${configPath}'";
 
@@ -376,32 +383,38 @@ let
       onlySSL = vhost.onlySSL || vhost.enableSSL;
       hasSSL = onlySSL || vhost.addSSL || vhost.forceSSL;
 
-      defaultListen = if vhost.listen != [ ] then
-        vhost.listen
-      else
-        let
-          addrs = if vhost.listenAddresses != [ ] then
-            vhost.listenAddresses
-          else
-            cfg.defaultListenAddresses;
-        in
-        optionals (hasSSL || vhost.rejectSSL) (map (addr: {
-          inherit addr;
-          port = cfg.defaultSSLListenPort;
-          ssl = true;
-        }) addrs) ++ optionals (!onlySSL) (map (addr: {
-          inherit addr;
-          port = cfg.defaultHTTPListenPort;
-          ssl = false;
-        }) addrs)
-      ;
+      defaultListen =
+        if vhost.listen != [ ] then
+          vhost.listen
+        else
+          let
+            addrs =
+              if vhost.listenAddresses != [ ] then
+                vhost.listenAddresses
+              else
+                cfg.defaultListenAddresses
+              ;
+          in
+          optionals (hasSSL || vhost.rejectSSL) (map (addr: {
+            inherit addr;
+            port = cfg.defaultSSLListenPort;
+            ssl = true;
+          }) addrs) ++ optionals (!onlySSL) (map (addr: {
+            inherit addr;
+            port = cfg.defaultHTTPListenPort;
+            ssl = false;
+          }) addrs)
+        ;
 
-      hostListen = if vhost.forceSSL then
-        filter (x: x.ssl) defaultListen
-      else
-        defaultListen;
+      hostListen =
+        if vhost.forceSSL then
+          filter (x: x.ssl) defaultListen
+        else
+          defaultListen
+        ;
 
-      listenString = {
+      listenString =
+        {
           addr,
           port,
           ssl,
@@ -419,8 +432,10 @@ let
                 "proxy_protocol"
                 "http2"
               ];
-              isCompatibleParameter = param:
-                !(any (p: p == param) inCompatibleParameters);
+              isCompatibleParameter =
+                param:
+                !(any (p: p == param) inCompatibleParameters)
+                ;
             in
             filter isCompatibleParameter extraParameters
             )) + ";")) + "\n\n            listen ${addr}:${toString port} "
@@ -429,7 +444,8 @@ let
         + optionalString vhost.default "default_server "
         + optionalString vhost.reuseport "reuseport "
         + optionalString (extraParameters != [ ])
-        (concatStringsSep " " extraParameters) + ";";
+        (concatStringsSep " " extraParameters) + ";"
+        ;
 
       redirectListen = filter (x: !x.ssl) defaultListen;
 
@@ -538,7 +554,8 @@ let
         ${vhost.extraConfig}
       }
     '' ) virtualHosts);
-  mkLocations = locations:
+  mkLocations =
+    locations:
     concatStringsSep "\n" (map (config: ''
       location ${config.location} {
         ${
@@ -583,23 +600,30 @@ let
         ${mkBasicAuth "sublocation" config}
       }
     '') (sortProperties
-      (mapAttrsToList (k: v: v // { location = k; }) locations)));
+      (mapAttrsToList (k: v: v // { location = k; }) locations)))
+    ;
 
-  mkBasicAuth = name: zone:
+  mkBasicAuth =
+    name: zone:
     optionalString (zone.basicAuthFile != null || zone.basicAuth != { }) (let
-      auth_file = if zone.basicAuthFile != null then
-        zone.basicAuthFile
-      else
-        mkHtpasswd name zone.basicAuth;
+      auth_file =
+        if zone.basicAuthFile != null then
+          zone.basicAuthFile
+        else
+          mkHtpasswd name zone.basicAuth
+        ;
     in ''
       auth_basic secured;
       auth_basic_user_file ${auth_file};
-    '' );
-  mkHtpasswd = name: authDef:
+    '' )
+    ;
+  mkHtpasswd =
+    name: authDef:
     pkgs.writeText "${name}.htpasswd" (concatStringsSep "\n" (mapAttrsToList
       (user: password: ''
         ${user}:{PLAIN}${password}
-      '') authDef));
+      '') authDef))
+    ;
 
   mkCertOwnershipAssertion =
     import ../../../security/acme/mk-cert-ownership-assertion.nix;
@@ -684,8 +708,9 @@ in {
       defaultListenAddresses = mkOption {
         type = types.listOf types.str;
         default = [ "0.0.0.0" ] ++ optional enableIPv6 "[::0]";
-        defaultText = literalExpression ''
-          [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
+        defaultText = literalExpression
+          ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"''
+          ;
         example = literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
         description = lib.mdDoc ''
           If vhosts do not specify listenAddresses, use these addresses by default.
@@ -727,10 +752,12 @@ in {
         default = pkgs.nginxStable;
         defaultText = literalExpression "pkgs.nginxStable";
         type = types.package;
-        apply = p:
+        apply =
+          p:
           p.override {
             modules = lib.unique (p.modules ++ cfg.additionalModules);
-          };
+          }
+          ;
         description = lib.mdDoc ''
           Nginx package to use. This defaults to the stable version. Note
           that the nginx team recommends to use the mainline version which
@@ -901,9 +928,10 @@ in {
 
       sslCiphers = mkOption {
         type = types.nullOr types.str;
-        # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
+          # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
         default =
-          "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
+          "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
+          ;
         description =
           lib.mdDoc "Ciphers to choose from when negotiating TLS handshakes.";
       };
@@ -1122,8 +1150,9 @@ in {
       };
 
       virtualHosts = mkOption {
-        type = types.attrsOf (types.submodule
-          (import ./vhost-options.nix { inherit config lib; }));
+        type = types.attrsOf
+          (types.submodule (import ./vhost-options.nix { inherit config lib; }))
+          ;
         default = { localhost = { }; };
         example = literalExpression ''
           {
@@ -1225,88 +1254,92 @@ in {
   ];
 
   config = mkIf cfg.enable {
-    warnings = let
-      deprecatedSSL = name: config:
-        optional config.enableSSL ''
-          config.services.nginx.virtualHosts.<name>.enableSSL is deprecated,
-          use config.services.nginx.virtualHosts.<name>.onlySSL instead.
-        '';
+    warnings =
+      let
+        deprecatedSSL =
+          name: config:
+          optional config.enableSSL ''
+            config.services.nginx.virtualHosts.<name>.enableSSL is deprecated,
+            use config.services.nginx.virtualHosts.<name>.onlySSL instead.
+          ''
+          ;
 
-    in
-    flatten (mapAttrsToList deprecatedSSL virtualHosts)
-    ;
+      in
+      flatten (mapAttrsToList deprecatedSSL virtualHosts)
+      ;
 
-    assertions = let
-      hostOrAliasIsNull = l: l.root == null || l.alias == null;
-    in
-    [
-      {
-        assertion =
-          all (host: all hostOrAliasIsNull (attrValues host.locations))
-          (attrValues virtualHosts);
-        message =
-          "Only one of nginx root or alias can be specified on a location.";
-      }
+    assertions =
+      let
+        hostOrAliasIsNull = l: l.root == null || l.alias == null;
+      in
+      [
+        {
+          assertion =
+            all (host: all hostOrAliasIsNull (attrValues host.locations))
+            (attrValues virtualHosts);
+          message =
+            "Only one of nginx root or alias can be specified on a location.";
+        }
 
-      {
-        assertion = all (host:
-          with host;
-          count id [
-            addSSL
-            (onlySSL || enableSSL)
-            forceSSL
-            rejectSSL
-          ] <= 1) (attrValues virtualHosts);
-        message = ''
-          Options services.nginx.service.virtualHosts.<name>.addSSL,
-          services.nginx.virtualHosts.<name>.onlySSL,
-          services.nginx.virtualHosts.<name>.forceSSL and
-          services.nginx.virtualHosts.<name>.rejectSSL are mutually exclusive.
-        '';
-      }
+        {
+          assertion = all (host:
+            with host;
+            count id [
+              addSSL
+              (onlySSL || enableSSL)
+              forceSSL
+              rejectSSL
+            ] <= 1) (attrValues virtualHosts);
+          message = ''
+            Options services.nginx.service.virtualHosts.<name>.addSSL,
+            services.nginx.virtualHosts.<name>.onlySSL,
+            services.nginx.virtualHosts.<name>.forceSSL and
+            services.nginx.virtualHosts.<name>.rejectSSL are mutually exclusive.
+          '';
+        }
 
-      {
-        assertion = any (host: host.rejectSSL) (attrValues virtualHosts)
-          -> versionAtLeast cfg.package.version "1.19.4";
-        message = ''
-          services.nginx.virtualHosts.<name>.rejectSSL requires nginx version
-          1.19.4 or above; see the documentation for services.nginx.package.
-        '';
-      }
+        {
+          assertion = any (host: host.rejectSSL) (attrValues virtualHosts)
+            -> versionAtLeast cfg.package.version "1.19.4";
+          message = ''
+            services.nginx.virtualHosts.<name>.rejectSSL requires nginx version
+            1.19.4 or above; see the documentation for services.nginx.package.
+          '';
+        }
 
-      {
-        assertion = any (host: host.kTLS) (attrValues virtualHosts)
-          -> versionAtLeast cfg.package.version "1.21.4";
-        message = ''
-          services.nginx.virtualHosts.<name>.kTLS requires nginx version
-          1.21.4 or above; see the documentation for services.nginx.package.
-        '';
-      }
+        {
+          assertion = any (host: host.kTLS) (attrValues virtualHosts)
+            -> versionAtLeast cfg.package.version "1.21.4";
+          message = ''
+            services.nginx.virtualHosts.<name>.kTLS requires nginx version
+            1.21.4 or above; see the documentation for services.nginx.package.
+          '';
+        }
 
-      {
-        assertion = all (host: !(host.enableACME && host.useACMEHost != null))
-          (attrValues virtualHosts);
-        message = ''
-          Options services.nginx.service.virtualHosts.<name>.enableACME and
-          services.nginx.virtualHosts.<name>.useACMEHost are mutually exclusive.
-        '';
-      }
+        {
+          assertion = all (host: !(host.enableACME && host.useACMEHost != null))
+            (attrValues virtualHosts);
+          message = ''
+            Options services.nginx.service.virtualHosts.<name>.enableACME and
+            services.nginx.virtualHosts.<name>.useACMEHost are mutually exclusive.
+          '';
+        }
 
-      {
-        assertion = cfg.package.pname != "nginxQuic"
-          -> all (host: !host.quic) (attrValues virtualHosts);
-        message = ''
-          services.nginx.service.virtualHosts.<name>.quic requires using nginxQuic package,
-          which can be achieved by setting `services.nginx.package = pkgs.nginxQuic;`.
-        '';
-      }
-    ] ++ map (name:
-      mkCertOwnershipAssertion {
-        inherit (cfg) group user;
-        cert = config.security.acme.certs.${name};
-        groups = config.users.groups;
-      }) dependentCertNames
-    ;
+        {
+          assertion = cfg.package.pname != "nginxQuic"
+            -> all (host: !host.quic) (attrValues virtualHosts);
+          message = ''
+            services.nginx.service.virtualHosts.<name>.quic requires using nginxQuic package,
+            which can be achieved by setting `services.nginx.package = pkgs.nginxQuic;`.
+          '';
+        }
+      ] ++ map (name:
+        mkCertOwnershipAssertion {
+          inherit (cfg) group user;
+          cert = config.security.acme.certs.${name};
+          groups = config.users.groups;
+        }) dependentCertNames
+      ;
 
     services.nginx.additionalModules =
       optional cfg.recommendedBrotliSettings pkgs.nginxModules.brotli
@@ -1321,9 +1354,9 @@ in {
       after = [ "network.target" ]
         ++ map (certName: "acme-selfsigned-${certName}.service")
         dependentCertNames;
-      # Nginx needs to be started in order to be able to request certificates
-      # (it's hosting the acme challenge after all)
-      # This fixes https://github.com/NixOS/nixpkgs/issues/81842
+        # Nginx needs to be started in order to be able to request certificates
+        # (it's hosting the acme challenge after all)
+        # This fixes https://github.com/NixOS/nixpkgs/issues/81842
       before = map (certName: "acme-${certName}.service") dependentCertNames;
       stopIfChanged = false;
       preStart = ''
@@ -1340,24 +1373,24 @@ in {
         ];
         Restart = "always";
         RestartSec = "10s";
-        # User and group
+          # User and group
         User = cfg.user;
         Group = cfg.group;
-        # Runtime directory and mode
+          # Runtime directory and mode
         RuntimeDirectory = "nginx";
         RuntimeDirectoryMode = "0750";
-        # Cache directory and mode
+          # Cache directory and mode
         CacheDirectory = "nginx";
         CacheDirectoryMode = "0750";
-        # Logs directory and mode
+          # Logs directory and mode
         LogsDirectory = "nginx";
         LogsDirectoryMode = "0750";
-        # Proc filesystem
+          # Proc filesystem
         ProcSubset = "pid";
         ProtectProc = "invisible";
-        # New file permissions
+          # New file permissions
         UMask = "0027"; # 0640 / 0750
-        # Capabilities
+          # Capabilities
         AmbientCapabilities = [
           "CAP_NET_BIND_SERVICE"
           "CAP_SYS_RESOURCE"
@@ -1366,9 +1399,9 @@ in {
           "CAP_NET_BIND_SERVICE"
           "CAP_SYS_RESOURCE"
         ];
-        # Security
+          # Security
         NoNewPrivileges = true;
-        # Sandboxing (sorted by occurrence in https://www.freedesktop.org/software/systemd/man/systemd.exec.html)
+          # Sandboxing (sorted by occurrence in https://www.freedesktop.org/software/systemd/man/systemd.exec.html)
         ProtectSystem = "strict";
         ProtectHome = mkDefault true;
         PrivateTmp = true;
@@ -1393,7 +1426,7 @@ in {
         RestrictSUIDSGID = true;
         RemoveIPC = true;
         PrivateMounts = true;
-        # System Call Filtering
+          # System Call Filtering
         SystemCallArchitectures = "native";
         SystemCallFilter =
           [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" ]
@@ -1407,69 +1440,72 @@ in {
     environment.etc."nginx/nginx.conf" =
       mkIf cfg.enableReload { source = configFile; };
 
-    # This service waits for all certificates to be available
-    # before reloading nginx configuration.
-    # sslTargets are added to wantedBy + before
-    # which allows the acme-finished-$cert.target to signify the successful updating
-    # of certs end-to-end.
-    systemd.services.nginx-config-reload = let
-      sslServices =
-        map (certName: "acme-${certName}.service") dependentCertNames;
-      sslTargets =
-        map (certName: "acme-finished-${certName}.target") dependentCertNames;
-    in
-    mkIf (cfg.enableReload || sslServices != [ ]) {
-      wants = optionals cfg.enableReload [ "nginx.service" ];
-      wantedBy = sslServices ++ [ "multi-user.target" ];
-      # Before the finished targets, after the renew services.
-      # This service might be needed for HTTP-01 challenges, but we only want to confirm
-      # certs are updated _after_ config has been reloaded.
-      before = sslTargets;
-      after = sslServices;
-      restartTriggers = optionals cfg.enableReload [ configFile ];
-      # Block reloading if not all certs exist yet.
-      # Happens when config changes add new vhosts/certs.
-      unitConfig.ConditionPathExists = optionals (sslServices != [ ])
-        (map (certName: certs.${certName}.directory + "/fullchain.pem")
-          dependentCertNames);
-      serviceConfig = {
-        Type = "oneshot";
-        TimeoutSec = 60;
-        ExecCondition =
-          "/run/current-system/systemd/bin/systemctl -q is-active nginx.service";
-        ExecStart =
-          "/run/current-system/systemd/bin/systemctl reload nginx.service";
-      };
-    }
-    ;
+      # This service waits for all certificates to be available
+      # before reloading nginx configuration.
+      # sslTargets are added to wantedBy + before
+      # which allows the acme-finished-$cert.target to signify the successful updating
+      # of certs end-to-end.
+    systemd.services.nginx-config-reload =
+      let
+        sslServices =
+          map (certName: "acme-${certName}.service") dependentCertNames;
+        sslTargets =
+          map (certName: "acme-finished-${certName}.target") dependentCertNames;
+      in
+      mkIf (cfg.enableReload || sslServices != [ ]) {
+        wants = optionals cfg.enableReload [ "nginx.service" ];
+        wantedBy = sslServices ++ [ "multi-user.target" ];
+          # Before the finished targets, after the renew services.
+          # This service might be needed for HTTP-01 challenges, but we only want to confirm
+          # certs are updated _after_ config has been reloaded.
+        before = sslTargets;
+        after = sslServices;
+        restartTriggers = optionals cfg.enableReload [ configFile ];
+          # Block reloading if not all certs exist yet.
+          # Happens when config changes add new vhosts/certs.
+        unitConfig.ConditionPathExists = optionals (sslServices != [ ])
+          (map (certName: certs.${certName}.directory + "/fullchain.pem")
+            dependentCertNames);
+        serviceConfig = {
+          Type = "oneshot";
+          TimeoutSec = 60;
+          ExecCondition =
+            "/run/current-system/systemd/bin/systemctl -q is-active nginx.service"
+            ;
+          ExecStart =
+            "/run/current-system/systemd/bin/systemctl reload nginx.service";
+        };
+      }
+      ;
 
-    security.acme.certs = let
-      acmePairs = map (vhostConfig:
-        let
-          hasRoot = vhostConfig.acmeRoot != null;
-        in
-        nameValuePair vhostConfig.serverName {
-          group = mkDefault cfg.group;
-          # if acmeRoot is null inherit config.security.acme
-          # Since config.security.acme.certs.<cert>.webroot's own default value
-          # should take precedence set priority higher than mkOptionDefault
-          webroot = mkOverride (if hasRoot then
-            1000
-          else
-            2000) vhostConfig.acmeRoot;
-          # Also nudge dnsProvider to null in case it is inherited
-          dnsProvider = mkOverride (if hasRoot then
-            1000
-          else
-            2000) null;
-          extraDomainNames = vhostConfig.serverAliases;
-          # Filter for enableACME-only vhosts. Don't want to create dud certs
-        }
-      ) (filter (vhostConfig: vhostConfig.useACMEHost == null)
-        acmeEnabledVhosts);
-    in
-    listToAttrs acmePairs
-    ;
+    security.acme.certs =
+      let
+        acmePairs = map (vhostConfig:
+          let
+            hasRoot = vhostConfig.acmeRoot != null;
+          in
+          nameValuePair vhostConfig.serverName {
+            group = mkDefault cfg.group;
+              # if acmeRoot is null inherit config.security.acme
+              # Since config.security.acme.certs.<cert>.webroot's own default value
+              # should take precedence set priority higher than mkOptionDefault
+            webroot = mkOverride (if hasRoot then
+              1000
+            else
+              2000) vhostConfig.acmeRoot;
+              # Also nudge dnsProvider to null in case it is inherited
+            dnsProvider = mkOverride (if hasRoot then
+              1000
+            else
+              2000) null;
+            extraDomainNames = vhostConfig.serverAliases;
+              # Filter for enableACME-only vhosts. Don't want to create dud certs
+          }
+        ) (filter (vhostConfig: vhostConfig.useACMEHost == null)
+          acmeEnabledVhosts);
+      in
+      listToAttrs acmePairs
+      ;
 
     users.users = optionalAttrs (cfg.user == "nginx") {
       nginx = {
@@ -1491,7 +1527,8 @@ in {
       compress = true;
       delaycompress = true;
       postrotate =
-        "[ ! -f /var/run/nginx/nginx.pid ] || kill -USR1 `cat /var/run/nginx/nginx.pid`";
+        "[ ! -f /var/run/nginx/nginx.pid ] || kill -USR1 `cat /var/run/nginx/nginx.pid`"
+        ;
     };
   };
 }

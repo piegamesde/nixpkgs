@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/harfbuzz/harfbuzz/releases/download/${version}/harfbuzz-${version}.tar.xz";
+      "https://github.com/harfbuzz/harfbuzz/releases/download/${version}/harfbuzz-${version}.tar.xz"
+      ;
     hash = "sha256-8TWmHNRkye1ryYI3ZMGI8nbDhQqNyQRijeKoeWa3B3s=";
   };
 
@@ -107,7 +108,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # Slightly hacky; some pkgs expect them in a single directory.
+    # Slightly hacky; some pkgs expect them in a single directory.
   postFixup = lib.optionalString withIcu ''
     rm "$out"/lib/libharfbuzz.* "$dev/lib/pkgconfig/harfbuzz.pc"
     ln -s {'${harfbuzz.dev}',"$dev"}/lib/pkgconfig/harfbuzz.pc

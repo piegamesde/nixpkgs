@@ -127,21 +127,23 @@ let
     end
   '';
 
-  # This is wrapped in begin/end in case the user wants to apply redirections.
-  # This does mean the basic usage of sourcing a single file will produce
-  # `begin; begin; …; end; end` but that's ok.
-  sourceWithFenv = path: ''
-    begin # fenv
-      # This happens before $__fish_datadir/config.fish sets fish_function_path, so it is currently
-      # unset. We set it and then completely erase it, leaving its configuration to $__fish_datadir/config.fish
-      set fish_function_path ${fishPlugins.foreign-env}/share/fish/vendor_functions.d $__fish_datadir/functions
-      fenv source ${lib.escapeShellArg path}
-      set -l fenv_status $status
-      # clear fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish
-      set -e fish_function_path
-      test $fenv_status -eq 0
-    end # fenv
-  '';
+    # This is wrapped in begin/end in case the user wants to apply redirections.
+    # This does mean the basic usage of sourcing a single file will produce
+    # `begin; begin; …; end; end` but that's ok.
+  sourceWithFenv =
+    path: ''
+      begin # fenv
+        # This happens before $__fish_datadir/config.fish sets fish_function_path, so it is currently
+        # unset. We set it and then completely erase it, leaving its configuration to $__fish_datadir/config.fish
+        set fish_function_path ${fishPlugins.foreign-env}/share/fish/vendor_functions.d $__fish_datadir/functions
+        fenv source ${lib.escapeShellArg path}
+        set -l fenv_status $status
+        # clear fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish
+        set -e fish_function_path
+        test $fenv_status -eq 0
+      end # fenv
+    ''
+    ;
 
   fish = stdenv.mkDerivation rec {
     pname = "fish";
@@ -155,11 +157,12 @@ let
       # --version`), as well as the local documentation for all builtins (and
       # maybe other things).
       url =
-        "https://github.com/fish-shell/fish-shell/releases/download/${version}/${pname}-${version}.tar.xz";
+        "https://github.com/fish-shell/fish-shell/releases/download/${version}/${pname}-${version}.tar.xz"
+        ;
       hash = "sha256-VUArtHymc52KuiXkF4CQW1zhvOCl4N0X3KkItbwLSbI=";
     };
 
-    # Fix FHS paths in tests
+      # Fix FHS paths in tests
     postPatch = ''
       # src/fish_tests.cpp
       sed -i 's|/bin/ls|${coreutils}/bin/ls|' src/fish_tests.cpp
@@ -222,17 +225,17 @@ let
       [ "-DCMAKE_INSTALL_DOCDIR=${placeholder "doc"}/share/doc/fish" ]
       ++ lib.optionals stdenv.isDarwin [ "-DMAC_CODESIGN_ID=OFF" ];
 
-    # The optional string is kind of an inelegant way to get fish to cross compile.
-    # Fish needs coreutils as a runtime dependency, and it gets put into
-    # CMAKE_PREFIX_PATH, which cmake uses to look up build time programs, so it
-    # was clobbering the PATH. It probably needs to be fixed at a lower level.
+      # The optional string is kind of an inelegant way to get fish to cross compile.
+      # Fish needs coreutils as a runtime dependency, and it gets put into
+      # CMAKE_PREFIX_PATH, which cmake uses to look up build time programs, so it
+      # was clobbering the PATH. It probably needs to be fixed at a lower level.
     preConfigure = ''
       patchShebangs ./build_tools/git_version_gen.sh
     '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       export CMAKE_PREFIX_PATH=
     '';
 
-    # Required binaries during execution
+      # Required binaries during execution
     propagatedBuildInputs = [
       coreutils
       gnugrep
@@ -317,37 +320,38 @@ let
       tests = {
         nixos = nixosTests.fish;
 
-        # Test the fish_config tool by checking the generated splash page.
-        # Since the webserver requires a port to run, it is not started.
-        fishConfig = let
-          fishScript = writeText "test.fish" ''
-            set -x __fish_bin_dir ${fish}/bin
-            echo $__fish_bin_dir
-            cp -r ${fish}/share/fish/tools/web_config/* .
-            chmod -R +w *
+          # Test the fish_config tool by checking the generated splash page.
+          # Since the webserver requires a port to run, it is not started.
+        fishConfig =
+          let
+            fishScript = writeText "test.fish" ''
+              set -x __fish_bin_dir ${fish}/bin
+              echo $__fish_bin_dir
+              cp -r ${fish}/share/fish/tools/web_config/* .
+              chmod -R +w *
 
-            # if we don't set `delete=False`, the file will get cleaned up
-            # automatically (leading the test to fail because there's no
-            # tempfile to check)
-            sed -e 's@, mode="w"@, mode="w", delete=False@' -i webconfig.py
+              # if we don't set `delete=False`, the file will get cleaned up
+              # automatically (leading the test to fail because there's no
+              # tempfile to check)
+              sed -e 's@, mode="w"@, mode="w", delete=False@' -i webconfig.py
 
-            # we delete everything after the fileurl is assigned
-            sed -e '/fileurl =/q' -i webconfig.py
-            echo "print(fileurl)" >> webconfig.py
+              # we delete everything after the fileurl is assigned
+              sed -e '/fileurl =/q' -i webconfig.py
+              echo "print(fileurl)" >> webconfig.py
 
-            # and check whether the message appears on the page
-            cat (${python3}/bin/python ./webconfig.py \
-              | tail -n1 | sed -ne 's|.*\(/build/.*\)|\1|p' \
-            ) | grep 'a href="http://localhost.*Start the Fish Web config'
+              # and check whether the message appears on the page
+              cat (${python3}/bin/python ./webconfig.py \
+                | tail -n1 | sed -ne 's|.*\(/build/.*\)|\1|p' \
+              ) | grep 'a href="http://localhost.*Start the Fish Web config'
 
-            # cannot test the http server because it needs a localhost port
-          '';
-        in
-        runCommand "test-web-config" { } ''
-          HOME=$(mktemp -d)
-          ${fish}/bin/fish ${fishScript} && touch $out
-        ''
-        ;
+              # cannot test the http server because it needs a localhost port
+            '';
+          in
+          runCommand "test-web-config" { } ''
+            HOME=$(mktemp -d)
+            ${fish}/bin/fish ${fishScript} && touch $out
+          ''
+          ;
       };
       updateScript = nix-update-script { };
     };

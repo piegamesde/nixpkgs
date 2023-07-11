@@ -23,8 +23,8 @@ buildPythonPackage rec {
     pillow
   ];
 
-  # Test data is not included
-  # https://github.com/torchbox/Willow/issues/34
+    # Test data is not included
+    # https://github.com/torchbox/Willow/issues/34
   doCheck = false;
 
   meta = with lib; {

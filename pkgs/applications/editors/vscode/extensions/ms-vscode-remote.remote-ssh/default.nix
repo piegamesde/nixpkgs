@@ -12,10 +12,10 @@ let
 
   nodeVersion = "16";
 
-  # As VS Code executes this code on the remote machine
-  # we test to see if we can build Node from Nixpkgs
-  # otherwise we check if the globally installed Node
-  # is usable.
+    # As VS Code executes this code on the remote machine
+    # we test to see if we can build Node from Nixpkgs
+    # otherwise we check if the globally installed Node
+    # is usable.
   patch = ''
     # Use Node from nixpkgs for NixOS hosts
     #
@@ -90,7 +90,8 @@ buildVscodeMarketplaceExtension {
 
   meta = {
     description =
-      "Use any remote machine with a SSH server as your development environment.";
+      "Use any remote machine with a SSH server as your development environment."
+      ;
     license = lib.licenses.unfree;
     maintainers = [
       lib.maintainers.SuperSandro2000

@@ -29,12 +29,12 @@ stdenv.mkDerivation rec {
   pname = "sqlite${lib.optionalString interactive "-interactive"}";
   version = "3.41.2";
 
-  # nixpkgs-update: no auto update
-  # NB! Make sure to update ./tools.nix src (in the same directory).
+    # nixpkgs-update: no auto update
+    # NB! Make sure to update ./tools.nix src (in the same directory).
   src = fetchurl {
-    url = "https://sqlite.org/2023/sqlite-autoconf-${
-        archiveVersion version
-      }.tar.gz";
+    url =
+      "https://sqlite.org/2023/sqlite-autoconf-${archiveVersion version}.tar.gz"
+      ;
     hash = "sha256-6YwQDdHaTjD6Rgdh2rfAuRpQt4XhZ/jFesxGUU+ulJk=";
   };
 
@@ -50,13 +50,13 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  # required for aarch64 but applied for all arches for simplicity
+    # required for aarch64 but applied for all arches for simplicity
   preConfigure = ''
     patchShebangs configure
   '';
 
-  configureFlags = [ "--enable-threadsafe" ]
-    ++ lib.optional interactive "--enable-readline";
+  configureFlags =
+    [ "--enable-threadsafe" ] ++ lib.optional interactive "--enable-readline";
 
   env.NIX_CFLAGS_COMPILE = toString ([
     "-DSQLITE_ENABLE_COLUMN_METADATA"
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     "-DSQLITE_ENABLE_DESERIALIZE"
   ]);
 
-  # Test for features which may not be available at compile time
+    # Test for features which may not be available at compile time
   preBuild = ''
     # Use pread(), pread64(), pwrite(), pwrite64() functions for better performance if they are available.
     if cc -Werror=implicit-function-declaration -x c - -o "$TMPDIR/pread_pwrite_test" <<< \
@@ -119,7 +119,8 @@ stdenv.mkDerivation rec {
         lib.replaceStrings [ "." ] [ "_" ] version
       }.html";
     description =
-      "A self-contained, serverless, zero-configuration, transactional SQL database engine";
+      "A self-contained, serverless, zero-configuration, transactional SQL database engine"
+      ;
     downloadPage = "https://sqlite.org/download.html";
     homepage = "https://www.sqlite.org/";
     license = licenses.publicDomain;

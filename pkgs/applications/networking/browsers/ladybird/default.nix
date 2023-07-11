@@ -55,7 +55,7 @@ stdenv.mkDerivation {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  # https://github.com/SerenityOS/serenity/issues/10055
+    # https://github.com/SerenityOS/serenity/issues/10055
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -add_rpath $out/lib $out/bin/ladybird
   '';

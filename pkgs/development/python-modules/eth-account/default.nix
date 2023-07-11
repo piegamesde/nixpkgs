@@ -41,7 +41,7 @@ buildPythonPackage rec {
     rlp
   ];
 
-  # require buildinga npm project
+    # require buildinga npm project
   doCheck = false;
 
   pythonImportsCheck = [ "eth_account" ];

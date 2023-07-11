@@ -12,7 +12,8 @@
   stdenv,
 }:
 let
-  mkCombyPackage = {
+  mkCombyPackage =
+    {
       pname,
       extraBuildInputs ? [ ],
       extraNativeInputs ? [ ],
@@ -56,7 +57,8 @@ let
         license = lib.licenses.asl20;
         homepage = "https://comby.dev";
       };
-    };
+    }
+    ;
 
   combyKernel = mkCombyPackage { pname = "comby-kernel"; };
   combySemantic = mkCombyPackage {
@@ -67,8 +69,8 @@ in
 mkCombyPackage {
   pname = "comby";
 
-  # tests have to be removed before building otherwise installPhase will fail
-  # cli tests expect a path to the built binary
+    # tests have to be removed before building otherwise installPhase will fail
+    # cli tests expect a path to the built binary
   preBuild = ''
     substituteInPlace test/common/dune \
       --replace "test_cli_list" "" \

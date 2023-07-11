@@ -7,13 +7,16 @@
 }:
 
 let
-  shell = drv:
+  shell =
+    drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
-    };
+    }
+    ;
 
-  pkg = self:
+  pkg =
+    self:
     stdenv.mkDerivation {
       pname = "webdriver";
       version = "0.pre+unstable=2015-02-08";
@@ -42,6 +45,7 @@ let
 
       passthru = { env = shell self; };
 
-    };
+    }
+    ;
 in
 lib.fix pkg

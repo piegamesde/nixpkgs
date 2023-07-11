@@ -19,12 +19,12 @@ stdenvNoCC.mkDerivation {
     sha256 = "sha256-RoPhn/Ot4ID1nEbZEz1bd2iq8g7mU2e7kwNRvZOD/pc=";
   };
 
-  # ignore Makefile by disabling buildPhase. Upstream Makefile tries to download
-  # binaries from the internet for linting
+    # ignore Makefile by disabling buildPhase. Upstream Makefile tries to download
+    # binaries from the internet for linting
   dontBuild = true;
 
-  # discord.sh looks for the .webhook file in the source code directory, which
-  # isn't mutable on Nix
+    # discord.sh looks for the .webhook file in the source code directory, which
+    # isn't mutable on Nix
   postPatch = ''
     substituteInPlace discord.sh \
       --replace 'thisdir="$(cd "$(dirname "$(readlink -f "''${BASH_SOURCE[0]}")")" && pwd)"' 'thisdir="$(pwd)"'
@@ -56,7 +56,8 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     description =
-      "Write-only command-line Discord webhook integration written in 100% Bash script";
+      "Write-only command-line Discord webhook integration written in 100% Bash script"
+      ;
     homepage = "https://github.com/ChaoticWeg/discord.sh";
     license = licenses.gpl3;
     platforms = platforms.unix;

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     coverage
   ];
 
-  # ServerNotFoundError: Unable to find the server at oauth-sandbox.sevengoslings.net
+    # ServerNotFoundError: Unable to find the server at oauth-sandbox.sevengoslings.net
   doCheck = false;
 
   meta = with lib; {

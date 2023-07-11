@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
       timeout = 1800;
     };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }:
 
@@ -22,7 +23,7 @@ import ./make-test-python.nix ({
 
         services.xserver.enable = true;
 
-        # Regression test for https://github.com/NixOS/nixpkgs/issues/163482
+          # Regression test for https://github.com/NixOS/nixpkgs/issues/163482
         qt = {
           enable = true;
           platformTheme = "gnome";
@@ -34,11 +35,13 @@ import ./make-test-python.nix ({
           keepassxc
           xdotool
         ];
-      };
+      }
+      ;
 
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -80,5 +83,6 @@ import ./make-test-python.nix ({
             machine.send_key("ret")
             # Database is unlocked (doesn't have "[Locked]" in the title anymore)
             machine.wait_for_text("foo.kdbx - KeePassXC")
-      '' ;
+      ''
+      ;
   })

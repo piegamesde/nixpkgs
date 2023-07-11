@@ -155,8 +155,8 @@ final: prev: {
 
   eask = prev."@emacs-eask/cli".override { name = "eask"; };
 
-  # NOTE: this is a stub package to fetch npm dependencies for
-  # ../../applications/video/epgstation
+    # NOTE: this is a stub package to fetch npm dependencies for
+    # ../../applications/video/epgstation
   epgstation = prev."epgstation-../../applications/video/epgstation".override
     (oldAttrs: {
       buildInputs = [ pkgs.postgresql ];
@@ -168,13 +168,12 @@ final: prev: {
       meta = oldAttrs.meta // { platforms = lib.platforms.none; };
     });
 
-  # NOTE: this is a stub package to fetch npm dependencies for
-  # ../../applications/video/epgstation/client
+    # NOTE: this is a stub package to fetch npm dependencies for
+    # ../../applications/video/epgstation/client
   epgstation-client =
     prev."epgstation-client-../../applications/video/epgstation/client".override
-    (oldAttrs: {
-      meta = oldAttrs.meta // { platforms = lib.platforms.none; };
-    });
+    (oldAttrs: { meta = oldAttrs.meta // { platforms = lib.platforms.none; }; })
+    ;
 
   expo-cli = prev."expo-cli".override (oldAttrs: {
     # The traveling-fastlane-darwin optional dependency aborts build on Linux.
@@ -219,8 +218,8 @@ final: prev: {
   graphite-cli = prev."@withgraphite/graphite-cli".override {
     name = "graphite-cli";
     nativeBuildInputs = [ pkgs.installShellFiles ];
-    # 'gt completion' auto-detects zshell from environment variables:
-    # https://github.com/yargs/yargs/blob/2b6ba3139396b2e623aed404293f467f16590039/lib/completion.ts#L45
+      # 'gt completion' auto-detects zshell from environment variables:
+      # https://github.com/yargs/yargs/blob/2b6ba3139396b2e623aed404293f467f16590039/lib/completion.ts#L45
     postInstall = ''
       installShellCompletion --cmd gt \
         --bash <($out/bin/gt completion) \
@@ -331,9 +330,8 @@ final: prev: {
         installShellCompletion --cmd $cmd --bash <(./bin/$cmd --completion)
       done
     '';
-    meta = oldAttrs.meta // {
-      maintainers = with lib.maintainers; [ teutat3s ];
-    };
+    meta =
+      oldAttrs.meta // { maintainers = with lib.maintainers; [ teutat3s ]; };
   });
 
   mermaid-cli = prev."@mermaid-js/mermaid-cli".override (if stdenv.isDarwin then
@@ -361,8 +359,8 @@ final: prev: {
 
   node-gyp = prev.node-gyp.override {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
-    # Teach node-gyp to use nodejs headers locally rather that download them form https://nodejs.org.
-    # This is important when build nodejs packages in sandbox.
+      # Teach node-gyp to use nodejs headers locally rather that download them form https://nodejs.org.
+      # This is important when build nodejs packages in sandbox.
     postInstall = ''
       wrapProgram "$out/bin/node-gyp" \
         --set npm_config_nodedir ${nodejs}
@@ -385,30 +383,34 @@ final: prev: {
       sha256 = "sha256-8OxTOkwBPcnjyhXhxQEDd8tiaQoHt91zUJX5Ka+IXco=";
     };
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
-    postInstall = let
-      patches = [
-        # Needed to fix packages with DOS line-endings after above patch - PR svanderburg/node2nix#314
-        (fetchpatch {
-          name = "convert-crlf-for-script-bin-files.patch";
-          url =
-            "https://github.com/svanderburg/node2nix/commit/91aa511fe7107938b0409a02ab8c457a6de2d8ca.patch";
-          hash = "sha256-ISiKYkur/o8enKDzJ8mQndkkSC4yrTNlheqyH+LiXlU=";
-        })
-        # fix nodejs attr names
-        (fetchpatch {
-          url =
-            "https://github.com/svanderburg/node2nix/commit/3b63e735458947ef39aca247923f8775633363e5.patch";
-          hash = "sha256-pe8Xm4mjPh9oKXugoMY6pRl8YYgtdw0sRXN+TienalU=";
-        })
-      ];
-    in ''
-      ${lib.concatStringsSep "\n"
-      (map (patch: "patch -d $out/lib/node_modules/node2nix -p1 < ${patch}")
-        patches)}
-      wrapProgram "$out/bin/node2nix" --prefix PATH : ${
-        lib.makeBinPath [ pkgs.nix ]
-      }
-    '' ;
+    postInstall =
+      let
+        patches = [
+          # Needed to fix packages with DOS line-endings after above patch - PR svanderburg/node2nix#314
+          (fetchpatch {
+            name = "convert-crlf-for-script-bin-files.patch";
+            url =
+              "https://github.com/svanderburg/node2nix/commit/91aa511fe7107938b0409a02ab8c457a6de2d8ca.patch"
+              ;
+            hash = "sha256-ISiKYkur/o8enKDzJ8mQndkkSC4yrTNlheqyH+LiXlU=";
+          })
+          # fix nodejs attr names
+          (fetchpatch {
+            url =
+              "https://github.com/svanderburg/node2nix/commit/3b63e735458947ef39aca247923f8775633363e5.patch"
+              ;
+            hash = "sha256-pe8Xm4mjPh9oKXugoMY6pRl8YYgtdw0sRXN+TienalU=";
+          })
+        ];
+      in ''
+        ${lib.concatStringsSep "\n"
+        (map (patch: "patch -d $out/lib/node_modules/node2nix -p1 < ${patch}")
+          patches)}
+        wrapProgram "$out/bin/node2nix" --prefix PATH : ${
+          lib.makeBinPath [ pkgs.nix ]
+        }
+      ''
+      ;
   };
 
   parcel = prev.parcel.override {
@@ -425,16 +427,18 @@ final: prev: {
       sed 's/"link:/"file:/g' --in-place package.json
     '';
 
-    postInstall = let
-      pnpmLibPath = lib.makeBinPath [
-        nodejs.passthru.python
-        nodejs
-      ];
-    in ''
-      for prog in $out/bin/*; do
-        wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
-      done
-    '' ;
+    postInstall =
+      let
+        pnpmLibPath = lib.makeBinPath [
+          nodejs.passthru.python
+          nodejs
+        ];
+      in ''
+        for prog in $out/bin/*; do
+          wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
+        done
+      ''
+      ;
   };
 
   postcss-cli = prev.postcss-cli.override (oldAttrs: {
@@ -450,14 +454,13 @@ final: prev: {
         inherit (final) postcss-cli;
       };
     };
-    meta = oldAttrs.meta // {
-      maintainers = with lib.maintainers; [ Luflosi ];
-    };
+    meta =
+      oldAttrs.meta // { maintainers = with lib.maintainers; [ Luflosi ]; };
   });
 
-  # To update prisma, please first update prisma-engines to the latest
-  # version. Then change the correct hash to this package. The PR should hold
-  # two commits: one for the engines and the other one for the node package.
+    # To update prisma, please first update prisma-engines to the latest
+    # version. Then change the correct hash to this package. The PR should hold
+    # two commits: one for the engines and the other one for the node package.
   prisma = prev.prisma.override rec {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
 
@@ -466,7 +469,8 @@ final: prev: {
     src = fetchurl {
       url = "https://registry.npmjs.org/prisma/-/prisma-${version}.tgz";
       hash =
-        "sha512-L9mqjnSmvWIRCYJ9mQkwCtj4+JDYYTdhoyo8hlsHNDXaZLh/b4hR0IoKIBbTKxZuyHQzLopb/+0Rvb69uGV7uA==";
+        "sha512-L9mqjnSmvWIRCYJ9mQkwCtj4+JDYYTdhoyo8hlsHNDXaZLh/b4hR0IoKIBbTKxZuyHQzLopb/+0Rvb69uGV7uA=="
+        ;
     };
     postInstall = with pkgs; ''
       wrapProgram "$out/bin/prisma" \
@@ -602,7 +606,7 @@ final: prev: {
 
   thelounge-theme-flat-blue = prev.thelounge-theme-flat-blue.override {
     nativeBuildInputs = [ final.node-pre-gyp ];
-    # TODO: needed until upstream pins thelounge version 4.3.1+ (which fixes dependency on old sqlite3 and transitively very old node-gyp 3.x)
+      # TODO: needed until upstream pins thelounge version 4.3.1+ (which fixes dependency on old sqlite3 and transitively very old node-gyp 3.x)
     preRebuild = ''
       rm -r node_modules/node-gyp
     '';
@@ -610,7 +614,7 @@ final: prev: {
 
   thelounge-theme-flat-dark = prev.thelounge-theme-flat-dark.override {
     nativeBuildInputs = [ final.node-pre-gyp ];
-    # TODO: needed until upstream pins thelounge version 4.3.1+ (which fixes dependency on old sqlite3 and transitively very old node-gyp 3.x)
+      # TODO: needed until upstream pins thelounge version 4.3.1+ (which fixes dependency on old sqlite3 and transitively very old node-gyp 3.x)
     preRebuild = ''
       rm -r node_modules/node-gyp
     '';
@@ -621,9 +625,8 @@ final: prev: {
     postInstall = ''
       installShellCompletion --cmd triton --bash <($out/bin/triton completion)
     '';
-    meta = oldAttrs.meta // {
-      maintainers = with lib.maintainers; [ teutat3s ];
-    };
+    meta =
+      oldAttrs.meta // { maintainers = with lib.maintainers; [ teutat3s ]; };
   });
 
   ts-node = prev.ts-node.override {
@@ -674,9 +677,9 @@ final: prev: {
       done
     '';
     passthru.tests = {
-      simple-execution = callPackage ./package-tests/vega-lite.nix {
-        inherit (final) vega-lite;
-      };
+      simple-execution =
+        callPackage ./package-tests/vega-lite.nix { inherit (final) vega-lite; }
+        ;
     };
   };
 
@@ -687,8 +690,8 @@ final: prev: {
       pkgs.pkg-config
       final.node-pre-gyp
     ];
-    # These dependencies are required by
-    # https://github.com/Automattic/node-canvas.
+      # These dependencies are required by
+      # https://github.com/Automattic/node-canvas.
     buildInputs = with pkgs;
       [
         giflib

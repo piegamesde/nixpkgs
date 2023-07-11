@@ -8,7 +8,7 @@ buildPythonPackage rec {
   pname = "enzyme";
   version = "0.4.1";
 
-  # Tests rely on files obtained over the network
+    # Tests rely on files obtained over the network
   doCheck = false;
 
   src = fetchPypi {

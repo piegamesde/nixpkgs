@@ -32,7 +32,7 @@ let
     sha256 = "sha256-5wrw8LNH14WAyIKIRGFbvrISb5RUXeD5Uh/weja9p4Q=";
   };
 
-  # need to build a custom version of lldb and llvm for enhanced rust support
+    # need to build a custom version of lldb and llvm for enhanced rust support
   lldb =
     (import ./lldb.nix { inherit fetchFromGitHub runCommand llvmPackages; });
 
@@ -53,7 +53,7 @@ let
       "--bin=codelldb"
     ];
 
-    # Tests are linked to liblldb but it is not available here.
+      # Tests are linked to liblldb but it is not available here.
     doCheck = false;
   };
 
@@ -112,7 +112,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # `adapter` will find python binary and libraries at runtime.
+    # `adapter` will find python binary and libraries at runtime.
   postFixup = ''
     wrapProgram $out/$installPrefix/adapter/codelldb \
       --prefix PATH : "${python3}/bin" \

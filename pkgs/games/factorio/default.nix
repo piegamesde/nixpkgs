@@ -78,34 +78,41 @@ let
     categories = [ "Game" ];
   };
 
-  branch = if experimental then
-    "experimental"
-  else
-    "stable";
+  branch =
+    if experimental then
+      "experimental"
+    else
+      "stable"
+    ;
 
-  # NB `experimental` directs us to take the latest build, regardless of its branch;
-  # hence the (stable, experimental) pairs may sometimes refer to the same distributable.
+    # NB `experimental` directs us to take the latest build, regardless of its branch;
+    # hence the (stable, experimental) pairs may sometimes refer to the same distributable.
   versions = importJSON versionsJson;
   binDists = makeBinDists versions;
 
   actual =
     binDists.${stdenv.hostPlatform.system}.${releaseType}.${branch} or (throw
-      "Factorio ${releaseType}-${branch} binaries for ${stdenv.hostPlatform.system} are not available for download.");
+      "Factorio ${releaseType}-${branch} binaries for ${stdenv.hostPlatform.system} are not available for download.")
+    ;
 
-  makeBinDists = versions:
+  makeBinDists =
+    versions:
     let
-      f = path: name: value:
+      f =
+        path: name: value:
         if builtins.isAttrs value then
           if value ? "name" then
             makeBinDist value
           else
             builtins.mapAttrs (f (path ++ [ name ])) value
         else
-          throw "expected attrset at ${toString path} - got ${toString value}";
+          throw "expected attrset at ${toString path} - got ${toString value}"
+        ;
     in
     builtins.mapAttrs (f [ ]) versions
-  ;
-  makeBinDist = {
+    ;
+  makeBinDist =
+    {
       name,
       version,
       tarDirectory,
@@ -114,38 +121,43 @@ let
       needsAuth,
     }: {
       inherit version tarDirectory;
-      src = if !needsAuth then
-        fetchurl { inherit name url sha256; }
-      else
-        (lib.overrideDerivation (fetchurl {
-          inherit name url sha256;
-          curlOptsList = [
-            "--get"
-            "--data-urlencode"
-            "username@username"
-            "--data-urlencode"
-            "token@token"
-          ];
-        }) (_: {
-          # This preHook hides the credentials from /proc
-          preHook = if username != "" && token != "" then
-            ''
-              echo -n "${username}" >username
-              echo -n "${token}"    >token
-            ''
-          else
-            ''
-              # Deliberately failing since username/token was not provided, so we can't fetch.
-              # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
-              exit 1
+      src =
+        if !needsAuth then
+          fetchurl { inherit name url sha256; }
+        else
+          (lib.overrideDerivation (fetchurl {
+            inherit name url sha256;
+            curlOptsList = [
+              "--get"
+              "--data-urlencode"
+              "username@username"
+              "--data-urlencode"
+              "token@token"
+            ];
+          }) (_: {
+            # This preHook hides the credentials from /proc
+            preHook =
+              if username != "" && token != "" then
+                ''
+                  echo -n "${username}" >username
+                  echo -n "${token}"    >token
+                ''
+              else
+                ''
+                  # Deliberately failing since username/token was not provided, so we can't fetch.
+                  # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
+                  exit 1
+                ''
+              ;
+            failureHook = ''
+              cat <<EOF
+              ${helpMsg}
+              EOF
             '';
-          failureHook = ''
-            cat <<EOF
-            ${helpMsg}
-            EOF
-          '';
-        }));
-    };
+          }))
+        ;
+    }
+    ;
 
   configBaseCfg = ''
     use-system-read-write-data-directories=false
@@ -185,14 +197,16 @@ let
         $out/bin/factorio
     '';
 
-    passthru.updateScript = if (username != "" && token != "") then
-      [
-        ./update.py
-        "--username=${username}"
-        "--token=${token}"
-      ]
-    else
-      null;
+    passthru.updateScript =
+      if (username != "" && token != "") then
+        [
+          ./update.py
+          "--username=${username}"
+          "--token=${token}"
+        ]
+      else
+        null
+      ;
 
     meta = {
       description = "A game in which you build and maintain factories";

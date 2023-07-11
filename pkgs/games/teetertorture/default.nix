@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   version = "2005-10-18";
   src = fetchurl {
     url =
-      "ftp://ftp.tuxpaint.org/unix/x/teetertorture/source/teetertorture-${version}.tar.gz";
+      "ftp://ftp.tuxpaint.org/unix/x/teetertorture/source/teetertorture-${version}.tar.gz"
+      ;
     sha256 = "175gdbkx3m82icyzvwpyzs4v2fd69c695k5n8ca0lnjv81wnw2hr";
   };
 

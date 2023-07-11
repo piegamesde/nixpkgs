@@ -11,12 +11,14 @@ import ./make-test-python.nix ({
     filesystem_folder = "/data/radicale";
 
     cli =
-      "${pkgs.calendar-cli}/bin/calendar-cli --caldav-user ${user} --caldav-pass ${password}";
+      "${pkgs.calendar-cli}/bin/calendar-cli --caldav-user ${user} --caldav-pass ${password}"
+      ;
   in {
     name = "radicale3";
     meta.maintainers = with lib.maintainers; [ dotlambda ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -31,7 +33,8 @@ import ./make-test-python.nix ({
             storage = {
               inherit filesystem_folder;
               hook =
-                "git add -A && (git diff --cached --quiet || git commit -m 'Changes by '%(user)s)";
+                "git add -A && (git diff --cached --quiet || git commit -m 'Changes by '%(user)s)"
+                ;
             };
             logging.level = "info";
           };
@@ -50,15 +53,16 @@ import ./make-test-python.nix ({
         };
         systemd.services.radicale.path = [ pkgs.git ];
         environment.systemPackages = [ pkgs.git ];
-        systemd.tmpfiles.rules =
-          [ "d ${filesystem_folder} 0750 radicale radicale -" ];
-        # WARNING: DON'T DO THIS IN PRODUCTION!
-        # This puts unhashed secrets directly into the Nix store for ease of testing.
+        systemd.tmpfiles.rules = [ "d ${filesystem_folder} 0750 radicale radicale -" ]
+          ;
+          # WARNING: DON'T DO THIS IN PRODUCTION!
+          # This puts unhashed secrets directly into the Nix store for ease of testing.
         environment.etc."radicale/users".source =
           pkgs.runCommand "htpasswd" { } ''
             ${pkgs.apacheHttpd}/bin/htpasswd -bcB "$out" ${user} ${password}
           '';
-      };
+      }
+      ;
     testScript = ''
       machine.wait_for_unit("radicale.service")
       machine.wait_for_open_port(${port})

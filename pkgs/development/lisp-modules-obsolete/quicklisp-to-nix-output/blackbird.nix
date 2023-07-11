@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/blackbird/2016-05-31/blackbird-20160531-git.tgz";
+      "http://beta.quicklisp.org/archive/blackbird/2016-05-31/blackbird-20160531-git.tgz"
+      ;
     sha256 = "0l053fb5fdz1q6dyfgys6nmbairc3aig4wjl5abpf8b1paf7gzq9";
   };
 

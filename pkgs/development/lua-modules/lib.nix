@@ -5,25 +5,31 @@
 }:
 let
   inherit (lib.generators) toLua;
-  requiredLuaModules = drvs:
+  requiredLuaModules =
+    drvs:
     with lib;
     let
       modules = filter hasLuaModule drvs;
     in
     unique
     ([ lua ] ++ modules ++ concatLists (catAttrs "requiredLuaModules" modules))
-  ;
-  # Check whether a derivation provides a lua module.
-  hasLuaModule = drv: drv ? luaModule;
+    ;
+    # Check whether a derivation provides a lua module.
+  hasLuaModule =
+    drv:
+    drv ? luaModule
+    ;
 
-  # Use this to override the arguments passed to buildLuarocksPackage
-  overrideLuarocks = drv: f:
+    # Use this to override the arguments passed to buildLuarocksPackage
+  overrideLuarocks =
+    drv: f:
     (drv.override (args:
       args // {
         buildLuarocksPackage = drv: (args.buildLuarocksPackage drv).override f;
       })) // {
         overrideScope = scope: overrideLuarocks (drv.overrideScope scope) f;
-      };
+      }
+    ;
 
 in rec {
   inherit overrideLuarocks;
@@ -35,19 +41,23 @@ in rec {
   ];
   luaCPathList = [ "lib/lua/${lua.luaversion}/?.so" ];
 
-  # generate paths without a prefix
+    # generate paths without a prefix
   luaPathRelStr = lib.concatStringsSep ";" luaPathList;
   luaCPathRelStr = lib.concatStringsSep ";" luaCPathList;
 
-  # generate LUA_(C)PATH value for a specific derivation, i.e., with absolute paths
-  genLuaPathAbsStr = drv:
-    lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaPathList;
-  genLuaCPathAbsStr = drv:
-    lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaCPathList;
+    # generate LUA_(C)PATH value for a specific derivation, i.e., with absolute paths
+  genLuaPathAbsStr =
+    drv:
+    lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaPathList
+    ;
+  genLuaCPathAbsStr =
+    drv:
+    lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaCPathList
+    ;
 
-  # Generate a LUA_PATH with absolute paths
-  # genLuaPathAbs = drv:
-  #   lib.concatStringsSep ";" (map (x: "${drv}/x") luaPathList);
+    # Generate a LUA_PATH with absolute paths
+    # genLuaPathAbs = drv:
+    #   lib.concatStringsSep ";" (map (x: "${drv}/x") luaPathList);
 
   luaAtLeast = lib.versionAtLeast lua.luaversion;
   luaOlder = lib.versionOlder lua.luaversion;
@@ -56,36 +66,41 @@ in rec {
   isLua53 = lua.luaversion == "5.3";
   isLuaJIT = lib.getName lua == "luajit";
 
-  /* generates the relative path towards the folder where
-     seems stable even when using  lua_modules_path = ""
+    /* generates the relative path towards the folder where
+       seems stable even when using  lua_modules_path = ""
 
-     Example:
-      getDataFolder luaPackages.stdlib
-      => stdlib-41.2.2-1-rocks/stdlib/41.2.2-1/doc
-  */
-  getDataFolder = drv:
-    "${drv.pname}-${drv.version}-rocks/${drv.pname}/${drv.version}";
+       Example:
+        getDataFolder luaPackages.stdlib
+        => stdlib-41.2.2-1-rocks/stdlib/41.2.2-1/doc
+    */
+  getDataFolder =
+    drv:
+    "${drv.pname}-${drv.version}-rocks/${drv.pname}/${drv.version}"
+    ;
 
-  /* Convert derivation to a lua module.
-     so that luaRequireModules can be run later
-  */
-  toLuaModule = drv:
+    /* Convert derivation to a lua module.
+       so that luaRequireModules can be run later
+    */
+  toLuaModule =
+    drv:
     drv.overrideAttrs (oldAttrs: {
       # Use passthru in order to prevent rebuilds when possible.
       passthru = (oldAttrs.passthru or { }) // {
         luaModule = lua;
         requiredLuaModules = requiredLuaModules drv.propagatedBuildInputs;
       };
-    });
+    })
+    ;
 
-  /* generate luarocks config
+    /* generate luarocks config
 
-     generateLuarocksConfig {
-       externalDeps = [ { name = "CRYPTO"; dep = pkgs.openssl; } ];
-       rocksSubdir = "subdir";
-     };
-  */
-  generateLuarocksConfig = {
+       generateLuarocksConfig {
+         externalDeps = [ { name = "CRYPTO"; dep = pkgs.openssl; } ];
+         rocksSubdir = "subdir";
+       };
+    */
+  generateLuarocksConfig =
+    {
       externalDeps
       # a list of lua derivations
       ,
@@ -100,9 +115,9 @@ in rec {
         rocks_dir = "${dep}/${dep.rocksSubdir}";
       }) requiredLuaRocks;
 
-      # Explicitly point luarocks to the relevant locations for multiple-output
-      # derivations that are external dependencies, to work around an issue it has
-      # (https://github.com/luarocks/luarocks/issues/766)
+        # Explicitly point luarocks to the relevant locations for multiple-output
+        # derivations that are external dependencies, to work around an issue it has
+        # (https://github.com/luarocks/luarocks/issues/766)
       depVariables = zipAttrsWithLast (lib.lists.map ({
           name,
           dep,
@@ -113,7 +128,7 @@ in rec {
         }) externalDeps');
       zipAttrsWithLast = lib.attrsets.zipAttrsWith (name: lib.lists.last);
 
-      # example externalDeps': [ { name = "CRYPTO"; dep = pkgs.openssl; } ]
+        # example externalDeps': [ { name = "CRYPTO"; dep = pkgs.openssl; } ]
       externalDeps' = lib.filter (dep: !lib.isDerivation dep) externalDeps;
 
       externalDepsDirs = map (x: builtins.toString x)
@@ -121,11 +136,11 @@ in rec {
     in
     toLua { asBindings = true; } ({
       local_cache = "";
-      # To prevent collisions when creating environments, we install the rock
-      # files into per-package subdirectories
+        # To prevent collisions when creating environments, we install the rock
+        # files into per-package subdirectories
       rocks_subdir = rocksSubdir;
-      # first tree is the default target where new rocks are installed,
-      # any other trees in the list are treated as additional sources of installed rocks for matching dependencies.
+        # first tree is the default target where new rocks are installed,
+        # any other trees in the list are treated as additional sources of installed rocks for matching dependencies.
       rocks_trees = ([ {
         name = "current";
         root = "${placeholder "out"}";
@@ -143,9 +158,9 @@ in rec {
     } // {
       # For single-output external dependencies
       external_deps_dirs = externalDepsDirs;
-      # Some needed machinery to handle multiple-output external dependencies,
-      # as per https://github.com/luarocks/luarocks/issues/766
+        # Some needed machinery to handle multiple-output external dependencies,
+        # as per https://github.com/luarocks/luarocks/issues/766
       variables = (depVariables // extraVariables);
     })
-  ;
+    ;
 }

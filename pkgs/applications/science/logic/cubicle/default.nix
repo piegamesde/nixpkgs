@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   version = "1.2.0";
   src = fetchurl {
     url =
-      "https://github.com/cubicle-model-checker/cubicle/archive/refs/tags/${version}.tar.gz";
+      "https://github.com/cubicle-model-checker/cubicle/archive/refs/tags/${version}.tar.gz"
+      ;
     hash = "sha256-/EtbXpyXqRm0jGcMfGLAEwdr92061edjFys1V7/w6/Y=";
   };
 
@@ -31,7 +32,7 @@ stdenv.mkDerivation rec {
     num
   ];
 
-  # https://github.com/cubicle-model-checker/cubicle/issues/1
+    # https://github.com/cubicle-model-checker/cubicle/issues/1
   env = {
     OCAMLC = "ocamlfind ocamlc -package num";
     OCAMLOPT = "ocamlfind ocamlopt -package num";
@@ -39,7 +40,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An open source model checker for verifying safety properties of array-based systems";
+      "An open source model checker for verifying safety properties of array-based systems"
+      ;
     homepage = "https://cubicle.lri.fr/";
     license = licenses.asl20;
     platforms = platforms.unix;

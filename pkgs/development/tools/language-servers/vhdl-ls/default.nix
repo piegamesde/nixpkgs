@@ -15,8 +15,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-j5WRJJBUPKW3W+kY5hdqdZxxGkIAoEcW+A2pp23MX6Q=";
   };
 
-  # No Cargo.lock upstream, see:
-  # https://github.com/VHDL-LS/rust_hdl/issues/166
+    # No Cargo.lock upstream, see:
+    # https://github.com/VHDL-LS/rust_hdl/issues/166
   cargoLock = { lockFile = ./Cargo.lock; };
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock

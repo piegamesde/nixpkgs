@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     xvfb-run
   ];
 
-  # Temporarily disabled - Test is broken (SIGABRT)
+    # Temporarily disabled - Test is broken (SIGABRT)
   doCheck = false;
 
   mesonFlags = [
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     runHook postCheck
   '';
 
-  # Depends on GSettings schemas in gnome-shell
+    # Depends on GSettings schemas in gnome-shell
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix XDG_DATA_DIRS : "${gnome.gnome-shell}/share/gsettings-schemas/${gnome.gnome-shell.name}"
@@ -133,7 +133,8 @@ stdenv.mkDerivation rec {
     description = "A pure Wayland shell prototype for GNOME on mobile devices";
     homepage = "https://gitlab.gnome.org/World/Phosh/phosh";
     changelog =
-      "https://gitlab.gnome.org/World/Phosh/phosh/-/blob/v${version}/debian/changelog";
+      "https://gitlab.gnome.org/World/Phosh/phosh/-/blob/v${version}/debian/changelog"
+      ;
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       masipcat

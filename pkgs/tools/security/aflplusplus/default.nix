@@ -25,12 +25,14 @@ assert (wine != null) -> (stdenv.targetPlatform.system == "i686-linux");
 
 let
   aflplusplus-qemu = callPackage ./qemu.nix { inherit aflplusplus; };
-  qemu-exe-name = if stdenv.targetPlatform.system == "x86_64-linux" then
-    "qemu-x86_64"
-  else if stdenv.targetPlatform.system == "i686-linux" then
-    "qemu-i386"
-  else
-    throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!";
+  qemu-exe-name =
+    if stdenv.targetPlatform.system == "x86_64-linux" then
+      "qemu-x86_64"
+    else if stdenv.targetPlatform.system == "i686-linux" then
+      "qemu-i386"
+    else
+      throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!"
+    ;
   libdislocator = callPackage ./libdislocator.nix { inherit aflplusplus; };
   libtokencap = callPackage ./libtokencap.nix { inherit aflplusplus; };
   aflplusplus = stdenvNoCC.mkDerivation rec {
@@ -45,8 +47,8 @@ let
     };
     enableParallelBuilding = true;
 
-    # Note: libcgroup isn't needed for building, just for the afl-cgroup
-    # script.
+      # Note: libcgroup isn't needed for building, just for the afl-cgroup
+      # script.
     nativeBuildInputs = [
       makeWrapper
       which

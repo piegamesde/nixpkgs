@@ -21,16 +21,16 @@ buildPythonPackage rec {
   nativeBuildInputs = [ flitBuildHook ];
   propagatedBuildInputs = [ setuptools ];
 
-  # this has a circular dependency on quantiphy
+    # this has a circular dependency on quantiphy
   preBuild = ''
     sed -i '/quantiphy/d' ./setup.py
     sed -i '/pytest-runner/d' ./setup.py
   '';
 
-  # this import check will fail as quantiphy is imported by this package
-  # pythonImportsCheck = [ "rkm_codes" ];
+    # this import check will fail as quantiphy is imported by this package
+    # pythonImportsCheck = [ "rkm_codes" ];
 
-  # tests require quantiphy import
+    # tests require quantiphy import
   doCheck = false;
 
   meta = with lib; {

@@ -13,12 +13,15 @@
 let
   inherit (phpPackages) composer;
 
-  filterSrc = src:
+  filterSrc =
+    src:
     builtins.filterSource (path: type:
       type != "directory" || (baseNameOf path != ".git" && baseNameOf path
-        != ".git" && baseNameOf path != ".svn")) src;
+        != ".git" && baseNameOf path != ".svn")) src
+    ;
 
-  buildZipPackage = {
+  buildZipPackage =
+    {
       name,
       src,
     }:
@@ -33,9 +36,11 @@ let
         mkdir -p $out
         mv * $out
       '';
-    };
+    }
+    ;
 
-  buildPackage = {
+  buildPackage =
+    {
       name,
       src,
       packages ? { },
@@ -129,7 +134,8 @@ let
         '';
       };
 
-      bundleDependencies = dependencies:
+      bundleDependencies =
+        dependencies:
         lib.concatMapStrings (dependencyName:
           let
             dependency = dependencies.${dependencyName};
@@ -156,7 +162,8 @@ let
                   ''
                     cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
               ''}
-          '' ) (builtins.attrNames dependencies);
+          '' ) (builtins.attrNames dependencies)
+        ;
 
       extraArgs = removeAttrs args [
         "packages"
@@ -269,7 +276,7 @@ let
         runHook postInstall
       '';
     } // extraArgs)
-  ;
+    ;
 in {
   inherit filterSrc;
   composer = lib.makeOverridable composer;

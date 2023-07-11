@@ -37,7 +37,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "An extended commonmark compliant parser, with bridges to docutils/sphinx.";
+      "An extended commonmark compliant parser, with bridges to docutils/sphinx."
+      ;
     homepage = "https://github.com/executablebooks/MyST-Parser";
     license = licenses.mit;
     maintainers = with maintainers; [ dpausp ];

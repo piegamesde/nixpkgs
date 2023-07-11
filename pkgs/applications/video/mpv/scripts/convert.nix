@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation {
       When this script is loaded into mpv, you can hit Alt+W to mark the beginning
       and Alt+W again to mark the end of the clip. Then a settings window opens.
     '';
-    # author was asked to add a license https://gist.github.com/Zehkul/25ea7ae77b30af959be0#gistcomment-3715700
+      # author was asked to add a license https://gist.github.com/Zehkul/25ea7ae77b30af959be0#gistcomment-3715700
     license = licenses.unfree;
   };
 }

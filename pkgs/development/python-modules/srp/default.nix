@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  # Tests ends up with libssl.so cannot load shared
+    # Tests ends up with libssl.so cannot load shared
   doCheck = false;
 
   pythonImportsCheck = [ "srp" ];

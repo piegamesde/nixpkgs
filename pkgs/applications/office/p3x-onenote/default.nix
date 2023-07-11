@@ -24,7 +24,8 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/patrikx3/onenote/releases/download/v${version}/P3X-OneNote-${version}${plat}.AppImage";
+      "https://github.com/patrikx3/onenote/releases/download/v${version}/P3X-OneNote-${version}${plat}.AppImage"
+      ;
     inherit sha256;
   };
 

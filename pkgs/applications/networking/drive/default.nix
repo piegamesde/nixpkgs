@@ -22,7 +22,8 @@ buildGoModule rec {
     # Add Go Modules support
     (fetchpatch {
       url =
-        "https://github.com/odeke-em/drive/commit/0fb4bb2cf83a7293d9a33b00f8fc07e1c8dd8b7c.patch";
+        "https://github.com/odeke-em/drive/commit/0fb4bb2cf83a7293d9a33b00f8fc07e1c8dd8b7c.patch"
+        ;
       hash = "sha256-4PxsgfufhTfmy/7N5QahIhmRa0rb2eUDXJ66pYb6jFg=";
     })
   ];

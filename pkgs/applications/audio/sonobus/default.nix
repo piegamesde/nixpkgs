@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     patchShebangs linux/install.sh
   '';
 
-  # The program does not provide any CMake install instructions
+    # The program does not provide any CMake install instructions
   installPhase = lib.optionalString (stdenv.isLinux) ''
     runHook preInstall
     cd ../linux

@@ -34,7 +34,7 @@ let
 in {
   lib = lib';
 
-  # Backwards compat before `lib` was factored out.
+    # Backwards compat before `lib` was factored out.
   inherit (lib')
     toTargetArch
     toTargetOs
@@ -71,7 +71,7 @@ in {
       in {
         # Packages suitable for build-time, e.g. `build.rs`-type stuff.
         buildRustPackages = (selectRustPackage buildPackages).packages.stable;
-        # Analogous to stdenv
+          # Analogous to stdenv
         rustPlatform = makeRustPlatform self.buildRustPackages;
         rustc = self.callPackage ./rustc.nix ({
           version = rustcVersion;
@@ -87,7 +87,7 @@ in {
 
           patches = rustcPatches;
 
-          # Use boot package set to break cycle
+            # Use boot package set to break cycle
           rustPlatform = bootRustPlatform;
         } // lib.optionalAttrs
           (stdenv.cc.isClang && stdenv.hostPlatform == stdenv.buildPlatform) {

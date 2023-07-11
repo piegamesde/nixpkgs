@@ -4,7 +4,8 @@
 }:
 
 let
-  submod = {
+  submod =
+    {
       ...
     }: {
       options = {
@@ -17,7 +18,8 @@ let
           '';
         };
       };
-    };
+    }
+    ;
 
 in {
   options = {

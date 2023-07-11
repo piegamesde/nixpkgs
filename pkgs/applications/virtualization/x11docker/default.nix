@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  # Don't install `x11docker-gui`, because requires `kaptain` dependency
+    # Don't install `x11docker-gui`, because requires `kaptain` dependency
   installPhase = ''
     install -D x11docker "$out/bin/x11docker";
     wrapProgram "$out/bin/x11docker" \

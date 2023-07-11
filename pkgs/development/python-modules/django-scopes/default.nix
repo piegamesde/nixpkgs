@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "raphaelm";
     repo = "django-scopes";
-    # No 1.2.0.post1 tag, see https://github.com/raphaelm/django-scopes/issues/27
+      # No 1.2.0.post1 tag, see https://github.com/raphaelm/django-scopes/issues/27
     rev = "0b93cdb6a8335cb02a8ea7296511358ba841d137";
     hash = "sha256-djptJRkW1pfVbxhhs58fJA4d8dKZuvYRy01Aa3Btr+k=";
   };

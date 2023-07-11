@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "14ymjahqdxj26da8wik9d5dzlxn81b3z1iggdl7rn2nn06jy7lvy";
   };
 
-  # fails with make 4.4
+    # fails with make 4.4
   nativeBuildInputs = [
     ocaml
     findlib
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = [ mlgmpidl ];
 
-  # TODO: Doesn't produce the library correctly if true
+    # TODO: Doesn't produce the library correctly if true
   strictDeps = false;
 
   outputs = [

@@ -13,13 +13,15 @@ buildPythonApplication rec {
 
   src = fetchzip {
     url =
-      "https://versaweb.dl.sourceforge.net/project/pysolfc/PySolFC/PySolFC-${version}/PySolFC-${version}.tar.xz";
+      "https://versaweb.dl.sourceforge.net/project/pysolfc/PySolFC/PySolFC-${version}/PySolFC-${version}.tar.xz"
+      ;
     sha256 = "sha256-kklB16IrDicxqMee1kbxtoqgwcSrMjCV4HP6GtnZxo8=";
   };
 
   cardsets = fetchzip {
     url =
-      "https://versaweb.dl.sourceforge.net/project/pysolfc/PySolFC-Cardsets/PySolFC-Cardsets-2.1/PySolFC-Cardsets-2.1.tar.bz2";
+      "https://versaweb.dl.sourceforge.net/project/pysolfc/PySolFC-Cardsets/PySolFC-Cardsets-2.1/PySolFC-Cardsets-2.1.tar.bz2"
+      ;
     sha256 = "sha256-0ji6jY7zJFaaaJdInaULKUou+u934RMzYjxVDGVHbE0=";
   };
 
@@ -52,7 +54,7 @@ buildPythonApplication rec {
     cp -r $cardsets/* $out/share/PySolFC/cardsets
   '';
 
-  # No tests in archive
+    # No tests in archive
   doCheck = false;
 
   meta = with lib; {

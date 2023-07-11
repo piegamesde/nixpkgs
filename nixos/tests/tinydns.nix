@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "tinydns";
     meta = { maintainers = with lib.maintainers; [ basvandijk ]; };
     nodes = {
-      nameserver = {
+      nameserver =
+        {
           config,
           lib,
           ...
@@ -23,7 +24,8 @@ import ./make-test-python.nix ({
               +.bla.foo.bar:1.2.3.4:300
             '';
           };
-        } ;
+        }
+        ;
     };
     testScript = ''
       nameserver.start()

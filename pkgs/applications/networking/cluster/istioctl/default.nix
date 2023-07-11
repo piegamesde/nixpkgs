@@ -19,19 +19,21 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # Bundle release metadata
-  ldflags = let
-    attrs = [
-      "istio.io/pkg/version.buildVersion=${version}"
-      "istio.io/pkg/version.buildStatus=Nix"
-      "istio.io/pkg/version.buildTag=${version}"
-      "istio.io/pkg/version.buildHub=docker.io/istio"
-    ];
-  in [
-    "-s"
-    "-w"
-    "${lib.concatMapStringsSep " " (attr: "-X ${attr}") attrs}"
-  ] ;
+    # Bundle release metadata
+  ldflags =
+    let
+      attrs = [
+        "istio.io/pkg/version.buildVersion=${version}"
+        "istio.io/pkg/version.buildStatus=Nix"
+        "istio.io/pkg/version.buildTag=${version}"
+        "istio.io/pkg/version.buildHub=docker.io/istio"
+      ];
+    in [
+      "-s"
+      "-w"
+      "${lib.concatMapStringsSep " " (attr: "-X ${attr}") attrs}"
+    ]
+    ;
 
   subPackages = [ "istioctl/cmd/istioctl" ];
 
@@ -49,7 +51,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Istio configuration command line utility for service operators to debug and diagnose their Istio mesh";
+      "Istio configuration command line utility for service operators to debug and diagnose their Istio mesh"
+      ;
     homepage = "https://istio.io/latest/docs/reference/commands/istioctl";
     license = licenses.asl20;
     maintainers = with maintainers; [

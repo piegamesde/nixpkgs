@@ -9,7 +9,8 @@ let
 in {
   options.services.openwebrx = with lib; {
     enable = mkEnableOption (lib.mdDoc
-      "OpenWebRX Web interface for Software-Defined Radios on http://localhost:8073");
+      "OpenWebRX Web interface for Software-Defined Radios on http://localhost:8073")
+      ;
 
     package = mkOption {
       type = types.package;
@@ -35,7 +36,7 @@ in {
         ExecStart = "${cfg.package}/bin/openwebrx";
         Restart = "always";
         DynamicUser = true;
-        # openwebrx uses /var/lib/openwebrx by default
+          # openwebrx uses /var/lib/openwebrx by default
         StateDirectory = [ "openwebrx" ];
       };
     };

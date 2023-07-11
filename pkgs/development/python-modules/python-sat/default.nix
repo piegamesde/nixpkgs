@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # https://github.com/pysathq/pysat/pull/102
+    # https://github.com/pysathq/pysat/pull/102
   postPatch = ''
         # Fix for case-insensitive filesystem
         cat >>solvers/patches/cadical.patch <<EOF
@@ -40,7 +40,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Toolkit to provide interface for various SAT (without optional dependancy py-aiger-cnf)";
+      "Toolkit to provide interface for various SAT (without optional dependancy py-aiger-cnf)"
+      ;
     homepage = "https://github.com/pysathq/pysat";
     license = licenses.mit;
     maintainers = [ maintainers.marius851000 ];

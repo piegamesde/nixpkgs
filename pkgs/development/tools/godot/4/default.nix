@@ -46,7 +46,7 @@ let
     target = withTarget;
     precision = withPrecision; # Floating-point precision level
 
-    # Options from 'godot/platform/linuxbsd/detect.py'
+      # Options from 'godot/platform/linuxbsd/detect.py'
     pulseaudio = withPulseaudio; # Use PulseAudio
     dbus =
       withDbus; # Use D-Bus to handle screensaver and portal desktop settings
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Options from 'godot/SConstruct' and 'godot/platform/linuxbsd/detect.py'
+    # Options from 'godot/SConstruct' and 'godot/platform/linuxbsd/detect.py'
   sconsFlags = [ "production=true" ];
   preConfigure = ''
     sconsFlags+=" ${

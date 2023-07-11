@@ -25,17 +25,18 @@ let
   vlans = map (m: m.virtualisation.vlans) (lib.attrValues config.nodes);
   vms = map (m: m.system.build.vm) (lib.attrValues config.nodes);
 
-  nodeHostNames = let
-    nodesList = map (c: c.system.name) (lib.attrValues config.nodes);
-  in
-  nodesList
-  ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
-  "machine"
-  ;
+  nodeHostNames =
+    let
+      nodesList = map (c: c.system.name) (lib.attrValues config.nodes);
+    in
+    nodesList
+    ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
+    "machine"
+    ;
 
-  # TODO: This is an implementation error and needs fixing
-  # the testing famework cannot legitimately restrict hostnames further
-  # beyond RFC1035
+    # TODO: This is an implementation error and needs fixing
+    # the testing famework cannot legitimately restrict hostnames further
+    # beyond RFC1035
   invalidNodeNames =
     lib.filter (node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null)
     nodeHostNames;
@@ -44,19 +45,21 @@ let
   vlanNames = map (i: "vlan${toString i}: VLan;") uniqueVlans;
   machineNames = map (name: "${name}: Machine;") nodeHostNames;
 
-  withChecks = if lib.length invalidNodeNames > 0 then
-    throw ''
-      Cannot create machines out of (${
-        lib.concatStringsSep ", " invalidNodeNames
-      })!
-      All machines are referenced as python variables in the testing framework which will break the
-      script when special characters are used.
+  withChecks =
+    if lib.length invalidNodeNames > 0 then
+      throw ''
+        Cannot create machines out of (${
+          lib.concatStringsSep ", " invalidNodeNames
+        })!
+        All machines are referenced as python variables in the testing framework which will break the
+        script when special characters are used.
 
-      This is an IMPLEMENTATION ERROR and needs to be fixed. Meanwhile,
-      please stick to alphanumeric chars and underscores as separation.
-    ''
-  else
-    lib.warnIf config.skipLint "Linting is disabled";
+        This is an IMPLEMENTATION ERROR and needs to be fixed. Meanwhile,
+        please stick to alphanumeric chars and underscores as separation.
+      ''
+    else
+      lib.warnIf config.skipLint "Linting is disabled"
+    ;
 
   driver = hostPkgs.runCommand "nixos-test-driver-${config.name}" {
     # inherit testName; TODO (roberth): need this?
@@ -132,7 +135,8 @@ in {
 
     qemu.package = mkOption {
       description = mdDoc
-        "Which qemu package to use for the virtualisation of [{option}`nodes`](#test-opt-nodes).";
+        "Which qemu package to use for the virtualisation of [{option}`nodes`](#test-opt-nodes)."
+        ;
       type = types.package;
       default = hostPkgs.qemu_test;
       defaultText = "hostPkgs.qemu_test";
@@ -194,7 +198,7 @@ in {
 
     driver = withChecks driver;
 
-    # make available on the test runner
+      # make available on the test runner
     passthru.driver = config.driver;
   };
 }

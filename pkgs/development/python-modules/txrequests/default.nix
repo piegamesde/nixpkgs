@@ -23,7 +23,7 @@ buildPythonPackage rec {
     cryptography
   ];
 
-  # Require network access
+    # Require network access
   doCheck = false;
 
   nativeCheckInputs = [ unittestCheckHook ];

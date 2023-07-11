@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://pngquant.org/";
     description =
-      "A tool to convert 24/32-bit RGBA PNGs to 8-bit palette with alpha channel preserved";
+      "A tool to convert 24/32-bit RGBA PNGs to 8-bit palette with alpha channel preserved"
+      ;
     changelog =
       "https://github.com/kornelski/pngquant/raw/${version}/CHANGELOG";
     platforms = platforms.unix;

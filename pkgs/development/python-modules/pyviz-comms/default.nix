@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ param ];
 
-  # there are not tests with the package
+    # there are not tests with the package
   doCheck = false;
 
   pythonImportsCheck = [ "pyviz_comms" ];

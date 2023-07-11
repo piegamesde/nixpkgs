@@ -25,18 +25,19 @@ with lib; {
       '';
     };
   };
-  config = let
-    cfg = config.programs.kdeconnect;
-  in
-  mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    networking.firewall = rec {
-      allowedTCPPortRanges = [ {
-        from = 1714;
-        to = 1764;
-      } ];
-      allowedUDPPortRanges = allowedTCPPortRanges;
-    };
-  }
-  ;
+  config =
+    let
+      cfg = config.programs.kdeconnect;
+    in
+    mkIf cfg.enable {
+      environment.systemPackages = [ cfg.package ];
+      networking.firewall = rec {
+        allowedTCPPortRanges = [ {
+          from = 1714;
+          to = 1764;
+        } ];
+        allowedUDPPortRanges = allowedTCPPortRanges;
+      };
+    }
+    ;
 }

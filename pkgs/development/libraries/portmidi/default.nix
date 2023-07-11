@@ -34,11 +34,13 @@ stdenv.mkDerivation rec {
     ./missing-header.diff
   ];
 
-  postInstall = let
-    ext = stdenv.hostPlatform.extensions.sharedLibrary;
-  in ''
-    ln -s libportmidi${ext} "$out/lib/libporttime${ext}"
-  '' ;
+  postInstall =
+    let
+      ext = stdenv.hostPlatform.extensions.sharedLibrary;
+    in ''
+      ln -s libportmidi${ext} "$out/lib/libporttime${ext}"
+    ''
+    ;
 
   nativeBuildInputs = [
     unzip

@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/clack/2021-12-09/clack-20211209-git.tgz";
+      "http://beta.quicklisp.org/archive/clack/2021-12-09/clack-20211209-git.tgz"
+      ;
     sha256 = "1gp323083ds89cw3vd6w40d4cwx04y0qaqdz4wx2332klhvvdnsd";
   };
 

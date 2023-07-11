@@ -15,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-b+zDoiOD80BTP5VDpW/swur8zJOqYEWe05e/ZupZjyk=";
   };
 
-  # needs a Docker setup
+    # needs a Docker setup
   doCheck = false;
 
   pythonImportsCheck = [ "getmailcore" ];

@@ -39,8 +39,8 @@ buildPythonPackage rec {
     nose
   ];
 
-  # ignore tests which are incompatible with pandas>=1.0
-  # https://github.com/santosjorge/cufflinks/issues/236
+    # ignore tests which are incompatible with pandas>=1.0
+    # https://github.com/santosjorge/cufflinks/issues/236
   checkPhase = ''
     pytest tests.py -k 'not bar_row'
   '';

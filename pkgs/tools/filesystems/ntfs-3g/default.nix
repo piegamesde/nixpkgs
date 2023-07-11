@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     DiskArbitration
   ];
 
-  # Note: libgcrypt is listed here non-optionally because its m4 macros are
-  # being used in ntfs-3g's configure.ac.
+    # Note: libgcrypt is listed here non-optionally because its m4 macros are
+    # being used in ntfs-3g's configure.ac.
   nativeBuildInputs = [
     autoreconfHook
     libgcrypt

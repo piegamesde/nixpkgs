@@ -38,9 +38,9 @@ in
 stdenv.mkDerivation rec {
   version = "0.12.3"; # also update communityModules
   pname = "prosody";
-  # The following community modules are necessary for the nixos module
-  # prosody module to comply with XEP-0423 and provide a working
-  # default setup.
+    # The following community modules are necessary for the nixos module
+    # prosody module to comply with XEP-0423 and provide a working
+    # default setup.
   nixosModuleDeps = [
     "cloud_notify"
     "vcard_muc"
@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NdoNAx/0YECi1jjgBNQlXiSbYyP+YhLbnd12tAHbIQE=";
   };
 
-  # A note to all those merging automated updates: Please also update this
-  # attribute as some modules might not be compatible with a newer prosody
-  # version.
+    # A note to all those merging automated updates: Please also update this
+    # attribute as some modules might not be compatible with a newer prosody
+    # version.
   communityModules = fetchhg {
     url = "https://hg.prosody.im/prosody-modules";
     rev = "3e30799deec2";
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     make -C tools/migration
   '';
 
-  # the wrapping should go away once lua hook is fixed
+    # the wrapping should go away once lua hook is fixed
   postInstall = ''
     ${concatMapStringsSep "\n" (module: ''
       cp -r $communityModules/mod_${module} $out/lib/prosody/modules/

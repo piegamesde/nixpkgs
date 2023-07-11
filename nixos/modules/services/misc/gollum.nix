@@ -78,7 +78,8 @@ in {
       type = types.bool;
       default = false;
       description = lib.mdDoc
-        "Use the browser's local timezone instead of the server's for displaying dates.";
+        "Use the browser's local timezone instead of the server's for displaying dates."
+        ;
     };
 
     branch = mkOption {
@@ -92,7 +93,8 @@ in {
       type = types.path;
       default = "/var/lib/gollum";
       description = lib.mdDoc
-        "Specifies the path of the repository directory. If it does not exist, Gollum will create it on startup.";
+        "Specifies the path of the repository directory. If it does not exist, Gollum will create it on startup."
+        ;
     };
 
     package = mkOption {
@@ -116,8 +118,8 @@ in {
 
     users.groups.gollum = { };
 
-    systemd.tmpfiles.rules =
-      [ "d '${cfg.stateDir}' - ${config.users.users.gollum.name} ${config.users.groups.gollum.name} - -" ];
+    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' - ${config.users.users.gollum.name} ${config.users.groups.gollum.name} - -" ]
+      ;
 
     systemd.services.gollum = {
       description = "Gollum wiki";

@@ -13,12 +13,13 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ tilpner ]; };
 
     nodes = {
-      server = {
+      server =
+        {
           config,
           ...
         }: {
-          networking.firewall.allowedTCPPorts =
-            [ config.services.gitDaemon.port ];
+          networking.firewall.allowedTCPPorts = [ config.services.gitDaemon.port ]
+            ;
 
           environment.systemPackages = [ pkgs.git ];
 
@@ -31,14 +32,17 @@ import ./make-test-python.nix ({
             enable = true;
             basePath = "/git";
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
           environment.systemPackages = [ pkgs.git ];
-        };
+        }
+        ;
     };
 
     testScript = ''

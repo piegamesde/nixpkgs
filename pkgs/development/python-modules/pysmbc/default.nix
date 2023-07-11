@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   buildInputs = [ samba ];
 
-  # Tests would require a local SMB server
+    # Tests would require a local SMB server
   doCheck = false;
 
   pythonImportsCheck = [ "smbc" ];

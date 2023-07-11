@@ -18,12 +18,14 @@ in
   ...
 }:
 let
-  seqIf = cond:
+  seqIf =
+    cond:
     if cond then
       builtins.seq
     else
-      a: b: b;
-  # If cond, force `a` before returning any attr
+      a: b: b
+    ;
+    # If cond, force `a` before returning any attr
   seqAttrsIf = cond: a: lib.mapAttrs (_: v: seqIf cond a v);
 
   eval-config-minimal = import ./eval-config-minimal.nix { inherit lib; };

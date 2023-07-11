@@ -99,7 +99,7 @@ buildPythonPackage rec {
       --replace " --dist no" ""
   '';
 
-  # darwin has write permission issues
+    # darwin has write permission issues
   doCheck = stdenv.isLinux;
 
   preCheck = ''
@@ -147,10 +147,10 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  # Wants a configuration file
-  # pythonImportsCheck = [
-  #   "sunpy"
-  # ];
+    # Wants a configuration file
+    # pythonImportsCheck = [
+    #   "sunpy"
+    # ];
 
   meta = with lib; {
     description = "Python for Solar Physics";

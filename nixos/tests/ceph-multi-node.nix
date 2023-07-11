@@ -30,7 +30,8 @@ import ./make-test-python.nix ({
         uuid = "ea999274-13d0-4dd5-9af9-ad25a324f72f";
       };
     };
-    generateCephConfig = {
+    generateCephConfig =
+      {
         daemonConfig,
       }:
       {
@@ -40,9 +41,11 @@ import ./make-test-python.nix ({
           monHost = cfg.monA.ip;
           monInitialMembers = cfg.monA.name;
         };
-      } // daemonConfig;
+      } // daemonConfig
+      ;
 
-    generateHost = {
+    generateHost =
+      {
         pkgs,
         cephConfig,
         networkConfig,
@@ -66,7 +69,8 @@ import ./make-test-python.nix ({
         boot.kernelModules = [ "xfs" ];
 
         services.ceph = cephConfig;
-      };
+      }
+      ;
 
     networkMonA = {
       dhcpcd.enable = false;
@@ -98,21 +102,24 @@ import ./make-test-python.nix ({
       };
     };
 
-    networkOsd = osd: {
-      dhcpcd.enable = false;
-      interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
-        address = osd.ip;
-        prefixLength = 24;
-      } ];
-      firewall = {
-        allowedTCPPortRanges = [ {
-          from = 6800;
-          to = 7300;
+    networkOsd =
+      osd: {
+        dhcpcd.enable = false;
+        interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
+          address = osd.ip;
+          prefixLength = 24;
         } ];
-      };
-    };
+        firewall = {
+          allowedTCPPortRanges = [ {
+            from = 6800;
+            to = 7300;
+          } ];
+        };
+      }
+      ;
 
-    cephConfigOsd = osd:
+    cephConfigOsd =
+      osd:
       generateCephConfig {
         daemonConfig = {
           osd = {
@@ -120,13 +127,15 @@ import ./make-test-python.nix ({
             daemons = [ osd.name ];
           };
         };
-      };
+      }
+      ;
 
-    # Following deployment is based on the manual deployment described here:
-    # https://docs.ceph.com/docs/master/install/manual-deployment/
-    # For other ways to deploy a ceph cluster, look at the documentation at
-    # https://docs.ceph.com/docs/master/
-    testscript = {
+      # Following deployment is based on the manual deployment described here:
+      # https://docs.ceph.com/docs/master/install/manual-deployment/
+      # For other ways to deploy a ceph cluster, look at the documentation at
+      # https://docs.ceph.com/docs/master/
+    testscript =
+      {
         ...
       }: ''
         start_all()
@@ -245,7 +254,8 @@ import ./make-test-python.nix ({
         monA.wait_until_succeeds("ceph osd stat | grep -e '3 osds: 3 up[^,]*, 3 in'")
         monA.wait_until_succeeds("ceph -s | grep 'mgr: ${cfg.monA.name}(active,'")
         monA.wait_until_succeeds("ceph -s | grep 'HEALTH_OK'")
-      '';
+      ''
+      ;
   in {
     name = "basic-multi-node-ceph-cluster";
     meta = with pkgs.lib.maintainers; { maintainers = [ lejonet ]; };

@@ -14,8 +14,8 @@ buildGoModule rec {
     repo = pname;
     rev = "v${version}";
     sha256 = "sha256-sDxbBIE0NgOcEMTnQNXe93RvIDBn0IjH2D15GxwVJqU=";
-    # populate values that require us to use git. By doing this in postFetch we
-    # can delete .git afterwards and maintain better reproducibility of the src.
+      # populate values that require us to use git. By doing this in postFetch we
+      # can delete .git afterwards and maintain better reproducibility of the src.
     leaveDotGit = true;
     postFetch = ''
       cd "$out"
@@ -38,7 +38,7 @@ buildGoModule rec {
     "-X sigs.k8s.io/release-utils/version.gitTreeState=clean"
   ];
 
-  # ldflags based on metadata from git and source
+    # ldflags based on metadata from git and source
   preBuild = ''
     ldflags+=" -X sigs.k8s.io/release-utils/version.gitCommit=$(cat COMMIT)"
     ldflags+=" -X sigs.k8s.io/release-utils/version.buildDate=$(cat SOURCE_DATE_EPOCH)"
@@ -72,7 +72,8 @@ buildGoModule rec {
     homepage = "https://github.com/sigstore/fulcio";
     changelog = "https://github.com/sigstore/fulcio/releases/tag/v${version}";
     description =
-      "A Root-CA for code signing certs - issuing certificates based on an OIDC email address";
+      "A Root-CA for code signing certs - issuing certificates based on an OIDC email address"
+      ;
     longDescription = ''
       Fulcio is a free code signing Certificate Authority, built to make
       short-lived certificates available to anyone. Based on an Open ID Connect

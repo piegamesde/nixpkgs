@@ -47,7 +47,7 @@ rec {
 
   rustLibSrc = callPackage ./rust-lib-src.nix { inherit runCommand rustc; };
 
-  # Hooks
+    # Hooks
   inherit (callPackage ../../../build-support/rust/hooks {
     inherit stdenv cargo rustc;
   })

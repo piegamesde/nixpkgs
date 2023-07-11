@@ -14,7 +14,8 @@ stdenv.mkDerivation {
   patchPhase = "cat ${./sitecustomize.py} > sitecustomize.py";
 
   buildPhase =
-    "${python.pythonForBuild}/bin/${python.pythonForBuild.executable} -m compileall .";
+    "${python.pythonForBuild}/bin/${python.pythonForBuild.executable} -m compileall ."
+    ;
 
   installPhase = ''
     dst=$out/lib/${python.libPrefix}/site-packages

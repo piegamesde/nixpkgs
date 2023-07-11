@@ -62,7 +62,8 @@ buildPythonPackage rec {
     # https://github.com/apache/beam/pull/24143
     name = "fix-for-dill-0.3.6.patch";
     url =
-      "https://github.com/apache/beam/commit/7e014435b816015d21cc07f3f6c80809f3d8023d.patch";
+      "https://github.com/apache/beam/commit/7e014435b816015d21cc07f3f6c80809f3d8023d.patch"
+      ;
     hash = "sha256-iUmnzrItTFM98w3mpadzrmtI3t0fucpSujAg/6qxCGk=";
     stripLen = 2;
   }) ];
@@ -143,8 +144,8 @@ buildPythonPackage rec {
     testcontainers
   ];
 
-  # Make sure we're running the tests for the actually installed
-  # package, so that cython's .so files are available.
+    # Make sure we're running the tests for the actually installed
+    # package, so that cython's .so files are available.
   preCheck = "cd $out/lib/${python.libPrefix}/site-packages";
 
   disabledTestPaths = [
@@ -204,7 +205,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Unified model for defining both batch and streaming data-parallel processing pipelines";
+      "Unified model for defining both batch and streaming data-parallel processing pipelines"
+      ;
     homepage = "https://beam.apache.org/";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];

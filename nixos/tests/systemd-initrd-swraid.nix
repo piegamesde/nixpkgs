@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "systemd-initrd-swraid";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -42,7 +43,8 @@ import ./make-test-python.nix ({
 
         specialisation.boot-swraid.configuration.virtualisation.rootDevice =
           "/dev/disk/by-label/testraid";
-      };
+      }
+      ;
 
     testScript = ''
       # Create RAID

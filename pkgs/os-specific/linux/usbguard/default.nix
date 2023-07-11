@@ -76,7 +76,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "The USBGuard software framework helps to protect your computer against BadUSB";
+      "The USBGuard software framework helps to protect your computer against BadUSB"
+      ;
     longDescription = ''
       USBGuard is a software framework for implementing USB device authorization
       policies (what kind of USB devices are authorized) as well as method of

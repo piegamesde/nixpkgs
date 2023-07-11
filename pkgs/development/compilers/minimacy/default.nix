@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     }
   '';
 
-  # TODO: build graphic version for darwin
+    # TODO: build graphic version for darwin
   buildFlags = (if stdenv.isDarwin then
     [ "nox" ]
   else

@@ -48,14 +48,15 @@ buildPythonPackage rec {
     rasterio
   ];
 
-  # Tests require network
+    # Tests require network
   doCheck = false;
 
   pythonImportsCheck = [ "osmnx" ];
 
   meta = with lib; {
     description =
-      "A package to easily download, construct, project, visualize, and analyze complex street networks from OpenStreetMap with NetworkX.";
+      "A package to easily download, construct, project, visualize, and analyze complex street networks from OpenStreetMap with NetworkX."
+      ;
     homepage = "https://github.com/gboeing/osmnx";
     changelog =
       "https://github.com/gboeing/osmnx/blob/v${version}/CHANGELOG.md";

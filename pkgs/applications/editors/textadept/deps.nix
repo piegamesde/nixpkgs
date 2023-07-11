@@ -9,12 +9,14 @@
   };
   "9088723504b19f8611b66c119933a4dc7939d7b8.zip" = {
     url =
-      "https://github.com/orbitalquark/scintillua/archive/9088723504b19f8611b66c119933a4dc7939d7b8.zip";
+      "https://github.com/orbitalquark/scintillua/archive/9088723504b19f8611b66c119933a4dc7939d7b8.zip"
+      ;
     sha256 = "sha256-V2t1kt6+SpZQvQSzLhh8n+WiAnA32SRVFnrbTaJrHRo=";
   };
   "475d8d43f3418590c28bd2fb07ee9229d1fa2d07.zip" = {
     url =
-      "https://github.com/orbitalquark/scinterm/archive/475d8d43f3418590c28bd2fb07ee9229d1fa2d07.zip";
+      "https://github.com/orbitalquark/scinterm/archive/475d8d43f3418590c28bd2fb07ee9229d1fa2d07.zip"
+      ;
     sha256 = "sha256-lNMK0RFcOLg9RRE5a6VelhSzUYVl5TiAiXcje2JOedE=";
   };
   "lua-5.4.4.tar.gz" = {
@@ -31,7 +33,8 @@
   };
   "444af9ca8a73151dbf759e6676d1035af469f01a.zip" = {
     url =
-      "https://github.com/orbitalquark/gtdialog/archive/444af9ca8a73151dbf759e6676d1035af469f01a.zip";
+      "https://github.com/orbitalquark/gtdialog/archive/444af9ca8a73151dbf759e6676d1035af469f01a.zip"
+      ;
     sha256 = "sha256-7AkX7OWXJtzKq3h4uJeLzHpf6mrsz67SXtPvmyA5xxg=";
   };
   "cdk-5.0-20200923.tgz" = {

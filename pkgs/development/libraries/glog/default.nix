@@ -27,21 +27,23 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
-  # TODO: Re-enable Darwin tests once we're on a release that has https://github.com/google/glog/issues/709#issuecomment-960381653 fixed
+    # TODO: Re-enable Darwin tests once we're on a release that has https://github.com/google/glog/issues/709#issuecomment-960381653 fixed
   doCheck = !stdenv.isDarwin;
-  # There are some non-thread safe tests that can fail
+    # There are some non-thread safe tests that can fail
   enableParallelChecking = false;
   nativeCheckInputs = [ perl ];
 
-  GTEST_FILTER = let
-    filteredTests = lib.optionals stdenv.hostPlatform.isMusl [
-      "Symbolize.SymbolizeStackConsumption"
-      "Symbolize.SymbolizeWithDemanglingStackConsumption"
-    ] ++ lib.optionals
-      stdenv.hostPlatform.isStatic [ "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled" ];
-  in
-  lib.optionalString doCheck "-${builtins.concatStringsSep ":" filteredTests}"
-  ;
+  GTEST_FILTER =
+    let
+      filteredTests = lib.optionals stdenv.hostPlatform.isMusl [
+        "Symbolize.SymbolizeStackConsumption"
+        "Symbolize.SymbolizeWithDemanglingStackConsumption"
+      ] ++ lib.optionals
+        stdenv.hostPlatform.isStatic [ "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled" ]
+        ;
+    in
+    lib.optionalString doCheck "-${builtins.concatStringsSep ":" filteredTests}"
+    ;
 
   meta = with lib; {
     homepage = "https://github.com/google/glog";

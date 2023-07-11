@@ -26,9 +26,9 @@
 buildPythonPackage rec {
 
   pname = "youtube-dl";
-  # The websites youtube-dl deals with are a very moving target. That means that
-  # downloads break constantly. Because of that, updates should always be backported
-  # to the latest stable release.
+    # The websites youtube-dl deals with are a very moving target. That means that
+    # downloads break constantly. Because of that, updates should always be backported
+    # to the latest stable release.
   version = "2021.12.17";
 
   src = fetchurl {
@@ -47,7 +47,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "fix-youtube-dl-speed.patch";
       url =
-        "https://github.com/ytdl-org/youtube-dl/compare/57044eacebc6f2f3cd83c345e1b6e659a22e4773...1e677567cd083d43f55daef0cc74e5fa24575ae3.diff";
+        "https://github.com/ytdl-org/youtube-dl/compare/57044eacebc6f2f3cd83c345e1b6e659a22e4773...1e677567cd083d43f55daef0cc74e5fa24575ae3.diff"
+        ;
       sha256 = "11s0j3w60r75xx20p0x2j3yc4d3yvz99r0572si8b5qd93lqs4pr";
     })
     # The above patch may fail to decode the n-parameter (if, say, YouTube is updated). Failure to decode
@@ -56,14 +57,16 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "avoid-crashing-if-nsig-decode-fails.patch";
       url =
-        "https://github.com/ytdl-org/youtube-dl/commit/41f0043983c831b7c0c3614340d2f66ec153087b.diff";
+        "https://github.com/ytdl-org/youtube-dl/commit/41f0043983c831b7c0c3614340d2f66ec153087b.diff"
+        ;
       sha256 = "sha256-a72gWhBXCLjuBBD36PpZ5F/AHBdiBv4W8Wf9g4P/aBY=";
     })
     # YouTube changed the n-parameter format in April 2022, so decoder updates are required.
     (fetchpatch {
       name = "fix-n-descrambling.patch";
       url =
-        "https://github.com/ytdl-org/youtube-dl/commit/a0068bd6bec16008bda7a39caecccbf84881c603.diff";
+        "https://github.com/ytdl-org/youtube-dl/commit/a0068bd6bec16008bda7a39caecccbf84881c603.diff"
+        ;
       sha256 = "sha256-tSuEns4jputa2nOOo6JsFXpK3hvJ/+z1/ymcLsd3A6w=";
     })
   ];
@@ -75,14 +78,16 @@ buildPythonPackage rec {
   buildInputs = [ zip ] ++ lib.optional generateManPage pandoc;
   propagatedBuildInputs = lib.optional hlsEncryptedSupport pycryptodome;
 
-  # Ensure these utilities are available in $PATH:
-  # - ffmpeg: post-processing & transcoding support
-  # - rtmpdump: download files over RTMP
-  # - atomicparsley: embedding thumbnails
-  makeWrapperArgs = let
-    packagesToBinPath = [ atomicparsley ] ++ lib.optional ffmpegSupport ffmpeg
-      ++ lib.optional rtmpSupport rtmpdump;
-  in [ ''--prefix PATH : "${lib.makeBinPath packagesToBinPath}"'' ] ;
+    # Ensure these utilities are available in $PATH:
+    # - ffmpeg: post-processing & transcoding support
+    # - rtmpdump: download files over RTMP
+    # - atomicparsley: embedding thumbnails
+  makeWrapperArgs =
+    let
+      packagesToBinPath = [ atomicparsley ] ++ lib.optional ffmpegSupport ffmpeg
+        ++ lib.optional rtmpSupport rtmpdump;
+    in [ ''--prefix PATH : "${lib.makeBinPath packagesToBinPath}"'' ]
+    ;
 
   setupPyBuildFlags = [ "build_lazy_extractors" ];
 
@@ -90,7 +95,7 @@ buildPythonPackage rec {
     installShellCompletion youtube-dl.zsh
   '';
 
-  # Requires network
+    # Requires network
   doCheck = false;
 
   meta = with lib; {

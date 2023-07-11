@@ -15,16 +15,16 @@
 }:
 
 let
-  foomatic-db-packages = [ foomatic-db ]
-    ++ lib.lists.optional withNonfreeDb foomatic-db-nonfree;
+  foomatic-db-packages =
+    [ foomatic-db ] ++ lib.lists.optional withNonfreeDb foomatic-db-nonfree;
 
   foomatic-db-combined = buildEnv {
     name = "foomatic-db-combined";
     paths = foomatic-db-packages;
     pathsToLink = [ "/share/foomatic" ];
-    # `foomatic-db-combined` is a nativeBuildInput of `foomatic-db-ppds`.
-    # The setup hook defined here helps scripts in
-    # `foomatic-db-engine` to find the database.
+      # `foomatic-db-combined` is a nativeBuildInput of `foomatic-db-ppds`.
+      # The setup hook defined here helps scripts in
+      # `foomatic-db-engine` to find the database.
     postBuild = ''
       mkdir -p "${placeholder "out"}"/{etc/cups,nix-support}
       cat  >> "${placeholder "out"}/nix-support/setup-hook"  << eof
@@ -33,8 +33,8 @@ let
     '';
   };
 
-  # the effective license is `free` if all database
-  # packages have free licenses, `unfree` otherwise
+    # the effective license is `free` if all database
+    # packages have free licenses, `unfree` otherwise
   isFree = lib.trivial.pipe foomatic-db-packages [
     (lib.lists.map (lib.attrsets.attrByPath [
       "meta"
@@ -46,8 +46,8 @@ let
 in
 stdenv.mkDerivation {
   pname = "foomatic-db-ppds";
-  # the effective version is simply the
-  # highest version of all database packages
+    # the effective version is simply the
+    # highest version of all database packages
   version = lib.trivial.pipe foomatic-db-packages [
     (lib.lists.map (lib.attrsets.getAttr "version"))
     (lib.lists.sort lib.strings.versionOlder)
@@ -80,8 +80,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # Comments indicate the respective
-  # package the command is contained in.
+    # Comments indicate the respective
+    # package the command is contained in.
   ppdFileCommands = [
     "cat"
     "echo" # coreutils
@@ -98,7 +98,7 @@ stdenv.mkDerivation {
     #"pbm2l2030" "pbm2lwxl" "rastertophaser6100"
   ];
 
-  # compress ppd files
+    # compress ppd files
   postFixup = ''
     echo 'compressing ppd files'
     find -H "${
@@ -110,13 +110,15 @@ stdenv.mkDerivation {
   meta = {
     description = "OpenPrinting ppd files";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";
-    license = if isFree then
-      lib.licenses.free
-    else
-      lib.licenses.unfree;
+    license =
+      if isFree then
+        lib.licenses.free
+      else
+        lib.licenses.unfree
+      ;
     maintainers = [ lib.maintainers.yarny ];
-    # list printer manufacturers here so people
-    # searching for ppd files can find this package
+      # list printer manufacturers here so people
+      # searching for ppd files can find this package
     longDescription = ''
       All PPD files available in
       OpenPrinting's Foomatic database.

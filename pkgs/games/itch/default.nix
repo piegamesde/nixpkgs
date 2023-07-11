@@ -26,7 +26,8 @@ stdenvNoCC.mkDerivation rec {
     (fetchpatch {
       name = "itch.patch";
       url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/itch.patch?h=itch-bin&id=0b181454567029141749f870880b10093216e133";
+        "https://aur.archlinux.org/cgit/aur.git/plain/itch.patch?h=itch-bin&id=0b181454567029141749f870880b10093216e133"
+        ;
       sha256 = "sha256-gmLL/BMondSflERm0z+DuGDP56JhDXiyxEwLUavTD8Q=";
     })
   ];
@@ -37,17 +38,18 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-5MP6X33Jfu97o5R1n6Og64Bv4ZMxVM0A8lXeQug+bNA=";
   };
 
-  icons = let
-    sparseCheckout = "/release/images/itch-icons";
-  in
-  fetchFromGitHub {
-    owner = "itchio";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-DZBmf8fe0zw5uiQjNKXw8g/vU2hjNDa87z/7XuhyXog=";
-    sparseCheckout = [ sparseCheckout ];
-  } + sparseCheckout
-  ;
+  icons =
+    let
+      sparseCheckout = "/release/images/itch-icons";
+    in
+    fetchFromGitHub {
+      owner = "itchio";
+      repo = pname;
+      rev = "v${version}";
+      hash = "sha256-DZBmf8fe0zw5uiQjNKXw8g/vU2hjNDa87z/7XuhyXog=";
+      sparseCheckout = [ sparseCheckout ];
+    } + sparseCheckout
+    ;
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -68,7 +70,7 @@ stdenvNoCC.mkDerivation rec {
     categories = [ "Game" ];
   }) ];
 
-  # As taken from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=itch-bin
+    # As taken from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=itch-bin
   installPhase = ''
     runHook preInstall
 

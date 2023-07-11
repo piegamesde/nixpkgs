@@ -19,7 +19,7 @@ buildNpmPackage rec {
 
   dontNpmBuild = true;
 
-  # The prepack script runs the build script, which we'd rather do in the build phase.
+    # The prepack script runs the build script, which we'd rather do in the build phase.
   npmPackFlags = [ "--ignore-scripts" ];
 
   NODE_OPTIONS = "--openssl-legacy-provider";

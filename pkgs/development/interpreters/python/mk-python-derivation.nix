@@ -137,33 +137,40 @@ let
 
   name_ = name;
 
-  validatePythonMatches = attrName:
+  validatePythonMatches =
+    attrName:
     let
-      isPythonModule = drv:
+      isPythonModule =
+        drv:
         # all pythonModules have the pythonModule attribute
         (drv ? "pythonModule")
         # Some pythonModules are turned in to a pythonApplication by setting the field to false
-        && (!builtins.isBool drv.pythonModule);
+        && (!builtins.isBool drv.pythonModule)
+        ;
       isMismatchedPython = drv: drv.pythonModule != python;
 
-      optionalLocation = let
-        pos = builtins.unsafeGetAttrPos (if attrs ? "pname" then
-          "pname"
+      optionalLocation =
+        let
+          pos = builtins.unsafeGetAttrPos (if attrs ? "pname" then
+            "pname"
+          else
+            "name") attrs;
+        in if pos == null then
+          ""
         else
-          "name") attrs;
-      in if pos == null then
-        ""
-      else
-        " at ${pos.file}:${toString pos.line}:${toString pos.column}";
+          " at ${pos.file}:${toString pos.line}:${toString pos.column}"
+        ;
 
-      leftPadName = name: against:
+      leftPadName =
+        name: against:
         let
           len = lib.max (lib.stringLength name) (lib.stringLength against);
         in
         lib.strings.fixedWidthString len " " name
-      ;
+        ;
 
-      throwMismatch = drv:
+      throwMismatch =
+        drv:
         let
           myName = "'${namePrefix}${name}'";
           theirName = "'${drv.name}'";
@@ -196,19 +203,21 @@ let
 
           ${optionalLocation}
         ''
-      ;
+        ;
 
-      checkDrv = drv:
+      checkDrv =
+        drv:
         if (isPythonModule drv) && (isMismatchedPython drv) then
           throwMismatch drv
         else
-          drv;
+          drv
+        ;
 
     in
     inputs: builtins.map (checkDrv) inputs
-  ;
+    ;
 
-  # Keep extra attributes from `attrs`, e.g., `patchPhase', etc.
+    # Keep extra attributes from `attrs`, e.g., `patchPhase', etc.
   self = toPythonModule (stdenv.mkDerivation ((builtins.removeAttrs attrs [
     "disabled"
     "checkPhase"
@@ -272,7 +281,7 @@ let
           "C"
       }.UTF-8";
 
-    # Python packages don't have a checkPhase, only an installCheckPhase
+      # Python packages don't have a checkPhase, only an installCheckPhase
     doCheck = false;
     doInstallCheck = attrs.doCheck or true;
     nativeInstallCheckInputs = [ ] ++ lib.optionals (format == "setuptools") [
@@ -287,7 +296,7 @@ let
       wrapPythonPrograms
     '' + attrs.postFixup or "";
 
-    # Python packages built through cross-compilation are always for the host platform.
+      # Python packages built through cross-compilation are always for the host platform.
     disallowedReferences = lib.optionals (python.stdenv.hostPlatform
       != python.stdenv.buildPlatform) [ python.pythonForBuild ];
 
@@ -306,14 +315,15 @@ let
     disabledTestPaths = lib.escapeShellArgs disabledTestPaths;
   }));
 
-  passthru.updateScript = let
-    filename = builtins.head (lib.splitString ":" self.meta.position);
-  in
-  attrs.passthru.updateScript or [
-    update-python-libraries
-    filename
-  ]
-  ;
+  passthru.updateScript =
+    let
+      filename = builtins.head (lib.splitString ":" self.meta.position);
+    in
+    attrs.passthru.updateScript or [
+      update-python-libraries
+      filename
+    ]
+    ;
 in
 lib.extendDerivation
 (disabled -> throw "${name} not supported for interpreter ${python.executable}")

@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences";
+      "An ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences"
+      ;
     license = licenses.gpl3;
     homepage = "http://bowtie-bio.sf.net/bowtie2";
     maintainers = with maintainers; [ rybern ];

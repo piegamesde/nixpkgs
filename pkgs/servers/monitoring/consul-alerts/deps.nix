@@ -1,13 +1,15 @@
 let
-  mkAwsPackage = name: {
-    goPackagePath = "github.com/aws/aws-sdk-go/${name}";
-    fetch = {
-      type = "git";
-      url = "https://github.com/aws/aws-sdk-go";
-      rev = "v1.14.13";
-      sha256 = "0014b6kl3rbjhjbk7jz116wdgdls54b1bwz454pkn1snlvkj3qil";
-    };
-  };
+  mkAwsPackage =
+    name: {
+      goPackagePath = "github.com/aws/aws-sdk-go/${name}";
+      fetch = {
+        type = "git";
+        url = "https://github.com/aws/aws-sdk-go";
+        rev = "v1.14.13";
+        sha256 = "0014b6kl3rbjhjbk7jz116wdgdls54b1bwz454pkn1snlvkj3qil";
+      };
+    }
+    ;
 in [
   (mkAwsPackage "")
   (mkAwsPackage "aws/session")
@@ -27,8 +29,8 @@ in [
     fetch = {
       type = "git";
       url = "https://github.com/mitchellh/hashstructure";
-      rev =
-        "2bca23e0e452137f789efbc8610126fd8b94f73b"; # has no releases as of writing
+      rev = "2bca23e0e452137f789efbc8610126fd8b94f73b"
+        ; # has no releases as of writing
       sha256 = "0vpacsls26474wya360fjhzi6l4y8s8s251c4szvqxh17n5f5gk1";
     };
   }

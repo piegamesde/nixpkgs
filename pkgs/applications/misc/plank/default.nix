@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/${pname}/1.0/${version}/+download/${pname}-${version}.tar.xz";
+      "https://launchpad.net/${pname}/1.0/${version}/+download/${pname}-${version}.tar.xz"
+      ;
     sha256 = "17cxlmy7n13jp1v8i4abxyx9hylzb39andhz3mk41ggzmrpa8qm6";
   };
 
@@ -65,13 +66,13 @@ stdenv.mkDerivation rec {
     pango
   ];
 
-  # fix paths
+    # fix paths
   makeFlags = [
     "INTROSPECTION_GIRDIR=${placeholder "out"}/share/gir-1.0/"
     "INTROSPECTION_TYPELIBDIR=${placeholder "out"}/lib/girepository-1.0"
   ];
 
-  # Make plank's application launcher hidden in Pantheon
+    # Make plank's application launcher hidden in Pantheon
   patches = [ ./hide-in-pantheon.patch ];
 
   postPatch = ''

@@ -11,33 +11,39 @@ with lib;
 let
   cfg = config.services.oauth2_proxy;
 
-  # oauth2_proxy provides many options that are only relevant if you are using
-  # a certain provider. This set maps from provider name to a function that
-  # takes the configuration and returns a string that can be inserted into the
-  # command-line to launch oauth2_proxy.
+    # oauth2_proxy provides many options that are only relevant if you are using
+    # a certain provider. This set maps from provider name to a function that
+    # takes the configuration and returns a string that can be inserted into the
+    # command-line to launch oauth2_proxy.
   providerSpecificOptions = {
-    azure = cfg: {
-      azure-tenant = cfg.azure.tenant;
-      resource = cfg.azure.resource;
-    };
+    azure =
+      cfg: {
+        azure-tenant = cfg.azure.tenant;
+        resource = cfg.azure.resource;
+      }
+      ;
 
     github = cfg: { github = { inherit (cfg.github) org team; }; };
 
-    google = cfg: {
-      google = with cfg.google;
-        optionalAttrs (groups != [ ]) {
-          admin-email = adminEmail;
-          service-account = serviceAccountJSON;
-          group = groups;
-        };
-    };
+    google =
+      cfg: {
+        google = with cfg.google;
+          optionalAttrs (groups != [ ]) {
+            admin-email = adminEmail;
+            service-account = serviceAccountJSON;
+            group = groups;
+          };
+      }
+      ;
   };
 
   authenticatedEmailsFile =
     pkgs.writeText "authenticated-emails" cfg.email.addresses;
 
-  getProviderOptions = cfg: provider:
-    providerSpecificOptions.${provider} or (_: { }) cfg;
+  getProviderOptions =
+    cfg: provider:
+    providerSpecificOptions.${provider} or (_: { }) cfg
+    ;
 
   allConfig = with cfg;
     {
@@ -80,7 +86,8 @@ let
       https-address = tls.httpsAddress;
     } // (getProviderOptions cfg cfg.provider) // cfg.extraConfig;
 
-  mapConfig = key: attr:
+  mapConfig =
+    key: attr:
     optionalString (attr != null && attr != [ ]) (if isDerivation attr then
       mapConfig key (toString attr)
     else if (builtins.typeOf attr) == "set" then
@@ -93,7 +100,8 @@ let
     else if (builtins.typeOf attr) == "string" then
       "--${key}='${attr}'"
     else
-      "--${key}=${toString attr}");
+      "--${key}=${toString attr}")
+    ;
 
   configString = concatStringsSep " " (mapAttrsToList mapConfig allConfig);
 in {
@@ -109,9 +117,9 @@ in {
       '';
     };
 
-    ##############################################
-    # PROVIDER configuration
-    # Taken from: https://github.com/oauth2-proxy/oauth2-proxy/blob/master/providers/providers.go
+      ##############################################
+      # PROVIDER configuration
+      # Taken from: https://github.com/oauth2-proxy/oauth2-proxy/blob/master/providers/providers.go
     provider = mkOption {
       type = types.enum [
         "adfs"
@@ -170,7 +178,7 @@ in {
       '';
     };
 
-    # XXX: Not clear whether these two options are mutually exclusive or not.
+      # XXX: Not clear whether these two options are mutually exclusive or not.
     email = {
       domains = mkOption {
         type = types.listOf types.str;
@@ -305,8 +313,8 @@ in {
       };
     };
 
-    ####################################################
-    # UPSTREAM Configuration
+      ####################################################
+      # UPSTREAM Configuration
     upstream = mkOption {
       type = with types; coercedTo str (x: [ x ]) (listOf str);
       default = [ ];
@@ -419,8 +427,8 @@ in {
       };
     };
 
-    ####################################################
-    # OAUTH2 PROXY configuration
+      ####################################################
+      # OAUTH2 PROXY configuration
 
     httpAddress = mkOption {
       type = types.str;
@@ -522,10 +530,10 @@ in {
       '';
     };
 
-    ####################################################
-    # UNKNOWN
+      ####################################################
+      # UNKNOWN
 
-    # XXX: Is this mandatory? Is it part of another group? Is it part of the provider specification?
+      # XXX: Is this mandatory? Is it part of another group? Is it part of the provider specification?
     scope = mkOption {
       # XXX: jml suspects this is always necessary, but the command-line
       # doesn't require it so making it optional.

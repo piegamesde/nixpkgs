@@ -13,7 +13,7 @@ buildPythonApplication rec {
     sha256 = "1230fdn5mx3wwr3a3nn6z2vwh973n248m11hnx9y3fjq7bgpky67";
   };
 
-  # Tests requires to start containers
+    # Tests requires to start containers
   doCheck = false;
 
   meta = with lib; {

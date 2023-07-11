@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz";
+      "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz"
+      ;
     inherit hash;
   };
 
@@ -45,29 +46,33 @@ stdenv.mkDerivation rec {
     configureFlagsArray+=("--with-guis=gtk2 gtk3 qt5")
   '';
 
-  postPatch = let
-    isRelative = path: builtins.substring 0 1 path != "/";
-    mkSearchPath = path:
-      ''
-        p; g; s,\<PLUGINDIR\>,"${path}",g;
-      '' + lib.optionalString (isRelative path) ''
-        s/AddPath(\(.*\));/AddRelPath(\1, GWEN_PathManager_RelModeHome);/g
-      '';
+  postPatch =
+    let
+      isRelative = path: builtins.substring 0 1 path != "/";
+      mkSearchPath =
+        path:
+        ''
+          p; g; s,\<PLUGINDIR\>,"${path}",g;
+        '' + lib.optionalString (isRelative path) ''
+          s/AddPath(\(.*\));/AddRelPath(\1, GWEN_PathManager_RelModeHome);/g
+        ''
+        ;
 
-  in ''
-    sed -i -e '/GWEN_PathManager_DefinePath.*GWEN_PM_PLUGINDIR/,/^#endif/ {
-      /^#if/,/^#endif/ {
-        H; /^#endif/ {
-          ${lib.concatMapStrings mkSearchPath pluginSearchPaths}
+    in ''
+      sed -i -e '/GWEN_PathManager_DefinePath.*GWEN_PM_PLUGINDIR/,/^#endif/ {
+        /^#if/,/^#endif/ {
+          H; /^#endif/ {
+            ${lib.concatMapStrings mkSearchPath pluginSearchPaths}
+          }
         }
-      }
-    }' src/gwenhywfar.c
+      }' src/gwenhywfar.c
 
-    # Strip off the effective SO version from the path so that for example
-    # "lib/gwenhywfar/plugins/60" becomes just "lib/gwenhywfar/plugins".
-    sed -i -e '/^gwenhywfar_plugindir=/s,/\''${GWENHYWFAR_SO_EFFECTIVE},,' \
-      configure
-  '' ;
+      # Strip off the effective SO version from the path so that for example
+      # "lib/gwenhywfar/plugins/60" becomes just "lib/gwenhywfar/plugins".
+      sed -i -e '/^gwenhywfar_plugindir=/s,/\''${GWENHYWFAR_SO_EFFECTIVE},,' \
+        configure
+    ''
+    ;
 
   nativeBuildInputs = [
     pkg-config

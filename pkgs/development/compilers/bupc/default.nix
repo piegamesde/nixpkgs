@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  # Used during the configure phase
+    # Used during the configure phase
   ENVCMD = "${coreutils}/bin/env";
 
   buildInputs = [ perl ];

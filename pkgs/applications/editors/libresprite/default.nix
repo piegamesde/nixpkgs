@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = lib.optional stdenv.isDarwin "format";
 
-  # Install mime icons. Note that the mimetype is still "x-aseprite"
+    # Install mime icons. Note that the mimetype is still "x-aseprite"
   postInstall = ''
     src="$out/share/libresprite/data/icons"
     for size in 16 32 48 64; do
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     '';
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;
-    # https://github.com/LibreSprite/LibreSprite/issues/308
+      # https://github.com/LibreSprite/LibreSprite/issues/308
     broken = stdenv.isDarwin;
   };
 }

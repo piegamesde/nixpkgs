@@ -46,7 +46,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     users.groups.osgi.gid = config.ids.gids.osgi;

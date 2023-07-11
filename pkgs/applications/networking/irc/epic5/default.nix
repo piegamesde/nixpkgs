@@ -17,11 +17,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://ftp.epicsol.org/pub/epic/EPIC5-PRODUCTION/${pname}-${version}.tar.xz";
+      "http://ftp.epicsol.org/pub/epic/EPIC5-PRODUCTION/${pname}-${version}.tar.xz"
+      ;
     sha256 = "1ap73d5f4vccxjaaq249zh981z85106vvqmxfm4plvy76b40y9jm";
   };
 
-  # Darwin needs libiconv, tcl; while Linux build don't
+    # Darwin needs libiconv, tcl; while Linux build don't
   buildInputs = [
     openssl
     ncurses
@@ -33,7 +34,8 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://sources.debian.net/data/main/e/epic5/2.0.1-1/debian/patches/openssl-1.1.patch";
+      "https://sources.debian.net/data/main/e/epic5/2.0.1-1/debian/patches/openssl-1.1.patch"
+      ;
     sha256 = "03bpsyv1sr5icajs2qkdvv8nnn6rz6yvvj7pgiq8gz9sbp6siyfv";
   }) ];
 

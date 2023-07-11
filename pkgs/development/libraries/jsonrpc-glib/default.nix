@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Denable_gtk_doc=true" ];
 
-  # Tests fail non-deterministically
-  # https://gitlab.gnome.org/GNOME/jsonrpc-glib/issues/2
+    # Tests fail non-deterministically
+    # https://gitlab.gnome.org/GNOME/jsonrpc-glib/issues/2
   doCheck = false;
 
   postFixup = ''

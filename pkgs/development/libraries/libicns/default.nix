@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://sources.debian.org/data/main/libi/libicns/0.8.1-3.1/debian/patches/support-libopenjp2.patch";
+      "https://sources.debian.org/data/main/libi/libicns/0.8.1-3.1/debian/patches/support-libopenjp2.patch"
+      ;
     sha256 = "0ss298lyzvydxvaxsadi6kbbjpwykd86jw3za76brcsg2dpssgas";
   }) ];
 

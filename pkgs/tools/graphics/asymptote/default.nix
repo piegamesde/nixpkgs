@@ -99,9 +99,9 @@ stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
-  # Missing install depends:
-  #   ...-coreutils-9.1/bin/install: cannot stat 'asy-keywords.el': No such file or directory
-  #   make: *** [Makefile:272: install-asy] Error 1
+    # Missing install depends:
+    #   ...-coreutils-9.1/bin/install: cannot stat 'asy-keywords.el': No such file or directory
+    #   make: *** [Makefile:272: install-asy] Error 1
   enableParallelInstalling = false;
 
   meta = with lib; {

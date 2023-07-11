@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/indestructible-type/Jost/releases/download/${version}/Jost.zip";
+      "https://github.com/indestructible-type/Jost/releases/download/${version}/Jost.zip"
+      ;
     hash = "sha256-ne81bMhmTzNZ/GGIzb7nCYh19vNLK+hJ3cP/zDxtiGM=";
   };
 

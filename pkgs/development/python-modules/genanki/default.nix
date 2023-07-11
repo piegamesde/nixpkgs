@@ -35,7 +35,7 @@ buildPythonPackage rec {
       --replace "'pytest-runner'," ""
   '';
 
-  # relies on upstream anki
+    # relies on upstream anki
   doCheck = false;
 
   pythonImportsCheck = [ "genanki" ];

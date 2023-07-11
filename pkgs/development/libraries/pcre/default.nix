@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/pcre/pcre/${version}/pcre-${version}.tar.bz2";
+      "mirror://sourceforge/project/pcre/pcre/${version}/pcre-${version}.tar.bz2"
+      ;
     sha256 = "sha256-Ta5v3NK7C7bDe1+Xwzwr6VTadDmFNpzdrDVG4yGL/7g=";
   };
 
@@ -33,7 +34,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  # Disable jit on Apple Silicon, https://github.com/zherczeg/sljit/issues/51
+    # Disable jit on Apple Silicon, https://github.com/zherczeg/sljit/issues/51
   configureFlags = lib.optional
     (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
     "--enable-jit=auto" ++ [
@@ -41,7 +42,7 @@ stdenv.mkDerivation rec {
       "--disable-cpp"
     ] ++ lib.optional (variant != null) "--enable-${variant}";
 
-  # https://bugs.exim.org/show_bug.cgi?id=2173
+    # https://bugs.exim.org/show_bug.cgi?id=2173
   patches = [ ./stacksize-detection.patch ];
 
   preCheck = ''
@@ -50,8 +51,8 @@ stdenv.mkDerivation rec {
 
   doCheck = !(with stdenv.hostPlatform; isCygwin || isFreeBSD)
     && stdenv.hostPlatform == stdenv.buildPlatform;
-  # XXX: test failure on Cygwin
-  # we are running out of stack on both freeBSDs on Hydra
+    # XXX: test failure on Cygwin
+    # we are running out of stack on both freeBSDs on Hydra
 
   postFixup = ''
     moveToOutput bin/pcre-config "$dev"

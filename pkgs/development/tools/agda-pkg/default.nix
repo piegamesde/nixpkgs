@@ -16,9 +16,9 @@ buildPythonApplication rec {
     sha256 = "ee370889a1558caf45930d9f898dbe248048078e1e7e3ee17382bf574dc795f2";
   };
 
-  # Checks need internet access, so we just check the program executes
-  # At the moment the help page needs to write to $HOME, this can
-  # be removed if https://github.com/agda/agda-pkg/issues/40 is fixed
+    # Checks need internet access, so we just check the program executes
+    # At the moment the help page needs to write to $HOME, this can
+    # be removed if https://github.com/agda/agda-pkg/issues/40 is fixed
   checkPhase = ''
     HOME=$NIX_BUILD_TOP $out/bin/apkg --help > /dev/null
   '';

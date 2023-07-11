@@ -10,24 +10,28 @@ with lib;
 let
   inherit (pkgs) glusterfs rsync;
 
-  tlsCmd = if (cfg.tlsSettings != null) then
-    ''
-      mkdir -p /var/lib/glusterd
-      touch /var/lib/glusterd/secure-access
-    ''
-  else
-    ''
-      rm -f /var/lib/glusterd/secure-access
-    '';
+  tlsCmd =
+    if (cfg.tlsSettings != null) then
+      ''
+        mkdir -p /var/lib/glusterd
+        touch /var/lib/glusterd/secure-access
+      ''
+    else
+      ''
+        rm -f /var/lib/glusterd/secure-access
+      ''
+    ;
 
-  restartTriggers = if (cfg.tlsSettings != null) then
-    [
-      config.environment.etc."ssl/glusterfs.pem".source
-      config.environment.etc."ssl/glusterfs.key".source
-      config.environment.etc."ssl/glusterfs.ca".source
-    ]
-  else
-    [ ];
+  restartTriggers =
+    if (cfg.tlsSettings != null) then
+      [
+        config.environment.etc."ssl/glusterfs.pem".source
+        config.environment.etc."ssl/glusterfs.key".source
+        config.environment.etc."ssl/glusterfs.ca".source
+      ]
+    else
+      [ ]
+    ;
 
   cfg = config.services.glusterfs;
 
@@ -144,7 +148,8 @@ in {
             caCert = mkOption {
               type = types.path;
               description = lib.mdDoc
-                "Path certificate authority used to sign the cluster certificates.";
+                "Path certificate authority used to sign the cluster certificates."
+                ;
             };
           };
         });
@@ -152,7 +157,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.glusterfs ];
@@ -173,8 +178,8 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       requires = lib.optional cfg.useRpcbind "rpcbind.service";
-      after = [ "network.target" ]
-        ++ lib.optional cfg.useRpcbind "rpcbind.service";
+      after =
+        [ "network.target" ] ++ lib.optional cfg.useRpcbind "rpcbind.service";
 
       preStart = ''
         install -m 0755 -d /var/log/glusterfs
@@ -218,7 +223,7 @@ in {
         install -m 0755 -d /var/log/glusterfs
       '';
 
-      # glustereventsd uses the `gluster` executable
+        # glustereventsd uses the `gluster` executable
       path = [ glusterfs ];
 
       serviceConfig = {

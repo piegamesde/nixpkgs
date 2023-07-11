@@ -75,7 +75,7 @@ buildBazelPackage rec {
 
   buildInputs = [ linuxHeaders ];
 
-  # external/com_github_grpc_grpc/src/core/ext/transport/binder/transport/binder_transport.cc:756:29: error: format not a string literal and no format arguments [-Werror=format-security]
+    # external/com_github_grpc_grpc/src/core/ext/transport/binder/transport/binder_transport.cc:756:29: error: format not a string literal and no format arguments [-Werror=format-security]
   hardeningDisable = [ "format" ];
 
   fetchAttrs = {
@@ -164,7 +164,7 @@ buildBazelPackage rec {
 
   passthru.tests = {
     envoy = nixosTests.envoy;
-    # tested as a core component of Pomerium
+      # tested as a core component of Pomerium
     pomerium = nixosTests.pomerium;
   };
 

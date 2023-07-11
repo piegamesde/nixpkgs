@@ -67,7 +67,7 @@ in {
         builtins.placeholder "out"
       }/bin" ];
 
-    # CUTENSOR_ROOT is double escaped
+      # CUTENSOR_ROOT is double escaped
     postPatch = ''
       substituteInPlace CMakeLists.txt \
         --replace "\''${CUTENSOR_ROOT}/include" "${cutensor.dev}/include"

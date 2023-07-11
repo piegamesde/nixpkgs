@@ -6,20 +6,25 @@ import ./make-test-python.nix ({
 
   {
     name = "gnupg";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ rnhmjoj ];
+    };
 
-    # server for testing SSH
-    nodes.server = {
+      # server for testing SSH
+    nodes.server =
+      {
         ...
       }: {
         imports = [ ../modules/profiles/minimal.nix ];
 
         users.users.alice.isNormalUser = true;
         services.openssh.enable = true;
-      };
+      }
+      ;
 
-    # machine for testing GnuPG
-    nodes.machine = {
+      # machine for testing GnuPG
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -46,7 +51,8 @@ import ./make-test-python.nix ({
 
         programs.gnupg.agent.enable = true;
         programs.gnupg.agent.enableSSHSupport = true;
-      };
+      }
+      ;
 
     testScript = ''
       import shlex

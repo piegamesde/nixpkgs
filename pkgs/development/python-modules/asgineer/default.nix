@@ -10,7 +10,7 @@ buildPythonPackage rec {
   pname = "asgineer";
   version = "0.8.1";
 
-  # PyPI tarball doesn't include tests directory
+    # PyPI tarball doesn't include tests directory
   src = fetchFromGitHub {
     owner = "almarklein";
     repo = pname;

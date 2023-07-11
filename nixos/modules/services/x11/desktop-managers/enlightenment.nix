@@ -66,8 +66,8 @@ in {
       "/share/locale"
     ];
 
-    services.xserver.displayManager.sessionPackages =
-      [ pkgs.enlightenment.enlightenment ];
+    services.xserver.displayManager.sessionPackages = [ pkgs.enlightenment.enlightenment ]
+      ;
 
     services.xserver.displayManager.sessionCommands = ''
       if test "$XDG_CURRENT_DESKTOP" = "Enlightenment"; then
@@ -81,28 +81,31 @@ in {
       fi
     '';
 
-    # Wrappers for programs installed by enlightenment that should be setuid
+      # Wrappers for programs installed by enlightenment that should be setuid
     security.wrappers = {
       enlightenment_ckpasswd = {
         setuid = true;
         owner = "root";
         group = "root";
         source =
-          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_ckpasswd";
+          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_ckpasswd"
+          ;
       };
       enlightenment_sys = {
         setuid = true;
         owner = "root";
         group = "root";
         source =
-          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_sys";
+          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_sys"
+          ;
       };
       enlightenment_system = {
         setuid = true;
         owner = "root";
         group = "root";
         source =
-          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_system";
+          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_system"
+          ;
       };
     };
 

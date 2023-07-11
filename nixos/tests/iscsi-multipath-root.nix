@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
     meta = { maintainers = pkgs.lib.teams.deshaw.members; };
 
     nodes = {
-      target = {
+      target =
+        {
           config,
           pkgs,
           lib,
@@ -73,9 +74,11 @@ import ./make-test-python.nix ({
 
           virtualisation.memorySize = 2048;
           virtualisation.emptyDiskImages = [ 2048 ];
-        };
+        }
+        ;
 
-      initiatorAuto = {
+      initiatorAuto =
+        {
           nodes,
           config,
           pkgs,
@@ -115,9 +118,11 @@ import ./make-test-python.nix ({
             hashed-mirrors = null;
             connect-timeout = 1;
           };
-        };
+        }
+        ;
 
-      initiatorRootDisk = {
+      initiatorRootDisk =
+        {
           config,
           pkgs,
           modulesPath,
@@ -134,7 +139,7 @@ import ./make-test-python.nix ({
             "ip=192.168.2.1:::255.255.255.0::ens10:none"
           ]);
 
-          # defaults to true, puts some code in the initrd that tries to mount an overlayfs on /nix/store
+            # defaults to true, puts some code in the initrd that tries to mount an overlayfs on /nix/store
           virtualisation.writableStore = false;
           virtualisation.vlans = [
             1
@@ -172,11 +177,13 @@ import ./make-test-python.nix ({
               iscsiadm -m discovery -o update -t sendtargets -p 192.168.2.3 --login
             '';
           };
-        };
+        }
+        ;
 
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -268,6 +275,7 @@ import ./make-test-python.nix ({
         initiatorRootDisk.wait_for_unit("multi-user.target")
         initiatorRootDisk.wait_for_unit("iscsid")
         initiatorRootDisk.succeed("test -e /scratch/both-up")
-      '';
+      ''
+      ;
   } )
 

@@ -15,9 +15,9 @@
 buildPythonPackage rec {
   pname = "zigpy-xbee";
   version = "0.18.0";
-  # https://github.com/Martiusweb/asynctest/issues/152
-  # broken by upstream python bug with asynctest and
-  # is used exclusively by home-assistant with python 3.8
+    # https://github.com/Martiusweb/asynctest/issues/152
+    # broken by upstream python bug with asynctest and
+    # is used exclusively by home-assistant with python 3.8
   disabled = pythonOlder "3.8";
 
   src = fetchFromGitHub {

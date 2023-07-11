@@ -46,7 +46,8 @@ let
 
     src = fetchurl {
       url =
-        "https://registry.npmjs.org/d3-flame-graph/-/d3-flame-graph-${version}.tgz";
+        "https://registry.npmjs.org/d3-flame-graph/-/d3-flame-graph-${version}.tgz"
+        ;
       sha256 = "sha256-W5/Vh5jarXUV224aIiTB2TnBFYT3naEIcG2945QjY8Q=";
     };
 
@@ -95,7 +96,7 @@ stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
-  # perf refers both to newt and slang
+    # perf refers both to newt and slang
   nativeBuildInputs = [
     asciidoc
     xmlto
@@ -152,7 +153,7 @@ stdenv.mkDerivation {
     "install-man"
   ];
 
-  # TODO: Add completions based on perf-completion.sh
+    # TODO: Add completions based on perf-completion.sh
   postInstall = ''
     # Same as perf. Remove.
     rm -f $out/bin/trace

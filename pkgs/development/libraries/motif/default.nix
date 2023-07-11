@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
     (fetchpatch rec {
       name = "fix-format-security.patch";
       url =
-        "https://raw.githubusercontent.com/void-linux/void-packages/b9a1110dabb01c052dadc1abae1413bd4afe3652/srcpkgs/motif/patches/02-${name}";
+        "https://raw.githubusercontent.com/void-linux/void-packages/b9a1110dabb01c052dadc1abae1413bd4afe3652/srcpkgs/motif/patches/02-${name}"
+        ;
       sha256 = "13vzpf8yxvhf4gl7q0yzlr6ak1yzx382fsqsrv5lc8jbbg4nwrrq";
     })
   ];

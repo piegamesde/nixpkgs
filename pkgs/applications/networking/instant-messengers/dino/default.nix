@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
     "-DVERSION_FULL=${version}"
   ];
 
-  # Undefined symbols for architecture arm64: "_gpg_strerror"
+    # Undefined symbols for architecture arm64: "_gpg_strerror"
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-lgpg-error";
 
   doCheck = true;
@@ -113,14 +113,14 @@ stdenv.mkDerivation rec {
     runHook postCheck
   '';
 
-  # Dino looks for plugins with a .so filename extension, even on macOS where
-  # .dylib is appropriate, and despite the fact that it builds said plugins with
-  # that as their filename extension
-  #
-  # Therefore, on macOS rename all of the plugins to use correct names that Dino
-  # will load
-  #
-  # See https://github.com/dino/dino/wiki/macOS
+    # Dino looks for plugins with a .so filename extension, even on macOS where
+    # .dylib is appropriate, and despite the fact that it builds said plugins with
+    # that as their filename extension
+    #
+    # Therefore, on macOS rename all of the plugins to use correct names that Dino
+    # will load
+    #
+    # See https://github.com/dino/dino/wiki/macOS
   postFixup = lib.optionalString (stdenv.isDarwin) ''
     cd "$out/lib/dino/plugins/"
     for f in *.dylib; do

@@ -19,13 +19,14 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/wipefreespace/wipefreespace/${version}/wipefreespace-${version}.tar.gz";
+      "mirror://sourceforge/project/wipefreespace/wipefreespace/${version}/wipefreespace-${version}.tar.gz"
+      ;
     hash = "sha256-wymV6G4Et5TCoIztZfdb3xuzjdBHFyB5OmI4EcsJKwQ=";
   };
 
   nativeBuildInputs = [ texinfo ];
 
-  # missed: Reiser3 FAT12/16/32 MinixFS HFS+ OCFS
+    # missed: Reiser3 FAT12/16/32 MinixFS HFS+ OCFS
   buildInputs = [
     0.0
     fsprogs

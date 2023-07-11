@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ gattlib ];
 
-  # there are no tests
+    # there are no tests
   doCheck = false;
 
   pythonImportsCheck = [

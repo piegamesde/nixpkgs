@@ -66,7 +66,8 @@ let
   };
   unvanquishedPack = fetchsvn {
     url =
-      "https://github.com/Unvanquished/unvanquished-mapeditor-support.git/trunk/build/gtkradiant/";
+      "https://github.com/Unvanquished/unvanquished-mapeditor-support.git/trunk/build/gtkradiant/"
+      ;
     rev = 212;
     sha256 = "sha256-weBlnSBezPppbhsMOT66vubioTxpDC+AcKIOC2Xitdo=";
   };
@@ -103,7 +104,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-407faeQnhxqbWgOUunQKj2JhHeqIzPPgrhz2K5O4CaM=";
   };
 
-  # patch paths so that .game settings are put into the user's home instead of the read-only /nix/store
+    # patch paths so that .game settings are put into the user's home instead of the read-only /nix/store
   postPatch = ''
     substituteInPlace radiant/preferences.cpp \
       --replace 'gameFilePath += "games/";' 'gameFilePath = g_get_home_dir(); gameFilePath += "/.cache/radiant/games/";printf("gameFilePath: %s\\n", gameFilePath);' \
@@ -112,31 +113,33 @@ stdenv.mkDerivation rec {
       --replace 'strGamesPath += "games";' 'strGamesPath += "/.cache/radiant/games";'
   '';
 
-  nativeBuildInputs = let
-    python = python3.withPackages (ps: with ps; [ urllib3 ]);
-    svn = writeScriptBin "svn" ''
-      #!${runtimeShell} -e
-      if [ "$1" = checkout ]; then
-        # link predownloaded pack to destination
-        mkdir -p $(dirname $3)
-        ln -s ${packs}/$(basename $3) $3
-        # verify existence
-        test -e $(readlink $3)
-      elif [ "$1" = update ]; then
-        # verify existence
-        test -e $(readlink $3)
-      else
-        echo "$@"
-        exit 1
-      fi
-    '';
-  in [
-    scons
-    pkg-config
-    python
-    svn
-    copyDesktopItems
-  ] ;
+  nativeBuildInputs =
+    let
+      python = python3.withPackages (ps: with ps; [ urllib3 ]);
+      svn = writeScriptBin "svn" ''
+        #!${runtimeShell} -e
+        if [ "$1" = checkout ]; then
+          # link predownloaded pack to destination
+          mkdir -p $(dirname $3)
+          ln -s ${packs}/$(basename $3) $3
+          # verify existence
+          test -e $(readlink $3)
+        elif [ "$1" = update ]; then
+          # verify existence
+          test -e $(readlink $3)
+        else
+          echo "$@"
+          exit 1
+        fi
+      '';
+    in [
+      scons
+      pkg-config
+      python
+      svn
+      copyDesktopItems
+    ]
+    ;
 
   buildInputs = [
     glib
@@ -155,7 +158,7 @@ stdenv.mkDerivation rec {
     comment = meta.description;
     categories = [ "Development" ];
     icon = "gtkradiant";
-    # includes its own splash screen
+      # includes its own splash screen
     startupNotify = false;
   }) ];
 

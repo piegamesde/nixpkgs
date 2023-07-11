@@ -21,8 +21,8 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-GSCpmn6XRbmnfH31R9c6QW3/pez9KHPjI99dR+ln0P4=";
   };
 
-  # We have to use importCargoLock here because `cargo vendor` currently doesn't support workspace
-  # inheritance within Git dependencies, but importCargoLock does.
+    # We have to use importCargoLock here because `cargo vendor` currently doesn't support workspace
+    # inheritance within Git dependencies, but importCargoLock does.
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  # Conduit enables rusqlite's bundled feature by default, but we'd rather use our copy of SQLite.
+    # Conduit enables rusqlite's bundled feature by default, but we'd rather use our copy of SQLite.
   preBuild = ''
     substituteInPlace Cargo.toml --replace "features = [\"bundled\"]" "features = []"
     cargo update --offline -p rusqlite
@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
   ROCKSDB_INCLUDE_DIR = "${rocksdb_6_23}/include";
   ROCKSDB_LIB_DIR = "${rocksdb_6_23}/lib";
 
-  # tests failed on x86_64-darwin with SIGILL: illegal instruction
+    # tests failed on x86_64-darwin with SIGILL: illegal instruction
   doCheck = !(stdenv.isx86_64 && stdenv.isDarwin);
 
   passthru.tests = { inherit (nixosTests) matrix-conduit; };

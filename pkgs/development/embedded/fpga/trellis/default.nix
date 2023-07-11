@@ -9,7 +9,7 @@
 
 let
   rev = "488f4e71073062de314c55a037ede7cf03a3324c";
-  # git describe --tags
+    # git describe --tags
   realVersion = "1.2.1-14-g${builtins.substring 0 7 rev}";
 in
 stdenv.mkDerivation rec {

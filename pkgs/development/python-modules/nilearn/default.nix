@@ -24,9 +24,9 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ pytestCheckHook ];
-  disabledTests =
-    [ "test_clean_confounds" ]; # https://github.com/nilearn/nilearn/issues/2608
-  # do subset of tests which don't fetch resources
+  disabledTests = [ "test_clean_confounds" ]
+    ; # https://github.com/nilearn/nilearn/issues/2608
+    # do subset of tests which don't fetch resources
   pytestFlagsArray = [ "nilearn/connectome/tests" ];
 
   propagatedBuildInputs = [

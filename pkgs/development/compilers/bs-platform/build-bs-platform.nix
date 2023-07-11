@@ -28,10 +28,12 @@
 }:
 
 let
-  bin_folder = if stdenv.isDarwin then
-    "darwin"
-  else
-    "linux";
+  bin_folder =
+    if stdenv.isDarwin then
+      "darwin"
+    else
+      "linux"
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -40,9 +42,9 @@ stdenv.mkDerivation rec {
 
   BS_RELEASE_BUILD = "true";
 
-  # BuckleScript's idiosyncratic build process only builds artifacts required
-  # for editor-tooling to work when this environment variable is set:
-  # https://github.com/BuckleScript/bucklescript/blob/7.2.0/scripts/install.js#L225-L227
+    # BuckleScript's idiosyncratic build process only builds artifacts required
+    # for editor-tooling to work when this environment variable is set:
+    # https://github.com/BuckleScript/bucklescript/blob/7.2.0/scripts/install.js#L225-L227
   BS_TRAVIS_CI = "1";
 
   buildInputs = [
@@ -57,7 +59,7 @@ stdenv.mkDerivation rec {
     ln -sf ${ocaml}/bin/*  ./native/${ocaml-version}/bin
   '';
 
-  # avoid building the development version, will break aarch64 build
+    # avoid building the development version, will break aarch64 build
   dontConfigure = true;
 
   buildPhase = ''

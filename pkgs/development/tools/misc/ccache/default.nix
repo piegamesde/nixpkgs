@@ -61,25 +61,28 @@ stdenv.mkDerivation (finalAttrs: {
     bashInteractive
   ] ++ lib.optional stdenv.isDarwin xcodebuild;
 
-  checkPhase = let
-    badTests =
-      [ "test.trim_dir" # flaky on hydra (possibly filesystem-specific?)
-      ] ++ lib.optionals stdenv.isDarwin [
-        "test.basedir"
-        "test.multi_arch"
-        "test.nocpp2"
-      ];
-  in ''
-    runHook preCheck
-    export HOME=$(mktemp -d)
-    ctest --output-on-failure -E '^(${lib.concatStringsSep "|" badTests})$'
-    runHook postCheck
-  '' ;
+  checkPhase =
+    let
+      badTests =
+        [ "test.trim_dir" # flaky on hydra (possibly filesystem-specific?)
+        ] ++ lib.optionals stdenv.isDarwin [
+          "test.basedir"
+          "test.multi_arch"
+          "test.nocpp2"
+        ];
+    in ''
+      runHook preCheck
+      export HOME=$(mktemp -d)
+      ctest --output-on-failure -E '^(${lib.concatStringsSep "|" badTests})$'
+      runHook postCheck
+    ''
+    ;
 
   passthru = {
     # A derivation that provides gcc and g++ commands, but that
     # will end up calling ccache for the given cacheDir
-    links = {
+    links =
+      {
         unwrappedCC,
         extraConfig,
       }:
@@ -121,7 +124,8 @@ stdenv.mkDerivation (finalAttrs: {
             ln -s ${unwrappedCC}/$file $out/$file
           done
         '';
-      };
+      }
+      ;
 
     updateScript = nix-update-script { };
   };

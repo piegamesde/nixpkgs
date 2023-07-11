@@ -6,7 +6,8 @@ import ../make-test-python.nix ({
 
     meta = with pkgs.lib.maintainers; { maintainers = [ nickcao ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -17,7 +18,8 @@ import ../make-test-python.nix ({
           1024
           1024
         ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("stratisd")

@@ -26,8 +26,8 @@ buildPythonPackage rec {
     lxml
   ];
 
-  # Tests are currently outdated
-  # https://github.com/bazwilliams/openhomedevice/issues/20
+    # Tests are currently outdated
+    # https://github.com/bazwilliams/openhomedevice/issues/20
   doCheck = false;
 
   pythonImportsCheck = [ "openhomedevice" ];

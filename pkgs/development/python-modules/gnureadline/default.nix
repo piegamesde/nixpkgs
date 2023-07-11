@@ -23,7 +23,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "The standard Python readline extension statically linked against the GNU readline library";
+      "The standard Python readline extension statically linked against the GNU readline library"
+      ;
     homepage = "https://github.com/ludwigschwardt/python-gnureadline";
     license = licenses.gpl3;
   };

@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ zope_interface ];
 
-  # circular deps
+    # circular deps
   doCheck = false;
 
   meta = with lib; {

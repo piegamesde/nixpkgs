@@ -88,7 +88,8 @@ let
 in
 buildFHSEnv rec {
   name = pname;
-  targetPkgs = pkgs:
+  targetPkgs =
+    pkgs:
     [
       binutils
       dejavu_fonts
@@ -98,7 +99,8 @@ buildFHSEnv rec {
       hover
       pkg-config
       roboto
-    ] ++ libs;
+    ] ++ libs
+    ;
 
   runScript = "hover";
 }

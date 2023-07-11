@@ -22,7 +22,7 @@ buildPythonApplication rec {
     requests-cache
   ];
 
-  # No tests in archive
+    # No tests in archive
   doCheck = false;
 
   meta = {

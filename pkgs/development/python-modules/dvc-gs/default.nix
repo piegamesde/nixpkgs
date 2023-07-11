@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-MGNDEhJJGSQIPDXGv/y4u1UHnh4HnNbKtQbGHys0dSA=";
   };
 
-  # Prevent circular dependency
+    # Prevent circular dependency
   pythonRemoveDeps = [ "dvc" ];
 
   nativeBuildInputs = [
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     dvc-objects
   ];
 
-  # Network access is needed for tests
+    # Network access is needed for tests
   doCheck = false;
 
   pythonCheckImports = [ "dvc_gs" ];

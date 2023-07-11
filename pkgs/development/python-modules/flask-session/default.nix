@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # The rest of the tests require database servers and optional db connector dependencies
+    # The rest of the tests require database servers and optional db connector dependencies
   pytestFlagsArray = [
     "-k"
     "'null_session or filesystem_session'"

@@ -28,9 +28,10 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DCMAKE_INSTALL_DATADIR=${placeholder "dev"}" ]
     ++ lib.optionals (stdenv.hostPlatform
-      != stdenv.buildPlatform) [ "-DWAYLAND_SCANNERPP=${buildPackages.waylandpp}/bin/wayland-scanner++" ];
+      != stdenv.buildPlatform) [ "-DWAYLAND_SCANNERPP=${buildPackages.waylandpp}/bin/wayland-scanner++" ]
+    ;
 
-  # Complains about not being able to find the fontconfig config file otherwise
+    # Complains about not being able to find the fontconfig config file otherwise
   FONTCONFIG_FILE =
     lib.optional docSupport (makeFontsConf { fontDirectories = [ ]; });
 
@@ -58,7 +59,7 @@ stdenv.mkDerivation rec {
     "devman"
   ];
 
-  # Resolves the warning "Fontconfig error: No writable cache directories"
+    # Resolves the warning "Fontconfig error: No writable cache directories"
   preBuild = ''
     export XDG_CACHE_HOME="$(mktemp -d)"
   '';

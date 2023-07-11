@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/alsamodular/QMidiRoute/${version}/${pname}-${version}.tar.gz";
+      "mirror://sourceforge/project/alsamodular/QMidiRoute/${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0vmjwarsxr5540rafhmdcc62yarf0w2l05bjjl9s28zzr5m39z3n";
   };
 

@@ -36,12 +36,14 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libiconv ];
 
-  preAutoreconf = let
-    reports = "https://github.com/tlwg/libdatrie/issues";
-  in ''
-    sed -i -e "/AC_INIT/,+3d" configure.ac
-    sed -i "5iAC_INIT(${pname},${version},[${reports}])" configure.ac
-  '' ;
+  preAutoreconf =
+    let
+      reports = "https://github.com/tlwg/libdatrie/issues";
+    in ''
+      sed -i -e "/AC_INIT/,+3d" configure.ac
+      sed -i "5iAC_INIT(${pname},${version},[${reports}])" configure.ac
+    ''
+    ;
 
   postInstall = ''
     installManPage man/trietool.1
@@ -50,7 +52,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://linux.thai.net/~thep/datrie/datrie.html";
     description =
-      "This is an implementation of double-array structure for representing trie";
+      "This is an implementation of double-array structure for representing trie"
+      ;
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ SuperSandro2000 ];

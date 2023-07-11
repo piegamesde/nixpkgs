@@ -10,27 +10,28 @@ comps_:
 
 let
   # Remove components which are already installed by default
-  filterPreInstalled = let
-    preInstalledComponents = with components; [
-      bq
-      bq-nix
-      core
-      core-nix
-      gcloud-deps
-      gcloud
-      gsutil
-      gsutil-nix
-    ];
-  in
-  builtins.filter (drv: !(builtins.elem drv preInstalledComponents))
-  ;
+  filterPreInstalled =
+    let
+      preInstalledComponents = with components; [
+        bq
+        bq-nix
+        core
+        core-nix
+        gcloud-deps
+        gcloud
+        gsutil
+        gsutil-nix
+      ];
+    in
+    builtins.filter (drv: !(builtins.elem drv preInstalledComponents))
+    ;
 
-  # Recursively build a list of components with their dependencies
-  # TODO this could be made faster, it checks the dependencies too many times
+    # Recursively build a list of components with their dependencies
+    # TODO this could be made faster, it checks the dependencies too many times
   findDepsRecursive = lib.converge (drvs:
     lib.unique (drvs ++ (builtins.concatMap (drv: drv.dependencies) drvs)));
 
-  # Components to install by default
+    # Components to install by default
   defaultComponents = with components; [
     alpha
     beta
@@ -50,17 +51,19 @@ runCommand "google-cloud-sdk-${google-cloud-sdk.version}" {
   passAsFile = [ "comps" ];
 
   doInstallCheck = true;
-  installCheckPhase = let
-    compNames = builtins.map (drv: drv.name) comps_;
-  in ''
-    $out/bin/gcloud components list > component_list.txt
-    for comp in ${builtins.toString compNames}; do
-      if [ ! grep ... component_list.txt | grep "Not Installed" ]; then
-        echo "Failed to install component '$comp'"
-        exit 1
-      fi
-    done
-  '' ;
+  installCheckPhase =
+    let
+      compNames = builtins.map (drv: drv.name) comps_;
+    in ''
+      $out/bin/gcloud components list > component_list.txt
+      for comp in ${builtins.toString compNames}; do
+        if [ ! grep ... component_list.txt | grep "Not Installed" ]; then
+          echo "Failed to install component '$comp'"
+          exit 1
+        fi
+      done
+    ''
+    ;
 } ''
   mkdir -p $out
 

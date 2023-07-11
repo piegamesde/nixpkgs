@@ -46,7 +46,7 @@ python3.pkgs.buildPythonApplication rec {
       pkgsCross.avr.libcCross
     ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
 
   meta = with lib; {

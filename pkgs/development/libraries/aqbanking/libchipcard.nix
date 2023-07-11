@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz";
+      "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz"
+      ;
     inherit hash;
   };
 

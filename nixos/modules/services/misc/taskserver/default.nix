@@ -12,7 +12,8 @@ let
 
   taskd = "${pkgs.taskserver}/bin/taskd";
 
-  mkManualPkiOption = desc:
+  mkManualPkiOption =
+    desc:
     mkOption {
       type = types.nullOr types.path;
       default = null;
@@ -23,7 +24,8 @@ let
         Setting this option will prevent automatic CA creation and handling.
         :::
       '';
-    };
+    }
+    ;
 
   manualPkiOptions = {
     ca.cert = mkManualPkiOption ''
@@ -43,7 +45,8 @@ let
     '';
   };
 
-  mkAutoDesc = preamble:
+  mkAutoDesc =
+    preamble:
     lib.mdDoc ''
       ${preamble}
 
@@ -51,23 +54,28 @@ let
       This option is for the automatically handled CA and will be ignored if any
       of the {option}`services.taskserver.pki.manual.*` options are set.
       :::
-    '';
+    ''
+    ;
 
-  mkExpireOption = desc:
+  mkExpireOption =
+    desc:
     mkOption {
       type = types.nullOr types.int;
       default = null;
       example = 365;
-      apply = val:
+      apply =
+        val:
         if val == null then
           -1
         else
-          val;
+          val
+        ;
       description = mkAutoDesc ''
         The expiration time of ${desc} in days or `null` for no
         expiration time.
       '';
-    };
+    }
+    ;
 
   autoPkiOptions = {
     bits = mkOption {
@@ -85,30 +93,36 @@ let
     };
   };
 
-  needToCreateCA = let
-    notFound = path:
-      let
-        dotted = concatStringsSep "." path;
-      in
-      throw "Can't find option definitions for path `${dotted}'."
+  needToCreateCA =
+    let
+      notFound =
+        path:
+        let
+          dotted = concatStringsSep "." path;
+        in
+        throw "Can't find option definitions for path `${dotted}'."
+        ;
+      findPkiDefinitions =
+        path: attrs:
+        let
+          mkSublist =
+            key: val:
+            let
+              newPath = path ++ singleton key;
+            in if isOption val then
+              attrByPath newPath (notFound newPath) cfg.pki.manual
+            else
+              findPkiDefinitions newPath val
+            ;
+        in
+        flatten (mapAttrsToList mkSublist attrs)
+        ;
+    in
+    all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions)
     ;
-    findPkiDefinitions = path: attrs:
-      let
-        mkSublist = key: val:
-          let
-            newPath = path ++ singleton key;
-          in if isOption val then
-            attrByPath newPath (notFound newPath) cfg.pki.manual
-          else
-            findPkiDefinitions newPath val;
-      in
-      flatten (mapAttrsToList mkSublist attrs)
-    ;
-  in
-  all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions)
-  ;
 
-  orgOptions = {
+  orgOptions =
+    {
       ...
     }: {
       options.users = mkOption {
@@ -134,7 +148,8 @@ let
           A list of group names that belong to the organization.
         '';
       };
-    };
+    }
+    ;
 
   certtool = "${pkgs.gnutls.bin}/bin/certtool";
 
@@ -153,10 +168,12 @@ let
               certBits = cfg.pki.auto.bits;
               clientExpiration = cfg.pki.auto.expiration.client;
               crlExpiration = cfg.pki.auto.expiration.crl;
-              isAutoConfig = if needToCreateCA then
-                "True"
-              else
-                "False";
+              isAutoConfig =
+                if needToCreateCA then
+                  "True"
+                else
+                  "False"
+                ;
             }
           }" > "$out/main.py"
           cat > "$out/setup.py" <<EOF
@@ -177,17 +194,19 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = let
-          url =
-            "https://nixos.org/manual/nixos/stable/index.html#module-services-taskserver";
-        in
-        lib.mdDoc ''
-          Whether to enable the Taskwarrior server.
+        description =
+          let
+            url =
+              "https://nixos.org/manual/nixos/stable/index.html#module-services-taskserver"
+              ;
+          in
+          lib.mdDoc ''
+            Whether to enable the Taskwarrior server.
 
-          More instructions about NixOS in conjunction with Taskserver can be
-          found [in the NixOS manual](${url}).
-        ''
-        ;
+            More instructions about NixOS in conjunction with Taskserver can be
+            found [in the NixOS manual](${url}).
+          ''
+          ;
       };
 
       user = mkOption {
@@ -212,14 +231,15 @@ in {
         type = types.nullOr (types.separatedString ":");
         default = null;
         example = "NORMAL:-VERS-SSL3.0";
-        description = let
-          url = "https://gnutls.org/manual/html_node/Priority-Strings.html";
-        in
-        lib.mdDoc ''
-          List of GnuTLS ciphers to use. See the GnuTLS documentation about
-          priority strings at <${url}> for full details.
-        ''
-        ;
+        description =
+          let
+            url = "https://gnutls.org/manual/html_node/Priority-Strings.html";
+          in
+          lib.mdDoc ''
+            List of GnuTLS ciphers to use. See the GnuTLS documentation about
+            priority strings at <${url}> for full details.
+          ''
+          ;
       };
 
       organisations = mkOption {
@@ -392,38 +412,46 @@ in {
           Nix types like integers or booleans are automatically converted to
           the right values Taskserver would expect.
         '';
-        apply = let
-          mkKey = path:
-            if
-              path == [
+        apply =
+          let
+            mkKey =
+              path:
+              if
+                path == [
+                  "server"
+                  "listen"
+                ]
+              then
                 "server"
-                "listen"
-              ]
-            then
-              "server"
-            else
-              concatStringsSep "." path;
-          recurse = path: attrs:
-            let
-              mapper = name: val:
-                let
-                  newPath = path ++ [ name ];
-                  scalar = if val == true then
-                    "true"
-                  else if val == false then
-                    "false"
+              else
+                concatStringsSep "." path
+              ;
+            recurse =
+              path: attrs:
+              let
+                mapper =
+                  name: val:
+                  let
+                    newPath = path ++ [ name ];
+                    scalar =
+                      if val == true then
+                        "true"
+                      else if val == false then
+                        "false"
+                      else
+                        toString val
+                      ;
+                  in if isAttrs val then
+                    recurse newPath val
                   else
-                    toString val;
-                in if isAttrs val then
-                  recurse newPath val
-                else
-                  [ "${mkKey newPath}=${scalar}" ];
-            in
-            concatLists (mapAttrsToList mapper attrs)
+                    [ "${mkKey newPath}=${scalar}" ]
+                  ;
+              in
+              concatLists (mapAttrsToList mapper attrs)
+              ;
+          in
+          recurse [ ]
           ;
-        in
-        recurse [ ]
-        ;
       };
     };
   };
@@ -462,22 +490,22 @@ in {
         daemon = false;
         log = "-";
 
-        # logging
+          # logging
         debug = cfg.debug;
         ip.log = cfg.ipLog;
 
-        # general
+          # general
         ciphers = cfg.ciphers;
         confirmation = cfg.confirmation;
         extensions = cfg.extensions;
         queue.size = cfg.queueSize;
         request.limit = cfg.requestLimit;
 
-        # client
+          # client
         client.allow = cfg.allowedClientIDs;
         client.deny = cfg.disallowedClientIDs;
 
-        # server
+          # server
         trust = cfg.trust;
         server = {
           listen = "${cfg.listenHost}:${toString cfg.listenPort}";
@@ -495,10 +523,12 @@ in {
               "${cfg.pki.manual.server.crl}";
           });
 
-        ca.cert = if needToCreateCA then
-          "${cfg.dataDir}/keys/ca.cert"
-        else
-          "${cfg.pki.manual.ca.cert}";
+        ca.cert =
+          if needToCreateCA then
+            "${cfg.dataDir}/keys/ca.cert"
+          else
+            "${cfg.pki.manual.ca.cert}"
+          ;
       };
 
       systemd.services.taskserver-init = {
@@ -537,21 +567,23 @@ in {
 
         environment.TASKDDATA = cfg.dataDir;
 
-        preStart = let
-          jsonOrgs = builtins.toJSON cfg.organisations;
-          jsonFile = pkgs.writeText "orgs.json" jsonOrgs;
-          helperTool = "${nixos-taskserver}/bin/nixos-taskserver";
-        in
-        "${helperTool} process-json '${jsonFile}'"
-        ;
+        preStart =
+          let
+            jsonOrgs = builtins.toJSON cfg.organisations;
+            jsonFile = pkgs.writeText "orgs.json" jsonOrgs;
+            helperTool = "${nixos-taskserver}/bin/nixos-taskserver";
+          in
+          "${helperTool} process-json '${jsonFile}'"
+          ;
 
         serviceConfig = {
-          ExecStart = let
-            mkCfgFlag = flag: escapeShellArg "--${flag}";
-            cfgFlags = concatMapStringsSep " " mkCfgFlag cfg.config;
-          in
-          "@${taskd} taskd server ${cfgFlags}"
-          ;
+          ExecStart =
+            let
+              mkCfgFlag = flag: escapeShellArg "--${flag}";
+              cfgFlags = concatMapStringsSep " " mkCfgFlag cfg.config;
+            in
+            "@${taskd} taskd server ${cfgFlags}"
+            ;
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
           Restart = "on-failure";
           PermissionsStartOnly = true;

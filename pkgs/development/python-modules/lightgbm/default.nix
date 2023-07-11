@@ -55,16 +55,17 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  # The pypi package doesn't distribute the tests from the GitHub
-  # repository. It contains c++ tests which don't seem to wired up to
-  # `make check`.
+    # The pypi package doesn't distribute the tests from the GitHub
+    # repository. It contains c++ tests which don't seem to wired up to
+    # `make check`.
   doCheck = false;
 
   pythonImportsCheck = [ "lightgbm" ];
 
   meta = {
     description =
-      "A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework";
+      "A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework"
+      ;
     homepage = "https://github.com/Microsoft/LightGBM";
     changelog =
       "https://github.com/microsoft/LightGBM/releases/tag/v${version}";

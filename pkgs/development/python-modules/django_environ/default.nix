@@ -15,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-v/U4FTMFYyjJrAL3F5C9W/HOqBsb7rZI8ouByeg+CiE=";
   };
 
-  # The testsuite fails to modify the base environment
+    # The testsuite fails to modify the base environment
   doCheck = false;
   propagatedBuildInputs = [
     django

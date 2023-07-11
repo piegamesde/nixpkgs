@@ -29,7 +29,7 @@ buildPythonPackage rec {
     uvloop
   ];
 
-  # allow for writable directory for darwin
+    # allow for writable directory for darwin
   preBuild = ''
     export HOME=$TMPDIR
   '';

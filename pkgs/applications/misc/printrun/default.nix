@@ -45,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     lxml
   ];
 
-  # pyglet.canvas.xlib.NoSuchDisplayException: Cannot connect to "None"
+    # pyglet.canvas.xlib.NoSuchDisplayException: Cannot connect to "None"
   doCheck = false;
 
   setupPyBuildFlags = [ "-i" ];
@@ -64,7 +64,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Pronterface, Pronsole, and Printcore - Pure Python 3d printing host software";
+      "Pronterface, Pronsole, and Printcore - Pure Python 3d printing host software"
+      ;
     homepage = "https://github.com/kliment/Printrun";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

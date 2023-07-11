@@ -27,7 +27,8 @@ buildPythonPackage rec {
 
   meta = {
     changelog =
-      "https://github.com/PythonCharmers/python-future/blob/v${version}/docs/whatsnew.rst";
+      "https://github.com/PythonCharmers/python-future/blob/v${version}/docs/whatsnew.rst"
+      ;
     description = "Clean single-source support for Python 3 and 2";
     longDescription = ''
       python-future is the missing compatibility layer between Python 2 and

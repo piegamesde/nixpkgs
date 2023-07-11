@@ -26,7 +26,7 @@ in {
         default = {
           logLevel = "info";
           logDestinations = [ "stdout" ];
-          # we set this so when the user uses it, it just works (see LogsDirectory below). but it's not used by default.
+            # we set this so when the user uses it, it just works (see LogsDirectory below). but it's not used by default.
           logFile = "/var/log/mediamtx/mediamtx.log";
         };
 
@@ -34,7 +34,8 @@ in {
           paths = {
             cam = {
               runOnInit =
-                "ffmpeg -f v4l2 -i /dev/video0 -f rtsp rtsp://localhost:$RTSP_PORT/$RTSP_PATH";
+                "ffmpeg -f v4l2 -i /dev/video0 -f rtsp rtsp://localhost:$RTSP_PORT/$RTSP_PATH"
+                ;
               runOnInitRestart = true;
             };
           };
@@ -70,7 +71,7 @@ in {
 
         LogsDirectory = "mediamtx";
 
-        # user likely may want to stream cameras, can't hurt to add video group
+          # user likely may want to stream cameras, can't hurt to add video group
         SupplementaryGroups = "video";
 
         ExecStart = "${package}/bin/mediamtx /etc/mediamtx.yaml";

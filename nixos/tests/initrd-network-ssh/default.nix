@@ -13,12 +13,13 @@ import ../make-test-python.nix ({
     };
 
     nodes = with lib; {
-      server = {
+      server =
+        {
           config,
           ...
         }: {
-          boot.kernelParams =
-            [ "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none" ];
+          boot.kernelParams = [ "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none" ]
+            ;
           boot.initrd.network = {
             enable = true;
             ssh = {
@@ -36,9 +37,11 @@ import ../make-test-python.nix ({
               sleep 1
             done
           '';
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           config,
           ...
         }: {
@@ -59,7 +62,8 @@ import ../make-test-python.nix ({
               mode = "0600";
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

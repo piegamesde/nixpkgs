@@ -14,7 +14,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/trivial-garbage/2020-09-25/trivial-garbage-20200925-git.tgz";
+      "http://beta.quicklisp.org/archive/trivial-garbage/2020-09-25/trivial-garbage-20200925-git.tgz"
+      ;
     sha256 = "00iw2iw6qzji9b2gwy798l54jdk185sxh1k7m2qd9srs8s730k83";
   };
 

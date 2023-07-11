@@ -38,34 +38,40 @@ stdenv.mkDerivation rec {
 
     # Command line invocation name.
     # Distinct name for 64-bit builds because they only work with 64-bit images.
-  cmd = if stdenv.is64bit then
-    "pharo-spur64"
-  else
-    "pharo-spur";
+  cmd =
+    if stdenv.is64bit then
+      "pharo-spur64"
+    else
+      "pharo-spur"
+    ;
 
-  # Choose desired VM sources. Separate for 32-bit and 64-bit VM.
-  # (Could extent to building more VM variants e.g. SpurV3, Sista, etc.)
-  vm = if stdenv.is64bit then
-    "spur64src"
-  else
-    "spursrc";
+    # Choose desired VM sources. Separate for 32-bit and 64-bit VM.
+    # (Could extent to building more VM variants e.g. SpurV3, Sista, etc.)
+  vm =
+    if stdenv.is64bit then
+      "spur64src"
+    else
+      "spursrc"
+    ;
 
-  # Choose target platform name in the format used by the vm.
-  flavor = if stdenv.isLinux && stdenv.isi686 then
-    "linux32x86"
-  else if stdenv.isLinux && stdenv.isx86_64 then
-    "linux64x64"
-  else if stdenv.isDarwin && stdenv.isi686 then
-    "macos32x86"
-  else if stdenv.isDarwin && stdenv.isx86_64 then
-    "macos64x64"
-  else
-    throw "Unsupported platform: only Linux/Darwin x86/x64 are supported.";
+    # Choose target platform name in the format used by the vm.
+  flavor =
+    if stdenv.isLinux && stdenv.isi686 then
+      "linux32x86"
+    else if stdenv.isLinux && stdenv.isx86_64 then
+      "linux64x64"
+    else if stdenv.isDarwin && stdenv.isi686 then
+      "macos32x86"
+    else if stdenv.isDarwin && stdenv.isx86_64 then
+      "macos64x64"
+    else
+      throw "Unsupported platform: only Linux/Darwin x86/x64 are supported."
+    ;
 
-  # Shared data (for the sources file)
+    # Shared data (for the sources file)
   pharo-share = import ./share.nix { inherit lib stdenv fetchurl unzip; };
 
-  # Note: -fPIC causes the VM to segfault.
+    # Note: -fPIC causes the VM to segfault.
   hardeningDisable = [
     "format"
     "pic"
@@ -73,13 +79,13 @@ stdenv.mkDerivation rec {
     "stackprotector"
   ];
 
-  # gcc 4.8 used for the build:
-  #
-  # gcc5 crashes during compilation; gcc >= 4.9 produces a
-  # binary that crashes when forking a child process. See:
-  # http://forum.world.st/OSProcess-fork-issue-with-Debian-built-VM-td4947326.html
-  #
-  # (stack protection is disabled above for gcc 4.8 compatibility.)
+    # gcc 4.8 used for the build:
+    #
+    # gcc5 crashes during compilation; gcc >= 4.9 produces a
+    # binary that crashes when forking a child process. See:
+    # http://forum.world.st/OSProcess-fork-issue-with-Debian-built-VM-td4947326.html
+    #
+    # (stack protection is disabled above for gcc 4.8 compatibility.)
   nativeBuildInputs = [
     autoreconfHook
     unzip
@@ -103,15 +109,15 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Regenerate the configure script.
-  # Unnecessary? But the build breaks without this.
+    # Regenerate the configure script.
+    # Unnecessary? But the build breaks without this.
   autoreconfPhase = ''
     pushd platforms/unix/config
     make
     popd
   '';
 
-  # Configure with options modeled on the 'mvm' build script from the vm.
+    # Configure with options modeled on the 'mvm' build script from the vm.
   configureScript = "platforms/unix/config/configure";
   configureFlags = [
     "--without-npsqueak"
@@ -119,17 +125,18 @@ stdenv.mkDerivation rec {
     "--with-src=${vm}"
   ];
 
-  # -fcommon is a workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: vm/vm.a(cogit.o):/build/source/spur64src/vm/cointerp.h:358: multiple definition of `checkAllocFiller';
-  #     vm/vm.a(gcc3x-cointerp.o):/build/source/spur64src/vm/cointerp.h:358: first defined here
+    # -fcommon is a workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: vm/vm.a(cogit.o):/build/source/spur64src/vm/cointerp.h:358: multiple definition of `checkAllocFiller';
+    #     vm/vm.a(gcc3x-cointerp.o):/build/source/spur64src/vm/cointerp.h:358: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   CFLAGS =
-    "-DPharoVM -DIMMUTABILITY=1 -msse2 -D_GNU_SOURCE -DCOGMTVM=0 -g -O2 -DNDEBUG -DDEBUGVM=0";
+    "-DPharoVM -DIMMUTABILITY=1 -msse2 -D_GNU_SOURCE -DCOGMTVM=0 -g -O2 -DNDEBUG -DDEBUGVM=0"
+    ;
   LDFLAGS = "-Wl,-z,now";
 
-  # VM sources require some patching before build.
+    # VM sources require some patching before build.
   prePatch = ''
     patchShebangs build.${flavor}
     # Fix hard-coded path to /bin/rm in a script
@@ -141,55 +148,59 @@ stdenv.mkDerivation rec {
            platforms/Cross/vm/sqSCCSVersion.h
   '';
 
-  # Note: --with-vmcfg configure option is broken so copy plugin specs to ./
+    # Note: --with-vmcfg configure option is broken so copy plugin specs to ./
   preConfigure = ''
     cp build."${flavor}"/pharo.cog.spur/plugins.{ext,int} .
   '';
 
-  # (No special build phase.)
+    # (No special build phase.)
 
-  installPhase = let
-    libs = [
-      cairo
-      libgit2
-      libGLU
-      libGL
-      freetype
-      openssl
-      libuuid
-      alsa-lib
-      xorg.libICE
-      xorg.libSM
-    ];
-  in ''
-    # Install in working directory and then copy
-    make install-squeak install-plugins prefix=$(pwd)/products
+  installPhase =
+    let
+      libs = [
+        cairo
+        libgit2
+        libGLU
+        libGL
+        freetype
+        openssl
+        libuuid
+        alsa-lib
+        xorg.libICE
+        xorg.libSM
+      ];
+    in ''
+      # Install in working directory and then copy
+      make install-squeak install-plugins prefix=$(pwd)/products
 
-    # Copy binaries & rename from 'squeak' to 'pharo'
-    mkdir -p "$out"
-    cp products/lib/squeak/5.0-*/squeak "$out/pharo"
-    cp -r products/lib/squeak/5.0-*/*.so "$out"
-    ln -s "${pharo-share}/lib/"*.sources "$out"
+      # Copy binaries & rename from 'squeak' to 'pharo'
+      mkdir -p "$out"
+      cp products/lib/squeak/5.0-*/squeak "$out/pharo"
+      cp -r products/lib/squeak/5.0-*/*.so "$out"
+      ln -s "${pharo-share}/lib/"*.sources "$out"
 
-    # Create a shell script to run the VM in the proper environment.
-    #
-    # These wrapper puts all relevant libraries into the
-    # LD_LIBRARY_PATH. This is important because various C code in the VM
-    # and Smalltalk code in the image will search for them there.
-    mkdir -p "$out/bin"
+      # Create a shell script to run the VM in the proper environment.
+      #
+      # These wrapper puts all relevant libraries into the
+      # LD_LIBRARY_PATH. This is important because various C code in the VM
+      # and Smalltalk code in the image will search for them there.
+      mkdir -p "$out/bin"
 
-    # Note: include ELF rpath in LD_LIBRARY_PATH for finding libc.
-    libs=$out:$(patchelf --print-rpath "$out/pharo"):${lib.makeLibraryPath libs}
+      # Note: include ELF rpath in LD_LIBRARY_PATH for finding libc.
+      libs=$out:$(patchelf --print-rpath "$out/pharo"):${
+        lib.makeLibraryPath libs
+      }
 
-    # Create the script
-    cat > "$out/bin/${cmd}" <<EOF
-    #!${runtimeShell}
-    set -f
-    LD_LIBRARY_PATH="\$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$libs" exec $out/pharo "\$@"
-    EOF
-    chmod +x "$out/bin/${cmd}"
-    ln -s ${libgit2}/lib/libgit2.so* "$out/"
-  '' ;
+      # Create the script
+      cat > "$out/bin/${cmd}" <<EOF
+      #!${runtimeShell}
+      set -f
+      LD_LIBRARY_PATH="\$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$libs" exec $out/pharo "\$@"
+      EOF
+      chmod +x "$out/bin/${cmd}"
+      ln -s ${libgit2}/lib/libgit2.so* "$out/"
+    ''
+    ;
 
   meta = with lib; {
     description = "Clean and innovative Smalltalk-inspired environment";

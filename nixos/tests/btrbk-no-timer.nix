@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "btrbk-no-timer";
     meta.maintainers = with lib.maintainers; [ oxalica ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         environment.systemPackages = with pkgs; [ btrfs-progs ];
@@ -17,7 +18,8 @@ import ./make-test-python.nix ({
             subvolume = "to_backup";
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

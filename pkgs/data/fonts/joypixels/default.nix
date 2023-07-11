@@ -25,7 +25,8 @@ let
     spdxId = "LicenseRef-JoyPixels-Free-6.0";
     fullName = "JoyPixels Free License Agreement 6.0";
     url =
-      "https://cdn.joypixels.com/distributions/${systemTag}/license/free-license.pdf";
+      "https://cdn.joypixels.com/distributions/${systemTag}/license/free-license.pdf"
+      ;
     free = false;
   };
 
@@ -33,7 +34,8 @@ let
     spdxId = "LicenseRef-JoyPixels-NixOS-Appendix";
     fullName = "JoyPixels ${capitalized} License Appendix";
     url =
-      "https://cdn.joypixels.com/distributions/${systemTag}/appendix/joypixels-license-appendix.pdf";
+      "https://cdn.joypixels.com/distributions/${systemTag}/appendix/joypixels-license-appendix.pdf"
+      ;
     free = false;
   };
 
@@ -68,10 +70,12 @@ stdenv.mkDerivation rec {
     fetchurl {
       name = fontFile;
       url =
-        "https://cdn.joypixels.com/distributions/${systemTag}/font/${version}/${fontFile}";
+        "https://cdn.joypixels.com/distributions/${systemTag}/font/${version}/${fontFile}"
+        ;
       sha256 = {
         darwin = "0qcmb2vn2nykyikzgnlma627zhks7ksy1vkgvpcmqwyxq4bd38d7";
-      }.${kernel.name} or "17gjaz7353zyprmds64p01qivy2r8pwf88nvvhi57idas2qd604n";
+      }.${kernel.name} or "17gjaz7353zyprmds64p01qivy2r8pwf88nvvhi57idas2qd604n"
+        ;
     };
 
   dontUnpack = true;
@@ -92,16 +96,18 @@ stdenv.mkDerivation rec {
       selection of files ranging from png, svg, iconjar, sprites, and fonts.
     '';
     homepage = "https://www.joypixels.com/fonts";
-    license = let
-      free-license = joypixels-free-license;
-      appendix = joypixels-license-appendix;
-    in with systemSpecific; {
-      spdxId = "LicenseRef-JoyPixels-Free-6.0-with-${capitalized}-Appendix";
-      fullName = "${free-license.fullName} with ${appendix.fullName}";
-      url = free-license.url;
-      appendixUrl = appendix.url;
-      free = false;
-    };
+    license =
+      let
+        free-license = joypixels-free-license;
+        appendix = joypixels-license-appendix;
+      in with systemSpecific; {
+        spdxId = "LicenseRef-JoyPixels-Free-6.0-with-${capitalized}-Appendix";
+        fullName = "${free-license.fullName} with ${appendix.fullName}";
+        url = free-license.url;
+        appendixUrl = appendix.url;
+        free = false;
+      }
+      ;
     maintainers = with maintainers; [
       toonn
       jtojnar

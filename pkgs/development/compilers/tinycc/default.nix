@@ -11,8 +11,10 @@
 
 let
   # avoid "malformed 32-bit x.y.z" error on mac when using clang
-  isCleanVer = version:
-    builtins.match "^[0-9]\\.+[0-9]+\\.[0-9]+" version != null;
+  isCleanVer =
+    version:
+    builtins.match "^[0-9]\\.+[0-9]+\\.[0-9]+" version != null
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "tcc";
@@ -78,7 +80,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   checkTarget = "test";
-  # https://www.mail-archive.com/tinycc-devel@nongnu.org/msg10142.html
+    # https://www.mail-archive.com/tinycc-devel@nongnu.org/msg10142.html
   preCheck = lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
     rm tests/tests2/{108,114}*
   '';
@@ -113,7 +115,7 @@ stdenv.mkDerivation rec {
       AndersonTorres
     ];
     platforms = platforms.unix;
-    # https://www.mail-archive.com/tinycc-devel@nongnu.org/msg10199.html
+      # https://www.mail-archive.com/tinycc-devel@nongnu.org/msg10199.html
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

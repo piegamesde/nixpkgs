@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "plikd";
     meta = with lib.maintainers; { maintainers = [ freezeboy ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }:
@@ -13,7 +14,8 @@ import ./make-test-python.nix ({
       in {
         services.plikd.enable = true;
         environment.systemPackages = [ pkgs.plik ];
-      } ;
+      }
+      ;
 
     testScript = ''
       # Service basic test

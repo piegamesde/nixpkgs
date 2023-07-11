@@ -25,14 +25,16 @@ else
 
   # the installer is very picky and demands 1.7.0.07
   let
-    dotInstall4j = path:
+    dotInstall4j =
+      path:
       writeTextFile {
         name = "dot-install4j";
         text = ''
           JRE_VERSION	${path}	1	7	0	7
           JRE_INFO	${path}	94
         '';
-      };
+      }
+      ;
 
     responseVarfile = writeTextFile {
       name = "response.varfile";
@@ -59,9 +61,8 @@ else
         url =
           "http://neoload.installers.neotys.com/documents/download/${pname}/v${
             lib.versions.majorMinor version
-          }/${pname}_${
-            lib.replaceStrings [ "." ] [ "_" ] version
-          }_linux_x64.sh";
+          }/${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}_linux_x64.sh"
+          ;
         sha256 = "199jcf5a0nwfm8wfld2rcjgq64g91vvz2bkmki8dxfzf1yasifcd";
       }
     else
@@ -69,16 +70,15 @@ else
         url =
           "http://neoload.installers.neotys.com/documents/download/${pname}/v${
             lib.versions.majorMinor version
-          }/${pname}_${
-            lib.replaceStrings [ "." ] [ "_" ] version
-          }_linux_x86.sh";
+          }/${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}_linux_x86.sh"
+          ;
         sha256 = "1z66jiwcxixsqqwa0f4q8m2p5kna4knq6lic8y8l74dgv25mw912";
       });
 
     nativeBuildInputs = [ makeWrapper ];
     phases = [ "installPhase" ];
 
-    # TODO: load generator / monitoring agent only builds
+      # TODO: load generator / monitoring agent only builds
 
     installPhase = ''
       mkdir -p $out/lib/neoload
@@ -119,12 +119,13 @@ else
 
     meta = {
       description =
-        "Load testing software for Web applications to realistically simulate user activity and analyze server behavior";
+        "Load testing software for Web applications to realistically simulate user activity and analyze server behavior"
+        ;
 
       homepage = "https://www.neotys.com/product/overview-neoload.html";
 
       sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-      # https://www.neotys.com/documents/legal/eula/neoload/eula_en.html
+        # https://www.neotys.com/documents/legal/eula/neoload/eula_en.html
       license = lib.licenses.unfree;
 
       maintainers = [ lib.maintainers.bluescreen303 ];

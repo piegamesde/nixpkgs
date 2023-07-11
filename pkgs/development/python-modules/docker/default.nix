@@ -41,7 +41,7 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests/unit" ];
 
-  # Deselect socket tests on Darwin because it hits the path length limit for a Unix domain socket
+    # Deselect socket tests on Darwin because it hits the path length limit for a Unix domain socket
   disabledTests = lib.optionals stdenv.isDarwin [
     "api_test"
     "stream_response"

@@ -41,8 +41,8 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ bootstrap ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
+  nativeBuildInputs =
+    [ bootstrap ] ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
 
   buildInputs = [ libck ];
 
@@ -51,7 +51,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://justinethier.github.io/cyclone/";
     description =
-      "A brand-new compiler that allows practical application development using R7RS Scheme";
+      "A brand-new compiler that allows practical application development using R7RS Scheme"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ siraben ];
   };

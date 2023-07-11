@@ -37,12 +37,14 @@
 
 let
   # default value of withWindowSystem
-  withWindowSystem' = if withWindowSystem != null then
-    withWindowSystem
-  else if stdenv.isLinux then
-    "all"
-  else
-    "x11";
+  withWindowSystem' =
+    if withWindowSystem != null then
+      withWindowSystem
+    else if stdenv.isLinux then
+      "all"
+    else
+      "x11"
+    ;
 
   windowSystems = {
     all = windowSystems.x11 ++ windowSystems.wayland;

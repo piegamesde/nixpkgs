@@ -31,10 +31,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # Client tests require credentials
+    # Client tests require credentials
   disabledTests = [ "client_options" ];
 
-  # prevent google directory from shadowing google imports
+    # prevent google directory from shadowing google imports
   preCheck = ''
     rm -r google
   '';
@@ -45,7 +45,8 @@ buildPythonPackage rec {
     description = "Google Cloud RuntimeConfig API client library";
     homepage = "https://github.com/googleapis/python-runtimeconfig";
     changelog =
-      "https://github.com/googleapis/python-runtimeconfig/blob/v${version}/CHANGELOG.md";
+      "https://github.com/googleapis/python-runtimeconfig/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

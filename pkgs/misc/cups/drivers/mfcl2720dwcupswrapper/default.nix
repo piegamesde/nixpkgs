@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf101802/${pname}-${version}.i386.deb";
+      "https://download.brother.com/welcome/dlf101802/${pname}-${version}.i386.deb"
+      ;
     sha256 = "6d131926ce22c51b1854d2b91e426cc7ecbf5d6dabd698ef51a417090e35c598";
   };
 

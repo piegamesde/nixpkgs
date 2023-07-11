@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
     "libjsonnet.so"
   ];
 
-  # Upstream writes documentation in html, not in markdown/rst, so no
-  # other output formats, sorry.
+    # Upstream writes documentation in html, not in markdown/rst, so no
+    # other output formats, sorry.
   preBuild = ''
     jekyll build --source ./doc --destination ./html
   '';
@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Purely-functional configuration language that helps you define JSON data";
+      "Purely-functional configuration language that helps you define JSON data"
+      ;
     maintainers = with lib.maintainers; [
       benley
       copumpkin

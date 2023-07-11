@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     name = "opentabletdriver";
     meta = { maintainers = with pkgs.lib.maintainers; [ thiagokokada ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -18,7 +19,8 @@ import ./make-test-python.nix ({
         ];
         test-support.displayManager.auto.user = testUser;
         hardware.opentabletdriver.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

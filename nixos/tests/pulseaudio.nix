@@ -1,5 +1,6 @@
 let
-  mkTest = {
+  mkTest =
+    {
       systemWide ? false,
       fullVersion ? false
     }:
@@ -11,11 +12,13 @@ let
       let
         testFile = pkgs.fetchurl {
           url =
-            "https://file-examples.com/storage/fe5947fd2362fc197a3c2df/2017/11/file_example_MP3_700KB.mp3";
+            "https://file-examples.com/storage/fe5947fd2362fc197a3c2df/2017/11/file_example_MP3_700KB.mp3"
+            ;
           hash = "sha256-+iggJW8s0/LfA/okfXsB550/55Q0Sq3OoIzuBrzOPJQ=";
         };
 
-        makeTestPlay = key:
+        makeTestPlay =
+          key:
           {
             sox,
             alsa-utils,
@@ -25,7 +28,8 @@ let
             ${sox}/bin/play ${testFile}
             ${sox}/bin/sox ${testFile} -t wav - | ${alsa-utils}/bin/aplay
             touch /tmp/${key}_success
-          '';
+          ''
+          ;
 
         testers = builtins.mapAttrs makeTestPlay {
           testPlay = { inherit (pkgs) sox alsa-utils; };
@@ -39,7 +43,8 @@ let
           maintainers = [ synthetica ] ++ pkgs.pulseaudio.meta.maintainers;
         };
 
-        nodes.machine = {
+        nodes.machine =
+          {
             ...
           }:
 
@@ -60,11 +65,13 @@ let
           } // lib.optionalAttrs systemWide {
             users.users.alice.extraGroups = [ "pulse-access" ];
             systemd.services.pulseaudio.wantedBy = [ "multi-user.target" ];
-          };
+          }
+          ;
 
         enableOCR = true;
 
-        testScript = {
+        testScript =
+          {
             ...
           }: ''
             machine.wait_until_succeeds("pgrep xterm")
@@ -88,8 +95,10 @@ let
             machine.send_chars("pavucontrol\n")
             machine.wait_for_text("Dummy Output")
             machine.screenshot("Pavucontrol")
-          '';
-      } );
+          ''
+          ;
+      } )
+    ;
 in
 builtins.mapAttrs (key: val: mkTest val) {
   user = {

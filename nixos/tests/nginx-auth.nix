@@ -5,33 +5,37 @@ import ./make-test-python.nix ({
     name = "nginx-auth";
 
     nodes = {
-      webserver = {
+      webserver =
+        {
           pkgs,
           lib,
           ...
         }: {
-          services.nginx = let
-            root = pkgs.runCommand "testdir" { } ''
-              mkdir "$out"
-              echo hello world > "$out/index.html"
-            '';
-          in {
-            enable = true;
+          services.nginx =
+            let
+              root = pkgs.runCommand "testdir" { } ''
+                mkdir "$out"
+                echo hello world > "$out/index.html"
+              '';
+            in {
+              enable = true;
 
-            virtualHosts.lockedroot = {
-              inherit root;
-              basicAuth.alice = "pwofa";
-            };
-
-            virtualHosts.lockedsubdir = {
-              inherit root;
-              locations."/sublocation/" = {
-                alias = "${root}/";
-                basicAuth.bob = "pwofb";
+              virtualHosts.lockedroot = {
+                inherit root;
+                basicAuth.alice = "pwofa";
               };
-            };
-          } ;
-        };
+
+              virtualHosts.lockedsubdir = {
+                inherit root;
+                locations."/sublocation/" = {
+                  alias = "${root}/";
+                  basicAuth.bob = "pwofb";
+                };
+              };
+            }
+            ;
+        }
+        ;
     };
 
     testScript = ''

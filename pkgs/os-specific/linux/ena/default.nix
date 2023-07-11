@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = kernel.moduleBuildDependencies;
   makeFlags = kernel.makeFlags;
 
-  # linux 3.12
+    # linux 3.12
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
 
   configurePhase = ''

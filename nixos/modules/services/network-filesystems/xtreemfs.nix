@@ -15,14 +15,16 @@ let
 
   home = cfg.homeDir;
 
-  startupScript = class: configPath:
+  startupScript =
+    class: configPath:
     pkgs.writeScript "xtreemfs-osd.sh" ''
       #! ${pkgs.runtimeShell}
       JAVA_HOME="${pkgs.jdk}"
       JAVADIR="${xtreemfs}/share/java"
       JAVA_CALL="$JAVA_HOME/bin/java -ea -cp $JAVADIR/XtreemFS.jar:$JAVADIR/BabuDB.jar:$JAVADIR/Flease.jar:$JAVADIR/protobuf-java-2.5.0.jar:$JAVADIR/Foundation.jar:$JAVADIR/jdmkrt.jar:$JAVADIR/jdmktk.jar:$JAVADIR/commons-codec-1.3.jar"
       $JAVA_CALL ${class} ${configPath}
-    '';
+    ''
+    ;
 
   dirReplicationConfig =
     pkgs.writeText "xtreemfs-dir-replication-plugin.properties" ''
@@ -479,7 +481,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = lib.mkIf cfg.enable {
 

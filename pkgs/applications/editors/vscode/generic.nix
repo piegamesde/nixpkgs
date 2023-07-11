@@ -167,8 +167,8 @@ let
       )
     '';
 
-    # See https://github.com/NixOS/nixpkgs/issues/49643#issuecomment-873853897
-    # linux only because of https://github.com/NixOS/nixpkgs/issues/138729
+      # See https://github.com/NixOS/nixpkgs/issues/49643#issuecomment-873853897
+      # linux only because of https://github.com/NixOS/nixpkgs/issues/138729
     postPatch = lib.optionalString stdenv.isLinux ''
       # this is a fix for "save as root" functionality
       packed="resources/app/node_modules.asar"
@@ -195,24 +195,26 @@ let
     inherit meta;
   };
 
-  # Vscode and variants allow for users to download and use extensions
-  # which often include the usage of pre-built binaries.
-  # This has been an on-going painpoint for many users, as
-  # a full extension update cycle has to be done through nixpkgs
-  # in order to create or update extensions.
-  # See: #83288 #91179 #73810 #41189
-  #
-  # buildFHSEnv allows for users to use the existing vscode
-  # extension tooling without significant pain.
-  fhs = {
+    # Vscode and variants allow for users to download and use extensions
+    # which often include the usage of pre-built binaries.
+    # This has been an on-going painpoint for many users, as
+    # a full extension update cycle has to be done through nixpkgs
+    # in order to create or update extensions.
+    # See: #83288 #91179 #73810 #41189
+    #
+    # buildFHSEnv allows for users to use the existing vscode
+    # extension tooling without significant pain.
+  fhs =
+    {
       additionalPkgs ? pkgs: [ ]
     }:
     buildFHSEnv {
       # also determines the name of the wrapped command
       name = executableName;
 
-      # additional libraries which are commonly needed for extensions
-      targetPkgs = pkgs:
+        # additional libraries which are commonly needed for extensions
+      targetPkgs =
+        pkgs:
         (with pkgs; [
           # ld-linux-x86-64-linux.so.2 and others
           glibc
@@ -228,19 +230,20 @@ let
 
           # mono
           krb5
-        ]) ++ additionalPkgs pkgs;
+        ]) ++ additionalPkgs pkgs
+        ;
 
       extraBwrapArgs = [ "--bind-try /etc/nixos/ /etc/nixos/" ];
 
-      # symlink shared assets, including icons and desktop entries
+        # symlink shared assets, including icons and desktop entries
       extraInstallCommands = ''
         ln -s "${unwrapped}/share" "$out/"
       '';
 
       runScript = "${unwrapped}/bin/${executableName}";
 
-      # vscode likes to kill the parent so that the
-      # gui application isn't attached to the terminal session
+        # vscode likes to kill the parent so that the
+        # gui application isn't attached to the terminal session
       dieWithParent = false;
 
       passthru = {
@@ -254,6 +257,7 @@ let
           Should allow for easy usage of extensions without nix-specific modifications.
         '';
       };
-    };
+    }
+    ;
 in
 unwrapped

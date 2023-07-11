@@ -17,7 +17,7 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ docutils ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   meta = with lib; {

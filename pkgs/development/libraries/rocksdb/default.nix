@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     }"
   ] ++ lib.optional (!enableShared) "-DROCKSDB_BUILD_SHARED=0";
 
-  # otherwise "cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]"
+    # otherwise "cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]"
   hardeningDisable = lib.optional stdenv.hostPlatform.isWindows "format";
 
   preInstall = ''
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
     ls -1 $tools/bin/* | xargs -I{} patchelf --set-rpath $out/lib:${stdenv.cc.cc.lib}/lib {}
   '';
 
-  # Old version doesn't ship the .pc file, new version puts wrong paths in there.
+    # Old version doesn't ship the .pc file, new version puts wrong paths in there.
   postFixup = ''
     if [ -f "$out"/lib/pkgconfig/rocksdb.pc ]; then
       substituteInPlace "$out"/lib/pkgconfig/rocksdb.pc \
@@ -115,7 +115,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://rocksdb.org";
     description =
-      "A library that provides an embeddable, persistent key-value store for fast storage";
+      "A library that provides an embeddable, persistent key-value store for fast storage"
+      ;
     changelog =
       "https://github.com/facebook/rocksdb/raw/v${version}/HISTORY.md";
     license = licenses.asl20;

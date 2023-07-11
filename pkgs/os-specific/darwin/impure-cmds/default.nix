@@ -13,7 +13,8 @@ let
       "/usr/bin/sudo"; # sudo must be owned by uid 0 and have the setuid bit set
   };
 
-  mkImpureDrv = name: path:
+  mkImpureDrv =
+    name: path:
     runCommandLocal "${name}-impure-darwin" {
       __impureHostDeps = [ path ];
 
@@ -32,6 +33,7 @@ let
         mkdir -p $out/share/man/man1
         ln -s $manpage $out/share/man/man1
       fi
-    '';
+    ''
+    ;
 in
 lib.mapAttrs mkImpureDrv commands

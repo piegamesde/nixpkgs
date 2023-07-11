@@ -11,7 +11,7 @@ buildPythonPackage rec {
   version = "0.8.1";
   format = "setuptools";
 
-  # only wheel on pypi
+    # only wheel on pypi
   src = fetchFromGitHub {
     owner = "cmacmackin";
     repo = pname;

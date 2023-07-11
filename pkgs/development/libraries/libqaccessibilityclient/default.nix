@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://kde/stable/libqaccessibilityclient/libqaccessibilityclient-${version}.tar.xz";
+      "mirror://kde/stable/libqaccessibilityclient/libqaccessibilityclient-${version}.tar.xz"
+      ;
     sha256 = "sha256-HHaLT0MU/K4qB8t958sq4FIrXwK0Fzrz7ti/sqTYNCk=";
   };
 

@@ -26,8 +26,8 @@ mkDerivation rec {
     hash = "sha256-rdEXgg5hwu52XJit07AbrSw7kLDNK+IpbIwKCV/Lhp8=";
   };
 
-  # not sure if we really need phonon when we have vlc, but on KDE it's bound to
-  # be on the system anyway, so there is no real harm including it
+    # not sure if we really need phonon when we have vlc, but on KDE it's bound to
+    # be on the system anyway, so there is no real harm including it
   buildInputs = [
     exiv2
     phonon

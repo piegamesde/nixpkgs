@@ -92,11 +92,13 @@
 assert cryptopp != null || (nss != null && nspr != null);
 
 let
-  shouldUsePkg = pkg:
+  shouldUsePkg =
+    pkg:
     if pkg != null && pkg.meta.available then
       pkg
     else
-      null;
+      null
+    ;
 
   optYasm = shouldUsePkg yasm;
   optExpat = shouldUsePkg expat;
@@ -117,7 +119,7 @@ let
   optLibxfs = shouldUsePkg libxfs;
   optZfs = shouldUsePkg zfs;
 
-  # Downgrade rocksdb, 7.10 breaks ceph
+    # Downgrade rocksdb, 7.10 breaks ceph
   rocksdb' = rocksdb.overrideAttrs (oldAttrs: {
     version = "7.9.2";
     src = fetchFromGitHub {
@@ -130,19 +132,23 @@ let
 
   hasRadosgw = optExpat != null && optCurl != null && optLibedit != null;
 
-  # Malloc implementation (can be jemalloc, tcmalloc or null)
-  malloc = if optJemalloc != null then
-    optJemalloc
-  else
-    optGperftools;
+    # Malloc implementation (can be jemalloc, tcmalloc or null)
+  malloc =
+    if optJemalloc != null then
+      optJemalloc
+    else
+      optGperftools
+    ;
 
-  # We prefer nss over cryptopp
-  cryptoStr = if optNss != null && optNspr != null then
-    "nss"
-  else if optCryptopp != null then
-    "cryptopp"
-  else
-    "none";
+    # We prefer nss over cryptopp
+  cryptoStr =
+    if optNss != null && optNspr != null then
+      "nss"
+    else if optCryptopp != null then
+      "cryptopp"
+    else
+      "none"
+    ;
 
   cryptoLibsMap = {
     nss = [
@@ -153,7 +159,8 @@ let
     none = [ ];
   };
 
-  getMeta = description:
+  getMeta =
+    description:
     with lib; {
       homepage = "https://ceph.io/en/";
       inherit description;
@@ -174,7 +181,8 @@ let
         "x86_64-linux"
         "aarch64-linux"
       ];
-    };
+    }
+    ;
 
   ceph-common = with python.pkgs;
     buildPythonPackage {
@@ -195,24 +203,26 @@ let
       meta = getMeta "Ceph common module for code shared by manager modules";
     };
 
-  # Watch out for python <> boost compatibility
+    # Watch out for python <> boost compatibility
   python = python310.override {
-    packageOverrides = self: super: {
-      sqlalchemy = super.sqlalchemy.overridePythonAttrs (oldAttrs: rec {
-        version = "1.4.46";
-        src = super.fetchPypi {
-          pname = "SQLAlchemy";
-          inherit version;
-          hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-        };
-        nativeCheckInputs = oldAttrs.nativeCheckInputs
-          ++ (with super; [ pytest-xdist ]);
-        disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
-          "test/aaa_profiling"
-          "test/ext/mypy"
-        ];
-      });
-    };
+    packageOverrides =
+      self: super: {
+        sqlalchemy = super.sqlalchemy.overridePythonAttrs (oldAttrs: rec {
+          version = "1.4.46";
+          src = super.fetchPypi {
+            pname = "SQLAlchemy";
+            inherit version;
+            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+          };
+          nativeCheckInputs =
+            oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
+          disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
+            "test/aaa_profiling"
+            "test/ext/mypy"
+          ];
+        });
+      }
+      ;
   };
 
   boost = boost179.override {
@@ -220,7 +230,7 @@ let
     inherit python;
   };
 
-  # TODO: split this off in build and runtime environment
+    # TODO: split this off in build and runtime environment
   ceph-python-env = python.withPackages (ps:
     with ps; [
       ceph-common
@@ -408,7 +418,7 @@ in rec {
 
     doCheck = false; # uses pip to install things from the internet
 
-    # Takes 7+h to build with 2 cores.
+      # Takes 7+h to build with 2 cores.
     requiredSystemFeatures = [ "big-parallel" ];
 
     meta = getMeta "Distributed storage system";

@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "1jjgca92nifjhcr3n0fmpfr6f5gxlqyal2wmgdlgd7hx834r1if7";
   };
 
-  # Makefile is currently missing -lbctoolbox so the build fails when linking
-  # the libraries. This patch adds that flag.
+    # Makefile is currently missing -lbctoolbox so the build fails when linking
+    # the libraries. This patch adds that flag.
   patches = [ ./add_bctoolbox_ldlib.patch ];
 
   buildInputs = [

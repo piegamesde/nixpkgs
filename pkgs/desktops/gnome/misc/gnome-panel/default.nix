@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     ./modulesdir-env-var.patch
   ];
 
-  # make .desktop Exec absolute
+    # make .desktop Exec absolute
   postPatch = ''
     patch -p0 <<END_PATCH
     +++ gnome-panel/gnome-panel.desktop.in
@@ -104,7 +104,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Component of Gnome Flashback that provides panels and default applets for the desktop";
+      "Component of Gnome Flashback that provides panels and default applets for the desktop"
+      ;
     homepage = "https://wiki.gnome.org/Projects/GnomePanel";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     "-Dtests=disabled"
   ];
 
-  # Requires DISPLAY
+    # Requires DISPLAY
   doCheck = false;
 
   preFixup = ''

@@ -12,7 +12,8 @@
 }:
 
 let
-  dep = {
+  dep =
+    {
       pname,
       version,
       hash,
@@ -32,12 +33,13 @@ let
         pkg-config
       ];
       inherit buildInputs;
-    };
+    }
+    ;
 
-  # These libraries are not used outside of dbus-broker.
-  #
-  # If that changes, we can always break them out, but they are essentially
-  # part of the dbus-broker project, just in separate repositories.
+    # These libraries are not used outside of dbus-broker.
+    #
+    # If that changes, we can always break them out, but they are essentially
+    # part of the dbus-broker project, just in separate repositories.
   c-dvar = dep {
     pname = "c-dvar";
     version = "v1";

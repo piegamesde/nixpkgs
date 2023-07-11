@@ -133,7 +133,8 @@ in {
       {
         assertion = cfg.enableNotifier -> cfg.notifier != null;
         message =
-          "When enabling the notifier for xautolock, you also need to specify the notify script";
+          "When enabling the notifier for xautolock, you also need to specify the notify script"
+          ;
       }
       {
         assertion = cfg.killer != null -> cfg.killtime >= 10;
@@ -146,10 +147,11 @@ in {
       "nowlocker"
       "killer"
     ] (option: {
-      assertion = cfg.${option} != null -> builtins.substring 0 1 cfg.${option}
-        == "/";
+      assertion =
+        cfg.${option} != null -> builtins.substring 0 1 cfg.${option} == "/";
       message =
-        "Please specify a canonical path for `services.xserver.xautolock.${option}`";
+        "Please specify a canonical path for `services.xserver.xautolock.${option}`"
+        ;
     }));
   };
 }

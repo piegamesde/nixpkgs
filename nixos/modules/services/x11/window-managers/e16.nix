@@ -16,7 +16,7 @@ in {
       mkEnableOption (lib.mdDoc "e16");
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {
       name = "E16";

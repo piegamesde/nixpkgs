@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ opencl-headers ];
 
-  configureFlags =
-    [ "--enable-custom-vendordir=/run/opengl-driver/etc/OpenCL/vendors" ];
+  configureFlags = [ "--enable-custom-vendordir=/run/opengl-driver/etc/OpenCL/vendors" ]
+    ;
 
   meta = with lib; {
     description = "OpenCL ICD Loader for ${opencl-headers.name}";

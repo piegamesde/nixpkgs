@@ -23,7 +23,8 @@ in {
     "sniproxy"
     "logDir"
   ]
-    "Now done by LogsDirectory=. Set to a custom path if you log to a different folder in your config.") ];
+    "Now done by LogsDirectory=. Set to a custom path if you log to a different folder in your config.") ]
+    ;
 
   options = {
     services.sniproxy = {
@@ -45,7 +46,8 @@ in {
         type = types.lines;
         default = "";
         description = lib.mdDoc
-          "sniproxy.conf configuration excluding the daemon username and pid file.";
+          "sniproxy.conf configuration excluding the daemon username and pid file."
+          ;
         example = ''
           error_log {
             filename /var/log/sniproxy/error.log

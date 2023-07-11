@@ -27,7 +27,7 @@ buildPythonPackage rec {
     azure-mgmt-core
   ] ++ lib.optionals (!isPy3k) [ azure-mgmt-nspkg ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   meta = with lib; {

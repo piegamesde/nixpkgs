@@ -4,7 +4,8 @@
   python3Packages,
 }:
 let
-  mkBasePackage = {
+  mkBasePackage =
+    {
       pname,
       src,
       version,
@@ -26,9 +27,11 @@ let
         "-s"
         "-w"
       ] ++ extraLdflags;
-    } // args);
+    } // args)
+    ;
 
-  mkPythonPackage = {
+  mkPythonPackage =
+    {
       meta,
       pname,
       src,
@@ -63,8 +66,8 @@ let
             setup.py
         '';
 
-        # Auto-generated; upstream does not have any tests.
-        # Verify that the version substitution works
+          # Auto-generated; upstream does not have any tests.
+          # Verify that the version substitution works
         checkPhase = ''
           runHook preCheck
 
@@ -74,9 +77,10 @@ let
           runHook postCheck
         '';
 
-        pythonImportsCheck =
-          [ (builtins.replaceStrings [ "-" ] [ "_" ] pname) ];
-      }) { };
+        pythonImportsCheck = [ (builtins.replaceStrings [ "-" ] [ "_" ] pname) ]
+          ;
+      }) { }
+    ;
 in
 {
   owner,

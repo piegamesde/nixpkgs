@@ -10,7 +10,8 @@ with lib;
 let
   streams = builtins.attrNames config.services.liquidsoap.streams;
 
-  streamService = name:
+  streamService =
+    name:
     let
       stream = builtins.getAttr name config.services.liquidsoap.streams;
     in {
@@ -29,7 +30,8 @@ let
           LogsDirectory = "liquidsoap";
         };
       };
-    } ;
+    }
+    ;
 in {
 
   ##### interface
@@ -57,7 +59,7 @@ in {
     };
 
   };
-  ##### implementation
+    ##### implementation
 
   config = mkIf (builtins.length streams != 0) {
 

@@ -17,8 +17,8 @@ appleDerivation {
     xz
   ];
 
-  # patches to use ncursees
-  # disables md5
+    # patches to use ncursees
+    # disables md5
   patchPhase = ''
     substituteInPlace text_cmds.xcodeproj/project.pbxproj \
           --replace 'FC6C98FB149A94EB00DDCC47 /* libcurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurses.dylib; path = /usr/lib/libcurses.dylib; sourceTree = "<absolute>"; };' 'FC6C98FB149A94EB00DDCC47 /* libncurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libncurses.dylib; path = /usr/lib/libncurses.dylib; sourceTree = "<absolute>"; };' \

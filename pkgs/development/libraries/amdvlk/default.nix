@@ -22,10 +22,12 @@
 }:
 let
 
-  suffix = if stdenv.system == "x86_64-linux" then
-    "64"
-  else
-    "32";
+  suffix =
+    if stdenv.system == "x86_64-linux" then
+      "64"
+    else
+      "32"
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -90,7 +92,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # Keep the rpath, otherwise vulkaninfo and vkcube segfault
+    # Keep the rpath, otherwise vulkaninfo and vkcube segfault
   dontPatchELF = true;
 
   passthru.updateScript = writeScript "update.sh" ''

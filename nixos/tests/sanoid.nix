@@ -5,20 +5,23 @@ import ./make-test-python.nix ({
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
-    commonConfig = {
+    commonConfig =
+      {
         pkgs,
         ...
       }: {
         virtualisation.emptyDiskImages = [ 2048 ];
         boot.supportedFilesystems = [ "zfs" ];
         environment.systemPackages = [ pkgs.parted ];
-      };
+      }
+      ;
   in {
     name = "sanoid";
     meta = with pkgs.lib.maintainers; { maintainers = [ lopsided98 ]; };
 
     nodes = {
-      source = {
+      source =
+        {
           ...
         }: {
           imports = [ commonConfig ];
@@ -56,21 +59,23 @@ import ./make-test-python.nix ({
                   "--create-bookmark"
                 ];
               };
-              # Take snapshot and sync
+                # Take snapshot and sync
               "pool/syncoid".target = "root@target:pool/syncoid";
 
-              # Test pool without parent (regression test for https://github.com/NixOS/nixpkgs/pull/180111)
+                # Test pool without parent (regression test for https://github.com/NixOS/nixpkgs/pull/180111)
               "pool".target = "root@target:pool/full-pool";
 
-              # Test backward compatible options (regression test for https://github.com/NixOS/nixpkgs/issues/181561)
+                # Test backward compatible options (regression test for https://github.com/NixOS/nixpkgs/issues/181561)
               "pool/compat" = {
                 target = "root@target:pool/compat";
                 extraArgs = [ "--no-sync-snap" ];
               };
             };
           };
-        };
-      target = {
+        }
+        ;
+      target =
+        {
           ...
         }: {
           imports = [ commonConfig ];
@@ -78,7 +83,8 @@ import ./make-test-python.nix ({
 
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-        };
+        }
+        ;
     };
 
     testScript = ''

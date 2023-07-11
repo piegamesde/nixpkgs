@@ -28,14 +28,16 @@ let
   version = "2.81.1";
   pkgname = "etlegacy";
   mirror = "https://mirror.etlegacy.com";
-  fetchAsset = {
+  fetchAsset =
+    {
       asset,
       sha256,
     }:
     fetchurl {
       url = mirror + "/etmain/" + asset;
       inherit sha256;
-    };
+    }
+    ;
   pak0 = fetchAsset {
     asset = "pak0.pk3";
     sha256 = "712966b20e06523fe81419516500e499c86b2b4fec823856ddbd333fcb3d26e5";
@@ -54,10 +56,12 @@ let
       echo "${version}"
     fi
   '';
-  mainProgram = if stdenv.hostPlatform.system == "i686-linux" then
-    "etl.i386"
-  else
-    "etl.x86_64";
+  mainProgram =
+    if stdenv.hostPlatform.system == "i686-linux" then
+      "etl.i386"
+    else
+      "etl.x86_64"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = pkgname;
@@ -130,7 +134,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "ET: Legacy is an open source project based on the code of Wolfenstein: Enemy Territory which was released in 2010 under the terms of the GPLv3 license";
+      "ET: Legacy is an open source project based on the code of Wolfenstein: Enemy Territory which was released in 2010 under the terms of the GPLv3 license"
+      ;
     homepage = "https://etlegacy.com";
     platforms = [
       "i686-linux"

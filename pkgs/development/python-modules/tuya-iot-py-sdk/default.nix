@@ -30,7 +30,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "tuya_iot" ];

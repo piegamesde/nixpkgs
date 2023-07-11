@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.unidata.ucar.edu/software/udunits/";
     description =
-      "A C-based package for the programatic handling of units of physical quantities";
+      "A C-based package for the programatic handling of units of physical quantities"
+      ;
     longDescription = ''
       The UDUNITS package supports units of physical quantities. Its C library
       provides for arithmetic manipulation of units and for conversion of

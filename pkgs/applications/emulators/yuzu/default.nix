@@ -11,7 +11,8 @@ let
   compat-list = fetchurl {
     name = "yuzu-compat-list";
     url =
-      "https://raw.githubusercontent.com/flathub/org.yuzu_emu.yuzu/d83401d2ee3fd5e1922e31baed1f3bdb1c0f036c/compatibility_list.json";
+      "https://raw.githubusercontent.com/flathub/org.yuzu_emu.yuzu/d83401d2ee3fd5e1922e31baed1f3bdb1c0f036c/compatibility_list.json"
+      ;
     sha256 = "sha256-anOmO7NscHDsQxT03+YbJEyBkXjhcSVGgKpDwt//GHw=";
   };
 in

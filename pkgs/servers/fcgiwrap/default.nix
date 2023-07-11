@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     fcgi
   ];
 
-  # systemd 230 no longer has libsystemd-daemon as a separate entity from libsystemd
+    # systemd 230 no longer has libsystemd-daemon as a separate entity from libsystemd
   postPatch = ''
     substituteInPlace configure.ac --replace libsystemd-daemon libsystemd
   '';

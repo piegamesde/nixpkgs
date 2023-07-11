@@ -9,14 +9,16 @@ let
 
 in {
 
-  mkCellServDB = cellName: db:
+  mkCellServDB =
+    cellName: db:
     ''
       >${cellName}
     '' + (concatStringsSep "\n" (map (dbm:
       optionalString (dbm.ip != "" && dbm.dnsname != "")
-      "${dbm.ip} #${dbm.dnsname}") db)) + "\n";
+      "${dbm.ip} #${dbm.dnsname}") db)) + "\n"
+    ;
 
-  # CellServDB configuration type
+    # CellServDB configuration type
   cellServDBConfig = {
     ip = mkOption {
       type = types.str;

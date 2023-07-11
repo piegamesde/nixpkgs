@@ -8,9 +8,9 @@ buildPythonPackage rec {
   pname = "pylzma";
   version = "0.5.0";
 
-  # This vendors an old LZMA SDK
-  # After some discussion, it seemed most reasonable to keep it that way
-  # xz, and uefi-firmware-parser also does this
+    # This vendors an old LZMA SDK
+    # After some discussion, it seemed most reasonable to keep it that way
+    # xz, and uefi-firmware-parser also does this
   src = fetchPypi {
     inherit pname version;
     sha256 = "074anvhyjgsv2iby2ql1ixfvjgmhnvcwjbdz8gk70xzkzcm1fx5q";

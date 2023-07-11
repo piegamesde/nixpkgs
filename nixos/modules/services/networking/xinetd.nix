@@ -23,31 +23,36 @@ let
     ${concatMapStrings makeService cfg.services}
   '';
 
-  makeService = srv: ''
-    service ${srv.name}
-    {
-      protocol    = ${srv.protocol}
-      ${optionalString srv.unlisted "type        = UNLISTED"}
-      ${optionalString (srv.flags != "") "flags = ${srv.flags}"}
-      socket_type = ${
-        if srv.protocol == "udp" then
-          "dgram"
-        else
-          "stream"
+  makeService =
+    srv: ''
+      service ${srv.name}
+      {
+        protocol    = ${srv.protocol}
+        ${optionalString srv.unlisted "type        = UNLISTED"}
+        ${optionalString (srv.flags != "") "flags = ${srv.flags}"}
+        socket_type = ${
+          if srv.protocol == "udp" then
+            "dgram"
+          else
+            "stream"
+        }
+        ${optionalString (srv.port != 0) "port        = ${toString srv.port}"}
+        wait        = ${
+          if srv.protocol == "udp" then
+            "yes"
+          else
+            "no"
+        }
+        user        = ${srv.user}
+        server      = ${srv.server}
+        ${
+          optionalString (srv.serverArgs != "")
+          "server_args = ${srv.serverArgs}"
+        }
+        ${srv.extraConfig}
       }
-      ${optionalString (srv.port != 0) "port        = ${toString srv.port}"}
-      wait        = ${
-        if srv.protocol == "udp" then
-          "yes"
-        else
-          "no"
-      }
-      user        = ${srv.user}
-      server      = ${srv.server}
-      ${optionalString (srv.serverArgs != "") "server_args = ${srv.serverArgs}"}
-      ${srv.extraConfig}
-    }
-  '';
+    ''
+    ;
 
 in {
 
@@ -137,7 +142,8 @@ in {
               type = types.lines;
               default = "";
               description = lib.mdDoc
-                "Extra configuration-lines added to the section of the service.";
+                "Extra configuration-lines added to the section of the service."
+                ;
             };
 
           };
@@ -148,7 +154,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.xinetd = {

@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9IOM8IA8Kezk3SP3YVenxQkm8UMZgD8/ztWoDNqM0vc=";
   };
 
-  # wget2_noinstall contains forbidden reference to /build/
+    # wget2_noinstall contains forbidden reference to /build/
   postPatch = ''
     substituteInPlace src/Makefile.am \
       --replace "bin_PROGRAMS = wget2 wget2_noinstall" "bin_PROGRAMS = wget2"
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     zstd
   ] ++ lib.optional sslSupport openssl;
 
-  # TODO: include translation files
+    # TODO: include translation files
   autoreconfPhase = ''
     # copy gnulib into build dir and make writable.
     # Otherwise ./bootstrap copies the non-writable files from nix store and fails to modify them
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       parallel connections and use of If-Modified-Since HTTP header.
     '';
     homepage = "https://gitlab.com/gnuwget/wget2";
-    # wget2 GPLv3+; libwget LGPLv3+
+      # wget2 GPLv3+; libwget LGPLv3+
     license = with licenses; [
       gpl3Plus
       lgpl3Plus

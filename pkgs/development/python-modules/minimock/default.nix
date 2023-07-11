@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "minimock" ];

@@ -38,9 +38,9 @@ buildPythonPackage rec {
     hash = "sha256-91FcOqAYZK7/RCKgXjbQEPUQ2cZRFi7NzVLQF+MMDRI=";
   };
 
-  # "test_time_taken" tests aren't suitable for reproducible execution, but Django's
-  # test runner doesn't have an easy way to ignore tests - so instead prevent it from picking
-  # them up as tests
+    # "test_time_taken" tests aren't suitable for reproducible execution, but Django's
+    # test runner doesn't have an easy way to ignore tests - so instead prevent it from picking
+    # them up as tests
   postPatch = ''
     substituteInPlace project/tests/test_silky_profiler.py \
       --replace "def test_time_taken" "def _test_time_taken"

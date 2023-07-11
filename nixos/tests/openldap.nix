@@ -55,7 +55,8 @@ import ./make-test-python.nix ({
   in {
     name = "openldap";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -107,22 +108,27 @@ import ./make-test-python.nix ({
         };
 
         specialisation = {
-          declarativeContents.configuration = {
+          declarativeContents.configuration =
+            {
               ...
             }: {
               services.openldap.declarativeContents."dc=example" = dbContents;
-            };
-          mutableConfig.configuration = {
+            }
+            ;
+          mutableConfig.configuration =
+            {
               ...
             }: {
               services.openldap = {
                 declarativeContents."dc=example" = dbContents;
                 mutableConfig = true;
               };
-            };
+            }
+            ;
           manualConfigDir = {
             inheritParentConfig = false;
-            configuration = {
+            configuration =
+              {
                 ...
               }: {
                 users.ldap = ldapClientConfig;
@@ -130,11 +136,14 @@ import ./make-test-python.nix ({
                   enable = true;
                   configDir = "/var/db/slapd.d";
                 };
-              };
+              }
+              ;
           };
         };
-      };
-    testScript = {
+      }
+      ;
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -184,5 +193,6 @@ import ./make-test-python.nix ({
             pkgs.writeText "rootpw.ldif" changeRootPw
           }')
           machine.succeed('ldapsearch -LLL -D "cn=root,dc=example" -w foobar')
-      '' ;
+      ''
+      ;
   } )

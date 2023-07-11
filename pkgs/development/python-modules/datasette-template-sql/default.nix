@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ datasette ];
 
-  # Tests require a running datasette instance
+    # Tests require a running datasette instance
   doCheck = false;
 
   pythonImportsCheck = [ "datasette_template_sql" ];

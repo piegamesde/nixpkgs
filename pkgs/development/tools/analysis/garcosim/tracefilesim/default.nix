@@ -25,7 +25,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Ease the analysis of existing memory management techniques, as well as the prototyping of new memory management techniques";
+      "Ease the analysis of existing memory management techniques, as well as the prototyping of new memory management techniques"
+      ;
     homepage = "https://github.com/GarCoSim";
     maintainers = [ maintainers.cmcdragonkai ];
     license = licenses.gpl2;

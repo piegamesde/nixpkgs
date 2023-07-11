@@ -55,7 +55,7 @@ buildPythonPackage rec {
     httpretty
   ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  # Disable checking the code coverage
+    # Disable checking the code coverage
   prePatch = ''
     substituteInPlace social_core/tests/requirements.txt \
       --replace "coverage>=3.6" "" \

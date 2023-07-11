@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/${pname}-${version}.tar.gz";
+      "http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/${pname}-${version}.tar.gz"
+      ;
     hash = "sha256-o62AKb0sawxXZHeg93v50sC3YcuqDvv+9Hlp7+purek=";
   };
 
@@ -91,7 +92,8 @@ stdenv.mkDerivation rec {
     # glibc 2.34 compat
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/postfix/raw/2f9d42453e67ebc43f786d98262a249037f80a77/f/postfix-3.6.2-glibc-234-build-fix.patch";
+        "https://src.fedoraproject.org/rpms/postfix/raw/2f9d42453e67ebc43f786d98262a249037f80a77/f/postfix-3.6.2-glibc-234-build-fix.patch"
+        ;
       sha256 = "sha256-xRUL5gaoIt6HagGlhsGwvwrAfYvzMgydsltYMWvl9BI=";
     })
   ];

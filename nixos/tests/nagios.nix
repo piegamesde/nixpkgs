@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "nagios";
     meta = with pkgs.lib.maintainers; { maintainers = [ symphorien ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }:
@@ -17,10 +18,10 @@ import ./make-test-python.nix ({
       in {
         # tested service
         services.sshd.enable = true;
-        # nagios
+          # nagios
         services.nagios = {
           enable = true;
-          # make state transitions faster
+            # make state transitions faster
           extraConfig.interval_length = "5";
           objectDefs = (map (x: "${pkgs.nagios}/etc/objects/${x}.cfg") [
             "templates"
@@ -86,9 +87,11 @@ import ./make-test-python.nix ({
             }
           '') ];
         };
-      } ;
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         ...
       }: ''
         with subtest("ensure sshd starts"):
@@ -115,5 +118,6 @@ import ./make-test-python.nix ({
             machine.succeed("systemctl start sshd")
             machine.succeed("rm /tmp/notifications")
             assert_notify("ssh is OK")
-      '';
+      ''
+      ;
   })

@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/udptunnel/udptunnel-r${version}.tar.gz";
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/udptunnel/udptunnel-r${version}.tar.gz"
+      ;
     sha256 = "1hkrn153rdyrp9g15z4d5dq44cqlnby2bfplp6z0g3862lnv7m3l";
   };
 

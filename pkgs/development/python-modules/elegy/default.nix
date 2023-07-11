@@ -40,13 +40,14 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "use-poetry-core.patch";
     url =
-      "https://github.com/poets-ai/elegy/commit/0ed472882f470ed9eb7a63b8a537ffabe7e19aa7.patch";
+      "https://github.com/poets-ai/elegy/commit/0ed472882f470ed9eb7a63b8a537ffabe7e19aa7.patch"
+      ;
     hash = "sha256-nO/imHo7tEsiZh+64CF/M4eXQ1so3IunVhv8CvYP1ks=";
   }) ];
 
-  # The cloudpickle constraint is too strict. wandb is marked as an optional
-  # dependency but `buildPythonPackage` doesn't seem to respect that setting.
-  # Python constraint: https://github.com/poets-ai/elegy/issues/244
+    # The cloudpickle constraint is too strict. wandb is marked as an optional
+    # dependency but `buildPythonPackage` doesn't seem to respect that setting.
+    # Python constraint: https://github.com/poets-ai/elegy/issues/244
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace 'python = ">=3.7,<3.10"' 'python = ">=3.7"' \

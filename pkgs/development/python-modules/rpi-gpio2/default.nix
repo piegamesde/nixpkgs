@@ -9,7 +9,7 @@ buildPythonPackage rec {
   pname = "rpi-gpio2";
   version = "0.4.0";
 
-  # PyPi source does not work for some reason
+    # PyPi source does not work for some reason
   src = fetchFromGitHub {
     owner = "underground-software";
     repo = "RPi.GPIO2";
@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ libgpiod ];
 
-  # Disable checks because they need to run on the specific platform
+    # Disable checks because they need to run on the specific platform
   doCheck = false;
 
   meta = with lib; {

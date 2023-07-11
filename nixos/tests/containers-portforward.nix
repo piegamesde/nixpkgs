@@ -21,7 +21,8 @@ import ./make-test-python.nix ({
       ];
     };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -45,7 +46,8 @@ import ./make-test-python.nix ({
         };
 
         virtualisation.additionalPaths = [ pkgs.stdenv ];
-      };
+      }
+      ;
 
     testScript = ''
       container_list = machine.succeed("nixos-container list")

@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ cadical ];
 
-  # do not download sources
-  # link existing cadical instead
+    # do not download sources
+    # link existing cadical instead
   patches = [ ./0001-Do-not-download-sources-in-cmake.patch ];
 
   postPatch = ''
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     "-Wno-unused-command-line-argument"
   ]);
 
-  # TODO: add jbmc support
+    # TODO: add jbmc support
   cmakeFlags = [
     "-DWITH_JBMC=OFF"
     "-Dsat_impl=cadical"
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ jiegec ];
     platforms = platforms.unix;
-    # https://github.com/diffblue/cbmc/issues/7423
+      # https://github.com/diffblue/cbmc/issues/7423
     broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

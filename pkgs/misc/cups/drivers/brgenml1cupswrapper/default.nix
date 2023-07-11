@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf101125/brgenml1cupswrapper-${version}.i386.deb";
+      "https://download.brother.com/welcome/dlf101125/brgenml1cupswrapper-${version}.i386.deb"
+      ;
     sha256 = "0kd2a2waqr10kfv1s8is3nd5dlphw4d1343srdsbrlbbndja3s6r";
   };
 

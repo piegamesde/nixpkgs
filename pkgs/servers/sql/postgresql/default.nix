@@ -67,10 +67,12 @@ let
       lz4Enabled = atLeast "14";
       zstdEnabled = atLeast "15";
 
-      stdenv' = if jitSupport then
-        llvmPackages.stdenv
-      else
-        stdenv;
+      stdenv' =
+        if jitSupport then
+          llvmPackages.stdenv
+        else
+          stdenv
+        ;
     in
     stdenv'.mkDerivation rec {
       pname = "postgresql";
@@ -123,7 +125,7 @@ let
 
       env.NIX_CFLAGS_COMPILE = "-I${libxml2.dev}/include/libxml2";
 
-      # Otherwise it retains a reference to compiler and fails; see #44767.  TODO: better.
+        # Otherwise it retains a reference to compiler and fails; see #44767.  TODO: better.
       preConfigure = "CC=${stdenv'.cc.targetPrefix}cc";
 
       configureFlags = [
@@ -225,7 +227,7 @@ let
         '';
 
       doCheck = !stdenv'.isDarwin;
-      # autodetection doesn't seem to able to find this, but it's there.
+        # autodetection doesn't seem to able to find this, but it's there.
       checkTarget = "check";
 
       preCheck =
@@ -240,60 +242,67 @@ let
               --replace "object_address" ""
           ''
         else
-          null;
+          null
+        ;
 
       doInstallCheck = false; # needs a running daemon?
 
       disallowedReferences = [ stdenv'.cc ];
 
-      passthru = let
-        jitToggle = this.override {
-          jitSupport = !jitSupport;
-          this = jitToggle;
-        };
-      in
-      {
-        inherit readline psqlSchema jitSupport;
-
-        withJIT = if jitSupport then
-          this
-        else
-          jitToggle;
-        withoutJIT = if jitSupport then
-          jitToggle
-        else
-          this;
-
-        pkgs = let
-          scope = {
-            postgresql = this;
-            stdenv = stdenv';
-            buildPgxExtension = buildPgxExtension.override {
-              stdenv = stdenv';
-              rustPlatform = makeRustPlatform {
-                stdenv = stdenv';
-                inherit (rustPlatform.rust) rustc cargo;
-              };
-            };
+      passthru =
+        let
+          jitToggle = this.override {
+            jitSupport = !jitSupport;
+            this = jitToggle;
           };
-          newSelf = self // scope;
-          newSuper = { callPackage = newScope (scope // this.pkgs); };
         in
-        import ./packages.nix newSelf newSuper
+        {
+          inherit readline psqlSchema jitSupport;
+
+          withJIT =
+            if jitSupport then
+              this
+            else
+              jitToggle
+            ;
+          withoutJIT =
+            if jitSupport then
+              jitToggle
+            else
+              this
+            ;
+
+          pkgs =
+            let
+              scope = {
+                postgresql = this;
+                stdenv = stdenv';
+                buildPgxExtension = buildPgxExtension.override {
+                  stdenv = stdenv';
+                  rustPlatform = makeRustPlatform {
+                    stdenv = stdenv';
+                    inherit (rustPlatform.rust) rustc cargo;
+                  };
+                };
+              };
+              newSelf = self // scope;
+              newSuper = { callPackage = newScope (scope // this.pkgs); };
+            in
+            import ./packages.nix newSelf newSuper
+            ;
+
+          withPackages = postgresqlWithPackages {
+            inherit makeWrapper buildEnv;
+            postgresql = this;
+          } this.pkgs;
+
+          tests = {
+            postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
+          } // lib.optionalAttrs jitSupport {
+            postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
+          };
+        } // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; }
         ;
-
-        withPackages = postgresqlWithPackages {
-          inherit makeWrapper buildEnv;
-          postgresql = this;
-        } this.pkgs;
-
-        tests = {
-          postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
-        } // lib.optionalAttrs jitSupport {
-          postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
-        };
-      } // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; }
-      ;
 
       meta = with lib; {
         homepage = "https://www.postgresql.org";
@@ -310,22 +319,23 @@ let
         ];
         platforms = platforms.unix;
 
-        # JIT support doesn't work with cross-compilation. It is attempted to build LLVM-bytecode
-        # (`%.bc` is the corresponding `make(1)`-rule) for each sub-directory in `backend/` for
-        # the JIT apparently, but with a $(CLANG) that can produce binaries for the build, not the
-        # host-platform.
-        #
-        # I managed to get a cross-build with JIT support working with
-        # `depsBuildBuild = [ llvmPackages.clang ] ++ buildInputs`, but considering that the
-        # resulting LLVM IR isn't platform-independent this doesn't give you much.
-        # In fact, I tried to test the result in a VM-test, but as soon as JIT was used to optimize
-        # a query, postgres would coredump with `Illegal instruction`.
+          # JIT support doesn't work with cross-compilation. It is attempted to build LLVM-bytecode
+          # (`%.bc` is the corresponding `make(1)`-rule) for each sub-directory in `backend/` for
+          # the JIT apparently, but with a $(CLANG) that can produce binaries for the build, not the
+          # host-platform.
+          #
+          # I managed to get a cross-build with JIT support working with
+          # `depsBuildBuild = [ llvmPackages.clang ] ++ buildInputs`, but considering that the
+          # resulting LLVM IR isn't platform-independent this doesn't give you much.
+          # In fact, I tried to test the result in a VM-test, but as soon as JIT was used to optimize
+          # a query, postgres would coredump with `Illegal instruction`.
         broken = jitSupport && (stdenv.hostPlatform != stdenv.buildPlatform);
       };
     }
-  ;
+    ;
 
-  postgresqlWithPackages = {
+  postgresqlWithPackages =
+    {
       postgresql,
       makeWrapper,
       buildEnv,
@@ -340,17 +350,17 @@ let
       ];
       nativeBuildInputs = [ makeWrapper ];
 
-      # We include /bin to ensure the $out/bin directory is created, which is
-      # needed because we'll be removing the files from that directory in postBuild
-      # below. See #22653
+        # We include /bin to ensure the $out/bin directory is created, which is
+        # needed because we'll be removing the files from that directory in postBuild
+        # below. See #22653
       pathsToLink = [
         "/"
         "/bin"
       ];
 
-      # Note: the duplication of executables is about 4MB size.
-      # So a nicer solution was patching postgresql to allow setting the
-      # libdir explicitly.
+        # Note: the duplication of executables is about 4MB size.
+        # So a nicer solution was patching postgresql to allow setting the
+        # libdir explicitly.
       postBuild = ''
         mkdir -p $out/bin
         rm $out/bin/{pg_config,postgres,pg_ctl}
@@ -360,54 +370,57 @@ let
 
       passthru.version = postgresql.version;
       passthru.psqlSchema = postgresql.psqlSchema;
-    };
+    }
+    ;
 
-  mkPackages = self: {
-    postgresql_11 = self.callPackage generic {
-      version = "11.19";
-      psqlSchema = "11.1"; # should be 11, but changing it is invasive
-      hash = "sha256-ExCeK3HxE5QFwnIB2jczphrOcu4cIo2cnwMg4GruFMI=";
-      this = self.postgresql_11;
-      thisAttr = "postgresql_11";
-      inherit self;
-    };
+  mkPackages =
+    self: {
+      postgresql_11 = self.callPackage generic {
+        version = "11.19";
+        psqlSchema = "11.1"; # should be 11, but changing it is invasive
+        hash = "sha256-ExCeK3HxE5QFwnIB2jczphrOcu4cIo2cnwMg4GruFMI=";
+        this = self.postgresql_11;
+        thisAttr = "postgresql_11";
+        inherit self;
+      };
 
-    postgresql_12 = self.callPackage generic {
-      version = "12.14";
-      psqlSchema = "12";
-      hash = "sha256-eFYQI304LIQtNW40cTjljAb/6uJA5swLUqxevMMNBD4=";
-      this = self.postgresql_12;
-      thisAttr = "postgresql_12";
-      inherit self;
-    };
+      postgresql_12 = self.callPackage generic {
+        version = "12.14";
+        psqlSchema = "12";
+        hash = "sha256-eFYQI304LIQtNW40cTjljAb/6uJA5swLUqxevMMNBD4=";
+        this = self.postgresql_12;
+        thisAttr = "postgresql_12";
+        inherit self;
+      };
 
-    postgresql_13 = self.callPackage generic {
-      version = "13.10";
-      psqlSchema = "13";
-      hash = "sha256-W7z1pW2FxE86iwWPtGhi/0nLyRg00H4pXQLm3jwhbfI=";
-      this = self.postgresql_13;
-      thisAttr = "postgresql_13";
-      inherit self;
-    };
+      postgresql_13 = self.callPackage generic {
+        version = "13.10";
+        psqlSchema = "13";
+        hash = "sha256-W7z1pW2FxE86iwWPtGhi/0nLyRg00H4pXQLm3jwhbfI=";
+        this = self.postgresql_13;
+        thisAttr = "postgresql_13";
+        inherit self;
+      };
 
-    postgresql_14 = self.callPackage generic {
-      version = "14.7";
-      psqlSchema = "14";
-      hash = "sha256-zvYPAJj6gQHBVG9CVORbcir1QxM3lFs3ryBwB2MNszE=";
-      this = self.postgresql_14;
-      thisAttr = "postgresql_14";
-      inherit self;
-    };
+      postgresql_14 = self.callPackage generic {
+        version = "14.7";
+        psqlSchema = "14";
+        hash = "sha256-zvYPAJj6gQHBVG9CVORbcir1QxM3lFs3ryBwB2MNszE=";
+        this = self.postgresql_14;
+        thisAttr = "postgresql_14";
+        inherit self;
+      };
 
-    postgresql_15 = self.callPackage generic {
-      version = "15.2";
-      psqlSchema = "15";
-      hash = "sha256-maIXH8PWtbX1a3V6ejy4XVCaOOQnOAXe8jlB7SuEaMc=";
-      this = self.postgresql_15;
-      thisAttr = "postgresql_15";
-      inherit self;
-    };
-  };
+      postgresql_15 = self.callPackage generic {
+        version = "15.2";
+        psqlSchema = "15";
+        hash = "sha256-maIXH8PWtbX1a3V6ejy4XVCaOOQnOAXe8jlB7SuEaMc=";
+        this = self.postgresql_15;
+        thisAttr = "postgresql_15";
+        inherit self;
+      };
+    }
+    ;
 
 in
 self:

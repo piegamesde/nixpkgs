@@ -11,29 +11,31 @@ import ./make-test-python.nix ({
 
     machineNames = builtins.map machineSafe manImplementations;
 
-    makeConfig = useImpl: {
-      # Note: mandoc currently can't index symlinked section directories.
-      # So if a man section comes from one package exclusively (e. g.
-      # 1p from man-pages-posix and 2 from man-pages), it isn't searchable.
-      environment.systemPackages = [
-        pkgs.man-pages
-        pkgs.openssl
-        pkgs.libunwind
-      ];
+    makeConfig =
+      useImpl: {
+        # Note: mandoc currently can't index symlinked section directories.
+        # So if a man section comes from one package exclusively (e. g.
+        # 1p from man-pages-posix and 2 from man-pages), it isn't searchable.
+        environment.systemPackages = [
+          pkgs.man-pages
+          pkgs.openssl
+          pkgs.libunwind
+        ];
 
-      documentation = {
-        enable = true;
-        nixos.enable = lib.mkForce true;
-        dev.enable = true;
-        man = {
+        documentation = {
           enable = true;
-          generateCaches = true;
-        } // lib.listToAttrs (builtins.map (impl: {
-          name = impl;
-          value = { enable = useImpl == impl; };
-        }) manImplementations);
-      };
-    };
+          nixos.enable = lib.mkForce true;
+          dev.enable = true;
+          man = {
+            enable = true;
+            generateCaches = true;
+          } // lib.listToAttrs (builtins.map (impl: {
+            name = impl;
+            value = { enable = useImpl == impl; };
+          }) manImplementations);
+        };
+      }
+      ;
 
     machineSafe = builtins.replaceStrings [ "-" ] [ "_" ];
   in {

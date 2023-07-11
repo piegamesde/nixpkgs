@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage {
 
   src = "${src}/wishbone-tool";
 
-  # N.B. The cargo vendor consistency checker searches in "source" for lockfile
+    # N.B. The cargo vendor consistency checker searches in "source" for lockfile
   cargoDepsHook = ''
     ln -s wishbone-tool source
   '';

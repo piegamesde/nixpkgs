@@ -25,14 +25,16 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "add_sysmacros.patch";
       url =
-        "https://sources.debian.org/data/main/j/jfsutils/1.1.15-4/debian/patches/add_sysmacros.patch";
+        "https://sources.debian.org/data/main/j/jfsutils/1.1.15-4/debian/patches/add_sysmacros.patch"
+        ;
       sha256 = "1qcwvxs4d0d24w5x98z59arqfx2n7f0d9xaqhjcg6w8n34vkhnyc";
     })
     # fix for musl
     (fetchpatch {
       name = "musl-fix-includes.patch";
       url =
-        "https://git.alpinelinux.org/aports/plain/main/jfsutils/musl-fix-includes.patch?id=567823dca7dc1f8ce919efbe99762d2d5c020124";
+        "https://git.alpinelinux.org/aports/plain/main/jfsutils/musl-fix-includes.patch?id=567823dca7dc1f8ce919efbe99762d2d5c020124"
+        ;
       sha256 = "sha256-FjdUOI+y+MdSWxTR+csH41uR0P+PWWTfIMPwQjBfQtQ=";
     })
   ];
@@ -40,13 +42,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ libuuid ];
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #     ld: extract.o:/build/jfsutils-1.1.15/fscklog/extract.c:67: multiple definition of
-  #       `xchklog_buffer'; display.o:/build/jfsutils-1.1.15/fscklog/display.c:57: first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #     ld: extract.o:/build/jfsutils-1.1.15/fscklog/extract.c:67: multiple definition of
+    #       `xchklog_buffer'; display.o:/build/jfsutils-1.1.15/fscklog/display.c:57: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  # this required for wipefreespace
+    # this required for wipefreespace
   postInstall = ''
     mkdir -p $out/include
     cp include/*.h $out/include

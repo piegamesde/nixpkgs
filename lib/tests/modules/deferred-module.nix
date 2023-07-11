@@ -31,7 +31,8 @@ in {
 
     {
       _file = "default-1.nix";
-      default = {
+      default =
+        {
           config,
           ...
         }: {
@@ -40,7 +41,8 @@ in {
             default = { };
           };
           options.bottom = lib.mkOption { type = enum [ ]; };
-        };
+        }
+        ;
     }
 
     {
@@ -60,12 +62,14 @@ in {
 
     {
       _file = "nodes-foo-c-is-a.nix";
-      nodes.foo = {
+      nodes.foo =
+        {
           config,
           ...
         }: {
           settingsDict.c = config.settingsDict.a;
-        };
+        }
+        ;
     }
 
   ];

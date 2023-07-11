@@ -31,14 +31,18 @@ let
     gnome2.gtksourceview
   ] + ":${stdenv.cc.cc.lib}/lib64:$out/libexec";
 
-  patchExe = x: ''
-    patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath ${libPath} ${x}
-  '';
+  patchExe =
+    x: ''
+      patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath ${libPath} ${x}
+    ''
+    ;
 
-  patchLib = x: ''
-    patchelf --set-rpath ${libPath} ${x}
-  '';
+  patchLib =
+    x: ''
+      patchelf --set-rpath ${libPath} ${x}
+    ''
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -47,7 +51,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/verifast/verifast/releases/download/${version}/${pname}-${version}-linux.tar.gz";
+      "https://github.com/verifast/verifast/releases/download/${version}/${pname}-${version}-linux.tar.gz"
+      ;
     sha256 = "sha256-PlRsf4wFXoM+E+60SbeKzs/RZK0HNVirX47AnI6NeYM=";
   };
 

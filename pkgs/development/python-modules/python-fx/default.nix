@@ -83,13 +83,13 @@ buildPythonPackage rec {
     parameterized
   ];
 
-  # antlr4 issue prevents us from running the tests
-  # https://github.com/antlr/antlr4/issues/4041
+    # antlr4 issue prevents us from running the tests
+    # https://github.com/antlr/antlr4/issues/4041
   doCheck = false;
 
-  # pythonImportsCheck = [
-  #   "pyfx"
-  # ];
+    # pythonImportsCheck = [
+    #   "pyfx"
+    # ];
 
   meta = with lib; {
     description = "Module to view JSON in a TUI";

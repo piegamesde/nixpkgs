@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://download.savannah.nongnu.org/releases/${pname}/${pname}-${version}.tar.gz";
+      "http://download.savannah.nongnu.org/releases/${pname}/${pname}-${version}.tar.gz"
+      ;
     hash = "sha256-OMK0ROrbuMDKt42QpE7D6/9CvUEMW4SpEBjO5+tk0rs=";
   };
 

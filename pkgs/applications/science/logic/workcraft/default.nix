@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/workcraft/workcraft/releases/download/v${version}/workcraft-v${version}-linux.tar.gz";
+      "https://github.com/workcraft/workcraft/releases/download/v${version}/workcraft-v${version}-linux.tar.gz"
+      ;
     sha256 = "sha256-iqHdyyZX3AcBAjPTpZAiJi0IHhEDWBtKp0e2LAdWGsQ=";
   };
 

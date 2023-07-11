@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://sourceforge.net/projects/fstrcmp/files/fstrcmp/${version}/fstrcmp-${version}.D001.tar.gz";
+      "https://sourceforge.net/projects/fstrcmp/files/fstrcmp/${version}/fstrcmp-${version}.D001.tar.gz"
+      ;
     sha256 = "0yg3y3k0wz50gmhgigfi2dx725w1gc8snb95ih7vpcnj6kabgz9a";
   };
 

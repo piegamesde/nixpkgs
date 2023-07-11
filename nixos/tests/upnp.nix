@@ -20,7 +20,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ bobvanderlinden ]; };
 
     nodes = {
-      router = {
+      router =
+        {
           pkgs,
           nodes,
           ...
@@ -50,9 +51,11 @@ import ./make-test-python.nix ({
               ext_ip=${externalRouterAddress}
             '';
           };
-        };
+        }
+        ;
 
-      client1 = {
+      client1 =
+        {
           pkgs,
           nodes,
           ...
@@ -78,9 +81,11 @@ import ./make-test-python.nix ({
             adminAddr = "foo@example.org";
             documentRoot = "/tmp";
           };
-        };
+        }
+        ;
 
-      client2 = {
+      client2 =
+        {
           pkgs,
           ...
         }: {
@@ -91,10 +96,12 @@ import ./make-test-python.nix ({
             prefixLength = 24;
           } ];
           networking.firewall.enable = false;
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -112,6 +119,7 @@ import ./make-test-python.nix ({
 
         client1.wait_for_unit("httpd")
         client2.wait_until_succeeds("curl -f http://${externalRouterAddress}:9000/")
-      '';
+      ''
+      ;
 
   } )

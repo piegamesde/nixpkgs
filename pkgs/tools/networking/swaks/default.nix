@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.jetmore.org/john/code/swaks/files/${pname}-${version}.tar.gz";
+      "https://www.jetmore.org/john/code/swaks/files/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0c2sx4nrh4whsqzj6m5ay8d7yqan3aqgg436p8jb25bs91ykn2pv";
   };
 

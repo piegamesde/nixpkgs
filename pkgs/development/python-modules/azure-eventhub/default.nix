@@ -27,7 +27,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  # too complicated to set up
+    # too complicated to set up
   doCheck = false;
 
   pythonImportsCheck = [
@@ -38,9 +38,11 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Microsoft Azure Event Hubs Client Library for Python";
     homepage =
-      "https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/eventhub/azure-eventhub";
+      "https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/eventhub/azure-eventhub"
+      ;
     changelog =
-      "https://github.com/Azure/azure-sdk-for-python/blob/azure-eventhub_${version}/sdk/eventhub/azure-eventhub/CHANGELOG.md";
+      "https://github.com/Azure/azure-sdk-for-python/blob/azure-eventhub_${version}/sdk/eventhub/azure-eventhub/CHANGELOG.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

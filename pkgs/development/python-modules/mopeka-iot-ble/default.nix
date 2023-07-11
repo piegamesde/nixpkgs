@@ -47,7 +47,8 @@ buildPythonPackage rec {
     description = "Library for Mopeka IoT BLE devices";
     homepage = "https://github.com/bluetooth-devices/mopeka-iot-ble";
     changelog =
-      "https://github.com/Bluetooth-Devices/mopeka-iot-ble/releases/tag/v${version}";
+      "https://github.com/Bluetooth-Devices/mopeka-iot-ble/releases/tag/v${version}"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

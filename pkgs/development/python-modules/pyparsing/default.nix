@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  # circular dependencies with pytest if enabled by default
+    # circular dependencies with pytest if enabled by default
   doCheck = false;
   nativeCheckInputs = [
     jinja2

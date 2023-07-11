@@ -26,7 +26,7 @@ buildPythonPackage rec {
     ifaddr
   ];
 
-  # tests are not implemented
+    # tests are not implemented
   doCheck = false;
 
   pythonImportsCheck = [ "aiolifx" ];

@@ -31,7 +31,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Collect ALL UniFi Controller, Site, Device & Client Data - Export to InfluxDB or Prometheus";
+      "Collect ALL UniFi Controller, Site, Device & Client Data - Export to InfluxDB or Prometheus"
+      ;
     homepage = "https://github.com/unpoller/unpoller";
     changelog = "https://github.com/unpoller/unpoller/releases/tag/v${version}";
     license = licenses.mit;

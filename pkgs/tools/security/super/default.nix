@@ -28,15 +28,16 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "CVE-2014-0470.patch";
       url =
-        "https://salsa.debian.org/debian/super/raw/debian/3.30.0-7/debian/patches/14-Fix-unchecked-setuid-call.patch";
+        "https://salsa.debian.org/debian/super/raw/debian/3.30.0-7/debian/patches/14-Fix-unchecked-setuid-call.patch"
+        ;
       sha256 = "08m9hw4kyfjv0kqns1cqha4v5hkgp4s4z0q1rgif1fnk14xh7wqh";
     })
   ];
 
-  # -fcommon: workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: pam.o:/build/super-3.30.0/super.h:293: multiple definition of
-  #     `Method'; super.o:/build/super-3.30.0/super.h:293: first defined here
+    # -fcommon: workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: pam.o:/build/super-3.30.0/super.h:293: multiple definition of
+    #     `Method'; super.o:/build/super-3.30.0/super.h:293: first defined here
   env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE -fcommon";
 
   configureFlags = [

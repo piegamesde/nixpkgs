@@ -46,8 +46,8 @@ buildPythonPackage rec {
     hash = "sha256-j9xE/X2UJNt/3G4eg0oC9rhiD/tlN2c4i+L56xb4QYQ=";
   };
 
-  # Add $out/share/jupyter to the list of paths that are used to search for
-  # various exporter templates
+    # Add $out/share/jupyter to the list of paths that are used to search for
+    # various exporter templates
   patches = [ ./templates.patch ];
 
   postPatch = ''
@@ -95,7 +95,7 @@ buildPythonPackage rec {
     "test_post_processor"
   ];
 
-  # Some of the tests use localhost networking.
+    # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
   meta = {

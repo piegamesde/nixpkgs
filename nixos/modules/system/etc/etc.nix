@@ -73,7 +73,7 @@ in {
 
   imports = [ ../build.nix ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -195,7 +195,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = {
 

@@ -21,8 +21,8 @@ perlPackages.buildPerlPackage rec {
     sha256 = "sha256-i8lDK5/Whi5uo2/Qqh5jgJGLuuHn7kdrfvr+9Ktzp/8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
+  nativeBuildInputs =
+    [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
 
   buildInputs = with perlPackages; [
     CryptPassphrase
@@ -92,9 +92,9 @@ perlPackages.buildPerlPackage rec {
       > t/00_nixpkgs_module_install.t
   '';
 
-  # Convos expects to find assets in both auto/share/dist/Convos, and $MOJO_HOME
-  # which is set to $out
-  #
+    # Convos expects to find assets in both auto/share/dist/Convos, and $MOJO_HOME
+    # which is set to $out
+    #
   postInstall = ''
     AUTO_SHARE_PATH=$out/${perl.libPrefix}/auto/share/dist/Convos
     mkdir -p $AUTO_SHARE_PATH

@@ -67,7 +67,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://atlassian.artifactoryonline.com/artifactory/hipchat-apt-client/pool/HipChat4-${version}-Linux.deb";
+      "https://atlassian.artifactoryonline.com/artifactory/hipchat-apt-client/pool/HipChat4-${version}-Linux.deb"
+      ;
     sha256 = "03pz8wskafn848yvciq29kwdvqcgjrk6sjnm8nk9acl89xf0sn96";
   };
 

@@ -115,10 +115,10 @@ stdenv.mkDerivation rec {
     chmod a+x $out/bin/xfstests-check
   '';
 
-  # The upstream package is pretty hostile to packaging; it looks up
-  # various paths relative to current working directory, and also
-  # wants to write temporary files there. So create a temporary
-  # to run from and symlink the runtime files to it.
+    # The upstream package is pretty hostile to packaging; it looks up
+    # various paths relative to current working directory, and also
+    # wants to write temporary files there. So create a temporary
+    # to run from and symlink the runtime files to it.
   wrapperScript = writeScript "xfstests-check" ''
     #!${runtimeShell}
     set -e

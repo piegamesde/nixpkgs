@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }:
 
   let
-    client = {
+    client =
+      {
         pkgs,
         ...
       }:
@@ -12,7 +13,8 @@ import ./make-test-python.nix ({
       {
         imports = [ ./common/x11.nix ];
         environment.systemPackages = [ pkgs.teeworlds ];
-      };
+      }
+      ;
 
   in {
     name = "teeworlds";

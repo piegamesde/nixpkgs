@@ -66,7 +66,7 @@ let
     hash = "sha256-AQQOctXi7sWIH/VOeSUClX6hlm1raEQUOp+VoPjLM14=";
   };
 
-  # See https://github.com/deepmind/mujoco/blob/573d331b69845c5d651b70f5d1b0f3a0d2a3a233/simulate/cmake/SimulateDependencies.cmake#L32-L35
+    # See https://github.com/deepmind/mujoco/blob/573d331b69845c5d651b70f5d1b0f3a0d2a3a233/simulate/cmake/SimulateDependencies.cmake#L32-L35
   glfw = fetchFromGitHub {
     owner = "glfw";
     repo = "glfw";
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
     xorg.libXrandr
   ];
 
-  # Move things into place so that cmake doesn't try downloading dependencies.
+    # Move things into place so that cmake doesn't try downloading dependencies.
   preConfigure = ''
     mkdir -p build/_deps
     ln -s ${abseil-cpp} build/_deps/abseil-cpp-src

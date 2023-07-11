@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
   version = "1.25";
   src = fetchzip {
     url =
-      "https://git.kernel.org/pub/scm/devel/pahole/pahole.git/snapshot/pahole-${version}.tar.gz";
+      "https://git.kernel.org/pub/scm/devel/pahole/pahole.git/snapshot/pahole-${version}.tar.gz"
+      ;
     hash = "sha256-s0YVT2UnMSO8jS/4XCt06wNPV4czHH6bmZRy/snO3jg=";
   };
 
@@ -34,7 +35,7 @@ stdenv.mkDerivation rec {
     musl-obstack
   ];
 
-  # Put libraries in "lib" subdirectory, not top level of $out
+    # Put libraries in "lib" subdirectory, not top level of $out
   cmakeFlags = [
     "-D__LIB=lib"
     "-DLIBBPF_EMBEDDED=OFF"
@@ -45,7 +46,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://git.kernel.org/pub/scm/devel/pahole/pahole.git/";
     description =
-      "Shows, manipulates, and pretty-prints debugging information in DWARF, CTF, and BTF formats";
+      "Shows, manipulates, and pretty-prints debugging information in DWARF, CTF, and BTF formats"
+      ;
     license = licenses.gpl2Only;
 
     platforms = platforms.linux;

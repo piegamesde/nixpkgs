@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.environment.memoryAllocator;
 
-  # The set of alternative malloc(3) providers.
+    # The set of alternative malloc(3) providers.
   providers = {
     graphene-hardened = {
       libPath = "${pkgs.graphene-hardened-malloc}/lib/libhardened_malloc.so";
@@ -27,23 +27,27 @@ let
       '';
     };
 
-    scudo = let
-      platformMap = {
-        aarch64-linux = "aarch64";
-        x86_64-linux = "x86_64";
-      };
+    scudo =
+      let
+        platformMap = {
+          aarch64-linux = "aarch64";
+          x86_64-linux = "x86_64";
+        };
 
-      systemPlatform = platformMap.${pkgs.stdenv.hostPlatform.system} or (throw
-        "scudo not supported on ${pkgs.stdenv.hostPlatform.system}");
-    in {
-      libPath =
-        "${pkgs.llvmPackages_latest.compiler-rt}/lib/linux/libclang_rt.scudo-${systemPlatform}.so";
-      description = ''
-        A user-mode allocator based on LLVM Sanitizer’s CombinedAllocator,
-        which aims at providing additional mitigations against heap based
-        vulnerabilities, while maintaining good performance.
-      '';
-    } ;
+        systemPlatform =
+          platformMap.${pkgs.stdenv.hostPlatform.system} or (throw
+            "scudo not supported on ${pkgs.stdenv.hostPlatform.system}");
+      in {
+        libPath =
+          "${pkgs.llvmPackages_latest.compiler-rt}/lib/linux/libclang_rt.scudo-${systemPlatform}.so"
+          ;
+        description = ''
+          A user-mode allocator based on LLVM Sanitizer’s CombinedAllocator,
+          which aims at providing additional mitigations against heap based
+          vulnerabilities, while maintaining good performance.
+        '';
+      }
+      ;
 
     mimalloc = {
       libPath = "${pkgs.mimalloc}/lib/libmimalloc.so";
@@ -57,8 +61,8 @@ let
 
   providerConf = providers.${cfg.provider};
 
-  # An output that contains only the shared library, to avoid
-  # needlessly bloating the system closure
+    # An output that contains only the shared library, to avoid
+    # needlessly bloating the system closure
   mallocLib = pkgs.runCommand "malloc-provider-${cfg.provider}" rec {
     preferLocalBuild = true;
     allowSubstitutes = false;
@@ -69,7 +73,7 @@ let
     cp -L $origLibPath $out/lib/$libName
   '';
 
-  # The full path to the selected provider shlib.
+    # The full path to the selected provider shlib.
   providerLibPath = "${mallocLib}/lib/${mallocLib.libName}";
 
 in {

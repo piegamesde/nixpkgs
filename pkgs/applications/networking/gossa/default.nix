@@ -24,7 +24,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  # Tests require a socket connection to be created.
+    # Tests require a socket connection to be created.
   doCheck = false;
 
   meta = with lib; {

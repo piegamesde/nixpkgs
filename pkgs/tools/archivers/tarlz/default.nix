@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.nongnu.org/lzip/${pname}.html";
     description =
-      "Massively parallel combined implementation of the tar archiver and the lzip compressor";
+      "Massively parallel combined implementation of the tar archiver and the lzip compressor"
+      ;
     license = licenses.gpl2Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ ehmry ];

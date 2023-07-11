@@ -20,7 +20,8 @@ import ./make-test-python.nix ({
 
     nodes = {
 
-      master = {
+      master =
+        {
           ...
         }: {
           services.jenkins = {
@@ -64,31 +65,36 @@ import ./make-test-python.nix ({
             services.jenkins.jobBuilder.nixJobs = pkgs.lib.mkForce [ ];
           };
 
-          # should have no effect
+            # should have no effect
           services.jenkinsSlave.enable = true;
 
           users.users.jenkins.extraGroups = [ "users" ];
 
           systemd.services.jenkins.serviceConfig.TimeoutStartSec = "6min";
-        };
+        }
+        ;
 
-      slave = {
+      slave =
+        {
           ...
         }: {
           services.jenkinsSlave.enable = true;
 
           users.users.jenkins.extraGroups = [ "users" ];
-        };
+        }
+        ;
 
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
       let
         configWithoutJobs =
-          "${nodes.master.config.system.build.toplevel}/specialisation/noJenkinsJobs";
+          "${nodes.master.config.system.build.toplevel}/specialisation/noJenkinsJobs"
+          ;
         jenkinsPort = nodes.master.config.services.jenkins.port;
         jenkinsUrl = "http://localhost:${toString jenkinsPort}";
       in ''
@@ -134,5 +140,6 @@ import ./make-test-python.nix ({
             out = master.succeed("${pkgs.jenkins}/bin/jenkins-cli -s ${jenkinsUrl} -auth admin:$(cat /var/lib/jenkins/secrets/initialAdminPassword) list-jobs")
             jobs = [x.strip() for x in out.splitlines()]
             assert jobs == [], f"jobs != []: {jobs}"
-      '' ;
+      ''
+      ;
   })

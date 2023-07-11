@@ -17,7 +17,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/closure-common/2018-10-18/closure-common-20181018-git.tgz";
+      "http://beta.quicklisp.org/archive/closure-common/2018-10-18/closure-common-20181018-git.tgz"
+      ;
     sha256 = "18bp7jnxma9hscp09fa723ws9nnynjil935rp8dy9hp6ypghpxpn";
   };
 

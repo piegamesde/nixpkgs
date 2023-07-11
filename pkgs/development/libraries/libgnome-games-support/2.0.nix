@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Small library intended for internal use by GNOME Games, but it may be used by others";
+      "Small library intended for internal use by GNOME Games, but it may be used by others"
+      ;
     homepage = "https://wiki.gnome.org/Apps/Games";
     license = licenses.lgpl3Plus;
     maintainers = teams.gnome.members;

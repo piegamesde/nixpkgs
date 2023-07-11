@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
     name = "cagebreak";
     meta = with pkgs.lib.maintainers; { maintainers = [ berbiche ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         ...
       }:
@@ -43,13 +44,15 @@ import ./make-test-python.nix ({
           pkgs.wayland-utils
         ];
 
-        # Need to switch to a different GPU driver than the default one (-vga std) so that Cagebreak can launch:
+          # Need to switch to a different GPU driver than the default one (-vga std) so that Cagebreak can launch:
         virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
-      } ;
+      }
+      ;
 
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -72,5 +75,6 @@ import ./make-test-python.nix ({
         #     machine.wait_for_text("${user.name}@machine")
         #     machine.screenshot("screen")
         #     machine.send_key("ctrl-d")
-      '' ;
+      ''
+      ;
   } )

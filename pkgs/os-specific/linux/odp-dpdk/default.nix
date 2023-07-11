@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.linaro.org/lng/odp-dpdk.git/snapshot/${pname}-${version}.tar.gz";
+      "https://git.linaro.org/lng/odp-dpdk.git/snapshot/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-Ai6+6eZJeG0BrwNboBPfgDGkUbCC8lcj7+oxmWjWP2k=";
   };
 
@@ -62,7 +63,7 @@ stdenv.mkDerivation rec {
     "-Wno-error=uninitialized"
   ];
 
-  # binaries will segfault otherwise
+    # binaries will segfault otherwise
   dontStrip = true;
 
   enableParallelBuilding = true;

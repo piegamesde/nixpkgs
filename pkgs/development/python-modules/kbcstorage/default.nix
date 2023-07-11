@@ -43,8 +43,8 @@ buildPythonPackage rec {
     requests
   ];
 
-  # Requires API token and an active Keboola bucket
-  # ValueError: Root URL is required.
+    # Requires API token and an active Keboola bucket
+    # ValueError: Root URL is required.
   doCheck = false;
 
   nativeCheckInputs = [

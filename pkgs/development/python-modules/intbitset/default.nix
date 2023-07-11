@@ -26,7 +26,8 @@ buildPythonPackage rec {
     description = "C-based extension implementing fast integer bit sets";
     homepage = "https://github.com/inveniosoftware/intbitset";
     changelog =
-      "https://github.com/inveniosoftware-contrib/intbitset/blob/v${version}/CHANGELOG.rst";
+      "https://github.com/inveniosoftware-contrib/intbitset/blob/v${version}/CHANGELOG.rst"
+      ;
     license = licenses.lgpl3Plus;
     maintainers = [ ];
   };

@@ -27,7 +27,8 @@ in {
       type = types.lines;
       default = "";
       description = lib.mdDoc
-        "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details.";
+        "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details."
+        ;
       example = ''
         vendor = ASRock
         model = B450M Pro4
@@ -41,13 +42,14 @@ in {
       '';
     };
 
-    # TODO, accept `rasdaemon.labels = " ";` or `rasdaemon.labels = { dell = " "; asrock = " "; };'
+      # TODO, accept `rasdaemon.labels = " ";` or `rasdaemon.labels = { dell = " "; asrock = " "; };'
 
     labels = mkOption {
       type = types.lines;
       default = "";
       description = lib.mdDoc
-        "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels";
+        "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels"
+        ;
       example = ''
         # vendor and model may be shown by 'ras-mc-ctl --mainboard'
         vendor: ASRock
@@ -93,7 +95,7 @@ in {
         enable = cfg.mainboard != "";
         text = cfg.mainboard;
       };
-      # TODO, handle multiple cfg.labels.brand = " ";
+        # TODO, handle multiple cfg.labels.brand = " ";
       "ras/dimm_labels.d/labels" = {
         enable = cfg.labels != "";
         text = cfg.labels;
@@ -133,11 +135,11 @@ in {
       '';
     } ];
 
-    # i tried to set up a group for this
-    # but rasdaemon needs higher permissions?
-    # `rasdaemon: Can't locate a mounted debugfs`
+      # i tried to set up a group for this
+      # but rasdaemon needs higher permissions?
+      # `rasdaemon: Can't locate a mounted debugfs`
 
-    # most of this taken from src/misc/
+      # most of this taken from src/misc/
     systemd.services = {
       rasdaemon = {
         description = "the RAS logging daemon";
@@ -152,10 +154,10 @@ in {
           ExecStop = "${pkgs.rasdaemon}/bin/rasdaemon --disable";
           Restart = "on-abort";
 
-          # src/misc/rasdaemon.service.in shows this:
-          # ExecStartPost = ${pkgs.rasdaemon}/bin/rasdaemon --enable
-          # but that results in unpredictable existence of the database
-          # and everything seems to be enabled without this...
+            # src/misc/rasdaemon.service.in shows this:
+            # ExecStartPost = ${pkgs.rasdaemon}/bin/rasdaemon --enable
+            # but that results in unpredictable existence of the database
+            # and everything seems to be enabled without this...
         };
       };
       ras-mc-ctl = mkIf (cfg.labels != "") {

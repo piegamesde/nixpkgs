@@ -4,7 +4,8 @@ let
     PublicKey =
       "3e91ec9e861960d86e1ce88051f97c435bdf2859640ab681dfa906eb45ad5182";
     PrivateKey =
-      "a867f9e078e4ce58d310cf5acd4622d759e2a21df07e1d6fc380a2a26489480d3e91ec9e861960d86e1ce88051f97c435bdf2859640ab681dfa906eb45ad5182";
+      "a867f9e078e4ce58d310cf5acd4622d759e2a21df07e1d6fc380a2a26489480d3e91ec9e861960d86e1ce88051f97c435bdf2859640ab681dfa906eb45ad5182"
+      ;
   };
   bobIp6 = "202:a483:73a4:9f2d:a559:4a19:bc9:8458";
   bobPrefix = "302:a483:73a4:9f2d";
@@ -20,7 +21,8 @@ let
     PublicKey =
       "2b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
     PrivateKey =
-      "0c4a24acd3402722ce9277ed179f4a04b895b49586493c25fbaed60653d857d62b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
+      "0c4a24acd3402722ce9277ed179f4a04b895b49586493c25fbaed60653d857d62b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186"
+      ;
   };
   danIp6 = bobPrefix + "::2";
 
@@ -36,7 +38,8 @@ import ./make-test-python.nix ({
       # Alice is listening for peerings on a specified port,
       # but has multicast peering disabled.  Alice has part of her
       # yggdrasil config in Nix and part of it in a file.
-      alice = {
+      alice =
+        {
           ...
         }: {
           networking = {
@@ -63,11 +66,13 @@ import ./make-test-python.nix ({
               text = builtins.toJSON aliceKeys;
             });
           };
-        };
+        }
+        ;
 
-      # Bob is set up to peer with Alice, and also to do local multicast
-      # peering.  Bob's yggdrasil config is in a file.
-      bob = {
+        # Bob is set up to peer with Alice, and also to do local multicast
+        # peering.  Bob's yggdrasil config is in a file.
+      bob =
+        {
           ...
         }: {
           networking.firewall.allowedTCPPorts = [ 54321 ];
@@ -92,12 +97,13 @@ import ./make-test-python.nix ({
             };
           };
 
-          # dan is a node inside a container running on bob's host.
+            # dan is a node inside a container running on bob's host.
           containers.dan = {
             autoStart = true;
             privateNetwork = true;
             hostBridge = "br0";
-            config = {
+            config =
+              {
                 config,
                 pkgs,
                 ...
@@ -116,12 +122,15 @@ import ./make-test-python.nix ({
                 services.httpd.enable = true;
                 services.httpd.adminAddr = "foo@example.org";
                 networking.firewall.allowedTCPPorts = [ 80 ];
-              };
+              }
+              ;
           };
-        };
+        }
+        ;
 
-      # Carol only does local peering.  Carol's yggdrasil config is all Nix.
-      carol = {
+        # Carol only does local peering.  Carol's yggdrasil config is all Nix.
+      carol =
+        {
           ...
         }: {
           networking.firewall.allowedTCPPorts = [ 43210 ];
@@ -136,7 +145,8 @@ import ./make-test-python.nix ({
             };
             persistentKeys = true;
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

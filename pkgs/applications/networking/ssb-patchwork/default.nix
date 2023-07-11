@@ -13,7 +13,8 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/ssbc/patchwork/releases/download/v${version}/${name}.AppImage";
+      "https://github.com/ssbc/patchwork/releases/download/v${version}/${name}.AppImage"
+      ;
     sha256 = "F8n6LLbgkg3z55lSY60T+pn2lra8aPt6Ztepw1gf2rI=";
   };
 
@@ -21,7 +22,7 @@ let
     name = pname;
     inherit src;
   };
-  # we only use this to extract the icon
+    # we only use this to extract the icon
   appimage-contents = appimageTools.extractType2 { inherit name src; };
 
   desktopItem = makeDesktopItem {
@@ -47,7 +48,8 @@ symlinkJoin {
 
   meta = with lib; {
     description =
-      "A decentralized messaging and sharing app built on top of Secure Scuttlebutt (SSB)";
+      "A decentralized messaging and sharing app built on top of Secure Scuttlebutt (SSB)"
+      ;
     longDescription = ''
       sea-slang for gossip - a scuttlebutt is basically a watercooler on a ship.
     '';

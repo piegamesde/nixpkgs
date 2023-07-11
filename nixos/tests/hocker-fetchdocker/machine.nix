@@ -2,9 +2,11 @@
   pkgs,
   ...
 }: {
-  nixpkgs.config.packageOverrides = pkgs': {
-    hello-world-container = pkgs'.callPackage ./hello-world-container.nix { };
-  };
+  nixpkgs.config.packageOverrides =
+    pkgs': {
+      hello-world-container = pkgs'.callPackage ./hello-world-container.nix { };
+    }
+    ;
 
   virtualisation.docker = {
     enable = true;

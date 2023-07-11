@@ -19,18 +19,21 @@ buildGoModule rec {
     hash = "sha256-Uhnh6GC85ORKnfHeYNtbSA40osuscxXDF5/kXJrF2Cs=";
   };
 
-  preBuild = let
-    olaris-react = fetchzip {
-      url =
-        "https://gitlab.com/api/v4/projects/olaris%2Folaris-react/jobs/artifacts/v${version}/download?job=build";
-      extension = "zip";
-      hash = "sha256-MkxBf/mGvtiOu0e79bMpd9Z/D0eOxhzPE+bKic//viM=";
-    };
-  in ''
-    # cannot build olaris-react https://github.com/NixOS/nixpkgs/issues/203708
-    cp -r ${olaris-react} react/build
-    make generate
-  '' ;
+  preBuild =
+    let
+      olaris-react = fetchzip {
+        url =
+          "https://gitlab.com/api/v4/projects/olaris%2Folaris-react/jobs/artifacts/v${version}/download?job=build"
+          ;
+        extension = "zip";
+        hash = "sha256-MkxBf/mGvtiOu0e79bMpd9Z/D0eOxhzPE+bKic//viM=";
+      };
+    in ''
+      # cannot build olaris-react https://github.com/NixOS/nixpkgs/issues/203708
+      cp -r ${olaris-react} react/build
+      make generate
+    ''
+    ;
 
   ldflags = [
     "-s"
@@ -45,7 +48,7 @@ buildGoModule rec {
     makeWrapper
   ];
 
-  # integration tests require network access
+    # integration tests require network access
   doCheck = false;
 
   postInstall = ''

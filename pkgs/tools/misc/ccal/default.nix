@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     "install-man"
   ];
 
-  # ccalpdf depends on a `ps2pdf` binary in PATH
+    # ccalpdf depends on a `ps2pdf` binary in PATH
   postFixup = ''
     wrapProgram $out/bin/ccalpdf \
       --prefix PATH : ${lib.makeBinPath [ ghostscript_headless ]}:$out/bin

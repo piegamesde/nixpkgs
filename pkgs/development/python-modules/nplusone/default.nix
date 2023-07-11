@@ -43,9 +43,9 @@ buildPythonPackage rec {
     webtest
   ];
 
-  # The tests assume the source code is in an nplusone/ directory. When using
-  # the Nix sandbox, it will be in a source/ directory instead, making the
-  # tests fail.
+    # The tests assume the source code is in an nplusone/ directory. When using
+    # the Nix sandbox, it will be in a source/ directory instead, making the
+    # tests fail.
   prePatch = ''
     substituteInPlace tests/conftest.py \
       --replace nplusone/tests/conftest source/tests/conftest

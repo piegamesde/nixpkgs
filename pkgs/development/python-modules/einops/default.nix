@@ -46,7 +46,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # No CUDA in sandbox
+    # No CUDA in sandbox
   EINOPS_SKIP_CUPY = 1;
 
   preCheck = ''

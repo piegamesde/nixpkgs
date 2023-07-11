@@ -60,7 +60,8 @@ in {
         type = types.nullOr types.path;
         default = null;
         description = lib.mdDoc
-          "Defines the path to a custom configuration file that is copied to the user's directory. Overrides any config options.";
+          "Defines the path to a custom configuration file that is copied to the user's directory. Overrides any config options."
+          ;
       };
 
       network = mkOption {
@@ -111,7 +112,8 @@ in {
           type = types.str;
           default = "password";
           description = lib.mdDoc
-            "RPC password for the bitcoin endpoint. Warning: this is stored in cleartext in the Nix store! Use `configFile` or `passwordFile` if needed.";
+            "RPC password for the bitcoin endpoint. Warning: this is stored in cleartext in the Nix store! Use `configFile` or `passwordFile` if needed."
+            ;
         };
 
         passwordFile = mkOption {
@@ -141,8 +143,8 @@ in {
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules =
-      [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ]
+      ;
 
     systemd.services.wasabibackend = {
       description = "wasabibackend server";

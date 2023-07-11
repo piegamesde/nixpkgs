@@ -17,47 +17,48 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+TJ137DmgaFZX+/N6VwXJwfVCoTWtC8NqfXfYJC8UHo=";
   };
 
-  buildCommand = let
-    # compile few variants with different implementation of crypto
-    # the fastest depends on a particular cpu
-    variants = [
-      {
-        suffix = "ref10";
-        configureFlags = [ "--enable-ref10" ];
-      }
-      {
-        suffix = "donna";
-        configureFlags = [ "--enable-donna" ];
-      }
-    ] ++ lib.optionals stdenv.hostPlatform.isx86 [ {
-      suffix = "donna-sse2";
-      configureFlags = [ "--enable-donna-sse2" ];
-    } ] ++ lib.optionals (!stdenv.isDarwin && stdenv.isx86_64) [
-      {
-        suffix = "amd64-51-30k";
-        configureFlags = [ "--enable-amd64-51-30k" ];
-      }
-      {
-        suffix = "amd64-64-24k";
-        configureFlags = [ "--enable-amd64-64-24k" ];
-      }
-    ];
-  in
-  lib.concatMapStrings ({
-      suffix,
-      configureFlags,
-    }: ''
-      install -D ${
-        stdenv.mkDerivation {
-          name = "mkp224o-${suffix}-${version}";
-          inherit version src configureFlags;
-          nativeBuildInputs = [ autoreconfHook ];
-          buildInputs = [ libsodium ];
-          installPhase = "install -D mkp224o $out";
+  buildCommand =
+    let
+      # compile few variants with different implementation of crypto
+      # the fastest depends on a particular cpu
+      variants = [
+        {
+          suffix = "ref10";
+          configureFlags = [ "--enable-ref10" ];
         }
-      } $out/bin/mkp224o-${suffix}
-    '') variants
-  ;
+        {
+          suffix = "donna";
+          configureFlags = [ "--enable-donna" ];
+        }
+      ] ++ lib.optionals stdenv.hostPlatform.isx86 [ {
+        suffix = "donna-sse2";
+        configureFlags = [ "--enable-donna-sse2" ];
+      } ] ++ lib.optionals (!stdenv.isDarwin && stdenv.isx86_64) [
+        {
+          suffix = "amd64-51-30k";
+          configureFlags = [ "--enable-amd64-51-30k" ];
+        }
+        {
+          suffix = "amd64-64-24k";
+          configureFlags = [ "--enable-amd64-64-24k" ];
+        }
+      ];
+    in
+    lib.concatMapStrings ({
+        suffix,
+        configureFlags,
+      }: ''
+        install -D ${
+          stdenv.mkDerivation {
+            name = "mkp224o-${suffix}-${version}";
+            inherit version src configureFlags;
+            nativeBuildInputs = [ autoreconfHook ];
+            buildInputs = [ libsodium ];
+            installPhase = "install -D mkp224o $out";
+          }
+        } $out/bin/mkp224o-${suffix}
+      '') variants
+    ;
 
   meta = with lib; {
     description =

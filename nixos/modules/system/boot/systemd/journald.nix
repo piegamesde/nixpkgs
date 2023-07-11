@@ -77,8 +77,8 @@ in {
     };
 
     services.journald.forwardToSyslog = mkOption {
-      default = config.services.rsyslogd.enable
-        || config.services.syslog-ng.enable;
+      default =
+        config.services.rsyslogd.enable || config.services.syslog-ng.enable;
       defaultText = literalExpression
         "services.rsyslogd.enable || services.syslog-ng.enable";
       type = types.bool;
@@ -134,11 +134,11 @@ in {
       optional cfg.enableHttpGateway "sockets.target";
 
     systemd.services.systemd-journal-flush.restartIfChanged = false;
-    systemd.services.systemd-journald.restartTriggers =
-      [ config.environment.etc."systemd/journald.conf".source ];
+    systemd.services.systemd-journald.restartTriggers = [ config.environment.etc."systemd/journald.conf".source ]
+      ;
     systemd.services.systemd-journald.stopIfChanged = false;
-    systemd.services."systemd-journald@".restartTriggers =
-      [ config.environment.etc."systemd/journald.conf".source ];
+    systemd.services."systemd-journald@".restartTriggers = [ config.environment.etc."systemd/journald.conf".source ]
+      ;
     systemd.services."systemd-journald@".stopIfChanged = false;
   };
 }

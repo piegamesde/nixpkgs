@@ -45,7 +45,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "PugJS syntax template adapter for Django, Jinja2, Mako and Tornado templates";
+      "PugJS syntax template adapter for Django, Jinja2, Mako and Tornado templates"
+      ;
     homepage = "https://github.com/kakulukia/pypugjs";
     license = licenses.mit;
     maintainers = with maintainers; [ lopsided98 ];

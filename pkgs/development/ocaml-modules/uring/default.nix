@@ -18,7 +18,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml-multicore/ocaml-uring/releases/download/v${version}/${pname}-${version}.tbz";
+      "https://github.com/ocaml-multicore/ocaml-uring/releases/download/v${version}/${pname}-${version}.tbz"
+      ;
     sha256 = "106w7mabqihdhj4csk9jfqag220rwhqdp5lapn0xmw2035scvxvk";
   };
 
@@ -41,7 +42,8 @@ buildDunePackage rec {
   meta = {
     homepage = "https://github.com/ocaml-multicore/ocaml-${pname}";
     changelog =
-      "https://github.com/ocaml-multicore/ocaml-${pname}/raw/v${version}/CHANGES.md";
+      "https://github.com/ocaml-multicore/ocaml-${pname}/raw/v${version}/CHANGES.md"
+      ;
     description = "Bindings to io_uring for OCaml";
     license = with lib.licenses; [
       isc

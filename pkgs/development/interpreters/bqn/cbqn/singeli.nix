@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation {
   };
 
   dontConfigure = true;
-  # The CBQN derivation will build Singeli, here we just provide the source files.
+    # The CBQN derivation will build Singeli, here we just provide the source files.
   dontBuild = true;
 
   installPhase = ''

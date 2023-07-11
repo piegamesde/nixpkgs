@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "systemd-initrd-simple";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -14,7 +15,8 @@ import ./make-test-python.nix ({
           emergencyAccess = true;
         };
         virtualisation.fileSystems."/".autoResize = true;
-      };
+      }
+      ;
 
     testScript = ''
       import subprocess

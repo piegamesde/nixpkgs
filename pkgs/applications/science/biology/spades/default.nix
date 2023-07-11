@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "St. Petersburg genome assembler: assembly toolkit containing various assembly pipelines";
+      "St. Petersburg genome assembler: assembly toolkit containing various assembly pipelines"
+      ;
     license = licenses.gpl2Only;
     homepage = "http://cab.spbu.ru/software/spades/";
     platforms = [

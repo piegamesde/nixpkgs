@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ git ];
 
-  # don't use vendored libgit2
+    # don't use vendored libgit2
   buildNoDefaultFeatures = true;
 
   checkFlags = [

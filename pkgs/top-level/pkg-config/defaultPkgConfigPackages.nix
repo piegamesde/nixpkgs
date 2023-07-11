@@ -19,10 +19,12 @@ let
 
   platform = pkgs.stdenv.hostPlatform;
 
-  isSupported = moduleData:
+  isSupported =
+    moduleData:
     moduleData ? supportedWhenPlatformAttrsEqual -> all (x: x)
     (mapAttrsToList (k: v: platform ? ${k} && platform.${k} == v)
-      moduleData.supportedWhenPlatformAttrsEqual);
+      moduleData.supportedWhenPlatformAttrsEqual)
+    ;
 
   modulePkgs = flip mapAttrs modules (_moduleName: moduleData:
     if moduleData ? attrPath && isSupported moduleData then

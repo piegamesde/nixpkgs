@@ -68,7 +68,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "websocket-client>=1.0.1" "websocket-client"
   '';
 
-  # Most tests require credentials to run on IBMQ
+    # Most tests require credentials to run on IBMQ
   nativeCheckInputs = [
     pytestCheckHook
     nbconvert
@@ -92,15 +92,16 @@ buildPythonPackage rec {
     "test_invalid_url"
   ];
 
-  # Skip tests that rely on internet access (mostly to IBM Quantum Experience cloud).
-  # Options defined in qiskit.terra.test.testing_options.py::get_test_options
+    # Skip tests that rely on internet access (mostly to IBM Quantum Experience cloud).
+    # Options defined in qiskit.terra.test.testing_options.py::get_test_options
   preCheck = ''
     export QISKIT_TESTS=skip_online
   '';
 
   meta = with lib; {
     description =
-      "Qiskit provider for accessing the quantum devices and simulators at IBMQ";
+      "Qiskit provider for accessing the quantum devices and simulators at IBMQ"
+      ;
     homepage = "https://github.com/Qiskit/qiskit-ibmq-provider";
     changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;

@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-yzotLu6VDqy6rAZzq1BJmCM2XOuMZVursVRKQURkCew=";
   };
 
-  # Module doesn't have tests
+    # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "freezegun-stubs" ];

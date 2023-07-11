@@ -22,14 +22,16 @@ buildGoModule rec {
     # Switch hash calculation method
     (fetchpatch {
       url =
-        "https://github.com/helsinki-systems/nc4nix/commit/88c182fbdddef148e086fa86438dcd72208efd75.patch";
+        "https://github.com/helsinki-systems/nc4nix/commit/88c182fbdddef148e086fa86438dcd72208efd75.patch"
+        ;
       sha256 = "sha256-zAF0+t9wHrKhhyD0+/d58BiaavLHfxO8X5J6vNlEWx0=";
       name = "switch_hash_calculation_method.patch";
     })
     # Add package selection command line argument
     (fetchpatch {
       url =
-        "https://github.com/helsinki-systems/nc4nix/pull/2/commits/449eec89538df4e92106d06046831202eb84a1db.patch";
+        "https://github.com/helsinki-systems/nc4nix/pull/2/commits/449eec89538df4e92106d06046831202eb84a1db.patch"
+        ;
       sha256 = "sha256-qAAbR1G748+2vwwfAhpe8luVEIKNGifqXqTV9QqaUFc=";
       name = "add_package_selection_command_line_arg.patch";
     })

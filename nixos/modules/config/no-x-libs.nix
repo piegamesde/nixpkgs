@@ -36,7 +36,7 @@ with lib;
       dbus = super.dbus.override { x11Support = false; };
       ffmpeg_4 = super.ffmpeg_4.override { ffmpegVariant = "headless"; };
       ffmpeg_5 = super.ffmpeg_5.override { ffmpegVariant = "headless"; };
-      # dep of graphviz, libXpm is optional for Xpm support
+        # dep of graphviz, libXpm is optional for Xpm support
       gd = super.gd.override { withXorg = false; };
       gobject-introspection =
         super.gobject-introspection.override { x11Support = false; };
@@ -97,7 +97,7 @@ with lib;
       qt5 = super.qt5.overrideScope (const
         (super': { qtbase = super'.qtbase.override { withGtk3 = false; }; }));
       stoken = super.stoken.override { withGTK3 = false; };
-      # translateManpages -> perlPackages.po4a -> texlive-combined-basic -> texlive-core-big -> libX11
+        # translateManpages -> perlPackages.po4a -> texlive-combined-basic -> texlive-core-big -> libX11
       util-linux = super.util-linux.override { translateManpages = false; };
       vim-full = super.vim-full.override { guiSupport = false; };
       zbar = super.zbar.override {

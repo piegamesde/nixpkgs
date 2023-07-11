@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Arc icon theme";
     homepage = "https://github.com/horst3180/arc-icon-theme";
     license = licenses.gpl3;
-    # moka-icon-theme dependency is restricted to linux
+      # moka-icon-theme dependency is restricted to linux
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];
   };

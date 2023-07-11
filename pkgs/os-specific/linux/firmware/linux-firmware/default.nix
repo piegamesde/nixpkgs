@@ -13,13 +13,14 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${version}.tar.gz";
+      "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${version}.tar.gz"
+      ;
     hash = source.sourceHash;
   };
 
   installFlags = [ "DESTDIR=$(out)" ];
 
-  # Firmware blobs do not need fixing and should not be modified
+    # Firmware blobs do not need fixing and should not be modified
   dontFixup = true;
 
   outputHashMode = "recursive";
@@ -29,7 +30,8 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Binary firmware collection packaged by kernel.org";
     homepage =
-      "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
+      "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git"
+      ;
     license = licenses.unfreeRedistributableFirmware;
     platforms = platforms.linux;
     maintainers = with maintainers; [ fpletz ];

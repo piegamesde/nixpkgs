@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "mock-open";
   version = "1.4.0";
 
-  # no tests in PyPI tarball
+    # no tests in PyPI tarball
   src = fetchFromGitHub {
     owner = "nivbend";
     repo = pname;
@@ -22,7 +22,8 @@ buildPythonPackage rec {
   patches = lib.optional (pythonOlder "3.0") (fetchpatch {
     name = "ascii-only.patch";
     url =
-      "https://github.com/das-g/mock-open/commit/521ff260da127949fe4aceff1667cba223c5b07b.patch";
+      "https://github.com/das-g/mock-open/commit/521ff260da127949fe4aceff1667cba223c5b07b.patch"
+      ;
     sha256 = "0ampbhk7kwkn0q5d2h9wrflkr8fji2bybmdck4qdzw1qkslfwwrn";
   });
 

@@ -19,9 +19,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-inJZTP4YwCZZ0JvSdGWnZbLN0A0B/+fz4g0XsfIQeq8=";
 
-  # include_hidden test tries to use `chflags` on darwin
+    # include_hidden test tries to use `chflags` on darwin
   checkFlagsArray = lib.optionals
-    stdenv.isDarwin [ "--skip=subcommand::torrent::create::tests::include_hidden" ];
+    stdenv.isDarwin [ "--skip=subcommand::torrent::create::tests::include_hidden" ]
+    ;
 
   nativeBuildInputs = [ installShellFiles ];
 

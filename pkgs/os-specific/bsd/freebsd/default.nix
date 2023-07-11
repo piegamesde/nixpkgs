@@ -33,8 +33,8 @@ let
 
   version = "13.1.0";
 
-  # `BuildPackages.fetchgit` avoids some probably splicing-caused infinite
-  # recursion.
+    # `BuildPackages.fetchgit` avoids some probably splicing-caused infinite
+    # recursion.
   freebsdSrc = buildPackages.fetchgit {
     url = "https://git.FreeBSD.org/src.git";
     rev = "release/${version}";
@@ -44,14 +44,16 @@ let
   freebsdSetupHook =
     makeSetupHook { name = "freebsd-setup-hook"; } ./setup-hook.sh;
 
-  mkBsdArch = stdenv':
+  mkBsdArch =
+    stdenv':
     {
       x86_64 = "amd64";
       aarch64 = "arm64";
       i486 = "i386";
       i586 = "i386";
       i686 = "i386";
-    }.${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
+    }.${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name
+    ;
 
   install-wrapper = ''
     set -eu
@@ -96,22 +98,25 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
 
     ports = fetchzip {
       url =
-        "https://cgit.freebsd.org/ports/snapshot/ports-dde3b2b456c3a4bdd217d0bf3684231cc3724a0a.tar.gz";
+        "https://cgit.freebsd.org/ports/snapshot/ports-dde3b2b456c3a4bdd217d0bf3684231cc3724a0a.tar.gz"
+        ;
       sha256 = "BpHqJfnGOeTE7tkFJBx0Wk8ryalmf4KNTit/Coh026E=";
     };
 
-    # Why do we have splicing and yet do `nativeBuildInputs = with self; ...`?
-    # See note in ../netbsd/default.nix.
+      # Why do we have splicing and yet do `nativeBuildInputs = with self; ...`?
+      # See note in ../netbsd/default.nix.
 
     compatIfNeeded =
       lib.optional (!stdenvNoCC.hostPlatform.isFreeBSD) self.compat;
 
     mkDerivation = lib.makeOverridable (attrs:
       let
-        stdenv' = if attrs.noCC or false then
-          stdenvNoCC
-        else
-          stdenv;
+        stdenv' =
+          if attrs.noCC or false then
+            stdenvNoCC
+          else
+            stdenv
+          ;
       in
       stdenv'.mkDerivation (rec {
         pname = "${attrs.pname or (baseNameOf attrs.path)}-freebsd";
@@ -148,13 +153,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
 
         HOST_SH = stdenv'.shell;
 
-        # Since STRIP below is the flag
+          # Since STRIP below is the flag
         STRIPBIN = "${stdenv.cc.bintools.targetPrefix}strip";
 
         makeFlags = [ "STRIP=-s" # flag to install, not command
           ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no";
 
-        # amd64 not x86_64 for this on unlike NetBSD
+          # amd64 not x86_64 for this on unlike NetBSD
         MACHINE_ARCH = mkBsdArch stdenv';
 
         MACHINE = mkBsdArch stdenv';
@@ -185,9 +190,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         } // attrs)
     );
 
-    ##
-    ## START BOOTSTRAPPING
-    ##
+      ##
+      ## START BOOTSTRAPPING
+      ##
     makeMinimal = mkDerivation rec {
       inherit (self.make) path;
 
@@ -246,7 +251,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       extraPaths = with self; make.extraPaths;
     };
 
-    # Wrap NetBSD's install
+      # Wrap NetBSD's install
     boot-install = buildPackages.writeShellScriptBin "boot-install"
       (install-wrapper + ''
 
@@ -346,7 +351,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         ./compat-setup-hook.sh
       ];
 
-      # This one has an ifdefed `#include_next` that makes it annoying.
+        # This one has an ifdefed `#include_next` that makes it annoying.
       postInstall = ''
         rm ''${!outputDev}/0-include/libelf.h
       '';
@@ -406,53 +411,54 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       buildInputs = with self; compatIfNeeded;
     };
 
-    # HACK: to ensure parent directories exist. This emulates GNU
-    # install’s -D option. No alternative seems to exist in BSD install.
-    install = let
-      binstall = writeShellScript "binstall" (install-wrapper + ''
+      # HACK: to ensure parent directories exist. This emulates GNU
+      # install’s -D option. No alternative seems to exist in BSD install.
+    install =
+      let
+        binstall = writeShellScript "binstall" (install-wrapper + ''
 
-        @out@/bin/xinstall "''${args[@]}"
-      '');
-    in
-    mkDerivation {
-      path = "usr.bin/xinstall";
-      extraPaths = with self; [ mtree.path ];
-      nativeBuildInputs = with buildPackages.freebsd; [
-        bsdSetupHook
-        freebsdSetupHook
-        makeMinimal
-        mandoc
-        groff
-        (if stdenv.hostPlatform == stdenv.buildPlatform then
-          boot-install
-        else
-          install)
-      ];
-      skipIncludesPhase = true;
-      buildInputs = with self;
-        compatIfNeeded ++ [
-          libmd
-          libnetbsd
+          @out@/bin/xinstall "''${args[@]}"
+        '');
+      in
+      mkDerivation {
+        path = "usr.bin/xinstall";
+        extraPaths = with self; [ mtree.path ];
+        nativeBuildInputs = with buildPackages.freebsd; [
+          bsdSetupHook
+          freebsdSetupHook
+          makeMinimal
+          mandoc
+          groff
+          (if stdenv.hostPlatform == stdenv.buildPlatform then
+            boot-install
+          else
+            install)
         ];
-      makeFlags = [
-        "STRIP=-s" # flag to install, not command
-        "MK_WERROR=no"
-        "TESTSDIR=${builtins.placeholder "test"}"
-      ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-        "INSTALL=boot-install";
-      postInstall = ''
-        install -D -m 0550 ${binstall} $out/bin/binstall
-        substituteInPlace $out/bin/binstall --subst-var out
-        mv $out/bin/install $out/bin/xinstall
-        ln -s ./binstall $out/bin/install
-      '';
-      outputs = [
-        "out"
-        "man"
-        "test"
-      ];
-    }
-    ;
+        skipIncludesPhase = true;
+        buildInputs = with self;
+          compatIfNeeded ++ [
+            libmd
+            libnetbsd
+          ];
+        makeFlags = [
+          "STRIP=-s" # flag to install, not command
+          "MK_WERROR=no"
+          "TESTSDIR=${builtins.placeholder "test"}"
+        ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+          "INSTALL=boot-install";
+        postInstall = ''
+          install -D -m 0550 ${binstall} $out/bin/binstall
+          substituteInPlace $out/bin/binstall --subst-var out
+          mv $out/bin/install $out/bin/xinstall
+          ln -s ./binstall $out/bin/install
+        '';
+        outputs = [
+          "out"
+          "man"
+          "test"
+        ];
+      }
+      ;
 
     sed = mkDerivation {
       path = "usr.bin/sed";
@@ -460,7 +466,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       MK_TESTS = "no";
     };
 
-    # Don't add this to nativeBuildInputs directly.  Use statHook instead.
+      # Don't add this to nativeBuildInputs directly.  Use statHook instead.
     stat = mkDerivation {
       path = "usr.bin/stat";
       nativeBuildInputs = with buildPackages.freebsd; [
@@ -473,11 +479,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       ];
     };
 
-    # stat isn't in POSIX, and NetBSD stat supports a completely
-    # different range of flags than GNU stat, so including it in PATH
-    # breaks stdenv.  Work around that with a hook that will point
-    # NetBSD's build system and NetBSD stat without including it in
-    # PATH.
+      # stat isn't in POSIX, and NetBSD stat supports a completely
+      # different range of flags than GNU stat, so including it in PATH
+      # breaks stdenv.  Work around that with a hook that will point
+      # NetBSD's build system and NetBSD stat without including it in
+      # PATH.
     statHook = makeSetupHook { name = "netbsd-stat-hook"; }
       (writeText "netbsd-stat-hook-impl" ''
         makeFlagsArray+=(TOOL_STAT=${self.stat}/bin/stat)
@@ -516,13 +522,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       ];
     };
 
-    ##
-    ## END BOOTSTRAPPING
-    ##
+      ##
+      ## END BOOTSTRAPPING
+      ##
 
-    ##
-    ## START COMMAND LINE TOOLS
-    ##
+      ##
+      ## START COMMAND LINE TOOLS
+      ##
     make = mkDerivation {
       path = "contrib/bmake";
       version = "9.2";
@@ -662,13 +668,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
           libsbuf
         ];
     };
-    ##
-    ## END COMMAND LINE TOOLS
-    ##
+      ##
+      ## END COMMAND LINE TOOLS
+      ##
 
-    ##
-    ## START HEADERS
-    ##
+      ##
+      ## START HEADERS
+      ##
     include = mkDerivation {
       path = "include";
 
@@ -694,9 +700,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
 
       patches = [ ./no-perms-BSD.include.dist.patch ];
 
-      # The makefiles define INCSDIR per subdirectory, so we have to set
-      # something else on the command line so those definitions aren't
-      # overridden.
+        # The makefiles define INCSDIR per subdirectory, so we have to set
+        # something else on the command line so those definitions aren't
+        # overridden.
       postPatch = ''
         find "$BSDSRCDIR" -name Makefile -exec \
           sed -i -E \
@@ -706,7 +712,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
 
       makeFlags = [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ];
 
-      # multiple header dirs, see above
+        # multiple header dirs, see above
       postConfigure = ''
         makeFlags=''${makeFlags/INCSDIR/INCSDIR0}
       '';
@@ -718,9 +724,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       meta.platforms = lib.platforms.freebsd;
     };
 
-    ##
-    ## END HEADERS
-    ##
+      ##
+      ## END HEADERS
+      ##
 
     csu = mkDerivation {
       path = "lib/csu";
@@ -876,9 +882,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       meta.platforms = lib.platforms.freebsd;
     };
 
-    ##
-    ## Kernel
-    ##
+      ##
+      ## Kernel
+      ##
 
     libspl = mkDerivation {
       path = "cddl/lib/libspl";
@@ -890,13 +896,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         "sys/contrib/openzfs/module/icp/include"
         "sys/modules/zfs"
       ];
-      # nativeBuildInputs = with buildPackages.freebsd; [
-      #   bsdSetupHook freebsdSetupHook
-      #   makeMinimal install mandoc groff
+        # nativeBuildInputs = with buildPackages.freebsd; [
+        #   bsdSetupHook freebsdSetupHook
+        #   makeMinimal install mandoc groff
 
-      #   flex byacc file2c
-      # ];
-      # buildInputs = with self; compatIfNeeded ++ [ libnv libsbuf ];
+        #   flex byacc file2c
+        # ];
+        # buildInputs = with self; compatIfNeeded ++ [ libnv libsbuf ];
       meta.license = lib.licenses.cddl;
     };
 
@@ -966,7 +972,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         ./sys-no-explicit-intrinsics-dep.patch
       ];
 
-      # --dynamic-linker /red/herring is used when building the kernel.
+        # --dynamic-linker /red/herring is used when building the kernel.
       NIX_ENFORCE_PURITY = 0;
 
       AWK = "${buildPackages.gawk}/bin/awk";

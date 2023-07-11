@@ -81,12 +81,12 @@ in rec {
       fetchSubmodules = true;
     };
 
-    # Patches:
-    # irods_root_path.patch : the root path is obtained by stripping 3 items of the path,
-    #                         but we don't use /usr with nix, so remove only 2 items.
+      # Patches:
+      # irods_root_path.patch : the root path is obtained by stripping 3 items of the path,
+      #                         but we don't use /usr with nix, so remove only 2 items.
     patches = [ ./irods_root_path.patch ];
 
-    # fix build with recent llvm versions
+      # fix build with recent llvm versions
     env.NIX_CFLAGS_COMPILE =
       "-Wno-deprecated-register -Wno-deprecated-declarations";
 
@@ -117,7 +117,7 @@ in rec {
     };
   });
 
-  # icommands (CLI) package, depends on the irods package
+    # icommands (CLI) package, depends on the irods package
   irods-icommands = stdenv.mkDerivation (common // rec {
     version = "4.2.11";
     pname = "irods-icommands";

@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  # Circular dependency elastic-apm
+    # Circular dependency elastic-apm
   doCheck = false;
 
   pythonImportsCheck = [ "ecs_logging" ];

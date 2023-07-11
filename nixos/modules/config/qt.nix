@@ -23,30 +23,32 @@ let
   isLxqt = cfg.platformTheme == "lxqt";
   isKde = cfg.platformTheme == "kde";
 
-  packages = if isQGnome then
-    [
-      pkgs.qgnomeplatform
-      pkgs.adwaita-qt
-      pkgs.qgnomeplatform-qt6
-      pkgs.adwaita-qt6
-    ]
-  else if isQtStyle then
-    [ pkgs.libsForQt5.qtstyleplugins ]
-  else if isQt5ct then
-    [ pkgs.libsForQt5.qt5ct ]
-  else if isLxqt then
-    [
-      pkgs.lxqt.lxqt-qtplugin
-      pkgs.lxqt.lxqt-config
-    ]
-  else if isKde then
-    [
-      pkgs.libsForQt5.plasma-integration
-      pkgs.libsForQt5.systemsettings
-    ]
-  else
-    throw
-    "`qt.platformTheme` ${cfg.platformTheme} and `qt.style` ${cfg.style} are not compatible.";
+  packages =
+    if isQGnome then
+      [
+        pkgs.qgnomeplatform
+        pkgs.adwaita-qt
+        pkgs.qgnomeplatform-qt6
+        pkgs.adwaita-qt6
+      ]
+    else if isQtStyle then
+      [ pkgs.libsForQt5.qtstyleplugins ]
+    else if isQt5ct then
+      [ pkgs.libsForQt5.qt5ct ]
+    else if isLxqt then
+      [
+        pkgs.lxqt.lxqt-qtplugin
+        pkgs.lxqt.lxqt-config
+      ]
+    else if isKde then
+      [
+        pkgs.libsForQt5.plasma-integration
+        pkgs.libsForQt5.systemsettings
+      ]
+    else
+      throw
+      "`qt.platformTheme` ${cfg.platformTheme} and `qt.style` ${cfg.style} are not compatible."
+    ;
 
 in {
   meta.maintainers = [ maintainers.romildo ];
@@ -161,15 +163,17 @@ in {
       QT_STYLE_OVERRIDE = mkIf (!(isQt5ct || isLxqt || isKde)) cfg.style;
     };
 
-    environment.profileRelativeSessionVariables = let
-      qtVersions = with pkgs; [
-        qt5
-        qt6
-      ];
-    in {
-      QT_PLUGIN_PATH = map (qt: "/${qt.qtbase.qtPluginPrefix}") qtVersions;
-      QML2_IMPORT_PATH = map (qt: "/${qt.qtbase.qtQmlPrefix}") qtVersions;
-    } ;
+    environment.profileRelativeSessionVariables =
+      let
+        qtVersions = with pkgs; [
+          qt5
+          qt6
+        ];
+      in {
+        QT_PLUGIN_PATH = map (qt: "/${qt.qtbase.qtPluginPrefix}") qtVersions;
+        QML2_IMPORT_PATH = map (qt: "/${qt.qtbase.qtQmlPrefix}") qtVersions;
+      }
+      ;
 
     environment.systemPackages = packages;
 

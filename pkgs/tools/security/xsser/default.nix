@@ -56,7 +56,7 @@ buildPythonApplication rec {
     selenium
   ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   dontWrapGApps = true;
@@ -70,7 +70,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Automatic framework to detect, exploit and report XSS vulnerabilities in web-based applications";
+      "Automatic framework to detect, exploit and report XSS vulnerabilities in web-based applications"
+      ;
     homepage = "https://xsser.03c8.net/";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ emilytrau ];

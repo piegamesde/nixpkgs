@@ -27,7 +27,8 @@ let
   logFiles = pkgs.writeText "logcheck.logfiles" cfg.files;
 
   flags =
-    "-r ${rulesDir} -c ${configFile} -L ${logFiles} -${levelFlag} -m ${cfg.mailTo}";
+    "-r ${rulesDir} -c ${configFile} -L ${logFiles} -${levelFlag} -m ${cfg.mailTo}"
+    ;
 
   levelFlag = getAttrFromPath [ cfg.level ] {
     paranoid = "p";
@@ -40,7 +41,8 @@ let
     2 ${cfg.timeOfDay} * * * logcheck env PATH=/run/wrappers/bin:$PATH nice -n10 ${pkgs.logcheck}/sbin/logcheck ${flags}
   '';
 
-  writeIgnoreRule = name:
+  writeIgnoreRule =
+    name:
     {
       level,
       regex,
@@ -52,9 +54,11 @@ let
       text = ''
         ^\w{3} [ :[:digit:]]{11} [._[:alnum:]-]+ ${regex}
       '';
-    };
+    }
+    ;
 
-  writeIgnoreCronRule = name:
+  writeIgnoreCronRule =
+    name:
     {
       level,
       user,
@@ -65,12 +69,14 @@ let
     let
       escapeRegex = escape (stringToCharacters "\\[]{}()^$?*+|.");
       cmdline_ = builtins.unsafeDiscardStringContext cmdline;
-      re = if regex != "" then
-        regex
-      else if cmdline_ == "" then
-        ".*"
-      else
-        escapeRegex cmdline_;
+      re =
+        if regex != "" then
+          regex
+        else if cmdline_ == "" then
+          ".*"
+        else
+          escapeRegex cmdline_
+        ;
     in
     writeIgnoreRule "cron-${name}" {
       inherit level;
@@ -78,7 +84,7 @@ let
         (/usr/bin/)?cron\[[0-9]+\]: \(${user}\) CMD \(${re}\)$
       '';
     }
-  ;
+    ;
 
   levelOption = mkOption {
     default = "server";
@@ -258,24 +264,29 @@ in {
       chown ${cfg.user} /var/{lib,lock}/logcheck
     '';
 
-    services.cron.systemCronJobs = let
-      withTime = name:
-        {
-          timeArgs,
-          ...
-        }:
-        timeArgs != null;
-      mkCron = name:
-        {
-          user,
-          cmdline,
-          timeArgs,
-          ...
-        }: ''
-          ${timeArgs} ${user} ${cmdline}
-        '';
-    in
-    mapAttrsToList mkCron (filterAttrs withTime cfg.ignoreCron) ++ [ cronJob ]
-    ;
+    services.cron.systemCronJobs =
+      let
+        withTime =
+          name:
+          {
+            timeArgs,
+            ...
+          }:
+          timeArgs != null
+          ;
+        mkCron =
+          name:
+          {
+            user,
+            cmdline,
+            timeArgs,
+            ...
+          }: ''
+            ${timeArgs} ${user} ${cmdline}
+          ''
+          ;
+      in
+      mapAttrsToList mkCron (filterAttrs withTime cfg.ignoreCron) ++ [ cronJob ]
+      ;
   };
 }

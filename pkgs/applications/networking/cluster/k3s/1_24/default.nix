@@ -50,37 +50,37 @@
 # make sure they're in the path if desired.
 let
   k3sVersion = "1.24.10+k3s1"; # k3s git tag
-  k3sCommit =
-    "546a94e9ae1c3be6f9c0dcde32a6e6672b035bc8"; # k3s git commit at the above version
+  k3sCommit = "546a94e9ae1c3be6f9c0dcde32a6e6672b035bc8"
+    ; # k3s git commit at the above version
   k3sRepoSha256 = "sha256-HfkGb3GtR2wQkVIze26aFh6A6W0fegr8ovpSel7oujQ=";
   k3sVendorSha256 = "sha256-YAerisDr/knlKPaO2fVMZA4FUpwshFmkpi3mJAmLqKM=";
 
-  # Based on the traefik charts here: https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/scripts/download#L29-L32
-  # see also https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/manifests/traefik.yaml#L8-L16
-  # At the time of writing, there are two traefik charts, and that's it
+    # Based on the traefik charts here: https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/scripts/download#L29-L32
+    # see also https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/manifests/traefik.yaml#L8-L16
+    # At the time of writing, there are two traefik charts, and that's it
   charts = import ./chart-versions.nix;
 
-  # taken from ./scripts/version.sh VERSION_ROOT https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/scripts/version.sh#L56
+    # taken from ./scripts/version.sh VERSION_ROOT https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/scripts/version.sh#L56
   k3sRootVersion = "0.12.1";
   k3sRootSha256 = "sha256-xCXbarWztnvW2xn3cGa84hie3OevVZeGEDWh+Uf3RBw=";
 
-  # taken from ./scripts/version.sh VERSION_CNIPLUGINS https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/scripts/version.sh#L49
+    # taken from ./scripts/version.sh VERSION_CNIPLUGINS https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/scripts/version.sh#L49
   k3sCNIVersion = "1.1.1-k3s1";
   k3sCNISha256 = "14mb3zsqibj1sn338gjmsyksbm0mxv9p016dij7zidccx2rzn6nl";
 
-  # taken from go.mod, the 'github.com/containerd/containerd' line
-  # run `grep github.com/containerd/containerd go.mod | head -n1 | awk '{print $4}'`
-  # https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/go.mod#L10
+    # taken from go.mod, the 'github.com/containerd/containerd' line
+    # run `grep github.com/containerd/containerd go.mod | head -n1 | awk '{print $4}'`
+    # https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/go.mod#L10
   containerdVersion = "1.5.16-k3s1";
   containerdSha256 = "sha256-dxC44qE1A20Hd2j77Ir9Sla8xncttswWIuGGM/5FWi8=";
 
-  # run `grep github.com/kubernetes-sigs/cri-tools go.mod | head -n1 | awk '{print $4}'` in the k3s repo at the tag
-  # https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/go.mod#L18
+    # run `grep github.com/kubernetes-sigs/cri-tools go.mod | head -n1 | awk '{print $4}'` in the k3s repo at the tag
+    # https://github.com/k3s-io/k3s/blob/v1.24.10%2Bk3s1/go.mod#L18
   criCtlVersion = "1.24.0-k3s1";
 
   baseMeta = k3s.meta;
 
-  # https://github.com/k3s-io/k3s/blob/5fb370e53e0014dc96183b8ecb2c25a61e891e76/scripts/build#L19-L40
+    # https://github.com/k3s-io/k3s/blob/5fb370e53e0014dc96183b8ecb2c25a61e891e76/scripts/build#L19-L40
   versionldflags = [
     "-X github.com/rancher/k3s/pkg/version.Version=v${k3sVersion}"
     "-X github.com/rancher/k3s/pkg/version.GitCommit=${
@@ -99,23 +99,24 @@ let
     "-X github.com/containerd/containerd/version.Package=github.com/k3s-io/containerd"
   ];
 
-  # bundled into the k3s binary
+    # bundled into the k3s binary
   traefikChart = fetchurl charts.traefik;
   traefik-crdChart = fetchurl charts.traefik-crd;
 
-  # so, k3s is a complicated thing to package
-  # This derivation attempts to avoid including any random binaries from the
-  # internet. k3s-root is _mostly_ binaries built to be bundled in k3s (which
-  # we don't care about doing, we can add those as build or runtime
-  # dependencies using a real package manager).
-  # In addition to those binaries, it's also configuration though (right now
-  # mostly strongswan configuration), and k3s does use those files.
-  # As such, we download it in order to grab 'etc' and bundle it into the final
-  # k3s binary.
+    # so, k3s is a complicated thing to package
+    # This derivation attempts to avoid including any random binaries from the
+    # internet. k3s-root is _mostly_ binaries built to be bundled in k3s (which
+    # we don't care about doing, we can add those as build or runtime
+    # dependencies using a real package manager).
+    # In addition to those binaries, it's also configuration though (right now
+    # mostly strongswan configuration), and k3s does use those files.
+    # As such, we download it in order to grab 'etc' and bundle it into the final
+    # k3s binary.
   k3sRoot = fetchzip {
     # Note: marked as apache 2.0 license
     url =
-      "https://github.com/k3s-io/k3s-root/releases/download/v${k3sRootVersion}/k3s-root-amd64.tar";
+      "https://github.com/k3s-io/k3s-root/releases/download/v${k3sRootVersion}/k3s-root-amd64.tar"
+      ;
     sha256 = k3sRootSha256;
     stripRoot = false;
   };
@@ -141,34 +142,34 @@ let
       description = "CNI plugins, as patched by rancher for k3s";
     };
   };
-  # Grab this separately from a build because it's used by both stages of the
-  # k3s build.
+    # Grab this separately from a build because it's used by both stages of the
+    # k3s build.
   k3sRepo = fetchgit {
     url = "https://github.com/k3s-io/k3s";
     rev = "v${k3sVersion}";
     sha256 = k3sRepoSha256;
   };
-  # Stage 1 of the k3s build:
-  # Let's talk about how k3s is structured.
-  # One of the ideas of k3s is that there's the single "k3s" binary which can
-  # do everything you need, from running a k3s server, to being a worker node,
-  # to running kubectl.
-  # The way that actually works is that k3s is a single go binary that contains
-  # a bunch of bindata that it unpacks at runtime into directories (either the
-  # user's home directory or /var/lib/rancher if run as root).
-  # This bindata includes both binaries and configuration.
-  # In order to let nixpkgs do all its autostripping/patching/etc, we split this into two derivations.
-  # First, we build all the binaries that get packed into the thick k3s binary
-  # (and output them from one derivation so they'll all be suitably patched up).
-  # Then, we bundle those binaries into our thick k3s binary and use that as
-  # the final single output.
-  # This approach was chosen because it ensures the bundled binaries all are
-  # correctly built to run with nix (we can lean on the existing buildGoModule
-  # stuff), and we can again lean on that tooling for the final k3s binary too.
-  # Other alternatives would be to manually run the
-  # strip/patchelf/remove-references step ourselves in the installPhase of the
-  # derivation when we've built all the binaries, but haven't bundled them in
-  # with generated bindata yet.
+    # Stage 1 of the k3s build:
+    # Let's talk about how k3s is structured.
+    # One of the ideas of k3s is that there's the single "k3s" binary which can
+    # do everything you need, from running a k3s server, to being a worker node,
+    # to running kubectl.
+    # The way that actually works is that k3s is a single go binary that contains
+    # a bunch of bindata that it unpacks at runtime into directories (either the
+    # user's home directory or /var/lib/rancher if run as root).
+    # This bindata includes both binaries and configuration.
+    # In order to let nixpkgs do all its autostripping/patching/etc, we split this into two derivations.
+    # First, we build all the binaries that get packed into the thick k3s binary
+    # (and output them from one derivation so they'll all be suitably patched up).
+    # Then, we bundle those binaries into our thick k3s binary and use that as
+    # the final single output.
+    # This approach was chosen because it ensures the bundled binaries all are
+    # correctly built to run with nix (we can lean on the existing buildGoModule
+    # stuff), and we can again lean on that tooling for the final k3s binary too.
+    # Other alternatives would be to manually run the
+    # strip/patchelf/remove-references step ourselves in the installPhase of the
+    # derivation when we've built all the binaries, but haven't bundled them in
+    # with generated bindata yet.
 
   k3sServer = buildGoModule rec {
     pname = "k3s-server";
@@ -191,7 +192,7 @@ let
       "linux"
     ];
 
-    # create the multicall symlinks for k3s
+      # create the multicall symlinks for k3s
     postInstall = ''
       mv $out/bin/server $out/bin/k3s
       pushd $out
@@ -258,9 +259,9 @@ buildGoModule rec {
                  "''${GO}" generate'
   '';
 
-  # Important utilities used by the kubelet, see
-  # https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-237202494
-  # Note the list in that issue is stale and some aren't relevant for k3s.
+    # Important utilities used by the kubelet, see
+    # https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-237202494
+    # Note the list in that issue is stale and some aren't relevant for k3s.
   k3sRuntimeDeps = [
     kmod
     socat
@@ -282,7 +283,7 @@ buildGoModule rec {
     zstd
   ];
 
-  # embedded in the final k3s cli
+    # embedded in the final k3s cli
   propagatedBuildInputs = [
     k3sCNIPlugins
     k3sContainerd
@@ -290,11 +291,11 @@ buildGoModule rec {
     runc
   ];
 
-  # We override most of buildPhase due to peculiarities in k3s's build.
-  # Specifically, it has a 'go generate' which runs part of the package. See
-  # this comment:
-  # https://github.com/NixOS/nixpkgs/pull/158089#discussion_r799965694
-  # So, why do we use buildGoModule at all? For the `vendorSha256` / `go mod download` stuff primarily.
+    # We override most of buildPhase due to peculiarities in k3s's build.
+    # Specifically, it has a 'go generate' which runs part of the package. See
+    # this comment:
+    # https://github.com/NixOS/nixpkgs/pull/158089#discussion_r799965694
+    # So, why do we use buildGoModule at all? For the `vendorSha256` / `go mod download` stuff primarily.
   buildPhase = ''
     patchShebangs ./scripts/package-cli ./scripts/download ./scripts/build-upload
 
@@ -319,7 +320,7 @@ buildGoModule rec {
     mkdir -p $out/bin
   '';
 
-  # Otherwise it depends on 'getGoDirs', which is normally set in buildPhase
+    # Otherwise it depends on 'getGoDirs', which is normally set in buildPhase
   doCheck = false;
 
   installPhase = ''
@@ -335,8 +336,8 @@ buildGoModule rec {
     $out/bin/k3s --version | grep -F "v${k3sVersion}" >/dev/null
   '';
 
-  # Fix-Me: Needs to be adapted specifically for 1.24
-  # passthru.updateScript = ./update.sh;
+    # Fix-Me: Needs to be adapted specifically for 1.24
+    # passthru.updateScript = ./update.sh;
 
   passthru.tests = k3s.passthru.mkTests k3sVersion;
 

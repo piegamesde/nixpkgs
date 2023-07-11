@@ -7,14 +7,16 @@
 }:
 
 let
-  combine = basegcc:
+  combine =
+    basegcc:
     runCommand "combine-gcc-libc" { } ''
       mkdir -p $out
       cp -r ${basegcc.cc}/lib $out/lib
 
       chmod u+rw -R $out/lib
       cp -r ${basegcc.libc}/lib/* $(ls -d $out/lib/gcc/*/*)
-    '';
+    ''
+    ;
   gcc_multi_sysroot = runCommand "gcc-multi-sysroot" {
     passthru = {
       inherit (gcc64) version;

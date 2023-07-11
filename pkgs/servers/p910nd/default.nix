@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # instead of mucking around with the Makefile, just install the bits we need
+    # instead of mucking around with the Makefile, just install the bits we need
   installPhase = ''
     runHook preInstall
 

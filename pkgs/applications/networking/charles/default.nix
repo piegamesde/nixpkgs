@@ -9,7 +9,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       version,
       sha256,
       platform ? "",
@@ -47,7 +48,8 @@ let
 
       src = fetchurl {
         url =
-          "https://www.charlesproxy.com/assets/release/${version}/charles-proxy-${version}${platform}.tar.gz";
+          "https://www.charlesproxy.com/assets/release/${version}/charles-proxy-${version}${platform}.tar.gz"
+          ;
         curlOptsList = [
           "--user-agent"
           "Mozilla/5.0"
@@ -80,7 +82,7 @@ let
         platforms = platforms.unix;
       };
     }
-  ;
+    ;
 
 in {
   charles4 = (generic {

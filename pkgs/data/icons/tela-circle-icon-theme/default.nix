@@ -58,8 +58,8 @@ stdenvNoCC.mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
-  # These fixup steps are slow and unnecessary for this package.
-  # Package may install almost 400 000 small files.
+    # These fixup steps are slow and unnecessary for this package.
+    # Package may install almost 400 000 small files.
   dontPatchELF = true;
   dontRewriteSymlinks = true;
 
@@ -90,8 +90,8 @@ stdenvNoCC.mkDerivation rec {
     description = "Flat and colorful personality icon theme";
     homepage = "https://github.com/vinceliuice/Tela-circle-icon-theme";
     license = licenses.gpl3Only;
-    platforms =
-      platforms.linux; # darwin use case-insensitive filesystems that cause hash mismatches
+    platforms = platforms.linux
+      ; # darwin use case-insensitive filesystems that cause hash mismatches
     maintainers = with maintainers; [ romildo ];
   };
 }

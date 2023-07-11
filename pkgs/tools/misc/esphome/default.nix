@@ -10,9 +10,11 @@
 
 let
   python = python3.override {
-    packageOverrides = self: super: {
-      esphome-dashboard = self.callPackage ./dashboard.nix { };
-    };
+    packageOverrides =
+      self: super: {
+        esphome-dashboard = self.callPackage ./dashboard.nix { };
+      }
+      ;
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -35,15 +37,15 @@ python.pkgs.buildPythonApplication rec {
     sed -i '/--cov/d' pytest.ini
   '';
 
-  # Remove esptool and platformio from requirements
+    # Remove esptool and platformio from requirements
   ESPHOME_USE_SUBPROCESS = "";
 
-  # esphome has optional dependencies it does not declare, they are
-  # loaded when certain config blocks are used, like `font`, `image`
-  # or `animation`.
-  # They have validation functions like:
-  # - validate_cryptography_installed
-  # - validate_pillow_installed
+    # esphome has optional dependencies it does not declare, they are
+    # loaded when certain config blocks are used, like `font`, `image`
+    # or `animation`.
+    # They have validation functions like:
+    # - validate_cryptography_installed
+    # - validate_pillow_installed
   propagatedBuildInputs = with python.pkgs; [
     aioesphomeapi
     click

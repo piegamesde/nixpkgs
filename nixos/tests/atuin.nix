@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with pkgs.lib.maintainers; [ devusb ];
 
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           services.atuin = {
@@ -24,12 +25,15 @@ import ./make-test-python.nix ({
             openFirewall = true;
             openRegistration = true;
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           ...
         }:
-        { };
+        { }
+        ;
 
     };
 

@@ -32,24 +32,28 @@ buildGoModule rec {
     "-X github.com/docker/docker-credential-helpers/credentials.Version=${version}"
   ];
 
-  buildPhase = let
-    cmds = if stdenv.isDarwin then
-      [
-        "osxkeychain"
-        "pass"
-      ]
-    else
-      [
-        "secretservice"
-        "pass"
-      ];
-  in ''
-    for cmd in ${builtins.toString cmds}; do
-      go build -ldflags "${
-        builtins.toString ldflags
-      }" -trimpath -o bin/docker-credential-$cmd ./$cmd/cmd
-    done
-  '' ;
+  buildPhase =
+    let
+      cmds =
+        if stdenv.isDarwin then
+          [
+            "osxkeychain"
+            "pass"
+          ]
+        else
+          [
+            "secretservice"
+            "pass"
+          ]
+        ;
+    in ''
+      for cmd in ${builtins.toString cmds}; do
+        go build -ldflags "${
+          builtins.toString ldflags
+        }" -trimpath -o bin/docker-credential-$cmd ./$cmd/cmd
+      done
+    ''
+    ;
 
   installPhase = ''
     install -Dm755 -t $out/bin bin/docker-credential-*
@@ -63,7 +67,8 @@ buildGoModule rec {
   meta = with lib;
     {
       description =
-        "Suite of programs to use native stores to keep Docker credentials safe";
+        "Suite of programs to use native stores to keep Docker credentials safe"
+        ;
       homepage = "https://github.com/docker/docker-credential-helpers";
       license = licenses.mit;
       maintainers = with maintainers; [ marsam ];

@@ -14,11 +14,13 @@
 }:
 
 let
-  mkFlag = b:
+  mkFlag =
+    b:
     if b then
       "yes"
     else
-      "no";
+      "no"
+    ;
 
   games = import ./games.nix { inherit stdenv lib fetchFromGitHub; };
 

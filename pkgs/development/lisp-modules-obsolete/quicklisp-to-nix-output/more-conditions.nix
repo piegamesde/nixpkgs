@@ -21,7 +21,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/more-conditions/2018-08-31/more-conditions-20180831-git.tgz";
+      "http://beta.quicklisp.org/archive/more-conditions/2018-08-31/more-conditions-20180831-git.tgz"
+      ;
     sha256 = "0wa989kv3sl977g9szxkx52fdnww6aj2a9i77363f90iq02vj97x";
   };
 

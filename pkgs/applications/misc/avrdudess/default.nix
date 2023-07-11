@@ -16,7 +16,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/ZakKemble/AVRDUDESS/releases/download/v2.14/AVRDUDESS-2.14-portable.zip";
+      "https://github.com/ZakKemble/AVRDUDESS/releases/download/v2.14/AVRDUDESS-2.14-portable.zip"
+      ;
     sha256 = "sha256-x3xcsJLBJVO8XdV4OUveZ4KLqN5z/z0FsNLbGHSNoHs=";
   };
 

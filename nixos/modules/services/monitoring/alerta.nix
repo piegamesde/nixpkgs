@@ -74,7 +74,8 @@ in {
     corsOrigins = mkOption {
       type = types.listOf types.str;
       description = lib.mdDoc
-        "List of URLs that can access the API for Cross-Origin Resource Sharing (CORS)";
+        "List of URLs that can access the API for Cross-Origin Resource Sharing (CORS)"
+        ;
       default = [
         "http://localhost"
         "http://localhost:5000"
@@ -84,7 +85,8 @@ in {
     authenticationRequired = mkOption {
       type = types.bool;
       description = lib.mdDoc
-        "Whether users must authenticate when using the web UI or command-line tool";
+        "Whether users must authenticate when using the web UI or command-line tool"
+        ;
       default = false;
     };
 

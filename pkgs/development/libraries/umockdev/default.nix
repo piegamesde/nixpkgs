@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/martinpitt/umockdev/releases/download/${version}/${pname}-${version}.tar.xz";
+      "https://github.com/martinpitt/umockdev/releases/download/${version}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-IOYhseRYsyADz+qZc5tngkuGZShUqLzjPiYSTjR/32w=";
   };
 
@@ -50,8 +51,9 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals
+    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
+    ;
 
   buildInputs = [
     glib

@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ websockets ];
 
-  # Module doesn't have tests
+    # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "aiowebostv" ];
@@ -31,7 +31,8 @@ buildPythonPackage rec {
     description = "Module to interact with LG webOS based TV devices";
     homepage = "https://github.com/home-assistant-libs/aiowebostv";
     changelog =
-      "https://github.com/home-assistant-libs/aiowebostv/releases/tag/v${version}";
+      "https://github.com/home-assistant-libs/aiowebostv/releases/tag/v${version}"
+      ;
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

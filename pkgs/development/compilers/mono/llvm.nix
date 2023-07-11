@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     zlib
   ];
 
-  # hacky fix: created binaries need to be run before installation
+    # hacky fix: created binaries need to be run before installation
   preBuild = ''
     mkdir -p $out/
     ln -sv $PWD/lib $out
@@ -54,7 +54,8 @@ stdenv.mkDerivation {
 
   meta = {
     description =
-      "Collection of modular and reusable compiler and toolchain technologies - Mono build";
+      "Collection of modular and reusable compiler and toolchain technologies - Mono build"
+      ;
     homepage = "http://llvm.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ thoughtpolice ];

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Freedesktop reference sound theme";
     homepage = "http://freedesktop.org/wiki/Specifications/sound-theme-spec";
-    # See http://cgit.freedesktop.org/sound-theme-freedesktop/tree/CREDITS:
+      # See http://cgit.freedesktop.org/sound-theme-freedesktop/tree/CREDITS:
     license = with licenses; [
       cc-by-30
       cc-by-sa-25

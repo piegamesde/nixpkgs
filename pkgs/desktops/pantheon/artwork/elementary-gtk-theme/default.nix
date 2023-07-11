@@ -27,7 +27,8 @@ stdenvNoCC.mkDerivation rec {
     # https://github.com/elementary/stylesheet/pull/1258
     (fetchpatch {
       url =
-        "https://github.com/elementary/stylesheet/commit/9cea2383bec8f90d25f1e9b854b5221737487521.patch";
+        "https://github.com/elementary/stylesheet/commit/9cea2383bec8f90d25f1e9b854b5221737487521.patch"
+        ;
       sha256 = "sha256-6komROS4+nxwoGoKoiDmnrTfLNZAvnTU6hIEOQQfmxc=";
     })
   ];

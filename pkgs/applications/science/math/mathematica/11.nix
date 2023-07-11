@@ -141,9 +141,9 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # all binaries are already stripped
+    # all binaries are already stripped
   dontStrip = true;
 
-  # we did this in prefixup already
+    # we did this in prefixup already
   dontPatchELF = true;
 }

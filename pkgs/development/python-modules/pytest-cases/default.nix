@@ -35,9 +35,9 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  # Tests have dependencies (pytest-harvest, pytest-steps) which
-  # are not available in Nixpkgs. Most of the packages (decopatch,
-  # makefun, pytest-*) have circular dependecies.
+    # Tests have dependencies (pytest-harvest, pytest-steps) which
+    # are not available in Nixpkgs. Most of the packages (decopatch,
+    # makefun, pytest-*) have circular dependecies.
   doCheck = false;
 
   pythonImportsCheck = [ "pytest_cases" ];

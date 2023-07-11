@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "parallel-build.patch";
       url =
-        "https://github.com/x42/harvid/commit/a3f85c57ad2559558706d9b22989de36452704d9.patch";
+        "https://github.com/x42/harvid/commit/a3f85c57ad2559558706d9b22989de36452704d9.patch"
+        ;
       sha256 = "sha256-0aBfM/4XEqM7C1nFw996IVwaeL0tNgMUQ1C3kblOobI=";
     })
   ];

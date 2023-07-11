@@ -29,7 +29,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  # there are no tests
+    # there are no tests
   doCheck = false;
 
   pythonImportsCheck = [ "calysto" ];

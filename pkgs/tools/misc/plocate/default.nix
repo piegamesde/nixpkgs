@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     # fix redefinition error
     (fetchpatch {
       url =
-        "https://git.sesse.net/?p=plocate;a=patch;h=0125004cd28c5f9124632b594e51dde73af1691c";
+        "https://git.sesse.net/?p=plocate;a=patch;h=0125004cd28c5f9124632b594e51dde73af1691c"
+        ;
       revert = true;
       sha256 = "sha256-1TDpxIdpDZQ0IZ/wGG91RVZDrpMpWkvhRF8oE0CJWIY=";
     })

@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://x3270.bgp.nu/download/0${majorVersion}.0${minorVersion}/suite3270-${version}-src.tgz";
+      "http://x3270.bgp.nu/download/0${majorVersion}.0${minorVersion}/suite3270-${version}-src.tgz"
+      ;
     sha256 = "0km24rgll0s4ji6iz8lvy5ra76ds162s95y33w5px6697cwqkp9j";
   };
 

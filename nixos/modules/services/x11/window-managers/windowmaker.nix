@@ -16,7 +16,7 @@ in {
       mkEnableOption (lib.mdDoc "windowmaker");
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {
       name = "windowmaker";

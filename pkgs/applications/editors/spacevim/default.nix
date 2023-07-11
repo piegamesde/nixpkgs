@@ -17,9 +17,9 @@ let
   format = formats.toml { };
   vim-customized = vim-full.customize {
     name = "vim";
-    # Not clear at the moment how to import plugins such that
-    # SpaceVim finds them and does not auto download them to
-    # ~/.cache/vimfiles/repos
+      # Not clear at the moment how to import plugins such that
+      # SpaceVim finds them and does not auto download them to
+      # ~/.cache/vimfiles/repos
     vimrcConfig.packages.myVimPackage = with vimPlugins; { start = [ ]; };
   };
   spacevimdir = runCommand "SpaceVim.d" { } ''

@@ -37,7 +37,7 @@ buildPythonPackage rec {
     quarto
   ];
 
-  # no real tests
+    # no real tests
   doCheck = false;
   pythonImportsCheck = [ "nbdev" ];
 

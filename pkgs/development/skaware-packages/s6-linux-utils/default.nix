@@ -20,7 +20,7 @@ buildPackage {
     "out"
   ];
 
-  # TODO: nsss support
+    # TODO: nsss support
   configureFlags = [
     "--bindir=\${bin}/bin"
     "--includedir=\${dev}/include"

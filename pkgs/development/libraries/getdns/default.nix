@@ -57,7 +57,7 @@ in rec {
       unbound
     ];
 
-    # https://github.com/getdnsapi/getdns/issues/517
+      # https://github.com/getdnsapi/getdns/issues/517
     postPatch = ''
       substituteInPlace getdns.pc.in \
         --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \
@@ -118,8 +118,8 @@ in rec {
         > $stubbyExampleJson
     '';
 
-    passthru.settingsExample = with builtins;
-      fromJSON (readFile stubby.stubbyExampleJson);
+    passthru.settingsExample =
+      with builtins; fromJSON (readFile stubby.stubbyExampleJson);
 
     meta = with lib;
       metaCommon // {

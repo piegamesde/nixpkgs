@@ -17,8 +17,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-AUw1wJNWjpNVsjw/Hr1ZCePYWQkf1SqRVnQgi8tOFG0=";
 
-  # Disable tests since it requires network access and relies on the
-  # presence of certain AWS infrastructure
+    # Disable tests since it requires network access and relies on the
+    # presence of certain AWS infrastructure
   doCheck = false;
 
   postInstall = ''
@@ -28,7 +28,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Collection of commands to fill in the gaps between Terraform, Helm, and Kubectl";
+      "Collection of commands to fill in the gaps between Terraform, Helm, and Kubectl"
+      ;
     homepage = "https://github.com/gruntwork-io/kubergrunt";
     license = licenses.asl20;
     maintainers = with maintainers; [ psibi ];

@@ -17,7 +17,7 @@ in {
 
   meta = { maintainers = teams.gnome.members; };
 
-  # Added 2019-08-19
+    # Added 2019-08-19
   imports = [ (mkRenamedOptionModule [
     "services"
     "gnome3"
@@ -29,16 +29,16 @@ in {
     "enable"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
     services.gvfs = {
 
-      enable =
-        mkEnableOption (lib.mdDoc "GVfs, a userspace virtual filesystem");
+      enable = mkEnableOption (lib.mdDoc "GVfs, a userspace virtual filesystem")
+        ;
 
-      # gvfs can be built with multiple configurations
+        # gvfs can be built with multiple configurations
       package = mkOption {
         type = types.package;
         default = pkgs.gnome.gvfs;
@@ -50,7 +50,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -64,9 +64,9 @@ in {
 
     services.udisks2.enable = true;
 
-    # Needed for unwrapped applications
-    environment.sessionVariables.GIO_EXTRA_MODULES =
-      [ "${cfg.package}/lib/gio/modules" ];
+      # Needed for unwrapped applications
+    environment.sessionVariables.GIO_EXTRA_MODULES = [ "${cfg.package}/lib/gio/modules" ]
+      ;
 
   };
 

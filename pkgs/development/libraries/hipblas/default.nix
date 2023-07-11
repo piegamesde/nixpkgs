@@ -82,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ mit ];
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
-    # Fixed in develop branch by using C++17 and related refactor
+      # Fixed in develop branch by using C++17 and related refactor
     broken = versions.minor finalAttrs.version != versions.minor hip.version
       || buildTests || buildBenchmarks || buildSamples;
   };

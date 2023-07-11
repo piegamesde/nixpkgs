@@ -11,10 +11,12 @@
 let
   # k itself can be compiled with -ffreestanding, but tests require a libc;
   # if we want to build k-libc we need a libc obviously
-  useStdenv = if withLibc || doCheck then
-    stdenv
-  else
-    stdenvNoLibs;
+  useStdenv =
+    if withLibc || doCheck then
+      stdenv
+    else
+      stdenvNoLibs
+    ;
 
 in
 useStdenv.mkDerivation {
@@ -57,7 +59,7 @@ useStdenv.mkDerivation {
     "lib"
   ];
 
-  # TODO(@sternenseemann): package bulgarian translation
+    # TODO(@sternenseemann): package bulgarian translation
   installPhase = ''
     runHook preInstall
     install -Dm755 k "$out/bin/k"

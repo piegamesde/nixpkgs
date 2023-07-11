@@ -23,7 +23,7 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  # There are no unit tests in repository
+    # There are no unit tests in repository
   doCheck = false;
   pythonImportsCheck = [
     "ipympl"

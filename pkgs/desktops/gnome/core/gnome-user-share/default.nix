@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://help.gnome.org/users/gnome-user-share/3.8";
     description =
-      "Service that exports the contents of the Public folder in your home directory on the local network";
+      "Service that exports the contents of the Public folder in your home directory on the local network"
+      ;
     maintainers = teams.gnome.members;
     license = licenses.gpl2;
     platforms = platforms.linux;

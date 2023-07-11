@@ -25,7 +25,7 @@ buildPythonPackage rec {
       --replace "cryptography>=38.0.1" "cryptography"
   '';
 
-  # Project doesn't have tests
+    # Project doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "winacl" ];

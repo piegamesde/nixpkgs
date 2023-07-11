@@ -22,7 +22,7 @@ buildDotnetModule rec {
     leaveDotGit = true;
   };
 
-  # Fixes application reporting 0.0.0.0 as its version.
+    # Fixes application reporting 0.0.0.0 as its version.
   MINVERVERSIONOVERRIDE = version;
 
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
@@ -38,7 +38,7 @@ buildDotnetModule rec {
 
   executables = [ "EventStore.ClusterNode" ];
 
-  # This test has a problem running on macOS
+    # This test has a problem running on macOS
   disabledTests = lib.optionals stdenv.isDarwin [
     "EventStore.Projections.Core.Tests.Services.grpc_service.ServerFeaturesTests<LogFormat+V2,String>.should_receive_expected_endpoints"
     "EventStore.Projections.Core.Tests.Services.grpc_service.ServerFeaturesTests<LogFormat+V3,UInt32>.should_receive_expected_endpoints"
@@ -68,7 +68,8 @@ buildDotnetModule rec {
 
   doCheck = true;
   testProjectFile =
-    "src/EventStore.Projections.Core.Tests/EventStore.Projections.Core.Tests.csproj";
+    "src/EventStore.Projections.Core.Tests/EventStore.Projections.Core.Tests.csproj"
+    ;
 
   doInstallCheck = true;
   installCheckPhase = ''

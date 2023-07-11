@@ -115,17 +115,19 @@ stdenv.mkDerivation rec {
     "CFLAGS=-DWITH_TIRPC"
   ];
 
-  postInstall = let
-    inherit (addOpenGLRunpath) driverLink;
-    libraryPath = lib.makeLibraryPath [
-      "$out"
-      driverLink
-      "${driverLink}-32"
-    ];
-  in ''
-    remove-references-to -t "${go}" $out/lib/libnvidia-container-go.so.1.9.0
-    wrapProgram $out/bin/nvidia-container-cli --prefix LD_LIBRARY_PATH : ${libraryPath}
-  '' ;
+  postInstall =
+    let
+      inherit (addOpenGLRunpath) driverLink;
+      libraryPath = lib.makeLibraryPath [
+        "$out"
+        driverLink
+        "${driverLink}-32"
+      ];
+    in ''
+      remove-references-to -t "${go}" $out/lib/libnvidia-container-go.so.1.9.0
+      wrapProgram $out/bin/nvidia-container-cli --prefix LD_LIBRARY_PATH : ${libraryPath}
+    ''
+    ;
   disallowedReferences = [ go ];
 
   meta = with lib; {

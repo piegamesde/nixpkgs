@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-parser-getc-char-casts.patch";
       url =
-        "https://github.com/Boolector/boolector/commit/cc3a70918538c1e71ea5e7273fa1ac098da37c1b.patch";
+        "https://github.com/Boolector/boolector/commit/cc3a70918538c1e71ea5e7273fa1ac098da37c1b.patch"
+        ;
       sha256 = "0pjvagcy74vxa2q75zbshcz8j7rvhl98549xfcf5y8yyxf5h8hyq";
     })
   ];
@@ -50,29 +51,32 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ python3 ];
   doCheck = true;
-  preCheck = let
-    var = if stdenv.isDarwin then
-      "DYLD_LIBRARY_PATH"
-    else
-      "LD_LIBRARY_PATH";
-    # tests modelgen and modelgensmt2 spawn boolector in another processes and
-    # macOS strips DYLD_LIBRARY_PATH, hardcode it for testing
-  in
-  lib.optionalString stdenv.isDarwin ''
-    cp -r bin bin.back
-    install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
-  '' + ''
-    export ${var}=$(readlink -f lib)
-    patchShebangs ..
-  ''
-  ;
+  preCheck =
+    let
+      var =
+        if stdenv.isDarwin then
+          "DYLD_LIBRARY_PATH"
+        else
+          "LD_LIBRARY_PATH"
+        ;
+      # tests modelgen and modelgensmt2 spawn boolector in another processes and
+      # macOS strips DYLD_LIBRARY_PATH, hardcode it for testing
+    in
+    lib.optionalString stdenv.isDarwin ''
+      cp -r bin bin.back
+      install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
+    '' + ''
+      export ${var}=$(readlink -f lib)
+      patchShebangs ..
+    ''
+    ;
 
   postCheck = lib.optionalString stdenv.isDarwin ''
     rm -rf bin
     mv bin.back bin
   '';
 
-  # this is what haskellPackages.boolector expects
+    # this is what haskellPackages.boolector expects
   postInstall = ''
     cp $out/include/boolector/boolector.h $out/include/boolector.h
     cp $out/include/boolector/btortypes.h $out/include/btortypes.h

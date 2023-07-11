@@ -30,9 +30,9 @@ let
       sha256 = "189gjqzdz10xh3ybiy4ch1r98bsmkcb4hpnrmggd4y2g5kqnyx4y";
     };
 
-    # The loosely held nixpkgs convention for SBCL is to keep the last two
-    # versions.
-    # https://github.com/NixOS/nixpkgs/pull/200994#issuecomment-1315042841
+      # The loosely held nixpkgs convention for SBCL is to keep the last two
+      # versions.
+      # https://github.com/NixOS/nixpkgs/pull/200994#issuecomment-1315042841
     "2.3.2" = {
       sha256 = "sha256-RMwWLPpjMqmojHoSHRkDiCikuk9r/7d+8cexdAfLHqo=";
     };
@@ -50,15 +50,16 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/sbcl/sbcl/${version}/${pname}-${version}-source.tar.bz2";
+      "mirror://sourceforge/project/sbcl/sbcl/${version}/${pname}-${version}-source.tar.bz2"
+      ;
     inherit sha256;
   };
 
   nativeBuildInputs = [ texinfo ];
   buildInputs = lib.optionals coreCompression [ zstd ];
 
-  # There are no patches necessary for the currently enabled versions, but this
-  # code is left in place for the next potential patch.
+    # There are no patches necessary for the currently enabled versions, but this
+    # code is left in place for the next potential patch.
   postPatch = ''
     echo '"${version}.nixos"' > version.lisp-expr
 

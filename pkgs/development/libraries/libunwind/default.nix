@@ -21,19 +21,22 @@ stdenv.mkDerivation rec {
     # Fix for aarch64 and non-4K pages. Remove once upgraded past 1.6.2.
     (fetchpatch {
       url =
-        "https://github.com/libunwind/libunwind/commit/e85b65cec757ef589f28957d0c6c21c498a03bdf.patch";
+        "https://github.com/libunwind/libunwind/commit/e85b65cec757ef589f28957d0c6c21c498a03bdf.patch"
+        ;
       sha256 = "1lnlygvhqrdrjgw303pg2k2k4ms4gaghpjsgmhk47q83vy1yjwfg";
     })
   ];
 
-  postPatch = if (stdenv.cc.isClang || stdenv.hostPlatform.isStatic) then
-    ''
-      substituteInPlace configure.ac --replace "-lgcc_s" ""
-    ''
-  else
-    lib.optionalString stdenv.hostPlatform.isMusl ''
-      substituteInPlace configure.ac --replace "-lgcc_s" "-lgcc_eh"
-    '';
+  postPatch =
+    if (stdenv.cc.isClang || stdenv.hostPlatform.isStatic) then
+      ''
+        substituteInPlace configure.ac --replace "-lgcc_s" ""
+      ''
+    else
+      lib.optionalString stdenv.hostPlatform.isMusl ''
+        substituteInPlace configure.ac --replace "-lgcc_s" "-lgcc_eh"
+      ''
+    ;
 
   nativeBuildInputs = [ autoreconfHook ];
 
@@ -43,8 +46,8 @@ stdenv.mkDerivation rec {
     "devman"
   ];
 
-  # Without latex2man, no man pages are installed despite being
-  # prebuilt in the source tarball.
+    # Without latex2man, no man pages are installed despite being
+    # prebuilt in the source tarball.
   configureFlags = [ "LATEX2MAN=${buildPackages.coreutils}/bin/true" ];
 
   propagatedBuildInputs = [ xz ];
@@ -62,7 +65,7 @@ stdenv.mkDerivation rec {
     description =
       "A portable and efficient API to determine the call-chain of a program";
     maintainers = with maintainers; [ orivej ];
-    # https://github.com/libunwind/libunwind#libunwind
+      # https://github.com/libunwind/libunwind#libunwind
     platforms = [
       "aarch64-linux"
       "armv5tel-linux"

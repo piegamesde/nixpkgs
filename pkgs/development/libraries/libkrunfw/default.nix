@@ -16,19 +16,22 @@ stdenv.mkDerivation rec {
   pname = "libkrunfw";
   version = "3.11.0";
 
-  src = if stdenv.isLinux then
-    fetchFromGitHub {
-      owner = "containers";
-      repo = pname;
-      rev = "v${version}";
-      hash = "sha256-p5z3Dc7o/Ja3K0VlOWIPc0qOIU5p+JSxWe7QiVQNkjs=";
-    }
-  else
-    fetchurl {
-      url =
-        "https://github.com/containers/libkrunfw/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz";
-      hash = "sha256-XcdsK8L5NwMgelSMhE2YKYxaAin/3p/+GrljGGZpK5Y=";
-    };
+  src =
+    if stdenv.isLinux then
+      fetchFromGitHub {
+        owner = "containers";
+        repo = pname;
+        rev = "v${version}";
+        hash = "sha256-p5z3Dc7o/Ja3K0VlOWIPc0qOIU5p+JSxWe7QiVQNkjs=";
+      }
+    else
+      fetchurl {
+        url =
+          "https://github.com/containers/libkrunfw/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz"
+          ;
+        hash = "sha256-XcdsK8L5NwMgelSMhE2YKYxaAin/3p/+GrljGGZpK5Y=";
+      }
+    ;
 
   kernelSrc = fetchurl {
     url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.2.9.tar.xz";
@@ -70,7 +73,7 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "aarch64-darwin"
     ];
-    sourceProvenance = with sourceTypes;
-      lib.optionals stdenv.isDarwin [ binaryNativeCode ];
+    sourceProvenance =
+      with sourceTypes; lib.optionals stdenv.isDarwin [ binaryNativeCode ];
   };
 }

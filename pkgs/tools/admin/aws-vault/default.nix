@@ -39,7 +39,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  # set the version. see: aws-vault's Makefile
+    # set the version. see: aws-vault's Makefile
   ldflags = [ "-X main.Version=v${version}" ];
 
   doInstallCheck = true;
@@ -50,7 +50,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A vault for securely storing and accessing AWS credentials in development environments";
+      "A vault for securely storing and accessing AWS credentials in development environments"
+      ;
     homepage = "https://github.com/99designs/aws-vault";
     license = licenses.mit;
     maintainers = with maintainers; [ zimbatm ];

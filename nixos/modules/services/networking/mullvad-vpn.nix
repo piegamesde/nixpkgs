@@ -41,13 +41,13 @@ in with lib; {
 
     environment.systemPackages = [ cfg.package ];
 
-    # mullvad-daemon writes to /etc/iproute2/rt_tables
+      # mullvad-daemon writes to /etc/iproute2/rt_tables
     networking.iproute2.enable = true;
 
-    # See https://github.com/NixOS/nixpkgs/issues/113589
+      # See https://github.com/NixOS/nixpkgs/issues/113589
     networking.firewall.checkReversePath = "loose";
 
-    # See https://github.com/NixOS/nixpkgs/issues/176603
+      # See https://github.com/NixOS/nixpkgs/issues/176603
     security.wrappers.mullvad-exclude = mkIf cfg.enableExcludeWrapper {
       setuid = true;
       owner = "root";

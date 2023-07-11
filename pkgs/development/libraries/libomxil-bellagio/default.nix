@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/omxil/omxil/Bellagio%20${version}/${pname}-${version}.tar.gz";
+      "mirror://sourceforge/omxil/omxil/Bellagio%20${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0k6p6h4npn8p1qlgq6z3jbfld6n1bqswzvxzndki937gr0lhfg2r";
   };
 
@@ -24,13 +25,14 @@ stdenv.mkDerivation rec {
     (fetchurl {
       name = "no-overread.patch";
       url =
-        "https://sourceforge.net/p/omxil/patches/8/attachment/0001-src-base-omx_base_component.c-fix-stack-overread.patch";
+        "https://sourceforge.net/p/omxil/patches/8/attachment/0001-src-base-omx_base_component.c-fix-stack-overread.patch"
+        ;
       hash = "sha256-ElpiDxU0Ii4Ou8ebVx4Ne9UnB6mesC8cRj77N7LdovA=";
     })
   ];
 
-  # Disable parallel build as it fails as:
-  #    ld: cannot find -lomxil-bellagio
+    # Disable parallel build as it fails as:
+    #    ld: cannot find -lomxil-bellagio
   enableParallelBuilding = false;
 
   doCheck = false; # fails
@@ -40,12 +42,14 @@ stdenv.mkDerivation rec {
     if stdenv.cc.isGNU then
       "-Wno-error=array-bounds -Wno-error=stringop-overflow=8 -Wno-error=stringop-truncation"
     else
-      "-Wno-error=absolute-value -Wno-error=enum-conversion -Wno-error=logical-not-parentheses -Wno-error=non-literal-null-conversion";
+      "-Wno-error=absolute-value -Wno-error=enum-conversion -Wno-error=logical-not-parentheses -Wno-error=non-literal-null-conversion"
+    ;
 
   meta = with lib; {
     homepage = "https://omxil.sourceforge.net/";
     description =
-      "An opensource implementation of the Khronos OpenMAX Integration Layer API to access multimedia components";
+      "An opensource implementation of the Khronos OpenMAX Integration Layer API to access multimedia components"
+      ;
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
   };

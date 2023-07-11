@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  # ./configure is not autoGNU but some home-brewn magic
+    # ./configure is not autoGNU but some home-brewn magic
   configurePhase = ''
     patchShebangs configure
     substituteInPlace configure --replace "which" "command -v"
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # All files installed to /etc are just static data that can go in the store
+    # All files installed to /etc are just static data that can go in the store
   makeFlags = [
     "PREFIX=$(out)"
     "ETCDIR=$(out)/etc"

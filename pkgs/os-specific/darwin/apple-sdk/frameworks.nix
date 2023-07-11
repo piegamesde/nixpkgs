@@ -38,8 +38,8 @@ with libs; {
   CalendarStore = { };
   Cocoa = { inherit AppKit CoreData; };
   Collaboration = { };
-  # Impure version of CoreFoundation, this should not be used unless another
-  # framework includes headers that are not available in the pure version.
+    # Impure version of CoreFoundation, this should not be used unless another
+    # framework includes headers that are not available in the pure version.
   CoreFoundation = { };
   CoreAudio = { inherit IOKit; };
   CoreAudioKit = { inherit AudioUnit; };
@@ -136,9 +136,8 @@ with libs; {
   PCSC = { inherit CoreData; };
   PreferencePanes = { };
   PubSub = { };
-  QTKit = {
-    inherit CoreMediaIO CoreMedia MediaToolbox QuickTime VideoToolbox;
-  };
+  QTKit = { inherit CoreMediaIO CoreMedia MediaToolbox QuickTime VideoToolbox; }
+    ;
   QuickLook = { inherit ApplicationServices; };
   SceneKit = { };
   ScreenSaver = { };
@@ -157,11 +156,10 @@ with libs; {
   Tcl = { };
   VideoDecodeAcceleration = { inherit CoreVideo; };
   VideoToolbox = { inherit CoreMedia CoreVideo; };
-  WebKit = {
-    inherit libobjc ApplicationServices Carbon JavaScriptCore OpenGL;
-  };
+  WebKit = { inherit libobjc ApplicationServices Carbon JavaScriptCore OpenGL; }
+    ;
 
-  # Umbrellas
+    # Umbrellas
   Accelerate = { inherit CoreWLAN IOBluetooth; };
   ApplicationServices = { inherit CoreGraphics CoreServices CoreText ImageIO; };
   Carbon = {
@@ -176,7 +174,7 @@ with libs; {
       ;
   };
   CoreBluetooth = { };
-  # TODO: figure out which part of the umbrella depends on CoreFoundation and move it there.
+    # TODO: figure out which part of the umbrella depends on CoreFoundation and move it there.
   CoreServices = {
     inherit
       CFNetwork

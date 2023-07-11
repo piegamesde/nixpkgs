@@ -14,24 +14,28 @@ let
   opt = options.services.ntopng;
 
   createRedis = cfg.redis.createInstance != null;
-  redisService = if cfg.redis.createInstance == "" then
-    "redis.service"
-  else
-    "redis-${cfg.redis.createInstance}.service";
+  redisService =
+    if cfg.redis.createInstance == "" then
+      "redis.service"
+    else
+      "redis-${cfg.redis.createInstance}.service"
+    ;
 
-  configFile = if cfg.configText != "" then
-    pkgs.writeText "ntopng.conf" ''
-      ${cfg.configText}
-    ''
-  else
-    pkgs.writeText "ntopng.conf" ''
-      ${concatStringsSep " " (map (e: "--interface=" + e) cfg.interfaces)}
-      --http-port=${toString cfg.httpPort}
-      --redis=${cfg.redis.address}
-      --data-dir=/var/lib/ntopng
-      --user=ntopng
-      ${cfg.extraConfig}
-    '';
+  configFile =
+    if cfg.configText != "" then
+      pkgs.writeText "ntopng.conf" ''
+        ${cfg.configText}
+      ''
+    else
+      pkgs.writeText "ntopng.conf" ''
+        ${concatStringsSep " " (map (e: "--interface=" + e) cfg.interfaces)}
+        --http-port=${toString cfg.httpPort}
+        --redis=${cfg.redis.address}
+        --data-dir=/var/lib/ntopng
+        --user=ntopng
+        ${cfg.extraConfig}
+      ''
+    ;
 
 in {
 
@@ -149,7 +153,7 @@ in {
       };
     };
 
-    # nice to have manual page and ntopng command in PATH
+      # nice to have manual page and ntopng command in PATH
     environment.systemPackages = [ pkgs.ntopng ];
 
     systemd.tmpfiles.rules = [ "d /var/lib/ntopng 0700 ntopng ntopng -" ];

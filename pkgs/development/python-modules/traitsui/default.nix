@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pyface
   ];
 
-  # Needs X server
+    # Needs X server
   doCheck = false;
 
   pythonImportsCheck = [ "traitsui" ];

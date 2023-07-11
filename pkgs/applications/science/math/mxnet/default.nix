@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     name = "apache-mxnet-src-${version}-incubating.tar.gz";
     url =
-      "https://dlcdn.apache.org/incubator/mxnet/${version}/apache-mxnet-src-${version}-incubating.tar.gz";
+      "https://dlcdn.apache.org/incubator/mxnet/${version}/apache-mxnet-src-${version}-incubating.tar.gz"
+      ;
     hash = "sha256-EephMoF02MKblvNBl34D3rC/Sww3rOZY+T442euMkyI=";
   };
 
@@ -40,13 +41,15 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "1-auto-disable-sse-for-non-x86.patch";
       url =
-        "https://github.com/apache/incubator-mxnet/commit/55e69871d4cadec51a8bbb6700131065388cb0b9.patch";
+        "https://github.com/apache/incubator-mxnet/commit/55e69871d4cadec51a8bbb6700131065388cb0b9.patch"
+        ;
       hash = "sha256-uaMpM0F9HRtEBXz2ewB/dlbuKaY5/RineCPUE2T6CHU=";
     })
     (fetchpatch {
       name = "2-auto-disable-sse-for-non-x86.patch";
       url =
-        "https://github.com/apache/incubator-mxnet/commit/c1b96f562f55dfa024ac941d7b104f00e239ee0f.patch";
+        "https://github.com/apache/incubator-mxnet/commit/c1b96f562f55dfa024ac941d7b104f00e239ee0f.patch"
+        ;
       excludes = [ "ci/docker/runtime_functions.sh" ];
       hash = "sha256-r1LbC8ueRooW5tTNakAlRSJ+9aR4WXXoEKx895DgOs4=";
     })
@@ -98,18 +101,19 @@ stdenv.mkDerivation rec {
     rm "$out"/lib/*.a
   '';
 
-  # used to mark cudaSupport in python310Packages.mxnet as broken;
-  # other attributes exposed for consistency
+    # used to mark cudaSupport in python310Packages.mxnet as broken;
+    # other attributes exposed for consistency
   passthru = { inherit cudaSupport cudnnSupport cudatoolkit cudnn; };
 
   meta = with lib; {
     description =
-      "Lightweight, Portable, Flexible Distributed/Mobile Deep Learning with Dynamic, Mutation-aware Dataflow Dep Scheduler";
+      "Lightweight, Portable, Flexible Distributed/Mobile Deep Learning with Dynamic, Mutation-aware Dataflow Dep Scheduler"
+      ;
     homepage = "https://mxnet.incubator.apache.org/";
     maintainers = with maintainers; [ abbradar ];
     license = licenses.asl20;
     platforms = platforms.unix;
-    # Build failures when linking mxnet_unit_tests: https://gist.github.com/6d17447ee3557967ec52c50d93b17a1d
+      # Build failures when linking mxnet_unit_tests: https://gist.github.com/6d17447ee3557967ec52c50d93b17a1d
     broken = cudaSupport;
   };
 }

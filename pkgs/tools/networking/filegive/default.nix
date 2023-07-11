@@ -11,7 +11,8 @@ buildGoModule rec {
 
   src = fetchurl {
     url =
-      "https://viric.name/cgi-bin/filegive/tarball/${rev}/filegive-${rev}.tar.gz";
+      "https://viric.name/cgi-bin/filegive/tarball/${rev}/filegive-${rev}.tar.gz"
+      ;
     hash = "sha256-A69oys59GEysZvQLaYsfoX/X2ENMMH2BGfJqXohQjpc=";
   };
 

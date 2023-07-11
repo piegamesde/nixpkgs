@@ -9,7 +9,8 @@ with python3.pkgs;
 
 let
 
-  runtimeDeps = ps:
+  runtimeDeps =
+    ps:
     with ps;
     [
       certifi
@@ -17,7 +18,8 @@ let
       pip
       virtualenv
       virtualenv-clone
-    ] ++ lib.optionals stdenv.hostPlatform.isAndroid [ pyjnius ];
+    ] ++ lib.optionals stdenv.hostPlatform.isAndroid [ pyjnius ]
+    ;
 
   pythonEnv = python3.withPackages runtimeDeps;
 

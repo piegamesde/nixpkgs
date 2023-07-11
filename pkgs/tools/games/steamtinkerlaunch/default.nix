@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-oigHNfg5rHxRabwUs66ye+chJzivmCIw8mg/GaJLPkg=";
   };
 
-  # hardcode PROGCMD because #150841
+    # hardcode PROGCMD because #150841
   postPatch = ''
     substituteInPlace steamtinkerlaunch --replace 'PROGCMD="''${0##*/}"' 'PROGCMD="steamtinkerlaunch"'
   '';
@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Linux wrapper tool for use with the Steam client for custom launch options and 3rd party programs";
+      "Linux wrapper tool for use with the Steam client for custom launch options and 3rd party programs"
+      ;
     homepage = "https://github.com/sonic2kk/steamtinkerlaunch";
     license = licenses.gpl3;
     maintainers = with maintainers; [ urandom ];

@@ -3,10 +3,10 @@
   # Content-addressable Nix mirrors
   hashedMirrors = [ "https://tarballs.nixos.org" ];
 
-  # Mirrors for mirror://site/filename URIs, where "site" is
-  # "sourceforge", "gnu", etc.
+    # Mirrors for mirror://site/filename URIs, where "site" is
+    # "sourceforge", "gnu", etc.
 
-  # Alsa Project
+    # Alsa Project
   alsa = [
     "https://www.alsa-project.org/files/pub/"
     "ftp://ftp.alsa-project.org/pub/"
@@ -14,7 +14,7 @@
     "http://www.mirrorservice.org/sites/ftp.alsa-project.org/pub/"
   ];
 
-  # Apache
+    # Apache
   apache = [
     "https://dlcdn.apache.org/"
     "https://www-eu.apache.org/dist/"
@@ -27,9 +27,9 @@
     "ftp://ftp.funet.fi/pub/mirrors/apache.org/"
   ];
 
-  # Bioconductor mirrors (from https://bioconductor.org/about/mirrors/)
-  # The commented-out ones don't seem to allow direct package downloads;
-  # they serve error messages that result in hash mismatches instead
+    # Bioconductor mirrors (from https://bioconductor.org/about/mirrors/)
+    # The commented-out ones don't seem to allow direct package downloads;
+    # they serve error messages that result in hash mismatches instead
   bioc = [
     # http://bioc.ism.ac.jp/
     # http://bioc.openanalytics.eu/
@@ -41,17 +41,17 @@
     "http://bioconductor.jp/packages/"
   ];
 
-  # CRAN mirrors
+    # CRAN mirrors
   cran = [ "https://cran.r-project.org/src/contrib/" ];
 
-  # BitlBee mirrors, see https://www.bitlbee.org/main.php/mirrors.html
+    # BitlBee mirrors, see https://www.bitlbee.org/main.php/mirrors.html
   bitlbee = [
     "https://get.bitlbee.org/"
     "https://ftp.snt.utwente.nl/pub/software/bitlbee/"
     "http://bitlbee.intergenia.de/"
   ];
 
-  # GCC
+    # GCC
   gcc = [
     "https://bigsearcher.com/mirrors/gcc/"
     "https://mirror.koddos.net/gcc/"
@@ -61,7 +61,7 @@
     "ftp://gcc.gnu.org/pub/gcc/"
   ];
 
-  # GNOME
+    # GNOME
   gnome = [
     # This one redirects to some mirror closeby, so it should be all you need
     "https://download.gnome.org/"
@@ -73,7 +73,7 @@
     "ftp://ftp.nara.wide.ad.jp/pub/X11/GNOME/"
   ];
 
-  # GNU (https://www.gnu.org/prep/ftp.html)
+    # GNU (https://www.gnu.org/prep/ftp.html)
   gnu = [
     # This one redirects to a (supposedly) nearby and (supposedly) up-to-date
     # mirror
@@ -91,7 +91,7 @@
     "ftp://ftp.funet.fi/pub/mirrors/ftp.gnu.org/gnu/"
   ];
 
-  # GnuPG
+    # GnuPG
   gnupg = [
     "https://gnupg.org/ftp/gcrypt/"
     "https://mirrors.dotsrc.org/gcrypt/"
@@ -100,9 +100,9 @@
     "http://www.ring.gr.jp/pub/net/"
   ];
 
-  # IBiblio (former metalab/sunsite)
-  # Most of the time the expressions refer to the /pub/Linux/ subdirectory;
-  # however there are other useful files outside it
+    # IBiblio (former metalab/sunsite)
+    # Most of the time the expressions refer to the /pub/Linux/ subdirectory;
+    # however there are other useful files outside it
   ibiblioPubLinux = [
     "https://www.ibiblio.org/pub/Linux/"
     "ftp://ftp.ibiblio.org/pub/linux/"
@@ -110,7 +110,7 @@
     "ftp://ftp.metalab.unc.edu/pub/linux/"
   ];
 
-  # ImageMagick mirrors, see https://www.imagemagick.org/script/mirror.php
+    # ImageMagick mirrors, see https://www.imagemagick.org/script/mirror.php
   imagemagick = [
     "https://www.imagemagick.org/download/"
     "https://mirror.checkdomain.de/imagemagick/"
@@ -119,7 +119,7 @@
     "ftp://ftp.sunet.se/mirror/imagemagick.org/ftp/" # also contains older versions removed from most mirrors
   ];
 
-  # Mirrors from https://download.kde.org/ls-lR.mirrorlist
+    # Mirrors from https://download.kde.org/ls-lR.mirrorlist
   kde = [
     "https://download.kde.org/download.php?url="
     "https://ftp.gwdg.de/pub/linux/kde/"
@@ -129,26 +129,26 @@
     "https://ftp.funet.fi/pub/mirrors/ftp.kde.org/pub/kde/"
   ];
 
-  # kernel.org's /pub (/pub/{linux,software}) tree
+    # kernel.org's /pub (/pub/{linux,software}) tree
   kernel = [
     "https://cdn.kernel.org/pub/"
     "http://linux-kernel.uio.no/pub/"
     "ftp://ftp.funet.fi/pub/mirrors/ftp.kernel.org/pub/"
   ];
 
-  # MySQL
+    # MySQL
   mysql = [ "https://cdn.mysql.com/Downloads/" ];
 
-  # Maven Central
+    # Maven Central
   maven = [ "https://repo1.maven.org/maven2/" ];
 
-  # Mozilla projects
+    # Mozilla projects
   mozilla = [
     "https://download.cdn.mozilla.net/pub/mozilla.org/"
     "https://archive.mozilla.org/pub/"
   ];
 
-  # OSDN (formerly SourceForge.jp)
+    # OSDN (formerly SourceForge.jp)
   osdn = [
     "https://osdn.dl.osdn.jp/"
     "https://osdn.mirror.constant.com/"
@@ -157,19 +157,19 @@
     "https://jaist.dl.sourceforge.jp/"
   ];
 
-  # PostgreSQL
+    # PostgreSQL
   postgresql = [ "https://ftp.postgresql.org/pub/" ];
 
-  # Qt
+    # Qt
   qt = [ "https://download.qt.io/" ];
 
-  # Roy marples mirrors
+    # Roy marples mirrors
   roy = [
     "https://roy.marples.name/downloads/"
     "https://cflags.cc/roy/"
   ];
 
-  # Sage mirrors (https://www.sagemath.org/mirrors.html)
+    # Sage mirrors (https://www.sagemath.org/mirrors.html)
   sageupstream = [
     # Africa (HTTPS)
     "https://sagemath.mirror.ac.za/spkg/upstream/"
@@ -212,13 +212,13 @@
     "http://ftp.ntua.gr/pub/sagemath/spkg/upstream/"
   ];
 
-  # SAMBA
+    # SAMBA
   samba = [
     "https://www.samba.org/ftp/"
     "http://www.samba.org/ftp/"
   ];
 
-  # GNU Savannah
+    # GNU Savannah
   savannah = [
     # Mirrors from https://download-mirror.savannah.gnu.org/releases/00_MIRRORS.html
     "https://mirror.easyname.at/nongnu/"
@@ -249,7 +249,7 @@
     "ftp://ftp.mirrorservice.org/sites/download.savannah.gnu.org/releases/"
   ];
 
-  # SourceForge
+    # SourceForge
   sourceforge = [
     "https://downloads.sourceforge.net/"
     "https://prdownloads.sourceforge.net/"
@@ -260,13 +260,13 @@
     "https://kent.dl.sourceforge.net/sourceforge/"
   ];
 
-  # Steam Runtime
+    # Steam Runtime
   steamrt = [
     "https://repo.steampowered.com/steamrt/"
     "https://public.abbradar.moe/steamrt/"
   ];
 
-  # TCSH shell
+    # TCSH shell
   tcsh = [
     "https://astron.com/pub/tcsh/"
     "https://astron.com/pub/tcsh/old/"
@@ -278,7 +278,7 @@
     "ftp://ftp.funet.fi/pub/unix/shells/tcsh/old/"
   ];
 
-  # XFCE
+    # XFCE
   xfce = [
     "https://archive.xfce.org/"
     "https://mirror.netcologne.de/xfce/"
@@ -290,15 +290,15 @@
     "http://ftp.udc.es/xfce/"
   ];
 
-  # X.org
+    # X.org
   xorg = [
     "https://xorg.freedesktop.org/releases/"
     "https://ftp.x.org/archive/"
   ];
 
-  ### Programming languages' package repos
+    ### Programming languages' package repos
 
-  # Perl CPAN
+    # Perl CPAN
   cpan = [
     "https://cpan.metacpan.org/"
     "https://cpan.perl.org/"
@@ -306,17 +306,17 @@
     "https://backpan.perl.org/" # for old releases
   ];
 
-  # Haskell Hackage
+    # Haskell Hackage
   hackage = [ "https://hackage.haskell.org/package/" ];
 
-  # Lua Rocks
+    # Lua Rocks
   luarocks = [
     "https://luarocks.org/"
     "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/"
     "https://luafr.org/moonrocks/"
   ];
 
-  # Python PyPI
+    # Python PyPI
   pypi = [
     "https://files.pythonhosted.org/packages/source/"
     # pypi.io is a more semantic link, but atm it’s referencing
@@ -324,12 +324,12 @@
     "https://pypi.io/packages/source/"
   ];
 
-  # Python Test-PyPI
+    # Python Test-PyPI
   testpypi = [ "https://test.pypi.io/packages/source/" ];
 
-  ### Linux distros
+    ### Linux distros
 
-  # CentOS
+    # CentOS
   centos = [
     # For old releases
     "https://vault.centos.org/"
@@ -342,7 +342,7 @@
     "http://mirror.centos.org/centos/"
   ];
 
-  # Debian
+    # Debian
   debian = [
     "https://httpredir.debian.org/debian/"
     "https://ftp.debian.org/debian/"
@@ -355,9 +355,9 @@
     "ftp://ftp.funet.fi/pub/mirrors/ftp.debian.org/debian/"
   ];
 
-  # Fedora
-  # Please add only full mirrors that carry old Fedora distributions as well
-  # See: https://mirrors.fedoraproject.org/publiclist (but not all carry old content)
+    # Fedora
+    # Please add only full mirrors that carry old Fedora distributions as well
+    # See: https://mirrors.fedoraproject.org/publiclist (but not all carry old content)
   fedora = [
     "https://archives.fedoraproject.org/pub/fedora/"
     "https://fedora.osuosl.org/"
@@ -369,14 +369,14 @@
     "http://mirror.1000mbps.com/fedora/"
   ];
 
-  # Gentoo
+    # Gentoo
   gentoo = [
     "https://ftp.snt.utwente.nl/pub/os/linux/gentoo/"
     "https://distfiles.gentoo.org/"
     "https://mirrors.kernel.org/gentoo/"
   ];
 
-  # openSUSE
+    # openSUSE
   opensuse = [
     "https://opensuse.hro.nl/opensuse/distribution/"
     "https://ftp.funet.fi/pub/linux/mirrors/opensuse/distribution/"
@@ -386,7 +386,7 @@
     "http://ftp.hosteurope.de/mirror/ftp.opensuse.org/discontinued/"
   ];
 
-  # Ubuntu
+    # Ubuntu
   ubuntu = [
     "https://nl.archive.ubuntu.com/ubuntu/"
     "https://old-releases.ubuntu.com/ubuntu/"
@@ -395,9 +395,9 @@
     "http://archive.ubuntu.com/ubuntu/"
   ];
 
-  # ... and other OSes in general
+    # ... and other OSes in general
 
-  # OpenBSD
+    # OpenBSD
   openbsd = [
     "https://ftp.openbsd.org/pub/OpenBSD/"
     "ftp://ftp.nluug.nl/pub/OpenBSD/"

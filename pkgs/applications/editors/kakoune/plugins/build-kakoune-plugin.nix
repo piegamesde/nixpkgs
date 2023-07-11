@@ -3,7 +3,8 @@
   stdenv,
   rtpPath ? "share/kak/autoload/plugins"
 }: rec {
-  buildKakounePlugin = attrs@{
+  buildKakounePlugin =
+    attrs@{
       name ? "${attrs.pname}-${attrs.version}",
       namePrefix ? "kakplugin-",
       src,
@@ -30,11 +31,14 @@
 
         runHook postInstall
       '';
-    });
+    })
+    ;
 
-  buildKakounePluginFrom2Nix = attrs:
+  buildKakounePluginFrom2Nix =
+    attrs:
     buildKakounePlugin ({
       dontBuild = true;
       dontConfigure = true;
-    } // attrs);
+    } // attrs)
+    ;
 }

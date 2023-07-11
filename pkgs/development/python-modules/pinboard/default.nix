@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "0ppc3vwv48ahqx6n5c7d7066zhi31cjdik0ma9chq6fscq2idgdf";
   };
 
-  # tests require an API key
+    # tests require an API key
   doCheck = false;
 
   meta = with lib; {

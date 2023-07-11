@@ -18,7 +18,7 @@ buildGoModule rec {
   pname = "pulumi";
   version = "3.60.1";
 
-  # Used in pulumi-language packages, which inherit this prop
+    # Used in pulumi-language packages, which inherit this prop
   sdkVendorHash = "sha256-oXsU4h4CwukJHttYLT7JiW2He8Yq5qAwnxL8+G5FIpc=";
 
   src = fetchFromGitHub {
@@ -26,7 +26,7 @@ buildGoModule rec {
     repo = pname;
     rev = "v${version}";
     hash = "sha256-bSuntT5b8UVrYw4ds4AfZB3Plvav5zGaEQpe34FefXk=";
-    # Some tests rely on checkout directory name
+      # Some tests rely on checkout directory name
     name = "pulumi";
   };
 
@@ -36,7 +36,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # Bundle release metadata
+    # Bundle release metadata
   ldflags = [
     # Omit the symbol table and debug information.
     "-s"
@@ -44,8 +44,8 @@ buildGoModule rec {
     "-w"
   ] ++ importpathFlags;
 
-  importpathFlags =
-    [ "-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}" ];
+  importpathFlags = [ "-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}" ]
+    ;
 
   doCheck = true;
 
@@ -79,7 +79,7 @@ buildGoModule rec {
     export PULUMI_HOME=$(mktemp -d)
   '';
 
-  # Allow tests that bind or connect to localhost on macOS.
+    # Allow tests that bind or connect to localhost on macOS.
   __darwinAllowLocalNetworking = true;
 
   doInstallCheck = true;
@@ -96,20 +96,23 @@ buildGoModule rec {
 
   passthru = {
     pkgs = pulumiPackages;
-    withPackages = f:
+    withPackages =
+      f:
       runCommand "${pulumi.name}-with-packages" {
         nativeBuildInputs = [ makeWrapper ];
       } ''
         mkdir -p $out/bin
         makeWrapper ${pulumi}/bin/pulumi $out/bin/pulumi \
           --suffix PATH : ${lib.makeSearchPath "bin" (f pulumiPackages)}
-      '';
+      ''
+      ;
   };
 
   meta = with lib; {
     homepage = "https://pulumi.io/";
     description =
-      "Pulumi is a cloud development platform that makes creating cloud programs easy and productive";
+      "Pulumi is a cloud development platform that makes creating cloud programs easy and productive"
+      ;
     sourceProvenance = [ sourceTypes.fromSource ];
     license = licenses.asl20;
     platforms = platforms.unix;

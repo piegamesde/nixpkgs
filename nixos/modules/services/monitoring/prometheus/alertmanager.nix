@@ -12,20 +12,25 @@ let
   mkConfigFile =
     pkgs.writeText "alertmanager.yml" (builtins.toJSON cfg.configuration);
 
-  checkedConfig = file:
+  checkedConfig =
+    file:
     pkgs.runCommand "checked-config" { buildInputs = [ cfg.package ]; } ''
       ln -s ${file} $out
       amtool check-config $out
-    '';
+    ''
+    ;
 
-  alertmanagerYml = let
-    yml = if cfg.configText != null then
-      pkgs.writeText "alertmanager.yml" cfg.configText
-    else
-      mkConfigFile;
-  in
-  checkedConfig yml
-  ;
+  alertmanagerYml =
+    let
+      yml =
+        if cfg.configText != null then
+          pkgs.writeText "alertmanager.yml" cfg.configText
+        else
+          mkConfigFile
+        ;
+    in
+    checkedConfig yml
+    ;
 
   cmdlineArgs = cfg.extraFlags ++ [
     "--config.file /tmp/alert-manager-substituted.yaml"

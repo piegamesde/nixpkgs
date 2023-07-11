@@ -6,7 +6,8 @@
 }:
 
 {
-  buildContainer = {
+  buildContainer =
+    {
       args,
       mounts ? { },
       os ? "linux",
@@ -127,6 +128,6 @@
       cp ${config} $out/config.json
       xargs tar c < ${writeReferencesToFile args} | tar -xC $out/rootfs/
     ''
-  ;
+    ;
 }
 

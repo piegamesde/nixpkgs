@@ -9,10 +9,12 @@
 }:
 
 let
-  backend = if stdenv.isDarwin then
-    "darwin"
-  else
-    "unix";
+  backend =
+    if stdenv.isDarwin then
+      "darwin"
+    else
+      "unix"
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -29,8 +31,8 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  propagatedBuildInputs = lib.optional stdenv.isLinux gtk3
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  propagatedBuildInputs =
+    lib.optional stdenv.isLinux gtk3 ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     sed -i 's/set(CMAKE_OSX_DEPLOYMENT_TARGET "10.8")//' ./CMakeLists.txt
@@ -61,7 +63,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/andlabs/libui";
     description =
-      "Simple and portable (but not inflexible) GUI library in C that uses the native GUI technologies of each platform it supports";
+      "Simple and portable (but not inflexible) GUI library in C that uses the native GUI technologies of each platform it supports"
+      ;
     license = licenses.mit;
     platforms = platforms.unix;
   };

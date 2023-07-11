@@ -56,7 +56,8 @@ in
 
     src = fetchzip {
       url =
-        "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
+        "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz"
+        ;
       sha256 = "sha256-wL6N2+mfFISrOFn4zaCQI+oH6ixwUMRKRi1dAOigBro=";
     };
 
@@ -137,9 +138,8 @@ in
 
     passthru.tests.version = test-version;
 
-    meta = _meta // {
-      sourceProvenance = with lib.sourceTypes; [ fromSource ];
-    };
+    meta =
+      _meta // { sourceProvenance = with lib.sourceTypes; [ fromSource ]; };
   };
 }.${stdenv.hostPlatform.system} or (throw
   "Unsupported platform ${stdenv.hostPlatform.system}")

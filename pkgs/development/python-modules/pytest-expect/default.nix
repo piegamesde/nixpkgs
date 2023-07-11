@@ -22,7 +22,7 @@ buildPythonPackage rec {
     six
   ];
 
-  # Tests in neither the archive nor the repo
+    # Tests in neither the archive nor the repo
   doCheck = false;
 
   meta = {

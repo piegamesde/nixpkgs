@@ -34,10 +34,12 @@
   autoPatchelfHook,
 }:
 let
-  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
-    "amd64"
-  else
-    throw "Unsupported system ${stdenv.hostPlatform.system} ";
+  arch =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "amd64"
+    else
+      throw "Unsupported system ${stdenv.hostPlatform.system} "
+    ;
 in
 mkDerivation rec {
   pname = "googleearth-pro";
@@ -45,7 +47,8 @@ mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_${version}-r0_${arch}.deb";
+      "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_${version}-r0_${arch}.deb"
+      ;
     sha256 = "1pbapi267snlrjari5k93y6kbrjsqhqxgkxxqaqv4r25az00dx6d";
   };
 
@@ -117,7 +120,7 @@ mkDerivation rec {
     $out/bin/gpsbabel -V > /dev/null
   '';
 
-  # wayland is not supported by Qt included in binary package, so make sure it uses xcb
+    # wayland is not supported by Qt included in binary package, so make sure it uses xcb
   postFixup = ''
     wrapProgram $out/bin/googleearth-pro \
       --set QT_QPA_PLATFORM xcb \

@@ -63,30 +63,34 @@ let
       relatedPackages = genRelatedPackages opt.relatedPackages opt.name;
     });
 
-  # Generate DocBook documentation for a list of packages. This is
-  # what `relatedPackages` option of `mkOption` from
-  # ../../../lib/options.nix influences.
-  #
-  # Each element of `relatedPackages` can be either
-  # - a string:  that will be interpreted as an attribute name from `pkgs` and turned into a link
-  #              to search.nixos.org,
-  # - a list:    that will be interpreted as an attribute path from `pkgs` and turned into a link
-  #              to search.nixos.org,
-  # - an attrset: that can specify `name`, `path`, `comment`
-  #   (either of `name`, `path` is required, the rest are optional).
-  #
-  # NOTE: No checks against `pkgs` are made to ensure that the referenced package actually exists.
-  # Such checks are not compatible with option docs caching.
-  genRelatedPackages = packages: optName:
+    # Generate DocBook documentation for a list of packages. This is
+    # what `relatedPackages` option of `mkOption` from
+    # ../../../lib/options.nix influences.
+    #
+    # Each element of `relatedPackages` can be either
+    # - a string:  that will be interpreted as an attribute name from `pkgs` and turned into a link
+    #              to search.nixos.org,
+    # - a list:    that will be interpreted as an attribute path from `pkgs` and turned into a link
+    #              to search.nixos.org,
+    # - an attrset: that can specify `name`, `path`, `comment`
+    #   (either of `name`, `path` is required, the rest are optional).
+    #
+    # NOTE: No checks against `pkgs` are made to ensure that the referenced package actually exists.
+    # Such checks are not compatible with option docs caching.
+  genRelatedPackages =
+    packages: optName:
     let
-      unpack = p:
+      unpack =
+        p:
         if lib.isString p then
           { name = p; }
         else if lib.isList p then
           { path = p; }
         else
-          p;
-      describe = args:
+          p
+        ;
+      describe =
+        args:
         let
           title = args.title or null;
           name = args.name or (lib.concatStringsSep "." args.path);
@@ -96,10 +100,11 @@ let
           }`pkgs.${name}`](
               https://search.nixos.org/packages?show=${name}&sort=relevance&query=${name}
             )${lib.optionalString (args ? comment) "\n\n  ${args.comment}"}
-        '' ;
+        ''
+        ;
     in
     lib.concatMapStrings (p: describe (unpack p)) packages
-  ;
+    ;
 
   optionsNix = builtins.listToAttrs (map (o: {
     name = o.name;
@@ -141,12 +146,14 @@ in rec {
     ];
     options = builtins.toFile "options.json"
       (builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix));
-    # merge with an empty set if baseOptionsJSON is null to run markdown
-    # processing on the input options
-    baseJSON = if baseOptionsJSON == null then
-      builtins.toFile "base.json" "{}"
-    else
-      baseOptionsJSON;
+      # merge with an empty set if baseOptionsJSON is null to run markdown
+      # processing on the input options
+    baseJSON =
+      if baseOptionsJSON == null then
+        builtins.toFile "base.json" "{}"
+      else
+        baseOptionsJSON
+      ;
   } ''
     # Export list of options in different format.
     dst=$out/share/doc/nixos

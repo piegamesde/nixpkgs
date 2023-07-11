@@ -19,7 +19,7 @@ crystal.buildCrystalPackage rec {
 
   crystalBinaries.thicket.src = "src/thicket.cr";
 
-  # there is one test that tries to clone a repo
+    # there is one test that tries to clone a repo
   doCheck = false;
 
   meta = with lib; {

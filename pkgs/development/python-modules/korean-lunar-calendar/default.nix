@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-6yxIUSSgYQFpJr3qbYnv35uf2/FttViVts8eW+wXuFc=";
   };
 
-  # no real tests
+    # no real tests
   pythonImportsCheck = [ "korean_lunar_calendar" ];
 
   meta = with lib; {

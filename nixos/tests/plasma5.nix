@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     name = "plasma5";
     meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }:
 
@@ -24,11 +25,13 @@ import ./make-test-python.nix ({
           enable = true;
           user = "alice";
         };
-        hardware.pulseaudio.enable =
-          true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
-      };
+        hardware.pulseaudio.enable = true
+          ; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -71,5 +74,6 @@ import ./make-test-python.nix ({
                 "${xdo} key Alt+F1 sleep 10"
             )
             machine.screenshot("screen")
-      '' ;
+      ''
+      ;
   })

@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
   }: {
     name = "powerdns";
 
-    nodes.server = {
+    nodes.server =
+      {
         ...
       }: {
         services.powerdns.enable = true;
@@ -34,7 +35,8 @@ import ./make-test-python.nix ({
           powerdns
           mariadb
         ];
-      };
+      }
+      ;
 
     testScript = ''
       import re

@@ -42,37 +42,38 @@ let
 
   haveLocalDB = cfg.dbi == localDB;
 
-  hydra-package = let
-    makeWrapperArgs = concatStringsSep " "
-      (mapAttrsToList (key: value: ''--set "${key}" "${value}"'') hydraEnv);
-  in
-  pkgs.buildEnv rec {
-    name = "hydra-env";
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    paths = [ cfg.package ];
+  hydra-package =
+    let
+      makeWrapperArgs = concatStringsSep " "
+        (mapAttrsToList (key: value: ''--set "${key}" "${value}"'') hydraEnv);
+    in
+    pkgs.buildEnv rec {
+      name = "hydra-env";
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      paths = [ cfg.package ];
 
-    postBuild = ''
-      if [ -L "$out/bin" ]; then
-          unlink "$out/bin"
-      fi
-      mkdir -p "$out/bin"
-
-      for path in ${concatStringsSep " " paths}; do
-        if [ -d "$path/bin" ]; then
-          cd "$path/bin"
-          for prg in *; do
-            if [ -f "$prg" ]; then
-              rm -f "$out/bin/$prg"
-              if [ -x "$prg" ]; then
-                makeWrapper "$path/bin/$prg" "$out/bin/$prg" ${makeWrapperArgs}
-              fi
-            fi
-          done
+      postBuild = ''
+        if [ -L "$out/bin" ]; then
+            unlink "$out/bin"
         fi
-      done
-    '';
-  }
-  ;
+        mkdir -p "$out/bin"
+
+        for path in ${concatStringsSep " " paths}; do
+          if [ -d "$path/bin" ]; then
+            cd "$path/bin"
+            for prg in *; do
+              if [ -f "$prg" ]; then
+                rm -f "$out/bin/$prg"
+                if [ -x "$prg" ]; then
+                  makeWrapper "$path/bin/$prg" "$out/bin/$prg" ${makeWrapperArgs}
+                fi
+              fi
+            done
+          fi
+        done
+      '';
+    }
+    ;
 
 in {
   ###### interface
@@ -236,7 +237,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -245,7 +246,7 @@ in {
     users.users.hydra = {
       description = "Hydra";
       group = "hydra";
-      # We don't enable `createHome` here because the creation of the home directory is handled by the hydra-init service below.
+        # We don't enable `createHome` here because the creation of the home directory is handled by the hydra-init service below.
       home = baseDir;
       useDefaultShell = true;
       uid = config.ids.uids.hydra;
@@ -305,9 +306,8 @@ in {
       wantedBy = [ "multi-user.target" ];
       requires = optional haveLocalDB "postgresql.service";
       after = optional haveLocalDB "postgresql.service";
-      environment = env // {
-        HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-init";
-      };
+      environment =
+        env // { HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-init"; };
       path = [ pkgs.util-linux ];
       preStart = ''
         mkdir -p ${baseDir}
@@ -409,7 +409,7 @@ in {
         User = "hydra-queue-runner";
         Restart = "always";
 
-        # Ensure we can get core dumps.
+          # Ensure we can get core dumps.
         LimitCORE = "infinity";
         WorkingDirectory = "${baseDir}/queue-runner";
       };
@@ -477,15 +477,15 @@ in {
       };
       serviceConfig = {
         ExecStart = "@${hydra-package}/bin/hydra-notify hydra-notify";
-        # FIXME: run this under a less privileged user?
+          # FIXME: run this under a less privileged user?
         User = "hydra-queue-runner";
         Restart = "always";
         RestartSec = 5;
       };
     };
 
-    # If there is less than a certain amount of free disk space, stop
-    # the queue/evaluator to prevent builds from failing or aborting.
+      # If there is less than a certain amount of free disk space, stop
+      # the queue/evaluator to prevent builds from failing or aborting.
     systemd.services.hydra-check-space = {
       script = ''
         if [ $(($(stat -f -c '%a' /nix/store) * $(stat -f -c '%S' /nix/store))) -lt $((${
@@ -504,9 +504,9 @@ in {
       startAt = "*:0/5";
     };
 
-    # Periodically compress build logs. The queue runner compresses
-    # logs automatically after a step finishes, but this doesn't work
-    # if the queue runner is stopped prematurely.
+      # Periodically compress build logs. The queue runner compresses
+      # logs automatically after a step finishes, but this doesn't work
+      # if the queue runner is stopped prematurely.
     systemd.services.hydra-compress-logs = {
       path = [ pkgs.bzip2 ];
       script = ''

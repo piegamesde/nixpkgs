@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/sbcl/sbcl/${version}/sbcl-${version}-${cfg.system}-binary.tar.bz2";
+      "mirror://sourceforge/project/sbcl/sbcl/${version}/sbcl-${version}-${cfg.system}-binary.tar.bz2"
+      ;
     sha256 = cfg.sha256;
   };
 

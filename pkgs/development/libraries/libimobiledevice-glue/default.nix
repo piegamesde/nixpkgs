@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/libimobiledevice/libimobiledevice-glue";
     description =
-      "Library with common code used by the libraries and tools around the libimobiledevice project.";
+      "Library with common code used by the libraries and tools around the libimobiledevice project."
+      ;
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ infinisil ];

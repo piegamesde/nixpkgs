@@ -20,17 +20,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ help2man ];
   buildInputs = [ python3 ];
 
-  # Needed for man page generation in build phase
+    # Needed for man page generation in build phase
   postPatch = ''
     patchShebangs src/fead.py
   '';
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  # Already done in postPatch phase
+    # Already done in postPatch phase
   dontPatchShebangs = true;
 
-  # The package has no tests.
+    # The package has no tests.
   doCheck = false;
 
   meta = with lib; {

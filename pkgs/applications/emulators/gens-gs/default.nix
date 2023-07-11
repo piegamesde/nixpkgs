@@ -32,8 +32,8 @@ stdenv.mkDerivation rec {
     libGL
   ];
 
-  # Work around build failures on recent GTK.
-  # See http://ubuntuforums.org/showthread.php?p=10535837
+    # Work around build failures on recent GTK.
+    # See http://ubuntuforums.org/showthread.php?p=10535837
   env.NIX_CFLAGS_COMPILE = "-UGTK_DISABLE_DEPRECATED -UGSEAL_ENABLE";
 
   meta = with lib; {

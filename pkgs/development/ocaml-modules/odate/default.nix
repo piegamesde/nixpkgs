@@ -20,7 +20,7 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ menhir ];
 
-  # Ensure compatibility of v0.6 with menhir ≥ 20220210
+    # Ensure compatibility of v0.6 with menhir ≥ 20220210
   preBuild = ''
     substituteInPlace dune-project --replace "(using menhir 1.0)" "(using menhir 2.0)"
   '';

@@ -35,8 +35,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-backend ];
 
-  propagatedBuildInputs = [ colorama ]
-    ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
+  propagatedBuildInputs =
+    [ colorama ] ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
 
   nativeCheckInputs = [
     git

@@ -28,13 +28,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  # Somehow nosetests doesn't run the tests, so let's use pytest instead
+    # Somehow nosetests doesn't run the tests, so let's use pytest instead
   doCheck = false; # tests use relative paths, which fail to resolve
   checkPhase = ''
     py.test pywt/tests
   '';
 
-  # ensure compiled modules are present
+    # ensure compiled modules are present
   pythonImportsCheck = [
     "pywt"
     "pywt._extensions._cwt"

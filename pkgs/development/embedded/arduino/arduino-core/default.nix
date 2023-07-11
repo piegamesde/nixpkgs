@@ -40,7 +40,7 @@ let
     inherit (lib) optionalAttrs;
     inherit (stdenv.hostPlatform) system;
   };
-  # Some .so-files are later copied from .jar-s to $HOME, so patch them beforehand
+    # Some .so-files are later copied from .jar-s to $HOME, so patch them beforehand
   patchelfInJars =
     lib.optional (stdenv.hostPlatform.system == "aarch64-linux") {
       jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
@@ -56,7 +56,7 @@ let
       jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
       file = "libs/linux/libjSSC-2.8_x86.so";
     };
-  # abiVersion 6 is default, but we need 5 for `avrdude_bin` executable
+    # abiVersion 6 is default, but we need 5 for `avrdude_bin` executable
   ncurses5 = ncurses.override { abiVersion = "5"; };
   teensy_libpath = lib.makeLibraryPath [
     atk
@@ -80,16 +80,18 @@ let
     xorg.libXxf86vm
     zlib
   ];
-  teensy_architecture = if stdenv.hostPlatform.isx86_32 then
-    "linux32"
-  else if stdenv.hostPlatform.isx86_64 then
-    "linux64"
-  else if stdenv.hostPlatform.isAarch64 then
-    "linuxaarch64"
-  else if stdenv.hostPlatform.isAarch32 then
-    "linuxarm"
-  else
-    throw "${stdenv.hostPlatform.system} is not supported in teensy";
+  teensy_architecture =
+    if stdenv.hostPlatform.isx86_32 then
+      "linux32"
+    else if stdenv.hostPlatform.isx86_64 then
+      "linux64"
+    else if stdenv.hostPlatform.isAarch64 then
+      "linuxaarch64"
+    else if stdenv.hostPlatform.isAarch32 then
+      "linuxarm"
+    else
+      throw "${stdenv.hostPlatform.system} is not supported in teensy"
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -109,7 +111,8 @@ stdenv.mkDerivation rec {
   teensyduino_version = "156";
   teensyduino_src = fetchurl {
     url =
-      "https://www.pjrc.com/teensy/td_${teensyduino_version}/TeensyduinoInstall.${teensy_architecture}";
+      "https://www.pjrc.com/teensy/td_${teensyduino_version}/TeensyduinoInstall.${teensy_architecture}"
+      ;
     sha256 = {
       linux64 = "sha256-4DbhmmYrx+rCBpDrYFaC0A88Qv9UEeNlQAkFi3zAstk=";
       linux32 = "sha256-DlRPOtDxmMPv2Qzhib7vNZdKNZCxmm9YmVNnwUKXK/E=";
@@ -118,10 +121,11 @@ stdenv.mkDerivation rec {
     }.${teensy_architecture} or (throw
       "No arduino binaries for ${teensy_architecture}");
   };
-  # Used because teensyduino requires jars be a specific size
+    # Used because teensyduino requires jars be a specific size
   arduino_dist_src = fetchurl {
     url =
-      "https://downloads.arduino.cc/arduino-${version}-${teensy_architecture}.tar.xz";
+      "https://downloads.arduino.cc/arduino-${version}-${teensy_architecture}.tar.xz"
+      ;
     sha256 = {
       linux64 = "sha256-62i93B0cASC+L8oTUKA+40Uxzzf1GEeyEhC25wVFvJs=";
       linux32 = "sha256-wSxtx3BqXMQCeWQDK8PHkWLlQqQM1Csao8bIk98FrFg=";
@@ -131,9 +135,9 @@ stdenv.mkDerivation rec {
       "No arduino binaries for ${teensy_architecture}");
   };
 
-  # the glib setup hook will populate GSETTINGS_SCHEMAS_PATH,
-  # wrapGAppHooks (among other things) adds it to XDG_DATA_DIRS
-  # so 'save as...' works:
+    # the glib setup hook will populate GSETTINGS_SCHEMAS_PATH,
+    # wrapGAppHooks (among other things) adds it to XDG_DATA_DIRS
+    # so 'save as...' works:
   nativeBuildInputs = [
     glib
     wrapGAppsHook
@@ -174,12 +178,12 @@ stdenv.mkDerivation rec {
     cd ..
   '';
 
-  # This will be patched into `arduino` wrapper script
-  # Java loads gtk dynamically, so we need to provide it using LD_LIBRARY_PATH
+    # This will be patched into `arduino` wrapper script
+    # Java loads gtk dynamically, so we need to provide it using LD_LIBRARY_PATH
   dynamicLibraryPath = lib.makeLibraryPath [ gtk3 ];
   javaPath = lib.makeBinPath [ jdk ];
 
-  # Everything else will be patched into rpath
+    # Everything else will be patched into rpath
   rpath = lib.makeLibraryPath [
     zlib
     libusb-compat-0_1
@@ -239,7 +243,7 @@ stdenv.mkDerivation rec {
     ''}
   '';
 
-  # So we don't accidentally mess with firmware files
+    # So we don't accidentally mess with firmware files
   dontStrip = true;
   dontPatchELF = true;
 
@@ -277,10 +281,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open-source electronics prototyping platform";
     homepage = "https://www.arduino.cc/";
-    license = if withTeensyduino then
-      licenses.unfreeRedistributable
-    else
-      licenses.gpl2;
+    license =
+      if withTeensyduino then
+        licenses.unfreeRedistributable
+      else
+        licenses.gpl2
+      ;
     sourceProvenance = with sourceTypes; [
       binaryBytecode
       binaryNativeCode

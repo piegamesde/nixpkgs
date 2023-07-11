@@ -40,8 +40,8 @@ stdenv.mkDerivation rec {
       libtool
     ];
 
-  # Don't remove static libraries (e.g. 'libs/*.a') on darwin.  They're needed to
-  # compile ffmpeg (and perhaps other things).
+    # Don't remove static libraries (e.g. 'libs/*.a') on darwin.  They're needed to
+    # compile ffmpeg (and perhaps other things).
   postInstall = lib.optionalString (!stdenv.isDarwin) ''
     rm $out/lib/*.a
   '';

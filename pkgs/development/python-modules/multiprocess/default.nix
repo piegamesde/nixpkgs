@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ dill ];
 
-  # Python-version dependent tests
+    # Python-version dependent tests
   doCheck = false;
 
   pythonImportsCheck = [ "multiprocess" ];

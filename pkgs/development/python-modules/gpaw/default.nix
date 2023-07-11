@@ -130,7 +130,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Density functional theory and beyond within the projector-augmented wave method";
+      "Density functional theory and beyond within the projector-augmented wave method"
+      ;
     homepage = "https://wiki.fysik.dtu.dk/gpaw/index.html";
     license = licenses.gpl3Only;
     platforms = platforms.unix;

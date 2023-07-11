@@ -33,7 +33,7 @@ in {
     ] "")
   ];
 
-  ###### interface
+    ###### interface
   options.services.kubernetes.controllerManager = with lib.types; {
 
     allocateNodeCIDRs = mkOption {
@@ -76,8 +76,9 @@ in {
     kubeconfig = top.lib.mkKubeConfigOptions "Kubernetes controller manager";
 
     leaderElect = mkOption {
-      description = lib.mdDoc
-        "Whether to start leader election before executing main loop.";
+      description =
+        lib.mdDoc "Whether to start leader election before executing main loop."
+        ;
       type = bool;
       default = true;
     };
@@ -131,7 +132,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     systemd.services.kube-controller-manager = {
       description = "Kubernetes Controller Manager Service";

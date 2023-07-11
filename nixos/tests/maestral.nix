@@ -5,56 +5,66 @@ import ./make-test-python.nix ({
     name = "maestral";
     meta = with pkgs.lib.maintainers; { maintainers = [ peterhoeg ]; };
 
-    nodes = let
-      common = attrs:
-        pkgs.lib.recursiveUpdate {
-          imports = [ ./common/user-account.nix ];
-          systemd.user.services.maestral = {
-            description = "Maestral Dropbox Client";
-            serviceConfig.Type = "exec";
-          };
-        } attrs;
+    nodes =
+      let
+        common =
+          attrs:
+          pkgs.lib.recursiveUpdate {
+            imports = [ ./common/user-account.nix ];
+            systemd.user.services.maestral = {
+              description = "Maestral Dropbox Client";
+              serviceConfig.Type = "exec";
+            };
+          } attrs
+          ;
 
-    in {
-      cli = {
-          ...
-        }:
-        common {
-          systemd.user.services.maestral = {
-            wantedBy = [ "default.target" ];
-            serviceConfig.ExecStart =
-              "${pkgs.maestral}/bin/maestral start --foreground";
-          };
-        };
+      in {
+        cli =
+          {
+            ...
+          }:
+          common {
+            systemd.user.services.maestral = {
+              wantedBy = [ "default.target" ];
+              serviceConfig.ExecStart =
+                "${pkgs.maestral}/bin/maestral start --foreground";
+            };
+          }
+          ;
 
-      gui = {
-          ...
-        }:
-        common {
-          services.xserver = {
-            enable = true;
-            displayManager.sddm.enable = true;
-            displayManager.defaultSession = "plasma";
-            desktopManager.plasma5.enable = true;
-            desktopManager.plasma5.runUsingSystemd = true;
-            displayManager.autoLogin = {
+        gui =
+          {
+            ...
+          }:
+          common {
+            services.xserver = {
               enable = true;
-              user = "alice";
+              displayManager.sddm.enable = true;
+              displayManager.defaultSession = "plasma";
+              desktopManager.plasma5.enable = true;
+              desktopManager.plasma5.runUsingSystemd = true;
+              displayManager.autoLogin = {
+                enable = true;
+                user = "alice";
+              };
             };
-          };
 
-          systemd.user.services = {
-            maestral = {
-              wantedBy = [ "graphical-session.target" ];
-              serviceConfig.ExecStart = "${pkgs.maestral-gui}/bin/maestral_qt";
+            systemd.user.services = {
+              maestral = {
+                wantedBy = [ "graphical-session.target" ];
+                serviceConfig.ExecStart =
+                  "${pkgs.maestral-gui}/bin/maestral_qt";
+              };
+                # PowerDevil doesn't like our VM
+              plasma-powerdevil.enable = false;
             };
-            # PowerDevil doesn't like our VM
-            plasma-powerdevil.enable = false;
-          };
-        };
-    } ;
+          }
+          ;
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -74,5 +84,6 @@ import ./make-test-python.nix ({
           gui.succeed("xauth merge ${user.home}/.Xauthority")
           gui.wait_for_window("^Desktop ")
           gui.wait_for_unit("maestral.service", "${user.name}")
-      '' ;
+      ''
+      ;
   })

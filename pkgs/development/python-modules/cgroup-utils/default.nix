@@ -14,7 +14,7 @@ buildPythonPackage rec {
     pep8
     nose
   ];
-  # Pep8 tests fail...
+    # Pep8 tests fail...
   doCheck = false;
 
   postPatch = ''

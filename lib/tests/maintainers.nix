@@ -7,7 +7,8 @@
 }:
 
 let
-  checkMaintainer = handle: uncheckedAttrs:
+  checkMaintainer =
+    handle: uncheckedAttrs:
     let
       prefix = [
         "lib"
@@ -49,7 +50,7 @@ let
             '';
     in
     lib.deepSeq checkedAttrs checks
-  ;
+    ;
 
   missingGithubIds =
     lib.concatLists (lib.mapAttrsToList checkMaintainer lib.maintainers);

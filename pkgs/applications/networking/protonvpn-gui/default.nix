@@ -64,7 +64,7 @@ buildPythonApplication rec {
       --replace 'protonvpn-logo' protonvpn
   '';
 
-  # Project has a dummy test
+    # Project has a dummy test
   doCheck = false;
 
   meta = with lib; {

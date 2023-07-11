@@ -46,7 +46,7 @@ python3Packages.buildPythonApplication rec {
     rm src/allmydata/test/web/test_logs.py
   '';
 
-  # Remove broken and expensive tests.
+    # Remove broken and expensive tests.
   preConfigure = ''
     (
       cd src/allmydata/test
@@ -70,7 +70,7 @@ python3Packages.buildPythonApplication rec {
     texinfo
   ];
 
-  # The `backup' command requires `sqlite3'.
+    # The `backup' command requires `sqlite3'.
   propagatedBuildInputs = with python3Packages;
     [
       appdirs
@@ -106,7 +106,7 @@ python3Packages.buildPythonApplication rec {
     twisted
   ];
 
-  # Install the documentation.
+    # Install the documentation.
   postInstall = ''
     (
       cd docs

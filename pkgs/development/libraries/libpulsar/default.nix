@@ -35,23 +35,27 @@ let
      let result = enableFeature «derivation»
      => "ON"
   */
-  enableCmakeFeature = p:
+  enableCmakeFeature =
+    p:
     if (p == null || p == false) then
       "OFF"
     else
-      "ON";
+      "ON"
+    ;
 
-  # Not really sure why I need to do this.. If I call clang-tools without the override it defaults to a different version and fails
+    # Not really sure why I need to do this.. If I call clang-tools without the override it defaults to a different version and fails
   clangTools = clang-tools.override { inherit stdenv llvmPackages; };
-  # If boost has python enabled, then boost-python package will be installed which is used by libpulsars python wrapper
-  boost = if python3Support then
-    boost17x.override {
-      inherit stdenv;
-      enablePython = python3Support;
-      python = python3;
-    }
-  else
-    boost17x;
+    # If boost has python enabled, then boost-python package will be installed which is used by libpulsars python wrapper
+  boost =
+    if python3Support then
+      boost17x.override {
+        inherit stdenv;
+        enablePython = python3Support;
+        python = python3;
+      }
+    else
+      boost17x
+    ;
   defaultOptionals = [
     boost
     protobuf
@@ -67,12 +71,13 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     hash = "sha256-IONnsSDbnX2qz+Xya0taHYSViTOiRI36AfcxmY3dNpo=";
     url =
-      "mirror://apache/pulsar/pulsar-${version}/apache-pulsar-${version}-src.tar.gz";
+      "mirror://apache/pulsar/pulsar-${version}/apache-pulsar-${version}-src.tar.gz"
+      ;
   };
 
   sourceRoot = "apache-pulsar-${version}-src/pulsar-client-cpp";
 
-  # clang-tools needed for clang-format
+    # clang-tools needed for clang-format
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -85,7 +90,7 @@ stdenv.mkDerivation rec {
     curl
   ] ++ defaultOptionals;
 
-  # Needed for GCC on Linux
+    # Needed for GCC on Linux
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=return-type" ];
 
   cmakeFlags = [

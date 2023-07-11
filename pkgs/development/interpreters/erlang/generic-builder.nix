@@ -98,10 +98,12 @@ assert javacSupport -> openjdk11 != null;
 
 let
   inherit (lib) optional optionals optionalAttrs optionalString;
-  wxPackages2 = if stdenv.isDarwin then
-    [ wxGTK ]
-  else
-    wxPackages;
+  wxPackages2 =
+    if stdenv.isDarwin then
+      [ wxGTK ]
+    else
+      wxPackages
+    ;
 
 in
 stdenv.mkDerivation ({
@@ -136,7 +138,7 @@ stdenv.mkDerivation ({
 
   debugInfo = enableDebugInfo;
 
-  # On some machines, parallel build reliably crashes on `GEN    asn1ct_eval_ext.erl` step
+    # On some machines, parallel build reliably crashes on `GEN    asn1ct_eval_ext.erl` step
   enableParallelBuilding = parallelBuild;
 
   postPatch = ''
@@ -166,8 +168,8 @@ stdenv.mkDerivation ({
     ++ optional (stdenv.isDarwin && stdenv.isx86_64) "--disable-jit"
     ++ configureFlags;
 
-  # install-docs will generate and install manpages and html docs
-  # (PDFs are generated only when fop is available).
+    # install-docs will generate and install manpages and html docs
+    # (PDFs are generated only when fop is available).
 
   postInstall = ''
     ln -s $out/lib/erlang/lib/erl_interface*/bin/erl_call $out/bin/erl_call
@@ -175,7 +177,7 @@ stdenv.mkDerivation ({
     ${postInstall}
   '';
 
-  # Some erlang bin/ scripts run sed and awk
+    # Some erlang bin/ scripts run sed and awk
   postFixup = ''
     wrapProgram $out/lib/erlang/bin/erl --prefix PATH ":" "${gnused}/bin/"
     wrapProgram $out/lib/erlang/bin/start_erl --prefix PATH ":" "${
@@ -187,30 +189,31 @@ stdenv.mkDerivation ({
   '';
 
   passthru = {
-    updateScript = let
-      major = builtins.head (builtins.splitVersion version);
-    in
-    writeScript "update.sh" ''
-      #!${stdenv.shell}
-      set -ox errexit
-      PATH=${
-        lib.makeBinPath [
-          common-updater-scripts
-          coreutils
-          git
-          gnused
-        ]
-      }
-      latest=$(list-git-tags --url=https://github.com/erlang/otp.git | sed -n 's/^OTP-${major}/${major}/p' | sort -V | tail -1)
-      if [ "$latest" != "${version}" ]; then
-        nixpkgs="$(git rev-parse --show-toplevel)"
-        nix_file="$nixpkgs/pkgs/development/interpreters/erlang/${major}.nix"
-        update-source-version ${baseName}R${major} "$latest" --version-key=version --print-changes --file="$nix_file"
-      else
-        echo "${baseName}R${major} is already up-to-date"
-      fi
-    ''
-    ;
+    updateScript =
+      let
+        major = builtins.head (builtins.splitVersion version);
+      in
+      writeScript "update.sh" ''
+        #!${stdenv.shell}
+        set -ox errexit
+        PATH=${
+          lib.makeBinPath [
+            common-updater-scripts
+            coreutils
+            git
+            gnused
+          ]
+        }
+        latest=$(list-git-tags --url=https://github.com/erlang/otp.git | sed -n 's/^OTP-${major}/${major}/p' | sort -V | tail -1)
+        if [ "$latest" != "${version}" ]; then
+          nixpkgs="$(git rev-parse --show-toplevel)"
+          nix_file="$nixpkgs/pkgs/development/interpreters/erlang/${major}.nix"
+          update-source-version ${baseName}R${major} "$latest" --version-key=version --print-changes --file="$nix_file"
+        else
+          echo "${baseName}R${major} is already up-to-date"
+        fi
+      ''
+      ;
   };
 
   meta = with lib;
@@ -218,7 +221,8 @@ stdenv.mkDerivation ({
       homepage = "https://www.erlang.org/";
       downloadPage = "https://www.erlang.org/download.html";
       description =
-        "Programming language used for massively scalable soft real-time systems";
+        "Programming language used for massively scalable soft real-time systems"
+        ;
 
       longDescription = ''
         Erlang is a programming language used to build massively scalable

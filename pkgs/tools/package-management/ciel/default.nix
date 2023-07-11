@@ -38,8 +38,8 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  # ciel has plugins which is actually bash scripts.
-  # Therefore, bash is required for plugins to work.
+    # ciel has plugins which is actually bash scripts.
+    # Therefore, bash is required for plugins to work.
   buildInputs = [
     bash
     systemd
@@ -76,7 +76,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A tool for controlling AOSC OS packaging environments using multi-layer filesystems and containers.";
+      "A tool for controlling AOSC OS packaging environments using multi-layer filesystems and containers."
+      ;
     homepage = "https://github.com/AOSC-Dev/ciel-rs";
     license = licenses.mit;
     platforms = platforms.linux;

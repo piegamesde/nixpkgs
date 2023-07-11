@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     SystemConfiguration
   ];
 
-  # requires internet access
+    # requires internet access
   doCheck = false;
 
   meta = with lib; {

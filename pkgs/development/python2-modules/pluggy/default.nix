@@ -19,7 +19,7 @@ buildPythonPackage rec {
     py.test
   '';
 
-  # To prevent infinite recursion with pytest
+    # To prevent infinite recursion with pytest
   doCheck = false;
 
   nativeBuildInputs = [ setuptools-scm ];

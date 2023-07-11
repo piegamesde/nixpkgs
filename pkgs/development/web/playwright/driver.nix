@@ -101,7 +101,8 @@ let
     meta.platforms = lib.platforms.darwin;
   };
 
-  browsers-linux = {
+  browsers-linux =
+    {
       withChromium ? true
     }:
     let
@@ -129,6 +130,6 @@ let
       mkdir -p $out/ffmpeg-$FFMPEG_REVISION
       ln -s ${ffmpeg}/bin/ffmpeg $out/ffmpeg-$FFMPEG_REVISION/ffmpeg-linux
     '')
-  ;
+    ;
 in
 driver

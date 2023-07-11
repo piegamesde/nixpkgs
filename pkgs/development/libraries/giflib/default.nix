@@ -22,13 +22,15 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "CVE-2022-28506.patch";
     url =
-      "https://src.fedoraproject.org/rpms/giflib/raw/2e9917bf13df114354163f0c0211eccc00943596/f/CVE-2022-28506.patch";
+      "https://src.fedoraproject.org/rpms/giflib/raw/2e9917bf13df114354163f0c0211eccc00943596/f/CVE-2022-28506.patch"
+      ;
     sha256 = "sha256-TBemEXkuox8FdS9RvjnWcTWPaHRo4crcwSR9czrUwBY=";
   }) ] ++ lib.optional stdenv.hostPlatform.isDarwin (fetchpatch {
     # https://sourceforge.net/p/giflib/bugs/133/
     name = "darwin-soname.patch";
     url =
-      "https://sourceforge.net/p/giflib/bugs/_discuss/thread/4e811ad29b/c323/attachment/Makefile.patch";
+      "https://sourceforge.net/p/giflib/bugs/_discuss/thread/4e811ad29b/c323/attachment/Makefile.patch"
+      ;
     sha256 = "12afkqnlkl3n1hywwgx8sqnhp3bz0c5qrwcv8j9hifw1lmfhv67r";
     extraPrefix = "./";
   });

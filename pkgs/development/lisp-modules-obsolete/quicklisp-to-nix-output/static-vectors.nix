@@ -22,7 +22,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/static-vectors/2021-06-30/static-vectors-v1.8.9.tgz";
+      "http://beta.quicklisp.org/archive/static-vectors/2021-06-30/static-vectors-v1.8.9.tgz"
+      ;
     sha256 = "01n4iz6s4n57gmxscnj9aign60kh6gp7ak5waqz5zwhsdklgj0j4";
   };
 

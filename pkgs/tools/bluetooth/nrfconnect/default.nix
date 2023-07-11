@@ -40,7 +40,8 @@ appimageTools.wrapType2 {
   meta = with lib; {
     description = "Nordic Semiconductor nRF Connect for Desktop";
     homepage =
-      "https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-desktop";
+      "https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-desktop"
+      ;
     license = licenses.unfree;
     platforms = platforms.linux;
     maintainers = with maintainers; [ stargate01 ];

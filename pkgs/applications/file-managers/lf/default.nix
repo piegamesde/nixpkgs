@@ -27,8 +27,8 @@ buildGoModule rec {
     "-X main.gVersion=r${version}"
   ];
 
-  # Force the use of the pure-go implementation of the os/user library.
-  # Relevant issue: https://github.com/gokcehan/lf/issues/191
+    # Force the use of the pure-go implementation of the os/user library.
+    # Relevant issue: https://github.com/gokcehan/lf/issues/191
   tags = lib.optionals (!stdenv.isDarwin) [ "osusergo" ];
 
   postInstall = ''

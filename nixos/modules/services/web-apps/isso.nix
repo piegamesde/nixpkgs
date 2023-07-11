@@ -68,7 +68,7 @@ in {
         Restart = "on-failure";
         RestartSec = 1;
 
-        # Hardening
+          # Hardening
         CapabilityBoundingSet = [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;

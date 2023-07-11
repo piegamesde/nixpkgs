@@ -21,12 +21,13 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib; { maintainers = with maintainers; [ symphorien ]; };
 
     nodes = {
-      archive = {
+      archive =
+        {
           ...
         }: {
           environment.systemPackages = with pkgs; [ btrfs-progs ];
-          # note: this makes the privateKey world readable.
-          # don't do it with real ssh keys.
+            # note: this makes the privateKey world readable.
+            # don't do it with real ssh keys.
           environment.etc."btrbk_key".text = privateKey;
           services.btrbk = {
             extraPackages = [ pkgs.lz4 ];
@@ -48,9 +49,11 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      main = {
+      main =
+        {
           ...
         }: {
           environment.systemPackages = with pkgs; [ btrfs-progs ];
@@ -86,7 +89,8 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

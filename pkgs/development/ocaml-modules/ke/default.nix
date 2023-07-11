@@ -14,7 +14,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ke/releases/download/v${version}/ke-${version}.tbz";
+      "https://github.com/mirage/ke/releases/download/v${version}/ke-${version}.tbz"
+      ;
     sha256 = "sha256-YSFyB+IgCwSxd1lzZhD/kggmmmR/hUy1rnLNrA1nIwU=";
   };
 

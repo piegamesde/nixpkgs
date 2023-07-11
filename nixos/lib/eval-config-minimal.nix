@@ -26,7 +26,8 @@ let
        An attribute set containing `config.system.build.toplevel` among other
        attributes. See `lib.evalModules` in the Nixpkgs library.
   */
-  evalModules = {
+  evalModules =
+    {
       prefix ? [ ],
       modules ? [ ],
       specialArgs ? { },
@@ -37,10 +38,10 @@ let
     #       is experimental.
     lib.evalModules {
       inherit prefix modules;
-      specialArgs = {
-        modulesPath = builtins.toString ../modules;
-      } // specialArgs;
-    };
+      specialArgs =
+        { modulesPath = builtins.toString ../modules; } // specialArgs;
+    }
+    ;
 
 in {
   inherit evalModules;

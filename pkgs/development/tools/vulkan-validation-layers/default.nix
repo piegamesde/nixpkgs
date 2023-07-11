@@ -21,11 +21,11 @@
 let
   robin-hood-hashing = callPackage ./robin-hood-hashing.nix { };
 
-  # Current VVL version requires a newer spirv-headers than the latest release tag.
-  # This should hopefully not be too common and the override should be removed after
-  # the next SPIRV headers release.
-  # FIXME: if this ever becomes common, figure out a way to pull revisions directly
-  # from upstream known-good.json
+    # Current VVL version requires a newer spirv-headers than the latest release tag.
+    # This should hopefully not be too common and the override should be removed after
+    # the next SPIRV headers release.
+    # FIXME: if this ever becomes common, figure out a way to pull revisions directly
+    # from upstream known-good.json
   spirv-headers' = spirv-headers.overrideAttrs (_: {
     version = "unstable-2023-04-27";
 
@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
   pname = "vulkan-validation-layers";
   version = "1.3.249";
 
-  # If we were to use "dev" here instead of headers, the setupHook would be
-  # placed in that output instead of "out".
+    # If we were to use "dev" here instead of headers, the setupHook would be
+    # placed in that output instead of "out".
   outputs = [
     "out"
     "headers"
@@ -85,12 +85,12 @@ stdenv.mkDerivation rec {
     "-Wno-dev"
   ];
 
-  # Tests require access to vulkan-compatible GPU, which isn't
-  # available in Nix sandbox. Fails with VK_ERROR_INCOMPATIBLE_DRIVER.
+    # Tests require access to vulkan-compatible GPU, which isn't
+    # available in Nix sandbox. Fails with VK_ERROR_INCOMPATIBLE_DRIVER.
   doCheck = false;
 
-  # Include absolute paths to layer libraries in their associated
-  # layer definition json files.
+    # Include absolute paths to layer libraries in their associated
+    # layer definition json files.
   preFixup = ''
     for f in "$out"/share/vulkan/explicit_layer.d/*.json "$out"/share/vulkan/implicit_layer.d/*.json; do
       jq <"$f" >tmp.json ".layer.library_path = \"$out/lib/\" + .layer.library_path"

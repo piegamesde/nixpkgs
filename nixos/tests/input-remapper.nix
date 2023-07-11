@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     name = "input-remapper";
     meta = { maintainers = with pkgs.lib.maintainers; [ LunNova ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         ...
       }:
@@ -26,14 +27,14 @@ import ./make-test-python.nix ({
           group = "wheel";
         };
         test-support.displayManager.auto.user = user.name;
-        # workaround for pkexec not working in the test environment
-        # Error creating textual authentication agent:
-        #   Error opening current controlling terminal for the process (`/dev/tty'):
-        #   No such device or address
-        # passwordless pkexec with polkit module also doesn't work
-        # to allow the program to run, we replace pkexec with sudo
-        # and turn on passwordless sudo
-        # this is not correct in general but good enough for this test
+          # workaround for pkexec not working in the test environment
+          # Error creating textual authentication agent:
+          #   Error opening current controlling terminal for the process (`/dev/tty'):
+          #   No such device or address
+          # passwordless pkexec with polkit module also doesn't work
+          # to allow the program to run, we replace pkexec with sudo
+          # and turn on passwordless sudo
+          # this is not correct in general but good enough for this test
         security.sudo = {
           enable = true;
           wheelNeedsPassword = false;
@@ -44,11 +45,13 @@ import ./make-test-python.nix ({
           group = "root";
           source = "${pkgs.sudo}/bin/sudo";
         };
-      } ;
+      }
+      ;
 
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -61,5 +64,6 @@ import ./make-test-python.nix ({
         machine.wait_for_text("Input Remapper")
         machine.wait_for_text("Preset")
         machine.wait_for_text("Change Key")
-      '';
+      ''
+      ;
   })

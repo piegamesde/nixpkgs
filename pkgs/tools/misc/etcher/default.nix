@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/balena-io/etcher/releases/download/v${version}/balena-etcher-electron_${version}_${arch}.deb";
+      "https://github.com/balena-io/etcher/releases/download/v${version}/balena-etcher-electron_${version}_${arch}.deb"
+      ;
     inherit sha256;
   };
 
@@ -45,8 +46,8 @@ stdenv.mkDerivation rec {
     ${dpkg}/bin/dpkg-deb -x $src .
   '';
 
-  # sudo-prompt has hardcoded binary paths on Linux and we patch them here
-  # along with some other paths
+    # sudo-prompt has hardcoded binary paths on Linux and we patch them here
+    # along with some other paths
   postPatch = ''
     # use Nix(OS) paths
     substituteInPlace opt/balenaEtcher/resources/app/generated/gui.js \

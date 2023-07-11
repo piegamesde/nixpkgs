@@ -37,8 +37,8 @@ rustPlatform.buildRustPackage rec {
     "proc-macro-srv-cli"
   ];
 
-  # Code format check requires more dependencies but don't really matter for packaging.
-  # So just ignore it.
+    # Code format check requires more dependencies but don't really matter for packaging.
+    # So just ignore it.
   checkFlags = [ "--skip=tidy::check_code_formatting" ];
 
   nativeBuildInputs = lib.optional useMimalloc cmake;
@@ -68,7 +68,7 @@ rustPlatform.buildRustPackage rec {
 
   passthru = {
     updateScript = nix-update-script { };
-    # FIXME: Pass overrided `rust-analyzer` once `buildRustPackage` also implements #119942
+      # FIXME: Pass overrided `rust-analyzer` once `buildRustPackage` also implements #119942
     tests.neovim-lsp = callPackage ./test-neovim-lsp.nix { };
   };
 

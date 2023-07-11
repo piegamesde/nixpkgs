@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     libGL
   ] ++ lib.optional stdenv.isDarwin GLUT;
 
-  # Hack to avoid TMPDIR in RPATHs.
+    # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" && mkdir "$(pwd)" '';
 
   doCheck = true;

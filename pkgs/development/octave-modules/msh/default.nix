@@ -48,13 +48,14 @@ buildOctavePackage rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Create and manage triangular and tetrahedral meshes for Finite Element or Finite Volume PDE solvers";
+      "Create and manage triangular and tetrahedral meshes for Finite Element or Finite Volume PDE solvers"
+      ;
     longDescription = ''
       Create and manage triangular and tetrahedral meshes for Finite Element or
       Finite Volume PDE solvers. Use a mesh data structure compatible with
       PDEtool. Rely on gmsh for unstructured mesh generation.
     '';
-    # Not technically broken, but missing some functionality.
-    # dolfin needs to be its own stand-alone library for the last tests to pass.
+      # Not technically broken, but missing some functionality.
+      # dolfin needs to be its own stand-alone library for the last tests to pass.
   };
 }

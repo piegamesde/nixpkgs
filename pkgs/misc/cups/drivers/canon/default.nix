@@ -32,13 +32,15 @@ let
       gcc,
     }:
     gcc) { };
-  ld32 = if stdenv.hostPlatform.system == "x86_64-linux" then
-    "${stdenv.cc}/nix-support/dynamic-linker-m32"
-  else if stdenv.hostPlatform.system == "i686-linux" then
-    "${stdenv.cc}/nix-support/dynamic-linker"
-  else
-    throw
-    "Unsupported platform for Canon UFR2 Drivers: ${stdenv.hostPlatform.system}";
+  ld32 =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "${stdenv.cc}/nix-support/dynamic-linker-m32"
+    else if stdenv.hostPlatform.system == "i686-linux" then
+      "${stdenv.cc}/nix-support/dynamic-linker"
+    else
+      throw
+      "Unsupported platform for Canon UFR2 Drivers: ${stdenv.hostPlatform.system}"
+    ;
   ld64 = "${stdenv.cc}/nix-support/dynamic-linker";
   libs = pkgs: lib.makeLibraryPath buildInputs;
 
@@ -48,7 +50,8 @@ let
   versionNoDots = builtins.replaceStrings [ "." ] [ "" ] version;
   src_canon = fetchurl {
     url =
-      "http://gdlp01.c-wss.com/gds/${dl}/linux-UFRII-drv-v${versionNoDots}-usen-20.tar.gz";
+      "http://gdlp01.c-wss.com/gds/${dl}/linux-UFRII-drv-v${versionNoDots}-usen-20.tar.gz"
+      ;
     sha256 = "sha256:069z6ijmql62mcdyxnzc9mf0dxa6z1107cd0ab4i1adk8kr3d75k";
   };
 

@@ -76,17 +76,18 @@ mkDerivation rec {
 
   executableHaskellDepends = with haskellPackages; [ base ];
 
-  # Test suite does nothing.
+    # Test suite does nothing.
   doCheck = false;
 
-  # Add systemd user unit.
+    # Add systemd user unit.
   postInstall = ''
     mkdir -p $out/lib/systemd/user
     echo "${systemd-service}" > $out/lib/systemd/user/deadd-notification-center.service
   '';
 
   description =
-    "A haskell-written notification center for users that like a desktop with style";
+    "A haskell-written notification center for users that like a desktop with style"
+    ;
   homepage = "https://github.com/phuhl/linux_notification_center";
   license = lib.licenses.bsd3;
   maintainers = with lib.maintainers; [

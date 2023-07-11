@@ -15,26 +15,30 @@ stdenv.mkDerivation rec {
   milestone_id = "M4h";
   version = "1.0.${milestone_id}-alpha";
 
-  src = if (stdenv.isDarwin) then
-    fetchurl {
-      url =
-        "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-macos.tar.gz";
-      hash = "sha256-7yphap7qZBkbTKiwhyCTLgbBO/aA0eUWtva+XjpaZDI=";
-    }
-  else
-    fetchurl {
-      url =
-        "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-linux.tar.gz";
-      hash = "sha256-vrZpYFoQw1hxgZ7lAoejIqnjIOFFMahAI9SjFN/Cnms=";
-    };
+  src =
+    if (stdenv.isDarwin) then
+      fetchurl {
+        url =
+          "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-macos.tar.gz"
+          ;
+        hash = "sha256-7yphap7qZBkbTKiwhyCTLgbBO/aA0eUWtva+XjpaZDI=";
+      }
+    else
+      fetchurl {
+        url =
+          "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-linux.tar.gz"
+          ;
+        hash = "sha256-vrZpYFoQw1hxgZ7lAoejIqnjIOFFMahAI9SjFN/Cnms=";
+      }
+    ;
 
-  # The tarball is just the prebuilt binary, in the archive root.
+    # The tarball is just the prebuilt binary, in the archive root.
   sourceRoot = ".";
   dontBuild = true;
   dontConfigure = true;
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
+  nativeBuildInputs =
+    [ makeWrapper ] ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
   buildInputs = lib.optionals (!stdenv.isDarwin) [
     ncurses5
     zlib

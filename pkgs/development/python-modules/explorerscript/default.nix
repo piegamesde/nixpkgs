@@ -34,15 +34,16 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies.pygments = [ pygments ];
 
-  nativeCheckInputs = [ pytestCheckHook ]
-    ++ passthru.optional-dependencies.pygments;
+  nativeCheckInputs =
+    [ pytestCheckHook ] ++ passthru.optional-dependencies.pygments;
 
   pythonImportsCheck = [ "explorerscript" ];
 
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/explorerscript";
     description =
-      "A programming language + compiler/decompiler for creating scripts for Pokémon Mystery Dungeon Explorers of Sky";
+      "A programming language + compiler/decompiler for creating scripts for Pokémon Mystery Dungeon Explorers of Sky"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ xfix ];
   };

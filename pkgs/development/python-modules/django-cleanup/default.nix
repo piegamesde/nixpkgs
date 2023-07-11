@@ -22,7 +22,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Automatically deletes old file for FileField and ImageField. It also deletes files on models instance deletion";
+      "Automatically deletes old file for FileField and ImageField. It also deletes files on models instance deletion"
+      ;
     homepage = "https://github.com/un1t/django-cleanup";
     changelog =
       "https://github.com/un1t/django-cleanup/blob/${version}/CHANGELOG.md";

@@ -24,7 +24,8 @@ buildPythonPackage rec {
     # Fix hardcoded /tmp dir (fix build on Hydra)
     (fetchpatch {
       url =
-        "https://github.com/globocom/m3u8/commit/cf7ae5fda4681efcea796cd7c51c02f152c36009.patch";
+        "https://github.com/globocom/m3u8/commit/cf7ae5fda4681efcea796cd7c51c02f152c36009.patch"
+        ;
       hash = "sha256-SEETpIJQddid8D//6DVrSGs/BqDeMOzufE0bBrm+/xY=";
     })
   ];

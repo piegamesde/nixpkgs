@@ -38,15 +38,17 @@ python3Packages.buildPythonPackage rec {
     pygobject3
   ];
 
-  postPatch = let
-    setup = substituteAll {
-      src = ./setup.py;
-      desc = meta.description; # "description" is reserved
-      inherit pname version;
-    };
-  in ''
-    ln -s ${setup} setup.py
-  '' ;
+  postPatch =
+    let
+      setup = substituteAll {
+        src = ./setup.py;
+        desc = meta.description; # "description" is reserved
+        inherit pname version;
+      };
+    in ''
+      ln -s ${setup} setup.py
+    ''
+    ;
 
   meta = with lib; {
     description = "Active window border replacement for window managers";

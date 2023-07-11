@@ -27,7 +27,8 @@ let
   cfg = config.services.sourcehut;
   configIni = configIniOfService srv;
   srvCfg = cfg.${srv};
-  baseService = serviceName:
+  baseService =
+    serviceName:
     {
       allowStripe ? false
     }:
@@ -56,19 +57,19 @@ let
             "sourcehut/chroots/${serviceName}"
           ];
           RuntimeDirectoryMode = "2750";
-          # No need for the chroot path once inside the chroot
+            # No need for the chroot path once inside the chroot
           InaccessiblePaths = [ "-+${rootDir}" ];
-          # g+rx is for group members (eg. fcgiwrap or nginx)
-          # to read Git/Mercurial repositories, buildlogs, etc.
-          # o+x is for intermediate directories created by BindPaths= and like,
-          # as they're owned by root:root.
+            # g+rx is for group members (eg. fcgiwrap or nginx)
+            # to read Git/Mercurial repositories, buildlogs, etc.
+            # o+x is for intermediate directories created by BindPaths= and like,
+            # as they're owned by root:root.
           UMask = "0026";
           RootDirectory = rootDir;
           RootDirectoryStartOnly = true;
           PrivateTmp = true;
           MountAPIVFS = true;
-          # config.ini is looked up in there, before /etc/srht/config.ini
-          # Note that it fails to be set in ExecStartPre=
+            # config.ini is looked up in there, before /etc/srht/config.ini
+            # Note that it fails to be set in ExecStartPre=
           WorkingDirectory = mkDefault ("-" + runDir);
           BindReadOnlyPaths = [
             builtins.storeDir
@@ -78,10 +79,10 @@ let
             "/run/systemd"
           ] ++ optional cfg.postgresql.enable "/run/postgresql"
             ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}";
-          # LoadCredential= are unfortunately not available in ExecStartPre=
-          # Hence this one is run as root (the +) with RootDirectoryStartOnly=
-          # to reach credentials wherever they are.
-          # Note that each systemd service gets its own ${runDir}/config.ini file.
+            # LoadCredential= are unfortunately not available in ExecStartPre=
+            # Hence this one is run as root (the +) with RootDirectoryStartOnly=
+            # to reach credentials wherever they are.
+            # Note that each systemd service gets its own ${runDir}/config.ini file.
           ExecStartPre = mkBefore [ ("+"
             + pkgs.writeShellScript "${serviceName}-credentials" ''
               set -x
@@ -90,11 +91,11 @@ let
               ${optionalString (!allowStripe) "gawk '!/^stripe-secret-key=/' |"}
               install -o ${srvCfg.user} -g root -m 400 /dev/stdin ${runDir}/config.ini
             '') ];
-          # The following options are only for optimizing:
-          # systemd-analyze security
+            # The following options are only for optimizing:
+            # systemd-analyze security
           AmbientCapabilities = "";
           CapabilityBoundingSet = "";
-          # ProtectClock= adds DeviceAllow=char-rtc r
+            # ProtectClock= adds DeviceAllow=char-rtc r
           DeviceAllow = "";
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
@@ -122,8 +123,8 @@ let
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
-          #SocketBindAllow = [ "tcp:${toString srvCfg.port}" "tcp:${toString srvCfg.prometheusPort}" ];
-          #SocketBindDeny = "any";
+            #SocketBindAllow = [ "tcp:${toString srvCfg.port}" "tcp:${toString srvCfg.prometheusPort}" ];
+            #SocketBindDeny = "any";
           SystemCallFilter = [
             "@system-service"
             "~@aio"
@@ -139,7 +140,7 @@ let
         };
       }
     ]
-  ;
+    ;
 in {
   options.services.sourcehut.${srv} = {
     enable = mkEnableOption (lib.mdDoc "${srv} service");
@@ -222,7 +223,8 @@ in {
         type = types.lines;
         default = "";
         description = lib.mdDoc
-          "Content of the `celeryconfig.py` used by the Celery responsible for webhooks.";
+          "Content of the `celeryconfig.py` used by the Celery responsible for webhooks."
+          ;
       };
     };
   };
@@ -303,7 +305,8 @@ in {
 
         (mkIf cfg.postgresql.enable {
           "${srv}.sr.ht".connection-string = mkDefault
-            "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql";
+            "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql"
+            ;
         })
       ];
 
@@ -311,7 +314,7 @@ in {
         enable = true;
         databases = 3;
         syslog = true;
-        # TODO: set a more informed value
+          # TODO: set a more informed value
         save = mkDefault [
           [
             1800
@@ -339,12 +342,12 @@ in {
                 wants = optional cfg.nginx.enable "nginx.service";
                 wantedBy = [ "multi-user.target" ];
                 path = optional cfg.postgresql.enable postgresql.package;
-                # Beware: change in credentials' content will not trigger restart.
+                  # Beware: change in credentials' content will not trigger restart.
                 restartTriggers = [ configIni ];
                 serviceConfig = {
                   Type = "simple";
                   Restart = mkDefault "always";
-                  #RestartSec = mkDefault "2min";
+                    #RestartSec = mkDefault "2min";
                   StateDirectory = [ "sourcehut/${srvsrht}" ];
                   StateDirectoryMode = "2750";
                   ExecStart =
@@ -352,40 +355,42 @@ in {
                       toString srvCfg.port
                     } " + concatStringsSep " " srvCfg.gunicorn.extraArgs;
                 };
-                preStart = let
-                  version = pkgs.sourcehut.${srvsrht}.version;
-                  stateDir = "/var/lib/sourcehut/${srvsrht}";
-                in
-                mkBefore ''
-                  set -x
-                  # Use the /run/sourcehut/${srvsrht}/config.ini
-                  # installed by a previous ExecStartPre= in baseService
-                  cd /run/sourcehut/${srvsrht}
+                preStart =
+                  let
+                    version = pkgs.sourcehut.${srvsrht}.version;
+                    stateDir = "/var/lib/sourcehut/${srvsrht}";
+                  in
+                  mkBefore ''
+                    set -x
+                    # Use the /run/sourcehut/${srvsrht}/config.ini
+                    # installed by a previous ExecStartPre= in baseService
+                    cd /run/sourcehut/${srvsrht}
 
-                  if test ! -e ${stateDir}/db; then
-                    # Setup the initial database.
-                    # Note that it stamps the alembic head afterward
-                    ${cfg.python}/bin/${srvsrht}-initdb
-                    echo ${version} >${stateDir}/db
-                  fi
-
-                  ${optionalString cfg.settings.${iniKey}.migrate-on-upgrade ''
-                    if [ "$(cat ${stateDir}/db)" != "${version}" ]; then
-                      # Manage schema migrations using alembic
-                      ${cfg.python}/bin/${srvsrht}-migrate -a upgrade head
+                    if test ! -e ${stateDir}/db; then
+                      # Setup the initial database.
+                      # Note that it stamps the alembic head afterward
+                      ${cfg.python}/bin/${srvsrht}-initdb
                       echo ${version} >${stateDir}/db
                     fi
-                  ''}
 
-                  # Update copy of each users' profile to the latest
-                  # See https://lists.sr.ht/~sircmpwn/sr.ht-admins/<20190302181207.GA13778%40cirno.my.domain>
-                  if test ! -e ${stateDir}/webhook; then
-                    # Update ${iniKey}'s users' profile copy to the latest
-                    ${cfg.python}/bin/srht-update-profiles ${iniKey}
-                    touch ${stateDir}/webhook
-                  fi
-                ''
-                ;
+                    ${optionalString
+                    cfg.settings.${iniKey}.migrate-on-upgrade ''
+                      if [ "$(cat ${stateDir}/db)" != "${version}" ]; then
+                        # Manage schema migrations using alembic
+                        ${cfg.python}/bin/${srvsrht}-migrate -a upgrade head
+                        echo ${version} >${stateDir}/db
+                      fi
+                    ''}
+
+                    # Update copy of each users' profile to the latest
+                    # See https://lists.sr.ht/~sircmpwn/sr.ht-admins/<20190302181207.GA13778%40cirno.my.domain>
+                    if test ! -e ${stateDir}/webhook; then
+                      # Update ${iniKey}'s users' profile copy to the latest
+                      ${cfg.python}/bin/srht-update-profiles ${iniKey}
+                      touch ${stateDir}/webhook
+                    fi
+                  ''
+                  ;
               }
               mainService
             ]);
@@ -410,7 +415,7 @@ in {
               ExecStart =
                 "${cfg.python}/bin/celery --app ${srvsrht}.webhooks worker --hostname ${srvsrht}-webhooks@%%h "
                 + concatStringsSep " " srvCfg.webhooks.extraArgs;
-              # Avoid crashing: os.getloadavg()
+                # Avoid crashing: os.getloadavg()
               ProcSubset = mkForce "all";
             };
           };
@@ -436,7 +441,7 @@ in {
           baseService serviceName { } (mkMerge [
             {
               description = "sourcehut ${serviceName} service";
-              # So that extraServices have the PostgreSQL database initialized.
+                # So that extraServices have the PostgreSQL database initialized.
               after = [ "${srvsrht}.service" ];
               wantedBy = [ "${srvsrht}.service" ];
               partOf = [ "${srvsrht}.service" ];

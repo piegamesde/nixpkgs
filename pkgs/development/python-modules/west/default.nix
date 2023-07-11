@@ -30,8 +30,8 @@ buildPythonPackage rec {
     pykwalify
   ];
 
-  # pypi package does not include tests (and for good reason):
-  # tests run under 'tox' and have west try to git clone repos (not sandboxable)
+    # pypi package does not include tests (and for good reason):
+    # tests run under 'tox' and have west try to git clone repos (not sandboxable)
   doCheck = false;
 
   pythonImportsCheck = [ "west" ];

@@ -22,7 +22,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       version,
       sha256,
     }:
@@ -78,7 +79,8 @@ let
           willibutz
         ];
       };
-    };
+    }
+    ;
 in {
   wt3 = generic {
     version = "3.7.1";

@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ capstone ];
 
-  # Test suite is working with binaries
+    # Test suite is working with binaries
   doCheck = false;
 
   pythonImportsCheck = [ "ropgadget" ];

@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     sha256 = "1xircdw3k7aaz29snf96q2fby1cs48bidz5l1kkj0a5gbivw31i3";
     url =
-      "http://ymorin.is-a-geek.org/download/kconfig-frontends/kconfig-frontends-${version}.tar.xz";
+      "http://ymorin.is-a-geek.org/download/kconfig-frontends/kconfig-frontends-${version}.tar.xz"
+      ;
   };
 
   nativeBuildInputs = [

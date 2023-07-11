@@ -28,14 +28,15 @@ buildGoModule rec {
     "-X main.date=1970-01-01T00:00:00Z"
   ];
 
-  # Tests require network connectivity to query https://api.osv.dev.
+    # Tests require network connectivity to query https://api.osv.dev.
   doCheck = false;
 
   passthru.tests.version = testers.testVersion { package = osv-scanner; };
 
   meta = with lib; {
     description =
-      "Vulnerability scanner written in Go which uses the data provided by https://osv.dev";
+      "Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
+      ;
     homepage = "https://github.com/google/osv-scanner";
     changelog =
       "https://github.com/google/osv-scanner/releases/tag/v${version}";

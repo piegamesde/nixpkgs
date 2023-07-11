@@ -84,28 +84,29 @@ in {
       mkDefault "/var/lib/tsm-backup/password";
     systemd.services.tsm-backup = {
       description = "IBM Spectrum Protect (Tivoli Storage Manager) Backup";
-      # DSM_LOG needs a trailing slash to have it treated as a directory.
-      # `/var/log` would be littered with TSM log files otherwise.
+        # DSM_LOG needs a trailing slash to have it treated as a directory.
+        # `/var/log` would be littered with TSM log files otherwise.
       environment.DSM_LOG = "/var/log/tsm-backup/";
-      # TSM needs a HOME dir to store certificates.
+        # TSM needs a HOME dir to store certificates.
       environment.HOME = "/var/lib/tsm-backup";
       serviceConfig = {
         # for exit status description see
         # https://www.ibm.com/docs/en/spectrum-protect/8.1.13?topic=clients-client-return-codes
         SuccessExitStatus = "4 8";
-        # The `-se` option must come after the command.
-        # The `-optfile` option suppresses a `dsm.opt`-not-found warning.
+          # The `-se` option must come after the command.
+          # The `-optfile` option suppresses a `dsm.opt`-not-found warning.
         ExecStart =
-          "${cfgPrg.wrappedPackage}/bin/dsmc ${cfg.command} -se='${cfg.servername}' -optfile=/dev/null";
+          "${cfgPrg.wrappedPackage}/bin/dsmc ${cfg.command} -se='${cfg.servername}' -optfile=/dev/null"
+          ;
         LogsDirectory = "tsm-backup";
         StateDirectory = "tsm-backup";
         StateDirectoryMode = "0750";
-        # systemd sandboxing
+          # systemd sandboxing
         LockPersonality = true;
         NoNewPrivileges = true;
         PrivateDevices = true;
-        #PrivateTmp = true;  # would break backup of {/var,}/tmp
-        #PrivateUsers = true;  # would block backup of /home/*
+          #PrivateTmp = true;  # would break backup of {/var,}/tmp
+          #PrivateUsers = true;  # would block backup of /home/*
         ProtectClock = true;
         ProtectControlGroups = true;
         ProtectHome = "read-only";

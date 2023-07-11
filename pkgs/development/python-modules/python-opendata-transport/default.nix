@@ -25,7 +25,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  # no tests are present
+    # no tests are present
   doCheck = false;
 
   pythonImportsCheck = [ "opendata_transport" ];

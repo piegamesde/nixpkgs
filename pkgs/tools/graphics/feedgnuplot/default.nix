@@ -44,14 +44,14 @@ perlPackages.buildPerlPackage rec {
     StringShellQuote
   ]);
 
-  # Fontconfig error: Cannot load default config file
+    # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = fontsConf;
 
   postPatch = ''
     patchShebangs .
   '';
 
-  # Tests require gnuplot 4.6.4 and are completely skipped with gnuplot 5.
+    # Tests require gnuplot 4.6.4 and are completely skipped with gnuplot 5.
   doCheck = false;
 
   postInstall = lib.optionalString stdenv.isDarwin ''

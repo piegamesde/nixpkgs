@@ -73,33 +73,41 @@
 }:
 
 let
-  hdf4-custom = if hdf4-forced != null then
-    hdf4-forced
-  else
-    hdf4.override {
-      uselibtirpc = enableLibtirpc;
-      szipSupport = enableSzip;
-      inherit szip;
-    };
-  hdf5-custom = if hdf5-forced != null then
-    hdf5-forced
-  else
-    hdf5.override {
-      usev110Api = useHdf5v110Api;
-      mpiSupport = enableMPI;
-      inherit mpi;
-      szipSupport = enableSzip;
-      inherit szip;
-    };
-  netcdf-custom = if netcdf-forced != null then
-    netcdf-forced
-  else
-    netcdf.override { hdf5 = hdf5-custom; };
+  hdf4-custom =
+    if hdf4-forced != null then
+      hdf4-forced
+    else
+      hdf4.override {
+        uselibtirpc = enableLibtirpc;
+        szipSupport = enableSzip;
+        inherit szip;
+      }
+    ;
+  hdf5-custom =
+    if hdf5-forced != null then
+      hdf5-forced
+    else
+      hdf5.override {
+        usev110Api = useHdf5v110Api;
+        mpiSupport = enableMPI;
+        inherit mpi;
+        szipSupport = enableSzip;
+        inherit szip;
+      }
+    ;
+  netcdf-custom =
+    if netcdf-forced != null then
+      netcdf-forced
+    else
+      netcdf.override { hdf5 = hdf5-custom; }
+    ;
   enablePlplotDrivers = enableWX || enableXWin;
-  plplot-with-drivers = if plplot-forced != null then
-    plplot-forced
-  else
-    plplot.override { inherit enableWX enableXWin; };
+  plplot-with-drivers =
+    if plplot-forced != null then
+      plplot-forced
+    else
+      plplot.override { inherit enableWX enableXWin; }
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "gnudatalanguage";
@@ -165,14 +173,14 @@ stdenv.mkDerivation rec {
       "-DMPIDIR=${mpi}"
     ];
 
-  # Tests are failing on Hydra:
-  # ./src/common/dpycmn.cpp(137): assert ""IsOk()"" failed in GetClientArea(): invalid wxDisplay object
+    # Tests are failing on Hydra:
+    # ./src/common/dpycmn.cpp(137): assert ""IsOk()"" failed in GetClientArea(): invalid wxDisplay object
   doCheck = stdenv.isLinux;
 
-  # Opt-out unstable tests
-  # https://github.com/gnudatalanguage/gdl/issues/482
-  # https://github.com/gnudatalanguage/gdl/issues/1079
-  # https://github.com/gnudatalanguage/gdl/issues/460
+    # Opt-out unstable tests
+    # https://github.com/gnudatalanguage/gdl/issues/482
+    # https://github.com/gnudatalanguage/gdl/issues/1079
+    # https://github.com/gnudatalanguage/gdl/issues/460
   preCheck = ''
     checkFlagsArray+=("ARGS=-E '${
       lib.concatMapStringsSep "|" (test: test + ".pro") [

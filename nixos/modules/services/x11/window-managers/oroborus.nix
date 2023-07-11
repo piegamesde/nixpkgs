@@ -16,7 +16,7 @@ in {
       mkEnableOption (lib.mdDoc "oroborus");
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {
       name = "oroborus";

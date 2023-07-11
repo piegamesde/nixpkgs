@@ -28,9 +28,9 @@ python3Packages.buildPythonApplication rec {
     sha256 = "YuISiTUReX9IQpckIgbt03CY7klnog/IeOtfBoQ1DZM=";
   };
 
-  # needed for wrapGAppsHook to function
+    # needed for wrapGAppsHook to function
   strictDeps = false;
-  # tests require a display and fail
+    # tests require a display and fail
   doCheck = false;
 
   nativeBuildInputs = [ wrapGAppsHook ];
@@ -60,7 +60,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description =
-      "A screenshot frontend (CLI and GUI) for a variety of screenshot backends";
+      "A screenshot frontend (CLI and GUI) for a variety of screenshot backends"
+      ;
 
     longDescription = ''
       gscreenshot provides a common frontend and expanded functionality to a

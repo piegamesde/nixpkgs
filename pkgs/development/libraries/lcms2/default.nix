@@ -28,11 +28,13 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  # See https://trac.macports.org/ticket/60656
-  LDFLAGS = if stdenv.hostPlatform.isDarwin then
-    "-Wl,-w"
-  else
-    null;
+    # See https://trac.macports.org/ticket/60656
+  LDFLAGS =
+    if stdenv.hostPlatform.isDarwin then
+      "-Wl,-w"
+    else
+      null
+    ;
 
   meta = with lib; {
     description = "Color management engine";

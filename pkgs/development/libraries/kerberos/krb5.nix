@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # not via outputBin, due to reference from libkrb5.so
+    # not via outputBin, due to reference from libkrb5.so
   postInstall = ''
     moveToOutput bin/krb5-config "$dev"
   '';

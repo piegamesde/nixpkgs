@@ -18,8 +18,8 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-JC7OR4ySDsVWmrBBTjpwZrkJlM8RJehbsvXW/VtA4VA=";
 
-  # patch taken from https://patch-diff.githubusercontent.com/raw/harness/drone-cli/pull/179.patch
-  # but with go.mod changes removed due to conflict
+    # patch taken from https://patch-diff.githubusercontent.com/raw/harness/drone-cli/pull/179.patch
+    # but with go.mod changes removed due to conflict
   patches = [ ./0001-use-builtin-go-syscerts.patch ];
 
   ldflags = [ "-X main.version=${version}" ];

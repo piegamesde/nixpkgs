@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = true;
 
-  # Integration tests require root.
+    # Integration tests require root.
   cargoTestFlags = [ "--bins" ];
 
   meta = with lib; {
@@ -56,7 +56,8 @@ rustPlatform.buildRustPackage rec {
     description =
       "Open source Virtual Machine Monitor (VMM) that runs on top of KVM";
     changelog =
-      "https://github.com/cloud-hypervisor/cloud-hypervisor/releases/tag/v${version}";
+      "https://github.com/cloud-hypervisor/cloud-hypervisor/releases/tag/v${version}"
+      ;
     license = with licenses; [
       asl20
       bsd3

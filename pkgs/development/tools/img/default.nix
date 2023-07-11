@@ -43,12 +43,13 @@ buildGoModule rec {
     wrapProgram "$out/bin/img" --prefix PATH : ${lib.makeBinPath [ runc ]}
   '';
 
-  # Tests fail as: internal/binutils/install.go:57:15: undefined: Asset
+    # Tests fail as: internal/binutils/install.go:57:15: undefined: Asset
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Standalone, daemon-less, unprivileged Dockerfile and OCI compatible container image builder. ";
+      "Standalone, daemon-less, unprivileged Dockerfile and OCI compatible container image builder. "
+      ;
     license = licenses.mit;
     homepage = "https://github.com/genuinetools/img";
     maintainers = with maintainers; [ bryanasdev000 ];

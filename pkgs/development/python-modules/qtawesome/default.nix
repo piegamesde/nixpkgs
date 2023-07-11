@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Requires https://github.com/boylea/qtbot which is unmaintained
+    # Requires https://github.com/boylea/qtbot which is unmaintained
   doCheck = false;
 
   pythonImportsCheck = [ "qtawesome" ];

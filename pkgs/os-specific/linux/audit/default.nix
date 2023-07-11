@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "ignore-flexible-array.patch";
       url =
-        "https://github.com/linux-audit/audit-userspace/commit/beed138222421a2eb4212d83cb889404bd7efc49.patch";
+        "https://github.com/linux-audit/audit-userspace/commit/beed138222421a2eb4212d83cb889404bd7efc49.patch"
+        ;
       sha256 = "1hf02zaxv6x0wmn4ca9fj48y2shks7vfna43i1zz58xw9jq7sza0";
     })
   ];

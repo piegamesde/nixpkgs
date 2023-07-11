@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
   version = "1.20";
   src = fetchurl {
     url =
-      "https://ww1.microchip.com/downloads/en/DeviceDoc/pk2cmdv${version}LinuxMacSource.tar.gz";
+      "https://ww1.microchip.com/downloads/en/DeviceDoc/pk2cmdv${version}LinuxMacSource.tar.gz"
+      ;
     sha256 = "1yjpi2qshnqfpan4w3ggakkr3znfrx5cxkny92ka7v9na3g2fc4h";
   };
 

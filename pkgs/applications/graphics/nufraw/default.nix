@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
     } $out/share/thumbnailers/${pname}.thumbnailer
   '';
 
-  # Fixes an upstream issue where headers with templates were included in an extern-C scope
-  # which caused the build to fail
+    # Fixes an upstream issue where headers with templates were included in an extern-C scope
+    # which caused the build to fail
   patches = [ ./move-extern-c.patch ];
 
   meta = with lib; {

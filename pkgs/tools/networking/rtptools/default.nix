@@ -8,7 +8,8 @@ stdenv.mkDerivation rec {
   version = "1.22";
   src = fetchurl {
     url =
-      "http://www.cs.columbia.edu/irt/software/rtptools/download/rtptools-${version}.tar.gz";
+      "http://www.cs.columbia.edu/irt/software/rtptools/download/rtptools-${version}.tar.gz"
+      ;
     sha256 = "0a4c0vmhxibfc58rrxpbav2bsk546chkg50ir4h3i57v4fjb4xic";
   };
   meta = {

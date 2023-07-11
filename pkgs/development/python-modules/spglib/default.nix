@@ -23,8 +23,8 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  # pytestCheckHook doesn't work
-  # ImportError: cannot import name '_spglib' from partially initialized module 'spglib'
+    # pytestCheckHook doesn't work
+    # ImportError: cannot import name '_spglib' from partially initialized module 'spglib'
   checkPhase = ''
     pytest
   '';
@@ -33,7 +33,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python bindings for C library for finding and handling crystal symmetries";
+      "Python bindings for C library for finding and handling crystal symmetries"
+      ;
     homepage = "https://spglib.github.io/spglib/";
     changelog = "https://github.com/spglib/spglib/raw/v${version}/ChangeLog";
     license = licenses.bsd3;

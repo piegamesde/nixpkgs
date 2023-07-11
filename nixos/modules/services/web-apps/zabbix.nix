@@ -101,12 +101,14 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if cfg.database.type == "mysql" then
-            config.services.mysql.port
-          else if cfg.database.type == "pgsql" then
-            config.services.postgresql.port
-          else
-            1521;
+          default =
+            if cfg.database.type == "mysql" then
+              config.services.mysql.port
+            else if cfg.database.type == "pgsql" then
+              config.services.postgresql.port
+            else
+              1521
+            ;
           defaultText = literalExpression ''
             if config.${opt.database.type} == "mysql" then config.${options.services.mysql.port}
             else if config.${opt.database.type} == "pgsql" then config.${options.services.postgresql.port}
@@ -147,8 +149,9 @@ in {
       };
 
       virtualHost = mkOption {
-        type = types.submodule
-          (import ../web-servers/apache-httpd/vhost-options.nix);
+        type =
+          types.submodule (import ../web-servers/apache-httpd/vhost-options.nix)
+          ;
         example = literalExpression ''
           {
             hostName = "zabbix.example.org";
@@ -194,7 +197,7 @@ in {
     };
   };
 
-  # implementation
+    # implementation
 
   config = mkIf cfg.enable {
 

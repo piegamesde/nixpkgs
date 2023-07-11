@@ -41,10 +41,13 @@ rec {
        }
        => "'-X' 'PUT' '--data' '{\"id\":0}' '--retry' '3' '--url' 'https://example.com/foo' '--url' 'https://example.com/bar' '--verbose'";
   */
-  toGNUCommandLineShell = options: attrs:
-    lib.escapeShellArgs (toGNUCommandLine options attrs);
+  toGNUCommandLineShell =
+    options: attrs:
+    lib.escapeShellArgs (toGNUCommandLine options attrs)
+    ;
 
-  toGNUCommandLine = {
+  toGNUCommandLine =
+    {
     # how to string-format the option name;
     # by default one character is a short option (`-`),
     # more than one characters a long option (`--`).
@@ -80,15 +83,17 @@ rec {
     }:
     options:
     let
-      render = k: v:
+      render =
+        k: v:
         if builtins.isBool v then
           mkBool k v
         else if builtins.isList v then
           mkList k v
         else
-          mkOption k v;
+          mkOption k v
+        ;
 
     in
     builtins.concatLists (lib.mapAttrsToList render options)
-  ;
+    ;
 }

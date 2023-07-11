@@ -24,7 +24,7 @@ let
   # where to print git commands and debugging messages
   fileForGitCommands = "update-git-commits.txt";
 
-  # shell script to update package
+    # shell script to update package
   updateScript = writeScript "generic-update-script.sh" ''
     #! ${stdenv.shell}
     set -o errexit

@@ -16,11 +16,13 @@ let
     md = true;
     metal = true;
   };
-  onOffBool = b:
+  onOffBool =
+    b:
     if b then
       "ON"
     else
-      "OFF";
+      "OFF"
+    ;
   withMPI = (mpi != null);
 in
 stdenv.mkDerivation rec {
@@ -40,8 +42,8 @@ stdenv.mkDerivation rec {
     pkgconfig
   ];
   buildInputs = lib.optionals withMPI [ mpi ];
-  propagatedBuildInputs = [ python.pkgs.numpy ]
-    ++ lib.optionals withMPI [ python.pkgs.mpi4py ];
+  propagatedBuildInputs =
+    [ python.pkgs.numpy ] ++ lib.optionals withMPI [ python.pkgs.mpi4py ];
 
   dontAddPrefix = true;
   cmakeFlags = [
@@ -58,7 +60,7 @@ stdenv.mkDerivation rec {
     cmakeFlags="$cmakeFlags -DCMAKE_INSTALL_PREFIX=$out/${python.sitePackages}"
   '';
 
-  # tests fail but have tested that package runs properly
+    # tests fail but have tested that package runs properly
   doCheck = false;
   checkTarget = "test";
 

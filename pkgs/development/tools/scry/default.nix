@@ -18,7 +18,7 @@ crystal.buildCrystalPackage rec {
     sha256 = "sha256-hqyG1aKY3M8q8lZEKzpUUKl9jS7NF+VMsma6+C0sCbg=";
   };
 
-  # a bunch of tests fail when built in the sandbox while perfectly fine outside
+    # a bunch of tests fail when built in the sandbox while perfectly fine outside
   postPatch = ''
     rm spec/scry/{client,completion_provider,context,executable}_spec.cr
   '';
@@ -40,7 +40,7 @@ crystal.buildCrystalPackage rec {
       }
   '';
 
-  # the binary doesn't take any arguments, so this will hang
+    # the binary doesn't take any arguments, so this will hang
   doInstallCheck = false;
 
   meta = with lib; {

@@ -47,16 +47,18 @@ buildGoModule rec {
     ln -sLf ${coredns}/bin/coredns $out/bin
   '';
 
-  ldflags = let
-    prefix = "github.com/kumahq/kuma/pkg/version";
-  in [
-    "-s"
-    "-w"
-    "-X ${prefix}.version=${version}"
-    "-X ${prefix}.gitTag=${version}"
-    "-X ${prefix}.gitCommit=${version}"
-    "-X ${prefix}.buildDate=${version}"
-  ] ;
+  ldflags =
+    let
+      prefix = "github.com/kumahq/kuma/pkg/version";
+    in [
+      "-s"
+      "-w"
+      "-X ${prefix}.version=${version}"
+      "-X ${prefix}.gitTag=${version}"
+      "-X ${prefix}.gitCommit=${version}"
+      "-X ${prefix}.buildDate=${version}"
+    ]
+    ;
 
   meta = with lib; {
     description = "Service mesh controller";

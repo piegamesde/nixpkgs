@@ -24,7 +24,7 @@ buildPythonPackage rec {
     nose
   ];
 
-  # TODO: failing tests https://bitbucket.org/bbangert/webhelpers/pull-request/1/fix-error-on-webob-123/diff
+    # TODO: failing tests https://bitbucket.org/bbangert/webhelpers/pull-request/1/fix-error-on-webob-123/diff
   doCheck = false;
 
   meta = with lib; {

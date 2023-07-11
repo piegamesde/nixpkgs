@@ -58,7 +58,7 @@ python3.pkgs.buildPythonApplication rec {
     libhandy
   ];
 
-  # Prevent double wrapping.
+    # Prevent double wrapping.
   dontWrapGApps = true;
 
   postPatch = ''

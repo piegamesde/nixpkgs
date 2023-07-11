@@ -54,6 +54,6 @@ buildPythonPackage rec {
     "ZMQDisplayPublisherTests"
   ]);
 
-  # Some of the tests use localhost networking.
+    # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 }

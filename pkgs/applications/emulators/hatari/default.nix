@@ -13,11 +13,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.tuxfamily.org/hatari/${version}/${pname}-${version}.tar.bz2";
+      "https://download.tuxfamily.org/hatari/${version}/${pname}-${version}.tar.bz2"
+      ;
     sha256 = "sha256-RKL2LKmV442eCHSAaVbwucPMhOqJ4BaaY4SbY807ZL0=";
   };
 
-  # For pthread_cancel
+    # For pthread_cancel
   cmakeFlags = [ "-DCMAKE_EXE_LINKER_FLAGS=-lgcc_s" ];
 
   nativeBuildInputs = [ cmake ];

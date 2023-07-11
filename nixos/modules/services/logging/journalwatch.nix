@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.services.journalwatch;
   user = "journalwatch";
-  # for journal access
+    # for journal access
   group = "systemd-journal";
   dataDir = "/var/lib/${user}";
 
@@ -29,17 +29,19 @@ let
     ${mkPatterns cfg.filterBlocks}
   '';
 
-  # empty line at the end needed to to separate the blocks
-  mkPatterns = filterBlocks:
+    # empty line at the end needed to to separate the blocks
+  mkPatterns =
+    filterBlocks:
     concatStringsSep "\n" (map (block: ''
       ${block.match}
       ${block.filters}
 
-    '') filterBlocks);
+    '') filterBlocks)
+    ;
 
-  # can't use joinSymlinks directly, because when we point $XDG_CONFIG_HOME
-  # to the /nix/store path, we still need the subdirectory "journalwatch" inside that
-  # to match journalwatch's expectations
+    # can't use joinSymlinks directly, because when we point $XDG_CONFIG_HOME
+    # to the /nix/store path, we still need the subdirectory "journalwatch" inside that
+    # to match journalwatch's expectations
   journalwatchConfigDir = pkgs.runCommand "journalwatch-config" {
     preferLocalBuild = true;
     allowSubstitutes = false;
@@ -72,9 +74,9 @@ in {
         '';
       };
 
-      # HACK: this is a workaround for journalwatch's usage of socket.getfqdn() which always returns localhost if
-      # there's an alias for the localhost on a separate line in /etc/hosts, or take for ages if it's not present and
-      # then return something right-ish in the direction of /etc/hostname. Just bypass it completely.
+        # HACK: this is a workaround for journalwatch's usage of socket.getfqdn() which always returns localhost if
+        # there's an alias for the localhost on a separate line in /etc/hosts, or take for ages if it's not present and
+        # then return something right-ish in the direction of /etc/hostname. Just bypass it completely.
       mailFrom = mkOption {
         type = types.str;
         default = "journalwatch@${config.networking.hostName}";
@@ -164,8 +166,8 @@ in {
           }
         ];
 
-        # another example from upstream.
-        # very useful on priority = 6, and required as journalwatch throws an error when no pattern is defined at all.
+          # another example from upstream.
+          # very useful on priority = 6, and required as journalwatch throws an error when no pattern is defined at all.
         default = [ {
           match = "SYSLOG_IDENTIFIER = systemd";
           filters = ''
@@ -239,12 +241,12 @@ in {
         User = user;
         Group = group;
         Type = "oneshot";
-        # requires a relative directory name to create beneath /var/lib
+          # requires a relative directory name to create beneath /var/lib
         StateDirectory = user;
         StateDirectoryMode = "0750";
-        ExecStart =
-          "${pkgs.python3Packages.journalwatch}/bin/journalwatch mail";
-        # lowest CPU and IO priority, but both still in best-effort class to prevent starvation
+        ExecStart = "${pkgs.python3Packages.journalwatch}/bin/journalwatch mail"
+          ;
+          # lowest CPU and IO priority, but both still in best-effort class to prevent starvation
         Nice = 19;
         IOSchedulingPriority = 7;
       };

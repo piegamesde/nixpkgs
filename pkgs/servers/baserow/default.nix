@@ -9,27 +9,29 @@
 let
 
   python = python3.override {
-    packageOverrides = self: super: {
-      antlr4-python3-runtime =
-        super.antlr4-python3-runtime.override { antlr4 = antlr4_9; };
+    packageOverrides =
+      self: super: {
+        antlr4-python3-runtime =
+          super.antlr4-python3-runtime.override { antlr4 = antlr4_9; };
 
-      baserow_premium = self.buildPythonPackage rec {
-        pname = "baserow_premium";
-        version = "1.12.1";
-        foramt = "setuptools";
+        baserow_premium = self.buildPythonPackage rec {
+          pname = "baserow_premium";
+          version = "1.12.1";
+          foramt = "setuptools";
 
-        src = fetchFromGitLab {
-          owner = "bramw";
-          repo = pname;
-          rev = "refs/tags/${version}";
-          hash = "sha256-zT2afl3QNE2dO3JXjsZXqSmm1lv3EorG3mYZLQQMQ2Q=";
+          src = fetchFromGitLab {
+            owner = "bramw";
+            repo = pname;
+            rev = "refs/tags/${version}";
+            hash = "sha256-zT2afl3QNE2dO3JXjsZXqSmm1lv3EorG3mYZLQQMQ2Q=";
+          };
+
+          sourceRoot = "source/premium/backend";
+
+          doCheck = false;
         };
-
-        sourceRoot = "source/premium/backend";
-
-        doCheck = false;
-      };
-    };
+      }
+      ;
   };
 
 in with python.pkgs;

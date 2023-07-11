@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     # Remove useage of deprecrated G_PARAM_PRIVATE
     (fetchpatch {
       url =
-        "https://github.com/mdbooth/libldm/commit/ee1b37a034038f09d61b121cc8b3651024acc46f.patch";
+        "https://github.com/mdbooth/libldm/commit/ee1b37a034038f09d61b121cc8b3651024acc46f.patch"
+        ;
       sha256 = "02y34kbcpcpffvy1n9yqngvdldmxmvdkha1v2xjqvrnclanpigcp";
     })
   ];
@@ -42,7 +43,7 @@ stdenv.mkDerivation rec {
       -e 's|-nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl|--nonet ${docbook_xsl}/xml/xsl/docbook/manpages/docbook.xsl|g'
   '';
 
-  # glib-2.62 deprecations
+    # glib-2.62 deprecations
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
   configureScript = "sh autogen.sh";

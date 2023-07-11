@@ -24,7 +24,7 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [

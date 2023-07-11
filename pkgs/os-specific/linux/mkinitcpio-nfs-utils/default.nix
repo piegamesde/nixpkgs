@@ -10,9 +10,10 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://sources.archlinux.org/other/mkinitcpio/mkinitcpio-nfs-utils-${version}.tar.xz";
+      "https://sources.archlinux.org/other/mkinitcpio/mkinitcpio-nfs-utils-${version}.tar.xz"
+      ;
     sha256 = "0fc93sfk41ycpa33083kyd7i4y00ykpbhj5qlw611bjghj4x946j";
-    # ugh, upstream...
+      # ugh, upstream...
     name = "mkinitcpio-nfs-utils-${version}.tar.gz";
   };
 

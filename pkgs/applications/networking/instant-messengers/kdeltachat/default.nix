@@ -38,7 +38,7 @@ mkDerivation rec {
     qtwebengine
   ];
 
-  # needed for qmlplugindump to work
+    # needed for qmlplugindump to work
   QT_PLUGIN_PATH = "${qtbase.bin}/${qtbase.qtPluginPrefix}";
   QML2_IMPORT_PATH =
     lib.concatMapStringsSep ":" (lib: "${lib}/${qtbase.qtQmlPrefix}") [

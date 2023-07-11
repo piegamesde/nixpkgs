@@ -46,7 +46,7 @@ let
     zonePrivate = "${dataDir}/bit-zone.private";
   };
 
-  # if all keys are the default value
+    # if all keys are the default value
   needsKeygen = all id
     (flip mapAttrsToList cfg.dnssec.keys (n: v: v == getAttr n defaultFiles));
 
@@ -206,19 +206,21 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
     services.pdns-recursor = mkIf cfgs.pdns-recursor.resolveNamecoin {
       forwardZonesRecurse.bit = "${cfg.address}:${toString cfg.port}";
-      luaConfig = if cfg.dnssec.enable then
-        ''readTrustAnchorsFromFile("${cfg.dnssec.keys.public}")''
-      else
-        ''addNTA("bit", "namecoin DNSSEC disabled")'';
+      luaConfig =
+        if cfg.dnssec.enable then
+          ''readTrustAnchorsFromFile("${cfg.dnssec.keys.public}")''
+        else
+          ''addNTA("bit", "namecoin DNSSEC disabled")''
+        ;
     };
 
-    # Avoid pdns-recursor not finding the DNSSEC keys
+      # Avoid pdns-recursor not finding the DNSSEC keys
     systemd.services.pdns-recursor = mkIf cfgs.pdns-recursor.resolveNamecoin {
       after = [ "ncdns.service" ];
       wants = [ "ncdns.service" ];
@@ -231,12 +233,12 @@ in {
         namecoinrpcusername = cfgs.namecoind.rpc.user;
         namecoinrpcpassword = cfgs.namecoind.rpc.password;
 
-        # Identity
+          # Identity
         selfname = cfg.identity.hostname;
         hostmaster = cfg.identity.hostmaster;
         selfip = cfg.identity.address;
 
-        # Other
+          # Other
         bind = "${cfg.address}:${toString cfg.port}";
       } // optionalAttrs cfg.dnssec.enable { # DNSSEC
         publickey = "../.." + cfg.dnssec.keys.public;
@@ -245,7 +247,7 @@ in {
         zoneprivatekey = "../.." + cfg.dnssec.keys.zonePrivate;
       };
 
-      # Daemon
+        # Daemon
       service.daemon = true;
       xlog.journal = true;
     };

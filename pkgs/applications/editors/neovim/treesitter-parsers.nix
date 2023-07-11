@@ -26,7 +26,8 @@
   };
   query = fetchurl {
     url =
-      "https://github.com/nvim-treesitter/tree-sitter-query/archive/v0.1.0.tar.gz";
+      "https://github.com/nvim-treesitter/tree-sitter-query/archive/v0.1.0.tar.gz"
+      ;
     hash =
       "sha256:e2b806f80e8bf1c4f4e5a96248393fe6622fc1fc6189d6896d269658f67f914c";
   };

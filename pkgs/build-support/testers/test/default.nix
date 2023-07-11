@@ -20,8 +20,8 @@ in
 lib.recurseIntoAttrs {
   hasPkgConfigModule = pkgs.callPackage ../hasPkgConfigModule/tests.nix { };
 
-  # Check that the wiring of nixosTest is correct.
-  # Correct operation of the NixOS test driver should be asserted elsewhere.
+    # Check that the wiring of nixosTest is correct.
+    # Correct operation of the NixOS test driver should be asserted elsewhere.
   nixosTest-example = pkgs-with-overlay.testers.nixosTest ({
       lib,
       pkgs,
@@ -29,7 +29,8 @@ lib.recurseIntoAttrs {
       ...
     }: {
       name = "nixosTest-test";
-      nodes.machine = {
+      nodes.machine =
+        {
           pkgs,
           ...
         }: {
@@ -38,7 +39,8 @@ lib.recurseIntoAttrs {
             pkgs.proof-of-overlay-hello
             figlet
           ];
-        };
+        }
+        ;
       testScript = ''
         machine.succeed("hello | figlet >/dev/console")
       '';
@@ -72,8 +74,8 @@ lib.recurseIntoAttrs {
     helloDoesNotFail = runCommand "testBuildFailure-helloDoesNotFail" {
       failed = testers.testBuildFailure (testers.testBuildFailure hello);
 
-      # Add hello itself as a prerequisite, so we don't try to run this test if
-      # there's an actual failure in hello.
+        # Add hello itself as a prerequisite, so we don't try to run this test if
+        # there's an actual failure in hello.
       inherit hello;
     } ''
       echo "Checking $failed/testBuildFailure.log"
@@ -109,7 +111,8 @@ lib.recurseIntoAttrs {
   testEqualContents = lib.recurseIntoAttrs {
     happy = testers.testEqualContents {
       assertion =
-        "The same directory contents at different paths are recognized as equal";
+        "The same directory contents at different paths are recognized as equal"
+        ;
       expected = runCommand "expected" { } ''
         mkdir -p $out/c
         echo a >$out/a
@@ -127,7 +130,8 @@ lib.recurseIntoAttrs {
     unequalExe = runCommand "testEqualContents-unequalExe" {
       log = testers.testBuildFailure (testers.testEqualContents {
         assertion =
-          "The same directory contents at different paths are recognized as equal";
+          "The same directory contents at different paths are recognized as equal"
+          ;
         expected = runCommand "expected" { } ''
           mkdir -p $out/c
           echo a >$out/a
@@ -162,7 +166,8 @@ lib.recurseIntoAttrs {
     fileDiff = runCommand "testEqualContents-fileDiff" {
       log = testers.testBuildFailure (testers.testEqualContents {
         assertion =
-          "The same directory contents at different paths are recognized as equal";
+          "The same directory contents at different paths are recognized as equal"
+          ;
         expected = runCommand "expected" { } ''
           mkdir -p $out/c
           echo a >$out/a
@@ -195,7 +200,8 @@ lib.recurseIntoAttrs {
     fileMissing = runCommand "testEqualContents-fileMissing" {
       log = testers.testBuildFailure (testers.testEqualContents {
         assertion =
-          "The same directory contents at different paths are recognized as equal";
+          "The same directory contents at different paths are recognized as equal"
+          ;
         expected = runCommand "expected" { } ''
           mkdir -p $out/c
           echo a >$out/a

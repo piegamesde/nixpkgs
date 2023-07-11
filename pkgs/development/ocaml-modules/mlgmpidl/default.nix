@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "OCaml interface to the GMP library";
     homepage =
-      "https://www.inrialpes.fr/pop-art/people/bjeannet/mlxxxidl-forge/mlgmpidl/";
+      "https://www.inrialpes.fr/pop-art/people/bjeannet/mlxxxidl-forge/mlgmpidl/"
+      ;
     license = lib.licenses.lgpl21;
     inherit (ocaml.meta) platforms;
     maintainers = [ lib.maintainers.vbgl ];

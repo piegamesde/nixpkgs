@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage =
-      "http://developer.amazonwebservices.com/connect/entry.jspa?externalID=351";
+      "http://developer.amazonwebservices.com/connect/entry.jspa?externalID=351"
+      ;
     description =
       "Command-line tools to create and manage Amazon EC2 virtual machines";
     license = lib.licenses.amazonsl;

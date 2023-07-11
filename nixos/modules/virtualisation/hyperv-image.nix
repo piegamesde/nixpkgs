@@ -24,7 +24,8 @@ in {
       vmDerivationName = mkOption {
         type = types.str;
         default =
-          "nixos-hyperv-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+          "nixos-hyperv-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}"
+          ;
         description = lib.mdDoc ''
           The name of the derivation for the hyper-v appliance.
         '';
@@ -32,7 +33,8 @@ in {
       vmFileName = mkOption {
         type = types.str;
         default =
-          "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.vhdx";
+          "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.vhdx"
+          ;
         description = lib.mdDoc ''
           The file name of the hyper-v appliance.
         '';

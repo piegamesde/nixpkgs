@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   pname = "procps";
   version = "3.3.17";
 
-  # The project's releases are on SF, but git repo on gitlab.
+    # The project's releases are on SF, but git repo on gitlab.
   src = fetchurl {
     url = "mirror://sourceforge/procps-ng/procps-ng-${version}.tar.xz";
     sha256 = "sha256-RRiz56r9NOwH0AY9JQ/UdJmbILIAIYw65W9dIRPxQbQ=";
@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "musl-fix-includes.patch";
       url =
-        "https://git.alpinelinux.org/aports/plain/main/procps/musl-fixes.patch?id=37cb5b6ef194db66d9ed07c8ecab59bca3b91215";
+        "https://git.alpinelinux.org/aports/plain/main/procps/musl-fixes.patch?id=37cb5b6ef194db66d9ed07c8ecab59bca3b91215"
+        ;
       sha256 = "sha256-DphAvESmVg1U3bJABU95R++QD34odStCl82EF0vmht0=";
     })
   ];
@@ -51,7 +52,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Too red
+    # Too red
   configureFlags = [ "--disable-modern-top" ]
     ++ lib.optional withSystemd "--with-systemd"
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.com/procps-ng/procps";
     description =
-      "Utilities that give information about processes using the /proc filesystem";
+      "Utilities that give information about processes using the /proc filesystem"
+      ;
     priority =
       11; # less than coreutils, which also provides "kill" and "uptime"
     license = licenses.gpl2;

@@ -101,7 +101,8 @@ let
 
     meta = meta // {
       description =
-        "A functional programming language for realtime audio signal processing";
+        "A functional programming language for realtime audio signal processing"
+        ;
       longDescription = ''
         FAUST (Functional Audio Stream) is a functional programming
         language specifically designed for real-time signal processing
@@ -122,8 +123,9 @@ let
 
   };
 
-  # Default values for faust2appl.
-  faust2ApplBase = {
+    # Default values for faust2appl.
+  faust2ApplBase =
+    {
       baseName,
       dir ? "tools/faust2appls",
       scripts ? [ baseName ],
@@ -159,27 +161,30 @@ let
 
       meta = meta // {
         description =
-          "The ${baseName} script, part of faust functional programming language for realtime audio signal processing";
+          "The ${baseName} script, part of faust functional programming language for realtime audio signal processing"
+          ;
       };
-    };
+    }
+    ;
 
-  # Some 'faust2appl' scripts, such as faust2alsa, run faust to
-  # generate cpp code, then invoke the c++ compiler to build the code.
-  # This builder wraps these scripts in parts of the stdenv such that
-  # when the scripts are called outside any nix build, they behave as
-  # if they were running inside a nix build in terms of compilers and
-  # paths being configured (e.g. rpath is set so that compiled
-  # binaries link to the libs inside the nix store)
-  #
-  # The function takes two main args: the appl name (e.g.
-  # 'faust2alsa') and an optional list of propagatedBuildInputs. It
-  # returns a derivation that contains only the bin/${appl} script,
-  # wrapped up so that it will run as if it was inside a nix build
-  # with those build inputs.
-  #
-  # The build input 'faust' is automatically added to the
-  # propagatedBuildInputs.
-  wrapWithBuildEnv = {
+    # Some 'faust2appl' scripts, such as faust2alsa, run faust to
+    # generate cpp code, then invoke the c++ compiler to build the code.
+    # This builder wraps these scripts in parts of the stdenv such that
+    # when the scripts are called outside any nix build, they behave as
+    # if they were running inside a nix build in terms of compilers and
+    # paths being configured (e.g. rpath is set so that compiled
+    # binaries link to the libs inside the nix store)
+    #
+    # The function takes two main args: the appl name (e.g.
+    # 'faust2alsa') and an optional list of propagatedBuildInputs. It
+    # returns a derivation that contains only the bin/${appl} script,
+    # wrapped up so that it will run as if it was inside a nix build
+    # with those build inputs.
+    #
+    # The build input 'faust' is automatically added to the
+    # propagatedBuildInputs.
+  wrapWithBuildEnv =
+    {
       baseName,
       propagatedBuildInputs ? [ ],
       ...
@@ -220,13 +225,15 @@ let
             --prefix LIBRARY_PATH "$libPath"
         done
       '';
-    });
+    })
+    ;
 
-  # Builder for 'faust2appl' scripts, such as faust2firefox that
-  # simply need to be wrapped with some dependencies on PATH.
-  #
-  # The build input 'faust' is automatically added to the PATH.
-  wrap = {
+    # Builder for 'faust2appl' scripts, such as faust2firefox that
+    # simply need to be wrapped with some dependencies on PATH.
+    #
+    # The build input 'faust' is automatically added to the PATH.
+  wrap =
+    {
       baseName,
       runtimeInputs ? [ ],
       ...
@@ -249,7 +256,7 @@ let
       '';
 
     })
-  ;
+    ;
 
 in
 faust

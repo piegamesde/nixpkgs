@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "hound";
     meta = with pkgs.lib.maintainers; { maintainers = [ grahamc ]; };
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -48,7 +49,8 @@ import ./make-test-python.nix ({
             git push origin master
           '';
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

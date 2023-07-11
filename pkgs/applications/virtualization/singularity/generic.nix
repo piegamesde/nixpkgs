@@ -100,7 +100,8 @@ let
         mkdir -p "$out/bin"
         ln -s ${lib.escapeShellArg newuidmapPath} "$out/bin/newuidmap"
         ln -s ${lib.escapeShellArg newgidmapPath} "$out/bin/newgidmap"
-      '');
+      '')
+    ;
 in
 (buildGoModule {
   inherit
@@ -134,11 +135,11 @@ in
     which
   ];
 
-  # Search inside the project sources
-  # and see the `control` file of the Debian package from upstream repos
-  # for build-time dependencies and run-time utilities
-  # apptainer/apptainer: https://github.com/apptainer/apptainer/blob/main/dist/debian/control
-  # sylabs/singularity: https://github.com/sylabs/singularity/blob/main/debian/control
+    # Search inside the project sources
+    # and see the `control` file of the Debian package from upstream repos
+    # for build-time dependencies and run-time utilities
+    # apptainer/apptainer: https://github.com/apptainer/apptainer/blob/main/dist/debian/control
+    # sylabs/singularity: https://github.com/sylabs/singularity/blob/main/debian/control
 
   buildInputs = [
     bash # To patch /bin/sh shebangs.
@@ -162,8 +163,8 @@ in
     else
       "--without-suid") ++ extraConfigureFlags;
 
-  # Packages to prefix to the Apptainer/Singularity container runtime default PATH
-  # Use overrideAttrs to override
+    # Packages to prefix to the Apptainer/Singularity container runtime default PATH
+    # Use overrideAttrs to override
   defaultPathInputs = [
     bash
     coreutils

@@ -62,7 +62,7 @@ python3.pkgs.buildPythonApplication rec {
       wtforms
     ] ++ requests.optional-dependencies.socks;
 
-  # tests can currently not be run in one pytest invocation and without docker
+    # tests can currently not be run in one pytest invocation and without docker
   doCheck = false;
 
   nativeCheckInputs = with python3.pkgs; [
@@ -73,7 +73,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/dgtlmoon/changedetection.io";
     description =
-      "Simplest self-hosted free open source website change detection tracking, monitoring and notification service";
+      "Simplest self-hosted free open source website change detection tracking, monitoring and notification service"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

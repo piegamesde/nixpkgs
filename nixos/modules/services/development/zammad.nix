@@ -215,13 +215,15 @@ in {
       {
         assertion = cfg.database.createLocally -> cfg.database.user == "zammad";
         message = ''
-          services.zammad.database.user must be set to "zammad" if services.zammad.database.createLocally is set to true'';
+          services.zammad.database.user must be set to "zammad" if services.zammad.database.createLocally is set to true''
+          ;
       }
       {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile
-          == null;
+        assertion =
+          cfg.database.createLocally -> cfg.database.passwordFile == null;
         message =
-          "a password cannot be specified if services.zammad.database.createLocally is set to true";
+          "a password cannot be specified if services.zammad.database.createLocally is set to true"
+          ;
       }
     ];
 

@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256:8SOpL8nfhYen9vza0LYpB/5fgVmBwG7vGMmFOaJskIc=";
 
-  # Tests perform networking and therefore can't work in sandbox
+    # Tests perform networking and therefore can't work in sandbox
   doCheck = false;
 
   meta = with lib; {

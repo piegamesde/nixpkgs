@@ -6,13 +6,15 @@
 
 with lib;
 let
-  mergeFalseByDefault = locs: defs:
+  mergeFalseByDefault =
+    locs: defs:
     if defs == [ ] then
       abort "This case should never happen."
     else if any (x: x == false) (getValues defs) then
       false
     else
-      true;
+      true
+    ;
 
   kernelItem = types.submodule {
     options = {
@@ -54,7 +56,8 @@ let
   mkValue = with lib;
     val:
     let
-      isNumber = c:
+      isNumber =
+        c:
         elem c [
           "0"
           "1"
@@ -66,7 +69,8 @@ let
           "7"
           "8"
           "9"
-        ];
+        ]
+        ;
 
     in if (val == "") then
       ''""''
@@ -79,25 +83,29 @@ let
     else
       val; # FIXME: fix quoting one day
 
-  # generate nix intermediate kernel config file of the form
-  #
-  #       VIRTIO_MMIO m
-  #       VIRTIO_BLK y
-  #       VIRTIO_CONSOLE n
-  #       NET_9P_VIRTIO? y
-  #
-  # Borrowed from copumpkin https://github.com/NixOS/nixpkgs/pull/12158
-  # returns a string, expr should be an attribute set
-  # Use mkValuePreprocess to preprocess option values, aka mark 'modules' as 'yes' or vice-versa
-  # use the identity if you don't want to override the configured values
-  generateNixKConf = exprs:
+    # generate nix intermediate kernel config file of the form
+    #
+    #       VIRTIO_MMIO m
+    #       VIRTIO_BLK y
+    #       VIRTIO_CONSOLE n
+    #       NET_9P_VIRTIO? y
+    #
+    # Borrowed from copumpkin https://github.com/NixOS/nixpkgs/pull/12158
+    # returns a string, expr should be an attribute set
+    # Use mkValuePreprocess to preprocess option values, aka mark 'modules' as 'yes' or vice-versa
+    # use the identity if you don't want to override the configured values
+  generateNixKConf =
+    exprs:
     let
-      mkConfigLine = key: item:
+      mkConfigLine =
+        key: item:
         let
-          val = if item.freeform != null then
-            item.freeform
-          else
-            item.tristate;
+          val =
+            if item.freeform != null then
+              item.freeform
+            else
+              item.tristate
+            ;
         in if val == null then
           ""
         else if (item.optional) then
@@ -107,12 +115,13 @@ let
         else
           ''
             ${key} ${mkValue val}
-          '';
+          ''
+        ;
 
       mkConf = cfg: concatStrings (mapAttrsToList mkConfigLine cfg);
     in
     mkConf exprs
-  ;
+    ;
 
 in {
 

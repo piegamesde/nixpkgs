@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-XTjZhynIiFtFjJSW6rRAnpErZvf6QHkuK4e2L6l3naM=";
   };
 
-  # Ninja is not detected by setuptools for some reason even though it's present:
+    # Ninja is not detected by setuptools for some reason even though it's present:
   postPatch = ''
     substituteInPlace "setup.cfg" --replace "    ninja" ""
   '';
@@ -65,7 +65,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Pytorch framework (based on Ignite) for deep learning in medical imaging";
+      "Pytorch framework (based on Ignite) for deep learning in medical imaging"
+      ;
     homepage = "https://github.com/Project-MONAI/MONAI";
     license = licenses.asl20;
     maintainers = [ maintainers.bcdarwin ];

@@ -11,9 +11,10 @@ stdenv.mkDerivation {
 
   src = fetchgit {
     url =
-      "https://git.launchpad.net/~oem-solutions-engineers/libfprint-2-tod1-goodix/+git/libfprint-2-tod1-goodix";
-    rev =
-      "882735c6366fbe30149eea5cfd6d0ddff880f0e4"; # droped-lp1880058 on 2020-11-25
+      "https://git.launchpad.net/~oem-solutions-engineers/libfprint-2-tod1-goodix/+git/libfprint-2-tod1-goodix"
+      ;
+    rev = "882735c6366fbe30149eea5cfd6d0ddff880f0e4"
+      ; # droped-lp1880058 on 2020-11-25
     sha256 = "sha256-Uv+Rr4V31DyaZFOj79Lpyfl3G6zVWShh20roI0AvMPU=";
   };
 
@@ -36,7 +37,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Goodix driver module for libfprint-2-tod Touch OEM Driver";
     homepage =
-      "https://git.launchpad.net/~oem-solutions-engineers/libfprint-2-tod1-goodix/+git/libfprint-2-tod1-goodix/";
+      "https://git.launchpad.net/~oem-solutions-engineers/libfprint-2-tod1-goodix/+git/libfprint-2-tod1-goodix/"
+      ;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = platforms.linux;

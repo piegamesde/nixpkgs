@@ -21,9 +21,10 @@ buildGoModule rec {
 
   agents = fetchzip {
     name = "mutagen-agents-${version}";
-    # The package architecture does not matter since all packages contain identical mutagen-agents.tar.gz.
+      # The package architecture does not matter since all packages contain identical mutagen-agents.tar.gz.
     url =
-      "https://github.com/mutagen-io/mutagen/releases/download/v${version}/mutagen_linux_amd64_v${version}.tar.gz";
+      "https://github.com/mutagen-io/mutagen/releases/download/v${version}/mutagen_linux_amd64_v${version}.tar.gz"
+      ;
     stripRoot = false;
     postFetch = ''
       rm $out/mutagen # Keep only mutagen-agents.tar.gz.

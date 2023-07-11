@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     owner = "tomokuni";
     repo = "Myrica";
-    # commit does not exist on any branch on the target repository
+      # commit does not exist on any branch on the target repository
     rev = "b737107723bfddd917210f979ccc32ab3eb6dc20";
     hash = "sha256-kx+adbN2DsO81KJFt+FGAPZN+1NpE9xiagKZ4KyaJV0=";
   };

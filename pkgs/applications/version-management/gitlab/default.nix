@@ -37,31 +37,34 @@ let
 
   rubyEnv = bundlerEnv rec {
     name = "gitlab-env-${version}";
-    # GitLab doesn't support Ruby 3 https://gitlab.com/groups/gitlab-org/-/epics/5149
+      # GitLab doesn't support Ruby 3 https://gitlab.com/groups/gitlab-org/-/epics/5149
     ruby = ruby_2_7;
     gemdir = ./rubyEnv;
-    gemset = let
-      x = import (gemdir + "/gemset.nix") src;
-    in
-    x // {
-      gpgme = x.gpgme // { nativeBuildInputs = [ pkg-config ]; };
-      # the openssl needs the openssl include files
-      openssl = x.openssl // { buildInputs = [ openssl ]; };
-      ruby-magic = x.ruby-magic // {
-        buildInputs = [ file ];
-        buildFlags = [ "--enable-system-libraries" ];
-      };
-      # the included yarn rake task attaches the yarn:install task
-      # to assets:precompile, which is both unnecessary (since we
-      # run `yarn install` ourselves) and undoes the shebang patches
-      # in node_modules
-      railties = x.railties // {
-        dontBuild = false;
-        patches = [ ./railties-remove-yarn-install-enhancement.patch ];
-        patchFlags = [ "-p2" ];
-      };
-    }
-    ;
+    gemset =
+      let
+        x = import (gemdir + "/gemset.nix") src;
+      in
+      x // {
+        gpgme = x.gpgme // {
+          nativeBuildInputs = [ pkg-config ];
+        };
+          # the openssl needs the openssl include files
+        openssl = x.openssl // { buildInputs = [ openssl ]; };
+        ruby-magic = x.ruby-magic // {
+          buildInputs = [ file ];
+          buildFlags = [ "--enable-system-libraries" ];
+        };
+          # the included yarn rake task attaches the yarn:install task
+          # to assets:precompile, which is both unnecessary (since we
+          # run `yarn install` ourselves) and undoes the shebang patches
+          # in node_modules
+        railties = x.railties // {
+          dontBuild = false;
+          patches = [ ./railties-remove-yarn-install-enhancement.patch ];
+          patchFlags = [ "-p2" ];
+        };
+      }
+      ;
     groups = [
       "default"
       "unicorn"
@@ -72,8 +75,8 @@ let
       "test"
       "kerberos"
     ];
-    # N.B. omniauth_oauth2_generic and apollo_upload_server both provide a
-    # `console` executable.
+      # N.B. omniauth_oauth2_generic and apollo_upload_server both provide a
+      # `console` executable.
     ignoreCollisions = true;
 
     extraConfigPaths = [ "${src}/vendor" ];
@@ -108,8 +111,8 @@ let
       # [1]: https://gitlab.com/gitlab-org/gitlab/-/commit/99c0fac52b10cd9df62bbe785db799352a2d9028
       ./Remove-geo-from-database.yml.patch
     ];
-    # One of the patches uses this variable - if it's unset, execution
-    # of rake tasks fails.
+      # One of the patches uses this variable - if it's unset, execution
+      # of rake tasks fails.
     GITLAB_LOG_PATH = "log";
     FOSS_ONLY = !gitlabEnterprise;
 
@@ -257,8 +260,8 @@ stdenv.mkDerivation {
       ];
     } // (if gitlabEnterprise then
       {
-        license =
-          licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
+        license = licenses.unfreeRedistributable
+          ; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
         description = "GitLab Enterprise Edition";
       }
     else
@@ -266,6 +269,7 @@ stdenv.mkDerivation {
         license = licenses.mit;
         description = "GitLab Community Edition";
         longDescription =
-          "GitLab Community Edition (CE) is an open source end-to-end software development platform with built-in version control, issue tracking, code review, CI/CD, and more. Self-host GitLab CE on your own servers, in a container, or on a cloud provider.";
+          "GitLab Community Edition (CE) is an open source end-to-end software development platform with built-in version control, issue tracking, code review, CI/CD, and more. Self-host GitLab CE on your own servers, in a container, or on a cloud provider."
+          ;
       });
 }

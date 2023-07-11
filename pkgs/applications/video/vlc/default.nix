@@ -102,9 +102,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VwlEOcNl2KqLm0H6MIDMDu8r7+YCW7XO9yKszGJa7ew=";
   };
 
-  # VLC uses a *ton* of libraries for various pieces of functionality, many of
-  # which are not included here for no other reason that nobody has mentioned
-  # needing them
+    # VLC uses a *ton* of libraries for various pieces of functionality, many of
+    # which are not included here for no other reason that nobody has mentioned
+    # needing them
   buildInputs = [
     SDL
     SDL_image
@@ -200,13 +200,15 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  LIVE555_PREFIX = if stdenv.hostPlatform.isAarch then
-    null
-  else
-    live555;
+  LIVE555_PREFIX =
+    if stdenv.hostPlatform.isAarch then
+      null
+    else
+      live555
+    ;
 
-  # vlc depends on a c11-gcc wrapper script which we don't have so we need to
-  # set the path to the compiler
+    # vlc depends on a c11-gcc wrapper script which we don't have so we need to
+    # set the path to the compiler
   BUILDCC = "${stdenv.cc}/bin/gcc";
 
   patches = [
@@ -214,14 +216,16 @@ stdenv.mkDerivation rec {
     # upstream issue: https://code.videolan.org/videolan/vlc/-/issues/25473
     (fetchpatch {
       url =
-        "https://code.videolan.org/videolan/vlc/uploads/eb1c313d2d499b8a777314f789794f9d/0001-Add-lssl-and-lcrypto-to-liblive555_plugin_la_LIBADD.patch";
+        "https://code.videolan.org/videolan/vlc/uploads/eb1c313d2d499b8a777314f789794f9d/0001-Add-lssl-and-lcrypto-to-liblive555_plugin_la_LIBADD.patch"
+        ;
       sha256 = "0kyi8q2zn2ww148ngbia9c7qjgdrijf4jlvxyxgrj29cb5iy1kda";
     })
     # patch to build with recent libplacebo
     # https://code.videolan.org/videolan/vlc/-/merge_requests/3027
     (fetchpatch {
       url =
-        "https://code.videolan.org/videolan/vlc/-/commit/65ea8d19d91ac1599a29e8411485a72fe89c45e2.patch";
+        "https://code.videolan.org/videolan/vlc/-/commit/65ea8d19d91ac1599a29e8411485a72fe89c45e2.patch"
+        ;
       hash = "sha256-Zz+g75V6X9OZI3sn614K9Uenxl3WtRHKSdLkWP3b17w=";
     })
   ];
@@ -231,16 +235,16 @@ stdenv.mkDerivation rec {
       /usr/share/fonts/truetype/freefont ${freefont_ttf}/share/fonts/truetype
   '';
 
-  # to prevent double wrapping of Qtwrap and Gwrap
+    # to prevent double wrapping of Qtwrap and Gwrap
   dontWrapGApps = true;
 
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  # - Touch plugins (plugins cache keyed off mtime and file size:
-  #     https://github.com/NixOS/nixpkgs/pull/35124#issuecomment-370552830
-  # - Remove references to the Qt development headers (used in error messages)
+    # - Touch plugins (plugins cache keyed off mtime and file size:
+    #     https://github.com/NixOS/nixpkgs/pull/35124#issuecomment-370552830
+    # - Remove references to the Qt development headers (used in error messages)
   postFixup = ''
     find $out/lib/vlc/plugins -exec touch -d @1 '{}' ';'
     $out/lib/vlc/vlc-cache-gen $out/vlc/plugins
@@ -248,8 +252,8 @@ stdenv.mkDerivation rec {
     remove-references-to -t "${qtbase.dev}" $out/lib/vlc/plugins/gui/libqt_plugin.so
   '';
 
-  # Most of the libraries are auto-detected so we don't need to set a bunch of
-  # "--enable-foo" flags here
+    # Most of the libraries are auto-detected so we don't need to set a bunch of
+    # "--enable-foo" flags here
   configureFlags = [
     "--enable-srt" # Explicit enable srt to ensure the patch is applied.
     "--with-kde-solid=$out/share/apps/solid/actions"
@@ -262,13 +266,13 @@ stdenv.mkDerivation rec {
       "--enable-microdns"
     ];
 
-  # Remove runtime dependencies on libraries
+    # Remove runtime dependencies on libraries
   postConfigure = ''
     sed -i 's|^#define CONFIGURE_LINE.*$|#define CONFIGURE_LINE "<removed>"|g' config.h
   '';
 
-  # Add missing SOFA files
-  # Given in EXTRA_DIST, but not in install-data target
+    # Add missing SOFA files
+    # Given in EXTRA_DIST, but not in install-data target
   postInstall = ''
     cp -R share/hrtfs $out/share/vlc
   '';

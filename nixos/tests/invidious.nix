@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
 
     meta = with pkgs.lib.maintainers; { maintainers = [ sbruder ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         lib,
         pkgs,
@@ -35,27 +36,31 @@ import ./make-test-python.nix ({
                   "correct horse battery staple");
               };
             };
-            # Normally not needed because when connecting to postgres over TCP/IP
-            # the database is most likely on another host.
+              # Normally not needed because when connecting to postgres over TCP/IP
+              # the database is most likely on another host.
             systemd.services.invidious = {
               after = [ "postgresql.service" ];
               requires = [ "postgresql.service" ];
             };
-            services.postgresql = let
-              inherit (config.services.invidious.settings.db) dbname user;
-            in {
-              enable = true;
-              initialScript = pkgs.writeText "init-postgres-with-password" ''
-                CREATE USER kemal WITH PASSWORD 'correct horse battery staple';
-                CREATE DATABASE invidious;
-                GRANT ALL PRIVILEGES ON DATABASE invidious TO kemal;
-              '';
-            } ;
+            services.postgresql =
+              let
+                inherit (config.services.invidious.settings.db) dbname user;
+              in {
+                enable = true;
+                initialScript = pkgs.writeText "init-postgres-with-password" ''
+                  CREATE USER kemal WITH PASSWORD 'correct horse battery staple';
+                  CREATE DATABASE invidious;
+                  GRANT ALL PRIVILEGES ON DATABASE invidious TO kemal;
+                '';
+              }
+              ;
           };
         };
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -85,5 +90,6 @@ import ./make-test-python.nix ({
         activate_specialisation("postgres-tcp")
         machine.wait_for_open_port(port)
         curl_assert_status_code(f"{url}/search", 200)
-      '';
+      ''
+      ;
   })

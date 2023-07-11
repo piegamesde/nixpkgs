@@ -25,7 +25,7 @@ buildPythonPackage rec {
     inetutils
   ];
 
-  # tests require network access
+    # tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "whois" ];

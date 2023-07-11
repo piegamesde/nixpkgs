@@ -74,8 +74,8 @@ buildPythonApplication rec {
     git
   ];
 
-  # the tests require a functional git installation
-  # which requires a valid HOME directory.
+    # the tests require a functional git installation
+    # which requires a valid HOME directory.
   preCheck = ''
     export HOME="$(mktemp -d)"
 
@@ -84,7 +84,7 @@ buildPythonApplication rec {
     git init .
   '';
 
-  # NB: These tests require complex GnuPG setup
+    # NB: These tests require complex GnuPG setup
   disabledTests = [
     "test_bump_minor_increment_signed"
     "test_bump_minor_increment_signed_config_file"
@@ -107,10 +107,12 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Tool to create committing rules for projects, auto bump versions, and generate changelogs";
+      "Tool to create committing rules for projects, auto bump versions, and generate changelogs"
+      ;
     homepage = "https://github.com/commitizen-tools/commitizen";
     changelog =
-      "https://github.com/commitizen-tools/commitizen/blob/v${version}/CHANGELOG.md";
+      "https://github.com/commitizen-tools/commitizen/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [
       lovesegfault

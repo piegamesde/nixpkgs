@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
     name = pname;
     desktopName = "AssaultCube";
     comment =
-      "A multiplayer, first-person shooter game, based on the CUBE engine. Fast, arcade gameplay.";
+      "A multiplayer, first-person shooter game, based on the CUBE engine. Fast, arcade gameplay."
+      ;
     genericName = "First-person shooter";
     categories = [
       "Game"

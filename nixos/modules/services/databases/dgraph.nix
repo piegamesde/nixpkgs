@@ -121,7 +121,8 @@ in {
 
     systemd.services.dgraph-zero = {
       description =
-        "Dgraph native GraphQL database with a graph backend. Zero controls node clustering";
+        "Dgraph native GraphQL database with a graph backend. Zero controls node clustering"
+        ;
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
@@ -138,7 +139,8 @@ in {
 
     systemd.services.dgraph-alpha = {
       description =
-        "Dgraph native GraphQL database with a graph backend. Alpha serves data";
+        "Dgraph native GraphQL database with a graph backend. Alpha serves data"
+        ;
       after = [
         "network.target"
         "dgraph-zero.service"

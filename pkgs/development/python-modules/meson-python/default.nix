@@ -37,16 +37,17 @@ buildPythonPackage rec {
     tomli
   ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
-  # Ugly work-around. Drop ninja dependency.
-  # We already have ninja, but it comes without METADATA.
-  # Building ninja-python-distributions is the way to go.
+    # Ugly work-around. Drop ninja dependency.
+    # We already have ninja, but it comes without METADATA.
+    # Building ninja-python-distributions is the way to go.
   postPatch = ''
     substituteInPlace pyproject.toml --replace "'ninja'," ""
   '';
 
   meta = {
     changelog =
-      "https://github.com/mesonbuild/meson-python/blob/${version}/CHANGELOG.rst";
+      "https://github.com/mesonbuild/meson-python/blob/${version}/CHANGELOG.rst"
+      ;
     description = "Meson Python build backend (PEP 517)";
     homepage = "https://github.com/mesonbuild/meson-python";
     license = [ lib.licenses.mit ];

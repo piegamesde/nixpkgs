@@ -54,14 +54,16 @@ let
     ++ optional enableVMAssertions "-DLUAJIT_USE_ASSERT"
     ++ optional deterministicStringIds "-DLUAJIT_SECURITY_STRID=0";
 
-  # LuaJIT requires build for 32bit architectures to be build on x86 not x86_64
-  # TODO support also other build architectures. The ideal way would be to use
-  # stdenv_32bit but that doesn't work due to host platform mismatch:
-  # https://github.com/NixOS/nixpkgs/issues/212494
-  buildStdenv = if buildPackages.stdenv.isx86_64 && stdenv.is32bit then
-    buildPackages.pkgsi686Linux.buildPackages.stdenv
-  else
-    buildPackages.stdenv;
+    # LuaJIT requires build for 32bit architectures to be build on x86 not x86_64
+    # TODO support also other build architectures. The ideal way would be to use
+    # stdenv_32bit but that doesn't work due to host platform mismatch:
+    # https://github.com/NixOS/nixpkgs/issues/212494
+  buildStdenv =
+    if buildPackages.stdenv.isx86_64 && stdenv.is32bit then
+      buildPackages.pkgsi686Linux.buildPackages.stdenv
+    else
+      buildPackages.stdenv
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -117,31 +119,36 @@ stdenv.mkDerivation rec {
   setupHook = luaPackages.lua-setup-hook luaPackages.luaLib.luaPathList
     luaPackages.luaLib.luaCPathList;
 
-  # copied from python
-  passthru = let
-    # When we override the interpreter we also need to override the spliced versions of the interpreter
-    inputs' =
-      lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
-    override = attr:
-      let
-        lua = attr.override (inputs' // { self = lua; });
-      in
-      lua
+    # copied from python
+  passthru =
+    let
+      # When we override the interpreter we also need to override the spliced versions of the interpreter
+      inputs' =
+        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs
+        ;
+      override =
+        attr:
+        let
+          lua = attr.override (inputs' // { self = lua; });
+        in
+        lua
+        ;
+    in
+    passthruFun rec {
+      inherit self luaversion packageOverrides luaAttr;
+      executable = "lua";
+      luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
+      luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
+      luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
+      luaOnHostForHost = override pkgsHostHost.${luaAttr};
+      luaOnTargetForTarget =
+        if lib.hasAttr luaAttr pkgsTargetTarget then
+          (override pkgsTargetTarget.${luaAttr})
+        else
+          { }
+        ;
+    }
     ;
-  in
-  passthruFun rec {
-    inherit self luaversion packageOverrides luaAttr;
-    executable = "lua";
-    luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
-    luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
-    luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
-    luaOnHostForHost = override pkgsHostHost.${luaAttr};
-    luaOnTargetForTarget = if lib.hasAttr luaAttr pkgsTargetTarget then
-      (override pkgsTargetTarget.${luaAttr})
-    else
-      { };
-  }
-  ;
 
   meta = with lib;
     {

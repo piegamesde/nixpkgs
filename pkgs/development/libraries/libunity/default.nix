@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     "py"
   ];
 
-  # Obtained from https://git.launchpad.net/ubuntu/+source/libunity/log/
+    # Obtained from https://git.launchpad.net/ubuntu/+source/libunity/log/
   src = fetchgit {
     url = "https://git.launchpad.net/ubuntu/+source/libunity";
     rev = "import/7.1.4+19.04.20190319-5";
@@ -67,7 +67,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "A library for instrumenting and integrating with all aspects of the Unity shell";
+      "A library for instrumenting and integrating with all aspects of the Unity shell"
+      ;
     homepage = "https://launchpad.net/libunity";
     license = licenses.lgpl3;
     platforms = platforms.linux;

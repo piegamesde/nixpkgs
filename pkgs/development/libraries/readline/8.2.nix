@@ -28,12 +28,15 @@ stdenv.mkDerivation rec {
   patchFlags = [ "-p0" ];
 
   upstreamPatches = (let
-    patch = nr: sha256:
+    patch =
+      nr: sha256:
       fetchurl {
         url =
-          "mirror://gnu/readline/readline-${meta.branch}-patches/readline82-${nr}";
+          "mirror://gnu/readline/readline-${meta.branch}-patches/readline82-${nr}"
+          ;
         inherit sha256;
-      };
+      }
+      ;
   in
   import ./readline-8.2-patches.nix patch
   );

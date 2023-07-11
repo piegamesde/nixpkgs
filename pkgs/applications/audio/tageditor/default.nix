@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/Martchus/tageditor";
     description =
-      "A tag editor with Qt GUI and command-line interface supporting MP4/M4A/AAC (iTunes), ID3, Vorbis, Opus, FLAC and Matroska";
+      "A tag editor with Qt GUI and command-line interface supporting MP4/M4A/AAC (iTunes), ID3, Vorbis, Opus, FLAC and Matroska"
+      ;
     license = licenses.gpl2;
     maintainers = [ maintainers.matthiasbeyer ];
     platforms = platforms.linux;

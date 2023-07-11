@@ -33,16 +33,20 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = let
-    static = if enableStatic then
-      "1"
-    else
-      "0";
-  in [
-    "OMP=1"
-    "PREFIX=$(out)"
-    "STATIC=${static}"
-  ] ;
+  makeFlags =
+    let
+      static =
+        if enableStatic then
+          "1"
+        else
+          "0"
+        ;
+    in [
+      "OMP=1"
+      "PREFIX=$(out)"
+      "STATIC=${static}"
+    ]
+    ;
 
   prePatch = ''
     patchShebangs .
@@ -51,7 +55,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description =
-      "Library targeting Intel Architecture for specialized dense and sparse matrix operations, and deep learning primitives";
+      "Library targeting Intel Architecture for specialized dense and sparse matrix operations, and deep learning primitives"
+      ;
     license = licenses.bsd3;
     homepage = "https://github.com/hfp/libxsmm";
     platforms = platforms.linux;

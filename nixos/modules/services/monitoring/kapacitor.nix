@@ -104,14 +104,16 @@ in {
     taskSnapshotInterval = mkOption {
       type = types.str;
       description = lib.mdDoc
-        "Specifies how often to snapshot the task state  (in InfluxDB time units)";
+        "Specifies how often to snapshot the task state  (in InfluxDB time units)"
+        ;
       default = "1m0s";
     };
 
     loadDirectory = mkOption {
       type = types.nullOr types.path;
       description = lib.mdDoc
-        "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)";
+        "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)"
+        ;
       default = null;
     };
 
@@ -170,8 +172,8 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.kapacitor ];
 
-    systemd.tmpfiles.rules =
-      [ "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -" ]
+      ;
 
     systemd.services.kapacitor = {
       description = "Kapacitor Real-Time Stream Processing Engine";

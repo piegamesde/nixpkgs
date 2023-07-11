@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ (lib.getBin nix) ];
 
-  # might be related to https://github.com/NixOS/nix/issues/5884
+    # might be related to https://github.com/NixOS/nix/issues/5884
   preBuild = ''
     export NIX_STATE_DIR=$(mktemp -d)
   '';

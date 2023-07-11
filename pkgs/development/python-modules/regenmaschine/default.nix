@@ -53,7 +53,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python library for interacting with RainMachine smart sprinkler controllers";
+      "Python library for interacting with RainMachine smart sprinkler controllers"
+      ;
     homepage = "https://github.com/bachya/regenmaschine";
     changelog =
       "https://github.com/bachya/regenmaschine/releases/tag/${version}";

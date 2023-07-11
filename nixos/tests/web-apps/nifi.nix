@@ -6,7 +6,8 @@ import ../make-test-python.nix ({
     meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
 
     nodes = {
-      nifi = {
+      nifi =
+        {
           pkgs,
           ...
         }: {
@@ -18,7 +19,8 @@ import ../make-test-python.nix ({
             enable = true;
             enableHTTPS = false;
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

@@ -1,11 +1,14 @@
 let
-  cert = pkgs:
+  cert =
+    pkgs:
     pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=uploads.example.com/CN=conference.example.com' -days 36500
       mkdir -p $out
       cp key.pem cert.pem $out
-    '';
-  createUsers = pkgs:
+    ''
+    ;
+  createUsers =
+    pkgs:
     pkgs.writeScriptBin "create-prosody-users" ''
       #!${pkgs.bash}/bin/bash
       set -e
@@ -18,8 +21,10 @@ let
 
       prosodyctl register cthon98 example.com nothunter2
       prosodyctl register azurediamond example.com hunter2
-    '';
-  delUsers = pkgs:
+    ''
+    ;
+  delUsers =
+    pkgs:
     pkgs.writeScriptBin "delete-prosody-users" ''
       #!${pkgs.bash}/bin/bash
       set -e
@@ -32,12 +37,14 @@ let
 
       prosodyctl deluser cthon98@example.com
       prosodyctl deluser azurediamond@example.com
-    '';
+    ''
+    ;
 in
 import ../make-test-python.nix {
   name = "prosody";
   nodes = {
-    client = {
+    client =
+      {
         nodes,
         pkgs,
         config,
@@ -50,12 +57,12 @@ import ../make-test-python.nix {
           ${nodes.server.config.networking.primaryIPAddress} conference.example.com
           ${nodes.server.config.networking.primaryIPAddress} uploads.example.com
         '';
-        environment.systemPackages =
-          [ (pkgs.callPackage ./xmpp-sendmessage.nix {
-            connectTo = "example.com";
-          }) ];
-      };
-    server = {
+        environment.systemPackages = [ (pkgs.callPackage
+          ./xmpp-sendmessage.nix { connectTo = "example.com"; }) ];
+      }
+      ;
+    server =
+      {
         config,
         pkgs,
         ...
@@ -85,10 +92,12 @@ import ../make-test-python.nix {
           muc = [ { domain = "conference.example.com"; } ];
           uploadHttp = { domain = "uploads.example.com"; };
         };
-      };
+      }
+      ;
   };
 
-  testScript = {
+  testScript =
+    {
       nodes,
       ...
     }: ''
@@ -100,5 +109,6 @@ import ../make-test-python.nix {
       server.succeed("create-prosody-users")
       client.succeed("send-message")
       server.succeed("delete-prosody-users")
-    '';
+    ''
+    ;
 }

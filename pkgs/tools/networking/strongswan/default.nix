@@ -36,8 +36,8 @@
 
 stdenv.mkDerivation rec {
   pname = "strongswan";
-  version =
-    "5.9.10"; # Make sure to also update <nixpkgs/nixos/modules/services/networking/strongswan-swanctl/swanctl-params.nix> when upgrading!
+  version = "5.9.10"
+    ; # Make sure to also update <nixpkgs/nixos/modules/services/networking/strongswan-swanctl/swanctl-params.nix> when upgrading!
 
   src = fetchFromGitHub {
     owner = "strongswan";

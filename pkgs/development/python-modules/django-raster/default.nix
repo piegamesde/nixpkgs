@@ -25,7 +25,7 @@ buildPythonPackage rec {
     sha256 = "213758fe96d74be502f69f2620f7666961a85caa0551d14573637315035a9745";
   };
 
-  # Tests require a postgresql + postgis server
+    # Tests require a postgresql + postgis server
   doCheck = false;
 
   propagatedBuildInputs = [

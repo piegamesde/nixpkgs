@@ -12,10 +12,12 @@ let
 
   specs = mapAttrsToList (n: v: rec {
     name = n + ".json";
-    path = if isAttrs v then
-      pkgs.writeText name (builtins.toJSON v)
-    else
-      v;
+    path =
+      if isAttrs v then
+        pkgs.writeText name (builtins.toJSON v)
+      else
+        v
+      ;
   }) cfg.specs;
 
   allSpecs = pkgs.linkFarm "certmgr.d" specs;
@@ -61,14 +63,16 @@ in {
       default = "72h";
       type = types.str;
       description = lib.mdDoc
-        "The interval before a certificate expires to start attempting to renew it.";
+        "The interval before a certificate expires to start attempting to renew it."
+        ;
     };
 
     renewInterval = mkOption {
       default = "30m";
       type = types.str;
       description = lib.mdDoc
-        "How often to check certificate expirations and how often to update the cert_next_expires metric.";
+        "How often to check certificate expirations and how often to update the cert_next_expires metric."
+        ;
     };
 
     metricsAddress = mkOption {
@@ -143,7 +147,7 @@ in {
               description = lib.mdDoc "The action to take after fetching.";
             };
 
-            # These ought all to be specified according to certmgr spec def.
+              # These ought all to be specified according to certmgr spec def.
             authority = mkOption {
               type = attrs;
               description = lib.mdDoc "certmgr spec authority object.";

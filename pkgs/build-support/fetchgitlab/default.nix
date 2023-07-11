@@ -53,10 +53,12 @@ let
   ];
 
   useFetchGit = deepClone || fetchSubmodules || leaveDotGit;
-  fetcher = if useFetchGit then
-    fetchgit
-  else
-    fetchzip;
+  fetcher =
+    if useFetchGit then
+      fetchgit
+    else
+      fetchzip
+    ;
 
   gitRepoUrl = "${protocol}://${domain}/${slug}.git";
 
@@ -68,7 +70,8 @@ let
   else
     {
       url =
-        "${protocol}://${domain}/api/v4/projects/${escapedSlug}/repository/archive.tar.gz?sha=${escapedRev}";
+        "${protocol}://${domain}/api/v4/projects/${escapedSlug}/repository/archive.tar.gz?sha=${escapedRev}"
+        ;
 
       passthru = { inherit gitRepoUrl; };
     }) // passthruAttrs // {

@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     name = "magnetico";
     meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [ ../modules/profiles/minimal.nix ];
@@ -23,7 +24,8 @@ import ./make-test-python.nix ({
           web.credentials.user =
             "$2y$12$P88ZF6soFthiiAeXnz64aOWDsY3Dw7Yw8fZ6GtiqFNjknD70zDmNe";
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

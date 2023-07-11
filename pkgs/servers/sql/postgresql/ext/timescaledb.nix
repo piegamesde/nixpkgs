@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals (!enableUnfree) [ "-DAPACHE_ONLY=ON" ]
     ++ lib.optionals stdenv.isDarwin [ "-DLINTER=OFF" ];
 
-  # Fix the install phase which tries to install into the pgsql extension dir,
-  # and cannot be manually overridden. This is rather fragile but works OK.
+    # Fix the install phase which tries to install into the pgsql extension dir,
+    # and cannot be manually overridden. This is rather fragile but works OK.
   postPatch = ''
     for x in CMakeLists.txt sql/CMakeLists.txt; do
       substituteInPlace "$x" \
@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Scales PostgreSQL for time-series data via automatic partitioning across time and space";
+      "Scales PostgreSQL for time-series data via automatic partitioning across time and space"
+      ;
     homepage = "https://www.timescale.com/";
     changelog =
       "https://github.com/timescale/timescaledb/raw/${version}/CHANGELOG.md";

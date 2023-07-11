@@ -13,8 +13,8 @@ buildDunePackage rec {
 
   useDune2 = true;
 
-  # get rid of check for curl at configure time
-  # opam-state does not call curl at run time
+    # get rid of check for curl at configure time
+    # opam-state does not call curl at run time
   configureFlags = [ "--disable-checks" ];
 
   nativeBuildInputs = [ unzip ];
@@ -22,7 +22,8 @@ buildDunePackage rec {
 
   meta = opam.meta // {
     description =
-      "OPAM development library handling the ~/.opam hierarchy, repository and switch states";
+      "OPAM development library handling the ~/.opam hierarchy, repository and switch states"
+      ;
     maintainers = with lib.maintainers; [ sternenseemann ];
   };
 }

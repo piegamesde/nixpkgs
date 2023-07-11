@@ -15,13 +15,16 @@ let
     cudaMajorMinorVersion = lib.versions.majorMinor final.cudaVersion;
     inherit lib pkgs;
 
-    addBuildInputs = drv: buildInputs:
+    addBuildInputs =
+      drv: buildInputs:
       drv.overrideAttrs (oldAttrs: {
         buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs;
-      });
+      })
+      ;
   });
 
-  cutensorExtension = final: prev:
+  cutensorExtension =
+    final: prev:
     let
       ### CuTensor
 
@@ -40,10 +43,12 @@ let
       inherit (final) cudaMajorMinorVersion cudaMajorVersion;
 
       cutensor = buildCuTensorPackage rec {
-        version = if cudaMajorMinorVersion == "10.1" then
-          "1.2.2.5"
-        else
-          "1.5.0.3";
+        version =
+          if cudaMajorMinorVersion == "10.1" then
+            "1.2.2.5"
+          else
+            "1.5.0.3"
+          ;
         inherit (cuTensorVersions.${version})
           hash
           ;
@@ -57,23 +62,26 @@ let
       };
     in {
       inherit cutensor;
-    } ;
+    }
+    ;
 
-  extraPackagesExtension = final: prev: {
+  extraPackagesExtension =
+    final: prev: {
 
-    nccl = final.callPackage ../development/libraries/science/math/nccl { };
+      nccl = final.callPackage ../development/libraries/science/math/nccl { };
 
-    autoAddOpenGLRunpathHook = final.callPackage ({
-        makeSetupHook,
-        addOpenGLRunpath,
-      }:
-      makeSetupHook {
-        name = "auto-add-opengl-runpath-hook";
-        propagatedBuildInputs = [ addOpenGLRunpath ];
-      } ../development/compilers/cudatoolkit/auto-add-opengl-runpath-hook.sh)
-      { };
+      autoAddOpenGLRunpathHook = final.callPackage ({
+          makeSetupHook,
+          addOpenGLRunpath,
+        }:
+        makeSetupHook {
+          name = "auto-add-opengl-runpath-hook";
+          propagatedBuildInputs = [ addOpenGLRunpath ];
+        } ../development/compilers/cudatoolkit/auto-add-opengl-runpath-hook.sh)
+        { };
 
-  };
+    }
+    ;
 
   composedExtension = composeManyExtensions ([
     extraPackagesExtension

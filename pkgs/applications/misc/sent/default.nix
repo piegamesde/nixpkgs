@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ makeWrapper ];
 
-  # unpacking doesn't create a directory
+    # unpacking doesn't create a directory
   sourceRoot = ".";
 
   inherit patches;

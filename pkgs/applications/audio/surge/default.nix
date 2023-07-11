@@ -26,16 +26,17 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/surge-synthesizer/releases/releases/download/${version}/SurgeSrc_${version}.tgz";
+      "https://github.com/surge-synthesizer/releases/releases/download/${version}/SurgeSrc_${version}.tgz"
+      ;
     sha256 = "00af4lfcipl0rn0dn4gfipx7nbk8ym1mrmji8v0ar98frsrpxg4k";
   };
 
   extraContent = fetchFromGitHub {
     owner = "surge-synthesizer";
     repo = "surge-extra-content";
-    # rev from: https://github.com/surge-synthesizer/surge/blob/release_1.8.1/cmake/stage-extra-content.cmake#L6
-    # or: https://github.com/surge-synthesizer/surge/blob/main/cmake/stage-extra-content.cmake
-    # SURGE_EXTRA_CONTENT_HASH
+      # rev from: https://github.com/surge-synthesizer/surge/blob/release_1.8.1/cmake/stage-extra-content.cmake#L6
+      # or: https://github.com/surge-synthesizer/surge/blob/main/cmake/stage-extra-content.cmake
+      # SURGE_EXTRA_CONTENT_HASH
     rev = "afc591cc06d9adc3dc8dc515a55c66873fa10296";
     sha256 = "1wqv86l70nwlrb10n47rib80f47a96j9qqg8w5dv46ys1sq2nz7z";
   };
@@ -46,7 +47,8 @@ stdenv.mkDerivation rec {
     # Patch: https://github.com/surge-synthesizer/surge/pull/4845
     (fetchpatch {
       url =
-        "https://github.com/surge-synthesizer/surge/commit/7a552038bab4b000d188ae425aa97963dc91db17.patch";
+        "https://github.com/surge-synthesizer/surge/commit/7a552038bab4b000d188ae425aa97963dc91db17.patch"
+        ;
       sha256 = "sha256-5Flf0uJqEK6e+sadB+vr6phdvvdZYXcFFfm4ywhAeW0=";
       name = "glibc_build_fix.patch";
     })

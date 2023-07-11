@@ -39,19 +39,21 @@ in {
     '';
   };
 
-  # Check that specialisations create corresponding boot entries.
+    # Check that specialisations create corresponding boot entries.
   specialisation = makeTest {
     name = "systemd-boot-specialisation";
     meta.maintainers = with pkgs.lib.maintainers; [ lukegb ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
       }: {
         imports = [ common ];
         specialisation.something.configuration = { };
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()
@@ -66,19 +68,21 @@ in {
     '';
   };
 
-  # Boot without having created an EFI entry--instead using default "/EFI/BOOT/BOOTX64.EFI"
+    # Boot without having created an EFI entry--instead using default "/EFI/BOOT/BOOTX64.EFI"
   fallback = makeTest {
     name = "systemd-boot-fallback";
     meta.maintainers = with pkgs.lib.maintainers; [ danielfullmer ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
       }: {
         imports = [ common ];
         boot.loader.efi.canTouchEfiVariables = mkForce false;
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()
@@ -123,16 +127,20 @@ in {
     name = "systemd-boot-memtest86";
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
       }: {
         imports = [ common ];
         boot.loader.systemd-boot.memtest86.enable = true;
-        nixpkgs.config.allowUnfreePredicate = pkg:
-          builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
-      };
+        nixpkgs.config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [ "memtest86-efi" ]
+          ;
+      }
+      ;
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/memtest86.conf")
@@ -144,14 +152,16 @@ in {
     name = "systemd-boot-netbootxyz";
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
       }: {
         imports = [ common ];
         boot.loader.systemd-boot.netbootxyz.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/o_netbootxyz.conf")
@@ -163,7 +173,8 @@ in {
     name = "systemd-boot-entry-filename";
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -171,9 +182,12 @@ in {
         imports = [ common ];
         boot.loader.systemd-boot.memtest86.enable = true;
         boot.loader.systemd-boot.memtest86.entryFilename = "apple.conf";
-        nixpkgs.config.allowUnfreePredicate = pkg:
-          builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
-      };
+        nixpkgs.config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [ "memtest86-efi" ]
+          ;
+      }
+      ;
 
     testScript = ''
       machine.fail("test -e /boot/loader/entries/memtest86.conf")
@@ -186,7 +200,8 @@ in {
     name = "systemd-boot-extra-entries";
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -197,7 +212,8 @@ in {
             title banana
           '';
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/banana.conf")
@@ -209,7 +225,8 @@ in {
     name = "systemd-boot-extra-files";
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -218,7 +235,8 @@ in {
         boot.loader.systemd-boot.extraFiles = {
           "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed("test -e /boot/efi/fruits/tomato.efi")
@@ -233,7 +251,8 @@ in {
     nodes = {
       inherit common;
 
-      machine = {
+      machine =
+        {
           pkgs,
           ...
         }: {
@@ -241,18 +260,22 @@ in {
           boot.loader.systemd-boot.extraFiles = {
             "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
           };
-        };
+        }
+        ;
 
-      with_netbootxyz = {
+      with_netbootxyz =
+        {
           pkgs,
           ...
         }: {
           imports = [ common ];
           boot.loader.systemd-boot.netbootxyz.enable = true;
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -285,6 +308,7 @@ in {
             machine.succeed("test -e /boot/efi/netbootxyz/netboot.xyz.efi")
             machine.succeed("test -e /boot/efi/nixos/.extra-files/loader/entries/o_netbootxyz.conf")
             machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/netbootxyz/netboot.xyz.efi")
-      '' ;
+      ''
+      ;
   };
 }

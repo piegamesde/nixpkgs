@@ -31,9 +31,9 @@ buildPythonPackage rec {
     sybil
   ];
 
-  # disable code coverage checks for all OS. Upstream does not enforce these
-  # checks on Darwin, and code coverage cannot be improved downstream nor is it
-  # relevant to the user.
+    # disable code coverage checks for all OS. Upstream does not enforce these
+    # checks on Darwin, and code coverage cannot be improved downstream nor is it
+    # relevant to the user.
   pytestFlagsArray = [ "--no-cov" ];
 
   meta = with lib; {

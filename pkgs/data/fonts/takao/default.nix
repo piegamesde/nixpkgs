@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://ubuntu/pool/universe/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.gz";
+      "mirror://ubuntu/pool/universe/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.gz"
+      ;
     hash = "sha256-0wjHNv1yStp0q9D0WfwjgUYoUKcCrXA5jFO8PEVgq5k=";
   };
 

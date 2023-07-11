@@ -27,7 +27,7 @@ buildGoModule rec {
     }/cmd.version=v${version}"
   ];
 
-  # Tests wants to download the kubernetes schema for use with kubeval
+    # Tests wants to download the kubernetes schema for use with kubeval
   doCheck = false;
 
   postInstall = ''

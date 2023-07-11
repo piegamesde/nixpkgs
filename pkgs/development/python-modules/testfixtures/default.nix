@@ -15,12 +15,12 @@ buildPythonPackage rec {
   pname = "testfixtures";
   version = "7.1.0";
   format = "setuptools";
-  # DO NOT CONTACT upstream.
-  # https://github.com/simplistix/ is only concerned with internal CI process.
-  # Any attempt by non-standard pip workflows to comment on issues will
-  # be met with hostility.
-  # https://github.com/simplistix/testfixtures/issues/169
-  # https://github.com/simplistix/testfixtures/issues/168
+    # DO NOT CONTACT upstream.
+    # https://github.com/simplistix/ is only concerned with internal CI process.
+    # Any attempt by non-standard pip workflows to comment on issues will
+    # be met with hostility.
+    # https://github.com/simplistix/testfixtures/issues/169
+    # https://github.com/simplistix/testfixtures/issues/168
 
   disabled = pythonOlder "3.6";
 
@@ -51,7 +51,8 @@ buildPythonPackage rec {
       "Collection of helpers and mock objects for unit tests and doc tests";
     homepage = "https://github.com/Simplistix/testfixtures";
     changelog =
-      "https://github.com/simplistix/testfixtures/blob/${version}/CHANGELOG.rst";
+      "https://github.com/simplistix/testfixtures/blob/${version}/CHANGELOG.rst"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ siriobalmelli ];
   };

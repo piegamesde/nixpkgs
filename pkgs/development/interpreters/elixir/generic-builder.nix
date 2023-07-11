@@ -76,7 +76,8 @@ stdenv.mkDerivation ({
   meta = with lib; {
     homepage = "https://elixir-lang.org/";
     description =
-      "A functional, meta-programming aware language built on top of the Erlang VM";
+      "A functional, meta-programming aware language built on top of the Erlang VM"
+      ;
 
     longDescription = ''
       Elixir is a functional, meta-programming aware language built on

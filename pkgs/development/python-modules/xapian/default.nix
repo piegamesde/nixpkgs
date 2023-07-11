@@ -17,7 +17,8 @@ buildPythonPackage rec {
 
   src = fetchurl {
     url =
-      "https://oligarchy.co.uk/xapian/${version}/xapian-bindings-${version}.tar.xz";
+      "https://oligarchy.co.uk/xapian/${version}/xapian-bindings-${version}.tar.xz"
+      ;
     hash = "sha256-578eSYK5H4QSidGSFAIdiDccoqbHME31kEnX2ni4PO0=";
   };
 

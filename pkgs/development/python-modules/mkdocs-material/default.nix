@@ -50,7 +50,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  # No tests for python
+    # No tests for python
   doCheck = false;
 
   pythonImportsCheck = [ "mkdocs" ];

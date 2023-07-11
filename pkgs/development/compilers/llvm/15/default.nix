@@ -65,11 +65,13 @@
 }:
 
 assert let
-  int = a:
+  int =
+    a:
     if a then
       1
     else
-      0;
+      0
+    ;
   xor = a: b: ((builtins.bitXor (int a) (int b)) == 1);
 in
 lib.assertMsg (xor (gitRelease != null) (officialRelease != null))
@@ -79,38 +81,45 @@ lib.assertMsg (xor (gitRelease != null) (officialRelease != null))
 let
   monorepoSrc' = monorepoSrc;
 in let
-  releaseInfo = if gitRelease != null then
-    rec {
-      original = gitRelease;
-      release_version = original.version;
-      version = gitRelease.rev-version;
-    }
-  else
-    rec {
-      original = officialRelease;
-      release_version = original.version;
-      version = if original ? candidate then
-        "${release_version}-${original.candidate}"
-      else
-        release_version;
-    };
+  releaseInfo =
+    if gitRelease != null then
+      rec {
+        original = gitRelease;
+        release_version = original.version;
+        version = gitRelease.rev-version;
+      }
+    else
+      rec {
+        original = officialRelease;
+        release_version = original.version;
+        version =
+          if original ? candidate then
+            "${release_version}-${original.candidate}"
+          else
+            release_version
+          ;
+      }
+    ;
 
-  monorepoSrc = if monorepoSrc' != null then
-    monorepoSrc'
-  else
-    let
-      sha256 = releaseInfo.original.sha256;
-      rev = if gitRelease != null then
-        gitRelease.rev
-      else
-        "llvmorg-${releaseInfo.version}";
-    in
-    fetchFromGitHub {
-      owner = "llvm";
-      repo = "llvm-project";
-      inherit rev sha256;
-    }
-  ;
+  monorepoSrc =
+    if monorepoSrc' != null then
+      monorepoSrc'
+    else
+      let
+        sha256 = releaseInfo.original.sha256;
+        rev =
+          if gitRelease != null then
+            gitRelease.rev
+          else
+            "llvmorg-${releaseInfo.version}"
+          ;
+      in
+      fetchFromGitHub {
+        owner = "llvm";
+        repo = "llvm-project";
+        inherit rev sha256;
+      }
+    ;
 
   inherit (releaseInfo) release_version version;
 
@@ -118,7 +127,7 @@ in let
     license = lib.licenses.ncsa;
     maintainers = lib.teams.llvm.members;
 
-    # See llvm/cmake/config-ix.cmake.
+      # See llvm/cmake/config-ix.cmake.
     platforms = lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.m68k
       ++ lib.platforms.mips ++ lib.platforms.power ++ lib.platforms.riscv
       ++ lib.platforms.s390x ++ lib.platforms.wasi ++ lib.platforms.x86;
@@ -139,33 +148,41 @@ in let
           buildLlvmTools
           ;
       });
-      mkExtraBuildCommands0 = cc: ''
-        rsrc="$out/resource-root"
-        mkdir "$rsrc"
-        ln -s "${cc.lib}/lib/clang/${release_version}/include" "$rsrc"
-        echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
-      '';
-      mkExtraBuildCommands = cc:
+      mkExtraBuildCommands0 =
+        cc: ''
+          rsrc="$out/resource-root"
+          mkdir "$rsrc"
+          ln -s "${cc.lib}/lib/clang/${release_version}/include" "$rsrc"
+          echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
+        ''
+        ;
+      mkExtraBuildCommands =
+        cc:
         mkExtraBuildCommands0 cc + ''
           ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
-        '';
+        ''
+        ;
 
-      bintoolsNoLibc' = if bootBintoolsNoLibc == null then
-        tools.bintoolsNoLibc
-      else
-        bootBintoolsNoLibc;
-      bintools' = if bootBintools == null then
-        tools.bintools
-      else
-        bootBintools;
+      bintoolsNoLibc' =
+        if bootBintoolsNoLibc == null then
+          tools.bintoolsNoLibc
+        else
+          bootBintoolsNoLibc
+        ;
+      bintools' =
+        if bootBintools == null then
+          tools.bintools
+        else
+          bootBintools
+        ;
 
     in {
 
       libllvm = callPackage ./llvm { inherit llvm_meta; };
 
-      # `llvm` historically had the binaries.  When choosing an output explicitly,
-      # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
+        # `llvm` historically had the binaries.  When choosing an output explicitly,
+        # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
       llvm = tools.libllvm;
 
       libclang = callPackage ./clang { inherit llvm_meta; };
@@ -187,17 +204,19 @@ in let
         python3 = pkgs.python3; # don't use python-boot
       });
 
-      # pick clang appropriate for package set we are targeting
-      clang = if stdenv.targetPlatform.useLLVM or false then
-        tools.clangUseLLVM
-      else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
-        tools.libstdcxxClang
-      else
-        tools.libcxxClang;
+        # pick clang appropriate for package set we are targeting
+      clang =
+        if stdenv.targetPlatform.useLLVM or false then
+          tools.clangUseLLVM
+        else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
+          tools.libstdcxxClang
+        else
+          tools.libcxxClang
+        ;
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
-        # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
+          # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
         libcxx = null;
         extraPackages = [ targetLlvmLibraries.compiler-rt ];
         extraBuildCommands = mkExtraBuildCommands cc;
@@ -222,12 +241,12 @@ in let
         inherit (darwin.apple_sdk.frameworks) Foundation Carbon Cocoa;
       };
 
-      # Below, is the LLVM bootstrapping logic. It handles building a
-      # fully LLVM toolchain from scratch. No GCC toolchain should be
-      # pulled in. As a consequence, it is very quick to build different
-      # targets provided by LLVM and we can also build for what GCC
-      # doesn’t support like LLVM. Probably we should move to some other
-      # file.
+        # Below, is the LLVM bootstrapping logic. It handles building a
+        # fully LLVM toolchain from scratch. No GCC toolchain should be
+        # pulled in. As a consequence, it is very quick to build different
+        # targets provided by LLVM and we can also build for what GCC
+        # doesn’t support like LLVM. Probably we should move to some other
+        # file.
 
       bintools-unwrapped = callPackage ./bintools { };
 
@@ -320,75 +339,82 @@ in let
 
       compiler-rt-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
-          overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
-        else
-          stdenv;
+        stdenv =
+          if stdenv.hostPlatform.useLLVM or false then
+            overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
+          else
+            stdenv
+          ;
       };
 
       compiler-rt-no-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
-          overrideCC stdenv buildLlvmTools.clangNoCompilerRt
-        else
-          stdenv;
+        stdenv =
+          if stdenv.hostPlatform.useLLVM or false then
+            overrideCC stdenv buildLlvmTools.clangNoCompilerRt
+          else
+            stdenv
+          ;
       };
 
-      # N.B. condition is safe because without useLLVM both are the same.
-      compiler-rt = if stdenv.hostPlatform.isAndroid then
-        libraries.compiler-rt-libc
-      else
-        libraries.compiler-rt-no-libc;
+        # N.B. condition is safe because without useLLVM both are the same.
+      compiler-rt =
+        if stdenv.hostPlatform.isAndroid then
+          libraries.compiler-rt-libc
+        else
+          libraries.compiler-rt-no-libc
+        ;
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 
       libcxxStdenv = overrideCC stdenv buildLlvmTools.libcxxClang;
 
-      libcxxabi = let
-        # CMake will "require" a compiler capable of compiling C++ programs
-        # cxx-header's build does not actually use one so it doesn't really matter
-        # what stdenv we use here, as long as CMake is happy.
-        cxx-headers = callPackage ./libcxx {
-          inherit
-            llvm_meta
-            ;
-            # Note that if we use the regular stdenv here we'll get cycle errors
-            # when attempting to use this compiler in the stdenv.
+      libcxxabi =
+        let
+          # CMake will "require" a compiler capable of compiling C++ programs
+          # cxx-header's build does not actually use one so it doesn't really matter
+          # what stdenv we use here, as long as CMake is happy.
+          cxx-headers = callPackage ./libcxx {
+            inherit
+              llvm_meta
+              ;
+              # Note that if we use the regular stdenv here we'll get cycle errors
+              # when attempting to use this compiler in the stdenv.
+              #
+              # The final stdenv pulls `cxx-headers` from the package set where
+              # hostPlatform *is* the target platform which means that `stdenv` at
+              # that point attempts to use this toolchain.
+              #
+              # So, we use `stdenv_` (the stdenv containing `clang` from this package
+              # set, defined below) to sidestep this issue.
+              #
+              # Because we only use `cxx-headers` in `libcxxabi` (which depends on the
+              # clang stdenv _anyways_), this is okay.
+            stdenv = stdenv_;
+            headersOnly = true;
+          };
+
+            # `libcxxabi` *doesn't* need a compiler with a working C++ stdlib but it
+            # *does* need a relatively modern C++ compiler (see:
+            # https://releases.llvm.org/15.0.0/projects/libcxx/docs/index.html#platform-and-compiler-support).
             #
-            # The final stdenv pulls `cxx-headers` from the package set where
-            # hostPlatform *is* the target platform which means that `stdenv` at
-            # that point attempts to use this toolchain.
+            # So, we use the clang from this LLVM package set, like libc++
+            # "boostrapping builds" do:
+            # https://releases.llvm.org/15.0.0/projects/libcxx/docs/BuildingLibcxx.html#bootstrapping-build
             #
-            # So, we use `stdenv_` (the stdenv containing `clang` from this package
-            # set, defined below) to sidestep this issue.
-            #
-            # Because we only use `cxx-headers` in `libcxxabi` (which depends on the
-            # clang stdenv _anyways_), this is okay.
+            # We cannot use `clangNoLibcxx` because that contains `compiler-rt` which,
+            # on macOS, depends on `libcxxabi`, thus forming a cycle.
+          stdenv_ = overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc;
+        in
+        callPackage ./libcxxabi {
           stdenv = stdenv_;
-          headersOnly = true;
-        };
+          inherit llvm_meta cxx-headers;
+        }
+        ;
 
-        # `libcxxabi` *doesn't* need a compiler with a working C++ stdlib but it
-        # *does* need a relatively modern C++ compiler (see:
-        # https://releases.llvm.org/15.0.0/projects/libcxx/docs/index.html#platform-and-compiler-support).
-        #
-        # So, we use the clang from this LLVM package set, like libc++
-        # "boostrapping builds" do:
-        # https://releases.llvm.org/15.0.0/projects/libcxx/docs/BuildingLibcxx.html#bootstrapping-build
-        #
-        # We cannot use `clangNoLibcxx` because that contains `compiler-rt` which,
-        # on macOS, depends on `libcxxabi`, thus forming a cycle.
-        stdenv_ = overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc;
-      in
-      callPackage ./libcxxabi {
-        stdenv = stdenv_;
-        inherit llvm_meta cxx-headers;
-      }
-      ;
-
-      # Like `libcxxabi` above, `libcxx` requires a fairly modern C++ compiler,
-      # so: we use the clang from this LLVM package set instead of the regular
-      # stdenv's compiler.
+        # Like `libcxxabi` above, `libcxx` requires a fairly modern C++ compiler,
+        # so: we use the clang from this LLVM package set instead of the regular
+        # stdenv's compiler.
       libcxx = callPackage ./libcxx {
         inherit llvm_meta;
         stdenv = overrideCC stdenv buildLlvmTools.clangNoLibcxx;

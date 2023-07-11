@@ -33,26 +33,27 @@ buildPythonPackage rec {
     six
   ];
 
-  # The package uses a custom script that downloads a certain version of plantuml for testing.
+    # The package uses a custom script that downloads a certain version of plantuml for testing.
   doCheck = false;
 
   pythonImportsCheck = [ "plantuml_markdown" ];
 
-  passthru.tests.example-doc = let
-    exampleDoc = writeText "plantuml-markdown-example-doc.md" ''
-      ```plantuml
-        Bob -> Alice: Hello
-      ```
-    '';
-  in
-  runCommand "plantuml-markdown-example-doc" {
-    nativeBuildInputs = [ plantuml-markdown ];
-  } ''
-    markdown_py -x plantuml_markdown ${exampleDoc} > $out
+  passthru.tests.example-doc =
+    let
+      exampleDoc = writeText "plantuml-markdown-example-doc.md" ''
+        ```plantuml
+          Bob -> Alice: Hello
+        ```
+      '';
+    in
+    runCommand "plantuml-markdown-example-doc" {
+      nativeBuildInputs = [ plantuml-markdown ];
+    } ''
+      markdown_py -x plantuml_markdown ${exampleDoc} > $out
 
-    ! grep -q "Error" $out
-  ''
-  ;
+      ! grep -q "Error" $out
+    ''
+    ;
 
   meta = with lib; {
     description = "PlantUML plugin for Python-Markdown";

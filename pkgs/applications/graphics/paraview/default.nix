@@ -41,7 +41,8 @@ let
       url =
         "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v${
           lib.versions.majorMinor version
-        }&type=data&os=Sources&downloadFile=ParaViewGettingStarted-${version}.pdf";
+        }&type=data&os=Sources&downloadFile=ParaViewGettingStarted-${version}.pdf"
+        ;
       name = "GettingStarted.pdf";
       sha256 = "14xhlvg7s7d5amqf4qfyamx2a6b66zf4cmlfm3s7iw3jq01x1lx6";
     })
@@ -49,7 +50,8 @@ let
       url =
         "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v${
           lib.versions.majorMinor version
-        }&type=data&os=Sources&downloadFile=ParaViewCatalystGuide-${version}.pdf";
+        }&type=data&os=Sources&downloadFile=ParaViewCatalystGuide-${version}.pdf"
+        ;
       name = "CatalystGuide.pdf";
       sha256 = "133vcfrbg2nh15igl51ns6gnfn1is20vq6j0rg37wha697pmcr4a";
     })
@@ -69,7 +71,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  # Find the Qt platform plugin "minimal"
+    # Find the Qt platform plugin "minimal"
   preConfigure = ''
     export QT_PLUGIN_PATH=${qtbase.bin}/${qtbase.qtPluginPrefix}
   '';
@@ -117,16 +119,17 @@ stdenv.mkDerivation rec {
     qtsvg
   ];
 
-  postInstall = let
-    docDir = "$out/share/paraview-${lib.versions.majorMinor version}/doc";
-  in
-  lib.optionalString withDocs ''
-    mkdir -p ${docDir};
-    for docFile in ${lib.concatStringsSep " " docFiles}; do
-      cp $docFile ${docDir}/$(stripHash $docFile);
-    done;
-  ''
-  ;
+  postInstall =
+    let
+      docDir = "$out/share/paraview-${lib.versions.majorMinor version}/doc";
+    in
+    lib.optionalString withDocs ''
+      mkdir -p ${docDir};
+      for docFile in ${lib.concatStringsSep " " docFiles}; do
+        cp $docFile ${docDir}/$(stripHash $docFile);
+      done;
+    ''
+    ;
 
   propagatedBuildInputs = [ (python3.withPackages (ps:
     with ps; [

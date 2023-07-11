@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     # Fix build with Nix
     (fetchpatch {
       url =
-        "https://github.com/xmoto/xmoto/commit/536dcc7ec77a4c4c454b86220e85b1cb3cd1c7f7.patch";
+        "https://github.com/xmoto/xmoto/commit/536dcc7ec77a4c4c454b86220e85b1cb3cd1c7f7.patch"
+        ;
       sha256 = "0h9lld668jrbmrqva89zqwp63jiagjj86prkxzx6372p3kk9y7g7";
     })
   ];
@@ -76,7 +77,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A challenging 2D motocross platform game, where physics play an important role";
+      "A challenging 2D motocross platform game, where physics play an important role"
+      ;
     longDescription = ''
       X-Moto is a challenging 2D motocross platform game, where physics plays an all important role in the gameplay.
       You need to control your bike to its limits, if you want to have a chance to finish the most difficult challenges.

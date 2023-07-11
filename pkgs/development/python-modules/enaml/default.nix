@@ -47,7 +47,7 @@ buildPythonPackage rec {
     sip_4
   ];
 
-  # qt bindings cannot be found during tests
+    # qt bindings cannot be found during tests
   doCheck = false;
 
   pythonImportsCheck = [

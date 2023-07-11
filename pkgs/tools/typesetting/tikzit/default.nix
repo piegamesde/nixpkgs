@@ -32,12 +32,13 @@ mkDerivation {
     poppler
   ];
 
-  # src/data/tikzlexer.l:29:10: fatal error: tikzparser.parser.hpp: No such file or directory
+    # src/data/tikzlexer.l:29:10: fatal error: tikzparser.parser.hpp: No such file or directory
   enableParallelBuilding = false;
 
   meta = with lib; {
     description =
-      "A graphical tool for rapidly creating graphs and diagrams using PGF/TikZ";
+      "A graphical tool for rapidly creating graphs and diagrams using PGF/TikZ"
+      ;
     longDescription = ''
       TikZiT is a simple GUI editor for graphs and string diagrams.
       Its native file format is a subset of PGF/TikZ, which means TikZiT files

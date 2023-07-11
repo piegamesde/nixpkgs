@@ -40,9 +40,9 @@ let
     python = python3;
   };
 
-  # Requires a version number like "<MAJOR><MINOR>"
-  pythonVersion = (lib.versions.major python3.version)
-    + (lib.versions.minor python3.version);
+    # Requires a version number like "<MAJOR><MINOR>"
+  pythonVersion =
+    (lib.versions.major python3.version) + (lib.versions.minor python3.version);
 
 in
 stdenv.mkDerivation rec {

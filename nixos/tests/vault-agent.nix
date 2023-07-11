@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }: {
     name = "vault-agent";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -44,7 +45,8 @@ import ./make-test-python.nix ({
             VAULT_TOKEN = "root";
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("vault.service")

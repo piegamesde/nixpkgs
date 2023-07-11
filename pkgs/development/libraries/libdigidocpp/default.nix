@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/open-eid/libdigidocpp/releases/download/v${version}/libdigidocpp-${version}.tar.gz";
+      "https://github.com/open-eid/libdigidocpp/releases/download/v${version}/libdigidocpp-${version}.tar.gz"
+      ;
     hash = "sha256-CNHBPeodU2EzvmQBa9KI+1vGuuD25gSwdU9dVhVG04Q=";
   };
 
@@ -52,9 +53,9 @@ stdenv.mkDerivation rec {
     "bin"
   ];
 
-  # libdigidocpp.so's `PKCS11Signer::PKCS11Signer()` dlopen()s "opensc-pkcs11.so"
-  # itself, so add OpenSC to its DT_RUNPATH after the fixupPhase shrinked it.
-  # https://github.com/open-eid/cmake/pull/35 might be an alternative.
+    # libdigidocpp.so's `PKCS11Signer::PKCS11Signer()` dlopen()s "opensc-pkcs11.so"
+    # itself, so add OpenSC to its DT_RUNPATH after the fixupPhase shrinked it.
+    # https://github.com/open-eid/cmake/pull/35 might be an alternative.
   postFixup = ''
     patchelf --add-rpath ${opensc}/lib/pkcs11 $lib/lib/libdigidocpp.so
   '';

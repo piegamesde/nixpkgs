@@ -44,7 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # Starting with 0.30 the tests are broken, check with the next major release
+    # Starting with 0.30 the tests are broken, check with the next major release
   doCheck = false;
 
   pythonImportsCheck = [ "hahomematic" ];

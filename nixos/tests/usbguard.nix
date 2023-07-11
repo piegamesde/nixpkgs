@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "usbguard";
     meta = with pkgs.lib.maintainers; { maintainers = [ tnias ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.usbguard = {
@@ -15,14 +16,15 @@ import ./make-test-python.nix ({
             "root"
           ];
 
-          # As virtual USB devices get attached to the "QEMU USB Hub" we need to
-          # allow Hubs. Otherwise we would have to explicitly allow them too.
+            # As virtual USB devices get attached to the "QEMU USB Hub" we need to
+            # allow Hubs. Otherwise we would have to explicitly allow them too.
           rules = ''
             allow with-interface equals { 09:00:00 }
           '';
         };
         imports = [ ./common/user-account.nix ];
-      };
+      }
+      ;
 
     testScript = ''
       # create a blank disk image for our fake USB stick

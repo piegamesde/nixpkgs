@@ -170,7 +170,7 @@ stdenv.mkDerivation ({
 
   installFlags = [ "sysconfdir=$(out)/etc" ];
 
-  # out as the first output is an exception exclusive to glibc
+    # out as the first output is an exception exclusive to glibc
   outputs = [
     "out"
     "bin"
@@ -200,7 +200,7 @@ stdenv.mkDerivation ({
     BASH_SHELL = "/bin/sh";
   };
 
-  # Used by libgcc, elf-header, and others to determine ABI
+    # Used by libgcc, elf-header, and others to determine ABI
   passthru = {
     inherit version;
     minorRelease = version;
@@ -218,7 +218,7 @@ stdenv.mkDerivation ({
       inherit sha256;
     };
 
-    # Remove absolute paths from `configure' & co.; build out-of-tree.
+      # Remove absolute paths from `configure' & co.; build out-of-tree.
     preConfigure = ''
       export PWD_P=$(type -tP pwd)
       for i in configure io/ftwtest-sh; do

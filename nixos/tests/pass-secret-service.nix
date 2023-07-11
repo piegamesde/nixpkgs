@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "pass-secret-service";
     meta.maintainers = [ lib.maintainers.aidalgol ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         nodes,
         pkgs,
         ...
@@ -35,11 +36,13 @@ import ./make-test-python.nix ({
           agent.pinentryFlavor = "tty";
           dirmngr.enable = true;
         };
-      };
+      }
+      ;
 
-    # Some of the commands are run via a virtual console because they need to be
-    # run under a real login session, with D-Bus running in the environment.
-    testScript = {
+      # Some of the commands are run via a virtual console because they need to be
+      # run under a real login session, with D-Bus running in the environment.
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -73,5 +76,6 @@ import ./make-test-python.nix ({
             machine.wait_for_file("${ready-file}")
             _, output = machine.systemctl("status dbus-org.freedesktop.secrets --no-pager", "alice")
             assert "Active: active (running)" in output
-      '' ;
+      ''
+      ;
   })

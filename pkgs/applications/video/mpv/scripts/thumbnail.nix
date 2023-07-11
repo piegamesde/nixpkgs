@@ -36,7 +36,8 @@ stdenvNoCC.mkDerivation rec {
       "A lua script to show preview thumbnails in mpv's OSC seekbar";
     homepage = "https://github.com/marzzzello/mpv_thumbnail_script";
     changelog =
-      "https://github.com/marzzzello/mpv_thumbnail_script/releases/tag/${version}";
+      "https://github.com/marzzzello/mpv_thumbnail_script/releases/tag/${version}"
+      ;
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ figsoda ];

@@ -139,61 +139,64 @@ in {
     };
   };
 
-  ##### implementation
-  config = let
-    configfile = conf:
-      pkgs.writeText "clamsmtpd.conf" ''
-        Action: ${conf.action}
-        ClamAddress: ${clamdSocket}
-        Header: ${conf.header}
-        KeepAlives: ${toString conf.keepAlives}
-        Listen: ${conf.listen}
-        Quarantine: ${
-          if conf.quarantine then
-            "on"
-          else
-            "off"
-        }
-        MaxConnections: ${toString conf.maxConnections}
-        OutAddress: ${conf.outAddress}
-        TempDirectory: ${conf.tempDirectory}
-        TimeOut: ${toString conf.timeout}
-        TransparentProxy: ${
-          if conf.transparentProxy then
-            "on"
-          else
-            "off"
-        }
-        User: clamav
-        ${optionalString (conf.virusAction != null)
-        "VirusAction: ${conf.virusAction}"}
-        XClient: ${
-          if conf.xClient then
-            "on"
-          else
-            "off"
-        }
-      '';
-  in
-  mkIf cfg.enable {
-    assertions = [ {
-      assertion = config.services.clamav.daemon.enable;
-      message = "clamsmtp requires clamav to be enabled";
-    } ];
+    ##### implementation
+  config =
+    let
+      configfile =
+        conf:
+        pkgs.writeText "clamsmtpd.conf" ''
+          Action: ${conf.action}
+          ClamAddress: ${clamdSocket}
+          Header: ${conf.header}
+          KeepAlives: ${toString conf.keepAlives}
+          Listen: ${conf.listen}
+          Quarantine: ${
+            if conf.quarantine then
+              "on"
+            else
+              "off"
+          }
+          MaxConnections: ${toString conf.maxConnections}
+          OutAddress: ${conf.outAddress}
+          TempDirectory: ${conf.tempDirectory}
+          TimeOut: ${toString conf.timeout}
+          TransparentProxy: ${
+            if conf.transparentProxy then
+              "on"
+            else
+              "off"
+          }
+          User: clamav
+          ${optionalString (conf.virusAction != null)
+          "VirusAction: ${conf.virusAction}"}
+          XClient: ${
+            if conf.xClient then
+              "on"
+            else
+              "off"
+          }
+        ''
+        ;
+    in
+    mkIf cfg.enable {
+      assertions = [ {
+        assertion = config.services.clamav.daemon.enable;
+        message = "clamsmtp requires clamav to be enabled";
+      } ];
 
-    systemd.services = listToAttrs (imap1 (i: conf:
-      nameValuePair "clamsmtp-${toString i}" {
-        description = "ClamSMTP instance ${toString i}";
-        wantedBy = [ "multi-user.target" ];
-        script = "exec ${pkgs.clamsmtp}/bin/clamsmtpd -f ${configfile conf}";
-        after = [ "clamav-daemon.service" ];
-        requires = [ "clamav-daemon.service" ];
-        serviceConfig.Type = "forking";
-        serviceConfig.PrivateTmp = "yes";
-        unitConfig.JoinsNamespaceOf = "clamav-daemon.service";
-      }) cfg.instances);
-  }
-  ;
+      systemd.services = listToAttrs (imap1 (i: conf:
+        nameValuePair "clamsmtp-${toString i}" {
+          description = "ClamSMTP instance ${toString i}";
+          wantedBy = [ "multi-user.target" ];
+          script = "exec ${pkgs.clamsmtp}/bin/clamsmtpd -f ${configfile conf}";
+          after = [ "clamav-daemon.service" ];
+          requires = [ "clamav-daemon.service" ];
+          serviceConfig.Type = "forking";
+          serviceConfig.PrivateTmp = "yes";
+          unitConfig.JoinsNamespaceOf = "clamav-daemon.service";
+        }) cfg.instances);
+    }
+    ;
 
   meta.maintainers = with lib.maintainers; [ ekleog ];
 }

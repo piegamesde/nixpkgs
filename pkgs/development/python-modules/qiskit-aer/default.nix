@@ -84,7 +84,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  # *** Testing ***
+    # *** Testing ***
   pythonImportsCheck = [
     "qiskit.providers.aer"
     "qiskit.providers.aer.backends.qasm_simulator"

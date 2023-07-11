@@ -27,6 +27,7 @@ buildOctavePackage rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Package for solving Diffusion Advection Reaction (DAR) Partial Differential Equations";
+      "Package for solving Diffusion Advection Reaction (DAR) Partial Differential Equations"
+      ;
   };
 }

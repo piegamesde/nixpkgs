@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     "-DSPIRV_WERROR=OFF"
   ];
 
-  # https://github.com/KhronosGroup/SPIRV-Tools/issues/3905
+    # https://github.com/KhronosGroup/SPIRV-Tools/issues/3905
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace '-P ''${CMAKE_CURRENT_SOURCE_DIR}/cmake/write_pkg_config.cmake' \
@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "The SPIR-V Tools project provides an API and commands for processing SPIR-V modules";
+      "The SPIR-V Tools project provides an API and commands for processing SPIR-V modules"
+      ;
     homepage = "https://github.com/KhronosGroup/SPIRV-Tools";
     license = licenses.asl20;
     platforms = platforms.unix;

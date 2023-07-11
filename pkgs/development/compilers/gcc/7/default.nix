@@ -82,7 +82,8 @@ let
     (fetchurl {
       name = "fix-bug-80431.patch";
       url =
-        "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
+        "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0"
+        ;
       sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
     })
 
@@ -93,7 +94,8 @@ let
     ++ optional (hostPlatform != buildPlatform)
     (fetchpatch { # XXX: Refine when this should be applied
       url =
-        "https://git.busybox.net/buildroot/plain/package/gcc/7.1.0/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
+        "https://git.busybox.net/buildroot/plain/package/gcc/7.1.0/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02"
+        ;
       sha256 = "0mrvxsdwip2p3l17dscpc1x8vhdsciqw1z5q9i6p5g9yg1cqnmgs";
     }) ++ optional langFortran ../gfortran-driving.patch
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
@@ -101,7 +103,8 @@ let
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32)
     (fetchpatch {
       url =
-        "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
+        "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb"
+        ;
       sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
     }) ++ optional (targetPlatform.libc == "musl")
     ../libgomp-dont-force-initial-exec.patch
@@ -113,13 +116,15 @@ let
 
     ++ [ ../libsanitizer-no-cyclades-9.patch ];
 
-  # Cross-gcc settings (build == host != target)
-  crossMingw = targetPlatform != hostPlatform && targetPlatform.libc
-    == "msvcrt";
-  stageNameAddon = if crossStageStatic then
-    "stage-static"
-  else
-    "stage-final";
+    # Cross-gcc settings (build == host != target)
+  crossMingw =
+    targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
+  stageNameAddon =
+    if crossStageStatic then
+      "stage-static"
+    else
+      "stage-final"
+    ;
   crossNameAddon = optionalString (targetPlatform != hostPlatform)
     "${targetPlatform.config}-${stageNameAddon}-";
 
@@ -231,10 +236,12 @@ stdenv.mkDerivation ({
       # On NixOS, use the right path to the dynamic linker instead of
       # `/lib/ld*.so'.
       (let
-        libc = if libcCross != null then
-          libcCross
-        else
-          stdenv.cc.libc;
+        libc =
+          if libcCross != null then
+            libcCross
+          else
+            stdenv.cc.libc
+          ;
       in
       (''
         echo "fixing the \`GLIBC_DYNAMIC_LINKER', \`UCLIBC_DYNAMIC_LINKER', and \`MUSL_DYNAMIC_LINKER' macros..."
@@ -283,10 +290,12 @@ stdenv.mkDerivation ({
     ++ optional (targetPlatform.isAarch64) "--enable-fix-cortex-a53-843419"
     ++ optional targetPlatform.isNetBSD "--disable-libcilkrts";
 
-  targetConfig = if targetPlatform != hostPlatform then
-    targetPlatform.config
-  else
-    null;
+  targetConfig =
+    if targetPlatform != hostPlatform then
+      targetPlatform.config
+    else
+      null
+    ;
 
   buildFlags =
     optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
@@ -301,10 +310,10 @@ stdenv.mkDerivation ({
     preFixup
     ;
 
-  doCheck =
-    false; # requires a lot of tools, causes a dependency cycle for stdenv
+  doCheck = false
+    ; # requires a lot of tools, causes a dependency cycle for stdenv
 
-  # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
+    # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
   ${
     if hostPlatform.system == "x86_64-solaris" then
       "CC"
@@ -312,18 +321,18 @@ stdenv.mkDerivation ({
       null
   } = "gcc -m64";
 
-  # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
-  # library headers and binaries, regarless of the language being compiled.
-  #
-  # Likewise, the LTO code doesn't find zlib.
-  #
-  # Cross-compiling, we need gcc not to read ./specs in order to build the g++
-  # compiler (after the specs for the cross-gcc are created). Having
-  # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
+    # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
+    # library headers and binaries, regarless of the language being compiled.
+    #
+    # Likewise, the LTO code doesn't find zlib.
+    #
+    # Cross-compiling, we need gcc not to read ./specs in order to build the g++
+    # compiler (after the specs for the cross-gcc are created). Having
+    # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
   CPATH = optionals (targetPlatform == hostPlatform)
-    (makeSearchPathOutput "dev" "include"
-      ([ ] ++ optional (zlib != null) zlib));
+    (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib))
+    ;
 
   LIBRARY_PATH = optionals (targetPlatform == hostPlatform)
     (makeLibraryPath (optional (zlib != null) zlib));

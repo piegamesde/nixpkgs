@@ -32,7 +32,7 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  # The package has not tests
+    # The package has not tests
   doCheck = false;
 
   JUPYTER_PATH = "${nbconvert}/share/jupyter";

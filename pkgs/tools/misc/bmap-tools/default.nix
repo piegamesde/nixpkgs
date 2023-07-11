@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [ six ];
 
-  # tests fail only on hydra.
+    # tests fail only on hydra.
   doCheck = false;
 
   meta = with lib; {

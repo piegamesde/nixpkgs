@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://code.orgmode.org/bzg/org-mode/raw/release_${version}/contrib/scripts/x11idle.c";
+      "https://code.orgmode.org/bzg/org-mode/raw/release_${version}/contrib/scripts/x11idle.c"
+      ;
     sha256 = "0fc5g57xd6bmghyl214gcff0ni3idv33i3gkr339kgn1mdjljv5g";
   };
 

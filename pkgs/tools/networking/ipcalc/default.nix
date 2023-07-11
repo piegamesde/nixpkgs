@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
     ./sandbox_tests.patch
   ];
 
-  # technically not needed as we do not support the paid maxmind databases, but
-  # keep it around if someone wants to add support and /usr/share/GeoIP is
-  # broken anyway
+    # technically not needed as we do not support the paid maxmind databases, but
+    # keep it around if someone wants to add support and /usr/share/GeoIP is
+    # broken anyway
   postPatch = ''
     substituteInPlace ipcalc-maxmind.c \
       --replace /usr/share/GeoIP /var/lib/GeoIP

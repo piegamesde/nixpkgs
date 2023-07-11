@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/mingw/MinGW/Base/mingwrt/mingwrt-${version}/mingwrt-${version}-mingw32-src.tar.xz";
+      "mirror://sourceforge/mingw/MinGW/Base/mingwrt/mingwrt-${version}/mingwrt-${version}-mingw32-src.tar.xz"
+      ;
     sha256 = "1vj6f578wcffdmy7zzf7xz1lw57kxjy08j0k1n28f0j4ylrk68vp";
   };
 

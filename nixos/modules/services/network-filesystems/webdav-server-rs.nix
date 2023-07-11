@@ -92,13 +92,15 @@ in {
         assertion = hasAttr cfg.user config.users.users
           && config.users.users."${cfg.user}".uid != null;
         message =
-          "users.users.${cfg.user} and users.users.${cfg.user}.uid must be defined.";
+          "users.users.${cfg.user} and users.users.${cfg.user}.uid must be defined."
+          ;
       }
       {
         assertion = hasAttr cfg.group config.users.groups
           && config.users.groups."${cfg.group}".gid != null;
         message =
-          "users.groups.${cfg.group} and users.groups.${cfg.group}.gid must be defined.";
+          "users.groups.${cfg.group} and users.groups.${cfg.group}.gid must be defined."
+          ;
       }
     ];
 
@@ -130,11 +132,11 @@ in {
         NoExecPaths = [ "/" ];
         ExecPaths = [ "/nix/store" ];
 
-        # This program actively detects if it is running in root user account
-        # when it starts and uses root privilege to switch process uid to
-        # respective unix user when a user logs in.  Maybe we can enable
-        # DynamicUser in the future when it's able to detect CAP_SETUID and
-        # CAP_SETGID capabilities.
+          # This program actively detects if it is running in root user account
+          # when it starts and uses root privilege to switch process uid to
+          # respective unix user when a user logs in.  Maybe we can enable
+          # DynamicUser in the future when it's able to detect CAP_SETUID and
+          # CAP_SETGID capabilities.
 
         NoNewPrivileges = true;
         PrivateDevices = true;

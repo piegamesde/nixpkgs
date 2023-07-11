@@ -13,13 +13,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.go.cd/binaries/${version}-${rev}/generic/go-server-${version}-${rev}.zip";
+      "https://download.go.cd/binaries/${version}-${rev}/generic/go-server-${version}-${rev}.zip"
+      ;
     sha256 = "sha256-//d6izGm1odE25H/PI5pn51FfUL4/6GbLwKUKAqZ3Kw=";
   };
 
   meta = with lib; {
     description =
-      "A continuous delivery server specializing in advanced workflow modeling and visualization";
+      "A continuous delivery server specializing in advanced workflow modeling and visualization"
+      ;
     homepage = "http://www.go.cd";
     license = licenses.asl20;
     platforms = platforms.all;
@@ -38,5 +40,6 @@ stdenv.mkDerivation rec {
   passthru.tests = { inherit (nixosTests) gocd-server; };
 
   buildCommand =
-    "\n    unzip $src -d $out\n    mv $out/go-server-${version} $out/go-server\n    mkdir -p $out/go-server/conf\n  ";
+    "\n    unzip $src -d $out\n    mv $out/go-server-${version} $out/go-server\n    mkdir -p $out/go-server/conf\n  "
+    ;
 }

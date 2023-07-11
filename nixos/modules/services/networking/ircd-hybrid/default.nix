@@ -123,7 +123,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.ircdHybrid.enable {
 

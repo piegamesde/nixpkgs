@@ -67,7 +67,7 @@ buildPythonPackage rec {
     winsspi
   ] ++ lib.optionals (stdenv.isDarwin) [ iconv ];
 
-  # Module doesn't have tests
+    # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "aardwolf" ];

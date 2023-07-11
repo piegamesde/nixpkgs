@@ -58,7 +58,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Secure, fast & convenient password manager CLI using GPG and git to sync";
+      "Secure, fast & convenient password manager CLI using GPG and git to sync"
+      ;
     homepage = "https://gitlab.com/timvisee/prs";
     changelog =
       "https://gitlab.com/timvisee/prs/-/blob/v${version}/CHANGELOG.md";

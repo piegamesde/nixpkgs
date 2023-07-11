@@ -46,7 +46,7 @@ buildPythonPackage rec {
 
   dontUseCmakeBuildDir = true;
 
-  # Don't build tests if not needed, read the doInstallCheck value at runtime
+    # Don't build tests if not needed, read the doInstallCheck value at runtime
   preConfigure = ''
     if [ -n "$doInstallCheck" ]; then
       cmakeFlagsArray+=("-DBUILD_TESTING=ON")

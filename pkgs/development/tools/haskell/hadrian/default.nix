@@ -31,7 +31,7 @@ else
     postUnpack = ''
       sourceRoot="$sourceRoot/hadrian"
     '';
-    # Overwrite UserSettings.hs with a provided custom one
+      # Overwrite UserSettings.hs with a provided custom one
     postPatch = lib.optionalString (userSettings != null) ''
       install -m644 "${
         writeText "UserSettings.hs" userSettings

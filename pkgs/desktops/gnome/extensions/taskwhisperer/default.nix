@@ -28,8 +28,9 @@ stdenv.mkDerivation rec {
     extensionPortalSlug = "taskwhisperer";
   };
 
-  makeFlags =
-    [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
+  makeFlags = [ "INSTALLBASE=${
+      placeholder "out"
+    }/share/gnome-shell/extensions" ];
 
   patches = [ (substituteAll {
     src = ./fix-paths.patch;

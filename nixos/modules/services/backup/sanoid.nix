@@ -93,12 +93,13 @@ let
     processChildrenOnly = process_children_only;
   };
 
-  # Extract unique dataset names
+    # Extract unique dataset names
   datasets = unique (attrNames cfg.datasets);
 
-  # Function to build "zfs allow" and "zfs unallow" commands for the
-  # filesystems we've delegated permissions to.
-  buildAllowCommand = zfsAction: permissions: dataset:
+    # Function to build "zfs allow" and "zfs unallow" commands for the
+    # filesystems we've delegated permissions to.
+  buildAllowCommand =
+    zfsAction: permissions: dataset:
     lib.escapeShellArgs [
       # Here we explicitly use the booted system to guarantee the stable API needed by ZFS
       "-+/run/booted-system/sw/bin/zfs"
@@ -106,27 +107,33 @@ let
       "sanoid"
       (concatStringsSep "," permissions)
       dataset
-    ];
+    ]
+    ;
 
-  configFile = let
-    mkValueString = v:
-      if builtins.isList v then
-        concatStringsSep "," v
-      else
-        generators.mkValueStringDefault { } v;
+  configFile =
+    let
+      mkValueString =
+        v:
+        if builtins.isList v then
+          concatStringsSep "," v
+        else
+          generators.mkValueStringDefault { } v
+        ;
 
-    mkKeyValue = k: v:
-      if v == null then
-        ""
-      else if k == "processChildrenOnly" then
-        ""
-      else if k == "useTemplate" then
-        ""
-      else
-        generators.mkKeyValueDefault { inherit mkValueString; } "=" k v;
-  in
-  generators.toINI { inherit mkKeyValue; } cfg.settings
-  ;
+      mkKeyValue =
+        k: v:
+        if v == null then
+          ""
+        else if k == "processChildrenOnly" then
+          ""
+        else if k == "useTemplate" then
+          ""
+        else
+          generators.mkKeyValueDefault { inherit mkValueString; } "=" k v
+        ;
+    in
+    generators.toINI { inherit mkKeyValue; } cfg.settings
+    ;
 
 in {
 
@@ -201,7 +208,7 @@ in {
     };
   };
 
-  # Implementation
+    # Implementation
 
   config = mkIf cfg.enable {
     services.sanoid.settings = mkMerge [
@@ -234,7 +241,7 @@ in {
         RuntimeDirectory = "sanoid";
         CacheDirectory = "sanoid";
       };
-      # Prevents missing snapshots during DST changes
+        # Prevents missing snapshots during DST changes
       environment.TZ = "UTC";
       after = [ "zfs.target" ];
       startAt = cfg.interval;

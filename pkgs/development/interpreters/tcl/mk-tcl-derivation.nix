@@ -60,18 +60,20 @@ let
 
     TCLSH = "${getBin tcl}/bin/tclsh";
 
-    # Run tests after install, at which point we've done all TCLLIBPATH setup
+      # Run tests after install, at which point we've done all TCLLIBPATH setup
     doCheck = false;
     doInstallCheck = attrs.doCheck or (attrs.doInstallCheck or false);
     installCheckInputs = checkInputs ++ (attrs.installCheckInputs or [ ]);
     nativeInstallCheckInputs = nativeCheckInputs
       ++ (attrs.nativeInstallCheckInputs or [ ]);
 
-    # Add typical values expected by TEA for configureFlags
-    configureFlags = if (!dontConfigure && addTclConfigureFlags) then
-      (configureFlags ++ defaultTclPkgConfigureFlags)
-    else
-      configureFlags;
+      # Add typical values expected by TEA for configureFlags
+    configureFlags =
+      if (!dontConfigure && addTclConfigureFlags) then
+        (configureFlags ++ defaultTclPkgConfigureFlags)
+      else
+        configureFlags
+      ;
 
     meta = { platforms = tcl.meta.platforms; } // meta;
 

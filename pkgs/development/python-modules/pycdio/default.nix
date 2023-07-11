@@ -38,8 +38,8 @@ buildPythonPackage rec {
     pkgs.libcdio
   ] ++ lib.optional stdenv.isDarwin pkgs.libiconv;
 
-  # Run tests using nosetests but first need to install the binaries
-  # to the root source directory where they can be found.
+    # Run tests using nosetests but first need to install the binaries
+    # to the root source directory where they can be found.
   checkPhase = ''
     ./setup.py install_lib -d .
     nosetests

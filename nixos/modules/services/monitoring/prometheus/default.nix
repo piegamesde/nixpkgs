@@ -36,8 +36,9 @@ let
       | grep -m 1 "Completed loading of configuration file" > /dev/null
   '';
 
-  # a wrapper that verifies that the configuration is valid
-  promtoolCheck = what: name: file:
+    # a wrapper that verifies that the configuration is valid
+  promtoolCheck =
+    what: name: file:
     if checkConfigEnabled then
       pkgs.runCommandLocal
       "${name}-${replaceStrings [ " " ] [ "" ] what}-checked" {
@@ -47,11 +48,12 @@ let
         promtool ${what} $out
       ''
     else
-      file;
+      file
+    ;
 
   generatedPrometheusYml = yaml.generate "prometheus.yml" promConfig;
 
-  # This becomes the main config file for Prometheus
+    # This becomes the main config file for Prometheus
   promConfig = {
     global = filterValidPrometheus cfg.globalConfig;
     rule_files = map (promtoolCheck "check rules" "rules") (cfg.ruleFiles
@@ -63,16 +65,19 @@ let
     alerting = { inherit (cfg) alertmanagers; };
   };
 
-  prometheusYml = let
-    yml = if cfg.configText != null then
-      pkgs.writeText "prometheus.yml" cfg.configText
-    else
-      generatedPrometheusYml;
-  in
-  promtoolCheck "check config ${
-    lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"
-  }" "prometheus.yml" yml
-  ;
+  prometheusYml =
+    let
+      yml =
+        if cfg.configText != null then
+          pkgs.writeText "prometheus.yml" cfg.configText
+        else
+          generatedPrometheusYml
+        ;
+    in
+    promtoolCheck "check config ${
+      lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"
+    }" "prometheus.yml" yml
+    ;
 
   cmdlineArgs = cfg.extraFlags ++ [
     "--storage.tsdb.path=${workingDir}/data/"
@@ -95,7 +100,8 @@ let
 
   filterValidPrometheus =
     filterAttrsListRecursive (n: v: !(n == "_module" || v == null));
-  filterAttrsListRecursive = pred: x:
+  filterAttrsListRecursive =
+    pred: x:
     if isAttrs x then
       listToAttrs (concatMap (name:
         let
@@ -107,27 +113,33 @@ let
     else if isList x then
       map (filterAttrsListRecursive pred) x
     else
-      x;
+      x
+    ;
 
-  #
-  # Config types: helper functions
-  #
+    #
+    # Config types: helper functions
+    #
 
-  mkDefOpt = type: defaultStr: description:
+  mkDefOpt =
+    type: defaultStr: description:
     mkOpt type (description + ''
 
       Defaults to ````${defaultStr}```` in prometheus
       when set to `null`.
-    '');
+    '')
+    ;
 
-  mkOpt = type: description:
+  mkOpt =
+    type: description:
     mkOption {
       type = types.nullOr type;
       default = null;
       description = lib.mdDoc description;
-    };
+    }
+    ;
 
-  mkSdConfigModule = extraOptions:
+  mkSdConfigModule =
+    extraOptions:
     types.submodule {
       options = {
         basic_auth = mkOpt promTypes.basic_auth ''
@@ -170,11 +182,12 @@ let
           TLS configuration.
         '';
       } // extraOptions;
-    };
+    }
+    ;
 
-  #
-  # Config types: general
-  #
+    #
+    # Config types: general
+    #
 
   promTypes.globalConfig = types.submodule {
     options = {
@@ -519,13 +532,13 @@ let
     };
   };
 
-  #
-  # Config types: service discovery
-  #
+    #
+    # Config types: service discovery
+    #
 
-  # For this one, the docs actually define all types needed to use mkSdConfigModule, but a bunch
-  # of them are marked with 'currently not support by Azure' so we don't bother adding them in
-  # here.
+    # For this one, the docs actually define all types needed to use mkSdConfigModule, but a bunch
+    # of them are marked with 'currently not support by Azure' so we don't bother adding them in
+    # here.
   promTypes.azure_sd_config = types.submodule {
     options = {
       environment = mkDefOpt types.str "AzurePublicCloud" ''
@@ -644,7 +657,8 @@ let
     '';
   };
 
-  mkDockerSdConfigModule = extraOptions:
+  mkDockerSdConfigModule =
+    extraOptions:
     mkSdConfigModule ({
       host = mkOption {
         type = types.str;
@@ -683,7 +697,8 @@ let
       refresh_interval = mkDefOpt types.str "60s" ''
         The time after which the containers are refreshed.
       '';
-    } // extraOptions);
+    } // extraOptions)
+    ;
 
   promTypes.docker_sd_config = mkDockerSdConfigModule {
     host_networking_host = mkDefOpt types.str "localhost" ''
@@ -1102,101 +1117,103 @@ let
   };
 
   promTypes.openstack_sd_config = types.submodule {
-    options = let
-      userDescription = ''
-        username is required if using Identity V2 API. Consult with your provider's
-        control panel to discover your account's username. In Identity V3, either
-        userid or a combination of username and domain_id or domain_name are needed.
-      '';
-
-      domainDescription = ''
-        At most one of domain_id and domain_name must be provided if using username
-        with Identity V3. Otherwise, either are optional.
-      '';
-
-      projectDescription = ''
-        The project_id and project_name fields are optional for the Identity V2 API.
-        Some providers allow you to specify a project_name instead of the project_id.
-        Some require both. Your provider's authentication policies will determine
-        how these fields influence authentication.
-      '';
-
-      applicationDescription = ''
-        The application_credential_id or application_credential_name fields are
-        required if using an application credential to authenticate. Some providers
-        allow you to create an application credential to authenticate rather than a
-        password.
-      '';
-    in {
-      role = mkOption {
-        type = types.str;
-        description = lib.mdDoc ''
-          The OpenStack role of entities that should be discovered.
+    options =
+      let
+        userDescription = ''
+          username is required if using Identity V2 API. Consult with your provider's
+          control panel to discover your account's username. In Identity V3, either
+          userid or a combination of username and domain_id or domain_name are needed.
         '';
-      };
 
-      region = mkOption {
-        type = types.str;
-        description = lib.mdDoc ''
-          The OpenStack Region.
+        domainDescription = ''
+          At most one of domain_id and domain_name must be provided if using username
+          with Identity V3. Otherwise, either are optional.
         '';
-      };
 
-      identity_endpoint = mkOpt types.str ''
-        identity_endpoint specifies the HTTP endpoint that is required to work with
-        the Identity API of the appropriate version. While it's ultimately needed by
-        all of the identity services, it will often be populated by a provider-level
-        function.
-      '';
+        projectDescription = ''
+          The project_id and project_name fields are optional for the Identity V2 API.
+          Some providers allow you to specify a project_name instead of the project_id.
+          Some require both. Your provider's authentication policies will determine
+          how these fields influence authentication.
+        '';
 
-      username = mkOpt types.str userDescription;
-      userid = mkOpt types.str userDescription;
+        applicationDescription = ''
+          The application_credential_id or application_credential_name fields are
+          required if using an application credential to authenticate. Some providers
+          allow you to create an application credential to authenticate rather than a
+          password.
+        '';
+      in {
+        role = mkOption {
+          type = types.str;
+          description = lib.mdDoc ''
+            The OpenStack role of entities that should be discovered.
+          '';
+        };
 
-      password = mkOpt types.str ''
-        password for the Identity V2 and V3 APIs. Consult with your provider's
-        control panel to discover your account's preferred method of authentication.
-      '';
+        region = mkOption {
+          type = types.str;
+          description = lib.mdDoc ''
+            The OpenStack Region.
+          '';
+        };
 
-      domain_name = mkOpt types.str domainDescription;
-      domain_id = mkOpt types.str domainDescription;
+        identity_endpoint = mkOpt types.str ''
+          identity_endpoint specifies the HTTP endpoint that is required to work with
+          the Identity API of the appropriate version. While it's ultimately needed by
+          all of the identity services, it will often be populated by a provider-level
+          function.
+        '';
 
-      project_name = mkOpt types.str projectDescription;
-      project_id = mkOpt types.str projectDescription;
+        username = mkOpt types.str userDescription;
+        userid = mkOpt types.str userDescription;
 
-      application_credential_name = mkOpt types.str applicationDescription;
-      application_credential_id = mkOpt types.str applicationDescription;
+        password = mkOpt types.str ''
+          password for the Identity V2 and V3 APIs. Consult with your provider's
+          control panel to discover your account's preferred method of authentication.
+        '';
 
-      application_credential_secret = mkOpt types.str ''
-        The application_credential_secret field is required if using an application
-        credential to authenticate.
-      '';
+        domain_name = mkOpt types.str domainDescription;
+        domain_id = mkOpt types.str domainDescription;
 
-      all_tenants = mkDefOpt types.bool "false" ''
-        Whether the service discovery should list all instances for all projects.
-        It is only relevant for the 'instance' role and usually requires admin permissions.
-      '';
+        project_name = mkOpt types.str projectDescription;
+        project_id = mkOpt types.str projectDescription;
 
-      refresh_interval = mkDefOpt types.str "60s" ''
-        Refresh interval to re-read the instance list.
-      '';
+        application_credential_name = mkOpt types.str applicationDescription;
+        application_credential_id = mkOpt types.str applicationDescription;
 
-      port = mkDefOpt types.int "80" ''
-        The port to scrape metrics from. If using the public IP address, this must
-        instead be specified in the relabeling rule.
-      '';
+        application_credential_secret = mkOpt types.str ''
+          The application_credential_secret field is required if using an application
+          credential to authenticate.
+        '';
 
-      availability = mkDefOpt (types.enum [
-        "public"
-        "admin"
-        "internal"
-      ]) "public" ''
-        The availability of the endpoint to connect to. Must be one of public, admin or internal.
-      '';
+        all_tenants = mkDefOpt types.bool "false" ''
+          Whether the service discovery should list all instances for all projects.
+          It is only relevant for the 'instance' role and usually requires admin permissions.
+        '';
 
-      tls_config = mkOpt promTypes.tls_config ''
-        TLS configuration.
-      '';
-    } ;
+        refresh_interval = mkDefOpt types.str "60s" ''
+          Refresh interval to re-read the instance list.
+        '';
+
+        port = mkDefOpt types.int "80" ''
+          The port to scrape metrics from. If using the public IP address, this must
+          instead be specified in the relabeling rule.
+        '';
+
+        availability = mkDefOpt (types.enum [
+          "public"
+          "admin"
+          "internal"
+        ]) "public" ''
+          The availability of the endpoint to connect to. Must be one of public, admin or internal.
+        '';
+
+        tls_config = mkOpt promTypes.tls_config ''
+          TLS configuration.
+        '';
+      }
+      ;
   };
 
   promTypes.puppetdb_sd_config = mkSdConfigModule {
@@ -1308,7 +1325,7 @@ let
     };
   };
 
-  # These are exactly the same.
+    # These are exactly the same.
   promTypes.serverset_sd_config = promTypes.nerve_sd_config;
 
   promTypes.triton_sd_config = types.submodule {
@@ -1420,9 +1437,9 @@ let
     };
   };
 
-  #
-  # Config types: relabling
-  #
+    #
+    # Config types: relabling
+    #
 
   promTypes.relabel_config = types.submodule {
     options = {
@@ -1470,9 +1487,9 @@ let
     };
   };
 
-  #
-  # Config types : remote read / write
-  #
+    #
+    # Config types : remote read / write
+    #
 
   promTypes.remote_write = types.submodule {
     options = {
@@ -1858,13 +1875,15 @@ in {
         WorkingDirectory = workingDir;
         StateDirectory = cfg.stateDir;
         StateDirectoryMode = "0700";
-        # Hardening
+          # Hardening
         AmbientCapabilities =
           lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = if (cfg.port < 1024) then
-          [ "CAP_NET_BIND_SERVICE" ]
-        else
-          [ "" ];
+        CapabilityBoundingSet =
+          if (cfg.port < 1024) then
+            [ "CAP_NET_BIND_SERVICE" ]
+          else
+            [ "" ]
+          ;
         DeviceAllow = [ "/dev/null rw" ];
         DevicePolicy = "strict";
         LockPersonality = true;
@@ -1898,17 +1917,17 @@ in {
         ];
       };
     };
-    # prometheus-config-reload will activate after prometheus. However, what we
-    # don't want is that on startup it immediately reloads prometheus because
-    # prometheus itself might have just started.
-    #
-    # Instead we only want to reload prometheus when the config file has
-    # changed. So on startup prometheus-config-reload will just output a
-    # harmless message and then stay active (RemainAfterExit).
-    #
-    # Then, when the config file has changed, switch-to-configuration notices
-    # that this service has changed (restartTriggers) and needs to be reloaded
-    # (reloadIfChanged). The reload command then reloads prometheus.
+      # prometheus-config-reload will activate after prometheus. However, what we
+      # don't want is that on startup it immediately reloads prometheus because
+      # prometheus itself might have just started.
+      #
+      # Instead we only want to reload prometheus when the config file has
+      # changed. So on startup prometheus-config-reload will just output a
+      # harmless message and then stay active (RemainAfterExit).
+      #
+      # Then, when the config file has changed, switch-to-configuration notices
+      # that this service has changed (restartTriggers) and needs to be reloaded
+      # (reloadIfChanged). The reload command then reloads prometheus.
     systemd.services.prometheus-config-reload = mkIf cfg.enableReload {
       wantedBy = [ "prometheus.service" ];
       after = [ "prometheus.service" ];
@@ -1919,7 +1938,8 @@ in {
         RemainAfterExit = true;
         TimeoutSec = 60;
         ExecStart =
-          "${pkgs.logger}/bin/logger 'prometheus-config-reload will only reload prometheus when reloaded itself.'";
+          "${pkgs.logger}/bin/logger 'prometheus-config-reload will only reload prometheus when reloaded itself.'"
+          ;
         ExecReload = [ "${triggerReload}/bin/trigger-reload-prometheus" ];
       };
     };

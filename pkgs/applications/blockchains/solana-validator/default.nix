@@ -62,14 +62,14 @@ rustPlatform.buildRustPackage rec {
     inherit sha256;
   };
 
-  # partly inspired by https://github.com/obsidiansystems/solana-bridges/blob/develop/default.nix#L29
+    # partly inspired by https://github.com/obsidiansystems/solana-bridges/blob/develop/default.nix#L29
   inherit cargoSha256;
   verifyCargoDeps = true;
 
   cargoBuildFlags = builtins.map (n: "--bin=${n}") solanaPkgs;
 
-  # weird errors. see https://github.com/NixOS/nixpkgs/issues/52447#issuecomment-852079285
-  # LLVM_CONFIG_PATH = "${llvm}/bin/llvm-config";
+    # weird errors. see https://github.com/NixOS/nixpkgs/issues/52447#issuecomment-852079285
+    # LLVM_CONFIG_PATH = "${llvm}/bin/llvm-config";
 
   nativeBuildInputs = [
     pkg-config
@@ -90,12 +90,13 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Web-Scale Blockchain for fast, secure, scalable, decentralized apps and marketplaces. ";
+      "Web-Scale Blockchain for fast, secure, scalable, decentralized apps and marketplaces. "
+      ;
     homepage = "https://solana.com";
     license = licenses.asl20;
     maintainers = with maintainers; [ adjacentresearch ];
     platforms = platforms.unix;
-    # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin;
   };
   passthru.updateScript = ./update.sh;

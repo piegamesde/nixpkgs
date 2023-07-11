@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ coreutils ]; # bin/updatedb script needs to call sort
 
-  # Since glibc-2.25 the i686 tests hang reliably right after test-sleep.
+    # Since glibc-2.25 the i686 tests hang reliably right after test-sleep.
   doCheck = !stdenv.hostPlatform.isDarwin
     && !(stdenv.hostPlatform.libc == "glibc" && stdenv.hostPlatform.isi686)
     && (stdenv.hostPlatform.libc != "musl") && stdenv.hostPlatform
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     moveToOutput bin/updatedb $locate
   '';
 
-  # can't move man pages in postInstall because the multi-output hook will move them back to $out
+    # can't move man pages in postInstall because the multi-output hook will move them back to $out
   postFixup = ''
     moveToOutput share/man/man5 $locate
     moveToOutput share/man/man1/locate.1.gz $locate
@@ -66,16 +66,17 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
-  # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
-  # or you can check libc/include/sys/cdefs.h in bionic source code
+    # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
+    # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
+    # or you can check libc/include/sys/cdefs.h in bionic source code
   hardeningDisable =
     lib.optional (stdenv.hostPlatform.libc == "bionic") "fortify";
 
   meta = {
     homepage = "https://www.gnu.org/software/findutils/";
     description =
-      "GNU Find Utilities, the basic directory searching utilities of the GNU operating system";
+      "GNU Find Utilities, the basic directory searching utilities of the GNU operating system"
+      ;
 
     longDescription = ''
       The GNU Find Utilities are the basic directory searching

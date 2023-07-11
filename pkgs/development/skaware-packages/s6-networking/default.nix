@@ -36,7 +36,7 @@ buildPackage {
     "out"
   ];
 
-  # TODO: nsss support
+    # TODO: nsss support
   configureFlags = [
     "--libdir=\${lib}/lib"
     "--libexecdir=\${lib}/libexec"

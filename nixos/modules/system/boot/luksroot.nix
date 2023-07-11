@@ -147,7 +147,8 @@ let
     umount /crypt-ramfs 2>/dev/null
   '';
 
-  openCommand = name: dev:
+  openCommand =
+    name: dev:
     assert name == dev.name;
     let
       csopen = "cryptsetup luksOpen ${dev.device} ${dev.name}"
@@ -587,7 +588,8 @@ let
 
       # commands to run right after we mounted our device
       ${dev.postOpenCommands}
-    '' ;
+    ''
+    ;
 
   askPass = pkgs.writeScriptBin "cryptsetup-askpass" ''
     #!/bin/sh
@@ -809,12 +811,13 @@ in {
                 '';
               };
 
-              # FIXME: get rid of this option.
+                # FIXME: get rid of this option.
               preLVM = mkOption {
                 default = true;
                 type = types.bool;
                 description = lib.mdDoc
-                  "Whether the luksOpen will be attempted before LVM scan or after it.";
+                  "Whether the luksOpen will be attempted before LVM scan or after it."
+                  ;
               };
 
               allowDiscards = mkOption {
@@ -885,15 +888,16 @@ in {
                 credential = mkOption {
                   default = null;
                   example =
-                    "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2";
+                    "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2"
+                    ;
                   type = types.nullOr types.str;
                   description = lib.mdDoc "The FIDO2 credential ID.";
                 };
 
                 credentials = mkOption {
                   default = [ ];
-                  example =
-                    [ "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2" ];
+                  example = [ "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2" ]
+                    ;
                   type = types.listOf types.str;
                   description = lib.mdDoc ''
                     List of FIDO2 credential IDs.
@@ -934,7 +938,8 @@ in {
                         default = true;
                         type = types.bool;
                         description = lib.mdDoc
-                          "Whether to use a passphrase and a YubiKey (true), or only a YubiKey (false).";
+                          "Whether to use a passphrase and a YubiKey (true), or only a YubiKey (false)."
+                          ;
                       };
 
                       slot = mkOption {
@@ -948,21 +953,24 @@ in {
                         default = 16;
                         type = types.int;
                         description = lib.mdDoc
-                          "Length of the new salt in byte (64 is the effective maximum).";
+                          "Length of the new salt in byte (64 is the effective maximum)."
+                          ;
                       };
 
                       keyLength = mkOption {
                         default = 64;
                         type = types.int;
                         description = lib.mdDoc
-                          "Length of the LUKS slot key derived with PBKDF2 in byte.";
+                          "Length of the LUKS slot key derived with PBKDF2 in byte."
+                          ;
                       };
 
                       iterationStep = mkOption {
                         default = 0;
                         type = types.int;
                         description = lib.mdDoc
-                          "How much the iteration count for PBKDF2 is increased at each successful authentication.";
+                          "How much the iteration count for PBKDF2 is increased at each successful authentication."
+                          ;
                       };
 
                       gracePeriod = mkOption {
@@ -972,10 +980,10 @@ in {
                           lib.mdDoc "Time in seconds to wait for the YubiKey.";
                       };
 
-                      /* TODO: Add to the documentation of the current module:
+                        /* TODO: Add to the documentation of the current module:
 
-                         Options related to the storing the salt.
-                      */
+                           Options related to the storing the salt.
+                        */
                       storage = {
                         device = mkOption {
                           default = "/dev/sda1";
@@ -1095,41 +1103,47 @@ in {
         assertion = any (dev: dev.bypassWorkqueues) (attrValues luks.devices)
           -> versionAtLeast kernelPackages.kernel.version "5.9";
         message =
-          "boot.initrd.luks.devices.<name>.bypassWorkqueues is not supported for kernels older than 5.9";
+          "boot.initrd.luks.devices.<name>.bypassWorkqueues is not supported for kernels older than 5.9"
+          ;
       }
 
       {
         assertion = !config.boot.initrd.systemd.enable
           -> all (x: x.keyFileTimeout == null) (attrValues luks.devices);
         message =
-          "boot.initrd.luks.devices.<name>.keyFileTimeout is only supported for systemd initrd";
+          "boot.initrd.luks.devices.<name>.keyFileTimeout is only supported for systemd initrd"
+          ;
       }
 
       {
         assertion = config.boot.initrd.systemd.enable
           -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices);
         message =
-          "boot.initrd.luks.devices.<name>.fallbackToPassword is implied by systemd stage 1.";
+          "boot.initrd.luks.devices.<name>.fallbackToPassword is implied by systemd stage 1."
+          ;
       }
       {
         assertion = config.boot.initrd.systemd.enable
           -> all (dev: dev.preLVM) (attrValues luks.devices);
         message =
-          "boot.initrd.luks.devices.<name>.preLVM is not used by systemd stage 1.";
+          "boot.initrd.luks.devices.<name>.preLVM is not used by systemd stage 1."
+          ;
       }
       {
         assertion = config.boot.initrd.systemd.enable
           -> options.boot.initrd.luks.reusePassphrases.highestPrio
           == defaultPrio;
         message =
-          "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";
+          "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1."
+          ;
       }
       {
         assertion = config.boot.initrd.systemd.enable
           -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "")
           (attrValues luks.devices);
         message =
-          "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
+          "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead."
+          ;
       }
       # TODO
       {
@@ -1150,14 +1164,14 @@ in {
       }
     ];
 
-    # actually, sbp2 driver is the one enabling the DMA attack, but this needs to be tested
+      # actually, sbp2 driver is the one enabling the DMA attack, but this needs to be tested
     boot.blacklistedKernelModules = optionals luks.mitigateDMAAttacks [
       "firewire_ohci"
       "firewire_core"
       "firewire_sbp2"
     ];
 
-    # Some modules that may be needed for mounting anything ciphered
+      # Some modules that may be needed for mounting anything ciphered
     boot.initrd.availableKernelModules = [
       "dm_mod"
       "dm_crypt"
@@ -1171,57 +1185,59 @@ in {
       else
         [ ]);
 
-    # copy the cryptsetup binary and it's dependencies
-    boot.initrd.extraUtilsCommands = let
-      pbkdf2-sha512 =
-        pkgs.runCommandCC "pbkdf2-sha512" { buildInputs = [ pkgs.openssl ]; } ''
+      # copy the cryptsetup binary and it's dependencies
+    boot.initrd.extraUtilsCommands =
+      let
+        pbkdf2-sha512 = pkgs.runCommandCC "pbkdf2-sha512" {
+          buildInputs = [ pkgs.openssl ];
+        } ''
           mkdir -p "$out/bin"
           cc -O3 -lcrypto ${./pbkdf2-sha512.c} -o "$out/bin/pbkdf2-sha512"
           strip -s "$out/bin/pbkdf2-sha512"
         '';
-    in
-    mkIf (!config.boot.initrd.systemd.enable) ''
-      copy_bin_and_libs ${pkgs.cryptsetup}/bin/cryptsetup
-      copy_bin_and_libs ${askPass}/bin/cryptsetup-askpass
-      sed -i s,/bin/sh,$out/bin/sh, $out/bin/cryptsetup-askpass
+      in
+      mkIf (!config.boot.initrd.systemd.enable) ''
+        copy_bin_and_libs ${pkgs.cryptsetup}/bin/cryptsetup
+        copy_bin_and_libs ${askPass}/bin/cryptsetup-askpass
+        sed -i s,/bin/sh,$out/bin/sh, $out/bin/cryptsetup-askpass
 
-      ${optionalString luks.yubikeySupport ''
-        copy_bin_and_libs ${pkgs.yubikey-personalization}/bin/ykchalresp
-        copy_bin_and_libs ${pkgs.yubikey-personalization}/bin/ykinfo
-        copy_bin_and_libs ${pkgs.openssl.bin}/bin/openssl
+        ${optionalString luks.yubikeySupport ''
+          copy_bin_and_libs ${pkgs.yubikey-personalization}/bin/ykchalresp
+          copy_bin_and_libs ${pkgs.yubikey-personalization}/bin/ykinfo
+          copy_bin_and_libs ${pkgs.openssl.bin}/bin/openssl
 
-        copy_bin_and_libs ${pbkdf2-sha512}/bin/pbkdf2-sha512
+          copy_bin_and_libs ${pbkdf2-sha512}/bin/pbkdf2-sha512
 
-        mkdir -p $out/etc/ssl
-        cp -pdv ${pkgs.openssl.out}/etc/ssl/openssl.cnf $out/etc/ssl
+          mkdir -p $out/etc/ssl
+          cp -pdv ${pkgs.openssl.out}/etc/ssl/openssl.cnf $out/etc/ssl
 
-        cat > $out/bin/openssl-wrap <<EOF
-        #!$out/bin/sh
-        export OPENSSL_CONF=$out/etc/ssl/openssl.cnf
-        $out/bin/openssl "\$@"
-        EOF
-        chmod +x $out/bin/openssl-wrap
-      ''}
+          cat > $out/bin/openssl-wrap <<EOF
+          #!$out/bin/sh
+          export OPENSSL_CONF=$out/etc/ssl/openssl.cnf
+          $out/bin/openssl "\$@"
+          EOF
+          chmod +x $out/bin/openssl-wrap
+        ''}
 
-      ${optionalString luks.fido2Support ''
-        copy_bin_and_libs ${pkgs.fido2luks}/bin/fido2luks
-      ''}
+        ${optionalString luks.fido2Support ''
+          copy_bin_and_libs ${pkgs.fido2luks}/bin/fido2luks
+        ''}
 
 
-      ${optionalString luks.gpgSupport ''
-        copy_bin_and_libs ${pkgs.gnupg}/bin/gpg
-        copy_bin_and_libs ${pkgs.gnupg}/bin/gpg-agent
-        copy_bin_and_libs ${pkgs.gnupg}/libexec/scdaemon
+        ${optionalString luks.gpgSupport ''
+          copy_bin_and_libs ${pkgs.gnupg}/bin/gpg
+          copy_bin_and_libs ${pkgs.gnupg}/bin/gpg-agent
+          copy_bin_and_libs ${pkgs.gnupg}/libexec/scdaemon
 
-        ${concatMapStringsSep "\n" (x:
-          optionalString (x.gpgCard != null) ''
-            mkdir -p $out/secrets/gpg-keys/${x.device}
-            cp -a ${x.gpgCard.encryptedPass} $out/secrets/gpg-keys/${x.device}/cryptkey.gpg
-            cp -a ${x.gpgCard.publicKey} $out/secrets/gpg-keys/${x.device}/pubkey.asc
-          '') (attrValues luks.devices)}
-      ''}
-    ''
-    ;
+          ${concatMapStringsSep "\n" (x:
+            optionalString (x.gpgCard != null) ''
+              mkdir -p $out/secrets/gpg-keys/${x.device}
+              cp -a ${x.gpgCard.encryptedPass} $out/secrets/gpg-keys/${x.device}/cryptkey.gpg
+              cp -a ${x.gpgCard.publicKey} $out/secrets/gpg-keys/${x.device}/pubkey.asc
+            '') (attrValues luks.devices)}
+        ''}
+      ''
+      ;
 
     boot.initrd.extraUtilsCommandsTest =
       mkIf (!config.boot.initrd.systemd.enable) ''
@@ -1258,7 +1274,7 @@ in {
       ];
 
     };
-    # We do this because we need the udev rules from the package
+      # We do this because we need the udev rules from the package
     boot.initrd.services.lvm.enable = true;
 
     boot.initrd.preFailCommands =

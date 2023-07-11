@@ -48,13 +48,15 @@ let
 
   sharedFoldersSecretFiles = map (entry: {
     dir = entry.directory;
-    secretFile = if builtins.hasAttr "secret" entry then
-      toString (pkgs.writeTextFile {
-        name = "secret-file";
-        text = entry.secret;
-      })
-    else
-      entry.secretFile;
+    secretFile =
+      if builtins.hasAttr "secret" entry then
+        toString (pkgs.writeTextFile {
+          name = "secret-file";
+          text = entry.secret;
+        })
+      else
+        entry.secretFile
+      ;
   }) cfg.sharedFolders;
 
   runConfigPath = "/run/rslsync/config.json";

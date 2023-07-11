@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  # freshfetch depends on rust nightly features
+    # freshfetch depends on rust nightly features
   RUSTC_BOOTSTRAP = 1;
 
   buildInputs = lib.optionals stdenv.isDarwin [

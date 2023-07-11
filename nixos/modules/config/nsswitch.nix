@@ -23,10 +23,12 @@ with lib;
         several DNS resolution methods to be specified via
         {file}`/etc/nsswitch.conf`.
       '';
-      apply = list: {
-        inherit list;
-        path = makeLibraryPath list;
-      };
+      apply =
+        list: {
+          inherit list;
+          path = makeLibraryPath list;
+        }
+        ;
     };
 
     system.nssDatabases = {
@@ -103,8 +105,8 @@ with lib;
 
   config = {
     assertions = [ {
-      assertion = config.system.nssModules.path != ""
-        -> config.services.nscd.enable;
+      assertion =
+        config.system.nssModules.path != "" -> config.services.nscd.enable;
       message = ''
         Loading NSS modules from system.nssModules (${config.system.nssModules.path}),
         requires services.nscd.enable being set to true.
@@ -114,8 +116,8 @@ with lib;
       '';
     } ];
 
-    # Name Service Switch configuration file.  Required by the C
-    # library.
+      # Name Service Switch configuration file.  Required by the C
+      # library.
     environment.etc."nsswitch.conf".text = ''
       passwd:    ${concatStringsSep " " config.system.nssDatabases.passwd}
       group:     ${concatStringsSep " " config.system.nssDatabases.group}

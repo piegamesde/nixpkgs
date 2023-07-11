@@ -202,7 +202,7 @@ in {
     system.activationScripts.spiped =
       optionalString (cfg.config != { }) "mkdir -p /var/lib/spiped";
 
-    # Setup spiped config files
+      # Setup spiped config files
     environment.etc = mapAttrs' (name: cfg:
       nameValuePair "spiped/${name}.spec" {
         text = concatStringsSep " " [

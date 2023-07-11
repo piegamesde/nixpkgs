@@ -47,7 +47,8 @@ let
 
   getCoreSrc = core: fetchFromGitHub (builtins.getAttr core hashesFile);
 
-  mkLibretroCore = {
+  mkLibretroCore =
+    {
       core,
       src ? (getCoreSrc core),
       version ? "unstable-2023-03-13",
@@ -55,7 +56,8 @@ let
     }@args:
     import ./mkLibretroCore.nix ({
       inherit lib stdenv core src version makeWrapper retroarch zlib;
-    } // args);
+    } // args)
+    ;
 in {
   inherit mkLibretroCore;
 
@@ -249,19 +251,23 @@ in {
     core = "bsnes-hd-beta";
     src = getCoreSrc "bsnes-hd";
     makefile = "GNUmakefile";
-    makeFlags = let
-      # linux = bsd
-      # https://github.com/DerKoun/bsnes-hd/blob/f0b6cf34e9780d53516977ed2de64137a8bcc3c5/bsnes/GNUmakefile#L37
-      platform = if stdenv.isDarwin then
-        "macos"
-      else
-        "linux";
-    in [
-      "-C"
-      "bsnes"
-      "target=libretro"
-      "platform=${platform}"
-    ] ;
+    makeFlags =
+      let
+        # linux = bsd
+        # https://github.com/DerKoun/bsnes-hd/blob/f0b6cf34e9780d53516977ed2de64137a8bcc3c5/bsnes/GNUmakefile#L37
+        platform =
+          if stdenv.isDarwin then
+            "macos"
+          else
+            "linux"
+          ;
+      in [
+        "-C"
+        "bsnes"
+        "target=libretro"
+        "platform=${platform}"
+      ]
+      ;
     extraBuildInputs = [
       xorg.libX11
       xorg.libXext
@@ -532,7 +538,7 @@ in {
     core = "hatari";
     extraNativeBuildInputs = [ which ];
     dontConfigure = true;
-    # zlib is already included in mkLibretroCore as buildInputs
+      # zlib is already included in mkLibretroCore as buildInputs
     makeFlags = [ "EXTERNAL_ZLIB=1" ];
     meta = {
       description = "Port of Hatari to libretro";
@@ -942,10 +948,10 @@ in {
   scummvm = mkLibretroCore rec {
     core = "scummvm";
     version = "unstable-2022-04-06";
-    # Commit below introduces libretro platform, that uses libretro-{deps,common} as
-    # submodules. We will probably need to introduce this as separate derivations,
-    # but for now let's just use the last known version that does not use it.
-    # https://github.com/libretro/scummvm/commit/36446fa6eb33e67cc798f56ce1a31070260e2ada
+      # Commit below introduces libretro platform, that uses libretro-{deps,common} as
+      # submodules. We will probably need to introduce this as separate derivations,
+      # but for now let's just use the last known version that does not use it.
+      # https://github.com/libretro/scummvm/commit/36446fa6eb33e67cc798f56ce1a31070260e2ada
     src = fetchFromGitHub {
       owner = "libretro";
       repo = core;
@@ -1141,7 +1147,7 @@ in {
   yabause = mkLibretroCore {
     core = "yabause";
     makefile = "Makefile";
-    # Disable SSE for non-x86. DYNAREC doesn't build on aarch64.
+      # Disable SSE for non-x86. DYNAREC doesn't build on aarch64.
     makeFlags = lib.optional (!stdenv.hostPlatform.isx86) "HAVE_SSE=0";
     preBuild = "cd yabause/src/libretro";
     meta = {

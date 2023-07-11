@@ -63,7 +63,7 @@ let
     "config.mak"
   ];
 
-  # File globs that should be moved to $doc
+    # File globs that should be moved to $doc
   commonMetaFiles = [
     "COPYING"
     "AUTHORS"
@@ -113,7 +113,7 @@ stdenv.mkDerivation {
     "RANLIB=${stdenv.cc.targetPrefix}ranlib"
   ];
 
-  # TODO(Profpatsch): ensure that there is always a $doc output!
+    # TODO(Profpatsch): ensure that there is always a $doc output!
   postInstall = ''
     echo "Cleaning & moving common files"
     ${

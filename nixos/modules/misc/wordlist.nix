@@ -6,12 +6,14 @@
 }:
 with lib;
 let
-  concatAndSort = name: files:
+  concatAndSort =
+    name: files:
     pkgs.runCommand name { } ''
       awk 1 ${
         lib.escapeShellArgs files
       } | sed '{ /^\s*$/d; s/^\s\+//; s/\s\+$// }' | sort | uniq > $out
-    '';
+    ''
+    ;
 in {
   options = {
     environment.wordlist = {

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1gc5c7lg2qrlck7b0lvjfqr824ch6jkrzkpsn0gjvlzg7hfmld75";
   };
 
-  # Idea taken from pkgs/development/perl-modules/generic/builder.sh
+    # Idea taken from pkgs/development/perl-modules/generic/builder.sh
   preFixup = ''
     perlFlags=
     for i in $(IFS=:; echo $PERL5LIB); do

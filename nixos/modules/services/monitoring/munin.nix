@@ -82,21 +82,27 @@ let
     '';
   };
 
-  # Copy one Munin plugin into the Nix store with a specific name.
-  # This is suitable for use with plugins going directly into /etc/munin/plugins,
-  # i.e. munin.extraPlugins.
-  internOnePlugin = name: path: "cp -a '${path}' '${name}'";
+    # Copy one Munin plugin into the Nix store with a specific name.
+    # This is suitable for use with plugins going directly into /etc/munin/plugins,
+    # i.e. munin.extraPlugins.
+  internOnePlugin =
+    name: path:
+    "cp -a '${path}' '${name}'"
+    ;
 
-  # Copy an entire tree of Munin plugins into a single directory in the Nix
-  # store, with no renaming.
-  # This is suitable for use with munin-node-configure --suggest, i.e.
-  # munin.extraAutoPlugins.
-  internManyPlugins = name: path:
-    "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'";
+    # Copy an entire tree of Munin plugins into a single directory in the Nix
+    # store, with no renaming.
+    # This is suitable for use with munin-node-configure --suggest, i.e.
+    # munin.extraAutoPlugins.
+  internManyPlugins =
+    name: path:
+    "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'"
+    ;
 
-  # Use the appropriate intern-fn to copy the plugins into the store and patch
-  # them afterwards in an attempt to get them to run on NixOS.
-  internAndFixPlugins = name: intern-fn: paths:
+    # Use the appropriate intern-fn to copy the plugins into the store and patch
+    # them afterwards in an attempt to get them to run on NixOS.
+  internAndFixPlugins =
+    name: intern-fn: paths:
     pkgs.runCommand name { } ''
       mkdir -p "$out"
       cd "$out"
@@ -105,11 +111,12 @@ let
       find . -type f -exec sed -E -i '
         s,(/usr)?/s?bin/,/run/current-system/sw/bin/,g
       ' '{}' '+'
-    '';
+    ''
+    ;
 
-  # TODO: write a derivation for munin-contrib, so that for contrib plugins
-  # you can just refer to them by name rather than needing to include a copy
-  # of munin-contrib in your nixos configuration.
+    # TODO: write a derivation for munin-contrib, so that for contrib plugins
+    # you can just refer to them by name rather than needing to include a copy
+    # of munin-contrib in your nixos configuration.
   extraPluginDir = internAndFixPlugins "munin-extra-plugins.d" internOnePlugin
     nodeCfg.extraPlugins;
 
@@ -372,11 +379,12 @@ in {
         '';
         serviceConfig = {
           ExecStart =
-            "${pkgs.munin}/sbin/munin-node --config ${nodeConf} --servicedir /etc/munin/plugins/ --sconfdir=${pluginConfDir}";
+            "${pkgs.munin}/sbin/munin-node --config ${nodeConf} --servicedir /etc/munin/plugins/ --sconfdir=${pluginConfDir}"
+            ;
         };
       };
 
-      # munin_stats plugin breaks as of 2.0.33 when this doesn't exist
+        # munin_stats plugin breaks as of 2.0.33 when this doesn't exist
       systemd.tmpfiles.rules = [ "d /run/munin 0755 munin munin -" ];
 
     })

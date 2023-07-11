@@ -69,7 +69,8 @@ let
     meta = {
       homepage = "https://github.com/rebar/rebar3";
       description =
-        "Erlang build tool that makes it easy to compile and test Erlang applications, port drivers and releases";
+        "Erlang build tool that makes it easy to compile and test Erlang applications, port drivers and releases"
+        ;
 
       longDescription = ''
         rebar is a self-contained Erlang script, so it's easy to distribute or
@@ -112,10 +113,11 @@ let
     '';
   };
 
-  # Alias rebar3 so we can use it as default parameter below
+    # Alias rebar3 so we can use it as default parameter below
   _rebar3 = rebar3;
 
-  rebar3WithPlugins = {
+  rebar3WithPlugins =
+    {
       plugins ? [ ],
       globalPlugins ? [ ],
       rebar3 ? _rebar3
@@ -137,7 +139,7 @@ let
           ./global-plugins.patch
         ];
 
-        # our patches cause the tests to fail
+          # our patches cause the tests to fail
         doCheck = false;
       }));
     in
@@ -150,8 +152,8 @@ let
       ];
       unpackPhase = "true";
 
-      # Here we extract the rebar3 escript (like `rebar3_prv_local_install.erl`) and
-      # add plugins to the code path.
+        # Here we extract the rebar3 escript (like `rebar3_prv_local_install.erl`) and
+        # add plugins to the code path.
 
       installPhase = ''
         erl -noshell -eval '
@@ -171,7 +173,7 @@ let
           --add-flags "+sbtu +A1 -noshell -boot start_clean -s rebar3 main -extra"
       '';
     }
-  ;
+    ;
 in {
   inherit rebar3 rebar3WithPlugins;
 }

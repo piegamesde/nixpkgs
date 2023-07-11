@@ -34,15 +34,17 @@ let
       (lib.getBin ghostscript);
     nonbin = splitBin.wrong;
 
-    # extra interpreters needed for shebangs, based on 2015 schemes "medium" and "tetex"
-    # (omitted tk needed in pname == "epspdf", bin/epspdftk)
-    pkgNeedsPython = pkg:
+      # extra interpreters needed for shebangs, based on 2015 schemes "medium" and "tetex"
+      # (omitted tk needed in pname == "epspdf", bin/epspdftk)
+    pkgNeedsPython =
+      pkg:
       pkg.tlType == "run" && lib.elem pkg.pname [
         "de-macro"
         "pythontex"
         "dviasm"
         "texliveonfly"
-      ];
+      ]
+      ;
     pkgNeedsRuby = pkg: pkg.tlType == "run" && pkg.pname == "match-parens";
     extraInputs = lib.optional (lib.any pkgNeedsPython splitBin.wrong) python3
       ++ lib.optional (lib.any pkgNeedsRuby splitBin.wrong) ruby;
@@ -53,10 +55,10 @@ let
   texmfroot = (buildEnv {
     name = "${name}-texmfroot";
 
-    # the 'non-relocated' packages must live in $TEXMFROOT/texmf-dist (e.g. fmtutil, updmap look for perl modules there)
+      # the 'non-relocated' packages must live in $TEXMFROOT/texmf-dist (e.g. fmtutil, updmap look for perl modules there)
     extraPrefix = "/texmf-dist";
 
-    # remove fake derivations (without 'outPath') to avoid undesired build dependencies
+      # remove fake derivations (without 'outPath') to avoid undesired build dependencies
     paths = lib.catAttrs "outPath" pkgList.nonbin;
 
     nativeBuildInputs = [
@@ -71,7 +73,7 @@ let
       '';
   }).overrideAttrs (_: { allowSubstitutes = true; });
 
-  # expose info and man pages in usual /share/{info,man} location
+    # expose info and man pages in usual /share/{info,man} location
   doc = buildEnv {
     name = "${name}-doc";
 
@@ -91,7 +93,7 @@ in
 
   ignoreCollisions = false;
 
-  # remove fake derivations (without 'outPath') to avoid undesired build dependencies
+    # remove fake derivations (without 'outPath') to avoid undesired build dependencies
   paths = lib.catAttrs "outPath" pkgList.bin ++ [ doc ];
   pathsToLink = [
     "/"
@@ -109,7 +111,7 @@ in
   passthru = {
     # This is set primarily to help find-tarballs.nix to do its job
     packages = pkgList.all;
-    # useful for inclusion in the `fonts.fonts` nixos option or for use in devshells
+      # useful for inclusion in the `fonts.fonts` nixos option or for use in devshells
     fonts = "${texmfroot}/texmf-dist/fonts";
   };
 
@@ -164,10 +166,12 @@ in
       formats = lib.filter (p: p.hasFormats or false && p.tlType == "run")
         pkgList.splitBin.wrong;
       formatPNames = map (p: p.pname) formats;
-      # sed expression that prints the lines in /start/,/end/ except for /end/
-      section = start: end: ''
-        /${start}/,/${end}/{ /${start}/p; /${end}/!p; };
-      '';
+        # sed expression that prints the lines in /start/,/end/ except for /end/
+      section =
+        start: end: ''
+          /${start}/,/${end}/{ /${start}/p; /${end}/!p; };
+        ''
+        ;
       script = writeText "hyphens.sed" (
         # document how the file was generated (for language.dat)
         ''
@@ -194,11 +198,13 @@ in
         (pname: section "^-- from ${pname}:$" "^}$|^-- from") hyphenPNames + ''
           $p;
         '');
-      # formats not being installed must be disabled by prepending #! (see man fmtutil)
-      # sed expression that enables the formats in /start/,/end/
-      enableFormats = pname: ''
-        /^# from ${pname}:$/,/^# from/{ s/^#! //; };
-      '';
+        # formats not being installed must be disabled by prepending #! (see man fmtutil)
+        # sed expression that enables the formats in /start/,/end/
+      enableFormats =
+        pname: ''
+          /^# from ${pname}:$/,/^# from/{ s/^#! //; };
+        ''
+        ;
       fmtutilSed = writeText "fmtutil.sed" (
         # document how file was generated
         ''

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-QvK2MZTx+DD2u+h7dk0F5kInXGVp73ZTvG080WV2BVQ=";
   };
 
-  # No tests available and no module to import
+    # No tests available and no module to import
   doCheck = false;
 
   meta = with lib; {

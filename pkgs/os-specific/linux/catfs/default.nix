@@ -34,8 +34,8 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ fuse ];
 
-  # require fuse module to be active to run tests
-  # instead, run command
+    # require fuse module to be active to run tests
+    # instead, run command
   doCheck = false;
   doInstallCheck = true;
   installCheckPhase = ''
