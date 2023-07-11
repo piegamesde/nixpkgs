@@ -38,8 +38,6 @@
     # the second feature flag is passed to the rdkafka dependency
     # building on linux fails without this feature flag (both x86_64 and AArch64)
     ++ lib.optionals enableKafka [ "rdkafka?/gssapi-vendored" ]
-    # the second feature flag is passed to the rdkafka dependency
-    # building on linux fails without this feature flag (both x86_64 and AArch64)
     ++ lib.optional stdenv.targetPlatform.isUnix "unix"
   ),
   nix-update-script,

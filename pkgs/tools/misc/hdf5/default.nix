@@ -86,6 +86,7 @@ stdenv.mkDerivation rec {
     ++ optional enableShared "--enable-shared"
     ++ optional javaSupport "--enable-java"
     ++ optional usev110Api "--with-default-api-version=v110"
+    # hdf5 hl (High Level) library is not considered stable with thread safety and should be disabled.
     ++ optionals threadsafe [
       "--enable-threadsafe"
       "--disable-hl"

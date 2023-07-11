@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
 
   doCheck =
     # https://gitlab.gnome.org/GNOME/tracker/-/issues/397
-      !stdenv.isAarch64
+    !stdenv.isAarch64
     # https://gitlab.gnome.org/GNOME/tracker/-/issues/398
     && !stdenv.is32bit
     ;

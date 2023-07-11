@@ -105,9 +105,8 @@ qtModule {
     ]
     # with gcc8, -Wclass-memaccess became part of -Wall and this too exceeds the logging limit
     ++ lib.optional stdenv.cc.isGNU "-Wno-class-memaccess"
-    # with gcc8, -Wclass-memaccess became part of -Wall and this too exceeds the logging limit
+    # with clang this warning blows the log over Hydra's limit
     ++ lib.optional stdenv.isDarwin "-Wno-inconsistent-missing-override"
-    # with gcc8, -Wclass-memaccess became part of -Wall and this too exceeds the logging limit
     ++ lib.optional (!stdenv.isDarwin) ''
       -DNIXPKGS_LIBUDEV="${lib.getLib systemd}/lib/libudev"''
   );

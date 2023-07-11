@@ -112,9 +112,6 @@ let
       }
       BUILD_SPHINX_PDF = NO
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
     +
     # Note [HADDOCK_DOCS]:
     # Unfortunately currently `HADDOCK_DOCS` controls both whether the `haddock`
@@ -149,9 +146,6 @@ let
           "integer-gmp"
       }
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
     + lib.optionalString (targetPlatform != hostPlatform) ''
       Stage1Only = ${
         if targetPlatform.system == hostPlatform.system then
@@ -161,22 +155,13 @@ let
       }
       CrossCompilePrefix = ${targetPrefix}
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
     + lib.optionalString (!enableProfiledLibs) ''
       GhcLibWays = "v dyn"
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
     + lib.optionalString enableRelocatedStaticLibs ''
       GhcLibHcOpts += -fPIC
       GhcRtsHcOpts += -fPIC
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
     + lib.optionalString targetPlatform.useAndroidPrebuilt ''
       EXTRA_CC_OPTS += -std=gnu99
     ''
@@ -223,9 +208,7 @@ let
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if
-        stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin
-      then
+      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
         targetCC.bintools
       else
         targetCC.bintools.bintools

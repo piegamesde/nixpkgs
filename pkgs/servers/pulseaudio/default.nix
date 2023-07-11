@@ -107,6 +107,7 @@ stdenv.mkDerivation rec {
       m4
     ]
     ++ lib.optionals stdenv.isLinux [ glib ]
+    # gstreamer plugin discovery requires wrapping
     ++ lib.optional (bluetoothSupport && advancedBluetoothCodecs) wrapGAppsHook
     ;
 
@@ -155,6 +156,7 @@ stdenv.mkDerivation rec {
         bluez5
         sbc
       ]
+      # aptX and LDAC codecs are in gst-plugins-bad so far, rtpldacpay is in -good
       ++ lib.optionals (bluetoothSupport && advancedBluetoothCodecs) (
         builtins.attrValues {
           inherit (gst_all_1)
@@ -301,17 +303,13 @@ stdenv.mkDerivation rec {
 
   preFixup =
     lib.optionalString
-      (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform))
-      ''
-        wrapProgram $out/libexec/pulse/gsettings-helper \
-         --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
-         --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
-      ''
-    # put symlinks to binaries in `$prefix/bin`;
-    # then wrapGApp will *rename these symlinks* instead of
-    # the original binaries in `$prefix/.bin-unwrapped` (see above);
-    # when pulseaudio is looking for its own binary (it does!),
-    # it will be happy to find it in its original installation location
+    (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform))
+    ''
+      wrapProgram $out/libexec/pulse/gsettings-helper \
+       --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
+       --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
+    ''
+    # add .so symlinks for modules to be found under macOS
     + lib.optionalString stdenv.isDarwin ''
       for file in $out/lib/pulseaudio/modules/*.dylib; do
         ln -s "$file" "''${file%.dylib}.so"

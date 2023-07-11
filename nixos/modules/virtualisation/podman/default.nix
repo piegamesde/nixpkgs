@@ -16,7 +16,6 @@ let
         cfg.extraPackages
         # setuid shadow
         ++ [ "/run/wrappers" ]
-        # setuid shadow
         ++ lib.optional
           (builtins.elem "zfs" config.boot.supportedFilesystems)
           config.boot.zfs.package

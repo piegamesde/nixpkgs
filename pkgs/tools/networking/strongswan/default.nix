@@ -168,6 +168,7 @@ stdenv.mkDerivation rec {
       "--enable-nm"
       "--with-nm-ca-dir=/etc/ssl/certs"
     ]
+    # Taken from: https://wiki.strongswan.org/projects/strongswan/wiki/MacOSX
     ++ lib.optionals stdenv.isDarwin [
       "--disable-systemd"
       "--disable-xauth-pam"

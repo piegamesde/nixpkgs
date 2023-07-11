@@ -61,14 +61,8 @@ stdenv.mkDerivation rec {
       "--enable-static"
       "--disable-shared"
     ]
-    # krb5's ./configure does not allow passing --enable-shared and --enable-static at the same time.
-    # See https://bbs.archlinux.org/viewtopic.php?pid=1576737#p1576737
     ++ lib.optional withVerto "--with-system-verto"
-    # krb5's ./configure does not allow passing --enable-shared and --enable-static at the same time.
-    # See https://bbs.archlinux.org/viewtopic.php?pid=1576737#p1576737
     ++ lib.optional stdenv.isFreeBSD ''WARN_CFLAGS=""''
-    # krb5's ./configure does not allow passing --enable-shared and --enable-static at the same time.
-    # See https://bbs.archlinux.org/viewtopic.php?pid=1576737#p1576737
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "krb5_cv_attr_constructor_destructor=yes,yes"
       "ac_cv_func_regcomp=yes"
@@ -82,6 +76,7 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ lib.optional (!libOnly) bison
+    # Provides the mig command used by the build scripts
     ++ lib.optional stdenv.isDarwin bootstrap_cmds
     ;
 

@@ -50,9 +50,9 @@ stdenv.mkDerivation {
 
   postInstall =
     # Create a lowercase symlink for Linux
-      lib.optionalString stdenv.isLinux ''
-        ln -s $out/bin/${appname} $out/bin/${pname}
-      ''
+    lib.optionalString stdenv.isLinux ''
+      ln -s $out/bin/${appname} $out/bin/${pname}
+    ''
     # Wrap application for macOS as lowercase binary
     + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications

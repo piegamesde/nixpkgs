@@ -121,6 +121,8 @@ let
       (targetPlatform.libc == "musl")
       ../libgomp-dont-force-initial-exec.patch
     ++ optional langGo ./gogcc-workaround-glibc-2.36.patch
+
+    # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++ optional
       (!crossStageStatic
         && targetPlatform.isMinGW
@@ -133,6 +135,7 @@ let
         sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
       }
     )
+
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
     ;
 
@@ -330,17 +333,17 @@ stdenv.mkDerivation (
 
     postPatch =
       # This should kill all the stdinc frameworks that gcc and friends like to
-        # insert into default search paths.
-        lib.optionalString hostPlatform.isDarwin ''
-          substituteInPlace gcc/config/darwin-c.c \
-            --replace 'if (stdinc)' 'if (0)'
+      # insert into default search paths.
+      lib.optionalString hostPlatform.isDarwin ''
+        substituteInPlace gcc/config/darwin-c.c \
+          --replace 'if (stdinc)' 'if (0)'
 
-          substituteInPlace libgcc/config/t-slibgcc-darwin \
-            --replace "-install_name @shlib_slibdir@/\$(SHLIB_INSTALL_NAME)" "-install_name ''${!outputLib}/lib/\$(SHLIB_INSTALL_NAME)"
+        substituteInPlace libgcc/config/t-slibgcc-darwin \
+          --replace "-install_name @shlib_slibdir@/\$(SHLIB_INSTALL_NAME)" "-install_name ''${!outputLib}/lib/\$(SHLIB_INSTALL_NAME)"
 
-          substituteInPlace libgfortran/configure \
-            --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
-        ''
+        substituteInPlace libgfortran/configure \
+          --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
+      ''
       + (lib.optionalString
         (targetPlatform != hostPlatform || stdenv.cc.libc != null)
         # On NixOS, use the right path to the dynamic linker instead of

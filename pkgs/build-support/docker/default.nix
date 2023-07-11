@@ -1257,9 +1257,7 @@ rec {
         # We can't just use `toString` on all derivation attributes because that
         # would not put path literals in the closure. So we explicitly copy
         # those into the store here
-        if
-          builtins.typeOf value == "path"
-        then
+        if builtins.typeOf value == "path" then
           "${value}"
         else if builtins.typeOf value == "list" then
           toString (map stringValue value)
@@ -1367,9 +1365,7 @@ rec {
       config.Cmd =
         # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L185-L186
         # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L534-L536
-        if
-          run == null
-        then
+        if run == null then
           [
             shell
             "--rcfile"

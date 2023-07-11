@@ -939,18 +939,18 @@ in
               -> !cfg.allowNoPasswordLogin
               -> any id (
                 mapAttrsToList
-                  (
-                    name: cfg:
-                    (name == "root"
-                      || cfg.group == "wheel"
-                      || elem "wheel" cfg.extraGroups)
-                    && (allowsLogin cfg.hashedPassword
-                      || cfg.password != null
-                      || cfg.passwordFile != null
-                      || cfg.openssh.authorizedKeys.keys != [ ]
-                      || cfg.openssh.authorizedKeys.keyFiles != [ ])
-                  )
-                  cfg.users
+                (
+                  name: cfg:
+                  (name == "root"
+                    || cfg.group == "wheel"
+                    || elem "wheel" cfg.extraGroups)
+                  && (allowsLogin cfg.hashedPassword
+                    || cfg.password != null
+                    || cfg.passwordFile != null
+                    || cfg.openssh.authorizedKeys.keys != [ ]
+                    || cfg.openssh.authorizedKeys.keyFiles != [ ])
+                )
+                cfg.users
                 ++ [ config.security.googleOsLogin.enable ]
               )
               ;

@@ -32,8 +32,8 @@ stdenv.mkDerivation (
 
     postPatch =
       lib.optionalString
-        (conf != null)
-        "cp ${finalAttrs.configFile} config.def.h"
+      (conf != null)
+      "cp ${finalAttrs.configFile} config.def.h"
       + lib.optionalString stdenv.isDarwin ''
         substituteInPlace config.mk --replace "-lrt" ""
       ''

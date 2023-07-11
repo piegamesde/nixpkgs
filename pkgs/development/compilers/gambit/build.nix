@@ -80,7 +80,7 @@ gccStdenv.mkDerivation rec {
       # "--enable-char-size=1" # default is 4
     ]
     ++
-    # due not enable poll on darwin due to https://github.com/gambit/gambit/issues/498
+      # due not enable poll on darwin due to https://github.com/gambit/gambit/issues/498
       lib.optional (!gccStdenv.isDarwin) "--enable-poll"
     ;
 

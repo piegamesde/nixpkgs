@@ -197,7 +197,6 @@ let
     )
 
     ++ optionals enableFramework [ Cocoa ]
-
     ++ optionals tzdataSupport [ tzdata ]
     ; # `zoneinfo` module
 
@@ -520,7 +519,7 @@ stdenv.mkDerivation {
     ''
     +
 
-    # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
+      # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
       # which changes how symbols are looked up. This essentially means we can't override
       # libpython symbols via LD_PRELOAD anymore. This is common enough as every build
       # that uses --enable-optimizations has the same "issue".
@@ -657,8 +656,8 @@ stdenv.mkDerivation {
   # explicitly specify in our configure flags above.
   disallowedReferences =
     lib.optionals (openssl' != null && !static && !enableFramework) [
-        openssl'.dev
-      ]
+      openssl'.dev
+    ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # Ensure we don't have references to build-time packages.
       # These typically end up in shebangs.

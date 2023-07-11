@@ -284,6 +284,9 @@ stdenv.mkDerivation {
     ++ lib.optional enableDC1394 libdc1394
     ++ lib.optional enableEigen eigen
     ++ lib.optional enableOpenblas openblas
+    # There is seemingly no compile-time flag for Tesseract.  It's
+    # simply enabled automatically if contrib is built, and it detects
+    # tesseract & leptonica.
     ++ lib.optionals enableTesseract [
       tesseract
       leptonica

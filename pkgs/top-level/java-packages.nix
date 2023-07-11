@@ -63,13 +63,9 @@ in
       mkBootstrap =
         adoptopenjdk: path: args:
         # adoptopenjdk not available for i686, so fall back to our old builds for bootstrapping
-        if
-          !stdenv.hostPlatform.isi686
-        then
+        if !stdenv.hostPlatform.isi686 then
           # only linux has the gtkSupport option
-          if
-            stdenv.isLinux
-          then
+          if stdenv.isLinux then
             adoptopenjdk.jdk-hotspot.override { gtkSupport = false; }
           else
             adoptopenjdk.jdk-hotspot

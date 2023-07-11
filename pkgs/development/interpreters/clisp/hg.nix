@@ -97,6 +97,7 @@ stdenv.mkDerivation rec {
     [ "builddir" ]
     ++ lib.optional (!dllSupport) "--without-dynamic-modules"
     ++ lib.optional (readline != null) "--with-readline"
+    # --with-dynamic-ffi can only exist with --with-ffcall - foreign.d does not compile otherwise
     ++ lib.optional (ffcallAvailable && (libffi != null)) "--with-dynamic-ffi"
     ++ lib.optional ffcallAvailable "--with-ffcall"
     ++ lib.optional (!ffcallAvailable) "--without-ffcall"

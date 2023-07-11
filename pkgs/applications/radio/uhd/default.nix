@@ -131,13 +131,7 @@ stdenv.mkDerivation rec {
       ncurses
       ncurses.dev
     ]
-    # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
-    # pythonEnv for runtime as well. The utilities' runtime dependencies are
-    # handled at the environment
     ++ optionals (enablePythonApi || enableUtils) [ pythonEnv ]
-    # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
-    # pythonEnv for runtime as well. The utilities' runtime dependencies are
-    # handled at the environment
     ++ optionals (enableDpdk) [ dpdk ]
     ;
 

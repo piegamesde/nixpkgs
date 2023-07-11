@@ -69,13 +69,11 @@ stdenv.mkDerivation rec {
       alsa-lib
       pulseaudio
     ]
-    # on non-Linux platforms this will build without sound support on X11 build
     ++ lib.optionals (!withGtk) [
       libpng
       libXext
       libXinerama
     ]
-    # on non-Linux platforms this will build without sound support on X11 build
     ++ lib.optionals withGtk [
       gtkmm3
       libepoxy

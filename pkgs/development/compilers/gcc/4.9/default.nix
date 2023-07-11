@@ -114,6 +114,7 @@ let
       ../struct-ucontext.patch
       ../struct-sigaltstack-4.9.patch
     ] # glibc-2.26
+    # Retpoline patches pulled from the branch hjl/indirect/gcc-4_9-branch (by H.J. Lu, the author of GCC upstream retpoline commits)
     ++ builtins.map
       (
         {
@@ -179,6 +180,7 @@ let
           sha256 = "1ms0dmz74yf6kwgjfs4d2fhj8y6mcp2n184r3jk44wx2xc24vgb2";
         }
       ]
+
     ++ [
       ../libsanitizer-no-cyclades-9.patch
       # gcc-11 compatibility

@@ -141,11 +141,11 @@ let
 
     contents =
       map
-        (path: {
-          object = path;
-          symlink = "";
-        })
-        (subtractLists cfg.suppressedStorePaths cfg.storePaths)
+      (path: {
+        object = path;
+        symlink = "";
+      })
+      (subtractLists cfg.suppressedStorePaths cfg.storePaths)
       ++ mapAttrsToList
         (
           _: v: {

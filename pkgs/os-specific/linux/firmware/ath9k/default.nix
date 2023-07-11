@@ -120,6 +120,12 @@ stdenv.mkDerivation (
               | tr \( \{ \
               | tr \) \}
           ''
+          # sha256 checksums were not added to upstream's Makefile until
+          # after the 1.4.0 release.  The following line is needed for
+          # the `enableUnstable==false` build but not for the
+          # `enableUnstable==true` build.  We can remove the lines below
+          # as soon as `enableUnstable==false` points to a version
+          # greater than 1.4.0.
           + lib.optionalString (finalAttrs.version == "1.4.0") ''
             echo 'GCC_SUM = "sha256-kuYcbcOgpEnmLXKjgYX9pVAWioZwLeoHEl69PsOZYoI=";'
             echo 'MPFR_SUM = "sha256-e2bD8T3IOF8IJkyAWFPz4aju2rgHHVgvPmYZccms1f0=";'

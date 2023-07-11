@@ -157,6 +157,7 @@ buildDotnetModule rec {
     ++ [
       "GitHub.Runner.Common.Tests.Listener.RunnerL0.TestRunOnceHandleUpdateMessage"
     ]
+    # Tests for trimmed runner packages which aim at reducing the update size. Not relevant for Nix.
     ++ map (x: "GitHub.Runner.Common.Tests.PackagesTrimL0.${x}") [
       "RunnerLayoutParts_CheckExternalsHash"
       "RunnerLayoutParts_CheckDotnetRuntimeHash"

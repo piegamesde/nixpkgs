@@ -160,7 +160,7 @@ let
       GhcLibWays = "v dyn"
     ''
     +
-    # -fexternal-dynamic-refs apparently (because it's not clear from the documentation)
+      # -fexternal-dynamic-refs apparently (because it's not clear from the documentation)
       # makes the GHC RTS able to load static libraries, which may be needed for TemplateHaskell.
       # This solution was described in https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
       lib.optionalString enableRelocatedStaticLibs ''
@@ -207,9 +207,7 @@ let
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if
-        stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin
-      then
+      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
         targetCC.bintools
       else
         targetCC.bintools.bintools

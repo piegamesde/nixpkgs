@@ -58,9 +58,7 @@ in
     overlays =
       path:
       # check if the path is a directory or a file
-      if
-        isDir path
-      then
+      if isDir path then
         # it's a directory, so the set of overlays from the directory, ordered lexicographically
         let
           content = builtins.readDir path;
@@ -72,8 +70,7 @@ in
             (builtins.match ".*\\.nix" n != null
               &&
                 # ignore Emacs lock files (.#foo.nix)
-                  builtins.match "\\.#.*" n
-                == null)
+                builtins.match "\\.#.*" n == null)
             || builtins.pathExists (path + ("/" + n + "/default.nix"))
           )
           (builtins.attrNames content)

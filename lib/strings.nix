@@ -655,9 +655,7 @@ rec {
   escapeNixIdentifier =
     s:
     # Regex from https://github.com/NixOS/nix/blob/d048577909e383439c2549e849c5c2f2016c997e/src/libexpr/lexer.l#L91
-    if
-      match "[a-zA-Z_][a-zA-Z0-9_'-]*" s != null
-    then
+    if match "[a-zA-Z_][a-zA-Z0-9_'-]*" s != null then
       s
     else
       escapeNixString s
@@ -1199,9 +1197,7 @@ rec {
         ;
     in
     # Error on presence of non digit characters.
-    if
-      strippedInput == null
-    then
+    if strippedInput == null then
       throw generalError
     # Error on presence of leading zero/octal ambiguity.
     else if isLeadingZero then
@@ -1252,9 +1248,7 @@ rec {
         "toIntBase10: Could not convert ${escapeNixString str} to int.";
     in
     # Error on presence of non digit characters.
-    if
-      strippedInput == null
-    then
+    if strippedInput == null then
       throw generalError
     # In the special case zero-padded zero (00000), return early.
     else if isZero then
@@ -1325,9 +1319,7 @@ rec {
     in
     string:
     # First detect the common case of already valid strings, to speed those up
-    if
-      stringLength string <= 207 && okRegex string != null
-    then
+    if stringLength string <= 207 && okRegex string != null then
       unsafeDiscardStringContext string
     else
       lib.pipe string [
@@ -1494,9 +1486,7 @@ rec {
         # A length difference of 2 can only be gotten with 2 delete edits,
         # which have to have happened at the start and end of x
         # Example: "abcdef" -> "bcde"
-        if
-          diff == 2
-        then
+        if diff == 2 then
           xinfix == y
         # A length difference of 1 can only be gotten with a deletion on the
         # right and a replacement on the left or vice versa.
@@ -1528,9 +1518,7 @@ rec {
             binfix = substring prelen (blen - presuflen) b;
           in
           # Make a be the bigger string
-          if
-            alen < blen
-          then
+          if alen < blen then
             f b a
           # If a has over k more characters than b, even with k deletes on a, b can't be reached
           else if alen - blen > k then

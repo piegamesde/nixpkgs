@@ -75,9 +75,7 @@ let
         payload = f.binOp f.payload f'.payload;
       in
       # cannot merge different types
-      if
-        f.name != f'.name
-      then
+      if f.name != f'.name then
         null
       # simple types
       else if
@@ -1164,9 +1162,7 @@ let
             # where an "interface" module declares an empty enum and other modules
             # provide implementations, each extending the enum with their own
             # identifier.
-            if
-              values == [ ]
-            then
+            if values == [ ] then
               "impossible (empty enum)"
             else if builtins.length values == 1 then
               "value ${show (builtins.head values)} (singular enum)"

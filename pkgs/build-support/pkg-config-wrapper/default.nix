@@ -111,7 +111,7 @@ stdenv.mkDerivation {
     ''
 
     ##
-    ## Extra custom steps
+    ## Man page and doc support
     ##
     + optionalString propagateDoc (
       ''
@@ -122,9 +122,6 @@ stdenv.mkDerivation {
       ''
     )
 
-    ##
-    ## Extra custom steps
-    ##
     + ''
       substituteAll ${./add-flags.sh} $out/nix-support/add-flags.sh
       substituteAll ${../wrapper-common/utils.bash} $out/nix-support/utils.bash
@@ -159,12 +156,12 @@ stdenv.mkDerivation {
     ) // {
       description =
         lib.attrByPath
-          [
-            "meta"
-            "description"
-          ]
-          "pkg-config"
-          pkg-config_
+        [
+          "meta"
+          "description"
+        ]
+        "pkg-config"
+        pkg-config_
         + " (wrapper script)"
         ;
       priority = 10;

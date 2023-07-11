@@ -180,6 +180,10 @@ let
               ++ (op (atLeast30 && opensslSupport) openssl_1_1)
               ++ (op gdbmSupport gdbm)
               ++ (op yamlSupport libyaml)
+              # Looks like ruby fails to build on darwin without readline even if curses
+              # support is not enabled, so add readline to the build inputs if curses
+              # support is disabled (if it's enabled, we already have it) and we're
+              # running on darwin
               ++ op (!cursesSupport && stdenv.isDarwin) readline
               ++ ops stdenv.isDarwin [
                 libiconv
@@ -198,8 +202,8 @@ let
 
             patches =
               op
-                (lib.versionOlder ver.majMin "3.1")
-                ./do-not-regenerate-revision.h.patch
+              (lib.versionOlder ver.majMin "3.1")
+              ./do-not-regenerate-revision.h.patch
               ++ op (atLeast30 && useBaseRuby) (
                 if atLeast32 then
                   ./do-not-update-gems-baseruby-3.2.patch

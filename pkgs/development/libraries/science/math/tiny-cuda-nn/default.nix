@@ -129,9 +129,11 @@ stdenv.mkDerivation (
         runHook preInstall
         mkdir -p $out/lib
       ''
+      # Installing the C++ library just requires copying the static library to the output directory
       + strings.optionalString (!pythonSupport) ''
         cp libtiny-cuda-nn.a $out/lib/
       ''
+      # Installing the python bindings requires building the wheel and installing it
       + strings.optionalString pythonSupport ''
         python -m pip install \
           --no-build-isolation \

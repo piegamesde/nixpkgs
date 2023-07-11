@@ -89,6 +89,8 @@ let
       ../gcc-12-gfortran-driving.patch
       ../ppc-musl.patch
     ]
+    # We only apply this patch when building a native toolchain for aarch64-darwin, as it breaks building
+    # a foreign one: https://github.com/iains/gcc-12-branch/issues/18
     ++ optional
       (stdenv.isDarwin
         && stdenv.isAarch64
@@ -103,6 +105,8 @@ let
         }
       )
     ++ optional langD ../libphobos.patch
+
+    # backport fixes to build gccgo with musl libc
     ++ optionals (langGo && stdenv.hostPlatform.isMusl) [
       (fetchpatch {
         excludes = [ "gcc/go/gofrontend/MERGE" ];
@@ -146,12 +150,18 @@ let
         hash = "sha256-QSIlqDB6JRQhbj/c3ejlmbfWz9l9FurdSWxpwDebnlI=";
       })
     ]
+
+    # Fix detection of bootstrap compiler Ada support (cctools as) on Nix Darwin
     ++ optional
       (stdenv.isDarwin && langAda)
       ../ada-cctools-as-detection-configure.patch
+
+    # Use absolute path in GNAT dylib install names on Darwin
     ++ optional
       (stdenv.isDarwin && langAda)
       ../gnat-darwin-dylib-install-name.patch
+
+    # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++ optional
       (!crossStageStatic
         && targetPlatform.isMinGW
@@ -278,6 +288,8 @@ lib.pipe
           patchShebangs $configureScript
         done
       ''
+      # This should kill all the stdinc frameworks that gcc and friends like to
+      # insert into default search paths.
       + lib.optionalString hostPlatform.isDarwin ''
         substituteInPlace gcc/config/darwin-c.cc \
           --replace 'if (stdinc)' 'if (0)'

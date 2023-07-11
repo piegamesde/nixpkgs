@@ -127,8 +127,8 @@ let
     ++ lib.optionals
       (stdenv.hostPlatform != stdenv.buildPlatform
         ||
-        # required on mips; see 61d9f201baeef4c4bb91ad8a8f5f89b747e0dfe4
-        (stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79"))
+          # required on mips; see 61d9f201baeef4c4bb91ad8a8f5f89b747e0dfe4
+          (stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79"))
       [
         "address-model=${toString stdenv.hostPlatform.parsed.cpu.bits}"
         "architecture=${
@@ -187,6 +187,7 @@ stdenv.mkDerivation {
   patches =
     patches
     ++ lib.optional stdenv.isDarwin ./darwin-no-system-python.patch
+    # Fix boost-context segmentation faults on ppc64 due to ABI violation
     ++ lib.optional
       (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
       (
@@ -198,6 +199,7 @@ stdenv.mkDerivation {
           extraPrefix = "libs/context/";
         }
       )
+    # Fix compiler warning with GCC >= 8; TODO: patch may apply to older versions
     ++ lib.optional
       (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
       (
@@ -250,12 +252,12 @@ stdenv.mkDerivation {
 
     broken =
       # boost-context lacks support for the N32 ABI on mips64.  The build
-        # will succeed, but packages depending on boost-context will fail with
-        # a very cryptic error message.
-        stdenv.hostPlatform.isMips64n32
+      # will succeed, but packages depending on boost-context will fail with
+      # a very cryptic error message.
+      stdenv.hostPlatform.isMips64n32
       ||
-      # the patch above does not apply cleanly to pre-1.65 boost
-      (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"))
+        # the patch above does not apply cleanly to pre-1.65 boost
+        (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"))
       ;
   };
 
@@ -267,7 +269,9 @@ stdenv.mkDerivation {
       using mpi : ${mpi}/bin/mpiCC ;
       EOF
     ''
-    # b2 needs to be explicitly told how to find Python when cross-compiling
+    # On darwin we need to add the `$out/lib` to the libraries' rpath explicitly,
+    # otherwise the dynamic linker is unable to resolve the reference to @rpath
+    # when the boost libraries want to load each other at runtime.
     + lib.optionalString (stdenv.isDarwin && enableShared) ''
       cat << EOF >> user-config.jam
       using clang-darwin : : ${stdenv.cc.targetPrefix}c++
@@ -275,7 +279,12 @@ stdenv.mkDerivation {
         ;
       EOF
     ''
-    # b2 needs to be explicitly told how to find Python when cross-compiling
+    # b2 has trouble finding the correct compiler and tools for cross compilation
+    # since it apparently ignores $CC, $AR etc. Thus we need to set everything
+    # in user-config.jam. To keep things simple we just set everything in an
+    # uniform way for clang and gcc (which works thanks to our cc-wrapper).
+    # We pass toolset later which will make b2 invoke everything in the right
+    # way -- the other toolset in user-config.jam will be ignored.
     + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       cat << EOF >> user-config.jam
       using gcc : cross : ${stdenv.cc.targetPrefix}c++

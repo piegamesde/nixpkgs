@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       echo '#define APR_HAVE_CRYPT_H 1' >> confdefs.h
     ''
     +
-    # For some reason, db version 6.9 is selected when cross-compiling.
+      # For some reason, db version 6.9 is selected when cross-compiling.
       # It's unclear as to why, it requires someone with more autotools / configure knowledge to go deeper into that.
       # Always replacing the link flag with a generic link flag seems to help though, so let's do that for now.
       lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''

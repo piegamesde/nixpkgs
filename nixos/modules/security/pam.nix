@@ -560,12 +560,10 @@ let
             in
             optionalString cfg.u2fAuth (
               "auth ${u2f.control} ${pkgs.pam_u2f}/lib/security/pam_u2f.so ${
-                  optionalString u2f.debug "debug"
-                } ${
-                  optionalString
-                  (u2f.authFile != null)
-                  "authfile=${u2f.authFile}"
-                } "
+                optionalString u2f.debug "debug"
+              } ${
+                optionalString (u2f.authFile != null) "authfile=${u2f.authFile}"
+              } "
               + ''
                 ${optionalString u2f.interactive "interactive"} ${
                   optionalString u2f.cue "cue"
@@ -628,66 +626,66 @@ let
             auth sufficient ${pkgs.fprintd}/lib/security/pam_fprintd.so
           ''
           +
-          # Modules in this block require having the password set in PAM_AUTHTOK.
-          # pam_unix is marked as 'sufficient' on NixOS which means nothing will run
-          # after it succeeds. Certain modules need to run after pam_unix
-          # prompts the user for password so we run it once with 'optional' at an
-          # earlier point and it will run again with 'sufficient' further down.
-          # We use try_first_pass the second time to avoid prompting password twice.
-          #
-          # The same principle applies to systemd-homed
-          (optionalString
-            ((cfg.unixAuth || config.services.homed.enable)
-              && (config.security.pam.enableEcryptfs
-                || config.security.pam.enableFscrypt
-                || cfg.pamMount
-                || cfg.enableKwallet
-                || cfg.enableGnomeKeyring
-                || cfg.googleAuthenticator.enable
-                || cfg.gnupg.enable
-                || cfg.failDelay.enable
-                || cfg.duoSecurity.enable))
-            (
-              optionalString config.services.homed.enable ''
-                auth optional ${config.systemd.package}/lib/security/pam_systemd_home.so
-              ''
-              + optionalString cfg.unixAuth ''
-                auth optional pam_unix.so ${
-                  optionalString cfg.allowNullPassword "nullok"
-                } ${optionalString cfg.nodelay "nodelay"} likeauth
-              ''
-              + optionalString config.security.pam.enableEcryptfs ''
-                auth optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so unwrap
-              ''
-              + optionalString config.security.pam.enableFscrypt ''
-                auth optional ${pkgs.fscrypt-experimental}/lib/security/pam_fscrypt.so
-              ''
-              + optionalString cfg.pamMount ''
-                auth optional ${pkgs.pam_mount}/lib/security/pam_mount.so disable_interactive
-              ''
-              + optionalString cfg.enableKwallet ''
-                auth optional ${pkgs.plasma5Packages.kwallet-pam}/lib/security/pam_kwallet5.so kwalletd=${pkgs.plasma5Packages.kwallet.bin}/bin/kwalletd5
-              ''
-              + optionalString cfg.enableGnomeKeyring ''
-                auth optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
-              ''
-              + optionalString cfg.gnupg.enable ''
-                auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${
-                  optionalString cfg.gnupg.storeOnly " store-only"
-                }
-              ''
-              + optionalString cfg.failDelay.enable ''
-                auth optional ${pkgs.pam}/lib/security/pam_faildelay.so delay=${
-                  toString cfg.failDelay.delay
-                }
-              ''
-              + optionalString cfg.googleAuthenticator.enable ''
-                auth required ${pkgs.google-authenticator}/lib/security/pam_google_authenticator.so no_increment_hotp
-              ''
-              + optionalString cfg.duoSecurity.enable ''
-                auth required ${pkgs.duo-unix}/lib/security/pam_duo.so
-              ''
-            ))
+            # Modules in this block require having the password set in PAM_AUTHTOK.
+            # pam_unix is marked as 'sufficient' on NixOS which means nothing will run
+            # after it succeeds. Certain modules need to run after pam_unix
+            # prompts the user for password so we run it once with 'optional' at an
+            # earlier point and it will run again with 'sufficient' further down.
+            # We use try_first_pass the second time to avoid prompting password twice.
+            #
+            # The same principle applies to systemd-homed
+            (optionalString
+              ((cfg.unixAuth || config.services.homed.enable)
+                && (config.security.pam.enableEcryptfs
+                  || config.security.pam.enableFscrypt
+                  || cfg.pamMount
+                  || cfg.enableKwallet
+                  || cfg.enableGnomeKeyring
+                  || cfg.googleAuthenticator.enable
+                  || cfg.gnupg.enable
+                  || cfg.failDelay.enable
+                  || cfg.duoSecurity.enable))
+              (
+                optionalString config.services.homed.enable ''
+                  auth optional ${config.systemd.package}/lib/security/pam_systemd_home.so
+                ''
+                + optionalString cfg.unixAuth ''
+                  auth optional pam_unix.so ${
+                    optionalString cfg.allowNullPassword "nullok"
+                  } ${optionalString cfg.nodelay "nodelay"} likeauth
+                ''
+                + optionalString config.security.pam.enableEcryptfs ''
+                  auth optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so unwrap
+                ''
+                + optionalString config.security.pam.enableFscrypt ''
+                  auth optional ${pkgs.fscrypt-experimental}/lib/security/pam_fscrypt.so
+                ''
+                + optionalString cfg.pamMount ''
+                  auth optional ${pkgs.pam_mount}/lib/security/pam_mount.so disable_interactive
+                ''
+                + optionalString cfg.enableKwallet ''
+                  auth optional ${pkgs.plasma5Packages.kwallet-pam}/lib/security/pam_kwallet5.so kwalletd=${pkgs.plasma5Packages.kwallet.bin}/bin/kwalletd5
+                ''
+                + optionalString cfg.enableGnomeKeyring ''
+                  auth optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
+                ''
+                + optionalString cfg.gnupg.enable ''
+                  auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${
+                    optionalString cfg.gnupg.storeOnly " store-only"
+                  }
+                ''
+                + optionalString cfg.failDelay.enable ''
+                  auth optional ${pkgs.pam}/lib/security/pam_faildelay.so delay=${
+                    toString cfg.failDelay.delay
+                  }
+                ''
+                + optionalString cfg.googleAuthenticator.enable ''
+                  auth required ${pkgs.google-authenticator}/lib/security/pam_google_authenticator.so no_increment_hotp
+                ''
+                + optionalString cfg.duoSecurity.enable ''
+                  auth required ${pkgs.duo-unix}/lib/security/pam_duo.so
+                ''
+              ))
           + optionalString config.services.homed.enable ''
             auth sufficient ${config.systemd.package}/lib/security/pam_systemd_home.so
           ''
@@ -1437,9 +1435,7 @@ in
 
     environment.systemPackages =
       # Include the PAM modules in the system path mostly for the manpages.
-        [
-          pkgs.pam
-        ]
+      [ pkgs.pam ]
       ++ optional config.users.ldap.enable pam_ldap
       ++ optional config.services.sssd.enable pkgs.sssd
       ++ optionals config.security.pam.krb5.enable [
@@ -1515,10 +1511,10 @@ in
           ;
       in
       lib.concatMapStrings
-        (name: ''
-          r ${config.environment.etc."pam.d/${name}".source},
-        '')
-        (attrNames config.security.pam.services)
+      (name: ''
+        r ${config.environment.etc."pam.d/${name}".source},
+      '')
+      (attrNames config.security.pam.services)
       + ''
         mr ${getLib pkgs.pam}/lib/security/pam_filter/*,
         mr ${getLib pkgs.pam}/lib/security/pam_*.so,

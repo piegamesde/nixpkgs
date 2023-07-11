@@ -40,13 +40,13 @@ buildGoModule rec {
 
   postInstall =
     lib.concatMapStringsSep "\n"
-      (p: ''
-        installShellCompletion --cmd ${p} \
-          --bash <($out/bin/${p} completion bash) \
-          --fish <($out/bin/${p} completion fish) \
-          --zsh <($out/bin/${p} completion zsh)
-      '')
-      components
+    (p: ''
+      installShellCompletion --cmd ${p} \
+        --bash <($out/bin/${p} completion bash) \
+        --fish <($out/bin/${p} completion fish) \
+        --zsh <($out/bin/${p} completion zsh)
+    '')
+    components
     + lib.optionalString isFull ''
       ln -sLf ${coredns}/bin/coredns $out/bin
     ''

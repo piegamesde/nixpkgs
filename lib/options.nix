@@ -399,11 +399,8 @@ rec {
           docOption.visible && opt.visible or null != "shallow";
       in
       # To find infinite recursion in NixOS option docs:
-        # builtins.trace opt.loc
-        [
-          docOption
-        ]
-      ++ optionals subOptionsVisible subOptions
+      # builtins.trace opt.loc
+      [ docOption ] ++ optionals subOptionsVisible subOptions
     )
     (collect isOption options)
     ;
@@ -583,9 +580,7 @@ rec {
         );
         result =
           # Don't print any value if evaluating the value strictly fails
-          if
-            !prettyEval.success
-          then
+          if !prettyEval.success then
             ""
           # Put it on a new line if it consists of multiple
           else if length lines > 1 then

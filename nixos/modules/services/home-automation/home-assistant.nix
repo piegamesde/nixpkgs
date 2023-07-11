@@ -45,9 +45,7 @@ let
   usedPlatforms =
     config:
     # don't recurse into derivations possibly creating an infinite recursion
-    if
-      isDerivation config
-    then
+    if isDerivation config then
       [ ]
     else if isAttrs config then
       optional (config ? platform) config.platform

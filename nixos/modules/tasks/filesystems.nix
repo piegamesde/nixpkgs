@@ -172,9 +172,7 @@ let
         let
           defaultFormatOptions =
             # -F needed to allow bare block device without partitions
-            if
-              (builtins.substring 0 3 config.fsType) == "ext"
-            then
+            if (builtins.substring 0 3 config.fsType) == "ext" then
               "-F"
             # -q needed for non-interactive operations
             else if config.fsType == "jfs" then

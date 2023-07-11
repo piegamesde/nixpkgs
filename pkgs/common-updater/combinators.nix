@@ -157,16 +157,16 @@ rec {
       scripts = scriptsNormalized;
       hasCommitSupport =
         lib.findSingle
-          (
-            {
-              supportedFeatures,
-              ...
-            }:
-            supportedFeatures == [ "commit" ]
-          )
-          null
-          null
-          scripts
+        (
+          {
+            supportedFeatures,
+            ...
+          }:
+          supportedFeatures == [ "commit" ]
+        )
+        null
+        null
+        scripts
         != null
         ;
       validateFeatures =

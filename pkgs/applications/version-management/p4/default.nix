@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
 
   "C++FLAGS" =
     # Avoid a compilation error that only occurs for 4-byte longs.
-      lib.optionals stdenv.isi686 [ "-Wno-narrowing" ]
+    lib.optionals stdenv.isi686 [ "-Wno-narrowing" ]
     # See the "Header dependency changes" section of
     # https://www.gnu.org/software/gcc/gcc-11/porting_to.html for more
     # information on why we need to include these.

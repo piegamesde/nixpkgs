@@ -102,17 +102,13 @@ mkDerivation {
     ]
     # gst_plugins needed for setup-hooks
     ++ gst_plugins
-    # gst_plugins needed for setup-hooks
     ++ lib.optionals (withIpod) [
       libgpod
       libplist
       usbmuxd
     ]
-    # gst_plugins needed for setup-hooks
     ++ lib.optionals (withMTP) [ libmtp ]
-    # gst_plugins needed for setup-hooks
     ++ lib.optionals (withCD) [ libcdio ]
-    # gst_plugins needed for setup-hooks
     ++ lib.optionals (withCloud) [ sparsehash ]
     ;
 

@@ -564,9 +564,7 @@
   select =
     platform:
     # x86
-    if
-      platform.isx86
-    then
+    if platform.isx86 then
       pc
 
     # ARM

@@ -37,8 +37,8 @@ let
     lib.optionalString (nixExtensions ++ mutableExtensions != [ ]) ''
       find ${vscodeExtsFolderName} -mindepth 1 -maxdepth 1 ${
         lib.concatMapStringsSep " "
-          (e: "! -iname ${e.publisher}.${e.name} ")
-          nixExtensions
+        (e: "! -iname ${e.publisher}.${e.name} ")
+        nixExtensions
         + lib.concatMapStringsSep " "
           (e: "! -iname ${e.publisher}.${e.name}-${e.version} ")
           mutableExtensions

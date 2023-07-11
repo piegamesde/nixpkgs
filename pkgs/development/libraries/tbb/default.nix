@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE =
     lib.optionals stdenv.cc.isGNU [ "-Wno-error=stringop-overflow" ]
     ++
-    # Workaround for gcc-12 ICE when using -O3
+      # Workaround for gcc-12 ICE when using -O3
       # https://gcc.gnu.org/PR108854
       lib.optionals (stdenv.cc.isGNU && stdenv.isx86_32) [ "-O2" ]
     ;

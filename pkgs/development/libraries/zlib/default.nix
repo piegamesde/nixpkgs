@@ -99,8 +99,9 @@ stdenv.mkDerivation (
       lib.optionalString splitStaticOutput ''
         moveToOutput lib/libz.a "$static"
       ''
-      # Non-typical naming confuses libtool which then refuses to use zlib's DLL
-      # in some cases, e.g. when compiling libpng.
+      # jww (2015-01-06): Sometimes this library install as a .so, even on
+      # Darwin; others time it installs as a .dylib.  I haven't yet figured out
+      # what causes this difference.
       + lib.optionalString stdenv.hostPlatform.isDarwin ''
         for file in $out/lib/*.so* $out/lib/*.dylib* ; do
           ${stdenv.cc.bintools.targetPrefix}install_name_tool -id "$file" $file

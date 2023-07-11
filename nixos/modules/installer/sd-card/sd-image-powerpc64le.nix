@@ -37,8 +37,11 @@
           -c ${config.system.build.toplevel} \
           -d ./files/boot
       ''
-      # petitboot does not support relative paths for LINUX or INITRD; it prepends
-      # a `/` when parsing these fields
+      # https://github.com/open-power/petitboot/blob/master/discover/syslinux-parser.c
+      # petitboot will look in these paths (plus all-caps versions of them):
+      #  /boot/syslinux/syslinux.cfg
+      #  /syslinux/syslinux.cfg
+      #  /syslinux.cfg
       + ''
         mv ./files/boot/extlinux ./files/boot/syslinux
         mv ./files/boot/syslinux/extlinux.conf ./files/boot/syslinux/syslinux.cfg

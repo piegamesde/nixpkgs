@@ -386,9 +386,9 @@ buildPythonPackage rec {
           "-Wno-error=maybe-uninitialized"
           "-Wno-error=uninitialized"
         ]
-      # Suppress gcc regression: avx512 math function raises uninitialized variable warning
-      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
-      # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
+      # Since pytorch 2.0:
+      # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
+      # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
       ++ lib.optionals
         (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
         [
@@ -456,6 +456,11 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals MPISupport [ mpi ]
     ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
+    # rocm build requires openai-triton;
+    # openai-triton currently requires cuda_nvcc,
+    # so not including it in the cpu-only build;
+    # torch.compile relies on openai-triton,
+    # so we include it for the cuda build as well
     ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ]
     ;
 

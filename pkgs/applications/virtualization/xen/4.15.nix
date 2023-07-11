@@ -154,8 +154,10 @@ callPackage
     ++ optional (!withInternalQemu) "--with-system-qemu" # use qemu from PATH
     ++ optional (withInternalTraditionalQemu) "--enable-qemu-traditional"
     ++ optional (!withInternalTraditionalQemu) "--disable-qemu-traditional"
+
     ++ optional (withSeabios) "--with-system-seabios=${seabios}"
     ++ optional (!withInternalSeabios && !withSeabios) "--disable-seabios"
+
     ++ optional (withOVMF) "--with-system-ovmf=${OVMF.fd}/FV/OVMF.fd"
     ++ optional (withInternalOVMF) "--enable-ovmf"
     ;

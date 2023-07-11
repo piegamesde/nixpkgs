@@ -128,6 +128,8 @@ stdenv.mkDerivation rec {
         --replace "defined(R__GNU) && (defined(R__LINUX) || defined(__APPLE__))" \
                   "defined(R__GNU) && (defined(__APPLE__))"
     ''
+    # Fix CINTSYSDIR for "build" version of rootcint
+    # This is probably a bug that breaks out-of-source builds
     + ''
       substituteInPlace cint/cint/src/loadfile.cxx\
         --replace 'env = "cint";' 'env = "'`pwd`'/cint";'

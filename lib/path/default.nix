@@ -80,9 +80,7 @@ let
     # Special case of a single "." path component. Such a case leaves a
     # componentCount of -1 due to the skipStart/skipEnd not verifying that
     # they don't refer to the same character
-    if
-      path == "."
-    then
+    if path == "." then
       [ ]
 
     # Generate the result list directly. This is more efficient than a
@@ -103,15 +101,15 @@ let
   joinRelPath =
     components:
     # Always return relative paths with `./` as a prefix (./path.md#leading-dots-for-relative-paths)
-      "./"
+    "./"
     +
-    # An empty string is not a valid relative path, so we need to return a `.` when we have no components
-    (
-      if components == [ ] then
-        "."
-      else
-        concatStringsSep "/" components
-    )
+      # An empty string is not a valid relative path, so we need to return a `.` when we have no components
+      (
+        if components == [ ] then
+          "."
+        else
+          concatStringsSep "/" components
+      )
     ;
 in
 # No rec! Add dependencies on this file at the top.
@@ -272,9 +270,7 @@ in
     # The list of subpaths to join together
     subpaths:
     # Fast in case all paths are valid
-    if
-      all isValid subpaths
-    then
+    if all isValid subpaths then
       joinRelPath (concatMap splitRelPath subpaths)
     else
       # Otherwise we take our time to gather more info for a better error message

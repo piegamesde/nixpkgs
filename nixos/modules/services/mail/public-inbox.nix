@@ -96,7 +96,7 @@ let
           ]
           ++ mapAttrsToList (name: inbox: inbox.description) cfg.inboxes
           ++
-          # Without confinement the whole Nix store
+            # Without confinement the whole Nix store
             # is made available to the service
             optionals
             (!config.systemd.services."public-inbox-${srv}".confinement.enable)
@@ -594,7 +594,7 @@ in
                 [ "${cfg.package}/bin/public-inbox-httpd" ]
                 ++ cfg.http.args
                 ++
-                # See https://public-inbox.org/public-inbox.git/tree/examples/public-inbox.psgi
+                  # See https://public-inbox.org/public-inbox.git/tree/examples/public-inbox.psgi
                   # for upstream's example.
                   [
                     (pkgs.writeText "public-inbox.psgi" ''

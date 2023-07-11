@@ -604,8 +604,8 @@ in
 
       systemd.tmpfiles.rules =
         optional
-          config.virtualisation.docker.enableNvidia
-          "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
+        config.virtualisation.docker.enableNvidia
+        "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
         ++ optional
           (nvidia_x11.persistenced != null
             && config.virtualisation.docker.enableNvidia)
@@ -633,8 +633,8 @@ in
       # If requested enable modesetting via kernel parameter.
       boot.kernelParams =
         optional
-          (offloadCfg.enable || cfg.modesetting.enable)
-          "nvidia-drm.modeset=1"
+        (offloadCfg.enable || cfg.modesetting.enable)
+        "nvidia-drm.modeset=1"
         ++ optional
           cfg.powerManagement.enable
           "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
@@ -655,17 +655,17 @@ in
         ''
         + optionalString cfg.powerManagement.finegrained (
           optionalString
-            (versionOlder config.boot.kernelPackages.kernel.version "5.5")
-            ''
-              # Remove NVIDIA USB xHCI Host Controller devices, if present
-              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
+          (versionOlder config.boot.kernelPackages.kernel.version "5.5")
+          ''
+            # Remove NVIDIA USB xHCI Host Controller devices, if present
+            ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
 
-              # Remove NVIDIA USB Type-C UCSI devices, if present
-              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
+            # Remove NVIDIA USB Type-C UCSI devices, if present
+            ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
 
-              # Remove NVIDIA Audio devices, if present
-              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
-            ''
+            # Remove NVIDIA Audio devices, if present
+            ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
+          ''
           + ''
             # Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
             ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"

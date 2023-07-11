@@ -129,6 +129,7 @@ stdenv.mkDerivation rec {
       libselinux
       libsepol
     ]
+    # TODO(@Ericson2314): Investigate whether Darwin could benefit too
     ++ optional (isCross && stdenv.hostPlatform.libc != "glibc") libiconv
     ;
 
@@ -141,12 +142,18 @@ stdenv.mkDerivation rec {
     ++ optional withOpenssl "--with-openssl"
     ++ optional stdenv.hostPlatform.isSunOS "ac_cv_func_inotify_init=no"
     ++ optional withPrefix "--program-prefix=g"
+    # the shipped configure script doesn't enable nls, but using autoreconfHook
+    # does so which breaks the build
     ++ optional stdenv.isDarwin "--disable-nls"
     ++ optionals (isCross && stdenv.hostPlatform.libc == "glibc") [
       # TODO(19b98110126fde7cbb1127af7e3fe1568eacad3d): Needed for fstatfs() I
       # don't know why it is not properly detected cross building with glibc.
       "fu_cv_sys_stat_statfs2_bsize=yes"
     ]
+    # /proc/uptime is available on Linux and produces accurate results even if
+    # the boot time is set to the epoch because the system has no RTC. We
+    # explicitly enable it for cases where it can't be detected automatically,
+    # such as when cross-compiling.
     ++ optional stdenv.hostPlatform.isLinux "gl_cv_have_proc_uptime=yes"
     ;
 
@@ -182,7 +189,6 @@ stdenv.mkDerivation rec {
     [ ]
     # Work around a bogus warning in conjunction with musl.
     ++ optional stdenv.hostPlatform.isMusl "-Wno-error"
-    # Work around a bogus warning in conjunction with musl.
     ++ optional stdenv.hostPlatform.isAndroid "-D__USE_FORTIFY_LEVEL=0"
   );
 

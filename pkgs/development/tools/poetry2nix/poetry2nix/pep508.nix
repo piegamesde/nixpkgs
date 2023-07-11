@@ -271,9 +271,7 @@ let
         v:
         (
           # TODO: Handle single quoted values
-          if
-            v == "True"
-          then
+          if v == "True" then
             true
           else if v == "False" then
             false

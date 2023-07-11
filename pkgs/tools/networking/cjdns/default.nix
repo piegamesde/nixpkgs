@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
       pkg-config
     ]
     ++
-    # for flock
+      # for flock
       lib.optional stdenv.isLinux util-linux
     ;
 

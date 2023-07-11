@@ -118,6 +118,8 @@ stdenv.mkDerivation rec {
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
     ]
     ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
+    # If we're only building the headers we don't actually *need* a functioning
+    # C/C++ compiler:
     ++ lib.optionals (headersOnly) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"

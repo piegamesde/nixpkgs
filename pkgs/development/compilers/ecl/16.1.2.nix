@@ -95,6 +95,12 @@ stdenv.mkDerivation rec {
           ]
         }" \
     ''
+    # ecl 16.1.2 is too old to have -libdir for libffi and boehmgc, so we need to
+    # use NIX_LDFLAGS_BEFORE to make gcc find these particular libraries.
+    # Since it is missing even the prefix flag for boehmgc we also need to inject
+    # the correct -I flag via NIX_CFLAGS_COMPILE. Since we have access to it, we
+    # create the variables with suffixSalt (which seems to be necessary for
+    # NIX_CFLAGS_COMPILE even).
     + lib.optionalString useBoehmgc ''
       --prefix NIX_CFLAGS_COMPILE_${gcc.suffixSalt} ' ' "-I${
         lib.getDev boehmgc

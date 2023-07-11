@@ -165,18 +165,19 @@ stdenv.mkDerivation rec {
 
   preFixup =
     lib.optionalString
-      withSlimLib
-      # Build libunbound again, but only against nettle instead of openssl.
-      # This avoids gnutls.out -> unbound.lib -> lib.getLib openssl.
-      ''
-        configureFlags="$configureFlags --with-nettle=${nettle.dev} --with-libunbound-only"
-        configurePhase
-        buildPhase
-        if [ -n "$doCheck" ]; then
-            checkPhase
-        fi
-        installPhase
-      ''
+    withSlimLib
+    # Build libunbound again, but only against nettle instead of openssl.
+    # This avoids gnutls.out -> unbound.lib -> lib.getLib openssl.
+    ''
+      configureFlags="$configureFlags --with-nettle=${nettle.dev} --with-libunbound-only"
+      configurePhase
+      buildPhase
+      if [ -n "$doCheck" ]; then
+          checkPhase
+      fi
+      installPhase
+    ''
+    # get rid of runtime dependencies on $dev outputs
     + ''substituteInPlace "$lib/lib/libunbound.la" ''
     + lib.concatMapStrings
       (

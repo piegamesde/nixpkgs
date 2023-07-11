@@ -38,9 +38,7 @@ let
       path = [ (removeSuffix "/" (head path_)) ] ++ (tail path_);
     in
     # ../repo/trunk -> repo
-    if
-      fst path == "trunk"
-    then
+    if fst path == "trunk" then
       snd path
     # ../repo/branches/branch -> repo-branch
     else if snd path == "branches" then

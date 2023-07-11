@@ -269,13 +269,6 @@ stdenv.mkDerivation {
       "-DLIBGSM_LIBRARIES=${gsm}/lib/libgsm${stdenv.hostPlatform.extensions.sharedLibrary}"
       "-DLIBGSM_INCLUDE_DIRS=${gsm}/include/gsm"
     ]
-    # From some reason, if these are not set, libcodec2 and gsm are not
-    # detected properly. The issue is reported upstream:
-    # https://github.com/gnuradio/gnuradio/issues/4278
-    # The above issue was fixed for GR3.9 without a backporting patch.
-    #
-    # NOTE: qradiolink needs libcodec2 to be detected in
-    # order to build, see https://github.com/qradiolink/qradiolink/issues/67
     ++ lib.optionals (hasFeature "volk" && volk != null) [
         "-DENABLE_INTERNAL_VOLK=OFF"
       ]

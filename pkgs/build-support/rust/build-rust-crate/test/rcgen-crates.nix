@@ -4185,20 +4185,29 @@ rec {
       in
       !(
         # Filter out git
-          baseName
-        == ".gitignore"
+        baseName == ".gitignore"
         || (type == "directory" && baseName == ".git")
+
+        # Filter out build results
         || (type == "directory"
           && (baseName == "target"
             || baseName == "_site"
             || baseName == ".sass-cache"
             || baseName == ".jekyll-metadata"
             || baseName == "build-artifacts"))
+
+        # Filter out nix-build result symlinks
         || (type == "symlink" && lib.hasPrefix "result" baseName)
+
+        # Filter out IDE config
         || (type == "directory"
           && (baseName == ".idea" || baseName == ".vscode"))
         || lib.hasSuffix ".iml" baseName
+
+        # Filter out nix build files
         || baseName == "Cargo.nix"
+
+        # Filter out editor backup / swap files.
         || lib.hasSuffix "~" baseName
         || builtins.match "^\\.sw[a-z]$$" baseName != null
         || builtins.match "^\\..*\\.sw[a-z]$$" baseName != null
@@ -4435,9 +4444,7 @@ rec {
               buildByPackageId =
                 depPackageId:
                 # proc_macro crates must be compiled for the build architecture
-                if
-                  crateConfigs.${depPackageId}.procMacro or false
-                then
+                if crateConfigs.${depPackageId}.procMacro or false then
                   self.build.crates.${depPackageId}
                 else
                   self.crates.${depPackageId}

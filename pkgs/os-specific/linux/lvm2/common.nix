@@ -136,10 +136,8 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     lib.optionals udevSupport [
-        "SYSTEMD_GENERATOR_DIR=${
-          placeholder "out"
-        }/lib/systemd/system-generators"
-      ]
+      "SYSTEMD_GENERATOR_DIR=${placeholder "out"}/lib/systemd/system-generators"
+    ]
     ++ lib.optionals onlyLib [ "libdm.device-mapper" ]
     ;
 

@@ -58,6 +58,8 @@ in
         flex
       ]
     ++ optionals langAda [ gnat-bootstrap ]
+    # The builder relies on GNU sed (for instance, Darwin's `sed' fails with
+    # "-i may not be used with stdin"), and `stdenvNative' doesn't provide it.
     ++ optionals buildPlatform.isDarwin [ gnused ]
     ;
 

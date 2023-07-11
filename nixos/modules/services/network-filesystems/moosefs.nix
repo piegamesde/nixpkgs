@@ -299,8 +299,8 @@ in
       # Ensure storage directories exist
       systemd.tmpfiles.rules =
         optional
-          cfg.master.enable
-          "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+        cfg.master.enable
+        "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
         ++ optional
           cfg.metalogger.enable
           "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"

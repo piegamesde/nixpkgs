@@ -261,6 +261,8 @@ let
         libobjc
         VideoToolbox
       ]
+      # NOTE: 2018-12-27: Handbrake supports nv-codec-headers for Linux only,
+      # look at ./make/configure.py search "enable_nvenc"
       ++ optional stdenv.isLinux nv-codec-headers
       ;
 

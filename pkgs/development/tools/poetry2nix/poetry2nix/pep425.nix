@@ -138,8 +138,7 @@ let
         || hasPrefix x pyabi
         || (
           # The CPython stable ABI is abi3 as in the shared library suffix.
-            python.passthru.implementation
-          == "cpython"
+          python.passthru.implementation == "cpython"
           && builtins.elemAt (lib.splitString "." python.version) 0 == "3"
           && x == "abi3")
         ;
@@ -154,10 +153,10 @@ let
             (
               p:
               builtins.match
-                "any|manylinux(1|2010|2014)_${
-                  escapeRegex targetMachine
-                }|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}"
-                p
+              "any|manylinux(1|2010|2014)_${
+                escapeRegex targetMachine
+              }|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}"
+              p
               != null
             )
           else

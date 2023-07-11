@@ -530,6 +530,7 @@ lib.fix (
       buildInputs =
         otherBuildInputs
         ++ optionals (!isLibrary) propagatedBuildInputs
+        # For patchShebangsAuto in fixupPhase
         ++ optionals stdenv.hostPlatform.isGhcjs [ nodejs ]
         ;
       propagatedBuildInputs = optionals isLibrary propagatedBuildInputs;
@@ -576,12 +577,17 @@ lib.fix (
             concatStringsSep " " defaultConfigureFlags
           } $configureFlags"
         ''
+        # We build the Setup.hs on the *build* machine, and as such should only add
+        # dependencies for the build machine.
+        #
+        # pkgs* arrays defined in stdenv/setup.hs
         + ''
           for p in "''${pkgsBuildBuild[@]}" "''${pkgsBuildHost[@]}" "''${pkgsBuildTarget[@]}"; do
             ${buildPkgDb nativeGhc "$setupPackageConfDir"}
           done
           ${nativeGhcCommand}-pkg --${nativePackageDbFlag}="$setupPackageConfDir" recache
         ''
+        # For normal components
         + ''
           for p in "''${pkgsHostHost[@]}" "''${pkgsHostTarget[@]}"; do
             ${buildPkgDb ghc "$packageConfDir"}
@@ -592,6 +598,7 @@ lib.fix (
               configureFlags+=" --extra-lib-dirs=$p/lib"
             fi
         ''
+        # It is not clear why --extra-framework-dirs does work fine on Linux
         + optionalString
           (!stdenv.buildPlatform.isDarwin
             || versionAtLeast nativeGhc.version "8.0")
@@ -603,6 +610,9 @@ lib.fix (
         + ''
           done
         ''
+        # only use the links hack if we're actually building dylibs. otherwise, the
+        # "dynamic-library-dirs" point to nonexistent paths, and the ln command becomes
+        # "ln -s $out/lib/links", which tries to recreate the links dir and fails
         + (optionalString
           (stdenv.isDarwin
             && (enableSharedLibraries || enableSharedExecutables))
@@ -662,6 +672,11 @@ lib.fix (
       hardeningDisable =
         lib.optionals (args ? hardeningDisable) hardeningDisable
         ++ lib.optional (ghc.isHaLVM or false) "all"
+        # Static libraries (ie. all of pkgsStatic.haskellPackages) fail to build
+        # because by default Nix adds `-pie` to the linker flags: this
+        # conflicts with the `-r` and `-no-pie` flags added by GHC (see
+        # https://gitlab.haskell.org/ghc/ghc/-/issues/19580). hardeningDisable
+        # changes the default Nix behavior regarding adding "hardening" flags.
         ++ lib.optional enableStaticLibraries "pie"
         ;
 

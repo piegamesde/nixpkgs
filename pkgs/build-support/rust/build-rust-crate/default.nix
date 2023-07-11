@@ -415,8 +415,8 @@ lib.makeOverridable
         ;
       extraRustcOptsForBuildRs =
         lib.optionals
-          (crate ? extraRustcOptsForBuildRs)
-          crate.extraRustcOptsForBuildRs
+        (crate ? extraRustcOptsForBuildRs)
+        crate.extraRustcOptsForBuildRs
         ++ extraRustcOptsForBuildRs_
         ++ (lib.optional (edition != null) "--edition ${edition}")
         ;

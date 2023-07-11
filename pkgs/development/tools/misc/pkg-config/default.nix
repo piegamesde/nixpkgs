@@ -51,6 +51,7 @@ stdenv.mkDerivation rec {
       "--with-system-include-path"
       "CFLAGS=-DENABLE_NLS"
     ]
+    # Can't run these tests while cross-compiling
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "glib_cv_stack_grows=no"
       "glib_cv_uscore=no"

@@ -43,9 +43,9 @@ buildPythonApplication rec {
       osm-gps-map
       glib-networking
     ]
-    # Map support
+    # Graphviz support
     ++ lib.optional enableGraphviz graphviz
-    # Map support
+    # Ghostscript support
     ++ lib.optional enableGhostscript ghostscript
     ;
 

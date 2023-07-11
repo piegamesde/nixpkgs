@@ -339,8 +339,8 @@ let
           "Warning while evaluating ${getName attrs}: «${reason}»: ${errormsg}"
         else
           "Package ${getName attrs} in ${
-              pos_str meta
-            } ${errormsg}, continuing anyway."
+            pos_str meta
+          } ${errormsg}, continuing anyway."
           + (lib.optionalString (remediationMsg != "") ''
 
             ${remediationMsg}'')
@@ -513,9 +513,7 @@ let
         insecure = isMarkedInsecure attrs;
       } // (
         # --- Put checks that cannot be ignored here ---
-        if
-          checkOutputsToInstall attrs
-        then
+        if checkOutputsToInstall attrs then
           {
             valid = "no";
             reason = "broken-outputs";

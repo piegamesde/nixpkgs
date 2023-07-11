@@ -92,6 +92,8 @@ let
       ++ lib.optionals (!stdenv.targetPlatform.isStatic) [
           "-Dprotobuf_BUILD_SHARED_LIBS=ON"
         ]
+      # Tests fail to build on 32-bit platforms; fixed in 3.22
+      # https://github.com/protocolbuffers/protobuf/issues/10418
       ++ lib.optional
         (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
         "-Dprotobuf_BUILD_TESTS=OFF"

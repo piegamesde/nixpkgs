@@ -133,9 +133,7 @@ let
         getDeps allRawDeps
         ++ (
           # >=poetry-1.2.0 dependency groups
-          if
-            pyProject.tool.poetry.group or { } != { }
-          then
+          if pyProject.tool.poetry.group or { } != { } then
             lib.flatten (
               map
               (g: getDeps pyProject.tool.poetry.group.${g}.dependencies)
@@ -425,12 +423,12 @@ lib.makeScope pkgs.newScope (
             baseOverlay
           ]
           ++ # User provided overrides
-          (
-            if builtins.typeOf overrides == "list" then
-              overrides
-            else
-              [ overrides ]
-          )
+            (
+              if builtins.typeOf overrides == "list" then
+                overrides
+              else
+                [ overrides ]
+            )
         );
         packageOverrides =
           lib.foldr lib.composeExtensions (self: super: { }) overlays;
@@ -513,9 +511,7 @@ lib.makeScope pkgs.newScope (
               pyProject.tool.poetry."dev-dependencies" or { }
             )) // (
               # Poetry>=1.2.0
-              if
-                pyProject.tool.poetry.group or { } != { }
-              then
+              if pyProject.tool.poetry.group or { } != { } then
                 builtins.foldl'
                 (
                   acc: g:
@@ -570,9 +566,7 @@ lib.makeScope pkgs.newScope (
         projectDir ? null,
         src ? (
           # Assume that a project which is the result of a derivation is already adequately filtered
-          if
-            lib.isDerivation projectDir
-          then
+          if lib.isDerivation projectDir then
             projectDir
           else
             self.cleanPythonSources { src = projectDir; }

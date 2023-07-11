@@ -15,9 +15,7 @@ let
 
   grubPkgs =
     # Package set of targeted architecture
-    if
-      cfg.forcei686
-    then
+    if cfg.forcei686 then
       pkgs.pkgsi686Linux
     else
       pkgs
@@ -40,9 +38,7 @@ let
   grub =
     # Don't include GRUB if we're only generating a GRUB menu (e.g.,
     # in EC2 instances).
-    if
-      cfg.devices == [ "nodev" ]
-    then
+    if cfg.devices == [ "nodev" ] then
       null
     else
       realGrub
@@ -50,9 +46,7 @@ let
 
   grubEfi =
     # EFI version of Grub v2
-    if
-      cfg.efiSupport && (cfg.version == 2)
-    then
+    if cfg.efiSupport && (cfg.version == 2) then
       realGrub.override { efiSupport = cfg.efiSupport; }
     else
       null

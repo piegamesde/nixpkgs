@@ -347,7 +347,8 @@ in
       sed -e '1ilibreoffice-translations-${version}.tar.xz=libreoffice-translations-${version}.tar.xz' -i Makefile
       sed -e '1ilibreoffice-help-${version}.tar.xz=libreoffice-help-${version}.tar.xz' -i Makefile
     ''
-    # This to avoid using /lib:/usr/lib at linking
+    # Test fixups
+    # May need to be revisited/pruned, left alone for now.
     + ''
       # unit test sd_tiledrendering seems to be fragile
       # https://nabble.documentfoundation.org/libreoffice-5-0-failure-in-CUT-libreofficekit-tiledrendering-td4150319.html

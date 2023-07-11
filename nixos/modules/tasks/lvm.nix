@@ -139,19 +139,19 @@ in
     (mkIf (cfg.dmeventd.enable || cfg.boot.thin.enable) {
       boot.initrd.systemd.contents."/etc/lvm/lvm.conf".text =
         optionalString
-          (config.boot.initrd.services.lvm.enable && cfg.boot.thin.enable)
-          (
-            concatMapStringsSep "\n"
-            (bin: "global/${bin}_executable = /bin/${bin}")
-            [
-              "thin_check"
-              "thin_dump"
-              "thin_repair"
-              "cache_check"
-              "cache_dump"
-              "cache_repair"
-            ]
-          )
+        (config.boot.initrd.services.lvm.enable && cfg.boot.thin.enable)
+        (
+          concatMapStringsSep "\n"
+          (bin: "global/${bin}_executable = /bin/${bin}")
+          [
+            "thin_check"
+            "thin_dump"
+            "thin_repair"
+            "cache_check"
+            "cache_dump"
+            "cache_repair"
+          ]
+        )
         + "\n"
         + optionalString cfg.dmeventd.enable ''
           dmeventd/executable = /bin/false

@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
     [ ]
     # Propagated for #include <GLES/gl.h> in SDL_opengles.h.
     ++ lib.optional openglSupport libGL
-    # Propagated for #include <GLES/gl.h> in SDL_opengles.h.
+    # Propagated for #include <X11/Xlib.h> and <X11/Xatom.h> in SDL_syswm.h.
     ++ lib.optionals x11Support [ libX11 ]
     ;
 

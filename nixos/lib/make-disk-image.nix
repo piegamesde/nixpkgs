@@ -606,8 +606,8 @@ let
       postVM = moveOrConvertImage + postVM;
       QEMU_OPTS = concatStringsSep " " (
         lib.optional
-          useEFIBoot
-          "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
+        useEFIBoot
+        "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
         ++ lib.optionals touchEFIVars [
             "-drive if=pflash,format=raw,unit=1,file=$efiVars"
           ]

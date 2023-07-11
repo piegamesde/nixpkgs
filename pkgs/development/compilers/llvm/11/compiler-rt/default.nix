@@ -135,10 +135,10 @@ stdenv.mkDerivation {
   # Hack around weird upsream RPATH bug
   postInstall =
     lib.optionalString
-      (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
-      ''
-        ln -s "$out/lib"/*/* "$out/lib"
-      ''
+    (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
+    ''
+      ln -s "$out/lib"/*/* "$out/lib"
+    ''
     + lib.optionalString (useLLVM) ''
       ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbegin.o
       ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtend.o
@@ -147,6 +147,7 @@ stdenv.mkDerivation {
       ln -s $out/lib/*/clang_rt.crtbegin_shared-*.o $out/lib/crtbeginS.o
       ln -s $out/lib/*/clang_rt.crtend_shared-*.o $out/lib/crtendS.o
     ''
+    # See https://reviews.llvm.org/D37278 for why android exception
     + lib.optionalString
       (stdenv.hostPlatform.isx86_32 && !stdenv.hostPlatform.isAndroid)
       ''

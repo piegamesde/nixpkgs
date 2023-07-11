@@ -164,7 +164,7 @@ let
       GhcLibWays = "v dyn"
     ''
     +
-    # -fexternal-dynamic-refs apparently (because it's not clear from the documentation)
+      # -fexternal-dynamic-refs apparently (because it's not clear from the documentation)
       # makes the GHC RTS able to load static libraries, which may be needed for TemplateHaskell.
       # This solution was described in https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
       lib.optionalString enableRelocatedStaticLibs ''
@@ -211,9 +211,7 @@ let
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if
-        stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin
-      then
+      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
         targetCC.bintools
       else
         targetCC.bintools.bintools
@@ -314,57 +312,39 @@ stdenv.mkDerivation (
         export READELF="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}readelf"
         export STRIP="${bintoolsFor.strip}/bin/${bintoolsFor.strip.targetPrefix}strip"
       ''
-      # HACK: allow bootstrapping with GHC 8.10 which works fine, as we don't have
-      # binary 9.0 packaged. Bootstrapping with 9.2 is broken without hadrian.
       + lib.optionalString (stdenv.targetPlatform.linker == "cctools") ''
         export OTOOL="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}otool"
         export INSTALL_NAME_TOOL="${bintoolsFor.install_name_tool}/bin/${bintoolsFor.install_name_tool.targetPrefix}install_name_tool"
       ''
-      # HACK: allow bootstrapping with GHC 8.10 which works fine, as we don't have
-      # binary 9.0 packaged. Bootstrapping with 9.2 is broken without hadrian.
       + lib.optionalString useLLVM ''
         export LLC="${lib.getBin buildTargetLlvmPackages.llvm}/bin/llc"
         export OPT="${lib.getBin buildTargetLlvmPackages.llvm}/bin/opt"
       ''
-      # HACK: allow bootstrapping with GHC 8.10 which works fine, as we don't have
-      # binary 9.0 packaged. Bootstrapping with 9.2 is broken without hadrian.
       + lib.optionalString (useLLVM && stdenv.targetPlatform.isDarwin) ''
         # LLVM backend on Darwin needs clang: https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
         export CLANG="${buildTargetLlvmPackages.clang}/bin/${buildTargetLlvmPackages.clang.targetPrefix}clang"
       ''
-      # HACK: allow bootstrapping with GHC 8.10 which works fine, as we don't have
-      # binary 9.0 packaged. Bootstrapping with 9.2 is broken without hadrian.
       + ''
 
         echo -n "${buildMK}" > mk/build.mk
 
         sed -i -e 's|-isysroot /Developer/SDKs/MacOSX10.5.sdk||' configure
       ''
-      # HACK: allow bootstrapping with GHC 8.10 which works fine, as we don't have
-      # binary 9.0 packaged. Bootstrapping with 9.2 is broken without hadrian.
       + lib.optionalString (stdenv.isLinux && hostPlatform.libc == "glibc") ''
         export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
       ''
-      # HACK: allow bootstrapping with GHC 8.10 which works fine, as we don't have
-      # binary 9.0 packaged. Bootstrapping with 9.2 is broken without hadrian.
       + lib.optionalString (!stdenv.isDarwin) ''
         export NIX_LDFLAGS+=" -rpath $out/lib/ghc-${version}"
       ''
-      # HACK: allow bootstrapping with GHC 8.10 which works fine, as we don't have
-      # binary 9.0 packaged. Bootstrapping with 9.2 is broken without hadrian.
       + lib.optionalString stdenv.isDarwin ''
         export NIX_LDFLAGS+=" -no_dtrace_dof"
 
         # GHC tries the host xattr /usr/bin/xattr by default which fails since it expects python to be 2.7
         export XATTR=${lib.getBin xattr}/bin/xattr
       ''
-      # HACK: allow bootstrapping with GHC 8.10 which works fine, as we don't have
-      # binary 9.0 packaged. Bootstrapping with 9.2 is broken without hadrian.
       + lib.optionalString targetPlatform.useAndroidPrebuilt ''
         sed -i -e '5i ,("armv7a-unknown-linux-androideabi", ("e-m:e-p:32:32-i64:64-v128:64:128-a:0:32-n32-S64", "cortex-a8", ""))' llvm-targets
       ''
-      # HACK: allow bootstrapping with GHC 8.10 which works fine, as we don't have
-      # binary 9.0 packaged. Bootstrapping with 9.2 is broken without hadrian.
       + lib.optionalString targetPlatform.isMusl ''
         echo "patching llvm-targets for musl targets..."
         echo "Cloning these existing '*-linux-gnu*' targets:"

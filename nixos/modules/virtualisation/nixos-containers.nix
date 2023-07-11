@@ -909,10 +909,10 @@ in
       systemd.services = listToAttrs (
         filter (x: x.value != null) (
           # The generic container template used by imperative containers
-            [ {
-              name = "container@";
-              value = unit;
-            } ]
+          [ {
+            name = "container@";
+            value = unit;
+          } ]
           # declarative containers
           ++ (mapAttrsToList
             (

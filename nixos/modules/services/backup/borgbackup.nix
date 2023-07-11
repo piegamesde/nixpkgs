@@ -160,6 +160,7 @@ let
             "${userHome}/.cache/borg"
           ]
           ++ cfg.readWritePaths
+          # Borg needs write access to repo if it is not remote
           ++ optional (isLocalPath cfg.repo) cfg.repo
           ;
         PrivateTmp = cfg.privateTmp;

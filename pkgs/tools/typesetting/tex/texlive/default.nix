@@ -140,21 +140,21 @@ let
       # TL pkg contains lists of packages: runtime files, docs, sources, binaries
       pkgs =
         # tarball of a collection/scheme itself only contains a tlobj file
-          [
-            (
-              if (attrs.hasRunfiles or false) then
-                mkPkgV "run"
-              # the fake derivations are used for filtering of hyphenation patterns and formats
-              else
-                {
-                  inherit pname version;
-                  tlType = "run";
-                  hasFormats = attrs.hasFormats or false;
-                  hasHyphens = attrs.hasHyphens or false;
-                  tlDeps = map (n: tl.${n}) (attrs.deps or [ ]);
-                }
-            )
-          ]
+        [
+          (
+            if (attrs.hasRunfiles or false) then
+              mkPkgV "run"
+            # the fake derivations are used for filtering of hyphenation patterns and formats
+            else
+              {
+                inherit pname version;
+                tlType = "run";
+                hasFormats = attrs.hasFormats or false;
+                hasHyphens = attrs.hasHyphens or false;
+                tlDeps = map (n: tl.${n}) (attrs.deps or [ ]);
+              }
+          )
+        ]
         ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
         ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; })
@@ -314,8 +314,8 @@ let
 
   assertions =
     lib.assertMsg
-      (tlpdbVersion.year == version.texliveYear)
-      "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
+    (tlpdbVersion.year == version.texliveYear)
+    "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
     && lib.assertMsg
       (tlpdbVersion.frozen == version.final)
       "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"

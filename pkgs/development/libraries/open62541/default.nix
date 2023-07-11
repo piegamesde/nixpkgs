@@ -115,8 +115,8 @@ stdenv.mkDerivation (
       let
         disabledTests =
           lib.optionals (withEncryption == "mbedtls") [
-              "encryption_basic128rsa15"
-            ]
+            "encryption_basic128rsa15"
+          ]
           ++ lib.optionals withPubSub [
             # "Cannot set socket option IP_ADD_MEMBERSHIP"
             "pubsub_publish"

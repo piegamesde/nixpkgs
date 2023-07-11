@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     broken =
       stdenv.isDarwin
       ||
-      # https://github.com/bcampbell/evilpixie/issues/28
+        # https://github.com/bcampbell/evilpixie/issues/28
         stdenv.isAarch64
       ;
   };

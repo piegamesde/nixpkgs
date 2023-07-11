@@ -64,11 +64,11 @@ stdenv.mkDerivation rec {
         ;
     in
     # tests modelgen and modelgensmt2 spawn boolector in another processes and
-      # macOS strips DYLD_LIBRARY_PATH, hardcode it for testing
-      lib.optionalString stdenv.isDarwin ''
-        cp -r bin bin.back
-        install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
-      ''
+    # macOS strips DYLD_LIBRARY_PATH, hardcode it for testing
+    lib.optionalString stdenv.isDarwin ''
+      cp -r bin bin.back
+      install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
+    ''
     + ''
       export ${var}=$(readlink -f lib)
       patchShebangs ..

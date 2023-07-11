@@ -140,9 +140,7 @@ let
 
   hash_ =
     # Many other combinations don't make sense, but this is the most common one:
-    if
-      hash != "" && sha256 != ""
-    then
+    if hash != "" && sha256 != "" then
       throw "multiple hashes passed to fetchurl"
     else
 

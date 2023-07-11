@@ -114,6 +114,7 @@ let
 
   intermediateNixConfig =
     configfile.moduleStructuredConfig.intermediateNixConfig
+    # extra config in legacy string format
     + extraConfig
     + stdenv.hostPlatform.linux-kernel.extraConfig or ""
     ;
@@ -190,8 +191,8 @@ let
 
     makeFlags =
       lib.optionals
-        (stdenv.hostPlatform.linux-kernel ? makeFlags)
-        stdenv.hostPlatform.linux-kernel.makeFlags
+      (stdenv.hostPlatform.linux-kernel ? makeFlags)
+      stdenv.hostPlatform.linux-kernel.makeFlags
       ++ extraMakeFlags
       ;
 

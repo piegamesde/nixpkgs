@@ -226,7 +226,6 @@ stdenv.mkDerivation (
             toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])
           )
         )
-        # libpulsecommon.so is linked but not found otherwise
         ++ lib.optionals supportFlags.waylandSupport (
           map (x: "${lib.getLib x}/share/wayland-protocols") (
             toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])

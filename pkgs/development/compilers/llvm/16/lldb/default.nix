@@ -110,6 +110,13 @@ stdenv.mkDerivation (
         Carbon
         Cocoa
       ]
+      # The older libSystem used on x86_64 macOS is missing the
+      # `<bsm/audit_session.h>` header which `lldb` uses.
+      #
+      # We copy this header over from macOS 10.12 SDK.
+      #
+      # See here for context:
+      # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
       ++ lib.optional
         (stdenv.targetPlatform.isDarwin && !stdenv.targetPlatform.isAarch64)
         (

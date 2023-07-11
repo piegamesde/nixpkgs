@@ -57,12 +57,12 @@ let
   configFile = pkgs.writeText "privoxy.conf" (
     concatStrings (
       # Relative paths in some options are relative to confdir. Privoxy seems
-        # to parse the options in order of appearance, so this must come first.
-        # Nix however doesn't preserve the order in attrsets, so we have to
-        # hardcode confdir here.
-        [ ''
-          confdir ${pkgs.privoxy}/etc
-        '' ]
+      # to parse the options in order of appearance, so this must come first.
+      # Nix however doesn't preserve the order in attrsets, so we have to
+      # hardcode confdir here.
+      [ ''
+        confdir ${pkgs.privoxy}/etc
+      '' ]
       ++ mapAttrsToList serialise cfg.settings
     )
   );
