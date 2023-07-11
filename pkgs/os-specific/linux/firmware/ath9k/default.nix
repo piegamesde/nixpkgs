@@ -101,15 +101,16 @@ stdenv.mkDerivation (finalAttrs: {
       '';
     update = stdenv.mkDerivation {
       name = "${finalAttrs.pname}-${finalAttrs.version}-update";
-      shellHook = ''
-        echo 'rec {'
-        echo '  BASEDIR="$NIX_BUILD_TOP";'
-        make --dry-run --print-data-base -f ${finalAttrs.src}/Makefile download \
-          | egrep    '^[A-Z]+_(VER|URL|SUM|DIR) = ' \
-          | sed 's_\([^ ]*\) = \(.*\)_\1 = "\2\";_' \
-          | tr \( \{ \
-          | tr \) \}
-      ''
+      shellHook =
+        ''
+          echo 'rec {'
+          echo '  BASEDIR="$NIX_BUILD_TOP";'
+          make --dry-run --print-data-base -f ${finalAttrs.src}/Makefile download \
+            | egrep    '^[A-Z]+_(VER|URL|SUM|DIR) = ' \
+            | sed 's_\([^ ]*\) = \(.*\)_\1 = "\2\";_' \
+            | tr \( \{ \
+            | tr \) \}
+        ''
         # sha256 checksums were not added to upstream's Makefile until
         # after the 1.4.0 release.  The following line is needed for
         # the `enableUnstable==false` build but not for the
@@ -125,7 +126,8 @@ stdenv.mkDerivation (finalAttrs: {
         '' + ''
           echo '}'
           exit
-        '';
+        ''
+        ;
     };
   };
 

@@ -100,7 +100,9 @@ let
 
   target = rust.toRustTargetSpec stdenv.hostPlatform;
   targetIsJSON = lib.hasSuffix ".json" target;
-  useSysroot = targetIsJSON && !__internal_dontAddSysroot;
+  useSysroot =
+    targetIsJSON && !__internal_dontAddSysroot
+    ;
 
     # see https://github.com/rust-lang/cargo/blob/964a16a28e234a3d397b2a7031d4ab4a428b1391/src/cargo/core/compiler/compile_kind.rs#L151-L168
     # the "${}" is needed to transform the path into a /nix/store path before baseNameOf
@@ -145,7 +147,8 @@ stdenv.mkDerivation ((removeAttrs args [
 
   patchRegistryDeps = ./patch-registry-deps;
 
-  nativeBuildInputs = nativeBuildInputs ++ lib.optionals auditable [
+  nativeBuildInputs =
+    nativeBuildInputs ++ lib.optionals auditable [
       (buildPackages.cargo-auditable-cargo-wrapper.override {
         inherit cargo cargo-auditable;
       })
@@ -158,11 +161,13 @@ stdenv.mkDerivation ((removeAttrs args [
       cargoInstallHook
       cargoSetupHook
       rustc
-    ];
+    ]
+    ;
 
-  buildInputs = buildInputs
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
-    ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ];
+  buildInputs =
+    buildInputs ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
+    ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ]
+    ;
 
   patches = cargoPatches ++ patches;
 
@@ -173,16 +178,19 @@ stdenv.mkDerivation ((removeAttrs args [
       0
     ;
 
-  postUnpack = ''
-    eval "$cargoDepsHook"
+  postUnpack =
+    ''
+      eval "$cargoDepsHook"
 
-    export RUST_LOG=${logLevel}
-  '' + (args.postUnpack or "");
+      export RUST_LOG=${logLevel}
+    '' + (args.postUnpack or "")
+    ;
 
-  configurePhase = args.configurePhase or ''
-    runHook preConfigure
-    runHook postConfigure
-  '';
+  configurePhase =
+    args.configurePhase or ''
+      runHook preConfigure
+      runHook postConfigure
+    '';
 
   doCheck = args.doCheck or true;
 
@@ -190,18 +198,20 @@ stdenv.mkDerivation ((removeAttrs args [
 
   meta = {
     # default to Rust's platforms
-    platforms = rustc.meta.platforms ++ [
-      # Platforms without host tools from
-      # https://doc.rust-lang.org/nightly/rustc/platform-support.html
-      "armv7a-darwin"
-      "armv5tel-linux"
-      "armv6l-linux"
-      "armv7a-linux"
-      "m68k-linux"
-      "riscv32-linux"
-      "armv6l-netbsd"
-      "x86_64-redox"
-      "wasm32-wasi"
-    ];
+    platforms =
+      rustc.meta.platforms ++ [
+        # Platforms without host tools from
+        # https://doc.rust-lang.org/nightly/rustc/platform-support.html
+        "armv7a-darwin"
+        "armv5tel-linux"
+        "armv6l-linux"
+        "armv7a-linux"
+        "m68k-linux"
+        "riscv32-linux"
+        "armv6l-netbsd"
+        "x86_64-redox"
+        "wasm32-wasi"
+      ]
+      ;
   } // meta;
 })

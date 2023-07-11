@@ -267,12 +267,13 @@ rec {
          any isString [ 1 { } ]
          => false
     */
-  any = builtins.any or (pred:
-    foldr (x: y:
-      if pred x then
-        true
-      else
-        y) false);
+  any =
+    builtins.any or (pred:
+      foldr (x: y:
+        if pred x then
+          true
+        else
+          y) false);
 
     /* Return true if function `pred` returns true for all elements of
        `list`.
@@ -285,12 +286,13 @@ rec {
          all (x: x < 3) [ 1 2 3 ]
          => false
     */
-  all = builtins.all or (pred:
-    foldr (x: y:
-      if pred x then
-        y
-      else
-        false) true);
+  all =
+    builtins.all or (pred:
+      foldr (x: y:
+        if pred x then
+          y
+        else
+          false) true);
 
     /* Count how many elements of `list` match the supplied predicate
        function.
@@ -415,21 +417,22 @@ rec {
          partition (x: x > 2) [ 5 1 2 3 4 ]
          => { right = [ 5 3 4 ]; wrong = [ 1 2 ]; }
     */
-  partition = builtins.partition or (pred:
-    foldr (h: t:
-      if pred h then
-        {
-          right = [ h ] ++ t.right;
-          wrong = t.wrong;
-        }
-      else
-        {
-          right = t.right;
-          wrong = [ h ] ++ t.wrong;
-        }) {
-          right = [ ];
-          wrong = [ ];
-        });
+  partition =
+    builtins.partition or (pred:
+      foldr (h: t:
+        if pred h then
+          {
+            right = [ h ] ++ t.right;
+            wrong = t.wrong;
+          }
+        else
+          {
+            right = t.right;
+            wrong = [ h ] ++ t.wrong;
+          }) {
+            right = [ ];
+            wrong = [ ];
+          });
 
     /* Splits the elements of a list into many lists, using the return value of a predicate.
        Predicate should return a string which becomes keys of attrset `groupBy` returns.
@@ -454,17 +457,16 @@ rec {
          => { true = 12; false = 3; }
     */
   groupBy' =
-    op: nul: pred: lst:
-    mapAttrs (name: foldl op nul) (groupBy pred lst)
-    ;
+    op: nul: pred: lst: mapAttrs (name: foldl op nul) (groupBy pred lst);
 
-  groupBy = builtins.groupBy or (pred:
-    foldl' (r: e:
-      let
-        key = pred e;
-      in
-      r // { ${key} = (r.${key} or [ ]) ++ [ e ]; }
-    ) { });
+  groupBy =
+    builtins.groupBy or (pred:
+      foldl' (r: e:
+        let
+          key = pred e;
+        in
+        r // { ${key} = (r.${key} or [ ]) ++ [ e ]; }
+      ) { });
 
     /* Merges two lists of the same size together. If the sizes aren't the same
        the merging stops at the shortest. How both lists are merged is defined
@@ -613,43 +615,45 @@ rec {
          sort (a: b: a < b) [ 5 3 7 ]
          => [ 3 5 7 ]
     */
-  sort = builtins.sort or (strictLess: list:
-    let
-      len = length list;
-      first = head list;
-      pivot' =
-        n:
-        acc@{
-          left,
-          right,
-        }:
-        let
-          el = elemAt list n;
-          next = pivot' (n + 1);
-        in
-        if n == len then
-          acc
-        else if strictLess first el then
-          next {
-            inherit left;
-            right = [ el ] ++ right;
-          }
-        else
-          next {
-            left = [ el ] ++ left;
-            inherit right;
-          }
-        ;
-      pivot = pivot' 1 {
-        left = [ ];
-        right = [ ];
-      };
-    in
-    if len < 2 then
-      list
-    else
-      (sort strictLess pivot.left) ++ [ first ] ++ (sort strictLess pivot.right)
-  );
+  sort =
+    builtins.sort or (strictLess: list:
+      let
+        len = length list;
+        first = head list;
+        pivot' =
+          n:
+          acc@{
+            left,
+            right,
+          }:
+          let
+            el = elemAt list n;
+            next = pivot' (n + 1);
+          in
+          if n == len then
+            acc
+          else if strictLess first el then
+            next {
+              inherit left;
+              right = [ el ] ++ right;
+            }
+          else
+            next {
+              left = [ el ] ++ left;
+              inherit right;
+            }
+          ;
+        pivot = pivot' 1 {
+          left = [ ];
+          right = [ ];
+        };
+      in
+      if len < 2 then
+        list
+      else
+        (sort strictLess pivot.left) ++ [ first ]
+        ++ (sort strictLess pivot.right)
+    );
 
     /* Compare two lists element-by-element.
 

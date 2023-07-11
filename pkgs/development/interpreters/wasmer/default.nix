@@ -28,28 +28,33 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ rustPlatform.bindgenHook ];
 
-  buildInputs = lib.optionals withLLVM [
-    llvmPackages.llvm
-    libffi
-    libxml2
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    SystemConfiguration
-    Security
-  ];
+  buildInputs =
+    lib.optionals withLLVM [
+      llvmPackages.llvm
+      libffi
+      libxml2
+    ] ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      SystemConfiguration
+      Security
+    ]
+    ;
 
   LLVM_SYS_120_PREFIX = lib.optionalString withLLVM llvmPackages.llvm.dev;
 
     # check references to `compiler_features` in Makefile on update
   buildFeatures = checkFeatures ++ [ "webc_runner" ];
 
-  checkFeatures = [
-    "cranelift"
-    "wasmer-artifact-create"
-    "static-artifact-create"
-    "wasmer-artifact-load"
-    "static-artifact-load"
-  ] ++ lib.optional withLLVM "llvm" ++ lib.optional withSinglepass "singlepass";
+  checkFeatures =
+    [
+      "cranelift"
+      "wasmer-artifact-create"
+      "static-artifact-create"
+      "wasmer-artifact-load"
+      "static-artifact-load"
+    ] ++ lib.optional withLLVM "llvm"
+    ++ lib.optional withSinglepass "singlepass"
+    ;
 
   cargoBuildFlags = [
     "--manifest-path"

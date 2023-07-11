@@ -35,16 +35,17 @@ buildPythonPackage rec {
 
   src =
     let
-      system = {
-        "aarch64-linux" = {
-          name = "aarch64";
-          hash = "sha256-e3OIpTGPMj+YSx/pqzGi5paUAIpDhI94prhHL3DkM18=";
-        };
-        "x86_64-linux" = {
-          name = "x86_64";
-          hash = "sha256-15olERnpfe4PbDsDfw47vsYsqjFe8P8IDmSSGxGLtx8=";
-        };
-      }.${stdenv.system} or (throw "Unsupported system");
+      system =
+        {
+          "aarch64-linux" = {
+            name = "aarch64";
+            hash = "sha256-e3OIpTGPMj+YSx/pqzGi5paUAIpDhI94prhHL3DkM18=";
+          };
+          "x86_64-linux" = {
+            name = "x86_64";
+            hash = "sha256-15olERnpfe4PbDsDfw47vsYsqjFe8P8IDmSSGxGLtx8=";
+          };
+        }.${stdenv.system} or (throw "Unsupported system");
     in
     fetchPypi {
       pname = "home_assistant_chip_core";

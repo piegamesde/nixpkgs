@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/ghex/${
+    url =
+      "mirror://gnome/sources/ghex/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "QEvfZJ6qE5IqgK4y8Z/kDnHw7g9GHEXtrHKIigDq1sI=";
@@ -63,13 +64,15 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-    "-Dvapi=true"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # mremap does not exist on darwin
-    "-Dmmap-buffer-backend=false"
-  ];
+  mesonFlags =
+    [
+      "-Dgtk_doc=true"
+      "-Dvapi=true"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # mremap does not exist on darwin
+      "-Dmmap-buffer-backend=false"
+    ]
+    ;
 
   postFixup = ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.

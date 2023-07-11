@@ -61,10 +61,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "connexion" ];
 
-  disabledTests = [
-    # AssertionError
-    "test_headers"
-  ];
+  disabledTests =
+    [
+      # AssertionError
+      "test_headers"
+    ];
 
   meta = with lib; {
     description = "Swagger/OpenAPI First framework on top of Flask";

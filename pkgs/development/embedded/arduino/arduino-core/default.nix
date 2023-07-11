@@ -55,7 +55,8 @@ let
     } ++ lib.optional (stdenv.hostPlatform.system == "i686-linux") {
       jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
       file = "libs/linux/libjSSC-2.8_x86.so";
-    };
+    }
+    ;
     # abiVersion 6 is default, but we need 5 for `avrdude_bin` executable
   ncurses5 = ncurses.override { abiVersion = "5"; };
   teensy_libpath = lib.makeLibraryPath [
@@ -95,10 +96,12 @@ let
 
 in
 stdenv.mkDerivation rec {
-  pname = (if withTeensyduino then
-    "teensyduino"
-  else
-    "arduino") + lib.optionalString (!withGui) "-core";
+  pname =
+    (if withTeensyduino then
+      "teensyduino"
+    else
+      "arduino") + lib.optionalString (!withGui) "-core"
+    ;
   version = "1.8.19";
 
   src = fetchFromGitHub {
@@ -112,25 +115,27 @@ stdenv.mkDerivation rec {
   teensyduino_src = fetchurl {
     url =
       "https://www.pjrc.com/teensy/td_${teensyduino_version}/TeensyduinoInstall.${teensy_architecture}";
-    sha256 = {
-      linux64 = "sha256-4DbhmmYrx+rCBpDrYFaC0A88Qv9UEeNlQAkFi3zAstk=";
-      linux32 = "sha256-DlRPOtDxmMPv2Qzhib7vNZdKNZCxmm9YmVNnwUKXK/E=";
-      linuxarm = "sha256-d+DbpER/4lFPcPDFeMG5f3WaUGn8pFchdIDo7Hm0XWs=";
-      linuxaarch64 = "sha256-8keQzhWq7QlAGIbfHEe3lfxpJleMMvBORuPaNrLmM6Y=";
-    }.${teensy_architecture} or (throw
-      "No arduino binaries for ${teensy_architecture}");
+    sha256 =
+      {
+        linux64 = "sha256-4DbhmmYrx+rCBpDrYFaC0A88Qv9UEeNlQAkFi3zAstk=";
+        linux32 = "sha256-DlRPOtDxmMPv2Qzhib7vNZdKNZCxmm9YmVNnwUKXK/E=";
+        linuxarm = "sha256-d+DbpER/4lFPcPDFeMG5f3WaUGn8pFchdIDo7Hm0XWs=";
+        linuxaarch64 = "sha256-8keQzhWq7QlAGIbfHEe3lfxpJleMMvBORuPaNrLmM6Y=";
+      }.${teensy_architecture} or (throw
+        "No arduino binaries for ${teensy_architecture}");
   };
     # Used because teensyduino requires jars be a specific size
   arduino_dist_src = fetchurl {
     url =
       "https://downloads.arduino.cc/arduino-${version}-${teensy_architecture}.tar.xz";
-    sha256 = {
-      linux64 = "sha256-62i93B0cASC+L8oTUKA+40Uxzzf1GEeyEhC25wVFvJs=";
-      linux32 = "sha256-wSxtx3BqXMQCeWQDK8PHkWLlQqQM1Csao8bIk98FrFg=";
-      linuxarm = "sha256-lJ/R1ePq7YtDk3bvloFcn8jswrJH+L63tvH5QpTqfXs=";
-      linuxaarch64 = "sha256-gm8cDjLKNfpcaeO7fw6Kyv1TnWV/ZmH4u++nun9X6jo=";
-    }.${teensy_architecture} or (throw
-      "No arduino binaries for ${teensy_architecture}");
+    sha256 =
+      {
+        linux64 = "sha256-62i93B0cASC+L8oTUKA+40Uxzzf1GEeyEhC25wVFvJs=";
+        linux32 = "sha256-wSxtx3BqXMQCeWQDK8PHkWLlQqQM1Csao8bIk98FrFg=";
+        linuxarm = "sha256-lJ/R1ePq7YtDk3bvloFcn8jswrJH+L63tvH5QpTqfXs=";
+        linuxaarch64 = "sha256-gm8cDjLKNfpcaeO7fw6Kyv1TnWV/ZmH4u++nun9X6jo=";
+      }.${teensy_architecture} or (throw
+        "No arduino binaries for ${teensy_architecture}");
   };
 
     # the glib setup hook will populate GSETTINGS_SCHEMAS_PATH,
@@ -141,15 +146,17 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
     unzip
   ];
-  buildInputs = [
-    jdk
-    ant
-    libusb-compat-0_1
-    libusb1
-    zlib
-    ncurses5
-    readline
-  ] ++ lib.optionals withTeensyduino [ upx ];
+  buildInputs =
+    [
+      jdk
+      ant
+      libusb-compat-0_1
+      libusb1
+      zlib
+      ncurses5
+      readline
+    ] ++ lib.optionals withTeensyduino [ upx ]
+    ;
   downloadSrcList = builtins.attrValues externalDownloads;
   downloadDstList = builtins.attrNames externalDownloads;
 

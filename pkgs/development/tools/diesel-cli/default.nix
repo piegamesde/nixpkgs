@@ -42,29 +42,35 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ] ++ optional stdenv.isDarwin Security
+  buildInputs =
+    [ openssl ] ++ optional stdenv.isDarwin Security
     ++ optional (stdenv.isDarwin && mysqlSupport) libiconv
     ++ optional sqliteSupport sqlite ++ optional postgresqlSupport postgresql
     ++ optionals mysqlSupport [
       mariadb
       zlib
-    ];
+    ]
+    ;
 
   buildNoDefaultFeatures = true;
-  buildFeatures = optional sqliteSupport "sqlite"
-    ++ optional postgresqlSupport "postgres" ++ optional mysqlSupport "mysql";
+  buildFeatures =
+    optional sqliteSupport "sqlite" ++ optional postgresqlSupport "postgres"
+    ++ optional mysqlSupport "mysql"
+    ;
 
-  checkPhase = ''
-    runHook preCheck
-  '' + optionalString sqliteSupport ''
-    cargo check --features sqlite
-  '' + optionalString postgresqlSupport ''
-    cargo check --features postgres
-  '' + optionalString mysqlSupport ''
-    cargo check --features mysql
-  '' + ''
-    runHook postCheck
-  '';
+  checkPhase =
+    ''
+      runHook preCheck
+    '' + optionalString sqliteSupport ''
+      cargo check --features sqlite
+    '' + optionalString postgresqlSupport ''
+      cargo check --features postgres
+    '' + optionalString mysqlSupport ''
+      cargo check --features mysql
+    '' + ''
+      runHook postCheck
+    ''
+    ;
 
   postInstall = ''
     installShellCompletion --cmd diesel \

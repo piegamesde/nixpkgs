@@ -35,21 +35,23 @@
   OpenGL,
 }:
 let
-  rpathLibs = [
-    expat
-    fontconfig
-    freetype
-    libGL
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libXxf86vm
-    xorg.libxcb
-  ] ++ lib.optionals stdenv.isLinux [
-    libxkbcommon
-    wayland
-  ];
+  rpathLibs =
+    [
+      expat
+      fontconfig
+      freetype
+      libGL
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libXxf86vm
+      xorg.libxcb
+    ] ++ lib.optionals stdenv.isLinux [
+      libxkbcommon
+      wayland
+    ]
+    ;
 in
 rustPlatform.buildRustPackage rec {
   pname = "alacritty";
@@ -73,15 +75,17 @@ rustPlatform.buildRustPackage rec {
     python3
   ];
 
-  buildInputs = rpathLibs ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    CoreGraphics
-    CoreServices
-    CoreText
-    Foundation
-    libiconv
-    OpenGL
-  ];
+  buildInputs =
+    rpathLibs ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      CoreGraphics
+      CoreServices
+      CoreText
+      Foundation
+      libiconv
+      OpenGL
+    ]
+    ;
 
   outputs = [
     "out"
@@ -95,41 +99,45 @@ rustPlatform.buildRustPackage rec {
 
   checkFlags = [ "--skip=term::test::mock_term" ]; # broken on aarch64
 
-  postInstall = (if stdenv.isDarwin then
-    ''
-      mkdir $out/Applications
-      cp -r extra/osx/Alacritty.app $out/Applications
-      ln -s $out/bin $out/Applications/Alacritty.app/Contents/MacOS
-    ''
-  else
-    ''
-      install -D extra/linux/Alacritty.desktop -t $out/share/applications/
-      install -D extra/linux/org.alacritty.Alacritty.appdata.xml -t $out/share/appdata/
-      install -D extra/logo/compat/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
+  postInstall =
+    (if stdenv.isDarwin then
+      ''
+        mkdir $out/Applications
+        cp -r extra/osx/Alacritty.app $out/Applications
+        ln -s $out/bin $out/Applications/Alacritty.app/Contents/MacOS
+      ''
+    else
+      ''
+        install -D extra/linux/Alacritty.desktop -t $out/share/applications/
+        install -D extra/linux/org.alacritty.Alacritty.appdata.xml -t $out/share/appdata/
+        install -D extra/logo/compat/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
 
-      # patchelf generates an ELF that binutils' "strip" doesn't like:
-      #    strip: not enough room for program headers, try linking with -N
-      # As a workaround, strip manually before running patchelf.
-      $STRIP -S $out/bin/alacritty
+        # patchelf generates an ELF that binutils' "strip" doesn't like:
+        #    strip: not enough room for program headers, try linking with -N
+        # As a workaround, strip manually before running patchelf.
+        $STRIP -S $out/bin/alacritty
 
-      patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/alacritty
-    '') + ''
+        patchelf --set-rpath "${
+          lib.makeLibraryPath rpathLibs
+        }" $out/bin/alacritty
+      '') + ''
 
-      installShellCompletion --zsh extra/completions/_alacritty
-      installShellCompletion --bash extra/completions/alacritty.bash
-      installShellCompletion --fish extra/completions/alacritty.fish
+        installShellCompletion --zsh extra/completions/_alacritty
+        installShellCompletion --bash extra/completions/alacritty.bash
+        installShellCompletion --fish extra/completions/alacritty.fish
 
-      install -dm 755 "$out/share/man/man1"
-      gzip -c extra/alacritty.man > "$out/share/man/man1/alacritty.1.gz"
-      gzip -c extra/alacritty-msg.man > "$out/share/man/man1/alacritty-msg.1.gz"
+        install -dm 755 "$out/share/man/man1"
+        gzip -c extra/alacritty.man > "$out/share/man/man1/alacritty.1.gz"
+        gzip -c extra/alacritty-msg.man > "$out/share/man/man1/alacritty-msg.1.gz"
 
-      install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml
+        install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml
 
-      install -dm 755 "$terminfo/share/terminfo/a/"
-      tic -xe alacritty,alacritty-direct -o "$terminfo/share/terminfo" extra/alacritty.info
-      mkdir -p $out/nix-support
-      echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
-    '';
+        install -dm 755 "$terminfo/share/terminfo/a/"
+        tic -xe alacritty,alacritty-direct -o "$terminfo/share/terminfo" extra/alacritty.info
+        mkdir -p $out/nix-support
+        echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
+      ''
+    ;
 
   dontPatchELF = true;
 

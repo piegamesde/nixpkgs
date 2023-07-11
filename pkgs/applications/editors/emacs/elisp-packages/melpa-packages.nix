@@ -87,8 +87,9 @@ let
     }:
     let
       inherit (import ./libgenerated.nix lib self) melpaDerivation;
-      super = (lib.listToAttrs (builtins.filter (s: s != null)
-        (map (melpaDerivation variant) (lib.importJSON archiveJson))));
+      super =
+        (lib.listToAttrs (builtins.filter (s: s != null)
+          (map (melpaDerivation variant) (lib.importJSON archiveJson))));
 
       overrides = lib.optionalAttrs (variant == "stable") {
 
@@ -219,10 +220,12 @@ let
             cd -
           '';
 
-          postInstall = (old.postInstall or "") + "\n" + ''
-            install -m=755 -D source/sqlite/emacsql-sqlite \
-              $out/share/emacs/site-lisp/elpa/emacsql-${old.version}/sqlite/emacsql-sqlite
-          '';
+          postInstall =
+            (old.postInstall or "") + "\n" + ''
+              install -m=755 -D source/sqlite/emacsql-sqlite \
+                $out/share/emacs/site-lisp/elpa/emacsql-${old.version}/sqlite/emacsql-sqlite
+            ''
+            ;
 
           stripDebugList = [ "share" ];
         });
@@ -236,10 +239,12 @@ let
             cd -
           '';
 
-          postInstall = (old.postInstall or "") + "\n" + ''
-            install -m=755 -D source/sqlite/emacsql-sqlite \
-              $out/share/emacs/site-lisp/elpa/emacsql-sqlite-${old.version}/sqlite/emacsql-sqlite
-          '';
+          postInstall =
+            (old.postInstall or "") + "\n" + ''
+              install -m=755 -D source/sqlite/emacsql-sqlite \
+                $out/share/emacs/site-lisp/elpa/emacsql-sqlite-${old.version}/sqlite/emacsql-sqlite
+            ''
+            ;
 
           stripDebugList = [ "share" ];
         });
@@ -252,10 +257,12 @@ let
         });
 
         erlang = super.erlang.overrideAttrs (attrs: {
-          buildInputs = attrs.buildInputs ++ [
-            pkgs.perl
-            pkgs.ncurses
-          ];
+          buildInputs =
+            attrs.buildInputs ++ [
+              pkgs.perl
+              pkgs.ncurses
+            ]
+            ;
         });
 
           # https://github.com/syl20bnr/evil-escape/pull/86
@@ -286,11 +293,13 @@ let
             pkgs.pkg-config
             pkgs.removeReferencesTo
           ];
-          buildInputs = old.buildInputs ++ [
-            pkgs.libpng
-            pkgs.zlib
-            pkgs.poppler
-          ];
+          buildInputs =
+            old.buildInputs ++ [
+              pkgs.libpng
+              pkgs.zlib
+              pkgs.poppler
+            ]
+            ;
           preBuild = ''
             make server/epdfinfo
             remove-references-to ${
@@ -371,13 +380,15 @@ let
               popd
             '';
 
-            postInstall = (old.postInstall or "") + "\n" + ''
-              pushd source
-              outd=$(echo $out/share/emacs/site-lisp/elpa/jinx-*)
-              install -m444 --target-directory=$outd jinx-mod${libExt}
-              rm $outd/jinx-mod.c $outd/emacs-module.h
-              popd
-            '';
+            postInstall =
+              (old.postInstall or "") + "\n" + ''
+                pushd source
+                outd=$(echo $out/share/emacs/site-lisp/elpa/jinx-*)
+                install -m444 --target-directory=$outd jinx-mod${libExt}
+                rm $outd/jinx-mod.c $outd/emacs-module.h
+                popd
+              ''
+              ;
 
             meta =
               old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
@@ -393,13 +404,15 @@ let
             popd
           '';
 
-          postInstall = (old.postInstall or "") + "\n" + ''
-            pushd source
-            outd=$out/share/emacs/site-lisp/elpa/sqlite3-*
-            install -m444 -t $outd sqlite3-api.so
-            rm $outd/*.c $outd/*.h
-            popd
-          '';
+          postInstall =
+            (old.postInstall or "") + "\n" + ''
+              pushd source
+              outd=$out/share/emacs/site-lisp/elpa/sqlite3-*
+              install -m444 -t $outd sqlite3-api.so
+              rm $outd/*.c $outd/*.h
+              popd
+            ''
+            ;
 
           meta =
             old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
@@ -418,12 +431,14 @@ let
             make
             popd
           '';
-          postInstall = (attrs.postInstall or "") + "\n" + ''
-            outd=$(echo $out/share/emacs/site-lisp/elpa/libgit-**)
-            mkdir $outd/build
-            install -m444 -t $outd/build ./source/src/libegit2.so
-            rm -r $outd/src $outd/Makefile $outd/CMakeLists.txt
-          '';
+          postInstall =
+            (attrs.postInstall or "") + "\n" + ''
+              outd=$(echo $out/share/emacs/site-lisp/elpa/libgit-**)
+              mkdir $outd/build
+              install -m444 -t $outd/build ./source/src/libegit2.so
+              rm -r $outd/src $outd/Makefile $outd/CMakeLists.txt
+            ''
+            ;
         });
 
         evil-magit = buildWithGit super.evil-magit;
@@ -519,14 +534,18 @@ let
 
         rime = super.rime.overrideAttrs (old: {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.librime ];
-          preBuild = (old.preBuild or "") + ''
-            make lib
-            mkdir -p /build/rime-lib
-            cp *.so /build/rime-lib
-          '';
-          postInstall = (old.postInstall or "") + ''
-            install -m444 -t $out/share/emacs/site-lisp/elpa/rime-* /build/rime-lib/*.so
-          '';
+          preBuild =
+            (old.preBuild or "") + ''
+              make lib
+              mkdir -p /build/rime-lib
+              cp *.so /build/rime-lib
+            ''
+            ;
+          postInstall =
+            (old.postInstall or "") + ''
+              install -m444 -t $out/share/emacs/site-lisp/elpa/rime-* /build/rime-lib/*.so
+            ''
+            ;
         });
 
         shm = super.shm.overrideAttrs (attrs: {
@@ -557,10 +576,12 @@ let
             cd -
           '';
 
-          postInstall = (old.postInstall or "") + "\n" + ''
-            mkdir -p $out/bin
-            install -m755 -Dt $out/bin ./source/server/telega-server
-          '';
+          postInstall =
+            (old.postInstall or "") + "\n" + ''
+              mkdir -p $out/bin
+              install -m755 -Dt $out/bin ./source/server/telega-server
+            ''
+            ;
         });
 
         treemacs-magit = super.treemacs-magit.overrideAttrs (attrs: {
@@ -585,11 +606,13 @@ let
             pkgs.libtool
             (pkgs.zeromq.override { enableDrafts = true; })
           ];
-          postInstall = (old.postInstall or "") + "\n" + ''
-            mv $EZMQ_LIBDIR/emacs-zmq.* $out/share/emacs/site-lisp/elpa/zmq-*
-            rm -r $out/share/emacs/site-lisp/elpa/zmq-*/src
-            rm $out/share/emacs/site-lisp/elpa/zmq-*/Makefile
-          '';
+          postInstall =
+            (old.postInstall or "") + "\n" + ''
+              mv $EZMQ_LIBDIR/emacs-zmq.* $out/share/emacs/site-lisp/elpa/zmq-*
+              rm -r $out/share/emacs/site-lisp/elpa/zmq-*/src
+              rm $out/share/emacs/site-lisp/elpa/zmq-*/Makefile
+            ''
+            ;
         });
 
           # Map legacy renames from emacs2nix since code generation was ported to emacs lisp
@@ -639,14 +662,15 @@ let
           });
 
         hamlet-mode = super.hamlet-mode.overrideAttrs (attrs: {
-          patches = [
-            # Fix build; maintainer email fails to parse
-            (pkgs.fetchpatch {
-              url =
-                "https://github.com/lightquake/hamlet-mode/commit/253495d1330d6ec88d97fac136c78f57c650aae0.patch";
-              sha256 = "dSxS5yuXzCW96CUyvJWwjkhf1FMGBfiKKoBxeDVdz9Y=";
-            })
-          ];
+          patches =
+            [
+              # Fix build; maintainer email fails to parse
+              (pkgs.fetchpatch {
+                url =
+                  "https://github.com/lightquake/hamlet-mode/commit/253495d1330d6ec88d97fac136c78f57c650aae0.patch";
+                sha256 = "dSxS5yuXzCW96CUyvJWwjkhf1FMGBfiKKoBxeDVdz9Y=";
+              })
+            ];
         });
 
         helm-rtags = fix-rtags super.helm-rtags;
@@ -656,10 +680,12 @@ let
           super.php-auto-yasnippets.overrideAttrs (attrs: { HOME = "/tmp"; });
 
         racer = super.racer.overrideAttrs (attrs: {
-          postPatch = attrs.postPatch or "" + ''
-            substituteInPlace racer.el \
-              --replace /usr/local/src/rust/src ${pkgs.rustPlatform.rustcSrc}
-          '';
+          postPatch =
+            attrs.postPatch or "" + ''
+              substituteInPlace racer.el \
+                --replace /usr/local/src/rust/src ${pkgs.rustPlatform.rustcSrc}
+            ''
+            ;
         });
 
         spaceline =
@@ -667,23 +693,27 @@ let
 
         vterm = super.vterm.overrideAttrs (old: {
           nativeBuildInputs = [ pkgs.cmake ];
-          buildInputs = old.buildInputs ++ [
-            self.emacs
-            pkgs.libvterm-neovim
-          ];
+          buildInputs =
+            old.buildInputs ++ [
+              self.emacs
+              pkgs.libvterm-neovim
+            ]
+            ;
           cmakeFlags = [
             "-DEMACS_SOURCE=${self.emacs.src}"
             "-DUSE_SYSTEM_LIBVTERM=ON"
           ];
             # we need the proper out directory to exist, so we do this in the
             # postInstall instead of postBuild
-          postInstall = (old.postInstall or "") + "\n" + ''
-            pushd source/build >/dev/null
-            make
-            install -m444 -t $out/share/emacs/site-lisp/elpa/vterm-** ../*.so
-            popd > /dev/null
-            rm -rf $out/share/emacs/site-lisp/elpa/vterm-**/{CMake*,build,*.c,*.h}
-          '';
+          postInstall =
+            (old.postInstall or "") + "\n" + ''
+              pushd source/build >/dev/null
+              make
+              install -m444 -t $out/share/emacs/site-lisp/elpa/vterm-** ../*.so
+              popd > /dev/null
+              rm -rf $out/share/emacs/site-lisp/elpa/vterm-**/{CMake*,build,*.c,*.h}
+            ''
+            ;
         });
 
         w3m = super.w3m.override (args: {
@@ -705,19 +735,23 @@ let
         });
 
         wordnut = super.wordnut.overrideAttrs (attrs: {
-          postPatch = attrs.postPatch or "" + ''
-            substituteInPlace wordnut.el \
-              --replace 'wordnut-cmd "wn"' 'wordnut-cmd "${
-                lib.getExe pkgs.wordnet
-              }"'
-          '';
+          postPatch =
+            attrs.postPatch or "" + ''
+              substituteInPlace wordnut.el \
+                --replace 'wordnut-cmd "wn"' 'wordnut-cmd "${
+                  lib.getExe pkgs.wordnet
+                }"'
+            ''
+            ;
         });
 
         mozc = super.mozc.overrideAttrs (attrs: {
-          postPatch = attrs.postPatch or "" + ''
-            substituteInPlace src/unix/emacs/mozc.el \
-              --replace '"mozc_emacs_helper"' '"${pkgs.ibus-engines.mozc}/lib/mozc/mozc_emacs_helper"'
-          '';
+          postPatch =
+            attrs.postPatch or "" + ''
+              substituteInPlace src/unix/emacs/mozc.el \
+                --replace '"mozc_emacs_helper"' '"${pkgs.ibus-engines.mozc}/lib/mozc/mozc_emacs_helper"'
+            ''
+            ;
         });
       };
 

@@ -32,13 +32,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  propagatedBuildInputs = [ urdfdom ] ++ lib.optionals (!pythonSupport) [
-    boost
-    eigen
-  ] ++ lib.optionals pythonSupport [
-    python3Packages.boost
-    python3Packages.eigenpy
-  ];
+  propagatedBuildInputs =
+    [ urdfdom ] ++ lib.optionals (!pythonSupport) [
+      boost
+      eigen
+    ] ++ lib.optionals pythonSupport [
+      python3Packages.boost
+      python3Packages.eigenpy
+    ]
+    ;
 
   cmakeFlags =
     lib.optionals (!pythonSupport) [ "-DBUILD_PYTHON_INTERFACE=OFF" ];

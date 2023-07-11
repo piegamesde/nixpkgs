@@ -34,21 +34,23 @@ stdenv.mkDerivation rec {
   version = "41";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "f7Ybn7EPuqVI0j1wZbq9cq1j5iHeVYQMBlzm45hsRik=";
   };
 
-  patches = [
-    # Fix build with meson 0.61
-    # data/meson.build:8:5: ERROR: Function does not take positional arguments.
-    (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/GNOME/gitg/-/commit/1978973b12848741b08695ec2020bac98584d636.patch";
-      sha256 = "sha256-RzaGPGGiKMgjy0waFqt48rV2yWBGZgC3kHehhVhxktk=";
-    })
-  ];
+  patches =
+    [
+      # Fix build with meson 0.61
+      # data/meson.build:8:5: ERROR: Function does not take positional arguments.
+      (fetchpatch {
+        url =
+          "https://gitlab.gnome.org/GNOME/gitg/-/commit/1978973b12848741b08695ec2020bac98584d636.patch";
+        sha256 = "sha256-RzaGPGGiKMgjy0waFqt48rV2yWBGZgC3kHehhVhxktk=";
+      })
+    ];
 
   nativeBuildInputs = [
     gobject-introspection

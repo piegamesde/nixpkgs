@@ -48,9 +48,7 @@ rec {
 
     # generate LUA_(C)PATH value for a specific derivation, i.e., with absolute paths
   genLuaPathAbsStr =
-    drv:
-    lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaPathList
-    ;
+    drv: lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaPathList;
   genLuaCPathAbsStr =
     drv:
     lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaCPathList
@@ -65,7 +63,9 @@ rec {
   isLua51 = (lib.versions.majorMinor lua.version) == "5.1";
   isLua52 = (lib.versions.majorMinor lua.version) == "5.2";
   isLua53 = lua.luaversion == "5.3";
-  isLuaJIT = lib.getName lua == "luajit";
+  isLuaJIT =
+    lib.getName lua == "luajit"
+    ;
 
     /* generates the relative path towards the folder where
        seems stable even when using  lua_modules_path = ""
@@ -142,11 +142,12 @@ rec {
       rocks_subdir = rocksSubdir;
         # first tree is the default target where new rocks are installed,
         # any other trees in the list are treated as additional sources of installed rocks for matching dependencies.
-      rocks_trees = ([ {
-        name = "current";
-        root = "${placeholder "out"}";
-        rocks_dir = "current";
-      } ] ++ rocksTrees);
+      rocks_trees =
+        ([ {
+          name = "current";
+          root = "${placeholder "out"}";
+          rocks_dir = "current";
+        } ] ++ rocksTrees);
     } // lib.optionalAttrs lua.pkgs.isLuaJIT {
       # Luajit provides some additional functionality built-in; this exposes
       # that to luarock's dependency system

@@ -35,13 +35,16 @@ stdenv.mkDerivation rec {
   pname = "librsvg";
   version = "2.55.1";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals withIntrospection [ "devdoc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ] ++ lib.optionals withIntrospection [ "devdoc" ]
+    ;
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "a69IqdOlb9E7v7ufH3Z1myQLcKH6Ig/SOEdNZqkm+Yw=";
@@ -59,30 +62,34 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    gdk-pixbuf
-    pkg-config
-    rustc
-    cargo-auditable-cargo-wrapper
-    python3Packages.docutils
-    vala
-    rustPlatform.cargoSetupHook
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-    gi-docgen
-  ];
+  nativeBuildInputs =
+    [
+      gdk-pixbuf
+      pkg-config
+      rustc
+      cargo-auditable-cargo-wrapper
+      python3Packages.docutils
+      vala
+      rustPlatform.cargoSetupHook
+    ] ++ lib.optionals withIntrospection [
+      gobject-introspection
+      gi-docgen
+    ]
+    ;
 
-  buildInputs = [
-    libxml2
-    bzip2
-    pango
-    libintl
-    vala # for share/vala/Makefile.vapigen
-  ] ++ lib.optionals stdenv.isDarwin [
-    ApplicationServices
-    Foundation
-    libobjc
-  ];
+  buildInputs =
+    [
+      libxml2
+      bzip2
+      pango
+      libintl
+      vala # for share/vala/Makefile.vapigen
+    ] ++ lib.optionals stdenv.isDarwin [
+      ApplicationServices
+      Foundation
+      libobjc
+    ]
+    ;
 
   propagatedBuildInputs = [
     glib
@@ -90,14 +97,16 @@ stdenv.mkDerivation rec {
     cairo
   ];
 
-  configureFlags = [
-    (lib.enableFeature withIntrospection "introspection")
-    (lib.enableFeature withIntrospection "vala")
+  configureFlags =
+    [
+      (lib.enableFeature withIntrospection "introspection")
+      (lib.enableFeature withIntrospection "vala")
 
-    "--enable-always-build-tests"
-  ] ++ lib.optional stdenv.isDarwin "--disable-Bsymbolic"
+      "--enable-always-build-tests"
+    ] ++ lib.optional stdenv.isDarwin "--disable-Bsymbolic"
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-    "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}";
+    "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}"
+    ;
 
   doCheck =
     false; # all tests fail on libtool-generated rsvg-convert not being able to find coreutils
@@ -119,28 +128,30 @@ stdenv.mkDerivation rec {
     # relevant loader.cache here.
     # The loaders.cache can be used by setting GDK_PIXBUF_MODULE_FILE to
     # point to this file in a wrapper.
-  postConfigure = ''
-    GDK_PIXBUF=$out/lib/gdk-pixbuf-2.0/2.10.0
-    mkdir -p $GDK_PIXBUF/loaders
-    sed -e "s#gdk_pixbuf_moduledir = .*#gdk_pixbuf_moduledir = $GDK_PIXBUF/loaders#" \
-        -i gdk-pixbuf-loader/Makefile
-    sed -e "s#gdk_pixbuf_cache_file = .*#gdk_pixbuf_cache_file = $GDK_PIXBUF/loaders.cache#" \
-        -i gdk-pixbuf-loader/Makefile
-    sed -e "s#\$(GDK_PIXBUF_QUERYLOADERS)#GDK_PIXBUF_MODULEDIR=$GDK_PIXBUF/loaders \$(GDK_PIXBUF_QUERYLOADERS)#" \
-         -i gdk-pixbuf-loader/Makefile
+  postConfigure =
+    ''
+      GDK_PIXBUF=$out/lib/gdk-pixbuf-2.0/2.10.0
+      mkdir -p $GDK_PIXBUF/loaders
+      sed -e "s#gdk_pixbuf_moduledir = .*#gdk_pixbuf_moduledir = $GDK_PIXBUF/loaders#" \
+          -i gdk-pixbuf-loader/Makefile
+      sed -e "s#gdk_pixbuf_cache_file = .*#gdk_pixbuf_cache_file = $GDK_PIXBUF/loaders.cache#" \
+          -i gdk-pixbuf-loader/Makefile
+      sed -e "s#\$(GDK_PIXBUF_QUERYLOADERS)#GDK_PIXBUF_MODULEDIR=$GDK_PIXBUF/loaders \$(GDK_PIXBUF_QUERYLOADERS)#" \
+           -i gdk-pixbuf-loader/Makefile
 
-    # Fix thumbnailer path
-    sed -e "s#@bindir@\(/gdk-pixbuf-thumbnailer\)#${gdk-pixbuf}/bin\1#g" \
-        -i gdk-pixbuf-loader/librsvg.thumbnailer.in
+      # Fix thumbnailer path
+      sed -e "s#@bindir@\(/gdk-pixbuf-thumbnailer\)#${gdk-pixbuf}/bin\1#g" \
+          -i gdk-pixbuf-loader/librsvg.thumbnailer.in
 
-    # 'error: linker `cc` not found' when cross-compiling
-    export RUSTFLAGS="-Clinker=$CC"
-  '' + lib.optionalString ((stdenv.buildPlatform != stdenv.hostPlatform)
-    && (stdenv.hostPlatform.emulatorAvailable buildPackages)) ''
-      # the replacement is the native conditional
-      substituteInPlace gdk-pixbuf-loader/Makefile \
-        --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
-    '';
+      # 'error: linker `cc` not found' when cross-compiling
+      export RUSTFLAGS="-Clinker=$CC"
+    '' + lib.optionalString ((stdenv.buildPlatform != stdenv.hostPlatform)
+      && (stdenv.hostPlatform.emulatorAvailable buildPackages)) ''
+        # the replacement is the native conditional
+        substituteInPlace gdk-pixbuf-loader/Makefile \
+          --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
+      ''
+    ;
 
     # Not generated when cross compiling.
   postInstall =

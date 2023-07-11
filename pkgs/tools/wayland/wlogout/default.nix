@@ -38,12 +38,14 @@ stdenv.mkDerivation rec {
     ninja
     scdoc
   ];
-  buildInputs = [
-    gtk3
-    libxkbcommon
-    wayland
-    wayland-protocols
-  ] ++ lib.optionals withGtkLayerShell [ gtk-layer-shell ];
+  buildInputs =
+    [
+      gtk3
+      libxkbcommon
+      wayland
+      wayland-protocols
+    ] ++ lib.optionals withGtkLayerShell [ gtk-layer-shell ]
+    ;
 
   postPatch = ''
     substituteInPlace style.css \

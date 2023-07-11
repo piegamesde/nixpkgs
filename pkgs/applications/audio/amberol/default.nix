@@ -40,20 +40,22 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux
   '';
 
-  nativeBuildInputs = [
-    appstream-glib
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    reuse
-    m4
-    wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      appstream-glib
+      desktop-file-utils
+      meson
+      ninja
+      pkg-config
+      reuse
+      m4
+      wrapGAppsHook4
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
   buildInputs = [
     glib

@@ -41,36 +41,40 @@ let
     pname = "libxml2";
     version = "2.10.4";
 
-    outputs = [
-      "bin"
-      "dev"
-      "out"
-      "doc"
-    ] ++ lib.optional pythonSupport "py"
-      ++ lib.optional (enableStatic && enableShared) "static";
+    outputs =
+      [
+        "bin"
+        "dev"
+        "out"
+        "doc"
+      ] ++ lib.optional pythonSupport "py"
+      ++ lib.optional (enableStatic && enableShared) "static"
+      ;
     outputMan = "bin";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/libxml2/${
+      url =
+        "mirror://gnome/sources/libxml2/${
           lib.versions.majorMinor version
         }/libxml2-${version}.tar.xz";
       sha256 = "7QyRxYRQCPGTZznk7uIDVTHByUdCxlQfRO5m2IWUjUU=";
     };
 
-    patches = [
-      # Upstream bugs:
-      #   https://bugzilla.gnome.org/show_bug.cgi?id=789714
-      #   https://gitlab.gnome.org/GNOME/libxml2/issues/64
-      # Patch from https://bugzilla.opensuse.org/show_bug.cgi?id=1065270 ,
-      # but only the UTF-8 part.
-      # Can also be mitigated by fixing malformed XML inputs, such as in
-      # https://gitlab.gnome.org/GNOME/gnumeric/merge_requests/3 .
-      # Other discussion:
-      #   https://github.com/itstool/itstool/issues/22
-      #   https://github.com/NixOS/nixpkgs/pull/63174
-      #   https://github.com/NixOS/nixpkgs/pull/72342
-      ./utf8-xmlErrorFuncHandler.patch
-    ];
+    patches =
+      [
+        # Upstream bugs:
+        #   https://bugzilla.gnome.org/show_bug.cgi?id=789714
+        #   https://gitlab.gnome.org/GNOME/libxml2/issues/64
+        # Patch from https://bugzilla.opensuse.org/show_bug.cgi?id=1065270 ,
+        # but only the UTF-8 part.
+        # Can also be mitigated by fixing malformed XML inputs, such as in
+        # https://gitlab.gnome.org/GNOME/gnumeric/merge_requests/3 .
+        # Other discussion:
+        #   https://github.com/itstool/itstool/issues/22
+        #   https://github.com/NixOS/nixpkgs/pull/63174
+        #   https://github.com/NixOS/nixpkgs/pull/72342
+        ./utf8-xmlErrorFuncHandler.patch
+      ];
 
     strictDeps = true;
 
@@ -79,7 +83,8 @@ let
       autoreconfHook
     ];
 
-    buildInputs = lib.optionals pythonSupport [ python ]
+    buildInputs =
+      lib.optionals pythonSupport [ python ]
       ++ lib.optionals (pythonSupport && python ? isPy2 && python.isPy2) [
         gettext
       ] ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [
@@ -92,13 +97,16 @@ let
         # platforms, it may end up using that from /usr/lib, and thus lack a
         # RUNPATH for that, leading to undefined references for its users.
         xz
-      ];
+      ]
+      ;
 
-    propagatedBuildInputs = [
-      zlib
-      findXMLCatalogs
-    ] ++ lib.optionals stdenv.isDarwin [ libiconv ]
-      ++ lib.optionals icuSupport [ icu ];
+    propagatedBuildInputs =
+      [
+        zlib
+        findXMLCatalogs
+      ] ++ lib.optionals stdenv.isDarwin [ libiconv ]
+      ++ lib.optionals icuSupport [ icu ]
+      ;
 
     configureFlags = [
       "--exec-prefix=${placeholder "dev"}"
@@ -117,8 +125,10 @@ let
 
     enableParallelBuilding = true;
 
-    doCheck = (stdenv.hostPlatform == stdenv.buildPlatform)
-      && stdenv.hostPlatform.libc != "musl";
+    doCheck =
+      (stdenv.hostPlatform == stdenv.buildPlatform) && stdenv.hostPlatform.libc
+      != "musl"
+      ;
     preCheck = lib.optional stdenv.isDarwin ''
       export DYLD_LIBRARY_PATH="$PWD/.libs:$DYLD_LIBRARY_PATH"
     '';
@@ -132,12 +142,14 @@ let
       substituteInPlace python/libxml2mod.la --replace "$dev/${python.sitePackages}" "$py/${python.sitePackages}"
     '';
 
-    postFixup = ''
-      moveToOutput bin/xml2-config "$dev"
-      moveToOutput lib/xml2Conf.sh "$dev"
-    '' + lib.optionalString (enableStatic && enableShared) ''
-      moveToOutput lib/libxml2.a "$static"
-    '';
+    postFixup =
+      ''
+        moveToOutput bin/xml2-config "$dev"
+        moveToOutput lib/xml2Conf.sh "$dev"
+      '' + lib.optionalString (enableStatic && enableShared) ''
+        moveToOutput lib/libxml2.a "$static"
+      ''
+      ;
 
     passthru = {
       inherit version;
@@ -165,7 +177,8 @@ if oldVer then
   libxml.overrideAttrs (attrs: rec {
     version = "2.10.1";
     src = fetchurl {
-      url = "mirror://gnome/sources/libxml2/${
+      url =
+        "mirror://gnome/sources/libxml2/${
           lib.versions.majorMinor version
         }/libxml2-${version}.tar.xz";
       sha256 =

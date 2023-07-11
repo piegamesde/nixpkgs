@@ -120,44 +120,47 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IrCLL8MQp0SkWj7sbfZlma5FrnMbgdl4E/1nPGy0Y60=";
   };
 
-  buildInputs = [
-    readline
-    ncurses
-    zlib
-    gsl
-    openmp
-    graphicsmagick
-    fftw
-    fftwFloat
-    fftwLongDouble
-    proj
-    shapelib
-    expat
-    mpi
-    udunits
-    eigen
-    pslib
-    libpng
-    libtiff
-    libgeotiff
-    libjpeg
-    hdf4-custom
-    hdf5-custom
-    netcdf-custom
-    plplot-with-drivers
-  ] ++ lib.optional enableXWin plplot-with-drivers.libX11
+  buildInputs =
+    [
+      readline
+      ncurses
+      zlib
+      gsl
+      openmp
+      graphicsmagick
+      fftw
+      fftwFloat
+      fftwLongDouble
+      proj
+      shapelib
+      expat
+      mpi
+      udunits
+      eigen
+      pslib
+      libpng
+      libtiff
+      libgeotiff
+      libjpeg
+      hdf4-custom
+      hdf5-custom
+      netcdf-custom
+      plplot-with-drivers
+    ] ++ lib.optional enableXWin plplot-with-drivers.libX11
     ++ lib.optional enableGRIB eccodes ++ lib.optional enableGLPK glpk
     ++ lib.optional enableWX wxGTK32
     ++ lib.optional (enableWX && stdenv.isDarwin) Cocoa
     ++ lib.optional enableMPI mpi
     ++ lib.optional enableLibtirpc hdf4-custom.libtirpc
-    ++ lib.optional enableSzip szip;
+    ++ lib.optional enableSzip szip
+    ;
 
   propagatedBuildInputs = [ (python3.withPackages (ps: with ps; [ numpy ])) ];
 
   nativeBuildInputs = [ cmake ] ++ lib.optional enableWX wrapGAppsHook;
 
-  cmakeFlags = lib.optional (!enableHDF4) "-DHDF=OFF" ++ [
+  cmakeFlags =
+    lib.optional (!enableHDF4) "-DHDF=OFF" ++ [
       (if enableHDF5 then
         "-DHDF5DIR=${hdf5-custom}"
       else
@@ -173,7 +176,8 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals enableMPI [
       "-DMPI=ON"
       "-DMPIDIR=${mpi}"
-    ];
+    ]
+    ;
 
     # Tests are failing on Hydra:
     # ./src/common/dpycmn.cpp(137): assert ""IsOk()"" failed in GetClientArea(): invalid wxDisplay object

@@ -63,23 +63,25 @@ mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [
-    # Building the manual and bundling licenses fails
-    # See https://github.com/NixOS/nixpkgs/issues/85306
-    "-DLICENSING_PROVIDER:BOOL=OFF"
-    "-DMapper_MANUAL_QTHELP:BOOL=OFF"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # FindGDAL is broken and always finds /Library/Framework unless this is
-    # specified
-    "-DGDAL_INCLUDE_DIR=${gdal}/include"
-    "-DGDAL_CONFIG=${gdal}/bin/gdal-config"
-    "-DGDAL_LIBRARY=${gdal}/lib/libgdal.dylib"
-    # Don't bundle libraries
-    "-DMapper_PACKAGE_PROJ=0"
-    "-DMapper_PACKAGE_QT=0"
-    "-DMapper_PACKAGE_ASSISTANT=0"
-    "-DMapper_PACKAGE_GDAL=0"
-  ];
+  cmakeFlags =
+    [
+      # Building the manual and bundling licenses fails
+      # See https://github.com/NixOS/nixpkgs/issues/85306
+      "-DLICENSING_PROVIDER:BOOL=OFF"
+      "-DMapper_MANUAL_QTHELP:BOOL=OFF"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # FindGDAL is broken and always finds /Library/Framework unless this is
+      # specified
+      "-DGDAL_INCLUDE_DIR=${gdal}/include"
+      "-DGDAL_CONFIG=${gdal}/bin/gdal-config"
+      "-DGDAL_LIBRARY=${gdal}/lib/libgdal.dylib"
+      # Don't bundle libraries
+      "-DMapper_PACKAGE_PROJ=0"
+      "-DMapper_PACKAGE_QT=0"
+      "-DMapper_PACKAGE_ASSISTANT=0"
+      "-DMapper_PACKAGE_GDAL=0"
+    ]
+    ;
 
   postInstall = with stdenv;
     lib.optionalString isDarwin ''

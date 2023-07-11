@@ -25,7 +25,9 @@ buildPythonPackage rec {
   pname = "pylti";
   version = "0.7.0";
 
-  disabled = !isPy27;
+  disabled =
+    !isPy27
+    ;
 
     # There is no need to fix mock. https://github.com/mitodl/pylti/pull/48
   postPatch = ''

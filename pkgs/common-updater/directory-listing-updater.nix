@@ -26,7 +26,8 @@ genericUpdater {
     odd-unstable
     patchlevel-unstable
     ;
-  versionLister = "${common-updater-scripts}/bin/list-directory-versions ${
+  versionLister =
+    "${common-updater-scripts}/bin/list-directory-versions ${
       lib.optionalString (url != null) "--url=${lib.escapeShellArg url}"
     } ${
       lib.optionalString (extraRegex != null)

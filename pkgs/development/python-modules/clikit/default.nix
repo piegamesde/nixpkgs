@@ -46,14 +46,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pylev
-    pastel
-  ] ++ lib.optionals (pythonAtLeast "3.6") [ crashtest ]
+  propagatedBuildInputs =
+    [
+      pylev
+      pastel
+    ] ++ lib.optionals (pythonAtLeast "3.6") [ crashtest ]
     ++ lib.optionals isPy27 [
       typing
       enum34
-    ];
+    ]
+    ;
 
   nativeCheckInputs = [
     pytest-mock

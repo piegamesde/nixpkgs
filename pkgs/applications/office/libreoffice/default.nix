@@ -247,17 +247,19 @@ in
 
   tarballPath = "external/tarballs";
 
-  postUnpack = ''
-    mkdir -v $sourceRoot/${tarballPath}
-  '' + (flip concatMapStrings srcs.third_party (f: ''
-    ln -sfv ${f} $sourceRoot/${tarballPath}/${f.md5name}
-    ln -sfv ${f} $sourceRoot/${tarballPath}/${f.name}
-  '')) + ''
-    ln -sv ${srcs.help} $sourceRoot/${tarballPath}/${srcs.help.name}
-    ln -svf ${srcs.translations} $sourceRoot/${tarballPath}/${srcs.translations.name}
-    tar -xf ${srcs.help}
-    tar -xf ${srcs.translations}
-  '';
+  postUnpack =
+    ''
+      mkdir -v $sourceRoot/${tarballPath}
+    '' + (flip concatMapStrings srcs.third_party (f: ''
+      ln -sfv ${f} $sourceRoot/${tarballPath}/${f.md5name}
+      ln -sfv ${f} $sourceRoot/${tarballPath}/${f.name}
+    '')) + ''
+      ln -sv ${srcs.help} $sourceRoot/${tarballPath}/${srcs.help.name}
+      ln -svf ${srcs.translations} $sourceRoot/${tarballPath}/${srcs.translations.name}
+      tar -xf ${srcs.help}
+      tar -xf ${srcs.translations}
+    ''
+    ;
 
     ### QT/KDE
     #
@@ -274,31 +276,33 @@ in
     # The 2nd option is not very Nix'y, but I'll take robust over nice any day.
     # Additionally, it's much easier to fix if LO breaks on the next upgrade (just
     # add the missing dependencies to it).
-  postPatch = ''
-    substituteInPlace shell/source/unix/exec/shellexec.cxx \
-      --replace xdg-open ${
-        if kdeIntegration then
-          "kde-open5"
-        else
-          "xdg-open"
-      }
+  postPatch =
+    ''
+      substituteInPlace shell/source/unix/exec/shellexec.cxx \
+        --replace xdg-open ${
+          if kdeIntegration then
+            "kde-open5"
+          else
+            "xdg-open"
+        }
 
-    # configure checks for header 'gpgme++/gpgmepp_version.h',
-    # and if it is found (no matter where) uses a hardcoded path
-    # in what presumably is an effort to make it possible to write
-    # '#include <context.h>' instead of '#include <gpgmepp/context.h>'.
-    #
-    # Fix this path to point to where the headers can actually be found instead.
-    substituteInPlace configure.ac --replace \
-      'GPGMEPP_CFLAGS=-I/usr/include/gpgme++' \
-      'GPGMEPP_CFLAGS=-I${gpgme.dev}/include/gpgme++'
-  '' + optionalString kdeIntegration ''
-    substituteInPlace configure.ac \
-      --replace '$QT5INC ' '$QT5INC ${kdeDeps}/include ' \
-      --replace '$QT5LIB ' '$QT5LIB ${kdeDeps}/lib ' \
-      --replace '$KF5INC ' '$KF5INC ${kdeDeps}/include ${kdeDeps}/include/KF5 '\
-      --replace '$KF5LIB ' '$KF5LIB ${kdeDeps}/lib '
-  '';
+      # configure checks for header 'gpgme++/gpgmepp_version.h',
+      # and if it is found (no matter where) uses a hardcoded path
+      # in what presumably is an effort to make it possible to write
+      # '#include <context.h>' instead of '#include <gpgmepp/context.h>'.
+      #
+      # Fix this path to point to where the headers can actually be found instead.
+      substituteInPlace configure.ac --replace \
+        'GPGMEPP_CFLAGS=-I/usr/include/gpgme++' \
+        'GPGMEPP_CFLAGS=-I${gpgme.dev}/include/gpgme++'
+    '' + optionalString kdeIntegration ''
+      substituteInPlace configure.ac \
+        --replace '$QT5INC ' '$QT5INC ${kdeDeps}/include ' \
+        --replace '$QT5LIB ' '$QT5LIB ${kdeDeps}/lib ' \
+        --replace '$KF5INC ' '$KF5INC ${kdeDeps}/include ${kdeDeps}/include/KF5 '\
+        --replace '$KF5LIB ' '$KF5LIB ${kdeDeps}/lib '
+    ''
+    ;
 
   dontUseCmakeConfigure = true;
   dontUseCmakeBuildDir = true;
@@ -415,7 +419,8 @@ in
       sed -i '/gb_LinkTarget_LDFLAGS/{ n; /rpath-link/d;}' solenv/gbuild/platform/unxgcc.mk
 
       find -name "*.cmd" -exec sed -i s,/lib:/usr/lib,, {} \;
-    '';
+    ''
+    ;
 
   makeFlags = [ "SHELL=${bash}/bin/bash" ];
 
@@ -472,77 +477,79 @@ in
     # Wrapping is done in ./wrapper.nix
   dontWrapQtApps = true;
 
-  configureFlags = [
-    (if withHelp then
-      ""
-    else
-      "--without-help")
-    "--with-boost=${getDev boost}"
-    "--with-boost-libdir=${getLib boost}/lib"
-    "--with-beanshell-jar=${bsh}"
-    "--with-vendor=NixOS"
-    "--disable-report-builder"
-    "--disable-online-update"
-    "--enable-python=system"
-    "--enable-dbus"
-    "--enable-release-build"
-    "--enable-epm"
-    "--with-ant-home=${getLib ant}/lib/ant"
-    "--with-system-cairo"
-    "--with-system-libs"
-    "--with-system-headers"
-    "--with-system-openssl"
-    "--with-system-libabw"
-    "--without-system-libcmis"
-    "--with-system-libwps"
-    "--with-system-openldap"
-    "--with-system-coinmp"
-    "--with-system-postgresql"
+  configureFlags =
+    [
+      (if withHelp then
+        ""
+      else
+        "--without-help")
+      "--with-boost=${getDev boost}"
+      "--with-boost-libdir=${getLib boost}/lib"
+      "--with-beanshell-jar=${bsh}"
+      "--with-vendor=NixOS"
+      "--disable-report-builder"
+      "--disable-online-update"
+      "--enable-python=system"
+      "--enable-dbus"
+      "--enable-release-build"
+      "--enable-epm"
+      "--with-ant-home=${getLib ant}/lib/ant"
+      "--with-system-cairo"
+      "--with-system-libs"
+      "--with-system-headers"
+      "--with-system-openssl"
+      "--with-system-libabw"
+      "--without-system-libcmis"
+      "--with-system-libwps"
+      "--with-system-openldap"
+      "--with-system-coinmp"
+      "--with-system-postgresql"
 
-    # Without these, configure does not finish
-    "--without-junit"
+      # Without these, configure does not finish
+      "--without-junit"
 
-    # Schema files for validation are not included in the source tarball
-    "--without-export-validation"
+      # Schema files for validation are not included in the source tarball
+      "--without-export-validation"
 
-    # We do tarball prefetching ourselves
-    "--disable-fetch-external"
-    "--enable-build-opensymbol"
+      # We do tarball prefetching ourselves
+      "--disable-fetch-external"
+      "--enable-build-opensymbol"
 
-    # I imagine this helps. Copied from go-oo.
-    # Modified on every upgrade, though
-    "--disable-odk"
-    "--disable-firebird-sdbc"
-    "--without-fonts"
-    "--without-doxygen"
+      # I imagine this helps. Copied from go-oo.
+      # Modified on every upgrade, though
+      "--disable-odk"
+      "--disable-firebird-sdbc"
+      "--without-fonts"
+      "--without-doxygen"
 
-    # TODO: package these as system libraries
-    "--with-system-beanshell"
-    "--without-system-hsqldb"
-    "--without-system-altlinuxhyph"
-    "--without-system-lpsolve"
-    "--without-system-libetonyek"
-    "--without-system-libfreehand"
-    "--without-system-liblangtag"
-    "--without-system-libmspub"
-    "--without-system-libnumbertext"
-    "--without-system-libpagemaker"
-    "--without-system-libstaroffice"
-    "--without-system-libepubgen"
-    "--without-system-libqxp"
-    "--without-system-dragonbox"
-    "--without-system-libfixmath"
-    "--with-system-mdds"
-    # https://github.com/NixOS/nixpkgs/commit/5c5362427a3fa9aefccfca9e531492a8735d4e6f
-    "--without-system-orcus"
-    "--without-system-xmlsec"
-    "--without-system-cuckoo"
-    "--without-system-zxing"
-  ] ++ optionals kdeIntegration [
-    "--enable-kf5"
-    "--enable-qt5"
-    "--enable-gtk3-kde5"
-  ];
+      # TODO: package these as system libraries
+      "--with-system-beanshell"
+      "--without-system-hsqldb"
+      "--without-system-altlinuxhyph"
+      "--without-system-lpsolve"
+      "--without-system-libetonyek"
+      "--without-system-libfreehand"
+      "--without-system-liblangtag"
+      "--without-system-libmspub"
+      "--without-system-libnumbertext"
+      "--without-system-libpagemaker"
+      "--without-system-libstaroffice"
+      "--without-system-libepubgen"
+      "--without-system-libqxp"
+      "--without-system-dragonbox"
+      "--without-system-libfixmath"
+      "--with-system-mdds"
+      # https://github.com/NixOS/nixpkgs/commit/5c5362427a3fa9aefccfca9e531492a8735d4e6f
+      "--without-system-orcus"
+      "--without-system-xmlsec"
+      "--without-system-cuckoo"
+      "--without-system-zxing"
+    ] ++ optionals kdeIntegration [
+      "--enable-kf5"
+      "--enable-qt5"
+      "--enable-gtk3-kde5"
+    ]
+    ;
 
   checkTarget = concatStringsSep " " [
     "unitcheck"

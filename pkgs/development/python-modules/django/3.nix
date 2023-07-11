@@ -26,7 +26,8 @@ buildPythonPackage rec {
     hash = "sha256-CCCN/okutk//BzynQ7O5UjERBPk55/ba6VT+ctzFM7o=";
   };
 
-  patches = [
+  patches =
+    [
       (substituteAll {
         src = ./django_3_set_zoneinfo_dir.patch;
         zoneinfo = tzdata + "/share/zoneinfo";
@@ -36,7 +37,8 @@ buildPythonPackage rec {
       inherit geos39;
       inherit gdal;
       extension = stdenv.hostPlatform.extensions.sharedLibrary;
-    });
+    })
+    ;
 
   propagatedBuildInputs = [
     asgiref

@@ -39,17 +39,19 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # incompatible with matplotlib 3.7
-    # https://github.com/mwaskom/seaborn/issues/3288
-    "test_subplot_kws"
+  disabledTests =
+    [
+      # incompatible with matplotlib 3.7
+      # https://github.com/mwaskom/seaborn/issues/3288
+      "test_subplot_kws"
 
-    # requires internet connection
-    "test_load_dataset_string_error"
-  ] ++ lib.optionals (!stdenv.hostPlatform.isx86) [
-    # overly strict float tolerances
-    "TestDendrogram"
-  ];
+      # requires internet connection
+      "test_load_dataset_string_error"
+    ] ++ lib.optionals (!stdenv.hostPlatform.isx86) [
+      # overly strict float tolerances
+      "TestDendrogram"
+    ]
+    ;
 
     # All platforms should use Agg. Let's set it explicitly to avoid probing GUI
     # backends (leads to crashes on macOS).

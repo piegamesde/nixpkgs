@@ -46,8 +46,10 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs = [ "out" ]
-    ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc");
+  outputs =
+    [ "out" ]
+    ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc")
+    ;
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -62,23 +64,24 @@ stdenv.mkDerivation {
     # Additional flags passed to pkg-config.
   addFlags = lib.optional stdenv.targetPlatform.isStatic "--static";
 
-  installPhase = ''
-    mkdir -p $out/bin $out/nix-support
+  installPhase =
+    ''
+      mkdir -p $out/bin $out/nix-support
 
-    wrap() {
-      local dst="$1"
-      local wrapper="$2"
-      export prog="$3"
-      substituteAll "$wrapper" "$out/bin/$dst"
-      chmod +x "$out/bin/$dst"
-    }
+      wrap() {
+        local dst="$1"
+        local wrapper="$2"
+        export prog="$3"
+        substituteAll "$wrapper" "$out/bin/$dst"
+        chmod +x "$out/bin/$dst"
+      }
 
-    echo $pkg-config > $out/nix-support/orig-pkg-config
+      echo $pkg-config > $out/nix-support/orig-pkg-config
 
-    wrap ${targetPrefix}${baseBinName} ${./pkg-config-wrapper.sh} "${
-      getBin pkg-config
-    }/bin/${baseBinName}"
-  ''
+      wrap ${targetPrefix}${baseBinName} ${./pkg-config-wrapper.sh} "${
+        getBin pkg-config
+      }/bin/${baseBinName}"
+    ''
     # symlink in share for autoconf to find macros
 
     # TODO(@Ericson2314): in the future just make the unwrapped pkg-config a
@@ -87,7 +90,8 @@ stdenv.mkDerivation {
     # at this.)
     + ''
       ln -s ${pkg-config}/share $out/share
-    '';
+    ''
+    ;
 
   setupHooks = [
     ../setup-hooks/role.bash
@@ -122,7 +126,8 @@ stdenv.mkDerivation {
     ##
     ## Extra custom steps
     ##
-    + extraBuildCommands;
+    + extraBuildCommands
+    ;
 
   env = {
     shell = getBin stdenvNoCC.shell + stdenvNoCC.shell.shellPath or "";
@@ -143,10 +148,12 @@ stdenv.mkDerivation {
       removeAttrs pkg-config.meta [ "priority" ]
     else
       { }) // {
-        description = lib.attrByPath [
-          "meta"
-          "description"
-        ] "pkg-config" pkg-config_ + " (wrapper script)";
+        description =
+          lib.attrByPath [
+            "meta"
+            "description"
+          ] "pkg-config" pkg-config_ + " (wrapper script)"
+          ;
         priority = 10;
       }
     ;

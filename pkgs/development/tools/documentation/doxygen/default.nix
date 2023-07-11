@@ -29,13 +29,17 @@ stdenv.mkDerivation rec {
     bison
   ];
 
-  buildInputs = [ libiconv ] ++ lib.optionals (qt5 != null) (with qt5; [
-    qtbase
-    wrapQtAppsHook
-  ]) ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs =
+    [ libiconv ] ++ lib.optionals (qt5 != null) (with qt5; [
+      qtbase
+      wrapQtAppsHook
+    ]) ++ lib.optionals stdenv.isDarwin [ CoreServices ]
+    ;
 
-  cmakeFlags = [ "-DICONV_INCLUDE_DIR=${libiconv}/include" ]
-    ++ lib.optional (qt5 != null) "-Dbuild_wizard=YES";
+  cmakeFlags =
+    [ "-DICONV_INCLUDE_DIR=${libiconv}/include" ]
+    ++ lib.optional (qt5 != null) "-Dbuild_wizard=YES"
+    ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-mmacosx-version-min=10.9";

@@ -36,16 +36,17 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  patches = [
-    # Fix default validation, https://github.com/asdf-format/asdf/pull/1203
-    (fetchpatch {
-      name = "default-validation.patch";
-      url =
-        "https://github.com/asdf-format/asdf/commit/6f79f620b4632e20178d9bd53528702605d3e976.patch";
-      hash = "sha256-h/dYhXRCf5oIIC+u6+8C91mJnmEzuNmlEzqc0UEhLy0=";
-      excludes = [ "CHANGES.rst" ];
-    })
-  ];
+  patches =
+    [
+      # Fix default validation, https://github.com/asdf-format/asdf/pull/1203
+      (fetchpatch {
+        name = "default-validation.patch";
+        url =
+          "https://github.com/asdf-format/asdf/commit/6f79f620b4632e20178d9bd53528702605d3e976.patch";
+        hash = "sha256-h/dYhXRCf5oIIC+u6+8C91mJnmEzuNmlEzqc0UEhLy0=";
+        excludes = [ "CHANGES.rst" ];
+      })
+    ];
 
   postPatch = ''
     # https://github.com/asdf-format/asdf/pull/1203
@@ -55,16 +56,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    asdf-standard
-    asdf-transform-schemas
-    jmespath
-    jsonschema
-    numpy
-    packaging
-    pyyaml
-    semantic-version
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs =
+    [
+      asdf-standard
+      asdf-transform-schemas
+      jmespath
+      jsonschema
+      numpy
+      packaging
+      pyyaml
+      semantic-version
+    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ;
 
   nativeCheckInputs = [
     astropy

@@ -57,10 +57,11 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
-  disabledTestPaths = [
-    # Test are not ported from hbmqtt yet
-    "tests/test_client.py"
-  ];
+  disabledTestPaths =
+    [
+      # Test are not ported from hbmqtt yet
+      "tests/test_client.py"
+    ];
 
   preCheck = ''
     # Some tests need amqtt

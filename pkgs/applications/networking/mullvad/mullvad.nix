@@ -92,7 +92,8 @@ rustPlatform.buildRustPackage rec {
     ''
       wrapProgram $out/bin/mullvad-daemon \
         --set-default MULLVAD_RESOURCE_DIR "$out/share/mullvad"
-    '';
+    ''
+    ;
 
   passthru = {
     inherit libwg;

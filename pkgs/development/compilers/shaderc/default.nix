@@ -57,13 +57,15 @@ stdenv.mkDerivation rec {
     ln -s ${spirv-headers} third_party/spirv-tools/external/spirv-headers
   '';
 
-  nativeBuildInputs = [
-    cmake
-    python3
-  ] ++ lib.optionals stdenv.isDarwin [ cctools ]
+  nativeBuildInputs =
+    [
+      cmake
+      python3
+    ] ++ lib.optionals stdenv.isDarwin [ cctools ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
-    ];
+    ]
+    ;
 
   postInstall = ''
     moveToOutput "lib/*.a" $static

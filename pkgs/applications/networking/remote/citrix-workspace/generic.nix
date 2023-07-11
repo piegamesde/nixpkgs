@@ -116,47 +116,49 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    alsa-lib
-    atk
-    cairo
-    dconf
-    fontconfig
-    freetype
-    gdk-pixbuf
-    gnome2.gtkglext
-    glib-networking
-    webkitgtk
-    gtk2
-    gtk2-x11
-    gtk3
-    gtk_engines
-    heimdal
-    krb5
-    libcxx
-    libcxxabi
-    libjpeg
-    libpng12
-    libsoup
-    libvorbis
-    libxml2
-    mesa
-    nspr
-    nss
-    openssl'
-    pango
-    speex
-    (lib.getLib systemd)
-    stdenv.cc.cc
-    xorg.libXaw
-    xorg.libXmu
-    xorg.libXScrnSaver
-    xorg.libXtst
-    zlib
-  ] ++ lib.optional (lib.versionOlder version "20.04") 0.0 fsprogs
+  buildInputs =
+    [
+      alsa-lib
+      atk
+      cairo
+      dconf
+      fontconfig
+      freetype
+      gdk-pixbuf
+      gnome2.gtkglext
+      glib-networking
+      webkitgtk
+      gtk2
+      gtk2-x11
+      gtk3
+      gtk_engines
+      heimdal
+      krb5
+      libcxx
+      libcxxabi
+      libjpeg
+      libpng12
+      libsoup
+      libvorbis
+      libxml2
+      mesa
+      nspr
+      nss
+      openssl'
+      pango
+      speex
+      (lib.getLib systemd)
+      stdenv.cc.cc
+      xorg.libXaw
+      xorg.libXmu
+      xorg.libXScrnSaver
+      xorg.libXtst
+      zlib
+    ] ++ lib.optional (lib.versionOlder version "20.04") 0.0 fsprogs
     ++ lib.optional (lib.versionAtLeast version "20.10") libpulseaudio
     ++ lib.optional (lib.versionAtLeast version "21.12")
-    llvmPackages_12.libunwind;
+    llvmPackages_12.libunwind
+    ;
 
   runtimeDependencies = [
     glib
@@ -220,13 +222,15 @@ stdenv.mkDerivation rec {
 
       mkWrappers = lib.concatMapStringsSep "\n";
 
-      toWrap = [
-        "wfica"
-        "selfservice"
-        "util/configmgr"
-        "util/conncenter"
-        "util/ctx_rehash"
-      ] ++ lib.optional (lib.versionOlder version "20.06") "selfservice_old";
+      toWrap =
+        [
+          "wfica"
+          "selfservice"
+          "util/configmgr"
+          "util/conncenter"
+          "util/ctx_rehash"
+        ] ++ lib.optional (lib.versionOlder version "20.06") "selfservice_old"
+        ;
     in
     ''
       runHook preInstall

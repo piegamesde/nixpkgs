@@ -37,18 +37,22 @@ in
       (mkRenamedOptionModuleWith {
         sinceRelease = 2211;
         from = cfgPath ++ [ "host" ];
-        to = cfgPath ++ [
-          "settings"
-          "bind_host"
-        ];
+        to =
+          cfgPath ++ [
+            "settings"
+            "bind_host"
+          ]
+          ;
       })
       (mkRenamedOptionModuleWith {
         sinceRelease = 2211;
         from = cfgPath ++ [ "port" ];
-        to = cfgPath ++ [
-          "settings"
-          "bind_port"
-        ];
+        to =
+          cfgPath ++ [
+            "settings"
+            "bind_port"
+          ]
+          ;
       })
     ]
     ;
@@ -133,23 +137,25 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.settings != null -> cfg.mutableSettings
-          || (hasAttrByPath [
+        assertion =
+          cfg.settings != null -> cfg.mutableSettings || (hasAttrByPath [
             "dns"
             "bind_host"
           ] cfg.settings) || (hasAttrByPath [
             "dns"
             "bind_hosts"
-          ] cfg.settings);
+          ] cfg.settings)
+          ;
         message =
           "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
       }
       {
-        assertion = cfg.settings != null -> cfg.mutableSettings
-          || hasAttrByPath [
+        assertion =
+          cfg.settings != null -> cfg.mutableSettings || hasAttrByPath [
             "dns"
             "bootstrap_dns"
-          ] cfg.settings;
+          ] cfg.settings
+          ;
         message =
           "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
       }

@@ -68,17 +68,19 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    bison
-    flex
-    cmake
-  ] ++ lib.optionals enableDocumentation [
-    doxygen
-    graphviz
-  ] ++ lib.optionals enableBPF [
-    libllvm
-    libbpf
-  ];
+  nativeBuildInputs =
+    [
+      bison
+      flex
+      cmake
+    ] ++ lib.optionals enableDocumentation [
+      doxygen
+      graphviz
+    ] ++ lib.optionals enableBPF [
+      libllvm
+      libbpf
+    ]
+    ;
 
   buildInputs = [
     protobuf

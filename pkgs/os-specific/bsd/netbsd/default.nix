@@ -105,19 +105,21 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
 
         HOST_SH = stdenv'.shell;
 
-        MACHINE_ARCH = {
-          i486 = "i386";
-          i586 = "i386";
-          i686 = "i386";
-        }.${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
+        MACHINE_ARCH =
+          {
+            i486 = "i386";
+            i586 = "i386";
+            i686 = "i386";
+          }.${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
 
-        MACHINE = {
-          x86_64 = "amd64";
-          aarch64 = "evbarm64";
-          i486 = "i386";
-          i586 = "i386";
-          i686 = "i386";
-        }.${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
+        MACHINE =
+          {
+            x86_64 = "amd64";
+            aarch64 = "evbarm64";
+            i486 = "i386";
+            i586 = "i386";
+            i686 = "i386";
+          }.${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
 
         COMPONENT_PATH = attrs.path;
 
@@ -149,13 +151,15 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         } // attrs // {
           # Files that use NetBSD-specific macros need to have nbtool_config.h
           # included ahead of them on non-NetBSD platforms.
-          postPatch = lib.optionalString (!stdenv'.hostPlatform.isNetBSD) ''
-            set +e
-            grep -Zlr "^__RCSID
-            ^__BEGIN_DECLS" $COMPONENT_PATH | xargs -0r grep -FLZ nbtool_config.h |
-                xargs -0tr sed -i '0,/^#/s//#include <nbtool_config.h>\n\0/'
-            set -e
-          '' + attrs.postPatch or "";
+          postPatch =
+            lib.optionalString (!stdenv'.hostPlatform.isNetBSD) ''
+              set +e
+              grep -Zlr "^__RCSID
+              ^__BEGIN_DECLS" $COMPONENT_PATH | xargs -0r grep -FLZ nbtool_config.h |
+                  xargs -0tr sed -i '0,/^#/s//#include <nbtool_config.h>\n\0/'
+              set -e
+            '' + attrs.postPatch or ""
+            ;
         })
     );
 
@@ -225,14 +229,16 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         "build"
         "host"
       ];
-      configureFlags = [ "--cache-file=config.cache" ]
+      configureFlags =
+        [ "--cache-file=config.cache" ]
         ++ lib.optionals stdenv.hostPlatform.isMusl [
           # We include this header in our musl package only for legacy
           # compatibility, and compat works fine without it (and having it
           # know about sys/cdefs.h breaks packages like glib when built
           # statically).
           "ac_cv_header_sys_cdefs_h=no"
-        ];
+        ]
+        ;
 
       nativeBuildInputs = with buildPackages.netbsd;
         commonDeps ++ [
@@ -247,19 +253,21 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
 
         # temporarily use gnuinstall for bootstrapping
         # bsdinstall will be built later
-      makeFlags = defaultMakeFlags ++ [
-        "INSTALL=${buildPackages.coreutils}/bin/install"
-        "DATADIR=$(out)/share"
-        # Can't sort object files yet
-        "LORDER=echo"
-        "TSORT=cat"
-        # Can't process man pages yet
-        "MKSHARE=no"
-      ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-        # GNU objcopy produces broken .a libs which won't link into dependers.
-        # Makefiles only invoke `$OBJCOPY -x/-X`, so cctools strip works here.
-        "OBJCOPY=${buildPackages.darwin.cctools}/bin/strip"
-      ];
+      makeFlags =
+        defaultMakeFlags ++ [
+          "INSTALL=${buildPackages.coreutils}/bin/install"
+          "DATADIR=$(out)/share"
+          # Can't sort object files yet
+          "LORDER=echo"
+          "TSORT=cat"
+          # Can't process man pages yet
+          "MKSHARE=no"
+        ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+          # GNU objcopy produces broken .a libs which won't link into dependers.
+          # Makefiles only invoke `$OBJCOPY -x/-X`, so cctools strip works here.
+          "OBJCOPY=${buildPackages.darwin.cctools}/bin/strip"
+        ]
+        ;
       RENAME = "-D";
 
       passthru.tests = { netbsd-install = self.install; };
@@ -276,39 +284,43 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         makeFlagsArray+=('INSTALL_SYMLINK=''${INSTALL} ''${SYMLINK} ''${RENAME}')
       '';
 
-      postInstall = ''
-        # why aren't these installed by netbsd?
-        install -D compat_defs.h $out/include/compat_defs.h
-        install -D $BSDSRCDIR/include/cdbw.h $out/include/cdbw.h
-        install -D $BSDSRCDIR/sys/sys/cdbr.h $out/include/cdbr.h
-        install -D $BSDSRCDIR/sys/sys/featuretest.h \
-                   $out/include/sys/featuretest.h
-        install -D $BSDSRCDIR/sys/sys/md5.h $out/include/md5.h
-        install -D $BSDSRCDIR/sys/sys/rmd160.h $out/include/rmd160.h
-        install -D $BSDSRCDIR/sys/sys/sha1.h $out/include/sha1.h
-        install -D $BSDSRCDIR/sys/sys/sha2.h $out/include/sha2.h
-        install -D $BSDSRCDIR/sys/sys/queue.h $out/include/sys/queue.h
-        install -D $BSDSRCDIR/include/vis.h $out/include/vis.h
-        install -D $BSDSRCDIR/include/db.h $out/include/db.h
-        install -D $BSDSRCDIR/include/netconfig.h $out/include/netconfig.h
-        install -D $BSDSRCDIR/include/utmpx.h $out/include/utmpx.h
-        install -D $BSDSRCDIR/include/tzfile.h $out/include/tzfile.h
-        install -D $BSDSRCDIR/sys/sys/tree.h $out/include/sys/tree.h
-        install -D $BSDSRCDIR/include/nl_types.h $out/include/nl_types.h
-        install -D $BSDSRCDIR/include/stringlist.h $out/include/stringlist.h
+      postInstall =
+        ''
+          # why aren't these installed by netbsd?
+          install -D compat_defs.h $out/include/compat_defs.h
+          install -D $BSDSRCDIR/include/cdbw.h $out/include/cdbw.h
+          install -D $BSDSRCDIR/sys/sys/cdbr.h $out/include/cdbr.h
+          install -D $BSDSRCDIR/sys/sys/featuretest.h \
+                     $out/include/sys/featuretest.h
+          install -D $BSDSRCDIR/sys/sys/md5.h $out/include/md5.h
+          install -D $BSDSRCDIR/sys/sys/rmd160.h $out/include/rmd160.h
+          install -D $BSDSRCDIR/sys/sys/sha1.h $out/include/sha1.h
+          install -D $BSDSRCDIR/sys/sys/sha2.h $out/include/sha2.h
+          install -D $BSDSRCDIR/sys/sys/queue.h $out/include/sys/queue.h
+          install -D $BSDSRCDIR/include/vis.h $out/include/vis.h
+          install -D $BSDSRCDIR/include/db.h $out/include/db.h
+          install -D $BSDSRCDIR/include/netconfig.h $out/include/netconfig.h
+          install -D $BSDSRCDIR/include/utmpx.h $out/include/utmpx.h
+          install -D $BSDSRCDIR/include/tzfile.h $out/include/tzfile.h
+          install -D $BSDSRCDIR/sys/sys/tree.h $out/include/sys/tree.h
+          install -D $BSDSRCDIR/include/nl_types.h $out/include/nl_types.h
+          install -D $BSDSRCDIR/include/stringlist.h $out/include/stringlist.h
 
-        # Collapse includes slightly to fix dangling reference
-        install -D $BSDSRCDIR/common/include/rpc/types.h $out/include/rpc/types.h
-        sed -i '1s;^;#include "nbtool_config.h"\n;' $out/include/rpc/types.h
-      '' + lib.optionalString stdenv.isDarwin ''
-        mkdir -p $out/include/ssp
-        touch $out/include/ssp/ssp.h
-      '' + ''
-        mkdir -p $out/lib/pkgconfig
-        substitute ${./libbsd-overlay.pc} $out/lib/pkgconfig/libbsd-overlay.pc \
-          --subst-var-by out $out \
-          --subst-var-by version ${version}
-      '';
+          # Collapse includes slightly to fix dangling reference
+          install -D $BSDSRCDIR/common/include/rpc/types.h $out/include/rpc/types.h
+          sed -i '1s;^;#include "nbtool_config.h"\n;' $out/include/rpc/types.h
+        '' + lib.optionalString stdenv.isDarwin ''
+          mkdir -p $out/include/ssp
+          touch $out/include/ssp/ssp.h
+        '' + ''
+          mkdir -p $out/lib/pkgconfig
+          substitute ${
+            ./libbsd-overlay.pc
+          } $out/lib/pkgconfig/libbsd-overlay.pc \
+            --subst-var-by out $out \
+            --subst-var-by version ${version}
+        ''
+        ;
       extraPaths = with self;
         [
           include.src
@@ -482,52 +494,54 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       sha256 = "0vi73yicbmbp522qzqvd979cx6zm5jakhy77xh73c1kygf8klccs";
       version = "9.2";
 
-      postPatch = ''
-        substituteInPlace $BSDSRCDIR/share/mk/bsd.doc.mk \
-          --replace '-o ''${DOCOWN}' "" \
-          --replace '-g ''${DOCGRP}' ""
-        for mk in $BSDSRCDIR/share/mk/bsd.inc.mk $BSDSRCDIR/share/mk/bsd.kinc.mk; do
-          substituteInPlace $mk \
+      postPatch =
+        ''
+          substituteInPlace $BSDSRCDIR/share/mk/bsd.doc.mk \
+            --replace '-o ''${DOCOWN}' "" \
+            --replace '-g ''${DOCGRP}' ""
+          for mk in $BSDSRCDIR/share/mk/bsd.inc.mk $BSDSRCDIR/share/mk/bsd.kinc.mk; do
+            substituteInPlace $mk \
+              --replace '-o ''${BINOWN}' "" \
+              --replace '-g ''${BINGRP}' ""
+          done
+          substituteInPlace $BSDSRCDIR/share/mk/bsd.kmodule.mk \
+            --replace '-o ''${KMODULEOWN}' "" \
+            --replace '-g ''${KMODULEGRP}' ""
+          substituteInPlace $BSDSRCDIR/share/mk/bsd.lib.mk \
+            --replace '-o ''${LIBOWN}' "" \
+            --replace '-g ''${LIBGRP}' "" \
+            --replace '-o ''${DEBUGOWN}' "" \
+            --replace '-g ''${DEBUGGRP}' ""
+          substituteInPlace $BSDSRCDIR/share/mk/bsd.lua.mk \
+            --replace '-o ''${LIBOWN}' "" \
+            --replace '-g ''${LIBGRP}' ""
+          substituteInPlace $BSDSRCDIR/share/mk/bsd.man.mk \
+            --replace '-o ''${MANOWN}' "" \
+            --replace '-g ''${MANGRP}' ""
+          substituteInPlace $BSDSRCDIR/share/mk/bsd.nls.mk \
+            --replace '-o ''${NLSOWN}' "" \
+            --replace '-g ''${NLSGRP}' ""
+          substituteInPlace $BSDSRCDIR/share/mk/bsd.prog.mk \
             --replace '-o ''${BINOWN}' "" \
-            --replace '-g ''${BINGRP}' ""
-        done
-        substituteInPlace $BSDSRCDIR/share/mk/bsd.kmodule.mk \
-          --replace '-o ''${KMODULEOWN}' "" \
-          --replace '-g ''${KMODULEGRP}' ""
-        substituteInPlace $BSDSRCDIR/share/mk/bsd.lib.mk \
-          --replace '-o ''${LIBOWN}' "" \
-          --replace '-g ''${LIBGRP}' "" \
-          --replace '-o ''${DEBUGOWN}' "" \
-          --replace '-g ''${DEBUGGRP}' ""
-        substituteInPlace $BSDSRCDIR/share/mk/bsd.lua.mk \
-          --replace '-o ''${LIBOWN}' "" \
-          --replace '-g ''${LIBGRP}' ""
-        substituteInPlace $BSDSRCDIR/share/mk/bsd.man.mk \
-          --replace '-o ''${MANOWN}' "" \
-          --replace '-g ''${MANGRP}' ""
-        substituteInPlace $BSDSRCDIR/share/mk/bsd.nls.mk \
-          --replace '-o ''${NLSOWN}' "" \
-          --replace '-g ''${NLSGRP}' ""
-        substituteInPlace $BSDSRCDIR/share/mk/bsd.prog.mk \
-          --replace '-o ''${BINOWN}' "" \
-          --replace '-g ''${BINGRP}' "" \
-          --replace '-o ''${RUMPBINOWN}' "" \
-          --replace '-g ''${RUMPBINGRP}' "" \
-          --replace '-o ''${DEBUGOWN}' "" \
-          --replace '-g ''${DEBUGGRP}' ""
+            --replace '-g ''${BINGRP}' "" \
+            --replace '-o ''${RUMPBINOWN}' "" \
+            --replace '-g ''${RUMPBINGRP}' "" \
+            --replace '-o ''${DEBUGOWN}' "" \
+            --replace '-g ''${DEBUGGRP}' ""
 
-         # make needs this to pick up our sys make files
-         export NIX_CFLAGS_COMPILE+=" -D_PATH_DEFSYSPATH=\"$out/share/mk\""
+           # make needs this to pick up our sys make files
+           export NIX_CFLAGS_COMPILE+=" -D_PATH_DEFSYSPATH=\"$out/share/mk\""
 
-         substituteInPlace $BSDSRCDIR/share/mk/bsd.lib.mk \
-           --replace '_INSTRANLIB=''${empty(PRESERVE):?-a "''${RANLIB} -t":}' '_INSTRANLIB='
-         substituteInPlace $BSDSRCDIR/share/mk/bsd.kinc.mk \
-           --replace /bin/rm rm
-      '' + lib.optionalString stdenv.isDarwin ''
-        substituteInPlace $BSDSRCDIR/share/mk/bsd.sys.mk \
-          --replace '-Wl,--fatal-warnings' "" \
-          --replace '-Wl,--warn-shared-textrel' ""
-      '';
+           substituteInPlace $BSDSRCDIR/share/mk/bsd.lib.mk \
+             --replace '_INSTRANLIB=''${empty(PRESERVE):?-a "''${RANLIB} -t":}' '_INSTRANLIB='
+           substituteInPlace $BSDSRCDIR/share/mk/bsd.kinc.mk \
+             --replace /bin/rm rm
+        '' + lib.optionalString stdenv.isDarwin ''
+          substituteInPlace $BSDSRCDIR/share/mk/bsd.sys.mk \
+            --replace '-Wl,--fatal-warnings' "" \
+            --replace '-Wl,--warn-shared-textrel' ""
+        ''
+        ;
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
@@ -696,8 +710,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       headersOnly = true;
       noCC = true;
       meta.platforms = lib.platforms.netbsd;
-      makeFlags = defaultMakeFlags
-        ++ [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ];
+      makeFlags =
+        defaultMakeFlags
+        ++ [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ]
+        ;
     };
 
     common = fetchNetBSD "common" "9.2"
@@ -738,13 +754,15 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         genassym
       ];
 
-      postConfigure = ''
-        pushd arch/$MACHINE/conf
-        config $CONFIG
-        popd
-      ''
+      postConfigure =
+        ''
+          pushd arch/$MACHINE/conf
+          config $CONFIG
+          popd
+        ''
         # multiple header dirs, see above
-        + self.include.postConfigure;
+        + self.include.postConfigure
+        ;
 
       makeFlags = defaultMakeFlags ++ [ "FIRMWAREDIR=$(out)/libdata/firmware" ];
       hardeningDisable = [ "pic" ];
@@ -891,11 +909,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       version = "9.2";
       sha256 = "0pd0dggl3w4bv5i5h0s1wrc8hr66n4hkv3zlklarwfdhc692fqal";
       buildInputs = with self; [ libterminfo ];
-      env.NIX_CFLAGS_COMPILE = toString [
-        "-D__scanflike(a,b)="
-        "-D__va_list=va_list"
-        "-D__warn_references(a,b)="
-      ] ++ lib.optional stdenv.isDarwin "-D__strong_alias(a,b)=";
+      env.NIX_CFLAGS_COMPILE =
+        toString [
+          "-D__scanflike(a,b)="
+          "-D__va_list=va_list"
+          "-D__warn_references(a,b)="
+        ] ++ lib.optional stdenv.isDarwin "-D__strong_alias(a,b)="
+        ;
       propagatedBuildInputs = with self; compatIfNeeded;
       MKDOC = "no"; # missing vfontedpr
       makeFlags =
@@ -1058,10 +1078,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         # Hack to prevent a symlink being installed here for compatibility.
       SHLINKINSTALLDIR = "/usr/libexec";
       USE_FORT = "yes";
-      makeFlags = defaultMakeFlags ++ [
-        "BINDIR=$(out)/libexec"
-        "CLIBOBJ=${self.libc}/lib"
-      ];
+      makeFlags =
+        defaultMakeFlags ++ [
+          "BINDIR=$(out)/libexec"
+          "CLIBOBJ=${self.libc}/lib"
+        ]
+        ;
       extraPaths = with self; [ libc.src ] ++ libc.extraPaths;
     };
 
@@ -1191,10 +1213,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       postPatch = ''
         substituteInPlace $COMPONENT_PATH/man0/Makefile --replace "ps2pdf" "echo noop "
       '';
-      makeFlags = defaultMakeFlags ++ [
-        "FILESDIR=$(out)/share"
-        "MKRUMP=no" # would require to have additional path sys/rump/share/man
-      ];
+      makeFlags =
+        defaultMakeFlags ++ [
+          "FILESDIR=$(out)/share"
+          "MKRUMP=no" # would require to have additional path sys/rump/share/man
+        ]
+        ;
     };
       #
       # END MISCELLANEOUS

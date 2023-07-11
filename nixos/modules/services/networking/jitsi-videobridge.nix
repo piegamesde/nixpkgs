@@ -263,16 +263,18 @@ in
 
         environment.JAVA_SYS_PROPS = attrsToArgs jvbProps;
 
-        script = (concatStrings (mapAttrsToList (name: xmppConfig: ''
-          export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
-        '') cfg.xmppConfigs)) + ''
-          ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
-            if (cfg.apis == [ ]) then
-              "none"
-            else
-              concatStringsSep "," cfg.apis
-          }
-        '';
+        script =
+          (concatStrings (mapAttrsToList (name: xmppConfig: ''
+            export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
+          '') cfg.xmppConfigs)) + ''
+            ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
+              if (cfg.apis == [ ]) then
+                "none"
+              else
+                concatStringsSep "," cfg.apis
+            }
+          ''
+          ;
 
         serviceConfig = {
           Type = "exec";

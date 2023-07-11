@@ -111,7 +111,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    warnings = [ ] ++ optional (cfg.settings ? update_manager)
+    warnings =
+      [ ] ++ optional (cfg.settings ? update_manager)
       "Enabling update_manager is not supported on NixOS and will lead to non-removable warnings in some clients."
       ++ optional (cfg.configDir != null) ''
         services.moonraker.configDir has been deprecated upstream and will be removed.
@@ -122,7 +123,8 @@ in
           else
             "Move files from `${cfg.configDir}` to `${unifiedConfigDir}` then remove services.moonraker.configDir from your config."
         }
-      '';
+      ''
+      ;
 
     assertions = [ {
       assertion = cfg.allowSystemControl -> config.security.polkit.enable;
@@ -161,13 +163,16 @@ in
     systemd.tmpfiles.rules =
       [ "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -" ]
       ++ lib.optional (cfg.configDir != null)
-      "d '${cfg.configDir}' - ${cfg.user} ${cfg.group} - -";
+      "d '${cfg.configDir}' - ${cfg.user} ${cfg.group} - -"
+      ;
 
     systemd.services.moonraker = {
       description = "Moonraker, an API web server for Klipper";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ]
-        ++ optional config.services.klipper.enable "klipper.service";
+      after =
+        [ "network.target" ]
+        ++ optional config.services.klipper.enable "klipper.service"
+        ;
 
         # Moonraker really wants its own config to be writable...
       script = ''

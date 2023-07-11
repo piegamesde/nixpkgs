@@ -26,16 +26,18 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  buildInputs = [ perl ] ++ (with perlPackages; [
-    DBFile
-    FileMimeInfo
-    FileBaseDir
-    #GraphicsMagick
-    ImageMagick
-    Inline
-    InlineC
-    ParseRecDescent
-  ]);
+  buildInputs =
+    [ perl ] ++ (with perlPackages; [
+      DBFile
+      FileMimeInfo
+      FileBaseDir
+      #GraphicsMagick
+      ImageMagick
+      Inline
+      InlineC
+      ParseRecDescent
+    ])
+    ;
 
     # use /tmp as a storage
     # replace GraphicsMagick with ImageMagick, because perl bindings are not yet available

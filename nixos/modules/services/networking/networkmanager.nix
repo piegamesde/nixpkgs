@@ -148,11 +148,13 @@ let
     '';
   };
 
-  packages = [
-    pkgs.modemmanager
-    pkgs.networkmanager
-  ] ++ cfg.plugins
-    ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
+  packages =
+    [
+      pkgs.modemmanager
+      pkgs.networkmanager
+    ] ++ cfg.plugins
+    ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ]
+    ;
 
 in
 {
@@ -493,7 +495,8 @@ in
         "NetworkManager/dispatcher.d/02overridedns".source =
           overrideNameserversScript;
       } // listToAttrs (lib.imap1 (i: s: {
-        name = "NetworkManager/dispatcher.d/${
+        name =
+          "NetworkManager/dispatcher.d/${
             dispatcherTypesSubdirMap.${s.type}
           }03userscript${lib.fixedWidthNumber 4 i}";
         value = {
@@ -610,9 +613,10 @@ in
     security.polkit.enable = true;
     security.polkit.extraConfig = polkitConf;
 
-    services.dbus.packages = packages
-      ++ optional cfg.enableStrongSwan pkgs.strongswanNM
-      ++ optional (cfg.dns == "dnsmasq") pkgs.dnsmasq;
+    services.dbus.packages =
+      packages ++ optional cfg.enableStrongSwan pkgs.strongswanNM
+      ++ optional (cfg.dns == "dnsmasq") pkgs.dnsmasq
+      ;
 
     services.udev.packages = packages;
   };

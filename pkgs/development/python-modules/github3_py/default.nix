@@ -24,12 +24,14 @@ buildPythonPackage rec {
     hash = "sha256-Cbcr4Ul9NGsJaM3oNgoNavedwgbQFJpjzT7IbGXDd8w=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    uritemplate
-    python-dateutil
-    pyjwt
-  ] ++ pyjwt.optional-dependencies.crypto;
+  propagatedBuildInputs =
+    [
+      requests
+      uritemplate
+      python-dateutil
+      pyjwt
+    ] ++ pyjwt.optional-dependencies.crypto
+    ;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -42,10 +44,11 @@ buildPythonPackage rec {
     rm tox.ini
   '';
 
-  disabledTests = [
-    # FileNotFoundError: [Errno 2] No such file or directory: 'tests/id_rsa.pub'
-    "test_delete_key"
-  ];
+  disabledTests =
+    [
+      # FileNotFoundError: [Errno 2] No such file or directory: 'tests/id_rsa.pub'
+      "test_delete_key"
+    ];
 
   meta = with lib; {
     homepage = "https://github3py.readthedocs.org/en/master/";

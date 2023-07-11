@@ -24,22 +24,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-swzTdQ6ow1At4bKRORqz6fb0Ej92yU9rlI/OgcinPu4=";
   };
 
-  patches = [
-    # Fix build failure when _SC_PHYS_PAGES is not defined
-    (fetchpatch {
-      url =
-        "https://codeberg.org/nsxiv/nsxiv/commit/1a50bff9f300f84e93a6e7035657e6029e7e8183.patch";
-      hash = "sha256-PpUqGVWaJ06EVu3tBKVzOh8HYvT6wAG3bvY6wUD+dTM=";
-    })
-  ];
+  patches =
+    [
+      # Fix build failure when _SC_PHYS_PAGES is not defined
+      (fetchpatch {
+        url =
+          "https://codeberg.org/nsxiv/nsxiv/commit/1a50bff9f300f84e93a6e7035657e6029e7e8183.patch";
+        hash = "sha256-PpUqGVWaJ06EVu3tBKVzOh8HYvT6wAG3bvY6wUD+dTM=";
+      })
+    ];
 
-  buildInputs = [
-    giflib
-    imlib2
-    libXft
-    libexif
-    libwebp
-  ] ++ lib.optional stdenv.isDarwin libinotify-kqueue;
+  buildInputs =
+    [
+      giflib
+      imlib2
+      libXft
+      libexif
+      libwebp
+    ] ++ lib.optional stdenv.isDarwin libinotify-kqueue
+    ;
 
   preBuild = lib.optionalString (conf != null) ''
     cp ${(builtins.toFile "config.def.h" conf)} config.def.h

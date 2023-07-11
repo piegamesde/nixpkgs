@@ -71,7 +71,8 @@ gsmakeDerivation rec {
   meta = {
     description =
       "An implementation of AppKit and Foundation libraries of OPENSTEP and Cocoa";
-    changelog = "https://github.com/gnustep/libs-base/releases/tag/base-${
+    changelog =
+      "https://github.com/gnustep/libs-base/releases/tag/base-${
         builtins.replaceStrings [ "." ] [ "_" ] version
       }";
   };

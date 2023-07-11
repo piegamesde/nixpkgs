@@ -49,10 +49,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyinfra" ];
 
-  disabledTests = [
-    # Test requires SSH binary
-    "test_load_ssh_config"
-  ];
+  disabledTests =
+    [
+      # Test requires SSH binary
+      "test_load_ssh_config"
+    ];
 
   meta = with lib; {
     description = "Python-based infrastructure automation";

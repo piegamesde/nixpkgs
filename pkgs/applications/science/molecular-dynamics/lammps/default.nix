@@ -54,13 +54,15 @@ stdenv.mkDerivation rec {
     inherit packages;
   };
 
-  buildInputs = [
-    fftw
-    libpng
-    blas
-    lapack
-    gzip
-  ] ++ (lib.optionals withMPI [ mpi ]);
+  buildInputs =
+    [
+      fftw
+      libpng
+      blas
+      lapack
+      gzip
+    ] ++ (lib.optionals withMPI [ mpi ])
+    ;
 
   configurePhase = ''
     cd src

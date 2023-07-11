@@ -27,14 +27,16 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    ncurses
-    zlib
-    (imlib2.override { inherit x11Support; })
-  ] ++ lib.optionals x11Support [
-    xorg.libX11
-    xorg.libXext
-  ];
+  buildInputs =
+    [
+      ncurses
+      zlib
+      (imlib2.override { inherit x11Support; })
+    ] ++ lib.optionals x11Support [
+      xorg.libX11
+      xorg.libXext
+    ]
+    ;
 
   outputs = [
     "bin"

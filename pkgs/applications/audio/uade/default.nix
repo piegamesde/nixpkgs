@@ -42,53 +42,61 @@ stdenv.mkDerivation rec {
       --replace 'g++' '${stdenv.cc.targetPrefix}c++'
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    which
-    makeWrapper
-  ] ++ lib.optionals withWriteAudio [ python3 ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      which
+      makeWrapper
+    ] ++ lib.optionals withWriteAudio [ python3 ]
+    ;
 
-  buildInputs = [
-    libao
-    bencodetools
-    sox
-    lame
-    flac
-    vorbis-tools
-  ] ++ lib.optionals withWriteAudio [
+  buildInputs =
+    [
+      libao
+      bencodetools
+      sox
+      lame
+      flac
+      vorbis-tools
+    ] ++ lib.optionals withWriteAudio [
       (python3.withPackages (p:
         with p; [
           pillow
           tqdm
           more-itertools
         ]))
-    ];
+    ]
+    ;
 
-  configureFlags = [
-    "--bencode-tools-prefix=${bencodetools}"
-    "--with-text-scope"
-  ] ++ lib.optionals (!withWriteAudio) [ "--without-write-audio" ];
+  configureFlags =
+    [
+      "--bencode-tools-prefix=${bencodetools}"
+      "--with-text-scope"
+    ] ++ lib.optionals (!withWriteAudio) [ "--without-write-audio" ]
+    ;
 
   enableParallelBuilding = true;
 
   hardeningDisable = [ "format" ];
 
-  postInstall = ''
-    wrapProgram $out/bin/mod2ogg2.sh \
-      --prefix PATH : $out/bin:${
-        lib.makeBinPath [
-          sox
-          lame
-          flac
-          vorbis-tools
-        ]
-      }
-    # This is an old script, don't break expectations by renaming it
-    ln -s $out/bin/mod2ogg2{.sh,}
-  '' + lib.optionalString withWriteAudio ''
-    wrapProgram $out/bin/generate_amiga_oscilloscope_view \
-      --prefix PYTHONPATH : "$PYTHONPATH:$out/${python3.sitePackages}"
-  '';
+  postInstall =
+    ''
+      wrapProgram $out/bin/mod2ogg2.sh \
+        --prefix PATH : $out/bin:${
+          lib.makeBinPath [
+            sox
+            lame
+            flac
+            vorbis-tools
+          ]
+        }
+      # This is an old script, don't break expectations by renaming it
+      ln -s $out/bin/mod2ogg2{.sh,}
+    '' + lib.optionalString withWriteAudio ''
+      wrapProgram $out/bin/generate_amiga_oscilloscope_view \
+        --prefix PYTHONPATH : "$PYTHONPATH:$out/${python3.sitePackages}"
+    ''
+    ;
 
   meta = with lib; {
     description =

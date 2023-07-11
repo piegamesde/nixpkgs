@@ -39,9 +39,7 @@ rec {
     crossSystem:
     let
       packageSet' =
-        args:
-        packageSet (args // { inherit crossSystem; } // nixpkgsArgs)
-        ;
+        args: packageSet (args // { inherit crossSystem; } // nixpkgsArgs);
 
       pkgs_x86_64_linux = packageSet' { system = "x86_64-linux"; };
       pkgs_i686_linux = packageSet' { system = "i686-linux"; };
@@ -127,9 +125,7 @@ rec {
     metaPatterns:
     let
       anyMatch =
-        platform:
-        lib.any (lib.meta.platformMatch platform) metaPatterns
-        ;
+        platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
       matchingPlatforms = lib.filter anyMatch supportedPlatforms;
     in
     map ({

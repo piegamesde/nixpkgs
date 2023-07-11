@@ -34,15 +34,19 @@ stdenv.mkDerivation (args // {
   # `--option sandbox false` to be able to build this
   __noChroot = true;
 
-  buildInputs = buildInputs
-    ++ lib.optional (stdenv.hostPlatform.libc == "glibc") glibcLocales;
+  buildInputs =
+    buildInputs
+    ++ lib.optional (stdenv.hostPlatform.libc == "glibc") glibcLocales
+    ;
 
-  nativeBuildInputs = nativeBuildInputs ++ [
-    ghc
-    pkg-config
-    stack
-    stackHook
-  ];
+  nativeBuildInputs =
+    nativeBuildInputs ++ [
+      ghc
+      pkg-config
+      stack
+      stackHook
+    ]
+    ;
 
   STACK_PLATFORM_VARIANT = "nix";
   STACK_IN_NIX_SHELL = 1;
@@ -64,29 +68,32 @@ stdenv.mkDerivation (args // {
     export STACK_ROOT=$NIX_BUILD_TOP/.stack
   '';
 
-  buildPhase = args.buildPhase or ''
-    runHook preBuild
+  buildPhase =
+    args.buildPhase or ''
+      runHook preBuild
 
-    ${stackCmd} build
+      ${stackCmd} build
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  checkPhase = args.checkPhase or ''
-    runHook preCheck
+  checkPhase =
+    args.checkPhase or ''
+      runHook preCheck
 
-    ${stackCmd} test
+      ${stackCmd} test
 
-    runHook postCheck
-  '';
+      runHook postCheck
+    '';
 
   doCheck = args.doCheck or true;
 
-  installPhase = args.installPhase or ''
-    runHook preInstall
+  installPhase =
+    args.installPhase or ''
+      runHook preInstall
 
-    ${stackCmd} --local-bin-path=$out/bin build --copy-bins
+      ${stackCmd} --local-bin-path=$out/bin build --copy-bins
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 })

@@ -72,7 +72,8 @@ in
 
       serviceConfig = {
         Restart = "always";
-        ExecStart = "${hoogleEnv}/bin/hoogle server --local --port ${
+        ExecStart =
+          "${hoogleEnv}/bin/hoogle server --local --port ${
             toString cfg.port
           } --home ${cfg.home} --host ${cfg.host}";
 

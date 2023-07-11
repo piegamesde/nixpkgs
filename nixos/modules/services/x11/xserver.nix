@@ -32,7 +32,8 @@ let
     modesetting = { };
   };
 
-  fontsForXServer = config.fonts.fonts ++
+  fontsForXServer =
+    config.fonts.fonts ++
     # We don't want these fonts in fonts.conf, because then modern,
     # fontconfig-based applications will get horrible bitmapped
     # Helvetica fonts.  It's better to get a substitution (like Nimbus
@@ -42,7 +43,8 @@ let
     [
       pkgs.xorg.fontadobe100dpi
       pkgs.xorg.fontadobe75dpi
-    ];
+    ]
+    ;
 
   xrandrOptions = {
     output = mkOption {
@@ -712,9 +714,11 @@ in
     services.xserver.displayManager.lightdm.enable =
       let
         dmConf = cfg.displayManager;
-        default = !(dmConf.gdm.enable || dmConf.sddm.enable
-          || dmConf.xpra.enable || dmConf.sx.enable || dmConf.startx.enable
-          || config.services.greetd.enable);
+        default =
+          !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable
+            || dmConf.sx.enable || dmConf.startx.enable
+            || config.services.greetd.enable)
+          ;
       in
       mkIf (default) (mkDefault true)
       ;
@@ -723,8 +727,10 @@ in
     systemd.services.display-manager.enable =
       let
         dmConf = cfg.displayManager;
-        noDmUsed = !(dmConf.gdm.enable || dmConf.sddm.enable
-          || dmConf.xpra.enable || dmConf.lightdm.enable);
+        noDmUsed =
+          !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable
+            || dmConf.lightdm.enable)
+          ;
       in
       mkIf (noDmUsed) (mkDefault false)
       ;
@@ -756,10 +762,12 @@ in
       in
       {
         assertion = length primaryHeads < 2;
-        message = "Only one head is allowed to be primary in "
+        message =
+          "Only one head is allowed to be primary in "
           + "‘services.xserver.xrandrHeads’, but there are "
           + "${toString (length primaryHeads)} heads set to primary: "
-          + concatMapStringsSep ", " (x: x.output) primaryHeads;
+          + concatMapStringsSep ", " (x: x.output) primaryHeads
+          ;
       }
       )
       {
@@ -794,24 +802,26 @@ in
       { ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath; }
       );
 
-    environment.systemPackages = utils.removePackagesByName [
-      xorg.xorgserver.out
-      xorg.xrandr
-      xorg.xrdb
-      xorg.setxkbmap
-      xorg.iceauth # required for KDE applications (it's called by dcopserver)
-      xorg.xlsclients
-      xorg.xset
-      xorg.xsetroot
-      xorg.xinput
-      xorg.xprop
-      xorg.xauth
-      pkgs.xterm
-      pkgs.xdg-utils
-      xorg.xf86inputevdev.out # get evdev.4 man page
-      pkgs.nixos-icons # needed for gnome and pantheon about dialog, nixos-manual and maybe more
-    ] config.services.xserver.excludePackages
-      ++ optional (elem "virtualbox" cfg.videoDrivers) xorg.xrefresh;
+    environment.systemPackages =
+      utils.removePackagesByName [
+        xorg.xorgserver.out
+        xorg.xrandr
+        xorg.xrdb
+        xorg.setxkbmap
+        xorg.iceauth # required for KDE applications (it's called by dcopserver)
+        xorg.xlsclients
+        xorg.xset
+        xorg.xsetroot
+        xorg.xinput
+        xorg.xprop
+        xorg.xauth
+        pkgs.xterm
+        pkgs.xdg-utils
+        xorg.xf86inputevdev.out # get evdev.4 man page
+        pkgs.nixos-icons # needed for gnome and pantheon about dialog, nixos-manual and maybe more
+      ] config.services.xserver.excludePackages
+      ++ optional (elem "virtualbox" cfg.videoDrivers) xorg.xrefresh
+      ;
 
     environment.pathsToLink = [ "/share/X11" ];
 
@@ -867,11 +877,12 @@ in
       };
     };
 
-    services.xserver.displayManager.xserverArgs = [
-      "-config ${configFile}"
-      "-xkbdir"
-      "${cfg.xkbDir}"
-    ] ++ optional (cfg.display != null) ":${toString cfg.display}"
+    services.xserver.displayManager.xserverArgs =
+      [
+        "-config ${configFile}"
+        "-xkbdir"
+        "${cfg.xkbDir}"
+      ] ++ optional (cfg.display != null) ":${toString cfg.display}"
       ++ optional (cfg.tty != null) "vt${toString cfg.tty}"
       ++ optional (cfg.dpi != null) "-dpi ${toString cfg.dpi}"
       ++ optional (cfg.logFile != null) "-logfile ${toString cfg.logFile}"
@@ -881,12 +892,15 @@ in
       "-ardelay ${toString cfg.autoRepeatDelay}"
       ++ optional (cfg.autoRepeatInterval != null)
       "-arinterval ${toString cfg.autoRepeatInterval}"
-      ++ optional cfg.terminateOnReset "-terminate";
+      ++ optional cfg.terminateOnReset "-terminate"
+      ;
 
-    services.xserver.modules = concatLists (catAttrs "modules" cfg.drivers) ++ [
-      xorg.xorgserver.out
-      xorg.xf86inputevdev.out
-    ];
+    services.xserver.modules =
+      concatLists (catAttrs "modules" cfg.drivers) ++ [
+        xorg.xorgserver.out
+        xorg.xf86inputevdev.out
+      ]
+      ;
 
     system.extraDependencies = singleton (pkgs.runCommand "xkb-validated" {
       inherit (cfg) xkbModel layout xkbVariant xkbOptions;

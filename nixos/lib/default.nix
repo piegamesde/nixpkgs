@@ -36,8 +36,9 @@ let
   */
 in
 {
-  inherit (seqAttrsIf (!featureFlags ? minimalModules) minimalModulesWarning
-    eval-config-minimal)
+  inherit
+    (seqAttrsIf (!featureFlags ? minimalModules) minimalModulesWarning
+      eval-config-minimal)
     evalModules
     ;
 

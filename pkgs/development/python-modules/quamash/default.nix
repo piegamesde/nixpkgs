@@ -13,7 +13,9 @@ buildPythonPackage rec {
   pname = "quamash";
   version = "0.6.1";
 
-  disabled = !isPy3k;
+  disabled =
+    !isPy3k
+    ;
 
     # No tests in PyPi tarball
   src = fetchFromGitHub {
@@ -23,14 +25,15 @@ buildPythonPackage rec {
     sha256 = "117rp9r4lz0kfz4dmmpa35hp6nhbh6b4xq0jmgvqm68g9hwdxmqa";
   };
 
-  patches = [
-    # add 3.10 compatibility, merged remove on next update
-    (fetchpatch {
-      url =
-        "https://github.com/harvimt/quamash/pull/126/commits/1e9047bec739dbc9d6ab337fc1a111a8b1090244.patch";
-      hash = "sha256-6gomY82AOKkrt32SEBKnRugzhnC5FAyKDs6K5xaxnRM=";
-    })
-  ];
+  patches =
+    [
+      # add 3.10 compatibility, merged remove on next update
+      (fetchpatch {
+        url =
+          "https://github.com/harvimt/quamash/pull/126/commits/1e9047bec739dbc9d6ab337fc1a111a8b1090244.patch";
+        hash = "sha256-6gomY82AOKkrt32SEBKnRugzhnC5FAyKDs6K5xaxnRM=";
+      })
+    ];
 
   propagatedBuildInputs = [ pyqt ];
 

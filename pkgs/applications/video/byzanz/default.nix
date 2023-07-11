@@ -40,24 +40,26 @@ stdenv.mkDerivation {
     pkg-config
     intltool
   ];
-  buildInputs = [
-    which
-    gnome.gnome-common
-    glib
-    libtool
-    cairo
-    gtk3
-    xorg.xwininfo
-    xorg.libXdamage
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-bad
-    gst-plugins-good
-    gst-plugins-ugly
-    gst-libav
-    wrapGAppsHook
-  ]);
+  buildInputs =
+    [
+      which
+      gnome.gnome-common
+      glib
+      libtool
+      cairo
+      gtk3
+      xorg.xwininfo
+      xorg.libXdamage
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-bad
+      gst-plugins-good
+      gst-plugins-ugly
+      gst-libav
+      wrapGAppsHook
+    ])
+    ;
 
   meta = with lib; {
     description =

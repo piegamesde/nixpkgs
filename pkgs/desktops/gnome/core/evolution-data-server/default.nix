@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/evolution-data-server/${
+    url =
+      "mirror://gnome/sources/evolution-data-server/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "XOYsHmfyeJNCp/SgNbEC905i7YX2DoGlt/PgQWVATf8=";
@@ -90,28 +91,30 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [
-    glib
-    libsoup_3
-    gnome-online-accounts
-    p11-kit
-    libgweather
-    icu
-    sqlite
-    libkrb5
-    openldap
-    glib-networking
-    libcanberra-gtk3
-    pcre
-    libphonenumber
-    boost
-    protobuf
-  ] ++ lib.optionals stdenv.isLinux [ libaccounts-glib ]
+  buildInputs =
+    [
+      glib
+      libsoup_3
+      gnome-online-accounts
+      p11-kit
+      libgweather
+      icu
+      sqlite
+      libkrb5
+      openldap
+      glib-networking
+      libcanberra-gtk3
+      pcre
+      libphonenumber
+      boost
+      protobuf
+    ] ++ lib.optionals stdenv.isLinux [ libaccounts-glib ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ++ lib.optionals withGtk3 [ gtk3 ]
     ++ lib.optionals (withGtk3 && enableOAuth2) [ webkitgtk_4_1 ]
     ++ lib.optionals withGtk4 [ gtk4 ]
-    ++ lib.optionals (withGtk4 && enableOAuth2) [ webkitgtk_6_0 ];
+    ++ lib.optionals (withGtk4 && enableOAuth2) [ webkitgtk_6_0 ]
+    ;
 
   propagatedBuildInputs = [
     db

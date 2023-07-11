@@ -71,33 +71,35 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  preCheck = ''
-    patchShebangs ../test/
-    mkdir ../test/tmp
+  preCheck =
+    ''
+      patchShebangs ../test/
+      mkdir ../test/tmp
 
-    ${lib.optionalString stdenv.hostPlatform.isAarch ''
-      # Fix tests on arm
-      # https://github.com/Exiv2/exiv2/issues/933
-      rm -f ../tests/bugfixes/github/test_CVE_2018_12265.py
-    ''}
+      ${lib.optionalString stdenv.hostPlatform.isAarch ''
+        # Fix tests on arm
+        # https://github.com/Exiv2/exiv2/issues/933
+        rm -f ../tests/bugfixes/github/test_CVE_2018_12265.py
+      ''}
 
-    ${lib.optionalString stdenv.isDarwin ''
-      export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH''${DYLD_LIBRARY_PATH:+:}$PWD/lib
-      # Removing tests depending on charset conversion
-      substituteInPlace ../test/Makefile --replace "conversions.sh" ""
-      rm -f ../tests/bugfixes/redmine/test_issue_460.py
-      rm -f ../tests/bugfixes/redmine/test_issue_662.py
-      rm -f ../tests/bugfixes/github/test_issue_1046.py
+      ${lib.optionalString stdenv.isDarwin ''
+        export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH''${DYLD_LIBRARY_PATH:+:}$PWD/lib
+        # Removing tests depending on charset conversion
+        substituteInPlace ../test/Makefile --replace "conversions.sh" ""
+        rm -f ../tests/bugfixes/redmine/test_issue_460.py
+        rm -f ../tests/bugfixes/redmine/test_issue_662.py
+        rm -f ../tests/bugfixes/github/test_issue_1046.py
 
-      rm ../tests/bugfixes/redmine/test_issue_683.py
+        rm ../tests/bugfixes/redmine/test_issue_683.py
 
-      # disable tests that requires loopback networking
-      substituteInPlace  ../tests/bash_tests/testcases.py \
-        --replace "def io_test(self):" "def io_disabled(self):"
-    ''}
-  '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
-    export LC_ALL=C
-  '';
+        # disable tests that requires loopback networking
+        substituteInPlace  ../tests/bash_tests/testcases.py \
+          --replace "def io_test(self):" "def io_disabled(self):"
+      ''}
+    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+      export LC_ALL=C
+    ''
+    ;
 
     # With CMake we have to enable samples or there won't be
     # a tests target. This removes them.

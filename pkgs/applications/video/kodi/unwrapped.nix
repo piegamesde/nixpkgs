@@ -170,13 +170,15 @@ let
       "-DOS=${stdenv.hostPlatform.parsed.kernel.name}"
       "-DPKG_CONFIG_EXECUTABLE=pkg-config"
     ];
-    buildInputs = [
-      libidn2
-      libtasn1
-      p11-kit
-      zlib
-      libva
-    ] ++ lib.optional vdpauSupport libvdpau;
+    buildInputs =
+      [
+        libidn2
+        libtasn1
+        p11-kit
+        zlib
+        libva
+      ] ++ lib.optional vdpauSupport libvdpau
+      ;
     nativeBuildInputs = [
       cmake
       nasm
@@ -208,8 +210,10 @@ let
     sha256 = "sha256-AphBQhXud+a6wm52zjzC5biz53NnqWdgpL2QDt2ZuXc=";
   };
 
-  kodi_platforms = lib.optional gbmSupport "gbm"
-    ++ lib.optional waylandSupport "wayland" ++ lib.optional x11Support "x11";
+  kodi_platforms =
+    lib.optional gbmSupport "gbm" ++ lib.optional waylandSupport "wayland"
+    ++ lib.optional x11Support "x11"
+    ;
 
 in
 stdenv.mkDerivation {
@@ -218,96 +222,97 @@ stdenv.mkDerivation {
 
   src = kodi_src;
 
-  buildInputs = [
-    gnutls
-    libidn2
-    libtasn1
-    nasm
-    p11-kit
-    libxml2
-    python3Packages.python
-    boost
-    libmicrohttpd
-    gettext
-    pcre-cpp
-    yajl
-    fribidi
-    libva
-    libdrm
-    openssl
-    gperf
-    tinyxml2
-    taglib
-    libssh
-    gtest
-    ncurses
-    spdlog
-    alsa-lib
-    libGL
-    libGLU
-    fontconfig
-    freetype
-    ftgl
-    libjpeg
-    libpng
-    libtiff
-    libmpeg2
-    libsamplerate
-    libmad
-    libogg
-    libvorbis
-    flac
-    libxslt
-    systemd
-    lzo
-    libcdio
-    libmodplug
-    libass
-    libbluray
-    libudfread
-    sqlite
-    libmysqlclient
-    avahi
-    lame
-    curl
-    bzip2
-    zip
-    unzip
-    glxinfo
-    libcec
-    libcec_platform
-    dcadec
-    libuuid
-    libxcrypt
-    libgcrypt
-    libgpg-error
-    libunistring
-    libcrossguid
-    libplist
-    bluez
-    giflib
-    glib
-    harfbuzz
-    lcms2
-    libpthreadstubs
-    ffmpeg
-    flatbuffers
-    fstrcmp
-    rapidjson
-    lirc
-    mesa # for libEGL
-  ] ++ lib.optionals x11Support [
-    libX11
-    xorgproto
-    libXt
-    libXmu
-    libXext.dev
-    libXdmcp
-    libXinerama
-    libXrandr.dev
-    libXtst
-    libXfixes
-  ] ++ lib.optional dbusSupport dbus ++ lib.optional joystickSupport cwiid
+  buildInputs =
+    [
+      gnutls
+      libidn2
+      libtasn1
+      nasm
+      p11-kit
+      libxml2
+      python3Packages.python
+      boost
+      libmicrohttpd
+      gettext
+      pcre-cpp
+      yajl
+      fribidi
+      libva
+      libdrm
+      openssl
+      gperf
+      tinyxml2
+      taglib
+      libssh
+      gtest
+      ncurses
+      spdlog
+      alsa-lib
+      libGL
+      libGLU
+      fontconfig
+      freetype
+      ftgl
+      libjpeg
+      libpng
+      libtiff
+      libmpeg2
+      libsamplerate
+      libmad
+      libogg
+      libvorbis
+      flac
+      libxslt
+      systemd
+      lzo
+      libcdio
+      libmodplug
+      libass
+      libbluray
+      libudfread
+      sqlite
+      libmysqlclient
+      avahi
+      lame
+      curl
+      bzip2
+      zip
+      unzip
+      glxinfo
+      libcec
+      libcec_platform
+      dcadec
+      libuuid
+      libxcrypt
+      libgcrypt
+      libgpg-error
+      libunistring
+      libcrossguid
+      libplist
+      bluez
+      giflib
+      glib
+      harfbuzz
+      lcms2
+      libpthreadstubs
+      ffmpeg
+      flatbuffers
+      fstrcmp
+      rapidjson
+      lirc
+      mesa # for libEGL
+    ] ++ lib.optionals x11Support [
+      libX11
+      xorgproto
+      libXt
+      libXmu
+      libXext.dev
+      libXdmcp
+      libXinerama
+      libXrandr.dev
+      libXtst
+      libXfixes
+    ] ++ lib.optional dbusSupport dbus ++ lib.optional joystickSupport cwiid
     ++ lib.optional nfsSupport libnfs ++ lib.optional pulseSupport libpulseaudio
     ++ lib.optional rtmpSupport rtmpdump ++ lib.optional sambaSupport samba
     ++ lib.optional udevSupport udev
@@ -322,82 +327,89 @@ stdenv.mkDerivation {
       libxkbcommon.dev
       mesa.dev
       libinput.dev
-    ];
+    ]
+    ;
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    makeWrapper
-    which
-    pkg-config
-    autoconf
-    automake
-    libtool # still needed for some components. Check if that is the case with 19.0
-    jre_headless
-    yasm
-    gettext
-    python3Packages.python
-    flatbuffers
+  nativeBuildInputs =
+    [
+      cmake
+      doxygen
+      makeWrapper
+      which
+      pkg-config
+      autoconf
+      automake
+      libtool # still needed for some components. Check if that is the case with 19.0
+      jre_headless
+      yasm
+      gettext
+      python3Packages.python
+      flatbuffers
 
-    # for TexturePacker
-    giflib
-    zlib
-    libpng
-    libjpeg
-    lzo
-  ] ++ lib.optionals waylandSupport [
-    wayland-protocols
-    waylandpp.bin
-  ];
+      # for TexturePacker
+      giflib
+      zlib
+      libpng
+      libjpeg
+      lzo
+    ] ++ lib.optionals waylandSupport [
+      wayland-protocols
+      waylandpp.bin
+    ]
+    ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  cmakeFlags = [
-    "-DAPP_RENDER_SYSTEM=${
-      if gbmSupport then
-        "gles"
-      else
-        "gl"
-    }"
-    "-Dlibdvdcss_URL=${libdvdcss}"
-    "-Dlibdvdnav_URL=${libdvdnav}"
-    "-Dlibdvdread_URL=${libdvdread}"
-    "-DGIT_VERSION=${kodiReleaseDate}"
-    "-DENABLE_EVENTCLIENTS=ON"
-    "-DENABLE_INTERNAL_CROSSGUID=OFF"
-    "-DENABLE_INTERNAL_RapidJSON=OFF"
-    "-DENABLE_OPTICAL=ON"
-    "-DLIRC_DEVICE=/run/lirc/lircd"
-    "-DSWIG_EXECUTABLE=${buildPackages.swig}/bin/swig"
-    "-DFLATBUFFERS_FLATC_EXECUTABLE=${buildPackages.flatbuffers}/bin/flatc"
-    "-DPYTHON_EXECUTABLE=${buildPackages.python3Packages.python}/bin/python"
-    # When wrapped KODI_HOME will likely contain symlinks to static assets
-    # that Kodi's built in webserver will cautiously refuse to serve up
-    # (because their realpaths are outside of KODI_HOME and the other
-    # whitelisted directories). This adds the entire nix store to the Kodi
-    # webserver whitelist to avoid this problem.
-    "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
-  ] ++ lib.optionals waylandSupport [
+  cmakeFlags =
+    [
+      "-DAPP_RENDER_SYSTEM=${
+        if gbmSupport then
+          "gles"
+        else
+          "gl"
+      }"
+      "-Dlibdvdcss_URL=${libdvdcss}"
+      "-Dlibdvdnav_URL=${libdvdnav}"
+      "-Dlibdvdread_URL=${libdvdread}"
+      "-DGIT_VERSION=${kodiReleaseDate}"
+      "-DENABLE_EVENTCLIENTS=ON"
+      "-DENABLE_INTERNAL_CROSSGUID=OFF"
+      "-DENABLE_INTERNAL_RapidJSON=OFF"
+      "-DENABLE_OPTICAL=ON"
+      "-DLIRC_DEVICE=/run/lirc/lircd"
+      "-DSWIG_EXECUTABLE=${buildPackages.swig}/bin/swig"
+      "-DFLATBUFFERS_FLATC_EXECUTABLE=${buildPackages.flatbuffers}/bin/flatc"
+      "-DPYTHON_EXECUTABLE=${buildPackages.python3Packages.python}/bin/python"
+      # When wrapped KODI_HOME will likely contain symlinks to static assets
+      # that Kodi's built in webserver will cautiously refuse to serve up
+      # (because their realpaths are outside of KODI_HOME and the other
+      # whitelisted directories). This adds the entire nix store to the Kodi
+      # webserver whitelist to avoid this problem.
+      "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
+    ] ++ lib.optionals waylandSupport [
       "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
-    ];
+    ]
+    ;
 
     # 14 tests fail but the biggest issue is that every test takes 30 seconds -
     # I'm guessing there is a thing waiting to time out
   doCheck = false;
 
-  preConfigure = ''
-    cmakeFlagsArray+=("-DCORE_PLATFORM_NAME=${
-      lib.concatStringsSep " " kodi_platforms
-    }")
-  '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-    # Need these tools on the build system when cross compiling,
-    # hacky, but have found no other way.
-    CXX=$CXX_FOR_BUILD LD=ld make -C tools/depends/native/JsonSchemaBuilder
-    cmakeFlags+=" -DWITH_JSONSCHEMABUILDER=$PWD/tools/depends/native/JsonSchemaBuilder/bin"
+  preConfigure =
+    ''
+      cmakeFlagsArray+=("-DCORE_PLATFORM_NAME=${
+        lib.concatStringsSep " " kodi_platforms
+      }")
+    '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      # Need these tools on the build system when cross compiling,
+      # hacky, but have found no other way.
+      CXX=$CXX_FOR_BUILD LD=ld make -C tools/depends/native/JsonSchemaBuilder
+      cmakeFlags+=" -DWITH_JSONSCHEMABUILDER=$PWD/tools/depends/native/JsonSchemaBuilder/bin"
 
-    CXX=$CXX_FOR_BUILD LD=ld make EXTRA_CONFIGURE= -C tools/depends/native/TexturePacker
-    cmakeFlags+=" -DWITH_TEXTUREPACKER=$PWD/tools/depends/native/TexturePacker/bin"
-  '';
+      CXX=$CXX_FOR_BUILD LD=ld make EXTRA_CONFIGURE= -C tools/depends/native/TexturePacker
+      cmakeFlags+=" -DWITH_TEXTUREPACKER=$PWD/tools/depends/native/TexturePacker/bin"
+    ''
+    ;
 
   postPatch = ''
     substituteInPlace xbmc/platform/posix/PosixTimezone.cpp \

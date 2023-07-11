@@ -81,17 +81,19 @@ let
 
       passthru.unwrapped = mpv;
 
-      postBuild = ''
-        # wrapProgram can't operate on symlinks
-        rm "$out/bin/mpv"
-        makeWrapper "${mpv}/bin/mpv" "$out/bin/mpv" ${mostMakeWrapperArgs}
-        rm "$out/bin/umpv"
-        makeWrapper "${mpv}/bin/umpv" "$out/bin/umpv" ${umpvWrapperArgs}
-      '' + lib.optionalString stdenv.isDarwin ''
-        # wrapProgram can't operate on symlinks
-        rm "$out/Applications/mpv.app/Contents/MacOS/mpv"
-        makeWrapper "${mpv}/Applications/mpv.app/Contents/MacOS/mpv" "$out/Applications/mpv.app/Contents/MacOS/mpv" ${mostMakeWrapperArgs}
-      '';
+      postBuild =
+        ''
+          # wrapProgram can't operate on symlinks
+          rm "$out/bin/mpv"
+          makeWrapper "${mpv}/bin/mpv" "$out/bin/mpv" ${mostMakeWrapperArgs}
+          rm "$out/bin/umpv"
+          makeWrapper "${mpv}/bin/umpv" "$out/bin/umpv" ${umpvWrapperArgs}
+        '' + lib.optionalString stdenv.isDarwin ''
+          # wrapProgram can't operate on symlinks
+          rm "$out/Applications/mpv.app/Contents/MacOS/mpv"
+          makeWrapper "${mpv}/Applications/mpv.app/Contents/MacOS/mpv" "$out/Applications/mpv.app/Contents/MacOS/mpv" ${mostMakeWrapperArgs}
+        ''
+        ;
 
       meta = {
         inherit (mpv.meta) homepage description longDescription maintainers;

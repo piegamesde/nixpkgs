@@ -28,34 +28,37 @@ stdenv.mkDerivation rec {
     jre
   ];
 
-  patches = [
-    # Make home.dir and config.dir configurable through the
-    # KC_HOME_DIR and KC_CONF_DIR environment variables.
-    ./config_vars.patch
-  ];
+  patches =
+    [
+      # Make home.dir and config.dir configurable through the
+      # KC_HOME_DIR and KC_CONF_DIR environment variables.
+      ./config_vars.patch
+    ];
 
-  buildPhase = ''
-    runHook preBuild
-  '' + lib.optionalString (confFile != null) ''
-    install -m 0600 ${confFile} conf/keycloak.conf
-  '' + ''
-    install_plugin() {
-      if [ -d "$1" ]; then
-        find "$1" -type f \( -iname \*.ear -o -iname \*.jar \) -exec install -m 0500 "{}" "providers/" \;
-      else
-        install -m 0500 "$1" "providers/"
-      fi
-    }
-    ${lib.concatMapStringsSep "\n"
-    (pl: "install_plugin ${lib.escapeShellArg pl}") plugins}
-  '' + ''
-    patchShebangs bin/kc.sh
-    export KC_HOME_DIR=$(pwd)
-    export KC_CONF_DIR=$(pwd)/conf
-    bin/kc.sh build
+  buildPhase =
+    ''
+      runHook preBuild
+    '' + lib.optionalString (confFile != null) ''
+      install -m 0600 ${confFile} conf/keycloak.conf
+    '' + ''
+      install_plugin() {
+        if [ -d "$1" ]; then
+          find "$1" -type f \( -iname \*.ear -o -iname \*.jar \) -exec install -m 0500 "{}" "providers/" \;
+        else
+          install -m 0500 "$1" "providers/"
+        fi
+      }
+      ${lib.concatMapStringsSep "\n"
+      (pl: "install_plugin ${lib.escapeShellArg pl}") plugins}
+    '' + ''
+      patchShebangs bin/kc.sh
+      export KC_HOME_DIR=$(pwd)
+      export KC_CONF_DIR=$(pwd)/conf
+      bin/kc.sh build
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    ''
+    ;
 
   installPhase = ''
     runHook preInstall

@@ -37,9 +37,7 @@ let
       val
     ;
   handleTest =
-    path: args:
-    discoverTests (import path ({ inherit system pkgs; } // args))
-    ;
+    path: args: discoverTests (import path ({ inherit system pkgs; } // args));
   handleTestOn =
     systems: path: args:
     if elem system systems then
@@ -55,37 +53,38 @@ let
   };
   evalMinimalConfig = module: nixosLib.evalModules { modules = [ module ]; };
 
-  inherit (rec {
-    doRunTest =
-      arg:
-      ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest {
-        imports = [ arg ];
-      }).config.result
-      ;
-    findTests =
-      tree:
-      if tree ? recurseForDerivations && tree.recurseForDerivations then
-        mapAttrs (k: findTests)
-        (builtins.removeAttrs tree [ "recurseForDerivations" ])
-      else
-        callTest tree
-      ;
+  inherit
+    (rec {
+      doRunTest =
+        arg:
+        ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest {
+          imports = [ arg ];
+        }).config.result
+        ;
+      findTests =
+        tree:
+        if tree ? recurseForDerivations && tree.recurseForDerivations then
+          mapAttrs (k: findTests)
+          (builtins.removeAttrs tree [ "recurseForDerivations" ])
+        else
+          callTest tree
+        ;
 
-    runTest =
-      arg:
-      let
-        r = doRunTest arg;
-      in
-      findTests r
-      ;
-    runTestOn =
-      systems: arg:
-      if elem system systems then
-        runTest arg
-      else
-        { }
-      ;
-  })
+      runTest =
+        arg:
+        let
+          r = doRunTest arg;
+        in
+        findTests r
+        ;
+      runTestOn =
+        systems: arg:
+        if elem system systems then
+          runTest arg
+        else
+          { }
+        ;
+    })
     runTest
     runTestOn
     ;
@@ -186,10 +185,11 @@ in
   ] ./cfssl.nix { };
   cgit = handleTest ./cgit.nix { };
   charliecloud = handleTest ./charliecloud.nix { };
-  chromium = (handleTestOn [
-    "aarch64-linux"
-    "x86_64-linux"
-  ] ./chromium.nix { }).stable or { };
+  chromium =
+    (handleTestOn [
+      "aarch64-linux"
+      "x86_64-linux"
+    ] ./chromium.nix { }).stable or { };
   chrony-ptp = handleTestOn [
     "aarch64-linux"
     "x86_64-linux"

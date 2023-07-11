@@ -180,25 +180,28 @@ stdenv.mkDerivation (finalAttrs: {
 
   mesonAutoFeatures = "auto";
 
-  nativeBuildInputs = [
-    addOpenGLRunpath
-    docutils # for rst2man
-    meson
-    ninja
-    pkg-config
-    python3
-  ] ++ lib.optionals stdenv.isDarwin [ xcbuild.xcrun ]
+  nativeBuildInputs =
+    [
+      addOpenGLRunpath
+      docutils # for rst2man
+      meson
+      ninja
+      pkg-config
+      python3
+    ] ++ lib.optionals stdenv.isDarwin [ xcbuild.xcrun ]
     ++ lib.optionals swiftSupport [ swift ]
-    ++ lib.optionals waylandSupport [ wayland-scanner ];
+    ++ lib.optionals waylandSupport [ wayland-scanner ]
+    ;
 
-  buildInputs = [
-    ffmpeg_5
-    freetype
-    libass
-    libpthreadstubs
-    libuchardet
-    luaEnv
-  ] ++ lib.optionals alsaSupport [ alsa-lib ]
+  buildInputs =
+    [
+      ffmpeg_5
+      freetype
+      libass
+      libpthreadstubs
+      libuchardet
+      luaEnv
+    ] ++ lib.optionals alsaSupport [ alsa-lib ]
     ++ lib.optionals archiveSupport [ libarchive ]
     ++ lib.optionals bluraySupport [ libbluray ]
     ++ lib.optionals bs2bSupport [ libbs2b ]
@@ -255,7 +258,8 @@ stdenv.mkDerivation (finalAttrs: {
     ] ++ lib.optionals (stdenv.isDarwin && swiftSupport) [
       AVFoundation
       CoreMedia
-    ];
+    ]
+    ;
 
   postBuild = lib.optionalString stdenv.isDarwin ''
     pushd .. # Must be run from the source dir because it uses relative paths
@@ -263,19 +267,21 @@ stdenv.mkDerivation (finalAttrs: {
     popd
   '';
 
-  postInstall = ''
-    # Use a standard font
-    mkdir -p $out/share/mpv
-    ln -s ${freefont_ttf}/share/fonts/truetype/FreeSans.ttf $out/share/mpv/subfont.ttf
+  postInstall =
+    ''
+      # Use a standard font
+      mkdir -p $out/share/mpv
+      ln -s ${freefont_ttf}/share/fonts/truetype/FreeSans.ttf $out/share/mpv/subfont.ttf
 
-    cp ../TOOLS/mpv_identify.sh $out/bin
-    cp ../TOOLS/umpv $out/bin
-    cp $out/share/applications/mpv.desktop $out/share/applications/umpv.desktop
-    sed -i '/Icon=/ ! s/mpv/umpv/g' $out/share/applications/umpv.desktop
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/Applications
-    cp -r mpv.app $out/Applications
-  '';
+      cp ../TOOLS/mpv_identify.sh $out/bin
+      cp ../TOOLS/umpv $out/bin
+      cp $out/share/applications/mpv.desktop $out/share/applications/umpv.desktop
+      sed -i '/Icon=/ ! s/mpv/umpv/g' $out/share/applications/umpv.desktop
+    '' + lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/Applications
+      cp -r mpv.app $out/Applications
+    ''
+    ;
 
     # Set RUNPATH so that libcuda in /run/opengl-driver(-32)/lib can be found.
     # See the explanation in addOpenGLRunpath.

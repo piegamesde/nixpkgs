@@ -53,10 +53,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "bpython" ];
 
-  disabledTests = [
-    # Check for syntax error ends with an AssertionError
-    "test_syntaxerror"
-  ];
+  disabledTests =
+    [
+      # Check for syntax error ends with an AssertionError
+      "test_syntaxerror"
+    ];
 
   meta = with lib; {
     description =

@@ -21,16 +21,18 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchzip {
-    url = "mirror://gnome/sources/libgovirt/${
+    url =
+      "mirror://gnome/sources/libgovirt/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-6RDuJTyaVYlO4Kq+niQyepom6xj1lqdBbyWL/VnZUdk=";
   };
 
-  patches = [
-    # https://gitlab.gnome.org/GNOME/libgovirt/-/issues/9
-    ./auto-disable-incompatible-compiler-warnings.patch
-  ];
+  patches =
+    [
+      # https://gitlab.gnome.org/GNOME/libgovirt/-/issues/9
+      ./auto-disable-incompatible-compiler-warnings.patch
+    ];
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang
     (lib.concatStringsSep " " [
       "-Wno-typedef-redefinition"

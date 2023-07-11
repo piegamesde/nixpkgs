@@ -118,10 +118,11 @@ in
     };
 
     host = mkOption {
-      default = (if mpdCfg.network.listenAddress != "any" then
-        mpdCfg.network.listenAddress
-      else
-        "localhost");
+      default =
+        (if mpdCfg.network.listenAddress != "any" then
+          mpdCfg.network.listenAddress
+        else
+          "localhost");
       defaultText = literalExpression ''
         if config.${mpdOpt.network.listenAddress} != "any"
         then config.${mpdOpt.network.listenAddress}
@@ -164,37 +165,38 @@ in
     };
 
     endpoints = mkOption {
-      type = (let
-        endpoint =
-          {
-            name,
-            ...
-          }: {
-            options = {
-              url = mkOption {
-                type = types.str;
-                default = endpointUrls.${name} or "";
-                description = lib.mdDoc
-                  "The url endpoint where the scrobble API is listening.";
+      type =
+        (let
+          endpoint =
+            {
+              name,
+              ...
+            }: {
+              options = {
+                url = mkOption {
+                  type = types.str;
+                  default = endpointUrls.${name} or "";
+                  description = lib.mdDoc
+                    "The url endpoint where the scrobble API is listening.";
+                };
+                username = mkOption {
+                  type = types.str;
+                  description = lib.mdDoc ''
+                    Username for the scrobble service.
+                  '';
+                };
+                passwordFile = mkOption {
+                  type = types.nullOr types.str;
+                  description = lib.mdDoc
+                    "File containing the password, either as MD5SUM or cleartext."
+                    ;
+                };
               };
-              username = mkOption {
-                type = types.str;
-                description = lib.mdDoc ''
-                  Username for the scrobble service.
-                '';
-              };
-              passwordFile = mkOption {
-                type = types.nullOr types.str;
-                description = lib.mdDoc
-                  "File containing the password, either as MD5SUM or cleartext."
-                  ;
-              };
-            };
-          }
-          ;
-      in
-      types.attrsOf (types.submodule endpoint)
-      );
+            }
+            ;
+        in
+        types.attrsOf (types.submodule endpoint)
+        );
       default = { };
       example = {
         "last.fm" = {

@@ -26,22 +26,24 @@ stdenv.mkDerivation rec {
   version = "3.48.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "vqakEdZAHXOqTh3oHUN5LwPAQ54DBZxVSn+YTEptmtg=";
   };
 
-  patches = [
-    # evolution-ews contains .so files loaded by evolution-data-server refering
-    # schemas from evolution. evolution-data-server is not wrapped with
-    # evolution's schemas because it would be a circular dependency with
-    # evolution.
-    (substituteAll {
-      src = ./hardcode-gsettings.patch;
-      evo = glib.makeSchemaPath evolution evolution.name;
-    })
-  ];
+  patches =
+    [
+      # evolution-ews contains .so files loaded by evolution-data-server refering
+      # schemas from evolution. evolution-data-server is not wrapped with
+      # evolution's schemas because it would be a circular dependency with
+      # evolution.
+      (substituteAll {
+        src = ./hardcode-gsettings.patch;
+        evo = glib.makeSchemaPath evolution evolution.name;
+      })
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -62,10 +64,11 @@ stdenv.mkDerivation rec {
     webkitgtk_4_1
   ];
 
-  cmakeFlags = [
-    # don't try to install into ${evolution}
-    "-DFORCE_INSTALL_PREFIX=ON"
-  ];
+  cmakeFlags =
+    [
+      # don't try to install into ${evolution}
+      "-DFORCE_INSTALL_PREFIX=ON"
+    ];
 
   passthru = {
     hardcodeGsettingsPatch = makeHardcodeGsettingsPatch {

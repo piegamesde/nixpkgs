@@ -33,11 +33,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZzVTuR+eGMxXku1RB1341RDJBA9VCm904Jya3SQ6fk8=";
   };
 
-  patches = [
-    # Pull upstream fix for aarch64-darwin where pma does not work.
-    # Can be removed after next gawk release.
-    ./darwin-no-pma.patch
-  ];
+  patches =
+    [
+      # Pull upstream fix for aarch64-darwin where pma does not work.
+      # Can be removed after next gawk release.
+      ./darwin-no-pma.patch
+    ];
 
     # PIE is incompatible with the "persistent malloc" ("pma") feature.
     # While build system attempts to pass -no-pie to gcc. nixpkgs' `ld`
@@ -46,17 +47,21 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "pie" ];
 
     # When we do build separate interactive version, it makes sense to always include man.
-  outputs = [
-    "out"
-    "info"
-  ] ++ lib.optional (!interactive) "man";
+  outputs =
+    [
+      "out"
+      "info"
+    ] ++ lib.optional (!interactive) "man"
+    ;
 
     # no-pma fix
   nativeBuildInputs =
     [ autoreconfHook ] ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
 
-  buildInputs = lib.optional withSigsegv libsigsegv
-    ++ lib.optional interactive readline ++ lib.optional stdenv.isDarwin locale;
+  buildInputs =
+    lib.optional withSigsegv libsigsegv ++ lib.optional interactive readline
+    ++ lib.optional stdenv.isDarwin locale
+    ;
 
   configureFlags = [
     (if withSigsegv then

@@ -35,10 +35,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Integration tests require an accessible Vertica db
-    "vertica_python/tests/integration_tests"
-  ];
+  disabledTestPaths =
+    [
+      # Integration tests require an accessible Vertica db
+      "vertica_python/tests/integration_tests"
+    ];
 
   pythonImportsCheck = [ "vertica_python" ];
 

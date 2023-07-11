@@ -322,23 +322,27 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = pythonPkgs;
 
-  buildInputs = [
-    curl
-    gsettings-desktop-schemas
-    glib-networking
-    gtk3
-  ] ++ lib.concatMap (f: lib.optionals f.enabled f.deps)
-    (lib.filter (f: f ? deps) features);
+  buildInputs =
+    [
+      curl
+      gsettings-desktop-schemas
+      glib-networking
+      gtk3
+    ] ++ lib.concatMap (f: lib.optionals f.enabled f.deps)
+    (lib.filter (f: f ? deps) features)
+    ;
 
-  configureFlags = [
-    "--disable-manual" # Missing docbook-tools, e.g., docbook2html
-    "--disable-compface" # Missing compface library
-    "--disable-jpilot" # Missing jpilot library
+  configureFlags =
+    [
+      "--disable-manual" # Missing docbook-tools, e.g., docbook2html
+      "--disable-compface" # Missing compface library
+      "--disable-jpilot" # Missing jpilot library
 
-    "--disable-gdata-plugin" # Complains about missing libgdata, even when provided
-  ] ++ (map (feature:
-    map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags)
-    features);
+      "--disable-gdata-plugin" # Complains about missing libgdata, even when provided
+    ] ++ (map (feature:
+      map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags)
+      features)
+    ;
 
   enableParallelBuilding = true;
 

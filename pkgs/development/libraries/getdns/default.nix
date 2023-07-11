@@ -38,7 +38,8 @@ rec {
     ];
 
     src = fetchurl {
-      url = "https://getdnsapi.net/releases/${pname}-${
+      url =
+        "https://getdnsapi.net/releases/${pname}-${
           with builtins;
           concatStringsSep "-" (splitVersion version)
         }/${pname}-${version}.tar.gz";
@@ -105,12 +106,14 @@ rec {
       yq
     ];
 
-    buildInputs = [
-      getdns
-      libyaml
-      openssl
-      systemd
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.Security ];
+    buildInputs =
+      [
+        getdns
+        libyaml
+        openssl
+        systemd
+      ] ++ lib.optionals stdenv.isDarwin [ darwin.Security ]
+      ;
 
     postInstall = ''
       rm -r $out/share/doc

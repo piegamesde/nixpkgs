@@ -92,8 +92,8 @@
       # Note: in case hadrian's flavour transformers cease being expressive
       # enough for us, we'll need to resort to defining a "nixpkgs" flavour
       # in hadrianUserSettings and using that instead.
-    transformers = lib.optionals useLLVM [ "llvm" ]
-      ++ lib.optionals (!enableShared) [
+    transformers =
+      lib.optionals useLLVM [ "llvm" ] ++ lib.optionals (!enableShared) [
         "no_dynamic_libs"
         "no_dynamic_ghc"
       ] ++ lib.optionals (!enableProfiledLibs) [
@@ -102,7 +102,8 @@
       # While split sections are now enabled by default in ghc 8.8 for windows,
       # they seem to lead to `too many sections` errors when building base for
       # profiling.
-      ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ];
+      ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ]
+      ;
   in
   baseFlavour + lib.concatMapStrings (t: "+${t}") transformers
 
@@ -190,7 +191,8 @@ let
       "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs"
     ] ++ lib.optionals targetPlatform.useAndroidPrebuilt [
       "*.*.ghc.c.opts += -optc-std=gnu99"
-    ];
+    ]
+    ;
 
     # GHC's build system hadrian built from the GHC-to-build's source tree
     # using our bootstrap GHC.
@@ -217,12 +219,14 @@ let
 
     # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
     # GHC doesn't seem to have {LLC,OPT}_HOST
-  toolsForTarget = [
+  toolsForTarget =
+    [
       (if targetPlatform.isGhcjs then
         pkgsBuildTarget.emscripten
       else
         pkgsBuildTarget.targetPackages.stdenv.cc)
-    ] ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
+    ] ++ lib.optional useLLVM buildTargetLlvmPackages.llvm
+    ;
 
   targetCC = builtins.head toolsForTarget;
 
@@ -251,8 +255,11 @@ let
     # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
     # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
     # see #84670 and #49071 for more background.
-  useLdGold = targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd"
-    && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl);
+  useLdGold =
+    targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd"
+      && (targetCC.bintools.bintools.hasGold or false)
+      && !targetPlatform.isMusl)
+    ;
 
     # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
@@ -287,43 +294,44 @@ stdenv.mkDerivation ({
 
     # GHC is a bit confused on its cross terminology.
     # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
-  preConfigure = ''
-    for env in $(env | grep '^TARGET_' | sed -E 's|\+?=.*||'); do
-      export "''${env#TARGET_}=''${!env}"
-    done
-    # GHC is a bit confused on its cross terminology, as these would normally be
-    # the *host* tools.
-    export CC="${targetCC}/bin/${targetCC.targetPrefix}cc"
-    export CXX="${targetCC}/bin/${targetCC.targetPrefix}c++"
-    # Use gold to work around https://sourceware.org/bugzilla/show_bug.cgi?id=16177
-    export LD="${targetCC.bintools}/bin/${targetCC.bintools.targetPrefix}ld${
-      lib.optionalString useLdGold ".gold"
-    }"
-    export AS="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}as"
-    export AR="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}ar"
-    export NM="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}nm"
-    export RANLIB="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}ranlib"
-    export READELF="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}readelf"
-    export STRIP="${bintoolsFor.strip}/bin/${bintoolsFor.strip.targetPrefix}strip"
-  '' + lib.optionalString (stdenv.targetPlatform.linker == "cctools") ''
-    export OTOOL="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}otool"
-    export INSTALL_NAME_TOOL="${bintoolsFor.install_name_tool}/bin/${bintoolsFor.install_name_tool.targetPrefix}install_name_tool"
-  '' + lib.optionalString useLLVM ''
-    export LLC="${lib.getBin buildTargetLlvmPackages.llvm}/bin/llc"
-    export OPT="${lib.getBin buildTargetLlvmPackages.llvm}/bin/opt"
-  '' + lib.optionalString (useLLVM && stdenv.targetPlatform.isDarwin) ''
-    # LLVM backend on Darwin needs clang: https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
-    export CLANG="${buildTargetLlvmPackages.clang}/bin/${buildTargetLlvmPackages.clang.targetPrefix}clang"
-  '' + lib.optionalString (stdenv.isLinux && hostPlatform.libc == "glibc") ''
-    export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
-  '' + lib.optionalString (!stdenv.isDarwin) ''
-    export NIX_LDFLAGS+=" -rpath $out/lib/ghc-${version}"
-  '' + lib.optionalString stdenv.isDarwin ''
-    export NIX_LDFLAGS+=" -no_dtrace_dof"
+  preConfigure =
+    ''
+      for env in $(env | grep '^TARGET_' | sed -E 's|\+?=.*||'); do
+        export "''${env#TARGET_}=''${!env}"
+      done
+      # GHC is a bit confused on its cross terminology, as these would normally be
+      # the *host* tools.
+      export CC="${targetCC}/bin/${targetCC.targetPrefix}cc"
+      export CXX="${targetCC}/bin/${targetCC.targetPrefix}c++"
+      # Use gold to work around https://sourceware.org/bugzilla/show_bug.cgi?id=16177
+      export LD="${targetCC.bintools}/bin/${targetCC.bintools.targetPrefix}ld${
+        lib.optionalString useLdGold ".gold"
+      }"
+      export AS="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}as"
+      export AR="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}ar"
+      export NM="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}nm"
+      export RANLIB="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}ranlib"
+      export READELF="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}readelf"
+      export STRIP="${bintoolsFor.strip}/bin/${bintoolsFor.strip.targetPrefix}strip"
+    '' + lib.optionalString (stdenv.targetPlatform.linker == "cctools") ''
+      export OTOOL="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}otool"
+      export INSTALL_NAME_TOOL="${bintoolsFor.install_name_tool}/bin/${bintoolsFor.install_name_tool.targetPrefix}install_name_tool"
+    '' + lib.optionalString useLLVM ''
+      export LLC="${lib.getBin buildTargetLlvmPackages.llvm}/bin/llc"
+      export OPT="${lib.getBin buildTargetLlvmPackages.llvm}/bin/opt"
+    '' + lib.optionalString (useLLVM && stdenv.targetPlatform.isDarwin) ''
+      # LLVM backend on Darwin needs clang: https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
+      export CLANG="${buildTargetLlvmPackages.clang}/bin/${buildTargetLlvmPackages.clang.targetPrefix}clang"
+    '' + lib.optionalString (stdenv.isLinux && hostPlatform.libc == "glibc") ''
+      export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
+    '' + lib.optionalString (!stdenv.isDarwin) ''
+      export NIX_LDFLAGS+=" -rpath $out/lib/ghc-${version}"
+    '' + lib.optionalString stdenv.isDarwin ''
+      export NIX_LDFLAGS+=" -no_dtrace_dof"
 
-    # GHC tries the host xattr /usr/bin/xattr by default which fails since it expects python to be 2.7
-    export XATTR=${lib.getBin xattr}/bin/xattr
-  ''
+      # GHC tries the host xattr /usr/bin/xattr by default which fails since it expects python to be 2.7
+      export XATTR=${lib.getBin xattr}/bin/xattr
+    ''
     # If we are not using release tarballs, some files need to be generated using
     # the boot script.
     + lib.optionalString (rev != null) ''
@@ -367,7 +375,8 @@ stdenv.mkDerivation ({
         "-j$NIX_BUILD_CORES"
         ${lib.escapeShellArgs hadrianSettings}
       )
-    '';
+    ''
+    ;
 
   ${
     if targetPlatform.isGhcjs then
@@ -384,28 +393,31 @@ stdenv.mkDerivation ({
   } = true;
 
     # TODO(@Ericson2314): Always pass "--target" and always prefix.
-  configurePlatforms = [
-    "build"
-    "host"
-  ] ++ lib.optional (targetPlatform != hostPlatform) "target";
+  configurePlatforms =
+    [
+      "build"
+      "host"
+    ] ++ lib.optional (targetPlatform != hostPlatform) "target"
+    ;
 
     # `--with` flags for libraries needed for RTS linker
-  configureFlags = [
-    "--datadir=$doc/share/doc/ghc"
-    "--with-curses-includes=${ncurses.dev}/include"
-    "--with-curses-libraries=${ncurses.out}/lib"
-  ] ++ lib.optionals (libffi != null && !targetPlatform.isGhcjs) [
-    "--with-system-libffi"
-    "--with-ffi-includes=${targetPackages.libffi.dev}/include"
-    "--with-ffi-libraries=${targetPackages.libffi.out}/lib"
-  ] ++ lib.optionals (targetPlatform == hostPlatform && !enableNativeBignum) [
-    "--with-gmp-includes=${targetPackages.gmp.dev}/include"
-    "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
-  ] ++ lib.optionals (targetPlatform == hostPlatform && hostPlatform.libc
-    != "glibc" && !targetPlatform.isWindows) [
-      "--with-iconv-includes=${libiconv}/include"
-      "--with-iconv-libraries=${libiconv}/lib"
-    ] ++ lib.optionals (targetPlatform != hostPlatform) [
+  configureFlags =
+    [
+      "--datadir=$doc/share/doc/ghc"
+      "--with-curses-includes=${ncurses.dev}/include"
+      "--with-curses-libraries=${ncurses.out}/lib"
+    ] ++ lib.optionals (libffi != null && !targetPlatform.isGhcjs) [
+      "--with-system-libffi"
+      "--with-ffi-includes=${targetPackages.libffi.dev}/include"
+      "--with-ffi-libraries=${targetPackages.libffi.out}/lib"
+    ] ++ lib.optionals (targetPlatform == hostPlatform && !enableNativeBignum) [
+      "--with-gmp-includes=${targetPackages.gmp.dev}/include"
+      "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
+    ] ++ lib.optionals (targetPlatform == hostPlatform && hostPlatform.libc
+      != "glibc" && !targetPlatform.isWindows) [
+        "--with-iconv-includes=${libiconv}/include"
+        "--with-iconv-libraries=${libiconv}/lib"
+      ] ++ lib.optionals (targetPlatform != hostPlatform) [
       "--enable-bootstrap-with-devel-snapshot"
     ] ++ lib.optionals useLdGold [
       "CFLAGS=-fuse-ld=gold"
@@ -417,7 +429,8 @@ stdenv.mkDerivation ({
       "--enable-dwarf-unwind"
       "--with-libdw-includes=${lib.getDev elfutils}/include"
       "--with-libdw-libraries=${lib.getLib elfutils}/lib"
-    ];
+    ]
+    ;
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
   strictDeps = true;
@@ -425,30 +438,34 @@ stdenv.mkDerivation ({
     # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
   dontAddExtraLibs = true;
 
-  nativeBuildInputs = [
-    perl
-    ghc
-    hadrian
-    bootPkgs.alex
-    bootPkgs.happy
-    bootPkgs.hscolour
-    # autoconf and friends are necessary for hadrian to create the bindist
-    autoconf
-    automake
-    m4
-    # Python is used in a few scripts invoked by hadrian to generate e.g. rts headers.
-    python3
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+  nativeBuildInputs =
+    [
+      perl
+      ghc
+      hadrian
+      bootPkgs.alex
+      bootPkgs.happy
+      bootPkgs.hscolour
+      # autoconf and friends are necessary for hadrian to create the bindist
+      autoconf
+      automake
+      m4
+      # Python is used in a few scripts invoked by hadrian to generate e.g. rts headers.
+      python3
+    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
-    ] ++ lib.optionals enableDocs [ sphinx ];
+    ] ++ lib.optionals enableDocs [ sphinx ]
+    ;
 
     # For building runtime libs
   depsBuildTarget = toolsForTarget;
 
-  buildInputs = [
-    perl
-    bash
-  ] ++ (libDeps hostPlatform);
+  buildInputs =
+    [
+      perl
+      bash
+    ] ++ (libDeps hostPlatform)
+    ;
 
   depsTargetTarget = map lib.getDev (libDeps targetPlatform);
   depsTargetTargetPropagated =
@@ -489,7 +506,8 @@ stdenv.mkDerivation ({
 
   checkTarget = "test";
 
-  hardeningDisable = [
+  hardeningDisable =
+    [
       "format"
     ]
     # In nixpkgs, musl based builds currently enable `pie` hardening by default
@@ -499,7 +517,8 @@ stdenv.mkDerivation ({
     # See:
     # * https://github.com/NixOS/nixpkgs/issues/129247
     # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
-    ++ lib.optional stdenv.targetPlatform.isMusl "pie";
+    ++ lib.optional stdenv.targetPlatform.isMusl "pie"
+    ;
 
     # big-parallel allows us to build with more than 2 cores on
     # Hydra which already warrants a significant speedup

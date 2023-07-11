@@ -59,16 +59,20 @@ stdenv.mkDerivation (finalAttrs: {
   ]; # needed when linking against freetype
 
     # dependence on harfbuzz is looser than the reverse dependence
-  nativeBuildInputs = [
-    pkg-config
-    which
-    makeWrapper
-  ]
-  # FreeType requires GNU Make, which is not part of stdenv on FreeBSD.
-    ++ lib.optional (!stdenv.isLinux) gnumake;
+  nativeBuildInputs =
+    [
+      pkg-config
+      which
+      makeWrapper
+    ]
+    # FreeType requires GNU Make, which is not part of stdenv on FreeBSD.
+    ++ lib.optional (!stdenv.isLinux) gnumake
+    ;
 
-  patches = [ ./enable-table-validation.patch ]
-    ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch;
+  patches =
+    [ ./enable-table-validation.patch ]
+    ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch
+    ;
 
   outputs = [
     "out"
@@ -90,13 +94,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  postInstall = glib.flattenInclude + ''
-    substituteInPlace $dev/bin/freetype-config \
-      --replace ${buildPackages.pkg-config} ${pkgsHostHost.pkg-config}
+  postInstall =
+    glib.flattenInclude + ''
+      substituteInPlace $dev/bin/freetype-config \
+        --replace ${buildPackages.pkg-config} ${pkgsHostHost.pkg-config}
 
-    wrapProgram "$dev/bin/freetype-config" \
-      --set PKG_CONFIG_PATH "$PKG_CONFIG_PATH:$dev/lib/pkgconfig"
-  '';
+      wrapProgram "$dev/bin/freetype-config" \
+        --set PKG_CONFIG_PATH "$PKG_CONFIG_PATH:$dev/lib/pkgconfig"
+    ''
+    ;
 
   passthru.tests = {
     inherit

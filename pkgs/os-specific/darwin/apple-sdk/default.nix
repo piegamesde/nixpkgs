@@ -319,8 +319,10 @@ rec {
     super:
     {
       AppKit = lib.overrideDerivation super.AppKit (drv: {
-        __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ]
-          ++ [ "/System/Library/PrivateFrameworks/" ];
+        __propagatedImpureHostDeps =
+          drv.__propagatedImpureHostDeps or [ ]
+          ++ [ "/System/Library/PrivateFrameworks/" ]
+          ;
       });
 
       Carbon = lib.overrideDerivation super.Carbon (drv: {
@@ -333,13 +335,17 @@ rec {
         (drv: { setupHook = ./cf-setup-hook.sh; });
 
       CoreMedia = lib.overrideDerivation super.CoreMedia (drv: {
-        __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ]
-          ++ [ "/System/Library/Frameworks/CoreImage.framework" ];
+        __propagatedImpureHostDeps =
+          drv.__propagatedImpureHostDeps or [ ]
+          ++ [ "/System/Library/Frameworks/CoreImage.framework" ]
+          ;
       });
 
       CoreMIDI = lib.overrideDerivation super.CoreMIDI (drv: {
-        __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ]
-          ++ [ "/System/Library/PrivateFrameworks/" ];
+        __propagatedImpureHostDeps =
+          drv.__propagatedImpureHostDeps or [ ]
+          ++ [ "/System/Library/PrivateFrameworks/" ]
+          ;
         setupHook = ./private-frameworks-setup-hook.sh;
       });
 
@@ -353,18 +359,22 @@ rec {
         (drv: { setupHook = ./security-setup-hook.sh; });
 
       QuartzCore = lib.overrideDerivation super.QuartzCore (drv: {
-        installPhase = drv.installPhase + ''
-          f="$out/Library/Frameworks/QuartzCore.framework/Headers/CoreImage.h"
-          substituteInPlace "$f" \
-            --replace "QuartzCore/../Frameworks/CoreImage.framework/Headers" "CoreImage"
-        '';
+        installPhase =
+          drv.installPhase + ''
+            f="$out/Library/Frameworks/QuartzCore.framework/Headers/CoreImage.h"
+            substituteInPlace "$f" \
+              --replace "QuartzCore/../Frameworks/CoreImage.framework/Headers" "CoreImage"
+          ''
+          ;
       });
 
       MetalKit = lib.overrideDerivation super.MetalKit (drv: {
-        installPhase = drv.installPhase + ''
-          mkdir -p $out/include/simd
-          cp ${lib.getDev sdk}/include/simd/*.h $out/include/simd/
-        '';
+        installPhase =
+          drv.installPhase + ''
+            mkdir -p $out/include/simd
+            cp ${lib.getDev sdk}/include/simd/*.h $out/include/simd/
+          ''
+          ;
       });
 
       WebKit = lib.overrideDerivation super.WebKit (drv: {

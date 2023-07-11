@@ -12,14 +12,16 @@ let
   cfgDir = pkgs.symlinkJoin {
     name = "dconf-system-config";
     paths = map (x: "${x}/etc/dconf") cfg.packages;
-    postBuild = ''
-      mkdir -p $out/profile
-      mkdir -p $out/db
-    '' + (concatStringsSep "\n" (mapAttrsToList (name: path: ''
-      ln -s ${path} $out/profile/${name}
-    '') cfg.profiles)) + ''
-      ${pkgs.dconf}/bin/dconf update $out/db
-    '';
+    postBuild =
+      ''
+        mkdir -p $out/profile
+        mkdir -p $out/db
+      '' + (concatStringsSep "\n" (mapAttrsToList (name: path: ''
+        ln -s ${path} $out/profile/${name}
+      '') cfg.profiles)) + ''
+        ${pkgs.dconf}/bin/dconf update $out/db
+      ''
+      ;
   };
 in
 {

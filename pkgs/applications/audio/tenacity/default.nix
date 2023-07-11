@@ -92,59 +92,64 @@ stdenv.mkDerivation rec {
     "-lswscale"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    makeWrapper
-    pkg-config
-    python3
-  ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
+  nativeBuildInputs =
+    [
+      cmake
+      gettext
+      makeWrapper
+      pkg-config
+      python3
+    ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
+    ;
 
-  buildInputs = [
-    alsa-lib
-    expat
-    ffmpeg_5
-    file
-    flac
-    glib
-    lame
-    libid3tag
-    libjack2
-    libmad
-    libopus
-    libsndfile
-    libvorbis
-    lilv
-    lv2
-    pcre
-    portaudio
-    serd
-    sord
-    soundtouch
-    soxr
-    sqlite
-    sratom
-    suil
-    twolame
-    wxGTK32
-    gtk3
-  ] ++ lib.optionals stdenv.isLinux [
-    at-spi2-core
-    dbus
-    libepoxy
-    libXdmcp
-    libXtst
-    libpthreadstubs
-    libxkbcommon
-    libselinux
-    libsepol
-    util-linux
-  ];
+  buildInputs =
+    [
+      alsa-lib
+      expat
+      ffmpeg_5
+      file
+      flac
+      glib
+      lame
+      libid3tag
+      libjack2
+      libmad
+      libopus
+      libsndfile
+      libvorbis
+      lilv
+      lv2
+      pcre
+      portaudio
+      serd
+      sord
+      soundtouch
+      soxr
+      sqlite
+      sratom
+      suil
+      twolame
+      wxGTK32
+      gtk3
+    ] ++ lib.optionals stdenv.isLinux [
+      at-spi2-core
+      dbus
+      libepoxy
+      libXdmcp
+      libXtst
+      libpthreadstubs
+      libxkbcommon
+      libselinux
+      libsepol
+      util-linux
+    ]
+    ;
 
-  cmakeFlags = [
-    # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ];
+  cmakeFlags =
+    [
+      # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
+      "-DCMAKE_SKIP_BUILD_RPATH=ON"
+    ];
 
   meta = with lib; {
     description = "Sound editor with graphical UI";

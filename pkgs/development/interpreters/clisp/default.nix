@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
 
   ffcallAvailable = stdenv.isLinux && (libffcall != null);
 
-  buildInputs = [ libsigsegv ] ++ lib.optional (gettext != null) gettext
+  buildInputs =
+    [ libsigsegv ] ++ lib.optional (gettext != null) gettext
     ++ lib.optional (ncurses != null) ncurses
     ++ lib.optional (pcre != null) pcre ++ lib.optional (zlib != null) zlib
     ++ lib.optional (readline != null) readline
@@ -65,7 +66,8 @@ stdenv.mkDerivation rec {
       libXpm
       xorgproto
       libXext
-    ];
+    ]
+    ;
 
   patches = [
     ./bits_ipctypes_to_sys_ipc.patch # from Gentoo
@@ -86,15 +88,16 @@ stdenv.mkDerivation rec {
     substituteInPlace modules/bindings/glibc/linux.lisp --replace "(def-c-type __swblk_t)" ""
   '';
 
-  configureFlags = [ "builddir" ]
-    ++ lib.optional (!dllSupport) "--without-dynamic-modules"
+  configureFlags =
+    [ "builddir" ] ++ lib.optional (!dllSupport) "--without-dynamic-modules"
     ++ lib.optional (readline != null) "--with-readline"
     # --with-dynamic-ffi can only exist with --with-ffcall - foreign.d does not compile otherwise
     ++ lib.optional (ffcallAvailable && (libffi != null)) "--with-dynamic-ffi"
     ++ lib.optional ffcallAvailable "--with-ffcall"
     ++ lib.optional (!ffcallAvailable) "--without-ffcall"
     ++ builtins.map (x: "--with-module=" + x) withModules
-    ++ lib.optional threadSupport "--with-threads=POSIX_THREADS";
+    ++ lib.optional threadSupport "--with-threads=POSIX_THREADS"
+    ;
 
   preBuild = ''
     sed -e '/avcall.h/a\#include "config.h"' -i src/foreign.d

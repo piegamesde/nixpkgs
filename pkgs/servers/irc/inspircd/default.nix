@@ -215,7 +215,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A modular C++ IRC server";
-    license = [ lib.licenses.gpl2Only ] ++ lib.concatMap getLicenses extraInputs
+    license =
+      [ lib.licenses.gpl2Only ] ++ lib.concatMap getLicenses extraInputs
       ++ lib.optionals (anyMembers extraModules libcModules)
       (getLicenses stdenv.cc.libc)
       # FIXME(sternenseemann): get license of used lib(std)c++ somehow
@@ -223,7 +224,8 @@ stdenv.mkDerivation rec {
       # Hack: Definitely prevent a hydra from building this package on
       # a GPL 2 incompatibility even if it is not in a top-level attribute,
       # but pulled in indirectly somehow.
-      ++ lib.optional gpl2Conflict lib.licenses.unfree;
+      ++ lib.optional gpl2Conflict lib.licenses.unfree
+      ;
     maintainers = [ lib.maintainers.sternenseemann ];
       # windows is theoretically possible, but requires extra work
       # which I am not willing to do and can't test.

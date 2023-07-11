@@ -25,11 +25,7 @@ lib.mapAttrs (lname: lset:
             license
           ;
         applyRedistributable =
-          license:
-          {
-            redistributable = license.free;
-          } // license
-          ;
+          license: { redistributable = license.free; } // license;
       in
       lib.pipe licenseDeclaration [
         applyDefaults

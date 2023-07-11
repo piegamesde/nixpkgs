@@ -28,13 +28,15 @@ buildPythonPackage rec {
     hash = "sha256-YSMeH5ZTfP1OdLBepsxXAVczBG/ghSjCWjoz/I+TFl8=";
   };
 
-  propagatedBuildInputs = [
-    dm-tree
-    etils
-    numpy
-    tabulate
-    wrapt
-  ] ++ etils.optional-dependencies.epath;
+  propagatedBuildInputs =
+    [
+      dm-tree
+      etils
+      numpy
+      tabulate
+      wrapt
+    ] ++ etils.optional-dependencies.epath
+    ;
 
   passthru.optional-dependencies = { tensorflow = [ tensorflow ]; };
 

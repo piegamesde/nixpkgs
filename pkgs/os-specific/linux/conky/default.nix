@@ -103,17 +103,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3eCRzjfHGFiKuxmRHvnzqAg/+ApUKnHhsumWnio/Qxg=";
   };
 
-  postPatch = ''
-    sed -i -e '/include.*CheckIncludeFile)/i include(CheckIncludeFiles)' \
-      cmake/ConkyPlatformChecks.cmake
-  '' + optionalString docsSupport ''
-    # Drop examples, since they contain non-ASCII characters that break docbook2x :(
-    sed -i 's/ Example: .*$//' doc/config_settings.xml
+  postPatch =
+    ''
+      sed -i -e '/include.*CheckIncludeFile)/i include(CheckIncludeFiles)' \
+        cmake/ConkyPlatformChecks.cmake
+    '' + optionalString docsSupport ''
+      # Drop examples, since they contain non-ASCII characters that break docbook2x :(
+      sed -i 's/ Example: .*$//' doc/config_settings.xml
 
-    substituteInPlace cmake/Conky.cmake --replace "# set(RELEASE true)" "set(RELEASE true)"
+      substituteInPlace cmake/Conky.cmake --replace "# set(RELEASE true)" "set(RELEASE true)"
 
-    cp ${catch2}/include/catch2/catch.hpp tests/catch2/catch.hpp
-  '';
+      cp ${catch2}/include/catch2/catch.hpp tests/catch2/catch.hpp
+    ''
+    ;
 
   NIX_LDFLAGS = "-lgcc_s";
 
@@ -121,24 +123,25 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [
-    glib
-    libXinerama
-  ] ++ optionals docsSupport [
-    docbook2x
-    docbook_xsl
-    docbook_xml_dtd_44
-    libxslt
-    man
-    less
-  ] ++ optional ncursesSupport ncurses ++ optionals x11Support [
-    freetype
-    xorg.libICE
-    xorg.libX11
-    xorg.libXext
-    xorg.libXft
-    xorg.libSM
-  ] ++ optional xdamageSupport libXdamage ++ optional imlib2Support imlib2
+  buildInputs =
+    [
+      glib
+      libXinerama
+    ] ++ optionals docsSupport [
+      docbook2x
+      docbook_xsl
+      docbook_xml_dtd_44
+      libxslt
+      man
+      less
+    ] ++ optional ncursesSupport ncurses ++ optionals x11Support [
+      freetype
+      xorg.libICE
+      xorg.libX11
+      xorg.libXext
+      xorg.libXft
+      xorg.libSM
+    ] ++ optional xdamageSupport libXdamage ++ optional imlib2Support imlib2
     ++ optional luaSupport lua ++ optionals luaImlib2Support [
       toluapp
       imlib2
@@ -148,9 +151,11 @@ stdenv.mkDerivation rec {
     ] ++ optional wirelessSupport wirelesstools ++ optional curlSupport curl
     ++ optional rssSupport libxml2 ++ optional weatherXoapSupport libxml2
     ++ optional nvidiaSupport libXNVCtrl ++ optional pulseSupport libpulseaudio
-    ++ optional journalSupport systemd;
+    ++ optional journalSupport systemd
+    ;
 
-  cmakeFlags = [ ] ++ optional docsSupport "-DMAINTAINER_MODE=ON"
+  cmakeFlags =
+    [ ] ++ optional docsSupport "-DMAINTAINER_MODE=ON"
     ++ optional curlSupport "-DBUILD_CURL=ON"
     ++ optional (!ibmSupport) "-DBUILD_IBM=OFF"
     ++ optional imlib2Support "-DBUILD_IMLIB2=ON"
@@ -167,7 +172,8 @@ stdenv.mkDerivation rec {
     ++ optional wirelessSupport "-DBUILD_WLAN=ON"
     ++ optional nvidiaSupport "-DBUILD_NVIDIA=ON"
     ++ optional pulseSupport "-DBUILD_PULSEAUDIO=ON"
-    ++ optional journalSupport "-DBUILD_JOURNAL=ON";
+    ++ optional journalSupport "-DBUILD_JOURNAL=ON"
+    ;
 
     # `make -f src/CMakeFiles/conky.dir/build.make src/CMakeFiles/conky.dir/conky.cc.o`:
     # src/conky.cc:137:23: fatal error: defconfig.h: No such file or directory

@@ -20,11 +20,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ gfortran ];
-  buildInputs = [
-    netcdf
-    hdf5
-    curl
-  ] ++ lib.optional stdenv.isDarwin CoreFoundation;
+  buildInputs =
+    [
+      netcdf
+      hdf5
+      curl
+    ] ++ lib.optional stdenv.isDarwin CoreFoundation
+    ;
   doCheck = true;
 
   FFLAGS = [ "-std=legacy" ];

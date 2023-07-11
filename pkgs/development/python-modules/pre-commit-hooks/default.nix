@@ -34,7 +34,9 @@ buildPythonPackage rec {
 
     # Note: this is not likely to ever work on Darwin
     # https://github.com/pre-commit/pre-commit-hooks/pull/655
-  doCheck = !stdenv.isDarwin;
+  doCheck =
+    !stdenv.isDarwin
+    ;
 
     # the tests require a functional git installation which requires a valid HOME
     # directory.

@@ -37,21 +37,24 @@ stdenv.mkDerivation rec {
     # -fno-strict-overflow is not a supported argument in clang on darwin
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
-  makeFlags = [
-    "PLATFORM=${platform}"
-    "PREFIX=$(out)"
-  ] ++ (lib.optionals stdenv.isDarwin [
-    "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
-    "C_COMPILER=$(CC)"
-    "CXX_COMPILER=$(CXX)"
-    "LINKER_OPTIONS=-headerpad_max_install_names"
-    "POSTINSTALL_PROGRAM=install_name_tool"
-  ]);
+  makeFlags =
+    [
+      "PLATFORM=${platform}"
+      "PREFIX=$(out)"
+    ] ++ (lib.optionals stdenv.isDarwin [
+      "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
+      "C_COMPILER=$(CC)"
+      "CXX_COMPILER=$(CXX)"
+      "LINKER_OPTIONS=-headerpad_max_install_names"
+      "POSTINSTALL_PROGRAM=install_name_tool"
+    ])
+    ;
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+  nativeBuildInputs =
+    [ makeWrapper ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       darwin.autoSignDarwinBinariesHook
-    ];
+    ]
+    ;
 
   buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
 

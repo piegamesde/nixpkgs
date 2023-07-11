@@ -322,12 +322,13 @@ in
       patch = "11";
     };
 
-    hash = {
-      aarch64-linux = "sha256-6pJNod7+kyXvdg4oiwT5hGFOQFWA9TIetqXI9Tm9QVo=";
-      x86_64-linux = "sha256-uo7ZWKkFwHNaTP/yh1wlCJlU3AIOCH2YKw/6W52jFs0=";
-      aarch64-darwin = "sha256-zFaWq0+TzTSBweSZC13t17pgrAYC+hiQ02iImmxb93E=";
-      x86_64-darwin = "sha256-Vt7unCJkD1aGw1udZP2xzjq9BEWD5AePCxccov0qGY4=";
-    }.${stdenv.system};
+    hash =
+      {
+        aarch64-linux = "sha256-6pJNod7+kyXvdg4oiwT5hGFOQFWA9TIetqXI9Tm9QVo=";
+        x86_64-linux = "sha256-uo7ZWKkFwHNaTP/yh1wlCJlU3AIOCH2YKw/6W52jFs0=";
+        aarch64-darwin = "sha256-zFaWq0+TzTSBweSZC13t17pgrAYC+hiQ02iImmxb93E=";
+        x86_64-darwin = "sha256-Vt7unCJkD1aGw1udZP2xzjq9BEWD5AePCxccov0qGY4=";
+      }.${stdenv.system};
     pythonVersion = "2.7";
     inherit passthruFun;
   };
@@ -340,12 +341,13 @@ in
       minor = "3";
       patch = "11";
     };
-    hash = {
-      aarch64-linux = "sha256-CRddxlLtiV2Y6a1j0haBK/PufjmNkAqb+espBrqDArk=";
-      x86_64-linux = "sha256-1QYXLKEQcSdBdddOnFgcMWZDLQF5sDZHDjuejSDq5YE=";
-      aarch64-darwin = "sha256-ka11APGjlTHb76CzRaPc/5J/+ZcWVOjS6e98WuMR9X4=";
-      x86_64-darwin = "sha256-0z9AsgcJmHJYWv1xhzV1ym6mOKJ9gjvGISOMWuglQu0=";
-    }.${stdenv.system};
+    hash =
+      {
+        aarch64-linux = "sha256-CRddxlLtiV2Y6a1j0haBK/PufjmNkAqb+espBrqDArk=";
+        x86_64-linux = "sha256-1QYXLKEQcSdBdddOnFgcMWZDLQF5sDZHDjuejSDq5YE=";
+        aarch64-darwin = "sha256-ka11APGjlTHb76CzRaPc/5J/+ZcWVOjS6e98WuMR9X4=";
+        x86_64-darwin = "sha256-0z9AsgcJmHJYWv1xhzV1ym6mOKJ9gjvGISOMWuglQu0=";
+      }.${stdenv.system};
     pythonVersion = "3.9";
     inherit passthruFun;
   };

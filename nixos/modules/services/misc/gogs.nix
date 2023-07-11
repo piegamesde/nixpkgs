@@ -284,8 +284,8 @@ in
               in the Nix store. Use database.passwordFile instead.'';
 
       # Create database passwordFile default when password is configured.
-    services.gogs.database.passwordFile = (mkDefault (toString
-      (pkgs.writeTextFile {
+    services.gogs.database.passwordFile =
+      (mkDefault (toString (pkgs.writeTextFile {
         name = "gogs-database-password";
         text = cfg.database.password;
       })));

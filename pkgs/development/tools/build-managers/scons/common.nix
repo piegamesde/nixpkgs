@@ -27,13 +27,15 @@ python.pkgs.buildPythonApplication rec {
 
   patches = lib.optionals (lib.versionAtLeast version "4.3.0") [ ./env.patch ];
 
-  postPatch = lib.optionalString (lib.versionAtLeast version "4.0.0") ''
-    substituteInPlace setup.cfg \
-      --replace "build/dist" "dist"
-  '' + lib.optionalString (lib.versionAtLeast version "4.1.0") ''
-    substituteInPlace setup.cfg \
-      --replace "build/doc/man/" ""
-  '';
+  postPatch =
+    lib.optionalString (lib.versionAtLeast version "4.0.0") ''
+      substituteInPlace setup.cfg \
+        --replace "build/dist" "dist"
+    '' + lib.optionalString (lib.versionAtLeast version "4.1.0") ''
+      substituteInPlace setup.cfg \
+        --replace "build/doc/man/" ""
+    ''
+    ;
 
     # The release tarballs don't contain any tests (runtest.py and test/*):
   doCheck = lib.versionOlder version "4.0.0";

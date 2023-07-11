@@ -35,19 +35,21 @@ stdenv.mkDerivation rec {
     "stackprotector"
   ];
 
-  makeFlags = commonMakeFlags ++ [
-    "KLIBCARCH=${
-      if stdenv.hostPlatform.isRiscV64 then
-        "riscv64"
-      else
-        stdenv.hostPlatform.linuxArch
-    }"
-    "KLIBCKERNELSRC=${linuxHeaders}"
-  ] # TODO(@Ericson2314): We now can get the ABI from
-  # `stdenv.hostPlatform.parsed.abi`, is this still a good idea?
+  makeFlags =
+    commonMakeFlags ++ [
+      "KLIBCARCH=${
+        if stdenv.hostPlatform.isRiscV64 then
+          "riscv64"
+        else
+          stdenv.hostPlatform.linuxArch
+      }"
+      "KLIBCKERNELSRC=${linuxHeaders}"
+    ] # TODO(@Ericson2314): We now can get the ABI from
+    # `stdenv.hostPlatform.parsed.abi`, is this still a good idea?
     ++ lib.optional (stdenv.hostPlatform.linuxArch == "arm") "CONFIG_AEABI=y"
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    "CROSS_COMPILE=${stdenv.cc.targetPrefix}";
+    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+    ;
 
     # Install static binaries as well.
   postInstall = ''

@@ -43,10 +43,12 @@ let
   };
   python = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
   sphinx-build = python3.pkgs.sphinx.overrideAttrs (super: {
-    postFixup = super.postFixup or "" + ''
-      # Do not propagate Python
-      rm $out/nix-support/propagated-build-inputs
-    '';
+    postFixup =
+      super.postFixup or "" + ''
+        # Do not propagate Python
+        rm $out/nix-support/propagated-build-inputs
+      ''
+      ;
   });
   boost_python = boost.override {
     enablePython = true;
@@ -66,7 +68,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "1wcd4kd3crwqjv0jfp73jkyyf5ws8mvykg37kqxmcb58piz21gsk";

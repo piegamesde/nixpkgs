@@ -864,89 +864,99 @@ in
         };
       };
 
-      assertions = [
-        {
-          assertion =
-            !cfg.enforceIdUniqueness || (uidsAreUnique && gidsAreUnique);
-          message = "UIDs and GIDs must be unique!";
-        }
-        {
-          assertion = !cfg.enforceIdUniqueness
-            || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique);
-          message = "systemd initrd UIDs and GIDs must be unique!";
-        }
-        { # If mutableUsers is false, to prevent users creating a
-          # configuration that locks them out of the system, ensure that
-          # there is at least one "privileged" account that has a
-          # password or an SSH authorized key. Privileged accounts are
-          # root and users in the wheel group.
-          # The check does not apply when users.disableLoginPossibilityAssertion
-          # The check does not apply when users.mutableUsers
-          assertion = !cfg.mutableUsers -> !cfg.allowNoPasswordLogin -> any id
-            (mapAttrsToList (name: cfg:
-              (name == "root" || cfg.group == "wheel"
-                || elem "wheel" cfg.extraGroups)
-              && (allowsLogin cfg.hashedPassword || cfg.password != null
-                || cfg.passwordFile != null || cfg.openssh.authorizedKeys.keys
-                != [ ] || cfg.openssh.authorizedKeys.keyFiles != [ ])) cfg.users
-              ++ [ config.security.googleOsLogin.enable ]);
-          message = ''
-            Neither the root account nor any wheel user has a password or SSH authorized key.
-            You must set one to prevent being locked out of your system.
-            If you really want to be locked out of your system, set users.allowNoPasswordLogin = true;
-            However you are most probably better off by setting users.mutableUsers = true; and
-            manually running passwd root to set the root password.
-          '';
-        }
-      ] ++ flatten (flip mapAttrsToList cfg.users (name: user:
+      assertions =
         [
           {
-            assertion = (user.hashedPassword != null)
-              -> (builtins.match ".*:.*" user.hashedPassword == null);
-            message = ''
-              The password hash of user "${user.name}" contains a ":" character.
-              This is invalid and would break the login system because the fields
-              of /etc/shadow (file where hashes are stored) are colon-separated.
-              Please check the value of option `users.users."${user.name}".hashedPassword`.'';
+            assertion =
+              !cfg.enforceIdUniqueness || (uidsAreUnique && gidsAreUnique);
+            message = "UIDs and GIDs must be unique!";
           }
           {
             assertion =
-              let
-                xor = a: b: a && !b || b && !a;
-                isEffectivelySystemUser =
-                  user.isSystemUser || (user.uid != null && user.uid < 1000);
-              in
-              xor isEffectivelySystemUser user.isNormalUser
+              !cfg.enforceIdUniqueness
+              || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique)
+              ;
+            message = "systemd initrd UIDs and GIDs must be unique!";
+          }
+          { # If mutableUsers is false, to prevent users creating a
+            # configuration that locks them out of the system, ensure that
+            # there is at least one "privileged" account that has a
+            # password or an SSH authorized key. Privileged accounts are
+            # root and users in the wheel group.
+            # The check does not apply when users.disableLoginPossibilityAssertion
+            # The check does not apply when users.mutableUsers
+            assertion =
+              !cfg.mutableUsers -> !cfg.allowNoPasswordLogin -> any id
+              (mapAttrsToList (name: cfg:
+                (name == "root" || cfg.group == "wheel"
+                  || elem "wheel" cfg.extraGroups)
+                && (allowsLogin cfg.hashedPassword || cfg.password != null
+                  || cfg.passwordFile != null || cfg.openssh.authorizedKeys.keys
+                  != [ ] || cfg.openssh.authorizedKeys.keyFiles != [ ]))
+                cfg.users ++ [ config.security.googleOsLogin.enable ])
               ;
             message = ''
-              Exactly one of users.users.${user.name}.isSystemUser and users.users.${user.name}.isNormalUser must be set.
+              Neither the root account nor any wheel user has a password or SSH authorized key.
+              You must set one to prevent being locked out of your system.
+              If you really want to be locked out of your system, set users.allowNoPasswordLogin = true;
+              However you are most probably better off by setting users.mutableUsers = true; and
+              manually running passwd root to set the root password.
             '';
           }
-          {
-            assertion = user.group != "";
+        ] ++ flatten (flip mapAttrsToList cfg.users (name: user:
+          [
+            {
+              assertion =
+                (user.hashedPassword != null)
+                -> (builtins.match ".*:.*" user.hashedPassword == null)
+                ;
+              message = ''
+                The password hash of user "${user.name}" contains a ":" character.
+                This is invalid and would break the login system because the fields
+                of /etc/shadow (file where hashes are stored) are colon-separated.
+                Please check the value of option `users.users."${user.name}".hashedPassword`.'';
+            }
+            {
+              assertion =
+                let
+                  xor = a: b: a && !b || b && !a;
+                  isEffectivelySystemUser =
+                    user.isSystemUser || (user.uid != null && user.uid < 1000);
+                in
+                xor isEffectivelySystemUser user.isNormalUser
+                ;
+              message = ''
+                Exactly one of users.users.${user.name}.isSystemUser and users.users.${user.name}.isNormalUser must be set.
+              '';
+            }
+            {
+              assertion = user.group != "";
+              message = ''
+                users.users.${user.name}.group is unset. This used to default to
+                nogroup, but this is unsafe. For example you can create a group
+                for this user with:
+                users.users.${user.name}.group = "${user.name}";
+                users.groups.${user.name} = {};
+              '';
+            }
+          ] ++ (map (shell: {
+            assertion =
+              (user.shell == pkgs.${shell})
+              -> (config.programs.${shell}.enable == true)
+              ;
             message = ''
-              users.users.${user.name}.group is unset. This used to default to
-              nogroup, but this is unsafe. For example you can create a group
-              for this user with:
-              users.users.${user.name}.group = "${user.name}";
-              users.groups.${user.name} = {};
+              users.users.${user.name}.shell is set to ${shell}, but
+              programs.${shell}.enable is not true. This will cause the ${shell}
+              shell to lack the basic nix directories in its PATH and might make
+              logging in as that user impossible. You can fix it with:
+              programs.${shell}.enable = true;
             '';
-          }
-        ] ++ (map (shell: {
-          assertion = (user.shell == pkgs.${shell})
-            -> (config.programs.${shell}.enable == true);
-          message = ''
-            users.users.${user.name}.shell is set to ${shell}, but
-            programs.${shell}.enable is not true. This will cause the ${shell}
-            shell to lack the basic nix directories in its PATH and might make
-            logging in as that user impossible. You can fix it with:
-            programs.${shell}.enable = true;
-          '';
-        }) [
-          "fish"
-          "xonsh"
-          "zsh"
-        ])));
+          }) [
+            "fish"
+            "xonsh"
+            "zsh"
+          ])))
+        ;
 
       warnings = builtins.filter (x: x != null) (flip mapAttrsToList cfg.users
         (_: user:

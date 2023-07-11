@@ -37,9 +37,7 @@ let
   inherit (builtins) elem typeOf isInt isString hashString isPath;
 
   prefixUnlessEmpty =
-    prefix: string:
-    optionalString (string != "") "${prefix}${string}"
-    ;
+    prefix: string: optionalString (string != "") "${prefix}${string}";
 in
 {
   imports = [
@@ -467,11 +465,12 @@ in
         cfg.database.createLocally && cfg.database.host == "localhost";
       createLocalPostgreSQL =
         databaseActuallyCreateLocally && cfg.database.type == "postgresql";
-      createLocalMySQL = databaseActuallyCreateLocally
-        && elem cfg.database.type [
+      createLocalMySQL =
+        databaseActuallyCreateLocally && elem cfg.database.type [
           "mysql"
           "mariadb"
-        ];
+        ]
+        ;
 
       mySqlCaKeystore = pkgs.runCommand "mysql-ca-keystore" { } ''
         ${pkgs.jre}/bin/keytool -importcert -trustcacerts -alias MySQLCACert -file ${cfg.database.caCert} -keystore $out -storepass notsosecretpassword -noprompt
@@ -545,13 +544,16 @@ in
     mkIf cfg.enable {
       assertions = [
         {
-          assertion = (cfg.database.useSSL && cfg.database.type == "postgresql")
-            -> (cfg.database.caCert != null);
+          assertion =
+            (cfg.database.useSSL && cfg.database.type == "postgresql")
+            -> (cfg.database.caCert != null)
+            ;
           message =
             "A CA certificate must be specified (in 'services.keycloak.database.caCert') when PostgreSQL is used with SSL";
         }
         {
-          assertion = createLocalPostgreSQL
+          assertion =
+            createLocalPostgreSQL
             -> config.services.postgresql.settings.standard_conforming_strings or true
             ;
           message =
@@ -724,12 +726,13 @@ in
             KC_CONF_DIR = "/run/keycloak/conf";
           };
           serviceConfig = {
-            LoadCredential = map (p: "${baseNameOf p}:${p}") secretPaths
-              ++ optionals
+            LoadCredential =
+              map (p: "${baseNameOf p}:${p}") secretPaths ++ optionals
               (cfg.sslCertificate != null && cfg.sslCertificateKey != null) [
                 "ssl_cert:${cfg.sslCertificate}"
                 "ssl_key:${cfg.sslCertificateKey}"
-              ];
+              ]
+              ;
             User = "keycloak";
             Group = "keycloak";
             DynamicUser = true;
@@ -737,25 +740,26 @@ in
             RuntimeDirectoryMode = "0700";
             AmbientCapabilities = "CAP_NET_BIND_SERVICE";
           };
-          script = ''
-            set -o errexit -o pipefail -o nounset -o errtrace
-            shopt -s inherit_errexit
+          script =
+            ''
+              set -o errexit -o pipefail -o nounset -o errtrace
+              shopt -s inherit_errexit
 
-            umask u=rwx,g=,o=
+              umask u=rwx,g=,o=
 
-            ln -s ${themesBundle} /run/keycloak/themes
-            ln -s ${keycloakBuild}/providers /run/keycloak/
+              ln -s ${themesBundle} /run/keycloak/themes
+              ln -s ${keycloakBuild}/providers /run/keycloak/
 
-            install -D -m 0600 ${confFile} /run/keycloak/conf/keycloak.conf
+              install -D -m 0600 ${confFile} /run/keycloak/conf/keycloak.conf
 
-            ${secretReplacements}
+              ${secretReplacements}
 
-            # Escape any backslashes in the db parameters, since
-            # they're otherwise unexpectedly read as escape
-            # sequences.
-            sed -i '/db-/ s|\\|\\\\|g' /run/keycloak/conf/keycloak.conf
+              # Escape any backslashes in the db parameters, since
+              # they're otherwise unexpectedly read as escape
+              # sequences.
+              sed -i '/db-/ s|\\|\\\\|g' /run/keycloak/conf/keycloak.conf
 
-          '' + optionalString
+            '' + optionalString
             (cfg.sslCertificate != null && cfg.sslCertificateKey != null) ''
               mkdir -p /run/keycloak/ssl
               cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
@@ -765,7 +769,8 @@ in
                 escapeShellArg cfg.initialAdminPassword
               }
               kc.sh start --optimized
-            '';
+            ''
+            ;
         }
         ;
 

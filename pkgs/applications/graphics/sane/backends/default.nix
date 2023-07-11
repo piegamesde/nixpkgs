@@ -89,28 +89,32 @@ stdenv.mkDerivation {
     python3
   ];
 
-  buildInputs = [
-    avahi
-    libgphoto2
-    libjpeg
-    libpng
-    libtiff
-    libusb1
-    curl
-    libxml2
-    poppler
-    gawk
-  ] ++ lib.optionals stdenv.isLinux [
-    libieee1284
-    libv4l
-    net-snmp
-    systemd
-  ];
+  buildInputs =
+    [
+      avahi
+      libgphoto2
+      libjpeg
+      libpng
+      libtiff
+      libusb1
+      curl
+      libxml2
+      poppler
+      gawk
+    ] ++ lib.optionals stdenv.isLinux [
+      libieee1284
+      libv4l
+      net-snmp
+      systemd
+    ]
+    ;
 
   enableParallelBuilding = true;
 
-  configureFlags = lib.optional (avahi != null) "--with-avahi"
-    ++ lib.optional (libusb1 != null) "--with-usb";
+  configureFlags =
+    lib.optional (avahi != null) "--with-avahi"
+    ++ lib.optional (libusb1 != null) "--with-usb"
+    ;
 
     # autoconf check for HAVE_MMAP is never set on cross compilation.
     # The pieusb backend fails compilation if HAVE_MMAP is not set.
@@ -126,15 +130,17 @@ stdenv.mkDerivation {
   postInstall =
     let
 
-      compatFirmware = extraFirmware ++ lib.optional (gt68xxFirmware != null) {
-        src = gt68xxFirmware.fw;
-        inherit (gt68xxFirmware) name;
-        backend = "gt68xx";
-      } ++ lib.optional (snapscanFirmware != null) {
-        src = snapscanFirmware;
-        name = "your-firmwarefile.bin";
-        backend = "snapscan";
-      };
+      compatFirmware =
+        extraFirmware ++ lib.optional (gt68xxFirmware != null) {
+          src = gt68xxFirmware.fw;
+          inherit (gt68xxFirmware) name;
+          backend = "gt68xx";
+        } ++ lib.optional (snapscanFirmware != null) {
+          src = snapscanFirmware;
+          name = "your-firmwarefile.bin";
+          backend = "snapscan";
+        }
+        ;
 
       installFirmware =
         f: ''

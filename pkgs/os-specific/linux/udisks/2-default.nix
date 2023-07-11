@@ -49,11 +49,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MYQztzIyp5kh9t1bCIlj08/gaOmZfuu/ZOwo3F+rZiw=";
   };
 
-  outputs = [
-    "out"
-    "man"
-    "dev"
-  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
+  outputs =
+    [
+      "out"
+      "man"
+      "dev"
+    ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc"
+    ;
 
   patches = [
     (substituteAll {

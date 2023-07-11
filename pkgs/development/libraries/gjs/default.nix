@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gjs/${
+    url =
+      "mirror://gnome/sources/gjs/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-pj8VaWSxNgU+q1HqATEU59fBk7dRjSjAQLawLDyTOm0=";
@@ -60,18 +61,20 @@ stdenv.mkDerivation rec {
     ./installed-tests-path.patch
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    makeWrapper
-    which # for locale detection
-    libxml2 # for xml-stripblanks
-    dbus # for dbus-run-session
-    gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      makeWrapper
+      which # for locale detection
+      libxml2 # for xml-stripblanks
+      dbus # for dbus-run-session
+      gobject-introspection
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ];
+    ]
+    ;
 
   buildInputs = [
     cairo
@@ -84,20 +87,24 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ glib ];
 
-  mesonFlags = [ "-Dinstalled_test_prefix=${placeholder "installedTests"}" ]
+  mesonFlags =
+    [ "-Dinstalled_test_prefix=${placeholder "installedTests"}" ]
     ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [
       "-Dprofiler=disabled"
-    ];
+    ]
+    ;
 
   doCheck = !stdenv.isDarwin;
 
-  postPatch = ''
-    patchShebangs build/choose-tests-locale.sh
-    substituteInPlace installed-tests/debugger-test.sh --subst-var-by gjsConsole $out/bin/gjs-console
-  '' + lib.optionalString stdenv.hostPlatform.isMusl ''
-    substituteInPlace installed-tests/js/meson.build \
-      --replace "'Encoding'," "#'Encoding',"
-  '';
+  postPatch =
+    ''
+      patchShebangs build/choose-tests-locale.sh
+      substituteInPlace installed-tests/debugger-test.sh --subst-var-by gjsConsole $out/bin/gjs-console
+    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+      substituteInPlace installed-tests/js/meson.build \
+        --replace "'Encoding'," "#'Encoding',"
+    ''
+    ;
 
   preCheck = ''
     # Our gobject-introspection patches make the shared library paths absolute

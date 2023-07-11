@@ -27,10 +27,12 @@ stdenv.mkDerivation rec {
 
   passthru = { inherit apacheHttpd; };
 
-  buildInputs = [
-    apacheHttpd
-    python3
-  ] ++ lib.optional stdenv.isDarwin libintl;
+  buildInputs =
+    [
+      apacheHttpd
+      python3
+    ] ++ lib.optional stdenv.isDarwin libintl
+    ;
 
   meta = with lib; {
     homepage = "https://modpython.org/";

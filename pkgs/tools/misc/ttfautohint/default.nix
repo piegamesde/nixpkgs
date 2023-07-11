@@ -29,11 +29,13 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  buildInputs = [
-    freetype
-    harfbuzz
-    libiconv
-  ] ++ lib.optional enableGUI qtbase;
+  buildInputs =
+    [
+      freetype
+      harfbuzz
+      libiconv
+    ] ++ lib.optional enableGUI qtbase
+    ;
 
   configureFlags = [
       "--with-qt=${

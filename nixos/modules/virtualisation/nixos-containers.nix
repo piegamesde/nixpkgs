@@ -21,68 +21,70 @@ let
 
     # The container's init script, a small wrapper around the regular
     # NixOS stage-2 init script.
-  containerInit = (cfg:
-    let
-      renderExtraVeth = (name: cfg: ''
-        echo "Bringing ${name} up"
-        ip link set dev ${name} up
-        ${optionalString (cfg.localAddress != null) ''
-          echo "Setting ip for ${name}"
-          ip addr add ${cfg.localAddress} dev ${name}
-        ''}
-        ${optionalString (cfg.localAddress6 != null) ''
-          echo "Setting ip6 for ${name}"
-          ip -6 addr add ${cfg.localAddress6} dev ${name}
-        ''}
-        ${optionalString (cfg.hostAddress != null) ''
-          echo "Setting route to host for ${name}"
-          ip route add ${cfg.hostAddress} dev ${name}
-        ''}
-        ${optionalString (cfg.hostAddress6 != null) ''
-          echo "Setting route6 to host for ${name}"
-          ip -6 route add ${cfg.hostAddress6} dev ${name}
-        ''}
-      '');
-    in
-    pkgs.writeScript "container-init" ''
-      #! ${pkgs.runtimeShell} -e
+  containerInit =
+    (cfg:
+      let
+        renderExtraVeth =
+          (name: cfg: ''
+            echo "Bringing ${name} up"
+            ip link set dev ${name} up
+            ${optionalString (cfg.localAddress != null) ''
+              echo "Setting ip for ${name}"
+              ip addr add ${cfg.localAddress} dev ${name}
+            ''}
+            ${optionalString (cfg.localAddress6 != null) ''
+              echo "Setting ip6 for ${name}"
+              ip -6 addr add ${cfg.localAddress6} dev ${name}
+            ''}
+            ${optionalString (cfg.hostAddress != null) ''
+              echo "Setting route to host for ${name}"
+              ip route add ${cfg.hostAddress} dev ${name}
+            ''}
+            ${optionalString (cfg.hostAddress6 != null) ''
+              echo "Setting route6 to host for ${name}"
+              ip -6 route add ${cfg.hostAddress6} dev ${name}
+            ''}
+          '');
+      in
+      pkgs.writeScript "container-init" ''
+        #! ${pkgs.runtimeShell} -e
 
-      # Exit early if we're asked to shut down.
-      trap "exit 0" SIGRTMIN+3
+        # Exit early if we're asked to shut down.
+        trap "exit 0" SIGRTMIN+3
 
-      # Initialise the container side of the veth pair.
-      if [ -n "$HOST_ADDRESS" ]   || [ -n "$HOST_ADDRESS6" ]  ||
-         [ -n "$LOCAL_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS6" ] ||
-         [ -n "$HOST_BRIDGE" ]; then
-        ip link set host0 name eth0
-        ip link set dev eth0 up
+        # Initialise the container side of the veth pair.
+        if [ -n "$HOST_ADDRESS" ]   || [ -n "$HOST_ADDRESS6" ]  ||
+           [ -n "$LOCAL_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS6" ] ||
+           [ -n "$HOST_BRIDGE" ]; then
+          ip link set host0 name eth0
+          ip link set dev eth0 up
 
-        if [ -n "$LOCAL_ADDRESS" ]; then
-          ip addr add $LOCAL_ADDRESS dev eth0
+          if [ -n "$LOCAL_ADDRESS" ]; then
+            ip addr add $LOCAL_ADDRESS dev eth0
+          fi
+          if [ -n "$LOCAL_ADDRESS6" ]; then
+            ip -6 addr add $LOCAL_ADDRESS6 dev eth0
+          fi
+          if [ -n "$HOST_ADDRESS" ]; then
+            ip route add $HOST_ADDRESS dev eth0
+            ip route add default via $HOST_ADDRESS
+          fi
+          if [ -n "$HOST_ADDRESS6" ]; then
+            ip -6 route add $HOST_ADDRESS6 dev eth0
+            ip -6 route add default via $HOST_ADDRESS6
+          fi
         fi
-        if [ -n "$LOCAL_ADDRESS6" ]; then
-          ip -6 addr add $LOCAL_ADDRESS6 dev eth0
-        fi
-        if [ -n "$HOST_ADDRESS" ]; then
-          ip route add $HOST_ADDRESS dev eth0
-          ip route add default via $HOST_ADDRESS
-        fi
-        if [ -n "$HOST_ADDRESS6" ]; then
-          ip -6 route add $HOST_ADDRESS6 dev eth0
-          ip -6 route add default via $HOST_ADDRESS6
-        fi
-      fi
 
-      ${concatStringsSep "\n" (mapAttrsToList renderExtraVeth cfg.extraVeths)}
+        ${concatStringsSep "\n" (mapAttrsToList renderExtraVeth cfg.extraVeths)}
 
-      # Start the regular stage 2 script.
-      # We source instead of exec to not lose an early stop signal, which is
-      # also the only _reliable_ shutdown signal we have since early stop
-      # does not execute ExecStop* commands.
-      set +e
-      . "$1"
-    ''
-  );
+        # Start the regular stage 2 script.
+        # We source instead of exec to not lose an early stop signal, which is
+        # also the only _reliable_ shutdown signal we have since early stop
+        # does not execute ExecStop* commands.
+        set +e
+        . "$1"
+      ''
+    );
 
   nspawnExtraVethArgs = (name: cfg: "--network-veth-extra=${name}");
 
@@ -207,62 +209,63 @@ let
     ''
     ;
 
-  postStartScript = (cfg:
-    let
-      ipcall =
-        cfg: ipcmd: variable: attribute:
-        if cfg.${attribute} == null then
-          ''
-            if [ -n "${variable}" ]; then
-              ${ipcmd} add ${variable} dev $ifaceHost
-            fi
-          ''
-        else
-          "${ipcmd} add ${cfg.${attribute}} dev $ifaceHost"
-        ;
-      renderExtraVeth =
-        name: cfg:
-        if cfg.hostBridge != null then
-          ''
-            # Add ${name} to bridge ${cfg.hostBridge}
-            ip link set dev ${name} master ${cfg.hostBridge} up
-          ''
-        else
-          ''
-            echo "Bring ${name} up"
-            ip link set dev ${name} up
-            # Set IPs and routes for ${name}
-            ${optionalString (cfg.hostAddress != null) ''
-              ip addr add ${cfg.hostAddress} dev ${name}
-            ''}
-            ${optionalString (cfg.hostAddress6 != null) ''
-              ip -6 addr add ${cfg.hostAddress6} dev ${name}
-            ''}
-            ${optionalString (cfg.localAddress != null) ''
-              ip route add ${cfg.localAddress} dev ${name}
-            ''}
-            ${optionalString (cfg.localAddress6 != null) ''
-              ip -6 route add ${cfg.localAddress6} dev ${name}
-            ''}
-          ''
-        ;
-    in
-    ''
-      if [ -n "$HOST_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS" ] ||
-         [ -n "$HOST_ADDRESS6" ] || [ -n "$LOCAL_ADDRESS6" ]; then
-        if [ -z "$HOST_BRIDGE" ]; then
-          ifaceHost=ve-$INSTANCE
-          ip link set dev $ifaceHost up
+  postStartScript =
+    (cfg:
+      let
+        ipcall =
+          cfg: ipcmd: variable: attribute:
+          if cfg.${attribute} == null then
+            ''
+              if [ -n "${variable}" ]; then
+                ${ipcmd} add ${variable} dev $ifaceHost
+              fi
+            ''
+          else
+            "${ipcmd} add ${cfg.${attribute}} dev $ifaceHost"
+          ;
+        renderExtraVeth =
+          name: cfg:
+          if cfg.hostBridge != null then
+            ''
+              # Add ${name} to bridge ${cfg.hostBridge}
+              ip link set dev ${name} master ${cfg.hostBridge} up
+            ''
+          else
+            ''
+              echo "Bring ${name} up"
+              ip link set dev ${name} up
+              # Set IPs and routes for ${name}
+              ${optionalString (cfg.hostAddress != null) ''
+                ip addr add ${cfg.hostAddress} dev ${name}
+              ''}
+              ${optionalString (cfg.hostAddress6 != null) ''
+                ip -6 addr add ${cfg.hostAddress6} dev ${name}
+              ''}
+              ${optionalString (cfg.localAddress != null) ''
+                ip route add ${cfg.localAddress} dev ${name}
+              ''}
+              ${optionalString (cfg.localAddress6 != null) ''
+                ip -6 route add ${cfg.localAddress6} dev ${name}
+              ''}
+            ''
+          ;
+      in
+      ''
+        if [ -n "$HOST_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS" ] ||
+           [ -n "$HOST_ADDRESS6" ] || [ -n "$LOCAL_ADDRESS6" ]; then
+          if [ -z "$HOST_BRIDGE" ]; then
+            ifaceHost=ve-$INSTANCE
+            ip link set dev $ifaceHost up
 
-          ${ipcall cfg "ip addr" "$HOST_ADDRESS" "hostAddress"}
-          ${ipcall cfg "ip -6 addr" "$HOST_ADDRESS6" "hostAddress6"}
-          ${ipcall cfg "ip route" "$LOCAL_ADDRESS" "localAddress"}
-          ${ipcall cfg "ip -6 route" "$LOCAL_ADDRESS6" "localAddress6"}
+            ${ipcall cfg "ip addr" "$HOST_ADDRESS" "hostAddress"}
+            ${ipcall cfg "ip -6 addr" "$HOST_ADDRESS6" "hostAddress6"}
+            ${ipcall cfg "ip route" "$LOCAL_ADDRESS" "localAddress"}
+            ${ipcall cfg "ip -6 route" "$LOCAL_ADDRESS6" "localAddress6"}
+          fi
         fi
-      fi
-      ${concatStringsSep "\n" (mapAttrsToList renderExtraVeth cfg.extraVeths)}
-    ''
-  );
+        ${concatStringsSep "\n" (mapAttrsToList renderExtraVeth cfg.extraVeths)}
+      ''
+    );
 
   serviceDirectives =
     cfg: {
@@ -539,7 +542,8 @@ in
                               options,
                               ...
                             }: {
-                              _file = "module at ${__curPos.file}:${
+                              _file =
+                                "module at ${__curPos.file}:${
                                   toString __curPos.line
                                 }";
                               config = {
@@ -565,7 +569,8 @@ in
                                   assertion =
                                     (builtins.compareVersions kernelVersion
                                       "5.8" <= 0) -> config.privateNetwork
-                                    -> stringLength name <= 11;
+                                    -> stringLength name <= 11
+                                    ;
                                   message = ''
                                     Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
                                     not be longer than 11 characters, because the container's interface name is derived from it.
@@ -872,10 +877,11 @@ in
     };
   in
   {
-    warnings = (optional (config.virtualisation.containers.enable
-      && versionOlder config.system.stateVersion "22.05") ''
-        Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
-      '');
+    warnings =
+      (optional (config.virtualisation.containers.enable
+        && versionOlder config.system.stateVersion "22.05") ''
+          Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
+        '');
 
     systemd.targets.multi-user.wants = [ "machines.target" ];
 
@@ -890,10 +896,12 @@ in
         nameValuePair "container@${name}" (let
           containerConfig = cfg // (if cfg.enableTun then
             {
-              allowedDevices = cfg.allowedDevices ++ [ {
-                node = "/dev/net/tun";
-                modifier = "rw";
-              } ];
+              allowedDevices =
+                cfg.allowedDevices ++ [ {
+                  node = "/dev/net/tun";
+                  modifier = "rw";
+                } ]
+                ;
               additionalCapabilities =
                 cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
             }

@@ -28,11 +28,12 @@ stdenv.mkDerivation rec {
   pname = "audiofile";
   version = "0.3.6";
 
-  buildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [
+  buildInputs =
+    lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [
       CoreServices
       AudioUnit
-    ];
+    ]
+    ;
 
   src = fetchurl {
     url = "https://audiofile.68k.org/audiofile-${version}.tar.gz";

@@ -47,14 +47,16 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
 
-  buildInputs = [
-    openssl
-    libsamplerate
-  ] ++ lib.optional stdenv.isLinux alsa-lib ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    CoreFoundation
-    Security
-  ];
+  buildInputs =
+    [
+      openssl
+      libsamplerate
+    ] ++ lib.optional stdenv.isLinux alsa-lib ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      CoreFoundation
+      Security
+    ]
+    ;
 
   preConfigure = ''
     export LD=$CC
@@ -71,49 +73,51 @@ stdenv.mkDerivation (finalAttrs: {
 
   outputs = [ "out" ] ++ lib.optional pythonSupport "py";
 
-  postInstall = ''
-    mkdir -p $out/bin
-    cp pjsip-apps/bin/pjsua-* $out/bin/pjsua
-    mkdir -p $out/share/${finalAttrs.pname}-${finalAttrs.version}/samples
-    cp pjsip-apps/bin/samples/*/* $out/share/${finalAttrs.pname}-${finalAttrs.version}/samples
-  '' + lib.optionalString pythonSupport ''
-    (cd pjsip-apps/src/swig/python && \
-      python setup.py install --prefix=$py
-    )
-  '' + lib.optionalString stdenv.isDarwin ''
-    # On MacOS relative paths are used to refer to libraries. All libraries use
-    # a relative path like ../lib/*.dylib or ../../lib/*.dylib. We need to
-    # rewrite these to use absolute ones.
+  postInstall =
+    ''
+      mkdir -p $out/bin
+      cp pjsip-apps/bin/pjsua-* $out/bin/pjsua
+      mkdir -p $out/share/${finalAttrs.pname}-${finalAttrs.version}/samples
+      cp pjsip-apps/bin/samples/*/* $out/share/${finalAttrs.pname}-${finalAttrs.version}/samples
+    '' + lib.optionalString pythonSupport ''
+      (cd pjsip-apps/src/swig/python && \
+        python setup.py install --prefix=$py
+      )
+    '' + lib.optionalString stdenv.isDarwin ''
+      # On MacOS relative paths are used to refer to libraries. All libraries use
+      # a relative path like ../lib/*.dylib or ../../lib/*.dylib. We need to
+      # rewrite these to use absolute ones.
 
-    # First, find all libraries (and their symlinks) in our outputs to define
-    # the install_name_tool -change arguments we should pass.
-    readarray -t libraries < <(
-      for outputName in $(getAllOutputNames); do
-        find "''${!outputName}" \( -name '*.dylib*' -o -name '*.so*' \)
+      # First, find all libraries (and their symlinks) in our outputs to define
+      # the install_name_tool -change arguments we should pass.
+      readarray -t libraries < <(
+        for outputName in $(getAllOutputNames); do
+          find "''${!outputName}" \( -name '*.dylib*' -o -name '*.so*' \)
+        done
+      )
+
+      # Determine the install_name_tool -change arguments that are going to be
+      # applied to all libraries.
+      change_args=()
+      for lib in "''${libraries[@]}"; do
+        lib_name="$(basename $lib)"
+        change_args+=(-change ../lib/$lib_name $lib)
+        change_args+=(-change ../../lib/$lib_name $lib)
       done
-    )
 
-    # Determine the install_name_tool -change arguments that are going to be
-    # applied to all libraries.
-    change_args=()
-    for lib in "''${libraries[@]}"; do
-      lib_name="$(basename $lib)"
-      change_args+=(-change ../lib/$lib_name $lib)
-      change_args+=(-change ../../lib/$lib_name $lib)
-    done
+      # Rewrite id and library refences for all non-symlinked libraries.
+      for lib in "''${libraries[@]}"; do
+        if [ -f "$lib" ]; then
+          install_name_tool -id $lib "''${change_args[@]}" $lib
+        fi
+      done
 
-    # Rewrite id and library refences for all non-symlinked libraries.
-    for lib in "''${libraries[@]}"; do
-      if [ -f "$lib" ]; then
-        install_name_tool -id $lib "''${change_args[@]}" $lib
-      fi
-    done
-
-    # Rewrite library references for all executables.
-    find "$out" -executable -type f | while read executable; do
-      install_name_tool "''${change_args[@]}" "$executable"
-    done
-  '';
+      # Rewrite library references for all executables.
+      find "$out" -executable -type f | while read executable; do
+        install_name_tool "''${change_args[@]}" "$executable"
+      done
+    ''
+    ;
 
     # We need the libgcc_s.so.1 loadable (for pthread_cancel to work)
   dontPatchELF = true;

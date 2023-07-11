@@ -23,7 +23,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs =
+    [ openssl ] ++ lib.optional stdenv.isDarwin Security
+    ;
 
     # requires internet access
   checkFlags = [

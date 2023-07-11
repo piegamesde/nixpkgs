@@ -36,11 +36,13 @@ stdenv.mkDerivation rec {
     sha256 = "0imkqjp8lww5p0cnqf4k4mb2v682mnsas63qmiz17rspakr7fxik";
   };
 
-  postInstall = ''
-    mv -v $out/games/openclonk $out/bin/
-  '' + lib.optionalString enableSoundtrack ''
-    ln -sv ${soundtrack_src} $out/share/games/openclonk/Music.ocg
-  '';
+  postInstall =
+    ''
+      mv -v $out/games/openclonk $out/bin/
+    '' + lib.optionalString enableSoundtrack ''
+      ln -sv ${soundtrack_src} $out/share/games/openclonk/Music.ocg
+    ''
+    ;
 
   nativeBuildInputs = [
     cmake

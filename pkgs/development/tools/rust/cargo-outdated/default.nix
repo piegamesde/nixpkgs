@@ -24,12 +24,14 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    curl
-    CoreFoundation
-    Security
-    SystemConfiguration
-  ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      curl
+      CoreFoundation
+      Security
+      SystemConfiguration
+    ]
+    ;
 
   meta = with lib; {
     description =

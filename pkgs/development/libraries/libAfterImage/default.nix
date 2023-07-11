@@ -82,21 +82,25 @@ stdenv.mkDerivation {
   patchFlags = [ "-p0" ];
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    giflib
-    libjpeg
-    libpng
-    zlib
-  ] ++ lib.optional withX libX11;
+  buildInputs =
+    [
+      giflib
+      libjpeg
+      libpng
+      zlib
+    ] ++ lib.optional withX libX11
+    ;
 
-  preConfigure = ''
-    rm -rf {libjpeg,libpng,libungif,zlib}/
-    substituteInPlace Makefile.in \
-      --replace "include .depend" ""
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace Makefile.in \
-      --replace "-soname," "-install_name,$out/lib/"
-  '';
+  preConfigure =
+    ''
+      rm -rf {libjpeg,libpng,libungif,zlib}/
+      substituteInPlace Makefile.in \
+        --replace "include .depend" ""
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace Makefile.in \
+        --replace "-soname," "-install_name,$out/lib/"
+    ''
+    ;
 
   configureFlags = [
     "--with-gif"

@@ -33,18 +33,24 @@
 # /lib will link to /lib32
 
 let
-  is64Bit = stdenv.hostPlatform.parsed.cpu.bits == 64;
+  is64Bit =
+    stdenv.hostPlatform.parsed.cpu.bits == 64
+    ;
     # multi-lib glibc is only supported on x86_64
   isMultiBuild =
     multiPkgs != null && stdenv.hostPlatform.system == "x86_64-linux";
-  isTargetBuild = !isMultiBuild;
+  isTargetBuild =
+    !isMultiBuild
+    ;
 
     # list of packages (usually programs) which are only be installed for the
     # host's architecture
-  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then
-    [ ]
-  else
-    multiPkgs pkgs);
+  targetPaths =
+    targetPkgs pkgs ++ (if multiPkgs == null then
+      [ ]
+    else
+      multiPkgs pkgs)
+    ;
 
     # list of packages which are installed for both x86 and x86_64 on x86_64
     # systems
@@ -160,11 +166,13 @@ let
   staticUsrProfileTarget = buildEnv {
     name = "${name}-usr-target";
     paths = [ etcPkg ] ++ basePkgs ++ targetPaths;
-    extraOutputsToInstall = [
-      "out"
-      "lib"
-      "bin"
-    ] ++ extraOutputsToInstall;
+    extraOutputsToInstall =
+      [
+        "out"
+        "lib"
+        "bin"
+      ] ++ extraOutputsToInstall
+      ;
     ignoreCollisions = true;
     postBuild = ''
       if [[ -d  $out/share/gsettings-schemas/ ]]; then
@@ -200,10 +208,12 @@ let
   staticUsrProfileMulti = buildEnv {
     name = "${name}-usr-multi";
     paths = baseMultiPkgs ++ multiPaths;
-    extraOutputsToInstall = [
-      "out"
-      "lib"
-    ] ++ extraOutputsToInstall;
+    extraOutputsToInstall =
+      [
+        "out"
+        "lib"
+      ] ++ extraOutputsToInstall
+      ;
     ignoreCollisions = true;
   };
 

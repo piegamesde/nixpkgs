@@ -39,10 +39,11 @@ let
       emergencyAccess = true;
     };
   };
-  installedSystem = (import ../lib/eval-config.nix {
-    inherit system;
-    modules = [ installedConfig ];
-  }).config.system.build.toplevel;
+  installedSystem =
+    (import ../lib/eval-config.nix {
+      inherit system;
+      modules = [ installedConfig ];
+    }).config.system.build.toplevel;
 in
 makeTest {
   name = "hibernate";
@@ -69,10 +70,11 @@ makeTest {
         };
 
         virtualisation.diskSize = 8 * 1024;
-        virtualisation.emptyDiskImages = [
-          # Small root disk for installer
-          512
-        ];
+        virtualisation.emptyDiskImages =
+          [
+            # Small root disk for installer
+            512
+          ];
         virtualisation.rootDevice = "/dev/vdb";
       }
       ;

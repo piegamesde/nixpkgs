@@ -48,19 +48,21 @@ mkDerivation rec {
     sha256 = "sha256-z3qHW7hVde51TkRZO3Ld8DbUODa2Gbnh3zosW2O8eOQ=";
   };
 
-  buildInputs = [
-    qtbase
-    qtsvg
-    xorg.libpthreadstubs
-    xorg.libXdmcp
-    qtx11extras
-    vulkan-loader
-    python3
-  ] ++ (with python3Packages; [
-    pyside2
-    pyside2-tools
-    shiboken2
-  ]) ++ lib.optional waylandSupport wayland;
+  buildInputs =
+    [
+      qtbase
+      qtsvg
+      xorg.libpthreadstubs
+      xorg.libXdmcp
+      qtx11extras
+      vulkan-loader
+      python3
+    ] ++ (with python3Packages; [
+      pyside2
+      pyside2-tools
+      shiboken2
+    ]) ++ lib.optional waylandSupport wayland
+    ;
 
   nativeBuildInputs = [
     cmake

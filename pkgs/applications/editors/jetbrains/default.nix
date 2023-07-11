@@ -22,10 +22,12 @@
 }:
 
 let
-  platforms = lib.platforms.linux ++ [
-    "x86_64-darwin"
-    "aarch64-darwin"
-  ];
+  platforms =
+    lib.platforms.linux ++ [
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ]
+    ;
   ideaPlatforms = [
     "x86_64-darwin"
     "i686-darwin"
@@ -81,23 +83,25 @@ let
         ];
       };
     }).overrideAttrs (attrs: {
-      nativeBuildInputs = (attrs.nativeBuildInputs or [ ])
-        ++ lib.optionals (stdenv.isLinux) [
+      nativeBuildInputs =
+        (attrs.nativeBuildInputs or [ ]) ++ lib.optionals (stdenv.isLinux) [
           autoPatchelfHook
           patchelf
-        ];
-      buildInputs = (attrs.buildInputs or [ ])
-        ++ lib.optionals (stdenv.isLinux) [
+        ]
+        ;
+      buildInputs =
+        (attrs.buildInputs or [ ]) ++ lib.optionals (stdenv.isLinux) [
           python3
           stdenv.cc.cc
           libdbusmenu
           openssl.out
           expat
           libxcrypt-legacy
-        ];
+        ]
+        ;
       dontAutoPatchelf = true;
-      postFixup = (attrs.postFixup or "")
-        + lib.optionalString (stdenv.isLinux) ''
+      postFixup =
+        (attrs.postFixup or "") + lib.optionalString (stdenv.isLinux) ''
           (
             cd $out/clion
             # bundled cmake does not find libc
@@ -117,7 +121,8 @@ let
             wrapProgram $out/bin/clion \
               --set CL_JDK "${jdk}"
           )
-        '';
+        ''
+        ;
     })
     ;
 
@@ -199,16 +204,18 @@ let
         maintainers = [ ];
       };
     }).overrideAttrs (attrs: {
-      postFixup = (attrs.postFixup or "") + lib.optionalString stdenv.isLinux ''
-        interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
-        patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
+      postFixup =
+        (attrs.postFixup or "") + lib.optionalString stdenv.isLinux ''
+          interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
+          patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
 
-        chmod +x $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
+          chmod +x $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
 
-        # fortify source breaks build since delve compiles with -O0
-        wrapProgram $out/bin/goland \
-          --prefix CGO_CPPFLAGS " " "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"
-      '';
+          # fortify source breaks build since delve compiles with -O0
+          wrapProgram $out/bin/goland \
+            --prefix CGO_CPPFLAGS " " "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"
+        ''
+        ;
     })
     ;
 

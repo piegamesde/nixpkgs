@@ -55,10 +55,12 @@ stdenv.mkDerivation rec {
       (substituteAll {
         src = ./0001-Fix-some-paths-for-Nix-build.patch;
         libipasir = "${libipasir}/lib/${libipasir.libname}";
-        libssl = "${
+        libssl =
+          "${
             lib.getLib openssl
           }/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}";
-        libcrypto = "${
+        libcrypto =
+          "${
             lib.getLib openssl
           }/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}";
       })
@@ -66,35 +68,39 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optional certifyBooks makeWrapper;
 
-  buildInputs = [
-    # ACL2 itself only needs a Common Lisp compiler/interpreter:
-    sbcl
-  ] ++ lib.optionals certifyBooks [
-    # To build community books, we need Perl and a couple of utilities:
-    which
-    perl
-    hostname
-    # Some of the books require one or more of these external tools:
-    glucose
-    minisat
-    abc-verifier
-    libipasir
-    z3
-    (python3.withPackages (ps: [ ps.z3 ]))
-  ];
+  buildInputs =
+    [
+      # ACL2 itself only needs a Common Lisp compiler/interpreter:
+      sbcl
+    ] ++ lib.optionals certifyBooks [
+      # To build community books, we need Perl and a couple of utilities:
+      which
+      perl
+      hostname
+      # Some of the books require one or more of these external tools:
+      glucose
+      minisat
+      abc-verifier
+      libipasir
+      z3
+      (python3.withPackages (ps: [ ps.z3 ]))
+    ]
+    ;
 
     # NOTE: Parallel building can be memory-intensive depending on the number of
     # concurrent jobs.  For example, this build has been seen to use >120GB of
     # RAM on an 85 core machine.
   enableParallelBuilding = true;
 
-  preConfigure = ''
-    # When certifying books, ACL2 doesn't like $HOME not existing.
-    export HOME=$(pwd)/fake-home
-  '' + lib.optionalString certifyBooks ''
-    # Some books also care about $USER being nonempty.
-    export USER=nobody
-  '';
+  preConfigure =
+    ''
+      # When certifying books, ACL2 doesn't like $HOME not existing.
+      export HOME=$(pwd)/fake-home
+    '' + lib.optionalString certifyBooks ''
+      # Some books also care about $USER being nonempty.
+      export USER=nobody
+    ''
+    ;
 
   postConfigure = ''
     # ACL2 and its books need to be built in place in the out directory because
@@ -115,13 +121,15 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkTarget = "mini-proveall";
 
-  installPhase = ''
-    mkdir -p $out/bin
-    ln -s $out/share/${pname}/saved_acl2           $out/bin/${pname}
-  '' + lib.optionalString certifyBooks ''
-    ln -s $out/share/${pname}/books/build/cert.pl  $out/bin/${pname}-cert
-    ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
-  '';
+  installPhase =
+    ''
+      mkdir -p $out/bin
+      ln -s $out/share/${pname}/saved_acl2           $out/bin/${pname}
+    '' + lib.optionalString certifyBooks ''
+      ln -s $out/share/${pname}/books/build/cert.pl  $out/bin/${pname}-cert
+      ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
+    ''
+    ;
 
   preDistPhases = [
       (if certifyBooks then
@@ -151,28 +159,30 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "An interpreter and a prover for a Lisp dialect";
-    longDescription = ''
-      ACL2 is a logic and programming language in which you can model computer
-      systems, together with a tool to help you prove properties of those
-      models. "ACL2" denotes "A Computational Logic for Applicative Common
-      Lisp".
-
-      ACL2 is part of the Boyer-Moore family of provers, for which its authors
-      have received the 2005 ACM Software System Award.
-
-      This package installs the main ACL2 executable ${pname}, as well as the
-      build tools cert.pl and clean.pl, renamed to ${pname}-cert and
-      ${pname}-clean.
-
-    '' + (if certifyBooks then
+    longDescription =
       ''
-        The community books are also included and certified with the `make
-        everything` target.
-      ''
-    else
-      ''
-        The community books are not included in this package.
-      '');
+        ACL2 is a logic and programming language in which you can model computer
+        systems, together with a tool to help you prove properties of those
+        models. "ACL2" denotes "A Computational Logic for Applicative Common
+        Lisp".
+
+        ACL2 is part of the Boyer-Moore family of provers, for which its authors
+        have received the 2005 ACM Software System Award.
+
+        This package installs the main ACL2 executable ${pname}, as well as the
+        build tools cert.pl and clean.pl, renamed to ${pname}-cert and
+        ${pname}-clean.
+
+      '' + (if certifyBooks then
+        ''
+          The community books are also included and certified with the `make
+          everything` target.
+        ''
+      else
+        ''
+          The community books are not included in this package.
+        '')
+      ;
     homepage = "https://www.cs.utexas.edu/users/moore/acl2/";
     downloadPage = "https://github.com/acl2-devel/acl2-devel/releases";
     license = with licenses;

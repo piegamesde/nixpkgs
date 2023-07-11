@@ -34,12 +34,16 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = lib.optionals hostPlatform.isLinux [ autoPatchelfHook ]
-    ++ lib.optionals hostPlatform.isDarwin [ fixDarwinDylibNames ];
-  propagatedBuildInputs = [
-    curl
-    tzdata
-  ] ++ lib.optionals hostPlatform.isLinux [ glibc ];
+  nativeBuildInputs =
+    lib.optionals hostPlatform.isLinux [ autoPatchelfHook ]
+    ++ lib.optionals hostPlatform.isDarwin [ fixDarwinDylibNames ]
+    ;
+  propagatedBuildInputs =
+    [
+      curl
+      tzdata
+    ] ++ lib.optionals hostPlatform.isLinux [ glibc ]
+    ;
 
   installPhase = ''
     runHook preInstall

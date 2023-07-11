@@ -37,10 +37,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "aiocsv" ];
 
-  disabledTestPaths = [
-    # Import issue
-    "tests/test_parser.py"
-  ];
+  disabledTestPaths =
+    [
+      # Import issue
+      "tests/test_parser.py"
+    ];
 
   meta = with lib; {
     description = "Library for for asynchronous CSV reading/writing";

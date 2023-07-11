@@ -26,11 +26,13 @@ stdenv.mkDerivation rec {
     sha256 = "V2pSP8i20zB50WtUMujzij+ISSupdQQ/oCYYrOaTU1g=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    copyDesktopItems
-    pkg-config
-  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
+  nativeBuildInputs =
+    [
+      cmake
+      copyDesktopItems
+      pkg-config
+    ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
+    ;
   buildInputs = [
     zlib
     bzip2
@@ -45,13 +47,15 @@ stdenv.mkDerivation rec {
 
     # ECWolf installs its binary to the games/ directory, but Nix only adds bin/
     # directories to the PATH.
-  postInstall = lib.optionalString stdenv.isLinux ''
-    mv "$out/games" "$out/bin"
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/{Applications,bin}
-    cp -R ecwolf.app $out/Applications
-    makeWrapper $out/{Applications/ecwolf.app/Contents/MacOS,bin}/ecwolf
-  '';
+  postInstall =
+    lib.optionalString stdenv.isLinux ''
+      mv "$out/games" "$out/bin"
+    '' + lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/{Applications,bin}
+      cp -R ecwolf.app $out/Applications
+      makeWrapper $out/{Applications/ecwolf.app/Contents/MacOS,bin}/ecwolf
+    ''
+    ;
 
   meta = with lib; {
     description =

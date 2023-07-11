@@ -9,7 +9,8 @@ callPackage ./generic.nix (args // rec {
   version = "1.70.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/boost/boost_${
+    url =
+      "mirror://sourceforge/boost/boost_${
         builtins.replaceStrings [ "." ] [ "_" ] version
       }.tar.bz2";
       # SHA256 from http://www.boost.org/users/history/version_1_70_0.html

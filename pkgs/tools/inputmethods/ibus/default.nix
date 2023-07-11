@@ -136,23 +136,25 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ glib ];
 
-  buildInputs = [
-    dbus
-    systemd
-    dconf
-    gdk-pixbuf
-    gobject-introspection
-    python3.pkgs.pygobject3 # for pygobject overrides
-    gtk2
-    gtk3
-    gtk4
-    isocodes
-    json-glib
-    libnotify
-  ] ++ lib.optionals withWayland [
-    libxkbcommon
-    wayland
-  ];
+  buildInputs =
+    [
+      dbus
+      systemd
+      dconf
+      gdk-pixbuf
+      gobject-introspection
+      python3.pkgs.pygobject3 # for pygobject overrides
+      gtk2
+      gtk3
+      gtk4
+      isocodes
+      json-glib
+      libnotify
+    ] ++ lib.optionals withWayland [
+      libxkbcommon
+      wayland
+    ]
+    ;
 
   enableParallelBuilding = true;
 

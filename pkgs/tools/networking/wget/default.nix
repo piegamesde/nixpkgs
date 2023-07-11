@@ -30,16 +30,18 @@ stdenv.mkDerivation rec {
 
   patches = [ ./remove-runtime-dep-on-openssl-headers.patch ];
 
-  preConfigure = ''
-    patchShebangs doc
+  preConfigure =
+    ''
+      patchShebangs doc
 
-  '' + lib.optionalString doCheck ''
-    # Work around lack of DNS resolution in chroots.
-    for i in "tests/"*.pm "tests/"*.px
-    do
-      sed -i "$i" -e's/localhost/127.0.0.1/g'
-    done
-  '';
+    '' + lib.optionalString doCheck ''
+      # Work around lack of DNS resolution in chroots.
+      for i in "tests/"*.pm "tests/"*.px
+      do
+        sed -i "$i" -e's/localhost/127.0.0.1/g'
+      done
+    ''
+    ;
 
   nativeBuildInputs = [
     gettext
@@ -49,23 +51,27 @@ stdenv.mkDerivation rec {
     libiconv
     libintl
   ];
-  buildInputs = [
-    libidn2
-    zlib
-    pcre
-    libuuid
-  ] ++ lib.optionals doCheck [
-    perlPackages.IOSocketSSL
-    perlPackages.LWP
-    python3
-  ] ++ lib.optional withOpenssl openssl ++ lib.optional withLibpsl libpsl
-    ++ lib.optional stdenv.isDarwin perlPackages.perl;
+  buildInputs =
+    [
+      libidn2
+      zlib
+      pcre
+      libuuid
+    ] ++ lib.optionals doCheck [
+      perlPackages.IOSocketSSL
+      perlPackages.LWP
+      python3
+    ] ++ lib.optional withOpenssl openssl ++ lib.optional withLibpsl libpsl
+    ++ lib.optional stdenv.isDarwin perlPackages.perl
+    ;
 
-  configureFlags = [ (lib.withFeatureAs withOpenssl "ssl" "openssl") ]
+  configureFlags =
+    [ (lib.withFeatureAs withOpenssl "ssl" "openssl") ]
     ++ lib.optionals stdenv.isDarwin [
       # https://lists.gnu.org/archive/html/bug-wget/2021-01/msg00076.html
       "--without-included-regex"
-    ];
+    ]
+    ;
 
   doCheck = false;
 

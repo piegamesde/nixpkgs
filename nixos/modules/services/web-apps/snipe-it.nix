@@ -16,8 +16,10 @@ let
   user = cfg.user;
   group = cfg.group;
 
-  tlsEnabled = cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL
-    || cfg.nginx.enableACME;
+  tlsEnabled =
+    cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL
+    || cfg.nginx.enableACME
+    ;
 
     # shell script for local administration
   artisan = pkgs.writeScriptBin "snipe-it" ''

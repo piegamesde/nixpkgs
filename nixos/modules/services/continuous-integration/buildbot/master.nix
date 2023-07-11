@@ -275,7 +275,8 @@ in
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       path = cfg.packages ++ cfg.pythonPackages python.pkgs;
-      environment.PYTHONPATH = "${
+      environment.PYTHONPATH =
+        "${
           python.withPackages (self: cfg.pythonPackages self ++ [ package ])
         }/${python.sitePackages}";
 

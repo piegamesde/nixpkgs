@@ -43,25 +43,27 @@ let
   qtCompatVersion = srcs.qtbase.version;
 
   patches = {
-    qtbase = lib.optionals stdenv.isDarwin [
-      ./qtbase.patch.d/0001-qtbase-mkspecs-mac.patch
+    qtbase =
+      lib.optionals stdenv.isDarwin [
+        ./qtbase.patch.d/0001-qtbase-mkspecs-mac.patch
 
-      # Patch framework detection to support X.framework/X.tbd,
-      # extending the current support for X.framework/X.
-      ./qtbase.patch.d/0012-qtbase-tbd-frameworks.patch
+        # Patch framework detection to support X.framework/X.tbd,
+        # extending the current support for X.framework/X.
+        ./qtbase.patch.d/0012-qtbase-tbd-frameworks.patch
 
-      ./qtbase.patch.d/0014-aarch64-darwin.patch
-    ] ++ [
-      ./qtbase.patch.d/0003-qtbase-mkspecs.patch
-      ./qtbase.patch.d/0004-qtbase-replace-libdir.patch
-      ./qtbase.patch.d/0005-qtbase-cmake.patch
-      ./qtbase.patch.d/0006-qtbase-gtk3.patch
-      ./qtbase.patch.d/0007-qtbase-xcursor.patch
-      ./qtbase.patch.d/0008-qtbase-tzdir.patch
-      ./qtbase.patch.d/0009-qtbase-qtpluginpath.patch
-      ./qtbase.patch.d/0010-qtbase-assert.patch
-      ./qtbase.patch.d/0011-fix-header_module.patch
-    ];
+        ./qtbase.patch.d/0014-aarch64-darwin.patch
+      ] ++ [
+        ./qtbase.patch.d/0003-qtbase-mkspecs.patch
+        ./qtbase.patch.d/0004-qtbase-replace-libdir.patch
+        ./qtbase.patch.d/0005-qtbase-cmake.patch
+        ./qtbase.patch.d/0006-qtbase-gtk3.patch
+        ./qtbase.patch.d/0007-qtbase-xcursor.patch
+        ./qtbase.patch.d/0008-qtbase-tzdir.patch
+        ./qtbase.patch.d/0009-qtbase-qtpluginpath.patch
+        ./qtbase.patch.d/0010-qtbase-assert.patch
+        ./qtbase.patch.d/0011-fix-header_module.patch
+      ]
+      ;
     qtdeclarative = [
       ./qtdeclarative.patch
       # prevent headaches from stale qmlcache data
@@ -69,64 +71,69 @@ let
     ];
     qtscript = [ ./qtscript.patch ];
     qtserialport = [ ./qtserialport.patch ];
-    qtsystems = [
-      # Enable building with udisks support
-      (fetchpatch {
-        url =
-          "https://salsa.debian.org/qt-kde-team/qt/qtsystems/-/raw/a23fd92222c33479d7f3b59e48116def6b46894c/debian/patches/2001_build_with_udisk.patch";
-        hash = "sha256-B/z/+tai01RU/bAJSCp5a0/dGI8g36nwso8MiJv27YM=";
-      })
-    ];
-    qtwebengine = [
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/Homebrew/formula-patches/a6f16c6daea3b5a1f7bc9f175d1645922c131563/qt5/qt5-webengine-python3.patch";
-        hash = "sha256-rUSDwTucXVP3Obdck7LRTeKZ+JYQSNhQ7+W31uHZ9yM=";
-      })
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/Homebrew/formula-patches/7ae178a617d1e0eceb742557e63721af949bd28a/qt5/qt5-webengine-chromium-python3.patch";
-        stripLen = 1;
-        extraPrefix = "src/3rdparty/";
-        hash = "sha256-MZGYeMdGzwypfKoSUaa56K3inbcGRx7he/+AFyk5ekA=";
-      })
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/Homebrew/formula-patches/7ae178a617d1e0eceb742557e63721af949bd28a/qt5/qt5-webengine-gcc12.patch";
-        stripLen = 1;
-        extraPrefix = "src/3rdparty/";
-        hash = "sha256-s4GsGMJTBNWw2gTJuIEP3tqT82AmTsR2mbj59m2p6rM=";
-      })
-    ] ++ lib.optionals stdenv.isDarwin [
-      ./qtwebengine-darwin-no-platform-check.patch
-      ./qtwebengine-mac-dont-set-dsymutil-path.patch
-      ./qtwebengine-darwin-checks.patch
-    ];
-    qtwebkit = [
-      (fetchpatch {
-        name = "qtwebkit-bison-3.7-build.patch";
-        url =
-          "https://github.com/qtwebkit/qtwebkit/commit/d92b11fea65364fefa700249bd3340e0cd4c5b31.patch";
-        sha256 = "0h8ymfnwgkjkwaankr3iifiscsvngqpwb91yygndx344qdiw9y0n";
-      })
-      (fetchpatch {
-        name = "qtwebkit-glib-2.68.patch";
-        url =
-          "https://github.com/qtwebkit/qtwebkit/pull/1058/commits/5b698ba3faffd4e198a45be9fe74f53307395e4b.patch";
-        sha256 = "0a3xv0h4lv8wggckgy8cg8xnpkg7n9h45312pdjdnnwy87xvzss0";
-      })
-      (fetchpatch {
-        name = "qtwebkit-darwin-handle.patch";
-        url =
-          "https://github.com/qtwebkit/qtwebkit/commit/5c272a21e621a66862821d3ae680f27edcc64c19.patch";
-        sha256 = "9hjqLyABz372QDgoq7nXXXQ/3OXBGcYN1/92ekcC3WE=";
-      })
-      ./qtwebkit.patch
-      ./qtwebkit-icu68.patch
-    ] ++ lib.optionals stdenv.isDarwin [
-      ./qtwebkit-darwin-no-readline.patch
-      ./qtwebkit-darwin-no-qos-classes.patch
-    ];
+    qtsystems =
+      [
+        # Enable building with udisks support
+        (fetchpatch {
+          url =
+            "https://salsa.debian.org/qt-kde-team/qt/qtsystems/-/raw/a23fd92222c33479d7f3b59e48116def6b46894c/debian/patches/2001_build_with_udisk.patch";
+          hash = "sha256-B/z/+tai01RU/bAJSCp5a0/dGI8g36nwso8MiJv27YM=";
+        })
+      ];
+    qtwebengine =
+      [
+        (fetchpatch {
+          url =
+            "https://raw.githubusercontent.com/Homebrew/formula-patches/a6f16c6daea3b5a1f7bc9f175d1645922c131563/qt5/qt5-webengine-python3.patch";
+          hash = "sha256-rUSDwTucXVP3Obdck7LRTeKZ+JYQSNhQ7+W31uHZ9yM=";
+        })
+        (fetchpatch {
+          url =
+            "https://raw.githubusercontent.com/Homebrew/formula-patches/7ae178a617d1e0eceb742557e63721af949bd28a/qt5/qt5-webengine-chromium-python3.patch";
+          stripLen = 1;
+          extraPrefix = "src/3rdparty/";
+          hash = "sha256-MZGYeMdGzwypfKoSUaa56K3inbcGRx7he/+AFyk5ekA=";
+        })
+        (fetchpatch {
+          url =
+            "https://raw.githubusercontent.com/Homebrew/formula-patches/7ae178a617d1e0eceb742557e63721af949bd28a/qt5/qt5-webengine-gcc12.patch";
+          stripLen = 1;
+          extraPrefix = "src/3rdparty/";
+          hash = "sha256-s4GsGMJTBNWw2gTJuIEP3tqT82AmTsR2mbj59m2p6rM=";
+        })
+      ] ++ lib.optionals stdenv.isDarwin [
+        ./qtwebengine-darwin-no-platform-check.patch
+        ./qtwebengine-mac-dont-set-dsymutil-path.patch
+        ./qtwebengine-darwin-checks.patch
+      ]
+      ;
+    qtwebkit =
+      [
+        (fetchpatch {
+          name = "qtwebkit-bison-3.7-build.patch";
+          url =
+            "https://github.com/qtwebkit/qtwebkit/commit/d92b11fea65364fefa700249bd3340e0cd4c5b31.patch";
+          sha256 = "0h8ymfnwgkjkwaankr3iifiscsvngqpwb91yygndx344qdiw9y0n";
+        })
+        (fetchpatch {
+          name = "qtwebkit-glib-2.68.patch";
+          url =
+            "https://github.com/qtwebkit/qtwebkit/pull/1058/commits/5b698ba3faffd4e198a45be9fe74f53307395e4b.patch";
+          sha256 = "0a3xv0h4lv8wggckgy8cg8xnpkg7n9h45312pdjdnnwy87xvzss0";
+        })
+        (fetchpatch {
+          name = "qtwebkit-darwin-handle.patch";
+          url =
+            "https://github.com/qtwebkit/qtwebkit/commit/5c272a21e621a66862821d3ae680f27edcc64c19.patch";
+          sha256 = "9hjqLyABz372QDgoq7nXXXQ/3OXBGcYN1/92ekcC3WE=";
+        })
+        ./qtwebkit.patch
+        ./qtwebkit-icu68.patch
+      ] ++ lib.optionals stdenv.isDarwin [
+        ./qtwebkit-darwin-no-readline.patch
+        ./qtwebkit-darwin-no-qos-classes.patch
+      ]
+      ;
     qttools = [ ./qttools.patch ];
   };
 
@@ -314,10 +321,12 @@ let
 
       wrapQtAppsHook = makeSetupHook {
         name = "wrap-qt5-apps-hook";
-        propagatedBuildInputs = [
-          self.qtbase.dev
-          buildPackages.makeBinaryWrapper
-        ] ++ lib.optional stdenv.isLinux self.qtwayland.dev;
+        propagatedBuildInputs =
+          [
+            self.qtbase.dev
+            buildPackages.makeBinaryWrapper
+          ] ++ lib.optional stdenv.isLinux self.qtwayland.dev
+          ;
       } ../hooks/wrap-qt-apps-hook.sh;
     } // lib.optionalAttrs config.allowAliases {
       # remove before 23.11

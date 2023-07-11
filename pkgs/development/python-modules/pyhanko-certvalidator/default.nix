@@ -45,10 +45,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Requests
-    "tests/test_crl_client.py"
-  ];
+  disabledTestPaths =
+    [
+      # Requests
+      "tests/test_crl_client.py"
+    ];
 
   disabledTests = [
     # Look for nonexisting certificates

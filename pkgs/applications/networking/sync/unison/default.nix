@@ -27,33 +27,41 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    glib
-    wrapGAppsHook
-    ocamlPackages.ocaml
-  ] ++ lib.optional enableX11 copyDesktopItems;
-  buildInputs = [
-    gsettings-desktop-schemas
-    ncurses
-    zlib
-  ] ++ lib.optional stdenv.isDarwin Cocoa;
+  nativeBuildInputs =
+    [
+      glib
+      wrapGAppsHook
+      ocamlPackages.ocaml
+    ] ++ lib.optional enableX11 copyDesktopItems
+    ;
+  buildInputs =
+    [
+      gsettings-desktop-schemas
+      ncurses
+      zlib
+    ] ++ lib.optional stdenv.isDarwin Cocoa
+    ;
 
-  preBuild = lib.optionalString enableX11 ''
-    sed -i "s|\(OCAMLOPT=.*\)$|\1 -I $(echo "${ocamlPackages.lablgtk3}"/lib/ocaml/*/site-lib/lablgtk3)|" src/Makefile.OCaml
-    sed -i "s|\(OCAMLOPT=.*\)$|\1 -I $(echo "${ocamlPackages.cairo2}"/lib/ocaml/*/site-lib/cairo2)|" src/Makefile.OCaml
-  '' + ''
-    echo -e '\ninstall:\n\tcp $(FSMONITOR)$(EXEC_EXT) $(INSTALLDIR)' >> src/fsmonitor/linux/Makefile
-  '';
+  preBuild =
+    lib.optionalString enableX11 ''
+      sed -i "s|\(OCAMLOPT=.*\)$|\1 -I $(echo "${ocamlPackages.lablgtk3}"/lib/ocaml/*/site-lib/lablgtk3)|" src/Makefile.OCaml
+      sed -i "s|\(OCAMLOPT=.*\)$|\1 -I $(echo "${ocamlPackages.cairo2}"/lib/ocaml/*/site-lib/cairo2)|" src/Makefile.OCaml
+    '' + ''
+      echo -e '\ninstall:\n\tcp $(FSMONITOR)$(EXEC_EXT) $(INSTALLDIR)' >> src/fsmonitor/linux/Makefile
+    ''
+    ;
 
-  makeFlags = [
-    "INSTALLDIR=$(out)/bin/"
-    "UISTYLE=${
-      if enableX11 then
-        "gtk3"
-      else
-        "text"
-    }"
-  ] ++ lib.optional (!ocamlPackages.ocaml.nativeCompilers) "NATIVE=false";
+  makeFlags =
+    [
+      "INSTALLDIR=$(out)/bin/"
+      "UISTYLE=${
+        if enableX11 then
+          "gtk3"
+        else
+          "text"
+      }"
+    ] ++ lib.optional (!ocamlPackages.ocaml.nativeCompilers) "NATIVE=false"
+    ;
 
   preInstall = ''
     mkdir -p $out/bin

@@ -26,13 +26,15 @@ stdenv.mkDerivation rec {
     pkg-config
     scons
   ];
-  buildInputs = [
-    apr
-    openssl
-    aprutil
-    zlib
-    libiconv
-  ] ++ lib.optional (!stdenv.isCygwin) libkrb5;
+  buildInputs =
+    [
+      apr
+      openssl
+      aprutil
+      zlib
+      libiconv
+    ] ++ lib.optional (!stdenv.isCygwin) libkrb5
+    ;
 
   patches = [
     ./scons.patch
@@ -51,15 +53,17 @@ stdenv.mkDerivation rec {
 
   prefixKey = "PREFIX=";
 
-  preConfigure = ''
-    sconsFlags+=" APR=$(echo ${apr.dev}/bin/*-config)"
-    sconsFlags+=" APU=$(echo ${aprutil.dev}/bin/*-config)"
-    sconsFlags+=" CC=$CC"
-    sconsFlags+=" OPENSSL=${openssl}"
-    sconsFlags+=" ZLIB=${zlib}"
-  '' + lib.optionalString (!stdenv.isCygwin) ''
-    sconsFlags+=" GSSAPI=${libkrb5.dev}"
-  '';
+  preConfigure =
+    ''
+      sconsFlags+=" APR=$(echo ${apr.dev}/bin/*-config)"
+      sconsFlags+=" APU=$(echo ${aprutil.dev}/bin/*-config)"
+      sconsFlags+=" CC=$CC"
+      sconsFlags+=" OPENSSL=${openssl}"
+      sconsFlags+=" ZLIB=${zlib}"
+    '' + lib.optionalString (!stdenv.isCygwin) ''
+      sconsFlags+=" GSSAPI=${libkrb5.dev}"
+    ''
+    ;
 
   enableParallelBuilding = true;
 

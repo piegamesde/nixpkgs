@@ -36,16 +36,18 @@ buildPythonPackage rec {
       R # needed at setup time to detect R_HOME
     ];
 
-  propagatedBuildInputs = [
-    lineedit
-    prompt-toolkit
-    pygments
-    rchitect
-    six
-  ] ++ (with rPackages; [
-    reticulate
-    askpass
-  ]);
+  propagatedBuildInputs =
+    [
+      lineedit
+      prompt-toolkit
+      pygments
+      rchitect
+      six
+    ] ++ (with rPackages; [
+      reticulate
+      askpass
+    ])
+    ;
 
   nativeCheckInputs = [
     pytestCheckHook

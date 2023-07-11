@@ -23,10 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-ZKZARFVCzyJpGWV8e3jQLZwcpbHCXX5m4OH/MlBg9BY=";
   };
 
-  propagatedBuildInputs = [
-    build
-    pep517
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs =
+    [
+      build
+      pep517
+    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ;
 
   nativeCheckInputs = [
     git
@@ -35,10 +37,11 @@ buildPythonPackage rec {
 
   checkInputs = [ breezy ];
 
-  disabledTests = [
-    # Test wants to setup a venv
-    "test_build_sdist_pep517_isolated"
-  ];
+  disabledTests =
+    [
+      # Test wants to setup a venv
+      "test_build_sdist_pep517_isolated"
+    ];
 
   pythonImportsCheck = [ "check_manifest" ];
 

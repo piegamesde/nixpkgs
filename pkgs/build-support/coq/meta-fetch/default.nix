@@ -43,7 +43,8 @@ let
         }
         {
           cond = pr != null && (match "^github.*" domain) != null;
-          out = "https://api.${domain}/repos/${owner}/${repo}/${fmt}/pull/${
+          out =
+            "https://api.${domain}/repos/${owner}/${repo}/${fmt}/pull/${
               head pr
             }/head";
         }

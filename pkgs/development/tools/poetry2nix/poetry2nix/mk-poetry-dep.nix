@@ -54,9 +54,7 @@ pythonPackages.callPackage ({
           ] version + ".*$") fname != null
           ;
         hasSupportedExtension =
-          fname:
-          builtins.match supportedRegex fname != null
-          ;
+          fname: builtins.match supportedRegex fname != null;
         isCompatibleEgg =
           fname:
           !lib.strings.hasSuffix ".egg" fname
@@ -72,8 +70,10 @@ pythonPackages.callPackage ({
     isSource = source != null;
     isGit = isSource && source.type == "git";
     isUrl = isSource && source.type == "url";
-    isWheelUrl = isSource && source.type == "url"
-      && lib.strings.hasSuffix ".whl" source.url;
+    isWheelUrl =
+      isSource && source.type == "url"
+      && lib.strings.hasSuffix ".whl" source.url
+      ;
     isDirectory = isSource && source.type == "directory";
     isFile = isSource && source.type == "file";
     isLegacy = isSource && source.type == "legacy";
@@ -102,14 +102,17 @@ pythonPackages.callPackage ({
         eggs = builtins.filter isEgg fileCandidates;
           # the `wheel` package cannot be built from a wheel, since that requires the wheel package
           # this causes a circular dependency so we special-case ignore its `preferWheel` attribute value
-        entries = (if preferWheel' then
-          binaryDist ++ sourceDist
-        else
-          sourceDist ++ binaryDist) ++ eggs;
-        lockFileEntry = (if lib.length entries > 0 then
-          builtins.head entries
-        else
-          throw "Missing suitable source/wheel file entry for ${name}");
+        entries =
+          (if preferWheel' then
+            binaryDist ++ sourceDist
+          else
+            sourceDist ++ binaryDist) ++ eggs
+          ;
+        lockFileEntry =
+          (if lib.length entries > 0 then
+            builtins.head entries
+          else
+            throw "Missing suitable source/wheel file entry for ${name}");
         _isEgg = isEgg lockFileEntry;
       in
       rec {
@@ -164,8 +167,8 @@ pythonPackages.callPackage ({
       # Stripping pre-built wheels lead to `ELF load command address/offset not properly aligned`
     dontStrip = format == "wheel";
 
-    nativeBuildInputs = [ hooks.poetry2nixFixupHook ]
-      ++ lib.optional (!pythonPackages.isPy27)
+    nativeBuildInputs =
+      [ hooks.poetry2nixFixupHook ] ++ lib.optional (!pythonPackages.isPy27)
       hooks.poetry2nixPythonRequiresPatchHook
       ++ lib.optional (isLocked && (getManyLinuxDeps fileInfo.name).str != null)
       autoPatchelfHook ++ lib.optionals (format == "wheel") [
@@ -176,12 +179,14 @@ pythonPackages.callPackage ({
         hooks.removePathDependenciesHook
         hooks.removeGitDependenciesHook
         hooks.pipBuildHook
-      ];
+      ]
+      ;
 
-    buildInputs = (lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
-      ++ lib.optional isDirectory buildSystemPkgs
-      ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-      pythonPackages.setuptools);
+    buildInputs =
+      (lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
+        ++ lib.optional isDirectory buildSystemPkgs
+        ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+        pythonPackages.setuptools);
 
     propagatedBuildInputs =
       let
@@ -221,10 +226,11 @@ pythonPackages.callPackage ({
           inherit (source) url;
           submodules = true;
           rev = source.resolved_reference or source.reference;
-          ref = sourceSpec.branch or (if sourceSpec ? tag then
-            "refs/tags/${sourceSpec.tag}"
-          else
-            "HEAD");
+          ref =
+            sourceSpec.branch or (if sourceSpec ? tag then
+              "refs/tags/${sourceSpec.tag}"
+            else
+              "HEAD");
         } // (lib.optionalAttrs ((sourceSpec ? rev)
           && (lib.versionAtLeast builtins.nixVersion "2.4")) {
             allRefs = true;

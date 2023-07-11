@@ -25,14 +25,16 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [
-    elfutils
-    zlib
-    libbpf
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-    argp-standalone
-    musl-obstack
-  ];
+  buildInputs =
+    [
+      elfutils
+      zlib
+      libbpf
+    ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+      argp-standalone
+      musl-obstack
+    ]
+    ;
 
     # Put libraries in "lib" subdirectory, not top level of $out
   cmakeFlags = [

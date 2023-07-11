@@ -162,47 +162,49 @@ let
     };
 
       # Fix FHS paths in tests
-    postPatch = ''
-      # src/fish_tests.cpp
-      sed -i 's|/bin/ls|${coreutils}/bin/ls|' src/fish_tests.cpp
-      sed -i 's|is_potential_path(L"/usr"|is_potential_path(L"/nix"|' src/fish_tests.cpp
-      sed -i 's|L"/bin/echo"|L"${coreutils}/bin/echo"|' src/fish_tests.cpp
-      sed -i 's|L"/bin/c"|L"${coreutils}/bin/c"|' src/fish_tests.cpp
-      sed -i 's|L"/bin/ca"|L"${coreutils}/bin/ca"|' src/fish_tests.cpp
+    postPatch =
+      ''
+        # src/fish_tests.cpp
+        sed -i 's|/bin/ls|${coreutils}/bin/ls|' src/fish_tests.cpp
+        sed -i 's|is_potential_path(L"/usr"|is_potential_path(L"/nix"|' src/fish_tests.cpp
+        sed -i 's|L"/bin/echo"|L"${coreutils}/bin/echo"|' src/fish_tests.cpp
+        sed -i 's|L"/bin/c"|L"${coreutils}/bin/c"|' src/fish_tests.cpp
+        sed -i 's|L"/bin/ca"|L"${coreutils}/bin/ca"|' src/fish_tests.cpp
 
-      # tests/checks/cd.fish
-      sed -i 's|/bin/pwd|${coreutils}/bin/pwd|' tests/checks/cd.fish
+        # tests/checks/cd.fish
+        sed -i 's|/bin/pwd|${coreutils}/bin/pwd|' tests/checks/cd.fish
 
-      # tests/checks/redirect.fish
-      sed -i 's|/bin/echo|${coreutils}/bin/echo|' tests/checks/redirect.fish
+        # tests/checks/redirect.fish
+        sed -i 's|/bin/echo|${coreutils}/bin/echo|' tests/checks/redirect.fish
 
-      # tests/checks/vars_as_commands.fish
-      sed -i 's|/usr/bin|${coreutils}/bin|' tests/checks/vars_as_commands.fish
+        # tests/checks/vars_as_commands.fish
+        sed -i 's|/usr/bin|${coreutils}/bin|' tests/checks/vars_as_commands.fish
 
-      # tests/checks/jobs.fish
-      sed -i 's|ps -o stat|${procps}/bin/ps -o stat|' tests/checks/jobs.fish
-      sed -i 's|/bin/echo|${coreutils}/bin/echo|' tests/checks/jobs.fish
+        # tests/checks/jobs.fish
+        sed -i 's|ps -o stat|${procps}/bin/ps -o stat|' tests/checks/jobs.fish
+        sed -i 's|/bin/echo|${coreutils}/bin/echo|' tests/checks/jobs.fish
 
-      # tests/checks/job-control-noninteractive.fish
-      sed -i 's|/bin/echo|${coreutils}/bin/echo|' tests/checks/job-control-noninteractive.fish
+        # tests/checks/job-control-noninteractive.fish
+        sed -i 's|/bin/echo|${coreutils}/bin/echo|' tests/checks/job-control-noninteractive.fish
 
-      # tests/checks/complete.fish
-      sed -i 's|/bin/ls|${coreutils}/bin/ls|' tests/checks/complete.fish
-    '' + lib.optionalString stdenv.isDarwin ''
-      # Tests use pkill/pgrep which are currently not built on Darwin
-      # See https://github.com/NixOS/nixpkgs/pull/103180
-      rm tests/pexpects/exit.py
-      rm tests/pexpects/job_summary.py
-      rm tests/pexpects/signals.py
+        # tests/checks/complete.fish
+        sed -i 's|/bin/ls|${coreutils}/bin/ls|' tests/checks/complete.fish
+      '' + lib.optionalString stdenv.isDarwin ''
+        # Tests use pkill/pgrep which are currently not built on Darwin
+        # See https://github.com/NixOS/nixpkgs/pull/103180
+        rm tests/pexpects/exit.py
+        rm tests/pexpects/job_summary.py
+        rm tests/pexpects/signals.py
 
-      # pexpect tests are flaky in general
-      # See https://github.com/fish-shell/fish-shell/issues/8789
-      rm tests/pexpects/bind.py
-    '' + lib.optionalString stdenv.isLinux ''
-      # pexpect tests are flaky on aarch64-linux (also x86_64-linux)
-      # See https://github.com/fish-shell/fish-shell/issues/8789
-      rm tests/pexpects/exit_handlers.py
-    '';
+        # pexpect tests are flaky in general
+        # See https://github.com/fish-shell/fish-shell/issues/8789
+        rm tests/pexpects/bind.py
+      '' + lib.optionalString stdenv.isLinux ''
+        # pexpect tests are flaky on aarch64-linux (also x86_64-linux)
+        # See https://github.com/fish-shell/fish-shell/issues/8789
+        rm tests/pexpects/exit_handlers.py
+      ''
+      ;
 
     outputs = [
       "out"
@@ -222,26 +224,31 @@ let
 
     cmakeFlags =
       [ "-DCMAKE_INSTALL_DOCDIR=${placeholder "doc"}/share/doc/fish" ]
-      ++ lib.optionals stdenv.isDarwin [ "-DMAC_CODESIGN_ID=OFF" ];
+      ++ lib.optionals stdenv.isDarwin [ "-DMAC_CODESIGN_ID=OFF" ]
+      ;
 
       # The optional string is kind of an inelegant way to get fish to cross compile.
       # Fish needs coreutils as a runtime dependency, and it gets put into
       # CMAKE_PREFIX_PATH, which cmake uses to look up build time programs, so it
       # was clobbering the PATH. It probably needs to be fixed at a lower level.
-    preConfigure = ''
-      patchShebangs ./build_tools/git_version_gen.sh
-    '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-      export CMAKE_PREFIX_PATH=
-    '';
+    preConfigure =
+      ''
+        patchShebangs ./build_tools/git_version_gen.sh
+      '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+        export CMAKE_PREFIX_PATH=
+      ''
+      ;
 
       # Required binaries during execution
-    propagatedBuildInputs = [
-      coreutils
-      gnugrep
-      gnused
-      groff
-      gettext
-    ] ++ lib.optional (!stdenv.isDarwin) man-db;
+    propagatedBuildInputs =
+      [
+        coreutils
+        gnugrep
+        gnused
+        groff
+        gettext
+      ] ++ lib.optional (!stdenv.isDarwin) man-db
+      ;
 
     doCheck = true;
 

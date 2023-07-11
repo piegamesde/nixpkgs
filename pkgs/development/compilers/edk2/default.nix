@@ -45,14 +45,15 @@ let
     pname = "edk2";
     version = "202211";
 
-    patches = [
-      # pass targetPrefix as an env var
-      (fetchpatch {
-        url =
-          "https://src.fedoraproject.org/rpms/edk2/raw/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/0021-Tweak-the-tools_def-to-support-cross-compiling.patch";
-        sha256 = "sha256-E1/fiFNVx0aB1kOej2DJ2DlBIs9tAAcxoedym2Zhjxw=";
-      })
-    ];
+    patches =
+      [
+        # pass targetPrefix as an env var
+        (fetchpatch {
+          url =
+            "https://src.fedoraproject.org/rpms/edk2/raw/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/0021-Tweak-the-tools_def-to-support-cross-compiling.patch";
+          sha256 = "sha256-E1/fiFNVx0aB1kOej2DJ2DlBIs9tAAcxoedym2Zhjxw=";
+        })
+      ];
 
       # submodules
     src = fetchFromGitHub {
@@ -74,12 +75,16 @@ let
       # trick taken from https://src.fedoraproject.org/rpms/edk2/blob/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/edk2.spec#_319
     ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
 
-    makeFlags = [ "-C BaseTools" ] ++ lib.optionals (stdenv.cc.isClang) [
+    makeFlags =
+      [ "-C BaseTools" ] ++ lib.optionals (stdenv.cc.isClang) [
         "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld"
-      ];
+      ]
+      ;
 
-    env.NIX_CFLAGS_COMPILE = "-Wno-return-type"
-      + lib.optionalString (stdenv.cc.isGNU) " -Wno-error=stringop-truncation";
+    env.NIX_CFLAGS_COMPILE =
+      "-Wno-return-type"
+      + lib.optionalString (stdenv.cc.isGNU) " -Wno-error=stringop-truncation"
+      ;
 
     hardeningDisable = [
       "format"
@@ -118,10 +123,12 @@ let
 
             depsBuildBuild =
               [ buildPackages.stdenv.cc ] ++ attrs.depsBuildBuild or [ ];
-            nativeBuildInputs = [
-              bc
-              pythonEnv
-            ] ++ attrs.nativeBuildInputs or [ ];
+            nativeBuildInputs =
+              [
+                bc
+                pythonEnv
+              ] ++ attrs.nativeBuildInputs or [ ]
+              ;
             strictDeps = true;
 
             ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;

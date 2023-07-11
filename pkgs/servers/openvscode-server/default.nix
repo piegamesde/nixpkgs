@@ -33,12 +33,13 @@ let
     "no-progress"
   ];
 
-  vsBuildTarget = {
-    x86_64-linux = "linux-x64";
-    aarch64-linux = "linux-arm64";
-    x86_64-darwin = "darwin-x64";
-    aarch64-darwin = "darwin-arm64";
-  }.${system} or (throw "Unsupported system ${system}");
+  vsBuildTarget =
+    {
+      x86_64-linux = "linux-x64";
+      aarch64-linux = "linux-arm64";
+      x86_64-darwin = "darwin-x64";
+      aarch64-darwin = "darwin-arm64";
+    }.${system} or (throw "Unsupported system ${system}");
 
   esbuild' = esbuild.override {
     buildGoModule =
@@ -115,20 +116,23 @@ stdenv.mkDerivation rec {
     jq
     moreutils
   ];
-  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ (with xorg; [
-    libX11
-    libxkbfile
-  ]) ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Cocoa
-    Security
-    cctools
-  ];
+  buildInputs =
+    lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ (with xorg; [
+      libX11
+      libxkbfile
+    ]) ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Cocoa
+      Security
+      cctools
+    ]
+    ;
 
-  patches = [
-    # Patch out remote download of nodejs from build script
-    ./remove-node-download.patch
-  ];
+  patches =
+    [
+      # Patch out remote download of nodejs from build script
+      ./remove-node-download.patch
+    ];
 
   postPatch = ''
     export HOME=$PWD
@@ -157,50 +161,52 @@ stdenv.mkDerivation rec {
     npm config set nodedir "${nodejs}"
   '';
 
-  buildPhase = ''
-    # install dependencies
-    yarn --offline --ignore-scripts
+  buildPhase =
+    ''
+      # install dependencies
+      yarn --offline --ignore-scripts
 
-    # run yarn install everywhere, skipping postinstall so we can patch esbuild
-    find . -path "*node_modules" -prune -o \
-      -path "./*/*" -name "yarn.lock" -printf "%h\n" | \
-        xargs -I {} yarn --cwd {} \
-          --frozen-lockfile --offline --ignore-scripts --ignore-engines
+      # run yarn install everywhere, skipping postinstall so we can patch esbuild
+      find . -path "*node_modules" -prune -o \
+        -path "./*/*" -name "yarn.lock" -printf "%h\n" | \
+          xargs -I {} yarn --cwd {} \
+            --frozen-lockfile --offline --ignore-scripts --ignore-engines
 
-    ${patchEsbuild "./build" "0.12.6"}
-    ${patchEsbuild "./extensions" "0.11.23"}
+      ${patchEsbuild "./build" "0.12.6"}
+      ${patchEsbuild "./extensions" "0.11.23"}
 
-    # patch shebangs of node_modules to allow binary packages to build
-    patchShebangs ./remote/node_modules
+      # patch shebangs of node_modules to allow binary packages to build
+      patchShebangs ./remote/node_modules
 
-    # put ripgrep binary into bin so postinstall does not try to download it
-    find -path "*@vscode/ripgrep" -type d \
-      -execdir mkdir -p {}/bin \; \
-      -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
-  '' + lib.optionalString stdenv.isDarwin ''
-    # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
-    # (see issue #101229)
-    pushd ./remote/node_modules/@parcel/watcher
-    mkdir -p ./build/Release
-    mv ./prebuilds/darwin-x64/node.napi.glibc.node ./build/Release/watcher.node
-    jq "del(.scripts) | .gypfile = false" ./package.json | sponge ./package.json
-    popd
-  '' + ''
-    export NODE_OPTIONS=--openssl-legacy-provider
+      # put ripgrep binary into bin so postinstall does not try to download it
+      find -path "*@vscode/ripgrep" -type d \
+        -execdir mkdir -p {}/bin \; \
+        -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
+    '' + lib.optionalString stdenv.isDarwin ''
+      # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
+      # (see issue #101229)
+      pushd ./remote/node_modules/@parcel/watcher
+      mkdir -p ./build/Release
+      mv ./prebuilds/darwin-x64/node.napi.glibc.node ./build/Release/watcher.node
+      jq "del(.scripts) | .gypfile = false" ./package.json | sponge ./package.json
+      popd
+    '' + ''
+      export NODE_OPTIONS=--openssl-legacy-provider
 
-    # rebuild binaries, we use npm here, as yarn does not provide an alternative
-    # that would not attempt to try to reinstall everything and break our
-    # patching attempts
-    npm --prefix ./remote rebuild --build-from-source
+      # rebuild binaries, we use npm here, as yarn does not provide an alternative
+      # that would not attempt to try to reinstall everything and break our
+      # patching attempts
+      npm --prefix ./remote rebuild --build-from-source
 
-    # run postinstall scripts after patching
-    find . -path "*node_modules" -prune -o \
-      -path "./*/*" -name "yarn.lock" -printf "%h\n" | \
-        xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
+      # run postinstall scripts after patching
+      find . -path "*node_modules" -prune -o \
+        -path "./*/*" -name "yarn.lock" -printf "%h\n" | \
+          xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
 
-    # build and minify
-    yarn --offline gulp vscode-reh-web-${vsBuildTarget}-min
-  '';
+      # build and minify
+      yarn --offline gulp vscode-reh-web-${vsBuildTarget}-min
+    ''
+    ;
 
   installPhase = ''
     mkdir -p $out

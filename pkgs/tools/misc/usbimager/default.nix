@@ -29,10 +29,12 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapGAppsHook
   ];
-  buildInputs = lib.optionals withUdisks [
-    udisks
-    glib
-  ] ++ lib.optional (!withLibui) libX11 ++ lib.optional withLibui gtk3;
+  buildInputs =
+    lib.optionals withUdisks [
+      udisks
+      glib
+    ] ++ lib.optional (!withLibui) libX11 ++ lib.optional withLibui gtk3
+    ;
     # libui is bundled with the source of usbimager as a compiled static libary
 
   postPatch = ''
@@ -44,8 +46,10 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional withLibui "USE_LIBUI=yes"
-    ++ lib.optional withUdisks "USE_UDISKS2=yes";
+  makeFlags =
+    [ "PREFIX=$(out)" ] ++ lib.optional withLibui "USE_LIBUI=yes"
+    ++ lib.optional withUdisks "USE_UDISKS2=yes"
+    ;
 
   meta = with lib; {
     description =

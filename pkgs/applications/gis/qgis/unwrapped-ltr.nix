@@ -47,10 +47,7 @@ let
 
   py = python3.override {
     packageOverrides =
-      self: super: {
-        pyqt5 = super.pyqt5.override { withLocation = true; };
-      }
-      ;
+      self: super: { pyqt5 = super.pyqt5.override { withLocation = true; }; };
   };
 
   pythonBuildInputs = with py.pkgs; [
@@ -90,36 +87,38 @@ mkDerivation rec {
     inherit py;
   };
 
-  buildInputs = [
-    openssl
-    proj
-    geos
-    sqlite
-    gsl
-    qwt
-    exiv2
-    protobuf
-    fcgi
-    libspatialindex
-    libspatialite
-    postgresql
-    txt2tags
-    libzip
-    hdf5
-    netcdf
-    qtbase
-    qtsensors
-    qca-qt5
-    qtkeychain
-    qscintilla
-    qtlocation
-    qtserialport
-    qtxmlpatterns
-    qt3d
-    pdal
-    zstd
-  ] ++ lib.optional withGrass grass ++ lib.optional withWebKit qtwebkit
-    ++ pythonBuildInputs;
+  buildInputs =
+    [
+      openssl
+      proj
+      geos
+      sqlite
+      gsl
+      qwt
+      exiv2
+      protobuf
+      fcgi
+      libspatialindex
+      libspatialite
+      postgresql
+      txt2tags
+      libzip
+      hdf5
+      netcdf
+      qtbase
+      qtsensors
+      qca-qt5
+      qtkeychain
+      qscintilla
+      qtlocation
+      qtserialport
+      qtxmlpatterns
+      qt3d
+      pdal
+      zstd
+    ] ++ lib.optional withGrass grass ++ lib.optional withWebKit qtwebkit
+    ++ pythonBuildInputs
+    ;
 
   nativeBuildInputs = [
     makeWrapper
@@ -139,16 +138,18 @@ mkDerivation rec {
       })
     ];
 
-  cmakeFlags = [
-    "-DWITH_3D=True"
-    "-DWITH_PDAL=TRUE"
-  ] ++ lib.optional (!withWebKit) "-DWITH_QTWEBKIT=OFF"
+  cmakeFlags =
+    [
+      "-DWITH_3D=True"
+      "-DWITH_PDAL=TRUE"
+    ] ++ lib.optional (!withWebKit) "-DWITH_QTWEBKIT=OFF"
     ++ lib.optional withGrass (let
       gmajor = lib.versions.major grass.version;
       gminor = lib.versions.minor grass.version;
     in
     "-DGRASS_PREFIX${gmajor}=${grass}/grass${gmajor}${gminor}"
-    );
+    )
+    ;
 
   dontWrapGApps = true; # wrapper params passed below
 

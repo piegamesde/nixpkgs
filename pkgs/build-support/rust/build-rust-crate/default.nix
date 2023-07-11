@@ -71,9 +71,7 @@ let
     # stabilized we can account for that here, too, so we don't opt into
     # instability unnecessarily.
   needUnstableCLI =
-    dependencies:
-    lib.any (dep: dep.stdlib or false) dependencies
-    ;
+    dependencies: lib.any (dep: dep.stdlib or false) dependencies;
 
   inherit (import ./log.nix { inherit lib; }) noisily echo_colored;
 
@@ -316,20 +314,25 @@ lib.makeOverridable (
 
     src =
       crate.src or (fetchCrate { inherit (crate) crateName version sha256; });
-    name = "rust_${crate.crateName}-${crate.version}${
+    name =
+      "rust_${crate.crateName}-${crate.version}${
         lib.optionalString buildTests_ "-test"
       }";
     version = crate.version;
     depsBuildBuild = [ pkgsBuildBuild.stdenv.cc ];
-    nativeBuildInputs = [
-      rust
-      stdenv.cc
-      cargo
-      jq
-    ] ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ]
-      ++ (crate.nativeBuildInputs or [ ]) ++ nativeBuildInputs_;
-    buildInputs = lib.optionals stdenv.isDarwin [ libiconv ]
-      ++ (crate.buildInputs or [ ]) ++ buildInputs_;
+    nativeBuildInputs =
+      [
+        rust
+        stdenv.cc
+        cargo
+        jq
+      ] ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ]
+      ++ (crate.nativeBuildInputs or [ ]) ++ nativeBuildInputs_
+      ;
+    buildInputs =
+      lib.optionals stdenv.isDarwin [ libiconv ] ++ (crate.buildInputs or [ ])
+      ++ buildInputs_
+      ;
     dependencies = map lib.getLib dependencies_;
     buildDependencies = map lib.getLib buildDependencies_;
 
@@ -400,12 +403,16 @@ lib.makeOverridable (
       else
         1
       ;
-    extraRustcOpts = lib.optionals (crate ? extraRustcOpts) crate.extraRustcOpts
+    extraRustcOpts =
+      lib.optionals (crate ? extraRustcOpts) crate.extraRustcOpts
       ++ extraRustcOpts_
-      ++ (lib.optional (edition != null) "--edition ${edition}");
-    extraRustcOptsForBuildRs = lib.optionals (crate ? extraRustcOptsForBuildRs)
+      ++ (lib.optional (edition != null) "--edition ${edition}")
+      ;
+    extraRustcOptsForBuildRs =
+      lib.optionals (crate ? extraRustcOptsForBuildRs)
       crate.extraRustcOptsForBuildRs ++ extraRustcOptsForBuildRs_
-      ++ (lib.optional (edition != null) "--edition ${edition}");
+      ++ (lib.optional (edition != null) "--edition ${edition}")
+      ;
 
     configurePhase = configureCrate {
       inherit

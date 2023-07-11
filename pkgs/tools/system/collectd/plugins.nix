@@ -80,14 +80,18 @@ let
       libxml2
     ];
     dbi.buildInputs = [ libdbi ];
-    disk.buildInputs = lib.optionals stdenv.isLinux [ udev ]
-      ++ lib.optionals stdenv.isDarwin [ IOKit ];
+    disk.buildInputs =
+      lib.optionals stdenv.isLinux [ udev ]
+      ++ lib.optionals stdenv.isDarwin [ IOKit ]
+      ;
     dns.buildInputs = [ libpcap ];
     ipmi.buildInputs = [ openipmi ];
-    iptables.buildInputs = [ libpcap ] ++ lib.optionals stdenv.isLinux [
-      iptables
-      libmnl
-    ];
+    iptables.buildInputs =
+      [ libpcap ] ++ lib.optionals stdenv.isLinux [
+        iptables
+        libmnl
+      ]
+      ;
     java.buildInputs = [
       jdk
       libgcrypt
@@ -144,14 +148,16 @@ let
       curl
       varnish
     ];
-    virt.buildInputs = [
-      libvirt
-      libxml2
-      yajl
-    ] ++ lib.optionals stdenv.isLinux [
-      lvm2
-      udev
-    ];
+    virt.buildInputs =
+      [
+        libvirt
+        libxml2
+        yajl
+      ] ++ lib.optionals stdenv.isLinux [
+        lvm2
+        udev
+      ]
+      ;
     write_http.buildInputs = [
       curl
       yajl

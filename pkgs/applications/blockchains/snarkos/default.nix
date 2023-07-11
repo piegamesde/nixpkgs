@@ -47,7 +47,9 @@ rustPlatform.buildRustPackage rec {
 
     # some tests are flaky and some need network access
     # TODO finish filtering the tests to enable them
-  doCheck = !stdenv.isLinux;
+  doCheck =
+    !stdenv.isLinux
+    ;
     # checkFlags = [
     #   # tries to make a network access
     #   "--skip=rpc::rpc::tests::test_send_transaction_large"

@@ -24,11 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-fsC8WTwrMJgXZHlOsI9TfYcM8Q5rKXuArTVM+pHpfqE=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [
+      google-api-core
+      proto-plus
+      protobuf
+    ] ++ google-api-core.optional-dependencies.grpc
+    ;
 
   nativeCheckInputs = [
     google-cloud-testutils
@@ -37,10 +39,11 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  disabledTests = [
-    # require credentials
-    "test_annotate_video"
-  ];
+  disabledTests =
+    [
+      # require credentials
+      "test_annotate_video"
+    ];
 
   pythonImportsCheck = [
     "google.cloud.videointelligence"

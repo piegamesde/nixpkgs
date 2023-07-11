@@ -39,21 +39,22 @@ buildPythonPackage rec {
     postFetch = "rm -rf $out/docs/reST";
   };
 
-  patches = [
-    # Patch pygame's dependency resolution to let it find build inputs
-    (substituteAll {
-      src = ./fix-dependency-finding.patch;
-      buildinputs_include = builtins.toJSON (builtins.concatMap (dep: [
-        "${lib.getDev dep}/"
-        "${lib.getDev dep}/include"
-        "${lib.getDev dep}/include/SDL2"
-      ]) buildInputs);
-      buildinputs_lib = builtins.toJSON (builtins.concatMap (dep: [
-        "${lib.getLib dep}/"
-        "${lib.getLib dep}/lib"
-      ]) buildInputs);
-    })
-  ];
+  patches =
+    [
+      # Patch pygame's dependency resolution to let it find build inputs
+      (substituteAll {
+        src = ./fix-dependency-finding.patch;
+        buildinputs_include = builtins.toJSON (builtins.concatMap (dep: [
+          "${lib.getDev dep}/"
+          "${lib.getDev dep}/include"
+          "${lib.getDev dep}/include/SDL2"
+        ]) buildInputs);
+        buildinputs_lib = builtins.toJSON (builtins.concatMap (dep: [
+          "${lib.getLib dep}/"
+          "${lib.getLib dep}/lib"
+        ]) buildInputs);
+      })
+    ];
 
   postPatch = ''
     substituteInPlace src_py/sysfont.py \
@@ -66,17 +67,19 @@ buildPythonPackage rec {
     SDL2
   ];
 
-  buildInputs = [
-    SDL2
-    SDL2_image
-    SDL2_mixer
-    SDL2_ttf
-    libpng
-    libjpeg
-    portmidi
-    libX11
-    freetype
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  buildInputs =
+    [
+      SDL2
+      SDL2_image
+      SDL2_mixer
+      SDL2_ttf
+      libpng
+      libjpeg
+      portmidi
+      libX11
+      freetype
+    ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ;
 
   preConfigure = ''
     ${python.pythonForBuild.interpreter} buildconfig/config.py

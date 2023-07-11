@@ -69,9 +69,7 @@ let
     ;
 
   getEmulator =
-    system:
-    (lib.systems.elaborate { inherit system; }).emulator pkgs
-    ;
+    system: (lib.systems.elaborate { inherit system; }).emulator pkgs;
   getQemuArch =
     system:
     (lib.systems.elaborate { inherit system; }).qemuArch
@@ -426,8 +424,10 @@ in
         ;
     }) cfg.emulatedSystems);
     nix.settings = lib.mkIf (cfg.emulatedSystems != [ ]) {
-      extra-platforms = cfg.emulatedSystems
-        ++ lib.optional pkgs.stdenv.hostPlatform.isx86_64 "i686-linux";
+      extra-platforms =
+        cfg.emulatedSystems
+        ++ lib.optional pkgs.stdenv.hostPlatform.isx86_64 "i686-linux"
+        ;
       extra-sandbox-paths =
         let
           ruleFor = system: cfg.registrations.${system};

@@ -22,7 +22,9 @@ let
     pythonOlder
     ;
 
-  namePrefix = python.libPrefix + "-";
+  namePrefix =
+    python.libPrefix + "-"
+    ;
 
     # Derivations built with `buildPythonPackage` can already be overridden with `override`, `overrideAttrs`, and `overrideDerivation`.
     # This function introduces `overridePythonAttrs` and it overrides the call to `buildPythonPackage`.
@@ -32,9 +34,7 @@ let
       args = lib.fix (lib.extends (_: previousAttrs: {
         passthru = (previousAttrs.passthru or { }) // {
           overridePythonAttrs =
-            newArgs:
-            makeOverridablePythonPackage f (overrideWith newArgs)
-            ;
+            newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
         };
       }) (_: origArgs));
       result = f args;
@@ -51,9 +51,7 @@ let
     else if builtins.isFunction result then
       {
         overridePythonAttrs =
-          newArgs:
-          makeOverridablePythonPackage f (overrideWith newArgs)
-          ;
+          newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
         __functor = self: result;
       }
     else
@@ -96,9 +94,7 @@ let
     # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
     # providing Python modules.
   makePythonPath =
-    drvs:
-    lib.makeSearchPath python.sitePackages (requiredPythonModules drvs)
-    ;
+    drvs: lib.makeSearchPath python.sitePackages (requiredPythonModules drvs);
 
   removePythonPrefix = lib.removePrefix namePrefix;
 

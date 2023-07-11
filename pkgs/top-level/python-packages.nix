@@ -6074,10 +6074,11 @@ with self; {
 
   led-ble = callPackage ../development/python-modules/led-ble { };
 
-  ledger = (toPythonModule (pkgs.ledger.override {
-    usePython = true;
-    python3 = python;
-  })).py;
+  ledger =
+    (toPythonModule (pkgs.ledger.override {
+      usePython = true;
+      python3 = python;
+    })).py;
 
   ledger_agent = callPackage ../development/python-modules/ledger_agent { };
 
@@ -6245,8 +6246,9 @@ with self; {
 
   libtmux = callPackage ../development/python-modules/libtmux { };
 
-  libtorrent-rasterbar = (toPythonModule
-    (pkgs.libtorrent-rasterbar.override { inherit python; })).python;
+  libtorrent-rasterbar =
+    (toPythonModule
+      (pkgs.libtorrent-rasterbar.override { inherit python; })).python;
 
   libusb1 = callPackage ../development/python-modules/libusb1 {
     inherit (pkgs) libusb1;
@@ -6264,15 +6266,17 @@ with self; {
     inherit (pkgs) libvirt;
   };
 
-  libxml2 = (toPythonModule (pkgs.libxml2.override {
-    pythonSupport = true;
-    inherit python;
-  })).py;
+  libxml2 =
+    (toPythonModule (pkgs.libxml2.override {
+      pythonSupport = true;
+      inherit python;
+    })).py;
 
-  libxslt = (toPythonModule (pkgs.libxslt.override {
-    pythonSupport = true;
-    inherit (self) python libxml2;
-  })).py;
+  libxslt =
+    (toPythonModule (pkgs.libxslt.override {
+      pythonSupport = true;
+      inherit (self) python libxml2;
+    })).py;
 
   license-expression =
     callPackage ../development/python-modules/license-expression { };
@@ -7268,12 +7272,13 @@ with self; {
     withPython = true;
   });
 
-  nghttp2 = (toPythonModule (pkgs.nghttp2.override {
-    python3Packages = self;
-    inherit (pkgs) ncurses;
-    enableApp = false; # build only libnghttp2 ...
-    enablePython = true; # ... and its Python bindings
-  })).python;
+  nghttp2 =
+    (toPythonModule (pkgs.nghttp2.override {
+      python3Packages = self;
+      inherit (pkgs) ncurses;
+      enableApp = false; # build only libnghttp2 ...
+      enablePython = true; # ... and its Python bindings
+    })).python;
 
   niaaml = callPackage ../development/python-modules/niaaml { };
 
@@ -8196,10 +8201,11 @@ with self; {
 
   pixelmatch = callPackage ../development/python-modules/pixelmatch { };
 
-  pjsua2 = (toPythonModule (pkgs.pjsip.override {
-    pythonSupport = true;
-    python3 = self.python;
-  })).py;
+  pjsua2 =
+    (toPythonModule (pkgs.pjsip.override {
+      pythonSupport = true;
+      python3 = self.python;
+    })).py;
 
   pkce = callPackage ../development/python-modules/pkce { };
 

@@ -68,10 +68,12 @@ self: super:
   }) super.ghcjs-dom;
 
   ghcjs-dom-jsffi = overrideCabal (drv: {
-    libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [
-      self.ghcjs-base
-      self.text
-    ];
+    libraryHaskellDepends =
+      (drv.libraryHaskellDepends or [ ]) ++ [
+        self.ghcjs-base
+        self.text
+      ]
+      ;
     broken = false;
   }) super.ghcjs-dom-jsffi;
 

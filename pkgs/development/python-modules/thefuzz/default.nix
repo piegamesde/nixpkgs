@@ -34,10 +34,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Skip linting
-    "test_pep8_conformance"
-  ];
+  disabledTests =
+    [
+      # Skip linting
+      "test_pep8_conformance"
+    ];
 
   meta = with lib; {
     description = "Fuzzy string matching for Python";

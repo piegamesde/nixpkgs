@@ -50,17 +50,19 @@ else
       $CC -dynamiclib -install_name $out/lib/libresolv.9.dylib -current_version 1.0.0 -compatibility_version 1.0.0 -o libresolv.9.dylib *.o
     '';
 
-    installPhase = ''
-      mkdir -p $out/include $out/include/arpa $out/lib
+    installPhase =
+      ''
+        mkdir -p $out/include $out/include/arpa $out/lib
 
-      cp dns.h           $out/include/
-      cp dns_util.h      $out/include
-      cp nameser.h       $out/include
-      ln -s ../nameser.h $out/include/arpa
-      cp resolv.h        $out/include
-    '' + lib.optionalString (!headersOnly) ''
+        cp dns.h           $out/include/
+        cp dns_util.h      $out/include
+        cp nameser.h       $out/include
+        ln -s ../nameser.h $out/include/arpa
+        cp resolv.h        $out/include
+      '' + lib.optionalString (!headersOnly) ''
 
-      cp libresolv.9.dylib $out/lib
-      ln -s libresolv.9.dylib $out/lib/libresolv.dylib
-    '';
+        cp libresolv.9.dylib $out/lib
+        ln -s libresolv.9.dylib $out/lib/libresolv.dylib
+      ''
+      ;
   }

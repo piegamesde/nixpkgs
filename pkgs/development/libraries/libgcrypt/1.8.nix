@@ -42,10 +42,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  configureFlags = [ "--with-libgpg-error-prefix=${libgpg-error.dev}" ]
-    ++ lib.optional (stdenv.hostPlatform.isMusl
+  configureFlags =
+    [ "--with-libgpg-error-prefix=${libgpg-error.dev}" ] ++ lib.optional
+    (stdenv.hostPlatform.isMusl
       || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
-    "--disable-asm"; # for darwin see https://dev.gnupg.org/T5157
+    "--disable-asm"
+    ; # for darwin see https://dev.gnupg.org/T5157
 
     # Necessary to generate correct assembly when compiling for aarch32 on
     # aarch64
@@ -61,11 +63,13 @@ stdenv.mkDerivation rec {
 
     # Make sure libraries are correct for .pc and .la files
     # Also make sure includes are fixed for callers who don't use libgpgcrypt-config
-  postFixup = ''
-    sed -i 's,#include <gpg-error.h>,#include "${libgpg-error.dev}/include/gpg-error.h",g' "$dev/include/gcrypt.h"
-  '' + lib.optionalString enableCapabilities ''
-    sed -i 's,\(-lcap\),-L${libcap.lib}/lib \1,' $out/lib/libgcrypt.la
-  '';
+  postFixup =
+    ''
+      sed -i 's,#include <gpg-error.h>,#include "${libgpg-error.dev}/include/gpg-error.h",g' "$dev/include/gcrypt.h"
+    '' + lib.optionalString enableCapabilities ''
+      sed -i 's,\(-lcap\),-L${libcap.lib}/lib \1,' $out/lib/libgcrypt.la
+    ''
+    ;
 
   doCheck = true;
 

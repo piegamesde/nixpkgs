@@ -30,10 +30,12 @@ stdenv.mkDerivation rec {
   pname = "wireplumber";
   version = "0.4.14";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional enableDocs "doc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ] ++ lib.optional enableDocs "doc"
+    ;
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -43,11 +45,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PKS+WErdZuSU4jrFHQcRbnZIHlnlv06R6ZxIAIBptko=";
   };
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-  ] ++ lib.optionals enableDocs [ graphviz ]
+  nativeBuildInputs =
+    [
+      meson
+      pkg-config
+      ninja
+    ] ++ lib.optionals enableDocs [ graphviz ]
     ++ lib.optionals enableGI [ gobject-introspection ]
     ++ lib.optionals (enableDocs || enableGI) [
       doxygen
@@ -58,7 +61,8 @@ stdenv.mkDerivation rec {
           sphinx-rtd-theme
           breathe
         ] ++ lib.optionals enableGI [ lxml ]))
-    ];
+    ]
+    ;
 
   buildInputs = [
     glib

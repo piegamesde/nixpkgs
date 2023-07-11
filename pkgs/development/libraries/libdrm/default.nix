@@ -33,18 +33,22 @@ stdenv.mkDerivation rec {
     ninja
     docutils
   ];
-  buildInputs = [
-    libpthreadstubs
-    libpciaccess
-  ] ++ lib.optional withValgrind valgrind-light;
+  buildInputs =
+    [
+      libpthreadstubs
+      libpciaccess
+    ] ++ lib.optional withValgrind valgrind-light
+    ;
 
-  mesonFlags = [
-    "-Dinstall-test-programs=true"
-    "-Dcairo-tests=disabled"
-    (lib.mesonEnable "omap" stdenv.hostPlatform.isLinux)
-    (lib.mesonEnable "valgrind" withValgrind)
-  ] ++ lib.optionals stdenv.hostPlatform.isAarch [ "-Dtegra=enabled" ]
-    ++ lib.optionals (!stdenv.hostPlatform.isLinux) [ "-Detnaviv=disabled" ];
+  mesonFlags =
+    [
+      "-Dinstall-test-programs=true"
+      "-Dcairo-tests=disabled"
+      (lib.mesonEnable "omap" stdenv.hostPlatform.isLinux)
+      (lib.mesonEnable "valgrind" withValgrind)
+    ] ++ lib.optionals stdenv.hostPlatform.isAarch [ "-Dtegra=enabled" ]
+    ++ lib.optionals (!stdenv.hostPlatform.isLinux) [ "-Detnaviv=disabled" ]
+    ;
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/mesa/drm";

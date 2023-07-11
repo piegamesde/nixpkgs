@@ -68,10 +68,11 @@ buildPythonPackage rec {
     "tests/integration"
   ];
 
-  disabledTests = [
-    # Failed: DID NOT RAISE <class 'ImportError'>
-    "test_missing_flask_compress_raises"
-  ];
+  disabledTests =
+    [
+      # Failed: DID NOT RAISE <class 'ImportError'>
+      "test_missing_flask_compress_raises"
+    ];
 
   pythonImportsCheck = [ "dash" ];
 

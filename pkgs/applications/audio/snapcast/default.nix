@@ -40,21 +40,23 @@ stdenv.mkDerivation rec {
   ];
     # snapcast also supports building against tremor but as we have libogg, that's
     # not needed
-  buildInputs = [
-    boost17x
-    asio
-    avahi
-    flac
-    libogg
-    libvorbis
-    aixlog
-    popl
-    soxr
-  ] ++ lib.optional pulseaudioSupport libpulseaudio
+  buildInputs =
+    [
+      boost17x
+      asio
+      avahi
+      flac
+      libogg
+      libvorbis
+      aixlog
+      popl
+      soxr
+    ] ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional stdenv.isLinux alsa-lib ++ lib.optionals stdenv.isDarwin [
       IOKit
       AudioToolbox
-    ];
+    ]
+    ;
 
   TARGET = lib.optionalString stdenv.isDarwin "MACOS";
 

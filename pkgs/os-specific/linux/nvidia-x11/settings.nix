@@ -93,21 +93,23 @@ stdenv.mkDerivation {
     m4
   ];
 
-  buildInputs = [
-    jansson
-    libXv
-    libXrandr
-    libXext
-    libXxf86vm
-    libvdpau
-    nvidia_x11
-    gtk2
-    dbus
-  ] ++ lib.optionals withGtk3 [
-    gtk3
-    librsvg
-    wrapGAppsHook
-  ];
+  buildInputs =
+    [
+      jansson
+      libXv
+      libXrandr
+      libXext
+      libXxf86vm
+      libvdpau
+      nvidia_x11
+      gtk2
+      dbus
+    ] ++ lib.optionals withGtk3 [
+      gtk3
+      librsvg
+      wrapGAppsHook
+    ]
+    ;
 
   installFlags = [ "PREFIX=$(out)" ];
 

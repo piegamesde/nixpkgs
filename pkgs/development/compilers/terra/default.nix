@@ -55,22 +55,26 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    llvmMerged
-    ncurses
-    libxml2
-  ] ++ lib.optionals enableCUDA [ cuda ] ++ lib.optionals stdenv.isDarwin [
-    libobjc
-    Cocoa
-    Foundation
-  ];
+  buildInputs =
+    [
+      llvmMerged
+      ncurses
+      libxml2
+    ] ++ lib.optionals enableCUDA [ cuda ] ++ lib.optionals stdenv.isDarwin [
+      libobjc
+      Cocoa
+      Foundation
+    ]
+    ;
 
-  cmakeFlags = [
-    "-DHAS_TERRA_VERSION=0"
-    "-DTERRA_VERSION=${version}"
-    "-DTERRA_LUA=luajit"
-    "-DCLANG_RESOURCE_DIR=${llvmMerged}/lib/clang/${clangVersion}"
-  ] ++ lib.optional enableCUDA "-DTERRA_ENABLE_CUDA=ON";
+  cmakeFlags =
+    [
+      "-DHAS_TERRA_VERSION=0"
+      "-DTERRA_VERSION=${version}"
+      "-DTERRA_LUA=luajit"
+      "-DCLANG_RESOURCE_DIR=${llvmMerged}/lib/clang/${clangVersion}"
+    ] ++ lib.optional enableCUDA "-DTERRA_ENABLE_CUDA=ON"
+    ;
 
   doCheck = true;
   hardeningDisable = [ "fortify" ];

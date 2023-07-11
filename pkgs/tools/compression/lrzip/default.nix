@@ -34,10 +34,12 @@ stdenv.mkDerivation rec {
     substituteInPlace configure.ac --replace "-f elf64" "-f macho64"
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    perl
-  ] ++ lib.optionals isx86 [ nasm ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      perl
+    ] ++ lib.optionals isx86 [ nasm ]
+    ;
 
   buildInputs = [
     zlib

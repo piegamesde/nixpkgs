@@ -26,8 +26,10 @@ stdenv.mkDerivation rec {
     # Process Requires.private properly, see
     # http://bugs.freedesktop.org/show_bug.cgi?id=4738, migrated to
     # https://gitlab.freedesktop.org/pkg-config/pkg-config/issues/28
-  patches = lib.optional (!vanilla) ./requires-private.patch
-    ++ lib.optional stdenv.isCygwin ./2.36.3-not-win32.patch;
+  patches =
+    lib.optional (!vanilla) ./requires-private.patch
+    ++ lib.optional stdenv.isCygwin ./2.36.3-not-win32.patch
+    ;
 
     # These three tests fail due to a (desired) behavior change from our ./requires-private.patch
   postPatch =
@@ -41,8 +43,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libiconv ];
 
-  configureFlags = [ "--with-internal-glib" ]
-    ++ lib.optionals (stdenv.isSunOS) [
+  configureFlags =
+    [ "--with-internal-glib" ] ++ lib.optionals (stdenv.isSunOS) [
       "--with-libiconv=gnu"
       "--with-system-library-path"
       "--with-system-include-path"
@@ -54,7 +56,8 @@ stdenv.mkDerivation rec {
       "glib_cv_uscore=no"
       "ac_cv_func_posix_getpwuid_r=yes"
       "ac_cv_func_posix_getgrgid_r=yes"
-    ];
+    ]
+    ;
 
   enableParallelBuilding = true;
   doCheck = true;

@@ -18,12 +18,14 @@ stdenv.mkDerivation rec {
   pname = "libpwquality";
   version = "1.4.5";
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-    "man"
-  ] ++ lib.optionals enablePython [ "py" ];
+  outputs =
+    [
+      "out"
+      "dev"
+      "lib"
+      "man"
+    ] ++ lib.optionals enablePython [ "py" ]
+    ;
 
   src = fetchFromGitHub {
     owner = "libpwquality";
@@ -32,15 +34,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YjvHzd4iEBvg+qHOVJ7/y9HqyeT+QDalNE/jdNM9BNs=";
   };
 
-  patches = [
-    # ensure python site-packages goes in $py output
-    ./python-binding-prefix.patch
-  ];
+  patches =
+    [
+      # ensure python site-packages goes in $py output
+      ./python-binding-prefix.patch
+    ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    perl
-  ] ++ lib.optionals enablePython [ python ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      perl
+    ] ++ lib.optionals enablePython [ python ]
+    ;
   buildInputs = [ cracklib ] ++ lib.optionals enablePAM [ pam ];
 
   configureFlags =

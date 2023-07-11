@@ -33,12 +33,14 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { daphne = [ daphne ]; };
 
-  nativeCheckInputs = [
-    async-timeout
-    pytest-asyncio
-    pytest-django
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.daphne;
+  nativeCheckInputs =
+    [
+      async-timeout
+      pytest-asyncio
+      pytest-django
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.daphne
+    ;
 
   pythonImportsCheck = [ "channels" ];
 

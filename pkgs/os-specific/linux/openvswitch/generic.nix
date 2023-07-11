@@ -43,10 +43,11 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  patches = [
-    # 8: vsctl-bashcomp - argument completion FAILED (completion.at:664)
-    ./patches/disable-bash-arg-completion-test.patch
-  ];
+  patches =
+    [
+      # 8: vsctl-bashcomp - argument completion FAILED (completion.at:664)
+      ./patches/disable-bash-arg-completion-test.patch
+    ];
 
   nativeBuildInputs = [
     autoconf
@@ -73,11 +74,13 @@ stdenv.mkDerivation rec {
 
   preConfigure = "./boot.sh";
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--sharedstatedir=/var"
-    "--sbindir=$(out)/bin"
-  ] ++ (lib.optionals (_kernel != null) [ "--with-linux" ]);
+  configureFlags =
+    [
+      "--localstatedir=/var"
+      "--sharedstatedir=/var"
+      "--sbindir=$(out)/bin"
+    ] ++ (lib.optionals (_kernel != null) [ "--with-linux" ])
+    ;
 
     # Leave /var out of this!
   installFlags = [
@@ -98,11 +101,13 @@ stdenv.mkDerivation rec {
     patchShebangs tests/
   '';
 
-  nativeCheckInputs = [ iproute2 ] ++ (with python3.pkgs; [
-    netaddr
-    pyparsing
-    pytest
-  ]);
+  nativeCheckInputs =
+    [ iproute2 ] ++ (with python3.pkgs; [
+      netaddr
+      pyparsing
+      pytest
+    ])
+    ;
 
   meta = with lib; {
     changelog = "https://www.openvswitch.org/releases/NEWS-${version}.txt";

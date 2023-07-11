@@ -98,10 +98,12 @@ let
         inherit version pname defaultVersion release releaseRev repo owner;
 
         mlPlugin = true;
-        propagatedBuildInputs = [
-          equations
-          coq.ocamlPackages.zarith
-        ] ++ metacoq-deps;
+        propagatedBuildInputs =
+          [
+            equations
+            coq.ocamlPackages.zarith
+          ] ++ metacoq-deps
+          ;
 
         patchPhase = ''
           patchShebangs ./configure.sh
@@ -114,16 +116,18 @@ let
           sed -i -e 's/mv $i $newi;/mv $i tmp; mv tmp $newi;/' ./template-coq/gen-src/to-lower.sh ./pcuic/clean_extraction.sh ./safechecker/clean_extraction.sh ./erasure/clean_extraction.sh
         '';
 
-        configurePhase = optionalString (package == "all") pkgallMake + ''
-          touch ${pkgpath}/metacoq-config
-        '' + optionalString (elem package [
-          "safechecker"
-          "erasure"
-        ]) ''
-          echo  "-I ${template-coq}/lib/coq/${coq.coq-version}/user-contrib/MetaCoq/Template/" > ${pkgpath}/metacoq-config
-        '' + optionalString (package == "single") ''
-          ./configure.sh local
-        '';
+        configurePhase =
+          optionalString (package == "all") pkgallMake + ''
+            touch ${pkgpath}/metacoq-config
+          '' + optionalString (elem package [
+            "safechecker"
+            "erasure"
+          ]) ''
+            echo  "-I ${template-coq}/lib/coq/${coq.coq-version}/user-contrib/MetaCoq/Template/" > ${pkgpath}/metacoq-config
+          '' + optionalString (package == "single") ''
+            ./configure.sh local
+          ''
+          ;
 
         preBuild = ''
           cd ${pkgpath}
@@ -138,13 +142,17 @@ let
         passthru = genAttrs packages metacoq_;
       })).overrideAttrs (o:
         let
-          requiresOcamlStdlibShims = versionAtLeast o.version "1.0-8.16"
-            || (o.version == "dev" && (versionAtLeast coq.coq-version "8.16"
-              || coq.coq-version == "dev"));
+          requiresOcamlStdlibShims =
+            versionAtLeast o.version "1.0-8.16" || (o.version == "dev"
+              && (versionAtLeast coq.coq-version "8.16" || coq.coq-version
+                == "dev"))
+            ;
         in
         {
-          propagatedBuildInputs = o.propagatedBuildInputs
-            ++ optional requiresOcamlStdlibShims coq.ocamlPackages.stdlib-shims;
+          propagatedBuildInputs =
+            o.propagatedBuildInputs
+            ++ optional requiresOcamlStdlibShims coq.ocamlPackages.stdlib-shims
+            ;
         }
       );
     in

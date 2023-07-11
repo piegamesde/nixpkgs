@@ -35,10 +35,11 @@ rustPlatform.buildRustPackage rec {
       }
   '';
 
-  checkFlags = [
-    # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
-    "--skip=test_parse_variable_line"
-  ];
+  checkFlags =
+    [
+      # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
+      "--skip=test_parse_variable_line"
+    ];
 
   meta = with lib; {
     description =

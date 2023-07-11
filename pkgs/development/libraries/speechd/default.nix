@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-i0ZJkl5oy+GntMCge7BBznc4s1yQamAr+CmG2xqg82Q=";
   };
 
-  patches = [
+  patches =
+    [
       (substituteAll {
         src = ./fix-paths.patch;
         utillinux = util-linux;
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
         src = ./fix-mbrola-paths.patch;
         inherit espeak mbrola;
       })
-    ];
+    ]
+    ;
 
   nativeBuildInputs = [
     pkg-config
@@ -68,32 +70,36 @@ stdenv.mkDerivation rec {
     wrapPython
   ];
 
-  buildInputs = [
-    glib
-    dotconf
-    libsndfile
-    libao
-    libpulseaudio
-    alsa-lib
-    python
-  ] ++ lib.optionals withEspeak [
-    espeak
-    sonic
-    pcaudiolib
-  ] ++ lib.optionals withFlite [ flite ] ++ lib.optionals withPico [ svox ];
+  buildInputs =
+    [
+      glib
+      dotconf
+      libsndfile
+      libao
+      libpulseaudio
+      alsa-lib
+      python
+    ] ++ lib.optionals withEspeak [
+      espeak
+      sonic
+      pcaudiolib
+    ] ++ lib.optionals withFlite [ flite ] ++ lib.optionals withPico [ svox ]
+    ;
 
   pythonPath = [ pyxdg ];
 
-  configureFlags = [
-    # Audio method falls back from left to right.
-    ''--with-default-audio-method="libao,pulse,alsa,oss"''
-    "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-  ] ++ lib.optionals withPulse [ "--with-pulse" ]
+  configureFlags =
+    [
+      # Audio method falls back from left to right.
+      ''--with-default-audio-method="libao,pulse,alsa,oss"''
+      "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+    ] ++ lib.optionals withPulse [ "--with-pulse" ]
     ++ lib.optionals withAlsa [ "--with-alsa" ]
     ++ lib.optionals withLibao [ "--with-libao" ]
     ++ lib.optionals withOss [ "--with-oss" ]
     ++ lib.optionals withEspeak [ "--with-espeak-ng" ]
-    ++ lib.optionals withPico [ "--with-pico" ];
+    ++ lib.optionals withPico [ "--with-pico" ]
+    ;
 
   postPatch = ''
     substituteInPlace src/modules/pico.c --replace "/usr/share/pico/lang" "${svox}/share/pico/lang"

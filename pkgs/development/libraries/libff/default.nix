@@ -22,10 +22,12 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  cmakeFlags = [ "-DWITH_PROCPS=Off" ] ++ lib.optionals stdenv.isAarch64 [
-    "-DCURVE=ALT_BN128"
-    "-DUSE_ASM=OFF"
-  ];
+  cmakeFlags =
+    [ "-DWITH_PROCPS=Off" ] ++ lib.optionals stdenv.isAarch64 [
+      "-DCURVE=ALT_BN128"
+      "-DUSE_ASM=OFF"
+    ]
+    ;
 
   postPatch = lib.optionalString (!enableStatic) ''
     substituteInPlace libff/CMakeLists.txt --replace "STATIC" "SHARED"

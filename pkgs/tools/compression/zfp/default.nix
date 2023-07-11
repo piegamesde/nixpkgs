@@ -29,14 +29,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = lib.optional enableCuda cudatoolkit
-    ++ lib.optional enableFortran gfortran
+  buildInputs =
+    lib.optional enableCuda cudatoolkit ++ lib.optional enableFortran gfortran
     ++ lib.optional enableOpenMP llvmPackages.openmp
     ++ lib.optionals enablePython (with python3Packages; [
       cython
       numpy
       python
-    ]);
+    ])
+    ;
 
     # compile CUDA code for all extant GPUs so the binary will work with any GPU
     # and driver combination. to be ultimately solved upstream:
@@ -48,7 +49,8 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  cmakeFlags = [ ] ++ lib.optional enableCfp "-DBUILD_CFP=ON"
+  cmakeFlags =
+    [ ] ++ lib.optional enableCfp "-DBUILD_CFP=ON"
     ++ lib.optional enableCuda "-DZFP_WITH_CUDA=ON"
     ++ lib.optional enableFortran "-DBUILD_ZFORP=ON"
     ++ lib.optional enableOpenMP "-DZFP_WITH_OPENMP=ON"
@@ -59,7 +61,8 @@ stdenv.mkDerivation rec {
           else
             "OFF"
         }"
-      ]);
+      ])
+    ;
 
   doCheck = true;
 

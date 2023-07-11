@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
   pname = "input-fonts";
   version = "1.2";
 
-  src = assert !acceptLicense -> throwLicense;
+  src =
+    assert !acceptLicense -> throwLicense;
     fetchzip {
       name = "input-fonts-${version}";
         # Add .zip parameter so that zip unpackCmd can match it.
@@ -58,7 +59,8 @@ stdenv.mkDerivation rec {
           rm "$ttx_file"
         done
       '';
-    };
+    }
+    ;
 
   dontConfigure = true;
   dontBuild = true;

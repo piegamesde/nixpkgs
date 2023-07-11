@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gssdp/${
+    url =
+      "mirror://gnome/sources/gssdp/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "QQs3be7O2YNrV/SI+ABS/koU+J4HWxzszyjlH0kPn7k=";

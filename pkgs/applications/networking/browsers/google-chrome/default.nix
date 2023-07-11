@@ -116,65 +116,67 @@ let
 
   version = chromium.upstream-info.version;
 
-  deps = [
-    glib
-    fontconfig
-    freetype
-    pango
-    cairo
-    libX11
-    libXi
-    atk
-    nss
-    nspr
-    libXcursor
-    libXext
-    libXfixes
-    libXrender
-    libXScrnSaver
-    libXcomposite
-    libxcb
-    alsa-lib
-    libXdamage
-    libXtst
-    libXrandr
-    libxshmfence
-    expat
-    cups
-    dbus
-    gdk-pixbuf
-    gcc-unwrapped.lib
-    systemd
-    libexif
-    pciutils
-    liberation_ttf
-    curl
-    util-linux
-    wget
-    flac
-    harfbuzz
-    icu
-    libpng
-    opusWithCustomModes
-    snappy
-    speechd
-    bzip2
-    libcap
-    at-spi2-atk
-    at-spi2-core
-    libkrb5
-    libdrm
-    libglvnd
-    mesa
-    coreutils
-    libxkbcommon
-    pipewire
-    wayland
-  ] ++ lib.optional pulseSupport libpulseaudio
+  deps =
+    [
+      glib
+      fontconfig
+      freetype
+      pango
+      cairo
+      libX11
+      libXi
+      atk
+      nss
+      nspr
+      libXcursor
+      libXext
+      libXfixes
+      libXrender
+      libXScrnSaver
+      libXcomposite
+      libxcb
+      alsa-lib
+      libXdamage
+      libXtst
+      libXrandr
+      libxshmfence
+      expat
+      cups
+      dbus
+      gdk-pixbuf
+      gcc-unwrapped.lib
+      systemd
+      libexif
+      pciutils
+      liberation_ttf
+      curl
+      util-linux
+      wget
+      flac
+      harfbuzz
+      icu
+      libpng
+      opusWithCustomModes
+      snappy
+      speechd
+      bzip2
+      libcap
+      at-spi2-atk
+      at-spi2-core
+      libkrb5
+      libdrm
+      libglvnd
+      mesa
+      coreutils
+      libxkbcommon
+      pipewire
+      wayland
+    ] ++ lib.optional pulseSupport libpulseaudio
     ++ lib.optional libvaSupport libva ++ [
       gtk3
       gtk4
-    ];
+    ]
+    ;
 
   suffix = lib.optionalString (channel != "stable") "-${channel}";
 
@@ -212,8 +214,9 @@ stdenv.mkDerivation {
     tar xf data.tar.xz
   '';
 
-  rpath = lib.makeLibraryPath deps + ":"
-    + lib.makeSearchPathOutput "lib" "lib64" deps;
+  rpath =
+    lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps
+    ;
   binpath = lib.makeBinPath deps;
 
   installPhase = ''

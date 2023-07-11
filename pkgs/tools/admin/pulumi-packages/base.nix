@@ -23,10 +23,12 @@ let
 
       doCheck = false;
 
-      ldflags = [
-        "-s"
-        "-w"
-      ] ++ extraLdflags;
+      ldflags =
+        [
+          "-s"
+          "-w"
+        ] ++ extraLdflags
+        ;
     } // args)
     ;
 

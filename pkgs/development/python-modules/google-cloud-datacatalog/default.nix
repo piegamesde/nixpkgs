@@ -25,13 +25,15 @@ buildPythonPackage rec {
     hash = "sha256-/duRr+Qkhm07CPdLXxOy0gvpokshMbEMLmgd9/R7C3A=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    grpc-google-iam-v1
-    libcst
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [
+      google-api-core
+      grpc-google-iam-v1
+      libcst
+      proto-plus
+      protobuf
+    ] ++ google-api-core.optional-dependencies.grpc
+    ;
 
   nativeCheckInputs = [
     mock

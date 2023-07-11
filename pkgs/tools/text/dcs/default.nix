@@ -42,7 +42,8 @@ buildGoModule {
     homepage = "https://github.com/Debian/dcs";
     license = licenses.bsd3;
     maintainers = [ ];
-    broken = stdenv.isAarch64 || stdenv.isDarwin
+    broken =
+      stdenv.isAarch64 || stdenv.isDarwin
       ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dcs.x86_64-darwin
   };
 }

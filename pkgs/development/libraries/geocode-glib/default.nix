@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/geocode-glib/${
+    url =
+      "mirror://gnome/sources/geocode-glib/${
         lib.versions.majorMinor version
       }/geocode-glib-${version}.tar.xz";
     sha256 = "LZpoJtFYRwRJoXOHEiFZbaD4Pr3P+YuQxwSQiQVqN6o=";
@@ -37,17 +38,19 @@ stdenv.mkDerivation rec {
 
   patches = [ ./installed-tests-path.patch ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    gtk-doc
-    docbook-xsl-nons
-    gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gettext
+      gtk-doc
+      docbook-xsl-nons
+      gobject-introspection
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ];
+    ]
+    ;
 
   buildInputs = [
     glib

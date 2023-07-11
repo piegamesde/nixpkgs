@@ -43,11 +43,12 @@ buildPythonPackage rec {
 
   disabledTestPaths = [ "tests/performance" ];
 
-  disabledTests = [ "test_default_settings_set" ]
-    ++ lib.optionals (pythonAtLeast "3.11") [
+  disabledTests =
+    [ "test_default_settings_set" ] ++ lib.optionals (pythonAtLeast "3.11") [
       # https://github.com/DataDog/datadogpy/issues/746
       "TestDogshell"
-    ];
+    ]
+    ;
 
   pythonImportsCheck = [ "datadog" ];
 

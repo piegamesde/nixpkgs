@@ -8,10 +8,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libGL";
-  inherit (if stdenv.hostPlatform.isDarwin then
-    mesa
-  else
-    libglvnd)
+  inherit
+    (if stdenv.hostPlatform.isDarwin then
+      mesa
+    else
+      libglvnd)
     version
     ;
   outputs = [
@@ -92,10 +93,12 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
   meta = {
-    description = "Stub bindings using " + (if stdenv.hostPlatform.isDarwin then
-      "mesa"
-    else
-      "libglvnd");
+    description =
+      "Stub bindings using " + (if stdenv.hostPlatform.isDarwin then
+        "mesa"
+      else
+        "libglvnd")
+      ;
     pkgConfigModules = [
       "gl"
       "egl"
@@ -103,10 +106,11 @@ stdenv.mkDerivation (finalAttrs: {
       "glesv2"
     ];
   } // {
-    inherit (if stdenv.hostPlatform.isDarwin then
-      mesa.meta
-    else
-      libglvnd.meta)
+    inherit
+      (if stdenv.hostPlatform.isDarwin then
+        mesa.meta
+      else
+        libglvnd.meta)
       homepage
       license
       platforms

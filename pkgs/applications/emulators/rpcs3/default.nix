@@ -96,28 +96,30 @@ gcc12Stdenv.mkDerivation {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    qtbase
-    qtquickcontrols
-    qtmultimedia
-    openal
-    glew
-    vulkan-headers
-    vulkan-loader
-    libpng
-    ffmpeg
-    libevdev
-    zlib
-    libusb1
-    curl
-    wolfssl
-    python3
-    pugixml
-    faudio
-    flatbuffers
-  ] ++ lib.optional sdl2Support SDL2
+  buildInputs =
+    [
+      qtbase
+      qtquickcontrols
+      qtmultimedia
+      openal
+      glew
+      vulkan-headers
+      vulkan-loader
+      libpng
+      ffmpeg
+      libevdev
+      zlib
+      libusb1
+      curl
+      wolfssl
+      python3
+      pugixml
+      faudio
+      flatbuffers
+    ] ++ lib.optional sdl2Support SDL2
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ++ lib.optional alsaSupport alsa-lib ++ lib.optional waylandSupport wayland;
+    ++ lib.optional alsaSupport alsa-lib ++ lib.optional waylandSupport wayland
+    ;
 
   postInstall = ''
     # Taken from https://wiki.rpcs3.net/index.php?title=Help:Controller_Configuration

@@ -49,13 +49,15 @@ buildGoModule rec {
 
   tags = [ "rocksdb_6_16" ];
 
-  preBuild = lib.optionalString stdenv.isDarwin ''
-    ulimit -n 8192
-  '' + ''
-    export CGO_LDFLAGS="-L${stdenv.cc.cc.lib}/lib -lrocksdb -lz -lbz2 -lsnappy -llz4 -lm -lstdc++"
-    buildFlagsArray+=("-tags=${lib.concatStringsSep " " tags}")
-    buildFlagsArray+=("-ldflags=${lib.concatStringsSep " " ldflags}")
-  '';
+  preBuild =
+    lib.optionalString stdenv.isDarwin ''
+      ulimit -n 8192
+    '' + ''
+      export CGO_LDFLAGS="-L${stdenv.cc.cc.lib}/lib -lrocksdb -lz -lbz2 -lsnappy -llz4 -lm -lstdc++"
+      buildFlagsArray+=("-tags=${lib.concatStringsSep " " tags}")
+      buildFlagsArray+=("-ldflags=${lib.concatStringsSep " " ldflags}")
+    ''
+    ;
 
   subPackages = [ "." ];
 

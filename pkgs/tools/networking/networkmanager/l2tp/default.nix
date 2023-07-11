@@ -44,19 +44,21 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    networkmanager
-    ppp
-    glib
-    openssl
-    nss
-  ] ++ lib.optionals withGnome [
-    gtk3
-    gtk4
-    libsecret
-    libnma
-    libnma-gtk4
-  ];
+  buildInputs =
+    [
+      networkmanager
+      ppp
+      glib
+      openssl
+      nss
+    ] ++ lib.optionals withGnome [
+      gtk3
+      gtk4
+      libsecret
+      libnma
+      libnma-gtk4
+    ]
+    ;
 
   configureFlags = [
     "--with-gnome=${

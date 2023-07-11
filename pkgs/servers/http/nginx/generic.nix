@@ -97,45 +97,48 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ removeReferencesTo ] ++ nativeBuildInputs;
 
-  buildInputs = [
-    openssl
-    zlib
-    pcre
-    libxml2
-    libxslt
-    gd
-    geoip
-    perl
-  ] ++ buildInputs ++ mapModules "inputs";
+  buildInputs =
+    [
+      openssl
+      zlib
+      pcre
+      libxml2
+      libxslt
+      gd
+      geoip
+      perl
+    ] ++ buildInputs ++ mapModules "inputs"
+    ;
 
-  configureFlags = [
-    "--with-http_ssl_module"
-    "--with-http_v2_module"
-    "--with-http_realip_module"
-    "--with-http_addition_module"
-    "--with-http_xslt_module"
-    "--with-http_sub_module"
-    "--with-http_dav_module"
-    "--with-http_flv_module"
-    "--with-http_mp4_module"
-    "--with-http_gunzip_module"
-    "--with-http_gzip_static_module"
-    "--with-http_auth_request_module"
-    "--with-http_random_index_module"
-    "--with-http_secure_link_module"
-    "--with-http_degradation_module"
-    "--with-http_stub_status_module"
-    "--with-threads"
-    "--with-pcre-jit"
-    "--http-log-path=/var/log/nginx/access.log"
-    "--error-log-path=/var/log/nginx/error.log"
-    "--pid-path=/var/log/nginx/nginx.pid"
-    "--http-client-body-temp-path=/tmp/nginx_client_body"
-    "--http-proxy-temp-path=/tmp/nginx_proxy"
-    "--http-fastcgi-temp-path=/tmp/nginx_fastcgi"
-    "--http-uwsgi-temp-path=/tmp/nginx_uwsgi"
-    "--http-scgi-temp-path=/tmp/nginx_scgi"
-  ] ++ lib.optionals withDebug [ "--with-debug" ]
+  configureFlags =
+    [
+      "--with-http_ssl_module"
+      "--with-http_v2_module"
+      "--with-http_realip_module"
+      "--with-http_addition_module"
+      "--with-http_xslt_module"
+      "--with-http_sub_module"
+      "--with-http_dav_module"
+      "--with-http_flv_module"
+      "--with-http_mp4_module"
+      "--with-http_gunzip_module"
+      "--with-http_gzip_static_module"
+      "--with-http_auth_request_module"
+      "--with-http_random_index_module"
+      "--with-http_secure_link_module"
+      "--with-http_degradation_module"
+      "--with-http_stub_status_module"
+      "--with-threads"
+      "--with-pcre-jit"
+      "--http-log-path=/var/log/nginx/access.log"
+      "--error-log-path=/var/log/nginx/error.log"
+      "--pid-path=/var/log/nginx/nginx.pid"
+      "--http-client-body-temp-path=/tmp/nginx_client_body"
+      "--http-proxy-temp-path=/tmp/nginx_proxy"
+      "--http-fastcgi-temp-path=/tmp/nginx_fastcgi"
+      "--http-uwsgi-temp-path=/tmp/nginx_uwsgi"
+      "--http-scgi-temp-path=/tmp/nginx_scgi"
+    ] ++ lib.optionals withDebug [ "--with-debug" ]
     ++ lib.optionals withKTLS [ "--with-openssl-opt=enable-ktls" ]
     ++ lib.optionals withStream [
       "--with-stream"
@@ -155,7 +158,8 @@ stdenv.mkDerivation {
     ++ lib.optional (withStream && geoip != null) "--with-stream_geoip_module"
     ++ lib.optional (with stdenv.hostPlatform; isLinux || isFreeBSD)
     "--with-file-aio" ++ configureFlags
-    ++ map (mod: "--add-module=${mod.src}") modules;
+    ++ map (mod: "--add-module=${mod.src}") modules
+    ;
 
   env.NIX_CFLAGS_COMPILE = toString ([
     "-I${libxml2.dev}/include/libxml2"
@@ -170,36 +174,40 @@ stdenv.mkDerivation {
 
     # Disable _multioutConfig hook which adds --bindir=$out/bin into configureFlags,
     # which breaks build, since nginx does not actually use autoconf.
-  preConfigure = ''
-    setOutputFlags=
-  '' + preConfigure
-    + lib.concatMapStringsSep "\n" (mod: mod.preConfigure or "") modules;
+  preConfigure =
+    ''
+      setOutputFlags=
+    '' + preConfigure
+    + lib.concatMapStringsSep "\n" (mod: mod.preConfigure or "") modules
+    ;
 
-  patches = map fixPatch ([
-    (substituteAll {
-      src = ./nix-etag-1.15.4.patch;
-      preInstall = ''
-        export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
-      '';
-    })
-    ./nix-skip-check-logs-path.patch
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    (fetchpatch {
-      url =
-        "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/102-sizeof_test_fix.patch";
-      sha256 = "0i2k30ac8d7inj9l6bl0684kjglam2f68z8lf3xggcc2i5wzhh8a";
-    })
-    (fetchpatch {
-      url =
-        "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/101-feature_test_fix.patch";
-      sha256 = "0v6890a85aqmw60pgj3mm7g8nkaphgq65dj4v9c6h58wdsrc6f0y";
-    })
-    (fetchpatch {
-      url =
-        "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/103-sys_nerr.patch";
-      sha256 = "0s497x6mkz947aw29wdy073k8dyjq8j99lax1a1mzpikzr4rxlmd";
-    })
-  ] ++ mapModules "patches") ++ extraPatches;
+  patches =
+    map fixPatch ([
+      (substituteAll {
+        src = ./nix-etag-1.15.4.patch;
+        preInstall = ''
+          export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
+        '';
+      })
+      ./nix-skip-check-logs-path.patch
+    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      (fetchpatch {
+        url =
+          "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/102-sizeof_test_fix.patch";
+        sha256 = "0i2k30ac8d7inj9l6bl0684kjglam2f68z8lf3xggcc2i5wzhh8a";
+      })
+      (fetchpatch {
+        url =
+          "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/101-feature_test_fix.patch";
+        sha256 = "0v6890a85aqmw60pgj3mm7g8nkaphgq65dj4v9c6h58wdsrc6f0y";
+      })
+      (fetchpatch {
+        url =
+          "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/103-sys_nerr.patch";
+        sha256 = "0s497x6mkz947aw29wdy073k8dyjq8j99lax1a1mzpikzr4rxlmd";
+      })
+    ] ++ mapModules "patches") ++ extraPatches
+    ;
 
   inherit postPatch;
 

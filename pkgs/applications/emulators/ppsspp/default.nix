@@ -31,9 +31,11 @@ let
 in
 assert forceWayland -> !enableQt;
 stdenv.mkDerivation (finalAttrs: {
-  pname = "ppsspp" + lib.optionalString enableQt "-qt"
+  pname =
+    "ppsspp" + lib.optionalString enableQt "-qt"
     + lib.optionalString (!enableQt) "-sdl"
-    + lib.optionalString forceWayland "-wayland";
+    + lib.optionalString forceWayland "-wayland"
+    ;
   version = "1.14.4";
 
   src = fetchFromGitHub {
@@ -49,28 +51,33 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace UI/NativeApp.cpp --replace /usr/share $out/share
   '';
 
-  nativeBuildInputs = [
-    cmake
-    copyDesktopItems
-    makeWrapper
-    pkg-config
-    python3
-  ] ++ lib.optional enableQt wrapQtAppsHook;
+  nativeBuildInputs =
+    [
+      cmake
+      copyDesktopItems
+      makeWrapper
+      pkg-config
+      python3
+    ] ++ lib.optional enableQt wrapQtAppsHook
+    ;
 
-  buildInputs = [
-    SDL2
-    ffmpeg_4
-    (glew.override { enableEGL = forceWayland; })
-    libzip
-    snappy
-    zlib
-  ] ++ lib.optionals enableQt [
-    qtbase
-    qtmultimedia
-  ] ++ lib.optional enableVulkan vulkan-loader ++ lib.optionals vulkanWayland [
-    wayland
-    libffi
-  ];
+  buildInputs =
+    [
+      SDL2
+      ffmpeg_4
+      (glew.override { enableEGL = forceWayland; })
+      libzip
+      snappy
+      zlib
+    ] ++ lib.optionals enableQt [
+      qtbase
+      qtmultimedia
+    ] ++ lib.optional enableVulkan vulkan-loader
+    ++ lib.optionals vulkanWayland [
+      wayland
+      libffi
+    ]
+    ;
 
   cmakeFlags = [
     "-DHEADLESS=${
@@ -146,11 +153,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "https://www.ppsspp.org/";
-    description = "A HLE Playstation Portable emulator, written in C++ ("
+    description =
+      "A HLE Playstation Portable emulator, written in C++ ("
       + (if enableQt then
         "Qt"
       else
-        "SDL + headless") + ")";
+        "SDL + headless") + ")"
+      ;
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.AndersonTorres ];
     platforms = lib.platforms.linux;

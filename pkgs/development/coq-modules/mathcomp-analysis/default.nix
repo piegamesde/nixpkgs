@@ -159,13 +159,15 @@ let
           "mathcomp"
         ];
 
-        propagatedBuildInputs = intra-deps ++ optionals (elem package [
-          "classical"
-          "single"
-        ]) classical-deps ++ optionals (elem package [
-          "analysis"
-          "single"
-        ]) analysis-deps;
+        propagatedBuildInputs =
+          intra-deps ++ optionals (elem package [
+            "classical"
+            "single"
+          ]) classical-deps ++ optionals (elem package [
+            "analysis"
+            "single"
+          ]) analysis-deps
+          ;
 
         preBuild = ''
           cd ${pkgpath}

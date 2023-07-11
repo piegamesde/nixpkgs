@@ -40,8 +40,9 @@ let
     inherit (srcJson) rev sha256;
   };
 
-  nodeDependencies = (botamusiqueNodePackages.shell.override
-    (old: { src = src + "/web"; })).nodeDependencies;
+  nodeDependencies =
+    (botamusiqueNodePackages.shell.override
+      (old: { src = src + "/web"; })).nodeDependencies;
 
     # Python needed to instantiate the html templates
   buildPython = python3Packages.python.withPackages (ps: [ ps.jinja2 ]);

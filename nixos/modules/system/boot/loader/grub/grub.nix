@@ -155,13 +155,15 @@ let
     foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { }
     (concatMap (args: args.devices) cfg.mirroredBoots);
 
-  convertedFont = (pkgs.runCommand "grub-font-converted.pf2" { }
-    (builtins.concatStringsSep " " ([
-      "${realGrub}/bin/grub-mkfont"
-      cfg.font
-      "--output"
-      "$out"
-    ] ++ (optional (cfg.fontSize != null) "--size ${toString cfg.fontSize}"))));
+  convertedFont =
+    (pkgs.runCommand "grub-font-converted.pf2" { }
+      (builtins.concatStringsSep " " ([
+        "${realGrub}/bin/grub-mkfont"
+        cfg.font
+        "--output"
+        "$out"
+      ] ++ (optional (cfg.fontSize != null)
+        "--size ${toString cfg.fontSize}"))));
 
   defaultSplash =
     pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
@@ -895,79 +897,89 @@ in
           ${pkgs.coreutils}/bin/cp -pf "${v}" "@bootPath@/${n}"
         '') config.boot.loader.grub.extraFiles);
 
-      assertions = [
-        {
-          assertion = !cfg.zfsSupport || cfg.version == 2;
-          message = "Only GRUB version 2 provides ZFS support";
-        }
-        {
-          assertion = cfg.mirroredBoots != [ ];
-          message = "You must set the option ‘boot.loader.grub.devices’ or "
-            + "'boot.loader.grub.mirroredBoots' to make the system bootable.";
-        }
-        {
-          assertion = cfg.efiSupport || all (c: c < 2) (mapAttrsToList (n: c:
-            if n == "nodev" then
-              0
-            else
-              c) bootDeviceCounters);
-          message = "You cannot have duplicated devices in mirroredBoots";
-        }
-        {
-          assertion = !cfg.trustedBoot.enable || cfg.version == 2;
-          message = "Trusted GRUB is only available for GRUB 2";
-        }
-        {
-          assertion = !cfg.efiSupport || !cfg.trustedBoot.enable;
-          message = "Trusted GRUB does not have EFI support";
-        }
-        {
-          assertion = !cfg.zfsSupport || !cfg.trustedBoot.enable;
-          message = "Trusted GRUB does not have ZFS support";
-        }
-        {
-          assertion = !cfg.trustedBoot.enable || cfg.trustedBoot.systemHasTPM
-            == "YES_TPM_is_activated";
-          message =
-            "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'.";
-        }
-        {
-          assertion = cfg.efiInstallAsRemovable -> cfg.efiSupport;
-          message =
-            "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport";
-        }
-        {
-          assertion = cfg.efiInstallAsRemovable
-            -> !config.boot.loader.efi.canTouchEfiVariables;
-          message =
-            "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
-        }
-      ] ++ flip concatMap cfg.mirroredBoots (args:
+      assertions =
         [
           {
-            assertion = args.devices != [ ];
-            message =
-              "A boot path cannot have an empty devices string in ${args.path}";
+            assertion = !cfg.zfsSupport || cfg.version == 2;
+            message = "Only GRUB version 2 provides ZFS support";
           }
           {
-            assertion = hasPrefix "/" args.path;
-            message = "Boot paths must be absolute, not ${args.path}";
+            assertion = cfg.mirroredBoots != [ ];
+            message =
+              "You must set the option ‘boot.loader.grub.devices’ or "
+              + "'boot.loader.grub.mirroredBoots' to make the system bootable."
+              ;
           }
           {
             assertion =
-              if args.efiSysMountPoint == null then
-                true
-              else
-                hasPrefix "/" args.efiSysMountPoint
+              cfg.efiSupport || all (c: c < 2) (mapAttrsToList (n: c:
+                if n == "nodev" then
+                  0
+                else
+                  c) bootDeviceCounters)
+              ;
+            message = "You cannot have duplicated devices in mirroredBoots";
+          }
+          {
+            assertion = !cfg.trustedBoot.enable || cfg.version == 2;
+            message = "Trusted GRUB is only available for GRUB 2";
+          }
+          {
+            assertion = !cfg.efiSupport || !cfg.trustedBoot.enable;
+            message = "Trusted GRUB does not have EFI support";
+          }
+          {
+            assertion = !cfg.zfsSupport || !cfg.trustedBoot.enable;
+            message = "Trusted GRUB does not have ZFS support";
+          }
+          {
+            assertion =
+              !cfg.trustedBoot.enable || cfg.trustedBoot.systemHasTPM
+              == "YES_TPM_is_activated"
               ;
             message =
-              "EFI paths must be absolute, not ${args.efiSysMountPoint}";
+              "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'.";
           }
-        ] ++ forEach args.devices (device: {
-          assertion = device == "nodev" || hasPrefix "/" device;
-          message =
-            "GRUB devices must be absolute paths, not ${device} in ${args.path}";
-        }));
+          {
+            assertion = cfg.efiInstallAsRemovable -> cfg.efiSupport;
+            message =
+              "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport";
+          }
+          {
+            assertion =
+              cfg.efiInstallAsRemovable
+              -> !config.boot.loader.efi.canTouchEfiVariables
+              ;
+            message =
+              "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
+          }
+        ] ++ flip concatMap cfg.mirroredBoots (args:
+          [
+            {
+              assertion = args.devices != [ ];
+              message =
+                "A boot path cannot have an empty devices string in ${args.path}";
+            }
+            {
+              assertion = hasPrefix "/" args.path;
+              message = "Boot paths must be absolute, not ${args.path}";
+            }
+            {
+              assertion =
+                if args.efiSysMountPoint == null then
+                  true
+                else
+                  hasPrefix "/" args.efiSysMountPoint
+                ;
+              message =
+                "EFI paths must be absolute, not ${args.efiSysMountPoint}";
+            }
+          ] ++ forEach args.devices (device: {
+            assertion = device == "nodev" || hasPrefix "/" device;
+            message =
+              "GRUB devices must be absolute paths, not ${device} in ${args.path}";
+          }))
+        ;
     })
 
   ];

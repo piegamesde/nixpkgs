@@ -36,22 +36,24 @@ buildPythonPackage rec {
     hash = "sha256-+17VBfAtkZZIi3SF5Num1Uqg3WjIpgbz3Jx65rD5zkM=";
   };
 
-  propagatedBuildInputs = [
-    crytic-compile
-    intervaltree
-    ply
-    prettytable
-    protobuf
-    pyevmasm
-    pysha3
-    pyyaml
-    rlp
-    wasm
-  ] ++ lib.optionals (stdenv.isLinux) [
-    capstone
-    pyelftools
-    unicorn
-  ];
+  propagatedBuildInputs =
+    [
+      crytic-compile
+      intervaltree
+      ply
+      prettytable
+      protobuf
+      pyevmasm
+      pysha3
+      pyyaml
+      rlp
+      wasm
+    ] ++ lib.optionals (stdenv.isLinux) [
+      capstone
+      pyelftools
+      unicorn
+    ]
+    ;
 
   postPatch = ''
     # Python API is not used in the code, only z3 from PATH
@@ -66,14 +68,16 @@ buildPythonPackage rec {
     export PATH=${yices}/bin:${z3}/bin:$PATH
   '';
 
-  disabledTestPaths = [
-    "tests/ethereum" # Enable when solc works again
-    "tests/ethereum_bench"
-  ] ++ lib.optionals (!stdenv.isLinux) [
-    "tests/native"
-    "tests/other/test_locking.py"
-    "tests/other/test_state_introspection.py"
-  ];
+  disabledTestPaths =
+    [
+      "tests/ethereum" # Enable when solc works again
+      "tests/ethereum_bench"
+    ] ++ lib.optionals (!stdenv.isLinux) [
+      "tests/native"
+      "tests/other/test_locking.py"
+      "tests/other/test_state_introspection.py"
+    ]
+    ;
 
   disabledTests = [
     # Failing tests

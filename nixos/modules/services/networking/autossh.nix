@@ -110,7 +110,8 @@ in
                   # AutoSSH may exit with 0 code if the SSH session was
                   # gracefully terminated by either local or remote side.
                 Restart = "on-success";
-                ExecStart = "${pkgs.autossh}/bin/autossh -M ${
+                ExecStart =
+                  "${pkgs.autossh}/bin/autossh -M ${
                     toString mport
                   } ${s.extraArguments}";
               };

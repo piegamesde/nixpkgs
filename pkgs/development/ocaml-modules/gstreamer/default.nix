@@ -23,10 +23,12 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Foundation
-  ];
+  buildInputs =
+    [ dune-configurator ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Foundation
+    ]
+    ;
   propagatedBuildInputs = [
     glib.dev
     gst_all_1.gstreamer.dev

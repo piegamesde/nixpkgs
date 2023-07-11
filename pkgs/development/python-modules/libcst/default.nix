@@ -47,14 +47,16 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-rust
-    setuptools-scm
-    rustPlatform.cargoSetupHook
-  ] ++ (with rustPlatform; [
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      setuptools-rust
+      setuptools-scm
+      rustPlatform.cargoSetupHook
+    ] ++ (with rustPlatform; [
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
@@ -76,10 +78,11 @@ buildPythonPackage rec {
     rm -r {libcst/tests,libcst/codegen/tests,libcst/m*/tests}
   '';
 
-  disabledTests = [
-    # No files are generated
-    "test_codemod_formatter_error_input"
-  ];
+  disabledTests =
+    [
+      # No files are generated
+      "test_codemod_formatter_error_input"
+    ];
 
   pythonImportsCheck = [ "libcst" ];
 

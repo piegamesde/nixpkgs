@@ -25,8 +25,10 @@ let
 
     # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
-    rootModules = config.boot.initrd.availableKernelModules
-      ++ config.boot.initrd.kernelModules;
+    rootModules =
+      config.boot.initrd.availableKernelModules
+      ++ config.boot.initrd.kernelModules
+      ;
     kernel = modulesTree;
     firmware = firmware;
     allowMissing = false;
@@ -400,49 +402,51 @@ let
     name = "initrd-${kernel-name}";
     inherit (config.boot.initrd) compressor compressorArgs prepend;
 
-    contents = [
-      {
-        object = bootStage1;
-        symlink = "/init";
-      }
-      {
-        object = pkgs.writeText "mdadm.conf"
-          config.boot.initrd.services.swraid.mdadmConf;
-        symlink = "/etc/mdadm.conf";
-      }
-      {
-        object = pkgs.runCommand "initrd-kmod-blacklist-ubuntu" {
-          src = "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
+    contents =
+      [
+        {
+          object = bootStage1;
+          symlink = "/init";
+        }
+        {
+          object = pkgs.writeText "mdadm.conf"
+            config.boot.initrd.services.swraid.mdadmConf;
+          symlink = "/etc/mdadm.conf";
+        }
+        {
+          object = pkgs.runCommand "initrd-kmod-blacklist-ubuntu" {
+            src = "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
+            preferLocalBuild = true;
+          } ''
+            target=$out
+            ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
+          '';
+          symlink = "/etc/modprobe.d/ubuntu.conf";
+        }
+        {
+          object = config.environment.etc."modprobe.d/nixos.conf".source;
+          symlink = "/etc/modprobe.d/nixos.conf";
+        }
+        {
+          object = pkgs.kmod-debian-aliases;
+          symlink = "/etc/modprobe.d/debian.conf";
+        }
+      ] ++ lib.optionals config.services.multipath.enable [ {
+        object = pkgs.runCommand "multipath.conf" {
+          src = config.environment.etc."multipath.conf".text;
           preferLocalBuild = true;
         } ''
           target=$out
-          ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
+          printf "$src" > $out
+          substituteInPlace $out \
+            --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
         '';
-        symlink = "/etc/modprobe.d/ubuntu.conf";
-      }
-      {
-        object = config.environment.etc."modprobe.d/nixos.conf".source;
-        symlink = "/etc/modprobe.d/nixos.conf";
-      }
-      {
-        object = pkgs.kmod-debian-aliases;
-        symlink = "/etc/modprobe.d/debian.conf";
-      }
-    ] ++ lib.optionals config.services.multipath.enable [ {
-      object = pkgs.runCommand "multipath.conf" {
-        src = config.environment.etc."multipath.conf".text;
-        preferLocalBuild = true;
-      } ''
-        target=$out
-        printf "$src" > $out
-        substituteInPlace $out \
-          --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
-      '';
-      symlink = "/etc/multipath.conf";
-    } ] ++ (lib.mapAttrsToList (symlink: options: {
-      inherit symlink;
-      object = options.source;
-    }) config.boot.initrd.extraFiles);
+        symlink = "/etc/multipath.conf";
+      } ] ++ (lib.mapAttrsToList (symlink: options: {
+        inherit symlink;
+        object = options.source;
+      }) config.boot.initrd.extraFiles)
+      ;
   };
 
     # Script to add secret files to the initrd at bootloader update time
@@ -642,12 +646,13 @@ in
     };
 
     boot.initrd.compressor = mkOption {
-      default = (if
-        lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9"
-      then
-        "zstd"
-      else
-        "gzip");
+      default =
+        (if
+          lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9"
+        then
+          "zstd"
+        else
+          "gzip");
       defaultText =
         literalMD "`zstd` if the kernel supports it (5.9+), `gzip` if not";
       type = types.either types.str (types.functionTo types.str);
@@ -755,15 +760,19 @@ in
           in
           resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/"
           ;
-        message = "boot.resumeDevice has to be an absolute path."
-          + " Old \"x:y\" style is no longer supported.";
+        message =
+          "boot.resumeDevice has to be an absolute path."
+          + " Old \"x:y\" style is no longer supported."
+          ;
       }
       # TODO: remove when #85000 is fixed
       {
-        assertion = !config.boot.loader.supportsInitrdSecrets -> all (source:
-          builtins.isPath source
-          || (builtins.isString source && hasPrefix builtins.storeDir source))
-          (attrValues config.boot.initrd.secrets);
+        assertion =
+          !config.boot.loader.supportsInitrdSecrets -> all (source:
+            builtins.isPath source
+            || (builtins.isString source && hasPrefix builtins.storeDir source))
+          (attrValues config.boot.initrd.secrets)
+          ;
         message = ''
           boot.loader.initrd.secrets values must be unquoted paths when
           using a bootloader that doesn't natively support initrd

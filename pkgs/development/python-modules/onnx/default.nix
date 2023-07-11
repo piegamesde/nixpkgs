@@ -70,16 +70,18 @@ buildPythonPackage rec {
       --replace 'googletest)' ')'
   '';
 
-  preConfigure = ''
-    # Set CMAKE_INSTALL_LIBDIR to lib explicitly, because otherwise it gets set
-    # to lib64 and cmake incorrectly looks for the protobuf library in lib64
-    export CMAKE_ARGS="-DCMAKE_INSTALL_LIBDIR=lib -DONNX_USE_PROTOBUF_SHARED_LIBS=ON"
-  '' + lib.optionalString doCheck ''
-    export CMAKE_ARGS+=" -Dgoogletest_STATIC_LIBRARIES=${gtestStatic}/lib/libgtest.a -Dgoogletest_INCLUDE_DIRS=${
-      lib.getDev gtestStatic
-    }/include"
-    export ONNX_BUILD_TESTS=1
-  '';
+  preConfigure =
+    ''
+      # Set CMAKE_INSTALL_LIBDIR to lib explicitly, because otherwise it gets set
+      # to lib64 and cmake incorrectly looks for the protobuf library in lib64
+      export CMAKE_ARGS="-DCMAKE_INSTALL_LIBDIR=lib -DONNX_USE_PROTOBUF_SHARED_LIBS=ON"
+    '' + lib.optionalString doCheck ''
+      export CMAKE_ARGS+=" -Dgoogletest_STATIC_LIBRARIES=${gtestStatic}/lib/libgtest.a -Dgoogletest_INCLUDE_DIRS=${
+        lib.getDev gtestStatic
+      }/include"
+      export ONNX_BUILD_TESTS=1
+    ''
+    ;
 
   preBuild = ''
     export MAX_JOBS=$NIX_BUILD_CORES
@@ -116,10 +118,11 @@ buildPythonPackage rec {
     "test_vgg19_cpu"
     "test_zfnet512_cpu"
   ];
-  disabledTestPaths = [
-    # Unexpected output fields from running code: {'stderr'}
-    "onnx/examples/np_array_tensorproto.ipynb"
-  ];
+  disabledTestPaths =
+    [
+      # Unexpected output fields from running code: {'stderr'}
+      "onnx/examples/np_array_tensorproto.ipynb"
+    ];
   postCheck = ''
     # run "cpp" tests
     .setuptools-cmake-build/onnx_gtests

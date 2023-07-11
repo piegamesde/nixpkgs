@@ -146,37 +146,43 @@ python3Packages.buildPythonApplication {
     # 3) If asked, we optionally patch in a hardcoded path to the 'nodejs' package,
     #    so that 'sl web' always works
     # 4) 'sl web' will still work if 'nodejs' is in $PATH, just not OOTB
-  preFixup = ''
-    sitepackages=$out/lib/${python3Packages.python.libPrefix}/site-packages
-    chmod +w $sitepackages
-    cp -r ${isl} $sitepackages/edenscm-isl
-  '' + lib.optionalString (!enableMinimal) ''
-    chmod +w $sitepackages/edenscm-isl/run-isl
-    substituteInPlace $sitepackages/edenscm-isl/run-isl \
-      --replace 'NODE=node' 'NODE=${nodejs}/bin/node'
-  '';
+  preFixup =
+    ''
+      sitepackages=$out/lib/${python3Packages.python.libPrefix}/site-packages
+      chmod +w $sitepackages
+      cp -r ${isl} $sitepackages/edenscm-isl
+    '' + lib.optionalString (!enableMinimal) ''
+      chmod +w $sitepackages/edenscm-isl/run-isl
+      substituteInPlace $sitepackages/edenscm-isl/run-isl \
+        --replace 'NODE=node' 'NODE=${nodejs}/bin/node'
+    ''
+    ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/sl \
       --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive"
   '';
 
-  nativeBuildInputs = [
-    curl
-    pkg-config
-  ] ++ (with rustPlatform; [
-    myCargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      curl
+      pkg-config
+    ] ++ (with rustPlatform; [
+      myCargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    curl
-    libiconv
-    CoreFoundation
-    CoreServices
-    Security
-  ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      curl
+      libiconv
+      CoreFoundation
+      CoreServices
+      Security
+    ]
+    ;
 
   HGNAME = "sl";
   SAPLING_OSS_BUILD = "true";

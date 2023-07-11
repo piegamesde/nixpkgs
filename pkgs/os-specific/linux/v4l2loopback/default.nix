@@ -17,10 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-gLFtR7s+3LUQ0BZxHbmaArHbufuphbtAX99nxJU3c84=";
   };
 
-  patches = [
-    # fix bug https://github.com/umlaeute/v4l2loopback/issues/535
-    ./revert-pr518.patch
-  ];
+  patches =
+    [
+      # fix bug https://github.com/umlaeute/v4l2loopback/issues/535
+      ./revert-pr518.patch
+    ];
 
   hardeningDisable = [
     "format"
@@ -43,10 +44,12 @@ stdenv.mkDerivation rec {
     "bin"
   ];
 
-  makeFlags = kernel.makeFlags ++ [
-    "KERNELRELEASE=${kernel.modDirVersion}"
-    "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernel.makeFlags ++ [
+      "KERNELRELEASE=${kernel.modDirVersion}"
+      "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ]
+    ;
 
   meta = with lib; {
     description = "A kernel module to create V4L2 loopback devices";

@@ -4453,9 +4453,7 @@ rec {
             buildDependencies = dependencyDerivations {
               inherit features target;
               buildByPackageId =
-                depPackageId:
-                self.build.crates.${depPackageId}
-                ;
+                depPackageId: self.build.crates.${depPackageId};
               dependencies = crateConfig.buildDependencies or [ ];
             };
             filterEnabledDependenciesForThis =
@@ -4496,16 +4494,19 @@ rec {
               ;
           in
           buildRustCrateForPkgsFunc pkgs (crateConfig // {
-            src = crateConfig.src or (pkgs.fetchurl rec {
-              name = "${crateConfig.crateName}-${crateConfig.version}.tar.gz";
-                # https://www.pietroalbini.org/blog/downloading-crates-io/
-                # Not rate-limited, CDN URL.
-              url =
-                "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
-              sha256 = assert (lib.assertMsg (crateConfig ? sha256)
-                "Missing sha256 for ${name}");
-                crateConfig.sha256;
-            });
+            src =
+              crateConfig.src or (pkgs.fetchurl rec {
+                name = "${crateConfig.crateName}-${crateConfig.version}.tar.gz";
+                  # https://www.pietroalbini.org/blog/downloading-crates-io/
+                  # Not rate-limited, CDN URL.
+                url =
+                  "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
+                sha256 =
+                  assert (lib.assertMsg (crateConfig ? sha256)
+                    "Missing sha256 for ${name}");
+                  crateConfig.sha256
+                  ;
+              });
             extraRustcOpts = lib.lists.optional (targetFeatures != [ ])
               "-C target-feature=${
                 lib.concatMapStringsSep "," (x: "+${x}") targetFeatures
@@ -4657,8 +4658,9 @@ rec {
       assert (builtins.isAttrs target);
       assert (builtins.isBool runTests);
       let
-        crateConfig = crateConfigs."${packageId}" or (builtins.throw
-          "Package not found: ${packageId}");
+        crateConfig =
+          crateConfigs."${packageId}" or (builtins.throw
+            "Package not found: ${packageId}");
         expandedFeatures =
           expandFeatures (crateConfig.features or { }) features;
         enabledFeatures =

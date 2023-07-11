@@ -52,16 +52,18 @@ buildDotnetModule rec {
     libunwind
   ];
 
-  runtimeDeps = [
-    gtk3
-    openssl
-    xinput
-  ] ++ (with xorg; [
-    libICE
-    libSM
-    libX11
-    libXi
-  ]);
+  runtimeDeps =
+    [
+      gtk3
+      openssl
+      xinput
+    ] ++ (with xorg; [
+      libICE
+      libSM
+      libX11
+      libXi
+    ])
+    ;
 
     # Attempts to patchelf unneeded SOs
   autoPatchelfIgnoreMissingDeps = [

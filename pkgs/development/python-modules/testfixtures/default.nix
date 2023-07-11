@@ -37,10 +37,11 @@ buildPythonPackage rec {
     zope_component
   ];
 
-  disabledTestPaths = [
-    # Django is too much hasle to setup at the moment
-    "testfixtures/tests/test_django"
-  ];
+  disabledTestPaths =
+    [
+      # Django is too much hasle to setup at the moment
+      "testfixtures/tests/test_django"
+    ];
 
   pytestFlagsArray = [ "testfixtures/tests" ];
 

@@ -99,53 +99,57 @@ stdenv.mkDerivation rec {
       --replace 'find_package(DoubleConversion REQUIRED)' ""
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    ninja
-    python3Env
-    glib # for setup hook
-    gdk-pixbuf # for setup hook
-    wrapGAppsHook
-  ] ++ (with perlPackages; [
-    perl
-    XMLParser
-  ]);
+  nativeBuildInputs =
+    [
+      pkg-config
+      cmake
+      ninja
+      python3Env
+      glib # for setup hook
+      gdk-pixbuf # for setup hook
+      wrapGAppsHook
+    ] ++ (with perlPackages; [
+      perl
+      XMLParser
+    ])
+    ;
 
-  buildInputs = [
-    boehmgc
-    boost
-    gettext
-    glib
-    glibmm
-    gsl
-    gtkmm3
-    imagemagick
-    lcms
-    lib2geom
-    libcdr
-    libexif
-    libpng
-    librevenge
-    librsvg # for loading icons
-    libsigcxx
-    libsoup
-    libvisio
-    libwpg
-    libXft
-    libxml2
-    libxslt
-    perlPackages.perl
-    poppler
-    popt
-    potrace
-    python3Env
-    zlib
-  ] ++ lib.optionals (!stdenv.isDarwin) [ gspell ]
+  buildInputs =
+    [
+      boehmgc
+      boost
+      gettext
+      glib
+      glibmm
+      gsl
+      gtkmm3
+      imagemagick
+      lcms
+      lib2geom
+      libcdr
+      libexif
+      libpng
+      librevenge
+      librsvg # for loading icons
+      libsigcxx
+      libsoup
+      libvisio
+      libwpg
+      libXft
+      libxml2
+      libxslt
+      perlPackages.perl
+      poppler
+      popt
+      potrace
+      python3Env
+      zlib
+    ] ++ lib.optionals (!stdenv.isDarwin) [ gspell ]
     ++ lib.optionals stdenv.isDarwin [
       cairo
       gtk-mac-integration
-    ];
+    ]
+    ;
 
     # Make sure PyXML modules can be found at run-time.
   postInstall = lib.optionalString stdenv.isDarwin ''

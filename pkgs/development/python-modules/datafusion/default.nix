@@ -55,10 +55,12 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  buildInputs = [ protobuf ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    Security
-  ];
+  buildInputs =
+    [ protobuf ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      Security
+    ]
+    ;
 
   propagatedBuildInputs = [ pyarrow ];
 

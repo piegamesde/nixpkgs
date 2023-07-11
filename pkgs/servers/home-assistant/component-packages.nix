@@ -114,10 +114,7 @@
       ;
     "androidtv_remote" = ps: with ps; [ ]; # missing inputs: androidtvremote2
     "anel_pwrctrl" =
-      ps:
-      with ps;
-      [ ]
-      ; # missing inputs: anel_pwrctrl-homeassistant
+      ps: with ps; [ ]; # missing inputs: anel_pwrctrl-homeassistant
     "anova" = ps: with ps; [ ]; # missing inputs: anova-wifi
     "anthemav" = ps: with ps; [ ]; # missing inputs: anthemav
     "anwb_energie" = ps: with ps; [ ];
@@ -752,11 +749,7 @@
       ]
       ;
     "eddystone_temperature" =
-      ps:
-      with ps; [
-        construct
-      ]
-      ; # missing inputs: beacontools
+      ps: with ps; [ construct ]; # missing inputs: beacontools
     "edimax" = ps: with ps; [ pyedimax ];
     "edl21" = ps: with ps; [ pysml ];
     "efergy" = ps: with ps; [ pyefergy ];
@@ -1877,10 +1870,7 @@
       ;
     "london_air" = ps: with ps; [ ];
     "london_underground" =
-      ps:
-      with ps;
-      [ ]
-      ; # missing inputs: london-tube-status
+      ps: with ps; [ ]; # missing inputs: london-tube-status
     "lookin" = ps: with ps; [ aiolookin ];
     "lovelace" = ps: with ps; [ ];
     "luci" = ps: with ps; [ openwrt-luci-rpc ];
@@ -2100,10 +2090,7 @@
       ;
     "modern_forms" = ps: with ps; [ aiomodernforms ];
     "moehlenhoff_alpha2" =
-      ps:
-      with ps;
-      [ ]
-      ; # missing inputs: moehlenhoff-alpha2
+      ps: with ps; [ ]; # missing inputs: moehlenhoff-alpha2
     "mold_indicator" = ps: with ps; [ ];
     "monessen" = ps: with ps; [ ];
     "monoprice" = ps: with ps; [ ]; # missing inputs: pymonoprice
@@ -2324,11 +2311,7 @@
     "notion" = ps: with ps; [ aionotion ];
     "nsw_fuel_station" = ps: with ps; [ ]; # missing inputs: nsw-fuel-api-client
     "nsw_rural_fire_service_feed" =
-      ps:
-      with ps; [
-        aio-geojson-nsw-rfs-incidents
-      ]
-      ;
+      ps: with ps; [ aio-geojson-nsw-rfs-incidents ];
     "nuheat" = ps: with ps; [ nuheat ];
     "nuki" =
       ps:
@@ -3051,10 +3034,7 @@
     "sisyphus" = ps: with ps; [ ]; # missing inputs: sisyphus-control
     "sky_hub" = ps: with ps; [ pyskyqhub ];
     "skybeacon" =
-      ps:
-      with ps;
-      [ pygatt ] ++ pygatt.optional-dependencies.GATTTOOL
-      ;
+      ps: with ps; [ pygatt ] ++ pygatt.optional-dependencies.GATTTOOL;
     "skybell" =
       ps:
       with ps; [
@@ -3233,11 +3213,7 @@
       ]
       ;
     "stiebel_eltron" =
-      ps:
-      with ps; [
-        pymodbus
-      ]
-      ; # missing inputs: pystiebeleltron
+      ps: with ps; [ pymodbus ]; # missing inputs: pystiebeleltron
     "stookalert" = ps: with ps; [ stookalert ];
     "stookwijzer" = ps: with ps; [ ]; # missing inputs: stookwijzer
     "stream" =
@@ -3435,11 +3411,7 @@
       ]
       ;
     "thermoworks_smoke" =
-      ps:
-      with ps; [
-        stringcase
-      ]
-      ; # missing inputs: thermoworks_smoke
+      ps: with ps; [ stringcase ]; # missing inputs: thermoworks_smoke
     "thethingsnetwork" = ps: with ps; [ ];
     "thingspeak" = ps: with ps; [ ]; # missing inputs: thingspeak
     "thinkingcleaner" = ps: with ps; [ ]; # missing inputs: pythinkingcleaner
@@ -3545,10 +3517,7 @@
     "trace" = ps: with ps; [ ];
     "tractive" = ps: with ps; [ aiotractive ];
     "tradfri" =
-      ps:
-      with ps;
-      [ pytradfri ] ++ pytradfri.optional-dependencies.async
-      ;
+      ps: with ps; [ pytradfri ] ++ pytradfri.optional-dependencies.async;
     "trafikverket_ferry" = ps: with ps; [ pytrafikverket ];
     "trafikverket_train" = ps: with ps; [ pytrafikverket ];
     "trafikverket_weatherstation" = ps: with ps; [ pytrafikverket ];

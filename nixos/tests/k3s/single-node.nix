@@ -84,13 +84,14 @@ import ../make-test-python.nix ({
       }
       ;
 
-    testScript = ''
-      start_all()
+    testScript =
+      ''
+        start_all()
 
-      machine.wait_for_unit("k3s")
-      machine.succeed("k3s kubectl cluster-info")
-      machine.fail("sudo -u noprivs k3s kubectl cluster-info")
-    '' # Fix-Me: Tests fail for 'aarch64-linux' as: "CONFIG_CGROUP_FREEZER: missing (fail)"
+        machine.wait_for_unit("k3s")
+        machine.succeed("k3s kubectl cluster-info")
+        machine.fail("sudo -u noprivs k3s kubectl cluster-info")
+      '' # Fix-Me: Tests fail for 'aarch64-linux' as: "CONFIG_CGROUP_FREEZER: missing (fail)"
       + lib.optionalString (!pkgs.stdenv.isAarch64)
       ''machine.succeed("k3s check-config")'' + ''
 
@@ -108,6 +109,7 @@ import ../make-test-python.nix ({
         machine.fail("journalctl -o cat -u k3s.service | grep 'ipset utility not found'")
 
         machine.shutdown()
-      '';
+      ''
+      ;
   }
 )

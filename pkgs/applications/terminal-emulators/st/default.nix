@@ -33,7 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString (conf != null) "cp ${finalAttrs.configFile} config.def.h"
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace config.mk --replace "-lrt" ""
-    '';
+    ''
+    ;
 
   strictDeps = true;
 
@@ -45,10 +46,12 @@ stdenv.mkDerivation (finalAttrs: {
     fontconfig
     freetype
   ];
-  buildInputs = [
-    libX11
-    libXft
-  ] ++ extraLibs;
+  buildInputs =
+    [
+      libX11
+      libXft
+    ] ++ extraLibs
+    ;
 
   preInstall = ''
     export TERMINFO=$out/share/terminfo

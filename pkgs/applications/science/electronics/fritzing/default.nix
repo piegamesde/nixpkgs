@@ -76,7 +76,8 @@ stdenv.mkDerivation rec {
     cp -a ${parts}/* parts/
   '';
 
-  env.NIX_CFLAGS_COMPILE = "-I${lib.getDev quazip}/include/QuaZip-Qt${
+  env.NIX_CFLAGS_COMPILE =
+    "-I${lib.getDev quazip}/include/QuaZip-Qt${
       lib.versions.major qtbase.version
     }-${quazip.version}/quazip";
 

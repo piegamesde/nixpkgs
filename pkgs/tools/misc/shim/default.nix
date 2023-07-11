@@ -12,10 +12,11 @@ let
   inherit (stdenv.targetPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
-  target = {
-    x86_64-linux = "shimx64.efi";
-    aarch64-linux = "shimaa64.efi";
-  }.${system} or throwSystem;
+  target =
+    {
+      x86_64-linux = "shimx64.efi";
+      aarch64-linux = "shimaa64.efi";
+    }.${system} or throwSystem;
 in
 stdenv.mkDerivation rec {
   pname = "shim";
@@ -36,7 +37,8 @@ stdenv.mkDerivation rec {
   makeFlags =
     lib.optional (vendorCertFile != null) "VENDOR_CERT_FILE=${vendorCertFile}"
     ++ lib.optional (defaultLoader != null) "DEFAULT_LOADER=${defaultLoader}"
-    ++ [ target ];
+    ++ [ target ]
+    ;
 
   installPhase = ''
     mkdir -p $out/share/shim

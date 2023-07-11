@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
   version = "3.48.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/evolution/${
+    url =
+      "mirror://gnome/sources/evolution/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "tJpa3u3JGx0yVPAw9affjiYYLjNAzvd3Ecob9FU+5lA=";

@@ -24,9 +24,7 @@ let
   '';
 
   simpleCase =
-    case:
-    writeShellScript "test-trivial-overriding-${case}" extglobScript
-    ;
+    case: writeShellScript "test-trivial-overriding-${case}" extglobScript;
 
   callPackageCase =
     case:

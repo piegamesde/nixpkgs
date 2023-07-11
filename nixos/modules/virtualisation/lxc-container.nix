@@ -134,21 +134,23 @@ in
     '';
 
     system.build.metadata = pkgs.callPackage ../../lib/make-system-tarball.nix {
-      contents = [ {
-        source = toYAML "metadata.yaml" {
-          architecture = builtins.elemAt
-            (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system)) 0;
-          creation_date = 1;
-          properties = {
-            description =
-              "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}";
-            os = "${config.system.nixos.distroId}";
-            release = "${config.system.nixos.codeName}";
+      contents =
+        [ {
+          source = toYAML "metadata.yaml" {
+            architecture = builtins.elemAt
+              (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system)) 0;
+            creation_date = 1;
+            properties = {
+              description =
+                "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}";
+              os = "${config.system.nixos.distroId}";
+              release = "${config.system.nixos.codeName}";
+            };
+            templates = templates.properties;
           };
-          templates = templates.properties;
-        };
-        target = "/metadata.yaml";
-      } ] ++ templates.files;
+          target = "/metadata.yaml";
+        } ] ++ templates.files
+        ;
     };
 
       # TODO: build rootfs as squashfs for faster unpack
@@ -182,24 +184,26 @@ in
         (pkgs.writeTextFile {
           name = "systemd-lxc-service-overrides";
           destination = "/etc/systemd/system/service.d/zzz-lxc-service.conf";
-          text = ''
-            [Service]
-            ProcSubset=all
-            ProtectProc=default
-            ProtectControlGroups=no
-            ProtectKernelTunables=no
-            NoNewPrivileges=no
-            LoadCredential=
-          '' + optionalString cfg.privilegedContainer ''
-            # Additional settings for privileged containers
-            ProtectHome=no
-            ProtectSystem=no
-            PrivateDevices=no
-            PrivateTmp=no
-            ProtectKernelLogs=no
-            ProtectKernelModules=no
-            ReadWritePaths=
-          '';
+          text =
+            ''
+              [Service]
+              ProcSubset=all
+              ProtectProc=default
+              ProtectControlGroups=no
+              ProtectKernelTunables=no
+              NoNewPrivileges=no
+              LoadCredential=
+            '' + optionalString cfg.privilegedContainer ''
+              # Additional settings for privileged containers
+              ProtectHome=no
+              ProtectSystem=no
+              PrivateDevices=no
+              PrivateTmp=no
+              ProtectKernelLogs=no
+              ProtectKernelModules=no
+              ReadWritePaths=
+            ''
+            ;
         })
       ];
 

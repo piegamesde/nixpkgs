@@ -29,10 +29,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # all tests in this file have a circular dependency on clvm-tools
-    "tests/cmds_test.py"
-  ];
+  disabledTestPaths =
+    [
+      # all tests in this file have a circular dependency on clvm-tools
+      "tests/cmds_test.py"
+    ];
 
   pythonImportsCheck = [ "clvm" ];
 

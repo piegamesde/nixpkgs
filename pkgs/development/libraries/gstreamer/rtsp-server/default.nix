@@ -31,14 +31,16 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    gettext
-    gobject-introspection
-    pkg-config
-    python3
-  ] ++ lib.optionals enableDocumentation [ hotdoc ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      gettext
+      gobject-introspection
+      pkg-config
+      python3
+    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ;
 
   buildInputs = [
     gst-plugins-base

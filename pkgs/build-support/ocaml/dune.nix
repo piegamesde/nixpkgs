@@ -19,10 +19,11 @@
 let
   Dune =
     let
-      dune-version = args.duneVersion or (if args.useDune2 or true then
-        "2"
-      else
-        "1");
+      dune-version =
+        args.duneVersion or (if args.useDune2 or true then
+          "2"
+        else
+          "1");
     in
     {
       "1" = dune_1;
@@ -78,11 +79,13 @@ else
 
     name = "ocaml${ocaml.version}-${pname}-${version}";
 
-    nativeBuildInputs = [
-      ocaml
-      Dune
-      findlib
-    ] ++ nativeBuildInputs;
+    nativeBuildInputs =
+      [
+        ocaml
+        Dune
+        findlib
+      ] ++ nativeBuildInputs
+      ;
 
     meta = (args.meta or { }) // {
       platforms = args.meta.platforms or ocaml.meta.platforms;

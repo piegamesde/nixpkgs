@@ -38,10 +38,11 @@ buildPythonPackage rec {
       --replace "--cov=jproperties --cov-report=term --cov-report=html --cov-branch" ""
   '';
 
-  disabledTestPaths = [
-    # TypeError: 'PosixPath' object...
-    "tests/test_simple_utf8.py"
-  ];
+  disabledTestPaths =
+    [
+      # TypeError: 'PosixPath' object...
+      "tests/test_simple_utf8.py"
+    ];
 
   pythonImportsCheck = [ "jproperties" ];
 

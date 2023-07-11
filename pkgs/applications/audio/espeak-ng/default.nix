@@ -49,9 +49,11 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = lib.optional mbrolaSupport mbrola
+  buildInputs =
+    lib.optional mbrolaSupport mbrola
     ++ lib.optional pcaudiolibSupport pcaudiolib
-    ++ lib.optional sonicSupport sonic;
+    ++ lib.optional sonicSupport sonic
+    ;
 
   preConfigure = "./autogen.sh";
 

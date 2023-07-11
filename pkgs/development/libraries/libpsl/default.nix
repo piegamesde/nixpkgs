@@ -17,14 +17,15 @@
 }:
 
 let
-  enableValgrindTests = !stdenv.isDarwin
-    && lib.meta.availableOn stdenv.hostPlatform valgrind
+  enableValgrindTests =
+    !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind
     # Apparently valgrind doesn't support some new ARM features on (some) Hydra machines:
     #  VEX: Mismatch detected between RDMA and atomics features.
     && !stdenv.isAarch64
     # Valgrind on musl does not hook malloc calls properly, resulting in errors `Invalid free() / delete / delete[] / realloc()`
     # https://bugs.kde.org/show_bug.cgi?id=435441
-    && !stdenv.hostPlatform.isMusl;
+    && !stdenv.hostPlatform.isMusl
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "libpsl";
@@ -36,16 +37,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qj1wbEUnhtE0XglNriAc022B8Dz4HWNtXPwQ02WQfxc=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    docbook_xsl
-    docbook_xml_dtd_43
-    gtk-doc
-    lzip
-    pkg-config
-    python3
-    libxslt
-  ] ++ lib.optionals enableValgrindTests [ valgrind ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      docbook_xsl
+      docbook_xml_dtd_43
+      gtk-doc
+      lzip
+      pkg-config
+      python3
+      libxslt
+    ] ++ lib.optionals enableValgrindTests [ valgrind ]
+    ;
 
   buildInputs = [
     libidn2
@@ -63,13 +66,15 @@ stdenv.mkDerivation rec {
     gtkdocize
   '';
 
-  configureFlags = [
-    # "--enable-gtk-doc"
-    "--enable-man"
-    "--with-psl-distfile=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
-    "--with-psl-file=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
-    "--with-psl-testfile=${publicsuffix-list}/share/publicsuffix/test_psl.txt"
-  ] ++ lib.optionals enableValgrindTests [ "--enable-valgrind-tests" ];
+  configureFlags =
+    [
+      # "--enable-gtk-doc"
+      "--enable-man"
+      "--with-psl-distfile=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
+      "--with-psl-file=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
+      "--with-psl-testfile=${publicsuffix-list}/share/publicsuffix/test_psl.txt"
+    ] ++ lib.optionals enableValgrindTests [ "--enable-valgrind-tests" ]
+    ;
 
   enableParallelBuilding = true;
 

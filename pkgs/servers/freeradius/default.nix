@@ -47,22 +47,26 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-    openssl
-    talloc
-    bsd-finger
-    perl
-  ] ++ lib.optional withCap libcap ++ lib.optional withCollectd collectd
+  buildInputs =
+    [
+      openssl
+      talloc
+      bsd-finger
+      perl
+    ] ++ lib.optional withCap libcap ++ lib.optional withCollectd collectd
     ++ lib.optional withJson json_c ++ lib.optional withLdap openldap
     ++ lib.optional withMemcached libmemcached
     ++ lib.optional withMysql libmysqlclient ++ lib.optional withPcap libpcap
     ++ lib.optional withRedis hiredis ++ lib.optional withRest curl
-    ++ lib.optional withSqlite sqlite ++ lib.optional withYubikey libyubikey;
+    ++ lib.optional withSqlite sqlite ++ lib.optional withYubikey libyubikey
+    ;
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ] ++ lib.optional (!linkOpenssl) "--with-openssl=no";
+  configureFlags =
+    [
+      "--sysconfdir=/etc"
+      "--localstatedir=/var"
+    ] ++ lib.optional (!linkOpenssl) "--with-openssl=no"
+    ;
 
   postPatch = ''
     substituteInPlace src/main/checkrad.in \

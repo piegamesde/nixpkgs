@@ -99,14 +99,16 @@
       else
         null) null (lib.attrNames archLookupTable);
 
-    archLookupTable = table.${localSystem.libc} or (abort
-      "unsupported libc for the pure Linux stdenv");
-    files = archLookupTable.${localSystem.system} or (if
-      getCompatibleTools != null
-    then
-      getCompatibleTools
-    else
-      (abort "unsupported platform for the pure Linux stdenv"));
+    archLookupTable =
+      table.${localSystem.libc} or (abort
+        "unsupported libc for the pure Linux stdenv");
+    files =
+      archLookupTable.${localSystem.system} or (if
+        getCompatibleTools != null
+      then
+        getCompatibleTools
+      else
+        (abort "unsupported platform for the pure Linux stdenv"));
   in
   files
 }:
@@ -119,13 +121,9 @@ let
   isFromNixpkgs = pkg: !(isFromBootstrapFiles pkg);
   isFromBootstrapFiles = pkg: pkg.passthru.isFromBootstrapFiles or false;
   isBuiltByNixpkgsCompiler =
-    pkg:
-    isFromNixpkgs pkg && isFromNixpkgs pkg.stdenv.cc.cc
-    ;
+    pkg: isFromNixpkgs pkg && isFromNixpkgs pkg.stdenv.cc.cc;
   isBuiltByBootstrapFilesCompiler =
-    pkg:
-    isFromNixpkgs pkg && isFromBootstrapFiles pkg.stdenv.cc.cc
-    ;
+    pkg: isFromNixpkgs pkg && isFromBootstrapFiles pkg.stdenv.cc.cc;
 
   commonGccOverrides = {
     # Use a deterministically built compiler
@@ -227,11 +225,13 @@ let
               lib.optionalAttrs
               (prevStage.gcc-unwrapped.passthru.isXgcc or false) {
                 # This affects only `xgcc` (the compiler which compiles the final compiler).
-                postFixup = (a.postFixup or "") + ''
-                  echo "--sysroot=${
-                    lib.getDev (getLibc prevStage)
-                  }" >> $out/nix-support/cc-cflags
-                '';
+                postFixup =
+                  (a.postFixup or "") + ''
+                    echo "--sysroot=${
+                      lib.getDev (getLibc prevStage)
+                    }" >> $out/nix-support/cc-cflags
+                  ''
+                  ;
               })
           ;
 
@@ -286,14 +286,16 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             strictDeps = true;
             version = "bootstrapFiles";
             enableParallelBuilding = true;
-            buildCommand = ''
-              mkdir -p $out
-              ln -s ${bootstrapTools}/lib $out/lib
-            '' + lib.optionalString (localSystem.libc == "glibc") ''
-              ln -s ${bootstrapTools}/include-glibc $out/include
-            '' + lib.optionalString (localSystem.libc == "musl") ''
-              ln -s ${bootstrapTools}/include-libc $out/include
-            '';
+            buildCommand =
+              ''
+                mkdir -p $out
+                ln -s ${bootstrapTools}/lib $out/lib
+              '' + lib.optionalString (localSystem.libc == "glibc") ''
+                ln -s ${bootstrapTools}/include-glibc $out/include
+              '' + lib.optionalString (localSystem.libc == "musl") ''
+                ln -s ${bootstrapTools}/include-libc $out/include
+              ''
+              ;
             passthru.isFromBootstrapFiles = true;
           };
           gcc-unwrapped = bootstrapTools;
@@ -437,15 +439,18 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               # the value between the two variables differently: `--native-system-header-dir=/include`,
               # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
               #
-            configureFlags = (a.configureFlags or [ ]) ++ [
-              "--with-native-system-header-dir=/include"
-              "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
-            ];
+            configureFlags =
+              (a.configureFlags or [ ]) ++ [
+                "--with-native-system-header-dir=/include"
+                "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
+              ]
+              ;
 
               # This is a separate phase because gcc assembles its phase scripts
               # in bash instead of nix (we should fix that).
-            preFixupPhases = (a.preFixupPhases or [ ])
-              ++ [ "preFixupXgccPhase" ];
+            preFixupPhases =
+              (a.preFixupPhases or [ ]) ++ [ "preFixupXgccPhase" ]
+              ;
 
               # This is needed to prevent "error: cycle detected in build of '...-xgcc-....drv'
               # in the references of output 'lib' from output 'out'"
@@ -496,21 +501,25 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             # and use the result as input for our final glibc.  We also pass this pair
             # through, so the final package-set uses exactly the same builds.
           libunistring = super.libunistring.overrideAttrs (attrs: {
-            postFixup = attrs.postFixup or "" + ''
-              ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
-            '';
+            postFixup =
+              attrs.postFixup or "" + ''
+                ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
+              ''
+              ;
               # Apparently iconv won't work with bootstrap glibc, but it will be used
               # with glibc built later where we keep *this* build of libunistring,
               # so we need to trick it into supporting libiconv.
             env = attrs.env or { } // { am_cv_func_iconv_works = "yes"; };
           });
           libidn2 = super.libidn2.overrideAttrs (attrs: {
-            postFixup = attrs.postFixup or "" + ''
-              ${self.nukeReferences}/bin/nuke-refs -e '${
-                lib.getLib self.libunistring
-              }' \
-                "$out"/lib/lib*.so.*.*
-            '';
+            postFixup =
+              attrs.postFixup or "" + ''
+                ${self.nukeReferences}/bin/nuke-refs -e '${
+                  lib.getLib self.libunistring
+                }' \
+                  "$out"/lib/lib*.so.*.*
+              ''
+              ;
           });
 
             # This also contains the full, dynamically linked, final Glibc.
@@ -617,10 +626,12 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           });
         }
         ;
-      extraNativeBuildInputs = [ prevStage.patchelf ] ++
+      extraNativeBuildInputs =
+        [ prevStage.patchelf ] ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
         lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-        prevStage.updateAutotoolsGnuConfigScriptsHook;
+        prevStage.updateAutotoolsGnuConfigScriptsHook
+        ;
     })
 
   # Construct a fourth stdenv that uses the new GCC.  But coreutils is
@@ -657,7 +668,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           ${localSystem.libc} = getLibc prevStage;
           binutils = super.binutils.override {
             # Don't use stdenv's shell but our own
-            shell = self.bash + "/bin/bash";
+            shell =
+              self.bash + "/bin/bash"
+              ;
               # Build expand-response-params with last stage like below
             buildPackages = { inherit (prevStage) stdenv; };
           };
@@ -680,13 +693,15 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           };
         }
         ;
-      extraNativeBuildInputs = [
-        prevStage.patchelf
-        prevStage.xz
-      ] ++
+      extraNativeBuildInputs =
+        [
+          prevStage.patchelf
+          prevStage.xz
+        ] ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
         lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-        prevStage.updateAutotoolsGnuConfigScriptsHook;
+        prevStage.updateAutotoolsGnuConfigScriptsHook
+        ;
     })
 
   # Construct the final stdenv.  It uses the Glibc and GCC, and adds
@@ -720,10 +735,12 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         initialPath =
           ((import ../generic/common-path.nix) { pkgs = prevStage; });
 
-        extraNativeBuildInputs = [ prevStage.patchelf ] ++
+        extraNativeBuildInputs =
+          [ prevStage.patchelf ] ++
           # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
           lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-          prevStage.updateAutotoolsGnuConfigScriptsHook;
+          prevStage.updateAutotoolsGnuConfigScriptsHook
+          ;
 
         cc = prevStage.gcc;
 

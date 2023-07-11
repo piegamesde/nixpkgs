@@ -105,11 +105,12 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace ./build.ninja --replace /usr/bin/env $(which env)
   '';
 
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-    install -Dm755 -T qemu-system-i386 $out/bin/xemu
-  '' +
+      install -Dm755 -T qemu-system-i386 $out/bin/xemu
+    '' +
     # Generate code to install the icons
     (lib.concatMapStringsSep ''
       ;
@@ -125,7 +126,8 @@ stdenv.mkDerivation (finalAttrs: {
       ]) + ''
 
         runHook postInstall
-      '';
+      ''
+    ;
 
   meta = {
     homepage = "https://xemu.app/";

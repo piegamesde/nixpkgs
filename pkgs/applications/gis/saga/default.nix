@@ -37,7 +37,8 @@ mkDerivation rec {
   version = "9.0.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/saga-gis/SAGA%20-%20${
+    url =
+      "mirror://sourceforge/saga-gis/SAGA%20-%20${
         lib.versions.major version
       }/SAGA%20-%20${version}/saga-${version}.tar.gz";
     sha256 = "sha256-8S8Au+aLwl8X0GbqPPv2Q6EL98KSoT665aILc5vcbpA=";
@@ -50,33 +51,35 @@ mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    curl
-    dxflib
-    fftw
-    libsvm
-    hdf5
-    gdal
-    wxGTK32
-    proj
-    libharu
-    opencv
-    vigra
-    postgresql
-    libiodbc
-    xz
-    qhull
-    giflib
-  ]
-  # See https://groups.google.com/forum/#!topic/nix-devel/h_vSzEJAPXs
-  # for why the have additional buildInputs on darwin
+  buildInputs =
+    [
+      curl
+      dxflib
+      fftw
+      libsvm
+      hdf5
+      gdal
+      wxGTK32
+      proj
+      libharu
+      opencv
+      vigra
+      postgresql
+      libiodbc
+      xz
+      qhull
+      giflib
+    ]
+    # See https://groups.google.com/forum/#!topic/nix-devel/h_vSzEJAPXs
+    # for why the have additional buildInputs on darwin
     ++ lib.optionals stdenv.isDarwin [
       Cocoa
       unixODBC
       poppler
       netcdf
       sqlite
-    ];
+    ]
+    ;
 
   cmakeFlags = [
       "-DOpenMP_SUPPORT=${

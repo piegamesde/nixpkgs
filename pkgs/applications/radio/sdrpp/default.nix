@@ -85,13 +85,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    glfw
-    glew
-    fftwFloat
-    volk
-  ] ++ lib.optional stdenv.isDarwin AppKit ++ lib.optional stdenv.isLinux libX11
-    ++ lib.optional airspy_source airspy
+  buildInputs =
+    [
+      glfw
+      glew
+      fftwFloat
+      volk
+    ] ++ lib.optional stdenv.isDarwin AppKit
+    ++ lib.optional stdenv.isLinux libX11 ++ lib.optional airspy_source airspy
     ++ lib.optional airspyhf_source airspyhf
     ++ lib.optional bladerf_source libbladeRF
     ++ lib.optional hackrf_source hackrf
@@ -103,7 +104,8 @@ stdenv.mkDerivation rec {
       libiio
       libad9361
     ] ++ lib.optional audio_sink rtaudio
-    ++ lib.optional portaudio_sink portaudio ++ lib.optional m17_decoder codec2;
+    ++ lib.optional portaudio_sink portaudio ++ lib.optional m17_decoder codec2
+    ;
 
   cmakeFlags = lib.mapAttrsToList (k: v:
     "-D${k}=${

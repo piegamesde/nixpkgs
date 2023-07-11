@@ -33,18 +33,22 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    email-validator
-    flask
-    flask-wtf
-    mongoengine
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs =
+    [
+      email-validator
+      flask
+      flask-wtf
+      mongoengine
+    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ;
 
   passthru.optional-dependencies = {
-    wtf = [
-      flask-wtf
-      wtforms
-    ] ++ wtforms.optional-dependencies.email;
+    wtf =
+      [
+        flask-wtf
+        wtforms
+      ] ++ wtforms.optional-dependencies.email
+      ;
       # toolbar = [
       #   flask-debugtoolbar
       # ];

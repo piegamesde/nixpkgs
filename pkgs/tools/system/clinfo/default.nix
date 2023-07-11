@@ -18,10 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1jZP4SnLIHh3vQJLBp+j/eQ1c8XBGFR2hjYxflhpWAU=";
   };
 
-  buildInputs = lib.optionals (!stdenv.isDarwin) [
-    ocl-icd
-    opencl-headers
-  ] ++ lib.optionals stdenv.isDarwin [ OpenCL ];
+  buildInputs =
+    lib.optionals (!stdenv.isDarwin) [
+      ocl-icd
+      opencl-headers
+    ] ++ lib.optionals stdenv.isDarwin [ OpenCL ]
+    ;
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

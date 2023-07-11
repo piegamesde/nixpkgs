@@ -226,7 +226,9 @@ let
         doInstallCheck && stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
       separateDebugInfo' = separateDebugInfo && stdenv.hostPlatform.isLinux;
-      outputs' = outputs ++ lib.optional separateDebugInfo' "debug";
+      outputs' =
+        outputs ++ lib.optional separateDebugInfo' "debug"
+        ;
 
         # Turn a derivation into its outPath without a string context attached.
         # See the comment at the usage site.
@@ -238,10 +240,12 @@ let
           drv
         ;
 
-      noNonNativeDeps = builtins.length (depsBuildTarget
-        ++ depsBuildTargetPropagated ++ depsHostHost ++ depsHostHostPropagated
-        ++ buildInputs ++ propagatedBuildInputs ++ depsTargetTarget
-        ++ depsTargetTargetPropagated) == 0;
+      noNonNativeDeps =
+        builtins.length (depsBuildTarget ++ depsBuildTargetPropagated
+          ++ depsHostHost ++ depsHostHostPropagated ++ buildInputs
+          ++ propagatedBuildInputs ++ depsTargetTarget
+          ++ depsTargetTargetPropagated) == 0
+        ;
       dontAddHostSuffix =
         attrs ? outputHash && !noNonNativeDeps || !stdenv.hasCC;
 
@@ -328,20 +332,25 @@ let
       let
         doCheck = doCheck';
         doInstallCheck = doInstallCheck';
-        buildInputs' = buildInputs ++ lib.optionals doCheck checkInputs
-          ++ lib.optionals doInstallCheck installCheckInputs;
-        nativeBuildInputs' = nativeBuildInputs
-          ++ lib.optional separateDebugInfo'
+        buildInputs' =
+          buildInputs ++ lib.optionals doCheck checkInputs
+          ++ lib.optionals doInstallCheck installCheckInputs
+          ;
+        nativeBuildInputs' =
+          nativeBuildInputs ++ lib.optional separateDebugInfo'
           ../../build-support/setup-hooks/separate-debug-info.sh
           ++ lib.optional stdenv.hostPlatform.isWindows
           ../../build-support/setup-hooks/win-dll-link.sh
           ++ lib.optionals doCheck nativeCheckInputs
-          ++ lib.optionals doInstallCheck nativeInstallCheckInputs;
+          ++ lib.optionals doInstallCheck nativeInstallCheckInputs
+          ;
 
         outputs = outputs';
 
-        references = nativeBuildInputs ++ buildInputs
-          ++ propagatedNativeBuildInputs ++ propagatedBuildInputs;
+        references =
+          nativeBuildInputs ++ buildInputs ++ propagatedNativeBuildInputs
+          ++ propagatedBuildInputs
+          ;
 
         dependencies = map (map lib.chooseDevOutputs) [
           [
@@ -457,10 +466,11 @@ let
                 ;
             }) // lib.optionalAttrs __structuredAttrs { env = checkedEnv; } // {
               builder = attrs.realBuilder or stdenv.shell;
-              args = attrs.args or [
-                "-e"
-                (attrs.builder or ./default-builder.sh)
-              ];
+              args =
+                attrs.args or [
+                  "-e"
+                  (attrs.builder or ./default-builder.sh)
+                ];
               inherit
                 stdenv
                 ;
@@ -538,7 +548,8 @@ let
                       cmakeFlags
                     ;
 
-                  crossFlags = [
+                  crossFlags =
+                    [
                       "-DCMAKE_SYSTEM_NAME=${
                         lib.findFirst lib.isString "Generic"
                         (lib.optional (!stdenv.hostPlatform.isRedox)
@@ -561,7 +572,8 @@ let
                     ] ++ lib.optionals
                     (stdenv.buildPlatform.uname.release != null) [
                       "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
-                    ];
+                    ]
+                    ;
                 in
                 explicitFlags
                 ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
@@ -648,8 +660,10 @@ let
                 NIX_HARDENING_ENABLE = enabledHardeningOptions;
               } // lib.optionalAttrs
           (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch) {
-            requiredSystemFeatures = attrs.requiredSystemFeatures or [ ]
-              ++ [ "gccarch-${stdenv.hostPlatform.gcc.arch}" ];
+            requiredSystemFeatures =
+              attrs.requiredSystemFeatures or [ ]
+              ++ [ "gccarch-${stdenv.hostPlatform.gcc.arch}" ]
+              ;
           } // lib.optionalAttrs (stdenv.buildPlatform.isDarwin) {
             inherit
               __darwinAllowLocalNetworking
@@ -657,12 +671,13 @@ let
               # TODO: remove lib.unique once nix has a list canonicalization primitive
             __sandboxProfile =
               let
-                profiles = [ stdenv.extraSandboxProfile ]
-                  ++ computedSandboxProfile ++ computedPropagatedSandboxProfile
-                  ++ [
+                profiles =
+                  [ stdenv.extraSandboxProfile ] ++ computedSandboxProfile
+                  ++ computedPropagatedSandboxProfile ++ [
                     propagatedSandboxProfile
                     sandboxProfile
-                  ];
+                  ]
+                  ;
                 final = lib.concatStringsSep "\n"
                   (lib.filter (x: x != "") (lib.unique profiles));
               in
@@ -671,14 +686,16 @@ let
             __propagatedSandboxProfile = lib.unique
               (computedPropagatedSandboxProfile ++ [ propagatedSandboxProfile ])
               ;
-            __impureHostDeps = computedImpureHostDeps
-              ++ computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps
-              ++ __impureHostDeps ++ stdenv.__extraImpureHostDeps ++ [
+            __impureHostDeps =
+              computedImpureHostDeps ++ computedPropagatedImpureHostDeps
+              ++ __propagatedImpureHostDeps ++ __impureHostDeps
+              ++ stdenv.__extraImpureHostDeps ++ [
                 "/dev/zero"
                 "/dev/random"
                 "/dev/urandom"
                 "/bin/sh"
-              ];
+              ]
+              ;
             __propagatedImpureHostDeps =
               computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps;
           } //

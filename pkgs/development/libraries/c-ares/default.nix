@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optionals withCMake [ cmake ];
 
-  cmakeFlags = [ ] ++ lib.optionals stdenv.hostPlatform.isStatic [
-    "-DCARES_SHARED=OFF"
-    "-DCARES_STATIC=ON"
-  ];
+  cmakeFlags =
+    [ ] ++ lib.optionals stdenv.hostPlatform.isStatic [
+      "-DCARES_SHARED=OFF"
+      "-DCARES_STATIC=ON"
+    ]
+    ;
 
   enableParallelBuilding = true;
 
@@ -45,7 +47,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A C library for asynchronous DNS requests";
     homepage = "https://c-ares.haxx.se";
-    changelog = "https://c-ares.org/changelog.html#${
+    changelog =
+      "https://c-ares.org/changelog.html#${
         lib.replaceStrings [ "." ] [ "_" ] version
       }";
     license = licenses.mit;

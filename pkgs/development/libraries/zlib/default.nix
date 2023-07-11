@@ -52,10 +52,12 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   strictDeps = true;
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional splitStaticOutput "static";
+  outputs =
+    [
+      "out"
+      "dev"
+    ] ++ lib.optional splitStaticOutput "static"
+    ;
   setOutputFlags = false;
   outputDoc = "dev"; # single tiny man3 page
 
@@ -78,8 +80,9 @@ stdenv.mkDerivation (finalAttrs: {
     # `--static --shared`, `--shared` and giving nothing.
     # Of these, we choose `--static --shared`, for clarity and simpler
     # conditions.
-  configureFlags = lib.optional static "--static"
-    ++ lib.optional shared "--shared";
+  configureFlags =
+    lib.optional static "--static" ++ lib.optional shared "--shared"
+    ;
     # We do the right thing manually, above, so don't need these.
   dontDisableStatic = true;
   dontAddStaticConfigureFlags = true;
@@ -92,9 +95,10 @@ stdenv.mkDerivation (finalAttrs: {
     # here (in case zlib ever switches to autoconf in the future),
     # but we don't do it simply to avoid mass rebuilds.
 
-  postInstall = lib.optionalString splitStaticOutput ''
-    moveToOutput lib/libz.a "$static"
-  ''
+  postInstall =
+    lib.optionalString splitStaticOutput ''
+      moveToOutput lib/libz.a "$static"
+    ''
     # jww (2015-01-06): Sometimes this library install as a .so, even on
     # Darwin; others time it installs as a .dylib.  I haven't yet figured out
     # what causes this difference.
@@ -107,7 +111,8 @@ stdenv.mkDerivation (finalAttrs: {
     # in some cases, e.g. when compiling libpng.
     + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt" && shared) ''
       ln -s zlib1.dll $out/bin/libz.dll
-    '';
+    ''
+    ;
 
     # As zlib takes part in the stdenv building, we don't want references
     # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
@@ -128,7 +133,8 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
   doCheck = true;
 
-  makeFlags = [ "PREFIX=${stdenv.cc.targetPrefix}" ]
+  makeFlags =
+    [ "PREFIX=${stdenv.cc.targetPrefix}" ]
     ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [
       "-f"
       "win32/Makefile.gcc"
@@ -136,7 +142,8 @@ stdenv.mkDerivation (finalAttrs: {
       # Note that as of writing (zlib 1.2.11), this flag only has an effect
       # for Windows as it is specific to `win32/Makefile.gcc`.
       "SHARED_MODE=1"
-    ];
+    ]
+    ;
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

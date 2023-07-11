@@ -14,14 +14,15 @@
 }:
 
 let
-  param = {
-    "1.9.1" = {
-      sha256 = "sha256-0bSY4u44Ds84XPIbcT5Vt4AG/4PkzFKMl9CDGFZyIdI=";
-    };
-    "1.10.0" = {
-      sha256 = "sha256-MA8sf0F7Ch1wJDL8E8470ukKx7KieWyjWJnJQsqBVW8=";
-    };
-  }."${version}";
+  param =
+    {
+      "1.9.1" = {
+        sha256 = "sha256-0bSY4u44Ds84XPIbcT5Vt4AG/4PkzFKMl9CDGFZyIdI=";
+      };
+      "1.10.0" = {
+        sha256 = "sha256-MA8sf0F7Ch1wJDL8E8470ukKx7KieWyjWJnJQsqBVW8=";
+      };
+    }."${version}";
 
 in
 lib.throwIfNot (lib.versionAtLeast ppxlib.version "0.24.0")

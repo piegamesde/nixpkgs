@@ -38,19 +38,21 @@ buildPythonApplication rec {
       setup.cfg requirements.txt
   '';
 
-  propagatedBuildInputs = [
-    cacert
-    setuptools
-    matrix-nio
-    python-magic
-    markdown
-    pillow
-    aiofiles
-    notify2
-    dbus-python
-    pyxdg
-    python-olm
-  ] ++ matrix-nio.optional-dependencies.e2e;
+  propagatedBuildInputs =
+    [
+      cacert
+      setuptools
+      matrix-nio
+      python-magic
+      markdown
+      pillow
+      aiofiles
+      notify2
+      dbus-python
+      pyxdg
+      python-olm
+    ] ++ matrix-nio.optional-dependencies.e2e
+    ;
 
   meta = with lib; {
     description =

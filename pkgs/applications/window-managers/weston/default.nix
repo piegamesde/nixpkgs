@@ -59,51 +59,55 @@ stdenv.mkDerivation rec {
     python3
     wayland-scanner
   ];
-  buildInputs = [
-    cairo
-    colord
-    dbus
-    freerdp
-    lcms2
-    libGL
-    libXcursor
-    libdrm
-    libevdev
-    libinput
-    libjpeg
-    seatd
-    libunwind
-    libva
-    libwebp
-    libxcb
-    libxkbcommon
-    mesa
-    mtdev
-    pam
-    pango
-    pipewire
-    udev
-    vaapi
-    wayland
-    wayland-protocols
-  ] ++ lib.optionals buildRemoting [
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-  ];
+  buildInputs =
+    [
+      cairo
+      colord
+      dbus
+      freerdp
+      lcms2
+      libGL
+      libXcursor
+      libdrm
+      libevdev
+      libinput
+      libjpeg
+      seatd
+      libunwind
+      libva
+      libwebp
+      libxcb
+      libxkbcommon
+      mesa
+      mtdev
+      pam
+      pango
+      pipewire
+      udev
+      vaapi
+      wayland
+      wayland-protocols
+    ] ++ lib.optionals buildRemoting [
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+    ]
+    ;
 
-  mesonFlags = [
-    "-Dbackend-drm-screencast-vaapi=${lib.boolToString (vaapi != null)}"
-    "-Dbackend-rdp=${lib.boolToString (freerdp != null)}"
-    "-Dxwayland=${lib.boolToString (xwayland != null)}" # Default is true!
-    (lib.mesonBool "remoting" buildRemoting)
-    "-Dpipewire=${lib.boolToString (pipewire != null)}"
-    "-Dimage-webp=${lib.boolToString (libwebp != null)}"
-    (lib.mesonBool "demo-clients" buildDemo)
-    "-Dsimple-clients="
-    "-Dtest-junit-xml=false"
-  ] ++ lib.optionals (xwayland != null) [
+  mesonFlags =
+    [
+      "-Dbackend-drm-screencast-vaapi=${lib.boolToString (vaapi != null)}"
+      "-Dbackend-rdp=${lib.boolToString (freerdp != null)}"
+      "-Dxwayland=${lib.boolToString (xwayland != null)}" # Default is true!
+      (lib.mesonBool "remoting" buildRemoting)
+      "-Dpipewire=${lib.boolToString (pipewire != null)}"
+      "-Dimage-webp=${lib.boolToString (libwebp != null)}"
+      (lib.mesonBool "demo-clients" buildDemo)
+      "-Dsimple-clients="
+      "-Dtest-junit-xml=false"
+    ] ++ lib.optionals (xwayland != null) [
       "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
-    ];
+    ]
+    ;
 
   passthru.providedSessions = [ "weston" ];
 

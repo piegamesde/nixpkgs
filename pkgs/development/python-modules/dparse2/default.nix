@@ -31,10 +31,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # Requries pipenv
-    "tests/test_parse.py"
-  ];
+  disabledTestPaths =
+    [
+      # Requries pipenv
+      "tests/test_parse.py"
+    ];
 
   pythonImportsCheck = [ "dparse2" ];
 

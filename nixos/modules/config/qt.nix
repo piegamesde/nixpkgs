@@ -11,14 +11,18 @@ let
 
   cfg = config.qt;
 
-  isQGnome = cfg.platformTheme == "gnome" && builtins.elem cfg.style [
-    "adwaita"
-    "adwaita-dark"
-  ];
-  isQtStyle = cfg.platformTheme == "gtk2" && !(builtins.elem cfg.style [
-    "adwaita"
-    "adwaita-dark"
-  ]);
+  isQGnome =
+    cfg.platformTheme == "gnome" && builtins.elem cfg.style [
+      "adwaita"
+      "adwaita-dark"
+    ]
+    ;
+  isQtStyle =
+    cfg.platformTheme == "gtk2" && !(builtins.elem cfg.style [
+      "adwaita"
+      "adwaita-dark"
+    ])
+    ;
   isQt5ct = cfg.platformTheme == "qt5ct";
   isLxqt = cfg.platformTheme == "lxqt";
   isKde = cfg.platformTheme == "kde";

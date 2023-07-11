@@ -22,8 +22,10 @@
 assert withGUI -> qtbase != null && wrapQtAppsHook != null;
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "alice-tools"
-    + lib.optionalString withGUI "-qt${lib.versions.major qtbase.version}";
+  pname =
+    "alice-tools"
+    + lib.optionalString withGUI "-qt${lib.versions.major qtbase.version}"
+    ;
   version = "0.13.0";
 
   src = fetchFromGitHub {
@@ -50,43 +52,51 @@ stdenv.mkDerivation (finalAttrs: {
       "-Dcpp_std=c++17"
     ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    bison
-    flex
-  ] ++ lib.optionals withGUI [ wrapQtAppsHook ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      bison
+      flex
+    ] ++ lib.optionals withGUI [ wrapQtAppsHook ]
+    ;
 
-  buildInputs = [
-    libiconv
-    libpng
-    libjpeg
-    libwebp
-    zlib
-  ] ++ lib.optionals withGUI [ qtbase ];
+  buildInputs =
+    [
+      libiconv
+      libpng
+      libjpeg
+      libwebp
+      zlib
+    ] ++ lib.optionals withGUI [ qtbase ]
+    ;
 
   dontWrapQtApps = true;
 
     # Default install step only installs a static library of a build dependency
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-    install -Dm755 src/alice $out/bin/alice
-  '' + lib.optionalString withGUI ''
-    install -Dm755 src/galice $out/bin/galice
-    wrapQtApp $out/bin/galice
-  '' + ''
+      install -Dm755 src/alice $out/bin/alice
+    '' + lib.optionalString withGUI ''
+      install -Dm755 src/galice $out/bin/galice
+      wrapQtApp $out/bin/galice
+    '' + ''
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    ''
+    ;
 
   passthru = {
     updateScript = gitUpdater { };
     tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;
-      command = lib.optionalString withGUI "env QT_QPA_PLATFORM=minimal "
-        + "${lib.getExe finalAttrs.finalPackage} --version";
+      command =
+        lib.optionalString withGUI "env QT_QPA_PLATFORM=minimal "
+        + "${lib.getExe finalAttrs.finalPackage} --version"
+        ;
     };
   };
 

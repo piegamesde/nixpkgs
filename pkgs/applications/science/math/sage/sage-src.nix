@@ -107,11 +107,12 @@ stdenv.mkDerivation rec {
     # Since sage unfortunately does not release bugfix releases, packagers must
     # fix those bugs themselves. This is for critical bugfixes, where "critical"
     # == "causes (transient) doctest failures / somebody complained".
-  bugfixPatches = [
-    # To help debug the transient error in
-    # https://trac.sagemath.org/ticket/23087 when it next occurs.
-    ./patches/configurationpy-error-verbose.patch
-  ];
+  bugfixPatches =
+    [
+      # To help debug the transient error in
+      # https://trac.sagemath.org/ticket/23087 when it next occurs.
+      ./patches/configurationpy-error-verbose.patch
+    ];
 
     # Patches needed because of package updates. We could just pin the versions of
     # dependencies, but that would lead to rebuilds, confusion and the burdons of
@@ -192,7 +193,9 @@ stdenv.mkDerivation rec {
     ./patches/disable-slow-glpk-test.patch
   ];
 
-  patches = nixPatches ++ bugfixPatches ++ packageUpgradePatches;
+  patches =
+    nixPatches ++ bugfixPatches ++ packageUpgradePatches
+    ;
 
     # do not create .orig backup files if patch applies with fuzz
   patchFlags = [

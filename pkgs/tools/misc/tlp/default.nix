@@ -70,13 +70,15 @@ stdenv.mkDerivation rec {
     "TLP_TLIB=/share/tlp"
   ];
 
-  installTargets = [
-    "install-tlp"
-    "install-man"
-  ] ++ lib.optionals enableRDW [
-    "install-rdw"
-    "install-man-rdw"
-  ];
+  installTargets =
+    [
+      "install-tlp"
+      "install-man"
+    ] ++ lib.optionals enableRDW [
+      "install-rdw"
+      "install-man-rdw"
+    ]
+    ;
 
   doCheck = true;
   nativeCheckInputs = [

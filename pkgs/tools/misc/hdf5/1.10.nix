@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   version = "1.10.9";
   pname = "hdf5";
   src = fetchurl {
-    url = "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${
+    url =
+      "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${
         lib.versions.majorMinor version
       }/${pname}-${version}/src/${pname}-${version}.tar.bz2";
     sha256 = "sha256-AMS+cJbzb9yvpPl04SbGwUEkKOOOvHsYHZB0WeeB8ZE=";
@@ -35,8 +36,10 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = optional zlibSupport zlib;
 
-  configureFlags = optional enableShared "--enable-shared"
-    ++ optional javaSupport "--enable-java";
+  configureFlags =
+    optional enableShared "--enable-shared"
+    ++ optional javaSupport "--enable-java"
+    ;
 
   patches = [ ];
 

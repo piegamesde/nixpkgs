@@ -164,9 +164,7 @@ let
           (p: p == "any")
         ;
       withPlatforms =
-        x:
-        lib.lists.any withPlatform (splitString "." x.platform)
-        ;
+        x: lib.lists.any withPlatform (splitString "." x.platform);
       filterWheel =
         x:
         let

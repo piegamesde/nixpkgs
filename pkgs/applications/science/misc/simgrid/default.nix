@@ -55,11 +55,12 @@ stdenv.mkDerivation rec {
   };
 
   propagatedBuildInputs = [ boost ];
-  nativeBuildInputs = [
-    cmake
-    perl
-    python3
-  ] ++ optionals fortranSupport [ gfortran ]
+  nativeBuildInputs =
+    [
+      cmake
+      perl
+      python3
+    ] ++ optionals fortranSupport [ gfortran ]
     ++ optionals buildJavaBindings [ openjdk ]
     ++ optionals buildPythonBindings [ python3Packages.pybind11 ]
     ++ optionals buildDocumentation [
@@ -70,9 +71,12 @@ stdenv.mkDerivation rec {
       libunwind
       libevent
       elfutils
-    ];
+    ]
+    ;
 
-  outputs = [ "out" ] ++ optionals buildPythonBindings [ "python" ];
+  outputs =
+    [ "out" ] ++ optionals buildPythonBindings [ "python" ]
+    ;
 
     # "Release" does not work. non-debug mode is Debug compiled with optimization
   cmakeBuildType = "Debug";
@@ -124,19 +128,21 @@ stdenv.mkDerivation rec {
     make tests -j $NIX_BUILD_CORES
   '';
 
-  postInstall = lib.optionalString withoutBin ''
-    # remove bin from output if requested.
-    # having a specific bin output would be cleaner but it does not work currently (circular references)
-    rm -rf $out/bin
-  '' + lib.optionalString buildPythonBindings ''
-    # manually install the python binding if requested.
-    mkdir -p $python/lib/python${
-      lib.versions.majorMinor python3.version
-    }/site-packages/
-    cp ./lib/simgrid.cpython*.so $python/lib/python${
-      lib.versions.majorMinor python3.version
-    }/site-packages/
-  '';
+  postInstall =
+    lib.optionalString withoutBin ''
+      # remove bin from output if requested.
+      # having a specific bin output would be cleaner but it does not work currently (circular references)
+      rm -rf $out/bin
+    '' + lib.optionalString buildPythonBindings ''
+      # manually install the python binding if requested.
+      mkdir -p $python/lib/python${
+        lib.versions.majorMinor python3.version
+      }/site-packages/
+      cp ./lib/simgrid.cpython*.so $python/lib/python${
+        lib.versions.majorMinor python3.version
+      }/site-packages/
+    ''
+    ;
 
     # improve debuggability if requested
   hardeningDisable = lib.optionals debug [ "fortify" ];

@@ -143,14 +143,18 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.role == "agent"
-          -> (cfg.configPath != null || cfg.serverAddr != "");
+        assertion =
+          cfg.role == "agent"
+          -> (cfg.configPath != null || cfg.serverAddr != "")
+          ;
         message =
           "serverAddr or configPath (with 'server' key) should be set if role is 'agent'";
       }
       {
-        assertion = cfg.role == "agent" -> cfg.configPath != null
-          || cfg.tokenFile != null || cfg.token != "";
+        assertion =
+          cfg.role == "agent" -> cfg.configPath != null || cfg.tokenFile != null
+          || cfg.token != ""
+          ;
         message =
           "token or tokenFile or configPath (with 'token' or 'token-file' keys) should be set if role is 'agent'";
       }

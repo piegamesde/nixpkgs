@@ -42,11 +42,12 @@ stdenv.mkDerivation rec {
     [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
   buildInputs = lib.optional stdenv.hostPlatform.isUnix bash;
 
-  patches = [
-    # This patches makes sure we do not attempt to use the MD5 implementation
-    # of the host platform when running the tests
-    ./playtests-darwin.patch
-  ];
+  patches =
+    [
+      # This patches makes sure we do not attempt to use the MD5 implementation
+      # of the host platform when running the tests
+      ./playtests-darwin.patch
+    ];
 
   postPatch = lib.optionalString (!static) ''
     substituteInPlace build/cmake/CMakeLists.txt \
@@ -93,24 +94,28 @@ stdenv.mkDerivation rec {
     runHook postCheck
   '';
 
-  preInstall = ''
-    mkdir -p $bin/bin
-    substituteInPlace ../programs/zstdgrep \
-      --replace ":-grep" ":-${gnugrep}/bin/grep" \
-      --replace ":-zstdcat" ":-$bin/bin/zstdcat"
+  preInstall =
+    ''
+      mkdir -p $bin/bin
+      substituteInPlace ../programs/zstdgrep \
+        --replace ":-grep" ":-${gnugrep}/bin/grep" \
+        --replace ":-zstdcat" ":-$bin/bin/zstdcat"
 
-    substituteInPlace ../programs/zstdless \
-      --replace "zstdcat" "$bin/bin/zstdcat"
-  '' + lib.optionalString buildContrib (''
-    cp contrib/pzstd/pzstd $bin/bin/pzstd
-  '' + lib.optionalString stdenv.isDarwin ''
-    install_name_tool -change @rpath/libzstd.1.dylib $out/lib/libzstd.1.dylib $bin/bin/pzstd
-  '');
+      substituteInPlace ../programs/zstdless \
+        --replace "zstdcat" "$bin/bin/zstdcat"
+    '' + lib.optionalString buildContrib (''
+      cp contrib/pzstd/pzstd $bin/bin/pzstd
+    '' + lib.optionalString stdenv.isDarwin ''
+      install_name_tool -change @rpath/libzstd.1.dylib $out/lib/libzstd.1.dylib $bin/bin/pzstd
+    '')
+    ;
 
-  outputs = [
-    "bin"
-    "dev"
-  ] ++ lib.optional stdenv.hostPlatform.isUnix "man" ++ [ "out" ];
+  outputs =
+    [
+      "bin"
+      "dev"
+    ] ++ lib.optional stdenv.hostPlatform.isUnix "man" ++ [ "out" ]
+    ;
 
   passthru = {
     updateScript = nix-update-script { };

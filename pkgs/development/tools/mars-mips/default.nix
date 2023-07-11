@@ -15,7 +15,8 @@ stdenvNoCC.mkDerivation rec {
   version = "4.5";
 
   src = fetchurl {
-    url = "https://courses.missouristate.edu/KenVollmar/MARS/MARS_${
+    url =
+      "https://courses.missouristate.edu/KenVollmar/MARS/MARS_${
         lib.replaceStrings [ "." ] [ "_" ] version
       }_Aug2014/Mars${lib.replaceStrings [ "." ] [ "_" ] version}.jar";
     sha256 = "15kh1fahkkbbf4wvb6ijzny4fi5dh4pycxyzp5325dm2ddkhnd5c";

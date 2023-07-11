@@ -42,18 +42,20 @@ stdenv.mkDerivation rec {
     cmake
     gfortran
   ];
-  buildInputs = [
-    blas
-    python3
-    boost
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    ocl-icd
-    opencl-headers
-  ] ++ lib.optionals stdenv.isDarwin [
-    Accelerate
-    CoreGraphics
-    CoreVideo
-  ];
+  buildInputs =
+    [
+      blas
+      python3
+      boost
+    ] ++ lib.optionals (!stdenv.isDarwin) [
+      ocl-icd
+      opencl-headers
+    ] ++ lib.optionals stdenv.isDarwin [
+      Accelerate
+      CoreGraphics
+      CoreVideo
+    ]
+    ;
   propagatedBuildInputs = lib.optionals stdenv.isDarwin [ OpenCL ];
 
   strictDeps = true;

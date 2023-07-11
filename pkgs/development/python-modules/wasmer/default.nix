@@ -41,10 +41,12 @@ let
         sha256 = cargoHash;
       };
 
-      nativeBuildInputs = (with rustPlatform; [
-        cargoSetupHook
-        maturinBuildHook
-      ]) ++ extraNativeBuildInputs;
+      nativeBuildInputs =
+        (with rustPlatform; [
+          cargoSetupHook
+          maturinBuildHook
+        ]) ++ extraNativeBuildInputs
+        ;
 
       postPatch = ''
         # Workaround for metadata, that maturin 0.14 does not accept in Cargo.toml anymore

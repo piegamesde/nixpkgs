@@ -41,9 +41,7 @@
 
 let
   getFirst =
-    n: v:
-    builtins.concatStringsSep "." (lib.take n (lib.splitString "." v))
-    ;
+    n: v: builtins.concatStringsSep "." (lib.take n (lib.splitString "." v));
 
 in
 stdenv.mkDerivation rec {
@@ -51,7 +49,8 @@ stdenv.mkDerivation rec {
   version = "2.32.1.3";
 
   src = fetchurl {
-    url = "https://swdl.bluejeans.com/desktop-app/linux/${
+    url =
+      "https://swdl.bluejeans.com/desktop-app/linux/${
         getFirst 3 version
       }/BlueJeans_${version}.rpm";
     sha256 = "sha256-lsUS7JymCMOa5wlWJOwLFm4KRnAYixi9Kk5CYHB17Ac=";

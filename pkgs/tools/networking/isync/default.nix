@@ -32,12 +32,14 @@ stdenv.mkDerivation rec {
     pkg-config
     perl
   ];
-  buildInputs = [
-    openssl
-    db
-    cyrus_sasl
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs =
+    [
+      openssl
+      db
+      cyrus_sasl
+      zlib
+    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ;
 
   meta = with lib; {
     homepage = "http://isync.sourceforge.net/";

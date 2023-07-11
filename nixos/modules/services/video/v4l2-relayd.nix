@@ -28,12 +28,13 @@ let
 
   kernelPackages = config.boot.kernelPackages;
 
-  gst = (with pkgs.gst_all_1; [
-    gst-plugins-bad
-    gst-plugins-base
-    gst-plugins-good
-    gstreamer.out
-  ]);
+  gst =
+    (with pkgs.gst_all_1; [
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gstreamer.out
+    ]);
 
   instanceOpts =
     {
@@ -181,13 +182,17 @@ in
                 "framerate=${toString instance.input.framerate}/1"
               ];
 
-              outputPipeline = [
-                "appsrc name=appsrc ${appsrcOptions}"
-                "videoconvert"
-              ] ++ optionals (instance.input.format != instance.output.format) [
-                "video/x-raw,format=${instance.output.format}"
-                "queue"
-              ] ++ [ "v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)" ];
+              outputPipeline =
+                [
+                  "appsrc name=appsrc ${appsrcOptions}"
+                  "videoconvert"
+                ]
+                ++ optionals (instance.input.format != instance.output.format) [
+                  "video/x-raw,format=${instance.output.format}"
+                  "queue"
+                ]
+                ++ [ "v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)" ]
+                ;
             in
             ''
               exec ${pkgs.v4l2-relayd}/bin/v4l2-relayd -i "${instance.input.pipeline}" -o "${

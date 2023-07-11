@@ -41,11 +41,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-O7s92N54+zIl07eIdK/puoSve/qJ3O01fTh0TP+VdZA=";
   };
 
-  cmakeFlags = [ "-DBUILD_CSOUND_AC=0" ] # fails to find Score.hpp
+  cmakeFlags =
+    [ "-DBUILD_CSOUND_AC=0" ] # fails to find Score.hpp
     ++ lib.optional stdenv.isDarwin
     "-DCS_FRAMEWORK_DEST=${placeholder "out"}/lib"
     ++ lib.optional (libjack2 != null)
-    "-DJACK_HEADER=${libjack2}/include/jack/jack.h";
+    "-DJACK_HEADER=${libjack2}/include/jack/jack.h"
+    ;
 
   nativeBuildInputs = [
     cmake
@@ -53,17 +55,18 @@ stdenv.mkDerivation rec {
     bison
     gettext
   ];
-  buildInputs = [
-    libsndfile
-    libsamplerate
-    boost
-  ] ++ lib.optionals stdenv.isDarwin [
-    Accelerate
-    AudioUnit
-    CoreAudio
-    CoreMIDI
-    portaudio
-  ] ++ lib.optionals stdenv.isLinux
+  buildInputs =
+    [
+      libsndfile
+      libsamplerate
+      boost
+    ] ++ lib.optionals stdenv.isDarwin [
+      Accelerate
+      AudioUnit
+      CoreAudio
+      CoreMIDI
+      portaudio
+    ] ++ lib.optionals stdenv.isLinux
     (builtins.filter (optional: optional != null) [
       alsa-lib
       libpulseaudio
@@ -75,7 +78,8 @@ stdenv.mkDerivation rec {
       curl
       tcltk
       fltk
-    ]);
+    ])
+    ;
 
   postInstall = lib.optional stdenv.isDarwin ''
     mkdir -p $out/Library/Frameworks

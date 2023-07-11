@@ -493,12 +493,14 @@ let
     in
     stdenv.mkDerivation ({
       name = "${name}-${version}";
-      buildInputs = [
-        tarWrapper
-        python
-        nodejs
-      ] ++ lib.optional (stdenv.isLinux) utillinux
-        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
+      buildInputs =
+        [
+          tarWrapper
+          python
+          nodejs
+        ] ++ lib.optional (stdenv.isLinux) utillinux
+        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs
+        ;
 
       inherit nodejs;
 
@@ -590,12 +592,14 @@ let
     stdenv.mkDerivation ({
       name = "node-dependencies-${name}-${version}";
 
-      buildInputs = [
-        tarWrapper
-        python
-        nodejs
-      ] ++ lib.optional (stdenv.isLinux) utillinux
-        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
+      buildInputs =
+        [
+          tarWrapper
+          python
+          nodejs
+        ] ++ lib.optional (stdenv.isLinux) utillinux
+        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs
+        ;
 
       inherit
         dontStrip
@@ -674,10 +678,12 @@ let
     stdenv.mkDerivation {
       name = "node-shell-${name}-${version}";
 
-      buildInputs = [
-        python
-        nodejs
-      ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
+      buildInputs =
+        [
+          python
+          nodejs
+        ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs
+        ;
       buildCommand = ''
         mkdir -p $out/bin
         cat > $out/bin/shell <<EOF

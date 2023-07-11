@@ -35,15 +35,17 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs = rpathLibs ++ [
-    alsa-lib
-    freetype
-    libGL
-    libX11
-    libXcursor
-    libXext
-    libXrender
-  ];
+  buildInputs =
+    rpathLibs ++ [
+      alsa-lib
+      freetype
+      libGL
+      libX11
+      libXcursor
+      libXext
+      libXrender
+    ]
+    ;
 
   postFixup = ''
     for file in \

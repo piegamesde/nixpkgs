@@ -58,22 +58,24 @@ buildPythonPackage rec {
     hash = "sha256-fvprH3gaYRmhCslLR5Te2Q24rMvngCKBzSb4Zk/+1Zw=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./django_4_set_zoneinfo_dir.patch;
-      zoneinfo = tzdata + "/share/zoneinfo";
-    })
-    # make sure the tests don't remove packages from our pythonpath
-    # and disable failing tests
-    ./django_4_tests.patch
-  ] ++ lib.optionals withGdal [
+  patches =
+    [
+      (substituteAll {
+        src = ./django_4_set_zoneinfo_dir.patch;
+        zoneinfo = tzdata + "/share/zoneinfo";
+      })
+      # make sure the tests don't remove packages from our pythonpath
+      # and disable failing tests
+      ./django_4_tests.patch
+    ] ++ lib.optionals withGdal [
       (substituteAll {
         src = ./django_4_set_geos_gdal_lib.patch;
         geos = geos;
         gdal = gdal;
         extension = stdenv.hostPlatform.extensions.sharedLibrary;
       })
-    ];
+    ]
+    ;
 
   postPatch = ''
     substituteInPlace tests/utils_tests/test_autoreload.py \
@@ -92,24 +94,26 @@ buildPythonPackage rec {
     bcrypt = [ bcrypt ];
   };
 
-  nativeCheckInputs = [
-    # tests/requirements/py3.txt
-    aiosmtpd
-    docutils
-    geoip2
-    jinja2
-    numpy
-    pillow
-    pylibmc
-    pymemcache
-    pywatchman
-    pyyaml
-    pytz
-    redis
-    selenium
-    tblib
-    tzdata
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [
+      # tests/requirements/py3.txt
+      aiosmtpd
+      docutils
+      geoip2
+      jinja2
+      numpy
+      pillow
+      pylibmc
+      pymemcache
+      pywatchman
+      pyyaml
+      pytz
+      redis
+      selenium
+      tblib
+      tzdata
+    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ;
 
   doCheck = !stdenv.isDarwin;
 
@@ -134,7 +138,8 @@ buildPythonPackage rec {
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
-    changelog = "https://docs.djangoproject.com/en/${
+    changelog =
+      "https://docs.djangoproject.com/en/${
         lib.versions.majorMinor version
       }/releases/${version}/";
     description =

@@ -18,7 +18,9 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "libva" + lib.optionalString minimal "-minimal";
+  pname =
+    "libva" + lib.optionalString minimal "-minimal"
+    ;
     # nixpkgs-update: no auto update
   version = "1.8.3";
 
@@ -40,21 +42,25 @@ stdenv.mkDerivation rec {
     wayland-scanner
   ];
 
-  buildInputs = [ libdrm ] ++ lib.optionals (!minimal) [
-    libva1-minimal
-    libX11
-    libXext
-    libXfixes
-    wayland
-    libffi
-    libGL
-  ];
+  buildInputs =
+    [ libdrm ] ++ lib.optionals (!minimal) [
+      libva1-minimal
+      libX11
+      libXext
+      libXfixes
+      wayland
+      libffi
+      libGL
+    ]
+    ;
     # TODO: share libs between minimal and !minimal - perhaps just symlink them
 
     # Add FHS paths for non-NixOS applications.
-  configureFlags = [
+  configureFlags =
+    [
       "--with-drivers-path=${mesa.drivers.driverLink}/lib/dri:/usr/lib/dri:/usr/lib32/dri"
-    ] ++ lib.optionals (!minimal) [ "--enable-glx" ];
+    ] ++ lib.optionals (!minimal) [ "--enable-glx" ]
+    ;
 
   installFlags = [ "dummy_drv_video_ladir=$(out)/lib/dri" ];
 

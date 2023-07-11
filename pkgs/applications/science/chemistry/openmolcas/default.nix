@@ -48,10 +48,11 @@ stdenv.mkDerivation {
     sha256 = "sha256-Kj2RDJq8PEvKclLrSYIOdl6g6lcRsTNZCjwxGOs3joY=";
   };
 
-  patches = [
-    # Required to handle openblas multiple outputs
-    ./openblasPath.patch
-  ];
+  patches =
+    [
+      # Required to handle openblas multiple outputs
+      ./openblasPath.patch
+    ];
 
   postPatch = ''
     # Using env fails in the sandbox
@@ -67,36 +68,40 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  buildInputs = [
-    blas-ilp64.passthru.provider
-    hdf5-cpp
-    python
-    armadillo
-    libxc
-  ] ++ lib.optionals enableMpi [
-    mpi
-    globalarrays
-  ];
+  buildInputs =
+    [
+      blas-ilp64.passthru.provider
+      hdf5-cpp
+      python
+      armadillo
+      libxc
+    ] ++ lib.optionals enableMpi [
+      mpi
+      globalarrays
+    ]
+    ;
 
   passthru = lib.optionalAttrs enableMpi { inherit mpi; };
 
-  cmakeFlags = [
-    "-DOPENMP=ON"
-    "-DLINALG=OpenBLAS"
-    "-DTOOLS=ON"
-    "-DHDF5=ON"
-    "-DFDE=ON"
-    "-DEXTERNAL_LIBXC=${libxc}"
-  ] ++ lib.optionals (blas-ilp64.passthru.implementation == "openblas") [
-    "-DOPENBLASROOT=${blas-ilp64.passthru.provider.dev}"
-    "-DLINALG=OpenBLAS"
-  ] ++ lib.optionals (blas-ilp64.passthru.implementation == "mkl") [
-    "-DMKLROOT=${blas-ilp64.passthru.provider}"
-    "-DLINALG=MKL"
-  ] ++ lib.optionals enableMpi [
-    "-DGA=ON"
-    "-DMPI=ON"
-  ];
+  cmakeFlags =
+    [
+      "-DOPENMP=ON"
+      "-DLINALG=OpenBLAS"
+      "-DTOOLS=ON"
+      "-DHDF5=ON"
+      "-DFDE=ON"
+      "-DEXTERNAL_LIBXC=${libxc}"
+    ] ++ lib.optionals (blas-ilp64.passthru.implementation == "openblas") [
+      "-DOPENBLASROOT=${blas-ilp64.passthru.provider.dev}"
+      "-DLINALG=OpenBLAS"
+    ] ++ lib.optionals (blas-ilp64.passthru.implementation == "mkl") [
+      "-DMKLROOT=${blas-ilp64.passthru.provider}"
+      "-DLINALG=MKL"
+    ] ++ lib.optionals enableMpi [
+      "-DGA=ON"
+      "-DMPI=ON"
+    ]
+    ;
 
   preConfigure = lib.optionalString enableMpi ''
     export GAROOT=${globalarrays};

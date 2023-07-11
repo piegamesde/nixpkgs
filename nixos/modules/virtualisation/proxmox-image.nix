@@ -180,8 +180,10 @@ with lib;
       inherit (cfg) partitionTableType;
       supportEfi =
         partitionTableType == "efi" || partitionTableType == "hybrid";
-      supportBios = partitionTableType == "legacy" || partitionTableType
-        == "hybrid" || partitionTableType == "legacy+gpt";
+      supportBios =
+        partitionTableType == "legacy" || partitionTableType == "hybrid"
+        || partitionTableType == "legacy+gpt"
+        ;
       hasBootPartition =
         partitionTableType == "efi" || partitionTableType == "hybrid";
       hasNoFsPartition =
@@ -190,23 +192,31 @@ with lib;
     {
       assertions = [
         {
-          assertion = config.boot.loader.systemd-boot.enable
-            -> config.proxmox.qemuConf.bios == "ovmf";
+          assertion =
+            config.boot.loader.systemd-boot.enable
+            -> config.proxmox.qemuConf.bios == "ovmf"
+            ;
           message = "systemd-boot requires 'ovmf' bios";
         }
         {
-          assertion = partitionTableType == "efi"
-            -> config.proxmox.qemuConf.bios == "ovmf";
+          assertion =
+            partitionTableType == "efi" -> config.proxmox.qemuConf.bios
+            == "ovmf"
+            ;
           message = "'efi' disk partitioning requires 'ovmf' bios";
         }
         {
-          assertion = partitionTableType == "legacy"
-            -> config.proxmox.qemuConf.bios == "seabios";
+          assertion =
+            partitionTableType == "legacy" -> config.proxmox.qemuConf.bios
+            == "seabios"
+            ;
           message = "'legacy' disk partitioning requires 'seabios' bios";
         }
         {
-          assertion = partitionTableType == "legacy+gpt"
-            -> config.proxmox.qemuConf.bios == "seabios";
+          assertion =
+            partitionTableType == "legacy+gpt" -> config.proxmox.qemuConf.bios
+            == "seabios"
+            ;
           message = "'legacy+gpt' disk partitioning requires 'seabios' bios";
         }
       ];

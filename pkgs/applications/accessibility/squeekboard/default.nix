@@ -46,18 +46,20 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dnewer=true" ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    glib
-    wayland
-    wrapGAppsHook
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      glib
+      wayland
+      wrapGAppsHook
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
   buildInputs = [
     gtk3

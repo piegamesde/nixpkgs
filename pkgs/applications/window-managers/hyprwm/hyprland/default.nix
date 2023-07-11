@@ -48,10 +48,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-zbtxX0NezuNg46PAKscmDfFfNID4rAq2qGNf1BE3Cqc=";
   };
 
-  patches = [
-    # make meson use the provided dependencies instead of the git submodules
-    "${src}/nix/meson-build.patch"
-  ];
+  patches =
+    [
+      # make meson use the provided dependencies instead of the git submodules
+      "${src}/nix/meson-build.patch"
+    ];
 
   postPatch = ''
     # Fix hardcoded paths to /usr installation
@@ -74,25 +75,27 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  buildInputs = [
-    cairo
-    git
-    hyprland-protocols
-    libdrm
-    libinput
-    libxkbcommon
-    mesa
-    udis86
-    wayland
-    wayland-protocols
-    pango
-    pciutils
-    (wlroots.override { inherit enableXWayland hidpiXWayland nvidiaPatches; })
-  ] ++ lib.optionals enableXWayland [
-    libxcb
-    xcbutilwm
-    xwayland
-  ] ++ lib.optionals withSystemd [ systemd ];
+  buildInputs =
+    [
+      cairo
+      git
+      hyprland-protocols
+      libdrm
+      libinput
+      libxkbcommon
+      mesa
+      udis86
+      wayland
+      wayland-protocols
+      pango
+      pciutils
+      (wlroots.override { inherit enableXWayland hidpiXWayland nvidiaPatches; })
+    ] ++ lib.optionals enableXWayland [
+      libxcb
+      xcbutilwm
+      xwayland
+    ] ++ lib.optionals withSystemd [ systemd ]
+    ;
 
   mesonBuildType =
     if debug then

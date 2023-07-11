@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    pkg-config
-    scdoc
-  ] ++ lib.optionals waylandSupport [ wayland-scanner ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      scdoc
+    ] ++ lib.optionals waylandSupport [ wayland-scanner ]
+    ;
 
   buildInputs = with lib;
     [
@@ -59,8 +61,10 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  buildFlags = [ "clients" ] ++ lib.optional ncursesSupport "curses"
-    ++ lib.optional waylandSupport "wayland" ++ lib.optional x11Support "x11";
+  buildFlags =
+    [ "clients" ] ++ lib.optional ncursesSupport "curses"
+    ++ lib.optional waylandSupport "wayland" ++ lib.optional x11Support "x11"
+    ;
 
   meta = with lib; {
     homepage = "https://github.com/Cloudef/bemenu";

@@ -42,10 +42,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-MokE7Ej8mLHTQeLYvKr7PPlsNG6ul91fqfXDlGu5JpI=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ] ++ lib.optionals (!buildRockCompiler) [ hip ];
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+    ] ++ lib.optionals (!buildRockCompiler) [ hip ]
+    ;
 
   buildInputs = [
     git
@@ -59,15 +61,17 @@ stdenv.mkDerivation (finalAttrs: {
     ncurses
   ];
 
-  cmakeFlags = [
-    "-DLLVM_TARGETS_TO_BUILD=AMDGPU;${llvmNativeTarget}"
-    "-DLLVM_ENABLE_ZLIB=ON"
-    "-DLLVM_ENABLE_TERMINFO=ON"
-  ] ++ lib.optionals buildRockCompiler [ "-DBUILD_FAT_LIBROCKCOMPILER=ON" ]
+  cmakeFlags =
+    [
+      "-DLLVM_TARGETS_TO_BUILD=AMDGPU;${llvmNativeTarget}"
+      "-DLLVM_ENABLE_ZLIB=ON"
+      "-DLLVM_ENABLE_TERMINFO=ON"
+    ] ++ lib.optionals buildRockCompiler [ "-DBUILD_FAT_LIBROCKCOMPILER=ON" ]
     ++ lib.optionals (!buildRockCompiler) [
       "-DROCM_PATH=${rocminfo}"
       "-DROCM_TEST_CHIPSET=gfx000"
-    ];
+    ]
+    ;
 
   dontBuild = true;
   doCheck = true;

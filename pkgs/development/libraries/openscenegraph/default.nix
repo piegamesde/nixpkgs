@@ -81,18 +81,19 @@ stdenv.mkDerivation rec {
     doxygen
   ];
 
-  buildInputs = [
-    libX11
-    libXinerama
-    libXrandr
-    libGLU
-    libGL
-    glib
-    ilmbase
-    libxml2
-    pcre
-    zlib
-  ] ++ lib.optional jpegSupport libjpeg ++ lib.optional exrSupport openexr
+  buildInputs =
+    [
+      libX11
+      libXinerama
+      libXrandr
+      libGLU
+      libGL
+      glib
+      ilmbase
+      libxml2
+      pcre
+      zlib
+    ] ++ lib.optional jpegSupport libjpeg ++ lib.optional exrSupport openexr
     ++ lib.optional gifSupport giflib ++ lib.optional pngSupport libpng
     ++ lib.optional tiffSupport libtiff ++ lib.optional gdalSupport gdal
     ++ lib.optional curlSupport curl ++ lib.optional colladaSupport collada-dom
@@ -109,10 +110,13 @@ stdenv.mkDerivation rec {
       Carbon
       Cocoa
       Foundation
-    ] ++ lib.optional (restSupport || colladaSupport) boost;
+    ] ++ lib.optional (restSupport || colladaSupport) boost
+    ;
 
-  cmakeFlags = lib.optional (!withApps) "-DBUILD_OSG_APPLICATIONS=OFF"
-    ++ lib.optional withExamples "-DBUILD_OSG_EXAMPLES=ON";
+  cmakeFlags =
+    lib.optional (!withApps) "-DBUILD_OSG_APPLICATIONS=OFF"
+    ++ lib.optional withExamples "-DBUILD_OSG_EXAMPLES=ON"
+    ;
 
   meta = with lib; {
     description = "A 3D graphics toolkit";

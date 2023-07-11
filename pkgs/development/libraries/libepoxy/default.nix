@@ -31,11 +31,13 @@ stdenv.mkDerivation rec {
 
   patches = [ ./libgl-path.patch ];
 
-  postPatch = ''
-    patchShebangs src/*.py
-  '' + optionalString stdenv.isDarwin ''
-    substituteInPlace src/dispatch_common.h --replace "PLATFORM_HAS_GLX 0" "PLATFORM_HAS_GLX 1"
-  '';
+  postPatch =
+    ''
+      patchShebangs src/*.py
+    '' + optionalString stdenv.isDarwin ''
+      substituteInPlace src/dispatch_common.h --replace "PLATFORM_HAS_GLX 0" "PLATFORM_HAS_GLX 1"
+    ''
+    ;
 
   outputs = [
     "out"
@@ -50,13 +52,15 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = lib.optionals x11Support [
-    libGL
-    libX11
-  ] ++ lib.optionals stdenv.isDarwin [
-    Carbon
-    OpenGL
-  ];
+  buildInputs =
+    lib.optionals x11Support [
+      libGL
+      libX11
+    ] ++ lib.optionals stdenv.isDarwin [
+      Carbon
+      OpenGL
+    ]
+    ;
 
   mesonFlags = [
     "-Degl=${
@@ -79,13 +83,15 @@ stdenv.mkDerivation rec {
     lib.optionalString x11Support ''-DLIBGL_PATH="${getLib libGL}/lib"'';
 
     # cgl_core and cgl_epoxy_api fail in darwin sandbox and on Hydra (because it's headless?)
-  preCheck = lib.optionalString stdenv.isDarwin ''
-    substituteInPlace ../test/meson.build \
-      --replace "[ 'cgl_epoxy_api', [ 'cgl_epoxy_api.c' ] ]," ""
-  '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
-    substituteInPlace ../test/meson.build \
-      --replace "[ 'cgl_core', [ 'cgl_core.c' ] ]," ""
-  '';
+  preCheck =
+    lib.optionalString stdenv.isDarwin ''
+      substituteInPlace ../test/meson.build \
+        --replace "[ 'cgl_epoxy_api', [ 'cgl_epoxy_api.c' ] ]," ""
+    '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+      substituteInPlace ../test/meson.build \
+        --replace "[ 'cgl_core', [ 'cgl_core.c' ] ]," ""
+    ''
+    ;
 
   doCheck = true;
 

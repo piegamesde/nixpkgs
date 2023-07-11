@@ -44,22 +44,24 @@ pythonPackages.buildPythonApplication rec {
 
   propagatedNativeBuildInputs = [ gobject-introspection ];
 
-  propagatedBuildInputs = [
-    gtk3
-    gobject-introspection
-    libnotify
-    libsecret
-    gnome.adwaita-icon-theme
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-ugly
-    gst-plugins-bad
-  ]) ++ (with pythonPackages; [
-    pygobject3
-    pylast
-  ]);
+  propagatedBuildInputs =
+    [
+      gtk3
+      gobject-introspection
+      libnotify
+      libsecret
+      gnome.adwaita-icon-theme
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-ugly
+      gst-plugins-bad
+    ]) ++ (with pythonPackages; [
+      pygobject3
+      pylast
+    ])
+    ;
 
   meta = with lib; {
     broken = stdenv.isDarwin;

@@ -28,10 +28,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [
-    packaging
-    requests
-  ] ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
+  propagatedBuildInputs =
+    [
+      packaging
+      requests
+    ] ++ lib.optionals (pythonOlder "3.8") [ cached-property ]
+    ;
 
   nativeCheckInputs = [
     flask

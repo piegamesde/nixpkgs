@@ -21,7 +21,8 @@ let
     };
 
     configurePlatforms = [ ];
-    configureFlags = [ "--arch=${stdenv.hostPlatform.parsed.cpu.name}" ]
+    configureFlags =
+      [ "--arch=${stdenv.hostPlatform.parsed.cpu.name}" ]
       ++ lib.optionals stdenv.hostPlatform.isAarch32 [
         # TODO be better with condition
         "--cpu=arm1176jzf-s"
@@ -58,7 +59,8 @@ let
       ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "--cross-prefix=${stdenv.cc.targetPrefix}"
         "--enable-cross-compile"
-      ];
+      ]
+      ;
 
     enableParallelBuilding = true;
 

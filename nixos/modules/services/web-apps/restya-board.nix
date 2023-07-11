@@ -275,10 +275,12 @@ in
         else
           [ "postgresql.service" ]
         ;
-      after = [ "network.target" ] ++ (if cfg.database.host == null then
-        [ ]
-      else
-        [ "postgresql.service" ]);
+      after =
+        [ "network.target" ] ++ (if cfg.database.host == null then
+          [ ]
+        else
+          [ "postgresql.service" ])
+        ;
 
       script = ''
         rm -rf "${runDir}"

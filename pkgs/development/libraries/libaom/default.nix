@@ -52,10 +52,11 @@ stdenv.mkDerivation rec {
     # Configuration options:
     # https://aomedia.googlesource.com/aom/+/refs/heads/master/build/cmake/aom_config_defaults.cmake
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DENABLE_TESTS=OFF"
-  ] ++ lib.optionals enableButteraugli [ "-DCONFIG_TUNE_BUTTERAUGLI=1" ]
+  cmakeFlags =
+    [
+      "-DBUILD_SHARED_LIBS=ON"
+      "-DENABLE_TESTS=OFF"
+    ] ++ lib.optionals enableButteraugli [ "-DCONFIG_TUNE_BUTTERAUGLI=1" ]
     ++ lib.optionals enableVmaf [ "-DCONFIG_TUNE_VMAF=1" ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       # CPU detection isn't supported on Darwin and breaks the aarch64-darwin build:
@@ -66,13 +67,16 @@ stdenv.mkDerivation rec {
       # armv7l-hf-multiplatform does not support NEON
       # see lib/systems/platform.nix
       "-DENABLE_NEON=0"
-    ];
+    ]
+    ;
 
-  postFixup = ''
-    moveToOutput lib/libaom.a "$static"
-  '' + lib.optionalString stdenv.hostPlatform.isStatic ''
-    ln -s $static $out
-  '';
+  postFixup =
+    ''
+      moveToOutput lib/libaom.a "$static"
+    '' + lib.optionalString stdenv.hostPlatform.isStatic ''
+      ln -s $static $out
+    ''
+    ;
 
   outputs = [
     "out"

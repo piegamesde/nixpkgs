@@ -40,11 +40,13 @@ lib.makeOverridable ({
     vendorDir = kind: plugin: "${plugin}/share/fish/vendor_${kind}.d";
     complPath = completionDirs ++ map (vendorDir "completions") pluginPkgs;
     funcPath = functionDirs ++ map (vendorDir "functions") pluginPkgs;
-    confPath = confDirs ++ (map (vendorDir "conf") pluginPkgs)
+    confPath =
+      confDirs ++ (map (vendorDir "conf") pluginPkgs)
       ++ (map (vendorDir "conf") [
         localFishConfig
         shellAliasesFishConfig
-      ]);
+      ])
+      ;
 
   in
   writeShellApplication {

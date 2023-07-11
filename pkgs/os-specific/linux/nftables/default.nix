@@ -46,22 +46,26 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  buildInputs = [
-    libmnl
-    libnftnl
-    libpcap
-    gmp
-    jansson
-    libedit
-  ] ++ lib.optional withXtables iptables ++ lib.optional withPython python3;
+  buildInputs =
+    [
+      libmnl
+      libnftnl
+      libpcap
+      gmp
+      jansson
+      libedit
+    ] ++ lib.optional withXtables iptables ++ lib.optional withPython python3
+    ;
 
-  configureFlags = [
-    "--with-json"
-    "--with-cli=editline"
-  ] ++ lib.optional (!withDebugSymbols) "--disable-debug"
+  configureFlags =
+    [
+      "--with-json"
+      "--with-cli=editline"
+    ] ++ lib.optional (!withDebugSymbols) "--disable-debug"
     ++ lib.optional (!withPython) "--disable-python"
     ++ lib.optional withPython "--enable-python"
-    ++ lib.optional withXtables "--with-xtables";
+    ++ lib.optional withXtables "--with-xtables"
+    ;
 
   meta = with lib; {
     description =

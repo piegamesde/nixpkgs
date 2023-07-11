@@ -88,18 +88,20 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    fontconfig
-    libffi
-    libtool
-    sqlite
-    gsettings-desktop-schemas
-    gtk3
-    ncurses
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    CoreFoundation
-  ];
+  buildInputs =
+    [
+      fontconfig
+      libffi
+      libtool
+      sqlite
+      gsettings-desktop-schemas
+      gtk3
+      ncurses
+    ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      CoreFoundation
+    ]
+    ;
 
   patches = [
     # Hardcode variant detection because we wrap the Racket binary making it
@@ -115,31 +117,33 @@ stdenv.mkDerivation rec {
     ./force-remove-codesign-then-add.patch
   ];
 
-  preConfigure = ''
-    unset AR
-    for f in src/lt/configure src/cs/c/configure src/bc/src/string.c; do
-      substituteInPlace "$f" \
-        --replace /usr/bin/uname ${coreutils}/bin/uname \
-        --replace /bin/cp ${coreutils}/bin/cp \
-        --replace /bin/ln ${coreutils}/bin/ln \
-        --replace /bin/rm ${coreutils}/bin/rm \
-        --replace /bin/true ${coreutils}/bin/true
-    done
+  preConfigure =
+    ''
+      unset AR
+      for f in src/lt/configure src/cs/c/configure src/bc/src/string.c; do
+        substituteInPlace "$f" \
+          --replace /usr/bin/uname ${coreutils}/bin/uname \
+          --replace /bin/cp ${coreutils}/bin/cp \
+          --replace /bin/ln ${coreutils}/bin/ln \
+          --replace /bin/rm ${coreutils}/bin/rm \
+          --replace /bin/true ${coreutils}/bin/true
+      done
 
-    # The configure script forces using `libtool -o` as AR on Darwin. But, the
-    # `-o` option is only available from Apple libtool. GNU ar works here.
-    substituteInPlace src/ChezScheme/zlib/configure \
-        --replace 'ARFLAGS="-o"' 'AR=ar; ARFLAGS="rc"'
+      # The configure script forces using `libtool -o` as AR on Darwin. But, the
+      # `-o` option is only available from Apple libtool. GNU ar works here.
+      substituteInPlace src/ChezScheme/zlib/configure \
+          --replace 'ARFLAGS="-o"' 'AR=ar; ARFLAGS="rc"'
 
-    mkdir src/build
-    cd src/build
+      mkdir src/build
+      cd src/build
 
-  '' + lib.optionalString stdenv.isLinux ''
-    gappsWrapperArgs+=("--prefix"   "LD_LIBRARY_PATH" ":" ${libPath})
-    gappsWrapperArgs+=("--set"      "LOCALE_ARCHIVE" "${glibcLocales}/lib/locale/locale-archive")
-  '' + lib.optionalString stdenv.isDarwin ''
-    gappsWrapperArgs+=("--prefix" "DYLD_LIBRARY_PATH" ":" ${libPath})
-  '';
+    '' + lib.optionalString stdenv.isLinux ''
+      gappsWrapperArgs+=("--prefix"   "LD_LIBRARY_PATH" ":" ${libPath})
+      gappsWrapperArgs+=("--set"      "LOCALE_ARCHIVE" "${glibcLocales}/lib/locale/locale-archive")
+    '' + lib.optionalString stdenv.isDarwin ''
+      gappsWrapperArgs+=("--prefix" "DYLD_LIBRARY_PATH" ":" ${libPath})
+    ''
+    ;
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     # Cannot set DYLD_LIBRARY_PATH as an attr of this drv, becasue dynamic
@@ -161,11 +165,13 @@ stdenv.mkDerivation rec {
     else
       "shared"
     ;
-  configureFlags = [
-    "--enable-${shared}"
-    "--enable-lt=${libtool}/bin/libtool"
-  ] ++ lib.optionals disableDocs [ "--disable-docs" ]
-    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
+  configureFlags =
+    [
+      "--enable-${shared}"
+      "--enable-lt=${libtool}/bin/libtool"
+    ] ++ lib.optionals disableDocs [ "--disable-docs" ]
+    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ]
+    ;
 
   configureScript = "../configure";
 

@@ -54,10 +54,12 @@ stdenv.mkDerivation rec {
   };
 
   dontUnpack = true;
-  nativeBuildInputs = [
-    installShellFiles
-    makeWrapper
-  ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+  nativeBuildInputs =
+    [
+      installShellFiles
+      makeWrapper
+    ] ++ lib.optional stdenv.isLinux autoPatchelfHook
+    ;
   buildInputs = [
     stdenv.cc.cc.lib
     zlib

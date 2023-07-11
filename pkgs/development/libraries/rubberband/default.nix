@@ -28,17 +28,19 @@ stdenv.mkDerivation rec {
     meson
     ninja
   ];
-  buildInputs = [
-    libsamplerate
-    libsndfile
-    fftw
-    vamp-plugin-sdk
-    ladspaH
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    Accelerate
-    CoreGraphics
-    CoreVideo
-  ]);
+  buildInputs =
+    [
+      libsamplerate
+      libsndfile
+      fftw
+      vamp-plugin-sdk
+      ladspaH
+    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      Accelerate
+      CoreGraphics
+      CoreVideo
+    ])
+    ;
   makeFlags = [ "AR:=$(AR)" ];
 
   meta = with lib; {

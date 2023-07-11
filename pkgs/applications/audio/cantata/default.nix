@@ -175,23 +175,26 @@ mkDerivation rec {
     sha256 = "sha256-UaZEKZvCA50WsdQSSJQQ11KTK6rM4ouCHDX7pn3NlQw=";
   };
 
-  patches = [
-    # Cantata wants to check if perl is in the PATH at runtime, but we
-    # patchShebangs the playlists scripts, making that unnecessary (perl will
-    # always be available because it's a dependency)
-    ./dont-check-for-perl-in-PATH.diff
-  ];
+  patches =
+    [
+      # Cantata wants to check if perl is in the PATH at runtime, but we
+      # patchShebangs the playlists scripts, making that unnecessary (perl will
+      # always be available because it's a dependency)
+      ./dont-check-for-perl-in-PATH.diff
+    ];
 
   postPatch = ''
     patchShebangs playlists
   '';
 
-  buildInputs = [
-    qtbase
-    qtsvg
-    (perl.withPackages (ppkgs: with ppkgs; [ URI ]))
-  ] ++ lib.flatten
-    (builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options));
+  buildInputs =
+    [
+      qtbase
+      qtsvg
+      (perl.withPackages (ppkgs: with ppkgs; [ URI ]))
+    ] ++ lib.flatten
+    (builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options))
+    ;
 
   nativeBuildInputs = [
     cmake

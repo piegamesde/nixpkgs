@@ -34,8 +34,10 @@ stdenv.mkDerivation {
     ocamlbuild
   ];
 
-  configurePhase = "ocaml setup.ml -configure --prefix $out"
-    + lib.optionalString doCheck " --enable-tests";
+  configurePhase =
+    "ocaml setup.ml -configure --prefix $out"
+    + lib.optionalString doCheck " --enable-tests"
+    ;
   buildPhase = "ocaml setup.ml -build";
   installPhase = "ocaml setup.ml -install";
 

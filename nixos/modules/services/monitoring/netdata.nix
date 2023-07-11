@@ -20,10 +20,12 @@ let
       ln -s /run/wrappers/bin/freeipmi.plugin $out/libexec/netdata/plugins.d/freeipmi.plugin
     '';
 
-  plugins = [
-    "${cfg.package}/libexec/netdata/plugins.d"
-    "${wrappedPlugins}/libexec/netdata/plugins.d"
-  ] ++ cfg.extraPluginPaths;
+  plugins =
+    [
+      "${cfg.package}/libexec/netdata/plugins.d"
+      "${wrappedPlugins}/libexec/netdata/plugins.d"
+    ] ++ cfg.extraPluginPaths
+    ;
 
   configDirectory = pkgs.runCommand "netdata-config-d" { } ''
     mkdir $out
@@ -199,17 +201,19 @@ in
       description = "Real time performance monitoring";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = (with pkgs; [
-        curl
-        gawk
-        iproute2
-        which
-        procps
-        bash
-      ]) ++ lib.optional cfg.python.enable
+      path =
+        (with pkgs; [
+          curl
+          gawk
+          iproute2
+          which
+          procps
+          bash
+        ]) ++ lib.optional cfg.python.enable
         (pkgs.python3.withPackages cfg.python.extraPackages)
         ++ lib.optional config.virtualisation.libvirtd.enable
-        (config.virtualisation.libvirtd.package);
+        (config.virtualisation.libvirtd.package)
+        ;
       environment = {
         PYTHONPATH = "${cfg.package}/libexec/netdata/python.d/python_modules";
       } // lib.optionalAttrs (!cfg.enableAnalyticsReporting) {

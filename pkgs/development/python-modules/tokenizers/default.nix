@@ -86,19 +86,23 @@ buildPythonPackage rec {
 
   sourceRoot = "source/bindings/python";
 
-  nativeBuildInputs = [
-    pkg-config
-    setuptools-rust
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      pkg-config
+      setuptools-rust
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    Security
-  ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      Security
+    ]
+    ;
 
   propagatedBuildInputs = [ numpy ];
 

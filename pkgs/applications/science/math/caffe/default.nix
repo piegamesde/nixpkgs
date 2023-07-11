@@ -101,17 +101,19 @@ stdenv.mkDerivation rec {
     else
       [ "-DCPU_ONLY=ON" ]) ++ [ "-DUSE_NCCL=${toggle ncclSupport}" ]
     ++ [ "-DUSE_LEVELDB=${toggle leveldbSupport}" ]
-    ++ [ "-DUSE_LMDB=${toggle lmdbSupport}" ];
+    ++ [ "-DUSE_LMDB=${toggle lmdbSupport}" ]
+    ;
 
-  buildInputs = [
-    boost
-    gflags
-    glog
-    protobuf
-    hdf5-cpp
-    opencv3
-    blas
-  ] ++ lib.optional cudaSupport cudatoolkit ++ lib.optional cudnnSupport cudnn
+  buildInputs =
+    [
+      boost
+      gflags
+      glog
+      protobuf
+      hdf5-cpp
+      opencv3
+      blas
+    ] ++ lib.optional cudaSupport cudatoolkit ++ lib.optional cudnnSupport cudnn
     ++ lib.optional lmdbSupport lmdb ++ lib.optional ncclSupport nccl
     ++ lib.optionals leveldbSupport [
       leveldb
@@ -123,7 +125,8 @@ stdenv.mkDerivation rec {
       Accelerate
       CoreGraphics
       CoreVideo
-    ];
+    ]
+    ;
 
   propagatedBuildInputs = lib.optionals pythonSupport (
     # requirements.txt
@@ -155,42 +158,48 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildOutputs = [ ]; # otherwise propagates out -> bin cycle
 
-  patches = [ ./darwin.patch ] ++ lib.optional pythonSupport (substituteAll {
-    src = ./python.patch;
-    inherit (python.sourceVersion)
-      major
-      minor
-      ; # Should be changed in case of PyPy
-  });
+  patches =
+    [ ./darwin.patch ] ++ lib.optional pythonSupport (substituteAll {
+      src = ./python.patch;
+      inherit (python.sourceVersion)
+        major
+        minor
+        ; # Should be changed in case of PyPy
+    })
+    ;
 
-  postPatch = ''
-    substituteInPlace src/caffe/util/io.cpp --replace \
-      'SetTotalBytesLimit(kProtoReadBytesLimit, 536870912)' \
-      'SetTotalBytesLimit(kProtoReadBytesLimit)'
-  '' + lib.optionalString
+  postPatch =
+    ''
+      substituteInPlace src/caffe/util/io.cpp --replace \
+        'SetTotalBytesLimit(kProtoReadBytesLimit, 536870912)' \
+        'SetTotalBytesLimit(kProtoReadBytesLimit)'
+    '' + lib.optionalString
     (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0") ''
       # CUDA 9.0 doesn't support sm_20
       sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
-    '';
+    ''
+    ;
 
   preConfigure = lib.optionalString pythonSupport ''
     # We need this when building with Python bindings
     export BOOST_LIBRARYDIR="${boost.out}/lib";
   '';
 
-  postInstall = ''
-    # Internal static library.
-    rm $out/lib/libproto.a
+  postInstall =
+    ''
+      # Internal static library.
+      rm $out/lib/libproto.a
 
-    # Install models
-    cp -a ../models $out/share/Caffe/models
+      # Install models
+      cp -a ../models $out/share/Caffe/models
 
-    moveToOutput "bin" "$bin"
-  '' + lib.optionalString pythonSupport ''
-    mkdir -p $out/${python.sitePackages}
-    mv $out/python/caffe $out/${python.sitePackages}
-    rm -rf $out/python
-  '';
+      moveToOutput "bin" "$bin"
+    '' + lib.optionalString pythonSupport ''
+      mkdir -p $out/${python.sitePackages}
+      mv $out/python/caffe $out/${python.sitePackages}
+      rm -rf $out/python
+    ''
+    ;
 
   doInstallCheck = false; # build takes more than 30 min otherwise
   installCheckPhase = ''

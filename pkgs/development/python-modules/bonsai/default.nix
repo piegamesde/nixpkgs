@@ -56,10 +56,11 @@ buildPythonPackage rec {
     "tests/test_pool.py"
   ];
 
-  disabledTests = [
-    # requires running LDAP server
-    "test_set_async_connect"
-  ];
+  disabledTests =
+    [
+      # requires running LDAP server
+      "test_set_async_connect"
+    ];
 
   pythonImportsCheck = [ "bonsai" ];
 

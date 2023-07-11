@@ -36,16 +36,18 @@ mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    libXScrnSaver
-    olm
-    pyotherside
-    qtbase
-    qtgraphicaleffects
-    qtkeychain
-    qtmultimedia
-    qtquickcontrols2
-  ] ++ pythonPath;
+  buildInputs =
+    [
+      libXScrnSaver
+      olm
+      pyotherside
+      qtbase
+      qtgraphicaleffects
+      qtkeychain
+      qtmultimedia
+      qtquickcontrols2
+    ] ++ pythonPath
+    ;
 
   pythonPath = with python3Packages;
     [

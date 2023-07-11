@@ -52,10 +52,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Tests require network access
-    "tests/test_ip_pairing.py"
-  ];
+  disabledTestPaths =
+    [
+      # Tests require network access
+      "tests/test_ip_pairing.py"
+    ];
 
   pythonImportsCheck = [ "aiohomekit" ];
 

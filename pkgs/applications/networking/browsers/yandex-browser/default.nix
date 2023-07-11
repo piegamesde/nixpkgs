@@ -125,11 +125,13 @@ stdenv.mkDerivation rec {
     ln -sf $out/opt/yandex/browser-beta/yandex_browser $out/bin/yandex-browser-beta
   '';
 
-  runtimeDependencies = map lib.getLib [
-    libpulseaudio
-    curl
-    systemd
-  ] ++ buildInputs;
+  runtimeDependencies =
+    map lib.getLib [
+      libpulseaudio
+      curl
+      systemd
+    ] ++ buildInputs
+    ;
 
   meta = with lib; {
     description = "Yandex Web Browser";

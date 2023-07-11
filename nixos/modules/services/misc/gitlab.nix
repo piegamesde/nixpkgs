@@ -166,7 +166,8 @@ let
         host = cfg.registry.externalAddress;
         port = cfg.registry.externalPort;
         key = cfg.registry.keyFile;
-        api_url = "http://${config.services.dockerRegistry.listenAddress}:${
+        api_url =
+          "http://${config.services.dockerRegistry.listenAddress}:${
             toString config.services.dockerRegistry.port
           }/";
         issuer = cfg.registry.issuer;
@@ -1191,8 +1192,9 @@ in
       {
         assertion =
           databaseActuallyCreateLocally -> (cfg.user == cfg.databaseUsername);
-        message = ''
-          For local automatic database provisioning (services.gitlab.databaseCreateLocally == true) with peer authentication (services.gitlab.databaseHost == "") to work services.gitlab.user and services.gitlab.databaseUsername must be identical.'';
+        message =
+          ''
+            For local automatic database provisioning (services.gitlab.databaseCreateLocally == true) with peer authentication (services.gitlab.databaseHost == "") to work services.gitlab.user and services.gitlab.databaseUsername must be identical.'';
       }
       {
         assertion =
@@ -1345,7 +1347,8 @@ in
         true; # This must be true, otherwise GitLab won't manage it correctly
       extraConfig = {
         auth.token = {
-          realm = "http${
+          realm =
+            "http${
               optionalString (cfg.https == true) "s"
             }://${cfg.host}/jwt/auth";
           service = cfg.registry.serviceName;
@@ -1546,9 +1549,11 @@ in
         "gitlab-postgresql.service"
         "postgresql.service"
       ];
-      bindsTo = [ "gitlab-config.service" ]
+      bindsTo =
+        [ "gitlab-config.service" ]
         ++ optional (cfg.databaseHost == "") "postgresql.service"
-        ++ optional databaseActuallyCreateLocally "gitlab-postgresql.service";
+        ++ optional databaseActuallyCreateLocally "gitlab-postgresql.service"
+        ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       serviceConfig = {
@@ -1580,11 +1585,13 @@ in
         "gitlab-config.service"
         "gitlab-db-config.service"
       ];
-      bindsTo = [
-        "redis-gitlab.service"
-        "gitlab-config.service"
-        "gitlab-db-config.service"
-      ] ++ optional (cfg.databaseHost == "") "postgresql.service";
+      bindsTo =
+        [
+          "redis-gitlab.service"
+          "gitlab-config.service"
+          "gitlab-db-config.service"
+        ] ++ optional (cfg.databaseHost == "") "postgresql.service"
+        ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       environment = gitlabEnv
@@ -1615,8 +1622,9 @@ in
         TimeoutSec = "infinity";
         Restart = "always";
         WorkingDirectory = "${cfg.packages.gitlab}/share/gitlab";
-        ExecStart = ''
-          ${cfg.packages.gitlab.rubyEnv}/bin/sidekiq -C "${cfg.packages.gitlab}/share/gitlab/config/sidekiq_queues.yml" -e production'';
+        ExecStart =
+          ''
+            ${cfg.packages.gitlab.rubyEnv}/bin/sidekiq -C "${cfg.packages.gitlab}/share/gitlab/config/sidekiq_queues.yml" -e production'';
       };
     };
 
@@ -1769,13 +1777,15 @@ in
           json2toml "${cfg.statePath}/config/gitlab-workhorse.json" "${cfg.statePath}/config/gitlab-workhorse.toml"
           rm "${cfg.statePath}/config/gitlab-workhorse.json"
         '';
-        ExecStart = "${cfg.packages.gitlab-workhorse}/bin/workhorse "
-          + "-listenUmask 0 " + "-listenNetwork unix "
+        ExecStart =
+          "${cfg.packages.gitlab-workhorse}/bin/workhorse " + "-listenUmask 0 "
+          + "-listenNetwork unix "
           + "-listenAddr /run/gitlab/gitlab-workhorse.socket "
           + "-authSocket ${gitlabSocket} "
           + "-documentRoot ${cfg.packages.gitlab}/share/gitlab/public "
           + "-config ${cfg.statePath}/config/gitlab-workhorse.toml "
-          + "-secretPath ${cfg.statePath}/.gitlab_workhorse_secret";
+          + "-secretPath ${cfg.statePath}/.gitlab_workhorse_secret"
+          ;
       };
     };
 
@@ -1812,11 +1822,13 @@ in
         "gitlab-config.service"
         "gitlab-db-config.service"
       ];
-      bindsTo = [
-        "redis-gitlab.service"
-        "gitlab-config.service"
-        "gitlab-db-config.service"
-      ] ++ optional (cfg.databaseHost == "") "postgresql.service";
+      bindsTo =
+        [
+          "redis-gitlab.service"
+          "gitlab-config.service"
+          "gitlab-db-config.service"
+        ] ++ optional (cfg.databaseHost == "") "postgresql.service"
+        ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       environment = gitlabEnv;

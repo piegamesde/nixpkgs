@@ -38,14 +38,16 @@ let
         inherit sha256;
       };
 
-      propagatedBuildInputs = [ spacy ]
+      propagatedBuildInputs =
+        [ spacy ]
         ++ lib.optionals (lib.hasSuffix "_trf" pname) [ spacy-transformers ]
         ++ lib.optionals (lang == "ru") [ pymorphy3 ]
         ++ lib.optionals (lang == "uk") [
           pymorphy3
           pymorphy3-dicts-uk
         ] ++ lib.optionals (lang == "zh") [ spacy-pkuseg ]
-        ++ lib.optionals (pname == "fr_dep_news_trf") [ sentencepiece ];
+        ++ lib.optionals (pname == "fr_dep_news_trf") [ sentencepiece ]
+        ;
 
       postPatch = lib.optionalString requires-protobuf ''
         substituteInPlace meta.json \

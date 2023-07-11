@@ -323,8 +323,10 @@ in
         '';
       }
       {
-        assertion = !((builtins.hasAttr "Pinning" cfg.settings)
-          && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning));
+        assertion =
+          !((builtins.hasAttr "Pinning" cfg.settings)
+            && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning))
+          ;
         message = ''
           You can't set services.kubo.settings.Pinning.RemoteServices because the ``config replace`` subcommand used at startup does not work with it.
         '';
@@ -358,7 +360,8 @@ in
       ++ optionals cfg.autoMount [
         "d '${cfg.ipfsMountDir}' - ${cfg.user} ${cfg.group} - -"
         "d '${cfg.ipnsMountDir}' - ${cfg.user} ${cfg.group} - -"
-      ];
+      ]
+      ;
 
       # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
     systemd.packages =
@@ -381,29 +384,31 @@ in
       ];
       environment.IPFS_PATH = cfg.dataDir;
 
-      preStart = ''
-        if [[ ! -f "$IPFS_PATH/config" ]]; then
-          ipfs init ${optionalString cfg.emptyRepo "-e"}
-        else
-          # After an unclean shutdown this file may exist which will cause the config command to attempt to talk to the daemon. This will hang forever if systemd is holding our sockets open.
-          rm -vf "$IPFS_PATH/api"
-      '' + optionalString cfg.autoMigrate ''
-        ${pkgs.kubo-migrator}/bin/fs-repo-migrations -to '${cfg.package.repoVersion}' -y
-      '' + ''
-        fi
-        ipfs --offline config show |
-          ${pkgs.jq}/bin/jq -s '.[0].Pinning as $Pinning | .[0].Identity as $Identity | .[1] + {$Identity,$Pinning}' - '${configFile}' |
+      preStart =
+        ''
+          if [[ ! -f "$IPFS_PATH/config" ]]; then
+            ipfs init ${optionalString cfg.emptyRepo "-e"}
+          else
+            # After an unclean shutdown this file may exist which will cause the config command to attempt to talk to the daemon. This will hang forever if systemd is holding our sockets open.
+            rm -vf "$IPFS_PATH/api"
+        '' + optionalString cfg.autoMigrate ''
+          ${pkgs.kubo-migrator}/bin/fs-repo-migrations -to '${cfg.package.repoVersion}' -y
+        '' + ''
+          fi
+          ipfs --offline config show |
+            ${pkgs.jq}/bin/jq -s '.[0].Pinning as $Pinning | .[0].Identity as $Identity | .[1] + {$Identity,$Pinning}' - '${configFile}' |
 
-          # This command automatically injects the private key and other secrets from
-          # the old config file back into the new config file.
-          # Unfortunately, it doesn't keep the original `Identity.PeerID`,
-          # so we need `ipfs config show` and jq above.
-          # See https://github.com/ipfs/kubo/issues/8993 for progress on fixing this problem.
-          # Kubo also wants a specific version of the original "Pinning.RemoteServices"
-          # section (redacted by `ipfs config show`), such that that section doesn't
-          # change when the changes are applied. Whyyyyyy.....
-          ipfs --offline config replace -
-      '';
+            # This command automatically injects the private key and other secrets from
+            # the old config file back into the new config file.
+            # Unfortunately, it doesn't keep the original `Identity.PeerID`,
+            # so we need `ipfs config show` and jq above.
+            # See https://github.com/ipfs/kubo/issues/8993 for progress on fixing this problem.
+            # Kubo also wants a specific version of the original "Pinning.RemoteServices"
+            # section (redacted by `ipfs config show`), such that that section doesn't
+            # change when the changes are applied. Whyyyyyy.....
+            ipfs --offline config replace -
+        ''
+        ;
       postStop = mkIf cfg.autoMount ''
         # After an unclean shutdown the fuse mounts at cfg.ipnsMountDir and cfg.ipfsMountDir are locked
         umount --quiet '${cfg.ipnsMountDir}' '${cfg.ipfsMountDir}' || true
@@ -432,8 +437,9 @@ in
       socketConfig = {
         ListenStream =
           [ "" ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
-        ListenDatagram = [ "" ]
-          ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
+        ListenDatagram =
+          [ "" ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway)
+          ;
       };
     };
 
@@ -442,10 +448,12 @@ in
       socketConfig = {
         # We also include "%t/ipfs.sock" because there is no way to put the "%t"
         # in the multiaddr.
-        ListenStream = [
-          ""
-          "%t/ipfs.sock"
-        ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.API);
+        ListenStream =
+          [
+            ""
+            "%t/ipfs.sock"
+          ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.API)
+          ;
         SocketMode = "0660";
         SocketUser = cfg.user;
         SocketGroup = cfg.group;

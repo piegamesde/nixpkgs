@@ -37,18 +37,20 @@ let
 
       nativeBuildInputs = extraNativeInputs;
 
-      buildInputs = [
-        ocamlPackages.core
-        ocamlPackages.core_kernel
-        ocamlPackages.ocaml_pcre
-        ocamlPackages.mparser
-        ocamlPackages.mparser-pcre
-        ocamlPackages.angstrom
-        ocamlPackages.ppx_deriving
-        ocamlPackages.ppx_deriving_yojson
-        ocamlPackages.ppx_sexp_conv
-        ocamlPackages.ppx_sexp_message
-      ] ++ extraBuildInputs;
+      buildInputs =
+        [
+          ocamlPackages.core
+          ocamlPackages.core_kernel
+          ocamlPackages.ocaml_pcre
+          ocamlPackages.mparser
+          ocamlPackages.mparser-pcre
+          ocamlPackages.angstrom
+          ocamlPackages.ppx_deriving
+          ocamlPackages.ppx_deriving_yojson
+          ocamlPackages.ppx_sexp_conv
+          ocamlPackages.ppx_sexp_message
+        ] ++ extraBuildInputs
+        ;
 
       nativeCheckInputs = [ cacert ];
 
@@ -79,33 +81,35 @@ mkCombyPackage {
     rm test/common/{test_cli_list,test_cli_helper,test_cli}.ml
   '';
 
-  extraBuildInputs = [
-    zlib
-    gmp
-    libev
-    sqlite
-    ocamlPackages.shell # This input must appear before `parany` or any other input that propagates `ocamlnet`
-    ocamlPackages.lwt
-    ocamlPackages.patience_diff
-    ocamlPackages.toml
-    ocamlPackages.cohttp-lwt-unix
-    ocamlPackages.opium
-    ocamlPackages.textutils
-    ocamlPackages.jst-config
-    ocamlPackages.parany
-    ocamlPackages.conduit-lwt-unix
-    ocamlPackages.lwt_react
-    ocamlPackages.tar-unix
-    ocamlPackages.tls
-    ocamlPackages.ppx_jane
-    ocamlPackages.ppx_expect
-    ocamlPackages.dune-configurator
-    combyKernel
-    combySemantic
-  ] ++ (if !stdenv.isAarch32 && !stdenv.isAarch64 then
-    [ ocamlPackages.hack_parallel ]
-  else
-    [ ]);
+  extraBuildInputs =
+    [
+      zlib
+      gmp
+      libev
+      sqlite
+      ocamlPackages.shell # This input must appear before `parany` or any other input that propagates `ocamlnet`
+      ocamlPackages.lwt
+      ocamlPackages.patience_diff
+      ocamlPackages.toml
+      ocamlPackages.cohttp-lwt-unix
+      ocamlPackages.opium
+      ocamlPackages.textutils
+      ocamlPackages.jst-config
+      ocamlPackages.parany
+      ocamlPackages.conduit-lwt-unix
+      ocamlPackages.lwt_react
+      ocamlPackages.tar-unix
+      ocamlPackages.tls
+      ocamlPackages.ppx_jane
+      ocamlPackages.ppx_expect
+      ocamlPackages.dune-configurator
+      combyKernel
+      combySemantic
+    ] ++ (if !stdenv.isAarch32 && !stdenv.isAarch64 then
+      [ ocamlPackages.hack_parallel ]
+    else
+      [ ])
+    ;
 
   extraNativeInputs = [
     autoconf

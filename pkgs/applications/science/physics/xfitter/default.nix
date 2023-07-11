@@ -34,35 +34,38 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZHIQ5hOY+k0/wmpE0o4Po+RZ4MkVMk+bK1Rc6eqwwH0=";
   };
 
-  patches = [
-    # Avoid need for -fallow-argument-mismatch
-    ./0001-src-GetChisquare.f-use-correct-types-in-calls-to-DSY.patch
-  ];
+  patches =
+    [
+      # Avoid need for -fallow-argument-mismatch
+      ./0001-src-GetChisquare.f-use-correct-types-in-calls-to-DSY.patch
+    ];
 
   nativeBuildInputs = [
     cmake
     gfortran
     pkg-config
   ];
-  buildInputs = [
-    apfel
-    blas
-    ceres-solver
-    lhapdf
-    lapack
-    libyaml
-    root
-    qcdnum
-    gsl
-    yaml-cpp
-    zlib
-  ] ++ lib.optionals ("5" == lib.versions.major root.version) [
-    apfelgrid
-    applgrid
-  ] ++ lib.optionals (stdenv.system == "x86_64-darwin") [
-    memorymappingHook
-    memstreamHook
-  ] ++ lib.optional (stdenv.hostPlatform.libc == "glibc") libtirpc;
+  buildInputs =
+    [
+      apfel
+      blas
+      ceres-solver
+      lhapdf
+      lapack
+      libyaml
+      root
+      qcdnum
+      gsl
+      yaml-cpp
+      zlib
+    ] ++ lib.optionals ("5" == lib.versions.major root.version) [
+      apfelgrid
+      applgrid
+    ] ++ lib.optionals (stdenv.system == "x86_64-darwin") [
+      memorymappingHook
+      memstreamHook
+    ] ++ lib.optional (stdenv.hostPlatform.libc == "glibc") libtirpc
+    ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.hostPlatform.libc == "glibc")

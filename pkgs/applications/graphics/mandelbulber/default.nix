@@ -33,17 +33,19 @@ mkDerivation rec {
     qmake
     qttools
   ];
-  buildInputs = [
-    qtbase
-    qtmultimedia
-    libpng
-    gsl
-    libsndfile
-    lzo
-  ] ++ lib.optionals withOpenCL [
-    opencl-clhpp
-    ocl-icd
-  ];
+  buildInputs =
+    [
+      qtbase
+      qtmultimedia
+      libpng
+      gsl
+      libsndfile
+      lzo
+    ] ++ lib.optionals withOpenCL [
+      opencl-clhpp
+      ocl-icd
+    ]
+    ;
 
   sourceRoot = "${src.name}/mandelbulber2";
 

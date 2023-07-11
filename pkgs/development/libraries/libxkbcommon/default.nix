@@ -37,21 +37,25 @@ stdenv.mkDerivation rec {
   ];
 
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    bison
-    doxygen
-  ] ++ lib.optional withWaylandTools wayland-scanner;
-  buildInputs = [
-    xkeyboard_config
-    libxcb
-    libxml2
-  ] ++ lib.optionals withWaylandTools [
-    wayland
-    wayland-protocols
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      bison
+      doxygen
+    ] ++ lib.optional withWaylandTools wayland-scanner
+    ;
+  buildInputs =
+    [
+      xkeyboard_config
+      libxcb
+      libxml2
+    ] ++ lib.optionals withWaylandTools [
+      wayland
+      wayland-protocols
+    ]
+    ;
   nativeCheckInputs = [ python3 ];
 
   mesonFlags = [

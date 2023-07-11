@@ -79,47 +79,49 @@ stdenv.mkDerivation {
     yasm
   ];
 
-  propagatedBuildInputs = [
-    libjpeg
-    openssl_1_1
-    libopus
-    ffmpeg_4
-    protobuf
-    openh264
-    usrsctp
-    libvpx
-    abseil-cpp
-  ] ++ lib.optionals stdenv.isLinux [
-    libX11
-    libXtst
-    libXcomposite
-    libXdamage
-    libXext
-    libXrender
-    libXrandr
-    libXi
-    glib
-    pipewire
-    mesa
-    libdrm
-    libGL
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    AppKit
-    IOKit
-    IOSurface
-    Foundation
-    AVFoundation
-    CoreMedia
-    VideoToolbox
-    CoreGraphics
-    CoreVideo
-    OpenGL
-    Metal
-    MetalKit
-    CoreFoundation
-    ApplicationServices
-  ];
+  propagatedBuildInputs =
+    [
+      libjpeg
+      openssl_1_1
+      libopus
+      ffmpeg_4
+      protobuf
+      openh264
+      usrsctp
+      libvpx
+      abseil-cpp
+    ] ++ lib.optionals stdenv.isLinux [
+      libX11
+      libXtst
+      libXcomposite
+      libXdamage
+      libXext
+      libXrender
+      libXrandr
+      libXi
+      glib
+      pipewire
+      mesa
+      libdrm
+      libGL
+    ] ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      AppKit
+      IOKit
+      IOSurface
+      Foundation
+      AVFoundation
+      CoreMedia
+      VideoToolbox
+      CoreGraphics
+      CoreVideo
+      OpenGL
+      Metal
+      MetalKit
+      CoreFoundation
+      ApplicationServices
+    ]
+    ;
 
   enableParallelBuilding = true;
 

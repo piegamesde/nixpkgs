@@ -37,26 +37,29 @@ buildPythonPackage rec {
     hash = "sha256-FmiuWfoFZjZf1/GbE6PmSkeshWWh+6nDj2u2PMSeDk0=";
   };
 
-  propagatedBuildInputs = [
-    filelock
-    huggingface-hub
-    numpy
-    protobuf
-    packaging
-    pyyaml
-    regex
-    requests
-    tokenizers
-    tqdm
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [
+      filelock
+      huggingface-hub
+      numpy
+      protobuf
+      packaging
+      pyyaml
+      regex
+      requests
+      tokenizers
+      tqdm
+    ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+    ;
 
   passthru.optional-dependencies = {
-    ja = [
-      # fugashi
-      # ipadic
-      # unidic_lite
-      # unidic
-    ];
+    ja =
+      [
+        # fugashi
+        # ipadic
+        # unidic_lite
+        # unidic
+      ];
     sklearn = [ scikit-learn ];
     tf = [
         tensorflow
@@ -68,10 +71,11 @@ buildPythonPackage rec {
     modelcreation = [ cookiecutter ];
     sagemaker = [ sagemaker ];
     ftfy = [ ftfy ];
-    onnx = [
-      # onnxconverter-common
-      # tf2onnx
-    ];
+    onnx =
+      [
+        # onnxconverter-common
+        # tf2onnx
+      ];
     vision = [ pillow ];
   };
 

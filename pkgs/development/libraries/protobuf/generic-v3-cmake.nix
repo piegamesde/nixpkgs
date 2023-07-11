@@ -35,31 +35,35 @@ let
     };
 
       # re-create submodule logic
-    postPatch = ''
-      rm -rf gmock
-      cp -r ${gtest.src}/googlemock third_party/gmock
-      cp -r ${gtest.src}/googletest third_party/
-      chmod -R a+w third_party/
+    postPatch =
+      ''
+        rm -rf gmock
+        cp -r ${gtest.src}/googlemock third_party/gmock
+        cp -r ${gtest.src}/googletest third_party/
+        chmod -R a+w third_party/
 
-      ln -s ../googletest third_party/gmock/gtest
-      ln -s ../gmock third_party/googletest/googlemock
-      ln -s $(pwd)/third_party/googletest third_party/googletest/googletest
-    '' + lib.optionalString stdenv.isDarwin ''
-      substituteInPlace src/google/protobuf/testing/googletest.cc \
-        --replace 'tmpnam(b)' '"'$TMPDIR'/foo"'
-    '';
+        ln -s ../googletest third_party/gmock/gtest
+        ln -s ../gmock third_party/googletest/googlemock
+        ln -s $(pwd)/third_party/googletest third_party/googletest/googletest
+      '' + lib.optionalString stdenv.isDarwin ''
+        substituteInPlace src/google/protobuf/testing/googletest.cc \
+          --replace 'tmpnam(b)' '"'$TMPDIR'/foo"'
+      ''
+      ;
 
-    patches = lib.optionals (lib.versionOlder version "3.22") [
-      # fix protobuf-targets.cmake installation paths, and allow for CMAKE_INSTALL_LIBDIR to be absolute
-      # https://github.com/protocolbuffers/protobuf/pull/10090
-      (fetchpatch {
-        url =
-          "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch";
-        sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
-      })
-    ] ++ lib.optionals stdenv.hostPlatform.isStatic [
+    patches =
+      lib.optionals (lib.versionOlder version "3.22") [
+        # fix protobuf-targets.cmake installation paths, and allow for CMAKE_INSTALL_LIBDIR to be absolute
+        # https://github.com/protocolbuffers/protobuf/pull/10090
+        (fetchpatch {
+          url =
+            "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch";
+          sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
+        })
+      ] ++ lib.optionals stdenv.hostPlatform.isStatic [
         ./static-executables-have-no-rpath.patch
-      ];
+      ]
+      ;
 
     nativeBuildInputs =
       let
@@ -81,7 +85,8 @@ let
       # After 3.20, CMakeLists.txt can now be found at the top-level, however
       # a stub cmake/CMakeLists.txt still exists for compatibility with previous build assumptions
     cmakeDir = "../cmake";
-    cmakeFlags = [ "-Dprotobuf_ABSL_PROVIDER=package" ]
+    cmakeFlags =
+      [ "-Dprotobuf_ABSL_PROVIDER=package" ]
       ++ lib.optionals (!stdenv.targetPlatform.isStatic) [
         "-Dprotobuf_BUILD_SHARED_LIBS=ON"
       ]
@@ -89,7 +94,8 @@ let
       # https://github.com/protocolbuffers/protobuf/issues/10418
       ++ lib.optional
       (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
-      "-Dprotobuf_BUILD_TESTS=OFF";
+      "-Dprotobuf_BUILD_TESTS=OFF"
+      ;
 
       # unfortunately the shared libraries have yet to been patched by nix, thus tests will fail
     doCheck = false;

@@ -74,9 +74,7 @@ let
             ;
 
           dedupResults =
-            lst:
-            nubOn somewhatUniqueRepresentant (lib.concatLists lst)
-            ;
+            lst: nubOn somewhatUniqueRepresentant (lib.concatLists lst);
         in
         if result.success then
           let
@@ -250,7 +248,8 @@ let
   optionalArgs =
     lib.optional (max-workers != null) "--max-workers=${max-workers}"
     ++ lib.optional (keep-going == "true") "--keep-going"
-    ++ lib.optional (commit == "true") "--commit";
+    ++ lib.optional (commit == "true") "--commit"
+    ;
 
   args = [ packagesJson ] ++ optionalArgs;
 

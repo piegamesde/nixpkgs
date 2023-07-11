@@ -25,9 +25,7 @@ let
       "so"
     ;
   langName =
-    g:
-    lib.removeSuffix "-grammar" (lib.removePrefix "tree-sitter-" g.pname)
-    ;
+    g: lib.removeSuffix "-grammar" (lib.removePrefix "tree-sitter-" g.pname);
   soName = g: langName g + "." + libSuffix;
 
   grammarDir = runCommand "emacs-tree-sitter-grammars" {
@@ -43,19 +41,23 @@ let
 
 in
 melpaStablePackages.tree-sitter-langs.overrideAttrs (old: {
-  postPatch = old.postPatch or "" + ''
-    substituteInPlace ./tree-sitter-langs-build.el \
-    --replace "tree-sitter-langs-grammar-dir tree-sitter-langs--dir"  "tree-sitter-langs-grammar-dir \"${grammarDir}/langs\""
-  '';
+  postPatch =
+    old.postPatch or "" + ''
+      substituteInPlace ./tree-sitter-langs-build.el \
+      --replace "tree-sitter-langs-grammar-dir tree-sitter-langs--dir"  "tree-sitter-langs-grammar-dir \"${grammarDir}/langs\""
+    ''
+    ;
 
-  postInstall = old.postInstall or "" + lib.concatStringsSep "\n" (map (g: ''
-    if [[ -d "${g}/queries" ]]; then
-      mkdir -p ${siteDir}/queries/${langName g}/
-      for f in ${g}/queries/*; do
-        ln -sfn "$f" ${siteDir}/queries/${langName g}/
-      done
-    fi
-  '') plugins);
+  postInstall =
+    old.postInstall or "" + lib.concatStringsSep "\n" (map (g: ''
+      if [[ -d "${g}/queries" ]]; then
+        mkdir -p ${siteDir}/queries/${langName g}/
+        for f in ${g}/queries/*; do
+          ln -sfn "$f" ${siteDir}/queries/${langName g}/
+        done
+      fi
+    '') plugins)
+    ;
 
   passthru = old.passthru or { } // {
     inherit plugins;

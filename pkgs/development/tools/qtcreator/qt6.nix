@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
   version = "10.0.0";
 
   src = fetchurl {
-    url = "https://download.qt.io/official_releases/${pname}/${
+    url =
+      "https://download.qt.io/official_releases/${pname}/${
         lib.versions.majorMinor version
       }/${version}/qt-creator-opensource-src-${version}.tar.xz";
     sha256 = "sha256-lImCneBYk6Rii3tlga8JbEivvTHJMs2KTbMKkMUhl78=";

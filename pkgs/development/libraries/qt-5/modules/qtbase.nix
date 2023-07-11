@@ -104,87 +104,93 @@ stdenv.mkDerivation (finalAttrs: {
   inherit qtCompatVersion src version;
   debug = debugSymbols;
 
-  propagatedBuildInputs = [
-    libxml2
-    libxslt
-    openssl
-    sqlite
-    zlib
-
-    # Text rendering
-    harfbuzz
-    icu
-
-    # Image formats
-    libjpeg
-    libpng
-    pcre2
-  ] ++ (if stdenv.isDarwin then
+  propagatedBuildInputs =
     [
-      # TODO: move to buildInputs, this should not be propagated.
-      AGL
-      AppKit
-      ApplicationServices
-      AVFoundation
-      Carbon
-      Cocoa
-      CoreAudio
-      CoreBluetooth
-      CoreLocation
-      CoreServices
-      DiskArbitration
-      Foundation
-      OpenGL
-      libobjc
-      libiconv
-      MetalKit
-      IOKit
-    ]
-  else
-    [
-      dbus
-      glib
-      udev
+      libxml2
+      libxslt
+      openssl
+      sqlite
+      zlib
 
       # Text rendering
-      fontconfig
-      freetype
+      harfbuzz
+      icu
 
-      libdrm
+      # Image formats
+      libjpeg
+      libpng
+      pcre2
+    ] ++ (if stdenv.isDarwin then
+      [
+        # TODO: move to buildInputs, this should not be propagated.
+        AGL
+        AppKit
+        ApplicationServices
+        AVFoundation
+        Carbon
+        Cocoa
+        CoreAudio
+        CoreBluetooth
+        CoreLocation
+        CoreServices
+        DiskArbitration
+        Foundation
+        OpenGL
+        libobjc
+        libiconv
+        MetalKit
+        IOKit
+      ]
+    else
+      [
+        dbus
+        glib
+        udev
 
-      # X11 libs
-      libX11
-      libXcomposite
-      libXext
-      libXi
-      libXrender
-      libxcb
-      libxkbcommon
-      xcbutil
-      xcbutilimage
-      xcbutilkeysyms
-      xcbutilrenderutil
-      xcbutilwm
-    ] ++ lib.optional libGLSupported libGL);
+        # Text rendering
+        fontconfig
+        freetype
 
-  buildInputs = [
-    python3
-    at-spi2-core
-  ] ++ lib.optionals (!stdenv.isDarwin)
+        libdrm
+
+        # X11 libs
+        libX11
+        libXcomposite
+        libXext
+        libXi
+        libXrender
+        libxcb
+        libxkbcommon
+        xcbutil
+        xcbutilimage
+        xcbutilkeysyms
+        xcbutilrenderutil
+        xcbutilwm
+      ] ++ lib.optional libGLSupported libGL)
+    ;
+
+  buildInputs =
+    [
+      python3
+      at-spi2-core
+    ] ++ lib.optionals (!stdenv.isDarwin)
     ([ libinput ] ++ lib.optional withGtk3 gtk3)
     ++ lib.optional developerBuild gdb ++ lib.optional (cups != null) cups
     ++ lib.optional (mysqlSupport) libmysqlclient
-    ++ lib.optional (postgresql != null) postgresql;
+    ++ lib.optional (postgresql != null) postgresql
+    ;
 
-  nativeBuildInputs = [
-    bison
-    flex
-    gperf
-    lndir
-    perl
-    pkg-config
-    which
-  ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+  nativeBuildInputs =
+    [
+      bison
+      flex
+      gperf
+      lndir
+      perl
+      pkg-config
+      which
+    ] ++ lib.optionals stdenv.isDarwin [ xcbuild ]
+    ;
 
   propagatedNativeBuildInputs = [ lndir ];
 
@@ -207,48 +213,51 @@ stdenv.mkDerivation (finalAttrs: {
     . ${../hooks/fix-qmake-libtool.sh}
   '';
 
-  postPatch = ''
-    for prf in qml_plugin.prf qt_plugin.prf qt_docs.prf qml_module.prf create_cmake.prf; do
-        substituteInPlace "mkspecs/features/$prf" \
-            --subst-var qtPluginPrefix \
-            --subst-var qtQmlPrefix \
-            --subst-var qtDocPrefix
-    done
-
-    substituteInPlace configure --replace /bin/pwd pwd
-    substituteInPlace src/corelib/global/global.pri --replace /bin/ls ${coreutils}/bin/ls
-    sed -e 's@/\(usr\|opt\)/@/var/empty/@g' -i mkspecs/*/*.conf
-
-    sed -i '/PATHS.*NO_DEFAULT_PATH/ d' src/corelib/Qt5Config.cmake.in
-    sed -i '/PATHS.*NO_DEFAULT_PATH/ d' src/corelib/Qt5CoreMacros.cmake
-    sed -i 's/NO_DEFAULT_PATH//' src/gui/Qt5GuiConfigExtras.cmake.in
-    sed -i '/PATHS.*NO_DEFAULT_PATH/ d' mkspecs/features/data/cmake/Qt5BasicConfig.cmake.in
-
-    # https://bugs.gentoo.org/803470
-    sed -i 's/-lpthread/-pthread/' mkspecs/common/linux.conf src/corelib/configure.json
-
-    patchShebangs ./bin
-  '' + (if stdenv.isDarwin then
+  postPatch =
     ''
-      sed -i \
-          -e 's|/usr/bin/xcode-select|xcode-select|' \
-          -e 's|/usr/bin/xcrun|xcrun|' \
-          -e 's|/usr/bin/xcodebuild|xcodebuild|' \
-          -e 's|QMAKE_CONF_COMPILER=`getXQMakeConf QMAKE_CXX`|QMAKE_CXX="clang++"\nQMAKE_CONF_COMPILER="clang++"|' \
-          ./configure
-          substituteInPlace ./mkspecs/common/mac.conf \
-              --replace "/System/Library/Frameworks/OpenGL.framework/" "${OpenGL}/Library/Frameworks/OpenGL.framework/" \
-              --replace "/System/Library/Frameworks/AGL.framework/" "${AGL}/Library/Frameworks/AGL.framework/"
-    ''
-  else
-    lib.optionalString libGLSupported ''
-      sed -i mkspecs/common/linux.conf \
-          -e "/^QMAKE_INCDIR_OPENGL/ s|$|${libGL.dev or libGL}/include|" \
-          -e "/^QMAKE_LIBDIR_OPENGL/ s|$|${libGL.out}/lib|"
-    '' + lib.optionalString (stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU) ''
-      sed -i mkspecs/common/gcc-base-unix.conf \
-          -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
-    '');
+      for prf in qml_plugin.prf qt_plugin.prf qt_docs.prf qml_module.prf create_cmake.prf; do
+          substituteInPlace "mkspecs/features/$prf" \
+              --subst-var qtPluginPrefix \
+              --subst-var qtQmlPrefix \
+              --subst-var qtDocPrefix
+      done
+
+      substituteInPlace configure --replace /bin/pwd pwd
+      substituteInPlace src/corelib/global/global.pri --replace /bin/ls ${coreutils}/bin/ls
+      sed -e 's@/\(usr\|opt\)/@/var/empty/@g' -i mkspecs/*/*.conf
+
+      sed -i '/PATHS.*NO_DEFAULT_PATH/ d' src/corelib/Qt5Config.cmake.in
+      sed -i '/PATHS.*NO_DEFAULT_PATH/ d' src/corelib/Qt5CoreMacros.cmake
+      sed -i 's/NO_DEFAULT_PATH//' src/gui/Qt5GuiConfigExtras.cmake.in
+      sed -i '/PATHS.*NO_DEFAULT_PATH/ d' mkspecs/features/data/cmake/Qt5BasicConfig.cmake.in
+
+      # https://bugs.gentoo.org/803470
+      sed -i 's/-lpthread/-pthread/' mkspecs/common/linux.conf src/corelib/configure.json
+
+      patchShebangs ./bin
+    '' + (if stdenv.isDarwin then
+      ''
+        sed -i \
+            -e 's|/usr/bin/xcode-select|xcode-select|' \
+            -e 's|/usr/bin/xcrun|xcrun|' \
+            -e 's|/usr/bin/xcodebuild|xcodebuild|' \
+            -e 's|QMAKE_CONF_COMPILER=`getXQMakeConf QMAKE_CXX`|QMAKE_CXX="clang++"\nQMAKE_CONF_COMPILER="clang++"|' \
+            ./configure
+            substituteInPlace ./mkspecs/common/mac.conf \
+                --replace "/System/Library/Frameworks/OpenGL.framework/" "${OpenGL}/Library/Frameworks/OpenGL.framework/" \
+                --replace "/System/Library/Frameworks/AGL.framework/" "${AGL}/Library/Frameworks/AGL.framework/"
+      ''
+    else
+      lib.optionalString libGLSupported ''
+        sed -i mkspecs/common/linux.conf \
+            -e "/^QMAKE_INCDIR_OPENGL/ s|$|${libGL.dev or libGL}/include|" \
+            -e "/^QMAKE_LIBDIR_OPENGL/ s|$|${libGL.out}/lib|"
+      ''
+      + lib.optionalString (stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU) ''
+        sed -i mkspecs/common/gcc-base-unix.conf \
+            -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
+      '')
+    ;
 
   qtPluginPrefix = "lib/qt-${qtCompatVersion}/plugins";
   qtQmlPrefix = "lib/qt-${qtCompatVersion}/qml";
@@ -314,131 +323,137 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString (postgresql != null) "-L${postgresql.lib}/lib -lpq";
 
     # TODO Remove obsolete and useless flags once the build will be totally mastered
-  configureFlags = [
-    "-plugindir $(out)/$(qtPluginPrefix)"
-    "-qmldir $(out)/$(qtQmlPrefix)"
-    "-docdir $(out)/$(qtDocPrefix)"
-
-    "-verbose"
-    "-confirm-license"
-    "-opensource"
-
-    "-release"
-    "-shared"
-    "-accessibility"
-    "-optimized-qmake"
-    # for separateDebugInfo
-    "-no-strip"
-    "-system-proxies"
-    "-pkg-config"
-
-    "-gui"
-    "-widgets"
-    "-opengl desktop"
-    "-icu"
-    "-L"
-    "${icu.out}/lib"
-    "-I"
-    "${icu.dev}/include"
-    "-pch"
-  ] ++ lib.optional debugSymbols "-debug" ++ lib.optionals developerBuild [
-    "-developer-build"
-    "-no-warnings-are-errors"
-  ] ++ (if (!stdenv.hostPlatform.isx86_64) then
-    [ "-no-sse2" ]
-  else
+  configureFlags =
     [
-      "-sse2"
-      "${lib.optionalString (!stdenv.hostPlatform.sse3Support) "-no"}-sse3"
-      "${lib.optionalString (!stdenv.hostPlatform.ssse3Support) "-no"}-ssse3"
-      "${lib.optionalString (!stdenv.hostPlatform.sse4_1Support) "-no"}-sse4.1"
-      "${lib.optionalString (!stdenv.hostPlatform.sse4_2Support) "-no"}-sse4.2"
-      "${lib.optionalString (!stdenv.hostPlatform.avxSupport) "-no"}-avx"
-      "${lib.optionalString (!stdenv.hostPlatform.avx2Support) "-no"}-avx2"
-    ]) ++ [
-      "-no-mips_dsp"
-      "-no-mips_dspr2"
-    ] ++ [
-      "-system-zlib"
-      "-L"
-      "${zlib.out}/lib"
-      "-I"
-      "${zlib.dev}/include"
-      "-system-libjpeg"
-      "-L"
-      "${libjpeg.out}/lib"
-      "-I"
-      "${libjpeg.dev}/include"
-      "-system-harfbuzz"
-      "-L"
-      "${harfbuzz.out}/lib"
-      "-I"
-      "${harfbuzz.dev}/include"
-      "-system-pcre"
-      "-openssl-linked"
-      "-L"
-      "${lib.getLib openssl}/lib"
-      "-I"
-      "${openssl.dev}/include"
-      "-system-sqlite"
-      "-${
-        if mysqlSupport then
-          "plugin"
-        else
-          "no"
-      }-sql-mysql"
-      "-${
-        if postgresql != null then
-          "plugin"
-        else
-          "no"
-      }-sql-psql"
+      "-plugindir $(out)/$(qtPluginPrefix)"
+      "-qmldir $(out)/$(qtQmlPrefix)"
+      "-docdir $(out)/$(qtDocPrefix)"
 
-      "-make libs"
-      "-make tools"
-      "-${lib.optionalString (!buildExamples) "no"}make examples"
-      "-${lib.optionalString (!buildTests) "no"}make tests"
-    ] ++ (if stdenv.isDarwin then
-      [
-        "-no-fontconfig"
-        "-qt-freetype"
-        "-qt-libpng"
-        "-no-framework"
-      ]
+      "-verbose"
+      "-confirm-license"
+      "-opensource"
+
+      "-release"
+      "-shared"
+      "-accessibility"
+      "-optimized-qmake"
+      # for separateDebugInfo
+      "-no-strip"
+      "-system-proxies"
+      "-pkg-config"
+
+      "-gui"
+      "-widgets"
+      "-opengl desktop"
+      "-icu"
+      "-L"
+      "${icu.out}/lib"
+      "-I"
+      "${icu.dev}/include"
+      "-pch"
+    ] ++ lib.optional debugSymbols "-debug" ++ lib.optionals developerBuild [
+      "-developer-build"
+      "-no-warnings-are-errors"
+    ] ++ (if (!stdenv.hostPlatform.isx86_64) then
+      [ "-no-sse2" ]
     else
-      [ "-rpath" ] ++ [
-        "-xcb"
-        "-qpa xcb"
+      [
+        "-sse2"
+        "${lib.optionalString (!stdenv.hostPlatform.sse3Support) "-no"}-sse3"
+        "${lib.optionalString (!stdenv.hostPlatform.ssse3Support) "-no"}-ssse3"
+        "${
+          lib.optionalString (!stdenv.hostPlatform.sse4_1Support) "-no"
+        }-sse4.1"
+        "${
+          lib.optionalString (!stdenv.hostPlatform.sse4_2Support) "-no"
+        }-sse4.2"
+        "${lib.optionalString (!stdenv.hostPlatform.avxSupport) "-no"}-avx"
+        "${lib.optionalString (!stdenv.hostPlatform.avx2Support) "-no"}-avx2"
+      ]) ++ [
+        "-no-mips_dsp"
+        "-no-mips_dspr2"
+      ] ++ [
+        "-system-zlib"
         "-L"
-        "${libX11.out}/lib"
+        "${zlib.out}/lib"
         "-I"
-        "${libX11.out}/include"
+        "${zlib.dev}/include"
+        "-system-libjpeg"
         "-L"
-        "${libXext.out}/lib"
+        "${libjpeg.out}/lib"
         "-I"
-        "${libXext.out}/include"
+        "${libjpeg.dev}/include"
+        "-system-harfbuzz"
         "-L"
-        "${libXrender.out}/lib"
+        "${harfbuzz.out}/lib"
         "-I"
-        "${libXrender.out}/include"
+        "${harfbuzz.dev}/include"
+        "-system-pcre"
+        "-openssl-linked"
+        "-L"
+        "${lib.getLib openssl}/lib"
+        "-I"
+        "${openssl.dev}/include"
+        "-system-sqlite"
+        "-${
+          if mysqlSupport then
+            "plugin"
+          else
+            "no"
+        }-sql-mysql"
+        "-${
+          if postgresql != null then
+            "plugin"
+          else
+            "no"
+        }-sql-psql"
 
-        "-libinput"
+        "-make libs"
+        "-make tools"
+        "-${lib.optionalString (!buildExamples) "no"}make examples"
+        "-${lib.optionalString (!buildTests) "no"}make tests"
+      ] ++ (if stdenv.isDarwin then
+        [
+          "-no-fontconfig"
+          "-qt-freetype"
+          "-qt-libpng"
+          "-no-framework"
+        ]
+      else
+        [ "-rpath" ] ++ [
+          "-xcb"
+          "-qpa xcb"
+          "-L"
+          "${libX11.out}/lib"
+          "-I"
+          "${libX11.out}/include"
+          "-L"
+          "${libXext.out}/lib"
+          "-I"
+          "${libXext.out}/include"
+          "-L"
+          "${libXrender.out}/lib"
+          "-I"
+          "${libXrender.out}/include"
 
-        "-${lib.optionalString (cups == null) "no-"}cups"
-        "-dbus-linked"
-        "-glib"
-      ] ++ [ "-system-libpng" ] ++ lib.optional withGtk3 "-gtk"
-      ++ [ "-inotify" ] ++ lib.optionals (cups != null) [
-        "-L"
-        "${cups.lib}/lib"
-        "-I"
-        "${cups.dev}/include"
-      ] ++ lib.optionals (mysqlSupport) [
-        "-L"
-        "${libmysqlclient}/lib"
-        "-I"
-        "${libmysqlclient}/include"
-      ]);
+          "-libinput"
+
+          "-${lib.optionalString (cups == null) "no-"}cups"
+          "-dbus-linked"
+          "-glib"
+        ] ++ [ "-system-libpng" ] ++ lib.optional withGtk3 "-gtk"
+        ++ [ "-inotify" ] ++ lib.optionals (cups != null) [
+          "-L"
+          "${cups.lib}/lib"
+          "-I"
+          "${cups.dev}/include"
+        ] ++ lib.optionals (mysqlSupport) [
+          "-L"
+          "${libmysqlclient}/lib"
+          "-I"
+          "${libmysqlclient}/include"
+        ])
+    ;
 
     # Move selected outputs.
   postInstall = ''

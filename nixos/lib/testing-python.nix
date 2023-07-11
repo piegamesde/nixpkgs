@@ -76,20 +76,21 @@ pkgs.lib.throwIf (args ? specialArgs) ''
       interactive ? { }
     }@t:
     let
-      testConfig = (evalTest {
-        imports = [
-          {
-            _file = "makeTest parameters";
-            config = t;
-          }
-          {
-            defaults = {
-              _file = "makeTest: extraConfigurations";
-              imports = extraConfigurations;
-            };
-          }
-        ];
-      }).config;
+      testConfig =
+        (evalTest {
+          imports = [
+            {
+              _file = "makeTest parameters";
+              config = t;
+            }
+            {
+              defaults = {
+                _file = "makeTest: extraConfigurations";
+                imports = extraConfigurations;
+              };
+            }
+          ];
+        }).config;
     in
     testConfig.test # For nix-build
     // testConfig

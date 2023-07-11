@@ -50,12 +50,14 @@ let
       name = "${name}-${version}";
       inherit version;
 
-      buildInputs = buildInputs ++ [
-        erlang
-        rebar3
-        openssl
-        libyaml
-      ];
+      buildInputs =
+        buildInputs ++ [
+          erlang
+          rebar3
+          openssl
+          libyaml
+        ]
+        ;
       propagatedBuildInputs = lib.unique beamDeps;
 
       inherit
@@ -71,9 +73,11 @@ let
         addToSearchPath ERL_LIBS "$1/lib/erlang/lib/"
       '';
 
-      postPatch = ''
-        rm -f rebar rebar3
-      '' + postPatch;
+      postPatch =
+        ''
+          rm -f rebar rebar3
+        '' + postPatch
+        ;
 
       buildPhase = ''
         runHook preBuild

@@ -72,24 +72,26 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
-  jamFlags = [
-    "-sEXEC=bin.unix"
-    "-sCROSS_COMPILE=${stdenv.cc.targetPrefix}"
-    "-sMALLOC_OVERRIDE=no"
-    "-sSSLINCDIR=${lib.getDev opensslStatic}/include"
-    "-sSSLLIBDIR=${lib.getLib opensslStatic}/lib"
-  ] ++ lib.optionals stdenv.cc.isClang [
-    "-sOSCOMP=clang"
-    "-sCLANGVER=${stdenv.cc.cc.version}"
-  ] ++ lib.optionals stdenv.cc.isGNU [
-    "-sOSCOMP=gcc"
-    "-sGCCVER=${stdenv.cc.cc.version}"
-  ] ++ lib.optionals stdenv.isLinux [ "-sOSVER=26" ]
+  jamFlags =
+    [
+      "-sEXEC=bin.unix"
+      "-sCROSS_COMPILE=${stdenv.cc.targetPrefix}"
+      "-sMALLOC_OVERRIDE=no"
+      "-sSSLINCDIR=${lib.getDev opensslStatic}/include"
+      "-sSSLLIBDIR=${lib.getLib opensslStatic}/lib"
+    ] ++ lib.optionals stdenv.cc.isClang [
+      "-sOSCOMP=clang"
+      "-sCLANGVER=${stdenv.cc.cc.version}"
+    ] ++ lib.optionals stdenv.cc.isGNU [
+      "-sOSCOMP=gcc"
+      "-sGCCVER=${stdenv.cc.cc.version}"
+    ] ++ lib.optionals stdenv.isLinux [ "-sOSVER=26" ]
     ++ lib.optionals stdenv.isDarwin [
       "-sOSVER=1013"
       "-sMACOSX_SDK=${emptyDirectory}"
       "-sLIBC++DIR=${libcxxUnified}/lib"
-    ];
+    ]
+    ;
 
   CCFLAGS =
     # The file contrib/optimizations/slide_hash_neon.h is missing from the
@@ -110,7 +112,8 @@ stdenv.mkDerivation rec {
         "limits"
         "-include"
         "thread"
-      ];
+      ]
+    ;
 
   buildPhase = ''
     runHook preBuild

@@ -51,16 +51,18 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  propagatedBuildInputs = [
-    databases
-    psycopg2
-    pydantic
-    sqlalchemy
-    psycopg2
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-    importlib-metadata
-  ];
+  propagatedBuildInputs =
+    [
+      databases
+      psycopg2
+      pydantic
+      sqlalchemy
+      psycopg2
+    ] ++ lib.optionals (pythonOlder "3.8") [
+      typing-extensions
+      importlib-metadata
+    ]
+    ;
 
   passthru.optional-dependencies = {
     postgresql = [ asyncpg ];
@@ -84,12 +86,14 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    fastapi
-    httpx
-    nest-asyncio
-    pytest-asyncio
-  ] ++ passthru.optional-dependencies.all;
+  checkInputs =
+    [
+      fastapi
+      httpx
+      nest-asyncio
+      pytest-asyncio
+    ] ++ passthru.optional-dependencies.all
+    ;
 
   disabledTestPaths = [ "benchmarks/test_benchmark_*.py" ];
 

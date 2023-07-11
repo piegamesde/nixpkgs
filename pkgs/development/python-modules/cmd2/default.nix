@@ -32,15 +32,17 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    colorama
-    pyperclip
-    wcwidth
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-    importlib-metadata
-  ];
+  propagatedBuildInputs =
+    [
+      attrs
+      colorama
+      pyperclip
+      wcwidth
+    ] ++ lib.optionals (pythonOlder "3.8") [
+      typing-extensions
+      importlib-metadata
+    ]
+    ;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -54,16 +56,18 @@ buildPythonPackage rec {
     "test_transcript"
   ];
 
-  postPatch = ''
-    sed -i "/--cov/d" setup.cfg
-  '' + lib.optionalString stdenv.isDarwin ''
-    # Fake the impure dependencies pbpaste and pbcopy
-    mkdir bin
-    echo '#!${stdenv.shell}' > bin/pbpaste
-    echo '#!${stdenv.shell}' > bin/pbcopy
-    chmod +x bin/{pbcopy,pbpaste}
-    export PATH=$(realpath bin):$PATH
-  '';
+  postPatch =
+    ''
+      sed -i "/--cov/d" setup.cfg
+    '' + lib.optionalString stdenv.isDarwin ''
+      # Fake the impure dependencies pbpaste and pbcopy
+      mkdir bin
+      echo '#!${stdenv.shell}' > bin/pbpaste
+      echo '#!${stdenv.shell}' > bin/pbcopy
+      chmod +x bin/{pbcopy,pbpaste}
+      export PATH=$(realpath bin):$PATH
+    ''
+    ;
 
   doCheck = !stdenv.isDarwin;
 

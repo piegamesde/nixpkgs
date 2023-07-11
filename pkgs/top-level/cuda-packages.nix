@@ -53,7 +53,8 @@ let
           hash
           ;
           # This can go into generic.nix
-        libPath = "lib/${
+        libPath =
+          "lib/${
             if cudaMajorVersion == "10" then
               cudaMajorMinorVersion
             else

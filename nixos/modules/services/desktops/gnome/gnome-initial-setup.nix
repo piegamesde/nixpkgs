@@ -83,9 +83,11 @@ in
 
   config = mkIf config.services.gnome.gnome-initial-setup.enable {
 
-    environment.systemPackages = [ pkgs.gnome.gnome-initial-setup ]
+    environment.systemPackages =
+      [ pkgs.gnome.gnome-initial-setup ]
       ++ optional (versionOlder config.system.stateVersion "20.03")
-      createGisStampFilesAutostart;
+      createGisStampFilesAutostart
+      ;
 
     systemd.packages = [ pkgs.gnome.gnome-initial-setup ];
 

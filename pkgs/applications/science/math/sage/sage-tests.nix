@@ -34,9 +34,7 @@ let
       "--short ${toString timeLimit}"
     ;
   relpathToArg =
-    relpath:
-    lib.escapeShellArg "${src}/${relpath}"
-    ; # paths need to be absolute
+    relpath: lib.escapeShellArg "${src}/${relpath}"; # paths need to be absolute
   testFileList = lib.concatStringsSep " " (map relpathToArg files);
 in
 stdenv.mkDerivation {

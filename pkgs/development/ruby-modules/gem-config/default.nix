@@ -128,11 +128,13 @@ in
   atk =
     attrs: {
       dependencies = attrs.dependencies ++ [ "gobject-introspection" ];
-      nativeBuildInputs = [
-        rake
-        bundler
-        pkg-config
-      ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      nativeBuildInputs =
+        [
+          rake
+          bundler
+          pkg-config
+        ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+        ;
       propagatedBuildInputs = [
         gobject-introspection
         wrapGAppsHook
@@ -204,32 +206,20 @@ in
     ;
 
   cocoapods-acknowledgements =
-    attrs: {
-      dependencies = attrs.dependencies ++ [ "cocoapods" ];
-    }
-    ;
+    attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
 
   cocoapods-deploy = attrs: { dependencies = [ "cocoapods" ]; };
 
   cocoapods-disable-podfile-validations =
-    attrs: {
-      dependencies = [ "cocoapods" ];
-    }
-    ;
+    attrs: { dependencies = [ "cocoapods" ]; };
 
   cocoapods-generate =
-    attrs: {
-      dependencies = attrs.dependencies ++ [ "cocoapods" ];
-    }
-    ;
+    attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
 
   cocoapods-git_url_rewriter = attrs: { dependencies = [ "cocoapods" ]; };
 
   cocoapods-keys =
-    attrs: {
-      dependencies = attrs.dependencies ++ [ "cocoapods" ];
-    }
-    ;
+    attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
 
   cocoapods-open = attrs: { dependencies = [ "cocoapods" ]; };
 
@@ -256,11 +246,12 @@ in
       # Use discount from nixpkgs instead of vendored version
       dontBuild = false;
       buildInputs = [ discount ];
-      patches = [
-        # Adapted from Debian:
-        # https://sources.debian.org/data/main/r/ruby-rdiscount/2.1.8-1/debian/patches/01_use-system-libmarkdown.patch
-        ./rdiscount-use-nixpkgs-libmarkdown.patch
-      ];
+      patches =
+        [
+          # Adapted from Debian:
+          # https://sources.debian.org/data/main/r/ruby-rdiscount/2.1.8-1/debian/patches/01_use-system-libmarkdown.patch
+          ./rdiscount-use-nixpkgs-libmarkdown.patch
+        ];
     }
     ;
 
@@ -361,11 +352,13 @@ in
 
   gdk_pixbuf2 =
     attrs: {
-      nativeBuildInputs = [
-        pkg-config
-        bundler
-        rake
-      ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      nativeBuildInputs =
+        [
+          pkg-config
+          bundler
+          rake
+        ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+        ;
       propagatedBuildInputs = [
         gobject-introspection
         wrapGAppsHook
@@ -386,16 +379,18 @@ in
     attrs: {
       nativeBuildInputs =
         [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
-      buildInputs = [
-        gtk2
-        pcre
-        pcre2
-        gobject-introspection
-      ] ++ lib.optionals stdenv.isLinux [
-        util-linux
-        libselinux
-        libsepol
-      ];
+      buildInputs =
+        [
+          gtk2
+          pcre
+          pcre2
+          gobject-introspection
+        ] ++ lib.optionals stdenv.isLinux [
+          util-linux
+          libselinux
+          libsepol
+        ]
+        ;
     }
     ;
 
@@ -462,14 +457,16 @@ in
 
   gtk2 =
     attrs: {
-      nativeBuildInputs = [
-        binutils
-        pkg-config
-      ] ++ lib.optionals stdenv.isLinux [
-        util-linux
-        libselinux
-        libsepol
-      ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      nativeBuildInputs =
+        [
+          binutils
+          pkg-config
+        ] ++ lib.optionals stdenv.isLinux [
+          util-linux
+          libselinux
+          libsepol
+        ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+        ;
       propagatedBuildInputs = [
         atk
         gdk-pixbuf
@@ -490,10 +487,12 @@ in
 
   gobject-introspection =
     attrs: {
-      nativeBuildInputs = [
-        pkg-config
-        pcre2
-      ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      nativeBuildInputs =
+        [
+          pkg-config
+          pcre2
+        ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+        ;
       propagatedBuildInputs = [
         gobject-introspection
         wrapGAppsHook
@@ -514,9 +513,11 @@ in
 
   grpc =
     attrs: {
-      nativeBuildInputs = [ pkg-config ] ++ lib.optional stdenv.isDarwin cctools
-        ++ lib.optional (lib.versionAtLeast attrs.version "1.53.0"
-          && stdenv.isDarwin && stdenv.isAarch64) autoSignDarwinBinariesHook;
+      nativeBuildInputs =
+        [ pkg-config ] ++ lib.optional stdenv.isDarwin cctools ++ lib.optional
+        (lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin
+          && stdenv.isAarch64) autoSignDarwinBinariesHook
+        ;
       buildInputs = [ openssl ];
       hardeningDisable = [ "format" ];
       env.NIX_CFLAGS_COMPILE = toString [
@@ -530,10 +531,11 @@ in
         "-Wno-error=stringop-truncation"
       ];
       dontBuild = false;
-      postPatch = ''
-        substituteInPlace Makefile \
-          --replace '-Wno-invalid-source-encoding' ""
-      '' + lib.optionalString
+      postPatch =
+        ''
+          substituteInPlace Makefile \
+            --replace '-Wno-invalid-source-encoding' ""
+        '' + lib.optionalString
         (lib.versionOlder attrs.version "1.53.0" && stdenv.isDarwin) ''
           # For < v1.48.0
           substituteInPlace src/ruby/ext/grpc/extconf.rb \
@@ -541,15 +543,13 @@ in
           # For >= v1.48.0
           substituteInPlace src/ruby/ext/grpc/extconf.rb \
             --replace 'apple_toolchain = ' 'apple_toolchain = false && '
-        '';
+        ''
+        ;
     }
     ;
 
   hitimes =
-    attrs: {
-      buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
-    }
-    ;
+    attrs: { buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ]; };
 
   iconv =
     attrs: {
@@ -610,13 +610,15 @@ in
 
   libxml-ruby =
     attrs: {
-      buildFlags = [
-        "--with-xml2-lib=${libxml2.out}/lib"
-        "--with-xml2-include=${libxml2.dev}/include/libxml2"
-      ] ++ lib.optionals stdenv.isDarwin [
-        "--with-iconv-dir=${libiconv}"
-        "--with-opt-include=${libiconv}/include"
-      ];
+      buildFlags =
+        [
+          "--with-xml2-lib=${libxml2.out}/lib"
+          "--with-xml2-include=${libxml2.dev}/include/libxml2"
+        ] ++ lib.optionals stdenv.isDarwin [
+          "--with-iconv-dir=${libiconv}"
+          "--with-opt-include=${libiconv}/include"
+        ]
+        ;
     }
     ;
 
@@ -732,20 +734,22 @@ in
 
   nokogiri =
     attrs: {
-      buildFlags = [
-        "--use-system-libraries"
-        "--with-zlib-lib=${zlib.out}/lib"
-        "--with-zlib-include=${zlib.dev}/include"
-        "--with-xml2-lib=${libxml2.out}/lib"
-        "--with-xml2-include=${libxml2.dev}/include/libxml2"
-        "--with-xslt-lib=${libxslt.out}/lib"
-        "--with-xslt-include=${libxslt.dev}/include"
-        "--with-exslt-lib=${libxslt.out}/lib"
-        "--with-exslt-include=${libxslt.dev}/include"
-      ] ++ lib.optionals stdenv.isDarwin [
-        "--with-iconv-dir=${libiconv}"
-        "--with-opt-include=${libiconv}/include"
-      ];
+      buildFlags =
+        [
+          "--use-system-libraries"
+          "--with-zlib-lib=${zlib.out}/lib"
+          "--with-zlib-include=${zlib.dev}/include"
+          "--with-xml2-lib=${libxml2.out}/lib"
+          "--with-xml2-include=${libxml2.dev}/include/libxml2"
+          "--with-xslt-lib=${libxslt.out}/lib"
+          "--with-xslt-include=${libxslt.dev}/include"
+          "--with-exslt-lib=${libxslt.out}/lib"
+          "--with-exslt-include=${libxslt.dev}/include"
+        ] ++ lib.optionals stdenv.isDarwin [
+          "--with-iconv-dir=${libiconv}"
+          "--with-opt-include=${libiconv}/include"
+        ]
+        ;
     }
     ;
 
@@ -778,23 +782,27 @@ in
 
   pango =
     attrs: {
-      nativeBuildInputs = [
-        pkg-config
-        fribidi
-        harfbuzz
-        pcre
-        pcre2
-        xorg.libpthreadstubs
-        xorg.libXdmcp
-      ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
-      buildInputs = [
-        libdatrie
-        libthai
-      ] ++ lib.optionals stdenv.isLinux [
-        libselinux
-        libsepol
-        util-linux
-      ];
+      nativeBuildInputs =
+        [
+          pkg-config
+          fribidi
+          harfbuzz
+          pcre
+          pcre2
+          xorg.libpthreadstubs
+          xorg.libXdmcp
+        ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+        ;
+      buildInputs =
+        [
+          libdatrie
+          libthai
+        ] ++ lib.optionals stdenv.isLinux [
+          libselinux
+          libsepol
+          util-linux
+        ]
+        ;
       propagatedBuildInputs = [
         gobject-introspection
         wrapGAppsHook
@@ -808,10 +816,7 @@ in
   pcaprub = attrs: { buildInputs = [ libpcap ]; };
 
   pg =
-    attrs: {
-      buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ];
-    }
-    ;
+    attrs: { buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ]; };
 
   psych = attrs: { buildInputs = [ libyaml ]; };
 
@@ -918,11 +923,13 @@ in
 
   rugged =
     attrs: {
-      nativeBuildInputs = [
-        cmake
-        pkg-config
-        which
-      ] ++ lib.optional stdenv.isDarwin libiconv;
+      nativeBuildInputs =
+        [
+          cmake
+          pkg-config
+          which
+        ] ++ lib.optional stdenv.isDarwin libiconv
+        ;
       buildInputs = [
         openssl
         libssh2
@@ -1066,8 +1073,5 @@ in
   zlib = attrs: { buildInputs = [ zlib ]; };
 
   zookeeper =
-    attrs: {
-      buildInputs = lib.optionals stdenv.isDarwin [ cctools ];
-    }
-    ;
+    attrs: { buildInputs = lib.optionals stdenv.isDarwin [ cctools ]; };
 }

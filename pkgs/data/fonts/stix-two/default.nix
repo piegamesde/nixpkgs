@@ -9,7 +9,8 @@ stdenvNoCC.mkDerivation rec {
   version = "2.13";
 
   src = fetchzip {
-    url = "https://github.com/stipub/stixfonts/raw/v${version}/zipfiles/STIX${
+    url =
+      "https://github.com/stipub/stixfonts/raw/v${version}/zipfiles/STIX${
         builtins.replaceStrings [ "." ] [ "_" ] version
       }-all.zip";
     stripRoot = false;

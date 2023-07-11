@@ -113,15 +113,16 @@ rec {
         lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ])
         (builtins.attrNames pkgConfig);
 
-      postInstall = (builtins.map (key:
-        if (pkgConfig.${key} ? postInstall) then
-          ''
-            for f in $(find -L -path '*/node_modules/${key}' -type d); do
-              (cd "$f" && (${pkgConfig.${key}.postInstall}))
-            done
-          ''
-        else
-          "") (builtins.attrNames pkgConfig));
+      postInstall =
+        (builtins.map (key:
+          if (pkgConfig.${key} ? postInstall) then
+            ''
+              for f in $(find -L -path '*/node_modules/${key}' -type d); do
+                (cd "$f" && (${pkgConfig.${key}.postInstall}))
+              done
+            ''
+          else
+            "") (builtins.attrNames pkgConfig));
 
         # build-time JSON generation to avoid IFD
         # see https://nixos.wiki/wiki/Import_From_Derivation
@@ -148,22 +149,26 @@ rec {
       inherit preBuild postBuild name;
       dontUnpack = true;
       dontInstall = true;
-      nativeBuildInputs = [
-        yarn
-        nodejs
-        git
-      ] ++ extraNativeBuildInputs;
+      nativeBuildInputs =
+        [
+          yarn
+          nodejs
+          git
+        ] ++ extraNativeBuildInputs
+        ;
       buildInputs = extraBuildInputs;
 
-      configurePhase = lib.optionalString (offlineCache ? outputHash) ''
-        if ! cmp -s ${yarnLock} ${offlineCache}/yarn.lock; then
-          echo "yarn.lock changed, you need to update the fetchYarnDeps hash"
-          exit 1
-        fi
-      '' + ''
-        # Yarn writes cache directories etc to $HOME.
-        export HOME=$PWD/yarn_home
-      '';
+      configurePhase =
+        lib.optionalString (offlineCache ? outputHash) ''
+          if ! cmp -s ${yarnLock} ${offlineCache}/yarn.lock; then
+            echo "yarn.lock changed, you need to update the fetchYarnDeps hash"
+            exit 1
+          fi
+        '' + ''
+          # Yarn writes cache directories etc to $HOME.
+          export HOME=$PWD/yarn_home
+        ''
+        ;
 
       buildPhase = ''
         runHook preBuild
@@ -402,75 +407,80 @@ rec {
 
       name = baseName;
 
-      buildInputs = [
-        yarn
-        nodejs
-        rsync
-      ] ++ extraBuildInputs;
+      buildInputs =
+        [
+          yarn
+          nodejs
+          rsync
+        ] ++ extraBuildInputs
+        ;
 
       node_modules = deps + "/node_modules";
 
-      configurePhase = attrs.configurePhase or ''
-        runHook preConfigure
+      configurePhase =
+        attrs.configurePhase or ''
+          runHook preConfigure
 
-        for localDir in npm-packages-offline-cache node_modules; do
-          if [[ -d $localDir || -L $localDir ]]; then
-            echo "$localDir dir present. Removing."
-            rm -rf $localDir
-          fi
-        done
+          for localDir in npm-packages-offline-cache node_modules; do
+            if [[ -d $localDir || -L $localDir ]]; then
+              echo "$localDir dir present. Removing."
+              rm -rf $localDir
+            fi
+          done
 
-        # move convent of . to ./deps/${pname}
-        mv $PWD $NIX_BUILD_TOP/temp
-        mkdir -p "$PWD/deps/${pname}"
-        rm -fd "$PWD/deps/${pname}"
-        mv $NIX_BUILD_TOP/temp "$PWD/deps/${pname}"
-        cd $PWD
+          # move convent of . to ./deps/${pname}
+          mv $PWD $NIX_BUILD_TOP/temp
+          mkdir -p "$PWD/deps/${pname}"
+          rm -fd "$PWD/deps/${pname}"
+          mv $NIX_BUILD_TOP/temp "$PWD/deps/${pname}"
+          cd $PWD
 
-        ln -s ${deps}/deps/${pname}/node_modules "deps/${pname}/node_modules"
+          ln -s ${deps}/deps/${pname}/node_modules "deps/${pname}/node_modules"
 
-        cp -r $node_modules node_modules
-        chmod -R +w node_modules
+          cp -r $node_modules node_modules
+          chmod -R +w node_modules
 
-        ${linkDirFunction}
+          ${linkDirFunction}
 
-        linkDirToDirLinks "$(dirname node_modules/${pname})"
-        ln -s "deps/${pname}" "node_modules/${pname}"
+          linkDirToDirLinks "$(dirname node_modules/${pname})"
+          ln -s "deps/${pname}" "node_modules/${pname}"
 
-        ${workspaceDependencyCopy}
+          ${workspaceDependencyCopy}
 
-        # Help yarn commands run in other phases find the package
-        echo "--cwd deps/${pname}" > .yarnrc
-        runHook postConfigure
-      '';
+          # Help yarn commands run in other phases find the package
+          echo "--cwd deps/${pname}" > .yarnrc
+          runHook postConfigure
+        '';
 
         # Replace this phase on frontend packages where only the generated
         # files are an interesting output.
-      installPhase = attrs.installPhase or ''
-        runHook preInstall
+      installPhase =
+        attrs.installPhase or ''
+          runHook preInstall
 
-        mkdir -p $out/{bin,libexec/${pname}}
-        mv node_modules $out/libexec/${pname}/node_modules
-        mv deps $out/libexec/${pname}/deps
+          mkdir -p $out/{bin,libexec/${pname}}
+          mv node_modules $out/libexec/${pname}/node_modules
+          mv deps $out/libexec/${pname}/deps
 
-        node ${
-          ./internal/fixup_bin.js
-        } $out/bin $out/libexec/${pname}/node_modules ${
-          lib.concatStringsSep " " publishBinsFor_
-        }
+          node ${
+            ./internal/fixup_bin.js
+          } $out/bin $out/libexec/${pname}/node_modules ${
+            lib.concatStringsSep " " publishBinsFor_
+          }
 
-        runHook postInstall
-      '';
+          runHook postInstall
+        '';
 
       doDist = attrs.doDist or true;
 
-      distPhase = attrs.distPhase or ''
-        # pack command ignores cwd option
-        rm -f .yarnrc
-        cd $out/libexec/${pname}/deps/${pname}
-        mkdir -p $out/tarballs/
-        yarn pack --offline --ignore-scripts --filename $out/tarballs/${baseName}.tgz
-      '';
+      distPhase =
+        attrs.distPhase or ''
+          # pack command ignores cwd option
+          rm -f .yarnrc
+          cd $out/libexec/${pname}/deps/${pname}
+          mkdir -p $out/tarballs/
+          yarn pack --offline --ignore-scripts --filename $out/tarballs/${baseName}.tgz
+        '';
 
       passthru = {
         inherit pname package packageJSON deps;
@@ -541,10 +551,12 @@ rec {
       # we import package.json from the unfiltered source
     packageJSON = ./package.json;
 
-    yarnFlags = defaultYarnFlags ++ [
-      "--ignore-scripts"
-      "--production=true"
-    ];
+    yarnFlags =
+      defaultYarnFlags ++ [
+        "--ignore-scripts"
+        "--production=true"
+      ]
+      ;
 
     nativeBuildInputs = [ pkgs.makeWrapper ];
 

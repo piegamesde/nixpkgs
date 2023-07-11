@@ -30,7 +30,9 @@ buildPythonPackage rec {
 
     # Python 2.x is not supported, see:
     # https://github.com/jflesch/libpillowfight/issues/1
-  disabled = !isPy3k && !isPyPy;
+  disabled =
+    !isPy3k && !isPyPy
+    ;
 
     # This is needed by setup.py regardless of whether tests are enabled.
   buildInputs = [ nose ];

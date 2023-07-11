@@ -148,32 +148,34 @@ stdenv.mkDerivation (rec {
     fixup_yarn_lock
   ];
 
-  buildInputs = [
-    nodejs
-    ripgrep
-    fontconfig
-    libGL
-    libGLU
-    ncurses
-    acl
-    harfbuzz
-    libjpeg
-    expat
-    icu58
-    libpng
-  ] ++ (with xorg; [
-    libX11
-    libXext
-    libXi
-    libXxf86vm
-    libXrandr
-    libXinerama
-    libXcursor
-    libICE
-    libSM
-    libXt
-    libxkbfile
-  ]);
+  buildInputs =
+    [
+      nodejs
+      ripgrep
+      fontconfig
+      libGL
+      libGLU
+      ncurses
+      acl
+      harfbuzz
+      libjpeg
+      expat
+      icu58
+      libpng
+    ] ++ (with xorg; [
+      libX11
+      libXext
+      libXi
+      libXxf86vm
+      libXrandr
+      libXinerama
+      libXcursor
+      libICE
+      libSM
+      libXt
+      libxkbfile
+    ])
+    ;
 
   unpackPhase = ''
     cp -r ${source}/* ./

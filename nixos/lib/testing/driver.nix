@@ -63,8 +63,10 @@ let
 
   driver = hostPkgs.runCommand "nixos-test-driver-${config.name}" {
     # inherit testName; TODO (roberth): need this?
-    nativeBuildInputs = [ hostPkgs.makeWrapper ]
-      ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ];
+    nativeBuildInputs =
+      [ hostPkgs.makeWrapper ]
+      ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ]
+      ;
     buildInputs = [ testDriver ];
     testScript = config.testScriptString;
     preferLocalBuild = true;

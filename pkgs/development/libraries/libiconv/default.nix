@@ -24,17 +24,21 @@ stdenv.mkDerivation rec {
     ./setup-hook.sh
   ];
 
-  postPatch = lib.optionalString ((stdenv.hostPlatform != stdenv.buildPlatform
-    && stdenv.hostPlatform.libc == "msvcrt") || stdenv.cc.nativeLibc) ''
-      sed '/^_GL_WARN_ON_USE (gets/d' -i srclib/stdio.in.h
-    '' + lib.optionalString (!enableShared) ''
-      sed -i -e '/preload/d' Makefile.in
-    '';
+  postPatch =
+    lib.optionalString ((stdenv.hostPlatform != stdenv.buildPlatform
+      && stdenv.hostPlatform.libc == "msvcrt") || stdenv.cc.nativeLibc) ''
+        sed '/^_GL_WARN_ON_USE (gets/d' -i srclib/stdio.in.h
+      '' + lib.optionalString (!enableShared) ''
+        sed -i -e '/preload/d' Makefile.in
+      ''
+    ;
 
-  configureFlags = [
-    (lib.enableFeature enableStatic "static")
-    (lib.enableFeature enableShared "shared")
-  ] ++ lib.optional stdenv.isFreeBSD "--with-pic";
+  configureFlags =
+    [
+      (lib.enableFeature enableStatic "static")
+      (lib.enableFeature enableShared "shared")
+    ] ++ lib.optional stdenv.isFreeBSD "--with-pic"
+    ;
 
   meta = {
     description = "An iconv(3) implementation";

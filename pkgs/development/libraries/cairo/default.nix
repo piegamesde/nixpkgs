@@ -45,7 +45,8 @@ stdenv.mkDerivation (finalAttrs:
     version = "1.16.0";
 
     src = fetchurl {
-      url = "https://cairographics.org/${
+      url =
+        "https://cairographics.org/${
           if
             lib.mod (builtins.fromJSON (lib.versions.minor version)) 2 == 0
           then
@@ -120,44 +121,49 @@ stdenv.mkDerivation (finalAttrs:
 
     nativeBuildInputs = [ pkg-config ];
 
-    buildInputs = [
-      libiconv
-      libintl
-    ] ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      CoreGraphics
-      CoreText
-      ApplicationServices
-      Carbon
-    ]);
+    buildInputs =
+      [
+        libiconv
+        libintl
+      ] ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+        CoreGraphics
+        CoreText
+        ApplicationServices
+        Carbon
+      ])
+      ;
 
-    propagatedBuildInputs = [
-      fontconfig
-      expat
-      freetype
-      pixman
-      zlib
-      libpng
-    ] ++ optionals x11Support [
-      libXext
-      libXrender
-    ] ++ optionals xcbSupport [
-      libxcb
-      xcbutil
-    ] ++ optional gobjectSupport glib ++ optional glSupport libGL
+    propagatedBuildInputs =
+      [
+        fontconfig
+        expat
+        freetype
+        pixman
+        zlib
+        libpng
+      ] ++ optionals x11Support [
+        libXext
+        libXrender
+      ] ++ optionals xcbSupport [
+        libxcb
+        xcbutil
+      ] ++ optional gobjectSupport glib ++ optional glSupport libGL
       ; # TODO: maybe liblzo but what would it be for here?
 
-    configureFlags = [ "--enable-tee" ] ++ (if stdenv.isDarwin then
-      [
-        "--disable-dependency-tracking"
-        "--enable-quartz"
-        "--enable-quartz-font"
-        "--enable-quartz-image"
-        "--enable-ft"
-      ]
-    else
-      (optional xcbSupport "--enable-xcb" ++ optional glSupport "--enable-gl"
-        ++ optional pdfSupport "--enable-pdf"))
-      ++ optional (!x11Support) "--disable-xlib";
+    configureFlags =
+      [ "--enable-tee" ] ++ (if stdenv.isDarwin then
+        [
+          "--disable-dependency-tracking"
+          "--enable-quartz"
+          "--enable-quartz-font"
+          "--enable-quartz-image"
+          "--enable-ft"
+        ]
+      else
+        (optional xcbSupport "--enable-xcb" ++ optional glSupport "--enable-gl"
+          ++ optional pdfSupport "--enable-pdf"))
+      ++ optional (!x11Support) "--disable-xlib"
+      ;
 
     preConfigure =
       # On FreeBSD, `-ldl' doesn't exist.
@@ -173,7 +179,8 @@ stdenv.mkDerivation (finalAttrs:
         sed -i "src/cairo.pc.in" \
             -es'|^Cflags:\(.*\)$|Cflags: \1 -I${freetype.dev}/include/freetype2 -I${freetype.dev}/include|g'
         substituteInPlace configure --replace strings $STRINGS
-      '';
+      ''
+      ;
 
     enableParallelBuilding = true;
 
@@ -203,11 +210,13 @@ stdenv.mkDerivation (finalAttrs:
         lgpl2Plus
         mpl10
       ];
-      pkgConfigModules = [
-        "cairo-ps"
-        "cairo-svg"
-      ] ++ lib.optional gobjectSupport "cairo-gobject"
-        ++ lib.optional pdfSupport "cairo-pdf";
+      pkgConfigModules =
+        [
+          "cairo-ps"
+          "cairo-svg"
+        ] ++ lib.optional gobjectSupport "cairo-gobject"
+        ++ lib.optional pdfSupport "cairo-pdf"
+        ;
       platforms = platforms.all;
     };
   }

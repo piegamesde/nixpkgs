@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "1nalslgyglvhpva3px06fj6lv5zgfg0qmj0sbxyyl5d963vc02b7";
@@ -54,20 +55,24 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_412
   ];
 
-  buildInputs = [
-    glib
-    libxml2
-    libsoup
-  ] ++ lib.optionals stdenv.isDarwin [
-    Foundation
-    AppKit
-  ];
+  buildInputs =
+    [
+      glib
+      libxml2
+      libsoup
+    ] ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      AppKit
+    ]
+    ;
 
-  configureFlags = [
+  configureFlags =
+    [
       "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
     ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
       "--enable-gtk-doc"
-    ];
+    ]
+    ;
 
   doCheck = true;
 

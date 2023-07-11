@@ -90,17 +90,18 @@ stdenv.mkDerivation {
 
     # This is unfortunate, but we need to use the same compiler as Xcode,
     # but Xcode doesn't provide a way to configure the compiler.
-  preConfigure = ''
-    CC=/usr/bin/clang
+  preConfigure =
+    ''
+      CC=/usr/bin/clang
 
-    DEV_DIR=$(/usr/bin/xcode-select -print-path)/Platforms/MacOSX.platform/Developer
-    configureFlagsArray+=(
-      --with-developer-dir="$DEV_DIR"
-      LDFLAGS="-L${ncurses}/lib"
-      CPPFLAGS="-isystem ${ncurses.dev}/include"
-      CFLAGS="-Wno-error=implicit-function-declaration"
-    )
-  ''
+      DEV_DIR=$(/usr/bin/xcode-select -print-path)/Platforms/MacOSX.platform/Developer
+      configureFlagsArray+=(
+        --with-developer-dir="$DEV_DIR"
+        LDFLAGS="-L${ncurses}/lib"
+        CPPFLAGS="-isystem ${ncurses.dev}/include"
+        CFLAGS="-Wno-error=implicit-function-declaration"
+      )
+    ''
     # For some reason having LD defined causes PSMTabBarControl to fail at link-time as it
     # passes arguments to ld that it meant for clang.
     + ''
@@ -118,7 +119,8 @@ stdenv.mkDerivation {
         XCODEFLAGS="-scheme MacVim -derivedDataPath $NIX_BUILD_TOP/derivedData"
         --with-xcodecfg="Release"
       )
-    '';
+    ''
+    ;
 
     # Because we're building with system clang, this means we're building against Xcode's SDK and
     # linking against system libraries. The configure script is picking up Nix Libsystem (via ruby)

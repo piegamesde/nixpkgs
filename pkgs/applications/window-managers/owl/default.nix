@@ -45,23 +45,27 @@ mkDerivation {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-    wayland-scanner
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.DarwinTools
-    darwin.bootstrap_cmds
-  ] ++ lib.optionals (!stdenv.isDarwin) [ gnustep.make ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      wayland-scanner
+    ] ++ lib.optionals stdenv.isDarwin [
+      darwin.DarwinTools
+      darwin.bootstrap_cmds
+    ] ++ lib.optionals (!stdenv.isDarwin) [ gnustep.make ]
+    ;
 
-  buildInputs = [
-    libxkbcommon
-    wayland
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
+  buildInputs =
+    [
+      libxkbcommon
+      wayland
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
     ++ lib.optionals (!stdenv.isDarwin) [
       gnustep.back
       gnustep.base
       gnustep.gui
-    ];
+    ]
+    ;
 
   preConfigure = ''
     mkdir -p build

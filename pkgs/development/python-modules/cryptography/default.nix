@@ -49,21 +49,25 @@ buildPythonPackage rec {
 
   cargoRoot = "src/rust";
 
-  nativeBuildInputs = lib.optionals (!isPyPy) [
-    cffi
-    pkg-config
-  ] ++ [
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-  ] ++ (with rustPlatform; [
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    lib.optionals (!isPyPy) [
+      cffi
+      pkg-config
+    ] ++ [
+      rustPlatform.cargoSetupHook
+      setuptools-rust
+    ] ++ (with rustPlatform; [
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    Security
-    libiconv
-  ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      Security
+      libiconv
+    ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ]
+    ;
 
   propagatedBuildInputs = lib.optionals (!isPyPy) [ cffi ];
 
@@ -99,8 +103,10 @@ buildPythonPackage rec {
       supports Python 2.7, Python 3.5+, and PyPy 5.4+.
     '';
     homepage = "https://github.com/pyca/cryptography";
-    changelog = "https://cryptography.io/en/latest/changelog/#v"
-      + replaceStrings [ "." ] [ "-" ] version;
+    changelog =
+      "https://cryptography.io/en/latest/changelog/#v"
+      + replaceStrings [ "." ] [ "-" ] version
+      ;
     license = with licenses; [
       asl20
       bsd3

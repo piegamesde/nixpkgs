@@ -44,14 +44,16 @@ python3.pkgs.buildPythonApplication rec {
     "test_timeit2"
   ];
 
-  disabledTestPaths = [
-    "tests/checker/telnetserver.py"
-    "tests/checker/test_telnet.py"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "tests/checker/test_content_allows_robots.py"
-    "tests/checker/test_http*.py"
-    "tests/test_network.py"
-  ];
+  disabledTestPaths =
+    [
+      "tests/checker/telnetserver.py"
+      "tests/checker/test_telnet.py"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "tests/checker/test_content_allows_robots.py"
+      "tests/checker/test_http*.py"
+      "tests/test_network.py"
+    ]
+    ;
 
   meta = with lib; {
     description = "Check websites for broken links";

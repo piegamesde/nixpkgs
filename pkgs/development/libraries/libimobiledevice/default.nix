@@ -39,17 +39,19 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedBuildInputs = [
-    gnutls
-    libgcrypt
-    libplist
-    libtasn1
-    libusbmuxd
-    libimobiledevice-glue
-  ] ++ lib.optionals stdenv.isDarwin [
-    SystemConfiguration
-    CoreFoundation
-  ];
+  propagatedBuildInputs =
+    [
+      gnutls
+      libgcrypt
+      libplist
+      libtasn1
+      libusbmuxd
+      libimobiledevice-glue
+    ] ++ lib.optionals stdenv.isDarwin [
+      SystemConfiguration
+      CoreFoundation
+    ]
+    ;
 
   configureFlags = [
     "--with-gnutls"

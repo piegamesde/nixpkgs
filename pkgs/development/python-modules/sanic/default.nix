@@ -62,17 +62,19 @@ buildPythonPackage rec {
 
   inherit doCheck;
 
-  preCheck = ''
-    # Some tests depends on sanic on PATH
-    PATH="$out/bin:$PATH"
-    PYTHONPATH=$PWD:$PYTHONPATH
+  preCheck =
+    ''
+      # Some tests depends on sanic on PATH
+      PATH="$out/bin:$PATH"
+      PYTHONPATH=$PWD:$PYTHONPATH
 
-    # needed for relative paths for some packages
-    cd tests
-  '' + lib.optionalString stdenv.isDarwin ''
-    # OSError: [Errno 24] Too many open files
-    ulimit -n 1024
-  '';
+      # needed for relative paths for some packages
+      cd tests
+    '' + lib.optionalString stdenv.isDarwin ''
+      # OSError: [Errno 24] Too many open files
+      ulimit -n 1024
+    ''
+    ;
 
     # uvloop usage is buggy
     #SANIC_NO_UVLOOP = true;

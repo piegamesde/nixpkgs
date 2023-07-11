@@ -15,9 +15,7 @@ let
   interfaces = attrValues cfg.interfaces;
 
   interfaceIps =
-    i:
-    i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses
-    ;
+    i: i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses;
 
   interfaceRoutes = i: i.ipv4.routes ++ optionals cfg.enableIPv6 i.ipv6.routes;
 
@@ -29,7 +27,8 @@ let
       "no"
     ;
 
-  slaves = concatLists (map (bond: bond.interfaces) (attrValues cfg.bonds))
+  slaves =
+    concatLists (map (bond: bond.interfaces) (attrValues cfg.bonds))
     ++ concatLists (map (bridge: bridge.interfaces) (attrValues cfg.bridges))
     ++ map (sit: sit.dev) (attrValues cfg.sits)
     ++ map (gre: gre.dev) (attrValues cfg.greTunnels)
@@ -39,17 +38,20 @@ let
     ++ concatMap (i:
       attrNames
       (filterAttrs (_: config: config.type != "internal") i.interfaces))
-    (attrValues cfg.vswitches);
+    (attrValues cfg.vswitches)
+    ;
 
   domains = cfg.search ++ (optional (cfg.domain != null) cfg.domain);
   genericNetwork =
     override:
     let
-      gateway = optional
+      gateway =
+        optional
         (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
         cfg.defaultGateway.address ++ optional (cfg.defaultGateway6 != null
           && (cfg.defaultGateway6.address or "") != "")
-        cfg.defaultGateway6.address;
+        cfg.defaultGateway6.address
+        ;
       makeGateway =
         gateway: {
           routeConfig = {
@@ -195,41 +197,46 @@ in
 
     (mkIf cfg.useNetworkd {
 
-      assertions = [
-        {
-          assertion = cfg.defaultGatewayWindowSize == null;
-          message =
-            "networking.defaultGatewayWindowSize is not supported by networkd.";
-        }
-        {
-          assertion =
-            cfg.defaultGateway == null || cfg.defaultGateway.interface == null;
-          message =
-            "networking.defaultGateway.interface is not supported by networkd.";
-        }
-        {
-          assertion = cfg.defaultGateway6 == null
-            || cfg.defaultGateway6.interface == null;
-          message =
-            "networking.defaultGateway6.interface is not supported by networkd.";
-        }
-      ] ++ flip mapAttrsToList cfg.bridges (n:
-        {
-          rstp,
-          ...
-        }: {
-          assertion = !rstp;
-          message =
-            "networking.bridges.${n}.rstp is not supported by networkd.";
-        }) ++ flip mapAttrsToList cfg.fooOverUDP (n:
+      assertions =
+        [
           {
-            local,
+            assertion = cfg.defaultGatewayWindowSize == null;
+            message =
+              "networking.defaultGatewayWindowSize is not supported by networkd.";
+          }
+          {
+            assertion =
+              cfg.defaultGateway == null || cfg.defaultGateway.interface == null
+              ;
+            message =
+              "networking.defaultGateway.interface is not supported by networkd.";
+          }
+          {
+            assertion =
+              cfg.defaultGateway6 == null || cfg.defaultGateway6.interface
+              == null
+              ;
+            message =
+              "networking.defaultGateway6.interface is not supported by networkd.";
+          }
+        ] ++ flip mapAttrsToList cfg.bridges (n:
+          {
+            rstp,
             ...
           }: {
-            assertion = local == null;
+            assertion = !rstp;
             message =
-              "networking.fooOverUDP.${n}.local is not supported by networkd.";
-          });
+              "networking.bridges.${n}.rstp is not supported by networkd.";
+          }) ++ flip mapAttrsToList cfg.fooOverUDP (n:
+            {
+              local,
+              ...
+            }: {
+              assertion = local == null;
+              message =
+                "networking.fooOverUDP.${n}.local is not supported by networkd.";
+            })
+        ;
 
       networking.dhcpcd.enable = mkDefault false;
 
@@ -365,10 +372,11 @@ in
             macvlanConfig =
               optionalAttrs (macvlan.mode != null) { Mode = macvlan.mode; };
           };
-          networks."40-${macvlan.interface}" = (mkMerge [
-            (genericNetwork (mkOverride 999))
-            { macvlan = [ name ]; }
-          ]);
+          networks."40-${macvlan.interface}" =
+            (mkMerge [
+              (genericNetwork (mkOverride 999))
+              { macvlan = [ name ]; }
+            ]);
         })))
         (mkMerge (flip mapAttrsToList cfg.fooOverUDP (name: fou: {
           netdevs."40-${name}" = {
@@ -416,10 +424,11 @@ in
               })));
           };
           networks = mkIf (sit.dev != null) {
-            "40-${sit.dev}" = (mkMerge [
-              (genericNetwork (mkOverride 999))
-              { tunnel = [ name ]; }
-            ]);
+            "40-${sit.dev}" =
+              (mkMerge [
+                (genericNetwork (mkOverride 999))
+                { tunnel = [ name ]; }
+              ]);
           };
         })))
         (mkMerge (flip mapAttrsToList cfg.greTunnels (name: gre: {
@@ -434,10 +443,11 @@ in
               // (optionalAttrs (gre.ttl != null) { TTL = gre.ttl; });
           };
           networks = mkIf (gre.dev != null) {
-            "40-${gre.dev}" = (mkMerge [
-              (genericNetwork (mkOverride 999))
-              { tunnel = [ name ]; }
-            ]);
+            "40-${gre.dev}" =
+              (mkMerge [
+                (genericNetwork (mkOverride 999))
+                { tunnel = [ name ]; }
+              ]);
           };
         })))
         (mkMerge (flip mapAttrsToList cfg.vlans (name: vlan: {
@@ -448,10 +458,11 @@ in
             };
             vlanConfig.Id = vlan.id;
           };
-          networks."40-${vlan.interface}" = (mkMerge [
-            (genericNetwork (mkOverride 999))
-            { vlan = [ name ]; }
-          ]);
+          networks."40-${vlan.interface}" =
+            (mkMerge [
+              (genericNetwork (mkOverride 999))
+              { vlan = [ name ]; }
+            ]);
         })))
       ];
 
@@ -489,10 +500,12 @@ in
                 # requires ovs-vswitchd to be alive at all times
               bindsTo = [ "ovs-vswitchd.service" ];
                 # start switch after physical interfaces and vswitch daemon
-              after = [
-                "network-pre.target"
-                "ovs-vswitchd.service"
-              ] ++ deps;
+              after =
+                [
+                  "network-pre.target"
+                  "ovs-vswitchd.service"
+                ] ++ deps
+                ;
               wants =
                 deps; # if one or more interface fails, the switch should continue to run
               serviceConfig.Type = "oneshot";

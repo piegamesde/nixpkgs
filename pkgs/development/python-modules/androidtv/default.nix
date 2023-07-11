@@ -34,16 +34,19 @@ buildPythonPackage rec {
     inherit (adb-shell.optional-dependencies) usb;
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.async
-    ++ passthru.optional-dependencies.usb;
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.async
+    ++ passthru.optional-dependencies.usb
+    ;
 
-  disabledTests = [
-    # Requires git but fails anyway
-    "test_no_underscores"
-  ];
+  disabledTests =
+    [
+      # Requires git but fails anyway
+      "test_no_underscores"
+    ];
 
   pythonImportsCheck = [ "androidtv" ];
 

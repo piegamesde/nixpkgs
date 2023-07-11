@@ -44,19 +44,21 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapGAppsHook
   ];
-  buildInputs = [
-    glib
-    gsettings-desktop-schemas
-    gtk3
-    librsvg
-    libsndfile
-    libxml2
-    libzip
-    pcre
-    poppler
-    portaudio
-    zlib
-  ] ++ lib.optional withLua lua;
+  buildInputs =
+    [
+      glib
+      gsettings-desktop-schemas
+      gtk3
+      librsvg
+      libsndfile
+      libxml2
+      libzip
+      pcre
+      poppler
+      portaudio
+      zlib
+    ] ++ lib.optional withLua lua
+    ;
 
   buildFlags = [ "translations" ];
 

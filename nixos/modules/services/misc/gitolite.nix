@@ -10,8 +10,10 @@ with lib;
 let
   cfg = config.services.gitolite;
     # Use writeTextDir to not leak Nix store hash into file name
-  pubkeyFile = (pkgs.writeTextDir "gitolite-admin.pub" cfg.adminPubkey)
-    + "/gitolite-admin.pub";
+  pubkeyFile =
+    (pkgs.writeTextDir "gitolite-admin.pub" cfg.adminPubkey)
+    + "/gitolite-admin.pub"
+    ;
   hooks = lib.concatMapStrings (hook: "${hook} ") cfg.commonHooks;
 in
 {
@@ -129,29 +131,31 @@ in
     manageGitoliteRc = cfg.extraGitoliteRc != "";
     rcDir =
       pkgs.runCommand "gitolite-rc" { preferLocalBuild = true; } rcDirScript;
-    rcDirScript = ''
-      mkdir "$out"
-      export HOME=temp-home
-      mkdir -p "$HOME/.gitolite/logs" # gitolite can't run without it
-      '${pkgs.gitolite}'/bin/gitolite print-default-rc >>"$out/gitolite.rc.default"
-      cat <<END >>"$out/gitolite.rc"
-      # This file is managed by NixOS.
-      # Use services.gitolite options to control it.
+    rcDirScript =
+      ''
+        mkdir "$out"
+        export HOME=temp-home
+        mkdir -p "$HOME/.gitolite/logs" # gitolite can't run without it
+        '${pkgs.gitolite}'/bin/gitolite print-default-rc >>"$out/gitolite.rc.default"
+        cat <<END >>"$out/gitolite.rc"
+        # This file is managed by NixOS.
+        # Use services.gitolite options to control it.
 
-      END
-      cat "$out/gitolite.rc.default" >>"$out/gitolite.rc"
-    '' + optionalString (cfg.extraGitoliteRc != "") ''
-      echo -n ${
-        escapeShellArg ''
+        END
+        cat "$out/gitolite.rc.default" >>"$out/gitolite.rc"
+      '' + optionalString (cfg.extraGitoliteRc != "") ''
+        echo -n ${
+          escapeShellArg ''
 
-          # Added by NixOS:
-          ${removeSuffix "\n" cfg.extraGitoliteRc}
+            # Added by NixOS:
+            ${removeSuffix "\n" cfg.extraGitoliteRc}
 
-          # per perl rules, this should be the last line in such a file:
-          1;
-        ''
-      } >>"$out/gitolite.rc"
-    '';
+            # per perl rules, this should be the last line in such a file:
+            1;
+          ''
+        } >>"$out/gitolite.rc"
+      ''
+      ;
   in
   {
     services.gitolite.extraGitoliteRc = optionalString cfg.enableGitAnnex ''
@@ -257,10 +261,12 @@ in
         ;
     };
 
-    environment.systemPackages = [
-      pkgs.gitolite
-      pkgs.git
-    ] ++ optional cfg.enableGitAnnex pkgs.git-annex;
+    environment.systemPackages =
+      [
+        pkgs.gitolite
+        pkgs.git
+      ] ++ optional cfg.enableGitAnnex pkgs.git-annex
+      ;
   }
   );
 }

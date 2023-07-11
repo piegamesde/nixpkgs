@@ -69,7 +69,8 @@ let
     name = "${pname}-${version}";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/${pname}/${
+      url =
+        "mirror://gnome/sources/${pname}/${
           lib.versions.majorMinor version
         }/${name}.tar.xz";
       sha256 = "sha256-eo1cAzEOTfrdGKZeAKN3QQMq/upUGN1oBKl1xLCYAEU=";
@@ -182,10 +183,12 @@ let
           panelModulesEnv = buildEnv {
             name = "gnome-panel-modules-env";
               # We always want to find the built-in panel applets.
-            paths = [
-              gnome-panel
-              gnome-flashback
-            ] ++ panelModulePackages;
+            paths =
+              [
+                gnome-panel
+                gnome-flashback
+              ] ++ panelModulePackages
+              ;
             pathsToLink = [ "/lib/gnome-panel/modules" ];
           };
 
@@ -195,8 +198,10 @@ let
               glib
               wrapGAppsHook
             ];
-            buildInputs = [ gnome-flashback ] ++ lib.optionals enableGnomePanel
-              ([ gnome-panel ] ++ panelModulePackages);
+            buildInputs =
+              [ gnome-flashback ] ++ lib.optionals enableGnomePanel
+              ([ gnome-panel ] ++ panelModulePackages)
+              ;
 
               # We want to use the wrapGAppsHook mechanism to wrap gnome-session
               # with the environment that gnome-flashback and gnome-panel need to

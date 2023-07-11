@@ -56,8 +56,10 @@ let
         url =
           "https://github.com/OmniSharp/omnisharp-vscode/releases/download/v${version}/csharp-${version}-darwin-arm64.vsix";
         sha256 = "08406xz2raal8f10bmnkz1mwdfprsbkjxzc01v0i4sax1hr2a2yl";
-        binaries = darwinAarch64DebuggerBins ++ darwinX86DebuggerBins
-          ++ omniSharpBins ++ razorBins;
+        binaries =
+          darwinAarch64DebuggerBins ++ darwinX86DebuggerBins ++ omniSharpBins
+          ++ razorBins
+          ;
       };
     }.${system} or (throw "Unsupported system: ${system}")
     ;
@@ -76,60 +78,62 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
 
   nativeBuildInputs = [ patchelf ];
 
-  postPatch = ''
-    declare ext_unique_id
-    # See below as to why we cannot take the whole basename.
-    ext_unique_id="$(basename "$out" | head -c 32)"
+  postPatch =
+    ''
+      declare ext_unique_id
+      # See below as to why we cannot take the whole basename.
+      ext_unique_id="$(basename "$out" | head -c 32)"
 
-    # Fix 'Unable to connect to debuggerEventsPipeName .. exceeds the maximum length 107.' when
-    # attempting to launch a specific test in debug mode. The extension attemps to open
-    # a pipe in extension dir which would fail anyway. We change to target file path
-    # to a path in tmp dir with a short name based on the unique part of the nix store path.
-    # This is however a brittle patch as we're working on minified code.
-    # Hence the attempt to only hold on stable names.
-    # However, this really would better be fixed upstream.
-    sed -i \
-      -E -e 's/(this\._pipePath=[a-zA-Z0-9_]+\.join\()([a-zA-Z0-9_]+\.getExtensionPath\(\)[^,]*,)/\1require("os").tmpdir(), "'"$ext_unique_id"'"\+/g' \
-      "$PWD/dist/extension.js"
+      # Fix 'Unable to connect to debuggerEventsPipeName .. exceeds the maximum length 107.' when
+      # attempting to launch a specific test in debug mode. The extension attemps to open
+      # a pipe in extension dir which would fail anyway. We change to target file path
+      # to a path in tmp dir with a short name based on the unique part of the nix store path.
+      # This is however a brittle patch as we're working on minified code.
+      # Hence the attempt to only hold on stable names.
+      # However, this really would better be fixed upstream.
+      sed -i \
+        -E -e 's/(this\._pipePath=[a-zA-Z0-9_]+\.join\()([a-zA-Z0-9_]+\.getExtensionPath\(\)[^,]*,)/\1require("os").tmpdir(), "'"$ext_unique_id"'"\+/g' \
+        "$PWD/dist/extension.js"
 
-    # Fix reference to uname
-    sed -i \
-      -E -e 's_uname -m_${coreutils}/bin/uname -m_g' \
-      "$PWD/dist/extension.js"
+      # Fix reference to uname
+      sed -i \
+        -E -e 's_uname -m_${coreutils}/bin/uname -m_g' \
+        "$PWD/dist/extension.js"
 
-    patchelf_add_icu_as_needed() {
-      declare elf="''${1?}"
-      declare icu_major_v="${
-        lib.head (lib.splitVersion (lib.getVersion icu.name))
-      }"
+      patchelf_add_icu_as_needed() {
+        declare elf="''${1?}"
+        declare icu_major_v="${
+          lib.head (lib.splitVersion (lib.getVersion icu.name))
+        }"
 
-      for icu_lib in icui18n icuuc icudata; do
-        patchelf --add-needed "lib''${icu_lib}.so.$icu_major_v" "$elf"
-      done
-    }
+        for icu_lib in icui18n icuuc icudata; do
+          patchelf --add-needed "lib''${icu_lib}.so.$icu_major_v" "$elf"
+        done
+      }
 
-    patchelf_common() {
-      declare elf="''${1?}"
+      patchelf_common() {
+        declare elf="''${1?}"
 
-      patchelf_add_icu_as_needed "$elf"
-      patchelf --add-needed "libssl.so" "$elf"
-      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${
-          lib.makeLibraryPath [
-            stdenv.cc.cc
-            openssl
-            icu.out
-          ]
-        }:\$ORIGIN" \
-        "$elf"
-    }
+        patchelf_add_icu_as_needed "$elf"
+        patchelf --add-needed "libssl.so" "$elf"
+        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+          --set-rpath "${
+            lib.makeLibraryPath [
+              stdenv.cc.cc
+              openssl
+              icu.out
+            ]
+          }:\$ORIGIN" \
+          "$elf"
+      }
 
-  '' + (lib.concatStringsSep "\n" (map (bin: ''
-    chmod +x "${bin}"
-  '') vsixInfo.binaries)) + lib.optionalString stdenv.isLinux
+    '' + (lib.concatStringsSep "\n" (map (bin: ''
+      chmod +x "${bin}"
+    '') vsixInfo.binaries)) + lib.optionalString stdenv.isLinux
     (lib.concatStringsSep "\n" (map (bin: ''
       patchelf_common "${bin}"
-    '') vsixInfo.binaries));
+    '') vsixInfo.binaries))
+    ;
 
   meta = {
     description = "C# for Visual Studio Code (powered by OmniSharp)";

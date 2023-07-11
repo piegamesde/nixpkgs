@@ -20,15 +20,19 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--program-prefix=sphinxsearch-"
-    "--enable-id64"
-  ] ++ lib.optionals (!enableMysql) [ "--without-mysql" ];
+  configureFlags =
+    [
+      "--program-prefix=sphinxsearch-"
+      "--enable-id64"
+    ] ++ lib.optionals (!enableMysql) [ "--without-mysql" ]
+    ;
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = lib.optionals enableMysql [ libmysqlclient ]
-    ++ lib.optionals enableXmlpipe2 [ expat ];
+  buildInputs =
+    lib.optionals enableMysql [ libmysqlclient ]
+    ++ lib.optionals enableXmlpipe2 [ expat ]
+    ;
 
   CXXFLAGS = with lib;
     concatStringsSep " " (optionals stdenv.isDarwin [

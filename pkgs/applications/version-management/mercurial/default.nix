@@ -63,49 +63,54 @@ let
         null
       ;
 
-    propagatedBuildInputs = lib.optional re2Support fb-re2
-      ++ lib.optional gitSupport pygit2
-      ++ lib.optional highlightSupport pygments;
-    nativeBuildInputs = [
-      makeWrapper
-      gettext
-      installShellFiles
-    ] ++ lib.optionals rustSupport (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-      rust.rustc
-    ]);
+    propagatedBuildInputs =
+      lib.optional re2Support fb-re2 ++ lib.optional gitSupport pygit2
+      ++ lib.optional highlightSupport pygments
+      ;
+    nativeBuildInputs =
+      [
+        makeWrapper
+        gettext
+        installShellFiles
+      ] ++ lib.optionals rustSupport (with rustPlatform; [
+        cargoSetupHook
+        rust.cargo
+        rust.rustc
+      ])
+      ;
     buildInputs =
       [ docutils ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
     makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional rustSupport "PURE=--rust";
 
-    postInstall = (lib.optionalString guiSupport ''
-      mkdir -p $out/etc/mercurial
-      cp contrib/hgk $out/bin
-      cat >> $out/etc/mercurial/hgrc << EOF
-      [extensions]
-      hgk=$out/lib/${python.libPrefix}/site-packages/hgext/hgk.py
-      EOF
-      # setting HG so that hgk can be run itself as well (not only hg view)
-      WRAP_TK=" --set TK_LIBRARY ${tk}/lib/${tk.libPrefix}
-                --set HG $out/bin/hg
-                --prefix PATH : ${tk}/bin "
-    '') + ''
-      for i in $(cd $out/bin && ls); do
-        wrapProgram $out/bin/$i \
-          $WRAP_TK
-      done
+    postInstall =
+      (lib.optionalString guiSupport ''
+        mkdir -p $out/etc/mercurial
+        cp contrib/hgk $out/bin
+        cat >> $out/etc/mercurial/hgrc << EOF
+        [extensions]
+        hgk=$out/lib/${python.libPrefix}/site-packages/hgext/hgk.py
+        EOF
+        # setting HG so that hgk can be run itself as well (not only hg view)
+        WRAP_TK=" --set TK_LIBRARY ${tk}/lib/${tk.libPrefix}
+                  --set HG $out/bin/hg
+                  --prefix PATH : ${tk}/bin "
+      '') + ''
+        for i in $(cd $out/bin && ls); do
+          wrapProgram $out/bin/$i \
+            $WRAP_TK
+        done
 
-      # copy hgweb.cgi to allow use in apache
-      mkdir -p $out/share/cgi-bin
-      cp -v hgweb.cgi contrib/hgweb.wsgi $out/share/cgi-bin
-      chmod u+x $out/share/cgi-bin/hgweb.cgi
+        # copy hgweb.cgi to allow use in apache
+        mkdir -p $out/share/cgi-bin
+        cp -v hgweb.cgi contrib/hgweb.wsgi $out/share/cgi-bin
+        chmod u+x $out/share/cgi-bin/hgweb.cgi
 
-      installShellCompletion --cmd hg \
-        --bash contrib/bash_completion \
-        --zsh contrib/zsh_completion
-    '';
+        installShellCompletion --cmd hg \
+          --bash contrib/bash_completion \
+          --zsh contrib/zsh_completion
+      ''
+      ;
 
     passthru.tests = {
       mercurial-tests =
@@ -171,8 +176,10 @@ let
       requiredSystemFeatures = [ "big-parallel" ];
 
         # Don't run tests if not-Linux or if cross-compiling.
-      meta.broken = !stdenv.hostPlatform.isLinux || stdenv.buildPlatform
-        != stdenv.hostPlatform;
+      meta.broken =
+        !stdenv.hostPlatform.isLinux || stdenv.buildPlatform
+        != stdenv.hostPlatform
+        ;
     } ''
       addToSearchPathWithCustomDelimiter : PYTHONPATH "${mercurial}/${python.sitePackages}"
 

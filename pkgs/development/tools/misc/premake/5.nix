@@ -19,19 +19,23 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2R5gq4jaQsp8Ny1oGuIYkef0kn2UG9jMf20vq0714oY=";
   };
 
-  buildInputs = [ libuuid ] ++ lib.optionals stdenv.isDarwin [
-    Foundation
-    readline
-  ];
+  buildInputs =
+    [ libuuid ] ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      readline
+    ]
+    ;
 
   patches = [ ./no-curl-ca.patch ];
-  patchPhase = ''
-    substituteInPlace contrib/curl/premake5.lua \
-      --replace "ca = nil" "ca = '${cacert}/etc/ssl/certs/ca-bundle.crt'"
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace premake5.lua \
-      --replace -mmacosx-version-min=10.4 -mmacosx-version-min=10.5
-  '';
+  patchPhase =
+    ''
+      substituteInPlace contrib/curl/premake5.lua \
+        --replace "ca = nil" "ca = '${cacert}/etc/ssl/certs/ca-bundle.crt'"
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace premake5.lua \
+        --replace -mmacosx-version-min=10.4 -mmacosx-version-min=10.5
+    ''
+    ;
 
   buildPhase =
     if stdenv.isDarwin then

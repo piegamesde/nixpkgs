@@ -168,8 +168,10 @@ in
           "Xen currently not supported on ${pkgs.stdenv.hostPlatform.system}";
       }
       {
-        assertion = config.boot.loader.grub.enable
-          && (config.boot.loader.grub.efiSupport == false);
+        assertion =
+          config.boot.loader.grub.enable
+          && (config.boot.loader.grub.efiSupport == false)
+          ;
         message = "Xen currently does not support EFI boot";
       }
     ];
@@ -221,11 +223,13 @@ in
       options loop max_loop=64
     '';
 
-    virtualisation.xen.bootParams = [ ] ++ optionals cfg.trace [
-      "loglvl=all"
-      "guest_loglvl=all"
-    ] ++ optional (cfg.domain0MemorySize != 0)
-      "dom0_mem=${toString cfg.domain0MemorySize}M";
+    virtualisation.xen.bootParams =
+      [ ] ++ optionals cfg.trace [
+        "loglvl=all"
+        "guest_loglvl=all"
+      ] ++ optional (cfg.domain0MemorySize != 0)
+      "dom0_mem=${toString cfg.domain0MemorySize}M"
+      ;
 
     system.extraSystemBuilderCmds = ''
       ln -s ${cfg.package}/boot/xen.gz $out/xen.gz

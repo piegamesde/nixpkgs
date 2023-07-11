@@ -19,8 +19,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libressl ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ memstreamHook ];
+  buildInputs =
+    [ libressl ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ memstreamHook ]
+    ;
 
   meta = {
     description = "Mirror notes to IMAP";

@@ -1328,7 +1328,8 @@ in
       ++ optionals config.security.pam.p11.enable [ pkgs.pam_p11 ]
       ++ optionals config.security.pam.enableFscrypt [
         pkgs.fscrypt-experimental
-      ] ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ];
+      ] ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ]
+      ;
 
     boot.supportedFilesystems =
       optionals config.security.pam.enableEcryptfs [ "ecryptfs" ];

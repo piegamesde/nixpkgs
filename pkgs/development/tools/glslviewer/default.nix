@@ -39,24 +39,26 @@ stdenv.mkDerivation rec {
     ensureNewerSourcesForZipFilesHook
     python3Packages.six
   ];
-  buildInputs = [
-    glfw
-    libGLU
-    glfw
-    libXrandr
-    libXdamage
-    libXext
-    libXrender
-    libXinerama
-    libXcursor
-    libXxf86vm
-    libXi
-    libX11
-  ] ++ (with python3Packages; [
-    python
-    setuptools
-    wrapPython
-  ]) ++ lib.optional stdenv.isDarwin Cocoa;
+  buildInputs =
+    [
+      glfw
+      libGLU
+      glfw
+      libXrandr
+      libXdamage
+      libXext
+      libXrender
+      libXinerama
+      libXcursor
+      libXxf86vm
+      libXi
+      libX11
+    ] ++ (with python3Packages; [
+      python
+      setuptools
+      wrapPython
+    ]) ++ lib.optional stdenv.isDarwin Cocoa
+    ;
   pythonPath = with python3Packages; [
     pyyaml
     requests

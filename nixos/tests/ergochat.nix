@@ -87,9 +87,7 @@ import ./make-test-python.nix ({
 
           # foldl', but requires a non-empty list instead of a start value
         reduce =
-          f: list:
-          builtins.foldl' f (builtins.head list) (builtins.tail list)
-          ;
+          f: list: builtins.foldl' f (builtins.head list) (builtins.tail list);
       in
       ''
         start_all()

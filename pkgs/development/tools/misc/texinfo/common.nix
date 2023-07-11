@@ -44,15 +44,17 @@ stdenv.mkDerivation {
 
   patches = patches ++ optional crossBuildTools ./cross-tools-flags.patch;
 
-  postPatch = ''
-    patchShebangs tp/maintain
-  ''
+  postPatch =
+    ''
+      patchShebangs tp/maintain
+    ''
     # This patch is needed for IEEE-standard long doubles on
     # powerpc64; it does not apply cleanly to texinfo 5.x or
     # earlier.  It is merged upstream in texinfo 6.8.
     + lib.optionalString (version == "6.7") ''
       patch -p1 -d gnulib < ${gnulib.passthru.longdouble-redirect-patch}
-    '';
+    ''
+    ;
 
     # ncurses is required to build `makedoc'
     # this feature is introduced by the ./cross-tools-flags.patch
@@ -78,22 +80,26 @@ stdenv.mkDerivation {
     perl
   ];
 
-  buildInputs = [
-    xz.bin
-    bash
-    libintl
-  ] ++ optionals stdenv.isSunOS [
-    libiconv
-    gawk
-  ] ++ optional interactive ncurses;
+  buildInputs =
+    [
+      xz.bin
+      bash
+      libintl
+    ] ++ optionals stdenv.isSunOS [
+      libiconv
+      gawk
+    ] ++ optional interactive ncurses
+    ;
 
-  configureFlags = [
+  configureFlags =
+    [
       "PERL=${buildPackages.perl}/bin/perl"
     ]
     # Perl XS modules are difficult to cross-compile and texinfo has pure Perl
     # fallbacks.
     ++ optional crossBuildTools "--enable-perl-xs=no"
-    ++ lib.optional stdenv.isSunOS "AWK=${gawk}/bin/awk";
+    ++ lib.optional stdenv.isSunOS "AWK=${gawk}/bin/awk"
+    ;
 
   installFlags = [ "TEXMF=$(out)/texmf-dist" ];
   installTargets = [

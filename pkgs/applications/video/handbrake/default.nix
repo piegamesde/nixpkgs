@@ -114,37 +114,39 @@ let
       url = "https://www.ffmpeg.org/releases/ffmpeg-${ffmpeg-version}.tar.bz2";
       hash = "sha256-zQ4W+QNCEmbVzN3t97g7nldUrvS596fwbOnkyALwVFs=";
     };
-    patches = old.patches or [ ] ++ [
-      "${src}/contrib/ffmpeg/A01-qsv-libavfilter-qsvvpp-change-the-output-frame-s-width-a.patch"
-      "${src}/contrib/ffmpeg/A02-qsv-configure-ensure-enable-libmfx-uses-libmfx-1.x.patch"
-      "${src}/contrib/ffmpeg/A03-qsv-configure-fix-the-check-for-MFX_CODEC_VP9.patch"
-      "${src}/contrib/ffmpeg/A04-qsv-remove-mfx-prefix-from-mfx-headers.patch"
-      "${src}/contrib/ffmpeg/A05-qsv-load-user-plugin-for-MFX_VERSION-2.0.patch"
-      "${src}/contrib/ffmpeg/A06-qsv-build-audio-related-code-when-MFX_VERSION-2.0.patch"
-      "${src}/contrib/ffmpeg/A07-qsvenc-support-multi-frame-encode-when-MFX_VERSION-2.patch"
-      "${src}/contrib/ffmpeg/A08-qsvenc-support-MFX_RATECONTROL_LA_EXT-when-MFX_VERSI.patch"
-      "${src}/contrib/ffmpeg/A09-qsv-support-OPAQUE-memory-when-MFX_VERSION-2.0.patch"
-      "${src}/contrib/ffmpeg/A10-qsv-configure-add-enable-libvpl-option.patch"
-      "${src}/contrib/ffmpeg/A11-qsv-use-a-new-method-to-create-mfx-session-when-usin.patch"
-      "${src}/contrib/ffmpeg/A12-qsv-fix-decode-10bit-hdr.patch"
-      "${src}/contrib/ffmpeg/A13-mov-read-name-track-tag-written-by-movenc.patch"
-      "${src}/contrib/ffmpeg/A14-movenc-write-3gpp-track-titl-tag.patch"
-      "${src}/contrib/ffmpeg/A15-mov-read-3gpp-udta-tags.patch"
-      "${src}/contrib/ffmpeg/A16-movenc-write-3gpp-track-names-tags-for-all-available.patch"
-      "${src}/contrib/ffmpeg/A17-FFmpeg-devel-amfenc-Add-support-for-pict_type-field.patch"
-      "${src}/contrib/ffmpeg/A18-dvdsubdec-fix-processing-of-partial-packets.patch"
-      "${src}/contrib/ffmpeg/A19-ccaption_dec-return-number-of-bytes-used.patch"
-      "${src}/contrib/ffmpeg/A20-dvdsubdec-return-number-of-bytes-used.patch"
-      "${src}/contrib/ffmpeg/A21-dvdsubdec-use-pts-of-initial-packet.patch"
-      "${src}/contrib/ffmpeg/A22-matroskaenc-aac-extradata-updated.patch"
-      "${src}/contrib/ffmpeg/A23-ccaption_dec-fix-pts-in-real_time-mode.patch"
-      "${src}/contrib/ffmpeg/A24-fix-eac3-dowmix.patch"
-      "${src}/contrib/ffmpeg/A25-enable-truehd-pass.patch"
-      "${src}/contrib/ffmpeg/A26-Update-the-min-version-to-1.4.23.0-for-AMF-SDK.patch"
-      "${src}/contrib/ffmpeg/A27-avcodec-amfenc-Fixes-the-color-information-in-the-ou.patch"
-      "${src}/contrib/ffmpeg/A28-avcodec-amfenc-HDR-metadata.patch"
-      "${src}/contrib/ffmpeg/A30-svt-av1-backports.patch"
-    ];
+    patches =
+      old.patches or [ ] ++ [
+        "${src}/contrib/ffmpeg/A01-qsv-libavfilter-qsvvpp-change-the-output-frame-s-width-a.patch"
+        "${src}/contrib/ffmpeg/A02-qsv-configure-ensure-enable-libmfx-uses-libmfx-1.x.patch"
+        "${src}/contrib/ffmpeg/A03-qsv-configure-fix-the-check-for-MFX_CODEC_VP9.patch"
+        "${src}/contrib/ffmpeg/A04-qsv-remove-mfx-prefix-from-mfx-headers.patch"
+        "${src}/contrib/ffmpeg/A05-qsv-load-user-plugin-for-MFX_VERSION-2.0.patch"
+        "${src}/contrib/ffmpeg/A06-qsv-build-audio-related-code-when-MFX_VERSION-2.0.patch"
+        "${src}/contrib/ffmpeg/A07-qsvenc-support-multi-frame-encode-when-MFX_VERSION-2.patch"
+        "${src}/contrib/ffmpeg/A08-qsvenc-support-MFX_RATECONTROL_LA_EXT-when-MFX_VERSI.patch"
+        "${src}/contrib/ffmpeg/A09-qsv-support-OPAQUE-memory-when-MFX_VERSION-2.0.patch"
+        "${src}/contrib/ffmpeg/A10-qsv-configure-add-enable-libvpl-option.patch"
+        "${src}/contrib/ffmpeg/A11-qsv-use-a-new-method-to-create-mfx-session-when-usin.patch"
+        "${src}/contrib/ffmpeg/A12-qsv-fix-decode-10bit-hdr.patch"
+        "${src}/contrib/ffmpeg/A13-mov-read-name-track-tag-written-by-movenc.patch"
+        "${src}/contrib/ffmpeg/A14-movenc-write-3gpp-track-titl-tag.patch"
+        "${src}/contrib/ffmpeg/A15-mov-read-3gpp-udta-tags.patch"
+        "${src}/contrib/ffmpeg/A16-movenc-write-3gpp-track-names-tags-for-all-available.patch"
+        "${src}/contrib/ffmpeg/A17-FFmpeg-devel-amfenc-Add-support-for-pict_type-field.patch"
+        "${src}/contrib/ffmpeg/A18-dvdsubdec-fix-processing-of-partial-packets.patch"
+        "${src}/contrib/ffmpeg/A19-ccaption_dec-return-number-of-bytes-used.patch"
+        "${src}/contrib/ffmpeg/A20-dvdsubdec-return-number-of-bytes-used.patch"
+        "${src}/contrib/ffmpeg/A21-dvdsubdec-use-pts-of-initial-packet.patch"
+        "${src}/contrib/ffmpeg/A22-matroskaenc-aac-extradata-updated.patch"
+        "${src}/contrib/ffmpeg/A23-ccaption_dec-fix-pts-in-real_time-mode.patch"
+        "${src}/contrib/ffmpeg/A24-fix-eac3-dowmix.patch"
+        "${src}/contrib/ffmpeg/A25-enable-truehd-pass.patch"
+        "${src}/contrib/ffmpeg/A26-Update-the-min-version-to-1.4.23.0-for-AMF-SDK.patch"
+        "${src}/contrib/ffmpeg/A27-avcodec-amfenc-Fixes-the-color-information-in-the-ou.patch"
+        "${src}/contrib/ffmpeg/A28-avcodec-amfenc-HDR-metadata.patch"
+        "${src}/contrib/ffmpeg/A30-svt-av1-backports.patch"
+      ]
+      ;
   });
 
   versionFile = writeText "version.txt" ''
@@ -165,106 +167,114 @@ let
     pname = "handbrake";
     inherit version src;
 
-    postPatch = ''
-      install -Dm444 ${versionFile} ${versionFile.name}
+    postPatch =
+      ''
+        install -Dm444 ${versionFile} ${versionFile.name}
 
-      patchShebangs scripts
+        patchShebangs scripts
 
-      substituteInPlace libhb/hb.c \
-        --replace 'return hb_version;' 'return "${version}";'
+        substituteInPlace libhb/hb.c \
+          --replace 'return hb_version;' 'return "${version}";'
 
-      # Force using nixpkgs dependencies
-      sed -i '/MODULES += contrib/d' make/include/main.defs
-      sed -e 's/^[[:space:]]*\(meson\|ninja\|nasm\)[[:space:]]*= ToolProbe.*$//g' \
-          -e '/    ## Additional library and tool checks/,/    ## MinGW specific library and tool checks/d' \
-          -i make/configure.py
-    '' + optionalString stdenv.isDarwin ''
-      # Use the Nix-provided libxml2 instead of the patched version available on
-      # the Handbrake website.
-      substituteInPlace libhb/module.defs \
-        --replace '$(CONTRIB.build/)include/libxml2' ${libxml2.dev}/include/libxml2
+        # Force using nixpkgs dependencies
+        sed -i '/MODULES += contrib/d' make/include/main.defs
+        sed -e 's/^[[:space:]]*\(meson\|ninja\|nasm\)[[:space:]]*= ToolProbe.*$//g' \
+            -e '/    ## Additional library and tool checks/,/    ## MinGW specific library and tool checks/d' \
+            -i make/configure.py
+      '' + optionalString stdenv.isDarwin ''
+        # Use the Nix-provided libxml2 instead of the patched version available on
+        # the Handbrake website.
+        substituteInPlace libhb/module.defs \
+          --replace '$(CONTRIB.build/)include/libxml2' ${libxml2.dev}/include/libxml2
 
-      # Prevent the configure script from failing if xcodebuild isn't available,
-      # which it isn't in the Nix context. (The actual build goes fine without
-      # xcodebuild.)
-      sed -e '/xcodebuild = ToolProbe/s/abort=.\+)/abort=False)/' -i make/configure.py
-    '' + optionalString stdenv.isLinux ''
-      # Use the Nix-provided libxml2 instead of the system-provided one.
-      substituteInPlace libhb/module.defs \
-        --replace /usr/include/libxml2 ${libxml2.dev}/include/libxml2
-    '';
+        # Prevent the configure script from failing if xcodebuild isn't available,
+        # which it isn't in the Nix context. (The actual build goes fine without
+        # xcodebuild.)
+        sed -e '/xcodebuild = ToolProbe/s/abort=.\+)/abort=False)/' -i make/configure.py
+      '' + optionalString stdenv.isLinux ''
+        # Use the Nix-provided libxml2 instead of the system-provided one.
+        substituteInPlace libhb/module.defs \
+          --replace /usr/include/libxml2 ${libxml2.dev}/include/libxml2
+      ''
+      ;
 
-    nativeBuildInputs = [
-      autoconf
-      automake
-      libtool
-      m4
-      pkg-config
-      python3
-    ] ++ optionals useGtk [
-      intltool
-      wrapGAppsHook
-    ];
+    nativeBuildInputs =
+      [
+        autoconf
+        automake
+        libtool
+        m4
+        pkg-config
+        python3
+      ] ++ optionals useGtk [
+        intltool
+        wrapGAppsHook
+      ]
+      ;
 
-    buildInputs = [
-      a52dec
-      dav1d
-      ffmpeg-hb
-      fontconfig
-      freetype
-      fribidi
-      harfbuzz
-      jansson
-      lame
-      libass
-      libbluray
-      libdvdcss
-      libdvdnav
-      libdvdread
-      libiconv
-      libjpeg_turbo
-      libogg
-      libopus
-      libsamplerate
-      libtheora
-      libvorbis
-      libvpx
-      libxml2
-      speex
-      svt-av1
-      x264
-      x265
-      xz
-      zimg
-    ] ++ optional (!stdenv.isDarwin) numactl ++ optionals useGtk [
-      dbus-glib
-      glib
-      gst_all_1.gst-plugins-base
-      gst_all_1.gstreamer
-      gtk3
-      hicolor-icon-theme
-      libappindicator-gtk3
-      libgudev
-      libnotify
-      udev
-    ] ++ optional useFdk fdk_aac ++ optionals stdenv.isDarwin [
-      AudioToolbox
-      Foundation
-      libobjc
-      VideoToolbox
-    ]
-    # NOTE: 2018-12-27: Handbrake supports nv-codec-headers for Linux only,
-    # look at ./make/configure.py search "enable_nvenc"
-      ++ optional stdenv.isLinux nv-codec-headers;
+    buildInputs =
+      [
+        a52dec
+        dav1d
+        ffmpeg-hb
+        fontconfig
+        freetype
+        fribidi
+        harfbuzz
+        jansson
+        lame
+        libass
+        libbluray
+        libdvdcss
+        libdvdnav
+        libdvdread
+        libiconv
+        libjpeg_turbo
+        libogg
+        libopus
+        libsamplerate
+        libtheora
+        libvorbis
+        libvpx
+        libxml2
+        speex
+        svt-av1
+        x264
+        x265
+        xz
+        zimg
+      ] ++ optional (!stdenv.isDarwin) numactl ++ optionals useGtk [
+        dbus-glib
+        glib
+        gst_all_1.gst-plugins-base
+        gst_all_1.gstreamer
+        gtk3
+        hicolor-icon-theme
+        libappindicator-gtk3
+        libgudev
+        libnotify
+        udev
+      ] ++ optional useFdk fdk_aac ++ optionals stdenv.isDarwin [
+        AudioToolbox
+        Foundation
+        libobjc
+        VideoToolbox
+      ]
+      # NOTE: 2018-12-27: Handbrake supports nv-codec-headers for Linux only,
+      # look at ./make/configure.py search "enable_nvenc"
+      ++ optional stdenv.isLinux nv-codec-headers
+      ;
 
-    configureFlags = [
-      "--disable-df-fetch"
-      "--disable-df-verify"
-      "--disable-gtk-update-checks"
-    ] ++ optional (!useGtk) "--disable-gtk"
+    configureFlags =
+      [
+        "--disable-df-fetch"
+        "--disable-df-verify"
+        "--disable-gtk-update-checks"
+      ] ++ optional (!useGtk) "--disable-gtk"
       ++ optional useFdk "--enable-fdk-aac"
       ++ optional stdenv.isDarwin "--disable-xcode"
-      ++ optional stdenv.hostPlatform.isx86 "--harden";
+      ++ optional stdenv.hostPlatform.isx86 "--harden"
+      ;
 
       # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
     NIX_LDFLAGS = [ "-lx265" ];
@@ -315,8 +325,10 @@ let
         wmertens
       ];
       platforms = with platforms; unix;
-      broken = stdenv.isDarwin
-        && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
+      broken =
+        stdenv.isDarwin
+        && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
+        ;
     };
   };
 in

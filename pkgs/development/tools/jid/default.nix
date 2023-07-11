@@ -19,10 +19,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-Lq8ouTjPsGhqDwrCMpqkSU7FEGszYwAkwl92vAEZ68w=";
 
-  patches = [
-    # Run go mod tidy
-    ./go-mod.patch
-  ];
+  patches =
+    [
+      # Run go mod tidy
+      ./go-mod.patch
+    ];
 
   ldflags = [
     "-s"

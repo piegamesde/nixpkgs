@@ -79,68 +79,74 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    docbook_xsl
-    gettext
-    gobject-introspection
-    gtk-doc
-    meson
-    ninja
-    perl
-    pkg-config
-    python3
-    python3.pkgs.pyparsing
-    python3.pkgs.six
-    vala
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+  nativeBuildInputs =
+    [
+      docbook_xsl
+      gettext
+      gobject-introspection
+      gtk-doc
+      meson
+      ninja
+      perl
+      pkg-config
+      python3
+      python3.pkgs.pyparsing
+      python3.pkgs.six
+      vala
+    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       mesonEmulatorHook
-    ] ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
+    ] ++ lib.optionals stdenv.isLinux [ wayland-scanner ]
+    ;
 
   propagatedBuildInputs = [
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
   ];
 
-  buildInputs = [
-    cyrus_sasl
-    libepoxy
-    gtk3
-    json-glib
-    libcacard
-    libjpeg_turbo
-    libopus
-    libsoup_3
-    libusb1
-    lz4
-    openssl
-    phodav
-    pixman
-    spice-protocol
-    usbredir
-    vala
-    zlib
-  ] ++ lib.optionals withPolkit [
-    polkit
-    acl
-  ] ++ lib.optionals stdenv.isLinux [
-    libcap_ng
-    libdrm
-    wayland-protocols
-  ];
+  buildInputs =
+    [
+      cyrus_sasl
+      libepoxy
+      gtk3
+      json-glib
+      libcacard
+      libjpeg_turbo
+      libopus
+      libsoup_3
+      libusb1
+      lz4
+      openssl
+      phodav
+      pixman
+      spice-protocol
+      usbredir
+      vala
+      zlib
+    ] ++ lib.optionals withPolkit [
+      polkit
+      acl
+    ] ++ lib.optionals stdenv.isLinux [
+      libcap_ng
+      libdrm
+      wayland-protocols
+    ]
+    ;
 
   PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR =
     "${placeholder "out"}/share/polkit-1/actions";
 
-  mesonFlags = [
-    "-Dusb-acl-helper-dir=${placeholder "out"}/bin"
-    "-Dusb-ids-path=${hwdata}/share/hwdata/usb.ids"
-  ] ++ lib.optionals (!withPolkit) [ "-Dpolkit=disabled" ]
+  mesonFlags =
+    [
+      "-Dusb-acl-helper-dir=${placeholder "out"}/bin"
+      "-Dusb-ids-path=${hwdata}/share/hwdata/usb.ids"
+    ] ++ lib.optionals (!withPolkit) [ "-Dpolkit=disabled" ]
     ++ lib.optionals (!stdenv.isLinux) [
       "-Dlibcap-ng=disabled"
       "-Degl=disabled"
     ] ++ lib.optionals stdenv.hostPlatform.isMusl [
       "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
-    ];
+    ]
+    ;
 
   postPatch = ''
     # get rid of absolute path to helper in store so we can use a setuid wrapper

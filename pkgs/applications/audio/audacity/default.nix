@@ -72,76 +72,82 @@ stdenv.mkDerivation rec {
     hash = "sha256-4L5ggu1izm9kichZBsJHAFq74q59xWGVYC11gy3K9go=";
   };
 
-  postPatch = ''
-    mkdir src/private
-    substituteInPlace scripts/build/macOS/fix_bundle.py \
-      --replace "path.startswith('/usr/lib/')" "path.startswith('${builtins.storeDir}')"
-  '' + lib.optionalString stdenv.isLinux ''
-    substituteInPlace libraries/lib-files/FileNames.cpp \
-      --replace /usr/include/linux/magic.h ${linuxHeaders}/include/linux/magic.h
-  '' + lib.optionalString (stdenv.isDarwin
-    && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0") ''
-      sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
-    '';
+  postPatch =
+    ''
+      mkdir src/private
+      substituteInPlace scripts/build/macOS/fix_bundle.py \
+        --replace "path.startswith('/usr/lib/')" "path.startswith('${builtins.storeDir}')"
+    '' + lib.optionalString stdenv.isLinux ''
+      substituteInPlace libraries/lib-files/FileNames.cpp \
+        --replace /usr/include/linux/magic.h ${linuxHeaders}/include/linux/magic.h
+    '' + lib.optionalString (stdenv.isDarwin
+      && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0") ''
+        sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
+      ''
+    ;
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    pkg-config
-    python3
-    makeWrapper
-    wrapGAppsHook
-  ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
+  nativeBuildInputs =
+    [
+      cmake
+      gettext
+      pkg-config
+      python3
+      makeWrapper
+      wrapGAppsHook
+    ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
+    ;
 
-  buildInputs = [
-    expat
-    ffmpeg_4
-    file
-    flac
-    gtk3
-    lame
-    libid3tag
-    libjack2
-    libmad
-    libopus
-    libsbsms_2_3_0
-    libsndfile
-    libvorbis
-    lilv
-    lv2
-    mpg123
-    pcre
-    portmidi
-    serd
-    sord
-    soundtouch
-    soxr
-    sqlite
-    sratom
-    suil
-    twolame
-    portaudio
-    wavpack
-    wxGTK32
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib # for portaudio
-    at-spi2-core
-    dbus
-    libepoxy
-    libXdmcp
-    libXtst
-    libpthreadstubs
-    libxkbcommon
-    libselinux
-    libsepol
-    libuuid
-    util-linux
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    CoreAudioKit # for portaudio
-    libpng
-    libjpeg
-  ];
+  buildInputs =
+    [
+      expat
+      ffmpeg_4
+      file
+      flac
+      gtk3
+      lame
+      libid3tag
+      libjack2
+      libmad
+      libopus
+      libsbsms_2_3_0
+      libsndfile
+      libvorbis
+      lilv
+      lv2
+      mpg123
+      pcre
+      portmidi
+      serd
+      sord
+      soundtouch
+      soxr
+      sqlite
+      sratom
+      suil
+      twolame
+      portaudio
+      wavpack
+      wxGTK32
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib # for portaudio
+      at-spi2-core
+      dbus
+      libepoxy
+      libXdmcp
+      libXtst
+      libpthreadstubs
+      libxkbcommon
+      libselinux
+      libsepol
+      libuuid
+      util-linux
+    ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      CoreAudioKit # for portaudio
+      libpng
+      libjpeg
+    ]
+    ;
 
   cmakeFlags = [
     "-DAUDACITY_BUILD_LEVEL=2"
@@ -172,18 +178,20 @@ stdenv.mkDerivation rec {
     # Replace audacity's wrapper, to:
     # - put it in the right place, it shouldn't be in "$out/audacity"
     # - Add the ffmpeg dynamic dependency
-  postInstall = lib.optionalString stdenv.isLinux ''
-    wrapProgram "$out/bin/audacity" \
-      --prefix LD_LIBRARY_PATH : "$out/lib/audacity":${
-        lib.makeLibraryPath [ ffmpeg_4 ]
-      } \
-      --suffix AUDACITY_MODULES_PATH : "$out/lib/audacity/modules" \
-      --suffix AUDACITY_PATH : "$out/share/audacity"
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/{Applications,bin}
-    mv $out/Audacity.app $out/Applications/
-    makeWrapper $out/Applications/Audacity.app/Contents/MacOS/Audacity $out/bin/audacity
-  '';
+  postInstall =
+    lib.optionalString stdenv.isLinux ''
+      wrapProgram "$out/bin/audacity" \
+        --prefix LD_LIBRARY_PATH : "$out/lib/audacity":${
+          lib.makeLibraryPath [ ffmpeg_4 ]
+        } \
+        --suffix AUDACITY_MODULES_PATH : "$out/lib/audacity/modules" \
+        --suffix AUDACITY_PATH : "$out/share/audacity"
+    '' + lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/{Applications,bin}
+      mv $out/Audacity.app $out/Applications/
+      makeWrapper $out/Applications/Audacity.app/Contents/MacOS/Audacity $out/bin/audacity
+    ''
+    ;
 
   meta = with lib; {
     description = "Sound editor with graphical UI";

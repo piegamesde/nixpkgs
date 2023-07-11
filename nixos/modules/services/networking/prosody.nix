@@ -832,18 +832,22 @@ in
           {
             assertion =
               (builtins.length cfg.muc > 0) || !cfg.xmppComplianceSuite;
-            message = ''
-              You need to setup at least a MUC domain to comply with
-              XEP-0423.
-            '' + genericErrMsg;
+            message =
+              ''
+                You need to setup at least a MUC domain to comply with
+                XEP-0423.
+              '' + genericErrMsg
+              ;
           }
           {
             assertion = cfg.uploadHttp != null || !cfg.xmppComplianceSuite;
-            message = ''
-              You need to setup the uploadHttp module through
-              config.services.prosody.uploadHttp to comply with
-              XEP-0423.
-            '' + genericErrMsg;
+            message =
+              ''
+                You need to setup the uploadHttp module through
+                config.services.prosody.uploadHttp to comply with
+                XEP-0423.
+              '' + genericErrMsg
+              ;
           }
         ];
       in

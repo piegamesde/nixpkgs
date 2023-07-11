@@ -65,7 +65,8 @@ buildPythonPackage rec {
     # https://github.com/NixOS/nixpkgs/issues/39687
   hardeningDisable = lib.optional stdenv.cc.isClang "strictoverflow";
 
-  doCheck = !stdenv.isAarch32 && !stdenv.isAarch64
+  doCheck =
+    !stdenv.isAarch32 && !stdenv.isAarch64
     ; # upstream doesn't test this architecture
 
     # don't max out build cores, it breaks tests
@@ -82,47 +83,50 @@ buildPythonPackage rec {
     "4"
   ];
 
-  disabledTests = [
-    # Locale-related
-    "test_names"
-    "test_dt_accessor_datetime_name_accessors"
-    "test_datetime_name_accessors"
-    # Disable IO related tests because IO data is no longer distributed
-    "io"
-    # Tries to import from pandas.tests post install
-    "util_in_top_level"
-    # Tries to import compiled C extension locally
-    "test_missing_required_dependency"
-    # AssertionError with 1.2.3
-    "test_from_coo"
-    # AssertionError: No common DType exists for the given inputs
-    "test_comparison_invalid"
-    # AssertionError: Regex pattern '"quotechar" must be string, not int'
-    "python-kwargs2"
-    # Tests for rounding errors and fails if we have better precision
-    # than expected, e.g. on amd64 with FMA or on arm64
-    # https://github.com/pandas-dev/pandas/issues/38921
-    "test_rolling_var_numerical_issues"
-    # Requires mathplotlib
-    "test_subset_for_boolean_cols"
-    # DeprecationWarning from numpy
-    "test_sort_values_sparse_no_warning"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_locale"
-    "test_clipboard"
-    # ValueError: cannot reindex on an axis with duplicate labels
-    #
-    # Attempts to reproduce this problem outside of Hydra failed.
-    "test_reindex_timestamp_with_fold"
-  ];
+  disabledTests =
+    [
+      # Locale-related
+      "test_names"
+      "test_dt_accessor_datetime_name_accessors"
+      "test_datetime_name_accessors"
+      # Disable IO related tests because IO data is no longer distributed
+      "io"
+      # Tries to import from pandas.tests post install
+      "util_in_top_level"
+      # Tries to import compiled C extension locally
+      "test_missing_required_dependency"
+      # AssertionError with 1.2.3
+      "test_from_coo"
+      # AssertionError: No common DType exists for the given inputs
+      "test_comparison_invalid"
+      # AssertionError: Regex pattern '"quotechar" must be string, not int'
+      "python-kwargs2"
+      # Tests for rounding errors and fails if we have better precision
+      # than expected, e.g. on amd64 with FMA or on arm64
+      # https://github.com/pandas-dev/pandas/issues/38921
+      "test_rolling_var_numerical_issues"
+      # Requires mathplotlib
+      "test_subset_for_boolean_cols"
+      # DeprecationWarning from numpy
+      "test_sort_values_sparse_no_warning"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "test_locale"
+      "test_clipboard"
+      # ValueError: cannot reindex on an axis with duplicate labels
+      #
+      # Attempts to reproduce this problem outside of Hydra failed.
+      "test_reindex_timestamp_with_fold"
+    ]
+    ;
 
     # Tests have relative paths, and need to reference compiled C extensions
     # so change directory where `import .test` is able to be resolved
-  preCheck = ''
-    cd $out/${python.sitePackages}/pandas
-    export LC_ALL="en_US.UTF-8"
-    PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH
-  ''
+  preCheck =
+    ''
+      cd $out/${python.sitePackages}/pandas
+      export LC_ALL="en_US.UTF-8"
+      PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH
+    ''
     # TODO: Get locale and clipboard support working on darwin.
     #       Until then we disable the tests.
     + lib.optionalString stdenv.isDarwin ''
@@ -131,7 +135,8 @@ buildPythonPackage rec {
       echo "#!${runtimeShell}" > pbpaste
       chmod a+x pbcopy pbpaste
       export PATH=$(pwd):$PATH
-    '';
+    ''
+    ;
 
   enableParallelBuilding = true;
 

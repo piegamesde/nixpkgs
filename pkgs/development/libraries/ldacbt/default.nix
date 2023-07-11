@@ -24,10 +24,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [
-    # CMakeLists.txt by default points to $out
-    "-DINSTALL_INCLUDEDIR=${placeholder "dev"}/include"
-  ];
+  cmakeFlags =
+    [
+      # CMakeLists.txt by default points to $out
+      "-DINSTALL_INCLUDEDIR=${placeholder "dev"}/include"
+    ];
 
   meta = with lib; {
     description = "AOSP libldac dispatcher";

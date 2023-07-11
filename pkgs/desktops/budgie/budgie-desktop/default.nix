@@ -60,36 +60,38 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    accountsservice
-    alsa-lib
-    budgie-screensaver
-    glib
-    gnome-desktop
-    gnome-menus
-    gnome.gnome-bluetooth_1_0
-    gnome.gnome-settings-daemon
-    gnome.mutter
-    gnome.zenity
-    graphene
-    gtk3
-    ibus
-    libcanberra-gtk3
-    libgee
-    libGL
-    libnotify
-    libpeas
-    libpulseaudio
-    libuuid
-    libwnck
-    mesa
-    polkit
-    sassc
-    upower
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-  ]);
+  buildInputs =
+    [
+      accountsservice
+      alsa-lib
+      budgie-screensaver
+      glib
+      gnome-desktop
+      gnome-menus
+      gnome.gnome-bluetooth_1_0
+      gnome.gnome-settings-daemon
+      gnome.mutter
+      gnome.zenity
+      graphene
+      gtk3
+      ibus
+      libcanberra-gtk3
+      libgee
+      libGL
+      libnotify
+      libpeas
+      libpulseaudio
+      libuuid
+      libwnck
+      mesa
+      polkit
+      sassc
+      upower
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+    ])
+    ;
 
   passthru.providedSessions = [ "budgie-desktop" ];
 

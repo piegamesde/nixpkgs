@@ -26,14 +26,16 @@ gnuradio3_8Minimal.pkgs.mkDerivation rec {
     qt5.wrapQtAppsHook
     pkg-config
   ];
-  buildInputs = [
-    fftwFloat
-    liquid-dsp
-    qt5.qtbase
-  ] ++ lib.optionals (gnuradio3_8Minimal.hasFeature "gr-ctrlport") [
-    thrift
-    gnuradio3_8Minimal.unwrapped.python.pkgs.thrift
-  ];
+  buildInputs =
+    [
+      fftwFloat
+      liquid-dsp
+      qt5.qtbase
+    ] ++ lib.optionals (gnuradio3_8Minimal.hasFeature "gr-ctrlport") [
+      thrift
+      gnuradio3_8Minimal.unwrapped.python.pkgs.thrift
+    ]
+    ;
 
   meta = with lib; {
     description = "Tool for analysing captured signals from sdr receivers";

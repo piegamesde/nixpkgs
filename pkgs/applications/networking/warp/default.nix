@@ -38,20 +38,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-mxM+V4gWGfW8M56+kV/Ljtzde7oRPH0twJtEImkUIF4=";
   };
 
-  nativeBuildInputs = [
-    appstream-glib
-    desktop-file-utils
-    itstool
-    meson
-    ninja
-    pkg-config
-    python3
-    wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      appstream-glib
+      desktop-file-utils
+      itstool
+      meson
+      ninja
+      pkg-config
+      python3
+      wrapGAppsHook4
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
   buildInputs = [
     glib

@@ -42,16 +42,17 @@ let
         "maintainer-team"
         team
       ];
-      checkedAttrs = (lib.modules.evalModules {
-        inherit prefix;
-        modules = [
-          teamModule
-          {
-            _file = toString ../../maintainers/team-list.nix;
-            config = uncheckedAttrs;
-          }
-        ];
-      }).config;
+      checkedAttrs =
+        (lib.modules.evalModules {
+          inherit prefix;
+          modules = [
+            teamModule
+            {
+              _file = toString ../../maintainers/team-list.nix;
+              config = uncheckedAttrs;
+            }
+          ];
+        }).config;
     in
     checkedAttrs
     ;

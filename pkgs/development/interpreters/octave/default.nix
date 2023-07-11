@@ -131,33 +131,34 @@ let
       sha256 = "sha256-V9F/kYqUDTjKM0ghHhELNNc1oyKofbccF3xGkqSanIQ=";
     };
 
-    buildInputs = [
-      readline
-      ncurses
-      perl
-      flex
-      qhull
-      graphicsmagick
-      pcre2
-      fltk
-      zlib
-      curl
-      rapidjson
-      blas'
-      lapack'
-      libsndfile
-      fftw
-      fftwSinglePrec
-      portaudio
-      qrupdate'
-      arpack'
-      libwebp
-      gl2ps
-    ] ++ lib.optionals enableQt [
-      qtbase
-      qtsvg
-      qscintilla
-    ] ++ lib.optionals (ghostscript != null) [ ghostscript ]
+    buildInputs =
+      [
+        readline
+        ncurses
+        perl
+        flex
+        qhull
+        graphicsmagick
+        pcre2
+        fltk
+        zlib
+        curl
+        rapidjson
+        blas'
+        lapack'
+        libsndfile
+        fftw
+        fftwSinglePrec
+        portaudio
+        qrupdate'
+        arpack'
+        libwebp
+        gl2ps
+      ] ++ lib.optionals enableQt [
+        qtbase
+        qtsvg
+        qscintilla
+      ] ++ lib.optionals (ghostscript != null) [ ghostscript ]
       ++ lib.optionals (hdf5 != null) [ hdf5 ]
       ++ lib.optionals (glpk != null) [ glpk ]
       ++ lib.optionals (suitesparse != null) [ suitesparse' ]
@@ -173,19 +174,22 @@ let
         libiconv
         darwin.apple_sdk.frameworks.Accelerate
         darwin.apple_sdk.frameworks.Cocoa
-      ];
-    nativeBuildInputs = [
-      pkg-config
-      gfortran
-      # Listed here as well because it's outputs are split
-      fftw
-      fftwSinglePrec
-      texinfo
-    ] ++ lib.optionals (sundials != null) [ sundials ]
+      ]
+      ;
+    nativeBuildInputs =
+      [
+        pkg-config
+        gfortran
+        # Listed here as well because it's outputs are split
+        fftw
+        fftwSinglePrec
+        texinfo
+      ] ++ lib.optionals (sundials != null) [ sundials ]
       ++ lib.optionals enableQt [
         qtscript
         qttools
-      ];
+      ]
+      ;
 
     doCheck = !stdenv.isDarwin;
 
@@ -197,17 +201,19 @@ let
       # See https://savannah.gnu.org/bugs/?50339
     F77_INTEGER_8_FLAG = lib.optionalString use64BitIdx "-fdefault-integer-8";
 
-    configureFlags = [
-      "--with-blas=blas"
-      "--with-lapack=lapack"
-      (if use64BitIdx then
-        "--enable-64"
-      else
-        "--disable-64")
-    ] ++ lib.optionals stdenv.isDarwin [ "--enable-link-all-dependencies" ]
+    configureFlags =
+      [
+        "--with-blas=blas"
+        "--with-lapack=lapack"
+        (if use64BitIdx then
+          "--enable-64"
+        else
+          "--disable-64")
+      ] ++ lib.optionals stdenv.isDarwin [ "--enable-link-all-dependencies" ]
       ++ lib.optionals enableReadline [ "--enable-readline" ]
       ++ lib.optionals stdenv.isDarwin [ "--with-x=no" ]
-      ++ lib.optionals enableQt [ "--with-qt=5" ];
+      ++ lib.optionals enableQt [ "--with-qt=5" ]
+      ;
 
       # Keep a copy of the octave tests detailed results in the output
       # derivation, because someone may care

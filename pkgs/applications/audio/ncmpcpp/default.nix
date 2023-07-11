@@ -35,23 +35,27 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  configureFlags = [ "BOOST_LIB_SUFFIX=" ]
-    ++ lib.optional outputsSupport "--enable-outputs"
+  configureFlags =
+    [ "BOOST_LIB_SUFFIX=" ] ++ lib.optional outputsSupport "--enable-outputs"
     ++ lib.optional visualizerSupport "--enable-visualizer --with-fftw"
     ++ lib.optional clockSupport "--enable-clock"
-    ++ lib.optional taglibSupport "--with-taglib";
+    ++ lib.optional taglibSupport "--with-taglib"
+    ;
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optional taglibSupport taglib;
 
-  buildInputs = [
-    boost
-    libmpdclient
-    ncurses
-    readline
-    libiconv
-    icu
-    curl
-  ] ++ lib.optional visualizerSupport fftw ++ lib.optional taglibSupport taglib;
+  buildInputs =
+    [
+      boost
+      libmpdclient
+      ncurses
+      readline
+      libiconv
+      icu
+      curl
+    ] ++ lib.optional visualizerSupport fftw
+    ++ lib.optional taglibSupport taglib
+    ;
 
   meta = with lib; {
     description = "A featureful ncurses based MPD client inspired by ncmpc";

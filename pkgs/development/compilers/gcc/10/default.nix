@@ -73,16 +73,17 @@ let
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  patches = [
-    # Fix https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80431
-    (fetchurl {
-      name = "fix-bug-80431.patch";
-      url =
-        "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
-      sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
-    })
-    ../11/fix-struct-redefinition-on-glibc-2.36.patch
-  ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
+  patches =
+    [
+      # Fix https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80431
+      (fetchurl {
+        name = "fix-bug-80431.patch";
+        url =
+          "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
+        sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
+      })
+      ../11/fix-struct-redefinition-on-glibc-2.36.patch
+    ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional (noSysDirs && hostPlatform.isRiscV) ../no-sys-dirs-riscv.patch
     /* ++ optional (hostPlatform != buildPlatform) (fetchpatch { # XXX: Refine when this should be applied
@@ -106,7 +107,8 @@ let
         url =
           "https://raw.githubusercontent.com/richard-vd/musl-cross-make/5e9e87f06fc3220e102c29d3413fbbffa456fcd6/patches/gcc-${version}/0008-darwin-aarch64-self-host-driver.patch";
         sha256 = "sha256-XtykrPd5h/tsnjY1wGjzSOJ+AyyNLsfnjuOZ5Ryq9vA=";
-      });
+      })
+    ;
 
     # Cross-gcc settings (build == host != target)
   crossMingw =
@@ -195,11 +197,13 @@ stdenv.mkDerivation ({
 
   inherit patches;
 
-  outputs = [
-    "out"
-    "man"
-    "info"
-  ] ++ lib.optional (!langJit) "lib";
+  outputs =
+    [
+      "out"
+      "man"
+      "info"
+    ] ++ lib.optional (!langJit) "lib"
+    ;
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
 
@@ -210,12 +214,13 @@ stdenv.mkDerivation ({
     "pie"
   ];
 
-  postPatch = ''
-    configureScripts=$(find . -name configure)
-    for configureScript in $configureScripts; do
-      patchShebangs $configureScript
-    done
-  ''
+  postPatch =
+    ''
+      configureScripts=$(find . -name configure)
+      for configureScript in $configureScripts; do
+        patchShebangs $configureScript
+      done
+    ''
     # This should kill all the stdinc frameworks that gcc and friends like to
     # insert into default search paths.
     + lib.optionalString hostPlatform.isDarwin ''
@@ -257,7 +262,8 @@ stdenv.mkDerivation ({
            '-s' # workaround for hitting hydra log limit
            'LIMITS_H_TEST=false'
         )
-      '';
+      ''
+    ;
 
   inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
 
@@ -271,9 +277,11 @@ stdenv.mkDerivation ({
 
   NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
-  preConfigure = (callFile ../common/pre-configure.nix { }) + ''
-    ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
-  '';
+  preConfigure =
+    (callFile ../common/pre-configure.nix { }) + ''
+      ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
+    ''
+    ;
 
   dontDisableStatic = true;
 

@@ -15,14 +15,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-jTbNjLbqKkwrs1j/ZBGwx4hjOipF2rvxrrS3AdG16EA=";
   };
 
-  configureFlags = [
-    "--enable-pcre2-16"
-    "--enable-pcre2-32"
-    # only enable jit on supported platforms which excludes Apple Silicon, see https://github.com/zherczeg/sljit/issues/51
-    "--enable-jit=auto"
-  ]
-  # fix pcre jit in systemd units that set MemoryDenyWriteExecute=true like gitea
-    ++ lib.optional withJitSealloc "--enable-jit-sealloc";
+  configureFlags =
+    [
+      "--enable-pcre2-16"
+      "--enable-pcre2-32"
+      # only enable jit on supported platforms which excludes Apple Silicon, see https://github.com/zherczeg/sljit/issues/51
+      "--enable-jit=auto"
+    ]
+    # fix pcre jit in systemd units that set MemoryDenyWriteExecute=true like gitea
+    ++ lib.optional withJitSealloc "--enable-jit-sealloc"
+    ;
 
   outputs = [
     "bin"

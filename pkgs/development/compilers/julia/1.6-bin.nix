@@ -9,15 +9,17 @@ stdenv.mkDerivation rec {
   pname = "julia-bin";
   version = "1.6.6";
 
-  src = {
-    x86_64-linux = fetchurl {
-      url = "https://julialang-s3.julialang.org/bin/linux/x64/${
-          lib.versions.majorMinor version
-        }/julia-${version}-linux-x86_64.tar.gz";
-      sha256 = "0ia9a4h7w0n5rg57fkl1kzcyj500ymfwq3qsd2r7l82288dgfpy2";
-    };
-  }.${stdenv.hostPlatform.system} or (throw
-    "Unsupported system: ${stdenv.hostPlatform.system}");
+  src =
+    {
+      x86_64-linux = fetchurl {
+        url =
+          "https://julialang-s3.julialang.org/bin/linux/x64/${
+            lib.versions.majorMinor version
+          }/julia-${version}-linux-x86_64.tar.gz";
+        sha256 = "0ia9a4h7w0n5rg57fkl1kzcyj500ymfwq3qsd2r7l82288dgfpy2";
+      };
+    }.${stdenv.hostPlatform.system} or (throw
+      "Unsupported system: ${stdenv.hostPlatform.system}");
 
     # Julia’s source files are in different locations for source and binary
     # releases. Thus we temporarily create a symlink to allow us to share patches
@@ -25,10 +27,11 @@ stdenv.mkDerivation rec {
   prePatch = ''
     ln -s share/julia/test
   '';
-  patches = [
-    # Source release Nix patch(es) relevant for binary releases as well.
-    ./patches/1.6-bin/0005-nix-Enable-parallel-unit-tests-for-sandbox.patch
-  ];
+  patches =
+    [
+      # Source release Nix patch(es) relevant for binary releases as well.
+      ./patches/1.6-bin/0005-nix-Enable-parallel-unit-tests-for-sandbox.patch
+    ];
   postPatch = ''
     # Revert symlink hack.
     rm test

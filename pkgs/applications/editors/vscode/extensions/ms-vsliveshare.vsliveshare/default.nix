@@ -52,7 +52,9 @@ in
     buildInputs ? [ ],
     ...
   }: {
-    buildInputs = buildInputs ++ libs;
+    buildInputs =
+      buildInputs ++ libs
+      ;
 
       # Using a patch file won't work, because the file changes too often, causing the patch to fail on most updates.
       # Rather than patching the calls to functions, we modify the functions to return what we want,

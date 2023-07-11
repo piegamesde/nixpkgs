@@ -86,9 +86,10 @@ callPackage real-drv {
     else
       source
     ;
-  name = ("mathematica" + lib.optionalString cudaSupport "-cuda"
-    + "-${found-version.version}"
-    + lib.optionalString (lang != "en") "-${lang}");
+  name =
+    ("mathematica" + lib.optionalString cudaSupport "-cuda"
+      + "-${found-version.version}"
+      + lib.optionalString (lang != "en") "-${lang}");
   meta = with lib; {
     description = "Wolfram Mathematica computational software system";
     homepage = "http://www.wolfram.com/mathematica/";

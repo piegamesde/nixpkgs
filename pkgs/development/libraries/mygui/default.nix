@@ -42,17 +42,19 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    boost
-    freetype
-    libuuid
-    ois
-  ] ++ lib.optionals withOgre [ ogre ]
+  buildInputs =
+    [
+      boost
+      freetype
+      libuuid
+      ois
+    ] ++ lib.optionals withOgre [ ogre ]
     ++ lib.optionals (!withOgre && stdenv.isLinux) [
       libGL
       libGLU
     ] ++ lib.optionals stdenv.isLinux [ libX11 ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ;
 
     # Tools are disabled due to compilation failures.
   cmakeFlags = [

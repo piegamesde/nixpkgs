@@ -58,10 +58,11 @@ stdenv.mkDerivation rec {
     chmod -R u+w .
   '';
 
-  patches = [ ./gnu-install-dirs.patch ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [
+  patches =
+    [ ./gnu-install-dirs.patch ] ++ lib.optionals stdenv.hostPlatform.isMusl [
       ../../libcxx-0001-musl-hacks.patch
-    ];
+    ]
+    ;
 
   postPatch = ''
     cd ../runtimes
@@ -71,22 +72,25 @@ stdenv.mkDerivation rec {
     patchShebangs utils/cat_files.py
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    python3
-  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+      python3
+    ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    ;
 
   buildInputs = lib.optionals (!headersOnly) [ cxxabi ];
 
   cmakeFlags =
     let
       # See: https://libcxx.llvm.org/BuildingLibcxx.html#cmdoption-arg-libcxx-cxx-abi-string
-      libcxx_cxx_abi_opt = {
-        "c++abi" = "system-libcxxabi";
-        "cxxrt" = "libcxxrt";
-      }.${cxxabi.libName} or (throw
-        "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
+      libcxx_cxx_abi_opt =
+        {
+          "c++abi" = "system-libcxxabi";
+          "cxxrt" = "libcxxrt";
+        }.${cxxabi.libName} or (throw
+          "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
     in
     [
       "-DLLVM_ENABLE_RUNTIMES=libcxx"

@@ -27,10 +27,12 @@
 }:
 
 let
-  cmake_args = lib.optionals withGtk3 [ "-DENABLE_GTK3=ON" ]
+  cmake_args =
+    lib.optionals withGtk3 [ "-DENABLE_GTK3=ON" ]
     ++ lib.optionals withGtk4 [ "-DENABLE_GTK4=ON" ]
     ++ lib.optionals withQt5 [ "-DENABLE_QT5=ON" ]
-    ++ lib.optionals withQt6 [ "-DENABLE_QT6=ON" ];
+    ++ lib.optionals withQt6 [ "-DENABLE_QT6=ON" ]
+    ;
 
   optFlag =
     w:
@@ -109,15 +111,17 @@ stdenv.mkDerivation rec {
     runHook postInstallCheck
   '';
 
-  buildInputs = lib.optionals withIndicator [
-    dbus
-    libdbusmenu
-  ] ++ lib.optionals withXim [
-    xorg.libxcb
-    cairo
-  ] ++ lib.optionals withGtk3 [ gtk3 ] ++ lib.optionals withGtk4 [ gtk4 ]
+  buildInputs =
+    lib.optionals withIndicator [
+      dbus
+      libdbusmenu
+    ] ++ lib.optionals withXim [
+      xorg.libxcb
+      cairo
+    ] ++ lib.optionals withGtk3 [ gtk3 ] ++ lib.optionals withGtk4 [ gtk4 ]
     ++ lib.optionals withQt5 [ qt5.qtbase ]
-    ++ lib.optionals withQt6 [ qt6.qtbase ];
+    ++ lib.optionals withQt6 [ qt6.qtbase ]
+    ;
 
   nativeBuildInputs = [
     pkg-config

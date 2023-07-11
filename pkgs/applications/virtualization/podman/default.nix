@@ -52,11 +52,13 @@ let
     name = "podman-helper-binary-wrapper";
 
       # this only works for some binaries, others may need to be be added to `binPath` or in the modules
-    paths = [ gvproxy ] ++ lib.optionals stdenv.isLinux [
-      aardvark-dns
-      catatonit # added here for the pause image and also set in `containersConf` for `init_path`
-      netavark
-    ];
+    paths =
+      [ gvproxy ] ++ lib.optionals stdenv.isLinux [
+        aardvark-dns
+        catatonit # added here for the pause image and also set in `containersConf` for `init_path`
+        netavark
+      ]
+      ;
   };
 in
 buildGoModule rec {
@@ -70,10 +72,11 @@ buildGoModule rec {
     hash = "sha256-udvvTdkpL8xvY0iIMBgBFQk5sybpn9vCFFXP0ZqOajM=";
   };
 
-  patches = [
-    # we intentionally don't build and install the helper so we shouldn't display messages to users about it
-    ./rm-podman-mac-helper-msg.patch
-  ];
+  patches =
+    [
+      # we intentionally don't build and install the helper so we shouldn't display messages to users about it
+      ./rm-podman-mac-helper-msg.patch
+    ];
 
   vendorHash = null;
 

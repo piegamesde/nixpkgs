@@ -26,13 +26,15 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    perl
-    groff
-    libxml2
-    python2
-    libffi
-  ] ++ lib.optional stdenv.isLinux valgrind;
+  buildInputs =
+    [
+      perl
+      groff
+      libxml2
+      python2
+      libffi
+    ] ++ lib.optional stdenv.isLinux valgrind
+    ;
 
   propagatedBuildInputs = [
     ncurses

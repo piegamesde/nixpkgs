@@ -27,26 +27,30 @@ stdenv.mkDerivation rec {
     hash = "sha256-Uym4s8EyzXHlISZqThcb6P1H5bdgD9vmdIOLkk5ikG0=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals usePython [ "py" ];
-
-  buildInputs = [
-    gmp
-    mpfr
-    libedit
-    gnused
-  ] ++ lib.optionals gpgmeSupport [ gpgme ] ++ (if usePython then
+  outputs =
     [
-      python3
-      (boost.override {
-        enablePython = true;
-        python = python3;
-      })
-    ]
-  else
-    [ boost ]);
+      "out"
+      "dev"
+    ] ++ lib.optionals usePython [ "py" ]
+    ;
+
+  buildInputs =
+    [
+      gmp
+      mpfr
+      libedit
+      gnused
+    ] ++ lib.optionals gpgmeSupport [ gpgme ] ++ (if usePython then
+      [
+        python3
+        (boost.override {
+          enablePython = true;
+          python = python3;
+        })
+      ]
+    else
+      [ boost ])
+    ;
 
   nativeBuildInputs = [
     cmake

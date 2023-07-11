@@ -20,8 +20,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "rocsolver";
   version = "5.4.4";
 
-  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
-    ++ lib.optionals buildBenchmarks [ "benchmark" ];
+  outputs =
+    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ]
+    ;
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -30,39 +32,47 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-UHUcA9CVPuYFpE2DTvRrRMMj51yNPo5wMTKnByL2RTg=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    hip
-  ] ++ lib.optionals (buildTests || buildBenchmarks) [ gfortran ];
+  nativeBuildInputs =
+    [
+      cmake
+      rocm-cmake
+      hip
+    ] ++ lib.optionals (buildTests || buildBenchmarks) [ gfortran ]
+    ;
 
-  buildInputs = [
-    rocblas
-    fmt
-  ] ++ lib.optionals buildTests [ gtest ]
-    ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
+  buildInputs =
+    [
+      rocblas
+      fmt
+    ] ++ lib.optionals buildTests [ gtest ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ]
+    ;
 
-  cmakeFlags = [
-    "-DCMAKE_CXX_COMPILER=hipcc"
-    # Manually define CMAKE_INSTALL_<DIR>
-    # See: https://github.com/NixOS/nixpkgs/pull/197838
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals (gpuTargets != [ ]) [
+  cmakeFlags =
+    [
+      "-DCMAKE_CXX_COMPILER=hipcc"
+      # Manually define CMAKE_INSTALL_<DIR>
+      # See: https://github.com/NixOS/nixpkgs/pull/197838
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    ] ++ lib.optionals (gpuTargets != [ ]) [
       "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
-    ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ];
+    ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
+    ;
 
-  postInstall = lib.optionalString buildTests ''
-    mkdir -p $test/bin
-    mv $out/bin/rocsolver-test $test/bin
-  '' + lib.optionalString buildBenchmarks ''
-    mkdir -p $benchmark/bin
-    mv $out/bin/rocsolver-bench $benchmark/bin
-  '' + lib.optionalString (buildTests || buildBenchmarks) ''
-    rmdir $out/bin
-  '';
+  postInstall =
+    lib.optionalString buildTests ''
+      mkdir -p $test/bin
+      mv $out/bin/rocsolver-test $test/bin
+    '' + lib.optionalString buildBenchmarks ''
+      mkdir -p $benchmark/bin
+      mv $out/bin/rocsolver-bench $benchmark/bin
+    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+      rmdir $out/bin
+    ''
+    ;
 
   passthru.updateScript = rocmUpdateScript {
     name = finalAttrs.pname;

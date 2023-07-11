@@ -39,10 +39,11 @@ buildPythonPackage rec {
     responses
   ];
 
-  disabledTests = [
-    # Test requires network access
-    "test_session_ssl_error"
-  ];
+  disabledTests =
+    [
+      # Test requires network access
+      "test_session_ssl_error"
+    ];
 
   pythonImportsCheck = [ "restfly" ];
 

@@ -92,12 +92,14 @@ let
 
   compress = lib.optionalString (format == "qcow2-compressed") "-c";
 
-  filenameSuffix = "." + {
-    qcow2 = "qcow2";
-    vdi = "vdi";
-    vpc = "vhd";
-    raw = "img";
-  }.${formatOpt} or formatOpt;
+  filenameSuffix =
+    "." + {
+      qcow2 = "qcow2";
+      vdi = "vdi";
+      vpc = "vhd";
+      raw = "img";
+    }.${formatOpt} or formatOpt
+    ;
   bootFilename = "nixos.boot${filenameSuffix}";
   rootFilename = "nixos.root${filenameSuffix}";
 
@@ -119,8 +121,10 @@ let
     ;
 
   closureInfo = pkgs.closureInfo {
-    rootPaths = [ config.system.build.toplevel ]
-      ++ (lib.optional includeChannel channelSources);
+    rootPaths =
+      [ config.system.build.toplevel ]
+      ++ (lib.optional includeChannel channelSources)
+      ;
   };
 
   modulesTree = pkgs.aggregateModules (with config.boot.kernelPackages; [
@@ -266,18 +270,21 @@ let
     ;
 
   image = (pkgs.vmTools.override {
-    rootModules = [
-      "zfs"
-      "9p"
-      "9pnet_virtio"
-      "virtio_pci"
-      "virtio_blk"
-    ] ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos");
+    rootModules =
+      [
+        "zfs"
+        "9p"
+        "9pnet_virtio"
+        "virtio_pci"
+        "virtio_blk"
+      ] ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos")
+      ;
     kernel = modulesTree;
   }).runInLinuxVM (pkgs.runCommand name {
     QEMU_OPTS =
       "-drive file=$bootDiskImage,if=virtio,cache=unsafe,werror=report"
-      + " -drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report";
+      + " -drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report"
+      ;
     inherit memSize;
     preVM = ''
       PATH=$PATH:${pkgs.qemu_kvm}/bin

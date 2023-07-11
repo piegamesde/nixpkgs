@@ -46,13 +46,14 @@ assert defaultGuiType == "qt5" -> withQt5;
 let
   inherit (lib) optional optionalString;
   inherit (libsForQt5) qtbase wrapQtAppsHook;
-  arch = {
-    x86_64-linux = "x86_64";
-    i686-linux = "i386";
-    aarch64-linux = "aarch64";
-    mipsel-linux = "mips64el";
-  }.${stdenv.hostPlatform.system} or (throw
-    "Unsupported platform ${stdenv.hostPlatform.system}");
+  arch =
+    {
+      x86_64-linux = "x86_64";
+      i686-linux = "i386";
+      aarch64-linux = "aarch64";
+      mipsel-linux = "mips64el";
+    }.${stdenv.hostPlatform.system} or (throw
+      "Unsupported platform ${stdenv.hostPlatform.system}");
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ventoy";
@@ -80,29 +81,33 @@ stdenv.mkDerivation (finalAttrs: {
         WebUI/static/js/languages.js tool/languages.json
   '';
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ] ++ optional (withQt5 || withGtk3) copyDesktopItems
-    ++ optional withQt5 wrapQtAppsHook;
+  nativeBuildInputs =
+    [
+      autoPatchelfHook
+      makeWrapper
+    ] ++ optional (withQt5 || withGtk3) copyDesktopItems
+    ++ optional withQt5 wrapQtAppsHook
+    ;
 
-  buildInputs = [
-    bash
-    coreutils
-    dosfstools
-    exfat
-    gawk
-    gnugrep
-    gnused
-    hexdump
-    parted
-    procps
-    util-linux
-    which
-    xz
-  ] ++ optional withCryptsetup cryptsetup ++ optional withExt4 0.0 fsprogs
+  buildInputs =
+    [
+      bash
+      coreutils
+      dosfstools
+      exfat
+      gawk
+      gnugrep
+      gnused
+      hexdump
+      parted
+      procps
+      util-linux
+      which
+      xz
+    ] ++ optional withCryptsetup cryptsetup ++ optional withExt4 0.0 fsprogs
     ++ optional withGtk3 gtk3 ++ optional withNtfs ntfs3g
-    ++ optional withXfs xfsprogs ++ optional withQt5 qtbase;
+    ++ optional withXfs xfsprogs ++ optional withQt5 qtbase
+    ;
 
   desktopItems = [
       (makeDesktopItem {
@@ -121,50 +126,51 @@ stdenv.mkDerivation (finalAttrs: {
   dontConfigure = true;
   dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-    # Setup variables
-    local VENTOY_PATH="$out"/share/ventoy
-    local ARCH='${arch}'
+      # Setup variables
+      local VENTOY_PATH="$out"/share/ventoy
+      local ARCH='${arch}'
 
-    # Prepare
-    cd tool/"$ARCH"
-    rm ash* hexdump* mkexfatfs* mount.exfat-fuse* xzcat*
-    for archive in *.xz; do
-        xzcat "$archive" > "''${archive%.xz}"
-        rm "$archive"
-    done
-    chmod a+x *
-    cd -
+      # Prepare
+      cd tool/"$ARCH"
+      rm ash* hexdump* mkexfatfs* mount.exfat-fuse* xzcat*
+      for archive in *.xz; do
+          xzcat "$archive" > "''${archive%.xz}"
+          rm "$archive"
+      done
+      chmod a+x *
+      cd -
 
-    # Cleanup.
-    case "$ARCH" in
-        x86_64) rm -r {tool/,VentoyGUI.}{i386,aarch64,mips64el};;
-        i386) rm -r {tool/,VentoyGUI.}{x86_64,aarch64,mips64el};;
-        aarch64) rm -r {tool/,VentoyGUI.}{x86_64,i386,mips64el};;
-        mips64el) rm -r {tool/,VentoyGUI.}{x86_64,i386,aarch64};;
-    esac
-    rm README
-    rm tool/"$ARCH"/Ventoy2Disk.gtk2 || true  # For aarch64 and mips64el.
+      # Cleanup.
+      case "$ARCH" in
+          x86_64) rm -r {tool/,VentoyGUI.}{i386,aarch64,mips64el};;
+          i386) rm -r {tool/,VentoyGUI.}{x86_64,aarch64,mips64el};;
+          aarch64) rm -r {tool/,VentoyGUI.}{x86_64,i386,mips64el};;
+          mips64el) rm -r {tool/,VentoyGUI.}{x86_64,i386,aarch64};;
+      esac
+      rm README
+      rm tool/"$ARCH"/Ventoy2Disk.gtk2 || true  # For aarch64 and mips64el.
 
-    # Copy from "$src" to "$out"
-    mkdir -p "$out"/bin "$VENTOY_PATH"
-    cp -r . "$VENTOY_PATH"
+      # Copy from "$src" to "$out"
+      mkdir -p "$out"/bin "$VENTOY_PATH"
+      cp -r . "$VENTOY_PATH"
 
-    # Fill bin dir
-    for f in Ventoy2Disk.sh_ventoy VentoyWeb.sh_ventoy-web \
-             CreatePersistentImg.sh_ventoy-persistent \
-             ExtendPersistentImg.sh_ventoy-extend-persistent \
-             VentoyPlugson.sh_ventoy-plugson; do
-        local bin="''${f%_*}" wrapper="''${f#*_}"
-        makeWrapper "$VENTOY_PATH/$bin" "$out/bin/$wrapper" \
-                    --prefix PATH : "${
-                      lib.makeBinPath finalAttrs.buildInputs
-                    }" \
-                    --chdir "$VENTOY_PATH"
-    done
-  ''
+      # Fill bin dir
+      for f in Ventoy2Disk.sh_ventoy VentoyWeb.sh_ventoy-web \
+               CreatePersistentImg.sh_ventoy-persistent \
+               ExtendPersistentImg.sh_ventoy-extend-persistent \
+               VentoyPlugson.sh_ventoy-plugson; do
+          local bin="''${f%_*}" wrapper="''${f#*_}"
+          makeWrapper "$VENTOY_PATH/$bin" "$out/bin/$wrapper" \
+                      --prefix PATH : "${
+                        lib.makeBinPath finalAttrs.buildInputs
+                      }" \
+                      --chdir "$VENTOY_PATH"
+      done
+    ''
     # VentoGUI uses the `ventoy_gui_type` file to determine the type of GUI.
     # See: https://github.com/ventoy/Ventoy/blob/v1.0.78/LinuxGUI/Ventoy2Disk/ventoy_gui.c#L1096
     + optionalString (withGtk3 || withQt5) ''
@@ -183,7 +189,8 @@ stdenv.mkDerivation (finalAttrs: {
     '' + ''
 
       runHook postInstall
-    '';
+    ''
+    ;
 
   meta = {
     homepage = "https://www.ventoy.net";

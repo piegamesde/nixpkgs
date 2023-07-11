@@ -67,46 +67,50 @@ stdenv.mkDerivation rec {
     ./Provide-runtime-plugin-destination-as-relative-path.patch
   ];
 
-  nativeBuildInputs = [
-    addOpenGLRunpath
-    cmake
-    pkg-config
-    wrapGAppsHook
-    wrapQtAppsHook
-  ] ++ optional scriptingSupport swig;
+  nativeBuildInputs =
+    [
+      addOpenGLRunpath
+      cmake
+      pkg-config
+      wrapGAppsHook
+      wrapQtAppsHook
+    ] ++ optional scriptingSupport swig
+    ;
 
-  buildInputs = [
-    curl
-    fdk_aac
-    ffmpeg_4
-    jansson
-    libcef
-    libjack2
-    libv4l
-    libxkbcommon
-    libpthreadstubs
-    libXdmcp
-    qtbase
-    qtsvg
-    speex
-    wayland
-    x264
-    libvlc
-    mbedtls
-    pciutils
-    libajantv2
-    librist
-    libva
-    srt
-    qtwayland
-  ] ++ optionals scriptingSupport [
-    luajit
-    python3
-  ] ++ optional alsaSupport alsa-lib ++ optional pulseaudioSupport libpulseaudio
-    ++ optionals pipewireSupport [
+  buildInputs =
+    [
+      curl
+      fdk_aac
+      ffmpeg_4
+      jansson
+      libcef
+      libjack2
+      libv4l
+      libxkbcommon
+      libpthreadstubs
+      libXdmcp
+      qtbase
+      qtsvg
+      speex
+      wayland
+      x264
+      libvlc
+      mbedtls
+      pciutils
+      libajantv2
+      librist
+      libva
+      srt
+      qtwayland
+    ] ++ optionals scriptingSupport [
+      luajit
+      python3
+    ] ++ optional alsaSupport alsa-lib
+    ++ optional pulseaudioSupport libpulseaudio ++ optionals pipewireSupport [
       pipewire
       libdrm
-    ];
+    ]
+    ;
 
     # Copied from the obs-linuxbrowser
   postUnpack = ''

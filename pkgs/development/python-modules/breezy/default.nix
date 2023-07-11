@@ -56,16 +56,18 @@ buildPythonPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-  propagatedBuildInputs = [
-    configobj
-    dulwich
-    fastbencode
-    merge3
-    patiencediff
-    pyyaml
-    urllib3
-  ] ++ passthru.optional-dependencies.launchpad
-    ++ passthru.optional-dependencies.fastimport;
+  propagatedBuildInputs =
+    [
+      configobj
+      dulwich
+      fastbencode
+      merge3
+      patiencediff
+      pyyaml
+      urllib3
+    ] ++ passthru.optional-dependencies.launchpad
+    ++ passthru.optional-dependencies.fastimport
+    ;
 
   nativeCheckInputs = [ testtools ];
 

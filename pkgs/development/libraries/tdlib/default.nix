@@ -33,16 +33,18 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
     # https://github.com/tdlib/td/issues/1974
-  postPatch = ''
-    substituteInPlace CMake/GeneratePkgConfig.cmake \
-      --replace 'function(generate_pkgconfig' \
-                'include(GNUInstallDirs)
-                 function(generate_pkgconfig' \
-      --replace '\$'{prefix}/'$'{CMAKE_INSTALL_LIBDIR} '$'{CMAKE_INSTALL_FULL_LIBDIR} \
-      --replace '\$'{prefix}/'$'{CMAKE_INSTALL_INCLUDEDIR} '$'{CMAKE_INSTALL_FULL_INCLUDEDIR}
-  '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
-    sed -i "/vptr/d" test/CMakeLists.txt
-  '';
+  postPatch =
+    ''
+      substituteInPlace CMake/GeneratePkgConfig.cmake \
+        --replace 'function(generate_pkgconfig' \
+                  'include(GNUInstallDirs)
+                   function(generate_pkgconfig' \
+        --replace '\$'{prefix}/'$'{CMAKE_INSTALL_LIBDIR} '$'{CMAKE_INSTALL_FULL_LIBDIR} \
+        --replace '\$'{prefix}/'$'{CMAKE_INSTALL_INCLUDEDIR} '$'{CMAKE_INSTALL_FULL_INCLUDEDIR}
+    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+      sed -i "/vptr/d" test/CMakeLists.txt
+    ''
+    ;
 
   meta = with lib; {
     description = "Cross-platform library for building Telegram clients";

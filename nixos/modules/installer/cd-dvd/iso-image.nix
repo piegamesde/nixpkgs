@@ -54,7 +54,8 @@ let
       finalCfg = {
         name =
           "${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}";
-        params = "init=${config.system.build.toplevel}/init ${additional} ${
+        params =
+          "init=${config.system.build.toplevel}/init ${additional} ${
             toString config.boot.kernelParams
           }";
         image = "/boot/${config.system.boot.loader.kernelFile}";
@@ -541,7 +542,8 @@ in
 
     isoImage.volumeID = mkOption {
       # nixos-$EDITION-$RELEASE-$ARCH
-      default = "nixos${
+      default =
+        "nixos${
           optionalString (config.isoImage.edition != "")
           "-${config.isoImage.edition}"
         }-${config.system.nixos.release}-${pkgs.stdenv.hostPlatform.uname.processor}";
@@ -730,7 +732,9 @@ in
 
   config = {
     assertions = [ {
-      assertion = !(stringLength config.isoImage.volumeID > 32);
+      assertion =
+        !(stringLength config.isoImage.volumeID > 32)
+        ;
         # https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor
         # Volume Identifier can only be 32 bytes
       message =
@@ -749,11 +753,13 @@ in
       # here and it causes a cyclic dependency.
     boot.loader.grub.enable = false;
 
-    environment.systemPackages = [
-      grubPkgs.grub2
-      grubPkgs.grub2_efi
-    ] ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot)
-      pkgs.syslinux;
+    environment.systemPackages =
+      [
+        grubPkgs.grub2
+        grubPkgs.grub2_efi
+      ] ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot)
+      pkgs.syslinux
+      ;
 
       # In stage 1 of the boot, mount the CD as the root FS by label so
       # that we don't need to know its device.  We pass the label of the
@@ -784,9 +790,11 @@ in
 
       # Closures to be copied to the Nix store on the CD, namely the init
       # script and the top-level system configuration directory.
-    isoImage.storeContents = [ config.system.build.toplevel ]
+    isoImage.storeContents =
+      [ config.system.build.toplevel ]
       ++ optional config.isoImage.includeSystemBuildDependencies
-      config.system.build.toplevel.drvPath;
+      config.system.build.toplevel.drvPath
+      ;
 
       # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore =
@@ -797,69 +805,76 @@ in
 
       # Individual files to be included on the CD, outside of the Nix
       # store on the CD.
-    isoImage.contents = [
-      {
-        source = config.boot.kernelPackages.kernel + "/"
-          + config.system.boot.loader.kernelFile;
-        target = "/boot/" + config.system.boot.loader.kernelFile;
-      }
-      {
-        source = config.system.build.initialRamdisk + "/"
-          + config.system.boot.loader.initrdFile;
-        target = "/boot/" + config.system.boot.loader.initrdFile;
-      }
-      {
-        source = config.system.build.squashfsStore;
-        target = "/nix-store.squashfs";
-      }
-      {
-        source = pkgs.writeText "version" config.system.nixos.label;
-        target = "/version.txt";
-      }
-    ] ++ optionals (config.isoImage.makeBiosBootable && canx86BiosBoot) [
-      {
-        source = config.isoImage.splashImage;
-        target = "/isolinux/background.png";
-      }
-      {
-        source = pkgs.substituteAll {
-          name = "isolinux.cfg";
-          src = pkgs.writeText "isolinux.cfg-in" isolinuxCfg;
-          bootRoot = "/boot";
-        };
-        target = "/isolinux/isolinux.cfg";
-      }
-      {
-        source = "${pkgs.syslinux}/share/syslinux";
-        target = "/isolinux";
-      }
-    ] ++ optionals config.isoImage.makeEfiBootable [
-      {
-        source = efiImg;
-        target = "/boot/efi.img";
-      }
-      {
-        source = "${efiDir}/EFI";
-        target = "/EFI";
-      }
-      {
-        source =
-          (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg")
-          + "/grub";
-        target = "/boot/grub";
-      }
-      {
-        source = config.isoImage.efiSplashImage;
-        target = "/EFI/boot/efi-background.png";
-      }
-    ] ++ optionals (config.boot.loader.grub.memtest86.enable
-      && config.isoImage.makeBiosBootable && canx86BiosBoot) [ {
-        source = "${pkgs.memtest86plus}/memtest.bin";
-        target = "/boot/memtest.bin";
-      } ] ++ optionals (config.isoImage.grubTheme != null) [ {
-        source = config.isoImage.grubTheme;
-        target = "/EFI/boot/grub-theme";
-      } ];
+    isoImage.contents =
+      [
+        {
+          source =
+            config.boot.kernelPackages.kernel + "/"
+            + config.system.boot.loader.kernelFile
+            ;
+          target = "/boot/" + config.system.boot.loader.kernelFile;
+        }
+        {
+          source =
+            config.system.build.initialRamdisk + "/"
+            + config.system.boot.loader.initrdFile
+            ;
+          target = "/boot/" + config.system.boot.loader.initrdFile;
+        }
+        {
+          source = config.system.build.squashfsStore;
+          target = "/nix-store.squashfs";
+        }
+        {
+          source = pkgs.writeText "version" config.system.nixos.label;
+          target = "/version.txt";
+        }
+      ] ++ optionals (config.isoImage.makeBiosBootable && canx86BiosBoot) [
+        {
+          source = config.isoImage.splashImage;
+          target = "/isolinux/background.png";
+        }
+        {
+          source = pkgs.substituteAll {
+            name = "isolinux.cfg";
+            src = pkgs.writeText "isolinux.cfg-in" isolinuxCfg;
+            bootRoot = "/boot";
+          };
+          target = "/isolinux/isolinux.cfg";
+        }
+        {
+          source = "${pkgs.syslinux}/share/syslinux";
+          target = "/isolinux";
+        }
+      ] ++ optionals config.isoImage.makeEfiBootable [
+        {
+          source = efiImg;
+          target = "/boot/efi.img";
+        }
+        {
+          source = "${efiDir}/EFI";
+          target = "/EFI";
+        }
+        {
+          source =
+            (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg")
+            + "/grub"
+            ;
+          target = "/boot/grub";
+        }
+        {
+          source = config.isoImage.efiSplashImage;
+          target = "/EFI/boot/efi-background.png";
+        }
+      ] ++ optionals (config.boot.loader.grub.memtest86.enable
+        && config.isoImage.makeBiosBootable && canx86BiosBoot) [ {
+          source = "${pkgs.memtest86plus}/memtest.bin";
+          target = "/boot/memtest.bin";
+        } ] ++ optionals (config.isoImage.grubTheme != null) [ {
+          source = config.isoImage.grubTheme;
+          target = "/EFI/boot/grub-theme";
+        } ]
+      ;
 
     boot.loader.timeout = 10;
 

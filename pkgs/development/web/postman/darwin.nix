@@ -9,18 +9,19 @@
 
 let
   appName = "Postman.app";
-  dist = {
-    aarch64-darwin = {
-      arch = "arm64";
-      sha256 = "sha256-dJM85/6JCNqSXtrglEjP11cypGkj8+zHPo0qNANyylU=";
-    };
+  dist =
+    {
+      aarch64-darwin = {
+        arch = "arm64";
+        sha256 = "sha256-dJM85/6JCNqSXtrglEjP11cypGkj8+zHPo0qNANyylU=";
+      };
 
-    x86_64-darwin = {
-      arch = "64";
-      sha256 = "sha256-36T7S/F35hRCmXXYA8DWwwLsuJiUVU9UBY7eAXjzx1s=";
-    };
-  }.${stdenvNoCC.hostPlatform.system} or (throw
-    "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
+      x86_64-darwin = {
+        arch = "64";
+        sha256 = "sha256-36T7S/F35hRCmXXYA8DWwwLsuJiUVU9UBY7eAXjzx1s=";
+      };
+    }.${stdenvNoCC.hostPlatform.system} or (throw
+      "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 
 in
 stdenvNoCC.mkDerivation {

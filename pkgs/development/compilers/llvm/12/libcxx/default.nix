@@ -37,23 +37,27 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  patches = [ ./gnu-install-dirs.patch ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [
+  patches =
+    [ ./gnu-install-dirs.patch ] ++ lib.optionals stdenv.hostPlatform.isMusl [
       ../../libcxx-0001-musl-hacks.patch
-    ];
+    ]
+    ;
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isMusl ''
     patchShebangs utils/cat_files.py
   '';
 
-  nativeBuildInputs = [
-    cmake
-    python3
-  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    [
+      cmake
+      python3
+    ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    ;
 
   buildInputs = [ cxxabi ];
 
-  cmakeFlags = [ "-DLIBCXX_CXX_ABI=${cxxabi.pname}" ]
+  cmakeFlags =
+    [ "-DLIBCXX_CXX_ABI=${cxxabi.pname}" ]
     ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
     "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++ lib.optional (stdenv.hostPlatform.useLLVM or false)
@@ -61,7 +65,8 @@ stdenv.mkDerivation {
       "-DLIBCXX_ENABLE_THREADS=OFF"
       "-DLIBCXX_ENABLE_FILESYSTEM=OFF"
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
-    ] ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF";
+    ] ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
+    ;
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

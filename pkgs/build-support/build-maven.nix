@@ -47,7 +47,8 @@ let
       else
         fetchurl) { inherit (metadata) url sha1; };
 
-      layout = "${
+      layout =
+        "${
           builtins.replaceStrings [ "." ] [ "/" ] groupId
         }/${artifactId}/${versionDir}";
     in
@@ -58,7 +59,8 @@ let
       layout = "${layout}/maven-metadata-${repository-id}.xml";
       drv = fetchMetadata;
     } ] ++ lib.optional (fetch != "") {
-      layout = "${layout}/${
+      layout =
+        "${layout}/${
           builtins.replaceStrings [ version ] [ dep.unresolved-version ]
           fetch.name
         }";

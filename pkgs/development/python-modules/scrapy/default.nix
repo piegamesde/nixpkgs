@@ -89,40 +89,42 @@ buildPythonPackage rec {
     "docs"
   ];
 
-  disabledTests = [
-    # It's unclear if the failures are related to libxml2, https://github.com/NixOS/nixpkgs/pull/123890
-    "test_nested_css"
-    "test_nested_xpath"
-    "test_flavor_detection"
-    "test_follow_whitespace"
-    # Requires network access
-    "AnonymousFTPTestCase"
-    "FTPFeedStorageTest"
-    "FeedExportTest"
-    "test_custom_asyncio_loop_enabled_true"
-    "test_custom_loop_asyncio"
-    "test_custom_loop_asyncio_deferred_signal"
-    "FileFeedStoragePreFeedOptionsTest" # https://github.com/scrapy/scrapy/issues/5157
-    "test_timeout_download_from_spider_nodata_rcvd"
-    "test_timeout_download_from_spider_server_hangs"
-    # Depends on uvloop
-    "test_asyncio_enabled_reactor_different_loop"
-    "test_asyncio_enabled_reactor_same_loop"
-    # Fails with AssertionError
-    "test_peek_fifo"
-    "test_peek_one_element"
-    "test_peek_lifo"
-    "test_callback_kwargs"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_xmliter_encoding"
-    "test_download"
-    "test_reactor_default_twisted_reactor_select"
-    "URIParamsSettingTest"
-    "URIParamsFeedOptionTest"
-    # flaky on darwin-aarch64
-    "test_fixed_delay"
-    "test_start_requests_laziness"
-  ];
+  disabledTests =
+    [
+      # It's unclear if the failures are related to libxml2, https://github.com/NixOS/nixpkgs/pull/123890
+      "test_nested_css"
+      "test_nested_xpath"
+      "test_flavor_detection"
+      "test_follow_whitespace"
+      # Requires network access
+      "AnonymousFTPTestCase"
+      "FTPFeedStorageTest"
+      "FeedExportTest"
+      "test_custom_asyncio_loop_enabled_true"
+      "test_custom_loop_asyncio"
+      "test_custom_loop_asyncio_deferred_signal"
+      "FileFeedStoragePreFeedOptionsTest" # https://github.com/scrapy/scrapy/issues/5157
+      "test_timeout_download_from_spider_nodata_rcvd"
+      "test_timeout_download_from_spider_server_hangs"
+      # Depends on uvloop
+      "test_asyncio_enabled_reactor_different_loop"
+      "test_asyncio_enabled_reactor_same_loop"
+      # Fails with AssertionError
+      "test_peek_fifo"
+      "test_peek_one_element"
+      "test_peek_lifo"
+      "test_callback_kwargs"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "test_xmliter_encoding"
+      "test_download"
+      "test_reactor_default_twisted_reactor_select"
+      "URIParamsSettingTest"
+      "URIParamsFeedOptionTest"
+      # flaky on darwin-aarch64
+      "test_fixed_delay"
+      "test_start_requests_laziness"
+    ]
+    ;
 
   postInstall = ''
     installManPage extras/scrapy.1

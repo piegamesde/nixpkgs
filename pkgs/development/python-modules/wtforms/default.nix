@@ -29,8 +29,10 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { email = [ email-validator ]; };
 
-  nativeCheckInputs = [ pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [ pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ;
 
   pythonImportsCheck = [ "wtforms" ];
 

@@ -53,11 +53,12 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    pcre
-    python3
-    zlib
-  ] ++ lib.optionals enableJavaScript [
+  buildInputs =
+    [
+      pcre
+      python3
+      zlib
+    ] ++ lib.optionals enableJavaScript [
       (if stdenv.hostPlatform.isDarwin then
         JavaScriptCore
       else
@@ -72,13 +73,16 @@ stdenv.mkDerivation rec {
         glib
         dbus
         networkmanager
-      ]);
+      ])
+    ;
 
-  cmakeFlags = [
-    "-DWITH_PYTHON2=OFF"
-    "-DPYTHON3_SITEPKG_DIR=${placeholder "py3"}/${python3.sitePackages}"
-  ] ++ lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin)
-    "-DWITH_MOZJS=ON";
+  cmakeFlags =
+    [
+      "-DWITH_PYTHON2=OFF"
+      "-DPYTHON3_SITEPKG_DIR=${placeholder "py3"}/${python3.sitePackages}"
+    ] ++ lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin)
+    "-DWITH_MOZJS=ON"
+    ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     # config_gnome3 uses the helper to find GNOME proxy settings

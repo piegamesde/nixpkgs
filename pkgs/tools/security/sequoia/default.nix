@@ -48,30 +48,34 @@ rustPlatform.buildRustPackage rec {
       })
     ];
 
-  nativeBuildInputs = [
-    pkg-config
-    cargo
-    rustc
-    git
-    llvmPackages_12.libclang.lib
-    llvmPackages_12.clang
-    ensureNewerSourcesForZipFilesHook
-    capnproto
-  ] ++ lib.optionals pythonSupport [ pythonPackages.setuptools ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      cargo
+      rustc
+      git
+      llvmPackages_12.libclang.lib
+      llvmPackages_12.clang
+      ensureNewerSourcesForZipFilesHook
+      capnproto
+    ] ++ lib.optionals pythonSupport [ pythonPackages.setuptools ]
+    ;
 
   nativeCheckInputs = lib.optionals pythonSupport [
     pythonPackages.pytest
     pythonPackages.pytest-runner
   ];
 
-  buildInputs = [
-    openssl
-    sqlite
-    nettle
-  ] ++ lib.optionals pythonSupport [
-    pythonPackages.python
-    pythonPackages.cffi
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs =
+    [
+      openssl
+      sqlite
+      nettle
+    ] ++ lib.optionals pythonSupport [
+      pythonPackages.python
+      pythonPackages.cffi
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
+    ;
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -90,11 +94,13 @@ rustPlatform.buildRustPackage rec {
     "--skip=macros::time_it"
   ];
 
-  preInstall = lib.optionalString pythonSupport ''
-    export installFlags="PYTHONPATH=$PYTHONPATH:$out/${pythonPackages.python.sitePackages}"
-  '' + lib.optionalString (!pythonSupport) ''
-    export makeFlags="PYTHON=disable"
-  '';
+  preInstall =
+    lib.optionalString pythonSupport ''
+      export installFlags="PYTHONPATH=$PYTHONPATH:$out/${pythonPackages.python.sitePackages}"
+    '' + lib.optionalString (!pythonSupport) ''
+      export makeFlags="PYTHON=disable"
+    ''
+    ;
 
     # Don't use buildRustPackage phases, only use it for rust deps setup
   configurePhase = null;

@@ -27,7 +27,9 @@ buildPythonPackage rec {
   ];
 
     # tests very flaky & hang often on darwin
-  doCheck = !stdenv.isDarwin;
+  doCheck =
+    !stdenv.isDarwin
+    ;
     # test files do indeed need to be executed separately
   checkPhase = ''
     pushd ruffus/test

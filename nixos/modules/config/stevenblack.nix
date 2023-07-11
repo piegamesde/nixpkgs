@@ -26,8 +26,10 @@ let
     ++ optionals (elem "porn" block) [ "porn" ]
     ++ optionals (elem "social" block) [ "social" ];
 
-  hostsPath = "${pkgs.stevenblack-blocklist}/alternates/"
-    + concatStringsSep "-" activatedHosts + "/hosts";
+  hostsPath =
+    "${pkgs.stevenblack-blocklist}/alternates/"
+    + concatStringsSep "-" activatedHosts + "/hosts"
+    ;
 in
 {
   options.networking.stevenblack = {
@@ -47,11 +49,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.hostFiles = [ ]
-      ++ optionals (activatedHosts != [ ]) [ hostsPath ]
+    networking.hostFiles =
+      [ ] ++ optionals (activatedHosts != [ ]) [ hostsPath ]
       ++ optionals (activatedHosts == [ ]) [
         "${pkgs.stevenblack-blocklist}/hosts"
-      ];
+      ]
+      ;
   };
 
   meta.maintainers = [

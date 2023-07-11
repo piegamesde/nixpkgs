@@ -6,19 +6,20 @@
 }:
 
 let
-  phpWithExts = (php.withExtensions ({
-      all,
-      ...
-    }:
-    with all; [
-      curl
-      filter
-      iconv
-      mbstring
-      openssl
-      simplexml
-      sqlite3
-    ]));
+  phpWithExts =
+    (php.withExtensions ({
+        all,
+        ...
+      }:
+      with all; [
+        curl
+        filter
+        iconv
+        mbstring
+        openssl
+        simplexml
+        sqlite3
+      ]));
   phpBin = "${phpWithExts}/bin/php";
 in
 (writeShellScriptBin "rss-bridge-cli" ''

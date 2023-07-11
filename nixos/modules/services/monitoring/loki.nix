@@ -77,8 +77,9 @@ in
 
   config = mkIf cfg.enable {
     assertions = [ {
-      assertion = ((cfg.configuration == { } -> cfg.configFile != null)
-        && (cfg.configFile != null -> cfg.configuration == { }));
+      assertion =
+        ((cfg.configuration == { } -> cfg.configFile != null)
+          && (cfg.configFile != null -> cfg.configuration == { }));
       message = ''
         Please specify either
         'services.loki.configuration' or
@@ -111,7 +112,8 @@ in
             ;
         in
         {
-          ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${
+          ExecStart =
+            "${cfg.package}/bin/loki --config.file=${conf} ${
               escapeShellArgs cfg.extraFlags
             }";
           User = cfg.user;

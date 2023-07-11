@@ -69,45 +69,49 @@ buildPythonPackage rec {
     # https://github.com/wxWidgets/Phoenix/issues/1316
   doCheck = false;
 
-  nativeBuildInputs = [
-    which
-    doxygen
-    gtk3
-    pkg-config
-    setuptools
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs =
+    [
+      which
+      doxygen
+      gtk3
+      pkg-config
+      setuptools
+    ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+    ;
 
-  buildInputs = [
-    gtk3
-    ncurses
-  ] ++ lib.optionals stdenv.isLinux [
-    libXinerama
-    libSM
-    libXxf86vm
-    libXtst
-    xorgproto
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    libGLU
-    libGL
-    libglvnd
-    mesa
-    webkitgtk
-  ] ++ lib.optionals stdenv.isDarwin [
-    AGL
-    AudioToolbox
-    AVFoundation
-    AVKit
-    Carbon
-    Cocoa
-    CoreFoundation
-    CoreMedia
-    IOKit
-    Kernel
-    OpenGL
-    Security
-    WebKit
-  ];
+  buildInputs =
+    [
+      gtk3
+      ncurses
+    ] ++ lib.optionals stdenv.isLinux [
+      libXinerama
+      libSM
+      libXxf86vm
+      libXtst
+      xorgproto
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      libGLU
+      libGL
+      libglvnd
+      mesa
+      webkitgtk
+    ] ++ lib.optionals stdenv.isDarwin [
+      AGL
+      AudioToolbox
+      AVFoundation
+      AVKit
+      Carbon
+      Cocoa
+      CoreFoundation
+      CoreMedia
+      IOKit
+      Kernel
+      OpenGL
+      Security
+      WebKit
+    ]
+    ;
 
   propagatedBuildInputs = [
     pillow

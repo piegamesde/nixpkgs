@@ -36,14 +36,16 @@ buildPythonPackage rec {
     cython
   ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-  ] ++ lib.optionals enableGPU [ cupy ]
+  propagatedBuildInputs =
+    [
+      numpy
+      scipy
+    ] ++ lib.optionals enableGPU [ cupy ]
     ++ lib.optionals enableDimensionalityReduction [
       autograd
       pymanopt
-    ];
+    ]
+    ;
 
   nativeCheckInputs = [
     cvxopt
@@ -100,15 +102,17 @@ buildPythonPackage rec {
     "test_emd1d_device_tf"
   ];
 
-  disabledTestPaths = [
-    # AttributeError: module pytest has no attribute skip_backend
-    "test/test_bregman.py"
-    "test/test_da.py"
-    "test/test_utils.py"
-    "test/test_gromov.py"
-    "test/test_helpers.py"
-    "test/test_unbalanced.py"
-  ] ++ lib.optionals (!enableDimensionalityReduction) [ "test/test_dr.py" ];
+  disabledTestPaths =
+    [
+      # AttributeError: module pytest has no attribute skip_backend
+      "test/test_bregman.py"
+      "test/test_da.py"
+      "test/test_utils.py"
+      "test/test_gromov.py"
+      "test/test_helpers.py"
+      "test/test_unbalanced.py"
+    ] ++ lib.optionals (!enableDimensionalityReduction) [ "test/test_dr.py" ]
+    ;
 
   pythonImportsCheck = [
     "ot"

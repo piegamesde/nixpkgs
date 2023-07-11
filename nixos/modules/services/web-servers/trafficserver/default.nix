@@ -42,13 +42,9 @@ let
     ;
 
   mkRecordsConfig =
-    cfg:
-    concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg))
-    ;
+    cfg: concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg));
   mkPluginConfig =
-    cfg:
-    concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg)
-    ;
+    cfg: concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg);
 in
 {
   options.services.trafficserver = {

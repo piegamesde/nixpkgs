@@ -59,47 +59,51 @@ stdenv.mkDerivation rec {
       --replace pictures/strawberry.png pictures/strawberry-grey.png
   '';
 
-  buildInputs = [
-    alsa-lib
-    boost
-    chromaprint
-    fftw
-    gnutls
-    libcdio
-    libidn2
-    libmtp
-    libpthreadstubs
-    libtasn1
-    libXdmcp
-    pcre
-    protobuf
-    sqlite
-    taglib
-    qtbase
-    qtx11extras
-  ] ++ optionals stdenv.isLinux [
-    libgpod
-    libpulseaudio
-    libselinux
-    libsepol
-    p11-kit
-  ] ++ optionals withGstreamer (with gst_all_1; [
-    glib-networking
-    gstreamer
-    gst-libav
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-  ]) ++ lib.optional withVlc libvlc;
+  buildInputs =
+    [
+      alsa-lib
+      boost
+      chromaprint
+      fftw
+      gnutls
+      libcdio
+      libidn2
+      libmtp
+      libpthreadstubs
+      libtasn1
+      libXdmcp
+      pcre
+      protobuf
+      sqlite
+      taglib
+      qtbase
+      qtx11extras
+    ] ++ optionals stdenv.isLinux [
+      libgpod
+      libpulseaudio
+      libselinux
+      libsepol
+      p11-kit
+    ] ++ optionals withGstreamer (with gst_all_1; [
+      glib-networking
+      gstreamer
+      gst-libav
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+    ]) ++ lib.optional withVlc libvlc
+    ;
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ] ++ optionals stdenv.isLinux [ util-linux ];
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+      pkg-config
+      qttools
+      wrapQtAppsHook
+    ] ++ optionals stdenv.isLinux [ util-linux ]
+    ;
 
   postInstall = lib.optionalString withGstreamer ''
     qtWrapperArgs+=(

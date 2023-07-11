@@ -36,11 +36,14 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  cmakeFlags = [
-    "-DAF_BUILD_OPENCL=OFF"
-    "-DAF_BUILD_EXAMPLES=OFF"
-    "-DBUILD_TESTING=OFF"
-  ] ++ lib.optional cudaSupport "-DCMAKE_LIBRARY_PATH=${cudatoolkit}/lib/stubs";
+  cmakeFlags =
+    [
+      "-DAF_BUILD_OPENCL=OFF"
+      "-DAF_BUILD_EXAMPLES=OFF"
+      "-DBUILD_TESTING=OFF"
+    ]
+    ++ lib.optional cudaSupport "-DCMAKE_LIBRARY_PATH=${cudatoolkit}/lib/stubs"
+    ;
 
   patches = [ ./no-download.patch ];
 
@@ -65,21 +68,23 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs = [
-    opencl-clhpp
-    fftw
-    fftwFloat
-    blas
-    lapack
-    libGLU
-    libGL
-    mesa
-    freeimage
-    boost.out
-    boost.dev
-  ] ++ (lib.optional stdenv.isLinux ocl-icd)
+  buildInputs =
+    [
+      opencl-clhpp
+      fftw
+      fftwFloat
+      blas
+      lapack
+      libGLU
+      libGL
+      mesa
+      freeimage
+      boost.out
+      boost.dev
+    ] ++ (lib.optional stdenv.isLinux ocl-icd)
     ++ (lib.optional cudaSupport cudatoolkit)
-    ++ (lib.optional buildDocs doxygen);
+    ++ (lib.optional buildDocs doxygen)
+    ;
 
   meta = with lib; {
     description =

@@ -47,8 +47,10 @@
 }:
 
 let
-  runtimeLibs = lib.optional withVulkan vulkan-loader
-    ++ lib.optional withGamemode (lib.getLib gamemode);
+  runtimeLibs =
+    lib.optional withVulkan vulkan-loader
+    ++ lib.optional withGamemode (lib.getLib gamemode)
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "retroarch-bare";
@@ -65,26 +67,29 @@ stdenv.mkDerivation rec {
       ./use-default-values-for-libretro_info_path-assets_directory.patch
     ];
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapQtAppsHook
-  ] ++ lib.optional withWayland wayland
-    ++ lib.optional (runtimeLibs != [ ]) makeWrapper;
+  nativeBuildInputs =
+    [
+      pkg-config
+      wrapQtAppsHook
+    ] ++ lib.optional withWayland wayland
+    ++ lib.optional (runtimeLibs != [ ]) makeWrapper
+    ;
 
-  buildInputs = [
-    ffmpeg_4
-    flac
-    freetype
-    libGL
-    libGLU
-    libxml2
-    mbedtls_2
-    python3
-    qtbase
-    SDL2
-    spirv-tools
-    zlib
-  ] ++ lib.optional enableNvidiaCgToolkit nvidia_cg_toolkit
+  buildInputs =
+    [
+      ffmpeg_4
+      flac
+      freetype
+      libGL
+      libGLU
+      libxml2
+      mbedtls_2
+      python3
+      qtbase
+      SDL2
+      spirv-tools
+      zlib
+    ] ++ lib.optional enableNvidiaCgToolkit nvidia_cg_toolkit
     ++ lib.optional withVulkan vulkan-loader ++ lib.optional withWayland wayland
     ++ lib.optionals stdenv.isLinux [
       alsa-lib
@@ -99,35 +104,40 @@ stdenv.mkDerivation rec {
       libxkbcommon
       mesa
       udev
-    ];
+    ]
+    ;
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--disable-update_cores"
-    "--disable-builtinmbedtls"
-    "--enable-systemmbedtls"
-    "--disable-builtinzlib"
-    "--disable-builtinflac"
-  ] ++ lib.optionals withAssets [
-    "--disable-update_assets"
-    "--with-assets_dir=${retroarch-assets}/share"
-  ] ++ lib.optionals withCoreInfo [
-    "--disable-update_core_info"
-    "--with-core_info_dir=${libretro-core-info}/share"
-  ] ++ lib.optionals stdenv.isLinux [
-    "--enable-dbus"
-    "--enable-egl"
-    "--enable-kms"
-  ];
+  configureFlags =
+    [
+      "--disable-update_cores"
+      "--disable-builtinmbedtls"
+      "--enable-systemmbedtls"
+      "--disable-builtinzlib"
+      "--disable-builtinflac"
+    ] ++ lib.optionals withAssets [
+      "--disable-update_assets"
+      "--with-assets_dir=${retroarch-assets}/share"
+    ] ++ lib.optionals withCoreInfo [
+      "--disable-update_core_info"
+      "--with-core_info_dir=${libretro-core-info}/share"
+    ] ++ lib.optionals stdenv.isLinux [
+      "--enable-dbus"
+      "--enable-egl"
+      "--enable-kms"
+    ]
+    ;
 
-  postInstall = lib.optionalString (runtimeLibs != [ ]) ''
-    wrapProgram $out/bin/retroarch \
-      --prefix LD_LIBRARY_PATH ':' ${lib.makeLibraryPath runtimeLibs}
-  '' + lib.optionalString enableNvidiaCgToolkit ''
-    wrapProgram $out/bin/retroarch-cg2glsl \
-      --prefix PATH ':' ${lib.makeBinPath [ nvidia_cg_toolkit ]}
-  '';
+  postInstall =
+    lib.optionalString (runtimeLibs != [ ]) ''
+      wrapProgram $out/bin/retroarch \
+        --prefix LD_LIBRARY_PATH ':' ${lib.makeLibraryPath runtimeLibs}
+    '' + lib.optionalString enableNvidiaCgToolkit ''
+      wrapProgram $out/bin/retroarch-cg2glsl \
+        --prefix PATH ':' ${lib.makeBinPath [ nvidia_cg_toolkit ]}
+    ''
+    ;
 
   preFixup = lib.optionalString (!enableNvidiaCgToolkit) ''
     rm $out/bin/retroarch-cg2glsl

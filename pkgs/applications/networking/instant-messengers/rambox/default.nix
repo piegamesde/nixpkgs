@@ -15,13 +15,14 @@ let
     sha256 = "sha256-wvjCr1U+/1/GtebMNWJjizzegqZ+wWXUrmOshYtMq6o=";
   };
 
-  desktopItem = (makeDesktopItem {
-    desktopName = "Rambox";
-    name = pname;
-    exec = "rambox";
-    icon = pname;
-    categories = [ "Network" ];
-  });
+  desktopItem =
+    (makeDesktopItem {
+      desktopName = "Rambox";
+      name = pname;
+      exec = "rambox";
+      icon = pname;
+      categories = [ "Network" ];
+    });
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
 in

@@ -63,34 +63,38 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs = [
-    readline
-    uthash
-    woff2
-    zeromq
-    python
-    freetype
-    zlib
-    glib
-    giflib
-    libpng
-    libjpeg
-    libtiff
-    libxml2
-  ] ++ lib.optionals withSpiro [ libspiro ] ++ lib.optionals withGUI [
-    gtk3
-    cairo
-    pango
-  ] ++ lib.optionals stdenv.isDarwin [
-    Carbon
-    Cocoa
-  ];
+  buildInputs =
+    [
+      readline
+      uthash
+      woff2
+      zeromq
+      python
+      freetype
+      zlib
+      glib
+      giflib
+      libpng
+      libjpeg
+      libtiff
+      libxml2
+    ] ++ lib.optionals withSpiro [ libspiro ] ++ lib.optionals withGUI [
+      gtk3
+      cairo
+      pango
+    ] ++ lib.optionals stdenv.isDarwin [
+      Carbon
+      Cocoa
+    ]
+    ;
 
-  cmakeFlags = [ "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON" ]
+  cmakeFlags =
+    [ "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON" ]
     ++ lib.optional (!withSpiro) "-DENABLE_LIBSPIRO=OFF"
     ++ lib.optional (!withGUI) "-DENABLE_GUI=OFF"
     ++ lib.optional (!withGTK) "-DENABLE_X11=ON"
-    ++ lib.optional withExtras "-DENABLE_FONTFORGE_EXTRAS=ON";
+    ++ lib.optional withExtras "-DENABLE_FONTFORGE_EXTRAS=ON"
+    ;
 
   preConfigure = ''
     # The way $version propagates to $version of .pe-scripts (https://github.com/dejavu-fonts/dejavu-fonts/blob/358190f/scripts/generate.pe#L19)

@@ -10,13 +10,16 @@ let
 
   inherit (lib) mkOption types;
 
-  podmanPackage = (pkgs.podman.override {
-    extraPackages = cfg.extraPackages
-      # setuid shadow
-      ++ [ "/run/wrappers" ]
-      ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
-      config.boot.zfs.package;
-  });
+  podmanPackage =
+    (pkgs.podman.override {
+      extraPackages =
+        cfg.extraPackages
+        # setuid shadow
+        ++ [ "/run/wrappers" ]
+        ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
+        config.boot.zfs.package
+        ;
+    });
 
     # Provides a fake "docker" binary mapping to podman
   dockerCompat = pkgs.runCommand
@@ -165,8 +168,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ]
-      ++ lib.optional cfg.dockerCompat dockerCompat;
+    environment.systemPackages =
+      [ cfg.package ] ++ lib.optional cfg.dockerCompat dockerCompat
+      ;
 
       # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
     environment.etc."containers/networks/podman.json" =
@@ -230,16 +234,17 @@ in
 
     systemd.user.sockets.podman.wantedBy = [ "sockets.target" ];
 
-    systemd.tmpfiles.packages = [
-      # The /run/podman rule interferes with our podman group, so we remove
-      # it and let the systemd socket logic take care of it.
-      (pkgs.runCommand "podman-tmpfiles-nixos" { package = cfg.package; } ''
-        mkdir -p $out/lib/tmpfiles.d/
-        grep -v 'D! /run/podman 0700 root root' \
-          <$package/lib/tmpfiles.d/podman.conf \
-          >$out/lib/tmpfiles.d/podman.conf
-      '')
-    ];
+    systemd.tmpfiles.packages =
+      [
+        # The /run/podman rule interferes with our podman group, so we remove
+        # it and let the systemd socket logic take care of it.
+        (pkgs.runCommand "podman-tmpfiles-nixos" { package = cfg.package; } ''
+          mkdir -p $out/lib/tmpfiles.d/
+          grep -v 'D! /run/podman 0700 root root' \
+            <$package/lib/tmpfiles.d/podman.conf \
+            >$out/lib/tmpfiles.d/podman.conf
+        '')
+      ];
 
     systemd.tmpfiles.rules = lib.optionals cfg.dockerSocket.enable [
         "L! /run/docker.sock - - - - /run/podman/podman.sock"

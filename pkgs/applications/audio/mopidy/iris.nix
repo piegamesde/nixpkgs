@@ -13,11 +13,13 @@ python3Packages.buildPythonApplication rec {
     sha256 = "062x73glhn1x4wgc7zmb9y3cq15d5grgqf5drdpbp6p3cgk4s2vc";
   };
 
-  propagatedBuildInputs = [ mopidy ] ++ (with python3Packages; [
-    configobj
-    requests
-    tornado
-  ]);
+  propagatedBuildInputs =
+    [ mopidy ] ++ (with python3Packages; [
+      configobj
+      requests
+      tornado
+    ])
+    ;
 
     # no tests implemented
   doCheck = false;

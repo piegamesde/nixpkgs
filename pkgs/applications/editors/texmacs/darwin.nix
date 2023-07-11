@@ -83,7 +83,8 @@ stdenv.mkDerivation {
           "${lib.getBin netpbm}/bin:") + (if imagemagick == null then
             ""
           else
-            "${imagemagick}/bin:");
+            "${imagemagick}/bin:")
+    ;
 
   enableParallelBuilding = true;
 

@@ -33,23 +33,26 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional stdenv.hostPlatform.isWindows windows.pthreads;
 
-  makeFlags = [
-    "prefix=$(out)"
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "AR=${stdenv.cc.targetPrefix}ar"
-  ] ++ lib.optional stdenv.isDarwin
+  makeFlags =
+    [
+      "prefix=$(out)"
+      "CC=${stdenv.cc.targetPrefix}cc"
+      "AR=${stdenv.cc.targetPrefix}ar"
+    ] ++ lib.optional stdenv.isDarwin
     "LDFLAGS=-Wl,-install_name,$(out)/lib/liblmdb.so"
     ++ lib.optionals stdenv.hostPlatform.isWindows [
       "SOEXT=.dll"
       "BINEXT=.exe"
-    ];
+    ]
+    ;
 
   doCheck = true;
   checkTarget = "test";
 
-  postInstall = ''
-    moveToOutput bin "$bin"
-  ''
+  postInstall =
+    ''
+      moveToOutput bin "$bin"
+    ''
     # add lmdb.pc (dynamic only)
     + ''
       mkdir -p "$dev/lib/pkgconfig"
@@ -61,7 +64,8 @@ stdenv.mkDerivation rec {
       Cflags: -I$dev/include
       Libs: -L$out/lib -llmdb
       EOF
-    '';
+    ''
+    ;
 
   meta = with lib; {
     description = "Lightning memory-mapped database";

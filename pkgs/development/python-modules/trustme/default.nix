@@ -26,10 +26,12 @@ buildPythonPackage rec {
     service-identity
   ];
 
-  propagatedBuildInputs = [
-    cryptography
-    idna
-  ] ++ lib.optionals (!isPy3k) [ futures ];
+  propagatedBuildInputs =
+    [
+      cryptography
+      idna
+    ] ++ lib.optionals (!isPy3k) [ futures ]
+    ;
 
     # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;

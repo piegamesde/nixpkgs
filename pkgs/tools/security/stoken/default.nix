@@ -37,10 +37,12 @@ stdenv.mkDerivation rec {
     automake
     libtool
   ];
-  buildInputs = [
-    libxml2
-    nettle
-  ] ++ lib.optional withGTK3 gtk3;
+  buildInputs =
+    [
+      libxml2
+      nettle
+    ] ++ lib.optional withGTK3 gtk3
+    ;
 
   meta = with lib; {
     description = "Software Token for Linux/UNIX";

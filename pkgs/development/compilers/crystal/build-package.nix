@@ -100,20 +100,25 @@ stdenv.mkDerivation (mkDerivationArgs // {
 
   inherit enableParallelBuilding;
   strictDeps = true;
-  buildInputs = args.buildInputs or [ ] ++ [ crystal ]
-    ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2;
+  buildInputs =
+    args.buildInputs or [ ] ++ [ crystal ]
+    ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2
+    ;
 
-  nativeBuildInputs = args.nativeBuildInputs or [ ] ++ [
-    crystal
-    git
-    installShellFiles
-    removeReferencesTo
-    pkg-config
-    which
-  ] ++ lib.optional (format != "crystal") shards;
+  nativeBuildInputs =
+    args.nativeBuildInputs or [ ] ++ [
+      crystal
+      git
+      installShellFiles
+      removeReferencesTo
+      pkg-config
+      which
+    ] ++ lib.optional (format != "crystal") shards
+    ;
 
-  buildPhase = args.buildPhase or (lib.concatStringsSep "\n"
-    ([ "runHook preBuild" ] ++ lib.optional (format == "make")
+  buildPhase =
+    args.buildPhase or (lib.concatStringsSep "\n" ([ "runHook preBuild" ]
+      ++ lib.optional (format == "make")
       "make \${buildTargets:-build} $makeFlags"
       ++ lib.optionals (format == "crystal")
       (lib.mapAttrsToList mkCrystalBuildArgs crystalBinaries)
@@ -121,8 +126,9 @@ stdenv.mkDerivation (mkDerivationArgs // {
         lib.concatStringsSep " " (args.options or defaultOptions)
       }" ++ [ "runHook postBuild" ]));
 
-  installPhase = args.installPhase or (lib.concatStringsSep "\n"
-    ([ "runHook preInstall" ] ++ lib.optional (format == "make")
+  installPhase =
+    args.installPhase or (lib.concatStringsSep "\n" ([ "runHook preInstall" ]
+      ++ lib.optional (format == "make")
       "make \${installTargets:-install} $installFlags"
       ++ lib.optionals (format == "crystal") (map (bin: ''
         install -Dm555 ${
@@ -148,22 +154,24 @@ stdenv.mkDerivation (mkDerivationArgs // {
 
   doCheck = args.doCheck or true;
 
-  checkPhase = args.checkPhase or (lib.concatStringsSep "\n"
-    ([ "runHook preCheck" ] ++ lib.optional (format == "make")
+  checkPhase =
+    args.checkPhase or (lib.concatStringsSep "\n" ([ "runHook preCheck" ]
+      ++ lib.optional (format == "make")
       "make \${checkTarget:-test} $checkFlags"
       ++ lib.optional (format != "make")
       "crystal \${checkTarget:-spec} $checkFlags" ++ [ "runHook postCheck" ]));
 
   doInstallCheck = args.doInstallCheck or true;
 
-  installCheckPhase = args.installCheckPhase or ''
-    for f in $out/bin/*; do
-      if [ $f == $out/bin/*.dwarf ]; then
-        continue
-      fi
-      $f --help > /dev/null
-    done
-  '';
+  installCheckPhase =
+    args.installCheckPhase or ''
+      for f in $out/bin/*; do
+        if [ $f == $out/bin/*.dwarf ]; then
+          continue
+        fi
+        $f --help > /dev/null
+      done
+    '';
 
   meta = args.meta or { } // {
     platforms = args.meta.platforms or crystal.meta.platforms;

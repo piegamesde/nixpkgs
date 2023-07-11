@@ -28,29 +28,35 @@ stdenv.mkDerivation rec {
     hash = "sha256-TQgJ2Q4Z7+OtwuwkfPBgm2BmMKML9nmyFLSkmKJ1RE4=";
   };
 
-  postPatch = lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
-    substituteInPlace src/platfdep_mac.mm \
-      --replace "appearance.name == NSAppearanceNameDarkAqua" "NO"
-  '' + lib.optionalString (stdenv.isLinux && !stdenv.isx86_64) ''
-    substituteInPlace 3rd/CMakeLists.txt \
-      --replace "-msse4.2 -maes" ""
-  '';
+  postPatch =
+    lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+      substituteInPlace src/platfdep_mac.mm \
+        --replace "appearance.name == NSAppearanceNameDarkAqua" "NO"
+    '' + lib.optionalString (stdenv.isLinux && !stdenv.isx86_64) ''
+      substituteInPlace 3rd/CMakeLists.txt \
+        --replace "-msse4.2 -maes" ""
+    ''
+    ;
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    git
-    makeWrapper
-    pkg-config
-    wrapGAppsHook
-  ] ++ lib.optionals stdenv.isLinux [ lsb-release ];
+  nativeBuildInputs =
+    [
+      cmake
+      gettext
+      git
+      makeWrapper
+      pkg-config
+      wrapGAppsHook
+    ] ++ lib.optionals stdenv.isLinux [ lsb-release ]
+    ;
 
-  buildInputs = [
-    curl
-    sqlite
-    wxGTK32
-    gtk3
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ];
+  buildInputs =
+    [
+      curl
+      sqlite
+      wxGTK32
+      gtk3
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isClang [
     "-Wno-deprecated-copy"

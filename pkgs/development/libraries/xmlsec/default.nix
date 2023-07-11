@@ -24,7 +24,8 @@ lib.fix (self:
       sha256 = "sha256-Us7UlD81vX0IGKOCmMFSjKSsilRED9cRNKB9LRNwomI=";
     };
 
-    patches = [ ./lt_dladdsearchdir.patch ]
+    patches =
+      [ ./lt_dladdsearchdir.patch ]
       ++ lib.optionals stdenv.isDarwin [ ./remove_bsd_base64_decode_flag.patch ]
       ;
     postPatch = ''
@@ -47,10 +48,11 @@ lib.fix (self:
       nss
     ];
 
-    propagatedBuildInputs = [
-      # required by xmlsec/transforms.h
-      libxslt
-    ];
+    propagatedBuildInputs =
+      [
+        # required by xmlsec/transforms.h
+        libxslt
+      ];
 
     enableParallelBuilding = true;
     doCheck = true;

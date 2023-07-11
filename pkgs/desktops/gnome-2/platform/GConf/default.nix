@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
   version = "3.2.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/GConf/${
+    url =
+      "mirror://gnome/sources/GConf/${
         lib.versions.majorMinor version
       }/GConf-${version}.tar.xz";
     sha256 = "0k3q9nh53yhc9qxf1zaicz4sk8p3kzq4ndjdsgpaa2db0ccbj4hr";
@@ -29,14 +30,16 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  buildInputs = [
-    ORBit2
-    libxml2
-    python3
-  ]
-  # polkit requires pam, which requires shadow.h, which is not available on
-  # darwin
-    ++ lib.optional (!stdenv.isDarwin) polkit;
+  buildInputs =
+    [
+      ORBit2
+      libxml2
+      python3
+    ]
+    # polkit requires pam, which requires shadow.h, which is not available on
+    # darwin
+    ++ lib.optional (!stdenv.isDarwin) polkit
+    ;
 
   propagatedBuildInputs = [
     glib

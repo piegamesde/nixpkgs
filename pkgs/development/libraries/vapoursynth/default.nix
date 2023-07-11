@@ -39,18 +39,20 @@ stdenv.mkDerivation rec {
     autoreconfHook
     makeWrapper
   ];
-  buildInputs = [
-    zimg
-    libass
-    (python3.withPackages (ps:
-      with ps; [
-        sphinx
-        cython
-      ]))
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    ApplicationServices
-  ];
+  buildInputs =
+    [
+      zimg
+      libass
+      (python3.withPackages (ps:
+        with ps; [
+          sphinx
+          cython
+        ]))
+    ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      ApplicationServices
+    ]
+    ;
 
   enableParallelBuilding = true;
 

@@ -45,8 +45,9 @@ in
     environment.systemPackages = [ pkgs.mimir ];
 
     assertions = [ {
-      assertion = ((cfg.configuration == { } -> cfg.configFile != null)
-        && (cfg.configFile != null -> cfg.configuration == { }));
+      assertion =
+        ((cfg.configuration == { } -> cfg.configFile != null)
+          && (cfg.configFile != null -> cfg.configuration == { }));
       message = ''
         Please specify either
         'services.mimir.configuration' or

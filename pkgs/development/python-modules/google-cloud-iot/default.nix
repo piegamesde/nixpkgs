@@ -25,13 +25,15 @@ buildPythonPackage rec {
     hash = "sha256-6+6EsRdj38jD+i3nhVHOI1wVGWYKMIGDILHgO3wN7zg=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    grpc-google-iam-v1
-    libcst
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [
+      google-api-core
+      grpc-google-iam-v1
+      libcst
+      proto-plus
+      protobuf
+    ] ++ google-api-core.optional-dependencies.grpc
+    ;
 
   nativeCheckInputs = [
     mock
@@ -39,10 +41,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # requires credentials
-    "test_list_device_registries"
-  ];
+  disabledTests =
+    [
+      # requires credentials
+      "test_list_device_registries"
+    ];
 
   pythonImportsCheck = [
     "google.cloud.iot"

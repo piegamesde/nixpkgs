@@ -35,12 +35,14 @@ buildPythonPackage rec {
     aiohttp = [ aiohttp ];
   };
 
-  nativeCheckInputs = [
-    google-cloud-testutils
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.requests;
+  nativeCheckInputs =
+    [
+      google-cloud-testutils
+      mock
+      pytest-asyncio
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.requests
+    ;
 
   preCheck = ''
     # prevent shadowing imports

@@ -38,19 +38,20 @@ let
     };
   };
 
-  mergedConfig = (recursiveUpdate defaultConfig {
-    inherit (config.krb5)
-      kerberos
-      libdefaults
-      realms
-      domain_realm
-      capaths
-      appdefaults
-      plugins
-      extraConfig
-      config
-      ;
-  });
+  mergedConfig =
+    (recursiveUpdate defaultConfig {
+      inherit (config.krb5)
+        kerberos
+        libdefaults
+        realms
+        domain_realm
+        capaths
+        appdefaults
+        plugins
+        extraConfig
+        config
+        ;
+    });
 
   filterEmbeddedMetadata =
     value:
@@ -377,22 +378,24 @@ in
 
     assertions = [
       {
-        assertion = !((builtins.any (value: value != null) [
-          cfg.defaultRealm
-          cfg.domainRealm
-          cfg.kdc
-          cfg.kerberosAdminServer
-        ]) && ((builtins.any (value: value != { }) [
-          cfg.libdefaults
-          cfg.realms
-          cfg.domain_realm
-          cfg.capaths
-          cfg.appdefaults
-          cfg.plugins
-        ]) || (builtins.any (value: value != null) [
-          cfg.config
-          cfg.extraConfig
-        ])));
+        assertion =
+          !((builtins.any (value: value != null) [
+            cfg.defaultRealm
+            cfg.domainRealm
+            cfg.kdc
+            cfg.kerberosAdminServer
+          ]) && ((builtins.any (value: value != { }) [
+            cfg.libdefaults
+            cfg.realms
+            cfg.domain_realm
+            cfg.capaths
+            cfg.appdefaults
+            cfg.plugins
+          ]) || (builtins.any (value: value != null) [
+            cfg.config
+            cfg.extraConfig
+          ])))
+          ;
         message = ''
           Configuration of krb5.conf by deprecated options is mutually exclusive
           with configuration by section.  Please migrate your config using the
@@ -400,8 +403,8 @@ in
         '';
       }
       {
-        assertion = !(cfg.config != null
-          && ((builtins.any (value: value != { }) [
+        assertion =
+          !(cfg.config != null && ((builtins.any (value: value != { }) [
             cfg.libdefaults
             cfg.realms
             cfg.domain_realm
@@ -414,7 +417,8 @@ in
             cfg.domainRealm
             cfg.kdc
             cfg.kerberosAdminServer
-          ])));
+          ])))
+          ;
         message = ''
           Configuration of krb5.conf using krb.config is mutually exclusive with
           configuration by section.  If you want to mix the two, you can pass

@@ -16,9 +16,11 @@
 assert langJava -> lib.versionOlder version "7";
 assert langAda -> gnat-bootstrap != null;
 let
-  needsLib = (lib.versionOlder version "7" && (langJava || langGo))
+  needsLib =
+    (lib.versionOlder version "7" && (langJava || langGo))
     || (lib.versions.major version == "4" && lib.versions.minor version == "9"
-      && targetPlatform.isDarwin);
+      && targetPlatform.isDarwin)
+    ;
 in
 lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
   export NIX_LDFLAGS=`echo $NIX_LDFLAGS | sed -e s~$prefix/lib~$prefix/lib/amd64~g`

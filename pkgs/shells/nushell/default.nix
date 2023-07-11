@@ -39,24 +39,28 @@ in
 
   cargoHash = "sha256-FqhN1t3n6j5czZ40JUFtsz4ZxTl7vpMTBhrR66M1DNw=";
 
-  nativeBuildInputs = [ pkg-config ]
+  nativeBuildInputs =
+    [ pkg-config ]
     ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ python3 ]
-    ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
+    ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ]
+    ;
 
-  buildInputs = [
-    openssl
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    zlib
-    libiconv
-    Libsystem
-    Security
-  ] ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
+  buildInputs =
+    [
+      openssl
+      zstd
+    ] ++ lib.optionals stdenv.isDarwin [
+      zlib
+      libiconv
+      Libsystem
+      Security
+    ] ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
     ++ lib.optionals (withDefaultFeatures && stdenv.isDarwin) [
       AppKit
       nghttp2
       libgit2
-    ];
+    ]
+    ;
 
   buildFeatures =
     additionalFeatures [ (lib.optional withDefaultFeatures "default") ];

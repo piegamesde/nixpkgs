@@ -16,20 +16,22 @@
 
 let
 
-  libPath = lib.makeLibraryPath [
-    stdenv.cc.libc
-    stdenv.cc.cc
-    gtk2
-    gdk-pixbuf
-    atk
-    pango
-    glib
-    cairo
-    freetype
-    fontconfig
-    libxml2
-    gnome2.gtksourceview
-  ] + ":${stdenv.cc.cc.lib}/lib64:$out/libexec";
+  libPath =
+    lib.makeLibraryPath [
+      stdenv.cc.libc
+      stdenv.cc.cc
+      gtk2
+      gdk-pixbuf
+      atk
+      pango
+      glib
+      cairo
+      freetype
+      fontconfig
+      libxml2
+      gnome2.gtksourceview
+    ] + ":${stdenv.cc.cc.lib}/lib64:$out/libexec"
+    ;
 
   patchExe =
     x: ''

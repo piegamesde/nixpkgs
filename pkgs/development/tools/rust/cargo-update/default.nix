@@ -26,22 +26,26 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-QN1K/Hsy0kDQUi7D22+k5fa+LqlVFa4G5BG5Ckrouhs=";
 
-  nativeBuildInputs = [
-    cmake
-    installShellFiles
-    pkg-config
-    ronn
-  ] ++ lib.optionals stdenv.isDarwin [ curl ];
+  nativeBuildInputs =
+    [
+      cmake
+      installShellFiles
+      pkg-config
+      ronn
+    ] ++ lib.optionals stdenv.isDarwin [ curl ]
+    ;
 
-  buildInputs = [
-    libgit2_1_5
-    libssh2
-    openssl
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    curl
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs =
+    [
+      libgit2_1_5
+      libssh2
+      openssl
+      zlib
+    ] ++ lib.optionals stdenv.isDarwin [
+      curl
+      darwin.apple_sdk.frameworks.Security
+    ]
+    ;
 
   postBuild = ''
     # Man pages contain non-ASCII, so explicitly set encoding to UTF-8.

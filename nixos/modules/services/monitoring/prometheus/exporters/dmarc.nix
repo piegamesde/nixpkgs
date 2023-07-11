@@ -114,16 +114,17 @@ in
     serviceConfig = {
       StateDirectory = "prometheus-dmarc-exporter";
       WorkingDirectory = "/var/lib/prometheus-dmarc-exporter";
-      ExecStart = "${pkgs.writeShellScript "setup-cfg" ''
-        export IMAP_PASSWORD="$(<${cfg.imap.passwordFile})"
-        envsubst \
-          -i ${pkgs.writeText "dmarc-exporter.json.template" json} \
-          -o ''${STATE_DIRECTORY}/dmarc-exporter.json
+      ExecStart =
+        "${pkgs.writeShellScript "setup-cfg" ''
+          export IMAP_PASSWORD="$(<${cfg.imap.passwordFile})"
+          envsubst \
+            -i ${pkgs.writeText "dmarc-exporter.json.template" json} \
+            -o ''${STATE_DIRECTORY}/dmarc-exporter.json
 
-        exec ${pkgs.dmarc-metrics-exporter}/bin/dmarc-metrics-exporter \
-          --configuration /var/lib/prometheus-dmarc-exporter/dmarc-exporter.json \
-          ${optionalString cfg.debug "--debug"}
-      ''}";
+          exec ${pkgs.dmarc-metrics-exporter}/bin/dmarc-metrics-exporter \
+            --configuration /var/lib/prometheus-dmarc-exporter/dmarc-exporter.json \
+            ${optionalString cfg.debug "--debug"}
+        ''}";
     };
   };
 }

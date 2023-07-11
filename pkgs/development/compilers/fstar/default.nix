@@ -23,17 +23,19 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    z3
-    makeWrapper
-    installShellFiles
-    removeReferencesTo
-  ] ++ (with ocamlPackages; [
-    ocaml
-    findlib
-    ocamlbuild
-    menhir
-  ]);
+  nativeBuildInputs =
+    [
+      z3
+      makeWrapper
+      installShellFiles
+      removeReferencesTo
+    ] ++ (with ocamlPackages; [
+      ocaml
+      findlib
+      ocamlbuild
+      menhir
+    ])
+    ;
 
   buildInputs = with ocamlPackages; [
     batteries

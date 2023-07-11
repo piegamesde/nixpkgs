@@ -13,9 +13,7 @@ let
   opt = options.services.neo4j;
   certDirOpt = options.services.neo4j.directories.certificates;
   isDefaultPathOption =
-    opt:
-    isOption opt && opt.type == types.path && opt.highestPrio >= 1500
-    ;
+    opt: isOption opt && opt.type == types.path && opt.highestPrio >= 1500;
 
   sslPolicies = mapAttrsToList (name: conf: ''
     dbms.ssl.policy.${name}.allow_key_generation=${
@@ -698,13 +696,15 @@ in
         }
         {
           assertion = elem cfg.bolt.sslPolicy validPolicyNameList;
-          message = ''
-            Invalid policy assigned: `services.neo4j.bolt.sslPolicy = "${cfg.bolt.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
+          message =
+            ''
+              Invalid policy assigned: `services.neo4j.bolt.sslPolicy = "${cfg.bolt.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
         }
         {
           assertion = elem cfg.https.sslPolicy validPolicyNameList;
-          message = ''
-            Invalid policy assigned: `services.neo4j.https.sslPolicy = "${cfg.https.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
+          message =
+            ''
+              Invalid policy assigned: `services.neo4j.https.sslPolicy = "${cfg.https.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
         }
       ];
 

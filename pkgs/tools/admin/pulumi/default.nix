@@ -37,12 +37,14 @@ buildGoModule rec {
   nativeBuildInputs = [ installShellFiles ];
 
     # Bundle release metadata
-  ldflags = [
-    # Omit the symbol table and debug information.
-    "-s"
-    # Omit the DWARF symbol table.
-    "-w"
-  ] ++ importpathFlags;
+  ldflags =
+    [
+      # Omit the symbol table and debug information.
+      "-s"
+      # Omit the DWARF symbol table.
+      "-w"
+    ] ++ importpathFlags
+    ;
 
   importpathFlags = [
       "-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}"
@@ -50,35 +52,38 @@ buildGoModule rec {
 
   doCheck = true;
 
-  disabledTests = [
-    # Flaky test
-    "TestPendingDeleteOrder"
-  ];
+  disabledTests =
+    [
+      # Flaky test
+      "TestPendingDeleteOrder"
+    ];
 
   nativeCheckInputs = [ git ];
 
-  preCheck = ''
-    # The tests require `version.Version` to be unset
-    ldflags=''${ldflags//"$importpathFlags"/}
+  preCheck =
+    ''
+      # The tests require `version.Version` to be unset
+      ldflags=''${ldflags//"$importpathFlags"/}
 
-    # Create some placeholders for plugins used in tests. Otherwise, Pulumi
-    # tries to donwload them and fails, resulting in really long test runs
-    dummyPluginPath=$(mktemp -d)
-    for name in pulumi-{resource-pkg{A,B},-pkgB}; do
-      ln -s ${coreutils}/bin/true "$dummyPluginPath/$name"
-    done
+      # Create some placeholders for plugins used in tests. Otherwise, Pulumi
+      # tries to donwload them and fails, resulting in really long test runs
+      dummyPluginPath=$(mktemp -d)
+      for name in pulumi-{resource-pkg{A,B},-pkgB}; do
+        ln -s ${coreutils}/bin/true "$dummyPluginPath/$name"
+      done
 
-    export PATH=$dummyPluginPath''${PATH:+:}$PATH
+      export PATH=$dummyPluginPath''${PATH:+:}$PATH
 
-    # Code generation tests also download dependencies from network
-    rm codegen/{docs,dotnet,go,nodejs,python,schema}/*_test.go
-    rm -R codegen/{dotnet,go,nodejs,python}/gen_program_test
+      # Code generation tests also download dependencies from network
+      rm codegen/{docs,dotnet,go,nodejs,python,schema}/*_test.go
+      rm -R codegen/{dotnet,go,nodejs,python}/gen_program_test
 
-    # Only run tests not marked as disabled
-    buildFlagsArray+=("-run" "[^(${lib.concatStringsSep "|" disabledTests})]")
-  '' + lib.optionalString stdenv.isDarwin ''
-    export PULUMI_HOME=$(mktemp -d)
-  '';
+      # Only run tests not marked as disabled
+      buildFlagsArray+=("-run" "[^(${lib.concatStringsSep "|" disabledTests})]")
+    '' + lib.optionalString stdenv.isDarwin ''
+      export PULUMI_HOME=$(mktemp -d)
+    ''
+    ;
 
     # Allow tests that bind or connect to localhost on macOS.
   __darwinAllowLocalNetworking = true;

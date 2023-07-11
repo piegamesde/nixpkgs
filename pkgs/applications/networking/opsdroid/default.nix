@@ -15,7 +15,9 @@ python3Packages.buildPythonPackage rec {
     sha256 = "0f32jf2rds9543akysxinf3hsgzr0w880xwcrcm1r2r0nhp8b8s5";
   };
 
-  disabled = !python3Packages.isPy3k;
+  disabled =
+    !python3Packages.isPy3k
+    ;
 
     # tests folder is not included in release
   doCheck = false;

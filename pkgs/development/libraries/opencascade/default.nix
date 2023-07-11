@@ -36,32 +36,36 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [
-    libGL
-    libGLU
-    libXmu
-    freetype
-    fontconfig
-    expat
-    freeimage
-    vtk_8
-    gl2ps
-    tbb
-  ] ++ lib.optionals stdenv.isDarwin [
-    OpenCL
-    Cocoa
-  ];
+  buildInputs =
+    [
+      libGL
+      libGLU
+      libXmu
+      freetype
+      fontconfig
+      expat
+      freeimage
+      vtk_8
+      gl2ps
+      tbb
+    ] ++ lib.optionals stdenv.isDarwin [
+      OpenCL
+      Cocoa
+    ]
+    ;
 
-  cmakeFlags = [
-    "-DOCE_INSTALL_PREFIX=${placeholder "out"}"
-    "-DOCE_WITH_FREEIMAGE=ON"
-    "-DOCE_WITH_VTK=ON"
-    "-DOCE_WITH_GL2PS=ON"
-    "-DOCE_MULTITHREAD_LIBRARY=TBB"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DOCE_OSX_USE_COCOA=ON"
-    "-DOCE_WITH_OPENCL=ON"
-  ];
+  cmakeFlags =
+    [
+      "-DOCE_INSTALL_PREFIX=${placeholder "out"}"
+      "-DOCE_WITH_FREEIMAGE=ON"
+      "-DOCE_WITH_VTK=ON"
+      "-DOCE_WITH_GL2PS=ON"
+      "-DOCE_MULTITHREAD_LIBRARY=TBB"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "-DOCE_OSX_USE_COCOA=ON"
+      "-DOCE_WITH_OPENCL=ON"
+    ]
+    ;
 
   patches = [
     # Use fontconfig instead of hardcoded directory list

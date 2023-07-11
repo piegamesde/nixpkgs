@@ -38,24 +38,26 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    libmicrohttpd
-    curl
-    openssl
-    jsoncpp
-    libxml2
-    boost
-    websocketpp
-    libadwaita
-    gtkmm4
-    libsecret
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-libav
-    gst-plugins-base
-    (gst-plugins-good.override { gtkSupport = true; })
-    gst-plugins-bad
-  ]);
+  buildInputs =
+    [
+      libmicrohttpd
+      curl
+      openssl
+      jsoncpp
+      libxml2
+      boost
+      websocketpp
+      libadwaita
+      gtkmm4
+      libsecret
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-libav
+      gst-plugins-base
+      (gst-plugins-good.override { gtkSupport = true; })
+      gst-plugins-bad
+    ])
+    ;
 
   postFixup = ''
     wrapProgram "$out/bin/headlines" \

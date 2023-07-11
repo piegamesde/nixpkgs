@@ -46,29 +46,31 @@ buildPythonPackage rec {
     hash = "sha256-O0bTmJqRymrQuHW19Y7/Kp+2XlbmDzcjl/jDACDlCSk=";
   };
 
-  propagatedBuildInputs = [
-    babel
-    click
-    deprecated
-    exifread
-    filetype
-    flask
-    inifile
-    jinja2
-    markupsafe
-    marshmallow
-    marshmallow-dataclass
-    mistune
-    pip
-    pyopenssl
-    python-slugify
-    pytz
-    requests
-    setuptools
-    typing-inspect
-    watchdog
-    werkzeug
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [
+      babel
+      click
+      deprecated
+      exifread
+      filetype
+      flask
+      inifile
+      jinja2
+      markupsafe
+      marshmallow
+      marshmallow-dataclass
+      mistune
+      pip
+      pyopenssl
+      python-slugify
+      pytz
+      requests
+      setuptools
+      typing-inspect
+      watchdog
+      werkzeug
+    ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+    ;
 
   nativeCheckInputs = [
     pytest-click
@@ -82,10 +84,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "lektor" ];
 
-  disabledTests = [
-    # Test requires network access
-    "test_path_installed_plugin_is_none"
-  ];
+  disabledTests =
+    [
+      # Test requires network access
+      "test_path_installed_plugin_is_none"
+    ];
 
   meta = with lib; {
     description = "A static content management system";

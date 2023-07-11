@@ -29,22 +29,24 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libpcap
-    openssl
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    expat
-    fontconfig
-    vulkan-loader
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrandr
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.AppKit
-    rustPlatform.bindgenHook
-  ];
+  buildInputs =
+    [
+      libpcap
+      openssl
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      expat
+      fontconfig
+      vulkan-loader
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXi
+      xorg.libXrandr
+    ] ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.AppKit
+      rustPlatform.bindgenHook
+    ]
+    ;
 
     # requires internet access
   checkFlags = [

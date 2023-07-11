@@ -56,19 +56,21 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    aiofiles
-    aiohttp
-    aioshutil
-    dateparser
-    orjson
-    packaging
-    pillow
-    pydantic
-    pyjwt
-    pytz
-    typer
-  ] ++ typer.optional-dependencies.all;
+  propagatedBuildInputs =
+    [
+      aiofiles
+      aiohttp
+      aioshutil
+      dateparser
+      orjson
+      packaging
+      pillow
+      pydantic
+      pyjwt
+      pytz
+      typer
+    ] ++ typer.optional-dependencies.all
+    ;
 
   passthru.optional-dependencies = {
     shell = [

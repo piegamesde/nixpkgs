@@ -27,10 +27,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dyB2h6Yix2lZbVFVCz8nWNNubFSEVBlRpjVrBRec4Xo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    llvm.dev
-  ] ++ lib.optionals (withManual || withHTML) [ sphinx ];
+  nativeBuildInputs =
+    [
+      cmake
+      llvm.dev
+    ] ++ lib.optionals (withManual || withHTML) [ sphinx ]
+    ;
 
   buildInputs = [
     libclang

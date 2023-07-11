@@ -35,20 +35,22 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-    dbus
-    gtk3
-    librsvg
-    libappindicator-gtk3
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-    gst-libav
-  ]) ++ lib.optional pulseaudioSupport libpulseaudio;
+  buildInputs =
+    [
+      glib
+      dbus
+      gtk3
+      librsvg
+      libappindicator-gtk3
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+    ]) ++ lib.optional pulseaudioSupport libpulseaudio
+    ;
 
   meta = with lib; {
     description = "Audio recorder for GNOME and Unity Desktops";

@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
       hhm
       ivar
     ];
-    broken = stdenv.isAarch64 || ((lib.versions.majorMinor kernel.version)
-      == "5.4" && kernel.isHardened);
+    broken =
+      stdenv.isAarch64 || ((lib.versions.majorMinor kernel.version) == "5.4"
+        && kernel.isHardened)
+      ;
   };
 }

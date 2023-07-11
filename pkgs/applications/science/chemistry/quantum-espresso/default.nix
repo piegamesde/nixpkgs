@@ -29,11 +29,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gfortran ];
 
-  buildInputs = [
-    fftw
-    blas
-    lapack
-  ] ++ (lib.optionals useMpi [ mpi ]);
+  buildInputs =
+    [
+      fftw
+      blas
+      lapack
+    ] ++ (lib.optionals useMpi [ mpi ])
+    ;
 
   configureFlags =
     if useMpi then

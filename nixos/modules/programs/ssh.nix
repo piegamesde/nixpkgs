@@ -24,16 +24,20 @@ let
 
   knownHosts = attrValues cfg.knownHosts;
 
-  knownHostsText = (flip (concatMapStringsSep "\n") knownHosts (h:
-    assert h.hostNames != [ ];
-    optionalString h.certAuthority "@cert-authority "
-    + concatStringsSep "," h.hostNames + " " + (if h.publicKey != null then
-      h.publicKey
-    else
-      readFile h.publicKeyFile))) + "\n";
+  knownHostsText =
+    (flip (concatMapStringsSep "\n") knownHosts (h:
+      assert h.hostNames != [ ];
+      optionalString h.certAuthority "@cert-authority "
+      + concatStringsSep "," h.hostNames + " " + (if h.publicKey != null then
+        h.publicKey
+      else
+        readFile h.publicKeyFile))) + "\n"
+    ;
 
-  knownHostsFiles = [ "/etc/ssh/ssh_known_hosts" ]
-    ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
+  knownHostsFiles =
+    [ "/etc/ssh/ssh_known_hosts" ]
+    ++ map pkgs.copyPathToStore cfg.knownHostsFiles
+    ;
 
 in
 {
@@ -313,15 +317,19 @@ in
       || config.programs.ssh.forwardX11
       || config.services.openssh.settings.X11Forwarding);
 
-    assertions = [ {
-      assertion = cfg.forwardX11 -> cfg.setXAuthLocation;
-      message = "cannot enable X11 forwarding without setting XAuth location";
-    } ] ++ flip mapAttrsToList cfg.knownHosts (name: data: {
-      assertion = (data.publicKey == null && data.publicKeyFile != null)
-        || (data.publicKey != null && data.publicKeyFile == null);
-      message =
-        "knownHost ${name} must contain either a publicKey or publicKeyFile";
-    });
+    assertions =
+      [ {
+        assertion = cfg.forwardX11 -> cfg.setXAuthLocation;
+        message = "cannot enable X11 forwarding without setting XAuth location";
+      } ] ++ flip mapAttrsToList cfg.knownHosts (name: data: {
+        assertion =
+          (data.publicKey == null && data.publicKeyFile != null)
+          || (data.publicKey != null && data.publicKeyFile == null)
+          ;
+        message =
+          "knownHost ${name} must contain either a publicKey or publicKeyFile";
+      })
+      ;
 
       # SSH configuration. Slight duplication of the sshd_config
       # generation in the sshd service.
@@ -373,11 +381,13 @@ in
       unitConfig.ConditionUser = "!@system";
       serviceConfig = {
         ExecStartPre = "${pkgs.coreutils}/bin/rm -f %t/ssh-agent";
-        ExecStart = "${cfg.package}/bin/ssh-agent "
+        ExecStart =
+          "${cfg.package}/bin/ssh-agent "
           + optionalString (cfg.agentTimeout != null)
           ("-t ${cfg.agentTimeout} ")
           + optionalString (cfg.agentPKCS11Whitelist != null)
-          ("-P ${cfg.agentPKCS11Whitelist} ") + "-a %t/ssh-agent";
+          ("-P ${cfg.agentPKCS11Whitelist} ") + "-a %t/ssh-agent"
+          ;
         StandardOutput = "null";
         Type = "forking";
         Restart = "on-failure";

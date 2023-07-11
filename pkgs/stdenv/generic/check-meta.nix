@@ -48,33 +48,35 @@ let
 
   hasLicense = attrs: attrs ? meta.license;
 
-  hasAllowlistedLicense = assert areLicenseListsValid;
+  hasAllowlistedLicense =
+    assert areLicenseListsValid;
     attrs:
     hasLicense attrs && lib.lists.any (l: builtins.elem l allowlist)
-    (lib.lists.toList attrs.meta.license);
+    (lib.lists.toList attrs.meta.license)
+    ;
 
-  hasBlocklistedLicense = assert areLicenseListsValid;
+  hasBlocklistedLicense =
+    assert areLicenseListsValid;
     attrs:
     hasLicense attrs && lib.lists.any (l: builtins.elem l blocklist)
-    (lib.lists.toList attrs.meta.license);
+    (lib.lists.toList attrs.meta.license)
+    ;
 
   allowBroken =
     config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
 
-  allowUnsupportedSystem = config.allowUnsupportedSystem
-    || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1";
+  allowUnsupportedSystem =
+    config.allowUnsupportedSystem
+    || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"
+    ;
 
   isUnfree = licenses: lib.lists.any (l: !l.free or true) licenses;
 
   hasUnfreeLicense =
-    attrs:
-    hasLicense attrs && isUnfree (lib.lists.toList attrs.meta.license)
-    ;
+    attrs: hasLicense attrs && isUnfree (lib.lists.toList attrs.meta.license);
 
   hasNoMaintainers =
-    attrs:
-    attrs ? meta.maintainers && (lib.length attrs.meta.maintainers) == 0
-    ;
+    attrs: attrs ? meta.maintainers && (lib.length attrs.meta.maintainers) == 0;
 
   isMarkedBroken = attrs: attrs.meta.broken or false;
 
@@ -103,13 +105,9 @@ let
     ;
 
   allowInsecureDefaultPredicate =
-    x:
-    builtins.elem (getName x) (config.permittedInsecurePackages or [ ])
-    ;
+    x: builtins.elem (getName x) (config.permittedInsecurePackages or [ ]);
   allowInsecurePredicate =
-    x:
-    (config.allowInsecurePredicate or allowInsecureDefaultPredicate) x
-    ;
+    x: (config.allowInsecurePredicate or allowInsecureDefaultPredicate) x;
 
   hasAllowedInsecure =
     attrs:
@@ -526,7 +524,8 @@ let
           {
             valid = "no";
             reason = "non-source";
-            errormsg = "contains elements not built from source (‘${
+            errormsg =
+              "contains elements not built from source (‘${
                 showSourceType attrs.meta.sourceProvenance
               }’)";
           }
@@ -629,11 +628,12 @@ let
       # Expose the result of the checks for everyone to see.
       inherit (validity) unfree broken unsupported insecure;
 
-      available = validity.valid != "no"
-        && (if config.checkMetaRecursively or false then
+      available =
+        validity.valid != "no" && (if config.checkMetaRecursively or false then
           lib.all (d: d.meta.available or true) references
         else
-          true);
+          true)
+        ;
     }
     ;
 
@@ -648,15 +648,16 @@ let
     validity // {
       # Throw an error if trying to evaluate a non-valid derivation
       # or, alternatively, just output a warning message.
-      handled = {
-        no = handleEvalIssue { inherit meta attrs; } {
-          inherit (validity) reason errormsg;
-        };
-        warn = handleEvalWarning { inherit meta attrs; } {
-          inherit (validity) reason errormsg;
-        };
-        yes = true;
-      }.${validity.valid};
+      handled =
+        {
+          no = handleEvalIssue { inherit meta attrs; } {
+            inherit (validity) reason errormsg;
+          };
+          warn = handleEvalWarning { inherit meta attrs; } {
+            inherit (validity) reason errormsg;
+          };
+          yes = true;
+        }.${validity.valid};
 
     }
     ;

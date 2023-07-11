@@ -43,44 +43,52 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/dih2LoqgRrAsVdHRwld28T8pXgqnzapnQhqkXnxbbc=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-  ] ++ lib.optional withDevdoc "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+      "lib"
+    ] ++ lib.optional withDevdoc "devdoc"
+    ;
 
   strictDeps = true;
-  nativeBuildInputs = [
-    autoconf
-    automake
-    docbook_xsl
-    libtool
-    libxslt
-    pkg-config
+  nativeBuildInputs =
+    [
+      autoconf
+      automake
+      docbook_xsl
+      libtool
+      libxslt
+      pkg-config
 
-    docbook_xml_dtd_42 # for the man pages
-  ] ++ lib.optionals withDevdoc [
-    docbook_xml_dtd_43
-    gtk-doc
-  ];
-  buildInputs = [
-    xz
-    zstd
-  ]
-  # gtk-doc is looked for with pkg-config
-    ++ lib.optionals withDevdoc [ gtk-doc ];
+      docbook_xml_dtd_42 # for the man pages
+    ] ++ lib.optionals withDevdoc [
+      docbook_xml_dtd_43
+      gtk-doc
+    ]
+    ;
+  buildInputs =
+    [
+      xz
+      zstd
+    ]
+    # gtk-doc is looked for with pkg-config
+    ++ lib.optionals withDevdoc [ gtk-doc ]
+    ;
 
   preConfigure = ''
     ./autogen.sh
   '';
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--with-xz"
-    "--with-zstd"
-    "--with-modulesdirs=${modulesDirs}"
-    (lib.enableFeature withDevdoc "gtk-doc")
-  ] ++ lib.optional withStatic "--enable-static";
+  configureFlags =
+    [
+      "--sysconfdir=/etc"
+      "--with-xz"
+      "--with-zstd"
+      "--with-modulesdirs=${modulesDirs}"
+      (lib.enableFeature withDevdoc "gtk-doc")
+    ] ++ lib.optional withStatic "--enable-static"
+    ;
 
   patches =
     [ ./module-dir.patch ] ++ lib.optional withStatic ./enable-static.patch;

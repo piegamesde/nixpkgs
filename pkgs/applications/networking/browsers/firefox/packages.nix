@@ -118,7 +118,8 @@
     };
 
     meta = {
-      changelog = "https://www.mozilla.org/en-US/firefox/${
+      changelog =
+        "https://www.mozilla.org/en-US/firefox/${
           lib.removeSuffix "esr" version
         }/releasenotes/";
       description =

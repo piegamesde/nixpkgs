@@ -39,11 +39,13 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  postUnpack = lib.optionalString stdenv.isDarwin ''
-    export TRIPLE=x86_64-apple-darwin
-  '' + lib.optionalString stdenv.hostPlatform.isWasm ''
-    patch -p1 -d llvm -i ${./wasm.patch}
-  '';
+  postUnpack =
+    lib.optionalString stdenv.isDarwin ''
+      export TRIPLE=x86_64-apple-darwin
+    '' + lib.optionalString stdenv.hostPlatform.isWasm ''
+      patch -p1 -d llvm -i ${./wasm.patch}
+    ''
+    ;
 
   prePatch = ''
     cd ../${pname}
@@ -74,23 +76,25 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
 
-  cmakeFlags = [
-    "-DLLVM_ENABLE_RUNTIMES=libcxxabi"
-    "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1"
+  cmakeFlags =
+    [
+      "-DLLVM_ENABLE_RUNTIMES=libcxxabi"
+      "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1"
 
-    # `libcxxabi`'s build does not need a toolchain with a c++ stdlib attached
-    # (we specify the headers it should use explicitly above).
-    #
-    # CMake however checks for this anyways; this flag tells it not to. See:
-    # https://github.com/llvm/llvm-project/blob/4bd3f3759259548e159aeba5c76efb9a0864e6fa/llvm/runtimes/CMakeLists.txt#L243
-    "-DCMAKE_CXX_COMPILER_WORKS=ON"
-  ] ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
-    "-DLLVM_ENABLE_LIBCXX=ON"
-    "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
-  ] ++ lib.optionals stdenv.hostPlatform.isWasm [
-    "-DLIBCXXABI_ENABLE_THREADS=OFF"
-    "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
-  ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
+      # `libcxxabi`'s build does not need a toolchain with a c++ stdlib attached
+      # (we specify the headers it should use explicitly above).
+      #
+      # CMake however checks for this anyways; this flag tells it not to. See:
+      # https://github.com/llvm/llvm-project/blob/4bd3f3759259548e159aeba5c76efb9a0864e6fa/llvm/runtimes/CMakeLists.txt#L243
+      "-DCMAKE_CXX_COMPILER_WORKS=ON"
+    ] ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
+      "-DLLVM_ENABLE_LIBCXX=ON"
+      "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
+    ] ++ lib.optionals stdenv.hostPlatform.isWasm [
+      "-DLIBCXXABI_ENABLE_THREADS=OFF"
+      "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
+    ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
+    ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

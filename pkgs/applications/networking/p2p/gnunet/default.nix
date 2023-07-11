@@ -47,28 +47,30 @@ stdenv.mkDerivation rec {
     libtool
     makeWrapper
   ];
-  buildInputs = [
-    adns
-    curl
-    gmp
-    gnutls
-    libextractor
-    libgcrypt
-    libgnurl
-    libidn
-    libmicrohttpd
-    libunistring
-    libxml2
-    ncurses
-    gettext
-    libsodium
-    sqlite
-    zlib
-    libpulseaudio
-    libopus
-    libogg
-    jansson
-  ] ++ lib.optional postgresqlSupport postgresql;
+  buildInputs =
+    [
+      adns
+      curl
+      gmp
+      gnutls
+      libextractor
+      libgcrypt
+      libgnurl
+      libidn
+      libmicrohttpd
+      libunistring
+      libxml2
+      ncurses
+      gettext
+      libsodium
+      sqlite
+      zlib
+      libpulseaudio
+      libopus
+      libogg
+      jansson
+    ] ++ lib.optional postgresqlSupport postgresql
+    ;
 
   preConfigure = ''
     # Brute force: since nix-worker chroots don't provide

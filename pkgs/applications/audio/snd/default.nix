@@ -23,11 +23,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    fftw
-    gsl
-    motif
-  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+  buildInputs =
+    [
+      fftw
+      gsl
+      motif
+    ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       CoreMIDI
@@ -36,7 +37,8 @@ stdenv.mkDerivation rec {
       libXft
       libXpm
       libXt
-    ]);
+    ])
+    ;
 
   configureFlags = [ "--with-motif" ];
 

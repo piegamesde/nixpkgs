@@ -70,42 +70,47 @@ stdenv.mkDerivation rec {
     # Use shared libraries to decrease size
   buildFlags = [ "shared" ];
 
-  makeFlags = [
-    "prefix=$(out)"
-    "USE_SYSTEM_LIBS=yes"
-    "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
-  ] ++ lib.optionals (!enableX11) [ "HAVE_X11=no" ]
-    ++ lib.optionals (!enableGL) [ "HAVE_GLUT=no" ];
-
-  nativeBuildInputs = [ pkg-config ]
-    ++ lib.optional (enableGL || enableX11) copyDesktopItems
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
-
-  buildInputs = [
-    freetype
-    harfbuzz
-    openjpeg
-    jbig2dec
-    libjpeg
-    gumbo
-  ] ++ lib.optional stdenv.isDarwin xcbuild ++ lib.optionals enableX11 [
-    libX11
-    libXext
-    libXi
-    libXrandr
-  ] ++ lib.optionals enableCurl [
-    curl
-    openssl
-  ] ++ lib.optionals enableGL (if stdenv.isDarwin then
-    with darwin.apple_sdk.frameworks; [
-      GLUT
-      OpenGL
-    ]
-  else
+  makeFlags =
     [
-      freeglut-mupdf
-      libGLU
-    ]);
+      "prefix=$(out)"
+      "USE_SYSTEM_LIBS=yes"
+      "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
+    ] ++ lib.optionals (!enableX11) [ "HAVE_X11=no" ]
+    ++ lib.optionals (!enableGL) [ "HAVE_GLUT=no" ]
+    ;
+
+  nativeBuildInputs =
+    [ pkg-config ] ++ lib.optional (enableGL || enableX11) copyDesktopItems
+    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
+    ;
+
+  buildInputs =
+    [
+      freetype
+      harfbuzz
+      openjpeg
+      jbig2dec
+      libjpeg
+      gumbo
+    ] ++ lib.optional stdenv.isDarwin xcbuild ++ lib.optionals enableX11 [
+      libX11
+      libXext
+      libXi
+      libXrandr
+    ] ++ lib.optionals enableCurl [
+      curl
+      openssl
+    ] ++ lib.optionals enableGL (if stdenv.isDarwin then
+      with darwin.apple_sdk.frameworks; [
+        GLUT
+        OpenGL
+      ]
+    else
+      [
+        freeglut-mupdf
+        libGLU
+      ])
+    ;
   outputs = [
     "bin"
     "dev"
@@ -154,32 +159,34 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  postInstall = ''
-    mkdir -p "$out/lib/pkgconfig"
-    cat >"$out/lib/pkgconfig/mupdf.pc" <<EOF
-    prefix=$out
-    libdir=$out/lib
-    includedir=$out/include
-
-    Name: mupdf
-    Description: Library for rendering PDF documents
-    Version: ${version}
-    Libs: -L$out/lib -lmupdf -lmupdf-third
-    Cflags: -I$dev/include
-    EOF
-
-    moveToOutput "bin" "$bin"
-  '' + lib.optionalString (enableX11 || enableGL) ''
-    mkdir -p $bin/share/icons/hicolor/48x48/apps
-    cp docs/logo/mupdf.png $bin/share/icons/hicolor/48x48/apps
-  '' + (if enableGL then
+  postInstall =
     ''
-      ln -s "$bin/bin/mupdf-gl" "$bin/bin/mupdf"
-    ''
-  else
-    lib.optionalString (enableX11) ''
-      ln -s "$bin/bin/mupdf-x11" "$bin/bin/mupdf"
-    '');
+      mkdir -p "$out/lib/pkgconfig"
+      cat >"$out/lib/pkgconfig/mupdf.pc" <<EOF
+      prefix=$out
+      libdir=$out/lib
+      includedir=$out/include
+
+      Name: mupdf
+      Description: Library for rendering PDF documents
+      Version: ${version}
+      Libs: -L$out/lib -lmupdf -lmupdf-third
+      Cflags: -I$dev/include
+      EOF
+
+      moveToOutput "bin" "$bin"
+    '' + lib.optionalString (enableX11 || enableGL) ''
+      mkdir -p $bin/share/icons/hicolor/48x48/apps
+      cp docs/logo/mupdf.png $bin/share/icons/hicolor/48x48/apps
+    '' + (if enableGL then
+      ''
+        ln -s "$bin/bin/mupdf-gl" "$bin/bin/mupdf"
+      ''
+    else
+      lib.optionalString (enableX11) ''
+        ln -s "$bin/bin/mupdf-x11" "$bin/bin/mupdf"
+      '')
+    ;
 
   enableParallelBuilding = true;
 

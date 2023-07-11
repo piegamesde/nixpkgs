@@ -33,11 +33,13 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    DiskArbitration
-    Foundation
-  ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      DiskArbitration
+      Foundation
+    ]
+    ;
 
   preCheck = ''
     HOME=$TMPDIR

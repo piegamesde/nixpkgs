@@ -26,14 +26,18 @@ pkgs.lib.listToAttrs (builtins.map ({
     withNetworkd,
     systemdStage1,
   }: {
-    name = pkgs.lib.optionalString (!predictable) "un" + "predictable"
+    name =
+      pkgs.lib.optionalString (!predictable) "un" + "predictable"
       + pkgs.lib.optionalString withNetworkd "Networkd"
-      + pkgs.lib.optionalString systemdStage1 "SystemdStage1";
+      + pkgs.lib.optionalString systemdStage1 "SystemdStage1"
+      ;
     value = makeTest {
-      name = pkgs.lib.optionalString (!predictable) "un"
+      name =
+        pkgs.lib.optionalString (!predictable) "un"
         + "predictableInterfaceNames"
         + pkgs.lib.optionalString withNetworkd "-with-networkd"
-        + pkgs.lib.optionalString systemdStage1 "-systemd-stage-1";
+        + pkgs.lib.optionalString systemdStage1 "-systemd-stage-1"
+        ;
       meta = { };
 
       nodes.machine =
@@ -55,7 +59,9 @@ pkgs.lib.listToAttrs (builtins.map ({
           networking.usePredictableInterfaceNames = lib.mkForce predictable;
           networking.useNetworkd = withNetworkd;
           networking.dhcpcd.enable = !withNetworkd;
-          networking.useDHCP = !withNetworkd;
+          networking.useDHCP =
+            !withNetworkd
+            ;
 
             # Check if predictable interface names are working in stage-1
           boot.initrd.postDeviceCommands = script;

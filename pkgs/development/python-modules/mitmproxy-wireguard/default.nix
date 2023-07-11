@@ -29,10 +29,12 @@ buildPythonPackage rec {
     darwin.apple_sdk.frameworks.Security
   ];
 
-  nativeBuildInputs = [ setuptools-rust ] ++ (with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ]);
+  nativeBuildInputs =
+    [ setuptools-rust ] ++ (with rustPlatform; [
+      cargoSetupHook
+      maturinBuildHook
+    ])
+    ;
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

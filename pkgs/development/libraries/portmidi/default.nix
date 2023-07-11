@@ -29,10 +29,11 @@ stdenv.mkDerivation rec {
     "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release"
   ];
 
-  patches = [
-    # Add missing header include
-    ./missing-header.diff
-  ];
+  patches =
+    [
+      # Add missing header include
+      ./missing-header.diff
+    ];
 
   postInstall =
     let
@@ -47,14 +48,15 @@ stdenv.mkDerivation rec {
     unzip
     cmake
   ];
-  buildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [
+  buildInputs =
+    lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [
       Carbon
       CoreAudio
       CoreFoundation
       CoreMIDI
       CoreServices
-    ];
+    ]
+    ;
 
   hardeningDisable = [ "format" ];
 

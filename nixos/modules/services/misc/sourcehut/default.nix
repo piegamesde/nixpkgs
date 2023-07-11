@@ -997,7 +997,8 @@ in
                   exec -a "$0" ${cfg.python}/bin/hgsrht-hook-changegroup "$@"
                 ''
               }:/usr/bin/hgsrht-hook-changegroup"
-            ];
+            ]
+            ;
         };
       };
     })
@@ -1224,7 +1225,8 @@ in
       extraServices.gitsrht-fcgiwrap = mkIf cfg.nginx.enable {
         serviceConfig = {
           # Socket is passed by gitsrht-fcgiwrap.socket
-          ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
+          ExecStart =
+            "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
               toString cfg.git.fcgiwrap.preforkProcess
             }";
             # No need for config.ini
@@ -1390,7 +1392,8 @@ in
           '';
           ExecStart =
             "${cfg.python}/bin/celery --app listssrht.process worker --hostname listssrht-process@%%h "
-            + concatStringsSep " " cfg.lists.process.extraArgs;
+            + concatStringsSep " " cfg.lists.process.extraArgs
+            ;
             # Avoid crashing: os.getloadavg()
           ProcSubset = mkForce "all";
         };
@@ -1432,23 +1435,25 @@ in
       extraServices.metasrht-api = {
         serviceConfig.Restart = "always";
         serviceConfig.RestartSec = "5s";
-        preStart = ''
-          set -x
-        '' + concatStringsSep "\n\n" (attrValues (mapAttrs (k: s:
-          let
-            srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht$" k;
-            srv = head srvMatch;
-            # Configure client(s) as "preauthorized"
-          in
-          optionalString (srvMatch != null && cfg.${srv}.enable
-            && ((s.oauth-client-id or null) != null)) ''
-              # Configure ${srv}'s OAuth client as "preauthorized"
-              ${postgresql.package}/bin/psql '${
-                cfg.settings."meta.sr.ht".connection-string
-              }' \
-                -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
-            ''
-        ) cfg.settings));
+        preStart =
+          ''
+            set -x
+          '' + concatStringsSep "\n\n" (attrValues (mapAttrs (k: s:
+            let
+              srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht$" k;
+              srv = head srvMatch;
+              # Configure client(s) as "preauthorized"
+            in
+            optionalString (srvMatch != null && cfg.${srv}.enable
+              && ((s.oauth-client-id or null) != null)) ''
+                # Configure ${srv}'s OAuth client as "preauthorized"
+                ${postgresql.package}/bin/psql '${
+                  cfg.settings."meta.sr.ht".connection-string
+                }' \
+                  -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
+              ''
+          ) cfg.settings))
+          ;
         serviceConfig.ExecStart =
           "${pkgs.sourcehut.metasrht}/bin/metasrht-api -b ${cfg.listenAddress}:${
             toString (cfg.meta.port + 100)

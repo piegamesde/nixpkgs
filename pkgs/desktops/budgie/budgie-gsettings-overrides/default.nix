@@ -54,12 +54,14 @@ let
     ${extraGSettingsOverrides}
   '';
 
-  gsettingsOverridePackages = [
-    budgie-desktop
-    budgie-desktop-view
-    gsettings-desktop-schemas
-    gnome.mutter
-  ] ++ extraGSettingsOverridePackages;
+  gsettingsOverridePackages =
+    [
+      budgie-desktop
+      budgie-desktop-view
+      gsettings-desktop-schemas
+      gnome.mutter
+    ] ++ extraGSettingsOverridePackages
+    ;
 
 in
 runCommand "budgie-gsettings-overrides" { preferLocalBuild = true; } ''

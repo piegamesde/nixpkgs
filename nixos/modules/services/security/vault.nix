@@ -212,18 +212,23 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.storageBackend == "inmem"
-          -> (cfg.storagePath == null && cfg.storageConfig == null);
-        message = ''
-          The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
+        assertion =
+          cfg.storageBackend == "inmem"
+          -> (cfg.storagePath == null && cfg.storageConfig == null)
+          ;
+        message =
+          ''
+            The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
       }
       {
-        assertion = ((cfg.storageBackend == "file"
-          -> (cfg.storagePath != null && cfg.storageConfig == null))
-          && (cfg.storagePath != null
-            -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft")));
-        message = ''
-          You must set services.vault.storagePath only when using the "file" or "raft" backend'';
+        assertion =
+          ((cfg.storageBackend == "file"
+            -> (cfg.storagePath != null && cfg.storageConfig == null))
+            && (cfg.storagePath != null -> (cfg.storageBackend == "file"
+              || cfg.storageBackend == "raft")));
+        message =
+          ''
+            You must set services.vault.storagePath only when using the "file" or "raft" backend'';
       }
     ];
 
@@ -242,9 +247,11 @@ in
       description = "Vault server daemon";
 
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ] ++ optional
+      after =
+        [ "network.target" ] ++ optional
         (config.services.consul.enable && cfg.storageBackend == "consul")
-        "consul.service";
+        "consul.service"
+        ;
 
       restartIfChanged =
         false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.

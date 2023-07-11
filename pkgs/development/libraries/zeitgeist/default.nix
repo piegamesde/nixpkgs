@@ -23,12 +23,14 @@ stdenv.mkDerivation rec {
   pname = "zeitgeist";
   version = "1.0.4";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-    "man"
-  ] ++ lib.optional pythonSupport "py";
+  outputs =
+    [
+      "out"
+      "lib"
+      "dev"
+      "man"
+    ] ++ lib.optional pythonSupport "py"
+    ;
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";

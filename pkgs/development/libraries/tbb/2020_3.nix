@@ -57,14 +57,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = (lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]);
 
-  makeFlags = lib.optionals stdenv.cc.isClang [ "compiler=clang" ]
+  makeFlags =
+    lib.optionals stdenv.cc.isClang [ "compiler=clang" ]
     ++ (lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
       (if stdenv.hostPlatform.isAarch64 then
         "arch=arm64"
       else if stdenv.hostPlatform.isx86_64 then
         "arch=intel64"
       else
-        throw "Unsupported cross architecture"));
+        throw "Unsupported cross architecture"))
+    ;
 
   enableParallelBuilding = true;
 

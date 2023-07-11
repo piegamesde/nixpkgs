@@ -133,7 +133,8 @@ in
       environment.systemPackages = [ pkgs.vdo ];
     })
     (mkIf (cfg.dmeventd.enable || cfg.boot.thin.enable) {
-      boot.initrd.systemd.contents."/etc/lvm/lvm.conf".text = optionalString
+      boot.initrd.systemd.contents."/etc/lvm/lvm.conf".text =
+        optionalString
         (config.boot.initrd.services.lvm.enable && cfg.boot.thin.enable)
         (concatMapStringsSep "\n"
           (bin: "global/${bin}_executable = /bin/${bin}") [
@@ -146,7 +147,8 @@ in
           ]) + "\n" + optionalString cfg.dmeventd.enable ''
             dmeventd/executable = /bin/false
             activation/monitoring = 0
-          '';
+          ''
+        ;
 
       boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) ''
         mkdir -p /etc/lvm

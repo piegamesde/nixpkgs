@@ -100,9 +100,7 @@ let
 
           passthru = {
             withPlugins =
-              newplugins:
-              withPlugins (x: newplugins x ++ actualPlugins)
-              ;
+              newplugins: withPlugins (x: newplugins x ++ actualPlugins);
             full = withPlugins (p:
               lib.filter lib.isDerivation (lib.attrValues p.actualProviders));
 
@@ -131,13 +129,9 @@ let
               (pluggable (terraform.overrideDerivation f)).withPlugins plugins
               ;
             overrideAttrs =
-              f:
-              (pluggable (terraform.overrideAttrs f)).withPlugins plugins
-              ;
+              f: (pluggable (terraform.overrideAttrs f)).withPlugins plugins;
             override =
-              x:
-              (pluggable (terraform.override x)).withPlugins plugins
-              ;
+              x: (pluggable (terraform.override x)).withPlugins plugins;
           };
             # Don't bother wrapping unless we actually have plugins, since the wrapper will stop automatic downloading
             # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.

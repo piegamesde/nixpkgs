@@ -100,8 +100,10 @@ let
       "$NIX_BUILD_CORES"
     ;
 
-  needUserConfig = stdenv.hostPlatform != stdenv.buildPlatform || useMpi
-    || (stdenv.isDarwin && enableShared);
+  needUserConfig =
+    stdenv.hostPlatform != stdenv.buildPlatform || useMpi
+    || (stdenv.isDarwin && enableShared)
+    ;
 
   b2Args = lib.concatStringsSep " " ([
     "--includedir=$dev/include"
@@ -168,8 +170,8 @@ stdenv.mkDerivation {
 
   patchFlags = [ ];
 
-  patches = patches ++ lib.optional stdenv.isDarwin
-    ./darwin-no-system-python.patch
+  patches =
+    patches ++ lib.optional stdenv.isDarwin ./darwin-no-system-python.patch
     # Fix boost-context segmentation faults on ppc64 due to ABI violation
     ++ lib.optional
     (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
@@ -206,14 +208,16 @@ stdenv.mkDerivation {
         "https://github.com/boostorg/math/commit/7d482f6ebc356e6ec455ccb5f51a23971bf6ce5b.patch";
       relative = "include";
       sha256 = "sha256-KlmIbixcds6GyKYt1fx5BxDIrU7msrgDdYo9Va/KJR4=";
-    });
+    })
+    ;
 
   meta = with lib; {
     homepage = "http://boost.org/";
     description = "Collection of C++ libraries";
     license = licenses.boost;
     platforms = platforms.unix ++ platforms.windows;
-    badPlatforms = optional (versionOlder version "1.59") "aarch64-linux"
+    badPlatforms =
+      optional (versionOlder version "1.59") "aarch64-linux"
       ++ optional ((versionOlder version "1.57") || version == "1.58")
       "x86_64-darwin" ++ optionals (versionOlder version "1.73") platforms.riscv
       ;
@@ -225,16 +229,18 @@ stdenv.mkDerivation {
       # a very cryptic error message.
       stdenv.hostPlatform.isMips64n32 ||
       # the patch above does not apply cleanly to pre-1.65 boost
-      (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"));
+      (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"))
+      ;
   };
 
   passthru = { inherit boostBuildPatches; };
 
-  preConfigure = lib.optionalString useMpi ''
-    cat << EOF >> user-config.jam
-    using mpi : ${mpi}/bin/mpiCC ;
-    EOF
-  ''
+  preConfigure =
+    lib.optionalString useMpi ''
+      cat << EOF >> user-config.jam
+      using mpi : ${mpi}/bin/mpiCC ;
+      EOF
+    ''
     # On darwin we need to add the `$out/lib` to the libraries' rpath explicitly,
     # otherwise the dynamic linker is unable to resolve the reference to @rpath
     # when the boost libraries want to load each other at runtime.
@@ -272,43 +278,50 @@ stdenv.mkDerivation {
         : ${python}/lib
         ;
       EOF
-    '';
+    ''
+    ;
 
   NIX_CFLAGS_LINK =
     lib.optionalString stdenv.isDarwin "-headerpad_max_install_names";
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    which
-    boost-build
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
-  buildInputs = [
-    expat
-    zlib
-    bzip2
-    libiconv
-  ] ++ lib.optional (lib.versionAtLeast version "1.69") zstd
+  nativeBuildInputs =
+    [
+      which
+      boost-build
+    ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+    ;
+  buildInputs =
+    [
+      expat
+      zlib
+      bzip2
+      libiconv
+    ] ++ lib.optional (lib.versionAtLeast version "1.69") zstd
     ++ lib.optional (lib.versionAtLeast version "1.65") xz
     ++ lib.optional enableIcu icu ++ lib.optionals enablePython [
       libxcrypt
       python
-    ] ++ lib.optional enableNumpy python.pkgs.numpy;
+    ] ++ lib.optional enableNumpy python.pkgs.numpy
+    ;
 
   configureScript = "./bootstrap.sh";
   configurePlatforms = [ ];
   dontDisableStatic = true;
   dontAddStaticConfigureFlags = true;
-  configureFlags = [
-    "--includedir=$(dev)/include"
-    "--libdir=$(out)/lib"
-    "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
-  ] ++ lib.optional (toolset != null) "--with-toolset=${toolset}" ++ [
+  configureFlags =
+    [
+      "--includedir=$(dev)/include"
+      "--libdir=$(out)/lib"
+      "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
+    ] ++ lib.optional (toolset != null) "--with-toolset=${toolset}" ++ [
       (if enableIcu then
         "--with-icu=${icu.dev}"
       else
         "--without-icu")
-    ];
+    ]
+    ;
 
   buildPhase = ''
     runHook preBuild
@@ -329,13 +342,15 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  postFixup = ''
-    # Make boost header paths relative so that they are not runtime dependencies
-    cd "$dev" && find include \( -name '*.hpp' -or -name '*.h' -or -name '*.ipp' \) \
-      -exec sed '1s/^\xef\xbb\xbf//;1i#line 1 "{}"' -i '{}' \;
-  '' + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt") ''
-    $RANLIB "$out/lib/"*.a
-  '';
+  postFixup =
+    ''
+      # Make boost header paths relative so that they are not runtime dependencies
+      cd "$dev" && find include \( -name '*.hpp' -or -name '*.h' -or -name '*.ipp' \) \
+        -exec sed '1s/^\xef\xbb\xbf//;1i#line 1 "{}"' -i '{}' \;
+    '' + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt") ''
+      $RANLIB "$out/lib/"*.a
+    ''
+    ;
 
   outputs = [
     "out"

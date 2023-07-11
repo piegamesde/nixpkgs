@@ -65,7 +65,8 @@ let
           variant ? null
         }:
         let
-          artifactDirectory = "${os}-${architecture}${
+          artifactDirectory =
+            "${os}-${architecture}${
               lib.optionalString (variant != null) "-${variant}"
             }";
         in

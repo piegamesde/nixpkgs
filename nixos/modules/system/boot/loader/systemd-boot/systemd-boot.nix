@@ -288,44 +288,53 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion =
-        (config.boot.kernelPackages.kernel.features or { efiBootStub = true; })
-        ? efiBootStub;
-      message = "This kernel does not support the EFI boot stub";
-    } ] ++ concatMap (filename: [
-      {
-        assertion = !(hasInfix "/" filename);
-        message = "boot.loader.systemd-boot.extraEntries.${
-            lib.strings.escapeNixIdentifier filename
-          } is invalid: entries within folders are not supported";
-      }
-      {
-        assertion = hasSuffix ".conf" filename;
-        message = "boot.loader.systemd-boot.extraEntries.${
-            lib.strings.escapeNixIdentifier filename
-          } is invalid: entries must have a .conf file extension";
-      }
-    ]) (builtins.attrNames cfg.extraEntries) ++ concatMap (filename: [
-      {
-        assertion = !(hasPrefix "/" filename);
-        message = "boot.loader.systemd-boot.extraFiles.${
-            lib.strings.escapeNixIdentifier filename
-          } is invalid: paths must not begin with a slash";
-      }
-      {
-        assertion = !(hasInfix ".." filename);
-        message = "boot.loader.systemd-boot.extraFiles.${
-            lib.strings.escapeNixIdentifier filename
-          } is invalid: paths must not reference the parent directory";
-      }
-      {
-        assertion = !(hasInfix "nixos/.extra-files" (toLower filename));
-        message = "boot.loader.systemd-boot.extraFiles.${
-            lib.strings.escapeNixIdentifier filename
-          } is invalid: files cannot be placed in the nixos/.extra-files directory";
-      }
-    ]) (builtins.attrNames cfg.extraFiles);
+    assertions =
+      [ {
+        assertion =
+          (config.boot.kernelPackages.kernel.features or {
+            efiBootStub = true;
+          }) ? efiBootStub
+          ;
+        message = "This kernel does not support the EFI boot stub";
+      } ] ++ concatMap (filename: [
+        {
+          assertion = !(hasInfix "/" filename);
+          message =
+            "boot.loader.systemd-boot.extraEntries.${
+              lib.strings.escapeNixIdentifier filename
+            } is invalid: entries within folders are not supported";
+        }
+        {
+          assertion = hasSuffix ".conf" filename;
+          message =
+            "boot.loader.systemd-boot.extraEntries.${
+              lib.strings.escapeNixIdentifier filename
+            } is invalid: entries must have a .conf file extension";
+        }
+      ]) (builtins.attrNames cfg.extraEntries) ++ concatMap (filename: [
+        {
+          assertion = !(hasPrefix "/" filename);
+          message =
+            "boot.loader.systemd-boot.extraFiles.${
+              lib.strings.escapeNixIdentifier filename
+            } is invalid: paths must not begin with a slash";
+        }
+        {
+          assertion = !(hasInfix ".." filename);
+          message =
+            "boot.loader.systemd-boot.extraFiles.${
+              lib.strings.escapeNixIdentifier filename
+            } is invalid: paths must not reference the parent directory";
+        }
+        {
+          assertion = !(hasInfix "nixos/.extra-files" (toLower filename));
+          message =
+            "boot.loader.systemd-boot.extraFiles.${
+              lib.strings.escapeNixIdentifier filename
+            } is invalid: files cannot be placed in the nixos/.extra-files directory";
+        }
+      ]) (builtins.attrNames cfg.extraFiles)
+      ;
 
     boot.loader.grub.enable = mkDefault false;
 

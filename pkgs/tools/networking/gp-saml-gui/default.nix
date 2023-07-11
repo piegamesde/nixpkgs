@@ -30,11 +30,13 @@ buildPythonPackage rec {
     glib-networking
   ];
 
-  propagatedBuildInputs = [
-    requests
-    pygobject3
-    openconnect
-  ] ++ lib.optional stdenv.isLinux webkitgtk;
+  propagatedBuildInputs =
+    [
+      requests
+      pygobject3
+      openconnect
+    ] ++ lib.optional stdenv.isLinux webkitgtk
+    ;
 
   preFixup = ''
     gappsWrapperArgs+=(

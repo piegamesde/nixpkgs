@@ -82,7 +82,8 @@ let
     }:
 
     stdenv'.mkDerivation {
-      name = "zfs-${configFile}-${version}${
+      name =
+        "zfs-${configFile}-${version}${
           optionalString buildKernel "-${kernel.version}"
         }";
 
@@ -92,83 +93,91 @@ let
         inherit rev sha256;
       };
 
-      patches = [
+      patches =
+        [
           (fetchpatch {
             name = "musl.patch";
             url =
               "https://github.com/openzfs/zfs/commit/1f19826c9ac85835cbde61a7439d9d1fefe43a4a.patch";
             sha256 = "XEaK227ubfOwlB2s851UvZ6xp/QOtYUWYsKTkEHzmo0=";
           })
-        ] ++ extraPatches;
+        ] ++ extraPatches
+        ;
 
-      postPatch = optionalString buildKernel ''
-        patchShebangs scripts
-        # The arrays must remain the same length, so we repeat a flag that is
-        # already part of the command and therefore has no effect.
-        substituteInPlace ./module/os/linux/zfs/zfs_ctldir.c \
-          --replace '"/usr/bin/env", "umount"' '"${util-linux}/bin/umount", "-n"' \
-          --replace '"/usr/bin/env", "mount"'  '"${util-linux}/bin/mount", "-n"'
-      '' + optionalString buildUser ''
-        substituteInPlace ./lib/libshare/os/linux/nfs.c --replace "/usr/sbin/exportfs" "${
-        # We don't *need* python support, but we set it like this to minimize closure size:
-        # If it's disabled by default, no need to enable it, even if we have python enabled
-        # And if it's enabled by default, only change that if we explicitly disable python to remove python from the closure
-          nfs-utils.override
-          (old: { enablePython = old.enablePython or true && enablePython; })
-        }/bin/exportfs"
-        substituteInPlace ./lib/libshare/smb.h        --replace "/usr/bin/net"            "${samba}/bin/net"
-        # Disable dynamic loading of libcurl
-        substituteInPlace ./config/user-libfetch.m4   --replace "curl-config --built-shared" "true"
-        substituteInPlace ./config/user-systemd.m4    --replace "/usr/lib/modules-load.d" "$out/etc/modules-load.d"
-        substituteInPlace ./config/zfs-build.m4       --replace "\$sysconfdir/init.d"     "$out/etc/init.d" \
-                                                      --replace "/etc/default"            "$out/etc/default"
-        substituteInPlace ./etc/zfs/Makefile.am       --replace "\$(sysconfdir)"          "$out/etc"
+      postPatch =
+        optionalString buildKernel ''
+          patchShebangs scripts
+          # The arrays must remain the same length, so we repeat a flag that is
+          # already part of the command and therefore has no effect.
+          substituteInPlace ./module/os/linux/zfs/zfs_ctldir.c \
+            --replace '"/usr/bin/env", "umount"' '"${util-linux}/bin/umount", "-n"' \
+            --replace '"/usr/bin/env", "mount"'  '"${util-linux}/bin/mount", "-n"'
+        '' + optionalString buildUser ''
+          substituteInPlace ./lib/libshare/os/linux/nfs.c --replace "/usr/sbin/exportfs" "${
+          # We don't *need* python support, but we set it like this to minimize closure size:
+          # If it's disabled by default, no need to enable it, even if we have python enabled
+          # And if it's enabled by default, only change that if we explicitly disable python to remove python from the closure
+            nfs-utils.override
+            (old: { enablePython = old.enablePython or true && enablePython; })
+          }/bin/exportfs"
+          substituteInPlace ./lib/libshare/smb.h        --replace "/usr/bin/net"            "${samba}/bin/net"
+          # Disable dynamic loading of libcurl
+          substituteInPlace ./config/user-libfetch.m4   --replace "curl-config --built-shared" "true"
+          substituteInPlace ./config/user-systemd.m4    --replace "/usr/lib/modules-load.d" "$out/etc/modules-load.d"
+          substituteInPlace ./config/zfs-build.m4       --replace "\$sysconfdir/init.d"     "$out/etc/init.d" \
+                                                        --replace "/etc/default"            "$out/etc/default"
+          substituteInPlace ./etc/zfs/Makefile.am       --replace "\$(sysconfdir)"          "$out/etc"
 
-        substituteInPlace ./contrib/initramfs/hooks/Makefile.am \
-          --replace "/usr/share/initramfs-tools/hooks" "$out/usr/share/initramfs-tools/hooks"
-        substituteInPlace ./contrib/initramfs/Makefile.am \
-          --replace "/usr/share/initramfs-tools" "$out/usr/share/initramfs-tools"
-        substituteInPlace ./contrib/initramfs/scripts/Makefile.am \
-          --replace "/usr/share/initramfs-tools/scripts" "$out/usr/share/initramfs-tools/scripts"
-        substituteInPlace ./contrib/initramfs/scripts/local-top/Makefile.am \
-          --replace "/usr/share/initramfs-tools/scripts/local-top" "$out/usr/share/initramfs-tools/scripts/local-top"
-        substituteInPlace ./contrib/initramfs/scripts/Makefile.am \
-          --replace "/usr/share/initramfs-tools/scripts" "$out/usr/share/initramfs-tools/scripts"
-        substituteInPlace ./contrib/initramfs/scripts/local-top/Makefile.am \
-          --replace "/usr/share/initramfs-tools/scripts/local-top" "$out/usr/share/initramfs-tools/scripts/local-top"
-        substituteInPlace ./etc/systemd/system/Makefile.am \
-          --replace '$(DESTDIR)$(systemdunitdir)' "$out"'$(DESTDIR)$(systemdunitdir)'
+          substituteInPlace ./contrib/initramfs/hooks/Makefile.am \
+            --replace "/usr/share/initramfs-tools/hooks" "$out/usr/share/initramfs-tools/hooks"
+          substituteInPlace ./contrib/initramfs/Makefile.am \
+            --replace "/usr/share/initramfs-tools" "$out/usr/share/initramfs-tools"
+          substituteInPlace ./contrib/initramfs/scripts/Makefile.am \
+            --replace "/usr/share/initramfs-tools/scripts" "$out/usr/share/initramfs-tools/scripts"
+          substituteInPlace ./contrib/initramfs/scripts/local-top/Makefile.am \
+            --replace "/usr/share/initramfs-tools/scripts/local-top" "$out/usr/share/initramfs-tools/scripts/local-top"
+          substituteInPlace ./contrib/initramfs/scripts/Makefile.am \
+            --replace "/usr/share/initramfs-tools/scripts" "$out/usr/share/initramfs-tools/scripts"
+          substituteInPlace ./contrib/initramfs/scripts/local-top/Makefile.am \
+            --replace "/usr/share/initramfs-tools/scripts/local-top" "$out/usr/share/initramfs-tools/scripts/local-top"
+          substituteInPlace ./etc/systemd/system/Makefile.am \
+            --replace '$(DESTDIR)$(systemdunitdir)' "$out"'$(DESTDIR)$(systemdunitdir)'
 
-        substituteInPlace ./contrib/initramfs/conf.d/Makefile.am \
-          --replace "/usr/share/initramfs-tools/conf.d" "$out/usr/share/initramfs-tools/conf.d"
-        substituteInPlace ./contrib/initramfs/conf-hooks.d/Makefile.am \
-          --replace "/usr/share/initramfs-tools/conf-hooks.d" "$out/usr/share/initramfs-tools/conf-hooks.d"
+          substituteInPlace ./contrib/initramfs/conf.d/Makefile.am \
+            --replace "/usr/share/initramfs-tools/conf.d" "$out/usr/share/initramfs-tools/conf.d"
+          substituteInPlace ./contrib/initramfs/conf-hooks.d/Makefile.am \
+            --replace "/usr/share/initramfs-tools/conf-hooks.d" "$out/usr/share/initramfs-tools/conf-hooks.d"
 
-        substituteInPlace ./cmd/vdev_id/vdev_id \
-          --replace "PATH=/bin:/sbin:/usr/bin:/usr/sbin" \
-          "PATH=${
-            makeBinPath [
-              coreutils
-              gawk
-              gnused
-              gnugrep
-              systemd
-            ]
-          }"
-      '';
+          substituteInPlace ./cmd/vdev_id/vdev_id \
+            --replace "PATH=/bin:/sbin:/usr/bin:/usr/sbin" \
+            "PATH=${
+              makeBinPath [
+                coreutils
+                gawk
+                gnused
+                gnugrep
+                systemd
+              ]
+            }"
+        ''
+        ;
 
-      nativeBuildInputs = [
-        autoreconfHook269
-        nukeReferences
-      ] ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
-        ++ optional buildUser pkg-config;
-      buildInputs = optionals buildUser [
-        zlib
-        libuuid
-        attr
-        libtirpc
-      ] ++ optional buildUser openssl ++ optional buildUser curl
-        ++ optional (buildUser && enablePython) python3;
+      nativeBuildInputs =
+        [
+          autoreconfHook269
+          nukeReferences
+        ] ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
+        ++ optional buildUser pkg-config
+        ;
+      buildInputs =
+        optionals buildUser [
+          zlib
+          libuuid
+          attr
+          libtirpc
+        ] ++ optional buildUser openssl ++ optional buildUser curl
+        ++ optional (buildUser && enablePython) python3
+        ;
 
         # for zdb to get the rpath to libgcc_s, needed for pthread_cancel to work
       NIX_CFLAGS_LINK = "-lgcc_s";
@@ -179,26 +188,28 @@ let
         "pic"
       ];
 
-      configureFlags = [
-        "--with-config=${configFile}"
-        "--with-tirpc=1"
-        (lib.withFeatureAs (buildUser && enablePython) "python"
-          python3.interpreter)
-      ] ++ optionals buildUser [
-        "--with-dracutdir=$(out)/lib/dracut"
-        "--with-udevdir=$(out)/lib/udev"
-        "--with-systemdunitdir=$(out)/etc/systemd/system"
-        "--with-systemdpresetdir=$(out)/etc/systemd/system-preset"
-        "--with-systemdgeneratordir=$(out)/lib/systemd/system-generator"
-        "--with-mounthelperdir=$(out)/bin"
-        "--libexecdir=$(out)/libexec"
-        "--sysconfdir=/etc"
-        "--localstatedir=/var"
-        "--enable-systemd"
-      ] ++ optionals buildKernel ([
-        "--with-linux=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
-        "--with-linux-obj=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-      ] ++ kernel.makeFlags);
+      configureFlags =
+        [
+          "--with-config=${configFile}"
+          "--with-tirpc=1"
+          (lib.withFeatureAs (buildUser && enablePython) "python"
+            python3.interpreter)
+        ] ++ optionals buildUser [
+          "--with-dracutdir=$(out)/lib/dracut"
+          "--with-udevdir=$(out)/lib/udev"
+          "--with-systemdunitdir=$(out)/etc/systemd/system"
+          "--with-systemdpresetdir=$(out)/etc/systemd/system-preset"
+          "--with-systemdgeneratordir=$(out)/lib/systemd/system-generator"
+          "--with-mounthelperdir=$(out)/bin"
+          "--libexecdir=$(out)/libexec"
+          "--sysconfdir=/etc"
+          "--localstatedir=/var"
+          "--enable-systemd"
+        ] ++ optionals buildKernel ([
+          "--with-linux=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
+          "--with-linux-obj=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+        ] ++ kernel.makeFlags)
+        ;
 
       makeFlags = optionals buildKernel kernel.makeFlags;
 
@@ -217,31 +228,34 @@ let
         find . -name "*.ko" -print0 | xargs -0 -P$NIX_BUILD_CORES ${stdenv.cc.targetPrefix}strip --strip-debug
       '';
 
-      postInstall = optionalString buildKernel ''
-        # Add reference that cannot be detected due to compressed kernel module
-        mkdir -p "$out/nix-support"
-        echo "${util-linux}" >> "$out/nix-support/extra-refs"
-      '' + optionalString buildUser ''
-        # Remove provided services as they are buggy
-        rm $out/etc/systemd/system/zfs-import-*.service
+      postInstall =
+        optionalString buildKernel ''
+          # Add reference that cannot be detected due to compressed kernel module
+          mkdir -p "$out/nix-support"
+          echo "${util-linux}" >> "$out/nix-support/extra-refs"
+        '' + optionalString buildUser ''
+          # Remove provided services as they are buggy
+          rm $out/etc/systemd/system/zfs-import-*.service
 
-        sed -i '/zfs-import-scan.service/d' $out/etc/systemd/system/*
+          sed -i '/zfs-import-scan.service/d' $out/etc/systemd/system/*
 
-        for i in $out/etc/systemd/system/*; do
-        substituteInPlace $i --replace "zfs-import-cache.service" "zfs-import.target"
-        done
+          for i in $out/etc/systemd/system/*; do
+          substituteInPlace $i --replace "zfs-import-cache.service" "zfs-import.target"
+          done
 
-        # Remove tests because they add a runtime dependency on gcc
-        rm -rf $out/share/zfs/zfs-tests
+          # Remove tests because they add a runtime dependency on gcc
+          rm -rf $out/share/zfs/zfs-tests
 
-        # Add Bash completions.
-        install -v -m444 -D -t $out/share/bash-completion/completions contrib/bash_completion.d/zfs
-        (cd $out/share/bash-completion/completions; ln -s zfs zpool)
-      '';
+          # Add Bash completions.
+          install -v -m444 -D -t $out/share/bash-completion/completions contrib/bash_completion.d/zfs
+          (cd $out/share/bash-completion/completions; ln -s zfs zpool)
+        ''
+        ;
 
       postFixup =
         let
-          path = "PATH=${
+          path =
+            "PATH=${
               makeBinPath [
                 coreutils
                 gawk

@@ -28,25 +28,30 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    attrs
-    cattrs
-    click-option-group
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs =
+    [
+      attrs
+      cattrs
+      click-option-group
+    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ;
 
   passthru.optional-dependencies = { click = [ click ]; };
 
-  checkInputs = [
-    pytestCheckHook
-    typing-extensions
-  ] ++ passthru.optional-dependencies.click;
+  checkInputs =
+    [
+      pytestCheckHook
+      typing-extensions
+    ] ++ passthru.optional-dependencies.click
+    ;
 
   pytestFlagsArray = [ "tests" ];
 
-  disabledTests = [
-    # AssertionError: assert [OptionInfo(p...
-    "test_deep_options"
-  ];
+  disabledTests =
+    [
+      # AssertionError: assert [OptionInfo(p...
+      "test_deep_options"
+    ];
 
   pythonImportsCheck = [ "typed_settings" ];
 

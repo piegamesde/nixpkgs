@@ -42,10 +42,12 @@ rec {
     };
 
     nativeBuildInputs = lib.optional (!stdenv.isDarwin) autoPatchelfHook;
-    buildInputs = [ bash ] ++ lib.optionals (!stdenv.isDarwin) [
-      gcc.cc.lib
-      zlib
-    ] ++ lib.optional stdenv.isDarwin Security;
+    buildInputs =
+      [ bash ] ++ lib.optionals (!stdenv.isDarwin) [
+        gcc.cc.lib
+        zlib
+      ] ++ lib.optional stdenv.isDarwin Security
+      ;
 
     postPatch = ''
       patchShebangs .
@@ -89,8 +91,10 @@ rec {
 
     nativeBuildInputs =
       [ makeWrapper ] ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
-    buildInputs = [ bash ] ++ lib.optional (!stdenv.isDarwin) gcc.cc.lib
-      ++ lib.optional stdenv.isDarwin Security;
+    buildInputs =
+      [ bash ] ++ lib.optional (!stdenv.isDarwin) gcc.cc.lib
+      ++ lib.optional stdenv.isDarwin Security
+      ;
 
     postPatch = ''
       patchShebangs .

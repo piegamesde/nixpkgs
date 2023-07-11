@@ -55,10 +55,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [ "test_pretty_formatter" ] ++ lib.optionals isPyPy [
-    "test_run"
-    "test_run_integration"
-  ];
+  disabledTests =
+    [ "test_pretty_formatter" ] ++ lib.optionals isPyPy [
+      "test_run"
+      "test_run_integration"
+    ]
+    ;
 
   meta = with lib; {
     description =

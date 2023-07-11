@@ -94,18 +94,22 @@ stdenv.mkDerivation (rec {
     "python"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    python
-  ] ++ optionals enableManpages [
-    python3.pkgs.sphinx
-    python3.pkgs.recommonmark
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      python
+    ] ++ optionals enableManpages [
+      python3.pkgs.sphinx
+      python3.pkgs.recommonmark
+    ]
+    ;
 
-  buildInputs = [
-    libxml2
-    libffi
-  ] ++ optional enablePFM libpfm; # exegesis
+  buildInputs =
+    [
+      libxml2
+      libffi
+    ] ++ optional enablePFM libpfm
+    ; # exegesis
 
   propagatedBuildInputs = [
     ncurses
@@ -114,58 +118,62 @@ stdenv.mkDerivation (rec {
 
   nativeCheckInputs = [ which ];
 
-  patches = [ ./gnu-install-dirs.patch ]
-    ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch;
+  patches =
+    [ ./gnu-install-dirs.patch ]
+    ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
+    ;
 
-  postPatch = optionalString stdenv.isDarwin ''
-    substituteInPlace cmake/modules/AddLLVM.cmake \
-      --replace 'set(_install_name_dir INSTALL_NAME_DIR "@rpath")' "set(_install_name_dir)" \
-      --replace 'set(_install_rpath "@loader_path/../''${CMAKE_INSTALL_LIBDIR}''${LLVM_LIBDIR_SUFFIX}" ''${extra_libdir})' ""
-  '' + ''
-    # FileSystem permissions tests fail with various special bits
-    substituteInPlace unittests/Support/CMakeLists.txt \
-      --replace "Path.cpp" ""
-    rm unittests/Support/Path.cpp
-    substituteInPlace unittests/IR/CMakeLists.txt \
-      --replace "PassBuilderCallbacksTest.cpp" ""
-    rm unittests/IR/PassBuilderCallbacksTest.cpp
-    rm test/tools/llvm-objcopy/ELF/mirror-permissions-unix.test
-  '' + optionalString stdenv.hostPlatform.isMusl ''
-    patch -p1 -i ${../../TLI-musl.patch}
-    substituteInPlace unittests/Support/CMakeLists.txt \
-      --replace "add_subdirectory(DynamicLibrary)" ""
-    rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
-    # valgrind unhappy with musl or glibc, but fails w/musl only
-    rm test/CodeGen/AArch64/wineh4.mir
-  '' + optionalString stdenv.hostPlatform.isAarch32 ''
-    # skip failing X86 test cases on 32-bit ARM
-    rm test/DebugInfo/X86/convert-debugloc.ll
-    rm test/DebugInfo/X86/convert-inlined.ll
-    rm test/DebugInfo/X86/convert-linked.ll
-    rm test/tools/dsymutil/X86/op-convert.test
-    rm test/tools/gold/X86/split-dwarf.ll
-    rm test/tools/llvm-dwarfdump/X86/prettyprint_types.s
-    rm test/tools/llvm-dwarfdump/X86/simplified-template-names.s
-  '' + optionalString (stdenv.hostPlatform.system == "armv6l-linux") ''
-    # Seems to require certain floating point hardware (NEON?)
-    rm test/ExecutionEngine/frem.ll
-  '' + optionalString stdenv.hostPlatform.isRiscV ''
-    rm test/ExecutionEngine/frem.ll
-    rm test/ExecutionEngine/mov64zext32.ll
-    rm test/ExecutionEngine/test-interp-vec-arithm_float.ll
-    rm test/ExecutionEngine/test-interp-vec-arithm_int.ll
-    rm test/ExecutionEngine/test-interp-vec-logical.ll
-    rm test/ExecutionEngine/test-interp-vec-setcond-fp.ll
-    rm test/ExecutionEngine/test-interp-vec-setcond-int.ll
-    substituteInPlace unittests/Support/CMakeLists.txt \
-      --replace "CrashRecoveryTest.cpp" ""
-    rm unittests/Support/CrashRecoveryTest.cpp
-    substituteInPlace unittests/ExecutionEngine/Orc/CMakeLists.txt \
-      --replace "OrcCAPITest.cpp" ""
-    rm unittests/ExecutionEngine/Orc/OrcCAPITest.cpp
-  '' + ''
-    patchShebangs test/BugPoint/compile-custom.ll.py
-  '';
+  postPatch =
+    optionalString stdenv.isDarwin ''
+      substituteInPlace cmake/modules/AddLLVM.cmake \
+        --replace 'set(_install_name_dir INSTALL_NAME_DIR "@rpath")' "set(_install_name_dir)" \
+        --replace 'set(_install_rpath "@loader_path/../''${CMAKE_INSTALL_LIBDIR}''${LLVM_LIBDIR_SUFFIX}" ''${extra_libdir})' ""
+    '' + ''
+      # FileSystem permissions tests fail with various special bits
+      substituteInPlace unittests/Support/CMakeLists.txt \
+        --replace "Path.cpp" ""
+      rm unittests/Support/Path.cpp
+      substituteInPlace unittests/IR/CMakeLists.txt \
+        --replace "PassBuilderCallbacksTest.cpp" ""
+      rm unittests/IR/PassBuilderCallbacksTest.cpp
+      rm test/tools/llvm-objcopy/ELF/mirror-permissions-unix.test
+    '' + optionalString stdenv.hostPlatform.isMusl ''
+      patch -p1 -i ${../../TLI-musl.patch}
+      substituteInPlace unittests/Support/CMakeLists.txt \
+        --replace "add_subdirectory(DynamicLibrary)" ""
+      rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
+      # valgrind unhappy with musl or glibc, but fails w/musl only
+      rm test/CodeGen/AArch64/wineh4.mir
+    '' + optionalString stdenv.hostPlatform.isAarch32 ''
+      # skip failing X86 test cases on 32-bit ARM
+      rm test/DebugInfo/X86/convert-debugloc.ll
+      rm test/DebugInfo/X86/convert-inlined.ll
+      rm test/DebugInfo/X86/convert-linked.ll
+      rm test/tools/dsymutil/X86/op-convert.test
+      rm test/tools/gold/X86/split-dwarf.ll
+      rm test/tools/llvm-dwarfdump/X86/prettyprint_types.s
+      rm test/tools/llvm-dwarfdump/X86/simplified-template-names.s
+    '' + optionalString (stdenv.hostPlatform.system == "armv6l-linux") ''
+      # Seems to require certain floating point hardware (NEON?)
+      rm test/ExecutionEngine/frem.ll
+    '' + optionalString stdenv.hostPlatform.isRiscV ''
+      rm test/ExecutionEngine/frem.ll
+      rm test/ExecutionEngine/mov64zext32.ll
+      rm test/ExecutionEngine/test-interp-vec-arithm_float.ll
+      rm test/ExecutionEngine/test-interp-vec-arithm_int.ll
+      rm test/ExecutionEngine/test-interp-vec-logical.ll
+      rm test/ExecutionEngine/test-interp-vec-setcond-fp.ll
+      rm test/ExecutionEngine/test-interp-vec-setcond-int.ll
+      substituteInPlace unittests/Support/CMakeLists.txt \
+        --replace "CrashRecoveryTest.cpp" ""
+      rm unittests/Support/CrashRecoveryTest.cpp
+      substituteInPlace unittests/ExecutionEngine/Orc/CMakeLists.txt \
+        --replace "OrcCAPITest.cpp" ""
+      rm unittests/ExecutionEngine/Orc/OrcCAPITest.cpp
+    '' + ''
+      patchShebangs test/BugPoint/compile-custom.ll.py
+    ''
+    ;
 
   preConfigure = ''
     # Workaround for configure flags that need to have spaces
@@ -193,10 +201,12 @@ stdenv.mkDerivation (rec {
       #
       # Some flags don't need to be repassed because LLVM already does so (like
       # CMAKE_BUILD_TYPE), others are irrelevant to the result.
-      flagsForLlvmConfig = [
-        "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
-        "-DLLVM_ENABLE_RTTI=ON"
-      ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
+      flagsForLlvmConfig =
+        [
+          "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
+          "-DLLVM_ENABLE_RTTI=ON"
+        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
+        ;
     in
     flagsForLlvmConfig ++ [
       "-DCMAKE_BUILD_TYPE=${
@@ -277,26 +287,28 @@ stdenv.mkDerivation (rec {
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$PWD/lib
   '';
 
-  postInstall = ''
-    mkdir -p $python/share
-    mv $out/share/opt-viewer $python/share/opt-viewer
-    moveToOutput "bin/llvm-config*" "$dev"
-    substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
-      if debugVersion then
-        "debug"
-      else
-        "release"
-    }.cmake" \
-      --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
-      --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
-    substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
-      --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
-  '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
-    ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${shortVersion}.dylib
-    ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
-  '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
-  '';
+  postInstall =
+    ''
+      mkdir -p $python/share
+      mv $out/share/opt-viewer $python/share/opt-viewer
+      moveToOutput "bin/llvm-config*" "$dev"
+      substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
+        if debugVersion then
+          "debug"
+        else
+          "release"
+      }.cmake" \
+        --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
+        --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
+      substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
+        --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
+    '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
+      ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${shortVersion}.dylib
+      ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
+    '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
+    ''
+    ;
 
   inherit doCheck;
 

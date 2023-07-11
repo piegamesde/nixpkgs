@@ -39,15 +39,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-wZDg+4lCd9iHvxuQQE/qs58NorkxZ0+mf+8PKQ57CDE=";
   };
 
-  patches = [
-    # https://github.com/blitzpp/blitz/pull/180
-    (fetchpatch {
-      name = "use-cmake-install-full-dir.patch";
-      url =
-        "https://github.com/blitzpp/blitz/commit/020f1d768c7fa3265cec244dc28f3dc8572719c5.patch";
-      hash = "sha256-8hYFNyWrejjIWPN/HzIOphD4Aq6Soe0FFUBmwV4tpWQ=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/blitzpp/blitz/pull/180
+      (fetchpatch {
+        name = "use-cmake-install-full-dir.patch";
+        url =
+          "https://github.com/blitzpp/blitz/commit/020f1d768c7fa3265cec244dc28f3dc8572719c5.patch";
+        hash = "sha256-8hYFNyWrejjIWPN/HzIOphD4Aq6Soe0FFUBmwV4tpWQ=";
+      })
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -62,9 +63,11 @@ stdenv.mkDerivation rec {
     boost
   ];
 
-  cmakeFlags = optional enablePadding "-DARRAY_LENGTH_PADDING=ON"
+  cmakeFlags =
+    optional enablePadding "-DARRAY_LENGTH_PADDING=ON"
     ++ optional enableSerialization "-DENABLE_SERIALISATION=ON"
-    ++ optional stdenv.is64bit "-DBZ_FULLY64BIT=ON";
+    ++ optional stdenv.is64bit "-DBZ_FULLY64BIT=ON"
+    ;
     # FIXME ++ optional doCheck "-DBUILD_TESTING=ON";
 
     # skip broken library name detection

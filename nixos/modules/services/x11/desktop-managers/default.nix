@@ -96,7 +96,8 @@ in
         apply = map (d:
           d // {
             manage = "desktop";
-            start = d.start
+            start =
+              d.start
               # literal newline to ensure d.start's last line is not appended to
               + optionalString (needBGCond d) ''
 
@@ -105,7 +106,8 @@ in
                     optionalString cfg.wallpaper.combineScreens "--no-xinerama"
                   } $HOME/.background-image
                 fi
-              '';
+              ''
+              ;
           });
       };
 

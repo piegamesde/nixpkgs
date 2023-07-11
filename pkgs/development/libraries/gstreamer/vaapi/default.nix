@@ -41,14 +41,16 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    bzip2
-    wayland
-  ] ++ lib.optionals enableDocumentation [ hotdoc ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      python3
+      bzip2
+      wayland
+    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ;
 
   buildInputs = [
     gstreamer

@@ -15,17 +15,19 @@ stdenv.mkDerivation rec {
     # Photoprism-packaged libtensorflow tarball (with pre-built libs for both arm64 and amd64)
     # We need this specific version because of https://github.com/photoprism/photoprism/issues/222
     (fetchurl {
-      sha256 = {
-        x86_64-linux = "sha256-bZAC3PJxqcjuGM4RcNtzYtkg3FD3SrO5beDsPoKenzc=";
-        aarch64-linux = "sha256-qnj4vhSWgrk8SIjzIH1/4waMxMsxMUvqdYZPaSaUJRk=";
-      }.${system};
+      sha256 =
+        {
+          x86_64-linux = "sha256-bZAC3PJxqcjuGM4RcNtzYtkg3FD3SrO5beDsPoKenzc=";
+          aarch64-linux = "sha256-qnj4vhSWgrk8SIjzIH1/4waMxMsxMUvqdYZPaSaUJRk=";
+        }.${system};
 
       url =
         let
-          systemName = {
-            x86_64-linux = "amd64";
-            aarch64-linux = "arm64";
-          }.${system};
+          systemName =
+            {
+              x86_64-linux = "amd64";
+              aarch64-linux = "arm64";
+            }.${system};
         in
         "https://dl.photoprism.app/tensorflow/${systemName}/libtensorflow-${systemName}-${version}.tar.gz"
         ;

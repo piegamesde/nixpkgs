@@ -41,19 +41,20 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [
-    libGLU
-    libGL
-    python3
-    # FIXME: these are not actually needed, but the configure script wants them.
-    glew
-    xorg.libX11
-    xorg.libXrandr
-    xorg.libXxf86vm
-    xorg.libXcursor
-    xorg.libXinerama
-    xorg.libXi
-  ] ++ lib.optional (openclSupport && !stdenv.isDarwin) ocl-icd
+  buildInputs =
+    [
+      libGLU
+      libGL
+      python3
+      # FIXME: these are not actually needed, but the configure script wants them.
+      glew
+      xorg.libX11
+      xorg.libXrandr
+      xorg.libXxf86vm
+      xorg.libXcursor
+      xorg.libXinerama
+      xorg.libXi
+    ] ++ lib.optional (openclSupport && !stdenv.isDarwin) ocl-icd
     ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       OpenCL
       Cocoa
@@ -61,20 +62,23 @@ stdenv.mkDerivation rec {
       IOKit
       AppKit
       AGL
-    ]) ++ lib.optional cudaSupport cudatoolkit;
+    ]) ++ lib.optional cudaSupport cudatoolkit
+    ;
 
-  cmakeFlags = [
-    "-DNO_TUTORIALS=1"
-    "-DNO_REGRESSION=1"
-    "-DNO_EXAMPLES=1"
-    "-DNO_METAL=1" # don’t have metal in apple sdk
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    "-DGLEW_INCLUDE_DIR=${glew.dev}/include"
-    "-DGLEW_LIBRARY=${glew.dev}/lib"
-  ] ++ lib.optionals cudaSupport [
-    "-DOSD_CUDA_NVCC_FLAGS=--gpu-architecture=${cudaArch}"
-    "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
-  ] ++ lib.optionals (!openclSupport) [ "-DNO_OPENCL=1" ];
+  cmakeFlags =
+    [
+      "-DNO_TUTORIALS=1"
+      "-DNO_REGRESSION=1"
+      "-DNO_EXAMPLES=1"
+      "-DNO_METAL=1" # don’t have metal in apple sdk
+    ] ++ lib.optionals (!stdenv.isDarwin) [
+      "-DGLEW_INCLUDE_DIR=${glew.dev}/include"
+      "-DGLEW_LIBRARY=${glew.dev}/lib"
+    ] ++ lib.optionals cudaSupport [
+      "-DOSD_CUDA_NVCC_FLAGS=--gpu-architecture=${cudaArch}"
+      "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
+    ] ++ lib.optionals (!openclSupport) [ "-DNO_OPENCL=1" ]
+    ;
 
   postInstall = "rm $out/lib/*.a";
 

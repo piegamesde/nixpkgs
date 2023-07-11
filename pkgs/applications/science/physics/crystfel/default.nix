@@ -58,8 +58,11 @@ let
       # libccp4 tries to read syminfo.lib by looking at an environment variable, which hinders reproducibility.
       # We hard-code this by providing a little patch and then passing the absolute path to syminfo.lib as a
       # preprocessor flag.
-    env.NIX_CFLAGS_COMPILE = ''
-      -DNIX_PROVIDED_SYMOP_FILE="${placeholder "out"}/share/ccp4/syminfo.lib"'';
+    env.NIX_CFLAGS_COMPILE =
+      ''
+        -DNIX_PROVIDED_SYMOP_FILE="${
+          placeholder "out"
+        }/share/ccp4/syminfo.lib"'';
 
     patches = [ ./libccp4-use-hardcoded-syminfo-lib.patch ];
 
@@ -84,14 +87,16 @@ let
       src =
         if stdenv.isDarwin then
           fetchurl {
-            url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
+            url =
+              "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
                 builtins.replaceStrings [ "." ] [ "" ] version
               }/pre-built/mosflm-osx-64-noX11.zip";
             sha256 = "1da5wimv3kl8bccp49j69vh8gi28cn7axg59lrmb38s68c618h7j";
           }
         else
           fetchurl {
-            url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
+            url =
+              "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
                 builtins.replaceStrings [ "." ] [ "" ] version
               }/pre-built/mosflm-linux-64-noX11.zip";
             sha256 = "1rqh3nprxfmnyihllw31nb8i3wfhybmsic6y7z6wn4rafyv3w4fk";
@@ -218,36 +223,40 @@ stdenv.mkDerivation rec {
     url = "https://www.desy.de/~twhite/${pname}/${pname}-${version}.tar.gz";
     sha256 = "sha256-nCO9ndDKS54bVN9IhFBiCVNzqk7BsCljXFrOmlx+sP4=";
   };
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-    flex
-    bison
-    doxygen
-    opencl-headers
-    makeWrapper
-  ] ++ lib.optionals withGui [ wrapGAppsHook ];
-  buildInputs = [
-    hdf5
-    gsl
-    ncurses
-    msgpack
-    fftw
-    fdip
-    zeromq
-    ocl-icd
-    libccp4
-    mosflm
-    pinkIndexer
-    xgandalf
-  ] ++ lib.optionals withGui [
-    gtk3
-    gdk-pixbuf
-  ] ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
+  nativeBuildInputs =
+    [
+      meson
+      pkg-config
+      ninja
+      flex
+      bison
+      doxygen
+      opencl-headers
+      makeWrapper
+    ] ++ lib.optionals withGui [ wrapGAppsHook ]
+    ;
+  buildInputs =
+    [
+      hdf5
+      gsl
+      ncurses
+      msgpack
+      fftw
+      fdip
+      zeromq
+      ocl-icd
+      libccp4
+      mosflm
+      pinkIndexer
+      xgandalf
+    ] ++ lib.optionals withGui [
+      gtk3
+      gdk-pixbuf
+    ] ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
     ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
       memorymappingHook
-    ] ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ];
+    ] ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ]
+    ;
 
   patches = [
     ./link-to-argp-standalone-if-needed.patch

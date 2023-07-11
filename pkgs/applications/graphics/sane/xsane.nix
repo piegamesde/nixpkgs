@@ -33,14 +33,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libpng
-    libusb-compat-0_1
-    sane-backends
-    sane-frontends
-    libX11
-    gtk2
-  ] ++ lib.optional gimpSupport gimp;
+  buildInputs =
+    [
+      libpng
+      libusb-compat-0_1
+      sane-backends
+      sane-frontends
+      libX11
+      gtk2
+    ] ++ lib.optional gimpSupport gimp
+    ;
 
   passthru.updateScript = nix-update-script { };
 

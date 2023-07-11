@@ -90,24 +90,26 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
     wafHook
   ];
-  buildInputs = [
-    libsamplerate
-    libsndfile
-    readline
-    eigen
-    celt
-    optDbus
-    optPythonDBus
-    optLibffado
-    optAlsaLib
-    optLibopus
-  ] ++ lib.optionals stdenv.isDarwin [
-    aften
-    AudioUnit
-    CoreAudio
-    Accelerate
-    libobjc
-  ];
+  buildInputs =
+    [
+      libsamplerate
+      libsndfile
+      readline
+      eigen
+      celt
+      optDbus
+      optPythonDBus
+      optLibffado
+      optAlsaLib
+      optLibopus
+    ] ++ lib.optionals stdenv.isDarwin [
+      aften
+      AudioUnit
+      CoreAudio
+      Accelerate
+      libobjc
+    ]
+    ;
 
   prePatch = ''
     substituteInPlace svnversion_regenerate.sh \
@@ -115,27 +117,30 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   dontAddWafCrossFlags = true;
-  wafConfigureFlags = [
-    "--classic"
-    "--autostart=${
-      if (optDbus != null) then
-        "dbus"
-      else
-        "classic"
-    }"
-  ] ++ lib.optional (optDbus != null) "--dbus"
+  wafConfigureFlags =
+    [
+      "--classic"
+      "--autostart=${
+        if (optDbus != null) then
+          "dbus"
+        else
+          "classic"
+      }"
+    ] ++ lib.optional (optDbus != null) "--dbus"
     ++ lib.optional (optLibffado != null) "--firewire"
-    ++ lib.optional (optAlsaLib != null) "--alsa";
+    ++ lib.optional (optAlsaLib != null) "--alsa"
+    ;
 
-  postInstall = (if libOnly then
-    ''
-      rm -rf $out/{bin,share}
-      rm -rf $out/lib/{jack,libjacknet*,libjackserver*}
-    ''
-  else
-    ''
-      wrapProgram $out/bin/jack_control --set PYTHONPATH $PYTHONPATH
-    '');
+  postInstall =
+    (if libOnly then
+      ''
+        rm -rf $out/{bin,share}
+        rm -rf $out/lib/{jack,libjacknet*,libjackserver*}
+      ''
+    else
+      ''
+        wrapProgram $out/bin/jack_control --set PYTHONPATH $PYTHONPATH
+      '');
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

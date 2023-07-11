@@ -59,25 +59,27 @@ buildPythonPackage rec {
     requests = [ requests ];
   };
 
-  nativeCheckInputs = [
-    aioresponses
-    flask
-    freezegun
-    grpcio
-    mock
-    oauth2client
-    pytest-asyncio
-    pytest-localserver
-    pytestCheckHook
-    responses
-    urllib3
-  ] ++ passthru.optional-dependencies.aiohttp
+  nativeCheckInputs =
+    [
+      aioresponses
+      flask
+      freezegun
+      grpcio
+      mock
+      oauth2client
+      pytest-asyncio
+      pytest-localserver
+      pytestCheckHook
+      responses
+      urllib3
+    ] ++ passthru.optional-dependencies.aiohttp
     # `cryptography` is still required on `aarch64-darwin` for `tests/crypt/*`
     ++ (if (stdenv.isDarwin && stdenv.isAarch64) then
       [ cryptography ]
     else
       passthru.optional-dependencies.enterprise_cert)
-    ++ passthru.optional-dependencies.reauth;
+    ++ passthru.optional-dependencies.reauth
+    ;
 
   pythonImportsCheck = [
     "google.auth"

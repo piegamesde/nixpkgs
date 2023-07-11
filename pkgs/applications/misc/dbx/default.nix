@@ -52,12 +52,14 @@ python3.pkgs.buildPythonApplication rec {
     gcp = [ google-cloud-storage ];
   };
 
-  nativeCheckInputs = [ git ] ++ (with python3.pkgs; [
-    pytest-asyncio
-    pytest-mock
-    pytest-timeout
-    pytestCheckHook
-  ]);
+  nativeCheckInputs =
+    [ git ] ++ (with python3.pkgs; [
+      pytest-asyncio
+      pytest-mock
+      pytest-timeout
+      pytestCheckHook
+    ])
+    ;
 
   preCheck = ''
     export HOME=$(mktemp -d)

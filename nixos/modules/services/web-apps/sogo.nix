@@ -207,7 +207,8 @@ in
 
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${pkgs.sogo}/bin/sogo-ealarms-notify${
+        ExecStart =
+          "${pkgs.sogo}/bin/sogo-ealarms-notify${
             optionalString (cfg.ealarmsCredFile != null)
             " -p ${cfg.ealarmsCredFile}"
           }";

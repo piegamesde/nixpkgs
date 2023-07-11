@@ -155,14 +155,18 @@ let
         processCfg.threads);
     in
     {
-      after = [
-        "network.target"
-        "mastodon-init-dirs.service"
-      ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      requires = [ "mastodon-init-dirs.service" ]
+      after =
+        [
+          "network.target"
+          "mastodon-init-dirs.service"
+        ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
+        ;
+      requires =
+        [ "mastodon-init-dirs.service" ]
         ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
+        ;
       description = "Mastodon sidekiq${jobClassLabel}";
       wantedBy = [ "mastodon.target" ];
       environment = env // {
@@ -655,8 +659,10 @@ in
           '';
         }
         {
-          assertion = !databaseActuallyCreateLocally
-            -> (cfg.database.host != "/run/postgresql");
+          assertion =
+            !databaseActuallyCreateLocally
+            -> (cfg.database.host != "/run/postgresql")
+            ;
           message = ''
             <option>services.mastodon.database.host</option> needs to be set if
               <option>services.mastodon.database.createLocally</option> is not enabled.
@@ -677,11 +683,14 @@ in
           '';
         }
         {
-          assertion = 1 == builtins.length (lib.mapAttrsToList (_: v:
-            builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
-            cfg.sidekiqProcesses);
-          message = ''
-            There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
+          assertion =
+            1 == builtins.length (lib.mapAttrsToList (_: v:
+              builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
+              cfg.sidekiqProcesses)
+            ;
+          message =
+            ''
+              There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
         }
       ];
 
@@ -694,36 +703,38 @@ in
       };
 
       systemd.services.mastodon-init-dirs = {
-        script = ''
-          umask 077
+        script =
+          ''
+            umask 077
 
-          if ! test -f ${cfg.secretKeyBaseFile}; then
-            mkdir -p $(dirname ${cfg.secretKeyBaseFile})
-            bin/rake secret > ${cfg.secretKeyBaseFile}
-          fi
-          if ! test -f ${cfg.otpSecretFile}; then
-            mkdir -p $(dirname ${cfg.otpSecretFile})
-            bin/rake secret > ${cfg.otpSecretFile}
-          fi
-          if ! test -f ${cfg.vapidPrivateKeyFile}; then
-            mkdir -p $(dirname ${cfg.vapidPrivateKeyFile}) $(dirname ${cfg.vapidPublicKeyFile})
-            keypair=$(bin/rake webpush:generate_keys)
-            echo $keypair | grep --only-matching "Private -> [^ ]\+" | sed 's/^Private -> //' > ${cfg.vapidPrivateKeyFile}
-            echo $keypair | grep --only-matching "Public -> [^ ]\+" | sed 's/^Public -> //' > ${cfg.vapidPublicKeyFile}
-          fi
+            if ! test -f ${cfg.secretKeyBaseFile}; then
+              mkdir -p $(dirname ${cfg.secretKeyBaseFile})
+              bin/rake secret > ${cfg.secretKeyBaseFile}
+            fi
+            if ! test -f ${cfg.otpSecretFile}; then
+              mkdir -p $(dirname ${cfg.otpSecretFile})
+              bin/rake secret > ${cfg.otpSecretFile}
+            fi
+            if ! test -f ${cfg.vapidPrivateKeyFile}; then
+              mkdir -p $(dirname ${cfg.vapidPrivateKeyFile}) $(dirname ${cfg.vapidPublicKeyFile})
+              keypair=$(bin/rake webpush:generate_keys)
+              echo $keypair | grep --only-matching "Private -> [^ ]\+" | sed 's/^Private -> //' > ${cfg.vapidPrivateKeyFile}
+              echo $keypair | grep --only-matching "Public -> [^ ]\+" | sed 's/^Public -> //' > ${cfg.vapidPublicKeyFile}
+            fi
 
-          cat > /var/lib/mastodon/.secrets_env <<EOF
-          SECRET_KEY_BASE="$(cat ${cfg.secretKeyBaseFile})"
-          OTP_SECRET="$(cat ${cfg.otpSecretFile})"
-          VAPID_PRIVATE_KEY="$(cat ${cfg.vapidPrivateKeyFile})"
-          VAPID_PUBLIC_KEY="$(cat ${cfg.vapidPublicKeyFile})"
-        '' + lib.optionalString (cfg.database.passwordFile != null) ''
-          DB_PASS="$(cat ${cfg.database.passwordFile})"
-        '' + lib.optionalString cfg.smtp.authenticate ''
-          SMTP_PASSWORD="$(cat ${cfg.smtp.passwordFile})"
-        '' + ''
-          EOF
-        '';
+            cat > /var/lib/mastodon/.secrets_env <<EOF
+            SECRET_KEY_BASE="$(cat ${cfg.secretKeyBaseFile})"
+            OTP_SECRET="$(cat ${cfg.otpSecretFile})"
+            VAPID_PRIVATE_KEY="$(cat ${cfg.vapidPrivateKeyFile})"
+            VAPID_PUBLIC_KEY="$(cat ${cfg.vapidPublicKeyFile})"
+          '' + lib.optionalString (cfg.database.passwordFile != null) ''
+            DB_PASS="$(cat ${cfg.database.passwordFile})"
+          '' + lib.optionalString cfg.smtp.authenticate ''
+            SMTP_PASSWORD="$(cat ${cfg.smtp.passwordFile})"
+          '' + ''
+            EOF
+          ''
+          ;
         environment = env;
         serviceConfig = {
           Type = "oneshot";
@@ -742,32 +753,34 @@ in
       };
 
       systemd.services.mastodon-init-db = lib.mkIf cfg.automaticMigrations {
-        script = lib.optionalString (!databaseActuallyCreateLocally) ''
-          umask 077
+        script =
+          lib.optionalString (!databaseActuallyCreateLocally) ''
+            umask 077
 
-          export PGPASSFILE
-          PGPASSFILE=$(mktemp)
-          cat > $PGPASSFILE <<EOF
-          ${cfg.database.host}:${
-            toString cfg.database.port
-          }:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
-          EOF
+            export PGPASSFILE
+            PGPASSFILE=$(mktemp)
+            cat > $PGPASSFILE <<EOF
+            ${cfg.database.host}:${
+              toString cfg.database.port
+            }:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
+            EOF
 
-        '' + ''
-          if [ `psql ${cfg.database.name} -c \
-                  "select count(*) from pg_class c \
-                  join pg_namespace s on s.oid = c.relnamespace \
-                  where s.nspname not in ('pg_catalog', 'pg_toast', 'information_schema') \
-                  and s.nspname not like 'pg_temp%';" | sed -n 3p` -eq 0 ]; then
-            SAFETY_ASSURED=1 rails db:schema:load
-            rails db:seed
-          else
-            rails db:migrate
-          fi
-        '' + lib.optionalString (!databaseActuallyCreateLocally) ''
-          rm $PGPASSFILE
-          unset PGPASSFILE
-        '';
+          '' + ''
+            if [ `psql ${cfg.database.name} -c \
+                    "select count(*) from pg_class c \
+                    join pg_namespace s on s.oid = c.relnamespace \
+                    where s.nspname not in ('pg_catalog', 'pg_toast', 'information_schema') \
+                    and s.nspname not like 'pg_temp%';" | sed -n 3p` -eq 0 ]; then
+              SAFETY_ASSURED=1 rails db:schema:load
+              rails db:seed
+            else
+              rails db:migrate
+            fi
+          '' + lib.optionalString (!databaseActuallyCreateLocally) ''
+            rm $PGPASSFILE
+            unset PGPASSFILE
+          ''
+          ;
         path = [
           cfg.package
           pkgs.postgresql
@@ -791,23 +804,31 @@ in
             "pipe2"
           ];
         } // cfgService;
-        after = [
-          "network.target"
-          "mastodon-init-dirs.service"
-        ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
-        requires = [ "mastodon-init-dirs.service" ]
-          ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
+        after =
+          [
+            "network.target"
+            "mastodon-init-dirs.service"
+          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ;
+        requires =
+          [ "mastodon-init-dirs.service" ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ;
       };
 
       systemd.services.mastodon-streaming = {
-        after = [
-          "network.target"
-          "mastodon-init-dirs.service"
-        ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-        requires = [ "mastodon-init-dirs.service" ]
+        after =
+          [
+            "network.target"
+            "mastodon-init-dirs.service"
+          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
+          ;
+        requires =
+          [ "mastodon-init-dirs.service" ]
           ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
+          ;
         wantedBy = [ "mastodon.target" ];
         description = "Mastodon streaming";
         environment = env // (if cfg.enableUnixSocket then
@@ -837,14 +858,18 @@ in
       };
 
       systemd.services.mastodon-web = {
-        after = [
-          "network.target"
-          "mastodon-init-dirs.service"
-        ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-        requires = [ "mastodon-init-dirs.service" ]
+        after =
+          [
+            "network.target"
+            "mastodon-init-dirs.service"
+          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
+          ;
+        requires =
+          [ "mastodon-init-dirs.service" ]
           ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
+          ;
         wantedBy = [ "mastodon.target" ];
         description = "Mastodon web";
         environment = env // (if cfg.enableUnixSocket then
@@ -911,18 +936,20 @@ in
           locations."/" = { tryFiles = "$uri @proxy"; };
 
           locations."@proxy" = {
-            proxyPass = (if cfg.enableUnixSocket then
-              "http://unix:/run/mastodon-web/web.socket"
-            else
-              "http://127.0.0.1:${toString (cfg.webPort)}");
+            proxyPass =
+              (if cfg.enableUnixSocket then
+                "http://unix:/run/mastodon-web/web.socket"
+              else
+                "http://127.0.0.1:${toString (cfg.webPort)}");
             proxyWebsockets = true;
           };
 
           locations."/api/v1/streaming/" = {
-            proxyPass = (if cfg.enableUnixSocket then
-              "http://unix:/run/mastodon-streaming/streaming.socket"
-            else
-              "http://127.0.0.1:${toString (cfg.streamingPort)}/");
+            proxyPass =
+              (if cfg.enableUnixSocket then
+                "http://unix:/run/mastodon-streaming/streaming.socket"
+              else
+                "http://127.0.0.1:${toString (cfg.streamingPort)}/");
             proxyWebsockets = true;
           };
         };

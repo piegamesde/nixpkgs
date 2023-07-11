@@ -34,10 +34,11 @@ buildPythonPackage rec {
     # xvfb-run python -m unittest tests.test_pyautogui
   '';
 
-  patches = [
-    # https://github.com/asweigart/pyautogui/issues/598
-    ./fix-locateOnWindow-and-xlib.patch
-  ];
+  patches =
+    [
+      # https://github.com/asweigart/pyautogui/issues/598
+      ./fix-locateOnWindow-and-xlib.patch
+    ];
 
   propagatedBuildInputs = [
     mouseinfo

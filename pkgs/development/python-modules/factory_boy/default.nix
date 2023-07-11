@@ -36,10 +36,11 @@ buildPythonPackage rec {
     # Checks for MongoDB requires an a running DB
   disabledTests = [ "MongoEngineTestCase" ];
 
-  disabledTestPaths = [
-    # incompatible with latest flask-sqlalchemy
-    "examples/flask_alchemy/test_demoapp.py"
-  ];
+  disabledTestPaths =
+    [
+      # incompatible with latest flask-sqlalchemy
+      "examples/flask_alchemy/test_demoapp.py"
+    ];
 
   pythonImportsCheck = [ "factory" ];
 

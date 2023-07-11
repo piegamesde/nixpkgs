@@ -34,11 +34,13 @@ stdenv.mkDerivation rec {
     python3
     wrapGAppsHook
   ];
-  buildInputs = [
-    SDL2
-    fontconfig
-    gtk3
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs =
+    [
+      SDL2
+      fontconfig
+      gtk3
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ;
 
   postPatch = ''
     substituteInPlace src/openboardview/CMakeLists.txt \
@@ -52,13 +54,15 @@ stdenv.mkDerivation rec {
   ];
 
   dontWrapGApps = true;
-  postFixup = lib.optionalString stdenv.isDarwin ''
-    mkdir -p "$out/Applications"
-    mv "$out/openboardview.app" "$out/Applications/OpenBoardView.app"
-  '' + lib.optionalString (!stdenv.isDarwin) ''
-    wrapGApp "$out/bin/${pname}" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk3 ]}
-  '';
+  postFixup =
+    lib.optionalString stdenv.isDarwin ''
+      mkdir -p "$out/Applications"
+      mv "$out/openboardview.app" "$out/Applications/OpenBoardView.app"
+    '' + lib.optionalString (!stdenv.isDarwin) ''
+      wrapGApp "$out/bin/${pname}" \
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk3 ]}
+    ''
+    ;
 
   passthru.updateScript = gitUpdater { ignoredVersions = ".*\\.90\\..*"; };
 

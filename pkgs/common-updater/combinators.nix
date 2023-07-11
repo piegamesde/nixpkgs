@@ -51,8 +51,10 @@ let
     arg:
     if builtins.isPath arg then
       {
-        args = args
-          ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ];
+        args =
+          args
+          ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ]
+          ;
         maxArgIndex = maxArgIndex + 1;
         paths = paths ++ [ arg ];
       }
@@ -146,11 +148,13 @@ rec {
     in
     let
       scripts = scriptsNormalized;
-      hasCommitSupport = lib.findSingle ({
-          supportedFeatures,
-          ...
-        }:
-        supportedFeatures == [ "commit" ]) null null scripts != null;
+      hasCommitSupport =
+        lib.findSingle ({
+            supportedFeatures,
+            ...
+          }:
+          supportedFeatures == [ "commit" ]) null null scripts != null
+        ;
       validateFeatures =
         if hasCommitSupport then
           ({

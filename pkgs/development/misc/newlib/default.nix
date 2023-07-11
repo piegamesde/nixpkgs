@@ -45,8 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
     # flags copied from https://community.arm.com/support-forums/f/compilers-and-libraries-forum/53310/gcc-arm-none-eabi-what-were-the-newlib-compilation-options
     # sort alphabetically
-  configureFlags = [ "--host=${stdenv.buildPlatform.config}" ]
-    ++ (if !nanoizeNewlib then
+  configureFlags =
+    [ "--host=${stdenv.buildPlatform.config}" ] ++ (if !nanoizeNewlib then
       [
         "--disable-newlib-supplied-syscalls"
         "--disable-nls"
@@ -71,7 +71,8 @@ stdenv.mkDerivation (finalAttrs: {
         "--enable-newlib-reent-check-verify"
         "--enable-newlib-reent-small"
         "--enable-newlib-retargetable-locking"
-      ]);
+      ])
+    ;
 
   dontDisableStatic = true;
 

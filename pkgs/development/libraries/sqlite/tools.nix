@@ -23,12 +23,14 @@ let
       version = "3.41.2";
 
         # nixpkgs-update: no auto update
-      src = assert version == sqlite.version;
+      src =
+        assert version == sqlite.version;
         fetchurl {
           url =
             "https://sqlite.org/2023/sqlite-src-${archiveVersion version}.zip";
           hash = "sha256-hxkfzsuLcH2aEO2xNgdoYxfXFpwIC5vcXTnQY1g3bMw=";
-        };
+        }
+        ;
 
       nativeBuildInputs = [ unzip ];
       buildInputs = [ tcl ] ++ lib.optional stdenv.isDarwin Foundation;

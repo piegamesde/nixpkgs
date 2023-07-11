@@ -42,34 +42,39 @@ stdenv.mkDerivation (finalAttrs: {
     ./003-fix-darwin-install.patch
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    which
-    wrapGAppsHook
-  ] ++ lib.optionals stdenv.isDarwin [ libicns ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      which
+      wrapGAppsHook
+    ] ++ lib.optionals stdenv.isDarwin [ libicns ]
+    ;
 
-  buildInputs = [
-    SDL2
-    libao
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    gtk3
-    gtksourceview3
-    libGL
-    libGLU
-    libX11
-    libXv
-    libpulseaudio
-    openal
-    udev
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    OpenAL
-  ];
+  buildInputs =
+    [
+      SDL2
+      libao
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      gtk3
+      gtksourceview3
+      libGL
+      libGLU
+      libX11
+      libXv
+      libpulseaudio
+      openal
+      udev
+    ] ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      OpenAL
+    ]
+    ;
 
   enableParallelBuilding = true;
 
-  makeFlags = lib.optionals stdenv.isLinux [ "hiro=gtk3" ]
+  makeFlags =
+    lib.optionals stdenv.isLinux [ "hiro=gtk3" ]
     ++ lib.optionals stdenv.isDarwin [
       "hiro=cocoa"
       "lto=false"
@@ -79,7 +84,8 @@ stdenv.mkDerivation (finalAttrs: {
       "openmp=true"
       "prefix=$(out)"
       "-C desktop-ui"
-    ];
+    ]
+    ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-mmacosx-version-min=10.14";

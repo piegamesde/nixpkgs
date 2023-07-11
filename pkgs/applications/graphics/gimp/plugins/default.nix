@@ -48,16 +48,20 @@ lib.makeScope pkgs.newScope (self:
         '';
       } // attrs // {
         name = "${gimp.pname}-plugin-${name}";
-        buildInputs = [
-          gimp
-          gimp.gtk
-          glib
-        ] ++ (attrs.buildInputs or [ ]);
+        buildInputs =
+          [
+            gimp
+            gimp.gtk
+            glib
+          ] ++ (attrs.buildInputs or [ ])
+          ;
 
-        nativeBuildInputs = [
-          pkg-config
-          intltool
-        ] ++ (attrs.nativeBuildInputs or [ ]);
+        nativeBuildInputs =
+          [
+            pkg-config
+            intltool
+          ] ++ (attrs.nativeBuildInputs or [ ])
+          ;
 
           # Override installation paths.
         env = {
@@ -103,15 +107,16 @@ lib.makeScope pkgs.newScope (self:
         hash = "sha256-IJ3+/9UwxJTRo0hUdzlOndOHwso1wGv7Q4UuhbsFkco=";
       };
 
-      patches = [
-        # Allow overriding installation path
-        # https://github.com/alessandrofrancesconi/gimp-plugin-bimp/pull/311
-        (fetchpatch {
-          url =
-            "https://github.com/alessandrofrancesconi/gimp-plugin-bimp/commit/098edb5f70a151a3f377478fd6e0d08ed56b8ef7.patch";
-          sha256 = "2Afx9fmdn6ztbsll2f2j7mfffMWYWyr4BuBy9ySV6vM=";
-        })
-      ];
+      patches =
+        [
+          # Allow overriding installation path
+          # https://github.com/alessandrofrancesconi/gimp-plugin-bimp/pull/311
+          (fetchpatch {
+            url =
+              "https://github.com/alessandrofrancesconi/gimp-plugin-bimp/commit/098edb5f70a151a3f377478fd6e0d08ed56b8ef7.patch";
+            sha256 = "2Afx9fmdn6ztbsll2f2j7mfffMWYWyr4BuBy9ySV6vM=";
+          })
+        ];
 
       nativeBuildInputs = with pkgs; [ which ];
 
@@ -299,16 +304,17 @@ lib.makeScope pkgs.newScope (self:
         rev = "v${version}";
         sha256 = "81ajdZ2zQi/THxnBlSeT36tVTEzrS1YqLGpHMhFTKAo=";
       };
-      patches = [
-        # Pull upstream fix for -fno-common toolchain support:
-        #   https://github.com/carlobaldassi/gimp-lqr-plugin/pull/6
-        (fetchpatch {
-          name = "fno-common.patch";
-          url =
-            "https://github.com/carlobaldassi/gimp-lqr-plugin/commit/ae3464a82e1395fc577cc94999bdc7c4a7bb35f1.patch";
-          sha256 = "EdjZWM6U1bhUmsOnLA8iJ4SFKuAXHIfNPzxZqel+JrY=";
-        })
-      ];
+      patches =
+        [
+          # Pull upstream fix for -fno-common toolchain support:
+          #   https://github.com/carlobaldassi/gimp-lqr-plugin/pull/6
+          (fetchpatch {
+            name = "fno-common.patch";
+            url =
+              "https://github.com/carlobaldassi/gimp-lqr-plugin/commit/ae3464a82e1395fc577cc94999bdc7c4a7bb35f1.patch";
+            sha256 = "EdjZWM6U1bhUmsOnLA8iJ4SFKuAXHIfNPzxZqel+JrY=";
+          })
+        ];
     };
 
     gmic = pkgs.gmic-qt.override { variant = "gimp"; };

@@ -430,10 +430,12 @@ assert buildPostproc -> buildAvutil;
 assert buildSwscale -> buildAvutil;
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "ffmpeg" + (if ffmpegVariant == "small" then
-    ""
-  else
-    "-${ffmpegVariant}");
+  pname =
+    "ffmpeg" + (if ffmpegVariant == "small" then
+      ""
+    else
+      "-${ffmpegVariant}")
+    ;
   inherit version;
 
   src = fetchgit {
@@ -442,18 +444,20 @@ stdenv.mkDerivation (finalAttrs: {
     inherit sha256;
   };
 
-  postPatch = ''
-    patchShebangs .
-  '' + lib.optionalString withFrei0r ''
-    substituteInPlace libavfilter/vf_frei0r.c \
-      --replace /usr/local/lib/frei0r-1 ${frei0r}/lib/frei0r-1
-    substituteInPlace doc/filters.texi \
-      --replace /usr/local/lib/frei0r-1 ${frei0r}/lib/frei0r-1
-  '' + lib.optionalString withVulkan ''
-    # FIXME: horrible hack, remove for next release
-    substituteInPlace libavutil/hwcontext_vulkan.c \
-      --replace VK_EXT_VIDEO_DECODE VK_KHR_VIDEO_DECODE
-  '';
+  postPatch =
+    ''
+      patchShebangs .
+    '' + lib.optionalString withFrei0r ''
+      substituteInPlace libavfilter/vf_frei0r.c \
+        --replace /usr/local/lib/frei0r-1 ${frei0r}/lib/frei0r-1
+      substituteInPlace doc/filters.texi \
+        --replace /usr/local/lib/frei0r-1 ${frei0r}/lib/frei0r-1
+    '' + lib.optionalString withVulkan ''
+      # FIXME: horrible hack, remove for next release
+      substituteInPlace libavutil/hwcontext_vulkan.c \
+        --replace VK_EXT_VIDEO_DECODE VK_KHR_VIDEO_DECODE
+    ''
+    ;
 
   patches = map (patch: fetchpatch patch) (extraPatches ++ (lib.optional
     (lib.versionAtLeast version "6"
@@ -466,73 +470,76 @@ stdenv.mkDerivation (finalAttrs: {
 
   configurePlatforms = [ ];
   setOutputFlags = false; # Only accepts some of them
-  configureFlags = [
-    #mingw64 is internally treated as mingw32, so 32 and 64 make no difference here
-    "--target_os=${
-      if stdenv.hostPlatform.isMinGW then
-        "mingw64"
-      else
-        stdenv.hostPlatform.parsed.kernel.name
-    }"
-    "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
-    "--pkg-config=${buildPackages.pkg-config.targetPrefix}pkg-config"
-    # *  Licensing flags
-    (enableFeature withGPL "gpl")
-    (enableFeature withGPLv3 "version3")
-    (enableFeature withUnfree "nonfree")
-    # *  Build flags
-    # On some ARM platforms --enable-thumb
-    "--enable-shared"
-    "--enable-pic"
+  configureFlags =
+    [
+      #mingw64 is internally treated as mingw32, so 32 and 64 make no difference here
+      "--target_os=${
+        if stdenv.hostPlatform.isMinGW then
+          "mingw64"
+        else
+          stdenv.hostPlatform.parsed.kernel.name
+      }"
+      "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
+      "--pkg-config=${buildPackages.pkg-config.targetPrefix}pkg-config"
+      # *  Licensing flags
+      (enableFeature withGPL "gpl")
+      (enableFeature withGPLv3 "version3")
+      (enableFeature withUnfree "nonfree")
+      # *  Build flags
+      # On some ARM platforms --enable-thumb
+      "--enable-shared"
+      "--enable-pic"
 
-    (enableFeature withSmallBuild "small")
-    (enableFeature withRuntimeCPUDetection "runtime-cpudetect")
-    (enableFeature withLTO "lto")
-    (enableFeature withGrayscale "gray")
-    (enableFeature withSwscaleAlpha "swscale-alpha")
-    (enableFeature withHardcodedTables "hardcoded-tables")
-    (enableFeature withSafeBitstreamReader "safe-bitstream-reader")
+      (enableFeature withSmallBuild "small")
+      (enableFeature withRuntimeCPUDetection "runtime-cpudetect")
+      (enableFeature withLTO "lto")
+      (enableFeature withGrayscale "gray")
+      (enableFeature withSwscaleAlpha "swscale-alpha")
+      (enableFeature withHardcodedTables "hardcoded-tables")
+      (enableFeature withSafeBitstreamReader "safe-bitstream-reader")
 
-    (enableFeature (withMultithread && stdenv.targetPlatform.isUnix) "pthreads")
-    (enableFeature (withMultithread && stdenv.targetPlatform.isWindows)
-      "w32threads")
-    "--disable-os2threads" # We don't support OS/2
+      (enableFeature (withMultithread && stdenv.targetPlatform.isUnix)
+        "pthreads")
+      (enableFeature (withMultithread && stdenv.targetPlatform.isWindows)
+        "w32threads")
+      "--disable-os2threads" # We don't support OS/2
 
-    (enableFeature withNetwork "network")
-    (enableFeature withPixelutils "pixelutils")
+      (enableFeature withNetwork "network")
+      (enableFeature withPixelutils "pixelutils")
 
-    "--datadir=${placeholder "data"}/share/ffmpeg"
+      "--datadir=${placeholder "data"}/share/ffmpeg"
 
-    # *  Program flags
-    (enableFeature buildFfmpeg "ffmpeg")
-    (enableFeature buildFfplay "ffplay")
-    (enableFeature buildFfprobe "ffprobe")
-  ] ++ optionals withBin [ "--bindir=${placeholder "bin"}/bin" ] ++ [
-    # *  Library flags
-    (enableFeature buildAvcodec "avcodec")
-    (enableFeature buildAvdevice "avdevice")
-    (enableFeature buildAvfilter "avfilter")
-    (enableFeature buildAvformat "avformat")
-  ] ++ optionals (lib.versionOlder version "5") [
-    # Ffmpeg > 4 doesn't know about the flag anymore
-    (enableFeature buildAvresample "avresample")
-  ] ++ [
-    (enableFeature buildAvutil "avutil")
-    (enableFeature (buildPostproc && withGPL) "postproc")
-    (enableFeature buildSwresample "swresample")
-    (enableFeature buildSwscale "swscale")
-  ] ++ optionals withLib [
-    "--libdir=${placeholder "lib"}/lib"
-    "--incdir=${placeholder "dev"}/include"
-  ] ++ [
-    # *  Documentation flags
-    (enableFeature withDocumentation "doc")
-    (enableFeature withHtmlDoc "htmlpages")
-    (enableFeature withManPages "manpages")
-  ] ++ optionals withManPages [ "--mandir=${placeholder "man"}/share/man" ] ++ [
-    (enableFeature withPodDoc "podpages")
-    (enableFeature withTxtDoc "txtpages")
-  ] ++ optionals withDoc [ "--docdir=${placeholder "doc"}/share/doc/ffmpeg" ]
+      # *  Program flags
+      (enableFeature buildFfmpeg "ffmpeg")
+      (enableFeature buildFfplay "ffplay")
+      (enableFeature buildFfprobe "ffprobe")
+    ] ++ optionals withBin [ "--bindir=${placeholder "bin"}/bin" ] ++ [
+      # *  Library flags
+      (enableFeature buildAvcodec "avcodec")
+      (enableFeature buildAvdevice "avdevice")
+      (enableFeature buildAvfilter "avfilter")
+      (enableFeature buildAvformat "avformat")
+    ] ++ optionals (lib.versionOlder version "5") [
+      # Ffmpeg > 4 doesn't know about the flag anymore
+      (enableFeature buildAvresample "avresample")
+    ] ++ [
+      (enableFeature buildAvutil "avutil")
+      (enableFeature (buildPostproc && withGPL) "postproc")
+      (enableFeature buildSwresample "swresample")
+      (enableFeature buildSwscale "swscale")
+    ] ++ optionals withLib [
+      "--libdir=${placeholder "lib"}/lib"
+      "--incdir=${placeholder "dev"}/include"
+    ] ++ [
+      # *  Documentation flags
+      (enableFeature withDocumentation "doc")
+      (enableFeature withHtmlDoc "htmlpages")
+      (enableFeature withManPages "manpages")
+    ] ++ optionals withManPages [ "--mandir=${placeholder "man"}/share/man" ]
+    ++ [
+      (enableFeature withPodDoc "podpages")
+      (enableFeature withTxtDoc "txtpages")
+    ] ++ optionals withDoc [ "--docdir=${placeholder "doc"}/share/doc/ffmpeg" ]
     ++ [
       # *  External libraries
       (enableFeature withAlsa "alsa")
@@ -626,7 +633,8 @@ stdenv.mkDerivation (finalAttrs: {
     ] ++ optionals stdenv.cc.isClang [
       "--cc=clang"
       "--cxx=clang++"
-    ];
+    ]
+    ;
 
     # ffmpeg embeds the configureFlags verbatim in its binaries and because we
     # configure binary, include, library dir etc., this causes references in
@@ -652,7 +660,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
     # TODO This was always in buildInputs before, why?
-  buildInputs = optionals withFullDeps [ libdc1394 ]
+  buildInputs =
+    optionals withFullDeps [ libdc1394 ]
     ++ optionals (withFullDeps && !stdenv.isDarwin) [
       libraw1394
     ] # TODO where does this belong to
@@ -726,12 +735,16 @@ stdenv.mkDerivation (finalAttrs: {
       MediaToolbox
       VideoDecodeAcceleration
       VideoToolbox
-    ];
+    ]
+    ;
 
-  buildFlags = [ "all" ] ++ optional buildQtFaststart "tools/qt-faststart"
+  buildFlags =
+    [ "all" ] ++ optional buildQtFaststart "tools/qt-faststart"
     ; # Build qt-faststart executable
 
-  doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
+  doCheck =
+    stdenv.hostPlatform == stdenv.buildPlatform
+    ;
 
     # Fails with SIGABRT otherwise FIXME: Why?
   checkPhase =
@@ -742,7 +755,8 @@ stdenv.mkDerivation (finalAttrs: {
         else
           "LD_LIBRARY_PATH"
         ;
-      libsToLink = [ ] ++ optional buildAvcodec "libavcodec"
+      libsToLink =
+        [ ] ++ optional buildAvcodec "libavcodec"
         ++ optional buildAvdevice "libavdevice"
         ++ optional buildAvfilter "libavfilter"
         ++ optional buildAvformat "libavformat"
@@ -750,7 +764,8 @@ stdenv.mkDerivation (finalAttrs: {
         ++ optional buildAvutil "libavutil"
         ++ optional buildPostproc "libpostproc"
         ++ optional buildSwresample "libswresample"
-        ++ optional buildSwscale "libswscale";
+        ++ optional buildSwscale "libswscale"
+        ;
     in
     ''
       ${ldLibraryPathEnv}="${
@@ -759,7 +774,8 @@ stdenv.mkDerivation (finalAttrs: {
     ''
     ;
 
-  outputs = optionals withBin [
+  outputs =
+    optionals withBin [
       "bin"
     ] # The first output is the one that gets symlinked by default!
     ++ optionals withLib [

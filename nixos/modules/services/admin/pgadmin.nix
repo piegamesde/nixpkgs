@@ -214,11 +214,13 @@ in
     users.groups.pgadmin = { };
 
     environment.etc."pgadmin/config_system.py" = {
-      text = lib.optionalString cfg.emailServer.enable ''
-        with open("${cfg.emailServer.passwordFile}") as f:
-          pw = f.read()
-        MAIL_PASSWORD = pw
-      '' + formatPy cfg.settings;
+      text =
+        lib.optionalString cfg.emailServer.enable ''
+          with open("${cfg.emailServer.passwordFile}") as f:
+            pw = f.read()
+          MAIL_PASSWORD = pw
+        '' + formatPy cfg.settings
+        ;
       mode = "0600";
       user = "pgadmin";
       group = "pgadmin";

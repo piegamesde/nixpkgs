@@ -305,8 +305,10 @@ in
     (mkIf cfg.enable {
 
       assertions = [ {
-        assertion = cfg.tokenjanitor.enable
-          -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned);
+        assertion =
+          cfg.tokenjanitor.enable
+          -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned)
+          ;
         message = ''
           privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
           are to be searched.
@@ -325,20 +327,21 @@ in
         path = [ penv ];
         serviceConfig = {
           CapabilityBoundingSet = [ "" ];
-          ExecStart = "${pkgs.writeShellScript "pi-token-janitor" ''
-            ${optionalString cfg.tokenjanitor.orphaned ''
-              echo >&2 "Removing orphaned tokens..."
-              privacyidea-token-janitor find \
-                --orphaned true \
-                --action ${cfg.tokenjanitor.action}
-            ''}
-            ${optionalString cfg.tokenjanitor.unassigned ''
-              echo >&2 "Removing unassigned tokens..."
-              privacyidea-token-janitor find \
-                --assigned false \
-                --action ${cfg.tokenjanitor.action}
-            ''}
-          ''}";
+          ExecStart =
+            "${pkgs.writeShellScript "pi-token-janitor" ''
+              ${optionalString cfg.tokenjanitor.orphaned ''
+                echo >&2 "Removing orphaned tokens..."
+                privacyidea-token-janitor find \
+                  --orphaned true \
+                  --action ${cfg.tokenjanitor.action}
+              ''}
+              ${optionalString cfg.tokenjanitor.unassigned ''
+                echo >&2 "Removing unassigned tokens..."
+                privacyidea-token-janitor find \
+                  --assigned false \
+                  --action ${cfg.tokenjanitor.action}
+              ''}
+            ''}";
           Group = cfg.group;
           LockPersonality = true;
           MemoryDenyWriteExecute = true;

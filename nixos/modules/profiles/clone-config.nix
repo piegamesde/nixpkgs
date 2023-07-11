@@ -46,9 +46,7 @@ let
   relocatedModuleFiles =
     let
       relocateNixOS =
-        path:
-        "<nixpkgs/nixos" + removePrefix nixosPath (toString path) + ">"
-        ;
+        path: "<nixpkgs/nixos" + removePrefix nixosPath (toString path) + ">";
     in
     {
       nixos = map relocateNixOS partitionedModuleFiles.nixos;

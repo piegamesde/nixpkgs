@@ -10,16 +10,18 @@ with lib;
 let
   cfg = config.services.getty;
 
-  baseArgs = [
-    "--login-program"
-    "${cfg.loginProgram}"
-  ] ++ optionals (cfg.autologinUser != null) [
-    "--autologin"
-    cfg.autologinUser
-  ] ++ optionals (cfg.loginOptions != null) [
-    "--login-options"
-    cfg.loginOptions
-  ] ++ cfg.extraArgs;
+  baseArgs =
+    [
+      "--login-program"
+      "${cfg.loginProgram}"
+    ] ++ optionals (cfg.autologinUser != null) [
+      "--autologin"
+      cfg.autologinUser
+    ] ++ optionals (cfg.loginOptions != null) [
+      "--login-options"
+      cfg.loginOptions
+    ] ++ cfg.extraArgs
+    ;
 
   gettyCmd =
     args:

@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   name = "${pname}${lib.optionalString withGnome "-gnome"}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sFXiY0m1FrI1hXmKs+9XtDawFIAOkqiscyz8jnbF2vo=";
@@ -47,18 +48,20 @@ stdenv.mkDerivation rec {
     file
   ];
 
-  buildInputs = [
-    openfortivpn
-    networkmanager
-    ppp
-    glib
-  ] ++ lib.optionals withGnome [
-    gtk3
-    gtk4
-    libsecret
-    libnma
-    libnma-gtk4
-  ];
+  buildInputs =
+    [
+      openfortivpn
+      networkmanager
+      ppp
+      glib
+    ] ++ lib.optionals withGnome [
+      gtk3
+      gtk4
+      libsecret
+      libnma
+      libnma-gtk4
+    ]
+    ;
 
   configureFlags = [
     "--with-gnome=${
@@ -77,11 +80,12 @@ stdenv.mkDerivation rec {
     "--enable-absolute-paths"
   ];
 
-  installFlags = [
-    # the installer only creates an empty directory in localstatedir, so
-    # we can drop it
-    "localstatedir=."
-  ];
+  installFlags =
+    [
+      # the installer only creates an empty directory in localstatedir, so
+      # we can drop it
+      "localstatedir=."
+    ];
 
   passthru = {
     updateScript = gnome.updateScript {

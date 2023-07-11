@@ -133,48 +133,50 @@ stdenv.mkDerivation (rec {
     pkg-config
     cmake
   ];
-  buildInputs = [
-    which
+  buildInputs =
+    [
+      which
 
-    # Xen
-    bison
-    bzip2
-    checkpolicy
-    dev86
-    figlet
-    flex
-    gettext
-    glib
-    acpica-tools
-    libaio
-    libiconv
-    libuuid
-    ncurses
-    openssl
-    perl
-    python3Packages.python
-    xz
-    yajl
-    zlib
+      # Xen
+      bison
+      bzip2
+      checkpolicy
+      dev86
+      figlet
+      flex
+      gettext
+      glib
+      acpica-tools
+      libaio
+      libiconv
+      libuuid
+      ncurses
+      openssl
+      perl
+      python3Packages.python
+      xz
+      yajl
+      zlib
 
-    # oxenstored
-    ocamlPackages.findlib
-    ocamlPackages.ocaml
-    systemd
+      # oxenstored
+      ocamlPackages.findlib
+      ocamlPackages.ocaml
+      systemd
 
-    # Python fixes
-    python3Packages.wrapPython
+      # Python fixes
+      python3Packages.wrapPython
 
-    # Documentation
-    python3Packages.markdown
-    fig2dev
-    ghostscript
-    texinfo
-    pandoc
+      # Documentation
+      python3Packages.markdown
+      fig2dev
+      ghostscript
+      texinfo
+      pandoc
 
-    # Others
-  ] ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
-    ++ (config.buildInputs or [ ]);
+      # Others
+    ] ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
+    ++ (config.buildInputs or [ ])
+    ;
 
   prePatch = ''
     ### Generic fixes
@@ -283,10 +285,12 @@ stdenv.mkDerivation (rec {
 
     # TODO: Flask needs more testing before enabling it by default.
     #makeFlags = [ "XSM_ENABLE=y" "FLASK_ENABLE=y" "PREFIX=$(out)" "CONFIG_DIR=/etc" "XEN_EXTFILES_URL=\\$(XEN_ROOT)/xen_ext_files" ];
-  makeFlags = [
-    "PREFIX=$(out) CONFIG_DIR=/etc"
-    "XEN_SCRIPT_DIR=/etc/xen/scripts"
-  ] ++ (config.makeFlags or [ ]);
+  makeFlags =
+    [
+      "PREFIX=$(out) CONFIG_DIR=/etc"
+      "XEN_SCRIPT_DIR=/etc/xen/scripts"
+    ] ++ (config.makeFlags or [ ])
+    ;
 
   preBuild = ''
     ${config.preBuild or ""}
@@ -331,32 +335,38 @@ stdenv.mkDerivation (rec {
     # TODO(@oxij): Stop referencing args here
   meta = {
     homepage = "http://www.xen.org/";
-    description = "Xen hypervisor and related components"
+    description =
+      "Xen hypervisor and related components"
       + optionalString (args ? meta && args.meta ? description)
-      " (${args.meta.description})";
-    longDescription = (args.meta.longDescription or "") + ''
+      " (${args.meta.description})"
+      ;
+    longDescription =
+      (args.meta.longDescription or "") + ''
 
-      Includes:
-    '' + withXenfiles
-      (name: x: "* ${name}: ${x.meta.description or "(No description)"}.");
+        Includes:
+      '' + withXenfiles
+      (name: x: "* ${name}: ${x.meta.description or "(No description)"}.")
+      ;
     platforms = [ "x86_64-linux" ];
     maintainers = [ ];
     license = lib.licenses.gpl2;
-    knownVulnerabilities = [
-      # https://www.openwall.com/lists/oss-security/2023/03/21/1
-      # Affects 3.2 (at *least*) - 4.17
-      "CVE-2022-42332"
-      # https://www.openwall.com/lists/oss-security/2023/03/21/2
-      # Affects 4.11 - 4.17
-      "CVE-2022-42333"
-      "CVE-2022-42334"
-      # https://www.openwall.com/lists/oss-security/2023/03/21/3
-      # Affects 4.15 - 4.17
-      "CVE-2022-42331"
-      # https://xenbits.xen.org/docs/unstable/support-matrix.html
-    ] ++ lib.optionals (lib.versionOlder version "4.15") [
+    knownVulnerabilities =
+      [
+        # https://www.openwall.com/lists/oss-security/2023/03/21/1
+        # Affects 3.2 (at *least*) - 4.17
+        "CVE-2022-42332"
+        # https://www.openwall.com/lists/oss-security/2023/03/21/2
+        # Affects 4.11 - 4.17
+        "CVE-2022-42333"
+        "CVE-2022-42334"
+        # https://www.openwall.com/lists/oss-security/2023/03/21/3
+        # Affects 4.15 - 4.17
+        "CVE-2022-42331"
+        # https://xenbits.xen.org/docs/unstable/support-matrix.html
+      ] ++ lib.optionals (lib.versionOlder version "4.15") [
         "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
-      ];
+      ]
+      ;
   } // (config.meta or { });
 } // removeAttrs config [
   "xenfiles"

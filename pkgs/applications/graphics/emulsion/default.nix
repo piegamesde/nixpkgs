@@ -23,18 +23,20 @@
   OpenGL,
 }:
 let
-  rpathLibs = [
-    libGL
-    libX11
-    libXcursor
-    libXi
-    libXrandr
-    libXxf86vm
-    libxcb
-  ] ++ lib.optionals stdenv.isLinux [
-    libxkbcommon
-    wayland
-  ];
+  rpathLibs =
+    [
+      libGL
+      libX11
+      libXcursor
+      libXi
+      libXrandr
+      libXxf86vm
+      libxcb
+    ] ++ lib.optionals stdenv.isLinux [
+      libxkbcommon
+      wayland
+    ]
+    ;
 in
 rustPlatform.buildRustPackage rec {
   pname = "emulsion";
@@ -56,13 +58,15 @@ rustPlatform.buildRustPackage rec {
     python3
   ];
 
-  buildInputs = rpathLibs ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    CoreGraphics
-    CoreServices
-    Foundation
-    OpenGL
-  ];
+  buildInputs =
+    rpathLibs ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      CoreGraphics
+      CoreServices
+      Foundation
+      OpenGL
+    ]
+    ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/emulsion

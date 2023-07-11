@@ -40,47 +40,49 @@ else
 
     patches = lib.optionals stdenv.isx86_64 [ ./python3.patch ];
 
-    postPatch = ''
-      substituteInPlace Makefile \
-        --replace "/bin/" "" \
-        --replace "MAKEJOBS := " '# MAKEJOBS := '
+    postPatch =
+      ''
+        substituteInPlace Makefile \
+          --replace "/bin/" "" \
+          --replace "MAKEJOBS := " '# MAKEJOBS := '
 
-      substituteInPlace makedefs/MakeInc.cmd \
-        --replace "/usr/bin/" "" \
-        --replace "/bin/" "" \
-        --replace "-Werror " ""
+        substituteInPlace makedefs/MakeInc.cmd \
+          --replace "/usr/bin/" "" \
+          --replace "/bin/" "" \
+          --replace "-Werror " ""
 
-      substituteInPlace makedefs/MakeInc.def \
-        --replace "-c -S -m" "-c -m"
+        substituteInPlace makedefs/MakeInc.def \
+          --replace "-c -S -m" "-c -m"
 
-      substituteInPlace makedefs/MakeInc.top \
-        --replace "MEMORY_SIZE := " 'MEMORY_SIZE := 1073741824 # '
+        substituteInPlace makedefs/MakeInc.top \
+          --replace "MEMORY_SIZE := " 'MEMORY_SIZE := 1073741824 # '
 
-      substituteInPlace libkern/kxld/Makefile \
-        --replace "-Werror " ""
+        substituteInPlace libkern/kxld/Makefile \
+          --replace "-Werror " ""
 
-      substituteInPlace SETUP/kextsymboltool/Makefile \
-        --replace "-lstdc++" "-lc++"
+        substituteInPlace SETUP/kextsymboltool/Makefile \
+          --replace "-lstdc++" "-lc++"
 
-      substituteInPlace libsyscall/xcodescripts/mach_install_mig.sh \
-        --replace "/usr/include" "/include" \
-        --replace "/usr/local/include" "/include" \
-        --replace 'MIG=`' "# " \
-        --replace 'MIGCC=`' "# " \
-        --replace " -o 0" "" \
-        --replace '$SRC/$mig' '-I$DSTROOT/include $SRC/$mig' \
-        --replace '$SRC/servers/netname.defs' '-I$DSTROOT/include $SRC/servers/netname.defs' \
-        --replace '$BUILT_PRODUCTS_DIR/mig_hdr' '$BUILT_PRODUCTS_DIR' \
-        --replace 'MACHINE_ARCH=armv7' 'MACHINE_ARCH=arm64' # this might break the comments saying 32-bit is required
+        substituteInPlace libsyscall/xcodescripts/mach_install_mig.sh \
+          --replace "/usr/include" "/include" \
+          --replace "/usr/local/include" "/include" \
+          --replace 'MIG=`' "# " \
+          --replace 'MIGCC=`' "# " \
+          --replace " -o 0" "" \
+          --replace '$SRC/$mig' '-I$DSTROOT/include $SRC/$mig' \
+          --replace '$SRC/servers/netname.defs' '-I$DSTROOT/include $SRC/servers/netname.defs' \
+          --replace '$BUILT_PRODUCTS_DIR/mig_hdr' '$BUILT_PRODUCTS_DIR' \
+          --replace 'MACHINE_ARCH=armv7' 'MACHINE_ARCH=arm64' # this might break the comments saying 32-bit is required
 
-      patchShebangs .
-    '' + lib.optionalString stdenv.isAarch64 ''
-      # iig is closed-sourced, we don't have it
-      # create an empty file to the header instead
-      # this line becomes: echo "" > $@; echo --header ...
-      substituteInPlace iokit/DriverKit/Makefile \
-        --replace '--def $<' '> $@; echo'
-    '';
+        patchShebangs .
+      '' + lib.optionalString stdenv.isAarch64 ''
+        # iig is closed-sourced, we don't have it
+        # create an empty file to the header instead
+        # this line becomes: echo "" > $@; echo --header ...
+        substituteInPlace iokit/DriverKit/Makefile \
+          --replace '--def $<' '> $@; echo'
+      ''
+      ;
 
     PLATFORM = "MacOSX";
     SDKVERSION = "10.11";
@@ -107,7 +109,8 @@ else
       let
         macosVersion =
           "10.0 10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 10.10 10.11"
-          + lib.optionalString stdenv.isAarch64 " 10.12 10.13 10.14 10.15 11.0";
+          + lib.optionalString stdenv.isAarch64 " 10.12 10.13 10.14 10.15 11.0"
+          ;
       in
       ''
         # This is a bit of a hack...

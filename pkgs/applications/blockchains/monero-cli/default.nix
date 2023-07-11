@@ -67,36 +67,40 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    boost
-    miniupnpc
-    openssl
-    unbound
-    zeromq
-    pcsclite
-    readline
-    libsodium
-    hidapi
-    randomx
-    rapidjson
-    protobuf
-  ] ++ lib.optionals stdenv.isDarwin [
-    IOKit
-    CoreData
-    PCSC
-  ] ++ lib.optionals trezorSupport [
-    libusb1
-    protobuf
-    python3
-  ];
+  buildInputs =
+    [
+      boost
+      miniupnpc
+      openssl
+      unbound
+      zeromq
+      pcsclite
+      readline
+      libsodium
+      hidapi
+      randomx
+      rapidjson
+      protobuf
+    ] ++ lib.optionals stdenv.isDarwin [
+      IOKit
+      CoreData
+      PCSC
+    ] ++ lib.optionals trezorSupport [
+      libusb1
+      protobuf
+      python3
+    ]
+    ;
 
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=Release"
-    "-DUSE_DEVICE_TREZOR=ON"
-    "-DBUILD_GUI_DEPS=ON"
-    "-DReadline_ROOT_DIR=${readline.dev}"
-    "-DRandomX_ROOT_DIR=${randomx}"
-  ] ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF";
+  cmakeFlags =
+    [
+      "-DCMAKE_BUILD_TYPE=Release"
+      "-DUSE_DEVICE_TREZOR=ON"
+      "-DBUILD_GUI_DEPS=ON"
+      "-DReadline_ROOT_DIR=${readline.dev}"
+      "-DRandomX_ROOT_DIR=${randomx}"
+    ] ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
+    ;
 
   outputs = [
     "out"

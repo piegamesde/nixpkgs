@@ -28,25 +28,28 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "5YJ5pv8gtvZPpJlhXaXptXz2W6eFC3L6/fFyIanW1p4=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-    vala
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_43
-    (python3.pythonForBuild.withPackages (ps: [ ps.pygobject3 ]))
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gobject-introspection
+      vala
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_43
+      (python3.pythonForBuild.withPackages (ps: [ ps.pygobject3 ]))
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ];
+    ]
+    ;
 
   buildInputs = [ glib ];
 

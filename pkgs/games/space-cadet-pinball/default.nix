@@ -31,24 +31,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LmYplJr1Mg4yNg9eP02FXf9mL1FnzNBhpted3GpmlQ0=";
   };
 
-  patches = [
-    # remove when updating past 2.0.1
-    (fetchpatch {
-      name = "fix-install-directories";
-      url =
-        "https://github.com/k4zmu2a/SpaceCadetPinball/commit/d8ee1b9bfeee21d3981a40e735411393392bc1f6.patch";
-      sha256 = "sha256-BtCDJ+a9AFaOM8nyId0eU9GN/gUQT2kFCO4RIVTzZlE=";
-    })
-  ];
+  patches =
+    [
+      # remove when updating past 2.0.1
+      (fetchpatch {
+        name = "fix-install-directories";
+        url =
+          "https://github.com/k4zmu2a/SpaceCadetPinball/commit/d8ee1b9bfeee21d3981a40e735411393392bc1f6.patch";
+        sha256 = "sha256-BtCDJ+a9AFaOM8nyId0eU9GN/gUQT2kFCO4RIVTzZlE=";
+      })
+    ];
 
   nativeBuildInputs = [
     cmake
     makeWrapper
   ];
-  buildInputs = [
-    SDL2
-    SDL2_mixer
-  ] ++ lib.optional stdenv.isDarwin Cocoa;
+  buildInputs =
+    [
+      SDL2
+      SDL2_mixer
+    ] ++ lib.optional stdenv.isDarwin Cocoa
+    ;
 
     # Darwin needs a custom installphase since it is excluded from the cmake install
     # https://github.com/k4zmu2a/SpaceCadetPinball/blob/0f88e43ba261bc21fa5c3ef9d44969a2a079d0de/CMakeLists.txt#L221

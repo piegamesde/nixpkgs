@@ -214,9 +214,7 @@ in
     assertions =
       let
         invalidOverlay =
-          o:
-          (o.dtsFile == null) && (o.dtsText == null) && (o.dtboFile == null)
-          ;
+          o: (o.dtsFile == null) && (o.dtsText == null) && (o.dtboFile == null);
       in
       lib.singleton {
         assertion = lib.all (o: !invalidOverlay o) cfg.overlays;

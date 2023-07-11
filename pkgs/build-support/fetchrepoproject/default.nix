@@ -35,13 +35,15 @@ let
     (optionalString (manifestName != "") "--manifest-name=${manifestName}")
   ];
 
-  repoInitFlags = [
-    "--manifest-url=${manifest}"
-    "--manifest-branch=${rev}"
-    "--depth=1"
-    (optionalString createMirror "--mirror")
-    (optionalString useArchive "--archive")
-  ] ++ extraRepoInitFlags;
+  repoInitFlags =
+    [
+      "--manifest-url=${manifest}"
+      "--manifest-branch=${rev}"
+      "--depth=1"
+      (optionalString createMirror "--mirror")
+      (optionalString useArchive "--archive")
+    ] ++ extraRepoInitFlags
+    ;
 
   local_manifests = copyPathsToStore localManifests;
 
@@ -58,10 +60,12 @@ stdenvNoCC.mkDerivation {
   preferLocalBuild = true;
   enableParallelBuilding = true;
 
-  impureEnvVars = fetchers.proxyImpureEnvVars ++ [
-    "GIT_PROXY_COMMAND"
-    "SOCKS_SERVER"
-  ];
+  impureEnvVars =
+    fetchers.proxyImpureEnvVars ++ [
+      "GIT_PROXY_COMMAND"
+      "SOCKS_SERVER"
+    ]
+    ;
 
   nativeBuildInputs = [
     gitRepo

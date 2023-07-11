@@ -63,33 +63,37 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeBuildInputs = [
-    attrdict
-    pkg-config
-    setuptools
-    SDL
-    sip
-    which
-    wxGTK
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs =
+    [
+      attrdict
+      pkg-config
+      setuptools
+      SDL
+      sip
+      which
+      wxGTK
+    ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+    ;
 
-  buildInputs = [
-    wxGTK
-    SDL
-  ] ++ lib.optionals stdenv.isLinux [
-    gst_all_1.gst-plugins-base
-    gst_all_1.gstreamer
-    libGL
-    libGLU
-    libSM
-    libXinerama
-    libXtst
-    libXxf86vm
-    libglvnd
-    mesa
-    webkitgtk
-    xorgproto
-  ];
+  buildInputs =
+    [
+      wxGTK
+      SDL
+    ] ++ lib.optionals stdenv.isLinux [
+      gst_all_1.gst-plugins-base
+      gst_all_1.gstreamer
+      libGL
+      libGLU
+      libSM
+      libXinerama
+      libXtst
+      libXxf86vm
+      libglvnd
+      mesa
+      webkitgtk
+      xorgproto
+    ]
+    ;
 
   propagatedBuildInputs = [
     numpy

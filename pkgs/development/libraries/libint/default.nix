@@ -173,15 +173,17 @@ let
       done
     '';
 
-    nativeBuildInputs = [
-      autoconf
-      automake
-      libtool
-      mpfr
-      python3
-      perl
-      gmpxx
-    ] ++ lib.optional enableFortran gfortran;
+    nativeBuildInputs =
+      [
+        autoconf
+        automake
+        libtool
+        mpfr
+        python3
+        perl
+        gmpxx
+      ] ++ lib.optional enableFortran gfortran
+      ;
 
     buildInputs = [
       boost
@@ -247,10 +249,12 @@ let
 
     src = "${codeGen}/${pname}-${version}.tgz";
 
-    nativeBuildInputs = [
-      python3
-      cmake
-    ] ++ lib.optional enableFortran gfortran;
+    nativeBuildInputs =
+      [
+        python3
+        cmake
+      ] ++ lib.optional enableFortran gfortran
+      ;
 
     buildInputs = [
       boost
@@ -260,10 +264,12 @@ let
       # Default is just "double", but SSE2 is available on all x86_64 CPUs.
       # AVX support is advertised, but does not work in 2.6 (possibly in 2.7).
       # Fortran interface is incompatible with changing the LIBINT2_REALTYPE.
-    cmakeFlags = [ "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}" ]
+    cmakeFlags =
+      [ "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}" ]
       ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON"
       ++ lib.optional enableSSE
-      "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble";
+      "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble"
+      ;
 
       # Can only build in the source-tree. A lot of preprocessing magic fails otherwise.
     dontUseCmakeBuildDir = true;

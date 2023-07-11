@@ -412,8 +412,10 @@ in
     systemd.services.libvirtd = {
       wantedBy = [ "multi-user.target" ];
       requires = [ "libvirtd-config.service" ];
-      after = [ "libvirtd-config.service" ]
-        ++ optional vswitch.enable "ovs-vswitchd.service";
+      after =
+        [ "libvirtd-config.service" ]
+        ++ optional vswitch.enable "ovs-vswitchd.service"
+        ;
 
       environment.LIBVIRTD_ARGS = escapeShellArgs ([
         "--config"
@@ -425,7 +427,8 @@ in
       path =
         [ cfg.qemu.package ] # libvirtd requires qemu-img to manage disk images
         ++ optional vswitch.enable vswitch.package
-        ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package;
+        ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package
+        ;
 
       serviceConfig = {
         Type = "notify";

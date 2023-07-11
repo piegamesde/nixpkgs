@@ -50,22 +50,24 @@ stdenvNoCC.mkDerivation {
     # `find` 2 times for every font, anyone is free to do this
     # in a more efficient way.
   fonts = map (font: builtins.replaceStrings [ " " ] [ "" ] font) fonts;
-  installPhase = ''
-    adobeBlankDest=$adobeBlank/share/fonts/truetype
-    install -m 444 -Dt $adobeBlankDest ofl/adobeblank/AdobeBlank-Regular.ttf
-    rm -r ofl/adobeblank
-    dest=$out/share/fonts/truetype
-  '' + (if fonts == [ ] then
+  installPhase =
     ''
-      find . -name '*.ttf' -exec install -m 444 -Dt $dest '{}' +
-    ''
-  else
-    ''
-      for font in $fonts; do
-        find . -name "$font-*.ttf" -exec install -m 444 -Dt $dest '{}' +
-        find . -name "$font[*.ttf" -exec install -m 444 -Dt $dest '{}' +
-      done
-    '');
+      adobeBlankDest=$adobeBlank/share/fonts/truetype
+      install -m 444 -Dt $adobeBlankDest ofl/adobeblank/AdobeBlank-Regular.ttf
+      rm -r ofl/adobeblank
+      dest=$out/share/fonts/truetype
+    '' + (if fonts == [ ] then
+      ''
+        find . -name '*.ttf' -exec install -m 444 -Dt $dest '{}' +
+      ''
+    else
+      ''
+        for font in $fonts; do
+          find . -name "$font-*.ttf" -exec install -m 444 -Dt $dest '{}' +
+          find . -name "$font[*.ttf" -exec install -m 444 -Dt $dest '{}' +
+        done
+      '')
+    ;
 
   meta = with lib; {
     homepage = "https://fonts.google.com";

@@ -32,20 +32,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lJtV/0GnWN5mSjv2LaPEMnkuThaNeijBMjLGFPOJX4k=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ]
+    ;
 
-  buildInputs = [
-    fftw
-    fmt_8
-    libsndfile
-    rtmidi
-    SDL2
-    zlib
-  ] ++ lib.optionals withJACK [ libjack2 ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ];
+  buildInputs =
+    [
+      fftw
+      fmt_8
+      libsndfile
+      rtmidi
+      SDL2
+      zlib
+    ] ++ lib.optionals withJACK [ libjack2 ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
+    ;
 
   cmakeFlags = [
     "-DBUILD_GUI=${

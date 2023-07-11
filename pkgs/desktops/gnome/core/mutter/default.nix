@@ -77,7 +77,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/mutter/${
+    url =
+      "mirror://gnome/sources/mutter/${
         lib.versions.major finalAttrs.version
       }/mutter-${finalAttrs.version}.tar.xz";
     sha256 = "lzrq+rQvBvk0oJlPyEh4lYzbTSdmpMhnpczcVH3VcFY=";
@@ -118,54 +119,56 @@ stdenv.mkDerivation (finalAttrs: {
     xorgserver
   ];
 
-  buildInputs = [
-    cairo
-    egl-wayland
-    glib
-    gnome-desktop
-    gnome-settings-daemon
-    gobject-introspection
-    gsettings-desktop-schemas
-    atk
-    fribidi
-    harfbuzz
-    libcanberra
-    libdrm
-    libgudev
-    libinput
-    libstartup_notification
-    libwacom
-    libSM
-    colord
-    lcms2
-    pango
-    pipewire
-    sysprof # for D-Bus interfaces
-    libsysprof-capture
-    xwayland
-    wayland
-    wayland-protocols
-  ] ++ [
-    # X11 client
-    gtk4
-    libICE
-    libX11
-    libXcomposite
-    libXcursor
-    libXdamage
-    libXext
-    libXfixes
-    libXi
-    libXtst
-    libxkbfile
-    xkeyboard_config
-    libxkbcommon
-    libXrender
-    libxcb
-    libXrandr
-    libXinerama
-    libXau
-  ];
+  buildInputs =
+    [
+      cairo
+      egl-wayland
+      glib
+      gnome-desktop
+      gnome-settings-daemon
+      gobject-introspection
+      gsettings-desktop-schemas
+      atk
+      fribidi
+      harfbuzz
+      libcanberra
+      libdrm
+      libgudev
+      libinput
+      libstartup_notification
+      libwacom
+      libSM
+      colord
+      lcms2
+      pango
+      pipewire
+      sysprof # for D-Bus interfaces
+      libsysprof-capture
+      xwayland
+      wayland
+      wayland-protocols
+    ] ++ [
+      # X11 client
+      gtk4
+      libICE
+      libX11
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libXtst
+      libxkbfile
+      xkeyboard_config
+      libxkbcommon
+      libXrender
+      libxcb
+      libXrandr
+      libXinerama
+      libXau
+    ]
+    ;
 
   postPatch = ''
     patchShebangs src/backends/native/gen-default-modes.py

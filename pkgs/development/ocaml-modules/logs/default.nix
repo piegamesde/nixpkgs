@@ -38,16 +38,19 @@ else
       ocamlbuild
       topkg
     ];
-    buildInputs = [
-      cmdliner
-      lwt
-      topkg
-    ] ++ lib.optional fmtSupport fmt ++ lib.optional jsooSupport js_of_ocaml;
+    buildInputs =
+      [
+        cmdliner
+        lwt
+        topkg
+      ] ++ lib.optional fmtSupport fmt ++ lib.optional jsooSupport js_of_ocaml
+      ;
     propagatedBuildInputs = [ result ];
 
     strictDeps = true;
 
-    buildPhase = "${topkg.run} build --with-js_of_ocaml ${
+    buildPhase =
+      "${topkg.run} build --with-js_of_ocaml ${
         lib.boolToString jsooSupport
       } --with-fmt ${lib.boolToString fmtSupport}";
 

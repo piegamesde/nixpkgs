@@ -11,8 +11,9 @@
 }:
 
 let
-  hashes = (import ./hashes.nix).${engineVersion} or (throw
-    "There are no known artifact hashes for Flutter engine version ${engineVersion}.");
+  hashes =
+    (import ./hashes.nix).${engineVersion} or (throw
+      "There are no known artifact hashes for Flutter engine version ${engineVersion}.");
 
   artifacts = {
     common = {
@@ -103,7 +104,8 @@ let
         lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}" archive;
     in
     stdenv.mkDerivation ({
-      pname = "flutter-artifact${
+      pname =
+        "flutter-artifact${
           lib.optionalString (platform != null) "-${artifactDirectory}"
         }-${archiveBasename}";
       version = engineVersion;
@@ -114,10 +116,11 @@ let
             lib.optionalString (platform != null) "/${artifactDirectory}"
           }/${archive}";
         stripRoot = false;
-        hash = (if artifactDirectory == null then
-          hashes
-        else
-          hashes.${artifactDirectory}).${archive};
+        hash =
+          (if artifactDirectory == null then
+            hashes
+          else
+            hashes.${artifactDirectory}).${archive};
       };
 
       nativeBuildInputs = [ autoPatchelfHook ];

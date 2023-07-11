@@ -34,15 +34,17 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    libgit2
-    oniguruma
-    xorg.libxcb
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    Security
-    zlib
-  ];
+  buildInputs =
+    [
+      libgit2
+      oniguruma
+      xorg.libxcb
+    ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      Security
+      zlib
+    ]
+    ;
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 
@@ -87,7 +89,8 @@ rustPlatform.buildRustPackage rec {
       # it is impure.
       wrapProgram $out/bin/broot \
         --set BR_INSTALL no
-    '';
+    ''
+    ;
 
   doInstallCheck = true;
   installCheckPhase = ''

@@ -13,26 +13,29 @@ let
 
   cfg = config.networking.resolvconf;
 
-  resolvconfOptions = cfg.extraOptions
-    ++ optional cfg.dnsSingleRequest "single-request"
-    ++ optional cfg.dnsExtensionMechanism "edns0";
+  resolvconfOptions =
+    cfg.extraOptions ++ optional cfg.dnsSingleRequest "single-request"
+    ++ optional cfg.dnsExtensionMechanism "edns0"
+    ;
 
-  configText = ''
-    # This is the default, but we must set it here to prevent
-    # a collision with an apparently unrelated environment
-    # variable with the same name exported by dhcpcd.
-    interface_order='lo lo[0-9]*'
-  '' + optionalString config.services.nscd.enable ''
-    # Invalidate the nscd cache whenever resolv.conf is
-    # regenerated.
-    libc_restart='/run/current-system/systemd/bin/systemctl try-restart --no-block nscd.service 2> /dev/null'
-  '' + optionalString (length resolvconfOptions > 0) ''
-    # Options as described in resolv.conf(5)
-    resolv_conf_options='${concatStringsSep " " resolvconfOptions}'
-  '' + optionalString cfg.useLocalResolver ''
-    # This hosts runs a full-blown DNS resolver.
-    name_servers='127.0.0.1'
-  '' + cfg.extraConfig;
+  configText =
+    ''
+      # This is the default, but we must set it here to prevent
+      # a collision with an apparently unrelated environment
+      # variable with the same name exported by dhcpcd.
+      interface_order='lo lo[0-9]*'
+    '' + optionalString config.services.nscd.enable ''
+      # Invalidate the nscd cache whenever resolv.conf is
+      # regenerated.
+      libc_restart='/run/current-system/systemd/bin/systemctl try-restart --no-block nscd.service 2> /dev/null'
+    '' + optionalString (length resolvconfOptions > 0) ''
+      # Options as described in resolv.conf(5)
+      resolv_conf_options='${concatStringsSep " " resolvconfOptions}'
+    '' + optionalString cfg.useLocalResolver ''
+      # This hosts runs a full-blown DNS resolver.
+      name_servers='127.0.0.1'
+    '' + cfg.extraConfig
+    ;
 
 in
 {

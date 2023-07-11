@@ -15,16 +15,18 @@
     drv:
     drv.overrideAttrs (orig: {
       builder = buildPackages.bash;
-      args = [
-        (substituteAll {
-          coreutils = buildPackages.coreutils;
-          src = ./expect-failure.sh;
-        })
-        orig.realBuilder or stdenv.shell
-      ] ++ orig.args or [
-        "-e"
-        (orig.builder or ../../stdenv/generic/default-builder.sh)
-      ];
+      args =
+        [
+          (substituteAll {
+            coreutils = buildPackages.coreutils;
+            src = ./expect-failure.sh;
+          })
+          orig.realBuilder or stdenv.shell
+        ] ++ orig.args or [
+          "-e"
+          (orig.builder or ../../stdenv/generic/default-builder.sh)
+        ]
+        ;
     })
     ;
 
@@ -136,18 +138,19 @@
     let
       # The nixos/lib/testing-python.nix module, preapplied with arguments that
       # make sense for this evaluation of Nixpkgs.
-      nixosTesting = (import ../../../nixos/lib/testing-python.nix {
-        inherit (stdenv.hostPlatform) system;
-        inherit pkgs;
-        extraConfigurations = [
-            ({
-                lib,
-                ...
-              }: {
-                config.nixpkgs.pkgs = lib.mkDefault pkgs;
-              })
-          ];
-      });
+      nixosTesting =
+        (import ../../../nixos/lib/testing-python.nix {
+          inherit (stdenv.hostPlatform) system;
+          inherit pkgs;
+          extraConfigurations = [
+              ({
+                  lib,
+                  ...
+                }: {
+                  config.nixpkgs.pkgs = lib.mkDefault pkgs;
+                })
+            ];
+        });
     in
     test:
     let

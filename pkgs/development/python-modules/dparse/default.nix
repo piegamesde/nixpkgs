@@ -31,10 +31,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "dparse" ];
 
-  disabledTests = [
-    # requires unpackaged dependency pipenv
-    "test_update_pipfile"
-  ];
+  disabledTests =
+    [
+      # requires unpackaged dependency pipenv
+      "test_update_pipfile"
+    ];
 
   meta = with lib; {
     description = "A parser for Python dependency files";

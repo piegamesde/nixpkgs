@@ -68,26 +68,27 @@ let
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  patches = [ # https://gcc.gnu.org/ml/gcc-patches/2018-02/msg00633.html
-    ./riscv-pthread-reentrant.patch
-    # https://gcc.gnu.org/ml/gcc-patches/2018-03/msg00297.html
-    ./riscv-no-relax.patch
-    # Fix for asan w/glibc-2.34. Although there's no upstream backport to v7,
-    # the patch from gcc 8 seems to work perfectly fine.
-    ./gcc8-asan-glibc-2.34.patch
+  patches =
+    [ # https://gcc.gnu.org/ml/gcc-patches/2018-02/msg00633.html
+      ./riscv-pthread-reentrant.patch
+      # https://gcc.gnu.org/ml/gcc-patches/2018-03/msg00297.html
+      ./riscv-no-relax.patch
+      # Fix for asan w/glibc-2.34. Although there's no upstream backport to v7,
+      # the patch from gcc 8 seems to work perfectly fine.
+      ./gcc8-asan-glibc-2.34.patch
 
-    ./0001-Fix-build-for-glibc-2.31.patch
+      ./0001-Fix-build-for-glibc-2.31.patch
 
-    # Fix https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80431
-    (fetchurl {
-      name = "fix-bug-80431.patch";
-      url =
-        "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
-      sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
-    })
+      # Fix https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80431
+      (fetchurl {
+        name = "fix-bug-80431.patch";
+        url =
+          "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
+        sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
+      })
 
-    ../9/fix-struct-redefinition-on-glibc-2.36.patch
-  ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
+      ../9/fix-struct-redefinition-on-glibc-2.36.patch
+    ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optionals targetPlatform.isNetBSD [ ../libstdc++-netbsd-ctypes.patch ]
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional (hostPlatform != buildPlatform)
@@ -111,7 +112,8 @@ let
     (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
     ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
-    ++ [ ../libsanitizer-no-cyclades-9.patch ];
+    ++ [ ../libsanitizer-no-cyclades-9.patch ]
+    ;
 
     # Cross-gcc settings (build == host != target)
   crossMingw =
@@ -196,11 +198,13 @@ stdenv.mkDerivation ({
 
   inherit patches;
 
-  outputs = [
-    "out"
-    "man"
-    "info"
-  ] ++ lib.optional (!langJit) "lib";
+  outputs =
+    [
+      "out"
+      "man"
+      "info"
+    ] ++ lib.optional (!langJit) "lib"
+    ;
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
 
@@ -211,12 +215,13 @@ stdenv.mkDerivation ({
     "pie"
   ];
 
-  postPatch = ''
-    configureScripts=$(find . -name configure)
-    for configureScript in $configureScripts; do
-      patchShebangs $configureScript
-    done
-  ''
+  postPatch =
+    ''
+      configureScripts=$(find . -name configure)
+      for configureScript in $configureScripts; do
+        patchShebangs $configureScript
+      done
+    ''
     # This should kill all the stdinc frameworks that gcc and friends like to
     # insert into default search paths.
     + lib.optionalString hostPlatform.isDarwin ''
@@ -257,7 +262,8 @@ stdenv.mkDerivation ({
         makeFlagsArray+=(
            'LIMITS_H_TEST=false'
         )
-      '';
+      ''
+    ;
 
   inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
 
@@ -283,9 +289,11 @@ stdenv.mkDerivation ({
     "target"
   ];
 
-  configureFlags = (callFile ../common/configure-flags.nix { })
+  configureFlags =
+    (callFile ../common/configure-flags.nix { })
     ++ optional (targetPlatform.isAarch64) "--enable-fix-cortex-a53-843419"
-    ++ optional targetPlatform.isNetBSD "--disable-libcilkrts";
+    ++ optional targetPlatform.isNetBSD "--disable-libcilkrts"
+    ;
 
   targetConfig =
     if targetPlatform != hostPlatform then

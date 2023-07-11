@@ -66,20 +66,22 @@ ocamlPackages.buildDunePackage rec {
     cppo
   ];
 
-  buildInputs = [
-    camlpdf
-    otfm
-    yojson-with-position
-  ] ++ (with ocamlPackages; [
-    menhirLib
-    batteries
-    camlimages
-    core_kernel
-    ppx_deriving
-    uutf
-    omd
-    re
-  ]);
+  buildInputs =
+    [
+      camlpdf
+      otfm
+      yojson-with-position
+    ] ++ (with ocamlPackages; [
+      menhirLib
+      batteries
+      camlimages
+      core_kernel
+      ppx_deriving
+      uutf
+      omd
+      re
+    ])
+    ;
 
   postInstall = ''
     mkdir -p $out/share/satysfi/dist/fonts

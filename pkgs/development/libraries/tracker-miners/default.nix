@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
   version = "3.5.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "F5ZmA9xDKphSa0kFhqSKzX+fWZNfeJXfxRcppGppAaM=";
@@ -71,59 +72,63 @@ stdenv.mkDerivation rec {
   ];
 
     # TODO: add libenca, libosinfo
-  buildInputs = [
-    bzip2
-    dbus
-    exempi
-    giflib
-    glib
-    gexiv2
-    totem-pl-parser
-    tracker
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gst-plugins-ugly
-    gst_all_1.gstreamer
-    gst_all_1.gst-libav
-    icu
-    json-glib
-    libcue
-    libexif
-    libgsf
-    libgxps
-    libiptcdata
-    libjpeg
-    libosinfo
-    libpng
-    libtiff
-    libuuid
-    libxml2
-    poppler
-    taglib
-  ] ++ lib.optionals stdenv.isLinux [
-    libseccomp
-    networkmanager
-    systemd
-    upower
-  ] ++ lib.optionals stdenv.isDarwin [
-    0.0
-    fsprogs
-  ];
+  buildInputs =
+    [
+      bzip2
+      dbus
+      exempi
+      giflib
+      glib
+      gexiv2
+      totem-pl-parser
+      tracker
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-plugins-ugly
+      gst_all_1.gstreamer
+      gst_all_1.gst-libav
+      icu
+      json-glib
+      libcue
+      libexif
+      libgsf
+      libgxps
+      libiptcdata
+      libjpeg
+      libosinfo
+      libpng
+      libtiff
+      libuuid
+      libxml2
+      poppler
+      taglib
+    ] ++ lib.optionals stdenv.isLinux [
+      libseccomp
+      networkmanager
+      systemd
+      upower
+    ] ++ lib.optionals stdenv.isDarwin [
+      0.0
+      fsprogs
+    ]
+    ;
 
-  mesonFlags = [
-    # TODO: tests do not like our sandbox
-    "-Dfunctional_tests=false"
+  mesonFlags =
+    [
+      # TODO: tests do not like our sandbox
+      "-Dfunctional_tests=false"
 
-    # libgrss is unmaintained and has no new releases since 2015, and an open
-    # security issue since then. Despite a patch now being availab, we're opting
-    # to be safe due to the general state of the project
-    "-Dminer_rss=false"
-  ] ++ lib.optionals (!stdenv.isLinux) [
-    "-Dbattery_detection=none"
-    "-Dnetwork_manager=disabled"
-    "-Dsystemd_user_services=false"
-  ];
+      # libgrss is unmaintained and has no new releases since 2015, and an open
+      # security issue since then. Despite a patch now being availab, we're opting
+      # to be safe due to the general state of the project
+      "-Dminer_rss=false"
+    ] ++ lib.optionals (!stdenv.isLinux) [
+      "-Dbattery_detection=none"
+      "-Dnetwork_manager=disabled"
+      "-Dsystemd_user_services=false"
+    ]
+    ;
 
   postInstall = ''
     glib-compile-schemas "$out/share/glib-2.0/schemas"

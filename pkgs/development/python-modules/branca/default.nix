@@ -41,10 +41,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "branca" ];
 
-  disabledTestPaths = [
-    # Some tests require a browser
-    "tests/test_utilities.py"
-  ];
+  disabledTestPaths =
+    [
+      # Some tests require a browser
+      "tests/test_utilities.py"
+    ];
 
   disabledTests = [
     "test_rendering_utf8_iframe"

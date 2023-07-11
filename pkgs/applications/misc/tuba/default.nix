@@ -43,24 +43,26 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    glib
-    glib-networking
-    gtksourceview5
-    json-glib
-    libxml2
-    libgee
-    libsoup_3
-    gtk4
-    libadwaita
-    libsecret
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-libav
-    gst-plugins-base
-    (gst-plugins-good.override { gtkSupport = true; })
-    gst-plugins-bad
-  ]);
+  buildInputs =
+    [
+      glib
+      glib-networking
+      gtksourceview5
+      json-glib
+      libxml2
+      libgee
+      libsoup_3
+      gtk4
+      libadwaita
+      libsecret
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-libav
+      gst-plugins-base
+      (gst-plugins-good.override { gtkSupport = true; })
+      gst-plugins-bad
+    ])
+    ;
 
   passthru = { updateScript = nix-update-script { attrPath = "tuba"; }; };
 

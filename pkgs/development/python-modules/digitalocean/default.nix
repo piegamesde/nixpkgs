@@ -29,11 +29,13 @@ buildPythonPackage rec {
 
   dontUseSetuptoolsCheck = true;
 
-  nativeCheckInputs = [
-    pytest
-    pytestCheckHook
-    responses
-  ] ++ lib.optionals (!isPy3k) [ mock ];
+  nativeCheckInputs =
+    [
+      pytest
+      pytestCheckHook
+      responses
+    ] ++ lib.optionals (!isPy3k) [ mock ]
+    ;
 
   preCheck = ''
     cd digitalocean

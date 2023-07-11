@@ -31,11 +31,12 @@ let
     hash = "sha256-xWm21guI+h0bKd/rEyxVMyxypCitLWEbVy7TaVBKh4o=";
   };
 
-  netfilter-go-modules = (buildGoModule {
-    inherit pname version src;
-    modRoot = "linux/netfilter";
-    vendorHash = "sha256-Cmo0wnl0z5r1paaEf1MhCPbInWeoMhGjnxCxGh0cyO8=";
-  }).go-modules;
+  netfilter-go-modules =
+    (buildGoModule {
+      inherit pname version src;
+      modRoot = "linux/netfilter";
+      vendorHash = "sha256-Cmo0wnl0z5r1paaEf1MhCPbInWeoMhGjnxCxGh0cyO8=";
+    }).go-modules;
 
   extensionBridgeDeps = rustPlatform.fetchCargoTarball {
     inherit src;

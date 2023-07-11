@@ -68,16 +68,18 @@ stdenv.mkDerivation rec {
 
   checkPhase = "ant test";
 
-  installPhase = ''
-    install -Dm644 dist/mkgmap.jar -t $out/share/java/mkgmap
-    install -Dm644 dist/doc/mkgmap.1 -t $out/share/man/man1
-    cp -r dist/lib/ $out/share/java/mkgmap/
-    makeWrapper ${jre}/bin/java $out/bin/mkgmap \
-      --add-flags "-jar $out/share/java/mkgmap/mkgmap.jar"
-  '' + lib.optionalString withExamples ''
-    mkdir -p $out/share/mkgmap
-    cp -r dist/examples $out/share/mkgmap/
-  '';
+  installPhase =
+    ''
+      install -Dm644 dist/mkgmap.jar -t $out/share/java/mkgmap
+      install -Dm644 dist/doc/mkgmap.1 -t $out/share/man/man1
+      cp -r dist/lib/ $out/share/java/mkgmap/
+      makeWrapper ${jre}/bin/java $out/bin/mkgmap \
+        --add-flags "-jar $out/share/java/mkgmap/mkgmap.jar"
+    '' + lib.optionalString withExamples ''
+      mkdir -p $out/share/mkgmap
+      cp -r dist/examples $out/share/mkgmap/
+    ''
+    ;
 
   passthru.updateScript = [
     ./update.sh

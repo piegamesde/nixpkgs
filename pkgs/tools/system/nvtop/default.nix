@@ -59,10 +59,12 @@ stdenv.mkDerivation rec {
     ++ optional (!amd) "-DAMDGPU_SUPPORT=OFF"
     ++ optional (!nvidia) "-DNVIDIA_SUPPORT=OFF"
     ++ optional amd "-DLibdrm_INCLUDE_DIRS=${libdrm}/lib/stubs/libdrm.so.2";
-  nativeBuildInputs = [
-    cmake
-    gtest
-  ] ++ lib.optional nvidia addOpenGLRunpath;
+  nativeBuildInputs =
+    [
+      cmake
+      gtest
+    ] ++ lib.optional nvidia addOpenGLRunpath
+    ;
   buildInputs = with lib;
     [
       ncurses
@@ -70,8 +72,10 @@ stdenv.mkDerivation rec {
     ] ++ optional nvidia cudatoolkit ++ optional amd libdrm;
 
     # ordering of fixups is important
-  postFixup = (lib.optionalString amd amd-postFixup)
-    + (lib.optionalString nvidia nvidia-postFixup);
+  postFixup =
+    (lib.optionalString amd amd-postFixup)
+    + (lib.optionalString nvidia nvidia-postFixup)
+    ;
 
   doCheck = true;
 

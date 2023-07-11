@@ -285,8 +285,10 @@ let
       '';
     }
     {
-      assertion = (cfg.defaultServername != null)
-        -> (hasAttr cfg.defaultServername cfg.servers);
+      assertion =
+        (cfg.defaultServername != null)
+        -> (hasAttr cfg.defaultServername cfg.servers)
+        ;
       message = "TSM defaultServername not found in list of servers";
     }
   ];

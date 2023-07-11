@@ -48,52 +48,58 @@ stdenv.mkDerivation rec {
     sha256 = "0b4i00chvx6zj9pcb06x2jysmrcb2znn831lcy32cgfds6gr3nsi";
   });
 
-  buildInputs = [
-    ncurses
-    which
-    perl
-  ] ++ lib.optional headerCache gdbm ++ lib.optional sslSupport openssl
+  buildInputs =
+    [
+      ncurses
+      which
+      perl
+    ] ++ lib.optional headerCache gdbm ++ lib.optional sslSupport openssl
     ++ lib.optional gssSupport libkrb5 ++ lib.optional saslSupport cyrus_sasl
-    ++ lib.optional gpgmeSupport gpgme;
+    ++ lib.optional gpgmeSupport gpgme
+    ;
 
-  configureFlags = [
-    (lib.enableFeature headerCache "hcache")
-    (lib.enableFeature gpgmeSupport "gpgme")
-    (lib.enableFeature imapSupport "imap")
-    (lib.enableFeature smtpSupport "smtp")
-    (lib.enableFeature pop3Support "pop")
-    (lib.enableFeature withSidebar "sidebar")
-    "--with-mailpath="
+  configureFlags =
+    [
+      (lib.enableFeature headerCache "hcache")
+      (lib.enableFeature gpgmeSupport "gpgme")
+      (lib.enableFeature imapSupport "imap")
+      (lib.enableFeature smtpSupport "smtp")
+      (lib.enableFeature pop3Support "pop")
+      (lib.enableFeature withSidebar "sidebar")
+      "--with-mailpath="
 
-    # Look in $PATH at runtime, instead of hardcoding /usr/bin/sendmail
-    "ac_cv_path_SENDMAIL=sendmail"
+      # Look in $PATH at runtime, instead of hardcoding /usr/bin/sendmail
+      "ac_cv_path_SENDMAIL=sendmail"
 
-    # This allows calls with "-d N", that output debug info into ~/.muttdebug*
-    "--enable-debug"
+      # This allows calls with "-d N", that output debug info into ~/.muttdebug*
+      "--enable-debug"
 
-    # The next allows building mutt without having anything setgid
-    # set by the installer, and removing the need for the group 'mail'
-    # I set the value 'mailbox' because it is a default in the configure script
-    "--with-homespool=mailbox"
-  ] ++ lib.optional sslSupport "--with-ssl"
+      # The next allows building mutt without having anything setgid
+      # set by the installer, and removing the need for the group 'mail'
+      # I set the value 'mailbox' because it is a default in the configure script
+      "--with-homespool=mailbox"
+    ] ++ lib.optional sslSupport "--with-ssl"
     ++ lib.optional gssSupport "--with-gss"
-    ++ lib.optional saslSupport "--with-sasl";
+    ++ lib.optional saslSupport "--with-sasl"
+    ;
 
   postPatch = lib.optionalString (smimeSupport || gpgmeSupport) ''
     sed -i 's#/usr/bin/openssl#${openssl}/bin/openssl#' smime_keys.pl
   '';
 
-  postInstall = lib.optionalString smimeSupport ''
-    # S/MIME setup
-    cp contrib/smime.rc $out/etc/smime.rc
-    sed -i 's#openssl#${openssl}/bin/openssl#' $out/etc/smime.rc
-    echo "source $out/etc/smime.rc" >> $out/etc/Muttrc
-  '' + lib.optionalString gpgSupport ''
-    # GnuPG setup
-    cp contrib/gpg.rc $out/etc/gpg.rc
-    sed -i 's#\(command="\)gpg #\1${gnupg}/bin/gpg #' $out/etc/gpg.rc
-    echo "source $out/etc/gpg.rc" >> $out/etc/Muttrc
-  '';
+  postInstall =
+    lib.optionalString smimeSupport ''
+      # S/MIME setup
+      cp contrib/smime.rc $out/etc/smime.rc
+      sed -i 's#openssl#${openssl}/bin/openssl#' $out/etc/smime.rc
+      echo "source $out/etc/smime.rc" >> $out/etc/Muttrc
+    '' + lib.optionalString gpgSupport ''
+      # GnuPG setup
+      cp contrib/gpg.rc $out/etc/gpg.rc
+      sed -i 's#\(command="\)gpg #\1${gnupg}/bin/gpg #' $out/etc/gpg.rc
+      echo "source $out/etc/gpg.rc" >> $out/etc/Muttrc
+    ''
+    ;
 
   passthru = {
     updateScript = writeScript "update-mutt" ''

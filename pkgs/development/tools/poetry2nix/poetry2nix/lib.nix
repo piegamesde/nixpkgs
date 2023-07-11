@@ -60,9 +60,11 @@ let
         "," = cond1: cond2: cond1 && cond2; # , means &&
         "&&" = cond1: cond2: cond1 && cond2;
       };
-      splitRe = "(" + (builtins.concatStringsSep "|"
-        (builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x)
-          (lib.attrNames operators))) + ")";
+      splitRe =
+        "(" + (builtins.concatStringsSep "|"
+          (builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x)
+            (lib.attrNames operators))) + ")"
+        ;
     in
     expr:
     let
@@ -97,18 +99,19 @@ let
     else
       (builtins.foldl' combine initial tokens).state
     ;
-  fromTOML = builtins.fromTOML or (toml:
-    builtins.fromJSON (builtins.readFile (pkgs.runCommand "from-toml" {
-      inherit toml;
-      allowSubstitutes = false;
-      preferLocalBuild = true;
-    } ''
-      ${pkgs.remarshal}/bin/remarshal \
-        -if toml \
-        -i <(echo "$toml") \
-        -of json \
-        -o $out
-    '')));
+  fromTOML =
+    builtins.fromTOML or (toml:
+      builtins.fromJSON (builtins.readFile (pkgs.runCommand "from-toml" {
+        inherit toml;
+        allowSubstitutes = false;
+        preferLocalBuild = true;
+      } ''
+        ${pkgs.remarshal}/bin/remarshal \
+          -if toml \
+          -i <(echo "$toml") \
+          -of json \
+          -o $out
+      '')));
   readTOML =
     path:
     fromTOML (builtins.readFile path)
@@ -219,11 +222,12 @@ let
       hash,
     }:
     let
-      pathParts = (builtins.filter ({
-          prefix,
-          path,
-        }:
-        "NETRC" == prefix) builtins.nixPath);
+      pathParts =
+        (builtins.filter ({
+            prefix,
+            path,
+          }:
+          "NETRC" == prefix) builtins.nixPath);
       netrc_file =
         if (pathParts != [ ]) then
           (builtins.head pathParts).path

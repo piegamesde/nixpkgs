@@ -90,30 +90,32 @@ in
     stname = "syncthing";
     target = "syncthing";
 
-    postInstall = ''
-      # This installs man pages in the correct directory according to the suffix
-      # on the filename
-      for mf in man/*.[1-9]; do
-        mantype="$(echo "$mf" | awk -F"." '{print $NF}')"
-        mandir="$out/share/man/man$mantype"
-        install -Dm644 "$mf" "$mandir/$(basename "$mf")"
-      done
+    postInstall =
+      ''
+        # This installs man pages in the correct directory according to the suffix
+        # on the filename
+        for mf in man/*.[1-9]; do
+          mantype="$(echo "$mf" | awk -F"." '{print $NF}')"
+          mandir="$out/share/man/man$mantype"
+          install -Dm644 "$mf" "$mandir/$(basename "$mf")"
+        done
 
-    '' + lib.optionalString (stdenv.isLinux) ''
-      mkdir -p $out/lib/systemd/{system,user}
+      '' + lib.optionalString (stdenv.isLinux) ''
+        mkdir -p $out/lib/systemd/{system,user}
 
-      substitute etc/linux-systemd/system/syncthing-resume.service \
-                 $out/lib/systemd/system/syncthing-resume.service \
-                 --replace /usr/bin/pkill ${procps}/bin/pkill
+        substitute etc/linux-systemd/system/syncthing-resume.service \
+                   $out/lib/systemd/system/syncthing-resume.service \
+                   --replace /usr/bin/pkill ${procps}/bin/pkill
 
-      substitute etc/linux-systemd/system/syncthing@.service \
-                 $out/lib/systemd/system/syncthing@.service \
-                 --replace /usr/bin/syncthing $out/bin/syncthing
+        substitute etc/linux-systemd/system/syncthing@.service \
+                   $out/lib/systemd/system/syncthing@.service \
+                   --replace /usr/bin/syncthing $out/bin/syncthing
 
-      substitute etc/linux-systemd/user/syncthing.service \
-                 $out/lib/systemd/user/syncthing.service \
-                 --replace /usr/bin/syncthing $out/bin/syncthing
-    '';
+        substitute etc/linux-systemd/user/syncthing.service \
+                   $out/lib/systemd/user/syncthing.service \
+                   --replace /usr/bin/syncthing $out/bin/syncthing
+      ''
+      ;
   };
 
   syncthing-discovery = common {

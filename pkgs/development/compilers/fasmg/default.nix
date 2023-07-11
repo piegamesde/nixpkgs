@@ -18,24 +18,25 @@ stdenv.mkDerivation rec {
     let
       inherit (stdenv.hostPlatform) system;
 
-      path = {
-        x86_64-linux = {
-          bin = "fasmg.x64";
-          asm = "source/linux/x64/fasmg.asm";
-        };
-        x86_64-darwin = {
-          bin = "source/macos/x64/fasmg";
-          asm = "source/macos/x64/fasmg.asm";
-        };
-        x86-linux = {
-          bin = "fasmg";
-          asm = "source/linux/fasmg.asm";
-        };
-        x86-darwin = {
-          bin = "source/macos/fasmg";
-          asm = "source/macos/fasmg.asm";
-        };
-      }.${system} or (throw "Unsopported system: ${system}");
+      path =
+        {
+          x86_64-linux = {
+            bin = "fasmg.x64";
+            asm = "source/linux/x64/fasmg.asm";
+          };
+          x86_64-darwin = {
+            bin = "source/macos/x64/fasmg";
+            asm = "source/macos/x64/fasmg.asm";
+          };
+          x86-linux = {
+            bin = "fasmg";
+            asm = "source/linux/fasmg.asm";
+          };
+          x86-darwin = {
+            bin = "source/macos/fasmg";
+            asm = "source/macos/fasmg.asm";
+          };
+        }.${system} or (throw "Unsopported system: ${system}");
 
     in
     ''

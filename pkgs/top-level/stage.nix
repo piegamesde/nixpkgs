@@ -73,20 +73,21 @@ let
     # uncommented in a separate PR, in case it breaks the build.
     #(x: lib.trivial.pipe x [ (x: builtins.removeAttrs x [ "_type" ]) lib.systems.parse.mkSystem ])
     (parsed // {
-      abi = {
-        gnu = lib.systems.parse.abis.musl;
-        gnueabi = lib.systems.parse.abis.musleabi;
-        gnueabihf = lib.systems.parse.abis.musleabihf;
-        gnuabin32 = lib.systems.parse.abis.muslabin32;
-        gnuabi64 = lib.systems.parse.abis.muslabi64;
-        gnuabielfv2 = lib.systems.parse.abis.musl;
-        gnuabielfv1 = lib.systems.parse.abis.musl;
-          # The following two entries ensure that this function is idempotent.
-        musleabi = lib.systems.parse.abis.musleabi;
-        musleabihf = lib.systems.parse.abis.musleabihf;
-        muslabin32 = lib.systems.parse.abis.muslabin32;
-        muslabi64 = lib.systems.parse.abis.muslabi64;
-      }.${parsed.abi.name} or lib.systems.parse.abis.musl;
+      abi =
+        {
+          gnu = lib.systems.parse.abis.musl;
+          gnueabi = lib.systems.parse.abis.musleabi;
+          gnueabihf = lib.systems.parse.abis.musleabihf;
+          gnuabin32 = lib.systems.parse.abis.muslabin32;
+          gnuabi64 = lib.systems.parse.abis.muslabi64;
+          gnuabielfv2 = lib.systems.parse.abis.musl;
+          gnuabielfv1 = lib.systems.parse.abis.musl;
+            # The following two entries ensure that this function is idempotent.
+          musleabi = lib.systems.parse.abis.musleabi;
+          musleabihf = lib.systems.parse.abis.musleabihf;
+          muslabin32 = lib.systems.parse.abis.muslabin32;
+          muslabi64 = lib.systems.parse.abis.muslabi64;
+        }.${parsed.abi.name} or lib.systems.parse.abis.musl;
     })
     ;
 
@@ -209,7 +210,9 @@ let
         lib.systems.examples;
 
       pkgsLLVM = nixpkgsFun {
-        overlays = [ (self': super': { pkgsLLVM = super'; }) ] ++ overlays;
+        overlays =
+          [ (self': super': { pkgsLLVM = super'; }) ] ++ overlays
+          ;
           # Bootstrap a cross stdenv using the LLVM toolchain.
           # This is currently not possible when compiling natively,
           # so we don't need to check hostPlatform != buildPlatform.

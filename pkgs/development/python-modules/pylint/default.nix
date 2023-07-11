@@ -37,15 +37,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    astroid
-    dill
-    isort
-    mccabe
-    platformdirs
-    tomlkit
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
+  propagatedBuildInputs =
+    [
+      astroid
+      dill
+      isort
+      mccabe
+      platformdirs
+      tomlkit
+    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ]
+    ;
 
   nativeCheckInputs = [
     gitpython
@@ -80,24 +82,26 @@ buildPythonPackage rec {
     "tests/pyreverse/test_writer.py"
   ];
 
-  disabledTests = [
-    # AssertionError when self executing and checking output
-    # expected output looks like it should match though
-    "test_invocation_of_pylint_config"
-    "test_generate_rcfile"
-    "test_generate_toml_config"
-    "test_help_msg"
-    "test_output_of_callback_options"
-    # Failed: DID NOT WARN. No warnings of type (<class 'UserWarning'>,) were emitted. The list of emitted warnings is: [].
-    "test_save_and_load_not_a_linter_stats"
-    # Truncated string expectation mismatch
-    "test_truncated_compare"
-    # AssertionError: assert [('specializa..., 'Ancestor')] == [('aggregatio..., 'Ancestor')]
-    "test_functional_relation_extraction"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_parallel_execution"
-    "test_py3k_jobs_option"
-  ];
+  disabledTests =
+    [
+      # AssertionError when self executing and checking output
+      # expected output looks like it should match though
+      "test_invocation_of_pylint_config"
+      "test_generate_rcfile"
+      "test_generate_toml_config"
+      "test_help_msg"
+      "test_output_of_callback_options"
+      # Failed: DID NOT WARN. No warnings of type (<class 'UserWarning'>,) were emitted. The list of emitted warnings is: [].
+      "test_save_and_load_not_a_linter_stats"
+      # Truncated string expectation mismatch
+      "test_truncated_compare"
+      # AssertionError: assert [('specializa..., 'Ancestor')] == [('aggregatio..., 'Ancestor')]
+      "test_functional_relation_extraction"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "test_parallel_execution"
+      "test_py3k_jobs_option"
+    ]
+    ;
 
   meta = with lib; {
     homepage = "https://pylint.pycqa.org/";

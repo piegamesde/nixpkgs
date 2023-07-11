@@ -30,18 +30,20 @@ stdenv.mkDerivation rec {
     gfortran
   ];
 
-  buildInputs = [
-    boost
-    fastjet
-    gsl
-    thepeg
-    zlib
-  ]
-  # There is a bug that requires for default PDF's to be present during the build
+  buildInputs =
+    [
+      boost
+      fastjet
+      gsl
+      thepeg
+      zlib
+    ]
+    # There is a bug that requires for default PDF's to be present during the build
     ++ (with lhapdf.pdf_sets; [
       CT14lo
       CT14nlo
-    ]);
+    ])
+    ;
 
   postPatch = ''
     patchShebangs ./

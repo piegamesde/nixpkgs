@@ -21,14 +21,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ xcbuild ];
 
-  propagatedBuildInputs = [ cython ] ++ lib.optionals stdenv.isLinux [
-    libusb1
-    udev
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    AppKit
-    CoreFoundation
-    IOKit
-  ]);
+  propagatedBuildInputs =
+    [ cython ] ++ lib.optionals stdenv.isLinux [
+      libusb1
+      udev
+    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      AppKit
+      CoreFoundation
+      IOKit
+    ])
+    ;
 
     # Fix the USB backend library lookup
   postPatch = lib.optionalString stdenv.isLinux ''

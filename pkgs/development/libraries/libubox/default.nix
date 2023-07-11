@@ -13,7 +13,8 @@
 
 stdenv.mkDerivation {
   pname = "libubox";
-  version = "unstable-2023-01-03${
+  version =
+    "unstable-2023-01-03${
       lib.optionalString with_ustream_ssl
       "-${ustream-ssl.ssl_implementation.pname}"
     }";
@@ -36,8 +37,10 @@ stdenv.mkDerivation {
     cmake
     pkg-config
   ];
-  buildInputs = [ json_c ] ++ lib.optional with_lua lua5_1
-    ++ lib.optional with_ustream_ssl ustream-ssl;
+  buildInputs =
+    [ json_c ] ++ lib.optional with_lua lua5_1
+    ++ lib.optional with_ustream_ssl ustream-ssl
+    ;
 
   postInstall = lib.optionalString with_ustream_ssl ''
     for fin in $(find ${ustream-ssl} -type f); do

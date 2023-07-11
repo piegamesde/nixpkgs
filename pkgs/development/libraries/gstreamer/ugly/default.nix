@@ -42,46 +42,52 @@ stdenv.mkDerivation rec {
     hash = "sha256-jzD0TbC9BjcJv2++VROOOpivCry2HDYPNVgrvhDoBpE=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    gettext
-    pkg-config
-    python3
-  ] ++ lib.optionals enableDocumentation [ hotdoc ];
-
-  buildInputs = [
-    gst-plugins-base
-    orc
-    libintl
-    opencore-amr
-  ] ++ lib.optionals enableGplPlugins [
-    a52dec
-    libcdio
-    libdvdread
-    libmad
-    libmpeg2
-    x264
-  ] ++ lib.optionals stdenv.isDarwin [
-    IOKit
-    CoreFoundation
-    DiskArbitration
-  ];
-
-  mesonFlags = [
-    "-Dsidplay=disabled" # sidplay / sidplay/player.h isn't packaged in nixpkgs as of writing
-    (lib.mesonEnable "doc" enableDocumentation)
-  ] ++ (if enableGplPlugins then
-    [ "-Dgpl=enabled" ]
-  else
+  nativeBuildInputs =
     [
-      "-Da52dec=disabled"
-      "-Dcdio=disabled"
-      "-Ddvdread=disabled"
-      "-Dmpeg2dec=disabled"
-      "-Dsidplay=disabled"
-      "-Dx264=disabled"
-    ]);
+      meson
+      ninja
+      gettext
+      pkg-config
+      python3
+    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ;
+
+  buildInputs =
+    [
+      gst-plugins-base
+      orc
+      libintl
+      opencore-amr
+    ] ++ lib.optionals enableGplPlugins [
+      a52dec
+      libcdio
+      libdvdread
+      libmad
+      libmpeg2
+      x264
+    ] ++ lib.optionals stdenv.isDarwin [
+      IOKit
+      CoreFoundation
+      DiskArbitration
+    ]
+    ;
+
+  mesonFlags =
+    [
+      "-Dsidplay=disabled" # sidplay / sidplay/player.h isn't packaged in nixpkgs as of writing
+      (lib.mesonEnable "doc" enableDocumentation)
+    ] ++ (if enableGplPlugins then
+      [ "-Dgpl=enabled" ]
+    else
+      [
+        "-Da52dec=disabled"
+        "-Dcdio=disabled"
+        "-Ddvdread=disabled"
+        "-Dmpeg2dec=disabled"
+        "-Dsidplay=disabled"
+        "-Dx264=disabled"
+      ])
+    ;
 
   postPatch = ''
     patchShebangs \

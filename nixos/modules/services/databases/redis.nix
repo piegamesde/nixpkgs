@@ -661,11 +661,12 @@ in
         after = [ "network.target" ];
 
         serviceConfig = {
-          ExecStart = "${cfg.package}/bin/redis-server /var/lib/${
+          ExecStart =
+            "${cfg.package}/bin/redis-server /var/lib/${
               redisName name
             }/redis.conf ${escapeShellArgs conf.extraParams}";
-          ExecStartPre = "+"
-            + pkgs.writeShellScript "${redisName name}-prep-conf" (let
+          ExecStartPre =
+            "+" + pkgs.writeShellScript "${redisName name}-prep-conf" (let
               redisConfVar = "/var/lib/${redisName name}/redis.conf";
               redisConfRun = "/run/${redisName name}/nixos.conf";
               redisConfStore = redisConfig conf.settings;
@@ -685,7 +686,8 @@ in
                 } >> "${redisConfRun}"
               ''}
             ''
-            );
+            )
+            ;
           Type = "notify";
             # User and group
           User = conf.user;
@@ -716,10 +718,12 @@ in
           ProtectKernelModules = true;
           ProtectKernelTunables = true;
           ProtectControlGroups = true;
-          RestrictAddressFamilies = optionals (conf.port != 0) [
-            "AF_INET"
-            "AF_INET6"
-          ] ++ optional (conf.unixSocket != null) "AF_UNIX";
+          RestrictAddressFamilies =
+            optionals (conf.port != 0) [
+              "AF_INET"
+              "AF_INET6"
+            ] ++ optional (conf.unixSocket != null) "AF_UNIX"
+            ;
           RestrictNamespaces = true;
           LockPersonality = true;
           MemoryDenyWriteExecute = true;

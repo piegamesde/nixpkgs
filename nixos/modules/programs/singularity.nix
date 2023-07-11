@@ -69,8 +69,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.singularity.packageOverriden = (cfg.package.override
-      (optionalAttrs cfg.enableFakeroot {
+    programs.singularity.packageOverriden =
+      (cfg.package.override (optionalAttrs cfg.enableFakeroot {
         newuidmapPath = "/run/wrappers/bin/newuidmap";
         newgidmapPath = "/run/wrappers/bin/newgidmap";
       } // optionalAttrs cfg.enableSuid {

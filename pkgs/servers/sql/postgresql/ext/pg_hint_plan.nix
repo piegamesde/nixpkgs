@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ossc-db";
     repo = pname;
-    rev = "REL${
+    rev =
+      "REL${
         builtins.replaceStrings [
           "-"
           "."

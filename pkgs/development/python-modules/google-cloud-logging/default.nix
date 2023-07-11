@@ -32,15 +32,17 @@ buildPythonPackage rec {
     hash = "sha256-8RVEoh6jVW9w66x7wzj/qKGXkTg07N2IU9F2uHCCOqo=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    google-cloud-appengine-logging
-    google-cloud-audit-log
-    google-cloud-core
-    grpc-google-iam-v1
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [
+      google-api-core
+      google-cloud-appengine-logging
+      google-cloud-audit-log
+      google-cloud-core
+      grpc-google-iam-v1
+      proto-plus
+      protobuf
+    ] ++ google-api-core.optional-dependencies.grpc
+    ;
 
   nativeCheckInputs = [
     django
@@ -53,10 +55,11 @@ buildPythonPackage rec {
     rich
   ];
 
-  disabledTests = [
-    # requires credentials
-    "test_write_log_entries"
-  ];
+  disabledTests =
+    [
+      # requires credentials
+      "test_write_log_entries"
+    ];
 
   preCheck = ''
     # prevent google directory from shadowing google imports

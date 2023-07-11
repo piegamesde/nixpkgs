@@ -30,10 +30,12 @@ stdenv.mkDerivation rec {
   pname = "upower";
   version = "1.90.0";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals withDocs [ "devdoc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ] ++ lib.optionals withDocs [ "devdoc" ]
+    ;
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -65,14 +67,16 @@ stdenv.mkDerivation rec {
     rsync
   ];
 
-  buildInputs = [
-    libgudev
-    libusb1
-    udev
-    systemd
-    # Duplicate from nativeCheckInputs until https://github.com/NixOS/nixpkgs/issues/161570 is solved
-    umockdev
-  ] ++ lib.optionals useIMobileDevice [ libimobiledevice ];
+  buildInputs =
+    [
+      libgudev
+      libusb1
+      udev
+      systemd
+      # Duplicate from nativeCheckInputs until https://github.com/NixOS/nixpkgs/issues/161570 is solved
+      umockdev
+    ] ++ lib.optionals useIMobileDevice [ libimobiledevice ]
+    ;
 
   nativeCheckInputs = [
     python3.pkgs.dbus-python

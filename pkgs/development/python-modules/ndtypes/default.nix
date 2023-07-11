@@ -25,12 +25,14 @@ buildPythonPackage {
                 'runtime_library_dirs = ["${libndtypes}/lib"]'
   '';
 
-  postInstall = ''
-    mkdir $out/include
-    cp python/ndtypes/*.h $out/include
-  '' + lib.optionalString stdenv.isDarwin ''
-    install_name_tool -add_rpath ${libndtypes}/lib $out/${python.sitePackages}/ndtypes/_ndtypes.*.so
-  '';
+  postInstall =
+    ''
+      mkdir $out/include
+      cp python/ndtypes/*.h $out/include
+    '' + lib.optionalString stdenv.isDarwin ''
+      install_name_tool -add_rpath ${libndtypes}/lib $out/${python.sitePackages}/ndtypes/_ndtypes.*.so
+    ''
+    ;
 
   checkPhase = ''
     pushd python

@@ -284,7 +284,8 @@ in
         wantedBy = [ "multi-user.target" ];
         script =
           let
-            psql = "${
+            psql =
+              "${
                 lib.optionalString (!localDB)
                 "PGPASSFILE=${cfg.database.passwordFile}"
               } ${pkgs.postgresql}/bin/psql ${

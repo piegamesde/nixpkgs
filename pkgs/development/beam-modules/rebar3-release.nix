@@ -44,18 +44,21 @@ let
     # doesn't have this issue since it puts its own deps last on the code path.
   rebar3 = rebar3WithPlugins { plugins = buildPlugins; };
 
-  pkg = assert beamDeps != [ ] -> checkouts == null;
+  pkg =
+    assert beamDeps != [ ] -> checkouts == null;
     self:
     stdenv.mkDerivation (attrs // {
 
       name = "${pname}-${version}";
       inherit version pname;
 
-      buildInputs = buildInputs ++ [
-        erlang
-        rebar3
-        openssl
-      ] ++ beamDeps;
+      buildInputs =
+        buildInputs ++ [
+          erlang
+          rebar3
+          openssl
+        ] ++ beamDeps
+        ;
 
         # ensure we strip any native binaries (eg. NIFs, ports)
       stripDebugList = lib.optional (releaseType == "release") "rel";
@@ -108,13 +111,15 @@ let
 
       meta = { inherit (erlang.meta) platforms; } // meta;
 
-      passthru = ({
-        packageName = pname;
-        env = shell self;
-      } // (if attrs ? passthru then
-        attrs.passthru
-      else
-        { }));
-    } // customPhases);
+      passthru =
+        ({
+          packageName = pname;
+          env = shell self;
+        } // (if attrs ? passthru then
+          attrs.passthru
+        else
+          { }));
+    } // customPhases)
+    ;
 in
 lib.fix pkg

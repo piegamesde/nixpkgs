@@ -26,35 +26,39 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    perl
-    openldap
-    db
-    cyrus_sasl
-    expat
-    libxml2
-    openssl
-  ] ++ lib.optionals stdenv.isLinux [
-    libcap
-    pam
-    systemd
-  ];
+  buildInputs =
+    [
+      perl
+      openldap
+      db
+      cyrus_sasl
+      expat
+      libxml2
+      openssl
+    ] ++ lib.optionals stdenv.isLinux [
+      libcap
+      pam
+      systemd
+    ]
+    ;
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--enable-ipv6"
-    "--disable-strict-error-checking"
-    "--disable-arch-native"
-    "--with-openssl"
-    "--enable-ssl-crtd"
-    "--enable-storeio=ufs,aufs,diskd,rock"
-    "--enable-removal-policies=lru,heap"
-    "--enable-delay-pools"
-    "--enable-x-accelerator-vary"
-    "--enable-htcp"
-  ] ++ lib.optional (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
-    "--enable-linux-netfilter";
+  configureFlags =
+    [
+      "--enable-ipv6"
+      "--disable-strict-error-checking"
+      "--disable-arch-native"
+      "--with-openssl"
+      "--enable-ssl-crtd"
+      "--enable-storeio=ufs,aufs,diskd,rock"
+      "--enable-removal-policies=lru,heap"
+      "--enable-delay-pools"
+      "--enable-x-accelerator-vary"
+      "--enable-htcp"
+    ] ++ lib.optional (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
+    "--enable-linux-netfilter"
+    ;
 
   doCheck = true;
   nativeCheckInputs = [ cppunit ];

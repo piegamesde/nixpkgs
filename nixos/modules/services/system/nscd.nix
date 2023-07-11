@@ -102,8 +102,10 @@ in
     users.groups.${cfg.group} = { };
 
     systemd.services.nscd = {
-      description = "Name Service Cache Daemon"
-        + lib.optionalString cfg.enableNsncd " (nsncd)";
+      description =
+        "Name Service Cache Daemon"
+        + lib.optionalString cfg.enableNsncd " (nsncd)"
+        ;
 
       before = [
         "nss-lookup.target"

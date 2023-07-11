@@ -30,15 +30,16 @@ buildPythonPackage rec {
     hash = "sha256-/BMwDuo4xE/XOLM8qzJwt0A0h0+ihbCVCxT3BBToiVU=";
   };
 
-  patches = [
-    # Remove async, https://github.com/molobrakos/volvooncall/pull/92
-    (fetchpatch {
-      name = "remove-asnyc.patch";
-      url =
-        "https://github.com/molobrakos/volvooncall/commit/ef0df403250288c00ed4c600e9dfa79dcba8941e.patch";
-      hash = "sha256-U+hM7vzD9JSEUumvjPSLpVQcc8jAuZHG3/1dQ3wnIcA=";
-    })
-  ];
+  patches =
+    [
+      # Remove async, https://github.com/molobrakos/volvooncall/pull/92
+      (fetchpatch {
+        name = "remove-asnyc.patch";
+        url =
+          "https://github.com/molobrakos/volvooncall/commit/ef0df403250288c00ed4c600e9dfa79dcba8941e.patch";
+        hash = "sha256-U+hM7vzD9JSEUumvjPSLpVQcc8jAuZHG3/1dQ3wnIcA=";
+      })
+    ];
 
   propagatedBuildInputs = [ aiohttp ];
 
@@ -54,11 +55,13 @@ buildPythonPackage rec {
     ];
   };
 
-  checkInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.mqtt;
+  checkInputs =
+    [
+      mock
+      pytest-asyncio
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.mqtt
+    ;
 
   pythonImportsCheck = [ "volvooncall" ];
 

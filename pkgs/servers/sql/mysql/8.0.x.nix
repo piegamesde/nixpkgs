@@ -41,11 +41,13 @@ let
       hash = "sha256-liAC9dkG9C9AsnejnS25OTEkjB8H/49DEsKI5jgD3RI=";
     };
 
-    nativeBuildInputs = [
-      bison
-      cmake
-      pkg-config
-    ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ];
+    nativeBuildInputs =
+      [
+        bison
+        cmake
+        pkg-config
+      ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
+      ;
 
     patches = [
         ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
@@ -57,30 +59,32 @@ let
       substituteInPlace cmake/os/Darwin.cmake --replace /usr/bin/libtool libtool
     '';
 
-    buildInputs = [
-      boost
-      (curl.override { inherit openssl; })
-      icu
-      libedit
-      libevent
-      lz4
-      ncurses
-      openssl
-      protobuf
-      re2
-      readline
-      zlib
-      zstd
-      libfido2
-    ] ++ lib.optionals stdenv.isLinux [
-      numactl
-      libtirpc
-    ] ++ lib.optionals stdenv.isDarwin [
-      cctools
-      CoreServices
-      developer_cmds
-      DarwinTools
-    ];
+    buildInputs =
+      [
+        boost
+        (curl.override { inherit openssl; })
+        icu
+        libedit
+        libevent
+        lz4
+        ncurses
+        openssl
+        protobuf
+        re2
+        readline
+        zlib
+        zstd
+        libfido2
+      ] ++ lib.optionals stdenv.isLinux [
+        numactl
+        libtirpc
+      ] ++ lib.optionals stdenv.isDarwin [
+        cctools
+        CoreServices
+        developer_cmds
+        DarwinTools
+      ]
+      ;
 
     outputs = [
       "out"

@@ -34,10 +34,11 @@ buildPythonPackage rec {
     sed -i "/--no-cov-on-fail/d" setup.cfg
   '';
 
-  disabledTestPaths = [
-    # Don't test the documentation
-    "docs/*.rst"
-  ];
+  disabledTestPaths =
+    [
+      # Don't test the documentation
+      "docs/*.rst"
+    ];
 
   pythonImportsCheck = [ "semver" ];
 

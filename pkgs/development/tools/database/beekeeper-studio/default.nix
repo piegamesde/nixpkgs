@@ -25,9 +25,7 @@ appimageTools.wrapType2 {
 
   multiPkgs = null; # no 32bit needed
   extraPkgs =
-    pkgs:
-    appimageTools.defaultFhsEnvArgs.multiPkgs pkgs ++ [ pkgs.bash ]
-    ;
+    pkgs: appimageTools.defaultFhsEnvArgs.multiPkgs pkgs ++ [ pkgs.bash ];
 
   extraInstallCommands = ''
     ln -s $out/bin/${name} $out/bin/${pname}

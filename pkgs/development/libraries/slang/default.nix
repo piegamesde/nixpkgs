@@ -42,12 +42,14 @@ stdenv.mkDerivation rec {
     "--with-z=${zlib.dev}"
   ];
 
-  buildInputs = [
-    libpng
-    pcre
-    readline
-    zlib
-  ] ++ lib.optionals (stdenv.isDarwin) [ libiconv ];
+  buildInputs =
+    [
+      libpng
+      pcre
+      readline
+      zlib
+    ] ++ lib.optionals (stdenv.isDarwin) [ libiconv ]
+    ;
 
   propagatedBuildInputs = [ ncurses ];
 

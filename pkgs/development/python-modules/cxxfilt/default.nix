@@ -16,7 +16,8 @@ buildPythonPackage rec {
 
   postPatch =
     let
-      libstdcpp = "${
+      libstdcpp =
+        "${
           lib.getLib gcc-unwrapped
         }/lib/libstdc++${stdenv.hostPlatform.extensions.sharedLibrary}";
     in

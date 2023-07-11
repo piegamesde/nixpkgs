@@ -45,44 +45,56 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = rec {
     array-types = enp;
-    eapp = [
+    eapp =
+      [
         absl-py # FIXME package simple-parsing
-      ] ++ epy;
-    ecolab = [
-      jupyter
-      numpy
-      mediapy
-    ] ++ enp ++ epy;
+      ] ++ epy
+      ;
+    ecolab =
+      [
+        jupyter
+        numpy
+        mediapy
+      ] ++ enp ++ epy
+      ;
     edc = epy;
     enp = [ numpy ] ++ epy;
-    epath = [
-      importlib-resources
-      typing-extensions
-      zipp
-    ] ++ epy;
+    epath =
+      [
+        importlib-resources
+        typing-extensions
+        zipp
+      ] ++ epy
+      ;
     epy = [ typing-extensions ];
-    etqdm = [
-      absl-py
-      tqdm
-    ] ++ epy;
+    etqdm =
+      [
+        absl-py
+        tqdm
+      ] ++ epy
+      ;
     etree = array-types ++ epy ++ enp ++ etqdm;
     etree-dm = [ dm-tree ] ++ etree;
     etree-jax = [ jax ] ++ etree;
     etree-tf = [ tensorflow ] ++ etree;
-    all = array-types ++ eapp ++ ecolab ++ edc ++ enp ++ epath ++ epy ++ etqdm
-      ++ etree ++ etree-dm ++ etree-jax ++ etree-tf;
+    all =
+      array-types ++ eapp ++ ecolab ++ edc ++ enp ++ epath ++ epy ++ etqdm
+      ++ etree ++ etree-dm ++ etree-jax ++ etree-tf
+      ;
   };
 
   pythonImportsCheck = [ "etils" ];
 
-  nativeCheckInputs = [
-    chex
-    jaxlib
-    pytest-subtests
-    pytest-xdist
-    pytestCheckHook
-    yapf
-  ] ++ passthru.optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      chex
+      jaxlib
+      pytest-subtests
+      pytest-xdist
+      pytestCheckHook
+      yapf
+    ] ++ passthru.optional-dependencies.all
+    ;
 
   disabledTests = [
       "test_public_access" # requires network access

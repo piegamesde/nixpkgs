@@ -38,16 +38,18 @@ stdenv.mkDerivation rec {
   version = "1.4.69";
 
   src = fetchurl {
-    url = "https://download.lighttpd.net/lighttpd/releases-${
+    url =
+      "https://download.lighttpd.net/lighttpd/releases-${
         lib.versions.majorMinor version
       }.x/${pname}-${version}.tar.xz";
     sha256 = "sha256-FqyNuV5xlim6YZSbmfiib+upRqgdGFIVsoN5u0EWsLQ=";
   };
 
-  patches = [
-    # disable tests for des/md5, which we don't support any more
-    ./disable-legacy-crypt-tests.patch
-  ];
+  patches =
+    [
+      # disable tests for des/md5, which we don't support any more
+      ./disable-legacy-crypt-tests.patch
+    ];
 
   postPatch = ''
     patchShebangs tests
@@ -62,22 +64,25 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    pcre2
-    pcre2.dev
-    libxml2
-    zlib
-    bzip2
-    which
-    file
-    openssl
-  ] ++ lib.optional enableDbi libdbi ++ lib.optional enableMagnet lua5_1
+  buildInputs =
+    [
+      pcre2
+      pcre2.dev
+      libxml2
+      zlib
+      bzip2
+      which
+      file
+      openssl
+    ] ++ lib.optional enableDbi libdbi ++ lib.optional enableMagnet lua5_1
     ++ lib.optional enableMysql libmysqlclient
     ++ lib.optional enableLdap openldap ++ lib.optional enablePam linux-pam
     ++ lib.optional enableSasl cyrus_sasl ++ lib.optional enableWebDAV sqlite
-    ++ lib.optional enableWebDAV libuuid;
+    ++ lib.optional enableWebDAV libuuid
+    ;
 
-  configureFlags = [ "--with-openssl" ] ++ lib.optional enableDbi "--with-dbi"
+  configureFlags =
+    [ "--with-openssl" ] ++ lib.optional enableDbi "--with-dbi"
     ++ lib.optional enableMagnet "--with-lua"
     ++ lib.optional enableMysql "--with-mysql"
     ++ lib.optional enableLdap "--with-ldap"
@@ -85,7 +90,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableSasl "--with-sasl"
     ++ lib.optional enableWebDAV "--with-webdav-props"
     ++ lib.optional enableWebDAV "--with-webdav-locks"
-    ++ lib.optional enableExtendedAttrs "--with-attr";
+    ++ lib.optional enableExtendedAttrs "--with-attr"
+    ;
 
   preConfigure = ''
     export PATH=$PATH:${pcre2.dev}/bin

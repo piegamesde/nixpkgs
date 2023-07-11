@@ -25,10 +25,12 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace '"pytest-runner"' ""
   '';
 
-  propagatedBuildInputs = [
-    cffi
-    six
-  ] ++ (with rPackages; [ reticulate ]);
+  propagatedBuildInputs =
+    [
+      cffi
+      six
+    ] ++ (with rPackages; [ reticulate ])
+    ;
 
   nativeCheckInputs = [
     pytestCheckHook

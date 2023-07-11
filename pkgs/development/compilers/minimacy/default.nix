@@ -23,14 +23,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 
-  buildInputs = [
-    libGL
-    libGLU
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    libX11
-    libXext
-  ];
+  buildInputs =
+    [
+      libGL
+      libGLU
+    ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      libX11
+      libXext
+    ]
+    ;
 
   enableParallelBuilding = true;
 
@@ -46,10 +48,12 @@ stdenv.mkDerivation rec {
   '';
 
     # TODO: build graphic version for darwin
-  buildFlags = (if stdenv.isDarwin then
-    [ "nox" ]
-  else
-    [ "all" ]) ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildFlags =
+    (if stdenv.isDarwin then
+      [ "nox" ]
+    else
+      [ "all" ]) ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
+    ;
 
   postBuild = ''
     popd

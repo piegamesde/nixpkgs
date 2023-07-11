@@ -60,7 +60,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = isaFlags ++ archFlags ++ [ "-DCMAKE_BUILD_TYPE=RelWithDebInfo" ];
+  cmakeFlags =
+    isaFlags ++ archFlags ++ [ "-DCMAKE_BUILD_TYPE=RelWithDebInfo" ]
+    ;
 
     # Set a fixed build year to display within help output (otherwise, it would be 1980)
   postPatch = ''

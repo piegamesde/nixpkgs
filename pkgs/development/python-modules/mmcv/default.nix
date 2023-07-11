@@ -62,14 +62,16 @@ buildPythonPackage rec {
     hash = "sha256-b4MLBPNRCcPq1osUvqo71PCWVX7lOjAH+dXttd4ZapU";
   };
 
-  preConfigure = ''
-    export MMCV_WITH_OPS=1
-  '' + lib.optionalString cudaSupport ''
-    export CC=${backendStdenv.cc}/bin/cc
-    export CXX=${backendStdenv.cc}/bin/c++
-    export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
-    export FORCE_CUDA=1
-  '';
+  preConfigure =
+    ''
+      export MMCV_WITH_OPS=1
+    '' + lib.optionalString cudaSupport ''
+      export CC=${backendStdenv.cc}/bin/cc
+      export CXX=${backendStdenv.cc}/bin/c++
+      export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
+      export FORCE_CUDA=1
+    ''
+    ;
 
   postPatch = ''
     substituteInPlace setup.py --replace "cpu_use = 4" "cpu_use = $NIX_BUILD_CORES"
@@ -94,10 +96,12 @@ buildPythonPackage rec {
     "test_reader"
   ];
 
-  nativeBuildInputs = [
-    ninja
-    which
-  ] ++ lib.optionals cudaSupport [ cuda-native-redist ];
+  nativeBuildInputs =
+    [
+      ninja
+      which
+    ] ++ lib.optionals cudaSupport [ cuda-native-redist ]
+    ;
 
   buildInputs = [ torch ] ++ lib.optionals cudaSupport [ cuda-redist ];
 

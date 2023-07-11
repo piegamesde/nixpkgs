@@ -49,9 +49,11 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
       # Undefined symbols for architecture x86_64:
       # "_bundle_path", referenced from: App::SetupPaths() in src_app.cpp.o
-    broken = stdenv.isDarwin ||
+    broken =
+      stdenv.isDarwin ||
       # https://github.com/bcampbell/evilpixie/issues/28
-      stdenv.isAarch64;
+      stdenv.isAarch64
+      ;
   };
 }
 

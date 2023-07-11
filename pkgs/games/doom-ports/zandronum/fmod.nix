@@ -39,16 +39,18 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   dontBuild = true;
 
-  installPhase = lib.optionalString stdenv.isLinux ''
-    install -Dm755 api/lib/libfmodex${bits}-${version}.so $out/lib/libfmodex-${version}.so
-    ln -s libfmodex-${version}.so $out/lib/libfmodex.so
-    patchelf --set-rpath ${libPath} $out/lib/libfmodex.so
-  '' + lib.optionalString stdenv.isDarwin ''
-    install -D api/lib/libfmodex.dylib $out/lib/libfmodex.dylib
-    install -D api/lib/libfmodexL.dylib $out/lib/libfmodexL.dylib
-  '' + ''
-    cp -r api/inc $out/include
-  '';
+  installPhase =
+    lib.optionalString stdenv.isLinux ''
+      install -Dm755 api/lib/libfmodex${bits}-${version}.so $out/lib/libfmodex-${version}.so
+      ln -s libfmodex-${version}.so $out/lib/libfmodex.so
+      patchelf --set-rpath ${libPath} $out/lib/libfmodex.so
+    '' + lib.optionalString stdenv.isDarwin ''
+      install -D api/lib/libfmodex.dylib $out/lib/libfmodex.dylib
+      install -D api/lib/libfmodexL.dylib $out/lib/libfmodexL.dylib
+    '' + ''
+      cp -r api/inc $out/include
+    ''
+    ;
 
   meta = with lib; {
     description =

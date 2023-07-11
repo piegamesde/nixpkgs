@@ -42,26 +42,29 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { pook = [ pook ]; };
 
-  nativeCheckInputs = [
-    aiohttp
-    asgiref
-    fastapi
-    gevent
-    httpx
-    pytest-mock
-    pytestCheckHook
-    redis
-    requests
-    sure
-  ] ++ passthru.optional-dependencies.pook;
+  nativeCheckInputs =
+    [
+      aiohttp
+      asgiref
+      fastapi
+      gevent
+      httpx
+      pytest-mock
+      pytestCheckHook
+      redis
+      requests
+      sure
+    ] ++ passthru.optional-dependencies.pook
+    ;
 
     # Skip http tests
   SKIP_TRUE_HTTP = true;
 
-  disabledTestPaths = [
-    # Requires a live Redis instance
-    "tests/main/test_redis.py"
-  ];
+  disabledTestPaths =
+    [
+      # Requires a live Redis instance
+      "tests/main/test_redis.py"
+    ];
 
   disabledTests = [
     # tests that require network access (like DNS lookups)

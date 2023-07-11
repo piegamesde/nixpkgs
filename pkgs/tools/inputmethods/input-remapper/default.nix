@@ -49,14 +49,16 @@ in
     hash = "sha256-KPQLgXSonuOgphagYN2JN+CMIpmjTIPUTCqOPDk0UYU=";
   };
 
-  postPatch = ''
-    # fix FHS paths
-    substituteInPlace inputremapper/configs/data.py \
-      --replace "/usr/share/input-remapper"  "$out/usr/share/input-remapper"
-  '' + lib.optionalString withDebugLogLevel ''
-    # if debugging
-    substituteInPlace inputremapper/logger.py --replace "logger.setLevel(logging.INFO)"  "logger.setLevel(logging.DEBUG)"
-  '';
+  postPatch =
+    ''
+      # fix FHS paths
+      substituteInPlace inputremapper/configs/data.py \
+        --replace "/usr/share/input-remapper"  "$out/usr/share/input-remapper"
+    '' + lib.optionalString withDebugLogLevel ''
+      # if debugging
+      substituteInPlace inputremapper/logger.py --replace "logger.setLevel(logging.INFO)"  "logger.setLevel(logging.DEBUG)"
+    ''
+    ;
 
   doCheck = withDoCheck;
   nativeCheckInputs = [ psutil ];
@@ -105,14 +107,16 @@ in
     )
   '';
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    gettext # needed to build translations
-    gtk3
-    glib
-    gobject-introspection
-    pygobject3
-  ] ++ maybeXmodmap;
+  nativeBuildInputs =
+    [
+      wrapGAppsHook
+      gettext # needed to build translations
+      gtk3
+      glib
+      gobject-introspection
+      pygobject3
+    ] ++ maybeXmodmap
+    ;
 
   propagatedBuildInputs = [
     setuptools # needs pkg_resources
@@ -159,8 +163,10 @@ in
   # this ensures the rev matches the input src's rev after overriding
   # See https://discourse.nixos.org/t/avoid-rec-expresions-in-nixpkgs/8293/7 for more
   # discussion
-  postPatch = prev.postPatch or "" + ''
-    # set revision for --version output
-    echo "COMMIT_HASH = '${final.src.rev}'" > inputremapper/commit_hash.py
-  '';
+  postPatch =
+    prev.postPatch or "" + ''
+      # set revision for --version output
+      echo "COMMIT_HASH = '${final.src.rev}'" > inputremapper/commit_hash.py
+    ''
+    ;
 })

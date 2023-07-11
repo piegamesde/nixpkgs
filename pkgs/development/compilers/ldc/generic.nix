@@ -45,44 +45,50 @@ stdenv.mkDerivation rec {
     # https://issues.dlang.org/show_bug.cgi?id=19553
   hardeningDisable = [ "fortify" ];
 
-  postUnpack = ''
-    patchShebangs .
-  '' + ''
-    rm ldc-${version}-src/tests/d2/dmd-testsuite/fail_compilation/mixin_gc.d
-    rm ldc-${version}-src/tests/d2/dmd-testsuite/runnable/xtest46_gc.d
-    rm ldc-${version}-src/tests/d2/dmd-testsuite/runnable/testptrref_gc.d
+  postUnpack =
+    ''
+      patchShebangs .
+    '' + ''
+      rm ldc-${version}-src/tests/d2/dmd-testsuite/fail_compilation/mixin_gc.d
+      rm ldc-${version}-src/tests/d2/dmd-testsuite/runnable/xtest46_gc.d
+      rm ldc-${version}-src/tests/d2/dmd-testsuite/runnable/testptrref_gc.d
 
-    # test depends on current year
-    rm ldc-${version}-src/tests/d2/dmd-testsuite/compilable/ddocYear.d
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # https://github.com/NixOS/nixpkgs/issues/34817
-    rm -r ldc-${version}-src/tests/plugins/addFuncEntryCall
-  '';
+      # test depends on current year
+      rm ldc-${version}-src/tests/d2/dmd-testsuite/compilable/ddocYear.d
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      # https://github.com/NixOS/nixpkgs/issues/34817
+      rm -r ldc-${version}-src/tests/plugins/addFuncEntryCall
+    ''
+    ;
 
-  postPatch = ''
-    # Setting SHELL=$SHELL when dmd testsuite is run doesn't work on Linux somehow
-    substituteInPlace tests/d2/dmd-testsuite/Makefile --replace "SHELL=/bin/bash" "SHELL=${bash}/bin/bash"
-  '' + lib.optionalString stdenv.hostPlatform.isLinux ''
-    substituteInPlace runtime/phobos/std/socket.d --replace "assert(ih.addrList[0] == 0x7F_00_00_01);" ""
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    substituteInPlace runtime/phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
-  '';
+  postPatch =
+    ''
+      # Setting SHELL=$SHELL when dmd testsuite is run doesn't work on Linux somehow
+      substituteInPlace tests/d2/dmd-testsuite/Makefile --replace "SHELL=/bin/bash" "SHELL=${bash}/bin/bash"
+    '' + lib.optionalString stdenv.hostPlatform.isLinux ''
+      substituteInPlace runtime/phobos/std/socket.d --replace "assert(ih.addrList[0] == 0x7F_00_00_01);" ""
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      substituteInPlace runtime/phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
+    ''
+    ;
 
-  nativeBuildInputs = [
-    cmake
-    ldcBootstrap
-    lit
-    lit.python
-    llvm_11.dev
-    makeWrapper
-    ninja
-    unzip
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+  nativeBuildInputs =
+    [
+      cmake
+      ldcBootstrap
+      lit
+      lit.python
+      llvm_11.dev
+      makeWrapper
+      ninja
+      unzip
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
       darwin.apple_sdk.frameworks.Foundation
     ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
       # https://github.com/NixOS/nixpkgs/pull/36378#issuecomment-385034818
       gdb
-    ];
+    ]
+    ;
 
   buildInputs = [
     curl

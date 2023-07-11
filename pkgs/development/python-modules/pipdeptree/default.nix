@@ -38,12 +38,14 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { graphviz = [ graphviz ]; };
 
-  nativeCheckInputs = [
-    diff-cover
-    pytest-mock
-    pytestCheckHook
-    virtualenv
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [
+      diff-cover
+      pytest-mock
+      pytestCheckHook
+      virtualenv
+    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ;
 
   pythonImportsCheck = [ "pipdeptree" ];
 

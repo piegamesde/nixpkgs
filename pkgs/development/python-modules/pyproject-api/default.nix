@@ -72,10 +72,11 @@ buildPythonPackage rec {
     wheel
   ];
 
-  disabledTests = [
-    # requires eol python2 interpreter
-    "test_can_build_on_python_2"
-  ];
+  disabledTests =
+    [
+      # requires eol python2 interpreter
+      "test_can_build_on_python_2"
+    ];
 
   pythonImportsCheck = [ "pyproject_api" ];
 

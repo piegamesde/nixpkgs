@@ -31,30 +31,34 @@ buildPythonPackage rec {
     hash = "sha256-h8cvNhOkjMMbQ6Nry8FKtwnK+yhRYRGjXi/xp0i5yyY=";
   };
 
-  propagatedBuildInputs = [
-    deprecated
-    humanize
-    nibabel
-    numpy
-    scipy
-    simpleitk
-    torch
-    tqdm
-    typer
-  ] ++ typer.passthru.optional-dependencies.all;
+  propagatedBuildInputs =
+    [
+      deprecated
+      humanize
+      nibabel
+      numpy
+      scipy
+      simpleitk
+      torch
+      tqdm
+      typer
+    ] ++ typer.passthru.optional-dependencies.all
+    ;
 
   nativeCheckInputs = [
     pytestCheckHook
     matplotlib
     parameterized
   ];
-  disabledTests = [
-    # tries to download models:
-    "test_load_all"
-  ] ++ lib.optionals stdenv.isAarch64 [
-    # RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
-    "test_queue_multiprocessing"
-  ];
+  disabledTests =
+    [
+      # tries to download models:
+      "test_load_all"
+    ] ++ lib.optionals stdenv.isAarch64 [
+      # RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
+      "test_queue_multiprocessing"
+    ]
+    ;
   pythonImportsCheck = [
     "torchio"
     "torchio.data"

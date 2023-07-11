@@ -94,7 +94,8 @@ let
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  patches = [ ../9/fix-struct-redefinition-on-glibc-2.36.patch ]
+  patches =
+    [ ../9/fix-struct-redefinition-on-glibc-2.36.patch ]
     ++ optionals (!stdenv.targetPlatform.isRedox) [
       ../use-source-date-epoch.patch
       ./0001-Fix-build-for-glibc-2.31.patch
@@ -126,7 +127,8 @@ let
       sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
     })
 
-    ++ [ ../libsanitizer-no-cyclades-9.patch ];
+    ++ [ ../libsanitizer-no-cyclades-9.patch ]
+    ;
 
   javaEcj = fetchurl {
     # The `$(top_srcdir)/ecj.jar' file is automatically picked up at
@@ -156,7 +158,9 @@ let
     xorgproto
   ];
 
-  javaAwtGtk = langJava && x11Support;
+  javaAwtGtk =
+    langJava && x11Support
+    ;
 
     # Cross-gcc settings (build == host != target)
   crossMingw =
@@ -350,7 +354,8 @@ stdenv.mkDerivation ({
       '' + lib.optionalString (targetPlatform.libc == "musl") ''
         sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
       '')
-      ));
+      ))
+    ;
 
   inherit
     noSysDirs

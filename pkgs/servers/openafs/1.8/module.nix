@@ -33,15 +33,17 @@ stdenv.mkDerivation {
   version = "${version}-${kernel.modDirVersion}";
   inherit src;
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    flex
-    libtool_2
-    perl
-    which
-    bison
-  ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs =
+    [
+      autoconf
+      automake
+      flex
+      libtool_2
+      perl
+      which
+      bison
+    ] ++ kernel.moduleBuildDependencies
+    ;
 
   buildInputs = [ libkrb5 ];
 

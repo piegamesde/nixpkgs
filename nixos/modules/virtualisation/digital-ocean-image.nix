@@ -58,10 +58,11 @@ in
       format = "qcow2";
       postVM =
         let
-          compress = {
-            "gzip" = "${pkgs.gzip}/bin/gzip";
-            "bzip2" = "${pkgs.bzip2}/bin/bzip2";
-          }.${cfg.compressionMethod};
+          compress =
+            {
+              "gzip" = "${pkgs.gzip}/bin/gzip";
+              "bzip2" = "${pkgs.bzip2}/bin/bzip2";
+            }.${cfg.compressionMethod};
         in
         ''
           ${compress} $diskImage

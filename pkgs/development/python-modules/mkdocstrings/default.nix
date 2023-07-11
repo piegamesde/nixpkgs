@@ -48,15 +48,17 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "mkdocstrings" ];
 
-  disabledTestPaths = [
-    # Circular dependencies
-    "tests/test_extension.py"
-  ];
+  disabledTestPaths =
+    [
+      # Circular dependencies
+      "tests/test_extension.py"
+    ];
 
-  disabledTests = [
-    # Not all requirements are available
-    "test_disabling_plugin"
-  ];
+  disabledTests =
+    [
+      # Not all requirements are available
+      "test_disabling_plugin"
+    ];
 
   meta = with lib; {
     description = "Automatic documentation from sources for MkDocs";

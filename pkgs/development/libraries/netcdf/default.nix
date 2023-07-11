@@ -43,28 +43,32 @@ stdenv.mkDerivation rec {
     removeReferencesTo
   ];
 
-  buildInputs = [
-    curl
-    hdf5
-    libxml2
-    mpi
-    bzip2
-    libzip
-    zstd
-  ] ++ lib.optional szipSupport szip;
+  buildInputs =
+    [
+      curl
+      hdf5
+      libxml2
+      mpi
+      bzip2
+      libzip
+      zstd
+    ] ++ lib.optional szipSupport szip
+    ;
 
   passthru = { inherit mpiSupport mpi; };
 
-  configureFlags = [
-    "--enable-netcdf-4"
-    "--enable-dap"
-    "--enable-shared"
-    "--disable-dap-remote-tests"
-    "--with-plugin-dir=${placeholder "out"}/lib/hdf5-plugins"
-  ] ++ (lib.optionals mpiSupport [
-    "--enable-parallel-tests"
-    "CC=${mpi}/bin/mpicc"
-  ]);
+  configureFlags =
+    [
+      "--enable-netcdf-4"
+      "--enable-dap"
+      "--enable-shared"
+      "--disable-dap-remote-tests"
+      "--with-plugin-dir=${placeholder "out"}/lib/hdf5-plugins"
+    ] ++ (lib.optionals mpiSupport [
+      "--enable-parallel-tests"
+      "CC=${mpi}/bin/mpicc"
+    ])
+    ;
 
   enableParallelBuilding = true;
 

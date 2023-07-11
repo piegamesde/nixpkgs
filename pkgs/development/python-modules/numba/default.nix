@@ -52,34 +52,38 @@ buildPythonPackage rec {
   nativeBuildInputs =
     [ numpy ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
-  propagatedBuildInputs = [
-    numpy
-    llvmlite
-    setuptools
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
+  propagatedBuildInputs =
+    [
+      numpy
+      llvmlite
+      setuptools
+    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
     ++ lib.optionals cudaSupport [
       cudatoolkit
       cudatoolkit.lib
-    ];
+    ]
+    ;
 
-  patches = [
-    # fix failure in test_cache_invalidate (numba.tests.test_caching.TestCache)
-    # remove when upgrading past version 0.56
-    (fetchpatch {
-      name = "fix-test-cache-invalidate-readonly.patch";
-      url =
-        "https://github.com/numba/numba/commit/993e8c424055a7677b2755b184fc9e07549713b9.patch";
-      hash = "sha256-IhIqRLmP8gazx+KWIyCxZrNLMT4jZT8CWD3KcH4KjOo=";
-    })
-    # Backport numpy 1.24 support from https://github.com/numba/numba/pull/8691
-    ./numpy-1.24.patch
-  ] ++ lib.optionals cudaSupport [
+  patches =
+    [
+      # fix failure in test_cache_invalidate (numba.tests.test_caching.TestCache)
+      # remove when upgrading past version 0.56
+      (fetchpatch {
+        name = "fix-test-cache-invalidate-readonly.patch";
+        url =
+          "https://github.com/numba/numba/commit/993e8c424055a7677b2755b184fc9e07549713b9.patch";
+        hash = "sha256-IhIqRLmP8gazx+KWIyCxZrNLMT4jZT8CWD3KcH4KjOo=";
+      })
+      # Backport numpy 1.24 support from https://github.com/numba/numba/pull/8691
+      ./numpy-1.24.patch
+    ] ++ lib.optionals cudaSupport [
       (substituteAll {
         src = ./cuda_path.patch;
         cuda_toolkit_path = cudatoolkit;
         cuda_toolkit_lib_path = cudatoolkit.lib;
       })
-    ];
+    ]
+    ;
 
   postFixup = lib.optionalString cudaSupport ''
     find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do

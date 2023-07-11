@@ -21,7 +21,8 @@ let
 
   baseAttrs = {
     src = fetchurl {
-      url = "https://github.com/unicode-org/icu/releases/download/release-${
+      url =
+        "https://github.com/unicode-org/icu/releases/download/release-${
           lib.replaceStrings [ "." ] [ "-" ] version
         }/icu4c-${lib.replaceStrings [ "." ] [ "_" ] version}-src.tgz";
       inherit sha256;
@@ -45,20 +46,24 @@ let
 
     inherit patchFlags patches;
 
-    preConfigure = ''
-      sed -i -e "s|/bin/sh|${stdenv.shell}|" configure
+    preConfigure =
+      ''
+        sed -i -e "s|/bin/sh|${stdenv.shell}|" configure
 
-      # $(includedir) is different from $(prefix)/include due to multiple outputs
-      sed -i -e 's|^\(CPPFLAGS = .*\) -I\$(prefix)/include|\1 -I$(includedir)|' config/Makefile.inc.in
-    '' + lib.optionalString stdenv.isAarch32 ''
-      # From https://archlinuxarm.org/packages/armv7h/icu/files/icudata-stdlibs.patch
-      sed -e 's/LDFLAGSICUDT=-nodefaultlibs -nostdlib/LDFLAGSICUDT=/' -i config/mh-linux
-    '';
+        # $(includedir) is different from $(prefix)/include due to multiple outputs
+        sed -i -e 's|^\(CPPFLAGS = .*\) -I\$(prefix)/include|\1 -I$(includedir)|' config/Makefile.inc.in
+      '' + lib.optionalString stdenv.isAarch32 ''
+        # From https://archlinuxarm.org/packages/armv7h/icu/files/icudata-stdlibs.patch
+        sed -e 's/LDFLAGSICUDT=-nodefaultlibs -nostdlib/LDFLAGSICUDT=/' -i config/mh-linux
+      ''
+      ;
 
-    configureFlags = [ "--disable-debug" ]
+    configureFlags =
+      [ "--disable-debug" ]
       ++ lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath"
       ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-      "--with-cross-build=${nativeBuildRoot}";
+      "--with-cross-build=${nativeBuildRoot}"
+      ;
 
     enableParallelBuilding = true;
 
@@ -90,32 +95,34 @@ let
       lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
       # remove dependency on bootstrap-tools in early stdenv build
-    postInstall = lib.optionalString stdenv.isDarwin ''
-      sed -i 's/INSTALL_CMD=.*install/INSTALL_CMD=install/' $out/lib/icu/${version}/pkgdata.inc
-    '' + (let
-      replacements = [
-        {
-          from = "\${prefix}/include";
-          to = "${placeholder "dev"}/include";
-        } # --cppflags-searchpath
-        {
-          from = "\${pkglibdir}/Makefile.inc";
-          to = "${placeholder "dev"}/lib/icu/Makefile.inc";
-        } # --incfile
-        {
-          from = "\${pkglibdir}/pkgdata.inc";
-          to = "${placeholder "dev"}/lib/icu/pkgdata.inc";
-        } # --incpkgdatafile
-      ];
-    in
-    ''
-      substituteInPlace "$dev/bin/icu-config" \
-        ${
-          lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'")
-          replacements
-        }
-    ''
-    );
+    postInstall =
+      lib.optionalString stdenv.isDarwin ''
+        sed -i 's/INSTALL_CMD=.*install/INSTALL_CMD=install/' $out/lib/icu/${version}/pkgdata.inc
+      '' + (let
+        replacements = [
+          {
+            from = "\${prefix}/include";
+            to = "${placeholder "dev"}/include";
+          } # --cppflags-searchpath
+          {
+            from = "\${pkglibdir}/Makefile.inc";
+            to = "${placeholder "dev"}/lib/icu/Makefile.inc";
+          } # --incfile
+          {
+            from = "\${pkglibdir}/pkgdata.inc";
+            to = "${placeholder "dev"}/lib/icu/pkgdata.inc";
+          } # --incpkgdatafile
+        ];
+      in
+      ''
+        substituteInPlace "$dev/bin/icu-config" \
+          ${
+            lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'")
+            replacements
+          }
+      ''
+      )
+      ;
 
     postFixup = ''moveToOutput lib/icu "$dev" '';
   };
@@ -123,11 +130,13 @@ let
   buildRootOnlyAttrs = baseAttrs // {
     name = pname + "-build-root-" + version;
 
-    preConfigure = baseAttrs.preConfigure + ''
-      mkdir build
-      cd build
-      configureScript=../configure
-    '';
+    preConfigure =
+      baseAttrs.preConfigure + ''
+        mkdir build
+        cd build
+        configureScript=../configure
+      ''
+      ;
 
     postBuild = ''
       cd ..

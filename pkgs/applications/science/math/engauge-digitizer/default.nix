@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
 
   POPPLER_LIB = "${poppler}/lib";
 
-  OPENJPEG_INCLUDE = "${openjpeg.dev}/include/${openjpeg.pname}-${
+  OPENJPEG_INCLUDE =
+    "${openjpeg.dev}/include/${openjpeg.pname}-${
       lib.versions.majorMinor openjpeg.version
     }";
 

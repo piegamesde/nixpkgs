@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/evince/${
+    url =
+      "mirror://gnome/sources/evince/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "Fa/TuxX/s4/sqzTCM1CVCtJwqwOoW5TjM9ndfuanQxQ=";
@@ -75,27 +76,28 @@ stdenv.mkDerivation rec {
     yelp-tools
   ];
 
-  buildInputs = [
-    adwaita-icon-theme
-    atk
-    dbus # only needed to find the service directory
-    djvulibre
-    gdk-pixbuf
-    ghostscriptX
-    glib
-    gnome-desktop
-    gsettings-desktop-schemas
-    gspell
-    gtk3
-    libarchive
-    libhandy
-    librsvg
-    libspectre
-    libxml2
-    pango
-    poppler
-    texlive.bin.core # kpathsea for DVI support
-  ] ++ lib.optionals withLibsecret [ libsecret ]
+  buildInputs =
+    [
+      adwaita-icon-theme
+      atk
+      dbus # only needed to find the service directory
+      djvulibre
+      gdk-pixbuf
+      ghostscriptX
+      glib
+      gnome-desktop
+      gsettings-desktop-schemas
+      gspell
+      gtk3
+      libarchive
+      libhandy
+      librsvg
+      libspectre
+      libxml2
+      pango
+      poppler
+      texlive.bin.core # kpathsea for DVI support
+    ] ++ lib.optionals withLibsecret [ libsecret ]
     ++ lib.optionals supportXPS [ libgxps ] ++ lib.optionals supportMultimedia
     (with gst_all_1; [
       gstreamer
@@ -104,13 +106,16 @@ stdenv.mkDerivation rec {
       gst-plugins-bad
       gst-plugins-ugly
       gst-libav
-    ]);
+    ])
+    ;
 
-  mesonFlags = [
-    "-Dnautilus=false"
-    "-Dps=enabled"
-  ] ++ lib.optionals (!withLibsecret) [ "-Dkeyring=disabled" ]
-    ++ lib.optionals (!supportMultimedia) [ "-Dmultimedia=disabled" ];
+  mesonFlags =
+    [
+      "-Dnautilus=false"
+      "-Dps=enabled"
+    ] ++ lib.optionals (!withLibsecret) [ "-Dkeyring=disabled" ]
+    ++ lib.optionals (!supportMultimedia) [ "-Dmultimedia=disabled" ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 

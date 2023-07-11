@@ -52,8 +52,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "migraphx";
   version = "5.4.3";
 
-  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
-    ++ lib.optionals buildTests [ "test" ];
+  outputs =
+    [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    ++ lib.optionals buildTests [ "test" ]
+    ;
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -62,22 +64,24 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-UDhm+j9qs4Rk81C1PE4kkacytfY2StYbfsCOtFL+p6s=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    rocm-cmake
-    hip
-    clang-tools-extra
-    python3Packages.python
-  ] ++ lib.optionals buildDocs [
-    latex
-    doxygen
-    sphinx
-    docutils
-    ghostscript
-    python3Packages.sphinx-rtd-theme
-    python3Packages.breathe
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      cmake
+      rocm-cmake
+      hip
+      clang-tools-extra
+      python3Packages.python
+    ] ++ lib.optionals buildDocs [
+      latex
+      doxygen
+      sphinx
+      docutils
+      ghostscript
+      python3Packages.sphinx-rtd-theme
+      python3Packages.breathe
+    ]
+    ;
 
   buildInputs = [
     openmp
@@ -111,18 +115,20 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
   ];
 
-  postPatch = ''
-    patchShebangs tools
+  postPatch =
+    ''
+      patchShebangs tools
 
-    substituteInPlace src/targets/gpu/CMakeLists.txt \
-      --replace "CMAKE_CXX_COMPILER MATCHES \".*clang\\\+\\\+\$\"" "TRUE"
-  '' + lib.optionalString (!buildDocs) ''
-    substituteInPlace CMakeLists.txt \
-      --replace "add_subdirectory(doc)" ""
-  '' + lib.optionalString (!buildTests) ''
-    substituteInPlace CMakeLists.txt \
-      --replace "add_subdirectory(test)" ""
-  '';
+      substituteInPlace src/targets/gpu/CMakeLists.txt \
+        --replace "CMAKE_CXX_COMPILER MATCHES \".*clang\\\+\\\+\$\"" "TRUE"
+    '' + lib.optionalString (!buildDocs) ''
+      substituteInPlace CMakeLists.txt \
+        --replace "add_subdirectory(doc)" ""
+    '' + lib.optionalString (!buildTests) ''
+      substituteInPlace CMakeLists.txt \
+        --replace "add_subdirectory(test)" ""
+    ''
+    ;
 
     # Unfortunately, it seems like we have to call make on this manually
   preInstall = lib.optionalString buildDocs ''
@@ -133,14 +139,16 @@ stdenv.mkDerivation (finalAttrs: {
     cd -
   '';
 
-  postInstall = lib.optionalString buildDocs ''
-    mv ../doc/html $out/share/doc/migraphx
-    mv ../doc/pdf/MIGraphX.pdf $out/share/doc/migraphx
-  '' + lib.optionalString buildTests ''
-    mkdir -p $test/bin
-    mv bin/test_* $test/bin
-    patchelf $test/bin/test_* --shrink-rpath --allowed-rpath-prefixes /nix/store
-  '';
+  postInstall =
+    lib.optionalString buildDocs ''
+      mv ../doc/html $out/share/doc/migraphx
+      mv ../doc/pdf/MIGraphX.pdf $out/share/doc/migraphx
+    '' + lib.optionalString buildTests ''
+      mkdir -p $test/bin
+      mv bin/test_* $test/bin
+      patchelf $test/bin/test_* --shrink-rpath --allowed-rpath-prefixes /nix/store
+    ''
+    ;
 
   passthru.updateScript = rocmUpdateScript {
     name = finalAttrs.pname;

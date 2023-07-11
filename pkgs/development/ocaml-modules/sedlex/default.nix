@@ -63,10 +63,12 @@ buildDunePackage rec {
     inherit (param) sha256;
   };
 
-  propagatedBuildInputs = [
-    gen
-    ppxlib
-  ] ++ lib.optionals (!atLeast31) [ uchar ];
+  propagatedBuildInputs =
+    [
+      gen
+      ppxlib
+    ] ++ lib.optionals (!atLeast31) [ uchar ]
+    ;
 
   preBuild = ''
     rm src/generator/data/dune

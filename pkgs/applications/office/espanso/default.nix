@@ -37,19 +37,21 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    libX11
-    libXtst
-    libXi
-    libnotify
-    xclip
-    openssl
-  ] ++ lib.optionals stdenv.isLinux [ xdotool ]
+  buildInputs =
+    [
+      libX11
+      libXtst
+      libXi
+      libnotify
+      xclip
+      openssl
+    ] ++ lib.optionals stdenv.isLinux [ xdotool ]
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa
       Foundation
-    ];
+    ]
+    ;
 
     # Some tests require networking
   doCheck = false;

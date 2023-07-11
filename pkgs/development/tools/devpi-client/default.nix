@@ -38,28 +38,31 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
-    devpi-server
-    git
-  ] ++ (with python3.pkgs; [
-    mercurial
-    mock
-    pypitoken
-    pytestCheckHook
-    sphinx
-    virtualenv
-    webtest
-    wheel
-  ]);
+  nativeCheckInputs =
+    [
+      devpi-server
+      git
+    ] ++ (with python3.pkgs; [
+      mercurial
+      mock
+      pypitoken
+      pytestCheckHook
+      sphinx
+      virtualenv
+      webtest
+      wheel
+    ])
+    ;
 
   preCheck = ''
     export HOME=$(mktemp -d);
   '';
 
-  pytestFlagsArray = [
-    # --fast skips tests which try to start a devpi-server improperly
-    "--fast"
-  ];
+  pytestFlagsArray =
+    [
+      # --fast skips tests which try to start a devpi-server improperly
+      "--fast"
+    ];
 
   LC_ALL = "en_US.UTF-8";
 

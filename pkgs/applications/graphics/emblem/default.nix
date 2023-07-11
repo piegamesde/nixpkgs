@@ -36,25 +36,30 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    appstream-glib
-    desktop-file-utils
-    glib
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      appstream-glib
+      desktop-file-utils
+      glib
+      meson
+      ninja
+      pkg-config
+      wrapGAppsHook4
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
-  buildInputs = [
-    gtk4
-    libadwaita
-    libxml2
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
+  buildInputs =
+    [
+      gtk4
+      libadwaita
+      libxml2
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ]
+    ;
 
   meta = with lib; {
     description = "Generate project icons and avatars from a symbolic icon";

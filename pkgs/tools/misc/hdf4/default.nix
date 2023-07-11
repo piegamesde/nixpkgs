@@ -56,38 +56,44 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ cmake ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
-  buildInputs = [
-    libjpeg
-    zlib
-  ] ++ lib.optional javaSupport jdk ++ lib.optional szipSupport szip
-    ++ lib.optional uselibtirpc libtirpc;
+  buildInputs =
+    [
+      libjpeg
+      zlib
+    ] ++ lib.optional javaSupport jdk ++ lib.optional szipSupport szip
+    ++ lib.optional uselibtirpc libtirpc
+    ;
 
-  preConfigure = lib.optionalString uselibtirpc ''
-    # Make tirpc discovery work with CMAKE_PREFIX_PATH
-    substituteInPlace config/cmake/FindXDR.cmake \
-      --replace 'find_path(XDR_INCLUDE_DIR NAMES rpc/types.h PATHS "/usr/include" "/usr/include/tirpc")' \
-                'find_path(XDR_INCLUDE_DIR NAMES rpc/types.h PATH_SUFFIXES include/tirpc)'
-  '' + lib.optionalString szipSupport ''
-    export SZIP_INSTALL=${szip}
-  '';
+  preConfigure =
+    lib.optionalString uselibtirpc ''
+      # Make tirpc discovery work with CMAKE_PREFIX_PATH
+      substituteInPlace config/cmake/FindXDR.cmake \
+        --replace 'find_path(XDR_INCLUDE_DIR NAMES rpc/types.h PATHS "/usr/include" "/usr/include/tirpc")' \
+                  'find_path(XDR_INCLUDE_DIR NAMES rpc/types.h PATH_SUFFIXES include/tirpc)'
+    '' + lib.optionalString szipSupport ''
+      export SZIP_INSTALL=${szip}
+    ''
+    ;
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DHDF4_BUILD_TOOLS=ON"
-    "-DHDF4_BUILD_UTILS=ON"
-    "-DHDF4_BUILD_WITH_INSTALL_NAME=OFF"
-    "-DHDF4_ENABLE_JPEG_LIB_SUPPORT=ON"
-    "-DHDF4_ENABLE_NETCDF=OFF"
-    "-DHDF4_ENABLE_Z_LIB_SUPPORT=ON"
-    "-DHDF4_BUILD_FORTRAN=OFF"
-    "-DJPEG_DIR=${libjpeg}"
-  ] ++ lib.optionals javaSupport [
-    "-DHDF4_BUILD_JAVA=ON"
-    "-DJAVA_HOME=${jdk}"
-  ] ++ lib.optionals szipSupport [
-    "-DHDF4_ENABLE_SZIP_ENCODING=ON"
-    "-DHDF4_ENABLE_SZIP_SUPPORT=ON"
-  ];
+  cmakeFlags =
+    [
+      "-DBUILD_SHARED_LIBS=ON"
+      "-DHDF4_BUILD_TOOLS=ON"
+      "-DHDF4_BUILD_UTILS=ON"
+      "-DHDF4_BUILD_WITH_INSTALL_NAME=OFF"
+      "-DHDF4_ENABLE_JPEG_LIB_SUPPORT=ON"
+      "-DHDF4_ENABLE_NETCDF=OFF"
+      "-DHDF4_ENABLE_Z_LIB_SUPPORT=ON"
+      "-DHDF4_BUILD_FORTRAN=OFF"
+      "-DJPEG_DIR=${libjpeg}"
+    ] ++ lib.optionals javaSupport [
+      "-DHDF4_BUILD_JAVA=ON"
+      "-DJAVA_HOME=${jdk}"
+    ] ++ lib.optionals szipSupport [
+      "-DHDF4_ENABLE_SZIP_ENCODING=ON"
+      "-DHDF4_ENABLE_SZIP_SUPPORT=ON"
+    ]
+    ;
 
   doCheck = true;
 

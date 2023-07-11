@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "USdjrE4FWdAVi2aCyl3Ro71jPwgvXkNJ1xWOa1+A8c4=";
@@ -52,16 +53,18 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [
-    gnutls
-    cairo
-    gdk-pixbuf
-    zlib
-    glib
-    libgcrypt
-    cyrus_sasl
-    gtk3
-  ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ];
+  buildInputs =
+    [
+      gnutls
+      cairo
+      gdk-pixbuf
+      zlib
+      glib
+      libgcrypt
+      cyrus_sasl
+      gtk3
+    ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
+    ;
 
   mesonFlags = lib.optionals (!pulseaudioSupport) [ "-Dpulseaudio=disabled" ];
 

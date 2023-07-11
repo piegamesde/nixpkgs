@@ -69,11 +69,12 @@ stdenv.mkDerivation rec {
 
   patches = [ ./darwin.patch ];
 
-  cmakeFlags = [
-    "-DKEEPASSXC_BUILD_TYPE=Release"
-    "-DWITH_GUI_TESTS=ON"
-    "-DWITH_XC_UPDATECHECK=OFF"
-  ] ++ (lib.optional (!withKeePassX11) "-DWITH_XC_X11=OFF")
+  cmakeFlags =
+    [
+      "-DKEEPASSXC_BUILD_TYPE=Release"
+      "-DWITH_GUI_TESTS=ON"
+      "-DWITH_XC_UPDATECHECK=OFF"
+    ] ++ (lib.optional (!withKeePassX11) "-DWITH_XC_X11=OFF")
     ++ (lib.optional (withKeePassFDOSecrets && stdenv.isLinux)
       "-DWITH_XC_FDOSECRETS=ON")
     ++ (lib.optional (withKeePassYubiKey && stdenv.isLinux)
@@ -81,7 +82,8 @@ stdenv.mkDerivation rec {
     ++ (lib.optional withKeePassBrowser "-DWITH_XC_BROWSER=ON")
     ++ (lib.optional withKeePassKeeShare "-DWITH_XC_KEESHARE=ON")
     ++ (lib.optional withKeePassNetworking "-DWITH_XC_NETWORKING=ON")
-    ++ (lib.optional withKeePassSSHAgent "-DWITH_XC_SSHAGENT=ON");
+    ++ (lib.optional withKeePassSSHAgent "-DWITH_XC_SSHAGENT=ON")
+    ;
 
   doCheck = true;
   checkPhase = ''
@@ -109,29 +111,34 @@ stdenv.mkDerivation rec {
   ];
 
   dontWrapGApps = true;
-  preFixup = ''
-    qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
-  '' + lib.optionalString stdenv.isDarwin ''
-    wrapQtApp "$out/Applications/KeePassXC.app/Contents/MacOS/KeePassXC"
-  '';
+  preFixup =
+    ''
+      qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
+    '' + lib.optionalString stdenv.isDarwin ''
+      wrapQtApp "$out/Applications/KeePassXC.app/Contents/MacOS/KeePassXC"
+    ''
+    ;
 
-  buildInputs = [
-    curl
-    botan2
-    libXi
-    libXtst
-    libargon2
-    minizip
-    pcsclite
-    qrencode
-    qtbase
-    qtsvg
-    readline
-    zlib
-  ] ++ lib.optional (stdenv.isDarwin && withKeePassTouchID) LocalAuthentication
+  buildInputs =
+    [
+      curl
+      botan2
+      libXi
+      libXtst
+      libargon2
+      minizip
+      pcsclite
+      qrencode
+      qtbase
+      qtsvg
+      readline
+      zlib
+    ]
+    ++ lib.optional (stdenv.isDarwin && withKeePassTouchID) LocalAuthentication
     ++ lib.optional stdenv.isDarwin qtmacextras
     ++ lib.optional stdenv.isLinux libusb1
-    ++ lib.optional withKeePassX11 qtx11extras;
+    ++ lib.optional withKeePassX11 qtx11extras
+    ;
 
   passthru.tests = nixosTests.keepassxc;
 

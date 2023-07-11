@@ -44,25 +44,27 @@ stdenv.mkDerivation rec {
     gobject-introspection # for setup hook
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    json-glib
-    sqlite
-    libsoup
-    liboauth
-    gettext
-    dconf
-    gspell
-    glib-networking
-    librest
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-bad
-    (gst-plugins-good.override { gtkSupport = true; })
-    gst-libav
-  ]);
+  buildInputs =
+    [
+      glib
+      gtk3
+      json-glib
+      sqlite
+      libsoup
+      liboauth
+      gettext
+      dconf
+      gspell
+      glib-networking
+      librest
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-bad
+      (gst-plugins-good.override { gtkSupport = true; })
+      gst-libav
+    ])
+    ;
 
   postPatch = ''
     chmod +x data/meson_post_install.py # patchShebangs requires executable file

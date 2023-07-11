@@ -52,10 +52,12 @@ let
       sha256 = "sha256-uQ4X8F8nmagbcFh0KexrmnhHIXFSB3A1CCnjPVeHL3Q=";
     };
     patches = [ ];
-    cmakeFlags = (old.cmakeFlags or [ ]) ++ [
-      "-DUSE_DOUBLE_PRECISION=ON"
-      "-DBULLET2_MULTITHREADING=ON"
-    ];
+    cmakeFlags =
+      (old.cmakeFlags or [ ]) ++ [
+        "-DUSE_DOUBLE_PRECISION=ON"
+        "-DBULLET2_MULTITHREADING=ON"
+      ]
+      ;
   });
 
 in
@@ -77,12 +79,14 @@ mkDerivation rec {
       })
     ];
 
-  postPatch = ''
-    sed '1i#include <memory>' -i components/myguiplatform/myguidatamanager.cpp # gcc12
-  '' + lib.optionalString stdenv.isDarwin ''
-    # Don't fix Darwin app bundle
-    sed -i '/fixup_bundle/d' CMakeLists.txt
-  '';
+  postPatch =
+    ''
+      sed '1i#include <memory>' -i components/myguiplatform/myguidatamanager.cpp # gcc12
+    '' + lib.optionalString stdenv.isDarwin ''
+      # Don't fix Darwin app bundle
+      sed -i '/fixup_bundle/d' CMakeLists.txt
+    ''
+    ;
 
   nativeBuildInputs = [
     cmake
@@ -93,25 +97,29 @@ mkDerivation rec {
     # If not set, OSG plugin .so files become shell scripts on Darwin.
   dontWrapQtApps = true;
 
-  buildInputs = [
-    SDL2
-    boost
-    bullet_openmw
-    ffmpeg
-    libXt
-    mygui
-    openal
-    openscenegraph_openmw
-    unshield
-    lz4
-    recastnavigation
-  ] ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ];
+  buildInputs =
+    [
+      SDL2
+      boost
+      bullet_openmw
+      ffmpeg
+      libXt
+      mygui
+      openal
+      openscenegraph_openmw
+      unshield
+      lz4
+      recastnavigation
+    ] ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ]
+    ;
 
-  cmakeFlags = [
-    # as of 0.46, openmw is broken with GLVND
-    "-DOpenGL_GL_PREFERENCE=LEGACY"
-    "-DOPENMW_USE_SYSTEM_RECASTNAVIGATION=1"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DOPENMW_OSX_DEPLOYMENT=ON" ];
+  cmakeFlags =
+    [
+      # as of 0.46, openmw is broken with GLVND
+      "-DOpenGL_GL_PREFERENCE=LEGACY"
+      "-DOPENMW_USE_SYSTEM_RECASTNAVIGATION=1"
+    ] ++ lib.optionals stdenv.isDarwin [ "-DOPENMW_OSX_DEPLOYMENT=ON" ]
+    ;
 
   meta = with lib; {
     description =

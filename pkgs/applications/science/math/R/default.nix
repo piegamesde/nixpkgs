@@ -58,7 +58,8 @@ stdenv.mkDerivation (finalAttrs: {
       inherit (finalAttrs) pname version;
     in
     fetchurl {
-      url = "https://cran.r-project.org/src/base/R-${
+      url =
+        "https://cran.r-project.org/src/base/R-${
           lib.versions.major version
         }/${pname}-${version}.tar.gz";
       sha256 = "sha256-VeSpptQ74xTiwD0CZqb6VESv3OULMDv8O4Kzl5UW4HQ=";
@@ -68,43 +69,45 @@ stdenv.mkDerivation (finalAttrs: {
   dontUseImakeConfigure = true;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    bzip2
-    gfortran
-    libX11
-    libXmu
-    libXt
-    libXt
-    libjpeg
-    libpng
-    libtiff
-    ncurses
-    pango
-    pcre2
-    perl
-    readline
-    texLive
-    xz
-    zlib
-    less
-    texinfo
-    graphviz
-    icu
-    bison
-    imake
-    which
-    blas
-    lapack
-    curl
-    tcl
-    tk
-    jdk
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    Foundation
-    libobjc
-    libcxx
-  ];
+  buildInputs =
+    [
+      bzip2
+      gfortran
+      libX11
+      libXmu
+      libXt
+      libXt
+      libjpeg
+      libpng
+      libtiff
+      ncurses
+      pango
+      pcre2
+      perl
+      readline
+      texLive
+      xz
+      zlib
+      less
+      texinfo
+      graphviz
+      icu
+      bison
+      imake
+      which
+      blas
+      lapack
+      curl
+      tcl
+      tk
+      jdk
+    ] ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      Foundation
+      libobjc
+      libcxx
+    ]
+    ;
 
   patches = [ ./no-usr-local-search-paths.patch ];
 
@@ -121,49 +124,51 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontDisableStatic = static;
 
-  preConfigure = ''
-    configureFlagsArray=(
-      --disable-lto
-      --with${
-        lib.optionalString (!withRecommendedPackages) "out"
-      }-recommended-packages
-      --with-blas="-L${blas}/lib -lblas"
-      --with-lapack="-L${lapack}/lib -llapack"
-      --with-readline
-      --with-tcltk --with-tcl-config="${tcl}/lib/tclConfig.sh" --with-tk-config="${tk}/lib/tkConfig.sh"
-      --with-cairo
-      --with-libpng
-      --with-jpeglib
-      --with-libtiff
-      --with-ICU
-      ${lib.optionalString enableStrictBarrier "--enable-strict-barrier"}
-      ${lib.optionalString enableMemoryProfiling "--enable-memory-profiling"}
-      ${
-        if static then
-          "--enable-R-static-lib"
-        else
-          "--enable-R-shlib"
-      }
-      AR=$(type -p ar)
-      AWK=$(type -p gawk)
-      CC=$(type -p cc)
-      CXX=$(type -p c++)
-      FC="${gfortran}/bin/gfortran" F77="${gfortran}/bin/gfortran"
-      JAVA_HOME="${jdk}"
-      RANLIB=$(type -p ranlib)
-      r_cv_have_curl728=yes
-      R_SHELL="${stdenv.shell}"
-  '' + lib.optionalString stdenv.isDarwin ''
-    --disable-R-framework
-    --without-x
-    OBJC="clang"
-    CPPFLAGS="-isystem ${lib.getDev libcxx}/include/c++/v1"
-    LDFLAGS="-L${lib.getLib libcxx}/lib"
-  '' + ''
-    )
-    echo >>etc/Renviron.in "TCLLIBPATH=${tk}/lib"
-    echo >>etc/Renviron.in "TZDIR=${tzdata}/share/zoneinfo"
-  '';
+  preConfigure =
+    ''
+      configureFlagsArray=(
+        --disable-lto
+        --with${
+          lib.optionalString (!withRecommendedPackages) "out"
+        }-recommended-packages
+        --with-blas="-L${blas}/lib -lblas"
+        --with-lapack="-L${lapack}/lib -llapack"
+        --with-readline
+        --with-tcltk --with-tcl-config="${tcl}/lib/tclConfig.sh" --with-tk-config="${tk}/lib/tkConfig.sh"
+        --with-cairo
+        --with-libpng
+        --with-jpeglib
+        --with-libtiff
+        --with-ICU
+        ${lib.optionalString enableStrictBarrier "--enable-strict-barrier"}
+        ${lib.optionalString enableMemoryProfiling "--enable-memory-profiling"}
+        ${
+          if static then
+            "--enable-R-static-lib"
+          else
+            "--enable-R-shlib"
+        }
+        AR=$(type -p ar)
+        AWK=$(type -p gawk)
+        CC=$(type -p cc)
+        CXX=$(type -p c++)
+        FC="${gfortran}/bin/gfortran" F77="${gfortran}/bin/gfortran"
+        JAVA_HOME="${jdk}"
+        RANLIB=$(type -p ranlib)
+        r_cv_have_curl728=yes
+        R_SHELL="${stdenv.shell}"
+    '' + lib.optionalString stdenv.isDarwin ''
+      --disable-R-framework
+      --without-x
+      OBJC="clang"
+      CPPFLAGS="-isystem ${lib.getDev libcxx}/include/c++/v1"
+      LDFLAGS="-L${lib.getLib libcxx}/lib"
+    '' + ''
+      )
+      echo >>etc/Renviron.in "TCLLIBPATH=${tk}/lib"
+      echo >>etc/Renviron.in "TZDIR=${tzdata}/share/zoneinfo"
+    ''
+    ;
 
   installTargets = [
     "install"

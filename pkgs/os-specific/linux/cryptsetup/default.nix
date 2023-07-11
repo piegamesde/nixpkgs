@@ -32,16 +32,18 @@ stdenv.mkDerivation rec {
   separateDebugInfo = true;
 
   src = fetchurl {
-    url = "mirror://kernel/linux/utils/cryptsetup/v${
+    url =
+      "mirror://kernel/linux/utils/cryptsetup/v${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     hash = "sha256-QQ3tZaEHKrnI5Brd7Te5cpwIf+9NLbArtO9SmtbaRpM=";
   };
 
-  patches = [
-    # Allow reading tokens from a relative path, see #167994
-    ./relative-token-path.patch
-  ];
+  patches =
+    [
+      # Allow reading tokens from a relative path, see #167994
+      ./relative-token-path.patch
+    ];
 
   postPatch = ''
     patchShebangs tests
@@ -56,18 +58,20 @@ stdenv.mkDerivation rec {
     lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
     "-lgcc_s";
 
-  configureFlags = [
-    "--enable-cryptsetup-reencrypt"
-    "--with-crypto_backend=openssl"
-    "--disable-ssh-token"
-  ] ++ lib.optionals (!rebuildMan) [ "--disable-asciidoc" ]
+  configureFlags =
+    [
+      "--enable-cryptsetup-reencrypt"
+      "--with-crypto_backend=openssl"
+      "--disable-ssh-token"
+    ] ++ lib.optionals (!rebuildMan) [ "--disable-asciidoc" ]
     ++ lib.optionals stdenv.hostPlatform.isStatic [
       "--disable-external-tokens"
       # We have to override this even though we're removing token
       # support, because the path still gets included in the binary even
       # though it isn't used.
       "--with-luks2-external-tokens-path=/"
-    ];
+    ]
+    ;
 
   nativeBuildInputs =
     [ pkg-config ] ++ lib.optionals rebuildMan [ asciidoctor ];

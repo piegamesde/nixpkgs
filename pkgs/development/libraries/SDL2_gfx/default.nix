@@ -21,12 +21,14 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ SDL2 ] ++ lib.optional stdenv.isDarwin darwin.libobjc;
 
-  configureFlags = [
+  configureFlags =
+    [
       (if stdenv.hostPlatform.isx86 then
         "--enable-mmx"
       else
         "--disable-mmx")
-    ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
+    ] ++ lib.optional stdenv.isDarwin "--disable-sdltest"
+    ;
 
   meta = with lib; {
     description = "SDL graphics drawing primitives and support functions";

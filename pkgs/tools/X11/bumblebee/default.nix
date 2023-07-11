@@ -48,7 +48,8 @@
 }:
 
 let
-  nvidia_x11s = [ nvidia_x11 ] ++ lib.optional nvidia_x11.useGLVND libglvnd
+  nvidia_x11s =
+    [ nvidia_x11 ] ++ lib.optional nvidia_x11.useGLVND libglvnd
     ++ lib.optionals (nvidia_x11_i686 != null)
     ([ nvidia_x11_i686 ] ++ lib.optional nvidia_x11_i686.useGLVND libglvnd_i686)
     ;
@@ -98,11 +99,13 @@ stdenv.mkDerivation rec {
   ];
 
     # By default we don't want to use a display device
-  nvidiaDeviceOptions = lib.optionalString (!useDisplayDevice) ''
-    # Disable display device
-    Option "UseEDID" "false"
-    Option "UseDisplayDevice" "none"
-  '' + extraNvidiaDeviceOptions;
+  nvidiaDeviceOptions =
+    lib.optionalString (!useDisplayDevice) ''
+      # Disable display device
+      Option "UseEDID" "false"
+      Option "UseDisplayDevice" "none"
+    '' + extraNvidiaDeviceOptions
+    ;
 
   nouveauDeviceOptions = extraNouveauDeviceOptions;
 
@@ -149,14 +152,16 @@ stdenv.mkDerivation rec {
     # includes the acceleration driver. As this is used for the X11
     # server, which runs under the host architecture, this does not
     # include the sub architecture components.
-  configureFlags = [
+  configureFlags =
+    [
       "--with-udev-rules=$out/lib/udev/rules.d"
       # see #10282
       #"CONF_PRIMUS_LD_PATH=${primusLibs}"
     ] ++ lib.optionals useNvidia [
       "CONF_LDPATH_NVIDIA=${nvidiaLibs}"
       "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
-    ];
+    ]
+    ;
 
   CFLAGS = [ ''-DX_MODULE_APPENDS=\"${xmodules}\"'' ];
 

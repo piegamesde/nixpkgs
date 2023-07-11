@@ -49,20 +49,23 @@ let
         else
           jdk11_headless)
       ];
-    bazelScript = ''
-      ${bazel}/bin/bazel \
-        run \
-        --distdir=${distDir} \
-        --verbose_failures \
-        --curses=no \
-        --sandbox_debug \
-        --strict_java_deps=off \
-        //:ProjectRunner \
-    '' + lib.optionalString (lib.strings.versionOlder bazel.version "5.0.0") ''
-      --host_javabase='@local_jdk//:jdk' \
-      --java_toolchain='@bazel_tools//tools/jdk:toolchain_hostjdk8' \
-      --javabase='@local_jdk//:jdk' \
-    '';
+    bazelScript =
+      ''
+        ${bazel}/bin/bazel \
+          run \
+          --distdir=${distDir} \
+          --verbose_failures \
+          --curses=no \
+          --sandbox_debug \
+          --strict_java_deps=off \
+          //:ProjectRunner \
+      ''
+      + lib.optionalString (lib.strings.versionOlder bazel.version "5.0.0") ''
+        --host_javabase='@local_jdk//:jdk' \
+        --java_toolchain='@bazel_tools//tools/jdk:toolchain_hostjdk8' \
+        --javabase='@local_jdk//:jdk' \
+      ''
+      ;
   };
 
 in

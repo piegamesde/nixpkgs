@@ -37,18 +37,20 @@
 stdenv.mkDerivation rec {
   inherit pname version src;
 
-  patches = [
-    ./locale_archive.patch
+  patches =
+    [
+      ./locale_archive.patch
 
-    (fetchurl {
-      url =
-        "https://git.alpinelinux.org/aports/plain/main/openssh/gss-serv.c.patch?id=a7509603971ce2f3282486a43bb773b1b522af83";
-      sha256 = "sha256-eFFOd4B2nccRZAQWwdBPBoKWjfEdKEVGJvKZAzLu3HU=";
-    })
+      (fetchurl {
+        url =
+          "https://git.alpinelinux.org/aports/plain/main/openssh/gss-serv.c.patch?id=a7509603971ce2f3282486a43bb773b1b522af83";
+        sha256 = "sha256-eFFOd4B2nccRZAQWwdBPBoKWjfEdKEVGJvKZAzLu3HU=";
+      })
 
-    # See discussion in https://github.com/NixOS/nixpkgs/pull/16966
-    ./dont_create_privsep_path.patch
-  ] ++ extraPatches;
+      # See discussion in https://github.com/NixOS/nixpkgs/pull/16966
+      ./dont_create_privsep_path.patch
+    ] ++ extraPatches
+    ;
 
   postPatch =
     # On Hydra this makes installation fail (sometimes?),
@@ -58,19 +60,23 @@ stdenv.mkDerivation rec {
     '';
 
   strictDeps = true;
-  nativeBuildInputs = [
+  nativeBuildInputs =
+    [
       pkg-config
     ]
     # This is not the same as the libkrb5 from the inputs! pkgs.libkrb5 is
     # needed here to access krb5-config in order to cross compile. See:
     # https://github.com/NixOS/nixpkgs/pull/107606
-    ++ lib.optional withKerberos pkgs.libkrb5 ++ extraNativeBuildInputs;
-  buildInputs = [
-    zlib
-    openssl
-    libedit
-  ] ++ lib.optional withFIDO libfido2 ++ lib.optional withKerberos libkrb5
-    ++ lib.optional stdenv.isLinux pam;
+    ++ lib.optional withKerberos pkgs.libkrb5 ++ extraNativeBuildInputs
+    ;
+  buildInputs =
+    [
+      zlib
+      openssl
+      libedit
+    ] ++ lib.optional withFIDO libfido2 ++ lib.optional withKerberos libkrb5
+    ++ lib.optional stdenv.isLinux pam
+    ;
 
   preConfigure = ''
     # Setting LD causes `configure' and `make' to disagree about which linker
@@ -80,30 +86,33 @@ stdenv.mkDerivation rec {
 
     # I set --disable-strip because later we strip anyway. And it fails to strip
     # properly when cross building.
-  configureFlags = [
-    "--sbindir=\${out}/bin"
-    "--localstatedir=/var"
-    "--with-pid-dir=/run"
-    "--with-mantype=man"
-    "--with-libedit=yes"
-    "--disable-strip"
-    (if stdenv.isLinux then
-      "--with-pam"
-    else
-      "--without-pam")
-  ] ++ lib.optional (etcDir != null) "--sysconfdir=${etcDir}"
+  configureFlags =
+    [
+      "--sbindir=\${out}/bin"
+      "--localstatedir=/var"
+      "--with-pid-dir=/run"
+      "--with-mantype=man"
+      "--with-libedit=yes"
+      "--disable-strip"
+      (if stdenv.isLinux then
+        "--with-pam"
+      else
+        "--without-pam")
+    ] ++ lib.optional (etcDir != null) "--sysconfdir=${etcDir}"
     ++ lib.optional withFIDO "--with-security-key-builtin=yes"
     ++ lib.optional withKerberos
     (assert libkrb5 != null; "--with-kerberos5=${libkrb5}")
     ++ lib.optional stdenv.isDarwin "--disable-libutil"
-    ++ lib.optional (!linkOpenssl) "--without-openssl" ++ extraConfigureFlags;
+    ++ lib.optional (!linkOpenssl) "--without-openssl" ++ extraConfigureFlags
+    ;
 
   ${
     if stdenv.hostPlatform.isStatic then
       "NIX_LDFLAGS"
     else
       null
-  } = [ "-laudit" ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
+  } =
+    [ "-laudit" ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
 
   buildFlags = [ "SSH_KEYSIGN=ssh-keysign" ];
 
@@ -161,14 +170,15 @@ stdenv.mkDerivation rec {
     # integration tests hard to get working on darwin with its shaky
     # sandbox
     # t-exec tests fail on musl
-  checkTarget = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl)
-    "t-exec"
+  checkTarget =
+    lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl) "t-exec"
     # other tests are less demanding of the environment
     ++ [
       "unit"
       "file-tests"
       "interop-tests"
-    ];
+    ]
+    ;
 
   postInstall = ''
     # Install ssh-copy-id, it's very useful.
@@ -189,10 +199,12 @@ stdenv.mkDerivation rec {
       changelog = "https://www.openssh.com/releasenotes.html";
       license = licenses.bsd2;
       platforms = platforms.unix ++ platforms.windows;
-      maintainers = (extraMeta.maintainers or [ ]) ++ (with maintainers; [
-        eelco
-        aneeshusa
-      ]);
+      maintainers =
+        (extraMeta.maintainers or [ ]) ++ (with maintainers; [
+          eelco
+          aneeshusa
+        ])
+        ;
       mainProgram = "ssh";
     } // extraMeta;
 }

@@ -75,34 +75,36 @@ stdenv.mkDerivation (finalAttrs: {
     which
   ];
 
-  postInstall = ''
-    sed -e "1s@.*@#! ${lua}/bin/lua$LUA_SUFFIX@" -i "$out"/bin/*
-    substituteInPlace $out/etc/luarocks/* \
-     --replace '${lua.luaOnBuild}' '${lua}'
+  postInstall =
+    ''
+      sed -e "1s@.*@#! ${lua}/bin/lua$LUA_SUFFIX@" -i "$out"/bin/*
+      substituteInPlace $out/etc/luarocks/* \
+       --replace '${lua.luaOnBuild}' '${lua}'
 
-    for i in "$out"/bin/*; do
-        test -L "$i" || {
-            wrapProgram "$i" \
-              --suffix LUA_PATH ";" "$(echo "$out"/share/lua/*/)?.lua" \
-              --suffix LUA_PATH ";" "$(echo "$out"/share/lua/*/)?/init.lua" \
-              --suffix LUA_CPATH ";" "$(echo "$out"/lib/lua/*/)?.so" \
-              --suffix LUA_CPATH ";" "$(echo "$out"/share/lua/*/)?/init.lua" \
-              --suffix PATH : ${
-                lib.makeBinPath ([ unzip ]
-                  ++ lib.optionals (finalAttrs.pname == "luarocks-nix") [
-                    file
-                    nix-prefetch-git
-                  ])
-              }
-        }
-    done
-  '' + lib.optionalString
+      for i in "$out"/bin/*; do
+          test -L "$i" || {
+              wrapProgram "$i" \
+                --suffix LUA_PATH ";" "$(echo "$out"/share/lua/*/)?.lua" \
+                --suffix LUA_PATH ";" "$(echo "$out"/share/lua/*/)?/init.lua" \
+                --suffix LUA_CPATH ";" "$(echo "$out"/lib/lua/*/)?.so" \
+                --suffix LUA_CPATH ";" "$(echo "$out"/share/lua/*/)?/init.lua" \
+                --suffix PATH : ${
+                  lib.makeBinPath ([ unzip ]
+                    ++ lib.optionals (finalAttrs.pname == "luarocks-nix") [
+                      file
+                      nix-prefetch-git
+                    ])
+                }
+          }
+      done
+    '' + lib.optionalString
     (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
       installShellCompletion --cmd luarocks \
         --bash <($out/bin/luarocks completion bash) \
         --fish <($out/bin/luarocks completion fish) \
         --zsh <($out/bin/luarocks completion zsh)
-    '';
+    ''
+    ;
 
   propagatedBuildInputs = [
     zip

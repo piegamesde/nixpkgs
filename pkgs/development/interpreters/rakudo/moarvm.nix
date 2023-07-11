@@ -16,21 +16,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z+IU1E1fYmeHyn8EQkBDpjkwikOnd3tvpBkmtyQODcU=";
   };
 
-  postPatch = ''
-    patchShebangs .
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace Configure.pl \
-      --replace '`/usr/bin/arch`' '"${stdenv.hostPlatform.darwinArch}"' \
-      --replace '/usr/bin/arch' "$(type -P true)" \
-      --replace '/usr/' '/nope/'
-    substituteInPlace 3rdparty/dyncall/configure \
-      --replace '`sw_vers -productVersion`' '"$MACOSX_DEPLOYMENT_TARGET"'
-  '';
+  postPatch =
+    ''
+      patchShebangs .
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace Configure.pl \
+        --replace '`/usr/bin/arch`' '"${stdenv.hostPlatform.darwinArch}"' \
+        --replace '/usr/bin/arch' "$(type -P true)" \
+        --replace '/usr/' '/nope/'
+      substituteInPlace 3rdparty/dyncall/configure \
+        --replace '`sw_vers -productVersion`' '"$MACOSX_DEPLOYMENT_TARGET"'
+    ''
+    ;
 
-  buildInputs = [ perl ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-    ApplicationServices
-  ];
+  buildInputs =
+    [ perl ] ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      ApplicationServices
+    ]
+    ;
   doCheck = false; # MoarVM does not come with its own test suite
 
   configureScript = "${perl}/bin/perl ./Configure.pl";

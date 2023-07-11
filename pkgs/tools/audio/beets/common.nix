@@ -95,11 +95,13 @@ python3Packages.buildPythonApplication rec {
     sphinxHook
   ];
 
-  buildInputs = [ ] ++ (with gst_all_1; [
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-ugly
-  ]);
+  buildInputs =
+    [ ] ++ (with gst_all_1; [
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-ugly
+    ])
+    ;
 
   outputs = [
     "out"

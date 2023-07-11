@@ -160,9 +160,7 @@ rec {
     ;
 
   appendBuildFlag =
-    x:
-    overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; })
-    ;
+    x: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; });
   appendBuildFlags =
     xs:
     overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ xs; })
@@ -181,9 +179,7 @@ rec {
 
   addBuildTool = x: addBuildTools [ x ];
   addBuildTools =
-    xs:
-    overrideCabal (drv: { buildTools = (drv.buildTools or [ ]) ++ xs; })
-    ;
+    xs: overrideCabal (drv: { buildTools = (drv.buildTools or [ ]) ++ xs; });
 
   addExtraLibrary = x: addExtraLibraries [ x ];
   addExtraLibraries =
@@ -219,13 +215,9 @@ rec {
     ;
 
   enableCabalFlag =
-    x: drv:
-    appendConfigureFlag "-f${x}" (removeConfigureFlag "-f-${x}" drv)
-    ;
+    x: drv: appendConfigureFlag "-f${x}" (removeConfigureFlag "-f-${x}" drv);
   disableCabalFlag =
-    x: drv:
-    appendConfigureFlag "-f-${x}" (removeConfigureFlag "-f${x}" drv)
-    ;
+    x: drv: appendConfigureFlag "-f-${x}" (removeConfigureFlag "-f${x}" drv);
 
   markBroken = overrideCabal (drv: {
     broken = true;
@@ -233,10 +225,7 @@ rec {
   });
   unmarkBroken = overrideCabal (drv: { broken = false; });
   markBrokenVersion =
-    version: drv:
-    assert drv.version == version;
-    markBroken drv
-    ;
+    version: drv: assert drv.version == version; markBroken drv;
   markUnbroken = overrideCabal (drv: { broken = false; });
 
   enableLibraryProfiling =
@@ -285,9 +274,7 @@ rec {
     #   > setBuildTarget "server" (callCabal2nix "thePackageName" thePackageSrc {})
     #
   setBuildTargets =
-    xs:
-    overrideCabal (drv: { buildTarget = lib.concatStringsSep " " xs; })
-    ;
+    xs: overrideCabal (drv: { buildTarget = lib.concatStringsSep " " xs; });
   setBuildTarget = x: setBuildTargets [ x ];
 
   doHyperlinkSource = overrideCabal (drv: { hyperlinkSource = true; });
@@ -379,11 +366,13 @@ rec {
     enableLibraryProfiling = false;
     isLibrary = false;
     doHaddock = false;
-    postFixup = drv.postFixup or "" + ''
+    postFixup =
+      drv.postFixup or "" + ''
 
-      # Remove every directory which could have links to other store paths.
-      rm -rf $out/lib $out/nix-support $out/share/doc
-    '';
+        # Remove every directory which could have links to other store paths.
+        rm -rf $out/lib $out/nix-support $out/share/doc
+      ''
+      ;
   });
 
     /* Build a source distribution tarball instead of using the source files
@@ -575,21 +564,23 @@ rec {
   __generateOptparseApplicativeCompletion =
     exeName:
     overrideCabal (drv: {
-      postInstall = (drv.postInstall or "") + ''
-        bashCompDir="''${!outputBin}/share/bash-completion/completions"
-        zshCompDir="''${!outputBin}/share/zsh/vendor-completions"
-        fishCompDir="''${!outputBin}/share/fish/vendor_completions.d"
-        mkdir -p "$bashCompDir" "$zshCompDir" "$fishCompDir"
-        "''${!outputBin}/bin/${exeName}" --bash-completion-script "''${!outputBin}/bin/${exeName}" >"$bashCompDir/${exeName}"
-        "''${!outputBin}/bin/${exeName}" --zsh-completion-script "''${!outputBin}/bin/${exeName}" >"$zshCompDir/_${exeName}"
-        "''${!outputBin}/bin/${exeName}" --fish-completion-script "''${!outputBin}/bin/${exeName}" >"$fishCompDir/${exeName}.fish"
+      postInstall =
+        (drv.postInstall or "") + ''
+          bashCompDir="''${!outputBin}/share/bash-completion/completions"
+          zshCompDir="''${!outputBin}/share/zsh/vendor-completions"
+          fishCompDir="''${!outputBin}/share/fish/vendor_completions.d"
+          mkdir -p "$bashCompDir" "$zshCompDir" "$fishCompDir"
+          "''${!outputBin}/bin/${exeName}" --bash-completion-script "''${!outputBin}/bin/${exeName}" >"$bashCompDir/${exeName}"
+          "''${!outputBin}/bin/${exeName}" --zsh-completion-script "''${!outputBin}/bin/${exeName}" >"$zshCompDir/_${exeName}"
+          "''${!outputBin}/bin/${exeName}" --fish-completion-script "''${!outputBin}/bin/${exeName}" >"$fishCompDir/${exeName}.fish"
 
-        # Sanity check
-        grep -F ${exeName} <$bashCompDir/${exeName} >/dev/null || {
-          echo 'Could not find ${exeName} in completion script.'
-          exit 1
-        }
-      '';
+          # Sanity check
+          grep -F ${exeName} <$bashCompDir/${exeName} >/dev/null || {
+            echo 'Could not find ${exeName} in completion script.'
+            exit 1
+          }
+        ''
+        ;
     })
     ;
 

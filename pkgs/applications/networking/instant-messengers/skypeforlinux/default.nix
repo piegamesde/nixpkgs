@@ -43,56 +43,58 @@ let
   # source of the latter disappears much faster.
   version = "8.96.0.207";
 
-  rpath = lib.makeLibraryPath [
-    alsa-lib
-    atk
-    at-spi2-atk
-    at-spi2-core
-    cairo
-    cups
-    curl
-    dbus
-    expat
-    fontconfig
-    freetype
-    glib
-    glibc
-    libsecret
-    libuuid
+  rpath =
+    lib.makeLibraryPath [
+      alsa-lib
+      atk
+      at-spi2-atk
+      at-spi2-core
+      cairo
+      cups
+      curl
+      dbus
+      expat
+      fontconfig
+      freetype
+      glib
+      glibc
+      libsecret
+      libuuid
 
-    gdk-pixbuf
-    gtk3
-    libappindicator-gtk3
+      gdk-pixbuf
+      gtk3
+      libappindicator-gtk3
 
-    gnome.gnome-keyring
+      gnome.gnome-keyring
 
-    libnotify
-    libpulseaudio
-    nspr
-    nss
-    pango
-    stdenv.cc.cc
-    systemd
+      libnotify
+      libpulseaudio
+      nspr
+      nss
+      pango
+      stdenv.cc.cc
+      systemd
 
-    libv4l
-    libdrm
-    mesa
-    libxkbcommon
-    libxshmfence
-    xorg.libxkbfile
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libXScrnSaver
-    xorg.libxcb
-  ] + ":${stdenv.cc.cc.lib}/lib64";
+      libv4l
+      libdrm
+      mesa
+      libxkbcommon
+      libxshmfence
+      xorg.libxkbfile
+      xorg.libX11
+      xorg.libXcomposite
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libXScrnSaver
+      xorg.libxcb
+    ] + ":${stdenv.cc.cc.lib}/lib64"
+    ;
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then

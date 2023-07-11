@@ -176,7 +176,8 @@ in
         User = "terraria";
         Type = "forking";
         GuessMainPID = true;
-        ExecStart = "${
+        ExecStart =
+          "${
             getBin pkgs.tmux
           }/bin/tmux -S ${cfg.dataDir}/terraria.sock new -d ${pkgs.terraria-server}/bin/TerrariaServer ${
             concatStringsSep " " flags

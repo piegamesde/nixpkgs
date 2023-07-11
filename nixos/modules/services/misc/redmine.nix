@@ -341,8 +341,10 @@ in
           "services.redmine.database.host must be set to localhost if services.redmine.database.createLocally is set to true";
       }
       {
-        assertion = cfg.components.imagemagick
-          -> cfg.components.minimagick_font_path != "";
+        assertion =
+          cfg.components.imagemagick -> cfg.components.minimagick_font_path
+          != ""
+          ;
         message =
           "services.redmine.components.minimagick_font_path must be configured with a path to a font file if services.redmine.components.imagemagick is set to true.";
       }
@@ -420,8 +422,10 @@ in
     ];
 
     systemd.services.redmine = {
-      after = [ "network.target" ] ++ optional mysqlLocal "mysql.service"
-        ++ optional pgsqlLocal "postgresql.service";
+      after =
+        [ "network.target" ] ++ optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service"
+        ;
       wantedBy = [ "multi-user.target" ];
       environment.RAILS_ENV = "production";
       environment.RAILS_CACHE = "${cfg.stateDir}/cache";
@@ -500,7 +504,8 @@ in
         Group = cfg.group;
         TimeoutSec = "300";
         WorkingDirectory = "${cfg.package}/share/redmine";
-        ExecStart = "${bundle} exec rails server webrick -e production -p ${
+        ExecStart =
+          "${bundle} exec rails server webrick -e production -p ${
             toString cfg.port
           } -P '${cfg.stateDir}/redmine.pid'";
       };

@@ -41,10 +41,11 @@ stdenv.mkDerivation {
         curl
         openal
       ];
-      arch = {
-        "x86_64-linux" = "x86_64";
-        "i386-linux" = "i386";
-      }.${stdenv.hostPlatform.system};
+      arch =
+        {
+          "x86_64-linux" = "x86_64";
+          "i386-linux" = "i386";
+        }.${stdenv.hostPlatform.system};
     in
     ''
       mkdir -pv $out/bin

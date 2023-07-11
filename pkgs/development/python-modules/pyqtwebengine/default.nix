@@ -46,18 +46,20 @@ buildPythonPackage rec {
     "dev"
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    qmake
-    sip
-    qtbase
-    qtsvg
-    qtwebengine
-    pyqt-builder
-    pythonPackages.setuptools
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+  nativeBuildInputs =
+    [
+      pkg-config
+      qmake
+      sip
+      qtbase
+      qtsvg
+      qtwebengine
+      pyqt-builder
+      pythonPackages.setuptools
+    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
-    ];
+    ]
+    ;
 
   buildInputs = [
     sip

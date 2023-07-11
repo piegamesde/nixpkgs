@@ -21,24 +21,26 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   nativeBuildInputs = [ emacs ];
-  buildInputs = [
-    bash
-    python3
-  ] ++ (with emacs.pkgs; [
-    ansi
-    dash
-    ecukes
-    el-mock
-    ert-async
-    ert-runner
-    f
-    git
-    noflet
-    package-build
-    s
-    servant
-    shell-split-string
-  ]);
+  buildInputs =
+    [
+      bash
+      python3
+    ] ++ (with emacs.pkgs; [
+      ansi
+      dash
+      ecukes
+      el-mock
+      ert-async
+      ert-runner
+      f
+      git
+      noflet
+      package-build
+      s
+      servant
+      shell-split-string
+    ])
+    ;
 
   strictDeps = true;
 

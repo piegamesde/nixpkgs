@@ -994,13 +994,15 @@ rec {
         name = "${baseName}-customisation-layer";
         paths = contentsList;
         inherit extraCommands fakeRootCommands;
-        nativeBuildInputs = [ fakeroot ] ++ optionals enableFakechroot [
-          fakechroot
-          # for chroot
-          coreutils
-          # fakechroot needs getopt, which is provided by util-linux
-          util-linux
-        ];
+        nativeBuildInputs =
+          [ fakeroot ] ++ optionals enableFakechroot [
+            fakechroot
+            # for chroot
+            coreutils
+            # fakechroot needs getopt, which is provided by util-linux
+            util-linux
+          ]
+          ;
         postBuild = ''
           mv $out old_out
           (cd old_out; eval "$extraCommands" )

@@ -44,16 +44,18 @@ in
     environment.systemPackages = [ cfg.package ];
     services.udev.packages = [ cfg.package ];
 
-    boot.kernelModules = [ "i2c-dev" ]
-      ++ lib.optionals (cfg.motherboard == "amd") [ "i2c-piix" ]
-      ++ lib.optionals (cfg.motherboard == "intel") [ "i2c-i801" ];
+    boot.kernelModules =
+      [ "i2c-dev" ] ++ lib.optionals (cfg.motherboard == "amd") [ "i2c-piix" ]
+      ++ lib.optionals (cfg.motherboard == "intel") [ "i2c-i801" ]
+      ;
 
     systemd.services.openrgb = {
       description = "OpenRGB server daemon";
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/openrgb --server --server-port ${
+        ExecStart =
+          "${cfg.package}/bin/openrgb --server --server-port ${
             toString cfg.server.port
           }";
         Restart = "always";

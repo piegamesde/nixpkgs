@@ -59,9 +59,10 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  buildInputs = [ libxcrypt ]
-    ++ lib.optional (pam != null && stdenv.isLinux) pam
-    ++ lib.optional withTcb tcb;
+  buildInputs =
+    [ libxcrypt ] ++ lib.optional (pam != null && stdenv.isLinux) pam
+    ++ lib.optional withTcb tcb
+    ;
 
   patches = [
     ./keep-path.patch
@@ -89,13 +90,15 @@ stdenv.mkDerivation rec {
     export shadow_cv_logdir=/var/log
   '';
 
-  configureFlags = [
-    "--enable-man"
-    "--with-group-name-max-length=32"
-    "--with-bcrypt"
-    "--with-yescrypt"
-  ] ++ lib.optional (stdenv.hostPlatform.libc != "glibc") "--disable-nscd"
-    ++ lib.optional withTcb "--with-tcb";
+  configureFlags =
+    [
+      "--enable-man"
+      "--with-group-name-max-length=32"
+      "--with-bcrypt"
+      "--with-yescrypt"
+    ] ++ lib.optional (stdenv.hostPlatform.libc != "glibc") "--disable-nscd"
+    ++ lib.optional withTcb "--with-tcb"
+    ;
 
   preBuild = lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
     substituteInPlace lib/nscd.c --replace /usr/sbin/nscd ${glibc.bin}/bin/nscd

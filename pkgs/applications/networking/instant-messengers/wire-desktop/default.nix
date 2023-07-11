@@ -23,15 +23,17 @@ let
 
   pname = "wire-desktop";
 
-  version = {
-    x86_64-darwin = "3.30.4506";
-    x86_64-linux = "3.30.3018";
-  }.${system} or throwSystem;
+  version =
+    {
+      x86_64-darwin = "3.30.4506";
+      x86_64-linux = "3.30.3018";
+    }.${system} or throwSystem;
 
-  hash = {
-    x86_64-darwin = "sha256-+htDeNIuucB4qzNBNYoSUH1DbfgouZS08G5hxPtIuzY=";
-    x86_64-linux = "sha256-46WjFA+E9M7RfTOM/Xoho+9ooToSgQiZaMlcZ3lJvBQ=";
-  }.${system} or throwSystem;
+  hash =
+    {
+      x86_64-darwin = "sha256-+htDeNIuucB4qzNBNYoSUH1DbfgouZS08G5hxPtIuzY=";
+      x86_64-linux = "sha256-46WjFA+E9M7RfTOM/Xoho+9ooToSgQiZaMlcZ3lJvBQ=";
+    }.${system} or throwSystem;
 
   meta = with lib; {
     description = "A modern, secure messenger for everyone";
@@ -65,8 +67,10 @@ let
     inherit pname version meta;
 
     src = fetchurl {
-      url = "https://wire-app.wire.com/linux/debian/pool/main/"
-        + "Wire-${version}_amd64.deb";
+      url =
+        "https://wire-app.wire.com/linux/debian/pool/main/"
+        + "Wire-${version}_amd64.deb"
+        ;
       inherit hash;
     };
 
@@ -138,8 +142,10 @@ let
     inherit pname version meta;
 
     src = fetchurl {
-      url = "https://github.com/wireapp/wire-desktop/releases/download/"
-        + "macos%2F${version}/Wire.pkg";
+      url =
+        "https://github.com/wireapp/wire-desktop/releases/download/"
+        + "macos%2F${version}/Wire.pkg"
+        ;
       inherit hash;
     };
 

@@ -26,10 +26,11 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url =
       "https://github.com/be5invis/Iosevka/releases/download/v${version}/ttc-${name}-${version}.zip";
-    sha256 = variantHashes.${name} or (throw ''
-      No such variant "${variant}" for package iosevka-bin.
-      Valid variants are: ${lib.concatStringsSep ", " validVariants}.
-    '');
+    sha256 =
+      variantHashes.${name} or (throw ''
+        No such variant "${variant}" for package iosevka-bin.
+        Valid variants are: ${lib.concatStringsSep ", " validVariants}.
+      '');
   };
 
   nativeBuildInputs = [ unzip ];

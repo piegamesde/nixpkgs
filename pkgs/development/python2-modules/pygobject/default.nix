@@ -18,7 +18,8 @@ buildPythonPackage rec {
   disabled = pythonAtLeast "3.9";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/pygobject/${
+    url =
+      "mirror://gnome/sources/pygobject/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "0nkam61rsn7y3wik3vw46wk5q2cjfh2iph57hl9m39rc8jijb7dv";

@@ -60,7 +60,8 @@ import ./make-test-python.nix ({
 
     testScript =
       let
-        query = "http://localhost:${
+        query =
+          "http://localhost:${
             toString port
           }/route/v1/driving/7.41720,43.73304;7.42463,43.73886?steps=true";
       in

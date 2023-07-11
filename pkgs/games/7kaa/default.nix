@@ -24,7 +24,8 @@ let
     version = lib.versions.majorMinor version;
 
     src = fetchurl {
-      url = "https://www.7kfans.com/downloads/7kaa-music-${
+      url =
+        "https://www.7kfans.com/downloads/7kaa-music-${
           lib.versions.majorMinor version
         }.tar.bz2";
       sha256 = "sha256-sNdntuJXGaFPXzSpN0SoAi17wkr2YnW+5U38eIaVwcM=";

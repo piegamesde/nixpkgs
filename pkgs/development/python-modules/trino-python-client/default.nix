@@ -48,10 +48,12 @@ buildPythonPackage rec {
     all = self.kerberos ++ self.sqlalchemy;
   });
 
-  nativeCheckInputs = [
-    httpretty
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      httpretty
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.all
+    ;
 
   pythonImportsCheck = [ "trino" ];
 

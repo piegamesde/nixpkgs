@@ -67,33 +67,38 @@ stdenv.mkDerivation rec {
     "man"
   ]; # "dev" would only split ~20 kB
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ] ++ lib.optionals withPythonModule [ swig ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      pkg-config
+    ] ++ lib.optionals withPythonModule [ swig ]
+    ;
 
-  buildInputs = [
-    openssl
-    nettle
-    expat
-    libevent
-  ] ++ lib.optionals withSystemd [ systemd ]
+  buildInputs =
+    [
+      openssl
+      nettle
+      expat
+      libevent
+    ] ++ lib.optionals withSystemd [ systemd ]
     ++ lib.optionals withDoH [ libnghttp2 ]
-    ++ lib.optionals withPythonModule [ python ];
+    ++ lib.optionals withPythonModule [ python ]
+    ;
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--with-ssl=${openssl.dev}"
-    "--with-libexpat=${expat.dev}"
-    "--with-libevent=${libevent.dev}"
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-    "--sbindir=\${out}/bin"
-    "--with-rootkey-file=${dns-root-data}/root.key"
-    "--enable-pie"
-    "--enable-relro-now"
-  ] ++ lib.optionals stdenv.hostPlatform.isStatic [ "--disable-flto" ]
+  configureFlags =
+    [
+      "--with-ssl=${openssl.dev}"
+      "--with-libexpat=${expat.dev}"
+      "--with-libevent=${libevent.dev}"
+      "--localstatedir=/var"
+      "--sysconfdir=/etc"
+      "--sbindir=\${out}/bin"
+      "--with-rootkey-file=${dns-root-data}/root.key"
+      "--enable-pie"
+      "--enable-relro-now"
+    ] ++ lib.optionals stdenv.hostPlatform.isStatic [ "--disable-flto" ]
     ++ lib.optionals withSystemd [ "--enable-systemd" ]
     ++ lib.optionals withPythonModule [ "--with-pythonmodule" ]
     ++ lib.optionals withDoH [ "--with-libnghttp2=${libnghttp2.dev}" ]
@@ -118,7 +123,8 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals withRedis [
       "--enable-cachedb"
       "--with-libhiredis=${hiredis}"
-    ];
+    ]
+    ;
 
   PROTOC_C = lib.optionalString withDNSTAP "${protobufc}/bin/protoc-c";
 
@@ -143,17 +149,20 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "configfile=\${out}/etc/unbound/unbound.conf" ];
 
-  postInstall = ''
-    make unbound-event-install
-    wrapProgram $out/bin/unbound-control-setup \
-      --prefix PATH : ${lib.makeBinPath [ openssl ]}
-  '' + lib.optionalString withPythonModule ''
-    wrapProgram $out/bin/unbound \
-      --prefix PYTHONPATH : "$out/${python.sitePackages}" \
-      --argv0 $out/bin/unbound
-  '';
+  postInstall =
+    ''
+      make unbound-event-install
+      wrapProgram $out/bin/unbound-control-setup \
+        --prefix PATH : ${lib.makeBinPath [ openssl ]}
+    '' + lib.optionalString withPythonModule ''
+      wrapProgram $out/bin/unbound \
+        --prefix PYTHONPATH : "$out/${python.sitePackages}" \
+        --argv0 $out/bin/unbound
+    ''
+    ;
 
-  preFixup = lib.optionalString withSlimLib
+  preFixup =
+    lib.optionalString withSlimLib
     # Build libunbound again, but only against nettle instead of openssl.
     # This avoids gnutls.out -> unbound.lib -> lib.getLib openssl.
     ''
@@ -170,7 +179,8 @@ stdenv.mkDerivation rec {
     (pkg:
       lib.optionalString (pkg ? dev)
       " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'")
-    (builtins.filter (p: p != null) buildInputs);
+    (builtins.filter (p: p != null) buildInputs)
+    ;
 
   passthru.tests = {
     inherit gnutls;

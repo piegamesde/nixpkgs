@@ -7,11 +7,12 @@
 {
   # Some of these tests don't work with systemd stage 1 yet. Uncomment
   # them when fixed.
-  inherit (import ./installer.nix {
-    inherit system config pkgs;
-    systemdStage1 = true;
-  })
-  # bcache
+  inherit
+    (import ./installer.nix {
+      inherit system config pkgs;
+      systemdStage1 = true;
+    })
+    # bcache
     btrfsSimple
     btrfsSubvolDefault
     btrfsSubvolEscape

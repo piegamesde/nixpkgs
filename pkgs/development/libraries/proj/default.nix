@@ -27,10 +27,11 @@ stdenv.mkDerivation (finalAttrs: rec {
     hash = "sha256-NC5H7ufIXit+PVDwNDhz5cv44fduTytsdmNOWyqDDYQ=";
   };
 
-  patches = [
-    # https://github.com/OSGeo/PROJ/pull/3252
-    ./only-add-curl-for-static-builds.patch
-  ];
+  patches =
+    [
+      # https://github.com/OSGeo/PROJ/pull/3252
+      ./only-add-curl-for-static-builds.patch
+    ];
 
   outputs = [
     "out"

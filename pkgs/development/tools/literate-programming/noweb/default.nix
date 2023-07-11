@@ -21,10 +21,11 @@ stdenv.mkDerivation (finalAttrs: rec {
 
   sourceRoot = "source/src";
 
-  patches = [
-    # Remove FAQ
-    ./no-FAQ.patch
-  ];
+  patches =
+    [
+      # Remove FAQ
+      ./no-FAQ.patch
+    ];
 
   postPatch = ''
     substituteInPlace Makefile --replace 'strip' '${stdenv.cc.targetPrefix}strip'
@@ -37,10 +38,12 @@ stdenv.mkDerivation (finalAttrs: rec {
     mkdir -p "$out/lib/noweb"
   '';
 
-  makeFlags = lib.optionals useIcon [
-    "LIBSRC=icon"
-    "ICONC=icont"
-  ] ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags =
+    lib.optionals useIcon [
+      "LIBSRC=icon"
+      "ICONC=icont"
+    ] ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
+    ;
 
   preInstall = ''
     mkdir -p "$tex/tex/latex/noweb"

@@ -36,8 +36,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ boost ]
-    ++ lib.optionals (!static) [ (python3.withPackages (ps: [ ps.twisted ])) ];
+  buildInputs =
+    [ boost ]
+    ++ lib.optionals (!static) [ (python3.withPackages (ps: [ ps.twisted ])) ]
+    ;
 
   propagatedBuildInputs = [
     libevent
@@ -86,43 +88,47 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  cmakeFlags = [
-    "-DBUILD_JAVASCRIPT:BOOL=OFF"
-    "-DBUILD_NODEJS:BOOL=OFF"
+  cmakeFlags =
+    [
+      "-DBUILD_JAVASCRIPT:BOOL=OFF"
+      "-DBUILD_NODEJS:BOOL=OFF"
 
-    # FIXME: Fails to link in static mode with undefined reference to
-    # `boost::unit_test::unit_test_main(bool (*)(), int, char**)'
-    "-DBUILD_TESTING:BOOL=${
-      if static then
-        "OFF"
-      else
-        "ON"
-    }"
-  ] ++ lib.optionals static [
-    "-DWITH_STATIC_LIB:BOOL=ON"
-    "-DOPENSSL_USE_STATIC_LIBS=ON"
-  ];
+      # FIXME: Fails to link in static mode with undefined reference to
+      # `boost::unit_test::unit_test_main(bool (*)(), int, char**)'
+      "-DBUILD_TESTING:BOOL=${
+        if static then
+          "OFF"
+        else
+          "ON"
+      }"
+    ] ++ lib.optionals static [
+      "-DWITH_STATIC_LIB:BOOL=ON"
+      "-DOPENSSL_USE_STATIC_LIBS=ON"
+    ]
+    ;
 
-  disabledTests = [
-    "PythonTestSSLSocket"
-    "PythonThriftTNonblockingServer"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # Tests that hang up in the Darwin sandbox
-    "SecurityTest"
-    "SecurityFromBufferTest"
-    "python_test"
+  disabledTests =
+    [
+      "PythonTestSSLSocket"
+      "PythonThriftTNonblockingServer"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # Tests that hang up in the Darwin sandbox
+      "SecurityTest"
+      "SecurityFromBufferTest"
+      "python_test"
 
-    # Tests that fail in the Darwin sandbox when trying to use network
-    "UnitTests"
-    "TInterruptTest"
-    "TServerIntegrationTest"
-    "processor"
-    "TNonblockingServerTest"
-    "TNonblockingSSLServerTest"
-    "StressTest"
-    "StressTestConcurrent"
-    "StressTestNonBlocking"
-  ];
+      # Tests that fail in the Darwin sandbox when trying to use network
+      "UnitTests"
+      "TInterruptTest"
+      "TServerIntegrationTest"
+      "processor"
+      "TNonblockingServerTest"
+      "TNonblockingSSLServerTest"
+      "StressTest"
+      "StressTestConcurrent"
+      "StressTestNonBlocking"
+    ]
+    ;
 
   doCheck = !static;
 

@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   version = "3.91.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/zenity/${
+    url =
+      "mirror://gnome/sources/zenity/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "N2GeCYAwgXj9vPaDItmaB7MzbBwLuY7ysyycsQkCI5k=";

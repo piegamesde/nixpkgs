@@ -1841,7 +1841,8 @@ in
         doesntUseFileProvider =
           opt: defaultValue:
           let
-            regex = "${
+            regex =
+              "${
                 optionalString (defaultValue != null) "^${defaultValue}$|"
               }^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
           in
@@ -1890,8 +1891,10 @@ in
 
     assertions = [
       {
-        assertion = cfg.provision.datasources.settings == null
-          || cfg.provision.datasources.path == null;
+        assertion =
+          cfg.provision.datasources.settings == null
+          || cfg.provision.datasources.path == null
+          ;
         message = "Cannot set both datasources settings and datasources path";
       }
       {
@@ -1914,34 +1917,46 @@ in
           "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
       }
       {
-        assertion = cfg.provision.dashboards.settings == null
-          || cfg.provision.dashboards.path == null;
+        assertion =
+          cfg.provision.dashboards.settings == null
+          || cfg.provision.dashboards.path == null
+          ;
         message = "Cannot set both dashboards settings and dashboards path";
       }
       {
-        assertion = cfg.provision.alerting.rules.settings == null
-          || cfg.provision.alerting.rules.path == null;
+        assertion =
+          cfg.provision.alerting.rules.settings == null
+          || cfg.provision.alerting.rules.path == null
+          ;
         message = "Cannot set both rules settings and rules path";
       }
       {
-        assertion = cfg.provision.alerting.contactPoints.settings == null
-          || cfg.provision.alerting.contactPoints.path == null;
+        assertion =
+          cfg.provision.alerting.contactPoints.settings == null
+          || cfg.provision.alerting.contactPoints.path == null
+          ;
         message =
           "Cannot set both contact points settings and contact points path";
       }
       {
-        assertion = cfg.provision.alerting.policies.settings == null
-          || cfg.provision.alerting.policies.path == null;
+        assertion =
+          cfg.provision.alerting.policies.settings == null
+          || cfg.provision.alerting.policies.path == null
+          ;
         message = "Cannot set both policies settings and policies path";
       }
       {
-        assertion = cfg.provision.alerting.templates.settings == null
-          || cfg.provision.alerting.templates.path == null;
+        assertion =
+          cfg.provision.alerting.templates.settings == null
+          || cfg.provision.alerting.templates.path == null
+          ;
         message = "Cannot set both templates settings and templates path";
       }
       {
-        assertion = cfg.provision.alerting.muteTimings.settings == null
-          || cfg.provision.alerting.muteTimings.path == null;
+        assertion =
+          cfg.provision.alerting.muteTimings.settings == null
+          || cfg.provision.alerting.muteTimings.path == null
+          ;
         message = "Cannot set both mute timings settings and mute timings path";
       }
     ];
@@ -1949,9 +1964,11 @@ in
     systemd.services.grafana = {
       description = "Grafana Service Daemon";
       wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ]
+      after =
+        [ "networking.target" ]
         ++ lib.optional usePostgresql "postgresql.service"
-        ++ lib.optional useMysql "mysql.service";
+        ++ lib.optional useMysql "mysql.service"
+        ;
       script = ''
         set -o errexit -o pipefail -o nounset -o errtrace
         shopt -s inherit_errexit
@@ -1999,12 +2016,14 @@ in
         SystemCallArchitectures = "native";
           # Upstream grafana is not setting SystemCallFilter for compatibility
           # reasons, see https://github.com/grafana/grafana/pull/40176
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ] ++ lib.optionals (cfg.settings.server.protocol == "socket") [
+        SystemCallFilter =
+          [
+            "@system-service"
+            "~@privileged"
+          ] ++ lib.optionals (cfg.settings.server.protocol == "socket") [
             "@chown"
-          ];
+          ]
+          ;
         UMask = "0027";
       };
       preStart = ''

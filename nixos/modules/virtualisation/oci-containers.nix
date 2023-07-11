@@ -252,14 +252,16 @@ let
     in
     {
       wantedBy = [ ] ++ optional (container.autoStart) "multi-user.target";
-      after = lib.optionals (cfg.backend == "docker") [
-        "docker.service"
-        "docker.socket"
-      ]
-      # if imageFile is not set, the service needs the network to download the image from the registry
+      after =
+        lib.optionals (cfg.backend == "docker") [
+          "docker.service"
+          "docker.socket"
+        ]
+        # if imageFile is not set, the service needs the network to download the image from the registry
         ++ lib.optionals (container.imageFile == null) [
           "network-online.target"
-        ] ++ dependsOn;
+        ] ++ dependsOn
+        ;
       requires = dependsOn;
       environment = proxy_env;
 

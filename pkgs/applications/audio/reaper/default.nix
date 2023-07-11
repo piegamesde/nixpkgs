@@ -39,10 +39,11 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = url_for_platform version stdenv.hostPlatform.qemuArch;
-    hash = {
-      x86_64-linux = "sha256-Bpsc09y5R/zyVXiDAqRF6n09qKOrBTLjk84z+noeko0=";
-      aarch64-linux = "sha256-jbyXXeVtFmt7xoIWd4YKFu4AUM6W9LzeIiGoGyaO2lU=";
-    }.${stdenv.hostPlatform.system};
+    hash =
+      {
+        x86_64-linux = "sha256-Bpsc09y5R/zyVXiDAqRF6n09qKOrBTLjk84z+noeko0=";
+        aarch64-linux = "sha256-jbyXXeVtFmt7xoIWd4YKFu4AUM6W9LzeIiGoGyaO2lU=";
+      }.${stdenv.hostPlatform.system};
   };
 
   nativeBuildInputs = [
@@ -58,10 +59,12 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  runtimeDependencies = [
+  runtimeDependencies =
+    [
       gtk3 # libSwell needs libgdk-3.so.0
     ] ++ lib.optional jackSupport jackLibrary
-    ++ lib.optional pulseaudioSupport libpulseaudio;
+    ++ lib.optional pulseaudioSupport libpulseaudio
+    ;
 
   dontBuild = true;
 

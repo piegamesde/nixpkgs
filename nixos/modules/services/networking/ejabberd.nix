@@ -16,10 +16,11 @@ let
     ${cfg.ctlConfig}
   '';
 
-  ectl = ''
-    ${cfg.package}/bin/ejabberdctl ${
-      optionalString (cfg.configFile != null) "--config ${cfg.configFile}"
-    } --ctl-config "${ctlcfg}" --spool "${cfg.spoolDir}" --logs "${cfg.logsDir}"'';
+  ectl =
+    ''
+      ${cfg.package}/bin/ejabberdctl ${
+        optionalString (cfg.configFile != null) "--config ${cfg.configFile}"
+      } --ctl-config "${ctlcfg}" --spool "${cfg.spoolDir}" --logs "${cfg.logsDir}"'';
 
   dumps = lib.escapeShellArgs cfg.loadDumps;
 
@@ -122,10 +123,12 @@ in
       description = "ejabberd server";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      path = [
-        pkgs.findutils
-        pkgs.coreutils
-      ] ++ lib.optional cfg.imagemagick pkgs.imagemagick;
+      path =
+        [
+          pkgs.findutils
+          pkgs.coreutils
+        ] ++ lib.optional cfg.imagemagick pkgs.imagemagick
+        ;
 
       serviceConfig = {
         User = cfg.user;

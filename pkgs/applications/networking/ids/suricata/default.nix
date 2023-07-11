@@ -49,41 +49,45 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TaXk6R5JmSYzpgJM4Qr+ZEElWyd1qPIPHvGIvREprGY=";
   };
 
-  nativeBuildInputs = [
-    clang
-    llvm
-    makeWrapper
-    pkg-config
-  ] ++ lib.optionals rustSupport [
-    rustc
-    cargo
-  ];
+  nativeBuildInputs =
+    [
+      clang
+      llvm
+      makeWrapper
+      pkg-config
+    ] ++ lib.optionals rustSupport [
+      rustc
+      cargo
+    ]
+    ;
 
-  buildInputs = [
-    jansson
-    libbpf
-    libcap_ng
-    libelf
-    libevent
-    libmagic
-    libmaxminddb
-    libnet
-    libnetfilter_log
-    libnetfilter_queue
-    libnfnetlink
-    libpcap
-    libyaml
-    luajit
-    lz4
-    nspr
-    nss
-    pcre
-    python
-    zlib
-  ] ++ lib.optional hyperscanSupport hyperscan ++ lib.optionals redisSupport [
-    redis
-    hiredis
-  ];
+  buildInputs =
+    [
+      jansson
+      libbpf
+      libcap_ng
+      libelf
+      libevent
+      libmagic
+      libmaxminddb
+      libnet
+      libnetfilter_log
+      libnetfilter_queue
+      libnfnetlink
+      libpcap
+      libyaml
+      luajit
+      lz4
+      nspr
+      nss
+      pcre
+      python
+      zlib
+    ] ++ lib.optional hyperscanSupport hyperscan ++ lib.optionals redisSupport [
+      redis
+      hiredis
+    ]
+    ;
 
   enableParallelBuilding = true;
 
@@ -99,32 +103,34 @@ stdenv.mkDerivation rec {
     touch bpf_stubs_workaround/gnu/stubs-32.h
   '';
 
-  configureFlags = [
-    "--disable-gccmarch-native"
-    "--enable-af-packet"
-    "--enable-ebpf"
-    "--enable-ebpf-build"
-    "--enable-gccprotect"
-    "--enable-geoip"
-    "--enable-luajit"
-    "--enable-nflog"
-    "--enable-nfqueue"
-    "--enable-pie"
-    "--disable-prelude"
-    "--enable-python"
-    "--enable-unix-socket"
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-    "--with-libnet-includes=${libnet}/include"
-    "--with-libnet-libraries=${libnet}/lib"
-  ] ++ lib.optionals hyperscanSupport [
-    "--with-libhs-includes=${hyperscan.dev}/include/hs"
-    "--with-libhs-libraries=${hyperscan}/lib"
-  ] ++ lib.optional redisSupport "--enable-hiredis"
+  configureFlags =
+    [
+      "--disable-gccmarch-native"
+      "--enable-af-packet"
+      "--enable-ebpf"
+      "--enable-ebpf-build"
+      "--enable-gccprotect"
+      "--enable-geoip"
+      "--enable-luajit"
+      "--enable-nflog"
+      "--enable-nfqueue"
+      "--enable-pie"
+      "--disable-prelude"
+      "--enable-python"
+      "--enable-unix-socket"
+      "--localstatedir=/var"
+      "--sysconfdir=/etc"
+      "--with-libnet-includes=${libnet}/include"
+      "--with-libnet-libraries=${libnet}/lib"
+    ] ++ lib.optionals hyperscanSupport [
+      "--with-libhs-includes=${hyperscan.dev}/include/hs"
+      "--with-libhs-libraries=${hyperscan}/lib"
+    ] ++ lib.optional redisSupport "--enable-hiredis"
     ++ lib.optionals rustSupport [
       "--enable-rust"
       "--enable-rust-experimental"
-    ];
+    ]
+    ;
 
   postConfigure = ''
     # Avoid unintended clousure growth.

@@ -78,18 +78,20 @@ rustPlatform.buildRustPackage {
     perl
     git
   ];
-  buildInputs = [
-    oniguruma
-    openssl
-    protobuf
-    rdkafka
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    Security
-    libiconv
-    coreutils
-    CoreServices
-  ];
+  buildInputs =
+    [
+      oniguruma
+      openssl
+      protobuf
+      rdkafka
+      zstd
+    ] ++ lib.optionals stdenv.isDarwin [
+      Security
+      libiconv
+      coreutils
+      CoreServices
+    ]
+    ;
 
     # needed for internal protobuf c wrapper library
   PROTOC = "${protobuf}/bin/protoc";

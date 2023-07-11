@@ -22,7 +22,8 @@ rec {
   sdk = rec {
     name = "ios-sdk";
     type = "derivation";
-    outPath = xcode
+    outPath =
+      xcode
       + "/Contents/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}${version}.sdk"
       ;
 

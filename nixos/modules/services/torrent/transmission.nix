@@ -297,15 +297,17 @@ in
     # Note also that using an ExecStartPre= wouldn't work either
     # because BindPaths= needs these directories before.
     system.activationScripts = mkIf (cfg.downloadDirPermissions != null) {
-      transmission-daemon = ''
-        install -d -m 700 '${cfg.home}/${settingsDir}'
-        chown -R '${cfg.user}:${cfg.group}' ${cfg.home}/${settingsDir}
-        install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.download-dir}'
-      '' + optionalString cfg.settings.incomplete-dir-enabled ''
-        install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.incomplete-dir}'
-      '' + optionalString cfg.settings.watch-dir-enabled ''
-        install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.watch-dir}'
-      '';
+      transmission-daemon =
+        ''
+          install -d -m 700 '${cfg.home}/${settingsDir}'
+          chown -R '${cfg.user}:${cfg.group}' ${cfg.home}/${settingsDir}
+          install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.download-dir}'
+        '' + optionalString cfg.settings.incomplete-dir-enabled ''
+          install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.incomplete-dir}'
+        '' + optionalString cfg.settings.watch-dir-enabled ''
+          install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.watch-dir}'
+        ''
+        ;
     };
 
     systemd.services.transmission = {
@@ -351,26 +353,29 @@ in
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
         MountAPIVFS = true;
-        BindPaths = [
-          "${cfg.home}/${settingsDir}"
-          cfg.settings.download-dir
-        ] ++ optional cfg.settings.incomplete-dir-enabled
+        BindPaths =
+          [
+            "${cfg.home}/${settingsDir}"
+            cfg.settings.download-dir
+          ] ++ optional cfg.settings.incomplete-dir-enabled
           cfg.settings.incomplete-dir ++ optional
           (cfg.settings.watch-dir-enabled
             && cfg.settings.trash-original-torrent-files) cfg.settings.watch-dir
           ;
-        BindReadOnlyPaths = [
-          # No confinement done of /nix/store here like in systemd-confinement.nix,
-          # an AppArmor profile is provided to get a confinement based upon paths and rights.
-          builtins.storeDir
-          "/etc"
-          "/run"
-        ] ++ optional (cfg.settings.script-torrent-done-enabled
-          && cfg.settings.script-torrent-done-filename != null)
+        BindReadOnlyPaths =
+          [
+            # No confinement done of /nix/store here like in systemd-confinement.nix,
+            # an AppArmor profile is provided to get a confinement based upon paths and rights.
+            builtins.storeDir
+            "/etc"
+            "/run"
+          ] ++ optional (cfg.settings.script-torrent-done-enabled
+            && cfg.settings.script-torrent-done-filename != null)
           cfg.settings.script-torrent-done-filename ++ optional
           (cfg.settings.watch-dir-enabled
             && !cfg.settings.trash-original-torrent-files)
-          cfg.settings.watch-dir;
+          cfg.settings.watch-dir
+          ;
         StateDirectory = [
           "transmission"
           "transmission/.config/transmission-daemon"

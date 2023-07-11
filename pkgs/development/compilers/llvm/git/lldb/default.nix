@@ -54,48 +54,53 @@ stdenv.mkDerivation (rec {
     "dev"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    python3
-    which
-    swig
-    lit
-    makeWrapper
-    lua5_3
-  ] ++ lib.optionals enableManpages [
-    python3.pkgs.sphinx
-    python3.pkgs.recommonmark
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+      python3
+      which
+      swig
+      lit
+      makeWrapper
+      lua5_3
+    ] ++ lib.optionals enableManpages [
+      python3.pkgs.sphinx
+      python3.pkgs.recommonmark
+    ]
+    ;
 
-  buildInputs = [
-    ncurses
-    zlib
-    libedit
-    libxml2
-    libllvm
-  ] ++ lib.optionals stdenv.isDarwin [
-    libobjc
-    xpc
-    Foundation
-    bootstrap_cmds
-    Carbon
-    Cocoa
-  ];
+  buildInputs =
+    [
+      ncurses
+      zlib
+      libedit
+      libxml2
+      libllvm
+    ] ++ lib.optionals stdenv.isDarwin [
+      libobjc
+      xpc
+      Foundation
+      bootstrap_cmds
+      Carbon
+      Cocoa
+    ]
+    ;
 
   hardeningDisable = [ "format" ];
 
-  cmakeFlags = [
-    "-DLLDB_INCLUDE_TESTS=${
-      if doCheck then
-        "YES"
-      else
-        "NO"
-    }"
-    "-DLLVM_ENABLE_RTTI=OFF"
-    "-DClang_DIR=${libclang.dev}/lib/cmake"
-    "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
+  cmakeFlags =
+    [
+      "-DLLDB_INCLUDE_TESTS=${
+        if doCheck then
+          "YES"
+        else
+          "NO"
+      }"
+      "-DLLVM_ENABLE_RTTI=OFF"
+      "-DClang_DIR=${libclang.dev}/lib/cmake"
+      "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
+    ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
     ++ lib.optionals (!stdenv.isDarwin) [
       "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
     ] ++ lib.optionals enableManpages [
@@ -105,7 +110,8 @@ stdenv.mkDerivation (rec {
     ] ++ lib.optionals doCheck [
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
-    ];
+    ]
+    ;
 
   doCheck = false;
 

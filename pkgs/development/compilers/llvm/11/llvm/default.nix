@@ -77,14 +77,16 @@ stdenv.mkDerivation (rec {
   polly_src =
     fetch "polly" "031r23ijhx7v93a5n33m2nc0x9xyqmx0d8xg80z7q971p6qd63sq";
 
-  unpackPhase = ''
-    unpackFile $src
-    mv llvm-${release_version}* llvm
-    sourceRoot=$PWD/llvm
-  '' + optionalString enablePolly ''
-    unpackFile $polly_src
-    mv polly-* $sourceRoot/tools/polly
-  '';
+  unpackPhase =
+    ''
+      unpackFile $src
+      mv llvm-${release_version}* llvm
+      sourceRoot=$PWD/llvm
+    '' + optionalString enablePolly ''
+      unpackFile $polly_src
+      mv polly-* $sourceRoot/tools/polly
+    ''
+    ;
 
   outputs = [
     "out"
@@ -93,120 +95,128 @@ stdenv.mkDerivation (rec {
     "python"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    python
-  ] ++ optionals enableManpages [
-    python3.pkgs.sphinx
-    python3.pkgs.recommonmark
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      python
+    ] ++ optionals enableManpages [
+      python3.pkgs.sphinx
+      python3.pkgs.recommonmark
+    ]
+    ;
 
-  buildInputs = [
-    libxml2
-    libffi
-  ] ++ optional enablePFM libpfm; # exegesis
+  buildInputs =
+    [
+      libxml2
+      libffi
+    ] ++ optional enablePFM libpfm
+    ; # exegesis
 
   propagatedBuildInputs = [
     ncurses
     zlib
   ];
 
-  patches = [
-    # When cross-compiling we configure llvm-config-native with an approximation
-    # of the flags used for the normal LLVM build. To avoid the need for building
-    # a native libLLVM.so (which would fail) we force llvm-config to be linked
-    # statically against the necessary LLVM components always.
-    ../../llvm-config-link-static.patch
+  patches =
+    [
+      # When cross-compiling we configure llvm-config-native with an approximation
+      # of the flags used for the normal LLVM build. To avoid the need for building
+      # a native libLLVM.so (which would fail) we force llvm-config to be linked
+      # statically against the necessary LLVM components always.
+      ../../llvm-config-link-static.patch
 
-    ./gnu-install-dirs.patch
-    # On older CPUs (e.g. Hydra/wendy) we'd be getting an error in this test.
-    (fetchpatch {
-      name = "uops-CMOV16rm-noreg.diff";
-      url = "https://github.com/llvm/llvm-project/commit/9e9f991ac033.diff";
-      sha256 = "sha256:12s8vr6ibri8b48h2z38f3afhwam10arfiqfy4yg37bmc054p5hi";
-      stripLen = 1;
-    })
-    # gcc-11 compat upstream patch
-    (fetchpatch {
-      url =
-        "https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch";
-      sha256 = "sha256:0nh123kld0dgz2h941lng331dkj3wbm5lfxm375k1f569gv83hlk";
-      stripLen = 1;
-    })
+      ./gnu-install-dirs.patch
+      # On older CPUs (e.g. Hydra/wendy) we'd be getting an error in this test.
+      (fetchpatch {
+        name = "uops-CMOV16rm-noreg.diff";
+        url = "https://github.com/llvm/llvm-project/commit/9e9f991ac033.diff";
+        sha256 = "sha256:12s8vr6ibri8b48h2z38f3afhwam10arfiqfy4yg37bmc054p5hi";
+        stripLen = 1;
+      })
+      # gcc-11 compat upstream patch
+      (fetchpatch {
+        url =
+          "https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch";
+        sha256 = "sha256:0nh123kld0dgz2h941lng331dkj3wbm5lfxm375k1f569gv83hlk";
+        stripLen = 1;
+      })
 
-    # Fix invalid std::string(nullptr) for GCC 12
-    (fetchpatch {
-      name = "nvptx-gcc-12.patch";
-      url =
-        "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
-      sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
-      stripLen = 1;
-    })
-    (fetchpatch {
-      name = "dfaemitter-gcc-12.patch";
-      url =
-        "https://github.com/llvm/llvm-project/commit/0841916e87a39e3c223c986e8da31e4a9a1432e3.patch";
-      sha256 = "1kckghvsngs51mqm82asy0s9vr19h8aqbw43a0w44mccqw6bzrwf";
-      stripLen = 1;
-    })
-  ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch;
+      # Fix invalid std::string(nullptr) for GCC 12
+      (fetchpatch {
+        name = "nvptx-gcc-12.patch";
+        url =
+          "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
+        sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
+        stripLen = 1;
+      })
+      (fetchpatch {
+        name = "dfaemitter-gcc-12.patch";
+        url =
+          "https://github.com/llvm/llvm-project/commit/0841916e87a39e3c223c986e8da31e4a9a1432e3.patch";
+        sha256 = "1kckghvsngs51mqm82asy0s9vr19h8aqbw43a0w44mccqw6bzrwf";
+        stripLen = 1;
+      })
+    ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
+    ;
 
-  postPatch = optionalString stdenv.isDarwin ''
-    substituteInPlace cmake/modules/AddLLVM.cmake \
-      --replace 'set(_install_name_dir INSTALL_NAME_DIR "@rpath")' "set(_install_name_dir)" \
-      --replace 'set(_install_rpath "@loader_path/../''${CMAKE_INSTALL_LIBDIR}''${LLVM_LIBDIR_SUFFIX}" ''${extra_libdir})' ""
-  '' + ''
-    # FileSystem permissions tests fail with various special bits
-    substituteInPlace unittests/Support/CMakeLists.txt \
-      --replace "Path.cpp" ""
-    rm unittests/Support/Path.cpp
-  '' + optionalString stdenv.hostPlatform.isMusl ''
-    patch -p1 -i ${../../TLI-musl.patch}
-    substituteInPlace unittests/Support/CMakeLists.txt \
-      --replace "add_subdirectory(DynamicLibrary)" ""
-    rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
-    # valgrind unhappy with musl or glibc, but fails w/musl only
-    rm test/CodeGen/AArch64/wineh4.mir
-  '' + optionalString stdenv.hostPlatform.isAarch32 ''
-    # skip failing X86 test cases on 32-bit ARM
-    rm test/DebugInfo/X86/convert-debugloc.ll
-    rm test/DebugInfo/X86/convert-inlined.ll
-    rm test/DebugInfo/X86/convert-linked.ll
-    rm test/tools/dsymutil/X86/op-convert.test
-    rm test/tools/gold/X86/split-dwarf.ll
-    rm test/tools/llvm-readobj/ELF/dependent-libraries.test
-  '' + optionalString (stdenv.hostPlatform.system == "armv6l-linux") ''
-    # Seems to require certain floating point hardware (NEON?)
-    rm test/ExecutionEngine/frem.ll
-  '' + ''
-    patchShebangs test/BugPoint/compile-custom.ll.py
-  '' + ''
-    # Tweak tests to ignore namespace part of type to support
-    # gcc-12: https://gcc.gnu.org/PR103598.
-    # The change below mangles strings like:
-    #    CHECK-NEXT: Starting llvm::Function pass manager run.
-    # to:
-    #    CHECK-NEXT: Starting {{.*}}Function pass manager run.
-    for f in \
-      test/Other/new-pass-manager.ll \
-      test/Other/new-pm-defaults.ll \
-      test/Other/new-pm-lto-defaults.ll \
-      test/Other/new-pm-thinlto-defaults.ll \
-      test/Other/pass-pipeline-parsing.ll \
-      test/Transforms/Inline/cgscc-incremental-invalidate.ll \
-      test/Transforms/Inline/clear-analyses.ll \
-      test/Transforms/LoopUnroll/unroll-loop-invalidation.ll \
-      test/Transforms/SCCP/ipsccp-preserve-analysis.ll \
-      test/Transforms/SCCP/preserve-analysis.ll \
-      test/Transforms/SROA/dead-inst.ll \
-      test/tools/gold/X86/new-pm.ll \
-      ; do
-      echo "PATCH: $f"
-      substituteInPlace $f \
-        --replace 'Starting llvm::' 'Starting {{.*}}' \
-        --replace 'Finished llvm::' 'Finished {{.*}}'
-    done
-  '';
+  postPatch =
+    optionalString stdenv.isDarwin ''
+      substituteInPlace cmake/modules/AddLLVM.cmake \
+        --replace 'set(_install_name_dir INSTALL_NAME_DIR "@rpath")' "set(_install_name_dir)" \
+        --replace 'set(_install_rpath "@loader_path/../''${CMAKE_INSTALL_LIBDIR}''${LLVM_LIBDIR_SUFFIX}" ''${extra_libdir})' ""
+    '' + ''
+      # FileSystem permissions tests fail with various special bits
+      substituteInPlace unittests/Support/CMakeLists.txt \
+        --replace "Path.cpp" ""
+      rm unittests/Support/Path.cpp
+    '' + optionalString stdenv.hostPlatform.isMusl ''
+      patch -p1 -i ${../../TLI-musl.patch}
+      substituteInPlace unittests/Support/CMakeLists.txt \
+        --replace "add_subdirectory(DynamicLibrary)" ""
+      rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
+      # valgrind unhappy with musl or glibc, but fails w/musl only
+      rm test/CodeGen/AArch64/wineh4.mir
+    '' + optionalString stdenv.hostPlatform.isAarch32 ''
+      # skip failing X86 test cases on 32-bit ARM
+      rm test/DebugInfo/X86/convert-debugloc.ll
+      rm test/DebugInfo/X86/convert-inlined.ll
+      rm test/DebugInfo/X86/convert-linked.ll
+      rm test/tools/dsymutil/X86/op-convert.test
+      rm test/tools/gold/X86/split-dwarf.ll
+      rm test/tools/llvm-readobj/ELF/dependent-libraries.test
+    '' + optionalString (stdenv.hostPlatform.system == "armv6l-linux") ''
+      # Seems to require certain floating point hardware (NEON?)
+      rm test/ExecutionEngine/frem.ll
+    '' + ''
+      patchShebangs test/BugPoint/compile-custom.ll.py
+    '' + ''
+      # Tweak tests to ignore namespace part of type to support
+      # gcc-12: https://gcc.gnu.org/PR103598.
+      # The change below mangles strings like:
+      #    CHECK-NEXT: Starting llvm::Function pass manager run.
+      # to:
+      #    CHECK-NEXT: Starting {{.*}}Function pass manager run.
+      for f in \
+        test/Other/new-pass-manager.ll \
+        test/Other/new-pm-defaults.ll \
+        test/Other/new-pm-lto-defaults.ll \
+        test/Other/new-pm-thinlto-defaults.ll \
+        test/Other/pass-pipeline-parsing.ll \
+        test/Transforms/Inline/cgscc-incremental-invalidate.ll \
+        test/Transforms/Inline/clear-analyses.ll \
+        test/Transforms/LoopUnroll/unroll-loop-invalidation.ll \
+        test/Transforms/SCCP/ipsccp-preserve-analysis.ll \
+        test/Transforms/SCCP/preserve-analysis.ll \
+        test/Transforms/SROA/dead-inst.ll \
+        test/tools/gold/X86/new-pm.ll \
+        ; do
+        echo "PATCH: $f"
+        substituteInPlace $f \
+          --replace 'Starting llvm::' 'Starting {{.*}}' \
+          --replace 'Finished llvm::' 'Finished {{.*}}'
+      done
+    ''
+    ;
 
   preConfigure = ''
     # Workaround for configure flags that need to have spaces
@@ -234,10 +244,12 @@ stdenv.mkDerivation (rec {
       #
       # Some flags don't need to be repassed because LLVM already does so (like
       # CMAKE_BUILD_TYPE), others are irrelevant to the result.
-      flagsForLlvmConfig = [
-        "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
-        "-DLLVM_ENABLE_RTTI=ON"
-      ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
+      flagsForLlvmConfig =
+        [
+          "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
+          "-DLLVM_ENABLE_RTTI=ON"
+        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
+        ;
     in
     flagsForLlvmConfig ++ [
       "-DCMAKE_BUILD_TYPE=${
@@ -319,26 +331,28 @@ stdenv.mkDerivation (rec {
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$PWD/lib
   '';
 
-  postInstall = ''
-    mkdir -p $python/share
-    mv $out/share/opt-viewer $python/share/opt-viewer
-    moveToOutput "bin/llvm-config*" "$dev"
-    substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
-      if debugVersion then
-        "debug"
-      else
-        "release"
-    }.cmake" \
-      --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
-      --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
-    substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
-      --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
-  '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
-    ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${shortVersion}.dylib
-    ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
-  '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
-  '';
+  postInstall =
+    ''
+      mkdir -p $python/share
+      mv $out/share/opt-viewer $python/share/opt-viewer
+      moveToOutput "bin/llvm-config*" "$dev"
+      substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
+        if debugVersion then
+          "debug"
+        else
+          "release"
+      }.cmake" \
+        --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
+        --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
+      substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
+        --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
+    '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
+      ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${shortVersion}.dylib
+      ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
+    '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
+    ''
+    ;
 
   inherit doCheck;
 

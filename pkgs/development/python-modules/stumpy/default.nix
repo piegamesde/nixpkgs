@@ -41,11 +41,12 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "stumpy" ];
 
-  pytestFlagsArray = [
-    # whole testsuite is very CPU intensive, only run core tests
-    # TODO: move entire test suite to passthru.tests
-    "tests/test_core.py"
-  ];
+  pytestFlagsArray =
+    [
+      # whole testsuite is very CPU intensive, only run core tests
+      # TODO: move entire test suite to passthru.tests
+      "tests/test_core.py"
+    ];
 
   meta = with lib; {
     description =

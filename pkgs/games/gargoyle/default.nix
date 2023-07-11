@@ -16,24 +16,26 @@
 
 let
 
-  jamenv = ''
-    unset AR
-  '' + (if stdenv.isDarwin then
+  jamenv =
     ''
-      export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${
-        lib.getDev SDL
-      }/include/SDL"
-      export GARGLKINI="$out/Applications/Gargoyle.app/Contents/Resources/garglk.ini"
-    ''
-  else
-    ''
-      export NIX_LDFLAGS="$NIX_LDFLAGS -rpath $out/libexec/gargoyle"
-      export DESTDIR="$out"
-      export _BINDIR=libexec/gargoyle
-      export _APPDIR=libexec/gargoyle
-      export _LIBDIR=libexec/gargoyle
-      export GARGLKINI="$out/etc/garglk.ini"
-    '');
+      unset AR
+    '' + (if stdenv.isDarwin then
+      ''
+        export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${
+          lib.getDev SDL
+        }/include/SDL"
+        export GARGLKINI="$out/Applications/Gargoyle.app/Contents/Resources/garglk.ini"
+      ''
+    else
+      ''
+        export NIX_LDFLAGS="$NIX_LDFLAGS -rpath $out/libexec/gargoyle"
+        export DESTDIR="$out"
+        export _BINDIR=libexec/gargoyle
+        export _APPDIR=libexec/gargoyle
+        export _LIBDIR=libexec/gargoyle
+        export GARGLKINI="$out/etc/garglk.ini"
+      '')
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -47,20 +49,24 @@ stdenv.mkDerivation rec {
     sha256 = "0w54avmbp4i4zps2rb4acmpa641s6wvwbrln4vbdhcz97fx48nzz";
   };
 
-  nativeBuildInputs = [
-    jam
-    pkg-config
-  ] ++ lib.optional stdenv.isDarwin cctools;
+  nativeBuildInputs =
+    [
+      jam
+      pkg-config
+    ] ++ lib.optional stdenv.isDarwin cctools
+    ;
 
-  buildInputs = [
-    SDL
-    SDL_mixer
-    SDL_sound
-    gtk2
-  ] ++ lib.optionals stdenv.isDarwin [
-    smpeg
-    libvorbis
-  ];
+  buildInputs =
+    [
+      SDL
+      SDL_mixer
+      SDL_sound
+      gtk2
+    ] ++ lib.optionals stdenv.isDarwin [
+      smpeg
+      libvorbis
+    ]
+    ;
 
     # Workaround build failure on -fno-common toolchains:
     #   ld: build/linux.release/alan3/Location.o:(.bss+0x0): multiple definition of

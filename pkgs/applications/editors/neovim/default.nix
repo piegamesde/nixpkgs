@@ -80,39 +80,42 @@ stdenv.mkDerivation rec {
     hash = "sha256-4uCPWnjSMU7ac6Q3LT+Em8lVk1MuSegxHMLGQRtFqAs=";
   };
 
-  patches = [
-    # introduce a system-wide rplugin.vim in addition to the user one
-    # necessary so that nix can handle `UpdateRemotePlugins` for the plugins
-    # it installs. See https://github.com/neovim/neovim/issues/9413.
-    ./system_rplugin_manifest.patch
-  ];
+  patches =
+    [
+      # introduce a system-wide rplugin.vim in addition to the user one
+      # necessary so that nix can handle `UpdateRemotePlugins` for the plugins
+      # it installs. See https://github.com/neovim/neovim/issues/9413.
+      ./system_rplugin_manifest.patch
+    ];
 
   dontFixCmake = true;
 
   inherit lua;
 
-  buildInputs = [
-    gperf
-    libtermkey
-    libuv
-    libvterm-neovim
-    # This is actually a c library, hence it's not included in neovimLuaEnv,
-    # see:
-    # https://github.com/luarocks/luarocks/issues/1402#issuecomment-1080616570
-    # and it's definition at: pkgs/development/lua-modules/overrides.nix
-    lua.pkgs.libluv
-    msgpack
-    ncurses
-    neovimLuaEnv
-    tree-sitter
-    unibilium
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    CoreServices
-  ] ++ lib.optionals doCheck [
-    glibcLocales
-    procps
-  ];
+  buildInputs =
+    [
+      gperf
+      libtermkey
+      libuv
+      libvterm-neovim
+      # This is actually a c library, hence it's not included in neovimLuaEnv,
+      # see:
+      # https://github.com/luarocks/luarocks/issues/1402#issuecomment-1080616570
+      # and it's definition at: pkgs/development/lua-modules/overrides.nix
+      lua.pkgs.libluv
+      msgpack
+      ncurses
+      neovimLuaEnv
+      tree-sitter
+      unibilium
+    ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      CoreServices
+    ] ++ lib.optionals doCheck [
+      glibcLocales
+      procps
+    ]
+    ;
 
   inherit
     doCheck
@@ -145,33 +148,37 @@ stdenv.mkDerivation rec {
   disallowedReferences =
     [ stdenv.cc ] ++ lib.optional (lua != codegenLua) codegenLua;
 
-  cmakeFlags = [
-    # Don't use downloaded dependencies. At the end of the configurePhase one
-    # can spot that cmake says this option was "not used by the project".
-    # That's because all dependencies were found and
-    # third-party/CMakeLists.txt is not read at all.
-    "-DUSE_BUNDLED=OFF"
-  ] ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON";
+  cmakeFlags =
+    [
+      # Don't use downloaded dependencies. At the end of the configurePhase one
+      # can spot that cmake says this option was "not used by the project".
+      # That's because all dependencies were found and
+      # third-party/CMakeLists.txt is not read at all.
+      "-DUSE_BUNDLED=OFF"
+    ] ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON"
+    ;
 
-  preConfigure = lib.optionalString lua.pkgs.isLuaJIT ''
-    cmakeFlagsArray+=(
-      "-DLUAC_PRG=${codegenLua}/bin/luajit -b -s %s -"
-      "-DLUA_GEN_PRG=${codegenLua}/bin/luajit"
-    )
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace src/nvim/CMakeLists.txt --replace "    util" ""
-  '' + ''
-    mkdir -p $out/lib/nvim/parser
-  '' + lib.concatStrings (lib.mapAttrsToList (language: src: ''
-    ln -s \
-      ${
-        tree-sitter.buildGrammar {
-          inherit language src;
-          version = "neovim-${version}";
-        }
-      }/parser \
-      $out/lib/nvim/parser/${language}.so
-  '') treesitter-parsers);
+  preConfigure =
+    lib.optionalString lua.pkgs.isLuaJIT ''
+      cmakeFlagsArray+=(
+        "-DLUAC_PRG=${codegenLua}/bin/luajit -b -s %s -"
+        "-DLUA_GEN_PRG=${codegenLua}/bin/luajit"
+      )
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace src/nvim/CMakeLists.txt --replace "    util" ""
+    '' + ''
+      mkdir -p $out/lib/nvim/parser
+    '' + lib.concatStrings (lib.mapAttrsToList (language: src: ''
+      ln -s \
+        ${
+          tree-sitter.buildGrammar {
+            inherit language src;
+            version = "neovim-${version}";
+          }
+        }/parser \
+        $out/lib/nvim/parser/${language}.so
+    '') treesitter-parsers)
+    ;
 
   shellHook = ''
     export VIMRUNTIME=$PWD/runtime

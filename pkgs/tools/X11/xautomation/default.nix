@@ -30,8 +30,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://www.hoopajoo.net/projects/xautomation.html";
-    description = ''
-      Control X from the command line for scripts, and do "visual scraping" to find things on the screen'';
+    description =
+      ''
+        Control X from the command line for scripts, and do "visual scraping" to find things on the screen'';
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ vaibhavsagar ];
     platforms = with lib.platforms; linux;

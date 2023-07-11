@@ -70,9 +70,10 @@ buildPythonPackage rec {
     asyncio = [ greenlet ];
     mypy = [ mypy ];
     mssql = [ pyodbc ];
-    mssql_pymysql = [
-      # TODO: pymssql
-    ];
+    mssql_pymysql =
+      [
+        # TODO: pymssql
+      ];
     mssql_pyodbc = [ pyodbc ];
     mysql = [ mysqlclient ];
     mysql_connector = [ mysql-connector ];
@@ -88,13 +89,16 @@ buildPythonPackage rec {
     pymysql = [ pymysql ];
     aiomysql = [ aiomysql ] ++ self.asyncio;
     asyncmy = [ asyncmy ] ++ self.asyncio;
-    aiosqlite = [
-      aiosqlite
-      typing-extensions
-    ] ++ self.asyncio;
-    sqlcipher = [
-      # TODO: sqlcipher3
-    ];
+    aiosqlite =
+      [
+        aiosqlite
+        typing-extensions
+      ] ++ self.asyncio
+      ;
+    sqlcipher =
+      [
+        # TODO: sqlcipher3
+      ];
   });
 
   nativeCheckInputs = [
@@ -111,7 +115,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/sqlalchemy/sqlalchemy/releases/tag/rel_${
+    changelog =
+      "https://github.com/sqlalchemy/sqlalchemy/releases/tag/rel_${
         builtins.replaceStrings [ "." ] [ "_" ] version
       }";
     description = "The Python SQL toolkit and Object Relational Mapper";

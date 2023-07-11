@@ -17,13 +17,9 @@ let
   listDir = domain: list: "${spoolDir}/${domain}/${list}";
   listCtl = domain: list: "${listDir domain list}/control";
   transport =
-    domain: list:
-    "${domain}--${list}@local.list.mlmmj mlmmj:${domain}/${list}"
-    ;
+    domain: list: "${domain}--${list}@local.list.mlmmj mlmmj:${domain}/${list}";
   virtual =
-    domain: list:
-    "${list}@${domain} ${domain}--${list}@local.list.mlmmj"
-    ;
+    domain: list: "${list}@${domain} ${domain}--${list}@local.list.mlmmj";
   alias =
     domain: list:
     ''${list}: "|${pkgs.mlmmj}/bin/mlmmj-receive -L ${listDir domain list}/"''
@@ -41,9 +37,7 @@ let
     ]
     ;
   footer =
-    domain: list:
-    "To unsubscribe send a mail to ${list}+unsubscribe@${domain}"
-    ;
+    domain: list: "To unsubscribe send a mail to ${list}+unsubscribe@${domain}";
   createList =
     d: l:
     let

@@ -76,39 +76,41 @@ mkDerivation {
     orc
   ];
 
-  buildInputs = [
-    boost
-    chromaprint
-    fftw
-    gettext
-    glew
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gstreamer
-    gvfs
-    liblastfm
-    libpulseaudio
-    pcre
-    projectm
-    protobuf
-    qca-qt5
-    qjson
-    qtbase
-    qtx11extras
-    qttools
-    sqlite
-    taglib
+  buildInputs =
+    [
+      boost
+      chromaprint
+      fftw
+      gettext
+      glew
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gstreamer
+      gvfs
+      liblastfm
+      libpulseaudio
+      pcre
+      projectm
+      protobuf
+      qca-qt5
+      qjson
+      qtbase
+      qtx11extras
+      qttools
+      sqlite
+      taglib
 
-    alsa-lib
-  ]
-  # gst_plugins needed for setup-hooks
+      alsa-lib
+    ]
+    # gst_plugins needed for setup-hooks
     ++ gst_plugins ++ lib.optionals (withIpod) [
       libgpod
       libplist
       usbmuxd
     ] ++ lib.optionals (withMTP) [ libmtp ]
     ++ lib.optionals (withCD) [ libcdio ]
-    ++ lib.optionals (withCloud) [ sparsehash ];
+    ++ lib.optionals (withCloud) [ sparsehash ]
+    ;
 
   postPatch = ''
     sed -i src/CMakeLists.txt \

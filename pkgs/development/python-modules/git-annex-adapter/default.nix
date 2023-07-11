@@ -17,7 +17,9 @@ buildPythonPackage rec {
   pname = "git-annex-adapter";
   version = "0.2.2";
 
-  disabled = !isPy3k;
+  disabled =
+    !isPy3k
+    ;
 
     # No tests in PyPI tarball
   src = fetchFromGitHub {

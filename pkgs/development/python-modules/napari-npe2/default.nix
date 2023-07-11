@@ -34,11 +34,12 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    # npe2 *can* build without it,
-    # but then setuptools refuses to acknowledge it when building napari
-    setuptools-scm
-  ];
+  nativeBuildInputs =
+    [
+      # npe2 *can* build without it,
+      # but then setuptools refuses to acknowledge it when building napari
+      setuptools-scm
+    ];
 
   propagatedBuildInputs = [
     appdirs

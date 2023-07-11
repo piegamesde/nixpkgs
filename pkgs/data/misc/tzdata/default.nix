@@ -34,26 +34,28 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildOutputs = [ ];
 
-  makeFlags = [
-    "TOPDIR=$(out)"
-    "TZDIR=$(out)/share/zoneinfo"
-    "BINDIR=$(bin)/bin"
-    "ZICDIR=$(bin)/bin"
-    "ETCDIR=$(TMPDIR)/etc"
-    "TZDEFAULT=tzdefault-to-remove"
-    "LIBDIR=$(dev)/lib"
-    "MANDIR=$(man)/share/man"
-    "AWK=awk"
-    "CFLAGS=-DHAVE_LINK=0"
-    ''CFLAGS+=-DZIC_BLOAT_DEFAULT=\"fat\"''
-    "cc=${stdenv.cc.targetPrefix}cc"
-    "AR=${stdenv.cc.targetPrefix}ar"
-  ] ++ lib.optionals stdenv.hostPlatform.isWindows [
-    "CFLAGS+=-DHAVE_DIRECT_H"
-    "CFLAGS+=-DHAVE_SETENV=0"
-    "CFLAGS+=-DHAVE_SYMLINK=0"
-    "CFLAGS+=-DRESERVE_STD_EXT_IDS"
-  ];
+  makeFlags =
+    [
+      "TOPDIR=$(out)"
+      "TZDIR=$(out)/share/zoneinfo"
+      "BINDIR=$(bin)/bin"
+      "ZICDIR=$(bin)/bin"
+      "ETCDIR=$(TMPDIR)/etc"
+      "TZDEFAULT=tzdefault-to-remove"
+      "LIBDIR=$(dev)/lib"
+      "MANDIR=$(man)/share/man"
+      "AWK=awk"
+      "CFLAGS=-DHAVE_LINK=0"
+      ''CFLAGS+=-DZIC_BLOAT_DEFAULT=\"fat\"''
+      "cc=${stdenv.cc.targetPrefix}cc"
+      "AR=${stdenv.cc.targetPrefix}ar"
+    ] ++ lib.optionals stdenv.hostPlatform.isWindows [
+      "CFLAGS+=-DHAVE_DIRECT_H"
+      "CFLAGS+=-DHAVE_SETENV=0"
+      "CFLAGS+=-DHAVE_SYMLINK=0"
+      "CFLAGS+=-DRESERVE_STD_EXT_IDS"
+    ]
+    ;
 
   doCheck = false; # needs more tools
 

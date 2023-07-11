@@ -52,40 +52,44 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    curl
-    libkrb5
-    libuuid
-    libxcrypt
-    libxml2
-    openssl
-    readline
-    zlib
-    fuse
-  ] ++ lib.optionals stdenv.isLinux [
-    systemd
-    voms
-  ] ++ lib.optionals enableTests [ cppunit ];
+  buildInputs =
+    [
+      curl
+      libkrb5
+      libuuid
+      libxcrypt
+      libxml2
+      openssl
+      readline
+      zlib
+      fuse
+    ] ++ lib.optionals stdenv.isLinux [
+      systemd
+      voms
+    ] ++ lib.optionals enableTests [ cppunit ]
+    ;
 
   preConfigure = ''
     patchShebangs genversion.sh
   '';
 
     # https://github.com/xrootd/xrootd/blob/master/packaging/rhel/xrootd.spec.in#L665-L675=
-  postInstall = ''
-    mkdir -p "$out/lib/tmpfiles.d"
-    install -m 644 -T ../packaging/rhel/xrootd.tmpfiles "$out/lib/tmpfiles.d/xrootd.conf"
-    mkdir -p "$out/etc/xrootd"
-    install -m 644 -t "$out/etc/xrootd" ../packaging/common/*.cfg
-    install -m 644 -t "$out/etc/xrootd" ../packaging/common/client.conf
-    mkdir -p "$out/etc/xrootd/client.plugins.d"
-    install -m 644 -t "$out/etc/xrootd/client.plugins.d" ../packaging/common/client-plugin.conf.example
-    mkdir -p "$out/etc/logrotate.d"
-    install -m 644 -T ../packaging/common/xrootd.logrotate "$out/etc/logrotate.d/xrootd"
-  '' + lib.optionalString stdenv.isLinux ''
-    mkdir -p "$out/lib/systemd/system"
-    install -m 644 -t "$out/lib/systemd/system" ../packaging/common/*.service ../packaging/common/*.socket
-  '';
+  postInstall =
+    ''
+      mkdir -p "$out/lib/tmpfiles.d"
+      install -m 644 -T ../packaging/rhel/xrootd.tmpfiles "$out/lib/tmpfiles.d/xrootd.conf"
+      mkdir -p "$out/etc/xrootd"
+      install -m 644 -t "$out/etc/xrootd" ../packaging/common/*.cfg
+      install -m 644 -t "$out/etc/xrootd" ../packaging/common/client.conf
+      mkdir -p "$out/etc/xrootd/client.plugins.d"
+      install -m 644 -t "$out/etc/xrootd/client.plugins.d" ../packaging/common/client-plugin.conf.example
+      mkdir -p "$out/etc/logrotate.d"
+      install -m 644 -T ../packaging/common/xrootd.logrotate "$out/etc/logrotate.d/xrootd"
+    '' + lib.optionalString stdenv.isLinux ''
+      mkdir -p "$out/lib/systemd/system"
+      install -m 644 -t "$out/lib/systemd/system" ../packaging/common/*.service ../packaging/common/*.socket
+    ''
+    ;
 
   cmakeFlags = lib.optionals enableTests [ "-DENABLE_TESTS=TRUE" ];
 

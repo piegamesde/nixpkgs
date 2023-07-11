@@ -49,10 +49,12 @@ rustPlatform.buildRustPackage rec {
     git
   ];
 
-  buildInputs = [
-    openssl
-    protobuf
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs =
+    [
+      openssl
+      protobuf
+    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ;
 
   preBuild = ''
     export OPENSSL_DIR=${lib.getDev openssl}

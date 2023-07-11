@@ -69,12 +69,14 @@ stdenv.mkDerivation rec {
   ];
 
   preConfigure = "./autogen.sh";
-  configureFlags = [
-    "--localstatedir=/var"
-    "--disable-doc"
-    "--disable-man"
-    "--disable-update-ipsets"
-  ] ++ lib.optionals onlyQOS [ "--disable-firehol" ];
+  configureFlags =
+    [
+      "--localstatedir=/var"
+      "--disable-doc"
+      "--disable-man"
+      "--disable-update-ipsets"
+    ] ++ lib.optionals onlyQOS [ "--disable-firehol" ]
+    ;
 
   meta = with lib; {
     description = "A firewall for humans";

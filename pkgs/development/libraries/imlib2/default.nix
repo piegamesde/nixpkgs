@@ -52,20 +52,22 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-cnwak3yIXAgMNyF+R23Ii1o+YNc38b8ECzQ1ILeBy7o=";
   };
 
-  buildInputs = [
-    libjpeg
-    libtiff
-    giflib
-    libpng
-    bzip2
-    freetype
-    libid3tag
-  ] ++ optionals x11Support [
-    xorg.libXft
-    xorg.libXext
-  ] ++ optional heifSupport libheif ++ optional svgSupport librsvg
+  buildInputs =
+    [
+      libjpeg
+      libtiff
+      giflib
+      libpng
+      bzip2
+      freetype
+      libid3tag
+    ] ++ optionals x11Support [
+      xorg.libXft
+      xorg.libXext
+    ] ++ optional heifSupport libheif ++ optional svgSupport librsvg
     ++ optional webpSupport libwebp ++ optional jxlSupport libjxl
-    ++ optional psSupport libspectre;
+    ++ optional psSupport libspectre
+    ;
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -73,10 +75,12 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Do not build amd64 assembly code on Darwin, because it fails to compile
     # with unknow directive errors
-  configureFlags = optional stdenv.isDarwin "--enable-amd64=no"
+  configureFlags =
+    optional stdenv.isDarwin "--enable-amd64=no"
     ++ optional (!svgSupport) "--without-svg"
     ++ optional (!heifSupport) "--without-heif"
-    ++ optional (!x11Support) "--without-x";
+    ++ optional (!x11Support) "--without-x"
+    ;
 
   outputs = [
     "bin"

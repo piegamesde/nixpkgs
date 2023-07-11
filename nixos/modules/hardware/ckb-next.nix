@@ -62,7 +62,8 @@ in
       description = "Corsair Keyboards and Mice Daemon";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/ckb-next-daemon ${
+        ExecStart =
+          "${cfg.package}/bin/ckb-next-daemon ${
             optionalString (cfg.gid != null)
             "--gid=${builtins.toString cfg.gid}"
           }";

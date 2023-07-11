@@ -29,9 +29,11 @@ let
   pkgList = rec {
     all = lib.filter pkgFilter (combinePkgs (lib.attrValues pkgSet));
     splitBin = builtins.partition (p: p.tlType == "bin") all;
-    bin = splitBin.right ++ lib.optional
+    bin =
+      splitBin.right ++ lib.optional
       (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong)
-      (lib.getBin ghostscript);
+      (lib.getBin ghostscript)
+      ;
     nonbin = splitBin.wrong;
 
       # extra interpreters needed for shebangs, based on 2015 schemes "medium" and "tetex"
@@ -46,8 +48,10 @@ let
       ]
       ;
     pkgNeedsRuby = pkg: pkg.tlType == "run" && pkg.pname == "match-parens";
-    extraInputs = lib.optional (lib.any pkgNeedsPython splitBin.wrong) python3
-      ++ lib.optional (lib.any pkgNeedsRuby splitBin.wrong) ruby;
+    extraInputs =
+      lib.optional (lib.any pkgNeedsPython splitBin.wrong) python3
+      ++ lib.optional (lib.any pkgNeedsRuby splitBin.wrong) ruby
+      ;
   };
 
   name = "texlive-${extraName}-${bin.texliveYear}${extraVersion}";
@@ -115,15 +119,16 @@ in
     fonts = "${texmfroot}/texmf-dist/fonts";
   };
 
-  postBuild = ''
-    TEXMFROOT="${texmfroot}"
-    TEXMFDIST="${texmfroot}/texmf-dist"
-    export PATH="$out/bin:$PATH"
-    export PERL5LIB="${bin.core.out}/share/texmf-dist/scripts/texlive" # modules otherwise found in tlpkg/ of texlive.infra
-    TEXMFSYSCONFIG="$out/share/texmf-config"
-    TEXMFSYSVAR="$out/share/texmf-var"
-    export TEXMFCNF="$TEXMFSYSVAR/web2c"
-  '' +
+  postBuild =
+    ''
+      TEXMFROOT="${texmfroot}"
+      TEXMFDIST="${texmfroot}/texmf-dist"
+      export PATH="$out/bin:$PATH"
+      export PERL5LIB="${bin.core.out}/share/texmf-dist/scripts/texlive" # modules otherwise found in tlpkg/ of texlive.infra
+      TEXMFSYSCONFIG="$out/share/texmf-config"
+      TEXMFSYSVAR="$out/share/texmf-var"
+      export TEXMFCNF="$TEXMFSYSVAR/web2c"
+    '' +
     # patch texmf-dist  -> $TEXMFDIST
     # patch texmf-local -> $out/share/texmf-local
     # patch texmf.cnf   -> $TEXMFSYSVAR/web2c/texmf.cnf
@@ -367,5 +372,6 @@ in
     # and other non-deterministic diagnostics.
     ''
       find "$TEXMFSYSVAR"/web2c -name '*.log' -delete
-    '';
+    ''
+    ;
 }).overrideAttrs (_: { allowSubstitutes = true; })

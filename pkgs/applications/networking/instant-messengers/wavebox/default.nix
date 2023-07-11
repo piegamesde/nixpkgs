@@ -28,7 +28,8 @@ let
     categories = [ "Network" ];
   };
 
-  tarball = "Wavebox_${
+  tarball =
+    "Wavebox_${
       lib.replaceStrings [ "." ] [ "_" ] (toString version)
     }_linux_${bits}.tar.gz";
 

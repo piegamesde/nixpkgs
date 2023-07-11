@@ -25,12 +25,14 @@ let
     gnused
     util-linux
   ];
-  binDeps = guestDeps ++ [
-    wget
-    file
-    qemu-utils
-    cdrkit
-  ];
+  binDeps =
+    guestDeps ++ [
+      wget
+      file
+      qemu-utils
+      cdrkit
+    ]
+    ;
 in
 stdenv.mkDerivation rec {
   # NOTICE: if you bump this, make sure to run

@@ -19,11 +19,13 @@ stdenv.mkDerivation rec {
 
   patches = [ ./wxgtk-3.2.patch ];
 
-  buildInputs = [
-    wxGTK32
-    util-linux
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs =
+    [
+      wxGTK32
+      util-linux
+      zlib
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ;
 
   makeFlags = [
     "prefix=${placeholder "out"}"

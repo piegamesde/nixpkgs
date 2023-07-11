@@ -68,12 +68,14 @@ buildPythonPackage rec {
     extras // { all = lib.concatLists (lib.attrValues extras); }
     ;
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.concatLists (lib.attrVals ([
-    "woff"
-    "interpolatable"
-  ] ++ lib.optionals (!skia-pathops.meta.broken) [
-      "pathops" # broken
-    ] ++ [ "repacker" ]) passthru.optional-dependencies);
+  nativeCheckInputs =
+    [ pytestCheckHook ] ++ lib.concatLists (lib.attrVals ([
+      "woff"
+      "interpolatable"
+    ] ++ lib.optionals (!skia-pathops.meta.broken) [
+        "pathops" # broken
+      ] ++ [ "repacker" ]) passthru.optional-dependencies)
+    ;
 
   pythonImportsCheck = [ "fontTools" ];
 

@@ -89,54 +89,61 @@ else
       RSTUDIO_VERSION_SUFFIX
       ;
 
-    nativeBuildInputs = [
-      cmake
-      unzip
-      ant
-      jdk
-      makeWrapper
-      pandoc
-      nodejs
-    ] ++ lib.optionals (!server) [ copyDesktopItems ];
-
-    buildInputs = [
-      boost
-      zlib
-      openssl
-      R
-      libuuid
-      yaml-cpp
-      soci
-      postgresql
-    ] ++ (if server then
+    nativeBuildInputs =
       [
-        sqlite.dev
-        pam
+        cmake
+        unzip
+        ant
+        jdk
+        makeWrapper
+        pandoc
+        nodejs
+      ] ++ lib.optionals (!server) [ copyDesktopItems ]
+      ;
+
+    buildInputs =
+      [
+        boost
+        zlib
+        openssl
+        R
+        libuuid
+        yaml-cpp
+        soci
+        postgresql
+      ] ++ (if server then
+        [
+          sqlite.dev
+          pam
+        ]
+      else
+        [
+          qtbase
+          qtxmlpatterns
+          qtsensors
+          qtwebengine
+          qtwebchannel
+        ])
+      ;
+
+    cmakeFlags =
+      [
+        "-DRSTUDIO_TARGET=${
+          if server then
+            "Server"
+          else
+            "Desktop"
+        }"
+        "-DCMAKE_BUILD_TYPE=Release"
+        "-DRSTUDIO_USE_SYSTEM_SOCI=ON"
+        "-DRSTUDIO_USE_SYSTEM_BOOST=ON"
+        "-DRSTUDIO_USE_SYSTEM_YAML_CPP=ON"
+        "-DQUARTO_ENABLED=FALSE"
+        "-DPANDOC_VERSION=${pandoc.version}"
+        "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/lib/rstudio"
       ]
-    else
-      [
-        qtbase
-        qtxmlpatterns
-        qtsensors
-        qtwebengine
-        qtwebchannel
-      ]);
-
-    cmakeFlags = [
-      "-DRSTUDIO_TARGET=${
-        if server then
-          "Server"
-        else
-          "Desktop"
-      }"
-      "-DCMAKE_BUILD_TYPE=Release"
-      "-DRSTUDIO_USE_SYSTEM_SOCI=ON"
-      "-DRSTUDIO_USE_SYSTEM_BOOST=ON"
-      "-DRSTUDIO_USE_SYSTEM_YAML_CPP=ON"
-      "-DQUARTO_ENABLED=FALSE"
-      "-DPANDOC_VERSION=${pandoc.version}"
-      "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/lib/rstudio"
-    ] ++ lib.optionals (!server) [ "-DQT_QMAKE_EXECUTABLE=${qmake}/bin/qmake" ];
+      ++ lib.optionals (!server) [ "-DQT_QMAKE_EXECUTABLE=${qmake}/bin/qmake" ]
+      ;
 
       # Hack RStudio to only use the input R and provided libclang.
     patches = [

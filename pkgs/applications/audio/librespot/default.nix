@@ -27,18 +27,23 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-tbDlWP0sUIa0W9HhdYNOvo9cGeqFemclhA7quh7f/Rw=";
 
-  nativeBuildInputs = [ pkg-config ]
-    ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
+  nativeBuildInputs =
+    [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ]
+    ;
 
-  buildInputs = [ openssl ] ++ lib.optional withALSA alsa-lib
+  buildInputs =
+    [ openssl ] ++ lib.optional withALSA alsa-lib
     ++ lib.optional withPortAudio portaudio
-    ++ lib.optional withPulseAudio libpulseaudio;
+    ++ lib.optional withPulseAudio libpulseaudio
+    ;
 
   buildNoDefaultFeatures = true;
-  buildFeatures = lib.optional withRodio "rodio-backend"
+  buildFeatures =
+    lib.optional withRodio "rodio-backend"
     ++ lib.optional withALSA "alsa-backend"
     ++ lib.optional withPortAudio "portaudio-backend"
-    ++ lib.optional withPulseAudio "pulseaudio-backend";
+    ++ lib.optional withPulseAudio "pulseaudio-backend"
+    ;
 
   meta = with lib; {
     description = "Open Source Spotify client library and playback daemon";

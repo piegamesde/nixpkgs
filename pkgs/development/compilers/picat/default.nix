@@ -6,12 +6,13 @@
 }:
 
 let
-  ARCH = {
-    i686-linux = "linux32";
-    x86_64-linux = "linux64";
-    aarch64-linux = "linux64";
-  }."${stdenv.hostPlatform.system}" or (throw
-    "Unsupported system: ${stdenv.hostPlatform.system}");
+  ARCH =
+    {
+      i686-linux = "linux32";
+      x86_64-linux = "linux64";
+      aarch64-linux = "linux64";
+    }."${stdenv.hostPlatform.system}" or (throw
+      "Unsupported system: ${stdenv.hostPlatform.system}");
 in
 stdenv.mkDerivation {
   pname = "picat";

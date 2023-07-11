@@ -44,33 +44,37 @@ stdenv.mkDerivation rec {
   inherit meta src version;
   pname = "mathematica";
 
-  buildInputs = [
-    coreutils
-    patchelf
-    alsa-lib
-    coreutils
-    fontconfig
-    freetype
-    gcc.cc
-    gcc.libc
-    glib
-    ncurses
-    opencv2
-    openssl
-    unixODBC
-  ] ++ (with xorg; [
-    libX11
-    libXext
-    libXtst
-    libXi
-    libXmu
-    libXrender
-    libxcb
-  ]);
+  buildInputs =
+    [
+      coreutils
+      patchelf
+      alsa-lib
+      coreutils
+      fontconfig
+      freetype
+      gcc.cc
+      gcc.libc
+      glib
+      ncurses
+      opencv2
+      openssl
+      unixODBC
+    ] ++ (with xorg; [
+      libX11
+      libXext
+      libXtst
+      libXi
+      libXmu
+      libXrender
+      libxcb
+    ])
+    ;
 
-  ldpath = lib.makeLibraryPath buildInputs
+  ldpath =
+    lib.makeLibraryPath buildInputs
     + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
-    (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs);
+    (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
+    ;
 
   phases = "unpackPhase installPhase fixupPhase";
 

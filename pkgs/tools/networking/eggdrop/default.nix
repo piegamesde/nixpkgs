@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
   version = "1.9.5";
 
   src = fetchurl {
-    url = "https://ftp.eggheads.org/pub/eggdrop/source/${
+    url =
+      "https://ftp.eggheads.org/pub/eggdrop/source/${
         lib.versions.majorMinor version
       }/eggdrop-${version}.tar.gz";
     hash = "sha256-4mkY6opk2YV1ecW2DGYaM38gdz7dgwhrNWUlvrWBc2o=";

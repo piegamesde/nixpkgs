@@ -11,10 +11,11 @@ let
     Agda: self:
     let
       inherit (self) callPackage;
-      inherit (callPackage ../build-support/agda {
-        inherit Agda self;
-        inherit (pkgs.haskellPackages) ghcWithPackages;
-      })
+      inherit
+        (callPackage ../build-support/agda {
+          inherit Agda self;
+          inherit (pkgs.haskellPackages) ghcWithPackages;
+        })
         withPackages
         mkDerivation
         ;

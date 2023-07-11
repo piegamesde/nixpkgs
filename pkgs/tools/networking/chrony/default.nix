@@ -30,29 +30,34 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gnutls
-    libedit
-    nspr
-    nss
-    readline
-    texinfo
-  ] ++ lib.optionals stdenv.isLinux [
-    libcap
-    libseccomp
-    pps-tools
-  ];
+  buildInputs =
+    [
+      gnutls
+      libedit
+      nspr
+      nss
+      readline
+      texinfo
+    ] ++ lib.optionals stdenv.isLinux [
+      libcap
+      libseccomp
+      pps-tools
+    ]
+    ;
 
-  configureFlags = [
-    "--enable-ntp-signd"
-    "--sbindir=$(out)/bin"
-    "--chronyrundir=/run/chrony"
-  ] ++ lib.optional stdenv.isLinux "--enable-scfilter";
+  configureFlags =
+    [
+      "--enable-ntp-signd"
+      "--sbindir=$(out)/bin"
+      "--chronyrundir=/run/chrony"
+    ] ++ lib.optional stdenv.isLinux "--enable-scfilter"
+    ;
 
-  patches = [
-    # Cleanup the installation script
-    ./makefile.patch
-  ];
+  patches =
+    [
+      # Cleanup the installation script
+      ./makefile.patch
+    ];
 
   postPatch = ''
     patchShebangs test

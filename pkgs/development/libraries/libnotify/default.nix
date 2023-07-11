@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "xfTtPR+G5bEYx2QVqsuGGHPtPm8MazGBuCjPWE/FxhY=";
@@ -47,14 +48,16 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    libxslt
-    docbook-xsl-ns
-    glib # for glib-mkenums needed during the build
-  ] ++ lib.optionals withIntrospection [ gobject-introspection ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      libxslt
+      docbook-xsl-ns
+      glib # for glib-mkenums needed during the build
+    ] ++ lib.optionals withIntrospection [ gobject-introspection ]
+    ;
 
   propagatedBuildInputs = [
     gdk-pixbuf

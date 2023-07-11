@@ -41,13 +41,14 @@ let
 
 in
 let
-  evalModulesMinimal = (import ./default.nix {
-    inherit
-      lib
-      ;
-      # Implicit use of feature is noted in implementation.
-    featureFlags.minimalModules = { };
-  }).evalModules;
+  evalModulesMinimal =
+    (import ./default.nix {
+      inherit
+        lib
+        ;
+        # Implicit use of feature is noted in implementation.
+      featureFlags.minimalModules = { };
+    }).evalModules;
 
   pkgsModule = rec {
     _file = ./eval-config.nix;
@@ -72,11 +73,13 @@ let
     x
     ;
 
-  legacyModules = lib.optional (evalConfigArgs ? extraArgs) {
-    config = { _module.args = extraArgs; };
-  } ++ lib.optional (evalConfigArgs ? check) {
-    config = { _module.check = lib.mkDefault check; };
-  };
+  legacyModules =
+    lib.optional (evalConfigArgs ? extraArgs) {
+      config = { _module.args = extraArgs; };
+    } ++ lib.optional (evalConfigArgs ? check) {
+      config = { _module.check = lib.mkDefault check; };
+    }
+    ;
 
   allUserModules =
     let
@@ -94,10 +97,12 @@ let
 
   noUserModules = evalModulesMinimal ({
     inherit prefix specialArgs;
-    modules = baseModules ++ extraModules ++ [
-      pkgsModule
-      modulesModule
-    ];
+    modules =
+      baseModules ++ extraModules ++ [
+        pkgsModule
+        modulesModule
+      ]
+      ;
   });
 
     # Extra arguments that are useful for constructing a similar configuration.

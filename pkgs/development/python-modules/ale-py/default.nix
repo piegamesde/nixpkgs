@@ -33,10 +33,11 @@ buildPythonPackage rec {
     hash = "sha256-B2AxhlzvBy1lJ3JttJjImgTjMtEUyZBv+xHU2IC7BVE=";
   };
 
-  patches = [
-    # don't download pybind11, use local pybind11
-    ./cmake-pybind11.patch
-  ];
+  patches =
+    [
+      # don't download pybind11, use local pybind11
+      ./cmake-pybind11.patch
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -50,11 +51,13 @@ buildPythonPackage rec {
     SDL2
   ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-    importlib-resources
-    numpy
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [
+      typing-extensions
+      importlib-resources
+      numpy
+    ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ;
 
   nativeCheckInputs = [
     pytestCheckHook

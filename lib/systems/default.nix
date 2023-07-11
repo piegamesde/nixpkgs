@@ -140,17 +140,18 @@ rec {
           # Output from uname
         uname = {
           # uname -s
-          system = {
-            linux = "Linux";
-            windows = "Windows";
-            darwin = "Darwin";
-            netbsd = "NetBSD";
-            freebsd = "FreeBSD";
-            openbsd = "OpenBSD";
-            wasi = "Wasi";
-            redox = "Redox";
-            genode = "Genode";
-          }.${final.parsed.kernel.name} or null;
+          system =
+            {
+              linux = "Linux";
+              windows = "Windows";
+              darwin = "Darwin";
+              netbsd = "NetBSD";
+              freebsd = "FreeBSD";
+              openbsd = "OpenBSD";
+              wasi = "Wasi";
+              redox = "Redox";
+              genode = "Genode";
+            }.${final.parsed.kernel.name} or null;
 
             # uname -m
           processor =
@@ -167,14 +168,17 @@ rec {
             # uname -r
           release = null;
         };
-        isStatic = final.isWasm || final.isRedox;
+        isStatic =
+          final.isWasm || final.isRedox
+          ;
 
           # Just a guess, based on `system`
-        inherit ({
-          linux-kernel = args.linux-kernel or { };
-          gcc = args.gcc or { };
-          rustc = args.rust or { };
-        } // platforms.select final)
+        inherit
+          ({
+            linux-kernel = args.linux-kernel or { };
+            gcc = args.gcc or { };
+            rustc = args.rust or { };
+          } // platforms.select final)
           linux-kernel
           gcc
           rustc
@@ -235,10 +239,11 @@ rec {
             final.parsed.cpu.name
           ;
 
-        darwinArch = {
-          armv7a = "armv7";
-          aarch64 = "arm64";
-        }.${final.parsed.cpu.name} or final.parsed.cpu.name;
+        darwinArch =
+          {
+            armv7a = "armv7";
+            aarch64 = "arm64";
+          }.${final.parsed.cpu.name} or final.parsed.cpu.name;
 
         darwinPlatform =
           if final.isMacOS then
@@ -250,10 +255,11 @@ rec {
           ;
           # The canonical name for this attribute is darwinSdkVersion, but some
           # platforms define the old name "sdkVer".
-        darwinSdkVersion = final.sdkVer or (if final.isAarch64 then
-          "11.0"
-        else
-          "10.12");
+        darwinSdkVersion =
+          final.sdkVer or (if final.isAarch64 then
+            "11.0"
+          else
+            "10.12");
         darwinMinVersion = final.darwinSdkVersion;
         darwinMinVersionVariable =
           if final.isMacOS then
@@ -281,8 +287,9 @@ rec {
               enableDocs = false;
               hostCpuTargets = [ "${final.qemuArch}-linux-user" ];
             };
-            wine = (pkgs.winePackagesFor
-              "wine${toString final.parsed.cpu.bits}").minimal;
+            wine =
+              (pkgs.winePackagesFor
+                "wine${toString final.parsed.cpu.bits}").minimal;
           in
           if
             final.parsed.kernel.name

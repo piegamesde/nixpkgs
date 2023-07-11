@@ -28,10 +28,12 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     makeWrapper
   ];
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    Security
-  ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      Security
+    ]
+    ;
 
   buildFeatures = [ "ssl" ];
 

@@ -55,21 +55,23 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [
-    dbus
-    gdk-pixbuf
-    glib
-    gtk4
-    libadwaita
-    openssl
-    sqlite
-    libshumate
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-  ]);
+  buildInputs =
+    [
+      dbus
+      gdk-pixbuf
+      glib
+      gtk4
+      libadwaita
+      openssl
+      sqlite
+      libshumate
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+    ])
+    ;
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/Shortwave";

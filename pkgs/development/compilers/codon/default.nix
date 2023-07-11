@@ -98,10 +98,11 @@ stdenv.mkDerivation {
 
   inherit src version;
 
-  patches = [
-    # Without the hash, CMake will try to replace the `.zip` file
-    ./Add-a-hash-to-the-googletest-binary.patch
-  ];
+  patches =
+    [
+      # Without the hash, CMake will try to replace the `.zip` file
+      ./Add-a-hash-to-the-googletest-binary.patch
+    ];
 
   nativeBuildInputs = [
     cmake

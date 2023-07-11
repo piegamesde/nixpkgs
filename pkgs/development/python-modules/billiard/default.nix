@@ -26,10 +26,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # psutil.NoSuchProcess: process no longer exists (pid=168)
-    "test_set_pdeathsig"
-  ];
+  disabledTests =
+    [
+      # psutil.NoSuchProcess: process no longer exists (pid=168)
+      "test_set_pdeathsig"
+    ];
 
   pythonImportsCheck = [ "billiard" ];
 

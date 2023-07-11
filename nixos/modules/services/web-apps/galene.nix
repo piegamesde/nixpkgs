@@ -165,12 +165,13 @@ in
         Restart = "always";
           # Upstream Requirements
         LimitNOFILE = 65536;
-        StateDirectory = [ ]
-          ++ optional (cfg.stateDir == defaultstateDir) "galene"
+        StateDirectory =
+          [ ] ++ optional (cfg.stateDir == defaultstateDir) "galene"
           ++ optional (cfg.dataDir == defaultdataDir) "galene/data"
           ++ optional (cfg.groupsDir == defaultgroupsDir) "galene/groups"
           ++ optional (cfg.recordingsDir == defaultrecordingsDir)
-          "galene/recordings";
+          "galene/recordings"
+          ;
 
           # Hardening
         CapabilityBoundingSet = [ "" ];

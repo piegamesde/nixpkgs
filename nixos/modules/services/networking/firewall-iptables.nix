@@ -46,7 +46,8 @@ let
 
   kernelHasRPFilter =
     ((kernel.config.isEnabled or (x: false)) "IP_NF_MATCH_RPFILTER")
-    || (kernel.features.netfilterRPFilter or false);
+    || (kernel.features.netfilterRPFilter or false)
+    ;
 
   helpers = import ./helpers.nix { inherit config lib; };
 
@@ -311,15 +312,16 @@ in
     # built but not started by default?
   config = mkIf (cfg.enable && config.networking.nftables.enable == false) {
 
-    assertions = [
-      # This is approximately "checkReversePath -> kernelHasRPFilter",
-      # but the checkReversePath option can include non-boolean
-      # values.
-      {
-        assertion = cfg.checkReversePath == false || kernelHasRPFilter;
-        message = "This kernel does not support rpfilter";
-      }
-    ];
+    assertions =
+      [
+        # This is approximately "checkReversePath -> kernelHasRPFilter",
+        # but the checkReversePath option can include non-boolean
+        # values.
+        {
+          assertion = cfg.checkReversePath == false || kernelHasRPFilter;
+          message = "This kernel does not support rpfilter";
+        }
+      ];
 
     networking.firewall.checkReversePath =
       mkIf (!kernelHasRPFilter) (mkDefault false);
@@ -331,7 +333,9 @@ in
       before = [ "network-pre.target" ];
       after = [ "systemd-modules-load.service" ];
 
-      path = [ cfg.package ] ++ cfg.extraPackages;
+      path =
+        [ cfg.package ] ++ cfg.extraPackages
+        ;
 
         # FIXME: this module may also try to load kernel modules, but
         # containers don't have CAP_SYS_MODULE.  So the host system had

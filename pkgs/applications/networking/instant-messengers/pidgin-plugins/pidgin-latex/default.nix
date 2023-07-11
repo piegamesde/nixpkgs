@@ -35,7 +35,8 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    wrapArgs = "--prefix PATH ':' ${
+    wrapArgs =
+      "--prefix PATH ':' ${
         lib.makeBinPath [
           texLive
           imagemagick

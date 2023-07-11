@@ -51,16 +51,18 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = [
-    openssl
-    libgpg-error
-    gpgme
-    xorg.libxcb
-    nettle
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Security
-  ];
+  buildInputs =
+    [
+      openssl
+      libgpg-error
+      gpgme
+      xorg.libxcb
+      nettle
+    ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Security
+    ]
+    ;
 
   preCheck = ''
     export HOME=$TMPDIR

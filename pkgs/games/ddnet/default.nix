@@ -60,31 +60,33 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ gtest ];
 
-  buildInputs = [
-    curl
-    freetype
-    libGLU
-    libnotify
-    libogg
-    libX11
-    opusfile
-    pcre
-    python3
-    SDL2
-    sqlite
-    wavpack
-    ffmpeg
-    x264
-    vulkan-loader
-    vulkan-headers
-    glslang
-    spirv-tools
-  ] ++ lib.optionals stdenv.isDarwin [
-    Carbon
-    Cocoa
-    OpenGL
-    Security
-  ];
+  buildInputs =
+    [
+      curl
+      freetype
+      libGLU
+      libnotify
+      libogg
+      libX11
+      opusfile
+      pcre
+      python3
+      SDL2
+      sqlite
+      wavpack
+      ffmpeg
+      x264
+      vulkan-loader
+      vulkan-headers
+      glslang
+      spirv-tools
+    ] ++ lib.optionals stdenv.isDarwin [
+      Carbon
+      Cocoa
+      OpenGL
+      Security
+    ]
+    ;
 
   postPatch = ''
     substituteInPlace src/engine/shared/storage.cpp \

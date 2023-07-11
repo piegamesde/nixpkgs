@@ -35,8 +35,9 @@ with lib; {
         message = "Given user does not exist";
       }
       {
-        assertion = (cfg.group == defaultGroup)
-          || (hasAttr cfg.group config.users.groups);
+        assertion =
+          (cfg.group == defaultGroup) || (hasAttr cfg.group config.users.groups)
+          ;
         message = "Given group does not exist";
       }
     ];

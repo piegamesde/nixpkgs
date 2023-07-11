@@ -36,7 +36,8 @@ python3.pkgs.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "m9GqyVcuYkcgJKaVDYOubyhr4zzZx3fz1E+hbQOPHVE=";
@@ -55,30 +56,32 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    gtk4
-    pango
-    glib
-    libmediaart
-    gnome-online-accounts
-    gobject-introspection
-    gdk-pixbuf
-    python3
-    grilo
-    grilo-plugins
-    libnotify
-    libsoup_3
-    libadwaita
-    gsettings-desktop-schemas
-    tracker
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-    gst-libav
-  ]);
+  buildInputs =
+    [
+      gtk4
+      pango
+      glib
+      libmediaart
+      gnome-online-accounts
+      gobject-introspection
+      gdk-pixbuf
+      python3
+      grilo
+      grilo-plugins
+      libnotify
+      libsoup_3
+      libadwaita
+      gsettings-desktop-schemas
+      tracker
+    ] ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+    ])
+    ;
 
   pythonPath = with python3.pkgs; [
     pycairo

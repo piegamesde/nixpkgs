@@ -96,13 +96,15 @@ lib.makeOverridable ({
       ;
 
       # Dependencies that are required to build kernel modules
-    moduleBuildDependencies = [
-      pahole
-      perl
-      libelf
-      # module makefiles often run uname commands to find out the kernel version
-      (buildPackages.deterministic-uname.override { inherit modDirVersion; })
-    ] ++ optional (lib.versionAtLeast version "5.13") zstd;
+    moduleBuildDependencies =
+      [
+        pahole
+        perl
+        libelf
+        # module makefiles often run uname commands to find out the kernel version
+        (buildPackages.deterministic-uname.override { inherit modDirVersion; })
+      ] ++ optional (lib.versionAtLeast version "5.13") zstd
+      ;
 
     config =
       let
@@ -146,18 +148,19 @@ lib.makeOverridable ({
     inherit version src;
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
-    nativeBuildInputs = [
-      perl
-      bc
-      nettools
-      openssl
-      rsync
-      gmp
-      libmpc
-      mpfr
-      zstd
-      python3Minimal
-    ] ++ optional (kernelConf.target == "uImage") buildPackages.ubootTools
+    nativeBuildInputs =
+      [
+        perl
+        bc
+        nettools
+        openssl
+        rsync
+        gmp
+        libmpc
+        mpfr
+        zstd
+        python3Minimal
+      ] ++ optional (kernelConf.target == "uImage") buildPackages.ubootTools
       ++ optional (lib.versionOlder version "5.8") libelf
       ++ optionals (lib.versionAtLeast version "4.16") [
         bison
@@ -166,9 +169,11 @@ lib.makeOverridable ({
         cpio
         pahole
         zlib
-      ] ++ optional (lib.versionAtLeast version "5.8") elfutils;
+      ] ++ optional (lib.versionAtLeast version "5.8") elfutils
+      ;
 
-    patches = map (p: p.patch) kernelPatches
+    patches =
+      map (p: p.patch) kernelPatches
       # Required for deterministic builds along with some postPatch magic.
       ++ optional (lib.versionOlder version "5.19")
       ./randstruct-provide-seed.patch
@@ -183,7 +188,8 @@ lib.makeOverridable ({
         url =
           "https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git/patch/?id=d9e5c3e9e75162f845880535957b7fd0b4637d23";
         hash = "sha256-bBOyJcP6jUvozFJU0SPTOf3cmnTQ6ZZ4PlHjiniHXLU=";
-      });
+      })
+      ;
 
     preUnpack = ''
       # The same preUnpack is used to build the configfile,
@@ -279,33 +285,39 @@ lib.makeOverridable ({
     ];
 
       # Absolute paths for compilers avoid any PATH-clobbering issues.
-    makeFlags = [
-      "O=$(buildRoot)"
-      "CC=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
-      "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
-      "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
-      "ARCH=${stdenv.hostPlatform.linuxArch}"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    makeFlags =
+      [
+        "O=$(buildRoot)"
+        "CC=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
+        "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
+        "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
+        "ARCH=${stdenv.hostPlatform.linuxArch}"
+      ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-      ] ++ (kernelConf.makeFlags or [ ]) ++ extraMakeFlags;
+      ] ++ (kernelConf.makeFlags or [ ]) ++ extraMakeFlags
+      ;
 
     karch = stdenv.hostPlatform.linuxArch;
 
-    buildFlags = [
-      "DTC_FLAGS=-@"
-      "KBUILD_BUILD_VERSION=1-NixOS"
+    buildFlags =
+      [
+        "DTC_FLAGS=-@"
+        "KBUILD_BUILD_VERSION=1-NixOS"
 
-      # Set by default in the kernel since a73619a845d5,
-      # replicated here to apply to older versions.
-      # Makes __FILE__ relative to the build directory.
-      "KCPPFLAGS=-fmacro-prefix-map=$(sourceRoot)/="
-    ] ++ extraMakeFlags;
+        # Set by default in the kernel since a73619a845d5,
+        # replicated here to apply to older versions.
+        # Makes __FILE__ relative to the build directory.
+        "KCPPFLAGS=-fmacro-prefix-map=$(sourceRoot)/="
+      ] ++ extraMakeFlags
+      ;
 
-    installFlags = [ "INSTALL_PATH=$(out)" ]
+    installFlags =
+      [ "INSTALL_PATH=$(out)" ]
       ++ (optional isModular "INSTALL_MOD_PATH=$(out)") ++ optionals buildDTBs [
         "dtbs_install"
         "INSTALL_DTBS_PATH=$(out)/dtbs"
-      ];
+      ]
+      ;
 
     preInstall =
       let
@@ -479,11 +491,13 @@ lib.makeOverridable ({
     requiredSystemFeatures = [ "big-parallel" ];
 
     meta = {
-      description = "The Linux kernel" + (if kernelPatches == [ ] then
-        ""
-      else
-        " (with patches: "
-        + lib.concatStringsSep ", " (map (x: x.name) kernelPatches) + ")");
+      description =
+        "The Linux kernel" + (if kernelPatches == [ ] then
+          ""
+        else
+          " (with patches: "
+          + lib.concatStringsSep ", " (map (x: x.name) kernelPatches) + ")")
+        ;
       license = lib.licenses.gpl2Only;
       homepage = "https://www.kernel.org/";
       maintainers =

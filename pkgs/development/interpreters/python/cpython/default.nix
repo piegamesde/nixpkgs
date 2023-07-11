@@ -147,37 +147,40 @@ let
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
-  nativeBuildInputs = optionals (!stdenv.isDarwin) [
-    autoreconfHook
-    pkg-config
-    autoconf-archive # needed for AX_CHECK_COMPILE_FLAG
-  ] ++ [ nukeReferences ]
+  nativeBuildInputs =
+    optionals (!stdenv.isDarwin) [
+      autoreconfHook
+      pkg-config
+      autoconf-archive # needed for AX_CHECK_COMPILE_FLAG
+    ] ++ [ nukeReferences ]
     ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       buildPackages.stdenv.cc
       pythonForBuild
     ] ++ optionals (stdenv.cc.isClang
       && (!stdenv.hostPlatform.useAndroidPrebuilt or false)
-      && (enableLTO || enableOptimizations)) [ stdenv.cc.cc.libllvm.out ];
+      && (enableLTO || enableOptimizations)) [ stdenv.cc.cc.libllvm.out ]
+    ;
 
-  buildInputs = filter (p: p != null) ([
-    zlib
-    bzip2
-    expat
-    xz
-    libffi
-    libxcrypt
-    gdbm
-    sqlite
-    readline
-    ncurses
-    openssl'
-  ] ++ optionals x11Support [
-    tcl
-    tk
-    libX11
-    xorgproto
-  ] ++ optionals (bluezSupport && stdenv.isLinux) [ bluez ]
-    ++ optionals stdenv.isDarwin [ configd ])
+  buildInputs =
+    filter (p: p != null) ([
+      zlib
+      bzip2
+      expat
+      xz
+      libffi
+      libxcrypt
+      gdbm
+      sqlite
+      readline
+      ncurses
+      openssl'
+    ] ++ optionals x11Support [
+      tcl
+      tk
+      libX11
+      xorgproto
+    ] ++ optionals (bluezSupport && stdenv.isLinux) [ bluez ]
+      ++ optionals stdenv.isDarwin [ configd ])
 
     ++ optionals enableFramework [ Cocoa ] ++ optionals tzdataSupport [ tzdata ]
     ; # `zoneinfo` module
@@ -212,17 +215,18 @@ let
       # suffix, so we do the same.
       pythonHostPlatform =
         let
-          cpu = {
-            # According to PEP600, Python's name for the Power PC
-            # architecture is "ppc", not "powerpc".  Without the Rosetta
-            # Stone below, the PEP600 requirement that "${ARCH} matches
-            # the return value from distutils.util.get_platform()" fails.
-            # https://peps.python.org/pep-0600/
-            powerpc = "ppc";
-            powerpcle = "ppcle";
-            powerpc64 = "ppc64";
-            powerpc64le = "ppc64le";
-          }.${parsed.cpu.name} or parsed.cpu.name;
+          cpu =
+            {
+              # According to PEP600, Python's name for the Power PC
+              # architecture is "ppc", not "powerpc".  Without the Rosetta
+              # Stone below, the PEP600 requirement that "${ARCH} matches
+              # the return value from distutils.util.get_platform()" fails.
+              # https://peps.python.org/pep-0600/
+              powerpc = "ppc";
+              powerpcle = "ppcle";
+              powerpc64 = "ppc64";
+              powerpc64le = "ppc64le";
+            }.${parsed.cpu.name} or parsed.cpu.name;
         in
         "${parsed.kernel.name}-${cpu}"
         ;
@@ -301,44 +305,47 @@ stdenv.mkDerivation {
     inherit hash;
   };
 
-  prePatch = optionalString stdenv.isDarwin ''
-    substituteInPlace configure --replace '`/usr/bin/arch`' '"i386"'
-  '' + optionalString (pythonOlder "3.9" && stdenv.isDarwin && x11Support) ''
-    # Broken on >= 3.9; replaced with ./3.9/darwin-tcl-tk.patch
-    substituteInPlace setup.py --replace /Library/Frameworks /no-such-path
-  '';
+  prePatch =
+    optionalString stdenv.isDarwin ''
+      substituteInPlace configure --replace '`/usr/bin/arch`' '"i386"'
+    '' + optionalString (pythonOlder "3.9" && stdenv.isDarwin && x11Support) ''
+      # Broken on >= 3.9; replaced with ./3.9/darwin-tcl-tk.patch
+      substituteInPlace setup.py --replace /Library/Frameworks /no-such-path
+    ''
+    ;
 
-  patches = optionals (version == "3.10.9") [
-    # https://github.com/python/cpython/issues/100160
-    ./3.10/asyncio-deprecation.patch
-  ] ++ optionals (version == "3.11.1") [
-    # https://github.com/python/cpython/issues/100160
-    (fetchpatch {
-      name = "asyncio-deprecation-3.11.patch";
-      url =
-        "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff";
-      revert = true;
-      excludes = [ "Misc/NEWS.d/*" ];
-      hash = "sha256-PmkXf2D9trtW1gXZilRIWgdg2Y47JfELq1z4DuG3wJY=";
-    })
-  ] ++ [
-    # Disable the use of ldconfig in ctypes.util.find_library (since
-    # ldconfig doesn't work on NixOS), and don't use
-    # ctypes.util.find_library during the loading of the uuid module
-    # (since it will do a futile invocation of gcc (!) to find
-    # libuuid, slowing down program startup a lot).
-    (./. + "/${sourceVersion.major}.${sourceVersion.minor}/no-ldconfig.patch")
-    # Make sure that the virtualenv activation scripts are
-    # owner-writable, so venvs can be recreated without permission
-    # errors.
-    ./virtualenv-permissions.patch
-  ] ++ optionals mimetypesSupport [
-    # Make the mimetypes module refer to the right file
-    ./mimetypes.patch
-  ] ++ optionals (pythonAtLeast "3.7" && pythonOlder "3.11") [
-    # Fix darwin build https://bugs.python.org/issue34027
-    ./3.7/darwin-libutil.patch
-  ] ++ optionals (pythonAtLeast "3.11") [ ./3.11/darwin-libutil.patch ]
+  patches =
+    optionals (version == "3.10.9") [
+      # https://github.com/python/cpython/issues/100160
+      ./3.10/asyncio-deprecation.patch
+    ] ++ optionals (version == "3.11.1") [
+      # https://github.com/python/cpython/issues/100160
+      (fetchpatch {
+        name = "asyncio-deprecation-3.11.patch";
+        url =
+          "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff";
+        revert = true;
+        excludes = [ "Misc/NEWS.d/*" ];
+        hash = "sha256-PmkXf2D9trtW1gXZilRIWgdg2Y47JfELq1z4DuG3wJY=";
+      })
+    ] ++ [
+      # Disable the use of ldconfig in ctypes.util.find_library (since
+      # ldconfig doesn't work on NixOS), and don't use
+      # ctypes.util.find_library during the loading of the uuid module
+      # (since it will do a futile invocation of gcc (!) to find
+      # libuuid, slowing down program startup a lot).
+      (./. + "/${sourceVersion.major}.${sourceVersion.minor}/no-ldconfig.patch")
+      # Make sure that the virtualenv activation scripts are
+      # owner-writable, so venvs can be recreated without permission
+      # errors.
+      ./virtualenv-permissions.patch
+    ] ++ optionals mimetypesSupport [
+      # Make the mimetypes module refer to the right file
+      ./mimetypes.patch
+    ] ++ optionals (pythonAtLeast "3.7" && pythonOlder "3.11") [
+      # Fix darwin build https://bugs.python.org/issue34027
+      ./3.7/darwin-libutil.patch
+    ] ++ optionals (pythonAtLeast "3.11") [ ./3.11/darwin-libutil.patch ]
     ++ optionals (pythonAtLeast "3.9" && pythonOlder "3.11" && stdenv.isDarwin)
     [
       # Stop checking for TCL/TK in global macOS locations
@@ -366,17 +373,20 @@ stdenv.mkDerivation {
     ] ++ optionals stdenv.hostPlatform.isLoongArch64 [
       # https://github.com/python/cpython/issues/90656
       ./loongarch-support.patch
-    ];
+    ]
+    ;
 
-  postPatch = ''
-    substituteInPlace Lib/subprocess.py \
-      --replace "'/bin/sh'" "'${bash}/bin/sh'"
-  '' + optionalString mimetypesSupport ''
-    substituteInPlace Lib/mimetypes.py \
-      --replace "@mime-types@" "${mailcap}"
-  '' + optionalString (x11Support && (tix != null)) ''
-    substituteInPlace "Lib/tkinter/tix.py" --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tix}/lib'"
-  '';
+  postPatch =
+    ''
+      substituteInPlace Lib/subprocess.py \
+        --replace "'/bin/sh'" "'${bash}/bin/sh'"
+    '' + optionalString mimetypesSupport ''
+      substituteInPlace Lib/mimetypes.py \
+        --replace "@mime-types@" "${mailcap}"
+    '' + optionalString (x11Support && (tix != null)) ''
+      substituteInPlace "Lib/tkinter/tix.py" --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tix}/lib'"
+    ''
+    ;
 
   env = {
     CPPFLAGS =
@@ -392,11 +402,12 @@ stdenv.mkDerivation {
     PYTHONHASHSEED = 0;
   };
 
-  configureFlags = [
-    "--without-ensurepip"
-    "--with-system-expat"
-    "--with-system-ffi"
-  ] ++ optionals (!static && !enableFramework) [ "--enable-shared" ]
+  configureFlags =
+    [
+      "--without-ensurepip"
+      "--with-system-expat"
+      "--with-system-ffi"
+    ] ++ optionals (!static && !enableFramework) [ "--enable-shared" ]
     ++ optionals enableFramework [
       "--enable-framework=${placeholder "out"}/Library/Frameworks"
     ] ++ optionals enableOptimizations [ "--enable-optimizations" ]
@@ -438,27 +449,29 @@ stdenv.mkDerivation {
       # don't rely on detecting glibc-isms.
       "ac_cv_func_lchmod=no"
     ] ++ optionals tzdataSupport [ "--with-tzpath=${tzdata}/share/zoneinfo" ]
-    ++ optional static "LDFLAGS=-static";
+    ++ optional static "LDFLAGS=-static"
+    ;
 
-  preConfigure = optionalString (pythonOlder "3.12") ''
-    for i in /usr /sw /opt /pkg; do	# improve purity
-      substituteInPlace ./setup.py --replace $i /no-such-path
-    done
-  '' + optionalString stdenv.isDarwin ''
-    # Override the auto-detection in setup.py, which assumes a universal build
-    export PYTHON_DECIMAL_WITH_MACHINE=${
-      if stdenv.isAarch64 then
-        "uint128"
-      else
-        "x64"
-    }
-  '' + optionalString (isPy3k && pythonOlder "3.7") ''
-    # Determinism: The interpreter is patched to write null timestamps when compiling Python files
-    #   so Python doesn't try to update the bytecode when seeing frozen timestamps in Nix's store.
-    export DETERMINISTIC_BUILD=1;
-  '' + optionalString stdenv.hostPlatform.isMusl ''
-    export NIX_CFLAGS_COMPILE+=" -DTHREAD_STACK_SIZE=0x100000"
-  '' +
+  preConfigure =
+    optionalString (pythonOlder "3.12") ''
+      for i in /usr /sw /opt /pkg; do	# improve purity
+        substituteInPlace ./setup.py --replace $i /no-such-path
+      done
+    '' + optionalString stdenv.isDarwin ''
+      # Override the auto-detection in setup.py, which assumes a universal build
+      export PYTHON_DECIMAL_WITH_MACHINE=${
+        if stdenv.isAarch64 then
+          "uint128"
+        else
+          "x64"
+      }
+    '' + optionalString (isPy3k && pythonOlder "3.7") ''
+      # Determinism: The interpreter is patched to write null timestamps when compiling Python files
+      #   so Python doesn't try to update the bytecode when seeing frozen timestamps in Nix's store.
+      export DETERMINISTIC_BUILD=1;
+    '' + optionalString stdenv.hostPlatform.isMusl ''
+      export NIX_CFLAGS_COMPILE+=" -DTHREAD_STACK_SIZE=0x100000"
+    '' +
 
     # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
     # which changes how symbols are looked up. This essentially means we can't override
@@ -469,7 +482,8 @@ stdenv.mkDerivation {
     # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
     optionalString enableNoSemanticInterposition ''
       export CFLAGS_NODIST="-fno-semantic-interposition"
-    '';
+    ''
+    ;
 
   setupHook = python-setup-hook sitePackages;
 
@@ -590,7 +604,8 @@ stdenv.mkDerivation {
       # These typically end up in shebangs.
       pythonForBuild
       buildPackages.bash
-    ];
+    ]
+    ;
 
   separateDebugInfo = true;
 

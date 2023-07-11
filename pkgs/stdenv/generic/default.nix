@@ -69,21 +69,23 @@ let
     }:
 
     let
-      defaultNativeBuildInputs = extraNativeBuildInputs ++ [
-        ../../build-support/setup-hooks/audit-tmpdir.sh
-        ../../build-support/setup-hooks/compress-man-pages.sh
-        ../../build-support/setup-hooks/make-symlinks-relative.sh
-        ../../build-support/setup-hooks/move-docs.sh
-        ../../build-support/setup-hooks/move-lib64.sh
-        ../../build-support/setup-hooks/move-sbin.sh
-        ../../build-support/setup-hooks/move-systemd-user-units.sh
-        ../../build-support/setup-hooks/multiple-outputs.sh
-        ../../build-support/setup-hooks/patch-shebangs.sh
-        ../../build-support/setup-hooks/prune-libtool-files.sh
-        ../../build-support/setup-hooks/reproducible-builds.sh
-        ../../build-support/setup-hooks/set-source-date-epoch-to-latest.sh
-        ../../build-support/setup-hooks/strip.sh
-      ] ++ lib.optionals hasCC [ cc ];
+      defaultNativeBuildInputs =
+        extraNativeBuildInputs ++ [
+          ../../build-support/setup-hooks/audit-tmpdir.sh
+          ../../build-support/setup-hooks/compress-man-pages.sh
+          ../../build-support/setup-hooks/make-symlinks-relative.sh
+          ../../build-support/setup-hooks/move-docs.sh
+          ../../build-support/setup-hooks/move-lib64.sh
+          ../../build-support/setup-hooks/move-sbin.sh
+          ../../build-support/setup-hooks/move-systemd-user-units.sh
+          ../../build-support/setup-hooks/multiple-outputs.sh
+          ../../build-support/setup-hooks/patch-shebangs.sh
+          ../../build-support/setup-hooks/prune-libtool-files.sh
+          ../../build-support/setup-hooks/reproducible-builds.sh
+          ../../build-support/setup-hooks/set-source-date-epoch-to-latest.sh
+          ../../build-support/setup-hooks/strip.sh
+        ] ++ lib.optionals hasCC [ cc ]
+        ;
 
       defaultBuildInputs = extraBuildInputs;
 
@@ -121,16 +123,17 @@ let
         # are absolute unless we go out of our way to make them relative (like with CF)
         # TODO: This really wants to be in stdenv/darwin but we don't have hostPlatform
         # there (yet?) so it goes here until then.
-      preHook = preHook + lib.optionalString buildPlatform.isDarwin ''
-        export NIX_DONT_SET_RPATH_FOR_BUILD=1
-      '' + lib.optionalString (hostPlatform.isDarwin
-        || (hostPlatform.parsed.kernel.execFormat
-          != lib.systems.parse.execFormats.elf
-          && hostPlatform.parsed.kernel.execFormat
-          != lib.systems.parse.execFormats.macho)) ''
-            export NIX_DONT_SET_RPATH=1
-            export NIX_NO_SELF_RPATH=1
-          ''
+      preHook =
+        preHook + lib.optionalString buildPlatform.isDarwin ''
+          export NIX_DONT_SET_RPATH_FOR_BUILD=1
+        '' + lib.optionalString (hostPlatform.isDarwin
+          || (hostPlatform.parsed.kernel.execFormat
+            != lib.systems.parse.execFormats.elf
+            && hostPlatform.parsed.kernel.execFormat
+            != lib.systems.parse.execFormats.macho)) ''
+              export NIX_DONT_SET_RPATH=1
+              export NIX_NO_SELF_RPATH=1
+            ''
         + lib.optionalString (hostPlatform.isDarwin && hostPlatform.isMacOS) ''
           export MACOSX_DEPLOYMENT_TARGET=${hostPlatform.darwinMinVersion}
         ''

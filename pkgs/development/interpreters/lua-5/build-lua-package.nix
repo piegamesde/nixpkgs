@@ -132,7 +132,9 @@ let
         ;
 
         # propagate lua to active setup-hook in nix-shell
-      propagatedBuildInputs = propagatedBuildInputs ++ [ lua ];
+      propagatedBuildInputs =
+        propagatedBuildInputs ++ [ lua ]
+        ;
 
         # @-patterns do not capture formal argument default values, so we need to
         # explicitly inherit this for it to be available as a shell variable in the
@@ -161,24 +163,26 @@ let
         ''
         ;
 
-      configurePhase = ''
-        runHook preConfigure
+      configurePhase =
+        ''
+          runHook preConfigure
 
-        cat > ${luarocks_config} <<EOF
-        ${self.luarocks_content}
-        EOF
-        export LUAROCKS_CONFIG="$PWD/${luarocks_config}";
-        cat "$LUAROCKS_CONFIG"
-      '' + lib.optionalString (self.rockspecFilename == null) ''
-        rockspecFilename="${self.generatedRockspecFilename}"
-      '' + lib.optionalString (self.knownRockspec != null) ''
-        # prevents the following type of error:
-        # Inconsistency between rockspec filename (42fm1b3d7iv6fcbhgm9674as3jh6y2sh-luv-1.22.0-1.rockspec) and its contents (luv-1.22.0-1.rockspec)
-        rockspecFilename="$TMP/$(stripHash ${self.knownRockspec})"
-        cp ${self.knownRockspec} "$rockspecFilename"
-      '' + ''
-        runHook postConfigure
-      '';
+          cat > ${luarocks_config} <<EOF
+          ${self.luarocks_content}
+          EOF
+          export LUAROCKS_CONFIG="$PWD/${luarocks_config}";
+          cat "$LUAROCKS_CONFIG"
+        '' + lib.optionalString (self.rockspecFilename == null) ''
+          rockspecFilename="${self.generatedRockspecFilename}"
+        '' + lib.optionalString (self.knownRockspec != null) ''
+          # prevents the following type of error:
+          # Inconsistency between rockspec filename (42fm1b3d7iv6fcbhgm9674as3jh6y2sh-luv-1.22.0-1.rockspec) and its contents (luv-1.22.0-1.rockspec)
+          rockspecFilename="$TMP/$(stripHash ${self.knownRockspec})"
+          cp ${self.knownRockspec} "$rockspecFilename"
+        '' + ''
+          runHook postConfigure
+        ''
+        ;
 
       buildPhase = ''
         runHook preBuild
@@ -193,9 +197,11 @@ let
         runHook postBuild
       '';
 
-      postFixup = lib.optionalString (!dontWrapLuaPrograms) ''
-        wrapLuaPrograms
-      '' + attrs.postFixup or "";
+      postFixup =
+        lib.optionalString (!dontWrapLuaPrograms) ''
+          wrapLuaPrograms
+        '' + attrs.postFixup or ""
+        ;
 
       installPhase = ''
         runHook preInstall

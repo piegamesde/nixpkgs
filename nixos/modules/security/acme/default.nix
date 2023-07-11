@@ -18,7 +18,9 @@ let
 
     # Used to calculate timer accuracy for coalescing
   numCerts = length (builtins.attrNames cfg.certs);
-  _24hSecs = 60 * 60 * 24;
+  _24hSecs =
+    60 * 60 * 24
+    ;
 
     # Used to make unique paths for each cert/account config set
   mkHash = with builtins; val: substring 0 20 (hashString "sha256" val);
@@ -165,9 +167,11 @@ let
 
         # FIXME when mkChangedOptionModule supports submodules, change to that.
         # This is a workaround
-      extraDomains = data.extraDomainNames
+      extraDomains =
+        data.extraDomainNames
         ++ (optionals (data.extraDomains != "_mkMergedOptionModule")
-          (builtins.attrNames data.extraDomains));
+          (builtins.attrNames data.extraDomains))
+        ;
 
         # Create hashes for cert data directories based on configuration
         # Flags are separated to avoid collisions
@@ -208,23 +212,25 @@ let
           ]
         ;
 
-      commonOpts = [
-        "--accept-tos" # Checking the option is covered by the assertions
-        "--path"
-        "."
-        "-d"
-        data.domain
-        "--email"
-        data.email
-        "--key-type"
-        data.keyType
-      ] ++ protocolOpts ++ optionals (acmeServer != null) [
-        "--server"
-        acmeServer
-      ] ++ concatMap (name: [
-        "-d"
-        name
-      ]) extraDomains ++ data.extraLegoFlags;
+      commonOpts =
+        [
+          "--accept-tos" # Checking the option is covered by the assertions
+          "--path"
+          "."
+          "-d"
+          data.domain
+          "--email"
+          data.email
+          "--key-type"
+          data.keyType
+        ] ++ protocolOpts ++ optionals (acmeServer != null) [
+          "--server"
+          acmeServer
+        ] ++ concatMap (name: [
+          "-d"
+          name
+        ]) extraDomains ++ data.extraLegoFlags
+        ;
 
         # Although --must-staple is common to both modes, it is not declared as a
         # mode-agnostic argument in lego and thus must come after the mode.
@@ -328,16 +334,20 @@ let
 
       renewService = {
         description = "Renew ACME certificate for ${cert}";
-        after = [
-          "network.target"
-          "network-online.target"
-          "acme-fixperms.service"
-          "nss-lookup.target"
-        ] ++ selfsignedDeps;
-        wants = [
-          "network-online.target"
-          "acme-fixperms.service"
-        ] ++ selfsignedDeps;
+        after =
+          [
+            "network.target"
+            "network-online.target"
+            "acme-fixperms.service"
+            "nss-lookup.target"
+          ] ++ selfsignedDeps
+          ;
+        wants =
+          [
+            "network-online.target"
+            "acme-fixperms.service"
+          ] ++ selfsignedDeps
+          ;
 
           # https://github.com/NixOS/nixpkgs/pull/81371#issuecomment-605526099
         wantedBy = optionals (!config.boot.isContainer) [ "multi-user.target" ];
@@ -362,7 +372,9 @@ let
             "acme/.lego/accounts/${accountHash}"
           ];
 
-          ReadWritePaths = commonServiceConfig.ReadWritePaths ++ webroots;
+          ReadWritePaths =
+            commonServiceConfig.ReadWritePaths ++ webroots
+            ;
 
             # Needs to be space separated, but can't use a multiline string because that'll include newlines
           BindPaths = [
@@ -375,19 +387,21 @@ let
           EnvironmentFile = mkIf useDns data.credentialsFile;
 
             # Run as root (Prefixed with +)
-          ExecStartPost = "+" + (pkgs.writeShellScript "acme-postrun" ''
-            cd /var/lib/acme/${escapeShellArg cert}
-            if [ -e renewed ]; then
-              rm renewed
-              ${data.postRun}
-              ${
-                optionalString (data.reloadServices != [ ])
-                "systemctl --no-block try-reload-or-restart ${
-                  escapeShellArgs data.reloadServices
-                }"
-              }
-            fi
-          '');
+          ExecStartPost =
+            "+" + (pkgs.writeShellScript "acme-postrun" ''
+              cd /var/lib/acme/${escapeShellArg cert}
+              if [ -e renewed ]; then
+                rm renewed
+                ${data.postRun}
+                ${
+                  optionalString (data.reloadServices != [ ])
+                  "systemctl --no-block try-reload-or-restart ${
+                    escapeShellArgs data.reloadServices
+                  }"
+                }
+              fi
+            '')
+            ;
         } // optionalAttrs (data.listenHTTP != null
           && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024) {
             CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
@@ -981,8 +995,10 @@ in
           in
           [
             {
-              assertion = cfg.email != null
-                || all (certOpts: certOpts.email != null) certs;
+              assertion =
+                cfg.email != null
+                || all (certOpts: certOpts.email != null) certs
+                ;
               message = ''
                 You must define `security.acme.certs.<name>.email` or
                 `security.acme.email` to register with the CA. Note that using
@@ -1049,8 +1065,10 @@ in
               '';
             }
             {
-              assertion = data.dnsProvider != null || data.webroot != null
-                || data.listenHTTP != null;
+              assertion =
+                data.dnsProvider != null || data.webroot != null
+                || data.listenHTTP != null
+                ;
               message = ''
                 One of `security.acme.certs.${cert}.dnsProvider`,
                 `security.acme.certs.${cert}.webroot`, or

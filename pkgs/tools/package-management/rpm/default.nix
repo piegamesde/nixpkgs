@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
   version = "4.18.0";
 
   src = fetchurl {
-    url = "https://ftp.osuosl.org/pub/rpm/releases/rpm-${
+    url =
+      "https://ftp.osuosl.org/pub/rpm/releases/rpm-${
         lib.versions.majorMinor version
       }.x/rpm-${version}.tar.bz2";
     hash = "sha256-KhcVLXGHqzDt8sL7WGRjvfY4jee1g3SAlVZZ5ekFRVQ=";
@@ -47,47 +48,53 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [
-    cpio
-    zlib
-    zstd
-    bzip2
-    file
-    libarchive
-    libgcrypt
-    nspr
-    nss
-    db
-    xz
-    python
-    lua
-    sqlite
-  ] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
-    ++ lib.optional stdenv.isLinux libcap;
+  buildInputs =
+    [
+      cpio
+      zlib
+      zstd
+      bzip2
+      file
+      libarchive
+      libgcrypt
+      nspr
+      nss
+      db
+      xz
+      python
+      lua
+      sqlite
+    ] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
+    ++ lib.optional stdenv.isLinux libcap
+    ;
 
     # rpm/rpmlib.h includes popt.h, and then the pkg-config file mentions these as linkage requirements
-  propagatedBuildInputs = [
-    popt
-    nss
-    db
-    bzip2
-    libarchive
-    libbfd
-  ] ++ lib.optional stdenv.isLinux elfutils;
+  propagatedBuildInputs =
+    [
+      popt
+      nss
+      db
+      bzip2
+      libarchive
+      libbfd
+    ] ++ lib.optional stdenv.isLinux elfutils
+    ;
 
   env.NIX_CFLAGS_COMPILE =
     "-I${nspr.dev}/include/nspr -I${nss.dev}/include/nss";
 
-  configureFlags = [
-    "--with-external-db"
-    "--with-lua"
-    "--enable-python"
-    "--enable-ndb"
-    "--enable-sqlite"
-    "--enable-zstd"
-    "--localstatedir=/var"
-    "--sharedstatedir=/com"
-  ] ++ lib.optional stdenv.isLinux "--with-cap";
+  configureFlags =
+    [
+      "--with-external-db"
+      "--with-lua"
+      "--enable-python"
+      "--enable-ndb"
+      "--enable-sqlite"
+      "--enable-zstd"
+      "--localstatedir=/var"
+      "--sharedstatedir=/com"
+    ] ++ lib.optional stdenv.isLinux "--with-cap"
+    ;
 
   postPatch = ''
     substituteInPlace Makefile.am --replace '@$(MKDIR_P) $(DESTDIR)$(localstatedir)/tmp' ""

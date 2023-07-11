@@ -58,21 +58,22 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    asio
-    curl
-    ffmpeg
-    gnutls
-    lame
-    libev
-    game-music-emu
-    libmicrohttpd
-    libopenmpt
-    mpg123
-    ncurses
-    portaudio
-    taglib
-  ] ++ lib.optionals systemdSupport [ systemd ]
+  buildInputs =
+    [
+      asio
+      curl
+      ffmpeg
+      gnutls
+      lame
+      libev
+      game-music-emu
+      libmicrohttpd
+      libopenmpt
+      mpg123
+      ncurses
+      portaudio
+      taglib
+    ] ++ lib.optionals systemdSupport [ systemd ]
     ++ lib.optionals stdenv.isLinux [
       alsa-lib
       pulseaudio
@@ -81,7 +82,8 @@ stdenv.mkDerivation rec {
       SystemConfiguration
     ] ++ lib.optionals coreaudioSupport [ CoreAudio ]
     ++ lib.optionals sndioSupport [ sndio ]
-    ++ lib.optionals pipewireSupport [ pipewire ];
+    ++ lib.optionals pipewireSupport [ pipewire ]
+    ;
 
   cmakeFlags = [ "-DDISABLE_STRIP=true" ];
 

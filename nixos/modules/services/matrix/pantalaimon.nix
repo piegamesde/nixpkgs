@@ -19,16 +19,17 @@ let
         Notifications = false;
       };
 
-      ${name} = (recursiveUpdate {
-        Homeserver = instanceConfig.homeserver;
-        ListenAddress = instanceConfig.listenAddress;
-        ListenPort = instanceConfig.listenPort;
-        SSL = instanceConfig.ssl;
+      ${name} =
+        (recursiveUpdate {
+          Homeserver = instanceConfig.homeserver;
+          ListenAddress = instanceConfig.listenAddress;
+          ListenPort = instanceConfig.listenPort;
+          SSL = instanceConfig.ssl;
 
-          # Set some settings to prevent user interaction for headless operation
-        IgnoreVerification = true;
-        UseKeyring = false;
-      } instanceConfig.extraSettings);
+            # Set some settings to prevent user interaction for headless operation
+          IgnoreVerification = true;
+          UseKeyring = false;
+        } instanceConfig.extraSettings);
     }
     ;
 
@@ -42,7 +43,8 @@ let
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.pantalaimon-headless}/bin/pantalaimon --config ${
+        ExecStart =
+          "${pkgs.pantalaimon-headless}/bin/pantalaimon --config ${
             mkConfigFile name instanceConfig
           } --data-path ${instanceConfig.dataPath}";
         Restart = "on-failure";

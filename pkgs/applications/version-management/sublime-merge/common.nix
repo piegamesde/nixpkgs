@@ -41,7 +41,8 @@ let
     arch:
     "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz"
     ;
-  versionUrl = "https://www.sublimemerge.com/${
+  versionUrl =
+    "https://www.sublimemerge.com/${
       if dev then
         "dev"
       else
@@ -148,20 +149,22 @@ stdenv.mkDerivation (rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  installPhase = ''
-    mkdir -p "$out/bin"
-    makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-  '' + builtins.concatStringsSep "" (map (binaryAlias: ''
-    ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
-  '') primaryBinaryAliases) + ''
-    mkdir -p "$out/share/applications"
-    substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
-    for directory in ''$${primaryBinary}/Icon/*; do
-      size=$(basename $directory)
-      mkdir -p "$out/share/icons/hicolor/$size/apps"
-      ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
-    done
-  '';
+  installPhase =
+    ''
+      mkdir -p "$out/bin"
+      makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+    '' + builtins.concatStringsSep "" (map (binaryAlias: ''
+      ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+    '') primaryBinaryAliases) + ''
+      mkdir -p "$out/share/applications"
+      substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
+      for directory in ''$${primaryBinary}/Icon/*; do
+        size=$(basename $directory)
+        mkdir -p "$out/share/icons/hicolor/$size/apps"
+        ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
+      done
+    ''
+    ;
 
   passthru = {
     updateScript =

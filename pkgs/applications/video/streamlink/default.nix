@@ -25,17 +25,19 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ versioningit ];
 
-  propagatedBuildInputs = (with python3Packages; [
-    isodate
-    lxml
-    pycountry
-    pycryptodome
-    pysocks
-    requests
-    websocket-client
-    urllib3
-    certifi
-  ]) ++ [ ffmpeg ];
+  propagatedBuildInputs =
+    (with python3Packages; [
+      isodate
+      lxml
+      pycountry
+      pycryptodome
+      pysocks
+      requests
+      websocket-client
+      urllib3
+      certifi
+    ]) ++ [ ffmpeg ]
+    ;
 
   meta = with lib; {
     homepage = "https://streamlink.github.io/";

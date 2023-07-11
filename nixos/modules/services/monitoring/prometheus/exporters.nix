@@ -108,66 +108,67 @@ let
       inherit config lib pkgs options;
     });
 
-  mkExporterOpts = ({
-      name,
-      port,
-    }: {
-      enable = mkEnableOption (lib.mdDoc "the prometheus ${name} exporter");
-      port = mkOption {
-        type = types.port;
-        default = port;
-        description = lib.mdDoc ''
-          Port to listen on.
-        '';
-      };
-      listenAddress = mkOption {
-        type = types.str;
-        default = "0.0.0.0";
-        description = lib.mdDoc ''
-          Address to listen on.
-        '';
-      };
-      extraFlags = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = lib.mdDoc ''
-          Extra commandline options to pass to the ${name} exporter.
-        '';
-      };
-      openFirewall = mkOption {
-        type = types.bool;
-        default = false;
-        description = lib.mdDoc ''
-          Open port in firewall for incoming connections.
-        '';
-      };
-      firewallFilter = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        example = literalExpression ''
-          "-i eth0 -p tcp -m tcp --dport ${toString port}"
-        '';
-        description = lib.mdDoc ''
-          Specify a filter for iptables to use when
-          {option}`services.prometheus.exporters.${name}.openFirewall`
-          is true. It is used as `ip46tables -I nixos-fw firewallFilter -j nixos-fw-accept`.
-        '';
-      };
-      user = mkOption {
-        type = types.str;
-        default = "${name}-exporter";
-        description = lib.mdDoc ''
-          User name under which the ${name} exporter shall be run.
-        '';
-      };
-      group = mkOption {
-        type = types.str;
-        default = "${name}-exporter";
-        description = lib.mdDoc ''
-          Group under which the ${name} exporter shall be run.
-        '';
-      };
-    });
+  mkExporterOpts =
+    ({
+        name,
+        port,
+      }: {
+        enable = mkEnableOption (lib.mdDoc "the prometheus ${name} exporter");
+        port = mkOption {
+          type = types.port;
+          default = port;
+          description = lib.mdDoc ''
+            Port to listen on.
+          '';
+        };
+        listenAddress = mkOption {
+          type = types.str;
+          default = "0.0.0.0";
+          description = lib.mdDoc ''
+            Address to listen on.
+          '';
+        };
+        extraFlags = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          description = lib.mdDoc ''
+            Extra commandline options to pass to the ${name} exporter.
+          '';
+        };
+        openFirewall = mkOption {
+          type = types.bool;
+          default = false;
+          description = lib.mdDoc ''
+            Open port in firewall for incoming connections.
+          '';
+        };
+        firewallFilter = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          example = literalExpression ''
+            "-i eth0 -p tcp -m tcp --dport ${toString port}"
+          '';
+          description = lib.mdDoc ''
+            Specify a filter for iptables to use when
+            {option}`services.prometheus.exporters.${name}.openFirewall`
+            is true. It is used as `ip46tables -I nixos-fw firewallFilter -j nixos-fw-accept`.
+          '';
+        };
+        user = mkOption {
+          type = types.str;
+          default = "${name}-exporter";
+          description = lib.mdDoc ''
+            User name under which the ${name} exporter shall be run.
+          '';
+        };
+        group = mkOption {
+          type = types.str;
+          default = "${name}-exporter";
+          description = lib.mdDoc ''
+            Group under which the ${name} exporter shall be run.
+          '';
+        };
+      });
 
   mkSubModule =
     {
@@ -197,13 +198,14 @@ let
     }
     ;
 
-  mkSubModules = (foldl' (a: b: a // b) { } (mapAttrsToList (name: opts:
-    mkSubModule {
-      inherit name;
-      inherit (opts) port;
-      extraOpts = opts.extraOpts or { };
-      imports = opts.imports or [ ];
-    }) exporterOpts));
+  mkSubModules =
+    (foldl' (a: b: a // b) { } (mapAttrsToList (name: opts:
+      mkSubModule {
+        inherit name;
+        inherit (opts) port;
+        extraOpts = opts.extraOpts or { };
+        imports = opts.imports or [ ];
+      }) exporterOpts));
 
   mkExporterConf =
     {
@@ -274,26 +276,27 @@ let
 in
 {
 
-  imports = (lib.forEach [
-    "blackboxExporter"
-    "collectdExporter"
-    "fritzboxExporter"
-    "jsonExporter"
-    "minioExporter"
-    "nginxExporter"
-    "nodeExporter"
-    "snmpExporter"
-    "unifiExporter"
-    "varnishExporter"
-  ] (opt:
-    lib.mkRemovedOptionModule [
-      "services"
-      "prometheus"
-      "${opt}"
-    ] ''
-      The prometheus exporters are now configured using `services.prometheus.exporters'.
-      See the 18.03 release notes for more information.
-    ''));
+  imports =
+    (lib.forEach [
+      "blackboxExporter"
+      "collectdExporter"
+      "fritzboxExporter"
+      "jsonExporter"
+      "minioExporter"
+      "nginxExporter"
+      "nodeExporter"
+      "snmpExporter"
+      "unifiExporter"
+      "varnishExporter"
+    ] (opt:
+      lib.mkRemovedOptionModule [
+        "services"
+        "prometheus"
+        "${opt}"
+      ] ''
+        The prometheus exporters are now configured using `services.prometheus.exporters'.
+        See the 18.03 release notes for more information.
+      ''));
 
   options.services.prometheus.exporters = mkOption {
     type = types.submodule {
@@ -317,64 +320,78 @@ in
   };
 
   config = mkMerge ([ {
-    assertions = [
-      {
-        assertion = cfg.ipmi.enable -> (cfg.ipmi.configFile != null)
-          -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile));
-        message = ''
-          Config file specified in `services.prometheus.exporters.ipmi.configFile' must
-            not reside within /tmp - it won't be visible to the systemd service.
-        '';
-      }
-      {
-        assertion = cfg.ipmi.enable -> (cfg.ipmi.webConfigFile != null)
-          -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.webConfigFile));
-        message = ''
-          Config file specified in `services.prometheus.exporters.ipmi.webConfigFile' must
-            not reside within /tmp - it won't be visible to the systemd service.
-        '';
-      }
-      {
-        assertion = cfg.snmp.enable -> ((cfg.snmp.configurationPath == null)
-          != (cfg.snmp.configuration == null));
-        message = ''
-          Please ensure you have either `services.prometheus.exporters.snmp.configuration'
-            or `services.prometheus.exporters.snmp.configurationPath' set!
-        '';
-      }
-      {
-        assertion = cfg.mikrotik.enable -> ((cfg.mikrotik.configFile == null)
-          != (cfg.mikrotik.configuration == null));
-        message = ''
-          Please specify either `services.prometheus.exporters.mikrotik.configuration'
-            or `services.prometheus.exporters.mikrotik.configFile'.
-        '';
-      }
-      {
-        assertion = cfg.mail.enable
-          -> ((cfg.mail.configFile == null) != (cfg.mail.configuration == null))
+    assertions =
+      [
+        {
+          assertion =
+            cfg.ipmi.enable -> (cfg.ipmi.configFile != null)
+            -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile))
+            ;
+          message = ''
+            Config file specified in `services.prometheus.exporters.ipmi.configFile' must
+              not reside within /tmp - it won't be visible to the systemd service.
+          '';
+        }
+        {
+          assertion =
+            cfg.ipmi.enable -> (cfg.ipmi.webConfigFile != null)
+            -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.webConfigFile))
+            ;
+          message = ''
+            Config file specified in `services.prometheus.exporters.ipmi.webConfigFile' must
+              not reside within /tmp - it won't be visible to the systemd service.
+          '';
+        }
+        {
+          assertion =
+            cfg.snmp.enable -> ((cfg.snmp.configurationPath == null)
+              != (cfg.snmp.configuration == null))
+            ;
+          message = ''
+            Please ensure you have either `services.prometheus.exporters.snmp.configuration'
+              or `services.prometheus.exporters.snmp.configurationPath' set!
+          '';
+        }
+        {
+          assertion =
+            cfg.mikrotik.enable -> ((cfg.mikrotik.configFile == null)
+              != (cfg.mikrotik.configuration == null))
+            ;
+          message = ''
+            Please specify either `services.prometheus.exporters.mikrotik.configuration'
+              or `services.prometheus.exporters.mikrotik.configFile'.
+          '';
+        }
+        {
+          assertion =
+            cfg.mail.enable -> ((cfg.mail.configFile == null)
+              != (cfg.mail.configuration == null))
+            ;
+          message = ''
+            Please specify either 'services.prometheus.exporters.mail.configuration'
+              or 'services.prometheus.exporters.mail.configFile'.
+          '';
+        }
+        {
+          assertion =
+            cfg.sql.enable
+            -> ((cfg.sql.configFile == null) != (cfg.sql.configuration == null))
+            ;
+          message = ''
+            Please specify either 'services.prometheus.exporters.sql.configuration' or
+              'services.prometheus.exporters.sql.configFile'
+          '';
+        }
+      ] ++ (flip map (attrNames exporterOpts) (exporter: {
+        assertion =
+          cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall
           ;
         message = ''
-          Please specify either 'services.prometheus.exporters.mail.configuration'
-            or 'services.prometheus.exporters.mail.configFile'.
+          The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
+          `openFirewall' is set to `true'!
         '';
-      }
-      {
-        assertion = cfg.sql.enable
-          -> ((cfg.sql.configFile == null) != (cfg.sql.configuration == null));
-        message = ''
-          Please specify either 'services.prometheus.exporters.sql.configuration' or
-            'services.prometheus.exporters.sql.configFile'
-        '';
-      }
-    ] ++ (flip map (attrNames exporterOpts) (exporter: {
-      assertion =
-        cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall;
-      message = ''
-        The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
-        `openFirewall' is set to `true'!
-      '';
-    })) ++ config.services.prometheus.exporters.assertions;
+      })) ++ config.services.prometheus.exporters.assertions
+      ;
     warnings = config.services.prometheus.exporters.warnings;
   } ] ++ [
       (mkIf config.services.minio.enable {

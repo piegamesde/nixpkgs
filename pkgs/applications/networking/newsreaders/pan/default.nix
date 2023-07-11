@@ -30,10 +30,11 @@ stdenv.mkDerivation rec {
     sha256 = "17agd27sn4a7nahvkpg0w39kv74njgdrrygs74bbvpaj8rk2hb55";
   };
 
-  patches = [
-    # Take <glib.h>, <gmime.h>, "gtk-compat.h" out of extern "C"
-    ./move-out-of-extern-c.diff
-  ];
+  patches =
+    [
+      # Take <glib.h>, <gmime.h>, "gtk-compat.h" out of extern "C"
+      ./move-out-of-extern-c.diff
+    ];
 
   nativeBuildInputs = [
     pkg-config
@@ -44,23 +45,27 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    gtk3
-    gmime2
-    libnotify
-    gnutls
-  ] ++ lib.optional spellChecking gtkspell3 ++ lib.optionals gnomeSupport [
-    libsecret
-    gcr
-  ];
+  buildInputs =
+    [
+      gtk3
+      gmime2
+      libnotify
+      gnutls
+    ] ++ lib.optional spellChecking gtkspell3 ++ lib.optionals gnomeSupport [
+      libsecret
+      gcr
+    ]
+    ;
 
-  configureFlags = [
-    "--with-dbus"
-    "--with-gtk3"
-    "--with-gnutls"
-    "--enable-libnotify"
-  ] ++ lib.optional spellChecking "--with-gtkspell"
-    ++ lib.optional gnomeSupport "--enable-gkr";
+  configureFlags =
+    [
+      "--with-dbus"
+      "--with-gtk3"
+      "--with-gnutls"
+      "--enable-libnotify"
+    ] ++ lib.optional spellChecking "--with-gtkspell"
+    ++ lib.optional gnomeSupport "--enable-gkr"
+    ;
 
   postInstall = ''
     wrapProgram $out/bin/pan --suffix PATH : ${gnupg}/bin

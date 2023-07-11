@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
   version = "1.2.8";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/NetworkManager-vpnc/${
+    url =
+      "mirror://gnome/sources/NetworkManager-vpnc/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "1l4xqlPI/cP95++EpNqpeaYFwj/THO/2R79+qqma+8w=";
@@ -43,17 +44,19 @@ stdenv.mkDerivation rec {
     file
   ];
 
-  buildInputs = [
-    vpnc
-    networkmanager
-    glib
-  ] ++ lib.optionals withGnome [
-    gtk3
-    gtk4
-    libsecret
-    libnma
-    libnma-gtk4
-  ];
+  buildInputs =
+    [
+      vpnc
+      networkmanager
+      glib
+    ] ++ lib.optionals withGnome [
+      gtk3
+      gtk4
+      libsecret
+      libnma
+      libnma-gtk4
+    ]
+    ;
 
   configureFlags = [
     "--with-gnome=${

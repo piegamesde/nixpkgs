@@ -45,48 +45,54 @@ let
     }:
     stdenv.mkDerivation rec {
       inherit pname jdk libPatches untarDir openssl;
-      version = platformAttrs.${stdenv.system}.version or (throw
-        "Unsupported system: ${stdenv.system}");
+      version =
+        platformAttrs.${stdenv.system}.version or (throw
+          "Unsupported system: ${stdenv.system}");
       src = fetchurl {
         url =
           "mirror://apache/hadoop/common/hadoop-${version}/hadoop-${version}"
-          + optionalString stdenv.isAarch64 "-aarch64" + ".tar.gz";
+          + optionalString stdenv.isAarch64 "-aarch64" + ".tar.gz"
+          ;
         inherit (platformAttrs.${stdenv.system}) hash;
       };
       doCheck = true;
 
-      nativeBuildInputs = [ makeWrapper ] ++ optionals
+      nativeBuildInputs =
+        [ makeWrapper ] ++ optionals
         (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [
           autoPatchelfHook
-        ];
+        ]
+        ;
       buildInputs = [ openssl ] ++ nativeLibs;
 
-      installPhase = ''
-        mkdir -p $out/{lib/${untarDir}/conf,bin,lib}
-        mv * $out/lib/${untarDir}
-      '' + optionalString stdenv.isLinux ''
-        # All versions need container-executor, but some versions can't use autoPatchelf because of broken SSL versions
-        patchelf --set-interpreter ${glibc.out}/lib64/ld-linux-x86-64.so.2 $out/lib/${untarDir}/bin/container-executor
-      '' + ''
-        for n in $(find $out/lib/${untarDir}/bin -type f ! -name "*.*"); do
-          makeWrapper "$n" "$out/bin/$(basename $n)"\
-            --set-default JAVA_HOME ${jdk.home}\
-            --set-default HADOOP_HOME $out/lib/${untarDir}\
-            --run "test -d /etc/hadoop-conf && export HADOOP_CONF_DIR=\''${HADOOP_CONF_DIR-'/etc/hadoop-conf/'}"\
-            --set-default HADOOP_CONF_DIR $out/lib/${untarDir}/etc/hadoop/\
-            --prefix PATH : "${
-              makeBinPath [
-                bash
-                coreutils
-                which
-              ]
-            }"\
-            --prefix JAVA_LIBRARY_PATH : "${makeLibraryPath buildInputs}"
-        done
-      '' + optionalString sparkSupport ''
-        # Add the spark shuffle service jar to YARN
-        cp ${spark.src}/yarn/spark-${spark.version}-yarn-shuffle.jar $out/lib/${untarDir}/share/hadoop/yarn/
-      '' + libPatches;
+      installPhase =
+        ''
+          mkdir -p $out/{lib/${untarDir}/conf,bin,lib}
+          mv * $out/lib/${untarDir}
+        '' + optionalString stdenv.isLinux ''
+          # All versions need container-executor, but some versions can't use autoPatchelf because of broken SSL versions
+          patchelf --set-interpreter ${glibc.out}/lib64/ld-linux-x86-64.so.2 $out/lib/${untarDir}/bin/container-executor
+        '' + ''
+          for n in $(find $out/lib/${untarDir}/bin -type f ! -name "*.*"); do
+            makeWrapper "$n" "$out/bin/$(basename $n)"\
+              --set-default JAVA_HOME ${jdk.home}\
+              --set-default HADOOP_HOME $out/lib/${untarDir}\
+              --run "test -d /etc/hadoop-conf && export HADOOP_CONF_DIR=\''${HADOOP_CONF_DIR-'/etc/hadoop-conf/'}"\
+              --set-default HADOOP_CONF_DIR $out/lib/${untarDir}/etc/hadoop/\
+              --prefix PATH : "${
+                makeBinPath [
+                  bash
+                  coreutils
+                  which
+                ]
+              }"\
+              --prefix JAVA_LIBRARY_PATH : "${makeLibraryPath buildInputs}"
+          done
+        '' + optionalString sparkSupport ''
+          # Add the spark shuffle service jar to YARN
+          cp ${spark.src}/yarn/spark-${spark.version}-yarn-shuffle.jar $out/lib/${untarDir}/share/hadoop/yarn/
+        '' + libPatches
+        ;
 
       passthru = { inherit tests; };
 
@@ -150,23 +156,27 @@ in
       zlib
       snappy
     ];
-    libPatches = ''
-      ln -s ${
-        getLib cyrus_sasl
-      }/lib/libsasl2.so $out/lib/${untarDir}/lib/native/libsasl2.so.2
-      ln -s ${getLib openssl}/lib/libcrypto.so $out/lib/${untarDir}/lib/native/
-      ln -s ${getLib zlib}/lib/libz.so.1 $out/lib/${untarDir}/lib/native/
-      ln -s ${getLib zstd}/lib/libzstd.so.1 $out/lib/${untarDir}/lib/native/
-      ln -s ${getLib bzip2}/lib/libbz2.so.1 $out/lib/${untarDir}/lib/native/
-    '' + optionalString stdenv.isLinux ''
-      # libjvm.so for Java >=11
-      patchelf --add-rpath ${jdk.home}/lib/server $out/lib/${untarDir}/lib/native/libnativetask.so.1.0.0
-      # Java 8 has libjvm.so at a different path
-      patchelf --add-rpath ${jdk.home}/jre/lib/amd64/server $out/lib/${untarDir}/lib/native/libnativetask.so.1.0.0
-      # NixOS/nixpkgs#193370
-      # This workaround is needed to use protobuf 3.19
-      patchelf --replace-needed libprotobuf.so.18 libprotobuf.so $out/lib/${untarDir}/lib/native/libhdfspp.so
-    '';
+    libPatches =
+      ''
+        ln -s ${
+          getLib cyrus_sasl
+        }/lib/libsasl2.so $out/lib/${untarDir}/lib/native/libsasl2.so.2
+        ln -s ${
+          getLib openssl
+        }/lib/libcrypto.so $out/lib/${untarDir}/lib/native/
+        ln -s ${getLib zlib}/lib/libz.so.1 $out/lib/${untarDir}/lib/native/
+        ln -s ${getLib zstd}/lib/libzstd.so.1 $out/lib/${untarDir}/lib/native/
+        ln -s ${getLib bzip2}/lib/libbz2.so.1 $out/lib/${untarDir}/lib/native/
+      '' + optionalString stdenv.isLinux ''
+        # libjvm.so for Java >=11
+        patchelf --add-rpath ${jdk.home}/lib/server $out/lib/${untarDir}/lib/native/libnativetask.so.1.0.0
+        # Java 8 has libjvm.so at a different path
+        patchelf --add-rpath ${jdk.home}/jre/lib/amd64/server $out/lib/${untarDir}/lib/native/libnativetask.so.1.0.0
+        # NixOS/nixpkgs#193370
+        # This workaround is needed to use protobuf 3.19
+        patchelf --replace-needed libprotobuf.so.18 libprotobuf.so $out/lib/${untarDir}/lib/native/libhdfspp.so
+      ''
+      ;
     tests = nixosTests.hadoop;
   };
   hadoop_3_2 = common rec {

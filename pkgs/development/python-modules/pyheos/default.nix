@@ -22,10 +22,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # accesses network
-    "test_connect_timeout"
-  ];
+  disabledTests =
+    [
+      # accesses network
+      "test_connect_timeout"
+    ];
 
   pythonImportsCheck = [ "pyheos" ];
 

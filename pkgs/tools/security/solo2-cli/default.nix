@@ -31,15 +31,17 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ ] ++ lib.optionals stdenv.isLinux [
-    pcsclite
-    udev
-  ] ++ lib.optionals stdenv.isDarwin [
-    PCSC
-    IOKit
-    CoreFoundation
-    AppKit
-  ];
+  buildInputs =
+    [ ] ++ lib.optionals stdenv.isLinux [
+      pcsclite
+      udev
+    ] ++ lib.optionals stdenv.isDarwin [
+      PCSC
+      IOKit
+      CoreFoundation
+      AppKit
+    ]
+    ;
 
   postInstall = ''
     install -D 70-solo2.rules $out/lib/udev/rules.d/70-solo2.rules

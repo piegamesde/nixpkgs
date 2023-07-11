@@ -46,11 +46,12 @@ python.pkgs.buildPythonApplication rec {
     libbpf
   ];
 
-  patches = [
-    # This is needed until we fix
-    # https://github.com/NixOS/nixpkgs/issues/40427
-    ./fix-deadlock-detector-import.patch
-  ];
+  patches =
+    [
+      # This is needed until we fix
+      # https://github.com/NixOS/nixpkgs/issues/40427
+      ./fix-deadlock-detector-import.patch
+    ];
 
   propagatedBuildInputs = [ python.pkgs.netaddr ];
   nativeBuildInputs = [

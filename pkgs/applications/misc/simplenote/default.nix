@@ -20,9 +20,10 @@ let
 
   version = "2.9.0";
 
-  sha256 = {
-    x86_64-linux = "sha256-uwd9fYqZepJ/BBttprqkJhswqMepGsHDTd5Md9gjI68=";
-  }.${system} or throwSystem;
+  sha256 =
+    {
+      x86_64-linux = "sha256-uwd9fYqZepJ/BBttprqkJhswqMepGsHDTd5Md9gjI68=";
+    }.${system} or throwSystem;
 
   meta = with lib; {
     description = "The simplest way to keep notes";
@@ -39,7 +40,8 @@ let
     src = fetchurl {
       url =
         "https://github.com/Automattic/simplenote-electron/releases/download/"
-        + "v${version}/Simplenote-linux-${version}-amd64.deb";
+        + "v${version}/Simplenote-linux-${version}-amd64.deb"
+        ;
       inherit sha256;
     };
 

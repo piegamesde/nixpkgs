@@ -29,10 +29,12 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # Don't test sending
-    "SendTargetTestCase"
-  ] ++ lib.optionals (pythonAtLeast "3.10") [ "HelpFormattingParserTestCase" ];
+  disabledTests =
+    [
+      # Don't test sending
+      "SendTargetTestCase"
+    ] ++ lib.optionals (pythonAtLeast "3.10") [ "HelpFormattingParserTestCase" ]
+    ;
 
   pythonImportsCheck = [ "gvmtools" ];
 

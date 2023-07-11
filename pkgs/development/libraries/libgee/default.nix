@@ -20,7 +20,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libgee/${
+    url =
+      "mirror://gnome/sources/libgee/${
         lib.versions.majorMinor finalAttrs.version
       }/libgee-${finalAttrs.version}.tar.xz";
     sha256 = "G/g09eENYMxhJNdO08HdONpkZ4f794ciILi0Bo5HbU0=";

@@ -77,22 +77,26 @@ let
     sudo launchctl load -w /Library/LaunchAgents/$agentName
     sudo launchctl load -w /Library/LaunchDaemons/$daemonName
   '';
-  fontDirs = [
-    ttf_bitstream_vera
-    freefont_ttf
-    liberation_ttf
-    xorg.fontmiscmisc
-    xorg.fontcursormisc
-  ] ++ lib.optionals unfreeFonts [
-    xorg.fontbhlucidatypewriter100dpi
-    xorg.fontbhlucidatypewriter75dpi
-    xorg.fontbh100dpi
-  ] ++ extraFontDirs;
+  fontDirs =
+    [
+      ttf_bitstream_vera
+      freefont_ttf
+      liberation_ttf
+      xorg.fontmiscmisc
+      xorg.fontcursormisc
+    ] ++ lib.optionals unfreeFonts [
+      xorg.fontbhlucidatypewriter100dpi
+      xorg.fontbhlucidatypewriter75dpi
+      xorg.fontbh100dpi
+    ] ++ extraFontDirs
+    ;
   fontsConf = makeFontsConf {
-    fontDirectories = fontDirs ++ [
-      "/Library/Fonts"
-      "~/Library/Fonts"
-    ];
+    fontDirectories =
+      fontDirs ++ [
+        "/Library/Fonts"
+        "~/Library/Fonts"
+      ]
+      ;
   };
   fonts = import ./system-fonts.nix { inherit stdenv xorg fontDirs; };
     # any X related programs expected to be available via $PATH

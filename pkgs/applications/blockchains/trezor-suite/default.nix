@@ -12,11 +12,12 @@ let
   version = "22.11.1";
   name = "${pname}-${version}";
 
-  suffix = {
-    aarch64-linux = "linux-arm64";
-    x86_64-linux = "linux-x86_64";
-  }.${stdenv.hostPlatform.system} or (throw
-    "Unsupported system: ${stdenv.hostPlatform.system}");
+  suffix =
+    {
+      aarch64-linux = "linux-arm64";
+      x86_64-linux = "linux-x86_64";
+    }.${stdenv.hostPlatform.system} or (throw
+      "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url =

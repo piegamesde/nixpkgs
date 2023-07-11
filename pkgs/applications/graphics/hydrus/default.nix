@@ -100,24 +100,26 @@ python3Packages.buildPythonPackage rec {
     "doc"
   ];
 
-  installPhase = ''
-    # Move the hydrus module and related directories
-    mkdir -p $out/${python3Packages.python.sitePackages}
-    mv {hydrus,static} $out/${python3Packages.python.sitePackages}
-    mkdocs build -d help
-    mv help $out/doc/
+  installPhase =
+    ''
+      # Move the hydrus module and related directories
+      mkdir -p $out/${python3Packages.python.sitePackages}
+      mv {hydrus,static} $out/${python3Packages.python.sitePackages}
+      mkdocs build -d help
+      mv help $out/doc/
 
-    # install the hydrus binaries
-    mkdir -p $out/bin
-    install -m0755 server.py $out/bin/hydrus-server
-    install -m0755 client.py $out/bin/hydrus-client
-  '' + lib.optionalString enableSwftools ''
-    mkdir -p $out/${python3Packages.python.sitePackages}/bin
-    # swfrender seems to have to be called sfwrender_linux
-    # not sure if it can be loaded through PATH, but this is simpler
-    # $out/python3Packages.python.sitePackages/bin is correct NOT .../hydrus/bin
-    ln -s ${swftools}/bin/swfrender $out/${python3Packages.python.sitePackages}/bin/swfrender_linux
-  '';
+      # install the hydrus binaries
+      mkdir -p $out/bin
+      install -m0755 server.py $out/bin/hydrus-server
+      install -m0755 client.py $out/bin/hydrus-client
+    '' + lib.optionalString enableSwftools ''
+      mkdir -p $out/${python3Packages.python.sitePackages}/bin
+      # swfrender seems to have to be called sfwrender_linux
+      # not sure if it can be loaded through PATH, but this is simpler
+      # $out/python3Packages.python.sitePackages/bin is correct NOT .../hydrus/bin
+      ln -s ${swftools}/bin/swfrender $out/${python3Packages.python.sitePackages}/bin/swfrender_linux
+    ''
+    ;
 
   dontWrapQtApps = true;
   preFixup = ''

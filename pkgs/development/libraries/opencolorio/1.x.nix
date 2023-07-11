@@ -34,25 +34,29 @@ stdenv.mkDerivation rec {
     git
   ];
 
-  buildInputs = [
-    lcms2
-    tinyxml
-  ] ++ lib.optional stdenv.isDarwin boost;
+  buildInputs =
+    [
+      lcms2
+      tinyxml
+    ] ++ lib.optional stdenv.isDarwin boost
+    ;
 
   postPatch = ''
     substituteInPlace src/core/CMakeLists.txt --replace "-Werror" ""
     substituteInPlace src/pyglue/CMakeLists.txt --replace "-Werror" ""
   '';
 
-  cmakeFlags = [
-    "-DUSE_EXTERNAL_LCMS=ON"
-    "-DUSE_EXTERNAL_TINYXML=ON"
-    # External yaml-cpp 0.6.* not compatible: https://github.com/imageworks/OpenColorIO/issues/517
-    "-DUSE_EXTERNAL_YAML=OFF"
-  ] ++ lib.optional stdenv.isDarwin "-DOCIO_USE_BOOST_PTR=ON"
+  cmakeFlags =
+    [
+      "-DUSE_EXTERNAL_LCMS=ON"
+      "-DUSE_EXTERNAL_TINYXML=ON"
+      # External yaml-cpp 0.6.* not compatible: https://github.com/imageworks/OpenColorIO/issues/517
+      "-DUSE_EXTERNAL_YAML=OFF"
+    ] ++ lib.optional stdenv.isDarwin "-DOCIO_USE_BOOST_PTR=ON"
     ++ lib.optional (!stdenv.hostPlatform.isx86) "-DOCIO_USE_SSE=OFF"
     ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64)
-    "-DCMAKE_OSX_ARCHITECTURES=arm64";
+    "-DCMAKE_OSX_ARCHITECTURES=arm64"
+    ;
 
   postInstall = ''
     moveToOutput bin "$bin"

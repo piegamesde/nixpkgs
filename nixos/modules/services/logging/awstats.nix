@@ -229,10 +229,11 @@ in
       }) cfg.configs;
 
       # create data directory with the correct permissions
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 755 root root - -" ]
-      ++ mapAttrsToList
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.dataDir}' 755 root root - -" ] ++ mapAttrsToList
       (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -") cfg.configs
-      ++ [ "Z '${cfg.dataDir}' 755 root root - -" ];
+      ++ [ "Z '${cfg.dataDir}' 755 root root - -" ]
+      ;
 
       # nginx options
     services.nginx.virtualHosts = mapAttrs' (name: opts: {
@@ -259,25 +260,27 @@ in
     systemd.services = mkIf (cfg.updateAt != null) (mapAttrs' (name: opts:
       nameValuePair "awstats-${name}-update" {
         description = "update awstats for ${name}";
-        script = optionalString (opts.type == "mail") ''
-          if [[ -f "${cfg.dataDir}/${name}-cursor" ]]; then
-            CURSOR="$(cat "${cfg.dataDir}/${name}-cursor" | tr -d '\n')"
-            if [[ -n "$CURSOR" ]]; then
-              echo "Using cursor: $CURSOR"
-              export OLD_CURSOR="--cursor $CURSOR"
+        script =
+          optionalString (opts.type == "mail") ''
+            if [[ -f "${cfg.dataDir}/${name}-cursor" ]]; then
+              CURSOR="$(cat "${cfg.dataDir}/${name}-cursor" | tr -d '\n')"
+              if [[ -n "$CURSOR" ]]; then
+                echo "Using cursor: $CURSOR"
+                export OLD_CURSOR="--cursor $CURSOR"
+              fi
             fi
-          fi
-          NEW_CURSOR="$(journalctl $OLD_CURSOR -u postfix.service --show-cursor | tail -n 1 | tr -d '\n' | sed -e 's#^-- cursor: \(.*\)#\1#')"
-          echo "New cursor: $NEW_CURSOR"
-          ${package.bin}/bin/awstats -update -config=${name}
-          if [ -n "$NEW_CURSOR" ]; then
-            echo -n "$NEW_CURSOR" > ${cfg.dataDir}/${name}-cursor
-          fi
-        '' + ''
-          ${package.out}/share/awstats/tools/awstats_buildstaticpages.pl \
-            -config=${name} -update -dir=${cfg.dataDir}/${name} \
-            -awstatsprog=${package.bin}/bin/awstats
-        '';
+            NEW_CURSOR="$(journalctl $OLD_CURSOR -u postfix.service --show-cursor | tail -n 1 | tr -d '\n' | sed -e 's#^-- cursor: \(.*\)#\1#')"
+            echo "New cursor: $NEW_CURSOR"
+            ${package.bin}/bin/awstats -update -config=${name}
+            if [ -n "$NEW_CURSOR" ]; then
+              echo -n "$NEW_CURSOR" > ${cfg.dataDir}/${name}-cursor
+            fi
+          '' + ''
+            ${package.out}/share/awstats/tools/awstats_buildstaticpages.pl \
+              -config=${name} -update -dir=${cfg.dataDir}/${name} \
+              -awstatsprog=${package.bin}/bin/awstats
+          ''
+          ;
         startAt = cfg.updateAt;
       }) cfg.configs);
   };

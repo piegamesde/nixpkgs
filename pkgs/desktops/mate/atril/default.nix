@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   version = "1.26.1";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${
+    url =
+      "https://pub.mate-desktop.org/releases/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "pTphOsuXAaGK1nG/WQJU0c6Da6CuG+LAvYlI/fa0kaQ=";
@@ -43,27 +44,31 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gtk3
-    glib
-    itstool
-    libsecret
-    libxml2
-    poppler
-    mate.caja
-    mate.mate-desktop
-    hicolor-icon-theme
-    texlive.bin.core # for synctex, used by the pdf back-end
-  ] ++ lib.optionals enableDjvu [ djvulibre ]
+  buildInputs =
+    [
+      gtk3
+      glib
+      itstool
+      libsecret
+      libxml2
+      poppler
+      mate.caja
+      mate.mate-desktop
+      hicolor-icon-theme
+      texlive.bin.core # for synctex, used by the pdf back-end
+    ] ++ lib.optionals enableDjvu [ djvulibre ]
     ++ lib.optionals enableEpub [ webkitgtk ]
     ++ lib.optionals enablePostScript [ libspectre ]
-    ++ lib.optionals enableXps [ libgxps ];
+    ++ lib.optionals enableXps [ libgxps ]
+    ;
 
-  configureFlags = [ ] ++ lib.optionals (enableDjvu) [ "--enable-djvu" ]
+  configureFlags =
+    [ ] ++ lib.optionals (enableDjvu) [ "--enable-djvu" ]
     ++ lib.optionals (enableEpub) [ "--enable-epub" ]
     ++ lib.optionals (enablePostScript) [ "--enable-ps" ]
     ++ lib.optionals (enableXps) [ "--enable-xps" ]
-    ++ lib.optionals (enableImages) [ "--enable-pixbuf" ];
+    ++ lib.optionals (enableImages) [ "--enable-pixbuf" ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 

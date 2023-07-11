@@ -90,22 +90,24 @@ in
   };
 
   config = {
-    systemd.additionalUpstreamSystemUnits = [
-      "systemd-journald.socket"
-      "systemd-journald@.socket"
-      "systemd-journald-varlink@.socket"
-      "systemd-journald.service"
-      "systemd-journald@.service"
-      "systemd-journal-flush.service"
-      "systemd-journal-catalog-update.service"
-    ] ++ (optional (!config.boot.isContainer) "systemd-journald-audit.socket")
+    systemd.additionalUpstreamSystemUnits =
+      [
+        "systemd-journald.socket"
+        "systemd-journald@.socket"
+        "systemd-journald-varlink@.socket"
+        "systemd-journald.service"
+        "systemd-journald@.service"
+        "systemd-journal-flush.service"
+        "systemd-journal-catalog-update.service"
+      ] ++ (optional (!config.boot.isContainer) "systemd-journald-audit.socket")
       ++ [
         "systemd-journald-dev-log.socket"
         "syslog.socket"
       ] ++ optionals cfg.enableHttpGateway [
         "systemd-journal-gatewayd.socket"
         "systemd-journal-gatewayd.service"
-      ];
+      ]
+      ;
 
     environment.etc = {
       "systemd/journald.conf".text = ''

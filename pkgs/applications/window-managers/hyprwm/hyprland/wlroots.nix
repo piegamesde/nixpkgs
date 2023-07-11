@@ -51,16 +51,18 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
     hash = "sha256-LmI/4Yp/pOOoI4RxLRx9I90NBsiqdRLVOfbATKlgpkg=";
   };
 
-  pname = old.pname + "-hyprland" + (if hidpiXWayland then
-    "-hidpi"
-  else
-    "") + (if nvidiaPatches then
-      "-nvidia"
+  pname =
+    old.pname + "-hyprland" + (if hidpiXWayland then
+      "-hidpi"
     else
-      "");
+      "") + (if nvidiaPatches then
+        "-nvidia"
+      else
+        "")
+    ;
 
-  patches = (old.patches or [ ])
-    ++ (lib.optionals (enableXWayland && hidpiXWayland) [
+  patches =
+    (old.patches or [ ]) ++ (lib.optionals (enableXWayland && hidpiXWayland) [
       "${hyprland.src}/nix/wlroots-hidpi.patch"
       (fetchpatch {
         url =
@@ -74,25 +76,32 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
             "https://aur.archlinux.org/cgit/aur.git/plain/0001-nvidia-format-workaround.patch?h=hyprland-nvidia-screenshare-git&id=2830d3017d7cdd240379b4cc7e5dd6a49cf3399a";
           sha256 = "A9f1p5EW++mGCaNq8w7ZJfeWmvTfUm4iO+1KDcnqYX8=";
         })
-      ]);
+      ])
+    ;
 
-  postPatch = (old.postPatch or "") + (if nvidiaPatches then
-    ''
-      substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
-    ''
-  else
-    "");
+  postPatch =
+    (old.postPatch or "") + (if nvidiaPatches then
+      ''
+        substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
+      ''
+    else
+      "")
+    ;
 
-  buildInputs = old.buildInputs ++ [
-    hwdata
-    libdisplay-info-new
-    libliftoff-new
-  ];
+  buildInputs =
+    old.buildInputs ++ [
+      hwdata
+      libdisplay-info-new
+      libliftoff-new
+    ]
+    ;
 })).override {
   xwayland = xwayland.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ (lib.optionals hidpiXWayland [
-      "${hyprland.src}/nix/xwayland-vsync.patch"
-      "${hyprland.src}/nix/xwayland-hidpi.patch"
-    ]);
+    patches =
+      (old.patches or [ ]) ++ (lib.optionals hidpiXWayland [
+        "${hyprland.src}/nix/xwayland-vsync.patch"
+        "${hyprland.src}/nix/xwayland-hidpi.patch"
+      ])
+      ;
   });
 }

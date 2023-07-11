@@ -55,22 +55,30 @@ let
   baseLib = python3Packages.callPackage ./lib.nix { };
 in
 mkDerivation {
-  pname = baseLib.pname + lib.optionalString
+  pname =
+    baseLib.pname + lib.optionalString
     (pdfSupport && presentationSupport && vlcSupport && gstreamerSupport)
-    "-full";
+    "-full"
+    ;
   inherit (baseLib) version src;
 
   nativeBuildInputs = [
     python3Packages.wrapPython
     wrapGAppsHook
   ];
-  buildInputs = [ qtbase ] ++ optionals gstreamerSupport ([
-    qtmultimedia.bin
-    gst_all_1.gstreamer
-  ] ++ gstPlugins gst_all_1);
-  propagatedBuildInputs = optional pdfSupport mupdf
-    ++ optional presentationSupport libreoffice-unwrapped;
-  pythonPath = [ baseLib ] ++ optional vlcSupport python3Packages.python-vlc;
+  buildInputs =
+    [ qtbase ] ++ optionals gstreamerSupport ([
+      qtmultimedia.bin
+      gst_all_1.gstreamer
+    ] ++ gstPlugins gst_all_1)
+    ;
+  propagatedBuildInputs =
+    optional pdfSupport mupdf
+    ++ optional presentationSupport libreoffice-unwrapped
+    ;
+  pythonPath =
+    [ baseLib ] ++ optional vlcSupport python3Packages.python-vlc
+    ;
     # ++ optional enableMySql mysql-connector  # Untested. If interested, contact maintainer.
     # ++ optional enablePostgreSql psycopg2    # Untested. If interested, contact maintainer.
     # ++ optional enableJenkinsApi jenkinsapi  # Untested. If interested, contact maintainer.
@@ -90,14 +98,16 @@ mkDerivation {
     "LD_LIBRARY_PATH"
     "JAVA_HOME"
   ];
-  makeWrapperArgs = [
-    "\${gappsWrapperArgs[@]}"
-    "\${qtWrapperArgs[@]}"
-  ] ++ optionals presentationSupport
+  makeWrapperArgs =
+    [
+      "\${gappsWrapperArgs[@]}"
+      "\${qtWrapperArgs[@]}"
+    ] ++ optionals presentationSupport
     ([ "--prefix PATH : ${libreoffice-unwrapped}/bin" ] ++ map wrapSetVar [
       "URE_BOOTSTRAP"
       "UNO_PATH"
-    ]);
+    ])
+    ;
 
   installPhase = ''
     install -D openlp.py $out/bin/openlp

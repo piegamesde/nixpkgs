@@ -39,28 +39,32 @@ rustPlatform.buildRustPackage rec {
       --replace "ncurses5.4" "ncurses"
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    asciidoctor
-    gettext
-  ] ++ lib.optionals stdenv.isDarwin [
-    makeWrapper
-    ncurses
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      asciidoctor
+      gettext
+    ] ++ lib.optionals stdenv.isDarwin [
+      makeWrapper
+      ncurses
+    ]
+    ;
 
-  buildInputs = [
-    stfl
-    sqlite
-    curl
-    libxml2
-    json_c
-    ncurses
-  ] ++ lib.optionals stdenv.isDarwin [
-    Security
-    Foundation
-    libiconv
-    gettext
-  ];
+  buildInputs =
+    [
+      stfl
+      sqlite
+      curl
+      libxml2
+      json_c
+      ncurses
+    ] ++ lib.optionals stdenv.isDarwin [
+      Security
+      Foundation
+      libiconv
+      gettext
+    ]
+    ;
 
   postBuild = ''
     make -j $NIX_BUILD_CORES prefix="$out"
@@ -79,13 +83,15 @@ rustPlatform.buildRustPackage rec {
     make -j $NIX_BUILD_CORES test
   '';
 
-  postInstall = ''
-    make -j $NIX_BUILD_CORES prefix="$out" install
-  '' + lib.optionalString stdenv.isDarwin ''
-    for prog in $out/bin/*; do
-      wrapProgram "$prog" --prefix DYLD_LIBRARY_PATH : "${stfl}/lib"
-    done
-  '';
+  postInstall =
+    ''
+      make -j $NIX_BUILD_CORES prefix="$out" install
+    '' + lib.optionalString stdenv.isDarwin ''
+      for prog in $out/bin/*; do
+        wrapProgram "$prog" --prefix DYLD_LIBRARY_PATH : "${stfl}/lib"
+      done
+    ''
+    ;
 
   passthru = { updateScript = nix-update-script { }; };
 

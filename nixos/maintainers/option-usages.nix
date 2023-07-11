@@ -86,9 +86,7 @@ let
     "kde.extraPackages"
   ];
   excludeOptions =
-    list:
-    filter (opt: !(elem (showOption opt.loc) excludedOptions)) list
-    ;
+    list: filter (opt: !(elem (showOption opt.loc) excludedOptions)) list;
 
   reportNewFailures =
     old: new:
@@ -148,9 +146,11 @@ let
 
   graph = map (thrower: {
     option = thrower.name;
-    usedBy = assert __trace "Investigate ${thrower.name}" true;
+    usedBy =
+      assert __trace "Investigate ${thrower.name}" true;
       reportNewFailures eval.options
-      (evalFun { specialArgs = { config = overrideConfig thrower; }; }).options;
+      (evalFun { specialArgs = { config = overrideConfig thrower; }; }).options
+      ;
   }) introspectionModules;
 
   displayOptionsGraph =

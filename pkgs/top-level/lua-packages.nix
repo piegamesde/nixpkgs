@@ -19,9 +19,7 @@ let
   inherit (self) callPackage;
 
   buildLuaApplication =
-    args:
-    buildLuarocksPackage ({ namePrefix = ""; } // args)
-    ;
+    args: buildLuarocksPackage ({ namePrefix = ""; } // args);
 
   buildLuarocksPackage = lib.makeOverridable
     (callPackage ../development/interpreters/lua-5/build-lua-package.nix { });

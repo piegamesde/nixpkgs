@@ -26,24 +26,27 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "1QEVuFyHKqwpaTS17nJqP6FWxvWtltJ+Dt0Kpa0XMig=";
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    dbus
-    gobject-introspection
-    gtk-doc
-    docbook-xsl-nons
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      dbus
+      gobject-introspection
+      gtk-doc
+      docbook-xsl-nons
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ];
+    ]
+    ;
 
   buildInputs = [ gtk3 ];
 

@@ -38,12 +38,14 @@ let
     # cups-files.conf tells cupsd to use this tree.
   bindir = pkgs.buildEnv {
     name = "cups-progs";
-    paths = [
-      cups.out
-      additionalBackends
-      cups-filters
-      pkgs.ghostscript
-    ] ++ cfg.drivers;
+    paths =
+      [
+        cups.out
+        additionalBackends
+        cups-filters
+        pkgs.ghostscript
+      ] ++ cfg.drivers
+      ;
     pathsToLink = [
       "/lib"
       "/share/cups"
@@ -122,12 +124,14 @@ let
 
   rootdir = pkgs.buildEnv {
     name = "cups-progs";
-    paths = [
-      cupsFilesFile
-      cupsdFile
-      (writeConf "client.conf" cfg.clientConf)
-      (writeConf "snmp.conf" cfg.snmpConf)
-    ] ++ optional avahiEnabled browsedFile ++ cfg.drivers;
+    paths =
+      [
+        cupsFilesFile
+        cupsdFile
+        (writeConf "client.conf" cfg.clientConf)
+        (writeConf "snmp.conf" cfg.snmpConf)
+      ] ++ optional avahiEnabled browsedFile ++ cfg.drivers
+      ;
     pathsToLink = [ "/etc/cups" ];
     ignoreCollisions = true;
   };
@@ -392,12 +396,14 @@ in
 
     systemd.sockets.cups = mkIf cfg.startWhenNeeded {
       wantedBy = [ "sockets.target" ];
-      listenStreams = [
-        ""
-        "/run/cups/cups.sock"
-      ] ++ map (x:
-        replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x))
-        cfg.listenAddresses;
+      listenStreams =
+        [
+          ""
+          "/run/cups/cups.sock"
+        ] ++ map (x:
+          replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x))
+        cfg.listenAddresses
+        ;
     };
 
     systemd.services.cups = {
@@ -407,50 +413,52 @@ in
 
       path = [ cups.out ];
 
-      preStart = lib.optionalString cfg.stateless ''
-        rm -rf /var/cache/cups /var/lib/cups /var/spool/cups
-      '' + ''
-        mkdir -m 0700 -p /var/cache/cups
-        mkdir -m 0700 -p /var/spool/cups
-        mkdir -m 0755 -p ${cfg.tempDir}
+      preStart =
+        lib.optionalString cfg.stateless ''
+          rm -rf /var/cache/cups /var/lib/cups /var/spool/cups
+        '' + ''
+          mkdir -m 0700 -p /var/cache/cups
+          mkdir -m 0700 -p /var/spool/cups
+          mkdir -m 0755 -p ${cfg.tempDir}
 
-        mkdir -m 0755 -p /var/lib/cups
-        # While cups will automatically create self-signed certificates if accessed via TLS,
-        # this directory to store the certificates needs to be created manually.
-        mkdir -m 0700 -p /var/lib/cups/ssl
+          mkdir -m 0755 -p /var/lib/cups
+          # While cups will automatically create self-signed certificates if accessed via TLS,
+          # this directory to store the certificates needs to be created manually.
+          mkdir -m 0700 -p /var/lib/cups/ssl
 
-        # Backwards compatibility
-        if [ ! -L /etc/cups ]; then
-          mv /etc/cups/* /var/lib/cups
-          rmdir /etc/cups
-          ln -s /var/lib/cups /etc/cups
-        fi
-        # First, clean existing symlinks
-        if [ -n "$(ls /var/lib/cups)" ]; then
-          for i in /var/lib/cups/*; do
-            [ -L "$i" ] && rm "$i"
-          done
-        fi
-        # Then, populate it with static files
-        cd ${rootdir}/etc/cups
-        for i in *; do
-          [ ! -e "/var/lib/cups/$i" ] && ln -s "${rootdir}/etc/cups/$i" "/var/lib/cups/$i"
-        done
-
-        #update path reference
-        [ -L /var/lib/cups/path ] && \
-          rm /var/lib/cups/path
-        [ ! -e /var/lib/cups/path ] && \
-          ln -s ${bindir} /var/lib/cups/path
-
-        ${optionalString (containsGutenprint cfg.drivers) ''
-          if [ -d /var/lib/cups/ppd ]; then
-            ${
-              getGutenprint cfg.drivers
-            }/bin/cups-genppdupdate -p /var/lib/cups/ppd
+          # Backwards compatibility
+          if [ ! -L /etc/cups ]; then
+            mv /etc/cups/* /var/lib/cups
+            rmdir /etc/cups
+            ln -s /var/lib/cups /etc/cups
           fi
-        ''}
-      '';
+          # First, clean existing symlinks
+          if [ -n "$(ls /var/lib/cups)" ]; then
+            for i in /var/lib/cups/*; do
+              [ -L "$i" ] && rm "$i"
+            done
+          fi
+          # Then, populate it with static files
+          cd ${rootdir}/etc/cups
+          for i in *; do
+            [ ! -e "/var/lib/cups/$i" ] && ln -s "${rootdir}/etc/cups/$i" "/var/lib/cups/$i"
+          done
+
+          #update path reference
+          [ -L /var/lib/cups/path ] && \
+            rm /var/lib/cups/path
+          [ ! -e /var/lib/cups/path ] && \
+            ln -s ${bindir} /var/lib/cups/path
+
+          ${optionalString (containsGutenprint cfg.drivers) ''
+            if [ -d /var/lib/cups/ppd ]; then
+              ${
+                getGutenprint cfg.drivers
+              }/bin/cups-genppdupdate -p /var/lib/cups/ppd
+            fi
+          ''}
+        ''
+        ;
 
       serviceConfig.PrivateTmp = true;
     };
@@ -459,14 +467,22 @@ in
       description = "CUPS Remote Printer Discovery";
 
       wantedBy = [ "multi-user.target" ];
-      wants = [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service";
-      bindsTo = [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service";
-      partOf = [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service";
-      after = [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service";
+      wants =
+        [ "avahi-daemon.service" ]
+        ++ optional (!cfg.startWhenNeeded) "cups.service"
+        ;
+      bindsTo =
+        [ "avahi-daemon.service" ]
+        ++ optional (!cfg.startWhenNeeded) "cups.service"
+        ;
+      partOf =
+        [ "avahi-daemon.service" ]
+        ++ optional (!cfg.startWhenNeeded) "cups.service"
+        ;
+      after =
+        [ "avahi-daemon.service" ]
+        ++ optional (!cfg.startWhenNeeded) "cups.service"
+        ;
 
       path = [ cups ];
 

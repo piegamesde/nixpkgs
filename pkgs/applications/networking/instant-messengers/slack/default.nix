@@ -55,11 +55,12 @@ let
   aarch64-darwin-version = "4.29.149";
   aarch64-darwin-sha256 = "sha256-Nn+dFD3H/By+aBPLDxnPneNXuFl+tHdLhxJXeYBMORg=";
 
-  version = {
-    x86_64-darwin = x86_64-darwin-version;
-    x86_64-linux = x86_64-linux-version;
-    aarch64-darwin = aarch64-darwin-version;
-  }.${system} or throwSystem;
+  version =
+    {
+      x86_64-darwin = x86_64-darwin-version;
+      x86_64-linux = x86_64-linux-version;
+      aarch64-darwin = aarch64-darwin-version;
+    }.${system} or throwSystem;
 
   src =
     let
@@ -105,51 +106,53 @@ let
 
     passthru.updateScript = ./update.sh;
 
-    rpath = lib.makeLibraryPath [
-      alsa-lib
-      at-spi2-atk
-      at-spi2-core
-      atk
-      cairo
-      cups
-      curl
-      dbus
-      expat
-      fontconfig
-      freetype
-      gdk-pixbuf
-      glib
-      gtk3
-      libGL
-      libappindicator-gtk3
-      libdrm
-      libnotify
-      libpulseaudio
-      libuuid
-      libxcb
-      libxkbcommon
-      mesa
-      nspr
-      nss
-      pango
-      pipewire
-      stdenv.cc.cc
-      systemd
-      wayland
-      xorg.libX11
-      xorg.libXScrnSaver
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXi
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libxkbfile
-      xorg.libxshmfence
-    ] + ":${stdenv.cc.cc.lib}/lib64";
+    rpath =
+      lib.makeLibraryPath [
+        alsa-lib
+        at-spi2-atk
+        at-spi2-core
+        atk
+        cairo
+        cups
+        curl
+        dbus
+        expat
+        fontconfig
+        freetype
+        gdk-pixbuf
+        glib
+        gtk3
+        libGL
+        libappindicator-gtk3
+        libdrm
+        libnotify
+        libpulseaudio
+        libuuid
+        libxcb
+        libxkbcommon
+        mesa
+        nspr
+        nss
+        pango
+        pipewire
+        stdenv.cc.cc
+        systemd
+        wayland
+        xorg.libX11
+        xorg.libXScrnSaver
+        xorg.libXcomposite
+        xorg.libXcursor
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXi
+        xorg.libXrandr
+        xorg.libXrender
+        xorg.libXtst
+        xorg.libxkbfile
+        xorg.libxshmfence
+      ] + ":${stdenv.cc.cc.lib}/lib64"
+      ;
 
     buildInputs = [
         gtk3 # needed for GSETTINGS_SCHEMAS_PATH

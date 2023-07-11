@@ -55,11 +55,13 @@ let
       clang
       gcc
     ];
-    buildInputs = [
-      llvm
-      python
-      gmp
-    ] ++ lib.optional (wine != null) python.pkgs.wrapPython;
+    buildInputs =
+      [
+        llvm
+        python
+        gmp
+      ] ++ lib.optional (wine != null) python.pkgs.wrapPython
+      ;
 
     postPatch = ''
       # Replace the CLANG_BIN variables with the correct path
@@ -94,48 +96,50 @@ let
       make -C qemu_mode/unsigaction $common
     '';
 
-    postInstall = ''
-      # remove afl-clang(++) which are just symlinks to afl-clang-fast
-      rm $out/bin/afl-clang $out/bin/afl-clang++
+    postInstall =
+      ''
+        # remove afl-clang(++) which are just symlinks to afl-clang-fast
+        rm $out/bin/afl-clang $out/bin/afl-clang++
 
-      # the makefile neglects to install unsigaction
-      cp qemu_mode/unsigaction/unsigaction*.so $out/lib/afl/
+        # the makefile neglects to install unsigaction
+        cp qemu_mode/unsigaction/unsigaction*.so $out/lib/afl/
 
-      # Install the custom QEMU emulator for binary blob fuzzing.
-      cp ${aflplusplus-qemu}/bin/${qemu-exe-name} $out/bin/afl-qemu-trace
+        # Install the custom QEMU emulator for binary blob fuzzing.
+        cp ${aflplusplus-qemu}/bin/${qemu-exe-name} $out/bin/afl-qemu-trace
 
-      # give user a convenient way of accessing libcompconv.so, libdislocator.so, libtokencap.so
-      cat > $out/bin/get-afl-qemu-libcompcov-so <<END
-      #!${stdenv.shell}
-      echo $out/lib/afl/libcompcov.so
-      END
-      chmod +x $out/bin/get-afl-qemu-libcompcov-so
-      cp ${libdislocator}/bin/get-libdislocator-so $out/bin/
-      cp ${libtokencap}/bin/get-libtokencap-so $out/bin/
+        # give user a convenient way of accessing libcompconv.so, libdislocator.so, libtokencap.so
+        cat > $out/bin/get-afl-qemu-libcompcov-so <<END
+        #!${stdenv.shell}
+        echo $out/lib/afl/libcompcov.so
+        END
+        chmod +x $out/bin/get-afl-qemu-libcompcov-so
+        cp ${libdislocator}/bin/get-libdislocator-so $out/bin/
+        cp ${libtokencap}/bin/get-libtokencap-so $out/bin/
 
-      # Install the cgroups wrapper for asan-based fuzzing.
-      cp examples/asan_cgroups/limit_memory.sh $out/bin/afl-cgroup
-      chmod +x $out/bin/afl-cgroup
-      substituteInPlace $out/bin/afl-cgroup \
-        --replace "cgcreate" "${libcgroup}/bin/cgcreate" \
-        --replace "cgexec"   "${libcgroup}/bin/cgexec" \
-        --replace "cgdelete" "${libcgroup}/bin/cgdelete"
+        # Install the cgroups wrapper for asan-based fuzzing.
+        cp examples/asan_cgroups/limit_memory.sh $out/bin/afl-cgroup
+        chmod +x $out/bin/afl-cgroup
+        substituteInPlace $out/bin/afl-cgroup \
+          --replace "cgcreate" "${libcgroup}/bin/cgcreate" \
+          --replace "cgexec"   "${libcgroup}/bin/cgexec" \
+          --replace "cgdelete" "${libcgroup}/bin/cgdelete"
 
-      patchShebangs $out/bin
+        patchShebangs $out/bin
 
-    '' + lib.optionalString (wine != null) ''
-      substitute afl-wine-trace $out/bin/afl-wine-trace \
-        --replace "qemu_mode/unsigaction" "$out/lib/afl"
-      chmod +x $out/bin/afl-wine-trace
+      '' + lib.optionalString (wine != null) ''
+        substitute afl-wine-trace $out/bin/afl-wine-trace \
+          --replace "qemu_mode/unsigaction" "$out/lib/afl"
+        chmod +x $out/bin/afl-wine-trace
 
-      # qemu needs to be fed ELFs, not wrapper scripts, so we have to cheat a bit if we
-      # detect a wrapped wine
-      for winePath in ${wine}/bin/.wine ${wine}/bin/wine; do
-        if [ -x $winePath ]; then break; fi
-      done
-      makeWrapperArgs="--set-default 'AFL_WINE_PATH' '$winePath'" \
-        wrapPythonProgramsIn $out/bin ${python.pkgs.pefile}
-    '';
+        # qemu needs to be fed ELFs, not wrapper scripts, so we have to cheat a bit if we
+        # detect a wrapped wine
+        for winePath in ${wine}/bin/.wine ${wine}/bin/wine; do
+          if [ -x $winePath ]; then break; fi
+        done
+        makeWrapperArgs="--set-default 'AFL_WINE_PATH' '$winePath'" \
+          wrapPythonProgramsIn $out/bin ${python.pkgs.pefile}
+      ''
+      ;
 
     nativeInstallCheckInputs = [
       perl

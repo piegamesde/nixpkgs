@@ -40,33 +40,39 @@ assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk)
 stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals enableQt [ wrapQtAppsHook ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ] ++ lib.optionals enableQt [ wrapQtAppsHook ]
+    ;
 
-  buildInputs = [
-    boost17x
-    libusb1
-  ] ++ lib.optionals enableQt [
-    qtbase
-    qtmultimedia
-  ] ++ lib.optional enableSdl2 SDL2 ++ lib.optional enableQtTranslation qttools
+  buildInputs =
+    [
+      boost17x
+      libusb1
+    ] ++ lib.optionals enableQt [
+      qtbase
+      qtmultimedia
+    ] ++ lib.optional enableSdl2 SDL2
+    ++ lib.optional enableQtTranslation qttools
     ++ lib.optional enableCubeb libpulseaudio
     ++ lib.optional (enableFfmpegAudioDecoder || enableFfmpegVideoDumper)
     ffmpeg_4 ++ lib.optional useDiscordRichPresence rapidjson
-    ++ lib.optional enableFdk fdk_aac;
+    ++ lib.optional enableFdk fdk_aac
+    ;
 
-  cmakeFlags = [
-    "-DUSE_SYSTEM_BOOST=ON"
-    "-DCITRA_USE_BUNDLED_FFMPEG=OFF"
-    "-DCITRA_USE_BUNDLED_QT=OFF"
-    "-DUSE_SYSTEM_SDL2=ON"
+  cmakeFlags =
+    [
+      "-DUSE_SYSTEM_BOOST=ON"
+      "-DCITRA_USE_BUNDLED_FFMPEG=OFF"
+      "-DCITRA_USE_BUNDLED_QT=OFF"
+      "-DUSE_SYSTEM_SDL2=ON"
 
-    # We dont want to bother upstream with potentially outdated compat reports
-    "-DCITRA_ENABLE_COMPATIBILITY_REPORTING=ON"
-    "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
-  ] ++ lib.optional (!enableSdl2) "-DENABLE_SDL2=OFF"
+      # We dont want to bother upstream with potentially outdated compat reports
+      "-DCITRA_ENABLE_COMPATIBILITY_REPORTING=ON"
+      "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
+    ] ++ lib.optional (!enableSdl2) "-DENABLE_SDL2=OFF"
     ++ lib.optional (!enableQt) "-DENABLE_QT=OFF"
     ++ lib.optional enableQtTranslation "-DENABLE_QT_TRANSLATION=ON"
     ++ lib.optional (!enableWebService) "-DENABLE_WEB_SERVICE=OFF"
@@ -74,7 +80,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableFfmpegAudioDecoder "-DENABLE_FFMPEG_AUDIO_DECODER=ON"
     ++ lib.optional enableFfmpegVideoDumper "-DENABLE_FFMPEG_VIDEO_DUMPER=ON"
     ++ lib.optional useDiscordRichPresence "-DUSE_DISCORD_PRESENCE=ON"
-    ++ lib.optional enableFdk "-DENABLE_FDK=ON";
+    ++ lib.optional enableFdk "-DENABLE_FDK=ON"
+    ;
 
   postPatch = ''
     # Fix file not found when looking in var/empty instead of opt

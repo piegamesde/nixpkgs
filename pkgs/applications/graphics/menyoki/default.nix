@@ -28,19 +28,22 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs =
     [ installShellFiles ] ++ lib.optional stdenv.isLinux pkg-config;
 
-  buildInputs = lib.optional withSixel libsixel ++ lib.optionals stdenv.isLinux
+  buildInputs =
+    lib.optional withSixel libsixel ++ lib.optionals stdenv.isLinux
     (with xorg; [
       libX11
       libXrandr
-    ]) ++ lib.optional stdenv.isDarwin AppKit;
+    ]) ++ lib.optional stdenv.isDarwin AppKit
+    ;
 
   buildNoDefaultFeatures = !withSki;
   buildFeatures = lib.optional withSixel "sixel";
 
-  checkFlags = [
-    # sometimes fails on lower end machines
-    "--skip=record::fps::tests::test_fps"
-  ];
+  checkFlags =
+    [
+      # sometimes fails on lower end machines
+      "--skip=record::fps::tests::test_fps"
+    ];
 
   postInstall = ''
     installManPage man/*

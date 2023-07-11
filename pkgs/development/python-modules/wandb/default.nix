@@ -63,13 +63,14 @@ buildPythonPackage rec {
     hash = "sha256-UULsvvk9BsWUrJ8eD7uD2UnUJqmPrmjrJvCA7WRC/Cw=";
   };
 
-  patches = [
-    # Replace git paths
-    (substituteAll {
-      src = ./hardcode-git-path.patch;
-      git = "${lib.getBin git}/bin/git";
-    })
-  ];
+  patches =
+    [
+      # Replace git paths
+      (substituteAll {
+        src = ./hardcode-git-path.patch;
+        git = "${lib.getBin git}/bin/git";
+      })
+    ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 

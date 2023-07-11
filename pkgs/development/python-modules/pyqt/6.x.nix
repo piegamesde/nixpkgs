@@ -38,14 +38,15 @@ buildPythonPackage rec {
     hash = "sha256-uXy0vpssiZeQTqZozzsKSuWCIZb3eSWQ0F7N5iFqn7w=";
   };
 
-  patches = [
-    # Fix some wrong assumptions by ./project.py
-    # TODO: figure out how to send this upstream
-    # FIXME: make a version for PyQt6?
-    # ./pyqt5-fix-dbus-mainloop-support.patch
-    # confirm license when installing via pyqt6_sip
-    ./pyqt5-confirm-license.patch
-  ];
+  patches =
+    [
+      # Fix some wrong assumptions by ./project.py
+      # TODO: figure out how to send this upstream
+      # FIXME: make a version for PyQt6?
+      # ./pyqt5-fix-dbus-mainloop-support.patch
+      # confirm license when installing via pyqt6_sip
+      ./pyqt5-confirm-license.patch
+    ];
 
     # be more verbose
   postPatch = ''
@@ -107,13 +108,15 @@ buildPythonPackage rec {
     # ++ lib.optional withLocation qtlocation
     ;
 
-  propagatedBuildInputs = [
-    dbus-python
-    pyqt6-sip
-    setuptools
-  ]
-  # ld: library not found for -lcups
-    ++ lib.optionals (withPrintSupport && stdenv.isDarwin) [ cups ];
+  propagatedBuildInputs =
+    [
+      dbus-python
+      pyqt6-sip
+      setuptools
+    ]
+    # ld: library not found for -lcups
+    ++ lib.optionals (withPrintSupport && stdenv.isDarwin) [ cups ]
+    ;
 
   passthru = {
     inherit sip pyqt6-sip;
@@ -126,14 +129,15 @@ buildPythonPackage rec {
     # Checked using pythonImportsCheck, has no tests
   doCheck = true;
 
-  pythonImportsCheck = [
-    "PyQt6"
-    "PyQt6.QtCore"
-    "PyQt6.QtQml"
-    "PyQt6.QtWidgets"
-    "PyQt6.QtGui"
-    "PyQt6.QtQuick"
-  ] ++ lib.optional withWebSockets "PyQt6.QtWebSockets"
+  pythonImportsCheck =
+    [
+      "PyQt6"
+      "PyQt6.QtCore"
+      "PyQt6.QtQml"
+      "PyQt6.QtWidgets"
+      "PyQt6.QtGui"
+      "PyQt6.QtQuick"
+    ] ++ lib.optional withWebSockets "PyQt6.QtWebSockets"
     ++ lib.optional withMultimedia "PyQt6.QtMultimedia"
     # ++ lib.optional withConnectivity "PyQt6.QtConnectivity"
     # ++ lib.optional withLocation "PyQt6.QtPositioning"

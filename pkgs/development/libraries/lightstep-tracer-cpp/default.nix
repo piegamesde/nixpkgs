@@ -27,13 +27,15 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    opentracing-cpp
-    protobuf
-  ] ++ lib.optionals enableGrpc [
-    grpc
-    openssl
-  ];
+  buildInputs =
+    [
+      opentracing-cpp
+      protobuf
+    ] ++ lib.optionals enableGrpc [
+      grpc
+      openssl
+    ]
+    ;
 
   cmakeFlags = lib.optionals (!enableGrpc) [ "-DWITH_GRPC=OFF" ];
 

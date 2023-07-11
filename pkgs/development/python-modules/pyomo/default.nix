@@ -43,10 +43,11 @@ buildPythonPackage rec {
     "pyomo/environ/tests/test_environ.py"
   ];
 
-  disabledTests = [
-    # Test requires lsb_release
-    "test_get_os_version"
-  ];
+  disabledTests =
+    [
+      # Test requires lsb_release
+      "test_get_os_version"
+    ];
 
   meta = with lib; {
     description = "Python Optimization Modeling Objects";

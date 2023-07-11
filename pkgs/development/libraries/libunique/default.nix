@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
   version = "1.1.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.bz2";
     sha256 = "1fsgvmncd9caw552lyfg8swmsd6bh4ijjsph69bwacwfxwf09j75";
@@ -28,12 +29,14 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
     # Patches from Gentoo portage
-  patches = [
-    ./1.1.6-compiler-warnings.patch
-    ./1.1.6-fix-test.patch
-    ./1.1.6-G_CONST_RETURN.patch
-    ./1.1.6-include-terminator.patch
-  ] ++ [ ./gcc7-bug.patch ];
+  patches =
+    [
+      ./1.1.6-compiler-warnings.patch
+      ./1.1.6-fix-test.patch
+      ./1.1.6-G_CONST_RETURN.patch
+      ./1.1.6-include-terminator.patch
+    ] ++ [ ./gcc7-bug.patch ]
+    ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

@@ -151,16 +151,21 @@ let
     name: dev:
     assert name == dev.name;
     let
-      csopen = "cryptsetup luksOpen ${dev.device} ${dev.name}"
+      csopen =
+        "cryptsetup luksOpen ${dev.device} ${dev.name}"
         + optionalString dev.allowDiscards " --allow-discards"
         + optionalString dev.bypassWorkqueues
         " --perf-no_read_workqueue --perf-no_write_workqueue"
-        + optionalString (dev.header != null) " --header=${dev.header}";
-      cschange = "cryptsetup luksChangeKey ${dev.device} ${
+        + optionalString (dev.header != null) " --header=${dev.header}"
+        ;
+      cschange =
+        "cryptsetup luksChangeKey ${dev.device} ${
           optionalString (dev.header != null) "--header=${dev.header}"
         }";
-      fido2luksCredentials = dev.fido2.credentials
-        ++ optional (dev.fido2.credential != null) dev.fido2.credential;
+      fido2luksCredentials =
+        dev.fido2.credentials
+        ++ optional (dev.fido2.credential != null) dev.fido2.credential
+        ;
     in
     ''
       # Wait for luksRoot (and optionally keyFile and/or header) to appear, e.g.
@@ -616,7 +621,8 @@ let
   stage1Crypttab = pkgs.writeText "initrd-crypttab" (lib.concatStringsSep "\n"
     (lib.mapAttrsToList (n: v:
       let
-        opts = v.crypttabExtraOpts ++ optional v.allowDiscards "discard"
+        opts =
+          v.crypttabExtraOpts ++ optional v.allowDiscards "discard"
           ++ optionals v.bypassWorkqueues [
             "no-read-workqueue"
             "no-write-workqueue"
@@ -627,7 +633,8 @@ let
           "keyfile-size=${toString v.keyFileSize}"
           ++ optional (v.keyFileTimeout != null)
           "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
-          ++ optional (v.tryEmptyPassphrase) "try-empty-password=true";
+          ++ optional (v.tryEmptyPassphrase) "try-empty-password=true"
+          ;
       in
       "${n} ${v.device} ${
         if v.keyFile == null then
@@ -1104,42 +1111,54 @@ in
       }
 
       {
-        assertion = any (dev: dev.bypassWorkqueues) (attrValues luks.devices)
-          -> versionAtLeast kernelPackages.kernel.version "5.9";
+        assertion =
+          any (dev: dev.bypassWorkqueues) (attrValues luks.devices)
+          -> versionAtLeast kernelPackages.kernel.version "5.9"
+          ;
         message =
           "boot.initrd.luks.devices.<name>.bypassWorkqueues is not supported for kernels older than 5.9";
       }
 
       {
-        assertion = !config.boot.initrd.systemd.enable
-          -> all (x: x.keyFileTimeout == null) (attrValues luks.devices);
+        assertion =
+          !config.boot.initrd.systemd.enable
+          -> all (x: x.keyFileTimeout == null) (attrValues luks.devices)
+          ;
         message =
           "boot.initrd.luks.devices.<name>.keyFileTimeout is only supported for systemd initrd";
       }
 
       {
-        assertion = config.boot.initrd.systemd.enable
-          -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices);
+        assertion =
+          config.boot.initrd.systemd.enable
+          -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices)
+          ;
         message =
           "boot.initrd.luks.devices.<name>.fallbackToPassword is implied by systemd stage 1.";
       }
       {
-        assertion = config.boot.initrd.systemd.enable
-          -> all (dev: dev.preLVM) (attrValues luks.devices);
+        assertion =
+          config.boot.initrd.systemd.enable
+          -> all (dev: dev.preLVM) (attrValues luks.devices)
+          ;
         message =
           "boot.initrd.luks.devices.<name>.preLVM is not used by systemd stage 1.";
       }
       {
-        assertion = config.boot.initrd.systemd.enable
+        assertion =
+          config.boot.initrd.systemd.enable
           -> options.boot.initrd.luks.reusePassphrases.highestPrio
-          == defaultPrio;
+          == defaultPrio
+          ;
         message =
           "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";
       }
       {
-        assertion = config.boot.initrd.systemd.enable
+        assertion =
+          config.boot.initrd.systemd.enable
           -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "")
-          (attrValues luks.devices);
+          (attrValues luks.devices)
+          ;
         message =
           "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
       }
@@ -1170,18 +1189,20 @@ in
     ];
 
       # Some modules that may be needed for mounting anything ciphered
-    boot.initrd.availableKernelModules = [
-      "dm_mod"
-      "dm_crypt"
-      "cryptd"
-      "input_leds"
-    ] ++ luks.cryptoModules
+    boot.initrd.availableKernelModules =
+      [
+        "dm_mod"
+        "dm_crypt"
+        "cryptd"
+        "input_leds"
+      ] ++ luks.cryptoModules
       # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
       # remove once 'modprobe --show-depends xts' shows ecb as a dependency
       ++ (if builtins.elem "xts" luks.cryptoModules then
         [ "ecb" ]
       else
-        [ ]);
+        [ ])
+      ;
 
       # copy the cryptsetup binary and it's dependencies
     boot.initrd.extraUtilsCommands =

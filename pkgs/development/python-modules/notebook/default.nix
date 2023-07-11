@@ -67,22 +67,24 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  disabledTests = [
-    # a "system_config" is generated, and fails many tests
-    "config"
-    "load_ordered"
-    # requires jupyter, but will cause circular imports
-    "test_run"
-    "TestInstallServerExtension"
-    "launch_socket"
-    "sock_server"
-    "test_list_formats" # tries to find python MIME type
-    "KernelCullingTest" # has a race condition failing on slower hardware
-    "test_connections" # tornado.simple_httpclient.HTTPTimeoutError: Timeout during request"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_delete"
-    "test_checkpoints_follow_file"
-  ];
+  disabledTests =
+    [
+      # a "system_config" is generated, and fails many tests
+      "config"
+      "load_ordered"
+      # requires jupyter, but will cause circular imports
+      "test_run"
+      "TestInstallServerExtension"
+      "launch_socket"
+      "sock_server"
+      "test_list_formats" # tries to find python MIME type
+      "KernelCullingTest" # has a race condition failing on slower hardware
+      "test_connections" # tornado.simple_httpclient.HTTPTimeoutError: Timeout during request"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "test_delete"
+      "test_checkpoints_follow_file"
+    ]
+    ;
 
   disabledTestPaths = lib.optionals stdenv.isDarwin [
     # requires local networking

@@ -36,43 +36,47 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-J9eVFIfmyBviVuT1MYKb5yoacbPqOAT3A8jahWv5qw8=";
   };
 
-  buildInputs = [
-    ffmpeg
-    x264
-  ] ++ lib.optionals stdenv.isDarwin [
-    ApplicationServices
-    Carbon
-    Cocoa
-    VideoToolbox
-  ] ++ lib.optionals stdenv.isLinux [
-    dbus
-    libva
-    gst_all_1.gst-plugins-base
-    xorg.libXext
-    xorg.libXft
-    xorg.libXinerama
-    xorg.libXcursor
-    xorg.libXrender
-    xorg.libXfixes
-    xorg.libXtst
-    xorg.libXrandr
-    xorg.libXcomposite
-    xorg.libXi
-    xorg.libXv
-    pango
-    libdrm
-  ];
+  buildInputs =
+    [
+      ffmpeg
+      x264
+    ] ++ lib.optionals stdenv.isDarwin [
+      ApplicationServices
+      Carbon
+      Cocoa
+      VideoToolbox
+    ] ++ lib.optionals stdenv.isLinux [
+      dbus
+      libva
+      gst_all_1.gst-plugins-base
+      xorg.libXext
+      xorg.libXft
+      xorg.libXinerama
+      xorg.libXcursor
+      xorg.libXrender
+      xorg.libXfixes
+      xorg.libXtst
+      xorg.libXrandr
+      xorg.libXcomposite
+      xorg.libXi
+      xorg.libXv
+      pango
+      libdrm
+    ]
+    ;
 
-  nativeBuildInputs = [
-    cmake
-    git
-    nodePackages.typescript
-    makeWrapper
-  ] ++ lib.optionals stdenv.isLinux [
-    pkg-config
-    autoconf
-    libtool
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      git
+      nodePackages.typescript
+      makeWrapper
+    ] ++ lib.optionals stdenv.isLinux [
+      pkg-config
+      autoconf
+      libtool
+    ]
+    ;
 
   cargoLock = {
     lockFile = ./Cargo.lock;

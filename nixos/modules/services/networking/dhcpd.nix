@@ -44,17 +44,19 @@ let
           writeConfig postfix cfg
         ;
       leaseFile = "/var/lib/dhcpd${postfix}/dhcpd.leases";
-      args = [
-        "@${pkgs.dhcp}/sbin/dhcpd"
-        "dhcpd${postfix}"
-        "-${postfix}"
-        "-pf"
-        "/run/dhcpd${postfix}/dhcpd.pid"
-        "-cf"
-        configFile
-        "-lf"
-        leaseFile
-      ] ++ cfg.extraFlags ++ cfg.interfaces;
+      args =
+        [
+          "@${pkgs.dhcp}/sbin/dhcpd"
+          "dhcpd${postfix}"
+          "-${postfix}"
+          "-pf"
+          "/run/dhcpd${postfix}/dhcpd.pid"
+          "-cf"
+          configFile
+          "-lf"
+          leaseFile
+        ] ++ cfg.extraFlags ++ cfg.interfaces
+        ;
     in
     optionalAttrs cfg.enable {
       "dhcpd${postfix}" = {
@@ -211,7 +213,8 @@ let
 in
 {
 
-  imports = [
+  imports =
+    [
       (mkRenamedOptionModule [
         "services"
         "dhcpd"
@@ -231,7 +234,8 @@ in
         The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
         This means the directory is named after the service (dhcpd${postfix}), created under
         /var/lib/private/ and symlinked to /var/lib/.
-      '');
+      '')
+    ;
 
     ###### interface
 

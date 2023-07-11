@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   outputBin = "dev";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libpanel/${
+    url =
+      "mirror://gnome/sources/libpanel/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "2QVbu6uWJfP1zm0f1xMutuo0proHqH6ZOJAfuLMVgeI=";

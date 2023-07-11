@@ -44,8 +44,10 @@ python3.pkgs.buildPythonApplication rec {
       hatchling
     ] ++ (with qt6; [ wrapQtAppsHook ]);
 
-  buildInputs = lib.optionals stdenv.isLinux [ qt6.qtwayland ]
-    ++ lib.optionals stdenv.isDarwin [ qt6.qtbase ];
+  buildInputs =
+    lib.optionals stdenv.isLinux [ qt6.qtwayland ]
+    ++ lib.optionals stdenv.isDarwin [ qt6.qtbase ]
+    ;
 
   propagatedBuildInputs = with python3.pkgs; [
     dateparser

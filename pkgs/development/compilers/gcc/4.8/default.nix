@@ -89,7 +89,8 @@ let
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  patches = [ ../parallel-bconfig.patch ]
+  patches =
+    [ ../parallel-bconfig.patch ]
     ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional langFortran ../gfortran-driving.patch
@@ -113,7 +114,8 @@ let
         includes = [ "gcc/reload.h" ];
         sha256 = "sha256-66AMP7/ajunGKAN5WJz/yPn42URZ2KN51yPrFdsxEuM=";
       })
-    ];
+    ]
+    ;
 
   javaEcj = fetchurl {
     # The `$(top_srcdir)/ecj.jar' file is automatically picked up at
@@ -143,7 +145,9 @@ let
     xorgproto
   ];
 
-  javaAwtGtk = langJava && x11Support;
+  javaAwtGtk =
+    langJava && x11Support
+    ;
 
     # Cross-gcc settings (build == host != target)
   crossMingw =

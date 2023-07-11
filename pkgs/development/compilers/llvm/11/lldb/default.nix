@@ -37,46 +37,51 @@ stdenv.mkDerivation (rec {
     "dev"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    python3
-    which
-    swig
-    lit
-    makeWrapper
-  ] ++ lib.optionals enableManpages [
-    python3.pkgs.sphinx
-    python3.pkgs.recommonmark
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      python3
+      which
+      swig
+      lit
+      makeWrapper
+    ] ++ lib.optionals enableManpages [
+      python3.pkgs.sphinx
+      python3.pkgs.recommonmark
+    ]
+    ;
 
-  buildInputs = [
-    ncurses
-    zlib
-    libedit
-    libxml2
-    libllvm
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.libobjc
-    darwin.apple_sdk.libs.xpc
-    darwin.apple_sdk.frameworks.Foundation
-    darwin.bootstrap_cmds
-    darwin.apple_sdk.frameworks.Carbon
-    darwin.apple_sdk.frameworks.Cocoa
-  ];
+  buildInputs =
+    [
+      ncurses
+      zlib
+      libedit
+      libxml2
+      libllvm
+    ] ++ lib.optionals stdenv.isDarwin [
+      darwin.libobjc
+      darwin.apple_sdk.libs.xpc
+      darwin.apple_sdk.frameworks.Foundation
+      darwin.bootstrap_cmds
+      darwin.apple_sdk.frameworks.Carbon
+      darwin.apple_sdk.frameworks.Cocoa
+    ]
+    ;
 
   hardeningDisable = [ "format" ];
 
-  cmakeFlags = [
-    "-DLLDB_INCLUDE_TESTS=${
-      if doCheck then
-        "YES"
-      else
-        "NO"
-    }"
-    "-DLLVM_ENABLE_RTTI=OFF"
-    "-DClang_DIR=${libclang.dev}/lib/cmake"
-    "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
+  cmakeFlags =
+    [
+      "-DLLDB_INCLUDE_TESTS=${
+        if doCheck then
+          "YES"
+        else
+          "NO"
+      }"
+      "-DLLVM_ENABLE_RTTI=OFF"
+      "-DClang_DIR=${libclang.dev}/lib/cmake"
+      "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
+    ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
     ++ lib.optionals (!stdenv.isDarwin) [
       "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
     ] ++ lib.optionals enableManpages [
@@ -86,7 +91,8 @@ stdenv.mkDerivation (rec {
     ] ++ lib.optionals doCheck [
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
-    ];
+    ]
+    ;
 
   doCheck = false;
 

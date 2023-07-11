@@ -343,8 +343,10 @@ in
       libGL
       xorg.libX11
     ];
-    makeFlags = lib.optional stdenv.hostPlatform.isAarch32 "platform=armv-unix"
-      ++ lib.optional (!stdenv.hostPlatform.isx86) "DESMUME_JIT=0";
+    makeFlags =
+      lib.optional stdenv.hostPlatform.isAarch32 "platform=armv-unix"
+      ++ lib.optional (!stdenv.hostPlatform.isx86) "DESMUME_JIT=0"
+      ;
     meta = {
       description = "Port of DeSmuME to libretro";
       license = lib.licenses.gpl2Plus;
@@ -359,8 +361,10 @@ in
       libGL
       xorg.libX11
     ];
-    makeFlags = lib.optional stdenv.hostPlatform.isAarch32 "platform=armv-unix"
-      ++ lib.optional (!stdenv.hostPlatform.isx86) "DESMUME_JIT=0";
+    makeFlags =
+      lib.optional stdenv.hostPlatform.isAarch32 "platform=armv-unix"
+      ++ lib.optional (!stdenv.hostPlatform.isx86) "DESMUME_JIT=0"
+      ;
     preBuild = "cd desmume";
     meta = {
       description = "Port of DeSmuME ~2015 to libretro";
@@ -375,27 +379,29 @@ in
       curl
       pkg-config
     ];
-    extraBuildInputs = [
-      libGLU
-      libGL
-      pcre
-      sfml
-      gettext
-      hidapi
-      libevdev
-      udev
-    ] ++ (with xorg; [
-      libSM
-      libX11
-      libXi
-      libpthreadstubs
-      libxcb
-      xcbutil
-      libXext
-      libXrandr
-      libXinerama
-      libXxf86vm
-    ]);
+    extraBuildInputs =
+      [
+        libGLU
+        libGL
+        pcre
+        sfml
+        gettext
+        hidapi
+        libevdev
+        udev
+      ] ++ (with xorg; [
+        libSM
+        libX11
+        libXi
+        libpthreadstubs
+        libxcb
+        xcbutil
+        libXext
+        libXrandr
+        libXinerama
+        libXxf86vm
+      ])
+      ;
     makefile = "Makefile";
     cmakeFlags = [
       "-DLIBRETRO=ON"

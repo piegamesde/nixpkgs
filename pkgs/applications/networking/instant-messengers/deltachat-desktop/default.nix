@@ -70,11 +70,13 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-cTvNU4LO74pcw4Ybo9iftEis2yDA2SqGtrs4v+xAi5c=";
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-    python3
-  ] ++ lib.optionals stdenv.isLinux [ copyDesktopItems ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      pkg-config
+      python3
+    ] ++ lib.optionals stdenv.isLinux [ copyDesktopItems ]
+    ;
 
   buildInputs =
     [ libdeltachat' ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];

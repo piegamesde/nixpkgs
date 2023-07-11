@@ -46,7 +46,8 @@ import ./versions.nix ({
     inherit version;
 
     src = fetchurl {
-      url = "https://cdn.zabbix.com/zabbix/sources/stable/${
+      url =
+        "https://cdn.zabbix.com/zabbix/sources/stable/${
           lib.versions.majorMinor version
         }/zabbix-${version}.tar.gz";
       inherit sha256;
@@ -56,37 +57,41 @@ import ./versions.nix ({
       autoreconfHook
       pkg-config
     ];
-    buildInputs = [
-      curl
-      libevent
-      libiconv
-      libxml2
-      openssl
-      pcre
-      zlib
-    ] ++ optional odbcSupport unixODBC ++ optional jabberSupport iksemel
+    buildInputs =
+      [
+        curl
+        libevent
+        libiconv
+        libxml2
+        openssl
+        pcre
+        zlib
+      ] ++ optional odbcSupport unixODBC ++ optional jabberSupport iksemel
       ++ optional ldapSupport openldap ++ optional snmpSupport net-snmp
       ++ optional sshSupport libssh2 ++ optional mysqlSupport libmysqlclient
-      ++ optional postgresqlSupport postgresql ++ optional ipmiSupport openipmi;
+      ++ optional postgresqlSupport postgresql ++ optional ipmiSupport openipmi
+      ;
 
-    configureFlags = [
-      "--enable-ipv6"
-      "--enable-server"
-      "--with-iconv"
-      "--with-libcurl"
-      "--with-libevent"
-      "--with-libpcre"
-      "--with-libxml2"
-      "--with-openssl=${openssl.dev}"
-      "--with-zlib=${zlib}"
-    ] ++ optional odbcSupport "--with-unixodbc"
+    configureFlags =
+      [
+        "--enable-ipv6"
+        "--enable-server"
+        "--with-iconv"
+        "--with-libcurl"
+        "--with-libevent"
+        "--with-libpcre"
+        "--with-libxml2"
+        "--with-openssl=${openssl.dev}"
+        "--with-zlib=${zlib}"
+      ] ++ optional odbcSupport "--with-unixodbc"
       ++ optional jabberSupport "--with-jabber"
       ++ optional ldapSupport "--with-ldap=${openldap.dev}"
       ++ optional snmpSupport "--with-net-snmp"
       ++ optional sshSupport "--with-ssh2=${libssh2.dev}"
       ++ optional mysqlSupport "--with-mysql"
       ++ optional postgresqlSupport "--with-postgresql"
-      ++ optional ipmiSupport "--with-openipmi=${openipmi.dev}";
+      ++ optional ipmiSupport "--with-openipmi=${openipmi.dev}"
+      ;
 
     prePatch = ''
       find database -name data.sql -exec sed -i 's|/usr/bin/||g' {} +
@@ -99,16 +104,18 @@ import ./versions.nix ({
       done
     '';
 
-    postInstall = ''
-      mkdir -p $out/share/zabbix/database/
-      cp -r include $out/
-    '' + optionalString mysqlSupport ''
-      mkdir -p $out/share/zabbix/database/mysql
-      cp -prvd database/mysql/*.sql $out/share/zabbix/database/mysql/
-    '' + optionalString postgresqlSupport ''
-      mkdir -p $out/share/zabbix/database/postgresql
-      cp -prvd database/postgresql/*.sql $out/share/zabbix/database/postgresql/
-    '';
+    postInstall =
+      ''
+        mkdir -p $out/share/zabbix/database/
+        cp -r include $out/
+      '' + optionalString mysqlSupport ''
+        mkdir -p $out/share/zabbix/database/mysql
+        cp -prvd database/mysql/*.sql $out/share/zabbix/database/mysql/
+      '' + optionalString postgresqlSupport ''
+        mkdir -p $out/share/zabbix/database/postgresql
+        cp -prvd database/postgresql/*.sql $out/share/zabbix/database/postgresql/
+      ''
+      ;
 
     meta = with lib; {
       description =

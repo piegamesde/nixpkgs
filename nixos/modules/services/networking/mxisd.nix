@@ -144,11 +144,12 @@ in
             mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
           ExecStart =
             "${cfg.package}/bin/${executable} -c ${cfg.dataDir}/mxisd-config.yaml";
-          ExecStartPre = "${pkgs.writeShellScript "mxisd-substitute-secrets" ''
-            umask 0077
-            ${pkgs.envsubst}/bin/envsubst -o ${cfg.dataDir}/mxisd-config.yaml \
-              -i ${configFile}
-          ''}";
+          ExecStartPre =
+            "${pkgs.writeShellScript "mxisd-substitute-secrets" ''
+              umask 0077
+              ${pkgs.envsubst}/bin/envsubst -o ${cfg.dataDir}/mxisd-config.yaml \
+                -i ${configFile}
+            ''}";
           WorkingDirectory = cfg.dataDir;
           Restart = "on-failure";
         }

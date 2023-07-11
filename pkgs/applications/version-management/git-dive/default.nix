@@ -28,21 +28,24 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libgit2_1_5
-    oniguruma
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs =
+    [
+      libgit2_1_5
+      oniguruma
+      zlib
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
+    ;
 
   nativeCheckInputs = [ git ];
 
     # don't use vendored libgit2
   buildNoDefaultFeatures = true;
 
-  checkFlags = [
-    # requires internet access
-    "--skip=screenshot"
-  ];
+  checkFlags =
+    [
+      # requires internet access
+      "--skip=screenshot"
+    ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

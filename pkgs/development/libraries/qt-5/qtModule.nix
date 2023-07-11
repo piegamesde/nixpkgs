@@ -26,16 +26,19 @@ mkDerivation (args // {
   inherit pname version src;
   patches = (args.patches or [ ]) ++ (patches.${pname} or [ ]);
 
-  nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
-    perl
-    self.qmake
-  ];
+  nativeBuildInputs =
+    (args.nativeBuildInputs or [ ]) ++ [
+      perl
+      self.qmake
+    ]
+    ;
   propagatedBuildInputs = args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
 
-  outputs = args.outputs or [
-    "out"
-    "dev"
-  ];
+  outputs =
+    args.outputs or [
+      "out"
+      "dev"
+    ];
   setOutputFlags = args.setOutputFlags or false;
 
   preHook = ''
@@ -43,14 +46,15 @@ mkDerivation (args // {
     . ${./hooks/fix-qt-builtin-paths.sh}
   '';
 
-  preConfigure = ''
-    ${args.preConfigure or ""}
+  preConfigure =
+    ''
+      ${args.preConfigure or ""}
 
-    fixQtBuiltinPaths . '*.pr?'
-  '' + lib.optionalString (builtins.compareVersions "5.15.0" version <= 0)
-  # Note: We use ${version%%-*} to remove any tag from the end of the version
-  # string. Version tags are added by Nixpkgs maintainers and not reflected in
-  # the source version.
+      fixQtBuiltinPaths . '*.pr?'
+    '' + lib.optionalString (builtins.compareVersions "5.15.0" version <= 0)
+    # Note: We use ${version%%-*} to remove any tag from the end of the version
+    # string. Version tags are added by Nixpkgs maintainers and not reflected in
+    # the source version.
     ''
       if [[ -z "$dontCheckQtModuleVersion" ]] \
           && grep -q '^MODULE_VERSION' .qmake.conf 2>/dev/null \
@@ -64,7 +68,8 @@ mkDerivation (args // {
       if [[ -z "$dontSyncQt" && -f sync.profile ]]; then
         syncqt.pl -version "''${version%%-*}"
       fi
-    '';
+    ''
+    ;
 
   dontWrapQtApps = args.dontWrapQtApps or true;
 

@@ -36,13 +36,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1we2NC4N8oY4QmmqIIWGSpTBuLx3MEFkZK+BjmNEfD0=";
   };
 
-  preConfigure = lib.concatStringsSep "\n" (lib.mapAttrsToList
-    (name: params: "ln -s ${fetchurl params} $PWD/src/${name}")
-    (import ./deps.nix)) + ''
+  preConfigure =
+    lib.concatStringsSep "\n" (lib.mapAttrsToList
+      (name: params: "ln -s ${fetchurl params} $PWD/src/${name}")
+      (import ./deps.nix)) + ''
 
-      cd src
-      make deps
-    '';
+        cd src
+        make deps
+      ''
+    ;
 
   postBuild = ''
     make curses

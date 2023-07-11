@@ -39,41 +39,47 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "U6b7KxkK03xZhsrtPpi+3nw8YCOZ7k+TyPwFQwPXbas=";
   };
 
-  patches = [
-    # Needed for wingpanel-indicator-network and switchboard-plug-network
-    ./hardcode-gsettings.patch
-  ];
-
-  nativeBuildInputs = [
-    meson
-    ninja
-    gettext
-    pkg-config
-    gobject-introspection
-    gtk-doc
-    docbook_xsl
-    docbook_xml_dtd_43
-    libxml2
-    vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
+  patches =
+    [
+      # Needed for wingpanel-indicator-network and switchboard-plug-network
+      ./hardcode-gsettings.patch
     ];
 
-  buildInputs = [
-    gtk3
-    networkmanager
-    isocodes
-    mobile-broadband-provider-info
-  ] ++ lib.optionals withGtk4 [ gtk4 ] ++ lib.optionals withGnome [
-    # advanced certificate chooser
-    gcr_4
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      gettext
+      pkg-config
+      gobject-introspection
+      gtk-doc
+      docbook_xsl
+      docbook_xml_dtd_43
+      libxml2
+      vala
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ]
+    ;
+
+  buildInputs =
+    [
+      gtk3
+      networkmanager
+      isocodes
+      mobile-broadband-provider-info
+    ] ++ lib.optionals withGtk4 [ gtk4 ] ++ lib.optionals withGnome [
+      # advanced certificate chooser
+      gcr_4
+    ]
+    ;
 
   mesonFlags = [
     "-Dgcr=${lib.boolToString withGnome}"

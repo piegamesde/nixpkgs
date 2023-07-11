@@ -37,12 +37,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    keybinder3
-    python3Packages.python
-    xfce.xfce4-panel
-    xfce.xfconf
-  ] ++ pythonPath;
+  buildInputs =
+    [
+      keybinder3
+      python3Packages.python
+      xfce.xfce4-panel
+      xfce.xfconf
+    ] ++ pythonPath
+    ;
 
   postPatch = ''
     # We execute the wrapped xfce4-panel-plug directly.

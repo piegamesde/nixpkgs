@@ -64,13 +64,15 @@ stdenv.mkDerivation rec {
     pkg-config
     makeWrapper
   ];
-  buildInputs = [
-    luaEnv
-    harfbuzz
-    icu
-    fontconfig
-    libiconv
-  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit;
+  buildInputs =
+    [
+      luaEnv
+      harfbuzz
+      icu
+      fontconfig
+      libiconv
+    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit
+    ;
   passthru = {
     # So it will be easier to inspect this environment, in comparison to others
     inherit
@@ -91,11 +93,13 @@ stdenv.mkDerivation rec {
       '');
   };
 
-  postPatch = ''
-    patchShebangs build-aux/*.sh
-  '' + lib.optionalString stdenv.isDarwin ''
-    sed -i -e 's|@import AppKit;|#import <AppKit/AppKit.h>|' src/macfonts.m
-  '';
+  postPatch =
+    ''
+      patchShebangs build-aux/*.sh
+    '' + lib.optionalString stdenv.isDarwin ''
+      sed -i -e 's|@import AppKit;|#import <AppKit/AppKit.h>|' src/macfonts.m
+    ''
+    ;
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AppKit";
 

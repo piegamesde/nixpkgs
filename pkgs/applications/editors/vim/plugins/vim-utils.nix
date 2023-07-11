@@ -169,9 +169,7 @@ let
     ;
 
   findDependenciesRecursively =
-    plugins:
-    lib.concatMap transitiveClosure plugins
-    ;
+    plugins: lib.concatMap transitiveClosure plugins;
 
   vamDictToNames =
     x:
@@ -286,15 +284,17 @@ let
 
     let
       # vim-plug is an extremely popular vim plugin manager.
-      plugImpl = ''
-        source ${vimPlugins.vim-plug}/plug.vim
-        silent! call plug#begin('/dev/null')
+      plugImpl =
+        ''
+          source ${vimPlugins.vim-plug}/plug.vim
+          silent! call plug#begin('/dev/null')
 
-      '' + (lib.concatMapStringsSep "\n" (pkg: "Plug '${pkg}'") plug.plugins)
+        '' + (lib.concatMapStringsSep "\n" (pkg: "Plug '${pkg}'") plug.plugins)
         + ''
 
           call plug#end()
-        '';
+        ''
+        ;
 
         # vim-addon-manager = VAM (deprecated)
       vamImpl =
@@ -311,12 +311,14 @@ let
         nativeImpl vamPackages
         ;
 
-      entries = [ beforePlugins ] ++ lib.optional (vam != null) (lib.warn
-        "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration"
-        vamImpl) ++ lib.optional (packages != null && packages != [ ])
+      entries =
+        [ beforePlugins ] ++ lib.optional (vam != null) (lib.warn
+          "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration"
+          vamImpl) ++ lib.optional (packages != null && packages != [ ])
         (nativeImpl packages) ++ lib.optional (pathogen != null) (throw
           "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`")
-        ++ lib.optional (plug != null) plugImpl ++ [ customRC ];
+        ++ lib.optional (plug != null) plugImpl ++ [ customRC ]
+        ;
 
     in
     lib.concatStringsSep "\n" (lib.filter (x: x != null && x != "") entries)
@@ -466,9 +468,8 @@ rec {
       };
     } ./neovim-require-check-hook.sh) { };
 
-  inherit (import ./build-vim-plugin.nix {
-    inherit lib stdenv rtpPath toVimPlugin;
-  })
+  inherit
+    (import ./build-vim-plugin.nix { inherit lib stdenv rtpPath toVimPlugin; })
     buildVimPlugin
     buildVimPluginFrom2Nix
     ;
@@ -507,13 +508,15 @@ rec {
         "info"
       ];
 
-      nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ]
+      nativeBuildInputs =
+        oldAttrs.nativeBuildInputs or [ ]
         ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
           vimCommandCheckHook
           vimGenDocHook
           # many neovim plugins keep using buildVimPlugin
           neovimRequireCheckHook
-        ];
+        ]
+        ;
 
       passthru = (oldAttrs.passthru or { }) // { vimPlugin = true; };
     })

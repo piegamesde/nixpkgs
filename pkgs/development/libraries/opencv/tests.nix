@@ -13,33 +13,37 @@
   xvfb-run,
 }:
 let
-  testNames = [
-    "calib3d"
-    "core"
-    "features2d"
-    "flann"
-    "imgcodecs"
-    "imgproc"
-    "ml"
-    "objdetect"
-    "photo"
-    "stitching"
-    "video"
-    #"videoio" # - a lot of GStreamer warnings and failed tests
-    #"dnn" #- some caffe tests failed, probably because github workflow also downloads additional models
-  ] ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ]
-    ++ lib.optionals (enableGtk2 || enableGtk3) [ "highgui" ];
-  perfTestNames = [
-    "calib3d"
-    "core"
-    "features2d"
-    "imgcodecs"
-    "imgproc"
-    "objdetect"
-    "photo"
-    "stitching"
-    "video"
-  ] ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ];
+  testNames =
+    [
+      "calib3d"
+      "core"
+      "features2d"
+      "flann"
+      "imgcodecs"
+      "imgproc"
+      "ml"
+      "objdetect"
+      "photo"
+      "stitching"
+      "video"
+      #"videoio" # - a lot of GStreamer warnings and failed tests
+      #"dnn" #- some caffe tests failed, probably because github workflow also downloads additional models
+    ] ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ]
+    ++ lib.optionals (enableGtk2 || enableGtk3) [ "highgui" ]
+    ;
+  perfTestNames =
+    [
+      "calib3d"
+      "core"
+      "features2d"
+      "imgcodecs"
+      "imgproc"
+      "objdetect"
+      "photo"
+      "stitching"
+      "video"
+    ] ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ]
+    ;
   testRunner =
     if stdenv.isDarwin then
       ""

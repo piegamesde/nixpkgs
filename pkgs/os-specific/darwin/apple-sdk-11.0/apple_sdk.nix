@@ -310,25 +310,29 @@ rec {
           JavaVM = super.JavaNativeFoundation;
 
           CoreVideo = lib.overrideDerivation super.CoreVideo (drv: {
-            installPhase = drv.installPhase + ''
-              # When used as a module, complains about a missing import for
-              # Darwin.C.stdint. Apparently fixed in later SDKs.
-              awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
-                $out/Library/Frameworks/CoreVideo.framework/Headers/CVBase.h
-            '';
+            installPhase =
+              drv.installPhase + ''
+                # When used as a module, complains about a missing import for
+                # Darwin.C.stdint. Apparently fixed in later SDKs.
+                awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
+                  $out/Library/Frameworks/CoreVideo.framework/Headers/CVBase.h
+              ''
+              ;
           });
 
           System = lib.overrideDerivation super.System (drv: {
-            installPhase = drv.installPhase + ''
-              # Contrarily to the other frameworks, System framework's TBD file
-              # is a symlink pointing to ${MacOSX-SDK}/usr/lib/libSystem.B.tbd.
-              # This produces an error when installing the framework as:
-              #   1. The original file is not copied into the output directory
-              #   2. Even if it was copied, the relative path wouldn't match
-              # Thus, it is easier to replace the file than to fix the symlink.
-              cp --remove-destination ${MacOSX-SDK}/usr/lib/libSystem.B.tbd \
-                $out/Library/Frameworks/System.framework/Versions/B/System.tbd
-            '';
+            installPhase =
+              drv.installPhase + ''
+                # Contrarily to the other frameworks, System framework's TBD file
+                # is a symlink pointing to ${MacOSX-SDK}/usr/lib/libSystem.B.tbd.
+                # This produces an error when installing the framework as:
+                #   1. The original file is not copied into the output directory
+                #   2. Even if it was copied, the relative path wouldn't match
+                # Thus, it is easier to replace the file than to fix the symlink.
+                cp --remove-destination ${MacOSX-SDK}/usr/lib/libSystem.B.tbd \
+                  $out/Library/Frameworks/System.framework/Versions/B/System.tbd
+              ''
+              ;
           });
         }
         ;

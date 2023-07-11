@@ -520,8 +520,10 @@ in
 
     assertions = [
       {
-        assertion = cfg.database.createLocally
-          -> (cfg.database.type == "mysql" || cfg.database.type == "postgres");
+        assertion =
+          cfg.database.createLocally
+          -> (cfg.database.type == "mysql" || cfg.database.type == "postgres")
+          ;
         message =
           "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'";
       }
@@ -594,35 +596,39 @@ in
         cfg.httpd.virtualHost
         {
           documentRoot = mkForce "${pkg}/share/mediawiki";
-          extraConfig = ''
-            <Directory "${pkg}/share/mediawiki">
-              <FilesMatch "\.php$">
-                <If "-f %{REQUEST_FILENAME}">
-                  SetHandler "proxy:unix:${fpm.socket}|fcgi://localhost/"
-                </If>
-              </FilesMatch>
+          extraConfig =
+            ''
+              <Directory "${pkg}/share/mediawiki">
+                <FilesMatch "\.php$">
+                  <If "-f %{REQUEST_FILENAME}">
+                    SetHandler "proxy:unix:${fpm.socket}|fcgi://localhost/"
+                  </If>
+                </FilesMatch>
 
-              Require all granted
-              DirectoryIndex index.php
-              AllowOverride All
-            </Directory>
-          '' + optionalString (cfg.uploadsDir != null) ''
-            Alias "/images" "${cfg.uploadsDir}"
-            <Directory "${cfg.uploadsDir}">
-              Require all granted
-            </Directory>
-          '';
+                Require all granted
+                DirectoryIndex index.php
+                AllowOverride All
+              </Directory>
+            '' + optionalString (cfg.uploadsDir != null) ''
+              Alias "/images" "${cfg.uploadsDir}"
+              <Directory "${cfg.uploadsDir}">
+                Require all granted
+              </Directory>
+            ''
+            ;
         }
       ];
     };
 
-    systemd.tmpfiles.rules = [
-      "d '${stateDir}' 0750 ${user} ${group} - -"
-      "d '${cacheDir}' 0750 ${user} ${group} - -"
-    ] ++ optionals (cfg.uploadsDir != null) [
-      "d '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
-      "Z '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
-    ];
+    systemd.tmpfiles.rules =
+      [
+        "d '${stateDir}' 0750 ${user} ${group} - -"
+        "d '${cacheDir}' 0750 ${user} ${group} - -"
+      ] ++ optionals (cfg.uploadsDir != null) [
+        "d '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
+        "Z '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
+      ]
+      ;
 
     systemd.services.mediawiki-init = {
       wantedBy = [ "multi-user.target" ];
@@ -631,7 +637,8 @@ in
         optional (cfg.database.type == "mysql" && cfg.database.createLocally)
         "mysql.service" ++ optional
         (cfg.database.type == "postgres" && cfg.database.createLocally)
-        "postgresql.service";
+        "postgresql.service"
+        ;
       script = ''
         if ! test -e "${stateDir}/secret.key"; then
           tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c 64 > ${stateDir}/secret.key
@@ -670,11 +677,12 @@ in
       };
     };
 
-    systemd.services.httpd.after = optional (cfg.webserver == "apache"
-      && cfg.database.createLocally && cfg.database.type == "mysql")
-      "mysql.service" ++ optional (cfg.webserver == "apache"
-        && cfg.database.createLocally && cfg.database.type == "postgres")
-      "postgresql.service";
+    systemd.services.httpd.after =
+      optional (cfg.webserver == "apache" && cfg.database.createLocally
+        && cfg.database.type == "mysql") "mysql.service" ++ optional
+      (cfg.webserver == "apache" && cfg.database.createLocally
+        && cfg.database.type == "postgres") "postgresql.service"
+      ;
 
     users.users.${user} = {
       group = group;

@@ -37,19 +37,21 @@ stdenv.mkDerivation rec {
     ./disable-ubsan.patch
   ];
 
-  buildInputs = [
-    freetype
-    gtk3-x11
-    pcre
-    xorg.libX11
-    xorg.libXrandr
-  ] ++ lib.optionals stdenv.isLinux [ webkitgtk ]
+  buildInputs =
+    [
+      freetype
+      gtk3-x11
+      pcre
+      xorg.libX11
+      xorg.libXrandr
+    ] ++ lib.optionals stdenv.isLinux [ webkitgtk ]
     ++ lib.optionals stdenv.isDarwin [
       WebKit
       MetalKit
       CoreAudioKit
       simd
-    ];
+    ]
+    ;
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 

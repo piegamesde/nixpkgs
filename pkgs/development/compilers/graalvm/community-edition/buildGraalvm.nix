@@ -52,9 +52,7 @@ let
       gtk3
     ]);
   mapProducts =
-    key: default:
-    (map (p: p.graalvmPhases.${key} or default) products)
-    ;
+    key: default: (map (p: p.graalvmPhases.${key} or default) products);
   concatProducts = key: lib.concatStringsSep "\n" (mapProducts key "");
 
   graalvmXXX-ce = stdenv.mkDerivation ({
@@ -101,15 +99,19 @@ let
 
     dontStrip = true;
 
-    nativeBuildInputs = [
-      unzip
-      makeWrapper
-    ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+    nativeBuildInputs =
+      [
+        unzip
+        makeWrapper
+      ] ++ lib.optional stdenv.isLinux autoPatchelfHook
+      ;
 
-    propagatedBuildInputs = [
-      setJavaClassPath
-      zlib
-    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation;
+    propagatedBuildInputs =
+      [
+        setJavaClassPath
+        zlib
+      ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation
+      ;
 
     buildInputs = lib.optionals stdenv.isLinux [
       alsa-lib # libasound.so wanted by lib/libjsound.so
@@ -123,23 +125,27 @@ let
     ];
 
     preInstall = concatProducts "preInstall";
-    postInstall = ''
-      # jni.h expects jni_md.h to be in the header search path.
-      ln -sf $out/include/linux/*_md.h $out/include/
+    postInstall =
+      ''
+        # jni.h expects jni_md.h to be in the header search path.
+        ln -sf $out/include/linux/*_md.h $out/include/
 
-      # copy-paste openjdk's preFixup
-      # Set JAVA_HOME automatically.
-      mkdir -p $out/nix-support
-      cat > $out/nix-support/setup-hook << EOF
-        if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
-      EOF
-    '' + concatProducts "postInstall";
+        # copy-paste openjdk's preFixup
+        # Set JAVA_HOME automatically.
+        mkdir -p $out/nix-support
+        cat > $out/nix-support/setup-hook << EOF
+          if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
+        EOF
+      '' + concatProducts "postInstall"
+      ;
 
-    preFixup = lib.optionalString (stdenv.isLinux) ''
-      for bin in $(find "$out/bin" -executable -type f); do
-        wrapProgram "$bin" --prefix LD_LIBRARY_PATH : "${runtimeLibraryPath}"
-      done
-    '' + concatProducts "preFixup";
+    preFixup =
+      lib.optionalString (stdenv.isLinux) ''
+        for bin in $(find "$out/bin" -executable -type f); do
+          wrapProgram "$bin" --prefix LD_LIBRARY_PATH : "${runtimeLibraryPath}"
+        done
+      '' + concatProducts "preFixup"
+      ;
     postFixup = concatProducts "postFixup";
 
     doInstallCheck = true;

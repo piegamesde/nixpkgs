@@ -17,8 +17,10 @@ let
     ''
     ;
 
-  allowSystemdJournal = cfg.configuration ? scrape_configs
-    && lib.any (v: v ? journal) cfg.configuration.scrape_configs;
+  allowSystemdJournal =
+    cfg.configuration ? scrape_configs
+    && lib.any (v: v ? journal) cfg.configuration.scrape_configs
+    ;
 
   allowPositionsFile = !lib.hasPrefix "/var/cache/promtail" positionsFile;
   positionsFile = cfg.configuration.positions.filename;
@@ -58,7 +60,8 @@ in
         Restart = "on-failure";
         TimeoutStopSec = 10;
 
-        ExecStart = "${pkgs.promtail}/bin/promtail -config.file=${
+        ExecStart =
+          "${pkgs.promtail}/bin/promtail -config.file=${
             prettyJSON cfg.configuration
           } ${escapeShellArgs cfg.extraFlags}";
 

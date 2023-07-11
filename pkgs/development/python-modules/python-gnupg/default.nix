@@ -29,10 +29,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # network access
-    "test_search_keys"
-  ];
+  disabledTests =
+    [
+      # network access
+      "test_search_keys"
+    ];
 
   pythonImportsCheck = [ "gnupg" ];
 

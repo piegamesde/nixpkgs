@@ -55,15 +55,17 @@ mkDerivation rec {
     ln -s ${pyTable} modules/pinyinhelper/$(stripHash ${pyTable})
   '';
 
-  buildInputs = [
-    fcitx5
-    fcitx5-qt
-    libime
-    curl
-    opencc
-    qtwebengine
-    fmt
-  ] ++ lib.optional luaSupport fcitx5-lua;
+  buildInputs =
+    [
+      fcitx5
+      fcitx5-qt
+      libime
+      curl
+      opencc
+      qtwebengine
+      fmt
+    ] ++ lib.optional luaSupport fcitx5-lua
+    ;
 
   meta = with lib; {
     description =

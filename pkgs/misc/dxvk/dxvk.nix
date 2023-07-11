@@ -70,12 +70,13 @@ stdenv.mkDerivation {
     meson
     ninja
   ];
-  buildInputs = lib.optionals isWindows [ windows.pthreads ]
-    ++ lib.optionals isDxvk2 ([
+  buildInputs =
+    lib.optionals isWindows [ windows.pthreads ] ++ lib.optionals isDxvk2 ([
       spirv-headers
       vulkan-headers
     ] ++ lib.optional (!isWindows && sdl2Support) SDL2
-      ++ lib.optional (!isWindows && glfwSupport) glfw);
+      ++ lib.optional (!isWindows && glfwSupport) glfw)
+    ;
 
   postPatch = lib.optionalString isDxvk2 ''
     substituteInPlace "subprojects/libdisplay-info/tool/gen-search-table.py" \

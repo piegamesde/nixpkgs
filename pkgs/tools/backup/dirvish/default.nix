@@ -17,11 +17,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ] ++ (with perlPackages; [
-    GetoptLong
-    TimeParseDate
-    TimePeriod
-  ]);
+  buildInputs =
+    [ perl ] ++ (with perlPackages; [
+      GetoptLong
+      TimeParseDate
+      TimePeriod
+    ])
+    ;
 
   executables = [
     "dirvish"

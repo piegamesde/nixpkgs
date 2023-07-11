@@ -30,15 +30,16 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   setOutputFlags = false; # some aren't supported
 
-  configureFlags = [
-    (lib.withFeature (!enableStatic) "shared")
-    "--without-debug"
-    "--enable-pc-files"
-    "--enable-symlinks"
-    "--with-manpage-format=normal"
-    "--disable-stripping"
-    "--with-versioned-syms"
-  ] ++ lib.optional unicodeSupport "--enable-widec"
+  configureFlags =
+    [
+      (lib.withFeature (!enableStatic) "shared")
+      "--without-debug"
+      "--enable-pc-files"
+      "--enable-symlinks"
+      "--with-manpage-format=normal"
+      "--disable-stripping"
+      "--with-versioned-syms"
+    ] ++ lib.optional unicodeSupport "--enable-widec"
     ++ lib.optional (!withCxx) "--without-cxx"
     ++ lib.optional (abiVersion == "5") "--with-abi-version=5"
     ++ lib.optional stdenv.hostPlatform.isNetBSD "--enable-rpath"
@@ -58,7 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
           "/run/current-system/sw/share/terminfo" # NixOS
         ]
       }"
-    ];
+    ]
+    ;
 
     # Only the C compiler, and explicitly not C++ compiler needs this flag on solaris:
   CFLAGS = lib.optionalString stdenv.isSunOS "-D_XOPEN_SOURCE_EXTENDED";
@@ -66,29 +68,33 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [ pkg-config ]
+  nativeBuildInputs =
+    [ pkg-config ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       buildPackages.ncurses
-    ];
+    ]
+    ;
 
   buildInputs = lib.optional (mouseSupport && stdenv.isLinux) gpm;
 
-  preConfigure = ''
-    export PKG_CONFIG_LIBDIR="$dev/lib/pkgconfig"
-    mkdir -p "$PKG_CONFIG_LIBDIR"
-    configureFlagsArray+=(
-      "--libdir=$out/lib"
-      "--includedir=$dev/include"
-      "--bindir=$dev/bin"
-      "--mandir=$man/share/man"
-      "--with-pkg-config-libdir=$PKG_CONFIG_LIBDIR"
-    )
-  '' + lib.optionalString stdenv.isSunOS ''
-    sed -i -e '/-D__EXTENSIONS__/ s/-D_XOPEN_SOURCE=\$cf_XOPEN_SOURCE//' \
-           -e '/CPPFLAGS="$CPPFLAGS/s/ -D_XOPEN_SOURCE_EXTENDED//' \
-        configure
-    CFLAGS=-D_XOPEN_SOURCE_EXTENDED
-  '';
+  preConfigure =
+    ''
+      export PKG_CONFIG_LIBDIR="$dev/lib/pkgconfig"
+      mkdir -p "$PKG_CONFIG_LIBDIR"
+      configureFlagsArray+=(
+        "--libdir=$out/lib"
+        "--includedir=$dev/include"
+        "--bindir=$dev/bin"
+        "--mandir=$man/share/man"
+        "--with-pkg-config-libdir=$PKG_CONFIG_LIBDIR"
+      )
+    '' + lib.optionalString stdenv.isSunOS ''
+      sed -i -e '/-D__EXTENSIONS__/ s/-D_XOPEN_SOURCE=\$cf_XOPEN_SOURCE//' \
+             -e '/CPPFLAGS="$CPPFLAGS/s/ -D_XOPEN_SOURCE_EXTENDED//' \
+          configure
+      CFLAGS=-D_XOPEN_SOURCE_EXTENDED
+    ''
+    ;
 
   enableParallelBuilding = true;
 
@@ -188,12 +194,14 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     pkgConfigModules =
       let
-        base = [
-          "form"
-          "menu"
-          "ncurses"
-          "panel"
-        ] ++ lib.optional withCxx "ncurses++";
+        base =
+          [
+            "form"
+            "menu"
+            "ncurses"
+            "panel"
+          ] ++ lib.optional withCxx "ncurses++"
+          ;
       in
       base ++ lib.optionals unicodeSupport (map (p: p + "w") base)
       ;

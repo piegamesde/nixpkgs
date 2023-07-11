@@ -33,7 +33,8 @@ let
     x86_64-linux = "amd64";
   };
 
-  data = all_data.${
+  data =
+    all_data.${
       system_map.${stdenv.hostPlatform.system} or (throw "Unsupported platform")
     };
 

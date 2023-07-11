@@ -19,7 +19,9 @@ buildPythonPackage rec {
   pname = "arelle${lib.optionalString (!gui) "-headless"}";
   version = "18.3";
 
-  disabled = !isPy3k;
+  disabled =
+    !isPy3k
+    ;
 
     # Releases are published at http://arelle.org/download/ but sadly no
     # tags are published on github.
@@ -39,23 +41,27 @@ buildPythonPackage rec {
     sphinx
     py3to2
   ];
-  propagatedBuildInputs = [
-    lxml
-    isodate
-    numpy
-    openpyxl
-  ] ++ lib.optionals gui [ tkinter ];
+  propagatedBuildInputs =
+    [
+      lxml
+      isodate
+      numpy
+      openpyxl
+    ] ++ lib.optionals gui [ tkinter ]
+    ;
 
     # arelle-gui is useless without gui dependencies, so delete it when !gui.
-  postInstall = lib.optionalString (!gui) ''
-    find $out/bin -name "*arelle-gui*" -delete
-  '' +
+  postInstall =
+    lib.optionalString (!gui) ''
+      find $out/bin -name "*arelle-gui*" -delete
+    '' +
     # By default, not the entirety of the src dir is copied. This means we don't
     # copy the `images` dir, which is needed for the gui version.
     lib.optionalString (gui) ''
       targetDir=$out/${python.sitePackages}
       cp -vr $src/arelle $targetDir
-    '';
+    ''
+    ;
 
     # Documentation
   postBuild = ''
@@ -69,10 +75,12 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = ''
-      An open source facility for XBRL, the eXtensible Business Reporting
-      Language supporting various standards, exposed through a Python or
-      REST API'' + lib.optionalString gui " and a graphical user interface";
+    description =
+      ''
+        An open source facility for XBRL, the eXtensible Business Reporting
+        Language supporting various standards, exposed through a Python or
+        REST API'' + lib.optionalString gui " and a graphical user interface"
+      ;
     homepage = "http://arelle.org/";
     license = licenses.asl20;
     platforms = platforms.all;

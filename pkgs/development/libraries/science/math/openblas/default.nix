@@ -143,8 +143,9 @@ let
 
 in
 let
-  config = configs.${stdenv.hostPlatform.system} or (throw
-    "unsupported system: ${stdenv.hostPlatform.system}");
+  config =
+    configs.${stdenv.hostPlatform.system} or (throw
+      "unsupported system: ${stdenv.hostPlatform.system}");
 
 in
 let
@@ -239,7 +240,8 @@ stdenv.mkDerivation rec {
 
   makeFlags = mkMakeFlagsFromConfig (config // {
     FC = "${stdenv.cc.targetPrefix}gfortran";
-    CC = "${stdenv.cc.targetPrefix}${
+    CC =
+      "${stdenv.cc.targetPrefix}${
         if stdenv.cc.isClang then
           "clang"
         else
@@ -278,36 +280,38 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkTarget = "tests";
 
-  postInstall = ''
-        # Write pkgconfig aliases. Upstream report:
-        # https://github.com/xianyi/OpenBLAS/issues/1740
-        for alias in blas cblas lapack; do
-          cat <<EOF > $out/lib/pkgconfig/$alias.pc
-    Name: $alias
-    Version: ${version}
-    Description: $alias provided by the OpenBLAS package.
-    Cflags: -I$dev/include
-    Libs: -L$out/lib -lopenblas
-    EOF
-        done
+  postInstall =
+    ''
+          # Write pkgconfig aliases. Upstream report:
+          # https://github.com/xianyi/OpenBLAS/issues/1740
+          for alias in blas cblas lapack; do
+            cat <<EOF > $out/lib/pkgconfig/$alias.pc
+      Name: $alias
+      Version: ${version}
+      Description: $alias provided by the OpenBLAS package.
+      Cflags: -I$dev/include
+      Libs: -L$out/lib -lopenblas
+      EOF
+          done
 
-        # Setup symlinks for blas / lapack
-  '' + lib.optionalString enableShared ''
-    ln -s $out/lib/libopenblas${shlibExt} $out/lib/libblas${shlibExt}
-    ln -s $out/lib/libopenblas${shlibExt} $out/lib/libcblas${shlibExt}
-    ln -s $out/lib/libopenblas${shlibExt} $out/lib/liblapack${shlibExt}
-    ln -s $out/lib/libopenblas${shlibExt} $out/lib/liblapacke${shlibExt}
-  '' + lib.optionalString (stdenv.hostPlatform.isLinux && enableShared) ''
-    ln -s $out/lib/libopenblas${shlibExt} $out/lib/libblas${shlibExt}.3
-    ln -s $out/lib/libopenblas${shlibExt} $out/lib/libcblas${shlibExt}.3
-    ln -s $out/lib/libopenblas${shlibExt} $out/lib/liblapack${shlibExt}.3
-    ln -s $out/lib/libopenblas${shlibExt} $out/lib/liblapacke${shlibExt}.3
-  '' + lib.optionalString enableStatic ''
-    ln -s $out/lib/libopenblas.a $out/lib/libblas.a
-    ln -s $out/lib/libopenblas.a $out/lib/libcblas.a
-    ln -s $out/lib/libopenblas.a $out/lib/liblapack.a
-    ln -s $out/lib/libopenblas.a $out/lib/liblapacke.a
-  '';
+          # Setup symlinks for blas / lapack
+    '' + lib.optionalString enableShared ''
+      ln -s $out/lib/libopenblas${shlibExt} $out/lib/libblas${shlibExt}
+      ln -s $out/lib/libopenblas${shlibExt} $out/lib/libcblas${shlibExt}
+      ln -s $out/lib/libopenblas${shlibExt} $out/lib/liblapack${shlibExt}
+      ln -s $out/lib/libopenblas${shlibExt} $out/lib/liblapacke${shlibExt}
+    '' + lib.optionalString (stdenv.hostPlatform.isLinux && enableShared) ''
+      ln -s $out/lib/libopenblas${shlibExt} $out/lib/libblas${shlibExt}.3
+      ln -s $out/lib/libopenblas${shlibExt} $out/lib/libcblas${shlibExt}.3
+      ln -s $out/lib/libopenblas${shlibExt} $out/lib/liblapack${shlibExt}.3
+      ln -s $out/lib/libopenblas${shlibExt} $out/lib/liblapacke${shlibExt}.3
+    '' + lib.optionalString enableStatic ''
+      ln -s $out/lib/libopenblas.a $out/lib/libblas.a
+      ln -s $out/lib/libopenblas.a $out/lib/libcblas.a
+      ln -s $out/lib/libopenblas.a $out/lib/liblapack.a
+      ln -s $out/lib/libopenblas.a $out/lib/liblapacke.a
+    ''
+    ;
 
   passthru.tests = {
     inherit (python3.pkgs) numpy scipy;

@@ -41,10 +41,11 @@ stdenv.mkDerivation rec {
     sha256 = "0aqf48zl7825v7x8c3x5w4d17m4qq377f1mn6xyqzf9b0dnk4i1j";
   };
 
-  buildInputs = [
-    libusb1
-    gcc.cc.lib
-  ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit
+  buildInputs =
+    [
+      libusb1
+      gcc.cc.lib
+    ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit
     ++ lib.optionals enablePython (with pythonPackages; [
       python
       pybind11
@@ -54,7 +55,8 @@ stdenv.mkDerivation rec {
       glfw
       libGLU
       curl
-    ];
+    ]
+    ;
 
   patches = [
     # fix build on aarch64-darwin
@@ -80,17 +82,19 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  cmakeFlags = [
-    "-DBUILD_EXAMPLES=ON"
-    "-DBUILD_GRAPHICAL_EXAMPLES=${lib.boolToString enableGUI}"
-    "-DBUILD_GLSL_EXTENSIONS=${lib.boolToString enableGUI}"
-    "-DCHECK_FOR_UPDATES=OFF" # activated by BUILD_GRAPHICAL_EXAMPLES, will make it download and compile libcurl
-  ] ++ lib.optionals enablePython [
-    "-DBUILD_PYTHON_BINDINGS:bool=true"
-    "-DXXNIX_PYTHON_SITEPACKAGES=${
-      placeholder "out"
-    }/${pythonPackages.python.sitePackages}"
-  ] ++ lib.optional cudaSupport "-DBUILD_WITH_CUDA:bool=true";
+  cmakeFlags =
+    [
+      "-DBUILD_EXAMPLES=ON"
+      "-DBUILD_GRAPHICAL_EXAMPLES=${lib.boolToString enableGUI}"
+      "-DBUILD_GLSL_EXTENSIONS=${lib.boolToString enableGUI}"
+      "-DCHECK_FOR_UPDATES=OFF" # activated by BUILD_GRAPHICAL_EXAMPLES, will make it download and compile libcurl
+    ] ++ lib.optionals enablePython [
+      "-DBUILD_PYTHON_BINDINGS:bool=true"
+      "-DXXNIX_PYTHON_SITEPACKAGES=${
+        placeholder "out"
+      }/${pythonPackages.python.sitePackages}"
+    ] ++ lib.optional cudaSupport "-DBUILD_WITH_CUDA:bool=true"
+    ;
 
     # ensure python package contains its __init__.py. for some reason the install
     # script does not do this, and it's questionable if intel knows it should be

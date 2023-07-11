@@ -41,31 +41,33 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ pkg-config ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
-  buildInputs = [
-    curl
-    freexl
-    geos
-    librasterlite2
-    librttopo
-    libspatialite
-    libwebp
-    libxlsxwriter
-    libxml2
-    lz4
-    minizip
-    openjpeg
-    postgresql
-    proj
-    sqlite
-    virtualpg
-    wxGTK
-    xz
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    Carbon
-    Cocoa
-    IOKit
-  ];
+  buildInputs =
+    [
+      curl
+      freexl
+      geos
+      librasterlite2
+      librttopo
+      libspatialite
+      libwebp
+      libxlsxwriter
+      libxml2
+      lz4
+      minizip
+      openjpeg
+      postgresql
+      proj
+      sqlite
+      virtualpg
+      wxGTK
+      xz
+      zstd
+    ] ++ lib.optionals stdenv.isDarwin [
+      Carbon
+      Cocoa
+      IOKit
+    ]
+    ;
 
   enableParallelBuilding = true;
 

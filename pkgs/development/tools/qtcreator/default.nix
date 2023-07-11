@@ -43,17 +43,19 @@ mkDerivation rec {
     sha256 = "1sz21ijzvhf5avblikffykbqa8zdq3sbg32g2dmyxv5w211v3lvz";
   };
 
-  buildInputs = [
-    qtbase
-    qtscript
-    qtquickcontrols
-    qtdeclarative
-    elfutils.dev
-  ] ++ lib.optionals withClangPlugins [
-    llvmPackages_8.libclang
-    clang_qt_vendor
-    llvmPackages_8.llvm
-  ];
+  buildInputs =
+    [
+      qtbase
+      qtscript
+      qtquickcontrols
+      qtdeclarative
+      elfutils.dev
+    ] ++ lib.optionals withClangPlugins [
+      llvmPackages_8.libclang
+      clang_qt_vendor
+      llvmPackages_8.llvm
+    ]
+    ;
 
   nativeBuildInputs = [ qmake ];
 
@@ -78,29 +80,31 @@ mkDerivation rec {
       "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"
     ];
 
-  preConfigure = ''
-    substituteInPlace src/plugins/plugins.pro \
-      --replace '$$[QT_INSTALL_QML]/QtQuick/Controls' '${qtquickcontrols}/${qtbase.qtQmlPrefix}/QtQuick/Controls'
-    substituteInPlace src/libs/libs.pro \
-      --replace '$$[QT_INSTALL_QML]/QtQuick/Controls' '${qtquickcontrols}/${qtbase.qtQmlPrefix}/QtQuick/Controls'
-  '' + lib.optionalString withClangPlugins ''
-    # Fix paths for llvm/clang includes directories.
-    substituteInPlace src/shared/clang/clang_defines.pri \
-      --replace '$$clean_path($''${LLVM_LIBDIR}/clang/$''${LLVM_VERSION}/include)' '${clang_qt_vendor}/lib/clang/8.0.0/include' \
-      --replace '$$clean_path($''${LLVM_BINDIR})' '${clang_qt_vendor}/bin'
+  preConfigure =
+    ''
+      substituteInPlace src/plugins/plugins.pro \
+        --replace '$$[QT_INSTALL_QML]/QtQuick/Controls' '${qtquickcontrols}/${qtbase.qtQmlPrefix}/QtQuick/Controls'
+      substituteInPlace src/libs/libs.pro \
+        --replace '$$[QT_INSTALL_QML]/QtQuick/Controls' '${qtquickcontrols}/${qtbase.qtQmlPrefix}/QtQuick/Controls'
+    '' + lib.optionalString withClangPlugins ''
+      # Fix paths for llvm/clang includes directories.
+      substituteInPlace src/shared/clang/clang_defines.pri \
+        --replace '$$clean_path($''${LLVM_LIBDIR}/clang/$''${LLVM_VERSION}/include)' '${clang_qt_vendor}/lib/clang/8.0.0/include' \
+        --replace '$$clean_path($''${LLVM_BINDIR})' '${clang_qt_vendor}/bin'
 
-    # Fix paths to libclang library.
-    substituteInPlace src/shared/clang/clang_installation.pri \
-      --replace 'LIBCLANG_LIBS = -L$''${LLVM_LIBDIR}' 'LIBCLANG_LIBS = -L${llvmPackages_8.libclang.lib}/lib' \
-      --replace 'LIBCLANG_LIBS += $''${CLANG_LIB}' 'LIBCLANG_LIBS += -lclang' \
-      --replace 'LIBTOOLING_LIBS = -L$''${LLVM_LIBDIR}' 'LIBTOOLING_LIBS = -L${clang_qt_vendor}/lib' \
-      --replace 'LLVM_CXXFLAGS ~= s,-gsplit-dwarf,' '${
-        lib.concatStringsSep "\n" [
-          "LLVM_CXXFLAGS ~= s,-gsplit-dwarf,"
-          "    LLVM_CXXFLAGS += -fno-rtti"
-        ]
-      }'
-  '';
+      # Fix paths to libclang library.
+      substituteInPlace src/shared/clang/clang_installation.pri \
+        --replace 'LIBCLANG_LIBS = -L$''${LLVM_LIBDIR}' 'LIBCLANG_LIBS = -L${llvmPackages_8.libclang.lib}/lib' \
+        --replace 'LIBCLANG_LIBS += $''${CLANG_LIB}' 'LIBCLANG_LIBS += -lclang' \
+        --replace 'LIBTOOLING_LIBS = -L$''${LLVM_LIBDIR}' 'LIBTOOLING_LIBS = -L${clang_qt_vendor}/lib' \
+        --replace 'LLVM_CXXFLAGS ~= s,-gsplit-dwarf,' '${
+          lib.concatStringsSep "\n" [
+            "LLVM_CXXFLAGS ~= s,-gsplit-dwarf,"
+            "    LLVM_CXXFLAGS += -fno-rtti"
+          ]
+        }'
+    ''
+    ;
 
   preBuild = lib.optionalString withDocumentation ''
     ln -s ${lib.getLib qtbase}/$qtDocPrefix $NIX_QT5_TMP/share

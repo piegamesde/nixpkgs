@@ -65,19 +65,22 @@ stdenv.mkDerivation rec {
     sha256 = "026v977kwb0wbmlmf6mnik328plxg8wykfx9ryvqhirac0aq39pk";
   };
 
-  patches = [ ] ++ lib.optional ffmpegSupport ./moc-ffmpeg4.patch
-    ++ lib.optional pulseSupport ./pulseaudio.patch;
+  patches =
+    [ ] ++ lib.optional ffmpegSupport ./moc-ffmpeg4.patch
+    ++ lib.optional pulseSupport ./pulseaudio.patch
+    ;
 
   nativeBuildInputs =
     [ pkg-config ] ++ lib.optional pulseSupport autoreconfHook;
 
-  buildInputs = [
-    ncurses
-    db
-    popt
-    libtool
-  ]
-  # Sound sub-systems
+  buildInputs =
+    [
+      ncurses
+      db
+      popt
+      libtool
+    ]
+    # Sound sub-systems
     ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseSupport libpulseaudio ++ lib.optional jackSupport
     libjack2
@@ -100,7 +103,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreServices
-    ];
+    ]
+    ;
 
   configureFlags = [
     # Sound sub-systems

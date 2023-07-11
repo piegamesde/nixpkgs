@@ -30,12 +30,14 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapQtAppsHook
   ];
-  buildInputs = [
-    libqalculate
-    qtbase
-    qttools
-    qtsvg
-  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  buildInputs =
+    [
+      libqalculate
+      qtbase
+      qttools
+      qtsvg
+    ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ;
 
   postPatch = ''
     substituteInPlace qalculate-qt.pro\

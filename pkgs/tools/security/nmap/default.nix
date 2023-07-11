@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Vbz+R5PiWsyWukJ02MQijbVQuOjv1yAEs47FWi3RZlE=";
   };
 
-  patches = [ ./zenmap.patch ] ++ lib.optionals stdenv.cc.isClang [
+  patches =
+    [ ./zenmap.patch ] ++ lib.optionals stdenv.cc.isClang [
       (
         # Fixes a compile error due an ambiguous reference to bind(2) in
         # nping/EchoServer.cc, which is otherwise resolved to std::bind.
@@ -35,7 +36,8 @@ stdenv.mkDerivation rec {
           includes = [ "nping/EchoServer.cc" ];
           sha256 = "0xcph9mycy57yryjg253frxyz87c4135rrbndlqw1400c8jxq70c";
         })
-    ];
+    ]
+    ;
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace libz/configure \

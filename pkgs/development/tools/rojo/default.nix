@@ -27,7 +27,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ]
+    ;
 
     # tests flaky on darwin on hydra
   doCheck = !stdenv.isDarwin;

@@ -54,7 +54,8 @@ buildPythonPackage rec {
       minimum-macos-version = "11.0"
     '' + ''
       EOF
-    '';
+    ''
+    ;
 
   enableParallelBuilding = true;
     # HACK: paralellize compilation of make calls within pyqt's setup.py
@@ -120,17 +121,19 @@ buildPythonPackage rec {
     # Checked using pythonImportsCheck
   doCheck = false;
 
-  pythonImportsCheck = [
-    "PyQt5"
-    "PyQt5.QtCore"
-    "PyQt5.QtQml"
-    "PyQt5.QtWidgets"
-    "PyQt5.QtGui"
-  ] ++ lib.optional withWebSockets "PyQt5.QtWebSockets"
+  pythonImportsCheck =
+    [
+      "PyQt5"
+      "PyQt5.QtCore"
+      "PyQt5.QtQml"
+      "PyQt5.QtWidgets"
+      "PyQt5.QtGui"
+    ] ++ lib.optional withWebSockets "PyQt5.QtWebSockets"
     ++ lib.optional withWebKit "PyQt5.QtWebKit"
     ++ lib.optional withMultimedia "PyQt5.QtMultimedia"
     ++ lib.optional withConnectivity "PyQt5.QtBluetooth"
-    ++ lib.optional withLocation "PyQt5.QtPositioning";
+    ++ lib.optional withLocation "PyQt5.QtPositioning"
+    ;
 
   meta = with lib; {
     description = "Python bindings for Qt5";

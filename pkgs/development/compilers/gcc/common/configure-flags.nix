@@ -138,7 +138,8 @@ let
       ] ++ lib.optional
       (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
       "--with-newlib"
-      ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc");
+      ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc")
+    ;
 
   configureFlags =
     # Basic dependencies
@@ -285,7 +286,8 @@ let
       "libat_cv_have_ifunc=no"
       "--disable-gnu-indirect-function"
     ] ++ lib.optionals langJit [ "--enable-host-shared" ]
-    ++ lib.optionals (langD) [ "--with-target-system-zlib=yes" ];
+    ++ lib.optionals (langD) [ "--with-target-system-zlib=yes" ]
+    ;
 
 in
 configureFlags

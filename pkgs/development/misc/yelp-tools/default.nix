@@ -19,7 +19,8 @@ python3.pkgs.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/yelp-tools/${
+    url =
+      "mirror://gnome/sources/yelp-tools/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "PklqQCDUFFuZ/VCKJfoJM2pQOk6JAAKEIecsaksR+QU=";

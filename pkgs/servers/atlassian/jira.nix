@@ -19,19 +19,21 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildPhase = ''
-    mv conf/server.xml conf/server.xml.dist
-    ln -sf /run/atlassian-jira/server.xml conf/server.xml
-    rm -r logs; ln -sf /run/atlassian-jira/logs/ .
-    rm -r work; ln -sf /run/atlassian-jira/work/ .
-    rm -r temp; ln -sf /run/atlassian-jira/temp/ .
-    substituteInPlace bin/check-java.sh \
-      --replace "awk" "${gawk}/bin/gawk"
-  '' + lib.optionalString enableSSO ''
-    substituteInPlace atlassian-jira/WEB-INF/classes/seraph-config.xml \
-      --replace com.atlassian.jira.security.login.JiraSeraphAuthenticator \
-                com.atlassian.jira.security.login.SSOSeraphAuthenticator
-  '';
+  buildPhase =
+    ''
+      mv conf/server.xml conf/server.xml.dist
+      ln -sf /run/atlassian-jira/server.xml conf/server.xml
+      rm -r logs; ln -sf /run/atlassian-jira/logs/ .
+      rm -r work; ln -sf /run/atlassian-jira/work/ .
+      rm -r temp; ln -sf /run/atlassian-jira/temp/ .
+      substituteInPlace bin/check-java.sh \
+        --replace "awk" "${gawk}/bin/gawk"
+    '' + lib.optionalString enableSSO ''
+      substituteInPlace atlassian-jira/WEB-INF/classes/seraph-config.xml \
+        --replace com.atlassian.jira.security.login.JiraSeraphAuthenticator \
+                  com.atlassian.jira.security.login.SSOSeraphAuthenticator
+    ''
+    ;
 
   installPhase = ''
     cp -rva . $out

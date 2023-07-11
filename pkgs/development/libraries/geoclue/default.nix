@@ -46,53 +46,59 @@ stdenv.mkDerivation rec {
 
   patches = [ ./add-option-for-installation-sysconfdir.patch ];
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-    meson
-    ninja
-    wrapGAppsHook
-    python3
-    vala
-    gobject-introspection
-    # devdoc
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_412
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+  nativeBuildInputs =
+    [
+      pkg-config
+      intltool
+      meson
+      ninja
+      wrapGAppsHook
+      python3
+      vala
+      gobject-introspection
+      # devdoc
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_412
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ];
+    ]
+    ;
 
-  buildInputs = [
-    glib
-    json-glib
-    libsoup_3
-    avahi
-    gobject-introspection
-  ] ++ lib.optionals withDemoAgent [
-    libnotify
-    gdk-pixbuf
-  ] ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ];
+  buildInputs =
+    [
+      glib
+      json-glib
+      libsoup_3
+      avahi
+      gobject-introspection
+    ] ++ lib.optionals withDemoAgent [
+      libnotify
+      gdk-pixbuf
+    ] ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ]
+    ;
 
   propagatedBuildInputs = [
     glib
     glib-networking
   ];
 
-  mesonFlags = [
-    "-Dsystemd-system-unit-dir=${placeholder "out"}/etc/systemd/system"
-    "-Ddemo-agent=${lib.boolToString withDemoAgent}"
-    "--sysconfdir=/etc"
-    "-Dsysconfdir_install=${placeholder "out"}/etc"
-    "-Dmozilla-api-key=5c28d1f4-9511-47ff-b11a-2bef80fc177c"
-    "-Ddbus-srv-user=geoclue"
-    "-Ddbus-sys-dir=${placeholder "out"}/share/dbus-1/system.d"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-D3g-source=false"
-    "-Dcdma-source=false"
-    "-Dmodem-gps-source=false"
-    "-Dnmea-source=false"
-  ];
+  mesonFlags =
+    [
+      "-Dsystemd-system-unit-dir=${placeholder "out"}/etc/systemd/system"
+      "-Ddemo-agent=${lib.boolToString withDemoAgent}"
+      "--sysconfdir=/etc"
+      "-Dsysconfdir_install=${placeholder "out"}/etc"
+      "-Dmozilla-api-key=5c28d1f4-9511-47ff-b11a-2bef80fc177c"
+      "-Ddbus-srv-user=geoclue"
+      "-Ddbus-sys-dir=${placeholder "out"}/share/dbus-1/system.d"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "-D3g-source=false"
+      "-Dcdma-source=false"
+      "-Dmodem-gps-source=false"
+      "-Dnmea-source=false"
+    ]
+    ;
 
   postPatch = ''
     chmod +x demo/install-file.py

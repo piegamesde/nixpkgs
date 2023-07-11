@@ -62,7 +62,8 @@ let
         nssOverride.src
       else
         fetchurl {
-          url = "mirror://mozilla/security/nss/releases/NSS_${
+          url =
+            "mirror://mozilla/security/nss/releases/NSS_${
               lib.replaceStrings [ "." ] [ "_" ] version
             }_RTM/src/nss-${version}.tar.gz";
           sha256 = "sha256-PzhfxoZHa7uoEQNfpoIbVCR11VdHsYwgwiHU1mVzuXU=";
@@ -165,9 +166,10 @@ stdenv.mkDerivation rec {
           in
           runCommand "verify-the-cacert-filter-output" {
             cacert = cacert.unbundled;
-            cacertWithExcludes = (cacert.override {
-              blacklist = builtins.attrNames blacklistCAToFingerprint;
-            }).unbundled;
+            cacertWithExcludes =
+              (cacert.override {
+                blacklist = builtins.attrNames blacklistCAToFingerprint;
+              }).unbundled;
 
             nativeBuildInputs = [ openssl ];
           } ''
@@ -229,10 +231,11 @@ stdenv.mkDerivation rec {
           in
           runCommand "verify-the-cacert-extra-output" {
             cacert = cacert.unbundled;
-            cacertWithExtras = (cacert.override {
-              extraCertificateStrings = [ extraCertificateStr ];
-              extraCertificateFiles = [ extraCertificateFile ];
-            }).unbundled;
+            cacertWithExtras =
+              (cacert.override {
+                extraCertificateStrings = [ extraCertificateStr ];
+                extraCertificateFiles = [ extraCertificateFile ];
+              }).unbundled;
 
             nativeBuildInputs = [ openssl ];
           } ''

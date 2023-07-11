@@ -119,17 +119,21 @@ let
   userAsserts =
     prefix: users:
     mapAttrsToList (n: _: {
-      assertion = builtins.match ''
-        [^:
-        ]+'' n != null;
+      assertion =
+        builtins.match ''
+          [^:
+          ]+'' n != null
+        ;
       message = "Invalid user name ${n} in ${prefix}";
     }) users ++ mapAttrsToList (n: u: {
-      assertion = count (s: s != null) [
-        u.password
-        u.passwordFile
-        u.hashedPassword
-        u.hashedPasswordFile
-      ] <= 1;
+      assertion =
+        count (s: s != null) [
+          u.password
+          u.passwordFile
+          u.hashedPassword
+          u.hashedPasswordFile
+        ] <= 1
+        ;
       message =
         "Cannot set more than one password option for user ${n} in ${prefix}";
     }) users
@@ -666,10 +670,12 @@ in
         ProtectProc = "invisible";
         ProcSubset = "pid";
         ProtectSystem = "strict";
-        ReadWritePaths = [
-          cfg.dataDir
-          "/tmp" # mosquitto_passwd creates files in /tmp before moving them
-        ] ++ filter path.check cfg.logDest;
+        ReadWritePaths =
+          [
+            cfg.dataDir
+            "/tmp" # mosquitto_passwd creates files in /tmp before moving them
+          ] ++ filter path.check cfg.logDest
+          ;
         ReadOnlyPaths = map (p: "${p}") (cfg.includeDirs
           ++ filter (v: v != null) (flatten [
             (map (l: [

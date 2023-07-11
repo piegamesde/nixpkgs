@@ -130,7 +130,9 @@ let
     };
   });
 
-  hasRadosgw = optExpat != null && optCurl != null && optLibedit != null;
+  hasRadosgw =
+    optExpat != null && optCurl != null && optLibedit != null
+    ;
 
     # Malloc implementation (can be jemalloc, tcmalloc or null)
   malloc =
@@ -195,10 +197,11 @@ let
 
       nativeCheckInputs = [ pytestCheckHook ];
 
-      disabledTests = [
-        # requires network access
-        "test_valid_addr"
-      ];
+      disabledTests =
+        [
+          # requires network access
+          "test_valid_addr"
+        ];
 
       meta = getMeta "Ceph common module for code shared by manager modules";
     };
@@ -216,10 +219,12 @@ let
           };
           nativeCheckInputs =
             oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
-          disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
-            "test/aaa_profiling"
-            "test/ext/mypy"
-          ];
+          disabledTestPaths =
+            (oldAttrs.disabledTestPaths or [ ]) ++ [
+              "test/aaa_profiling"
+              "test/ext/mypy"
+            ]
+            ;
         });
       }
       ;
@@ -300,56 +305,58 @@ rec {
 
     enableParallelBuilding = true;
 
-    buildInputs = cryptoLibsMap.${cryptoStr} ++ [
-      arrow-cpp
-      babeltrace
-      boost
-      bzip2
-      ceph-python-env
-      cimg
-      cryptsetup
-      cunit
-      gperf
-      gtest
-      jsoncpp
-      icu
-      libcap_ng
-      libnl
-      libxml2
-      lttng-ust
-      lua
-      lz4
-      malloc
-      oath-toolkit
-      openldap
-      optLibatomic_ops
-      optLibs3
-      optYasm
-      rdkafka
-      rocksdb'
-      snappy
-      sqlite
-      utf8proc
-      zlib
-      zstd
-    ] ++ lib.optionals stdenv.isLinux [
-      keyutils
-      liburing
-      libuuid
-      linuxHeaders
-      optLibaio
-      optLibxfs
-      optZfs
-      rabbitmq-c
-      rdma-core
-      udev
-      util-linux
-    ] ++ lib.optionals hasRadosgw [
-      optCurl
-      optExpat
-      optFuse
-      optLibedit
-    ];
+    buildInputs =
+      cryptoLibsMap.${cryptoStr} ++ [
+        arrow-cpp
+        babeltrace
+        boost
+        bzip2
+        ceph-python-env
+        cimg
+        cryptsetup
+        cunit
+        gperf
+        gtest
+        jsoncpp
+        icu
+        libcap_ng
+        libnl
+        libxml2
+        lttng-ust
+        lua
+        lz4
+        malloc
+        oath-toolkit
+        openldap
+        optLibatomic_ops
+        optLibs3
+        optYasm
+        rdkafka
+        rocksdb'
+        snappy
+        sqlite
+        utf8proc
+        zlib
+        zstd
+      ] ++ lib.optionals stdenv.isLinux [
+        keyutils
+        liburing
+        libuuid
+        linuxHeaders
+        optLibaio
+        optLibxfs
+        optZfs
+        rabbitmq-c
+        rdma-core
+        udev
+        util-linux
+      ] ++ lib.optionals hasRadosgw [
+        optCurl
+        optExpat
+        optFuse
+        optLibedit
+      ]
+      ;
 
     pythonPath = [
       ceph-python-env
@@ -367,36 +374,38 @@ rec {
       patchShebangs src/script src/spdk src/test src/tools
     '';
 
-    cmakeFlags = [
-      "-DCMAKE_INSTALL_DATADIR=${placeholder "lib"}/lib"
+    cmakeFlags =
+      [
+        "-DCMAKE_INSTALL_DATADIR=${placeholder "lib"}/lib"
 
-      "-DMGR_PYTHON_VERSION=${ceph-python-env.python.pythonVersion}"
-      "-DWITH_CEPHFS_SHELL:BOOL=ON"
-      "-DWITH_SYSTEMD:BOOL=OFF"
-      "-DWITH_TESTS:BOOL=OFF"
+        "-DMGR_PYTHON_VERSION=${ceph-python-env.python.pythonVersion}"
+        "-DWITH_CEPHFS_SHELL:BOOL=ON"
+        "-DWITH_SYSTEMD:BOOL=OFF"
+        "-DWITH_TESTS:BOOL=OFF"
 
-      # Use our own libraries, where possible
-      "-DWITH_SYSTEM_ARROW:BOOL=ON"
-      "-DWITH_SYSTEM_BOOST:BOOL=ON"
-      "-DWITH_SYSTEM_CIMG:BOOL=ON"
-      "-DWITH_SYSTEM_JSONCPP:BOOL=ON"
-      "-DWITH_SYSTEM_GTEST:BOOL=ON"
-      "-DWITH_SYSTEM_ROCKSDB:BOOL=ON"
-      "-DWITH_SYSTEM_UTF8PROC:BOOL=ON"
-      "-DWITH_SYSTEM_ZSTD:BOOL=ON"
+        # Use our own libraries, where possible
+        "-DWITH_SYSTEM_ARROW:BOOL=ON"
+        "-DWITH_SYSTEM_BOOST:BOOL=ON"
+        "-DWITH_SYSTEM_CIMG:BOOL=ON"
+        "-DWITH_SYSTEM_JSONCPP:BOOL=ON"
+        "-DWITH_SYSTEM_GTEST:BOOL=ON"
+        "-DWITH_SYSTEM_ROCKSDB:BOOL=ON"
+        "-DWITH_SYSTEM_UTF8PROC:BOOL=ON"
+        "-DWITH_SYSTEM_ZSTD:BOOL=ON"
 
-      # TODO breaks with sandbox, tries to download stuff with npm
-      "-DWITH_MGR_DASHBOARD_FRONTEND:BOOL=OFF"
-      # no matching function for call to 'parquet::PageReader::Open(std::shared_ptr<arrow::io::InputStream>&, int64_t, arrow::Compression::type, parquet::MemoryPool*, parquet::CryptoContext*)'
-      "-DWITH_RADOSGW_SELECT_PARQUET:BOOL=OFF"
-      # WITH_XFS has been set default ON from Ceph 16, keeping it optional in nixpkgs for now
-      "-DWITH_XFS=${
-        if optLibxfs != null then
-          "ON"
-        else
-          "OFF"
-      }"
-    ] ++ lib.optional stdenv.isLinux "-DWITH_SYSTEM_LIBURING=ON";
+        # TODO breaks with sandbox, tries to download stuff with npm
+        "-DWITH_MGR_DASHBOARD_FRONTEND:BOOL=OFF"
+        # no matching function for call to 'parquet::PageReader::Open(std::shared_ptr<arrow::io::InputStream>&, int64_t, arrow::Compression::type, parquet::MemoryPool*, parquet::CryptoContext*)'
+        "-DWITH_RADOSGW_SELECT_PARQUET:BOOL=OFF"
+        # WITH_XFS has been set default ON from Ceph 16, keeping it optional in nixpkgs for now
+        "-DWITH_XFS=${
+          if optLibxfs != null then
+            "ON"
+          else
+            "OFF"
+        }"
+      ] ++ lib.optional stdenv.isLinux "-DWITH_SYSTEM_LIBURING=ON"
+      ;
 
     postFixup = ''
       wrapPythonPrograms

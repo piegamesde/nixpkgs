@@ -39,17 +39,19 @@ buildPythonPackage rec {
     hash = "sha256-SwLe8Hbi24zsZvZftifROQSp/Dz0/uMV7eQ9y3A4qN8=";
   };
 
-  propagatedBuildInputs = [
-    grpcio
-    google-api-core
-    google-cloud-core
-    google-cloud-bigquery-storage
-    google-resumable-media
-    proto-plus
-    protobuf
-    requests
-    python-dateutil
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [
+      grpcio
+      google-api-core
+      google-cloud-core
+      google-cloud-bigquery-storage
+      google-resumable-media
+      proto-plus
+      protobuf
+      requests
+      python-dateutil
+    ] ++ google-api-core.optional-dependencies.grpc
+    ;
 
   passthru.optional-dependencies = {
     bqstorage = [
@@ -66,17 +68,19 @@ buildPythonPackage rec {
     ipython = [ ipython ];
   };
 
-  nativeCheckInputs = [
-    freezegun
-    google-cloud-testutils
-    mock
-    psutil
-    google-cloud-datacatalog
-    google-cloud-storage
-    pytestCheckHook
-    pytest-xdist
-  ] ++ passthru.optional-dependencies.pandas
-    ++ passthru.optional-dependencies.ipython;
+  nativeCheckInputs =
+    [
+      freezegun
+      google-cloud-testutils
+      mock
+      psutil
+      google-cloud-datacatalog
+      google-cloud-storage
+      pytestCheckHook
+      pytest-xdist
+    ] ++ passthru.optional-dependencies.pandas
+    ++ passthru.optional-dependencies.ipython
+    ;
 
     # prevent google directory from shadowing google imports
   preCheck = ''

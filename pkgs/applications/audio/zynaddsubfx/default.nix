@@ -59,11 +59,12 @@ assert builtins.any (g: guiModule == g) [
 ];
 
 let
-  guiName = {
-    "fltk" = "FLTK";
-    "ntk" = "NTK";
-    "zest" = "Zyn-Fusion";
-  }.${guiModule};
+  guiName =
+    {
+      "fltk" = "FLTK";
+      "ntk" = "NTK";
+      "zest" = "Zyn-Fusion";
+    }.${guiModule};
 
   mruby-zest = callPackage ./mruby-zest { };
 in
@@ -95,15 +96,16 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    fftw
-    liblo
-    minixml
-    zlib
-  ] ++ lib.optionals alsaSupport [ alsa-lib ] ++ lib.optionals dssiSupport [
-    dssi
-    ladspaH
-  ] ++ lib.optionals jackSupport [ libjack2 ]
+  buildInputs =
+    [
+      fftw
+      liblo
+      minixml
+      zlib
+    ] ++ lib.optionals alsaSupport [ alsa-lib ] ++ lib.optionals dssiSupport [
+      dssi
+      ladspaH
+    ] ++ lib.optionals jackSupport [ libjack2 ]
     ++ lib.optionals lashSupport [ lash ]
     ++ lib.optionals portaudioSupport [ portaudio ]
     ++ lib.optionals sndioSupport [ sndio ]
@@ -118,16 +120,19 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals (guiModule == "zest") [
       libGL
       libX11
-    ];
+    ]
+    ;
 
-  cmakeFlags = [
+  cmakeFlags =
+    [
       "-DGuiModule=${guiModule}"
     ]
     # OSS library is included in glibc.
     # Must explicitly disable if support is not wanted.
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
     # Find FLTK without requiring an OpenGL library in buildInputs
-    ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON";
+    ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON"
+    ;
 
   doCheck = true;
   nativeCheckInputs = [
@@ -149,7 +154,8 @@ stdenv.mkDerivation rec {
         ++ lib.optionals stdenv.isAarch64 [
           "MessageTest"
           "UnisonTest"
-        ];
+        ]
+        ;
     in
     ''
       runHook preCheck

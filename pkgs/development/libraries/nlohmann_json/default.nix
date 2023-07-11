@@ -25,18 +25,22 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [
-    "-DJSON_BuildTests=${
-      if finalAttrs.doCheck then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DJSON_FastTests=ON"
-    "-DJSON_MultipleHeaders=ON"
-  ] ++ lib.optional finalAttrs.doCheck "-DJSON_TestDataDirectory=${testData}";
+  cmakeFlags =
+    [
+      "-DJSON_BuildTests=${
+        if finalAttrs.doCheck then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DJSON_FastTests=ON"
+      "-DJSON_MultipleHeaders=ON"
+    ] ++ lib.optional finalAttrs.doCheck "-DJSON_TestDataDirectory=${testData}"
+    ;
 
-  doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
+  doCheck =
+    stdenv.hostPlatform == stdenv.buildPlatform
+    ;
 
     # skip tests that require git or modify “installed files”
   preCheck = ''

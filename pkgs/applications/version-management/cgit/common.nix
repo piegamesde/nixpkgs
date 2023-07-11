@@ -34,20 +34,24 @@
 stdenv.mkDerivation {
   inherit pname version src gitSrc;
 
-  nativeBuildInputs = [
-    pkg-config
-    asciidoc
-  ] ++ (with python3Packages; [
-    python
-    wrapPython
-  ]);
-  buildInputs = buildInputs ++ [
-    openssl
-    zlib
-    libxml2
-    libxslt
-    docbook_xsl
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      asciidoc
+    ] ++ (with python3Packages; [
+      python
+      wrapPython
+    ])
+    ;
+  buildInputs =
+    buildInputs ++ [
+      openssl
+      zlib
+      libxml2
+      libxslt
+      docbook_xsl
+    ]
+    ;
   pythonPath = with python3Packages; [
     pygments
     markdown

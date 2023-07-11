@@ -34,19 +34,22 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  buildInputs = [
-    file
-    zlib
-  ] ++ lib.optionals client [
-    openal
-    SDL2
-    SDL2_image
-    libogg
-    libvorbis
-  ];
+  buildInputs =
+    [
+      file
+      zlib
+    ] ++ lib.optionals client [
+      openal
+      SDL2
+      SDL2_image
+      libogg
+      libvorbis
+    ]
+    ;
 
-  targets = (lib.optionalString server "server")
-    + (lib.optionalString client " client");
+  targets =
+    (lib.optionalString server "server") + (lib.optionalString client " client")
+    ;
   makeFlags = [
     "-C source/src"
     "CXX=${stdenv.cc.targetPrefix}c++"

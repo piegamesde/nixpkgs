@@ -15,8 +15,10 @@ vmTools.buildRPM (
   removeAttrs args [ "vmTools" ] //
 
   {
-    name = name + "-" + diskImage.name
-      + (lib.optionalString (src ? version) "-${src.version}");
+    name =
+      name + "-" + diskImage.name
+      + (lib.optionalString (src ? version) "-${src.version}")
+      ;
 
     preBuild = ''
       . ${./functions.sh}

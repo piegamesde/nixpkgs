@@ -51,11 +51,13 @@ buildPythonPackage rec {
     cython
   ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    CFNetwork
-    Security
-  ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      CFNetwork
+      Security
+    ]
+    ;
 
   propagatedBuildInputs = [ certifi ];
 

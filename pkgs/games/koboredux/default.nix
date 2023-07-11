@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
   pname = "koboredux";
   version = "0.7.5.1";
 
-  src = [
+  src =
+    [
       (fetchFromGitHub {
         owner = "olofson";
         repo = "koboredux";
@@ -39,7 +40,8 @@ stdenv.mkDerivation rec {
         Alternatively, install the "koboredux-free" package, which replaces the
         proprietary assets with a placeholder theme.
       '';
-    }));
+    }))
+    ;
 
   sourceRoot = "source"; # needed when we have the assets source
 
@@ -73,17 +75,20 @@ stdenv.mkDerivation rec {
     description =
       "A frantic 80's style 2D shooter, similar to XKobo and Kobo Deluxe"
       + optionalString (!useProprietaryAssets)
-      " (built without proprietary assets)";
-    longDescription = ''
-      Kobo Redux is a frantic 80's style 2D shooter, inspired by the look and
-      feel of 90's arcade cabinets. The gameplay is fast and unforgiving,
-      although with less of the frustrating quirkiness of the actual games
-      of the 80's. A true challenge in the spirit of the arcade era!
-    '' + optionalString (!useProprietaryAssets) ''
+      " (built without proprietary assets)"
+      ;
+    longDescription =
+      ''
+        Kobo Redux is a frantic 80's style 2D shooter, inspired by the look and
+        feel of 90's arcade cabinets. The gameplay is fast and unforgiving,
+        although with less of the frustrating quirkiness of the actual games
+        of the 80's. A true challenge in the spirit of the arcade era!
+      '' + optionalString (!useProprietaryAssets) ''
 
-      This version replaces the official proprietary assets with placeholders.
-      For the full experience, consider installing "koboredux" instead.
-    '';
+        This version replaces the official proprietary assets with placeholders.
+        For the full experience, consider installing "koboredux" instead.
+      ''
+      ;
     homepage = "https://olofson.itch.io/kobo-redux";
     license = with licenses;
       if useProprietaryAssets then

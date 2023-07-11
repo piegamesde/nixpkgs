@@ -38,14 +38,16 @@ let
   supplicantService =
     iface: suppl:
     let
-      deps = (if (iface == "WLAN" || iface == "LAN") then
-        [ "sys-subsystem-net-devices-%i.device" ]
-      else
-        (if (iface == "DBUS") then
-          [ "dbus.service" ]
+      deps =
+        (if (iface == "WLAN" || iface == "LAN") then
+          [ "sys-subsystem-net-devices-%i.device" ]
         else
-          (map subsystemDevice (splitString " " iface))))
-        ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge);
+          (if (iface == "DBUS") then
+            [ "dbus.service" ]
+          else
+            (map subsystemDevice (splitString " " iface))))
+        ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge)
+        ;
 
       ifaceArg =
         concatStringsSep " -N " (map (i: "-i${i}") (splitString " " iface));
@@ -62,7 +64,8 @@ let
         '';
     in
     {
-      description = "Supplicant ${iface}${
+      description =
+        "Supplicant ${iface}${
           optionalString (iface == "WLAN" || iface == "LAN") " %I"
         }";
       wantedBy = [ "multi-user.target" ] ++ deps;

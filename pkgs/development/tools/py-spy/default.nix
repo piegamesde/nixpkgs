@@ -45,10 +45,11 @@ rustPlatform.buildRustPackage rec {
       export RUSTFLAGS="-Clinker=$CC"
     '';
 
-  checkFlags = [
-    # thread 'python_data_access::tests::test_copy_string' panicked at 'called `Result::unwrap()` on an `Err`
-    "--skip=python_data_access::tests::test_copy_string"
-  ];
+  checkFlags =
+    [
+      # thread 'python_data_access::tests::test_copy_string' panicked at 'called `Result::unwrap()` on an `Err`
+      "--skip=python_data_access::tests::test_copy_string"
+    ];
 
   meta = with lib; {
     description = "Sampling profiler for Python programs";

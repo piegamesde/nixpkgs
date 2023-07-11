@@ -11,13 +11,14 @@ let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
-  plat = {
-    x86_64-linux = "linux-x64";
-    x86_64-darwin = "darwin";
-    aarch64-linux = "linux-arm64";
-    aarch64-darwin = "darwin-arm64";
-    armv7l-linux = "linux-armhf";
-  }.${system} or throwSystem;
+  plat =
+    {
+      x86_64-linux = "linux-x64";
+      x86_64-darwin = "darwin";
+      aarch64-linux = "linux-arm64";
+      aarch64-darwin = "darwin-arm64";
+      armv7l-linux = "linux-armhf";
+    }.${system} or throwSystem;
 
   archive_fmt =
     if stdenv.isDarwin then
@@ -26,13 +27,14 @@ let
       "tar.gz"
     ;
 
-  sha256 = {
-    x86_64-linux = "11ibgnpcs0qvirgjnk799zkb63zp0nbc8y636l5g9nay6jm8lr8s";
-    x86_64-darwin = "0wg2xbvg3v20w4dh9vf27xcf95r5dv2l118vxxjfz2chfxmkk1qw";
-    aarch64-linux = "1gff1ildisczwb0dx7a0jvhj8rgn60n93rzcj1d7lihkgd00zjg6";
-    aarch64-darwin = "1zmfg1lv6izv1dmhawmnjs108pg99kq37pi6adyqnfw9yssn0ar5";
-    armv7l-linux = "10gr9p5vf0wcc9dgyc79p20vip12ja15qas4i3kwdp9lp4hzh1ss";
-  }.${system} or throwSystem;
+  sha256 =
+    {
+      x86_64-linux = "11ibgnpcs0qvirgjnk799zkb63zp0nbc8y636l5g9nay6jm8lr8s";
+      x86_64-darwin = "0wg2xbvg3v20w4dh9vf27xcf95r5dv2l118vxxjfz2chfxmkk1qw";
+      aarch64-linux = "1gff1ildisczwb0dx7a0jvhj8rgn60n93rzcj1d7lihkgd00zjg6";
+      aarch64-darwin = "1zmfg1lv6izv1dmhawmnjs108pg99kq37pi6adyqnfw9yssn0ar5";
+      armv7l-linux = "10gr9p5vf0wcc9dgyc79p20vip12ja15qas4i3kwdp9lp4hzh1ss";
+    }.${system} or throwSystem;
 in
 callPackage ./generic.nix rec {
   # Please backport all compatible updates to the stable release.

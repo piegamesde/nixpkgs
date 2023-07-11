@@ -19,7 +19,9 @@
 # See libv4l in all-packages.nix for the libs only (overrides alsa, libX11 & QT)
 
 let
-  withQt = withUtils && withGUI;
+  withQt =
+    withUtils && withGUI
+    ;
 
     # we need to use stdenv.mkDerivation in order not to pollute the libv4l’s closure with Qt
 in
@@ -34,32 +36,36 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" ] ++ lib.optional withUtils "lib" ++ [ "dev" ];
 
-  configureFlags = (if withUtils then
-    [
-      "--with-localedir=${placeholder "lib"}/share/locale"
-      "--with-udevdir=${placeholder "out"}/lib/udev"
-    ]
-  else
-    [ "--disable-v4l-utils" ]);
+  configureFlags =
+    (if withUtils then
+      [
+        "--with-localedir=${placeholder "lib"}/share/locale"
+        "--with-udevdir=${placeholder "out"}/lib/udev"
+      ]
+    else
+      [ "--disable-v4l-utils" ]);
 
   postFixup = ''
     # Create symlink for V4l1 compatibility
     ln -s "$dev/include/libv4l1-videodev.h" "$dev/include/videodev.h"
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    perl
-  ] ++ lib.optional withQt wrapQtAppsHook;
+  nativeBuildInputs =
+    [
+      pkg-config
+      perl
+    ] ++ lib.optional withQt wrapQtAppsHook
+    ;
 
-  buildInputs = [ udev ]
-    ++ lib.optional (!stdenv.hostPlatform.isGnu) argp-standalone
+  buildInputs =
+    [ udev ] ++ lib.optional (!stdenv.hostPlatform.isGnu) argp-standalone
     ++ lib.optionals withQt [
       alsa-lib
       libX11
       qtbase
       libGLU
-    ];
+    ]
+    ;
 
   propagatedBuildInputs = [ libjpeg ];
 

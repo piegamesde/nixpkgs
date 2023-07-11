@@ -34,15 +34,17 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  buildInputs = [
-    ncurses
-    libtermkey
-    luaEnv
-    tre
-  ] ++ lib.optionals stdenv.isLinux [
-    acl
-    libselinux
-  ];
+  buildInputs =
+    [
+      ncurses
+      libtermkey
+      luaEnv
+      tre
+    ] ++ lib.optionals stdenv.isLinux [
+      acl
+      libselinux
+    ]
+    ;
 
   postPatch = ''
     patchShebangs ./configure

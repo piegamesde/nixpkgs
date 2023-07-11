@@ -42,11 +42,12 @@ assert unsafeStringSupport -> lib.versionAtLeast version "4.06"
 assert framePointerSupport -> lib.versionAtLeast version "4.01";
 
 let
-  src = args.src or (fetchurl {
-    url =
-      args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
-    inherit (args) sha256;
-  });
+  src =
+    args.src or (fetchurl {
+      url =
+        args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
+      inherit (args) sha256;
+    });
 
 in
 let
@@ -136,11 +137,13 @@ stdenv.mkDerivation (args // {
       "target"
     ];
     # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
-  hardeningDisable = lib.optional
+  hardeningDisable =
+    lib.optional
     (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl) "pie"
     ++ lib.optional (lib.versionAtLeast version "5.0" && stdenv.cc.isClang)
     "strictoverflow"
-    ++ lib.optionals (args ? hardeningDisable) args.hardeningDisable;
+    ++ lib.optionals (args ? hardeningDisable) args.hardeningDisable
+    ;
 
     # Older versions have some race:
     #  cp: cannot stat 'boot/ocamlrun': No such file or directory
@@ -162,24 +165,27 @@ stdenv.mkDerivation (args // {
     else
       [ "nixpkgs_world" ]
     ;
-  buildInputs = optional (lib.versionOlder version "4.07") ncurses
-    ++ optionals useX11 [
+  buildInputs =
+    optional (lib.versionOlder version "4.07") ncurses ++ optionals useX11 [
       libX11
       xorgproto
-    ];
+    ]
+    ;
   propagatedBuildInputs = optional spaceTimeSupport libunwind;
   installTargets = [ "install" ] ++ optional useNativeCompilers "installopt";
-  preConfigure = optionalString (lib.versionOlder version "4.04") ''
-    CAT=$(type -tp cat)
-    sed -e "s@/bin/cat@$CAT@" -i config/auto-aux/sharpbang
-  '' + optionalString (stdenv.isDarwin) ''
-    # Do what upstream does by default now: https://github.com/ocaml/ocaml/pull/10176
-    # This is required for aarch64-darwin, everything else works as is.
-    AS="${stdenv.cc}/bin/cc -c" ASPP="${stdenv.cc}/bin/cc -c"
-  '' + optionalString
+  preConfigure =
+    optionalString (lib.versionOlder version "4.04") ''
+      CAT=$(type -tp cat)
+      sed -e "s@/bin/cat@$CAT@" -i config/auto-aux/sharpbang
+    '' + optionalString (stdenv.isDarwin) ''
+      # Do what upstream does by default now: https://github.com/ocaml/ocaml/pull/10176
+      # This is required for aarch64-darwin, everything else works as is.
+      AS="${stdenv.cc}/bin/cc -c" ASPP="${stdenv.cc}/bin/cc -c"
+    '' + optionalString
     (lib.versionOlder version "4.08" && stdenv.hostPlatform.isStatic) ''
       configureFlagsArray+=("-cc" "$CC" "-as" "$AS" "-partialld" "$LD -r")
-    '';
+    ''
+    ;
   postBuild = ''
     mkdir -p $out/include
     ln -sv $out/lib/ocaml/caml $out/include/caml
@@ -215,11 +221,12 @@ stdenv.mkDerivation (args // {
     '';
 
     platforms = with platforms; linux ++ darwin;
-    broken = stdenv.isAarch64 && lib.versionOlder version
-      (if stdenv.isDarwin then
+    broken =
+      stdenv.isAarch64 && lib.versionOlder version (if stdenv.isDarwin then
         "4.10"
       else
-        "4.02");
+        "4.02")
+      ;
   };
 
 })

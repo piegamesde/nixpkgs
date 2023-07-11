@@ -56,19 +56,22 @@ stdenv.mkDerivation rec {
     ln -rs $out/bin/scp $out/bin/dbscp
   '';
 
-  patches = [
-    # Allow sessions to inherit the PATH from the parent dropbear.
-    # Otherwise they only get the usual /bin:/usr/bin kind of PATH
-    ./pass-path.patch
-  ];
+  patches =
+    [
+      # Allow sessions to inherit the PATH from the parent dropbear.
+      # Otherwise they only get the usual /bin:/usr/bin kind of PATH
+      ./pass-path.patch
+    ];
 
-  buildInputs = [
-    zlib
-    libxcrypt
-  ] ++ lib.optionals enableStatic [
-    glibc.static
-    zlib.static
-  ];
+  buildInputs =
+    [
+      zlib
+      libxcrypt
+    ] ++ lib.optionals enableStatic [
+      glibc.static
+      zlib.static
+    ]
+    ;
 
   meta = with lib; {
     description = "A small footprint implementation of the SSH 2 protocol";

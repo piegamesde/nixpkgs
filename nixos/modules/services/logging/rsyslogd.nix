@@ -96,7 +96,8 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.rsyslog}/sbin/rsyslogd ${
+        ExecStart =
+          "${pkgs.rsyslog}/sbin/rsyslogd ${
             toString cfg.extraParams
           } -f ${syslogConf} -n";
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/spool/rsyslog";

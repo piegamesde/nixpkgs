@@ -21,9 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "hipblas";
   version = "5.4.3";
 
-  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
+  outputs =
+    [ "out" ] ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
-    ++ lib.optionals buildSamples [ "sample" ];
+    ++ lib.optionals buildSamples [ "sample" ]
+    ;
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -39,36 +41,42 @@ stdenv.mkDerivation (finalAttrs: {
     gfortran
   ];
 
-  buildInputs = [
-    rocblas
-    rocsolver
-  ] ++ lib.optionals buildTests [ gtest ]
-    ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
+  buildInputs =
+    [
+      rocblas
+      rocsolver
+    ] ++ lib.optionals buildTests [ gtest ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ]
+    ;
 
-  cmakeFlags = [
-    "-DCMAKE_C_COMPILER=hipcc"
-    "-DCMAKE_CXX_COMPILER=hipcc"
-    # Manually define CMAKE_INSTALL_<DIR>
-    # See: https://github.com/NixOS/nixpkgs/pull/197838
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+  cmakeFlags =
+    [
+      "-DCMAKE_C_COMPILER=hipcc"
+      "-DCMAKE_CXX_COMPILER=hipcc"
+      # Manually define CMAKE_INSTALL_<DIR>
+      # See: https://github.com/NixOS/nixpkgs/pull/197838
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-    ++ lib.optionals buildSamples [ "-DBUILD_CLIENTS_SAMPLES=ON" ];
+    ++ lib.optionals buildSamples [ "-DBUILD_CLIENTS_SAMPLES=ON" ]
+    ;
 
-  postInstall = lib.optionalString buildTests ''
-    mkdir -p $test/bin
-    mv $out/bin/hipblas-test $test/bin
-  '' + lib.optionalString buildBenchmarks ''
-    mkdir -p $benchmark/bin
-    mv $out/bin/hipblas-bench $benchmark/bin
-  '' + lib.optionalString buildSamples ''
-    mkdir -p $sample/bin
-    mv $out/bin/example-* $sample/bin
-  '' + lib.optionalString (buildTests || buildBenchmarks || buildSamples) ''
-    rmdir $out/bin
-  '';
+  postInstall =
+    lib.optionalString buildTests ''
+      mkdir -p $test/bin
+      mv $out/bin/hipblas-test $test/bin
+    '' + lib.optionalString buildBenchmarks ''
+      mkdir -p $benchmark/bin
+      mv $out/bin/hipblas-bench $benchmark/bin
+    '' + lib.optionalString buildSamples ''
+      mkdir -p $sample/bin
+      mv $out/bin/example-* $sample/bin
+    '' + lib.optionalString (buildTests || buildBenchmarks || buildSamples) ''
+      rmdir $out/bin
+    ''
+    ;
 
   passthru.updateScript = rocmUpdateScript {
     name = finalAttrs.pname;
@@ -83,7 +91,9 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
       # Fixed in develop branch by using C++17 and related refactor
-    broken = versions.minor finalAttrs.version != versions.minor hip.version
-      || buildTests || buildBenchmarks || buildSamples;
+    broken =
+      versions.minor finalAttrs.version != versions.minor hip.version
+      || buildTests || buildBenchmarks || buildSamples
+      ;
   };
 })

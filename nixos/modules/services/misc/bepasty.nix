@@ -156,7 +156,8 @@ in
         serviceConfig = {
           Type = "simple";
           PrivateTmp = true;
-          ExecStartPre = assert server.secretKeyFile != null;
+          ExecStartPre =
+            assert server.secretKeyFile != null;
             pkgs.writeScript "bepasty-server.${name}-init" ''
               #!/bin/sh
               mkdir -p "${server.workDir}"
@@ -169,7 +170,8 @@ in
               DEFAULT_PERMISSIONS="${server.defaultPermissions}"
               ${server.extraConfig}
               EOF
-            '';
+            ''
+            ;
           ExecStart = ''
             ${gunicorn}/bin/gunicorn bepasty.wsgi --name ${name} \
                           -u ${user} \

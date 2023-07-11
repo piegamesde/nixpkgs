@@ -32,10 +32,11 @@ buildPythonPackage rec {
     pytz
   ];
 
-  disabledTests = [
-    # ignore --skip-tests-requiring-internet flag
-    "test_user_agent_default"
-  ];
+  disabledTests =
+    [
+      # ignore --skip-tests-requiring-internet flag
+      "test_user_agent_default"
+    ];
 
   pytestFlagsArray = [ "--skip-tests-requiring-internet" ];
 

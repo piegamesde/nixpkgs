@@ -26,29 +26,35 @@ stdenv.mkDerivation rec {
   pname = "libchamplain";
   version = "0.12.21";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ]
+    ;
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "qRXNFyoMUpRMVXn8tGg/ioeMVxv16SglS12v78cn5ac=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-    vala
-  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
-    gtk-doc
-    docbook_xsl
-    docbook_xml_dtd_412
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gobject-introspection
+      vala
+    ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
+      gtk-doc
+      docbook_xsl
+      docbook_xml_dtd_412
+    ]
+    ;
 
   buildInputs = [
     sqlite

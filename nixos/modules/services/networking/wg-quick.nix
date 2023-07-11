@@ -241,9 +241,7 @@ let
   };
 
   writeScriptFile =
-    name: text:
-    ((pkgs.writeShellScriptBin name text) + "/bin/${name}")
-    ;
+    name: text: ((pkgs.writeShellScriptBin name text) + "/bin/${name}");
 
   generateUnit =
     name: values:
@@ -257,12 +255,14 @@ let
         else
           null
         ;
-      postUp = optional (values.privateKeyFile != null)
+      postUp =
+        optional (values.privateKeyFile != null)
         "wg set ${name} private-key <(cat ${values.privateKeyFile})"
         ++ (concatMap (peer:
           optional (peer.presharedKeyFile != null)
           "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})")
-          values.peers) ++ optional (values.postUp != "") values.postUp;
+          values.peers) ++ optional (values.postUp != "") values.postUp
+        ;
       postUpFile =
         if postUp != [ ] then
           writeScriptFile "postUp.sh"
@@ -286,44 +286,46 @@ let
         name = "config-${name}";
         executable = false;
         destination = "/${name}.conf";
-        text = ''
-          [interface]
-          ${concatMapStringsSep "\n" (address: "Address = ${address}")
-          values.address}
-          ${concatMapStringsSep "\n" (dns: "DNS = ${dns}") values.dns}
-        '' + optionalString (values.table != null) ''
-          Table = ${values.table}
-        '' + optionalString (values.mtu != null) ''
-          MTU = ${toString values.mtu}
-        '' + optionalString (values.privateKey != null) ''
-          PrivateKey = ${values.privateKey}
-        '' + optionalString (values.listenPort != null) ''
-          ListenPort = ${toString values.listenPort}
-        '' + optionalString (preUpFile != null) ''
-          PreUp = ${preUpFile}
-        '' + optionalString (postUpFile != null) ''
-          PostUp = ${postUpFile}
-        '' + optionalString (preDownFile != null) ''
-          PreDown = ${preDownFile}
-        '' + optionalString (postDownFile != null) ''
-          PostDown = ${postDownFile}
-        '' + concatMapStringsSep "\n" (peer:
-          assert assertMsg
-            (!((peer.presharedKeyFile != null) && (peer.presharedKey != null)))
-            "Only one of presharedKey or presharedKeyFile may be set";
+        text =
           ''
-            [Peer]
-          '' + ''
-            PublicKey = ${peer.publicKey}
-          '' + optionalString (peer.presharedKey != null) ''
-            PresharedKey = ${peer.presharedKey}
-          '' + optionalString (peer.endpoint != null) ''
-            Endpoint = ${peer.endpoint}
-          '' + optionalString (peer.persistentKeepalive != null) ''
-            PersistentKeepalive = ${toString peer.persistentKeepalive}
-          '' + optionalString (peer.allowedIPs != [ ]) ''
-            AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
-          '') values.peers;
+            [interface]
+            ${concatMapStringsSep "\n" (address: "Address = ${address}")
+            values.address}
+            ${concatMapStringsSep "\n" (dns: "DNS = ${dns}") values.dns}
+          '' + optionalString (values.table != null) ''
+            Table = ${values.table}
+          '' + optionalString (values.mtu != null) ''
+            MTU = ${toString values.mtu}
+          '' + optionalString (values.privateKey != null) ''
+            PrivateKey = ${values.privateKey}
+          '' + optionalString (values.listenPort != null) ''
+            ListenPort = ${toString values.listenPort}
+          '' + optionalString (preUpFile != null) ''
+            PreUp = ${preUpFile}
+          '' + optionalString (postUpFile != null) ''
+            PostUp = ${postUpFile}
+          '' + optionalString (preDownFile != null) ''
+            PreDown = ${preDownFile}
+          '' + optionalString (postDownFile != null) ''
+            PostDown = ${postDownFile}
+          '' + concatMapStringsSep "\n" (peer:
+            assert assertMsg (!((peer.presharedKeyFile != null)
+              && (peer.presharedKey != null)))
+              "Only one of presharedKey or presharedKeyFile may be set";
+            ''
+              [Peer]
+            '' + ''
+              PublicKey = ${peer.publicKey}
+            '' + optionalString (peer.presharedKey != null) ''
+              PresharedKey = ${peer.presharedKey}
+            '' + optionalString (peer.endpoint != null) ''
+              Endpoint = ${peer.endpoint}
+            '' + optionalString (peer.persistentKeepalive != null) ''
+              PersistentKeepalive = ${toString peer.persistentKeepalive}
+            '' + optionalString (peer.allowedIPs != [ ]) ''
+              AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
+            '') values.peers
+          ;
       };
       configPath =
         if

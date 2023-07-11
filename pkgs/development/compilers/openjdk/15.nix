@@ -72,56 +72,60 @@ let
       file
       which
     ];
-    buildInputs = [
-      cpio
-      perl
-      zlib
-      cups
-      freetype
-      harfbuzz
-      alsa-lib
-      libjpeg
-      giflib
-      libpng
-      zlib
-      lcms2
-      libX11
-      libICE
-      libXrender
-      libXext
-      libXtst
-      libXt
-      libXtst
-      libXi
-      libXinerama
-      libXcursor
-      libXrandr
-      fontconfig
-      openjdk-bootstrap
-    ] ++ lib.optionals (!headless && enableGnome2) [
-      gtk3
-      gnome_vfs
-      GConf
-      glib
-    ];
+    buildInputs =
+      [
+        cpio
+        perl
+        zlib
+        cups
+        freetype
+        harfbuzz
+        alsa-lib
+        libjpeg
+        giflib
+        libpng
+        zlib
+        lcms2
+        libX11
+        libICE
+        libXrender
+        libXext
+        libXtst
+        libXt
+        libXtst
+        libXi
+        libXinerama
+        libXcursor
+        libXrandr
+        fontconfig
+        openjdk-bootstrap
+      ] ++ lib.optionals (!headless && enableGnome2) [
+        gtk3
+        gnome_vfs
+        GConf
+        glib
+      ]
+      ;
 
-    patches = [
-      ./fix-java-home-jdk10.patch
-      ./read-truststore-from-env-jdk10.patch
-      ./currency-date-range-jdk10.patch
-      ./increase-javadoc-heap-jdk13.patch
-      # -Wformat etc. are stricter in newer gccs, per
-      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=79677
-      # so grab the work-around from
-      # https://src.fedoraproject.org/rpms/java-openjdk/pull-request/24
-      (fetchurl {
-        url =
-          "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch";
-        sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
-      })
-    ] ++ lib.optionals (!headless && enableGnome2) [
+    patches =
+      [
+        ./fix-java-home-jdk10.patch
+        ./read-truststore-from-env-jdk10.patch
+        ./currency-date-range-jdk10.patch
+        ./increase-javadoc-heap-jdk13.patch
+        # -Wformat etc. are stricter in newer gccs, per
+        # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=79677
+        # so grab the work-around from
+        # https://src.fedoraproject.org/rpms/java-openjdk/pull-request/24
+        (fetchurl {
+          url =
+            "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch";
+          sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
+        })
+      ] ++ lib.optionals (!headless && enableGnome2) [
         ./swing-use-gtk-jdk13.patch
-      ];
+      ]
+      ;
 
     prePatch = ''
       chmod +x configure
@@ -136,23 +140,25 @@ let
       "host"
     ];
 
-    configureFlags = [
-      "--with-boot-jdk=${openjdk-bootstrap.home}"
-      "--with-version-pre="
-      "--enable-unlimited-crypto"
-      "--with-native-debug-symbols=internal"
-      "--with-freetype=system"
-      "--with-harfbuzz=system"
-      "--with-libjpeg=system"
-      "--with-giflib=system"
-      "--with-libpng=system"
-      "--with-zlib=system"
-      "--with-lcms=system"
-      "--with-stdc++lib=dynamic"
-    ] ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
+    configureFlags =
+      [
+        "--with-boot-jdk=${openjdk-bootstrap.home}"
+        "--with-version-pre="
+        "--enable-unlimited-crypto"
+        "--with-native-debug-symbols=internal"
+        "--with-freetype=system"
+        "--with-harfbuzz=system"
+        "--with-libjpeg=system"
+        "--with-giflib=system"
+        "--with-libpng=system"
+        "--with-zlib=system"
+        "--with-lcms=system"
+        "--with-stdc++lib=dynamic"
+      ] ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
       ++ lib.optional headless "--enable-headless-only"
       ++ lib.optional (!headless && enableJavaFX)
-      "--with-import-modules=${openjfx}";
+      "--with-import-modules=${openjfx}"
+      ;
 
     separateDebugInfo = true;
 

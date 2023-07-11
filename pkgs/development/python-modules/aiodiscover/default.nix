@@ -44,10 +44,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Tests require access to /etc/resolv.conf
-    "test_async_discover_hosts"
-  ];
+  disabledTests =
+    [
+      # Tests require access to /etc/resolv.conf
+      "test_async_discover_hosts"
+    ];
 
   pythonImportsCheck = [ "aiodiscover" ];
 

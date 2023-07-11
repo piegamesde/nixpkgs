@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libtool ];
   propagatedBuildInputs = [ gmpxx ];
 
-  configureFlags = [ "--disable-optimization" ]
-    ++ lib.optionals stdenv.isx86_64 [
+  configureFlags =
+    [ "--disable-optimization" ] ++ lib.optionals stdenv.isx86_64 [
       # disable SIMD instructions (which are enabled *when available* by default)
       "--${
         if stdenv.hostPlatform.sse3Support then
@@ -79,7 +79,8 @@ stdenv.mkDerivation rec {
         else
           "disable"
       }-fma4"
-    ];
+    ]
+    ;
 
     # On darwin, tests are linked to dylib in the nix store, so we need to make
     # sure tests run after installPhase.

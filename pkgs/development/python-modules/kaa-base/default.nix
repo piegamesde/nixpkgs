@@ -18,7 +18,9 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  disabled = isPyPy || isPy3k;
+  disabled =
+    isPyPy || isPy3k
+    ;
 
     # Same as in buildPythonPackage except that it does not pass --old-and-unmanageable
   installPhase = ''

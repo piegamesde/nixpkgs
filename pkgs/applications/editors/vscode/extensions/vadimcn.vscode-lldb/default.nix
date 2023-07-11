@@ -57,15 +57,16 @@ let
     doCheck = false;
   };
 
-  nodeDeps = ((import ./build-deps/default.nix {
-    inherit pkgs nodejs;
-    inherit (stdenv.hostPlatform) system;
-  }).nodeDependencies.override (old: {
-    inherit src version;
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libsecret ];
-    dontNpmInstall = true;
-  }));
+  nodeDeps =
+    ((import ./build-deps/default.nix {
+      inherit pkgs nodejs;
+      inherit (stdenv.hostPlatform) system;
+    }).nodeDependencies.override (old: {
+      inherit src version;
+      nativeBuildInputs = [ pkg-config ];
+      buildInputs = [ libsecret ];
+      dontNpmInstall = true;
+    }));
 
 in
 stdenv.mkDerivation {
@@ -87,10 +88,11 @@ stdenv.mkDerivation {
     cp -r ${nodeDeps}/lib/{node_modules,package-lock.json} .
   '';
 
-  cmakeFlags = [
-    # Do not append timestamp to version.
-    "-DVERSION_SUFFIX="
-  ];
+  cmakeFlags =
+    [
+      # Do not append timestamp to version.
+      "-DVERSION_SUFFIX="
+    ];
   makeFlags = [ "vsix_bootstrap" ];
 
   installPhase = ''

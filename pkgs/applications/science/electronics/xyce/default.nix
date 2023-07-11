@@ -59,27 +59,30 @@ stdenv.mkDerivation rec {
 
   preConfigure = "./bootstrap";
 
-  configureFlags = [
-    "CXXFLAGS=-O3"
-    "--enable-xyce-shareable"
-    "--enable-shared"
-    "--enable-stokhos"
-    "--enable-amesos2"
-  ] ++ lib.optionals withMPI [
-    "--enable-mpi"
-    "CXX=mpicxx"
-    "CC=mpicc"
-    "F77=mpif77"
-  ];
+  configureFlags =
+    [
+      "CXXFLAGS=-O3"
+      "--enable-xyce-shareable"
+      "--enable-shared"
+      "--enable-stokhos"
+      "--enable-amesos2"
+    ] ++ lib.optionals withMPI [
+      "--enable-mpi"
+      "CXX=mpicxx"
+      "CC=mpicc"
+      "F77=mpif77"
+    ]
+    ;
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    gfortran
-    libtool_2
-  ] ++ lib.optionals enableDocs [
+  nativeBuildInputs =
+    [
+      autoconf
+      automake
+      gfortran
+      libtool_2
+    ] ++ lib.optionals enableDocs [
       (texlive.combine {
         inherit (texlive)
           scheme-medium
@@ -91,17 +94,20 @@ stdenv.mkDerivation rec {
           preprint
           ;
       })
-    ];
+    ]
+    ;
 
-  buildInputs = [
-    bison
-    blas
-    flex
-    fftw
-    lapack
-    suitesparse
-    trilinos
-  ] ++ lib.optionals withMPI [ mpi ];
+  buildInputs =
+    [
+      bison
+      blas
+      flex
+      fftw
+      lapack
+      suitesparse
+      trilinos
+    ] ++ lib.optionals withMPI [ mpi ]
+    ;
 
   doCheck = enableTests;
 
@@ -120,18 +126,20 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  nativeCheckInputs = [
-    bc
-    perl
-    (python3.withPackages (ps:
-      with ps; [
-        numpy
-        scipy
-      ]))
-  ] ++ lib.optionals withMPI [
-    mpi
-    openssh
-  ];
+  nativeCheckInputs =
+    [
+      bc
+      perl
+      (python3.withPackages (ps:
+        with ps; [
+          numpy
+          scipy
+        ]))
+    ] ++ lib.optionals withMPI [
+      mpi
+      openssh
+    ]
+    ;
 
   checkPhase = ''
     XYCE_BINARY="$(pwd)/src/Xyce"

@@ -33,47 +33,52 @@ stdenv.mkDerivation {
     sha256 = "sha256-m40ezt1bXoH78ZGOh2dSp92UjgXBoNuhCrhjhC1FrNU=";
   };
 
-  patches = [
-    # fix location of timezone data for TZ= completion
-    ./tz_completion.patch
-  ];
+  patches =
+    [
+      # fix location of timezone data for TZ= completion
+      ./tz_completion.patch
+    ];
 
   strictDeps = true;
-  nativeBuildInputs = [
-    autoreconfHook
-    perl
-    groff
-    texinfo
-    pcre
-  ] ++ lib.optionals stdenv.isLinux [
-    util-linux
-    yodl
-  ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      perl
+      groff
+      texinfo
+      pcre
+    ] ++ lib.optionals stdenv.isLinux [
+      util-linux
+      yodl
+    ]
+    ;
 
   buildInputs = [
     ncurses
     pcre
   ];
 
-  configureFlags = [
-    "--enable-maildir-support"
-    "--enable-multibyte"
-    "--with-tcsetpgrp"
-    "--enable-pcre"
-    "--enable-zshenv=${placeholder "out"}/etc/zshenv"
-    "--disable-site-fndir"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
-    && !stdenv.hostPlatform.isStatic) [
-      # Also see: https://github.com/buildroot/buildroot/commit/2f32e668aa880c2d4a2cce6c789b7ca7ed6221ba
-      "zsh_cv_shared_environ=yes"
-      "zsh_cv_shared_tgetent=yes"
-      "zsh_cv_shared_tigetstr=yes"
-      "zsh_cv_sys_dynamic_clash_ok=yes"
-      "zsh_cv_sys_dynamic_rtld_global=yes"
-      "zsh_cv_sys_dynamic_execsyms=yes"
-      "zsh_cv_sys_dynamic_strip_exe=yes"
-      "zsh_cv_sys_dynamic_strip_lib=yes"
-    ];
+  configureFlags =
+    [
+      "--enable-maildir-support"
+      "--enable-multibyte"
+      "--with-tcsetpgrp"
+      "--enable-pcre"
+      "--enable-zshenv=${placeholder "out"}/etc/zshenv"
+      "--disable-site-fndir"
+    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
+      && !stdenv.hostPlatform.isStatic) [
+        # Also see: https://github.com/buildroot/buildroot/commit/2f32e668aa880c2d4a2cce6c789b7ca7ed6221ba
+        "zsh_cv_shared_environ=yes"
+        "zsh_cv_shared_tgetent=yes"
+        "zsh_cv_shared_tigetstr=yes"
+        "zsh_cv_sys_dynamic_clash_ok=yes"
+        "zsh_cv_sys_dynamic_rtld_global=yes"
+        "zsh_cv_sys_dynamic_execsyms=yes"
+        "zsh_cv_sys_dynamic_strip_exe=yes"
+        "zsh_cv_sys_dynamic_strip_lib=yes"
+      ]
+    ;
 
     # the zsh/zpty module is not available on hydra
     # so skip groups Y Z

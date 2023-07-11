@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
     ; # normal
 
   src = fetchurl {
-    url = "mirror://sourceforge/goattracker2/GoatTracker_${version}${
+    url =
+      "mirror://sourceforge/goattracker2/GoatTracker_${version}${
         lib.optionalString isStereo "_Stereo"
       }.zip";
     sha256 =
@@ -87,7 +88,8 @@ stdenv.mkDerivation rec {
   meta = {
     description =
       "A crossplatform music editor for creating Commodore 64 music. Uses reSID library by Dag Lem and supports alternatively HardSID & CatWeasel devices"
-      + lib.optionalString isStereo " - Stereo version";
+      + lib.optionalString isStereo " - Stereo version"
+      ;
     homepage = "https://cadaver.github.io/tools.html";
     downloadPage = "https://sourceforge.net/projects/goattracker2/";
     license = lib.licenses.gpl2Plus;

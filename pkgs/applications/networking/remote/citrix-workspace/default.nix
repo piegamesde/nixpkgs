@@ -11,9 +11,7 @@ let
   mkCitrix = callPackage ./generic.nix { };
 
   toAttrName =
-    x:
-    "citrix_workspace_${builtins.replaceStrings [ "." ] [ "_" ] x}"
-    ;
+    x: "citrix_workspace_${builtins.replaceStrings [ "." ] [ "_" ] x}";
 
   unsupported = lib.listToAttrs (map (x:
     lib.nameValuePair (toAttrName x) (throw ''

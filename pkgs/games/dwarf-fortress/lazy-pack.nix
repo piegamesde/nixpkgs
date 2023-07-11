@@ -43,7 +43,8 @@ let
 in
 buildEnv {
   name = "dwarf-fortress-full";
-  paths = [
+  paths =
+    [
       (dwarf-fortress.override {
         inherit
           enableDFHack
@@ -59,7 +60,8 @@ buildEnv {
           ;
       })
     ] ++ lib.optional enableDwarfTherapist dwarf-therapist
-    ++ lib.optional enableLegendsBrowser legends-browser;
+    ++ lib.optional enableLegendsBrowser legends-browser
+    ;
 
   meta = with lib; {
     description = "An opinionated wrapper for Dwarf Fortress";

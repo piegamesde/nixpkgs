@@ -47,20 +47,23 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ which ];
 
-  buildInputs = [
-    libtpms
-    openssl
-    libtasn1
-    glib
-    json-glib
-    gnutls
-  ] ++ lib.optionals stdenv.isLinux [
-    fuse
-    libseccomp
-  ];
+  buildInputs =
+    [
+      libtpms
+      openssl
+      libtasn1
+      glib
+      json-glib
+      gnutls
+    ] ++ lib.optionals stdenv.isLinux [
+      fuse
+      libseccomp
+    ]
+    ;
 
-  configureFlags = [ "--localstatedir=/var" ]
-    ++ lib.optionals stdenv.isLinux [ "--with-cuse" ];
+  configureFlags =
+    [ "--localstatedir=/var" ] ++ lib.optionals stdenv.isLinux [ "--with-cuse" ]
+    ;
 
   postPatch = ''
     patchShebangs tests/*

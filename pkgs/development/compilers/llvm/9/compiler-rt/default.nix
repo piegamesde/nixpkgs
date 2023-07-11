@@ -36,15 +36,16 @@ stdenv.mkDerivation {
       "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
     ];
 
-  cmakeFlags = [
-    "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
-    "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
-    "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
-  ] ++ lib.optionals (useLLVM || bareMetal || isMusl) [
-    "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
-    "-DCOMPILER_RT_BUILD_XRAY=OFF"
-    "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
-  ] ++ lib.optionals (useLLVM || bareMetal) [
+  cmakeFlags =
+    [
+      "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
+      "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
+      "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
+    ] ++ lib.optionals (useLLVM || bareMetal || isMusl) [
+      "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
+      "-DCOMPILER_RT_BUILD_XRAY=OFF"
+      "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
+    ] ++ lib.optionals (useLLVM || bareMetal) [
       "-DCOMPILER_RT_BUILD_PROFILE=OFF"
     ] ++ lib.optionals ((useLLVM || bareMetal) && !haveLibc) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
@@ -65,47 +66,53 @@ stdenv.mkDerivation {
       # and finds i386;x86_64;x86_64h. We only build for x86_64, so linking fails
       # when it tries to use libc++ and libc++api for i386.
       "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
-    ];
+    ]
+    ;
 
   outputs = [
     "out"
     "dev"
   ];
 
-  patches = [
-    # https://github.com/llvm/llvm-project/commit/947f9692440836dcb8d88b74b69dd379d85974ce
-    ../../common/compiler-rt/glibc.patch
-    ./codesign.patch # Revert compiler-rt commit that makes codesign mandatory
-    ./gnu-install-dirs.patch
-    ../../common/compiler-rt/libsanitizer-no-cyclades-9.patch
-    # Fix build on armv6l
-    ../../common/compiler-rt/armv6-mcr-dmb.patch
-    ../../common/compiler-rt/armv6-sync-ops-no-thumb.patch
-    ../../common/compiler-rt/armv6-no-ldrexd-strexd.patch
-  ] ++ lib.optional stdenv.hostPlatform.isAarch32 ./armv7l.patch;
+  patches =
+    [
+      # https://github.com/llvm/llvm-project/commit/947f9692440836dcb8d88b74b69dd379d85974ce
+      ../../common/compiler-rt/glibc.patch
+      ./codesign.patch # Revert compiler-rt commit that makes codesign mandatory
+      ./gnu-install-dirs.patch
+      ../../common/compiler-rt/libsanitizer-no-cyclades-9.patch
+      # Fix build on armv6l
+      ../../common/compiler-rt/armv6-mcr-dmb.patch
+      ../../common/compiler-rt/armv6-sync-ops-no-thumb.patch
+      ../../common/compiler-rt/armv6-no-ldrexd-strexd.patch
+    ] ++ lib.optional stdenv.hostPlatform.isAarch32 ./armv7l.patch
+    ;
 
     # TSAN requires XPC on Darwin, which we have no public/free source files for. We can depend on the Apple frameworks
     # to get it, but they're unfree. Since LLVM is rather central to the stdenv, we patch out TSAN support so that Hydra
     # can build this. If we didn't do it, basically the entire nixpkgs on Darwin would have an unfree dependency and we'd
     # get no binary cache for the entire platform. If you really find yourself wanting the TSAN, make this controllable by
     # a flag and turn the flag off during the stdenv build.
-  postPatch = lib.optionalString (!stdenv.isDarwin) ''
-    substituteInPlace cmake/builtin-config-ix.cmake \
-      --replace 'set(X86 i386)' 'set(X86 i386 i486 i586 i686)'
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace cmake/config-ix.cmake \
-      --replace 'set(COMPILER_RT_HAS_TSAN TRUE)' 'set(COMPILER_RT_HAS_TSAN FALSE)'
-  '' + lib.optionalString (useLLVM) ''
-    substituteInPlace lib/builtins/int_util.c \
-      --replace "#include <stdlib.h>" ""
-    substituteInPlace lib/builtins/clear_cache.c \
-      --replace "#include <assert.h>" ""
-    substituteInPlace lib/builtins/cpu_model.c \
-      --replace "#include <assert.h>" ""
-  '';
+  postPatch =
+    lib.optionalString (!stdenv.isDarwin) ''
+      substituteInPlace cmake/builtin-config-ix.cmake \
+        --replace 'set(X86 i386)' 'set(X86 i386 i486 i586 i686)'
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace cmake/config-ix.cmake \
+        --replace 'set(COMPILER_RT_HAS_TSAN TRUE)' 'set(COMPILER_RT_HAS_TSAN FALSE)'
+    '' + lib.optionalString (useLLVM) ''
+      substituteInPlace lib/builtins/int_util.c \
+        --replace "#include <stdlib.h>" ""
+      substituteInPlace lib/builtins/clear_cache.c \
+        --replace "#include <assert.h>" ""
+      substituteInPlace lib/builtins/cpu_model.c \
+        --replace "#include <assert.h>" ""
+    ''
+    ;
 
     # Hack around weird upsream RPATH bug
-  postInstall = lib.optionalString
+  postInstall =
+    lib.optionalString
     (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm) ''
       ln -s "$out/lib"/*/* "$out/lib"
     '' + lib.optionalString (useLLVM) ''
@@ -115,7 +122,8 @@ stdenv.mkDerivation {
       ln -s $out/lib/*/clang_rt.crtend_shared-*.o $out/lib/crtendS.o
     '' + lib.optionalString doFakeLibgcc ''
       ln -s $out/lib/freebsd/libclang_rt.builtins-*.a $out/lib/libgcc.a
-    '';
+    ''
+    ;
 
   meta = llvm_meta // {
     homepage = "https://compiler-rt.llvm.org/";

@@ -11,9 +11,7 @@ let
   escapeVersion = builtins.replaceStrings [ "." ] [ "-" ];
 
   getJavaVersion =
-    v:
-    (builtins.getAttr "openjdk${toString v}" javaPackages.compiler).headless
-    ;
+    v: (builtins.getAttr "openjdk${toString v}" javaPackages.compiler).headless;
 
   packages = lib.mapAttrs' (version: value: {
     name = "vanilla-${escapeVersion version}";

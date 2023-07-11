@@ -34,14 +34,16 @@ stdenv.mkDerivation rec {
     protobuf
     perl
   ];
-  buildInputs = [
-    protobuf
-    ncurses
-    zlib
-    openssl
-    bash-completion
-    perl
-  ] ++ lib.optional withUtempter libutempter;
+  buildInputs =
+    [
+      protobuf
+      ncurses
+      zlib
+      openssl
+      bash-completion
+      perl
+    ] ++ lib.optional withUtempter libutempter
+    ;
 
   strictDeps = true;
 

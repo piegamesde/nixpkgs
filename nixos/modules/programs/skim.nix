@@ -21,17 +21,21 @@ in
     environment.systemPackages =
       optional (cfg.keybindings || cfg.fuzzyCompletion) cfg.package;
 
-    programs.bash.interactiveShellInit = optionalString cfg.fuzzyCompletion ''
-      source ${cfg.package}/share/skim/completion.bash
-    '' + optionalString cfg.keybindings ''
-      source ${cfg.package}/share/skim/key-bindings.bash
-    '';
+    programs.bash.interactiveShellInit =
+      optionalString cfg.fuzzyCompletion ''
+        source ${cfg.package}/share/skim/completion.bash
+      '' + optionalString cfg.keybindings ''
+        source ${cfg.package}/share/skim/key-bindings.bash
+      ''
+      ;
 
-    programs.zsh.interactiveShellInit = optionalString cfg.fuzzyCompletion ''
-      source ${cfg.package}/share/skim/completion.zsh
-    '' + optionalString cfg.keybindings ''
-      source ${cfg.package}/share/skim/key-bindings.zsh
-    '';
+    programs.zsh.interactiveShellInit =
+      optionalString cfg.fuzzyCompletion ''
+        source ${cfg.package}/share/skim/completion.zsh
+      '' + optionalString cfg.keybindings ''
+        source ${cfg.package}/share/skim/key-bindings.zsh
+      ''
+      ;
 
     programs.fish.interactiveShellInit = optionalString cfg.keybindings ''
       source ${cfg.package}/share/skim/key-bindings.fish && skim_key_bindings

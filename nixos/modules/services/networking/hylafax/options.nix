@@ -102,7 +102,9 @@ let
       inherit (config.security) wrapperDir;
       inherit (config.services.mail.sendmailSetuidWrapper) program;
       mkIfDefault = cond: value: mkIf cond (mkDefault value);
-      noWrapper = config.services.mail.sendmailSetuidWrapper == null;
+      noWrapper =
+        config.services.mail.sendmailSetuidWrapper == null
+        ;
         # If a sendmail setuid wrapper exists,
         # we add the path to the default configuration file.
         # Otherwise, we use `false` to provoke

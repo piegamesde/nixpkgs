@@ -204,14 +204,17 @@ let
     ghcBinDists.${distSetName}.${stdenv.hostPlatform.system} or (throw
       "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')");
 
-  gmpUsed = (builtins.head
-    (builtins.filter (drv: lib.hasPrefix "gmp" (drv.nixPackage.name or ""))
-      binDistUsed.archSpecificLibraries)).nixPackage;
+  gmpUsed =
+    (builtins.head
+      (builtins.filter (drv: lib.hasPrefix "gmp" (drv.nixPackage.name or ""))
+        binDistUsed.archSpecificLibraries)).nixPackage;
 
     # GHC has other native backends (like PowerPC), but here only the ones
     # we ship bindists for matter.
-  useLLVM = !(stdenv.targetPlatform.isx86
-    || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin));
+  useLLVM =
+    !(stdenv.targetPlatform.isx86
+      || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin))
+    ;
 
   libPath = lib.makeLibraryPath (
     # Add arch-specific libraries.
@@ -224,17 +227,19 @@ let
   libEnvVar =
     lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
 
-  runtimeDeps = [
-    targetPackages.stdenv.cc
-    targetPackages.stdenv.cc.bintools
-    coreutils # for cat
-  ] ++ lib.optionals useLLVM [
+  runtimeDeps =
+    [
+      targetPackages.stdenv.cc
+      targetPackages.stdenv.cc.bintools
+      coreutils # for cat
+    ] ++ lib.optionals useLLVM [
       (lib.getBin llvmPackages.llvm)
     ]
     # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
       targetPackages.stdenv.cc.bintools.bintools
-    ];
+    ]
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -343,20 +348,23 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isLinux ''
       find . -type f -executable -exec patchelf \
           --interpreter ${stdenv.cc.bintools.dynamicLinker} {} \;
-    '';
+    ''
+    ;
 
     # fix for `configure: error: Your linker is affected by binutils #16177`
   preConfigure =
     lib.optionalString stdenv.targetPlatform.isAarch32 "LD=ld.gold";
 
   configurePlatforms = [ ];
-  configureFlags = [
+  configureFlags =
+    [
       "--with-gmp-includes=${lib.getDev gmpUsed}/include"
       # Note `--with-gmp-libraries` does nothing for GHC bindists:
       # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
     ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
     # From: https://github.com/NixOS/nixpkgs/pull/43369/commits
-    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
+    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override"
+    ;
 
     # No building is necessary, but calling make without flags ironically
     # calls install-strip ...
@@ -451,7 +459,8 @@ stdenv.mkDerivation rec {
     # where we modify the package db before installing
     + ''
       "$out/bin/ghc-pkg" --package-db="$out/lib/"ghc-*/package.conf.d recache
-    '';
+    ''
+    ;
 
     # In nixpkgs, musl based builds currently enable `pie` hardening by default
     # (see `defaultHardeningFlags` in `make-derivation.nix`).

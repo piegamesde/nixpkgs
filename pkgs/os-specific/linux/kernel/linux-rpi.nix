@@ -26,17 +26,18 @@ lib.overrideDerivation (buildLinux (args // {
       "sha512-6Dcpo81JBvc8NOv1nvO8JwjUgOOviRgHmXLLcGpE/pI2lEOcSeDRlB/FZtflzXTGilapvmwOSx5NxQfAmysHqQ==";
   };
 
-  defconfig = {
-    "1" = "bcmrpi_defconfig";
-    "2" = "bcm2709_defconfig";
-    "3" =
-      if stdenv.hostPlatform.isAarch64 then
-        "bcmrpi3_defconfig"
-      else
-        "bcm2709_defconfig"
-      ;
-    "4" = "bcm2711_defconfig";
-  }.${toString rpiVersion};
+  defconfig =
+    {
+      "1" = "bcmrpi_defconfig";
+      "2" = "bcm2709_defconfig";
+      "3" =
+        if stdenv.hostPlatform.isAarch64 then
+          "bcmrpi3_defconfig"
+        else
+          "bcm2709_defconfig"
+        ;
+      "4" = "bcm2711_defconfig";
+    }.${toString rpiVersion};
 
   features = { efiBootStub = false; } // (args.features or { });
 
@@ -74,18 +75,19 @@ lib.overrideDerivation (buildLinux (args // {
 
     # Make copies of the DTBs named after the upstream names so that U-Boot finds them.
     # This is ugly as heck, but I don't know a better solution so far.
-  postFixup = ''
-    dtbDir=${
-      if stdenv.isAarch64 then
-        "$out/dtbs/broadcom"
-      else
-        "$out/dtbs"
-    }
-    rm $dtbDir/bcm283*.dtb
-    copyDTB() {
-      cp -v "$dtbDir/$1" "$dtbDir/$2"
-    }
-  '' + lib.optionalString
+  postFixup =
+    ''
+      dtbDir=${
+        if stdenv.isAarch64 then
+          "$out/dtbs/broadcom"
+        else
+          "$out/dtbs"
+      }
+      rm $dtbDir/bcm283*.dtb
+      copyDTB() {
+        cp -v "$dtbDir/$1" "$dtbDir/$2"
+      }
+    '' + lib.optionalString
     (lib.elem stdenv.hostPlatform.system [ "armv6l-linux" ]) ''
       copyDTB bcm2708-rpi-zero-w.dtb bcm2835-rpi-zero.dtb
       copyDTB bcm2708-rpi-zero-w.dtb bcm2835-rpi-zero-w.dtb
@@ -109,5 +111,6 @@ lib.overrideDerivation (buildLinux (args // {
       copyDTB bcm2710-rpi-3-b-plus.dtb bcm2837-rpi-3-b-plus.dtb
       copyDTB bcm2710-rpi-cm3.dtb bcm2837-rpi-cm3.dtb
       copyDTB bcm2711-rpi-4-b.dtb bcm2838-rpi-4-b.dtb
-    '';
+    ''
+    ;
 })

@@ -21,10 +21,12 @@ stdenv.mkDerivation rec {
     m4
     makeWrapper
   ];
-  buildInputs = [ libbsd ] ++ (with perlPackages; [
-    perl
-    SysCPU
-  ]);
+  buildInputs =
+    [ libbsd ] ++ (with perlPackages; [
+      perl
+      SysCPU
+    ])
+    ;
 
   postInstall = ''
     substituteInPlace $out/bin/compiler_test.pl \

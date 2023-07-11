@@ -13,7 +13,8 @@ let
   confFile = settingsFormat.generate "stubby.yml" cfg.settings;
 in
 {
-  imports = [
+  imports =
+    [
       (mkRemovedOptionModule [
         "stubby"
         "debugLogging"
@@ -32,7 +33,8 @@ in
         "roundRobinUpstreams"
         "subnetPrivate"
         "upstreamServers"
-      ];
+      ]
+    ;
 
   options = {
     services.stubby = {
@@ -116,7 +118,8 @@ in
         Type = "notify";
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
-        ExecStart = "${pkgs.stubby}/bin/stubby -C ${confFile} ${
+        ExecStart =
+          "${pkgs.stubby}/bin/stubby -C ${confFile} ${
             optionalString (cfg.logLevel != null) "-v ${toString cfg.logLevel}"
           }";
         DynamicUser = true;

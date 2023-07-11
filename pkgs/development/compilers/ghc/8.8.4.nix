@@ -190,16 +190,21 @@ let
 
     # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
     # GHC doesn't seem to have {LLC,OPT}_HOST
-  toolsForTarget = [ pkgsBuildTarget.targetPackages.stdenv.cc ]
-    ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
+  toolsForTarget =
+    [ pkgsBuildTarget.targetPackages.stdenv.cc ]
+    ++ lib.optional useLLVM buildTargetLlvmPackages.llvm
+    ;
 
   targetCC = builtins.head toolsForTarget;
 
     # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
     # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
     # see #84670 and #49071 for more background.
-  useLdGold = targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd"
-    && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl);
+  useLdGold =
+    targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd"
+      && (targetCC.bintools.bintools.hasGold or false)
+      && !targetPlatform.isMusl)
+    ;
 
     # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
@@ -323,31 +328,36 @@ stdenv.mkDerivation (rec {
           --replace '*-android*|*-gnueabi*)' \
                     '*-android*|*-gnueabi*|*-musleabi*)'
       done
-    '';
+    ''
+    ;
 
     # TODO(@Ericson2314): Always pass "--target" and always prefix.
-  configurePlatforms = [
-    "build"
-    "host"
-  ] ++ lib.optional (targetPlatform != hostPlatform) "target";
+  configurePlatforms =
+    [
+      "build"
+      "host"
+    ] ++ lib.optional (targetPlatform != hostPlatform) "target"
+    ;
 
     # `--with` flags for libraries needed for RTS linker
-  configureFlags = [
-    "--datadir=$doc/share/doc/ghc"
-    "--with-curses-includes=${ncurses.dev}/include"
-    "--with-curses-libraries=${ncurses.out}/lib"
-  ] ++ lib.optionals (libffi != null) [
-    "--with-system-libffi"
-    "--with-ffi-includes=${targetPackages.libffi.dev}/include"
-    "--with-ffi-libraries=${targetPackages.libffi.out}/lib"
-  ] ++ lib.optionals (targetPlatform == hostPlatform && !enableIntegerSimple) [
-    "--with-gmp-includes=${targetPackages.gmp.dev}/include"
-    "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
-  ] ++ lib.optionals (targetPlatform == hostPlatform && hostPlatform.libc
-    != "glibc" && !targetPlatform.isWindows) [
-      "--with-iconv-includes=${libiconv}/include"
-      "--with-iconv-libraries=${libiconv}/lib"
-    ] ++ lib.optionals (targetPlatform != hostPlatform) [
+  configureFlags =
+    [
+      "--datadir=$doc/share/doc/ghc"
+      "--with-curses-includes=${ncurses.dev}/include"
+      "--with-curses-libraries=${ncurses.out}/lib"
+    ] ++ lib.optionals (libffi != null) [
+      "--with-system-libffi"
+      "--with-ffi-includes=${targetPackages.libffi.dev}/include"
+      "--with-ffi-libraries=${targetPackages.libffi.out}/lib"
+    ]
+    ++ lib.optionals (targetPlatform == hostPlatform && !enableIntegerSimple) [
+      "--with-gmp-includes=${targetPackages.gmp.dev}/include"
+      "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
+    ] ++ lib.optionals (targetPlatform == hostPlatform && hostPlatform.libc
+      != "glibc" && !targetPlatform.isWindows) [
+        "--with-iconv-includes=${libiconv}/include"
+        "--with-iconv-libraries=${libiconv}/lib"
+      ] ++ lib.optionals (targetPlatform != hostPlatform) [
       "--enable-bootstrap-with-devel-snapshot"
     ] ++ lib.optionals useLdGold [
       "CFLAGS=-fuse-ld=gold"
@@ -355,7 +365,8 @@ stdenv.mkDerivation (rec {
       "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
     ] ++ lib.optionals (disableLargeAddressSpace) [
       "--disable-large-address-space"
-    ];
+    ]
+    ;
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
   strictDeps = true;
@@ -363,25 +374,29 @@ stdenv.mkDerivation (rec {
     # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
   dontAddExtraLibs = true;
 
-  nativeBuildInputs = [
-    perl
-    autoconf
-    automake
-    m4
-    python3
-    ghc
-    bootPkgs.alex
-    bootPkgs.happy
-    bootPkgs.hscolour
-  ] ++ lib.optionals enableDocs [ sphinx ];
+  nativeBuildInputs =
+    [
+      perl
+      autoconf
+      automake
+      m4
+      python3
+      ghc
+      bootPkgs.alex
+      bootPkgs.happy
+      bootPkgs.hscolour
+    ] ++ lib.optionals enableDocs [ sphinx ]
+    ;
 
     # For building runtime libs
   depsBuildTarget = toolsForTarget;
 
-  buildInputs = [
-    perl
-    bash
-  ] ++ (libDeps hostPlatform);
+  buildInputs =
+    [
+      perl
+      bash
+    ] ++ (libDeps hostPlatform)
+    ;
 
   depsTargetTarget = map lib.getDev (libDeps targetPlatform);
   depsTargetTargetPropagated =
@@ -394,7 +409,8 @@ stdenv.mkDerivation (rec {
 
   checkTarget = "test";
 
-  hardeningDisable = [
+  hardeningDisable =
+    [
       "format"
     ]
     # In nixpkgs, musl based builds currently enable `pie` hardening by default
@@ -404,7 +420,8 @@ stdenv.mkDerivation (rec {
     # See:
     # * https://github.com/NixOS/nixpkgs/issues/129247
     # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
-    ++ lib.optional stdenv.targetPlatform.isMusl "pie";
+    ++ lib.optional stdenv.targetPlatform.isMusl "pie"
+    ;
 
   postInstall = ''
     # Install the bash completion file.
@@ -438,11 +455,13 @@ stdenv.mkDerivation (rec {
       # hardcode platforms because the bootstrap GHC differs depending on the platform,
       # with differing platforms available for each of them; See HACK comment in
       # 8.10.2-binary.nix for an explanation of the musl special casing.
-    platforms = [ "x86_64-linux" ] ++ lib.optionals (!hostPlatform.isMusl) [
-      "i686-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-    ];
+    platforms =
+      [ "x86_64-linux" ] ++ lib.optionals (!hostPlatform.isMusl) [
+        "i686-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+      ]
+      ;
       # integer-simple builds are broken with musl when bootstrapping using
       # GHC 8.10.2 and below, however it is not possible to reverse bootstrap
       # GHC 8.8.4 with GHC 8.10.7.

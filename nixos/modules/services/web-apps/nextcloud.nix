@@ -856,9 +856,7 @@ in
           let
             c = cfg.config;
             writePhpArray =
-              a:
-              "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]"
-              ;
+              a: "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]";
             requiresReadSecretFunction =
               c.dbpassFile != null || c.objectstore.s3.enable;
             objectstoreConfig =
@@ -909,9 +907,7 @@ in
               ;
 
             nextcloudGreaterOrEqualThan =
-              req:
-              versionAtLeast cfg.package.version req
-              ;
+              req: versionAtLeast cfg.package.version req;
 
             overrideConfig = pkgs.writeText "nextcloud-config.php" ''
               <?php
@@ -1093,10 +1089,14 @@ in
           {
             wantedBy = [ "multi-user.target" ];
             before = [ "phpfpm-nextcloud.service" ];
-            after = optional mysqlLocal "mysql.service"
-              ++ optional pgsqlLocal "postgresql.service";
-            requires = optional mysqlLocal "mysql.service"
-              ++ optional pgsqlLocal "postgresql.service";
+            after =
+              optional mysqlLocal "mysql.service"
+              ++ optional pgsqlLocal "postgresql.service"
+              ;
+            requires =
+              optional mysqlLocal "mysql.service"
+              ++ optional pgsqlLocal "postgresql.service"
+              ;
             path = [ occ ];
             script = ''
               ${optionalString (c.dbpassFile != null) ''

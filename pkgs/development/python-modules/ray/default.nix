@@ -101,15 +101,17 @@ buildPythonPackage rec {
       tensorboardx
     ];
 
-    rllib-deps = tune-deps ++ [
-      dm-tree
-      gym
-      lz4
-      matplotlib
-      scikitimage
-      pyyaml
-      scipy
-    ];
+    rllib-deps =
+      tune-deps ++ [
+        dm-tree
+        gym
+        lz4
+        matplotlib
+        scikitimage
+        pyyaml
+        scipy
+      ]
+      ;
 
     air-deps = data-deps ++ serve-deps ++ tune-deps ++ rllib-deps;
   };

@@ -23,20 +23,22 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libGL
-    nssmdns
-  ] ++ (with xorg; [
-    libX11
-    libX11.dev
-    libXcursor
-    libXext
-    libXi
-    libXinerama
-    libXrandr
-    libXxf86vm
-    xinput
-  ]);
+  buildInputs =
+    [
+      libGL
+      nssmdns
+    ] ++ (with xorg; [
+      libX11
+      libX11.dev
+      libXcursor
+      libXext
+      libXi
+      libXinerama
+      libXrandr
+      libXxf86vm
+      xinput
+    ])
+    ;
 
   meta = with lib; {
     description = "A desktop application to control Elgato Keylights";

@@ -10,13 +10,14 @@ let
   cfg = config.services.usbguard;
 
     # valid policy options
-  policy = (types.enum [
-    "allow"
-    "block"
-    "reject"
-    "keep"
-    "apply-policy"
-  ]);
+  policy =
+    (types.enum [
+      "allow"
+      "block"
+      "reject"
+      "keep"
+      "apply-policy"
+    ]);
 
   defaultRuleFile = "/var/lib/usbguard/rules.conf";
 

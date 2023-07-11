@@ -66,15 +66,17 @@ let
         pkg-config
         orc
       ];
-      runtime = [
-        volk
-        boost
-        log4cpp
-        mpir
-      ]
-      # when gr-qtgui is disabled, icu needs to be included, otherwise
-      # building with boost 1.7x fails
-        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ];
+      runtime =
+        [
+          volk
+          boost
+          log4cpp
+          mpir
+        ]
+        # when gr-qtgui is disabled, icu needs to be included, otherwise
+        # building with boost 1.7x fails
+        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ]
+        ;
       pythonNative = with python.pkgs; [
         mako
         six
@@ -154,10 +156,12 @@ let
     gr-digital = { cmakeEnableFlag = "GR_DIGITAL"; };
     gr-dtv = { cmakeEnableFlag = "GR_DTV"; };
     gr-audio = {
-      runtime = [ ] ++ lib.optionals stdenv.isLinux [
-        alsa-lib
-        libjack2
-      ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
+      runtime =
+        [ ] ++ lib.optionals stdenv.isLinux [
+          alsa-lib
+          libjack2
+        ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
+        ;
       cmakeEnableFlag = "GR_AUDIO";
     };
     gr-channels = { cmakeEnableFlag = "GR_CHANNELS"; };
@@ -223,22 +227,23 @@ let
       runtime = [ soapysdr ];
     };
   };
-  shared = (import ./shared.nix {
-    inherit
-      stdenv
-      lib
-      python
-      removeReferencesTo
-      featuresInfo
-      features
-      versionAttr
-      sourceSha256
-      overrideSrc
-      fetchFromGitHub
-      ;
-    qt = qt5;
-    gtk = gtk3;
-  });
+  shared =
+    (import ./shared.nix {
+      inherit
+        stdenv
+        lib
+        python
+        removeReferencesTo
+        featuresInfo
+        features
+        versionAttr
+        sourceSha256
+        overrideSrc
+        fetchFromGitHub
+        ;
+      qt = qt5;
+      gtk = gtk3;
+    });
   inherit (shared) hasFeature; # function
 
 in
@@ -257,10 +262,11 @@ stdenv.mkDerivation {
     dontWrapQtApps
     meta
     ;
-  patches = [
-    # Not accepted upstream, see https://github.com/gnuradio/gnuradio/pull/5227
-    ./modtool-newmod-permissions.patch
-  ];
+  patches =
+    [
+      # Not accepted upstream, see https://github.com/gnuradio/gnuradio/pull/5227
+      ./modtool-newmod-permissions.patch
+    ];
   passthru = shared.passthru // {
     # Deps that are potentially overridden and are used inside GR plugins - the same version must
     inherit
@@ -273,11 +279,13 @@ stdenv.mkDerivation {
   } // lib.optionalAttrs (hasFeature "gr-uhd") { inherit uhd; }
     // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; };
 
-  postInstall = shared.postInstall
+  postInstall =
+    shared.postInstall
     # This is the only python reference worth removing, if needed.
     + lib.optionalString (!hasFeature "python-support") ''
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
       ${removeReferencesTo}/bin/remove-references-to -t ${python.pkgs.pybind11} $out/lib/cmake/gnuradio/gnuradio-runtimeTargets.cmake
-    '';
+    ''
+    ;
 }

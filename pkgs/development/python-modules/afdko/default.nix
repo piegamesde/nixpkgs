@@ -95,21 +95,23 @@ buildPythonPackage rec {
     export PATH=$PATH:$out/bin
   '';
 
-  disabledTests = lib.optionals (!runAllTests) [
-    # Disable slow tests, reduces test time ~25 %
-    "test_report"
-    "test_post_overflow"
-    "test_cjk"
-    "test_extrapolate"
-    "test_filename_without_dir"
-    "test_overwrite"
-    "test_options"
-  ] ++ lib.optionals
+  disabledTests =
+    lib.optionals (!runAllTests) [
+      # Disable slow tests, reduces test time ~25 %
+      "test_report"
+      "test_post_overflow"
+      "test_cjk"
+      "test_extrapolate"
+      "test_filename_without_dir"
+      "test_overwrite"
+      "test_options"
+    ] ++ lib.optionals
     (stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isRiscV) [
       # unknown reason so far
       # https://github.com/adobe-type-tools/afdko/issues/1425
       "test_spec"
-    ] ++ lib.optionals (stdenv.hostPlatform.isi686) [ "test_type1mm_inputs" ];
+    ] ++ lib.optionals (stdenv.hostPlatform.isi686) [ "test_type1mm_inputs" ]
+    ;
 
   passthru.tests = { fullTestsuite = afdko.override { runAllTests = true; }; };
 

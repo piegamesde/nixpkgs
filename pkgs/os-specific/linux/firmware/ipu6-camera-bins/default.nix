@@ -61,10 +61,11 @@ stdenv.mkDerivation {
 
   meta =
     let
-      generation = {
-        ipu6 = "Tiger Lake";
-        ipu6ep = "Alder Lake";
-      }.${ipuVersion};
+      generation =
+        {
+          ipu6 = "Tiger Lake";
+          ipu6ep = "Alder Lake";
+        }.${ipuVersion};
     in
     with lib; {
       description =

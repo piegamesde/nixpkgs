@@ -41,10 +41,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NeOX18CvlbtDvHvvf/8pQlwdpAD6DNhq6NO9L/L52Zk=";
   };
 
-  patches = [
-    # Use a plain name for the pkg-config file
-    ./pkg-config.patch
-  ];
+  patches =
+    [
+      # Use a plain name for the pkg-config file
+      ./pkg-config.patch
+    ];
 
   postPatch = ''
     patchShebangs ./fdep/fortran_dependencies.pl
@@ -60,12 +61,14 @@ stdenv.mkDerivation rec {
     openssh
   ];
 
-  buildInputs = [
-    mpi
-    blas
-    lapack
-    scalapack
-  ] ++ lib.optional enableCuda cudatoolkit;
+  buildInputs =
+    [
+      mpi
+      blas
+      lapack
+      scalapack
+    ] ++ lib.optional enableCuda cudatoolkit
+    ;
 
   preConfigure = ''
     export FC="mpifort"
@@ -84,11 +87,12 @@ stdenv.mkDerivation rec {
     export CFLAGS=$FCFLAGS
   '';
 
-  configureFlags = [
-    "--with-mpi"
-    "--enable-openmp"
-    "--without-threading-support-check-during-build"
-  ] ++ lib.optional blas.isILP64 "--enable-64bit-integer-math-support"
+  configureFlags =
+    [
+      "--with-mpi"
+      "--enable-openmp"
+      "--without-threading-support-check-during-build"
+    ] ++ lib.optional blas.isILP64 "--enable-64bit-integer-math-support"
     ++ lib.optional (!avxSupport) "--disable-avx"
     ++ lib.optional (!avx2Support) "--disable-avx2"
     ++ lib.optional (!avx512Support) "--disable-avx512"
@@ -98,7 +102,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableCuda [
       "--enable-nvidia-gpu"
       "--with-NVIDIA-GPU-compute-capability=${nvidiaArch}"
-    ];
+    ]
+    ;
 
   doCheck = true;
 

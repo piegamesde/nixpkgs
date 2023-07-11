@@ -54,23 +54,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6z6m9bYMbT7b8GXgT0NOjtYpGlyxoHkZxBcwqx/MAOA=";
   };
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-    "lib"
-  ] ++ lib.optionals (enablePython) [ "python" ];
+  outputs =
+    [
+      "bin"
+      "out"
+      "dev"
+      "lib"
+    ] ++ lib.optionals (enablePython) [ "python" ]
+    ;
 
-  nativeBuildInputs = [ pkg-config ]
-    ++ lib.optionals (enableApp) [ installShellFiles ]
-    ++ lib.optionals (enablePython) [ python3Packages.cython ];
+  nativeBuildInputs =
+    [ pkg-config ] ++ lib.optionals (enableApp) [ installShellFiles ]
+    ++ lib.optionals (enablePython) [ python3Packages.cython ]
+    ;
 
-  buildInputs = lib.optionals enableApp [
-    c-aresMinimal
-    libev
-    openssl
-    zlib
-  ] ++ lib.optionals (enableAsioLib) [ boost ]
+  buildInputs =
+    lib.optionals enableApp [
+      c-aresMinimal
+      libev
+      openssl
+      zlib
+    ] ++ lib.optionals (enableAsioLib) [ boost ]
     ++ lib.optionals (enableGetAssets) [ libxml2 ]
     ++ lib.optionals (enableHpack) [ jansson ]
     ++ lib.optionals (enableJemalloc) [ jemalloc ]
@@ -78,20 +82,23 @@ stdenv.mkDerivation rec {
       python3Packages.python
       ncurses
       python3Packages.setuptools
-    ];
+    ]
+    ;
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--disable-examples"
-    (lib.enableFeature enableApp "app")
-  ] ++ lib.optionals (enableAsioLib) [
-    "--enable-asio-lib"
-    "--with-boost-libdir=${boost}/lib"
-  ] ++ lib.optionals (enablePython) [
-    "--enable-python-bindings"
-    "--with-cython=${python3Packages.cython}/bin/cython"
-  ];
+  configureFlags =
+    [
+      "--disable-examples"
+      (lib.enableFeature enableApp "app")
+    ] ++ lib.optionals (enableAsioLib) [
+      "--enable-asio-lib"
+      "--with-boost-libdir=${boost}/lib"
+    ] ++ lib.optionals (enablePython) [
+      "--enable-python-bindings"
+      "--with-cython=${python3Packages.cython}/bin/cython"
+    ]
+    ;
 
     # Unit tests require CUnit and setting TZDIR environment variable
   doCheck = enableTests;
@@ -108,13 +115,15 @@ stdenv.mkDerivation rec {
     # convince installer it's ok to install here
     export PYTHONPATH="$PYTHONPATH:$out/${python3Packages.python.sitePackages}"
   '';
-  postInstall = lib.optionalString (enablePython) ''
-    mkdir -p $python/${python3Packages.python.sitePackages}
-    mv $out/${python3Packages.python.sitePackages}/* $python/${python3Packages.python.sitePackages}
-    rm -r $out/lib
-  '' + lib.optionalString (enableApp) ''
-    installShellCompletion --bash doc/bash_completion/{h2load,nghttp,nghttpd,nghttpx}
-  '';
+  postInstall =
+    lib.optionalString (enablePython) ''
+      mkdir -p $python/${python3Packages.python.sitePackages}
+      mv $out/${python3Packages.python.sitePackages}/* $python/${python3Packages.python.sitePackages}
+      rm -r $out/lib
+    '' + lib.optionalString (enableApp) ''
+      installShellCompletion --bash doc/bash_completion/{h2load,nghttp,nghttpd,nghttpx}
+    ''
+    ;
 
   passthru.tests = {
     inherit curl libsoup;

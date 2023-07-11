@@ -32,15 +32,17 @@ stdenv.mkDerivation rec {
     gfortran
   ];
 
-  buildInputs = [ python ] ++ lib.optionals (lapackSupport)
-  # Check that the same index size is used for both libraries
+  buildInputs =
+    [ python ] ++ lib.optionals (lapackSupport)
+    # Check that the same index size is used for both libraries
     (assert (blas.isILP64 == lapack.isILP64); [
       blas
       lapack
     ])
     # KLU support is based on Suitesparse. It is tested upstream according to the
     # section 1.1.4.2 of INSTALL_GUIDE.pdf found in the source tarball.
-    ++ lib.optionals (kluSupport) [ suitesparse ];
+    ++ lib.optionals (kluSupport) [ suitesparse ]
+    ;
 
   cmakeFlags =
     [ "-DEXAMPLES_INSTALL_PATH=${placeholder "examples"}/share/examples" ]
@@ -60,7 +62,8 @@ stdenv.mkDerivation rec {
           "-DSUNDIALS_INDEX_SIZE=64"
         else
           "-DSUNDIALS_INDEX_SIZE=32")
-    ];
+    ]
+    ;
 
   doCheck = true;
   checkTarget = "test";

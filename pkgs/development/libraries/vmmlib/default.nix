@@ -30,14 +30,16 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs = [
-    boost
-    lapack
-  ] ++ lib.optionals stdenv.isDarwin [
-    Accelerate
-    CoreGraphics
-    CoreVideo
-  ];
+  buildInputs =
+    [
+      boost
+      lapack
+    ] ++ lib.optionals stdenv.isDarwin [
+      Accelerate
+      CoreGraphics
+      CoreVideo
+    ]
+    ;
 
   doCheck = !stdenv.isDarwin;
 

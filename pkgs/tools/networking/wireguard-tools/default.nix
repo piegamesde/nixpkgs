@@ -40,28 +40,30 @@ stdenv.mkDerivation rec {
     "WITH_WGQUICK=yes"
   ];
 
-  postFixup = ''
-    substituteInPlace $out/lib/systemd/system/wg-quick@.service \
-      --replace /usr/bin $out/bin
-  '' + lib.optionalString stdenv.isLinux ''
-    for f in $out/bin/*; do
-      # Which firewall and resolvconf implementations to use should be determined by the
-      # environment, we provide the "default" ones as fallback.
-      wrapProgram $f \
-        --prefix PATH : ${
-          lib.makeBinPath [
-            procps
-            iproute2
-          ]
-        } \
-        --suffix PATH : ${
-          lib.makeBinPath [
-            iptables
-            openresolv
-          ]
-        }
-    done
-  '';
+  postFixup =
+    ''
+      substituteInPlace $out/lib/systemd/system/wg-quick@.service \
+        --replace /usr/bin $out/bin
+    '' + lib.optionalString stdenv.isLinux ''
+      for f in $out/bin/*; do
+        # Which firewall and resolvconf implementations to use should be determined by the
+        # environment, we provide the "default" ones as fallback.
+        wrapProgram $f \
+          --prefix PATH : ${
+            lib.makeBinPath [
+              procps
+              iproute2
+            ]
+          } \
+          --suffix PATH : ${
+            lib.makeBinPath [
+              iptables
+              openresolv
+            ]
+          }
+      done
+    ''
+    ;
 
   passthru = {
     updateScript = ./update.sh;

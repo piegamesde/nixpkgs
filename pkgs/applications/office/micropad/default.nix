@@ -34,10 +34,12 @@ mkYarnPackage rec {
   yarnLock = ./yarn.lock;
   yarnNix = ./yarn.nix;
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    makeWrapper
-  ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+  nativeBuildInputs =
+    [
+      copyDesktopItems
+      makeWrapper
+    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
+    ;
 
   buildPhase = ''
     runHook preBuild

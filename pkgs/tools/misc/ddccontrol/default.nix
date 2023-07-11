@@ -39,19 +39,21 @@ stdenv.mkDerivation rec {
       "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
     ];
 
-  prePatch = ''
-    substituteInPlace configure.ac              \
-      --replace                                 \
-      "\$""{datadir}/ddccontrol-db"             \
-      "${ddccontrol-db}/share/ddccontrol-db"
+  prePatch =
+    ''
+      substituteInPlace configure.ac              \
+        --replace                                 \
+        "\$""{datadir}/ddccontrol-db"             \
+        "${ddccontrol-db}/share/ddccontrol-db"
 
-    substituteInPlace src/ddcpci/Makefile.am    \
-       --replace "chmod 4711" "chmod 0711"
-  '' + lib.optionalString (lib.versionAtLeast "0.6.1" version) ''
-    # Upstream PR: https://github.com/ddccontrol/ddccontrol/pull/115
-    substituteInPlace src/lib/Makefile.am       \
-      --replace "/etc/" "\$""{sysconfdir}/"
-  '';
+      substituteInPlace src/ddcpci/Makefile.am    \
+         --replace "chmod 4711" "chmod 0711"
+    '' + lib.optionalString (lib.versionAtLeast "0.6.1" version) ''
+      # Upstream PR: https://github.com/ddccontrol/ddccontrol/pull/115
+      substituteInPlace src/lib/Makefile.am       \
+        --replace "/etc/" "\$""{sysconfdir}/"
+    ''
+    ;
 
   preConfigure = ''
     intltoolize --force

@@ -26,22 +26,24 @@ stdenv.mkDerivation rec {
     makeWrapper
     llvm.dev
   ];
-  buildInputs = [
-    # Ensure stdenv's CC is on PATH before clang-unwrapped
-    stdenv.cc
-    # Actual deps:
-    llvm
-    libclang
-    flex
-    zlib
-  ] ++ (with perlPackages; [
-    perl
-    ExporterLite
-    FileWhich
-    GetoptTabular
-    RegexpCommon
-    TermReadKey
-  ]);
+  buildInputs =
+    [
+      # Ensure stdenv's CC is on PATH before clang-unwrapped
+      stdenv.cc
+      # Actual deps:
+      llvm
+      libclang
+      flex
+      zlib
+    ] ++ (with perlPackages; [
+      perl
+      ExporterLite
+      FileWhich
+      GetoptTabular
+      RegexpCommon
+      TermReadKey
+    ])
+    ;
 
     # On Linux, c-reduce's preferred way to reason about
     # the cpu architecture/topology is to use 'lscpu',

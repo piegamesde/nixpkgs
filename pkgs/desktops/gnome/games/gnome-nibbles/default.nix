@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   version = "3.38.3";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-nibbles/${
+    url =
+      "mirror://gnome/sources/gnome-nibbles/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "l1/eHYPHsVs5Lqx6NZFhKQ/IrrdgXBHnHO4MPDJrXmE=";

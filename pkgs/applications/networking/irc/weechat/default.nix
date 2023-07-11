@@ -87,12 +87,14 @@ let
       name = "php";
       enabled = phpSupport;
       cmakeFlag = "ENABLE_PHP";
-      buildInputs = [
-        php-embed.unwrapped.dev
-        libxml2
-        pcre2
-        libargon2
-      ] ++ lib.optional stdenv.isLinux systemd;
+      buildInputs =
+        [
+          php-embed.unwrapped.dev
+          libxml2
+          pcre2
+          libargon2
+        ] ++ lib.optional stdenv.isLinux systemd
+        ;
     }
   ];
   enabledPlugins = builtins.filter (p: p.enabled) plugins;
@@ -110,10 +112,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-objxAUGvBhTkbQl4GshDP3RsCkAW4z917L9WyaVoYj4=";
   };
 
-  outputs = [
-    "out"
-    "man"
-  ] ++ map (p: p.name) enabledPlugins;
+  outputs =
+    [
+      "out"
+      "man"
+    ] ++ map (p: p.name) enabledPlugins
+    ;
 
   cmakeFlags = with lib;
     [
@@ -133,11 +137,13 @@ stdenv.mkDerivation rec {
       else
         "OFF")) plugins;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    asciidoctor
-  ] ++ lib.optional enableTests cpputest;
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      asciidoctor
+    ] ++ lib.optional enableTests cpputest
+    ;
   buildInputs = with lib;
     [
       ncurses
@@ -153,9 +159,11 @@ stdenv.mkDerivation rec {
       libresolv
     ] ++ concatMap (p: p.buildInputs) enabledPlugins ++ extraBuildInputs;
 
-  env.NIX_CFLAGS_COMPILE = "-I${python}/include/${python.libPrefix}"
+  env.NIX_CFLAGS_COMPILE =
+    "-I${python}/include/${python.libPrefix}"
     # Fix '_res_9_init: undefined symbol' error
-    + (lib.optionalString stdenv.isDarwin "-DBIND_8_COMPAT=1 -lresolv");
+    + (lib.optionalString stdenv.isDarwin "-DBIND_8_COMPAT=1 -lresolv")
+    ;
 
   postInstall = with lib; ''
     for p in ${concatMapStringsSep " " (p: p.name) enabledPlugins}; do

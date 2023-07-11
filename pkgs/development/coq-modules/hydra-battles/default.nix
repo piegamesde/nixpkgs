@@ -53,8 +53,10 @@
     inherit (o) version;
   in
   {
-    propagatedBuildInputs = [ equations ]
+    propagatedBuildInputs =
+      [ equations ]
       ++ lib.optional (lib.versions.isGe "0.6" version || version == "dev")
-      LibHyps;
+      LibHyps
+      ;
   }
 )

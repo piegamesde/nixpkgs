@@ -11,24 +11,25 @@ let
   version = "2023.419.0";
   name = "${pname}-${version}";
 
-  osu-lazer-bin-src = {
-    aarch64-darwin = {
-      url =
-        "https://github.com/ppy/osu/releases/download/${version}/osu.app.Apple.Silicon.zip";
-      sha256 = "sha256-KItS8OykIjinSgm/CtF3YUMUQE9OfZ6aZ6DLBpyyDQE=";
-    };
-    x86_64-darwin = {
-      url =
-        "https://github.com/ppy/osu/releases/download/${version}/osu.app.Intel.zip";
-      sha256 = "sha256-O4MlcawL6wlj6HilSH8wm0GJWN8DqWjNw51YJGu2NMs=";
-    };
-    x86_64-linux = {
-      url =
-        "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-      sha256 = "sha256-v+p+IOaHhb/wgqmeSO78rqLQLPGtCOEZBj+I3oZH9N0=";
-    };
-  }.${stdenv.system} or (throw
-    "${pname}-${version}: ${stdenv.system} is unsupported.");
+  osu-lazer-bin-src =
+    {
+      aarch64-darwin = {
+        url =
+          "https://github.com/ppy/osu/releases/download/${version}/osu.app.Apple.Silicon.zip";
+        sha256 = "sha256-KItS8OykIjinSgm/CtF3YUMUQE9OfZ6aZ6DLBpyyDQE=";
+      };
+      x86_64-darwin = {
+        url =
+          "https://github.com/ppy/osu/releases/download/${version}/osu.app.Intel.zip";
+        sha256 = "sha256-O4MlcawL6wlj6HilSH8wm0GJWN8DqWjNw51YJGu2NMs=";
+      };
+      x86_64-linux = {
+        url =
+          "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
+        sha256 = "sha256-v+p+IOaHhb/wgqmeSO78rqLQLPGtCOEZBj+I3oZH9N0=";
+      };
+    }.${stdenv.system} or (throw
+      "${pname}-${version}: ${stdenv.system} is unsupported.");
 
   linux = appimageTools.wrapType2 rec {
     inherit name pname version meta;

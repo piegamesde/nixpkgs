@@ -139,10 +139,12 @@ rec {
           libtool
           installShellFiles
         ];
-        buildInputs = [ sqlite ] ++ lib.optional withLvm lvm2
+        buildInputs =
+          [ sqlite ] ++ lib.optional withLvm lvm2
           ++ lib.optional withBtrfs btrfs-progs
           ++ lib.optional withSystemd systemd
-          ++ lib.optional withSeccomp libseccomp;
+          ++ lib.optional withSeccomp libseccomp
+          ;
 
         extraPath = lib.optionals stdenv.isLinux (lib.makeBinPath [
           iproute2
@@ -163,15 +165,16 @@ rec {
             fuse-overlayfs
           ]);
 
-        patches = [
-          # This patch incorporates code from a PR fixing using buildkit with the ZFS graph driver.
-          # It could be removed when a version incorporating this patch is released.
-          (fetchpatch {
-            name = "buildkit-zfs.patch";
-            url = "https://github.com/moby/moby/pull/43136.patch";
-            hash = "sha256-1WZfpVnnqFwLMYqaHLploOodls0gHF8OCp7MrM26iX8=";
-          })
-        ];
+        patches =
+          [
+            # This patch incorporates code from a PR fixing using buildkit with the ZFS graph driver.
+            # It could be removed when a version incorporating this patch is released.
+            (fetchpatch {
+              name = "buildkit-zfs.patch";
+              url = "https://github.com/moby/moby/pull/43136.patch";
+              hash = "sha256-1WZfpVnnqFwLMYqaHLploOodls0gHF8OCp7MrM26iX8=";
+            })
+          ];
 
         postPatch = ''
           patchShebangs hack/make.sh hack/make/
@@ -212,14 +215,18 @@ rec {
             --prefix PATH : "$out/libexec/docker:$extraPath:$extraUserPath"
         '';
 
-        DOCKER_BUILDTAGS = lib.optional withSystemd "journald"
+        DOCKER_BUILDTAGS =
+          lib.optional withSystemd "journald"
           ++ lib.optional (!withBtrfs) "exclude_graphdriver_btrfs"
           ++ lib.optional (!withLvm) "exclude_graphdriver_devicemapper"
-          ++ lib.optional withSeccomp "seccomp";
+          ++ lib.optional withSeccomp "seccomp"
+          ;
       });
 
-      plugins = lib.optional buildxSupport docker-buildx
-        ++ lib.optional composeSupport docker-compose;
+      plugins =
+        lib.optional buildxSupport docker-buildx
+        ++ lib.optional composeSupport docker-compose
+        ;
       pluginsRef = symlinkJoin {
         name = "docker-plugins";
         paths = plugins;
@@ -250,18 +257,22 @@ rec {
         libtool
         installShellFiles
       ];
-      buildInputs = lib.optional (!clientOnly) sqlite
-        ++ lib.optional withLvm lvm2 ++ lib.optional withBtrfs btrfs-progs
+      buildInputs =
+        lib.optional (!clientOnly) sqlite ++ lib.optional withLvm lvm2
+        ++ lib.optional withBtrfs btrfs-progs
         ++ lib.optional withSystemd systemd
-        ++ lib.optional withSeccomp libseccomp ++ plugins;
+        ++ lib.optional withSeccomp libseccomp ++ plugins
+        ;
 
-      postPatch = ''
-        patchShebangs man scripts/build/
-        substituteInPlace ./scripts/build/.variables --replace "set -eu" ""
-      '' + lib.optionalString (plugins != [ ]) ''
-        substituteInPlace ./cli-plugins/manager/manager_unix.go --replace /usr/libexec/docker/cli-plugins \
-            "${pluginsRef}/libexec/docker/cli-plugins"
-      '';
+      postPatch =
+        ''
+          patchShebangs man scripts/build/
+          substituteInPlace ./scripts/build/.variables --replace "set -eu" ""
+        '' + lib.optionalString (plugins != [ ]) ''
+          substituteInPlace ./cli-plugins/manager/manager_unix.go --replace /usr/libexec/docker/cli-plugins \
+              "${pluginsRef}/libexec/docker/cli-plugins"
+        ''
+        ;
 
         # Keep eyes on BUILDTIME format - https://github.com/docker/cli/blob/${version}/scripts/build/.variables
       buildPhase = ''
@@ -286,39 +297,41 @@ rec {
         "man"
       ];
 
-      installPhase = ''
-        cd ./go/src/${goPackagePath}
-        install -Dm755 ./docker $out/libexec/docker/docker
+      installPhase =
+        ''
+          cd ./go/src/${goPackagePath}
+          install -Dm755 ./docker $out/libexec/docker/docker
 
-        makeWrapper $out/libexec/docker/docker $out/bin/docker \
-          --prefix PATH : "$out/libexec/docker:$extraPath"
-      '' + lib.optionalString (!clientOnly) ''
-        # symlink docker daemon to docker cli derivation
-        ln -s ${moby}/bin/dockerd $out/bin/dockerd
-        ln -s ${moby}/bin/dockerd-rootless $out/bin/dockerd-rootless
+          makeWrapper $out/libexec/docker/docker $out/bin/docker \
+            --prefix PATH : "$out/libexec/docker:$extraPath"
+        '' + lib.optionalString (!clientOnly) ''
+          # symlink docker daemon to docker cli derivation
+          ln -s ${moby}/bin/dockerd $out/bin/dockerd
+          ln -s ${moby}/bin/dockerd-rootless $out/bin/dockerd-rootless
 
-        # systemd
-        mkdir -p $out/etc/systemd/system
-        ln -s ${moby}/etc/systemd/system/docker.service $out/etc/systemd/system/docker.service
-        ln -s ${moby}/etc/systemd/system/docker.socket $out/etc/systemd/system/docker.socket
-      '' + ''
-        # completion (cli)
-        installShellCompletion --bash ./contrib/completion/bash/docker
-        installShellCompletion --fish ./contrib/completion/fish/docker.fish
-        installShellCompletion --zsh  ./contrib/completion/zsh/_docker
-      '' + lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
-        # Generate man pages from cobra commands
-        echo "Generate man pages from cobra"
-        mkdir -p ./man/man1
-        go build -o ./gen-manpages github.com/docker/cli/man
-        ./gen-manpages --root . --target ./man/man1
-      '' + ''
-        # Generate legacy pages from markdown
-        echo "Generate legacy manpages"
-        ./man/md2man-all.sh -q
+          # systemd
+          mkdir -p $out/etc/systemd/system
+          ln -s ${moby}/etc/systemd/system/docker.service $out/etc/systemd/system/docker.service
+          ln -s ${moby}/etc/systemd/system/docker.socket $out/etc/systemd/system/docker.socket
+        '' + ''
+          # completion (cli)
+          installShellCompletion --bash ./contrib/completion/bash/docker
+          installShellCompletion --fish ./contrib/completion/fish/docker.fish
+          installShellCompletion --zsh  ./contrib/completion/zsh/_docker
+        '' + lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
+          # Generate man pages from cobra commands
+          echo "Generate man pages from cobra"
+          mkdir -p ./man/man1
+          go build -o ./gen-manpages github.com/docker/cli/man
+          ./gen-manpages --root . --target ./man/man1
+        '' + ''
+          # Generate legacy pages from markdown
+          echo "Generate legacy manpages"
+          ./man/md2man-all.sh -q
 
-        installManPage man/*/*.[1-9]
-      '';
+          installManPage man/*/*.[1-9]
+        ''
+        ;
 
       passthru = {
         # Exposed for tarsum build on non-linux systems (build-support/docker/default.nix)

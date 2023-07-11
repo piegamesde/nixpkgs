@@ -30,15 +30,17 @@ stdenv.mkDerivation rec {
     rustPlatform.rust.cargo
   ];
 
-  buildInputs = [
-    bzip2
-    curl
-    zlib
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    CoreServices
-  ];
+  buildInputs =
+    [
+      bzip2
+      curl
+      zlib
+      zstd
+    ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      CoreServices
+    ]
+    ;
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

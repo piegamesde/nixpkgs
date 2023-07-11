@@ -40,7 +40,8 @@ buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "e8WX7AvBtnQgC2L995XUuulkemNxfXVN9hWHzCUFAs4=";

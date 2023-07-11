@@ -24,18 +24,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-C/awQpp1Q/0adx3YVNTq6ruEAzcjL5G7SkOCgpvAA50=";
   };
 
-  patches = [
-    # This patch adds an option to pad filesystems (increasing size) in
-    # exchange for better chunking / binary diff calculation.
-    ./4k-align.patch
-  ];
+  patches =
+    [
+      # This patch adds an option to pad filesystems (increasing size) in
+      # exchange for better chunking / binary diff calculation.
+      ./4k-align.patch
+    ];
 
   strictDeps = true;
-  nativeBuildInputs = [
+  nativeBuildInputs =
+    [
       which
     ]
     # when cross-compiling help2man cannot run the cross-compiled binary
-    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ help2man ];
+    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ help2man ]
+    ;
   buildInputs = [
     zlib
     xz

@@ -10,7 +10,9 @@
 buildPythonPackage rec {
   pname = "emailthreads";
   version = "0.1.3";
-  disabled = !isPy3k;
+  disabled =
+    !isPy3k
+    ;
 
     # pypi is missing files for tests
   src = fetchFromGitHub {

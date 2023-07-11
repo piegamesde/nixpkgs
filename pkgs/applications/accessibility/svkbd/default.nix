@@ -49,8 +49,10 @@ stdenv.mkDerivation rec {
     libXtst
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ]
-    ++ lib.optional (layout != null) "LAYOUT=${layout}";
+  makeFlags =
+    [ "PREFIX=${placeholder "out"}" ]
+    ++ lib.optional (layout != null) "LAYOUT=${layout}"
+    ;
 
   meta = with lib; {
     description = "Simple virtual keyboard";

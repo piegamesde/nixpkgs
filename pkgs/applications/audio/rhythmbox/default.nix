@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
   version = "3.4.7";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "L21WwT/BpkxTT1AHiPtIKTbOVHs0PtkMZ94fK84M+n4=";
@@ -60,38 +61,40 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    python3
-    libsoup_3
-    libxml2
-    tdb
-    json-glib
+  buildInputs =
+    [
+      python3
+      libsoup_3
+      libxml2
+      tdb
+      json-glib
 
-    glib
-    gtk3
-    libpeas
-    totem-pl-parser
-    libgudev
-    libgpod
-    libmtp
-    lirc
-    brasero
-    grilo
+      glib
+      gtk3
+      libpeas
+      totem-pl-parser
+      libgudev
+      libgpod
+      libmtp
+      lirc
+      brasero
+      grilo
 
-    gobject-introspection
-    python3.pkgs.pygobject3
+      gobject-introspection
+      python3.pkgs.pygobject3
 
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gst-plugins-ugly
-    gst_all_1.gst-libav
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-plugins-ugly
+      gst_all_1.gst-libav
 
-    libdmapsharing # for daap support
-    libsecret
-    libnotify
-  ] ++ gst_plugins;
+      libdmapsharing # for daap support
+      libsecret
+      libnotify
+    ] ++ gst_plugins
+    ;
 
   nativeCheckInputs = [ check ];
 

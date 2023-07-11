@@ -42,10 +42,12 @@ buildGoModule rec {
 
   buildInputs = lib.optional pamSupport pam;
 
-  tags = lib.optional pamSupport "pam" ++ lib.optionals sqliteSupport [
-    "sqlite"
-    "sqlite_unlock_notify"
-  ];
+  tags =
+    lib.optional pamSupport "pam" ++ lib.optionals sqliteSupport [
+      "sqlite"
+      "sqlite_unlock_notify"
+    ]
+    ;
 
   ldflags = [
     "-s"

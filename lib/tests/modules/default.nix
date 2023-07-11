@@ -4,10 +4,11 @@
 }:
 
 {
-  inherit (lib.evalModules {
-    inherit modules;
-    specialArgs.modulesPath = ./.;
-  })
+  inherit
+    (lib.evalModules {
+      inherit modules;
+      specialArgs.modulesPath = ./.;
+    })
     config
     options
     ;

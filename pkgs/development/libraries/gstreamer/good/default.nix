@@ -78,50 +78,53 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    pkg-config
-    python3
-    meson
-    ninja
-    gettext
-    nasm
-    orc
-    libshout
-    glib
-  ] ++ lib.optionals enableDocumentation [ hotdoc ]
+  nativeBuildInputs =
+    [
+      pkg-config
+      python3
+      meson
+      ninja
+      gettext
+      nasm
+      orc
+      libshout
+      glib
+    ] ++ lib.optionals enableDocumentation [ hotdoc ]
     ++ lib.optionals qt5Support (with qt5; [ qtbase ])
     ++ lib.optionals qt6Support (with qt6; [
       qtbase
       qttools
-    ]) ++ lib.optionals stdenv.isLinux [ wayland-protocols ];
+    ]) ++ lib.optionals stdenv.isLinux [ wayland-protocols ]
+    ;
 
-  buildInputs = [
-    gst-plugins-base
-    orc
-    bzip2
-    libdv
-    libvpx
-    speex
-    flac
-    taglib
-    cairo
-    gdk-pixbuf
-    aalib
-    libcaca
-    libsoup
-    libshout
-    lame
-    mpg123
-    twolame
-    libintl
-    libXdamage
-    libXext
-    libXfixes
-    ncurses
-    xorg.libXfixes
-    xorg.libXdamage
-    wavpack
-  ] ++ lib.optionals raspiCameraSupport [ libraspberrypi ]
+  buildInputs =
+    [
+      gst-plugins-base
+      orc
+      bzip2
+      libdv
+      libvpx
+      speex
+      flac
+      taglib
+      cairo
+      gdk-pixbuf
+      aalib
+      libcaca
+      libsoup
+      libshout
+      lame
+      mpg123
+      twolame
+      libintl
+      libXdamage
+      libXext
+      libXfixes
+      ncurses
+      xorg.libXfixes
+      xorg.libXdamage
+      wavpack
+    ] ++ lib.optionals raspiCameraSupport [ libraspberrypi ]
     ++ lib.optionals gtkSupport [
       # for gtksink
       gtk3
@@ -142,13 +145,15 @@ stdenv.mkDerivation rec {
       libiec61883
       libgudev
       wayland
-    ] ++ lib.optionals enableJack [ libjack2 ];
+    ] ++ lib.optionals enableJack [ libjack2 ]
+    ;
 
-  mesonFlags = [
-    "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
-    "-Dglib-asserts=disabled" # asserts should be disabled on stable releases
-    (lib.mesonEnable "doc" enableDocumentation)
-  ] ++ lib.optionals (!qt5Support) [ "-Dqt5=disabled" ]
+  mesonFlags =
+    [
+      "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
+      "-Dglib-asserts=disabled" # asserts should be disabled on stable releases
+      (lib.mesonEnable "doc" enableDocumentation)
+    ] ++ lib.optionals (!qt5Support) [ "-Dqt5=disabled" ]
     ++ lib.optionals (!qt6Support) [ "-Dqt6=disabled" ]
     ++ lib.optionals (!gtkSupport) [ "-Dgtk3=disabled" ]
     ++ lib.optionals (!enableJack) [ "-Djack=disabled" ]
@@ -160,18 +165,20 @@ stdenv.mkDerivation rec {
       "-Dv4l2-gudev=disabled" # Linux-only
       "-Dv4l2=disabled" # Linux-only
       "-Dximagesrc=disabled" # Linux-only
-    ] ++ lib.optionals (!raspiCameraSupport) [ "-Drpicamsrc=disabled" ];
+    ] ++ lib.optionals (!raspiCameraSupport) [ "-Drpicamsrc=disabled" ]
+    ;
 
   postPatch = ''
     patchShebangs \
       scripts/extract-release-date-from-doap-file.py
   '';
 
-  NIX_LDFLAGS = [
-    # linking error on Darwin
-    # https://github.com/NixOS/nixpkgs/pull/70690#issuecomment-553694896
-    "-lncurses"
-  ];
+  NIX_LDFLAGS =
+    [
+      # linking error on Darwin
+      # https://github.com/NixOS/nixpkgs/pull/70690#issuecomment-553694896
+      "-lncurses"
+    ];
 
     # fails 1 tests with "Unexpected critical/warning: g_object_set_is_valid_property: object class 'GstRtpStorage' has no property named ''"
   doCheck = false;

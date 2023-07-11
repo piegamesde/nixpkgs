@@ -23,10 +23,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libsndfile ] ++ optionals stdenv.isDarwin [
-    ApplicationServices
-    CoreServices
-  ];
+  buildInputs =
+    [ libsndfile ] ++ optionals stdenv.isDarwin [
+      ApplicationServices
+      CoreServices
+    ]
+    ;
 
   configureFlags = [ "--disable-fftw" ];
 

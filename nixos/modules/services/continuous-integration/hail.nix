@@ -59,7 +59,8 @@ in
       serviceConfig = {
         ExecStart =
           "${cfg.package}/bin/hail --profile ${cfg.profile} --job-uri ${cfg.hydraJobUri}"
-          + lib.optionalString (cfg.netrc != null) " --netrc-file ${cfg.netrc}";
+          + lib.optionalString (cfg.netrc != null) " --netrc-file ${cfg.netrc}"
+          ;
       };
     };
   };

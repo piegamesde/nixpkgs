@@ -53,22 +53,24 @@ stdenv.mkDerivation rec {
   buildInputs = optional (contains_any scripts perlscripts) perl;
   nativeBuildInputs = [ makeWrapper ];
 
-  postFixup = optionalString (elem "bandwidth" scripts) ''
-    wrapProgram $out/libexec/i3blocks/bandwidth \
-      --prefix PATH : ${makeBinPath [ iproute2 ]}
-  '' + optionalString (elem "battery" scripts) ''
-    wrapProgram $out/libexec/i3blocks/battery \
-      --prefix PATH : ${makeBinPath [ acpi ]}
-  '' + optionalString (elem "cpu_usage" scripts) ''
-    wrapProgram $out/libexec/i3blocks/cpu_usage \
-      --prefix PATH : ${makeBinPath [ sysstat ]}
-  '' + optionalString (elem "iface" scripts) ''
-    wrapProgram $out/libexec/i3blocks/iface \
-      --prefix PATH : ${makeBinPath [ iproute2 ]}
-  '' + optionalString (elem "volume" scripts) ''
-    wrapProgram $out/libexec/i3blocks/volume \
-      --prefix PATH : ${makeBinPath [ alsa-utils ]}
-  '';
+  postFixup =
+    optionalString (elem "bandwidth" scripts) ''
+      wrapProgram $out/libexec/i3blocks/bandwidth \
+        --prefix PATH : ${makeBinPath [ iproute2 ]}
+    '' + optionalString (elem "battery" scripts) ''
+      wrapProgram $out/libexec/i3blocks/battery \
+        --prefix PATH : ${makeBinPath [ acpi ]}
+    '' + optionalString (elem "cpu_usage" scripts) ''
+      wrapProgram $out/libexec/i3blocks/cpu_usage \
+        --prefix PATH : ${makeBinPath [ sysstat ]}
+    '' + optionalString (elem "iface" scripts) ''
+      wrapProgram $out/libexec/i3blocks/iface \
+        --prefix PATH : ${makeBinPath [ iproute2 ]}
+    '' + optionalString (elem "volume" scripts) ''
+      wrapProgram $out/libexec/i3blocks/volume \
+        --prefix PATH : ${makeBinPath [ alsa-utils ]}
+    ''
+    ;
 
   meta = with lib; {
     description =

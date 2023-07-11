@@ -87,42 +87,45 @@ stdenv.mkDerivation {
     "modsrc"
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    which
-    docbook_xsl
-    docbook_xml_dtd_43
-    yasm
-    glslang
-  ] ++ optional (!headless) wrapQtAppsHook;
+  nativeBuildInputs =
+    [
+      pkg-config
+      which
+      docbook_xsl
+      docbook_xml_dtd_43
+      yasm
+      glslang
+    ] ++ optional (!headless) wrapQtAppsHook
+    ;
 
     # Wrap manually because we wrap just a small number of executables.
   dontWrapQtApps = true;
 
-  buildInputs = [
-    acpica-tools
-    dev86
-    libxslt
-    libxml2
-    xorgproto
-    libX11
-    libXext
-    libXcursor
-    libIDL
-    libcap
-    glib
-    lvm2
-    alsa-lib
-    curl
-    libvpx
-    pam
-    makeself
-    perl
-    libXmu
-    libpng
-    libopus
-    python3
-  ] ++ optional javaBindings jdk ++ optional pythonBindings
+  buildInputs =
+    [
+      acpica-tools
+      dev86
+      libxslt
+      libxml2
+      xorgproto
+      libX11
+      libXext
+      libXcursor
+      libIDL
+      libcap
+      glib
+      lvm2
+      alsa-lib
+      curl
+      libvpx
+      pam
+      makeself
+      perl
+      libXmu
+      libpng
+      libopus
+      python3
+    ] ++ optional javaBindings jdk ++ optional pythonBindings
     python3 # Python is needed even when not building bindings
     ++ optional pulseSupport libpulseaudio ++ optionals headless [
       libXrandr
@@ -135,7 +138,8 @@ stdenv.mkDerivation {
     ] ++ optionals enableWebService [
       gsoap
       zlib
-    ];
+    ]
+    ;
 
   hardeningDisable = [
     "format"
@@ -175,7 +179,8 @@ stdenv.mkDerivation {
     set +x
   '';
 
-  patches = optional enableHardening ./hardened.patch ++ [
+  patches =
+    optional enableHardening ./hardened.patch ++ [
       ./extra_symbols.patch
     ]
     # When hardening is enabled, we cannot use wrapQtApp to ensure that VirtualBoxVM sees
@@ -193,16 +198,19 @@ stdenv.mkDerivation {
       ./qt-dependency-paths.patch
       # https://github.com/NixOS/nixpkgs/issues/123851
       ./fix-audio-driver-loading.patch
-    ];
+    ]
+    ;
 
-  postPatch = ''
-    sed -i -e 's|/sbin/ifconfig|${nettools}/bin/ifconfig|' \
-      src/VBox/HostDrivers/adpctl/VBoxNetAdpCtl.cpp
-  '' + optionalString headless ''
-    # Fix compile error in version 6.1.6
-    substituteInPlace src/VBox/HostServices/SharedClipboard/VBoxSharedClipboardSvc-x11-stubs.cpp \
-      --replace PSHCLFORMATDATA PSHCLFORMATS
-  '';
+  postPatch =
+    ''
+      sed -i -e 's|/sbin/ifconfig|${nettools}/bin/ifconfig|' \
+        src/VBox/HostDrivers/adpctl/VBoxNetAdpCtl.cpp
+    '' + optionalString headless ''
+      # Fix compile error in version 6.1.6
+      substituteInPlace src/VBox/HostServices/SharedClipboard/VBoxSharedClipboardSvc-x11-stubs.cpp \
+        --replace PSHCLFORMATDATA PSHCLFORMATS
+    ''
+    ;
 
     # first line: ugly hack, and it isn't yet clear why it's a problem
   configurePhase = ''
@@ -319,14 +327,16 @@ stdenv.mkDerivation {
     cp -rv out/linux.*/${buildType}/bin/src "$modsrc"
   '';
 
-  preFixup = optionalString (!headless) ''
-    wrapQtApp $out/bin/VirtualBox
-  ''
+  preFixup =
+    optionalString (!headless) ''
+      wrapQtApp $out/bin/VirtualBox
+    ''
     # If hardening is disabled, wrap the VirtualBoxVM binary instead of patching
     # the source code (see postPatch).
     + optionalString (!headless && !enableHardening) ''
       wrapQtApp $out/libexec/virtualbox/VirtualBoxVM
-    '';
+    ''
+    ;
 
   passthru = {
     inherit version; # for guest additions

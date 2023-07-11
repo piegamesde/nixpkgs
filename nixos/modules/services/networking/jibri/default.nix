@@ -80,14 +80,16 @@ let
 
     streaming.rtmp-allow-list = [ ".*" ];
 
-    chrome.flags = [
-      "--use-fake-ui-for-media-stream"
-      "--start-maximized"
-      "--kiosk"
-      "--enabled"
-      "--disable-infobars"
-      "--autoplay-policy=no-user-gesture-required"
-    ] ++ lists.optional cfg.ignoreCert "--ignore-certificate-errors";
+    chrome.flags =
+      [
+        "--use-fake-ui-for-media-stream"
+        "--start-maximized"
+        "--kiosk"
+        "--enabled"
+        "--disable-infobars"
+        "--autoplay-policy=no-user-gesture-required"
+      ] ++ lists.optional cfg.ignoreCert "--ignore-certificate-errors"
+      ;
 
     stats.enable-stats-d = true;
     webhook.subscribers = [ ];
@@ -412,16 +414,20 @@ in
         ffmpeg-full
       ];
 
-      script = (concatStrings (mapAttrsToList (name: env: ''
-        export ${
-          toVarName "${name}_control"
-        }=$(cat ${env.control.login.passwordFile})
-        export ${toVarName "${name}_call"}=$(cat ${env.call.login.passwordFile})
-      '') cfg.xmppEnvironments)) + ''
-        ${pkgs.jdk11_headless}/bin/java -Djava.util.logging.config.file=${
-          ./logging.properties-journal
-        } -Dconfig.file=${configFile} -jar ${pkgs.jibri}/opt/jitsi/jibri/jibri.jar --config /var/lib/jibri/jibri.json
-      '';
+      script =
+        (concatStrings (mapAttrsToList (name: env: ''
+          export ${
+            toVarName "${name}_control"
+          }=$(cat ${env.control.login.passwordFile})
+          export ${
+            toVarName "${name}_call"
+          }=$(cat ${env.call.login.passwordFile})
+        '') cfg.xmppEnvironments)) + ''
+          ${pkgs.jdk11_headless}/bin/java -Djava.util.logging.config.file=${
+            ./logging.properties-journal
+          } -Dconfig.file=${configFile} -jar ${pkgs.jibri}/opt/jitsi/jibri/jibri.jar --config /var/lib/jibri/jibri.json
+        ''
+        ;
 
       environment.HOME = "/var/lib/jibri";
 

@@ -39,32 +39,38 @@ stdenv.mkDerivation rec {
     # fixed properly
   patches = [ ./cmake-fix-libxml2-find-package.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    flex
-    bison
-    pkg-config
-    python
-  ] ++ lib.optional python.isPy3k python.pkgs.setuptools;
+  nativeBuildInputs =
+    [
+      cmake
+      flex
+      bison
+      pkg-config
+      python
+    ] ++ lib.optional python.isPy3k python.pkgs.setuptools
+    ;
 
-  buildInputs = [
-    libxml2
-    libusb1
-  ] ++ lib.optional avahiSupport avahi ++ lib.optional stdenv.isLinux libaio
+  buildInputs =
+    [
+      libxml2
+      libusb1
+    ] ++ lib.optional avahiSupport avahi ++ lib.optional stdenv.isLinux libaio
     ++ lib.optionals stdenv.isDarwin [
       CFNetwork
       CoreServices
-    ];
+    ]
+    ;
 
-  cmakeFlags = [
-    "-DUDEV_RULES_INSTALL_DIR=${placeholder "out"}/lib/udev/rules.d"
-    "-DPython_EXECUTABLE=${python.pythonForBuild.interpreter}"
-    "-DPYTHON_BINDINGS=on"
-    # osx framework is disabled,
-    # the linux-like directory structure is used for proper output splitting
-    "-DOSX_PACKAGE=off"
-    "-DOSX_FRAMEWORK=off"
-  ] ++ lib.optionals (!avahiSupport) [ "-DHAVE_DNS_SD=OFF" ];
+  cmakeFlags =
+    [
+      "-DUDEV_RULES_INSTALL_DIR=${placeholder "out"}/lib/udev/rules.d"
+      "-DPython_EXECUTABLE=${python.pythonForBuild.interpreter}"
+      "-DPYTHON_BINDINGS=on"
+      # osx framework is disabled,
+      # the linux-like directory structure is used for proper output splitting
+      "-DOSX_PACKAGE=off"
+      "-DOSX_FRAMEWORK=off"
+    ] ++ lib.optionals (!avahiSupport) [ "-DHAVE_DNS_SD=OFF" ]
+    ;
 
   postPatch = ''
     # Hardcode path to the shared library into the bindings.

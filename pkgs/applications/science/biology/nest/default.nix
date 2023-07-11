@@ -44,16 +44,18 @@ stdenv.mkDerivation rec {
     findutils
   ];
 
-  buildInputs = [
-    gsl
-    readline
-    libtool # libltdl
-    boost
-  ] ++ lib.optionals withPython [
-    python3
-    python3.pkgs.cython
-  ] ++ lib.optional withMpi mpi
-    ++ lib.optional stdenv.isDarwin llvmPackages.openmp;
+  buildInputs =
+    [
+      gsl
+      readline
+      libtool # libltdl
+      boost
+    ] ++ lib.optionals withPython [
+      python3
+      python3.pkgs.cython
+    ] ++ lib.optional withMpi mpi
+    ++ lib.optional stdenv.isDarwin llvmPackages.openmp
+    ;
 
   propagatedBuildInputs = with python3.pkgs; [ numpy ];
 

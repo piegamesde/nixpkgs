@@ -64,25 +64,27 @@ stdenv.mkDerivation rec {
     installShellFiles
     pkg-config
   ];
-  buildInputs = [
-    luajit
-    ncurses
-    libb64
-    openssl
-    curl
-    jq
-    gcc
-    elfutils
-    tbb
-    libb64
-    re2
-    protobuf
-    grpc
-    yaml-cpp
-    jsoncpp
-    nlohmann_json
-    zstd
-  ] ++ lib.optionals (kernel != null) kernel.moduleBuildDependencies;
+  buildInputs =
+    [
+      luajit
+      ncurses
+      libb64
+      openssl
+      curl
+      jq
+      gcc
+      elfutils
+      tbb
+      libb64
+      re2
+      protobuf
+      grpc
+      yaml-cpp
+      jsoncpp
+      nlohmann_json
+      zstd
+    ] ++ lib.optionals (kernel != null) kernel.moduleBuildDependencies
+    ;
 
   hardeningDisable = [ "pic" ];
 
@@ -105,49 +107,55 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  cmakeFlags = [
-    "-DUSE_BUNDLED_DEPS=OFF"
-    "-DSYSDIG_VERSION=${version}"
-    "-DUSE_BUNDLED_B64=OFF"
-    "-DUSE_BUNDLED_TBB=OFF"
-    "-DUSE_BUNDLED_RE2=OFF"
-    "-DCREATE_TEST_TARGETS=OFF"
-  ] ++ lib.optional (kernel == null) "-DBUILD_DRIVER=OFF";
+  cmakeFlags =
+    [
+      "-DUSE_BUNDLED_DEPS=OFF"
+      "-DSYSDIG_VERSION=${version}"
+      "-DUSE_BUNDLED_B64=OFF"
+      "-DUSE_BUNDLED_TBB=OFF"
+      "-DUSE_BUNDLED_RE2=OFF"
+      "-DCREATE_TEST_TARGETS=OFF"
+    ] ++ lib.optional (kernel == null) "-DBUILD_DRIVER=OFF"
+    ;
 
     # needed since luajit-2.1.0-beta3
   env.NIX_CFLAGS_COMPILE =
     "-DluaL_reg=luaL_Reg -DluaL_getn(L,i)=((int)lua_objlen(L,i))";
 
-  preConfigure = ''
-    if ! grep -q "${libsRev}" cmake/modules/falcosecurity-libs.cmake; then
-      echo "falcosecurity-libs checksum needs to be updated!"
-      exit 1
-    fi
-    cmakeFlagsArray+=(-DCMAKE_EXE_LINKER_FLAGS="-ltbb -lcurl -lzstd -labsl_synchronization")
-  '' + lib.optionalString (kernel != null) ''
-    export INSTALL_MOD_PATH="$out"
-    export KERNELDIR="${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  '';
+  preConfigure =
+    ''
+      if ! grep -q "${libsRev}" cmake/modules/falcosecurity-libs.cmake; then
+        echo "falcosecurity-libs checksum needs to be updated!"
+        exit 1
+      fi
+      cmakeFlagsArray+=(-DCMAKE_EXE_LINKER_FLAGS="-ltbb -lcurl -lzstd -labsl_synchronization")
+    '' + lib.optionalString (kernel != null) ''
+      export INSTALL_MOD_PATH="$out"
+      export KERNELDIR="${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ''
+    ;
 
-  postInstall = ''
-    # Fix the bash completion location
-    installShellCompletion --bash $out/etc/bash_completion.d/sysdig
-    rm $out/etc/bash_completion.d/sysdig
-    rmdir $out/etc/bash_completion.d
-    rmdir $out/etc
-  '' + lib.optionalString (kernel != null) ''
-    make install_driver
-    kernel_dev=${kernel.dev}
-    kernel_dev=''${kernel_dev#${builtins.storeDir}/}
-    kernel_dev=''${kernel_dev%%-linux*dev*}
-    if test -f "$out/lib/modules/${kernel.modDirVersion}/extra/scap.ko"; then
-        sed -i "s#$kernel_dev#................................#g" $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
-    else
-        xz -d $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko.xz
-        sed -i "s#$kernel_dev#................................#g" $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
-        xz $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
-    fi
-  '';
+  postInstall =
+    ''
+      # Fix the bash completion location
+      installShellCompletion --bash $out/etc/bash_completion.d/sysdig
+      rm $out/etc/bash_completion.d/sysdig
+      rmdir $out/etc/bash_completion.d
+      rmdir $out/etc
+    '' + lib.optionalString (kernel != null) ''
+      make install_driver
+      kernel_dev=${kernel.dev}
+      kernel_dev=''${kernel_dev#${builtins.storeDir}/}
+      kernel_dev=''${kernel_dev%%-linux*dev*}
+      if test -f "$out/lib/modules/${kernel.modDirVersion}/extra/scap.ko"; then
+          sed -i "s#$kernel_dev#................................#g" $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
+      else
+          xz -d $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko.xz
+          sed -i "s#$kernel_dev#................................#g" $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
+          xz $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
+      fi
+    ''
+    ;
 
   meta = with lib; {
     description =

@@ -16,9 +16,7 @@ let
   toUnderscore = str: lib.replaceStrings [ "." ] [ "_" ] str;
 
   majorMinorPatch =
-    str:
-    lib.concatStringsSep "." (lib.take 3 (lib.splitVersion str))
-    ;
+    str: lib.concatStringsSep "." (lib.take 3 (lib.splitVersion str));
 
   tensorRTPackages = with lib;
     let
@@ -209,18 +207,19 @@ let
   };
 
     # Default attributes
-  tensorRTDefaultVersion = {
-    "10.2" = "8.4.0";
-    "11.0" = "8.4.0";
-    "11.1" = "8.4.0";
-    "11.2" = "8.4.0";
-    "11.3" = "8.4.0";
-    "11.4" = "8.4.0";
-    "11.5" = "8.4.0";
-    "11.6" = "8.4.0";
-    "11.7" = "8.5.3";
-    "11.8" = "8.5.3";
-  }.${cudaVersion} or "8.4.0";
+  tensorRTDefaultVersion =
+    {
+      "10.2" = "8.4.0";
+      "11.0" = "8.4.0";
+      "11.1" = "8.4.0";
+      "11.2" = "8.4.0";
+      "11.3" = "8.4.0";
+      "11.4" = "8.4.0";
+      "11.5" = "8.4.0";
+      "11.6" = "8.4.0";
+      "11.7" = "8.5.3";
+      "11.8" = "8.5.3";
+    }.${cudaVersion} or "8.4.0";
 
 in
 tensorRTPackages

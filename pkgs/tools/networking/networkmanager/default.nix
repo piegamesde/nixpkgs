@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
   version = "1.42.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/NetworkManager/${
+    url =
+      "mirror://gnome/sources/NetworkManager/${
         lib.versions.majorMinor version
       }/NetworkManager-${version}.tar.xz";
     sha256 = "sha256-jDiKw3daxrzrYF+uIb4sPiYcr+YGeZSonw36RhDtAnk=";
@@ -172,26 +173,28 @@ stdenv.mkDerivation rec {
     libgcrypt
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    gettext
-    pkg-config
-    vala
-    gobject-introspection
-    perl
-    elfutils # used to find jansson soname
-    # Docs
-    gtk-doc
-    libxslt
-    docbook_xsl
-    docbook_xml_dtd_412
-    docbook_xml_dtd_42
-    docbook_xml_dtd_43
-    pythonForDocs
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      gettext
+      pkg-config
+      vala
+      gobject-introspection
+      perl
+      elfutils # used to find jansson soname
+      # Docs
+      gtk-doc
+      libxslt
+      docbook_xsl
+      docbook_xml_dtd_412
+      docbook_xml_dtd_42
+      docbook_xml_dtd_43
+      pythonForDocs
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ];
+    ]
+    ;
 
   doCheck = false; # requires /sys, the net
 
@@ -235,11 +238,13 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     changelog =
       "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/raw/${version}/NEWS";
-    maintainers = teams.freedesktop.members ++ (with maintainers; [
-      domenkozar
-      obadz
-      maxeaubrey
-    ]);
+    maintainers =
+      teams.freedesktop.members ++ (with maintainers; [
+        domenkozar
+        obadz
+        maxeaubrey
+      ])
+      ;
     platforms = platforms.linux;
   };
 }

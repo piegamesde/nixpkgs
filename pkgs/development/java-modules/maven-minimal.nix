@@ -13,8 +13,9 @@ let
 in
 {
   # Maven needs all of these to function
-  mavenMinimal = lib.flatten collections.mavenLibs_2_0_6
-    ++ collections.mavenLibs_2_0_9 ++ collections.mavenLibs_2_2_1 ++ [
+  mavenMinimal =
+    lib.flatten collections.mavenLibs_2_0_6 ++ collections.mavenLibs_2_0_9
+    ++ collections.mavenLibs_2_2_1 ++ [
       classworlds_1_1_alpha2
       classworlds_1_1
       commonsCli_1_0
@@ -148,5 +149,6 @@ in
       sonatypeSpiceParent_17
       surefire_2_12_4
       xbean_3_4
-    ]);
+    ])
+    ;
 }

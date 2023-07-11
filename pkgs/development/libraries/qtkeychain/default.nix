@@ -29,17 +29,20 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DQT_TRANSLATIONS_DIR=share/qt/translations" ];
 
-  nativeBuildInputs = [ cmake ]
+  nativeBuildInputs =
+    [ cmake ]
     ++ lib.optionals (!stdenv.isDarwin) [ pkg-config ] # for finding libsecret
     ;
 
-  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ [
-    qtbase
-    qttools
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    Security
-  ];
+  buildInputs =
+    lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ [
+      qtbase
+      qttools
+    ] ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      Security
+    ]
+    ;
 
   meta = {
     description = "Platform-independent Qt API for storing passwords securely";

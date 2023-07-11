@@ -150,7 +150,8 @@ callPackage (import ./generic.nix (rec {
     };
   };
 
-  configureFlags = [ ]
+  configureFlags =
+    [ ]
     ++ optional (!withInternalQemu) "--with-system-qemu" # use qemu from PATH
     ++ optional (withInternalTraditionalQemu) "--enable-qemu-traditional"
     ++ optional (!withInternalTraditionalQemu) "--disable-qemu-traditional"
@@ -159,7 +160,8 @@ callPackage (import ./generic.nix (rec {
     ++ optional (!withInternalSeabios && !withSeabios) "--disable-seabios"
 
     ++ optional (withOVMF) "--with-system-ovmf=${OVMF.fd}/FV/OVMF.fd"
-    ++ optional (withInternalOVMF) "--enable-ovmf";
+    ++ optional (withInternalOVMF) "--enable-ovmf"
+    ;
 
   NIX_CFLAGS_COMPILE = toString [
     # TODO 4.15: drop unneeded ones

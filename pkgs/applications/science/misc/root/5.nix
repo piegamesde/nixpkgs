@@ -38,27 +38,29 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [
-    pcre
-    python3
-    zlib
-    libxml2
-    lz4
-    xz
-    gsl
-    xxHash
-    libxcrypt
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    libX11
-    libXpm
-    libXft
-    libXext
-    libGLU
-    libGL
-  ] ++ lib.optionals (stdenv.isDarwin) [
-    Cocoa
-    OpenGL
-  ];
+  buildInputs =
+    [
+      pcre
+      python3
+      zlib
+      libxml2
+      lz4
+      xz
+      gsl
+      xxHash
+      libxcrypt
+    ] ++ lib.optionals (!stdenv.isDarwin) [
+      libX11
+      libXpm
+      libXft
+      libXext
+      libGLU
+      libGL
+    ] ++ lib.optionals (stdenv.isDarwin) [
+      Cocoa
+      OpenGL
+    ]
+    ;
 
   patches = [
     ./sw_vers_root5.patch
@@ -90,39 +92,40 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  preConfigure = ''
-    # binutils 2.37 fixes
-    fixupList=(
-      cint/demo/gl/make0
-      cint/demo/exception/Makefile
-      cint/demo/makecint/KRcc/Makefile
-      cint/demo/makecint/Stub2/Make2
-      cint/demo/makecint/Array/Makefile
-      cint/demo/makecint/DArray/Makefile
-      cint/demo/makecint/ReadFile/Makefile
-      cint/demo/makecint/stl/Makefile
-      cint/demo/makecint/Stub2/Make1
-      cint/cint/include/makemat
-      cint/cint/lib/WildCard/Makefile
-      cint/cint/include/make.arc
-      cint/cint/lib/qt/Makefile
-      cint/cint/lib/pthread/Makefile
-      graf2d/asimage/src/libAfterImage/Makefile.in
-    )
-    for toFix in "''${fixupList[@]}"; do
-      substituteInPlace "$toFix" --replace "clq" "cq"
-    done
+  preConfigure =
+    ''
+      # binutils 2.37 fixes
+      fixupList=(
+        cint/demo/gl/make0
+        cint/demo/exception/Makefile
+        cint/demo/makecint/KRcc/Makefile
+        cint/demo/makecint/Stub2/Make2
+        cint/demo/makecint/Array/Makefile
+        cint/demo/makecint/DArray/Makefile
+        cint/demo/makecint/ReadFile/Makefile
+        cint/demo/makecint/stl/Makefile
+        cint/demo/makecint/Stub2/Make1
+        cint/cint/include/makemat
+        cint/cint/lib/WildCard/Makefile
+        cint/cint/include/make.arc
+        cint/cint/lib/qt/Makefile
+        cint/cint/lib/pthread/Makefile
+        graf2d/asimage/src/libAfterImage/Makefile.in
+      )
+      for toFix in "''${fixupList[@]}"; do
+        substituteInPlace "$toFix" --replace "clq" "cq"
+      done
 
-    patchShebangs build/unix/
-    ln -s ${
-      lib.getDev stdenv.cc.libc
-    }/include/AvailabilityMacros.h cint/cint/include/
+      patchShebangs build/unix/
+      ln -s ${
+        lib.getDev stdenv.cc.libc
+      }/include/AvailabilityMacros.h cint/cint/include/
 
-    # __malloc_hook is deprecated
-    substituteInPlace misc/memstat/src/TMemStatHook.cxx \
-      --replace "defined(R__GNU) && (defined(R__LINUX) || defined(__APPLE__))" \
-                "defined(R__GNU) && (defined(__APPLE__))"
-  ''
+      # __malloc_hook is deprecated
+      substituteInPlace misc/memstat/src/TMemStatHook.cxx \
+        --replace "defined(R__GNU) && (defined(R__LINUX) || defined(__APPLE__))" \
+                  "defined(R__GNU) && (defined(__APPLE__))"
+    ''
     # Fix CINTSYSDIR for "build" version of rootcint
     # This is probably a bug that breaks out-of-source builds
     + ''
@@ -130,44 +133,47 @@ stdenv.mkDerivation rec {
         --replace 'env = "cint";' 'env = "'`pwd`'/cint";'
     '' + lib.optionalString noSplash ''
       substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
-    '';
+    ''
+    ;
 
-  cmakeFlags = [
-    "-Drpath=ON"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    "-DCMAKE_CXX_FLAGS=-std=c++11"
-    "-Dalien=OFF"
-    "-Dbonjour=OFF"
-    "-Dcastor=OFF"
-    "-Dchirp=OFF"
-    "-Ddavix=OFF"
-    "-Ddcache=OFF"
-    "-Dfftw3=OFF"
-    "-Dfitsio=OFF"
-    "-Dfortran=OFF"
-    "-Dgfal=OFF"
-    "-Dgsl_shared=ON"
-    "-Dgviz=OFF"
-    "-Dhdfs=OFF"
-    "-Dkrb5=OFF"
-    "-Dldap=OFF"
-    "-Dmathmore=ON"
-    "-Dmonalisa=OFF"
-    "-Dmysql=OFF"
-    "-Dodbc=OFF"
-    "-Dopengl=ON"
-    "-Doracle=OFF"
-    "-Dpgsql=OFF"
-    "-Dpythia6=OFF"
-    "-Dpythia8=OFF"
-    "-Drfio=OFF"
-    "-Dsqlite=OFF"
-    "-Dssl=OFF"
-    "-Dxml=ON"
-    "-Dxrootd=OFF"
-  ] ++ lib.optional stdenv.isDarwin
-    "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
+  cmakeFlags =
+    [
+      "-Drpath=ON"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+      "-DCMAKE_CXX_FLAGS=-std=c++11"
+      "-Dalien=OFF"
+      "-Dbonjour=OFF"
+      "-Dcastor=OFF"
+      "-Dchirp=OFF"
+      "-Ddavix=OFF"
+      "-Ddcache=OFF"
+      "-Dfftw3=OFF"
+      "-Dfitsio=OFF"
+      "-Dfortran=OFF"
+      "-Dgfal=OFF"
+      "-Dgsl_shared=ON"
+      "-Dgviz=OFF"
+      "-Dhdfs=OFF"
+      "-Dkrb5=OFF"
+      "-Dldap=OFF"
+      "-Dmathmore=ON"
+      "-Dmonalisa=OFF"
+      "-Dmysql=OFF"
+      "-Dodbc=OFF"
+      "-Dopengl=ON"
+      "-Doracle=OFF"
+      "-Dpgsql=OFF"
+      "-Dpythia6=OFF"
+      "-Dpythia8=OFF"
+      "-Drfio=OFF"
+      "-Dsqlite=OFF"
+      "-Dssl=OFF"
+      "-Dxml=ON"
+      "-Dxrootd=OFF"
+    ] ++ lib.optional stdenv.isDarwin
+    "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
+    ;
 
   setupHook = ./setup-hook.sh;
 

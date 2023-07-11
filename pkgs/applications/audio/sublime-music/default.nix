@@ -46,13 +46,15 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-n77mTgElwwFaX3WQL8tZzbkPwnsyQ08OW9imSOjpBlg=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ] ++ (with python.pkgs; [
-    poetry-core
-    pythonRelaxDepsHook
-  ]);
+  nativeBuildInputs =
+    [
+      gobject-introspection
+      wrapGAppsHook
+    ] ++ (with python.pkgs; [
+      poetry-core
+      pythonRelaxDepsHook
+    ])
+    ;
 
     # Can be removed in later versions (probably > 0.11.16)
   pythonRelaxDeps = [
@@ -69,11 +71,13 @@ python.pkgs.buildPythonApplication rec {
       --replace 'python-Levenshtein = "^0.12.0"' 'Levenshtein = ">0.12.0"'
   '';
 
-  buildInputs = [
-    gtk3
-    pango
-  ] ++ lib.optional notifySupport libnotify
-    ++ lib.optional networkSupport networkmanager;
+  buildInputs =
+    [
+      gtk3
+      pango
+    ] ++ lib.optional notifySupport libnotify
+    ++ lib.optional networkSupport networkmanager
+    ;
 
   propagatedBuildInputs = with python.pkgs;
     [

@@ -320,16 +320,17 @@ let
     else
       "custom"
     ;
-  suggestedRootDevice = {
-    "efi_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}2";
-    "legacy_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}1";
-    "direct_boot_with_default_fs" = cfg.bootLoaderDevice;
-      # This will enforce a NixOS module type checking error
-      # to ask explicitly the user to set a rootDevice.
-      # As it will look like `rootDevice = lib.mkDefault null;` after
-      # all "computations".
-    "custom" = null;
-  }.${bootConfiguration};
+  suggestedRootDevice =
+    {
+      "efi_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}2";
+      "legacy_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}1";
+      "direct_boot_with_default_fs" = cfg.bootLoaderDevice;
+        # This will enforce a NixOS module type checking error
+        # to ask explicitly the user to set a rootDevice.
+        # As it will look like `rootDevice = lib.mkDefault null;` after
+        # all "computations".
+      "custom" = null;
+    }.${bootConfiguration};
 
 in
 {
@@ -1001,8 +1002,10 @@ in
       fi
     '';
 
-    boot.initrd.availableKernelModules = optional cfg.writableStore "overlay"
-      ++ optional (cfg.qemu.diskInterface == "scsi") "sym53c8xx";
+    boot.initrd.availableKernelModules =
+      optional cfg.writableStore "overlay"
+      ++ optional (cfg.qemu.diskInterface == "scsi") "sym53c8xx"
+      ;
 
     virtualisation.additionalPaths = [ config.system.build.toplevel ];
 
@@ -1061,8 +1064,9 @@ in
         "-device usb-tablet"
       ])
       (let
-        alphaNumericChars = lowerChars ++ upperChars
-          ++ (map toString (range 0 9));
+        alphaNumericChars =
+          lowerChars ++ upperChars ++ (map toString (range 0 9))
+          ;
           # Replace all non-alphanumeric characters with underscores
         sanitizeShellIdent =
           s:
@@ -1136,11 +1140,13 @@ in
             value.device = tag;
             value.fsType = "9p";
             value.neededForBoot = true;
-            value.options = [
-              "trans=virtio"
-              "version=9p2000.L"
-              "msize=${toString cfg.msize}"
-            ] ++ lib.optional (tag == "nix-store") "cache=loose";
+            value.options =
+              [
+                "trans=virtio"
+                "version=9p2000.L"
+                "msize=${toString cfg.msize}"
+              ] ++ lib.optional (tag == "nix-store") "cache=loose"
+              ;
           }
           ;
       in

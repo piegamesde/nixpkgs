@@ -41,10 +41,11 @@ python.pkgs.pythonPackages.buildPythonPackage rec {
 
   format = "other";
 
-  patches = [
-    # Allow setting MEDIA_ROOT through environment variable
-    ./media-root.patch
-  ];
+  patches =
+    [
+      # Allow setting MEDIA_ROOT through environment variable
+      ./media-root.patch
+    ];
 
   propagatedBuildInputs = with python.pkgs; [
     beautifulsoup4

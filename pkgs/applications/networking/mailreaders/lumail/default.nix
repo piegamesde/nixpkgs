@@ -84,14 +84,16 @@ stdenv.mkDerivation {
 
   buildFlags = lib.optional debugBuild "lumail2-debug";
 
-  installPhase = ''
-    mkdir -p $out/bin || true
-    install -m755 ${binaryName} $out/bin/
-  '' + globalConfig + ''
-    wrapProgram $out/bin/${binaryName} \
-        --prefix LUA_PATH : "${luaPath}" \
-        --prefix LUA_CPATH : "${luaCPath}"
-  '';
+  installPhase =
+    ''
+      mkdir -p $out/bin || true
+      install -m755 ${binaryName} $out/bin/
+    '' + globalConfig + ''
+      wrapProgram $out/bin/${binaryName} \
+          --prefix LUA_PATH : "${luaPath}" \
+          --prefix LUA_CPATH : "${luaCPath}"
+    ''
+    ;
 
   makeFlags = [
     "LVER=lua"

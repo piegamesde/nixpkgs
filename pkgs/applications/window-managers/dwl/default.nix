@@ -41,19 +41,21 @@ stdenv.mkDerivation (finalAttrs: {
     wayland-scanner
   ];
 
-  buildInputs = [
-    libinput
-    libxcb
-    libxkbcommon
-    pixman
-    wayland
-    wayland-protocols
-    wlroots
-  ] ++ lib.optionals enableXWayland [
-    libX11
-    xcbutilwm
-    xwayland
-  ];
+  buildInputs =
+    [
+      libinput
+      libxcb
+      libxkbcommon
+      pixman
+      wayland
+      wayland-protocols
+      wlroots
+    ] ++ lib.optionals enableXWayland [
+      libX11
+      xcbutilwm
+      xwayland
+    ]
+    ;
 
   outputs = [
     "out"

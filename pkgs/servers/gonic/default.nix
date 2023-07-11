@@ -38,19 +38,21 @@ buildGoModule rec {
 
     # TODO(Profpatsch): write a test for transcoding support,
     # since it is prone to break
-  postPatch = lib.optionalString transcodingSupport ''
-    substituteInPlace \
-      transcode/transcode.go \
-      --replace \
-        '`ffmpeg' \
-        '`${lib.getBin ffmpeg}/bin/ffmpeg'
-  '' + ''
-    substituteInPlace \
-      jukebox/jukebox.go \
-      --replace \
-        '"mpv"' \
-        '"${lib.getBin mpv}/bin/mpv"'
-  '';
+  postPatch =
+    lib.optionalString transcodingSupport ''
+      substituteInPlace \
+        transcode/transcode.go \
+        --replace \
+          '`ffmpeg' \
+          '`${lib.getBin ffmpeg}/bin/ffmpeg'
+    '' + ''
+      substituteInPlace \
+        jukebox/jukebox.go \
+        --replace \
+          '"mpv"' \
+          '"${lib.getBin mpv}/bin/mpv"'
+    ''
+    ;
 
   meta = {
     homepage = "https://github.com/sentriz/gonic";

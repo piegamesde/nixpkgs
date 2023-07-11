@@ -112,13 +112,16 @@ builtins.intersectAttrs super {
     # PLUGINS WITH ENABLED TESTS
     # haskell-language-server plugins all use the same test harness so we give them what they want in this loop.
     # Every hls plugin should either be in the test disabled list below, or up here in the list fixing it’s tests.
-  inherit (pkgs.lib.mapAttrs (_:
-    overrideCabal (drv: {
-      testToolDepends = (drv.testToolDepends or [ ]) ++ [ pkgs.git ];
-      preCheck = ''
-        export HOME=$TMPDIR/home
-      '' + (drv.preCheck or "");
-    })) super)
+  inherit
+    (pkgs.lib.mapAttrs (_:
+      overrideCabal (drv: {
+        testToolDepends = (drv.testToolDepends or [ ]) ++ [ pkgs.git ];
+        preCheck =
+          ''
+            export HOME=$TMPDIR/home
+          '' + (drv.preCheck or "")
+          ;
+      })) super)
     hls-brittany-plugin
     hls-floskell-plugin
     hls-fourmolu-plugin
@@ -127,8 +130,9 @@ builtins.intersectAttrs super {
 
     # PLUGINS WITH DISABLED TESTS
     # 2023-04-01: TODO: We should reenable all these tests to figure if they are still broken.
-  inherit (pkgs.lib.mapAttrs (_: dontCheck) super)
-  # Tests have file permissions expections that don’t work with the nix store.
+  inherit
+    (pkgs.lib.mapAttrs (_: dontCheck) super)
+    # Tests have file permissions expections that don’t work with the nix store.
     hls-gadt-plugin
 
     # https://github.com/haskell/haskell-language-server/pull/3431
@@ -212,10 +216,12 @@ builtins.intersectAttrs super {
   cuda = overrideCabal (drv: {
     extraLibraries =
       (drv.extraLibraries or [ ]) ++ [ pkgs.linuxPackages.nvidia_x11 ];
-    configureFlags = (drv.configureFlags or [ ]) ++ [
-      "--extra-lib-dirs=${pkgs.cudatoolkit.lib}/lib"
-      "--extra-include-dirs=${pkgs.cudatoolkit}/include"
-    ];
+    configureFlags =
+      (drv.configureFlags or [ ]) ++ [
+        "--extra-lib-dirs=${pkgs.cudatoolkit.lib}/lib"
+        "--extra-include-dirs=${pkgs.cudatoolkit}/include"
+      ]
+      ;
     preConfigure = ''
       export CUDA_PATH=${pkgs.cudatoolkit}
     '';
@@ -333,15 +339,17 @@ builtins.intersectAttrs super {
 
     # Doesn't declare boost dependency
   nix-serve-ng = overrideSrc {
-    src = assert super.nix-serve-ng.version == "1.0.0";
-    # Workaround missing files in sdist
-    # https://github.com/aristanetworks/nix-serve-ng/issues/10
+    src =
+      assert super.nix-serve-ng.version == "1.0.0";
+      # Workaround missing files in sdist
+      # https://github.com/aristanetworks/nix-serve-ng/issues/10
       pkgs.fetchFromGitHub {
         repo = "nix-serve-ng";
         owner = "aristanetworks";
         rev = "433f70f4daae156b84853f5aaa11987aa5ce7277";
         sha256 = "0mqp67z5mi8rsjahdh395n7ppf0b65k8rd3pvnl281g02rbr69y2";
-      };
+      }
+      ;
   } (addPkgconfigDepend pkgs.boost.dev super.nix-serve-ng);
 
     # These packages try to access the network.
@@ -481,18 +489,21 @@ builtins.intersectAttrs super {
 
     # Tries to run GUI in tests
   leksah = dontCheck (overrideCabal (drv: {
-    executableSystemDepends = (drv.executableSystemDepends or [ ])
-      ++ (with pkgs; [
+    executableSystemDepends =
+      (drv.executableSystemDepends or [ ]) ++ (with pkgs; [
         gnome.adwaita-icon-theme # Fix error: Icon 'window-close' not present in theme ...
         wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
         gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
-      ]);
-    postPatch = (drv.postPatch or "") + ''
-      for f in src/IDE/Leksah.hs src/IDE/Utils/ServerConnection.hs
-      do
-        substituteInPlace "$f" --replace "\"leksah-server\"" "\"${self.leksah-server}/bin/leksah-server\""
-      done
-    '';
+      ])
+      ;
+    postPatch =
+      (drv.postPatch or "") + ''
+        for f in src/IDE/Leksah.hs src/IDE/Utils/ServerConnection.hs
+        do
+          substituteInPlace "$f" --replace "\"leksah-server\"" "\"${self.leksah-server}/bin/leksah-server\""
+        done
+      ''
+      ;
   }) super.leksah);
 
   dyre = appendPatch
@@ -538,12 +549,14 @@ builtins.intersectAttrs super {
 
     # https://github.com/ivanperez-keera/hcwiid/pull/4
   hcwiid = overrideCabal (drv: {
-    configureFlags = (drv.configureFlags or [ ]) ++ [
-      "--extra-lib-dirs=${pkgs.bluez.out}/lib"
-      "--extra-lib-dirs=${pkgs.cwiid}/lib"
-      "--extra-include-dirs=${pkgs.cwiid}/include"
-      "--extra-include-dirs=${pkgs.bluez.dev}/include"
-    ];
+    configureFlags =
+      (drv.configureFlags or [ ]) ++ [
+        "--extra-lib-dirs=${pkgs.bluez.out}/lib"
+        "--extra-lib-dirs=${pkgs.cwiid}/lib"
+        "--extra-include-dirs=${pkgs.cwiid}/include"
+        "--extra-include-dirs=${pkgs.bluez.dev}/include"
+      ]
+      ;
     prePatch =
       ''sed -i -e "/Extra-Lib-Dirs/d" -e "/Include-Dirs/d" "hcwiid.cabal" '';
   }) super.hcwiid;
@@ -568,11 +581,13 @@ builtins.intersectAttrs super {
   fltkhs = overrideCabal (drv: {
     libraryToolDepends =
       (drv.libraryToolDepends or [ ]) ++ [ pkgs.buildPackages.autoconf ];
-    librarySystemDepends = (drv.librarySystemDepends or [ ]) ++ [
-      pkgs.fltk13
-      pkgs.libGL
-      pkgs.libjpeg
-    ];
+    librarySystemDepends =
+      (drv.librarySystemDepends or [ ]) ++ [
+        pkgs.fltk13
+        pkgs.libGL
+        pkgs.libjpeg
+      ]
+      ;
   }) super.fltkhs;
 
     # https://github.com/skogsbaer/hscurses/pull/26
@@ -585,24 +600,30 @@ builtins.intersectAttrs super {
 
     # Tests execute goldplate
   goldplate = overrideCabal (drv: {
-    preCheck = drv.preCheck or "" + ''
-      export PATH="$PWD/dist/build/goldplate:$PATH"
-    '';
+    preCheck =
+      drv.preCheck or "" + ''
+        export PATH="$PWD/dist/build/goldplate:$PATH"
+      ''
+      ;
   }) super.goldplate;
 
     # At least on 1.3.4 version on 32-bit architectures tasty requires
     # unbounded-delays via .cabal file conditions.
   tasty = overrideCabal (drv: {
-    libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ lib.optionals
+    libraryHaskellDepends =
+      (drv.libraryHaskellDepends or [ ]) ++ lib.optionals
       (!(pkgs.stdenv.hostPlatform.isAarch64
-        || pkgs.stdenv.hostPlatform.isx86_64)) [ self.unbounded-delays ];
+        || pkgs.stdenv.hostPlatform.isx86_64)) [ self.unbounded-delays ]
+      ;
   }) super.tasty;
 
   tasty-discover = overrideCabal (drv: {
     # Depends on itself for testing
-    preBuild = ''
-      export PATH="$PWD/dist/build/tasty-discover:$PATH"
-    '' + (drv.preBuild or "");
+    preBuild =
+      ''
+        export PATH="$PWD/dist/build/tasty-discover:$PATH"
+      '' + (drv.preBuild or "")
+      ;
   }) super.tasty-discover;
 
     # GLUT uses `dlopen` to link to freeglut, so we need to set the RUNPATH correctly for
@@ -629,10 +650,12 @@ builtins.intersectAttrs super {
     # does not specify tests in cabal file, instead has custom runTest cabal hook,
     # so cabal2nix will not detect test dependencies.
   either-unwrap = overrideCabal (drv: {
-    testHaskellDepends = (drv.testHaskellDepends or [ ]) ++ [
-      self.test-framework
-      self.test-framework-hunit
-    ];
+    testHaskellDepends =
+      (drv.testHaskellDepends or [ ]) ++ [
+        self.test-framework
+        self.test-framework-hunit
+      ]
+      ;
   }) super.either-unwrap;
 
     # https://github.com/haskell-fswatch/hfsnotify/issues/62
@@ -774,14 +797,18 @@ builtins.intersectAttrs super {
 
     # Compile manpages (which are in RST and are compiled with Sphinx).
   futhark = overrideCabal (_drv: {
-    postBuild = (_drv.postBuild or "") + ''
-      make -C docs man
-    '';
+    postBuild =
+      (_drv.postBuild or "") + ''
+        make -C docs man
+      ''
+      ;
 
-    postInstall = (_drv.postInstall or "") + ''
-      mkdir -p $out/share/man/man1
-      mv docs/_build/man/*.1 $out/share/man/man1/
-    '';
+    postInstall =
+      (_drv.postInstall or "") + ''
+        mkdir -p $out/share/man/man1
+        mv docs/_build/man/*.1 $out/share/man/man1/
+      ''
+      ;
   }) (addBuildTools (with pkgs.buildPackages; [
     makeWrapper
     python3Packages.sphinx
@@ -791,22 +818,26 @@ builtins.intersectAttrs super {
     # This is an instance of https://github.com/NixOS/nix/pull/1085
     # Fails with:
     #   gpg: can't connect to the agent: File name too long
-    postPatch = pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
-      substituteInPlace Test.hs \
-        --replace ', testCase "crypto" test_crypto' ""
-    '' + (drv.postPatch or "");
+    postPatch =
+      pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
+        substituteInPlace Test.hs \
+          --replace ', testCase "crypto" test_crypto' ""
+      '' + (drv.postPatch or "")
+      ;
       # Ensure git-annex uses the exact same coreutils it saw at build-time.
       # This is especially important on Darwin but also in Linux environments
       # where non-GNU coreutils are used by default.
-    postFixup = ''
-      wrapProgram $out/bin/git-annex \
-        --prefix PATH : "${
-          pkgs.lib.makeBinPath (with pkgs; [
-            coreutils
-            lsof
-          ])
-        }"
-    '' + (drv.postFixup or "");
+    postFixup =
+      ''
+        wrapProgram $out/bin/git-annex \
+          --prefix PATH : "${
+            pkgs.lib.makeBinPath (with pkgs; [
+              coreutils
+              lsof
+            ])
+          }"
+      '' + (drv.postFixup or "")
+      ;
     buildTools = [ pkgs.buildPackages.makeWrapper ] ++ (drv.buildTools or [ ]);
   }) (super.git-annex.override {
     dbus =
@@ -885,30 +916,32 @@ builtins.intersectAttrs super {
       };
 
       spagoDocs = overrideCabal (drv: {
-        postUnpack = (drv.postUnpack or "") + ''
-          # Spago includes the following two files directly into the binary
-          # with Template Haskell.  They are fetched at build-time from the
-          # `purescript-docs-search` repo above.  If they cannot be fetched at
-          # build-time, they are pulled in from the `templates/` directory in
-          # the spago source.
-          #
-          # However, they are not actually available in the spago source, so they
-          # need to fetched with nix and put in the correct place.
-          # https://github.com/spacchetti/spago/issues/510
-          cp ${docsSearchApp_0_0_10} "$sourceRoot/templates/docs-search-app-0.0.10.js"
-          cp ${docsSearchApp_0_0_11} "$sourceRoot/templates/docs-search-app-0.0.11.js"
-          cp ${purescriptDocsSearch_0_0_10} "$sourceRoot/templates/purescript-docs-search-0.0.10"
-          cp ${purescriptDocsSearch_0_0_11} "$sourceRoot/templates/purescript-docs-search-0.0.11"
+        postUnpack =
+          (drv.postUnpack or "") + ''
+            # Spago includes the following two files directly into the binary
+            # with Template Haskell.  They are fetched at build-time from the
+            # `purescript-docs-search` repo above.  If they cannot be fetched at
+            # build-time, they are pulled in from the `templates/` directory in
+            # the spago source.
+            #
+            # However, they are not actually available in the spago source, so they
+            # need to fetched with nix and put in the correct place.
+            # https://github.com/spacchetti/spago/issues/510
+            cp ${docsSearchApp_0_0_10} "$sourceRoot/templates/docs-search-app-0.0.10.js"
+            cp ${docsSearchApp_0_0_11} "$sourceRoot/templates/docs-search-app-0.0.11.js"
+            cp ${purescriptDocsSearch_0_0_10} "$sourceRoot/templates/purescript-docs-search-0.0.10"
+            cp ${purescriptDocsSearch_0_0_11} "$sourceRoot/templates/purescript-docs-search-0.0.11"
 
-          # For some weird reason, on Darwin, the open(2) call to embed these files
-          # requires write permissions. The easiest resolution is just to permit that
-          # (doesn't cause any harm on other systems).
-          chmod u+w \
-            "$sourceRoot/templates/docs-search-app-0.0.10.js" \
-            "$sourceRoot/templates/purescript-docs-search-0.0.10" \
-            "$sourceRoot/templates/docs-search-app-0.0.11.js" \
-            "$sourceRoot/templates/purescript-docs-search-0.0.11"
-        '';
+            # For some weird reason, on Darwin, the open(2) call to embed these files
+            # requires write permissions. The easiest resolution is just to permit that
+            # (doesn't cause any harm on other systems).
+            chmod u+w \
+              "$sourceRoot/templates/docs-search-app-0.0.10.js" \
+              "$sourceRoot/templates/purescript-docs-search-0.0.10" \
+              "$sourceRoot/templates/docs-search-app-0.0.11.js" \
+              "$sourceRoot/templates/purescript-docs-search-0.0.11"
+          ''
+          ;
       }) super.spago;
 
       spagoOldAeson = spagoDocs.overrideScope (hfinal: hprev: {
@@ -1032,16 +1065,20 @@ builtins.intersectAttrs super {
 
     # tests need to execute the built executable
   stutter = overrideCabal (drv: {
-    preCheck = ''
-      export PATH=dist/build/stutter:$PATH
-    '' + (drv.preCheck or "");
+    preCheck =
+      ''
+        export PATH=dist/build/stutter:$PATH
+      '' + (drv.preCheck or "")
+      ;
   }) super.stutter;
 
     # Install man page and generate shell completions
   pinboard-notes-backup = overrideCabal (drv: {
-    postInstall = ''
-      install -D man/pnbackup.1 $out/share/man/man1/pnbackup.1
-    '' + (drv.postInstall or "");
+    postInstall =
+      ''
+        install -D man/pnbackup.1 $out/share/man/man1/pnbackup.1
+      '' + (drv.postInstall or "")
+      ;
   }) (self.generateOptparseApplicativeCompletions [ "pnbackup" ]
     super.pinboard-notes-backup);
 
@@ -1050,9 +1087,11 @@ builtins.intersectAttrs super {
     super.streamly-archive.override { archive = pkgs.libarchive; };
 
   hlint = overrideCabal (drv: {
-    postInstall = ''
-      install -Dm644 data/hlint.1 -t "$out/share/man/man1"
-    '' + drv.postInstall or "";
+    postInstall =
+      ''
+        install -Dm644 data/hlint.1 -t "$out/share/man/man1"
+      '' + drv.postInstall or ""
+      ;
   }) super.hlint;
 
   taglib = overrideCabal (drv: {
@@ -1098,9 +1137,11 @@ builtins.intersectAttrs super {
 
     # Make tophat find itself for _compiling_ its test suite
   tophat = overrideCabal (drv: {
-    postPatch = ''
-      sed -i 's|"tophat"|"./dist/build/tophat/tophat"|' app-test-bin/*.hs
-    '' + (drv.postPatch or "");
+    postPatch =
+      ''
+        sed -i 's|"tophat"|"./dist/build/tophat/tophat"|' app-test-bin/*.hs
+      '' + (drv.postPatch or "")
+      ;
   }) super.tophat;
 
     # Runtime dependencies and CLI completion
@@ -1109,15 +1150,17 @@ builtins.intersectAttrs super {
       # test needs network
       doCheck = false;
       buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
-      postInstall = drv.postInstall or "" + ''
-        wrapProgram "$out/bin/nvfetcher" --prefix 'PATH' ':' "${
-          pkgs.lib.makeBinPath [
-            pkgs.nvchecker
-            pkgs.nix-prefetch
-            pkgs.nix-prefetch-docker
-          ]
-        }"
-      '';
+      postInstall =
+        drv.postInstall or "" + ''
+          wrapProgram "$out/bin/nvfetcher" --prefix 'PATH' ':' "${
+            pkgs.lib.makeBinPath [
+              pkgs.nvchecker
+              pkgs.nix-prefetch
+              pkgs.nix-prefetch-docker
+            ]
+          }"
+        ''
+        ;
     }) super.nvfetcher);
 
   rel8 = pkgs.lib.pipe super.rel8 [
@@ -1179,8 +1222,9 @@ builtins.intersectAttrs super {
 
     # the testsuite fails because of not finding tsc without some help
   aeson-typescript = overrideCabal (drv: {
-    testToolDepends = drv.testToolDepends or [ ]
-      ++ [ pkgs.nodePackages.typescript ];
+    testToolDepends =
+      drv.testToolDepends or [ ] ++ [ pkgs.nodePackages.typescript ]
+      ;
       # the testsuite assumes that tsc is in the PATH if it thinks it's in
       # CI, otherwise trying to install it.
       #
@@ -1200,19 +1244,23 @@ builtins.intersectAttrs super {
   ats-format = self.generateOptparseApplicativeCompletions [ "atsfmt" ]
     (justStaticExecutables (overrideCabal (drv: {
       # use vanilla Setup.hs
-      preCompileBuildDriver = ''
-        cat > Setup.hs << EOF
-        module Main where
-        import Distribution.Simple
-        main = defaultMain
-        EOF
-      '' + (drv.preCompileBuildDriver or "");
+      preCompileBuildDriver =
+        ''
+          cat > Setup.hs << EOF
+          module Main where
+          import Distribution.Simple
+          main = defaultMain
+          EOF
+        '' + (drv.preCompileBuildDriver or "")
+        ;
         # install man page
       buildTools =
         [ pkgs.buildPackages.installShellFiles ] ++ (drv.buildTools or [ ]);
-      postInstall = ''
-        installManPage man/atsfmt.1
-      '' + (drv.postInstall or "");
+      postInstall =
+        ''
+          installManPage man/atsfmt.1
+        '' + (drv.postInstall or "")
+        ;
     }) super.ats-format));
 
     # Test suite is just the default example executable which doesn't work if not
@@ -1239,40 +1287,50 @@ builtins.intersectAttrs super {
     # version and sort -V to compare against our minimum version. If the
     # Kernel turns out to be older, we disable the test suite.
   procex = overrideCabal (drv: {
-    postConfigure = ''
-      minimumKernel=5.9
-      higherVersion=`printf "%s\n%s\n" "$minimumKernel" "$(uname -r)" | sort -rV | head -n1`
-      if [[ "$higherVersion" = "$minimumKernel" ]]; then
-        echo "Used Kernel doesn't support close_range, disabling tests"
-        unset doCheck
-      fi
-    '' + (drv.postConfigure or "");
+    postConfigure =
+      ''
+        minimumKernel=5.9
+        higherVersion=`printf "%s\n%s\n" "$minimumKernel" "$(uname -r)" | sort -rV | head -n1`
+        if [[ "$higherVersion" = "$minimumKernel" ]]; then
+          echo "Used Kernel doesn't support close_range, disabling tests"
+          unset doCheck
+        fi
+      '' + (drv.postConfigure or "")
+      ;
   }) super.procex;
 
     # Test suite wants to run main executable
   fourmolu = overrideCabal (drv: {
-    preCheck = drv.preCheck or "" + ''
-      export PATH="$PWD/dist/build/fourmolu:$PATH"
-    '';
+    preCheck =
+      drv.preCheck or "" + ''
+        export PATH="$PWD/dist/build/fourmolu:$PATH"
+      ''
+      ;
   }) super.fourmolu;
 
     # Test suite wants to run main executable
   fourmolu_0_10_1_0 = overrideCabal (drv: {
-    preCheck = drv.preCheck or "" + ''
-      export PATH="$PWD/dist/build/fourmolu:$PATH"
-    '';
+    preCheck =
+      drv.preCheck or "" + ''
+        export PATH="$PWD/dist/build/fourmolu:$PATH"
+      ''
+      ;
   }) super.fourmolu_0_10_1_0;
 
     # Test suite needs to execute 'disco' binary
   disco = overrideCabal (drv: {
-    preCheck = drv.preCheck or "" + ''
-      export PATH="$PWD/dist/build/disco:$PATH"
-    '';
-    testFlags = drv.testFlags or [ ] ++ [
-      # Needs network access
-      "-p"
-      "!/oeis/"
-    ];
+    preCheck =
+      drv.preCheck or "" + ''
+        export PATH="$PWD/dist/build/disco:$PATH"
+      ''
+      ;
+    testFlags =
+      drv.testFlags or [ ] ++ [
+        # Needs network access
+        "-p"
+        "!/oeis/"
+      ]
+      ;
       # disco-examples needs network access
     testTarget = "disco-tests";
   }) super.disco;
@@ -1280,12 +1338,14 @@ builtins.intersectAttrs super {
     # Apply a patch which hardcodes the store path of graphviz instead of using
     # whatever graphviz is in PATH.
   graphviz = overrideCabal (drv: {
-    patches = [
+    patches =
+      [
         (pkgs.substituteAll {
           src = ./patches/graphviz-hardcode-graphviz-store-path.patch;
           inherit (pkgs) graphviz;
         })
-      ] ++ (drv.patches or [ ]);
+      ] ++ (drv.patches or [ ])
+      ;
   }) super.graphviz;
 
     # Test suite requires AWS access which requires both a network
@@ -1294,10 +1354,12 @@ builtins.intersectAttrs super {
 
     # Test case tries to contact the network
   http-api-data-qq = overrideCabal (drv: {
-    testFlags = [
-      "-p"
-      "!/Can be used with http-client/"
-    ] ++ drv.testFlags or [ ];
+    testFlags =
+      [
+        "-p"
+        "!/Can be used with http-client/"
+      ] ++ drv.testFlags or [ ]
+      ;
   }) super.http-api-data-qq;
 
     # Additionally install documentation
@@ -1321,10 +1383,12 @@ builtins.intersectAttrs super {
     # Smoke test can't be executed in sandbox
     # https://github.com/georgefst/evdev/issues/25
   evdev = overrideCabal (drv: {
-    testFlags = drv.testFlags or [ ] ++ [
-      "-p"
-      "!/Smoke/"
-    ];
+    testFlags =
+      drv.testFlags or [ ] ++ [
+        "-p"
+        "!/Smoke/"
+      ]
+      ;
   }) super.evdev;
 
     # Tests assume dist-newstyle build directory is present
@@ -1354,13 +1418,15 @@ builtins.intersectAttrs super {
   cabal-install = overrideCabal (old: {
     executableToolDepends =
       [ pkgs.buildPackages.makeWrapper ] ++ old.buildToolDepends or [ ];
-    postInstall = old.postInstall + ''
-      mkdir -p "$out/share/man/man1"
-      "$out/bin/cabal" man --raw > "$out/share/man/man1/cabal.1"
+    postInstall =
+      old.postInstall + ''
+        mkdir -p "$out/share/man/man1"
+        "$out/bin/cabal" man --raw > "$out/share/man/man1/cabal.1"
 
-      wrapProgram "$out/bin/cabal" \
-        --prefix PATH : "${pkgs.lib.makeBinPath [ pkgs.groff ]}"
-    '';
+        wrapProgram "$out/bin/cabal" \
+          --prefix PATH : "${pkgs.lib.makeBinPath [ pkgs.groff ]}"
+      ''
+      ;
     hydraPlatforms = pkgs.lib.platforms.all;
     broken = false;
   }) super.cabal-install;

@@ -24,10 +24,12 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs =
     [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
 
-  buildInputs = [
-    libusb1
-    libftdi1
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  buildInputs =
+    [
+      libusb1
+      libftdi1
+    ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ;
 
   buildFeatures = [ "ftdi" ];
 

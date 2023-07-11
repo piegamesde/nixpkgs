@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
   version = "2.0.0";
 
   src = fetchurl {
-    url = "https://es-static.fbk.eu/tools/nuxmv/downloads/nuXmv-${version}-${
+    url =
+      "https://es-static.fbk.eu/tools/nuxmv/downloads/nuXmv-${version}-${
         if stdenv.isDarwin then
           "macosx64"
         else

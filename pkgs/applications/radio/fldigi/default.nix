@@ -28,21 +28,23 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libXinerama
-    gettext
-    hamlib
-    fltk13
-    libjpeg
-    libpng
-    portaudio
-    libsndfile
-    libsamplerate
-  ] ++ lib.optionals (stdenv.isLinux) [
-    libpulseaudio
-    alsa-lib
-    udev
-  ];
+  buildInputs =
+    [
+      libXinerama
+      gettext
+      hamlib
+      fltk13
+      libjpeg
+      libpng
+      portaudio
+      libsndfile
+      libsamplerate
+    ] ++ lib.optionals (stdenv.isLinux) [
+      libpulseaudio
+      alsa-lib
+      udev
+    ]
+    ;
 
   enableParallelBuilding = true;
 

@@ -25,17 +25,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-G9Pa3EOUrHyfx+FyZZLsKTSk7MBpHtpJm7m/uSAoKTo=";
   };
 
-  buildInputs = [
-    libusb1
-    freeglut
-    libGLU
-    libGL
-    libXi
-    libXmu
-  ] ++ lib.optionals stdenv.isDarwin [
-    GLUT
-    Cocoa
-  ];
+  buildInputs =
+    [
+      libusb1
+      freeglut
+      libGLU
+      libGL
+      libXi
+      libXmu
+    ] ++ lib.optionals stdenv.isDarwin [
+      GLUT
+      Cocoa
+    ]
+    ;
 
   nativeBuildInputs = [
     cmake

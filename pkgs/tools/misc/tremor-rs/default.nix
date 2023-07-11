@@ -41,10 +41,12 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Security
-    libiconv
-  ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      Security
+      libiconv
+    ]
+    ;
 
     # TODO export TREMOR_PATH($out/lib) variable
   postInstall = ''

@@ -146,8 +146,9 @@ in
       '';
     } ];
     environment = {
-      systemPackages = optional (cfg.package != null) cfg.package
-        ++ cfg.extraPackages;
+      systemPackages =
+        optional (cfg.package != null) cfg.package ++ cfg.extraPackages
+        ;
         # Needed for the default wallpaper:
       pathsToLink =
         optionals (cfg.package != null) [ "/share/backgrounds/sway" ];

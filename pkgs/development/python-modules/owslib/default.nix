@@ -51,17 +51,19 @@ buildPythonPackage rec {
     export PY_IGNORE_IMPORTMISMATCH=1
   '';
 
-  disabledTests = [
-    # Tests require network access
-    "test_ows_interfaces_wcs"
-    "test_wfs_110_remotemd"
-    "test_wfs_200_remotemd"
-    "test_wms_130_remotemd"
-    "test_wmts_example_informatievlaanderen"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_ogcapi_records_pygeoapi"
-    "test_wms_getfeatureinfo_130"
-  ];
+  disabledTests =
+    [
+      # Tests require network access
+      "test_ows_interfaces_wcs"
+      "test_wfs_110_remotemd"
+      "test_wfs_200_remotemd"
+      "test_wms_130_remotemd"
+      "test_wmts_example_informatievlaanderen"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "test_ogcapi_records_pygeoapi"
+      "test_wms_getfeatureinfo_130"
+    ]
+    ;
 
   meta = with lib; {
     description =

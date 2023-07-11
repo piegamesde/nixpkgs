@@ -36,13 +36,15 @@ buildPythonPackage {
     hash = "sha256-27xR7xVH/u40Xl4VbJW/yEbURf0UcGPG5QK/04igseA=";
   };
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-  ] ++ (with rustPlatform; [
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      rustPlatform.cargoSetupHook
+      setuptools-rust
+    ] ++ (with rustPlatform; [
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 

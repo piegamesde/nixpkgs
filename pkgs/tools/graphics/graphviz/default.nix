@@ -48,28 +48,32 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-  buildInputs = [
-    libpng
-    libjpeg
-    expat
-    fontconfig
-    gd
-    gts
-    libdevil
-    pango
-    bash
-  ] ++ optionals withXorg (with xorg; [
-    libXrender
-    libXaw
-    libXpm
-  ]) ++ optionals stdenv.isDarwin [ ApplicationServices ];
+  buildInputs =
+    [
+      libpng
+      libjpeg
+      expat
+      fontconfig
+      gd
+      gts
+      libdevil
+      pango
+      bash
+    ] ++ optionals withXorg (with xorg; [
+      libXrender
+      libXaw
+      libXpm
+    ]) ++ optionals stdenv.isDarwin [ ApplicationServices ]
+    ;
 
   hardeningDisable = [ "fortify" ];
 
-  configureFlags = [
-    "--with-ltdl-lib=${libtool.lib}/lib"
-    "--with-ltdl-include=${libtool}/include"
-  ] ++ optional (xorg == null) "--without-x";
+  configureFlags =
+    [
+      "--with-ltdl-lib=${libtool.lib}/lib"
+      "--with-ltdl-include=${libtool}/include"
+    ] ++ optional (xorg == null) "--without-x"
+    ;
 
   enableParallelBuilding = true;
 

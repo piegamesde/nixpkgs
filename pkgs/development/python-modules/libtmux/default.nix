@@ -39,15 +39,17 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests" ];
 
-  disabledTests = [
-    # Fail with: 'no server running on /tmp/tmux-1000/libtmux_test8sorutj1'.
-    "test_new_session_width_height"
-    # Assertion error
-    "test_capture_pane_start"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # tests/test_pane.py:113: AssertionError
-    "test_capture_pane_start"
-  ];
+  disabledTests =
+    [
+      # Fail with: 'no server running on /tmp/tmux-1000/libtmux_test8sorutj1'.
+      "test_new_session_width_height"
+      # Assertion error
+      "test_capture_pane_start"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # tests/test_pane.py:113: AssertionError
+      "test_capture_pane_start"
+    ]
+    ;
 
   disabledTestPaths = lib.optionals stdenv.isDarwin [
     "tests/test_test.py"

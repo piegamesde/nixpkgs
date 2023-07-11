@@ -21,10 +21,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+csIerzwYOmXfmykYI0DHzbJf4iUCkEy1f7SFmAiuv4=";
   };
 
-  buildInputs = [
-    python3
-    zlib
-  ] ++ lib.optional (!stdenv.isDarwin) libaio;
+  buildInputs =
+    [
+      python3
+      zlib
+    ] ++ lib.optional (!stdenv.isDarwin) libaio
+    ;
 
   nativeBuildInputs = [
     makeWrapper

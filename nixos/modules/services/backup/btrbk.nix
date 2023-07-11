@@ -292,11 +292,12 @@ in
       openssh.authorizedKeys.keys = map (v:
         let
           options = concatMapStringsSep " " (x: "--" + x) v.roles;
-          ioniceClass = {
-            "idle" = 3;
-            "best-effort" = 2;
-            "realtime" = 1;
-          }.${cfg.ioSchedulingClass};
+          ioniceClass =
+            {
+              "idle" = 3;
+              "best-effort" = 2;
+              "realtime" = 1;
+            }.${cfg.ioSchedulingClass};
           sudo_doas_flag = "--${sudo_doas}";
         in
         ''

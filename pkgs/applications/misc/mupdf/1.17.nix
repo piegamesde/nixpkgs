@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
   patches =
     # Use shared libraries to decrease size
     lib.optional (!stdenv.isDarwin) ./mupdf-1.14-shared_libs.patch
-    ++ lib.optional stdenv.isDarwin ./darwin.patch;
+    ++ lib.optional stdenv.isDarwin ./darwin.patch
+    ;
 
   postPatch = ''
     sed -i "s/__OPENJPEG__VERSION__/${openJpegVersion}/" source/fitz/load-jpx.c
@@ -50,32 +51,34 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "prefix=$(out) USE_SYSTEM_LIBS=yes" ];
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    freetype
-    harfbuzz
-    openjpeg
-    jbig2dec
-    libjpeg
-    freeglut
-    libGLU
-  ] ++ lib.optionals enableX11 [
-    libX11
-    libXext
-    libXi
-    libXrandr
-  ] ++ lib.optionals enableCurl [
-    curl
-    openssl
-  ] ++ lib.optionals enableGL (if stdenv.isDarwin then
-    with darwin.apple_sdk.frameworks; [
-      GLUT
-      OpenGL
-    ]
-  else
+  buildInputs =
     [
+      freetype
+      harfbuzz
+      openjpeg
+      jbig2dec
+      libjpeg
       freeglut
       libGLU
-    ]);
+    ] ++ lib.optionals enableX11 [
+      libX11
+      libXext
+      libXi
+      libXrandr
+    ] ++ lib.optionals enableCurl [
+      curl
+      openssl
+    ] ++ lib.optionals enableGL (if stdenv.isDarwin then
+      with darwin.apple_sdk.frameworks; [
+        GLUT
+        OpenGL
+      ]
+    else
+      [
+        freeglut
+        libGLU
+      ])
+    ;
   outputs = [
     "bin"
     "dev"

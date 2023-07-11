@@ -20,16 +20,19 @@ let
 
   interfaces = attrValues config.networking.interfaces;
 
-  enableDHCP = config.networking.dhcpcd.enable
-    && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces);
+  enableDHCP =
+    config.networking.dhcpcd.enable
+    && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces)
+    ;
 
     # Don't start dhcpcd on explicitly configured interfaces or on
     # interfaces that are part of a bridge, bond or sit device.
-  ignoredInterfaces = map (i: i.name) (filter (i:
-    if i.useDHCP != null then
-      !i.useDHCP
-    else
-      i.ipv4.addresses != [ ]) interfaces)
+  ignoredInterfaces =
+    map (i: i.name) (filter (i:
+      if i.useDHCP != null then
+        !i.useDHCP
+      else
+        i.ipv4.addresses != [ ]) interfaces)
     ++ mapAttrsToList (i: _: i) config.networking.sits ++ concatLists
     (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bridges))
     ++ flatten (concatMap (i:
@@ -37,7 +40,8 @@ let
       (filterAttrs (_: config: config.type != "internal") i.interfaces))
       (attrValues config.networking.vswitches)) ++ concatLists
     (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds))
-    ++ config.networking.dhcpcd.denyInterfaces;
+    ++ config.networking.dhcpcd.denyInterfaces
+    ;
 
   arrayAppendOrNull =
     a1: a2:
@@ -245,11 +249,13 @@ in
     assertions = [ {
       # dhcpcd doesn't start properly with malloc ∉ [ libc scudo ]
       # see https://github.com/NixOS/nixpkgs/issues/151696
-      assertion = dhcpcd.enablePrivSep
+      assertion =
+        dhcpcd.enablePrivSep
         -> elem config.environment.memoryAllocator.provider [
           "libc"
           "scudo"
-        ];
+        ]
+        ;
       message = ''
         dhcpcd with privilege separation is incompatible with chosen system malloc.
           Currently only the `libc` and `scudo` allocators are known to work.
@@ -264,13 +270,16 @@ in
         hasDefaultGatewaySet =
           (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
           && (!cfgN.enableIPv6 || (cfgN.defaultGateway6 != null
-            && cfgN.defaultGateway6.address != ""));
+            && cfgN.defaultGateway6.address != ""))
+          ;
       in
       {
         description = "DHCP Client";
 
-        wantedBy = [ "multi-user.target" ]
-          ++ optional (!hasDefaultGatewaySet) "network-online.target";
+        wantedBy =
+          [ "multi-user.target" ]
+          ++ optional (!hasDefaultGatewaySet) "network-online.target"
+          ;
         wants = [ "network.target" ];
         before = [ "network-online.target" ];
 
@@ -293,7 +302,8 @@ in
           Type = "forking";
           PIDFile = "/run/dhcpcd/pid";
           RuntimeDirectory = "dhcpcd";
-          ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${
+          ExecStart =
+            "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${
               optionalString cfg.persistent "--persistent"
             } --config ${dhcpcdConf}";
           ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";

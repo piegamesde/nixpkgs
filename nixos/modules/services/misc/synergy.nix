@@ -117,7 +117,8 @@ in
         description = "Synergy client";
         wantedBy = optional cfgC.autoStart "graphical-session.target";
         path = [ pkgs.synergy ];
-        serviceConfig.ExecStart = "${pkgs.synergy}/bin/synergyc -f ${
+        serviceConfig.ExecStart =
+          "${pkgs.synergy}/bin/synergyc -f ${
             optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"
           } ${cfgC.serverAddress}";
         serviceConfig.Restart = "on-failure";

@@ -42,64 +42,65 @@ self: super:
 
     # cabal-install needs most recent versions of Cabal and Cabal-syntax,
     # so we need to put some extra work for non-latest GHCs
-  inherit (let
-    # !!! Use cself/csuper inside for the actual overrides
-    cabalInstallOverlay =
-      cself: csuper:
-      lib.optionalAttrs (lib.versionOlder self.ghc.version "9.6") {
-        Cabal = cself.Cabal_3_10_1_0;
-        Cabal-syntax = cself.Cabal-syntax_3_10_1_0;
-      } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.4") {
-        # We need at least directory >= 1.3.7.0. Using the latest version
-        # 1.3.8.* is not an option since it causes very annoying dependencies
-        # on newer versions of unix and filepath than GHC 9.2 ships
-        directory = cself.directory_1_3_7_1;
-          # GHC 9.2.5 starts shipping 1.6.16.0 which is required by
-          # cabal-install, but we need to recompile process even if the correct
-          # version is available to prevent inconsistent dependencies:
-          # process depends on directory.
-        process = cself.process_1_6_17_0;
+  inherit
+    (let
+      # !!! Use cself/csuper inside for the actual overrides
+      cabalInstallOverlay =
+        cself: csuper:
+        lib.optionalAttrs (lib.versionOlder self.ghc.version "9.6") {
+          Cabal = cself.Cabal_3_10_1_0;
+          Cabal-syntax = cself.Cabal-syntax_3_10_1_0;
+        } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.4") {
+          # We need at least directory >= 1.3.7.0. Using the latest version
+          # 1.3.8.* is not an option since it causes very annoying dependencies
+          # on newer versions of unix and filepath than GHC 9.2 ships
+          directory = cself.directory_1_3_7_1;
+            # GHC 9.2.5 starts shipping 1.6.16.0 which is required by
+            # cabal-install, but we need to recompile process even if the correct
+            # version is available to prevent inconsistent dependencies:
+            # process depends on directory.
+          process = cself.process_1_6_17_0;
 
-          # hspec < 2.10 depends on ghc (the library) directly which in turn
-          # depends on directory, causing a dependency conflict which is practically
-          # not solvable short of recompiling GHC. Instead of adding
-          # allowInconsistentDependencies for all reverse dependencies of hspec-core,
-          # just upgrade to an hspec version without the offending dependency.
-        hspec-core = cself.hspec-core_2_11_0;
-        hspec-discover = cself.hspec-discover_2_11_0;
-        hspec = cself.hspec_2_11_0;
+            # hspec < 2.10 depends on ghc (the library) directly which in turn
+            # depends on directory, causing a dependency conflict which is practically
+            # not solvable short of recompiling GHC. Instead of adding
+            # allowInconsistentDependencies for all reverse dependencies of hspec-core,
+            # just upgrade to an hspec version without the offending dependency.
+          hspec-core = cself.hspec-core_2_11_0;
+          hspec-discover = cself.hspec-discover_2_11_0;
+          hspec = cself.hspec_2_11_0;
 
-          # hspec-discover and hspec-core depend on hspec-meta for testing which
-          # we need to avoid since it depends on ghc as well. Since hspec*_2_10*
-          # are overridden to take the versioned attributes as inputs, we need
-          # to make sure to override the versioned attribute with this fix.
-        hspec-discover_2_11_0 = dontCheck csuper.hspec-discover_2_11_0;
+            # hspec-discover and hspec-core depend on hspec-meta for testing which
+            # we need to avoid since it depends on ghc as well. Since hspec*_2_10*
+            # are overridden to take the versioned attributes as inputs, we need
+            # to make sure to override the versioned attribute with this fix.
+          hspec-discover_2_11_0 = dontCheck csuper.hspec-discover_2_11_0;
 
-          # Prevent dependency on doctest which causes an inconsistent dependency
-          # due to depending on ghc which depends on directory etc.
-        vector = dontCheck csuper.vector;
-      }
-      ;
-  in
-  {
-    cabal-install = super.cabal-install.overrideScope cabalInstallOverlay;
-    cabal-install-solver =
-      super.cabal-install-solver.overrideScope cabalInstallOverlay;
+            # Prevent dependency on doctest which causes an inconsistent dependency
+            # due to depending on ghc which depends on directory etc.
+          vector = dontCheck csuper.vector;
+        }
+        ;
+    in
+    {
+      cabal-install = super.cabal-install.overrideScope cabalInstallOverlay;
+      cabal-install-solver =
+        super.cabal-install-solver.overrideScope cabalInstallOverlay;
 
-    guardian = lib.pipe
-      # Needs cabal-install >= 3.8 /as well as/ matching Cabal
-      (super.guardian.overrideScope (self: super:
-        cabalInstallOverlay self super // {
-          # Needs at least path-io 1.8.0 due to canonicalizePath changes
-          path-io = self.path-io_1_8_0;
-        })) [
-          # Tests need internet access (run stack)
-          dontCheck
-          # May as well…
-          (self.generateOptparseApplicativeCompletions [ "guardian" ])
-        ];
-  }
-  )
+      guardian = lib.pipe
+        # Needs cabal-install >= 3.8 /as well as/ matching Cabal
+        (super.guardian.overrideScope (self: super:
+          cabalInstallOverlay self super // {
+            # Needs at least path-io 1.8.0 due to canonicalizePath changes
+            path-io = self.path-io_1_8_0;
+          })) [
+            # Tests need internet access (run stack)
+            dontCheck
+            # May as well…
+            (self.generateOptparseApplicativeCompletions [ "guardian" ])
+          ];
+    }
+    )
     cabal-install
     cabal-install-solver
     guardian
@@ -128,10 +129,14 @@ self: super:
 
     # 2023-04-03: https://github.com/haskell/haskell-language-server/issues/3546#issuecomment-1494139751
     # There will probably be a new revision soon.
-  hls-tactics-plugin = assert super.hls-tactics-plugin.version == "1.8.0.0";
-    doJailbreak super.hls-tactics-plugin;
-  hls-brittany-plugin = assert super.hls-brittany-plugin.version == "1.1.0.0";
-    doJailbreak super.hls-brittany-plugin;
+  hls-tactics-plugin =
+    assert super.hls-tactics-plugin.version == "1.8.0.0";
+    doJailbreak super.hls-tactics-plugin
+    ;
+  hls-brittany-plugin =
+    assert super.hls-brittany-plugin.version == "1.1.0.0";
+    doJailbreak super.hls-brittany-plugin
+    ;
 
   hls-hlint-plugin = super.hls-hlint-plugin.override {
     # For "ghc-lib" flag see https://github.com/haskell/haskell-language-server/issues/3185#issuecomment-1250264515
@@ -150,9 +155,11 @@ self: super:
   hls-rename-plugin =
     if lib.versionAtLeast super.ghc.version "9.4" then
       overrideCabal (drv: {
-        prePatch = drv.prePatch or "" + ''
-          "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-        '';
+        prePatch =
+          drv.prePatch or "" + ''
+            "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
+          ''
+          ;
       }) (appendPatch (fetchpatch {
         name = "hls-rename-ghc-9.4-compat.patch";
         url =
@@ -167,9 +174,11 @@ self: super:
   hls-floskell-plugin =
     if lib.versionAtLeast super.ghc.version "9.4" then
       overrideCabal (drv: {
-        prePatch = drv.prePatch or "" + ''
-          "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-        '';
+        prePatch =
+          drv.prePatch or "" + ''
+            "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
+          ''
+          ;
       }) (appendPatch (fetchpatch {
         name = "hls-floskell-ghc-9.4-compat.patch";
         url =
@@ -184,9 +193,11 @@ self: super:
   hls-stylish-haskell-plugin =
     if lib.versionAtLeast super.ghc.version "9.4" then
       overrideCabal (drv: {
-        prePatch = drv.prePatch or "" + ''
-          "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-        '';
+        prePatch =
+          drv.prePatch or "" + ''
+            "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
+          ''
+          ;
       }) (appendPatch (fetchpatch {
         name = "hls-stylish-haskell-ghc-9.4-compat.patch";
         url =
@@ -201,9 +212,11 @@ self: super:
   hie-compat =
     if lib.versionAtLeast super.ghc.version "9.6" then
       overrideCabal (drv: {
-        prePatch = drv.prePatch or "" + ''
-          "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-        '';
+        prePatch =
+          drv.prePatch or "" + ''
+            "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
+          ''
+          ;
       }) (appendPatch (fetchpatch {
         name = "hie-compat-9.6-compat.patch";
         url =
@@ -395,7 +408,8 @@ self: super:
     (markBroken (dontDistribute super.pandoc-cli));
 
   inline-c-cpp = overrideCabal (drv: {
-    patches = drv.patches or [ ] ++ [
+    patches =
+      drv.patches or [ ] ++ [
         (fetchpatch {
           # awaiting release >0.5.0.0
           url =
@@ -404,10 +418,13 @@ self: super:
           sha256 = "sha256-CdZXAT3Ar4KKDGyAUu8A7hzddKe5/AuMKoZSjt3o0UE=";
           stripLen = 1;
         })
-      ];
-    postPatch = (drv.postPatch or "") + ''
-      substituteInPlace inline-c-cpp.cabal --replace "-optc-std=c++11" ""
-    '';
+      ]
+      ;
+    postPatch =
+      (drv.postPatch or "") + ''
+        substituteInPlace inline-c-cpp.cabal --replace "-optc-std=c++11" ""
+      ''
+      ;
   }) super.inline-c-cpp;
 
   inline-java = addBuildDepend pkgs.jdk super.inline-java;
@@ -493,8 +510,10 @@ self: super:
     dontCheck (appendPatch ./patches/opencv-fix-116.patch super.opencv-extra);
 
     # Too strict lower bound on hspec
-  graphql = assert lib.versionOlder self.hspec.version "2.10";
-    doJailbreak super.graphql;
+  graphql =
+    assert lib.versionOlder self.hspec.version "2.10";
+    doJailbreak super.graphql
+    ;
 
     # https://github.com/ekmett/structures/issues/3
   structures = dontCheck super.structures;
@@ -801,8 +820,10 @@ self: super:
     # Test suite is missing an import from hspec
     # https://github.com/haskell-works/tasty-discover/issues/9
     # https://github.com/commercialhaskell/stackage/issues/6584#issuecomment-1326522815
-  tasty-discover = assert super.tasty-discover.version == "4.2.2";
-    dontCheck super.tasty-discover;
+  tasty-discover =
+    assert super.tasty-discover.version == "4.2.2";
+    dontCheck super.tasty-discover
+    ;
 
     # Known issue with nondeterministic test suite failure
     # https://github.com/nomeata/tasty-expected-failure/issues/21
@@ -936,16 +957,17 @@ self: super:
   }) super.structured-haskell-mode;
 
     # Make elisp files available at a location where people expect it.
-  hindent = (overrideCabal (drv: {
-    # We cannot easily byte-compile these files, unfortunately, because they
-    # depend on a new version of haskell-mode that we don't have yet.
-    postInstall = ''
-      local lispdir=( "$data/share/${self.ghc.targetPrefix}${self.ghc.haskellCompilerName}/"*"/${drv.pname}-"*"/elisp" )
-      mkdir -p $data/share/emacs
-      ln -s $lispdir $data/share/emacs/site-lisp
-    '';
-    doCheck = false; # https://github.com/chrisdone/hindent/issues/299
-  }) super.hindent);
+  hindent =
+    (overrideCabal (drv: {
+      # We cannot easily byte-compile these files, unfortunately, because they
+      # depend on a new version of haskell-mode that we don't have yet.
+      postInstall = ''
+        local lispdir=( "$data/share/${self.ghc.targetPrefix}${self.ghc.haskellCompilerName}/"*"/${drv.pname}-"*"/elisp" )
+        mkdir -p $data/share/emacs
+        ln -s $lispdir $data/share/emacs/site-lisp
+      '';
+      doCheck = false; # https://github.com/chrisdone/hindent/issues/299
+    }) super.hindent);
 
     # https://github.com/basvandijk/concurrent-extra/issues/12
   concurrent-extra = dontCheck super.concurrent-extra;
@@ -965,9 +987,11 @@ self: super:
     # Make sure GHC 9.2 patch applies correctly
     revision = null;
     editedCabalFile = null;
-    prePatch = drv.prePatch or "" + ''
-      "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-    '';
+    prePatch =
+      drv.prePatch or "" + ''
+        "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
+      ''
+      ;
   }) super.bloomfilter);
 
     # https://github.com/pxqr/base32-bytestring/issues/4
@@ -987,9 +1011,11 @@ self: super:
     # https://github.com/Philonous/hs-stun/pull/1
     # Remove if a version > 0.1.0.1 ever gets released.
   stunclient = overrideCabal (drv: {
-    postPatch = (drv.postPatch or "") + ''
-      substituteInPlace source/Network/Stun/MappedAddress.hs --replace "import Network.Endian" ""
-    '';
+    postPatch =
+      (drv.postPatch or "") + ''
+        substituteInPlace source/Network/Stun/MappedAddress.hs --replace "import Network.Endian" ""
+      ''
+      ;
   }) super.stunclient;
 
   d-bus =
@@ -1092,11 +1118,13 @@ self: super:
     # in LTS-13.x.
   cryptol = overrideCabal (drv: {
     buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
-    postInstall = drv.postInstall or "" + ''
-      for b in $out/bin/cryptol $out/bin/cryptol-html; do
-        wrapProgram $b --prefix 'PATH' ':' "${lib.getBin pkgs.z3}/bin"
-      done
-    '';
+    postInstall =
+      drv.postInstall or "" + ''
+        for b in $out/bin/cryptol $out/bin/cryptol-html; do
+          wrapProgram $b --prefix 'PATH' ':' "${lib.getBin pkgs.z3}/bin"
+        done
+      ''
+      ;
   }) super.cryptol;
 
     # Tests try to invoke external process and process == 1.4
@@ -1131,9 +1159,11 @@ self: super:
     # Flaky tests: https://github.com/jfischoff/tmp-postgres/issues/274
     doCheck = false;
 
-    preCheck = ''
-      export HOME="$TMPDIR"
-    '' + (drv.preCheck or "");
+    preCheck =
+      ''
+        export HOME="$TMPDIR"
+      '' + (drv.preCheck or "")
+      ;
     libraryToolDepends =
       drv.libraryToolDepends or [ ] ++ [ pkgs.buildPackages.postgresql ];
     testToolDepends = drv.testToolDepends or [ ] ++ [ pkgs.procps ];
@@ -1252,24 +1282,28 @@ self: super:
   ] (dontCheck super.dhall-json);
   dhall-nix = self.generateOptparseApplicativeCompletions [ "dhall-to-nix" ]
     (overrideCabal (drv: {
-      patches = [
-        # Compatibility with hnix 0.16, waiting for release
-        # https://github.com/dhall-lang/dhall-haskell/pull/2474
-        (pkgs.fetchpatch {
-          name = "dhall-nix-hnix-0.16.patch";
-          url =
-            "https://github.com/dhall-lang/dhall-haskell/commit/49b9b3e3ce1718a89773c2b1bfa3c2af1a6e8752.patch";
-          sha256 = "12sh5md81nlhyzzkmf7jrll3w1rvg2j48m57hfyvjn8has9c4gw6";
-          stripLen = 1;
-          includes = [
-            "dhall-nix.cabal"
-            "src/Dhall/Nix.hs"
-          ];
-        })
-      ] ++ drv.patches or [ ];
-      prePatch = drv.prePatch or "" + ''
-        ${pkgs.buildPackages.dos2unix}/bin/dos2unix *.cabal
-      '';
+      patches =
+        [
+          # Compatibility with hnix 0.16, waiting for release
+          # https://github.com/dhall-lang/dhall-haskell/pull/2474
+          (pkgs.fetchpatch {
+            name = "dhall-nix-hnix-0.16.patch";
+            url =
+              "https://github.com/dhall-lang/dhall-haskell/commit/49b9b3e3ce1718a89773c2b1bfa3c2af1a6e8752.patch";
+            sha256 = "12sh5md81nlhyzzkmf7jrll3w1rvg2j48m57hfyvjn8has9c4gw6";
+            stripLen = 1;
+            includes = [
+              "dhall-nix.cabal"
+              "src/Dhall/Nix.hs"
+            ];
+          })
+        ] ++ drv.patches or [ ]
+        ;
+      prePatch =
+        drv.prePatch or "" + ''
+          ${pkgs.buildPackages.dos2unix}/bin/dos2unix *.cabal
+        ''
+        ;
     }) super.dhall-nix);
   dhall-yaml = self.generateOptparseApplicativeCompletions [
     "dhall-to-yaml-ng"
@@ -1310,9 +1344,11 @@ self: super:
     # Workaround for https://github.com/sol/hpack/issues/528
     # The hpack test suite can't deal with the CRLF line endings hackage revisions insert
   hpack = overrideCabal (drv: {
-    postPatch = drv.postPatch or "" + ''
-      "${lib.getBin pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-    '';
+    postPatch =
+      drv.postPatch or "" + ''
+        "${lib.getBin pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
+      ''
+      ;
   }) super.hpack;
 
     # hslua has tests that break when using musl.
@@ -1389,26 +1425,34 @@ self: super:
   patch = dontCheck super.patch;
 
   esqueleto = overrideCabal (drv: {
-    postPatch = drv.postPatch or "" + ''
-      # patch out TCP usage: https://nixos.org/manual/nixpkgs/stable/#sec-postgresqlTestHook-tcp
-      sed -i test/PostgreSQL/Test.hs \
-        -e s^host=localhost^^
-    '';
+    postPatch =
+      drv.postPatch or "" + ''
+        # patch out TCP usage: https://nixos.org/manual/nixpkgs/stable/#sec-postgresqlTestHook-tcp
+        sed -i test/PostgreSQL/Test.hs \
+          -e s^host=localhost^^
+      ''
+      ;
       # https://github.com/NixOS/nixpkgs/issues/198495
     doCheck = pkgs.postgresql.doCheck;
       # Match the test suite defaults (or hardcoded values?)
-    preCheck = drv.preCheck or "" + ''
-      PGUSER=esqutest
-      PGDATABASE=esqutest
-    '';
-    testFlags = drv.testFlags or [ ] ++ [
-      # We don't have a MySQL test hook yet
-      "--skip=/Esqueleto/MySQL"
-    ];
-    testToolDepends = drv.testToolDepends or [ ] ++ [
-      pkgs.postgresql
-      pkgs.postgresqlTestHook
-    ];
+    preCheck =
+      drv.preCheck or "" + ''
+        PGUSER=esqutest
+        PGDATABASE=esqutest
+      ''
+      ;
+    testFlags =
+      drv.testFlags or [ ] ++ [
+        # We don't have a MySQL test hook yet
+        "--skip=/Esqueleto/MySQL"
+      ]
+      ;
+    testToolDepends =
+      drv.testToolDepends or [ ] ++ [
+        pkgs.postgresql
+        pkgs.postgresqlTestHook
+      ]
+      ;
   }) super.esqueleto;
 
     # Requires API keys to run tests
@@ -1467,18 +1511,22 @@ self: super:
 
     # it wants to build a statically linked binary by default
   hledger-flow = overrideCabal (drv: {
-    postPatch = (drv.postPatch or "") + ''
-      substituteInPlace hledger-flow.cabal --replace "-static" ""
-    '';
+    postPatch =
+      (drv.postPatch or "") + ''
+        substituteInPlace hledger-flow.cabal --replace "-static" ""
+      ''
+      ;
   }) super.hledger-flow;
 
     # Chart-tests needs and compiles some modules from Chart itself
   Chart-tests = overrideCabal (old: {
     # https://github.com/timbod7/haskell-chart/issues/233
     jailbreak = true;
-    preCheck = old.preCheck or "" + ''
-      tar --one-top-level=../chart --strip-components=1 -xf ${self.Chart.src}
-    '';
+    preCheck =
+      old.preCheck or "" + ''
+        tar --one-top-level=../chart --strip-components=1 -xf ${self.Chart.src}
+      ''
+      ;
   }) (addExtraLibrary self.QuickCheck super.Chart-tests);
 
     # This breaks because of version bounds, but compiles and runs fine.
@@ -1515,12 +1563,14 @@ self: super:
   persistent-postgresql =
     # TODO: move this override to configuration-nix.nix
     overrideCabal (drv: {
-      postPatch = drv.postPath or "" + ''
-        # patch out TCP usage: https://nixos.org/manual/nixpkgs/stable/#sec-postgresqlTestHook-tcp
-        # NOTE: upstream host variable takes only two values...
-        sed -i test/PgInit.hs \
-          -e s^'host=" <> host <> "'^^
-      '';
+      postPatch =
+        drv.postPath or "" + ''
+          # patch out TCP usage: https://nixos.org/manual/nixpkgs/stable/#sec-postgresqlTestHook-tcp
+          # NOTE: upstream host variable takes only two values...
+          sed -i test/PgInit.hs \
+            -e s^'host=" <> host <> "'^^
+        ''
+        ;
       doCheck =
         # https://github.com/commercialhaskell/stackage/issues/6884
         # persistent-postgresql-2.13.5.1 needs persistent-test >= 2.13.1.3 which
@@ -1528,15 +1578,20 @@ self: super:
         # are disabled temporarily.
         false
         # https://github.com/NixOS/nixpkgs/issues/198495
-        && pkgs.postgresql.doCheck;
-      preCheck = drv.preCheck or "" + ''
-        PGDATABASE=test
-        PGUSER=test
-      '';
-      testToolDepends = drv.testToolDepends or [ ] ++ [
-        pkgs.postgresql
-        pkgs.postgresqlTestHook
-      ];
+        && pkgs.postgresql.doCheck
+        ;
+      preCheck =
+        drv.preCheck or "" + ''
+          PGDATABASE=test
+          PGUSER=test
+        ''
+        ;
+      testToolDepends =
+        drv.testToolDepends or [ ] ++ [
+          pkgs.postgresql
+          pkgs.postgresqlTestHook
+        ]
+        ;
     }) super.persistent-postgresql;
 
     # Test suite requires a later version of persistent-test which depends on persistent 2.14
@@ -1566,25 +1621,31 @@ self: super:
       relative = "jsaddle-webkit2gtk";
     }))
     (overrideCabal (old: {
-      postPatch = old.postPatch or "" + ''
-        sed -i 's/bytestring.*0.11/bytestring/' jsaddle-webkit2gtk.cabal
-      '';
+      postPatch =
+        old.postPatch or "" + ''
+          sed -i 's/bytestring.*0.11/bytestring/' jsaddle-webkit2gtk.cabal
+        ''
+        ;
     }))
   ];
 
     # 2022-03-16: lens bound can be loosened https://github.com/ghcjs/jsaddle-dom/issues/19
   jsaddle-dom = overrideCabal (old: {
-    postPatch = old.postPatch or "" + ''
-      sed -i 's/lens.*4.20/lens/' jsaddle-dom.cabal
-    '';
+    postPatch =
+      old.postPatch or "" + ''
+        sed -i 's/lens.*4.20/lens/' jsaddle-dom.cabal
+      ''
+      ;
   }) (doJailbreak super.jsaddle-dom);
 
     # Tests disabled and broken override needed because of missing lib chrome-test-utils: https://github.com/reflex-frp/reflex-dom/issues/392
     # 2022-03-16: Pullrequest for ghc 9 compat https://github.com/reflex-frp/reflex-dom/pull/433
   reflex-dom-core = overrideCabal (old: {
-    postPatch = old.postPatch or "" + ''
-      sed -i 's/template-haskell.*2.17/template-haskell/' reflex-dom-core.cabal
-    '';
+    postPatch =
+      old.postPatch or "" + ''
+        sed -i 's/template-haskell.*2.17/template-haskell/' reflex-dom-core.cabal
+      ''
+      ;
   }) ((appendPatches [
     (fetchpatch {
       url =
@@ -1711,16 +1772,20 @@ self: super:
       krb5.dev
       openssl.dev
     ];
-    testToolDepends = drv.testToolDepends or [ ] ++ [
-      pkgs.postgresql
-      pkgs.postgresqlTestHook
-    ];
+    testToolDepends =
+      drv.testToolDepends or [ ] ++ [
+        pkgs.postgresql
+        pkgs.postgresqlTestHook
+      ]
+      ;
       # https://github.com/NixOS/nixpkgs/issues/198495
     doCheck = pkgs.postgresql.doCheck;
-    preCheck = drv.preCheck or "" + ''
-      # empty string means use default connection
-      export DATABASE_URL=""
-    '';
+    preCheck =
+      drv.preCheck or "" + ''
+        # empty string means use default connection
+        export DATABASE_URL=""
+      ''
+      ;
   }) (super.pg-client.override {
     resource-pool = self.hasura-resource-pool;
     ekg-core = self.hasura-ekg-core;
@@ -1769,11 +1834,13 @@ self: super:
     self.generateOptparseApplicativeCompletions [ "update-nix-fetchgit" ]
     (overrideCabal (drv: {
       buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
-      postInstall = drv.postInstall or "" + ''
-        wrapProgram "$out/bin/update-nix-fetchgit" --prefix 'PATH' ':' "${
-          lib.makeBinPath deps
-        }"
-      '';
+      postInstall =
+        drv.postInstall or "" + ''
+          wrapProgram "$out/bin/update-nix-fetchgit" --prefix 'PATH' ':' "${
+            lib.makeBinPath deps
+          }"
+        ''
+        ;
     }) (addTestToolDepends deps super.update-nix-fetchgit))
     ;
 
@@ -1971,16 +2038,21 @@ self: super:
   feed = dontCheck super.feed;
 
   spacecookie = overrideCabal (old: {
-    buildTools = (old.buildTools or [ ])
-      ++ [ pkgs.buildPackages.installShellFiles ];
+    buildTools =
+      (old.buildTools or [ ]) ++ [ pkgs.buildPackages.installShellFiles ]
+      ;
       # let testsuite discover the resulting binary
-    preCheck = ''
-      export SPACECOOKIE_TEST_BIN=./dist/build/spacecookie/spacecookie
-    '' + (old.preCheck or "");
+    preCheck =
+      ''
+        export SPACECOOKIE_TEST_BIN=./dist/build/spacecookie/spacecookie
+      '' + (old.preCheck or "")
+      ;
       # install man pages shipped in the sdist
-    postInstall = ''
-      installManPage docs/man/*
-    '' + (old.postInstall or "");
+    postInstall =
+      ''
+        installManPage docs/man/*
+      '' + (old.postInstall or "")
+      ;
   }) super.spacecookie;
 
     # Patch and jailbreak can be removed at next release, chatter > 0.9.1.0
@@ -2050,7 +2122,8 @@ self: super:
     # 2021-04-02: Outdated optparse-applicative bound is fixed but not realeased on upstream.
   trial-optparse-applicative =
     assert super.trial-optparse-applicative.version == "0.0.0.0";
-    doJailbreak super.trial-optparse-applicative;
+    doJailbreak super.trial-optparse-applicative
+    ;
 
     # 2022-12-28: Too strict version bounds on bytestring
   iconv = doJailbreak super.iconv;
@@ -2187,17 +2260,21 @@ self: super:
     # 2022-03-16: Upstream is not bumping bounds https://github.com/ghcjs/jsaddle/issues/123
   jsaddle = overrideCabal (drv: {
     # lift conditional version constraint on ref-tf
-    postPatch = ''
-      sed -i 's/ref-tf.*,/ref-tf,/' jsaddle.cabal
-      sed -i 's/attoparsec.*,/attoparsec,/' jsaddle.cabal
-      sed -i 's/time.*,/time,/' jsaddle.cabal
-      sed -i 's/(!name)/(! name)/' src/Language/Javascript/JSaddle/Object.hs
-    '' + (drv.postPatch or "");
+    postPatch =
+      ''
+        sed -i 's/ref-tf.*,/ref-tf,/' jsaddle.cabal
+        sed -i 's/attoparsec.*,/attoparsec,/' jsaddle.cabal
+        sed -i 's/time.*,/time,/' jsaddle.cabal
+        sed -i 's/(!name)/(! name)/' src/Language/Javascript/JSaddle/Object.hs
+      '' + (drv.postPatch or "")
+      ;
   }) (doJailbreak super.jsaddle);
 
     # 2022-03-22: Jailbreak for base bound: https://github.com/reflex-frp/reflex-dom/pull/433
-  reflex-dom = assert super.reflex-dom.version == "0.6.1.1";
-    doJailbreak super.reflex-dom;
+  reflex-dom =
+    assert super.reflex-dom.version == "0.6.1.1";
+    doJailbreak super.reflex-dom
+    ;
 
     # Tests need to lookup target triple x86_64-unknown-linux
     # https://github.com/llvm-hs/llvm-hs/issues/334
@@ -2268,19 +2345,23 @@ self: super:
       })
     # Provide newly added dependencies
     (overrideCabal (drv: {
-      libraryHaskellDepends = drv.libraryHaskellDepends or [ ] ++ [
-        self.cryptonite
-        self.memory
-      ];
+      libraryHaskellDepends =
+        drv.libraryHaskellDepends or [ ] ++ [
+          self.cryptonite
+          self.memory
+        ]
+        ;
       testHaskellDepends =
         drv.testHaskellDepends or [ ] ++ [ self.inspection-testing ];
     }))
     # https://github.com/factisresearch/large-hashable/issues/24
     (overrideCabal (drv: {
-      testFlags = drv.testFlags or [ ] ++ [
-        "-n"
-        "^Data.LargeHashable.Tests.Inspection:genericSumGetsOptimized$"
-      ];
+      testFlags =
+        drv.testFlags or [ ] ++ [
+          "-n"
+          "^Data.LargeHashable.Tests.Inspection:genericSumGetsOptimized$"
+        ]
+        ;
     }))
   ];
 
@@ -2358,79 +2439,101 @@ self: super:
     # https://github.com/kapralVV/Unique/issues/9
     # Too strict bounds on hashable
     # https://github.com/kapralVV/Unique/pull/10
-  Unique = assert super.Unique.version == "0.4.7.9";
+  Unique =
+    assert super.Unique.version == "0.4.7.9";
     overrideCabal (drv: {
-      testFlags = [
-        "--skip"
-        "/Data.List.UniqueUnsorted.removeDuplicates/removeDuplicates: simple test/"
-        "--skip"
-        "/Data.List.UniqueUnsorted.repeatedBy,repeated,unique/unique: simple test/"
-        "--skip"
-        "/Data.List.UniqueUnsorted.repeatedBy,repeated,unique/repeatedBy: simple test/"
-      ] ++ drv.testFlags or [ ];
-    }) (doJailbreak super.Unique);
+      testFlags =
+        [
+          "--skip"
+          "/Data.List.UniqueUnsorted.removeDuplicates/removeDuplicates: simple test/"
+          "--skip"
+          "/Data.List.UniqueUnsorted.repeatedBy,repeated,unique/unique: simple test/"
+          "--skip"
+          "/Data.List.UniqueUnsorted.repeatedBy,repeated,unique/repeatedBy: simple test/"
+        ] ++ drv.testFlags or [ ]
+        ;
+    }) (doJailbreak super.Unique)
+    ;
 
     # https://github.com/AndrewRademacher/aeson-casing/issues/8
-  aeson-casing = assert super.aeson-casing.version == "0.2.0.0";
+  aeson-casing =
+    assert super.aeson-casing.version == "0.2.0.0";
     overrideCabal (drv: {
-      testFlags = [
-        "-p"
-        "! /encode train/"
-      ] ++ drv.testFlags or [ ];
-    }) super.aeson-casing;
+      testFlags =
+        [
+          "-p"
+          "! /encode train/"
+        ] ++ drv.testFlags or [ ]
+        ;
+    }) super.aeson-casing
+    ;
 
     # https://github.com/emc2/HUnit-Plus/issues/26
   HUnit-Plus = dontCheck super.HUnit-Plus;
     # https://github.com/ewestern/haskell-postgis/issues/7
   haskell-postgis = overrideCabal (drv: {
-    testFlags = [
-      "--skip"
-      "/Geo/Hexable/Encodes a linestring/"
-    ] ++ drv.testFlags or [ ];
+    testFlags =
+      [
+        "--skip"
+        "/Geo/Hexable/Encodes a linestring/"
+      ] ++ drv.testFlags or [ ]
+      ;
   }) super.haskell-postgis;
     # https://github.com/ChrisPenner/json-to-haskell/issues/5
   json-to-haskell = overrideCabal (drv: {
-    testFlags = [
-      "--match"
-      "/should sanitize weird field and record names/"
-    ] ++ drv.testFlags or [ ];
+    testFlags =
+      [
+        "--match"
+        "/should sanitize weird field and record names/"
+      ] ++ drv.testFlags or [ ]
+      ;
   }) super.json-to-haskell;
     # https://github.com/fieldstrength/aeson-deriving/issues/5
   aeson-deriving = dontCheck super.aeson-deriving;
     # https://github.com/morpheusgraphql/morpheus-graphql/issues/660
   morpheus-graphql-core = overrideCabal (drv: {
-    testFlags = [
-      "-p"
-      "!/field.unexpected-value/&&!/field.missing-field/&&!/argument.unexpected-value/&&!/argument.missing-field/"
-    ] ++ drv.testFlags or [ ];
+    testFlags =
+      [
+        "-p"
+        "!/field.unexpected-value/&&!/field.missing-field/&&!/argument.unexpected-value/&&!/argument.missing-field/"
+      ] ++ drv.testFlags or [ ]
+      ;
   }) super.morpheus-graphql-core;
   morpheus-graphql = overrideCabal (drv: {
-    testFlags = [
-      "-p"
-      "!/Test Rendering/"
-    ] ++ drv.testFlags or [ ];
+    testFlags =
+      [
+        "-p"
+        "!/Test Rendering/"
+      ] ++ drv.testFlags or [ ]
+      ;
   }) super.morpheus-graphql;
   drunken-bishop = doJailbreak super.drunken-bishop;
     # https://github.com/SupercedeTech/dropbox-client/issues/1
   dropbox = overrideCabal (drv: {
-    testFlags = [
-      "--skip"
-      "/Dropbox/Dropbox aeson aeson/encodes list folder correctly/"
-    ] ++ drv.testFlags or [ ];
+    testFlags =
+      [
+        "--skip"
+        "/Dropbox/Dropbox aeson aeson/encodes list folder correctly/"
+      ] ++ drv.testFlags or [ ]
+      ;
   }) super.dropbox;
     # https://github.com/alonsodomin/haskell-schema/issues/11
   hschema-aeson = overrideCabal (drv: {
-    testFlags = [
-      "--skip"
-      "/toJsonSerializer/should generate valid JSON/"
-    ] ++ drv.testFlags or [ ];
+    testFlags =
+      [
+        "--skip"
+        "/toJsonSerializer/should generate valid JSON/"
+      ] ++ drv.testFlags or [ ]
+      ;
   }) super.hschema-aeson;
     # https://github.com/minio/minio-hs/issues/165
   minio-hs = overrideCabal (drv: {
-    testFlags = [
-      "-p"
-      "!/Test mkSelectRequest/"
-    ] ++ drv.testFlags or [ ];
+    testFlags =
+      [
+        "-p"
+        "!/Test mkSelectRequest/"
+      ] ++ drv.testFlags or [ ]
+      ;
   }) super.minio-hs;
 
     # Invalid CPP in test suite: https://github.com/cdornan/memory-cd/issues/1
@@ -2523,12 +2626,16 @@ self: super:
   dependent-sum-aeson-orphans = doJailbreak super.dependent-sum-aeson-orphans;
 
     # 2022-03-16: package qualified import issue: https://github.com/ghcjs/ghcjs-dom/issues/101
-  ghcjs-dom = assert super.ghcjs-dom.version == "0.9.5.0";
+  ghcjs-dom =
+    assert super.ghcjs-dom.version == "0.9.5.0";
     overrideCabal (old: {
-      postPatch = ''
-        sed -i 's/import "jsaddle-dom" GHCJS.DOM.Document/import "ghcjs-dom-jsaddle" GHCJS.DOM.Document/' src/GHCJS/DOM/Document.hs
-      '' + (old.postPatch or "");
-    }) super.ghcjs-dom;
+      postPatch =
+        ''
+          sed -i 's/import "jsaddle-dom" GHCJS.DOM.Document/import "ghcjs-dom-jsaddle" GHCJS.DOM.Document/' src/GHCJS/DOM/Document.hs
+        '' + (old.postPatch or "")
+        ;
+    }) super.ghcjs-dom
+    ;
 
     # Too strict bounds on chell: https://github.com/fpco/haskell-filesystem/issues/24
   system-fileio = doJailbreak super.system-fileio;
@@ -2601,8 +2708,10 @@ self: super:
   clash-prelude = dontCheck super.clash-prelude;
 
     # Too strict upper bound on th-desugar, fixed in 3.1.1
-  singletons-th = assert super.singletons-th.version == "3.1";
-    doJailbreak super.singletons-th;
+  singletons-th =
+    assert super.singletons-th.version == "3.1";
+    doJailbreak super.singletons-th
+    ;
   singletons-base = doJailbreak super.singletons-base;
 
     # Ships a broken Setup.hs
@@ -2630,37 +2739,39 @@ self: super:
     # Too strict upper bound on HTTP
   oeis = doJailbreak super.oeis;
 
-  inherit (let
-    # We need to build purescript with these dependencies and thus also its reverse
-    # dependencies to avoid version mismatches in their dependency closure.
-    # TODO(@cdepillabout): maybe unify with the spago overlay in configuration-nix.nix?
-    purescriptOverlay =
-      self: super: {
-        # As of 2021-11-08, the latest release of `language-javascript` is 0.7.1.0,
-        # but it has a problem with parsing the `async` keyword.  It doesn't allow
-        # `async` to be used as an object key:
-        # https://github.com/erikd/language-javascript/issues/131
-        language-javascript = self.language-javascript_0_7_0_0;
-      }
-      ;
-  in
-  {
-    purescript = lib.pipe (super.purescript.overrideScope purescriptOverlay) ([
-      # PureScript uses nodejs to run tests, so the tests have been disabled
-      # for now.  If someone is interested in figuring out how to get this
-      # working, it seems like it might be possible.
-      dontCheck
-      # The current version of purescript (0.14.5) has version bounds for LTS-17,
-      # but it compiles cleanly using deps in LTS-18 as well.  This jailbreak can
-      # likely be removed when purescript-0.14.6 is released.
-      doJailbreak
-      # Generate shell completions
-      (self.generateOptparseApplicativeCompletions [ "purs" ])
-    ]);
+  inherit
+    (let
+      # We need to build purescript with these dependencies and thus also its reverse
+      # dependencies to avoid version mismatches in their dependency closure.
+      # TODO(@cdepillabout): maybe unify with the spago overlay in configuration-nix.nix?
+      purescriptOverlay =
+        self: super: {
+          # As of 2021-11-08, the latest release of `language-javascript` is 0.7.1.0,
+          # but it has a problem with parsing the `async` keyword.  It doesn't allow
+          # `async` to be used as an object key:
+          # https://github.com/erikd/language-javascript/issues/131
+          language-javascript = self.language-javascript_0_7_0_0;
+        }
+        ;
+    in
+    {
+      purescript =
+        lib.pipe (super.purescript.overrideScope purescriptOverlay) ([
+          # PureScript uses nodejs to run tests, so the tests have been disabled
+          # for now.  If someone is interested in figuring out how to get this
+          # working, it seems like it might be possible.
+          dontCheck
+          # The current version of purescript (0.14.5) has version bounds for LTS-17,
+          # but it compiles cleanly using deps in LTS-18 as well.  This jailbreak can
+          # likely be removed when purescript-0.14.6 is released.
+          doJailbreak
+          # Generate shell completions
+          (self.generateOptparseApplicativeCompletions [ "purs" ])
+        ]);
 
-    purenix = super.purenix.overrideScope purescriptOverlay;
-  }
-  )
+      purenix = super.purenix.overrideScope purescriptOverlay;
+    }
+    )
     purescript
     purenix
     ;
@@ -2742,7 +2853,8 @@ self: super:
     # Too strict lower bound on hspec
   wai-token-bucket-ratelimiter =
     assert lib.versionOlder self.hspec.version "2.10";
-    doJailbreak super.wai-token-bucket-ratelimiter;
+    doJailbreak super.wai-token-bucket-ratelimiter
+    ;
 
     # doctest <0.19
   polysemy = doJailbreak super.polysemy;

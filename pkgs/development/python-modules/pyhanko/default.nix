@@ -78,20 +78,23 @@ buildPythonPackage rec {
       --replace ", 'pytest-runner'" "" \
   '';
 
-  nativeCheckInputs = [
-    aiohttp
-    certomancer
-    freezegun
-    python-pae
-    pytest-aiohttp
-    requests-mock
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [
+      aiohttp
+      certomancer
+      freezegun
+      python-pae
+      pytest-aiohttp
+      requests-mock
+      pytestCheckHook
+    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ;
 
-  disabledTestPaths = [
-    # ModuleNotFoundError: No module named 'csc_dummy'
-    "pyhanko_tests/test_csc.py"
-  ];
+  disabledTestPaths =
+    [
+      # ModuleNotFoundError: No module named 'csc_dummy'
+      "pyhanko_tests/test_csc.py"
+    ];
 
   disabledTests = [
     # Most of the test require working with local certificates,

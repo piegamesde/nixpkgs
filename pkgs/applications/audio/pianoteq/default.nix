@@ -119,10 +119,12 @@ let
       outputHashAlgo = "sha256";
       outputHash = sha256;
 
-      impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ impureEnvVars ++ [
-        # This variable allows the user to pass additional options to curl
-        "NIX_CURL_FLAGS"
-      ];
+      impureEnvVars =
+        lib.fetchers.proxyImpureEnvVars ++ impureEnvVars ++ [
+          # This variable allows the user to pass additional options to curl
+          "NIX_CURL_FLAGS"
+        ]
+        ;
     }
     ;
 

@@ -52,29 +52,31 @@ stdenvNoCC.mkDerivation (attrs // {
   HEX_HTTP_CONCURRENCY = 1;
   HEX_HTTP_TIMEOUT = 120;
 
-  configurePhase = attrs.configurePhase or ''
-    runHook preConfigure
-    export HEX_HOME="$TEMPDIR/.hex";
-    export MIX_HOME="$TEMPDIR/.mix";
-    export MIX_DEPS_PATH="$TEMPDIR/deps";
+  configurePhase =
+    attrs.configurePhase or ''
+      runHook preConfigure
+      export HEX_HOME="$TEMPDIR/.hex";
+      export MIX_HOME="$TEMPDIR/.mix";
+      export MIX_DEPS_PATH="$TEMPDIR/deps";
 
-    # Rebar
-    export REBAR_GLOBAL_CONFIG_DIR="$TMPDIR/rebar3"
-    export REBAR_CACHE_DIR="$TMPDIR/rebar3.cache"
-    runHook postConfigure
-  '';
+      # Rebar
+      export REBAR_GLOBAL_CONFIG_DIR="$TMPDIR/rebar3"
+      export REBAR_CACHE_DIR="$TMPDIR/rebar3.cache"
+      runHook postConfigure
+    '';
 
   inherit patches;
 
   dontBuild = true;
 
-  installPhase = attrs.installPhase or ''
-    runHook preInstall
-    mix deps.get ''${MIX_ENV:+--only $MIX_ENV}
-    find "$TEMPDIR/deps" -path '*/.git/*' -a ! -name HEAD -exec rm -rf {} +
-    cp -r --no-preserve=mode,ownership,timestamps $TEMPDIR/deps $out
-    runHook postInstall
-  '';
+  installPhase =
+    attrs.installPhase or ''
+      runHook preInstall
+      mix deps.get ''${MIX_ENV:+--only $MIX_ENV}
+      find "$TEMPDIR/deps" -path '*/.git/*' -a ! -name HEAD -exec rm -rf {} +
+      cp -r --no-preserve=mode,ownership,timestamps $TEMPDIR/deps $out
+      runHook postInstall
+    '';
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";

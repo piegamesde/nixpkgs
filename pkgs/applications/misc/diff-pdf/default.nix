@@ -27,11 +27,13 @@ stdenv.mkDerivation rec {
     automake
     pkg-config
   ];
-  buildInputs = [
-    cairo
-    poppler
-    wxGTK
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs =
+    [
+      cairo
+      poppler
+      wxGTK
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ;
 
   preConfigure = "./bootstrap";
 

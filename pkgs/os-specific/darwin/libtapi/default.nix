@@ -23,12 +23,14 @@ stdenv.mkDerivation {
 
     # Backported from newer llvm, fixes configure error when cross compiling.
     # Also means we don't have to manually fix the result with install_name_tool.
-  patches = [ ./disable-rpath.patch ]
+  patches =
+    [ ./disable-rpath.patch ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # TODO: make unconditional and rebuild the world
       # TODO: send upstream
       ./native-clang-tblgen.patch
-    ];
+    ]
+    ;
 
   nativeBuildInputs = [
     cmake
@@ -39,7 +41,8 @@ stdenv.mkDerivation {
     # not allowed for the stdenv.
   buildInputs = [ ncurses ];
 
-  cmakeFlags = [ "-DLLVM_INCLUDE_TESTS=OFF" ]
+  cmakeFlags =
+    [ "-DLLVM_INCLUDE_TESTS=OFF" ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "-DCMAKE_CROSSCOMPILING=True"
       # This package could probably have a llvm_6 llvm-tblgen and clang-tblgen
@@ -64,7 +67,8 @@ stdenv.mkDerivation {
         lib.concatStringsSep ";" nativeToolchainFlags
       }"
       )
-    ];
+    ]
+    ;
 
     # fixes: fatal error: 'clang/Basic/Diagnostic.h' file not found
     # adapted from upstream

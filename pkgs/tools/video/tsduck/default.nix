@@ -61,13 +61,15 @@ stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
-  makeFlags = [
-    "NODEKTEC=1"
-    "NOHIDES=1"
-    "NOPCSC=1"
-    "NORIST=1"
-    "NOVATEK=1"
-  ] ++ installFlags;
+  makeFlags =
+    [
+      "NODEKTEC=1"
+      "NOHIDES=1"
+      "NOPCSC=1"
+      "NORIST=1"
+      "NOVATEK=1"
+    ] ++ installFlags
+    ;
 
   checkTarget = "test";
   doCheck = true;

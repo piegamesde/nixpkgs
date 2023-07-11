@@ -40,10 +40,12 @@ stdenv.mkDerivation rec {
     substituteInPlace src/GridPDF.cc --replace '#include <locale>' '#include <xlocale.h>'
   '';
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals
+  nativeBuildInputs =
+    [ makeWrapper ] ++ lib.optionals
     (python != null && lib.versionAtLeast python.version "3.10") [
       python.pkgs.cython
-    ];
+    ]
+    ;
   buildInputs = [ python ];
 
   configureFlags = lib.optionals (python == null) [ "--disable-python" ];

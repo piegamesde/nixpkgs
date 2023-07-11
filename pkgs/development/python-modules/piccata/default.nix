@@ -21,10 +21,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # No communication possible in the sandbox
-    "test_client_server_communication"
-  ];
+  disabledTests =
+    [
+      # No communication possible in the sandbox
+      "test_client_server_communication"
+    ];
 
   pythonImportsCheck = [ "piccata" ];
 

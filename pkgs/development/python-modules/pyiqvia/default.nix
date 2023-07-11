@@ -40,10 +40,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Ignore the examples as they are prefixed with test_
-    "examples/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore the examples as they are prefixed with test_
+      "examples/"
+    ];
 
   pythonImportsCheck = [ "pyiqvia" ];
 

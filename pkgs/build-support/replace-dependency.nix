@@ -71,8 +71,10 @@ let
 
   dependsOnOldMemo = listToAttrs (map (drv: {
     name = discard (toString drv);
-    value = elem oldStorepath (referencesOf drv)
-      || any dependsOnOld (referencesOf drv);
+    value =
+      elem oldStorepath (referencesOf drv)
+      || any dependsOnOld (referencesOf drv)
+      ;
   }) (builtins.attrNames references));
 
   dependsOnOld = drv: dependsOnOldMemo.${discard (toString drv)};

@@ -24,13 +24,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    boost
-    openssl
-    systemd
-    lua
-    luajit
-  ] ++ lib.optional enableProtoBuf protobuf;
+  buildInputs =
+    [
+      boost
+      openssl
+      systemd
+      lua
+      luajit
+    ] ++ lib.optional enableProtoBuf protobuf
+    ;
 
   configureFlags = [
     "--enable-reproducible"

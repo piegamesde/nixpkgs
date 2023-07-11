@@ -28,14 +28,17 @@ stdenv.mkDerivation rec {
   pname = "pango";
   version = "1.50.14";
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs =
+    [
+      "bin"
+      "out"
+      "dev"
+    ] ++ lib.optional withIntrospection "devdoc"
+    ;
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "HWfyBb/DGMJ6Kc/ftoKFaN9WZ5XfDLUdIYnN5/LVgeg=";
@@ -43,33 +46,39 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    glib # for glib-mkenum
-    pkg-config
-    python3
-  ] ++ lib.optionals withIntrospection [
-    gi-docgen
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      glib # for glib-mkenum
+      pkg-config
+      python3
+    ] ++ lib.optionals withIntrospection [
+      gi-docgen
+      gobject-introspection
+    ]
+    ;
 
-  buildInputs = [
-    fribidi
-    libthai
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    ApplicationServices
-    Carbon
-    CoreGraphics
-    CoreText
-  ]);
+  buildInputs =
+    [
+      fribidi
+      libthai
+    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      ApplicationServices
+      Carbon
+      CoreGraphics
+      CoreText
+    ])
+    ;
 
-  propagatedBuildInputs = [
-    cairo
-    glib
-    libintl
-    harfbuzz
-  ] ++ lib.optionals x11Support [ libXft ];
+  propagatedBuildInputs =
+    [
+      cairo
+      glib
+      libintl
+      harfbuzz
+    ] ++ lib.optionals x11Support [ libXft ]
+    ;
 
   mesonFlags = [
     (lib.mesonBool "gtk_doc" withIntrospection)

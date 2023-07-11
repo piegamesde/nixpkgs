@@ -43,7 +43,8 @@ buildPythonPackage rec {
     virtualenv
   ];
 
-  pytestFlagsArray = [
+  pytestFlagsArray =
+    [
       "--pyargs pecan"
       # tests fail with sqlalchemy 2.0
     ] ++ lib.optionals (lib.versionAtLeast sqlalchemy.version "2.0") [
@@ -55,7 +56,8 @@ buildPythonPackage rec {
       "--deselect=pecan/tests/test_jsonify.py::TestJsonifySQLAlchemyGenericEncoder::test_result_proxy"
       "--deselect=pecan/tests/test_jsonify.py::TestJsonifySQLAlchemyGenericEncoder::test_row_proxy"
       "--deselect=pecan/tests/test_jsonify.py::TestJsonifySQLAlchemyGenericEncoder::test_sa_object"
-    ];
+    ]
+    ;
 
   pythonImportsCheck = [ "pecan" ];
 

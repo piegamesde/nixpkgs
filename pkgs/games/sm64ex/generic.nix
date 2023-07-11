@@ -27,32 +27,42 @@
       and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
       Note that if you are not using a US baserom, you must overwrite the "region" attribute with either "eu" or "jp".
     '';
-    sha256 = {
-      "us" = "17ce077343c6133f8c9f2d6d6d9a4ab62c8cd2aa57c40aea1f490b4c8bb21d91";
-      "eu" = "c792e5ebcba34c8d98c0c44cf29747c8ee67e7b907fcc77887f9ff2523f80572";
-      "jp" = "9cf7a80db321b07a8d461fe536c02c87b7412433953891cdec9191bfad2db317";
-    }.${region};
+    sha256 =
+      {
+        "us" =
+          "17ce077343c6133f8c9f2d6d6d9a4ab62c8cd2aa57c40aea1f490b4c8bb21d91";
+        "eu" =
+          "c792e5ebcba34c8d98c0c44cf29747c8ee67e7b907fcc77887f9ff2523f80572";
+        "jp" =
+          "9cf7a80db321b07a8d461fe536c02c87b7412433953891cdec9191bfad2db317";
+      }.${region};
   }
 }:
 
 stdenv.mkDerivation rec {
   inherit pname version src postInstall;
 
-  nativeBuildInputs = [
-    python3
-    pkg-config
-    hexdump
-  ] ++ extraNativeBuildInputs;
+  nativeBuildInputs =
+    [
+      python3
+      pkg-config
+      hexdump
+    ] ++ extraNativeBuildInputs
+    ;
 
-  buildInputs = [
-    audiofile
-    SDL2
-  ] ++ extraBuildInputs;
+  buildInputs =
+    [
+      audiofile
+      SDL2
+    ] ++ extraBuildInputs
+    ;
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "VERSION=${region}" ]
-    ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ] ++ compileFlags;
+  makeFlags =
+    [ "VERSION=${region}" ] ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ]
+    ++ compileFlags
+    ;
 
   preBuild = ''
     patchShebangs extract_assets.py
@@ -76,7 +86,8 @@ stdenv.mkDerivation rec {
           Note that you must supply a baserom yourself to extract assets from.
           If you are not using an US baserom, you must overwrite the "region" attribute with either "eu" or "jp".
           If you would like to use patches sm64ex distributes as makeflags, add them to the "compileFlags" attribute.
-        '';
+        ''
+        ;
       mainProgram = "sm64ex";
       license = licenses.unfree;
       maintainers = with maintainers; [ ivar ];

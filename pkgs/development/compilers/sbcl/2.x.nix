@@ -60,39 +60,41 @@ stdenv.mkDerivation rec {
 
     # There are no patches necessary for the currently enabled versions, but this
     # code is left in place for the next potential patch.
-  postPatch = ''
-    echo '"${version}.nixos"' > version.lisp-expr
+  postPatch =
+    ''
+      echo '"${version}.nixos"' > version.lisp-expr
 
-    # SBCL checks whether files are up-to-date in many places..
-    # Unfortunately, same timestamp is not good enough
-    sed -e 's@> x y@>= x y@' -i contrib/sb-aclrepl/repl.lisp
-    #sed -e '/(date)/i((= date 2208988801) 2208988800)' -i contrib/asdf/asdf.lisp
-    sed -i src/cold/slam.lisp -e \
-      '/file-write-date input/a)'
-    sed -i src/cold/slam.lisp -e \
-      '/file-write-date output/i(or (and (= 2208988801 (file-write-date output)) (= 2208988801 (file-write-date input)))'
-    sed -i src/code/target-load.lisp -e \
-      '/date defaulted-fasl/a)'
-    sed -i src/code/target-load.lisp -e \
-      '/date defaulted-source/i(or (and (= 2208988801 (file-write-date defaulted-source-truename)) (= 2208988801 (file-write-date defaulted-fasl-truename)))'
+      # SBCL checks whether files are up-to-date in many places..
+      # Unfortunately, same timestamp is not good enough
+      sed -e 's@> x y@>= x y@' -i contrib/sb-aclrepl/repl.lisp
+      #sed -e '/(date)/i((= date 2208988801) 2208988800)' -i contrib/asdf/asdf.lisp
+      sed -i src/cold/slam.lisp -e \
+        '/file-write-date input/a)'
+      sed -i src/cold/slam.lisp -e \
+        '/file-write-date output/i(or (and (= 2208988801 (file-write-date output)) (= 2208988801 (file-write-date input)))'
+      sed -i src/code/target-load.lisp -e \
+        '/date defaulted-fasl/a)'
+      sed -i src/code/target-load.lisp -e \
+        '/date defaulted-source/i(or (and (= 2208988801 (file-write-date defaulted-source-truename)) (= 2208988801 (file-write-date defaulted-fasl-truename)))'
 
-    # Fix the tests
-    sed -e '5,$d' -i contrib/sb-bsd-sockets/tests.lisp
-    sed -e '5,$d' -i contrib/sb-simple-streams/*test*.lisp
-  '' + (if
-    purgeNixReferences
-  then
-  # This is the default location to look for the core; by default in $out/lib/sbcl
-    ''
-      sed 's@^\(#define SBCL_HOME\) .*$@\1 "/no-such-path"@' \
-        -i src/runtime/runtime.c
-    ''
-  else
-  # Fix software version retrieval
-    ''
-      sed -e "s@/bin/uname@$(command -v uname)@g" -i src/code/*-os.lisp \
-        src/code/run-program.lisp
-    '');
+      # Fix the tests
+      sed -e '5,$d' -i contrib/sb-bsd-sockets/tests.lisp
+      sed -e '5,$d' -i contrib/sb-simple-streams/*test*.lisp
+    '' + (if
+      purgeNixReferences
+    then
+    # This is the default location to look for the core; by default in $out/lib/sbcl
+      ''
+        sed 's@^\(#define SBCL_HOME\) .*$@\1 "/no-such-path"@' \
+          -i src/runtime/runtime.c
+      ''
+    else
+    # Fix software version retrieval
+      ''
+        sed -e "s@/bin/uname@$(command -v uname)@g" -i src/code/*-os.lisp \
+          src/code/run-program.lisp
+      '')
+    ;
 
   preBuild = ''
     export INSTALL_ROOT=$out
@@ -139,21 +141,23 @@ stdenv.mkDerivation rec {
     runHook postBuild
   '';
 
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-    INSTALL_ROOT=$out sh install.sh
+      INSTALL_ROOT=$out sh install.sh
 
-    runHook postInstall
-  '' + lib.optionalString (!purgeNixReferences) ''
-    cp -r src $out/lib/sbcl
-    cp -r contrib $out/lib/sbcl
-    cat >$out/lib/sbcl/sbclrc <<EOF
-     (setf (logical-pathname-translations "SYS")
-       '(("SYS:SRC;**;*.*.*" #P"$out/lib/sbcl/src/**/*.*")
-         ("SYS:CONTRIB;**;*.*.*" #P"$out/lib/sbcl/contrib/**/*.*")))
-    EOF
-  '';
+      runHook postInstall
+    '' + lib.optionalString (!purgeNixReferences) ''
+      cp -r src $out/lib/sbcl
+      cp -r contrib $out/lib/sbcl
+      cat >$out/lib/sbcl/sbclrc <<EOF
+       (setf (logical-pathname-translations "SYS")
+         '(("SYS:SRC;**;*.*.*" #P"$out/lib/sbcl/src/**/*.*")
+           ("SYS:CONTRIB;**;*.*.*" #P"$out/lib/sbcl/contrib/**/*.*")))
+      EOF
+    ''
+    ;
 
   setupHook = lib.optional purgeNixReferences (writeText "setupHook.sh" ''
     addEnvHooks "$targetOffset" _setSbclHome

@@ -21,12 +21,14 @@ stdenv.mkDerivation rec {
   pname = "sydbox-1";
   version = "2.2.0";
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-    "doc"
-  ] ++ lib.optional installTests "installedTests";
+  outputs =
+    [
+      "out"
+      "dev"
+      "man"
+      "doc"
+    ] ++ lib.optional installTests "installedTests"
+    ;
 
   src = fetchurl {
     url =
@@ -44,20 +46,24 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_42
   ];
 
-  buildInputs = [ libseccomp ] ++ lib.optional debugBuild libunwind
+  buildInputs =
+    [ libseccomp ] ++ lib.optional debugBuild libunwind
     ++ lib.optionals installTests [
       gnumake
       python3
       perl
       which
-    ];
+    ]
+    ;
 
   enableParallelBuilding = true;
 
-  configureFlags = [ ] ++ lib.optionals installTests [
-    "--enable-installed-tests"
-    "--libexecdir=${placeholder "installedTests"}/libexec"
-  ] ++ lib.optional debugBuild "--enable-debug";
+  configureFlags =
+    [ ] ++ lib.optionals installTests [
+      "--enable-installed-tests"
+      "--libexecdir=${placeholder "installedTests"}/libexec"
+    ] ++ lib.optional debugBuild "--enable-debug"
+    ;
 
   makeFlags = [ "SYD_INCLUDEDIR=${stdenv.cc.libc.dev}/include" ];
 

@@ -85,10 +85,12 @@ let
     patches = [ ./0001-Use-protobuf-gradle-plugin.patch ];
     postPatch = fixProtoc + addResolveStep;
 
-    nativeBuildInputs = [
-      gradle
-      perl
-    ] ++ lib.optional stdenv.isDarwin xcbuild;
+    nativeBuildInputs =
+      [
+        gradle
+        perl
+      ] ++ lib.optional stdenv.isDarwin xcbuild
+      ;
     buildPhase = ''
       export HOME="$NIX_BUILD_TOP/home"
       mkdir -p "$HOME"
@@ -117,12 +119,14 @@ in
 stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [
-    gradle
-    unzip
-    makeWrapper
-    icoutils
-  ] ++ lib.optional stdenv.isDarwin xcbuild;
+  nativeBuildInputs =
+    [
+      gradle
+      unzip
+      makeWrapper
+      icoutils
+    ] ++ lib.optional stdenv.isDarwin xcbuild
+    ;
 
   dontStrip = true;
 

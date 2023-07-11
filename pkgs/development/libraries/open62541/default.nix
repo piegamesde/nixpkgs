@@ -31,10 +31,11 @@
 }:
 
 let
-  encryptionBackend = {
-    inherit openssl mbedtls;
-  }."${withEncryption}" or (throw
-    "Unsupported encryption backend: ${withEncryption}");
+  encryptionBackend =
+    {
+      inherit openssl mbedtls;
+    }."${withEncryption}" or (throw
+      "Unsupported encryption backend: ${withEncryption}");
 
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -58,37 +59,41 @@ stdenv.mkDerivation (finalAttrs: {
       })
     ];
 
-  cmakeFlags = [
-    "-DOPEN62541_VERSION=v${finalAttrs.version}"
+  cmakeFlags =
+    [
+      "-DOPEN62541_VERSION=v${finalAttrs.version}"
 
-    "-DBUILD_SHARED_LIBS=${
-      if stdenv.hostPlatform.isStatic then
-        "OFF"
-      else
-        "ON"
-    }"
-    "-DUA_NAMESPACE_ZERO=FULL"
+      "-DBUILD_SHARED_LIBS=${
+        if stdenv.hostPlatform.isStatic then
+          "OFF"
+        else
+          "ON"
+      }"
+      "-DUA_NAMESPACE_ZERO=FULL"
 
-    "-DUA_BUILD_UNIT_TESTS=${
-      if finalAttrs.doCheck then
-        "ON"
-      else
-        "OFF"
-    }"
-  ] ++ lib.optional withExamples "-DUA_BUILD_EXAMPLES=ON"
+      "-DUA_BUILD_UNIT_TESTS=${
+        if finalAttrs.doCheck then
+          "ON"
+        else
+          "OFF"
+      }"
+    ] ++ lib.optional withExamples "-DUA_BUILD_EXAMPLES=ON"
     ++ lib.optional (withEncryption != false)
     "-DUA_ENABLE_ENCRYPTION=${lib.toUpper withEncryption}"
-    ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON";
+    ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON"
+    ;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3Packages.python
-  ] ++ lib.optionals withDoc (with python3Packages; [
-    sphinx
-    sphinx_rtd_theme
-    graphviz-nox
-  ]);
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      python3Packages.python
+    ] ++ lib.optionals withDoc (with python3Packages; [
+      sphinx
+      sphinx_rtd_theme
+      graphviz-nox
+    ])
+    ;
 
   buildInputs = lib.optional (withEncryption != false) encryptionBackend;
 
@@ -106,7 +111,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   preCheck =
     let
-      disabledTests = lib.optionals (withEncryption == "mbedtls") [
+      disabledTests =
+        lib.optionals (withEncryption == "mbedtls") [
           "encryption_basic128rsa15"
         ] ++ lib.optionals withPubSub [
           # "Cannot set socket option IP_ADD_MEMBERSHIP"
@@ -116,7 +122,8 @@ stdenv.mkDerivation (finalAttrs: {
           "check_pubsub_subscribe_config_freeze"
           "check_pubsub_subscribe_rt_levels"
           "check_pubsub_multiple_subscribe_rt_levels"
-        ];
+        ]
+        ;
       regex = "^(${builtins.concatStringsSep "|" disabledTests})$";
     in
     lib.optionalString (disabledTests != [ ]) ''
@@ -124,27 +131,29 @@ stdenv.mkDerivation (finalAttrs: {
     ''
     ;
 
-  postInstall = lib.optionalString withDoc ''
-    # excluded files, see doc/CMakeLists.txt
-    rm -r doc/{_sources/,CMakeFiles/,cmake_install.cmake}
+  postInstall =
+    lib.optionalString withDoc ''
+      # excluded files, see doc/CMakeLists.txt
+      rm -r doc/{_sources/,CMakeFiles/,cmake_install.cmake}
 
-    # doc is not installed automatically
-    mkdir -p $out/share/doc/open62541
-    cp -r doc/ $out/share/doc/open62541/html
-  '' + lib.optionalString withExamples ''
-    # install sources of examples
-    mkdir -p $out/share/open62541
-    cp -r ../examples $out/share/open62541
+      # doc is not installed automatically
+      mkdir -p $out/share/doc/open62541
+      cp -r doc/ $out/share/doc/open62541/html
+    '' + lib.optionalString withExamples ''
+      # install sources of examples
+      mkdir -p $out/share/open62541
+      cp -r ../examples $out/share/open62541
 
-    ${lib.optionalString (!stdenv.hostPlatform.isWindows) ''
-      # remove .exe suffix
-      mv -v $out/bin/ua_server_ctt.exe $out/bin/ua_server_ctt
-    ''}
+      ${lib.optionalString (!stdenv.hostPlatform.isWindows) ''
+        # remove .exe suffix
+        mv -v $out/bin/ua_server_ctt.exe $out/bin/ua_server_ctt
+      ''}
 
-    # remove duplicate libraries in build/bin/, which cause forbidden
-    # references to /build/ in ua_server_ctt
-    rm -r bin/libopen62541*
-  '';
+      # remove duplicate libraries in build/bin/, which cause forbidden
+      # references to /build/ in ua_server_ctt
+      rm -r bin/libopen62541*
+    ''
+    ;
 
   passthru.tests =
     let

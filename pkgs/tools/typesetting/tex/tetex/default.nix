@@ -61,19 +61,21 @@ stdenv.mkDerivation rec {
 
   setupHook = ./setup-hook.sh;
 
-  configureFlags = [
-    "--disable-multiplatform"
-    "--without-x11"
-    "--without-xdvik"
-    "--without-oxdvik"
-    "--without-texinfo"
-    "--without-texi2html"
-    "--with-system-zlib"
-    "--with-system-pnglib"
-    "--with-system-ncurses"
-  ]
-  # couldn't get gsftopk working on darwin
-    ++ lib.optional stdenv.isDarwin "--without-gsftopk";
+  configureFlags =
+    [
+      "--disable-multiplatform"
+      "--without-x11"
+      "--without-xdvik"
+      "--without-oxdvik"
+      "--without-texinfo"
+      "--without-texi2html"
+      "--with-system-zlib"
+      "--with-system-pnglib"
+      "--with-system-ncurses"
+    ]
+    # couldn't get gsftopk working on darwin
+    ++ lib.optional stdenv.isDarwin "--without-gsftopk"
+    ;
 
   postUnpack = ''
     mkdir -p $out/share/texmf

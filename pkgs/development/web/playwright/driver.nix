@@ -20,12 +20,13 @@ let
 
   driver = stdenv.mkDerivation (finalAttrs:
     let
-      suffix = {
-        x86_64-linux = "linux";
-        aarch64-linux = "linux-arm64";
-        x86_64-darwin = "mac";
-        aarch64-darwin = "mac-arm64";
-      }.${system} or throwSystem;
+      suffix =
+        {
+          x86_64-linux = "linux";
+          aarch64-linux = "linux-arm64";
+          x86_64-darwin = "mac";
+          aarch64-darwin = "mac-arm64";
+        }.${system} or throwSystem;
       filename = "playwright-${finalAttrs.version}-${suffix}.zip";
     in
     {
@@ -34,15 +35,17 @@ let
 
       src = fetchurl {
         url = "https://playwright.azureedge.net/builds/driver/${filename}";
-        sha256 = {
-          x86_64-linux = "1wg49kfs8fflmx8g01bkckbjkghhwy7c44akckjf7dp4lbh1z8fd";
-          aarch64-linux =
-            "0f09a0cxqxihy8lmbjzii80jkpf3n5xlvhjpgdkwmrr3wh0nnixj";
-          x86_64-darwin =
-            "1zd0dz8jazymcpa1im5yzxb7rwl6wn4xz19lpz83bnpd1njq01b3";
-          aarch64-darwin =
-            "0hcn80zm9aki8hzsf1cljzcmi4iaw7fascs8ajj0qcwqkkm4jnw0";
-        }.${system} or throwSystem;
+        sha256 =
+          {
+            x86_64-linux =
+              "1wg49kfs8fflmx8g01bkckbjkghhwy7c44akckjf7dp4lbh1z8fd";
+            aarch64-linux =
+              "0f09a0cxqxihy8lmbjzii80jkpf3n5xlvhjpgdkwmrr3wh0nnixj";
+            x86_64-darwin =
+              "1zd0dz8jazymcpa1im5yzxb7rwl6wn4xz19lpz83bnpd1njq01b3";
+            aarch64-darwin =
+              "0hcn80zm9aki8hzsf1cljzcmi4iaw7fascs8ajj0qcwqkkm4jnw0";
+          }.${system} or throwSystem;
       };
 
       sourceRoot = ".";
@@ -73,12 +76,13 @@ let
 
       passthru = {
         inherit filename;
-        browsers = {
-          x86_64-linux = browsers-linux { };
-          aarch64-linux = browsers-linux { };
-          x86_64-darwin = browsers-mac;
-          aarch64-darwin = browsers-mac;
-        }.${system} or throwSystem;
+        browsers =
+          {
+            x86_64-linux = browsers-linux { };
+            aarch64-linux = browsers-linux { };
+            x86_64-darwin = browsers-mac;
+            aarch64-darwin = browsers-mac;
+          }.${system} or throwSystem;
         browsers-chromium = browsers-linux { };
       };
     }

@@ -24,12 +24,13 @@ buildPythonPackage rec {
   '';
 
   nativeBuildInputs = [ cython ];
-  buildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [
+  buildInputs =
+    lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [
       CoreAudio
       CoreMIDI
       CoreServices
-    ];
+    ]
+    ;
 
   setupPyBuildFlags = [ "--from-cython" ];
 

@@ -25,13 +25,16 @@ stdenv.mkDerivation rec {
   pname = "libsoup";
   version = "3.4.1";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ] ++ lib.optional withIntrospection "devdoc"
+    ;
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-UwuGexsWbLm8onUPHRXlGHMYtdlI77gdWJmvPXVhRQQ=";
@@ -39,25 +42,29 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    glib
-    python3
-  ] ++ lib.optionals withIntrospection [
-    gi-docgen
-    gobject-introspection
-    vala
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      glib
+      python3
+    ] ++ lib.optionals withIntrospection [
+      gi-docgen
+      gobject-introspection
+      vala
+    ]
+    ;
 
-  buildInputs = [
-    sqlite
-    libpsl
-    glib.out
-    brotli
-    libnghttp2
-  ] ++ lib.optionals stdenv.isLinux [ libsysprof-capture ];
+  buildInputs =
+    [
+      sqlite
+      libpsl
+      glib.out
+      brotli
+      libnghttp2
+    ] ++ lib.optionals stdenv.isLinux [ libsysprof-capture ]
+    ;
 
   propagatedBuildInputs = [ glib ];
 

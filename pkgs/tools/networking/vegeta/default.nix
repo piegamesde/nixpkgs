@@ -20,15 +20,17 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags = (lib.mapAttrsToList (n: v: "-X main.${n}=${v}") {
-    Version = version;
-    Commit = rev;
-    Date = "1970-01-01T00:00:00Z";
-  }) ++ [
-    "-s"
-    "-w"
-    "-extldflags '-static'"
-  ];
+  ldflags =
+    (lib.mapAttrsToList (n: v: "-X main.${n}=${v}") {
+      Version = version;
+      Commit = rev;
+      Date = "1970-01-01T00:00:00Z";
+    }) ++ [
+      "-s"
+      "-w"
+      "-extldflags '-static'"
+    ]
+    ;
 
   meta = with lib; {
     description = "Versatile HTTP load testing tool";

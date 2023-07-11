@@ -92,48 +92,53 @@ buildPythonPackage rec {
     hash = "sha256-u3BBGdhWajZ5WtoBvNxmx76+orfHY6LX3IWAq/x2/9A=";
   };
 
-  patches = [
-    # fixes a small bug in the datafusion backend to reorder predicates
-    (fetchpatch {
-      name = "fix-datafusion-compilation.patch";
-      url =
-        "https://github.com/ibis-project/ibis/commit/009230421b2bc1f86591e8b850d37a489e8e4f06.patch";
-      hash = "sha256-5NHkgc8d2bkOMpbY1vme1XgNfyHSr0f7BrR3JTTjjPI=";
-    })
-  ];
+  patches =
+    [
+      # fixes a small bug in the datafusion backend to reorder predicates
+      (fetchpatch {
+        name = "fix-datafusion-compilation.patch";
+        url =
+          "https://github.com/ibis-project/ibis/commit/009230421b2bc1f86591e8b850d37a489e8e4f06.patch";
+        hash = "sha256-5NHkgc8d2bkOMpbY1vme1XgNfyHSr0f7BrR3JTTjjPI=";
+      })
+    ];
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    atpublic
-    bidict
-    multipledispatch
-    numpy
-    pandas
-    parsy
-    pooch
-    python-dateutil
-    pytz
-    rich
-    sqlglot
-    toolz
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+  propagatedBuildInputs =
+    [
+      atpublic
+      bidict
+      multipledispatch
+      numpy
+      pandas
+      parsy
+      pooch
+      python-dateutil
+      pytz
+      rich
+      sqlglot
+      toolz
+      typing-extensions
+    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ pooch.optional-dependencies.progress
-    ++ pooch.optional-dependencies.xxhash;
+    ++ pooch.optional-dependencies.xxhash
+    ;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    filelock
-    hypothesis
-    pytest-benchmark
-    pytest-httpserver
-    pytest-mock
-    pytest-randomly
-    pytest-snapshot
-    pytest-xdist
-    rsync
-  ] ++ lib.concatMap (name: passthru.optional-dependencies.${name}) testBackends
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      filelock
+      hypothesis
+      pytest-benchmark
+      pytest-httpserver
+      pytest-mock
+      pytest-randomly
+      pytest-snapshot
+      pytest-xdist
+      rsync
+    ]
+    ++ lib.concatMap (name: passthru.optional-dependencies.${name}) testBackends
     ;
 
   pytestFlagsArray = [

@@ -15,7 +15,8 @@ import ./versions.nix ({
     inherit version;
 
     src = fetchurl {
-      url = "https://cdn.zabbix.com/zabbix/sources/stable/${
+      url =
+        "https://cdn.zabbix.com/zabbix/sources/stable/${
           lib.versions.majorMinor version
         }/zabbix-${version}.tar.gz";
       inherit sha256;

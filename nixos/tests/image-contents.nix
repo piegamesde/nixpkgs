@@ -12,36 +12,39 @@ with pkgs.lib;
 with import common/ec2.nix { inherit makeTest pkgs; };
 
 let
-  config = (import ../lib/eval-config.nix {
-    inherit system;
-    modules = [
-      ../modules/testing/test-instrumentation.nix
-      ../modules/profiles/qemu-guest.nix
-      {
-        fileSystems."/".device = "/dev/disk/by-label/nixos";
-        boot.loader.grub.device = "/dev/vda";
-        boot.loader.timeout = 0;
-      }
-    ];
-  }).config;
-  image = (import ../lib/make-disk-image.nix {
-    inherit pkgs config;
-    lib = pkgs.lib;
-    format = "qcow2";
-    contents = [
-      {
-        source = pkgs.writeText "testFile" "contents";
-        target = "/testFile";
-        user = "1234";
-        group = "5678";
-        mode = "755";
-      }
-      {
-        source = ./.;
-        target = "/testDir";
-      }
-    ];
-  }) + "/nixos.qcow2";
+  config =
+    (import ../lib/eval-config.nix {
+      inherit system;
+      modules = [
+        ../modules/testing/test-instrumentation.nix
+        ../modules/profiles/qemu-guest.nix
+        {
+          fileSystems."/".device = "/dev/disk/by-label/nixos";
+          boot.loader.grub.device = "/dev/vda";
+          boot.loader.timeout = 0;
+        }
+      ];
+    }).config;
+  image =
+    (import ../lib/make-disk-image.nix {
+      inherit pkgs config;
+      lib = pkgs.lib;
+      format = "qcow2";
+      contents = [
+        {
+          source = pkgs.writeText "testFile" "contents";
+          target = "/testFile";
+          user = "1234";
+          group = "5678";
+          mode = "755";
+        }
+        {
+          source = ./.;
+          target = "/testDir";
+        }
+      ];
+    }) + "/nixos.qcow2"
+    ;
 
 in
 makeEc2Test {

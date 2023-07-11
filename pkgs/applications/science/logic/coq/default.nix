@@ -89,10 +89,11 @@ let
     };
   } args.version;
   version = fetched.version;
-  coq-version = args.coq-version or (if version != "dev" then
-    versions.majorMinor version
-  else
-    "dev");
+  coq-version =
+    args.coq-version or (if version != "dev" then
+      versions.majorMinor version
+    else
+      "dev");
   coqAtLeast = v: coq-version == "dev" || versionAtLeast coq-version v;
   buildIde = args.buildIde or (!coqAtLeast "8.14");
   ideFlags = optionalString (buildIde && !coqAtLeast "8.10")
@@ -135,10 +136,11 @@ let
       ocaml
       findlib
     ] ++ optional (coqAtLeast "8.14") dune_2;
-  ocamlPropagatedBuildInputs = [ ]
-    ++ optional (!coqAtLeast "8.10") ocamlPackages.camlp5
+  ocamlPropagatedBuildInputs =
+    [ ] ++ optional (!coqAtLeast "8.10") ocamlPackages.camlp5
     ++ optional (!coqAtLeast "8.13") ocamlPackages.num
-    ++ optional (coqAtLeast "8.13") ocamlPackages.zarith;
+    ++ optional (coqAtLeast "8.13") ocamlPackages.zarith
+    ;
   self = stdenv.mkDerivation {
     pname = "coq";
     inherit (fetched) version src;
@@ -201,18 +203,22 @@ let
         ;
     };
 
-    nativeBuildInputs = [ pkg-config ] ++ ocamlNativeBuildInputs
+    nativeBuildInputs =
+      [ pkg-config ] ++ ocamlNativeBuildInputs
       ++ optional buildIde copyDesktopItems
       ++ optional (buildIde && coqAtLeast "8.10") wrapGAppsHook
-      ++ optional (!coqAtLeast "8.6") gnumake42;
-    buildInputs = [ ncurses ] ++ optionals buildIde (if coqAtLeast "8.10" then
-      [
-        ocamlPackages.lablgtk3-sourceview3
-        glib
-        gnome.adwaita-icon-theme
-      ]
-    else
-      [ ocamlPackages.lablgtk ]);
+      ++ optional (!coqAtLeast "8.6") gnumake42
+      ;
+    buildInputs =
+      [ ncurses ] ++ optionals buildIde (if coqAtLeast "8.10" then
+        [
+          ocamlPackages.lablgtk3-sourceview3
+          glib
+          gnome.adwaita-icon-theme
+        ]
+      else
+        [ ocamlPackages.lablgtk ])
+      ;
 
     propagatedBuildInputs = ocamlPropagatedBuildInputs;
 
@@ -250,11 +256,13 @@ let
 
     prefixKey = "-prefix ";
 
-    buildFlags = [
-      "revision"
-      "coq"
-    ] ++ optional buildIde "coqide"
-      ++ optional (!coqAtLeast "8.14") "bin/votour";
+    buildFlags =
+      [
+        "revision"
+        "coq"
+      ] ++ optional buildIde "coqide"
+      ++ optional (!coqAtLeast "8.14") "bin/votour"
+      ;
     enableParallelBuilding = true;
 
     createFindlibDestdir = true;

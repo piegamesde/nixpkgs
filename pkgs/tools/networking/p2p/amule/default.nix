@@ -31,9 +31,11 @@
 assert monolithic || (!monolithic && (enableDaemon || client || httpServer));
 
 stdenv.mkDerivation rec {
-  pname = "amule" + lib.optionalString httpServer "-web"
+  pname =
+    "amule" + lib.optionalString httpServer "-web"
     + lib.optionalString enableDaemon "-daemon"
-    + lib.optionalString client "-gui";
+    + lib.optionalString client "-gui"
+    ;
   version = "2.3.3";
 
   src = fetchFromGitHub {
@@ -58,14 +60,16 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    zlib
-    wxGTK32
-    perl
-    cryptopp.dev
-    libupnp
-    boost
-  ] ++ lib.optional httpServer libpng ++ lib.optional client libX11;
+  buildInputs =
+    [
+      zlib
+      wxGTK32
+      perl
+      cryptopp.dev
+      libupnp
+      boost
+    ] ++ lib.optional httpServer libpng ++ lib.optional client libX11
+    ;
 
   cmakeFlags = [
     "-DBUILD_MONOLITHIC=${

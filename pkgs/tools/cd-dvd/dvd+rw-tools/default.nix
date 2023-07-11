@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     sha256 = "1jkjvvnjcyxpql97xjjx0kwvy70kxpiznr2zpjy2hhci5s10zmpq";
   };
 
-  patches = [
+  patches =
+    [
       ./darwin.patch
     ]
     # Patches from Gentoo
@@ -74,7 +75,8 @@ stdenv.mkDerivation rec {
           pfile = "dvd+rw-tools-7.1-noevent.patch";
           sha256 = "1kbmxpg15wci33f2h6pxxvf3qm0kpyzx9wj5a3l67sk34hvza3z6";
         }
-      ];
+      ]
+    ;
 
   nativeBuildInputs = [ m4 ];
   buildInputs = [ cdrtools ] ++ lib.optionals stdenv.isDarwin [ IOKit ];

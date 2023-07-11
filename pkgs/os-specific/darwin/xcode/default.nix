@@ -8,7 +8,9 @@ let
   requireXcode =
     version: sha256:
     let
-      xip = "Xcode_" + version + ".xip";
+      xip =
+        "Xcode_" + version + ".xip"
+        ;
         # TODO(alexfmpe): Find out how to validate the .xip signature in Linux
       unxip =
         if stdenv.buildPlatform.isDarwin then
@@ -130,7 +132,8 @@ lib.makeExtensible (self: {
     requireXcode "14" "sha256-E+wjPgQx/lbYAsauksdmGsygL5VPBA8R9pHB93eA7T0=";
   xcode_14_1 =
     requireXcode "14.1" "sha256-QJGAUVIhuDYyzDNttBPv5lIGOfvkYqdOFSUAr5tlkfs=";
-  xcode = self."xcode_${
+  xcode =
+    self."xcode_${
       lib.replaceStrings [ "." ] [ "_" ]
       (if (stdenv.targetPlatform ? xcodeVer) then
         stdenv.targetPlatform.xcodeVer

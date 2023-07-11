@@ -44,15 +44,16 @@ let
     # Cf. https://nixos.org/manual/nixpkgs/unstable/#sec-cross-infra
   ptxas = "${pkgsTargetTarget.cudaPackages.cuda_nvcc}/bin/ptxas";
 
-  llvm = (llvmPackages.llvm.override {
-    llvmTargetsToBuild = [
-      "NATIVE"
-      "NVPTX"
-    ];
-      # Upstream CI sets these too:
-      # targetProjects = [ "mlir" ];
-    extraCMakeFlags = [ "-DLLVM_INSTALL_UTILS=ON" ];
-  });
+  llvm =
+    (llvmPackages.llvm.override {
+      llvmTargetsToBuild = [
+        "NATIVE"
+        "NVPTX"
+      ];
+        # Upstream CI sets these too:
+        # targetProjects = [ "mlir" ];
+      extraCMakeFlags = [ "-DLLVM_INSTALL_UTILS=ON" ];
+    });
 in
 buildPythonPackage {
   inherit pname version;
@@ -95,12 +96,13 @@ buildPythonPackage {
     # })
   ];
 
-  postPatch = ''
-    substituteInPlace python/setup.py \
-      --replace \
-        '= get_thirdparty_packages(triton_cache_path)' \
-        '= os.environ["cmakeFlags"].split()'
-  ''
+  postPatch =
+    ''
+      substituteInPlace python/setup.py \
+        --replace \
+          '= get_thirdparty_packages(triton_cache_path)' \
+          '= os.environ["cmakeFlags"].split()'
+    ''
     # Wiring triton=2.0.0 with llcmPackages_rocm.llvm=5.4.3
     # Revisit when updating either triton or llvm
     + ''
@@ -152,7 +154,8 @@ buildPythonPackage {
     # Triton seems to be looking up cuda.h
     + ''
       sed -i 's|cu_include_dir = os.path.join.*$|cu_include_dir = "${cuda_cudart}/include"|' python/triton/compiler.py
-    '';
+    ''
+    ;
 
   nativeBuildInputs = [
     cmake
@@ -229,12 +232,14 @@ buildPythonPackage {
     '' # For pytestCheckHook
     + ''
       cd test/unit
-    '';
-  pythonImportsCheck = [
-    # Circular dependency on torch
-    # "triton"
-    # "triton.language"
-  ];
+    ''
+    ;
+  pythonImportsCheck =
+    [
+      # Circular dependency on torch
+      # "triton"
+      # "triton.language"
+    ];
 
     # Ultimately, torch is our test suite:
   passthru.tests = { inherit torchWithRocm; };

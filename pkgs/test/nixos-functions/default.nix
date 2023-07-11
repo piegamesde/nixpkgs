@@ -22,11 +22,12 @@ let
 in
 lib.optionalAttrs stdenv.hostPlatform.isLinux (pkgs.recurseIntoAttrs {
 
-  nixos-test = (pkgs.nixos {
-    system.nixos = dummyVersioning;
-    boot.loader.grub.enable = false;
-    fileSystems."/".device = "/dev/null";
-    system.stateVersion = lib.trivial.release;
-  }).toplevel;
+  nixos-test =
+    (pkgs.nixos {
+      system.nixos = dummyVersioning;
+      boot.loader.grub.enable = false;
+      fileSystems."/".device = "/dev/null";
+      system.stateVersion = lib.trivial.release;
+    }).toplevel;
 
 })

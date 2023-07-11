@@ -16,14 +16,16 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "liblouis";
   version = "3.25.0";
 
-  outputs = [
-    "out"
-    "dev"
-    "info"
-    "doc"
-  ]
-  # configure: WARNING: cannot generate manual pages while cross compiling
-    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "man" ];
+  outputs =
+    [
+      "out"
+      "dev"
+      "info"
+      "doc"
+    ]
+    # configure: WARNING: cannot generate manual pages while cross compiling
+    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "man" ]
+    ;
 
   src = fetchFromGitHub {
     owner = "liblouis";
@@ -43,17 +45,19 @@ stdenv.mkDerivation (finalAttrs: {
     help2man
   ];
 
-  buildInputs = [
-    # lou_checkYaml
-    libyaml
-  ];
+  buildInputs =
+    [
+      # lou_checkYaml
+      libyaml
+    ];
 
   nativeCheckInputs = [ perl ];
 
-  configureFlags = [
-    # Required by Python bindings
-    "--enable-ucs4"
-  ];
+  configureFlags =
+    [
+      # Required by Python bindings
+      "--enable-ucs4"
+    ];
 
   postPatch = ''
     patchShebangs tests

@@ -55,7 +55,9 @@ let
     ;
 
     # A little hacky
-  isJVM = spec.pkg.pname == "abcl";
+  isJVM =
+    spec.pkg.pname == "abcl"
+    ;
 
     # Makes it so packages imported from Quicklisp can be re-used as
     # lispLibs ofpackages in this file.
@@ -255,10 +257,12 @@ let
           "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
         sha256 = "09z1vwzjm7hlb529jl3hcjnfd11gh128lmdg51im7ar4jv4746iw";
       };
-      lispLibs = [
-        self.lessp
-        self.rollback
-      ] ++ [ super.local-time ];
+      lispLibs =
+        [
+          self.lessp
+          self.rollback
+        ] ++ [ super.local-time ]
+        ;
     };
 
     cl-fuse = build-with-compile-into-pwd {
@@ -316,12 +320,14 @@ let
       inherit (super.nyxt) pname;
       version = "2.2.4";
 
-      lispLibs = super.nyxt.lispLibs ++ (with super; [
-        cl-cffi-gtk
-        cl-webkit2
-        mk-string-metrics
-        cl-css
-      ]);
+      lispLibs =
+        super.nyxt.lispLibs ++ (with super; [
+          cl-cffi-gtk
+          cl-webkit2
+          mk-string-metrics
+          cl-css
+        ])
+        ;
 
       src = pkgs.fetchzip {
         url = "https://github.com/atlas-engineer/nyxt/archive/2.2.4.tar.gz";
@@ -352,18 +358,20 @@ let
         # Run with WEBKIT_FORCE_SANDBOX=0 if getting a runtime error
         # See https://github.com/atlas-engineer/nyxt/issues/1781
         # TODO(kasper): use wrapGAppsHook
-      installPhase = super.nyxt.installPhase + ''
-        rm -v $out/nyxt
-        mkdir -p $out/bin
-        cp -v nyxt $out/bin
-        wrapProgram $out/bin/nyxt \
-          --set WEBKIT_FORCE_SANDBOX 0 \
-          --prefix LD_LIBRARY_PATH : $LD_LIBRARY_PATH \
-          --prefix XDG_DATA_DIRS : $XDG_ICON_DIRS \
-          --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
-          --prefix GIO_EXTRA_MODULES ":" ${pkgs.dconf.lib}/lib/gio/modules/ \
-          --prefix GIO_EXTRA_MODULES ":" ${pkgs.glib-networking}/lib/gio/modules/
-      '';
+      installPhase =
+        super.nyxt.installPhase + ''
+          rm -v $out/nyxt
+          mkdir -p $out/bin
+          cp -v nyxt $out/bin
+          wrapProgram $out/bin/nyxt \
+            --set WEBKIT_FORCE_SANDBOX 0 \
+            --prefix LD_LIBRARY_PATH : $LD_LIBRARY_PATH \
+            --prefix XDG_DATA_DIRS : $XDG_ICON_DIRS \
+            --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
+            --prefix GIO_EXTRA_MODULES ":" ${pkgs.dconf.lib}/lib/gio/modules/ \
+            --prefix GIO_EXTRA_MODULES ":" ${pkgs.glib-networking}/lib/gio/modules/
+        ''
+        ;
     };
 
     nyxt = self.nyxt-gtk;
@@ -495,8 +503,10 @@ let
 
     qtools = build-with-compile-into-pwd {
       inherit (super.qtools) pname version src nativeLibs;
-      lispLibs = [ self.qt ] ++ remove super.qt_plus_libs super.qtools.lispLibs
-        ++ [ self.qt-libs ];
+      lispLibs =
+        [ self.qt ] ++ remove super.qt_plus_libs super.qtools.lispLibs
+        ++ [ self.qt-libs ]
+        ;
       patches = [ ./patches/qtools-use-nix-libs.patch ];
     };
 

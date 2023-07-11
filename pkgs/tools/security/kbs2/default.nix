@@ -26,18 +26,22 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs =
     [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ python3 ];
 
-  buildInputs = [ ] ++ lib.optionals stdenv.isLinux [ libxcb ]
+  buildInputs =
+    [ ] ++ lib.optionals stdenv.isLinux [ libxcb ]
     ++ lib.optionals stdenv.isDarwin [
       SystemConfiguration
       AppKit
-    ];
+    ]
+    ;
 
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  checkFlags = [ "--skip=kbs2::config::tests::test_find_config_dir" ]
-    ++ lib.optionals stdenv.isDarwin [ "--skip=test_ragelib_rewrap_keyfile" ];
+  checkFlags =
+    [ "--skip=kbs2::config::tests::test_find_config_dir" ]
+    ++ lib.optionals stdenv.isDarwin [ "--skip=test_ragelib_rewrap_keyfile" ]
+    ;
 
   postInstall = ''
     mkdir -p $out/share/kbs2

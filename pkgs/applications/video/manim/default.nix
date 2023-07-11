@@ -24,9 +24,10 @@ let
   #
   # these two combined add up to:
   manim-tinytex = {
-    inherit (texlive)
+    inherit
+      (texlive)
 
-    # tinytex
+      # tinytex
       scheme-infraonly
       amsfonts
       amsmath

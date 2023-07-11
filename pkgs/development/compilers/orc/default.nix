@@ -31,34 +31,42 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hE5tfbgIb3k/V2GNPUto0p2ZsWA05xQw3zwhz9PDVCo=";
   };
 
-  postPatch = lib.optionalString stdenv.isAarch32 ''
-    # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/20
-    sed -i '/exec_opcodes_sys/d' testsuite/meson.build
-  '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
-    # This benchmark times out on Hydra.nixos.org
-    sed -i '/memcpy_speed/d' testsuite/meson.build
-  '';
+  postPatch =
+    lib.optionalString stdenv.isAarch32 ''
+      # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/20
+      sed -i '/exec_opcodes_sys/d' testsuite/meson.build
+    '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+      # This benchmark times out on Hydra.nixos.org
+      sed -i '/memcpy_speed/d' testsuite/meson.build
+    ''
+    ;
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ optional buildDevDoc "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ] ++ optional buildDevDoc "devdoc"
+    ;
   outputBin = "dev"; # compilation tools
 
   mesonFlags = optionals (!buildDevDoc) [ "-Dgtk_doc=disabled" ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ] ++ optionals buildDevDoc [
-    gtk-doc
-    file
-    docbook_xsl
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+    ] ++ optionals buildDevDoc [
+      gtk-doc
+      file
+      docbook_xsl
+    ]
+    ;
 
     # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/41
-  doCheck = !(stdenv.isLinux && stdenv.isAarch64 && stdenv.cc.isGNU
-    && lib.versionAtLeast stdenv.cc.version "12");
+  doCheck =
+    !(stdenv.isLinux && stdenv.isAarch64 && stdenv.cc.isGNU
+      && lib.versionAtLeast stdenv.cc.version "12")
+    ;
 
   passthru.tests = {
     inherit (gst_all_1) gst-plugins-good gst-plugins-bad gst-plugins-ugly;

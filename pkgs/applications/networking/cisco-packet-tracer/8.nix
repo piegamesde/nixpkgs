@@ -35,7 +35,8 @@ let
 
     dontUnpack = true;
     src = requireFile {
-      name = "CiscoPacketTracer_${
+      name =
+        "CiscoPacketTracer_${
           builtins.replaceStrings [ "." ] [ "" ] version
         }_Ubuntu_64bit.deb";
       sha256 =
@@ -43,44 +44,46 @@ let
       url = "https://www.netacad.com";
     };
 
-    nativeBuildInputs = [
-      alsa-lib
-      autoPatchelfHook
-      dbus
-      dpkg
-      expat
-      fontconfig
-      glib
-      libdrm
-      libglvnd
-      libpulseaudio
-      libudev0-shim
-      libxkbcommon
-      libxml2
-      libxslt
-      makeWrapper
-      nspr
-      nss
-    ] ++ (with xorg; [
-      libICE
-      libSM
-      libX11
-      libxcb
-      libXcomposite
-      libXcursor
-      libXdamage
-      libXext
-      libXfixes
-      libXi
-      libXrandr
-      libXrender
-      libXScrnSaver
-      libXtst
-      xcbutilimage
-      xcbutilkeysyms
-      xcbutilrenderutil
-      xcbutilwm
-    ]);
+    nativeBuildInputs =
+      [
+        alsa-lib
+        autoPatchelfHook
+        dbus
+        dpkg
+        expat
+        fontconfig
+        glib
+        libdrm
+        libglvnd
+        libpulseaudio
+        libudev0-shim
+        libxkbcommon
+        libxml2
+        libxslt
+        makeWrapper
+        nspr
+        nss
+      ] ++ (with xorg; [
+        libICE
+        libSM
+        libX11
+        libxcb
+        libXcomposite
+        libXcursor
+        libXdamage
+        libXext
+        libXfixes
+        libXi
+        libXrandr
+        libXrender
+        libXScrnSaver
+        libXtst
+        xcbutilimage
+        xcbutilkeysyms
+        xcbutilrenderutil
+        xcbutilwm
+      ])
+      ;
 
     installPhase = ''
       dpkg-deb -x $src $out

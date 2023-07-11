@@ -30,12 +30,13 @@ buildPythonPackage rec {
     hash = "sha256-LPnfuAp7RYm6TEDOdYiYbW1c68VFfK0sKID2vC1C86U=";
   };
 
-  patches = [
-    # These tests require internet connection, currently impossible to disable
-    # them otherwise, see:
-    # https://github.com/scipy/scipy/pull/17965
-    ./disable-datasets-tests.patch
-  ];
+  patches =
+    [
+      # These tests require internet connection, currently impossible to disable
+      # them otherwise, see:
+      # https://github.com/scipy/scipy/pull/17965
+      ./disable-datasets-tests.patch
+    ];
 
   nativeBuildInputs = [
     cython
@@ -46,11 +47,13 @@ buildPythonPackage rec {
     wheel
   ];
 
-  buildInputs = [
-    numpy.blas
-    pybind11
-    pooch
-  ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+  buildInputs =
+    [
+      numpy.blas
+      pybind11
+      pooch
+    ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ]
+    ;
 
   propagatedBuildInputs = [ numpy ];
 

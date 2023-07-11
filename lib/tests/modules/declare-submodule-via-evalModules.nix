@@ -3,14 +3,15 @@
   ...
 }: {
   options.submodule = lib.mkOption {
-    inherit (lib.evalModules {
-      modules = [ {
-        options.inner = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-        };
-      } ];
-    })
+    inherit
+      (lib.evalModules {
+        modules = [ {
+          options.inner = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+          };
+        } ];
+      })
       type
       ;
     default = { };

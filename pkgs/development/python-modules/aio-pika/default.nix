@@ -33,10 +33,12 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  propagatedBuildInputs = [
-    aiormq
-    yarl
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs =
+    [
+      aiormq
+      yarl
+    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ;
 
   nativeCheckInputs = [
     aiomisc-pytest

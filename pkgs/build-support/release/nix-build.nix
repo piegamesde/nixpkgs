@@ -75,16 +75,18 @@ stdenv.mkDerivation (
       fi
     '';
 
-    failureHook = (lib.optionalString (failureHook != null) failureHook) + ''
-      if test -n "$succeedOnFailure"; then
-          if test -n "$keepBuildDirectory"; then
-              KEEPBUILDDIR="$out/`basename $TMPDIR`"
-              echo "Copying build directory to $KEEPBUILDDIR"
-              mkdir -p $KEEPBUILDDIR
-              cp -R "$TMPDIR/"* $KEEPBUILDDIR
-          fi
-      fi
-    '';
+    failureHook =
+      (lib.optionalString (failureHook != null) failureHook) + ''
+        if test -n "$succeedOnFailure"; then
+            if test -n "$keepBuildDirectory"; then
+                KEEPBUILDDIR="$out/`basename $TMPDIR`"
+                echo "Copying build directory to $KEEPBUILDDIR"
+                mkdir -p $KEEPBUILDDIR
+                cp -R "$TMPDIR/"* $KEEPBUILDDIR
+            fi
+        fi
+      ''
+      ;
   }
 
   // removeAttrs args [
@@ -140,11 +142,12 @@ stdenv.mkDerivation (
 
     prePhases = [ "initPhase" ] ++ prePhases;
 
-    buildInputs = buildInputs
-      ++ (lib.optional doCoverageAnalysis args.makeGCOVReport)
+    buildInputs =
+      buildInputs ++ (lib.optional doCoverageAnalysis args.makeGCOVReport)
       ++ (lib.optional doClangAnalysis args.clang-analyzer)
       ++ (lib.optional doCoverityAnalysis args.cov-build)
-      ++ (lib.optional doCoverityAnalysis args.xz);
+      ++ (lib.optional doCoverityAnalysis args.xz)
+      ;
 
     lcovFilter = [ "${builtins.storeDir}/*" ] ++ lcovFilter;
 

@@ -56,16 +56,17 @@ in
     };
   };
 
-  imports = (map (option:
-    mkRemovedOptionModule [
-      "services"
-      "netatalk"
-      option
-    ] "This option was removed in favor of `services.netatalk.settings`.") [
-      "extraConfig"
-      "homes"
-      "volumes"
-    ]);
+  imports =
+    (map (option:
+      mkRemovedOptionModule [
+        "services"
+        "netatalk"
+        option
+      ] "This option was removed in favor of `services.netatalk.settings`.") [
+        "extraConfig"
+        "homes"
+        "volumes"
+      ]);
 
   config = mkIf cfg.enable {
 

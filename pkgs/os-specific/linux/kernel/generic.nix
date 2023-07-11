@@ -108,7 +108,8 @@ let
   intermediateNixConfig =
     configfile.moduleStructuredConfig.intermediateNixConfig
     # extra config in legacy string format
-    + extraConfig + stdenv.hostPlatform.linux-kernel.extraConfig or "";
+    + extraConfig + stdenv.hostPlatform.linux-kernel.extraConfig or ""
+    ;
 
   structuredConfigFromPatches = map ({
       extraStructuredConfig ? { },
@@ -147,15 +148,17 @@ let
     passAsFile = [ "kernelConfig" ];
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
-    nativeBuildInputs = [
-      perl
-      gmp
-      libmpc
-      mpfr
-    ] ++ lib.optionals (lib.versionAtLeast version "4.16") [
-      bison
-      flex
-    ] ++ lib.optional (lib.versionAtLeast version "5.2") pahole;
+    nativeBuildInputs =
+      [
+        perl
+        gmp
+        libmpc
+        mpfr
+      ] ++ lib.optionals (lib.versionAtLeast version "4.16") [
+        bison
+        flex
+      ] ++ lib.optional (lib.versionAtLeast version "5.2") pahole
+      ;
 
     platformName = stdenv.hostPlatform.linux-kernel.name;
       # e.g. "defconfig"
@@ -168,14 +171,18 @@ let
       # e.g. "bzImage"
     kernelTarget = stdenv.hostPlatform.linux-kernel.target;
 
-    makeFlags = lib.optionals (stdenv.hostPlatform.linux-kernel ? makeFlags)
-      stdenv.hostPlatform.linux-kernel.makeFlags ++ extraMakeFlags;
+    makeFlags =
+      lib.optionals (stdenv.hostPlatform.linux-kernel ? makeFlags)
+      stdenv.hostPlatform.linux-kernel.makeFlags ++ extraMakeFlags
+      ;
 
-    postPatch = kernel.postPatch + ''
-      # Patch kconfig to print "###" after every question so that
-      # generate-config.pl from the generic builder can answer them.
-      sed -e '/fflush(stdout);/i\printf("###");' -i scripts/kconfig/conf.c
-    '';
+    postPatch =
+      kernel.postPatch + ''
+        # Patch kconfig to print "###" after every question so that
+        # generate-config.pl from the generic builder can answer them.
+        sed -e '/fflush(stdout);/i\printf("###");' -i scripts/kconfig/conf.c
+      ''
+      ;
 
     preUnpack = kernel.preUnpack or "";
 
@@ -214,19 +221,22 @@ let
         # { modules = [ { options = res.options; config = svc.config or svc; } ];
         #   check = false;
         # The result is a set of two attributes
-      moduleStructuredConfig = (lib.evalModules {
-        modules = [
-          module
-          {
-            settings = commonStructuredConfig;
-            _file = "pkgs/os-specific/linux/kernel/common-config.nix";
-          }
-          {
-            settings = structuredExtraConfig;
-            _file = "structuredExtraConfig";
-          }
-        ] ++ structuredConfigFromPatches;
-      }).config;
+      moduleStructuredConfig =
+        (lib.evalModules {
+          modules =
+            [
+              module
+              {
+                settings = commonStructuredConfig;
+                _file = "pkgs/os-specific/linux/kernel/common-config.nix";
+              }
+              {
+                settings = structuredExtraConfig;
+                _file = "structuredExtraConfig";
+              }
+            ] ++ structuredConfigFromPatches
+            ;
+        }).config;
 
       structuredConfig = moduleStructuredConfig.settings;
     };
@@ -261,10 +271,12 @@ let
       # Adds dependencies needed to edit the config:
       # nix-shell '<nixpkgs>' -A linux.configEnv --command 'make nconfig'
     configEnv = kernel.overrideAttrs (old: {
-      nativeBuildInputs = old.nativeBuildInputs or [ ] ++ (with buildPackages; [
-        pkg-config
-        ncurses
-      ]);
+      nativeBuildInputs =
+        old.nativeBuildInputs or [ ] ++ (with buildPackages; [
+          pkg-config
+          ncurses
+        ])
+        ;
     });
 
     passthru = kernel.passthru // (removeAttrs passthru [ "passthru" ]);

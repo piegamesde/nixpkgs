@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     # nixpkgs-update: no auto update
     # NB! Make sure to update ./tools.nix src (in the same directory).
   src = fetchurl {
-    url = "https://sqlite.org/2023/sqlite-autoconf-${
+    url =
+      "https://sqlite.org/2023/sqlite-autoconf-${
         archiveVersion version
       }.tar.gz";
     hash = "sha256-6YwQDdHaTjD6Rgdh2rfAuRpQt4XhZ/jFesxGUU+ulJk=";
@@ -45,10 +46,12 @@ stdenv.mkDerivation rec {
   ];
   separateDebugInfo = stdenv.isLinux;
 
-  buildInputs = [ zlib ] ++ lib.optionals interactive [
-    readline
-    ncurses
-  ];
+  buildInputs =
+    [ zlib ] ++ lib.optionals interactive [
+      readline
+      ncurses
+    ]
+    ;
 
     # required for aarch64 but applied for all arches for simplicity
   preConfigure = ''
@@ -115,7 +118,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    changelog = "https://www.sqlite.org/releaselog/${
+    changelog =
+      "https://www.sqlite.org/releaselog/${
         lib.replaceStrings [ "." ] [ "_" ] version
       }.html";
     description =

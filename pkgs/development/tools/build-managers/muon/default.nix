@@ -29,13 +29,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   outputs = [ "out" ] ++ lib.optionals buildDocs [ "man" ];
 
-  nativeBuildInputs = [
-    pkgconf
-    samurai
-  ] ++ lib.optionals buildDocs [
-    (python3.withPackages (ps: [ ps.pyyaml ]))
-    scdoc
-  ];
+  nativeBuildInputs =
+    [
+      pkgconf
+      samurai
+    ] ++ lib.optionals buildDocs [
+      (python3.withPackages (ps: [ ps.pyyaml ]))
+      scdoc
+    ]
+    ;
 
   buildInputs = [
     curl
@@ -70,11 +72,13 @@ stdenv.mkDerivation (finalAttrs: {
     ''
     ;
 
-  postPatch = ''
-    patchShebangs bootstrap.sh
-  '' + lib.optionalString buildDocs ''
-    patchShebangs subprojects/meson-docs/docs/genrefman.py
-  '';
+  postPatch =
+    ''
+      patchShebangs bootstrap.sh
+    '' + lib.optionalString buildDocs ''
+      patchShebangs subprojects/meson-docs/docs/genrefman.py
+    ''
+    ;
 
     # tests try to access "~"
   postConfigure = ''

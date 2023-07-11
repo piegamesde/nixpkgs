@@ -8,10 +8,12 @@
 }:
 
 runCommand "netlify-cli-test" {
-  nativeBuildInputs = [
-    netlify-cli
-    curl
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.ps ];
+  nativeBuildInputs =
+    [
+      netlify-cli
+      curl
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.ps ]
+    ;
   meta.timeout = 600;
 } ''
   mkdir home

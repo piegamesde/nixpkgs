@@ -23,17 +23,19 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  postUnpack = ''
-    unpackFile ${libcxx.src}
-    unpackFile ${llvm.src}
-    cmakeFlags+=" -DLLVM_PATH=$PWD/$(ls -d llvm-*) -DLIBCXXABI_LIBCXX_PATH=$PWD/$(ls -d libcxx-*)"
-  '' + lib.optionalString stdenv.isDarwin ''
-    export TRIPLE=x86_64-apple-darwin
-  '' + lib.optionalString stdenv.hostPlatform.isMusl ''
-    patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
-  '' + lib.optionalString stdenv.hostPlatform.isWasm ''
-    patch -p1 -d $(ls -d llvm-*) -i ${./wasm.patch}
-  '';
+  postUnpack =
+    ''
+      unpackFile ${libcxx.src}
+      unpackFile ${llvm.src}
+      cmakeFlags+=" -DLLVM_PATH=$PWD/$(ls -d llvm-*) -DLIBCXXABI_LIBCXX_PATH=$PWD/$(ls -d libcxx-*)"
+    '' + lib.optionalString stdenv.isDarwin ''
+      export TRIPLE=x86_64-apple-darwin
+    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+      patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
+    '' + lib.optionalString stdenv.hostPlatform.isWasm ''
+      patch -p1 -d $(ls -d llvm-*) -i ${./wasm.patch}
+    ''
+    ;
 
   patches = [
     ./no-threads.patch
@@ -44,13 +46,15 @@ stdenv.mkDerivation {
   buildInputs =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
 
-  cmakeFlags = lib.optionals (stdenv.hostPlatform.useLLVM or false) [
-    "-DLLVM_ENABLE_LIBCXX=ON"
-    "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
-  ] ++ lib.optionals stdenv.hostPlatform.isWasm [
-    "-DLIBCXXABI_ENABLE_THREADS=OFF"
-    "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
-  ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
+  cmakeFlags =
+    lib.optionals (stdenv.hostPlatform.useLLVM or false) [
+      "-DLLVM_ENABLE_LIBCXX=ON"
+      "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
+    ] ++ lib.optionals stdenv.hostPlatform.isWasm [
+      "-DLIBCXXABI_ENABLE_THREADS=OFF"
+      "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
+    ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
+    ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

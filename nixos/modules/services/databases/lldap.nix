@@ -119,7 +119,8 @@ in
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${lib.getExe cfg.package} run --config-file ${
+        ExecStart =
+          "${lib.getExe cfg.package} run --config-file ${
             format.generate "lldap_config.toml" cfg.settings
           }";
         StateDirectory = "lldap";

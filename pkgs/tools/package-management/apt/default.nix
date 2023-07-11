@@ -47,27 +47,29 @@ stdenv.mkDerivation rec {
     triehash
   ];
 
-  buildInputs = [
-    bzip2
-    curl
-    db
-    dpkg
-    gnutls
-    libgcrypt
-    libseccomp
-    libtasn1
-    lz4
-    perlPackages.perl
-    udev
-    xxHash
-    xz
-    zstd
-  ] ++ lib.optionals withDocs [
-    docbook_xml_dtd_45
-    doxygen
-    perlPackages.Po4a
-    w3m
-  ] ++ lib.optionals withNLS [ gettext ];
+  buildInputs =
+    [
+      bzip2
+      curl
+      db
+      dpkg
+      gnutls
+      libgcrypt
+      libseccomp
+      libtasn1
+      lz4
+      perlPackages.perl
+      udev
+      xxHash
+      xz
+      zstd
+    ] ++ lib.optionals withDocs [
+      docbook_xml_dtd_45
+      doxygen
+      perlPackages.Po4a
+      w3m
+    ] ++ lib.optionals withNLS [ gettext ]
+    ;
 
   cmakeFlags = [
     "-DBERKELEY_INCLUDE_DIRS=${db.dev}/include"

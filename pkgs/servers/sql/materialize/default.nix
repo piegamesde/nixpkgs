@@ -26,7 +26,8 @@ let
     }@args:
     let
       package = fetchzip {
-        url = "https://registry.npmjs.org/${name}/-/${
+        url =
+          "https://registry.npmjs.org/${name}/-/${
             baseNameOf name
           }-${version}.tgz";
         inherit hash;
@@ -102,22 +103,26 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    pkg-config
-  ]
-  # Provides the mig command used by the krb5-src build script
-    ++ lib.optional stdenv.isDarwin bootstrap_cmds;
+  nativeBuildInputs =
+    [
+      cmake
+      perl
+      pkg-config
+    ]
+    # Provides the mig command used by the krb5-src build script
+    ++ lib.optional stdenv.isDarwin bootstrap_cmds
+    ;
 
     # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    DiskArbitration
-    Foundation
-  ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      DiskArbitration
+      Foundation
+    ]
+    ;
 
     # Skip tests that use the network
   checkFlags = [

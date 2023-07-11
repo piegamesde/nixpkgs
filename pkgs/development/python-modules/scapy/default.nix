@@ -47,29 +47,32 @@ buildPythonPackage rec {
 
   patches = [ ./find-library.patch ];
 
-  postPatch = ''
-    printf "${version}" > scapy/VERSION
+  postPatch =
+    ''
+      printf "${version}" > scapy/VERSION
 
-    libpcap_file="${
-      lib.getLib libpcap
-    }/lib/libpcap${stdenv.hostPlatform.extensions.sharedLibrary}"
-    if ! [ -e "$libpcap_file" ]; then
-        echo "error: $libpcap_file not found" >&2
-        exit 1
-    fi
-    substituteInPlace "scapy/libs/winpcapy.py" \
-        --replace "@libpcap_file@" "$libpcap_file"
-  '' + lib.optionalString withManufDb ''
-    substituteInPlace scapy/data.py --replace "/opt/wireshark" "${wireshark}"
-  '';
+      libpcap_file="${
+        lib.getLib libpcap
+      }/lib/libpcap${stdenv.hostPlatform.extensions.sharedLibrary}"
+      if ! [ -e "$libpcap_file" ]; then
+          echo "error: $libpcap_file not found" >&2
+          exit 1
+      fi
+      substituteInPlace "scapy/libs/winpcapy.py" \
+          --replace "@libpcap_file@" "$libpcap_file"
+    '' + lib.optionalString withManufDb ''
+      substituteInPlace scapy/data.py --replace "/opt/wireshark" "${wireshark}"
+    ''
+    ;
 
-  propagatedBuildInputs = [
-    pycrypto
-    ecdsa
-  ] ++ lib.optionals withOptionalDeps [
-    tcpdump
-    ipython
-  ] ++ lib.optional withCryptography cryptography
+  propagatedBuildInputs =
+    [
+      pycrypto
+      ecdsa
+    ] ++ lib.optionals withOptionalDeps [
+      tcpdump
+      ipython
+    ] ++ lib.optional withCryptography cryptography
     ++ lib.optional withVoipSupport sox
     ++ lib.optional withPlottingSupport matplotlib
     ++ lib.optionals withGraphicsSupport [
@@ -77,7 +80,8 @@ buildPythonPackage rec {
       texlive.combined.scheme-minimal
       graphviz
       imagemagick
-    ];
+    ]
+    ;
 
     # Running the tests seems too complicated:
   doCheck = false;

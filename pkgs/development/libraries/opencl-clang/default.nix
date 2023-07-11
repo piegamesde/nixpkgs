@@ -16,11 +16,13 @@ let
   addPatches =
     component: pkg:
     pkg.overrideAttrs (oldAttrs: {
-      postPatch = oldAttrs.postPatch or "" + ''
-        for p in ${passthru.patchesOut}/${component}/*; do
-          patch -p1 -i "$p"
-        done
-      '';
+      postPatch =
+        oldAttrs.postPatch or "" + ''
+          for p in ${passthru.patchesOut}/${component}/*; do
+            patch -p1 -i "$p"
+          done
+        ''
+        ;
     })
     ;
 
@@ -60,10 +62,11 @@ let
   library =
     let
       inherit (llvmPackages_11) llvm;
-      inherit (if buildWithPatches then
-        passthru
-      else
-        llvmPkgs)
+      inherit
+        (if buildWithPatches then
+          passthru
+        else
+          llvmPkgs)
         libclang
         spirv-llvm-translator
         ;
@@ -79,11 +82,12 @@ let
         sha256 = "sha256-qEZoQ6h4XAvSnJ7/gLXBb1qrzeYa6Jp6nij9VFo8MwQ=";
       };
 
-      patches = [
-        # Build script tries to find Clang OpenCL headers under ${llvm}
-        # Work around it by specifying that directory manually.
-        ./opencl-headers-dir.patch
-      ];
+      patches =
+        [
+          # Build script tries to find Clang OpenCL headers under ${llvm}
+          # Work around it by specifying that directory manually.
+          ./opencl-headers-dir.patch
+        ];
 
         # Uses linker flags that are not supported on Darwin.
       postPatch = lib.optionalString stdenv.isDarwin ''

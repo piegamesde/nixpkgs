@@ -137,9 +137,7 @@
     fix' (self:
       (rattrs self) // {
         ${extenderName} =
-          f:
-          makeExtensibleWithCustomName extenderName (extends f rattrs)
-          ;
+          f: makeExtensibleWithCustomName extenderName (extends f rattrs);
       })
     ;
 }

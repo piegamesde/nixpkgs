@@ -49,10 +49,12 @@ buildPythonPackage rec {
     # No useful tests
   doCheck = false;
 
-  propagatedBuildInputs = [
-    pyyaml
-    sanic
-  ] ++ opts.extraBuildInputs;
+  propagatedBuildInputs =
+    [
+      pyyaml
+      sanic
+    ] ++ opts.extraBuildInputs
+    ;
 
   prePatch = opts.prePatch;
 

@@ -564,13 +564,15 @@ rec {
     pkgs.dockerTools.buildLayeredImage {
       name = "bash-layered-with-user";
       tag = "latest";
-      contents = [
-        pkgs.bash
-        pkgs.coreutils
-      ] ++ nonRootShadowSetup {
-        uid = 999;
-        user = "somebody";
-      };
+      contents =
+        [
+          pkgs.bash
+          pkgs.coreutils
+        ] ++ nonRootShadowSetup {
+          uid = 999;
+          user = "somebody";
+        }
+        ;
     }
     ;
 
@@ -639,8 +641,10 @@ rec {
       ln -s ${
         pkgs.hello.overrideAttrs (o: {
           # A unique `hello` to make sure that it isn't included via another mechanism by accident.
-          configureFlags = o.configureFlags or [ ]
-            ++ [ " --program-prefix=layeredImageWithFakeRootCommands-" ];
+          configureFlags =
+            o.configureFlags or [ ]
+            ++ [ " --program-prefix=layeredImageWithFakeRootCommands-" ]
+            ;
           doCheck = false;
         })
       } ./hello
@@ -694,23 +698,24 @@ rec {
   etc =
     let
       inherit (pkgs) lib;
-      nixosCore = (evalMinimalConfig ({
-          config,
-          ...
-        }: {
-          imports = [
-            pkgs.pkgsModule
-            ../../../nixos/modules/system/etc/etc.nix
-          ];
-          environment.etc."some-config-file" = {
-            text = ''
-              127.0.0.1 localhost
-              ::1 localhost
-            '';
-              # For executables:
-              # mode = "0755";
-          };
-        }));
+      nixosCore =
+        (evalMinimalConfig ({
+            config,
+            ...
+          }: {
+            imports = [
+              pkgs.pkgsModule
+              ../../../nixos/modules/system/etc/etc.nix
+            ];
+            environment.etc."some-config-file" = {
+              text = ''
+                127.0.0.1 localhost
+                ::1 localhost
+              '';
+                # For executables:
+                # mode = "0755";
+            };
+          }));
     in
     pkgs.dockerTools.streamLayeredImage {
       name = "etc";

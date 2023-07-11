@@ -35,21 +35,23 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapGAppsHook
   ];
-  buildInputs = [
-    glib
-    gcr
-    glib-networking
-    gsettings-desktop-schemas
-    gtk
-    libsoup
-    webkitgtk
-  ] ++ (with gst_all_1; [
-    # Audio & video support for webkitgtk WebView
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-  ]);
+  buildInputs =
+    [
+      glib
+      gcr
+      glib-networking
+      gsettings-desktop-schemas
+      gtk
+      libsoup
+      webkitgtk
+    ] ++ (with gst_all_1; [
+      # Audio & video support for webkitgtk WebView
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+    ])
+    ;
 
   inherit patches;
 

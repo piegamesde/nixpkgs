@@ -29,11 +29,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MVM0qCZDWcO7/Hnco+0dBqzBLcWD279xjx0slxxlc4w=";
   };
 
-  patches = [
-    # this will make it find its own data files (e.g. HRTF profiles)
-    # without any other configuration
-    ./search-out.patch
-  ];
+  patches =
+    [
+      # this will make it find its own data files (e.g. HRTF profiles)
+      # without any other configuration
+      ./search-out.patch
+    ];
   postPatch = ''
     substituteInPlace core/helpers.cpp \
       --replace "@OUT@" $out
@@ -47,23 +48,27 @@ stdenv.mkDerivation rec {
     removeReferencesTo
   ];
 
-  buildInputs = lib.optional alsaSupport alsa-lib
-    ++ lib.optional dbusSupport dbus ++ lib.optional pipewireSupport pipewire
+  buildInputs =
+    lib.optional alsaSupport alsa-lib ++ lib.optional dbusSupport dbus
+    ++ lib.optional pipewireSupport pipewire
     ++ lib.optional pulseSupport libpulseaudio
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       AudioUnit
       AudioToolbox
-    ];
+    ]
+    ;
 
-  cmakeFlags = [
-    # Automatically links dependencies without having to rely on dlopen, thus
-    # removes the need for NIX_LDFLAGS.
-    "-DALSOFT_DLOPEN=OFF"
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    # https://github.com/NixOS/nixpkgs/issues/183774
-    "-DOSS_INCLUDE_DIR=${stdenv.cc.libc}/include"
-  ];
+  cmakeFlags =
+    [
+      # Automatically links dependencies without having to rely on dlopen, thus
+      # removes the need for NIX_LDFLAGS.
+      "-DALSOFT_DLOPEN=OFF"
+    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+      # https://github.com/NixOS/nixpkgs/issues/183774
+      "-DOSS_INCLUDE_DIR=${stdenv.cc.libc}/include"
+    ]
+    ;
 
   postInstall = lib.optional pipewireSupport ''
     remove-references-to -t ${pipewire.dev} $(readlink -f $out/lib/*.so)

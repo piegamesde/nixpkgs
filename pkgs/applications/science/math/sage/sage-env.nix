@@ -60,71 +60,73 @@ assert (!blas.isILP64) && (!lapack.isILP64);
 # dependencies.
 
 let
-  runtimepath = (lib.makeBinPath ([
-    "@sage-local@"
-    "@sage-local@/build"
-    pythonEnv
-    gfortran # for inline fortran
-    stdenv.cc # for cython
-    bash
-    coreutils
-    gnused
-    gnugrep
-    binutils.bintools
-    pkg-config
-    pari
-    gap
-    maxima.lisp-compiler
-    maxima
-    singular
-    giac
-    palp
-    # needs to be rWrapper since the default `R` doesn't include R's default libraries
-    rWrapper
-    gfan
-    cddlib
-    jmol
-    tachyon
-    glpk
-    eclib
-    sympow
-    nauty
-    sqlite
-    ppl
-    ecm
-    lcalc
-    rubiks
-    flintqs
-    jdk # only needed for `jmol` which may be replaced in the future
-    less # needed to prevent transient test errors until https://github.com/ipython/ipython/pull/11864 is resolved
-  ]));
+  runtimepath =
+    (lib.makeBinPath ([
+      "@sage-local@"
+      "@sage-local@/build"
+      pythonEnv
+      gfortran # for inline fortran
+      stdenv.cc # for cython
+      bash
+      coreutils
+      gnused
+      gnugrep
+      binutils.bintools
+      pkg-config
+      pari
+      gap
+      maxima.lisp-compiler
+      maxima
+      singular
+      giac
+      palp
+      # needs to be rWrapper since the default `R` doesn't include R's default libraries
+      rWrapper
+      gfan
+      cddlib
+      jmol
+      tachyon
+      glpk
+      eclib
+      sympow
+      nauty
+      sqlite
+      ppl
+      ecm
+      lcalc
+      rubiks
+      flintqs
+      jdk # only needed for `jmol` which may be replaced in the future
+      less # needed to prevent transient test errors until https://github.com/ipython/ipython/pull/11864 is resolved
+    ]));
 in
 writeTextFile rec {
   name = "sage-env";
   destination = "/${name}";
-  text = ''
-    export PKG_CONFIG_PATH='${
-      lib.makeSearchPathOutput "dev" "lib/pkgconfig" [
-        # This should only be needed during build. However, since the  doctests
-        # also test the cython build (for example in src/sage/misc/cython.py),
-        # it is also needed for the testsuite to pass. We could fix the
-        # testsuite instead, but since all the packages are also runtime
-        # dependencies it doesn't really hurt to include them here.
-        singular
-        blas
-        lapack
-        fflas-ffpack
-        givaro
-        gd
-        libpng
-        zlib
-        gsl
-        linbox
-        m4ri
-      ]
-    }'
-    export SAGE_ROOT='${sagelib.src}'
-  '' +
+  text =
+    ''
+      export PKG_CONFIG_PATH='${
+        lib.makeSearchPathOutput "dev" "lib/pkgconfig" [
+          # This should only be needed during build. However, since the  doctests
+          # also test the cython build (for example in src/sage/misc/cython.py),
+          # it is also needed for the testsuite to pass. We could fix the
+          # testsuite instead, but since all the packages are also runtime
+          # dependencies it doesn't really hurt to include them here.
+          singular
+          blas
+          lapack
+          fflas-ffpack
+          givaro
+          gd
+          libpng
+          zlib
+          gsl
+          linbox
+          m4ri
+        ]
+      }'
+      export SAGE_ROOT='${sagelib.src}'
+    '' +
     # TODO: is using pythonEnv instead of @sage-local@ here a good
     # idea? there is a test in src/sage/env.py that checks if the values
     # SAGE_ROOT and SAGE_LOCAL set here match the ones set in env.py.
@@ -197,7 +199,8 @@ writeTextFile rec {
             giac
           ]
         }''${DYLD_LIBRARY_PATH:+:}$DYLD_LIBRARY_PATH"
-    '';
+    ''
+    ;
 } // { # equivalent of `passthru`, which `writeTextFile` doesn't support
   lib = sagelib;
   docbuild = sage-docbuild;

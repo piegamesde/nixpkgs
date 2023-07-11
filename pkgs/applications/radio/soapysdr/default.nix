@@ -36,28 +36,33 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "19f2x0pkxvf9figa0pl6xqlcz8fblvqb19mcnj632p0l8vk6qdv2";
   };
 
-  patches = [
-    # see https://github.com/pothosware/SoapySDR/issues/352 for upstream issue
-    ./fix-pkgconfig.patch
-  ];
+  patches =
+    [
+      # see https://github.com/pothosware/SoapySDR/issues/352 for upstream issue
+      ./fix-pkgconfig.patch
+    ];
 
   nativeBuildInputs = [
     cmake
     makeWrapper
     pkg-config
   ];
-  buildInputs = [
-    libusb-compat-0_1
-    ncurses
-  ] ++ lib.optionals usePython [
-    python
-    swig2
-  ];
+  buildInputs =
+    [
+      libusb-compat-0_1
+      ncurses
+    ] ++ lib.optionals usePython [
+      python
+      swig2
+    ]
+    ;
 
   propagatedBuildInputs = lib.optional usePython python.pkgs.numpy;
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ]
-    ++ lib.optional usePython "-DUSE_PYTHON_CONFIG=ON";
+  cmakeFlags =
+    [ "-DCMAKE_BUILD_TYPE=Release" ]
+    ++ lib.optional usePython "-DUSE_PYTHON_CONFIG=ON"
+    ;
 
     # https://github.com/pothosware/SoapySDR/issues/352
   postPatch = ''

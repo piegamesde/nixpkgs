@@ -120,120 +120,125 @@ python3Packages.buildPythonApplication rec {
     # To help figuring out what's missing from the list, run: ./pkgs/tools/misc/diffoscope/list-missing-tools.sh
     #
     # Still missing these tools: docx2txt lipo otool r2pipe
-  pythonPath = [
-    binutils-unwrapped-all-targets
-    bzip2
-    colordiff
-    coreutils
-    cpio
-    db
-    diffutils
-    0.0
-    fsprogs
-    file
-    findutils
-    fontforge-fonttools
-    gettext
-    gnutar
-    gzip
-    html2text
-    libarchive
-    lz4
-    openssl
-    pgpdump
-    sng
-    sqlite
-    squashfsTools
-    unzip
-    xxd
-    xz
-    zip
-    zstd
-  ] ++ (with python3Packages; [
-    argcomplete
-    debian
-    defusedxml
-    jsondiff
-    jsbeautifier
-    libarchive-c
-    python-magic
-    progressbar33
-    pypdf2
-    tlsh
-  ]) ++ lib.optionals stdenv.isLinux [
-    python3Packages.pyxattr
-    python3Packages.rpm
-    acl
-    cdrkit
-    dtc
-  ] ++ lib.optionals enableBloat ([
-    abootimg
-    apksigcopier
-    apksigner
-    apktool
-    cbfstool
-    colord
-    enjarify
-    ffmpeg
-    fpc
-    ghc
-    ghostscriptX
-    giflib
-    gnupg
-    gnumeric
-    hdf5
-    imagemagick
-    libcaca
-    llvm
-    jdk
-    mono
-    ocaml
-    odt2txt
-    oggvideotools
-    openssh
-    pdftk
-    poppler_utils
-    procyon
-    qemu
-    R
-    tcpdump
-    ubootTools
-    wabt
-    radare2
-    xmlbeans
-  ] ++ (with python3Packages; [
-    androguard
-    binwalk
-    guestfs
-    h5py
-    pdfminer-six
-  ]));
+  pythonPath =
+    [
+      binutils-unwrapped-all-targets
+      bzip2
+      colordiff
+      coreutils
+      cpio
+      db
+      diffutils
+      0.0
+      fsprogs
+      file
+      findutils
+      fontforge-fonttools
+      gettext
+      gnutar
+      gzip
+      html2text
+      libarchive
+      lz4
+      openssl
+      pgpdump
+      sng
+      sqlite
+      squashfsTools
+      unzip
+      xxd
+      xz
+      zip
+      zstd
+    ] ++ (with python3Packages; [
+      argcomplete
+      debian
+      defusedxml
+      jsondiff
+      jsbeautifier
+      libarchive-c
+      python-magic
+      progressbar33
+      pypdf2
+      tlsh
+    ]) ++ lib.optionals stdenv.isLinux [
+      python3Packages.pyxattr
+      python3Packages.rpm
+      acl
+      cdrkit
+      dtc
+    ] ++ lib.optionals enableBloat ([
+      abootimg
+      apksigcopier
+      apksigner
+      apktool
+      cbfstool
+      colord
+      enjarify
+      ffmpeg
+      fpc
+      ghc
+      ghostscriptX
+      giflib
+      gnupg
+      gnumeric
+      hdf5
+      imagemagick
+      libcaca
+      llvm
+      jdk
+      mono
+      ocaml
+      odt2txt
+      oggvideotools
+      openssh
+      pdftk
+      poppler_utils
+      procyon
+      qemu
+      R
+      tcpdump
+      ubootTools
+      wabt
+      radare2
+      xmlbeans
+    ] ++ (with python3Packages; [
+      androguard
+      binwalk
+      guestfs
+      h5py
+      pdfminer-six
+    ]))
+    ;
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ] ++ pythonPath;
 
-  pytestFlagsArray = [
-    # always show more information when tests fail
-    "-vv"
-  ];
+  pytestFlagsArray =
+    [
+      # always show more information when tests fail
+      "-vv"
+    ];
 
   postInstall = ''
     make -C doc
     installManPage doc/diffoscope.1
   '';
 
-  disabledTests = [
-    "test_sbin_added_to_path"
-    "test_diff_meta"
-    "test_diff_meta2"
+  disabledTests =
+    [
+      "test_sbin_added_to_path"
+      "test_diff_meta"
+      "test_diff_meta2"
 
-    # fails because it fails to determine llvm version
-    "test_item3_deflate_llvm_bitcode"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # Disable flaky tests on Darwin
-    "test_non_unicode_filename"
-    "test_listing"
-    "test_symlink_root"
-  ];
+      # fails because it fails to determine llvm version
+      "test_item3_deflate_llvm_bitcode"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # Disable flaky tests on Darwin
+      "test_non_unicode_filename"
+      "test_listing"
+      "test_symlink_root"
+    ]
+    ;
 
     # flaky tests on Darwin
   disabledTestPaths = lib.optionals stdenv.isDarwin [

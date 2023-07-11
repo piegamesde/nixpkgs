@@ -40,18 +40,20 @@ buildPythonPackage rec {
     "jupyter-server-ydoc"
   ];
 
-  propagatedBuildInputs = [
-    ipython
-    packaging
-    tornado
-    jupyter-core
-    jupyterlab_server
-    jupyter-server
-    jupyter-server-ydoc
-    nbclassic
-    notebook
-    jinja2
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs =
+    [
+      ipython
+      packaging
+      tornado
+      jupyter-core
+      jupyterlab_server
+      jupyter-server
+      jupyter-server-ydoc
+      nbclassic
+      notebook
+      jinja2
+    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ;
 
   makeWrapperArgs = [
     "--set"

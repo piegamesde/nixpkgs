@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.prometheus.pushgateway;
 
-  cmdlineArgs = opt "web.listen-address" cfg.web.listen-address
+  cmdlineArgs =
+    opt "web.listen-address" cfg.web.listen-address
     ++ opt "web.telemetry-path" cfg.web.telemetry-path
     ++ opt "web.external-url" cfg.web.external-url
     ++ opt "web.route-prefix" cfg.web.route-prefix
@@ -18,7 +19,8 @@ let
     ''--persistence.file="/var/lib/${cfg.stateDir}/metrics"''
     ++ opt "persistence.interval" cfg.persistence.interval
     ++ opt "log.level" cfg.log.level ++ opt "log.format" cfg.log.format
-    ++ cfg.extraFlags;
+    ++ cfg.extraFlags
+    ;
 
   opt = k: v: optional (v != null) ''--${k}="${v}"'';
 
@@ -154,9 +156,11 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion = !hasPrefix "/" cfg.stateDir;
-      message = "The option services.prometheus.pushgateway.stateDir"
+      message =
+        "The option services.prometheus.pushgateway.stateDir"
         + " shouldn't be an absolute directory."
-        + " It should be a directory relative to /var/lib.";
+        + " It should be a directory relative to /var/lib."
+        ;
     } ];
     systemd.services.pushgateway = {
       wantedBy = [ "multi-user.target" ];
@@ -164,9 +168,11 @@ in
       serviceConfig = {
         Restart = "always";
         DynamicUser = true;
-        ExecStart = "${cfg.package}/bin/pushgateway"
+        ExecStart =
+          "${cfg.package}/bin/pushgateway"
           + optionalString (length cmdlineArgs != 0)
-          (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
+          (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs)
+          ;
         StateDirectory =
           if cfg.persistMetrics then
             cfg.stateDir

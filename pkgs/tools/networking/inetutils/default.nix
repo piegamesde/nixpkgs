@@ -23,10 +23,11 @@ stdenv.mkDerivation rec {
     "apparmor"
   ];
 
-  patches = [
-    # https://git.congatec.com/yocto/meta-openembedded/commit/3402bfac6b595c622e4590a8ff5eaaa854e2a2a3
-    ./inetutils-1_9-PATH_PROCNET_DEV.patch
-  ];
+  patches =
+    [
+      # https://git.congatec.com/yocto/meta-openembedded/commit/3402bfac6b595c622e4590a8ff5eaaa854e2a2a3
+      ./inetutils-1_9-PATH_PROCNET_DEV.patch
+    ];
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -50,13 +51,15 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-  configureFlags = [ "--with-ncurses-include-dir=${ncurses.dev}/include" ]
+  configureFlags =
+    [ "--with-ncurses-include-dir=${ncurses.dev}/include" ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ # Musl doesn't define rcmd
       "--disable-rcp"
       "--disable-rsh"
       "--disable-rlogin"
       "--disable-rexec"
-    ] ++ lib.optional stdenv.isDarwin "--disable-servers";
+    ] ++ lib.optional stdenv.isDarwin "--disable-servers"
+    ;
 
     # Test fails with "UNIX socket name too long", probably because our
     # $TMPDIR is too long.

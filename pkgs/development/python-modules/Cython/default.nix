@@ -12,7 +12,8 @@
 }:
 
 let
-  excludedTests = [
+  excludedTests =
+    [
       "reimport_from_subinterpreter"
     ]
     # cython's testsuite is not working very well with libc++
@@ -28,7 +29,8 @@ let
     ++ lib.optionals stdenv.isi686 [
       "future_division"
       "overflow_check_longlong"
-    ];
+    ]
+    ;
 
 in
 buildPythonPackage rec {

@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   version = "43.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/totem/${
+    url =
+      "mirror://gnome/sources/totem/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "s202VZKLWJZGKk05+Dtq1m0328nJnc6wLqii43OUpB4=";
@@ -104,10 +105,11 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ xvfb-run ];
 
-  mesonFlags = [
-    # TODO: https://github.com/NixOS/nixpkgs/issues/36468
-    "-Dc_args=-I${glib.dev}/include/gio-unix-2.0"
-  ];
+  mesonFlags =
+    [
+      # TODO: https://github.com/NixOS/nixpkgs/issues/36468
+      "-Dc_args=-I${glib.dev}/include/gio-unix-2.0"
+    ];
 
     # Tests do not work with GStreamer 1.18.
     # https://gitlab.gnome.org/GNOME/totem/-/issues/450

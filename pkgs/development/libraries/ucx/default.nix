@@ -58,28 +58,32 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    libbfd
-    libiberty
-    numactl
-    perl
-    rdma-core
-    zlib
-  ] ++ lib.optional enableCuda cudatoolkit ++ lib.optionals enableRocm [
-    rocm-core
-    rocm-runtime
-    rocm-device-libs
-    hip
-  ];
+  buildInputs =
+    [
+      libbfd
+      libiberty
+      numactl
+      perl
+      rdma-core
+      zlib
+    ] ++ lib.optional enableCuda cudatoolkit ++ lib.optionals enableRocm [
+      rocm-core
+      rocm-runtime
+      rocm-device-libs
+      hip
+    ]
+    ;
 
-  configureFlags = [
-    "--with-rdmacm=${rdma-core}"
-    "--with-dc"
-    "--with-rc"
-    "--with-dm"
-    "--with-verbs=${rdma-core}"
-  ] ++ lib.optional enableCuda "--with-cuda=${cudatoolkit'}"
-    ++ lib.optional enableRocm "--with-rocm=${rocm}";
+  configureFlags =
+    [
+      "--with-rdmacm=${rdma-core}"
+      "--with-dc"
+      "--with-rc"
+      "--with-dm"
+      "--with-verbs=${rdma-core}"
+    ] ++ lib.optional enableCuda "--with-cuda=${cudatoolkit'}"
+    ++ lib.optional enableRocm "--with-rocm=${rocm}"
+    ;
 
   enableParallelBuilding = true;
 

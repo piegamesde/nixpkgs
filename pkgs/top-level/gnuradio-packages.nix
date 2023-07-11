@@ -17,8 +17,9 @@ lib.makeScope newScope (self:
     mkDerivation = mkDerivationWith stdenv.mkDerivation;
 
     callPackage = self.newScope ({
-      inherit (gnuradio)
-      # Packages that are potentially overridden and used as deps here.
+      inherit
+        (gnuradio)
+        # Packages that are potentially overridden and used as deps here.
         boost
         volk
         logLib

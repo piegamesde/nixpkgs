@@ -22,12 +22,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ bluez ]
+  buildInputs =
+    lib.optionals stdenv.hostPlatform.isLinux [ bluez ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libobjc
       Foundation
       IOBluetooth
-    ];
+    ]
+    ;
 
   propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ bluez ];
 

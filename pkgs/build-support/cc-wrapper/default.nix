@@ -122,8 +122,10 @@ let
     else
       getLib libc
     ;
-  cc_solib = getLib cc + optionalString (targetPlatform != hostPlatform)
-    "/${targetPlatform.config}";
+  cc_solib =
+    getLib cc + optionalString (targetPlatform != hostPlatform)
+    "/${targetPlatform.config}"
+    ;
 
     # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
   coreutils_bin =
@@ -151,11 +153,12 @@ let
       != "/dev/null")
     (import ../expand-response-params { inherit (buildPackages) stdenv; });
 
-  useGccForLibs = useCcForLibs && libcxx == null
-    && !stdenv.targetPlatform.isDarwin
+  useGccForLibs =
+    useCcForLibs && libcxx == null && !stdenv.targetPlatform.isDarwin
     && !(stdenv.targetPlatform.useLLVM or false)
     && !(stdenv.targetPlatform.useAndroidPrebuilt or false)
-    && !(stdenv.targetPlatform.isiOS or false) && gccForLibs != null;
+    && !(stdenv.targetPlatform.isiOS or false) && gccForLibs != null
+    ;
 
     # older compilers (for example bootstrap's GCC 5) fail with -march=too-modern-cpu
   isGccArchSupported =
@@ -215,10 +218,12 @@ assert nativeLibc == bintools.nativeLibc;
 assert nativePrefix == bintools.nativePrefix;
 
 stdenv.mkDerivation {
-  pname = targetPrefix + (if name != "" then
-    name
-  else
-    "${ccName}-wrapper");
+  pname =
+    targetPrefix + (if name != "" then
+      name
+    else
+      "${ccName}-wrapper")
+    ;
   version =
     if cc == null then
       ""
@@ -228,10 +233,12 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs = [ "out" ] ++ optionals propagateDoc [
-    "man"
-    "info"
-  ];
+  outputs =
+    [ "out" ] ++ optionals propagateDoc [
+      "man"
+      "info"
+    ]
+    ;
 
   passthru = {
     inherit
@@ -271,23 +278,24 @@ stdenv.mkDerivation {
 
   wrapper = ./cc-wrapper.sh;
 
-  installPhase = ''
-    mkdir -p $out/bin $out/nix-support
+  installPhase =
+    ''
+      mkdir -p $out/bin $out/nix-support
 
-    wrap() {
-      local dst="$1"
-      local wrapper="$2"
-      export prog="$3"
-      export use_response_file_by_default=${
-        if isClang && !isCcache then
-          "1"
-        else
-          "0"
+      wrap() {
+        local dst="$1"
+        local wrapper="$2"
+        export prog="$3"
+        export use_response_file_by_default=${
+          if isClang && !isCcache then
+            "1"
+          else
+            "0"
+        }
+        substituteAll "$wrapper" "$out/bin/$dst"
+        chmod +x "$out/bin/$dst"
       }
-      substituteAll "$wrapper" "$out/bin/$dst"
-      chmod +x "$out/bin/$dst"
-    }
-  ''
+    ''
 
     + (if nativeTools then
       ''
@@ -390,7 +398,8 @@ stdenv.mkDerivation {
     + optionalString cc.langGo or false ''
       wrap ${targetPrefix}gccgo $wrapper $ccPath/${targetPrefix}gccgo
       wrap ${targetPrefix}go ${./go-wrapper.sh} $ccPath/${targetPrefix}go
-    '';
+    ''
+    ;
 
   strictDeps = true;
   propagatedBuildInputs =
@@ -398,9 +407,11 @@ stdenv.mkDerivation {
   depsTargetTargetPropagated =
     optional (libcxx != null) libcxx ++ extraPackages;
 
-  setupHooks = [ ../setup-hooks/role.bash ]
+  setupHooks =
+    [ ../setup-hooks/role.bash ]
     ++ lib.optional (cc.langC or true) ./setup-hook.sh
-    ++ lib.optional (cc.langFortran or false) ./fortran-hook.sh;
+    ++ lib.optional (cc.langFortran or false) ./fortran-hook.sh
+    ;
 
   postFixup =
     # Ensure flags files exists, as some other programs cat them. (That these
@@ -708,7 +719,8 @@ stdenv.mkDerivation {
     + extraBuildCommands + lib.strings.concatStringsSep "; "
     (lib.attrsets.mapAttrsToList
       (name: value: "echo ${toString value} >> $out/nix-support/${name}")
-      nixSupport);
+      nixSupport)
+    ;
 
   env = {
     # for substitution in utils.bash
@@ -748,10 +760,12 @@ stdenv.mkDerivation {
       removeAttrs cc.meta [ "priority" ]
     else
       { }) // {
-        description = lib.attrByPath [
-          "meta"
-          "description"
-        ] "System C compiler" cc_ + " (wrapper script)";
+        description =
+          lib.attrByPath [
+            "meta"
+            "description"
+          ] "System C compiler" cc_ + " (wrapper script)"
+          ;
         priority = 10;
       }
     ;

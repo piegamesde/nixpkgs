@@ -29,29 +29,34 @@ stdenv.mkDerivation rec {
     hash = "sha256-sEYoER7iKHZRmksc2vsy/rqjTq+iT56B9Y+NBX++4N0=";
   };
 
-  patches = [
-    # https://pari.math.u-bordeaux.fr/cgi-bin/bugreport.cgi?bug=2441
-    (fetchpatch {
-      name = "fix-find_isogenous_from_Atkin.patch";
-      url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/pari/patches/bug2441.patch?id=9.8.rc0";
-      hash = "sha256-DvOUFlFDnopN+MJY6GYRPNabuoHPFch/nNn+49ygznc=";
-    })
-  ];
+  patches =
+    [
+      # https://pari.math.u-bordeaux.fr/cgi-bin/bugreport.cgi?bug=2441
+      (fetchpatch {
+        name = "fix-find_isogenous_from_Atkin.patch";
+        url =
+          "https://git.sagemath.org/sage.git/plain/build/pkgs/pari/patches/bug2441.patch?id=9.8.rc0";
+        hash = "sha256-DvOUFlFDnopN+MJY6GYRPNabuoHPFch/nNn+49ygznc=";
+      })
+    ];
 
-  buildInputs = [
-    gmp
-    libX11
-    perl
-    readline
-    tex
-  ] ++ lib.optionals withThread [ libpthreadstubs ];
+  buildInputs =
+    [
+      gmp
+      libX11
+      perl
+      readline
+      tex
+    ] ++ lib.optionals withThread [ libpthreadstubs ]
+    ;
 
   configureScript = "./Configure";
-  configureFlags = [
-    "--with-gmp=${lib.getDev gmp}"
-    "--with-readline=${lib.getDev readline}"
-  ] ++ lib.optional withThread "--mt=pthread";
+  configureFlags =
+    [
+      "--with-gmp=${lib.getDev gmp}"
+      "--with-readline=${lib.getDev readline}"
+    ] ++ lib.optional withThread "--mt=pthread"
+    ;
 
   preConfigure = ''
     export LD=$CC

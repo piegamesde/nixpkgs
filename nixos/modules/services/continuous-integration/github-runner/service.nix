@@ -51,13 +51,15 @@ in
     RUNNER_ROOT = stateDir;
   } // cfg.extraEnvironment;
 
-  path = (with pkgs; [
-    bash
-    coreutils
-    git
-    gnutar
-    gzip
-  ]) ++ [ config.nix.package ] ++ cfg.extraPackages;
+  path =
+    (with pkgs; [
+      bash
+      coreutils
+      git
+      gnutar
+      gzip
+    ]) ++ [ config.nix.package ] ++ cfg.extraPackages
+    ;
 
   serviceConfig = mkMerge [
     {

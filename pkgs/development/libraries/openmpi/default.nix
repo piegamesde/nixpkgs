@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
 
   src = with lib.versions;
     fetchurl {
-      url = "https://www.open-mpi.org/software/ompi/v${major version}.${
+      url =
+        "https://www.open-mpi.org/software/ompi/v${major version}.${
           minor version
         }/downloads/${pname}-${version}.tar.bz2";
       sha256 = "sha256-pkCYa8JXOJ3TeYhv2uYmTIz6VryYtxzjrj372M5h2+M=";
@@ -71,23 +72,26 @@ stdenv.mkDerivation rec {
     find -name "Makefile.in" -exec sed -i "s/\`date\`/$ts/" \{} \;
   '';
 
-  buildInputs = [ zlib ] ++ lib.optionals stdenv.isLinux [
-    libnl
-    numactl
-    pmix
-    ucx
-  ] ++ lib.optionals cudaSupport [ cudatoolkit ] ++ [
-    libevent
-    hwloc
-  ] ++ lib.optional (stdenv.isLinux || stdenv.isFreeBSD) rdma-core
+  buildInputs =
+    [ zlib ] ++ lib.optionals stdenv.isLinux [
+      libnl
+      numactl
+      pmix
+      ucx
+    ] ++ lib.optionals cudaSupport [ cudatoolkit ] ++ [
+      libevent
+      hwloc
+    ] ++ lib.optional (stdenv.isLinux || stdenv.isFreeBSD) rdma-core
     ++ lib.optionals fabricSupport [
       libpsm2
       libfabric
-    ];
+    ]
+    ;
 
   nativeBuildInputs = [ perl ] ++ lib.optionals fortranSupport [ gfortran ];
 
-  configureFlags = lib.optional (!cudaSupport) "--disable-mca-dso"
+  configureFlags =
+    lib.optional (!cudaSupport) "--disable-mca-dso"
     ++ lib.optional (!fortranSupport) "--disable-mpi-fortran"
     ++ lib.optionals stdenv.isLinux [
       "--with-libnl=${libnl.dev}"
@@ -105,7 +109,8 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals fabricSupport [
       "--with-psm2=${libpsm2}"
       "--with-libfabric=${libfabric}"
-    ];
+    ]
+    ;
 
   enableParallelBuilding = true;
 
@@ -113,23 +118,25 @@ stdenv.mkDerivation rec {
     rm -f $out/lib/*.la
   '';
 
-  postFixup = ''
-    # default compilers should be indentical to the
-    # compilers at build time
+  postFixup =
+    ''
+      # default compilers should be indentical to the
+      # compilers at build time
 
-    sed -i 's:compiler=.*:compiler=${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}cc:' \
-      $out/share/openmpi/mpicc-wrapper-data.txt
+      sed -i 's:compiler=.*:compiler=${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}cc:' \
+        $out/share/openmpi/mpicc-wrapper-data.txt
 
-    sed -i 's:compiler=.*:compiler=${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}cc:' \
-       $out/share/openmpi/ortecc-wrapper-data.txt
+      sed -i 's:compiler=.*:compiler=${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}cc:' \
+         $out/share/openmpi/ortecc-wrapper-data.txt
 
-    sed -i 's:compiler=.*:compiler=${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}c++:' \
-       $out/share/openmpi/mpic++-wrapper-data.txt
-  '' + lib.optionalString fortranSupport ''
+      sed -i 's:compiler=.*:compiler=${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}c++:' \
+         $out/share/openmpi/mpic++-wrapper-data.txt
+    '' + lib.optionalString fortranSupport ''
 
-    sed -i 's:compiler=.*:compiler=${gfortran}/bin/${gfortran.targetPrefix}gfortran:'  \
-       $out/share/openmpi/mpifort-wrapper-data.txt
-  '';
+      sed -i 's:compiler=.*:compiler=${gfortran}/bin/${gfortran.targetPrefix}gfortran:'  \
+         $out/share/openmpi/mpifort-wrapper-data.txt
+    ''
+    ;
 
   doCheck = true;
 

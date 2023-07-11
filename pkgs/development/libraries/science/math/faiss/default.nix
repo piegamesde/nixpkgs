@@ -17,9 +17,11 @@
   swig,
   addOpenGLRunpath,
   optLevel ? let
-    optLevels = lib.optionals stdenv.hostPlatform.avx2Support [ "avx2" ]
+    optLevels =
+      lib.optionals stdenv.hostPlatform.avx2Support [ "avx2" ]
       ++ lib.optionals stdenv.hostPlatform.sse4_1Support [ "sse4" ]
-      ++ [ "generic" ];
+      ++ [ "generic" ]
+      ;
     # Choose the maximum available optimization level
   in
   builtins.head optLevels
@@ -76,65 +78,75 @@ stdenv.mkDerivation {
     hash = "sha256-WSce9X6sLZmGM5F0ZkK54VqpIy8u1VB0e9/l78co29M=";
   };
 
-  buildInputs = [
-    blas
-    swig
-  ] ++ lib.optionals pythonSupport [
-    pythonPackages.setuptools
-    pythonPackages.pip
-    pythonPackages.wheel
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
-    ++ lib.optionals cudaSupport [ cudaJoined ];
+  buildInputs =
+    [
+      blas
+      swig
+    ] ++ lib.optionals pythonSupport [
+      pythonPackages.setuptools
+      pythonPackages.pip
+      pythonPackages.wheel
+    ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
+    ++ lib.optionals cudaSupport [ cudaJoined ]
+    ;
 
   propagatedBuildInputs = lib.optionals pythonSupport [ pythonPackages.numpy ];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals cudaSupport [
-    cudaPackages.cuda_nvcc
-    addOpenGLRunpath
-  ] ++ lib.optionals pythonSupport [ pythonPackages.python ];
+  nativeBuildInputs =
+    [ cmake ] ++ lib.optionals cudaSupport [
+      cudaPackages.cuda_nvcc
+      addOpenGLRunpath
+    ] ++ lib.optionals pythonSupport [ pythonPackages.python ]
+    ;
 
   passthru.extra-requires.all = [ pythonPackages.numpy ];
 
-  cmakeFlags = [
-    "-DFAISS_ENABLE_GPU=${
-      if cudaSupport then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DFAISS_ENABLE_PYTHON=${
-      if pythonSupport then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DFAISS_OPT_LEVEL=${optLevel}"
-  ] ++ lib.optionals cudaSupport [
-    "-DCMAKE_CUDA_ARCHITECTURES=${
-      builtins.concatStringsSep ";" (map dropDot cudaCapabilities)
-    }"
-    "-DCUDAToolkit_INCLUDE_DIR=${cudaJoined}/include"
-  ];
+  cmakeFlags =
+    [
+      "-DFAISS_ENABLE_GPU=${
+        if cudaSupport then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DFAISS_ENABLE_PYTHON=${
+        if pythonSupport then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DFAISS_OPT_LEVEL=${optLevel}"
+    ] ++ lib.optionals cudaSupport [
+      "-DCMAKE_CUDA_ARCHITECTURES=${
+        builtins.concatStringsSep ";" (map dropDot cudaCapabilities)
+      }"
+      "-DCUDAToolkit_INCLUDE_DIR=${cudaJoined}/include"
+    ]
+    ;
 
     # pip wheel->pip install commands copied over from opencv4
 
-  buildPhase = ''
-    make -j faiss
-    make demo_ivfpq_indexing
-  '' + lib.optionalString pythonSupport ''
-    make -j swigfaiss
-    (cd faiss/python &&
-     python -m pip wheel --verbose --no-index --no-deps --no-clean --no-build-isolation --wheel-dir dist .)
-  '';
+  buildPhase =
+    ''
+      make -j faiss
+      make demo_ivfpq_indexing
+    '' + lib.optionalString pythonSupport ''
+      make -j swigfaiss
+      (cd faiss/python &&
+       python -m pip wheel --verbose --no-index --no-deps --no-clean --no-build-isolation --wheel-dir dist .)
+    ''
+    ;
 
-  installPhase = ''
-    make install
-    mkdir -p $demos/bin
-    cp ./demos/demo_ivfpq_indexing $demos/bin/
-  '' + lib.optionalString pythonSupport ''
-    mkdir -p $out/${pythonPackages.python.sitePackages}
-    (cd faiss/python && python -m pip install dist/*.whl --no-index --no-warn-script-location --prefix="$out" --no-cache)
-  '';
+  installPhase =
+    ''
+      make install
+      mkdir -p $demos/bin
+      cp ./demos/demo_ivfpq_indexing $demos/bin/
+    '' + lib.optionalString pythonSupport ''
+      mkdir -p $out/${pythonPackages.python.sitePackages}
+      (cd faiss/python && python -m pip install dist/*.whl --no-index --no-warn-script-location --prefix="$out" --no-cache)
+    ''
+    ;
 
   fixupPhase = lib.optionalString (pythonSupport && cudaSupport) ''
     addOpenGLRunpath $out/${pythonPackages.python.sitePackages}/faiss/*.so

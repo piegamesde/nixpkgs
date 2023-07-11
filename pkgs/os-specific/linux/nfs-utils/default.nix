@@ -57,17 +57,19 @@ stdenv.mkDerivation rec {
     rpcsvc-proto
   ];
 
-  buildInputs = [
-    libtirpc
-    libcap
-    libevent
-    sqlite
-    lvm2
-    libuuid
-    keyutils
-    libkrb5
-    tcp_wrappers
-  ] ++ lib.optional enablePython python3;
+  buildInputs =
+    [
+      libtirpc
+      libcap
+      libevent
+      sqlite
+      lvm2
+      libuuid
+      keyutils
+      libkrb5
+      tcp_wrappers
+    ] ++ lib.optional enablePython python3
+    ;
 
   enableParallelBuilding = true;
 
@@ -136,16 +138,18 @@ stdenv.mkDerivation rec {
     "etc/systemd/system-generators"
   ];
 
-  postInstall = ''
-    # Not used on NixOS
-    sed -i \
-      -e "s,/sbin/modprobe,${kmod}/bin/modprobe,g" \
-      -e "s,/usr/sbin,$out/bin,g" \
-      $out/etc/systemd/system/*
-  '' + lib.optionalString (!enablePython) ''
-    # Remove all scripts that require python (currently mountstats and nfsiostat)
-    grep -l /usr/bin/python $out/bin/* | xargs -I {} rm -v {}
-  '';
+  postInstall =
+    ''
+      # Not used on NixOS
+      sed -i \
+        -e "s,/sbin/modprobe,${kmod}/bin/modprobe,g" \
+        -e "s,/usr/sbin,$out/bin,g" \
+        $out/etc/systemd/system/*
+    '' + lib.optionalString (!enablePython) ''
+      # Remove all scripts that require python (currently mountstats and nfsiostat)
+      grep -l /usr/bin/python $out/bin/* | xargs -I {} rm -v {}
+    ''
+    ;
 
     # One test fails on mips.
     # doCheck = !stdenv.isMips;

@@ -46,32 +46,36 @@ stdenv.mkDerivation rec {
   };
 
     # TODO: render & install HTML documentation using asciidoctor
-  nativeBuildInputs = [
-    pkg-config
-    python3Packages.wrapPython
-    scons
-  ] ++ lib.optionals guiSupport [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      python3Packages.wrapPython
+      scons
+    ] ++ lib.optionals guiSupport [
+      gobject-introspection
+      wrapGAppsHook
+    ]
+    ;
 
-  buildInputs = [
-    dbus
-    libusb1
-    ncurses
-    pps-tools
-    python3Packages.python
-  ] ++ lib.optionals guiSupport [
-    atk
-    dbus-glib
-    gdk-pixbuf
-    libX11
-    libXaw
-    libXext
-    libXpm
-    libXt
-    pango
-  ];
+  buildInputs =
+    [
+      dbus
+      libusb1
+      ncurses
+      pps-tools
+      python3Packages.python
+    ] ++ lib.optionals guiSupport [
+      atk
+      dbus-glib
+      gdk-pixbuf
+      libX11
+      libXaw
+      libXext
+      libXpm
+      libXt
+      pango
+    ]
+    ;
 
   pythonPath = lib.optionals guiSupport [
     python3Packages.pygobject3

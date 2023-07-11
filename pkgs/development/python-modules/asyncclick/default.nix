@@ -38,10 +38,11 @@ buildPythonPackage rec {
     "ignore::trio.TrioDeprecationWarning"
   ];
 
-  disabledTests = [
-    # RuntimeWarning: coroutine 'Context.invoke' was never awaited
-    "test_context_invoke_type"
-  ];
+  disabledTests =
+    [
+      # RuntimeWarning: coroutine 'Context.invoke' was never awaited
+      "test_context_invoke_type"
+    ];
 
   pythonImportsCheck = [ "asyncclick" ];
 

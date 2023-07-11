@@ -35,10 +35,11 @@ stdenv.mkDerivation (rec {
     sed '/BUILD_TIMESTAMP=/s/=.*/=1970-01-01T00:01+0000/' -i ./configure
   '';
 
-  configureFlags = [
-    # See https://dev.gnupg.org/T6257#164567
-    "--enable-install-gpg-error-config"
-  ];
+  configureFlags =
+    [
+      # See https://dev.gnupg.org/T6257#164567
+      "--enable-install-gpg-error-config"
+    ];
 
   outputs = [
     "out"
@@ -67,7 +68,8 @@ stdenv.mkDerivation (rec {
     + lib.optionalString stdenv.hostPlatform.isStatic ''
       sed '/USE_POSIX_THREADS_WEAK/ d' config.h
       echo '#undef USE_POSIX_THREADS_WEAK' >> config.h
-    '';
+    ''
+    ;
 
   doCheck = true; # not cross
 

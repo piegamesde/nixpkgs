@@ -23,7 +23,8 @@ with lib;
 
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.util-linux}/sbin/hwclock --systohc ${
+      ExecStart =
+        "${pkgs.util-linux}/sbin/hwclock --systohc ${
           if config.time.hardwareClockInLocalTime then
             "--localtime"
           else

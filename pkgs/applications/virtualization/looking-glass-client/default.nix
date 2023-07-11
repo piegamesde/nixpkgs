@@ -68,42 +68,46 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    libGL
-    libX11
-    freefont_ttf
-    spice-protocol
-    expat
-    libbfd
-    nettle
-    fontconfig
-    libffi
-  ] ++ lib.optionals xorgSupport [
-    libxkbcommon
-    libXi
-    libXScrnSaver
-    libXinerama
-    libXcursor
-    libXpresent
-    libXext
-    libXrandr
-  ] ++ lib.optionals waylandSupport [
-    libxkbcommon
-    wayland
-    wayland-protocols
-  ] ++ lib.optionals pipewireSupport [
-    pipewire
-    libsamplerate
-  ] ++ lib.optionals pulseSupport [
-    pulseaudio
-    libsamplerate
-  ];
+  buildInputs =
+    [
+      libGL
+      libX11
+      freefont_ttf
+      spice-protocol
+      expat
+      libbfd
+      nettle
+      fontconfig
+      libffi
+    ] ++ lib.optionals xorgSupport [
+      libxkbcommon
+      libXi
+      libXScrnSaver
+      libXinerama
+      libXcursor
+      libXpresent
+      libXext
+      libXrandr
+    ] ++ lib.optionals waylandSupport [
+      libxkbcommon
+      wayland
+      wayland-protocols
+    ] ++ lib.optionals pipewireSupport [
+      pipewire
+      libsamplerate
+    ] ++ lib.optionals pulseSupport [
+      pulseaudio
+      libsamplerate
+    ]
+    ;
 
-  cmakeFlags = [ "-DOPTIMIZE_FOR_NATIVE=OFF" ]
+  cmakeFlags =
+    [ "-DOPTIMIZE_FOR_NATIVE=OFF" ]
     ++ lib.optional (!xorgSupport) "-DENABLE_X11=no"
     ++ lib.optional (!waylandSupport) "-DENABLE_WAYLAND=no"
     ++ lib.optional (!pulseSupport) "-DENABLE_PULSEAUDIO=no"
-    ++ lib.optional (!pipewireSupport) "-DENABLE_PIPEWIRE=no";
+    ++ lib.optional (!pipewireSupport) "-DENABLE_PIPEWIRE=no"
+    ;
 
   postUnpack = ''
     echo ${src.rev} > source/VERSION

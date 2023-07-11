@@ -41,17 +41,19 @@ let
         sphinx
         makeWrapper
       ];
-      buildInputs = [
-        libxslt
-        groff
-        ncurses
-        readline
-        libedit
-        python3
-      ] ++ lib.optional (lib.versionOlder version "7") pcre
+      buildInputs =
+        [
+          libxslt
+          groff
+          ncurses
+          readline
+          libedit
+          python3
+        ] ++ lib.optional (lib.versionOlder version "7") pcre
         ++ lib.optional (lib.versionAtLeast version "7") pcre2
         ++ lib.optional stdenv.hostPlatform.isDarwin libunwind
-        ++ lib.optional stdenv.hostPlatform.isLinux jemalloc;
+        ++ lib.optional stdenv.hostPlatform.isLinux jemalloc
+        ;
 
       buildFlags = [ "localstatedir=/var/spool" ];
 
@@ -77,7 +79,8 @@ let
 
       passthru = {
         python = python3;
-        tests = nixosTests."varnish${
+        tests =
+          nixosTests."varnish${
             builtins.replaceStrings [ "." ] [ "" ]
             (lib.versions.majorMinor version)
           }";

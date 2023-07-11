@@ -53,15 +53,19 @@ stdenv.mkDerivation rec {
   mesonFlags =
     [ "-Dgtk_doc=true" ] ++ lib.optionals (!doCheck) [ "-Dtests=false" ];
 
-  buildInputs = [ fribidi ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Foundation
-  ];
+  buildInputs =
+    [ fribidi ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Foundation
+    ]
+    ;
 
   propagatedBuildInputs = [ gtk4 ];
 
-  nativeCheckInputs = [ gnome.adwaita-icon-theme ]
-    ++ lib.optionals (!stdenv.isDarwin) [ xvfb-run ];
+  nativeCheckInputs =
+    [ gnome.adwaita-icon-theme ]
+    ++ lib.optionals (!stdenv.isDarwin) [ xvfb-run ]
+    ;
 
     # Tests had to be disabled on Darwin because test-button-content fails
     #

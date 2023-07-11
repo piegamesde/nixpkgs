@@ -78,12 +78,15 @@ stdenv.mkDerivation rec {
     pkg-config
     gettext
   ];
-  buildInputs = [
-    ncurses
-    boehmgc
-    zlib
-  ] ++ lib.optional sslSupport openssl ++ lib.optional mouseSupport gpm-ncurses
-    ++ lib.optional graphicsSupport imlib2 ++ lib.optional x11Support libX11;
+  buildInputs =
+    [
+      ncurses
+      boehmgc
+      zlib
+    ] ++ lib.optional sslSupport openssl
+    ++ lib.optional mouseSupport gpm-ncurses
+    ++ lib.optional graphicsSupport imlib2 ++ lib.optional x11Support libX11
+    ;
 
   postInstall = lib.optionalString graphicsSupport ''
     ln -s $out/libexec/w3m/w3mimgdisplay $out/bin
@@ -91,14 +94,16 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  configureFlags = [
-    "--with-ssl=${openssl.dev}"
-    "--with-gc=${boehmgc.dev}"
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+  configureFlags =
+    [
+      "--with-ssl=${openssl.dev}"
+      "--with-gc=${boehmgc.dev}"
+    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "ac_cv_func_setpgrp_void=yes"
     ] ++ lib.optional graphicsSupport
     "--enable-image=${lib.optionalString x11Support "x11,"}fb"
-    ++ lib.optional (graphicsSupport && !x11Support) "--without-x";
+    ++ lib.optional (graphicsSupport && !x11Support) "--without-x"
+    ;
 
   preConfigure = ''
     substituteInPlace ./configure --replace "/lib /usr/lib /usr/local/lib /usr/ucblib /usr/ccslib /usr/ccs/lib /lib64 /usr/lib64" /no-such-path

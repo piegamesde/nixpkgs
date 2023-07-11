@@ -69,33 +69,36 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    gettext
-    orc
-    glib
-    gstreamer
-    gobject-introspection
-  ] ++ lib.optionals enableDocumentation [ hotdoc ]
-    ++ lib.optionals enableWayland [ wayland ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      python3
+      gettext
+      orc
+      glib
+      gstreamer
+      gobject-introspection
+    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ++ lib.optionals enableWayland [ wayland ]
+    ;
 
-  buildInputs = [
-    gobject-introspection
-    graphene
-    orc
-    libtheora
-    libintl
-    libopus
-    isocodes
-    libpng
-    libjpeg
-    tremor
-    libGL
-    pango
-  ] ++ lib.optionals (!stdenv.isDarwin) [ libvisual ]
+  buildInputs =
+    [
+      gobject-introspection
+      graphene
+      orc
+      libtheora
+      libintl
+      libopus
+      isocodes
+      libpng
+      libjpeg
+      tremor
+      libGL
+      pango
+    ] ++ lib.optionals (!stdenv.isDarwin) [ libvisual ]
     ++ lib.optionals stdenv.isDarwin [ OpenGL ]
     ++ lib.optionals enableAlsa [ alsa-lib ] ++ lib.optionals enableX11 [
       libXext
@@ -105,27 +108,30 @@ stdenv.mkDerivation (finalAttrs: {
       wayland
       wayland-protocols
     ] ++ lib.optional enableCocoa Cocoa
-    ++ lib.optional enableCdparanoia cdparanoia;
+    ++ lib.optional enableCdparanoia cdparanoia
+    ;
 
   propagatedBuildInputs = [ gstreamer ];
 
-  mesonFlags = [
-    "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
-    # See https://github.com/GStreamer/gst-plugins-base/blob/d64a4b7a69c3462851ff4dcfa97cc6f94cd64aef/meson_options.txt#L15 for a list of choices
-    "-Dgl_winsys=${
-      lib.concatStringsSep "," (lib.optional enableX11 "x11"
-        ++ lib.optional enableWayland "wayland"
-        ++ lib.optional enableCocoa "cocoa")
-    }"
-    (lib.mesonEnable "doc" enableDocumentation)
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+  mesonFlags =
+    [
+      "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
+      # See https://github.com/GStreamer/gst-plugins-base/blob/d64a4b7a69c3462851ff4dcfa97cc6f94cd64aef/meson_options.txt#L15 for a list of choices
+      "-Dgl_winsys=${
+        lib.concatStringsSep "," (lib.optional enableX11 "x11"
+          ++ lib.optional enableWayland "wayland"
+          ++ lib.optional enableCocoa "cocoa")
+      }"
+      (lib.mesonEnable "doc" enableDocumentation)
+    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "-Dtests=disabled"
     ] ++ lib.optional (!enableX11) "-Dx11=disabled"
     # TODO How to disable Wayland?
     ++ lib.optional (!enableGl) "-Dgl=disabled"
     ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
     ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"
-    ++ lib.optionals stdenv.isDarwin [ "-Dlibvisual=disabled" ];
+    ++ lib.optionals stdenv.isDarwin [ "-Dlibvisual=disabled" ]
+    ;
 
   postPatch = ''
     patchShebangs \

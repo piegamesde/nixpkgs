@@ -40,20 +40,22 @@ stdenv.mkDerivation rec {
     cmake
     swig4
   ];
-  buildInputs = [
-    python
-    opencascade-occt
-    smesh
-    freetype
-    libGL
-    libGLU
-    libX11
-    libXext
-    libXmu
-    libXi
-    fontconfig
-    rapidjson
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs =
+    [
+      python
+      opencascade-occt
+      smesh
+      freetype
+      libGL
+      libGLU
+      libX11
+      libXext
+      libXmu
+      libXi
+      fontconfig
+      rapidjson
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ;
 
   cmakeFlags = [
     "-Wno-dev"

@@ -70,17 +70,19 @@ stdenv.mkDerivation rec {
       };
     in
     openrgb.overrideAttrs (old: {
-      qmakeFlags = old.qmakeFlags or [ ] ++ [
-        # Welcome to Escape Hell, we have backslashes
-        ''
-          DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
-            lib.escape [
-              "\\"
-              ''"''
-              " "
-            ] (toString pluginsDir)
-          }/lib\\\""''
-      ];
+      qmakeFlags =
+        old.qmakeFlags or [ ] ++ [
+          # Welcome to Escape Hell, we have backslashes
+          ''
+            DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
+              lib.escape [
+                "\\"
+                ''"''
+                " "
+              ] (toString pluginsDir)
+            }/lib\\\""''
+        ]
+        ;
     })
     ;
 

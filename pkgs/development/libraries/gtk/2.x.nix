@@ -61,20 +61,24 @@ stdenv.mkDerivation (finalAttrs: {
     gtkCleanImmodulesCache
   ];
 
-  nativeBuildInputs = finalAttrs.setupHooks ++ [
-    perl
-    pkg-config
-    gettext
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    finalAttrs.setupHooks ++ [
+      perl
+      pkg-config
+      gettext
+      gobject-introspection
+    ]
+    ;
 
-  patches = [
-    ./patches/2.0-immodules.cache.patch
-    ./patches/gtk2-theme-paths.patch
-  ] ++ lib.optionals stdenv.isDarwin [
-    ./patches/2.0-gnome_bugzilla_557780_306776_freeciv_darwin.patch
-    ./patches/2.0-darwin-x11.patch
-  ];
+  patches =
+    [
+      ./patches/2.0-immodules.cache.patch
+      ./patches/gtk2-theme-paths.patch
+    ] ++ lib.optionals stdenv.isDarwin [
+      ./patches/2.0-gnome_bugzilla_557780_306776_freeciv_darwin.patch
+      ./patches/2.0-darwin-x11.patch
+    ]
+    ;
 
   propagatedBuildInputs = with xorg;
     [
@@ -108,18 +112,20 @@ stdenv.mkDerivation (finalAttrs: {
       null
     ;
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--with-gdktarget=${gdktarget}"
-    "--with-xinput=yes"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "--disable-glibtest"
-    "--disable-introspection"
-    "--disable-visibility"
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "ac_cv_path_GTK_UPDATE_ICON_CACHE=${buildPackages.gtk2}/bin/gtk-update-icon-cache"
-    "ac_cv_path_GDK_PIXBUF_CSOURCE=${buildPackages.gdk-pixbuf.dev}/bin/gdk-pixbuf-csource"
-  ];
+  configureFlags =
+    [
+      "--sysconfdir=/etc"
+      "--with-gdktarget=${gdktarget}"
+      "--with-xinput=yes"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "--disable-glibtest"
+      "--disable-introspection"
+      "--disable-visibility"
+    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "ac_cv_path_GTK_UPDATE_ICON_CACHE=${buildPackages.gtk2}/bin/gtk-update-icon-cache"
+      "ac_cv_path_GDK_PIXBUF_CSOURCE=${buildPackages.gdk-pixbuf.dev}/bin/gdk-pixbuf-csource"
+    ]
+    ;
 
   installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 
@@ -149,13 +155,15 @@ stdenv.mkDerivation (finalAttrs: {
       lovek323
       raskin
     ];
-    pkgConfigModules = [
-      "gdk-2.0"
-      "gtk+-2.0"
-    ] ++ lib.optionals (gdktarget == "x11") [
-      "gdk-x11-2.0"
-      "gtk+-x11-2.0"
-    ];
+    pkgConfigModules =
+      [
+        "gdk-2.0"
+        "gtk+-2.0"
+      ] ++ lib.optionals (gdktarget == "x11") [
+        "gdk-x11-2.0"
+        "gtk+-x11-2.0"
+      ]
+      ;
     platforms = platforms.all;
 
     longDescription = ''

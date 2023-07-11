@@ -61,21 +61,25 @@ in
     ];
 
     environment.etc = {
-      "tmpfiles.d".source = (pkgs.symlinkJoin {
-        name = "tmpfiles.d";
-        paths = map (p: p + "/lib/tmpfiles.d") cfg.packages;
-        postBuild = ''
-          for i in $(cat $pathsPath); do
-            (test -d "$i" && test $(ls "$i"/*.conf | wc -l) -ge 1) || (
-              echo "ERROR: The path '$i' from systemd.tmpfiles.packages contains no *.conf files."
-              exit 1
-            )
-          done
-        '' + concatMapStrings (name:
-          optionalString (hasPrefix "tmpfiles.d/" name) ''
-            rm -f $out/${removePrefix "tmpfiles.d/" name}
-          '') config.system.build.etc.passthru.targets;
-      }) + "/*";
+      "tmpfiles.d".source =
+        (pkgs.symlinkJoin {
+          name = "tmpfiles.d";
+          paths = map (p: p + "/lib/tmpfiles.d") cfg.packages;
+          postBuild =
+            ''
+              for i in $(cat $pathsPath); do
+                (test -d "$i" && test $(ls "$i"/*.conf | wc -l) -ge 1) || (
+                  echo "ERROR: The path '$i' from systemd.tmpfiles.packages contains no *.conf files."
+                  exit 1
+                )
+              done
+            '' + concatMapStrings (name:
+              optionalString (hasPrefix "tmpfiles.d/" name) ''
+                rm -f $out/${removePrefix "tmpfiles.d/" name}
+              '') config.system.build.etc.passthru.targets
+            ;
+        }) + "/*"
+        ;
     };
 
     systemd.tmpfiles.packages = [

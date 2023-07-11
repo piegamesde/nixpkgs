@@ -9,17 +9,18 @@
 let
   inherit (stdenv.hostPlatform.parsed) kernel;
 
-  systemSpecific = {
-    darwin = rec {
-      systemTag = "nix-darwin";
-      capitalized = systemTag;
-      fontFile = "JoyPixels-SBIX.ttf";
+  systemSpecific =
+    {
+      darwin = rec {
+        systemTag = "nix-darwin";
+        capitalized = systemTag;
+        fontFile = "JoyPixels-SBIX.ttf";
+      };
+    }.${kernel.name} or rec {
+      systemTag = "nixos";
+      capitalized = "NixOS";
+      fontFile = "joypixels-android.ttf";
     };
-  }.${kernel.name} or rec {
-    systemTag = "nixos";
-    capitalized = "NixOS";
-    fontFile = "joypixels-android.ttf";
-  };
 
   joypixels-free-license = with systemSpecific; {
     spdxId = "LicenseRef-JoyPixels-Free-6.0";
@@ -63,16 +64,19 @@ stdenv.mkDerivation rec {
   pname = "joypixels";
   version = "6.6.0";
 
-  src = assert !acceptLicense -> throwLicense;
+  src =
+    assert !acceptLicense -> throwLicense;
     with systemSpecific;
     fetchurl {
       name = fontFile;
       url =
         "https://cdn.joypixels.com/distributions/${systemTag}/font/${version}/${fontFile}";
-      sha256 = {
-        darwin = "0qcmb2vn2nykyikzgnlma627zhks7ksy1vkgvpcmqwyxq4bd38d7";
-      }.${kernel.name} or "17gjaz7353zyprmds64p01qivy2r8pwf88nvvhi57idas2qd604n";
-    };
+      sha256 =
+        {
+          darwin = "0qcmb2vn2nykyikzgnlma627zhks7ksy1vkgvpcmqwyxq4bd38d7";
+        }.${kernel.name} or "17gjaz7353zyprmds64p01qivy2r8pwf88nvvhi57idas2qd604n";
+    }
+    ;
 
   dontUnpack = true;
 

@@ -31,11 +31,13 @@ buildPythonPackage rec {
       --replace "urllib3[secure]" "urllib3"
   '';
 
-  propagatedBuildInputs = [
-    requests
-    urllib3
-    setuptools
-  ] ++ urllib3.optional-dependencies.secure;
+  propagatedBuildInputs =
+    [
+      requests
+      urllib3
+      setuptools
+    ] ++ urllib3.optional-dependencies.secure
+    ;
 
   nativeCheckInputs = [
     mock

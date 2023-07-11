@@ -82,9 +82,7 @@ let
     ;
 
   sourceMatches =
-    locale: source:
-    (isPrefixOf source.locale locale) && source.arch == arch
-    ;
+    locale: source: (isPrefixOf source.locale locale) && source.arch == arch;
 
   policies = { DisableAppUpdate = true; } // config.thunderbird.policies or { };
   policiesJson = writeText "thunderbird-policies.json"
@@ -112,52 +110,54 @@ stdenv.mkDerivation {
     inherit (source) sha256;
   };
 
-  libPath = lib.makeLibraryPath [
-    stdenv.cc.cc
-    alsa-lib
-    atk
-    cairo
-    curl
-    cups
-    dbus-glib
-    dbus
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    glibc
-    gtk2
-    gtk3
-    libkrb5
-    mesa
-    libX11
-    libXScrnSaver
-    libXcomposite
-    libXcursor
-    libxcb
-    libXdamage
-    libXext
-    libXfixes
-    libXi
-    libXinerama
-    libXrender
-    libXrandr
-    libXt
-    libXtst
-    libcanberra
-    libnotify
-    libGLU
-    libGL
-    nspr
-    nss_latest
-    pango
-    pipewire
-    pciutils
-    heimdal
-    libpulseaudio
-    systemd
-    ffmpeg
-  ] + ":" + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ];
+  libPath =
+    lib.makeLibraryPath [
+      stdenv.cc.cc
+      alsa-lib
+      atk
+      cairo
+      curl
+      cups
+      dbus-glib
+      dbus
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      glibc
+      gtk2
+      gtk3
+      libkrb5
+      mesa
+      libX11
+      libXScrnSaver
+      libXcomposite
+      libXcursor
+      libxcb
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libXinerama
+      libXrender
+      libXrandr
+      libXt
+      libXtst
+      libcanberra
+      libnotify
+      libGLU
+      libGL
+      nspr
+      nss_latest
+      pango
+      pipewire
+      pciutils
+      heimdal
+      libpulseaudio
+      systemd
+      ffmpeg
+    ] + ":" + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ]
+    ;
 
   inherit gtk3;
 

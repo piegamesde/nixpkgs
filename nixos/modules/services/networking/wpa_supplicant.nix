@@ -104,18 +104,20 @@ let
           opts.pskRaw
         ;
 
-      options = [
-        "ssid=${quote opts.ssid}"
-        (if pskString != null || opts.auth != null then
-          "key_mgmt=${concatStringsSep " " opts.authProtocols}"
-        else
-          "key_mgmt=NONE")
-      ] ++ optional opts.hidden "scan_ssid=1"
+      options =
+        [
+          "ssid=${quote opts.ssid}"
+          (if pskString != null || opts.auth != null then
+            "key_mgmt=${concatStringsSep " " opts.authProtocols}"
+          else
+            "key_mgmt=NONE")
+        ] ++ optional opts.hidden "scan_ssid=1"
         ++ optional (pskString != null) "psk=${pskString}"
         ++ optionals (opts.auth != null)
         (filter (x: x != "") (splitString "\n" opts.auth))
         ++ optional (opts.priority != null) "priority=${toString opts.priority}"
-        ++ optional (opts.extraConfig != "") opts.extraConfig;
+        ++ optional (opts.extraConfig != "") opts.extraConfig
+        ;
     in
     ''
       network={
@@ -138,8 +140,10 @@ let
         ;
     in
     {
-      description = "WPA Supplicant instance"
-        + optionalString (iface != null) " for interface ${iface}";
+      description =
+        "WPA Supplicant instance"
+        + optionalString (iface != null) " for interface ${iface}"
+        ;
 
       after = deviceUnit;
       before = [ "network.target" ];
@@ -543,39 +547,42 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = flip mapAttrsToList cfg.networks (name: cfg: {
-      assertion = with cfg;
-        count (x: x != null) [
-          psk
-          pskRaw
-          auth
-        ] <= 1;
-      message = ''
-        options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
-    }) ++ [ {
-      assertion = length cfg.interfaces > 1 -> !cfg.dbusControlled;
-      message =
-        let
-          daemon =
-            if config.networking.networkmanager.enable then
-              "NetworkManager"
-            else if config.services.connman.enable then
-              "connman"
-            else
-              null
-            ;
-          n = toString (length cfg.interfaces);
-        in
-        ''
-          It's not possible to run multiple wpa_supplicant instances with DBus support.
-          Note: you're seeing this error because `networking.wireless.interfaces` has
-          ${n} entries, implying an equal number of wpa_supplicant instances.
-        '' + optionalString (daemon != null) ''
-          You don't need to change `networking.wireless.interfaces` when using ${daemon}:
-          in this case the interfaces will be configured automatically for you.
-        ''
-        ;
-    } ];
+    assertions =
+      flip mapAttrsToList cfg.networks (name: cfg: {
+        assertion = with cfg;
+          count (x: x != null) [
+            psk
+            pskRaw
+            auth
+          ] <= 1;
+        message =
+          ''
+            options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
+      }) ++ [ {
+        assertion = length cfg.interfaces > 1 -> !cfg.dbusControlled;
+        message =
+          let
+            daemon =
+              if config.networking.networkmanager.enable then
+                "NetworkManager"
+              else if config.services.connman.enable then
+                "connman"
+              else
+                null
+              ;
+            n = toString (length cfg.interfaces);
+          in
+          ''
+            It's not possible to run multiple wpa_supplicant instances with DBus support.
+            Note: you're seeing this error because `networking.wireless.interfaces` has
+            ${n} entries, implying an equal number of wpa_supplicant instances.
+          '' + optionalString (daemon != null) ''
+            You don't need to change `networking.wireless.interfaces` when using ${daemon}:
+            in this case the interfaces will be configured automatically for you.
+          ''
+          ;
+      } ]
+      ;
 
     hardware.wirelessRegulatoryDatabase = true;
 

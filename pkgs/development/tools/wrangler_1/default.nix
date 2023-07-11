@@ -27,13 +27,15 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    curl
-    CoreFoundation
-    CoreServices
-    Security
-    libiconv
-  ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      curl
+      CoreFoundation
+      CoreServices
+      Security
+      libiconv
+    ]
+    ;
 
   OPENSSL_NO_VENDOR = 1;
 

@@ -58,10 +58,12 @@ buildRebar3 {
     erlang
   ];
   beamDeps = [ proper ];
-  patches = [
-    ./fix-rebar-config.patch
-    ./dedup-ebins.patch
-  ] ++ patches;
+  patches =
+    [
+      ./fix-rebar-config.patch
+      ./dedup-ebins.patch
+    ] ++ patches
+    ;
   doCheck = true;
   checkTarget = "travis";
 

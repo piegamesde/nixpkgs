@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ nasm ];
 
-  buildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [
+  buildInputs =
+    lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [
       Cocoa
       AudioToolbox
       Carbon
@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
       libGL
       SDL2
       zlib
-    ];
+    ]
+    ;
 
   dontDisableStatic = true;
 
@@ -71,13 +72,15 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--enable-release" ];
 
     # They use 'install -s', that calls the native strip instead of the cross
-  postConfigure = ''
-    sed -i "s/-c -s/-c -s --strip-program=''${STRIP@Q}/" ports.mk
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace config.mk \
-      --replace x86_64-apple-darwin-ranlib ${cctools}/bin/ranlib \
-      --replace aarch64-apple-darwin-ranlib ${cctools}/bin/ranlib
-  '';
+  postConfigure =
+    ''
+      sed -i "s/-c -s/-c -s --strip-program=''${STRIP@Q}/" ports.mk
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace config.mk \
+        --replace x86_64-apple-darwin-ranlib ${cctools}/bin/ranlib \
+        --replace aarch64-apple-darwin-ranlib ${cctools}/bin/ranlib
+    ''
+    ;
 
   meta = with lib; {
     description =

@@ -82,19 +82,21 @@ backendStdenv.mkDerivation {
     #
     # Note also that version <=8.3.0 contained a subdirectory "lib64/" but in
     # version 8.3.2 it seems to have been renamed to simply "lib/".
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-    mkdir -p $out
-    cp -a include $out/include
-    [ -d "lib/" ] && cp -a lib $out/lib
-    [ -d "lib64/" ] && cp -a lib64 $out/lib64
-  '' + strings.optionalString removeStatic ''
-    rm -f $out/lib/*.a
-    rm -f $out/lib64/*.a
-  '' + ''
-    runHook postInstall
-  '';
+      mkdir -p $out
+      cp -a include $out/include
+      [ -d "lib/" ] && cp -a lib $out/lib
+      [ -d "lib64/" ] && cp -a lib64 $out/lib64
+    '' + strings.optionalString removeStatic ''
+      rm -f $out/lib/*.a
+      rm -f $out/lib64/*.a
+    '' + ''
+      runHook postInstall
+    ''
+    ;
 
     # Without --add-needed autoPatchelf forgets $ORIGIN on cuda>=8.0.5.
   postFixup =
@@ -119,8 +121,10 @@ backendStdenv.mkDerivation {
     # official version constraints (as recorded in default.nix). In some cases
     # you _may_ be able to smudge version constraints, just know that you're
     # embarking into unknown and unsupported territory when doing so.
-    broken = strings.versionOlder cudaVersion minCudaVersion
-      || strings.versionOlder maxCudaVersion cudaVersion;
+    broken =
+      strings.versionOlder cudaVersion minCudaVersion
+      || strings.versionOlder maxCudaVersion cudaVersion
+      ;
     description = "NVIDIA CUDA Deep Neural Network library (cuDNN)";
     homepage = "https://developer.nvidia.com/cudnn";
     sourceProvenance = with sourceTypes; [

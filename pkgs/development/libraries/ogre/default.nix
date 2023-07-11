@@ -55,37 +55,41 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  buildInputs = [
-    SDL2
-    boost
-    freeimage
-    freetype
-    libpng
-    ois
-    pugixml
-    zziplib
-  ] ++ lib.optionals stdenv.isLinux [
-    freeglut
-    libGL
-    libGLU
-    libICE
-    libSM
-    libX11
-    libXaw
-    libXmu
-    libXrandr
-    libXrender
-    libXt
-    libXxf86vm
-    xorgproto
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ];
+  buildInputs =
+    [
+      SDL2
+      boost
+      freeimage
+      freetype
+      libpng
+      ois
+      pugixml
+      zziplib
+    ] ++ lib.optionals stdenv.isLinux [
+      freeglut
+      libGL
+      libGLU
+      libICE
+      libSM
+      libX11
+      libXaw
+      libXmu
+      libXrandr
+      libXrender
+      libXt
+      libXxf86vm
+      xorgproto
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ]
+    ;
 
-  cmakeFlags = [
-    "-DOGRE_BUILD_COMPONENT_OVERLAY_IMGUI=FALSE"
-    "-DOGRE_BUILD_DEPENDENCIES=OFF"
-    "-DOGRE_BUILD_SAMPLES=${toString withSamples}"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DOGRE_BUILD_LIBS_AS_FRAMEWORKS=FALSE" ]
+  cmakeFlags =
+    [
+      "-DOGRE_BUILD_COMPONENT_OVERLAY_IMGUI=FALSE"
+      "-DOGRE_BUILD_DEPENDENCIES=OFF"
+      "-DOGRE_BUILD_SAMPLES=${toString withSamples}"
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "-DOGRE_BUILD_LIBS_AS_FRAMEWORKS=FALSE" ]
     ;
 
   meta = {

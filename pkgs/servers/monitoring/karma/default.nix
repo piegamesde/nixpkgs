@@ -10,14 +10,15 @@
 }:
 
 let
-  uiNodeDependencies = (import ./node-composition.nix {
-    inherit pkgs;
-    inherit (stdenv.hostPlatform)
-      system
-      ;
-      # pin nodejs version
-    nodejs = nodejs_18;
-  }).nodeDependencies;
+  uiNodeDependencies =
+    (import ./node-composition.nix {
+      inherit pkgs;
+      inherit (stdenv.hostPlatform)
+        system
+        ;
+        # pin nodejs version
+      nodejs = nodejs_18;
+    }).nodeDependencies;
 
 in
 buildGoModule rec {

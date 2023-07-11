@@ -35,11 +35,13 @@ stdenv.mkDerivation rec {
     cunit
     ncurses
   ];
-  buildInputs = [
-    libev
-    nghttp3
-    quictls
-  ] ++ lib.optional withJemalloc jemalloc;
+  buildInputs =
+    [
+      libev
+      nghttp3
+      quictls
+    ] ++ lib.optional withJemalloc jemalloc
+    ;
 
   cmakeFlags = [ "-DENABLE_STATIC_LIB=OFF" ];
 

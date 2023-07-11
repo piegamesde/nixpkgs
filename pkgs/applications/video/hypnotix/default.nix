@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
   patches = [
       (substituteAll {
         src = ./libmpv-path.patch;
-        libmpv = "${
+        libmpv =
+          "${
             lib.getLib mpv
           }/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}";
       })

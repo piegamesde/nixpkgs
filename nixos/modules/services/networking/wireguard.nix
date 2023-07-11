@@ -378,7 +378,9 @@ let
       dst = interfaceCfg.interfaceNamespace;
       ip = nsWrap "ip" src dst;
       wg = nsWrap "wg" src dst;
-      dynamicRefreshEnabled = peer.dynamicEndpointRefreshSeconds != 0;
+      dynamicRefreshEnabled =
+        peer.dynamicEndpointRefreshSeconds != 0
+        ;
         # We generate a different name (a `-refresh` suffix) when `dynamicEndpointRefreshSeconds`
         # to avoid that the same service switches `Type` (`oneshot` vs `simple`),
         # with the intent to make scripting more obvious.
@@ -645,24 +647,27 @@ in
   in
   {
 
-    assertions = (attrValues (mapAttrs (name: value: {
-      assertion = (value.privateKey != null) != (value.privateKeyFile != null);
-      message =
-        "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
-    }) cfg.interfaces)) ++ (attrValues (mapAttrs (name: value: {
-      assertion = value.generatePrivateKeyFile -> (value.privateKey == null);
-      message =
-        "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
-    }) cfg.interfaces)) ++ map ({
-        interfaceName,
-        peer,
-        ...
-      }: {
+    assertions =
+      (attrValues (mapAttrs (name: value: {
         assertion =
-          (peer.presharedKey == null) || (peer.presharedKeyFile == null);
+          (value.privateKey != null) != (value.privateKeyFile != null);
         message =
-          "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
-      }) all_peers;
+          "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
+      }) cfg.interfaces)) ++ (attrValues (mapAttrs (name: value: {
+        assertion = value.generatePrivateKeyFile -> (value.privateKey == null);
+        message =
+          "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
+      }) cfg.interfaces)) ++ map ({
+          interfaceName,
+          peer,
+          ...
+        }: {
+          assertion =
+            (peer.presharedKey == null) || (peer.presharedKeyFile == null);
+          message =
+            "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
+        }) all_peers
+      ;
 
     boot.extraModulePackages =
       optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;

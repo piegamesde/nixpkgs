@@ -92,10 +92,11 @@ let
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
       # Downloaded jars differ by platform
-    outputHash = {
-      x86_64-linux = "sha256-9DHykkvazVBN2kfw1Pbejizk/R18v5w8lRBHZ4aXL5Q=";
-      aarch64-linux = "sha256-RgAiRbUojBc+9RN/HpAzzpTjkjZ6q+jebDsqvah5XBw=";
-    }.${stdenv.system} or (throw "Unsupported platform");
+    outputHash =
+      {
+        x86_64-linux = "sha256-9DHykkvazVBN2kfw1Pbejizk/R18v5w8lRBHZ4aXL5Q=";
+        aarch64-linux = "sha256-RgAiRbUojBc+9RN/HpAzzpTjkjZ6q+jebDsqvah5XBw=";
+      }.${stdenv.system} or (throw "Unsupported platform");
   };
 
 in

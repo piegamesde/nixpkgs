@@ -40,9 +40,7 @@
       file =
         let
           addDot =
-            zone:
-            zone + lib.optionalString (!lib.hasSuffix "." zone) "."
-            ;
+            zone: zone + lib.optionalString (!lib.hasSuffix "." zone) ".";
           mkNsdZoneNames = zones: map addDot (lib.attrNames zones);
           mkBindZoneNames = zones: map (zone: addDot zone.name) zones;
           getZones =
@@ -79,8 +77,10 @@
                 str:
                 let
                   matched = builtins.match "[ 	]+(${reHost})(.*)" str;
-                  continue = lib.singleton (lib.head matched)
-                    ++ matchAliases (lib.last matched);
+                  continue =
+                    lib.singleton (lib.head matched)
+                    ++ matchAliases (lib.last matched)
+                    ;
                 in
                 if matched == null then
                   [ ]
@@ -99,8 +99,10 @@
                 else
                   {
                     ipAddr = lib.head result;
-                    hosts = lib.singleton (lib.elemAt result 1)
-                      ++ matchAliases (lib.last result);
+                    hosts =
+                      lib.singleton (lib.elemAt result 1)
+                      ++ matchAliases (lib.last result)
+                      ;
                   }
                 ;
 
@@ -159,8 +161,10 @@
               mkRecords =
                 entry:
                 let
-                  records = lib.optional (entry ? ipv6) "AAAA ${entry.ipv6}"
-                    ++ lib.optional (entry ? ipv4) "A ${entry.ipv4}";
+                  records =
+                    lib.optional (entry ? ipv6) "AAAA ${entry.ipv6}"
+                    ++ lib.optional (entry ? ipv4) "A ${entry.ipv4}"
+                    ;
                   mkRecord = typeAndData: "${entry.host}. IN ${typeAndData}";
                 in
                 lib.concatMapStringsSep "\n" mkRecord records

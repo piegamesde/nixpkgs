@@ -97,26 +97,28 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildInputs = [
-    gmp
-    readline
-    openssl
-    libarchive
-    libyaml
-    db
-    pcre
-    libedit
-    libossp_uuid
-    libxcrypt
-    zlib
-  ] ++ lib.optionals (withGui && !stdenv.isDarwin) [
-    libXpm
-    libX11
-    libXext
-    libXft
-    libXinerama
-    libjpeg
-  ] ++ extraLibraries ++ lib.optional stdenv.isDarwin Security;
+  buildInputs =
+    [
+      gmp
+      readline
+      openssl
+      libarchive
+      libyaml
+      db
+      pcre
+      libedit
+      libossp_uuid
+      libxcrypt
+      zlib
+    ] ++ lib.optionals (withGui && !stdenv.isDarwin) [
+      libXpm
+      libX11
+      libXext
+      libXft
+      libXinerama
+      libjpeg
+    ] ++ extraLibraries ++ lib.optional stdenv.isDarwin Security
+    ;
 
   hardeningDisable = [ "format" ];
 

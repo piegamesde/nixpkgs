@@ -214,25 +214,27 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  postPatch = (lib.concatMapStrings patchDep external_deps) + ''
-    # install retdec-support
-    echo "Checking version of retdec-support"
-    expected_version="$( sed -n -e "s|^version = '\(.*\)'$|\1|p" 'cmake/install-share.py' )"
-    if [ "$expected_version" != '${retdec-support.version}' ]; then
-      echo "The retdec-support dependency has the wrong version: ${retdec-support.version} while $expected_version is expected."
-      exit 1
-    fi
-    mkdir -p "$out/share/retdec"
-    cp -r ${retdec-support} "$out/share/retdec/support" # write permission needed during install
-    chmod -R u+w "$out/share/retdec/support"
-    # python file originally responsible for fetching the retdec-support archive to $out/share/retdec
-    # that is not necessary anymore, so empty the file
-    echo > cmake/install-share.py
+  postPatch =
+    (lib.concatMapStrings patchDep external_deps) + ''
+      # install retdec-support
+      echo "Checking version of retdec-support"
+      expected_version="$( sed -n -e "s|^version = '\(.*\)'$|\1|p" 'cmake/install-share.py' )"
+      if [ "$expected_version" != '${retdec-support.version}' ]; then
+        echo "The retdec-support dependency has the wrong version: ${retdec-support.version} while $expected_version is expected."
+        exit 1
+      fi
+      mkdir -p "$out/share/retdec"
+      cp -r ${retdec-support} "$out/share/retdec/support" # write permission needed during install
+      chmod -R u+w "$out/share/retdec/support"
+      # python file originally responsible for fetching the retdec-support archive to $out/share/retdec
+      # that is not necessary anymore, so empty the file
+      echo > cmake/install-share.py
 
-    # call correct `time` and `upx` programs
-    substituteInPlace scripts/retdec-config.py --replace /usr/bin/time ${time}/bin/time
-    substituteInPlace scripts/retdec-unpacker.py --replace "'upx'" "'${upx}/bin/upx'"
-  '';
+      # call correct `time` and `upx` programs
+      substituteInPlace scripts/retdec-config.py --replace /usr/bin/time ${time}/bin/time
+      substituteInPlace scripts/retdec-unpacker.py --replace "'upx'" "'${upx}/bin/upx'"
+    ''
+    ;
 
   doInstallCheck = true;
   installCheckPhase = ''

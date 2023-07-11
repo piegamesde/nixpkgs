@@ -76,22 +76,27 @@ let
     ;
 
     # https://codeberg.org/dnkl/foot/src/branch/master/INSTALL.md#performance-optimized-pgo
-  pgoCflags = {
-    "clang" = "-O3 -Wno-ignored-optimization-argument";
-    "gcc" = "-O3";
-  }."${compilerName}";
+  pgoCflags =
+    {
+      "clang" = "-O3 -Wno-ignored-optimization-argument";
+      "gcc" = "-O3";
+    }."${compilerName}";
 
     # ar with lto support
-  ar = stdenv.cc.bintools.targetPrefix + {
-    "clang" = "llvm-ar";
-    "gcc" = "gcc-ar";
-    "unknown" = "ar";
-  }."${compilerName}";
+  ar =
+    stdenv.cc.bintools.targetPrefix + {
+      "clang" = "llvm-ar";
+      "gcc" = "gcc-ar";
+      "unknown" = "ar";
+    }."${compilerName}"
+    ;
 
     # PGO only makes sense if we are not cross compiling and
     # using a compiler which foot's PGO build supports (clang or gcc)
-  doPgo = allowPgo && (stdenv.hostPlatform == stdenv.buildPlatform)
-    && compilerName != "unknown";
+  doPgo =
+    allowPgo && (stdenv.hostPlatform == stdenv.buildPlatform) && compilerName
+    != "unknown"
+    ;
 
   terminfoDir = "${placeholder "terminfo"}/share/terminfo";
 in
@@ -109,14 +114,16 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    wayland-scanner
-    meson
-    ninja
-    ncurses
-    scdoc
-    pkg-config
-  ] ++ lib.optionals (compilerName == "clang") [ stdenv.cc.cc.libllvm.out ];
+  nativeBuildInputs =
+    [
+      wayland-scanner
+      meson
+      ninja
+      ncurses
+      scdoc
+      pkg-config
+    ] ++ lib.optionals (compilerName == "clang") [ stdenv.cc.cc.libllvm.out ]
+    ;
 
   buildInputs = [
     tllist
@@ -162,20 +169,22 @@ stdenv.mkDerivation rec {
 
     # build and run binary generating PGO profiles,
     # then reconfigure to build the normal foot binary utilizing PGO
-  preBuild = lib.optionalString doPgo ''
-    meson configure -Db_pgo=generate
-    ninja
-    # make sure there is _some_ profiling data on all binaries
-    ./footclient --version
-    ./foot --version
-    ./utils/xtgettcap
-    ./tests/test-config
-    # generate pgo data of wayland independent code
-    ./pgo ${stimuliFile} ${stimuliFile} ${stimuliFile}
-    meson configure -Db_pgo=use
-  '' + lib.optionalString (doPgo && compilerName == "clang") ''
-    llvm-profdata merge default_*profraw --output=default.profdata
-  '';
+  preBuild =
+    lib.optionalString doPgo ''
+      meson configure -Db_pgo=generate
+      ninja
+      # make sure there is _some_ profiling data on all binaries
+      ./footclient --version
+      ./foot --version
+      ./utils/xtgettcap
+      ./tests/test-config
+      # generate pgo data of wayland independent code
+      ./pgo ${stimuliFile} ${stimuliFile} ${stimuliFile}
+      meson configure -Db_pgo=use
+    '' + lib.optionalString (doPgo && compilerName == "clang") ''
+      llvm-profdata merge default_*profraw --output=default.profdata
+    ''
+    ;
 
     # Install example themes which can be added to foot.ini via the include
     # directive to a separate output to save a bit of space

@@ -26,10 +26,12 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     rustPlatform.bindgenHook
   ];
-  buildInputs = [
-    pcsclite
-    nettle
-  ] ++ lib.optionals stdenv.isDarwin [ PCSC ];
+  buildInputs =
+    [
+      pcsclite
+      nettle
+    ] ++ lib.optionals stdenv.isDarwin [ PCSC ]
+    ;
 
   passthru = {
     tests.version = testers.testVersion { package = openpgp-card-tools; };

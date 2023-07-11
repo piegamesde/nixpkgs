@@ -23,17 +23,19 @@ import ./make-test-python.nix ({
             # build the go integration tests as a binary
             (tracee.overrideAttrs (oa: {
               pname = oa.pname + "-integration";
-              postPatch = oa.postPatch or "" + ''
-                # prepare tester.sh (which will be embedded in the test binary)
-                patchShebangs tests/integration/tester.sh
+              postPatch =
+                oa.postPatch or "" + ''
+                  # prepare tester.sh (which will be embedded in the test binary)
+                  patchShebangs tests/integration/tester.sh
 
-                # fix the test to look at nixos paths for running programs
-                substituteInPlace tests/integration/integration_test.go \
-                  --replace "bin=/usr/bin/" "comm=" \
-                  --replace "binary=/usr/bin/" "comm=" \
-                  --replace "/usr/bin/dockerd" "dockerd" \
-                  --replace "/usr/bin" "/run/current-system/sw/bin"
-              '';
+                  # fix the test to look at nixos paths for running programs
+                  substituteInPlace tests/integration/integration_test.go \
+                    --replace "bin=/usr/bin/" "comm=" \
+                    --replace "binary=/usr/bin/" "comm=" \
+                    --replace "/usr/bin/dockerd" "dockerd" \
+                    --replace "/usr/bin" "/run/current-system/sw/bin"
+                ''
+                ;
               nativeBuildInputs =
                 oa.nativeBuildInputs or [ ] ++ [ makeWrapper ];
               buildPhase = ''

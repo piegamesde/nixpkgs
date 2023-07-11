@@ -41,20 +41,22 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ zstd ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-    libxkbcommon
-    udev
-    vulkan-loader
-    wayland
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrandr
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Cocoa
-    rustPlatform.bindgenHook
-  ];
+  buildInputs =
+    [ zstd ] ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      libxkbcommon
+      udev
+      vulkan-loader
+      wayland
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXi
+      xorg.libXrandr
+    ] ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.Cocoa
+      rustPlatform.bindgenHook
+    ]
+    ;
 
   cargoBuildFlags = [
     "--bin"

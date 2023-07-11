@@ -29,14 +29,16 @@
 let
   dmdConfFile = writeTextFile {
     name = "dmd.conf";
-    text = (lib.generators.toINI { } {
-      Environment = {
-        DFLAGS = "-I@out@/include/dmd -L-L@out@/lib -fPIC ${
-            lib.optionalString (!targetPackages.stdenv.cc.isClang)
-            "-L--export-dynamic"
-          }";
-      };
-    });
+    text =
+      (lib.generators.toINI { } {
+        Environment = {
+          DFLAGS =
+            "-I@out@/include/dmd -L-L@out@/lib -fPIC ${
+              lib.optionalString (!targetPackages.stdenv.cc.isClang)
+              "-L--export-dynamic"
+            }";
+        };
+      });
   };
 
   bits = builtins.toString stdenv.hostPlatform.parsed.cpu.bits;
@@ -85,54 +87,57 @@ stdenv.mkDerivation rec {
     # https://issues.dlang.org/show_bug.cgi?id=19553
   hardeningDisable = [ "fortify" ];
 
-  patches = lib.optionals (lib.versionOlder version "2.088.0") [
-    # Migrates D1-style operator overloads in DMD source, to allow building with
-    # a newer DMD
-    (fetchpatch {
-      url =
-        "https://github.com/dlang/dmd/commit/c4d33e5eb46c123761ac501e8c52f33850483a8a.patch";
-      stripLen = 1;
-      extraPrefix = "dmd/";
-      sha256 = "sha256-N21mAPfaTo+zGCip4njejasraV5IsWVqlGR5eOdFZZE=";
-    })
-  ] ++ lib.optionals (lib.versionOlder version "2.092.2") [
-    # Fixes C++ tests that compiled on older C++ but not on the current one
-    (fetchpatch {
-      url =
-        "https://github.com/dlang/druntime/commit/438990def7e377ca1f87b6d28246673bb38022ab.patch";
-      stripLen = 1;
-      extraPrefix = "druntime/";
-      sha256 = "sha256-/pPKK7ZK9E/mBrxm2MZyBNhYExE8p9jz8JqBdZSE6uY=";
-    })
-  ];
+  patches =
+    lib.optionals (lib.versionOlder version "2.088.0") [
+      # Migrates D1-style operator overloads in DMD source, to allow building with
+      # a newer DMD
+      (fetchpatch {
+        url =
+          "https://github.com/dlang/dmd/commit/c4d33e5eb46c123761ac501e8c52f33850483a8a.patch";
+        stripLen = 1;
+        extraPrefix = "dmd/";
+        sha256 = "sha256-N21mAPfaTo+zGCip4njejasraV5IsWVqlGR5eOdFZZE=";
+      })
+    ] ++ lib.optionals (lib.versionOlder version "2.092.2") [
+      # Fixes C++ tests that compiled on older C++ but not on the current one
+      (fetchpatch {
+        url =
+          "https://github.com/dlang/druntime/commit/438990def7e377ca1f87b6d28246673bb38022ab.patch";
+        stripLen = 1;
+        extraPrefix = "druntime/";
+        sha256 = "sha256-/pPKK7ZK9E/mBrxm2MZyBNhYExE8p9jz8JqBdZSE6uY=";
+      })
+    ]
+    ;
 
-  postPatch = ''
-    patchShebangs dmd/test/{runnable,fail_compilation,compilable,tools}{,/extra-files}/*.sh
+  postPatch =
+    ''
+      patchShebangs dmd/test/{runnable,fail_compilation,compilable,tools}{,/extra-files}/*.sh
 
-    rm dmd/test/runnable/gdb1.d
-    rm dmd/test/runnable/gdb10311.d
-    rm dmd/test/runnable/gdb14225.d
-    rm dmd/test/runnable/gdb14276.d
-    rm dmd/test/runnable/gdb14313.d
-    rm dmd/test/runnable/gdb14330.d
-    rm dmd/test/runnable/gdb15729.sh
-    rm dmd/test/runnable/gdb4149.d
-    rm dmd/test/runnable/gdb4181.d
+      rm dmd/test/runnable/gdb1.d
+      rm dmd/test/runnable/gdb10311.d
+      rm dmd/test/runnable/gdb14225.d
+      rm dmd/test/runnable/gdb14276.d
+      rm dmd/test/runnable/gdb14313.d
+      rm dmd/test/runnable/gdb14330.d
+      rm dmd/test/runnable/gdb15729.sh
+      rm dmd/test/runnable/gdb4149.d
+      rm dmd/test/runnable/gdb4181.d
 
-    # Disable tests that rely on objdump whitespace until fixed upstream:
-    #   https://issues.dlang.org/show_bug.cgi?id=23317
-    rm dmd/test/runnable/cdvecfill.sh
-    rm dmd/test/compilable/cdcmp.d
+      # Disable tests that rely on objdump whitespace until fixed upstream:
+      #   https://issues.dlang.org/show_bug.cgi?id=23317
+      rm dmd/test/runnable/cdvecfill.sh
+      rm dmd/test/compilable/cdcmp.d
 
-    # Grep'd string changed with gdb 12
-    #   https://issues.dlang.org/show_bug.cgi?id=23198
-    substituteInPlace druntime/test/exceptions/Makefile \
-      --replace 'in D main (' 'in _Dmain ('
+      # Grep'd string changed with gdb 12
+      #   https://issues.dlang.org/show_bug.cgi?id=23198
+      substituteInPlace druntime/test/exceptions/Makefile \
+        --replace 'in D main (' 'in _Dmain ('
 
-    # We're using gnused on all platforms
-    substituteInPlace druntime/test/coverage/Makefile \
-      --replace 'freebsd osx' 'none'
-  ''
+      # We're using gnused on all platforms
+      substituteInPlace druntime/test/coverage/Makefile \
+        --replace 'freebsd osx' 'none'
+    ''
 
     + lib.optionalString (lib.versionOlder version "2.091.0") ''
       # This one has tested against a hardcoded year, then against a current year on
@@ -150,18 +155,23 @@ stdenv.mkDerivation rec {
       substituteInPlace phobos/std/socket.d --replace "assert(ih.addrList[0] == 0x7F_00_00_01);" ""
     '' + lib.optionalString stdenv.isDarwin ''
       substituteInPlace phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
-    '';
+    ''
+    ;
 
-  nativeBuildInputs = [
-    makeWrapper
-    which
-    installShellFiles
-  ] ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      which
+      installShellFiles
+    ] ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ]
+    ;
 
-  buildInputs = [
-    curl
-    tzdata
-  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  buildInputs =
+    [
+      curl
+      tzdata
+    ] ++ lib.optionals stdenv.isDarwin [ Foundation ]
+    ;
 
   nativeCheckInputs =
     [ gdb ] ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];

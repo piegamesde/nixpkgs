@@ -34,34 +34,39 @@ stdenv.mkDerivation rec {
     sha256 = "15xfkcw1bkfyf3z8kl23k3rlv702m0h7ghqxvhniynvlwbgh6j2x";
   };
 
-  patches = [
-    # pass through NIX_* environment variables to scons.
-    ./scons-nix-env.patch
-  ];
+  patches =
+    [
+      # pass through NIX_* environment variables to scons.
+      ./scons-nix-env.patch
+    ];
 
-  nativeBuildInputs = [
-    pkg-config
-    sphinx
-    scons
-  ] ++ lib.optionals withGui [
-    makeWrapper
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      sphinx
+      scons
+    ] ++ lib.optionals withGui [
+      makeWrapper
+      wrapGAppsHook
+    ]
+    ;
 
-  buildInputs = [
-    glib
-    json-glib
-    libelf
-    util-linux
-  ] ++ lib.optionals withGui [
-    cairo
-    gobject-introspection
-    gtksourceview3
-    pango
-    polkit
-    python3
-    python3.pkgs.pygobject3
-  ];
+  buildInputs =
+    [
+      glib
+      json-glib
+      libelf
+      util-linux
+    ] ++ lib.optionals withGui [
+      cairo
+      gobject-introspection
+      gtksourceview3
+      pango
+      polkit
+      python3
+      python3.pkgs.pygobject3
+    ]
+    ;
 
   prePatch = ''
     # remove sources of nondeterminism

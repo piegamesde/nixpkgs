@@ -48,44 +48,48 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    cmark
-    git
-    hunspell
-    libssh2
-    lua5_4
-    openssl
-    qtbase
-    qttools
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    CoreFoundation
-    Security
-  ]);
+  buildInputs =
+    [
+      cmark
+      git
+      hunspell
+      libssh2
+      lua5_4
+      openssl
+      qtbase
+      qttools
+    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      CoreFoundation
+      Security
+    ])
+    ;
 
-  postInstall = ''
-    mkdir -p $out/bin
+  postInstall =
+    ''
+      mkdir -p $out/bin
 
-    # Move binaries to the proper place
-    # TODO: Tweak in the next release: https://github.com/Murmele/Gittyup/commit/5b93e7e514b887fafb00a8158be5986e6c12b2e3
-    mv $out/Gittyup $out/bin/gittyup
-    mv $out/{indexer,relauncher} $out/bin
+      # Move binaries to the proper place
+      # TODO: Tweak in the next release: https://github.com/Murmele/Gittyup/commit/5b93e7e514b887fafb00a8158be5986e6c12b2e3
+      mv $out/Gittyup $out/bin/gittyup
+      mv $out/{indexer,relauncher} $out/bin
 
-    # Those are not program libs, just some Qt5 libs that the build system leaks for some reason
-    rm -f $out/*.so.*
-    rm -rf $out/{include,lib,Plugins,Resources}
-  '' + lib.optionalString stdenv.isLinux ''
-    # Install icons
-    install -Dm0644 ${src}/rsrc/Gittyup.iconset/gittyup_logo.svg $out/share/icons/hicolor/scalable/apps/gittyup.svg
-    for res in 16x16 32x32 64x64 128x128 256x256 512x512; do
-      install -Dm0644 ${src}/rsrc/Gittyup.iconset/icon_$res.png $out/share/icons/hicolor/$res/apps/gittyup.png
-    done
+      # Those are not program libs, just some Qt5 libs that the build system leaks for some reason
+      rm -f $out/*.so.*
+      rm -rf $out/{include,lib,Plugins,Resources}
+    '' + lib.optionalString stdenv.isLinux ''
+      # Install icons
+      install -Dm0644 ${src}/rsrc/Gittyup.iconset/gittyup_logo.svg $out/share/icons/hicolor/scalable/apps/gittyup.svg
+      for res in 16x16 32x32 64x64 128x128 256x256 512x512; do
+        install -Dm0644 ${src}/rsrc/Gittyup.iconset/icon_$res.png $out/share/icons/hicolor/$res/apps/gittyup.png
+      done
 
-    # Install desktop file
-    install -Dm0644 ${src}/rsrc/linux/com.github.Murmele.Gittyup.desktop $out/share/applications/gittyup.desktop
-    # TODO: Remove in the next release: https://github.com/Murmele/Gittyup/commit/5b93e7e514b887fafb00a8158be5986e6c12b2e3
-    substituteInPlace $out/share/applications/gittyup.desktop \
-      --replace "Exec=Gittyup" "Exec=gittyup"
-  '';
+      # Install desktop file
+      install -Dm0644 ${src}/rsrc/linux/com.github.Murmele.Gittyup.desktop $out/share/applications/gittyup.desktop
+      # TODO: Remove in the next release: https://github.com/Murmele/Gittyup/commit/5b93e7e514b887fafb00a8158be5986e6c12b2e3
+      substituteInPlace $out/share/applications/gittyup.desktop \
+        --replace "Exec=Gittyup" "Exec=gittyup"
+    ''
+    ;
 
   meta = with lib; {
     description =

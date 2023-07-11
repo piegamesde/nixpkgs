@@ -8,9 +8,7 @@
 let
 
   makeXinePluginPath =
-    l:
-    lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l)
-    ;
+    l: lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
 
   requiredXinePlugins =
     lib.flatten (map (p: p.passthru.requiredXinePlugins or [ ]) plugins);
@@ -34,7 +32,9 @@ symlinkJoin {
 
   meta = with vdr.meta; {
     inherit license homepage;
-    description = description + " (with plugins: "
-      + lib.concatStringsSep ", " (map (x: "" + x.name) plugins) + ")";
+    description =
+      description + " (with plugins: "
+      + lib.concatStringsSep ", " (map (x: "" + x.name) plugins) + ")"
+      ;
   };
 }

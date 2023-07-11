@@ -28,7 +28,8 @@ let
       pname = "gnome-shell-extension-${pname}";
       version = builtins.toString version;
       src = fetchzip {
-        url = "https://extensions.gnome.org/extension-data/${
+        url =
+          "https://extensions.gnome.org/extension-data/${
             builtins.replaceStrings [ "@" ] [ "" ] uuid
           }.v${builtins.toString version}.shell-extension.zip";
         inherit sha256;

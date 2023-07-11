@@ -42,13 +42,15 @@ buildGoModule rec {
     pkg-config
   ];
 
-  buildInputs = [ gpgme ] ++ lib.optionals stdenv.isLinux [
-    btrfs-progs
-    libapparmor
-    libseccomp
-    libselinux
-    lvm2
-  ];
+  buildInputs =
+    [ gpgme ] ++ lib.optionals stdenv.isLinux [
+      btrfs-progs
+      libapparmor
+      libseccomp
+      libselinux
+      lvm2
+    ]
+    ;
 
   buildPhase = ''
     runHook preBuild

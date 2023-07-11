@@ -313,17 +313,21 @@ in
     # implementation
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = cfg.configFile == configFile -> cfg.adapter == "caddyfile"
-        || cfg.adapter == null;
-      message =
-        "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
-    } ] ++ map (name:
-      mkCertOwnershipAssertion {
-        inherit (cfg) group user;
-        cert = config.security.acme.certs.${name};
-        groups = config.users.groups;
-      }) acmeHosts;
+    assertions =
+      [ {
+        assertion =
+          cfg.configFile == configFile -> cfg.adapter == "caddyfile"
+          || cfg.adapter == null
+          ;
+        message =
+          "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
+      } ] ++ map (name:
+        mkCertOwnershipAssertion {
+          inherit (cfg) group user;
+          cert = config.security.acme.certs.${name};
+          groups = config.users.groups;
+        }) acmeHosts
+      ;
 
     services.caddy.extraConfig =
       concatMapStringsSep "\n" mkVHostConf virtualHosts;

@@ -25,16 +25,18 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-4ghfenwmauR4Ft9n7dvBflwIMXPdFq1vh6FpIegHnZk=";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    postgresql
-    sqlite
-  ] ++ (if !stdenv.isDarwin then
-    [ openssl ]
-  else
+  buildInputs =
     [
-      Security
-      libiconv
-    ]);
+      postgresql
+      sqlite
+    ] ++ (if !stdenv.isDarwin then
+      [ openssl ]
+    else
+      [
+        Security
+        libiconv
+      ])
+    ;
 
   meta = with lib; {
     description =

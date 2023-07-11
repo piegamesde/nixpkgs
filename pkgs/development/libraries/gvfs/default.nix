@@ -49,22 +49,24 @@ stdenv.mkDerivation rec {
   version = "1.50.4";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "q5BZpnalN+2+ohOIwqr+Gn4sjxrC39xtZFUCMwdUV/0=";
   };
 
-  patches = [
-    # Hardcode the ssh path again.
-    # https://gitlab.gnome.org/GNOME/gvfs/-/issues/465
-    (fetchpatch2 {
-      url =
-        "https://gitlab.gnome.org/GNOME/gvfs/-/commit/8327383e262e1e7f32750a8a2d3dd708195b0f53.patch";
-      hash = "sha256-ReD7qkezGeiJHyo9jTqEQNBjECqGhV9nSD+dYYGZWJ8=";
-      revert = true;
-    })
-  ];
+  patches =
+    [
+      # Hardcode the ssh path again.
+      # https://gitlab.gnome.org/GNOME/gvfs/-/issues/465
+      (fetchpatch2 {
+        url =
+          "https://gitlab.gnome.org/GNOME/gvfs/-/commit/8327383e262e1e7f32750a8a2d3dd708195b0f53.patch";
+        hash = "sha256-ReD7qkezGeiJHyo9jTqEQNBjECqGhV9nSD+dYYGZWJ8=";
+        revert = true;
+      })
+    ];
 
   postPatch = ''
     # patchShebangs requires executable file
@@ -86,61 +88,65 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_42
   ];
 
-  buildInputs = [
-    glib
-    libgcrypt
-    dbus
-    libgphoto2
-    avahi
-    libarchive
-    libimobiledevice
-    libbluray
-    libnfs
-    openssh
-    gsettings-desktop-schemas
-    libsoup_3
-  ] ++ lib.optionals udevSupport [
-    libgudev
-    udisks2
-    fuse3
-    libcdio
-    samba
-    libmtp
-    libcap
-    polkit
-    libcdio-paranoia
-  ] ++ lib.optionals gnomeSupport [
-    gcr
-    glib-networking # TLS support
-    gnome-online-accounts
-    libsecret
-    libgdata
-  ];
+  buildInputs =
+    [
+      glib
+      libgcrypt
+      dbus
+      libgphoto2
+      avahi
+      libarchive
+      libimobiledevice
+      libbluray
+      libnfs
+      openssh
+      gsettings-desktop-schemas
+      libsoup_3
+    ] ++ lib.optionals udevSupport [
+      libgudev
+      udisks2
+      fuse3
+      libcdio
+      samba
+      libmtp
+      libcap
+      polkit
+      libcdio-paranoia
+    ] ++ lib.optionals gnomeSupport [
+      gcr
+      glib-networking # TLS support
+      gnome-online-accounts
+      libsecret
+      libgdata
+    ]
+    ;
 
-  mesonFlags = [
-    "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
-    "-Dtmpfilesdir=no"
-  ] ++ lib.optionals (!udevSupport) [
-    "-Dgudev=false"
-    "-Dudisks2=false"
-    "-Dfuse=false"
-    "-Dcdda=false"
-    "-Dsmb=false"
-    "-Dmtp=false"
-    "-Dadmin=false"
-    "-Dgphoto2=false"
-    "-Dlibusb=false"
-    "-Dlogind=false"
-  ] ++ lib.optionals (!gnomeSupport) [
-    "-Dgcr=false"
-    "-Dgoa=false"
-    "-Dkeyring=false"
-    "-Dgoogle=false"
-  ] ++ lib.optionals (avahi == null) [ "-Ddnssd=false" ]
+  mesonFlags =
+    [
+      "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
+      "-Dtmpfilesdir=no"
+    ] ++ lib.optionals (!udevSupport) [
+      "-Dgudev=false"
+      "-Dudisks2=false"
+      "-Dfuse=false"
+      "-Dcdda=false"
+      "-Dsmb=false"
+      "-Dmtp=false"
+      "-Dadmin=false"
+      "-Dgphoto2=false"
+      "-Dlibusb=false"
+      "-Dlogind=false"
+    ] ++ lib.optionals (!gnomeSupport) [
+      "-Dgcr=false"
+      "-Dgoa=false"
+      "-Dkeyring=false"
+      "-Dgoogle=false"
+    ] ++ lib.optionals (avahi == null) [ "-Ddnssd=false" ]
     ++ lib.optionals (samba == null) [
       # Xfce don't want samba
       "-Dsmb=false"
-    ];
+    ]
+    ;
 
   doCheck = false; # fails with "ModuleNotFoundError: No module named 'gi'"
   doInstallCheck = doCheck;
@@ -155,8 +161,10 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Virtual Filesystem support library"
-      + optionalString gnomeSupport " (full GNOME support)";
+    description =
+      "Virtual Filesystem support library"
+      + optionalString gnomeSupport " (full GNOME support)"
+      ;
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
     maintainers = teams.gnome.members;

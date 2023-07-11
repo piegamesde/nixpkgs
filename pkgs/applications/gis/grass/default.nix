@@ -42,39 +42,43 @@ stdenv.mkDerivation rec {
       sha256 = "sha256-VK9FCqIwHGmeJe5lk12lpAGcsC1aPRBiI+XjACXjDd4=";
     };
 
-  nativeBuildInputs = [
-    pkg-config
-    bison
-    flex
-    makeWrapper
-    wrapGAppsHook
-    gdal
-    geos
-    libmysqlclient
-    netcdf
-    pdal
-  ] ++ (with python3Packages; [
-    python-dateutil
-    numpy
-    wxPython_4_2
-  ]);
+  nativeBuildInputs =
+    [
+      pkg-config
+      bison
+      flex
+      makeWrapper
+      wrapGAppsHook
+      gdal
+      geos
+      libmysqlclient
+      netcdf
+      pdal
+    ] ++ (with python3Packages; [
+      python-dateutil
+      numpy
+      wxPython_4_2
+    ])
+    ;
 
-  buildInputs = [
-    cairo
-    zlib
-    proj
-    libtiff
-    libpng
-    fftw
-    sqlite
-    readline
-    ffmpeg
-    postgresql
-    blas
-    wxGTK32
-    proj-datumgrid
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs =
+    [
+      cairo
+      zlib
+      proj
+      libtiff
+      libpng
+      fftw
+      sqlite
+      readline
+      ffmpeg
+      postgresql
+      blas
+      wxGTK32
+      proj-datumgrid
+      zstd
+    ] ++ lib.optionals stdenv.isDarwin [ libiconv ]
+    ;
 
   strictDeps = true;
 
@@ -87,31 +91,33 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace "--libmysqld-libs" "--libs"
   '';
 
-  configureFlags = [
-    "--with-proj-share=${proj}/share/proj"
-    "--with-proj-includes=${proj.dev}/include"
-    "--with-proj-libs=${proj}/lib"
-    "--without-opengl"
-    "--with-readline"
-    "--with-wxwidgets"
-    "--with-netcdf"
-    "--with-geos"
-    "--with-postgres"
-    "--with-postgres-libs=${postgresql.lib}/lib/"
-    # it complains about missing libmysqld but doesn't really seem to need it
-    "--with-mysql"
-    "--with-mysql-includes=${lib.getDev libmysqlclient}/include/mysql"
-    "--with-mysql-libs=${libmysqlclient}/lib/mysql"
-    "--with-blas"
-    "--with-zstd"
-    "--with-fftw"
-    "--with-pthread"
-  ] ++ lib.optionals stdenv.isLinux [ "--with-pdal" ]
+  configureFlags =
+    [
+      "--with-proj-share=${proj}/share/proj"
+      "--with-proj-includes=${proj.dev}/include"
+      "--with-proj-libs=${proj}/lib"
+      "--without-opengl"
+      "--with-readline"
+      "--with-wxwidgets"
+      "--with-netcdf"
+      "--with-geos"
+      "--with-postgres"
+      "--with-postgres-libs=${postgresql.lib}/lib/"
+      # it complains about missing libmysqld but doesn't really seem to need it
+      "--with-mysql"
+      "--with-mysql-includes=${lib.getDev libmysqlclient}/include/mysql"
+      "--with-mysql-libs=${libmysqlclient}/lib/mysql"
+      "--with-blas"
+      "--with-zstd"
+      "--with-fftw"
+      "--with-pthread"
+    ] ++ lib.optionals stdenv.isLinux [ "--with-pdal" ]
     ++ lib.optionals stdenv.isDarwin [
       "--without-cairo"
       "--without-freetype"
       "--without-x"
-    ];
+    ]
+    ;
 
     # Otherwise a very confusing "Can't load GDAL library" error
   makeFlags = lib.optional stdenv.isDarwin "GDAL_DYNAMIC=";

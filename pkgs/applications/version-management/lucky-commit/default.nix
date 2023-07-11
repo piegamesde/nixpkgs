@@ -26,7 +26,9 @@ rustPlatform.buildRustPackage rec {
   else
     ocl-icd);
 
-  buildNoDefaultFeatures = !withOpenCL;
+  buildNoDefaultFeatures =
+    !withOpenCL
+    ;
 
     # disable tests that require gpu
   checkNoDefaultFeatures = true;

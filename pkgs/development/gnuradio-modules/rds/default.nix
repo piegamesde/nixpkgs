@@ -16,20 +16,22 @@
 }:
 
 let
-  version = {
-    "3.7" = "1.1.0";
-    "3.8" = "3.8.0";
-    "3.9" = null;
-  }.${gnuradio.versionAttr.major};
+  version =
+    {
+      "3.7" = "1.1.0";
+      "3.8" = "3.8.0";
+      "3.9" = null;
+    }.${gnuradio.versionAttr.major};
   src = fetchFromGitHub {
     owner = "bastibl";
     repo = "gr-rds";
     rev = "v${version}";
-    sha256 = {
-      "3.7" = "0jkzchvw0ivcxsjhi1h0mf7k13araxf5m4wi5v9xdgqxvipjzqfy";
-      "3.8" = "+yKLJu2bo7I2jkAiOdjvdhZwxFz9NFgTmzcLthH9Y5o=";
-      "3.9" = null;
-    }.${gnuradio.versionAttr.major};
+    sha256 =
+      {
+        "3.7" = "0jkzchvw0ivcxsjhi1h0mf7k13araxf5m4wi5v9xdgqxvipjzqfy";
+        "3.8" = "+yKLJu2bo7I2jkAiOdjvdhZwxFz9NFgTmzcLthH9Y5o=";
+        "3.9" = null;
+      }.${gnuradio.versionAttr.major};
   };
 in
 mkDerivation {
@@ -37,16 +39,18 @@ mkDerivation {
   inherit version src;
   disabledForGRafter = "3.9";
 
-  buildInputs = [
-    logLib
-    mpir
-    boost
-    gmp
-    icu
-  ] ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
-    thrift
-    python.pkgs.thrift
-  ];
+  buildInputs =
+    [
+      logLib
+      mpir
+      boost
+      gmp
+      icu
+    ] ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
+      thrift
+      python.pkgs.thrift
+    ]
+    ;
 
   nativeBuildInputs = [
     cmake

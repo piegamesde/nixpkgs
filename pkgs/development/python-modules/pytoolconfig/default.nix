@@ -53,15 +53,17 @@ buildPythonPackage rec {
 
   PDM_PEP517_SCM_VERSION = version;
 
-  nativeBuildInputs = [
-    pdm-pep517
+  nativeBuildInputs =
+    [
+      pdm-pep517
 
-    # docs
-    docutils
-    sphinx-autodoc-typehints
-    sphinx-rtd-theme
-    sphinxHook
-  ] ++ passthru.optional-dependencies.doc;
+      # docs
+      docutils
+      sphinx-autodoc-typehints
+      sphinx-rtd-theme
+      sphinxHook
+    ] ++ passthru.optional-dependencies.doc
+    ;
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -82,8 +84,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pytoolconfig" ];
 
-  nativeCheckInputs = [ pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [ pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ;
 
   meta = with lib; {
     changelog =

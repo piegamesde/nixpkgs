@@ -30,17 +30,21 @@ rustPackages.rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optional withALSA alsa-lib
+  buildInputs =
+    [ openssl ] ++ lib.optional withALSA alsa-lib
     ++ lib.optional withPulseAudio libpulseaudio
     ++ lib.optional withPortAudio portaudio
-    ++ lib.optional (withMpris || withKeyring) dbus;
+    ++ lib.optional (withMpris || withKeyring) dbus
+    ;
 
   buildNoDefaultFeatures = true;
-  buildFeatures = lib.optional withALSA "alsa_backend"
+  buildFeatures =
+    lib.optional withALSA "alsa_backend"
     ++ lib.optional withPulseAudio "pulseaudio_backend"
     ++ lib.optional withPortAudio "portaudio_backend"
     ++ lib.optional withMpris "dbus_mpris"
-    ++ lib.optional withKeyring "dbus_keyring";
+    ++ lib.optional withKeyring "dbus_keyring"
+    ;
 
   doCheck = false;
 

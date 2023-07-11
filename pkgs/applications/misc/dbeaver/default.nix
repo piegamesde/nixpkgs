@@ -44,20 +44,22 @@
     maven
   ];
 
-  buildInputs = [
-    fontconfig
-    freetype
-    glib
-    gtk3
-    jdk17
-    libX11
-    libXrender
-    libXtst
-    zlib
-  ] ++ lib.optionals stdenv.isLinux [
-    webkitgtk_4_1
-    glib-networking
-  ];
+  buildInputs =
+    [
+      fontconfig
+      freetype
+      glib
+      gtk3
+      jdk17
+      libX11
+      libXrender
+      libXtst
+      zlib
+    ] ++ lib.optionals stdenv.isLinux [
+      webkitgtk_4_1
+      glib-networking
+    ]
+    ;
 
   desktopItems = [
       (makeDesktopItem {
@@ -83,8 +85,9 @@
         x86_64-linux = "x86_64";
       };
 
-      systemPlatform = platformMap.${stdenv.hostPlatform.system} or (throw
-        "dbeaver not supported on ${stdenv.hostPlatform.system}");
+      systemPlatform =
+        platformMap.${stdenv.hostPlatform.system} or (throw
+          "dbeaver not supported on ${stdenv.hostPlatform.system}");
     in
     if stdenv.isDarwin then
       ''

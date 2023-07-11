@@ -72,11 +72,13 @@ buildPythonPackage rec {
     hash = "sha256-imktzBpgP+lq6FsVWIUK82+t76gKTgt53kPfKOnsseQ=";
   };
 
-  nativeBuildInputs = [ setuptools-rust ] ++ (with rustPlatform; [
-    rust.rustc
-    rust.cargo
-    cargoSetupHook
-  ]);
+  nativeBuildInputs =
+    [ setuptools-rust ] ++ (with rustPlatform; [
+      rust.rustc
+      rust.cargo
+      cargoSetupHook
+    ])
+    ;
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
@@ -84,32 +86,36 @@ buildPythonPackage rec {
     hash = "sha256-SXC0UqWjWqLlZvKCRBylSX73r4Vale130KzS0zM8gjQ=";
   };
 
-  propagatedBuildInputs = [
-    dill
-    numpy
-    networkx
-    ply
-    psutil
-    python-constraint
-    python-dateutil
-    retworkx
-    scipy
-    scikit-quant
-    stevedore
-    symengine
-    sympy
-    tweedledum
-  ] ++ lib.optionals withVisualization visualizationPackages
-    ++ lib.optionals withCrosstalkPass crosstalkPackages;
+  propagatedBuildInputs =
+    [
+      dill
+      numpy
+      networkx
+      ply
+      psutil
+      python-constraint
+      python-dateutil
+      retworkx
+      scipy
+      scikit-quant
+      stevedore
+      symengine
+      sympy
+      tweedledum
+    ] ++ lib.optionals withVisualization visualizationPackages
+    ++ lib.optionals withCrosstalkPass crosstalkPackages
+    ;
 
     # *** Tests ***
-  nativeCheckInputs = [
-    pytestCheckHook
-    ddt
-    hypothesis
-    nbformat
-    nbconvert
-  ] ++ lib.optionals (!withVisualization) visualizationPackages;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      ddt
+      hypothesis
+      nbformat
+      nbconvert
+    ] ++ lib.optionals (!withVisualization) visualizationPackages
+    ;
 
   pythonImportsCheck = [
     "qiskit"
@@ -125,19 +131,20 @@ buildPythonPackage rec {
     "test/python/quantum_info/operators/test_random.py"
   ];
   pytestFlagsArray = [ "--durations=10" ];
-  disabledTests = [
-    "TestUnitarySynthesisPlugin" # use unittest mocks for transpiler.run(), seems incompatible somehow w/ pytest infrastructure
-    # matplotlib tests seems to fail non-deterministically
-    "TestMatplotlibDrawer"
-    "TestGraphMatplotlibDrawer"
-    "test_copy" # assertNotIn doesn't seem to work as expected w/ pytest vs unittest
+  disabledTests =
+    [
+      "TestUnitarySynthesisPlugin" # use unittest mocks for transpiler.run(), seems incompatible somehow w/ pytest infrastructure
+      # matplotlib tests seems to fail non-deterministically
+      "TestMatplotlibDrawer"
+      "TestGraphMatplotlibDrawer"
+      "test_copy" # assertNotIn doesn't seem to work as expected w/ pytest vs unittest
 
-    # Flaky tests
-    "test_pulse_limits" # Fails on GitHub Actions, probably due to minor floating point arithmetic error.
-    "test_cx_equivalence" # Fails due to flaky test
-    "test_two_qubit_synthesis_not_pulse_optimal" # test of random circuit, seems to randomly fail depending on seed
-    "test_qv_natural" # fails due to sign error. Not sure why
-  ] ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [
+      # Flaky tests
+      "test_pulse_limits" # Fails on GitHub Actions, probably due to minor floating point arithmetic error.
+      "test_cx_equivalence" # Fails due to flaky test
+      "test_two_qubit_synthesis_not_pulse_optimal" # test of random circuit, seems to randomly fail depending on seed
+      "test_qv_natural" # fails due to sign error. Not sure why
+    ] ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [
       "test_plot_circuit_layout"
     ]
     # Disabling slow tests for build constraints
@@ -181,7 +188,8 @@ buildPythonPackage rec {
       "test_vqe_qasm"
       "test_dag_from_networkx"
       "test_defaults_to_dict_46"
-    ];
+    ]
+    ;
 
     # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
     # cythonized modules and expecting to find some resource files in the test directory.

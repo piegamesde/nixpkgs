@@ -49,10 +49,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "flow.record" ];
 
-  disabledTestPaths = [
-    # Test requires rdump
-    "tests/test_rdump.py"
-  ];
+  disabledTestPaths =
+    [
+      # Test requires rdump
+      "tests/test_rdump.py"
+    ];
 
   disabledTests = [ "test_rdump_fieldtype_path_json" ];
 

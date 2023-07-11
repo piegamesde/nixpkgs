@@ -43,19 +43,22 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedBuildInputs = [
-    libuv
-    speexdsp
-  ] ++ lib.optional openfecSupport openfec
+  propagatedBuildInputs =
+    [
+      libuv
+      speexdsp
+    ] ++ lib.optional openfecSupport openfec
     ++ lib.optional libunwindSupport libunwind
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ++ lib.optional opensslSupport openssl ++ lib.optional soxSupport sox;
+    ++ lib.optional opensslSupport openssl ++ lib.optional soxSupport sox
+    ;
 
-  sconsFlags = [
-    "--build=${stdenv.buildPlatform.config}"
-    "--host=${stdenv.hostPlatform.config}"
-    "--prefix=${placeholder "out"}"
-  ] ++ lib.optional (!opensslSupport) "--disable-openssl"
+  sconsFlags =
+    [
+      "--build=${stdenv.buildPlatform.config}"
+      "--host=${stdenv.hostPlatform.config}"
+      "--prefix=${placeholder "out"}"
+    ] ++ lib.optional (!opensslSupport) "--disable-openssl"
     ++ lib.optional (!soxSupport) "--disable-sox"
     ++ lib.optional (!libunwindSupport) "--disable-libunwind"
     ++ lib.optional (!pulseaudioSupport) "--disable-pulseaudio"
@@ -65,7 +68,8 @@ stdenv.mkDerivation rec {
       [
         "--with-libraries=${openfec}/lib"
         "--with-openfec-includes=${openfec.dev}/include"
-      ]);
+      ])
+    ;
 
   meta = with lib; {
     description =

@@ -88,19 +88,21 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [
-    glib
-    dbus
-    libmnl
-    gnutls
-    readline
-  ] ++ optionals (enableOpenconnect) [ openconnect ]
+  buildInputs =
+    [
+      glib
+      dbus
+      libmnl
+      gnutls
+      readline
+    ] ++ optionals (enableOpenconnect) [ openconnect ]
     ++ optionals (firewallType == "iptables") [ iptables ]
     ++ optionals (firewallType == "nftables") [ libnftnl ]
     ++ optionals (enablePolkit) [ polkit ] ++ optionals (enablePptp) [
       pptp
       ppp
-    ];
+    ]
+    ;
 
   nativeBuildInputs = [
     pkg-config
@@ -112,23 +114,24 @@ stdenv.mkDerivation rec {
     sed -i "s/\/usr\/bin\/file/file/g" ./configure
   '';
 
-  configureFlags = [
-    # directories flags
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-    "--with-dbusconfdir=${placeholder "out"}/share"
-    "--with-dbusdatadir=${placeholder "out"}/share"
-    "--with-tmpfilesdir=${placeholder "out"}/lib/tmpfiles.d"
-    "--with-systemdunitdir=${placeholder "out"}/lib/systemd/system"
-    "--with-dns-backend=${dnsType}"
-    "--with-firewall=${firewallType}"
-    # production build flags
-    "--disable-maintainer-mode"
-    "--enable-session-policy-local=builtin"
-    # for building and running tests
-    # "--enable-tests" # installs the tests, we don't want that
-    "--enable-tools"
-  ] ++ optionals (!enableLoopback) [ "--disable-loopback" ]
+  configureFlags =
+    [
+      # directories flags
+      "--sysconfdir=/etc"
+      "--localstatedir=/var"
+      "--with-dbusconfdir=${placeholder "out"}/share"
+      "--with-dbusdatadir=${placeholder "out"}/share"
+      "--with-tmpfilesdir=${placeholder "out"}/lib/tmpfiles.d"
+      "--with-systemdunitdir=${placeholder "out"}/lib/systemd/system"
+      "--with-dns-backend=${dnsType}"
+      "--with-firewall=${firewallType}"
+      # production build flags
+      "--disable-maintainer-mode"
+      "--enable-session-policy-local=builtin"
+      # for building and running tests
+      # "--enable-tests" # installs the tests, we don't want that
+      "--enable-tools"
+    ] ++ optionals (!enableLoopback) [ "--disable-loopback" ]
     ++ optionals (!enableEthernet) [ "--disable-ethernet" ]
     ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
     ++ optionals (!enableGadget) [ "--disable-gadget" ]
@@ -167,7 +170,8 @@ stdenv.mkDerivation rec {
     ++ optionals (enableHh2serialGps) [ "--enable-hh2serial-gps" ]
     ++ optionals (enableL2tp) [ "--enable-l2tp" ]
     ++ optionals (enableIospm) [ "--enable-iospm" ]
-    ++ optionals (enableTist) [ "--enable-tist" ];
+    ++ optionals (enableTist) [ "--enable-tist" ]
+    ;
 
   doCheck = true;
 

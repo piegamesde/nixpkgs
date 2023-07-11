@@ -58,16 +58,20 @@ buildPythonPackage rec {
     sphinx-codeautolink
   ];
 
-  propagatedBuildInputs = [
-    attrs
-    sortedcontainers
-  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
+  propagatedBuildInputs =
+    [
+      attrs
+      sortedcontainers
+    ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
+    ;
 
-  nativeCheckInputs = [
-    pexpect
-    pytest-xdist
-    pytestCheckHook
-  ] ++ lib.optionals (isPyPy) [ tzdata ];
+  nativeCheckInputs =
+    [
+      pexpect
+      pytest-xdist
+      pytestCheckHook
+    ] ++ lib.optionals (isPyPy) [ tzdata ]
+    ;
 
   inherit
     doCheck
@@ -85,7 +89,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for property based testing";
     homepage = "https://github.com/HypothesisWorks/hypothesis";
-    changelog = "https://hypothesis.readthedocs.io/en/latest/changes.html#v${
+    changelog =
+      "https://hypothesis.readthedocs.io/en/latest/changes.html#v${
         lib.replaceStrings [ "." ] [ "-" ] version
       }";
     license = licenses.mpl20;

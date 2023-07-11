@@ -42,7 +42,8 @@ let
   ];
   downloadUrl =
     "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2";
-  versionUrl = "https://download.sublimetext.com/latest/${
+  versionUrl =
+    "https://download.sublimetext.com/latest/${
       if dev then
         "dev"
       else
@@ -176,20 +177,22 @@ stdenv.mkDerivation (rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  installPhase = ''
-    mkdir -p "$out/bin"
-    makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-  '' + builtins.concatStringsSep "" (map (binaryAlias: ''
-    ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
-  '') primaryBinaryAliases) + ''
-    mkdir -p "$out/share/applications"
-    substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-    for directory in ''$${primaryBinary}/Icon/*; do
-      size=$(basename $directory)
-      mkdir -p "$out/share/icons/hicolor/$size/apps"
-      ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
-    done
-  '';
+  installPhase =
+    ''
+      mkdir -p "$out/bin"
+      makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+    '' + builtins.concatStringsSep "" (map (binaryAlias: ''
+      ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+    '') primaryBinaryAliases) + ''
+      mkdir -p "$out/share/applications"
+      substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+      for directory in ''$${primaryBinary}/Icon/*; do
+        size=$(basename $directory)
+        mkdir -p "$out/share/icons/hicolor/$size/apps"
+        ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
+      done
+    ''
+    ;
 
   meta = with lib; {
     description = "Sophisticated text editor for code, markup and prose";

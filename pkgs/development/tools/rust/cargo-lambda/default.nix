@@ -39,11 +39,13 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    curl
-    CoreServices
-    Security
-  ];
+  buildInputs =
+    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      curl
+      CoreServices
+      Security
+    ]
+    ;
 
   checkFlags = [
     # Disabled because they accesses the network.

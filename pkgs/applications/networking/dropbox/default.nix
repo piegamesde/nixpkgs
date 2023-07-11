@@ -20,10 +20,11 @@ assert lib.elem stdenv.hostPlatform.system platforms;
 let
   version = "111.3.447";
 
-  arch = {
-    x86_64-linux = "x86_64";
-    i686-linux = "x86";
-  }.${stdenv.hostPlatform.system};
+  arch =
+    {
+      x86_64-linux = "x86_64";
+      i686-linux = "x86";
+    }.${stdenv.hostPlatform.system};
 
   installer =
     "https://clientupdates.dropboxstatic.com/dbx-releng/client/dropbox-lnx.${arch}-${version}.tar.gz";

@@ -68,14 +68,16 @@ in
 
   cargo =
     attrs: {
-      buildInputs = [
-        openssl
-        zlib
-        curl
-      ] ++ lib.optionals stdenv.isDarwin [
-        CoreFoundation
-        Security
-      ];
+      buildInputs =
+        [
+          openssl
+          zlib
+          curl
+        ] ++ lib.optionals stdenv.isDarwin [
+          CoreFoundation
+          Security
+        ]
+        ;
     }
     ;
 
@@ -111,13 +113,15 @@ in
 
   evdev-sys =
     attrs: {
-      nativeBuildInputs = [ pkg-config ] ++ lib.optionals
+      nativeBuildInputs =
+        [ pkg-config ] ++ lib.optionals
         (stdenv.buildPlatform.config != stdenv.hostPlatform.config) [
           python3
           autoconf
           automake
           libtool
-        ];
+        ]
+        ;
       buildInputs = [ libevdev ];
 
         # This prevents libevdev's build.rs from trying to `git fetch` when HOST!=TARGET
@@ -303,10 +307,7 @@ in
     ;
 
   security-framework-sys =
-    attr: {
-      propagatedBuildInputs = lib.optional stdenv.isDarwin Security;
-    }
-    ;
+    attr: { propagatedBuildInputs = lib.optional stdenv.isDarwin Security; };
 
   sequoia-openpgp = attrs: { buildInputs = [ gmp ]; };
 
@@ -353,10 +354,7 @@ in
     ;
 
   serde_derive =
-    attrs: {
-      buildInputs = lib.optional stdenv.isDarwin Security;
-    }
-    ;
+    attrs: { buildInputs = lib.optional stdenv.isDarwin Security; };
 
   servo-fontconfig-sys =
     attrs: {

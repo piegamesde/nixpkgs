@@ -88,10 +88,11 @@ rec {
       hash = "sha256-ZBP/Mo679+x2icZI/rNUbYEC3thlB50fvwMxsUs6sOw=";
     };
 
-    patches = [
-      # Also look for root certificates at $NIX_SSL_CERT_FILE
-      ./cert-path.patch
-    ];
+    patches =
+      [
+        # Also look for root certificates at $NIX_SSL_CERT_FILE
+        ./cert-path.patch
+      ];
 
     updateScript = writeShellScript "update-wine-stable" (''
       ${updateScriptPreamble}

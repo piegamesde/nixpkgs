@@ -29,20 +29,21 @@ let
     sha256 = "1jyg29j8r8pgcin7ixdya6c3zzfjdi66rghpwrfnkk133fz4iz7s";
   };
 
-  curry-frontend = (haskellPackages.override {
-    overrides =
-      self: super: {
-        curry-base = haskell.lib.compose.overrideCabal (drv: {
-          inherit src;
-          postUnpack = "sourceRoot+=/frontend/curry-base";
-        }) (super.callPackage ./curry-base.nix { });
-        curry-frontend = haskell.lib.compose.overrideCabal (drv: {
-          inherit src;
-          postUnpack = "sourceRoot+=/frontend/curry-frontend";
-        }) (super.callPackage ./curry-frontend.nix { });
-      }
-      ;
-  }).curry-frontend;
+  curry-frontend =
+    (haskellPackages.override {
+      overrides =
+        self: super: {
+          curry-base = haskell.lib.compose.overrideCabal (drv: {
+            inherit src;
+            postUnpack = "sourceRoot+=/frontend/curry-base";
+          }) (super.callPackage ./curry-base.nix { });
+          curry-frontend = haskell.lib.compose.overrideCabal (drv: {
+            inherit src;
+            postUnpack = "sourceRoot+=/frontend/curry-frontend";
+          }) (super.callPackage ./curry-frontend.nix { });
+        }
+        ;
+    }).curry-frontend;
 in
 stdenv.mkDerivation {
   inherit pname version src;

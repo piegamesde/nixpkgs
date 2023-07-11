@@ -36,8 +36,10 @@ let
     in
     {
       lazy = p.right;
-      eager = p.wrong
-        ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules);
+      eager =
+        p.wrong
+        ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules)
+        ;
     }
     ;
 
@@ -412,11 +414,13 @@ in
         fi
       '';
 
-      environment.systemPackages = [ ]
-        ++ optional cfg.man.enable manual.manpages ++ optionals cfg.doc.enable [
+      environment.systemPackages =
+        [ ] ++ optional cfg.man.enable manual.manpages
+        ++ optionals cfg.doc.enable [
           manual.manualHTML
           nixos-help
-        ];
+        ]
+        ;
     })
 
   ]);

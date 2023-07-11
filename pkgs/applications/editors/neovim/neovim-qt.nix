@@ -27,15 +27,17 @@ mkDerivation rec {
     "-DENABLE_TESTS=0" # tests fail because xcb platform plugin is not found
   ];
 
-  buildInputs = [
-    neovim.unwrapped # only used to generate help tags at build time
-    qtbase
-    qtsvg
-  ] ++ (with python3Packages; [
-    jinja2
-    python
-    msgpack
-  ]);
+  buildInputs =
+    [
+      neovim.unwrapped # only used to generate help tags at build time
+      qtbase
+      qtsvg
+    ] ++ (with python3Packages; [
+      jinja2
+      python
+      msgpack
+    ])
+    ;
 
   nativeBuildInputs = [
     cmake

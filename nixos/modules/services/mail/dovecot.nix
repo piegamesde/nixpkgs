@@ -432,8 +432,10 @@ in
       enable = true;
       params.dovecot2 = { };
     };
-    services.dovecot2.protocols = optional cfg.enableImap "imap"
-      ++ optional cfg.enablePop3 "pop3" ++ optional cfg.enableLmtp "lmtp";
+    services.dovecot2.protocols =
+      optional cfg.enableImap "imap" ++ optional cfg.enablePop3 "pop3"
+      ++ optional cfg.enableLmtp "lmtp"
+      ;
 
     services.dovecot2.mailPlugins = mkIf cfg.enableQuota {
       globally.enable = [ "quota" ];
@@ -493,21 +495,23 @@ in
         # When copying sieve scripts preserve the original time stamp
         # (should be 0) so that the compiled sieve script is newer than
         # the source file and Dovecot won't try to compile it.
-      preStart = ''
-        rm -rf ${stateDir}/sieve
-      '' + optionalString (cfg.sieveScripts != { }) ''
-        mkdir -p ${stateDir}/sieve
-        ${concatStringsSep "\n" (mapAttrsToList (to: from: ''
-          if [ -d '${from}' ]; then
-            mkdir '${stateDir}/sieve/${to}'
-            cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
-          else
-            cp -p '${from}' '${stateDir}/sieve/${to}'
-          fi
-          ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
-        '') cfg.sieveScripts)}
-        chown -R '${cfg.mailUser}:${cfg.mailGroup}' '${stateDir}/sieve'
-      '';
+      preStart =
+        ''
+          rm -rf ${stateDir}/sieve
+        '' + optionalString (cfg.sieveScripts != { }) ''
+          mkdir -p ${stateDir}/sieve
+          ${concatStringsSep "\n" (mapAttrsToList (to: from: ''
+            if [ -d '${from}' ]; then
+              mkdir '${stateDir}/sieve/${to}'
+              cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
+            else
+              cp -p '${from}' '${stateDir}/sieve/${to}'
+            fi
+            ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
+          '') cfg.sieveScripts)}
+          chown -R '${cfg.mailUser}:${cfg.mailGroup}' '${stateDir}/sieve'
+        ''
+        ;
     };
 
     environment.systemPackages = [ dovecotPkg ];
@@ -519,9 +523,11 @@ in
 
     assertions = [
       {
-        assertion = (cfg.sslServerCert == null) == (cfg.sslServerKey == null)
+        assertion =
+          (cfg.sslServerCert == null) == (cfg.sslServerKey == null)
           && (cfg.sslCACert != null
-            -> !(cfg.sslServerCert == null || cfg.sslServerKey == null));
+            -> !(cfg.sslServerCert == null || cfg.sslServerKey == null))
+          ;
         message =
           "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
       }
@@ -531,8 +537,10 @@ in
           "dovecot is configured with showPAMFailure while enablePAM is disabled";
       }
       {
-        assertion = cfg.sieveScripts != { }
-          -> (cfg.mailUser != null && cfg.mailGroup != null);
+        assertion =
+          cfg.sieveScripts != { }
+          -> (cfg.mailUser != null && cfg.mailGroup != null)
+          ;
         message =
           "dovecot requires mailUser and mailGroup to be set when sieveScripts is set";
       }

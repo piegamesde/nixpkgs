@@ -28,15 +28,17 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    expat
-    fontconfig
-    freetype
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrandr
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  buildInputs =
+    lib.optionals stdenv.isLinux [
+      expat
+      fontconfig
+      freetype
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXi
+      xorg.libXrandr
+    ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/epick --add-rpath ${lib.makeLibraryPath [ libGL ]}

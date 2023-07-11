@@ -34,18 +34,20 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
+    url =
+      "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     hash = "sha256-2PbixllmjHffgsPdlboE/O+MQMIo4sImBfmhepFh7IM=";
   };
 
-  patches = [
-    # Load modules from path in `NIX_GNOME_PANEL_MODULESDIR` environment variable
-    # instead of gnome-panel’s libdir so that the NixOS module can make gnome-panel
-    # load modules from other packages as well.
-    ./modulesdir-env-var.patch
-  ];
+  patches =
+    [
+      # Load modules from path in `NIX_GNOME_PANEL_MODULESDIR` environment variable
+      # instead of gnome-panel’s libdir so that the NixOS module can make gnome-panel
+      # load modules from other packages as well.
+      ./modulesdir-env-var.patch
+    ];
 
     # make .desktop Exec absolute
   postPatch = ''

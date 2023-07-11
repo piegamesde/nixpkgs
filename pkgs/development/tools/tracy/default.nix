@@ -33,21 +33,23 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    capstone
-    freetype
-    glfw
-  ] ++ lib.optionals stdenv.isLinux [
-    dbus
-    hicolor-icon-theme
-    tbb
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.AppKit
-    darwin.apple_sdk.frameworks.Carbon
-  ] ++ lib.optionals (stdenv.isDarwin
-    && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [
+  buildInputs =
+    [
+      capstone
+      freetype
+      glfw
+    ] ++ lib.optionals stdenv.isLinux [
+      dbus
+      hicolor-icon-theme
+      tbb
+    ] ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.AppKit
+      darwin.apple_sdk.frameworks.Carbon
+    ] ++ lib.optionals (stdenv.isDarwin
+      && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [
       darwin.apple_sdk.frameworks.UniformTypeIdentifiers
-    ];
+    ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = toString ([ ]
     # Apple's compiler finds a format string security error on

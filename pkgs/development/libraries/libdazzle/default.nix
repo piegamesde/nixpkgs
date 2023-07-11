@@ -31,28 +31,31 @@ stdenv.mkDerivation rec {
   outputBin = "dev";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libdazzle/${
+    url =
+      "mirror://gnome/sources/libdazzle/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "PNPkXrbiaAywXVLh6A3Y+dWdR2UhLw4o945sF4PRjq4=";
   };
 
-  nativeBuildInputs = [
-    ninja
-    meson
-    pkg-config
-    vala
-    gobject-introspection
-    libxml2
-    gtk-doc
-    docbook_xsl
-    docbook_xml_dtd_43
-    dbus
-    glib
-  ] ++ lib.optionals stdenv.isLinux [ xvfb-run ]
+  nativeBuildInputs =
+    [
+      ninja
+      meson
+      pkg-config
+      vala
+      gobject-introspection
+      libxml2
+      gtk-doc
+      docbook_xsl
+      docbook_xml_dtd_43
+      dbus
+      glib
+    ] ++ lib.optionals stdenv.isLinux [ xvfb-run ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ];
+    ]
+    ;
 
   buildInputs = [
     glib

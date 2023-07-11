@@ -78,15 +78,17 @@ python3Packages.buildPythonApplication rec {
     HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [
-    glibcLocales
-    git
-  ] ++ (with python3Packages; [
-    pyte
-    pytestCheckHook
-    pytest-mock
-    pytest-subprocess
-  ]);
+  nativeCheckInputs =
+    [
+      glibcLocales
+      git
+    ] ++ (with python3Packages; [
+      pyte
+      pytestCheckHook
+      pytest-mock
+      pytest-subprocess
+    ])
+    ;
 
   propagatedBuildInputs = with python3Packages; [
     ply

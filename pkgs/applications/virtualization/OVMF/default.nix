@@ -47,14 +47,16 @@ edk2.mkDerivation projectDscPath (finalAttrs: {
     "fd"
   ];
 
-  nativeBuildInputs = [
-    util-linux
-    nasm
-    acpica-tools
-  ] ++ lib.optionals stdenv.cc.isClang [
-    llvmPackages.bintools
-    llvmPackages.llvm
-  ];
+  nativeBuildInputs =
+    [
+      util-linux
+      nasm
+      acpica-tools
+    ] ++ lib.optionals stdenv.cc.isClang [
+      llvmPackages.bintools
+      llvmPackages.llvm
+    ]
+    ;
   strictDeps = true;
 
   hardeningDisable = [
@@ -64,7 +66,8 @@ edk2.mkDerivation projectDscPath (finalAttrs: {
     "fortify"
   ];
 
-  buildFlags = lib.optionals secureBoot [ "-D SECURE_BOOT_ENABLE=TRUE" ]
+  buildFlags =
+    lib.optionals secureBoot [ "-D SECURE_BOOT_ENABLE=TRUE" ]
     ++ lib.optionals csmSupport [
       "-D CSM_ENABLE"
       "-D FD_SIZE_2MB"
@@ -75,7 +78,8 @@ edk2.mkDerivation projectDscPath (finalAttrs: {
       "-D TPM_ENABLE"
       "-D TPM2_ENABLE"
       "-D TPM2_CONFIG_ENABLE"
-    ];
+    ]
+    ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang "-Qunused-arguments";
@@ -114,8 +118,9 @@ edk2.mkDerivation projectDscPath (finalAttrs: {
   passthru =
     let
       cpuName = stdenv.hostPlatform.parsed.cpu.name;
-      suffix = suffixes."${cpuName}" or (throw
-        "Host cpu name `${cpuName}` is not supported in this OVMF derivation!");
+      suffix =
+        suffixes."${cpuName}" or (throw
+          "Host cpu name `${cpuName}` is not supported in this OVMF derivation!");
       prefix = "${finalAttrs.finalPackage.fd}/${suffix}";
     in
     {

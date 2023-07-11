@@ -55,13 +55,15 @@ stdenv.mkDerivation rec {
     "--with-pgsql=${postgresql}/bin/pg_config"
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ] ++ (with python3.pkgs; [
-    sphinxHook
-    sphinx-rtd-theme
-  ]);
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pkg-config
+    ] ++ (with python3.pkgs; [
+      sphinxHook
+      sphinx-rtd-theme
+    ])
+    ;
 
   sphinxBuilders = [
     "html"

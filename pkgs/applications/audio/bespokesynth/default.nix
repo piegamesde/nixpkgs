@@ -87,37 +87,39 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    # List obtained in https://github.com/BespokeSynth/BespokeSynth/blob/main/azure-pipelines.yml
-    libX11
-    libXrandr
-    libXinerama
-    libXext
-    libXcursor
-    libXScrnSaver
-    curl
-    gtk3
-    webkitgtk
-    freetype
-    libGL
-    libusb1
-    alsa-lib
-    libjack2
-    gnome.zenity
-    alsa-tools
-    libxcb
-    xcbutil
-    libxkbcommon
-    xcbutilkeysyms
-    xcb-util-cursor
-    pcre
-    mount
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Cocoa
-    WebKit
-    CoreServices
-    CoreAudioKit
-  ];
+  buildInputs =
+    lib.optionals stdenv.hostPlatform.isLinux [
+      # List obtained in https://github.com/BespokeSynth/BespokeSynth/blob/main/azure-pipelines.yml
+      libX11
+      libXrandr
+      libXinerama
+      libXext
+      libXcursor
+      libXScrnSaver
+      curl
+      gtk3
+      webkitgtk
+      freetype
+      libGL
+      libusb1
+      alsa-lib
+      libjack2
+      gnome.zenity
+      alsa-tools
+      libxcb
+      xcbutil
+      libxkbcommon
+      xcbutilkeysyms
+      xcb-util-cursor
+      pcre
+      mount
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      Cocoa
+      WebKit
+      CoreServices
+      CoreAudioKit
+    ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin
     (toString [

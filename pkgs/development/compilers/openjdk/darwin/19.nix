@@ -8,21 +8,22 @@
 let
   # Details from https://www.azul.com/downloads/?version=java-19-sts&os=macos&package=jdk
   # Note that the latest build may differ by platform
-  dist = {
-    x86_64-darwin = {
-      arch = "x64";
-      zuluVersion = "19.30.11";
-      jdkVersion = "19.0.1";
-      sha256 = "1h0qj0xgpxjy506ikbgdn74pi4860lsnh5n3q3bayfmn0pxc5ksn";
-    };
+  dist =
+    {
+      x86_64-darwin = {
+        arch = "x64";
+        zuluVersion = "19.30.11";
+        jdkVersion = "19.0.1";
+        sha256 = "1h0qj0xgpxjy506ikbgdn74pi4860lsnh5n3q3bayfmn0pxc5ksn";
+      };
 
-    aarch64-darwin = {
-      arch = "aarch64";
-      zuluVersion = "19.30.11";
-      jdkVersion = "19.0.1";
-      sha256 = "0g8i371h5fv686xhiff0431sgvdk80lbp2lkz86jpfdv9lgg0qnk";
-    };
-  }."${stdenv.hostPlatform.system}";
+      aarch64-darwin = {
+        arch = "aarch64";
+        zuluVersion = "19.30.11";
+        jdkVersion = "19.0.1";
+        sha256 = "0g8i371h5fv686xhiff0431sgvdk80lbp2lkz86jpfdv9lgg0qnk";
+      };
+    }."${stdenv.hostPlatform.system}";
 
   jce-policies = fetchurl {
     # Ugh, unversioned URLs... I hope this doesn't change often enough to cause pain before we move to a Darwin source build of OpenJDK!

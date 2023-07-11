@@ -43,17 +43,19 @@ python3.pkgs.buildPythonApplication rec {
       pyopenssl
     ];
 
-  nativeCheckInputs = [
-    git
-    pkg-config
-    zlib
-  ] ++ (with python3.pkgs; [
-    mock
-    parameterized
-    pytest-xdist
-    pytestCheckHook
-    webtest
-  ]);
+  nativeCheckInputs =
+    [
+      git
+      pkg-config
+      zlib
+    ] ++ (with python3.pkgs; [
+      mock
+      parameterized
+      pytest-xdist
+      pytestCheckHook
+      webtest
+    ])
+    ;
 
   pythonImportsCheck = [ "conan" ];
 
@@ -62,10 +64,11 @@ python3.pkgs.buildPythonApplication rec {
     "$NIX_BUILD_CORES"
   ];
 
-  disabledTests = [
-    # Tests require network access
-    "TestFTP"
-  ];
+  disabledTests =
+    [
+      # Tests require network access
+      "TestFTP"
+    ];
 
   disabledTestPaths = [
     # Requires cmake, meson, autotools, apt-get, etc.

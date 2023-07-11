@@ -54,8 +54,9 @@ lib.makeScope pkgs.newScope (self:
     };
 
   } // lib.optionalAttrs config.allowAliases {
-    inherit (pkgs)
-    # GTK Libs
+    inherit
+      (pkgs)
+      # GTK Libs
       glib
       glibmm
       atk

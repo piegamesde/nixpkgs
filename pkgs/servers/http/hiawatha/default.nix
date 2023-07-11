@@ -41,13 +41,15 @@ stdenv.mkDerivation rec {
     cmake
     ninja
   ];
-  buildInputs = [
-    mbedtls_2
-    libxcrypt
-  ] ++ lib.optionals enableXslt [
-    libxslt
-    libxml2
-  ];
+  buildInputs =
+    [
+      mbedtls_2
+      libxcrypt
+    ] ++ lib.optionals enableXslt [
+      libxslt
+      libxml2
+    ]
+    ;
 
   prePatch = ''
     substituteInPlace CMakeLists.txt --replace SETUID ""

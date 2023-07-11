@@ -142,7 +142,8 @@ let
               let
                 extName = getExtName ext;
                 phpDeps = (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]);
-                type = "${
+                type =
+                  "${
                     lib.optionalString (ext.zendExtension or false) "zend_"
                   }extension";
               in
@@ -230,15 +231,17 @@ let
 
         enableParallelBuilding = true;
 
-        nativeBuildInputs = [
-          autoconf
-          automake
-          bison
-          flex
-          libtool
-          pkg-config
-          re2c
-        ] ++ lib.optional stdenv.isDarwin xcbuild;
+        nativeBuildInputs =
+          [
+            autoconf
+            automake
+            bison
+            flex
+            libtool
+            pkg-config
+            re2c
+          ] ++ lib.optional stdenv.isDarwin xcbuild
+          ;
 
         buildInputs =
           # PCRE extension
@@ -255,7 +258,8 @@ let
           ++ lib.optional apxs2Support apacheHttpd
           ++ lib.optional argon2Support libargon2
           ++ lib.optional systemdSupport systemd
-          ++ lib.optional valgrindSupport valgrind;
+          ++ lib.optional valgrindSupport valgrind
+          ;
 
         CXXFLAGS = lib.optionalString stdenv.cc.isClang "-std=c++11";
         SKIP_PERF_SENSITIVE = 1;
@@ -297,7 +301,8 @@ let
           "--enable-zts"
 
           # Sendmail
-          ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ];
+          ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ]
+          ;
 
         hardeningDisable = [ "bindnow" ];
 
@@ -321,7 +326,8 @@ let
             fi
           '' + lib.optionalString stdenv.isDarwin ''
             substituteInPlace configure --replace "-lstdc++" "-lc++"
-          '';
+          ''
+          ;
 
         postInstall = ''
           test -d $out/etc || mkdir $out/etc

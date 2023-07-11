@@ -21,16 +21,18 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    zlib
-    bzip2
-    perl
-  ] ++ lib.optionals stdenv.isLinux [ libcap ] ++ lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [
+  buildInputs =
+    [
+      zlib
+      bzip2
+      perl
+    ] ++ lib.optionals stdenv.isLinux [ libcap ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       Carbon
       IOKit
       iconv
-    ]);
+    ])
+    ;
 
   hardeningDisable = [ "format" ];
   env.NIX_CFLAGS_COMPILE =

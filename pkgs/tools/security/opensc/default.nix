@@ -35,19 +35,21 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [
-    zlib
-    readline
-    openssl
-    libassuan
-    libXt
-    libxslt
-    libiconv
-    docbook_xml_dtd_412
-  ] ++ lib.optional stdenv.isDarwin Carbon ++ (if withApplePCSC then
-    [ PCSC ]
-  else
-    [ pcsclite ]);
+  buildInputs =
+    [
+      zlib
+      readline
+      openssl
+      libassuan
+      libXt
+      libxslt
+      libiconv
+      docbook_xml_dtd_412
+    ] ++ lib.optional stdenv.isDarwin Carbon ++ (if withApplePCSC then
+      [ PCSC ]
+    else
+      [ pcsclite ])
+    ;
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 

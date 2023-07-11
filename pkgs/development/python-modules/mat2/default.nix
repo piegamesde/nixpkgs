@@ -38,25 +38,27 @@ buildPythonPackage rec {
     hash = "sha256-x3vGltGuFjI435lEXZU3p4eQcgRm0Oodqd6pTWO7ZX8=";
   };
 
-  patches = [
-    # hardcode paths to some binaries
-    (substituteAll ({
-      src = ./paths.patch;
-      exiftool = "${exiftool}/bin/exiftool";
-      ffmpeg = "${ffmpeg}/bin/ffmpeg";
-    } // lib.optionalAttrs dolphinIntegration {
-      kdialog = "${plasma5Packages.kdialog}/bin/kdialog";
-    }))
-    # the executable shouldn't be called .mat2-wrapped
-    ./executable-name.patch
-    # hardcode path to mat2 executable
-    ./tests.patch
-  ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [
+  patches =
+    [
+      # hardcode paths to some binaries
+      (substituteAll ({
+        src = ./paths.patch;
+        exiftool = "${exiftool}/bin/exiftool";
+        ffmpeg = "${ffmpeg}/bin/ffmpeg";
+      } // lib.optionalAttrs dolphinIntegration {
+        kdialog = "${plasma5Packages.kdialog}/bin/kdialog";
+      }))
+      # the executable shouldn't be called .mat2-wrapped
+      ./executable-name.patch
+      # hardcode path to mat2 executable
+      ./tests.patch
+    ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [
       (substituteAll {
         src = ./bubblewrap-path.patch;
         bwrap = "${bubblewrap}/bin/bwrap";
       })
-    ];
+    ]
+    ;
 
   postPatch = ''
     rm pyproject.toml
@@ -82,12 +84,14 @@ buildPythonPackage rec {
     pycairo
   ];
 
-  postInstall = ''
-    install -Dm 444 data/mat2.svg -t "$out/share/icons/hicolor/scalable/apps"
-    install -Dm 444 doc/mat2.1 -t "$out/share/man/man1"
-  '' + lib.optionalString dolphinIntegration ''
-    install -Dm 444 dolphin/mat2.desktop -t "$out/share/kservices5/ServiceMenus"
-  '';
+  postInstall =
+    ''
+      install -Dm 444 data/mat2.svg -t "$out/share/icons/hicolor/scalable/apps"
+      install -Dm 444 doc/mat2.1 -t "$out/share/man/man1"
+    '' + lib.optionalString dolphinIntegration ''
+      install -Dm 444 dolphin/mat2.desktop -t "$out/share/kservices5/ServiceMenus"
+    ''
+    ;
 
   nativeCheckInputs = [ unittestCheckHook ];
 

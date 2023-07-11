@@ -33,16 +33,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nuFTsGkm3zmSzpwmhyY7Ke0VZfZU0jHOzEWaLBbglQk=";
   };
 
-  buildInputs = [
-    gettext
-    libuuid
-  ] ++ lib.optionals crypto [
-    gnutls
-    libgcrypt
-  ] ++ lib.optionals stdenv.isDarwin [
-    macfuse-stubs
-    DiskArbitration
-  ];
+  buildInputs =
+    [
+      gettext
+      libuuid
+    ] ++ lib.optionals crypto [
+      gnutls
+      libgcrypt
+    ] ++ lib.optionals stdenv.isDarwin [
+      macfuse-stubs
+      DiskArbitration
+    ]
+    ;
 
     # Note: libgcrypt is listed here non-optionally because its m4 macros are
     # being used in ntfs-3g's configure.ac.
@@ -58,24 +60,26 @@ stdenv.mkDerivation rec {
     ./consistent-sbindir-usage.patch
   ];
 
-  configureFlags = [
-    "--disable-ldconfig"
-    "--exec-prefix=\${prefix}"
-    "--enable-mount-helper"
-    "--enable-posix-acls"
-    "--enable-xattr-mappings"
-    "--${
-      if crypto then
-        "enable"
-      else
-        "disable"
-    }-crypto"
-    "--enable-extras"
-    "--with-mount-helper=${mount}/bin/mount"
-    "--with-umount-helper=${mount}/bin/umount"
-  ] ++ lib.optionals stdenv.isLinux [
+  configureFlags =
+    [
+      "--disable-ldconfig"
+      "--exec-prefix=\${prefix}"
+      "--enable-mount-helper"
+      "--enable-posix-acls"
+      "--enable-xattr-mappings"
+      "--${
+        if crypto then
+          "enable"
+        else
+          "disable"
+      }-crypto"
+      "--enable-extras"
+      "--with-mount-helper=${mount}/bin/mount"
+      "--with-umount-helper=${mount}/bin/umount"
+    ] ++ lib.optionals stdenv.isLinux [
       "--with-modprobe-helper=${kmod}/bin/modprobe"
-    ];
+    ]
+    ;
 
   postInstall = ''
     # Prefer ntfs-3g over the ntfs driver in the kernel.

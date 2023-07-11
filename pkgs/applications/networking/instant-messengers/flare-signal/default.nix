@@ -38,17 +38,19 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils # for update-desktop-database
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs =
+    [
+      desktop-file-utils # for update-desktop-database
+      meson
+      ninja
+      pkg-config
+      wrapGAppsHook4
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ])
+    ;
 
   buildInputs = [
     libadwaita

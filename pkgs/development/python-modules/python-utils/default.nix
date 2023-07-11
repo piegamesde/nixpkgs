@@ -31,11 +31,13 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { loguru = [ loguru ]; };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-mypy
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.loguru;
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytest-mypy
+      pytestCheckHook
+    ] ++ passthru.optional-dependencies.loguru
+    ;
 
   pythonImportsCheck = [ "python_utils" ];
 

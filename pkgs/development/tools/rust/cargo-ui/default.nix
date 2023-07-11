@@ -26,19 +26,21 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libgit2_1_5
-    openssl
-  ] ++ lib.optionals stdenv.isLinux [
-    expat
-    fontconfig
-    libGL
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libxcb
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
+  buildInputs =
+    [
+      libgit2_1_5
+      openssl
+    ] ++ lib.optionals stdenv.isLinux [
+      expat
+      fontconfig
+      libGL
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libxcb
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
+    ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/cargo-ui \

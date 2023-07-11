@@ -80,10 +80,11 @@ buildPythonPackage rec {
     "test_fallback_to_memory"
   ];
 
-  disabledTestPaths = [
-    # requires running redis/memcached/mongodb
-    "tests/test_storage.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires running redis/memcached/mongodb
+      "tests/test_storage.py"
+    ];
 
   pythonImportsCheck = [ "flask_limiter" ];
 

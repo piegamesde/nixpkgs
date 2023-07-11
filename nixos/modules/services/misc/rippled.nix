@@ -34,71 +34,73 @@ let
     ''
     ;
 
-  rippledCfg = ''
-    [server]
-    ${concatMapStringsSep "\n" (n: "port_${n}") (attrNames cfg.ports)}
+  rippledCfg =
+    ''
+      [server]
+      ${concatMapStringsSep "\n" (n: "port_${n}") (attrNames cfg.ports)}
 
-    ${concatMapStrings (p: ''
-      [port_${p.name}]
-      ip=${p.ip}
-      port=${toString p.port}
-      protocol=${concatStringsSep "," p.protocol}
-      ${optionalString (p.user != "") "user=${p.user}"}
-      ${optionalString (p.password != "") "user=${p.password}"}
-      admin=${concatStringsSep "," p.admin}
-      ${optionalString (p.ssl.key != null) "ssl_key=${p.ssl.key}"}
-      ${optionalString (p.ssl.cert != null) "ssl_cert=${p.ssl.cert}"}
-      ${optionalString (p.ssl.chain != null) "ssl_chain=${p.ssl.chain}"}
-    '') (attrValues cfg.ports)}
+      ${concatMapStrings (p: ''
+        [port_${p.name}]
+        ip=${p.ip}
+        port=${toString p.port}
+        protocol=${concatStringsSep "," p.protocol}
+        ${optionalString (p.user != "") "user=${p.user}"}
+        ${optionalString (p.password != "") "user=${p.password}"}
+        admin=${concatStringsSep "," p.admin}
+        ${optionalString (p.ssl.key != null) "ssl_key=${p.ssl.key}"}
+        ${optionalString (p.ssl.cert != null) "ssl_cert=${p.ssl.cert}"}
+        ${optionalString (p.ssl.chain != null) "ssl_chain=${p.ssl.chain}"}
+      '') (attrValues cfg.ports)}
 
-    [database_path]
-    ${cfg.databasePath}
+      [database_path]
+      ${cfg.databasePath}
 
-    [node_db]
-    ${dbCfg cfg.nodeDb}
+      [node_db]
+      ${dbCfg cfg.nodeDb}
 
-    ${optionalString (cfg.tempDb != null) ''
-      [temp_db]
-      ${dbCfg cfg.tempDb}''}
+      ${optionalString (cfg.tempDb != null) ''
+        [temp_db]
+        ${dbCfg cfg.tempDb}''}
 
-    ${optionalString (cfg.importDb != null) ''
-      [import_db]
-      ${dbCfg cfg.importDb}''}
+      ${optionalString (cfg.importDb != null) ''
+        [import_db]
+        ${dbCfg cfg.importDb}''}
 
-    [ips]
-    ${concatStringsSep "\n" cfg.ips}
+      [ips]
+      ${concatStringsSep "\n" cfg.ips}
 
-    [ips_fixed]
-    ${concatStringsSep "\n" cfg.ipsFixed}
+      [ips_fixed]
+      ${concatStringsSep "\n" cfg.ipsFixed}
 
-    [validators]
-    ${concatStringsSep "\n" cfg.validators}
+      [validators]
+      ${concatStringsSep "\n" cfg.validators}
 
-    [node_size]
-    ${cfg.nodeSize}
+      [node_size]
+      ${cfg.nodeSize}
 
-    [ledger_history]
-    ${toString cfg.ledgerHistory}
+      [ledger_history]
+      ${toString cfg.ledgerHistory}
 
-    [fetch_depth]
-    ${toString cfg.fetchDepth}
+      [fetch_depth]
+      ${toString cfg.fetchDepth}
 
-    [validation_quorum]
-    ${toString cfg.validationQuorum}
+      [validation_quorum]
+      ${toString cfg.validationQuorum}
 
-    [sntp_servers]
-    ${concatStringsSep "\n" cfg.sntpServers}
+      [sntp_servers]
+      ${concatStringsSep "\n" cfg.sntpServers}
 
-    ${optionalString cfg.statsd.enable ''
-      [insight]
-      server=statsd
-      address=${cfg.statsd.address}
-      prefix=${cfg.statsd.prefix}
-    ''}
+      ${optionalString cfg.statsd.enable ''
+        [insight]
+        server=statsd
+        address=${cfg.statsd.address}
+        prefix=${cfg.statsd.prefix}
+      ''}
 
-    [rpc_startup]
-    { "command": "log_level", "severity": "${cfg.logLevel}" }
-  '' + cfg.extraConfig;
+      [rpc_startup]
+      { "command": "log_level", "severity": "${cfg.logLevel}" }
+    '' + cfg.extraConfig
+    ;
 
   portOptions =
     {

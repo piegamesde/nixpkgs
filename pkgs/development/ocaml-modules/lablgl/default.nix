@@ -32,13 +32,15 @@ else
       findlib
     ];
     buildInputs = [ freeglut ];
-    propagatedBuildInputs = [
-      libGLU
-      libGL
-    ] ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.GLUT
-      darwin.apple_sdk.libs.Xplugin
-    ];
+    propagatedBuildInputs =
+      [
+        libGLU
+        libGL
+      ] ++ lib.optionals stdenv.isDarwin [
+        darwin.apple_sdk.frameworks.GLUT
+        darwin.apple_sdk.libs.Xplugin
+      ]
+      ;
 
     patches = [
       ./Makefile.config.patch

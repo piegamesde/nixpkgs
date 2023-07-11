@@ -89,22 +89,24 @@ stdenv.mkDerivation {
   dontDisableStatic = true;
   enableParallelBuilding = true;
 
-  configureFlags = configureFlags ++ [
-    "--enable-absolute-paths"
-    # We assume every nix-based cross target has urandom.
-    # This might not hold for e.g. BSD.
-    "--with-sysdep-devurandom=yes"
-    (if stdenv.isDarwin then
-      "--disable-shared"
-    else
-      "--enable-shared")
-  ]
-  # On darwin, the target triplet from -dumpmachine includes version number,
-  # but skarnet.org software uses the triplet to test binary compatibility.
-  # Explicitly setting target ensures code can be compiled against a skalibs
-  # binary built on a different version of darwin.
-  # http://www.skarnet.org/cgi-bin/archive.cgi?1:mss:623:heiodchokfjdkonfhdph
-    ++ (lib.optional stdenv.isDarwin "--build=${stdenv.hostPlatform.system}");
+  configureFlags =
+    configureFlags ++ [
+      "--enable-absolute-paths"
+      # We assume every nix-based cross target has urandom.
+      # This might not hold for e.g. BSD.
+      "--with-sysdep-devurandom=yes"
+      (if stdenv.isDarwin then
+        "--disable-shared"
+      else
+        "--enable-shared")
+    ]
+    # On darwin, the target triplet from -dumpmachine includes version number,
+    # but skarnet.org software uses the triplet to test binary compatibility.
+    # Explicitly setting target ensures code can be compiled against a skalibs
+    # binary built on a different version of darwin.
+    # http://www.skarnet.org/cgi-bin/archive.cgi?1:mss:623:heiodchokfjdkonfhdph
+    ++ (lib.optional stdenv.isDarwin "--build=${stdenv.hostPlatform.system}")
+    ;
 
   inherit postConfigure;
 

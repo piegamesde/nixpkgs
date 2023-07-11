@@ -55,9 +55,11 @@ let
     maintainers = lib.teams.llvm.members;
 
       # See llvm/cmake/config-ix.cmake.
-    platforms = lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.mips
+    platforms =
+      lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.mips
       ++ lib.platforms.power ++ lib.platforms.riscv ++ lib.platforms.s390x
-      ++ lib.platforms.wasi ++ lib.platforms.x86;
+      ++ lib.platforms.wasi ++ lib.platforms.x86
+      ;
   };
 
   tools = lib.makeExtensible (tools:
@@ -194,23 +196,27 @@ let
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
         bintools = bintools';
-        extraPackages = [
-          libcxx.cxxabi
-          targetLlvmLibraries.compiler-rt
-        ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
+        extraPackages =
+          [
+            libcxx.cxxabi
+            targetLlvmLibraries.compiler-rt
+          ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
             targetLlvmLibraries.libunwind
-          ];
-        extraBuildCommands = ''
-          echo "-rtlib=compiler-rt -Wno-unused-command-line-argument" >> $out/nix-support/cc-cflags
-          echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
-        '' + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
-          echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
-        '' + lib.optionalString (!stdenv.targetPlatform.isWasm
-          && stdenv.targetPlatform.useLLVM or false) ''
-            echo "-lunwind" >> $out/nix-support/cc-ldflags
-          '' + lib.optionalString stdenv.targetPlatform.isWasm ''
-            echo "-fno-exceptions" >> $out/nix-support/cc-cflags
-          '' + mkExtraBuildCommands cc;
+          ]
+          ;
+        extraBuildCommands =
+          ''
+            echo "-rtlib=compiler-rt -Wno-unused-command-line-argument" >> $out/nix-support/cc-cflags
+            echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
+          '' + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
+            echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
+          '' + lib.optionalString (!stdenv.targetPlatform.isWasm
+            && stdenv.targetPlatform.useLLVM or false) ''
+              echo "-lunwind" >> $out/nix-support/cc-ldflags
+            '' + lib.optionalString stdenv.targetPlatform.isWasm ''
+              echo "-fno-exceptions" >> $out/nix-support/cc-cflags
+            '' + mkExtraBuildCommands cc
+          ;
       };
 
       clangNoLibcxx = wrapCCWith rec {
@@ -218,11 +224,13 @@ let
         libcxx = null;
         bintools = bintools';
         extraPackages = [ targetLlvmLibraries.compiler-rt ];
-        extraBuildCommands = ''
-          echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
-          echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
-          echo "-nostdlib++" >> $out/nix-support/cc-cflags
-        '' + mkExtraBuildCommands cc;
+        extraBuildCommands =
+          ''
+            echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
+            echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
+            echo "-nostdlib++" >> $out/nix-support/cc-cflags
+          '' + mkExtraBuildCommands cc
+          ;
       };
 
       clangNoLibc = wrapCCWith rec {
@@ -230,10 +238,12 @@ let
         libcxx = null;
         bintools = bintoolsNoLibc';
         extraPackages = [ targetLlvmLibraries.compiler-rt ];
-        extraBuildCommands = ''
-          echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
-          echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
-        '' + mkExtraBuildCommands cc;
+        extraBuildCommands =
+          ''
+            echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
+            echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
+          '' + mkExtraBuildCommands cc
+          ;
       };
 
       clangNoCompilerRt = wrapCCWith rec {
@@ -241,9 +251,11 @@ let
         libcxx = null;
         bintools = bintoolsNoLibc';
         extraPackages = [ ];
-        extraBuildCommands = ''
-          echo "-nostartfiles" >> $out/nix-support/cc-cflags
-        '' + mkExtraBuildCommands0 cc;
+        extraBuildCommands =
+          ''
+            echo "-nostartfiles" >> $out/nix-support/cc-cflags
+          '' + mkExtraBuildCommands0 cc
+          ;
       };
 
       clangNoCompilerRtWithLibc = wrapCCWith rec {

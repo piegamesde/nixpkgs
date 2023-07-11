@@ -24,10 +24,11 @@ buildPythonPackage rec {
     sha256 = "sha256-w9TsRdiDTdExft7rdb2hYcvxP6hxOFZKI3hITiNSwgw=";
   };
 
-  patches = [
-    # Change name of pylibfdt to libfdt
-    ./fix_libfdt_name.patch
-  ];
+  patches =
+    [
+      # Change name of pylibfdt to libfdt
+      ./fix_libfdt_name.patch
+    ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 

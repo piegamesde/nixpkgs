@@ -26,16 +26,18 @@ stdenv.mkDerivation rec {
   };
 
   sourceRoot = "source/src";
-  buildInputs = [
-    libedit
-    zlib
-    ncurses
-  ] ++ lib.optionals stdenv.isDarwin ([ Accelerate ]
-    ++ lib.optionals stdenv.isx86_64 # && isDarwin
+  buildInputs =
     [
-      CoreGraphics
-      CoreVideo
-    ]);
+      libedit
+      zlib
+      ncurses
+    ] ++ lib.optionals stdenv.isDarwin ([ Accelerate ]
+      ++ lib.optionals stdenv.isx86_64 # && isDarwin
+      [
+        CoreGraphics
+        CoreVideo
+      ])
+    ;
 
   nativeCheckInputs = [ expect ];
   doCheck = true;

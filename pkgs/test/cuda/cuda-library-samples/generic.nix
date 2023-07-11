@@ -17,8 +17,10 @@ let
     sha256 = "0gwgbkq05ygrfgg5hk07lmap7n7ampxv0ha1axrv8qb748ph81xs";
   };
   commonAttrs = {
-    version = lib.strings.substring 0 7 rev + "-"
-      + lib.versions.majorMinor cudatoolkit.version;
+    version =
+      lib.strings.substring 0 7 rev + "-"
+      + lib.versions.majorMinor cudatoolkit.version
+      ;
     nativeBuildInputs = [
       cmake
       addOpenGLRunpath

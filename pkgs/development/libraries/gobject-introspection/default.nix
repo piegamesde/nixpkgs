@@ -52,47 +52,52 @@ stdenv.mkDerivation (finalAttrs: {
   outputBin = "dev";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gobject-introspection/${
+    url =
+      "mirror://gnome/sources/gobject-introspection/${
         lib.versions.majorMinor finalAttrs.version
       }/gobject-introspection-${finalAttrs.version}.tar.xz";
     sha256 = "GWF4v2Q0VQHc3E2EabNqpv6ASJNU7+cct8uKuCo3OL8=";
   };
 
-  patches = [
-    # Make g-ir-scanner put absolute path to GIR files it generates
-    # so that programs can just dlopen them without having to muck
-    # with LD_LIBRARY_PATH environment variable.
-    (substituteAll {
-      src = ./absolute_shlib_path.patch;
-      inherit nixStoreDir;
-    })
-  ] ++ lib.optionals x11Support [
-    # Hardcode the cairo shared library path in the Cairo gir shipped with this package.
-    # https://github.com/NixOS/nixpkgs/issues/34080
-    (substituteAll {
-      src = ./absolute_gir_path.patch;
-      cairoLib = "${lib.getLib cairo}/lib";
-    })
-  ];
+  patches =
+    [
+      # Make g-ir-scanner put absolute path to GIR files it generates
+      # so that programs can just dlopen them without having to muck
+      # with LD_LIBRARY_PATH environment variable.
+      (substituteAll {
+        src = ./absolute_shlib_path.patch;
+        inherit nixStoreDir;
+      })
+    ] ++ lib.optionals x11Support [
+      # Hardcode the cairo shared library path in the Cairo gir shipped with this package.
+      # https://github.com/NixOS/nixpkgs/issues/34080
+      (substituteAll {
+        src = ./absolute_gir_path.patch;
+        cairoLib = "${lib.getLib cairo}/lib";
+      })
+    ]
+    ;
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    flex
-    bison
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_45
-    # Build definition checks for the Python modules needed at runtime by importing them.
-    (buildPackages.python3.withPackages pythonModules)
-    finalAttrs.setupHook # move .gir files
-    # can't use canExecute, we need prebuilt when cross
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      flex
+      bison
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_45
+      # Build definition checks for the Python modules needed at runtime by importing them.
+      (buildPackages.python3.withPackages pythonModules)
+      finalAttrs.setupHook # move .gir files
+      # can't use canExecute, we need prebuilt when cross
+    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       gobject-introspection-unwrapped
-    ];
+    ]
+    ;
 
   buildInputs = [ (python3.withPackages pythonModules) ];
 
@@ -105,29 +110,33 @@ stdenv.mkDerivation (finalAttrs: {
     glib
   ];
 
-  mesonFlags = [
-    "--datadir=${placeholder "dev"}/share"
-    "-Dcairo=disabled"
-    "-Dgtk_doc=${
-      lib.boolToString (stdenv.hostPlatform == stdenv.buildPlatform)
-    }"
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    "-Dgi_cross_ldd_wrapper=${
-      substituteAll {
-        name = "g-ir-scanner-lddwrapper";
-        isExecutable = true;
-        src = ./wrappers/g-ir-scanner-lddwrapper.sh;
-        inherit (buildPackages) bash;
-        buildlddtree = "${buildPackages.pax-utils}/bin/lddtree";
-      }
-    }"
-    "-Dgi_cross_binary_wrapper=${stdenv.hostPlatform.emulator buildPackages}"
-    # can't use canExecute, we need prebuilt when cross
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+  mesonFlags =
+    [
+      "--datadir=${placeholder "dev"}/share"
+      "-Dcairo=disabled"
+      "-Dgtk_doc=${
+        lib.boolToString (stdenv.hostPlatform == stdenv.buildPlatform)
+      }"
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      "-Dgi_cross_ldd_wrapper=${
+        substituteAll {
+          name = "g-ir-scanner-lddwrapper";
+          isExecutable = true;
+          src = ./wrappers/g-ir-scanner-lddwrapper.sh;
+          inherit (buildPackages) bash;
+          buildlddtree = "${buildPackages.pax-utils}/bin/lddtree";
+        }
+      }"
+      "-Dgi_cross_binary_wrapper=${stdenv.hostPlatform.emulator buildPackages}"
+      # can't use canExecute, we need prebuilt when cross
+    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "-Dgi_cross_use_prebuilt_gi=true"
-    ];
+    ]
+    ;
 
-  doCheck = !stdenv.isAarch64;
+  doCheck =
+    !stdenv.isAarch64
+    ;
 
     # During configurePhase, two python scripts are generated and need this. See
     # https://github.com/NixOS/nixpkgs/pull/98316#issuecomment-695785692
@@ -171,10 +180,12 @@ stdenv.mkDerivation (finalAttrs: {
     description =
       "A middleware layer between C libraries and language bindings";
     homepage = "https://gi.readthedocs.io/";
-    maintainers = teams.gnome.members ++ (with maintainers; [
-      lovek323
-      artturin
-    ]);
+    maintainers =
+      teams.gnome.members ++ (with maintainers; [
+        lovek323
+        artturin
+      ])
+      ;
     pkgConfigModules = [ "gobject-introspection-1.0" ];
     platforms = platforms.unix;
     license = with licenses; [

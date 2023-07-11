@@ -63,13 +63,15 @@ buildGo118Module rec {
   buildInputs = [ rtloader ] ++ lib.optionals withSystemd [ systemd ];
   PKG_CONFIG_PATH = "${python}/lib/pkgconfig";
 
-  tags = [
-    "ec2"
-    "python"
-    "process"
-    "log"
-    "secrets"
-  ] ++ lib.optionals withSystemd [ "systemd" ] ++ extraTags;
+  tags =
+    [
+      "ec2"
+      "python"
+      "process"
+      "log"
+      "secrets"
+    ] ++ lib.optionals withSystemd [ "systemd" ] ++ extraTags
+    ;
 
   ldflags = [
     "-X ${goPackagePath}/pkg/version.Commit=${src.rev}"
@@ -96,21 +98,23 @@ buildGo118Module rec {
 
     # Install the config files and python modules from the "dist" dir
     # into standard paths.
-  postInstall = ''
-    mkdir -p $out/${python.sitePackages} $out/share/datadog-agent
-    cp -R $src/cmd/agent/dist/conf.d $out/share/datadog-agent
-    cp -R $src/cmd/agent/dist/{checks,utils,config.py} $out/${python.sitePackages}
+  postInstall =
+    ''
+      mkdir -p $out/${python.sitePackages} $out/share/datadog-agent
+      cp -R $src/cmd/agent/dist/conf.d $out/share/datadog-agent
+      cp -R $src/cmd/agent/dist/{checks,utils,config.py} $out/${python.sitePackages}
 
-    cp -R $src/pkg/status/templates $out/share/datadog-agent
+      cp -R $src/pkg/status/templates $out/share/datadog-agent
 
-    wrapProgram "$out/bin/agent" \
-      --set PYTHONPATH "$out/${python.sitePackages}"''
+      wrapProgram "$out/bin/agent" \
+        --set PYTHONPATH "$out/${python.sitePackages}"''
     + lib.optionalString withSystemd ''
       \
            --prefix LD_LIBRARY_PATH : '' + lib.makeLibraryPath [
         (lib.getLib systemd)
         rtloader
-      ];
+      ]
+    ;
 
   meta = with lib; {
     description = ''

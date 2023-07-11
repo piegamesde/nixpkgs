@@ -50,10 +50,12 @@ buildPythonPackage rec {
     azuread = [ cryptography ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    httpretty
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      httpretty
+    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ;
 
     # Disable checking the code coverage
   prePatch = ''

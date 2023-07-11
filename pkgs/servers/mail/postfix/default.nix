@@ -68,16 +68,18 @@ stdenv.mkDerivation rec {
     makeWrapper
     m4
   ];
-  buildInputs = [
-    db
-    openssl
-    cyrus_sasl
-    icu
-    libnsl
-    pcre2
-  ] ++ lib.optional withPgSQL postgresql
+  buildInputs =
+    [
+      db
+      openssl
+      cyrus_sasl
+      icu
+      libnsl
+      pcre2
+    ] ++ lib.optional withPgSQL postgresql
     ++ lib.optional withMySQL libmysqlclient ++ lib.optional withSQLite sqlite
-    ++ lib.optional withLDAP openldap;
+    ++ lib.optional withLDAP openldap
+    ;
 
   hardeningDisable = [ "format" ];
   hardeningEnable = [ "pie" ];
@@ -105,7 +107,8 @@ stdenv.mkDerivation rec {
 
       # post-install need skip permissions check/set on all symlinks following to /nix/store
       sed -e "s|@NIX_STORE@|$NIX_STORE|" -i conf/post-install
-    '';
+    ''
+    ;
 
   postConfigure = ''
     export command_directory=$out/sbin

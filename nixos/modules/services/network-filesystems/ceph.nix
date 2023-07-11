@@ -15,101 +15,108 @@ let
   expandCamelCaseAttrs =
     mapAttrs' (name: value: nameValuePair (expandCamelCase name) value);
 
-  makeServices = (daemonType: daemonIds:
-    mkMerge (map (daemonId: {
-      "ceph-${daemonType}-${daemonId}" =
-        makeService daemonType daemonId cfg.global.clusterName pkgs.ceph;
-    }) daemonIds));
+  makeServices =
+    (daemonType: daemonIds:
+      mkMerge (map (daemonId: {
+        "ceph-${daemonType}-${daemonId}" =
+          makeService daemonType daemonId cfg.global.clusterName pkgs.ceph;
+      }) daemonIds));
 
-  makeService = (daemonType: daemonId: clusterName: ceph:
-    let
-      stateDirectory = "ceph/${
-          if daemonType == "rgw" then
-            "radosgw"
-          else
-            daemonType
-        }/${clusterName}-${daemonId}";
-    in
-    {
-      enable = true;
-      description = "Ceph ${
-          builtins.replaceStrings lowerChars upperChars daemonType
-        } daemon ${daemonId}";
-      after = [
-        "network-online.target"
-        "time-sync.target"
-      ] ++ optional (daemonType == "osd") "ceph-mon.target";
-      wants = [
-        "network-online.target"
-        "time-sync.target"
-      ];
-      partOf = [ "ceph-${daemonType}.target" ];
-      wantedBy = [ "ceph-${daemonType}.target" ];
-
-      path = [ pkgs.getopt ];
-
-        # Don't start services that are not yet initialized
-      unitConfig.ConditionPathExists = "/var/lib/${stateDirectory}/keyring";
-      startLimitBurst =
-        if daemonType == "osd" then
-          30
-        else if
-          lib.elem daemonType [
-            "mgr"
-            "mds"
-          ]
-        then
-          3
-        else
-          5
-        ;
-      startLimitIntervalSec = 60 * 30; # 30 mins
-
-      serviceConfig = {
-        LimitNOFILE = 1048576;
-        LimitNPROC = 1048576;
-        Environment = "CLUSTER=${clusterName}";
-        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-        PrivateDevices = "yes";
-        PrivateTmp = "true";
-        ProtectHome = "true";
-        ProtectSystem = "full";
-        Restart = "on-failure";
-        StateDirectory = stateDirectory;
-        User = "ceph";
-        Group =
-          if daemonType == "osd" then
-            "disk"
-          else
-            "ceph"
-          ;
-        ExecStart = ''
-          ${ceph.out}/bin/${
+  makeService =
+    (daemonType: daemonId: clusterName: ceph:
+      let
+        stateDirectory =
+          "ceph/${
             if daemonType == "rgw" then
               "radosgw"
             else
-              "ceph-${daemonType}"
-          } \
-                              -f --cluster ${clusterName} --id ${daemonId}'';
-      } // optionalAttrs (daemonType == "osd") {
-        ExecStartPre =
-          "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
-        RestartSec = "20s";
-        PrivateDevices = "no"; # osd needs disk access
-      } // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
-    }
-  );
+              daemonType
+          }/${clusterName}-${daemonId}";
+      in
+      {
+        enable = true;
+        description =
+          "Ceph ${
+            builtins.replaceStrings lowerChars upperChars daemonType
+          } daemon ${daemonId}";
+        after =
+          [
+            "network-online.target"
+            "time-sync.target"
+          ] ++ optional (daemonType == "osd") "ceph-mon.target"
+          ;
+        wants = [
+          "network-online.target"
+          "time-sync.target"
+        ];
+        partOf = [ "ceph-${daemonType}.target" ];
+        wantedBy = [ "ceph-${daemonType}.target" ];
 
-  makeTarget = (daemonType: {
-    "ceph-${daemonType}" = {
-      description =
-        "Ceph target allowing to start/stop all ceph-${daemonType} services at once";
-      partOf = [ "ceph.target" ];
-      wantedBy = [ "ceph.target" ];
-      before = [ "ceph.target" ];
-      unitConfig.StopWhenUnneeded = true;
-    };
-  });
+        path = [ pkgs.getopt ];
+
+          # Don't start services that are not yet initialized
+        unitConfig.ConditionPathExists = "/var/lib/${stateDirectory}/keyring";
+        startLimitBurst =
+          if daemonType == "osd" then
+            30
+          else if
+            lib.elem daemonType [
+              "mgr"
+              "mds"
+            ]
+          then
+            3
+          else
+            5
+          ;
+        startLimitIntervalSec = 60 * 30; # 30 mins
+
+        serviceConfig = {
+          LimitNOFILE = 1048576;
+          LimitNPROC = 1048576;
+          Environment = "CLUSTER=${clusterName}";
+          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+          PrivateDevices = "yes";
+          PrivateTmp = "true";
+          ProtectHome = "true";
+          ProtectSystem = "full";
+          Restart = "on-failure";
+          StateDirectory = stateDirectory;
+          User = "ceph";
+          Group =
+            if daemonType == "osd" then
+              "disk"
+            else
+              "ceph"
+            ;
+          ExecStart = ''
+            ${ceph.out}/bin/${
+              if daemonType == "rgw" then
+                "radosgw"
+              else
+                "ceph-${daemonType}"
+            } \
+                                -f --cluster ${clusterName} --id ${daemonId}'';
+        } // optionalAttrs (daemonType == "osd") {
+          ExecStartPre =
+            "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
+          RestartSec = "20s";
+          PrivateDevices = "no"; # osd needs disk access
+        } // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
+      }
+    );
+
+  makeTarget =
+    (daemonType: {
+      "ceph-${daemonType}" = {
+        description =
+          "Ceph target allowing to start/stop all ceph-${daemonType} services at once";
+        partOf = [ "ceph.target" ];
+        wantedBy = [ "ceph.target" ];
+        before = [ "ceph.target" ];
+        unitConfig.StopWhenUnneeded = true;
+      };
+    });
 in
 {
   options.services.ceph = {
@@ -453,40 +460,45 @@ in
 
     systemd.services =
       let
-        services = [ ]
-          ++ optional cfg.mon.enable (makeServices "mon" cfg.mon.daemons)
+        services =
+          [ ] ++ optional cfg.mon.enable (makeServices "mon" cfg.mon.daemons)
           ++ optional cfg.mds.enable (makeServices "mds" cfg.mds.daemons)
           ++ optional cfg.osd.enable (makeServices "osd" cfg.osd.daemons)
           ++ optional cfg.rgw.enable (makeServices "rgw" cfg.rgw.daemons)
-          ++ optional cfg.mgr.enable (makeServices "mgr" cfg.mgr.daemons);
+          ++ optional cfg.mgr.enable (makeServices "mgr" cfg.mgr.daemons)
+          ;
       in
       mkMerge services
       ;
 
     systemd.targets =
       let
-        targets = [ {
-          ceph = {
-            description =
-              "Ceph target allowing to start/stop all ceph service instances at once";
-            wantedBy = [ "multi-user.target" ];
-            unitConfig.StopWhenUnneeded = true;
-          };
-        } ] ++ optional cfg.mon.enable (makeTarget "mon")
+        targets =
+          [ {
+            ceph = {
+              description =
+                "Ceph target allowing to start/stop all ceph service instances at once";
+              wantedBy = [ "multi-user.target" ];
+              unitConfig.StopWhenUnneeded = true;
+            };
+          } ] ++ optional cfg.mon.enable (makeTarget "mon")
           ++ optional cfg.mds.enable (makeTarget "mds")
           ++ optional cfg.osd.enable (makeTarget "osd")
           ++ optional cfg.rgw.enable (makeTarget "rgw")
-          ++ optional cfg.mgr.enable (makeTarget "mgr");
+          ++ optional cfg.mgr.enable (makeTarget "mgr")
+          ;
       in
       mkMerge targets
       ;
 
-    systemd.tmpfiles.rules = [
-      "d /etc/ceph - ceph ceph - -"
-      "d /run/ceph 0770 ceph ceph -"
-      "d /var/lib/ceph - ceph ceph - -"
-    ] ++ optionals cfg.mgr.enable [ "d /var/lib/ceph/mgr - ceph ceph - -" ]
+    systemd.tmpfiles.rules =
+      [
+        "d /etc/ceph - ceph ceph - -"
+        "d /run/ceph 0770 ceph ceph -"
+        "d /var/lib/ceph - ceph ceph - -"
+      ] ++ optionals cfg.mgr.enable [ "d /var/lib/ceph/mgr - ceph ceph - -" ]
       ++ optionals cfg.mon.enable [ "d /var/lib/ceph/mon - ceph ceph - -" ]
-      ++ optionals cfg.osd.enable [ "d /var/lib/ceph/osd - ceph ceph - -" ];
+      ++ optionals cfg.osd.enable [ "d /var/lib/ceph/osd - ceph ceph - -" ]
+      ;
   };
 }
