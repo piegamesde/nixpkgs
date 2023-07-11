@@ -11,8 +11,14 @@ let
   opt = options.services.wasabibackend;
 
   inherit (lib)
-    literalExpression mkEnableOption mkIf mkOption optionalAttrs optionalString
-    types;
+    literalExpression
+    mkEnableOption
+    mkIf
+    mkOption
+    optionalAttrs
+    optionalString
+    types
+    ;
 
   confOptions = {
     BitcoinRpcConnectionString = "${cfg.rpc.user}:${cfg.rpc.password}";

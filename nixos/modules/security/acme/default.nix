@@ -646,7 +646,9 @@ let
         dnsPropagationCheck = mkOption {
           type = types.bool;
           inherit (defaultAndText "dnsPropagationCheck" true)
-            default defaultText;
+            default
+            defaultText
+            ;
           description = lib.mdDoc ''
             Toggles lego DNS propagation check, which is used alongside DNS-01
             challenge to ensure the DNS entries required are available.
@@ -676,7 +678,9 @@ let
         extraLegoRenewFlags = mkOption {
           type = types.listOf types.str;
           inherit (defaultAndText "extraLegoRenewFlags" [ ])
-            default defaultText;
+            default
+            defaultText
+            ;
           description = lib.mdDoc ''
             Additional flags to pass to lego renew.
           '';

@@ -136,9 +136,11 @@ stdenv.mkDerivation rec {
     # Builds dynamically linking against gnutls seem to need the framework now.
     ++ lib.optional isDarwin Security;
 
-  inherit doCheck;
-  # stdenv's `NIX_SSL_CERT_FILE=/no-cert-file.crt` breaks tests.
-  # Also empty files won't work, and we want to avoid potentially impure /etc/
+  inherit
+    doCheck
+    ;
+    # stdenv's `NIX_SSL_CERT_FILE=/no-cert-file.crt` breaks tests.
+    # Also empty files won't work, and we want to avoid potentially impure /etc/
   preCheck = "NIX_SSL_CERT_FILE=${./dummy.crt}";
 
   # Fixup broken libtool and pkg-config files

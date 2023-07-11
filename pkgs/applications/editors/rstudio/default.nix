@@ -81,8 +81,15 @@ then
   stdenv.mkDerivation
 else
   mkDerivation) (rec {
-    inherit pname version src RSTUDIO_VERSION_MAJOR RSTUDIO_VERSION_MINOR
-      RSTUDIO_VERSION_PATCH RSTUDIO_VERSION_SUFFIX;
+    inherit
+      pname
+      version
+      src
+      RSTUDIO_VERSION_MAJOR
+      RSTUDIO_VERSION_MINOR
+      RSTUDIO_VERSION_PATCH
+      RSTUDIO_VERSION_SUFFIX
+      ;
 
     nativeBuildInputs = [
       cmake

@@ -29,11 +29,16 @@ pythonPackages.callPackage ({
   let
     inherit (python) stdenv;
     inherit (poetryLib)
-      isCompatible getManyLinuxDeps fetchFromLegacy fetchFromPypi
-      normalizePackageName;
+      isCompatible
+      getManyLinuxDeps
+      fetchFromLegacy
+      fetchFromPypi
+      normalizePackageName
+      ;
 
     inherit (import ./pep425.nix { inherit lib poetryLib python stdenv; })
-      selectWheel;
+      selectWheel
+      ;
     fileCandidates = let
       supportedRegex =
         ("^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")");
@@ -134,9 +139,12 @@ pythonPackages.callPackage ({
     hooks = python.pkgs.callPackage ./hooks { };
   in
   buildPythonPackage {
-    inherit pname version;
+    inherit
+      pname
+      version
+      ;
 
-    # Circumvent output separation (https://github.com/NixOS/nixpkgs/pull/190487)
+      # Circumvent output separation (https://github.com/NixOS/nixpkgs/pull/190487)
     format = if
       format == "pyproject"
     then

@@ -30,10 +30,13 @@ let
 
   server = nodejs.pkgs.epgstation.override (drv: {
     # NOTE: updateScript relies on version matching the src.
-    inherit version src;
+    inherit
+      version
+      src
+      ;
 
-    # This is set to false to keep devDependencies at build time. Build time
-    # dependencies are pruned afterwards.
+      # This is set to false to keep devDependencies at build time. Build time
+      # dependencies are pruned afterwards.
     production = false;
 
     buildInputs = (drv.buildInputs or [ ]) ++ [ bash ];

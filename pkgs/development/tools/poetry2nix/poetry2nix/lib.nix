@@ -5,9 +5,12 @@
 }:
 let
   inherit (import ./semver.nix { inherit lib ireplace; }) satisfiesSemver;
-  inherit (builtins) genList length;
+  inherit (builtins)
+    genList
+    length
+    ;
 
-  # Replace a list entry at defined index with set value
+    # Replace a list entry at defined index with set value
   ireplace = idx: value: list:
     (genList (i:
       if
@@ -304,7 +307,18 @@ let
     manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null;
 
 in {
-  inherit fetchFromPypi fetchFromLegacy getManyLinuxDeps isCompatible readTOML
-    getBuildSystemPkgs satisfiesSemver cleanPythonSources normalizePackageName
-    normalizePackageSet getPythonVersion getTargetMachine;
+  inherit
+    fetchFromPypi
+    fetchFromLegacy
+    getManyLinuxDeps
+    isCompatible
+    readTOML
+    getBuildSystemPkgs
+    satisfiesSemver
+    cleanPythonSources
+    normalizePackageName
+    normalizePackageSet
+    getPythonVersion
+    getTargetMachine
+    ;
 }

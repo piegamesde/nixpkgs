@@ -164,8 +164,14 @@ let
             machine.copy_from_host(
                 "${
                   makeConfig {
-                    inherit bootLoader grubVersion grubDevice grubIdentifier
-                      grubUseEfi extraConfig;
+                    inherit
+                      bootLoader
+                      grubVersion
+                      grubDevice
+                      grubIdentifier
+                      grubUseEfi
+                      extraConfig
+                      ;
                   }
                 }",
                 "/mnt/etc/nixos/configuration.nix",
@@ -242,8 +248,14 @@ let
             machine.copy_from_host_via_shell(
                 "${
                   makeConfig {
-                    inherit bootLoader grubVersion grubDevice grubIdentifier
-                      grubUseEfi extraConfig;
+                    inherit
+                      bootLoader
+                      grubVersion
+                      grubDevice
+                      grubIdentifier
+                      grubUseEfi
+                      extraConfig
+                      ;
                     forceGrubReinstallCount = 1;
                   }
                 }",
@@ -272,8 +284,14 @@ let
         machine.copy_from_host_via_shell(
             "${
               makeConfig {
-                inherit bootLoader grubVersion grubDevice grubIdentifier
-                  grubUseEfi extraConfig;
+                inherit
+                  bootLoader
+                  grubVersion
+                  grubDevice
+                  grubIdentifier
+                  grubUseEfi
+                  extraConfig
+                  ;
                 forceGrubReinstallCount = 2;
               }
             }",
@@ -460,9 +478,18 @@ let
       };
 
       testScript = testScriptFun {
-        inherit bootLoader createPartitions preBootCommands postBootCommands
-          grubVersion grubDevice grubIdentifier grubUseEfi extraConfig
-          testSpecialisationConfig;
+        inherit
+          bootLoader
+          createPartitions
+          preBootCommands
+          postBootCommands
+          grubVersion
+          grubDevice
+          grubIdentifier
+          grubUseEfi
+          extraConfig
+          testSpecialisationConfig
+          ;
       };
     };
 

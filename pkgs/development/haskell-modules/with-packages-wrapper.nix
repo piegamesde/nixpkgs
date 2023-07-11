@@ -195,9 +195,12 @@ else
       '' + postBuild;
     preferLocalBuild = true;
     passthru = {
-      inherit (ghc) version meta;
+      inherit (ghc)
+        version
+        meta
+        ;
 
-      # Inform users about backwards incompatibilities with <= 21.05
+        # Inform users about backwards incompatibilities with <= 21.05
       override = _:
         throw ''
           The ghc.withPackages wrapper itself can now be overridden, but no longer

@@ -31,10 +31,13 @@
 
 # Build the Pharo VM
 stdenv.mkDerivation rec {
-  inherit name src;
+  inherit
+    name
+    src
+    ;
 
-  # Command line invocation name.
-  # Distinct name for 64-bit builds because they only work with 64-bit images.
+    # Command line invocation name.
+    # Distinct name for 64-bit builds because they only work with 64-bit images.
   cmd = if
     stdenv.is64bit
   then

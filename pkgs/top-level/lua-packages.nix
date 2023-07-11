@@ -44,15 +44,26 @@ in rec {
   getLuaCPath = drv: getPath drv luaLib.luaCPathList;
 
   inherit (callPackage ../development/interpreters/lua-5/hooks { })
-    luarocksMoveDataFolder luarocksCheckHook lua-setup-hook;
+    luarocksMoveDataFolder
+    luarocksCheckHook
+    lua-setup-hook
+    ;
 
   inherit lua;
   inherit buildLuaPackage buildLuarocksPackage buildLuaApplication;
   inherit (luaLib)
-    luaOlder luaAtLeast isLua51 isLua52 isLua53 isLuaJIT requiredLuaModules
-    toLuaModule hasLuaModule;
+    luaOlder
+    luaAtLeast
+    isLua51
+    isLua52
+    isLua53
+    isLuaJIT
+    requiredLuaModules
+    toLuaModule
+    hasLuaModule
+    ;
 
-  # wraps programs in $out/bin with valid LUA_PATH/LUA_CPATH
+    # wraps programs in $out/bin with valid LUA_PATH/LUA_CPATH
   wrapLua = callPackage ../development/interpreters/lua-5/wrap-lua.nix {
     inherit (pkgs.buildPackages) makeSetupHook makeWrapper;
   };

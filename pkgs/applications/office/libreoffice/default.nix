@@ -163,8 +163,15 @@ assert builtins.elem variant [
 
 let
   inherit (lib)
-    flatten flip concatMapStrings concatStringsSep getDev getLib optionals
-    optionalString;
+    flatten
+    flip
+    concatMapStrings
+    concatStringsSep
+    getDev
+    getLib
+    optionals
+    optionalString
+    ;
 
   jre' = jre17_minimal.override {
     modules = [
@@ -658,11 +665,15 @@ in
   passthru = {
     inherit srcs;
     jdk = jre';
-    inherit kdeIntegration;
-    # For the wrapper.nix
-    inherit gtk3;
-    # Although present in qtPackages, we need qtbase.qtPluginPrefix and
-    # qtbase.qtQmlPrefix
+    inherit
+      kdeIntegration
+      ;
+      # For the wrapper.nix
+    inherit
+      gtk3
+      ;
+      # Although present in qtPackages, we need qtbase.qtPluginPrefix and
+      # qtbase.qtQmlPrefix
     inherit qtbase;
     gst_packages = with gst_all_1; [
       gst-libav

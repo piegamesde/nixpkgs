@@ -27,8 +27,14 @@ let
         { };
 
     in {
-      inherit callPackage buildDhallPackage buildDhallGitHubPackage
-        buildDhallDirectoryPackage buildDhallUrl generateDhallDirectoryPackage;
+      inherit
+        callPackage
+        buildDhallPackage
+        buildDhallGitHubPackage
+        buildDhallDirectoryPackage
+        buildDhallUrl
+        generateDhallDirectoryPackage
+        ;
 
       lib = import ../development/dhall-modules/lib.nix { inherit lib; };
 

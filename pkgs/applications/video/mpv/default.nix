@@ -115,8 +115,14 @@
 
 let
   inherit (darwin.apple_sdk_11_0.frameworks)
-    AVFoundation CoreFoundation CoreMedia Cocoa CoreAudio MediaPlayer
-    Accelerate;
+    AVFoundation
+    CoreFoundation
+    CoreMedia
+    Cocoa
+    CoreAudio
+    MediaPlayer
+    Accelerate
+    ;
   luaEnv = lua.withPackages (ps: with ps; [ luasocket ]);
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -278,12 +284,15 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     inherit
     # The wrapper consults luaEnv and lua.version
-      luaEnv lua
+      luaEnv
+      lua
       # In the wrapper, we want to reference vapoursynth which has the `python3`
       # passthru attribute (which has the `sitePrefix` attribute). This way we'll
       # be sure that in the wrapper we'll use the same python3.sitePrefix used to
       # build vapoursynth.
-      vapoursynthSupport vapoursynth;
+      vapoursynthSupport
+      vapoursynth
+      ;
   };
 
   meta = with lib; {

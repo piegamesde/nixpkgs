@@ -10,7 +10,14 @@ with import ./lib.nix { inherit config lib pkgs; };
 
 let
   inherit (lib)
-    getBin literalExpression mkOption mkIf optionalString singleton types;
+    getBin
+    literalExpression
+    mkOption
+    mkIf
+    optionalString
+    singleton
+    types
+    ;
 
   cfg = config.services.openafsClient;
 

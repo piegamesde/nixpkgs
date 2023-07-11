@@ -125,12 +125,14 @@ let
         (lib.optionalString stdenv.isAarch64 "-march=armv8-a+crc")
       ];
 
-      inherit patches;
+      inherit
+        patches
+        ;
 
-      # the install phase for cmake is pretty wonky right now since it's not designed to
-      # coherently install packages as most linux distros expect -- it's designed to build
-      # packaged artifacts that are shipped in RPMs, etc. we need to add some extra code to
-      # cmake upstream to fix this, and if we do, i think most of this can go away.
+        # the install phase for cmake is pretty wonky right now since it's not designed to
+        # coherently install packages as most linux distros expect -- it's designed to build
+        # packaged artifacts that are shipped in RPMs, etc. we need to add some extra code to
+        # cmake upstream to fix this, and if we do, i think most of this can go away.
       postInstall = lib.optionalString (lib.versionOlder version "7.0.0") ''
         mv $out/fdbmonitor/fdbmonitor $out/bin/fdbmonitor && rm -rf $out/fdbmonitor
         mkdir $out/libexec && ln -sfv $out/bin/fdbbackup $out/libexec/backup_agent

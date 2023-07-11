@@ -2,12 +2,15 @@ final: prev:
 let
 
   inherit (final) callPackage;
-  inherit (prev) cudaVersion lib;
+  inherit (prev)
+    cudaVersion
+    lib
+    ;
 
-  ### Cuda Toolkit Redist
+    ### Cuda Toolkit Redist
 
-  # Manifest files for redist cudatoolkit. These can be found at
-  # https://developer.download.nvidia.com/compute/cuda/redist/
+    # Manifest files for redist cudatoolkit. These can be found at
+    # https://developer.download.nvidia.com/compute/cuda/redist/
   cudaToolkitRedistManifests = {
     "11.4" = ./manifests/redistrib_11.4.4.json;
     "11.5" = ./manifests/redistrib_11.5.2.json;

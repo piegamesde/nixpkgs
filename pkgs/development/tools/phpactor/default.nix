@@ -18,9 +18,12 @@ let
 
   vendor = stdenvNoCC.mkDerivation rec {
     pname = "phpactor-vendor";
-    inherit src version;
+    inherit
+      src
+      version
+      ;
 
-    # See https://github.com/NixOS/nix/issues/6660
+      # See https://github.com/NixOS/nix/issues/6660
     dontPatchShebangs = true;
 
     nativeBuildInputs = [

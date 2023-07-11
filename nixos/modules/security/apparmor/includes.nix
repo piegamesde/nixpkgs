@@ -7,9 +7,11 @@
 let
   inherit (builtins) attrNames hasAttr isAttrs;
   inherit (lib) getLib;
-  inherit (config.environment) etc;
-  # Utility to generate an AppArmor rule
-  # only when the given path exists in config.environment.etc
+  inherit (config.environment)
+    etc
+    ;
+    # Utility to generate an AppArmor rule
+    # only when the given path exists in config.environment.etc
   etcRule = arg:
     let
       go = {

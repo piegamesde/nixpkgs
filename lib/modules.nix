@@ -4,13 +4,51 @@
 
 let
   inherit (lib)
-    all any attrByPath attrNames catAttrs concatLists concatMap concatStringsSep
-    elem filter foldl' getAttrFromPath head id imap1 isAttrs isBool isFunction
-    isList isPath isString length mapAttrs mapAttrsToList mapAttrsRecursiveCond
-    min optional optionalAttrs optionalString recursiveUpdate reverseList sort
-    setAttrByPath types warnIf zipAttrsWith;
+    all
+    any
+    attrByPath
+    attrNames
+    catAttrs
+    concatLists
+    concatMap
+    concatStringsSep
+    elem
+    filter
+    foldl'
+    getAttrFromPath
+    head
+    id
+    imap1
+    isAttrs
+    isBool
+    isFunction
+    isList
+    isPath
+    isString
+    length
+    mapAttrs
+    mapAttrsToList
+    mapAttrsRecursiveCond
+    min
+    optional
+    optionalAttrs
+    optionalString
+    recursiveUpdate
+    reverseList
+    sort
+    setAttrByPath
+    types
+    warnIf
+    zipAttrsWith
+    ;
   inherit (lib.options)
-    isOption mkOption showDefs showFiles showOption unknownModule;
+    isOption
+    mkOption
+    showDefs
+    showFiles
+    showOption
+    unknownModule
+    ;
   inherit (lib.strings) isConvertibleWithToString;
 
   showDeclPrefix = loc: decl: prefix:
@@ -761,9 +799,11 @@ in rec {
         # Plus the definitions for the current prefix that don't have a matching option
         // removeAttrs defnsByName' (attrNames matchedOptions);
     in {
-      inherit matchedOptions;
+      inherit
+        matchedOptions
+        ;
 
-      # Transforms unmatchedDefnsByName into a list of definitions
+        # Transforms unmatchedDefnsByName into a list of definitions
       unmatchedDefns = if
         configs == [ ]
       then
@@ -890,8 +930,10 @@ in rec {
       definitions = map (def: def.value) res.defsFinal;
       files = map (def: def.file) res.defsFinal;
       definitionsWithLocations = res.defsFinal;
-      inherit (res) isDefined;
-      # This allows options to be correctly displayed using `${options.path.to.it}`
+      inherit (res)
+        isDefined
+        ;
+        # This allows options to be correctly displayed using `${options.path.to.it}`
       __toString = _: showOption loc;
     }
   ;

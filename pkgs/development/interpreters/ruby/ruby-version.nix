@@ -6,9 +6,14 @@
 let
   # The returned set should be immutable
   rubyVersion = major: minor: tiny: tail: rec {
-    inherit major minor tiny tail;
+    inherit
+      major
+      minor
+      tiny
+      tail
+      ;
 
-    # Contains the patch number "223" if tail is "p223" or null
+      # Contains the patch number "223" if tail is "p223" or null
     patchLevel = let
       p = lib.removePrefix "p" tail;
       isPosInt = num:

@@ -8,9 +8,24 @@
 
 let
   inherit (lib)
-    concatStrings foldl foldl' genAttrs literalExpression maintainers
-    mapAttrsToList mkDefault mkEnableOption mkIf mkMerge mkOption optional types
-    mkOptionDefault flip attrNames;
+    concatStrings
+    foldl
+    foldl'
+    genAttrs
+    literalExpression
+    maintainers
+    mapAttrsToList
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    optional
+    types
+    mkOptionDefault
+    flip
+    attrNames
+    ;
 
   cfg = config.services.prometheus.exporters;
 

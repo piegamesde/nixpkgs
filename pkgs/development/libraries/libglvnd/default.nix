@@ -84,8 +84,10 @@ stdenv.mkDerivation rec {
       dispatch each API call to at runtime.
       Both GLX and EGL are supported, in any combination with OpenGL and OpenGL ES.
     '';
-    inherit (src.meta) homepage;
-    # https://gitlab.freedesktop.org/glvnd/libglvnd#libglvnd:
+    inherit (src.meta)
+      homepage
+      ;
+      # https://gitlab.freedesktop.org/glvnd/libglvnd#libglvnd:
     changelog =
       "https://gitlab.freedesktop.org/glvnd/libglvnd/-/tags/v${version}";
     license = with licenses; [

@@ -31,12 +31,16 @@ let
   };
 
   unmanaged = clangStdenv.mkDerivation {
-    inherit src pname version;
+    inherit
+      src
+      pname
+      version
+      ;
 
-    # patch for arm from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446375535
-    # needed until https://github.com/dotnet/runtime/issues/78286 is resolved
-    # patch for darwin from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446457522
-    # needed until: ?
+      # patch for arm from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446375535
+      # needed until https://github.com/dotnet/runtime/issues/78286 is resolved
+      # patch for darwin from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446457522
+      # needed until: ?
     patches = [
       ./arm64.patch
       ./darwin.patch
@@ -75,9 +79,12 @@ let
   };
 in
 stdenv.mkDerivation rec {
-  inherit pname version;
-  # managed brings external binaries (libdbgshim.*)
-  # include source here so that autoPatchelfHook can do it's job
+  inherit
+    pname
+    version
+    ;
+    # managed brings external binaries (libdbgshim.*)
+    # include source here so that autoPatchelfHook can do it's job
   src = managed;
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];

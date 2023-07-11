@@ -7,9 +7,12 @@ stdenv:
 
 let
   checkMeta = import ./check-meta.nix {
-    inherit lib config;
-    # Nix itself uses the `system` field of a derivation to decide where
-    # to build it. This is a bit confusing for cross compilation.
+    inherit
+      lib
+      config
+      ;
+      # Nix itself uses the `system` field of a derivation to decide where
+      # to build it. This is a bit confusing for cross compilation.
     inherit (stdenv) hostPlatform;
   };
 
@@ -303,8 +306,12 @@ let
     then
       abort ("mkDerivation was called with unsupported hardening flags: "
         + lib.generators.toPretty { } {
-          inherit erroneousHardeningFlags hardeningDisable hardeningEnable
-            supportedHardeningFlags;
+          inherit
+            erroneousHardeningFlags
+            hardeningDisable
+            hardeningEnable
+            supportedHardeningFlags
+            ;
         })
     else
       let
@@ -439,14 +446,16 @@ let
                 "-e"
                 (attrs.builder or ./default-builder.sh)
               ];
-              inherit stdenv;
+              inherit
+                stdenv
+                ;
 
-              # The `system` attribute of a derivation has special meaning to Nix.
-              # Derivations set it to choose what sort of machine could be used to
-              # execute the build, The build platform entirely determines this,
-              # indeed more finely than Nix knows or cares about. The `system`
-              # attribute of `buildPlatfom` matches Nix's degree of specificity.
-              # exactly.
+                # The `system` attribute of a derivation has special meaning to Nix.
+                # Derivations set it to choose what sort of machine could be used to
+                # execute the build, The build platform entirely determines this,
+                # indeed more finely than Nix knows or cares about. The `system`
+                # attribute of `buildPlatfom` matches Nix's degree of specificity.
+                # exactly.
               inherit (stdenv.buildPlatform) system;
 
               userHook = config.stdenv.userHook or null;
@@ -599,9 +608,11 @@ let
 
               inherit outputs;
             } // lib.optionalAttrs (__contentAddressed) {
-              inherit __contentAddressed;
-              # Provide default values for outputHashMode and outputHashAlgo because
-              # most people won't care about these anyways
+              inherit
+                __contentAddressed
+                ;
+                # Provide default values for outputHashMode and outputHashAlgo because
+                # most people won't care about these anyways
               outputHashAlgo = attrs.outputHashAlgo or "sha256";
               outputHashMode = attrs.outputHashMode or "recursive";
             } // lib.optionalAttrs (enableParallelBuilding) {
@@ -616,8 +627,10 @@ let
             requiredSystemFeatures = attrs.requiredSystemFeatures or [ ]
               ++ [ "gccarch-${stdenv.hostPlatform.gcc.arch}" ];
           } // lib.optionalAttrs (stdenv.buildPlatform.isDarwin) {
-            inherit __darwinAllowLocalNetworking;
-            # TODO: remove lib.unique once nix has a list canonicalization primitive
+            inherit
+              __darwinAllowLocalNetworking
+              ;
+              # TODO: remove lib.unique once nix has a list canonicalization primitive
             __sandboxProfile = let
               profiles = [ stdenv.extraSandboxProfile ]
                 ++ computedSandboxProfile ++ computedPropagatedSandboxProfile

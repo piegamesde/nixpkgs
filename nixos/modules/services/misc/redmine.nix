@@ -7,7 +7,14 @@
 
 let
   inherit (lib)
-    mkBefore mkDefault mkEnableOption mkIf mkOption mkRemovedOptionModule types;
+    mkBefore
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    mkRemovedOptionModule
+    types
+    ;
   inherit (lib) concatStringsSep literalExpression mapAttrsToList;
   inherit (lib) optional optionalAttrs optionalString;
 

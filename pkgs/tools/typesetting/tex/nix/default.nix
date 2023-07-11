@@ -29,8 +29,14 @@ rec {
       builder = ./run-latex.sh;
       copyIncludes = ./copy-includes.pl;
 
-      inherit rootFile generatePDF generatePS extraFiles compressBlanksInIndex
-        copySources;
+      inherit
+        rootFile
+        generatePDF
+        generatePS
+        extraFiles
+        compressBlanksInIndex
+        copySources
+        ;
 
       includes = map (x: [
         x.key

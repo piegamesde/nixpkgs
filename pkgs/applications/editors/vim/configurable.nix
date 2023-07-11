@@ -114,7 +114,12 @@ stdenv.mkDerivation rec {
   pname = "vim-full";
 
   inherit (common)
-    version postPatch hardeningDisable enableParallelBuilding meta;
+    version
+    postPatch
+    hardeningDisable
+    enableParallelBuilding
+    meta
+    ;
 
   src = builtins.getAttr source {
     default = common.src; # latest release

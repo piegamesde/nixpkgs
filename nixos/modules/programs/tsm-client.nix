@@ -9,18 +9,34 @@ let
 
   inherit (builtins) length map;
   inherit (lib.attrsets)
-    attrNames filterAttrs hasAttr mapAttrs mapAttrsToList optionalAttrs;
+    attrNames
+    filterAttrs
+    hasAttr
+    mapAttrs
+    mapAttrsToList
+    optionalAttrs
+    ;
   inherit (lib.modules) mkDefault mkIf;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.strings) concatLines optionalString toLower;
   inherit (lib.types)
-    addCheck attrsOf lines nonEmptyStr nullOr package path port str strMatching
-    submodule;
+    addCheck
+    attrsOf
+    lines
+    nonEmptyStr
+    nullOr
+    package
+    path
+    port
+    str
+    strMatching
+    submodule
+    ;
 
-  # Checks if given list of strings contains unique
-  # elements when compared without considering case.
-  # Type: checkIUnique :: [string] -> bool
-  # Example: checkIUnique ["foo" "Foo"] => false
+    # Checks if given list of strings contains unique
+    # elements when compared without considering case.
+    # Type: checkIUnique :: [string] -> bool
+    # Example: checkIUnique ["foo" "Foo"] => false
   checkIUnique = lst:
     let
       lenUniq = l: length (lib.lists.unique l);

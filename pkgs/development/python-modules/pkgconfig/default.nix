@@ -13,7 +13,12 @@ buildPythonPackage rec {
   format = "pyproject";
 
   inherit (pkg-config)
-    setupHooks wrapperName suffixSalt targetPrefix baseBinName;
+    setupHooks
+    wrapperName
+    suffixSalt
+    targetPrefix
+    baseBinName
+    ;
 
   src = fetchFromGitHub {
     owner = "matze";

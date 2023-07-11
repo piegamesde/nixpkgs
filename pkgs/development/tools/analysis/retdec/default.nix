@@ -115,7 +115,8 @@ let
     '';
   } // {
     inherit
-      version; # necessary to check the version against the expected version
+      version
+      ; # necessary to check the version against the expected version
   }
   ;
 

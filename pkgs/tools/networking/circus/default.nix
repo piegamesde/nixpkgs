@@ -10,7 +10,15 @@ let
   };
 
   inherit (python.pkgs)
-    buildPythonApplication fetchPypi iowait psutil pyzmq tornado mock six;
+    buildPythonApplication
+    fetchPypi
+    iowait
+    psutil
+    pyzmq
+    tornado
+    mock
+    six
+    ;
 
 in
 buildPythonApplication rec {

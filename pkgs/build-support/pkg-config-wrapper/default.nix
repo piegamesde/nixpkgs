@@ -16,12 +16,15 @@ with lib;
 
 let
   stdenv = stdenvNoCC;
-  inherit (stdenv) hostPlatform targetPlatform;
+  inherit (stdenv)
+    hostPlatform
+    targetPlatform
+    ;
 
-  # Prefix for binaries. Customarily ends with a dash separator.
-  #
-  # TODO(@Ericson2314) Make unconditional, or optional but always true by
-  # default.
+    # Prefix for binaries. Customarily ends with a dash separator.
+    #
+    # TODO(@Ericson2314) Make unconditional, or optional but always true by
+    # default.
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
     (targetPlatform.config + "-");
 

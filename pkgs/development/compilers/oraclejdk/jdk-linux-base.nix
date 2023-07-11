@@ -178,10 +178,13 @@ in let
       fi
     '';
 
-    inherit installjdk pluginSupport;
+    inherit
+      installjdk
+      pluginSupport
+      ;
 
-    #
-    # libXt is only needed on amd64
+      #
+      # libXt is only needed on amd64
     libraries = [
       stdenv.cc.libc
       glib

@@ -44,7 +44,9 @@ let
     detectvirt = "${config.systemd.package}/bin/systemd-detect-virt";
     btrfs = "${pkgs.btrfs-progs}/bin/btrfs";
     inherit (config.system.nixos-generate-config)
-      configuration desktopConfiguration;
+      configuration
+      desktopConfiguration
+      ;
     xserverEnabled = config.services.xserver.enable;
   };
 
@@ -243,8 +245,13 @@ in {
       documentation.man.man-db.skipPackages = [ nixos-version ];
 
       system.build = {
-        inherit nixos-install nixos-generate-config nixos-option nixos-rebuild
-          nixos-enter;
+        inherit
+          nixos-install
+          nixos-generate-config
+          nixos-option
+          nixos-rebuild
+          nixos-enter
+          ;
       };
 
     };

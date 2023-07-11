@@ -10,8 +10,17 @@ self:
 let
   inherit (self) callPackage;
   inherit (python.passthru)
-    isPy27 isPy37 isPy38 isPy39 isPy310 isPy311 isPy3k isPyPy pythonAtLeast
-    pythonOlder;
+    isPy27
+    isPy37
+    isPy38
+    isPy39
+    isPy310
+    isPy311
+    isPy3k
+    isPyPy
+    pythonAtLeast
+    pythonOlder
+    ;
 
   namePrefix = python.libPrefix + "-";
 
@@ -47,7 +56,8 @@ let
   buildPythonPackage = makeOverridablePythonPackage (lib.makeOverridable
     (callPackage ./mk-python-derivation.nix {
       inherit
-        namePrefix; # We want Python libraries to be named like e.g. "python3.6-${name}"
+        namePrefix
+        ; # We want Python libraries to be named like e.g. "python3.6-${name}"
       inherit toPythonModule; # Libraries provide modules
     }));
 
@@ -119,12 +129,26 @@ in {
 
   inherit lib pkgs stdenv;
   inherit (python.passthru)
-    isPy27 isPy37 isPy38 isPy39 isPy310 isPy311 isPy3k isPyPy pythonAtLeast
-    pythonOlder;
+    isPy27
+    isPy37
+    isPy38
+    isPy39
+    isPy310
+    isPy311
+    isPy3k
+    isPyPy
+    pythonAtLeast
+    pythonOlder
+    ;
   inherit buildPythonPackage buildPythonApplication;
   inherit (pkgs) fetchPypi;
-  inherit hasPythonModule requiredPythonModules makePythonPath disabled
-    disabledIf;
+  inherit
+    hasPythonModule
+    requiredPythonModules
+    makePythonPath
+    disabled
+    disabledIf
+    ;
   inherit toPythonModule toPythonApplication;
   inherit buildSetupcfg;
 

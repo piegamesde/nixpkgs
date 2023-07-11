@@ -16,7 +16,11 @@ in
   version = librewolf-src.packageVersion;
   src = librewolf-src.firefox;
   inherit (librewolf-src)
-    extraConfigureFlags extraPatches extraPostPatch extraPassthru;
+    extraConfigureFlags
+    extraPatches
+    extraPostPatch
+    extraPassthru
+    ;
 
   meta = {
     description = "A fork of Firefox, focused on privacy, security and freedom";

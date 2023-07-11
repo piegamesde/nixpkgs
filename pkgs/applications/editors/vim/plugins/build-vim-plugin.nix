@@ -31,8 +31,14 @@ rec {
       drv = stdenv.mkDerivation (attrs // {
         name = namePrefix + name;
 
-        inherit unpackPhase configurePhase buildPhase addonInfo preInstall
-          postInstall;
+        inherit
+          unpackPhase
+          configurePhase
+          buildPhase
+          addonInfo
+          preInstall
+          postInstall
+          ;
 
         installPhase = ''
           runHook preInstall

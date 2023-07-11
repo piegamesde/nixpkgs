@@ -45,8 +45,10 @@ let
         # Enable Web links and integrations between services.
       else if tail srvMatch == [ null ]
       && elem (head srvMatch) cfg.services then {
-        inherit (v) origin;
-        # mansrht crashes without it
+        inherit (v)
+          origin
+          ;
+          # mansrht crashes without it
         oauth-client-id = v.oauth-client-id or null;
       }
       # Drop sub-sections of other services

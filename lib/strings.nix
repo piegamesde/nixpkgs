@@ -13,18 +13,39 @@ let
 in rec {
 
   inherit (builtins)
-    compareVersions elem elemAt filter fromJSON head isInt isList isAttrs isPath
-    isString match parseDrvName readFile replaceStrings split storeDir
-    stringLength substring tail toJSON typeOf unsafeDiscardStringContext;
+    compareVersions
+    elem
+    elemAt
+    filter
+    fromJSON
+    head
+    isInt
+    isList
+    isAttrs
+    isPath
+    isString
+    match
+    parseDrvName
+    readFile
+    replaceStrings
+    split
+    storeDir
+    stringLength
+    substring
+    tail
+    toJSON
+    typeOf
+    unsafeDiscardStringContext
+    ;
 
-  /* Concatenate a list of strings.
+    /* Concatenate a list of strings.
 
-     Type: concatStrings :: [string] -> string
+       Type: concatStrings :: [string] -> string
 
-      Example:
-        concatStrings ["foo" "bar"]
-        => "foobar"
-  */
+        Example:
+          concatStrings ["foo" "bar"]
+          => "foobar"
+    */
   concatStrings = builtins.concatStringsSep "";
 
   /* Map a function over a list and concatenate the resulting strings.

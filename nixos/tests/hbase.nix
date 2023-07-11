@@ -15,9 +15,11 @@ import ./make-test-python.nix ({
         }: {
           services.hbase-standalone = {
             enable = true;
-            inherit package;
-            # Needed for standalone mode in hbase 2+
-            # This setting and standalone mode are not suitable for production
+            inherit
+              package
+              ;
+              # Needed for standalone mode in hbase 2+
+              # This setting and standalone mode are not suitable for production
             settings."hbase.unsafe.stream.capability.enforce" = "false";
           };
           environment.systemPackages = with pkgs; [ package ];

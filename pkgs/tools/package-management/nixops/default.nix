@@ -29,7 +29,8 @@ let
       })
     ];
   })
-    python;
+    python
+    ;
   pythonPackages = python.pkgs;
 
 in

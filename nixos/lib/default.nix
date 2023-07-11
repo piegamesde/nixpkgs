@@ -37,7 +37,8 @@ let
 in {
   inherit (seqAttrsIf (!featureFlags ? minimalModules) minimalModulesWarning
     eval-config-minimal)
-    evalModules;
+    evalModules
+    ;
 
   inherit (testing-lib) evalTest runTest;
 

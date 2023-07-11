@@ -35,9 +35,12 @@ let
 in
 buildGoModule rec {
   pname = "memos";
-  inherit version src;
+  inherit
+    version
+    src
+    ;
 
-  # check will unable to access network in sandbox
+    # check will unable to access network in sandbox
   doCheck = false;
   vendorSha256 = "sha256-P4OnICBiTAs/uaQgoYNKK50yj/PYntyH/bLihdPv88s=";
 

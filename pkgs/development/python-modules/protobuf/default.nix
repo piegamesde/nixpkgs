@@ -14,9 +14,12 @@ let
   versionPatch = lib.versions.patch protobuf.version;
 in
 buildPythonPackage {
-  inherit (protobuf) pname src;
+  inherit (protobuf)
+    pname
+    src
+    ;
 
-  # protobuf 3.21 coresponds with its python library 4.21
+    # protobuf 3.21 coresponds with its python library 4.21
   version = if
     lib.versionAtLeast protobuf.version "3.21"
   then

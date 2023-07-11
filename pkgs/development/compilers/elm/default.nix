@@ -77,9 +77,11 @@ let
           };
         in
         elmPkgs // {
-          inherit elmPkgs;
+          inherit
+            elmPkgs
+            ;
 
-          # We need attoparsec < 0.14 to build elm for now
+            # We need attoparsec < 0.14 to build elm for now
           attoparsec = self.attoparsec_0_13_2_5;
 
           # aeson 2.0.3.0 does not build with attoparsec_0_13_2_5
@@ -120,9 +122,11 @@ let
           };
         in
         elmPkgs // {
-          inherit elmPkgs;
+          inherit
+            elmPkgs
+            ;
 
-          # Needed for elm-format
+            # Needed for elm-format
           avh4-lib = doJailbreak (self.callPackage ./packages/avh4-lib.nix { });
           elm-format-lib =
             doJailbreak (self.callPackage ./packages/elm-format-lib.nix { });
@@ -152,16 +156,19 @@ in
 lib.makeScope pkgs.newScope (self:
   with self;
   {
-    inherit fetchElmDeps nodejs;
+    inherit
+      fetchElmDeps
+      nodejs
+      ;
 
-    /* Node/NPM based dependecies can be upgraded using script `packages/generate-node-packages.sh`.
+      /* Node/NPM based dependecies can be upgraded using script `packages/generate-node-packages.sh`.
 
-        * Packages which rely on `bin-wrap` will fail by default
-          and can be patched using `patchBinwrap` function defined in `packages/lib.nix`.
+          * Packages which rely on `bin-wrap` will fail by default
+            and can be patched using `patchBinwrap` function defined in `packages/lib.nix`.
 
-        * Packages which depend on npm installation of elm can be patched using
-          `patchNpmElm` function also defined in `packages/lib.nix`.
-    */
+          * Packages which depend on npm installation of elm can be patched using
+            `patchNpmElm` function also defined in `packages/lib.nix`.
+      */
     elmLib = let
       hsElmPkgs = hs810Pkgs self;
     in
@@ -331,5 +338,10 @@ lib.makeScope pkgs.newScope (self:
       });
 
       inherit (nodePkgs)
-        elm-live elm-upgrade elm-xref elm-analyse elm-git-install;
+        elm-live
+        elm-upgrade
+        elm-xref
+        elm-analyse
+        elm-git-install
+        ;
     }))

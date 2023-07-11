@@ -28,9 +28,11 @@
 
   in
   (qt6 // {
-    inherit stdenv;
+    inherit
+      stdenv
+      ;
 
-    # LIBRARIES
+      # LIBRARIES
 
     inherit (kdeFrameworks) kcoreaddons;
 

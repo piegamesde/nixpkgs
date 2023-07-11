@@ -15,8 +15,16 @@ let
   cfg = config.systemd;
 
   inherit (systemdUtils.lib)
-    generateUnits targetToUnit serviceToUnit socketToUnit timerToUnit pathToUnit
-    mountToUnit automountToUnit sliceToUnit;
+    generateUnits
+    targetToUnit
+    serviceToUnit
+    socketToUnit
+    timerToUnit
+    pathToUnit
+    mountToUnit
+    automountToUnit
+    sliceToUnit
+    ;
 
   upstreamSystemUnits = [ # Targets.
     "basic.target"

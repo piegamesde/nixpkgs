@@ -33,9 +33,13 @@ let
 
     patchesOut = stdenv.mkDerivation {
       pname = "opencl-clang-patches";
-      inherit (library) version src patches;
-      # Clang patches assume the root is the llvm root dir
-      # but clang root in nixpkgs is the clang sub-directory
+      inherit (library)
+        version
+        src
+        patches
+        ;
+        # Clang patches assume the root is the llvm root dir
+        # but clang root in nixpkgs is the clang sub-directory
       postPatch = ''
         for filename in patches/clang/*.patch; do
           substituteInPlace "$filename" \
@@ -59,7 +63,9 @@ let
       passthru
     else
       llvmPkgs)
-      libclang spirv-llvm-translator;
+      libclang
+      spirv-llvm-translator
+      ;
   in
   stdenv.mkDerivation {
     pname = "opencl-clang";

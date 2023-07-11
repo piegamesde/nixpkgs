@@ -69,9 +69,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.optionals (isPyPy) [ tzdata ];
 
-  inherit doCheck;
+  inherit
+    doCheck
+    ;
 
-  # This file changes how pytest runs and breaks it
+    # This file changes how pytest runs and breaks it
   preCheck = ''
     rm tox.ini
   '';

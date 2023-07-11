@@ -73,8 +73,10 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit;
   passthru = {
     # So it will be easier to inspect this environment, in comparison to others
-    inherit luaEnv;
-    # Copied from Makefile.am
+    inherit
+      luaEnv
+      ;
+      # Copied from Makefile.am
     tests.test = lib.optionalAttrs (!(stdenv.isDarwin && stdenv.isAarch64))
       (runCommand "${pname}-test" {
         nativeBuildInputs = [

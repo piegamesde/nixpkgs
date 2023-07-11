@@ -30,9 +30,11 @@ stdenv.mkDerivation rec {
   '';
 
   # Allow users set their own list of patches
-  inherit patches;
+  inherit
+    patches
+    ;
 
-  # Allow users to set the config.def.h file containing the configuration
+    # Allow users to set the config.def.h file containing the configuration
   postPatch = let
     configFile = if
       lib.isDerivation conf || builtins.isPath conf

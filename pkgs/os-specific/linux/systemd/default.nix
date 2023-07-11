@@ -169,10 +169,13 @@ let
   releaseTimestamp = "1676488940";
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit pname version;
+  inherit
+    pname
+    version
+    ;
 
-  # We use systemd/systemd-stable for src, and ship NixOS-specific patches inside nixpkgs directly
-  # This has proven to be less error-prone than the previous systemd fork.
+    # We use systemd/systemd-stable for src, and ship NixOS-specific patches inside nixpkgs directly
+    # This has proven to be less error-prone than the previous systemd fork.
   src = fetchFromGitHub {
     owner = "systemd";
     repo = "systemd-stable";
@@ -856,8 +859,20 @@ stdenv.mkDerivation (finalAttrs: {
     # runtime; otherwise we can't and we need to reboot.
     interfaceVersion = 2;
 
-    inherit withCryptsetup withHostnamed withImportd withKmod withLocaled
-      withMachined withPortabled withTimedated withUtmp util-linux kmod kbd;
+    inherit
+      withCryptsetup
+      withHostnamed
+      withImportd
+      withKmod
+      withLocaled
+      withMachined
+      withPortabled
+      withTimedated
+      withUtmp
+      util-linux
+      kmod
+      kbd
+      ;
 
     tests = {
       inherit (nixosTests) switchTest;

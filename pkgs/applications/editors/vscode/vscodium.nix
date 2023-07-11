@@ -42,10 +42,13 @@ let
     ".";
 in
 callPackage ./generic.nix rec {
-  inherit sourceRoot commandLineArgs;
+  inherit
+    sourceRoot
+    commandLineArgs
+    ;
 
-  # Please backport all compatible updates to the stable release.
-  # This is important for the extension ecosystem.
+    # Please backport all compatible updates to the stable release.
+    # This is important for the extension ecosystem.
   version = "1.77.3.23102";
   pname = "vscodium";
 

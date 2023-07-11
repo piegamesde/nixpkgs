@@ -96,9 +96,11 @@ assert (stdenv.targetPlatform != stdenv.hostPlatform) -> !enableHaddockProgram;
 let
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  inherit (bootPkgs) ghc;
+  inherit (bootPkgs)
+    ghc
+    ;
 
-  # TODO(@Ericson2314) Make unconditional
+    # TODO(@Ericson2314) Make unconditional
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
     "${targetPlatform.config}-";
 
@@ -452,10 +454,12 @@ stdenv.mkDerivation (rec {
     inherit bootPkgs targetPrefix;
 
     inherit llvmPackages;
-    inherit enableShared;
+    inherit
+      enableShared
+      ;
 
-    # This is used by the haskell builder to query
-    # the presence of the haddock program.
+      # This is used by the haskell builder to query
+      # the presence of the haddock program.
     hasHaddock = enableHaddockProgram;
 
     # Our Cabal compiler name

@@ -154,7 +154,11 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (bluetoothSupport && advancedBluetoothCodecs)
     (builtins.attrValues {
       inherit (gst_all_1)
-        gst-plugins-bad gst-plugins-good gst-plugins-base gstreamer;
+        gst-plugins-bad
+        gst-plugins-good
+        gst-plugins-base
+        gstreamer
+        ;
     }) ++ lib.optional remoteControlSupport lirc
     ++ lib.optional zeroconfSupport avahi);
 

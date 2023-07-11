@@ -61,9 +61,11 @@ let
     with self;
     let
       callPackage = self.newScope {
-        inherit mkDerivation;
+        inherit
+          mkDerivation
+          ;
 
-        # Team of maintainers assigned to the KDE PIM suite
+          # Team of maintainers assigned to the KDE PIM suite
         kdepimTeam = with lib.maintainers; [
           ttuegel
           vandenoever

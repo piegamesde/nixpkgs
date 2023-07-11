@@ -19,9 +19,11 @@ let
   sha256 = "sha256-UiUMoqdfkk6mzaPGctpQW3dvOWKhNBNuScJ5BpCykVg=";
   version = "4.8";
 
-  inherit (kernel) stdenv;
+  inherit (kernel)
+    stdenv
+    ;
 
-  ## stap binaries
+    ## stap binaries
   stapBuild = stdenv.mkDerivation {
     pname = "systemtap";
     inherit version;

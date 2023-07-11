@@ -47,9 +47,12 @@ let
 
   # Otherwise, just use the in-tree androidenv:
   androidEnv = pkgs.callPackage ./.. {
-    inherit config pkgs;
-    # You probably need to uncomment below line to express consent.
-    # licenseAccepted = true;
+    inherit
+      config
+      pkgs
+      ;
+      # You probably need to uncomment below line to express consent.
+      # licenseAccepted = true;
   };
 
   sdkArgs = {

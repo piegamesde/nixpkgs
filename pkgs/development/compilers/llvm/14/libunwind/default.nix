@@ -11,10 +11,12 @@
 
 stdenv.mkDerivation rec {
   pname = "libunwind";
-  inherit version;
+  inherit
+    version
+    ;
 
-  # I am not so comfortable giving libc++ and friends the whole monorepo as
-  # requested, so I filter it to what is needed.
+    # I am not so comfortable giving libc++ and friends the whole monorepo as
+    # requested, so I filter it to what is needed.
   src = runCommand "${pname}-src-${version}" { } ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"

@@ -78,16 +78,24 @@ let
 
 in rec {
   examples = callPackage ./examples.nix {
-    inherit buildImage buildLayeredImage fakeNss pullImage shadowSetup
-      buildImageWithNixDb streamNixShellImage;
+    inherit
+      buildImage
+      buildLayeredImage
+      fakeNss
+      pullImage
+      shadowSetup
+      buildImageWithNixDb
+      streamNixShellImage
+      ;
   };
 
   tests = {
     inherit (nixosTests)
-      docker-tools docker-tools-overlay
+      docker-tools
+      docker-tools-overlay
       # requires remote builder
       # docker-tools-cross
-    ;
+      ;
   };
 
   pullImage = let
@@ -153,9 +161,11 @@ in rec {
 
   # We need to sum layer.tar, not a directory, hence tarsum instead of nix-hash.
   # And we cannot untar it, because then we cannot preserve permissions etc.
-  inherit tarsum; # pkgs.dockerTools.tarsum
+  inherit
+    tarsum
+    ; # pkgs.dockerTools.tarsum
 
-  # buildEnv creates symlinks to dirs, which is hard to edit inside the overlay VM
+    # buildEnv creates symlinks to dirs, which is hard to edit inside the overlay VM
   mergeDrvs = {
       derivations,
       onlyDeps ? false
@@ -615,9 +625,17 @@ in rec {
       else
         mkRootLayer {
           name = baseName;
-          inherit baseJson fromImage fromImageName fromImageTag
-            keepContentsDirlinks runAsRoot diskSize buildVMMemorySize
-            extraCommands;
+          inherit
+            baseJson
+            fromImage
+            fromImageName
+            fromImageTag
+            keepContentsDirlinks
+            runAsRoot
+            diskSize
+            buildVMMemorySize
+            extraCommands
+            ;
           copyToRoot = rootContents;
         };
       result = runCommand "docker-image-${baseName}.tar.gz" {
@@ -837,10 +855,12 @@ in rec {
   # Useful when packaging binaries that insist on using nss to look up
   # username/groups (like nginx).
   # /bin/sh is fine to not exist, and provided by another shim.
-  inherit fakeNss; # alias
+  inherit
+    fakeNss
+    ; # alias
 
-  # This provides a /usr/bin/env, for shell scripts using the
-  # "#!/usr/bin/env executable" shebang.
+    # This provides a /usr/bin/env, for shell scripts using the
+    # "#!/usr/bin/env executable" shebang.
   usrBinEnv = runCommand "usr-bin-env" { } ''
     mkdir -p $out/usr/bin
     ln -s ${coreutils}/bin/env $out/usr/bin
@@ -1103,10 +1123,12 @@ in rec {
         inherit (conf) imageName;
         preferLocalBuild = true;
         passthru = passthru // {
-          inherit (conf) imageTag;
+          inherit (conf)
+            imageTag
+            ;
 
-          # Distinguish tarballs and exes at the Nix level so functions that
-          # take images can know in advance how the image is supposed to be used.
+            # Distinguish tarballs and exes at the Nix level so functions that
+            # take images can know in advance how the image is supposed to be used.
           isExe = true;
         };
         nativeBuildInputs = [ makeWrapper ];

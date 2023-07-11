@@ -19,16 +19,23 @@ lib.makeScope newScope (self:
     callPackage = self.newScope ({
       inherit (gnuradio)
       # Packages that are potentially overridden and used as deps here.
-        boost volk logLib;
+        boost
+        volk
+        logLib
+        ;
       inherit mkDerivationWith mkDerivation;
     } // lib.optionalAttrs (gnuradio.hasFeature "gr-uhd") {
       inherit (gnuradio) uhd;
     });
   in {
 
-    inherit callPackage mkDerivation mkDerivationWith;
+    inherit
+      callPackage
+      mkDerivation
+      mkDerivationWith
+      ;
 
-    ### Packages
+      ### Packages
 
     inherit gnuradio;
     inherit (gnuradio) python;

@@ -123,9 +123,11 @@ let
     dryActivationScript = config.system.dryActivationScript;
     nixosLabel = config.system.nixos.label;
 
-    inherit (config.system) extraDependencies;
+    inherit (config.system)
+      extraDependencies
+      ;
 
-    # Needed by switch-to-configuration.
+      # Needed by switch-to-configuration.
     perl = pkgs.perl.withPackages (p:
       with p; [
         ConfigIniFiles

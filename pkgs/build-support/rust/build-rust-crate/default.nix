@@ -74,8 +74,15 @@ let
   inherit (import ./log.nix { inherit lib; }) noisily echo_colored;
 
   configureCrate = import ./configure-crate.nix {
-    inherit lib stdenv rust echo_colored noisily mkRustcDepArgs
-      mkRustcFeatureArgs;
+    inherit
+      lib
+      stdenv
+      rust
+      echo_colored
+      noisily
+      mkRustcDepArgs
+      mkRustcFeatureArgs
+      ;
   };
 
   buildCrate = import ./build-crate.nix {
@@ -287,8 +294,20 @@ lib.makeOverridable (
   stdenv.mkDerivation (rec {
 
     inherit (crate) crateName;
-    inherit preUnpack postUnpack prePatch patches postPatch preConfigure
-      postConfigure preBuild postBuild preInstall postInstall buildTests;
+    inherit
+      preUnpack
+      postUnpack
+      prePatch
+      patches
+      postPatch
+      preConfigure
+      postConfigure
+      preBuild
+      postBuild
+      preInstall
+      postInstall
+      buildTests
+      ;
 
     src =
       crate.src or (fetchCrate { inherit (crate) crateName version sha256; });
@@ -380,16 +399,48 @@ lib.makeOverridable (
       ++ (lib.optional (edition != null) "--edition ${edition}");
 
     configurePhase = configureCrate {
-      inherit crateName buildDependencies completeDeps completeBuildDeps
-        crateDescription crateFeatures crateRenames libName build
-        workspace_member release libPath crateVersion extraLinkFlags
-        extraRustcOptsForBuildRs crateAuthors crateHomepage verbose colors
-        codegenUnits;
+      inherit
+        crateName
+        buildDependencies
+        completeDeps
+        completeBuildDeps
+        crateDescription
+        crateFeatures
+        crateRenames
+        libName
+        build
+        workspace_member
+        release
+        libPath
+        crateVersion
+        extraLinkFlags
+        extraRustcOptsForBuildRs
+        crateAuthors
+        crateHomepage
+        verbose
+        colors
+        codegenUnits
+        ;
     };
     buildPhase = buildCrate {
-      inherit crateName dependencies crateFeatures crateRenames libName release
-        libPath crateType metadata hasCrateBin crateBin verbose colors
-        extraRustcOpts buildTests codegenUnits;
+      inherit
+        crateName
+        dependencies
+        crateFeatures
+        crateRenames
+        libName
+        release
+        libPath
+        crateType
+        metadata
+        hasCrateBin
+        crateBin
+        verbose
+        colors
+        extraRustcOpts
+        buildTests
+        codegenUnits
+        ;
     };
     dontStrip = !release;
     installPhase = installCrate crateName metadata buildTests;

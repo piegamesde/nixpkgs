@@ -15,8 +15,14 @@
 let
   isCross = stdenv.buildPlatform != stdenv.hostPlatform;
   inherit (buildPackages)
-    fetchurl removeReferencesTo pkg-config coreutils gnugrep gnused
-    glibcLocales;
+    fetchurl
+    removeReferencesTo
+    pkg-config
+    coreutils
+    gnugrep
+    gnused
+    glibcLocales
+    ;
 
 in
 {
@@ -167,8 +173,15 @@ assert stdenv.hostPlatform.isWasm -> enableStaticLibraries == false;
 let
 
   inherit (lib)
-    optional optionals optionalString versionOlder versionAtLeast
-    concatStringsSep enableFeature optionalAttrs;
+    optional
+    optionals
+    optionalString
+    versionOlder
+    versionAtLeast
+    concatStringsSep
+    enableFeature
+    optionalAttrs
+    ;
 
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
@@ -559,10 +572,12 @@ lib.fix (drv:
 
     # Cabal takes flags like `--configure-option=--host=...` instead
     configurePlatforms = [ ];
-    inherit configureFlags;
+    inherit
+      configureFlags
+      ;
 
-    # Note: the options here must be always added, regardless of whether the
-    # package specifies `hardeningDisable`.
+      # Note: the options here must be always added, regardless of whether the
+      # package specifies `hardeningDisable`.
     hardeningDisable = lib.optionals (args ? hardeningDisable) hardeningDisable
       ++ lib.optional (ghc.isHaLVM or false) "all"
       # Static libraries (ie. all of pkgsStatic.haskellPackages) fail to build
@@ -596,11 +611,13 @@ lib.fix (drv:
       runHook postBuild
     '';
 
-    inherit doCheck;
+    inherit
+      doCheck
+      ;
 
-    # Run test suite(s) and pass `checkFlags` as well as `checkFlagsArray`.
-    # `testFlags` are added to `checkFlagsArray` each prefixed with
-    # `--test-option`, so Cabal passes it to the underlying test suite binary.
+      # Run test suite(s) and pass `checkFlags` as well as `checkFlagsArray`.
+      # `testFlags` are added to `checkFlagsArray` each prefixed with
+      # `--test-option`, so Cabal passes it to the underlying test suite binary.
     checkPhase = ''
       runHook preCheck
       checkFlagsArray+=(
@@ -697,19 +714,41 @@ lib.fix (drv:
       # All this information is intended just for `shellFor`.  It should be
       # considered unstable and indeed we knew how to keep it private we would.
       getCabalDeps = {
-        inherit buildDepends buildTools executableFrameworkDepends
-          executableHaskellDepends executablePkgconfigDepends
-          executableSystemDepends executableToolDepends extraLibraries
-          libraryFrameworkDepends libraryHaskellDepends libraryPkgconfigDepends
-          librarySystemDepends libraryToolDepends pkg-configDepends
-          setupHaskellDepends;
+        inherit
+          buildDepends
+          buildTools
+          executableFrameworkDepends
+          executableHaskellDepends
+          executablePkgconfigDepends
+          executableSystemDepends
+          executableToolDepends
+          extraLibraries
+          libraryFrameworkDepends
+          libraryHaskellDepends
+          libraryPkgconfigDepends
+          librarySystemDepends
+          libraryToolDepends
+          pkg-configDepends
+          setupHaskellDepends
+          ;
       } // lib.optionalAttrs doCheck {
-        inherit testDepends testFrameworkDepends testHaskellDepends
-          testPkgconfigDepends testSystemDepends testToolDepends;
+        inherit
+          testDepends
+          testFrameworkDepends
+          testHaskellDepends
+          testPkgconfigDepends
+          testSystemDepends
+          testToolDepends
+          ;
       } // lib.optionalAttrs doBenchmark {
-        inherit benchmarkDepends benchmarkFrameworkDepends
-          benchmarkHaskellDepends benchmarkPkgconfigDepends
-          benchmarkSystemDepends benchmarkToolDepends;
+        inherit
+          benchmarkDepends
+          benchmarkFrameworkDepends
+          benchmarkHaskellDepends
+          benchmarkPkgconfigDepends
+          benchmarkSystemDepends
+          benchmarkToolDepends
+          ;
       };
 
       # Attributes for the old definition of `shellFor`. Should be removed but

@@ -7,8 +7,16 @@
 
 let
   inherit (lib)
-    optionals mkOption mkEnableOption types mkIf elem concatStringsSep
-    maintainers mdDoc;
+    optionals
+    mkOption
+    mkEnableOption
+    types
+    mkIf
+    elem
+    concatStringsSep
+    maintainers
+    mdDoc
+    ;
   cfg = config.networking.stevenblack;
 
   # needs to be in a specific order

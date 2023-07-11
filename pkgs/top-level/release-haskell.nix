@@ -21,18 +21,23 @@ let
 
   releaseLib = import ./release-lib.nix { inherit supportedSystems; };
 
-  inherit (releaseLib) lib mapTestOn packagePlatforms pkgs;
+  inherit (releaseLib)
+    lib
+    mapTestOn
+    packagePlatforms
+    pkgs
+    ;
 
-  # Helper function which traverses a (nested) set
-  # of derivations produced by mapTestOn and flattens
-  # it to a list of derivations suitable to be passed
-  # to `releaseTools.aggregate` as constituents.
-  # Removes all non derivations from the input jobList.
-  #
-  # accumulateDerivations :: [ Either Derivation AttrSet ] -> [ Derivation ]
-  #
-  # > accumulateDerivations [ drv1 "string" { foo = drv2; bar = { baz = drv3; }; } ]
-  # [ drv1 drv2 drv3 ]
+    # Helper function which traverses a (nested) set
+    # of derivations produced by mapTestOn and flattens
+    # it to a list of derivations suitable to be passed
+    # to `releaseTools.aggregate` as constituents.
+    # Removes all non derivations from the input jobList.
+    #
+    # accumulateDerivations :: [ Either Derivation AttrSet ] -> [ Derivation ]
+    #
+    # > accumulateDerivations [ drv1 "string" { foo = drv2; bar = { baz = drv3; }; } ]
+    # [ drv1 drv2 drv3 ]
   accumulateDerivations = jobList:
     lib.concatMap (attrs:
       if
@@ -248,35 +253,130 @@ let
 
       nixosTests = {
         inherit (packagePlatforms pkgs.nixosTests)
-          agda xmonad xmonad-xdg-autostart;
+          agda
+          xmonad
+          xmonad-xdg-autostart
+          ;
       };
 
       agdaPackages = packagePlatforms pkgs.agdaPackages;
 
       # top-level packages that depend on haskellPackages
       inherit (pkgsPlatforms)
-        agda arion bench bustle blucontrol cabal-install cabal2nix cachix carp
-        cedille client-ip-echo darcs dconf2nix dhall dhall-bash dhall-docs
-        dhall-lsp-server dhall-json dhall-nix diagrams-builder elm2nix emanote
-        fffuu futhark ghcid git-annex git-brunch gitit glirc hadolint haskell-ci
-        haskell-language-server hasura-graphql-engine hci hercules-ci-agent
-        hinit hedgewars hledger hledger-check-fancyassertions hledger-iadd
-        hledger-interest hledger-ui hledger-web hlint hpack
+        agda
+        arion
+        bench
+        bustle
+        blucontrol
+        cabal-install
+        cabal2nix
+        cachix
+        carp
+        cedille
+        client-ip-echo
+        darcs
+        dconf2nix
+        dhall
+        dhall-bash
+        dhall-docs
+        dhall-lsp-server
+        dhall-json
+        dhall-nix
+        diagrams-builder
+        elm2nix
+        emanote
+        fffuu
+        futhark
+        ghcid
+        git-annex
+        git-brunch
+        gitit
+        glirc
+        hadolint
+        haskell-ci
+        haskell-language-server
+        hasura-graphql-engine
+        hci
+        hercules-ci-agent
+        hinit
+        hedgewars
+        hledger
+        hledger-check-fancyassertions
+        hledger-iadd
+        hledger-interest
+        hledger-ui
+        hledger-web
+        hlint
+        hpack
         # hyper-haskell  # depends on electron-10.4.7 which is marked as insecure
         # hyper-haskell-server-with-packages # hyper-haskell-server is broken
-        icepeak ihaskell jacinda jl koka krank lambdabot lhs2tex madlang
-        matterhorn mueval naproche niv nix-delegate nix-deploy nix-diff
-        nix-linter nix-output-monitor nix-script nix-tree nixfmt nota nvfetcher
-        ormolu pandoc pakcs petrinizer place-cursor-at pinboard-notes-backup
-        pretty-simple shake shellcheck sourceAndTags spacecookie spago splot
-        stack stack2nix stutter stylish-haskell taffybar tamarin-prover taskell
-        termonad tldr-hs tweet-hs update-nix-fetchgit uusi uqm uuagc vaultenv
-        wstunnel xmobar xmonadctl xmonad-with-packages yi zsh-git-prompt;
+        icepeak
+        ihaskell
+        jacinda
+        jl
+        koka
+        krank
+        lambdabot
+        lhs2tex
+        madlang
+        matterhorn
+        mueval
+        naproche
+        niv
+        nix-delegate
+        nix-deploy
+        nix-diff
+        nix-linter
+        nix-output-monitor
+        nix-script
+        nix-tree
+        nixfmt
+        nota
+        nvfetcher
+        ormolu
+        pandoc
+        pakcs
+        petrinizer
+        place-cursor-at
+        pinboard-notes-backup
+        pretty-simple
+        shake
+        shellcheck
+        sourceAndTags
+        spacecookie
+        spago
+        splot
+        stack
+        stack2nix
+        stutter
+        stylish-haskell
+        taffybar
+        tamarin-prover
+        taskell
+        termonad
+        tldr-hs
+        tweet-hs
+        update-nix-fetchgit
+        uusi
+        uqm
+        uuagc
+        vaultenv
+        wstunnel
+        xmobar
+        xmonadctl
+        xmonad-with-packages
+        yi
+        zsh-git-prompt
+        ;
 
-      # Members of the elmPackages set that are Haskell derivations
+        # Members of the elmPackages set that are Haskell derivations
       elmPackages = {
         inherit (pkgsPlatforms.elmPackages)
-          elm elm-format elm-instrument elmi-to-json;
+          elm
+          elm-format
+          elm-instrument
+          elmi-to-json
+          ;
       };
 
       # GHCs linked to musl.
@@ -308,7 +408,10 @@ let
         "aarch64-darwin"
       ] {
         inherit (packagePlatforms pkgs.pkgsMusl.haskellPackages)
-          hello lens random;
+          hello
+          lens
+          random
+          ;
       };
 
       # Test some statically linked packages to catch regressions
@@ -323,19 +426,27 @@ let
       ] {
         haskellPackages = {
           inherit (packagePlatforms pkgs.pkgsStatic.haskellPackages)
-            hello lens random QuickCheck cabal2nix
+            hello
+            lens
+            random
+            QuickCheck
+            cabal2nix
             terminfo # isn't bundled for cross
             xhtml # isn't bundled for cross
-          ;
+            ;
         };
 
         haskell.packages.native-bignum.ghc927 = {
           inherit (packagePlatforms
             pkgs.pkgsStatic.haskell.packages.native-bignum.ghc927)
-            hello lens random QuickCheck cabal2nix
+            hello
+            lens
+            random
+            QuickCheck
+            cabal2nix
             terminfo # isn't bundled for cross
             xhtml # isn't bundled for cross
-          ;
+            ;
         };
       };
 
@@ -345,13 +456,17 @@ let
       ] {
         haskellPackages = {
           inherit (packagePlatforms pkgs.pkgsCross.ghcjs.haskellPackages)
-            ghc hello;
+            ghc
+            hello
+            ;
         };
 
         haskell.packages.ghcHEAD = {
           inherit (packagePlatforms
             pkgs.pkgsCross.ghcjs.haskell.packages.ghcHEAD)
-            ghc hello;
+            ghc
+            hello
+            ;
         };
       };
     })

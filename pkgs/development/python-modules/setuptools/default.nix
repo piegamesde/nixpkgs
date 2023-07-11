@@ -47,10 +47,13 @@ let
   };
 in
 buildPythonPackage {
-  inherit pname version;
-  # Because of bootstrapping we don't use the setuptoolsBuildHook that comes with format="setuptools" directly.
-  # Instead, we override it to remove setuptools to avoid a circular dependency.
-  # The same is done for pip and the pipInstallHook.
+  inherit
+    pname
+    version
+    ;
+    # Because of bootstrapping we don't use the setuptoolsBuildHook that comes with format="setuptools" directly.
+    # Instead, we override it to remove setuptools to avoid a circular dependency.
+    # The same is done for pip and the pipInstallHook.
   format = "other";
 
   src = sdist;

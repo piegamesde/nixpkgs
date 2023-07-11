@@ -96,19 +96,27 @@ stdenv.mkDerivation ({
   dontStrip = true;
 
   passthru = {
-    inherit product javaVersion;
-    # build phases that are going to run during GraalVM derivation build,
-    # since they depend in having the fully setup GraalVM environment
-    # e.g.: graalvmPhases.installCheckPhase will run the checks only after
-    # GraalVM+products is build
-    # see buildGraalvm.nix file for the available phases
+    inherit
+      product
+      javaVersion
+      ;
+      # build phases that are going to run during GraalVM derivation build,
+      # since they depend in having the fully setup GraalVM environment
+      # e.g.: graalvmPhases.installCheckPhase will run the checks only after
+      # GraalVM+products is build
+      # see buildGraalvm.nix file for the available phases
     inherit graalvmPhases;
   } // passthru;
 
   meta = with lib;
     ({
       inherit (graalvm-ce.meta)
-        homepage license sourceProvenance maintainers platforms;
+        homepage
+        license
+        sourceProvenance
+        maintainers
+        platforms
+        ;
       description = "High-Performance Polyglot VM (Product: ${product})";
     } // meta);
 } // extraArgs)

@@ -12,7 +12,10 @@
 }:
 let
   inherit (haskell.lib.compose)
-    overrideCabal addBuildTools justStaticExecutables;
+    overrideCabal
+    addBuildTools
+    justStaticExecutables
+    ;
   inherit (lib) makeBinPath;
   bundledBins = [
     gnutar

@@ -8,5 +8,7 @@
     inherit modules;
     specialArgs.modulesPath = ./.;
   })
-    config options;
+    config
+    options
+    ;
 }

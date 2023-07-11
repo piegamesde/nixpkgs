@@ -4337,8 +4337,15 @@ rec {
         in
         derivation
       ) {
-        inherit features crateOverrides runTests testCrateFlags testInputs
-          testPreRun testPostRun;
+        inherit
+          features
+          crateOverrides
+          runTests
+          testCrateFlags
+          testInputs
+          testPreRun
+          testPostRun
+          ;
       };
 
     /* Returns an attr set with packageId mapped to the result of buildRustCrateForPkgsFunc
@@ -4451,8 +4458,13 @@ rec {
               "-C target-feature=${
                 lib.concatMapStringsSep "," (x: "+${x}") targetFeatures
               }";
-            inherit features dependencies buildDependencies crateRenames
-              release;
+            inherit
+              features
+              dependencies
+              buildDependencies
+              crateRenames
+              release
+              ;
           })
         ;
       in

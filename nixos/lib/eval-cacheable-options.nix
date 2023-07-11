@@ -34,8 +34,10 @@ let
   };
   docs = import "${nixosPath}/doc/manual" {
     pkgs = pkgs // {
-      inherit lib;
-      # duplicate of the declaration in all-packages.nix
+      inherit
+        lib
+        ;
+        # duplicate of the declaration in all-packages.nix
       buildPackages.nixosOptionsDoc = attrs:
         (import "${nixosPath}/lib/make-options-doc")
         ({ inherit pkgs lib; } // attrs);

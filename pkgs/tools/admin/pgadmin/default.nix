@@ -35,9 +35,13 @@ let
 
 in
 pythonPackages.buildPythonApplication rec {
-  inherit pname version src;
+  inherit
+    pname
+    version
+    src
+    ;
 
-  # from Dockerfile
+    # from Dockerfile
   CPPFLAGS = "-DPNG_ARM_NEON_OPT=0";
 
   format = "setuptools";

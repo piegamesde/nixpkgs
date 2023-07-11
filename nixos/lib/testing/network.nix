@@ -6,9 +6,23 @@
 
 let
   inherit (lib)
-    attrNames concatMap concatMapStrings flip forEach head listToAttrs mkDefault
-    mkOption nameValuePair optionalString range types zipListsWith zipLists
-    mdDoc;
+    attrNames
+    concatMap
+    concatMapStrings
+    flip
+    forEach
+    head
+    listToAttrs
+    mkDefault
+    mkOption
+    nameValuePair
+    optionalString
+    range
+    types
+    zipListsWith
+    zipLists
+    mdDoc
+    ;
 
   nodeNumbers =
     listToAttrs (zipListsWith nameValuePair (attrNames nodes) (range 1 254));

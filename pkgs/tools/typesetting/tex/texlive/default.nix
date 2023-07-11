@@ -39,8 +39,23 @@ let
 
   # function for creating a working environment from a set of TL packages
   combine = import ./combine.nix {
-    inherit bin combinePkgs buildEnv lib makeWrapper writeText stdenv python3
-      ruby perl gnused gnugrep coreutils libfaketime makeFontsConf;
+    inherit
+      bin
+      combinePkgs
+      buildEnv
+      lib
+      makeWrapper
+      writeText
+      stdenv
+      python3
+      ruby
+      perl
+      gnused
+      gnugrep
+      coreutils
+      libfaketime
+      makeFontsConf
+      ;
     ghostscript = ghostscript_headless;
   };
 
@@ -208,8 +223,10 @@ let
     in
     runCommand "texlive-${tlName}" ({
       src = fetchurl { inherit urls sha512; };
-      inherit stripPrefix;
-      # metadata for texlive.combine
+      inherit
+        stripPrefix
+        ;
+        # metadata for texlive.combine
       passthru = {
         inherit pname tlType version;
       } // lib.optionalAttrs (tlType == "run" && args ? deps) {
@@ -298,7 +315,15 @@ tl // {
             ".${year}${month}${day}";
       })) {
         inherit (tl)
-          scheme-basic scheme-context scheme-full scheme-gust scheme-infraonly
-          scheme-medium scheme-minimal scheme-small scheme-tetex;
+          scheme-basic
+          scheme-context
+          scheme-full
+          scheme-gust
+          scheme-infraonly
+          scheme-medium
+          scheme-minimal
+          scheme-small
+          scheme-tetex
+          ;
       });
 }

@@ -24,9 +24,11 @@ let
 in
 rec {
   # Export yarn again to make it easier to find out which yarn was used.
-  inherit yarn;
+  inherit
+    yarn
+    ;
 
-  # Re-export pkgs
+    # Re-export pkgs
   inherit pkgs;
 
   unlessNull = item: alt:
@@ -50,9 +52,11 @@ rec {
     builtins.concatStringsSep "-" non-null
   ;
 
-  inherit getLicenseFromSpdxId;
+  inherit
+    getLicenseFromSpdxId
+    ;
 
-  # Generates the yarn.nix from the yarn.lock file
+    # Generates the yarn.nix from the yarn.lock file
   mkYarnNix = {
       yarnLock,
       flags ? [ ]
@@ -281,8 +285,15 @@ rec {
           inherit name;
           value = mkYarnPackage
             (builtins.removeAttrs attrs [ "packageOverrides" ] // {
-              inherit src packageJSON yarnLock nodejs yarn packageResolutions
-                workspaceDependencies;
+              inherit
+                src
+                packageJSON
+                yarnLock
+                nodejs
+                yarn
+                packageResolutions
+                workspaceDependencies
+                ;
             } // lib.attrByPath [ name ] { } packageOverrides);
         } ) packagePaths);
     in
@@ -324,8 +335,18 @@ rec {
         preBuild = yarnPreBuild;
         postBuild = yarnPostBuild;
         workspaceDependencies = workspaceDependenciesTransitive;
-        inherit packageJSON pname version yarnLock offlineCache nodejs yarn
-          yarnFlags pkgConfig packageResolutions;
+        inherit
+          packageJSON
+          pname
+          version
+          yarnLock
+          offlineCache
+          nodejs
+          yarn
+          yarnFlags
+          pkgConfig
+          packageResolutions
+          ;
       };
 
       publishBinsFor_ = unlessNull publishBinsFor [ pname ];
@@ -467,7 +488,14 @@ rec {
         path: type:
         let
           inherit (pkgs.lib)
-            any flip elem hasSuffix hasPrefix elemAt splitString;
+            any
+            flip
+            elem
+            hasSuffix
+            hasPrefix
+            elemAt
+            splitString
+            ;
 
           subpath = elemAt (splitString "${toString root}/" path) 1;
           spdir = elemAt (splitString "/" subpath) 0;

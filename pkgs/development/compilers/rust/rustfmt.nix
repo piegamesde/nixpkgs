@@ -8,9 +8,12 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rustfmt" + lib.optionalString asNightly "-nightly";
-  inherit (rustPlatform.rust.rustc) version src;
+  inherit (rustPlatform.rust.rustc)
+    version
+    src
+    ;
 
-  # the rust source tarball already has all the dependencies vendored, no need to fetch them again
+    # the rust source tarball already has all the dependencies vendored, no need to fetch them again
   cargoVendorDir = "vendor";
   buildAndTestSubdir = "src/tools/rustfmt";
 

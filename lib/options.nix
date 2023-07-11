@@ -5,9 +5,28 @@
 
 let
   inherit (lib)
-    all collect concatLists concatMap concatMapStringsSep filter foldl' head
-    tail isAttrs isBool isDerivation isFunction isInt isList isString length
-    mapAttrs optional optionals take;
+    all
+    collect
+    concatLists
+    concatMap
+    concatMapStringsSep
+    filter
+    foldl'
+    head
+    tail
+    isAttrs
+    isBool
+    isDerivation
+    isFunction
+    isInt
+    isList
+    isString
+    length
+    mapAttrs
+    optional
+    optionals
+    take
+    ;
   inherit (lib.attrsets) attrByPath optionalAttrs;
   inherit (lib.strings) concatMapStrings concatStringsSep;
   inherit (lib.types) mkOptionType;

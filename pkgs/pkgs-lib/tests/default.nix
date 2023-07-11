@@ -11,8 +11,14 @@
 }:
 let
   inherit (pkgs.lib)
-    mapAttrs mapAttrsToList isDerivation mergeAttrs foldl' attrValues
-    recurseIntoAttrs;
+    mapAttrs
+    mapAttrsToList
+    isDerivation
+    mergeAttrs
+    foldl'
+    attrValues
+    recurseIntoAttrs
+    ;
 
   structured = {
     formats = import ./formats.nix { inherit pkgs; };

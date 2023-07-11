@@ -103,7 +103,10 @@ import ./make-test-python.nix ({
             interfaces.eth1.ipv4 =
               nodes.server.config.networking.interfaces.eth1.ipv4;
             inherit (nodes.server.config.networking)
-              hostName primaryIPAddress extraHosts;
+              hostName
+              primaryIPAddress
+              extraHosts
+              ;
           };
         };
 

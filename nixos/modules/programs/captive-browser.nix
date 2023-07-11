@@ -9,8 +9,16 @@ let
   cfg = config.programs.captive-browser;
 
   inherit (lib)
-    concatStringsSep escapeShellArgs optionalString literalExpression
-    mkEnableOption mkIf mkOption mkOptionDefault types;
+    concatStringsSep
+    escapeShellArgs
+    optionalString
+    literalExpression
+    mkEnableOption
+    mkIf
+    mkOption
+    mkOptionDefault
+    types
+    ;
 
   browserDefault = chromium:
     concatStringsSep " " [

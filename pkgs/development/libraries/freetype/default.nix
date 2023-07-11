@@ -98,8 +98,19 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = {
-    inherit cairo fontforge ghostscript graphicsmagick gtk3 harfbuzz imagemagick
-      pango poppler texmacs ttfautohint;
+    inherit
+      cairo
+      fontforge
+      ghostscript
+      graphicsmagick
+      gtk3
+      harfbuzz
+      imagemagick
+      pango
+      poppler
+      texmacs
+      ttfautohint
+      ;
     inherit (python3.pkgs) freetype-py;
     inherit (qt5) qtbase;
     pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;

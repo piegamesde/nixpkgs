@@ -12,9 +12,11 @@ let
 
   inherit (lib.asserts) assertMsg;
 
-  inherit (lib.path.subpath) isValid;
+  inherit (lib.path.subpath)
+    isValid
+    ;
 
-  # Return the reason why a subpath is invalid, or `null` if it's valid
+    # Return the reason why a subpath is invalid, or `null` if it's valid
   subpathInvalidReason = value:
     if
       !isString value

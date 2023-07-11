@@ -170,16 +170,67 @@ let
 
   callFile = lib.callPackageWith {
     # lets
-    inherit majorVersion version buildPlatform hostPlatform targetPlatform
-      patches crossMingw stageNameAddon crossNameAddon;
-    # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc12.cc.override)" | jq '.[]' --raw-output'
-    inherit binutils buildPackages cloog crossStageStatic disableBootstrap
-      disableGdbPlugin enableLTO enableMultilib enablePlugin enableShared
-      fetchpatch fetchurl gettext gmp gnat-bootstrap gnused isl langAda langC
-      langCC langD langFortran langGo langJit langObjC langObjCpp lib libcCross
-      libmpc libucontext libxcrypt mpfr name noSysDirs nukeReferences patchelf
-      perl profiledCompiler reproducibleBuild staticCompiler stdenv
-      targetPackages texinfo threadsCross which zip zlib;
+    inherit
+      majorVersion
+      version
+      buildPlatform
+      hostPlatform
+      targetPlatform
+      patches
+      crossMingw
+      stageNameAddon
+      crossNameAddon
+      ;
+      # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc12.cc.override)" | jq '.[]' --raw-output'
+    inherit
+      binutils
+      buildPackages
+      cloog
+      crossStageStatic
+      disableBootstrap
+      disableGdbPlugin
+      enableLTO
+      enableMultilib
+      enablePlugin
+      enableShared
+      fetchpatch
+      fetchurl
+      gettext
+      gmp
+      gnat-bootstrap
+      gnused
+      isl
+      langAda
+      langC
+      langCC
+      langD
+      langFortran
+      langGo
+      langJit
+      langObjC
+      langObjCpp
+      lib
+      libcCross
+      libmpc
+      libucontext
+      libxcrypt
+      mpfr
+      name
+      noSysDirs
+      nukeReferences
+      patchelf
+      perl
+      profiledCompiler
+      reproducibleBuild
+      staticCompiler
+      stdenv
+      targetPackages
+      texinfo
+      threadsCross
+      which
+      zip
+      zlib
+      ;
   };
 
 in
@@ -263,8 +314,12 @@ lib.pipe (stdenv.mkDerivation ({
   inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
 
   inherit (callFile ../common/dependencies.nix { })
-    depsBuildBuild nativeBuildInputs depsBuildTarget buildInputs
-    depsTargetTarget;
+    depsBuildBuild
+    nativeBuildInputs
+    depsBuildTarget
+    buildInputs
+    depsTargetTarget
+    ;
 
   NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
@@ -301,9 +356,12 @@ lib.pipe (stdenv.mkDerivation ({
   ;
 
   inherit (callFile ../common/strip-attributes.nix { })
-    stripDebugList stripDebugListTarget preFixup;
+    stripDebugList
+    stripDebugListTarget
+    preFixup
+    ;
 
-  # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
+    # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
   ${
     if
       hostPlatform.system == "x86_64-solaris"
@@ -330,11 +388,22 @@ lib.pipe (stdenv.mkDerivation ({
     (makeLibraryPath (optional (zlib != null) zlib));
 
   inherit (callFile ../common/extra-target-flags.nix { })
-    EXTRA_FLAGS_FOR_TARGET EXTRA_LDFLAGS_FOR_TARGET;
+    EXTRA_FLAGS_FOR_TARGET
+    EXTRA_LDFLAGS_FOR_TARGET
+    ;
 
   passthru = {
-    inherit langC langCC langObjC langObjCpp langAda langFortran langGo langD
-      version;
+    inherit
+      langC
+      langCC
+      langObjC
+      langObjCpp
+      langAda
+      langFortran
+      langGo
+      langD
+      version
+      ;
     isGNU = true;
   };
 
@@ -343,7 +412,13 @@ lib.pipe (stdenv.mkDerivation ({
 
   meta = {
     inherit (callFile ../common/meta.nix { })
-      homepage license description longDescription platforms maintainers;
+      homepage
+      license
+      description
+      longDescription
+      platforms
+      maintainers
+      ;
   };
 }
 

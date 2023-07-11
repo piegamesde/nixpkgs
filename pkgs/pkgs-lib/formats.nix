@@ -31,7 +31,8 @@
   */
 
   inherit (import ./formats/java-properties/default.nix { inherit lib pkgs; })
-    javaProperties;
+    javaProperties
+    ;
 
   json = { }: {
 
@@ -429,9 +430,11 @@
         };
 
       in {
-        inherit mkRaw;
+        inherit
+          mkRaw
+          ;
 
-        # Fetch an environment variable at runtime, with optional fallback
+          # Fetch an environment variable at runtime, with optional fallback
         mkGetEnv = {
             envVariable,
             fallback ? null

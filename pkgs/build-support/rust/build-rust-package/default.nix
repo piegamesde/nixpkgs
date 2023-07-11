@@ -83,8 +83,15 @@ let
     importCargoLock cargoLock
   else
     fetchCargoTarball ({
-      inherit src srcs sourceRoot preUnpack unpackPhase postUnpack
-        cargoUpdateHook;
+      inherit
+        src
+        srcs
+        sourceRoot
+        preUnpack
+        unpackPhase
+        postUnpack
+        cargoUpdateHook
+        ;
       name = cargoDepsName;
       patches = cargoPatches;
     } // lib.optionalAttrs (args ? cargoHash) { hash = args.cargoHash; }

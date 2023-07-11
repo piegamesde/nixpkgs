@@ -12,17 +12,27 @@
     systemdStage1 = true;
   })
   # bcache
-    btrfsSimple btrfsSubvolDefault btrfsSubvolEscape btrfsSubvols
+    btrfsSimple
+    btrfsSubvolDefault
+    btrfsSubvolEscape
+    btrfsSubvols
     # encryptedFSWithKeyfile
     # grub1
     # luksroot
     # luksroot-format1
     # luksroot-format2
     # lvm
-    separateBoot separateBootFat simple simpleLabels simpleProvided
-    simpleSpecialised simpleUefiGrub simpleUefiGrubSpecialisation
+    separateBoot
+    separateBootFat
+    simple
+    simpleLabels
+    simpleProvided
+    simpleSpecialised
+    simpleUefiGrub
+    simpleUefiGrubSpecialisation
     simpleUefiSystemdBoot
     # swraid
-    zfsroot;
+    zfsroot
+    ;
 
 }

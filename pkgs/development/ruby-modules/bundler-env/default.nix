@@ -33,25 +33,28 @@ let
   inherit (import ../bundled-common/functions.nix {
     inherit lib ruby gemConfig groups;
   })
-    genStubsScript;
+    genStubsScript
+    ;
 
   basicEnv = (callPackage ../bundled-common { inherit bundler; }) (args // {
     inherit pname name;
     mainGemName = pname;
   });
 
-  inherit (basicEnv) envPaths;
-  # Idea here is a mkDerivation that gen-bin-stubs new stubs "as specified" -
-  # either specific executables or the bin/ for certain gem(s), but
-  # incorporates the basicEnv as a requirement so that its $out is in our path.
+  inherit (basicEnv)
+    envPaths
+    ;
+    # Idea here is a mkDerivation that gen-bin-stubs new stubs "as specified" -
+    # either specific executables or the bin/ for certain gem(s), but
+    # incorporates the basicEnv as a requirement so that its $out is in our path.
 
-  # When stubbing the bins for a gem, we should use the gem expression
-  # directly, which means that basicEnv should somehow make it available.
+    # When stubbing the bins for a gem, we should use the gem expression
+    # directly, which means that basicEnv should somehow make it available.
 
-  # Different use cases should use different variations on this file, rather
-  # than the expression trying to deduce a use case.
+    # Different use cases should use different variations on this file, rather
+    # than the expression trying to deduce a use case.
 
-  # The basicEnv should be put into passthru so that e.g. nix-shell can use it.
+    # The basicEnv should be put into passthru so that e.g. nix-shell can use it.
 in if
   pname == null
 then

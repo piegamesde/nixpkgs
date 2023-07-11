@@ -43,8 +43,17 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    inherit cppSupport fortranSupport fortran zlibSupport zlib szipSupport szip
-      mpiSupport mpi;
+    inherit
+      cppSupport
+      fortranSupport
+      fortran
+      zlibSupport
+      zlib
+      szipSupport
+      szip
+      mpiSupport
+      mpi
+      ;
   };
 
   outputs = [

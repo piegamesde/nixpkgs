@@ -9,9 +9,12 @@ let
   version = "0.1.2";
 in
 rustPlatform.buildRustPackage {
-  inherit pname version;
+  inherit
+    pname
+    version
+    ;
 
-  # fetchFromGitLab doesn't work on GitLab's end for unknown reasons
+    # fetchFromGitLab doesn't work on GitLab's end for unknown reasons
   src = fetchgit {
     url = "https://or.computer.surgery/charles/${pname}";
     rev = "v${version}";

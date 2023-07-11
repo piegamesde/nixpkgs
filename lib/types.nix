@@ -6,17 +6,58 @@
 
 let
   inherit (lib)
-    elem flip isAttrs isBool isDerivation isFloat isFunction isInt isList
-    isString isStorePath toDerivation toList;
+    elem
+    flip
+    isAttrs
+    isBool
+    isDerivation
+    isFloat
+    isFunction
+    isInt
+    isList
+    isString
+    isStorePath
+    toDerivation
+    toList
+    ;
   inherit (lib.lists)
-    all concatLists count elemAt filter foldl' head imap1 last length tail;
+    all
+    concatLists
+    count
+    elemAt
+    filter
+    foldl'
+    head
+    imap1
+    last
+    length
+    tail
+    ;
   inherit (lib.attrsets)
-    attrNames filterAttrs hasAttr mapAttrs optionalAttrs zipAttrsWith;
+    attrNames
+    filterAttrs
+    hasAttr
+    mapAttrs
+    optionalAttrs
+    zipAttrsWith
+    ;
   inherit (lib.options)
-    getFiles getValues mergeDefaultOption mergeEqualOption mergeOneOption
-    mergeUniqueOption showFiles showOption;
+    getFiles
+    getValues
+    mergeDefaultOption
+    mergeEqualOption
+    mergeOneOption
+    mergeUniqueOption
+    showFiles
+    showOption
+    ;
   inherit (lib.strings)
-    concatMapStringsSep concatStringsSep escapeNixString hasInfix isStringLike;
+    concatMapStringsSep
+    concatStringsSep
+    escapeNixString
+    hasInfix
+    isStringLike
+    ;
   inherit (lib.trivial) boolToString;
 
   inherit (lib.modules) mergeDefinitions fixupOptionType mergeOptionDecls;
@@ -128,9 +169,20 @@ let
         nestedTypes ? { }
       }: {
         _type = "option-type";
-        inherit name check merge emptyValue getSubOptions getSubModules
-          substSubModules typeMerge functor deprecationMessage nestedTypes
-          descriptionClass;
+        inherit
+          name
+          check
+          merge
+          emptyValue
+          getSubOptions
+          getSubModules
+          substSubModules
+          typeMerge
+          functor
+          deprecationMessage
+          nestedTypes
+          descriptionClass
+          ;
         description = if
           description == null
         then
@@ -379,7 +431,9 @@ let
           [^
           ]*
           ?'')
-          check merge;
+          check
+          merge
+          ;
       in
       mkOptionType {
         name = "singleLineStr";
@@ -714,7 +768,9 @@ let
               "${def.file}, via option ${showOption loc}" def.value) defs;
           };
           inherit (submoduleWith { modules = staticModules; })
-            getSubOptions getSubModules;
+            getSubOptions
+            getSubModules
+            ;
           substSubModules = m:
             deferredModuleWith (attrs // { staticModules = m; });
           functor = defaultFunctor "deferredModuleWith" // {
@@ -842,8 +898,12 @@ let
           functor = defaultFunctor name // {
             type = types.submoduleWith;
             payload = {
-              inherit modules specialArgs shorthandOnlyDefinesConfig
-                description;
+              inherit
+                modules
+                specialArgs
+                shorthandOnlyDefinesConfig
+                description
+                ;
             };
             binOp = lhs: rhs: {
               modules = lhs.modules ++ rhs.modules;

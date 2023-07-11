@@ -7,8 +7,20 @@
 
 let
   inherit (lib)
-    concatStringsSep flip literalMD literalExpression optionalAttrs optionals
-    recursiveUpdate mdDoc mkEnableOption mkIf mkOption types versionAtLeast;
+    concatStringsSep
+    flip
+    literalMD
+    literalExpression
+    optionalAttrs
+    optionals
+    recursiveUpdate
+    mdDoc
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    versionAtLeast
+    ;
 
   cfg = config.services.cassandra;
 

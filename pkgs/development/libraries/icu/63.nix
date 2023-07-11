@@ -22,6 +22,13 @@ import ./base.nix {
   ];
   patchFlags = [ "-p3" ];
 } {
-  inherit stdenv lib fetchurl fixDarwinDylibNames nativeBuildRoot testers
-    buildRootOnly;
+  inherit
+    stdenv
+    lib
+    fetchurl
+    fixDarwinDylibNames
+    nativeBuildRoot
+    testers
+    buildRootOnly
+    ;
 }

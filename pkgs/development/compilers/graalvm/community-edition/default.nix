@@ -26,11 +26,14 @@ let
       "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}");
 
 in rec {
-  inherit buildGraalvm buildGraalvmProduct;
+  inherit
+    buildGraalvm
+    buildGraalvmProduct
+    ;
 
-  ### Java 11 ###
+    ### Java 11 ###
 
-  # Mostly available for build purposes, not to be exposed at the top level
+    # Mostly available for build purposes, not to be exposed at the top level
   graalvm11-ce-bare = buildGraalvm rec {
     version = "22.3.1";
     javaVersion = "11";

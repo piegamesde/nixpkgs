@@ -42,9 +42,12 @@ import ./versions.nix ({
       zlib
     ];
 
-    inherit (buildGoModule.go) GOOS GOARCH;
+    inherit (buildGoModule.go)
+      GOOS
+      GOARCH
+      ;
 
-    # need to provide GO* env variables & patch for reproducibility
+      # need to provide GO* env variables & patch for reproducibility
     postPatch = ''
       substituteInPlace src/go/Makefile.am \
         --replace '`go env GOOS`' "$GOOS" \

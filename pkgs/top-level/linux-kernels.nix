@@ -329,12 +329,16 @@ in {
         inherit callPackage;
         kernel = kernel_;
         inherit (kernel)
-          stdenv; # in particular, use the same compiler by default
+          stdenv
+          ; # in particular, use the same compiler by default
 
-        # to help determine module compatibility
+          # to help determine module compatibility
         inherit (kernel) isZen isHardened isLibre;
-        inherit (kernel) kernelOlder kernelAtLeast;
-        # Obsolete aliases (these packages do not depend on the kernel).
+        inherit (kernel)
+          kernelOlder
+          kernelAtLeast
+          ;
+          # Obsolete aliases (these packages do not depend on the kernel).
         inherit (pkgs) odp-dpdk pktgen; # added 2018-05
         inherit (pkgs) bcc bpftrace; # added 2021-12
         inherit (pkgs) oci-seccomp-bpf-hook; # added 2022-11
@@ -636,7 +640,9 @@ in {
           configFile = "kernel";
           inherit pkgs kernel;
         })
-          zfsStable zfsUnstable;
+          zfsStable
+          zfsUnstable
+          ;
         zfs = zfsStable;
 
         can-isotp = callPackage ../os-specific/linux/can-isotp { };

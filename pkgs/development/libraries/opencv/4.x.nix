@@ -490,8 +490,14 @@ stdenv.mkDerivation {
         pythonEnabled = pythonPackages.opencv4;
       } // lib.optionalAttrs (stdenv.buildPlatform != "x86_64-darwin") {
         opencv4-tests = callPackage ./tests.nix {
-          inherit enableGStreamer enableGtk2 enableGtk3 runAccuracyTests
-            runPerformanceTests testDataSrc;
+          inherit
+            enableGStreamer
+            enableGtk2
+            enableGtk3
+            runAccuracyTests
+            runPerformanceTests
+            testDataSrc
+            ;
           inherit opencv4;
         };
       };

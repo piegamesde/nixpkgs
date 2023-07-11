@@ -9,7 +9,17 @@ let
 
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types)
-    bool enum ints lines attrsOf nonEmptyStr nullOr path str submodule;
+    bool
+    enum
+    ints
+    lines
+    attrsOf
+    nonEmptyStr
+    nullOr
+    path
+    str
+    submodule
+    ;
   inherit (lib.modules) mkDefault mkIf mkMerge;
 
   commonDescr = ''

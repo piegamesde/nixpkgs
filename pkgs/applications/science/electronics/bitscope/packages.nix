@@ -135,10 +135,13 @@ in {
     version = "0.9.FG13B";
   in
   mkBitscope {
-    inherit toolName version;
-    # NOTE: this is meant as a demo by BitScope
-    # NOTE: clicking on logo produces error
-    # TApplication.HandleException Executable not found: "http://bitscope.com/blog/DK/?p=DK15A"
+    inherit
+      toolName
+      version
+      ;
+      # NOTE: this is meant as a demo by BitScope
+      # NOTE: clicking on logo produces error
+      # TApplication.HandleException Executable not found: "http://bitscope.com/blog/DK/?p=DK15A"
 
     meta = {
       description =

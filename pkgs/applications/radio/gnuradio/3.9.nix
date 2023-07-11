@@ -224,8 +224,18 @@ let
     };
   };
   shared = (import ./shared.nix {
-    inherit stdenv lib python removeReferencesTo featuresInfo features
-      versionAttr sourceSha256 overrideSrc fetchFromGitHub;
+    inherit
+      stdenv
+      lib
+      python
+      removeReferencesTo
+      featuresInfo
+      features
+      versionAttr
+      sourceSha256
+      overrideSrc
+      fetchFromGitHub
+      ;
     qt = qt5;
     gtk = gtk3;
   });
@@ -235,17 +245,30 @@ in
 stdenv.mkDerivation {
   inherit pname;
   inherit (shared)
-    version src nativeBuildInputs buildInputs cmakeFlags disallowedReferences
-    stripDebugList doCheck dontWrapPythonPrograms dontWrapQtApps meta;
+    version
+    src
+    nativeBuildInputs
+    buildInputs
+    cmakeFlags
+    disallowedReferences
+    stripDebugList
+    doCheck
+    dontWrapPythonPrograms
+    dontWrapQtApps
+    meta
+    ;
   patches = [
     # Not accepted upstream, see https://github.com/gnuradio/gnuradio/pull/5227
     ./modtool-newmod-permissions.patch
   ];
   passthru = shared.passthru // {
     # Deps that are potentially overridden and are used inside GR plugins - the same version must
-    inherit boost volk;
-    # Used by many gnuradio modules, the same attribute is present in
-    # gnuradio3.10 where there it's spdlog.
+    inherit
+      boost
+      volk
+      ;
+      # Used by many gnuradio modules, the same attribute is present in
+      # gnuradio3.10 where there it's spdlog.
     logLib = log4cpp;
   } // lib.optionalAttrs (hasFeature "gr-uhd") { inherit uhd; }
     // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; };

@@ -72,9 +72,16 @@
   (kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGear
     // mauiPackages // qt5 // {
 
-      inherit kdeFrameworks plasmaMobileGear plasma5 kdeGear mauiPackages qt5;
+      inherit
+        kdeFrameworks
+        plasmaMobileGear
+        plasma5
+        kdeGear
+        mauiPackages
+        qt5
+        ;
 
-      # Alias for backwards compatibility. Added 2021-05-07.
+        # Alias for backwards compatibility. Added 2021-05-07.
       kdeApplications = kdeGear;
 
       ### LIBRARIES
@@ -152,7 +159,11 @@
       libopenshot-audio =
         callPackage ../applications/video/openshot-qt/libopenshot-audio.nix {
           inherit (pkgs.darwin.apple_sdk.frameworks)
-            Accelerate AGL Cocoa Foundation;
+            Accelerate
+            AGL
+            Cocoa
+            Foundation
+            ;
         };
 
       libqglviewer = callPackage ../development/libraries/libqglviewer {

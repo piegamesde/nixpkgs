@@ -19,11 +19,13 @@ let
 in
 buildFHSEnv {
   inherit name;
-  inherit (clonehero-unwrapped) meta;
+  inherit (clonehero-unwrapped)
+    meta
+    ;
 
-  # Clone Hero has /usr/share/fonts hard-coded in its binary for looking up fonts.
-  # This workaround is necessary for rendering text on the keybinding screen (and possibly elsewhere)
-  # If a better solution is found, the FHS environment can be removed.
+    # Clone Hero has /usr/share/fonts hard-coded in its binary for looking up fonts.
+    # This workaround is necessary for rendering text on the keybinding screen (and possibly elsewhere)
+    # If a better solution is found, the FHS environment can be removed.
   extraBuildCommands = ''
     chmod +w usr/share
     mkdir -p usr/share/fonts/truetype

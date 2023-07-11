@@ -12,10 +12,18 @@
 with args;
 
 buildPythonPackage rec {
-  inherit pname version format src meta passthru patches;
+  inherit
+    pname
+    version
+    format
+    src
+    meta
+    passthru
+    patches
+    ;
 
-  # Disable imagefont tests, because they don't work well with infinality:
-  # https://github.com/python-pillow/Pillow/issues/1259
+    # Disable imagefont tests, because they don't work well with infinality:
+    # https://github.com/python-pillow/Pillow/issues/1259
   postPatch = ''
     rm Tests/test_imagefont.py
   '';

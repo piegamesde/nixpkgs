@@ -43,8 +43,21 @@ in rec {
     inherit (nixos') channel manual options iso_minimal amazonImage dummy;
     tests = {
       inherit (nixos'.tests)
-        acme containers-imperative containers-ip firewall ipv6 login misc nat
-        nfs3 openssh php predictable-interface-names proxy simple;
+        acme
+        containers-imperative
+        containers-ip
+        firewall
+        ipv6
+        login
+        misc
+        nat
+        nfs3
+        openssh
+        php
+        predictable-interface-names
+        proxy
+        simple
+        ;
       installer = { inherit (nixos'.tests.installer) lvm separateBoot simple; };
       boot = { inherit (nixos'.tests.boot) biosCdrom uefiCdrom; };
     };
@@ -52,9 +65,29 @@ in rec {
 
   nixpkgs = {
     inherit (nixpkgs')
-      apacheHttpd cmake cryptsetup emacs gettext git imagemagick jdk linux
-      mariadb nginx nodejs openssh php postgresql python rsyslog stdenv
-      subversion tarball vim tests-stdenv-gcc-stageCompare;
+      apacheHttpd
+      cmake
+      cryptsetup
+      emacs
+      gettext
+      git
+      imagemagick
+      jdk
+      linux
+      mariadb
+      nginx
+      nodejs
+      openssh
+      php
+      postgresql
+      python
+      rsyslog
+      stdenv
+      subversion
+      tarball
+      vim
+      tests-stdenv-gcc-stageCompare
+      ;
   };
 
   tested = let

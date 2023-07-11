@@ -107,16 +107,19 @@ let
 
 in
 stdenv.mkDerivation {
-  inherit pname version;
+  inherit
+    pname
+    version
+    ;
 
-  # fetch from snapcraft instead of the debian repository most repos fetch from.
-  # That is a bit more cumbersome. But the debian repository only keeps the last
-  # two versions, while snapcraft should provide versions indefinitely:
-  # https://forum.snapcraft.io/t/how-can-a-developer-remove-her-his-app-from-snap-store/512
+    # fetch from snapcraft instead of the debian repository most repos fetch from.
+    # That is a bit more cumbersome. But the debian repository only keeps the last
+    # two versions, while snapcraft should provide versions indefinitely:
+    # https://forum.snapcraft.io/t/how-can-a-developer-remove-her-his-app-from-snap-store/512
 
-  # This is the next-best thing, since we're not allowed to re-distribute
-  # spotify ourselves:
-  # https://community.spotify.com/t5/Desktop-Linux/Redistribute-Spotify-on-Linux-Distributions/td-p/1695334
+    # This is the next-best thing, since we're not allowed to re-distribute
+    # spotify ourselves:
+    # https://community.spotify.com/t5/Desktop-Linux/Redistribute-Spotify-on-Linux-Distributions/td-p/1695334
   src = fetchurl {
     url =
       "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_${rev}.snap";

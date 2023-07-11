@@ -83,9 +83,11 @@ let
 in
 stdenv.mkDerivation {
   pname = "hyperv-daemons";
-  inherit (kernel) version;
+  inherit (kernel)
+    version
+    ;
 
-  # we just stick the bins into out as well as it requires "out"
+    # we just stick the bins into out as well as it requires "out"
   outputs = [
     "bin"
     "lib"

@@ -219,15 +219,22 @@ let
 in
 package-set { inherit pkgs lib callPackage; } self // {
 
-  inherit mkDerivation callPackage haskellSrc2nix hackage2nix
-    buildHaskellPackages;
+  inherit
+    mkDerivation
+    callPackage
+    haskellSrc2nix
+    hackage2nix
+    buildHaskellPackages
+    ;
 
-  inherit (haskellLib) packageSourceOverrides;
+  inherit (haskellLib)
+    packageSourceOverrides
+    ;
 
-  # callHackage :: Text -> Text -> AttrSet -> HaskellPackage
-  #
-  # e.g., while overriding a package set:
-  #    '... foo = self.callHackage "foo" "1.5.3" {}; ...'
+    # callHackage :: Text -> Text -> AttrSet -> HaskellPackage
+    #
+    # e.g., while overriding a package set:
+    #    '... foo = self.callHackage "foo" "1.5.3" {}; ...'
   callHackage = name: version:
     callPackageKeepDeriver (self.hackage2nix name version);
 

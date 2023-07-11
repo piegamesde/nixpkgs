@@ -65,9 +65,13 @@ let
       # This creates two partitions, an ESP mounted on /dev/vda1 and the root
       # partition mounted on /dev/vda2
       system.build.diskImage = import ../lib/make-disk-image.nix {
-        inherit config pkgs lib;
-        # Use a raw format disk so that it can be resized before starting the
-        # test VM.
+        inherit
+          config
+          pkgs
+          lib
+          ;
+          # Use a raw format disk so that it can be resized before starting the
+          # test VM.
         format = "raw";
         # Keep the image as small as possible but leave some room for changes.
         bootSize = "32M";

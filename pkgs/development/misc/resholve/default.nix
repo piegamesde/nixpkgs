@@ -40,8 +40,10 @@ in rec {
     inherit (source) rSrc version;
     inherit (deps.oil) oildev;
     inherit (deps) configargparse;
-    inherit resholve-utils;
-    # used only in tests
+    inherit
+      resholve-utils
+      ;
+      # used only in tests
     resholve = resholveBuildTimeOnly;
   };
   # funcs to validate and phrase invocations of resholve

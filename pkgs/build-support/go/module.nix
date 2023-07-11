@@ -123,12 +123,15 @@ let
         ];
 
         inherit (args) src;
-        inherit (go) GOOS GOARCH;
+        inherit (go)
+          GOOS
+          GOARCH
+          ;
 
-        # The following inheritence behavior is not trivial to expect, and some may
-        # argue it's not ideal. Changing it may break vendor hashes in Nixpkgs and
-        # out in the wild. In anycase, it's documented in:
-        # doc/languages-frameworks/go.section.md
+          # The following inheritence behavior is not trivial to expect, and some may
+          # argue it's not ideal. Changing it may break vendor hashes in Nixpkgs and
+          # out in the wild. In anycase, it's documented in:
+          # doc/languages-frameworks/go.section.md
         prePatch = args.prePatch or "";
         patches = args.patches or [ ];
         patchFlags = args.patchFlags or [ ];

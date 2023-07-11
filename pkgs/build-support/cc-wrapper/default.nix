@@ -91,12 +91,15 @@ assert (noLibc || nativeLibc) == (libc == null);
 
 let
   stdenv = stdenvNoCC;
-  inherit (stdenv) hostPlatform targetPlatform;
+  inherit (stdenv)
+    hostPlatform
+    targetPlatform
+    ;
 
-  # Prefix for binaries. Customarily ends with a dash separator.
-  #
-  # TODO(@Ericson2314) Make unconditional, or optional but always true by
-  # default.
+    # Prefix for binaries. Customarily ends with a dash separator.
+    #
+    # TODO(@Ericson2314) Make unconditional, or optional but always true by
+    # default.
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
     (targetPlatform.config + "-");
 
@@ -236,11 +239,14 @@ stdenv.mkDerivation {
   ];
 
   passthru = {
-    inherit targetPrefix suffixSalt;
-    # "cc" is the generic name for a C compiler, but there is no one for package
-    # providing the linker and related tools. The two we use now are GNU
-    # Binutils, and Apple's "cctools"; "bintools" as an attempt to find an
-    # unused middle-ground name that evokes both.
+    inherit
+      targetPrefix
+      suffixSalt
+      ;
+      # "cc" is the generic name for a C compiler, but there is no one for package
+      # providing the linker and related tools. The two we use now are GNU
+      # Binutils, and Apple's "cctools"; "bintools" as an attempt to find an
+      # unused middle-ground name that evokes both.
     inherit bintools;
     inherit cc libc nativeTools nativeLibc nativePrefix isGNU isClang;
 

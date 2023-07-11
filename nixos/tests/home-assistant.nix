@@ -25,9 +25,11 @@ import ./make-test-python.nix ({
 
         services.home-assistant = {
           enable = true;
-          inherit configDir;
+          inherit
+            configDir
+            ;
 
-          # provide dependencies through package overrides
+            # provide dependencies through package overrides
           package = (pkgs.home-assistant.override {
             extraPackages = ps: with ps; [ colorama ];
             extraComponents = [

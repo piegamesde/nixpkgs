@@ -108,9 +108,11 @@ let
 in
 stdenv.mkDerivation {
   pname = "dfhack";
-  inherit version;
+  inherit
+    version
+    ;
 
-  # Beware of submodules
+    # Beware of submodules
   src = fetchFromGitHub {
     owner = "DFHack";
     repo = "dfhack";

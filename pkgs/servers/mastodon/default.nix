@@ -26,10 +26,13 @@
 }:
 
 stdenv.mkDerivation rec {
-  inherit pname version;
+  inherit
+    pname
+    version
+    ;
 
-  # Using overrideAttrs on src does not build the gems and modules with the overridden src.
-  # Putting the callPackage up in the arguments list also does not work.
+    # Using overrideAttrs on src does not build the gems and modules with the overridden src.
+    # Putting the callPackage up in the arguments list also does not work.
   src = if
     srcOverride != null
   then

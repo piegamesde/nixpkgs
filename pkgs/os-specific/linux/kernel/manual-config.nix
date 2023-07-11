@@ -82,10 +82,17 @@ lib.makeOverridable ({
 
   in let
     inherit (lib)
-      hasAttr getAttr optional optionals optionalString optionalAttrs
-      maintainers platforms;
+      hasAttr
+      getAttr
+      optional
+      optionals
+      optionalString
+      optionalAttrs
+      maintainers
+      platforms
+      ;
 
-    # Dependencies that are required to build kernel modules
+      # Dependencies that are required to build kernel modules
     moduleBuildDependencies = [
       pahole
       perl
@@ -443,8 +450,15 @@ lib.makeOverridable ({
     enableParallelBuilding = true;
 
     passthru = rec {
-      inherit version modDirVersion config kernelPatches configfile
-        moduleBuildDependencies stdenv;
+      inherit
+        version
+        modDirVersion
+        config
+        kernelPatches
+        configfile
+        moduleBuildDependencies
+        stdenv
+        ;
       inherit isZen isHardened isLibre;
       isXen = lib.warn
         "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."

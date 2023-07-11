@@ -15,9 +15,12 @@ let
 
 in
 buildPythonPackage {
-  inherit pname version;
+  inherit
+    pname
+    version
+    ;
 
-  # https://github.com/n1analytics/python-paillier/issues/51
+    # https://github.com/n1analytics/python-paillier/issues/51
   disabled = isPyPy || !isPy3k;
 
   src = fetchPypi {

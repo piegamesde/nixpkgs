@@ -494,9 +494,23 @@ let
     inherit (cfg) mutableUsers;
     users = mapAttrsToList (_: u: {
       inherit (u)
-        name uid group description home homeMode createHome isSystemUser
-        password passwordFile hashedPassword autoSubUidGidRange subUidRanges
-        subGidRanges initialPassword initialHashedPassword;
+        name
+        uid
+        group
+        description
+        home
+        homeMode
+        createHome
+        isSystemUser
+        password
+        passwordFile
+        hashedPassword
+        autoSubUidGidRange
+        subUidRanges
+        subGidRanges
+        initialPassword
+        initialHashedPassword
+        ;
       shell = utils.toShellPath u.shell;
     }) cfg.users;
     groups = attrValues cfg.groups;

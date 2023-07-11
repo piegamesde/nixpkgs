@@ -23,7 +23,10 @@ let
       (map (extension: {
         inherit (extension) uuid name description link pname;
         inherit (extension.shell_version_map.${shell-version})
-          version sha256 metadata;
+          version
+          sha256
+          metadata
+          ;
       }))
       # Build them
       (map buildShellExtension)

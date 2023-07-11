@@ -57,10 +57,12 @@ let
           --replace 'libdir      \''${exec_prefix}' 'libdir \''${prefix}'
       '';
 
-      inherit patches;
+      inherit
+        patches
+        ;
 
-      # Since 2.9.x the default location can't be configured from the build using
-      # DEFAULT_CA_FILE anymore, instead we have to patch the default value.
+        # Since 2.9.x the default location can't be configured from the build using
+        # DEFAULT_CA_FILE anymore, instead we have to patch the default value.
       postPatch = ''
         patchShebangs tests/
         ${lib.optionalString (lib.versionAtLeast version "2.9.2") ''

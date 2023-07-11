@@ -158,17 +158,79 @@ let
 
   callFile = lib.callPackageWith {
     # lets
-    inherit majorVersion version buildPlatform hostPlatform targetPlatform
-      patches javaEcj javaAntlr xlibs javaAwtGtk crossMingw stageNameAddon
-      crossNameAddon;
-    # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc48.cc.override)" | jq '.[]' --raw-output'
-    inherit binutils boehmgc buildPackages cloog crossStageStatic enableLTO
-      enableMultilib enablePlugin enableShared fetchpatch fetchurl gettext gmp
-      gnused gtk2 isl langC langCC langFortran langGo langJava langJit langObjC
-      langObjCpp lib libICE libSM libX11 libXi libXrandr libXrender libXt
-      libXtst libart_lgpl libcCross threadsCross libmpc mpfr name noSysDirs
-      patchelf perl pkg-config profiledCompiler reproducibleBuild staticCompiler
-      stdenv targetPackages texinfo unzip which x11Support xorgproto zip zlib;
+    inherit
+      majorVersion
+      version
+      buildPlatform
+      hostPlatform
+      targetPlatform
+      patches
+      javaEcj
+      javaAntlr
+      xlibs
+      javaAwtGtk
+      crossMingw
+      stageNameAddon
+      crossNameAddon
+      ;
+      # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc48.cc.override)" | jq '.[]' --raw-output'
+    inherit
+      binutils
+      boehmgc
+      buildPackages
+      cloog
+      crossStageStatic
+      enableLTO
+      enableMultilib
+      enablePlugin
+      enableShared
+      fetchpatch
+      fetchurl
+      gettext
+      gmp
+      gnused
+      gtk2
+      isl
+      langC
+      langCC
+      langFortran
+      langGo
+      langJava
+      langJit
+      langObjC
+      langObjCpp
+      lib
+      libICE
+      libSM
+      libX11
+      libXi
+      libXrandr
+      libXrender
+      libXt
+      libXtst
+      libart_lgpl
+      libcCross
+      threadsCross
+      libmpc
+      mpfr
+      name
+      noSysDirs
+      patchelf
+      perl
+      pkg-config
+      profiledCompiler
+      reproducibleBuild
+      staticCompiler
+      stdenv
+      targetPackages
+      texinfo
+      unzip
+      which
+      x11Support
+      xorgproto
+      zip
+      zlib
+      ;
   };
 
   # We need all these X libraries when building AWT with GTK.
@@ -232,12 +294,22 @@ stdenv.mkDerivation ({
   else
     null;
 
-  inherit noSysDirs staticCompiler langJava crossStageStatic libcCross
-    crossMingw;
+  inherit
+    noSysDirs
+    staticCompiler
+    langJava
+    crossStageStatic
+    libcCross
+    crossMingw
+    ;
 
   inherit (callFile ../common/dependencies.nix { })
-    depsBuildBuild nativeBuildInputs depsBuildTarget buildInputs
-    depsTargetTarget;
+    depsBuildBuild
+    nativeBuildInputs
+    depsBuildTarget
+    buildInputs
+    depsTargetTarget
+    ;
 
   preConfigure = callFile ../common/pre-configure.nix { };
 
@@ -268,7 +340,10 @@ stdenv.mkDerivation ({
       "bootstrap");
 
   inherit (callFile ../common/strip-attributes.nix { })
-    stripDebugList stripDebugListTarget preFixup;
+    stripDebugList
+    stripDebugListTarget
+    preFixup
+    ;
 
   doCheck =
     false; # requires a lot of tools, causes a dependency cycle for stdenv
@@ -313,7 +388,9 @@ stdenv.mkDerivation ({
       ]));
 
   inherit (callFile ../common/extra-target-flags.nix { })
-    EXTRA_FLAGS_FOR_TARGET EXTRA_LDFLAGS_FOR_TARGET;
+    EXTRA_FLAGS_FOR_TARGET
+    EXTRA_LDFLAGS_FOR_TARGET
+    ;
 
   passthru = {
     inherit langC langCC langObjC langObjCpp langFortran langGo version;
@@ -329,7 +406,13 @@ stdenv.mkDerivation ({
 
   meta = {
     inherit (callFile ../common/meta.nix { })
-      homepage license description longDescription platforms maintainers;
+      homepage
+      license
+      description
+      longDescription
+      platforms
+      maintainers
+      ;
     badPlatforms = lib.platforms.darwin;
   };
 }

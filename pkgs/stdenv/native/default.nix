@@ -166,8 +166,11 @@ in [
     ;
 
     fetchurl = import ../../build-support/fetchurl {
-      inherit lib stdenvNoCC;
-      # Curl should be in /usr/bin or so.
+      inherit
+        lib
+        stdenvNoCC
+        ;
+        # Curl should be in /usr/bin or so.
       curl = null;
     };
 

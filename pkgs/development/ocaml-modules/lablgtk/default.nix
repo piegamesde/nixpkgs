@@ -46,9 +46,13 @@ let
 in
 stdenv.mkDerivation {
   pname = "ocaml${ocaml.version}-lablgtk";
-  inherit (param) version src env;
+  inherit (param)
+    version
+    src
+    env
+    ;
 
-  # gnumake42: https://github.com/garrigue/lablgtk/issues/162
+    # gnumake42: https://github.com/garrigue/lablgtk/issues/162
   nativeBuildInputs = [
     pkg-config
     ocaml

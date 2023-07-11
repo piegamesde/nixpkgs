@@ -7,8 +7,14 @@
 
 let
   inherit (lib)
-    generators literalExpression mkEnableOption mkIf mkOption recursiveUpdate
-    types;
+    generators
+    literalExpression
+    mkEnableOption
+    mkIf
+    mkOption
+    recursiveUpdate
+    types
+    ;
   cfg = config.services.zeronet;
   dataDir = "/var/lib/zeronet";
   configFile = pkgs.writeText "zeronet.conf"

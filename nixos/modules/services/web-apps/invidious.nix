@@ -61,9 +61,11 @@ let
     };
 
     services.invidious.settings = {
-      inherit (cfg) port;
+      inherit (cfg)
+        port
+        ;
 
-      # Automatically initialises and migrates the database if necessary
+        # Automatically initialises and migrates the database if necessary
       check_tables = true;
 
       db = {

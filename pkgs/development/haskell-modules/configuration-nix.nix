@@ -118,23 +118,35 @@ builtins.intersectAttrs super {
         export HOME=$TMPDIR/home
       '' + (drv.preCheck or "");
     })) super)
-    hls-brittany-plugin hls-floskell-plugin hls-fourmolu-plugin
-    hls-cabal-plugin;
+    hls-brittany-plugin
+    hls-floskell-plugin
+    hls-fourmolu-plugin
+    hls-cabal-plugin
+    ;
 
-  # PLUGINS WITH DISABLED TESTS
-  # 2023-04-01: TODO: We should reenable all these tests to figure if they are still broken.
+    # PLUGINS WITH DISABLED TESTS
+    # 2023-04-01: TODO: We should reenable all these tests to figure if they are still broken.
   inherit (pkgs.lib.mapAttrs (_: dontCheck) super)
   # Tests have file permissions expections that don’t work with the nix store.
     hls-gadt-plugin
 
     # https://github.com/haskell/haskell-language-server/pull/3431
-    hls-cabal-fmt-plugin hls-code-range-plugin hls-explicit-record-fields-plugin
+    hls-cabal-fmt-plugin
+    hls-code-range-plugin
+    hls-explicit-record-fields-plugin
 
     # Flaky tests
-    hls-explicit-fixity-plugin hls-hlint-plugin hls-pragmas-plugin
-    hls-class-plugin hls-rename-plugin hls-alternate-number-format-plugin
-    hls-qualify-imported-names-plugin hls-haddock-comments-plugin
-    hls-tactics-plugin hls-call-hierarchy-plugin hls-selection-range-plugin
+    hls-explicit-fixity-plugin
+    hls-hlint-plugin
+    hls-pragmas-plugin
+    hls-class-plugin
+    hls-rename-plugin
+    hls-alternate-number-format-plugin
+    hls-qualify-imported-names-plugin
+    hls-haddock-comments-plugin
+    hls-tactics-plugin
+    hls-call-hierarchy-plugin
+    hls-selection-range-plugin
     hls-ormolu-plugin
 
     # 2021-05-08: Tests fail: https://github.com/haskell/haskell-language-server/issues/1809
@@ -163,11 +175,12 @@ builtins.intersectAttrs super {
     hls-change-type-signature-plugin
 
     # 2023-04-03: https://github.com/haskell/haskell-language-server/issues/3549
-    hls-retrie-plugin;
+    hls-retrie-plugin
+    ;
 
-  ###########################################
-  ### END HASKELL-LANGUAGE-SERVER SECTION ###
-  ###########################################
+    ###########################################
+    ### END HASKELL-LANGUAGE-SERVER SECTION ###
+    ###########################################
 
   audacity = enableCabalFlag "buildExamples" (overrideCabal (drv: {
     executableHaskellDepends = [

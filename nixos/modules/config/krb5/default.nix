@@ -40,8 +40,16 @@ let
 
   mergedConfig = (recursiveUpdate defaultConfig {
     inherit (config.krb5)
-      kerberos libdefaults realms domain_realm capaths appdefaults plugins
-      extraConfig config;
+      kerberos
+      libdefaults
+      realms
+      domain_realm
+      capaths
+      appdefaults
+      plugins
+      extraConfig
+      config
+      ;
   });
 
   filterEmbeddedMetadata = value:

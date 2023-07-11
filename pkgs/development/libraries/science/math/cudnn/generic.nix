@@ -29,9 +29,14 @@
 }:
 assert useCudatoolkitRunfile || (libcublas != null);
 let
-  inherit (lib) lists strings trivial versions;
+  inherit (lib)
+    lists
+    strings
+    trivial
+    versions
+    ;
 
-  # majorMinorPatch :: String -> String
+    # majorMinorPatch :: String -> String
   majorMinorPatch = (trivial.flip trivial.pipe) [
     (versions.splitVersion)
     (lists.take 3)

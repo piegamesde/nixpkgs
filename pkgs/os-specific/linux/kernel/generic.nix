@@ -130,8 +130,13 @@ let
   ;
 
   configfile = stdenv.mkDerivation {
-    inherit ignoreConfigErrors autoModules preferBuiltin kernelArch
-      extraMakeFlags;
+    inherit
+      ignoreConfigErrors
+      autoModules
+      preferBuiltin
+      kernelArch
+      extraMakeFlags
+      ;
     pname = "linux-config";
     inherit version;
 
@@ -240,8 +245,14 @@ let
 
   passthru = basicArgs // {
     features = kernelFeatures;
-    inherit commonStructuredConfig structuredExtraConfig extraMakeFlags isZen
-      isHardened isLibre;
+    inherit
+      commonStructuredConfig
+      structuredExtraConfig
+      extraMakeFlags
+      isZen
+      isHardened
+      isLibre
+      ;
     isXen = lib.warn
       "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
       true;

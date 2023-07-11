@@ -13,8 +13,17 @@
 let
 
   inherit (python3Packages)
-    python pytest nose cryptography pyyaml requests mock requests-mock
-    python-dateutil setuptools;
+    python
+    pytest
+    nose
+    cryptography
+    pyyaml
+    requests
+    mock
+    requests-mock
+    python-dateutil
+    setuptools
+    ;
 
   version = "4.20";
 

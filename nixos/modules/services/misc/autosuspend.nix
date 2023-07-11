@@ -6,9 +6,20 @@
 }:
 let
   inherit (lib)
-    mapAttrs' nameValuePair filterAttrs types mkEnableOption mdDoc
-    mkPackageOptionMD mkOption literalExpression mkIf flatten maintainers
-    attrValues;
+    mapAttrs'
+    nameValuePair
+    filterAttrs
+    types
+    mkEnableOption
+    mdDoc
+    mkPackageOptionMD
+    mkOption
+    literalExpression
+    mkIf
+    flatten
+    maintainers
+    attrValues
+    ;
 
   cfg = config.services.autosuspend;
 

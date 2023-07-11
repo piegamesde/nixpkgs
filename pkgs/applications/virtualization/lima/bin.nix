@@ -52,7 +52,9 @@ stdenvNoCC.mkDerivation {
   src = fetchurl {
     inherit (dist.${stdenvNoCC.hostPlatform.system} or (throw
       "Unsupported system: ${stdenvNoCC.hostPlatform.system}"))
-      url sha256;
+      url
+      sha256
+      ;
   };
 
   sourceRoot = ".";

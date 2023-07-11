@@ -15,9 +15,19 @@
 #
 let
   inherit (lib)
-    concatStringsSep concatMapStringsSep take splitString pipe optionals;
+    concatStringsSep
+    concatMapStringsSep
+    take
+    splitString
+    pipe
+    optionals
+    ;
   inherit (haskell.lib.compose)
-    justStaticExecutables overrideCabal enableCabalFlag disableCabalFlag;
+    justStaticExecutables
+    overrideCabal
+    enableCabalFlag
+    disableCabalFlag
+    ;
   getPackages = version: haskell.packages."ghc${version}";
   tunedHls = hsPkgs:
     lib.pipe hsPkgs.haskell-language-server ([

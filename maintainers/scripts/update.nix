@@ -26,9 +26,11 @@ let
     overlays = include-overlays;
   });
 
-  inherit (pkgs) lib;
+  inherit (pkgs)
+    lib
+    ;
 
-  # Remove duplicate elements from the list based on some extracted value. O(n^2) complexity.
+    # Remove duplicate elements from the list based on some extracted value. O(n^2) complexity.
   nubOn = f: list:
     if
       list == [ ]
@@ -61,9 +63,11 @@ let
               package,
               attrPath,
             }: {
-              inherit (package) updateScript;
-              # Some updaters use the same `updateScript` value for all packages.
-              # Also compare `meta.description`.
+              inherit (package)
+                updateScript
+                ;
+                # Some updaters use the same `updateScript` value for all packages.
+                # Also compare `meta.description`.
               position = package.meta.position or null;
               # We cannot always use `meta.position` since it might not be available
               # or it might be shared among multiple packages.

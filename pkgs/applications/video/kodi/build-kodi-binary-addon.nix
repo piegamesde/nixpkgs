@@ -30,9 +30,11 @@ toKodiAddon (stdenv.mkDerivation ({
     libcec_platform
   ] ++ extraBuildInputs;
 
-  inherit extraRuntimeDependencies;
+  inherit
+    extraRuntimeDependencies
+    ;
 
-  # disables check ensuring install prefix is that of kodi
+    # disables check ensuring install prefix is that of kodi
   cmakeFlags = [ "-DOVERRIDE_PATHS=1" ] ++ extraCMakeFlags;
 
   # kodi checks for addon .so libs existance in the addon folder (share/...)

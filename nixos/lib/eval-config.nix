@@ -41,8 +41,10 @@ let
 
 in let
   evalModulesMinimal = (import ./default.nix {
-    inherit lib;
-    # Implicit use of feature is noted in implementation.
+    inherit
+      lib
+      ;
+      # Implicit use of feature is noted in implementation.
     featureFlags.minimalModules = { };
   }).evalModules;
 

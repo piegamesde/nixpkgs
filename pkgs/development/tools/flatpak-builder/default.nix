@@ -93,9 +93,11 @@ stdenv.mkDerivation rec {
     # this on our patch for Flatpak 0.99.
     (substituteAll {
       src = ./fix-test-paths.patch;
-      inherit glibcLocales;
-      # FIXME use python3 for tests that rely on python2
-      # inherit python2;
+      inherit
+        glibcLocales
+        ;
+        # FIXME use python3 for tests that rely on python2
+        # inherit python2;
     })
   ];
 

@@ -21,10 +21,13 @@ let
   deps = import ./rebar-deps.nix { inherit fetchFromGitHub fetchgit fetchHex; };
   rebar3 = stdenv.mkDerivation rec {
     pname = "rebar3";
-    inherit version erlang;
+    inherit
+      version
+      erlang
+      ;
 
-    # How to obtain `sha256`:
-    # nix-prefetch-url --unpack https://github.com/erlang/rebar3/archive/${version}.tar.gz
+      # How to obtain `sha256`:
+      # nix-prefetch-url --unpack https://github.com/erlang/rebar3/archive/${version}.tar.gz
     src = fetchFromGitHub {
       inherit owner;
       repo = pname;

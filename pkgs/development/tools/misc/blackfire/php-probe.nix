@@ -91,8 +91,7 @@ let
     src = makeSource {
       system = stdenv.hostPlatform.system;
       inherit phpMajor;
-      inherit (php)
-      ;
+      inherit (php) ;
     };
 
     nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];

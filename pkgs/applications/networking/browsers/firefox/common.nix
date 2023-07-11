@@ -170,9 +170,11 @@ assert pipewireSupport -> !waylandSupport || !webrtcSupport -> throw
   "${pname}: pipewireSupport requires both wayland and webrtc support.";
 
 let
-  inherit (lib) enableFeature;
+  inherit (lib)
+    enableFeature
+    ;
 
-  # Target the LLVM version that rustc is built with for LTO.
+    # Target the LLVM version that rustc is built with for LTO.
   llvmPackages0 = rustc.llvmPackages;
   llvmPackagesBuildBuild0 = pkgsBuildBuild.rustc.llvmPackages;
 

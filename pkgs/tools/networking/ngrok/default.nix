@@ -32,9 +32,11 @@ let
 in
 stdenv.mkDerivation {
   pname = "ngrok";
-  inherit version;
+  inherit
+    version
+    ;
 
-  # run ./update
+    # run ./update
   src = fetchurl { inherit sha256 url; };
 
   sourceRoot = ".";

@@ -39,8 +39,15 @@ in {
       name = "cargo-build-hook.sh";
       propagatedBuildInputs = [ cargo ];
       substitutions = {
-        inherit ccForBuild ccForHost cxxForBuild cxxForHost rustBuildPlatform
-          rustTargetPlatform rustTargetPlatformSpec;
+        inherit
+          ccForBuild
+          ccForHost
+          cxxForBuild
+          cxxForHost
+          rustBuildPlatform
+          rustTargetPlatform
+          rustTargetPlatformSpec
+          ;
       };
     } ./cargo-build-hook.sh) { };
 
@@ -108,8 +115,15 @@ in {
         rustc
       ];
       substitutions = {
-        inherit ccForBuild ccForHost cxxForBuild cxxForHost rustBuildPlatform
-          rustTargetPlatform rustTargetPlatformSpec;
+        inherit
+          ccForBuild
+          ccForHost
+          cxxForBuild
+          cxxForHost
+          rustBuildPlatform
+          rustTargetPlatform
+          rustTargetPlatformSpec
+          ;
       };
     } ./maturin-build-hook.sh) { };
 

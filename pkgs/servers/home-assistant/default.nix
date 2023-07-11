@@ -507,8 +507,13 @@ python.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    inherit availableComponents extraComponents getPackages python
-      supportedComponentsWithTests;
+    inherit
+      availableComponents
+      extraComponents
+      getPackages
+      python
+      supportedComponentsWithTests
+      ;
     pythonPath =
       python3.pkgs.makePythonPath (componentBuildInputs ++ extraBuildInputs);
     frontend = python.pkgs.home-assistant-frontend;

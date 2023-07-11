@@ -165,7 +165,10 @@ in rec {
           gcc = args.gcc or { };
           rustc = args.rust or { };
         } // platforms.select final)
-          linux-kernel gcc rustc;
+          linux-kernel
+          gcc
+          rustc
+          ;
 
         linuxArch = if
           final.isAarch32

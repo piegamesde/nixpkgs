@@ -8,7 +8,14 @@
 let
   cfg = config.services.cockpit;
   inherit (lib)
-    types mkEnableOption mkOption mkIf mdDoc literalMD mkPackageOptionMD;
+    types
+    mkEnableOption
+    mkOption
+    mkIf
+    mdDoc
+    literalMD
+    mkPackageOptionMD
+    ;
   settingsFormat = pkgs.formats.ini { };
 in {
   options = {
