@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       name = "fix_spelling";
       sha256 = "sha256-sOUUslPfcOo2K3zuaLcux+CNdgfWM0phsfe6g4GUFes=";
     })
-  ];
+  ] ;
 
   postPatch = ''
     substituteInPlace src/constant.h \

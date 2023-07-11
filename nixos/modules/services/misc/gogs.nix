@@ -243,7 +243,7 @@ in {
           sed -ri 's,/nix/store/[a-z0-9.-]+/bin/bash,${pkgs.bash}/bin/bash,g' $HOOKS
           sed -ri 's,/nix/store/[a-z0-9.-]+/bin/perl,${pkgs.perl}/bin/perl,g' $HOOKS
         fi
-      '';
+      '' ;
 
       serviceConfig = {
         Type = "simple";

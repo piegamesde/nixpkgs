@@ -50,15 +50,17 @@ lib.makePackageOverridable ({ # Arguments passed through to `buildDhallPackage`
 
     prefix = lib.optionalString (directory != "") "/${directory}";
 
-  in buildDhallPackage ({
-    inherit dependencies source;
+  in
+    buildDhallPackage ({
+      inherit dependencies source;
 
-    name = versionedName;
+      name = versionedName;
 
-    code = "${src}${prefix}/${file}";
-  } // lib.optionalAttrs document {
-    documentationRoot = "${src}/${prefix}";
+      code = "${src}${prefix}/${file}";
+    } // lib.optionalAttrs document {
+      documentationRoot = "${src}/${prefix}";
 
-    baseImportUrl =
-      "https://raw.githubusercontent.com/${owner}/${repo}/${rev}${prefix}";
-  }))
+      baseImportUrl =
+        "https://raw.githubusercontent.com/${owner}/${repo}/${rev}${prefix}";
+    })
+)

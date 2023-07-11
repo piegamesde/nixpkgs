@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.services.hardware.argonone;
+let
+  cfg = config.services.hardware.argonone;
 in {
   options.services.hardware.argonone = {
     enable = lib.mkEnableOption (lib.mdDoc

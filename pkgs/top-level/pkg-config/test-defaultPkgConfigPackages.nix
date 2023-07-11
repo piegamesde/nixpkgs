@@ -60,4 +60,5 @@ let
         package = pkg;
       };
 
-in lib.recurseIntoAttrs allTests // { inherit tests-combined; }
+in
+  lib.recurseIntoAttrs allTests // { inherit tests-combined; }

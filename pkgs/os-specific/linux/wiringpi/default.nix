@@ -64,21 +64,22 @@ let
     };
   };
 
-in symlinkJoin {
-  name = "wiringpi-${version}";
-  inherit passthru;
-  paths = [
-    passthru.wiringPi
-    passthru.devLib
-    passthru.wiringPiD
-    passthru.gpio
-  ];
-  meta = with lib; {
-    description =
-      "Gordon's Arduino wiring-like WiringPi Library for the Raspberry Pi (Unofficial Mirror for WiringPi bindings)";
-    homepage = "https://github.com/WiringPi/WiringPi";
-    license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ doronbehar ];
-    platforms = platforms.linux;
-  };
-}
+in
+  symlinkJoin {
+    name = "wiringpi-${version}";
+    inherit passthru;
+    paths = [
+      passthru.wiringPi
+      passthru.devLib
+      passthru.wiringPiD
+      passthru.gpio
+    ];
+    meta = with lib; {
+      description =
+        "Gordon's Arduino wiring-like WiringPi Library for the Raspberry Pi (Unofficial Mirror for WiringPi bindings)";
+      homepage = "https://github.com/WiringPi/WiringPi";
+      license = licenses.lgpl3Plus;
+      maintainers = with maintainers; [ doronbehar ];
+      platforms = platforms.linux;
+    };
+  }

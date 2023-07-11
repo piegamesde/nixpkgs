@@ -182,101 +182,105 @@ in rec {
         fonttools
         nototools
       ]);
-  in stdenvNoCC.mkDerivation {
-    pname = "noto-fonts-emoji";
-    inherit version;
+  in
+    stdenvNoCC.mkDerivation {
+      pname = "noto-fonts-emoji";
+      inherit version;
 
-    src = fetchFromGitHub {
-      owner = "googlefonts";
-      repo = "noto-emoji";
-      rev = "v${version}";
-      sha256 = "1rgmcc6nqq805iqr8kvxxlk5cf50q714xaxk3ld6rjrd69kb8ix9";
-    };
+      src = fetchFromGitHub {
+        owner = "googlefonts";
+        repo = "noto-emoji";
+        rev = "v${version}";
+        sha256 = "1rgmcc6nqq805iqr8kvxxlk5cf50q714xaxk3ld6rjrd69kb8ix9";
+      };
 
-    depsBuildBuild = [
-      buildPackages.stdenv.cc
-      pkg-config
-      cairo
-    ];
-
-    nativeBuildInputs = [
-      imagemagick
-      zopfli
-      pngquant
-      which
-      emojiPythonEnv
-    ];
-
-    postPatch = ''
-      patchShebangs *.py
-      patchShebangs third_party/color_emoji/*.py
-      # remove check for virtualenv, since we handle
-      # python requirements using python.withPackages
-      sed -i '/ifndef VIRTUAL_ENV/,+2d' Makefile
-
-      # Make the build verbose so it won't get culled by Hydra thinking that
-      # it somehow got stuck doing nothing.
-      sed -i 's;\t@;\t;' Makefile
-    '';
-
-    enableParallelBuilding = true;
-
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out/share/fonts/noto
-      cp NotoColorEmoji.ttf $out/share/fonts/noto
-      runHook postInstall
-    '';
-
-    meta = with lib; {
-      description = "Color and Black-and-White emoji fonts";
-      homepage = "https://github.com/googlefonts/noto-emoji";
-      license = with licenses; [
-        ofl
-        asl20
+      depsBuildBuild = [
+        buildPackages.stdenv.cc
+        pkg-config
+        cairo
       ];
-      platforms = platforms.all;
-      maintainers = with maintainers; [
-        mathnerd314
-        sternenseemann
+
+      nativeBuildInputs = [
+        imagemagick
+        zopfli
+        pngquant
+        which
+        emojiPythonEnv
       ];
-    };
-  };
+
+      postPatch = ''
+        patchShebangs *.py
+        patchShebangs third_party/color_emoji/*.py
+        # remove check for virtualenv, since we handle
+        # python requirements using python.withPackages
+        sed -i '/ifndef VIRTUAL_ENV/,+2d' Makefile
+
+        # Make the build verbose so it won't get culled by Hydra thinking that
+        # it somehow got stuck doing nothing.
+        sed -i 's;\t@;\t;' Makefile
+      '';
+
+      enableParallelBuilding = true;
+
+      installPhase = ''
+        runHook preInstall
+        mkdir -p $out/share/fonts/noto
+        cp NotoColorEmoji.ttf $out/share/fonts/noto
+        runHook postInstall
+      '';
+
+      meta = with lib; {
+        description = "Color and Black-and-White emoji fonts";
+        homepage = "https://github.com/googlefonts/noto-emoji";
+        license = with licenses; [
+          ofl
+          asl20
+        ];
+        platforms = platforms.all;
+        maintainers = with maintainers; [
+          mathnerd314
+          sternenseemann
+        ];
+      };
+    }
+  ;
 
   noto-fonts-emoji-blob-bin = let
     pname = "noto-fonts-emoji-blob-bin";
     version = "14.0.1";
-  in stdenvNoCC.mkDerivation {
-    inherit pname version;
+  in
+    stdenvNoCC.mkDerivation {
+      inherit pname version;
 
-    src = fetchurl {
-      url =
-        "https://github.com/C1710/blobmoji/releases/download/v${version}/Blobmoji.ttf";
-      hash = "sha256-w9s7uF6E6nomdDmeKB4ATcGB/5A4sTwDvwHT3YGXz8g=";
-    };
+      src = fetchurl {
+        url =
+          "https://github.com/C1710/blobmoji/releases/download/v${version}/Blobmoji.ttf";
+        hash = "sha256-w9s7uF6E6nomdDmeKB4ATcGB/5A4sTwDvwHT3YGXz8g=";
+      };
 
-    dontUnpack = true;
+      dontUnpack = true;
 
-    installPhase = ''
-      runHook preInstall
+      installPhase = ''
+        runHook preInstall
 
-      install -Dm 444 $src $out/share/fonts/blobmoji/Blobmoji.ttf
+        install -Dm 444 $src $out/share/fonts/blobmoji/Blobmoji.ttf
 
-      runHook postInstall
-    '';
+        runHook postInstall
+      '';
 
-    meta = with lib; {
-      description = "Noto Emoji with extended Blob support";
-      homepage = "https://github.com/C1710/blobmoji";
-      license = with licenses; [
-        ofl
-        asl20
-      ];
-      platforms = platforms.all;
-      maintainers = with maintainers; [
-        rileyinman
-        jk
-      ];
-    };
-  };
+      meta = with lib; {
+        description = "Noto Emoji with extended Blob support";
+        homepage = "https://github.com/C1710/blobmoji";
+        license = with licenses; [
+          ofl
+          asl20
+        ];
+        platforms = platforms.all;
+        maintainers = with maintainers; [
+          rileyinman
+          jk
+        ];
+      };
+    }
+  ;
 }

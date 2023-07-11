@@ -105,123 +105,124 @@ let
     zlib
   ];
 
-in stdenv.mkDerivation {
-  inherit pname version;
+in
+  stdenv.mkDerivation {
+    inherit pname version;
 
-  # fetch from snapcraft instead of the debian repository most repos fetch from.
-  # That is a bit more cumbersome. But the debian repository only keeps the last
-  # two versions, while snapcraft should provide versions indefinitely:
-  # https://forum.snapcraft.io/t/how-can-a-developer-remove-her-his-app-from-snap-store/512
+    # fetch from snapcraft instead of the debian repository most repos fetch from.
+    # That is a bit more cumbersome. But the debian repository only keeps the last
+    # two versions, while snapcraft should provide versions indefinitely:
+    # https://forum.snapcraft.io/t/how-can-a-developer-remove-her-his-app-from-snap-store/512
 
-  # This is the next-best thing, since we're not allowed to re-distribute
-  # spotify ourselves:
-  # https://community.spotify.com/t5/Desktop-Linux/Redistribute-Spotify-on-Linux-Distributions/td-p/1695334
-  src = fetchurl {
-    url =
-      "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_${rev}.snap";
-    sha512 =
-      "5e8f4a1901c26e9bb5986e048226d8a15f5bc4c2acf16b20a404f228ef142e4d21c6a88a4a54c8d9e654ba5b15cb1fea1cdc50c21fbe8e3c374e241a44adf12d";
-  };
+    # This is the next-best thing, since we're not allowed to re-distribute
+    # spotify ourselves:
+    # https://community.spotify.com/t5/Desktop-Linux/Redistribute-Spotify-on-Linux-Distributions/td-p/1695334
+    src = fetchurl {
+      url =
+        "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_${rev}.snap";
+      sha512 =
+        "5e8f4a1901c26e9bb5986e048226d8a15f5bc4c2acf16b20a404f228ef142e4d21c6a88a4a54c8d9e654ba5b15cb1fea1cdc50c21fbe8e3c374e241a44adf12d";
+    };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    makeShellWrapper
-    squashfsTools
-  ];
-
-  dontStrip = true;
-  dontPatchELF = true;
-
-  unpackPhase = ''
-    runHook preUnpack
-    unsquashfs "$src" '/usr/share/spotify' '/usr/bin/spotify' '/meta/snap.yaml'
-    cd squashfs-root
-    if ! grep -q 'grade: stable' meta/snap.yaml; then
-      # Unfortunately this check is not reliable: At the moment (2018-07-26) the
-      # latest version in the "edge" channel is also marked as stable.
-      echo "The snap package is marked as unstable:"
-      grep 'grade: ' meta/snap.yaml
-      echo "You probably chose the wrong revision."
-      exit 1
-    fi
-    if ! grep -q '${version}' meta/snap.yaml; then
-      echo "Package version differs from version found in snap metadata:"
-      grep 'version: ' meta/snap.yaml
-      echo "While the nix package specifies: ${version}."
-      echo "You probably chose the wrong revision or forgot to update the nix version."
-      exit 1
-    fi
-    runHook postUnpack
-  '';
-
-  # Prevent double wrapping
-  dontWrapGApps = true;
-
-  installPhase = ''
-    runHook preInstall
-
-    libdir=$out/lib/spotify
-    mkdir -p $libdir
-    mv ./usr/* $out/
-
-    cp meta/snap.yaml $out
-
-    # Work around Spotify referring to a specific minor version of
-    # OpenSSL.
-
-    ln -s ${lib.getLib openssl}/lib/libssl.so $libdir/libssl.so.1.0.0
-    ln -s ${lib.getLib openssl}/lib/libcrypto.so $libdir/libcrypto.so.1.0.0
-    ln -s ${nspr.out}/lib/libnspr4.so $libdir/libnspr4.so
-    ln -s ${nspr.out}/lib/libplc4.so $libdir/libplc4.so
-
-    ln -s ${ffmpeg.lib}/lib/libavcodec.so* $libdir
-    ln -s ${ffmpeg.lib}/lib/libavformat.so* $libdir
-
-    rpath="$out/share/spotify:$libdir"
-
-    patchelf \
-      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath $rpath $out/share/spotify/spotify
-
-    librarypath="${lib.makeLibraryPath deps}:$libdir"
-    wrapProgramShell $out/share/spotify/spotify \
-      ''${gappsWrapperArgs[@]} \
-      ${
-        lib.optionalString (deviceScaleFactor != null) ''
-          --add-flags "--force-device-scale-factor=${
-            toString deviceScaleFactor
-          }" \
-        ''
-      } \
-      --prefix LD_LIBRARY_PATH : "$librarypath" \
-      --prefix PATH : "${gnome.zenity}/bin" \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"
-
-    # fix Icon line in the desktop file (#48062)
-    sed -i "s:^Icon=.*:Icon=spotify-client:" "$out/share/spotify/spotify.desktop"
-
-    # Desktop file
-    mkdir -p "$out/share/applications/"
-    cp "$out/share/spotify/spotify.desktop" "$out/share/applications/"
-
-    # Icons
-    for i in 16 22 24 32 48 64 128 256 512; do
-      ixi="$i"x"$i"
-      mkdir -p "$out/share/icons/hicolor/$ixi/apps"
-      ln -s "$out/share/spotify/icons/spotify-linux-$i.png" \
-        "$out/share/icons/hicolor/$ixi/apps/spotify-client.png"
-    done
-
-    runHook postInstall
-  '';
-
-  meta = meta // {
-    maintainers = with lib.maintainers; [
-      eelco
-      ftrvxmtrx
-      sheenobu
-      timokau
-      ma27
+    nativeBuildInputs = [
+      wrapGAppsHook
+      makeShellWrapper
+      squashfsTools
     ];
-  };
-}
+
+    dontStrip = true;
+    dontPatchELF = true;
+
+    unpackPhase = ''
+      runHook preUnpack
+      unsquashfs "$src" '/usr/share/spotify' '/usr/bin/spotify' '/meta/snap.yaml'
+      cd squashfs-root
+      if ! grep -q 'grade: stable' meta/snap.yaml; then
+        # Unfortunately this check is not reliable: At the moment (2018-07-26) the
+        # latest version in the "edge" channel is also marked as stable.
+        echo "The snap package is marked as unstable:"
+        grep 'grade: ' meta/snap.yaml
+        echo "You probably chose the wrong revision."
+        exit 1
+      fi
+      if ! grep -q '${version}' meta/snap.yaml; then
+        echo "Package version differs from version found in snap metadata:"
+        grep 'version: ' meta/snap.yaml
+        echo "While the nix package specifies: ${version}."
+        echo "You probably chose the wrong revision or forgot to update the nix version."
+        exit 1
+      fi
+      runHook postUnpack
+    '';
+
+    # Prevent double wrapping
+    dontWrapGApps = true;
+
+    installPhase = ''
+      runHook preInstall
+
+      libdir=$out/lib/spotify
+      mkdir -p $libdir
+      mv ./usr/* $out/
+
+      cp meta/snap.yaml $out
+
+      # Work around Spotify referring to a specific minor version of
+      # OpenSSL.
+
+      ln -s ${lib.getLib openssl}/lib/libssl.so $libdir/libssl.so.1.0.0
+      ln -s ${lib.getLib openssl}/lib/libcrypto.so $libdir/libcrypto.so.1.0.0
+      ln -s ${nspr.out}/lib/libnspr4.so $libdir/libnspr4.so
+      ln -s ${nspr.out}/lib/libplc4.so $libdir/libplc4.so
+
+      ln -s ${ffmpeg.lib}/lib/libavcodec.so* $libdir
+      ln -s ${ffmpeg.lib}/lib/libavformat.so* $libdir
+
+      rpath="$out/share/spotify:$libdir"
+
+      patchelf \
+        --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath $rpath $out/share/spotify/spotify
+
+      librarypath="${lib.makeLibraryPath deps}:$libdir"
+      wrapProgramShell $out/share/spotify/spotify \
+        ''${gappsWrapperArgs[@]} \
+        ${
+          lib.optionalString (deviceScaleFactor != null) ''
+            --add-flags "--force-device-scale-factor=${
+              toString deviceScaleFactor
+            }" \
+          ''
+        } \
+        --prefix LD_LIBRARY_PATH : "$librarypath" \
+        --prefix PATH : "${gnome.zenity}/bin" \
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"
+
+      # fix Icon line in the desktop file (#48062)
+      sed -i "s:^Icon=.*:Icon=spotify-client:" "$out/share/spotify/spotify.desktop"
+
+      # Desktop file
+      mkdir -p "$out/share/applications/"
+      cp "$out/share/spotify/spotify.desktop" "$out/share/applications/"
+
+      # Icons
+      for i in 16 22 24 32 48 64 128 256 512; do
+        ixi="$i"x"$i"
+        mkdir -p "$out/share/icons/hicolor/$ixi/apps"
+        ln -s "$out/share/spotify/icons/spotify-linux-$i.png" \
+          "$out/share/icons/hicolor/$ixi/apps/spotify-client.png"
+      done
+
+      runHook postInstall
+    '';
+
+    meta = meta // {
+      maintainers = with lib.maintainers; [
+        eelco
+        ftrvxmtrx
+        sheenobu
+        timokau
+        ma27
+      ];
+    };
+  }

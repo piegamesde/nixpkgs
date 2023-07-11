@@ -23,5 +23,5 @@ import ./make-test-python.nix ({
       machine.wait_for_unit("memcached.service")
       machine.wait_for_open_port(11211)
       machine.succeed("${testScript}")
-    '';
+    '' ;
   })

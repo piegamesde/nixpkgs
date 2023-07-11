@@ -66,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
   in ''
     mkdir -p toolchain/dl
     ${make-links}
-  '';
+  '' ;
 
   makeTargets = [
     "toolchain"

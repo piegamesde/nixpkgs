@@ -31,11 +31,13 @@ stdenv.mkDerivation rec {
       x86_64-darwin = "sha256-JiwF8/ZBbFGqhcYP4z5aPya61+2J5HG9vEYKEDAIuC0=";
       aarch64-darwin = "sha256-BgqqKqrqZiBSQwkMpWndiRhRq6+rR3e1IcPik5ZxCg4=";
     };
-  in fetchzip {
-    url =
-      "https://releases.hashicorp.com/vault/${version}/vault_${version}_${suffix}.zip";
-    inherit sha256;
-  };
+  in
+    fetchzip {
+      url =
+        "https://releases.hashicorp.com/vault/${version}/vault_${version}_${suffix}.zip";
+      inherit sha256;
+    }
+  ;
 
   dontConfigure = true;
   dontBuild = true;

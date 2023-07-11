@@ -36,7 +36,9 @@ let
     let
       pairs = mapAttrsToList (name: value: { inherit name value; }) set;
       sortedPairs = sort (a: b: prioOf a < prioOf b) pairs;
-    in concatMap genPair sortedPairs;
+    in
+      concatMap genPair sortedPairs
+  ;
   genSection = sec: secName: value:
     [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value);
   genPair = {
@@ -124,7 +126,9 @@ in {
                   t = types.attrsOf (types.either types.str (t // {
                     description = "instances of this type recursively";
                   }));
-                in t;
+                in
+                  t
+                ;
                 default = { };
                 example = {
                   snapshot_preserve_min = "2d";
@@ -236,7 +240,7 @@ in {
         (doasCmdNoPass "btrfs")
         (doasCmdNoPass "mkdir")
         (doasCmdNoPass "readlink")
-      ];
+      ] ;
     };
     users.users.btrbk = {
       isSystemUser = true;
@@ -254,14 +258,15 @@ in {
             "realtime" = 1;
           }.${cfg.ioSchedulingClass};
           sudo_doas_flag = "--${sudo_doas}";
-        in ''
-          command="${pkgs.util-linux}/bin/ionice -t -c ${
-            toString ioniceClass
-          } ${
-            optionalString (cfg.niceness >= 1)
-            "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
-          } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}'')
-        cfg.sshAccess;
+        in
+          ''
+            command="${pkgs.util-linux}/bin/ionice -t -c ${
+              toString ioniceClass
+            } ${
+              optionalString (cfg.niceness >= 1)
+              "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
+            } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
+      ) cfg.sshAccess;
     };
     users.groups.btrbk = { };
     systemd.tmpfiles.rules = [

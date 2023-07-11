@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
         (lib.hasInfix "-DSQLITE_ENABLE_FTS3" sqlite.NIX_CFLAGS_COMPILE)
       }'
     '';
-  in [ "--cross-file=${crossFile}" ])
+  in [ "--cross-file=${crossFile}" ] )
     ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ];
 
   doCheck =
@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
     # We are using a symlink that will be overridden during installation.
     mkdir -p $out/lib
     ln -s $PWD/src/libtracker-sparql/libtracker-sparql-3.0${darwinDot0}${extension} $out/lib/libtracker-sparql-3.0${darwinDot0}${extension}${linuxDot0}
-  '';
+  '' ;
 
   checkPhase = ''
     runHook preCheck

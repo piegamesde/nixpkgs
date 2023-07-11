@@ -94,7 +94,9 @@ let
           platforms = lib.platforms.all;
         };
       };
-    in self;
+    in
+      self
+  ;
 
 in {
 

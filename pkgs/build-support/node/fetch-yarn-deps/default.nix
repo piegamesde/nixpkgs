@@ -82,34 +82,38 @@ in {
           outputHashAlgo = "sha256";
           outputHash = lib.fakeSha256;
         };
-      in stdenv.mkDerivation ({
-        inherit name;
+      in
+        stdenv.mkDerivation ({
+          inherit name;
 
-        dontUnpack = src == null;
-        dontInstall = true;
+          dontUnpack = src == null;
+          dontInstall = true;
 
-        nativeBuildInputs = [ prefetch-yarn-deps ];
-        GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+          nativeBuildInputs = [ prefetch-yarn-deps ];
+          GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-        buildPhase = ''
-          runHook preBuild
+          buildPhase = ''
+            runHook preBuild
 
-          yarnLock=''${yarnLock:=$PWD/yarn.lock}
-          mkdir -p $out
-          (cd $out; prefetch-yarn-deps --verbose --builder $yarnLock)
+            yarnLock=''${yarnLock:=$PWD/yarn.lock}
+            mkdir -p $out
+            (cd $out; prefetch-yarn-deps --verbose --builder $yarnLock)
 
-          runHook postBuild
-        '';
+            runHook postBuild
+          '';
 
-        outputHashMode = "recursive";
-      } // hash_ // (removeAttrs args [
-        "src"
-        "name"
-        "hash"
-        "sha256"
-      ]));
+          outputHashMode = "recursive";
+        } // hash_ // (removeAttrs args [
+          "src"
+          "name"
+          "hash"
+          "sha256"
+        ]))
+    ;
 
-  in lib.setFunctionArgs f (lib.functionArgs f) // {
-    tests = callPackage ./tests { };
-  };
+  in
+    lib.setFunctionArgs f (lib.functionArgs f) // {
+      tests = callPackage ./tests { };
+    }
+  ;
 }

@@ -37,14 +37,17 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-5MP6X33Jfu97o5R1n6Og64Bv4ZMxVM0A8lXeQug+bNA=";
   };
 
-  icons = let sparseCheckout = "/release/images/itch-icons";
-  in fetchFromGitHub {
-    owner = "itchio";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-DZBmf8fe0zw5uiQjNKXw8g/vU2hjNDa87z/7XuhyXog=";
-    sparseCheckout = [ sparseCheckout ];
-  } + sparseCheckout;
+  icons = let
+    sparseCheckout = "/release/images/itch-icons";
+  in
+    fetchFromGitHub {
+      owner = "itchio";
+      repo = pname;
+      rev = "v${version}";
+      hash = "sha256-DZBmf8fe0zw5uiQjNKXw8g/vU2hjNDa87z/7XuhyXog=";
+      sparseCheckout = [ sparseCheckout ];
+    } + sparseCheckout
+  ;
 
   nativeBuildInputs = [
     copyDesktopItems

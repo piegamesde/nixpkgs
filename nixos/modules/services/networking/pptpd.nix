@@ -129,6 +129,6 @@ with lib;
         Type = "forking";
         PIDFile = "/run/pptpd.pid";
       };
-    };
+    } ;
   };
 }

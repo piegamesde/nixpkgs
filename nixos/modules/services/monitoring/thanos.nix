@@ -78,9 +78,12 @@ let
     } "json2yaml -i $json -o $out";
 
   thanos = cmd:
-    "${cfg.package}/bin/thanos ${cmd}" + (let args = cfg.${cmd}.arguments;
-    in optionalString (length args != 0)
-    (" \\\n  " + concatStringsSep " \\\n  " args));
+    "${cfg.package}/bin/thanos ${cmd}" + (let
+      args = cfg.${cmd}.arguments;
+    in
+      optionalString (length args != 0)
+      (" \\\n  " + concatStringsSep " \\\n  " args)
+    );
 
   argumentsOf = cmd:
     concatLists (collect isList (flip mapParamsRecursive params.${cmd}
@@ -88,7 +91,9 @@ let
         let
           opt = concatStringsSep "." path;
           v = getAttrFromPath path cfg.${cmd};
-        in param.toArgs opt v)));
+        in
+          param.toArgs opt v
+      )));
 
   mkArgumentsOption = cmd:
     mkOption {
@@ -108,8 +113,11 @@ let
       '';
     };
 
-  mapParamsRecursive = let noParam = attr: !(attr ? toArgs && attr ? option);
-  in mapAttrsRecursiveCond noParam;
+  mapParamsRecursive = let
+    noParam = attr: !(attr ? toArgs && attr ? option);
+  in
+    mapAttrsRecursiveCond noParam
+  ;
 
   paramsToOptions = mapParamsRecursive (_path: param: param.option);
 
@@ -811,9 +819,10 @@ in {
     (mkIf cfg.compact.enable (mkMerge [
       (assertRelativeStateDir "compact")
       {
-        systemd.services.thanos-compact =
-          let wait = cfg.compact.startAt == null;
-          in {
+        systemd.services.thanos-compact = let
+          wait = cfg.compact.startAt == null;
+        in
+          {
             wantedBy = [ "multi-user.target" ];
             after = [ "network.target" ];
             serviceConfig = {
@@ -823,7 +832,8 @@ in {
               StateDirectory = cfg.compact.stateDir;
               ExecStart = thanos "compact";
             };
-          } // optionalAttrs (!wait) { inherit (cfg.compact) startAt; };
+          } // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
+        ;
       }
     ]))
 

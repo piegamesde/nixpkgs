@@ -29,54 +29,55 @@ let
   common = callPackage ./common.nix {
     inherit tex extraFonts chineseFonts japaneseFonts koreanFonts;
   };
-in mkDerivation {
-  inherit pname version;
+in
+  mkDerivation {
+    inherit pname version;
 
-  src = fetchurl {
-    url =
-      "https://www.texmacs.org/Download/ftp/tmftp/source/TeXmacs-${version}-src.tar.gz";
-    sha256 = "1gl6k1bwrk1y7hjyl4xvlqvmk5crl4jvsk8wrfp7ynbdin6n2i48";
-  };
+    src = fetchurl {
+      url =
+        "https://www.texmacs.org/Download/ftp/tmftp/source/TeXmacs-${version}-src.tar.gz";
+      sha256 = "1gl6k1bwrk1y7hjyl4xvlqvmk5crl4jvsk8wrfp7ynbdin6n2i48";
+    };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    guile_1_8
-    qtbase
-    ghostscriptX
-    freetype
-    libjpeg
-    sqlite
-    git
-    python3
-  ];
-  NIX_LDFLAGS = "-lz";
-
-  qtWrapperArgs = [
-    "--suffix"
-    "PATH"
-    ":"
-    (lib.makeBinPath [
-      xmodmap
-      which
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ];
+    buildInputs = [
+      guile_1_8
+      qtbase
       ghostscriptX
-      aspell
-      tex
+      freetype
+      libjpeg
+      sqlite
       git
       python3
-    ])
-  ];
+    ];
+    NIX_LDFLAGS = "-lz";
 
-  postFixup = ''
-    wrapQtApp $out/bin/texmacs
-  '';
+    qtWrapperArgs = [
+      "--suffix"
+      "PATH"
+      ":"
+      (lib.makeBinPath [
+        xmodmap
+        which
+        ghostscriptX
+        aspell
+        tex
+        git
+        python3
+      ])
+    ];
 
-  inherit (common) postPatch;
+    postFixup = ''
+      wrapQtApp $out/bin/texmacs
+    '';
 
-  meta = common.meta // {
-    maintainers = [ lib.maintainers.roconnor ];
-    platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
-  };
-}
+    inherit (common) postPatch;
+
+    meta = common.meta // {
+      maintainers = [ lib.maintainers.roconnor ];
+      platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
+    };
+  }

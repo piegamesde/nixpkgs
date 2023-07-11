@@ -30,67 +30,68 @@ let
     hash = "sha256-IFvGTOkaRSNgZOj8DziRj88yH5JRF+wgSDZ5N0GNvjk=";
   };
 
-in buildPythonPackage rec {
-  pname = "datafusion";
-  version = "23.0.0";
-  format = "pyproject";
+in
+  buildPythonPackage rec {
+    pname = "datafusion";
+    version = "23.0.0";
+    format = "pyproject";
 
-  src = fetchFromGitHub {
-    name = "datafusion-source";
-    owner = "apache";
-    repo = "arrow-datafusion-python";
-    rev = "refs/tags/${version}";
-    hash = "sha256-ndee7aNmoTtZyfl9UUXdNVHkp0GAuJWkyfZJyRrGwn8=";
-  };
+    src = fetchFromGitHub {
+      name = "datafusion-source";
+      owner = "apache";
+      repo = "arrow-datafusion-python";
+      rev = "refs/tags/${version}";
+      hash = "sha256-ndee7aNmoTtZyfl9UUXdNVHkp0GAuJWkyfZJyRrGwn8=";
+    };
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
-    name = "datafusion-cargo-deps";
-    inherit src pname version;
-    hash = "sha256-eDweEc+7dDbF0WBi6M5XAPIiHRjlYAdf2eNJdwj4D7c=";
-  };
+    cargoDeps = rustPlatform.fetchCargoTarball {
+      name = "datafusion-cargo-deps";
+      inherit src pname version;
+      hash = "sha256-eDweEc+7dDbF0WBi6M5XAPIiHRjlYAdf2eNJdwj4D7c=";
+    };
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+    nativeBuildInputs = with rustPlatform; [
+      cargoSetupHook
+      maturinBuildHook
+    ];
 
-  buildInputs = [ protobuf ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    Security
-  ];
+    buildInputs = [ protobuf ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      Security
+    ];
 
-  propagatedBuildInputs = [ pyarrow ];
+    propagatedBuildInputs = [ pyarrow ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    numpy
-  ];
-  pythonImportsCheck = [ "datafusion" ];
-  pytestFlagsArray = [
-    "--pyargs"
-    pname
-  ];
+    nativeCheckInputs = [
+      pytestCheckHook
+      numpy
+    ];
+    pythonImportsCheck = [ "datafusion" ];
+    pytestFlagsArray = [
+      "--pyargs"
+      pname
+    ];
 
-  preCheck = ''
-    pushd $TMPDIR
-    ln -s ${arrow-testing} ./testing
-    ln -s ${parquet-testing} ./parquet
-  '';
-
-  postCheck = ''
-    popd
-  '';
-
-  meta = with lib; {
-    description = "Extensible query execution framework";
-    longDescription = ''
-      DataFusion is an extensible query execution framework, written in Rust,
-      that uses Apache Arrow as its in-memory format.
+    preCheck = ''
+      pushd $TMPDIR
+      ln -s ${arrow-testing} ./testing
+      ln -s ${parquet-testing} ./parquet
     '';
-    homepage = "https://arrow.apache.org/datafusion/";
-    changelog =
-      "https://github.com/apache/arrow-datafusion-python/blob/${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ cpcloud ];
-  };
-}
+
+    postCheck = ''
+      popd
+    '';
+
+    meta = with lib; {
+      description = "Extensible query execution framework";
+      longDescription = ''
+        DataFusion is an extensible query execution framework, written in Rust,
+        that uses Apache Arrow as its in-memory format.
+      '';
+      homepage = "https://arrow.apache.org/datafusion/";
+      changelog =
+        "https://github.com/apache/arrow-datafusion-python/blob/${version}/CHANGELOG.md";
+      license = with licenses; [ asl20 ];
+      maintainers = with maintainers; [ cpcloud ];
+    };
+  }

@@ -6,7 +6,8 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-let common = opts: callPackage (import ./common.nix opts) { };
+let
+  common = opts: callPackage (import ./common.nix opts) { };
 in {
 
   openssh = common rec {

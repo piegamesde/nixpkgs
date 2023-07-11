@@ -31,34 +31,35 @@ let
       "3.9" = null;
     }.${gnuradio.versionAttr.major};
   };
-in mkDerivation {
-  pname = "gr-rds";
-  inherit version src;
-  disabledForGRafter = "3.9";
+in
+  mkDerivation {
+    pname = "gr-rds";
+    inherit version src;
+    disabledForGRafter = "3.9";
 
-  buildInputs = [
-    logLib
-    mpir
-    boost
-    gmp
-    icu
-  ] ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
-    thrift
-    python.pkgs.thrift
-  ];
+    buildInputs = [
+      logLib
+      mpir
+      boost
+      gmp
+      icu
+    ] ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
+      thrift
+      python.pkgs.thrift
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    swig
-    python
-  ];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      swig
+      python
+    ];
 
-  meta = with lib; {
-    description = "Gnuradio block for radio data system";
-    homepage = "https://github.com/bastibl/gr-rds";
-    license = licenses.gpl2Plus;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ mog ];
-  };
-}
+    meta = with lib; {
+      description = "Gnuradio block for radio data system";
+      homepage = "https://github.com/bastibl/gr-rds";
+      license = licenses.gpl2Plus;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [ mog ];
+    };
+  }

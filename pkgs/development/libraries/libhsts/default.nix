@@ -17,45 +17,46 @@ let
     sha256 = "09f24n30x5dmqk8zk7k2glcilgr27832a3304wj1yp97158sqsfx";
   };
 
-in stdenv.mkDerivation rec {
-  pname = "libhsts";
-  version = "0.1.0";
+in
+  stdenv.mkDerivation rec {
+    pname = "libhsts";
+    version = "0.1.0";
 
-  src = fetchFromGitLab {
-    owner = "rockdaboot";
-    repo = pname;
-    rev = "libhsts-${version}";
-    sha256 = "0gbchzf0f4xzb6zjc56dk74hqrmdgyirmgxvvsqp9vqn9wb5kkx4";
-  };
+    src = fetchFromGitLab {
+      owner = "rockdaboot";
+      repo = pname;
+      rev = "libhsts-${version}";
+      sha256 = "0gbchzf0f4xzb6zjc56dk74hqrmdgyirmgxvvsqp9vqn9wb5kkx4";
+    };
 
-  postPatch = ''
-    pushd tests
-    cp ${hsts_list} transport_security_state_static.json
-    sed 's/^ *\/\/.*$//g' transport_security_state_static.json >hsts.json
-    popd
-    patchShebangs src/hsts-make-dafsa
-  '';
+    postPatch = ''
+      pushd tests
+      cp ${hsts_list} transport_security_state_static.json
+      sed 's/^ *\/\/.*$//g' transport_security_state_static.json >hsts.json
+      popd
+      patchShebangs src/hsts-make-dafsa
+    '';
 
-  nativeBuildInputs = [
-    autoconf-archive
-    autoreconfHook
-    pkg-config
-    python3
-  ];
-
-  outputs = [
-    "out"
-    "dev"
-  ];
-
-  meta = with lib; {
-    description =
-      "Library to easily check a domain against the Chromium HSTS Preload list";
-    homepage = "https://gitlab.com/rockdaboot/libhsts";
-    license = with licenses; [
-      mit
-      bsd3
+    nativeBuildInputs = [
+      autoconf-archive
+      autoreconfHook
+      pkg-config
+      python3
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
-  };
-}
+
+    outputs = [
+      "out"
+      "dev"
+    ];
+
+    meta = with lib; {
+      description =
+        "Library to easily check a domain against the Chromium HSTS Preload list";
+      homepage = "https://gitlab.com/rockdaboot/libhsts";
+      license = with licenses; [
+        mit
+        bsd3
+      ];
+      maintainers = with maintainers; [ SuperSandro2000 ];
+    };
+  }

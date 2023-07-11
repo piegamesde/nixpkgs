@@ -129,29 +129,30 @@ let
   binLinkCommands = lib.concatMapStringsSep "\n"
     (bin: "ln -s ${vmwareFHSUserEnv bin}/bin/${bin} $out/bin/") bins;
 
-in stdenv.mkDerivation {
-  pname = "vmware-horizon-client";
-  inherit version;
+in
+  stdenv.mkDerivation {
+    pname = "vmware-horizon-client";
+    inherit version;
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  installPhase = ''
-    mkdir -p $out/bin $out/share/applications
-    cp ${desktopItem}/share/applications/* $out/share/applications/
-    ${binLinkCommands}
-  '';
+    installPhase = ''
+      mkdir -p $out/bin $out/share/applications
+      cp ${desktopItem}/share/applications/* $out/share/applications/
+      ${binLinkCommands}
+    '';
 
-  unwrapped = vmwareHorizonClientFiles;
+    unwrapped = vmwareHorizonClientFiles;
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  meta = with lib; {
-    inherit mainProgram;
-    description =
-      "Allows you to connect to your VMware Horizon virtual desktop";
-    homepage = "https://www.vmware.com/go/viewclients";
-    license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ buckley310 ];
-  };
-}
+    meta = with lib; {
+      inherit mainProgram;
+      description =
+        "Allows you to connect to your VMware Horizon virtual desktop";
+      homepage = "https://www.vmware.com/go/viewclients";
+      license = licenses.unfree;
+      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [ buckley310 ];
+    };
+  }

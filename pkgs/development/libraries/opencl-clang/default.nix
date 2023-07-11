@@ -55,61 +55,64 @@ let
     inherit (llvmPackages_11) llvm;
     inherit (if buildWithPatches then passthru else llvmPkgs)
       libclang spirv-llvm-translator;
-  in stdenv.mkDerivation {
-    pname = "opencl-clang";
-    version = "unstable-2022-03-16";
+  in
+    stdenv.mkDerivation {
+      pname = "opencl-clang";
+      version = "unstable-2022-03-16";
 
-    src = fetchFromGitHub {
-      owner = "intel";
-      repo = "opencl-clang";
-      rev = "bbdd1587f577397a105c900be114b56755d1f7dc";
-      sha256 = "sha256-qEZoQ6h4XAvSnJ7/gLXBb1qrzeYa6Jp6nij9VFo8MwQ=";
-    };
+      src = fetchFromGitHub {
+        owner = "intel";
+        repo = "opencl-clang";
+        rev = "bbdd1587f577397a105c900be114b56755d1f7dc";
+        sha256 = "sha256-qEZoQ6h4XAvSnJ7/gLXBb1qrzeYa6Jp6nij9VFo8MwQ=";
+      };
 
-    patches = [
-      # Build script tries to find Clang OpenCL headers under ${llvm}
-      # Work around it by specifying that directory manually.
-      ./opencl-headers-dir.patch
-    ];
+      patches = [
+        # Build script tries to find Clang OpenCL headers under ${llvm}
+        # Work around it by specifying that directory manually.
+        ./opencl-headers-dir.patch
+      ];
 
-    # Uses linker flags that are not supported on Darwin.
-    postPatch = lib.optionalString stdenv.isDarwin ''
-      sed -i -e '/SET_LINUX_EXPORTS_FILE/d' CMakeLists.txt
-      substituteInPlace CMakeLists.txt \
-        --replace '-Wl,--no-undefined' ""
-    '';
+      # Uses linker flags that are not supported on Darwin.
+      postPatch = lib.optionalString stdenv.isDarwin ''
+        sed -i -e '/SET_LINUX_EXPORTS_FILE/d' CMakeLists.txt
+        substituteInPlace CMakeLists.txt \
+          --replace '-Wl,--no-undefined' ""
+      '';
 
-    nativeBuildInputs = [
-      cmake
-      git
-      llvm.dev
-    ];
+      nativeBuildInputs = [
+        cmake
+        git
+        llvm.dev
+      ];
 
-    buildInputs = [
-      libclang
-      llvm
-      spirv-llvm-translator
-    ];
+      buildInputs = [
+        libclang
+        llvm
+        spirv-llvm-translator
+      ];
 
-    cmakeFlags = [
-      "-DPREFERRED_LLVM_VERSION=${lib.getVersion llvm}"
-      "-DOPENCL_HEADERS_DIR=${libclang.lib}/lib/clang/${
-        lib.getVersion libclang
-      }/include/"
+      cmakeFlags = [
+        "-DPREFERRED_LLVM_VERSION=${lib.getVersion llvm}"
+        "-DOPENCL_HEADERS_DIR=${libclang.lib}/lib/clang/${
+          lib.getVersion libclang
+        }/include/"
 
-      "-DLLVMSPIRV_INCLUDED_IN_LLVM=OFF"
-      "-DSPIRV_TRANSLATOR_DIR=${spirv-llvm-translator}"
-    ];
+        "-DLLVMSPIRV_INCLUDED_IN_LLVM=OFF"
+        "-DSPIRV_TRANSLATOR_DIR=${spirv-llvm-translator}"
+      ];
 
-    inherit passthru;
+      inherit passthru;
 
-    meta = with lib; {
-      homepage = "https://github.com/intel/opencl-clang/";
-      description =
-        "A clang wrapper library with an OpenCL-oriented API and the ability to compile OpenCL C kernels to SPIR-V modules";
-      license = licenses.ncsa;
-      platforms = platforms.all;
-      maintainers = with maintainers; [ SuperSandro2000 ];
-    };
-  };
-in library
+      meta = with lib; {
+        homepage = "https://github.com/intel/opencl-clang/";
+        description =
+          "A clang wrapper library with an OpenCL-oriented API and the ability to compile OpenCL C kernels to SPIR-V modules";
+        license = licenses.ncsa;
+        platforms = platforms.all;
+        maintainers = with maintainers; [ SuperSandro2000 ];
+      };
+    }
+  ;
+in
+  library

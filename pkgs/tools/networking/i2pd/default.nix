@@ -31,12 +31,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  makeFlags = let ynf = a: b: a + "=" + (if b then "yes" else "no");
+  makeFlags = let
+    ynf = a: b: a + "=" + (if b then "yes" else "no");
   in [
     (ynf "USE_AESNI" aesniSupport)
     (ynf "USE_AVX" avxSupport)
     (ynf "USE_UPNP" upnpSupport)
-  ];
+  ] ;
 
   enableParallelBuilding = true;
 

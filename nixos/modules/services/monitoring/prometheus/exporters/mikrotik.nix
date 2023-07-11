@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.mikrotik;
+let
+  cfg = config.services.prometheus.exporters.mikrotik;
 in {
   port = 9436;
   extraOpts = {
@@ -67,5 +68,5 @@ in {
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
     };
-  };
+  } ;
 }

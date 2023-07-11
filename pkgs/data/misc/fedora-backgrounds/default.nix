@@ -4,7 +4,8 @@
   fetchurl,
 }:
 
-let fedoraBackground = callPackage ./generic.nix { };
+let
+  fedoraBackground = callPackage ./generic.nix { };
 in {
   f32 = fedoraBackground rec {
     version = "32.2.2";

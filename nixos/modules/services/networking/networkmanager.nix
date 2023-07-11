@@ -226,7 +226,9 @@ in {
                   Those need to have a ‘networkManagerPlugin’ attribute.
                 '';
           };
-        in types.listOf networkManagerPluginPackage;
+        in
+          types.listOf networkManagerPluginPackage
+        ;
         default = [ ];
         description = lib.mdDoc ''
           List of NetworkManager plug-ins to enable.

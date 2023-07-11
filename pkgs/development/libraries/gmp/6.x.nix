@@ -13,7 +13,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-let inherit (lib) optional;
+let
+  inherit (lib) optional;
 
 in let
   self = stdenv.mkDerivation rec {
@@ -106,4 +107,5 @@ in let
       maintainers = [ maintainers.vrthra ];
     };
   };
-in self
+in
+  self

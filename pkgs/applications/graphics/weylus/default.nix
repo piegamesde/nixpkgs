@@ -89,9 +89,11 @@ rustPlatform.buildRustPackage rec {
       gst_all_1.gst-plugins-base
       pipewire
     ];
-  in lib.optionalString stdenv.isLinux ''
-    wrapProgram $out/bin/weylus --prefix GST_PLUGIN_PATH : ${GST_PLUGIN_PATH}
-  '';
+  in
+    lib.optionalString stdenv.isLinux ''
+      wrapProgram $out/bin/weylus --prefix GST_PLUGIN_PATH : ${GST_PLUGIN_PATH}
+    ''
+  ;
 
   postInstall = ''
     install -vDm755 weylus.desktop $out/share/applications/weylus.desktop

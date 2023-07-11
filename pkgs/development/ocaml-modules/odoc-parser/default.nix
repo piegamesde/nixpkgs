@@ -28,32 +28,34 @@ let
     };
   }."${version}";
 
-in let v = version;
-in buildDunePackage rec {
-  pname = "odoc-parser";
-  inherit version;
+in let
+  v = version;
+in
+  buildDunePackage rec {
+    pname = "odoc-parser";
+    inherit version;
 
-  minimumOCamlVersion = "4.02";
+    minimumOCamlVersion = "4.02";
 
-  src = fetchurl {
-    url =
-      "https://github.com/ocaml-doc/odoc-parser/releases/download/${version}/odoc-parser-${version}.tbz";
-    inherit (param) sha256;
-  };
+    src = fetchurl {
+      url =
+        "https://github.com/ocaml-doc/odoc-parser/releases/download/${version}/odoc-parser-${version}.tbz";
+      inherit (param) sha256;
+    };
 
-  useDune2 = true;
+    useDune2 = true;
 
-  propagatedBuildInputs = [
-    astring
-    result
-  ] ++ param.extraBuildInputs;
+    propagatedBuildInputs = [
+      astring
+      result
+    ] ++ param.extraBuildInputs;
 
-  meta = {
-    description = "Parser for Ocaml documentation comments";
-    license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.marsam ];
-    homepage = "https://github.com/ocaml-doc/odoc-parser";
-    changelog =
-      "https://github.com/ocaml-doc/odoc-parser/raw/${version}/CHANGES.md";
-  };
-}
+    meta = {
+      description = "Parser for Ocaml documentation comments";
+      license = lib.licenses.isc;
+      maintainers = [ lib.maintainers.marsam ];
+      homepage = "https://github.com/ocaml-doc/odoc-parser";
+      changelog =
+        "https://github.com/ocaml-doc/odoc-parser/raw/${version}/CHANGES.md";
+    };
+  }

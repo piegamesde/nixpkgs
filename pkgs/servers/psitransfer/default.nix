@@ -43,4 +43,5 @@ let
       maintainers = with maintainers; [ hyshka ];
     };
   };
-in combined
+in
+  combined

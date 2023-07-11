@@ -36,9 +36,10 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.machine.config.users.users.alice;
+      let
+        user = nodes.machine.config.users.users.alice;
       in ''
         machine.wait_for_x()
         machine.wait_for_file("${user.home}/xdg-autostart-executed")
-      '';
+      '' ;
   })

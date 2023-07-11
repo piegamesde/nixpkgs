@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.services.homed;
+let
+  cfg = config.services.homed;
 in {
   options.services.homed.enable = lib.mkEnableOption (lib.mdDoc ''
     Enable systemd home area/user account manager

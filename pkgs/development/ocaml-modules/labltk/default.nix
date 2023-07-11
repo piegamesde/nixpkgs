@@ -64,57 +64,58 @@ let
       version = "8.06.13";
       sha256 = "sha256-Vpf13g3DEWlUI5aypiowGp2fkQPK0cOGv2XiRUY/Ip4=";
     };
-  };
+  } ;
   param = params.${lib.versions.majorMinor ocaml.version} or (throw
     "labltk is not available for OCaml ${ocaml.version}");
 
-in stdenv.mkDerivation rec {
-  inherit (param) version src;
-  pname = "ocaml${ocaml.version}-labltk";
+in
+  stdenv.mkDerivation rec {
+    inherit (param) version src;
+    pname = "ocaml${ocaml.version}-labltk";
 
-  strictDeps = true;
+    strictDeps = true;
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    makeWrapper
-  ];
-  buildInputs = [
-    tcl
-    tk
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      makeWrapper
+    ];
+    buildInputs = [
+      tcl
+      tk
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
-  configureFlags = [
-    "--use-findlib"
-    "--installbindir"
-    "$(out)/bin"
-  ];
-  dontAddPrefix = true;
-  dontAddStaticConfigureFlags = true;
-  configurePlatforms = [ ];
+    configureFlags = [
+      "--use-findlib"
+      "--installbindir"
+      "$(out)/bin"
+    ];
+    dontAddPrefix = true;
+    dontAddStaticConfigureFlags = true;
+    configurePlatforms = [ ];
 
-  buildFlags = [
-    "all"
-    "opt"
-  ];
+    buildFlags = [
+      "all"
+      "opt"
+    ];
 
-  createFindlibDestdir = true;
+    createFindlibDestdir = true;
 
-  postInstall = ''
-    mkdir -p $OCAMLFIND_DESTDIR/stublibs
-    mv $OCAMLFIND_DESTDIR/labltk/dlllabltk.so $OCAMLFIND_DESTDIR/stublibs/
-    for p in $out/bin/*
-    do
-      wrapProgram $p --set CAML_LD_LIBRARY_PATH $OCAMLFIND_DESTDIR/stublibs
-    done
-  '';
+    postInstall = ''
+      mkdir -p $OCAMLFIND_DESTDIR/stublibs
+      mv $OCAMLFIND_DESTDIR/labltk/dlllabltk.so $OCAMLFIND_DESTDIR/stublibs/
+      for p in $out/bin/*
+      do
+        wrapProgram $p --set CAML_LD_LIBRARY_PATH $OCAMLFIND_DESTDIR/stublibs
+      done
+    '';
 
-  meta = {
-    description =
-      "OCaml interface to Tcl/Tk, including OCaml library explorer OCamlBrowser";
-    homepage = "http://labltk.forge.ocamlcore.org/";
-    license = lib.licenses.lgpl21;
-    inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.vbgl ];
-  };
-}
+    meta = {
+      description =
+        "OCaml interface to Tcl/Tk, including OCaml library explorer OCamlBrowser";
+      homepage = "http://labltk.forge.ocamlcore.org/";
+      license = lib.licenses.lgpl21;
+      inherit (ocaml.meta) platforms;
+      maintainers = [ lib.maintainers.vbgl ];
+    };
+  }

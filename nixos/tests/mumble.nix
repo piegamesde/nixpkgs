@@ -93,4 +93,4 @@ import ./make-test-python.nix ({
       client1.screenshot("screen1")
       client2.screenshot("screen2")
     '';
-  })
+  } )

@@ -5,7 +5,8 @@
 }:
 
 with lib;
-let cfg = config.hardware.xpadneo;
+let
+  cfg = config.hardware.xpadneo;
 in {
   options.hardware.xpadneo = {
     enable = mkEnableOption

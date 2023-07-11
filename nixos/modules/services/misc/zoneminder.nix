@@ -240,7 +240,8 @@ in {
               addr = "0.0.0.0";
               inherit (cfg) port;
             } ];
-            extraConfig = let fcgi = config.services.fcgiwrap;
+            extraConfig = let
+              fcgi = config.services.fcgiwrap;
             in ''
               index index.php;
 
@@ -289,7 +290,7 @@ in {
                   fastcgi_pass unix:${fpm.socket};
                 }
               }
-            '';
+            '' ;
           };
         };
       };

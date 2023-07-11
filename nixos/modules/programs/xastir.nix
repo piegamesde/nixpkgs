@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.xastir;
+let
+  cfg = config.programs.xastir;
 in {
   meta.maintainers = with maintainers; [ melling ];
 

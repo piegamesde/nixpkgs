@@ -18,13 +18,13 @@ buildPythonPackage rec {
   };
 
   # TODO: not very nice!
-  postPatch =
-    let libname = "libaugeas${stdenv.hostPlatform.extensions.sharedLibrary}";
-    in ''
-      substituteInPlace augeas/ffi.py \
-        --replace 'ffi.dlopen("augeas")' \
-                  'ffi.dlopen("${lib.makeLibraryPath [ augeas ]}/${libname}")'
-    '';
+  postPatch = let
+    libname = "libaugeas${stdenv.hostPlatform.extensions.sharedLibrary}";
+  in ''
+    substituteInPlace augeas/ffi.py \
+      --replace 'ffi.dlopen("augeas")' \
+                'ffi.dlopen("${lib.makeLibraryPath [ augeas ]}/${libname}")'
+  '' ;
 
   propagatedBuildInputs = [
     cffi

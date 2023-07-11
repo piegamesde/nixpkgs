@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.afterstep;
+let
+  cfg = config.services.xserver.windowManager.afterstep;
 in {
   ###### interface
   options = {

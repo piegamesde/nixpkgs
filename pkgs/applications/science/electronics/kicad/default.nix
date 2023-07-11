@@ -111,147 +111,150 @@ let
   wxPython = python.pkgs.wxPython_4_2;
 
   inherit (lib) concatStringsSep flatten optionalString optionals;
-in stdenv.mkDerivation rec {
+in
+  stdenv.mkDerivation rec {
 
-  # Common libraries, referenced during runtime, via the wrapper.
-  passthru.libraries = callPackages ./libraries.nix { inherit libSrc; };
-  base = callPackage ./base.nix {
-    inherit stable baseName;
-    inherit kicadSrc kicadVersion;
-    inherit wxGTK python wxPython;
-    inherit withNgspice withScripting withI18n;
-    inherit debug sanitizeAddress sanitizeThreads;
-  };
+    # Common libraries, referenced during runtime, via the wrapper.
+    passthru.libraries = callPackages ./libraries.nix { inherit libSrc; };
+    base = callPackage ./base.nix {
+      inherit stable baseName;
+      inherit kicadSrc kicadVersion;
+      inherit wxGTK python wxPython;
+      inherit withNgspice withScripting withI18n;
+      inherit debug sanitizeAddress sanitizeThreads;
+    };
 
-  inherit pname;
-  version =
-    if (stable) then kicadVersion else builtins.substring 0 10 src.src.rev;
+    inherit pname;
+    version =
+      if (stable) then kicadVersion else builtins.substring 0 10 src.src.rev;
 
-  src = base;
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
-  dontFixup = true;
+    src = base;
+    dontUnpack = true;
+    dontConfigure = true;
+    dontBuild = true;
+    dontFixup = true;
 
-  pythonPath = optionals (withScripting) [
-    wxPython
-    python.pkgs.six
-    python.pkgs.requests
-  ];
-
-  nativeBuildInputs = [ makeWrapper ]
-    ++ optionals (withScripting) [ python.pkgs.wrapPython ];
-
-  # We are emulating wrapGAppsHook, along with other variables to the wrapper
-  makeWrapperArgs = with passthru.libraries;
-    [
-      "--prefix XDG_DATA_DIRS : ${base}/share"
-      "--prefix XDG_DATA_DIRS : ${hicolor-icon-theme}/share"
-      "--prefix XDG_DATA_DIRS : ${gnome.adwaita-icon-theme}/share"
-      "--prefix XDG_DATA_DIRS : ${gtk3}/share/gsettings-schemas/${gtk3.name}"
-      "--prefix XDG_DATA_DIRS : ${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
-      # wrapGAppsHook did these two as well, no idea if it matters...
-      "--prefix XDG_DATA_DIRS : ${cups}/share"
-      "--prefix GIO_EXTRA_MODULES : ${dconf}/lib/gio/modules"
-      # required to open a bug report link in firefox-wayland
-      "--set-default MOZ_DBUS_REMOTE 1"
-      "--set-default KICAD7_FOOTPRINT_DIR ${footprints}/share/kicad/footprints"
-      "--set-default KICAD7_SYMBOL_DIR ${symbols}/share/kicad/symbols"
-      "--set-default KICAD7_TEMPLATE_DIR ${templates}/share/kicad/template"
-      "--prefix KICAD7_TEMPLATE_DIR : ${symbols}/share/kicad/template"
-      "--prefix KICAD7_TEMPLATE_DIR : ${footprints}/share/kicad/template"
-    ] ++ optionals
-    (with3d) [ "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels" ]
-    ++ optionals
-    (withNgspice) [ "--prefix LD_LIBRARY_PATH : ${libngspice}/lib" ]
-
-    # infinisil's workaround for #39493
-    ++ [ "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" ];
-
-  # why does $makeWrapperArgs have to be added explicitly?
-  # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?
-  installPhase = let
-    bin = if stdenv.isDarwin then "*.app/Contents/MacOS" else "bin";
-    tools = [
-      "kicad"
-      "pcbnew"
-      "eeschema"
-      "gerbview"
-      "pcb_calculator"
-      "pl_editor"
-      "bitmap2component"
+    pythonPath = optionals (withScripting) [
+      wxPython
+      python.pkgs.six
+      python.pkgs.requests
     ];
-    utils = [
-      "dxf2idf"
-      "idf2vrml"
-      "idfcyl"
-      "idfrect"
-      "kicad-cli"
-    ];
-  in (concatStringsSep "\n" (flatten [
-    "runHook preInstall"
 
-    (optionalString (withScripting) ''
-      buildPythonPath "${base} $pythonPath" 
-    '')
+    nativeBuildInputs = [ makeWrapper ]
+      ++ optionals (withScripting) [ python.pkgs.wrapPython ];
 
-    # wrap each of the directly usable tools
-    (map (tool:
-      "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
-      + optionalString (withScripting)
-      " --set PYTHONPATH \"$program_PYTHONPATH\"") tools)
+    # We are emulating wrapGAppsHook, along with other variables to the wrapper
+    makeWrapperArgs = with passthru.libraries;
+      [
+        "--prefix XDG_DATA_DIRS : ${base}/share"
+        "--prefix XDG_DATA_DIRS : ${hicolor-icon-theme}/share"
+        "--prefix XDG_DATA_DIRS : ${gnome.adwaita-icon-theme}/share"
+        "--prefix XDG_DATA_DIRS : ${gtk3}/share/gsettings-schemas/${gtk3.name}"
+        "--prefix XDG_DATA_DIRS : ${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
+        # wrapGAppsHook did these two as well, no idea if it matters...
+        "--prefix XDG_DATA_DIRS : ${cups}/share"
+        "--prefix GIO_EXTRA_MODULES : ${dconf}/lib/gio/modules"
+        # required to open a bug report link in firefox-wayland
+        "--set-default MOZ_DBUS_REMOTE 1"
+        "--set-default KICAD7_FOOTPRINT_DIR ${footprints}/share/kicad/footprints"
+        "--set-default KICAD7_SYMBOL_DIR ${symbols}/share/kicad/symbols"
+        "--set-default KICAD7_TEMPLATE_DIR ${templates}/share/kicad/template"
+        "--prefix KICAD7_TEMPLATE_DIR : ${symbols}/share/kicad/template"
+        "--prefix KICAD7_TEMPLATE_DIR : ${footprints}/share/kicad/template"
+      ] ++ optionals
+      (with3d) [ "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels" ]
+      ++ optionals
+      (withNgspice) [ "--prefix LD_LIBRARY_PATH : ${libngspice}/lib" ]
 
-    # link in the CLI utils
-    (map (util: "ln -s ${base}/${bin}/${util} $out/bin/${util}") utils)
+      # infinisil's workaround for #39493
+      ++ [ "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" ];
 
-    "runHook postInstall"
-  ]));
+    # why does $makeWrapperArgs have to be added explicitly?
+    # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?
+    installPhase = let
+      bin = if stdenv.isDarwin then "*.app/Contents/MacOS" else "bin";
+      tools = [
+        "kicad"
+        "pcbnew"
+        "eeschema"
+        "gerbview"
+        "pcb_calculator"
+        "pl_editor"
+        "bitmap2component"
+      ];
+      utils = [
+        "dxf2idf"
+        "idf2vrml"
+        "idfcyl"
+        "idfrect"
+        "kicad-cli"
+      ];
+    in
+      (concatStringsSep "\n" (flatten [
+        "runHook preInstall"
 
-  postInstall = ''
-    mkdir -p $out/share
-    ln -s ${base}/share/applications $out/share/applications
-    ln -s ${base}/share/icons $out/share/icons
-    ln -s ${base}/share/mime $out/share/mime
-    ln -s ${base}/share/metainfo $out/share/metainfo
-  '';
+        (optionalString (withScripting) ''
+          buildPythonPath "${base} $pythonPath" 
+        '')
 
-  # can't run this for each pname
-  # stable and unstable are in the same versions.nix
-  # and kicad-small reuses stable
-  # with "all" it updates both, run it manually if you don't want that
-  # and can't git commit if this could be running in parallel with other scripts
-  passthru.updateScript = [
-    ./update.sh
-    "all"
-  ];
+        # wrap each of the directly usable tools
+        (map (tool:
+          "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
+          + optionalString (withScripting)
+          " --set PYTHONPATH \"$program_PYTHONPATH\"") tools)
 
-  meta = rec {
-    description = (if (stable) then
-      "Open Source Electronics Design Automation suite"
-    else
-      "Open Source EDA suite, development build")
-      + (lib.optionalString (!with3d) ", without 3D models");
-    homepage = "https://www.kicad.org/";
-    longDescription = ''
-      KiCad is an open source software suite for Electronic Design Automation.
-      The Programs handle Schematic Capture, and PCB Layout with Gerber output.
+        # link in the CLI utils
+        (map (util: "ln -s ${base}/${bin}/${util} $out/bin/${util}") utils)
+
+        "runHook postInstall"
+      ]))
+    ;
+
+    postInstall = ''
+      mkdir -p $out/share
+      ln -s ${base}/share/applications $out/share/applications
+      ln -s ${base}/share/icons $out/share/icons
+      ln -s ${base}/share/mime $out/share/mime
+      ln -s ${base}/share/metainfo $out/share/metainfo
     '';
-    license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [
-      evils
-      kiwi
+
+    # can't run this for each pname
+    # stable and unstable are in the same versions.nix
+    # and kicad-small reuses stable
+    # with "all" it updates both, run it manually if you don't want that
+    # and can't git commit if this could be running in parallel with other scripts
+    passthru.updateScript = [
+      ./update.sh
+      "all"
     ];
-    # kicad is cross platform
-    platforms = lib.platforms.all;
-    broken = stdenv.isDarwin;
 
-    hydraPlatforms = if (with3d) then [ ] else platforms;
-    # We can't download the 3d models on Hydra,
-    # they are a ~1 GiB download and they occupy ~5 GiB in store.
-    # as long as the base and libraries (minus 3d) are build,
-    # this wrapper does not need to get built
-    # the kicad-*small "packages" cause this to happen
+    meta = rec {
+      description = (if (stable) then
+        "Open Source Electronics Design Automation suite"
+      else
+        "Open Source EDA suite, development build")
+        + (lib.optionalString (!with3d) ", without 3D models");
+      homepage = "https://www.kicad.org/";
+      longDescription = ''
+        KiCad is an open source software suite for Electronic Design Automation.
+        The Programs handle Schematic Capture, and PCB Layout with Gerber output.
+      '';
+      license = lib.licenses.gpl3Plus;
+      maintainers = with lib.maintainers; [
+        evils
+        kiwi
+      ];
+      # kicad is cross platform
+      platforms = lib.platforms.all;
+      broken = stdenv.isDarwin;
 
-    mainProgram = "kicad";
-  };
-}
+      hydraPlatforms = if (with3d) then [ ] else platforms;
+      # We can't download the 3d models on Hydra,
+      # they are a ~1 GiB download and they occupy ~5 GiB in store.
+      # as long as the base and libraries (minus 3d) are build,
+      # this wrapper does not need to get built
+      # the kicad-*small "packages" cause this to happen
+
+      mainProgram = "kicad";
+    };
+  }

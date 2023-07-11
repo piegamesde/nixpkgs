@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.fastly;
+let
+  cfg = config.services.prometheus.exporters.fastly;
 in {
   port = 9118;
   extraOpts = {

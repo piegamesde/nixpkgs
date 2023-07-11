@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.pekwm;
+let
+  cfg = config.services.xserver.windowManager.pekwm;
 in {
   ###### interface
   options = {

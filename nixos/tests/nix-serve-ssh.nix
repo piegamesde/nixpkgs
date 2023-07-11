@@ -45,4 +45,4 @@ import ./make-test-python.nix ({
       )
       client.succeed("diff /root/other-store$(cat mach-id-path) /etc/machine-id")
     '';
-  })
+  } )

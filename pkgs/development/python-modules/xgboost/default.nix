@@ -28,7 +28,7 @@ buildPythonPackage {
       "${xgboost}/lib/libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
   in ''
     echo 'find_lib_path = lambda: ["${libPath}"]' > python-package/xgboost/libpath.py
-  '';
+  '' ;
 
   dontUseCmakeConfigure = true;
 

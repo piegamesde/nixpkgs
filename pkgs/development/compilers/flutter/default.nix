@@ -9,8 +9,11 @@ let
   mkCustomFlutter = args: callPackage ./flutter.nix args;
   wrapFlutter = flutter: callPackage ./wrapper.nix { inherit flutter; };
   getPatches = dir:
-    let files = builtins.attrNames (builtins.readDir dir);
-    in map (f: dir + ("/" + f)) files;
+    let
+      files = builtins.attrNames (builtins.readDir dir);
+    in
+      map (f: dir + ("/" + f)) files
+  ;
   mkFlutter = {
       version,
       engineVersion,
@@ -44,23 +47,26 @@ let
           sha256 = hash;
         };
       };
-    in (mkCustomFlutter args).overrideAttrs (prev: next: {
-      passthru = next.passthru // rec {
-        inherit wrapFlutter mkCustomFlutter mkFlutter;
-        buildFlutterApplication = callPackage ../../../build-support/flutter {
-          # Package a minimal version of Flutter that only uses Linux desktop release artifacts.
-          flutter = wrapFlutter (mkCustomFlutter (args // {
-            includedEngineArtifacts = {
-              common = [ "flutter_patched_sdk_product" ];
-              platform.linux = lib.optionals stdenv.hostPlatform.isLinux
-                (lib.genAttrs ((lib.optional stdenv.hostPlatform.isx86_64 "x64")
-                  ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64"))
-                  (architecture: [ "release" ]));
-            };
-          }));
+    in
+      (mkCustomFlutter args).overrideAttrs (prev: next: {
+        passthru = next.passthru // rec {
+          inherit wrapFlutter mkCustomFlutter mkFlutter;
+          buildFlutterApplication = callPackage ../../../build-support/flutter {
+            # Package a minimal version of Flutter that only uses Linux desktop release artifacts.
+            flutter = wrapFlutter (mkCustomFlutter (args // {
+              includedEngineArtifacts = {
+                common = [ "flutter_patched_sdk_product" ];
+                platform.linux = lib.optionals stdenv.hostPlatform.isLinux
+                  (lib.genAttrs
+                    ((lib.optional stdenv.hostPlatform.isx86_64 "x64")
+                      ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64"))
+                    (architecture: [ "release" ]));
+              };
+            }));
+          };
         };
-      };
-    });
+      })
+  ;
 
   flutter2Patches = getPatches ./patches/flutter2;
   flutter3Patches = getPatches ./patches/flutter3;

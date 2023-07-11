@@ -63,41 +63,43 @@ let
       mkKeyValuePairs = attrs:
         concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
 
-    in pkgs.writeTextFile {
-      name = "nix.conf";
-      text = ''
-        # WARNING: this file is generated from the nix.* options in
-        # your NixOS configuration, typically
-        # /etc/nixos/configuration.nix.  Do not edit it!
-        ${mkKeyValuePairs cfg.settings}
-        ${cfg.extraOptions}
-      '';
-      checkPhase = lib.optionalString cfg.checkConfig
-        (if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform then ''
-          echo "Ignoring validation for cross-compilation"
-        '' else ''
-          echo "Validating generated nix.conf"
-          ln -s $out ./nix.conf
-          set -e
-          set +o pipefail
-          NIX_CONF_DIR=$PWD \
-            ${cfg.package}/bin/nix show-config ${
-              optionalString (isNixAtLeast "2.3pre") "--no-net"
-            } \
-              ${
-                optionalString (isNixAtLeast "2.4pre")
-                "--option experimental-features nix-command"
+    in
+      pkgs.writeTextFile {
+        name = "nix.conf";
+        text = ''
+          # WARNING: this file is generated from the nix.* options in
+          # your NixOS configuration, typically
+          # /etc/nixos/configuration.nix.  Do not edit it!
+          ${mkKeyValuePairs cfg.settings}
+          ${cfg.extraOptions}
+        '';
+        checkPhase = lib.optionalString cfg.checkConfig
+          (if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform then ''
+            echo "Ignoring validation for cross-compilation"
+          '' else ''
+            echo "Validating generated nix.conf"
+            ln -s $out ./nix.conf
+            set -e
+            set +o pipefail
+            NIX_CONF_DIR=$PWD \
+              ${cfg.package}/bin/nix show-config ${
+                optionalString (isNixAtLeast "2.3pre") "--no-net"
               } \
-            |& sed -e 's/^warning:/error:/' \
-            | (! grep '${
-              if cfg.checkAllErrors then
-                "^error:"
-              else
-                "^error: unknown setting"
-            }')
-          set -o pipefail
-        '');
-    };
+                ${
+                  optionalString (isNixAtLeast "2.4pre")
+                  "--option experimental-features nix-command"
+                } \
+              |& sed -e 's/^warning:/error:/' \
+              | (! grep '${
+                if cfg.checkAllErrors then
+                  "^error:"
+                else
+                  "^error: unknown setting"
+              }')
+            set -o pipefail
+          '');
+      }
+  ;
 
   legacyConfMappings = {
     useSandbox = "sandbox";
@@ -127,7 +129,9 @@ let
         description =
           "Nix config atom (null, bool, int, float, str, path or package)";
       };
-    in attrsOf (either confAtom (listOf confAtom));
+    in
+      attrsOf (either confAtom (listOf confAtom))
+  ;
 
 in {
   imports = [
@@ -498,61 +502,63 @@ in {
               path
               package
             ]);
-        in {
-          config,
-          name,
-          ...
-        }: {
-          options = {
-            from = mkOption {
-              type = referenceAttrs;
-              example = {
+        in
+          {
+            config,
+            name,
+            ...
+          }: {
+            options = {
+              from = mkOption {
+                type = referenceAttrs;
+                example = {
+                  type = "indirect";
+                  id = "nixpkgs";
+                };
+                description = lib.mdDoc "The flake reference to be rewritten.";
+              };
+              to = mkOption {
+                type = referenceAttrs;
+                example = {
+                  type = "github";
+                  owner = "my-org";
+                  repo = "my-nixpkgs";
+                };
+                description = lib.mdDoc
+                  "The flake reference {option}`from` is rewritten to.";
+              };
+              flake = mkOption {
+                type = types.nullOr types.attrs;
+                default = null;
+                example = literalExpression "nixpkgs";
+                description = lib.mdDoc ''
+                  The flake input {option}`from` is rewritten to.
+                '';
+              };
+              exact = mkOption {
+                type = types.bool;
+                default = true;
+                description = lib.mdDoc ''
+                  Whether the {option}`from` reference needs to match exactly. If set,
+                  a {option}`from` reference like `nixpkgs` does not
+                  match with a reference like `nixpkgs/nixos-20.03`.
+                '';
+              };
+            };
+            config = {
+              from = mkDefault {
                 type = "indirect";
-                id = "nixpkgs";
+                id = name;
               };
-              description = lib.mdDoc "The flake reference to be rewritten.";
+              to = mkIf (config.flake != null) (mkDefault ({
+                type = "path";
+                path = config.flake.outPath;
+              } // filterAttrs (n: _:
+                n == "lastModified" || n == "rev" || n == "revCount" || n
+                == "narHash") config.flake));
             };
-            to = mkOption {
-              type = referenceAttrs;
-              example = {
-                type = "github";
-                owner = "my-org";
-                repo = "my-nixpkgs";
-              };
-              description =
-                lib.mdDoc "The flake reference {option}`from` is rewritten to.";
-            };
-            flake = mkOption {
-              type = types.nullOr types.attrs;
-              default = null;
-              example = literalExpression "nixpkgs";
-              description = lib.mdDoc ''
-                The flake input {option}`from` is rewritten to.
-              '';
-            };
-            exact = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Whether the {option}`from` reference needs to match exactly. If set,
-                a {option}`from` reference like `nixpkgs` does not
-                match with a reference like `nixpkgs/nixos-20.03`.
-              '';
-            };
-          };
-          config = {
-            from = mkDefault {
-              type = "indirect";
-              id = name;
-            };
-            to = mkIf (config.flake != null) (mkDefault ({
-              type = "path";
-              path = config.flake.outPath;
-            } // filterAttrs (n: _:
-              n == "lastModified" || n == "rev" || n == "revCount" || n
-              == "narHash") config.flake));
-          };
-        }));
+          }
+        ));
         default = { };
         description = lib.mdDoc ''
           A system-wide flake registry.
@@ -810,9 +816,11 @@ in {
           (if machine.sshKey != null then machine.sshKey else "-")
           (toString machine.maxJobs)
           (toString machine.speedFactor)
-          (let res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
+          (let
+            res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
           in if (res == [ ]) then "-" else (concatStringsSep "," res))
-          (let res = machine.mandatoryFeatures;
+          (let
+            res = machine.mandatoryFeatures;
           in if (res == [ ]) then
             "-"
           else
@@ -824,7 +832,8 @@ in {
             "-"))) + "\n") cfg.buildMachines;
     };
 
-    assertions = let badMachine = m: m.system == null && m.systems == [ ];
+    assertions = let
+      badMachine = m: m.system == null && m.systems == [ ];
     in [ {
       assertion = !(any badMachine cfg.buildMachines);
       message = ''
@@ -833,7 +842,7 @@ in {
           Invalid machine specifications:
       '' + "      " + (concatStringsSep "\n      "
         (map (m: m.hostName) (filter (badMachine) cfg.buildMachines)));
-    } ];
+    } ] ;
 
     systemd.packages = [ nixPackage ];
 

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.bazarr;
+let
+  cfg = config.services.bazarr;
 in {
   options = {
     services.bazarr = {

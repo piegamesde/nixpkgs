@@ -71,5 +71,5 @@ import ./make-test-python.nix ({
                 "${xdo} key Alt+F1 sleep 10"
             )
             machine.screenshot("screen")
-      '';
+      '' ;
   })

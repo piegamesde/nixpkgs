@@ -1,7 +1,8 @@
 {
   callPackage,
 }:
-let src = callPackage ./src.nix { };
+let
+  src = callPackage ./src.nix { };
 in rec {
 
   inherit (src) packageVersion firefox source;

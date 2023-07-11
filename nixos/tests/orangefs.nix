@@ -87,4 +87,4 @@ import ./make-test-python.nix ({
           client1.succeed("echo test > /orangefs/file1")
           client2.succeed("grep test /orangefs/file1")
     '';
-  })
+  } )

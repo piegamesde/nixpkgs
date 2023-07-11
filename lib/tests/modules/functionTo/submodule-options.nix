@@ -4,7 +4,8 @@
   options,
   ...
 }:
-let inherit (lib) types;
+let
+  inherit (lib) types;
 in {
   imports = [
 

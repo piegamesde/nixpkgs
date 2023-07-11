@@ -101,4 +101,4 @@ import ./make-test-python.nix ({
       backend2.unblock()
       client.succeed("curl --fail http://proxy/")
     '';
-  })
+  } )

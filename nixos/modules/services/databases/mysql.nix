@@ -522,7 +522,7 @@ in {
             }
           ) | ${cfg.package}/bin/mysql -N
         '') cfg.ensureUsers}
-      '';
+      '' ;
 
       serviceConfig = mkMerge [
         {

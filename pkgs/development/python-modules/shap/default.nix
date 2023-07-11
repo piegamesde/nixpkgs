@@ -92,7 +92,7 @@ buildPythonPackage rec {
     # Add pytest hook skipping tests that access network.
     # These tests are marked as "Expected fail" (xfail)
     cat ${conftestSkipNetworkErrors} >> tests/conftest.py
-  '';
+  '' ;
   nativeCheckInputs = [
     pytestCheckHook
     pytest-mpl

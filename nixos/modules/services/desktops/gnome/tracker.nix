@@ -9,7 +9,8 @@
 
 with lib;
 
-let cfg = config.services.gnome.tracker;
+let
+  cfg = config.services.gnome.tracker;
 in {
 
   meta = { maintainers = teams.gnome.members; };
@@ -73,7 +74,9 @@ in {
           name = "tracker-with-subcommands-${pkgs.tracker.version}";
           paths = [ pkgs.tracker ] ++ cfg.subcommandPackages;
         };
-      in "${subcommandPackagesTree}/libexec/tracker3";
+      in
+        "${subcommandPackagesTree}/libexec/tracker3"
+      ;
     };
 
   };

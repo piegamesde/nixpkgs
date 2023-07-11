@@ -147,8 +147,10 @@ in {
               verifyHostname = null; # Not a real stunnel configuration setting
             };
           forceClient = c: c // { client = true; };
-        in mapAttrs
-        (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)));
+        in
+          mapAttrs
+          (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)))
+        ;
 
         example = {
           foobar = {

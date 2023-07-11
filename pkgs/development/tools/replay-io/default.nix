@@ -17,7 +17,8 @@
   zlib,
   fetchzip,
 }:
-let metadata = lib.importJSON ./meta.json;
+let
+  metadata = lib.importJSON ./meta.json;
 in rec {
   replay-recordreplay = stdenv.mkDerivation rec {
     pname = "replay-recordreplay";

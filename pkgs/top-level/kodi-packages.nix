@@ -8,7 +8,8 @@
 
 with lib;
 
-let inherit (libretro) genesis-plus-gx mgba snes9x;
+let
+  inherit (libretro) genesis-plus-gx mgba snes9x;
 
 in let
   self = rec {
@@ -35,9 +36,11 @@ in let
 
     # Get list of required Kodi addons given a list of derivations.
     requiredKodiAddons = drvs:
-      let modules = filter hasKodiAddon drvs;
-      in unique
-      (modules ++ concatLists (catAttrs "requiredKodiAddons" modules));
+      let
+        modules = filter hasKodiAddon drvs;
+      in
+        unique (modules ++ concatLists (catAttrs "requiredKodiAddons" modules))
+    ;
 
     # package update scripts
 
@@ -196,10 +199,11 @@ in let
 
     trakt = callPackage ../applications/video/kodi/addons/trakt { };
   };
-in self // lib.optionalAttrs config.allowAliases {
-  # deprecated or renamed packages
+in
+  self // lib.optionalAttrs config.allowAliases {
+    # deprecated or renamed packages
 
-  controllers = throw
-    "kodi.packages.controllers has been replaced with kodi.packages.controller-topology-project - a package which contains a large number of controller profiles."
-    { };
-}
+    controllers = throw
+      "kodi.packages.controllers has been replaced with kodi.packages.controller-topology-project - a package which contains a large number of controller profiles."
+      { };
+  }

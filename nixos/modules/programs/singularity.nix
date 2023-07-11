@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.programs.singularity;
+let
+  cfg = config.programs.singularity;
 in {
 
   options.programs.singularity = {

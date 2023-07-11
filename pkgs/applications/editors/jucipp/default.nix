@@ -82,9 +82,11 @@ stdenv.mkDerivation rec {
     p = ''arguments.emplace_back("-I'';
     e = ''");'';
     v = lib.getVersion llvmPackages.clang;
-  in p + llvmPackages.libcxx.dev + "/include/c++/v1" + e + p
-  + llvmPackages.clang-unwrapped.lib + "/lib/clang/" + v + "/include/" + e + p
-  + glibc.dev + "/include" + e;
+  in
+    p + llvmPackages.libcxx.dev + "/include/c++/v1" + e + p
+    + llvmPackages.clang-unwrapped.lib + "/lib/clang/" + v + "/include/" + e + p
+    + glibc.dev + "/include" + e
+  ;
 
   preConfigure = ''
     sed -i 's|liblldb LIBLLDB_LIBRARIES|liblldb LIBNOTHING|g' CMakeLists.txt

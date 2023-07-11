@@ -134,5 +134,5 @@ import ./make-test-python.nix ({
             out = master.succeed("${pkgs.jenkins}/bin/jenkins-cli -s ${jenkinsUrl} -auth admin:$(cat /var/lib/jenkins/secrets/initialAdminPassword) list-jobs")
             jobs = [x.strip() for x in out.splitlines()]
             assert jobs == [], f"jobs != []: {jobs}"
-      '';
+      '' ;
   })

@@ -298,19 +298,19 @@ rec {
     loongson2f = [ ];
   };
 
-  predicates =
-    let featureSupport = feature: x: builtins.elem feature features.${x} or [ ];
-    in {
-      sse3Support = featureSupport "sse3";
-      ssse3Support = featureSupport "ssse3";
-      sse4_1Support = featureSupport "sse4_1";
-      sse4_2Support = featureSupport "sse4_2";
-      sse4_aSupport = featureSupport "sse4a";
-      avxSupport = featureSupport "avx";
-      avx2Support = featureSupport "avx2";
-      avx512Support = featureSupport "avx512";
-      aesSupport = featureSupport "aes";
-      fmaSupport = featureSupport "fma";
-      fma4Support = featureSupport "fma4";
-    };
+  predicates = let
+    featureSupport = feature: x: builtins.elem feature features.${x} or [ ];
+  in {
+    sse3Support = featureSupport "sse3";
+    ssse3Support = featureSupport "ssse3";
+    sse4_1Support = featureSupport "sse4_1";
+    sse4_2Support = featureSupport "sse4_2";
+    sse4_aSupport = featureSupport "sse4a";
+    avxSupport = featureSupport "avx";
+    avx2Support = featureSupport "avx2";
+    avx512Support = featureSupport "avx512";
+    aesSupport = featureSupport "aes";
+    fmaSupport = featureSupport "fma";
+    fma4Support = featureSupport "fma4";
+  } ;
 }

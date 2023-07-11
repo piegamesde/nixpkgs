@@ -17,7 +17,9 @@ let
       (builtins.getAttr "onlykey" (builtins.head packageJson));
     matches = builtins.elemAt splits 1;
     elem = builtins.head matches;
-  in elem;
+  in
+    elem
+  ;
 
   # this must be updated anytime this package is updated.
   onlykeyPkg =
@@ -59,7 +61,8 @@ let
     desktopName = onlykey.packageName;
     genericName = onlykey.packageName;
   };
-in runCommand "${onlykey.packageName}-${onlykey.version}" { } ''
-  mkdir -p $out/bin
-  ln -s ${script} $out/bin/onlykey
-''
+in
+  runCommand "${onlykey.packageName}-${onlykey.version}" { } ''
+    mkdir -p $out/bin
+    ln -s ${script} $out/bin/onlykey
+  ''

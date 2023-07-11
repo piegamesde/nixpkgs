@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.geary;
+let
+  cfg = config.programs.geary;
 
 in {
   meta = { maintainers = teams.gnome.members; };

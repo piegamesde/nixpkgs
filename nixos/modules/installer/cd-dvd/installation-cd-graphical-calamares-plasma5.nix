@@ -53,6 +53,6 @@
     ln -sfT ${pkgs.calamares-nixos}/share/applications/io.calamares.calamares.desktop ${
       desktopDir + "io.calamares.calamares.desktop"
     }
-  '';
+  '' ;
 
 }

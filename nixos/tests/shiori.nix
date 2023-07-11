@@ -83,5 +83,5 @@ import ./make-test-python.nix ({
                   or bookmark["title"] != "${insertBookmark.title}"
               ):
                   raise Exception("Inserted bookmark doesn't have same URL or title")
-    '';
+    '' ;
   })

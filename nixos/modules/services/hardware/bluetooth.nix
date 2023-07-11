@@ -146,7 +146,7 @@ in {
         ];
         # restarting can leave people without a mouse/keyboard
         unitConfig.X-RestartIfChanged = false;
-      };
+      } ;
     } // (optionalAttrs cfg.hsphfpd.enable {
       hsphfpd = {
         after = [ "bluetooth.service" ];

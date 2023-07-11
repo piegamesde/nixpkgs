@@ -29,4 +29,5 @@ let
 
   sbcl-bt = sbclWithPackages (p: [ p.bordeaux-threads ]);
 
-in sbcl-bt
+in
+  sbcl-bt

@@ -208,7 +208,7 @@ in {
         }: ''
           ln -sf '${file}' "${local}"
         '') rules}
-    '');
+    '' );
 
     environment.etc."opensnitchd/default-config.json".source =
       format.generate "default-config.json" cfg.settings;

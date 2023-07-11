@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.agate;
+let
+  cfg = config.services.agate;
 in {
   options = {
     services.agate = {
@@ -108,7 +109,7 @@ in {
             ]) ++ (optionals cfg.onlyTls_1_3 [ "--only-tls13" ])
             ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs))
         }
-      '';
+      '' ;
 
       serviceConfig = {
         Restart = "always";

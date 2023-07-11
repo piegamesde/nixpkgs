@@ -63,57 +63,60 @@ let
     os-release = pkgs.writeText "os-release"
       (envFileGenerator (filterNull os-release-params));
 
-  in stdenv.mkDerivation {
-    pname = "root-fs-scaffold";
+  in
+    stdenv.mkDerivation {
+      pname = "root-fs-scaffold";
+      inherit version;
+
+      buildCommand = ''
+        # scaffold a file system layout
+        mkdir -p $out/etc/systemd/system $out/proc $out/sys $out/dev $out/run \
+                 $out/tmp $out/var/tmp $out/var/lib $out/var/cache $out/var/log
+
+        # empty files to mount over with host's version
+        touch $out/etc/resolv.conf $out/etc/machine-id
+
+        # required for portable services
+        cp ${os-release} $out/etc/os-release
+      ''
+        # units **must** be copied to /etc/systemd/system/
+        + (lib.concatMapStringsSep "\n"
+          (u: "cp ${u} $out/etc/systemd/system/${u.name};") units)
+        + (lib.concatMapStringsSep "\n" ({
+            object,
+            symlink,
+          }: ''
+            mkdir -p $(dirname $out/${symlink});
+            ln -s ${object} $out/${symlink};
+          '') symlinks);
+    }
+  ;
+
+in
+  assert lib.assertMsg (lib.all (u: lib.hasPrefix pname u.name) units)
+    "Unit names must be prefixed with the service name";
+
+  stdenv.mkDerivation {
+    pname = "${pname}-img";
     inherit version;
 
+    nativeBuildInputs = [ squashfsTools ];
+    closureInfo =
+      pkgs.closureInfo { rootPaths = [ rootFsScaffold ] ++ contents; };
+
     buildCommand = ''
-      # scaffold a file system layout
-      mkdir -p $out/etc/systemd/system $out/proc $out/sys $out/dev $out/run \
-               $out/tmp $out/var/tmp $out/var/lib $out/var/cache $out/var/log
+      mkdir -p nix/store
+      for i in $(< $closureInfo/store-paths); do
+        cp -a "$i" "''${i:1}"
+      done
 
-      # empty files to mount over with host's version
-      touch $out/etc/resolv.conf $out/etc/machine-id
-
-      # required for portable services
-      cp ${os-release} $out/etc/os-release
-    ''
-      # units **must** be copied to /etc/systemd/system/
-      + (lib.concatMapStringsSep "\n"
-        (u: "cp ${u} $out/etc/systemd/system/${u.name};") units)
-      + (lib.concatMapStringsSep "\n" ({
-          object,
-          symlink,
-        }: ''
-          mkdir -p $(dirname $out/${symlink});
-          ln -s ${object} $out/${symlink};
-        '') symlinks);
-  };
-
-in assert lib.assertMsg (lib.all (u: lib.hasPrefix pname u.name) units)
-  "Unit names must be prefixed with the service name";
-
-stdenv.mkDerivation {
-  pname = "${pname}-img";
-  inherit version;
-
-  nativeBuildInputs = [ squashfsTools ];
-  closureInfo =
-    pkgs.closureInfo { rootPaths = [ rootFsScaffold ] ++ contents; };
-
-  buildCommand = ''
-    mkdir -p nix/store
-    for i in $(< $closureInfo/store-paths); do
-      cp -a "$i" "''${i:1}"
-    done
-
-    mkdir -p $out
-    # the '.raw' suffix is mandatory by the portable service spec
-    mksquashfs nix ${rootFsScaffold}/* $out/"${pname}_${version}.raw" \
-      -quiet -noappend \
-      -exit-on-error \
-      -keep-as-directory \
-      -all-root -root-mode 755 \
-      -b ${squash-block-size} -comp ${squash-compression}
-  '';
-}
+      mkdir -p $out
+      # the '.raw' suffix is mandatory by the portable service spec
+      mksquashfs nix ${rootFsScaffold}/* $out/"${pname}_${version}.raw" \
+        -quiet -noappend \
+        -exit-on-error \
+        -keep-as-directory \
+        -all-root -root-mode 755 \
+        -b ${squash-block-size} -comp ${squash-compression}
+    '';
+  }

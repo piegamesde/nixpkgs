@@ -119,9 +119,11 @@ let
         # example externalDeps': [ { name = "CRYPTO"; dep = pkgs.openssl; } ]
         externalDeps' =
           lib.filter (dep: !lib.isDerivation dep) self.externalDeps;
-      in [ lua.pkgs.luarocks ] ++ buildInputs ++ lib.optionals self.doCheck
-      ([ luarocksCheckHook ] ++ self.nativeCheckInputs)
-      ++ (map (d: d.dep) externalDeps');
+      in
+        [ lua.pkgs.luarocks ] ++ buildInputs ++ lib.optionals self.doCheck
+        ([ luarocksCheckHook ] ++ self.nativeCheckInputs)
+        ++ (map (d: d.dep) externalDeps')
+      ;
 
       # propagate lua to active setup-hook in nix-shell
       propagatedBuildInputs = propagatedBuildInputs ++ [ lua ];
@@ -148,7 +150,7 @@ let
       in ''
         ${generatedConfig}
         ${extraConfig}
-      '';
+      '' ;
 
       configurePhase = ''
         runHook preConfigure
@@ -227,4 +229,5 @@ let
         broken = disabled;
       } // attrs.meta or { };
     }));
-in luarocksDrv
+in
+  luarocksDrv

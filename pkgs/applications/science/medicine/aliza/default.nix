@@ -77,7 +77,7 @@ stdenv.mkDerivation {
 
     wrapProgram $out/bin/aliza-vtkvol \
       --prefix LD_LIBRARY_PATH : ${libs}
-  '';
+  '' ;
 
   meta = {
     description = "Medical imaging software with 2D, 3D and 4D capabilities";

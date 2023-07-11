@@ -26,27 +26,29 @@ let
       '';
       pname = "agdaWithPackages";
       version = Agda.version;
-    in runCommand "${pname}-${version}" {
-      inherit pname version;
-      nativeBuildInputs = [ makeWrapper ];
-      passthru = {
-        unwrapped = Agda;
-        inherit withPackages;
-        tests = {
-          inherit (nixosTests) agda;
-          allPackages = withPackages
-            (lib.filter self.lib.isUnbrokenAgdaPackage (lib.attrValues self));
+    in
+      runCommand "${pname}-${version}" {
+        inherit pname version;
+        nativeBuildInputs = [ makeWrapper ];
+        passthru = {
+          unwrapped = Agda;
+          inherit withPackages;
+          tests = {
+            inherit (nixosTests) agda;
+            allPackages = withPackages
+              (lib.filter self.lib.isUnbrokenAgdaPackage (lib.attrValues self));
+          };
         };
-      };
-      inherit (Agda) meta;
-    } ''
-      mkdir -p $out/bin
-      makeWrapper ${Agda}/bin/agda $out/bin/agda \
-        --add-flags "--with-compiler=${ghc}/bin/ghc" \
-        --add-flags "--library-file=${library-file}" \
-        --add-flags "--local-interfaces"
-      ln -s ${Agda}/bin/agda-mode $out/bin/agda-mode
-    ''; # Local interfaces has been added for now: See https://github.com/agda/agda/issues/4526
+        inherit (Agda) meta;
+      } ''
+        mkdir -p $out/bin
+        makeWrapper ${Agda}/bin/agda $out/bin/agda \
+          --add-flags "--with-compiler=${ghc}/bin/ghc" \
+          --add-flags "--library-file=${library-file}" \
+          --add-flags "--local-interfaces"
+        ln -s ${Agda}/bin/agda-mode $out/bin/agda-mode
+      ''
+  ; # Local interfaces has been added for now: See https://github.com/agda/agda/issues/4526
 
   withPackages = arg:
     if builtins.isAttrs arg then
@@ -129,7 +131,7 @@ let
         lib.filterAttrs (name: pkg:
           self.lib.isUnbrokenAgdaPackage pkg
           && elem pname (map (pkg: pkg.pname) pkg.buildInputs)) self;
-    };
+    } ;
 in {
   mkDerivation = args: stdenv.mkDerivation (args // defaults args);
 

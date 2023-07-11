@@ -44,42 +44,44 @@ let
     { NIXOS_FAKE_USB_DEBUG = option yes; }
   ];
 
-in runTests {
-  testEasy = {
-    expr = (getConfig { NIXOS_FAKE_USB_DEBUG = yes; }).NIXOS_FAKE_USB_DEBUG;
-    expected = {
-      tristate = "y";
-      optional = false;
-      freeform = null;
+in
+  runTests {
+    testEasy = {
+      expr = (getConfig { NIXOS_FAKE_USB_DEBUG = yes; }).NIXOS_FAKE_USB_DEBUG;
+      expected = {
+        tristate = "y";
+        optional = false;
+        freeform = null;
+      };
     };
-  };
 
-  # mandatory flag should win over optional
-  testMandatoryCheck = {
-    expr = (getConfig mandatoryVsOptionalConfig).NIXOS_FAKE_USB_DEBUG.optional;
-    expected = false;
-  };
+    # mandatory flag should win over optional
+    testMandatoryCheck = {
+      expr =
+        (getConfig mandatoryVsOptionalConfig).NIXOS_FAKE_USB_DEBUG.optional;
+      expected = false;
+    };
 
-  testYesWinsOverNo = {
-    expr = (getConfig mkDefaultWorksConfig)."NIXOS_TEST_BOOLEAN".tristate;
-    expected = "y";
-  };
+    testYesWinsOverNo = {
+      expr = (getConfig mkDefaultWorksConfig)."NIXOS_TEST_BOOLEAN".tristate;
+      expected = "y";
+    };
 
-  testAllOptionalRemainOptional = {
-    expr =
-      (getConfig allOptionalRemainOptional)."NIXOS_FAKE_USB_DEBUG".optional;
-    expected = true;
-  };
+    testAllOptionalRemainOptional = {
+      expr =
+        (getConfig allOptionalRemainOptional)."NIXOS_FAKE_USB_DEBUG".optional;
+      expected = true;
+    };
 
-  # check that freeform options are unique
-  # Should trigger
-  # > The option `settings.NIXOS_FAKE_MMC_BLOCK_MINORS.freeform' has conflicting definitions, in `<unknown-file>' and `<unknown-file>'
-  testTreeform = let
-    res = builtins.tryEval
-      ((getConfig freeformConfig).NIXOS_FAKE_MMC_BLOCK_MINORS.freeform);
-  in {
-    expr = res.success;
-    expected = false;
-  };
+    # check that freeform options are unique
+    # Should trigger
+    # > The option `settings.NIXOS_FAKE_MMC_BLOCK_MINORS.freeform' has conflicting definitions, in `<unknown-file>' and `<unknown-file>'
+    testTreeform = let
+      res = builtins.tryEval
+        ((getConfig freeformConfig).NIXOS_FAKE_MMC_BLOCK_MINORS.freeform);
+    in {
+      expr = res.success;
+      expected = false;
+    } ;
 
-}
+  }

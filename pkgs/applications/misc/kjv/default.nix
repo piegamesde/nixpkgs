@@ -20,34 +20,35 @@ let
     sha256 = "0bv9yma67jdj496a6vn6y007c9gwjpg3rzld1i9m9y9xmlzq4yzv";
   };
 
-in stdenv.mkDerivation {
-  pname = "kjv";
-  version = "unstable-2021-03-11";
+in
+  stdenv.mkDerivation {
+    pname = "kjv";
+    version = "unstable-2021-03-11";
 
-  src = fetchFromGitHub {
-    owner = "bontibon";
-    repo = "kjv";
-    rev = "108595dcbb9bb12d40e0309f029b6fb3ccd81309";
-    hash = "sha256-Z6myd9Xn23pYizG+IZVDrP988pYU06QIcpqXtWTcPiw=";
-  };
+    src = fetchFromGitHub {
+      owner = "bontibon";
+      repo = "kjv";
+      rev = "108595dcbb9bb12d40e0309f029b6fb3ccd81309";
+      hash = "sha256-Z6myd9Xn23pYizG+IZVDrP988pYU06QIcpqXtWTcPiw=";
+    };
 
-  patches = [
-    add-apocrypha
-    add-install-target
-  ];
-
-  buildInputs = [ readline ];
-
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
-
-  meta = with lib; {
-    description = "The Bible, King James Version";
-    homepage = "https://github.com/bontibon/kjv";
-    license = licenses.unlicense;
-    maintainers = with maintainers; [
-      jtobin
-      cafkafk
+    patches = [
+      add-apocrypha
+      add-install-target
     ];
-    mainProgram = "kjv";
-  };
-}
+
+    buildInputs = [ readline ];
+
+    makeFlags = [ "PREFIX=${placeholder "out"}" ];
+
+    meta = with lib; {
+      description = "The Bible, King James Version";
+      homepage = "https://github.com/bontibon/kjv";
+      license = licenses.unlicense;
+      maintainers = with maintainers; [
+        jtobin
+        cafkafk
+      ];
+      mainProgram = "kjv";
+    };
+  }

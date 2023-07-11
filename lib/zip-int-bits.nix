@@ -12,7 +12,9 @@ let
       let
         headbit = if (x / 2) * 2 != x then 1 else 0; # x & 1
         tailbits = if x < 0 then ((x + 1) / 2) - 1 else x / 2; # x >> 1
-      in [ headbit ] ++ (intToBits tailbits);
+      in
+        [ headbit ] ++ (intToBits tailbits)
+  ;
 
   # (bitsToInt [ 0 1 1 ] 0) -> 6
   # (bitsToInt [ 0 1 0 ] 1) -> -6
@@ -36,5 +38,6 @@ let
     else
       [ (f (builtins.head fst) (builtins.head snd)) ]
       ++ (zipListsWith' (builtins.tail fst) (builtins.tail snd));
-in assert (builtins.isInt x) && (builtins.isInt y);
-bitsToInt (zipListsWith' (intToBits x) (intToBits y)) (f xsignum ysignum)
+in
+  assert (builtins.isInt x) && (builtins.isInt y);
+  bitsToInt (zipListsWith' (intToBits x) (intToBits y)) (f xsignum ysignum)

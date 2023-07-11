@@ -366,5 +366,5 @@ import ./make-test-python.nix ({
       ${allowTrafficBetween "allowToLighthouse" "allowAny"}
       allowAny.succeed("ping -c3 10.0.100.4")
       allowToLighthouse.succeed("ping -c3 10.0.100.2")
-    '';
-  })
+    '' ;
+  } )

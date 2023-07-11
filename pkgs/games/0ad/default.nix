@@ -14,4 +14,5 @@ let
     zeroad = callPackage ./wrapper.nix { };
   };
 
-in self
+in
+  self

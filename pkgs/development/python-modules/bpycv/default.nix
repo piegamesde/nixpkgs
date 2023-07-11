@@ -53,7 +53,7 @@ buildPythonPackage rec {
       chmod +w -R example_data
       BPY_EXAMPLE_DATA=${bpycv_example_data} blender -b -P ${./bpycv-test.py}
     popd
-  '';
+  '' ;
 
   meta = with lib; {
     description = "Computer vision utils for Blender";

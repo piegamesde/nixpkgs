@@ -56,7 +56,9 @@ in rec {
     let
       len = length list;
       fold' = n: if n == len then nul else op (elemAt list n) (fold' (n + 1));
-    in fold' 0;
+    in
+      fold' 0
+  ;
 
   # `fold` is an alias of `foldr` for historic reasons
   # FIXME(Profpatsch): deprecate?
@@ -79,7 +81,9 @@ in rec {
   foldl = op: nul: list:
     let
       foldl' = n: if n == -1 then nul else op (foldl' (n - 1)) (elemAt list n);
-    in foldl' (length list - 1);
+    in
+      foldl' (length list - 1)
+  ;
 
   /* Strict version of `foldl`.
 
@@ -191,7 +195,8 @@ in rec {
     default:
     # Input list
     list:
-    let found = filter pred list;
+    let
+      found = filter pred list;
     in if found == [ ] then default else head found;
 
   /* Return true if function `pred` returns true for at least one
@@ -354,9 +359,12 @@ in rec {
     mapAttrs (name: foldl op nul) (groupBy pred lst);
 
   groupBy = builtins.groupBy or (pred:
-    foldl'
-    (r: e: let key = pred e; in r // { ${key} = (r.${key} or [ ]) ++ [ e ]; })
-    { });
+    foldl' (r: e:
+      let
+        key = pred e;
+      in
+        r // { ${key} = (r.${key} or [ ]) ++ [ e ]; }
+    ) { });
 
   /* Merges two lists of the same size together. If the sizes aren't the same
      the merging stops at the shortest. How both lists are merged is defined
@@ -398,7 +406,12 @@ in rec {
        reverseList [ "b" "o" "j" ]
        => [ "j" "o" "b" ]
   */
-  reverseList = xs: let l = length xs; in genList (n: elemAt xs (l - n - 1)) l;
+  reverseList = xs:
+    let
+      l = length xs;
+    in
+      genList (n: elemAt xs (l - n - 1)) l
+  ;
 
   /* Depth-First Search (DFS) for lists `list != []`.
 
@@ -434,7 +447,9 @@ in rec {
           inherit visited rest;
         } else # grab the first one before us and continue
           dfs' (head b.right) ([ us ] ++ visited) (tail b.right ++ b.wrong);
-    in dfs' (head list) [ ] (tail list);
+    in
+      dfs' (head list) [ ] (tail list)
+  ;
 
   /* Sort a list based on a partial ordering using DFS. This
      implementation is O(N^2), if your ordering is linear, use `sort`
@@ -539,7 +554,8 @@ in rec {
     else if b == [ ] then
       1
     else
-      let rel = cmp (head a) (head b);
+      let
+        rel = cmp (head a) (head b);
       in if rel == 0 then compareLists cmp (tail a) (tail b) else rel;
 
   /* Sort list using "Natural sorting".
@@ -563,7 +579,9 @@ in rec {
         x
       ]) lst; # remember vectorised version for O(n) regex splits
       less = a: b: (compareLists compare (head a) (head b)) < 0;
-    in map (x: elemAt x 1) (sort less prepared);
+    in
+      map (x: elemAt x 1) (sort less prepared)
+  ;
 
   /* Return the first (at most) N elements of a list.
 
@@ -615,13 +633,16 @@ in rec {
     count:
     # Input list
     list:
-    let len = length list;
-    in genList (n: elemAt list (n + start)) (if start >= len then
-      0
-    else if start + count > len then
-      len - start
-    else
-      count);
+    let
+      len = length list;
+    in
+      genList (n: elemAt list (n + start)) (if start >= len then
+        0
+      else if start + count > len then
+        len - start
+      else
+        count)
+  ;
 
   /* Return the last element of a list.
 

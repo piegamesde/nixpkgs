@@ -57,7 +57,7 @@ buildGoModule rec {
           ffmpeg
         ]
       }
-  '';
+  '' ;
 
   installCheckPhase = ''
     runHook preCheck

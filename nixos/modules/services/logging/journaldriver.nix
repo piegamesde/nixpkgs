@@ -17,7 +17,8 @@
 }:
 
 with lib;
-let cfg = config.services.journaldriver;
+let
+  cfg = config.services.journaldriver;
 in {
   options.services.journaldriver = {
     enable = mkOption {

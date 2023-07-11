@@ -48,4 +48,5 @@ let
       ];
     };
   };
-in packaging
+in
+  packaging

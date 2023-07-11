@@ -115,7 +115,7 @@ in {
         DevicePolicy = "closed";
         NoNewPrivileges = true;
         WorkingDirectory = cfg.dataDir;
-      };
+      } ;
     };
   };
 }

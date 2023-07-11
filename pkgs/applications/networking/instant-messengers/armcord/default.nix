@@ -42,18 +42,21 @@ stdenv.mkDerivation rec {
   pname = "armcord";
   version = "3.1.7";
 
-  src = let base = "https://github.com/ArmCord/ArmCord/releases/download";
-  in {
-    x86_64-linux = fetchurl {
-      url = "${base}/v${version}/ArmCord_${version}_amd64.deb";
-      sha256 = "sha256-c0ejSivQbxpPUQ6P0YUya3q1EJ1yF4RFGur11BMwz3o=";
-    };
-    aarch64-linux = fetchurl {
-      url = "${base}/v${version}/ArmCord_${version}_arm64.deb";
-      sha256 = "sha256-4yqe4eIO4AxsZNYCn99KTBqjQURB+G+gpT0Q17pcEvU=";
-    };
-  }.${stdenv.hostPlatform.system} or (throw
-    "Unsupported system: ${stdenv.hostPlatform.system}");
+  src = let
+    base = "https://github.com/ArmCord/ArmCord/releases/download";
+  in
+    {
+      x86_64-linux = fetchurl {
+        url = "${base}/v${version}/ArmCord_${version}_amd64.deb";
+        sha256 = "sha256-c0ejSivQbxpPUQ6P0YUya3q1EJ1yF4RFGur11BMwz3o=";
+      };
+      aarch64-linux = fetchurl {
+        url = "${base}/v${version}/ArmCord_${version}_arm64.deb";
+        sha256 = "sha256-4yqe4eIO4AxsZNYCn99KTBqjQURB+G+gpT0Q17pcEvU=";
+      };
+    }.${stdenv.hostPlatform.system} or (throw
+      "Unsupported system: ${stdenv.hostPlatform.system}")
+  ;
 
   nativeBuildInputs = [
     autoPatchelfHook

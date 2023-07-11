@@ -23,40 +23,41 @@ let
     };
   };
 
-in stdenv.mkDerivation rec {
-  pname = "systembus-notify";
-  version = "1.1";
+in
+  stdenv.mkDerivation rec {
+    pname = "systembus-notify";
+    version = "1.1";
 
-  src = fetchFromGitHub {
-    owner = "rfjakob";
-    repo = "systembus-notify";
-    rev = "v${version}";
-    sha256 = "sha256-WzuBw7LXW54CCMgFE9BSJ2skxaz4IA2BcBny63Ihtt0=";
-  };
+    src = fetchFromGitHub {
+      owner = "rfjakob";
+      repo = "systembus-notify";
+      rev = "v${version}";
+      sha256 = "sha256-WzuBw7LXW54CCMgFE9BSJ2skxaz4IA2BcBny63Ihtt0=";
+    };
 
-  buildInputs = [ systemd ];
+    buildInputs = [ systemd ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm555 -t $out/bin systembus-notify
-    install -Dm444 -t $out/share/systembus-notify systembus-notify.desktop
+      install -Dm555 -t $out/bin systembus-notify
+      install -Dm444 -t $out/share/systembus-notify systembus-notify.desktop
 
-    install -d $out/lib/systemd/user
-    substitute ${unit} $out/lib/systemd/user/${unit.name} \
-      --subst-var out
+      install -d $out/lib/systemd/user
+      substitute ${unit} $out/lib/systemd/user/${unit.name} \
+        --subst-var out
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  # requires a running dbus instance
-  doCheck = false;
+    # requires a running dbus instance
+    doCheck = false;
 
-  meta = with lib; {
-    description = "System bus notification daemon";
-    homepage = "https://github.com/rfjakob/systembus-notify";
-    license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "System bus notification daemon";
+      homepage = "https://github.com/rfjakob/systembus-notify";
+      license = licenses.mit;
+      maintainers = with maintainers; [ peterhoeg ];
+      platforms = platforms.linux;
+    };
+  }

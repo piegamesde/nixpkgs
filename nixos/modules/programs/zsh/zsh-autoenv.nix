@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.zsh.zsh-autoenv;
+let
+  cfg = config.programs.zsh.zsh-autoenv;
 in {
   options = {
     programs.zsh.zsh-autoenv = {

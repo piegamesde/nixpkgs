@@ -29,7 +29,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.machine.users.users.alice;
+      let
+        user = nodes.machine.users.users.alice;
       in ''
         with subtest("Wait for login"):
             machine.wait_for_x()
@@ -56,5 +57,5 @@ import ./make-test-python.nix ({
             machine.wait_for_window("deepin-terminal")
             machine.sleep(20)
             machine.screenshot("screen")
-      '';
+      '' ;
   })

@@ -209,10 +209,12 @@ in {
         selectedSessionVars =
           lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
           config.environment.sessionVariables;
-      in selectedSessionVars // {
-        JENKINS_HOME = cfg.home;
-        NIX_REMOTE = "daemon";
-      } // cfg.environment;
+      in
+        selectedSessionVars // {
+          JENKINS_HOME = cfg.home;
+          NIX_REMOTE = "daemon";
+        } // cfg.environment
+      ;
 
       path = cfg.packages;
 
@@ -229,11 +231,11 @@ in {
             rm -r ${cfg.home}/plugins || true
             mkdir -p ${cfg.home}/plugins
             ${lib.strings.concatStringsSep "\n" pluginCmds}
-          '';
+          '' ;
       in ''
         rm -rf ${cfg.home}/war
         ${replacePlugins}
-      '';
+      '' ;
 
       # For reference: https://wiki.jenkins.io/display/JENKINS/JenkinsLinuxStartupScript
       script = ''

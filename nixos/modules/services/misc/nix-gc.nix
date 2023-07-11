@@ -6,7 +6,8 @@
 
 with lib;
 
-let cfg = config.nix.gc;
+let
+  cfg = config.nix.gc;
 
 in {
 

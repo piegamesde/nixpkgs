@@ -145,9 +145,10 @@ in {
     # The postgresql module doesn't currently support concepts like
     # objects owners and extensions; for now we tack on what's needed
     # here.
-    systemd.services.postfixadmin-postgres =
-      let pgsql = config.services.postgresql;
-      in mkIf localDB {
+    systemd.services.postfixadmin-postgres = let
+      pgsql = config.services.postgresql;
+    in
+      mkIf localDB {
         after = [ "postgresql.service" ];
         bindsTo = [ "postgresql.service" ];
         wantedBy = [ "multi-user.target" ];
@@ -181,7 +182,8 @@ in {
           Type = "oneshot";
           RemainAfterExit = true;
         };
-      };
+      }
+    ;
 
     users.users.${user} = mkIf localDB {
       group = user;

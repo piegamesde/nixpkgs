@@ -6,7 +6,8 @@
   ...
 }:
 
-let cfg = config.services.nextcloud.notify_push;
+let
+  cfg = config.services.nextcloud.notify_push;
 in {
   options.services.nextcloud.notify_push = {
     enable = lib.mkEnableOption (lib.mdDoc "Notify push");
@@ -87,12 +88,14 @@ in {
         dbUrl = "${dbType}://${dbUser}${dbPass}${
             lib.optionalString (!isSocket) dbHost
           }${dbName}${lib.optionalString isSocket dbHost}";
-      in lib.optionalString (dbPass != "") ''
-        export DATABASE_PASSWORD="$(<"${cfg.dbpassFile}")"
-      '' + ''
-        export DATABASE_URL="${dbUrl}"
-        ${cfg.package}/bin/notify_push '${config.services.nextcloud.datadir}/config/config.php'
-      '';
+      in
+        lib.optionalString (dbPass != "") ''
+          export DATABASE_PASSWORD="$(<"${cfg.dbpassFile}")"
+        '' + ''
+          export DATABASE_URL="${dbUrl}"
+          ${cfg.package}/bin/notify_push '${config.services.nextcloud.datadir}/config/config.php'
+        ''
+      ;
       serviceConfig = {
         User = "nextcloud";
         Group = "nextcloud";
@@ -100,7 +103,7 @@ in {
         Restart = "on-failure";
         RestartSec = "5s";
       };
-    };
+    } ;
 
     services.nginx.virtualHosts.${config.services.nextcloud.hostName}.locations."^~ /push/" =
       {

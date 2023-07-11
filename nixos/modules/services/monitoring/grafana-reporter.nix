@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.grafana_reporter;
+let
+  cfg = config.services.grafana_reporter;
 
 in {
   options.services.grafana_reporter = {
@@ -69,7 +70,7 @@ in {
         ];
       in {
         ExecStart = "${pkgs.grafana_reporter}/bin/grafana-reporter ${args}";
-      };
+      } ;
     };
   };
 }

@@ -7,7 +7,8 @@
 
 with lib;
 
-let kernelVersion = config.boot.kernelPackages.kernel.version;
+let
+  kernelVersion = config.boot.kernelPackages.kernel.version;
 
 in {
 

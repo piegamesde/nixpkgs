@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.calls;
+let
+  cfg = config.programs.calls;
 in {
   options = {
     programs.calls = {

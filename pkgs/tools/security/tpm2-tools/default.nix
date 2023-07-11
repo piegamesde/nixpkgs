@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   in ''
     wrapProgram $out/bin/tpm2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
     wrapProgram $out/bin/tss2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
-  '';
+  '' ;
 
   # Unit tests disabled, as they rely on a dbus session
   #configureFlags = [ "--enable-unit" ];

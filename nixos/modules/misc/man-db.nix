@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.documentation.man.man-db;
+let
+  cfg = config.documentation.man.man-db;
 
 in {
   options = {
@@ -91,6 +92,6 @@ in {
       ''}
       # Manual pages caches for NixOS
       MANDB_MAP /run/current-system/sw/share/man /var/cache/man/nixos
-    '';
+    '' ;
   };
 }

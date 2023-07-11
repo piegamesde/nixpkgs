@@ -147,10 +147,18 @@ let
 
 in {
 
-  freeformType = let t = lib.types.lazyAttrsOf lib.types.raw;
-  in t // {
-    merge = loc: defs: let r = t.merge loc defs; in r // { _undeclared = r; };
-  };
+  freeformType = let
+    t = lib.types.lazyAttrsOf lib.types.raw;
+  in
+    t // {
+      merge = loc: defs:
+        let
+          r = t.merge loc defs;
+        in
+          r // { _undeclared = r; }
+      ;
+    }
+  ;
 
   inherit options;
 

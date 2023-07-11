@@ -19,7 +19,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ enchant2 ];
 
-  postPatch = let libext = stdenv.hostPlatform.extensions.sharedLibrary;
+  postPatch = let
+    libext = stdenv.hostPlatform.extensions.sharedLibrary;
   in ''
     # Use the $PYENCHANT_LIBRARY_PATH envvar lookup line to hard-code the
     # location of the nix enchant-2 library into _enchant.py.
@@ -31,7 +32,7 @@ buildPythonPackage rec {
       --replace 'os.environ.get("PYENCHANT_LIBRARY_PATH")' \
                 "'${enchant2}/lib/libenchant-2${libext}'"  \
       --replace '/opt/local/lib/' ""
-  '';
+  '' ;
 
   # dictionaries needed for tests
   doCheck = false;

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.input-remapper;
+let
+  cfg = config.services.input-remapper;
 in {
   options = {
     services.input-remapper = {

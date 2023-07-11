@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.services.kasmweb;
+let
+  cfg = config.services.kasmweb;
 in {
   options.services.kasmweb = {
     enable = lib.mkEnableOption (lib.mdDoc "kasmweb");

@@ -110,7 +110,7 @@ let
           lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'")
           replacements
         }
-    '');
+    '' );
 
     postFixup = ''moveToOutput lib/icu "$dev" '';
   };
@@ -133,8 +133,9 @@ let
   };
 
   attrs = if buildRootOnly then buildRootOnlyAttrs else realAttrs;
-in stdenv.mkDerivation (finalAttrs:
-  attrs // {
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
-  })
+in
+  stdenv.mkDerivation (finalAttrs:
+    attrs // {
+      passthru.tests.pkg-config =
+        testers.testMetaPkgConfig finalAttrs.finalPackage;
+    })

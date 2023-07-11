@@ -25,35 +25,38 @@ let
       hydraPlatforms ? null
     }:
     args:
-    let hydraPlatforms' = hydraPlatforms;
-    in lib.makeOverridable ({
-        name,
-        version,
-        sha256,
-        depends ? [ ],
-        doCheck ? true,
-        requireX ? false,
-        broken ? false,
-        platforms ? R.meta.platforms,
-        hydraPlatforms ?
-          if hydraPlatforms' != null then hydraPlatforms' else platforms,
-        maintainers ? [ ]
-      }:
-      buildRPackage {
-        name = "${name}-${version}";
-        src = fetchurl {
-          inherit sha256;
-          urls = mkUrls (args // { inherit name version; });
-        };
-        inherit doCheck requireX;
-        propagatedBuildInputs = depends;
-        nativeBuildInputs = depends;
-        meta.homepage = mkHomepage (args // { inherit name; });
-        meta.platforms = platforms;
-        meta.hydraPlatforms = hydraPlatforms;
-        meta.broken = broken;
-        meta.maintainers = maintainers;
-      });
+    let
+      hydraPlatforms' = hydraPlatforms;
+    in
+      lib.makeOverridable ({
+          name,
+          version,
+          sha256,
+          depends ? [ ],
+          doCheck ? true,
+          requireX ? false,
+          broken ? false,
+          platforms ? R.meta.platforms,
+          hydraPlatforms ?
+            if hydraPlatforms' != null then hydraPlatforms' else platforms,
+          maintainers ? [ ]
+        }:
+        buildRPackage {
+          name = "${name}-${version}";
+          src = fetchurl {
+            inherit sha256;
+            urls = mkUrls (args // { inherit name version; });
+          };
+          inherit doCheck requireX;
+          propagatedBuildInputs = depends;
+          nativeBuildInputs = depends;
+          meta.homepage = mkHomepage (args // { inherit name; });
+          meta.platforms = platforms;
+          meta.hydraPlatforms = hydraPlatforms;
+          meta.broken = broken;
+          meta.maintainers = maintainers;
+        })
+  ;
 
   # Templates for generating Bioconductor and CRAN packages
   # from the name, version, sha256, and optional per-package arguments above
@@ -217,7 +220,9 @@ let
         inherit name;
         value = (builtins.getAttr name old).override { requireX = true; };
       }) packageNames;
-    in builtins.listToAttrs nameValuePairs;
+    in
+      builtins.listToAttrs nameValuePairs
+  ;
 
   # Overrides package definition requiring a home directory to install or to
   # run tests.
@@ -248,7 +253,9 @@ let
           '';
         });
       }) packageNames;
-    in builtins.listToAttrs nameValuePairs;
+    in
+      builtins.listToAttrs nameValuePairs
+  ;
 
   # Overrides package definition to skip check.
   # For example,
@@ -270,7 +277,9 @@ let
         inherit name;
         value = (builtins.getAttr name old).override { doCheck = false; };
       }) packageNames;
-    in builtins.listToAttrs nameValuePairs;
+    in
+      builtins.listToAttrs nameValuePairs
+  ;
 
   # Overrides package definition to mark it broken.
   # For example,
@@ -292,10 +301,13 @@ let
         inherit name;
         value = (builtins.getAttr name old).override { broken = true; };
       }) packageNames;
-    in builtins.listToAttrs nameValuePairs;
+    in
+      builtins.listToAttrs nameValuePairs
+  ;
 
   defaultOverrides = old: new:
-    let old0 = old;
+    let
+      old0 = old;
     in let
       old1 = old0 // (overrideRequireX packagesRequiringX old0);
       old2 = old1 // (overrideRequireHome packagesRequiringHome old1);
@@ -307,7 +319,9 @@ let
       old7 = old6 // (overrideBroken brokenPackages old6);
       old8 = old7 // (overrideMaintainers packagesWithMaintainers old7);
       old = old8;
-    in old // (otherOverrides old new);
+    in
+      old // (otherOverrides old new)
+  ;
 
   # Recursive override pattern.
   # `_self` is a collection of packages;
@@ -1222,7 +1236,7 @@ let
       in ''
         ${attrs.postInstall or ""}
         cp ${icuSrc}/${icuName}.dat $out/library/stringi/libs
-      '';
+      '' ;
     });
 
     xml2 = old.xml2.overrideAttrs (attrs: {
@@ -1615,14 +1629,16 @@ let
       hdf5 = pkgs.hdf5_1_10.overrideAttrs (attrs: {
         configureFlags = attrs.configureFlags ++ [ "--enable-cxx" ];
       });
-    in old.Rhdf5lib.overrideAttrs (attrs: {
-      propagatedBuildInputs = attrs.propagatedBuildInputs ++ [
-        hdf5.dev
-        pkgs.libaec
-      ];
-      patches = [ ./patches/Rhdf5lib.patch ];
-      passthru.hdf5 = hdf5;
-    });
+    in
+      old.Rhdf5lib.overrideAttrs (attrs: {
+        propagatedBuildInputs = attrs.propagatedBuildInputs ++ [
+          hdf5.dev
+          pkgs.libaec
+        ];
+        patches = [ ./patches/Rhdf5lib.patch ];
+        passthru.hdf5 = hdf5;
+      })
+    ;
 
     rhdf5filters = old.rhdf5filters.overrideAttrs (attrs: {
       propagatedBuildInputs = with pkgs;
@@ -1637,4 +1653,5 @@ let
     textshaping = old.textshaping.overrideAttrs
       (attrs: { env.NIX_LDFLAGS = "-lfribidi -lharfbuzz"; });
   };
-in self
+in
+  self

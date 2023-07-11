@@ -30,7 +30,7 @@ buildGoModule rec {
     # cannot build olaris-react https://github.com/NixOS/nixpkgs/issues/203708
     cp -r ${olaris-react} react/build
     make generate
-  '';
+  '' ;
 
   ldflags = [
     "-s"

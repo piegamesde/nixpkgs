@@ -2,7 +2,8 @@
   stdenv,
 }:
 
-let windir = "/cygdrive/c/WINDOWS";
+let
+  windir = "/cygdrive/c/WINDOWS";
 in {
   pkg = stdenv.mkDerivation rec {
     pname = "dotnetfx";

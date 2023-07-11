@@ -842,11 +842,13 @@ let
               sha256 = "0jli6l9qrssnpm5a3m1g7g1dw2i5bv9wxd0gqg6vda7dwfs2f494";
             };
           };
-        in {
-          name = "phptools-vscode";
-          publisher = "devsense";
-          version = "1.33.13032";
-        } // sources.${stdenv.system};
+        in
+          {
+            name = "phptools-vscode";
+            publisher = "devsense";
+            version = "1.33.13032";
+          } // sources.${stdenv.system}
+        ;
 
         nativeBuildInputs = [ autoPatchelfHook ];
 
@@ -1810,36 +1812,39 @@ let
         meta = { license = lib.licenses.asl20; };
       };
 
-      kddejong.vscode-cfn-lint = let inherit (python3Packages) cfn-lint;
-      in buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          name = "vscode-cfn-lint";
-          publisher = "kddejong";
-          version = "0.21.0";
-          sha256 = "sha256-IueXiN+077tiecAsVCzgYksWYTs00mZv6XJVMtRJ/PQ=";
-        };
+      kddejong.vscode-cfn-lint = let
+        inherit (python3Packages) cfn-lint;
+      in
+        buildVscodeMarketplaceExtension {
+          mktplcRef = {
+            name = "vscode-cfn-lint";
+            publisher = "kddejong";
+            version = "0.21.0";
+            sha256 = "sha256-IueXiN+077tiecAsVCzgYksWYTs00mZv6XJVMtRJ/PQ=";
+          };
 
-        nativeBuildInputs = [
-          jq
-          moreutils
-        ];
+          nativeBuildInputs = [
+            jq
+            moreutils
+          ];
 
-        buildInputs = [ cfn-lint ];
+          buildInputs = [ cfn-lint ];
 
-        postInstall = ''
-          cd "$out/$installPrefix"
-          jq '.contributes.configuration.properties."cfnLint.path".default = "${cfn-lint}/bin/cfn-lint"' package.json | sponge package.json
-        '';
+          postInstall = ''
+            cd "$out/$installPrefix"
+            jq '.contributes.configuration.properties."cfnLint.path".default = "${cfn-lint}/bin/cfn-lint"' package.json | sponge package.json
+          '';
 
-        meta = {
-          description =
-            "CloudFormation Linter IDE integration, autocompletion, and documentation";
-          homepage =
-            "https://github.com/aws-cloudformation/cfn-lint-visual-studio-code";
-          license = lib.licenses.asl20;
-          maintainers = [ lib.maintainers.wolfangaukang ];
-        };
-      };
+          meta = {
+            description =
+              "CloudFormation Linter IDE integration, autocompletion, and documentation";
+            homepage =
+              "https://github.com/aws-cloudformation/cfn-lint-visual-studio-code";
+            license = lib.licenses.asl20;
+            maintainers = [ lib.maintainers.wolfangaukang ];
+          };
+        }
+      ;
 
       kubukoz.nickel-syntax = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -3385,4 +3390,5 @@ let
     lib.recursiveUpdate super (aliases super)) ];
 
   toFix = lib.foldl' (lib.flip lib.extends) baseExtensions overlays;
-in lib.fix toFix
+in
+  lib.fix toFix

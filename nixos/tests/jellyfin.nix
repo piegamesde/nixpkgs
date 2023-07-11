@@ -152,5 +152,5 @@ import ./make-test-python.nix ({
 
           if duration.strip() != "5.000000":
               raise Exception("Downloaded video has wrong duration")
-    '';
+    '' ;
   })

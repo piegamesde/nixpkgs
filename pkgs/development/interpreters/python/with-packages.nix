@@ -4,5 +4,7 @@
 }:
 
 f:
-let packages = f pythonPackages;
-in buildEnv.override { extraLibs = packages; }
+let
+  packages = f pythonPackages;
+in
+  buildEnv.override { extraLibs = packages; }

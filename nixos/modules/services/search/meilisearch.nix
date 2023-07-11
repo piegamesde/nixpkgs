@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.meilisearch;
+let
+  cfg = config.services.meilisearch;
 
 in {
 

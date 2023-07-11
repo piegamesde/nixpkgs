@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.plex;
+let
+  cfg = config.services.plex;
 in {
   imports = [ (mkRemovedOptionModule [
     "services"
@@ -135,7 +136,9 @@ in {
               install -d -m 0755 -o "${cfg.user}" -g "${cfg.group}" "$PLEX_DATADIR"
             fi
           '';
-        in "!${preStartScript}";
+        in
+          "!${preStartScript}"
+        ;
 
         ExecStart = "${cfg.package}/bin/plexmediaserver";
         KillSignal = "SIGQUIT";

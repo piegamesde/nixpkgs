@@ -99,4 +99,5 @@ let
         homepage = "https://dn-works.com/ufas/";
       };
     };
-in lib.mapAttrs mkpkg fonts
+in
+  lib.mapAttrs mkpkg fonts

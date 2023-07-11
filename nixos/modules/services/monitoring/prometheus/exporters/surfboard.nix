@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.surfboard;
+let
+  cfg = config.services.prometheus.exporters.surfboard;
 in {
   port = 9239;
   extraOpts = {

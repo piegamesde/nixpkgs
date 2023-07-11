@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.cachix-watch-store;
+let
+  cfg = config.services.cachix-watch-store;
 in {
   meta.maintainers = [
     lib.maintainers.jfroche
@@ -100,7 +101,7 @@ in {
       in ''
         export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
         ${lib.escapeShellArgs command}
-      '';
+      '' ;
     };
   };
 }

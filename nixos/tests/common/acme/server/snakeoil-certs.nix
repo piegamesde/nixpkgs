@@ -1,4 +1,5 @@
-let domain = "acme.test";
+let
+  domain = "acme.test";
 in {
   inherit domain;
   ca = {

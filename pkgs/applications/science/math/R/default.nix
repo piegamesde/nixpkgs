@@ -53,13 +53,16 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "R";
   version = "4.2.3";
 
-  src = let inherit (finalAttrs) pname version;
-  in fetchurl {
-    url = "https://cran.r-project.org/src/base/R-${
-        lib.versions.major version
-      }/${pname}-${version}.tar.gz";
-    sha256 = "sha256-VeSpptQ74xTiwD0CZqb6VESv3OULMDv8O4Kzl5UW4HQ=";
-  };
+  src = let
+    inherit (finalAttrs) pname version;
+  in
+    fetchurl {
+      url = "https://cran.r-project.org/src/base/R-${
+          lib.versions.major version
+        }/${pname}-${version}.tar.gz";
+      sha256 = "sha256-VeSpptQ74xTiwD0CZqb6VESv3OULMDv8O4Kzl5UW4HQ=";
+    }
+  ;
 
   dontUseImakeConfigure = true;
 

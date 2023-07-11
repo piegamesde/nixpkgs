@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-let cfg = config.services.mstpd;
+let
+  cfg = config.services.mstpd;
 in with lib; {
   options.services.mstpd = {
 

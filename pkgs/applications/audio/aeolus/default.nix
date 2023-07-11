@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   in ''
     mkdir -p $out/etc
     echo -n "${cfg}" > $out/etc/aeolus.conf
-  '';
+  '' ;
 
   meta = with lib; {
     description = "Synthetized (not sampled) pipe organ emulator";

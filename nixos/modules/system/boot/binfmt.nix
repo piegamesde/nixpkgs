@@ -33,7 +33,9 @@ let
         optionalString preserveArgvZero "P"
         + optionalString (openBinary && !matchCredentials) "O"
         + optionalString matchCredentials "C" + optionalString fixBinary "F";
-    in ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
+    in
+      ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}"
+  ;
 
   activationSnippet = name:
     {
@@ -385,14 +387,17 @@ in {
             "${wrapper}/bin/${wrapperName}"
           else
             interpreter;
-        in ({
-          preserveArgvZero = mkDefault preserveArgvZero;
+        in
+          ({
+            preserveArgvZero = mkDefault preserveArgvZero;
 
-          interpreter = mkDefault interpreterReg;
-          wrapInterpreterInShell = mkDefault (!config.preserveArgvZero);
-          interpreterSandboxPath = mkDefault (dirOf (dirOf config.interpreter));
-        } // (magics.${system} or (throw
-          "Cannot create binfmt registration for system ${system}")));
+            interpreter = mkDefault interpreterReg;
+            wrapInterpreterInShell = mkDefault (!config.preserveArgvZero);
+            interpreterSandboxPath =
+              mkDefault (dirOf (dirOf config.interpreter));
+          } // (magics.${system} or (throw
+            "Cannot create binfmt registration for system ${system}")))
+      ;
     }) cfg.emulatedSystems);
     nix.settings = lib.mkIf (cfg.emulatedSystems != [ ]) {
       extra-platforms = cfg.emulatedSystems
@@ -402,9 +407,11 @@ in {
         hasWrappedRule =
           lib.any (system: (ruleFor system).wrapInterpreterInShell)
           cfg.emulatedSystems;
-      in [ "/run/binfmt" ] ++ lib.optional hasWrappedRule "${pkgs.bash}"
-      ++ (map (system: (ruleFor system).interpreterSandboxPath)
-        cfg.emulatedSystems);
+      in
+        [ "/run/binfmt" ] ++ lib.optional hasWrappedRule "${pkgs.bash}"
+        ++ (map (system: (ruleFor system).interpreterSandboxPath)
+          cfg.emulatedSystems)
+      ;
     };
 
     environment.etc."binfmt.d/nixos.conf".source =

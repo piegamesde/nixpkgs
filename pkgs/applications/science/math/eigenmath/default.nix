@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-GZkC/Tvep7fL5nJyz0ZN7z0lUhGX4EJlXVswwAyegUE=";
   };
 
-  checkPhase = let emulator = stdenv.hostPlatform.emulator buildPackages;
+  checkPhase = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
   in ''
     runHook preCheck
 
@@ -26,7 +27,7 @@ stdenv.mkDerivation rec {
     done
 
     runHook postCheck
-  '';
+  '' ;
 
   installPhase = ''
     runHook preInstall

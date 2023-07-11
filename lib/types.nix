@@ -217,7 +217,9 @@ let
                 }) defs);
               # Otherwise fall back to only allowing all equal definitions
             }.${commonType} or mergeEqualOption;
-          in mergeFunction loc defs;
+          in
+            mergeFunction loc defs
+        ;
       };
 
       unspecified = mkOptionType {
@@ -295,7 +297,7 @@ let
         s8 = sign 8 256;
         s16 = sign 16 65536;
         s32 = sign 32 4294967296;
-      };
+      } ;
 
       # Alias of u16 for a port number
       port = ints.u16;
@@ -335,7 +337,7 @@ let
           name = "numberPositive";
           description = "positive integer or floating point number, meaning >0";
         };
-      };
+      } ;
 
       str = mkOptionType {
         name = "str";
@@ -363,13 +365,15 @@ let
           ]*
           ?'')
           check merge;
-      in mkOptionType {
-        name = "singleLineStr";
-        description = "(optionally newline-terminated) single-line string";
-        descriptionClass = "noun";
-        inherit check;
-        merge = loc: defs: lib.removeSuffix "\n" (merge loc defs);
-      };
+      in
+        mkOptionType {
+          name = "singleLineStr";
+          description = "(optionally newline-terminated) single-line string";
+          descriptionClass = "noun";
+          inherit check;
+          merge = loc: defs: lib.removeSuffix "\n" (merge loc defs);
+        }
+      ;
 
       strMatching = pattern:
         mkOptionType {
@@ -438,7 +442,8 @@ let
         descriptionClass = "noun";
         check = x: isDerivation x || isStorePath x;
         merge = loc: defs:
-          let res = mergeOneOption loc defs;
+          let
+            res = mergeOneOption loc defs;
           in if builtins.isPath res
           || (builtins.isString res && !builtins.hasContext res) then
             toDerivation res
@@ -484,13 +489,16 @@ let
         };
 
       nonEmptyListOf = elemType:
-        let list = addCheck (types.listOf elemType) (l: l != [ ]);
-        in list // {
-          description = "non-empty ${
-              optionDescriptionPhrase (class: class == "noun") list
-            }";
-          emptyValue = { }; # no .value attr, meaning unset
-        };
+        let
+          list = addCheck (types.listOf elemType) (l: l != [ ]);
+        in
+          list // {
+            description = "non-empty ${
+                optionDescriptionPhrase (class: class == "noun") list
+              }";
+            emptyValue = { }; # no .value attr, meaning unset
+          }
+      ;
 
       attrsOf = elemType:
         mkOptionType rec {
@@ -540,7 +548,9 @@ let
               let
                 merged = mergeDefinitions (loc ++ [ name ]) elemType defs;
                 # mergedValue will trigger an appropriate error when accessed
-              in merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue)
+              in
+                merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue
+            )
             # Push down position info.
             (map (def:
               mapAttrs (n: v: {
@@ -607,7 +617,8 @@ let
           descriptionClass = "conjunction";
           check = x: x == null || elemType.check x;
           merge = loc: defs:
-            let nrNulls = count (def: def.value == null) defs;
+            let
+              nrNulls = count (def: def.value == null) defs;
             in if nrNulls == length defs then
               null
             else if nrNulls != 0 then
@@ -714,7 +725,9 @@ let
               # This also propagates file information to all submodules
               mergedOption =
                 fixupOptionType loc (mergeOptionDecls loc optionModules);
-            in mergedOption.type;
+            in
+              mergedOption.type
+        ;
       };
 
       submoduleWith = {
@@ -765,74 +778,76 @@ let
 
           name = "submodule";
 
-        in mkOptionType {
-          inherit name;
-          description = if description != null then
-            description
-          else
-            freeformType.description or name;
-          check = x: isAttrs x || isFunction x || path.check x;
-          merge = loc: defs:
-            (base.extendModules {
-              modules = [ { _module.args.name = last loc; } ]
-                ++ allModules defs;
-              prefix = loc;
-            }).config;
-          emptyValue = { value = { }; };
-          getSubOptions = prefix:
-            (base.extendModules { inherit prefix; }).options
-            // optionalAttrs (freeformType != null) {
-              # Expose the sub options of the freeform type. Note that the option
-              # discovery doesn't care about the attribute name used here, so this
-              # is just to avoid conflicts with potential options from the submodule
-              _freeformOptions = freeformType.getSubOptions prefix;
+        in
+          mkOptionType {
+            inherit name;
+            description = if description != null then
+              description
+            else
+              freeformType.description or name;
+            check = x: isAttrs x || isFunction x || path.check x;
+            merge = loc: defs:
+              (base.extendModules {
+                modules = [ { _module.args.name = last loc; } ]
+                  ++ allModules defs;
+                prefix = loc;
+              }).config;
+            emptyValue = { value = { }; };
+            getSubOptions = prefix:
+              (base.extendModules { inherit prefix; }).options
+              // optionalAttrs (freeformType != null) {
+                # Expose the sub options of the freeform type. Note that the option
+                # discovery doesn't care about the attribute name used here, so this
+                # is just to avoid conflicts with potential options from the submodule
+                _freeformOptions = freeformType.getSubOptions prefix;
+              };
+            getSubModules = modules;
+            substSubModules = m: submoduleWith (attrs // { modules = m; });
+            nestedTypes = lib.optionalAttrs (freeformType != null) {
+              freeformType = freeformType;
             };
-          getSubModules = modules;
-          substSubModules = m: submoduleWith (attrs // { modules = m; });
-          nestedTypes = lib.optionalAttrs (freeformType != null) {
-            freeformType = freeformType;
-          };
-          functor = defaultFunctor name // {
-            type = types.submoduleWith;
-            payload = {
-              inherit modules specialArgs shorthandOnlyDefinesConfig
-                description;
-            };
-            binOp = lhs: rhs: {
-              modules = lhs.modules ++ rhs.modules;
-              specialArgs = let
-                intersecting =
-                  builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
-              in if intersecting == { } then
-                lhs.specialArgs // rhs.specialArgs
-              else
-                throw ''
-                  A submoduleWith option is declared multiple times with the same specialArgs "${
-                    toString (attrNames intersecting)
-                  }"'';
-              shorthandOnlyDefinesConfig =
-                if lhs.shorthandOnlyDefinesConfig == null then
-                  rhs.shorthandOnlyDefinesConfig
-                else if rhs.shorthandOnlyDefinesConfig == null then
-                  lhs.shorthandOnlyDefinesConfig
-                else if lhs.shorthandOnlyDefinesConfig
-                == rhs.shorthandOnlyDefinesConfig then
-                  lhs.shorthandOnlyDefinesConfig
+            functor = defaultFunctor name // {
+              type = types.submoduleWith;
+              payload = {
+                inherit modules specialArgs shorthandOnlyDefinesConfig
+                  description;
+              };
+              binOp = lhs: rhs: {
+                modules = lhs.modules ++ rhs.modules;
+                specialArgs = let
+                  intersecting =
+                    builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
+                in if intersecting == { } then
+                  lhs.specialArgs // rhs.specialArgs
+                else
+                  throw ''
+                    A submoduleWith option is declared multiple times with the same specialArgs "${
+                      toString (attrNames intersecting)
+                    }"'';
+                shorthandOnlyDefinesConfig =
+                  if lhs.shorthandOnlyDefinesConfig == null then
+                    rhs.shorthandOnlyDefinesConfig
+                  else if rhs.shorthandOnlyDefinesConfig == null then
+                    lhs.shorthandOnlyDefinesConfig
+                  else if lhs.shorthandOnlyDefinesConfig
+                  == rhs.shorthandOnlyDefinesConfig then
+                    lhs.shorthandOnlyDefinesConfig
+                  else
+                    throw
+                    "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
+                description = if lhs.description == null then
+                  rhs.description
+                else if rhs.description == null then
+                  lhs.description
+                else if lhs.description == rhs.description then
+                  lhs.description
                 else
                   throw
-                  "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
-              description = if lhs.description == null then
-                rhs.description
-              else if rhs.description == null then
-                lhs.description
-              else if lhs.description == rhs.description then
-                lhs.description
-              else
-                throw
-                "A submoduleWith option is declared multiple times with conflicting descriptions";
+                  "A submoduleWith option is declared multiple times with conflicting descriptions";
+              };
             };
-          };
-        };
+          }
+      ;
 
       # A value from a set of allowed ones.
       enum = values:
@@ -847,28 +862,30 @@ let
               boolToString v
             else
               "<${builtins.typeOf v}>";
-        in mkOptionType rec {
-          name = "enum";
-          description =
-            # Length 0 or 1 enums may occur in a design pattern with type merging
-            # where an "interface" module declares an empty enum and other modules
-            # provide implementations, each extending the enum with their own
-            # identifier.
-            if values == [ ] then
-              "impossible (empty enum)"
-            else if builtins.length values == 1 then
-              "value ${show (builtins.head values)} (singular enum)"
-            else
-              "one of ${concatMapStringsSep ", " show values}";
-          descriptionClass =
-            if builtins.length values < 2 then "noun" else "conjunction";
-          check = flip elem values;
-          merge = mergeEqualOption;
-          functor = (defaultFunctor name) // {
-            payload = values;
-            binOp = a: b: unique (a ++ b);
-          };
-        };
+        in
+          mkOptionType rec {
+            name = "enum";
+            description =
+              # Length 0 or 1 enums may occur in a design pattern with type merging
+              # where an "interface" module declares an empty enum and other modules
+              # provide implementations, each extending the enum with their own
+              # identifier.
+              if values == [ ] then
+                "impossible (empty enum)"
+              else if builtins.length values == 1 then
+                "value ${show (builtins.head values)} (singular enum)"
+              else
+                "one of ${concatMapStringsSep ", " show values}";
+            descriptionClass =
+              if builtins.length values < 2 then "noun" else "conjunction";
+            check = flip elem values;
+            merge = mergeEqualOption;
+            functor = (defaultFunctor name) // {
+              payload = values;
+              binOp = a: b: unique (a ++ b);
+            };
+          }
+      ;
 
       # Either value of type `t1` or `t2`.
       either = t1: t2:
@@ -885,7 +902,8 @@ let
           descriptionClass = "conjunction";
           check = x: t1.check x || t2.check x;
           merge = loc: defs:
-            let defList = map (d: d.value) defs;
+            let
+              defList = map (d: d.value) defs;
             in if all (x: t1.check x) defList then
               t1.merge loc defs
             else if all (x: t2.check x) defList then
@@ -918,7 +936,9 @@ let
           else
             head ts;
           tail' = tail ts;
-        in foldl' either head' tail';
+        in
+          foldl' either head' tail'
+      ;
 
       # Either value of type `coercedType` or `finalType`, the former is
       # converted to `finalType` using `coerceFunc`.
@@ -938,8 +958,10 @@ let
             let
               coerceVal = val:
                 if coercedType.check val then coerceFunc val else val;
-            in finalType.merge loc
-            (map (def: def // { value = coerceVal def.value; }) defs);
+            in
+              finalType.merge loc
+              (map (def: def // { value = coerceVal def.value; }) defs)
+          ;
           emptyValue = finalType.emptyValue;
           getSubOptions = finalType.getSubOptions;
           getSubModules = finalType.getSubModules;
@@ -960,4 +982,5 @@ let
     };
   };
 
-in outer_types // outer_types.types
+in
+  outer_types // outer_types.types

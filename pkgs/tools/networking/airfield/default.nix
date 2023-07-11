@@ -49,33 +49,34 @@ let
       cp -R . $out
     '';
   };
-in stdenv.mkDerivation {
-  inherit name version src;
+in
+  stdenv.mkDerivation {
+    inherit name version src;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ nodejs ];
+    nativeBuildInputs = [ makeWrapper ];
+    buildInputs = [ nodejs ];
 
-  dontBuild = true;
+    dontBuild = true;
 
-  installPhase = ''
-    mkdir -p $out/bin
-    cat >$out/bin/airfield <<EOF
-      #!${runtimeShell}
-      ${nodejs}/bin/node ${src}/airfield.js
-    EOF
-  '';
+    installPhase = ''
+      mkdir -p $out/bin
+      cat >$out/bin/airfield <<EOF
+        #!${runtimeShell}
+        ${nodejs}/bin/node ${src}/airfield.js
+      EOF
+    '';
 
-  postFixup = ''
-    chmod +x $out/bin/airfield
-    wrapProgram $out/bin/airfield \
-      --set NODE_PATH "${runtimeEnv}/lib/node_modules"
-  '';
+    postFixup = ''
+      chmod +x $out/bin/airfield
+      wrapProgram $out/bin/airfield \
+        --set NODE_PATH "${runtimeEnv}/lib/node_modules"
+    '';
 
-  meta = with lib; {
-    description = "A web-interface for hipache-proxy";
-    license = licenses.mit;
-    homepage = "https://github.com/emblica/airfield";
-    maintainers = with maintainers; [ offline ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "A web-interface for hipache-proxy";
+      license = licenses.mit;
+      homepage = "https://github.com/emblica/airfield";
+      maintainers = with maintainers; [ offline ];
+      platforms = platforms.linux;
+    };
+  }

@@ -33,12 +33,13 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = let static = if enableStatic then "1" else "0";
+  makeFlags = let
+    static = if enableStatic then "1" else "0";
   in [
     "OMP=1"
     "PREFIX=$(out)"
     "STATIC=${static}"
-  ];
+  ] ;
 
   prePatch = ''
     patchShebangs .

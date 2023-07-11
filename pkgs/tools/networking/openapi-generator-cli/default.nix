@@ -47,4 +47,5 @@ let
     passthru.tests.example =
       callPackage ./example.nix { openapi-generator-cli = this; };
   };
-in this
+in
+  this

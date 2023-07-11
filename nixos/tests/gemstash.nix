@@ -7,7 +7,8 @@
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
-let common_meta = { maintainers = [ maintainers.viraptor ]; };
+let
+  common_meta = { maintainers = [ maintainers.viraptor ]; };
 in {
   gemstash_works = makeTest {
     name = "gemstash-works";

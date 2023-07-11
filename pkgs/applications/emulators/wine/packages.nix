@@ -10,7 +10,8 @@
   supportFlags,
 }:
 
-let src = lib.getAttr wineRelease (callPackage ./sources.nix { });
+let
+  src = lib.getAttr wineRelease (callPackage ./sources.nix { });
 in with src; {
   wine32 = pkgsi686Linux.callPackage ./base.nix {
     pname = "wine";

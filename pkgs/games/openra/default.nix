@@ -21,13 +21,16 @@ let
       so either the attributes added by `makeOverridable` have to be removed
       or the engine and mod package definitions will need to add `...` to the argument list.
   */
-  common = let f = import ./common.nix;
-  in f (builtins.intersectAttrs (functionArgs f) pkgs // {
-    lua = pkgs.lua5_1;
-    # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
-    # rather than having to look to the logs why it is not starting.
-    inherit (pkgs.gnome) zenity;
-  });
+  common = let
+    f = import ./common.nix;
+  in
+    f (builtins.intersectAttrs (functionArgs f) pkgs // {
+      lua = pkgs.lua5_1;
+      # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
+      # rather than having to look to the logs why it is not starting.
+      inherit (pkgs.gnome) zenity;
+    })
+  ;
 
   /* Building a set of engines or mods requires some dependencies as well,
       so the sets will actually be defined as a function instead,
@@ -51,50 +54,51 @@ let
       '';
     } // args)));
 
-in pkgs.recurseIntoAttrs rec {
-  # The whole attribute set is destructered to ensure those (and only those) attributes are given
-  # and to provide defaults for those that are optional.
-  buildOpenRAEngine = {
-      name ? null,
-      version,
-      description,
-      homepage,
-      mods,
-      src,
-    }@engine:
-    # Allow specifying the name at a later point if no name has been given.
-    let
-      builder = name:
-        pkgs.callPackage ./engine.nix
-        (common // { engine = engine // { inherit name; }; });
-    in if name == null then builder else builder name;
-
-  # See `buildOpenRAEngine`.
-  buildOpenRAMod = {
-      name ? null,
-      version,
-      title,
-      description,
-      homepage,
-      src,
-      engine,
-      assetsError ? ""
-    }@mod:
-    ({
+in
+  pkgs.recurseIntoAttrs rec {
+    # The whole attribute set is destructered to ensure those (and only those) attributes are given
+    # and to provide defaults for those that are optional.
+    buildOpenRAEngine = {
+        name ? null,
         version,
-        mods ? [ ],
+        description,
+        homepage,
+        mods,
         src,
       }@engine:
+      # Allow specifying the name at a later point if no name has been given.
       let
         builder = name:
-          pkgs.callPackage ./mod.nix (common // {
-            mod = mod // { inherit name assetsError; };
-            engine = engine // { inherit mods; };
-          });
-      in if name == null then builder else builder name) engine;
+          pkgs.callPackage ./engine.nix
+          (common // { engine = engine // { inherit name; }; });
+      in if name == null then builder else builder name;
 
-  # See `buildOpenRASet`.
-  engines =
-    buildOpenRASet (import ./engines.nix) { inherit buildOpenRAEngine; };
-  mods = buildOpenRASet (import ./mods.nix) { inherit buildOpenRAMod; };
-}
+    # See `buildOpenRAEngine`.
+    buildOpenRAMod = {
+        name ? null,
+        version,
+        title,
+        description,
+        homepage,
+        src,
+        engine,
+        assetsError ? ""
+      }@mod:
+      ({
+          version,
+          mods ? [ ],
+          src,
+        }@engine:
+        let
+          builder = name:
+            pkgs.callPackage ./mod.nix (common // {
+              mod = mod // { inherit name assetsError; };
+              engine = engine // { inherit mods; };
+            });
+        in if name == null then builder else builder name) engine;
+
+    # See `buildOpenRASet`.
+    engines =
+      buildOpenRASet (import ./engines.nix) { inherit buildOpenRAEngine; };
+    mods = buildOpenRASet (import ./mods.nix) { inherit buildOpenRAMod; };
+  }

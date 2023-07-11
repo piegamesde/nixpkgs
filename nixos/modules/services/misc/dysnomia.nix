@@ -12,7 +12,8 @@ let
 
   printProperties = properties:
     concatMapStrings (propertyName:
-      let property = properties.${propertyName};
+      let
+        property = properties.${propertyName};
       in if isList property then ''
         ${propertyName}=(${
           lib.concatMapStrings (elem: ''"${toString elem}" '')
@@ -38,13 +39,14 @@ let
       cd $out
 
       ${concatMapStrings (containerName:
-        let containerProperties = cfg.containers.${containerName};
+        let
+          containerProperties = cfg.containers.${containerName};
         in ''
           cat > ${containerName} <<EOF
           ${printProperties containerProperties}
           type=${containerName}
           EOF
-        '') (builtins.attrNames cfg.containers)}
+        '' ) (builtins.attrNames cfg.containers)}
     '';
   };
 
@@ -54,10 +56,11 @@ let
       mkdir ${containerName}
 
       ${concatMapStrings (componentName:
-        let component = cfg.components.${containerName}.${componentName};
+        let
+          component = cfg.components.${containerName}.${componentName};
         in ''
           ln -s ${component} ${containerName}/${componentName}
-        '') (builtins.attrNames (cfg.components.${containerName} or { }))}
+        '' ) (builtins.attrNames (cfg.components.${containerName} or { }))}
     '';
 
   componentsDir = pkgs.stdenv.mkDerivation {

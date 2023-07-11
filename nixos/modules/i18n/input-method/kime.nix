@@ -5,7 +5,8 @@
   generators,
   ...
 }:
-let imcfg = config.i18n.inputMethod;
+let
+  imcfg = config.i18n.inputMethod;
 in {
   imports = [ (lib.mkRemovedOptionModule [
     "i18n"

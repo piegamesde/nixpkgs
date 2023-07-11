@@ -6,7 +6,8 @@
 
 let
   inside = (self:
-    let callPackage = pkgs.newScope self;
+    let
+      callPackage = pkgs.newScope self;
     in rec {
       interpreter = callPackage ./factor98.nix { inherit (pkgs) stdenv; };
 
@@ -14,6 +15,7 @@ let
       # interpreter derivation. Takes a list of runtime libraries as its only
       # argument.
       inherit (self.interpreter) withLibs;
-    });
+    } );
   extensible-self = lib.makeExtensible (lib.extends overrides inside);
-in extensible-self
+in
+  extensible-self

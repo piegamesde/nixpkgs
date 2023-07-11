@@ -50,9 +50,9 @@ let
             };
             keep = self: { };
             extra = spliced0: { };
-          in makeScopeWithSplicing otherSplices keep extra perlPackagesFun) {
-            perl = self;
-          };
+          in
+            makeScopeWithSplicing otherSplices keep extra perlPackagesFun
+        ) { perl = self; };
     in rec {
       buildEnv = callPackage ./wrapper.nix {
         perl = self;
@@ -66,7 +66,7 @@ let
         inherit overrides;
         self = perlOnBuild;
       };
-    };
+    } ;
 
 in rec {
   # Maint version

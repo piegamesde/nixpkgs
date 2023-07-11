@@ -28,7 +28,7 @@ buildPythonPackage rec {
     # Fix the default r2 executable
     substituteInPlace r2pipe/open_sync.py --replace 'r2e = "radare2"' "r2e = '${radare2}/bin/radare2'"
     substituteInPlace r2pipe/open_base.py --replace 'which("radare2")' "'${radare2}/bin/radare2'"
-  '';
+  '' ;
 
   src = fetchPypi {
     inherit pname version;

@@ -43,7 +43,7 @@ let
         which aims at providing additional mitigations against heap based
         vulnerabilities, while maintaining good performance.
       '';
-    };
+    } ;
 
     mimalloc = {
       libPath = "${pkgs.mimalloc}/lib/libmimalloc.so";

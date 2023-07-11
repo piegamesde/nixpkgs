@@ -19,38 +19,39 @@ let
   else
     "src/config.def.hpp";
 
-in stdenv.mkDerivation rec {
-  pname = "somebar";
-  version = "1.0.3";
+in
+  stdenv.mkDerivation rec {
+    pname = "somebar";
+    version = "1.0.3";
 
-  src = fetchFromSourcehut {
-    owner = "~raphi";
-    repo = "somebar";
-    rev = "${version}";
-    sha256 = "sha256-PBxCy1dZrOL1nmhVDQozvF0XL79uKMhhERGNpPPzaRU=";
-  };
+    src = fetchFromSourcehut {
+      owner = "~raphi";
+      repo = "somebar";
+      rev = "${version}";
+      sha256 = "sha256-PBxCy1dZrOL1nmhVDQozvF0XL79uKMhhERGNpPPzaRU=";
+    };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-  ];
-  buildInputs = [
-    pango
-    wayland
-    wayland-protocols
-  ];
+    nativeBuildInputs = [
+      meson
+      ninja
+      pkg-config
+      wayland-scanner
+    ];
+    buildInputs = [
+      pango
+      wayland
+      wayland-protocols
+    ];
 
-  prePatch = ''
-    cp ${configFile} src/config.hpp
-  '';
+    prePatch = ''
+      cp ${configFile} src/config.hpp
+    '';
 
-  meta = with lib; {
-    homepage = "https://git.sr.ht/~raphi/somebar";
-    description = "dwm-like bar for dwl";
-    license = licenses.mit;
-    maintainers = with maintainers; [ magnouvean ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      homepage = "https://git.sr.ht/~raphi/somebar";
+      description = "dwm-like bar for dwl";
+      license = licenses.mit;
+      maintainers = with maintainers; [ magnouvean ];
+      platforms = platforms.linux;
+    };
+  }

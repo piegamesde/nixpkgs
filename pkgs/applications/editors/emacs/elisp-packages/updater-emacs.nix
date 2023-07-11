@@ -30,15 +30,16 @@ let
     in [
       promise
       semaphore
-    ]);
+    ] );
 
-in pkgs.mkShell {
-  packages = [
-    pkgs.git
-    pkgs.nix
-    pkgs.bash
-    pkgs.nix-prefetch-git
-    pkgs.nix-prefetch-hg
-    emacsEnv
-  ];
-}
+in
+  pkgs.mkShell {
+    packages = [
+      pkgs.git
+      pkgs.nix
+      pkgs.bash
+      pkgs.nix-prefetch-git
+      pkgs.nix-prefetch-hg
+      emacsEnv
+    ];
+  }

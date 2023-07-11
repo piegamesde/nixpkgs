@@ -23,7 +23,7 @@ import ./make-test-python.nix ({
               +.bla.foo.bar:1.2.3.4:300
             '';
           };
-        };
+        } ;
     };
     testScript = ''
       nameserver.start()

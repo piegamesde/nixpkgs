@@ -58,11 +58,13 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
       inherit name;
       path = fetchgit value;
     }) (lib.importJSON ./skia-externals.json));
-  in runCommand "source" { } ''
-    cp -R ${repo} $out
-    chmod -R +w $out
-    ln -s ${externals} $out/third_party/externals
-  '';
+  in
+    runCommand "source" { } ''
+      cp -R ${repo} $out
+      chmod -R +w $out
+      ln -s ${externals} $out/third_party/externals
+    ''
+  ;
 
   SKIA_GN_COMMAND = "${gn}/bin/gn";
   SKIA_NINJA_COMMAND = "${ninja}/bin/ninja";
@@ -102,7 +104,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
 
     wrapProgram $out/bin/neovide \
       --prefix LD_LIBRARY_PATH : ${libPath}
-  '';
+  '' ;
 
   postInstall = ''
     for n in 16x16 32x32 48x48 256x256; do

@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-let cfg = config.services.mullvad-vpn;
+let
+  cfg = config.services.mullvad-vpn;
 in with lib; {
   options.services.mullvad-vpn = {
     enable = mkOption {

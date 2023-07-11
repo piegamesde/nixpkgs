@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.komga;
+let
+  cfg = config.services.komga;
 
 in {
   options = {

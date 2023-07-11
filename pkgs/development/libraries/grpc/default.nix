@@ -100,7 +100,9 @@ stdenv.mkDerivation rec {
     # With GCC 9 (current aarch64-linux) it fails with c++17 but OK with c++14.
     useOldGCC = !(stdenv.hostPlatform.useLLVM or false)
       && lib.versionOlder stdenv.cc.cc.version "10";
-  in (if useLLVMAndOldCC then "11" else if useOldGCC then "14" else "17");
+  in
+    (if useLLVMAndOldCC then "11" else if useOldGCC then "14" else "17")
+  ;
 
   passthru.tests = {
     inherit (python3.pkgs) grpcio-status grpcio-tools;

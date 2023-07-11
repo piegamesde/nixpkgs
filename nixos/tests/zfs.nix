@@ -32,7 +32,8 @@ let
           lib,
           ...
         }:
-        let usersharePath = "/var/lib/samba/usershares";
+        let
+          usersharePath = "/var/lib/samba/usershares";
         in {
           virtualisation = {
             emptyDiskImages = [
@@ -119,7 +120,7 @@ let
               };
             };
           };
-        };
+        } ;
 
       testScript = ''
         machine.wait_for_unit("multi-user.target")

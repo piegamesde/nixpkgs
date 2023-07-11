@@ -17,4 +17,5 @@ let
     inherit nodeEnv;
     globalBuildInputs = [ locpkgs.node-pre-gyp ];
   };
-in locpkgs
+in
+  locpkgs

@@ -182,5 +182,5 @@ import ./make-test-python.nix ({
               "nixos-container create b0rk --config-file ${brokenCfg}"
           )
           machine.succeed("test ! -e /var/lib/nixos-containers/b0rk")
-    '';
+    '' ;
   })

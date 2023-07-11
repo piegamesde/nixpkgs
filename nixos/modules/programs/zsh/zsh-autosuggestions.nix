@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.zsh.autosuggestions;
+let
+  cfg = config.programs.zsh.autosuggestions;
 in {
   imports = [ (mkRenamedOptionModule [
     "programs"

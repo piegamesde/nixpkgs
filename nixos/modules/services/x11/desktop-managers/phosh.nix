@@ -126,17 +126,18 @@ let
       ${optionalKV "mode" output.mode}
       ${optionalKV "scale" output.scale}
       ${optionalKV "rotate" output.rotate}
-    '';
+    '' ;
 
   renderPhocConfig = phoc:
-    let outputs = mapAttrsToList renderPhocOutput phoc.outputs;
+    let
+      outputs = mapAttrsToList renderPhocOutput phoc.outputs;
     in ''
       [core]
       xwayland = ${phoc.xwayland}
       ${concatStringsSep "\n" outputs}
       [cursor]
       theme = ${phoc.cursorTheme}
-    '';
+    '' ;
 
 in {
   options = {

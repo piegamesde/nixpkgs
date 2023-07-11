@@ -198,4 +198,5 @@ let
       depsListFile = depsListDrv.outPath;
     };
   }) ./setup-hook.sh;
-in hook
+in
+  hook

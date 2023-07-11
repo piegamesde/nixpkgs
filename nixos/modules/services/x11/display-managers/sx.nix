@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.displayManager.sx;
+let
+  cfg = config.services.xserver.displayManager.sx;
 
 in {
   options = {

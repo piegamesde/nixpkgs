@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
         lib,
         ...
       }:
-      let disk = config.virtualisation.rootDevice;
+      let
+        disk = config.virtualisation.rootDevice;
       in {
         virtualisation.rootDevice = "/dev/vda";
         virtualisation.useDefaultFilesystems = false;
@@ -48,7 +49,7 @@ import ./make-test-python.nix ({
             options = [ "subvol=/home" ];
           };
         };
-      };
+      } ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

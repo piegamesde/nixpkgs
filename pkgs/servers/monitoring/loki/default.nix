@@ -41,7 +41,8 @@ buildGoModule rec {
 
   passthru.tests = { inherit (nixosTests) loki; };
 
-  ldflags = let t = "github.com/grafana/loki/pkg/util/build";
+  ldflags = let
+    t = "github.com/grafana/loki/pkg/util/build";
   in [
     "-s"
     "-w"
@@ -50,7 +51,7 @@ buildGoModule rec {
     "-X ${t}.BuildDate=unknown"
     "-X ${t}.Branch=unknown"
     "-X ${t}.Revision=unknown"
-  ];
+  ] ;
 
   meta = with lib; {
     description = "Like Prometheus, but for logs";

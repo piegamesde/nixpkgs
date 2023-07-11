@@ -104,4 +104,4 @@ import ../make-test-python.nix ({
           machine.send_chars("touch  done4\n")
           machine.wait_for_file("/home/alice/done4")
     '';
-  })
+  } )

@@ -76,7 +76,7 @@ rustPlatform.buildRustPackage rec {
         libsForQt5.kdialog
       ]
     }
-  '';
+  '' ;
 
   meta = with lib; {
     description = "Backup tool for PC game saves";

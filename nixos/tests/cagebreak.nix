@@ -18,7 +18,8 @@ import ./make-test-python.nix ({
         config,
         ...
       }:
-      let alice = config.users.users.alice;
+      let
+        alice = config.users.users.alice;
       in {
         # Automatically login on tty1 as a normal user:
         imports = [ ./common/user-account.nix ];
@@ -44,7 +45,7 @@ import ./make-test-python.nix ({
 
         # Need to switch to a different GPU driver than the default one (-vga std) so that Cagebreak can launch:
         virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
-      };
+      } ;
 
     enableOCR = true;
 
@@ -71,5 +72,5 @@ import ./make-test-python.nix ({
         #     machine.wait_for_text("${user.name}@machine")
         #     machine.screenshot("screen")
         #     machine.send_key("ctrl-d")
-      '';
-  })
+      '' ;
+  } )

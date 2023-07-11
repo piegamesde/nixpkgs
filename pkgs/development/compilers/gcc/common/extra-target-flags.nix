@@ -7,7 +7,8 @@
   threadsCross,
 }:
 
-let inherit (stdenv) hostPlatform targetPlatform;
+let
+  inherit (stdenv) hostPlatform targetPlatform;
 
 in {
   # For non-cross builds these flags are currently assigned in builder.sh.
@@ -20,8 +21,10 @@ in {
         ++ lib.optionals (!crossStageStatic) [ "-B${lib.getLib dep}${
           dep.libdir or "/lib"
         }" ]);
-  in mkFlags libcCross langD ++ lib.optionals (!crossStageStatic)
-  (mkFlags (threadsCross.package or null) langD);
+  in
+    mkFlags libcCross langD ++ lib.optionals (!crossStageStatic)
+    (mkFlags (threadsCross.package or null) langD)
+  ;
 
   EXTRA_LDFLAGS_FOR_TARGET = let
     mkFlags = dep:
@@ -33,6 +36,8 @@ in {
           "-Wl,-rpath,${lib.getLib dep}${dep.libdir or "/lib"}"
           "-Wl,-rpath-link,${lib.getLib dep}${dep.libdir or "/lib"}"
         ]));
-  in mkFlags libcCross
-  ++ lib.optionals (!crossStageStatic) (mkFlags (threadsCross.package or null));
+  in
+    mkFlags libcCross ++ lib.optionals (!crossStageStatic)
+    (mkFlags (threadsCross.package or null))
+  ;
 }

@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  buildPhase = let ccc = if stdenv.isDarwin then "ccc.osx" else "ccc";
+  buildPhase = let
+    ccc = if stdenv.isDarwin then "ccc.osx" else "ccc";
   in ''
     runHook preBuild
 
@@ -33,7 +34,7 @@ stdenv.mkDerivation rec {
     (cd lp_solve  && bash -x -e ${ccc})
 
     runHook postBuild
-  '';
+  '' ;
 
   installPhase = ''
     runHook preInstall

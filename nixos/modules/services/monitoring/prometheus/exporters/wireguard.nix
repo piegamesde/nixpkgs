@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.wireguard;
+let
+  cfg = config.services.prometheus.exporters.wireguard;
 in {
   port = 9586;
   imports = [

@@ -68,40 +68,41 @@ let
         "A complete, cross-platform solution to record, convert and stream audio and video";
     };
   };
-in stdenv.mkDerivation rec {
-  pname = "omxplayer";
-  version = "unstable-2013-03-28";
+in
+  stdenv.mkDerivation rec {
+    pname = "omxplayer";
+    version = "unstable-2013-03-28";
 
-  src = fetchFromGitHub {
-    owner = "huceke";
-    repo = "omxplayer";
-    rev = "fbee325dc20441138d04d8d2022ad85956302e97";
-    sha256 = "0fkvv8il7ffqxki2gp8cxa5shh6sz9jsy5vv3f4025g4gss6afkg";
-  };
+    src = fetchFromGitHub {
+      owner = "huceke";
+      repo = "omxplayer";
+      rev = "fbee325dc20441138d04d8d2022ad85956302e97";
+      sha256 = "0fkvv8il7ffqxki2gp8cxa5shh6sz9jsy5vv3f4025g4gss6afkg";
+    };
 
-  postPatch = ''
-    sed -i 1d Makefile
-    export INCLUDES="-I${raspberrypifw}/include/interface/vcos/pthreads -I${raspberrypifw}/include/interface/vmcs_host/linux/"
-  '';
+    postPatch = ''
+      sed -i 1d Makefile
+      export INCLUDES="-I${raspberrypifw}/include/interface/vcos/pthreads -I${raspberrypifw}/include/interface/vmcs_host/linux/"
+    '';
 
-  installPhase = ''
-    mkdir -p $out/bin
-    cp omxplayer.bin $out/bin
-  '';
+    installPhase = ''
+      mkdir -p $out/bin
+      cp omxplayer.bin $out/bin
+    '';
 
-  buildInputs = [
-    raspberrypifw
-    ffmpeg
-    pcre
-    boost
-    freetype
-    zlib
-  ];
+    buildInputs = [
+      raspberrypifw
+      ffmpeg
+      pcre
+      boost
+      freetype
+      zlib
+    ];
 
-  meta = with lib; {
-    homepage = "https://github.com/huceke/omxplayer";
-    description = "Commandline OMX player for the Raspberry Pi";
-    license = licenses.gpl2Plus;
-    platforms = platforms.arm;
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/huceke/omxplayer";
+      description = "Commandline OMX player for the Raspberry Pi";
+      license = licenses.gpl2Plus;
+      platforms = platforms.arm;
+    };
+  }

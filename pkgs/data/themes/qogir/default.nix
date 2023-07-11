@@ -17,90 +17,92 @@
   tweaks ? [ ]
 }:
 
-let pname = "qogir-theme";
+let
+  pname = "qogir-theme";
 
-in lib.checkListOfEnum "${pname}: theme variants" [
-  "default"
-  "manjaro"
-  "ubuntu"
-  "all"
-] themeVariants lib.checkListOfEnum "${pname}: color variants" [
-  "standard"
-  "light"
-  "dark"
-] colorVariants lib.checkListOfEnum "${pname}: tweaks" [
-  "image"
-  "square"
-  "round"
-] tweaks
+in
+  lib.checkListOfEnum "${pname}: theme variants" [
+    "default"
+    "manjaro"
+    "ubuntu"
+    "all"
+  ] themeVariants lib.checkListOfEnum "${pname}: color variants" [
+    "standard"
+    "light"
+    "dark"
+  ] colorVariants lib.checkListOfEnum "${pname}: tweaks" [
+    "image"
+    "square"
+    "round"
+  ] tweaks
 
-stdenv.mkDerivation rec {
-  inherit pname;
-  version = "2023-02-27";
+  stdenv.mkDerivation rec {
+    inherit pname;
+    version = "2023-02-27";
 
-  src = fetchFromGitHub {
-    owner = "vinceliuice";
-    repo = pname;
-    rev = version;
-    sha256 = "oBUBSPlOCBEaRRFK5ZyoGlk+gwcE8LtdwxvL+iTfuMA=";
-  };
+    src = fetchFromGitHub {
+      owner = "vinceliuice";
+      repo = pname;
+      rev = version;
+      sha256 = "oBUBSPlOCBEaRRFK5ZyoGlk+gwcE8LtdwxvL+iTfuMA=";
+    };
 
-  nativeBuildInputs = [
-    jdupes
-    sassc
-    which
-  ];
-
-  buildInputs = [
-    gdk-pixbuf # pixbuf engine for Gtk2
-    gnome-themes-extra # adwaita engine for Gtk2
-    librsvg # pixbuf loader for svg
-  ];
-
-  propagatedUserEnvPkgs = [ gtk-engine-murrine # murrine engine for Gtk2
+    nativeBuildInputs = [
+      jdupes
+      sassc
+      which
     ];
 
-  postPatch = ''
-    patchShebangs install.sh clean-old-theme.sh
-  '';
+    buildInputs = [
+      gdk-pixbuf # pixbuf engine for Gtk2
+      gnome-themes-extra # adwaita engine for Gtk2
+      librsvg # pixbuf loader for svg
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    propagatedUserEnvPkgs = [ gtk-engine-murrine # murrine engine for Gtk2
+      ];
 
-    mkdir -p $out/share/themes
+    postPatch = ''
+      patchShebangs install.sh clean-old-theme.sh
+    '';
 
-    name= HOME="$TMPDIR" ./install.sh \
-      ${
-        lib.optionalString (themeVariants != [ ]) "--theme "
-        + builtins.toString themeVariants
-      } \
-      ${
-        lib.optionalString (colorVariants != [ ]) "--color "
-        + builtins.toString colorVariants
-      } \
-      ${
-        lib.optionalString (tweaks != [ ]) "--tweaks "
-        + builtins.toString tweaks
-      } \
-      --dest $out/share/themes
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/share/doc/${pname}
-    cp -a src/firefox $out/share/doc/${pname}
+      mkdir -p $out/share/themes
 
-    rm $out/share/themes/*/{AUTHORS,COPYING}
+      name= HOME="$TMPDIR" ./install.sh \
+        ${
+          lib.optionalString (themeVariants != [ ]) "--theme "
+          + builtins.toString themeVariants
+        } \
+        ${
+          lib.optionalString (colorVariants != [ ]) "--color "
+          + builtins.toString colorVariants
+        } \
+        ${
+          lib.optionalString (tweaks != [ ]) "--tweaks "
+          + builtins.toString tweaks
+        } \
+        --dest $out/share/themes
 
-    jdupes --quiet --link-soft --recurse $out/share
+      mkdir -p $out/share/doc/${pname}
+      cp -a src/firefox $out/share/doc/${pname}
 
-    runHook postInstall
-  '';
+      rm $out/share/themes/*/{AUTHORS,COPYING}
 
-  passthru.updateScript = gitUpdater { };
+      jdupes --quiet --link-soft --recurse $out/share
 
-  meta = with lib; {
-    description = "Flat Design theme for GTK based desktop environments";
-    homepage = "https://github.com/vinceliuice/Qogir-theme";
-    license = licenses.gpl3Only;
-    platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
-  };
-}
+      runHook postInstall
+    '';
+
+    passthru.updateScript = gitUpdater { };
+
+    meta = with lib; {
+      description = "Flat Design theme for GTK based desktop environments";
+      homepage = "https://github.com/vinceliuice/Qogir-theme";
+      license = licenses.gpl3Only;
+      platforms = platforms.unix;
+      maintainers = [ maintainers.romildo ];
+    };
+  }

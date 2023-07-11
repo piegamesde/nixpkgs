@@ -23,8 +23,10 @@ let
       ];
       include = mkLines { Include = conf.Include or [ ]; };
       other = mkLines (conf // { Include = [ ]; });
-    in pkgs.writeText "hylafax-config${name}"
-    (concatStringsSep "\n" (include ++ other));
+    in
+      pkgs.writeText "hylafax-config${name}"
+      (concatStringsSep "\n" (include ++ other))
+  ;
 
   globalConfigPath = mkConfigFile "" cfg.faxqConfig;
 
@@ -48,8 +50,10 @@ let
           "${mkModemConfigFile modem}" \
           "$out/config.${name}"
       '';
-  in pkgs.runCommand "hylafax-config-modems" { preferLocalBuild = true; }
-  ''mkdir --parents "$out/" ${concatStringsSep "\n" (mapModems mkLine)}'';
+  in
+    pkgs.runCommand "hylafax-config-modems" { preferLocalBuild = true; }
+    ''mkdir --parents "$out/" ${concatStringsSep "\n" (mapModems mkLine)}''
+  ;
 
   setupSpoolScript = pkgs.substituteAll {
     name = "hylafax-setup-spool.sh";
@@ -128,7 +132,9 @@ let
       filter = key: value: (value != null) || !(lib.hasAttr key hardening);
       apply = service:
         lib.filterAttrs filter (hardening // (service.serviceConfig or { }));
-    in service: service // { serviceConfig = apply service; };
+    in
+      service: service // { serviceConfig = apply service; }
+  ;
 
   services.hylafax-spool = {
     description = "HylaFAX spool area preparation";

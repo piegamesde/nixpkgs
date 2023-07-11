@@ -134,5 +134,5 @@ import ./make-test-python.nix ({
         ''}
         client.succeed("curl --fail http://server/ >&2")
         client.succeed("ping -c 1 server >&2")
-      '';
-  })
+      '' ;
+  } )

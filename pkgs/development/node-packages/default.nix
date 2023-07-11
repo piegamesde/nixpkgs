@@ -24,4 +24,5 @@ let
     mainProgramOverrides
     (import ./overrides.nix { inherit pkgs nodejs; })
   ];
-in makeExtensible (extends extensions nodePackages)
+in
+  makeExtensible (extends extensions nodePackages)

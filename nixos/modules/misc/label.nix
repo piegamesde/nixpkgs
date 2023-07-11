@@ -6,7 +6,8 @@
 
 with lib;
 
-let cfg = config.system.nixos;
+let
+  cfg = config.system.nixos;
 
 in {
 

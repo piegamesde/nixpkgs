@@ -9,7 +9,8 @@
 
 with lib;
 
-let cfg = config.programs.spacefm;
+let
+  cfg = config.programs.spacefm;
 
 in {
   ###### interface

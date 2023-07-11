@@ -237,58 +237,63 @@ in {
     # Create missing swapfiles.
     systemd.services = let
       createSwapDevice = sw:
-        let realDevice' = escapeSystemdPath sw.realDevice;
-        in nameValuePair "mkswap-${sw.deviceName}" {
-          description = "Initialisation of swap device ${sw.device}";
-          wantedBy = [ "${realDevice'}.swap" ];
-          before = [ "${realDevice'}.swap" ];
-          path = [
-            pkgs.util-linux
-            pkgs.e2fsprogs
-          ] ++ optional sw.randomEncryption.enable pkgs.cryptsetup;
+        let
+          realDevice' = escapeSystemdPath sw.realDevice;
+        in
+          nameValuePair "mkswap-${sw.deviceName}" {
+            description = "Initialisation of swap device ${sw.device}";
+            wantedBy = [ "${realDevice'}.swap" ];
+            before = [ "${realDevice'}.swap" ];
+            path = [
+              pkgs.util-linux
+              pkgs.e2fsprogs
+            ] ++ optional sw.randomEncryption.enable pkgs.cryptsetup;
 
-          environment.DEVICE = sw.device;
+            environment.DEVICE = sw.device;
 
-          script = ''
-            ${optionalString (sw.size != null) ''
-              currentSize=$(( $(stat -c "%s" "$DEVICE" 2>/dev/null || echo 0) / 1024 / 1024 ))
-              if [[ ! -b "$DEVICE" && "${
-                toString sw.size
-              }" != "$currentSize" ]]; then
-                # Disable CoW for CoW based filesystems like BTRFS.
-                truncate --size 0 "$DEVICE"
-                chattr +C "$DEVICE" 2>/dev/null || true
+            script = ''
+              ${optionalString (sw.size != null) ''
+                currentSize=$(( $(stat -c "%s" "$DEVICE" 2>/dev/null || echo 0) / 1024 / 1024 ))
+                if [[ ! -b "$DEVICE" && "${
+                  toString sw.size
+                }" != "$currentSize" ]]; then
+                  # Disable CoW for CoW based filesystems like BTRFS.
+                  truncate --size 0 "$DEVICE"
+                  chattr +C "$DEVICE" 2>/dev/null || true
 
-                dd if=/dev/zero of="$DEVICE" bs=1M count=${toString sw.size}
-                chmod 0600 ${sw.device}
-                ${
-                  optionalString (!sw.randomEncryption.enable)
-                  "mkswap ${sw.realDevice}"
-                }
-              fi
-            ''}
-            ${optionalString sw.randomEncryption.enable ''
-              cryptsetup plainOpen -c ${sw.randomEncryption.cipher} -d ${sw.randomEncryption.source} \
-                ${
-                  optionalString sw.randomEncryption.allowDiscards
-                  "--allow-discards"
-                } ${sw.device} ${sw.deviceName}
-              mkswap ${sw.realDevice}
-            ''}
-          '';
+                  dd if=/dev/zero of="$DEVICE" bs=1M count=${toString sw.size}
+                  chmod 0600 ${sw.device}
+                  ${
+                    optionalString (!sw.randomEncryption.enable)
+                    "mkswap ${sw.realDevice}"
+                  }
+                fi
+              ''}
+              ${optionalString sw.randomEncryption.enable ''
+                cryptsetup plainOpen -c ${sw.randomEncryption.cipher} -d ${sw.randomEncryption.source} \
+                  ${
+                    optionalString sw.randomEncryption.allowDiscards
+                    "--allow-discards"
+                  } ${sw.device} ${sw.deviceName}
+                mkswap ${sw.realDevice}
+              ''}
+            '';
 
-          unitConfig.RequiresMountsFor = [ "${dirOf sw.device}" ];
-          unitConfig.DefaultDependencies = false; # needed to prevent a cycle
-          serviceConfig.Type = "oneshot";
-          serviceConfig.RemainAfterExit = sw.randomEncryption.enable;
-          serviceConfig.ExecStop = optionalString sw.randomEncryption.enable
-            "${pkgs.cryptsetup}/bin/cryptsetup luksClose ${sw.deviceName}";
-          restartIfChanged = false;
-        };
+            unitConfig.RequiresMountsFor = [ "${dirOf sw.device}" ];
+            unitConfig.DefaultDependencies = false; # needed to prevent a cycle
+            serviceConfig.Type = "oneshot";
+            serviceConfig.RemainAfterExit = sw.randomEncryption.enable;
+            serviceConfig.ExecStop = optionalString sw.randomEncryption.enable
+              "${pkgs.cryptsetup}/bin/cryptsetup luksClose ${sw.deviceName}";
+            restartIfChanged = false;
+          }
+      ;
 
-    in listToAttrs (map createSwapDevice
-      (filter (sw: sw.size != null || sw.randomEncryption.enable)
-        config.swapDevices));
+    in
+      listToAttrs (map createSwapDevice
+        (filter (sw: sw.size != null || sw.randomEncryption.enable)
+          config.swapDevices))
+    ;
 
   };
 

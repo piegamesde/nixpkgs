@@ -107,7 +107,7 @@ import ./make-test-python.nix {
                 text = machine.succeed('chroot-exec cat ${symlink}').strip()
                 assert_eq(text, "got me")
           '';
-        })
+        } )
         {
           config.serviceConfig.User = "chroot-testuser";
           config.serviceConfig.Group = "chroot-testgroup";
@@ -200,7 +200,7 @@ import ./make-test-python.nix {
         description = "Chroot Test User";
         group = "chroot-testgroup";
       };
-    };
+    } ;
 
   testScript = {
       nodes,

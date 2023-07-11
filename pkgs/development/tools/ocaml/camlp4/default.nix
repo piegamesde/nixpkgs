@@ -67,59 +67,60 @@ else
       };
     }.${ocaml.meta.branch};
 
-  in stdenv.mkDerivation rec {
-    pname = "camlp4";
-    inherit (param) version;
+  in
+    stdenv.mkDerivation rec {
+      pname = "camlp4";
+      inherit (param) version;
 
-    src = fetchzip {
-      url = "https://github.com/ocaml/camlp4/archive/${version}.tar.gz";
-      inherit (param) sha256;
-    };
+      src = fetchzip {
+        url = "https://github.com/ocaml/camlp4/archive/${version}.tar.gz";
+        inherit (param) sha256;
+      };
 
-    strictDeps = true;
+      strictDeps = true;
 
-    nativeBuildInputs = [
-      which
-      ocaml
-      ocamlbuild
-    ];
+      nativeBuildInputs = [
+        which
+        ocaml
+        ocamlbuild
+      ];
 
-    # build fails otherwise
-    enableParallelBuilding = false;
+      # build fails otherwise
+      enableParallelBuilding = false;
 
-    dontAddPrefix = true;
+      dontAddPrefix = true;
 
-    preConfigure = ''
-      # increase stack space for spacetime variant of the compiler
-      # https://github.com/ocaml/ocaml/issues/7435
-      # but disallowed by darwin sandbox
-      ulimit -s unlimited || true
+      preConfigure = ''
+        # increase stack space for spacetime variant of the compiler
+        # https://github.com/ocaml/ocaml/issues/7435
+        # but disallowed by darwin sandbox
+        ulimit -s unlimited || true
 
-      configureFlagsArray=(
-        --bindir=$out/bin
-        --libdir=$out/lib/ocaml/${ocaml.version}/site-lib
-        --pkgdir=$out/lib/ocaml/${ocaml.version}/site-lib
-      )
-    '';
+        configureFlagsArray=(
+          --bindir=$out/bin
+          --libdir=$out/lib/ocaml/${ocaml.version}/site-lib
+          --pkgdir=$out/lib/ocaml/${ocaml.version}/site-lib
+        )
+      '';
 
-    postConfigure = ''
-      substituteInPlace camlp4/META.in \
-      --replace +camlp4 $out/lib/ocaml/${ocaml.version}/site-lib/camlp4
-    '';
+      postConfigure = ''
+        substituteInPlace camlp4/META.in \
+        --replace +camlp4 $out/lib/ocaml/${ocaml.version}/site-lib/camlp4
+      '';
 
-    makeFlags = [ "all" ];
+      makeFlags = [ "all" ];
 
-    installTargets = [
-      "install"
-      "install-META"
-    ];
+      installTargets = [
+        "install"
+        "install-META"
+      ];
 
-    dontStrip = true;
+      dontStrip = true;
 
-    meta = with lib; {
-      description =
-        "A software system for writing extensible parsers for programming languages";
-      homepage = "https://github.com/ocaml/camlp4";
-      platforms = ocaml.meta.platforms or [ ];
-    };
-  }
+      meta = with lib; {
+        description =
+          "A software system for writing extensible parsers for programming languages";
+        homepage = "https://github.com/ocaml/camlp4";
+        platforms = ocaml.meta.platforms or [ ];
+      };
+    }

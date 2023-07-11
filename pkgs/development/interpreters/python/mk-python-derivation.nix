@@ -155,41 +155,48 @@ let
         " at ${pos.file}:${toString pos.line}:${toString pos.column}";
 
       leftPadName = name: against:
-        let len = lib.max (lib.stringLength name) (lib.stringLength against);
-        in lib.strings.fixedWidthString len " " name;
+        let
+          len = lib.max (lib.stringLength name) (lib.stringLength against);
+        in
+          lib.strings.fixedWidthString len " " name
+      ;
 
       throwMismatch = drv:
         let
           myName = "'${namePrefix}${name}'";
           theirName = "'${drv.name}'";
-        in throw ''
-          Python version mismatch in ${myName}:
+        in
+          throw ''
+            Python version mismatch in ${myName}:
 
-          The Python derivation ${myName} depends on a Python derivation
-          named ${theirName}, but the two derivations use different versions
-          of Python:
+            The Python derivation ${myName} depends on a Python derivation
+            named ${theirName}, but the two derivations use different versions
+            of Python:
 
-              ${leftPadName myName theirName} uses ${python}
-              ${leftPadName theirName myName} uses ${toString drv.pythonModule}
+                ${leftPadName myName theirName} uses ${python}
+                ${leftPadName theirName myName} uses ${
+                  toString drv.pythonModule
+                }
 
-          Possible solutions:
+            Possible solutions:
 
-            * If ${theirName} is a Python library, change the reference to ${theirName}
-              in the ${attrName} of ${myName} to use a ${theirName} built from the same
-              version of Python
+              * If ${theirName} is a Python library, change the reference to ${theirName}
+                in the ${attrName} of ${myName} to use a ${theirName} built from the same
+                version of Python
 
-            * If ${theirName} is used as a tool during the build, move the reference to
-              ${theirName} in ${myName} from ${attrName} to nativeBuildInputs
+              * If ${theirName} is used as a tool during the build, move the reference to
+                ${theirName} in ${myName} from ${attrName} to nativeBuildInputs
 
-            * If ${theirName} provides executables that are called at run time, pass its
-              bin path to makeWrapperArgs:
+              * If ${theirName} provides executables that are called at run time, pass its
+                bin path to makeWrapperArgs:
 
-                  makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${
-                    lib.getName drv
-                  } ] }" ];
+                    makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${
+                      lib.getName drv
+                    } ] }" ];
 
-          ${optionalLocation}
-        '';
+            ${optionalLocation}
+          ''
+      ;
 
       checkDrv = drv:
         if (isPythonModule drv) && (isMismatchedPython drv) then
@@ -197,7 +204,9 @@ let
         else
           drv;
 
-    in inputs: builtins.map (checkDrv) inputs;
+    in
+      inputs: builtins.map (checkDrv) inputs
+  ;
 
   # Keep extra attributes from `attrs`, e.g., `patchPhase', etc.
   self = toPythonModule (stdenv.mkDerivation ((builtins.removeAttrs attrs [
@@ -292,12 +301,15 @@ let
     disabledTestPaths = lib.escapeShellArgs disabledTestPaths;
   }));
 
-  passthru.updateScript =
-    let filename = builtins.head (lib.splitString ":" self.meta.position);
-    in attrs.passthru.updateScript or [
+  passthru.updateScript = let
+    filename = builtins.head (lib.splitString ":" self.meta.position);
+  in
+    attrs.passthru.updateScript or [
       update-python-libraries
       filename
-    ];
-in lib.extendDerivation
-(disabled -> throw "${name} not supported for interpreter ${python.executable}")
-passthru self
+    ]
+  ;
+in
+  lib.extendDerivation (disabled
+    -> throw "${name} not supported for interpreter ${python.executable}")
+  passthru self

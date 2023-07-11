@@ -117,7 +117,7 @@ let
       lld = callPackage ./lld { inherit llvm_meta; };
 
       lldb = callPackage ./lldb { inherit llvm_meta; };
-    });
+    } );
 
   libraries = lib.makeExtensible (libraries:
     let
@@ -137,6 +137,7 @@ let
       libcxxabi = callPackage ./libcxxabi { inherit llvm_meta; };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
-    });
+    } );
 
-in { inherit tools libraries release_version; } // libraries // tools
+in
+  { inherit tools libraries release_version; } // libraries // tools

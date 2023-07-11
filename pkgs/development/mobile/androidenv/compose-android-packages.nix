@@ -71,20 +71,22 @@ let
           "${addon}"
         ]) addons)
       ];
-    in stdenv.mkDerivation {
-      name = "androidenv-repo-json";
-      buildInputs = [ mkRepoRuby ];
-      preferLocalBuild = true;
-      unpackPhase = "true";
-      buildPhase = ''
-        ruby ${./mkrepo.rb} ${
-          lib.escapeShellArgs mkRepoRubyArguments
-        } > repo.json
-      '';
-      installPhase = ''
-        mv repo.json $out
-      '';
-    };
+    in
+      stdenv.mkDerivation {
+        name = "androidenv-repo-json";
+        buildInputs = [ mkRepoRuby ];
+        preferLocalBuild = true;
+        unpackPhase = "true";
+        buildPhase = ''
+          ruby ${./mkrepo.rb} ${
+            lib.escapeShellArgs mkRepoRubyArguments
+          } > repo.json
+        '';
+        installPhase = ''
+          mv repo.json $out
+        '';
+      }
+  ;
 
   # Reads the repo JSON. If repoXmls is provided, will build a repo JSON into the Nix store.
   repo = if repoXmls != null then
@@ -94,7 +96,8 @@ let
         images = repoXmls.images or [ ];
         addons = repoXmls.addons or [ ];
       };
-    in lib.importJSON "${mkRepoJson repoXmlSpec}"
+    in
+      lib.importJSON "${mkRepoJson repoXmlSpec}"
   else
     lib.importJSON repoJson;
 
@@ -153,11 +156,13 @@ in rec {
         "buildInputs"
         "patchInstructions"
       ];
-    in deployAndroidPackages ({
-      inherit os buildInputs meta;
-      packages = [ package ];
-      patchesInstructions = { "${package.name}" = patchInstructions; };
-    } // extraParams));
+    in
+      deployAndroidPackages ({
+        inherit os buildInputs meta;
+        packages = [ package ];
+        patchesInstructions = { "${package.name}" = patchInstructions; };
+      } // extraParams)
+  );
 
   platform-tools = callPackage ./platform-tools.nix {
     inherit deployAndroidPackage;
@@ -260,11 +265,13 @@ in rec {
             sed -i '/^Addon.Vendor/d' source.properties
           '';
         }) availablePackages);
-      in lib.optionals (availablePackages != [ ]) (deployAndroidPackages {
-        inherit os;
-        packages = availablePackages;
-        patchesInstructions = instructions;
-      })) systemImageTypes) platformVersions);
+      in
+        lib.optionals (availablePackages != [ ]) (deployAndroidPackages {
+          inherit os;
+          packages = availablePackages;
+          patchesInstructions = instructions;
+        })
+    ) systemImageTypes) platformVersions);
 
   cmake = map (version:
     callPackage ./cmake.nix {
@@ -467,7 +474,7 @@ in rec {
             targetDir=$(dirname ${path})
             mkdir -p $targetDir
             ln -s ${addon}/libexec/android-sdk/${path} $targetDir
-          '') includeExtras}
+          '' ) includeExtras}
 
         # Expose common executables in bin/
         mkdir -p $out/bin
@@ -494,7 +501,7 @@ in rec {
               writeText "androidenv-${licenseName}" licenseHashes;
           in ''
             ln -s ${licenseHashFile} licenses/${licenseName}
-          '') licenseNames}
+          '' ) licenseNames}
       '';
     };
 }

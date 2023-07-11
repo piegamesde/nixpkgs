@@ -50,4 +50,4 @@ import ./make-test-python.nix ({
         start_all()
         fenicsnode.succeed("${fenicsScript}")
       '';
-  })
+  } )

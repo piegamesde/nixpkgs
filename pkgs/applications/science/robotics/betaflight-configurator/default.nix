@@ -20,47 +20,48 @@ let
     desktopName = "Betaflight Configurator";
     genericName = "Flight controller configuration tool";
   };
-in stdenv.mkDerivation rec {
-  inherit pname;
-  version = "10.9.0";
-  src = fetchurl {
-    url =
-      "https://github.com/betaflight/${pname}/releases/download/${version}/${pname}_${version}_linux64-portable.zip";
-    sha256 = "sha256-9FzMyBIR2u1zXHtTWJABM6RF1+OyjYdEPlRwtig9blI=";
-  };
+in
+  stdenv.mkDerivation rec {
+    inherit pname;
+    version = "10.9.0";
+    src = fetchurl {
+      url =
+        "https://github.com/betaflight/${pname}/releases/download/${version}/${pname}_${version}_linux64-portable.zip";
+      sha256 = "sha256-9FzMyBIR2u1zXHtTWJABM6RF1+OyjYdEPlRwtig9blI=";
+    };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    unzip
-  ];
+    nativeBuildInputs = [
+      wrapGAppsHook
+      unzip
+    ];
 
-  buildInputs = [
-    gsettings-desktop-schemas
-    gtk3
-  ];
+    buildInputs = [
+      gsettings-desktop-schemas
+      gtk3
+    ];
 
-  installPhase = ''
-    mkdir -p $out/bin \
-             $out/opt/${pname}
+    installPhase = ''
+      mkdir -p $out/bin \
+               $out/opt/${pname}
 
-    cp -r . $out/opt/${pname}/
-    install -m 444 -D icon/bf_icon_128.png $out/share/icons/hicolor/128x128/apps/${pname}.png
-    cp -r ${desktopItem}/share/applications $out/share/
+      cp -r . $out/opt/${pname}/
+      install -m 444 -D icon/bf_icon_128.png $out/share/icons/hicolor/128x128/apps/${pname}.png
+      cp -r ${desktopItem}/share/applications $out/share/
 
-    makeWrapper ${nwjs}/bin/nw $out/bin/${pname} --add-flags $out/opt/${pname}
-  '';
-
-  meta = with lib; {
-    description = "The Betaflight flight control system configuration tool";
-    longDescription = ''
-      A crossplatform configuration tool for the Betaflight flight control system.
-      Various types of aircraft are supported by the tool and by Betaflight, e.g.
-      quadcopters, hexacopters, octocopters and fixed-wing aircraft.
+      makeWrapper ${nwjs}/bin/nw $out/bin/${pname} --add-flags $out/opt/${pname}
     '';
-    homepage = "https://github.com/betaflight/betaflight/wiki";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.gpl3;
-    maintainers = with maintainers; [ wucke13 ];
-    platforms = platforms.linux;
-  };
-}
+
+    meta = with lib; {
+      description = "The Betaflight flight control system configuration tool";
+      longDescription = ''
+        A crossplatform configuration tool for the Betaflight flight control system.
+        Various types of aircraft are supported by the tool and by Betaflight, e.g.
+        quadcopters, hexacopters, octocopters and fixed-wing aircraft.
+      '';
+      homepage = "https://github.com/betaflight/betaflight/wiki";
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.gpl3;
+      maintainers = with maintainers; [ wucke13 ];
+      platforms = platforms.linux;
+    };
+  }

@@ -81,4 +81,4 @@ import ./make-test-python.nix ({
            "git clone http://localhost/%28c%29git/some-repo && diff -u reference/date.txt some-repo/date.txt"
         )
       '';
-  })
+  } )

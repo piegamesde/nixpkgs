@@ -815,7 +815,9 @@ in rec {
           abis.unknown;
       };
 
-    in mkSystem parsed;
+    in
+      mkSystem parsed
+  ;
 
   mkSystemFromString = s:
     mkSystemFromSkeleton (mkSkeletonFromList (lib.splitString "-" s));
@@ -848,9 +850,9 @@ in rec {
         && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat)
         kernel.execFormat.name;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
-    in "${cpu.name}-${vendor.name}-${
-      kernelName kernel
-    }${optExecFormat}${optAbi}";
+    in
+      "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}"
+  ;
 
   ################################################################################
 

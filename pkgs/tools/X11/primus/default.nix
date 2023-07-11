@@ -35,10 +35,11 @@ let
     primus_i686.glvnd
   ]));
 
-in writeScriptBin "primusrun" ''
-  #!${runtimeShell}
-  export LD_LIBRARY_PATH=${ldPath}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH
-  # https://bugs.launchpad.net/ubuntu/+source/bumblebee/+bug/1758243
-  export __GLVND_DISALLOW_PATCHING=1
-  exec "$@"
-''
+in
+  writeScriptBin "primusrun" ''
+    #!${runtimeShell}
+    export LD_LIBRARY_PATH=${ldPath}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH
+    # https://bugs.launchpad.net/ubuntu/+source/bumblebee/+bug/1758243
+    export __GLVND_DISALLOW_PATCHING=1
+    exec "$@"
+  ''

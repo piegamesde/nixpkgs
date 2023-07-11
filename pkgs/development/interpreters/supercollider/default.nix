@@ -91,9 +91,11 @@ mkDerivation rec {
           };
           err.exit;
         '';
-      in runCommand "sclang-sc3-plugins-test" { } ''
-        timeout 60s env XDG_CONFIG_HOME="$(mktemp -d)" QT_QPA_PLATFORM=minimal ${supercollider-with-test-plugins}/bin/sclang ${testsc} >$out
-      '';
+      in
+        runCommand "sclang-sc3-plugins-test" { } ''
+          timeout 60s env XDG_CONFIG_HOME="$(mktemp -d)" QT_QPA_PLATFORM=minimal ${supercollider-with-test-plugins}/bin/sclang ${testsc} >$out
+        ''
+      ;
     };
   };
 

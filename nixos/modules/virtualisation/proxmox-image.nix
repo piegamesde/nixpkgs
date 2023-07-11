@@ -225,7 +225,9 @@ with lib;
               rev = "1976ca460796f28447b41e3618e5c1e234035dd5";
               path =
                 "debian/patches/pve/0026-PVE-Backup-add-vma-backup-format-code.patch";
-            in "https://git.proxmox.com/?p=pve-qemu.git;a=blob_plain;hb=${rev};f=${path}";
+            in
+              "https://git.proxmox.com/?p=pve-qemu.git;a=blob_plain;hb=${rev};f=${path}"
+            ;
             hash = "sha256-2Dz+ceTwrcyYYxi76RtyY3v15/2pwGcDhFuoZWlgbjc=";
           }) ];
 
@@ -243,7 +245,7 @@ with lib;
 
         mkdir -p $out/nix-support
         echo "file vma $out/vzdump-qemu-${cfg.filenameSuffix}.vma.zst" >> $out/nix-support/hydra-build-products
-      '';
+      '' ;
       format = "raw";
       inherit config lib pkgs;
     };
@@ -282,5 +284,5 @@ with lib;
     };
 
     services.qemuGuest.enable = lib.mkDefault true;
-  };
+  } ;
 }

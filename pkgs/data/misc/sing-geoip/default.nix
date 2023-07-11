@@ -32,33 +32,34 @@ let
       maintainers = with maintainers; [ linsui ];
     };
   };
-in stdenvNoCC.mkDerivation rec {
-  inherit (generator) pname;
-  inherit (clash-geoip) version;
+in
+  stdenvNoCC.mkDerivation rec {
+    inherit (generator) pname;
+    inherit (clash-geoip) version;
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  nativeBuildInputs = [ generator ];
+    nativeBuildInputs = [ generator ];
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    ${pname} ${clash-geoip}/etc/clash/Country.mmdb geoip.db
-    ${pname} ${clash-geoip}/etc/clash/Country.mmdb geoip-cn.db cn
+      ${pname} ${clash-geoip}/etc/clash/Country.mmdb geoip.db
+      ${pname} ${clash-geoip}/etc/clash/Country.mmdb geoip-cn.db cn
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm644 geoip.db $out/share/sing-box/geoip.db
-    install -Dm644 geoip-cn.db $out/share/sing-box/geoip-cn.db
+      install -Dm644 geoip.db $out/share/sing-box/geoip.db
+      install -Dm644 geoip-cn.db $out/share/sing-box/geoip-cn.db
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru = { inherit generator; };
+    passthru = { inherit generator; };
 
-  meta = generator.meta // { inherit (clash-geoip.meta) license; };
-}
+    meta = generator.meta // { inherit (clash-geoip.meta) license; };
+  }

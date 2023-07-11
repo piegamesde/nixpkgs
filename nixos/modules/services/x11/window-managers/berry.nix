@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.berry;
+let
+  cfg = config.services.xserver.windowManager.berry;
 in {
   ###### interface
   options = {

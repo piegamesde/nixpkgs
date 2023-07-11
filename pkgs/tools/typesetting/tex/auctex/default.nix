@@ -49,4 +49,5 @@ let
     };
   });
 
-in auctex // { pkgs = [ auctex.tex ]; }
+in
+  auctex // { pkgs = [ auctex.tex ]; }

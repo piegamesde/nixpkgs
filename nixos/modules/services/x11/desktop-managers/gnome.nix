@@ -426,12 +426,14 @@ in {
       services.xserver.displayManager.sessionPackages = let
         wmNames = map (wm: wm.wmName) flashbackWms;
         namesAreUnique = lib.unique wmNames == wmNames;
-      in assert (assertMsg namesAreUnique "Flashback WM names must be unique.");
-      map (wm:
-        pkgs.gnome.gnome-flashback.mkSessionForWm {
-          inherit (wm) wmName wmLabel wmCommand enableGnomePanel;
-          inherit (cfg.flashback) panelModulePackages;
-        }) flashbackWms;
+      in
+        assert (assertMsg namesAreUnique "Flashback WM names must be unique.");
+        map (wm:
+          pkgs.gnome.gnome-flashback.mkSessionForWm {
+            inherit (wm) wmName wmLabel wmCommand enableGnomePanel;
+            inherit (cfg.flashback) panelModulePackages;
+          }) flashbackWms
+      ;
 
       security.pam.services.gnome-flashback = { enableGnomeKeyring = true; };
 
@@ -509,8 +511,10 @@ in {
       services.xserver.desktopManager.gnome.sessionPath = let
         mandatoryPackages = [ pkgs.gnome.gnome-shell ];
         optionalPackages = [ pkgs.gnome.gnome-shell-extensions ];
-      in mandatoryPackages ++ utils.removePackagesByName optionalPackages
-      config.environment.gnome.excludePackages;
+      in
+        mandatoryPackages ++ utils.removePackagesByName optionalPackages
+        config.environment.gnome.excludePackages
+      ;
 
       services.colord.enable = mkDefault true;
       services.gnome.glib-networking.enable = true;
@@ -584,8 +588,10 @@ in {
           pkgs.gtk3.out # for gtk-launch program
           pkgs.xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
         ];
-      in mandatoryPackages ++ utils.removePackagesByName optionalPackages
-      config.environment.gnome.excludePackages;
+      in
+        mandatoryPackages ++ utils.removePackagesByName optionalPackages
+        config.environment.gnome.excludePackages
+      ;
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst

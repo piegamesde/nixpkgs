@@ -64,4 +64,4 @@ import ./make-test-python.nix ({
           '${pkgs.rabbitmq-java-client}/bin/PerfTest --time 10 --uri amqp://alice:dJT8isYu6t0Xb6u56rPglSj1vK51SlNVlXfwsRxw@localhost'
       )
     '';
-  })
+  } )

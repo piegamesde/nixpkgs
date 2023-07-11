@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.monit;
+let
+  cfg = config.services.monit;
 
 in {
   options.services.monit = {

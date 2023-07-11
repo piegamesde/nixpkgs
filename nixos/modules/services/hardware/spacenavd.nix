@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.hardware.spacenavd;
+let
+  cfg = config.hardware.spacenavd;
 
 in {
 

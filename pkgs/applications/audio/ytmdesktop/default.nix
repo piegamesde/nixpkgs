@@ -16,26 +16,27 @@ let
   };
 
   appimageContents = appimageTools.extract { inherit name src; };
-in appimageTools.wrapType2 rec {
-  inherit name src;
+in
+  appimageTools.wrapType2 rec {
+    inherit name src;
 
-  extraInstallCommands = ''
-    mv $out/bin/{${name},${pname}}
+    extraInstallCommands = ''
+      mv $out/bin/{${name},${pname}}
 
-    install -m 444 \
-        -D ${appimageContents}/youtube-music-desktop-app.desktop \
-        -t $out/share/applications
-    substituteInPlace \
-        $out/share/applications/youtube-music-desktop-app.desktop \
-        --replace 'Exec=AppRun' 'Exec=${pname}'
-    cp -r ${appimageContents}/usr/share/icons $out/share
-  '';
+      install -m 444 \
+          -D ${appimageContents}/youtube-music-desktop-app.desktop \
+          -t $out/share/applications
+      substituteInPlace \
+          $out/share/applications/youtube-music-desktop-app.desktop \
+          --replace 'Exec=AppRun' 'Exec=${pname}'
+      cp -r ${appimageContents}/usr/share/icons $out/share
+    '';
 
-  meta = with lib; {
-    description = "A Desktop App for YouTube Music";
-    homepage = "https://ytmdesktop.app/";
-    license = licenses.cc0;
-    platforms = platforms.linux;
-    maintainers = [ maintainers.lgcl ];
-  };
-}
+    meta = with lib; {
+      description = "A Desktop App for YouTube Music";
+      homepage = "https://ytmdesktop.app/";
+      license = licenses.cc0;
+      platforms = platforms.linux;
+      maintainers = [ maintainers.lgcl ];
+    };
+  }

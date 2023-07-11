@@ -73,5 +73,5 @@ import ./make-test-python.nix ({
         walled.succeed(
             "${newSystem}/bin/switch-to-configuration test 2>&1 | grep -qF ${unit}.service"
         )
-      '';
+      '' ;
   })

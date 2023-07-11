@@ -103,4 +103,5 @@ let
         env = shell self;
       } // (if attrs ? passthru then attrs.passthru else { }));
     } // customPhases);
-in lib.fix pkg
+in
+  lib.fix pkg

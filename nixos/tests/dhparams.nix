@@ -64,8 +64,11 @@ import ./make-test-python.nix {
     }:
     let
       getParamPath = gen: name:
-        let node = "gen${toString gen}";
-        in nodes.machine.config.specialisation.${node}.configuration.security.dhparams.params.${name}.path;
+        let
+          node = "gen${toString gen}";
+        in
+          nodes.machine.config.specialisation.${node}.configuration.security.dhparams.params.${name}.path
+      ;
 
       switchToGeneration = gen:
         let
@@ -76,7 +79,7 @@ import ./make-test-python.nix {
         in ''
           with machine.nested("switch to generation ${toString gen}"):
             machine.succeed("${switchCmd}")
-        '';
+        '' ;
 
     in ''
       import re
@@ -136,5 +139,5 @@ import ./make-test-python.nix {
       with subtest("check whether defaultBitSize works as intended"):
           assert_param_bits("${getParamPath 5 "foo3"}", 1029)
           assert_param_bits("${getParamPath 5 "bar3"}", 1029)
-    '';
+    '' ;
 }

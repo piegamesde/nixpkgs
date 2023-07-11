@@ -61,5 +61,5 @@ import ./make-test-python.nix ({
           machine.wait_for_open_port(80)
           machine.wait_until_succeeds("curl -fsS localhost:80/ready")
           machine.succeed('test -f /var/log/envoy/access.log')
-      '';
+      '' ;
   })

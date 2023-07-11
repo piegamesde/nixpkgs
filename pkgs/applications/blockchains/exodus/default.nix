@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "${libPath}" \
       $out/Exodus
-  '';
+  '' ;
 
   meta = with lib; {
     homepage = "https://www.exodus.io/";

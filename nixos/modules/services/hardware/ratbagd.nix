@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.ratbagd;
+let
+  cfg = config.services.ratbagd;
 in {
   ###### interface
 

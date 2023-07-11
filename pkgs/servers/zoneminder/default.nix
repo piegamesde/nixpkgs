@@ -81,167 +81,168 @@ let
   dirName = "zoneminder";
   perlBin = "${perl}/bin/perl";
 
-in stdenv.mkDerivation rec {
-  pname = "zoneminder";
-  version = "1.36.33";
+in
+  stdenv.mkDerivation rec {
+    pname = "zoneminder";
+    version = "1.36.33";
 
-  src = fetchFromGitHub {
-    owner = "ZoneMinder";
-    repo = "zoneminder";
-    rev = version;
-    sha256 = "sha256-KUhFZrF7BuLB2Z3LnTcHEEZVA6iosam6YsOd8KWvx7E=";
-    fetchSubmodules = true;
-  };
+    src = fetchFromGitHub {
+      owner = "ZoneMinder";
+      repo = "zoneminder";
+      rev = version;
+      sha256 = "sha256-KUhFZrF7BuLB2Z3LnTcHEEZVA6iosam6YsOd8KWvx7E=";
+      fetchSubmodules = true;
+    };
 
-  patches = [
-    ./default-to-http-1dot1.patch
-    ./0001-Don-t-use-file-timestamp-in-cache-filename.patch
-  ];
+    patches = [
+      ./default-to-http-1dot1.patch
+      ./0001-Don-t-use-file-timestamp-in-cache-filename.patch
+    ];
 
-  postPatch = ''
-    rm -rf web/api/lib/Cake/Test
+    postPatch = ''
+      rm -rf web/api/lib/Cake/Test
 
-    ${lib.concatStringsSep "\n" (map (e: ''
-      cp ${e.src} ${e.path}
-    '') addons)}
+      ${lib.concatStringsSep "\n" (map (e: ''
+        cp ${e.src} ${e.path}
+      '') addons)}
 
-    for d in scripts/ZoneMinder onvif/{modules,proxy} ; do
-      substituteInPlace $d/CMakeLists.txt \
-        --replace 'DESTDIR="''${CMAKE_CURRENT_BINARY_DIR}/output"' "PREFIX=$out INSTALLDIRS=site"
-      sed -i '/^install/d' $d/CMakeLists.txt
-    done
+      for d in scripts/ZoneMinder onvif/{modules,proxy} ; do
+        substituteInPlace $d/CMakeLists.txt \
+          --replace 'DESTDIR="''${CMAKE_CURRENT_BINARY_DIR}/output"' "PREFIX=$out INSTALLDIRS=site"
+        sed -i '/^install/d' $d/CMakeLists.txt
+      done
 
-    substituteInPlace misc/CMakeLists.txt \
-      --replace '"''${PC_POLKIT_PREFIX}/''${CMAKE_INSTALL_DATAROOTDIR}' "\"$out/share"
+      substituteInPlace misc/CMakeLists.txt \
+        --replace '"''${PC_POLKIT_PREFIX}/''${CMAKE_INSTALL_DATAROOTDIR}' "\"$out/share"
 
-    for f in misc/*.policy.in \
-             scripts/*.pl* \
-             scripts/ZoneMinder/lib/ZoneMinder/Memory.pm.in ; do
-      substituteInPlace $f \
-        --replace '/usr/bin/perl' '${perlBin}' \
-        --replace '/bin:/usr/bin' "$out/bin:${
-          lib.makeBinPath [
-            coreutils
-            procps
-            psmisc
-          ]
-        }"
-    done
+      for f in misc/*.policy.in \
+               scripts/*.pl* \
+               scripts/ZoneMinder/lib/ZoneMinder/Memory.pm.in ; do
+        substituteInPlace $f \
+          --replace '/usr/bin/perl' '${perlBin}' \
+          --replace '/bin:/usr/bin' "$out/bin:${
+            lib.makeBinPath [
+              coreutils
+              procps
+              psmisc
+            ]
+          }"
+      done
 
-    substituteInPlace scripts/zmdbbackup.in \
-      --replace /usr/bin/mysqldump ${mariadb.client}/bin/mysqldump
+      substituteInPlace scripts/zmdbbackup.in \
+        --replace /usr/bin/mysqldump ${mariadb.client}/bin/mysqldump
 
-    substituteInPlace scripts/zmupdate.pl.in \
-      --replace "'mysql'" "'${mariadb.client}/bin/mysql'" \
-      --replace "'mysqldump'" "'${mariadb.client}/bin/mysqldump'"
+      substituteInPlace scripts/zmupdate.pl.in \
+        --replace "'mysql'" "'${mariadb.client}/bin/mysql'" \
+        --replace "'mysqldump'" "'${mariadb.client}/bin/mysqldump'"
 
-    for f in scripts/ZoneMinder/lib/ZoneMinder/Config.pm.in \
-             scripts/zmupdate.pl.in \
-             src/zm_config_data.h.in \
-             web/api/app/Config/bootstrap.php.in \
-             web/includes/config.php.in ; do
-      substituteInPlace $f --replace @ZM_CONFIG_SUBDIR@ /etc/zoneminder
-    done
+      for f in scripts/ZoneMinder/lib/ZoneMinder/Config.pm.in \
+               scripts/zmupdate.pl.in \
+               src/zm_config_data.h.in \
+               web/api/app/Config/bootstrap.php.in \
+               web/includes/config.php.in ; do
+        substituteInPlace $f --replace @ZM_CONFIG_SUBDIR@ /etc/zoneminder
+      done
 
-    for f in includes/Event.php views/image.php ; do
-      substituteInPlace web/$f \
-        --replace "'ffmpeg " "'${ffmpeg}/bin/ffmpeg "
-    done
+      for f in includes/Event.php views/image.php ; do
+        substituteInPlace web/$f \
+          --replace "'ffmpeg " "'${ffmpeg}/bin/ffmpeg "
+      done
 
-    for f in scripts/ZoneMinder/lib/ZoneMinder/Event.pm \
-             scripts/ZoneMinder/lib/ZoneMinder/Storage.pm ; do
-      substituteInPlace $f \
-        --replace '/bin/rm' "${coreutils}/bin/rm"
-    done
+      for f in scripts/ZoneMinder/lib/ZoneMinder/Event.pm \
+               scripts/ZoneMinder/lib/ZoneMinder/Storage.pm ; do
+        substituteInPlace $f \
+          --replace '/bin/rm' "${coreutils}/bin/rm"
+      done
 
-    substituteInPlace web/includes/functions.php \
-      --replace "'date " "'${coreutils}/bin/date " \
-      --subst-var-by srcHash "`basename $out`"
-  '';
+      substituteInPlace web/includes/functions.php \
+        --replace "'date " "'${coreutils}/bin/date " \
+        --subst-var-by srcHash "`basename $out`"
+    '';
 
-  buildInputs = [
-    curl
-    ffmpeg
-    glib
-    libjpeg
-    libselinux
-    libsepol
-    mp4v2
-    libmysqlclient
-    mariadb
-    pcre
-    perl
-    polkit
-    x264
-    zlib
-    util-linuxMinimal # for libmount
-  ] ++ (with perlPackages; [
-    # build-time dependencies
-    DateManip
-    DBI
-    DBDmysql
-    LWP
-    SysMmap
-    # run-time dependencies not checked at build-time
-    ClassStdFast
-    DataDump
-    DeviceSerialPort
-    JSONMaybeXS
-    LWPProtocolHttps
-    NumberBytesHuman
-    SysCPU
-    SysMemInfo
-    TimeDate
-    CryptEksblowfish
-    DataEntropy # zmupdate.pl
-  ]);
+    buildInputs = [
+      curl
+      ffmpeg
+      glib
+      libjpeg
+      libselinux
+      libsepol
+      mp4v2
+      libmysqlclient
+      mariadb
+      pcre
+      perl
+      polkit
+      x264
+      zlib
+      util-linuxMinimal # for libmount
+    ] ++ (with perlPackages; [
+      # build-time dependencies
+      DateManip
+      DBI
+      DBDmysql
+      LWP
+      SysMmap
+      # run-time dependencies not checked at build-time
+      ClassStdFast
+      DataDump
+      DeviceSerialPort
+      JSONMaybeXS
+      LWPProtocolHttps
+      NumberBytesHuman
+      SysCPU
+      SysMemInfo
+      TimeDate
+      CryptEksblowfish
+      DataEntropy # zmupdate.pl
+    ]);
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      cmake
+      makeWrapper
+      pkg-config
+    ];
 
-  cmakeFlags = [
-    "-DWITH_SYSTEMD=ON"
-    "-DZM_LOGDIR=/var/log/${dirName}"
-    "-DZM_RUNDIR=/run/${dirName}"
-    "-DZM_SOCKDIR=/run/${dirName}"
-    "-DZM_TMPDIR=/tmp/${dirName}"
-    "-DZM_CONFIG_DIR=${placeholder "out"}/etc/zoneminder"
-    "-DZM_WEB_USER=${user}"
-    "-DZM_WEB_GROUP=${user}"
-  ];
+    cmakeFlags = [
+      "-DWITH_SYSTEMD=ON"
+      "-DZM_LOGDIR=/var/log/${dirName}"
+      "-DZM_RUNDIR=/run/${dirName}"
+      "-DZM_SOCKDIR=/run/${dirName}"
+      "-DZM_TMPDIR=/tmp/${dirName}"
+      "-DZM_CONFIG_DIR=${placeholder "out"}/etc/zoneminder"
+      "-DZM_WEB_USER=${user}"
+      "-DZM_WEB_GROUP=${user}"
+    ];
 
-  passthru = {
-    inherit dirName;
-    tests = nixosTests.zoneminder;
-  };
+    passthru = {
+      inherit dirName;
+      tests = nixosTests.zoneminder;
+    };
 
-  postInstall = ''
-    PERL5LIB="$PERL5LIB''${PERL5LIB:+:}$out/${perl.libPrefix}"
+    postInstall = ''
+      PERL5LIB="$PERL5LIB''${PERL5LIB:+:}$out/${perl.libPrefix}"
 
-    perlFlags="-wT"
-    for i in $(IFS=$'\n'; echo $PERL5LIB | tr ':' "\n" | sort -u); do
-      perlFlags="$perlFlags -I$i"
-    done
+      perlFlags="-wT"
+      for i in $(IFS=$'\n'; echo $PERL5LIB | tr ':' "\n" | sort -u); do
+        perlFlags="$perlFlags -I$i"
+      done
 
-    mkdir -p $out/libexec
-    for f in $out/bin/*.pl ; do
-      mv $f $out/libexec/
-      makeWrapper ${perlBin} $f \
-        --prefix PATH : $out/bin \
-        --add-flags "$perlFlags $out/libexec/$(basename $f)"
-    done
+      mkdir -p $out/libexec
+      for f in $out/bin/*.pl ; do
+        mv $f $out/libexec/
+        makeWrapper ${perlBin} $f \
+          --prefix PATH : $out/bin \
+          --add-flags "$perlFlags $out/libexec/$(basename $f)"
+      done
 
-    ln -s $out/share/zoneminder/www $out/share/zoneminder/www/zm
-  '';
+      ln -s $out/share/zoneminder/www $out/share/zoneminder/www/zm
+    '';
 
-  meta = with lib; {
-    description = "Video surveillance software system";
-    homepage = "https://zoneminder.com";
-    license = licenses.gpl3;
-    maintainers = [ ];
-    platforms = platforms.unix;
-  };
-}
+    meta = with lib; {
+      description = "Video surveillance software system";
+      homepage = "https://zoneminder.com";
+      license = licenses.gpl3;
+      maintainers = [ ];
+      platforms = platforms.unix;
+    };
+  }

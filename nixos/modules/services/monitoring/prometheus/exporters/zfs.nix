@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.zfs;
+let
+  cfg = config.services.prometheus.exporters.zfs;
 in {
   port = 9134;
 

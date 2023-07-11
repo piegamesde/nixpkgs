@@ -52,7 +52,7 @@ import ../make-test-python.nix ({
             inherit coreSite;
           };
         };
-    };
+    } ;
 
     testScript = ''
       start_all()

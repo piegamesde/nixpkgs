@@ -39,51 +39,52 @@ let
 
   };
 
-in gccStdenv.mkDerivation rec {
-  inherit pname version;
+in
+  gccStdenv.mkDerivation rec {
+    inherit pname version;
 
-  src = fetchFromGitHub {
-    owner = "the3dfxdude";
-    repo = pname;
-    rev = "9db2a43e1baee25a44b7aa7e9cedde9a107ed34b";
-    sha256 = "sha256-OAKaRuPP0/n8pO3wIUvGKs6n+U+EmZXUTywXYDAan1o=";
-  };
+    src = fetchFromGitHub {
+      owner = "the3dfxdude";
+      repo = pname;
+      rev = "9db2a43e1baee25a44b7aa7e9cedde9a107ed34b";
+      sha256 = "sha256-OAKaRuPP0/n8pO3wIUvGKs6n+U+EmZXUTywXYDAan1o=";
+    };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    openal
-    enet
-    SDL2
-    curl
-    gettext
-    libiconv
-  ];
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+    ];
+    buildInputs = [
+      openal
+      enet
+      SDL2
+      curl
+      gettext
+      libiconv
+    ];
 
-  preAutoreconf = ''
-    autoupdate
-  '';
+    preAutoreconf = ''
+      autoupdate
+    '';
 
-  hardeningDisable =
-    lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
+    hardeningDisable =
+      lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
 
-  postInstall = ''
-    mkdir $out/share/7kaa/MUSIC
-    cp -R ${music}/MUSIC $out/share/7kaa/
-    cp ${music}/COPYING-Music.txt $out/share/7kaa/MUSIC
-    cp ${music}/COPYING-Music.txt $out/share/doc/7kaa
-  '';
+    postInstall = ''
+      mkdir $out/share/7kaa/MUSIC
+      cp -R ${music}/MUSIC $out/share/7kaa/
+      cp ${music}/COPYING-Music.txt $out/share/7kaa/MUSIC
+      cp ${music}/COPYING-Music.txt $out/share/doc/7kaa
+    '';
 
-  # Multiplayer is auto-disabled for non-x86 system
+    # Multiplayer is auto-disabled for non-x86 system
 
-  meta = with lib; {
-    homepage = "https://www.7kfans.com";
-    description =
-      "GPL release of the Seven Kingdoms with multiplayer (available only on x86 platforms)";
-    license = licenses.gpl2Only;
-    platforms = platforms.x86_64 ++ platforms.aarch64;
-    maintainers = with maintainers; [ _1000101 ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://www.7kfans.com";
+      description =
+        "GPL release of the Seven Kingdoms with multiplayer (available only on x86 platforms)";
+      license = licenses.gpl2Only;
+      platforms = platforms.x86_64 ++ platforms.aarch64;
+      maintainers = with maintainers; [ _1000101 ];
+    };
+  }

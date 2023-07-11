@@ -83,7 +83,7 @@ in {
         # for ping probes
         AmbientCapabilities = [ "CAP_NET_RAW" ];
       };
-    };
+    } ;
 
     users.users.telegraf = {
       uid = config.ids.uids.telegraf;

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.hardware.ledger;
+let
+  cfg = config.hardware.ledger;
 
 in {
   options.hardware.ledger.enable =

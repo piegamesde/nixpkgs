@@ -21,41 +21,42 @@ let
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
   '';
-in buildPythonPackage {
-  inherit pname version src postPatch;
-  format = "setuptools";
+in
+  buildPythonPackage {
+    inherit pname version src postPatch;
+    format = "setuptools";
 
-  disabled = pythonOlder "3.8";
+    disabled = pythonOlder "3.8";
 
-  nativeBuildInput = [ setuptools-rust ];
+    nativeBuildInput = [ setuptools-rust ];
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
-    inherit src postPatch;
-    name = "${pname}-${version}";
-    hash = "sha256-27xR7xVH/u40Xl4VbJW/yEbURf0UcGPG5QK/04igseA=";
-  };
+    cargoDeps = rustPlatform.fetchCargoTarball {
+      inherit src postPatch;
+      name = "${pname}-${version}";
+      hash = "sha256-27xR7xVH/u40Xl4VbJW/yEbURf0UcGPG5QK/04igseA=";
+    };
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-  ] ++ (with rustPlatform; [
-    rust.cargo
-    rust.rustc
-  ]);
+    nativeBuildInputs = [
+      rustPlatform.cargoSetupHook
+      setuptools-rust
+    ] ++ (with rustPlatform; [
+      rust.cargo
+      rust.rustc
+    ]);
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+    buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-  propagatedBuildInputs = [
-    requests
-    regex
-    blobfile
-  ];
+    propagatedBuildInputs = [
+      requests
+      regex
+      blobfile
+    ];
 
-  meta = with lib; {
-    description =
-      "tiktoken is a fast BPE tokeniser for use with OpenAI's models.";
-    homepage = "https://github.com/openai/tiktoken";
-    license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
-  };
-}
+    meta = with lib; {
+      description =
+        "tiktoken is a fast BPE tokeniser for use with OpenAI's models.";
+      homepage = "https://github.com/openai/tiktoken";
+      license = licenses.mit;
+      maintainers = with maintainers; [ happysalada ];
+    };
+  }

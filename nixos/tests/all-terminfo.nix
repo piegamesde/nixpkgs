@@ -13,9 +13,12 @@ import ./make-test-python.nix ({
       }:
       let
         infoFilter = name: drv:
-          let o = builtins.tryEval drv;
-          in o.success && lib.isDerivation o.value && o.value ? outputs
-          && builtins.elem "terminfo" o.value.outputs;
+          let
+            o = builtins.tryEval drv;
+          in
+            o.success && lib.isDerivation o.value && o.value ? outputs
+            && builtins.elem "terminfo" o.value.outputs
+        ;
         terminfos = lib.filterAttrs infoFilter pkgs;
         excludedTerminfos = lib.filterAttrs (_: drv:
           !(builtins.elem drv.terminfo config.environment.systemPackages))
@@ -31,7 +34,7 @@ import ./make-test-python.nix ({
           etc."terminfo-extra-outs".text =
             builtins.concatStringsSep "\n" (builtins.attrNames includedOuts);
         };
-      };
+      } ;
 
     testScript = ''
       machine.fail("grep . /etc/terminfo-missing >&2")

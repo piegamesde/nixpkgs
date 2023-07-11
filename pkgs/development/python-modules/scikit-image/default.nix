@@ -115,4 +115,5 @@ let
       maintainers = with lib.maintainers; [ yl3dy ];
     };
   };
-in self
+in
+  self

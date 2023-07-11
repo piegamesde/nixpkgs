@@ -172,7 +172,7 @@ in {
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
       };
-    };
+    } ;
 
     environment.etc."jitsi/jicofo/sip-communicator.properties".text = "";
     environment.etc."jitsi/jicofo/logging.properties".source =

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.influxdb;
+let
+  cfg = config.services.prometheus.exporters.influxdb;
 in {
   port = 9122;
   extraOpts = {

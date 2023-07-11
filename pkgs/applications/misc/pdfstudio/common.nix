@@ -65,33 +65,34 @@ let
   };
 
   # Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.
-in buildFHSEnv {
-  name = pname;
-  targetPkgs = pkgs: [
-    cups
-    thisPackage
-  ];
-  runScript = "${program}${year}";
-
-  # link desktop item and icon into FHS user environment
-  extraInstallCommands = ''
-    mkdir -p "$out/share/applications"
-    mkdir -p "$out/share/pixmaps"
-    ln -s ${thisPackage}/share/applications/*.desktop "$out/share/applications/"
-    ln -s ${thisPackage}/share/pixmaps/*.png "$out/share/pixmaps/"
-  '';
-
-  meta = with lib; {
-    homepage = "https://www.qoppa.com/${pname}/";
-    description = "An easy to use, full-featured PDF editing software";
-    longDescription = longDescription;
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
+in
+  buildFHSEnv {
+    name = pname;
+    targetPkgs = pkgs: [
+      cups
+      thisPackage
     ];
-    license = licenses.unfree;
-    platforms = platforms.linux;
-    mainProgram = pname;
-    maintainers = [ maintainers.pwoelfel ];
-  };
-}
+    runScript = "${program}${year}";
+
+    # link desktop item and icon into FHS user environment
+    extraInstallCommands = ''
+      mkdir -p "$out/share/applications"
+      mkdir -p "$out/share/pixmaps"
+      ln -s ${thisPackage}/share/applications/*.desktop "$out/share/applications/"
+      ln -s ${thisPackage}/share/pixmaps/*.png "$out/share/pixmaps/"
+    '';
+
+    meta = with lib; {
+      homepage = "https://www.qoppa.com/${pname}/";
+      description = "An easy to use, full-featured PDF editing software";
+      longDescription = longDescription;
+      sourceProvenance = with sourceTypes; [
+        binaryBytecode
+        binaryNativeCode
+      ];
+      license = licenses.unfree;
+      platforms = platforms.linux;
+      mainProgram = pname;
+      maintainers = [ maintainers.pwoelfel ];
+    };
+  }

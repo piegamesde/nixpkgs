@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xandikos;
+let
+  cfg = config.services.xandikos;
 in {
 
   options = {

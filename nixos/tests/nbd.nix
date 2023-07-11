@@ -120,4 +120,4 @@ import ./make-test-python.nix ({
          raise Exception(f"Read the wrong string from nbd disk. Expected: '{testString}'. Found: '{foundString}'")
       server.succeed("nbd-client -d /dev/nbd0")
     '';
-  })
+  } )

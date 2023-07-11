@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.programs.minipro;
+let
+  cfg = config.programs.minipro;
 in {
   options = {
     programs.minipro = {

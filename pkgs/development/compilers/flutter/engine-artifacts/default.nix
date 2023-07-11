@@ -79,7 +79,7 @@ let
             "profile"
             "release"
           ] (variant: [ linux-flutter-gtk ]);
-        });
+        } );
     };
   };
 
@@ -96,28 +96,30 @@ let
         "${platform}${lib.optionalString (variant != null) "-${variant}"}";
       archiveBasename =
         lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}" archive;
-    in stdenv.mkDerivation ({
-      pname = "flutter-artifact${
-          lib.optionalString (platform != null) "-${artifactDirectory}"
-        }-${archiveBasename}";
-      version = engineVersion;
+    in
+      stdenv.mkDerivation ({
+        pname = "flutter-artifact${
+            lib.optionalString (platform != null) "-${artifactDirectory}"
+          }-${archiveBasename}";
+        version = engineVersion;
 
-      src = fetchzip {
-        url =
-          "https://storage.googleapis.com/flutter_infra_release/flutter/${engineVersion}${
-            lib.optionalString (platform != null) "/${artifactDirectory}"
-          }/${archive}";
-        stripRoot = false;
-        hash = (if artifactDirectory == null then
-          hashes
-        else
-          hashes.${artifactDirectory}).${archive};
-      };
+        src = fetchzip {
+          url =
+            "https://storage.googleapis.com/flutter_infra_release/flutter/${engineVersion}${
+              lib.optionalString (platform != null) "/${artifactDirectory}"
+            }/${archive}";
+          stripRoot = false;
+          hash = (if artifactDirectory == null then
+            hashes
+          else
+            hashes.${artifactDirectory}).${archive};
+        };
 
-      nativeBuildInputs = [ autoPatchelfHook ];
+        nativeBuildInputs = [ autoPatchelfHook ];
 
-      installPhase = "cp -r . $out";
-    } // args);
+        installPhase = "cp -r . $out";
+      } // args)
+  ;
 
   artifactDerivations = {
     common = builtins.mapAttrs (name: mkArtifactDerivation) artifacts.common;
@@ -134,4 +136,5 @@ let
             } // args)) variantArtifacts) variants.variants;
       }) architectures) artifacts.platform;
   };
-in artifactDerivations
+in
+  artifactDerivations

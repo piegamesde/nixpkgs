@@ -122,48 +122,49 @@ let
     outputHash = "sha256-dV7/U5GpFxhI13smZ587C6cVE4FRNPY0zexZkYK4Yqo=";
   };
 
-in makePackage {
-  pname = "openjfx-modular-sdk";
+in
+  makePackage {
+    pname = "openjfx-modular-sdk";
 
-  gradleProperties = ''
-    COMPILE_MEDIA = ${lib.boolToString withMedia}
-    COMPILE_WEBKIT = ${lib.boolToString withWebKit}
-  '';
+    gradleProperties = ''
+      COMPILE_MEDIA = ${lib.boolToString withMedia}
+      COMPILE_WEBKIT = ${lib.boolToString withWebKit}
+    '';
 
-  preBuild = ''
-    swtJar="$(find ${deps} -name org.eclipse.swt\*.jar)"
-    substituteInPlace build.gradle \
-      --replace 'mavenCentral()' 'mavenLocal(); maven { url uri("${deps}") }' \
-      --replace 'name: SWT_FILE_NAME' "files('$swtJar')"
-  '';
+    preBuild = ''
+      swtJar="$(find ${deps} -name org.eclipse.swt\*.jar)"
+      substituteInPlace build.gradle \
+        --replace 'mavenCentral()' 'mavenLocal(); maven { url uri("${deps}") }' \
+        --replace 'name: SWT_FILE_NAME' "files('$swtJar')"
+    '';
 
-  installPhase = ''
-    cp -r build/modular-sdk $out
-  '';
+    installPhase = ''
+      cp -r build/modular-sdk $out
+    '';
 
-  stripDebugList = [ "." ];
+    stripDebugList = [ "." ];
 
-  postFixup = ''
-    # Remove references to bootstrap.
-    export openjdkOutPath='${openjdk19_headless.outPath}'
-    find "$out" -name \*.so | while read lib; do
-      new_refs="$(patchelf --print-rpath "$lib" | perl -pe 's,:?\Q$ENV{openjdkOutPath}\E[^:]*,,')"
-      patchelf --set-rpath "$new_refs" "$lib"
-    done
-  '';
+    postFixup = ''
+      # Remove references to bootstrap.
+      export openjdkOutPath='${openjdk19_headless.outPath}'
+      find "$out" -name \*.so | while read lib; do
+        new_refs="$(patchelf --print-rpath "$lib" | perl -pe 's,:?\Q$ENV{openjdkOutPath}\E[^:]*,,')"
+        patchelf --set-rpath "$new_refs" "$lib"
+      done
+    '';
 
-  disallowedReferences = [
-    openjdk17_headless
-    openjdk19_headless
-  ];
+    disallowedReferences = [
+      openjdk17_headless
+      openjdk19_headless
+    ];
 
-  passthru.deps = deps;
+    passthru.deps = deps;
 
-  meta = with lib; {
-    homepage = "https://openjdk.org/projects/openjfx/";
-    license = licenses.gpl2Classpath;
-    description = "The next-generation Java client toolkit";
-    maintainers = with maintainers; [ abbradar ];
-    platforms = platforms.unix;
-  };
-}
+    meta = with lib; {
+      homepage = "https://openjdk.org/projects/openjfx/";
+      license = licenses.gpl2Classpath;
+      description = "The next-generation Java client toolkit";
+      maintainers = with maintainers; [ abbradar ];
+      platforms = platforms.unix;
+    };
+  }

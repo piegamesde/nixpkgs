@@ -169,105 +169,106 @@ let
         });
     };
   };
-in python3'.pkgs.buildPythonPackage rec {
-  pname = "privacyIDEA";
-  version = "3.8.1";
+in
+  python3'.pkgs.buildPythonPackage rec {
+    pname = "privacyIDEA";
+    version = "3.8.1";
 
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-SYXw8PBCb514v3rcy15W/vZS5JyMsu81D2sJmviLRtw=";
-    fetchSubmodules = true;
-  };
+    src = fetchFromGitHub {
+      owner = pname;
+      repo = pname;
+      rev = "v${version}";
+      hash = "sha256-SYXw8PBCb514v3rcy15W/vZS5JyMsu81D2sJmviLRtw=";
+      fetchSubmodules = true;
+    };
 
-  propagatedBuildInputs = with python3'.pkgs; [
-    cryptography
-    pyrad
-    pymysql
-    python-dateutil
-    flask-versioned
-    flask_script
-    defusedxml
-    croniter
-    flask_migrate
-    pyjwt
-    configobj
-    sqlsoup
-    pillow
-    python-gnupg
-    passlib
-    pyopenssl
-    beautifulsoup4
-    smpplib
-    flask-babel
-    ldap3
-    huey
-    pyyaml
-    qrcode
-    oauth2client
-    requests
-    lxml
-    cbor2
-    psycopg2
-    pydash
-    ecdsa
-    google-auth
-    importlib-metadata
-    argon2-cffi
-    bcrypt
-    segno
-  ];
-
-  passthru.tests = { inherit (nixosTests) privacyidea; };
-
-  nativeCheckInputs = with python3'.pkgs; [
-    openssl
-    mock
-    pytestCheckHook
-    responses
-    testfixtures
-  ];
-  preCheck = "export HOME=$(mktemp -d)";
-  postCheck = "unset HOME";
-  disabledTests = [
-    # expects `/home/` to exist, fails with `FileNotFoundError: [Errno 2] No such file or directory: '/home/'`.
-    "test_01_loading_scripts"
-
-    # Tries to connect to `fcm.googleapis.com`.
-    "test_02_api_push_poll"
-    "test_04_decline_auth_request"
-
-    # Timezone info not available in build sandbox
-    "test_14_convert_timestamp_to_utc"
-
-    # Fails because of different logger configurations
-    "test_01_create_default_app"
-    "test_03_logging_config_file"
-    "test_04_logging_config_yaml"
-    "test_05_logging_config_broken_yaml"
-  ];
-
-  pythonImportsCheck = [ "privacyidea" ];
-
-  postPatch = ''
-    patchShebangs tests/testdata/scripts
-    substituteInPlace privacyidea/lib/resolvers/LDAPIdResolver.py --replace \
-      "/etc/privacyidea/ldap-ca.crt" \
-      "${cacert}/etc/ssl/certs/ca-bundle.crt"
-  '';
-
-  postInstall = ''
-    rm -r $out/${python3'.sitePackages}/tests
-  '';
-
-  meta = with lib; {
-    description = "Multi factor authentication system (2FA, MFA, OTP Server)";
-    license = licenses.agpl3Plus;
-    homepage = "http://www.privacyidea.org";
-    maintainers = with maintainers; [
-      globin
-      ma27
+    propagatedBuildInputs = with python3'.pkgs; [
+      cryptography
+      pyrad
+      pymysql
+      python-dateutil
+      flask-versioned
+      flask_script
+      defusedxml
+      croniter
+      flask_migrate
+      pyjwt
+      configobj
+      sqlsoup
+      pillow
+      python-gnupg
+      passlib
+      pyopenssl
+      beautifulsoup4
+      smpplib
+      flask-babel
+      ldap3
+      huey
+      pyyaml
+      qrcode
+      oauth2client
+      requests
+      lxml
+      cbor2
+      psycopg2
+      pydash
+      ecdsa
+      google-auth
+      importlib-metadata
+      argon2-cffi
+      bcrypt
+      segno
     ];
-  };
-}
+
+    passthru.tests = { inherit (nixosTests) privacyidea; };
+
+    nativeCheckInputs = with python3'.pkgs; [
+      openssl
+      mock
+      pytestCheckHook
+      responses
+      testfixtures
+    ];
+    preCheck = "export HOME=$(mktemp -d)";
+    postCheck = "unset HOME";
+    disabledTests = [
+      # expects `/home/` to exist, fails with `FileNotFoundError: [Errno 2] No such file or directory: '/home/'`.
+      "test_01_loading_scripts"
+
+      # Tries to connect to `fcm.googleapis.com`.
+      "test_02_api_push_poll"
+      "test_04_decline_auth_request"
+
+      # Timezone info not available in build sandbox
+      "test_14_convert_timestamp_to_utc"
+
+      # Fails because of different logger configurations
+      "test_01_create_default_app"
+      "test_03_logging_config_file"
+      "test_04_logging_config_yaml"
+      "test_05_logging_config_broken_yaml"
+    ];
+
+    pythonImportsCheck = [ "privacyidea" ];
+
+    postPatch = ''
+      patchShebangs tests/testdata/scripts
+      substituteInPlace privacyidea/lib/resolvers/LDAPIdResolver.py --replace \
+        "/etc/privacyidea/ldap-ca.crt" \
+        "${cacert}/etc/ssl/certs/ca-bundle.crt"
+    '';
+
+    postInstall = ''
+      rm -r $out/${python3'.sitePackages}/tests
+    '';
+
+    meta = with lib; {
+      description = "Multi factor authentication system (2FA, MFA, OTP Server)";
+      license = licenses.agpl3Plus;
+      homepage = "http://www.privacyidea.org";
+      maintainers = with maintainers; [
+        globin
+        ma27
+      ];
+    };
+  }

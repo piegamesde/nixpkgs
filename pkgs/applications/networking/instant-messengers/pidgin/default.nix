@@ -62,35 +62,37 @@ let
 
     buildInputs = let
       python-with-dbus = python3.withPackages (pp: with pp; [ dbus-python ]);
-    in [
-      aspell
-      libstartup_notification
-      gst_all_1.gstreamer
-      gst_all_1.gst-plugins-base
-      gst_all_1.gst-plugins-good
-      libxml2
-      nss
-      nspr
-      libXScrnSaver
-      python-with-dbus
-      avahi
-      dbus
-      dbus-glib
-      libidn
-      libICE
-      libXext
-      libSM
-      cyrus_sasl
-      libgnt
-      ncurses # optional: build finch - the console UI
-    ] ++ lib.optional withOpenssl openssl ++ lib.optionals withGnutls [
-      gnutls
-      libgcrypt
-    ] ++ lib.optionals stdenv.isLinux [
-      gtk2
-      gtkspell2
-      farstream
-    ] ++ lib.optional stdenv.isDarwin gtk2-x11;
+    in
+      [
+        aspell
+        libstartup_notification
+        gst_all_1.gstreamer
+        gst_all_1.gst-plugins-base
+        gst_all_1.gst-plugins-good
+        libxml2
+        nss
+        nspr
+        libXScrnSaver
+        python-with-dbus
+        avahi
+        dbus
+        dbus-glib
+        libidn
+        libICE
+        libXext
+        libSM
+        cyrus_sasl
+        libgnt
+        ncurses # optional: build finch - the console UI
+      ] ++ lib.optional withOpenssl openssl ++ lib.optionals withGnutls [
+        gnutls
+        libgcrypt
+      ] ++ lib.optionals stdenv.isLinux [
+        gtk2
+        gtkspell2
+        farstream
+      ] ++ lib.optional stdenv.isDarwin gtk2-x11
+    ;
 
     propagatedBuildInputs = [
       pkg-config
@@ -139,12 +141,14 @@ let
       # TODO: python is a script, so it doesn't work as interpreter on darwin
       binsToTest = lib.optionalString stdenv.isLinux "purple-remote,"
         + "pidgin,finch";
-    in lib.optionalString doInstallCheck ''
-      for f in "''${!outputBin}"/bin/{${binsToTest}}; do
-        echo "Testing: $f --help"
-        "$f" --help
-      done
-    '';
+    in
+      lib.optionalString doInstallCheck ''
+        for f in "''${!outputBin}"/bin/{${binsToTest}}; do
+          echo "Testing: $f --help"
+          "$f" --help
+        done
+      ''
+    ;
 
     passthru = {
       makePluginPath = lib.makeSearchPathOutput "lib"

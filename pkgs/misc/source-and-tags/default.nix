@@ -53,7 +53,7 @@
 
         mkdir -p $out/nix-support
         echo "TAG_FILES=\"\$TAG_FILES\''${TAG_FILES:+:}$TAG_FILES\"" >> $out/nix-support/setup-hook
-      '';
+      '' ;
     };
   # example usage
   #testSourceWithTags = sourceWithTagsDerivation (ghc68extraLibs ghcsAndLibs.ghc68).happs_server_darcs.passthru.sourceWithTags;

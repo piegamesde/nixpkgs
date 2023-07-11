@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     npm run build:production
 
     runHook postBuild
-  '';
+  '' ;
 
   installPhase = ''
     runHook preInstall

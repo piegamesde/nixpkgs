@@ -73,19 +73,20 @@ let
     '';
 
   };
-in stdenv.mkDerivation {
-  name = "test-LD_LIBRARY_PATH";
-  nativeBuildInputs = [ testProgram ];
+in
+  stdenv.mkDerivation {
+    name = "test-LD_LIBRARY_PATH";
+    nativeBuildInputs = [ testProgram ];
 
-  buildCommand = ''
-    # And for good measure, repeat the tests again from a separate derivation,
-    # as fixupPhase done by the stdenv can (and has!) affect the result.
+    buildCommand = ''
+      # And for good measure, repeat the tests again from a separate derivation,
+      # as fixupPhase done by the stdenv can (and has!) affect the result.
 
-    [ "$(greeting-test)" = "Hello, world!" ]
-    [ "$(LD_LIBRARY_PATH=${libgoodbye}/lib greeting-test)" = "Goodbye, world!" ]
+      [ "$(greeting-test)" = "Hello, world!" ]
+      [ "$(LD_LIBRARY_PATH=${libgoodbye}/lib greeting-test)" = "Goodbye, world!" ]
 
-    touch $out
-  '';
+      touch $out
+    '';
 
-  meta.platforms = lib.platforms.linux;
-}
+    meta.platforms = lib.platforms.linux;
+  }

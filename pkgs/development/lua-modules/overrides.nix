@@ -78,7 +78,9 @@ with prev; {
         rel = splitVersion version';
         date = head rel;
         rev = last (splitString "-" (last rel));
-      in "${date}-${rev}";
+      in
+        "${date}-${rev}"
+    ;
 
     meta.broken = luaOlder "5.1" || luaAtLeast "5.4";
 
@@ -97,7 +99,8 @@ with prev; {
 
     # Upstream rockspec is pointlessly broken into separate rockspecs, per Lua
     # version, which doesn't work well for us, so modify it
-    postConfigure = let inherit (prev.cqueues) pname;
+    postConfigure = let
+      inherit (prev.cqueues) pname;
     in ''
       # 'all' target auto-detects correct Lua version, which is fine for us as
       # we only have the right one available :)
@@ -108,7 +111,7 @@ with prev; {
       specDir=$(dirname ''${rockspecFilename})
       cp ''${rockspecFilename} "$specDir/${pname}-${version}.rockspec"
       rockspecFilename="$specDir/${pname}-${version}.rockspec"
-    '';
+    '' ;
   });
 
   cyrussasl = prev.cyrussasl.overrideAttrs (drv: {

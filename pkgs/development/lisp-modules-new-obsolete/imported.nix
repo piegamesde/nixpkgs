@@ -21,12 +21,15 @@ let
       asd,
       system,
     }:
-    let src = fetchzip { inherit url sha256; };
-    in runCommand "source" { } ''
-      mkdir -pv $out
-      cp -r ${src}/* $out
-      find $out -name "${asd}.asd" | while read f; do mv -fv $f $(dirname $f)/${system}.asd || true; done
-    '';
+    let
+      src = fetchzip { inherit url sha256; };
+    in
+      runCommand "source" { } ''
+        mkdir -pv $out
+        cp -r ${src}/* $out
+        find $out -name "${asd}.asd" | while read f; do mv -fv $f $(dirname $f)/${system}.asd || true; done
+      ''
+  ;
 
   getAttr = builtins.getAttr;
 

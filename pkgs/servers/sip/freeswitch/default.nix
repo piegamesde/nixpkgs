@@ -107,90 +107,93 @@ let
   modulesConf = let
     lst = builtins.map (mod: mod.path) enabledModules;
     str = lib.strings.concatStringsSep "\n" lst;
-  in builtins.toFile "modules.conf" str;
+  in
+    builtins.toFile "modules.conf" str
+  ;
 
-in stdenv.mkDerivation rec {
-  pname = "freeswitch";
-  version = "1.10.9";
-  src = fetchFromGitHub {
-    owner = "signalwire";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-65DH2HxiF8wqzmzbIqaQZjSa/JPERHIS2FW6F18c6Pw=";
-  };
+in
+  stdenv.mkDerivation rec {
+    pname = "freeswitch";
+    version = "1.10.9";
+    src = fetchFromGitHub {
+      owner = "signalwire";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "sha256-65DH2HxiF8wqzmzbIqaQZjSa/JPERHIS2FW6F18c6Pw=";
+    };
 
-  postPatch = ''
-    patchShebangs     libs/libvpx/build/make/rtcd.pl
-    substituteInPlace libs/libvpx/build/make/configure.sh \
-      --replace AS=\''${AS} AS=yasm
+    postPatch = ''
+      patchShebangs     libs/libvpx/build/make/rtcd.pl
+      substituteInPlace libs/libvpx/build/make/configure.sh \
+        --replace AS=\''${AS} AS=yasm
 
-    # Disable advertisement banners
-    for f in src/include/cc.h libs/esl/src/include/cc.h; do
-      {
-        echo 'const char *cc = "";'
-        echo 'const char *cc_s = "";'
-      } > $f
-    done
-  '';
+      # Disable advertisement banners
+      for f in src/include/cc.h libs/esl/src/include/cc.h; do
+        {
+          echo 'const char *cc = "";'
+          echo 'const char *cc_s = "";'
+        } > $f
+      done
+    '';
 
-  strictDeps = true;
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    perl
-    which
-    yasm
-  ];
-  buildInputs = [
-    openssl
-    ncurses
-    gnutls
-    readline
-    libjpeg
-    sqlite
-    pcre
-    speex
-    ldns
-    libedit
-    libsndfile
-    libtiff
-    libuuid
-    libxcrypt
-  ] ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules)
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+    strictDeps = true;
+    nativeBuildInputs = [
+      pkg-config
+      autoreconfHook
+      perl
+      which
+      yasm
+    ];
+    buildInputs = [
+      openssl
+      ncurses
+      gnutls
+      readline
+      libjpeg
+      sqlite
+      pcre
+      speex
+      ldns
+      libedit
+      libsndfile
+      libtiff
+      libuuid
+      libxcrypt
+    ] ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules)
+      ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
-  enableParallelBuilding = true;
+    enableParallelBuilding = true;
 
-  env.NIX_CFLAGS_COMPILE = "-Wno-error";
+    env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  # Using c++14 because of build error
-  # gsm_at.h:94:32: error: ISO C++17 does not allow dynamic exception specifications
-  CXXFLAGS = "-std=c++14";
+    # Using c++14 because of build error
+    # gsm_at.h:94:32: error: ISO C++17 does not allow dynamic exception specifications
+    CXXFLAGS = "-std=c++14";
 
-  CFLAGS = "-D_ANSI_SOURCE";
+    CFLAGS = "-D_ANSI_SOURCE";
 
-  hardeningDisable = [ "format" ];
+    hardeningDisable = [ "format" ];
 
-  preConfigure = ''
-    ./bootstrap.sh
-    cp "${modulesConf}" modules.conf
-  '';
+    preConfigure = ''
+      ./bootstrap.sh
+      cp "${modulesConf}" modules.conf
+    '';
 
-  postInstall = ''
-    # helper for compiling modules... not generally useful; also pulls in perl dependency
-    rm "$out"/bin/fsxs
-    # include configuration templates
-    cp -r conf $out/share/freeswitch/
-  '';
+    postInstall = ''
+      # helper for compiling modules... not generally useful; also pulls in perl dependency
+      rm "$out"/bin/fsxs
+      # include configuration templates
+      cp -r conf $out/share/freeswitch/
+    '';
 
-  passthru.tests.freeswitch = nixosTests.freeswitch;
+    passthru.tests.freeswitch = nixosTests.freeswitch;
 
-  meta = {
-    description = "Cross-Platform Scalable FREE Multi-Protocol Soft Switch";
-    homepage = "https://freeswitch.org/";
-    license = lib.licenses.mpl11;
-    maintainers = with lib.maintainers; [ ];
-    platforms = with lib.platforms; unix;
-    broken = stdenv.isDarwin;
-  };
-}
+    meta = {
+      description = "Cross-Platform Scalable FREE Multi-Protocol Soft Switch";
+      homepage = "https://freeswitch.org/";
+      license = lib.licenses.mpl11;
+      maintainers = with lib.maintainers; [ ];
+      platforms = with lib.platforms; unix;
+      broken = stdenv.isDarwin;
+    };
+  }

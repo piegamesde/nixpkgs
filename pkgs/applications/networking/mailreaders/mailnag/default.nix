@@ -73,10 +73,12 @@ python3Packages.buildPythonApplication rec {
         # wrapGAppsHook handle that.
         pluginsDeps = lib.flatten (lib.catAttrs "buildInputs" plugs);
         self = mailnag;
-      in self.override {
-        userPlugins = plugs;
-        inherit pluginsDeps;
-      };
+      in
+        self.override {
+          userPlugins = plugs;
+          inherit pluginsDeps;
+        }
+    ;
   };
 
   # See https://nixos.org/nixpkgs/manual/#ssec-gnome-common-issues-double-wrapped

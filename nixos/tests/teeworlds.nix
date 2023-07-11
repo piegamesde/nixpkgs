@@ -55,4 +55,4 @@ import ./make-test-python.nix ({
       client2.screenshot("screen_client2")
     '';
 
-  })
+  } )

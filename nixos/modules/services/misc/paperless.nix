@@ -32,10 +32,12 @@ let
   manage = let
     setupEnv = lib.concatStringsSep "\n"
       (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
-  in pkgs.writeShellScript "manage" ''
-    ${setupEnv}
-    exec ${pkg}/bin/paperless-ngx "$@"
-  '';
+  in
+    pkgs.writeShellScript "manage" ''
+      ${setupEnv}
+      exec ${pkg}/bin/paperless-ngx "$@"
+    ''
+  ;
 
   # Secure the services
   defaultServiceConfig = {
@@ -340,11 +342,11 @@ in {
           "-/etc/hosts"
           "-/etc/localtime"
         ];
-        ExecStart =
-          let pythonWithNltk = pkg.python.withPackages (ps: [ ps.nltk ]);
-          in ''
-            ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
-          '';
+        ExecStart = let
+          pythonWithNltk = pkg.python.withPackages (ps: [ ps.nltk ]);
+        in ''
+          ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
+        '' ;
       };
     };
 

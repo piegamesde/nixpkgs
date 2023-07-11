@@ -423,7 +423,7 @@ in {
         PrivateTmp = true;
         PrivateDevices = true;
         ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
-      };
+      } ;
 
       path = [
         pkg

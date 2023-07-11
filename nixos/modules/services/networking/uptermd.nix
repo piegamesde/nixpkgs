@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.uptermd;
+let
+  cfg = config.services.uptermd;
 in {
   options = {
     services.uptermd = {

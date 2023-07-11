@@ -34,7 +34,8 @@ let
       find_tvbrowser_windows window-names
     '';
   };
-in runCommand "tvbrowser-test" { buildInputs = [ xvfb-run ]; } ''
-  HOME=$PWD xvfb-run ${lib.getExe testScript}
-  touch ${placeholder "out"}
-''
+in
+  runCommand "tvbrowser-test" { buildInputs = [ xvfb-run ]; } ''
+    HOME=$PWD xvfb-run ${lib.getExe testScript}
+    touch ${placeholder "out"}
+  ''

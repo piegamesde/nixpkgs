@@ -103,4 +103,4 @@ import ./make-test-python.nix ({
       server.shutdown()
       client.shutdown()
     '';
-  })
+  } )

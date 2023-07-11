@@ -122,7 +122,8 @@ in {
       after = [ "network.target" ];
       serviceConfig = {
         Type = "forking";
-        ExecStart = let devices = utils.escapeSystemdExecArgs cfg.devices;
+        ExecStart = let
+          devices = utils.escapeSystemdExecArgs cfg.devices;
         in ''
           ${pkgs.gpsd}/sbin/gpsd -D "${toString cfg.debugLevel}"  \
             -S "${toString cfg.port}"                             \
@@ -130,7 +131,7 @@ in {
             ${optionalString cfg.nowait "-n"}                     \
             ${optionalString cfg.listenany "-G"}                  \
             ${devices}
-        '';
+        '' ;
       };
     };
 

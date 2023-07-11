@@ -59,7 +59,7 @@ buildGoModule rec {
     buildFlagsArray+=("-run" "[^(${
       builtins.concatStringsSep "|" skippedTests
     })]")
-  '';
+  '' ;
 
   meta = {
     description =

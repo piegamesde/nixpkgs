@@ -38,7 +38,8 @@ let
         builtins.trace v throw "expected derivation or recurseIntoAttrs") as));
 
   # It has to be a link farm for inclusion in the hydra unstable jobset.
-in pkgs.linkFarm "pkgs-lib-formats-tests" (mapAttrsToList (k: v: {
-  name = k;
-  path = v;
-}) (flatten "" structured)) // structured
+in
+  pkgs.linkFarm "pkgs-lib-formats-tests" (mapAttrsToList (k: v: {
+    name = k;
+    path = v;
+  }) (flatten "" structured)) // structured

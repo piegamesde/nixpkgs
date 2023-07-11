@@ -78,7 +78,7 @@ let
             "--enable-double-precision"
           ];
         });
-      in [ ode' ];
+      in [ ode' ] ;
     };
     cl-opengl = pkg: { nativeLibs = [ libGL ]; };
     cl-pango = pkg: { nativeLibs = [ pango ]; };
@@ -170,6 +170,9 @@ let
       withExtras = pkg // (optionalAttrs (hasAttr pkg.pname extras)
         (extras.${pkg.pname} builtPkg));
       fixedUp = fixup withExtras;
-    in build-asdf-system fixedUp;
+    in
+      build-asdf-system fixedUp
+  ;
 
-in builtQlpkgs
+in
+  builtQlpkgs

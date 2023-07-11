@@ -34,7 +34,8 @@ buildPythonPackage rec {
   # Even naively searching `LD_LIBRARY_PATH` won't work since `libc.so` is a linker script and
   # ctypes.cdll.LoadLibrary cannot deal with those. Therefore, just hardcode the paths to the
   # necessary libraries.
-  postPatch = let ext = stdenv.hostPlatform.extensions.sharedLibrary;
+  postPatch = let
+    ext = stdenv.hostPlatform.extensions.sharedLibrary;
   in ''
     cat > pyglet/lib.py <<EOF
     import ctypes
@@ -77,7 +78,7 @@ buildPythonPackage rec {
                 return ctypes.cdll.LoadLibrary(path)
         raise Exception("Could not load library {}".format(names))
     EOF
-  '';
+  '' ;
 
   nativeBuildInputs = [ unzip ];
 

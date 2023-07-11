@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     wrapProgram $out/bin/adb-channel --suffix PATH : "${dependencies}"
 
     runHook postInstall
-  '';
+  '' ;
 
   meta = with lib; {
     description =

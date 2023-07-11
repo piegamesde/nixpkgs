@@ -37,5 +37,7 @@ rec {
           withMods = wrapCDDA self;
         };
       });
-    in self;
+    in
+      self
+  ;
 }

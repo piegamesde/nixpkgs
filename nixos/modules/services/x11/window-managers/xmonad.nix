@@ -28,15 +28,17 @@ let
       libraries = xmonadAndPackages cfg.haskellPackages;
       inherit (cfg) ghcArgs;
     } cfg.config;
-  in pkgs.runCommandLocal "xmonad" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-  (''
-    install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz
-    makeWrapper ${configured}/bin/xmonad $out/bin/xmonad \
-  '' + optionalString cfg.enableConfiguredRecompile ''
-    --set XMONAD_GHC "${xmonadEnv}/bin/ghc" \
-  '' + ''
-    --set XMONAD_XMESSAGE "${pkgs.xorg.xmessage}/bin/xmessage"
-  '');
+  in
+    pkgs.runCommandLocal "xmonad" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+    (''
+      install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz
+      makeWrapper ${configured}/bin/xmonad $out/bin/xmonad \
+    '' + optionalString cfg.enableConfiguredRecompile ''
+      --set XMONAD_GHC "${xmonadEnv}/bin/ghc" \
+    '' + ''
+      --set XMONAD_XMESSAGE "${pkgs.xorg.xmessage}/bin/xmessage"
+    '')
+  ;
 
   xmonad = if (cfg.config != null) then xmonad-config else xmonad-vanilla;
 in {

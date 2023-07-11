@@ -94,4 +94,5 @@ let
       platforms = platforms.all;
     };
   };
-in chia
+in
+  chia

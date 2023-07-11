@@ -116,7 +116,7 @@ let
               -d ${destinationIP} -p ${fwd.proto} \
               --dport ${destinationPorts} \
               -j SNAT --to-source ${loopbackip}
-          '') fwd.loopbackIPs}
+          '' ) fwd.loopbackIPs}
       '') forwardPorts}
     '';
 

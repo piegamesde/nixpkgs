@@ -71,20 +71,22 @@ with lib;
     bundle = pkgs.evolutionWithPlugins.override {
       inherit (config.services.gnome.evolution-data-server) plugins;
     };
-  in mkMerge [
-    (mkIf config.services.gnome.evolution-data-server.enable {
-      environment.systemPackages = [ bundle ];
+  in
+    mkMerge [
+      (mkIf config.services.gnome.evolution-data-server.enable {
+        environment.systemPackages = [ bundle ];
 
-      services.dbus.packages = [ bundle ];
+        services.dbus.packages = [ bundle ];
 
-      systemd.packages = [ bundle ];
-    })
-    (mkIf config.programs.evolution.enable {
-      services.gnome.evolution-data-server = {
-        enable = true;
-        plugins = [ pkgs.evolution ] ++ config.programs.evolution.plugins;
-      };
-      services.gnome.gnome-keyring.enable = true;
-    })
-  ];
+        systemd.packages = [ bundle ];
+      })
+      (mkIf config.programs.evolution.enable {
+        services.gnome.evolution-data-server = {
+          enable = true;
+          plugins = [ pkgs.evolution ] ++ config.programs.evolution.plugins;
+        };
+        services.gnome.gnome-keyring.enable = true;
+      })
+    ]
+  ;
 }

@@ -42,7 +42,8 @@
    [1] maybe this behaviour should be removed to keep things simple (?)
 */
 
-let inherit (lib) concatStringsSep head isAttrs listToAttrs tail;
+let
+  inherit (lib) concatStringsSep head isAttrs listToAttrs tail;
 in rec {
 
   /* !!! The interface of this function is kind of messed up, since
@@ -57,7 +58,8 @@ in rec {
           result = [ ];
           inherit done;
         } else
-          let entry = head todo;
+          let
+            entry = head todo;
           in if isAttrs entry then
             let
               x = f done entry.deps;
@@ -73,7 +75,9 @@ in rec {
               name = entry;
               value = 1;
             } ]) ([ predefined.${entry} ] ++ tail todo);
-    in (f { } arg).result;
+    in
+      (f { } arg).result
+  ;
 
   textClosureMap = f: predefined: names:
     concatStringsSep "\n" (map f (textClosureList predefined names));

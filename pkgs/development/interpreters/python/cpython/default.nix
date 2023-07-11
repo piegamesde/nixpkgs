@@ -110,25 +110,30 @@ let
     inputs' =
       lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
     override = attr:
-      let python = attr.override (inputs' // { self = python; });
-      in python;
-  in passthruFun rec {
-    inherit self sourceVersion packageOverrides;
-    implementation = "cpython";
-    libPrefix = "python${pythonVersion}";
-    executable = libPrefix;
-    pythonVersion = with sourceVersion; "${major}.${minor}";
-    sitePackages = "lib/${libPrefix}/site-packages";
-    inherit hasDistutilsCxxPatch pythonAttr;
-    pythonOnBuildForBuild = override pkgsBuildBuild.${pythonAttr};
-    pythonOnBuildForHost = override pkgsBuildHost.${pythonAttr};
-    pythonOnBuildForTarget = override pkgsBuildTarget.${pythonAttr};
-    pythonOnHostForHost = override pkgsHostHost.${pythonAttr};
-    pythonOnTargetForTarget = if lib.hasAttr pythonAttr pkgsTargetTarget then
-      (override pkgsTargetTarget.${pythonAttr})
-    else
-      { };
-  };
+      let
+        python = attr.override (inputs' // { self = python; });
+      in
+        python
+    ;
+  in
+    passthruFun rec {
+      inherit self sourceVersion packageOverrides;
+      implementation = "cpython";
+      libPrefix = "python${pythonVersion}";
+      executable = libPrefix;
+      pythonVersion = with sourceVersion; "${major}.${minor}";
+      sitePackages = "lib/${libPrefix}/site-packages";
+      inherit hasDistutilsCxxPatch pythonAttr;
+      pythonOnBuildForBuild = override pkgsBuildBuild.${pythonAttr};
+      pythonOnBuildForHost = override pkgsBuildHost.${pythonAttr};
+      pythonOnBuildForTarget = override pkgsBuildTarget.${pythonAttr};
+      pythonOnHostForHost = override pkgsHostHost.${pythonAttr};
+      pythonOnTargetForTarget = if lib.hasAttr pythonAttr pkgsTargetTarget then
+        (override pkgsTargetTarget.${pythonAttr})
+      else
+        { };
+    }
+  ;
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
@@ -206,7 +211,9 @@ let
           powerpc64 = "ppc64";
           powerpc64le = "ppc64le";
         }.${parsed.cpu.name} or parsed.cpu.name;
-      in "${parsed.kernel.name}-${cpu}";
+      in
+        "${parsed.kernel.name}-${cpu}"
+      ;
 
       # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L724
       multiarchCpu = if isAarch32 then
@@ -255,7 +262,7 @@ let
       }
 
       addEnvHooks "$hostOffset" sysconfigdataHook
-    '';
+    '' ;
 
 in with passthru;
 stdenv.mkDerivation {
@@ -446,90 +453,92 @@ stdenv.mkDerivation {
       (placeholder "out")
       libxcrypt
     ] ++ optionals tzdataSupport [ tzdata ]);
-  in lib.optionalString enableFramework ''
-    for dir in include lib share; do
-      ln -s $out/Library/Frameworks/Python.framework/Versions/Current/$dir $out/$dir
-    done
-  '' + ''
-    # needed for some packages, especially packages that backport functionality
-    # to 2.x from 3.x
-    for item in $out/lib/${libPrefix}/test/*; do
-      if [[ "$item" != */test_support.py*
-         && "$item" != */test/support
-         && "$item" != */test/libregrtest
-         && "$item" != */test/regrtest.py* ]]; then
-        rm -rf "$item"
-      else
-        echo $item
-      fi
-    done
-    touch $out/lib/${libPrefix}/test/__init__.py
+  in
+    lib.optionalString enableFramework ''
+      for dir in include lib share; do
+        ln -s $out/Library/Frameworks/Python.framework/Versions/Current/$dir $out/$dir
+      done
+    '' + ''
+      # needed for some packages, especially packages that backport functionality
+      # to 2.x from 3.x
+      for item in $out/lib/${libPrefix}/test/*; do
+        if [[ "$item" != */test_support.py*
+           && "$item" != */test/support
+           && "$item" != */test/libregrtest
+           && "$item" != */test/regrtest.py* ]]; then
+          rm -rf "$item"
+        else
+          echo $item
+        fi
+      done
+      touch $out/lib/${libPrefix}/test/__init__.py
 
-    ln -s "$out/include/${executable}m" "$out/include/${executable}"
+      ln -s "$out/include/${executable}m" "$out/include/${executable}"
 
-    # Determinism: Windows installers were not deterministic.
-    # We're also not interested in building Windows installers.
-    find "$out" -name 'wininst*.exe' | xargs -r rm -f
+      # Determinism: Windows installers were not deterministic.
+      # We're also not interested in building Windows installers.
+      find "$out" -name 'wininst*.exe' | xargs -r rm -f
 
-    # Use Python3 as default python
-    ln -s "$out/bin/idle3" "$out/bin/idle"
-    ln -s "$out/bin/pydoc3" "$out/bin/pydoc"
-    ln -s "$out/bin/python3" "$out/bin/python"
-    ln -s "$out/bin/python3-config" "$out/bin/python-config"
-    ln -s "$out/lib/pkgconfig/python3.pc" "$out/lib/pkgconfig/python.pc"
+      # Use Python3 as default python
+      ln -s "$out/bin/idle3" "$out/bin/idle"
+      ln -s "$out/bin/pydoc3" "$out/bin/pydoc"
+      ln -s "$out/bin/python3" "$out/bin/python"
+      ln -s "$out/bin/python3-config" "$out/bin/python-config"
+      ln -s "$out/lib/pkgconfig/python3.pc" "$out/lib/pkgconfig/python.pc"
 
-    # Get rid of retained dependencies on -dev packages, and remove
-    # some $TMPDIR references to improve binary reproducibility.
-    # Note that the .pyc file of _sysconfigdata.py should be regenerated!
-    for i in $out/lib/${libPrefix}/_sysconfigdata*.py $out/lib/${libPrefix}/config-${sourceVersion.major}${sourceVersion.minor}*/Makefile; do
-       sed -i $i -e "s|$TMPDIR|/no-such-path|g"
-    done
+      # Get rid of retained dependencies on -dev packages, and remove
+      # some $TMPDIR references to improve binary reproducibility.
+      # Note that the .pyc file of _sysconfigdata.py should be regenerated!
+      for i in $out/lib/${libPrefix}/_sysconfigdata*.py $out/lib/${libPrefix}/config-${sourceVersion.major}${sourceVersion.minor}*/Makefile; do
+         sed -i $i -e "s|$TMPDIR|/no-such-path|g"
+      done
 
-    # Further get rid of references. https://github.com/NixOS/nixpkgs/issues/51668
-    find $out/lib/python*/config-* -type f -print -exec nuke-refs ${keep-references} '{}' +
-    find $out/lib -name '_sysconfigdata*.py*' -print -exec nuke-refs ${keep-references} '{}' +
+      # Further get rid of references. https://github.com/NixOS/nixpkgs/issues/51668
+      find $out/lib/python*/config-* -type f -print -exec nuke-refs ${keep-references} '{}' +
+      find $out/lib -name '_sysconfigdata*.py*' -print -exec nuke-refs ${keep-references} '{}' +
 
-    # Make the sysconfigdata module accessible on PYTHONPATH
-    # This allows build Python to import host Python's sysconfigdata
-    mkdir -p "$out/${sitePackages}"
-    ln -s "$out/lib/${libPrefix}/"_sysconfigdata*.py "$out/${sitePackages}/"
-  '' + optionalString stripConfig ''
-    rm -R $out/bin/python*-config $out/lib/python*/config-*
-  '' + optionalString stripIdlelib ''
-    # Strip IDLE (and turtledemo, which uses it)
-    rm -R $out/bin/idle* $out/lib/python*/{idlelib,turtledemo}
-  '' + optionalString stripTkinter ''
-    rm -R $out/lib/python*/tkinter
-  '' + optionalString stripTests ''
-    # Strip tests
-    rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
-  '' + optionalString includeSiteCustomize ''
-    # Include a sitecustomize.py file
-    cp ${../sitecustomize.py} $out/${sitePackages}/sitecustomize.py
+      # Make the sysconfigdata module accessible on PYTHONPATH
+      # This allows build Python to import host Python's sysconfigdata
+      mkdir -p "$out/${sitePackages}"
+      ln -s "$out/lib/${libPrefix}/"_sysconfigdata*.py "$out/${sitePackages}/"
+    '' + optionalString stripConfig ''
+      rm -R $out/bin/python*-config $out/lib/python*/config-*
+    '' + optionalString stripIdlelib ''
+      # Strip IDLE (and turtledemo, which uses it)
+      rm -R $out/bin/idle* $out/lib/python*/{idlelib,turtledemo}
+    '' + optionalString stripTkinter ''
+      rm -R $out/lib/python*/tkinter
+    '' + optionalString stripTests ''
+      # Strip tests
+      rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
+    '' + optionalString includeSiteCustomize ''
+      # Include a sitecustomize.py file
+      cp ${../sitecustomize.py} $out/${sitePackages}/sitecustomize.py
 
-  '' + optionalString stripBytecode ''
-    # Determinism: deterministic bytecode
-    # First we delete all old bytecode.
-    find $out -type d -name __pycache__ -print0 | xargs -0 -I {} rm -rf "{}"
-  '' + optionalString rebuildBytecode ''
-    # Python 3.7 implements PEP 552, introducing support for deterministic bytecode.
-    # compileall uses the therein introduced checked-hash method by default when
-    # `SOURCE_DATE_EPOCH` is set.
-    # We exclude lib2to3 because that's Python 2 code which fails
-    # We build 3 levels of optimized bytecode. Note the default level, without optimizations,
-    # is not reproducible yet. https://bugs.python.org/issue29708
-    # Not creating bytecode will result in a large performance loss however, so we do build it.
-    find $out -name "*.py" | ${pythonForBuildInterpreter} -m compileall -q -f -x "lib2to3" -i -
-    find $out -name "*.py" | ${pythonForBuildInterpreter} -O  -m compileall -q -f -x "lib2to3" -i -
-    find $out -name "*.py" | ${pythonForBuildInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
-  '' + ''
-    # *strip* shebang from libpython gdb script - it should be dual-syntax and
-    # interpretable by whatever python the gdb in question is using, which may
-    # not even match the major version of this python. doing this after the
-    # bytecode compilations for the same reason - we don't want bytecode generated.
-    mkdir -p $out/share/gdb
-    sed '/^#!/d' Tools/gdb/libpython.py > $out/share/gdb/libpython.py
-  '';
+    '' + optionalString stripBytecode ''
+      # Determinism: deterministic bytecode
+      # First we delete all old bytecode.
+      find $out -type d -name __pycache__ -print0 | xargs -0 -I {} rm -rf "{}"
+    '' + optionalString rebuildBytecode ''
+      # Python 3.7 implements PEP 552, introducing support for deterministic bytecode.
+      # compileall uses the therein introduced checked-hash method by default when
+      # `SOURCE_DATE_EPOCH` is set.
+      # We exclude lib2to3 because that's Python 2 code which fails
+      # We build 3 levels of optimized bytecode. Note the default level, without optimizations,
+      # is not reproducible yet. https://bugs.python.org/issue29708
+      # Not creating bytecode will result in a large performance loss however, so we do build it.
+      find $out -name "*.py" | ${pythonForBuildInterpreter} -m compileall -q -f -x "lib2to3" -i -
+      find $out -name "*.py" | ${pythonForBuildInterpreter} -O  -m compileall -q -f -x "lib2to3" -i -
+      find $out -name "*.py" | ${pythonForBuildInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
+    '' + ''
+      # *strip* shebang from libpython gdb script - it should be dual-syntax and
+      # interpretable by whatever python the gdb in question is using, which may
+      # not even match the major version of this python. doing this after the
+      # bytecode compilations for the same reason - we don't want bytecode generated.
+      mkdir -p $out/share/gdb
+      sed '/^#!/d' Tools/gdb/libpython.py > $out/share/gdb/libpython.py
+    ''
+  ;
 
   preFixup = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     # Ensure patch-shebangs uses shebangs of host interpreter.

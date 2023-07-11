@@ -1185,12 +1185,13 @@ let
     };
   };
   devPackages = { };
-in composerEnv.buildPackage {
-  inherit packages devPackages noDev;
-  name = "bookstack";
-  src = composerEnv.filterSrc ./.;
-  executable = false;
-  symlinkDependencies = false;
-  meta = { license = "MIT"; };
-}
+in
+  composerEnv.buildPackage {
+    inherit packages devPackages noDev;
+    name = "bookstack";
+    src = composerEnv.filterSrc ./.;
+    executable = false;
+    symlinkDependencies = false;
+    meta = { license = "MIT"; };
+  }
 

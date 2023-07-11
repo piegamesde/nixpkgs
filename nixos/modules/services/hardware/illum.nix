@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.illum;
+let
+  cfg = config.services.illum;
 in {
 
   options = {

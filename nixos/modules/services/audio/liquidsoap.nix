@@ -11,7 +11,8 @@ let
   streams = builtins.attrNames config.services.liquidsoap.streams;
 
   streamService = name:
-    let stream = builtins.getAttr name config.services.liquidsoap.streams;
+    let
+      stream = builtins.getAttr name config.services.liquidsoap.streams;
     in {
       inherit name;
       value = {
@@ -28,7 +29,7 @@ let
           LogsDirectory = "liquidsoap";
         };
       };
-    };
+    } ;
 in {
 
   ##### interface

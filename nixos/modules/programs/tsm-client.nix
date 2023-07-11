@@ -22,8 +22,11 @@ let
   # Type: checkIUnique :: [string] -> bool
   # Example: checkIUnique ["foo" "Foo"] => false
   checkIUnique = lst:
-    let lenUniq = l: length (lib.lists.unique l);
-    in lenUniq lst == lenUniq (map toLower lst);
+    let
+      lenUniq = l: length (lib.lists.unique l);
+    in
+      lenUniq lst == lenUniq (map toLower lst)
+  ;
 
   # TSM rejects servername strings longer than 64 chars.
   servernameType = strMatching ".{1,64}";
@@ -169,7 +172,9 @@ let
         attrset = filterAttrs (k: v: v != null) config.extraConfig;
         mkLine = k: v: k + optionalString (v != "") "  ${v}";
         lines = mapAttrsToList mkLine attrset;
-      in concatLines lines;
+      in
+        concatLines lines
+      ;
       config.stanza = ''
         server  ${config.name}
         ${config.text}

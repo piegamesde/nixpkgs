@@ -23,7 +23,8 @@ let
   drv = haskellPackages.callPackage pkgDef { };
 
   test = target: excluded:
-    let only = pkgs.haskell.lib.compose.setBuildTarget target drv;
+    let
+      only = pkgs.haskell.lib.compose.setBuildTarget target drv;
     in ''
       if [[ ! -f "${only}/bin/${target}" ]]; then
         echo "${target} was not built"
@@ -34,13 +35,14 @@ let
         echo "${excluded} was built, when it should not have been"
         exit 1
       fi
-    '';
+    '' ;
 
-in pkgs.runCommand "test haskell.lib.compose.setBuildTarget" {
-  meta = { inherit (drv.meta) platforms; };
-} ''
-  ${test "foo" "bar"}
-  ${test "bar" "foo"}
-  touch "$out"
-''
+in
+  pkgs.runCommand "test haskell.lib.compose.setBuildTarget" {
+    meta = { inherit (drv.meta) platforms; };
+  } ''
+    ${test "foo" "bar"}
+    ${test "bar" "foo"}
+    touch "$out"
+  ''
 

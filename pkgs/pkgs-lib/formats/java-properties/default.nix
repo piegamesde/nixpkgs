@@ -48,7 +48,9 @@ in {
         ]) // {
           description = "string, package, bool, int or float";
         };
-      in attrsOf elemType;
+      in
+        attrsOf elemType
+      ;
 
       generate = name: value:
         pkgs.runCommandLocal name {
@@ -116,7 +118,9 @@ in {
               | gsub("\\t"; "\\t")
               | gsub("\r"; "\\r")
             '';
-          in main;
+          in
+            main
+          ;
 
           inputEncoding = "UTF-8";
 

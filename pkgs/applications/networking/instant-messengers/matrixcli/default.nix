@@ -48,22 +48,23 @@ let
     };
   };
 
-in buildPythonApplication rec {
-  pname = "matrixcli";
-  version = "0.0.2019-08-15";
+in
+  buildPythonApplication rec {
+    pname = "matrixcli";
+    version = "0.0.2019-08-15";
 
-  src = mainsrc;
+    src = mainsrc;
 
-  propagatedBuildInputs = [
-    pygobject3
-    sdk
-  ];
+    propagatedBuildInputs = [
+      pygobject3
+      sdk
+    ];
 
-  meta = {
-    description = "CLI client for Matrix";
-    license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.raskin ];
-    platforms = lib.platforms.linux;
-    homepage = "https://github.com/saadnpq/matrixcli";
-  };
-}
+    meta = {
+      description = "CLI client for Matrix";
+      license = lib.licenses.gpl3;
+      maintainers = [ lib.maintainers.raskin ];
+      platforms = lib.platforms.linux;
+      homepage = "https://github.com/saadnpq/matrixcli";
+    };
+  }

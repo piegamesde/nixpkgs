@@ -39,7 +39,7 @@ let
         exec ${jre}/bin/java -jar $out/${jar'}.jar "\$@"
         EOF
         chmod a+x $out/bin/${prog'}
-      '';
+      '' ;
 
       meta = with lib; {
         inherit description license;

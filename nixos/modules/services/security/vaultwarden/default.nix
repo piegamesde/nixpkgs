@@ -18,7 +18,8 @@ let
       parts = builtins.split "([A-Z0-9]+)" name;
       partsToEnvVar = parts:
         foldl' (key: x:
-          let last = stringLength key - 1;
+          let
+            last = stringLength key - 1;
           in if isList x then
             key + optionalString (key != "" && substring last 1 key != "_") "_"
             + head x
@@ -42,12 +43,14 @@ let
         ${nameToEnvVar name} =
           if isBool value then boolToString value else toString value;
       }) cfg.config;
-  in {
-    DATA_FOLDER = "/var/lib/bitwarden_rs";
-  } // optionalAttrs
-  (!(configEnv ? WEB_VAULT_ENABLED) || configEnv.WEB_VAULT_ENABLED == "true") {
-    WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault";
-  } // configEnv;
+  in
+    {
+      DATA_FOLDER = "/var/lib/bitwarden_rs";
+    } // optionalAttrs (!(configEnv ? WEB_VAULT_ENABLED)
+      || configEnv.WEB_VAULT_ENABLED == "true") {
+        WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault";
+      } // configEnv
+  ;
 
   configFile = pkgs.writeText "vaultwarden.env" (concatStrings (mapAttrsToList
     (name: value: ''

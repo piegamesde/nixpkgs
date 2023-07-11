@@ -25,15 +25,17 @@ let
       sha256 = "sha256-EMzKAHcEWOUugcHKH2Fj3ZaIHC9UlgO4ULKe3RvgxvI=";
       stripRoot = false;
     };
-  in linkFarm "android-zlib-contrib" [
-    # We only want to keep the contrib directory as the other files conflict
-    # with p4's own zlib files. (For the same reason, we can't use the
-    # cone-based Git sparse checkout, either.)
-    {
-      name = "contrib";
-      path = "${src}/contrib";
-    }
-  ];
+  in
+    linkFarm "android-zlib-contrib" [
+      # We only want to keep the contrib directory as the other files conflict
+      # with p4's own zlib files. (For the same reason, we can't use the
+      # cone-based Git sparse checkout, either.)
+      {
+        name = "contrib";
+        path = "${src}/contrib";
+      }
+    ]
+  ;
   libcxxUnified = symlinkJoin {
     inherit (libcxx) name;
     paths = [
@@ -41,96 +43,98 @@ let
       libcxxabi
     ];
   };
-in stdenv.mkDerivation rec {
-  pname = "p4";
-  version = "2022.1.2305383";
+in
+  stdenv.mkDerivation rec {
+    pname = "p4";
+    version = "2022.1.2305383";
 
-  src = fetchurl {
-    # Upstream replaces minor versions, so use archived URL.
-    url =
-      "https://web.archive.org/web/20220901184735id_/https://ftp.perforce.com/perforce/r22.1/bin.tools/p4source.tgz";
-    sha256 = "27ab3ddd7b178b05cf0b710e941650dac0688d294110ebafda9027732c0944c6";
-  };
+    src = fetchurl {
+      # Upstream replaces minor versions, so use archived URL.
+      url =
+        "https://web.archive.org/web/20220901184735id_/https://ftp.perforce.com/perforce/r22.1/bin.tools/p4source.tgz";
+      sha256 =
+        "27ab3ddd7b178b05cf0b710e941650dac0688d294110ebafda9027732c0944c6";
+    };
 
-  nativeBuildInputs = [ jam ];
+    nativeBuildInputs = [ jam ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreServices
-    Foundation
-    Security
-  ];
-
-  outputs = [
-    "out"
-    "bin"
-    "dev"
-  ];
-
-  hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
-
-  jamFlags = [
-    "-sEXEC=bin.unix"
-    "-sCROSS_COMPILE=${stdenv.cc.targetPrefix}"
-    "-sMALLOC_OVERRIDE=no"
-    "-sSSLINCDIR=${lib.getDev opensslStatic}/include"
-    "-sSSLLIBDIR=${lib.getLib opensslStatic}/lib"
-  ] ++ lib.optionals stdenv.cc.isClang [
-    "-sOSCOMP=clang"
-    "-sCLANGVER=${stdenv.cc.cc.version}"
-  ] ++ lib.optionals stdenv.cc.isGNU [
-    "-sOSCOMP=gcc"
-    "-sGCCVER=${stdenv.cc.cc.version}"
-  ] ++ lib.optionals stdenv.isLinux [ "-sOSVER=26" ]
-    ++ lib.optionals stdenv.isDarwin [
-      "-sOSVER=1013"
-      "-sMACOSX_SDK=${emptyDirectory}"
-      "-sLIBC++DIR=${libcxxUnified}/lib"
+    buildInputs = lib.optionals stdenv.isDarwin [
+      CoreServices
+      Foundation
+      Security
     ];
 
-  CCFLAGS =
-    # The file contrib/optimizations/slide_hash_neon.h is missing from the
-    # upstream distribution. It comes from the Android/Chromium sources.
-    lib.optionals stdenv.isAarch64 [ "-I${androidZlibContrib}" ];
+    outputs = [
+      "out"
+      "bin"
+      "dev"
+    ];
 
-  "C++FLAGS" =
-    # Avoid a compilation error that only occurs for 4-byte longs.
-    lib.optionals stdenv.isi686 [ "-Wno-narrowing" ]
-    # See the "Header dependency changes" section of
-    # https://www.gnu.org/software/gcc/gcc-11/porting_to.html for more
-    # information on why we need to include these.
-    ++ lib.optionals (stdenv.cc.isClang || (stdenv.cc.isGNU
-      && lib.versionAtLeast stdenv.cc.cc.version "11.0.0")) [
-        "-include"
-        "limits"
-        "-include"
-        "thread"
+    hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
+
+    jamFlags = [
+      "-sEXEC=bin.unix"
+      "-sCROSS_COMPILE=${stdenv.cc.targetPrefix}"
+      "-sMALLOC_OVERRIDE=no"
+      "-sSSLINCDIR=${lib.getDev opensslStatic}/include"
+      "-sSSLLIBDIR=${lib.getLib opensslStatic}/lib"
+    ] ++ lib.optionals stdenv.cc.isClang [
+      "-sOSCOMP=clang"
+      "-sCLANGVER=${stdenv.cc.cc.version}"
+    ] ++ lib.optionals stdenv.cc.isGNU [
+      "-sOSCOMP=gcc"
+      "-sGCCVER=${stdenv.cc.cc.version}"
+    ] ++ lib.optionals stdenv.isLinux [ "-sOSVER=26" ]
+      ++ lib.optionals stdenv.isDarwin [
+        "-sOSVER=1013"
+        "-sMACOSX_SDK=${emptyDirectory}"
+        "-sLIBC++DIR=${libcxxUnified}/lib"
       ];
 
-  buildPhase = ''
-    runHook preBuild
-    jam $jamFlags -j$NIX_BUILD_CORES p4
-    jam $jamFlags -j$NIX_BUILD_CORES -sPRODUCTION=yes p4api.tar
-    runHook postBuild
-  '';
+    CCFLAGS =
+      # The file contrib/optimizations/slide_hash_neon.h is missing from the
+      # upstream distribution. It comes from the Android/Chromium sources.
+      lib.optionals stdenv.isAarch64 [ "-I${androidZlibContrib}" ];
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $bin/bin $dev $out
-    cp bin.unix/p4 $bin/bin
-    cp -r bin.unix/p4api-${version}/include $dev
-    cp -r bin.unix/p4api-${version}/lib $out
-    runHook postInstall
-  '';
+    "C++FLAGS" =
+      # Avoid a compilation error that only occurs for 4-byte longs.
+      lib.optionals stdenv.isi686 [ "-Wno-narrowing" ]
+      # See the "Header dependency changes" section of
+      # https://www.gnu.org/software/gcc/gcc-11/porting_to.html for more
+      # information on why we need to include these.
+      ++ lib.optionals (stdenv.cc.isClang || (stdenv.cc.isGNU
+        && lib.versionAtLeast stdenv.cc.cc.version "11.0.0")) [
+          "-include"
+          "limits"
+          "-include"
+          "thread"
+        ];
 
-  meta = with lib; {
-    description = "Perforce Helix Core command-line client and APIs";
-    homepage = "https://www.perforce.com";
-    license = licenses.bsd2;
-    mainProgram = "p4";
-    platforms = platforms.unix;
-    maintainers = with maintainers; [
-      corngood
-      impl
-    ];
-  };
-}
+    buildPhase = ''
+      runHook preBuild
+      jam $jamFlags -j$NIX_BUILD_CORES p4
+      jam $jamFlags -j$NIX_BUILD_CORES -sPRODUCTION=yes p4api.tar
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $bin/bin $dev $out
+      cp bin.unix/p4 $bin/bin
+      cp -r bin.unix/p4api-${version}/include $dev
+      cp -r bin.unix/p4api-${version}/lib $out
+      runHook postInstall
+    '';
+
+    meta = with lib; {
+      description = "Perforce Helix Core command-line client and APIs";
+      homepage = "https://www.perforce.com";
+      license = licenses.bsd2;
+      mainProgram = "p4";
+      platforms = platforms.unix;
+      maintainers = with maintainers; [
+        corngood
+        impl
+      ];
+    };
+  }

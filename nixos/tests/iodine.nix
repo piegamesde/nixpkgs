@@ -61,4 +61,4 @@ import ./make-test-python.nix ({
 
       client.succeed("check_ssh -H 10.53.53.1")
     '';
-  })
+  } )

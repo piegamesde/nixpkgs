@@ -4,7 +4,8 @@
   formats,
 }:
 with lib;
-let json = formats.json { };
+let
+  json = formats.json { };
 in rec {
 
   # Derive a pin file from workspace state.
@@ -52,6 +53,6 @@ in rec {
         }
       '';
 
-    };
+    } ;
 
 }

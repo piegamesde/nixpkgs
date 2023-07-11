@@ -14,12 +14,14 @@ let
   steam-gamescope = let
     exports = builtins.attrValues
       (builtins.mapAttrs (n: v: "export ${n}=${v}") cfg.gamescopeSession.env);
-  in pkgs.writeShellScriptBin "steam-gamescope" ''
-    ${builtins.concatStringsSep "\n" exports}
-    gamescope --steam ${
-      toString cfg.gamescopeSession.args
-    } -- steam -tenfoot -pipewire-dmabuf
-  '';
+  in
+    pkgs.writeShellScriptBin "steam-gamescope" ''
+      ${builtins.concatStringsSep "\n" exports}
+      gamescope --steam ${
+        toString cfg.gamescopeSession.args
+      } -- steam -tenfoot -pipewire-dmabuf
+    ''
+  ;
 
   gamescopeSessionFile =
     (pkgs.writeTextDir "share/wayland-sessions/steam.desktop" ''
@@ -63,7 +65,9 @@ in {
                     [ package ] ++ extraPackages
                   else
                     [ package32 ] ++ extraPackages32;
-              in prevLibs ++ additionalLibs;
+              in
+                prevLibs ++ additionalLibs
+            ;
           } // optionalAttrs
           (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {
             buildFHSEnv = pkgs.buildFHSEnv.override {

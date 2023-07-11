@@ -58,7 +58,7 @@ python3Packages.buildPythonApplication rec {
 
     mkdir -p "$out/share/pixmaps"
     cp streamdeck_ui/logo.png $out/share/pixmaps/streamdeck-ui.png
-  '';
+  '' ;
 
   dontWrapQtApps = true;
   makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];

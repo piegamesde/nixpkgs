@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.duplicati;
+let
+  cfg = config.services.duplicati;
 in {
   options = {
     services.duplicati = {

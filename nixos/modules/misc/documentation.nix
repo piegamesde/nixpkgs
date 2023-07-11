@@ -24,16 +24,18 @@ let
       f = import m;
       instance = f (mapAttrs (n: _: abort "evaluating ${n} for `meta` failed")
         (functionArgs f));
-    in cfg.nixos.options.splitBuild && builtins.isPath m && isFunction f
-    && instance ? options && instance.meta.buildDocsInSandbox or true;
+    in
+      cfg.nixos.options.splitBuild && builtins.isPath m && isFunction f
+      && instance ? options && instance.meta.buildDocsInSandbox or true
+  ;
 
-  docModules =
-    let p = partition canCacheDocs (baseModules ++ cfg.nixos.extraModules);
-    in {
-      lazy = p.right;
-      eager = p.wrong
-        ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules);
-    };
+  docModules = let
+    p = partition canCacheDocs (baseModules ++ cfg.nixos.extraModules);
+  in {
+    lazy = p.right;
+    eager = p.wrong
+      ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules);
+  } ;
 
   manual = import ../../doc/manual rec {
     inherit pkgs config;
@@ -65,46 +67,50 @@ let
             }
           else
             value) pkgSet;
-    in scrubbedEval.options;
+    in
+      scrubbedEval.options
+    ;
 
     baseOptionsJSON = let
       filter = builtins.filterSource (n: t:
         cleanSourceFilter n t && (t == "directory" -> baseNameOf n != "tests")
         && (t == "file" -> hasSuffix ".nix" n));
-    in pkgs.runCommand "lazy-options.json" {
-      libPath = filter (pkgs.path + "/lib");
-      pkgsLibPath = filter (pkgs.path + "/pkgs/pkgs-lib");
-      nixosPath = filter (pkgs.path + "/nixos");
-      modules = map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'')
-        docModules.lazy;
-    } ''
-      export NIX_STORE_DIR=$TMPDIR/store
-      export NIX_STATE_DIR=$TMPDIR/state
-      ${pkgs.buildPackages.nix}/bin/nix-instantiate \
-        --show-trace \
-        --eval --json --strict \
-        --argstr libPath "$libPath" \
-        --argstr pkgsLibPath "$pkgsLibPath" \
-        --argstr nixosPath "$nixosPath" \
-        --arg modules "[ $modules ]" \
-        --argstr stateVersion "${options.system.stateVersion.default}" \
-        --argstr release "${config.system.nixos.release}" \
-        $nixosPath/lib/eval-cacheable-options.nix > $out \
-        || {
-          echo -en "\e[1;31m"
-          echo 'Cacheable portion of option doc build failed.'
-          echo 'Usually this means that an option attribute that ends up in documentation (eg' \
-            '`default` or `description`) depends on the restricted module arguments' \
-            '`config` or `pkgs`.'
-          echo
-          echo 'Rebuild your configuration with `--show-trace` to find the offending' \
-            'location. Remove the references to restricted arguments (eg by escaping' \
-            'their antiquotations or adding a `defaultText`) or disable the sandboxed' \
-            'build for the failing module by setting `meta.buildDocsInSandbox = false`.'
-          echo -en "\e[0m"
-          exit 1
-        } >&2
-    '';
+    in
+      pkgs.runCommand "lazy-options.json" {
+        libPath = filter (pkgs.path + "/lib");
+        pkgsLibPath = filter (pkgs.path + "/pkgs/pkgs-lib");
+        nixosPath = filter (pkgs.path + "/nixos");
+        modules = map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'')
+          docModules.lazy;
+      } ''
+        export NIX_STORE_DIR=$TMPDIR/store
+        export NIX_STATE_DIR=$TMPDIR/state
+        ${pkgs.buildPackages.nix}/bin/nix-instantiate \
+          --show-trace \
+          --eval --json --strict \
+          --argstr libPath "$libPath" \
+          --argstr pkgsLibPath "$pkgsLibPath" \
+          --argstr nixosPath "$nixosPath" \
+          --arg modules "[ $modules ]" \
+          --argstr stateVersion "${options.system.stateVersion.default}" \
+          --argstr release "${config.system.nixos.release}" \
+          $nixosPath/lib/eval-cacheable-options.nix > $out \
+          || {
+            echo -en "\e[1;31m"
+            echo 'Cacheable portion of option doc build failed.'
+            echo 'Usually this means that an option attribute that ends up in documentation (eg' \
+              '`default` or `description`) depends on the restricted module arguments' \
+              '`config` or `pkgs`.'
+            echo
+            echo 'Rebuild your configuration with `--show-trace` to find the offending' \
+              'location. Remove the references to restricted arguments (eg by escaping' \
+              'their antiquotations or adding a `defaultText`) or disable the sandboxed' \
+              'build for the failing module by setting `meta.buildDocsInSandbox = false`.'
+            echo -en "\e[0m"
+            exit 1
+          } >&2
+      ''
+    ;
 
     inherit (cfg.nixos.options) warningsAreErrors allowDocBook;
   };
@@ -137,13 +143,15 @@ let
       categories = [ "System" ];
     };
 
-  in pkgs.symlinkJoin {
-    name = "nixos-help";
-    paths = [
-      helpScript
-      desktopItem
-    ];
-  };
+  in
+    pkgs.symlinkJoin {
+      name = "nixos-help";
+      paths = [
+        helpScript
+        desktopItem
+      ];
+    }
+  ;
 
 in {
   imports = [

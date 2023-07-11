@@ -75,36 +75,39 @@ in {
           validConfigTypes
           (listOf validConfigTypes)
         ];
-    in mkOption {
-      type = with types;
-        attrsOf (nullOr (either collectionTypes (attrsOf collectionTypes)));
-      default = { };
-      example = {
-        captures = 20;
-        gamma_long_transition = true;
-        ac_capture_timeouts = [
-          120
-          300
-          60
-        ];
-      };
-      description = lib.mdDoc ''
-        Additional configuration to extend clight.conf. See
-        <https://github.com/FedeDP/Clight/blob/master/Extra/clight.conf> for a
-        sample configuration file.
-      '';
-    };
+    in
+      mkOption {
+        type = with types;
+          attrsOf (nullOr (either collectionTypes (attrsOf collectionTypes)));
+        default = { };
+        example = {
+          captures = 20;
+          gamma_long_transition = true;
+          ac_capture_timeouts = [
+            120
+            300
+            60
+          ];
+        };
+        description = lib.mdDoc ''
+          Additional configuration to extend clight.conf. See
+          <https://github.com/FedeDP/Clight/blob/master/Extra/clight.conf> for a
+          sample configuration file.
+        '';
+      }
+    ;
   };
 
   config = mkIf cfg.enable {
-    assertions = let inRange = v: l: r: v >= l && v <= r;
+    assertions = let
+      inRange = v: l: r: v >= l && v <= r;
     in [ {
       assertion = config.location.provider == "manual"
         -> inRange config.location.latitude (-90) 90
         && inRange config.location.longitude (-180) 180;
       message =
         "You must specify a valid latitude and longitude if manually providing location";
-    } ];
+    } ] ;
 
     boot.kernelModules = [ "i2c_dev" ];
     environment.systemPackages = with pkgs; [

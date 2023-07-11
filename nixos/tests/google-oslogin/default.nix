@@ -79,5 +79,5 @@ import ../make-test-python.nix ({
           f"ssh {MOCKADMIN}@server '/run/wrappers/bin/sudo /run/current-system/sw/bin/id' | grep -q 'root'"
       )
     '';
-  })
+  } )
 

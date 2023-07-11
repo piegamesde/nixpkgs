@@ -80,94 +80,95 @@ let
   testConditions = with lib;
     concatMapStringsSep " " (n: "! -name ${escapeShellArg n}.t") skippedTests;
 
-in buildPerlPackage rec {
-  pname = "public-inbox";
-  version = "1.8.0";
+in
+  buildPerlPackage rec {
+    pname = "public-inbox";
+    version = "1.8.0";
 
-  src = fetchurl {
-    url =
-      "https://public-inbox.org/public-inbox.git/snapshot/public-inbox-${version}.tar.gz";
-    sha256 = "sha256-laJOOCk5NecIGWesv4D30cLGfijQHVkeo55eNqNKzew=";
-  };
+    src = fetchurl {
+      url =
+        "https://public-inbox.org/public-inbox.git/snapshot/public-inbox-${version}.tar.gz";
+      sha256 = "sha256-laJOOCk5NecIGWesv4D30cLGfijQHVkeo55eNqNKzew=";
+    };
 
-  outputs = [
-    "out"
-    "devdoc"
-    "sa_config"
-  ];
-
-  postConfigure = ''
-    substituteInPlace Makefile --replace 'TEST_FILES = t/*.t' \
-        'TEST_FILES = $(shell find t -name *.t ${testConditions})'
-    substituteInPlace lib/PublicInbox/TestCommon.pm \
-      --replace /bin/cp ${coreutils}/bin/cp
-  '';
-
-  nativeBuildInputs = [ makeWrapper ];
-
-  buildInputs = [
-    AnyURIEscape
-    DBDSQLite
-    DBI
-    EmailAddressXS
-    EmailMIME
-    highlight
-    IOSocketSSL
-    IPCRun
-    Inline
-    InlineC
-    ParseRecDescent
-    Plack
-    PlackMiddlewareReverseProxy
-    SearchXapian
-    TimeDate
-    URI
-    libgit2 # For Gcf2
-    man
-  ];
-
-  doCheck = !stdenv.isDarwin;
-  nativeCheckInputs = [
-    MailIMAPClient
-    curl
-    git
-    openssl
-    pkg-config
-    sqlite
-    xapian
-  ] ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ];
-  preCheck = ''
-    perl certs/create-certs.perl
-    export TEST_LEI_ERR_LOUD=1
-    export HOME="$NIX_BUILD_TOP"/home
-    mkdir -p "$HOME"/.cache/public-inbox/inline-c
-  '';
-
-  installTargets = [ "install" ];
-  postInstall = ''
-    for prog in $out/bin/*; do
-        wrapProgram $prog --prefix PATH : ${
-          lib.makeBinPath [
-            git
-            # for InlineC
-            gnumake
-            stdenv.cc.cc
-          ]
-        }
-    done
-
-    mv sa_config $sa_config
-  '';
-
-  passthru.tests = { nixos-public-inbox = nixosTests.public-inbox; };
-
-  meta = with lib; {
-    homepage = "https://public-inbox.org/";
-    license = licenses.agpl3Plus;
-    maintainers = with maintainers; [
-      julm
-      qyliss
+    outputs = [
+      "out"
+      "devdoc"
+      "sa_config"
     ];
-    platforms = platforms.all;
-  };
-}
+
+    postConfigure = ''
+      substituteInPlace Makefile --replace 'TEST_FILES = t/*.t' \
+          'TEST_FILES = $(shell find t -name *.t ${testConditions})'
+      substituteInPlace lib/PublicInbox/TestCommon.pm \
+        --replace /bin/cp ${coreutils}/bin/cp
+    '';
+
+    nativeBuildInputs = [ makeWrapper ];
+
+    buildInputs = [
+      AnyURIEscape
+      DBDSQLite
+      DBI
+      EmailAddressXS
+      EmailMIME
+      highlight
+      IOSocketSSL
+      IPCRun
+      Inline
+      InlineC
+      ParseRecDescent
+      Plack
+      PlackMiddlewareReverseProxy
+      SearchXapian
+      TimeDate
+      URI
+      libgit2 # For Gcf2
+      man
+    ];
+
+    doCheck = !stdenv.isDarwin;
+    nativeCheckInputs = [
+      MailIMAPClient
+      curl
+      git
+      openssl
+      pkg-config
+      sqlite
+      xapian
+    ] ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ];
+    preCheck = ''
+      perl certs/create-certs.perl
+      export TEST_LEI_ERR_LOUD=1
+      export HOME="$NIX_BUILD_TOP"/home
+      mkdir -p "$HOME"/.cache/public-inbox/inline-c
+    '';
+
+    installTargets = [ "install" ];
+    postInstall = ''
+      for prog in $out/bin/*; do
+          wrapProgram $prog --prefix PATH : ${
+            lib.makeBinPath [
+              git
+              # for InlineC
+              gnumake
+              stdenv.cc.cc
+            ]
+          }
+      done
+
+      mv sa_config $sa_config
+    '';
+
+    passthru.tests = { nixos-public-inbox = nixosTests.public-inbox; };
+
+    meta = with lib; {
+      homepage = "https://public-inbox.org/";
+      license = licenses.agpl3Plus;
+      maintainers = with maintainers; [
+        julm
+        qyliss
+      ];
+      platforms = platforms.all;
+    };
+  }

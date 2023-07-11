@@ -23,7 +23,9 @@ let
           " --arg ${lib.escapeShellArg key} ${
              lib.escapeShellArg (toString value)
            }";
-    in lib.concatStrings (lib.mapAttrsToList toArg args);
+    in
+      lib.concatStrings (lib.mapAttrsToList toArg args)
+  ;
 
   isPathType = x: lib.types.path.check x;
 

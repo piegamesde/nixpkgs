@@ -81,23 +81,24 @@ let
   }.${system} or {
     src = throw "Unsupported system: ${system}";
   };
-in stdenv.mkDerivation ({
-  pname = "breitbandmessung";
-  inherit version;
+in
+  stdenv.mkDerivation ({
+    pname = "breitbandmessung";
+    inherit version;
 
-  passthru.tests = { inherit (nixosTests) breitbandmessung; };
+    passthru.tests = { inherit (nixosTests) breitbandmessung; };
 
-  meta = with lib; {
-    description =
-      "Broadband internet speed test app from the german Bundesnetzagentur";
-    homepage = "https://www.breitbandmessung.de";
-    license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ b4dm4n ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-  };
-} // systemArgs)
+    meta = with lib; {
+      description =
+        "Broadband internet speed test app from the german Bundesnetzagentur";
+      homepage = "https://www.breitbandmessung.de";
+      license = licenses.unfree;
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      maintainers = with maintainers; [ b4dm4n ];
+      platforms = [
+        "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+    };
+  } // systemArgs)

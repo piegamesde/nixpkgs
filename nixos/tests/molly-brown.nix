@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
     ...
   }:
 
-  let testString = "NixOS Gemini test successful";
+  let
+    testString = "NixOS Gemini test successful";
   in {
 
     name = "molly-brown";
@@ -65,7 +66,7 @@ import ./make-test-python.nix ({
             mkdir -p "${cfg.settings.DocBase}"
             echo "${testString}" > "${cfg.settings.DocBase}/test.gmi"
           '';
-        };
+        } ;
     };
     testScript = ''
       geminiServer.wait_for_unit("molly-brown")
@@ -73,4 +74,4 @@ import ./make-test-python.nix ({
       geminiServer.succeed("test-gemini")
     '';
 
-  })
+  } )

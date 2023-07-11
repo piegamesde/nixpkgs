@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.xserver.imwheel;
+let
+  cfg = config.services.xserver.imwheel;
 in {
   options = {
     services.xserver.imwheel = {

@@ -88,31 +88,33 @@ in rec {
     nginxWebRoot = pkgs.writeTextDir "index.html" ''
       <html><body><h1>Hello from NGINX</h1></body></html>
     '';
-  in buildLayeredImage {
-    name = "nginx-container";
-    tag = "latest";
-    contents = [
-      fakeNss
-      pkgs.nginx
-    ];
-
-    extraCommands = ''
-      mkdir -p tmp/nginx_client_body
-
-      # nginx still tries to read this directory even if error_log
-      # directive is specifying another file :/
-      mkdir -p var/log/nginx
-    '';
-
-    config = {
-      Cmd = [
-        "nginx"
-        "-c"
-        nginxConf
+  in
+    buildLayeredImage {
+      name = "nginx-container";
+      tag = "latest";
+      contents = [
+        fakeNss
+        pkgs.nginx
       ];
-      ExposedPorts = { "${nginxPort}/tcp" = { }; };
-    };
-  };
+
+      extraCommands = ''
+        mkdir -p tmp/nginx_client_body
+
+        # nginx still tries to read this directory even if error_log
+        # directive is specifying another file :/
+        mkdir -p var/log/nginx
+      '';
+
+      config = {
+        Cmd = [
+          "nginx"
+          "-c"
+          nginxConf
+        ];
+        ExposedPorts = { "${nginxPort}/tcp" = { }; };
+      };
+    }
+  ;
 
   # 4. example of pulling an image. could be used as a base for other images
   nixFromDockerHub = pullImage {
@@ -308,20 +310,22 @@ in rec {
         echo layer2 > tmp/layer3
       '';
     };
-  in pkgs.dockerTools.buildImage {
-    name = "l3";
-    fromImage = l2;
-    tag = "latest";
-    copyToRoot = pkgs.buildEnv {
-      name = "image-root";
-      pathsToLink = [ "/bin" ];
-      paths = [ pkgs.coreutils ];
-    };
-    extraCommands = ''
-      mkdir -p tmp
-      echo layer3 > tmp/layer3
-    '';
-  };
+  in
+    pkgs.dockerTools.buildImage {
+      name = "l3";
+      fromImage = l2;
+      tag = "latest";
+      copyToRoot = pkgs.buildEnv {
+        name = "image-root";
+        pathsToLink = [ "/bin" ];
+        paths = [ pkgs.coreutils ];
+      };
+      extraCommands = ''
+        mkdir -p tmp
+        echo layer3 > tmp/layer3
+      '';
+    }
+  ;
 
   # 15. Environment variable inheritance.
   # Child image should inherit parents environment variables,
@@ -499,7 +503,9 @@ in rec {
     layerA = layerOnTopOf null "a";
     layerB = layerOnTopOf layerA "b";
     layerC = layerOnTopOf layerB "c";
-  in layerC;
+  in
+    layerC
+  ;
 
   # buildImage without explicit tag
   bashNoTag = pkgs.dockerTools.buildImage {
@@ -545,17 +551,19 @@ in rec {
           ${user}:x::
         '')
       ];
-  in pkgs.dockerTools.buildLayeredImage {
-    name = "bash-layered-with-user";
-    tag = "latest";
-    contents = [
-      pkgs.bash
-      pkgs.coreutils
-    ] ++ nonRootShadowSetup {
-      uid = 999;
-      user = "somebody";
-    };
-  };
+  in
+    pkgs.dockerTools.buildLayeredImage {
+      name = "bash-layered-with-user";
+      tag = "latest";
+      contents = [
+        pkgs.bash
+        pkgs.coreutils
+      ] ++ nonRootShadowSetup {
+        uid = 999;
+        user = "somebody";
+      };
+    }
+  ;
 
   # basic example, with cross compilation
   cross = let
@@ -564,30 +572,34 @@ in rec {
       pkgsCross.gnu64
     else
       pkgsCross.aarch64-multiplatform;
-  in crossPkgs.dockerTools.buildImage {
-    name = "hello-cross";
-    tag = "latest";
-    copyToRoot = pkgs.buildEnv {
-      name = "image-root";
-      pathsToLink = [ "/bin" ];
-      paths = [ crossPkgs.hello ];
-    };
-  };
+  in
+    crossPkgs.dockerTools.buildImage {
+      name = "hello-cross";
+      tag = "latest";
+      copyToRoot = pkgs.buildEnv {
+        name = "image-root";
+        pathsToLink = [ "/bin" ];
+        paths = [ crossPkgs.hello ];
+      };
+    }
+  ;
 
   # layered image where a store path is itself a symlink
   layeredStoreSymlink = let
     target = pkgs.writeTextDir "dir/target" "Content doesn't matter.";
     symlink = pkgs.runCommand "symlink" { } "ln -s ${target} $out";
-  in pkgs.dockerTools.buildLayeredImage {
-    name = "layeredstoresymlink";
-    tag = "latest";
-    contents = [
-      pkgs.bash
-      symlink
-    ];
-  } // {
-    passthru = { inherit symlink; };
-  };
+  in
+    pkgs.dockerTools.buildLayeredImage {
+      name = "layeredstoresymlink";
+      tag = "latest";
+      contents = [
+        pkgs.bash
+        symlink
+      ];
+    } // {
+      passthru = { inherit symlink; };
+    }
+  ;
 
   # image with registry/ prefix
   prefixedImage = pkgs.dockerTools.buildImage {
@@ -681,19 +693,21 @@ in rec {
           # mode = "0755";
         };
       }));
-  in pkgs.dockerTools.streamLayeredImage {
-    name = "etc";
-    tag = "latest";
-    enableFakechroot = true;
-    fakeRootCommands = ''
-      mkdir -p /etc
-      ${nixosCore.config.system.build.etcActivationCommands}
-    '';
-    config.Cmd = pkgs.writeScript "etc-cmd" ''
-      #!${pkgs.busybox}/bin/sh
-      ${pkgs.busybox}/bin/cat /etc/some-config-file
-    '';
-  };
+  in
+    pkgs.dockerTools.streamLayeredImage {
+      name = "etc";
+      tag = "latest";
+      enableFakechroot = true;
+      fakeRootCommands = ''
+        mkdir -p /etc
+        ${nixosCore.config.system.build.etcActivationCommands}
+      '';
+      config.Cmd = pkgs.writeScript "etc-cmd" ''
+        #!${pkgs.busybox}/bin/sh
+        ${pkgs.busybox}/bin/cat /etc/some-config-file
+      '';
+    }
+  ;
 
   # Example export of the bash image
   exportBash = pkgs.dockerTools.exportImage { fromImage = bash; };

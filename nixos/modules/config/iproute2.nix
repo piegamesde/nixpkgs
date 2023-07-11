@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.networking.iproute2;
+let
+  cfg = config.networking.iproute2;
 in {
   options.networking.iproute2 = {
     enable = mkEnableOption (lib.mdDoc "copy IP route configuration files");

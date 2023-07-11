@@ -76,6 +76,6 @@ import ./make-test-python.nix ({
                 "systemctl status nginx -M test1 >&2",
             )
             client.fail("systemctl status httpd -M test1 >&2")
-      '';
+      '' ;
 
-  })
+  } )

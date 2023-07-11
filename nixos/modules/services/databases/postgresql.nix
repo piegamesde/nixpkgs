@@ -341,7 +341,7 @@ in {
                     default = null;
                     inherit defaultText;
                   };
-                };
+                } ;
               };
             };
           };
@@ -488,7 +488,9 @@ in {
       # Note: when changing the default, make it conditional on
       # ‘system.stateVersion’ to maintain compatibility with existing
       # systems!
-    in mkDefault (if cfg.enableJIT then base.withJIT else base);
+    in
+      mkDefault (if cfg.enableJIT then base.withJIT else base)
+    ;
 
     services.postgresql.dataDir =
       mkDefault "/var/lib/postgresql/${cfg.package.psqlSchema}";
@@ -592,7 +594,7 @@ in {
             $PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user.name}'" | grep -q 1 || $PSQL -tAc 'CREATE USER "${user.name}"'
             ${userPermissions}
             ${userClauses}
-          '') cfg.ensureUsers}
+          '' ) cfg.ensureUsers}
       '';
 
       serviceConfig = mkMerge [

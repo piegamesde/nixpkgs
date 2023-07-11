@@ -48,22 +48,27 @@ let
         # the first interface (i.e. the first network in its
         # virtualisation.vlans option).
         networking.extraHosts = flip concatMapStrings (attrNames nodes) (m':
-          let config = nodes.${m'};
-          in optionalString (config.networking.primaryIPAddress != "")
-          ("${config.networking.primaryIPAddress} "
-            + optionalString (config.networking.domain != null)
-            "${config.networking.hostName}.${config.networking.domain} " + ''
-              ${config.networking.hostName}
-            ''));
+          let
+            config = nodes.${m'};
+          in
+            optionalString (config.networking.primaryIPAddress != "")
+            ("${config.networking.primaryIPAddress} "
+              + optionalString (config.networking.domain != null)
+              "${config.networking.hostName}.${config.networking.domain} " + ''
+                ${config.networking.hostName}
+              '')
+        );
 
-        virtualisation.qemu.options =
-          let qemu-common = import ../qemu-common.nix { inherit lib pkgs; };
-          in flip concatMap interfacesNumbered ({
+        virtualisation.qemu.options = let
+          qemu-common = import ../qemu-common.nix { inherit lib pkgs; };
+        in
+          flip concatMap interfacesNumbered ({
               fst,
               snd,
             }:
             qemu-common.qemuNICFlags snd fst
-            config.virtualisation.test.nodeNumber);
+            config.virtualisation.test.nodeNumber)
+        ;
       };
 
     in {
@@ -73,7 +78,7 @@ let
         # that need to recreate the network config.
         system.build.networkConfig = networkConfig;
       };
-    };
+    } ;
 
   nodeNumberModule = (regular@{
       config,

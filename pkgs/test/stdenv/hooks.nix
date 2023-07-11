@@ -14,15 +14,17 @@
       .SH NAME
       hello - friendly greeting program
     '';
-  in stdenv.mkDerivation {
-    name = "test-compress-man-pages";
-    buildCommand = ''
-      mkdir -p $out/share/man
-      cp ${manFile} $out/share/man/small-man.1
-      compressManPages $out
-      [[ -e $out/share/man/small-man.1.gz ]]
-    '';
-  };
+  in
+    stdenv.mkDerivation {
+      name = "test-compress-man-pages";
+      buildCommand = ''
+        mkdir -p $out/share/man
+        cp ${manFile} $out/share/man/small-man.1
+        compressManPages $out
+        [[ -e $out/share/man/small-man.1.gz ]]
+      '';
+    }
+  ;
   make-symlinks-relative = stdenv.mkDerivation {
     name = "test-make-symlinks-relative";
     outputs = [
@@ -103,17 +105,19 @@
       old_library='''
       dependency_libs=' -Lbar.la -Lbaz.la'
     '';
-  in stdenv.mkDerivation {
-    name = "test-prune-libtool-files";
-    buildCommand = ''
-      mkdir -p $out/lib
-      cp ${libFoo} $out/lib/libFoo.la
-      _pruneLibtoolFiles
-      grep "^dependency_libs=''' #pruned" $out/lib/libFoo.la
-      # confirm file doesn't only contain the above
-      grep "^old_library='''" $out/lib/libFoo.la
-    '';
-  };
+  in
+    stdenv.mkDerivation {
+      name = "test-prune-libtool-files";
+      buildCommand = ''
+        mkdir -p $out/lib
+        cp ${libFoo} $out/lib/libFoo.la
+        _pruneLibtoolFiles
+        grep "^dependency_libs=''' #pruned" $out/lib/libFoo.la
+        # confirm file doesn't only contain the above
+        grep "^old_library='''" $out/lib/libFoo.la
+      '';
+    }
+  ;
   reproducible-builds = stdenv.mkDerivation {
     name = "test-reproducible-builds";
     buildCommand = ''

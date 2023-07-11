@@ -258,7 +258,7 @@ in {
         RestartSec = 5;
         TimeoutSec = 10;
       };
-    };
+    } ;
 
   };
 

@@ -83,31 +83,32 @@ let
   ckProfiler = runCommand "ckProfiler" { preferLocalBuild = true; } ''
     cp -a ${ck}/bin/ckProfiler $out
   '';
-in stdenv.mkDerivation {
-  inherit (ck) pname version outputs src passthru meta;
+in
+  stdenv.mkDerivation {
+    inherit (ck) pname version outputs src passthru meta;
 
-  dontUnpack = true;
-  dontPatch = true;
-  dontConfigure = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontPatch = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin
-    cp -as ${ckProfiler} $out/bin/ckProfiler
-    cp -an ${ck}/* $out
-  '' + lib.optionalString buildTests ''
-    cp -a ${ck.test} $test
-  '' + lib.optionalString buildExamples ''
-    cp -a ${ck.example} $example
-  '' + ''
-    runHook postInstall
-  '';
+      mkdir -p $out/bin
+      cp -as ${ckProfiler} $out/bin/ckProfiler
+      cp -an ${ck}/* $out
+    '' + lib.optionalString buildTests ''
+      cp -a ${ck.test} $test
+    '' + lib.optionalString buildExamples ''
+      cp -a ${ck.example} $example
+    '' + ''
+      runHook postInstall
+    '';
 
-  # Fix paths
-  preFixup = ''
-    substituteInPlace $out/lib/cmake/composable_kernel/*.cmake \
-      --replace "${ck}" "$out"
-  '';
-}
+    # Fix paths
+    preFixup = ''
+      substituteInPlace $out/lib/cmake/composable_kernel/*.cmake \
+        --replace "${ck}" "$out"
+    '';
+  }

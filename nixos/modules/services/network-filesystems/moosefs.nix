@@ -34,12 +34,14 @@ let
         valueType = oneOf ([ (listOf valueType) ] ++ allowedTypes) // {
           description = "Flat key-value file";
         };
-      in attrsOf valueType;
+      in
+        attrsOf valueType
+    ;
 
     generate = name: value:
       pkgs.writeText name (lib.concatStringsSep "\n"
         (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value));
-  };
+  } ;
 
   initTool = pkgs.writeShellScriptBin "mfsmaster-init" ''
     if [ ! -e ${cfg.master.settings.DATA_PATH}/metadata.mfs ]; then

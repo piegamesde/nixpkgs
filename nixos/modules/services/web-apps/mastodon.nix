@@ -120,19 +120,21 @@ let
     sourceExtraEnv = lib.concatMapStrings (p: ''
       source ${p}
     '') cfg.extraEnvFiles;
-  in pkgs.writeShellScriptBin "mastodon-tootctl" ''
-    set -a
-    export RAILS_ROOT="${cfg.package}"
-    source "${envFile}"
-    source /var/lib/mastodon/.secrets_env
-    ${sourceExtraEnv}
+  in
+    pkgs.writeShellScriptBin "mastodon-tootctl" ''
+      set -a
+      export RAILS_ROOT="${cfg.package}"
+      source "${envFile}"
+      source /var/lib/mastodon/.secrets_env
+      ${sourceExtraEnv}
 
-    sudo=exec
-    if [[ "$USER" != ${cfg.user} ]]; then
-      sudo='exec /run/wrappers/bin/sudo -u ${cfg.user} --preserve-env'
-    fi
-    $sudo ${cfg.package}/bin/tootctl "$@"
-  '';
+      sudo=exec
+      if [[ "$USER" != ${cfg.user} ]]; then
+        sudo='exec /run/wrappers/bin/sudo -u ${cfg.user} --preserve-env'
+      fi
+      $sudo ${cfg.package}/bin/tootctl "$@"
+    ''
+  ;
 
   sidekiqUnits = lib.attrsets.mapAttrs' (name: processCfg:
     lib.nameValuePair "mastodon-sidekiq-${name}" (let
@@ -179,7 +181,7 @@ let
         imagemagick
         ffmpeg
       ];
-    })) cfg.sidekiqProcesses;
+    } )) cfg.sidekiqProcesses;
 
 in {
 
@@ -864,12 +866,12 @@ in {
             EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
               ++ cfg.extraEnvFiles;
           } // cfgService;
-          script =
-            let olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
-            in ''
-              ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
-              ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
-            '';
+          script = let
+            olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
+          in ''
+            ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
+            ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
+          '' ;
           startAt = cfg.mediaAutoRemove.startAt;
         };
 

@@ -43,5 +43,6 @@ let
       generic = callPackage ../development/libraries/agda/generic { };
 
       agdarsec = callPackage ../development/libraries/agda/agdarsec { };
-    };
-in mkAgdaPackages Agda
+    } ;
+in
+  mkAgdaPackages Agda

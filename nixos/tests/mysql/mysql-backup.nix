@@ -76,5 +76,5 @@ let
         )
       '';
     };
-in lib.mapAttrs (_: package: makeBackupTest { inherit package; })
-mariadbPackages
+in
+  lib.mapAttrs (_: package: makeBackupTest { inherit package; }) mariadbPackages

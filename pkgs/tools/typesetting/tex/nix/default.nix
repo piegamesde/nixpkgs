@@ -22,25 +22,27 @@ rec {
         # always include basic stuff you need for LaTeX
         ({ inherit (pkgs.texlive) scheme-basic; } // texPackages);
 
-    in pkgs.stdenv.mkDerivation {
-      name = "doc";
+    in
+      pkgs.stdenv.mkDerivation {
+        name = "doc";
 
-      builder = ./run-latex.sh;
-      copyIncludes = ./copy-includes.pl;
+        builder = ./run-latex.sh;
+        copyIncludes = ./copy-includes.pl;
 
-      inherit rootFile generatePDF generatePS extraFiles compressBlanksInIndex
-        copySources;
+        inherit rootFile generatePDF generatePS extraFiles compressBlanksInIndex
+          copySources;
 
-      includes = map (x: [
-        x.key
-        (baseNameOf (toString x.key))
-      ]) (findLaTeXIncludes { inherit rootFile; });
+        includes = map (x: [
+          x.key
+          (baseNameOf (toString x.key))
+        ]) (findLaTeXIncludes { inherit rootFile; });
 
-      buildInputs = [
-        tex
-        pkgs.perl
-      ] ++ packages;
-    };
+        buildInputs = [
+          tex
+          pkgs.perl
+        ] ++ packages;
+      }
+  ;
 
   # Returns the closure of the "dependencies" of a LaTeX source file.
   # Dependencies are other LaTeX source files (e.g. included using
@@ -88,7 +90,9 @@ rec {
                 (map (ext: dirOf key + ("/" + dep.name + ext)) exts);
             in if fn != null then [ { key = fn; } ] ++ xs else xs;
 
-        in pkgs.lib.foldr foundDeps [ ] deps;
+        in
+          pkgs.lib.foldr foundDeps [ ] deps
+      ;
     };
 
   findLhs2TeXIncludes = {
@@ -109,9 +113,11 @@ rec {
           deps = import (pkgs.runCommand "lhs2tex-includes" { src = key; }
             "${pkgs.stdenv.bash}/bin/bash ${./find-lhs2tex-includes.sh}");
 
-        in pkgs.lib.concatMap
-        (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
-        (map (x: dirOf key + ("/" + x)) deps);
+        in
+          pkgs.lib.concatMap
+          (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
+          (map (x: dirOf key + ("/" + x)) deps)
+      ;
     };
 
   dot2pdf = {

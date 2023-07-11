@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.duckling;
+let
+  cfg = config.services.duckling;
 in {
   options = {
     services.duckling = {

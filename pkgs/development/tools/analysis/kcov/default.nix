@@ -94,4 +94,5 @@ let
       platforms = platforms.linux;
     };
   };
-in self
+in
+  self

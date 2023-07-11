@@ -81,7 +81,7 @@ let
         RestartSec = "20s";
         PrivateDevices = "no"; # osd needs disk access
       } // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
-    });
+    } );
 
   makeTarget = (daemonType: {
     "ceph-${daemonType}" = {
@@ -418,7 +418,9 @@ in {
         osd = cfg.osd.extraConfig;
       } // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
         cfg.client.extraConfig;
-    in generators.toINI { } totalConfig;
+    in
+      generators.toINI { } totalConfig
+    ;
 
     users.users.ceph = {
       uid = config.ids.uids.ceph;
@@ -436,7 +438,9 @@ in {
         ++ optional cfg.osd.enable (makeServices "osd" cfg.osd.daemons)
         ++ optional cfg.rgw.enable (makeServices "rgw" cfg.rgw.daemons)
         ++ optional cfg.mgr.enable (makeServices "mgr" cfg.mgr.daemons);
-    in mkMerge services;
+    in
+      mkMerge services
+    ;
 
     systemd.targets = let
       targets = [ {
@@ -451,7 +455,9 @@ in {
         ++ optional cfg.osd.enable (makeTarget "osd")
         ++ optional cfg.rgw.enable (makeTarget "rgw")
         ++ optional cfg.mgr.enable (makeTarget "mgr");
-    in mkMerge targets;
+    in
+      mkMerge targets
+    ;
 
     systemd.tmpfiles.rules = [
       "d /etc/ceph - ceph ceph - -"

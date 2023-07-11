@@ -141,4 +141,4 @@ import ../make-test-python.nix ({
           expected = ["alice", "users"]
           assert ids == expected, f"ids incorrect: got {ids} expected {expected}"
     '';
-  })
+  } )

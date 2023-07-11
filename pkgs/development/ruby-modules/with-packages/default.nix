@@ -32,9 +32,12 @@ let
             inherit ruby;
             gemName = name;
           } // initialAttrs);
-        in buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs))
-        realGemset;
-    in builtGems;
+        in
+          buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs)
+      ) realGemset;
+    in
+      builtGems
+  ;
 
   gems = buildGems (import ../../../top-level/ruby-packages.nix);
 
@@ -63,29 +66,33 @@ let
         '';
       };
 
-    in stdenv.mkDerivation {
-      name = "${ruby.name}-with-packages";
-      nativeBuildInputs = [ makeBinaryWrapper ];
-      buildInputs = [
-        selected
-        ruby
-      ];
+    in
+      stdenv.mkDerivation {
+        name = "${ruby.name}-with-packages";
+        nativeBuildInputs = [ makeBinaryWrapper ];
+        buildInputs = [
+          selected
+          ruby
+        ];
 
-      dontUnpack = true;
+        dontUnpack = true;
 
-      installPhase = ''
-        for i in ${ruby}/bin/* ${gemEnv}/bin/*; do
-          rm -f $out/bin/$(basename "$i")
-          makeWrapper "$i" $out/bin/$(basename "$i") --set GEM_PATH ${gemEnv}/${ruby.gemPath}
-        done
+        installPhase = ''
+          for i in ${ruby}/bin/* ${gemEnv}/bin/*; do
+            rm -f $out/bin/$(basename "$i")
+            makeWrapper "$i" $out/bin/$(basename "$i") --set GEM_PATH ${gemEnv}/${ruby.gemPath}
+          done
 
-        ln -s ${ruby}/nix-support $out/nix-support
-      '';
+          ln -s ${ruby}/nix-support $out/nix-support
+        '';
 
-      passthru = {
-        inherit wrappedRuby;
-        gems = selected;
-      };
-    };
+        passthru = {
+          inherit wrappedRuby;
+          gems = selected;
+        };
+      }
+  ;
 
-in { inherit withPackages gems buildGems; }
+in {
+  inherit withPackages gems buildGems;
+}

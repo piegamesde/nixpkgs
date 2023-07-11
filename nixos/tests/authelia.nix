@@ -73,7 +73,7 @@ import ./make-test-python.nix ({
               in [ {
                 certFile = "${certDir}/cert.pem";
                 keyFile = "${certDir}/key.pem";
-              } ];
+              } ] ;
               http.middlewares.authelia.forwardAuth = {
                 address =
                   "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F";
@@ -136,14 +136,14 @@ import ./make-test-python.nix ({
             };
           };
 
-          systemd.services.simplehttp =
-            let fakeWebPageDir = pkgs.writeTextDir "index.html" "hello";
-            in {
-              script =
-                "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000";
-              serviceConfig.Type = "simple";
-              wantedBy = [ "multi-user.target" ];
-            };
+          systemd.services.simplehttp = let
+            fakeWebPageDir = pkgs.writeTextDir "index.html" "hello";
+          in {
+            script =
+              "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000";
+            serviceConfig.Type = "simple";
+            wantedBy = [ "multi-user.target" ];
+          } ;
         };
     };
 

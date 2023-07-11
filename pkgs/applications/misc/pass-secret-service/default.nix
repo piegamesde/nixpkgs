@@ -51,14 +51,15 @@ python3.pkgs.buildPythonApplication rec {
     secretstorage
   ];
 
-  nativeCheckInputs = let ps = python3.pkgs;
+  nativeCheckInputs = let
+    ps = python3.pkgs;
   in [
     dbus
     gnupg
     ps.pytest
     ps.pytest-asyncio
     ps.pypass
-  ];
+  ] ;
 
   checkTarget = "test";
 

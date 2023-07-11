@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     sed -i 's,\(for ac_dir in\),\1 ${inputs},' configure.ac
     sed -i 's,/usr/,/no-such-dir/,g' configure.ac
     configureFlags+=" --enable-appdefaultdir=$out/share/X11/app-defaults"
-  '';
+  '' ;
 
   hardeningDisable = [ "format" ]; # no build output otherwise
 

@@ -47,7 +47,8 @@ let
         (if hasAttr subName under then getAttr subName under else "<MISSING!>")
         (getAttr subName tests)) (attrNames tests)))
     else if isFunction tests then
-      let res = tests under;
+      let
+        res = tests under;
       in if isBool res then [ (prefixName name (if tests under then
         passed "passed"
       else
@@ -56,4 +57,6 @@ let
       failed
       (name ": not a function, list or set")
     ];
-in { inherit run passed failed; }
+in {
+  inherit run passed failed;
+}

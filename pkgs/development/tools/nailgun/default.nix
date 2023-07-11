@@ -66,18 +66,19 @@ let
         "Client for running Java programs from the command line without incurring the JVM startup overhead";
     };
   };
-in symlinkJoin rec {
-  pname = "nailgun";
-  inherit client server version;
+in
+  symlinkJoin rec {
+    pname = "nailgun";
+    inherit client server version;
 
-  name = "${pname}-${version}";
-  paths = [
-    client
-    server
-  ];
+    name = "${pname}-${version}";
+    paths = [
+      client
+      server
+    ];
 
-  meta = commonMeta // {
-    description =
-      "Client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead";
-  };
-}
+    meta = commonMeta // {
+      description =
+        "Client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead";
+    };
+  }

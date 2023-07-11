@@ -68,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: rec {
     export HOME=$TMPDIR
     export TMP=$TMPDIR
     export ${libPathEnvVar}=$PWD/lib
-  '';
+  '' ;
 
   doCheck = true;
 

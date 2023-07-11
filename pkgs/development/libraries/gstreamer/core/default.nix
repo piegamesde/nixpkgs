@@ -36,12 +36,15 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  src = let inherit (finalAttrs) pname version;
-  in fetchurl {
-    url =
-      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
-    hash = "sha256-sq/nNgOSHGCLpIlp27fXQ3dnRL/l2AWeziQRN7f4jiE=";
-  };
+  src = let
+    inherit (finalAttrs) pname version;
+  in
+    fetchurl {
+      url =
+        "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+      hash = "sha256-sq/nNgOSHGCLpIlp27fXQ3dnRL/l2AWeziQRN7f4jiE=";
+    }
+  ;
 
   depsBuildBuild = [ pkg-config ];
 

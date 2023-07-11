@@ -62,48 +62,49 @@ let
     outputHash = "sha256-Px8FLnREBC6pADcEPn/GfhrtGnmZqjXIX7l1xPjiCvQ=";
   };
 
-in stdenv.mkDerivation {
-  inherit pname src version patches;
-  nativeBuildInputs = [
-    gradle
-    perl
-    makeWrapper
-  ];
-  buildInputs = [ jre ];
-
-  postPatch = ''
-    substituteInPlace build.gradle \
-      --replace 'gradlePluginPortal()' "" \
-      --replace 'mavenCentral()' "mavenLocal(); maven { url '${deps}' }"
-  '';
-
-  buildPhase = ''
-    runHook preBuild
-    export MA1SD_BUILD_VERSION=${version}
-    export GRADLE_USER_HOME=$(mktemp -d)
-
-    gradle --offline --no-daemon build -x test
-    runHook postBuild
-  '';
-
-  installPhase = ''
-    runHook preInstall
-    install -D build/libs/source.jar $out/lib/ma1sd.jar
-    makeWrapper ${jre}/bin/java $out/bin/ma1sd --add-flags "-jar $out/lib/ma1sd.jar"
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "a federated matrix identity server; fork of mxisd";
-    homepage = "https://github.com/ma1uta/ma1sd";
-    changelog = "https://github.com/ma1uta/ma1sd/releases/tag/${version}";
-    sourceProvenance = with sourceTypes; [
-      fromSource
-      binaryBytecode # deps
+in
+  stdenv.mkDerivation {
+    inherit pname src version patches;
+    nativeBuildInputs = [
+      gradle
+      perl
+      makeWrapper
     ];
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [ mguentner ];
-    platforms = platforms.all;
-  };
+    buildInputs = [ jre ];
 
-}
+    postPatch = ''
+      substituteInPlace build.gradle \
+        --replace 'gradlePluginPortal()' "" \
+        --replace 'mavenCentral()' "mavenLocal(); maven { url '${deps}' }"
+    '';
+
+    buildPhase = ''
+      runHook preBuild
+      export MA1SD_BUILD_VERSION=${version}
+      export GRADLE_USER_HOME=$(mktemp -d)
+
+      gradle --offline --no-daemon build -x test
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      install -D build/libs/source.jar $out/lib/ma1sd.jar
+      makeWrapper ${jre}/bin/java $out/bin/ma1sd --add-flags "-jar $out/lib/ma1sd.jar"
+      runHook postInstall
+    '';
+
+    meta = with lib; {
+      description = "a federated matrix identity server; fork of mxisd";
+      homepage = "https://github.com/ma1uta/ma1sd";
+      changelog = "https://github.com/ma1uta/ma1sd/releases/tag/${version}";
+      sourceProvenance = with sourceTypes; [
+        fromSource
+        binaryBytecode # deps
+      ];
+      license = licenses.agpl3Only;
+      maintainers = with maintainers; [ mguentner ];
+      platforms = platforms.all;
+    };
+
+  }

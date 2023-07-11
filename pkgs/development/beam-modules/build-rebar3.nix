@@ -95,4 +95,5 @@ let
         inherit beamDeps;
       };
     } // customPhases);
-in lib.fix pkg
+in
+  lib.fix pkg

@@ -75,7 +75,7 @@ import ./make-test-python.nix {
           pkgs.firefox-unwrapped
           pkgs.geckodriver
           testRunner
-        ];
+        ] ;
       };
   };
 
@@ -100,5 +100,5 @@ import ./make-test-python.nix {
       client.succeed("touch /tmp/proceed")
 
       client.wait_for_file("/tmp/passed")
-    '';
+    '' ;
 }

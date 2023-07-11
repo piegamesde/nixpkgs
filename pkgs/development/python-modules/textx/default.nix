@@ -163,4 +163,5 @@ let
       homepage = textx.homepage + "tree/${version}/" + pathToSourceRoot;
     };
   };
-in textx
+in
+  textx

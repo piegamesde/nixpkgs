@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.services.xserver.windowManager.windowlab;
+let
+  cfg = config.services.xserver.windowManager.windowlab;
 
 in {
   options = {

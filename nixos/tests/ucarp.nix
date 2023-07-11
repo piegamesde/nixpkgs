@@ -74,4 +74,4 @@ import ./make-test-python.nix ({
       backup_host.sleep(5)
       assert is_master(backup_host), "backup did not take over"
     '';
-  })
+  } )

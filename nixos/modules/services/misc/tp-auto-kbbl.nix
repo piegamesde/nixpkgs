@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.tp-auto-kbbl;
+let
+  cfg = config.services.tp-auto-kbbl;
 
 in {
   meta.maintainers = with maintainers; [ sebtm ];

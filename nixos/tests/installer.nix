@@ -405,7 +405,9 @@ let
                     inherit self;
                     includeSiteCustomize = true;
                   });
-                in self.withPackages (p: [ p.mistune ]))
+                in
+                  self.withPackages (p: [ p.mistune ])
+                )
                 shared-mime-info
                 sudo
                 texinfo
@@ -422,7 +424,7 @@ let
               in [
                 (pkgs.grub2.override { inherit zfsSupport; })
                 (pkgs.grub2_efi.override { inherit zfsSupport; })
-              ]);
+              ] );
 
             nix.settings = {
               substituters = mkForce [ ];

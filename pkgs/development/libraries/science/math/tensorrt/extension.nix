@@ -37,7 +37,9 @@ let
           throw
           "tensorrt-${tensorRTDefaultVersion} does not support your cuda version ${cudaVersion}";
       };
-    in { inherit buildTensorRTPackage; } // allBuilds // defaultBuild;
+    in
+      { inherit buildTensorRTPackage; } // allBuilds // defaultBuild
+  ;
 
   tarballURL = {
       fullVersion,
@@ -200,4 +202,5 @@ let
     "11.8" = "8.5.3";
   }.${cudaVersion} or "8.4.0";
 
-in tensorRTPackages
+in
+  tensorRTPackages

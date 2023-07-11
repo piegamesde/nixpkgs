@@ -56,61 +56,62 @@ let
     outputHash = "sha256-T4UhEzkaYh237+ZsoQTv1RgqcAKY4dPc/3x+dEie4A8=";
   };
 
-in stdenv.mkDerivation rec {
-  pname = "mucommander";
-  inherit version src postPatch;
-  nativeBuildInputs = [
-    gradle_7
-    perl
-    makeWrapper
-  ];
+in
+  stdenv.mkDerivation rec {
+    pname = "mucommander";
+    inherit version src postPatch;
+    nativeBuildInputs = [
+      gradle_7
+      perl
+      makeWrapper
+    ];
 
-  # Point to our local deps repo
-  gradleInit = writeText "init.gradle" ''
-    logger.lifecycle 'Replacing Maven repositories with ${deps}...'
-    gradle.projectsLoaded {
-      rootProject.allprojects {
-        buildscript {
+    # Point to our local deps repo
+    gradleInit = writeText "init.gradle" ''
+      logger.lifecycle 'Replacing Maven repositories with ${deps}...'
+      gradle.projectsLoaded {
+        rootProject.allprojects {
+          buildscript {
+            repositories {
+              clear()
+              maven { url '${deps}' }
+            }
+          }
           repositories {
             clear()
             maven { url '${deps}' }
           }
         }
-        repositories {
-          clear()
-          maven { url '${deps}' }
+      }
+      settingsEvaluated { settings ->
+        settings.pluginManagement {
+          repositories {
+            maven { url '${deps}' }
+          }
         }
       }
-    }
-    settingsEvaluated { settings ->
-      settings.pluginManagement {
-        repositories {
-          maven { url '${deps}' }
-        }
-      }
-    }
-  '';
+    '';
 
-  buildPhase = ''
-    export GRADLE_USER_HOME=$(mktemp -d)
+    buildPhase = ''
+      export GRADLE_USER_HOME=$(mktemp -d)
 
-    gradle --offline --init-script ${gradleInit} --no-daemon tgz
-  '';
+      gradle --offline --init-script ${gradleInit} --no-daemon tgz
+    '';
 
-  installPhase = ''
-    mkdir -p $out/share/mucommander
-    tar xvf build/distributions/mucommander-*.tgz --directory=$out/share/mucommander
+    installPhase = ''
+      mkdir -p $out/share/mucommander
+      tar xvf build/distributions/mucommander-*.tgz --directory=$out/share/mucommander
 
-    makeWrapper $out/share/mucommander/mucommander.sh $out/bin/mucommander \
-      --prefix XDG_DATA_DIRS : ${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name} \
-      --set JAVA_HOME ${jdk}
-  '';
+      makeWrapper $out/share/mucommander/mucommander.sh $out/bin/mucommander \
+        --prefix XDG_DATA_DIRS : ${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name} \
+        --set JAVA_HOME ${jdk}
+    '';
 
-  meta = with lib; {
-    homepage = "https://www.mucommander.com/";
-    description = "Cross-platform file manager";
-    license = licenses.gpl3;
-    maintainers = with maintainers; [ jiegec ];
-    platforms = platforms.all;
-  };
-}
+    meta = with lib; {
+      homepage = "https://www.mucommander.com/";
+      description = "Cross-platform file manager";
+      license = licenses.gpl3;
+      maintainers = with maintainers; [ jiegec ];
+      platforms = platforms.all;
+    };
+  }

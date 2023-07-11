@@ -11,7 +11,8 @@
   pkgs,
   ...
 }:
-let siteName = "NixOS Snipe-IT Test Instance";
+let
+  siteName = "NixOS Snipe-IT Test Instance";
 in {
   name = "snipe-it";
 
@@ -111,5 +112,5 @@ in {
 
           # Login page should be back again
           ${checkLoginPage { }}
-    '';
+    '' ;
 }

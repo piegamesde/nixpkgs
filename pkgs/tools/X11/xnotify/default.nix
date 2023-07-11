@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
         conf
       else
         writeText "config.h" conf;
-    in optionalString (conf != null) "cp ${configFile} config.h";
+    in
+      optionalString (conf != null) "cp ${configFile} config.h"
+  ;
 
   makeFlags = [ "PREFIX=$(out)" ];
 

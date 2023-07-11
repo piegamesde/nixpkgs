@@ -22,7 +22,8 @@ let
       ...
     }:
     with pkgs.lib;
-    let vlanIfs = range 1 (length config.virtualisation.vlans);
+    let
+      vlanIfs = range 1 (length config.virtualisation.vlans);
     in {
       environment.systemPackages = [ pkgs.iptables ]; # to debug firewall rules
       virtualisation.vlans = [
@@ -90,7 +91,7 @@ let
           }
         '');
       };
-    };
+    } ;
 
   testCases = {
     loopback = {
@@ -400,7 +401,7 @@ let
               for client in client1, client2:
                   client.succeed('grep -q "Bonding Mode: IEEE 802.3ad Dynamic link aggregation" /proc/net/bonding/bond0')
         '';
-    };
+    } ;
     bridge = let
       node = {
           address,
@@ -477,7 +478,7 @@ let
               router.wait_until_succeeds("ping -c 1 192.168.1.2")
               router.wait_until_succeeds("ping -c 1 192.168.1.3")
         '';
-    };
+    } ;
     macvlan = {
       name = "MACVLAN";
       nodes.router = router;
@@ -697,7 +698,7 @@ let
               client2.wait_until_succeeds("ping -c 1 fc00::1")
               client2.wait_until_succeeds("ping -c 1 fc00::2")
         '';
-    };
+    } ;
     gre = let
       node = {
           pkgs,
@@ -841,7 +842,7 @@ let
               links = json.loads(client2.succeed("ip -details -json link show gre6Tunnel"))
               assert links[0]['linkinfo']['info_data']['ttl'] == 255, "ttl not set for gre6Tunnel"
         '';
-    };
+    } ;
     vlan = let
       node = address:
         {
@@ -882,7 +883,7 @@ let
               client1.succeed("ip addr show dev vlan >&2")
               client2.succeed("ip addr show dev vlan >&2")
         '';
-    };
+    } ;
     vlan-ping = let
       baseIP = number: "10.10.10.${number}";
       vlanIP = number: "10.1.1.${number}";
@@ -945,7 +946,7 @@ let
                 vlanIP clientNodeNum
               }")
         '';
-    };
+    } ;
     virtual = {
       name = "Virtual";
       nodes.machine = {
@@ -1271,7 +1272,8 @@ let
         assert "mtu 1442" in client.succeed("ip l show dev foo")
       '';
     };
-    wlanInterface = let testMac = "06:00:00:00:02:00";
+    wlanInterface = let
+      testMac = "06:00:00:00:02:00";
     in {
       name = "WlanInterface";
       nodes.machine = {
@@ -1293,11 +1295,13 @@ let
         machine.wait_until_succeeds("ip address show wap0 | grep -q ${testMac}")
         machine.fail("ip address show wlan0 | grep -q ${testMac}")
       '';
-    };
+    } ;
   };
 
-in mapAttrs (const (attrs:
-  makeTest (attrs // {
-    name =
-      "${attrs.name}-Networking-${if networkd then "Networkd" else "Scripted"}";
-  }))) testCases
+in
+  mapAttrs (const (attrs:
+    makeTest (attrs // {
+      name = "${attrs.name}-Networking-${
+          if networkd then "Networkd" else "Scripted"
+        }";
+    }))) testCases

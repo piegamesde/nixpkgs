@@ -49,28 +49,30 @@ let
       config.node.type = lib.types.deferredModule;
       options._module.args = lib.mkOption { internal = true; };
     };
-  in buildPackages.nixosOptionsDoc {
-    inherit (eval) options;
-    inherit revision;
-    transformOptions = opt:
-      opt // {
-        # Clean up declaration sites to not refer to the NixOS source tree.
-        declarations = map (decl:
-          if hasPrefix (toString ../../..) (toString decl) then
-            let
-              subpath = removePrefix "/"
-                (removePrefix (toString ../../..) (toString decl));
-            in {
-              url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
-              name = subpath;
-            }
-          else
-            decl) opt.declarations;
-      };
-    documentType = "none";
-    variablelistId = "test-options-list";
-    optionIdPrefix = "test-opt-";
-  };
+  in
+    buildPackages.nixosOptionsDoc {
+      inherit (eval) options;
+      inherit revision;
+      transformOptions = opt:
+        opt // {
+          # Clean up declaration sites to not refer to the NixOS source tree.
+          declarations = map (decl:
+            if hasPrefix (toString ../../..) (toString decl) then
+              let
+                subpath = removePrefix "/"
+                  (removePrefix (toString ../../..) (toString decl));
+              in {
+                url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
+                name = subpath;
+              }
+            else
+              decl) opt.declarations;
+        };
+      documentType = "none";
+      variablelistId = "test-options-list";
+      optionIdPrefix = "test-opt-";
+    }
+  ;
 
   toc = builtins.toFile "toc.xml" ''
     <toc role="chunk-toc">

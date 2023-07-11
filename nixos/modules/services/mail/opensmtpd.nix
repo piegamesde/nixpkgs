@@ -146,6 +146,6 @@ in {
       serviceConfig.ExecStart =
         "${cfg.package}/sbin/smtpd -d -f ${conf} ${args}";
       environment.OPENSMTPD_PROC_PATH = "${procEnv}/libexec/opensmtpd";
-    };
+    } ;
   };
 }

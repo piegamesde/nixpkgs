@@ -264,4 +264,4 @@ import ./make-test-python.nix ({
         pleroma.succeed("provision-user")
         client.succeed("send-toot")
       '';
-  })
+  } )

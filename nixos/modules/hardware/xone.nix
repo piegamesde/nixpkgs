@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.hardware.xone;
+let
+  cfg = config.hardware.xone;
 in {
   options.hardware.xone = {
     enable = mkEnableOption (lib.mdDoc

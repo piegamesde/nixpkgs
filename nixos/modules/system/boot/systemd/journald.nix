@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.journald;
+let
+  cfg = config.services.journald;
 in {
   options = {
     services.journald.console = mkOption {

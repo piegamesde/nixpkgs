@@ -149,4 +149,4 @@ import ./make-test-python.nix ({
       # to perform the following test:
       client.fail(f"{mpc} -h serverPulseAudio status")
     '';
-  })
+  } )

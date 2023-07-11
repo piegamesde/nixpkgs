@@ -182,7 +182,9 @@ in {
               };
             };
           };
-      in types.attrsOf (types.submodule endpoint));
+      in
+        types.attrsOf (types.submodule endpoint)
+      );
       default = { };
       example = {
         "last.fm" = {

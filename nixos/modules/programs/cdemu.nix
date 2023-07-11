@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.cdemu;
+let
+  cfg = config.programs.cdemu;
 in {
 
   options = {

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.bspwm;
+let
+  cfg = config.services.xserver.windowManager.bspwm;
 
 in {
   options = {

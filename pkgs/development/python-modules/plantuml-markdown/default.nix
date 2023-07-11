@@ -44,13 +44,15 @@ buildPythonPackage rec {
         Bob -> Alice: Hello
       ```
     '';
-  in runCommand "plantuml-markdown-example-doc" {
-    nativeBuildInputs = [ plantuml-markdown ];
-  } ''
-    markdown_py -x plantuml_markdown ${exampleDoc} > $out
+  in
+    runCommand "plantuml-markdown-example-doc" {
+      nativeBuildInputs = [ plantuml-markdown ];
+    } ''
+      markdown_py -x plantuml_markdown ${exampleDoc} > $out
 
-    ! grep -q "Error" $out
-  '';
+      ! grep -q "Error" $out
+    ''
+  ;
 
   meta = with lib; {
     description = "PlantUML plugin for Python-Markdown";

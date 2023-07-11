@@ -64,14 +64,15 @@ let
     '';
     inherit meta;
   };
-in stdenv.mkDerivation {
-  pname = "dejavu-fonts";
-  inherit version;
-  buildCommand = ''
-    install -m444 -Dt $out/share/fonts/truetype ${full-ttf}/share/fonts/truetype/*.ttf
-    ln -s --relative --force --target-directory=$out/share/fonts/truetype ${minimal}/share/fonts/truetype/DejaVuSans.ttf
-  '';
-  inherit meta;
+in
+  stdenv.mkDerivation {
+    pname = "dejavu-fonts";
+    inherit version;
+    buildCommand = ''
+      install -m444 -Dt $out/share/fonts/truetype ${full-ttf}/share/fonts/truetype/*.ttf
+      ln -s --relative --force --target-directory=$out/share/fonts/truetype ${minimal}/share/fonts/truetype/DejaVuSans.ttf
+    '';
+    inherit meta;
 
-  passthru = { inherit minimal full-ttf; };
-}
+    passthru = { inherit minimal full-ttf; };
+  }

@@ -35,36 +35,37 @@ let
   #  their `buildPhase` or `checkPhase`.
   run = "ocaml -I ${findlib}/lib/ocaml/${ocaml.version}/site-lib/ pkg/pkg.ml";
 
-in stdenv.mkDerivation rec {
-  pname = "ocaml${ocaml.version}-topkg";
-  inherit (param) version;
+in
+  stdenv.mkDerivation rec {
+    pname = "ocaml${ocaml.version}-topkg";
+    inherit (param) version;
 
-  src = fetchurl {
-    url = "https://erratique.ch/software/topkg/releases/topkg-${version}.tbz";
-    inherit (param) sha256;
-  };
+    src = fetchurl {
+      url = "https://erratique.ch/software/topkg/releases/topkg-${version}.tbz";
+      inherit (param) sha256;
+    };
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    ocamlbuild
-  ];
-  propagatedBuildInputs = param.propagatedBuildInputs or [ ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+    ];
+    propagatedBuildInputs = param.propagatedBuildInputs or [ ];
 
-  strictDeps = true;
+    strictDeps = true;
 
-  buildPhase = "${run} build";
-  createFindlibDestdir = true;
-  installPhase =
-    "${opaline}/bin/opaline -prefix $out -libdir $OCAMLFIND_DESTDIR";
+    buildPhase = "${run} build";
+    createFindlibDestdir = true;
+    installPhase =
+      "${opaline}/bin/opaline -prefix $out -libdir $OCAMLFIND_DESTDIR";
 
-  passthru = { inherit run; };
+    passthru = { inherit run; };
 
-  meta = {
-    homepage = "https://erratique.ch/software/topkg";
-    license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
-    description = "A packager for distributing OCaml software";
-    inherit (ocaml.meta) platforms;
-  };
-}
+    meta = {
+      homepage = "https://erratique.ch/software/topkg";
+      license = lib.licenses.isc;
+      maintainers = [ lib.maintainers.vbgl ];
+      description = "A packager for distributing OCaml software";
+      inherit (ocaml.meta) platforms;
+    };
+  }

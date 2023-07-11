@@ -48,12 +48,13 @@ let
     modRoot = "proxy";
     vendorSha256 = "sha256-QHLq4RuQaCMjefs7Vl7zSVgjLMDXvIZcM8d6/B5ECZc=";
   };
-in symlinkJoin {
-  name = "bird-lg-${bird-lg-frontend.version}";
-  paths = [
-    bird-lg-frontend
-    bird-lg-proxy
-  ];
-} // {
-  inherit (bird-lg-frontend) version meta;
-}
+in
+  symlinkJoin {
+    name = "bird-lg-${bird-lg-frontend.version}";
+    paths = [
+      bird-lg-frontend
+      bird-lg-proxy
+    ];
+  } // {
+    inherit (bird-lg-frontend) version meta;
+  }

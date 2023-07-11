@@ -21,15 +21,17 @@ let
         process.stdout.write(JSON.stringify(eval(process.argv[3])));
       '';
       userJson = pkgs.writeText "user.json" (builtins.toJSON userCfg);
-    in (pkgs.runCommand "${varName}.js" { } ''
-      ${pkgs.nodejs}/bin/node ${extractor} ${source} ${varName} > default.json
-      (
-        echo "var ${varName} = "
-        ${pkgs.jq}/bin/jq -s '.[0] * .[1]' default.json ${userJson}
-        echo ";"
-        echo ${escapeShellArg appendExtra}
-      ) > $out
-    '');
+    in
+      (pkgs.runCommand "${varName}.js" { } ''
+        ${pkgs.nodejs}/bin/node ${extractor} ${source} ${varName} > default.json
+        (
+          echo "var ${varName} = "
+          ${pkgs.jq}/bin/jq -s '.[0] * .[1]' default.json ${userJson}
+          echo ";"
+          echo ${escapeShellArg appendExtra}
+        ) > $out
+      '')
+  ;
 
   # Essential config - it's probably not good to have these as option default because
   # types.attrs doesn't do merging. Let's merge explicitly, can still be overridden if
@@ -274,7 +276,7 @@ in {
         ${config.services.prosody.package}/bin/prosodyctl mod_roster_command subscribe focus.${cfg.hostName} focus@auth.${cfg.hostName}
         ${config.services.prosody.package}/bin/prosodyctl register jibri auth.${cfg.hostName} "$(cat /var/lib/jitsi-meet/jibri-auth-secret)"
         ${config.services.prosody.package}/bin/prosodyctl register recorder recorder.${cfg.hostName} "$(cat /var/lib/jitsi-meet/jibri-recorder-secret)"
-      '';
+      '' ;
       serviceConfig = {
         EnvironmentFile = [ "/var/lib/jitsi-meet/secrets-env" ];
         SupplementaryGroups = [ "jitsi-meet" ];
@@ -302,35 +304,37 @@ in {
           "jibri-recorder-secret"
         ] ++ (optional (cfg.videobridge.passwordFile == null)
           "videobridge-secret");
-      in ''
-        cd /var/lib/jitsi-meet
-        ${concatMapStringsSep "\n" (s: ''
-          if [ ! -f ${s} ]; then
-            tr -dc a-zA-Z0-9 </dev/urandom | head -c 64 > ${s}
-            chown root:jitsi-meet ${s}
-            chmod 640 ${s}
-          fi
-        '') secrets}
+      in
+        ''
+          cd /var/lib/jitsi-meet
+          ${concatMapStringsSep "\n" (s: ''
+            if [ ! -f ${s} ]; then
+              tr -dc a-zA-Z0-9 </dev/urandom | head -c 64 > ${s}
+              chown root:jitsi-meet ${s}
+              chmod 640 ${s}
+            fi
+          '') secrets}
 
-        # for easy access in prosody
-        echo "JICOFO_COMPONENT_SECRET=$(cat jicofo-component-secret)" > secrets-env
-        chown root:jitsi-meet secrets-env
-        chmod 640 secrets-env
-      '' + optionalString cfg.prosody.enable ''
-        # generate self-signed certificates
-        if [ ! -f /var/lib/jitsi-meet.crt ]; then
-          ${getBin pkgs.openssl}/bin/openssl req \
-            -x509 \
-            -newkey rsa:4096 \
-            -keyout /var/lib/jitsi-meet/jitsi-meet.key \
-            -out /var/lib/jitsi-meet/jitsi-meet.crt \
-            -days 36500 \
-            -nodes \
-            -subj '/CN=${cfg.hostName}/CN=auth.${cfg.hostName}'
-          chmod 640 /var/lib/jitsi-meet/jitsi-meet.{crt,key}
-          chown root:jitsi-meet /var/lib/jitsi-meet/jitsi-meet.{crt,key}
-        fi
-      '';
+          # for easy access in prosody
+          echo "JICOFO_COMPONENT_SECRET=$(cat jicofo-component-secret)" > secrets-env
+          chown root:jitsi-meet secrets-env
+          chmod 640 secrets-env
+        '' + optionalString cfg.prosody.enable ''
+          # generate self-signed certificates
+          if [ ! -f /var/lib/jitsi-meet.crt ]; then
+            ${getBin pkgs.openssl}/bin/openssl req \
+              -x509 \
+              -newkey rsa:4096 \
+              -keyout /var/lib/jitsi-meet/jitsi-meet.key \
+              -out /var/lib/jitsi-meet/jitsi-meet.crt \
+              -days 36500 \
+              -nodes \
+              -subj '/CN=${cfg.hostName}/CN=auth.${cfg.hostName}'
+            chmod 640 /var/lib/jitsi-meet/jitsi-meet.{crt,key}
+            chown root:jitsi-meet /var/lib/jitsi-meet/jitsi-meet.{crt,key}
+          fi
+        ''
+      ;
     };
 
     services.nginx = mkIf cfg.nginx.enable {
@@ -408,7 +412,7 @@ in {
             try_files {path} /index.html
             file_server
           }
-        '';
+        '' ;
       };
     };
 

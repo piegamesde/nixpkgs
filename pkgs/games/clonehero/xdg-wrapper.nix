@@ -9,16 +9,17 @@
 let
   name = "clonehero";
   desktopName = "Clone Hero";
-in writeScript "${name}-xdg-wrapper-${clonehero-unwrapped.version}" ''
-  #!${stdenv.shell} -e
-  configDir="''${XDG_CONFIG_HOME:-$HOME/.config}/unity3d/srylain Inc_/${desktopName}"
-  mkdir -p "$configDir"
+in
+  writeScript "${name}-xdg-wrapper-${clonehero-unwrapped.version}" ''
+    #!${stdenv.shell} -e
+    configDir="''${XDG_CONFIG_HOME:-$HOME/.config}/unity3d/srylain Inc_/${desktopName}"
+    mkdir -p "$configDir"
 
-  # Force link shipped clonehero_Data, unless directory already exists (to allow modding)
-  if [ ! -d "$configDir/clonehero_Data" ] || [ -L "$configDir/clonehero_Data" ]; then
-    ln -snf ${clonehero-unwrapped}/share/clonehero_Data "$configDir"
-  fi
+    # Force link shipped clonehero_Data, unless directory already exists (to allow modding)
+    if [ ! -d "$configDir/clonehero_Data" ] || [ -L "$configDir/clonehero_Data" ]; then
+      ln -snf ${clonehero-unwrapped}/share/clonehero_Data "$configDir"
+    fi
 
-  # Fake argv[0] to emulate running in the config directory
-  exec -a "$configDir/${name}" ${clonehero-unwrapped}/bin/${name} "$@"
-''
+    # Fake argv[0] to emulate running in the config directory
+    exec -a "$configDir/${name}" ${clonehero-unwrapped}/bin/${name} "$@"
+  ''

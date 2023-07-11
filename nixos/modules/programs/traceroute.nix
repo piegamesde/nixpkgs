@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.traceroute;
+let
+  cfg = config.programs.traceroute;
 in {
   options = {
     programs.traceroute = {

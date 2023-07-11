@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.hardware.digitalbitbox;
+let
+  cfg = config.hardware.digitalbitbox;
 
 in {
   options.hardware.digitalbitbox = {

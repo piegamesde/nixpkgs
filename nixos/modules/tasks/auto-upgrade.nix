@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.system.autoUpgrade;
+let
+  cfg = config.system.autoUpgrade;
 
 in {
 

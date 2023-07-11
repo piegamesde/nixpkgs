@@ -28,14 +28,14 @@ buildGoModule rec {
     (cd ./utils/ && ./credits.sh bridge)
   '';
 
-  ldflags =
-    let constants = "github.com/ProtonMail/proton-bridge/v3/internal/constants";
-    in [
-      "-X ${constants}.Version=${version}"
-      "-X ${constants}.Revision=${src.rev}"
-      "-X ${constants}.buildTime=unknown"
-      "-X ${constants}.FullAppName=ProtonMailBridge" # Should be "Proton Mail Bridge", but quoting doesn't seems to work in nix's ldflags
-    ];
+  ldflags = let
+    constants = "github.com/ProtonMail/proton-bridge/v3/internal/constants";
+  in [
+    "-X ${constants}.Version=${version}"
+    "-X ${constants}.Revision=${src.rev}"
+    "-X ${constants}.buildTime=unknown"
+    "-X ${constants}.FullAppName=ProtonMailBridge" # Should be "Proton Mail Bridge", but quoting doesn't seems to work in nix's ldflags
+  ] ;
 
   subPackages = [ "cmd/Desktop-Bridge" ];
 

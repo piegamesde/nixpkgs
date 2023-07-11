@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.physlock;
+let
+  cfg = config.services.physlock;
 
 in {
 

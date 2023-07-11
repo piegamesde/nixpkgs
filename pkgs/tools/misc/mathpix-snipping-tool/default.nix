@@ -15,22 +15,23 @@ let
   };
 
   appimageContents = appimageTools.extract { inherit name src; };
-in appimageTools.wrapType2 {
-  inherit name src;
+in
+  appimageTools.wrapType2 {
+    inherit name src;
 
-  extraInstallCommands = ''
-    mv $out/bin/${name} $out/bin/${pname}
+    extraInstallCommands = ''
+      mv $out/bin/${name} $out/bin/${pname}
 
-    install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
+      install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
 
-    cp -r ${appimageContents}/usr/share/icons $out/share
-  '';
+      cp -r ${appimageContents}/usr/share/icons $out/share
+    '';
 
-  meta = with lib; {
-    description = "OCR tool to convert pictures to LaTeX.";
-    homepage = "https://mathpix.com/";
-    license = licenses.unfree;
-    maintainers = [ maintainers.hiro98 ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = with lib; {
+      description = "OCR tool to convert pictures to LaTeX.";
+      homepage = "https://mathpix.com/";
+      license = licenses.unfree;
+      maintainers = [ maintainers.hiro98 ];
+      platforms = [ "x86_64-linux" ];
+    };
+  }

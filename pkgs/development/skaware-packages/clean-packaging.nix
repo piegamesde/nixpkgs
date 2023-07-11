@@ -52,4 +52,6 @@ let
     fi
   '';
 
-in { inherit commonFileActions checkForRemainingFiles; }
+in {
+  inherit commonFileActions checkForRemainingFiles;
+}

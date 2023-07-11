@@ -192,7 +192,7 @@ let
         find $out -name "*.asd" \
         | grep -v "/\(${mkSystemsRegex systems}\)\.asd$" \
         | xargs rm -fv || true
-      '';
+      '' ;
 
       dontPatchShebangs = true;
 
@@ -225,16 +225,22 @@ let
   # E.g if a QL package depends on cl-unicode it won't build out of
   # the box.
   commonLispPackagesFor = spec:
-    let build-asdf-system' = body: build-asdf-system (body // spec);
-    in pkgs.callPackage ./packages.nix {
-      inherit spec quicklispPackagesFor;
-      build-asdf-system = build-asdf-system';
-    };
+    let
+      build-asdf-system' = body: build-asdf-system (body // spec);
+    in
+      pkgs.callPackage ./packages.nix {
+        inherit spec quicklispPackagesFor;
+        build-asdf-system = build-asdf-system';
+      }
+  ;
 
   # Build the set of packages imported from quicklisp using `lisp`
   quicklispPackagesFor = spec:
-    let build-asdf-system' = body: build-asdf-system (body // spec);
-    in pkgs.callPackage ./ql.nix { build-asdf-system = build-asdf-system'; };
+    let
+      build-asdf-system' = body: build-asdf-system (body // spec);
+    in
+      pkgs.callPackage ./ql.nix { build-asdf-system = build-asdf-system'; }
+  ;
 
   # Creates a lisp wrapper with `packages` installed
   #
@@ -243,33 +249,36 @@ let
   # installed
   # TODO(kasper): assert each package has the same lisp and asdf?
   lispWithPackages = clpkgs: packages:
-    let first = head (lib.attrValues clpkgs);
-    in (build-asdf-system {
-      inherit (first) pkg program flags faslExt asdf;
-      # See dontUnpack in build-asdf-system
-      src = null;
-      pname = first.pkg.pname;
-      version = "with-packages";
-      lispLibs = packages clpkgs;
-      systems = [ ];
-    }).overrideAttrs (o: {
-      nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
-      installPhase = ''
-        mkdir -pv $out/bin
-        makeWrapper \
-          ${o.pkg}/bin/${o.program} \
-          $out/bin/${o.program} \
-          --add-flags "${toString o.flags}" \
-          --set ASDF "${o.asdfFasl}/asdf.${o.faslExt}" \
-          --prefix CL_SOURCE_REGISTRY : "$CL_SOURCE_REGISTRY" \
-          --prefix ASDF_OUTPUT_TRANSLATIONS : "$(echo $CL_SOURCE_REGISTRY | sed s,//:,::,g):" \
-          --prefix LD_LIBRARY_PATH : "$LD_LIBRARY_PATH" \
-          --prefix DYLD_LIBRARY_PATH : "$DYLD_LIBRARY_PATH" \
-          --prefix CLASSPATH : "$CLASSPATH" \
-          --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
-          --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
-      '';
-    });
+    let
+      first = head (lib.attrValues clpkgs);
+    in
+      (build-asdf-system {
+        inherit (first) pkg program flags faslExt asdf;
+        # See dontUnpack in build-asdf-system
+        src = null;
+        pname = first.pkg.pname;
+        version = "with-packages";
+        lispLibs = packages clpkgs;
+        systems = [ ];
+      }).overrideAttrs (o: {
+        nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+        installPhase = ''
+          mkdir -pv $out/bin
+          makeWrapper \
+            ${o.pkg}/bin/${o.program} \
+            $out/bin/${o.program} \
+            --add-flags "${toString o.flags}" \
+            --set ASDF "${o.asdfFasl}/asdf.${o.faslExt}" \
+            --prefix CL_SOURCE_REGISTRY : "$CL_SOURCE_REGISTRY" \
+            --prefix ASDF_OUTPUT_TRANSLATIONS : "$(echo $CL_SOURCE_REGISTRY | sed s,//:,::,g):" \
+            --prefix LD_LIBRARY_PATH : "$LD_LIBRARY_PATH" \
+            --prefix DYLD_LIBRARY_PATH : "$DYLD_LIBRARY_PATH" \
+            --prefix CLASSPATH : "$CLASSPATH" \
+            --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
+            --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
+        '';
+      })
+  ;
 
   wrapLisp = {
       pkg,
@@ -289,6 +298,9 @@ let
           inherit packageOverrides;
         };
       buildASDFSystem = args: build-asdf-system (args // spec);
-    in pkg // { inherit pkgs withPackages withOverrides buildASDFSystem; };
+    in
+      pkg // { inherit pkgs withPackages withOverrides buildASDFSystem; }
+  ;
 
-in wrapLisp
+in
+  wrapLisp

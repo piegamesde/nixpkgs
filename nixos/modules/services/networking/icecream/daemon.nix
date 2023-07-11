@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.icecream.daemon;
+let
+  cfg = config.services.icecream.daemon;
 in {
 
   ###### interface

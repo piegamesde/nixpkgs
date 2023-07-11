@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.jellyfin;
+let
+  cfg = config.services.jellyfin;
 in {
   options = {
     services.jellyfin = {

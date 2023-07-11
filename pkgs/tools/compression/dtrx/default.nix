@@ -49,7 +49,7 @@ python3Packages.buildPythonApplication rec {
       ++ lib.optional (unrarSupport) unrar);
   in ''
     wrapProgram "$out/bin/dtrx" --prefix PATH : "${archivers}"
-  '';
+  '' ;
 
   nativeBuildInputs = [ python3Packages.invoke ];
 

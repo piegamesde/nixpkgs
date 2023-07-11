@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.nzbhydra2;
+let
+  cfg = config.services.nzbhydra2;
 
 in {
   options = {

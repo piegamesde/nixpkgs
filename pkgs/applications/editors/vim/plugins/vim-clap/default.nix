@@ -52,13 +52,14 @@ let
     ];
   };
 
-in vimUtils.buildVimPluginFrom2Nix {
-  pname = "vim-clap";
-  inherit version src meta;
+in
+  vimUtils.buildVimPluginFrom2Nix {
+    pname = "vim-clap";
+    inherit version src meta;
 
-  postInstall = ''
-    ln -s ${maple}/bin/maple $out/bin/maple
-  '';
+    postInstall = ''
+      ln -s ${maple}/bin/maple $out/bin/maple
+    '';
 
-  passthru = { inherit maple; };
-}
+    passthru = { inherit maple; };
+  }

@@ -492,12 +492,16 @@ in {
         cfg.targets
         // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
         cfg.timers // listToAttrs (map (v:
-          let n = escapeSystemdPath v.where;
-          in nameValuePair "${n}.mount" (mountToUnit n v)) cfg.mounts)
-        // listToAttrs (map (v:
-          let n = escapeSystemdPath v.where;
-          in nameValuePair "${n}.automount" (automountToUnit n v))
-          cfg.automounts);
+          let
+            n = escapeSystemdPath v.where;
+          in
+            nameValuePair "${n}.mount" (mountToUnit n v)
+        ) cfg.mounts) // listToAttrs (map (v:
+          let
+            n = escapeSystemdPath v.where;
+          in
+            nameValuePair "${n}.automount" (automountToUnit n v)
+        ) cfg.automounts);
 
       # make sure all the /dev nodes are set up
       services.systemd-tmpfiles-setup-dev.wantedBy = [ "sysinit.target" ];

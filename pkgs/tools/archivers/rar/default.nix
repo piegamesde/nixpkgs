@@ -35,40 +35,41 @@ let
     name = "rar.1";
     hash = "sha256-93cSr9oAsi+xHUtMsUvICyHJe66vAImS2tLie7nt8Uw=";
   };
-in stdenv.mkDerivation rec {
-  pname = "rar";
-  inherit version;
+in
+  stdenv.mkDerivation rec {
+    pname = "rar";
+    inherit version;
 
-  src = fetchurl srcUrl;
+    src = fetchurl srcUrl;
 
-  dontBuild = true;
+    dontBuild = true;
 
-  buildInputs = lib.optionals stdenv.isLinux [ stdenv.cc.cc.lib ];
+    buildInputs = lib.optionals stdenv.isLinux [ stdenv.cc.cc.lib ];
 
-  nativeBuildInputs = [ installShellFiles ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+    nativeBuildInputs = [ installShellFiles ]
+      ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm755 {rar,unrar} -t "$out/bin"
-    install -Dm755 default.sfx -t "$out/lib"
-    install -Dm644 {acknow.txt,license.txt} -t "$out/share/doc/rar"
-    install -Dm644 rarfiles.lst -t "$out/etc"
+      install -Dm755 {rar,unrar} -t "$out/bin"
+      install -Dm755 default.sfx -t "$out/lib"
+      install -Dm644 {acknow.txt,license.txt} -t "$out/share/doc/rar"
+      install -Dm644 rarfiles.lst -t "$out/etc"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  postInstall = ''
-    installManPage ${manSrc}
-  '';
+    postInstall = ''
+      installManPage ${manSrc}
+    '';
 
-  meta = with lib; {
-    description = "Utility for RAR archives";
-    homepage = "https://www.rarlab.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [ thiagokokada ];
-    platforms = with platforms; linux ++ darwin;
-  };
-}
+    meta = with lib; {
+      description = "Utility for RAR archives";
+      homepage = "https://www.rarlab.com/";
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.unfree;
+      maintainers = with maintainers; [ thiagokokada ];
+      platforms = with platforms; linux ++ darwin;
+    };
+  }

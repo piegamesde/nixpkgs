@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     runHook preCheck
     ctest -E "${excludedTestsRegex}" --output-on-failure
     runHook postCheck
-  '';
+  '' ;
 
   outputs = [
     "bin"

@@ -172,8 +172,11 @@ in {
       $config['spellcheck_engine'] = 'pspell';
       $config['spellcheck_languages'] = array(${
         lib.concatMapStringsSep ", " (dict:
-          let p = builtins.parseDrvName dict.shortName;
-          in "'${p.name}' => '${dict.fullName}'") cfg.dicts
+          let
+            p = builtins.parseDrvName dict.shortName;
+          in
+            "'${p.name}' => '${dict.fullName}'"
+        ) cfg.dicts
       });
 
       ${cfg.extraConfig}
@@ -284,7 +287,7 @@ in {
           fi
 
           ${phpWithPspell}/bin/php ${cfg.package}/bin/update.sh
-        '';
+        '' ;
         serviceConfig = {
           Type = "oneshot";
           StateDirectory = "roundcube";

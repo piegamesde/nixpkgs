@@ -9,7 +9,8 @@
 
 with lib;
 
-let cfg = config.programs.evince;
+let
+  cfg = config.programs.evince;
 
 in {
 

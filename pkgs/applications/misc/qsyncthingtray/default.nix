@@ -56,7 +56,8 @@ mkDerivation rec {
     ''}
   '';
 
-  installPhase = let qst = "qsyncthingtray";
+  installPhase = let
+    qst = "qsyncthingtray";
   in ''
     runHook preInstall
 
@@ -65,7 +66,7 @@ mkDerivation rec {
     ln -s $out/bin/${qst} $out/bin/QSyncthingTray
 
     runHook postInstall
-  '';
+  '' ;
 
   meta = with lib; {
     homepage = "https://github.com/sieren/QSyncthingTray/";

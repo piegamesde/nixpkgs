@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.ethercalc;
+let
+  cfg = config.services.ethercalc;
 in {
   options = {
     services.ethercalc = {

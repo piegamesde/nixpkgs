@@ -8,7 +8,8 @@
 
 with lib;
 
-let cfg = config.services.flatpak;
+let
+  cfg = config.services.flatpak;
 in {
   meta = {
     doc = ./flatpak.md;

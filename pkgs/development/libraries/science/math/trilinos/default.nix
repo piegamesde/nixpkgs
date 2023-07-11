@@ -57,51 +57,52 @@ let
     -DTrilinos_ENABLE_Zoltan=ON
     -DTPL_ENABLE_MPI=ON
   '';
-in stdenv.mkDerivation rec {
-  pname = "trilinos";
-  # Xyce 7.4 requires version 12.12.1
-  # nixpkgs-update: no auto update
-  version = "12.12.1";
+in
+  stdenv.mkDerivation rec {
+    pname = "trilinos";
+    # Xyce 7.4 requires version 12.12.1
+    # nixpkgs-update: no auto update
+    version = "12.12.1";
 
-  src = fetchFromGitHub {
-    owner = "trilinos";
-    repo = "Trilinos";
-    rev = "${pname}-release-${lib.replaceStrings [ "." ] [ "-" ] version}";
-    sha256 = "sha256-Nqjr7RAlUHm6vs87a1P84Y7BIZEL0Vs/A1Z6dykfv+o=";
-  };
+    src = fetchFromGitHub {
+      owner = "trilinos";
+      repo = "Trilinos";
+      rev = "${pname}-release-${lib.replaceStrings [ "." ] [ "-" ] version}";
+      sha256 = "sha256-Nqjr7RAlUHm6vs87a1P84Y7BIZEL0Vs/A1Z6dykfv+o=";
+    };
 
-  nativeBuildInputs = [
-    cmake
-    gfortran
-    swig
-  ];
+    nativeBuildInputs = [
+      cmake
+      gfortran
+      swig
+    ];
 
-  buildInputs = [
-    blas
-    boost
-    lapack
-    suitesparse
-  ] ++ lib.optionals withMPI [ mpi ];
+    buildInputs = [
+      blas
+      boost
+      lapack
+      suitesparse
+    ] ++ lib.optionals withMPI [ mpi ];
 
-  preConfigure = if withMPI then ''
-    cmakeFlagsArray+=(${flagsBase} ${flagsParallel})
-  '' else ''
-    cmakeFlagsArray+=(${flagsBase})
-  '';
-
-  passthru = { inherit withMPI; };
-
-  meta = with lib; {
-    description = "Engineering and scientific problems algorithms";
-    longDescription = ''
-      The Trilinos Project is an effort to develop algorithms and enabling
-      technologies within an object-oriented software framework for the
-      solution of large-scale, complex multi-physics engineering and scientific
-      problems.
+    preConfigure = if withMPI then ''
+      cmakeFlagsArray+=(${flagsBase} ${flagsParallel})
+    '' else ''
+      cmakeFlagsArray+=(${flagsBase})
     '';
-    homepage = "https://trilinos.org";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ fbeffa ];
-    platforms = platforms.all;
-  };
-}
+
+    passthru = { inherit withMPI; };
+
+    meta = with lib; {
+      description = "Engineering and scientific problems algorithms";
+      longDescription = ''
+        The Trilinos Project is an effort to develop algorithms and enabling
+        technologies within an object-oriented software framework for the
+        solution of large-scale, complex multi-physics engineering and scientific
+        problems.
+      '';
+      homepage = "https://trilinos.org";
+      license = licenses.bsd3;
+      maintainers = with maintainers; [ fbeffa ];
+      platforms = platforms.all;
+    };
+  }

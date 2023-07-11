@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       --prefix LUA_PATH ';' "${luaKitPath};$LUA_PATH"
       --prefix LUA_CPATH ';' "$LUA_CPATH"
     )
-  '';
+  '' ;
 
   meta = with lib; {
     homepage = "https://luakit.github.io/";

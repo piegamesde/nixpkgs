@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-let cfg = config.services.openwebrx;
+let
+  cfg = config.services.openwebrx;
 in {
   options.services.openwebrx = with lib; {
     enable = mkEnableOption (lib.mdDoc

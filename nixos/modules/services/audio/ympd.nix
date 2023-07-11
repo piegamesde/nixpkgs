@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.ympd;
+let
+  cfg = config.services.ympd;
 in {
 
   ###### interface

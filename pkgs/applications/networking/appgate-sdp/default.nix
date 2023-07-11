@@ -84,85 +84,86 @@ let
     xorg.libxshmfence
     zlib
   ];
-in stdenv.mkDerivation rec {
-  pname = "appgate-sdp";
-  version = "6.1.3";
+in
+  stdenv.mkDerivation rec {
+    pname = "appgate-sdp";
+    version = "6.1.3";
 
-  src = fetchurl {
-    url = "https://bin.appgate-sdp.com/${
-        lib.versions.majorMinor version
-      }/client/appgate-sdp_${version}_amd64.deb";
-    sha256 = "sha256-uk7+XBKtTGnX/bHBQttmxlu9+gKvFqu3VhzC7uIYCNQ=";
-  };
+    src = fetchurl {
+      url = "https://bin.appgate-sdp.com/${
+          lib.versions.majorMinor version
+        }/client/appgate-sdp_${version}_amd64.deb";
+      sha256 = "sha256-uk7+XBKtTGnX/bHBQttmxlu9+gKvFqu3VhzC7uIYCNQ=";
+    };
 
-  # just patch interpreter
-  autoPatchelfIgnoreMissingDeps = true;
-  dontConfigure = true;
-  dontBuild = true;
+    # just patch interpreter
+    autoPatchelfIgnoreMissingDeps = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  buildInputs = [
-    python3
-    python3.pkgs.dbus-python
-  ];
+    buildInputs = [
+      python3
+      python3.pkgs.dbus-python
+    ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    dpkg
-  ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      makeWrapper
+      dpkg
+    ];
 
-  unpackPhase = ''
-    dpkg-deb -x $src $out
-  '';
+    unpackPhase = ''
+      dpkg-deb -x $src $out
+    '';
 
-  installPhase = ''
-    cp -r $out/usr/share $out/share
+    installPhase = ''
+      cp -r $out/usr/share $out/share
 
-    substituteInPlace $out/lib/systemd/system/appgate-dumb-resolver.service \
-        --replace "/opt/" "$out/opt/"
+      substituteInPlace $out/lib/systemd/system/appgate-dumb-resolver.service \
+          --replace "/opt/" "$out/opt/"
 
-    substituteInPlace $out/lib/systemd/system/appgatedriver.service \
-        --replace "/opt/" "$out/opt/" \
-        --replace "InaccessiblePaths=/mnt /srv /boot /media" "InaccessiblePaths=-/mnt -/srv -/boot -/media"
+      substituteInPlace $out/lib/systemd/system/appgatedriver.service \
+          --replace "/opt/" "$out/opt/" \
+          --replace "InaccessiblePaths=/mnt /srv /boot /media" "InaccessiblePaths=-/mnt -/srv -/boot -/media"
 
-    substituteInPlace $out/lib/systemd/system/appgate-resolver.service \
-        --replace "/usr/sbin/dnsmasq" "${dnsmasq}/bin/dnsmasq" \
-        --replace "/opt/" "$out/opt/"
+      substituteInPlace $out/lib/systemd/system/appgate-resolver.service \
+          --replace "/usr/sbin/dnsmasq" "${dnsmasq}/bin/dnsmasq" \
+          --replace "/opt/" "$out/opt/"
 
-    substituteInPlace $out/opt/appgate/linux/nm.py \
-        --replace "/usr/sbin/dnsmasq" "${dnsmasq}/bin/dnsmasq"
+      substituteInPlace $out/opt/appgate/linux/nm.py \
+          --replace "/usr/sbin/dnsmasq" "${dnsmasq}/bin/dnsmasq"
 
-    substituteInPlace $out/opt/appgate/linux/set_dns \
-        --replace "/etc/appgate.conf" "$out/etc/appgate.conf"
+      substituteInPlace $out/opt/appgate/linux/set_dns \
+          --replace "/etc/appgate.conf" "$out/etc/appgate.conf"
 
-    wrapProgram $out/opt/appgate/service/createdump \
-        --set LD_LIBRARY_PATH "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
+      wrapProgram $out/opt/appgate/service/createdump \
+          --set LD_LIBRARY_PATH "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
 
-    wrapProgram $out/opt/appgate/appgate-driver \
-        --prefix PATH : ${
-          lib.makeBinPath [
-            iproute2
-            networkmanager
-            dnsmasq
-          ]
-        } \
-        --set LD_LIBRARY_PATH $out/opt/appgate/service
+      wrapProgram $out/opt/appgate/appgate-driver \
+          --prefix PATH : ${
+            lib.makeBinPath [
+              iproute2
+              networkmanager
+              dnsmasq
+            ]
+          } \
+          --set LD_LIBRARY_PATH $out/opt/appgate/service
 
-    # make xdg-open overrideable at runtime
-    makeWrapper $out/opt/appgate/Appgate $out/bin/appgate \
-        --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
-        --set LD_LIBRARY_PATH $out/opt/appgate:${lib.makeLibraryPath deps}
+      # make xdg-open overrideable at runtime
+      makeWrapper $out/opt/appgate/Appgate $out/bin/appgate \
+          --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
+          --set LD_LIBRARY_PATH $out/opt/appgate:${lib.makeLibraryPath deps}
 
-    wrapProgram $out/opt/appgate/linux/set_dns --set PYTHONPATH $PYTHONPATH
-  '';
+      wrapProgram $out/opt/appgate/linux/set_dns --set PYTHONPATH $PYTHONPATH
+    '';
 
-  meta = with lib; {
-    description = "Appgate SDP (Software Defined Perimeter) desktop client";
-    homepage =
-      "https://www.appgate.com/support/software-defined-perimeter-support";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ ymatsiuk ];
-  };
-}
+    meta = with lib; {
+      description = "Appgate SDP (Software Defined Perimeter) desktop client";
+      homepage =
+        "https://www.appgate.com/support/software-defined-perimeter-support";
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.unfree;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [ ymatsiuk ];
+    };
+  }

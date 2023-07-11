@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.cachix-agent;
+let
+  cfg = config.services.cachix-agent;
 in {
   meta.maintainers = [ lib.maintainers.domenkozar ];
 

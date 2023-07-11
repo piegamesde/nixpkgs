@@ -28,7 +28,7 @@ let
         wrapGAppsHook wrapper to execute sway with required environment
         variables for GTK applications.
       '';
-    };
+    } ;
   };
 
   defaultSwayPackage = pkgs.sway.override {

@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.services.stratis;
+let
+  cfg = config.services.stratis;
 in {
   options.services.stratis = {
     enable = lib.mkEnableOption (lib.mdDoc

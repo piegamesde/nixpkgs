@@ -42,7 +42,7 @@ in {
         jre-hotspot = callPackage package.jre-hotspot { };
         jdk-openj9 = callPackage package.jdk-openj9 { };
         jre-openj9 = callPackage package.jre-openj9 { };
-      };
+      } ;
 
     mkBootstrap = adoptopenjdk: path: args:
       # adoptopenjdk not available for i686, so fall back to our old builds for bootstrapping
@@ -59,12 +59,18 @@ in {
       if stdenv.isLinux then
         mkOpenjdkLinuxOnly path-linux args
       else
-        let openjdk = callPackage path-darwin { };
-        in openjdk // { headless = openjdk; };
+        let
+          openjdk = callPackage path-darwin { };
+        in
+          openjdk // { headless = openjdk; }
+    ;
 
     mkOpenjdkLinuxOnly = path-linux: args:
-      let openjdk = callPackage path-linux (gnomeArgs // args);
-      in openjdk // { headless = openjdk.override { headless = true; }; };
+      let
+        openjdk = callPackage path-linux (gnomeArgs // args);
+      in
+        openjdk // { headless = openjdk.override { headless = true; }; }
+    ;
 
   in rec {
     adoptopenjdk-8 =
@@ -189,7 +195,7 @@ in {
       ../development/compilers/semeru-bin/jdk-linux.nix
     else
       ../development/compilers/semeru-bin/jdk-darwin.nix) { });
-  };
+  } ;
 
   mavenPlugins = recurseIntoAttrs
     (callPackage ../development/java-modules/mavenPlugins.nix { });

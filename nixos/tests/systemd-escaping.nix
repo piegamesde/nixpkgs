@@ -61,4 +61,4 @@ import ./make-test-python.nix ({
       assert "4.2" in logs[5] # toString produces extra fractional digits!
       assert "23" == logs[6]
     '';
-  })
+  } )

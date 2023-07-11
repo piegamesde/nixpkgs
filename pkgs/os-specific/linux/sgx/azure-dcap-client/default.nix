@@ -43,54 +43,55 @@ let
       postFetch = filterSparse sparseCheckout;
     })
   ];
-in stdenv.mkDerivation rec {
-  pname = "azure-dcap-client";
-  version = "1.11.2";
+in
+  stdenv.mkDerivation rec {
+    pname = "azure-dcap-client";
+    version = "1.11.2";
 
-  src = fetchFromGitHub {
-    owner = "microsoft";
-    repo = pname;
-    rev = version;
-    hash = "sha256-EYj3jnzTyJRl6N7avNf9VrB8r9U6zIE6wBNeVsMtWCA=";
-  };
+    src = fetchFromGitHub {
+      owner = "microsoft";
+      repo = pname;
+      rev = version;
+      hash = "sha256-EYj3jnzTyJRl6N7avNf9VrB8r9U6zIE6wBNeVsMtWCA=";
+    };
 
-  nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    curl
-    nlohmann_json
-    openssl
-  ];
-
-  postPatch = ''
-    mkdir -p src/Linux/ext/intel
-    find -L '${headers}' -type f -exec ln -s {} src/Linux/ext/intel \;
-
-    substitute src/Linux/Makefile{.in,} \
-      --replace '##CURLINC##' '${curl.dev}/include/curl/' \
-      --replace '$(TEST_SUITE): $(PROVIDER_LIB) $(TEST_SUITE_OBJ)' '$(TEST_SUITE): $(TEST_SUITE_OBJ)'
-  '';
-
-  env.NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
-
-  makeFlags = [
-    "-C src/Linux"
-    "prefix=$(out)"
-  ];
-
-  # Online test suite; run with
-  # $(nix-build -A sgx-azure-dcap-client.tests.suite)/bin/tests
-  passthru.tests.suite = callPackage ./test-suite.nix { };
-
-  meta = with lib; {
-    description =
-      "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
-    homepage = "https://github.com/microsoft/azure-dcap-client";
-    maintainers = with maintainers; [
-      trundle
-      veehaitch
+    buildInputs = [
+      curl
+      nlohmann_json
+      openssl
     ];
-    platforms = [ "x86_64-linux" ];
-    license = [ licenses.mit ];
-  };
-}
+
+    postPatch = ''
+      mkdir -p src/Linux/ext/intel
+      find -L '${headers}' -type f -exec ln -s {} src/Linux/ext/intel \;
+
+      substitute src/Linux/Makefile{.in,} \
+        --replace '##CURLINC##' '${curl.dev}/include/curl/' \
+        --replace '$(TEST_SUITE): $(PROVIDER_LIB) $(TEST_SUITE_OBJ)' '$(TEST_SUITE): $(TEST_SUITE_OBJ)'
+    '';
+
+    env.NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
+
+    makeFlags = [
+      "-C src/Linux"
+      "prefix=$(out)"
+    ];
+
+    # Online test suite; run with
+    # $(nix-build -A sgx-azure-dcap-client.tests.suite)/bin/tests
+    passthru.tests.suite = callPackage ./test-suite.nix { };
+
+    meta = with lib; {
+      description =
+        "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
+      homepage = "https://github.com/microsoft/azure-dcap-client";
+      maintainers = with maintainers; [
+        trundle
+        veehaitch
+      ];
+      platforms = [ "x86_64-linux" ];
+      license = [ licenses.mit ];
+    };
+  }

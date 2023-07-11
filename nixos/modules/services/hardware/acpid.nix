@@ -40,8 +40,10 @@ let
           pkgs.writeShellScriptBin "${name}.sh" handler.action
         }/bin/${name}.sh '%e'" >> $fn
       '';
-    in concatStringsSep "\n"
-    (mapAttrsToList f (canonicalHandlers // cfg.handlers))}
+    in
+      concatStringsSep "\n"
+      (mapAttrsToList f (canonicalHandlers // cfg.handlers))
+    }
   '';
 
 in {

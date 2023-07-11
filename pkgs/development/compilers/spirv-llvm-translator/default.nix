@@ -30,54 +30,55 @@ let
     hash = "sha256-NoIoa20+2sH41rEnr8lsMhtfesrtdPINiXtUnxYVm8s=";
   } else
     throw "Incompatible LLVM version.";
-in stdenv.mkDerivation {
-  pname = "SPIRV-LLVM-Translator";
-  inherit (branch) version;
+in
+  stdenv.mkDerivation {
+    pname = "SPIRV-LLVM-Translator";
+    inherit (branch) version;
 
-  src = fetchFromGitHub {
-    owner = "KhronosGroup";
-    repo = "SPIRV-LLVM-Translator";
-    inherit (branch) rev hash;
-  };
+    src = fetchFromGitHub {
+      owner = "KhronosGroup";
+      repo = "SPIRV-LLVM-Translator";
+      inherit (branch) rev hash;
+    };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    spirv-tools
-  ] ++ (if isROCm then [ llvm ] else [ llvm.dev ]);
+    nativeBuildInputs = [
+      pkg-config
+      cmake
+      spirv-tools
+    ] ++ (if isROCm then [ llvm ] else [ llvm.dev ]);
 
-  buildInputs = [ spirv-headers ] ++ lib.optionals (!isROCm) [ llvm ];
+    buildInputs = [ spirv-headers ] ++ lib.optionals (!isROCm) [ llvm ];
 
-  nativeCheckInputs = [ lit ];
+    nativeCheckInputs = [ lit ];
 
-  cmakeFlags = [
-    "-DLLVM_INCLUDE_TESTS=ON"
-    "-DLLVM_DIR=${(if isROCm then llvm else llvm.dev)}"
-    "-DBUILD_SHARED_LIBS=YES"
-    "-DLLVM_SPIRV_BUILD_EXTERNAL=YES"
-    # RPATH of binary /nix/store/.../bin/llvm-spirv contains a forbidden reference to /build/
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ] ++ lib.optionals (llvmMajor
-    != "11") [ "-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=${spirv-headers.src}" ];
+    cmakeFlags = [
+      "-DLLVM_INCLUDE_TESTS=ON"
+      "-DLLVM_DIR=${(if isROCm then llvm else llvm.dev)}"
+      "-DBUILD_SHARED_LIBS=YES"
+      "-DLLVM_SPIRV_BUILD_EXTERNAL=YES"
+      # RPATH of binary /nix/store/.../bin/llvm-spirv contains a forbidden reference to /build/
+      "-DCMAKE_SKIP_BUILD_RPATH=ON"
+    ] ++ lib.optionals (llvmMajor
+      != "11") [ "-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=${spirv-headers.src}" ];
 
-  # FIXME: CMake tries to run "/llvm-lit" which of course doesn't exist
-  doCheck = false;
+    # FIXME: CMake tries to run "/llvm-lit" which of course doesn't exist
+    doCheck = false;
 
-  makeFlags = [
-    "all"
-    "llvm-spirv"
-  ];
+    makeFlags = [
+      "all"
+      "llvm-spirv"
+    ];
 
-  postInstall = ''
-    install -D tools/llvm-spirv/llvm-spirv $out/bin/llvm-spirv
-  '';
+    postInstall = ''
+      install -D tools/llvm-spirv/llvm-spirv $out/bin/llvm-spirv
+    '';
 
-  meta = with lib; {
-    homepage = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator";
-    description =
-      "A tool and a library for bi-directional translation between SPIR-V and LLVM IR";
-    license = licenses.ncsa;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ gloaming ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator";
+      description =
+        "A tool and a library for bi-directional translation between SPIR-V and LLVM IR";
+      license = licenses.ncsa;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [ gloaming ];
+    };
+  }

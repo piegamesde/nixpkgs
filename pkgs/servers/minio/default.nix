@@ -13,53 +13,58 @@ let
   #   versionToTimestamp "2021-04-22T15-44-28Z"
   #   => "2021-04-22T15:44:28Z"
   versionToTimestamp = version:
-    let splitTS = builtins.elemAt (builtins.split "(.*)(T.*)" version) 1;
-    in builtins.concatStringsSep "" [
-      (builtins.elemAt splitTS 0)
-      (builtins.replaceStrings [ "-" ] [ ":" ] (builtins.elemAt splitTS 1))
-    ];
-in buildGoModule rec {
-  pname = "minio";
-  version = "2023-04-20T17-56-55Z";
+    let
+      splitTS = builtins.elemAt (builtins.split "(.*)(T.*)" version) 1;
+    in
+      builtins.concatStringsSep "" [
+        (builtins.elemAt splitTS 0)
+        (builtins.replaceStrings [ "-" ] [ ":" ] (builtins.elemAt splitTS 1))
+      ]
+  ;
+in
+  buildGoModule rec {
+    pname = "minio";
+    version = "2023-04-20T17-56-55Z";
 
-  src = fetchFromGitHub {
-    owner = "minio";
-    repo = "minio";
-    rev = "RELEASE.${version}";
-    sha256 = "sha256-PMGQwqHXIadPRGPtY1++KNCh1HaeNwUP6pSW0Hf+Nj8=";
-  };
+    src = fetchFromGitHub {
+      owner = "minio";
+      repo = "minio";
+      rev = "RELEASE.${version}";
+      sha256 = "sha256-PMGQwqHXIadPRGPtY1++KNCh1HaeNwUP6pSW0Hf+Nj8=";
+    };
 
-  vendorHash = "sha256-D/LeNIsYTN1P6pSQZ0AICAhqY63nmhodb9xJXr6cJX4=";
+    vendorHash = "sha256-D/LeNIsYTN1P6pSQZ0AICAhqY63nmhodb9xJXr6cJX4=";
 
-  doCheck = false;
+    doCheck = false;
 
-  subPackages = [ "." ];
+    subPackages = [ "." ];
 
-  CGO_ENABLED = 0;
+    CGO_ENABLED = 0;
 
-  tags = [ "kqueue" ];
+    tags = [ "kqueue" ];
 
-  ldflags = let t = "github.com/minio/minio/cmd";
-  in [
-    "-s"
-    "-w"
-    "-X ${t}.Version=${versionToTimestamp version}"
-    "-X ${t}.ReleaseTag=RELEASE.${version}"
-    "-X ${t}.CommitID=${src.rev}"
-  ];
+    ldflags = let
+      t = "github.com/minio/minio/cmd";
+    in [
+      "-s"
+      "-w"
+      "-X ${t}.Version=${versionToTimestamp version}"
+      "-X ${t}.ReleaseTag=RELEASE.${version}"
+      "-X ${t}.CommitID=${src.rev}"
+    ] ;
 
-  passthru.tests.minio = nixosTests.minio;
+    passthru.tests.minio = nixosTests.minio;
 
-  meta = with lib; {
-    homepage = "https://www.minio.io/";
-    description = "An S3-compatible object storage server";
-    changelog =
-      "https://github.com/minio/minio/releases/tag/RELEASE.${version}";
-    maintainers = with maintainers; [
-      eelco
-      bachp
-    ];
-    platforms = platforms.unix;
-    license = licenses.agpl3Plus;
-  };
-}
+    meta = with lib; {
+      homepage = "https://www.minio.io/";
+      description = "An S3-compatible object storage server";
+      changelog =
+        "https://github.com/minio/minio/releases/tag/RELEASE.${version}";
+      maintainers = with maintainers; [
+        eelco
+        bachp
+      ];
+      platforms = platforms.unix;
+      license = licenses.agpl3Plus;
+    };
+  }

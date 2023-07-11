@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.powerManagement.powertop;
+let
+  cfg = config.powerManagement.powertop;
 in {
   ###### interface
 

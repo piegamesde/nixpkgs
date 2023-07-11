@@ -7,7 +7,8 @@
 
 with lib;
 
-let prl-tools = config.hardware.parallels.package;
+let
+  prl-tools = config.hardware.parallels.package;
 
 in {
 

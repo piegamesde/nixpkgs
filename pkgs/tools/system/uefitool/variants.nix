@@ -1,7 +1,8 @@
 {
   libsForQt5,
 }:
-let common = opts: libsForQt5.callPackage (import ./common.nix opts) { };
+let
+  common = opts: libsForQt5.callPackage (import ./common.nix opts) { };
 in rec {
   new-engine = common rec {
     version = "A62";

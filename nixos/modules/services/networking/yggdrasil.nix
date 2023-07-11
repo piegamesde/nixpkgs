@@ -224,7 +224,7 @@ in {
 
     # Make yggdrasilctl available on the command line.
     environment.systemPackages = [ cfg.package ];
-  });
+  } );
   meta = {
     doc = ./yggdrasil.md;
     maintainers = with lib.maintainers; [

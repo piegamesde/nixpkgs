@@ -32,4 +32,6 @@ let
         runHook postInstall
       '';
     });
-in { inherit buildMoodlePlugin; }
+in {
+  inherit buildMoodlePlugin;
+}

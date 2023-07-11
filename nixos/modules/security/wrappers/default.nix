@@ -18,7 +18,9 @@ let
     symbolic = "[ugoa]*([-+=]([rwxXst]*|[ugo]))+|[-+=][0-7]+";
     numeric = "[-+=]?[0-7]{0,4}";
     mode = "((${symbolic})(,${symbolic})*)|(${numeric})";
-  in lib.types.strMatching mode // { description = "file mode string"; };
+  in
+    lib.types.strMatching mode // { description = "file mode string"; }
+  ;
 
   wrapperType = lib.types.submodule ({
       name,
@@ -240,7 +242,7 @@ in {
       fusermount3 = mkSetuidRoot "${pkgs.fuse3}/bin/fusermount3";
       mount = mkSetuidRoot "${lib.getBin pkgs.util-linux}/bin/mount";
       umount = mkSetuidRoot "${lib.getBin pkgs.util-linux}/bin/umount";
-    };
+    } ;
 
     boot.specialFileSystems.${parentWrapperDir} = {
       fsType = "tmpfs";

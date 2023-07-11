@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
         config,
         ...
       }:
-      let user = config.users.users.sybil;
+      let
+        user = config.users.users.sybil;
       in {
         imports = [
           ./common/user-account.nix
@@ -43,7 +44,7 @@ import ./make-test-python.nix ({
           group = "root";
           source = "${pkgs.sudo}/bin/sudo";
         };
-      };
+      } ;
 
     enableOCR = true;
 

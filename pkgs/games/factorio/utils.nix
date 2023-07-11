@@ -9,20 +9,22 @@ with lib; {
     let
       recursiveDeps = modDrv: [ modDrv ] ++ map recursiveDeps modDrv.deps;
       modDrvs = unique (flatten (map recursiveDeps mods));
-    in stdenv.mkDerivation {
-      name = "factorio-mod-directory";
+    in
+      stdenv.mkDerivation {
+        name = "factorio-mod-directory";
 
-      preferLocalBuild = true;
-      buildCommand = ''
-        mkdir -p $out
-        for modDrv in ${toString modDrvs}; do
-          # NB: there will only ever be a single zip file in each mod derivation's output dir
-          ln -s $modDrv/*.zip $out
-        done
-      '' + (lib.optionalString (modsDatFile != null) ''
-        cp ${modsDatFile} $out/mod-settings.dat
-      '');
-    };
+        preferLocalBuild = true;
+        buildCommand = ''
+          mkdir -p $out
+          for modDrv in ${toString modDrvs}; do
+            # NB: there will only ever be a single zip file in each mod derivation's output dir
+            ln -s $modDrv/*.zip $out
+          done
+        '' + (lib.optionalString (modsDatFile != null) ''
+          cp ${modsDatFile} $out/mod-settings.dat
+        '');
+      }
+  ;
 
   modDrv = {
       allRecommendedMods,

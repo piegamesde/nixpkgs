@@ -45,4 +45,5 @@ let
         maintainers = with maintainers; [ synthetica ];
       };
     };
-in self
+in
+  self

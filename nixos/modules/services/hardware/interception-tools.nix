@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.interception-tools;
+let
+  cfg = config.services.interception-tools;
 in {
   options.services.interception-tools = {
     enable = mkOption {

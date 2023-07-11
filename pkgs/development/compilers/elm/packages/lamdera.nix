@@ -18,31 +18,32 @@ let
       "bb105e7aebae3c637b761017c6fb49d9696eba1022f27ec594aac9c2dbffd907";
   };
 
-in stdenv.mkDerivation rec {
-  pname = "lamdera";
-  version = "1.1.0";
+in
+  stdenv.mkDerivation rec {
+    pname = "lamdera";
+    version = "1.1.0";
 
-  src = fetchurl {
-    url = "https://static.lamdera.com/bin/lamdera-${version}-${os}-${arch}";
-    sha256 = hashes.${stdenv.system};
-  };
+    src = fetchurl {
+      url = "https://static.lamdera.com/bin/lamdera-${version}-${os}-${arch}";
+      sha256 = hashes.${stdenv.system};
+    };
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  installPhase = ''
-    install -m755 -D $src $out/bin/lamdera
-  '';
+    installPhase = ''
+      install -m755 -D $src $out/bin/lamdera
+    '';
 
-  meta = with lib; {
-    homepage = "https://lamdera.com";
-    license = licenses.unfree;
-    description = "A delightful platform for full-stack web apps";
-    platforms = [
-      "aarch64-linux"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
-    maintainers = with maintainers; [ Zimmi48 ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://lamdera.com";
+      license = licenses.unfree;
+      description = "A delightful platform for full-stack web apps";
+      platforms = [
+        "aarch64-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      maintainers = with maintainers; [ Zimmi48 ];
+    };
+  }

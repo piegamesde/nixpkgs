@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
 
   with lib;
 
-  let port = 5678;
+  let
+    port = 5678;
   in {
     name = "n8n";
     meta.maintainers = with maintainers; [
@@ -25,4 +26,4 @@ import ./make-test-python.nix ({
       machine.wait_for_console_text("Editor is now accessible via")
       machine.succeed("curl --fail -vvv http://localhost:${toString port}/")
     '';
-  })
+  } )

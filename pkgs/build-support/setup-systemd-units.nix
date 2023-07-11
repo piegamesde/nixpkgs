@@ -51,31 +51,32 @@ let
     '') file.wanted-by or [ ])}
     unitsToStart+=("${name}")
   '';
-in writeScriptBin "setup-systemd-units" ''
-  #!${bash}/bin/bash -e
-  export PATH=${coreutils}/bin:${systemd}/bin
+in
+  writeScriptBin "setup-systemd-units" ''
+    #!${bash}/bin/bash -e
+    export PATH=${coreutils}/bin:${systemd}/bin
 
-  unitDir=/etc/systemd/system
-  if [ ! -w "$unitDir" ]; then
-    unitDir=/nix/var/nix/profiles/default/lib/systemd/system
-    mkdir -p "$unitDir"
-  fi
-  declare -a unitsToStop unitsToStart
-
-  oldStatic=$(readlink -f /etc/systemd-static/${namespace} || true)
-  if [ "$oldStatic" != "${static}" ]; then
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList add-unit-snippet units)}
-    if [ ''${#unitsToStop[@]} -ne 0 ]; then
-      echo "Stopping unit(s) ''${unitsToStop[@]}" >&2
-      systemctl stop "''${unitsToStop[@]}"
+    unitDir=/etc/systemd/system
+    if [ ! -w "$unitDir" ]; then
+      unitDir=/nix/var/nix/profiles/default/lib/systemd/system
+      mkdir -p "$unitDir"
     fi
-    mkdir -p /etc/systemd-static
-    ln -sfT ${static} /etc/systemd-static/.${namespace}.tmp
-    mv -T /etc/systemd-static/.${namespace}.tmp /etc/systemd-static/${namespace}
-    systemctl daemon-reload
-    echo "Starting unit(s) ''${unitsToStart[@]}" >&2
-    systemctl start "''${unitsToStart[@]}"
-  else
-    echo "Units unchanged, doing nothing" >&2
-  fi
-''
+    declare -a unitsToStop unitsToStart
+
+    oldStatic=$(readlink -f /etc/systemd-static/${namespace} || true)
+    if [ "$oldStatic" != "${static}" ]; then
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList add-unit-snippet units)}
+      if [ ''${#unitsToStop[@]} -ne 0 ]; then
+        echo "Stopping unit(s) ''${unitsToStop[@]}" >&2
+        systemctl stop "''${unitsToStop[@]}"
+      fi
+      mkdir -p /etc/systemd-static
+      ln -sfT ${static} /etc/systemd-static/.${namespace}.tmp
+      mv -T /etc/systemd-static/.${namespace}.tmp /etc/systemd-static/${namespace}
+      systemctl daemon-reload
+      echo "Starting unit(s) ''${unitsToStart[@]}" >&2
+      systemctl start "''${unitsToStart[@]}"
+    else
+      echo "Units unchanged, doing nothing" >&2
+    fi
+  ''

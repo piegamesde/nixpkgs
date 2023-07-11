@@ -68,9 +68,11 @@ let
       pkgs.writeText "prometheus.yml" cfg.configText
     else
       generatedPrometheusYml;
-  in promtoolCheck "check config ${
-    lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"
-  }" "prometheus.yml" yml;
+  in
+    promtoolCheck "check config ${
+      lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"
+    }" "prometheus.yml" yml
+  ;
 
   cmdlineArgs = cfg.extraFlags ++ [
     "--storage.tsdb.path=${workingDir}/data/"
@@ -96,7 +98,8 @@ let
   filterAttrsListRecursive = pred: x:
     if isAttrs x then
       listToAttrs (concatMap (name:
-        let v = x.${name};
+        let
+          v = x.${name};
         in if pred name v then [ (nameValuePair name
           (filterAttrsListRecursive pred v)) ] else
           [ ]) (attrNames x))
@@ -1192,7 +1195,7 @@ let
       tls_config = mkOpt promTypes.tls_config ''
         TLS configuration.
       '';
-    };
+    } ;
   };
 
   promTypes.puppetdb_sd_config = mkSdConfigModule {
@@ -1829,7 +1832,7 @@ in {
           services.prometheus.listenAddress = ${builtins.elemAt legacy 0};
           services.prometheus.port = ${builtins.elemAt legacy 1};
       '';
-    }) ];
+    } ) ];
 
     users.groups.prometheus.gid = config.ids.gids.prometheus;
     users.users.prometheus = {

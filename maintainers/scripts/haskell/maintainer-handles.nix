@@ -18,5 +18,6 @@ let
       "${maintainer.email}" = maintainer.github;
     } else
       { };
-in lib.zipAttrsWith (_: builtins.head)
-(lib.mapAttrsToList mkMailGithubPair maintainers)
+in
+  lib.zipAttrsWith (_: builtins.head)
+  (lib.mapAttrsToList mkMailGithubPair maintainers)

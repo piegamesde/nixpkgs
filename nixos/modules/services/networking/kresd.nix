@@ -33,7 +33,7 @@ let
       # it could be configurable, for example.
     in ''
       net.listen(${addrSpec}, ${port}, { kind = '${kind}', freebind = true })
-    '';
+    '' ;
 
   configFile = pkgs.writeText "kresd.conf" (""
     + concatMapStrings (mkListen "dns") cfg.listenPlain
@@ -59,12 +59,14 @@ in {
           "kresd"
           "interfaces"
         ] config;
-      in map (iface:
-        if elem ":" (stringToCharacters iface) then
-          "[${iface}]:53"
-        else
-          "${iface}:53") # Syntax depends on being IPv6 or IPv4.
-      value))
+      in
+        map (iface:
+          if elem ":" (stringToCharacters iface) then
+            "[${iface}]:53"
+          else
+            "${iface}:53") # Syntax depends on being IPv6 or IPv4.
+        value
+    ))
     (mkRemovedOptionModule [
       "services"
       "kresd"

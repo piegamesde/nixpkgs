@@ -104,13 +104,15 @@ in {
       pythonPath = [ ]
         ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
 
-    in makeSetupHook {
-      name = "require-python-patch-hook.sh";
-      substitutions = {
-        inherit pythonInterpreter pythonPath;
-        patchScript = ./python-requires-patch-hook.py;
-      };
-    } ./python-requires-patch-hook.sh) { };
+    in
+      makeSetupHook {
+        name = "require-python-patch-hook.sh";
+        substitutions = {
+          inherit pythonInterpreter pythonPath;
+          patchScript = ./python-requires-patch-hook.py;
+        };
+      } ./python-requires-patch-hook.sh
+  ) { };
 
   # When the "wheel" package itself is a wheel the nixpkgs hook (which pulls in "wheel") leads to infinite recursion
   # It doesn't _really_ depend on wheel though, it just copies the wheel.

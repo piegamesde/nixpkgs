@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-let cfg = config.hardware.flirc;
+let
+  cfg = config.hardware.flirc;
 in {
   options.hardware.flirc.enable =
     lib.mkEnableOption (lib.mdDoc "software to configure a Flirc USB device");

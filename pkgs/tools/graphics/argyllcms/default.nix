@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     rm -rf tiff jpg png
 
     export AR="$AR rusc"
-  '';
+  '' ;
 
   buildInputs = [
     libtiff

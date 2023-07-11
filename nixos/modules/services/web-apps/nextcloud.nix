@@ -746,38 +746,40 @@ in {
           `services.nextcloud.package`.
         '';
 
-      in (optional (cfg.poolConfig != null) ''
-        Using config.services.nextcloud.poolConfig is deprecated and will become unsupported in a future release.
-        Please migrate your configuration to config.services.nextcloud.poolSettings.
-      '') ++ (optional (versionOlder cfg.package.version "23")
-        (upgradeWarning 22 "22.05"))
-      ++ (optional (versionOlder cfg.package.version "24")
-        (upgradeWarning 23 "22.05"))
-      ++ (optional (versionOlder cfg.package.version "25")
-        (upgradeWarning 24 "22.11"))
-      ++ (optional (versionOlder cfg.package.version "26")
-        (upgradeWarning 25 "23.05"))
-      ++ (optional cfg.enableBrokenCiphersForSSE ''
-        You're using PHP's openssl extension built against OpenSSL 1.1 for Nextcloud.
-        This is only necessary if you're using Nextcloud's server-side encryption.
-        Please keep in mind that it's using the broken RC4 cipher.
+      in
+        (optional (cfg.poolConfig != null) ''
+          Using config.services.nextcloud.poolConfig is deprecated and will become unsupported in a future release.
+          Please migrate your configuration to config.services.nextcloud.poolSettings.
+        '') ++ (optional (versionOlder cfg.package.version "23")
+          (upgradeWarning 22 "22.05"))
+        ++ (optional (versionOlder cfg.package.version "24")
+          (upgradeWarning 23 "22.05"))
+        ++ (optional (versionOlder cfg.package.version "25")
+          (upgradeWarning 24 "22.11"))
+        ++ (optional (versionOlder cfg.package.version "26")
+          (upgradeWarning 25 "23.05"))
+        ++ (optional cfg.enableBrokenCiphersForSSE ''
+          You're using PHP's openssl extension built against OpenSSL 1.1 for Nextcloud.
+          This is only necessary if you're using Nextcloud's server-side encryption.
+          Please keep in mind that it's using the broken RC4 cipher.
 
-        If you don't use that feature, you can switch to OpenSSL 3 and get
-        rid of this warning by declaring
+          If you don't use that feature, you can switch to OpenSSL 3 and get
+          rid of this warning by declaring
 
-          services.nextcloud.enableBrokenCiphersForSSE = false;
+            services.nextcloud.enableBrokenCiphersForSSE = false;
 
-        If you need to use server-side encryption you can ignore this warning.
-        Otherwise you'd have to disable server-side encryption first in order
-        to be able to safely disable this option and get rid of this warning.
-        See <https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/encryption_configuration.html#disabling-encryption> on how to achieve this.
+          If you need to use server-side encryption you can ignore this warning.
+          Otherwise you'd have to disable server-side encryption first in order
+          to be able to safely disable this option and get rid of this warning.
+          See <https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/encryption_configuration.html#disabling-encryption> on how to achieve this.
 
-        For more context, here is the implementing pull request: https://github.com/NixOS/nixpkgs/pull/198470
-      '') ++ (optional (cfg.enableBrokenCiphersForSSE
-        && versionAtLeast cfg.package.version "26") ''
-          Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
-          `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
-        '');
+          For more context, here is the implementing pull request: https://github.com/NixOS/nixpkgs/pull/198470
+        '') ++ (optional (cfg.enableBrokenCiphersForSSE
+          && versionAtLeast cfg.package.version "26") ''
+            Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
+            `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
+          '')
+      ;
 
       services.nextcloud.package = with pkgs;
         mkDefault (if pkgs ? nextcloud then
@@ -844,40 +846,44 @@ in {
             "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]";
           requiresReadSecretFunction = c.dbpassFile != null
             || c.objectstore.s3.enable;
-          objectstoreConfig = let s3 = c.objectstore.s3;
-          in optionalString s3.enable ''
-            'objectstore' => [
-              'class' => '\\OC\\Files\\ObjectStore\\S3',
-              'arguments' => [
-                'bucket' => '${s3.bucket}',
-                'autocreate' => ${boolToString s3.autocreate},
-                'key' => '${s3.key}',
-                'secret' => nix_read_secret('${s3.secretFile}'),
-                ${
-                  optionalString (s3.hostname != null)
-                  "'hostname' => '${s3.hostname}',"
-                }
-                ${
-                  optionalString (s3.port != null)
-                  "'port' => ${toString s3.port},"
-                }
-                'use_ssl' => ${boolToString s3.useSsl},
-                ${
-                  optionalString (s3.region != null)
-                  "'region' => '${s3.region}',"
-                }
-                'use_path_style' => ${boolToString s3.usePathStyle},
-                ${
-                  optionalString (s3.sseCKeyFile != null)
-                  "'sse_c_key' => nix_read_secret('${s3.sseCKeyFile}'),"
-                }
-              ],
-            ]
-          '';
+          objectstoreConfig = let
+            s3 = c.objectstore.s3;
+          in
+            optionalString s3.enable ''
+              'objectstore' => [
+                'class' => '\\OC\\Files\\ObjectStore\\S3',
+                'arguments' => [
+                  'bucket' => '${s3.bucket}',
+                  'autocreate' => ${boolToString s3.autocreate},
+                  'key' => '${s3.key}',
+                  'secret' => nix_read_secret('${s3.secretFile}'),
+                  ${
+                    optionalString (s3.hostname != null)
+                    "'hostname' => '${s3.hostname}',"
+                  }
+                  ${
+                    optionalString (s3.port != null)
+                    "'port' => ${toString s3.port},"
+                  }
+                  'use_ssl' => ${boolToString s3.useSsl},
+                  ${
+                    optionalString (s3.region != null)
+                    "'region' => '${s3.region}',"
+                  }
+                  'use_path_style' => ${boolToString s3.usePathStyle},
+                  ${
+                    optionalString (s3.sseCKeyFile != null)
+                    "'sse_c_key' => nix_read_secret('${s3.sseCKeyFile}'),"
+                  }
+                ],
+              ]
+            ''
+          ;
 
           showAppStoreSetting = cfg.appstoreEnable != null || cfg.extraApps
             != { };
-          renderedAppStoreSetting = let x = cfg.appstoreEnable;
+          renderedAppStoreSetting = let
+            x = cfg.appstoreEnable;
           in if x == null then "false" else boolToString x;
 
           nextcloudGreaterOrEqualThan = req:
@@ -1024,7 +1030,7 @@ in {
             ${mkExport adminpass}
             ${occ}/bin/nextcloud-occ maintenance:install \
                 ${installFlags}
-          '';
+          '' ;
           occSetTrustedDomainsCmd = concatStringsSep "\n" (imap0 (i: v: ''
             ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
               ${toString i} --value="${toString v}"
@@ -1105,7 +1111,7 @@ in {
           # an automatic creation of the database user.
           environment.NC_setup_create_db_user =
             lib.mkIf (nextcloudGreaterOrEqualThan "26") "false";
-        };
+        } ;
         nextcloud-cron = {
           after = [ "nextcloud-setup.service" ];
           environment.NEXTCLOUD_CONFIG_DIR = "${datadir}/config";

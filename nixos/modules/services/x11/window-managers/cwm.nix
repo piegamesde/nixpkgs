@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.cwm;
+let
+  cfg = config.services.xserver.windowManager.cwm;
 in {
   options = {
     services.xserver.windowManager.cwm.enable =

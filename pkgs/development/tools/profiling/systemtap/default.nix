@@ -43,32 +43,33 @@ let
 
   pypkgs = with python3.pkgs; makePythonPath [ pyparsing ];
 
-in runCommand "systemtap-${kernel.version}-${version}" {
-  inherit stapBuild;
-  nativeBuildInputs = [ makeWrapper ];
-  meta = {
-    homepage = "https://sourceware.org/systemtap/";
-    description =
-      "Provides a scripting language for instrumentation on a live kernel plus user-space";
-    license = lib.licenses.gpl2;
-    platforms = lib.systems.inspect.patterns.isGnu;
-  };
-} ''
-  mkdir -p $out/bin
-  for bin in $stapBuild/bin/*; do
-    ln -s $bin $out/bin
-  done
-  rm $out/bin/stap $out/bin/dtrace
-  makeWrapper $stapBuild/bin/stap $out/bin/stap \
-    --add-flags "-r ${kernel.dev}" \
-    --prefix PATH : ${
-      lib.makeBinPath [
-        stdenv.cc.cc
-        stdenv.cc.bintools
-        elfutils
-        gnumake
-      ]
-    }
-  makeWrapper $stapBuild/bin/dtrace $out/bin/dtrace \
-    --prefix PYTHONPATH : ${pypkgs}
-''
+in
+  runCommand "systemtap-${kernel.version}-${version}" {
+    inherit stapBuild;
+    nativeBuildInputs = [ makeWrapper ];
+    meta = {
+      homepage = "https://sourceware.org/systemtap/";
+      description =
+        "Provides a scripting language for instrumentation on a live kernel plus user-space";
+      license = lib.licenses.gpl2;
+      platforms = lib.systems.inspect.patterns.isGnu;
+    };
+  } ''
+    mkdir -p $out/bin
+    for bin in $stapBuild/bin/*; do
+      ln -s $bin $out/bin
+    done
+    rm $out/bin/stap $out/bin/dtrace
+    makeWrapper $stapBuild/bin/stap $out/bin/stap \
+      --add-flags "-r ${kernel.dev}" \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          stdenv.cc.cc
+          stdenv.cc.bintools
+          elfutils
+          gnumake
+        ]
+      }
+    makeWrapper $stapBuild/bin/dtrace $out/bin/dtrace \
+      --prefix PYTHONPATH : ${pypkgs}
+  ''

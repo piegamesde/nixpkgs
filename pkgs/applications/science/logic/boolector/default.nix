@@ -54,13 +54,15 @@ stdenv.mkDerivation rec {
     var = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
     # tests modelgen and modelgensmt2 spawn boolector in another processes and
     # macOS strips DYLD_LIBRARY_PATH, hardcode it for testing
-  in lib.optionalString stdenv.isDarwin ''
-    cp -r bin bin.back
-    install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
-  '' + ''
-    export ${var}=$(readlink -f lib)
-    patchShebangs ..
-  '';
+  in
+    lib.optionalString stdenv.isDarwin ''
+      cp -r bin bin.back
+      install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
+    '' + ''
+      export ${var}=$(readlink -f lib)
+      patchShebangs ..
+    ''
+  ;
 
   postCheck = lib.optionalString stdenv.isDarwin ''
     rm -rf bin

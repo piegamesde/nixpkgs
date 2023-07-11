@@ -40,20 +40,23 @@ let
           pkgs.writeText "${name}.rb" gemTests.${name};
 
         deps = ruby.withPackages (g: [ g.${name} ]);
-      in stdenv.mkDerivation {
-        name = "test-gem-${ruby.name}-${name}";
-        buildInputs = [ deps ];
-        buildCommand = ''
-          INLINEDIR=$PWD ruby ${test}
-          touch $out
-        '';
-      }) ruby.gems;
-in stdenv.mkDerivation {
-  name = "test-all-ruby-gems";
-  buildInputs = builtins.foldl' (sum: ruby:
-    sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby))) [ ]
-    rubyVersions;
-  buildCommand = ''
-    touch $out
-  '';
-}
+      in
+        stdenv.mkDerivation {
+          name = "test-gem-${ruby.name}-${name}";
+          buildInputs = [ deps ];
+          buildCommand = ''
+            INLINEDIR=$PWD ruby ${test}
+            touch $out
+          '';
+        }
+    ) ruby.gems;
+in
+  stdenv.mkDerivation {
+    name = "test-all-ruby-gems";
+    buildInputs = builtins.foldl' (sum: ruby:
+      sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby))) [ ]
+      rubyVersions;
+    buildCommand = ''
+      touch $out
+    '';
+  }

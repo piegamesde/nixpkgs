@@ -134,60 +134,61 @@ let
     ignoreCollisions = true;
   };
 
-in lib.throwIf (enableTWBT && !enableDFHack)
-"dwarf-fortress: TWBT requires DFHack to be enabled" lib.throwIf
-(enableStoneSense && !enableDFHack)
-"dwarf-fortress: StoneSense requires DFHack to be enabled" lib.throwIf
-(enableTextMode && enableTWBT)
-"dwarf-fortress: text mode and TWBT are mutually exclusive"
+in
+  lib.throwIf (enableTWBT && !enableDFHack)
+  "dwarf-fortress: TWBT requires DFHack to be enabled" lib.throwIf
+  (enableStoneSense && !enableDFHack)
+  "dwarf-fortress: StoneSense requires DFHack to be enabled" lib.throwIf
+  (enableTextMode && enableTWBT)
+  "dwarf-fortress: text mode and TWBT are mutually exclusive"
 
-stdenv.mkDerivation {
-  pname = "dwarf-fortress";
-  version = dwarf-fortress.dfVersion;
+  stdenv.mkDerivation {
+    pname = "dwarf-fortress";
+    version = dwarf-fortress.dfVersion;
 
-  dfInit = substituteAll {
-    name = "dwarf-fortress-init";
-    src = ./dwarf-fortress-init.in;
-    inherit env;
-    exe = if stdenv.isLinux then "libs/Dwarf_Fortress" else "dwarfort.exe";
-    stdenv_shell = "${stdenv.shell}";
-    cp = "${coreutils}/bin/cp";
-    rm = "${coreutils}/bin/rm";
-    ln = "${coreutils}/bin/ln";
-    cat = "${coreutils}/bin/cat";
-    mkdir = "${coreutils}/bin/mkdir";
-  };
+    dfInit = substituteAll {
+      name = "dwarf-fortress-init";
+      src = ./dwarf-fortress-init.in;
+      inherit env;
+      exe = if stdenv.isLinux then "libs/Dwarf_Fortress" else "dwarfort.exe";
+      stdenv_shell = "${stdenv.shell}";
+      cp = "${coreutils}/bin/cp";
+      rm = "${coreutils}/bin/rm";
+      ln = "${coreutils}/bin/ln";
+      cat = "${coreutils}/bin/cat";
+      mkdir = "${coreutils}/bin/mkdir";
+    };
 
-  runDF = ./dwarf-fortress.in;
-  runDFHack = ./dfhack.in;
-  runSoundSense = ./soundSense.in;
+    runDF = ./dwarf-fortress.in;
+    runDFHack = ./dfhack.in;
+    runSoundSense = ./soundSense.in;
 
-  passthru = {
-    inherit dwarf-fortress dwarf-therapist twbt env;
-    dfhack = dfhack_;
-  };
+    passthru = {
+      inherit dwarf-fortress dwarf-therapist twbt env;
+      dfhack = dfhack_;
+    };
 
-  buildCommand = ''
-    mkdir -p $out/bin
+    buildCommand = ''
+      mkdir -p $out/bin
 
-    substitute $runDF $out/bin/dwarf-fortress \
-      --subst-var-by stdenv_shell ${stdenv.shell} \
-      --subst-var dfInit
-    chmod 755 $out/bin/dwarf-fortress
-  '' + lib.optionalString enableDFHack ''
-    substitute $runDFHack $out/bin/dfhack \
-      --subst-var-by stdenv_shell ${stdenv.shell} \
-      --subst-var dfInit
-    chmod 755 $out/bin/dfhack
-  '' + lib.optionalString enableSoundSense ''
-    substitute $runSoundSense $out/bin/soundsense \
-      --subst-var-by stdenv_shell ${stdenv.shell} \
-      --subst-var-by jre ${jdk.jre} \
-      --subst-var dfInit
-    chmod 755 $out/bin/soundsense
-  '';
+      substitute $runDF $out/bin/dwarf-fortress \
+        --subst-var-by stdenv_shell ${stdenv.shell} \
+        --subst-var dfInit
+      chmod 755 $out/bin/dwarf-fortress
+    '' + lib.optionalString enableDFHack ''
+      substitute $runDFHack $out/bin/dfhack \
+        --subst-var-by stdenv_shell ${stdenv.shell} \
+        --subst-var dfInit
+      chmod 755 $out/bin/dfhack
+    '' + lib.optionalString enableSoundSense ''
+      substitute $runSoundSense $out/bin/soundsense \
+        --subst-var-by stdenv_shell ${stdenv.shell} \
+        --subst-var-by jre ${jdk.jre} \
+        --subst-var dfInit
+      chmod 755 $out/bin/soundsense
+    '';
 
-  preferLocalBuild = true;
+    preferLocalBuild = true;
 
-  inherit (dwarf-fortress) meta;
-}
+    inherit (dwarf-fortress) meta;
+  }

@@ -70,4 +70,5 @@ let
     setupHook = ./setup-hook.sh;
   };
   final = callPackage (import ./shared.nix forFinal) { };
-in final
+in
+  final

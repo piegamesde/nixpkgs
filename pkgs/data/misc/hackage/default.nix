@@ -4,10 +4,12 @@
   lib,
   fetchurl,
 }:
-let pin = builtins.fromJSON (builtins.readFile ./pin.json);
-in fetchurl {
-  inherit (pin) url sha256;
-  name = "all-cabal-hashes-${lib.substring 0 7 pin.commit}.tar.gz";
-  passthru.updateScript =
-    ../../../../maintainers/scripts/haskell/update-hackage.sh;
-}
+let
+  pin = builtins.fromJSON (builtins.readFile ./pin.json);
+in
+  fetchurl {
+    inherit (pin) url sha256;
+    name = "all-cabal-hashes-${lib.substring 0 7 pin.commit}.tar.gz";
+    passthru.updateScript =
+      ../../../../maintainers/scripts/haskell/update-hackage.sh;
+  }

@@ -69,16 +69,17 @@ let
 
     modRoot = "./etcdctl";
   };
-in symlinkJoin {
-  name = "etcd-${version}";
+in
+  symlinkJoin {
+    name = "etcd-${version}";
 
-  inherit meta version;
+    inherit meta version;
 
-  passthru = { inherit etcdserver etcdutl etcdctl; };
+    passthru = { inherit etcdserver etcdutl etcdctl; };
 
-  paths = [
-    etcdserver
-    etcdutl
-    etcdctl
-  ];
-}
+    paths = [
+      etcdserver
+      etcdutl
+      etcdctl
+    ];
+  }

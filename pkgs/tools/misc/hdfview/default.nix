@@ -35,14 +35,15 @@ stdenv.mkDerivation rec {
   HDFLIBS = (hdf4.override { javaSupport = true; }).out;
   HDF5LIBS = (hdf5.override { javaSupport = true; }).out;
 
-  buildPhase = let arch = if stdenv.isx86_64 then "x86_64" else "aarch64";
+  buildPhase = let
+    arch = if stdenv.isx86_64 then "x86_64" else "aarch64";
   in ''
     runHook preBuild
 
     ant createJPackage -Dmachine.arch=${arch}
 
     runHook postBuild
-  '';
+  '' ;
 
   desktopItem = makeDesktopItem rec {
     name = "HDFView";

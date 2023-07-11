@@ -30,10 +30,12 @@ mkDerivation rec {
       sha256 = "sha256-4yDLPEBDsPKWtLwdpmSyl3b5XCwLAr2/EVtNRrFmmJk=";
       name = "${pname}-${version}.AppImage";
     };
-  in appimageTools.extract {
-    name = "${pname}-${version}";
-    src = appimage;
-  };
+  in
+    appimageTools.extract {
+      name = "${pname}-${version}";
+      src = appimage;
+    }
+  ;
 
   nativeBuildInputs = [
     autoPatchelfHook

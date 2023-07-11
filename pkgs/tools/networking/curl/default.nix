@@ -195,32 +195,32 @@ stdenv.mkDerivation (finalAttrs: {
     ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4.4.0
   '';
 
-  passthru =
-    let useThisCurl = attr: attr.override { curl = finalAttrs.finalPackage; };
-    in {
-      inherit opensslSupport openssl;
-      tests = {
-        withCheck =
-          finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
-        fetchpatch = tests.fetchpatch.simple.override {
-          fetchpatch =
-            (fetchpatch.override { fetchurl = useThisCurl fetchurl; }) // {
-              version = 1;
-            };
-        };
-        curlpp = useThisCurl curlpp;
-        coeurl = useThisCurl coeurl;
-        haskell-curl = useThisCurl haskellPackages.curl;
-        ocaml-curly = useThisCurl ocamlPackages.curly;
-        pycurl = useThisCurl python3.pkgs.pycurl;
-        php-curl = useThisCurl phpExtensions.curl;
-        # error: attribute 'override' missing
-        # Additional checking with support http3 protocol.
-        # nginx-http3 = useThisCurl nixosTests.nginx-http3;
-        nginx-http3 = nixosTests.nginx-http3;
-        pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+  passthru = let
+    useThisCurl = attr: attr.override { curl = finalAttrs.finalPackage; };
+  in {
+    inherit opensslSupport openssl;
+    tests = {
+      withCheck =
+        finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
+      fetchpatch = tests.fetchpatch.simple.override {
+        fetchpatch = (fetchpatch.override { fetchurl = useThisCurl fetchurl; })
+          // {
+            version = 1;
+          };
       };
+      curlpp = useThisCurl curlpp;
+      coeurl = useThisCurl coeurl;
+      haskell-curl = useThisCurl haskellPackages.curl;
+      ocaml-curly = useThisCurl ocamlPackages.curly;
+      pycurl = useThisCurl python3.pkgs.pycurl;
+      php-curl = useThisCurl phpExtensions.curl;
+      # error: attribute 'override' missing
+      # Additional checking with support http3 protocol.
+      # nginx-http3 = useThisCurl nixosTests.nginx-http3;
+      nginx-http3 = nixosTests.nginx-http3;
+      pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
     };
+  } ;
 
   meta = with lib; {
     changelog = "https://curl.se/changes.html#${

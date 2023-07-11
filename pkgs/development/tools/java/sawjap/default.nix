@@ -3,33 +3,35 @@
   ocamlPackages,
 }:
 
-let inherit (ocamlPackages) ocaml findlib sawja;
+let
+  inherit (ocamlPackages) ocaml findlib sawja;
 
-in stdenv.mkDerivation {
+in
+  stdenv.mkDerivation {
 
-  pname = "sawjap";
+    pname = "sawjap";
 
-  inherit (sawja) src version;
+    inherit (sawja) src version;
 
-  prePatch = "cd test";
+    prePatch = "cd test";
 
-  strictDeps = true;
+    strictDeps = true;
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-  ];
-  buildInputs = [ sawja ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+    ];
+    buildInputs = [ sawja ];
 
-  buildPhase = ''
-    runHook preBuild
-    mkdir -p $out/bin
-    ocamlfind opt -o $out/bin/sawjap -package sawja -linkpkg sawjap.ml
-    runHook postBuild
-  '';
+    buildPhase = ''
+      runHook preBuild
+      mkdir -p $out/bin
+      ocamlfind opt -o $out/bin/sawjap -package sawja -linkpkg sawjap.ml
+      runHook postBuild
+    '';
 
-  dontInstall = true;
+    dontInstall = true;
 
-  meta = sawja.meta // { description = "Pretty-print .class files"; };
+    meta = sawja.meta // { description = "Pretty-print .class files"; };
 
-}
+  }

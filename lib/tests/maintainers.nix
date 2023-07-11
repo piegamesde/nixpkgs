@@ -47,7 +47,9 @@ let
                 lib.escapeShellArg (lib.showOption prefix)
               }': If an email address is given, it should allow people to reach you. If you do not want that, you can just provide `github` or `matrix` instead.'
             '';
-    in lib.deepSeq checkedAttrs checks;
+    in
+      lib.deepSeq checkedAttrs checks
+  ;
 
   missingGithubIds =
     lib.concatLists (lib.mapAttrsToList checkMaintainer lib.maintainers);

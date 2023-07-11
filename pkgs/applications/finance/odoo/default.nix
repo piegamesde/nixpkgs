@@ -50,93 +50,94 @@ let
 
   odoo_version = "15.0";
   odoo_release = "20230317";
-in python.pkgs.buildPythonApplication rec {
-  pname = "odoo";
-  version = "${odoo_version}.${odoo_release}";
+in
+  python.pkgs.buildPythonApplication rec {
+    pname = "odoo";
+    version = "${odoo_version}.${odoo_release}";
 
-  format = "setuptools";
+    format = "setuptools";
 
-  # latest release is at https://github.com/odoo/docker/blob/master/15.0/Dockerfile
-  src = fetchurl {
-    url =
-      "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.tar.gz";
-    name = "${pname}-${version}";
-    hash = "sha256-nJEFPtZhq7DLLDCL9xt0RV75d/a45o6hBKsUlQAWh1U="; # odoo
-  };
+    # latest release is at https://github.com/odoo/docker/blob/master/15.0/Dockerfile
+    src = fetchurl {
+      url =
+        "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.tar.gz";
+      name = "${pname}-${version}";
+      hash = "sha256-nJEFPtZhq7DLLDCL9xt0RV75d/a45o6hBKsUlQAWh1U="; # odoo
+    };
 
-  unpackPhase = ''
-    tar xfz $src
-    cd odoo*
-  '';
+    unpackPhase = ''
+      tar xfz $src
+      cd odoo*
+    '';
 
-  # needs some investigation
-  doCheck = false;
+    # needs some investigation
+    doCheck = false;
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    "${lib.makeBinPath [
-      wkhtmltopdf
-      nodePackages.rtlcss
-    ]}"
-  ];
+    makeWrapperArgs = [
+      "--prefix"
+      "PATH"
+      ":"
+      "${lib.makeBinPath [
+        wkhtmltopdf
+        nodePackages.rtlcss
+      ]}"
+    ];
 
-  propagatedBuildInputs = with python.pkgs; [
-    babel
-    chardet
-    decorator
-    docutils
-    ebaysdk
-    freezegun
-    gevent
-    greenlet
-    idna
-    jinja2
-    libsass
-    lxml
-    markupsafe
-    mock
-    num2words
-    ofxparse
-    passlib
-    pillow
-    polib
-    psutil
-    psycopg2
-    pydot
-    pyopenssl
-    pypdf2
-    pyserial
-    python-dateutil
-    python-ldap
-    python-stdnum
-    pytz
-    pyusb
-    qrcode
-    reportlab
-    requests
-    setuptools
-    vobject
-    werkzeug
-    xlrd
-    xlsxwriter
-    xlwt
-    zeep
-  ];
+    propagatedBuildInputs = with python.pkgs; [
+      babel
+      chardet
+      decorator
+      docutils
+      ebaysdk
+      freezegun
+      gevent
+      greenlet
+      idna
+      jinja2
+      libsass
+      lxml
+      markupsafe
+      mock
+      num2words
+      ofxparse
+      passlib
+      pillow
+      polib
+      psutil
+      psycopg2
+      pydot
+      pyopenssl
+      pypdf2
+      pyserial
+      python-dateutil
+      python-ldap
+      python-stdnum
+      pytz
+      pyusb
+      qrcode
+      reportlab
+      requests
+      setuptools
+      vobject
+      werkzeug
+      xlrd
+      xlsxwriter
+      xlwt
+      zeep
+    ];
 
-  # takes 5+ minutes and there are not files to strip
-  dontStrip = true;
+    # takes 5+ minutes and there are not files to strip
+    dontStrip = true;
 
-  passthru = {
-    updateScript = ./update.sh;
-    tests = { inherit (nixosTests) odoo; };
-  };
+    passthru = {
+      updateScript = ./update.sh;
+      tests = { inherit (nixosTests) odoo; };
+    };
 
-  meta = with lib; {
-    description = "Open Source ERP and CRM";
-    homepage = "https://www.odoo.com/";
-    license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ mkg20001 ];
-  };
-}
+    meta = with lib; {
+      description = "Open Source ERP and CRM";
+      homepage = "https://www.odoo.com/";
+      license = licenses.lgpl3Only;
+      maintainers = with maintainers; [ mkg20001 ];
+    };
+  }

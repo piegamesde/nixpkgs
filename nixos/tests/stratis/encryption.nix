@@ -29,5 +29,5 @@ import ../make-test-python.nix ({
       # test restarting encrypted pool
       machine.succeed("stratis pool stop   testpool")
       machine.succeed("stratis pool start  --name testpool --unlock-method keyring")
-    '';
+    '' ;
   })

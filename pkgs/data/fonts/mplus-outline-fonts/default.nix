@@ -5,7 +5,8 @@
   fetchFromGitHub,
 }:
 
-let pname = "mplus-outline-fonts";
+let
+  pname = "mplus-outline-fonts";
 in {
   osdnRelease = stdenvNoCC.mkDerivation {
     pname = "${pname}-osdn";

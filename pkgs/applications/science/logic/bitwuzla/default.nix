@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
   in ''
     export ${var}=$(readlink -f lib)
     patchShebangs ..
-  '';
+  '' ;
 
   meta = with lib; {
     description =

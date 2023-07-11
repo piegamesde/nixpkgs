@@ -72,12 +72,13 @@ let
       paths,
     }:
     command:
-    let new = extractPaths maxArgIndex command;
+    let
+      new = extractPaths maxArgIndex command;
     in {
       commands = commands ++ [ new.args ];
       paths = paths ++ new.paths;
       maxArgIndex = new.maxArgIndex;
-    };
+    } ;
   /* extractCommands : Int → [[ (String|FilePath) ]] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
      Helper function for extracting file paths from a list of commands and replacing them with argv[x] references.
   */
@@ -92,14 +93,17 @@ let
      Converts a list of commands into a single command by turning them into a shell script and passing them to `sh -c`.
   */
   commandsToShellInvocation = commands:
-    let extracted = extractCommands 0 commands;
-    in [
-      "sh"
-      "-c"
-      (lib.concatMapStringsSep ";" escapeShellArgs' extracted.commands)
-      # We need paths as separate arguments so that update.nix can ensure they refer to the local directory
-      # rather than a store path.
-    ] ++ extracted.paths;
+    let
+      extracted = extractCommands 0 commands;
+    in
+      [
+        "sh"
+        "-c"
+        (lib.concatMapStringsSep ";" escapeShellArgs' extracted.commands)
+        # We need paths as separate arguments so that update.nix can ensure they refer to the local directory
+        # rather than a store path.
+      ] ++ extracted.paths
+  ;
 in rec {
   /* normalize : UpdateScript → UpdateScript
      EXPERIMENTAL! Converts a basic update script to the experimental attribute set form.
@@ -117,7 +121,8 @@ in rec {
   */
   sequence = scripts:
 
-    let scriptsNormalized = builtins.map normalize scripts;
+    let
+      scriptsNormalized = builtins.map normalize scripts;
     in let
       scripts = scriptsNormalized;
       hasCommitSupport = lib.findSingle ({
@@ -139,23 +144,25 @@ in rec {
           }:
           supportedFeatures == [ ]);
 
-    in assert lib.assertMsg (lib.all validateFeatures scripts)
-      "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
-    assert lib.assertMsg (builtins.length (lib.unique (builtins.map ({
-        attrPath ? null,
-        ...
-      }:
-      attrPath) scripts)) == 1)
-      "Combining update scripts with different attr paths is currently unsupported.";
-
-    {
-      command = commandsToShellInvocation (builtins.map ({
-          command,
+    in
+      assert lib.assertMsg (lib.all validateFeatures scripts)
+        "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
+      assert lib.assertMsg (builtins.length (lib.unique (builtins.map ({
+          attrPath ? null,
           ...
         }:
-        command) scripts);
-      supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
-    };
+        attrPath) scripts)) == 1)
+        "Combining update scripts with different attr paths is currently unsupported.";
+
+      {
+        command = commandsToShellInvocation (builtins.map ({
+            command,
+            ...
+          }:
+          command) scripts);
+        supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
+      }
+  ;
 
   /* copyAttrOutputToFile : String → FilePath → UpdateScript
      EXPERIMENTAL! Simple update script that copies the output of Nix derivation built by `attr` to `path`.

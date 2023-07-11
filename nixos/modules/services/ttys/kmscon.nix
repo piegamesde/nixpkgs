@@ -58,7 +58,9 @@ in {
                 };
               };
             };
-          in nullOr (nonEmptyListOf fontType);
+          in
+            nullOr (nonEmptyListOf fontType)
+        ;
       };
 
       extraConfig = mkOption {
@@ -127,7 +129,9 @@ in {
       ];
       fonts = optional (cfg.fonts != null)
         "font-name=${lib.concatMapStringsSep ", " (f: f.name) cfg.fonts}";
-    in lib.concatStringsSep "\n" (render ++ fonts);
+    in
+      lib.concatStringsSep "\n" (render ++ fonts)
+    ;
 
     hardware.opengl.enable = mkIf cfg.hwRender true;
 

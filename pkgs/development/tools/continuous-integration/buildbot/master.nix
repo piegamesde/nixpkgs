@@ -156,4 +156,5 @@ let
       broken = stdenv.isDarwin;
     };
   };
-in package
+in
+  package

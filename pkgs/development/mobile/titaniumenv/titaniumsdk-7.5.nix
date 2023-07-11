@@ -61,64 +61,65 @@ let
       cp ${proguardBaseJAR} net/sf/proguard/proguard-base/${proguardVersion}/proguard-base-${proguardVersion}.jar
     '';
   };
-in stdenv.mkDerivation {
-  pname = "mobilesdk";
-  version = "7.5.1.GA";
+in
+  stdenv.mkDerivation {
+    pname = "mobilesdk";
+    version = "7.5.1.GA";
 
-  src =
-    if (stdenv.system == "i686-linux" || stdenv.system == "x86_64-linux") then
-      fetchurl {
-        url =
-          "https://builds.appcelerator.com/mobile/7_5_X/mobilesdk-7.5.1.v20190124152315-linux.zip";
-        sha256 = "1ihyh6szl9a2gbdgv13msd3g7i3xi9ifmgsh6v562hqlfi4lixng";
-      }
-    else if stdenv.system == "x86_64-darwin" then
-      fetchurl {
-        url =
-          "https://builds.appcelerator.com/mobile/7_5_X/mobilesdk-7.5.1.v20190124152315-osx.zip";
-        sha256 = "1whs1j7fkk2hxr4nxq50d7ic5wj83b1i1jl0p722sqbvkmgxssa2";
-      }
-    else
-      throw "Platform: ${stdenv.system} not supported!";
+    src =
+      if (stdenv.system == "i686-linux" || stdenv.system == "x86_64-linux") then
+        fetchurl {
+          url =
+            "https://builds.appcelerator.com/mobile/7_5_X/mobilesdk-7.5.1.v20190124152315-linux.zip";
+          sha256 = "1ihyh6szl9a2gbdgv13msd3g7i3xi9ifmgsh6v562hqlfi4lixng";
+        }
+      else if stdenv.system == "x86_64-darwin" then
+        fetchurl {
+          url =
+            "https://builds.appcelerator.com/mobile/7_5_X/mobilesdk-7.5.1.v20190124152315-osx.zip";
+          sha256 = "1whs1j7fkk2hxr4nxq50d7ic5wj83b1i1jl0p722sqbvkmgxssa2";
+        }
+      else
+        throw "Platform: ${stdenv.system} not supported!";
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+      unzip
+    ];
 
-  buildCommand = ''
-    mkdir -p $out
-    cd $out
-    (yes y | unzip $src) || true
+    buildCommand = ''
+      mkdir -p $out
+      cd $out
+      (yes y | unzip $src) || true
 
-    # Rename ugly version number
-    cd mobilesdk/*
-    mv * 7.5.1.GA
-    cd *
+      # Rename ugly version number
+      cd mobilesdk/*
+      mv * 7.5.1.GA
+      cd *
 
-    # Patch bundled gradle build infrastructure to make shebangs work
-    patchShebangs android/templates/gradle
+      # Patch bundled gradle build infrastructure to make shebangs work
+      patchShebangs android/templates/gradle
 
-    # Substitute the gradle-all zip URL by a local file to prevent downloads from happening while building an Android app
-    sed -i -e "s|distributionUrl=|#distributionUrl=|" android/templates/gradle/gradle/wrapper/gradle-wrapper.properties
-    cp ${gradleAllZip} android/templates/gradle/gradle/wrapper/gradle-4.1-all.zip
-    echo "distributionUrl=gradle-4.1-all.zip" >> android/templates/gradle/gradle/wrapper/gradle-wrapper.properties
+      # Substitute the gradle-all zip URL by a local file to prevent downloads from happening while building an Android app
+      sed -i -e "s|distributionUrl=|#distributionUrl=|" android/templates/gradle/gradle/wrapper/gradle-wrapper.properties
+      cp ${gradleAllZip} android/templates/gradle/gradle/wrapper/gradle-4.1-all.zip
+      echo "distributionUrl=gradle-4.1-all.zip" >> android/templates/gradle/gradle/wrapper/gradle-wrapper.properties
 
-    # Patch maven central repository with our own local directory. This prevents the builder from downloading Maven artifacts
-    sed -i -e 's|mavenCentral()|maven { url "${fakeMavenRepo}" }|' android/templates/build/proguard.gradle
+      # Patch maven central repository with our own local directory. This prevents the builder from downloading Maven artifacts
+      sed -i -e 's|mavenCentral()|maven { url "${fakeMavenRepo}" }|' android/templates/build/proguard.gradle
 
-    # Patch the strip frameworks script in the iPhone build template to not let
-    # it skip the strip phase. This is caused by an assumption on the file
-    # permissions in which Nix deviates from the standard.
-    sed -i -e "s|-perm +111|-perm /111|" iphone/templates/build/strip-frameworks.sh
+      # Patch the strip frameworks script in the iPhone build template to not let
+      # it skip the strip phase. This is caused by an assumption on the file
+      # permissions in which Nix deviates from the standard.
+      sed -i -e "s|-perm +111|-perm /111|" iphone/templates/build/strip-frameworks.sh
 
-    # Patch some executables
+      # Patch some executables
 
-    ${if stdenv.system == "i686-linux" then ''
-      patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux.so.2 android/titanium_prep.linux32
-    '' else
-      lib.optionalString (stdenv.system == "x86_64-linux") ''
-        patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2 android/titanium_prep.linux64
-      ''}
-  '';
-}
+      ${if stdenv.system == "i686-linux" then ''
+        patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux.so.2 android/titanium_prep.linux32
+      '' else
+        lib.optionalString (stdenv.system == "x86_64-linux") ''
+          patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2 android/titanium_prep.linux64
+        ''}
+    '';
+  }

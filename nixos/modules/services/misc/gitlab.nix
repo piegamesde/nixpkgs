@@ -422,7 +422,9 @@ in {
               "repositories"
               "tar"
             ];
-          in either value (listOf value);
+          in
+            either value (listOf value)
+        ;
         default = [ ];
         example = [
           "artifacts"
@@ -1237,45 +1239,48 @@ in {
     # The postgresql module doesn't currently support concepts like
     # objects owners and extensions; for now we tack on what's needed
     # here.
-    systemd.services.gitlab-postgresql = let pgsql = config.services.postgresql;
-    in mkIf databaseActuallyCreateLocally {
-      after = [ "postgresql.service" ];
-      bindsTo = [ "postgresql.service" ];
-      wantedBy = [ "gitlab.target" ];
-      partOf = [ "gitlab.target" ];
-      path = [
-        pgsql.package
-        pkgs.util-linux
-      ];
-      script = ''
-        set -eu
+    systemd.services.gitlab-postgresql = let
+      pgsql = config.services.postgresql;
+    in
+      mkIf databaseActuallyCreateLocally {
+        after = [ "postgresql.service" ];
+        bindsTo = [ "postgresql.service" ];
+        wantedBy = [ "gitlab.target" ];
+        partOf = [ "gitlab.target" ];
+        path = [
+          pgsql.package
+          pkgs.util-linux
+        ];
+        script = ''
+          set -eu
 
-        PSQL() {
-            psql --port=${toString pgsql.port} "$@"
-        }
+          PSQL() {
+              psql --port=${toString pgsql.port} "$@"
+          }
 
-        PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${cfg.databaseName}'" | grep -q 1 || PSQL -tAc 'CREATE DATABASE "${cfg.databaseName}" OWNER "${cfg.databaseUsername}"'
-        current_owner=$(PSQL -tAc "SELECT pg_catalog.pg_get_userbyid(datdba) FROM pg_catalog.pg_database WHERE datname = '${cfg.databaseName}'")
-        if [[ "$current_owner" != "${cfg.databaseUsername}" ]]; then
-            PSQL -tAc 'ALTER DATABASE "${cfg.databaseName}" OWNER TO "${cfg.databaseUsername}"'
-            if [[ -e "${config.services.postgresql.dataDir}/.reassigning_${cfg.databaseName}" ]]; then
-                echo "Reassigning ownership of database ${cfg.databaseName} to user ${cfg.databaseUsername} failed on last boot. Failing..."
-                exit 1
-            fi
-            touch "${config.services.postgresql.dataDir}/.reassigning_${cfg.databaseName}"
-            PSQL "${cfg.databaseName}" -tAc "REASSIGN OWNED BY \"$current_owner\" TO \"${cfg.databaseUsername}\""
-            rm "${config.services.postgresql.dataDir}/.reassigning_${cfg.databaseName}"
-        fi
-        PSQL '${cfg.databaseName}' -tAc "CREATE EXTENSION IF NOT EXISTS pg_trgm"
-        PSQL '${cfg.databaseName}' -tAc "CREATE EXTENSION IF NOT EXISTS btree_gist;"
-      '';
+          PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${cfg.databaseName}'" | grep -q 1 || PSQL -tAc 'CREATE DATABASE "${cfg.databaseName}" OWNER "${cfg.databaseUsername}"'
+          current_owner=$(PSQL -tAc "SELECT pg_catalog.pg_get_userbyid(datdba) FROM pg_catalog.pg_database WHERE datname = '${cfg.databaseName}'")
+          if [[ "$current_owner" != "${cfg.databaseUsername}" ]]; then
+              PSQL -tAc 'ALTER DATABASE "${cfg.databaseName}" OWNER TO "${cfg.databaseUsername}"'
+              if [[ -e "${config.services.postgresql.dataDir}/.reassigning_${cfg.databaseName}" ]]; then
+                  echo "Reassigning ownership of database ${cfg.databaseName} to user ${cfg.databaseUsername} failed on last boot. Failing..."
+                  exit 1
+              fi
+              touch "${config.services.postgresql.dataDir}/.reassigning_${cfg.databaseName}"
+              PSQL "${cfg.databaseName}" -tAc "REASSIGN OWNED BY \"$current_owner\" TO \"${cfg.databaseUsername}\""
+              rm "${config.services.postgresql.dataDir}/.reassigning_${cfg.databaseName}"
+          fi
+          PSQL '${cfg.databaseName}' -tAc "CREATE EXTENSION IF NOT EXISTS pg_trgm"
+          PSQL '${cfg.databaseName}' -tAc "CREATE EXTENSION IF NOT EXISTS btree_gist;"
+        '';
 
-      serviceConfig = {
-        User = pgsql.superUser;
-        Type = "oneshot";
-        RemainAfterExit = true;
-      };
-    };
+        serviceConfig = {
+          User = pgsql.superUser;
+          Type = "oneshot";
+          RemainAfterExit = true;
+        };
+      }
+    ;
 
     systemd.services.gitlab-registry-cert = optionalAttrs cfg.registry.enable {
       path = with pkgs; [ openssl ];
@@ -1395,10 +1400,12 @@ in {
               chown --no-dereference '${cfg.user}':'${cfg.group}' '${cfg.statePath}'/config/*
             fi
           '';
-        in "+${
-          pkgs.writeShellScript "gitlab-pre-start-full-privileges"
-          preStartFullPrivileges
-        }";
+        in
+          "+${
+            pkgs.writeShellScript "gitlab-pre-start-full-privileges"
+            preStartFullPrivileges
+          }"
+        ;
 
         ExecStart = pkgs.writeShellScript "gitlab-config" ''
           set -o errexit -o pipefail -o nounset
@@ -1641,47 +1648,49 @@ in {
       secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
       configFile =
         pkgs.writeText "gitlab-pages.conf" (mkPagesKeyValue filteredConfig);
-    in mkIf cfg.pages.enable {
-      description = "GitLab static pages daemon";
-      after = [
-        "network.target"
-        "gitlab-config.service"
-        "gitlab.service"
-      ];
-      bindsTo = [
-        "gitlab-config.service"
-        "gitlab.service"
-      ];
-      wantedBy = [ "gitlab.target" ];
-      partOf = [ "gitlab.target" ];
+    in
+      mkIf cfg.pages.enable {
+        description = "GitLab static pages daemon";
+        after = [
+          "network.target"
+          "gitlab-config.service"
+          "gitlab.service"
+        ];
+        bindsTo = [
+          "gitlab-config.service"
+          "gitlab.service"
+        ];
+        wantedBy = [ "gitlab.target" ];
+        partOf = [ "gitlab.target" ];
 
-      path = with pkgs; [
-        unzip
-        replace-secret
-      ];
+        path = with pkgs; [
+          unzip
+          replace-secret
+        ];
 
-      serviceConfig = {
-        Type = "simple";
-        TimeoutSec = "infinity";
-        Restart = "on-failure";
+        serviceConfig = {
+          Type = "simple";
+          TimeoutSec = "infinity";
+          Restart = "on-failure";
 
-        User = cfg.user;
-        Group = cfg.group;
+          User = cfg.user;
+          Group = cfg.group;
 
-        ExecStartPre = pkgs.writeShellScript "gitlab-pages-pre-start" ''
-          set -o errexit -o pipefail -o nounset
-          shopt -s dotglob nullglob inherit_errexit
+          ExecStartPre = pkgs.writeShellScript "gitlab-pages-pre-start" ''
+            set -o errexit -o pipefail -o nounset
+            shopt -s dotglob nullglob inherit_errexit
 
-          install -m u=rw ${configFile} /run/gitlab-pages/gitlab-pages.conf
-          ${secretReplacements}
-        '';
-        ExecStart =
-          "${cfg.packages.pages}/bin/gitlab-pages -config=/run/gitlab-pages/gitlab-pages.conf";
-        WorkingDirectory = gitlabEnv.HOME;
-        RuntimeDirectory = "gitlab-pages";
-        RuntimeDirectoryMode = "0700";
-      };
-    };
+            install -m u=rw ${configFile} /run/gitlab-pages/gitlab-pages.conf
+            ${secretReplacements}
+          '';
+          ExecStart =
+            "${cfg.packages.pages}/bin/gitlab-pages -config=/run/gitlab-pages/gitlab-pages.conf";
+          WorkingDirectory = gitlabEnv.HOME;
+          RuntimeDirectory = "gitlab-pages";
+          RuntimeDirectoryMode = "0700";
+        };
+      }
+    ;
 
     systemd.services.gitlab-workhorse = {
       after = [ "network.target" ];

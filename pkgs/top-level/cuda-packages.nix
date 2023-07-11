@@ -51,7 +51,9 @@ let
               cudaMajorVersion
           }";
       };
-    in { inherit cutensor; };
+    in {
+      inherit cutensor;
+    } ;
 
   extraPackagesExtension = final: prev: {
 
@@ -81,4 +83,5 @@ let
     cutensorExtension
   ]);
 
-in (scope.overrideScope' composedExtension)
+in
+  (scope.overrideScope' composedExtension)

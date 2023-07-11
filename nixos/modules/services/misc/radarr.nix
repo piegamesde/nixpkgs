@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.radarr;
+let
+  cfg = config.services.radarr;
 
 in {
   options = {

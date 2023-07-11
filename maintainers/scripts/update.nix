@@ -34,7 +34,9 @@ let
       let
         x = lib.head list;
         xs = lib.filter (p: f x != f p) (lib.drop 1 list);
-      in [ x ] ++ nubOn f xs;
+      in
+        [ x ] ++ nubOn f xs
+  ;
 
   /* Recursively find all packages (derivations) in `pkgs` matching `cond` predicate.
 
@@ -66,7 +68,8 @@ let
           dedupResults = lst:
             nubOn somewhatUniqueRepresentant (lib.concatLists lst);
         in if result.success then
-          let evaluatedPathContent = result.value;
+          let
+            evaluatedPathContent = result.value;
           in if lib.isDerivation evaluatedPathContent then
             lib.optional (cond path evaluatedPathContent) {
               attrPath = lib.concatStringsSep "." path;
@@ -86,7 +89,9 @@ let
             [ ]
         else
           [ ];
-    in packagesWithPathInner rootPath pkgs;
+    in
+      packagesWithPathInner rootPath pkgs
+  ;
 
   # Recursively find all packages (derivations) in `pkgs` matching `cond` predicate.
   packagesWith = packagesWithPath [ ];
@@ -104,14 +109,16 @@ let
         "Maintainer with name `${maintainer'} does not exist in `maintainers/maintainer-list.nix`."
       else
         builtins.getAttr maintainer' lib.maintainers;
-    in packagesWithUpdateScriptMatchingPredicate (path: pkg:
-      (if builtins.hasAttr "maintainers" pkg.meta then
-        (if builtins.isList pkg.meta.maintainers then
-          builtins.elem maintainer pkg.meta.maintainers
+    in
+      packagesWithUpdateScriptMatchingPredicate (path: pkg:
+        (if builtins.hasAttr "maintainers" pkg.meta then
+          (if builtins.isList pkg.meta.maintainers then
+            builtins.elem maintainer pkg.meta.maintainers
+          else
+            maintainer == pkg.meta.maintainers)
         else
-          maintainer == pkg.meta.maintainers)
-      else
-        false));
+          false))
+  ;
 
   # Recursively find all packages under `path` in `pkgs` with updateScript.
   packagesWithUpdateScript = path: pkgs:
@@ -126,7 +133,8 @@ let
 
   # Find a package under `path` in `pkgs` and require that it has an updateScript.
   packageByName = path: pkgs:
-    let package = lib.attrByPath (lib.splitString "." path) null pkgs;
+    let
+      package = lib.attrByPath (lib.splitString "." path) null pkgs;
     in if package == null then
       builtins.throw "Package with an attribute name `${path}` does not exist."
     else if !builtins.hasAttr "updateScript" package then
@@ -213,22 +221,23 @@ let
 
   args = [ packagesJson ] ++ optionalArgs;
 
-in pkgs.stdenv.mkDerivation {
-  name = "nixpkgs-update-script";
-  buildCommand = ''
-    echo ""
-    echo "----------------------------------------------------------------"
-    echo ""
-    echo "Not possible to update packages using \`nix-build\`"
-    echo ""
-    echo "${helpText}"
-    echo "----------------------------------------------------------------"
-    exit 1
-  '';
-  shellHook = ''
-    unset shellHook # do not contaminate nested shells
-    exec ${pkgs.python3.interpreter} ${./update.py} ${
-      builtins.concatStringsSep " " args
-    }
-  '';
-}
+in
+  pkgs.stdenv.mkDerivation {
+    name = "nixpkgs-update-script";
+    buildCommand = ''
+      echo ""
+      echo "----------------------------------------------------------------"
+      echo ""
+      echo "Not possible to update packages using \`nix-build\`"
+      echo ""
+      echo "${helpText}"
+      echo "----------------------------------------------------------------"
+      exit 1
+    '';
+    shellHook = ''
+      unset shellHook # do not contaminate nested shells
+      exec ${pkgs.python3.interpreter} ${./update.py} ${
+        builtins.concatStringsSep " " args
+      }
+    '';
+  }

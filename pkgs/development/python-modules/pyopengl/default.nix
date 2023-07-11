@@ -19,7 +19,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pillow ];
 
-  patchPhase = let ext = stdenv.hostPlatform.extensions.sharedLibrary;
+  patchPhase = let
+    ext = stdenv.hostPlatform.extensions.sharedLibrary;
   in ''
     # Theses lines are patching the name of dynamic libraries
     # so pyopengl can find them at runtime.
@@ -40,7 +41,7 @@ buildPythonPackage rec {
     # list of possible files.
     substituteInPlace OpenGL/platform/ctypesloader.py \
       --replace "filenames_to_try = []" "filenames_to_try = [name]"
-  '';
+  '' ;
 
   # Need to fix test runner
   # Tests have many dependencies

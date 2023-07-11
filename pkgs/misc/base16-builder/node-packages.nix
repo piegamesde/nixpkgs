@@ -16,7 +16,8 @@ let
     inherit pkgs nodejs;
     libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
   };
-in import ./node-packages-generated.nix {
-  inherit (pkgs) fetchurl nix-gitignore stdenv lib fetchgit;
-  inherit nodeEnv globalBuildInputs;
-}
+in
+  import ./node-packages-generated.nix {
+    inherit (pkgs) fetchurl nix-gitignore stdenv lib fetchgit;
+    inherit nodeEnv globalBuildInputs;
+  }

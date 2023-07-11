@@ -24,21 +24,24 @@ let
      and some generated files.
   */
   cleanSourceFilter = name: type:
-    let baseName = baseNameOf (toString name);
-    in !(
-      # Filter out version control software files/directories
-      (baseName == ".git" || type == "directory"
-        && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")) ||
-      # Filter out editor backup / swap files.
-      lib.hasSuffix "~" baseName || match "^\\.sw[a-z]$" baseName != null
-      || match "^\\..*\\.sw[a-z]$" baseName != null ||
+    let
+      baseName = baseNameOf (toString name);
+    in
+      !(
+        # Filter out version control software files/directories
+        (baseName == ".git" || type == "directory"
+          && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")) ||
+        # Filter out editor backup / swap files.
+        lib.hasSuffix "~" baseName || match "^\\.sw[a-z]$" baseName != null
+        || match "^\\..*\\.sw[a-z]$" baseName != null ||
 
-      # Filter out generates files.
-      lib.hasSuffix ".o" baseName || lib.hasSuffix ".so" baseName ||
-      # Filter out nix-build result symlinks
-      (type == "symlink" && lib.hasPrefix "result" baseName) ||
-      # Filter out sockets and other types of files we can't have in the store.
-      (type == "unknown"));
+        # Filter out generates files.
+        lib.hasSuffix ".o" baseName || lib.hasSuffix ".so" baseName ||
+        # Filter out nix-build result symlinks
+        (type == "symlink" && lib.hasPrefix "result" baseName) ||
+        # Filter out sockets and other types of files we can't have in the store.
+        (type == "unknown"))
+  ;
 
   /* Filters a source tree removing version control files and directories using cleanSourceFilter.
 
@@ -82,12 +85,15 @@ let
       # This defaults to `src.name` or otherwise `"source"`.
       name ? null
     }:
-    let orig = toSourceAttributes src;
-    in fromSourceAttributes {
-      inherit (orig) origSrc;
-      filter = path: type: filter path type && orig.filter path type;
-      name = if name != null then name else orig.name;
-    };
+    let
+      orig = toSourceAttributes src;
+    in
+      fromSourceAttributes {
+        inherit (orig) origSrc;
+        filter = path: type: filter path type && orig.filter path type;
+        name = if name != null then name else orig.name;
+      }
+  ;
 
   /* Add logging to a source, for troubleshooting the filtering behavior.
      Type:
@@ -96,15 +102,21 @@ let
   trace =
     # Source to debug. The returned source will behave like this source, but also log its filter invocations.
     src:
-    let attrs = toSourceAttributes src;
-    in fromSourceAttributes (attrs // {
-      filter = path: type:
-        let r = attrs.filter path type;
-        in builtins.trace "${attrs.name}.filter ${path} = ${boolToString r}" r;
-    }) // {
-      satisfiesSubpathInvariant = src ? satisfiesSubpathInvariant
-        && src.satisfiesSubpathInvariant;
-    };
+    let
+      attrs = toSourceAttributes src;
+    in
+      fromSourceAttributes (attrs // {
+        filter = path: type:
+          let
+            r = attrs.filter path type;
+          in
+            builtins.trace "${attrs.name}.filter ${path} = ${boolToString r}" r
+        ;
+      }) // {
+        satisfiesSubpathInvariant = src ? satisfiesSubpathInvariant
+          && src.satisfiesSubpathInvariant;
+      }
+  ;
 
   /* Filter sources by a list of regular expressions.
 
@@ -114,12 +126,17 @@ let
     let
       isFiltered = src ? _isLibCleanSourceWith;
       origSrc = if isFiltered then src.origSrc else src;
-    in lib.cleanSourceWith {
-      filter = (path: type:
-        let relPath = lib.removePrefix (toString origSrc + "/") (toString path);
-        in lib.any (re: match re relPath != null) regexes);
-      inherit src;
-    };
+    in
+      lib.cleanSourceWith {
+        filter = (path: type:
+          let
+            relPath = lib.removePrefix (toString origSrc + "/") (toString path);
+          in
+            lib.any (re: match re relPath != null) regexes
+        );
+        inherit src;
+      }
+  ;
 
   /* Get all files ending with the specified suffices from the given
      source directory or its descendants, omitting files that do not match
@@ -138,9 +155,14 @@ let
     exts:
     let
       filter = name: type:
-        let base = baseNameOf (toString name);
-        in type == "directory" || lib.any (ext: lib.hasSuffix ext base) exts;
-    in cleanSourceWith { inherit filter src; };
+        let
+          base = baseNameOf (toString name);
+        in
+          type == "directory" || lib.any (ext: lib.hasSuffix ext base) exts
+      ;
+    in
+      cleanSourceWith { inherit filter src; }
+  ;
 
   pathIsGitRepo = path: (_commitIdFromGitRepoOrError path) ? value;
 
@@ -149,8 +171,11 @@ let
      Example: commitIdFromGitRepo <nixpkgs/.git>
   */
   commitIdFromGitRepo = path:
-    let commitIdOrError = _commitIdFromGitRepoOrError path;
-    in commitIdOrError.value or (throw commitIdOrError.error);
+    let
+      commitIdOrError = _commitIdFromGitRepoOrError path;
+    in
+      commitIdOrError.value or (throw commitIdOrError.error)
+  ;
 
   # Get the commit id of a git repo.
 
@@ -171,7 +196,8 @@ let
       in if pathIsRegularFile path
       # Resolve git worktrees. See gitrepository-layout(5)
       then
-        let m = match "^gitdir: (.*)$" (lib.fileContents path);
+        let
+          m = match "^gitdir: (.*)$" (lib.fileContents path);
         in if m == null then {
           error = "File contains no gitdir reference: " + path;
         } else
@@ -184,7 +210,8 @@ let
             commonDir' = lib.removeSuffix "/" commonDir'';
             commonDir = absolutePath gitDir commonDir';
             refFile = lib.removePrefix "${commonDir}/" "${gitDir}/${file}";
-          in readCommitFromFile refFile commonDir
+          in
+            readCommitFromFile refFile commonDir
 
       else if pathIsRegularFile fileName
       # Sometimes git stores the commitId directly in the file but
@@ -218,7 +245,9 @@ let
       else {
         error = "Not a .git directory: " + toString path;
       };
-  in readCommitFromFile "HEAD";
+  in
+    readCommitFromFile "HEAD"
+  ;
 
   pathHasContext = builtins.hasContext or (lib.hasPrefix storeDir);
 
@@ -237,13 +266,14 @@ let
   # (Existing ones being: paths, strings, sources and x//{outPath})
   # So instead of exposing internals, we build a library of combinator functions.
   toSourceAttributes = src:
-    let isFiltered = src ? _isLibCleanSourceWith;
+    let
+      isFiltered = src ? _isLibCleanSourceWith;
     in {
       # The original path
       origSrc = if isFiltered then src.origSrc else src;
       filter = if isFiltered then src.filter else _: _: true;
       name = if isFiltered then src.name else "source";
-    };
+    } ;
 
   # fromSourceAttributes : SourceAttrs -> Source
   #

@@ -38,16 +38,18 @@ import ./make-test-python.nix ({
 
         tar --sort=name --hard-dereference -cf $out .
       '';
-    in pkgs.dockerTools.buildImage {
-      fromImage = repeatedRootfsDiffs;
-      name = "repeated-layer-test";
-      tag = "latest";
-      copyToRoot = pkgs.bash;
-      # A runAsRoot script is required to force previous layers to be unpacked
-      runAsRoot = ''
-        echo 'runAsRoot has run.'
-      '';
-    };
+    in
+      pkgs.dockerTools.buildImage {
+        fromImage = repeatedRootfsDiffs;
+        name = "repeated-layer-test";
+        tag = "latest";
+        copyToRoot = pkgs.bash;
+        # A runAsRoot script is required to force previous layers to be unpacked
+        runAsRoot = ''
+          echo 'runAsRoot has run.'
+        '';
+      }
+    ;
   in {
     name = "docker-tools";
     meta = with pkgs.lib.maintainers; {
@@ -563,4 +565,4 @@ import ./make-test-python.nix ({
               "docker run --rm -it nix-shell-build-derivation"
           )
     '';
-  })
+  } )

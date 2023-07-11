@@ -38,48 +38,49 @@ let
       requests
       pybind11
     ]);
-in stdenv.mkDerivation rec {
-  pname = "glaxnimate";
-  version = "0.5.1";
+in
+  stdenv.mkDerivation rec {
+    pname = "glaxnimate";
+    version = "0.5.1";
 
-  src = fetchFromGitLab {
-    owner = "mattbas";
-    repo = "${pname}";
-    rev = "${version}";
-    sha256 = "G4ykcOvXXnVIQZUYpRIrALtDSsGqxMvDtcmobjjtlKw=";
-    fetchSubmodules = true;
-  };
+    src = fetchFromGitLab {
+      owner = "mattbas";
+      repo = "${pname}";
+      rev = "${version}";
+      sha256 = "G4ykcOvXXnVIQZUYpRIrALtDSsGqxMvDtcmobjjtlKw=";
+      fetchSubmodules = true;
+    };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+    nativeBuildInputs = [
+      cmake
+      wrapQtAppsHook
+    ];
 
-  buildInputs = [
-    zlib
-    potrace
-    # Upstream asks for libav dependency, which is fulfilled by ffmpeg
-    ffmpeg
-    libarchive
-    qtbase
-    qttools
-    qtsvg
-    qtimageformats
-    python3WithLibs
-  ];
+    buildInputs = [
+      zlib
+      potrace
+      # Upstream asks for libav dependency, which is fulfilled by ffmpeg
+      ffmpeg
+      libarchive
+      qtbase
+      qttools
+      qtsvg
+      qtimageformats
+      python3WithLibs
+    ];
 
-  qtWrapperArgs = [ "--prefix PATH : ${python3WithLibs}/bin" ];
+    qtWrapperArgs = [ "--prefix PATH : ${python3WithLibs}/bin" ];
 
-  passthru.tests.version = lib.optionalAttrs stdenv.isLinux
-    (testers.testVersion {
-      package = glaxnimate;
-      command = "${xvfb-run}/bin/xvfb-run glaxnimate --version";
-    });
+    passthru.tests.version = lib.optionalAttrs stdenv.isLinux
+      (testers.testVersion {
+        package = glaxnimate;
+        command = "${xvfb-run}/bin/xvfb-run glaxnimate --version";
+      });
 
-  meta = with lib; {
-    homepage = "https://gitlab.com/mattbas/glaxnimate";
-    description = "Simple vector animation program.";
-    license = licenses.gpl3;
-    maintainers = with maintainers; [ tobiasBora ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://gitlab.com/mattbas/glaxnimate";
+      description = "Simple vector animation program.";
+      license = licenses.gpl3;
+      maintainers = with maintainers; [ tobiasBora ];
+    };
+  }

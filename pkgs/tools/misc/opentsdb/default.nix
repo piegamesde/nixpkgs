@@ -237,53 +237,54 @@ let
       hash = "sha256-ijdaHvmMvA4fbp39DZbZFLdNN60AtL+Bvrd/qPNNM64=";
     }) ];
   };
-in stdenv.mkDerivation rec {
-  pname = "opentsdb";
-  version = "2.4.1";
+in
+  stdenv.mkDerivation rec {
+    pname = "opentsdb";
+    version = "2.4.1";
 
-  src = fetchFromGitHub {
-    owner = "OpenTSDB";
-    repo = "opentsdb";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-899m1H0UCLsI/bnSrNFnnny4MxSw3XBzf7rgDuEajDs=";
-  };
+    src = fetchFromGitHub {
+      owner = "OpenTSDB";
+      repo = "opentsdb";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-899m1H0UCLsI/bnSrNFnnny4MxSw3XBzf7rgDuEajDs=";
+    };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      autoconf
+      automake
+      makeWrapper
+    ];
 
-  buildInputs = [
-    curl
-    jdk
-    nettools
-    python3
-    git
-  ];
+    buildInputs = [
+      curl
+      jdk
+      nettools
+      python3
+      git
+    ];
 
-  preConfigure = ''
-    chmod +x build-aux/fetchdep.sh.in
-    patchShebangs ./build-aux/
-    ./bootstrap
-  '';
+    preConfigure = ''
+      chmod +x build-aux/fetchdep.sh.in
+      patchShebangs ./build-aux/
+      ./bootstrap
+    '';
 
-  preBuild = lib.concatStrings (lib.mapAttrsToList (dir:
-    lib.concatMapStrings (artifact: ''
-      ln -s ${artifact}/share/java/* third_party/${dir}
-    '')) artifacts);
+    preBuild = lib.concatStrings (lib.mapAttrsToList (dir:
+      lib.concatMapStrings (artifact: ''
+        ln -s ${artifact}/share/java/* third_party/${dir}
+      '')) artifacts);
 
-  postInstall = ''
-    wrapProgram $out/bin/tsdb \
-      --set JAVA_HOME "${jre}" \
-      --set JAVA "${jre}/bin/java"
-  '';
+    postInstall = ''
+      wrapProgram $out/bin/tsdb \
+        --set JAVA_HOME "${jre}" \
+        --set JAVA "${jre}/bin/java"
+    '';
 
-  meta = with lib; {
-    description = "Time series database with millisecond precision";
-    homepage = "http://opentsdb.net";
-    license = licenses.lgpl21Plus;
-    platforms = lib.platforms.linux;
-    maintainers = [ ];
-  };
-}
+    meta = with lib; {
+      description = "Time series database with millisecond precision";
+      homepage = "http://opentsdb.net";
+      license = licenses.lgpl21Plus;
+      platforms = lib.platforms.linux;
+      maintainers = [ ];
+    };
+  }

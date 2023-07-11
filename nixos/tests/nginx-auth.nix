@@ -30,7 +30,7 @@ import ./make-test-python.nix ({
                 basicAuth.bob = "pwofb";
               };
             };
-          };
+          } ;
         };
     };
 

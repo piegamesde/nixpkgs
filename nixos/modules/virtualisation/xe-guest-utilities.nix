@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.xe-guest-utilities;
+let
+  cfg = config.services.xe-guest-utilities;
 in {
   options = {
     services.xe-guest-utilities = {

@@ -7,4 +7,5 @@ let
       (map (x: x.pname or null) (pkg.propagatedBuildInputs or [ ]));
     broken = (pkg.meta.hydraPlatforms or [ null ]) == [ ];
   };
-in lib.mapAttrs getDeps pkgs.haskellPackages
+in
+  lib.mapAttrs getDeps pkgs.haskellPackages

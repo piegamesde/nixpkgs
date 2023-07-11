@@ -78,7 +78,7 @@ import ./make-test-python.nix {
         sendTestMailViaDeliveryAgent
         testImap
         testPop
-      ];
+      ] ;
     };
 
   testScript = ''

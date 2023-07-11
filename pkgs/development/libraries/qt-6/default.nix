@@ -167,9 +167,10 @@ let
           fix_qmake_libtool = ./hooks/fix-qmake-libtool.sh;
         };
       } ./hooks/qmake-hook.sh;
-    };
+    } ;
 
   # TODO(@Artturin): convert to makeScopeWithSplicing
   # simple example of how to do that in 5568a4d25ca406809530420996d57e0876ca1a01
   self = lib.makeScope newScope addPackages;
-in self
+in
+  self

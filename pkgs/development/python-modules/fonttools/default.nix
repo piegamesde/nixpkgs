@@ -55,7 +55,9 @@ buildPythonPackage rec {
       pathops = [ skia-pathops ];
       repacker = [ uharfbuzz ];
     };
-  in extras // { all = lib.concatLists (lib.attrValues extras); };
+  in
+    extras // { all = lib.concatLists (lib.attrValues extras); }
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ] ++ lib.concatLists (lib.attrVals ([
     "woff"

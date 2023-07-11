@@ -90,7 +90,7 @@ in {
             "${pkgs.runtimeShell} -c 'echo 1 > /sys/bus/pci/devices/${cfg.device}/${opt.uuid}/remove'";
         };
       }) vgpus;
-    };
+    } ;
   };
 
   meta.maintainers = with maintainers; [ patryk27 ];

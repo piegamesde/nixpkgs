@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.shibboleth-sp;
+let
+  cfg = config.services.shibboleth-sp;
 in {
   options = {
     services.shibboleth-sp = {

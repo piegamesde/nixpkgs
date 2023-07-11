@@ -126,7 +126,7 @@ import ../make-test-python.nix ({
         }: {
           virtualisation.vlans = [ 2 ];
         };
-    };
+    } ;
 
     testScript = ''
       # Minimal test case, checks whether enabling (with invalid config) harms

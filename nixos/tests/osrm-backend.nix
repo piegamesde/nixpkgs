@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
     lib,
     ...
   }:
-  let port = 5000;
+  let
+    port = 5000;
   in {
     name = "osrm-backend";
     meta.maintainers = [ lib.maintainers.erictapen ];
@@ -44,7 +45,9 @@ import ./make-test-python.nix ({
                 cp ${filename}* $out/
               '';
             };
-          in "${osrm-data}/${filename}.osrm";
+          in
+            "${osrm-data}/${filename}.osrm"
+          ;
         };
 
         environment.systemPackages = [ pkgs.jq ];
@@ -63,5 +66,5 @@ import ./make-test-python.nix ({
       assert "Avenue de la Costa" in machine.succeed(
           "curl --fail --silent '${query}' | jq .waypoints[1].name"
       )
-    '';
-  })
+    '' ;
+  } )

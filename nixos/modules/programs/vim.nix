@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.vim;
+let
+  cfg = config.programs.vim;
 in {
   options.programs.vim = {
     defaultEditor = mkOption {

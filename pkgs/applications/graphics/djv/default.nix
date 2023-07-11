@@ -101,74 +101,75 @@ let
     doCheck = true;
   };
 
-in stdenv.mkDerivation rec {
-  pname = "djv";
-  version = djvVersion;
+in
+  stdenv.mkDerivation rec {
+    pname = "djv";
+    version = djvVersion;
 
-  src = djvSrc;
-  patches = [
-    # Pull fix ending upstream inclusion for gcc-12+ support:
-    #   https://github.com/darbyjohnston/DJV/pull/477
-    (fetchpatch {
-      name = "gcc-11-limits.patch";
-      url =
-        "https://github.com/darbyjohnston/DJV/commit/0544ffa1a263a6b8e8518b47277de7601b21b4f4.patch";
-      hash = "sha256-x6ye0xMwTlKyNW4cVFb64RvAayvo71kuOooPj3ROn0g=";
-    })
-    (fetchpatch {
-      name = "gcc-11-IO.patch";
-      url =
-        "https://github.com/darbyjohnston/DJV/commit/ce79f2d2cb35d03322648323858834bff942c792.patch";
-      hash = "sha256-oPbXOnN5Y5QL+bs/bL5eJALu45YHnyTBLQcC8XcJi0c=";
-    })
-    (fetchpatch {
-      name = "gcc-11-sleep_for.patch";
-      url =
-        "https://github.com/darbyjohnston/DJV/commit/6989f43db27f66a7691f6048a2eb3299ef43a92e.patch";
-      hash = "sha256-1kiF3VrZiO+FSoR7NHCbduQ8tMq/Uuu6Z+sQII4xBAw=";
-    })
-  ];
+    src = djvSrc;
+    patches = [
+      # Pull fix ending upstream inclusion for gcc-12+ support:
+      #   https://github.com/darbyjohnston/DJV/pull/477
+      (fetchpatch {
+        name = "gcc-11-limits.patch";
+        url =
+          "https://github.com/darbyjohnston/DJV/commit/0544ffa1a263a6b8e8518b47277de7601b21b4f4.patch";
+        hash = "sha256-x6ye0xMwTlKyNW4cVFb64RvAayvo71kuOooPj3ROn0g=";
+      })
+      (fetchpatch {
+        name = "gcc-11-IO.patch";
+        url =
+          "https://github.com/darbyjohnston/DJV/commit/ce79f2d2cb35d03322648323858834bff942c792.patch";
+        hash = "sha256-oPbXOnN5Y5QL+bs/bL5eJALu45YHnyTBLQcC8XcJi0c=";
+      })
+      (fetchpatch {
+        name = "gcc-11-sleep_for.patch";
+        url =
+          "https://github.com/darbyjohnston/DJV/commit/6989f43db27f66a7691f6048a2eb3299ef43a92e.patch";
+        hash = "sha256-1kiF3VrZiO+FSoR7NHCbduQ8tMq/Uuu6Z+sQII4xBAw=";
+      })
+    ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    alsa-lib
-    libGL
-    libX11
-    libXinerama
-    libXi
-    rapidjson
-    rtaudio
-    ilmbase
-    glm
-    glfw3
-    zlib.dev
-    libpng
-    freetype
-    opencolorio_1
-    djv-deps
-  ];
+    nativeBuildInputs = [ cmake ];
+    buildInputs = [
+      alsa-lib
+      libGL
+      libX11
+      libXinerama
+      libXi
+      rapidjson
+      rtaudio
+      ilmbase
+      glm
+      glfw3
+      zlib.dev
+      libpng
+      freetype
+      opencolorio_1
+      djv-deps
+    ];
 
-  postPatch = ''
-    chmod -R +w .
+    postPatch = ''
+      chmod -R +w .
 
-    # When linking opencolorio statically this results in failing to
-    # pull in opencolorio's dependencies (tixml and yaml libraries). Avoid
-    # this by linking it statically instead.
+      # When linking opencolorio statically this results in failing to
+      # pull in opencolorio's dependencies (tixml and yaml libraries). Avoid
+      # this by linking it statically instead.
 
-    sed -i cmake/Modules/FindOCIO.cmake \
-        -e 's/PATH_SUFFIXES static//' \
-        -e '/OpenColorIO_STATIC/d'
-  '';
+      sed -i cmake/Modules/FindOCIO.cmake \
+          -e 's/PATH_SUFFIXES static//' \
+          -e '/OpenColorIO_STATIC/d'
+    '';
 
-  # GLFW requires a working X11 session.
-  doCheck = false;
+    # GLFW requires a working X11 session.
+    doCheck = false;
 
-  meta = with lib; {
-    description =
-      "A professional review software for VFX, animation, and film production";
-    homepage = "https://darbyjohnston.github.io/DJV/";
-    platforms = platforms.linux;
-    maintainers = [ maintainers.blitz ];
-    license = licenses.bsd3;
-  };
-}
+    meta = with lib; {
+      description =
+        "A professional review software for VFX, animation, and film production";
+      homepage = "https://darbyjohnston.github.io/DJV/";
+      platforms = platforms.linux;
+      maintainers = [ maintainers.blitz ];
+      license = licenses.bsd3;
+    };
+  }

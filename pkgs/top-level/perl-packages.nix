@@ -26,7 +26,8 @@ self:
 
 # cpan2nix assumes that perl-packages.nix will be used only with perl 5.30.3 or above
 assert lib.versionAtLeast perl.version "5.30.3";
-let inherit (lib) maintainers teams;
+let
+  inherit (lib) maintainers teams;
 
 in with self;
 {
@@ -38,9 +39,12 @@ in with self;
   hasPerlModule = drv: drv ? perlModule;
 
   requiredPerlModules = drvs:
-    let modules = lib.filter hasPerlModule drvs;
-    in lib.unique ([ perl ] ++ modules
-      ++ lib.concatLists (lib.catAttrs "requiredPerlModules" modules));
+    let
+      modules = lib.filter hasPerlModule drvs;
+    in
+      lib.unique ([ perl ] ++ modules
+        ++ lib.concatLists (lib.catAttrs "requiredPerlModules" modules))
+  ;
 
   # Convert derivation to a perl module.
   toPerlModule = drv:
@@ -31687,36 +31691,39 @@ in with self;
     };
   };
 
-  TermReadKey = let cross = stdenv.hostPlatform != stdenv.buildPlatform;
-  in buildPerlPackage {
-    pname = "TermReadKey";
-    version = "2.38";
-    src = fetchurl {
-      url = "mirror://cpan/authors/id/J/JS/JSTOWE/TermReadKey-2.38.tar.gz";
-      hash = "sha256-WmRYeNxXCsM2YVgfuwkP8k684X1D6lP9IuEFqFakcpA=";
-    };
+  TermReadKey = let
+    cross = stdenv.hostPlatform != stdenv.buildPlatform;
+  in
+    buildPerlPackage {
+      pname = "TermReadKey";
+      version = "2.38";
+      src = fetchurl {
+        url = "mirror://cpan/authors/id/J/JS/JSTOWE/TermReadKey-2.38.tar.gz";
+        hash = "sha256-WmRYeNxXCsM2YVgfuwkP8k684X1D6lP9IuEFqFakcpA=";
+      };
 
-    # use native libraries from the host when running build commands
-    postConfigure = lib.optionalString cross (let
-      host_perl = perl.perlOnBuild;
-      host_self = perl.perlOnBuild.pkgs.TermReadKey;
-      perl_lib = "${host_perl}/lib/perl5/${host_perl.version}";
-      self_lib = "${host_self}/lib/perl5/site_perl/${host_perl.version}";
-    in ''
-      sed -ie 's|"-I$(INST_ARCHLIB)"|"-I${perl_lib}" "-I${self_lib}"|g' Makefile
-    '');
+      # use native libraries from the host when running build commands
+      postConfigure = lib.optionalString cross (let
+        host_perl = perl.perlOnBuild;
+        host_self = perl.perlOnBuild.pkgs.TermReadKey;
+        perl_lib = "${host_perl}/lib/perl5/${host_perl.version}";
+        self_lib = "${host_self}/lib/perl5/site_perl/${host_perl.version}";
+      in ''
+        sed -ie 's|"-I$(INST_ARCHLIB)"|"-I${perl_lib}" "-I${self_lib}"|g' Makefile
+      '' );
 
-    # TermReadKey uses itself in the build process
-    nativeBuildInputs =
-      lib.optionals cross [ perl.perlOnBuild.pkgs.TermReadKey ];
-    meta = {
-      description = "A perl module for simple terminal control";
-      license = with lib.licenses; [
-        artistic1
-        gpl1Plus
-      ];
-    };
-  };
+      # TermReadKey uses itself in the build process
+      nativeBuildInputs =
+        lib.optionals cross [ perl.perlOnBuild.pkgs.TermReadKey ];
+      meta = {
+        description = "A perl module for simple terminal control";
+        license = with lib.licenses; [
+          artistic1
+          gpl1Plus
+        ];
+      };
+    }
+  ;
 
   TermReadLineGnu = buildPerlPackage {
     pname = "Term-ReadLine-Gnu";

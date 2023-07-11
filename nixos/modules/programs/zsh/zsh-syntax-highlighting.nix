@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.zsh.syntaxHighlighting;
+let
+  cfg = config.programs.zsh.syntaxHighlighting;
 in {
   imports = [
     (mkRenamedOptionModule [

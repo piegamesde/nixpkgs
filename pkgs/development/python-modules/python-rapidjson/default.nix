@@ -30,32 +30,33 @@ let
     cmakeFlags = old.cmakeFlags
       ++ [ "-DCMAKE_CTEST_ARGUMENTS=-E;valgrind_unittest" ];
   });
-in buildPythonPackage rec {
-  version = "1.9";
-  pname = "python-rapidjson";
-  disabled = pythonOlder "3.7";
+in
+  buildPythonPackage rec {
+    version = "1.9";
+    pname = "python-rapidjson";
+    disabled = pythonOlder "3.7";
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-vn01HHES2sYIEzoj9g6VOVZo0JgaB/QDf2Pg6Ir88Bo=";
-  };
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-vn01HHES2sYIEzoj9g6VOVZo0JgaB/QDf2Pg6Ir88Bo=";
+    };
 
-  setupPyBuildFlags = [ "--rj-include-dir=${lib.getDev rapidjson'}/include" ];
+    setupPyBuildFlags = [ "--rj-include-dir=${lib.getDev rapidjson'}/include" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytz
-  ];
-
-  disabledTestPaths = [ "benchmarks" ];
-
-  meta = with lib; {
-    homepage = "https://github.com/python-rapidjson/python-rapidjson";
-    description = "Python wrapper around rapidjson";
-    license = licenses.mit;
-    maintainers = with maintainers; [
-      costrouc
-      dotlambda
+    nativeCheckInputs = [
+      pytestCheckHook
+      pytz
     ];
-  };
-}
+
+    disabledTestPaths = [ "benchmarks" ];
+
+    meta = with lib; {
+      homepage = "https://github.com/python-rapidjson/python-rapidjson";
+      description = "Python wrapper around rapidjson";
+      license = licenses.mit;
+      maintainers = with maintainers; [
+        costrouc
+        dotlambda
+      ];
+    };
+  }

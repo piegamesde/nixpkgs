@@ -2,7 +2,8 @@ import ../make-test-python.nix ({
     pkgs,
     ...
   }:
-  let name = "conduit";
+  let
+    name = "conduit";
   in {
     name = "matrix-conduit";
 
@@ -94,4 +95,4 @@ import ../make-test-python.nix ({
       with subtest("ensure messages can be exchanged"):
             client.succeed("do_test")
     '';
-  })
+  } )

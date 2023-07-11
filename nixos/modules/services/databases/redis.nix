@@ -665,7 +665,7 @@ in {
                   cat ${escapeShellArg conf.requirePassFile}
                 } >> "${redisConfRun}"
               ''}
-            '');
+            '' );
           Type = "notify";
           # User and group
           User = conf.user;

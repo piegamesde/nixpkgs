@@ -88,5 +88,5 @@ args@{
       client.succeed(
           "${withRcloneEnv} ${diffSharedFile}"
       )
-    '';
-  })) args
+    '' ;
+  } )) args

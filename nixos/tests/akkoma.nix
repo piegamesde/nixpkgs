@@ -129,5 +129,5 @@ import ./make-test-python.nix ({
         client.succeed('${sendToot}/bin/sendToot')
         client.succeed('${checkFe}/bin/checkFe')
       '';
-  })
+  } )
 

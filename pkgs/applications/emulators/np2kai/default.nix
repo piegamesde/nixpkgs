@@ -100,88 +100,89 @@ let
   x11Bins = concatStringsSep " " (optionals enable16Bit [ "xnp2kai" ]
     ++ optionals enable32Bit [ "xnp21kai" ]
     ++ optionals enableHAXM [ "xnp21kai_haxm" ]);
-in stdenv.mkDerivation rec {
-  pname = "np2kai";
-  version = "0.86rev22"; # update src.rev to commit rev accordingly
+in
+  stdenv.mkDerivation rec {
+    pname = "np2kai";
+    version = "0.86rev22"; # update src.rev to commit rev accordingly
 
-  src = fetchFromGitHub rec {
-    owner = "AZO234";
-    repo = "NP2kai";
-    rev = "4a317747724669343e4c33ebdd34783fb7043221";
-    sha256 = "0kxysxhx6jyk82mx30ni0ydzmwdcbnlxlnarrlq018rsnwb4md72";
-  };
+    src = fetchFromGitHub rec {
+      owner = "AZO234";
+      repo = "NP2kai";
+      rev = "4a317747724669343e4c33ebdd34783fb7043221";
+      sha256 = "0kxysxhx6jyk82mx30ni0ydzmwdcbnlxlnarrlq018rsnwb4md72";
+    };
 
-  configurePhase = ''
-    export GIT_VERSION=${builtins.substring 0 7 src.rev}
-    buildFlags="$buildFlags ''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
-  '' + optionalString enableX11 ''
-    cd x11
-    substituteInPlace Makefile.am \
-      --replace 'GIT_VERSION :=' 'GIT_VERSION ?='
-    ./autogen.sh ${x11ConfigureFlags}
-    ./configure ${x11ConfigureFlags}
-    cd ..
-  '';
-
-  nativeBuildInputs = sdlDepsBuildonly ++ optionals enableX11 [
-    automake
-    autoconf
-    autoconf-archive
-    libtool
-    pkg-config
-    unzip
-    nasm
-  ];
-
-  buildInputs = sdlDepsTarget ++ optionals enableX11 [
-    gtk2
-    libICE
-    libSM
-    libusb1
-    libXxf86vm
-  ];
-
-  enableParallelBuilding = true;
-
-  # TODO Remove when bumping past rev22
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.hostPlatform.isDarwin "-D_DARWIN_C_SOURCE";
-
-  buildPhase = optionalString enableSDL ''
-    cd sdl2
-    for mkfile in ${sdlMakefiles}; do
-      substituteInPlace $mkfile \
+    configurePhase = ''
+      export GIT_VERSION=${builtins.substring 0 7 src.rev}
+      buildFlags="$buildFlags ''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
+    '' + optionalString enableX11 ''
+      cd x11
+      substituteInPlace Makefile.am \
         --replace 'GIT_VERSION :=' 'GIT_VERSION ?='
-      echo make -f $mkfile $buildFlags ${sdlBuildFlags} clean
-      make -f $mkfile $buildFlags ${sdlBuildFlags} clean
-      make -f $mkfile $buildFlags ${sdlBuildFlags}
-    done
-    cd ..
-  '' + optionalString enableX11 ''
-    cd x11
-    make $buildFlags ${x11BuildFlags}
-    cd ..
-  '';
+      ./autogen.sh ${x11ConfigureFlags}
+      ./configure ${x11ConfigureFlags}
+      cd ..
+    '';
 
-  installPhase = optionalString enableSDL ''
-    cd sdl2
-    for emu in ${sdlBins}; do
-      install -D -m 755 $emu $out/bin/$emu
-    done
-    cd ..
-  '' + optionalString enableX11 ''
-    cd x11
-    for emu in ${x11Bins}; do
-      install -D -m 755 $emu $out/bin/$emu
-    done
-    cd ..
-  '';
+    nativeBuildInputs = sdlDepsBuildonly ++ optionals enableX11 [
+      automake
+      autoconf
+      autoconf-archive
+      libtool
+      pkg-config
+      unzip
+      nasm
+    ];
 
-  meta = with lib; {
-    description = "A PC-9801 series emulator";
-    homepage = "https://github.com/AZO234/NP2kai";
-    license = licenses.mit;
-    maintainers = with maintainers; [ OPNA2608 ];
-    platforms = platforms.x86;
-  };
-}
+    buildInputs = sdlDepsTarget ++ optionals enableX11 [
+      gtk2
+      libICE
+      libSM
+      libusb1
+      libXxf86vm
+    ];
+
+    enableParallelBuilding = true;
+
+    # TODO Remove when bumping past rev22
+    env.NIX_CFLAGS_COMPILE =
+      lib.optionalString stdenv.hostPlatform.isDarwin "-D_DARWIN_C_SOURCE";
+
+    buildPhase = optionalString enableSDL ''
+      cd sdl2
+      for mkfile in ${sdlMakefiles}; do
+        substituteInPlace $mkfile \
+          --replace 'GIT_VERSION :=' 'GIT_VERSION ?='
+        echo make -f $mkfile $buildFlags ${sdlBuildFlags} clean
+        make -f $mkfile $buildFlags ${sdlBuildFlags} clean
+        make -f $mkfile $buildFlags ${sdlBuildFlags}
+      done
+      cd ..
+    '' + optionalString enableX11 ''
+      cd x11
+      make $buildFlags ${x11BuildFlags}
+      cd ..
+    '';
+
+    installPhase = optionalString enableSDL ''
+      cd sdl2
+      for emu in ${sdlBins}; do
+        install -D -m 755 $emu $out/bin/$emu
+      done
+      cd ..
+    '' + optionalString enableX11 ''
+      cd x11
+      for emu in ${x11Bins}; do
+        install -D -m 755 $emu $out/bin/$emu
+      done
+      cd ..
+    '';
+
+    meta = with lib; {
+      description = "A PC-9801 series emulator";
+      homepage = "https://github.com/AZO234/NP2kai";
+      license = licenses.mit;
+      maintainers = with maintainers; [ OPNA2608 ];
+      platforms = platforms.x86;
+    };
+  }

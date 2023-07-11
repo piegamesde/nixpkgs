@@ -96,4 +96,4 @@ import ./make-test-python.nix ({
           machine.succeed("lxc remote add img https://acme.test --protocol=simplestreams")
           machine.succeed("lxc image list img: >&2")
     '';
-  })
+  } )

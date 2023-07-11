@@ -40,8 +40,10 @@ makeScope newScope (self:
         # Check whether a derivation is an octave package
         hasOctavePackage = drv: drv ? isOctavePackage;
         packages = filter hasOctavePackage drvs;
-      in unique
-      (packages ++ concatLists (catAttrs "requiredOctavePackages" packages));
+      in
+        unique
+        (packages ++ concatLists (catAttrs "requiredOctavePackages" packages))
+    ;
 
   in {
 
@@ -216,4 +218,4 @@ makeScope newScope (self:
       inherit (pkgs) zeromq autoreconfHook;
     };
 
-  })
+  } )

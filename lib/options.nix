@@ -142,23 +142,28 @@ in rec {
       defaultValue =
         attrByPath default' (throw "${defaultPath} cannot be found in pkgs")
         pkgs;
-    in mkOption {
-      defaultText = literalExpression ("pkgs." + defaultPath);
-      type = lib.types.package;
-      description = "The ${name'} package to use."
-        + (if extraDescription == "" then "" else " ") + extraDescription;
-      ${if default != null then "default" else null} = defaultValue;
-      ${if example != null then "example" else null} = literalExpression
-        (if isList example then
-          "pkgs." + concatStringsSep "." example
-        else
-          example);
-    };
+    in
+      mkOption {
+        defaultText = literalExpression ("pkgs." + defaultPath);
+        type = lib.types.package;
+        description = "The ${name'} package to use."
+          + (if extraDescription == "" then "" else " ") + extraDescription;
+        ${if default != null then "default" else null} = defaultValue;
+        ${if example != null then "example" else null} = literalExpression
+          (if isList example then
+            "pkgs." + concatStringsSep "." example
+          else
+            example);
+      }
+  ;
 
   # Like mkPackageOption, but emit an mdDoc description instead of DocBook.
   mkPackageOptionMD = pkgs: name: extra:
-    let option = mkPackageOption pkgs name extra;
-    in option // { description = lib.mdDoc option.description; };
+    let
+      option = mkPackageOption pkgs name extra;
+    in
+      option // { description = lib.mdDoc option.description; }
+  ;
 
   /* This option accepts anything, but it does not produce any result.
 
@@ -183,7 +188,8 @@ in rec {
     } // attrs);
 
   mergeDefaultOption = loc: defs:
-    let list = getValues defs;
+    let
+      list = getValues defs;
     in if length list == 1 then
       head list
     else if all isFunction list then
@@ -298,14 +304,16 @@ in rec {
             inherit (opt) relatedPackages;
           };
 
-        subOptions = let ss = opt.type.getSubOptions opt.loc;
+        subOptions = let
+          ss = opt.type.getSubOptions opt.loc;
         in if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ];
         subOptionsVisible = docOption.visible && opt.visible or null
           != "shallow";
         # To find infinite recursion in NixOS option docs:
         # builtins.trace opt.loc
-      in [ docOption ] ++ optionals subOptionsVisible subOptions)
-    (collect isOption options);
+      in
+        [ docOption ] ++ optionals subOptionsVisible subOptions
+    ) (collect isOption options);
 
   /* This function recursively removes all derivation attributes from
      `x` except for the `name` attribute.
@@ -426,7 +434,9 @@ in rec {
           part
         else
           lib.strings.escapeNixIdentifier part;
-    in (concatStringsSep ".") (map escapeOptionPart parts);
+    in
+      (concatStringsSep ".") (map escapeOptionPart parts)
+  ;
   showFiles = files: concatStringsSep " and " (map (f: "`${f}'") files);
 
   showDefs = defs:
@@ -454,7 +464,7 @@ in rec {
             ": " + value;
       in ''
 
-        - In `${def.file}'${result}'') defs;
+        - In `${def.file}'${result}'' ) defs;
 
   showOptionWithDefLocs = opt: ''
     ${showOption opt.loc}, with values defined in:

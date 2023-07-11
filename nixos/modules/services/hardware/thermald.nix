@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.thermald;
+let
+  cfg = config.services.thermald;
 in {
   ###### interface
   options = {

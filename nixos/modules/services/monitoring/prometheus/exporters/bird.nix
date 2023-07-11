@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.bird;
+let
+  cfg = config.services.prometheus.exporters.bird;
 in {
   port = 9324;
   extraOpts = {

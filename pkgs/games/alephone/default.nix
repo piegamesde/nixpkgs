@@ -38,8 +38,11 @@ let
     version = "1.4";
 
     src = fetchurl {
-      url = let date = "20210408";
-      in "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${date}/AlephOne-${date}.tar.bz2";
+      url = let
+        date = "20210408";
+      in
+        "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${date}/AlephOne-${date}.tar.bz2"
+      ;
       sha256 = "sha256-tMwATUhUpo8W2oSWxGSZcAHVkj1PWEvUR/rpMZwWCWA=";
     };
 
@@ -94,49 +97,50 @@ let
     };
   };
 
-in self // {
-  makeWrapper = {
-      pname,
-      desktopName,
-      version,
-      zip,
-      meta,
-      icon ? alephone.icons + "/alephone.png",
-      ...
-    }@extraArgs:
-    stdenv.mkDerivation ({
-      inherit pname version;
+in
+  self // {
+    makeWrapper = {
+        pname,
+        desktopName,
+        version,
+        zip,
+        meta,
+        icon ? alephone.icons + "/alephone.png",
+        ...
+      }@extraArgs:
+      stdenv.mkDerivation ({
+        inherit pname version;
 
-      desktopItem = makeDesktopItem {
-        name = desktopName;
-        exec = pname;
-        genericName = pname;
-        categories = [ "Game" ];
-        comment = meta.description;
-        inherit desktopName icon;
-      };
+        desktopItem = makeDesktopItem {
+          name = desktopName;
+          exec = pname;
+          genericName = pname;
+          categories = [ "Game" ];
+          comment = meta.description;
+          inherit desktopName icon;
+        };
 
-      src = zip;
+        src = zip;
 
-      nativeBuildInputs = [
-        makeWrapper
-        unzip
-      ];
+        nativeBuildInputs = [
+          makeWrapper
+          unzip
+        ];
 
-      dontConfigure = true;
-      dontBuild = true;
+        dontConfigure = true;
+        dontBuild = true;
 
-      installPhase = ''
-        mkdir -p $out/bin $out/data/$pname $out/share/applications
-        cp -a * $out/data/$pname
-        cp $desktopItem/share/applications/* $out/share/applications
-        makeWrapper ${alephone}/bin/alephone $out/bin/$pname \
-          --add-flags $out/data/$pname
-      '';
-    } // extraArgs // {
-      meta = alephone.meta // {
-        license = lib.licenses.free;
-        hydraPlatforms = [ ];
-      } // meta;
-    });
-}
+        installPhase = ''
+          mkdir -p $out/bin $out/data/$pname $out/share/applications
+          cp -a * $out/data/$pname
+          cp $desktopItem/share/applications/* $out/share/applications
+          makeWrapper ${alephone}/bin/alephone $out/bin/$pname \
+            --add-flags $out/data/$pname
+        '';
+      } // extraArgs // {
+        meta = alephone.meta // {
+          license = lib.licenses.free;
+          hydraPlatforms = [ ];
+        } // meta;
+      });
+  }

@@ -28,49 +28,50 @@ let
     display_name = "Ansible";
     language = "ansible";
   });
-in buildPythonPackage rec {
-  pname = "ansible-kernel";
-  version = "1.0.0";
+in
+  buildPythonPackage rec {
+    pname = "ansible-kernel";
+    version = "1.0.0";
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-UJjm9FpmXSznXtaIR2rVv5YJS/H83FvRkNz09vwoe0c=";
-  };
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-UJjm9FpmXSznXtaIR2rVv5YJS/H83FvRkNz09vwoe0c=";
+    };
 
-  propagatedBuildInputs = [
-    ipywidgets
-    six
-    docopt
-    tqdm
-    jupyter
-    psutil
-    pyyaml
-    ansible-runner
-    ansible
-  ];
+    propagatedBuildInputs = [
+      ipywidgets
+      six
+      docopt
+      tqdm
+      jupyter
+      psutil
+      pyyaml
+      ansible-runner
+      ansible
+    ];
 
-  postPatch = ''
-    # remove when merged
-    # https://github.com/ansible/ansible-jupyter-kernel/pull/82
-    touch LICENSE.md
+    postPatch = ''
+      # remove when merged
+      # https://github.com/ansible/ansible-jupyter-kernel/pull/82
+      touch LICENSE.md
 
-    # remove custom install
-    sed -i "s/cmdclass={'install': Installer},//" setup.py
-  '';
+      # remove custom install
+      sed -i "s/cmdclass={'install': Installer},//" setup.py
+    '';
 
-  # tests hang with launched kernel
-  doCheck = false;
+    # tests hang with launched kernel
+    doCheck = false;
 
-  # install kernel manually
-  postInstall = ''
-    mkdir -p $out/share/jupyter/kernels/ansible/
-    ln -s ${kernelSpecFile} $out/share/jupyter/kernels/ansible/kernel.json
-  '';
+    # install kernel manually
+    postInstall = ''
+      mkdir -p $out/share/jupyter/kernels/ansible/
+      ln -s ${kernelSpecFile} $out/share/jupyter/kernels/ansible/kernel.json
+    '';
 
-  meta = with lib; {
-    description = "An Ansible kernel for Jupyter";
-    homepage = "https://github.com/ansible/ansible-jupyter-kernel";
-    license = licenses.asl20;
-    maintainers = [ maintainers.costrouc ];
-  };
-}
+    meta = with lib; {
+      description = "An Ansible kernel for Jupyter";
+      homepage = "https://github.com/ansible/ansible-jupyter-kernel";
+      license = licenses.asl20;
+      maintainers = [ maintainers.costrouc ];
+    };
+  }

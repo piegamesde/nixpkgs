@@ -11,4 +11,5 @@ let
 
     wf-shell = callPackage ./wf-shell.nix { };
   };
-in self
+in
+  self

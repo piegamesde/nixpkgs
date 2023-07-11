@@ -117,177 +117,178 @@ let
       mv node_modules $out
     '';
   };
-in python3.pkgs.buildPythonApplication {
-  inherit pname version src;
+in
+  python3.pkgs.buildPythonApplication {
+    inherit pname version src;
 
-  outputs = [
-    "out"
-    "doc"
-    "man"
-  ];
-
-  patches = [
-    ./patches/gl-fixup.patch
-    ./patches/no-update-check.patch
-    ./patches/0001-Skip-formatting-python-code.patch
-  ];
-
-  inherit cargoDeps;
-
-  nativeBuildInputs = [
-    fakeGit
-    fixup_yarn_lock
-    offlineYarn
-
-    installShellFiles
-    rustPlatform.rust.cargo
-    rustPlatform.cargoSetupHook
-    ninja
-    qt6.wrapQtAppsHook
-    rsync
-  ] ++ lib.optional stdenv.isDarwin swift;
-  nativeCheckInputs = with python3.pkgs; [
-    pytest
-    mock
-    astroid
-  ];
-
-  buildInputs = [ qt6.qtbase ] ++ lib.optional stdenv.isLinux qt6.qtwayland;
-  propagatedBuildInputs = with python3.pkgs;
-    [
-      # This rather long list came from running:
-      #    grep --no-filename -oE "^[^ =]*" python/{requirements.base.txt,requirements.bundle.txt,requirements.qt6_4.txt} | \
-      #      sort | uniq | grep -v "^#$"
-      # in their repo at the git tag for this version
-      # There's probably a more elegant way, but the above extracted all the
-      # names, without version numbers, of their python dependencies. The hope is
-      # that nixpkgs versions are "close enough"
-      # I then removed the ones the check phase failed on (pythonCatchConflictsPhase)
-      beautifulsoup4
-      certifi
-      charset-normalizer
-      click
-      colorama
-      decorator
-      distro
-      flask
-      flask-cors
-      idna
-      importlib-metadata
-      itsdangerous
-      jinja2
-      jsonschema
-      markdown
-      markupsafe
-      orjson
-      pep517
-      python3.pkgs.protobuf
-      pyparsing
-      pyqt6
-      pyqt6-sip
-      pyqt6-webengine
-      pyrsistent
-      pysocks
-      requests
-      send2trash
-      six
-      soupsieve
-      urllib3
-      waitress
-      werkzeug
-      zipp
-    ] ++ lib.optionals stdenv.isDarwin [
-      AVKit
-      CoreAudio
+    outputs = [
+      "out"
+      "doc"
+      "man"
     ];
 
-  # Activate optimizations
-  RELEASE = true;
+    patches = [
+      ./patches/gl-fixup.patch
+      ./patches/no-update-check.patch
+      ./patches/0001-Skip-formatting-python-code.patch
+    ];
 
-  PROTOC_BINARY = lib.getExe protobuf;
-  NODE_BINARY = lib.getExe nodejs;
-  YARN_BINARY = lib.getExe offlineYarn;
-  PYTHON_BINARY = lib.getExe python3;
+    inherit cargoDeps;
 
-  inherit yarnOfflineCache;
-  dontUseNinjaInstall = false;
+    nativeBuildInputs = [
+      fakeGit
+      fixup_yarn_lock
+      offlineYarn
 
-  buildPhase = ''
-    export RUST_BACKTRACE=1
-    export RUST_LOG=debug
+      installShellFiles
+      rustPlatform.rust.cargo
+      rustPlatform.cargoSetupHook
+      ninja
+      qt6.wrapQtAppsHook
+      rsync
+    ] ++ lib.optional stdenv.isDarwin swift;
+    nativeCheckInputs = with python3.pkgs; [
+      pytest
+      mock
+      astroid
+    ];
 
-    mkdir -p out/pylib/anki \
-             .git
+    buildInputs = [ qt6.qtbase ] ++ lib.optional stdenv.isLinux qt6.qtwayland;
+    propagatedBuildInputs = with python3.pkgs;
+      [
+        # This rather long list came from running:
+        #    grep --no-filename -oE "^[^ =]*" python/{requirements.base.txt,requirements.bundle.txt,requirements.qt6_4.txt} | \
+        #      sort | uniq | grep -v "^#$"
+        # in their repo at the git tag for this version
+        # There's probably a more elegant way, but the above extracted all the
+        # names, without version numbers, of their python dependencies. The hope is
+        # that nixpkgs versions are "close enough"
+        # I then removed the ones the check phase failed on (pythonCatchConflictsPhase)
+        beautifulsoup4
+        certifi
+        charset-normalizer
+        click
+        colorama
+        decorator
+        distro
+        flask
+        flask-cors
+        idna
+        importlib-metadata
+        itsdangerous
+        jinja2
+        jsonschema
+        markdown
+        markupsafe
+        orjson
+        pep517
+        python3.pkgs.protobuf
+        pyparsing
+        pyqt6
+        pyqt6-sip
+        pyqt6-webengine
+        pyrsistent
+        pysocks
+        requests
+        send2trash
+        six
+        soupsieve
+        urllib3
+        waitress
+        werkzeug
+        zipp
+      ] ++ lib.optionals stdenv.isDarwin [
+        AVKit
+        CoreAudio
+      ];
 
-    echo ${builtins.substring 0 8 rev} > out/buildhash
-    touch out/env
-    touch .git/HEAD
+    # Activate optimizations
+    RELEASE = true;
 
-    ln -vsf ${pyEnv} ./out/pyenv
-    rsync --chmod +w -avP ${anki-nodemodules}/ out/node_modules/
-    ln -vsf out/node_modules node_modules
+    PROTOC_BINARY = lib.getExe protobuf;
+    NODE_BINARY = lib.getExe nodejs;
+    YARN_BINARY = lib.getExe offlineYarn;
+    PYTHON_BINARY = lib.getExe python3;
 
-    export HOME=$NIX_BUILD_TOP
-    yarn config --offline set yarn-offline-mirror $yarnOfflineCache
-    fixup_yarn_lock yarn.lock
+    inherit yarnOfflineCache;
+    dontUseNinjaInstall = false;
 
-    patchShebangs ./ninja
-    PIP_USER=1 ./ninja build wheels
-  '';
+    buildPhase = ''
+      export RUST_BACKTRACE=1
+      export RUST_LOG=debug
 
-  # tests fail with to many open files
-  # TODO: verify if this is still true (I can't, no mac)
-  doCheck = !stdenv.isDarwin;
-  # mimic https://github.com/ankitects/anki/blob/76d8807315fcc2675e7fa44d9ddf3d4608efc487/build/ninja_gen/src/python.rs#L232-L250
-  checkPhase = ''
-    HOME=$TMP ANKI_TEST_MODE=1 PYTHONPATH=$PYTHONPATH:$PWD/out/pylib \
-      pytest -p no:cacheprovider pylib/tests
-    HOME=$TMP ANKI_TEST_MODE=1 PYTHONPATH=$PYTHONPATH:$PWD/out/pylib:$PWD/pylib:$PWD/out/qt \
-      pytest -p no:cacheprovider qt/tests
-  '';
+      mkdir -p out/pylib/anki \
+               .git
 
-  preInstall = ''
-    mkdir dist
-    mv out/wheels/* dist
-  '';
+      echo ${builtins.substring 0 8 rev} > out/buildhash
+      touch out/env
+      touch .git/HEAD
 
-  postInstall = ''
-    install -D -t $out/share/applications qt/bundle/lin/anki.desktop
-    install -D -t $doc/share/doc/anki README* LICENSE*
-    install -D -t $out/share/mime/packages qt/bundle/lin/anki.xml
-    install -D -t $out/share/pixmaps qt/bundle/lin/anki.{png,xpm}
-    installManPage qt/bundle/lin/anki.1
-  '';
+      ln -vsf ${pyEnv} ./out/pyenv
+      rsync --chmod +w -avP ${anki-nodemodules}/ out/node_modules/
+      ln -vsf out/node_modules node_modules
 
-  dontWrapQtApps = true;
-  preFixup = ''
-    makeWrapperArgs+=(
-      "''${qtWrapperArgs[@]}"
-      --prefix PATH ':' "${lame}/bin:${mpv-unwrapped}/bin"
-    )
-  '';
+      export HOME=$NIX_BUILD_TOP
+      yarn config --offline set yarn-offline-mirror $yarnOfflineCache
+      fixup_yarn_lock yarn.lock
 
-  meta = with lib; {
-    homepage = "https://apps.ankiweb.net/";
-    description = "Spaced repetition flashcard program";
-    longDescription = ''
-      Anki is a program which makes remembering things easy. Because it is a lot
-      more efficient than traditional study methods, you can either greatly
-      decrease your time spent studying, or greatly increase the amount you learn.
-
-      Anyone who needs to remember things in their daily life can benefit from
-      Anki. Since it is content-agnostic and supports images, audio, videos and
-      scientific markup (via LaTeX), the possibilities are endless. For example:
-      learning a language, studying for medical and law exams, memorizing
-      people's names and faces, brushing up on geography, mastering long poems,
-      or even practicing guitar chords!
+      patchShebangs ./ninja
+      PIP_USER=1 ./ninja build wheels
     '';
-    license = licenses.agpl3Plus;
-    platforms = platforms.mesaPlatforms;
-    maintainers = with maintainers; [
-      oxij
-      Profpatsch
-      euank
-    ];
-  };
-}
+
+    # tests fail with to many open files
+    # TODO: verify if this is still true (I can't, no mac)
+    doCheck = !stdenv.isDarwin;
+    # mimic https://github.com/ankitects/anki/blob/76d8807315fcc2675e7fa44d9ddf3d4608efc487/build/ninja_gen/src/python.rs#L232-L250
+    checkPhase = ''
+      HOME=$TMP ANKI_TEST_MODE=1 PYTHONPATH=$PYTHONPATH:$PWD/out/pylib \
+        pytest -p no:cacheprovider pylib/tests
+      HOME=$TMP ANKI_TEST_MODE=1 PYTHONPATH=$PYTHONPATH:$PWD/out/pylib:$PWD/pylib:$PWD/out/qt \
+        pytest -p no:cacheprovider qt/tests
+    '';
+
+    preInstall = ''
+      mkdir dist
+      mv out/wheels/* dist
+    '';
+
+    postInstall = ''
+      install -D -t $out/share/applications qt/bundle/lin/anki.desktop
+      install -D -t $doc/share/doc/anki README* LICENSE*
+      install -D -t $out/share/mime/packages qt/bundle/lin/anki.xml
+      install -D -t $out/share/pixmaps qt/bundle/lin/anki.{png,xpm}
+      installManPage qt/bundle/lin/anki.1
+    '';
+
+    dontWrapQtApps = true;
+    preFixup = ''
+      makeWrapperArgs+=(
+        "''${qtWrapperArgs[@]}"
+        --prefix PATH ':' "${lame}/bin:${mpv-unwrapped}/bin"
+      )
+    '';
+
+    meta = with lib; {
+      homepage = "https://apps.ankiweb.net/";
+      description = "Spaced repetition flashcard program";
+      longDescription = ''
+        Anki is a program which makes remembering things easy. Because it is a lot
+        more efficient than traditional study methods, you can either greatly
+        decrease your time spent studying, or greatly increase the amount you learn.
+
+        Anyone who needs to remember things in their daily life can benefit from
+        Anki. Since it is content-agnostic and supports images, audio, videos and
+        scientific markup (via LaTeX), the possibilities are endless. For example:
+        learning a language, studying for medical and law exams, memorizing
+        people's names and faces, brushing up on geography, mastering long poems,
+        or even practicing guitar chords!
+      '';
+      license = licenses.agpl3Plus;
+      platforms = platforms.mesaPlatforms;
+      maintainers = with maintainers; [
+        oxij
+        Profpatsch
+        euank
+      ];
+    };
+  }

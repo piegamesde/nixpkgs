@@ -89,75 +89,76 @@ let
         ++ [ tamarin-prover-theory ];
     });
 
-in mkDerivation (common "tamarin-prover" src // {
-  isLibrary = false;
-  isExecutable = true;
+in
+  mkDerivation (common "tamarin-prover" src // {
+    isLibrary = false;
+    isExecutable = true;
 
-  patches = [
-    # Backport of https://github.com/tamarin-prover/tamarin-prover/pull/536 to 1.6.1
-    (fetchpatch {
-      url =
-        "https://github.com/tamarin-prover/tamarin-prover/commit/95fbace0c5cbea57b5f320f6bb4d0387a4beab8d.patch";
-      sha256 = "sha256-Wjf7C208kcskEN1op//HQZnhoZopKQS42JvE8kV5NhI=";
-    })
-  ];
+    patches = [
+      # Backport of https://github.com/tamarin-prover/tamarin-prover/pull/536 to 1.6.1
+      (fetchpatch {
+        url =
+          "https://github.com/tamarin-prover/tamarin-prover/commit/95fbace0c5cbea57b5f320f6bb4d0387a4beab8d.patch";
+        sha256 = "sha256-Wjf7C208kcskEN1op//HQZnhoZopKQS42JvE8kV5NhI=";
+      })
+    ];
 
-  # strip out unneeded deps manually
-  doHaddock = false;
-  enableSharedExecutables = false;
-  postFixup = "rm -rf $out/lib $out/nix-support $out/share/doc";
+    # strip out unneeded deps manually
+    doHaddock = false;
+    enableSharedExecutables = false;
+    postFixup = "rm -rf $out/lib $out/nix-support $out/share/doc";
 
-  # wrap the prover to be sure it can find maude, sapic, etc
-  executableToolDepends = [
-    makeWrapper
-    which
-    maude
-    graphviz
-  ];
-  postInstall = ''
-    wrapProgram $out/bin/tamarin-prover \
-  '' + lib.optionalString stdenv.isLinux ''
-    --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive" \
-  '' + ''
-      --prefix PATH : ${
-        lib.makeBinPath [
-          which
-          maude
-          graphviz
-        ]
-      }
-    # so that the package can be used as a vim plugin to install syntax coloration
-    install -Dt $out/share/vim-plugins/tamarin-prover/syntax/ etc/syntax/spthy.vim
-    install etc/filetype.vim -D $out/share/vim-plugins/tamarin-prover/ftdetect/tamarin.vim
-    mkdir -p $out/share/nvim
-    ln -s $out/share/vim-plugins/tamarin-prover $out/share/nvim/site
-    # Emacs SPTHY major mode
-    install -Dt $out/share/emacs/site-lisp etc/spthy-mode.el
-  '';
+    # wrap the prover to be sure it can find maude, sapic, etc
+    executableToolDepends = [
+      makeWrapper
+      which
+      maude
+      graphviz
+    ];
+    postInstall = ''
+      wrapProgram $out/bin/tamarin-prover \
+    '' + lib.optionalString stdenv.isLinux ''
+      --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive" \
+    '' + ''
+        --prefix PATH : ${
+          lib.makeBinPath [
+            which
+            maude
+            graphviz
+          ]
+        }
+      # so that the package can be used as a vim plugin to install syntax coloration
+      install -Dt $out/share/vim-plugins/tamarin-prover/syntax/ etc/syntax/spthy.vim
+      install etc/filetype.vim -D $out/share/vim-plugins/tamarin-prover/ftdetect/tamarin.vim
+      mkdir -p $out/share/nvim
+      ln -s $out/share/vim-plugins/tamarin-prover $out/share/nvim/site
+      # Emacs SPTHY major mode
+      install -Dt $out/share/emacs/site-lisp etc/spthy-mode.el
+    '';
 
-  checkPhase = "./dist/build/tamarin-prover/tamarin-prover test";
+    checkPhase = "./dist/build/tamarin-prover/tamarin-prover test";
 
-  executableHaskellDepends = (with haskellPackages; [
-    binary-instances
-    binary-orphans
-    blaze-html
-    conduit
-    file-embed
-    gitrev
-    http-types
-    lifted-base
-    monad-control
-    resourcet
-    shakespeare
-    threads
-    wai
-    warp
-    yesod-core
-    yesod-static
-  ]) ++ [
-    tamarin-prover-utils
-    tamarin-prover-sapic
-    tamarin-prover-term
-    tamarin-prover-theory
-  ];
-})
+    executableHaskellDepends = (with haskellPackages; [
+      binary-instances
+      binary-orphans
+      blaze-html
+      conduit
+      file-embed
+      gitrev
+      http-types
+      lifted-base
+      monad-control
+      resourcet
+      shakespeare
+      threads
+      wai
+      warp
+      yesod-core
+      yesod-static
+    ]) ++ [
+      tamarin-prover-utils
+      tamarin-prover-sapic
+      tamarin-prover-term
+      tamarin-prover-theory
+    ];
+  })

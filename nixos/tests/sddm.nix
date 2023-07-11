@@ -29,7 +29,8 @@ let
           nodes,
           ...
         }:
-        let user = nodes.machine.config.users.users.alice;
+        let
+          user = nodes.machine.config.users.users.alice;
         in ''
           start_all()
           machine.wait_for_text("(?i)select your user")
@@ -38,7 +39,7 @@ let
           machine.wait_for_file("${user.home}/.Xauthority")
           machine.succeed("xauth merge ${user.home}/.Xauthority")
           machine.wait_for_window("^IceWM ")
-        '';
+        '' ;
     };
 
     autoLogin = {
@@ -65,13 +66,15 @@ let
           nodes,
           ...
         }:
-        let user = nodes.machine.config.users.users.alice;
+        let
+          user = nodes.machine.config.users.users.alice;
         in ''
           start_all()
           machine.wait_for_file("${user.home}/.Xauthority")
           machine.succeed("xauth merge ${user.home}/.Xauthority")
           machine.wait_for_window("^IceWM ")
-        '';
+        '' ;
     };
   };
-in lib.mapAttrs (lib.const makeTest) tests
+in
+  lib.mapAttrs (lib.const makeTest) tests

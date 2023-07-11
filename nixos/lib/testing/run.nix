@@ -4,7 +4,8 @@
   lib,
   ...
 }:
-let inherit (lib) types mkOption mdDoc;
+let
+  inherit (lib) types mkOption mdDoc;
 in {
   options = {
     passthru = mkOption {

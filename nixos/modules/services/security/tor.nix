@@ -18,21 +18,25 @@ let
     See [torrc manual](https://2019.www.torproject.org/docs/tor-manual.html.en#${option}).
   '';
   bindsPrivilegedPort = any (p0:
-    let p1 = if p0 ? "port" then p0.port else p0;
+    let
+      p1 = if p0 ? "port" then p0.port else p0;
     in if p1 == "auto" then
       false
     else
-      let p2 = if isInt p1 then p1 else toInt p1;
-      in p1 != null && 0 < p2 && p2 < 1024) (flatten [
-        cfg.settings.ORPort
-        cfg.settings.DirPort
-        cfg.settings.DNSPort
-        cfg.settings.ExtORPort
-        cfg.settings.HTTPTunnelPort
-        cfg.settings.NATDPort
-        cfg.settings.SOCKSPort
-        cfg.settings.TransPort
-      ]);
+      let
+        p2 = if isInt p1 then p1 else toInt p1;
+      in
+        p1 != null && 0 < p2 && p2 < 1024
+  ) (flatten [
+    cfg.settings.ORPort
+    cfg.settings.DirPort
+    cfg.settings.DNSPort
+    cfg.settings.ExtORPort
+    cfg.settings.HTTPTunnelPort
+    cfg.settings.NATDPort
+    cfg.settings.SOCKSPort
+    cfg.settings.TransPort
+  ]);
   optionBool = optionName:
     mkOption {
       type = with types; nullOr bool;
@@ -216,7 +220,7 @@ let
                 config = {
                   flags = filter (name: config.${name} == true) flags;
                 };
-              }))
+              } ))
           ]))
         ];
       description = lib.mdDoc (descriptionGeneric optionName);
@@ -994,7 +998,7 @@ in {
                       config = {
                         flags = filter (name: config.${name} == true) flags;
                       };
-                    }))
+                    } ))
                 ]))
               ];
           };
@@ -1414,7 +1418,8 @@ in {
                 esac
               '') cfg.relay.onionServices ++ mapAttrsToList (name: onion:
                 imap0 (i: prvKeyPath:
-                  let hostname = removeSuffix ".onion" name;
+                  let
+                    hostname = removeSuffix ".onion" name;
                   in ''
                     printf "%s:" ${escapeShellArg hostname} | cat - ${
                       escapeShellArg prvKeyPath
@@ -1423,7 +1428,7 @@ in {
                      ${runDir}/ClientOnionAuthDir/${escapeShellArg hostname}.${
                        toString i
                      }.auth_private
-                  '') onion.clientAuthorizations) cfg.client.onionServices))))
+                  '' ) onion.clientAuthorizations) cfg.client.onionServices))))
         ];
         ExecStart = "${cfg.package}/bin/tor -f ${torrc}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

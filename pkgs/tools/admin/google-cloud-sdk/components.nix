@@ -31,7 +31,9 @@ let
     let
       arch' = arches.${arch} or (throw "unsupported architecture '${arch}'");
       os' = oses.${os} or (throw "unsupported OS '${os}'");
-    in "${arch'}-${os'}";
+    in
+      "${arch'}-${os'}"
+  ;
 
   # All architectures that are supported by GCS
   allArches = builtins.attrNames arches;
@@ -97,27 +99,29 @@ let
       operating_systems =
         builtins.filter (os: builtins.elem os (builtins.attrNames oses))
         component.platform.operating_systems;
-    in mkComponent {
-      pname = component.id;
-      version = component.version.version_string;
-      src = lib.optionalString (lib.hasAttrByPath [
-        "data"
-        "source"
-      ] component) "${baseUrl}/${component.data.source}";
-      sha256 = lib.attrByPath [
-        "data"
-        "checksum"
-      ] "" component;
-      dependencies = builtins.map (dep: builtins.getAttr dep components)
-        component.dependencies;
-      platforms = if component.platform == { } then
-        lib.platforms.all
-      else
-        builtins.concatMap
-        (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
-        architectures;
-      snapshot = snapshotFromComponent attrs;
-    };
+    in
+      mkComponent {
+        pname = component.id;
+        version = component.version.version_string;
+        src = lib.optionalString (lib.hasAttrByPath [
+          "data"
+          "source"
+        ] component) "${baseUrl}/${component.data.source}";
+        sha256 = lib.attrByPath [
+          "data"
+          "checksum"
+        ] "" component;
+        dependencies = builtins.map (dep: builtins.getAttr dep components)
+          component.dependencies;
+        platforms = if component.platform == { } then
+          lib.platforms.all
+        else
+          builtins.concatMap
+          (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
+          architectures;
+        snapshot = snapshotFromComponent attrs;
+      }
+  ;
 
   # Filter out dependencies not supported by current system
   filterForSystem =
@@ -179,4 +183,5 @@ let
       passAsFile = [ "snapshot" ];
       meta = { inherit description platforms; };
     };
-in componentsFromSnapshot snapshot
+in
+  componentsFromSnapshot snapshot

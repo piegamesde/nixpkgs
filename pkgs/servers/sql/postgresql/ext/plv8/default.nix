@@ -130,7 +130,7 @@ stdenv.mkDerivation (finalAttrs: {
           runHook postInstall
         '';
       };
-    };
+    } ;
   };
 
   meta = with lib; {

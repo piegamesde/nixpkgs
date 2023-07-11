@@ -120,5 +120,5 @@ import ./make-test-python.nix ({
         client.wait_for_unit("dbus.service")
         client.succeed("${gvfs.gvfsTest} >&2")
         client.succeed("${jmtpfs.jmtpfsTest} >&2")
-      '';
+      '' ;
   })

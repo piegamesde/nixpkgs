@@ -105,53 +105,54 @@ let
     outputHash = "sha256-fGLTMM9s/Vn7eMzn6OQR3tL0cGbAYc7c4J4/aW3JvkI=";
   };
 
-in makePackage {
-  pname = "openjfx-modular-sdk";
+in
+  makePackage {
+    pname = "openjfx-modular-sdk";
 
-  gradleProperties = ''
-    COMPILE_MEDIA = ${lib.boolToString withMedia}
-    COMPILE_WEBKIT = ${lib.boolToString withWebKit}
-  '';
+    gradleProperties = ''
+      COMPILE_MEDIA = ${lib.boolToString withMedia}
+      COMPILE_WEBKIT = ${lib.boolToString withWebKit}
+    '';
 
-  preBuild = ''
-    swtJar="$(find ${deps} -name org.eclipse.swt\*.jar)"
-    substituteInPlace build.gradle \
-      --replace 'mavenCentral()' 'mavenLocal(); maven { url uri("${deps}") }' \
-      --replace 'name: SWT_FILE_NAME' "files('$swtJar')"
-  '';
+    preBuild = ''
+      swtJar="$(find ${deps} -name org.eclipse.swt\*.jar)"
+      substituteInPlace build.gradle \
+        --replace 'mavenCentral()' 'mavenLocal(); maven { url uri("${deps}") }' \
+        --replace 'name: SWT_FILE_NAME' "files('$swtJar')"
+    '';
 
-  installPhase = ''
-    cp -r build/modular-sdk $out
-  '';
+    installPhase = ''
+      cp -r build/modular-sdk $out
+    '';
 
-  # glib-2.62 deprecations
-  # -fcommon: gstreamer workaround for -fno-common toolchains:
-  #   ld: gsttypefindelement.o:(.bss._gst_disable_registry_cache+0x0): multiple definition of
-  #     `_gst_disable_registry_cache'; gst.o:(.bss._gst_disable_registry_cache+0x0): first defined here
-  env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS -fcommon";
+    # glib-2.62 deprecations
+    # -fcommon: gstreamer workaround for -fno-common toolchains:
+    #   ld: gsttypefindelement.o:(.bss._gst_disable_registry_cache+0x0): multiple definition of
+    #     `_gst_disable_registry_cache'; gst.o:(.bss._gst_disable_registry_cache+0x0): first defined here
+    env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS -fcommon";
 
-  stripDebugList = [ "." ];
+    stripDebugList = [ "." ];
 
-  postFixup = ''
-    # Remove references to bootstrap.
-    export openjdkOutPath='${openjdk11_headless.outPath}'
-    find "$out" -name \*.so | while read lib; do
-      new_refs="$(patchelf --print-rpath "$lib" | perl -pe 's,:?\Q$ENV{openjdkOutPath}\E[^:]*,,')"
-      patchelf --set-rpath "$new_refs" "$lib"
-    done
-  '';
+    postFixup = ''
+      # Remove references to bootstrap.
+      export openjdkOutPath='${openjdk11_headless.outPath}'
+      find "$out" -name \*.so | while read lib; do
+        new_refs="$(patchelf --print-rpath "$lib" | perl -pe 's,:?\Q$ENV{openjdkOutPath}\E[^:]*,,')"
+        patchelf --set-rpath "$new_refs" "$lib"
+      done
+    '';
 
-  disallowedReferences = [ openjdk11_headless ];
+    disallowedReferences = [ openjdk11_headless ];
 
-  passthru.deps = deps;
+    passthru.deps = deps;
 
-  meta = with lib; {
-    homepage = "http://openjdk.java.net/projects/openjfx/";
-    license = licenses.gpl2;
-    description = "The next-generation Java client toolkit";
-    maintainers = with maintainers; [ abbradar ];
-    knownVulnerabilities =
-      [ "This OpenJFX version has reached its end of life." ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = with lib; {
+      homepage = "http://openjdk.java.net/projects/openjfx/";
+      license = licenses.gpl2;
+      description = "The next-generation Java client toolkit";
+      maintainers = with maintainers; [ abbradar ];
+      knownVulnerabilities =
+        [ "This OpenJFX version has reached its end of life." ];
+      platforms = [ "x86_64-linux" ];
+    };
+  }

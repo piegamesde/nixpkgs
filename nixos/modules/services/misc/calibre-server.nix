@@ -27,7 +27,7 @@ in {
         "calibre-server"
         "libraryDir"
       ] config;
-    in [ libraryDir ])) ];
+    in [ libraryDir ] )) ];
 
   ###### interface
 

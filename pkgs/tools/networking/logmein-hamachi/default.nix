@@ -20,34 +20,35 @@ let
     throwSystem;
   libraries = lib.makeLibraryPath [ stdenv.cc.cc ];
 
-in stdenv.mkDerivation rec {
-  pname = "logmein-hamachi";
-  version = "2.1.0.203";
+in
+  stdenv.mkDerivation rec {
+    pname = "logmein-hamachi";
+    version = "2.1.0.203";
 
-  src = fetchurl {
-    url = "https://www.vpn.net/installers/${pname}-${version}-${arch}.tgz";
-    inherit sha256;
-  };
+    src = fetchurl {
+      url = "https://www.vpn.net/installers/${pname}-${version}-${arch}.tgz";
+      inherit sha256;
+    };
 
-  installPhase = ''
-    patchelf \
-      --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) \
-      --set-rpath ${libraries} \
-      hamachid
-    install -D -m755 hamachid $out/bin/hamachid
-    ln -s $out/bin/hamachid $out/bin/hamachi
-  '';
+    installPhase = ''
+      patchelf \
+        --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) \
+        --set-rpath ${libraries} \
+        hamachid
+      install -D -m755 hamachid $out/bin/hamachid
+      ln -s $out/bin/hamachid $out/bin/hamachi
+    '';
 
-  dontStrip = true;
-  dontPatchELF = true;
+    dontStrip = true;
+    dontPatchELF = true;
 
-  meta = with lib; {
-    description =
-      "A hosted VPN service that lets you securely extend LAN-like networks to distributed teams";
-    homepage = "https://secure.logmein.com/products/hamachi/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ abbradar ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description =
+        "A hosted VPN service that lets you securely extend LAN-like networks to distributed teams";
+      homepage = "https://secure.logmein.com/products/hamachi/";
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.unfreeRedistributable;
+      maintainers = with maintainers; [ abbradar ];
+      platforms = platforms.linux;
+    };
+  }

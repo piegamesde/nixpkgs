@@ -29,7 +29,9 @@ let
         mkChannelSource spec
       else
         throw "Unknown source type ${spec.type}";
-    in spec // { outPath = path; };
+    in
+      spec // { outPath = path; }
+  ;
 
   mkGitSource = {
       repository,
@@ -74,4 +76,5 @@ let
       sha256 = hash;
       extension = "tar";
     };
-in mkSource
+in
+  mkSource

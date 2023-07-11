@@ -6,7 +6,8 @@
 
 with lib;
 
-let cfg = config.nix.optimise;
+let
+  cfg = config.nix.optimise;
 
 in {
 

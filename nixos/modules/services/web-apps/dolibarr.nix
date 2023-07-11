@@ -35,11 +35,13 @@ let
           "null"
         else
           toString v;
-    in pkgs.writeText filename ''
-      <?php
-      ${concatStringsSep "\n"
-      (mapAttrsToList (k: v: "\$${k} = ${toStr k v};") settings)}
-    '';
+    in
+      pkgs.writeText filename ''
+        <?php
+        ${concatStringsSep "\n"
+        (mapAttrsToList (k: v: "\$${k} = ${toStr k v};") settings)}
+      ''
+  ;
 
   # see https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/install/install.forced.sample.php for all possible values
   install = {

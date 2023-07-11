@@ -82,17 +82,20 @@ let
   rootFilename = "nixos.root${filenameSuffix}";
 
   # FIXME: merge with channel.nix / make-channel.nix.
-  channelSources = let nixpkgs = lib.cleanSource pkgs.path;
-  in pkgs.runCommand "nixos-${config.system.nixos.version}" { } ''
-    mkdir -p $out
-    cp -prd ${nixpkgs.outPath} $out/nixos
-    chmod -R u+w $out/nixos
-    if [ ! -e $out/nixos/nixpkgs ]; then
-      ln -s . $out/nixos/nixpkgs
-    fi
-    rm -rf $out/nixos/.git
-    echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
-  '';
+  channelSources = let
+    nixpkgs = lib.cleanSource pkgs.path;
+  in
+    pkgs.runCommand "nixos-${config.system.nixos.version}" { } ''
+      mkdir -p $out
+      cp -prd ${nixpkgs.outPath} $out/nixos
+      chmod -R u+w $out/nixos
+      if [ ! -e $out/nixos/nixpkgs ]; then
+        ln -s . $out/nixos/nixpkgs
+      fi
+      rm -rf $out/nixos/.git
+      echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
+    ''
+  ;
 
   closureInfo = pkgs.closureInfo {
     rootPaths = [ config.system.build.toplevel ]
@@ -132,9 +135,14 @@ let
         name,
         value,
       }:
-      let properties = stringifyProperties "-o" (value.properties or { });
-      in "zfs create -p ${properties} ${name}";
-  in lib.concatMapStringsSep "\n" cmd sorted;
+      let
+        properties = stringifyProperties "-o" (value.properties or { });
+      in
+        "zfs create -p ${properties} ${name}"
+    ;
+  in
+    lib.concatMapStringsSep "\n" cmd sorted
+  ;
 
   mountDatasets = let
     datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
@@ -153,7 +161,9 @@ let
         mkdir -p /mnt${lib.escapeShellArg value.mount}
         mount -t zfs ${name} /mnt${lib.escapeShellArg value.mount}
       '';
-  in lib.concatMapStringsSep "\n" cmd sorted;
+  in
+    lib.concatMapStringsSep "\n" cmd sorted
+  ;
 
   unmountDatasets = let
     datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
@@ -171,11 +181,14 @@ let
       }: ''
         umount /mnt${lib.escapeShellArg value.mount}
       '';
-  in lib.concatMapStringsSep "\n" cmd sorted;
+  in
+    lib.concatMapStringsSep "\n" cmd sorted
+  ;
 
-  fileSystemsCfgFile =
-    let mountable = lib.filterAttrs (_: value: hasDefinedMount value) datasets;
-    in pkgs.runCommand "filesystem-config.nix" {
+  fileSystemsCfgFile = let
+    mountable = lib.filterAttrs (_: value: hasDefinedMount value) datasets;
+  in
+    pkgs.runCommand "filesystem-config.nix" {
       buildInputs = with pkgs; [
         jq
         nixpkgs-fmt
@@ -198,7 +211,8 @@ let
       ) > $out
 
       nixpkgs-fmt $out
-    '';
+    ''
+  ;
 
   mergedConfig = if configFile == null then
     fileSystemsCfgFile
@@ -305,4 +319,5 @@ let
 
     zpool export ${rootPoolName}
   '');
-in image
+in
+  image

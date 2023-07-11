@@ -116,4 +116,4 @@ import ./make-test-python.nix ({
 
           machine.succeed("lxc delete -f container")
     '';
-  })
+  } )

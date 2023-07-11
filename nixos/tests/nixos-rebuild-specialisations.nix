@@ -132,5 +132,5 @@ import ./make-test-python.nix ({
       with subtest("Make sure nonsense command combinations are forbidden"):
           machine.fail("nixos-rebuild boot --specialisation foo")
           machine.fail("nixos-rebuild boot -c foo")
-    '';
+    '' ;
   })

@@ -17,65 +17,67 @@
   enableDocs ? true,
   enableGI ? true
 }:
-let mesonEnableFeature = b: if b then "enabled" else "disabled";
-in stdenv.mkDerivation rec {
-  pname = "wireplumber";
-  version = "0.4.14";
+let
+  mesonEnableFeature = b: if b then "enabled" else "disabled";
+in
+  stdenv.mkDerivation rec {
+    pname = "wireplumber";
+    version = "0.4.14";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional enableDocs "doc";
+    outputs = [
+      "out"
+      "dev"
+    ] ++ lib.optional enableDocs "doc";
 
-  src = fetchFromGitLab {
-    domain = "gitlab.freedesktop.org";
-    owner = "pipewire";
-    repo = "wireplumber";
-    rev = version;
-    sha256 = "sha256-PKS+WErdZuSU4jrFHQcRbnZIHlnlv06R6ZxIAIBptko=";
-  };
+    src = fetchFromGitLab {
+      domain = "gitlab.freedesktop.org";
+      owner = "pipewire";
+      repo = "wireplumber";
+      rev = version;
+      sha256 = "sha256-PKS+WErdZuSU4jrFHQcRbnZIHlnlv06R6ZxIAIBptko=";
+    };
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-  ] ++ lib.optionals enableDocs [ graphviz ]
-    ++ lib.optionals enableGI [ gobject-introspection ]
-    ++ lib.optionals (enableDocs || enableGI) [
-      doxygen
-      (python3.pythonForBuild.withPackages (ps:
-        with ps;
-        lib.optionals enableDocs [
-          sphinx
-          sphinx-rtd-theme
-          breathe
-        ] ++ lib.optionals enableGI [ lxml ]))
+    nativeBuildInputs = [
+      meson
+      pkg-config
+      ninja
+    ] ++ lib.optionals enableDocs [ graphviz ]
+      ++ lib.optionals enableGI [ gobject-introspection ]
+      ++ lib.optionals (enableDocs || enableGI) [
+        doxygen
+        (python3.pythonForBuild.withPackages (ps:
+          with ps;
+          lib.optionals enableDocs [
+            sphinx
+            sphinx-rtd-theme
+            breathe
+          ] ++ lib.optionals enableGI [ lxml ]))
+      ];
+
+    buildInputs = [
+      glib
+      systemd
+      lua5_4
+      pipewire
     ];
 
-  buildInputs = [
-    glib
-    systemd
-    lua5_4
-    pipewire
-  ];
+    mesonFlags = [
+      "-Dsystem-lua=true"
+      "-Delogind=disabled"
+      "-Ddoc=${mesonEnableFeature enableDocs}"
+      "-Dintrospection=${mesonEnableFeature enableGI}"
+      "-Dsystemd-system-service=true"
+      "-Dsystemd-system-unit-dir=${placeholder "out"}/lib/systemd/system"
+      "-Dsysconfdir=/etc"
+    ];
 
-  mesonFlags = [
-    "-Dsystem-lua=true"
-    "-Delogind=disabled"
-    "-Ddoc=${mesonEnableFeature enableDocs}"
-    "-Dintrospection=${mesonEnableFeature enableGI}"
-    "-Dsystemd-system-service=true"
-    "-Dsystemd-system-unit-dir=${placeholder "out"}/lib/systemd/system"
-    "-Dsysconfdir=/etc"
-  ];
+    passthru.updateScript = nix-update-script { };
 
-  passthru.updateScript = nix-update-script { };
-
-  meta = with lib; {
-    description = "A modular session / policy manager for PipeWire";
-    homepage = "https://pipewire.org";
-    license = licenses.mit;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ k900 ];
-  };
-}
+    meta = with lib; {
+      description = "A modular session / policy manager for PipeWire";
+      homepage = "https://pipewire.org";
+      license = licenses.mit;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [ k900 ];
+    };
+  }

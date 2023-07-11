@@ -4,20 +4,23 @@
   cctools,
 }:
 
-let stdenv = stdenvNoCC;
+let
+  stdenv = stdenvNoCC;
 
-in stdenv.mkDerivation {
-  name = "signing-utils";
+in
+  stdenv.mkDerivation {
+    name = "signing-utils";
 
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  installPhase = ''
-    substituteAll ${./utils.sh} $out
-  '';
+    installPhase = ''
+      substituteAll ${./utils.sh} $out
+    '';
 
-  # Substituted variables
-  inherit sigtool;
-  codesignAllocate = "${cctools}/bin/${cctools.targetPrefix}codesign_allocate";
-}
+    # Substituted variables
+    inherit sigtool;
+    codesignAllocate =
+      "${cctools}/bin/${cctools.targetPrefix}codesign_allocate";
+  }

@@ -29,40 +29,44 @@ let
       "Chemistry"
     ];
   };
-in stdenv.mkDerivation rec {
-  version = "16.1.9";
-  pname = "jmol";
+in
+  stdenv.mkDerivation rec {
+    version = "16.1.9";
+    pname = "jmol";
 
-  src = let
-    baseVersion = "${lib.versions.major version}.${lib.versions.minor version}";
-  in fetchurl {
-    url =
-      "mirror://sourceforge/jmol/Jmol/Version%20${baseVersion}/Jmol%20${version}/Jmol-${version}-binary.tar.gz";
-    hash = "sha256-QGduoUKWNUjNlMEYO0wD5+igjuF03V5SVlgq44d2HDs=";
-  };
+    src = let
+      baseVersion =
+        "${lib.versions.major version}.${lib.versions.minor version}";
+    in
+      fetchurl {
+        url =
+          "mirror://sourceforge/jmol/Jmol/Version%20${baseVersion}/Jmol%20${version}/Jmol-${version}-binary.tar.gz";
+        hash = "sha256-QGduoUKWNUjNlMEYO0wD5+igjuF03V5SVlgq44d2HDs=";
+      }
+    ;
 
-  patchPhase = ''
-    sed -i -e "4s:.*:command=${jre}/bin/java:" -e "10s:.*:jarpath=$out/share/jmol/Jmol.jar:" -e "11,21d" jmol
-  '';
+    patchPhase = ''
+      sed -i -e "4s:.*:command=${jre}/bin/java:" -e "10s:.*:jarpath=$out/share/jmol/Jmol.jar:" -e "11,21d" jmol
+    '';
 
-  installPhase = ''
-    mkdir -p "$out/share/jmol" "$out/bin"
+    installPhase = ''
+      mkdir -p "$out/share/jmol" "$out/bin"
 
-    ${unzip}/bin/unzip jsmol.zip -d "$out/share/"
+      ${unzip}/bin/unzip jsmol.zip -d "$out/share/"
 
-    cp *.jar jmol.sh "$out/share/jmol"
-    cp -r ${desktopItem}/share/applications $out/share
-    cp jmol $out/bin
-  '';
+      cp *.jar jmol.sh "$out/share/jmol"
+      cp -r ${desktopItem}/share/applications $out/share
+      cp jmol $out/bin
+    '';
 
-  enableParallelBuilding = true;
+    enableParallelBuilding = true;
 
-  meta = with lib; {
-    description = "A Java 3D viewer for chemical structures";
-    homepage = "https://sourceforge.net/projects/jmol";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.lgpl2;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ mounium ] ++ teams.sage.members;
-  };
-}
+    meta = with lib; {
+      description = "A Java 3D viewer for chemical structures";
+      homepage = "https://sourceforge.net/projects/jmol";
+      sourceProvenance = with sourceTypes; [ binaryBytecode ];
+      license = licenses.lgpl2;
+      platforms = platforms.all;
+      maintainers = with maintainers; [ mounium ] ++ teams.sage.members;
+    };
+  }

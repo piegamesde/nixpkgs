@@ -33,10 +33,11 @@ let
         target,
         ...
       }:
-      let access_code = map (a: aclMap.${a}) (toList access);
+      let
+        access_code = map (a: aclMap.${a}) (toList access);
       in ''
         ${principal} ${concatStrings access_code} ${target}
-      '') acl))) cfg.realms;
+      '' ) acl))) cfg.realms;
   kdcConfigs = mapAttrsToList (name: value: ''
     ${name} = {
       acl_file = ${value}

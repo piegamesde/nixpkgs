@@ -10,7 +10,8 @@
 
 with lib;
 
-let cfg = config.programs.java;
+let
+  cfg = config.programs.java;
 in {
 
   options = {

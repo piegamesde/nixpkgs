@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.stumpwm;
+let
+  cfg = config.services.xserver.windowManager.stumpwm;
 
 in {
   options = {

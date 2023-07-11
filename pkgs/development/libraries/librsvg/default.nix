@@ -188,10 +188,12 @@ stdenv.mkDerivation rec {
         # Experimental feature: do not copy!
         supportedFeatures = [ "silent" ];
       };
-    in _experimental-update-script-combinators.sequence [
-      updateSource
-      updateLockfile
-    ];
+    in
+      _experimental-update-script-combinators.sequence [
+        updateSource
+        updateLockfile
+      ]
+    ;
   };
 
   meta = with lib; {

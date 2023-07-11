@@ -394,7 +394,7 @@ in {
             "~@setuid"
           ];
         };
-      };
+      } ;
     mkInstanceUsersConfig = instance: {
       groups."authelia-${instance.name}" =
         lib.mkIf (instance.group == "authelia-${instance.name}") {
@@ -431,5 +431,5 @@ in {
     users = lib.mkMerge
       (map (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance))
         instances);
-  };
+  } ;
 }

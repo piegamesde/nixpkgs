@@ -18,4 +18,5 @@ let
       (pkgs.lib.attrValues pkgs.rPackages);
   };
 
-in rWrapper
+in
+  rWrapper

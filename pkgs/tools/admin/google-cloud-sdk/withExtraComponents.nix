@@ -21,7 +21,9 @@ let
       gsutil
       gsutil-nix
     ];
-  in builtins.filter (drv: !(builtins.elem drv preInstalledComponents));
+  in
+    builtins.filter (drv: !(builtins.elem drv preInstalledComponents))
+  ;
 
   # Recursively build a list of components with their dependencies
   # TODO this could be made faster, it checks the dependencies too many times
@@ -41,32 +43,34 @@ let
   # with `sed` to ensure the proper paths are used.
   # For some reason, this does not work properly with a `symlinkJoin`: the
   # `gcloud` binary doesn't seem able to find the installed components.
-in runCommand "google-cloud-sdk-${google-cloud-sdk.version}" {
-  inherit (google-cloud-sdk) meta;
-  inherit comps;
-  passAsFile = [ "comps" ];
+in
+  runCommand "google-cloud-sdk-${google-cloud-sdk.version}" {
+    inherit (google-cloud-sdk) meta;
+    inherit comps;
+    passAsFile = [ "comps" ];
 
-  doInstallCheck = true;
-  installCheckPhase = let compNames = builtins.map (drv: drv.name) comps_;
-  in ''
-    $out/bin/gcloud components list > component_list.txt
-    for comp in ${builtins.toString compNames}; do
-      if [ ! grep ... component_list.txt | grep "Not Installed" ]; then
-        echo "Failed to install component '$comp'"
-        exit 1
-      fi
+    doInstallCheck = true;
+    installCheckPhase = let
+      compNames = builtins.map (drv: drv.name) comps_;
+    in ''
+      $out/bin/gcloud components list > component_list.txt
+      for comp in ${builtins.toString compNames}; do
+        if [ ! grep ... component_list.txt | grep "Not Installed" ]; then
+          echo "Failed to install component '$comp'"
+          exit 1
+        fi
+      done
+    '' ;
+  } ''
+    mkdir -p $out
+
+    # Install each component
+    for comp in $(cat $compsPath); do
+      echo "installing component $comp"
+      cp -dRf $comp/. $out
+      find $out -type d -exec chmod 744 {} +
     done
-  '';
-} ''
-  mkdir -p $out
 
-  # Install each component
-  for comp in $(cat $compsPath); do
-    echo "installing component $comp"
-    cp -dRf $comp/. $out
-    find $out -type d -exec chmod 744 {} +
-  done
-
-  # Replace references to the original google-cloud-sdk with this one
-  find $out/google-cloud-sdk/bin/ -type f -exec sed -i -e "s#${google-cloud-sdk}#$out#" {} \;
-''
+    # Replace references to the original google-cloud-sdk with this one
+    find $out/google-cloud-sdk/bin/ -type f -exec sed -i -e "s#${google-cloud-sdk}#$out#" {} \;
+  ''

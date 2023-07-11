@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.redis;
+let
+  cfg = config.services.prometheus.exporters.redis;
 in {
   port = 9121;
   serviceOpts = {

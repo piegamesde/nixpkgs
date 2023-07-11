@@ -142,49 +142,50 @@ let
   rf-three = runCommand name-three { preferLocalBuild = true; } ''
     cp -a ${rf.libthree} $out
   '';
-in stdenv.mkDerivation {
-  inherit (rf) pname version src passthru meta;
+in
+  stdenv.mkDerivation {
+    inherit (rf) pname version src passthru meta;
 
-  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
-    ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
+      ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
-  dontUnpack = true;
-  dontPatch = true;
-  dontConfigure = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontPatch = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/lib
-    ln -sf ${rf-zero} $out/lib/${name-zero}
-    ln -sf ${rf-one} $out/lib/${name-one}
-    ln -sf ${rf-two} $out/lib/${name-two}
-    ln -sf ${rf-three} $out/lib/${name-three}
-    cp -an ${rf}/* $out
-  '' + lib.optionalString buildTests ''
-    cp -a ${rf.test} $test
-  '' + lib.optionalString buildBenchmarks ''
-    cp -a ${rf.benchmark} $benchmark
-  '' + ''
-    runHook postInstall
-  '';
+      mkdir -p $out/lib
+      ln -sf ${rf-zero} $out/lib/${name-zero}
+      ln -sf ${rf-one} $out/lib/${name-one}
+      ln -sf ${rf-two} $out/lib/${name-two}
+      ln -sf ${rf-three} $out/lib/${name-three}
+      cp -an ${rf}/* $out
+    '' + lib.optionalString buildTests ''
+      cp -a ${rf.test} $test
+    '' + lib.optionalString buildBenchmarks ''
+      cp -a ${rf.benchmark} $benchmark
+    '' + ''
+      runHook postInstall
+    '';
 
-  # Fix paths
-  preFixup = ''
-    substituteInPlace $out/include/*.h $out/rocfft/include/*.h \
-      --replace "${rf}" "$out"
+    # Fix paths
+    preFixup = ''
+      substituteInPlace $out/include/*.h $out/rocfft/include/*.h \
+        --replace "${rf}" "$out"
 
-    patchelf --set-rpath \
-      $(patchelf --print-rpath $out/lib/librocfft.so | sed 's,${rf}/lib,'"$out/lib"',') \
-      $out/lib/librocfft.so
-  '' + lib.optionalString buildTests ''
-    patchelf --set-rpath \
-      $(patchelf --print-rpath $test/bin/rocfft-test | sed 's,${rf}/lib,'"$out/lib"',') \
-      $test/bin/rocfft-test
-  '' + lib.optionalString buildBenchmarks ''
-    patchelf --set-rpath \
-      $(patchelf --print-rpath $benchmark/bin/rocfft-rider | sed 's,${rf}/lib,'"$out/lib"',') \
-      $benchmark/bin/rocfft-rider
-  '';
-}
+      patchelf --set-rpath \
+        $(patchelf --print-rpath $out/lib/librocfft.so | sed 's,${rf}/lib,'"$out/lib"',') \
+        $out/lib/librocfft.so
+    '' + lib.optionalString buildTests ''
+      patchelf --set-rpath \
+        $(patchelf --print-rpath $test/bin/rocfft-test | sed 's,${rf}/lib,'"$out/lib"',') \
+        $test/bin/rocfft-test
+    '' + lib.optionalString buildBenchmarks ''
+      patchelf --set-rpath \
+        $(patchelf --print-rpath $benchmark/bin/rocfft-rider | sed 's,${rf}/lib,'"$out/lib"',') \
+        $benchmark/bin/rocfft-rider
+    '';
+  }

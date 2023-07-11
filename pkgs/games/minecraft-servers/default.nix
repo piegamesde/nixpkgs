@@ -23,6 +23,8 @@ let
         value.javaVersion); # versions <= 1.6 will default to 8
     };
   }) versions;
-in lib.recurseIntoAttrs (packages // {
-  vanilla = builtins.getAttr "vanilla-${escapeVersion latestVersion}" packages;
-})
+in
+  lib.recurseIntoAttrs (packages // {
+    vanilla =
+      builtins.getAttr "vanilla-${escapeVersion latestVersion}" packages;
+  })

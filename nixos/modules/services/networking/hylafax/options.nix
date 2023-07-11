@@ -33,7 +33,9 @@ let
       inherit (lib.types) attrsOf coercedTo int listOf;
       innerType = coercedTo bool (x: if x then "Yes" else "No")
         (coercedTo int (toString) str);
-    in attrsOf (coercedTo innerType lib.singleton (listOf innerType));
+    in
+      attrsOf (coercedTo innerType lib.singleton (listOf innerType))
+  ;
 
   cfg = config.services.hylafax;
 
@@ -99,7 +101,9 @@ let
     c.commonModemConfig = importDefaultConfig ./modem-default.nix;
     c.faxqConfig = importDefaultConfig ./faxq-default.nix;
     c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
-  in c;
+  in
+    c
+  ;
 
   localConfig = let
     c.hfaxdConfig.UserAccessFile = cfg.userAccessFile;
@@ -111,7 +115,9 @@ let
         InternationalPrefix = cfg.internationalPrefix;
       };
     c.commonModemConfig = c.faxqConfig;
-  in c;
+  in
+    c
+  ;
 
 in {
 

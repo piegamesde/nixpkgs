@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.shiori;
+let
+  cfg = config.services.shiori;
 in {
   options = {
     services.shiori = {

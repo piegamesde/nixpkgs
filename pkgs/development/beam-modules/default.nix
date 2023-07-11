@@ -89,5 +89,6 @@ let
       # without helper functions buildRebar3 and buildMix.
       hex = callPackage ./hex { };
       webdriver = callPackage ./webdriver { };
-    };
-in makeExtensible packages
+    } ;
+in
+  makeExtensible packages

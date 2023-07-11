@@ -46,95 +46,96 @@ let
       fundus-calligra microtype wasysym physics dvisvgm jknapltx wasy cm-super
       babel-english gnu-freefont mathastext cbfonts-fd;
   };
-in python3.pkgs.buildPythonApplication rec {
-  pname = "manim";
-  format = "pyproject";
-  version = "0.16.0.post0";
-  disabled = python3.pythonOlder "3.8";
+in
+  python3.pkgs.buildPythonApplication rec {
+    pname = "manim";
+    format = "pyproject";
+    version = "0.16.0.post0";
+    disabled = python3.pythonOlder "3.8";
 
-  src = fetchFromGitHub {
-    owner = "ManimCommunity";
-    repo = pname;
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-iXiPnI6lTP51P1X3iLp75ArRP66o8WAANBLoStPrz4M=";
-  };
+    src = fetchFromGitHub {
+      owner = "ManimCommunity";
+      repo = pname;
+      rev = "refs/tags/v${version}";
+      sha256 = "sha256-iXiPnI6lTP51P1X3iLp75ArRP66o8WAANBLoStPrz4M=";
+    };
 
-  nativeBuildInputs = [ python3.pkgs.poetry-core ];
+    nativeBuildInputs = [ python3.pkgs.poetry-core ];
 
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace "--no-cov-on-fail --cov=manim --cov-report xml --cov-report term" "" \
-      --replace 'cloup = "^0.13.0"' 'cloup = "*"' \
-      --replace 'mapbox-earcut = "^0.12.10"' 'mapbox-earcut = "*"' \
-      --replace 'click = ">=7.2<=9.0"' 'click = ">=7.2,<=9.0"' # https://github.com/ManimCommunity/manim/pull/2954
-  '';
+    postPatch = ''
+      substituteInPlace pyproject.toml \
+        --replace "--no-cov-on-fail --cov=manim --cov-report xml --cov-report term" "" \
+        --replace 'cloup = "^0.13.0"' 'cloup = "*"' \
+        --replace 'mapbox-earcut = "^0.12.10"' 'mapbox-earcut = "*"' \
+        --replace 'click = ">=7.2<=9.0"' 'click = ">=7.2,<=9.0"' # https://github.com/ManimCommunity/manim/pull/2954
+    '';
 
-  buildInputs = [ cairo ];
+    buildInputs = [ cairo ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    click
-    click-default-group
-    cloup
-    colour
-    grpcio
-    grpcio-tools
-    importlib-metadata
-    isosurfaces
-    jupyterlab
-    manimpango
-    mapbox-earcut
-    moderngl
-    moderngl-window
-    networkx
-    numpy
-    pillow
-    pycairo
-    pydub
-    pygments
-    pysrt
-    rich
-    scipy
-    screeninfo
-    skia-pathops
-    srt
-    tqdm
-    watchdog
-  ];
+    propagatedBuildInputs = with python3.pkgs; [
+      click
+      click-default-group
+      cloup
+      colour
+      grpcio
+      grpcio-tools
+      importlib-metadata
+      isosurfaces
+      jupyterlab
+      manimpango
+      mapbox-earcut
+      moderngl
+      moderngl-window
+      networkx
+      numpy
+      pillow
+      pycairo
+      pydub
+      pygments
+      pysrt
+      rich
+      scipy
+      screeninfo
+      skia-pathops
+      srt
+      tqdm
+      watchdog
+    ];
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath [
+    makeWrapperArgs = [
+      "--prefix"
+      "PATH"
+      ":"
+      (lib.makeBinPath [
+        ffmpeg
+        (texlive.combine manim-tinytex)
+      ])
+    ];
+
+    nativeCheckInputs = [
+      python3.pkgs.pytest-xdist
+      python3.pkgs.pytestCheckHook
+
       ffmpeg
       (texlive.combine manim-tinytex)
-    ])
-  ];
+    ];
 
-  nativeCheckInputs = [
-    python3.pkgs.pytest-xdist
-    python3.pkgs.pytestCheckHook
+    # about 55 of ~600 tests failing mostly due to demand for display
+    disabledTests = import ./failing_tests.nix;
 
-    ffmpeg
-    (texlive.combine manim-tinytex)
-  ];
+    pythonImportsCheck = [ "manim" ];
 
-  # about 55 of ~600 tests failing mostly due to demand for display
-  disabledTests = import ./failing_tests.nix;
-
-  pythonImportsCheck = [ "manim" ];
-
-  meta = with lib; {
-    description =
-      "Animation engine for explanatory math videos - Community version";
-    longDescription = ''
-      Manim is an animation engine for explanatory math videos. It's used to
-      create precise animations programmatically, as seen in the videos of
-      3Blue1Brown on YouTube. This is the community maintained version of
-      manim.
-    '';
-    homepage = "https://github.com/ManimCommunity/manim";
-    license = licenses.mit;
-    maintainers = with maintainers; [ friedelino ];
-  };
-}
+    meta = with lib; {
+      description =
+        "Animation engine for explanatory math videos - Community version";
+      longDescription = ''
+        Manim is an animation engine for explanatory math videos. It's used to
+        create precise animations programmatically, as seen in the videos of
+        3Blue1Brown on YouTube. This is the community maintained version of
+        manim.
+      '';
+      homepage = "https://github.com/ManimCommunity/manim";
+      license = licenses.mit;
+      maintainers = with maintainers; [ friedelino ];
+    };
+  }

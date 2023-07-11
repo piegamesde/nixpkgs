@@ -41,17 +41,22 @@ let
       else
         throw "Unsupported format ${format}");
 
-    in compute (builtins.removeAttrs attrs [ "format" ]);
+    in
+      compute (builtins.removeAttrs attrs [ "format" ])
+  ;
 
-in makeOverridable ({
-    format ? "setuptools",
-    sha256 ? "",
-    hash ? "",
-    ...
-  }@attrs:
-  let
-    url = computeUrl (builtins.removeAttrs attrs [
-      "sha256"
-      "hash"
-    ]);
-  in fetchurl { inherit url sha256 hash; })
+in
+  makeOverridable ({
+      format ? "setuptools",
+      sha256 ? "",
+      hash ? "",
+      ...
+    }@attrs:
+    let
+      url = computeUrl (builtins.removeAttrs attrs [
+        "sha256"
+        "hash"
+      ]);
+    in
+      fetchurl { inherit url sha256 hash; }
+  )

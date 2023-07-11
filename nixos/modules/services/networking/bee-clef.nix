@@ -8,7 +8,8 @@
 # NOTE for now nothing is installed into /etc/bee-clef/. the config files are used as read-only from the nix store.
 
 with lib;
-let cfg = config.services.bee-clef;
+let
+  cfg = config.services.bee-clef;
 in {
   meta = { maintainers = with maintainers; [ attila-lendvai ]; };
 

@@ -57,4 +57,4 @@ import ./make-test-python.nix ({
       machine.succeed("portablectl detach --now --runtime demo_1.0")
       machine.fail("systemctl status demo.service")
     '';
-  })
+  } )

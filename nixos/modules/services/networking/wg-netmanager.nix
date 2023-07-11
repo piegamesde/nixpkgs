@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.wg-netmanager;
+let
+  cfg = config.services.wg-netmanager;
 in {
 
   options = {

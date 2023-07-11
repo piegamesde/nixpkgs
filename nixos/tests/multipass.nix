@@ -40,4 +40,4 @@ import ./make-test-python.nix ({
 
       machine.succeed("multipass list")
     '';
-  })
+  } )

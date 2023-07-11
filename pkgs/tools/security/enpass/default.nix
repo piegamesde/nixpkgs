@@ -138,4 +138,5 @@ let
 
     };
   };
-in (package // { refresh = updater; })
+in
+  (package // { refresh = updater; })

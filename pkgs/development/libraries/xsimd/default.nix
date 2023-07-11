@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
     # Upstream Issue: https://github.com/xtensor-stack/xsimd/issues/456
     filteredTests =
       lib.optionals stdenv.hostPlatform.isDarwin [ "error_gamma_test/*" ];
-  in "-${builtins.concatStringsSep ":" filteredTests}";
+  in
+    "-${builtins.concatStringsSep ":" filteredTests}"
+  ;
 
   # https://github.com/xtensor-stack/xsimd/issues/748
   postPatch = ''

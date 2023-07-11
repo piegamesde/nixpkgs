@@ -7,7 +7,8 @@ let
   inherit (import ./fixed-points.nix { inherit lib; }) makeExtensible;
 
   lib = makeExtensible (self:
-    let callLibs = file: import file { lib = self; };
+    let
+      callLibs = file: import file { lib = self; };
     in {
 
       # often used, or depending on very little
@@ -156,5 +157,6 @@ let
         mergeAttrsByFuncDefaultsClean mergeAttrBy fakeHash fakeSha256 fakeSha512
         nixType imap;
       inherit (self.versions) splitVersion;
-    });
-in lib
+    } );
+in
+  lib

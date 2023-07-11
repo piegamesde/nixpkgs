@@ -150,4 +150,4 @@ import ../make-test-python.nix ({
           )
           mysql.shutdown()
     '';
-  })
+  } )

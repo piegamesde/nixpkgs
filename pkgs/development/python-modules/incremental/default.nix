@@ -41,4 +41,5 @@ let
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in incremental
+in
+  incremental

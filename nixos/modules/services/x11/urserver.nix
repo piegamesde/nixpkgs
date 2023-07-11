@@ -6,7 +6,8 @@
   ...
 }:
 
-let cfg = config.services.urserver;
+let
+  cfg = config.services.urserver;
 in {
 
   options.services.urserver.enable = lib.mkEnableOption (lib.mdDoc "urserver");

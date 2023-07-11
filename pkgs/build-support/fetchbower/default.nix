@@ -11,7 +11,9 @@ let
       hash = lib.last components;
       ver =
         if builtins.length components == 1 then (cleanName version) else hash;
-    in ver;
+    in
+      ver
+  ;
 
   cleanName = name:
     lib.replaceStrings [
@@ -42,4 +44,5 @@ let
       ];
     };
 
-in fetchbower
+in
+  fetchbower

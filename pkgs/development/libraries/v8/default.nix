@@ -79,124 +79,126 @@ let
     src = gnSrc;
   });
 
-in stdenv.mkDerivation rec {
-  pname = "v8";
-  inherit version;
+in
+  stdenv.mkDerivation rec {
+    pname = "v8";
+    inherit version;
 
-  doCheck = true;
+    doCheck = true;
 
-  patches = [ ./darwin.patch ];
+    patches = [ ./darwin.patch ];
 
-  src = v8Src;
+    src = v8Src;
 
-  postUnpack = ''
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: ''
-      mkdir -p $sourceRoot/${n}
-      cp -r ${v}/* $sourceRoot/${n}
-    '') deps)}
-    chmod u+w -R .
-  '';
+    postUnpack = ''
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: ''
+        mkdir -p $sourceRoot/${n}
+        cp -r ${v}/* $sourceRoot/${n}
+      '') deps)}
+      chmod u+w -R .
+    '';
 
-  postPatch = ''
-    ${lib.optionalString stdenv.isAarch64 ''
-      substituteInPlace build/toolchain/linux/BUILD.gn \
-        --replace 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
-    ''}
-    ${lib.optionalString stdenv.isDarwin ''
-      substituteInPlace build/config/compiler/compiler.gni \
-        --replace 'strip_absolute_paths_from_debug_symbols = true' \
-                  'strip_absolute_paths_from_debug_symbols = false'
-      substituteInPlace build/config/compiler/BUILD.gn \
-        --replace 'current_toolchain == host_toolchain || !use_xcode_clang' \
-                  'false'
-    ''}
-    ${lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
-      substituteInPlace build/config/compiler/BUILD.gn \
-        --replace "-Wl,-fatal_warnings" ""
-    ''}
-    touch build/config/gclient_args.gni
-    sed '1i#include <utility>' -i src/heap/cppgc/prefinalizer-handler.h # gcc12
-  '';
+    postPatch = ''
+      ${lib.optionalString stdenv.isAarch64 ''
+        substituteInPlace build/toolchain/linux/BUILD.gn \
+          --replace 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
+      ''}
+      ${lib.optionalString stdenv.isDarwin ''
+        substituteInPlace build/config/compiler/compiler.gni \
+          --replace 'strip_absolute_paths_from_debug_symbols = true' \
+                    'strip_absolute_paths_from_debug_symbols = false'
+        substituteInPlace build/config/compiler/BUILD.gn \
+          --replace 'current_toolchain == host_toolchain || !use_xcode_clang' \
+                    'false'
+      ''}
+      ${lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+        substituteInPlace build/config/compiler/BUILD.gn \
+          --replace "-Wl,-fatal_warnings" ""
+      ''}
+      touch build/config/gclient_args.gni
+      sed '1i#include <utility>' -i src/heap/cppgc/prefinalizer-handler.h # gcc12
+    '';
 
-  llvmCcAndBintools = symlinkJoin {
-    name = "llvmCcAndBintools";
-    paths = [
-      stdenv.cc
+    llvmCcAndBintools = symlinkJoin {
+      name = "llvmCcAndBintools";
+      paths = [
+        stdenv.cc
+        llvmPackages.llvm
+      ];
+    };
+
+    gnFlags = [
+      "use_custom_libcxx=false"
+      "is_clang=${lib.boolToString stdenv.cc.isClang}"
+      "use_sysroot=false"
+      # "use_system_icu=true"
+      "clang_use_chrome_plugins=false"
+      "is_component_build=false"
+      "v8_use_external_startup_data=false"
+      "v8_monolithic=true"
+      "is_debug=true"
+      "is_official_build=false"
+      "treat_warnings_as_errors=false"
+      "v8_enable_i18n_support=true"
+      "use_gold=false"
+      # ''custom_toolchain="//build/toolchain/linux/unbundle:default"''
+      ''host_toolchain="//build/toolchain/linux/unbundle:default"''
+      ''v8_snapshot_toolchain="//build/toolchain/linux/unbundle:default"''
+    ] ++ lib.optional stdenv.cc.isClang
+      ''clang_base_path="${llvmCcAndBintools}"''
+      ++ lib.optional stdenv.isDarwin "use_lld=false";
+
+    env.NIX_CFLAGS_COMPILE = "-O2";
+    FORCE_MAC_SDK_MIN = stdenv.targetPlatform.sdkVer or "10.12";
+
+    nativeBuildInputs = [
+      myGn
+      ninja
+      pkg-config
+      python3
+    ] ++ lib.optionals stdenv.isDarwin [
+      xcbuild
       llvmPackages.llvm
+      python3.pkgs.setuptools
     ];
-  };
-
-  gnFlags = [
-    "use_custom_libcxx=false"
-    "is_clang=${lib.boolToString stdenv.cc.isClang}"
-    "use_sysroot=false"
-    # "use_system_icu=true"
-    "clang_use_chrome_plugins=false"
-    "is_component_build=false"
-    "v8_use_external_startup_data=false"
-    "v8_monolithic=true"
-    "is_debug=true"
-    "is_official_build=false"
-    "treat_warnings_as_errors=false"
-    "v8_enable_i18n_support=true"
-    "use_gold=false"
-    # ''custom_toolchain="//build/toolchain/linux/unbundle:default"''
-    ''host_toolchain="//build/toolchain/linux/unbundle:default"''
-    ''v8_snapshot_toolchain="//build/toolchain/linux/unbundle:default"''
-  ] ++ lib.optional stdenv.cc.isClang ''clang_base_path="${llvmCcAndBintools}"''
-    ++ lib.optional stdenv.isDarwin "use_lld=false";
-
-  env.NIX_CFLAGS_COMPILE = "-O2";
-  FORCE_MAC_SDK_MIN = stdenv.targetPlatform.sdkVer or "10.12";
-
-  nativeBuildInputs = [
-    myGn
-    ninja
-    pkg-config
-    python3
-  ] ++ lib.optionals stdenv.isDarwin [
-    xcbuild
-    llvmPackages.llvm
-    python3.pkgs.setuptools
-  ];
-  buildInputs = [
-    glib
-    icu
-  ];
-
-  ninjaFlags = [
-    ":d8"
-    "v8_monolith"
-  ];
-
-  enableParallelBuilding = true;
-
-  installPhase = ''
-    install -D d8 $out/bin/d8
-    install -D -m644 obj/libv8_monolith.a $out/lib/libv8.a
-    install -D -m644 icudtl.dat $out/share/v8/icudtl.dat
-    ln -s libv8.a $out/lib/libv8_monolith.a
-    cp -r ../../include $out
-
-    mkdir -p $out/lib/pkgconfig
-    cat > $out/lib/pkgconfig/v8.pc << EOF
-    Name: v8
-    Description: V8 JavaScript Engine
-    Version: ${version}
-    Libs: -L$out/lib -lv8 -pthread
-    Cflags: -I$out/include
-    EOF
-  '';
-
-  meta = with lib; {
-    homepage = "https://v8.dev/";
-    description = "Google's open source JavaScript engine";
-    maintainers = with maintainers; [
-      cstrahan
-      proglodyte
-      matthewbauer
+    buildInputs = [
+      glib
+      icu
     ];
-    platforms = platforms.unix;
-    license = licenses.bsd3;
-  };
-}
+
+    ninjaFlags = [
+      ":d8"
+      "v8_monolith"
+    ];
+
+    enableParallelBuilding = true;
+
+    installPhase = ''
+      install -D d8 $out/bin/d8
+      install -D -m644 obj/libv8_monolith.a $out/lib/libv8.a
+      install -D -m644 icudtl.dat $out/share/v8/icudtl.dat
+      ln -s libv8.a $out/lib/libv8_monolith.a
+      cp -r ../../include $out
+
+      mkdir -p $out/lib/pkgconfig
+      cat > $out/lib/pkgconfig/v8.pc << EOF
+      Name: v8
+      Description: V8 JavaScript Engine
+      Version: ${version}
+      Libs: -L$out/lib -lv8 -pthread
+      Cflags: -I$out/include
+      EOF
+    '';
+
+    meta = with lib; {
+      homepage = "https://v8.dev/";
+      description = "Google's open source JavaScript engine";
+      maintainers = with maintainers; [
+        cstrahan
+        proglodyte
+        matthewbauer
+      ];
+      platforms = platforms.unix;
+      license = licenses.bsd3;
+    };
+  }

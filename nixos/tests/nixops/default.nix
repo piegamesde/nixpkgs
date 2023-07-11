@@ -101,7 +101,7 @@ let
           deployer_do("cd ~/unicorn; nixops deploy --confirm")
 
           deployer_do("cd ~/unicorn; nixops ssh server 'hello | figlet'")
-        '';
+        '' ;
     });
 
   inherit (import ../ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
@@ -110,18 +110,20 @@ let
      derivations and all build dependency outputs, all the way down.
   */
   allDrvOutputs = pkg:
-    let name = "allDrvOutputs-${pkg.pname or pkg.name or "unknown"}";
-    in pkgs.runCommand name {
-      refs = pkgs.writeReferencesToFile pkg.drvPath;
-    } ''
-      touch $out
-      while read ref; do
-        case $ref in
-          *.drv)
-            cat $ref >>$out
-            ;;
-        esac
-      done <$refs
-    '';
+    let
+      name = "allDrvOutputs-${pkg.pname or pkg.name or "unknown"}";
+    in
+      pkgs.runCommand name { refs = pkgs.writeReferencesToFile pkg.drvPath; } ''
+        touch $out
+        while read ref; do
+          case $ref in
+            *.drv)
+              cat $ref >>$out
+              ;;
+          esac
+        done <$refs
+      ''
+  ;
 
-in tests
+in
+  tests

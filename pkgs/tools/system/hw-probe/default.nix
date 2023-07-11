@@ -145,7 +145,7 @@ stdenv.mkDerivation rec {
     "PATH"
     ":"
     "${lib.makeBinPath programs}"
-  ];
+  ] ;
 
   postInstall = ''
     wrapProgram $out/bin/hw-probe \

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.offlineimap;
+let
+  cfg = config.services.offlineimap;
 in {
 
   options.services.offlineimap = {

@@ -848,19 +848,22 @@ in rec {
         inherit name packagesLists urlPrefix;
         packages = packages ++ extraPackages;
       };
-    in (fillDiskWithDebs {
-      inherit name fullName size postInstall createRootFS QEMU_OPTS memSize;
-      debs = import expr { inherit fetchurl; } ++ extraDebs;
-    }) // {
-      inherit expr;
-    };
+    in
+      (fillDiskWithDebs {
+        inherit name fullName size postInstall createRootFS QEMU_OPTS memSize;
+        debs = import expr { inherit fetchurl; } ++ extraDebs;
+      }) // {
+        inherit expr;
+      }
+  ;
 
   # The set of supported RPM-based distributions.
 
   rpmDistros = {
 
     # Note: no i386 release for Fedora >= 26
-    fedora26x86_64 = let version = "26";
+    fedora26x86_64 = let
+      version = "26";
     in {
       name = "fedora-${version}-x86_64";
       fullName = "Fedora ${version} (x86_64)";
@@ -881,9 +884,10 @@ in rec {
         "util-linux"
       ];
       unifiedSystemDir = true;
-    };
+    } ;
 
-    fedora27x86_64 = let version = "27";
+    fedora27x86_64 = let
+      version = "27";
     in {
       name = "fedora-${version}-x86_64";
       fullName = "Fedora ${version} (x86_64)";
@@ -904,9 +908,10 @@ in rec {
         "util-linux"
       ];
       unifiedSystemDir = true;
-    };
+    } ;
 
-    centos6i386 = let version = "6.9";
+    centos6i386 = let
+      version = "6.9";
     in rec {
       name = "centos-${version}-i386";
       fullName = "CentOS ${version} (i386)";
@@ -921,9 +926,10 @@ in rec {
         "i386"
       ];
       packages = commonCentOSPackages ++ [ "procps" ];
-    };
+    } ;
 
-    centos6x86_64 = let version = "6.9";
+    centos6x86_64 = let
+      version = "6.9";
     in rec {
       name = "centos-${version}-x86_64";
       fullName = "CentOS ${version} (x86_64)";
@@ -938,10 +944,11 @@ in rec {
         "x86_64"
       ];
       packages = commonCentOSPackages ++ [ "procps" ];
-    };
+    } ;
 
     # Note: no i386 release for 7.x
-    centos7x86_64 = let version = "7.4.1708";
+    centos7x86_64 = let
+      version = "7.4.1708";
     in rec {
       name = "centos-${version}-x86_64";
       fullName = "CentOS ${version} (x86_64)";
@@ -956,7 +963,7 @@ in rec {
         "x86_64"
       ];
       packages = commonCentOSPackages ++ [ "procps-ng" ];
-    };
+    } ;
   };
 
   # The set of supported Dpkg-based distributions.

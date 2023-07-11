@@ -172,4 +172,4 @@ import ./make-test-python.nix ({
               "curl -sSfL http://site1.local/rewrite-test | grep 'Hello, NixOS!'",
             )
     '';
-  })
+  } )

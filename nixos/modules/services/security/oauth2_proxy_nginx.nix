@@ -4,7 +4,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.oauth2_proxy.nginx;
+let
+  cfg = config.services.oauth2_proxy.nginx;
 in {
   options.services.oauth2_proxy.nginx = {
     proxy = mkOption {

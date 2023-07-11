@@ -57,4 +57,4 @@ import ./make-test-python.nix ({
           transactions = apiserver.succeed("curl -L http://127.0.0.1:5000/transactions")
           assert "NixOS Foundation donation" in transactions
     '';
-  })
+  } )

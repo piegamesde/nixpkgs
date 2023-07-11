@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.haveged;
+let
+  cfg = config.services.haveged;
 
 in {
 

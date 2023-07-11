@@ -36,5 +36,8 @@ let
         buildInputs = [ dhall-nix ];
       };
 
-    in import drv;
-in dhallToNix
+    in
+      import drv
+  ;
+in
+  dhallToNix

@@ -1,7 +1,8 @@
 {
   lib,
 }:
-let inherit (builtins) head tail isList isAttrs isInt attrNames;
+let
+  inherit (builtins) head tail isList isAttrs isInt attrNames;
 
 in with lib.lists;
 with lib.attrsets;
@@ -11,7 +12,8 @@ rec {
 
   # returns default if env var is not set
   maybeEnv = name: default:
-    let value = builtins.getEnv name;
+    let
+      value = builtins.getEnv name;
     in if value == "" then default else value;
 
   defaultMergeArg = x: y: if builtins.isAttrs y then y else (y x);
@@ -29,7 +31,9 @@ rec {
           ] { } z) // x;
         }));
       withStdOverrides = base // { override = base.passthru.function; };
-    in withStdOverrides;
+    in
+      withStdOverrides
+  ;
 
   # shortcut for attrByPath ["name"] default attrs
   maybeAttrNullable = maybeAttr;
@@ -71,7 +75,8 @@ rec {
     else if argList == [ ] then
       null
     else
-      let x = builtins.head argList;
+      let
+        x = builtins.head argList;
       in if (head x) == name then
         (head (tail x))
       else
@@ -81,11 +86,17 @@ rec {
   # Output : are reqs satisfied? It's asserted.
   checkReqs = attrSet: argList: condList:
     (foldr lib.and true (map (x:
-      let name = (head x);
+      let
+        name = (head x);
 
-      in ((checkFlag attrSet name) -> (foldr lib.and true (map (y:
-        let val = (getValue attrSet argList y);
-        in (val != null) && (val != false)) (tail x))))) condList));
+      in
+        ((checkFlag attrSet name) -> (foldr lib.and true (map (y:
+          let
+            val = (getValue attrSet argList y);
+          in
+            (val != null) && (val != false)
+        ) (tail x))))
+    ) condList));
 
   # This function has O(n^2) performance.
   uniqList = {
@@ -100,8 +111,12 @@ rec {
           let
             x = head xs;
             y = if elem x acc then [ ] else [ x ];
-          in y ++ go (tail xs) (y ++ acc);
-    in go inputList acc;
+          in
+            y ++ go (tail xs) (y ++ acc)
+      ;
+    in
+      go inputList acc
+  ;
 
   uniqListExt = {
       inputList,
@@ -117,11 +132,13 @@ rec {
         isX = y: (compare (getter y) (getter x));
         newOutputList = outputList
           ++ (if any isX outputList then [ ] else [ x ]);
-      in uniqListExt {
-        outputList = newOutputList;
-        inputList = (tail inputList);
-        inherit getter compare;
-      };
+      in
+        uniqListExt {
+          outputList = newOutputList;
+          inputList = (tail inputList);
+          inherit getter compare;
+        }
+  ;
 
   condConcat = name: list: checker:
     if list == [ ] then
@@ -148,7 +165,9 @@ rec {
           else
             work (tail list ++ operator x) ([ key ] ++ doneKeys)
             ([ x ] ++ result);
-    in work startSet [ ] [ ];
+    in
+      work startSet [ ] [ ]
+  ;
 
   innerModifySumArgs = f: x: a: b:
     if b == null then (f a b) // x else innerModifySumArgs f x (a // b);
@@ -164,12 +183,15 @@ rec {
       in if !isAttrs y then
         innerClosePropagation acc ys
       else
-        let acc' = [ y ] ++ acc;
-        in innerClosePropagation acc' (uniqList {
-          inputList = (maybeAttrNullable "propagatedBuildInputs" [ ] y)
-            ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys;
-          acc = acc';
-        });
+        let
+          acc' = [ y ] ++ acc;
+        in
+          innerClosePropagation acc' (uniqList {
+            inputList = (maybeAttrNullable "propagatedBuildInputs" [ ] y)
+              ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys;
+            acc = acc';
+          })
+  ;
 
   closePropagationSlow = list:
     (uniqList { inputList = (innerClosePropagation [ ] list); });
@@ -277,21 +299,23 @@ rec {
       mergeAttrBy2 = {
         mergeAttrBy = lib.mergeAttrs;
       } // (maybeAttr "mergeAttrBy" { } x) // (maybeAttr "mergeAttrBy" { } y);
-    in foldr lib.mergeAttrs { } [
-      x
-      y
-      (mapAttrs (a: v: # merge special names using given functions
-        if x ? ${a} then
-          if y ? ${a} then
-            v x.${a} y.${a} # both have attr, use merge func
+    in
+      foldr lib.mergeAttrs { } [
+        x
+        y
+        (mapAttrs (a: v: # merge special names using given functions
+          if x ? ${a} then
+            if y ? ${a} then
+              v x.${a} y.${a} # both have attr, use merge func
+            else
+              x.${a} # only x has attr
           else
-            x.${a} # only x has attr
-        else
-          y.${a} # only y has attr)
-      ) (removeAttrs mergeAttrBy2
-        # don't merge attrs which are neither in x nor y
-        (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))))
-    ];
+            y.${a} # only y has attr)
+        ) (removeAttrs mergeAttrBy2
+          # don't merge attrs which are neither in x nor y
+          (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))))
+      ]
+  ;
   mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
   mergeAttrsByFuncDefaultsClean = list:
     removeAttrs (mergeAttrsByFuncDefaults list) [ "mergeAttrBy" ];

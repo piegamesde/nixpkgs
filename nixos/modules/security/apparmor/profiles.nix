@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-let apparmor = config.security.apparmor;
+let
+  apparmor = config.security.apparmor;
 in {
   config.security.apparmor.packages = [ pkgs.apparmor-profiles ];
   config.security.apparmor.policies."bin.ping".profile =

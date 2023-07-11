@@ -47,9 +47,11 @@ let
           GatewayOnLink = false;
         };
       };
-    in optionalAttrs (gateway != [ ]) {
-      routes = override (map makeGateway gateway);
-    } // optionalAttrs (domains != [ ]) { domains = override domains; };
+    in
+      optionalAttrs (gateway != [ ]) {
+        routes = override (map makeGateway gateway);
+      } // optionalAttrs (domains != [ ]) { domains = override domains; }
+  ;
 
   genericDhcpNetworks = initrd:
     mkIf cfg.useDHCP {
@@ -280,7 +282,7 @@ in {
                 };
                 AllSlavesActive = simp "all_slaves_active";
                 MinLinks = simp "min_links";
-              };
+              } ;
 
               do = bond.driverOptions;
               assertNoUnknownOption = let
@@ -291,11 +293,13 @@ in {
                 unknownOptions = [ "primary" ];
                 assertTrace = bool: msg:
                   if bool then true else builtins.trace msg false;
-              in assert all (driverOpt:
-                assertTrace (elem driverOpt (knownOptions ++ unknownOptions))
-                "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd.")
-                (mapAttrsToList (k: _: k) do);
-              "";
+              in
+                assert all (driverOpt:
+                  assertTrace (elem driverOpt (knownOptions ++ unknownOptions))
+                  "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd.")
+                  (mapAttrsToList (k: _: k) do);
+                ""
+              ;
               # get those driverOptions that have been set
               filterSystemdOptions = filterAttrs
                 (sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames);
@@ -307,8 +311,10 @@ in {
                 head (map (optN: valTransform (do.${optN}))
                 # only map those that exist
                   (filter (o: do ? ${o}) optNames)));
-            in seq assertNoUnknownOption
-            (buildOptionSet (filterSystemdOptions driverOptionMapping));
+            in
+              seq assertNoUnknownOption
+              (buildOptionSet (filterSystemdOptions driverOptionMapping))
+            ;
 
           };
 
@@ -500,13 +506,15 @@ in {
               echo "Deleting Open vSwitch ${n}"
               ovs-vsctl --if-exists del-br ${n} || true
             '';
-          });
-      in mapAttrs' createVswitchDevice cfg.vswitches // {
-        "network-local-commands" = {
-          after = [ "systemd-networkd.service" ];
-          bindsTo = [ "systemd-networkd.service" ];
-        };
-      };
+          } );
+      in
+        mapAttrs' createVswitchDevice cfg.vswitches // {
+          "network-local-commands" = {
+            after = [ "systemd-networkd.service" ];
+            bindsTo = [ "systemd-networkd.service" ];
+          };
+        }
+      ;
     })
 
   ];

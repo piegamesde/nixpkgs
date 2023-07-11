@@ -43,4 +43,5 @@ let
 
   extensible-self = lib.makeExtensible
     (extends aliases (extends overrides (extends plugins initialPackages)));
-in extensible-self
+in
+  extensible-self

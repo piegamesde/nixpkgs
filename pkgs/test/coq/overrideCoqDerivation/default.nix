@@ -25,16 +25,17 @@ let
     release."9999".sha256 = lib.fakeSha256;
   } coqPackages.QuickChick;
 
-in runCommand "coq-overrideCoqDerivation-test-0.1" {
-  meta.maintainers = with lib.maintainers; [ cdepillabout ];
-} ''
-  # Confirm that the computed version number for the overridden QuickChick does
-  # actually become 9999, as set above.
-  if [ "${overriddenQuickChick.version}" -eq "9999" ]; then
-    echo "overriddenQuickChick version was successfully set to 9999"
-    touch $out
-  else
-    echo "ERROR: overriddenQuickChick version was supposed to be 9999, but was actually: ${overriddenQuickChick.version}"
-    exit 1
-  fi
-''
+in
+  runCommand "coq-overrideCoqDerivation-test-0.1" {
+    meta.maintainers = with lib.maintainers; [ cdepillabout ];
+  } ''
+    # Confirm that the computed version number for the overridden QuickChick does
+    # actually become 9999, as set above.
+    if [ "${overriddenQuickChick.version}" -eq "9999" ]; then
+      echo "overriddenQuickChick version was successfully set to 9999"
+      touch $out
+    else
+      echo "ERROR: overriddenQuickChick version was supposed to be 9999, but was actually: ${overriddenQuickChick.version}"
+      exit 1
+    fi
+  ''

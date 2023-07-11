@@ -113,11 +113,12 @@ rec {
     spaces (flags ++ scripts);
 
   phraseBinloreArgs = value:
-    let hasUnresholved = builtins.hasAttr "unresholved" value;
+    let
+      hasUnresholved = builtins.hasAttr "unresholved" value;
     in {
       drvs = value.inputs ++ lib.optionals hasUnresholved [ value.unresholved ];
       strip = if hasUnresholved then [ value.unresholved ] else [ ];
-    };
+    } ;
 
   # Build a single resholve invocation
   phraseInvocation = solution: value:
@@ -215,33 +216,35 @@ rec {
            can't readily set LOGLEVEL and such...
          - not sure how this affects multiple outputs
       */
-    in lib.extendDerivation true passthru (stdenv.mkDerivation {
-      src = unresholved;
-      inherit version pname;
-      buildInputs = [ resholve ];
-      disallowedReferences = [ resholve ];
+    in
+      lib.extendDerivation true passthru (stdenv.mkDerivation {
+        src = unresholved;
+        inherit version pname;
+        buildInputs = [ resholve ];
+        disallowedReferences = [ resholve ];
 
-      # retain a reference to the base
-      passthru = unresholved.passthru // {
-        unresholved = unresholved;
-        # fallback attr for update bot to query our src
-        originalSrc = unresholved.src;
-      };
+        # retain a reference to the base
+        passthru = unresholved.passthru // {
+          unresholved = unresholved;
+          # fallback attr for update bot to query our src
+          originalSrc = unresholved.src;
+        };
 
-      # do these imply that we should use NoCC or something?
-      dontConfigure = true;
-      dontBuild = true;
+        # do these imply that we should use NoCC or something?
+        dontConfigure = true;
+        dontBuild = true;
 
-      installPhase = ''
-        cp -R $src $out
-      '';
+        installPhase = ''
+          cp -R $src $out
+        '';
 
-      # enable below for verbose debug info if needed
-      # supports default python.logging levels
-      # LOGLEVEL="INFO";
-      preFixup = phraseSolutions solutions unresholved;
+        # enable below for verbose debug info if needed
+        # supports default python.logging levels
+        # LOGLEVEL="INFO";
+        preFixup = phraseSolutions solutions unresholved;
 
-      # don't break the metadata...
-      meta = unresholved.meta;
-    });
+        # don't break the metadata...
+        meta = unresholved.meta;
+      })
+  ;
 }

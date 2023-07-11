@@ -15,7 +15,11 @@ let
 
   systemWide = cfg.enable && cfg.systemWide;
   nonSystemWide = cfg.enable && !cfg.systemWide;
-  hasZeroconf = let z = cfg.zeroconf; in z.publish.enable || z.discovery.enable;
+  hasZeroconf = let
+    z = cfg.zeroconf;
+  in
+    z.publish.enable || z.discovery.enable
+  ;
 
   overriddenPackage = cfg.package.override
     (optionalAttrs hasZeroconf { zeroconfSupport = true; });
@@ -31,21 +35,26 @@ let
   myConfigFile = let
     addModuleIf = cond: mod: optionalString cond "load-module ${mod}";
     allAnon = optional cfg.tcp.anonymousClients.allowAll "auth-anonymous=1";
-    ipAnon = let a = cfg.tcp.anonymousClients.allowedIpRanges;
-    in optional (a != [ ]) "auth-ip-acl=${concatStringsSep ";" a}";
-  in writeTextFile {
-    name = "default.pa";
-    text = ''
-      .include ${cfg.configFile}
-      ${addModuleIf cfg.zeroconf.publish.enable "module-zeroconf-publish"}
-      ${addModuleIf cfg.zeroconf.discovery.enable "module-zeroconf-discover"}
-      ${addModuleIf cfg.tcp.enable (concatStringsSep " "
-        ([ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon))}
-      ${addModuleIf config.services.jack.jackd.enable "module-jack-sink"}
-      ${addModuleIf config.services.jack.jackd.enable "module-jack-source"}
-      ${cfg.extraConfig}
-    '';
-  };
+    ipAnon = let
+      a = cfg.tcp.anonymousClients.allowedIpRanges;
+    in
+      optional (a != [ ]) "auth-ip-acl=${concatStringsSep ";" a}"
+    ;
+  in
+    writeTextFile {
+      name = "default.pa";
+      text = ''
+        .include ${cfg.configFile}
+        ${addModuleIf cfg.zeroconf.publish.enable "module-zeroconf-publish"}
+        ${addModuleIf cfg.zeroconf.discovery.enable "module-zeroconf-discover"}
+        ${addModuleIf cfg.tcp.enable (concatStringsSep " "
+          ([ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon))}
+        ${addModuleIf config.services.jack.jackd.enable "module-jack-sink"}
+        ${addModuleIf config.services.jack.jackd.enable "module-jack-source"}
+        ${cfg.extraConfig}
+      '';
+    }
+  ;
 
   ids = config.ids;
 
@@ -276,7 +285,9 @@ in {
         modulePaths = builtins.map (drv: "${drv}/lib/pulseaudio/modules")
         # User-provided extra modules take precedence
           (overriddenModules ++ [ overriddenPackage ]);
-      in lib.concatStringsSep ":" modulePaths;
+      in
+        lib.concatStringsSep ":" modulePaths
+      ;
     })
 
     (mkIf hasZeroconf { services.avahi.enable = true; })

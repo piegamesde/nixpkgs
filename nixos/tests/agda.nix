@@ -55,4 +55,4 @@ import ./make-test-python.nix ({
           "./HelloWorld"
       ), "HelloWorld does not run properly"
     '';
-  })
+  } )

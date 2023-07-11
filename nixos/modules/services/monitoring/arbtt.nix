@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.arbtt;
+let
+  cfg = config.services.arbtt;
 in {
   options = {
     services.arbtt = {

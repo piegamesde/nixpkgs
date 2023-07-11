@@ -39,7 +39,9 @@ stdenv.mkDerivation rec {
       conf
     else
       writeText "config.h" conf;
-  in lib.optionalString (conf != null) "mv ${configFile} config.h";
+  in
+    lib.optionalString (conf != null) "mv ${configFile} config.h"
+  ;
 
   makeFlags = [
     "INSTALL=install"

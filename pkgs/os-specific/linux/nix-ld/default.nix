@@ -15,46 +15,47 @@ let
     "/lib64"
   else
     "/lib";
-in stdenv.mkDerivation rec {
-  pname = "nix-ld";
-  version = "1.1.0";
+in
+  stdenv.mkDerivation rec {
+    pname = "nix-ld";
+    version = "1.1.0";
 
-  src = fetchFromGitHub {
-    owner = "mic92";
-    repo = "nix-ld";
-    rev = version;
-    sha256 = "sha256-dM9YPN+yq6sHmRhJQinYdAVXBkTgEtrVQcsd/mIIX0o=";
-  };
+    src = fetchFromGitHub {
+      owner = "mic92";
+      repo = "nix-ld";
+      rev = version;
+      sha256 = "sha256-dM9YPN+yq6sHmRhJQinYdAVXBkTgEtrVQcsd/mIIX0o=";
+    };
 
-  doCheck = true;
+    doCheck = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+    nativeBuildInputs = [
+      meson
+      ninja
+    ];
 
-  mesonFlags = [ "-Dnix-system=${stdenv.system}" ];
+    mesonFlags = [ "-Dnix-system=${stdenv.system}" ];
 
-  hardeningDisable = [ "stackprotector" ];
+    hardeningDisable = [ "stackprotector" ];
 
-  postInstall = ''
-    mkdir -p $out/nix-support
+    postInstall = ''
+      mkdir -p $out/nix-support
 
-    ldpath=${libDir}/$(basename $(< ${stdenv.cc}/nix-support/dynamic-linker))
-    echo "$ldpath" > $out/nix-support/ldpath
-    mkdir -p $out/lib/tmpfiles.d/
-    cat > $out/lib/tmpfiles.d/nix-ld.conf <<EOF
-      L+ $ldpath - - - - $out/libexec/nix-ld
-    EOF
-  '';
+      ldpath=${libDir}/$(basename $(< ${stdenv.cc}/nix-support/dynamic-linker))
+      echo "$ldpath" > $out/nix-support/ldpath
+      mkdir -p $out/lib/tmpfiles.d/
+      cat > $out/lib/tmpfiles.d/nix-ld.conf <<EOF
+        L+ $ldpath - - - - $out/libexec/nix-ld
+      EOF
+    '';
 
-  passthru.tests.nix-ld = nixosTests.nix-ld;
+    passthru.tests.nix-ld = nixosTests.nix-ld;
 
-  meta = with lib; {
-    description = "Run unpatched dynamic binaries on NixOS";
-    homepage = "https://github.com/Mic92/nix-ld";
-    license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "Run unpatched dynamic binaries on NixOS";
+      homepage = "https://github.com/Mic92/nix-ld";
+      license = licenses.mit;
+      maintainers = with maintainers; [ mic92 ];
+      platforms = platforms.linux;
+    };
+  }

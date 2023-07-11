@@ -552,18 +552,20 @@ in {
         forceSSL = mkDefault true;
         enableACME = mkDefault true;
       };
-    in genAttrs vHosts (host:
-      {
-        locations = genAttrs (hostLocations host) (loc: {
-          extraConfig = ''
-            include ${config.services.nginx.package}/conf/fastcgi_params;
+    in
+      genAttrs vHosts (host:
+        {
+          locations = genAttrs (hostLocations host) (loc: {
+            extraConfig = ''
+              include ${config.services.nginx.package}/conf/fastcgi_params;
 
-            fastcgi_pass unix:/run/sympa/wwsympa.socket;
-          '';
-        }) // {
-          "/static-sympa/".alias = "${dataDir}/static_content/";
-        };
-      } // httpsOpts));
+              fastcgi_pass unix:/run/sympa/wwsympa.socket;
+            '';
+          }) // {
+            "/static-sympa/".alias = "${dataDir}/static_content/";
+          };
+        } // httpsOpts)
+    );
 
     services.postfix = mkIf (cfg.mta.type == "postfix") {
       enable = true;

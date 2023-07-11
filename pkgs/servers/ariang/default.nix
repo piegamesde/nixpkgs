@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     ${nodeDependencies}/bin/gulp clean build
 
     runHook postBuild
-  '';
+  '' ;
 
   installPhase = ''
     runHook preInstall

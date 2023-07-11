@@ -96,7 +96,7 @@ let
     ''}
 
     ${config.system.extraSystemBuilderCmds}
-  '';
+  '' ;
 
   # Putting it all together.  This builds a store path containing
   # symlinks to the various parts of the built configuration (the

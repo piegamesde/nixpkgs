@@ -131,7 +131,7 @@ let
             machine.succeed("sudo -u postgres initdb -D /tmp/testpostgres2")
 
         machine.shutdown()
-      '';
+      '' ;
 
     };
 
@@ -220,12 +220,13 @@ let
             assert not clauses['rolbypassrls'], 'expected user with no clauses set to have default bypassrls clause'
 
         machine.shutdown()
-      '';
+      '' ;
     };
-in concatMapAttrs (name: package: {
-  ${name} = make-postgresql-test name package false;
-  ${name + "-clauses"} = mk-ensure-clauses-test name package;
-}) postgresql-versions // {
-  postgresql_11-backup-all = make-postgresql-test "postgresql_11-backup-all"
-    postgresql-versions.postgresql_11 true;
-}
+in
+  concatMapAttrs (name: package: {
+    ${name} = make-postgresql-test name package false;
+    ${name + "-clauses"} = mk-ensure-clauses-test name package;
+  }) postgresql-versions // {
+    postgresql_11-backup-all = make-postgresql-test "postgresql_11-backup-all"
+      postgresql-versions.postgresql_11 true;
+  }

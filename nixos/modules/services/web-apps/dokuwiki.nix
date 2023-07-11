@@ -26,14 +26,16 @@ let
       inherit (cfg) acl;
       acl_gen = concatMapStringsSep "\n"
         (l: "${l.page} 	 ${l.actor} 	 ${toString l.level}");
-    in pkgs.writeText "acl.auth-${hostName}.php" ''
-      # acl.auth.php
-      # <?php exit()?>
-      #
-      # Access Control Lists
-      #
-      ${if isString acl then acl else acl_gen acl}
-    '';
+    in
+      pkgs.writeText "acl.auth-${hostName}.php" ''
+        # acl.auth.php
+        # <?php exit()?>
+        #
+        # Access Control Lists
+        #
+        ${if isString acl then acl else acl_gen acl}
+      ''
+  ;
 
   mergeConfig = cfg:
     {
@@ -51,7 +53,8 @@ let
     };
 
   mkPhpValue = v:
-    let isHasAttr = s: isAttrs v && hasAttr s v;
+    let
+      isHasAttr = s: isAttrs v && hasAttr s v;
     in if isString v then
       escapeShellArg v
       # NOTE: If any value contains a , (comma) this will not get escaped
@@ -76,13 +79,18 @@ let
       values = if (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v))
       || !isAttrs v then [ " = ${mkPhpValue v};" ] else
         mkPhpAttrVals v;
-    in map (e: "[${escapeShellArg k}]${e}") (flatten values);
+    in
+      map (e: "[${escapeShellArg k}]${e}") (flatten values)
+  ;
 
   dokuwikiLocalConfig = hostName: cfg:
-    let conf_gen = c: map (v: "$conf${v}") (mkPhpAttrVals c);
-    in writePhpFile "local-${hostName}.php" ''
-      ${concatStringsSep "\n" (conf_gen cfg.mergedConfig)}
-    '';
+    let
+      conf_gen = c: map (v: "$conf${v}") (mkPhpAttrVals c);
+    in
+      writePhpFile "local-${hostName}.php" ''
+        ${concatStringsSep "\n" (conf_gen cfg.mergedConfig)}
+      ''
+  ;
 
   dokuwikiPluginsLocalConfig = hostName: cfg:
     let
@@ -90,9 +98,11 @@ let
       pc_gen = pc:
         concatStringsSep "\n"
         (mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc);
-    in writePhpFile "plugins.local-${hostName}.php" ''
-      ${if isString pc then pc else pc_gen pc}
-    '';
+    in
+      writePhpFile "plugins.local-${hostName}.php" ''
+        ${if isString pc then pc else pc_gen pc}
+      ''
+  ;
 
   pkg = hostName: cfg:
     cfg.package.combine {
@@ -135,15 +145,17 @@ let
             "upload" = 8;
             "delete" = 16;
           };
-        in mkOption {
-          type = types.enum ((attrValues available) ++ (attrNames available));
-          apply = x: if isInt x then x else available.${x};
-          description = lib.mdDoc ''
-            Permission level to restrict the actor(s) to.
-            See <https://www.dokuwiki.org/acl#background_info> for explanation
-          '';
-          example = "read";
-        };
+        in
+          mkOption {
+            type = types.enum ((attrValues available) ++ (attrNames available));
+            apply = x: if isInt x then x else available.${x};
+            description = lib.mdDoc ''
+              Permission level to restrict the actor(s) to.
+              See <https://www.dokuwiki.org/acl#background_info> for explanation
+            '';
+            example = "read";
+          }
+        ;
       };
     };
 
@@ -186,7 +198,7 @@ let
         }
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];
-    };
+    } ;
 
   siteOpts = {
       options,
@@ -270,7 +282,7 @@ let
                   }).";
               }
             ];
-          })
+          } )
       ];
 
       options = {

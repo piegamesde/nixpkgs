@@ -147,5 +147,5 @@ import ./make-test-python.nix ({
             webserver.fail(
                 "${reloadWithErrorsSystem}/bin/switch-to-configuration test >&2"
             )
-      '';
+      '' ;
   })

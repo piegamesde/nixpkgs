@@ -5,7 +5,8 @@
   hostPkgs,
   ...
 }:
-let inherit (lib) mkOption types mdDoc;
+let
+  inherit (lib) mkOption types mdDoc;
 in {
   options = {
     interactive = mkOption {

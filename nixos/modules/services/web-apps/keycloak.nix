@@ -162,14 +162,16 @@ in {
           mariadb = 3306;
           mysql = 3306;
         };
-      in mkOption {
-        type = port;
-        default = dbPorts.${cfg.database.type};
-        defaultText = literalMD "default port of selected database";
-        description = lib.mdDoc ''
-          Port of the database to connect to.
-        '';
-      };
+      in
+        mkOption {
+          type = port;
+          default = dbPorts.${cfg.database.type};
+          defaultText = literalMD "default port of selected database";
+          description = lib.mdDoc ''
+            Port of the database to connect to.
+          '';
+        }
+      ;
 
       useSSL = mkOption {
         type = bool;
@@ -422,7 +424,7 @@ in {
         {file}`/run/keys/store_password` file.
       '';
     };
-  };
+  } ;
 
   config = let
     # We only want to create a database if we're actually going to
@@ -502,214 +504,221 @@ in {
       inherit confFile;
       plugins = cfg.package.enabledPlugins ++ cfg.plugins;
     };
-  in mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = (cfg.database.useSSL && cfg.database.type == "postgresql")
-          -> (cfg.database.caCert != null);
-        message =
-          "A CA certificate must be specified (in 'services.keycloak.database.caCert') when PostgreSQL is used with SSL";
-      }
-      {
-        assertion = createLocalPostgreSQL
-          -> config.services.postgresql.settings.standard_conforming_strings or true;
-        message =
-          "Setting up a local PostgreSQL db for Keycloak requires `standard_conforming_strings` turned on to work reliably";
-      }
-    ];
-
-    environment.systemPackages = [ keycloakBuild ];
-
-    services.keycloak.settings = let
-      postgresParams = concatStringsSep "&"
-        (optionals cfg.database.useSSL [ "ssl=true" ]
-          ++ optionals (cfg.database.caCert != null) [
-            "sslrootcert=${cfg.database.caCert}"
-            "sslmode=verify-ca"
-          ]);
-      mariadbParams = concatStringsSep "&" ([ "characterEncoding=UTF-8" ]
-        ++ optionals cfg.database.useSSL [
-          "useSSL=true"
-          "requireSSL=true"
-          "verifyServerCertificate=true"
-        ] ++ optionals (cfg.database.caCert != null) [
-          "trustCertificateKeyStoreUrl=file:${mySqlCaKeystore}"
-          "trustCertificateKeyStorePassword=notsosecretpassword"
-        ]);
-      dbProps = if cfg.database.type == "postgresql" then
-        postgresParams
-      else
-        mariadbParams;
-    in mkMerge [
-      {
-        db = if cfg.database.type == "postgresql" then
-          "postgres"
-        else
-          cfg.database.type;
-        db-username = if databaseActuallyCreateLocally then
-          "keycloak"
-        else
-          cfg.database.username;
-        db-password._secret = cfg.database.passwordFile;
-        db-url-host = cfg.database.host;
-        db-url-port = toString cfg.database.port;
-        db-url-database = if databaseActuallyCreateLocally then
-          "keycloak"
-        else
-          cfg.database.name;
-        db-url-properties = prefixUnlessEmpty "?" dbProps;
-        db-url = null;
-      }
-      (mkIf (cfg.sslCertificate != null && cfg.sslCertificateKey != null) {
-        https-certificate-file = "/run/keycloak/ssl/ssl_cert";
-        https-certificate-key-file = "/run/keycloak/ssl/ssl_key";
-      })
-    ];
-
-    systemd.services.keycloakPostgreSQLInit = mkIf createLocalPostgreSQL {
-      after = [ "postgresql.service" ];
-      before = [ "keycloak.service" ];
-      bindsTo = [ "postgresql.service" ];
-      path = [ config.services.postgresql.package ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        User = "postgres";
-        Group = "postgres";
-        LoadCredential = [ "db_password:${cfg.database.passwordFile}" ];
-      };
-      script = ''
-        set -o errexit -o pipefail -o nounset -o errtrace
-        shopt -s inherit_errexit
-
-        create_role="$(mktemp)"
-        trap 'rm -f "$create_role"' EXIT
-
-        # Read the password from the credentials directory and
-        # escape any single quotes by adding additional single
-        # quotes after them, following the rules laid out here:
-        # https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
-        db_password="$(<"$CREDENTIALS_DIRECTORY/db_password")"
-        db_password="''${db_password//\'/\'\'}"
-
-        echo "CREATE ROLE keycloak WITH LOGIN PASSWORD '$db_password' CREATEDB" > "$create_role"
-        psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='keycloak'" | grep -q 1 || psql -tA --file="$create_role"
-        psql -tAc "SELECT 1 FROM pg_database WHERE datname = 'keycloak'" | grep -q 1 || psql -tAc 'CREATE DATABASE "keycloak" OWNER "keycloak"'
-      '';
-    };
-
-    systemd.services.keycloakMySQLInit = mkIf createLocalMySQL {
-      after = [ "mysql.service" ];
-      before = [ "keycloak.service" ];
-      bindsTo = [ "mysql.service" ];
-      path = [ config.services.mysql.package ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        User = config.services.mysql.user;
-        Group = config.services.mysql.group;
-        LoadCredential = [ "db_password:${cfg.database.passwordFile}" ];
-      };
-      script = ''
-        set -o errexit -o pipefail -o nounset -o errtrace
-        shopt -s inherit_errexit
-
-        # Read the password from the credentials directory and
-        # escape any single quotes by adding additional single
-        # quotes after them, following the rules laid out here:
-        # https://dev.mysql.com/doc/refman/8.0/en/string-literals.html
-        db_password="$(<"$CREDENTIALS_DIRECTORY/db_password")"
-        db_password="''${db_password//\'/\'\'}"
-
-        ( echo "SET sql_mode = 'NO_BACKSLASH_ESCAPES';"
-          echo "CREATE USER IF NOT EXISTS 'keycloak'@'localhost' IDENTIFIED BY '$db_password';"
-          echo "CREATE DATABASE IF NOT EXISTS keycloak CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
-          echo "GRANT ALL PRIVILEGES ON keycloak.* TO 'keycloak'@'localhost';"
-        ) | mysql -N
-      '';
-    };
-
-    systemd.services.keycloak = let
-      databaseServices = if createLocalPostgreSQL then [
-        "keycloakPostgreSQLInit.service"
-        "postgresql.service"
-      ] else if createLocalMySQL then [
-        "keycloakMySQLInit.service"
-        "mysql.service"
-      ] else
-        [ ];
-      secretPaths = catAttrs "_secret" (collect isSecret cfg.settings);
-      mkSecretReplacement = file: ''
-        replace-secret ${hashString "sha256" file} $CREDENTIALS_DIRECTORY/${
-          baseNameOf file
-        } /run/keycloak/conf/keycloak.conf
-      '';
-      secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
-    in {
-      after = databaseServices;
-      bindsTo = databaseServices;
-      wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [
-        keycloakBuild
-        openssl
-        replace-secret
+  in
+    mkIf cfg.enable {
+      assertions = [
+        {
+          assertion = (cfg.database.useSSL && cfg.database.type == "postgresql")
+            -> (cfg.database.caCert != null);
+          message =
+            "A CA certificate must be specified (in 'services.keycloak.database.caCert') when PostgreSQL is used with SSL";
+        }
+        {
+          assertion = createLocalPostgreSQL
+            -> config.services.postgresql.settings.standard_conforming_strings or true;
+          message =
+            "Setting up a local PostgreSQL db for Keycloak requires `standard_conforming_strings` turned on to work reliably";
+        }
       ];
-      environment = {
-        KC_HOME_DIR = "/run/keycloak";
-        KC_CONF_DIR = "/run/keycloak/conf";
-      };
-      serviceConfig = {
-        LoadCredential = map (p: "${baseNameOf p}:${p}") secretPaths
-          ++ optionals
-          (cfg.sslCertificate != null && cfg.sslCertificateKey != null) [
-            "ssl_cert:${cfg.sslCertificate}"
-            "ssl_key:${cfg.sslCertificateKey}"
-          ];
-        User = "keycloak";
-        Group = "keycloak";
-        DynamicUser = true;
-        RuntimeDirectory = "keycloak";
-        RuntimeDirectoryMode = "0700";
-        AmbientCapabilities = "CAP_NET_BIND_SERVICE";
-      };
-      script = ''
-        set -o errexit -o pipefail -o nounset -o errtrace
-        shopt -s inherit_errexit
 
-        umask u=rwx,g=,o=
+      environment.systemPackages = [ keycloakBuild ];
 
-        ln -s ${themesBundle} /run/keycloak/themes
-        ln -s ${keycloakBuild}/providers /run/keycloak/
-
-        install -D -m 0600 ${confFile} /run/keycloak/conf/keycloak.conf
-
-        ${secretReplacements}
-
-        # Escape any backslashes in the db parameters, since
-        # they're otherwise unexpectedly read as escape
-        # sequences.
-        sed -i '/db-/ s|\\|\\\\|g' /run/keycloak/conf/keycloak.conf
-
-      '' + optionalString
-        (cfg.sslCertificate != null && cfg.sslCertificateKey != null) ''
-          mkdir -p /run/keycloak/ssl
-          cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
-        '' + ''
-          export KEYCLOAK_ADMIN=admin
-          export KEYCLOAK_ADMIN_PASSWORD=${
-            escapeShellArg cfg.initialAdminPassword
+      services.keycloak.settings = let
+        postgresParams = concatStringsSep "&"
+          (optionals cfg.database.useSSL [ "ssl=true" ]
+            ++ optionals (cfg.database.caCert != null) [
+              "sslrootcert=${cfg.database.caCert}"
+              "sslmode=verify-ca"
+            ]);
+        mariadbParams = concatStringsSep "&" ([ "characterEncoding=UTF-8" ]
+          ++ optionals cfg.database.useSSL [
+            "useSSL=true"
+            "requireSSL=true"
+            "verifyServerCertificate=true"
+          ] ++ optionals (cfg.database.caCert != null) [
+            "trustCertificateKeyStoreUrl=file:${mySqlCaKeystore}"
+            "trustCertificateKeyStorePassword=notsosecretpassword"
+          ]);
+        dbProps = if cfg.database.type == "postgresql" then
+          postgresParams
+        else
+          mariadbParams;
+      in
+        mkMerge [
+          {
+            db = if cfg.database.type == "postgresql" then
+              "postgres"
+            else
+              cfg.database.type;
+            db-username = if databaseActuallyCreateLocally then
+              "keycloak"
+            else
+              cfg.database.username;
+            db-password._secret = cfg.database.passwordFile;
+            db-url-host = cfg.database.host;
+            db-url-port = toString cfg.database.port;
+            db-url-database = if databaseActuallyCreateLocally then
+              "keycloak"
+            else
+              cfg.database.name;
+            db-url-properties = prefixUnlessEmpty "?" dbProps;
+            db-url = null;
           }
-          kc.sh start --optimized
-        '';
-    };
+          (mkIf (cfg.sslCertificate != null && cfg.sslCertificateKey != null) {
+            https-certificate-file = "/run/keycloak/ssl/ssl_cert";
+            https-certificate-key-file = "/run/keycloak/ssl/ssl_key";
+          })
+        ]
+      ;
 
-    services.postgresql.enable = mkDefault createLocalPostgreSQL;
-    services.mysql.enable = mkDefault createLocalMySQL;
-    services.mysql.package = let
-      dbPkg =
-        if cfg.database.type == "mariadb" then pkgs.mariadb else pkgs.mysql80;
-    in mkIf createLocalMySQL (mkDefault dbPkg);
-  };
+      systemd.services.keycloakPostgreSQLInit = mkIf createLocalPostgreSQL {
+        after = [ "postgresql.service" ];
+        before = [ "keycloak.service" ];
+        bindsTo = [ "postgresql.service" ];
+        path = [ config.services.postgresql.package ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          User = "postgres";
+          Group = "postgres";
+          LoadCredential = [ "db_password:${cfg.database.passwordFile}" ];
+        };
+        script = ''
+          set -o errexit -o pipefail -o nounset -o errtrace
+          shopt -s inherit_errexit
+
+          create_role="$(mktemp)"
+          trap 'rm -f "$create_role"' EXIT
+
+          # Read the password from the credentials directory and
+          # escape any single quotes by adding additional single
+          # quotes after them, following the rules laid out here:
+          # https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
+          db_password="$(<"$CREDENTIALS_DIRECTORY/db_password")"
+          db_password="''${db_password//\'/\'\'}"
+
+          echo "CREATE ROLE keycloak WITH LOGIN PASSWORD '$db_password' CREATEDB" > "$create_role"
+          psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='keycloak'" | grep -q 1 || psql -tA --file="$create_role"
+          psql -tAc "SELECT 1 FROM pg_database WHERE datname = 'keycloak'" | grep -q 1 || psql -tAc 'CREATE DATABASE "keycloak" OWNER "keycloak"'
+        '';
+      };
+
+      systemd.services.keycloakMySQLInit = mkIf createLocalMySQL {
+        after = [ "mysql.service" ];
+        before = [ "keycloak.service" ];
+        bindsTo = [ "mysql.service" ];
+        path = [ config.services.mysql.package ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          User = config.services.mysql.user;
+          Group = config.services.mysql.group;
+          LoadCredential = [ "db_password:${cfg.database.passwordFile}" ];
+        };
+        script = ''
+          set -o errexit -o pipefail -o nounset -o errtrace
+          shopt -s inherit_errexit
+
+          # Read the password from the credentials directory and
+          # escape any single quotes by adding additional single
+          # quotes after them, following the rules laid out here:
+          # https://dev.mysql.com/doc/refman/8.0/en/string-literals.html
+          db_password="$(<"$CREDENTIALS_DIRECTORY/db_password")"
+          db_password="''${db_password//\'/\'\'}"
+
+          ( echo "SET sql_mode = 'NO_BACKSLASH_ESCAPES';"
+            echo "CREATE USER IF NOT EXISTS 'keycloak'@'localhost' IDENTIFIED BY '$db_password';"
+            echo "CREATE DATABASE IF NOT EXISTS keycloak CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
+            echo "GRANT ALL PRIVILEGES ON keycloak.* TO 'keycloak'@'localhost';"
+          ) | mysql -N
+        '';
+      };
+
+      systemd.services.keycloak = let
+        databaseServices = if createLocalPostgreSQL then [
+          "keycloakPostgreSQLInit.service"
+          "postgresql.service"
+        ] else if createLocalMySQL then [
+          "keycloakMySQLInit.service"
+          "mysql.service"
+        ] else
+          [ ];
+        secretPaths = catAttrs "_secret" (collect isSecret cfg.settings);
+        mkSecretReplacement = file: ''
+          replace-secret ${hashString "sha256" file} $CREDENTIALS_DIRECTORY/${
+            baseNameOf file
+          } /run/keycloak/conf/keycloak.conf
+        '';
+        secretReplacements =
+          lib.concatMapStrings mkSecretReplacement secretPaths;
+      in {
+        after = databaseServices;
+        bindsTo = databaseServices;
+        wantedBy = [ "multi-user.target" ];
+        path = with pkgs; [
+          keycloakBuild
+          openssl
+          replace-secret
+        ];
+        environment = {
+          KC_HOME_DIR = "/run/keycloak";
+          KC_CONF_DIR = "/run/keycloak/conf";
+        };
+        serviceConfig = {
+          LoadCredential = map (p: "${baseNameOf p}:${p}") secretPaths
+            ++ optionals
+            (cfg.sslCertificate != null && cfg.sslCertificateKey != null) [
+              "ssl_cert:${cfg.sslCertificate}"
+              "ssl_key:${cfg.sslCertificateKey}"
+            ];
+          User = "keycloak";
+          Group = "keycloak";
+          DynamicUser = true;
+          RuntimeDirectory = "keycloak";
+          RuntimeDirectoryMode = "0700";
+          AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+        };
+        script = ''
+          set -o errexit -o pipefail -o nounset -o errtrace
+          shopt -s inherit_errexit
+
+          umask u=rwx,g=,o=
+
+          ln -s ${themesBundle} /run/keycloak/themes
+          ln -s ${keycloakBuild}/providers /run/keycloak/
+
+          install -D -m 0600 ${confFile} /run/keycloak/conf/keycloak.conf
+
+          ${secretReplacements}
+
+          # Escape any backslashes in the db parameters, since
+          # they're otherwise unexpectedly read as escape
+          # sequences.
+          sed -i '/db-/ s|\\|\\\\|g' /run/keycloak/conf/keycloak.conf
+
+        '' + optionalString
+          (cfg.sslCertificate != null && cfg.sslCertificateKey != null) ''
+            mkdir -p /run/keycloak/ssl
+            cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
+          '' + ''
+            export KEYCLOAK_ADMIN=admin
+            export KEYCLOAK_ADMIN_PASSWORD=${
+              escapeShellArg cfg.initialAdminPassword
+            }
+            kc.sh start --optimized
+          '';
+      } ;
+
+      services.postgresql.enable = mkDefault createLocalPostgreSQL;
+      services.mysql.enable = mkDefault createLocalMySQL;
+      services.mysql.package = let
+        dbPkg =
+          if cfg.database.type == "mariadb" then pkgs.mariadb else pkgs.mysql80;
+      in
+        mkIf createLocalMySQL (mkDefault dbPkg)
+      ;
+    }
+  ;
 
   meta.doc = ./keycloak.md;
   meta.maintainers = [ maintainers.talyz ];

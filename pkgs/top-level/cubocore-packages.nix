@@ -120,4 +120,5 @@ let
           inherit libcprime libcsys;
         };
     };
-in lib.makeScope newScope packages
+in
+  lib.makeScope newScope packages

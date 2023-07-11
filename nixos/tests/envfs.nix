@@ -42,4 +42,4 @@ import ./make-test-python.nix ({
       print(out)
       assert out == "OK\n"
     '';
-  })
+  } )

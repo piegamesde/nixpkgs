@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.pppd;
+let
+  cfg = config.services.pppd;
 in {
   meta = { maintainers = with maintainers; [ danderson ]; };
 
@@ -145,7 +146,7 @@ in {
           # multilink database.
           RuntimeDirectory = "pppd";
           RuntimeDirectoryPreserve = true;
-        };
+        } ;
         wantedBy = mkIf peerCfg.autostart [ "multi-user.target" ];
       };
     };
@@ -153,8 +154,10 @@ in {
     etcFiles = listToAttrs (map mkEtc enabledConfigs);
     systemdConfigs = listToAttrs (map mkSystemd enabledConfigs);
 
-  in mkIf cfg.enable {
-    environment.etc = etcFiles;
-    systemd.services = systemdConfigs;
-  };
+  in
+    mkIf cfg.enable {
+      environment.etc = etcFiles;
+      systemd.services = systemdConfigs;
+    }
+  ;
 }

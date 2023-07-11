@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.plotinus;
+let
+  cfg = config.programs.plotinus;
 in {
   meta = {
     maintainers = pkgs.plotinus.meta.maintainers;

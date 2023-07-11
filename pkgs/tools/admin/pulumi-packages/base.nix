@@ -77,55 +77,57 @@ let
         pythonImportsCheck =
           [ (builtins.replaceStrings [ "-" ] [ "_" ] pname) ];
       }) { };
-in {
-  owner,
-  repo,
-  rev,
-  version,
-  hash,
-  vendorHash,
-  cmdGen,
-  cmdRes,
-  extraLdflags,
-  meta,
-  fetchSubmodules ? false,
-  ...
-}@args:
-let
-  src = fetchFromGitHub {
-    name = "source-${repo}-${rev}";
-    inherit owner repo rev hash fetchSubmodules;
-  };
+in
+  {
+    owner,
+    repo,
+    rev,
+    version,
+    hash,
+    vendorHash,
+    cmdGen,
+    cmdRes,
+    extraLdflags,
+    meta,
+    fetchSubmodules ? false,
+    ...
+  }@args:
+  let
+    src = fetchFromGitHub {
+      name = "source-${repo}-${rev}";
+      inherit owner repo rev hash fetchSubmodules;
+    };
 
-  pulumi-gen = mkBasePackage rec {
-    inherit src version vendorHash extraLdflags;
+    pulumi-gen = mkBasePackage rec {
+      inherit src version vendorHash extraLdflags;
 
-    cmd = cmdGen;
-    pname = cmdGen;
-  };
-in mkBasePackage ({
-  inherit meta src version vendorHash extraLdflags;
+      cmd = cmdGen;
+      pname = cmdGen;
+    };
+  in
+    mkBasePackage ({
+      inherit meta src version vendorHash extraLdflags;
 
-  pname = repo;
+      pname = repo;
 
-  nativeBuildInputs = [ pulumi-gen ];
+      nativeBuildInputs = [ pulumi-gen ];
 
-  cmd = cmdRes;
+      cmd = cmdRes;
 
-  postConfigure = ''
-    pushd ..
+      postConfigure = ''
+        pushd ..
 
-    chmod +w sdk/
-    ${cmdGen} schema
+        chmod +w sdk/
+        ${cmdGen} schema
 
-    popd
+        popd
 
-    VERSION=v${version} go generate cmd/${cmdRes}/main.go
-  '';
+        VERSION=v${version} go generate cmd/${cmdRes}/main.go
+      '';
 
-  passthru.sdks.python = mkPythonPackage {
-    inherit meta src version;
+      passthru.sdks.python = mkPythonPackage {
+        inherit meta src version;
 
-    pname = repo;
-  };
-} // args)
+        pname = repo;
+      };
+    } // args)

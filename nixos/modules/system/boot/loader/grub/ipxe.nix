@@ -21,7 +21,8 @@ let
   '';
 
   scriptFile = name:
-    let value = builtins.getAttr name config.boot.loader.grub.ipxe;
+    let
+      value = builtins.getAttr name config.boot.loader.grub.ipxe;
     in if builtins.typeOf value == "path" then
       value
     else

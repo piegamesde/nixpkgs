@@ -161,4 +161,4 @@ import ./make-test-python.nix ({
         initiatorRootDisk.succeed("touch test")
         initiatorRootDisk.shutdown()
       '';
-  })
+  } )

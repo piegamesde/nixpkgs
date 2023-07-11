@@ -18,9 +18,11 @@
   include = includedFiles: src:
     builtins.filterSource (path: type:
       lib.any (f:
-        let p = toString (src + ("/" + f));
-        in p == path || (lib.strings.hasPrefix (p + "/") path)) includedFiles)
-    src;
+        let
+          p = toString (src + ("/" + f));
+        in
+          p == path || (lib.strings.hasPrefix (p + "/") path)
+      ) includedFiles) src;
   exclude = excludedFiles: src:
     builtins.filterSource (path: type:
       lib.all (f: !lib.strings.hasPrefix (toString (src + ("/" + f))) path)

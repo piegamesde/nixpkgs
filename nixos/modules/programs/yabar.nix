@@ -39,10 +39,12 @@ let
         }
       };
     '') cfg.bars;
-  in pkgs.writeText "yabar.conf" ''
-    bar-list = [${listKeys cfg.bars}];
-    ${concatStringsSep "\n" bars}
-  '';
+  in
+    pkgs.writeText "yabar.conf" ''
+      bar-list = [${listKeys cfg.bars}];
+      ${concatStringsSep "\n" bars}
+    ''
+  ;
 in {
   options.programs.yabar = {
     enable = mkEnableOption (lib.mdDoc "yabar");

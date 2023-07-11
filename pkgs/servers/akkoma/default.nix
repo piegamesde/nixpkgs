@@ -174,7 +174,7 @@ beamPackages.mixRelease rec {
         in ''
           mkdir config
           cp ${cfgFile} config/config.exs
-        '';
+        '' ;
       };
     });
   };

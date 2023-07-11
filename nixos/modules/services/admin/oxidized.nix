@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.oxidized;
+let
+  cfg = config.services.oxidized;
 in {
   options.services.oxidized = {
     enable =

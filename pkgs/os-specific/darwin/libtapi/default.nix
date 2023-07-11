@@ -59,9 +59,11 @@ stdenv.mkDerivation {
           "-DCMAKE_EXE_LINKER_FLAGS=-L${nativeLibcxxabi}/lib"
           "-DCMAKE_SHARED_LINKER_FLAGS=-L${nativeLibcxxabi}/lib"
         ];
-      in "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list=${
-        lib.concatStringsSep ";" nativeToolchainFlags
-      }")
+      in
+        "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list=${
+          lib.concatStringsSep ";" nativeToolchainFlags
+        }"
+      )
     ];
 
   # fixes: fatal error: 'clang/Basic/Diagnostic.h' file not found

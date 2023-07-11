@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.jmusicbot;
+let
+  cfg = config.services.jmusicbot;
 in {
   options = {
     services.jmusicbot = {

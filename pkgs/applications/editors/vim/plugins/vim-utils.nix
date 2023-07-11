@@ -148,9 +148,11 @@ let
       else
         plugin;
       # make sure all the dependencies of the plugin are also derivations
-    in drv // {
-      dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]);
-    };
+    in
+      drv // {
+        dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]);
+      }
+  ;
 
   # transitive closure of plugin dependencies (plugin needs to be a derivation)
   transitiveClosure = plugin:
@@ -172,7 +174,9 @@ let
         name = "${prefix}/${lib.getName drv}";
         path = drv;
       };
-    in linkFarm name (map mkEntryFromDrv drvs);
+    in
+      linkFarm name (map mkEntryFromDrv drvs)
+  ;
 
   /* Generates a packpath folder as expected by vim
        Example:
@@ -212,15 +216,19 @@ let
             mkdir -p $out/pack/${packageName}/start/__python3_dependencies
             ln -s ${python3Env}/${python3Env.sitePackages} $out/pack/${packageName}/start/__python3_dependencies/python3
           '';
-        in [
-          packdirStart
-          packdirOpt
-        ] ++ lib.optional (allPython3Dependencies python3.pkgs != [ ])
-        python3link;
-    in buildEnv {
-      name = "vim-pack-dir";
-      paths = (lib.flatten (lib.mapAttrsToList packageLinks packages));
-    };
+        in
+          [
+            packdirStart
+            packdirOpt
+          ] ++ lib.optional (allPython3Dependencies python3.pkgs != [ ])
+          python3link
+      ;
+    in
+      buildEnv {
+        name = "vim-pack-dir";
+        paths = (lib.flatten (lib.mapAttrsToList packageLinks packages));
+      }
+  ;
 
   nativeImpl = packages: ''
     set packpath^=${packDir packages}
@@ -273,7 +281,9 @@ let
         # plugins with dependencies
         plugins = findDependenciesRecursively specifiedPlugins;
         vamPackages.vam = { start = plugins; };
-      in nativeImpl vamPackages;
+      in
+        nativeImpl vamPackages
+      ;
 
       entries = [ beforePlugins ] ++ lib.optional (vam != null) (lib.warn
         "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration"
@@ -282,7 +292,9 @@ let
           "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`")
         ++ lib.optional (plug != null) plugImpl ++ [ customRC ];
 
-    in lib.concatStringsSep "\n" (lib.filter (x: x != null && x != "") entries);
+    in
+      lib.concatStringsSep "\n" (lib.filter (x: x != null && x != "") entries)
+  ;
 
   vimrcFile = settings: writeText "vimrc" (vimrcContent settings);
 
@@ -291,9 +303,10 @@ in rec {
   inherit vimrcContent;
   inherit packDir;
 
-  makeCustomizable =
-    let mkVimrcFile = vimrcFile; # avoid conflict with argument name
-    in vim:
+  makeCustomizable = let
+    mkVimrcFile = vimrcFile; # avoid conflict with argument name
+  in
+    vim:
     vim // {
       # Returns a customized vim that uses the specified vimrc configuration.
       customize = { # The name of the derivation.
@@ -377,7 +390,8 @@ in rec {
 
       override = f: makeCustomizable (vim.override f);
       overrideAttrs = f: makeCustomizable (vim.overrideAttrs f);
-    };
+    }
+  ;
 
   vimWithRC = throw "vimWithRC was removed, please use vim.customize instead";
 
@@ -433,7 +447,9 @@ in rec {
       nonNativePlugins = (lib.optionals (plug != null) plug.plugins);
       nativePlugins =
         lib.concatMap (requiredPluginsForPackage) nativePluginsConfigs;
-    in nativePlugins ++ nonNativePlugins;
+    in
+      nativePlugins ++ nonNativePlugins
+  ;
 
   # figures out which python dependencies etc. is needed for one vim package
   requiredPluginsForPackage = {

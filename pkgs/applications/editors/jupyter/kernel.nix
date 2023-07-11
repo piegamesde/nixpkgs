@@ -7,7 +7,8 @@
 let
 
   default = {
-    python3 = let env = (python3.withPackages (ps: with ps; [ ipykernel ]));
+    python3 = let
+      env = (python3.withPackages (ps: with ps; [ ipykernel ]));
     in {
       displayName = "Python 3";
       argv = [
@@ -20,7 +21,7 @@ let
       language = "python";
       logo32 = "${env}/${env.sitePackages}/ipykernel/resources/logo-32x32.png";
       logo64 = "${env}/${env.sitePackages}/ipykernel/resources/logo-64x64.png";
-    };
+    } ;
   };
 
 in {
@@ -79,7 +80,7 @@ in {
             mkdir 'kernels/${kernelName}';
             echo '${config}' > 'kernels/${kernelName}/kernel.json';
             ${lib.concatStringsSep "\n" linkExtraPaths}
-          '') definitions)}
+          '' ) definitions)}
 
         mkdir $out
         cp -r kernels $out

@@ -25,5 +25,6 @@ let
     # cc already exposed
   };
   assertCondition = true;
-in lib.extendDerivation assertCondition passthruExtra cudaStdenv
+in
+  lib.extendDerivation assertCondition passthruExtra cudaStdenv
 

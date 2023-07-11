@@ -12,8 +12,11 @@ let
 
   # Extract local dasaset names (so no datasets containing "@")
   localDatasetName = d:
-    optionals (d != null)
-    (let m = builtins.match "([^/@]+[^@]*)" d; in optionals (m != null) m);
+    optionals (d != null) (let
+      m = builtins.match "([^/@]+[^@]*)" d;
+    in
+      optionals (m != null) m
+    );
 
   # Escape as required by: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
   escapeUnitName = name:

@@ -79,7 +79,9 @@ let
           (mapAttrs (k: v: (v // { queries = nameInline v.queries; }))
             cfg.configuration.jobs));
       };
-    in builtins.toFile "config.yaml" (builtins.toJSON configuration);
+    in
+      builtins.toFile "config.yaml" (builtins.toJSON configuration)
+  ;
 in {
   extraOpts = {
     configFile = mkOption {

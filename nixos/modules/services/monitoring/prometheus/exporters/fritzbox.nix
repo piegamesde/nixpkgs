@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.fritzbox;
+let
+  cfg = config.services.prometheus.exporters.fritzbox;
 in {
   port = 9133;
   extraOpts = {

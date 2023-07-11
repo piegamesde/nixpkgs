@@ -94,7 +94,7 @@ buildGoModule rec {
     buildFlagsArray+=("-run" "[^(${
       builtins.concatStringsSep "|" skippedTests
     })]")
-  '';
+  '' ;
 
   postInstall = ''
     wrapProgram $out/bin/lxd --prefix PATH : ${

@@ -108,6 +108,6 @@ in {
           rustPlatform = makeRustPlatform self;
           inherit Security;
         };
-      });
+      } );
   };
 }

@@ -50,145 +50,146 @@ let
   targetCC = pkgsBuildTarget.targetPackages.stdenv.cc;
 
   isCross = stdenv.buildPlatform != stdenv.targetPlatform;
-in stdenv.mkDerivation rec {
-  pname = "go";
-  version = "1.20.3";
+in
+  stdenv.mkDerivation rec {
+    pname = "go";
+    version = "1.20.3";
 
-  src = fetchurl {
-    url = "https://go.dev/dl/go${version}.src.tar.gz";
-    hash = "sha256-5Ee0mM3lAhXE92GeUSSw/E4l+10W6kcnHEfyeOeqdjo=";
-  };
+    src = fetchurl {
+      url = "https://go.dev/dl/go${version}.src.tar.gz";
+      hash = "sha256-5Ee0mM3lAhXE92GeUSSw/E4l+10W6kcnHEfyeOeqdjo=";
+    };
 
-  strictDeps = true;
-  buildInputs = [ ] ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ lib.optionals
-    (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
+    strictDeps = true;
+    buildInputs = [ ] ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
+      ++ lib.optionals
+      (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
 
-  depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
-    Foundation
-    Security
-    xcbuild
-  ];
+    depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
+      Foundation
+      Security
+      xcbuild
+    ];
 
-  depsBuildTarget = lib.optional isCross targetCC;
+    depsBuildTarget = lib.optional isCross targetCC;
 
-  depsTargetTarget =
-    lib.optional stdenv.targetPlatform.isWindows threadsCross.package;
+    depsTargetTarget =
+      lib.optional stdenv.targetPlatform.isWindows threadsCross.package;
 
-  postPatch = ''
-    patchShebangs .
-  '';
+    postPatch = ''
+      patchShebangs .
+    '';
 
-  patches = [
-    (substituteAll {
-      src = ./iana-etc-1.17.patch;
-      iana = iana-etc;
-    })
-    # Patch the mimetype database location which is missing on NixOS.
-    # but also allow static binaries built with NixOS to run outside nix
-    (substituteAll {
-      src = ./mailcap-1.17.patch;
-      inherit mailcap;
-    })
-    # prepend the nix path to the zoneinfo files but also leave the original value for static binaries
-    # that run outside a nix server
-    (substituteAll {
-      src = ./tzdata-1.19.patch;
-      inherit tzdata;
-    })
-    ./remove-tools-1.11.patch
-    ./go_no_vendor_checks-1.16.patch
-  ];
+    patches = [
+      (substituteAll {
+        src = ./iana-etc-1.17.patch;
+        iana = iana-etc;
+      })
+      # Patch the mimetype database location which is missing on NixOS.
+      # but also allow static binaries built with NixOS to run outside nix
+      (substituteAll {
+        src = ./mailcap-1.17.patch;
+        inherit mailcap;
+      })
+      # prepend the nix path to the zoneinfo files but also leave the original value for static binaries
+      # that run outside a nix server
+      (substituteAll {
+        src = ./tzdata-1.19.patch;
+        inherit tzdata;
+      })
+      ./remove-tools-1.11.patch
+      ./go_no_vendor_checks-1.16.patch
+    ];
 
-  GOOS = stdenv.targetPlatform.parsed.kernel.name;
-  GOARCH = goarch stdenv.targetPlatform;
-  # GOHOSTOS/GOHOSTARCH must match the building system, not the host system.
-  # Go will nevertheless build a for host system that we will copy over in
-  # the install phase.
-  GOHOSTOS = stdenv.buildPlatform.parsed.kernel.name;
-  GOHOSTARCH = goarch stdenv.buildPlatform;
+    GOOS = stdenv.targetPlatform.parsed.kernel.name;
+    GOARCH = goarch stdenv.targetPlatform;
+    # GOHOSTOS/GOHOSTARCH must match the building system, not the host system.
+    # Go will nevertheless build a for host system that we will copy over in
+    # the install phase.
+    GOHOSTOS = stdenv.buildPlatform.parsed.kernel.name;
+    GOHOSTARCH = goarch stdenv.buildPlatform;
 
-  # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
-  # to be different from CC/CXX
-  CC_FOR_TARGET =
-    if isCross then "${targetCC}/bin/${targetCC.targetPrefix}cc" else null;
-  CXX_FOR_TARGET =
-    if isCross then "${targetCC}/bin/${targetCC.targetPrefix}c++" else null;
+    # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
+    # to be different from CC/CXX
+    CC_FOR_TARGET =
+      if isCross then "${targetCC}/bin/${targetCC.targetPrefix}cc" else null;
+    CXX_FOR_TARGET =
+      if isCross then "${targetCC}/bin/${targetCC.targetPrefix}c++" else null;
 
-  GOARM = toString
-    (lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
-      "5"
-      "6"
-      "7"
-    ]);
-  GO386 = "softfloat"; # from Arch: don't assume sse2 on i686
-  CGO_ENABLED = 1;
+    GOARM = toString
+      (lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
+        "5"
+        "6"
+        "7"
+      ]);
+    GO386 = "softfloat"; # from Arch: don't assume sse2 on i686
+    CGO_ENABLED = 1;
 
-  GOROOT_BOOTSTRAP =
-    if useGccGoBootstrap then goBootstrap else "${goBootstrap}/share/go";
+    GOROOT_BOOTSTRAP =
+      if useGccGoBootstrap then goBootstrap else "${goBootstrap}/share/go";
 
-  buildPhase = ''
-    runHook preBuild
-    export GOCACHE=$TMPDIR/go-cache
-    # this is compiled into the binary
-    export GOROOT_FINAL=$out/share/go
+    buildPhase = ''
+      runHook preBuild
+      export GOCACHE=$TMPDIR/go-cache
+      # this is compiled into the binary
+      export GOROOT_FINAL=$out/share/go
 
-    export PATH=$(pwd)/bin:$PATH
+      export PATH=$(pwd)/bin:$PATH
 
-    ${lib.optionalString isCross ''
-      # Independent from host/target, CC should produce code for the building system.
-      # We only set it when cross-compiling.
-      export CC=${buildPackages.stdenv.cc}/bin/cc
-    ''}
-    ulimit -a
-
-    pushd src
-    ./make.bash
-    popd
-    runHook postBuild
-  '';
-
-  preInstall = ''
-    # Contains the wrong perl shebang when cross compiling,
-    # since it is not used for anything we can deleted as well.
-    rm src/regexp/syntax/make_perl_groups.pl
-  '' + (if (stdenv.buildPlatform.system != stdenv.hostPlatform.system) then ''
-    mv bin/*_*/* bin
-    rmdir bin/*_*
-    ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
-      rm -rf pkg/${GOHOSTOS}_${GOHOSTARCH} pkg/tool/${GOHOSTOS}_${GOHOSTARCH}
-    ''}
-  '' else
-    lib.optionalString
-    (stdenv.hostPlatform.system != stdenv.targetPlatform.system) ''
-      rm -rf bin/*_*
-      ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
-        rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
+      ${lib.optionalString isCross ''
+        # Independent from host/target, CC should produce code for the building system.
+        # We only set it when cross-compiling.
+        export CC=${buildPackages.stdenv.cc}/bin/cc
       ''}
-    '');
+      ulimit -a
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $GOROOT_FINAL
-    cp -a bin pkg src lib misc api doc $GOROOT_FINAL
-    ln -s $GOROOT_FINAL/bin $out/bin
-    runHook postInstall
-  '';
+      pushd src
+      ./make.bash
+      popd
+      runHook postBuild
+    '';
 
-  disallowedReferences = [ goBootstrap ];
+    preInstall = ''
+      # Contains the wrong perl shebang when cross compiling,
+      # since it is not used for anything we can deleted as well.
+      rm src/regexp/syntax/make_perl_groups.pl
+    '' + (if (stdenv.buildPlatform.system != stdenv.hostPlatform.system) then ''
+      mv bin/*_*/* bin
+      rmdir bin/*_*
+      ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
+        rm -rf pkg/${GOHOSTOS}_${GOHOSTARCH} pkg/tool/${GOHOSTOS}_${GOHOSTARCH}
+      ''}
+    '' else
+      lib.optionalString
+      (stdenv.hostPlatform.system != stdenv.targetPlatform.system) ''
+        rm -rf bin/*_*
+        ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
+          rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
+        ''}
+      '');
 
-  passthru = {
-    inherit goBootstrap skopeoTest;
-    tests = { skopeo = testers.testVersion { package = skopeoTest; }; };
-  };
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $GOROOT_FINAL
+      cp -a bin pkg src lib misc api doc $GOROOT_FINAL
+      ln -s $GOROOT_FINAL/bin $out/bin
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    changelog =
-      "https://go.dev/doc/devel/release#go${lib.versions.majorMinor version}";
-    description = "The Go Programming language";
-    homepage = "https://go.dev/";
-    license = licenses.bsd3;
-    maintainers = teams.golang.members;
-    platforms = platforms.darwin ++ platforms.linux;
-  };
-}
+    disallowedReferences = [ goBootstrap ];
+
+    passthru = {
+      inherit goBootstrap skopeoTest;
+      tests = { skopeo = testers.testVersion { package = skopeoTest; }; };
+    };
+
+    meta = with lib; {
+      changelog =
+        "https://go.dev/doc/devel/release#go${lib.versions.majorMinor version}";
+      description = "The Go Programming language";
+      homepage = "https://go.dev/";
+      license = licenses.bsd3;
+      maintainers = teams.golang.members;
+      platforms = platforms.darwin ++ platforms.linux;
+    };
+  }

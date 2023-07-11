@@ -8,4 +8,5 @@ let
     inherit pkgs;
     inherit (stdenv.hostPlatform) system;
   };
-in nodePackages.base16-builder
+in
+  nodePackages.base16-builder

@@ -93,4 +93,4 @@ import ../make-test-python.nix ({
           duration = time.monotonic() - t1
           assert duration < 30, f"shutdown took too long ({duration} seconds)"
     '';
-  })
+  } )

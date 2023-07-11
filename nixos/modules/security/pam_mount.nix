@@ -148,43 +148,45 @@ in {
             } // user.pamMount;
           in ''
             <volume ${concatStringsSep " " (mapAttrsToList mkAttr attrs)} />
-          '';
-      in pkgs.writeText "pam_mount.conf.xml" ''
-        <?xml version="1.0" encoding="utf-8" ?>
-        <!DOCTYPE pam_mount SYSTEM "pam_mount.conf.xml.dtd">
-        <!-- auto generated from Nixos: modules/config/users-groups.nix -->
-        <pam_mount>
-        <debug enable="${toString cfg.debugLevel}" />
-        <!-- if activated, requires ofl from hxtools to be present -->
-        <logout wait="${toString cfg.logoutWait}" hup="${
-          if cfg.logoutHup then "yes" else "no"
-        }" term="${if cfg.logoutTerm then "yes" else "no"}" kill="${
-          if cfg.logoutKill then "yes" else "no"
-        }" />
-        <!-- set PATH variable for pam_mount module -->
-        <path>${
-          makeBinPath ([ pkgs.util-linux ] ++ cfg.additionalSearchPaths)
-        }</path>
-        <!-- create mount point if not present -->
-        <mkmountpoint enable="${
-          if cfg.createMountPoints then "1" else "0"
-        }" remove="${
-          if cfg.removeCreatedMountPoints then "true" else "false"
-        }" />
-        <!-- specify the binaries to be called -->
-        <fusemount>${pkgs.fuse}/bin/mount.fuse %(VOLUME) %(MNTPT) -o ${
-          concatStringsSep "," (cfg.fuseMountOptions ++ [ "%(OPTIONS)" ])
-        }</fusemount>
-        <fuseumount>${pkgs.fuse}/bin/fusermount -u %(MNTPT)</fuseumount>
-        <cryptmount>${pkgs.pam_mount}/bin/mount.crypt %(VOLUME) %(MNTPT)</cryptmount>
-        <cryptumount>${pkgs.pam_mount}/bin/umount.crypt %(MNTPT)</cryptumount>
-        <pmvarrun>${pkgs.pam_mount}/bin/pmvarrun -u %(USER) -o %(OPERATION)</pmvarrun>
-        ${optionalString oflRequired
-        "<ofl>${fake_ofl}/bin/fake_ofl %(SIGNAL) %(MNTPT)</ofl>"}
-        ${concatStrings (map userVolumeEntry (attrValues extraUserVolumes))}
-        ${concatStringsSep "\n" cfg.extraVolumes}
-        </pam_mount>
-      '';
+          '' ;
+      in
+        pkgs.writeText "pam_mount.conf.xml" ''
+          <?xml version="1.0" encoding="utf-8" ?>
+          <!DOCTYPE pam_mount SYSTEM "pam_mount.conf.xml.dtd">
+          <!-- auto generated from Nixos: modules/config/users-groups.nix -->
+          <pam_mount>
+          <debug enable="${toString cfg.debugLevel}" />
+          <!-- if activated, requires ofl from hxtools to be present -->
+          <logout wait="${toString cfg.logoutWait}" hup="${
+            if cfg.logoutHup then "yes" else "no"
+          }" term="${if cfg.logoutTerm then "yes" else "no"}" kill="${
+            if cfg.logoutKill then "yes" else "no"
+          }" />
+          <!-- set PATH variable for pam_mount module -->
+          <path>${
+            makeBinPath ([ pkgs.util-linux ] ++ cfg.additionalSearchPaths)
+          }</path>
+          <!-- create mount point if not present -->
+          <mkmountpoint enable="${
+            if cfg.createMountPoints then "1" else "0"
+          }" remove="${
+            if cfg.removeCreatedMountPoints then "true" else "false"
+          }" />
+          <!-- specify the binaries to be called -->
+          <fusemount>${pkgs.fuse}/bin/mount.fuse %(VOLUME) %(MNTPT) -o ${
+            concatStringsSep "," (cfg.fuseMountOptions ++ [ "%(OPTIONS)" ])
+          }</fusemount>
+          <fuseumount>${pkgs.fuse}/bin/fusermount -u %(MNTPT)</fuseumount>
+          <cryptmount>${pkgs.pam_mount}/bin/mount.crypt %(VOLUME) %(MNTPT)</cryptmount>
+          <cryptumount>${pkgs.pam_mount}/bin/umount.crypt %(MNTPT)</cryptumount>
+          <pmvarrun>${pkgs.pam_mount}/bin/pmvarrun -u %(USER) -o %(OPERATION)</pmvarrun>
+          ${optionalString oflRequired
+          "<ofl>${fake_ofl}/bin/fake_ofl %(SIGNAL) %(MNTPT)</ofl>"}
+          ${concatStrings (map userVolumeEntry (attrValues extraUserVolumes))}
+          ${concatStringsSep "\n" cfg.extraVolumes}
+          </pam_mount>
+        ''
+      ;
     };
 
   };

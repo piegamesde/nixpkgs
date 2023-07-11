@@ -58,7 +58,7 @@ buildGoModule rec {
   in ''
     cp ${cliConfigToml} ./pkg/config/config.toml
     ldflags+=" -X github.com/fastly/cli/pkg/revision.GitCommit=$(cat COMMIT)"
-  '';
+  '' ;
 
   preFixup = ''
     wrapProgram $out/bin/fastly --prefix PATH : ${lib.makeBinPath [ viceroy ]} \

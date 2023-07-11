@@ -41,4 +41,5 @@ let
     lispLibs = [ alexandria ];
   };
 
-in bordeaux-threads
+in
+  bordeaux-threads

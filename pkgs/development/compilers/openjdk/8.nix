@@ -297,4 +297,5 @@ let
       inherit gtk2;
     };
   };
-in openjdk8
+in
+  openjdk8

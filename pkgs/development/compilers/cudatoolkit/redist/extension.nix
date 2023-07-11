@@ -30,7 +30,9 @@ let
     let
       attrs = lib.filterAttrs (key: value: key != "release_date")
         (lib.importJSON manifest);
-    in lib.mapAttrs buildCudaToolkitRedistPackage attrs;
+    in
+      lib.mapAttrs buildCudaToolkitRedistPackage attrs
+  ;
 
   # All cudatoolkit redist packages for the current cuda version
   cudaToolkitRedistPackages =
@@ -42,4 +44,5 @@ let
     else
       { };
 
-in cudaToolkitRedistPackages
+in
+  cudaToolkitRedistPackages

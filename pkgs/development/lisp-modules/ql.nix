@@ -87,7 +87,7 @@ let
             "--enable-double-precision"
           ];
         });
-      in [ ode' ];
+      in [ ode' ] ;
     });
     classimp =
       super.classimp.overrideLispAttrs (o: { nativeLibs = [ pkgs.assimp ]; });
@@ -200,4 +200,5 @@ let
   else
     { };
 
-in qlpkgs.overrideScope' overrides
+in
+  qlpkgs.overrideScope' overrides

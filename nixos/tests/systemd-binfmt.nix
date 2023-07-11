@@ -53,18 +53,18 @@ in {
       assert "world" in machine.succeed(
           "${helloAarch64}/bin/hello"
       )
-    '';
+    '' ;
   };
 
   preserveArgvZero = makeTest {
     name = "systemd-binfmt-preserve-argv0";
     nodes.machine = { boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; };
-    testScript =
-      let testAarch64 = expectArgv0 pkgs.pkgsCross.aarch64-multiplatform;
-      in ''
-        machine.start()
-        machine.succeed("exec -a meow ${testAarch64} meow")
-      '';
+    testScript = let
+      testAarch64 = expectArgv0 pkgs.pkgsCross.aarch64-multiplatform;
+    in ''
+      machine.start()
+      machine.succeed("exec -a meow ${testAarch64} meow")
+    '' ;
   };
 
   ldPreload = makeTest {
@@ -79,6 +79,6 @@ in {
       assert "error" not in machine.succeed(
           "LD_PRELOAD='${libredirectAarch64}/lib/libredirect.so' ${helloAarch64}/bin/hello 2>&1"
       ).lower()
-    '';
+    '' ;
   };
 }

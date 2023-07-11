@@ -11,7 +11,9 @@ import ../make-test-python.nix ({
       let
         subnets =
           config.services.tinc.networks.myNetwork.hostSettings.${name}.subnets;
-      in (builtins.head subnets).address;
+      in
+        (builtins.head subnets).address
+    ;
 
     makeTincHost = name:
       {
@@ -153,4 +155,4 @@ import ../make-test-python.nix ({
       dynamic1.succeed("ping -c5 10.0.0.22")
       dynamic2.succeed("ping -c5 10.0.0.21")
     '';
-  })
+  } )

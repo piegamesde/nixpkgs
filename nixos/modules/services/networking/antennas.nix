@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.antennas;
+let
+  cfg = config.services.antennas;
 
 in {
   options = {

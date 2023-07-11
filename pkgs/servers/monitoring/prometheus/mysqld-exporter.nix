@@ -17,7 +17,8 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-M6u+ZBEUqCd6cKVHPvHqRiXLbuWz66GK+ybIQm+5tQE=";
 
-  ldflags = let t = "github.com/prometheus/common/version";
+  ldflags = let
+    t = "github.com/prometheus/common/version";
   in [
     "-s"
     "-w"
@@ -26,7 +27,7 @@ buildGoModule rec {
     "-X ${t}.Branch=unknown"
     "-X ${t}.BuildUser=nix@nixpkgs"
     "-X ${t}.BuildDate=unknown"
-  ];
+  ] ;
 
   # skips tests with external dependencies, e.g. on mysqld
   preCheck = ''

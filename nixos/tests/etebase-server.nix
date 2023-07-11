@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
     ...
   }:
 
-  let dataDir = "/var/lib/foobar";
+  let
+    dataDir = "/var/lib/foobar";
 
   in {
     name = "etebase-server";
@@ -48,4 +49,4 @@ import ./make-test-python.nix ({
               "etebase-server createsuperuser --no-input --username admin --email root@localhost"
           )
     '';
-  })
+  } )

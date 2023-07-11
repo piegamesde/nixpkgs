@@ -102,4 +102,5 @@ let
       maintainers = with maintainers; [ onny ];
     };
   };
-in bsuite
+in
+  bsuite

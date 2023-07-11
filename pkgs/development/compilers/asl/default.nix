@@ -10,13 +10,16 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "asl";
   version = "142-bld232";
 
-  src = let inherit (finalAttrs) pname version;
-  in fetchzip {
-    name = "${pname}-${version}";
-    url =
-      "http://john.ccac.rwth-aachen.de:8000/ftp/as/source/c_version/asl-current-${version}.tar.bz2";
-    hash = "sha256-Q50GzXBxFMhbt5s9OgHPNH4bdqz2hhEmTnMmKowVn2E=";
-  };
+  src = let
+    inherit (finalAttrs) pname version;
+  in
+    fetchzip {
+      name = "${pname}-${version}";
+      url =
+        "http://john.ccac.rwth-aachen.de:8000/ftp/as/source/c_version/asl-current-${version}.tar.bz2";
+      hash = "sha256-Q50GzXBxFMhbt5s9OgHPNH4bdqz2hhEmTnMmKowVn2E=";
+    }
+  ;
 
   outputs = [
     "out"

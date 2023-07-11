@@ -35,4 +35,5 @@ let
       kwindowsystem
     ];
   };
-in self
+in
+  self

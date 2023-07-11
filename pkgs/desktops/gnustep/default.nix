@@ -21,4 +21,5 @@ let
     gworkspace = callPackage ./gworkspace { };
   };
 
-in self
+in
+  self

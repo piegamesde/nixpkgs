@@ -174,4 +174,4 @@ import ../../make-test-python.nix ({
         database.shutdown()
       '';
     };
-  })
+  } )

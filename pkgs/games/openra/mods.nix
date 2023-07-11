@@ -117,37 +117,40 @@ in {
     };
   };
 
-  kknd = let version = "145.git.5530bab";
-  in name:
-  (buildOpenRAMod rec {
-    inherit version;
-    title = "Krush, Kill 'n' Destroy";
-    description = "Re-imagination of the original ${title} game";
-    homepage = "https://kknd-game.com/";
-    src = fetchFromGitHub {
-      owner = "IceReaper";
-      repo = "KKnD";
-      rev = "5530babcb05170e0959e4cf2b079161e9fedde4f";
-      sha256 = "07jczrarmgm6zdk0myzwgq200x19yvpjyxrnhdac08mjgyz75zk1";
-    };
-    engine = {
-      version = "4e8eab4ca00d1910203c8a103dfd2c002714daa8";
+  kknd = let
+    version = "145.git.5530bab";
+  in
+    name:
+    (buildOpenRAMod rec {
+      inherit version;
+      title = "Krush, Kill 'n' Destroy";
+      description = "Re-imagination of the original ${title} game";
+      homepage = "https://kknd-game.com/";
       src = fetchFromGitHub {
         owner = "IceReaper";
-        repo = "OpenRA";
-        # commit does not exist on any branch on the target repository
-        rev = "4e8eab4ca00d1910203c8a103dfd2c002714daa8";
-        sha256 = "1yyqparf93x8yzy1f46gsymgkj5jls25v2yc7ighr3f7mi3igdvq";
-        name = "engine";
-        inherit postFetch;
+        repo = "KKnD";
+        rev = "5530babcb05170e0959e4cf2b079161e9fedde4f";
+        sha256 = "07jczrarmgm6zdk0myzwgq200x19yvpjyxrnhdac08mjgyz75zk1";
       };
-    };
-  } name).overrideAttrs (origAttrs: {
-    postPatch = ''
-      ${origAttrs.postPatch}
-      sed -i 's/{DEV_VERSION}/${version}/' mods/*/mod.yaml
-    '';
-  });
+      engine = {
+        version = "4e8eab4ca00d1910203c8a103dfd2c002714daa8";
+        src = fetchFromGitHub {
+          owner = "IceReaper";
+          repo = "OpenRA";
+          # commit does not exist on any branch on the target repository
+          rev = "4e8eab4ca00d1910203c8a103dfd2c002714daa8";
+          sha256 = "1yyqparf93x8yzy1f46gsymgkj5jls25v2yc7ighr3f7mi3igdvq";
+          name = "engine";
+          inherit postFetch;
+        };
+      };
+    } name).overrideAttrs (origAttrs: {
+      postPatch = ''
+        ${origAttrs.postPatch}
+        sed -i 's/{DEV_VERSION}/${version}/' mods/*/mod.yaml
+      '';
+    })
+  ;
 
   mw = buildOpenRAMod rec {
     version = "257.git.c9be8f2";

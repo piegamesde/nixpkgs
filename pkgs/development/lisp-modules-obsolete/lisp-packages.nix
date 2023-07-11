@@ -346,4 +346,5 @@ let
     };
 
   };
-in lispPackages
+in
+  lispPackages

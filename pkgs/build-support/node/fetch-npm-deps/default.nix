@@ -21,8 +21,11 @@
     src = lib.cleanSourceWith {
       src = ./.;
       filter = name: type:
-        let name' = builtins.baseNameOf name;
-        in name' != "default.nix" && name' != "target";
+        let
+          name' = builtins.baseNameOf name;
+        in
+          name' != "default.nix" && name' != "target"
+      ;
     };
 
     cargoLock.lockFile = ./Cargo.lock;
@@ -142,7 +145,7 @@
 
         forceGitDeps = true;
       };
-    };
+    } ;
 
     meta = with lib; {
       description =
@@ -167,34 +170,36 @@
       };
 
       forceGitDeps_ = lib.optionalAttrs forceGitDeps { FORCE_GIT_DEPS = true; };
-    in stdenvNoCC.mkDerivation (args // {
-      inherit name;
+    in
+      stdenvNoCC.mkDerivation (args // {
+        inherit name;
 
-      nativeBuildInputs = [ prefetch-npm-deps ];
+        nativeBuildInputs = [ prefetch-npm-deps ];
 
-      buildPhase = ''
-        runHook preBuild
+        buildPhase = ''
+          runHook preBuild
 
-        if [[ ! -e package-lock.json ]]; then
-          echo
-          echo "ERROR: The package-lock.json file does not exist!"
-          echo
-          echo "package-lock.json is required to make sure that npmDepsHash doesn't change"
-          echo "when packages are updated on npm."
-          echo
-          echo "Hint: You can copy a vendored package-lock.json file via postPatch."
-          echo
+          if [[ ! -e package-lock.json ]]; then
+            echo
+            echo "ERROR: The package-lock.json file does not exist!"
+            echo
+            echo "package-lock.json is required to make sure that npmDepsHash doesn't change"
+            echo "when packages are updated on npm."
+            echo
+            echo "Hint: You can copy a vendored package-lock.json file via postPatch."
+            echo
 
-          exit 1
-        fi
+            exit 1
+          fi
 
-        prefetch-npm-deps package-lock.json $out
+          prefetch-npm-deps package-lock.json $out
 
-        runHook postBuild
-      '';
+          runHook postBuild
+        '';
 
-      dontInstall = true;
+        dontInstall = true;
 
-      outputHashMode = "recursive";
-    } // hash_ // forceGitDeps_);
+        outputHashMode = "recursive";
+      } // hash_ // forceGitDeps_)
+  ;
 }

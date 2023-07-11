@@ -396,4 +396,4 @@ import ./make-test-python.nix ({
             r = [("A", "3.4.5.6")]
             test(local_resolver, ["::1", "127.0.0.1"], zone="something.local.", records=r)
       '';
-  })
+  } )

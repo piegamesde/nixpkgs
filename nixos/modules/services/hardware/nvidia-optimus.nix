@@ -4,7 +4,8 @@
   ...
 }:
 
-let kernel = config.boot.kernelPackages;
+let
+  kernel = config.boot.kernelPackages;
 
 in {
 

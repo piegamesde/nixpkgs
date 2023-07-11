@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.openarena;
+let
+  cfg = config.services.openarena;
 in {
   options = {
     services.openarena = {

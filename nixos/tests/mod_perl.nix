@@ -49,7 +49,7 @@ import ./make-test-python.nix ({
                 PerlResponseHandler ModPerlTest
               '';
             };
-          };
+          } ;
           enablePerl = true;
         };
       };

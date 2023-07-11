@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prowlarr;
+let
+  cfg = config.services.prowlarr;
 
 in {
   options = {

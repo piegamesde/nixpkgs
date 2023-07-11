@@ -15,60 +15,61 @@ let
   #    that disabled as weidu is strongly dependent on mutable strings
   ocaml' = ocaml-ng.ocamlPackages_4_14_unsafe_string.ocaml;
 
-in stdenv.mkDerivation rec {
-  pname = "weidu";
-  version = "249.00";
+in
+  stdenv.mkDerivation rec {
+    pname = "weidu";
+    version = "249.00";
 
-  src = fetchFromGitHub {
-    owner = "WeiDUorg";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-+vkKTzFZdAzY2dL+mZ4A0PDxhTKGgs9bfArz7S6b4m4=";
-  };
+    src = fetchFromGitHub {
+      owner = "WeiDUorg";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "sha256-+vkKTzFZdAzY2dL+mZ4A0PDxhTKGgs9bfArz7S6b4m4=";
+    };
 
-  postPatch = ''
-    substitute sample.Configuration Configuration \
-      --replace /usr/bin ${lib.makeBinPath [ ocaml' ]} \
-      --replace elkhound ${elkhound}/bin/elkhound
+    postPatch = ''
+      substitute sample.Configuration Configuration \
+        --replace /usr/bin ${lib.makeBinPath [ ocaml' ]} \
+        --replace elkhound ${elkhound}/bin/elkhound
 
-    mkdir -p obj/{.depend,x86_LINUX}
+      mkdir -p obj/{.depend,x86_LINUX}
 
-    # undefined reference to `caml_hash_univ_param'
-    sed -i "20,21d;s/old_hash_param/hash_param/" hashtbl-4.03.0/myhashtbl.ml
-  '';
+      # undefined reference to `caml_hash_univ_param'
+      sed -i "20,21d;s/old_hash_param/hash_param/" hashtbl-4.03.0/myhashtbl.ml
+    '';
 
-  nativeBuildInputs = [
-    elkhound
-    ocaml'
-    perl
-    which
-    gnumake42
-  ];
+    nativeBuildInputs = [
+      elkhound
+      ocaml'
+      perl
+      which
+      gnumake42
+    ];
 
-  buildFlags = [
-    "weidu"
-    "weinstall"
-    "tolower"
-  ];
+    buildFlags = [
+      "weidu"
+      "weinstall"
+      "tolower"
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    for b in tolower weidu weinstall; do
-      install -Dm555 $b.asm.exe $out/bin/$b
-    done
+      for b in tolower weidu weinstall; do
+        install -Dm555 $b.asm.exe $out/bin/$b
+      done
 
-    install -Dm444 -t $out/share/doc/weidu README* COPYING
+      install -Dm444 -t $out/share/doc/weidu README* COPYING
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "InfinityEngine Modding Engine";
-    homepage = "https://weidu.org";
-    license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
-    # should work fine on both Darwin and Windows
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "InfinityEngine Modding Engine";
+      homepage = "https://weidu.org";
+      license = licenses.gpl2Only;
+      maintainers = with maintainers; [ peterhoeg ];
+      # should work fine on both Darwin and Windows
+      platforms = platforms.linux;
+    };
+  }

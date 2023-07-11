@@ -74,11 +74,13 @@
       done
     '';
 
-  in stdenv.mkDerivation {
-    name = "dictd-dbs";
+  in
+    stdenv.mkDerivation {
+      name = "dictd-dbs";
 
-    buildInputs = [ dict ];
+      buildInputs = [ dict ];
 
-    dontUnpack = true;
-    inherit installPhase;
-  })
+      dontUnpack = true;
+      inherit installPhase;
+    }
+)

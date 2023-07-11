@@ -79,7 +79,7 @@ let
         "@${openvpn}/sbin/openvpn openvpn --suppress-timestamps --config ${configFile}";
       serviceConfig.Restart = "always";
       serviceConfig.Type = "notify";
-    };
+    } ;
 
   restartService = optionalAttrs cfg.restartAfterSleep {
     openvpn-restart = {

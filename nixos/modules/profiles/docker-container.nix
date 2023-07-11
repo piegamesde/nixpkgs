@@ -41,7 +41,9 @@ in {
         rm etc
         mkdir -p proc sys dev etc
       '';
-    in script;
+    in
+      script
+    ;
   };
 
   boot.isContainer = true;

@@ -146,5 +146,6 @@ let
       makeWrapper $out/Applications/Electron.app/Contents/MacOS/Electron $out/bin/electron
     '';
   };
-in stdenv.mkDerivation
-((common stdenv.hostPlatform) // (if stdenv.isDarwin then darwin else linux))
+in
+  stdenv.mkDerivation
+  ((common stdenv.hostPlatform) // (if stdenv.isDarwin then darwin else linux))

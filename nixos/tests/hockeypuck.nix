@@ -67,4 +67,4 @@ import ./make-test-python.nix ({
       # Recieve the key from our local keyserver to a separate directory
       machine.succeed("GNUPGHOME=$(mktemp -d) gpg --keyserver hkp://127.0.0.1:11371 --recv-keys " + keyId)
     '';
-  })
+  } )

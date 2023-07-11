@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.gotify;
+let
+  cfg = config.services.gotify;
 in {
   options = {
     services.gotify = {

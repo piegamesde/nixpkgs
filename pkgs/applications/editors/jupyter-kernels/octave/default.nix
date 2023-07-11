@@ -11,7 +11,8 @@
 # To test:
 # $(nix-build -E 'with import <nixpkgs> {}; jupyter.override { definitions = { octave = octave-kernel.definition; }; }')/bin/jupyter-notebook
 
-let kernel = callPackage ./kernel.nix { python3Packages = python3.pkgs; };
+let
+  kernel = callPackage ./kernel.nix { python3Packages = python3.pkgs; };
 
 in rec {
   launcher = runCommand "octave-kernel-launcher" {

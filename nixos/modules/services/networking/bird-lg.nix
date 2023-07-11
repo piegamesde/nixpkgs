@@ -13,7 +13,8 @@ let
   stringOrConcat = sep: v:
     if builtins.isString v then v else concatStringsSep sep v;
 
-  frontend_args = let fe = cfg.frontend;
+  frontend_args = let
+    fe = cfg.frontend;
   in {
     "--servers" = concatStringsSep "," fe.servers;
     "--domain" = fe.domain;
@@ -29,9 +30,10 @@ let
     "--navbar-all-url" = fe.navbar.allServersURL;
     "--net-specific-mode" = fe.netSpecificMode;
     "--protocol-filter" = concatStringsSep "," cfg.frontend.protocolFilter;
-  };
+  } ;
 
-  proxy_args = let px = cfg.proxy;
+  proxy_args = let
+    px = cfg.proxy;
   in {
     "--allowed" = concatStringsSep "," px.allowedIPs;
     "--bird" = px.birdSocket;
@@ -39,7 +41,7 @@ let
     "--traceroute_bin" = px.traceroute.binary;
     "--traceroute_flags" = concatStringsSep " " px.traceroute.flags;
     "--traceroute_raw" = px.traceroute.rawOutput;
-  };
+  } ;
 
   mkArgValue = value:
     if isString value then

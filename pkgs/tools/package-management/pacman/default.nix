@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
       --replace "local KEYRING_IMPORT_DIR='@keyringdir@'" "" \
       --subst-var-by keyringdir '\$KEYRING_IMPORT_DIR' \
       --replace "--batch --check-trustdb" "--batch --check-trustdb --allow-weak-key-signatures"
-  ''; # the line above should be removed once Arch migrates to gnupg 2.3.x
+  '' ; # the line above should be removed once Arch migrates to gnupg 2.3.x
 
   mesonFlags = [
     "--sysconfdir=/etc"

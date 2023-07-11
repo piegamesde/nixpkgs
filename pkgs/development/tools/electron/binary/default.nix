@@ -21,7 +21,8 @@
   wayland,
 }@args:
 
-let mkElectron = import ./generic.nix args;
+let
+  mkElectron = import ./generic.nix args;
 in rec {
 
   electron-bin = electron_24-bin;

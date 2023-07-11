@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.throttled;
+let
+  cfg = config.services.throttled;
 in {
   options = {
     services.throttled = {

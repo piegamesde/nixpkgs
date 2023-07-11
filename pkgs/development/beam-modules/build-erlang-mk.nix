@@ -116,4 +116,5 @@ let
         inherit beamDeps;
       };
     });
-in lib.fix pkg
+in
+  lib.fix pkg

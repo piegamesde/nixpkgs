@@ -23,7 +23,8 @@ let
     profiledCompiler = false;
     stdenv = overrideCC stdenv (wrapCCWith { cc = stdenv.cc; });
   }).overrideAttrs (_: { NIX_OUTPATH_USED_AS_RANDOM_SEED = stdenv.cc.cc.out; });
-in (runCommand "gcc-stageCompare" { } ''
-  diff -sr ${pkgs.gcc-unwrapped.checksum}/checksums ${gcc-stageCompare.checksum}/checksums && touch $out
-'').overrideAttrs
-(a: { meta = (a.meta or { }) // { platforms = lib.platforms.linux; }; })
+in
+  (runCommand "gcc-stageCompare" { } ''
+    diff -sr ${pkgs.gcc-unwrapped.checksum}/checksums ${gcc-stageCompare.checksum}/checksums && touch $out
+  '').overrideAttrs
+  (a: { meta = (a.meta or { }) // { platforms = lib.platforms.linux; }; })

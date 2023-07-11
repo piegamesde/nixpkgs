@@ -46,4 +46,5 @@ let
     revision = "release-${release}";
     prefix = modulesPath;
   };
-in docs.optionsNix
+in
+  docs.optionsNix

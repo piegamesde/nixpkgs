@@ -77,4 +77,4 @@ import ../make-test-python.nix ({
             'su -c "${makeTestScript "bob"}" -l bob | grep root'
         )
     '';
-  })
+  } )

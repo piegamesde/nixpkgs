@@ -53,87 +53,88 @@ let
     openssl
     stdenv.cc.cc.lib
   ];
-in stdenv.mkDerivation rec {
-  pname = "insomnia";
-  version = "2022.7.5";
+in
+  stdenv.mkDerivation rec {
+    pname = "insomnia";
+    version = "2022.7.5";
 
-  src = fetchurl {
-    url =
-      "https://github.com/Kong/insomnia/releases/download/core%40${version}/Insomnia.Core-${version}.deb";
-    sha256 = "sha256-BJAiDv+Zg+wU6ovAkuMVTGN9WElOlC96m/GEYrg6exE=";
-  };
+    src = fetchurl {
+      url =
+        "https://github.com/Kong/insomnia/releases/download/core%40${version}/Insomnia.Core-${version}.deb";
+      sha256 = "sha256-BJAiDv+Zg+wU6ovAkuMVTGN9WElOlC96m/GEYrg6exE=";
+    };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-    makeWrapper
-    gobject-introspection
-    wrapGAppsHook
-  ];
-
-  buildInputs = [
-    alsa-lib
-    at-spi2-atk
-    atk
-    cairo
-    cups
-    dbus
-    expat
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    pango
-    gtk3
-    gsettings-desktop-schemas
-    libX11
-    libXScrnSaver
-    libXcomposite
-    libXcursor
-    libXdamage
-    libXext
-    libXfixes
-    libXi
-    libXrandr
-    libXrender
-    libXtst
-    libxcb
-    libxshmfence
-    mesa # for libgbm
-    nspr
-    nss
-  ];
-
-  dontBuild = true;
-  dontConfigure = true;
-  dontWrapGApps = true;
-
-  unpackPhase = "dpkg-deb -x $src .";
-
-  installPhase = ''
-    mkdir -p $out/share/insomnia $out/lib $out/bin
-
-    mv usr/share/* $out/share/
-    mv opt/Insomnia/* $out/share/insomnia
-
-    ln -s $out/share/insomnia/insomnia $out/bin/insomnia
-    sed -i 's|\/opt\/Insomnia|'$out'/bin|g' $out/share/applications/insomnia.desktop
-  '';
-
-  preFixup = ''
-    wrapProgram "$out/bin/insomnia" "''${gappsWrapperArgs[@]}" --prefix LD_LIBRARY_PATH : ${runtimeLibs}
-  '';
-
-  meta = with lib; {
-    homepage = "https://insomnia.rest/";
-    description = "The most intuitive cross-platform REST API Client";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      markus1189
-      babariviere
+    nativeBuildInputs = [
+      autoPatchelfHook
+      dpkg
+      makeWrapper
+      gobject-introspection
+      wrapGAppsHook
     ];
-  };
 
-}
+    buildInputs = [
+      alsa-lib
+      at-spi2-atk
+      atk
+      cairo
+      cups
+      dbus
+      expat
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      pango
+      gtk3
+      gsettings-desktop-schemas
+      libX11
+      libXScrnSaver
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libXrandr
+      libXrender
+      libXtst
+      libxcb
+      libxshmfence
+      mesa # for libgbm
+      nspr
+      nss
+    ];
+
+    dontBuild = true;
+    dontConfigure = true;
+    dontWrapGApps = true;
+
+    unpackPhase = "dpkg-deb -x $src .";
+
+    installPhase = ''
+      mkdir -p $out/share/insomnia $out/lib $out/bin
+
+      mv usr/share/* $out/share/
+      mv opt/Insomnia/* $out/share/insomnia
+
+      ln -s $out/share/insomnia/insomnia $out/bin/insomnia
+      sed -i 's|\/opt\/Insomnia|'$out'/bin|g' $out/share/applications/insomnia.desktop
+    '';
+
+    preFixup = ''
+      wrapProgram "$out/bin/insomnia" "''${gappsWrapperArgs[@]}" --prefix LD_LIBRARY_PATH : ${runtimeLibs}
+    '';
+
+    meta = with lib; {
+      homepage = "https://insomnia.rest/";
+      description = "The most intuitive cross-platform REST API Client";
+      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      license = licenses.mit;
+      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [
+        markus1189
+        babariviere
+      ];
+    };
+
+  }

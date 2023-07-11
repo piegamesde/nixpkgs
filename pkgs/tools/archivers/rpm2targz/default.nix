@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     # to guess what compressor it should use
     # this is more reliable than wrapProgram
     sed -i -e '2iexport PATH="${lib.makeBinPath shdeps}"' rpm2targz
-  '';
+  '' ;
 
   installFlags = [ "prefix=$(out)" ];
 

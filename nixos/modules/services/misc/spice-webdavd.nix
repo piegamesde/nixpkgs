@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.spice-webdavd;
+let
+  cfg = config.services.spice-webdavd;
 in {
   options = {
     services.spice-webdavd = {

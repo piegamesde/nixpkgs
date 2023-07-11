@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.networking.nftables;
+let
+  cfg = config.networking.nftables;
 in {
   ###### interface
 
@@ -156,7 +157,7 @@ in {
         ExecStart = rulesScript;
         ExecReload = rulesScript;
         ExecStop = "${pkgs.nftables}/bin/nft flush ruleset";
-      };
+      } ;
     };
   };
 }

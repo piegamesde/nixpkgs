@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/bin/h2.sh --replace "java" "${jre}/bin/java"
 
     chmod +x $out/bin/*.sh
-  '';
+  '' ;
 
   meta = with lib; {
     description = "The Java SQL database";

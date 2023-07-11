@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.openiscsi;
+let
+  cfg = config.services.openiscsi;
 in {
   options.services.openiscsi = with types; {
     enable = mkEnableOption (lib.mdDoc "the openiscsi iscsi daemon");
@@ -72,7 +73,7 @@ in {
         cat ${config.environment.etc."iscsi/iscsid.conf.fragment".source}
         ${extraCfgDumper}
       ) > /etc/iscsi/iscsid.conf
-    '';
+    '' ;
 
     systemd.packages = [ cfg.package ];
 

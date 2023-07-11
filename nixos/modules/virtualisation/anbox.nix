@@ -92,7 +92,8 @@ in {
       internalInterfaces = [ "anbox0" ];
     };
 
-    systemd.services.anbox-container-manager = let anboxloc = "/var/lib/anbox";
+    systemd.services.anbox-container-manager = let
+      anboxloc = "/var/lib/anbox";
     in {
       description = "Anbox Container Management Daemon";
 
@@ -119,7 +120,7 @@ in {
         cp ${initsh} ${initshloc}
         chown 100000:100000 ${initshloc}
         chmod +x ${initshloc}
-      '';
+      '' ;
 
       serviceConfig = {
         ExecStart = ''
@@ -133,7 +134,7 @@ in {
             --privileged
         '';
       };
-    };
+    } ;
   };
 
 }

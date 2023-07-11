@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.jwm;
+let
+  cfg = config.services.xserver.windowManager.jwm;
 in {
   ###### interface
   options = {

@@ -65,4 +65,4 @@ import ./make-test-python.nix ({
 
       machine.succeed("systemctl show --property TasksMax --value user-1000.slice | grep 100")
     '';
-  })
+  } )

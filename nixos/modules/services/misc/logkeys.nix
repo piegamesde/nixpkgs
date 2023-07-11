@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.logkeys;
+let
+  cfg = config.services.logkeys;
 in {
   options.services.logkeys = {
     enable = mkEnableOption (lib.mdDoc "logkeys service");

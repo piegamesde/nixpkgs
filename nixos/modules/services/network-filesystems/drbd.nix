@@ -9,7 +9,8 @@
 
 with lib;
 
-let cfg = config.services.drbd;
+let
+  cfg = config.services.drbd;
 
 in {
 

@@ -14,33 +14,35 @@ let
       "''"
     else
       "trim(file_get_contents('${cfg.database.passwordFile}'))";
-  in pkgs.writeText "database.php" ''
-    <?php
-    defined('BASEPATH') OR exit('No direct script access allowed');
-    $active_group = 'default';
-    $query_builder = TRUE;
-    $db['default'] = array(
-      'dsn' => "",
-      'hostname' => '${cfg.database.host}',
-      'username' => '${cfg.database.user}',
-      'password' => ${password},
-      'database' => '${cfg.database.name}',
-      'dbdriver' => 'mysqli',
-      'dbprefix' => "",
-      'pconnect' => TRUE,
-      'db_debug' => (ENVIRONMENT !== 'production'),
-      'cache_on' => FALSE,
-      'cachedir' => "",
-      'char_set' => 'utf8mb4',
-      'dbcollat' => 'utf8mb4_general_ci',
-      'swap_pre' => "",
-      'encrypt' => FALSE,
-      'compress' => FALSE,
-      'stricton' => FALSE,
-      'failover' => array(),
-      'save_queries' => TRUE
-    );
-  '';
+  in
+    pkgs.writeText "database.php" ''
+      <?php
+      defined('BASEPATH') OR exit('No direct script access allowed');
+      $active_group = 'default';
+      $query_builder = TRUE;
+      $db['default'] = array(
+        'dsn' => "",
+        'hostname' => '${cfg.database.host}',
+        'username' => '${cfg.database.user}',
+        'password' => ${password},
+        'database' => '${cfg.database.name}',
+        'dbdriver' => 'mysqli',
+        'dbprefix' => "",
+        'pconnect' => TRUE,
+        'db_debug' => (ENVIRONMENT !== 'production'),
+        'cache_on' => FALSE,
+        'cachedir' => "",
+        'char_set' => 'utf8mb4',
+        'dbcollat' => 'utf8mb4_general_ci',
+        'swap_pre' => "",
+        'encrypt' => FALSE,
+        'compress' => FALSE,
+        'stricton' => FALSE,
+        'failover' => array(),
+        'save_queries' => TRUE
+      );
+    ''
+  ;
   configFile = pkgs.writeText "config.php" ''
     <?php
     include('${pkgs.cloudlog}/install/config/config.php');
@@ -361,13 +363,14 @@ in {
           };
           wantedBy = [ "phpfpm-cloudlog.service" ];
           after = [ "mysql.service" ];
-          script = let mysql = "${config.services.mysql.package}/bin/mysql";
+          script = let
+            mysql = "${config.services.mysql.package}/bin/mysql";
           in ''
             if [ ! -f ${cfg.dataDir}/.dbexists ]; then
               ${mysql} ${cfg.database.name} < ${pkgs.cloudlog}/install/assets/install.sql
               touch ${cfg.dataDir}/.dbexists
             fi
-          '';
+          '' ;
         };
         cloudlog-upload-lotw = {
           description = "Upload QSOs to LoTW if certs have been provided";
@@ -488,7 +491,8 @@ in {
           };
         };
       };
-      tmpfiles.rules = let group = config.services.nginx.group;
+      tmpfiles.rules = let
+        group = config.services.nginx.group;
       in [
         "d ${cfg.dataDir}                0750 ${cfg.user} ${group} - -"
         "d ${cfg.dataDir}/updates        0750 ${cfg.user} ${group} - -"
@@ -497,7 +501,7 @@ in {
         "d ${cfg.dataDir}/logbook        0750 ${cfg.user} ${group} - -"
         "d ${cfg.dataDir}/assets/json    0750 ${cfg.user} ${group} - -"
         "d ${cfg.dataDir}/assets/qslcard 0750 ${cfg.user} ${group} - -"
-      ];
+      ] ;
     };
 
     users.users."${cfg.user}" = {

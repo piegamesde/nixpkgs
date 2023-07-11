@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
     ...
   }:
 
-  let port = 8081;
+  let
+    port = 8081;
   in {
     name = "magnetico";
     meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
@@ -39,4 +40,4 @@ import ./make-test-python.nix ({
       )
       machine.shutdown()
     '';
-  })
+  } )

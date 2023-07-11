@@ -146,6 +146,6 @@ with lib;
         Type = "simple";
         PIDFile = "/run/xl2tpd/pid";
       };
-    };
+    } ;
   };
 }

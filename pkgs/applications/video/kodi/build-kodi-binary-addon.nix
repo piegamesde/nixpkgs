@@ -38,7 +38,8 @@ toKodiAddon (stdenv.mkDerivation ({
   # kodi checks for addon .so libs existance in the addon folder (share/...)
   # and the non-wrapped kodi lib/... folder before even trying to dlopen
   # them. Symlinking .so, as setting LD_LIBRARY_PATH is of no use
-  installPhase = let n = namespace;
+  installPhase = let
+    n = namespace;
   in ''
     runHook preInstall
 
@@ -50,5 +51,5 @@ toKodiAddon (stdenv.mkDerivation ({
     ${extraInstallPhase}
 
     runHook postInstall
-  '';
+  '' ;
 } // attrs))

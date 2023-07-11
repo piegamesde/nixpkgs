@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.u9fs;
+let
+  cfg = config.services.u9fs;
 in {
 
   options = {

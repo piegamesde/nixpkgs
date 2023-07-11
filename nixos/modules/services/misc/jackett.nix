@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.jackett;
+let
+  cfg = config.services.jackett;
 
 in {
   options = {

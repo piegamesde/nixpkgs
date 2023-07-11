@@ -49,4 +49,5 @@ let
         ln -s ${entryPointsFile} entry_points.txt
       ''}
     '');
-in editablePackage
+in
+  editablePackage

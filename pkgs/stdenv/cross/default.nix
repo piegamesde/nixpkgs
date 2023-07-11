@@ -18,84 +18,86 @@ let
     config = builtins.removeAttrs config [ "replaceStdenv" ];
   };
 
-in lib.init bootStages ++ [
+in
+  lib.init bootStages ++ [
 
-  # Regular native packages
-  (somePrevStage:
-    lib.last bootStages somePrevStage // {
+    # Regular native packages
+    (somePrevStage:
+      lib.last bootStages somePrevStage // {
+        # It's OK to change the built-time dependencies
+        allowCustomOverrides = true;
+      })
+
+    # Build tool Packages
+    (vanillaPackages: {
+      inherit config overlays;
+      selfBuild = false;
+      stdenv = assert vanillaPackages.stdenv.buildPlatform == localSystem;
+        assert vanillaPackages.stdenv.hostPlatform == localSystem;
+        assert vanillaPackages.stdenv.targetPlatform == localSystem;
+        vanillaPackages.stdenv.override { targetPlatform = crossSystem; };
       # It's OK to change the built-time dependencies
       allowCustomOverrides = true;
     })
 
-  # Build tool Packages
-  (vanillaPackages: {
-    inherit config overlays;
-    selfBuild = false;
-    stdenv = assert vanillaPackages.stdenv.buildPlatform == localSystem;
-      assert vanillaPackages.stdenv.hostPlatform == localSystem;
-      assert vanillaPackages.stdenv.targetPlatform == localSystem;
-      vanillaPackages.stdenv.override { targetPlatform = crossSystem; };
-    # It's OK to change the built-time dependencies
-    allowCustomOverrides = true;
-  })
-
-  # Run Packages
-  (buildPackages:
-    let
-      adaptStdenv = if crossSystem.isStatic then
-        buildPackages.stdenvAdapters.makeStatic
-      else
-        lib.id;
-    in {
-      inherit config;
-      overlays = overlays ++ crossOverlays;
-      selfBuild = false;
-      stdenv = adaptStdenv (buildPackages.stdenv.override (old: rec {
-        buildPlatform = localSystem;
-        hostPlatform = crossSystem;
-        targetPlatform = crossSystem;
-
-        # Prior overrides are surely not valid as packages built with this run on
-        # a different platform, and so are disabled.
-        overrides = _: _: { };
-        extraBuildInputs = [ ] # Old ones run on wrong platform
-          ++ lib.optionals
-          hostPlatform.isDarwin [ buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation ];
-        allowedRequisites = null;
-
-        hasCC = !targetPlatform.isGhcjs;
-
-        cc = if crossSystem.useiOSPrebuilt or false then
-          buildPackages.darwin.iosSdkPkgs.clang
-        else if crossSystem.useAndroidPrebuilt or false then
-          buildPackages."androidndkPkgs_${crossSystem.ndkVer}".clang
-        else if targetPlatform.isGhcjs
-        # Need to use `throw` so tryEval for splicing works, ugh.  Using
-        # `null` or skipping the attribute would cause an eval failure
-        # `tryEval` wouldn't catch, wrecking accessing previous stages
-        # when there is a C compiler and everything should be fine.
-        then
-          throw "no C compiler provided for this platform"
-        else if crossSystem.isDarwin then
-          buildPackages.llvmPackages.libcxxClang
-        else if crossSystem.useLLVM or false then
-          buildPackages.llvmPackages.clangUseLLVM
+    # Run Packages
+    (buildPackages:
+      let
+        adaptStdenv = if crossSystem.isStatic then
+          buildPackages.stdenvAdapters.makeStatic
         else
-          buildPackages.gcc;
+          lib.id;
+      in {
+        inherit config;
+        overlays = overlays ++ crossOverlays;
+        selfBuild = false;
+        stdenv = adaptStdenv (buildPackages.stdenv.override (old: rec {
+          buildPlatform = localSystem;
+          hostPlatform = crossSystem;
+          targetPlatform = crossSystem;
 
-        extraNativeBuildInputs = old.extraNativeBuildInputs ++ lib.optionals
-          (hostPlatform.isLinux
-            && !buildPlatform.isLinux) [ buildPackages.patchelf ]
-          ++ lib.optional (let
-            f = p:
-              !p.isx86 || builtins.elem p.libc [
-                "musl"
-                "wasilibc"
-                "relibc"
-              ] || p.isiOS || p.isGenode;
-          in f hostPlatform && !(f buildPlatform))
-          buildPackages.updateAutotoolsGnuConfigScriptsHook;
-      }));
-    })
+          # Prior overrides are surely not valid as packages built with this run on
+          # a different platform, and so are disabled.
+          overrides = _: _: { };
+          extraBuildInputs = [ ] # Old ones run on wrong platform
+            ++ lib.optionals
+            hostPlatform.isDarwin [ buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation ];
+          allowedRequisites = null;
 
-]
+          hasCC = !targetPlatform.isGhcjs;
+
+          cc = if crossSystem.useiOSPrebuilt or false then
+            buildPackages.darwin.iosSdkPkgs.clang
+          else if crossSystem.useAndroidPrebuilt or false then
+            buildPackages."androidndkPkgs_${crossSystem.ndkVer}".clang
+          else if targetPlatform.isGhcjs
+          # Need to use `throw` so tryEval for splicing works, ugh.  Using
+          # `null` or skipping the attribute would cause an eval failure
+          # `tryEval` wouldn't catch, wrecking accessing previous stages
+          # when there is a C compiler and everything should be fine.
+          then
+            throw "no C compiler provided for this platform"
+          else if crossSystem.isDarwin then
+            buildPackages.llvmPackages.libcxxClang
+          else if crossSystem.useLLVM or false then
+            buildPackages.llvmPackages.clangUseLLVM
+          else
+            buildPackages.gcc;
+
+          extraNativeBuildInputs = old.extraNativeBuildInputs ++ lib.optionals
+            (hostPlatform.isLinux
+              && !buildPlatform.isLinux) [ buildPackages.patchelf ]
+            ++ lib.optional (let
+              f = p:
+                !p.isx86 || builtins.elem p.libc [
+                  "musl"
+                  "wasilibc"
+                  "relibc"
+                ] || p.isiOS || p.isGenode;
+            in
+              f hostPlatform && !(f buildPlatform)
+            ) buildPackages.updateAutotoolsGnuConfigScriptsHook;
+        }));
+      } )
+
+  ]

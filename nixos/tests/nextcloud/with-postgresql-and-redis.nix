@@ -105,5 +105,5 @@ args@{
           "${withRcloneEnv} ${diffSharedFile}"
       )
       nextcloud.wait_until_succeeds("journalctl -u nextcloud-notify_push | grep -q \"Sending ping to ${adminuser}\"")
-    '';
-  })) args
+    '' ;
+  } )) args

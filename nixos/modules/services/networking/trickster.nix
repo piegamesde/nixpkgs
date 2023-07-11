@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.trickster;
+let
+  cfg = config.services.trickster;
 in {
   imports = [ (mkRenamedOptionModule [
     "services"

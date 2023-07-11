@@ -174,7 +174,7 @@ stdenv.mkDerivation rec {
           --prefix LD_LIBRARY_PATH : "${libPath}"
         )
     wrapGApp $out/lib/palemoon-${version}/palemoon
-  '';
+  '' ;
 
   meta = with lib; {
     homepage = "https://www.palemoon.org/";

@@ -9,7 +9,8 @@
 # the project sources.
 with lib;
 
-let cfg = config.power.ups;
+let
+  cfg = config.power.ups;
 
 in let
   upsOptions = {

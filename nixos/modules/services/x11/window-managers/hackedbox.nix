@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.hackedbox;
+let
+  cfg = config.services.xserver.windowManager.hackedbox;
 in {
   ###### interface
   options = {

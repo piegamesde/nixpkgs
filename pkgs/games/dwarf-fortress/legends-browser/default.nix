@@ -28,17 +28,18 @@ let
     ${jre}/bin/java -jar ${jar}
   '';
 
-in buildEnv {
-  inherit name;
-  paths = [ script ];
+in
+  buildEnv {
+    inherit name;
+    paths = [ script ];
 
-  meta = with lib; {
-    description =
-      "A multi-platform, open source, java-based legends viewer for dwarf fortress";
-    maintainers = with maintainers; [ Baughn ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.mit;
-    platforms = platforms.all;
-    homepage = "https://github.com/robertjanetzko/LegendsBrowser";
-  };
-}
+    meta = with lib; {
+      description =
+        "A multi-platform, open source, java-based legends viewer for dwarf fortress";
+      maintainers = with maintainers; [ Baughn ];
+      sourceProvenance = with sourceTypes; [ binaryBytecode ];
+      license = licenses.mit;
+      platforms = platforms.all;
+      homepage = "https://github.com/robertjanetzko/LegendsBrowser";
+    };
+  }

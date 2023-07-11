@@ -103,4 +103,4 @@ import ./make-test-python.nix ({
       with subtest("homed user should be in wheel according to NSS"):
         machine.succeed("userdbctl group wheel -s io.systemd.NameServiceSwitch | grep test-homed-user")
     '';
-  })
+  } )

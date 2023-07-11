@@ -3,7 +3,8 @@
   lib,
   ...
 }:
-let inherit (lib) types mkOption attrNames;
+let
+  inherit (lib) types mkOption attrNames;
 in {
   options = {
     attrs = mkOption { type = types.attrsOf lib.types.int; };

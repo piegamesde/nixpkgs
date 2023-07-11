@@ -19,34 +19,35 @@ let
     };
   };
 
-in stdenv.mkDerivation rec {
-  pname = "xed";
-  version = "2022.08.11";
+in
+  stdenv.mkDerivation rec {
+    pname = "xed";
+    version = "2022.08.11";
 
-  src = fetchFromGitHub {
-    owner = "intelxed";
-    repo = "xed";
-    rev = "v${version}";
-    sha256 = "sha256-Iil+dfjuWYPbzmSjgwKTKScSE/IsWuHEKQ5HsBJDqWM=";
-  };
+    src = fetchFromGitHub {
+      owner = "intelxed";
+      repo = "xed";
+      rev = "v${version}";
+      sha256 = "sha256-Iil+dfjuWYPbzmSjgwKTKScSE/IsWuHEKQ5HsBJDqWM=";
+    };
 
-  nativeBuildInputs = [ mbuild ];
+    nativeBuildInputs = [ mbuild ];
 
-  buildPhase = ''
-    patchShebangs mfile.py
+    buildPhase = ''
+      patchShebangs mfile.py
 
-    # this will build, test and install
-    ./mfile.py test --prefix $out
-  '';
+      # this will build, test and install
+      ./mfile.py test --prefix $out
+    '';
 
-  dontInstall = true; # already installed during buildPhase
+    dontInstall = true; # already installed during buildPhase
 
-  meta = with lib; {
-    broken = (stdenv.isLinux && stdenv.isAarch64);
-    description = "Intel X86 Encoder Decoder (Intel XED)";
-    homepage = "https://intelxed.github.io/";
-    license = licenses.asl20;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ arturcygan ];
-  };
-}
+    meta = with lib; {
+      broken = (stdenv.isLinux && stdenv.isAarch64);
+      description = "Intel X86 Encoder Decoder (Intel XED)";
+      homepage = "https://intelxed.github.io/";
+      license = licenses.asl20;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [ arturcygan ];
+    };
+  }

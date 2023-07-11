@@ -136,11 +136,13 @@ in let
           rev = "6e975bcb015f62e1f303054897783355e2a877dc";
           sha256 = "sha256-G0IDYlvaQzzJ6cNTSGbfuOuSXFp3RsEwIJLGapTbDgo=";
         };
-      in runCommand "brotli" { } ''
-        cp -a ${src'} $out
-        substituteInPlace $out/filter/config \
-          --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
-      '';
+      in
+        runCommand "brotli" { } ''
+          cp -a ${src'} $out
+          substituteInPlace $out/filter/config \
+            --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
+        ''
+      ;
 
       inputs = [ brotli ];
 
@@ -404,7 +406,7 @@ in let
         patch -p1 -d $lua_src -i ${nginx-1-23-patch}
         export configureFlags="''${configureFlags//"${src}"/"$lua_src"}"
         unset lua_src
-      '';
+      '' ;
 
       allowMemoryWriteExecute = true;
 
@@ -562,7 +564,9 @@ in let
           rev = "v0.10.0";
           sha256 = "1q234s3p55xv820207dnh4fcxkqikjcq5rs02ai31ylpmfsf0kkb";
         };
-      in "${src'}/opentracing";
+      in
+        "${src'}/opentracing"
+      ;
 
       inputs = [ opentracing-cpp ];
 
@@ -585,17 +589,19 @@ in let
           rev = "v${psol.version}-stable";
           sha256 = "0ry7vmkb2bx0sspl1kgjlrzzz6lbz07313ks2lr80rrdm2zb16wp";
         };
-      in runCommand "ngx_pagespeed" {
-        meta = {
-          description = "PageSpeed module for Nginx";
-          homepage = "https://developers.google.com/speed/pagespeed/module/";
-          license = lib.licenses.asl20;
-        };
-      } ''
-        cp -r "${moduleSrc}" "$out"
-        chmod -R +w "$out"
-        ln -s "${psol}" "$out/psol"
-      '';
+      in
+        runCommand "ngx_pagespeed" {
+          meta = {
+            description = "PageSpeed module for Nginx";
+            homepage = "https://developers.google.com/speed/pagespeed/module/";
+            license = lib.licenses.asl20;
+          };
+        } ''
+          cp -r "${moduleSrc}" "$out"
+          chmod -R +w "$out"
+          ln -s "${psol}" "$out/psol"
+        ''
+      ;
 
       inputs = [
         zlib
@@ -1073,9 +1079,11 @@ in let
       };
     };
   };
-in self // lib.optionalAttrs config.allowAliases {
-  # deprecated or renamed packages
-  modsecurity-nginx = self.modsecurity;
-  fastcgi-cache-purge = throw "fastcgi-cache-purge was renamed to cache-purge";
-  ngx_aws_auth = throw "ngx_aws_auth was renamed to aws-auth";
-}
+in
+  self // lib.optionalAttrs config.allowAliases {
+    # deprecated or renamed packages
+    modsecurity-nginx = self.modsecurity;
+    fastcgi-cache-purge =
+      throw "fastcgi-cache-purge was renamed to cache-purge";
+    ngx_aws_auth = throw "ngx_aws_auth was renamed to aws-auth";
+  }

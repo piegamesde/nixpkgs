@@ -113,6 +113,6 @@ in {
             }/config.py";
           PermissionsStartOnly = true;
         };
-      })) cfg.instances;
+      } )) cfg.instances;
   };
 }

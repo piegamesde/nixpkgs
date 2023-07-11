@@ -189,7 +189,7 @@ in {
             concatStringsSep ", " (builtins.attrNames overlappingHooks)
           }";
       }
-    ];
+    ] ;
 
     users.users = mkIf (cfg.user == defaultUser) {
       ${defaultUser} = {
@@ -225,7 +225,7 @@ in {
           ++ optional cfg.verbose "-verbose" ++ cfg.extraArgs;
       in ''
         ${cfg.package}/bin/webhook ${escapeShellArgs args}
-      '';
+      '' ;
       serviceConfig = {
         Restart = "on-failure";
         User = cfg.user;

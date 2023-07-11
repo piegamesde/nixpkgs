@@ -79,4 +79,5 @@ let
     installCheckPhase = attrs.checkPhase;
   }));
 
-in lib.extendDerivation true passthru self
+in
+  lib.extendDerivation true passthru self

@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
       --set LV2_PATH "${lib.makeSearchPath "lib/lv2" lv2Plugins}"
       --set LADSPA_PATH "${lib.makeSearchPath "lib/ladspa" ladspaPlugins}"
     )
-  '';
+  '' ;
 
   separateDebugInfo = true;
 

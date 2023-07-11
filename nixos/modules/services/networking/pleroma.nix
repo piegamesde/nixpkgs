@@ -6,7 +6,8 @@
   stdenv,
   ...
 }:
-let cfg = config.services.pleroma;
+let
+  cfg = config.services.pleroma;
 in {
   options = {
     services.pleroma = with lib; {
@@ -135,7 +136,9 @@ in {
             fi
             ${cfg.package}/bin/pleroma_ctl migrate
           '';
-        in "${preScript}/bin/pleromaStartPre";
+        in
+          "${preScript}/bin/pleromaStartPre"
+        ;
 
         ExecStart = "${cfg.package}/bin/pleroma start";
         ExecStop = "${cfg.package}/bin/pleroma stop";

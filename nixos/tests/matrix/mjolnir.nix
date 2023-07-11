@@ -174,4 +174,4 @@ import ../make-test-python.nix ({
 
         mjolnir.wait_for_console_text("Startup complete. Now monitoring rooms")
     '';
-  })
+  } )

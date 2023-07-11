@@ -27,52 +27,53 @@ let
         });
     };
   };
-in py.pkgs.buildPythonPackage rec {
-  pname = "flare-floss";
-  version = "2.0.0";
+in
+  py.pkgs.buildPythonPackage rec {
+    pname = "flare-floss";
+    version = "2.0.0";
 
-  src = fetchFromGitHub {
-    owner = "mandiant";
-    repo = "flare-floss";
-    rev = "v${version}";
-    fetchSubmodules = true; # for tests
-    hash = "sha256-V4OWYcISyRdjf8x93B6h2hJwRgmRmk32hr8TrgRDu8Q=";
-  };
+    src = fetchFromGitHub {
+      owner = "mandiant";
+      repo = "flare-floss";
+      rev = "v${version}";
+      fetchSubmodules = true; # for tests
+      hash = "sha256-V4OWYcISyRdjf8x93B6h2hJwRgmRmk32hr8TrgRDu8Q=";
+    };
 
-  postPatch = ''
-    substituteInPlace setup.py \
-      --replace "==" ">="
+    postPatch = ''
+      substituteInPlace setup.py \
+        --replace "==" ">="
 
-    substituteInPlace floss/main.py \
-      --replace 'sigs_path = os.path.join(get_default_root(), "sigs")' 'sigs_path = "'"$out"'/share/flare-floss/sigs"'
-  '';
+      substituteInPlace floss/main.py \
+        --replace 'sigs_path = os.path.join(get_default_root(), "sigs")' 'sigs_path = "'"$out"'/share/flare-floss/sigs"'
+    '';
 
-  propagatedBuildInputs = with py.pkgs;
-    [
-      halo
-      networkx
-      pydantic
-      tabulate
-      tqdm
-      viv-utils
-      vivisect
-    ] ++ viv-utils.optional-dependencies.flirt;
+    propagatedBuildInputs = with py.pkgs;
+      [
+        halo
+        networkx
+        pydantic
+        tabulate
+        tqdm
+        viv-utils
+        vivisect
+      ] ++ viv-utils.optional-dependencies.flirt;
 
-  nativeCheckInputs = with py.pkgs; [
-    pytest-sugar
-    pytestCheckHook
-    pyyaml
-  ];
+    nativeCheckInputs = with py.pkgs; [
+      pytest-sugar
+      pytestCheckHook
+      pyyaml
+    ];
 
-  postInstall = ''
-    mkdir -p $out/share/flare-floss/
-    cp -r sigs $out/share/flare-floss/
-  '';
+    postInstall = ''
+      mkdir -p $out/share/flare-floss/
+      cp -r sigs $out/share/flare-floss/
+    '';
 
-  meta = with lib; {
-    description = "Automatically extract obfuscated strings from malware";
-    homepage = "https://github.com/mandiant/flare-floss";
-    license = licenses.asl20;
-    maintainers = [ ];
-  };
-}
+    meta = with lib; {
+      description = "Automatically extract obfuscated strings from malware";
+      homepage = "https://github.com/mandiant/flare-floss";
+      license = licenses.asl20;
+      maintainers = [ ];
+    };
+  }

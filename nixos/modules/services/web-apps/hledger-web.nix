@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.hledger-web;
+let
+  cfg = config.services.hledger-web;
 in {
   options.services.hledger-web = {
 
@@ -138,7 +139,7 @@ in {
           StateDirectory = "hledger-web";
         })
       ];
-    };
+    } ;
 
   };
 

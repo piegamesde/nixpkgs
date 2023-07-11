@@ -17,7 +17,8 @@ let
       "missing bootstrap url for platform ${platform}");
   };
 
-in callPackage ./binary.nix {
-  inherit version src platform;
-  versionType = "bootstrap";
-}
+in
+  callPackage ./binary.nix {
+    inherit version src platform;
+    versionType = "bootstrap";
+  }

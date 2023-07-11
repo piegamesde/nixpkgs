@@ -81,5 +81,5 @@ import ./make-test-python.nix ({
         with subtest("should show neighbors by gobgp cli and BGP state should be ESTABLISHED"):
             node1.wait_until_succeeds("gobgp neighbor ${addr2} | grep -q ESTABLISHED")
             node2.wait_until_succeeds("gobgp neighbor ${addr1} | grep -q ESTABLISHED")
-      '';
-  })
+      '' ;
+  } )

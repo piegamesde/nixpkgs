@@ -65,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     ${lib.optionalString buildDocs "tar xvf ${meson-docs-wrap}"}
     ${lib.optionalString embedSamurai "tar xvf ${samurai-wrap}"}
     popd
-  '';
+  '' ;
 
   postPatch = ''
     patchShebangs bootstrap.sh
@@ -100,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
     samu ${cmdlineForSamu} -C stage-3
 
     runHook postBuild
-  '';
+  '' ;
 
   # tests are failing because they don't find Python
   doCheck = false;

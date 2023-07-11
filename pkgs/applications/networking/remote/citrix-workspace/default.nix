@@ -24,4 +24,5 @@ let
   supported = lib.mapAttrs' (attr: versionInfo:
     lib.nameValuePair (toAttrName attr) (callPackage ./generic.nix versionInfo))
     supportedVersions;
-in supported // unsupported
+in
+  supported // unsupported

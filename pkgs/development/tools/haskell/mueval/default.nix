@@ -16,23 +16,24 @@ let
     haskellPackages.ghcWithPackages (pkgs: defaultPkgs pkgs ++ packages pkgs);
   libDir = "${env}/lib/ghc-${env.version}";
 
-in stdenv.mkDerivation {
-  name = "mueval-env";
+in
+  stdenv.mkDerivation {
+    name = "mueval-env";
 
-  inherit (haskellPackages) mueval;
+    inherit (haskellPackages) mueval;
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [ makeWrapper ];
 
-  buildCommand = ''
-    mkdir -p $out/bin
+    buildCommand = ''
+      mkdir -p $out/bin
 
-    makeWrapper $mueval/bin/mueval $out/bin/mueval \
-      --prefix PATH ":" "$out/bin"
+      makeWrapper $mueval/bin/mueval $out/bin/mueval \
+        --prefix PATH ":" "$out/bin"
 
-    makeWrapper $mueval/bin/mueval-core $out/bin/mueval \
-      --set "NIX_GHC_LIBDIR" "${libDir}"
+      makeWrapper $mueval/bin/mueval-core $out/bin/mueval \
+        --set "NIX_GHC_LIBDIR" "${libDir}"
 
-  '';
+    '';
 
-  passthru = { inherit defaultPkgs; };
-}
+    passthru = { inherit defaultPkgs; };
+  }

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.cadvisor;
+let
+  cfg = config.services.cadvisor;
 
 in {
   options = {

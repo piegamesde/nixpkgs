@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.snowflake-proxy;
+let
+  cfg = config.services.snowflake-proxy;
 in {
   options = {
     services.snowflake-proxy = {

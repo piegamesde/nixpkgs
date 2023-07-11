@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.do-agent;
+let
+  cfg = config.services.do-agent;
 
 in {
   options.services.do-agent = {

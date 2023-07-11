@@ -20,48 +20,49 @@ let
     sha256 = "1y0ivviy58i0pmavhvrpznc4yjigjknff298gnw9rkg5wxm0gbbq";
   };
 
-in stdenv.mkDerivation {
-  pname = "cdb";
-  inherit version;
+in
+  stdenv.mkDerivation {
+    pname = "cdb";
+    inherit version;
 
-  src = fetchurl {
-    url = "https://cr.yp.to/cdb/cdb-${version}.tar.gz";
-    inherit sha256;
-  };
+    src = fetchurl {
+      url = "https://cr.yp.to/cdb/cdb-${version}.tar.gz";
+      inherit sha256;
+    };
 
-  outputs = [
-    "bin"
-    "doc"
-    "out"
-  ];
+    outputs = [
+      "bin"
+      "doc"
+      "out"
+    ];
 
-  postPatch = ''
-    # A little patch, borrowed from Archlinux AUR, borrowed from Gentoo Portage
-    sed -e 's/^extern int errno;$/#include <errno.h>/' -i error.h
-  '';
+    postPatch = ''
+      # A little patch, borrowed from Archlinux AUR, borrowed from Gentoo Portage
+      sed -e 's/^extern int errno;$/#include <errno.h>/' -i error.h
+    '';
 
-  postInstall = ''
-    # don't use make setup, but move the binaries ourselves
-    mkdir -p $bin/bin
-    install -m 755 -t $bin/bin/ cdbdump cdbget cdbmake cdbmake-12 cdbmake-sv cdbstats cdbtest
+    postInstall = ''
+      # don't use make setup, but move the binaries ourselves
+      mkdir -p $bin/bin
+      install -m 755 -t $bin/bin/ cdbdump cdbget cdbmake cdbmake-12 cdbmake-sv cdbstats cdbtest
 
-    # patch paths in scripts
-    function cdbmake-subst {
-      substituteInPlace $bin/bin/$1 \
-        --replace /usr/local/bin/cdbmake $bin/bin/cdbmake
-    }
-    cdbmake-subst cdbmake-12
-    cdbmake-subst cdbmake-sv
+      # patch paths in scripts
+      function cdbmake-subst {
+        substituteInPlace $bin/bin/$1 \
+          --replace /usr/local/bin/cdbmake $bin/bin/cdbmake
+      }
+      cdbmake-subst cdbmake-12
+      cdbmake-subst cdbmake-sv
 
-    # docs
-    mkdir -p $doc/share/cdb
-    cp -r "${docRepo}/docs" $doc/share/cdb/html
-  '';
+      # docs
+      mkdir -p $doc/share/cdb
+      cp -r "${docRepo}/docs" $doc/share/cdb/html
+    '';
 
-  meta = {
-    homepage = "https://cr.yp.to/cdb.html";
-    license = lib.licenses.publicDomain;
-    maintainers = [ lib.maintainers.Profpatsch ];
-    platforms = lib.platforms.unix;
-  };
-}
+    meta = {
+      homepage = "https://cr.yp.to/cdb.html";
+      license = lib.licenses.publicDomain;
+      maintainers = [ lib.maintainers.Profpatsch ];
+      platforms = lib.platforms.unix;
+    };
+  }

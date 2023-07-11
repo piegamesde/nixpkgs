@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.icewm;
+let
+  cfg = config.services.xserver.windowManager.icewm;
 in {
   ###### interface
   options = {

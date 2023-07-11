@@ -40,19 +40,20 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  configureFlags =
-    let edf = c: o: if c then [ "--enable-${o}" ] else [ "--disable-${o}" ];
-    in edf bind8Stats "bind8-stats" ++ edf checking "checking"
-    ++ edf ipv6 "ipv6" ++ edf mmap "mmap"
-    ++ edf minimalResponses "minimal-responses" ++ edf nsec3 "nsec3"
-    ++ edf ratelimit "ratelimit" ++ edf recvmmsg "recvmmsg"
+  configureFlags = let
+    edf = c: o: if c then [ "--enable-${o}" ] else [ "--disable-${o}" ];
+  in
+    edf bind8Stats "bind8-stats" ++ edf checking "checking" ++ edf ipv6 "ipv6"
+    ++ edf mmap "mmap" ++ edf minimalResponses "minimal-responses"
+    ++ edf nsec3 "nsec3" ++ edf ratelimit "ratelimit" ++ edf recvmmsg "recvmmsg"
     ++ edf rootServer "root-server" ++ edf rrtypes "draft-rrtypes"
     ++ edf zoneStats "zone-stats" ++ [
       "--with-ssl=${openssl.dev}"
       "--with-libevent=${libevent.dev}"
       "--with-nsd_conf_file=${configFile}"
       "--with-configdir=etc/nsd"
-    ];
+    ]
+  ;
 
   patchPhase = ''
     sed 's@$(INSTALL_DATA) nsd.conf.sample $(DESTDIR)$(nsdconfigfile).sample@@g' -i Makefile.in

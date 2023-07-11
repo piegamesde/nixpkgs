@@ -107,7 +107,7 @@ stdenvNoCC.mkDerivation rec {
       --set PUPPETEER_EXECUTABLE_PATH "${chromium}/bin/chromium"
 
     runHook postInstall
-  '';
+  '' ;
 
   passthru.updateScript = ./update.sh;
 

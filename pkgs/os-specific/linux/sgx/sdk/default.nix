@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
     install -D ${ipp-crypto-no_mitigation.src}/LICENSE license/LICENSE
 
     popd
-  '';
+  '' ;
 
   buildFlags = [ "sdk_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
 
@@ -261,16 +261,18 @@ stdenv.mkDerivation rec {
       (callPackage ../samples { sgxMode = "HW"; });
     testsHWLinked =
       linkFarmFromDrvs "sgx-samples-hw-bundle" (lib.attrValues testsHW);
-  in writeShellApplication {
-    name = "run-tests-hw";
-    text = ''
-      for test in ${testsHWLinked}/*; do
-        printf '*** Running test %s ***\n\n' "$(basename "$test")"
-        printf 'a\n' | "$test/bin/app"
-        printf '\n'
-      done
-    '';
-  };
+  in
+    writeShellApplication {
+      name = "run-tests-hw";
+      text = ''
+        for test in ${testsHWLinked}/*; do
+          printf '*** Running test %s ***\n\n' "$(basename "$test")"
+          printf 'a\n' | "$test/bin/app"
+          printf '\n'
+        done
+      '';
+    }
+  ;
 
   meta = with lib; {
     description = "Intel SGX SDK for Linux built with IPP Crypto Library";

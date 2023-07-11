@@ -10,8 +10,11 @@ let
   cross = if crossSystem != null then { inherit crossSystem; } else { };
   custom-bootstrap = if bootstrapFiles != null then {
     stdenvStages = args:
-      let args' = args // { bootstrapFiles = bootstrapFiles; };
-      in (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin;
+      let
+        args' = args // { bootstrapFiles = bootstrapFiles; };
+      in
+        (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin
+    ;
   } else
     { };
 in with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
@@ -324,7 +327,10 @@ in rec {
     localSystem = if crossSystem != null then crossSystem else localSystem;
 
     stdenvStages = args:
-      let args' = args // { inherit bootstrapLlvmVersion bootstrapFiles; };
-      in (import (test-pkgspath + "/pkgs/stdenv/darwin") args').stagesDarwin;
+      let
+        args' = args // { inherit bootstrapLlvmVersion bootstrapFiles; };
+      in
+        (import (test-pkgspath + "/pkgs/stdenv/darwin") args').stagesDarwin
+    ;
   };
 }

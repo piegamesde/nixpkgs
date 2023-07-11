@@ -94,7 +94,7 @@ self: super:
           # May as well…
           (self.generateOptparseApplicativeCompletions [ "guardian" ])
         ];
-  })
+  } )
     cabal-install cabal-install-solver guardian;
 
   #######################################
@@ -985,11 +985,13 @@ self: super:
     } super.d-bus;
     # Add now required extension on recent compilers.
     # https://github.com/Philonous/d-bus/pull/23
-  in appendPatch (fetchpatch {
-    url =
-      "https://github.com/Philonous/d-bus/commit/e5f37900a3a301c41d98bdaa134754894c705681.patch";
-    sha256 = "6rQ7H9t483sJe1x95yLPAZ0BKTaRjgqQvvrQv7HkJRE=";
-  }) newer;
+  in
+    appendPatch (fetchpatch {
+      url =
+        "https://github.com/Philonous/d-bus/commit/e5f37900a3a301c41d98bdaa134754894c705681.patch";
+      sha256 = "6rQ7H9t483sJe1x95yLPAZ0BKTaRjgqQvvrQv7HkJRE=";
+    }) newer
+  ;
 
   # * The standard libraries are compiled separately.
   # * We need a patch from master to fix compilation with
@@ -1730,15 +1732,17 @@ self: super:
       pkgs.nix
       pkgs.nix-prefetch-git
     ];
-  in self.generateOptparseApplicativeCompletions [ "update-nix-fetchgit" ]
-  (overrideCabal (drv: {
-    buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
-    postInstall = drv.postInstall or "" + ''
-      wrapProgram "$out/bin/update-nix-fetchgit" --prefix 'PATH' ':' "${
-        lib.makeBinPath deps
-      }"
-    '';
-  }) (addTestToolDepends deps super.update-nix-fetchgit));
+  in
+    self.generateOptparseApplicativeCompletions [ "update-nix-fetchgit" ]
+    (overrideCabal (drv: {
+      buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
+      postInstall = drv.postInstall or "" + ''
+        wrapProgram "$out/bin/update-nix-fetchgit" --prefix 'PATH' ':' "${
+          lib.makeBinPath deps
+        }"
+      '';
+    }) (addTestToolDepends deps super.update-nix-fetchgit))
+  ;
 
   # Raise version bounds: https://github.com/idontgetoutmuch/binary-low-level/pull/16
   binary-strict = appendPatches [ (fetchpatch {
@@ -2612,7 +2616,7 @@ self: super:
     ]);
 
     purenix = super.purenix.overrideScope purescriptOverlay;
-  })
+  } )
     purescript purenix;
 
   # 2022-11-05: https://github.com/ysangkok/haskell-tzdata/issues/3

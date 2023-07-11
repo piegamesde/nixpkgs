@@ -2,7 +2,8 @@
   callPackage,
 }:
 
-let common = opts: callPackage (import ./common.nix opts);
+let
+  common = opts: callPackage (import ./common.nix opts);
 in {
   sublime4 = common {
     buildVersion = "4143";

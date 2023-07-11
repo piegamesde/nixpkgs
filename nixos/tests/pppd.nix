@@ -69,4 +69,4 @@ in {
     client.wait_until_succeeds("ping -c1 -W1 192.0.2.1")
     server.wait_until_succeeds("ping -c1 -W1 192.0.2.2")
   '';
-})
+} )

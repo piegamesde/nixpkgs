@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.github-runners;
+let
+  cfg = config.services.github-runners;
 
 in {
   options.services.github-runners = mkOption {
@@ -41,12 +42,15 @@ in {
 
   config = {
     systemd.services = flip mapAttrs' cfg (n: v:
-      let svcName = "github-runner-${n}";
-      in nameValuePair svcName (import ./github-runner/service.nix (args // {
-        inherit svcName;
-        cfg = v // { name = if v.name != null then v.name else n; };
-        systemdDir = "github-runner/${n}";
-      })));
+      let
+        svcName = "github-runner-${n}";
+      in
+        nameValuePair svcName (import ./github-runner/service.nix (args // {
+          inherit svcName;
+          cfg = v // { name = if v.name != null then v.name else n; };
+          systemdDir = "github-runner/${n}";
+        }))
+    );
   };
 
   meta.maintainers = with maintainers; [

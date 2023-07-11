@@ -192,5 +192,8 @@ let
             propagatedBuildInputs = o.propagatedBuildInputs
               ++ [ hierarchy-builder ];
           });
-    in patched-derivation;
-in mathcomp_ (if single then "single" else "analysis")
+    in
+      patched-derivation
+  ;
+in
+  mathcomp_ (if single then "single" else "analysis")

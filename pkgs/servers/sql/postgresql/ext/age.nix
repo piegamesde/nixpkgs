@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
 
     dontConfigure = true;
 
-    buildPhase = let postgresqlAge = postgresql.withPackages (ps: [ ps.age ]);
+    buildPhase = let
+      postgresqlAge = postgresql.withPackages (ps: [ ps.age ]);
     in ''
       # The regression tests need to be run in the order specified in the Makefile.
       echo -e "include Makefile\nfiles:\n\t@echo \$(REGRESS)" > Makefile.regress
@@ -52,7 +53,7 @@ stdenv.mkDerivation rec {
         --inputdir=./regress --outputdir=./regress --temp-instance=./regress/instance \
         --port=61958 --dbname=contrib_regression \
         $REGRESS_TESTS
-    '';
+    '' ;
 
     installPhase = ''
       touch $out

@@ -114,4 +114,5 @@ let
       maintainers = with lib.maintainers; [ anderspapitto ];
     };
   };
-in distcc
+in
+  distcc

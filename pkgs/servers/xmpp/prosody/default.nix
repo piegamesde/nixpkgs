@@ -34,70 +34,71 @@ let
       luaunbound
     ] ++ lib.optional withLibevent p.luaevent ++ lib.optional withDBI p.luadbi
     ++ withExtraLuaPackages p);
-in stdenv.mkDerivation rec {
-  version = "0.12.3"; # also update communityModules
-  pname = "prosody";
-  # The following community modules are necessary for the nixos module
-  # prosody module to comply with XEP-0423 and provide a working
-  # default setup.
-  nixosModuleDeps = [
-    "cloud_notify"
-    "vcard_muc"
-    "http_upload"
-  ];
-  src = fetchurl {
-    url = "https://prosody.im/downloads/source/${pname}-${version}.tar.gz";
-    sha256 = "sha256-NdoNAx/0YECi1jjgBNQlXiSbYyP+YhLbnd12tAHbIQE=";
-  };
+in
+  stdenv.mkDerivation rec {
+    version = "0.12.3"; # also update communityModules
+    pname = "prosody";
+    # The following community modules are necessary for the nixos module
+    # prosody module to comply with XEP-0423 and provide a working
+    # default setup.
+    nixosModuleDeps = [
+      "cloud_notify"
+      "vcard_muc"
+      "http_upload"
+    ];
+    src = fetchurl {
+      url = "https://prosody.im/downloads/source/${pname}-${version}.tar.gz";
+      sha256 = "sha256-NdoNAx/0YECi1jjgBNQlXiSbYyP+YhLbnd12tAHbIQE=";
+    };
 
-  # A note to all those merging automated updates: Please also update this
-  # attribute as some modules might not be compatible with a newer prosody
-  # version.
-  communityModules = fetchhg {
-    url = "https://hg.prosody.im/prosody-modules";
-    rev = "3e30799deec2";
-    sha256 = "sha256-oaWs2D5z1LtvhtZMlaZPLNoNNL/1TIZLZwFfC3vtRUo=";
-  };
+    # A note to all those merging automated updates: Please also update this
+    # attribute as some modules might not be compatible with a newer prosody
+    # version.
+    communityModules = fetchhg {
+      url = "https://hg.prosody.im/prosody-modules";
+      rev = "3e30799deec2";
+      sha256 = "sha256-oaWs2D5z1LtvhtZMlaZPLNoNNL/1TIZLZwFfC3vtRUo=";
+    };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    luaEnv
-    libidn
-    openssl
-    icu
-  ] ++ withExtraLibs;
+    nativeBuildInputs = [ makeWrapper ];
+    buildInputs = [
+      luaEnv
+      libidn
+      openssl
+      icu
+    ] ++ withExtraLibs;
 
-  configureFlags = [
-    "--ostype=linux"
-    "--with-lua-include=${luaEnv}/include"
-    "--with-lua=${luaEnv}"
-  ];
+    configureFlags = [
+      "--ostype=linux"
+      "--with-lua-include=${luaEnv}/include"
+      "--with-lua=${luaEnv}"
+    ];
 
-  postBuild = ''
-    make -C tools/migration
-  '';
+    postBuild = ''
+      make -C tools/migration
+    '';
 
-  # the wrapping should go away once lua hook is fixed
-  postInstall = ''
-    ${concatMapStringsSep "\n" (module: ''
-      cp -r $communityModules/mod_${module} $out/lib/prosody/modules/
-    '') (lib.lists.unique (nixosModuleDeps ++ withCommunityModules
-      ++ withOnlyInstalledCommunityModules))}
-    wrapProgram $out/bin/prosodyctl \
-      --add-flags '--config "/etc/prosody/prosody.cfg.lua"'
-    make -C tools/migration install
-  '';
+    # the wrapping should go away once lua hook is fixed
+    postInstall = ''
+      ${concatMapStringsSep "\n" (module: ''
+        cp -r $communityModules/mod_${module} $out/lib/prosody/modules/
+      '') (lib.lists.unique (nixosModuleDeps ++ withCommunityModules
+        ++ withOnlyInstalledCommunityModules))}
+      wrapProgram $out/bin/prosodyctl \
+        --add-flags '--config "/etc/prosody/prosody.cfg.lua"'
+      make -C tools/migration install
+    '';
 
-  passthru = {
-    communityModules = withCommunityModules;
-    tests = { inherit (nixosTests) prosody prosody-mysql; };
-  };
+    passthru = {
+      communityModules = withCommunityModules;
+      tests = { inherit (nixosTests) prosody prosody-mysql; };
+    };
 
-  meta = {
-    description = "Open-source XMPP application server written in Lua";
-    license = licenses.mit;
-    homepage = "https://prosody.im";
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ globin ];
-  };
-}
+    meta = {
+      description = "Open-source XMPP application server written in Lua";
+      license = licenses.mit;
+      homepage = "https://prosody.im";
+      platforms = platforms.linux;
+      maintainers = with maintainers; [ globin ];
+    };
+  }

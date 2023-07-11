@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/bin/ $out/.bin-wrapped
       mv lnxrouter $out/.bin-wrapped/lnxrouter
       makeWrapper $out/.bin-wrapped/lnxrouter $out/bin/lnxrouter --prefix PATH : ${binPath}
-    '';
+    '' ;
 
   meta = with lib; {
     homepage = "https://github.com/garywill/linux-router";

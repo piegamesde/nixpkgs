@@ -14,49 +14,51 @@
   wrapGAppsHook,
 }:
 
-let common = import ./common.nix { inherit lib fetchFromGitHub; };
-in buildPythonPackage (common // {
-  pname = "openrazer_daemon";
+let
+  common = import ./common.nix { inherit lib fetchFromGitHub; };
+in
+  buildPythonPackage (common // {
+    pname = "openrazer_daemon";
 
-  disabled = !isPy3k;
+    disabled = !isPy3k;
 
-  outputs = [
-    "out"
-    "man"
-  ];
+    outputs = [
+      "out"
+      "man"
+    ];
 
-  prePatch = ''
-    cd daemon
-  '';
+    prePatch = ''
+      cd daemon
+    '';
 
-  postPatch = ''
-    substituteInPlace openrazer_daemon/daemon.py --replace "plugdev" "openrazer"
-  '';
+    postPatch = ''
+      substituteInPlace openrazer_daemon/daemon.py --replace "plugdev" "openrazer"
+    '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    wrapGAppsHook
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+      wrapGAppsHook
+    ];
 
-  propagatedBuildInputs = [
-    daemonize
-    dbus-python
-    gobject-introspection
-    gtk3
-    pygobject3
-    pyudev
-    setproctitle
-  ];
+    propagatedBuildInputs = [
+      daemonize
+      dbus-python
+      gobject-introspection
+      gtk3
+      pygobject3
+      pyudev
+      setproctitle
+    ];
 
-  postBuild = ''
-    DESTDIR="$out" PREFIX="" make install manpages
-  '';
+    postBuild = ''
+      DESTDIR="$out" PREFIX="" make install manpages
+    '';
 
-  # no tests run
-  doCheck = false;
+    # no tests run
+    doCheck = false;
 
-  meta = common.meta // {
-    description =
-      "An entirely open source user-space daemon that allows you to manage your Razer peripherals on GNU/Linux";
-  };
-})
+    meta = common.meta // {
+      description =
+        "An entirely open source user-space daemon that allows you to manage your Razer peripherals on GNU/Linux";
+    };
+  })

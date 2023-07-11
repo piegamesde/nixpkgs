@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.fractalart;
+let
+  cfg = config.services.fractalart;
 in {
   options.services.fractalart = {
     enable = mkOption {

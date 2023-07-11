@@ -182,9 +182,11 @@ in {
 
             config = {
               target = mkDefault name;
-              source = mkIf (config.text != null)
-                (let name' = "etc-" + baseNameOf name;
-                in mkDerivedConfig options.text (pkgs.writeText name'));
+              source = mkIf (config.text != null) (let
+                name' = "etc-" + baseNameOf name;
+              in
+                mkDerivedConfig options.text (pkgs.writeText name')
+              );
             };
 
           }));

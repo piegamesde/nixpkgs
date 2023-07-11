@@ -199,17 +199,18 @@ let
       '';
     };
 
-in {
-  curl = curlTest;
-} // pkgs.lib.mapAttrs mkBrowserTest {
-  firefox = { error = "Security Risk"; };
-  chromium = { error = "not private"; };
-  qutebrowser = {
-    args = "-T";
-    error = "Certificate error";
-  };
-  midori = {
-    args = "-p";
-    error = "Security";
-  };
-}
+in
+  {
+    curl = curlTest;
+  } // pkgs.lib.mapAttrs mkBrowserTest {
+    firefox = { error = "Security Risk"; };
+    chromium = { error = "not private"; };
+    qutebrowser = {
+      args = "-T";
+      error = "Certificate error";
+    };
+    midori = {
+      args = "-p";
+      error = "Security";
+    };
+  }

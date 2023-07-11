@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.nar-serve;
+let
+  cfg = config.services.nar-serve;
 in {
   meta = { maintainers = [ maintainers.rizary ]; };
   options = {

@@ -58,57 +58,58 @@ let
     ];
   };
 
-in stdenv.mkDerivation rec {
-  pname = "firestarter";
-  version = "2.0";
+in
+  stdenv.mkDerivation rec {
+    pname = "firestarter";
+    version = "2.0";
 
-  src = fetchFromGitHub {
-    owner = "tud-zih-energy";
-    repo = "FIRESTARTER";
-    rev = "v${version}";
-    sha256 = "1ik6j1lw5nldj4i3lllrywqg54m9i2vxkxsb2zr4q0d2rfywhn23";
-    fetchSubmodules = true;
-  };
+    src = fetchFromGitHub {
+      owner = "tud-zih-energy";
+      repo = "FIRESTARTER";
+      rev = "v${version}";
+      sha256 = "1ik6j1lw5nldj4i3lllrywqg54m9i2vxkxsb2zr4q0d2rfywhn23";
+      fetchSubmodules = true;
+    };
 
-  nativeBuildInputs = [
-    cmake
-    git
-    pkg-config
-  ] ++ lib.optionals withCuda [ addOpenGLRunpath ];
+    nativeBuildInputs = [
+      cmake
+      git
+      pkg-config
+    ] ++ lib.optionals withCuda [ addOpenGLRunpath ];
 
-  buildInputs = [ hwloc ] ++ (if withCuda then [
-    glibc_multi
-    cudatoolkit
-  ] else [ glibc.static ]);
+    buildInputs = [ hwloc ] ++ (if withCuda then [
+      glibc_multi
+      cudatoolkit
+    ] else [ glibc.static ]);
 
-  NIX_LDFLAGS = lib.optionals withCuda [ "-L${cudatoolkit}/lib/stubs" ];
+    NIX_LDFLAGS = lib.optionals withCuda [ "-L${cudatoolkit}/lib/stubs" ];
 
-  cmakeFlags = [
-    "-DFIRESTARTER_BUILD_HWLOC=OFF"
-    "-DCMAKE_C_COMPILER_WORKS=1"
-    "-DCMAKE_CXX_COMPILER_WORKS=1"
-  ] ++ lib.optionals withCuda [ "-DFIRESTARTER_BUILD_TYPE=FIRESTARTER_CUDA" ];
+    cmakeFlags = [
+      "-DFIRESTARTER_BUILD_HWLOC=OFF"
+      "-DCMAKE_C_COMPILER_WORKS=1"
+      "-DCMAKE_CXX_COMPILER_WORKS=1"
+    ] ++ lib.optionals withCuda [ "-DFIRESTARTER_BUILD_TYPE=FIRESTARTER_CUDA" ];
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin
-    cp src/FIRESTARTER${lib.optionalString withCuda "_CUDA"} $out/bin/
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin
+      cp src/FIRESTARTER${lib.optionalString withCuda "_CUDA"} $out/bin/
+      runHook postInstall
+    '';
 
-  postFixup = lib.optionalString withCuda ''
-    addOpenGLRunpath $out/bin/FIRESTARTER_CUDA
-  '';
+    postFixup = lib.optionalString withCuda ''
+      addOpenGLRunpath $out/bin/FIRESTARTER_CUDA
+    '';
 
-  meta = with lib; {
-    broken = (stdenv.isLinux && stdenv.isAarch64);
-    homepage = "https://tu-dresden.de/zih/forschung/projekte/firestarter";
-    description = "Processor Stress Test Utility";
-    platforms = platforms.linux;
-    maintainers = with maintainers; [
-      astro
-      marenz
-    ];
-    license = licenses.gpl3;
-  };
-}
+    meta = with lib; {
+      broken = (stdenv.isLinux && stdenv.isAarch64);
+      homepage = "https://tu-dresden.de/zih/forschung/projekte/firestarter";
+      description = "Processor Stress Test Utility";
+      platforms = platforms.linux;
+      maintainers = with maintainers; [
+        astro
+        marenz
+      ];
+      license = licenses.gpl3;
+    };
+  }

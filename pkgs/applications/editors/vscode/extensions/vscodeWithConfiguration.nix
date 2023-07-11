@@ -50,13 +50,15 @@ let
       fi
     '') mutableExtsPaths}
   '';
-in writeShellScriptBin "code" ''
-  if ! [[ "$@" =~ "--list-extension" ]]; then
-    mkdir -p "${vscodeExtsFolderName}"
-    ${rmExtensions}
-    ${cpExtensions}
-  fi
-  ${vscode}/bin/code --extensions-dir "${vscodeExtsFolderName}" ${
-    lib.optionalString (user-data-dir != "") "--user-data-dir ${user-data-dir}"
-  } "$@"
-''
+in
+  writeShellScriptBin "code" ''
+    if ! [[ "$@" =~ "--list-extension" ]]; then
+      mkdir -p "${vscodeExtsFolderName}"
+      ${rmExtensions}
+      ${cpExtensions}
+    fi
+    ${vscode}/bin/code --extensions-dir "${vscodeExtsFolderName}" ${
+      lib.optionalString (user-data-dir != "")
+      "--user-data-dir ${user-data-dir}"
+    } "$@"
+  ''

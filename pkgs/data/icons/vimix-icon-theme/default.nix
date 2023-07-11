@@ -9,69 +9,71 @@
   colorVariants ? [ ] # default: all
 }:
 
-let pname = "vimix-icon-theme";
+let
+  pname = "vimix-icon-theme";
 
-in lib.checkListOfEnum "${pname}: color variants" [
-  "standard"
-  "Amethyst"
-  "Beryl"
-  "Doder"
-  "Ruby"
-  "Jade"
-  "Black"
-  "White"
-] colorVariants
+in
+  lib.checkListOfEnum "${pname}: color variants" [
+    "standard"
+    "Amethyst"
+    "Beryl"
+    "Doder"
+    "Ruby"
+    "Jade"
+    "Black"
+    "White"
+  ] colorVariants
 
-stdenvNoCC.mkDerivation rec {
-  inherit pname;
-  version = "2023-01-18";
+  stdenvNoCC.mkDerivation rec {
+    inherit pname;
+    version = "2023-01-18";
 
-  src = fetchFromGitHub {
-    owner = "vinceliuice";
-    repo = pname;
-    rev = version;
-    sha256 = "5EgTWF6qu12VYVi7w5BOp7IleN4IevLZR0hH9x/qbGo=";
-  };
+    src = fetchFromGitHub {
+      owner = "vinceliuice";
+      repo = pname;
+      rev = version;
+      sha256 = "5EgTWF6qu12VYVi7w5BOp7IleN4IevLZR0hH9x/qbGo=";
+    };
 
-  nativeBuildInputs = [
-    gtk3
-    jdupes
-  ];
+    nativeBuildInputs = [
+      gtk3
+      jdupes
+    ];
 
-  propagatedBuildInputs = [ hicolor-icon-theme ];
+    propagatedBuildInputs = [ hicolor-icon-theme ];
 
-  dontDropIconThemeCache = true;
+    dontDropIconThemeCache = true;
 
-  # These fixup steps are slow and unnecessary for this package
-  dontPatchELF = true;
-  dontRewriteSymlinks = true;
+    # These fixup steps are slow and unnecessary for this package
+    dontPatchELF = true;
+    dontRewriteSymlinks = true;
 
-  postPatch = ''
-    patchShebangs install.sh
-  '';
+    postPatch = ''
+      patchShebangs install.sh
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    ./install.sh \
-      ${
-        if colorVariants != [ ] then builtins.toString colorVariants else "-a"
-      } \
-      -d $out/share/icons
+      ./install.sh \
+        ${
+          if colorVariants != [ ] then builtins.toString colorVariants else "-a"
+        } \
+        -d $out/share/icons
 
-    # replace duplicate files with symlinks
-    jdupes --quiet --link-soft --recurse $out/share
+      # replace duplicate files with symlinks
+      jdupes --quiet --link-soft --recurse $out/share
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater { };
 
-  meta = with lib; {
-    description = "A Material Design icon theme based on Paper icon theme";
-    homepage = "https://github.com/vinceliuice/vimix-icon-theme";
-    license = with licenses; [ cc-by-sa-40 ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
-  };
-}
+    meta = with lib; {
+      description = "A Material Design icon theme based on Paper icon theme";
+      homepage = "https://github.com/vinceliuice/vimix-icon-theme";
+      license = with licenses; [ cc-by-sa-40 ];
+      platforms = platforms.linux;
+      maintainers = with maintainers; [ romildo ];
+    };
+  }

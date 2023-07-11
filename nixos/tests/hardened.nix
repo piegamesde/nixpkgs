@@ -109,5 +109,5 @@ import ./make-test-python.nix ({
 
       with subtest("The hardened memory allocator works"):
           machine.succeed("${hardened-malloc-tests}/bin/run-tests")
-    '';
+    '' ;
   })

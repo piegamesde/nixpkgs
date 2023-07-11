@@ -7,7 +7,8 @@
   runCommand,
   expect,
 }:
-let inherit (dotnetCorePackages) sdk_6_0 runtime_6_0;
+let
+  inherit (dotnetCorePackages) sdk_6_0 runtime_6_0;
 in let
   finalPackage = buildDotnetModule rec {
     pname = "omnisharp-roslyn";
@@ -103,7 +104,7 @@ in let
       with-net6-sdk = with-sdk sdk_6_0;
       with-net7-sdk = with-sdk dotnetCorePackages.sdk_7_0;
       no-sdk = with-sdk null;
-    };
+    } ;
 
     meta = with lib; {
       description = "OmniSharp based on roslyn workspaces";
@@ -122,4 +123,5 @@ in let
       mainProgram = "OmniSharp";
     };
   };
-in finalPackage
+in
+  finalPackage

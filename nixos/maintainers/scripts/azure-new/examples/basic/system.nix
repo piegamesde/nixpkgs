@@ -4,7 +4,8 @@
   ...
 }:
 
-let username = "azurenixosuser";
+let
+  username = "azurenixosuser";
 in {
   imports = [
     "${modulesPath}/virtualisation/azure-common.nix"

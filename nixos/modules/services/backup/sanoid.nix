@@ -124,7 +124,9 @@ let
         ""
       else
         generators.mkKeyValueDefault { inherit mkValueString; } "=" k v;
-  in generators.toINI { inherit mkKeyValue; } cfg.settings;
+  in
+    generators.toINI { inherit mkKeyValue; } cfg.settings
+  ;
 
 in {
 

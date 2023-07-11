@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.virtualisation.azureImage;
+let
+  cfg = config.virtualisation.azureImage;
 in {
   imports = [ ./azure-common.nix ];
 

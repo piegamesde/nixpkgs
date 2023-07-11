@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.target;
+let
+  cfg = config.services.target;
 in {
   ###### interface
   options = {

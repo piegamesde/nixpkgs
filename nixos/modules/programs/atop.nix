@@ -9,7 +9,8 @@
 
 with lib;
 
-let cfg = config.programs.atop;
+let
+  cfg = config.programs.atop;
 
 in {
   ###### interface
@@ -168,7 +169,7 @@ in {
         // mkService cfg.netatop.enable "netatop" [ cfg.netatop.package ]
         // mkService cfg.atopgpu.enable "atopgpu" [ atop ];
       timers = mkTimer cfg.atopRotateTimer.enable "atop-rotate" [ atop ];
-    };
+    } ;
 
     security.wrappers = lib.mkIf cfg.setuidWrapper.enable {
       atop = {
@@ -178,5 +179,5 @@ in {
         source = "${atop}/bin/atop";
       };
     };
-  });
+  } );
 }

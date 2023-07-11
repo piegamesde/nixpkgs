@@ -254,19 +254,20 @@ let
       fi
     '';
 
-in runCommand "test-writers" {
-  passthru = { inherit writeTest bin simple path; };
-  meta.platforms = lib.platforms.all;
-} ''
-  ${lib.concatMapStringsSep "\n"
-  (test: writeTest "success" test.name "${test}/bin/${test.name}")
-  (lib.attrValues bin)}
-  ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name test)
-  (lib.attrValues simple)}
-  ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name test)
-  (lib.attrValues path)}
+in
+  runCommand "test-writers" {
+    passthru = { inherit writeTest bin simple path; };
+    meta.platforms = lib.platforms.all;
+  } ''
+    ${lib.concatMapStringsSep "\n"
+    (test: writeTest "success" test.name "${test}/bin/${test.name}")
+    (lib.attrValues bin)}
+    ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name test)
+    (lib.attrValues simple)}
+    ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name test)
+    (lib.attrValues path)}
 
-  echo 'nix-writers successfully tested' >&2
-  touch $out
-''
+    echo 'nix-writers successfully tested' >&2
+    touch $out
+  ''
 

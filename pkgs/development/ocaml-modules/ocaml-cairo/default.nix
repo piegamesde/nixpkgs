@@ -17,7 +17,8 @@
   pango,
 }:
 
-let pname = "ocaml-cairo";
+let
+  pname = "ocaml-cairo";
 
 in if lib.versionAtLeast ocaml.version "4.06" then
   throw "${pname} is not available for OCaml ${ocaml.version}"

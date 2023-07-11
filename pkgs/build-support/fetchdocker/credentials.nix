@@ -35,4 +35,5 @@ let
       path,
     }:
     "DOCKER_CREDENTIALS" == prefix) builtins.nixPath);
-in lib.optionalString (pathParts != [ ]) ((builtins.head pathParts).path)
+in
+  lib.optionalString (pathParts != [ ]) ((builtins.head pathParts).path)

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.zmap;
+let
+  cfg = config.programs.zmap;
 in {
   options.programs.zmap = { enable = mkEnableOption (lib.mdDoc "ZMap"); };
 

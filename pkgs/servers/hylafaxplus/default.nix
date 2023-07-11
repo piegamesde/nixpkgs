@@ -77,66 +77,67 @@ let
     inherit fakeroot libfaketime;
   };
 
-in stdenv.mkDerivation {
-  inherit pname version;
-  src = fetchurl {
-    url = "mirror://sourceforge/hylafax/hylafax-${version}.tar.gz";
-    inherit hash;
-  };
-  patches = [
-    # adjust configure check to work with libtiff > 4.1
-    ./libtiff-4.patch
-  ];
-  # Note that `configure` (and maybe `faxsetup`) are looking
-  # for a couple of standard binaries in the `PATH` and
-  # hardcode their absolute paths in the new package.
-  buildInputs = [
-    file # for `file` command
-    ghostscript
-    libtiff
-    libxcrypt
-    openssl
-    psmisc # for `fuser` command
-    sharutils # for `uuencode` command
-    util-linux # for `agetty` command
-    zlib
-    jbigkit # optional
-    lcms2 # optional
-    openldap # optional
-    pam # optional
-  ];
-  # Disable parallel build, errors:
-  #  *** No rule to make target '../util/libfaxutil.so.7.0.4', needed by 'faxmsg'.  Stop.
-  enableParallelBuilding = false;
+in
+  stdenv.mkDerivation {
+    inherit pname version;
+    src = fetchurl {
+      url = "mirror://sourceforge/hylafax/hylafax-${version}.tar.gz";
+      inherit hash;
+    };
+    patches = [
+      # adjust configure check to work with libtiff > 4.1
+      ./libtiff-4.patch
+    ];
+    # Note that `configure` (and maybe `faxsetup`) are looking
+    # for a couple of standard binaries in the `PATH` and
+    # hardcode their absolute paths in the new package.
+    buildInputs = [
+      file # for `file` command
+      ghostscript
+      libtiff
+      libxcrypt
+      openssl
+      psmisc # for `fuser` command
+      sharutils # for `uuencode` command
+      util-linux # for `agetty` command
+      zlib
+      jbigkit # optional
+      lcms2 # optional
+      openldap # optional
+      pam # optional
+    ];
+    # Disable parallel build, errors:
+    #  *** No rule to make target '../util/libfaxutil.so.7.0.4', needed by 'faxmsg'.  Stop.
+    enableParallelBuilding = false;
 
-  postPatch = ". ${postPatch}";
-  dontAddPrefix = true;
-  postInstall = ". ${postInstall}";
-  postInstallCheck = ". ${./post-install-check.sh}";
-  meta = {
-    changelog = "https://hylafax.sourceforge.io/news/${version}.php";
-    description =
-      "enterprise-class system for sending and receiving facsimiles";
-    downloadPage = "https://hylafax.sourceforge.io/download.php";
-    homepage = "https://hylafax.sourceforge.io";
-    license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.yarny ];
-    platforms = lib.platforms.linux;
-    longDescription = ''
-      HylaFAX is a scalable and time-proven solution
-      for sending and receiving facsimiles via modem(s).
-      It is based on a client-server architecture,
-      loosely comparable to CUPS:
-      A client connects to a server to issue outbound jobs,
-      the server then chooses a modem to
-      connect to the receiving fax machine.
-      The server notifies users about their
-      outbound jobs as well as about inbound jobs.
-      HylaFAX+ is a fork of HylaFAX that -- in general --
-      contains a superset of the features of
-      HylaFAX and produces releases more often.
-      This package contains the client
-      and the server parts of HylaFAX+.
-    '';
-  };
-}
+    postPatch = ". ${postPatch}";
+    dontAddPrefix = true;
+    postInstall = ". ${postInstall}";
+    postInstallCheck = ". ${./post-install-check.sh}";
+    meta = {
+      changelog = "https://hylafax.sourceforge.io/news/${version}.php";
+      description =
+        "enterprise-class system for sending and receiving facsimiles";
+      downloadPage = "https://hylafax.sourceforge.io/download.php";
+      homepage = "https://hylafax.sourceforge.io";
+      license = lib.licenses.bsd3;
+      maintainers = [ lib.maintainers.yarny ];
+      platforms = lib.platforms.linux;
+      longDescription = ''
+        HylaFAX is a scalable and time-proven solution
+        for sending and receiving facsimiles via modem(s).
+        It is based on a client-server architecture,
+        loosely comparable to CUPS:
+        A client connects to a server to issue outbound jobs,
+        the server then chooses a modem to
+        connect to the receiving fax machine.
+        The server notifies users about their
+        outbound jobs as well as about inbound jobs.
+        HylaFAX+ is a fork of HylaFAX that -- in general --
+        contains a superset of the features of
+        HylaFAX and produces releases more often.
+        This package contains the client
+        and the server parts of HylaFAX+.
+      '';
+    };
+  }

@@ -177,4 +177,4 @@ import ./make-test-python.nix ({
           machine.wait_until_tty_matches("5", "Login incorrect")
           machine.wait_until_tty_matches("5", "login:")
     '';
-  })
+  } )

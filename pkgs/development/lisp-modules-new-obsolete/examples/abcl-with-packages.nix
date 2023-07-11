@@ -20,4 +20,5 @@ let
 
   abcl-with-packages = pkgs.lispPackages_new.lispWithPackages abcl;
 
-in abcl-with-packages
+in
+  abcl-with-packages

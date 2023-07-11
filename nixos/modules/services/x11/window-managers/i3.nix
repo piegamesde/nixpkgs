@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.i3;
+let
+  cfg = config.services.xserver.windowManager.i3;
 
 in {
   options.services.xserver.windowManager.i3 = {

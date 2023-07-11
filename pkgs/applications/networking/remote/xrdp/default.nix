@@ -158,4 +158,5 @@ let
       platforms = platforms.linux;
     };
   };
-in xrdp
+in
+  xrdp

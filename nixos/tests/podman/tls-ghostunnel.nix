@@ -145,4 +145,4 @@ import ../make-test-python.nix ({
           client.fail("docker version")
 
     '';
-  })
+  } )

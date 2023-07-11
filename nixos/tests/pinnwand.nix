@@ -92,4 +92,4 @@ import ./make-test-python.nix ({
 
       server.log(server.execute("systemd-analyze security pinnwand | grep '✗'")[1])
     '';
-  })
+  } )

@@ -18,8 +18,10 @@ let
       parts = builtins.split "[-_.]+" name;
       partsWithoutSeparator =
         builtins.filter (x: builtins.typeOf x == "string") parts;
-    in lib.strings.toLower
-    (lib.strings.concatStringsSep "-" partsWithoutSeparator);
+    in
+      lib.strings.toLower
+      (lib.strings.concatStringsSep "-" partsWithoutSeparator)
+  ;
 
   # Normalize an entire attrset of packages
   normalizePackageSet = lib.attrsets.mapAttrs'
@@ -33,10 +35,12 @@ let
       major = l: lib.elemAt l 0;
       minor = l: lib.elemAt l 1;
       joinVersion = v: lib.concatStringsSep "." v;
-    in joinVersion (if major pyVer == major ver && minor pyVer == minor ver then
-      ver
-    else
-      pyVer);
+    in
+      joinVersion (if major pyVer == major ver && minor pyVer == minor ver then
+        ver
+      else
+        pyVer)
+  ;
 
   # Compare a semver expression with a version
   isCompatible = version:
@@ -49,27 +53,31 @@ let
       splitRe = "(" + (builtins.concatStringsSep "|"
         (builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x)
           (lib.attrNames operators))) + ")";
-    in expr:
-    let
-      tokens = builtins.filter (x: x != "") (builtins.split splitRe expr);
-      combine = acc: v:
-        let
-          isOperator = builtins.typeOf v == "list";
-          operator = if isOperator then (builtins.elemAt v 0) else acc.operator;
-        in if isOperator then
-          (acc // { inherit operator; })
-        else {
-          inherit operator;
-          state = operators."${operator}" acc.state (satisfiesSemver version v);
+    in
+      expr:
+      let
+        tokens = builtins.filter (x: x != "") (builtins.split splitRe expr);
+        combine = acc: v:
+          let
+            isOperator = builtins.typeOf v == "list";
+            operator =
+              if isOperator then (builtins.elemAt v 0) else acc.operator;
+          in if isOperator then
+            (acc // { inherit operator; })
+          else {
+            inherit operator;
+            state =
+              operators."${operator}" acc.state (satisfiesSemver version v);
+          };
+        initial = {
+          operator = "&&";
+          state = true;
         };
-      initial = {
-        operator = "&&";
-        state = true;
-      };
-    in if expr == "" then
-      true
-    else
-      (builtins.foldl' combine initial tokens).state;
+      in if expr == "" then
+        true
+      else
+        (builtins.foldl' combine initial tokens).state
+  ;
   fromTOML = builtins.fromTOML or (toml:
     builtins.fromJSON (builtins.readFile (pkgs.runCommand "from-toml" {
       inherit toml;
@@ -88,7 +96,8 @@ let
   # Returns the appropriate manylinux dependencies and string representation for the file specified
   #
   getManyLinuxDeps = f:
-    let ml = pkgs.pythonManylinuxPackages;
+    let
+      ml = pkgs.pythonManylinuxPackages;
     in if lib.strings.hasInfix "manylinux1" f then {
       pkg = [ ml.manylinux1 ];
       str = "1";
@@ -139,31 +148,34 @@ let
       kind,
       curlOpts ? ""
     }:
-    let predictedURL = predictURLFromPypi { inherit pname file hash kind; };
-    in (pkgs.stdenvNoCC.mkDerivation {
-      name = file;
-      nativeBuildInputs = [
-        pkgs.buildPackages.curl
-        pkgs.buildPackages.jq
-      ];
-      isWheel = lib.strings.hasSuffix "whl" file;
-      system = "builtin";
+    let
+      predictedURL = predictURLFromPypi { inherit pname file hash kind; };
+    in
+      (pkgs.stdenvNoCC.mkDerivation {
+        name = file;
+        nativeBuildInputs = [
+          pkgs.buildPackages.curl
+          pkgs.buildPackages.jq
+        ];
+        isWheel = lib.strings.hasSuffix "whl" file;
+        system = "builtin";
 
-      preferLocalBuild = true;
-      impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [ "NIX_CURL_FLAGS" ];
+        preferLocalBuild = true;
+        impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [ "NIX_CURL_FLAGS" ];
 
-      inherit pname file version curlOpts predictedURL;
+        inherit pname file version curlOpts predictedURL;
 
-      builder = ./fetch-from-pypi.sh;
+        builder = ./fetch-from-pypi.sh;
 
-      outputHashMode = "flat";
-      outputHashAlgo = "sha256";
-      outputHash = hash;
+        outputHashMode = "flat";
+        outputHashAlgo = "sha256";
+        outputHash = hash;
 
-      passthru = {
-        urls = [ predictedURL ]; # retain compatibility with nixpkgs' fetchurl
-      };
-    }));
+        passthru = {
+          urls = [ predictedURL ]; # retain compatibility with nixpkgs' fetchurl
+        };
+      })
+  );
 
   fetchFromLegacy = lib.makeOverridable ({
       python,
@@ -180,17 +192,19 @@ let
         "NETRC" == prefix) builtins.nixPath);
       netrc_file =
         if (pathParts != [ ]) then (builtins.head pathParts).path else "";
-    in pkgs.runCommand file {
-      nativeBuildInputs = [ python ];
-      impureEnvVars = lib.fetchers.proxyImpureEnvVars;
-      outputHashMode = "flat";
-      outputHashAlgo = "sha256";
-      outputHash = hash;
-      NETRC = netrc_file;
-    } ''
-      python ${./fetch_from_legacy.py} ${url} ${pname} ${file}
-      mv ${file} $out
-    '');
+    in
+      pkgs.runCommand file {
+        nativeBuildInputs = [ python ];
+        impureEnvVars = lib.fetchers.proxyImpureEnvVars;
+        outputHashMode = "flat";
+        outputHashAlgo = "sha256";
+        outputHash = hash;
+        NETRC = netrc_file;
+      } ''
+        python ${./fetch_from_legacy.py} ${url} ${pname} ${file}
+        mv ${file} $out
+      ''
+  );
 
   getBuildSystemPkgs = {
       pythonPackages,
@@ -207,9 +221,11 @@ let
       requiredPkgs =
         builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0)
         requires;
-    in builtins.map (drvAttr:
-      pythonPackages.${drvAttr} or (throw
-        "unsupported build system requirement ${drvAttr}")) requiredPkgs;
+    in
+      builtins.map (drvAttr:
+        pythonPackages.${drvAttr} or (throw
+          "unsupported build system requirement ${drvAttr}")) requiredPkgs
+  ;
 
   # Find gitignore files recursively in parent directory stopping with .git
   findGitIgnores = path:
@@ -219,9 +235,11 @@ let
       isGitRoot = builtins.pathExists (path + "/.git");
       hasGitIgnore = builtins.pathExists gitIgnore;
       gitIgnores = if hasGitIgnore then [ gitIgnore ] else [ ];
-    in lib.optionals
-    (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
-    (findGitIgnores parent) ++ gitIgnores;
+    in
+      lib.optionals
+      (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
+      (findGitIgnores parent) ++ gitIgnores
+  ;
 
   /* Provides a source filtering mechanism that:
 
@@ -237,14 +255,16 @@ let
       pycacheFilter = name: type:
         (type == "directory" && !lib.strings.hasInfix "__pycache__" name)
         || (type == "regular" && !lib.strings.hasSuffix ".pyc" name);
-    in lib.cleanSourceWith {
-      filter = lib.cleanSourceFilter;
-      src = lib.cleanSourceWith {
-        filter =
-          pkgs.nix-gitignore.gitignoreFilterPure pycacheFilter gitIgnores src;
-        inherit src;
-      };
-    };
+    in
+      lib.cleanSourceWith {
+        filter = lib.cleanSourceFilter;
+        src = lib.cleanSourceWith {
+          filter =
+            pkgs.nix-gitignore.gitignoreFilterPure pycacheFilter gitIgnores src;
+          inherit src;
+        };
+      }
+  ;
 
   # Maps Nixpkgs CPU values to target machines known to be supported for manylinux* wheels.
   # (a.k.a. `uname -m` output from CentOS 7)

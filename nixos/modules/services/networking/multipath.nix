@@ -586,7 +586,7 @@ in {
           device {
           ${lib.concatStringsSep "\n" attrs}
           }
-        '';
+        '' ;
       devices = lib.concatMapStringsSep "\n" mkDeviceBlock cfg.devices;
 
       mkMultipathBlock = m: ''
@@ -625,7 +625,7 @@ in {
       multipaths {
       ${indentLines 2 multipaths}
       }
-    '';
+    '' ;
 
     systemd.packages = [ cfg.package ];
 

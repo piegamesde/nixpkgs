@@ -75,4 +75,4 @@ import ./make-test-python.nix ({
       client1.succeed("echo test > /gluster/file1")
       client2.succeed("grep test /gluster/file1")
     '';
-  })
+  } )

@@ -6,7 +6,8 @@
 }:
 with lib;
 
-let cfg = config.services.dnscrypt-proxy2;
+let
+  cfg = config.services.dnscrypt-proxy2;
 
 in {
   options.services.dnscrypt-proxy2 = {

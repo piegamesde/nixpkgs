@@ -89,11 +89,12 @@ rec {
           makeWrapper ${java}/bin/java $out/bin/gradle \
             ${varDefs}
             --add-flags "-classpath $gradle_launcher_jar org.gradle.launcher.GradleMain${toolchain.property}"
-        '';
+        '' ;
 
       dontFixup = !stdenv.isLinux;
 
-      fixupPhase = let arch = if stdenv.is64bit then "amd64" else "i386";
+      fixupPhase = let
+        arch = if stdenv.is64bit then "amd64" else "i386";
       in ''
         for variant in "" "-ncurses5" "-ncurses6"; do
           mkdir "patching$variant"
@@ -120,7 +121,7 @@ rec {
         # Gradle will refuse to start without _both_ 5 and 6 versions of ncurses.
         echo ${ncurses5} >> $out/nix-support/manual-runtime-dependencies
         echo ${ncurses6} >> $out/nix-support/manual-runtime-dependencies
-      '';
+      '' ;
 
       meta = with lib; {
         inherit platforms;

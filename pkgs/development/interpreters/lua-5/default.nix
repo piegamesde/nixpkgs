@@ -66,11 +66,13 @@ let
               overriddenPackages
               overrides
             ];
-          in makeScopeWithSplicing otherSplices keep extra
-          (lib.extends extensions luaPackagesFun)) {
-            overrides = packageOverrides;
-            lua = self;
-          };
+          in
+            makeScopeWithSplicing otherSplices keep extra
+            (lib.extends extensions luaPackagesFun)
+        ) {
+          overrides = packageOverrides;
+          lua = self;
+        };
     in rec {
       buildEnv = callPackage ./wrapper.nix {
         lua = self;
@@ -90,7 +92,7 @@ let
       tests = callPackage ./tests { inherit (luaPackages) wrapLua; };
 
       inherit luaAttr;
-    };
+    } ;
 
 in rec {
   lua5_4 = callPackage ./interpreter.nix {

@@ -13,45 +13,47 @@
   gitUpdater,
 }:
 
-let category = "panel-plugins";
+let
+  category = "panel-plugins";
 
-in stdenv.mkDerivation rec {
-  pname = "xfce4-timer-plugin";
-  version = "1.7.2";
+in
+  stdenv.mkDerivation rec {
+    pname = "xfce4-timer-plugin";
+    version = "1.7.2";
 
-  src = fetchurl {
-    url = "mirror://xfce/src/${category}/${pname}/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.bz2";
-    sha256 = "sha256-/rO4wtOVBegWaDVAoyJr172ocMy8tMfQ9qv+7/XFi30=";
-  };
+    src = fetchurl {
+      url = "mirror://xfce/src/${category}/${pname}/${
+          lib.versions.majorMinor version
+        }/${pname}-${version}.tar.bz2";
+      sha256 = "sha256-/rO4wtOVBegWaDVAoyJr172ocMy8tMfQ9qv+7/XFi30=";
+    };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+    nativeBuildInputs = [
+      pkg-config
+      intltool
+    ];
 
-  buildInputs = [
-    libxfce4util
-    libxfce4ui
-    xfce4-panel
-    glib
-    gtk3
-    hicolor-icon-theme
-  ];
+    buildInputs = [
+      libxfce4util
+      libxfce4ui
+      xfce4-panel
+      glib
+      gtk3
+      hicolor-icon-theme
+    ];
 
-  hardeningDisable = [ "format" ];
+    hardeningDisable = [ "format" ];
 
-  passthru.updateScript = gitUpdater {
-    url = "https://gitlab.xfce.org/panel-plugins/${pname}";
-    rev-prefix = "${pname}-";
-  };
+    passthru.updateScript = gitUpdater {
+      url = "https://gitlab.xfce.org/panel-plugins/${pname}";
+      rev-prefix = "${pname}-";
+    };
 
-  meta = with lib; {
-    homepage = "https://docs.xfce.org/panel-plugins/xfce4-timer-plugin";
-    description = "Simple countdown and alarm plugin for the Xfce panel";
-    platforms = platforms.linux;
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
-  };
-}
+    meta = with lib; {
+      homepage = "https://docs.xfce.org/panel-plugins/xfce4-timer-plugin";
+      description = "Simple countdown and alarm plugin for the Xfce panel";
+      platforms = platforms.linux;
+      license = licenses.gpl2Plus;
+      maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    };
+  }

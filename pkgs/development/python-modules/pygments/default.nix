@@ -48,4 +48,5 @@ let
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in pygments
+in
+  pygments

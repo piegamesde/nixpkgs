@@ -21,12 +21,15 @@ let
     cfg.package.python.buildEnv.override { extraLibs = cfg.plugins; };
 
   usePostgresql = cfg.settings.database.name == "psycopg2";
-  hasLocalPostgresDB = let args = cfg.settings.database.args;
-  in usePostgresql && (!(args ? host) || (elem args.host [
-    "localhost"
-    "127.0.0.1"
-    "::1"
-  ]));
+  hasLocalPostgresDB = let
+    args = cfg.settings.database.args;
+  in
+    usePostgresql && (!(args ? host) || (elem args.host [
+      "localhost"
+      "127.0.0.1"
+      "::1"
+    ]))
+  ;
 
   registerNewMatrixUser = let
     isIpv6 = x: lib.length (lib.splitString ":" x) > 1;
@@ -40,17 +43,19 @@ let
     # add a tail, so that without any bind_addresses we still have a useable address
     bindAddress = head (listener.bind_addresses ++ [ "127.0.0.1" ]);
     listenerProtocol = if listener.tls then "https" else "http";
-  in pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
-    exec ${cfg.package}/bin/register_new_matrix_user \
-      $@ \
-      ${
-        lib.concatMapStringsSep " " (x: "-c ${x}")
-        ([ configFile ] ++ cfg.extraConfigFiles)
-      } \
-      "${listenerProtocol}://${
-        if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
-      }:${builtins.toString listener.port}/"
-  '';
+  in
+    pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
+      exec ${cfg.package}/bin/register_new_matrix_user \
+        $@ \
+        ${
+          lib.concatMapStringsSep " " (x: "-c ${x}")
+          ([ configFile ] ++ cfg.extraConfigFiles)
+        } \
+        "${listenerProtocol}://${
+          if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
+        }:${builtins.toString listener.port}/"
+    ''
+  ;
 in {
 
   imports = [

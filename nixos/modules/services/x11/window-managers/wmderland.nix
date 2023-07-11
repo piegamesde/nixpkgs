@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.wmderland;
+let
+  cfg = config.services.xserver.windowManager.wmderland;
 
 in {
   options.services.xserver.windowManager.wmderland = {

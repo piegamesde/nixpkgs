@@ -80,4 +80,5 @@ let
       maintainers = with maintainers; [ ];
     };
   };
-in countourpy
+in
+  countourpy

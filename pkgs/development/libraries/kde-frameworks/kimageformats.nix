@@ -12,22 +12,24 @@
   qtbase,
 }:
 
-let inherit (lib) getDev;
+let
+  inherit (lib) getDev;
 
-in mkDerivation {
-  pname = "kimageformats";
+in
+  mkDerivation {
+    pname = "kimageformats";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [
-    karchive
-    openexr
-    libavif
-    libheif
-    libjxl
-    libraw
-    qtbase
-  ];
-  outputs = [ "out" ]; # plugins only
-  CXXFLAGS = "-I${getDev ilmbase}/include/OpenEXR";
-  cmakeFlags = [ "-DKIMAGEFORMATS_HEIF=ON" ];
-}
+    nativeBuildInputs = [ extra-cmake-modules ];
+    buildInputs = [
+      karchive
+      openexr
+      libavif
+      libheif
+      libjxl
+      libraw
+      qtbase
+    ];
+    outputs = [ "out" ]; # plugins only
+    CXXFLAGS = "-I${getDev ilmbase}/include/OpenEXR";
+    cmakeFlags = [ "-DKIMAGEFORMATS_HEIF=ON" ];
+  }

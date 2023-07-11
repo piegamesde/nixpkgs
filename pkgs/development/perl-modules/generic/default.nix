@@ -72,4 +72,6 @@ lib.throwIf (attrs ? name) ''
     meta = defaultMeta // (attrs.meta or { });
   });
 
-in toPerlModule package)
+in
+  toPerlModule package
+)

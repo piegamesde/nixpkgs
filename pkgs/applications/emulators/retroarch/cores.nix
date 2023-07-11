@@ -258,7 +258,7 @@ in {
       "bsnes"
       "target=libretro"
       "platform=${platform}"
-    ];
+    ] ;
     extraBuildInputs = [
       xorg.libX11
       xorg.libXext

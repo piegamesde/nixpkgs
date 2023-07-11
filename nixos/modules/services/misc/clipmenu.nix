@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.clipmenu;
+let
+  cfg = config.services.clipmenu;
 in {
 
   options.services.clipmenu = {

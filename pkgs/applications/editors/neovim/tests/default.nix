@@ -84,190 +84,193 @@ let
       ${pkgs.perl}/bin/perl -pe "s|\Q$NIX_STORE\E/[a-z0-9]{32}-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g" < "$vimrc" > "$vimrcGeneric"
     '' + buildCommand);
 
-in pkgs.recurseIntoAttrs (rec {
-  vim_empty_config = vimUtils.vimrcFile {
-    beforePlugins = "";
-    customRC = "";
-  };
+in
+  pkgs.recurseIntoAttrs (rec {
+    vim_empty_config = vimUtils.vimrcFile {
+      beforePlugins = "";
+      customRC = "";
+    };
 
-  ### neovim tests
-  ##################
-  nvim_with_plugins = wrapNeovim2 "-with-plugins" nvimConfNix;
+    ### neovim tests
+    ##################
+    nvim_with_plugins = wrapNeovim2 "-with-plugins" nvimConfNix;
 
-  singlelinesconfig =
-    runTest (wrapNeovim2 "-single-lines" nvimConfSingleLines) ''
-      assertFileContent \
-        "$vimrcGeneric" \
-        "${./init-single-lines.vim}"
-    '';
+    singlelinesconfig =
+      runTest (wrapNeovim2 "-single-lines" nvimConfSingleLines) ''
+        assertFileContent \
+          "$vimrcGeneric" \
+          "${./init-single-lines.vim}"
+      '';
 
-  nvim_via_override = neovim.override {
-    extraName = "-via-override";
-    configure = {
-      packages.foo.start = [ vimPlugins.ale ];
-      customRC = ''
-        :help ale
+    nvim_via_override = neovim.override {
+      extraName = "-via-override";
+      configure = {
+        packages.foo.start = [ vimPlugins.ale ];
+        customRC = ''
+          :help ale
+        '';
+      };
+    };
+
+    nvim_with_aliases = neovim.override {
+      extraName = "-with-aliases";
+      vimAlias = true;
+      viAlias = true;
+    };
+
+    nvim_with_plug = neovim.override {
+      extraName = "-with-plug";
+      configure.packages.plugins = with pkgs.vimPlugins; {
+        start = [ (base16-vim.overrideAttrs (old: {
+          pname = old.pname + "-unique-for-tests-please-dont-use";
+        })) ];
+      };
+      configure.customRC = ''
+        color base16-tomorrow-night
+        set background=dark
       '';
     };
-  };
 
-  nvim_with_aliases = neovim.override {
-    extraName = "-with-aliases";
-    vimAlias = true;
-    viAlias = true;
-  };
+    run_nvim_with_plug = runTest nvim_with_plug ''
+      export HOME=$TMPDIR
+      ${nvim_with_plug}/bin/nvim -i NONE -c 'color base16-tomorrow-night'  +quit! -e
+    '';
 
-  nvim_with_plug = neovim.override {
-    extraName = "-with-plug";
-    configure.packages.plugins = with pkgs.vimPlugins; {
-      start = [ (base16-vim.overrideAttrs
-        (old: { pname = old.pname + "-unique-for-tests-please-dont-use"; })) ];
+    nvim_with_ftplugin = neovim.override {
+      extraName = "-with-ftplugin";
+      configure.packages.plugins = { start = [ texFtplugin ]; };
     };
-    configure.customRC = ''
-      color base16-tomorrow-night
-      set background=dark
+
+    # regression test that ftplugin files from plugins are loaded before the ftplugin
+    # files from $VIMRUNTIME
+    run_nvim_with_ftplugin = runTest nvim_with_ftplugin ''
+      export HOME=$TMPDIR
+      echo '\documentclass{article}' > main.tex
+
+      ${nvim_with_ftplugin}/bin/nvim main.tex -c "set ft?" -c quit
+      ls -l $TMPDIR
+      # if the file exists, then our plugin has been loaded instead of neovim's
+      [ ! -f plugin_was_loaded_too_late ]
     '';
-  };
 
-  run_nvim_with_plug = runTest nvim_with_plug ''
-    export HOME=$TMPDIR
-    ${nvim_with_plug}/bin/nvim -i NONE -c 'color base16-tomorrow-night'  +quit! -e
-  '';
+    # check that the vim-doc hook correctly generates the tag
+    # we know for a fact packer has a doc folder
+    checkForTags = vimPlugins.packer-nvim.overrideAttrs (oldAttrs: {
+      doInstallCheck = true;
+      installCheckPhase = ''
+        [ -f $out/doc/tags ]
+      '';
+    });
 
-  nvim_with_ftplugin = neovim.override {
-    extraName = "-with-ftplugin";
-    configure.packages.plugins = { start = [ texFtplugin ]; };
-  };
+    # check that the vim-doc hook correctly generates the tag
+    # for neovim packages from luaPackages
+    # we know for a fact gitsigns-nvim has a doc folder and comes from luaPackages
+    checkForTagsLuaPackages = vimPlugins.gitsigns-nvim.overrideAttrs
+      (oldAttrs: {
+        doInstallCheck = true;
+        installCheckPhase = ''
+          [ -f $out/doc/tags ]
+        '';
+      });
 
-  # regression test that ftplugin files from plugins are loaded before the ftplugin
-  # files from $VIMRUNTIME
-  run_nvim_with_ftplugin = runTest nvim_with_ftplugin ''
-    export HOME=$TMPDIR
-    echo '\documentclass{article}' > main.tex
-
-    ${nvim_with_ftplugin}/bin/nvim main.tex -c "set ft?" -c quit
-    ls -l $TMPDIR
-    # if the file exists, then our plugin has been loaded instead of neovim's
-    [ ! -f plugin_was_loaded_too_late ]
-  '';
-
-  # check that the vim-doc hook correctly generates the tag
-  # we know for a fact packer has a doc folder
-  checkForTags = vimPlugins.packer-nvim.overrideAttrs (oldAttrs: {
-    doInstallCheck = true;
-    installCheckPhase = ''
-      [ -f $out/doc/tags ]
-    '';
-  });
-
-  # check that the vim-doc hook correctly generates the tag
-  # for neovim packages from luaPackages
-  # we know for a fact gitsigns-nvim has a doc folder and comes from luaPackages
-  checkForTagsLuaPackages = vimPlugins.gitsigns-nvim.overrideAttrs (oldAttrs: {
-    doInstallCheck = true;
-    installCheckPhase = ''
-      [ -f $out/doc/tags ]
-    '';
-  });
-
-  nvim_with_gitsigns_plugin = neovim.override {
-    extraName = "-with-gitsigns-plugin";
-    configure.packages.plugins = { start = [ vimPlugins.gitsigns-nvim ]; };
-  };
-  checkHelpLuaPackages = runTest nvim_with_gitsigns_plugin ''
-    export HOME=$TMPDIR
-    ${nvim_with_gitsigns_plugin}/bin/nvim -i NONE -c 'help gitsigns' +quitall! -e
-  '';
-
-  # nixpkgs should detect that no wrapping is necessary
-  nvimShouldntWrap = wrapNeovim2 "-should-not-wrap" nvimAutoDisableWrap;
-
-  # this will generate a neovimRc content but we disable wrapping
-  nvimDontWrap = wrapNeovim2 "-forced-nowrap" (makeNeovimConfig {
-    wrapRc = false;
-    customRC = ''
-      " this shouldn't trigger the creation of an init.vim
-    '';
-  });
-
-  force-nowrap = runTest nvimDontWrap ''
-    ! grep -F -- ' -u' ${nvimDontWrap}/bin/nvim
-  '';
-
-  nvim_via_override-test = runTest nvim_via_override ''
-    assertFileContent \
-      "$vimrcGeneric" \
-      "${./init-override.vim}"
-  '';
-
-  checkAliases = runTest nvim_with_aliases ''
-    folder=${nvim_with_aliases}/bin
-    assertFileExists "$folder/vi"
-    assertFileExists "$folder/vim"
-  '';
-
-  # having no RC generated should autodisable init.vim wrapping
-  nvim_autowrap = runTest nvim_via_override ''
-    ! grep "-u" ${nvimShouldntWrap}/bin/nvim
-  '';
-
-  # system remote plugin manifest should be generated, deoplete should be usable
-  # without the user having to do `UpdateRemotePlugins`. To test, launch neovim
-  # and do `:call deoplete#enable()`. It will print an error if the remote
-  # plugin is not registered.
-  test_nvim_with_remote_plugin = neovim.override {
-    extraName = "-remote";
-    configure.packages.foo.start = with vimPlugins; [ deoplete-nvim ];
-  };
-
-  nvimWithLuaPackages = wrapNeovim2 "-with-lua-packages" (makeNeovimConfig {
-    extraLuaPackages = ps: [ ps.mpack ];
-    customRC = ''
-      lua require("mpack")
-    '';
-  });
-
-  nvim_with_lua_packages = runTest nvimWithLuaPackages ''
-    export HOME=$TMPDIR
-    ${nvimWithLuaPackages}/bin/nvim -i NONE --noplugin -es
-  '';
-
-  # nixpkgs should install optional packages in the opt folder
-  nvim_with_opt_plugin = neovim.override {
-    extraName = "-with-opt-plugin";
-    configure.packages.opt-plugins = with pkgs.vimPlugins; {
-      opt = [ (dashboard-nvim.overrideAttrs (old: {
-        pname = old.pname + "-unique-for-tests-please-dont-use-opt";
-      })) ];
+    nvim_with_gitsigns_plugin = neovim.override {
+      extraName = "-with-gitsigns-plugin";
+      configure.packages.plugins = { start = [ vimPlugins.gitsigns-nvim ]; };
     };
-    configure.customRC = ''
-      " Load all autoloaded plugins
-      packloadall
-
-      " Try to run Dashboard, and throw if it succeeds
-      try
-        Dashboard
-        echo "Dashboard found, throwing error"
-        cquit 1
-      catch /^Vim\%((\a\+)\)\=:E492/
-        echo "Dashboard not found"
-      endtry
-
-      " Load Dashboard as an optional
-      packadd dashboard-nvim-unique-for-tests-please-dont-use-opt
-
-      " Try to run Dashboard again, and throw if it fails
-      let res = exists(':Dashboard')
-      if res == 0
-        echo "Dashboard not found, throwing error"
-        cquit 1
-      endif
-      cquit 0
+    checkHelpLuaPackages = runTest nvim_with_gitsigns_plugin ''
+      export HOME=$TMPDIR
+      ${nvim_with_gitsigns_plugin}/bin/nvim -i NONE -c 'help gitsigns' +quitall! -e
     '';
-  };
 
-  run_nvim_with_opt_plugin = runTest nvim_with_opt_plugin ''
-    export HOME=$TMPDIR
-    ${nvim_with_opt_plugin}/bin/nvim -i NONE +quit! -e
-  '';
-})
+    # nixpkgs should detect that no wrapping is necessary
+    nvimShouldntWrap = wrapNeovim2 "-should-not-wrap" nvimAutoDisableWrap;
+
+    # this will generate a neovimRc content but we disable wrapping
+    nvimDontWrap = wrapNeovim2 "-forced-nowrap" (makeNeovimConfig {
+      wrapRc = false;
+      customRC = ''
+        " this shouldn't trigger the creation of an init.vim
+      '';
+    });
+
+    force-nowrap = runTest nvimDontWrap ''
+      ! grep -F -- ' -u' ${nvimDontWrap}/bin/nvim
+    '';
+
+    nvim_via_override-test = runTest nvim_via_override ''
+      assertFileContent \
+        "$vimrcGeneric" \
+        "${./init-override.vim}"
+    '';
+
+    checkAliases = runTest nvim_with_aliases ''
+      folder=${nvim_with_aliases}/bin
+      assertFileExists "$folder/vi"
+      assertFileExists "$folder/vim"
+    '';
+
+    # having no RC generated should autodisable init.vim wrapping
+    nvim_autowrap = runTest nvim_via_override ''
+      ! grep "-u" ${nvimShouldntWrap}/bin/nvim
+    '';
+
+    # system remote plugin manifest should be generated, deoplete should be usable
+    # without the user having to do `UpdateRemotePlugins`. To test, launch neovim
+    # and do `:call deoplete#enable()`. It will print an error if the remote
+    # plugin is not registered.
+    test_nvim_with_remote_plugin = neovim.override {
+      extraName = "-remote";
+      configure.packages.foo.start = with vimPlugins; [ deoplete-nvim ];
+    };
+
+    nvimWithLuaPackages = wrapNeovim2 "-with-lua-packages" (makeNeovimConfig {
+      extraLuaPackages = ps: [ ps.mpack ];
+      customRC = ''
+        lua require("mpack")
+      '';
+    });
+
+    nvim_with_lua_packages = runTest nvimWithLuaPackages ''
+      export HOME=$TMPDIR
+      ${nvimWithLuaPackages}/bin/nvim -i NONE --noplugin -es
+    '';
+
+    # nixpkgs should install optional packages in the opt folder
+    nvim_with_opt_plugin = neovim.override {
+      extraName = "-with-opt-plugin";
+      configure.packages.opt-plugins = with pkgs.vimPlugins; {
+        opt = [ (dashboard-nvim.overrideAttrs (old: {
+          pname = old.pname + "-unique-for-tests-please-dont-use-opt";
+        })) ];
+      };
+      configure.customRC = ''
+        " Load all autoloaded plugins
+        packloadall
+
+        " Try to run Dashboard, and throw if it succeeds
+        try
+          Dashboard
+          echo "Dashboard found, throwing error"
+          cquit 1
+        catch /^Vim\%((\a\+)\)\=:E492/
+          echo "Dashboard not found"
+        endtry
+
+        " Load Dashboard as an optional
+        packadd dashboard-nvim-unique-for-tests-please-dont-use-opt
+
+        " Try to run Dashboard again, and throw if it fails
+        let res = exists(':Dashboard')
+        if res == 0
+          echo "Dashboard not found, throwing error"
+          cquit 1
+        endif
+        cquit 0
+      '';
+    };
+
+    run_nvim_with_opt_plugin = runTest nvim_with_opt_plugin ''
+      export HOME=$TMPDIR
+      ${nvim_with_opt_plugin}/bin/nvim -i NONE +quit! -e
+    '';
+  })

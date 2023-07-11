@@ -188,7 +188,7 @@ in {
                 cfg.fullIfOlderThan
               ]))
           } ${extra}
-        '';
+        '' ;
         serviceConfig = {
           PrivateTmp = true;
           ProtectSystem = "strict";

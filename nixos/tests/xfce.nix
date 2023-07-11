@@ -33,7 +33,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.machine.users.users.alice;
+      let
+        user = nodes.machine.users.users.alice;
       in ''
         machine.wait_for_x()
         machine.wait_for_file("${user.home}/.Xauthority")
@@ -48,5 +49,5 @@ import ./make-test-python.nix ({
         machine.wait_for_window("Terminal")
         machine.sleep(10)
         machine.screenshot("screen")
-      '';
+      '' ;
   })

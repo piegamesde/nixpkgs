@@ -42,27 +42,29 @@ in {
   config = let
     package =
       cfg.package.override { polkitPolicyOwners = cfg.polkitPolicyOwners; };
-  in mkIf cfg.enable {
-    environment.systemPackages = [ package ];
-    users.groups.onepassword.gid = config.ids.gids.onepassword;
+  in
+    mkIf cfg.enable {
+      environment.systemPackages = [ package ];
+      users.groups.onepassword.gid = config.ids.gids.onepassword;
 
-    security.wrappers = {
-      "1Password-BrowserSupport" = {
-        source = "${package}/share/1password/1Password-BrowserSupport";
-        owner = "root";
-        group = "onepassword";
-        setuid = false;
-        setgid = true;
+      security.wrappers = {
+        "1Password-BrowserSupport" = {
+          source = "${package}/share/1password/1Password-BrowserSupport";
+          owner = "root";
+          group = "onepassword";
+          setuid = false;
+          setgid = true;
+        };
+
+        "1Password-KeyringHelper" = {
+          source = "${package}/share/1password/1Password-KeyringHelper";
+          owner = "root";
+          group = "onepassword";
+          setuid = true;
+          setgid = true;
+        };
       };
 
-      "1Password-KeyringHelper" = {
-        source = "${package}/share/1password/1Password-KeyringHelper";
-        owner = "root";
-        group = "onepassword";
-        setuid = true;
-        setgid = true;
-      };
-    };
-
-  };
+    }
+  ;
 }

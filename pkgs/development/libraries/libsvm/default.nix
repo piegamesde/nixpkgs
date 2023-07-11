@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     ln -s $dev/include/svm.h $dev/include/libsvm/svm.h
 
     runHook postInstall
-  '';
+  '' ;
 
   meta = with lib; {
     description = "A library for support vector machines";

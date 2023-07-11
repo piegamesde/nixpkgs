@@ -72,8 +72,11 @@ let
           # evaluate we don't want to diverge the entire splice, so we fall back
           # on {}
           tryGetOutputs = value0:
-            let inherit (builtins.tryEval value0) success value;
-            in getOutputs (lib.optionalAttrs success value);
+            let
+              inherit (builtins.tryEval value0) success value;
+            in
+              getOutputs (lib.optionalAttrs success value)
+          ;
           getOutputs = value:
             lib.genAttrs (value.outputs or (lib.optional (value ? out) "out"))
             (output: value.${output});
@@ -103,7 +106,9 @@ let
         else
           defaultValue;
       };
-    in lib.listToAttrs (map merge (lib.attrNames mash));
+    in
+      lib.listToAttrs (map merge (lib.attrNames mash))
+  ;
 
   splicePackages = {
       pkgsBuildBuild,
@@ -153,7 +158,8 @@ in {
 
   # generate 'otherSplices' for 'makeScopeWithSplicing'
   generateSplicesForMkScope = attr:
-    let split = X: lib.splitString "." "${X}.${attr}";
+    let
+      split = X: lib.splitString "." "${X}.${attr}";
     in {
       # nulls should never be reached
       selfBuildBuild = lib.attrByPath (split "pkgsBuildBuild") null pkgs;
@@ -162,7 +168,7 @@ in {
       selfHostHost = lib.attrByPath (split "pkgsHostHost") null pkgs;
       selfHostTarget = lib.attrByPath (split "pkgsHostTarget") null pkgs;
       selfTargetTarget = lib.attrByPath (split "pkgsTargetTarget") { } pkgs;
-    };
+    } ;
 
   # Haskell package sets need this because they reimplement their own
   # `newScope`.

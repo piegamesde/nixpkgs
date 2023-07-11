@@ -30,7 +30,9 @@ rustPlatform.buildRustPackage rec {
       "test_integration_zip_zip"
     ];
     skipFlag = test: "--skip " + test;
-  in builtins.concatStringsSep " " (builtins.map skipFlag skipList);
+  in
+    builtins.concatStringsSep " " (builtins.map skipFlag skipList)
+  ;
 
   meta = with lib; {
     description =

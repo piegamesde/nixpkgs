@@ -159,7 +159,7 @@ import ./make-test-python.nix ({
                   file: lan.nixos.test.zone
                   acl: [dhcp_ddns]
             '';
-          };
+          } ;
 
         };
 

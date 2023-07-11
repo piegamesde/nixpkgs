@@ -105,29 +105,31 @@ let
     let
       rubyEnv =
         bundlerEnv (bundlerEnvArgs // { inherit name pname version ruby; });
-    in stdenv.mkDerivation (builtins.removeAttrs args [ "bundlerEnvArgs" ] // {
-      pluginName = if name != null then name else "${pname}-${version}";
-      dontConfigure = true;
-      dontBuild = true;
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out
-        cp -r * $out/
-      '' + lib.optionalString (bundlerEnvArgs != { })
-        (if preserveGemsDir then ''
-          cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
-        '' else
-          ''
-            if [[ -e $out/gems ]]; then
-              echo "Warning: The repo contains a 'gems' directory which will be removed!"
-              echo "         If you need to preserve it, set 'preserveGemsDir = true'."
-              rm -r $out/gems
-            fi
-            ln -sf ${rubyEnv}/lib/ruby/gems $out/gems
-          '' + ''
-            runHook postInstall
-          '');
-    });
+    in
+      stdenv.mkDerivation (builtins.removeAttrs args [ "bundlerEnvArgs" ] // {
+        pluginName = if name != null then name else "${pname}-${version}";
+        dontConfigure = true;
+        dontBuild = true;
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out
+          cp -r * $out/
+        '' + lib.optionalString (bundlerEnvArgs != { })
+          (if preserveGemsDir then ''
+            cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
+          '' else
+            ''
+              if [[ -e $out/gems ]]; then
+                echo "Warning: The repo contains a 'gems' directory which will be removed!"
+                echo "         If you need to preserve it, set 'preserveGemsDir = true'."
+                rm -r $out/gems
+              fi
+              ln -sf ${rubyEnv}/lib/ruby/gems $out/gems
+            '' + ''
+              runHook postInstall
+            '');
+      })
+  ;
 
   rake = runCommand "discourse-rake" { nativeBuildInputs = [ makeWrapper ]; } ''
     mkdir -p $out/bin
@@ -146,59 +148,64 @@ let
     name = "discourse-ruby-env-${version}";
     inherit version ruby;
     gemdir = ./rubyEnv;
-    gemset = let gems = import ./rubyEnv/gemset.nix;
-    in gems // {
-      mini_racer = gems.mini_racer // {
-        buildInputs = [ icu ];
-        dontBuild = false;
-        NIX_LDFLAGS = "-licui18n";
-      };
-      libv8-node = let
-        noopScript = writeShellScript "noop" "exit 0";
-        linkFiles = writeShellScript "link-files" ''
-          cd ../..
+    gemset = let
+      gems = import ./rubyEnv/gemset.nix;
+    in
+      gems // {
+        mini_racer = gems.mini_racer // {
+          buildInputs = [ icu ];
+          dontBuild = false;
+          NIX_LDFLAGS = "-licui18n";
+        };
+        libv8-node = let
+          noopScript = writeShellScript "noop" "exit 0";
+          linkFiles = writeShellScript "link-files" ''
+            cd ../..
 
-          mkdir -p vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/
-          ln -s "${nodejs_16.libv8}/lib/libv8.a" vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/libv8_monolith.a
+            mkdir -p vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/
+            ln -s "${nodejs_16.libv8}/lib/libv8.a" vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/libv8_monolith.a
 
-          ln -s ${nodejs_16.libv8}/include vendor/v8/include
+            ln -s ${nodejs_16.libv8}/include vendor/v8/include
 
-          mkdir -p ext/libv8-node
-          echo '--- !ruby/object:Libv8::Node::Location::Vendor {}' >ext/libv8-node/.location.yml
-        '';
-      in gems.libv8-node // {
-        dontBuild = false;
-        postPatch = ''
-          cp ${noopScript} libexec/build-libv8
-          cp ${noopScript} libexec/build-monolith
-          cp ${noopScript} libexec/download-node
-          cp ${noopScript} libexec/extract-node
-          cp ${linkFiles} libexec/inject-libv8
-        '';
-      };
-      mini_suffix = gems.mini_suffix // {
-        propagatedBuildInputs = [ libpsl ];
-        dontBuild = false;
-        # Use our libpsl instead of the vendored one, which isn't
-        # available for aarch64. It has to be called
-        # libpsl.x86_64.so or it isn't found.
-        postPatch = ''
-          cp $(readlink -f ${libpsl}/lib/libpsl.so) vendor/libpsl.x86_64.so
-        '';
-      };
-      sass-embedded = gems.sass-embedded // {
-        dontBuild = false;
-        # `sass-embedded` depends on `dart-sass-embedded` and tries to
-        # fetch that as `.tar.gz` from GitHub releases. That `.tar.gz`
-        # can also be specified via `SASS_EMBEDDED`. But instead of
-        # compressing our `dart-sass-embedded` just to decompress it
-        # again, we simply patch the Rakefile to symlink that path.
-        patches = [ ./rubyEnv/sass-embedded-static.patch ];
-        postPatch = ''
-          export SASS_EMBEDDED=${dart-sass-embedded}/bin
-        '';
-      };
-    };
+            mkdir -p ext/libv8-node
+            echo '--- !ruby/object:Libv8::Node::Location::Vendor {}' >ext/libv8-node/.location.yml
+          '';
+        in
+          gems.libv8-node // {
+            dontBuild = false;
+            postPatch = ''
+              cp ${noopScript} libexec/build-libv8
+              cp ${noopScript} libexec/build-monolith
+              cp ${noopScript} libexec/download-node
+              cp ${noopScript} libexec/extract-node
+              cp ${linkFiles} libexec/inject-libv8
+            '';
+          }
+        ;
+        mini_suffix = gems.mini_suffix // {
+          propagatedBuildInputs = [ libpsl ];
+          dontBuild = false;
+          # Use our libpsl instead of the vendored one, which isn't
+          # available for aarch64. It has to be called
+          # libpsl.x86_64.so or it isn't found.
+          postPatch = ''
+            cp $(readlink -f ${libpsl}/lib/libpsl.so) vendor/libpsl.x86_64.so
+          '';
+        };
+        sass-embedded = gems.sass-embedded // {
+          dontBuild = false;
+          # `sass-embedded` depends on `dart-sass-embedded` and tries to
+          # fetch that as `.tar.gz` from GitHub releases. That `.tar.gz`
+          # can also be specified via `SASS_EMBEDDED`. But instead of
+          # compressing our `dart-sass-embedded` just to decompress it
+          # again, we simply patch the Rakefile to symlink that path.
+          patches = [ ./rubyEnv/sass-embedded-static.patch ];
+          postPatch = ''
+            export SASS_EMBEDDED=${dart-sass-embedded}/bin
+          '';
+        };
+      }
+    ;
 
     groups = [
       "default"
@@ -421,4 +428,5 @@ let
       };
     };
   };
-in discourse
+in
+  discourse

@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.hound;
+let
+  cfg = config.services.hound;
 in {
   options = {
     services.hound = {

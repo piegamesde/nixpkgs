@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.machine.config.users.users.alice;
+      let
+        user = nodes.machine.config.users.users.alice;
 
       in {
         imports = [ ./common/user-account.nix ];
@@ -33,7 +34,7 @@ import ./make-test-python.nix ({
         services.xserver.desktopManager.gnome.flashback.enableMetacity = true;
         services.xserver.displayManager.defaultSession =
           "gnome-flashback-metacity";
-      };
+      } ;
 
     testScript = {
         nodes,
@@ -59,5 +60,5 @@ import ./make-test-python.nix ({
             )
             machine.sleep(20)
             machine.screenshot("screen")
-      '';
+      '' ;
   })

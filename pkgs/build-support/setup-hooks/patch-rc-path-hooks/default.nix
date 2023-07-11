@@ -4,7 +4,8 @@
   makeSetupHook,
   gnused,
 }:
-let tests = import ./test { inherit callPackage; };
+let
+  tests = import ./test { inherit callPackage; };
 in {
   patchRcPathBash = makeSetupHook {
     name = "patch-rc-path-bash";

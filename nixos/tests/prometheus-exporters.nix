@@ -200,7 +200,7 @@ let
         succeed(
             "curl -sSf localhost:9103/metrics | grep 'collectd_testplugin_gauge{instance=\"testhost\"} 23'"
         )
-      '';
+      '' ;
     };
 
     dnsmasq = {
@@ -405,7 +405,7 @@ let
             "curl --fail localhost:9547/metrics | grep 'packets_received_total'"
         )
       '';
-    };
+    } ;
 
     knot = {
       exporterConfig = { enable = true; };
@@ -662,15 +662,15 @@ let
         url = "http://localhost";
       };
       metricProvider = {
-        systemd.services.nc-pwfile =
-          let passfile = (pkgs.writeText "pwfile" "snakeoilpw");
-          in {
-            requiredBy = [ "prometheus-nextcloud-exporter.service" ];
-            before = [ "prometheus-nextcloud-exporter.service" ];
-            serviceConfig.ExecStart = ''
-              ${pkgs.coreutils}/bin/install -o nextcloud-exporter -m 0400 ${passfile} /var/nextcloud-pwfile
-            '';
-          };
+        systemd.services.nc-pwfile = let
+          passfile = (pkgs.writeText "pwfile" "snakeoilpw");
+        in {
+          requiredBy = [ "prometheus-nextcloud-exporter.service" ];
+          before = [ "prometheus-nextcloud-exporter.service" ];
+          serviceConfig.ExecStart = ''
+            ${pkgs.coreutils}/bin/install -o nextcloud-exporter -m 0400 ${passfile} /var/nextcloud-pwfile
+          '';
+        } ;
         services.nginx = {
           enable = true;
           virtualHosts."localhost" = {
@@ -952,7 +952,7 @@ let
         wait_for_open_port(9221)
         wait_until_succeeds("curl localhost:9221")
       '';
-    };
+    } ;
 
     py-air-control = {
       nodeName = "py_air_control";
@@ -1348,7 +1348,8 @@ let
       '';
     };
 
-    wireguard = let snakeoil = import ./wireguard/snakeoil-keys.nix;
+    wireguard = let
+      snakeoil = import ./wireguard/snakeoil-keys.nix;
     in {
       exporterConfig.enable = true;
       metricProvider = {
@@ -1380,7 +1381,7 @@ let
             "curl -sSf http://localhost:9586/metrics | grep '${snakeoil.peer1.publicKey}'"
         )
       '';
-    };
+    } ;
 
     zfs = {
       exporterConfig = { enable = true; };
@@ -1396,28 +1397,32 @@ let
       '';
     };
   };
-in mapAttrs (exporter: testConfig:
-  (makeTest (let nodeName = testConfig.nodeName or exporter;
+in
+  mapAttrs (exporter: testConfig:
+    (makeTest (let
+      nodeName = testConfig.nodeName or exporter;
 
-  in {
-    name = "prometheus-${exporter}-exporter";
+    in {
+      name = "prometheus-${exporter}-exporter";
 
-    nodes.${nodeName} = mkMerge [
-      { services.prometheus.exporters.${exporter} = testConfig.exporterConfig; }
-      testConfig.metricProvider or { }
-    ];
+      nodes.${nodeName} = mkMerge [
+        {
+          services.prometheus.exporters.${exporter} = testConfig.exporterConfig;
+        }
+        testConfig.metricProvider or { }
+      ];
 
-    testScript = ''
-      ${nodeName}.start()
-      ${concatStringsSep "\n" (map (line:
-        if (builtins.substring 0 1 line == " " || builtins.substring 0 1 line
-          == ")") then
-          line
-        else
-          "${nodeName}.${line}")
-        (splitString "\n" (removeSuffix "\n" testConfig.exporterTest)))}
-      ${nodeName}.shutdown()
-    '';
+      testScript = ''
+        ${nodeName}.start()
+        ${concatStringsSep "\n" (map (line:
+          if (builtins.substring 0 1 line == " " || builtins.substring 0 1 line
+            == ")") then
+            line
+          else
+            "${nodeName}.${line}")
+          (splitString "\n" (removeSuffix "\n" testConfig.exporterTest)))}
+        ${nodeName}.shutdown()
+      '';
 
-    meta = with maintainers; { maintainers = [ willibutz ]; };
-  }))) exporterTests
+      meta = with maintainers; { maintainers = [ willibutz ]; };
+    } ))) exporterTests

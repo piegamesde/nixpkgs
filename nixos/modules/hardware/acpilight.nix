@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.hardware.acpilight;
+let
+  cfg = config.hardware.acpilight;
 in {
   options = {
     hardware.acpilight = {

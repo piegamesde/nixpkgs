@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.infnoise;
+let
+  cfg = config.services.infnoise;
 in {
   options = {
     services.infnoise = {

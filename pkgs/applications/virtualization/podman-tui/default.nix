@@ -32,7 +32,8 @@ buildGoModule rec {
     "-w"
   ];
 
-  preCheck = let skippedTests = [ "TestDialogs" ];
+  preCheck = let
+    skippedTests = [ "TestDialogs" ];
   in ''
     export USER=$(whoami)
     export HOME=/home/$USER
@@ -41,7 +42,7 @@ buildGoModule rec {
     buildFlagsArray+=("-run" "[^(${
       builtins.concatStringsSep "|" skippedTests
     })]")
-  '';
+  '' ;
 
   passthru.tests.version = testers.testVersion {
     package = podman-tui;

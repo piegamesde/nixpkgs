@@ -83,18 +83,26 @@ let
 
   needToCreateCA = let
     notFound = path:
-      let dotted = concatStringsSep "." path;
-      in throw "Can't find option definitions for path `${dotted}'.";
+      let
+        dotted = concatStringsSep "." path;
+      in
+        throw "Can't find option definitions for path `${dotted}'."
+    ;
     findPkiDefinitions = path: attrs:
       let
         mkSublist = key: val:
-          let newPath = path ++ singleton key;
+          let
+            newPath = path ++ singleton key;
           in if isOption val then
             attrByPath newPath (notFound newPath) cfg.pki.manual
           else
             findPkiDefinitions newPath val;
-      in flatten (mapAttrsToList mkSublist attrs);
-  in all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions);
+      in
+        flatten (mapAttrsToList mkSublist attrs)
+    ;
+  in
+    all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions)
+  ;
 
   orgOptions = {
       ...
@@ -165,12 +173,14 @@ in {
         description = let
           url =
             "https://nixos.org/manual/nixos/stable/index.html#module-services-taskserver";
-        in lib.mdDoc ''
-          Whether to enable the Taskwarrior server.
+        in
+          lib.mdDoc ''
+            Whether to enable the Taskwarrior server.
 
-          More instructions about NixOS in conjunction with Taskserver can be
-          found [in the NixOS manual](${url}).
-        '';
+            More instructions about NixOS in conjunction with Taskserver can be
+            found [in the NixOS manual](${url}).
+          ''
+        ;
       };
 
       user = mkOption {
@@ -195,12 +205,14 @@ in {
         type = types.nullOr (types.separatedString ":");
         default = null;
         example = "NORMAL:-VERS-SSL3.0";
-        description =
-          let url = "https://gnutls.org/manual/html_node/Priority-Strings.html";
-          in lib.mdDoc ''
+        description = let
+          url = "https://gnutls.org/manual/html_node/Priority-Strings.html";
+        in
+          lib.mdDoc ''
             List of GnuTLS ciphers to use. See the GnuTLS documentation about
             priority strings at <${url}> for full details.
-          '';
+          ''
+        ;
       };
 
       organisations = mkOption {
@@ -396,8 +408,12 @@ in {
                 in if isAttrs val then
                   recurse newPath val
                 else [ "${mkKey newPath}=${scalar}" ];
-            in concatLists (mapAttrsToList mapper attrs);
-        in recurse [ ];
+            in
+              concatLists (mapAttrsToList mapper attrs)
+          ;
+        in
+          recurse [ ]
+        ;
       };
     };
   };
@@ -512,13 +528,17 @@ in {
           jsonOrgs = builtins.toJSON cfg.organisations;
           jsonFile = pkgs.writeText "orgs.json" jsonOrgs;
           helperTool = "${nixos-taskserver}/bin/nixos-taskserver";
-        in "${helperTool} process-json '${jsonFile}'";
+        in
+          "${helperTool} process-json '${jsonFile}'"
+        ;
 
         serviceConfig = {
           ExecStart = let
             mkCfgFlag = flag: escapeShellArg "--${flag}";
             cfgFlags = concatMapStringsSep " " mkCfgFlag cfg.config;
-          in "@${taskd} taskd server ${cfgFlags}";
+          in
+            "@${taskd} taskd server ${cfgFlags}"
+          ;
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
           Restart = "on-failure";
           PermissionsStartOnly = true;

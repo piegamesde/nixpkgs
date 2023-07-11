@@ -109,4 +109,5 @@ let
       ];
 
     };
-in makeScope libsForQt5.newScope packages
+in
+  makeScope libsForQt5.newScope packages

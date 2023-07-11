@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       --add-flags $out/share/haste-server/server.js
 
     runHook postBuild
-  '';
+  '' ;
 
   passthru = {
     tests = { inherit (nixosTests) haste-server; };

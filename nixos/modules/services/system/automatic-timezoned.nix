@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.automatic-timezoned;
+let
+  cfg = config.services.automatic-timezoned;
 in {
   options = {
     services.automatic-timezoned = {

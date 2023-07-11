@@ -41,8 +41,11 @@ lib.makeOverridable (
     platform ? "ruby",
     ruby ? defs.ruby,
     stdenv ? ruby.stdenv,
-    namePrefix ? (let rubyName = builtins.parseDrvName ruby.name;
-    in "${rubyName.name}${rubyName.version}-"),
+    namePrefix ? (let
+      rubyName = builtins.parseDrvName ruby.name;
+    in
+      "${rubyName.name}${rubyName.version}-"
+    ),
     nativeBuildInputs ? [ ],
     buildInputs ? [ ],
     meta ? { },
@@ -86,172 +89,173 @@ lib.makeOverridable (
     else
       "--document ${lib.concatStringsSep "," document}";
 
-  in stdenv.mkDerivation ((builtins.removeAttrs attrs [ "source" ]) // {
-    inherit ruby;
-    inherit dontBuild;
-    inherit dontStrip;
-    gemType = type;
+  in
+    stdenv.mkDerivation ((builtins.removeAttrs attrs [ "source" ]) // {
+      inherit ruby;
+      inherit dontBuild;
+      inherit dontStrip;
+      gemType = type;
 
-    nativeBuildInputs = [
-      ruby
-      makeWrapper
-    ] ++ lib.optionals (type == "git") [ gitMinimal ]
-      ++ lib.optionals (type != "gem") [ bundler ] ++ nativeBuildInputs;
+      nativeBuildInputs = [
+        ruby
+        makeWrapper
+      ] ++ lib.optionals (type == "git") [ gitMinimal ]
+        ++ lib.optionals (type != "gem") [ bundler ] ++ nativeBuildInputs;
 
-    buildInputs = [ ruby ] ++ lib.optionals stdenv.isDarwin [ libobjc ]
-      ++ buildInputs;
+      buildInputs = [ ruby ] ++ lib.optionals stdenv.isDarwin [ libobjc ]
+        ++ buildInputs;
 
-    #name = builtins.trace (attrs.name or "no attr.name" ) "${namePrefix}${gemName}-${version}";
-    name = attrs.name or "${namePrefix}${gemName}-${version}";
+      #name = builtins.trace (attrs.name or "no attr.name" ) "${namePrefix}${gemName}-${version}";
+      name = attrs.name or "${namePrefix}${gemName}-${version}";
 
-    inherit src;
+      inherit src;
 
-    unpackPhase = attrs.unpackPhase or ''
-      runHook preUnpack
+      unpackPhase = attrs.unpackPhase or ''
+        runHook preUnpack
 
-      if [[ -f $src && $src == *.gem ]]; then
-        if [[ -z "''${dontBuild-}" ]]; then
-          # we won't know the name of the directory that RubyGems creates,
-          # so we'll just use a glob to find it and move it over.
-          gempkg="$src"
-          sourceRoot=source
-          gem unpack $gempkg --target=container
-          cp -r container/* $sourceRoot
-          rm -r container
+        if [[ -f $src && $src == *.gem ]]; then
+          if [[ -z "''${dontBuild-}" ]]; then
+            # we won't know the name of the directory that RubyGems creates,
+            # so we'll just use a glob to find it and move it over.
+            gempkg="$src"
+            sourceRoot=source
+            gem unpack $gempkg --target=container
+            cp -r container/* $sourceRoot
+            rm -r container
 
-          # copy out the original gemspec, for convenience during patching /
-          # overrides.
-          gem specification $gempkg  --ruby > original.gemspec
-          gemspec=$(readlink -f .)/original.gemspec
+            # copy out the original gemspec, for convenience during patching /
+            # overrides.
+            gem specification $gempkg  --ruby > original.gemspec
+            gemspec=$(readlink -f .)/original.gemspec
+          else
+            gempkg="$src"
+          fi
         else
-          gempkg="$src"
-        fi
-      else
-        # Fall back to the original thing for everything else.
-        dontBuild=""
-        preUnpack="" postUnpack="" unpackPhase
-      fi
-
-      runHook postUnpack
-    '';
-
-    # As of ruby 3.0, ruby headers require -fdeclspec when building with clang
-    # Introduced in https://github.com/ruby/ruby/commit/0958e19ffb047781fe1506760c7cbd8d7fe74e57
-    env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isClang
-      && lib.versionAtLeast ruby.version.major "3") [ "-fdeclspec" ]);
-
-    buildPhase = attrs.buildPhase or ''
-      runHook preBuild
-
-      if [[ "$gemType" == "gem" ]]; then
-        if [[ -z "$gemspec" ]]; then
-          gemspec="$(find . -name '*.gemspec')"
-          echo "found the following gemspecs:"
-          echo "$gemspec"
-          gemspec="$(echo "$gemspec" | head -n1)"
+          # Fall back to the original thing for everything else.
+          dontBuild=""
+          preUnpack="" postUnpack="" unpackPhase
         fi
 
-        exec 3>&1
-        output="$(gem build $gemspec | tee >(cat - >&3))"
-        exec 3>&-
+        runHook postUnpack
+      '';
 
-        gempkg=$(echo "$output" | grep -oP 'File: \K(.*)')
+      # As of ruby 3.0, ruby headers require -fdeclspec when building with clang
+      # Introduced in https://github.com/ruby/ruby/commit/0958e19ffb047781fe1506760c7cbd8d7fe74e57
+      env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isClang
+        && lib.versionAtLeast ruby.version.major "3") [ "-fdeclspec" ]);
 
-        echo "gem package built: $gempkg"
-      elif [[ "$gemType" == "git" ]]; then
-        git init
-        # remove variations to improve the likelihood of a bit-reproducible output
-        rm -rf .git/logs/ .git/hooks/ .git/index .git/FETCH_HEAD .git/ORIG_HEAD .git/refs/remotes/origin/HEAD .git/config
-        # support `git ls-files`
-        git add .
-      fi
+      buildPhase = attrs.buildPhase or ''
+        runHook preBuild
 
-      runHook postBuild
-    '';
+        if [[ "$gemType" == "gem" ]]; then
+          if [[ -z "$gemspec" ]]; then
+            gemspec="$(find . -name '*.gemspec')"
+            echo "found the following gemspecs:"
+            echo "$gemspec"
+            gemspec="$(echo "$gemspec" | head -n1)"
+          fi
 
-    # Note:
-    #   We really do need to keep the $out/${ruby.gemPath}/cache.
-    #   This is very important in order for many parts of RubyGems/Bundler to not blow up.
-    #   See https://github.com/bundler/bundler/issues/3327
-    installPhase = attrs.installPhase or ''
-      runHook preInstall
+          exec 3>&1
+          output="$(gem build $gemspec | tee >(cat - >&3))"
+          exec 3>&-
 
-      export GEM_HOME=$out/${ruby.gemPath}
-      mkdir -p $GEM_HOME
+          gempkg=$(echo "$output" | grep -oP 'File: \K(.*)')
 
-      echo "buildFlags: $buildFlags"
-
-      ${lib.optionalString (type == "url") ''
-        ruby ${./nix-bundle-install.rb} \
-          "path" \
-          '${gemName}' \
-          '${version}' \
-          '${lib.escapeShellArgs buildFlags}'
-      ''}
-      ${lib.optionalString (type == "git") ''
-        ruby ${./nix-bundle-install.rb} \
-          "git" \
-          '${gemName}' \
-          '${version}' \
-          '${lib.escapeShellArgs buildFlags}' \
-          '${attrs.source.url}' \
-          '.' \
-          '${attrs.source.rev}'
-      ''}
-
-      ${lib.optionalString (type == "gem") ''
-        if [[ -z "$gempkg" ]]; then
-          echo "failure: \$gempkg path unspecified" 1>&2
-          exit 1
-        elif [[ ! -f "$gempkg" ]]; then
-          echo "failure: \$gempkg path invalid" 1>&2
-          exit 1
+          echo "gem package built: $gempkg"
+        elif [[ "$gemType" == "git" ]]; then
+          git init
+          # remove variations to improve the likelihood of a bit-reproducible output
+          rm -rf .git/logs/ .git/hooks/ .git/index .git/FETCH_HEAD .git/ORIG_HEAD .git/refs/remotes/origin/HEAD .git/config
+          # support `git ls-files`
+          git add .
         fi
 
-        gem install \
-          --local \
-          --force \
-          --http-proxy 'http://nodtd.invalid' \
-          --ignore-dependencies \
-          --install-dir "$GEM_HOME" \
-          --build-root '/' \
-          --backtrace \
-          --no-env-shebang \
-          ${documentFlag} \
-          $gempkg $gemFlags -- $buildFlags
+        runHook postBuild
+      '';
 
-        # looks like useless files which break build repeatability and consume space
-        pushd $out/${ruby.gemPath}
-        find doc/ -iname created.rid -delete -print
-        find gems/*/ext/ extensions/ \( -iname Makefile -o -iname mkmf.log -o -iname gem_make.out \) -delete -print
-        ${if keepGemCache then "" else "rm -fvr cache"}
-        popd
+      # Note:
+      #   We really do need to keep the $out/${ruby.gemPath}/cache.
+      #   This is very important in order for many parts of RubyGems/Bundler to not blow up.
+      #   See https://github.com/bundler/bundler/issues/3327
+      installPhase = attrs.installPhase or ''
+        runHook preInstall
 
-        # write out metadata and binstubs
-        spec=$(echo $out/${ruby.gemPath}/specifications/*.gemspec)
-        ruby ${./gem-post-build.rb} "$spec"
-      ''}
+        export GEM_HOME=$out/${ruby.gemPath}
+        mkdir -p $GEM_HOME
 
-      ${lib.optionalString (!dontInstallManpages) ''
-        for section in {1..9}; do
-          mandir="$out/share/man/man$section"
-          find $out/lib \( -wholename "*/man/*.$section" -o -wholename "*/man/man$section/*.$section" \) \
-            -execdir mkdir -p $mandir \; -execdir cp '{}' $mandir \;
-        done
-      ''}
+        echo "buildFlags: $buildFlags"
 
-      runHook postInstall
-    '';
+        ${lib.optionalString (type == "url") ''
+          ruby ${./nix-bundle-install.rb} \
+            "path" \
+            '${gemName}' \
+            '${version}' \
+            '${lib.escapeShellArgs buildFlags}'
+        ''}
+        ${lib.optionalString (type == "git") ''
+          ruby ${./nix-bundle-install.rb} \
+            "git" \
+            '${gemName}' \
+            '${version}' \
+            '${lib.escapeShellArgs buildFlags}' \
+            '${attrs.source.url}' \
+            '.' \
+            '${attrs.source.rev}'
+        ''}
 
-    propagatedBuildInputs = gemPath ++ propagatedBuildInputs;
-    propagatedUserEnvPkgs = gemPath ++ propagatedUserEnvPkgs;
+        ${lib.optionalString (type == "gem") ''
+          if [[ -z "$gempkg" ]]; then
+            echo "failure: \$gempkg path unspecified" 1>&2
+            exit 1
+          elif [[ ! -f "$gempkg" ]]; then
+            echo "failure: \$gempkg path invalid" 1>&2
+            exit 1
+          fi
 
-    passthru = passthru // { isRubyGem = true; };
-    meta = {
-      # default to Ruby's platforms
-      platforms = ruby.meta.platforms;
-      mainProgram = gemName;
-    } // meta;
-  })
+          gem install \
+            --local \
+            --force \
+            --http-proxy 'http://nodtd.invalid' \
+            --ignore-dependencies \
+            --install-dir "$GEM_HOME" \
+            --build-root '/' \
+            --backtrace \
+            --no-env-shebang \
+            ${documentFlag} \
+            $gempkg $gemFlags -- $buildFlags
+
+          # looks like useless files which break build repeatability and consume space
+          pushd $out/${ruby.gemPath}
+          find doc/ -iname created.rid -delete -print
+          find gems/*/ext/ extensions/ \( -iname Makefile -o -iname mkmf.log -o -iname gem_make.out \) -delete -print
+          ${if keepGemCache then "" else "rm -fvr cache"}
+          popd
+
+          # write out metadata and binstubs
+          spec=$(echo $out/${ruby.gemPath}/specifications/*.gemspec)
+          ruby ${./gem-post-build.rb} "$spec"
+        ''}
+
+        ${lib.optionalString (!dontInstallManpages) ''
+          for section in {1..9}; do
+            mandir="$out/share/man/man$section"
+            find $out/lib \( -wholename "*/man/*.$section" -o -wholename "*/man/man$section/*.$section" \) \
+              -execdir mkdir -p $mandir \; -execdir cp '{}' $mandir \;
+          done
+        ''}
+
+        runHook postInstall
+      '';
+
+      propagatedBuildInputs = gemPath ++ propagatedBuildInputs;
+      propagatedUserEnvPkgs = gemPath ++ propagatedUserEnvPkgs;
+
+      passthru = passthru // { isRubyGem = true; };
+      meta = {
+        # default to Ruby's platforms
+        platforms = ruby.meta.platforms;
+        mainProgram = gemName;
+      } // meta;
+    })
 
 )

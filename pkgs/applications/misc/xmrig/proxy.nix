@@ -9,49 +9,51 @@
   darwin,
 }:
 
-let inherit (darwin.apple_sdk_11_0.frameworks) CoreServices IOKit;
-in stdenv.mkDerivation rec {
-  pname = "xmrig-proxy";
-  version = "6.19.2";
+let
+  inherit (darwin.apple_sdk_11_0.frameworks) CoreServices IOKit;
+in
+  stdenv.mkDerivation rec {
+    pname = "xmrig-proxy";
+    version = "6.19.2";
 
-  src = fetchFromGitHub {
-    owner = "xmrig";
-    repo = "xmrig-proxy";
-    rev = "v${version}";
-    hash = "sha256-3nEfg2hmOMjevo5VhjelIeV2xRwkIOVhLNxBmPzdWog=";
-  };
+    src = fetchFromGitHub {
+      owner = "xmrig";
+      repo = "xmrig-proxy";
+      rev = "v${version}";
+      hash = "sha256-3nEfg2hmOMjevo5VhjelIeV2xRwkIOVhLNxBmPzdWog=";
+    };
 
-  postPatch = ''
-    # Link dynamically against libraries instead of statically
-    substituteInPlace CMakeLists.txt \
-      --replace uuid.a uuid
-    substituteInPlace cmake/OpenSSL.cmake \
-      --replace "set(OPENSSL_USE_STATIC_LIBS TRUE)" "set(OPENSSL_USE_STATIC_LIBS FALSE)"
-  '';
+    postPatch = ''
+      # Link dynamically against libraries instead of statically
+      substituteInPlace CMakeLists.txt \
+        --replace uuid.a uuid
+      substituteInPlace cmake/OpenSSL.cmake \
+        --replace "set(OPENSSL_USE_STATIC_LIBS TRUE)" "set(OPENSSL_USE_STATIC_LIBS FALSE)"
+    '';
 
-  nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    libuv
-    libmicrohttpd
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-    IOKit
-  ];
+    buildInputs = [
+      libuv
+      libmicrohttpd
+      openssl
+    ] ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      IOKit
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -vD xmrig-proxy $out/bin/xmrig-proxy
+      install -vD xmrig-proxy $out/bin/xmrig-proxy
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Monero (XMR) Stratum protocol proxy";
-    homepage = "https://github.com/xmrig/xmrig-proxy";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ aij ];
-  };
-}
+    meta = with lib; {
+      description = "Monero (XMR) Stratum protocol proxy";
+      homepage = "https://github.com/xmrig/xmrig-proxy";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [ aij ];
+    };
+  }

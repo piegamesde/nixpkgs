@@ -281,88 +281,89 @@ let
       deps = [ libical ];
     }
   ];
-in stdenv.mkDerivation rec {
-  pname = "claws-mail";
-  version = "4.1.1";
+in
+  stdenv.mkDerivation rec {
+    pname = "claws-mail";
+    version = "4.1.1";
 
-  src = fetchurl {
-    url =
-      "https://claws-mail.org/download.php?file=releases/claws-mail-${version}.tar.xz";
-    hash = "sha256-sYnnAMGJb14N6wt21L+oIOt6wZNe4Qqpr7raPPU6A0Q=";
-  };
+    src = fetchurl {
+      url =
+        "https://claws-mail.org/download.php?file=releases/claws-mail-${version}.tar.xz";
+      hash = "sha256-sYnnAMGJb14N6wt21L+oIOt6wZNe4Qqpr7raPPU6A0Q=";
+    };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
-
-  patches = [ ./mime.patch ];
-
-  preConfigure = ''
-    # autotools check tries to dlopen libpython as a requirement for the python plugin
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${python3}/lib
-    # generate version without .git
-    [ -e version ] || echo "echo ${version}" > version
-  '';
-
-  postPatch = ''
-    substituteInPlace configure.ac \
-      --replace 'm4_esyscmd([./get-git-version])' '${version}'
-    substituteInPlace src/procmime.c \
-        --subst-var-by MIMEROOTDIR ${shared-mime-info}/share
-  '';
-
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    bison
-    flex
-    wrapGAppsHook
-  ];
-  propagatedBuildInputs = pythonPkgs;
-
-  buildInputs = [
-    curl
-    gsettings-desktop-schemas
-    glib-networking
-    gtk3
-  ] ++ lib.concatMap (f: lib.optionals f.enabled f.deps)
-    (lib.filter (f: f ? deps) features);
-
-  configureFlags = [
-    "--disable-manual" # Missing docbook-tools, e.g., docbook2html
-    "--disable-compface" # Missing compface library
-    "--disable-jpilot" # Missing jpilot library
-
-    "--disable-gdata-plugin" # Complains about missing libgdata, even when provided
-  ] ++ (map (feature:
-    map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags)
-    features);
-
-  enableParallelBuilding = true;
-
-  preFixup = ''
-    buildPythonPath "$out $pythonPkgs"
-    gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "${shared-mime-info}/share" --prefix PYTHONPATH : "$program_PYTHONPATH")
-  '';
-
-  postInstall = ''
-    mkdir -p $out/share/applications
-    cp claws-mail.desktop $out/share/applications
-  '';
-
-  meta = with lib; {
-    description = "The user-friendly, lightweight, and fast email client";
-    homepage = "https://www.claws-mail.org/";
-    license = licenses.gpl3Plus;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [
-      fpletz
-      globin
-      orivej
-      oxzi
-      ajs124
-      srapenne
+    outputs = [
+      "out"
+      "dev"
     ];
-  };
-}
+
+    patches = [ ./mime.patch ];
+
+    preConfigure = ''
+      # autotools check tries to dlopen libpython as a requirement for the python plugin
+      export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${python3}/lib
+      # generate version without .git
+      [ -e version ] || echo "echo ${version}" > version
+    '';
+
+    postPatch = ''
+      substituteInPlace configure.ac \
+        --replace 'm4_esyscmd([./get-git-version])' '${version}'
+      substituteInPlace src/procmime.c \
+          --subst-var-by MIMEROOTDIR ${shared-mime-info}/share
+    '';
+
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+      bison
+      flex
+      wrapGAppsHook
+    ];
+    propagatedBuildInputs = pythonPkgs;
+
+    buildInputs = [
+      curl
+      gsettings-desktop-schemas
+      glib-networking
+      gtk3
+    ] ++ lib.concatMap (f: lib.optionals f.enabled f.deps)
+      (lib.filter (f: f ? deps) features);
+
+    configureFlags = [
+      "--disable-manual" # Missing docbook-tools, e.g., docbook2html
+      "--disable-compface" # Missing compface library
+      "--disable-jpilot" # Missing jpilot library
+
+      "--disable-gdata-plugin" # Complains about missing libgdata, even when provided
+    ] ++ (map (feature:
+      map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags)
+      features);
+
+    enableParallelBuilding = true;
+
+    preFixup = ''
+      buildPythonPath "$out $pythonPkgs"
+      gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "${shared-mime-info}/share" --prefix PYTHONPATH : "$program_PYTHONPATH")
+    '';
+
+    postInstall = ''
+      mkdir -p $out/share/applications
+      cp claws-mail.desktop $out/share/applications
+    '';
+
+    meta = with lib; {
+      description = "The user-friendly, lightweight, and fast email client";
+      homepage = "https://www.claws-mail.org/";
+      license = licenses.gpl3Plus;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [
+        fpletz
+        globin
+        orivej
+        oxzi
+        ajs124
+        srapenne
+      ];
+    };
+  }

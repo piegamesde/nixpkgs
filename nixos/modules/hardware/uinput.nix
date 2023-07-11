@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.hardware.uinput;
+let
+  cfg = config.hardware.uinput;
 in {
   options.hardware.uinput = {
     enable = lib.mkEnableOption (lib.mdDoc "uinput support");

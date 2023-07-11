@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.samba-wsdd;
+let
+  cfg = config.services.samba-wsdd;
 
 in {
   options = {

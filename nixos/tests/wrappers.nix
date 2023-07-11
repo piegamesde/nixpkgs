@@ -102,4 +102,4 @@ import ./make-test-python.nix ({
       machine.succeed(cmd_as_regular('/run/wrappers/bin/capsh_with_chown --has-p=CAP_CHOWN'))
       machine.fail(cmd_as_regular('/run/wrappers/bin/capsh_with_chown --has-p=CAP_SYS_ADMIN'))
     '';
-  })
+  } )

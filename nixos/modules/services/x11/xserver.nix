@@ -83,13 +83,17 @@ let
       name = "multihead${toString num}";
       inherit config;
     };
-  in imap1 mkHead cfg.xrandrHeads;
+  in
+    imap1 mkHead cfg.xrandrHeads
+  ;
 
   xrandrDeviceSection = let
     monitors = forEach xrandrHeads (h: ''
       Option "monitor-${h.config.output}" "${h.name}"
     '');
-  in concatStrings monitors;
+  in
+    concatStrings monitors
+  ;
 
   # Here we chain every monitor from the left to right, so we have:
   # m4 right of m3 right of m2 right of m1   .----.----.----.----.
@@ -117,7 +121,9 @@ let
         '';
       } ++ previous;
     monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
-  in concatMapStrings (getAttr "value") monitors;
+  in
+    concatMapStrings (getAttr "value") monitors
+  ;
 
   configFile = pkgs.runCommand "xserver.conf" {
     fontpath =
@@ -171,7 +177,7 @@ let
         alias='cursor -xfree86-cursor-medium-r-normal--0-${sizeString}-0-0-p-0-adobe-fontspecific'
         echo "$alias" > $out/lib/X11/fonts/Type1/fonts.alias
       '';
-    });
+    } );
 
 in {
 
@@ -680,14 +686,18 @@ in {
       default = !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable
         || dmConf.sx.enable || dmConf.startx.enable
         || config.services.greetd.enable);
-    in mkIf (default) (mkDefault true);
+    in
+      mkIf (default) (mkDefault true)
+    ;
 
     # so that the service won't be enabled when only startx is used
     systemd.services.display-manager.enable = let
       dmConf = cfg.displayManager;
       noDmUsed = !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable
         || dmConf.lightdm.enable);
-    in mkIf (noDmUsed) (mkDefault false);
+    in
+      mkIf (noDmUsed) (mkDefault false)
+    ;
 
     hardware.opengl.enable = mkDefault true;
 
@@ -701,22 +711,25 @@ in {
           modules = [ xorg.${"xf86video" + name} ];
         } else
           null) knownVideoDrivers;
-      in optional (driver != null) ({
-        inherit name;
-        modules = [ ];
-        driverName = name;
-        display = true;
-      } // driver));
+      in
+        optional (driver != null) ({
+          inherit name;
+          modules = [ ];
+          driverName = name;
+          display = true;
+        } // driver)
+    );
 
     assertions = [
-      (let primaryHeads = filter (x: x.primary) cfg.xrandrHeads;
+      (let
+        primaryHeads = filter (x: x.primary) cfg.xrandrHeads;
       in {
         assertion = length primaryHeads < 2;
         message = "Only one head is allowed to be primary in "
           + "‘services.xserver.xrandrHeads’, but there are "
           + "${toString (length primaryHeads)} heads set to primary: "
           + concatMapStringsSep ", " (x: x.output) primaryHeads;
-      })
+      } )
       {
         assertion = cfg.upscaleDefaultCursor -> cfg.dpi != null;
         message =
@@ -743,8 +756,11 @@ in {
         '';
       }
       # Needed since 1.18; see https://bugs.freedesktop.org/show_bug.cgi?id=89023#c5
-      // (let cfgPath = "/X11/xorg.conf.d/10-evdev.conf";
-      in { ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath; });
+      // (let
+        cfgPath = "/X11/xorg.conf.d/10-evdev.conf";
+      in {
+        ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath;
+      } );
 
     environment.systemPackages = utils.removePackagesByName [
       xorg.xorgserver.out
@@ -942,11 +958,13 @@ in {
                       }
                     EndSubSection
                   '';
-                in concatMapStrings f [
-                  8
-                  16
-                  24
-                ])
+                in
+                  concatMapStrings f [
+                    8
+                    16
+                    24
+                  ]
+                )
             }
 
           EndSection

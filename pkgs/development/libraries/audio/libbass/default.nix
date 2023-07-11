@@ -60,7 +60,7 @@ let
         mkdir -p $out/{lib,include}
         install -m644 -t $out/lib/ ${so}
         install -m644 -t $out/include/ ${bass.h}
-      '';
+      '' ;
 
       meta = with lib; {
         description = "Shareware audio library";
@@ -72,4 +72,5 @@ let
       };
     };
 
-in lib.mapAttrs dropBass allBass
+in
+  lib.mapAttrs dropBass allBass

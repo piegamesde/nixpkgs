@@ -4,7 +4,8 @@
   lib,
   ...
 }:
-let cfg = config.services.spark;
+let
+  cfg = config.services.spark;
 in with lib; {
   options = {
     services.spark = {

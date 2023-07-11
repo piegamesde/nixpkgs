@@ -4,7 +4,8 @@
   lib,
   ...
 }:
-let cfg = config.services.keter;
+let
+  cfg = config.services.keter;
 in {
   meta = { maintainers = with lib.maintainers; [ jappie ]; };
 
@@ -163,5 +164,5 @@ in {
         cfg.bundle.executable
       ]; # this is a hack to get the executable copied over to the machine.
     };
-  });
+  } );
 }

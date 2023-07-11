@@ -24,25 +24,26 @@ let
   toGoPlatform = platform: "${toGoKernel platform}-${toGoCPU platform}";
 
   platform = toGoPlatform stdenv.hostPlatform;
-in stdenv.mkDerivation rec {
-  name = "go-${version}-${platform}-bootstrap";
+in
+  stdenv.mkDerivation rec {
+    name = "go-${version}-${platform}-bootstrap";
 
-  src = fetchurl {
-    url = "https://go.dev/dl/go${version}.${platform}.tar.gz";
-    sha256 = hashes.${platform} or (throw
-      "Missing Go bootstrap hash for platform ${platform}");
-  };
+    src = fetchurl {
+      url = "https://go.dev/dl/go${version}.${platform}.tar.gz";
+      sha256 = hashes.${platform} or (throw
+        "Missing Go bootstrap hash for platform ${platform}");
+    };
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+    nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  # We must preserve the signature on Darwin
-  dontStrip = stdenv.hostPlatform.isDarwin;
+    # We must preserve the signature on Darwin
+    dontStrip = stdenv.hostPlatform.isDarwin;
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/share/go $out/bin
-    cp -r . $out/share/go
-    ln -s $out/share/go/bin/go $out/bin/go
-    runHook postInstall
-  '';
-}
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/share/go $out/bin
+      cp -r . $out/share/go
+      ln -s $out/share/go/bin/go $out/bin/go
+      runHook postInstall
+    '';
+  }

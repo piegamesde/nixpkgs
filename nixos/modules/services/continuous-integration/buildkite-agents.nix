@@ -34,11 +34,13 @@ let
         EOF
         chmod 755 $out/${name}
       '';
-    in pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
-      mkdir $out
-      ${concatStringsSep "\n"
-      (mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks))}
-    '';
+    in
+      pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
+        mkdir $out
+        ${concatStringsSep "\n"
+        (mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks))}
+      ''
+  ;
 
   buildkiteOptions = {
       name ? "",
@@ -287,20 +289,22 @@ in {
           else
             "${name}=${value}";
         tagsStr = lib.concatStringsSep "," (lib.mapAttrsToList tagStr cfg.tags);
-      in optionalString (cfg.privateSshKeyPath != null) ''
-        mkdir -m 0700 -p "${sshDir}"
-        install -m600 "${toString cfg.privateSshKeyPath}" "${sshDir}/id_rsa"
-      '' + ''
-        cat > "${cfg.dataDir}/buildkite-agent.cfg" <<EOF
-        token="$(cat ${toString cfg.tokenPath})"
-        name="${cfg.name}"
-        shell="${cfg.shell}"
-        tags="${tagsStr}"
-        build-path="${cfg.dataDir}/builds"
-        hooks-path="${cfg.hooksPath}"
-        ${cfg.extraConfig}
-        EOF
-      '';
+      in
+        optionalString (cfg.privateSshKeyPath != null) ''
+          mkdir -m 0700 -p "${sshDir}"
+          install -m600 "${toString cfg.privateSshKeyPath}" "${sshDir}/id_rsa"
+        '' + ''
+          cat > "${cfg.dataDir}/buildkite-agent.cfg" <<EOF
+          token="$(cat ${toString cfg.tokenPath})"
+          name="${cfg.name}"
+          shell="${cfg.shell}"
+          tags="${tagsStr}"
+          build-path="${cfg.dataDir}/builds"
+          hooks-path="${cfg.hooksPath}"
+          ${cfg.extraConfig}
+          EOF
+        ''
+      ;
 
       serviceConfig = {
         ExecStart =

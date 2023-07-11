@@ -221,7 +221,7 @@ stdenv.mkDerivation rec {
     ${pythonForPypy.interpreter} ./pypy/test_all.py --pypy=./${executable}-c -k 'not (${
       lib.concatStringsSep " or " disabledTests
     })' lib-python
-  '';
+  '' ;
 
   # verify cffi modules
   doInstallCheck = true;
@@ -237,7 +237,7 @@ stdenv.mkDerivation rec {
   in ''
     echo "Testing whether we can import modules"
     $out/bin/${executable} -c '${imports}'
-  '';
+  '' ;
 
   inherit passthru;
   enableParallelBuilding = true; # almost no parallelization without STM

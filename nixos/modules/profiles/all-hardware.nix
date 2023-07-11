@@ -8,7 +8,8 @@
   lib,
   ...
 }:
-let platform = pkgs.stdenv.hostPlatform;
+let
+  platform = pkgs.stdenv.hostPlatform;
 in {
 
   # The initrd has to contain any module that might be necessary for

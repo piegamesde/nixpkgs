@@ -53,16 +53,19 @@ stdenv.mkDerivation rec {
 
   # Fix lib extension so that fixDarwinDylibNames detects it, see
   # <https://github.com/kristapsdz/lowdown/issues/87#issuecomment-1532243650>.
-  postInstall = let inherit (stdenv.hostPlatform.extensions) sharedLibrary;
+  postInstall = let
+    inherit (stdenv.hostPlatform.extensions) sharedLibrary;
 
-  in lib.optionalString (enableShared && stdenv.isDarwin) ''
-    darwinDylib="$lib/lib/liblowdown.2.dylib"
-    mv "$lib/lib/liblowdown.so.2" "$darwinDylib"
+  in
+    lib.optionalString (enableShared && stdenv.isDarwin) ''
+      darwinDylib="$lib/lib/liblowdown.2.dylib"
+      mv "$lib/lib/liblowdown.so.2" "$darwinDylib"
 
-    # Make sure we are re-creating a symbolic link here
-    test -L "$lib/lib/liblowdown.so"
-    ln -s "$darwinDylib" "$lib/lib/liblowdown.dylib"
-  '';
+      # Make sure we are re-creating a symbolic link here
+      test -L "$lib/lib/liblowdown.so"
+      ln -s "$darwinDylib" "$lib/lib/liblowdown.dylib"
+    ''
+  ;
 
   doInstallCheck = true;
   installCheckPhase = ''

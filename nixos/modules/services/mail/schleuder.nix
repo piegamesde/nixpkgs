@@ -168,7 +168,7 @@ in {
           ];
         };
       };
-    };
+    } ;
 
     environment.etc."schleuder/schleuder.yml" =
       lib.mkIf (cfg.extraSettingsFile == null) {

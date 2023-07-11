@@ -6,7 +6,8 @@
 
 let
   self = lib.makeExtensible (self:
-    let inherit (self) callPackage;
+    let
+      inherit (self) callPackage;
     in {
       callPackage = newScope self;
 
@@ -47,6 +48,7 @@ let
               ps.django-auth-ldap
             ]);
         };
-    });
+    } );
 
-in self
+in
+  self

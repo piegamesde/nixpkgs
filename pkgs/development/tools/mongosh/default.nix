@@ -6,36 +6,38 @@
   mongosh,
 }:
 
-let source = builtins.fromJSON (builtins.readFile ./source.json);
-in buildNpmPackage {
-  pname = "mongosh";
-  inherit (source) version;
+let
+  source = builtins.fromJSON (builtins.readFile ./source.json);
+in
+  buildNpmPackage {
+    pname = "mongosh";
+    inherit (source) version;
 
-  src = fetchurl {
-    url = "https://registry.npmjs.org/mongosh/-/${source.filename}";
-    hash = source.integrity;
-  };
+    src = fetchurl {
+      url = "https://registry.npmjs.org/mongosh/-/${source.filename}";
+      hash = source.integrity;
+    };
 
-  postPatch = ''
-    ln -s ${./package-lock.json} package-lock.json
-  '';
+    postPatch = ''
+      ln -s ${./package-lock.json} package-lock.json
+    '';
 
-  npmDepsHash = source.deps;
+    npmDepsHash = source.deps;
 
-  makeCacheWritable = true;
-  dontNpmBuild = true;
-  npmFlags = [ "--omit=optional" ];
+    makeCacheWritable = true;
+    dontNpmBuild = true;
+    npmFlags = [ "--omit=optional" ];
 
-  passthru = {
-    tests.version = testers.testVersion { package = mongosh; };
-    updateScript = ./update.sh;
-  };
+    passthru = {
+      tests.version = testers.testVersion { package = mongosh; };
+      updateScript = ./update.sh;
+    };
 
-  meta = with lib; {
-    homepage = "https://www.mongodb.com/try/download/shell";
-    description = "The MongoDB Shell";
-    maintainers = with maintainers; [ aaronjheng ];
-    license = licenses.asl20;
-    mainProgram = "mongosh";
-  };
-}
+    meta = with lib; {
+      homepage = "https://www.mongodb.com/try/download/shell";
+      description = "The MongoDB Shell";
+      maintainers = with maintainers; [ aaronjheng ];
+      license = licenses.asl20;
+      mainProgram = "mongosh";
+    };
+  }

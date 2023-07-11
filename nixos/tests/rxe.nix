@@ -50,5 +50,5 @@ import ./make-test-python.nix ({
       server.succeed("screen -dmS rping rping -s -a server -C 10")
       client.succeed("sleep 2; rping -c -a server -C 10")
     '';
-  })
+  } )
 

@@ -118,5 +118,5 @@ args@{
             nextcloudwithopenssl1.succeed("${withRcloneEnv3} ${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file | grep hi")
 
         nextcloudwithopenssl1.shutdown()
-      '';
-  })) args
+      '' ;
+  } )) args

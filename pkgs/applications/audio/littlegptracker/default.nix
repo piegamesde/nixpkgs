@@ -39,8 +39,11 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optional stdenv.isDarwin "-framework Foundation";
 
-  installPhase = let extension = if stdenv.isDarwin then "app" else "deb-exe";
-  in "install -Dm555 lgpt.${extension} $out/bin/lgpt";
+  installPhase = let
+    extension = if stdenv.isDarwin then "app" else "deb-exe";
+  in
+    "install -Dm555 lgpt.${extension} $out/bin/lgpt"
+  ;
 
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/Mdashdotdashn/littlegptracker.git";

@@ -71,4 +71,5 @@ let
       maintainers = [ ];
     };
   };
-in nbclient
+in
+  nbclient

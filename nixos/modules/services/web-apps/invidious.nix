@@ -33,7 +33,7 @@ let
           lib.escapeShellArgs jqFiles
         })"
         exec ${cfg.package}/bin/invidious
-      '';
+      '' ;
 
       serviceConfig = {
         RestartSec = "2s";

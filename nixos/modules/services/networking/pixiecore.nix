@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.pixiecore;
+let
+  cfg = config.services.pixiecore;
 in {
   meta.maintainers = with maintainers; [
     bbigras
@@ -176,7 +177,7 @@ in {
             --port ${toString cfg.port} \
             --status-port ${toString cfg.statusPort} \
             ${escapeShellArgs cfg.extraArguments}
-        '';
+        '' ;
       };
     };
   };

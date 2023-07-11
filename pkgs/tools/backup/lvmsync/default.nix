@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   in ''
     mkdir -p $out/bin
     makeWrapper ${env}/bin/lvmsync $out/bin/lvmsync
-  '';
+  '' ;
 
   passthru.updateScript = bundlerUpdateScript "lvmsync";
 

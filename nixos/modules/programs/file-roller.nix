@@ -9,7 +9,8 @@
 
 with lib;
 
-let cfg = config.programs.file-roller;
+let
+  cfg = config.programs.file-roller;
 
 in {
 

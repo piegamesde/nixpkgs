@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.clfswm;
+let
+  cfg = config.services.xserver.windowManager.clfswm;
 
 in {
   options = {

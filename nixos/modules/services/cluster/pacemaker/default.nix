@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.pacemaker;
+let
+  cfg = config.services.pacemaker;
 in {
   # interface
   options.services.pacemaker = {

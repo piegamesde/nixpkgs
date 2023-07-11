@@ -22,8 +22,10 @@ import ./make-test-python.nix ({
           "quake3-pointrelease"
         ];
         allowLicenses = [ lib.licenses.unfreeRedistributable ];
-      in elem pkg.pname allowPackageNames
-      && elem (pkg.meta.license or null) allowLicenses;
+      in
+        elem pkg.pname allowPackageNames
+        && elem (pkg.meta.license or null) allowLicenses
+    ;
 
     client = {
         pkgs,
@@ -105,4 +107,4 @@ import ./make-test-python.nix ({
       server.stop_job("quake3-server")
     '';
 
-  })
+  } )

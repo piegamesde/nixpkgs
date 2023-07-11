@@ -2,7 +2,8 @@ import ./make-test-python.nix ({
     pkgs,
     ...
   }:
-  let testUser = "alice";
+  let
+    testUser = "alice";
   in {
     name = "opentabletdriver";
     meta = { maintainers = with pkgs.lib.maintainers; [ thiagokokada ]; };
@@ -29,4 +30,4 @@ import ./make-test-python.nix ({
       # Needs to run as the same user that started the service
       machine.succeed("su - ${testUser} -c 'otd detect'")
     '';
-  })
+  } )

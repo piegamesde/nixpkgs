@@ -51,27 +51,29 @@ let
         };
       cache = makeCache pkgs.fontconfig;
       cache32 = makeCache pkgs.pkgsi686Linux.fontconfig;
-    in pkgs.writeText "fc-00-nixos-cache.conf" ''
-      <?xml version='1.0'?>
-      <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
-      <fontconfig>
-        <!-- Font directories -->
-        ${
-          concatStringsSep "\n"
-          (map (font: "<dir>${font}</dir>") config.fonts.fonts)
-        }
-        ${
-          optionalString
-          (pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform) ''
-            <!-- Pre-generated font caches -->
-            <cachedir>${cache}</cachedir>
-            ${optionalString (pkgs.stdenv.isx86_64 && cfg.cache32Bit) ''
-              <cachedir>${cache32}</cachedir>
-            ''}
-          ''
-        }
-      </fontconfig>
-    '';
+    in
+      pkgs.writeText "fc-00-nixos-cache.conf" ''
+        <?xml version='1.0'?>
+        <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
+        <fontconfig>
+          <!-- Font directories -->
+          ${
+            concatStringsSep "\n"
+            (map (font: "<dir>${font}</dir>") config.fonts.fonts)
+          }
+          ${
+            optionalString
+            (pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform) ''
+              <!-- Pre-generated font caches -->
+              <cachedir>${cache}</cachedir>
+              ${optionalString (pkgs.stdenv.isx86_64 && cfg.cache32Bit) ''
+                <cachedir>${cache32}</cachedir>
+              ''}
+            ''
+          }
+        </fontconfig>
+      ''
+  ;
 
   # rendering settings configuration file
   # priority 10
@@ -124,22 +126,24 @@ let
           </prefer>
         </alias>
       '';
-  in pkgs.writeText "fc-52-nixos-default-fonts.conf" ''
-    <?xml version='1.0'?>
-    <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
-    <fontconfig>
+  in
+    pkgs.writeText "fc-52-nixos-default-fonts.conf" ''
+      <?xml version='1.0'?>
+      <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
+      <fontconfig>
 
-      <!-- Default fonts -->
-      ${genDefault cfg.defaultFonts.sansSerif "sans-serif"}
+        <!-- Default fonts -->
+        ${genDefault cfg.defaultFonts.sansSerif "sans-serif"}
 
-      ${genDefault cfg.defaultFonts.serif "serif"}
+        ${genDefault cfg.defaultFonts.serif "serif"}
 
-      ${genDefault cfg.defaultFonts.monospace "monospace"}
+        ${genDefault cfg.defaultFonts.monospace "monospace"}
 
-      ${genDefault cfg.defaultFonts.emoji "emoji"}
+        ${genDefault cfg.defaultFonts.emoji "emoji"}
 
-    </fontconfig>
-  '';
+      </fontconfig>
+    ''
+  ;
 
   # bitmap font options
   # priority 53

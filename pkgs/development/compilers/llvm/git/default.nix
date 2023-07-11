@@ -61,10 +61,13 @@
 assert let
   int = a: if a then 1 else 0;
   xor = a: b: ((builtins.bitXor (int a) (int b)) == 1);
-in lib.assertMsg (xor (gitRelease != null) (officialRelease != null))
-("must specify `gitRelease` or `officialRelease`"
-  + (lib.optionalString (gitRelease != null) " — not both"));
-let monorepoSrc' = monorepoSrc;
+in
+  lib.assertMsg (xor (gitRelease != null) (officialRelease != null))
+  ("must specify `gitRelease` or `officialRelease`"
+    + (lib.optionalString (gitRelease != null) " — not both"))
+;
+let
+  monorepoSrc' = monorepoSrc;
 in let
   releaseInfo = if gitRelease != null then rec {
     original = gitRelease;
@@ -88,11 +91,13 @@ in let
         gitRelease.rev
       else
         "llvmorg-${releaseInfo.version}";
-    in fetchFromGitHub {
-      owner = "llvm";
-      repo = "llvm-project";
-      inherit rev sha256;
-    };
+    in
+      fetchFromGitHub {
+        owner = "llvm";
+        repo = "llvm-project";
+        inherit rev sha256;
+      }
+  ;
 
   inherit (releaseInfo) release_version version;
 
@@ -271,7 +276,7 @@ in let
         extraBuildCommands = mkExtraBuildCommands0 cc;
       };
 
-    });
+    } );
 
   libraries = lib.makeExtensible (libraries:
     let
@@ -327,10 +332,12 @@ in let
         # We cannot use `clangNoLibcxx` because that contains `compiler-rt` which,
         # on macOS, depends on `libcxxabi`, thus forming a cycle.
         stdenv_ = overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc;
-      in callPackage ./libcxxabi {
-        stdenv = stdenv_;
-        inherit llvm_meta cxx-headers;
-      };
+      in
+        callPackage ./libcxxabi {
+          stdenv = stdenv_;
+          inherit llvm_meta cxx-headers;
+        }
+      ;
 
       # Like `libcxxabi` above, `libcxx` requires a fairly modern C++ compiler,
       # so: we use the clang from this LLVM package set instead of the regular
@@ -346,6 +353,7 @@ in let
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
-    });
+    } );
 
-in { inherit tools libraries release_version; } // libraries // tools
+in
+  { inherit tools libraries release_version; } // libraries // tools

@@ -245,7 +245,7 @@ in {
           ${optionalString cfg.web-ui.enable ''
             ln -s ${cfg.web-ui.package}/lib/dist www
           ''}
-        '';
+        '' ;
       };
     };
   };

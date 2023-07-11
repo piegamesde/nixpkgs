@@ -44,68 +44,69 @@ let
         }.so.2 \
         ${file}
     '';
-in stdenv.mkDerivation rec {
-  pname = "brgenml1lpr";
-  version = "3.1.0-1";
+in
+  stdenv.mkDerivation rec {
+    pname = "brgenml1lpr";
+    version = "3.1.0-1";
 
-  src = fetchurl {
-    url =
-      "https://download.brother.com/welcome/dlf101123/brgenml1lpr-${version}.i386.deb";
-    sha256 = "0zdvjnrjrz9sba0k525linxp55lr4cyivfhqbkq1c11br2nvy09f";
-  };
+    src = fetchurl {
+      url =
+        "https://download.brother.com/welcome/dlf101123/brgenml1lpr-${version}.i386.deb";
+      sha256 = "0zdvjnrjrz9sba0k525linxp55lr4cyivfhqbkq1c11br2nvy09f";
+    };
 
-  unpackPhase = ''
-    ar x $src
-    tar xfvz data.tar.gz
-  '';
+    unpackPhase = ''
+      ar x $src
+      tar xfvz data.tar.gz
+    '';
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    cups
-    perl
-    stdenv.cc.libc
-    ghostscript
-    which
-  ];
+    nativeBuildInputs = [ makeWrapper ];
+    buildInputs = [
+      cups
+      perl
+      stdenv.cc.libc
+      ghostscript
+      which
+    ];
 
-  dontBuild = true;
+    dontBuild = true;
 
-  patchPhase = ''
-    INFDIR=opt/brother/Printers/BrGenML1/inf
-    LPDDIR=opt/brother/Printers/BrGenML1/lpd
+    patchPhase = ''
+      INFDIR=opt/brother/Printers/BrGenML1/inf
+      LPDDIR=opt/brother/Printers/BrGenML1/lpd
 
-    # Setup max debug log by default.
-    substituteInPlace $LPDDIR/filter_BrGenML1 \
-      --replace "BR_PRT_PATH =~" "BR_PRT_PATH = \"$out/opt/brother/Printers/BrGenML1\"; #" \
-      --replace "PRINTER =~" "PRINTER = \"BrGenML1\"; #"
+      # Setup max debug log by default.
+      substituteInPlace $LPDDIR/filter_BrGenML1 \
+        --replace "BR_PRT_PATH =~" "BR_PRT_PATH = \"$out/opt/brother/Printers/BrGenML1\"; #" \
+        --replace "PRINTER =~" "PRINTER = \"BrGenML1\"; #"
 
-    ${myPatchElf "$INFDIR/braddprinter"}
-    ${myPatchElf "$LPDDIR/brprintconflsr3"}
-    ${myPatchElf "$LPDDIR/rawtobr3"}
-  '';
+      ${myPatchElf "$INFDIR/braddprinter"}
+      ${myPatchElf "$LPDDIR/brprintconflsr3"}
+      ${myPatchElf "$LPDDIR/rawtobr3"}
+    '';
 
-  installPhase = ''
-    INFDIR=opt/brother/Printers/BrGenML1/inf
-    LPDDIR=opt/brother/Printers/BrGenML1/lpd
+    installPhase = ''
+      INFDIR=opt/brother/Printers/BrGenML1/inf
+      LPDDIR=opt/brother/Printers/BrGenML1/lpd
 
-    mkdir -p $out/$INFDIR
-    cp -rp $INFDIR/* $out/$INFDIR
-    mkdir -p $out/$LPDDIR
-    cp -rp $LPDDIR/* $out/$LPDDIR
+      mkdir -p $out/$INFDIR
+      cp -rp $INFDIR/* $out/$INFDIR
+      mkdir -p $out/$LPDDIR
+      cp -rp $LPDDIR/* $out/$LPDDIR
 
-    wrapProgram $out/$LPDDIR/filter_BrGenML1 \
-      --prefix PATH ":" "${ghostscript}/bin" \
-      --prefix PATH ":" "${which}/bin"
-  '';
+      wrapProgram $out/$LPDDIR/filter_BrGenML1 \
+        --prefix PATH ":" "${ghostscript}/bin" \
+        --prefix PATH ":" "${which}/bin"
+    '';
 
-  dontPatchELF = true;
+    dontPatchELF = true;
 
-  meta = {
-    description = "Brother BrGenML1 LPR driver";
-    homepage = "http://www.brother.com";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    platforms = lib.platforms.linux;
-    license = lib.licenses.unfreeRedistributable;
-    maintainers = with lib.maintainers; [ jraygauthier ];
-  };
-}
+    meta = {
+      description = "Brother BrGenML1 LPR driver";
+      homepage = "http://www.brother.com";
+      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      platforms = lib.platforms.linux;
+      license = lib.licenses.unfreeRedistributable;
+      maintainers = with lib.maintainers; [ jraygauthier ];
+    };
+  }
