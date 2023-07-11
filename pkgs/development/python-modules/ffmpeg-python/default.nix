@@ -32,10 +32,12 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  patches = [ (substituteAll {
-    src = ./ffmpeg-location.patch;
-    ffmpeg = ffmpeg_4;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./ffmpeg-location.patch;
+        ffmpeg = ffmpeg_4;
+      })
+    ];
 
   postPatch = ''
     substituteInPlace setup.py \

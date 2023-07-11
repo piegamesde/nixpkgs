@@ -63,9 +63,11 @@ in {
 
     buildInputs = [ cutensor ];
 
-    cmakeFlags = [ "-DCUTENSOR_EXAMPLE_BINARY_INSTALL_DIR=${
-        builtins.placeholder "out"
-      }/bin" ];
+    cmakeFlags = [
+        "-DCUTENSOR_EXAMPLE_BINARY_INSTALL_DIR=${
+          builtins.placeholder "out"
+        }/bin"
+      ];
 
       # CUTENSOR_ROOT is double escaped
     postPatch = ''

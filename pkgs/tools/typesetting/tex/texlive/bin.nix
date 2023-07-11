@@ -162,9 +162,10 @@ rec { # un-indented
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-    configureFlags = common.configureFlags ++ lib.optionals (stdenv.hostPlatform
-      != stdenv.buildPlatform) [ "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc" ]
-      ++ [ "--without-x" ] # disable xdvik and xpdfopen
+    configureFlags = common.configureFlags
+      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc"
+      ] ++ [ "--without-x" ] # disable xdvik and xpdfopen
       ++ map (what: "--disable-${what}") [
         "chktex"
         "dvisvgm"
@@ -404,7 +405,8 @@ rec { # un-indented
     inherit (common) src;
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ core # kpathsea
+    buildInputs = [
+        core # kpathsea
       ];
 
     preConfigure = "cd texk/chktex";

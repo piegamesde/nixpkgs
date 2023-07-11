@@ -49,12 +49,14 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  patches = [ (fetchpatch {
-    name = "Ensure-absolute-paths-in-pkg-config-file.patch";
-    url =
-      "https://github.com/open62541/open62541/commit/023d4b6b8bdec987f8f3ffee6c09801bbee4fa2d.patch";
-    sha256 = "sha256-mq4h32js2RjI0Ljown/01SXA3gc+7+zX8meIcvDPvoA=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "Ensure-absolute-paths-in-pkg-config-file.patch";
+        url =
+          "https://github.com/open62541/open62541/commit/023d4b6b8bdec987f8f3ffee6c09801bbee4fa2d.patch";
+        sha256 = "sha256-mq4h32js2RjI0Ljown/01SXA3gc+7+zX8meIcvDPvoA=";
+      })
+    ];
 
   cmakeFlags = [
     "-DOPEN62541_VERSION=v${finalAttrs.version}"
@@ -104,9 +106,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   preCheck =
     let
-      disabledTests = lib.optionals
-        (withEncryption == "mbedtls") [ "encryption_basic128rsa15" ]
-        ++ lib.optionals withPubSub [
+      disabledTests = lib.optionals (withEncryption == "mbedtls") [
+          "encryption_basic128rsa15"
+        ] ++ lib.optionals withPubSub [
           # "Cannot set socket option IP_ADD_MEMBERSHIP"
           "pubsub_publish"
           "check_pubsub_get_state"

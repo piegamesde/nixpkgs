@@ -19,10 +19,12 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0w2i2szajv1vcmc96w0fczdr8xc28ijcf1gdg180f21gi6yh96sc";
   };
 
-  patches = [ (substituteAll {
-    src = ./ffmpeg-location.patch;
-    inherit ffmpeg;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./ffmpeg-location.patch;
+        inherit ffmpeg;
+      })
+    ];
 
   propagatedBuildInputs = with python3Packages; [
     crcmod

@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fQAVOzynMdSLDfhcYWcaXkFW/mnv4zySGLVJNE7ql/c=";
   };
 
-  patches = lib.optionals withCloudflareZlib [ (substituteAll {
-    src = ./dont-fetch-external-libs.patch;
-    inherit cloudflareZlib;
-  }) ];
+  patches = lib.optionals withCloudflareZlib [
+      (substituteAll {
+        src = ./dont-fetch-external-libs.patch;
+        inherit cloudflareZlib;
+      })
+    ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = lib.optionals batchVersion [ yaml-cpp ]

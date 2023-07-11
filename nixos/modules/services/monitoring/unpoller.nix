@@ -15,13 +15,15 @@ let
   });
 
 in {
-  imports = [ (lib.mkRenamedOptionModule [
-    "services"
-    "unifi-poller"
-  ] [
-    "services"
-    "unpoller"
-  ]) ];
+  imports = [
+      (lib.mkRenamedOptionModule [
+        "services"
+        "unifi-poller"
+      ] [
+        "services"
+        "unpoller"
+      ])
+    ];
 
   options.services.unpoller = {
     enable = mkEnableOption (lib.mdDoc "unpoller");

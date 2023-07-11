@@ -19,16 +19,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ copyPkgconfigItems ];
 
-  pkgconfigItems = [ (makePkgconfigItem rec {
-    name = "stb";
-    version = "1";
-    cflags = [ "-I${variables.includedir}/stb" ];
-    variables = rec {
-      prefix = "${placeholder "out"}";
-      includedir = "${prefix}/include";
-    };
-    inherit (meta) description;
-  }) ];
+  pkgconfigItems = [
+      (makePkgconfigItem rec {
+        name = "stb";
+        version = "1";
+        cflags = [ "-I${variables.includedir}/stb" ];
+        variables = rec {
+          prefix = "${placeholder "out"}";
+          includedir = "${prefix}/include";
+        };
+        inherit (meta) description;
+      })
+    ];
 
   dontBuild = true;
 

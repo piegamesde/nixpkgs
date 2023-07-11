@@ -50,17 +50,19 @@ in {
   meta = { maintainers = teams.gnome.members; };
 
     # Added 2021-05-07
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "gnome3"
-    "gnome-initial-setup"
-    "enable"
-  ] [
-    "services"
-    "gnome"
-    "gnome-initial-setup"
-    "enable"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "gnome3"
+        "gnome-initial-setup"
+        "enable"
+      ] [
+        "services"
+        "gnome"
+        "gnome-initial-setup"
+        "enable"
+      ])
+    ];
 
     ###### interface
 
@@ -92,7 +94,9 @@ in {
       "gnome-welcome-tour.service"
     ];
 
-    systemd.user.targets."gnome-session@gnome-initial-setup".wants = [ "gnome-initial-setup.service" ];
+    systemd.user.targets."gnome-session@gnome-initial-setup".wants = [
+        "gnome-initial-setup.service"
+      ];
 
   };
 

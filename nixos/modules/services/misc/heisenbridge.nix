@@ -123,7 +123,9 @@ in {
   config = mkIf cfg.enable {
     systemd.services.heisenbridge = {
       description = "Matrix<->IRC bridge";
-      before = [ "matrix-synapse.service" ]; # So the registration file can be used by Synapse
+      before = [
+          "matrix-synapse.service"
+        ]; # So the registration file can be used by Synapse
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''

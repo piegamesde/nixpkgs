@@ -31,11 +31,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "sounddevice" ];
 
-  patches = [ (substituteAll {
-    src = ./fix-portaudio-library-path.patch;
-    portaudio =
-      "${portaudio}/lib/libportaudio${stdenv.hostPlatform.extensions.sharedLibrary}";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-portaudio-library-path.patch;
+        portaudio =
+          "${portaudio}/lib/libportaudio${stdenv.hostPlatform.extensions.sharedLibrary}";
+      })
+    ];
 
   meta = {
     description = "Play and Record Sound with Python";

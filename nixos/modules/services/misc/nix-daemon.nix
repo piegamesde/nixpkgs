@@ -692,7 +692,9 @@ in {
 
             trusted-public-keys = mkOption {
               type = types.listOf types.str;
-              example = [ "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=" ];
+              example = [
+                  "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
+                ];
               description = lib.mdDoc ''
                 List of public keys used to sign binary caches. If
                 {option}`nix.settings.trusted-public-keys` is enabled,
@@ -866,7 +868,9 @@ in {
       # systemd.tmpfiles.packages = [ nixPackage ];
 
       # Can be dropped for Nix > https://github.com/NixOS/nix/pull/6285
-    systemd.tmpfiles.rules = [ "d /nix/var/nix/daemon-socket 0755 root root - -" ];
+    systemd.tmpfiles.rules = [
+        "d /nix/var/nix/daemon-socket 0755 root root - -"
+      ];
 
     systemd.sockets.nix-daemon.wantedBy = [ "sockets.target" ];
 
@@ -964,7 +968,9 @@ in {
       # Legacy configuration conversion.
     nix.settings = mkMerge [
       {
-        trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+        trusted-public-keys = [
+            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          ];
         substituters = mkAfter [ "https://cache.nixos.org/" ];
 
         system-features = mkDefault ([

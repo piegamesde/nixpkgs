@@ -50,7 +50,9 @@ stdenv.mkDerivation rec {
       "A parser generator which emits GLR parsers, either in OCaml or C++";
     homepage = "https://scottmcpeak.com/elkhound/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [
+        peterhoeg
+      ];
       # possibly works on Darwin
     platforms = platforms.linux;
   };

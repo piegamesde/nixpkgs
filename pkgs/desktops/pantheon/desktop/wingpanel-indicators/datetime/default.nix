@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5hg0TH12bEeEPhUUmZz7vS4YTB6t779CXyOCf0c4/X4=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    elementary_calendar = elementary-calendar;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        elementary_calendar = elementary-calendar;
+      })
+    ];
 
   nativeBuildInputs = [
     libxml2

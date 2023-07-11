@@ -77,7 +77,9 @@ in {
 
     systemd.services.systemd-sysctl = {
       wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."sysctl.d/60-nixos.conf".source ];
+      restartTriggers = [
+          config.environment.etc."sysctl.d/60-nixos.conf".source
+        ];
     };
 
       # Hide kernel pointers (e.g. in /proc/modules) for unprivileged

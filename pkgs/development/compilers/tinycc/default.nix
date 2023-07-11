@@ -33,22 +33,24 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  pkgconfigItems = [ (makePkgconfigItem rec {
-    name = "libtcc";
-    inherit version;
-    cflags = [ "-I${variables.includedir}" ];
-    libs = [
-      "-L${variables.libdir}"
-      "-Wl,--rpath ${variables.libdir}"
-      "-ltcc"
+  pkgconfigItems = [
+      (makePkgconfigItem rec {
+        name = "libtcc";
+        inherit version;
+        cflags = [ "-I${variables.includedir}" ];
+        libs = [
+          "-L${variables.libdir}"
+          "-Wl,--rpath ${variables.libdir}"
+          "-ltcc"
+        ];
+        variables = rec {
+          prefix = "${placeholder "out"}";
+          includedir = "${prefix}/include";
+          libdir = "${prefix}/lib";
+        };
+        description = "Tiny C compiler backend";
+      })
     ];
-    variables = rec {
-      prefix = "${placeholder "out"}";
-      includedir = "${prefix}/include";
-      libdir = "${prefix}/lib";
-    };
-    description = "Tiny C compiler backend";
-  }) ];
 
   postPatch = ''
     patchShebangs texi2pod.pl

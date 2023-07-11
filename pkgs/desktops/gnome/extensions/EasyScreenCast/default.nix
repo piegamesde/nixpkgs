@@ -21,10 +21,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-+cH/gczCdxoSrLp5nD82Spo8bSGyRnUUut3Xkmr9f3o=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-gi-path.patch;
-    gnomeShell = gnome.gnome-shell;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-gi-path.patch;
+        gnomeShell = gnome.gnome-shell;
+      })
+    ];
 
   nativeBuildInputs = [
     glib

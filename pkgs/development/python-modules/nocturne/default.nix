@@ -31,10 +31,12 @@ buildPythonPackage rec {
     ln -s ${pybind11.src} $sourceRoot/third_party/pybind11
   '';
 
-  patches = [ (substituteAll {
-    src = ./dependencies.patch;
-    gtest_src = gtest.src;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./dependencies.patch;
+        gtest_src = gtest.src;
+      })
+    ];
 
   nativeBuildInputs = [ cmake ];
   dontUseCmakeConfigure = true;

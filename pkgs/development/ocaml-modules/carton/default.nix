@@ -43,10 +43,12 @@ buildDunePackage rec {
     hash = "sha256-NAm4Xq7L0Dgynr8cKZQ356M4GR6D19LbCRxvnSlIf1U=";
   };
 
-  patches = [ (substituteAll {
-    src = ./carton-find-getconf.patch;
-    getconf = "${getconf}";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./carton-find-getconf.patch;
+        getconf = "${getconf}";
+      })
+    ];
 
     # remove changelogs for mimic and the git* packages
   postPatch = ''

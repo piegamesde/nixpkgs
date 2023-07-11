@@ -48,14 +48,16 @@ let
 
     buildInputs = atomEnv.packages ++ [ libxshmfence ];
 
-    desktopItems = [ (makeDesktopItem {
-      name = "Trilium";
-      exec = "trilium";
-      icon = "trilium";
-      comment = meta.description;
-      desktopName = "Trilium Notes";
-      categories = [ "Office" ];
-    }) ];
+    desktopItems = [
+        (makeDesktopItem {
+          name = "Trilium";
+          exec = "trilium";
+          icon = "trilium";
+          comment = meta.description;
+          desktopName = "Trilium Notes";
+          categories = [ "Office" ];
+        })
+      ];
 
       # Remove trilium-portable.sh, so trilium knows it is packaged making it stop auto generating a desktop item on launch
     postPatch = ''

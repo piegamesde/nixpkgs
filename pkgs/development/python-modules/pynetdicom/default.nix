@@ -70,7 +70,9 @@ buildPythonPackage rec {
     description = "Python implementation of the DICOM networking protocol";
     homepage = "https://github.com/pydicom/pynetdicom";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [
+        fab
+      ];
       # Tests are not passing on Darwin/Aarch64, thus it's assumed that it doesn't work
     broken = stdenv.isDarwin || stdenv.isAarch64;
   };

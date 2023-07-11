@@ -100,9 +100,10 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      warnings = mkIf
-        (config.nixpkgs.config.virtualbox.enableExtensionPack or false) [ "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'" ]
-        ;
+      warnings =
+        mkIf (config.nixpkgs.config.virtualbox.enableExtensionPack or false) [
+          "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'"
+        ];
       boot.kernelModules = [
         "vboxdrv"
         "vboxnetadp"

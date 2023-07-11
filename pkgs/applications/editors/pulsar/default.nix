@@ -156,20 +156,22 @@ stdenv.mkDerivation rec {
     cp ${./pulsar.nemo_action} $out/share/nemo/actions/pulsar.nemo_action
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "Pulsar";
-    desktopName = "Pulsar";
-    exec = "pulsar";
-    icon = "pulsar";
-    comment = "A Community-led Hyper-Hackable Text Editor";
-    genericName = "Text Editor";
-    categories = [
-      "Development"
-      "TextEditor"
-      "Utility"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "Pulsar";
+        desktopName = "Pulsar";
+        exec = "pulsar";
+        icon = "pulsar";
+        comment = "A Community-led Hyper-Hackable Text Editor";
+        genericName = "Text Editor";
+        categories = [
+          "Development"
+          "TextEditor"
+          "Utility"
+        ];
+        mimeTypes = [ "text/plain" ];
+      })
     ];
-    mimeTypes = [ "text/plain" ];
-  }) ];
 
   passthru.updateScript = ./update.mjs;
 

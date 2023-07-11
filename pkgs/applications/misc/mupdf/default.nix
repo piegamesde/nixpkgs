@@ -119,38 +119,40 @@ stdenv.mkDerivation rec {
     rm -rf thirdparty/{curl,freetype,glfw,harfbuzz,jbig2dec,libjpeg,openjpeg,zlib}
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    desktopName = pname;
-    comment = meta.description;
-    icon = "mupdf";
-    exec = "${pname} %f";
-    terminal = false;
-    mimeTypes = [
-      "application/epub+zip"
-      "application/oxps"
-      "application/pdf"
-      "application/vnd.ms-xpsdocument"
-      "application/x-cbz"
-      "application/x-pdf"
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        desktopName = pname;
+        comment = meta.description;
+        icon = "mupdf";
+        exec = "${pname} %f";
+        terminal = false;
+        mimeTypes = [
+          "application/epub+zip"
+          "application/oxps"
+          "application/pdf"
+          "application/vnd.ms-xpsdocument"
+          "application/x-cbz"
+          "application/x-pdf"
+        ];
+        categories = [
+          "Graphics"
+          "Viewer"
+        ];
+        keywords = [
+          "mupdf"
+          "comic"
+          "document"
+          "ebook"
+          "viewer"
+          "cbz"
+          "epub"
+          "fb2"
+          "pdf"
+          "xps"
+        ];
+      })
     ];
-    categories = [
-      "Graphics"
-      "Viewer"
-    ];
-    keywords = [
-      "mupdf"
-      "comic"
-      "document"
-      "ebook"
-      "viewer"
-      "cbz"
-      "epub"
-      "fb2"
-      "pdf"
-      "xps"
-    ];
-  }) ];
 
   postInstall = ''
     mkdir -p "$out/lib/pkgconfig"

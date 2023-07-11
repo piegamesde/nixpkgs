@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     ntl
   ] ++ lib.optionals withBlas [ openblas ];
 
-  propagatedBuildInputs = [ mpfr # flint.h includes mpfr.h
+  propagatedBuildInputs = [
+      mpfr # flint.h includes mpfr.h
     ];
 
   configureFlags = [

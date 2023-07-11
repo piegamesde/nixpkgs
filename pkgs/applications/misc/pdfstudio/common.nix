@@ -23,7 +23,8 @@ let
     inherit pname src version;
     strictDeps = true;
 
-    buildInputs = [ sane-backends # for libsane.so.1
+    buildInputs = [
+        sane-backends # for libsane.so.1
       ] ++ extraBuildInputs;
 
     nativeBuildInputs = [
@@ -32,16 +33,18 @@ let
       copyDesktopItems
     ];
 
-    desktopItems = [ (makeDesktopItem {
-      name = "${pname}";
-      desktopName = desktopName;
-      genericName = "View and edit PDF files";
-      exec = "${pname} %f";
-      icon = "${pname}";
-      comment = "Views and edits PDF files";
-      mimeTypes = [ "application/pdf" ];
-      categories = [ "Office" ];
-    }) ];
+    desktopItems = [
+        (makeDesktopItem {
+          name = "${pname}";
+          desktopName = desktopName;
+          genericName = "View and edit PDF files";
+          exec = "${pname} %f";
+          icon = "${pname}";
+          comment = "Views and edits PDF files";
+          mimeTypes = [ "application/pdf" ];
+          categories = [ "Office" ];
+        })
+      ];
 
     unpackCmd = "dpkg-deb -x $src ./${program}-${version}";
     dontBuild = true;

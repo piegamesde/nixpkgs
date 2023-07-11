@@ -63,8 +63,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   checkPhase =
     let
-      badTests =
-        [ "test.trim_dir" # flaky on hydra (possibly filesystem-specific?)
+      badTests = [
+          "test.trim_dir" # flaky on hydra (possibly filesystem-specific?)
         ] ++ lib.optionals stdenv.isDarwin [
           "test.basedir"
           "test.multi_arch"

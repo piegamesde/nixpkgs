@@ -90,7 +90,8 @@ stdenv.mkDerivation rec {
     util-linux
   ];
 
-  buildInputs = [ gnome-themes-extra # adwaita engine for Gtk2
+  buildInputs = [
+      gnome-themes-extra # adwaita engine for Gtk2
     ];
 
   postPatch = ''

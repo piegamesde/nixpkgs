@@ -98,15 +98,17 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    exec = binaryName;
-    icon = pname;
-    desktopName = "Aether";
-    genericName = meta.description;
-    categories = [ "Network" ];
-    mimeTypes = [ "x-scheme-handler/aether" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = binaryName;
+        icon = pname;
+        desktopName = "Aether";
+        genericName = meta.description;
+        categories = [ "Network" ];
+        mimeTypes = [ "x-scheme-handler/aether" ];
+      })
+    ];
 
   installPhase =
     let
@@ -178,7 +180,9 @@ stdenv.mkDerivation rec {
     downloadPage = "https://getaether.net/download/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ maxhille ];
+    maintainers = with maintainers; [
+        maxhille
+      ];
       # other platforms could be supported by building from source
     platforms = [ "x86_64-linux" ];
   };

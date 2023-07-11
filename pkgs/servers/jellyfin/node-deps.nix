@@ -13849,7 +13849,9 @@ let
       sources."@babel/plugin-proposal-optional-catch-binding-7.16.7"
       sources."@babel/plugin-proposal-optional-chaining-7.16.7"
       (sources."@babel/plugin-proposal-private-methods-7.16.11" // {
-        dependencies = [ sources."@babel/helper-create-class-features-plugin-7.17.1" ];
+        dependencies = [
+            sources."@babel/helper-create-class-features-plugin-7.17.1"
+          ];
       })
       sources."@babel/plugin-proposal-private-property-in-object-7.16.7"
       sources."@babel/plugin-proposal-unicode-property-regex-7.16.7"

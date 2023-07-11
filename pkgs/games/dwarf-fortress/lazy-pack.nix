@@ -43,20 +43,22 @@ let
 in
 buildEnv {
   name = "dwarf-fortress-full";
-  paths = [ (dwarf-fortress.override {
-    inherit
-      enableDFHack
-      enableTWBT
-      enableSoundSense
-      enableStoneSense
-      theme
-      enableIntro
-      enableTruetype
-      enableFPS
-      enableTextMode
-      enableSound
-      ;
-  }) ] ++ lib.optional enableDwarfTherapist dwarf-therapist
+  paths = [
+      (dwarf-fortress.override {
+        inherit
+          enableDFHack
+          enableTWBT
+          enableSoundSense
+          enableStoneSense
+          theme
+          enableIntro
+          enableTruetype
+          enableFPS
+          enableTextMode
+          enableSound
+          ;
+      })
+    ] ++ lib.optional enableDwarfTherapist dwarf-therapist
     ++ lib.optional enableLegendsBrowser legends-browser;
 
   meta = with lib; {

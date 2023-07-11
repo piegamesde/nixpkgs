@@ -30,12 +30,14 @@ buildPythonPackage rec {
     hash = "sha256-n73F5y922rsu0YFjAwQlUVpSa6Scs/xyfZHREmqKiHU=";
   };
 
-  patches = [ (substituteAll {
-    src = ./paths.patch;
-    ffmpeg = "${ffmpeg}/bin/ffmpeg";
-    libopus =
-      "${libopus}/lib/libopus${stdenv.hostPlatform.extensions.sharedLibrary}";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./paths.patch;
+        ffmpeg = "${ffmpeg}/bin/ffmpeg";
+        libopus =
+          "${libopus}/lib/libopus${stdenv.hostPlatform.extensions.sharedLibrary}";
+      })
+    ];
 
   propagatedBuildInputs = [
     aiodns

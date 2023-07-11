@@ -121,8 +121,10 @@ stdenv.mkDerivation (finalAttrs: {
     export LUA_PATH="src/?.lua;''${LUA_PATH:-}"
   '';
 
-  disallowedReferences = lib.optionals
-    (stdenv.hostPlatform != stdenv.buildPlatform) [ lua.luaOnBuild ];
+  disallowedReferences =
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      lua.luaOnBuild
+    ];
 
   passthru = { updateScript = nix-update-script { }; };
 

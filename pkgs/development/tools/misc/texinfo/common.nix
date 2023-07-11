@@ -86,7 +86,9 @@ stdenv.mkDerivation {
     gawk
   ] ++ optional interactive ncurses;
 
-  configureFlags = [ "PERL=${buildPackages.perl}/bin/perl" ]
+  configureFlags = [
+      "PERL=${buildPackages.perl}/bin/perl"
+    ]
     # Perl XS modules are difficult to cross-compile and texinfo has pure Perl
     # fallbacks.
     ++ optional crossBuildTools "--enable-perl-xs=no"

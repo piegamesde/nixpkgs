@@ -55,8 +55,9 @@ buildPythonPackage rec {
     qtwebengine
     pyqt-builder
     pythonPackages.setuptools
-  ] ++ lib.optionals
-    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      autoSignDarwinBinariesHook
+    ];
 
   buildInputs = [
     sip

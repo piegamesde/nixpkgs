@@ -132,7 +132,9 @@ stdenv.mkDerivation rec {
     util-linux
   ];
 
-  propagatedBuildInputs = [ nettle ]
+  propagatedBuildInputs = [
+      nettle
+    ]
     # Builds dynamically linking against gnutls seem to need the framework now.
     ++ lib.optional isDarwin Security;
 

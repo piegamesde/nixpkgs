@@ -41,7 +41,9 @@ stdenv.mkDerivation rec {
     homepage = "https://docs.confluent.io/current/cloud/cli/index.html";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [
+        kalbasit
+      ];
 
       # TODO: There's support for i686 systems but I do not have any such system
       # to build it locally on, it's also unfree so I cannot rely on ofborg to

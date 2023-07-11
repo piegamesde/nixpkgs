@@ -25,11 +25,13 @@ buildPythonPackage rec {
     hash = "sha256-RndjvbbmFNHqi0Vl5CxT+y6y/UMHpGAelxAqlYwJgSo=";
   };
 
-  patches = [ (substituteAll {
-    src = ./libgl-path.patch;
-    libgl =
-      "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./libgl-path.patch;
+        libgl =
+          "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
+      })
+    ];
 
   propagatedBuildInputs = [
     imageio-ffmpeg

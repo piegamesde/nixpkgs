@@ -372,7 +372,8 @@ let
       "typing_extensions_archive"
       "wrapt"
       "zlib"
-    ] ++ lib.optionals (!stdenv.isDarwin) [ "nsync" # fails to build on darwin
+    ] ++ lib.optionals (!stdenv.isDarwin) [
+        "nsync" # fails to build on darwin
       ]);
 
     INCLUDEDIR = "${includes_joined}/include";
@@ -453,8 +454,8 @@ let
 
     hardeningDisable = [ "format" ];
 
-    bazelBuildFlags =
-      [ "--config=opt" # optimize using the flags set in the configure phase
+    bazelBuildFlags = [
+        "--config=opt" # optimize using the flags set in the configure phase
       ] ++ lib.optionals stdenv.cc.isClang [
         "--cxxopt=-x"
         "--cxxopt=c++"
@@ -465,7 +466,9 @@ let
         "--spawn_strategy=sandboxed"
       ] ++ lib.optionals (mklSupport) [ "--config=mkl" ];
 
-    bazelTargets = [ "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow" ];
+    bazelTargets = [
+        "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow"
+      ];
 
     removeRulesCC = false;
       # Without this Bazel complaints about sandbox violations.

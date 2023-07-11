@@ -177,7 +177,8 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [ "-DRETDEC_TESTS=ON" # build tests
+  cmakeFlags = [
+      "-DRETDEC_TESTS=ON" # build tests
     ];
 
     # all dependencies that are normally fetched during build time (the subdirectories of `deps`)

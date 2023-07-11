@@ -103,6 +103,8 @@ in {
       }
       ;
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} -" ];
+    systemd.tmpfiles.rules = [
+        "d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} -"
+      ];
   };
 }

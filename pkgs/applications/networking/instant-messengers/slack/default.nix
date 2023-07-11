@@ -151,7 +151,8 @@ let
       xorg.libxshmfence
     ] + ":${stdenv.cc.cc.lib}/lib64";
 
-    buildInputs = [ gtk3 # needed for GSETTINGS_SCHEMAS_PATH
+    buildInputs = [
+        gtk3 # needed for GSETTINGS_SCHEMAS_PATH
       ];
 
     nativeBuildInputs = [

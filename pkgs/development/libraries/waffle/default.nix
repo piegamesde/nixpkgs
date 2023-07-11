@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
   buildInputs = [
     bash-completion
     libGL
-  ] ++ lib.optionals
-    (with stdenv.hostPlatform; isUnix && !isDarwin) [ libglvnd ]
-    ++ lib.optionals x11Support [
+  ] ++ lib.optionals (with stdenv.hostPlatform; isUnix && !isDarwin) [
+      libglvnd
+    ] ++ lib.optionals x11Support [
       libX11
       libxcb
     ] ++ lib.optionals waylandSupport [

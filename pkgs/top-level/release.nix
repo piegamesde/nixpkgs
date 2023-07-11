@@ -24,7 +24,9 @@
     "aarch64-linux"
     "aarch64-darwin"
   ],
-  limitedSupportedSystems ? [ "i686-linux" ]
+  limitedSupportedSystems ? [
+    "i686-linux"
+  ]
   # Strip most of attributes when evaluating to spare memory usage
   ,
   scrubJobs ? true

@@ -144,14 +144,16 @@ stdenv.mkDerivation rec {
     ln -s $out/opt/PreMiD/assets/appIcon.png $out/share/pixmaps/${pname}.png
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    exec = "PreMiD";
-    icon = pname;
-    desktopName = "PreMiD";
-    genericName = meta.description;
-    mimeTypes = [ "x-scheme-handler/premid" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = "PreMiD";
+        icon = pname;
+        desktopName = "PreMiD";
+        genericName = meta.description;
+        mimeTypes = [ "x-scheme-handler/premid" ];
+      })
+    ];
 
   meta = with lib; {
     description =

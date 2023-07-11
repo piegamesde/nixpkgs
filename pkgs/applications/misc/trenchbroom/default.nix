@@ -84,14 +84,16 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "TrenchBroom";
-    desktopName = "TrenchBroom level editor";
-    icon = "trenchbroom";
-    comment = meta.description;
-    categories = [ "Development" ];
-    exec = "trenchbroom";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "TrenchBroom";
+        desktopName = "TrenchBroom level editor";
+        icon = "trenchbroom";
+        comment = meta.description;
+        categories = [ "Development" ];
+        exec = "trenchbroom";
+      })
+    ];
 
   meta = with lib; {
     homepage = "https://trenchbroom.github.io/";

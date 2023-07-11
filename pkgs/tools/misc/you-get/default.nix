@@ -20,12 +20,14 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-s8lEz3pjzEaMzMiBbc5/wAjC5rW6Uq7+XOIIGBijrUc=";
   };
 
-  patches = [ (substituteAll {
-    src = ./ffmpeg-path.patch;
-    ffmpeg = "${lib.getBin ffmpeg}/bin/ffmpeg";
-    ffprobe = "${lib.getBin ffmpeg}/bin/ffmpeg";
-    version = lib.getVersion ffmpeg;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./ffmpeg-path.patch;
+        ffmpeg = "${lib.getBin ffmpeg}/bin/ffmpeg";
+        ffprobe = "${lib.getBin ffmpeg}/bin/ffmpeg";
+        version = lib.getVersion ffmpeg;
+      })
+    ];
 
   nativeBuildInputs = [ installShellFiles ];
 

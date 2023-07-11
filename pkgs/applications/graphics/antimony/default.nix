@@ -63,24 +63,26 @@ stdenv.mkDerivation {
     copyDesktopItems
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "antimony";
-    desktopName = "Antimony";
-    comment = "Tree-based Modeler";
-    genericName = "CAD Application";
-    exec = "antimony %f";
-    icon = "antimony";
-    categories = [
-      "Graphics"
-      "Science"
-      "Engineering"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "antimony";
+        desktopName = "Antimony";
+        comment = "Tree-based Modeler";
+        genericName = "CAD Application";
+        exec = "antimony %f";
+        icon = "antimony";
+        categories = [
+          "Graphics"
+          "Science"
+          "Engineering"
+        ];
+        mimeTypes = [
+          "application/x-extension-sb"
+          "application/x-antimony"
+        ];
+        startupWMClass = "antimony";
+      })
     ];
-    mimeTypes = [
-      "application/x-extension-sb"
-      "application/x-antimony"
-    ];
-    startupWMClass = "antimony";
-  }) ];
 
   cmakeFlags = [
     "-DGITREV=${gitRev}"

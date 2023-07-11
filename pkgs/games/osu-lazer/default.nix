@@ -69,15 +69,17 @@ buildDotnetModule rec {
     runHook postFixup
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    desktopName = "osu!";
-    name = "osu";
-    exec = "osu!";
-    icon = "osu!";
-    comment = meta.description;
-    type = "Application";
-    categories = [ "Game" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        desktopName = "osu!";
+        name = "osu";
+        exec = "osu!";
+        icon = "osu!";
+        comment = meta.description;
+        type = "Application";
+        categories = [ "Game" ];
+      })
+    ];
 
   meta = with lib; {
     description =

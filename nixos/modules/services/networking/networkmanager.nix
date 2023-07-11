@@ -546,7 +546,9 @@ in {
       wantedBy = [ "network-online.target" ];
     };
 
-    systemd.services.ModemManager.aliases = [ "dbus-org.freedesktop.ModemManager1.service" ];
+    systemd.services.ModemManager.aliases = [
+        "dbus-org.freedesktop.ModemManager1.service"
+      ];
 
     systemd.services.NetworkManager-dispatcher = {
       wantedBy = [ "network.target" ];

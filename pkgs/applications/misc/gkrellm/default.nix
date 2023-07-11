@@ -60,18 +60,20 @@ stdenv.mkDerivation rec {
     install -Dm444 -T src/icon.xpm $out/share/pixmaps/gkrellm.xpm
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "gkrellm";
-    exec = "gkrellm";
-    icon = "gkrellm";
-    desktopName = "GKrellM";
-    genericName = "System monitor";
-    comment = "The GNU Krell Monitors";
-    categories = [
-      "System"
-      "Monitor"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "gkrellm";
+        exec = "gkrellm";
+        icon = "gkrellm";
+        desktopName = "GKrellM";
+        genericName = "System monitor";
+        comment = "The GNU Krell Monitors";
+        categories = [
+          "System"
+          "Monitor"
+        ];
+      })
     ];
-  }) ];
 
   meta = with lib; {
     description = "Themeable process stack of system monitors";

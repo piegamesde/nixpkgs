@@ -55,11 +55,13 @@ let
   groupAccessAvailable = versionAtLeast postgresql.version "11.0";
 
 in {
-  imports = [ (mkRemovedOptionModule [
-    "services"
-    "postgresql"
-    "extraConfig"
-  ] "Use services.postgresql.settings instead.") ];
+  imports = [
+      (mkRemovedOptionModule [
+        "services"
+        "postgresql"
+        "extraConfig"
+      ] "Use services.postgresql.settings instead.")
+    ];
 
     ###### interface
 

@@ -32,7 +32,8 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace '"pytest-runner"' ""
   '';
 
-  nativeBuildInputs = [ R # needed at setup time to detect R_HOME
+  nativeBuildInputs = [
+      R # needed at setup time to detect R_HOME
     ];
 
   propagatedBuildInputs = [

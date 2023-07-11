@@ -20,11 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-9c7lfeM6PXF6CR3JtLi1NPmTwEbrv9Kh1kvdDQbskuI=";
   };
 
-  patches = [ (substituteAll {
-    src = ./lib-path.patch;
-    libturbojpeg =
-      "${libjpeg_turbo.out}/lib/libturbojpeg${stdenv.hostPlatform.extensions.sharedLibrary}";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./lib-path.patch;
+        libturbojpeg =
+          "${libjpeg_turbo.out}/lib/libturbojpeg${stdenv.hostPlatform.extensions.sharedLibrary}";
+      })
+    ];
 
   propagatedBuildInputs = [ numpy ];
 

@@ -301,8 +301,8 @@ let
     (optionalString enableSeparateDataOutput
       "--datadir=$data/share/${ghcNameWithPrefix}")
     (optionalString enableSeparateDocOutput "--docdir=${docdir "$doc"}")
-  ] ++ optionals
-    stdenv.hasCC [ "--with-gcc=$CC" # Clang won't work without that extra information.
+  ] ++ optionals stdenv.hasCC [
+      "--with-gcc=$CC" # Clang won't work without that extra information.
     ] ++ [
       "--package-db=$packageConfDir"
       (optionalString (enableSharedExecutables && stdenv.isLinux)
@@ -337,11 +337,13 @@ let
       (enableFeature doBenchmark "benchmarks")
       "--enable-library-vanilla" # TODO: Should this be configurable?
       (enableFeature enableLibraryForGhci "library-for-ghci")
-    ] ++ optionals (enableDeadCodeElimination && (lib.versionOlder "8.0.1"
-      ghc.version)) [ "--ghc-option=-split-sections" ] ++ optionals dontStrip [
-        "--disable-library-stripping"
-        "--disable-executable-stripping"
-      ] ++ optionals isGhcjs [ "--ghcjs" ] ++ optionals isCross
+    ] ++ optionals
+    (enableDeadCodeElimination && (lib.versionOlder "8.0.1" ghc.version)) [
+      "--ghc-option=-split-sections"
+    ] ++ optionals dontStrip [
+      "--disable-library-stripping"
+      "--disable-executable-stripping"
+    ] ++ optionals isGhcjs [ "--ghcjs" ] ++ optionals isCross
     ([ "--configure-option=--host=${stdenv.hostPlatform.config}" ]
       ++ crossCabalFlags)
     ++ optionals enableSeparateBinOutput [ "--bindir=${binDir}" ]
@@ -361,7 +363,9 @@ let
     ++ executablePkgconfigDepends ++ optionals doCheck testPkgconfigDepends
     ++ optionals doBenchmark benchmarkPkgconfigDepends;
 
-  depsBuildBuild = [ nativeGhc ]
+  depsBuildBuild = [
+      nativeGhc
+    ]
     # CC_FOR_BUILD may be necessary if we have no C preprocessor for the host
     # platform. See crossCabalFlags above for more details.
     ++ lib.optionals (!stdenv.hasCC) [ buildPackages.stdenv.cc ];

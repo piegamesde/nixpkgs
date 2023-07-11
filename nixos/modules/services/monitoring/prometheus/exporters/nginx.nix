@@ -58,10 +58,12 @@ in {
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
     };
-  } ] ++ [ (mkIf config.services.nginx.enable {
-    after = [ "nginx.service" ];
-    requires = [ "nginx.service" ];
-  }) ]);
+  } ] ++ [
+      (mkIf config.services.nginx.enable {
+        after = [ "nginx.service" ];
+        requires = [ "nginx.service" ];
+      })
+    ]);
   imports = [
     (mkRenamedOptionModule [ "telemetryEndpoint" ] [ "telemetryPath" ])
     (mkRemovedOptionModule [ "insecure" ] ''

@@ -256,8 +256,9 @@ let
         "docker.socket"
       ]
       # if imageFile is not set, the service needs the network to download the image from the registry
-        ++ lib.optionals
-        (container.imageFile == null) [ "network-online.target" ] ++ dependsOn;
+        ++ lib.optionals (container.imageFile == null) [
+          "network-online.target"
+        ] ++ dependsOn;
       requires = dependsOn;
       environment = proxy_env;
 
@@ -355,16 +356,19 @@ let
     ;
 
 in {
-  imports = [ (lib.mkChangedOptionModule [ "docker-containers" ] [
-    "virtualisation"
-    "oci-containers"
-  ] (oldcfg: {
-    backend = "docker";
-    containers = lib.mapAttrs (n: v:
-      builtins.removeAttrs (v // {
-        extraOptions = v.extraDockerOptions or [ ];
-      }) [ "extraDockerOptions" ]) oldcfg.docker-containers;
-  })) ];
+  imports = [
+      (lib.mkChangedOptionModule [ "docker-containers" ] [
+        "virtualisation"
+        "oci-containers"
+      ] (oldcfg: {
+        backend = "docker";
+        containers = lib.mapAttrs (n: v:
+          builtins.removeAttrs
+          (v // { extraOptions = v.extraDockerOptions or [ ]; }) [
+            "extraDockerOptions"
+          ]) oldcfg.docker-containers;
+      }))
+    ];
 
   options.virtualisation.oci-containers = {
 

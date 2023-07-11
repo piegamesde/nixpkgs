@@ -27,7 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ cmocka # cmake expects cmocka module
+  buildInputs = [
+      cmocka # cmake expects cmocka module
     ];
 
   cmakeFlags = lib.optional finalAttrs.doCheck "-DWITH_TESTS=ON"

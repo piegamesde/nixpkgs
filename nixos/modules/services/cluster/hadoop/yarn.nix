@@ -154,8 +154,10 @@ in {
     (mkIf cfg.yarn.nodemanager.enable {
       # Needed because yarn hardcodes /bin/bash in container start scripts
       # These scripts can't be patched, they are generated at runtime
-      systemd.tmpfiles.rules = [ (mkIf cfg.yarn.nodemanager.addBinBash
-        "L /bin/bash - - - - /run/current-system/sw/bin/bash") ];
+      systemd.tmpfiles.rules = [
+          (mkIf cfg.yarn.nodemanager.addBinBash
+            "L /bin/bash - - - - /run/current-system/sw/bin/bash")
+        ];
 
       systemd.services.yarn-nodemanager = {
         description = "Hadoop YARN NodeManager";
@@ -213,11 +215,12 @@ in {
           })
         ];
 
-      networking.firewall.allowedTCPPortRanges = [ (mkIf
-        (cfg.yarn.nodemanager.openFirewall) {
-          from = 1024;
-          to = 65535;
-        }) ];
+      networking.firewall.allowedTCPPortRanges = [
+          (mkIf (cfg.yarn.nodemanager.openFirewall) {
+            from = 1024;
+            to = 65535;
+          })
+        ];
     })
 
   ];

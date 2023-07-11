@@ -1427,9 +1427,9 @@ in {
         PrivateMounts = true;
           # System Call Filtering
         SystemCallArchitectures = "native";
-        SystemCallFilter =
-          [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" ]
-          ++ optionals ((cfg.package != pkgs.tengine)
+        SystemCallFilter = [
+            "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid"
+          ] ++ optionals ((cfg.package != pkgs.tengine)
             && (cfg.package != pkgs.openresty)
             && (!lib.any (mod: (mod.disableIPC or false))
               cfg.package.modules)) [ "~@ipc" ];

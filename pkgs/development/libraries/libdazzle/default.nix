@@ -49,9 +49,10 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
     dbus
     glib
-  ] ++ lib.optionals stdenv.isLinux [ xvfb-run ] ++ lib.optionals
-    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
-    ;
+  ] ++ lib.optionals stdenv.isLinux [ xvfb-run ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     glib

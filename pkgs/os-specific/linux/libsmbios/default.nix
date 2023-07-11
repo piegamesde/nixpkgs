@@ -24,12 +24,14 @@ stdenv.mkDerivation rec {
     sha256 = "0krwwydyvb9224r884y1mlmzyxhlfrcqw73vi1j8787rl0gl5a2i";
   };
 
-  patches = [ (fetchurl {
-    name = "musl.patch";
-    url =
-      "https://git.alpinelinux.org/aports/plain/community/libsmbios/fixes.patch?id=bdc4f67889c958c1266fa5d0cab71c3cd639122f";
-    sha256 = "aVVc52OovDYvqWRyKcRAi62daa9AalkKvnVOGvrTmRk=";
-  }) ];
+  patches = [
+      (fetchurl {
+        name = "musl.patch";
+        url =
+          "https://git.alpinelinux.org/aports/plain/community/libsmbios/fixes.patch?id=bdc4f67889c958c1266fa5d0cab71c3cd639122f";
+        sha256 = "aVVc52OovDYvqWRyKcRAi62daa9AalkKvnVOGvrTmRk=";
+      })
+    ];
 
   nativeBuildInputs = [
     autoreconfHook

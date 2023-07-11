@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
     itstool
   ];
 
-  mesonFlags = [ "-Dtests=false" # requires NUnit
+  mesonFlags = [
+      "-Dtests=false" # requires NUnit
     ];
 
   postPatch = ''

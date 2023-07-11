@@ -27,7 +27,8 @@ buildPythonPackage rec {
     pytest-mypy
   ];
 
-  disabledTests = [ "test_combined" # no longer compatible with setuptools>=58
+  disabledTests = [
+      "test_combined" # no longer compatible with setuptools>=58
     ];
 
   pythonImportsCheck = [ "portalocker" ];

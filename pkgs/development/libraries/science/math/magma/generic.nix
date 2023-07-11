@@ -106,10 +106,10 @@ let
       [
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
-      ] ++ lists.optionals (strings.versionOlder cudaVersion
-        "11.8") [ cuda_nvprof # <cuda_profiler_api.h>
-      ] ++ lists.optionals (strings.versionAtLeast cudaVersion
-        "11.8") [ cuda_profiler_api # <cuda_profiler_api.h>
+      ] ++ lists.optionals (strings.versionOlder cudaVersion "11.8") [
+        cuda_nvprof # <cuda_profiler_api.h>
+      ] ++ lists.optionals (strings.versionAtLeast cudaVersion "11.8") [
+        cuda_profiler_api # <cuda_profiler_api.h>
       ] ++ cuda-common-redist;
   };
 
@@ -178,7 +178,9 @@ stdenv.mkDerivation {
     license = licenses.bsd3;
     homepage = "http://icl.cs.utk.edu/magma/index.html";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ connorbaker ];
+    maintainers = with maintainers; [
+        connorbaker
+      ];
       # CUDA and ROCm are mutually exclusive
     broken = cudaSupport && rocmSupport || cudaSupport
       && strings.versionOlder cudaVersion "9";

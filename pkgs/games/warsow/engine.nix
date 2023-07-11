@@ -26,10 +26,12 @@ stdenv.mkDerivation rec {
     sha256 = "0fj5k7qpf6far8i1xhqxlpfjch10zj26xpilhp95aq2yiz08pj4r";
   };
 
-  patches = [ (substituteAll {
-    src = ./libpath.patch;
-    inherit zlib curl libpng libjpeg libogg libvorbis libtheora freetype;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./libpath.patch;
+        inherit zlib curl libpng libjpeg libogg libvorbis libtheora freetype;
+      })
+    ];
 
   nativeBuildInputs = [ cmake ];
 

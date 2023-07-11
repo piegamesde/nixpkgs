@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
     librsvg # pixbuf loader for svg
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine # murrine engine for Gtk2
+  propagatedUserEnvPkgs = [
+      gtk-engine-murrine # murrine engine for Gtk2
     ];
 
   postPatch = ''

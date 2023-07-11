@@ -21,12 +21,14 @@ stdenv.mkDerivation rec {
     sha256 = "1p43z9ln5rbc76v0j1k3r4nhvfw71hq8jzsallb54z9hvwfvqp3l";
   };
 
-  patches = [ (fetchpatch {
-    name = "fix-openssl-3-build.patch";
-    url =
-      "https://github.com/droe/sslsplit/commit/e17de8454a65d2b9ba432856971405dfcf1e7522.patch";
-    hash = "sha256-sEwP7f2PSqXdMqLub9zrfQgH8I4oe9klVPzNpJjrPJ8=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "fix-openssl-3-build.patch";
+        url =
+          "https://github.com/droe/sslsplit/commit/e17de8454a65d2b9ba432856971405dfcf1e7522.patch";
+        hash = "sha256-sEwP7f2PSqXdMqLub9zrfQgH8I4oe9klVPzNpJjrPJ8=";
+      })
+    ];
 
   buildInputs = [
     openssl

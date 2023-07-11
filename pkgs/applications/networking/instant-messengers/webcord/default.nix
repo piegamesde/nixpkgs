@@ -66,17 +66,19 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "webcord";
-    exec = "webcord";
-    icon = "webcord";
-    desktopName = "WebCord";
-    comment = meta.description;
-    categories = [
-      "Network"
-      "InstantMessaging"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "webcord";
+        exec = "webcord";
+        icon = "webcord";
+        desktopName = "WebCord";
+        comment = meta.description;
+        categories = [
+          "Network"
+          "InstantMessaging"
+        ];
+      })
     ];
-  }) ];
 
   meta = with lib; {
     description =

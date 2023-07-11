@@ -25,11 +25,13 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  patches = [ (fetchpatch {
-    url =
-      "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-text/tkman/files/tkman-CVE-2008-5137.diff";
-    hash = "sha256-l97SY2/YnMgzHYKnVYCVJKV7oGLN1hXNpeHFlLVzTMA=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        url =
+          "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-text/tkman/files/tkman-CVE-2008-5137.diff";
+        hash = "sha256-l97SY2/YnMgzHYKnVYCVJKV7oGLN1hXNpeHFlLVzTMA=";
+      })
+    ];
 
   makeFlags = [
     "BINDIR=$(out)/bin"
@@ -56,16 +58,18 @@ stdenv.mkDerivation rec {
     install -Dm644 contrib/TkMan.gif $out/share/icons/hicolor/64x64/apps/tkman.gif
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "tkman";
-    desktopName = "TkMan";
-    comment = "Graphical man page and info viewer";
-    exec = "tkman %f";
-    icon = "tkman";
-    terminal = false;
-    type = "Application";
-    categories = [ "Utility" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "tkman";
+        desktopName = "TkMan";
+        comment = "Graphical man page and info viewer";
+        exec = "tkman %f";
+        icon = "tkman";
+        terminal = false;
+        type = "Application";
+        categories = [ "Utility" ];
+      })
+    ];
 
   meta = with lib; {
     description =

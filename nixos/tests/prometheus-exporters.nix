@@ -316,7 +316,9 @@ let
     jitsi = {
       exporterConfig = { enable = true; };
       metricProvider = {
-        systemd.services.prometheus-jitsi-exporter.after = [ "jitsi-videobridge2.service" ];
+        systemd.services.prometheus-jitsi-exporter.after = [
+            "jitsi-videobridge2.service"
+          ];
         services.jitsi-videobridge = {
           enable = true;
           apis = [
@@ -439,12 +441,14 @@ let
                 storage: ${
                   pkgs.buildEnv {
                     name = "foo";
-                    paths = [ (pkgs.writeTextDir "test.zone" ''
-                      @ SOA ns.example.com. noc.example.com. 2019031301 86400 7200 3600000 172800
-                      @       NS      ns1
-                      @       NS      ns2
-                      ns1     A       192.168.0.1
-                    '') ];
+                    paths = [
+                        (pkgs.writeTextDir "test.zone" ''
+                          @ SOA ns.example.com. noc.example.com. 2019031301 86400 7200 3600000 172800
+                          @       NS      ns1
+                          @       NS      ns2
+                          ns1     A       192.168.0.1
+                        '')
+                      ];
                   }
                 }
 
@@ -574,9 +578,11 @@ let
           after = [ "postfix.service" ];
           requires = [ "postfix.service" ];
           serviceConfig = {
-            ExecStartPre = [ "${pkgs.writeShellScript "create-maildir" ''
-              mkdir -p -m 0700 mail-exporter/new
-            ''}" ];
+            ExecStartPre = [
+                "${pkgs.writeShellScript "create-maildir" ''
+                  mkdir -p -m 0700 mail-exporter/new
+                ''}"
+              ];
             ProtectHome = true;
             ReadOnlyPaths = "/";
             ReadWritePaths = "/var/spool/mail";
@@ -1013,19 +1019,21 @@ let
       exporterConfig = { enable = true; };
       metricProvider = {
         # Mock rtl_433 binary to return a dummy metric stream.
-        nixpkgs.overlays = [ (self: super: {
-          rtl_433 = self.runCommand "rtl_433" { } ''
-            mkdir -p "$out/bin"
-            cat <<EOF > "$out/bin/rtl_433"
-            #!/bin/sh
-            while true; do
-              printf '{"time" : "2020-04-26 13:37:42", "model" : "zopieux", "id" : 55, "channel" : 3, "temperature_C" : 18.000}\n'
-              sleep 4
-            done
-            EOF
-            chmod +x "$out/bin/rtl_433"
-          '';
-        }) ];
+        nixpkgs.overlays = [
+            (self: super: {
+              rtl_433 = self.runCommand "rtl_433" { } ''
+                mkdir -p "$out/bin"
+                cat <<EOF > "$out/bin/rtl_433"
+                #!/bin/sh
+                while true; do
+                  printf '{"time" : "2020-04-26 13:37:42", "model" : "zopieux", "id" : 55, "channel" : 3, "temperature_C" : 18.000}\n'
+                  sleep 4
+                done
+                EOF
+                chmod +x "$out/bin/rtl_433"
+              '';
+            })
+          ];
       };
       exporterTest = ''
         wait_for_unit("prometheus-rtl_433-exporter.service")
@@ -1123,7 +1131,9 @@ let
       exporterConfig = {
         configuration.jobs.points = {
           interval = "1m";
-          connections = [ "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable" ];
+          connections = [
+              "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable"
+            ];
           queries = {
             points = {
               labels = [ "name" ];
@@ -1153,7 +1163,9 @@ let
             GRANT SELECT ON points TO "prometheus-sql-exporter";
           '';
         };
-        systemd.services.prometheus-sql-exporter.after = [ "postgresql.service" ];
+        systemd.services.prometheus-sql-exporter.after = [
+            "postgresql.service"
+          ];
       };
       exporterTest = ''
         wait_for_unit("prometheus-sql-exporter.service")
@@ -1185,7 +1197,9 @@ let
         modemAddress = "localhost";
       };
       metricProvider = {
-        systemd.services.prometheus-surfboard-exporter.after = [ "nginx.service" ];
+        systemd.services.prometheus-surfboard-exporter.after = [
+            "nginx.service"
+          ];
         services.nginx = {
           enable = true;
           virtualHosts.localhost.locations."/cgi-bin/status".extraConfig = ''
@@ -1338,7 +1352,9 @@ let
         group = "varnish";
       };
       metricProvider = {
-        systemd.services.prometheus-varnish-exporter.after = [ "varnish.service" ];
+        systemd.services.prometheus-varnish-exporter.after = [
+            "varnish.service"
+          ];
         services.varnish = {
           enable = true;
           config = ''
@@ -1382,7 +1398,9 @@ let
               inherit (snakeoil.peer1) publicKey;
             };
           };
-          systemd.services.prometheus-wireguard-exporter.after = [ "wireguard-wg0.service" ];
+          systemd.services.prometheus-wireguard-exporter.after = [
+              "wireguard-wg0.service"
+            ];
         };
         exporterTest = ''
           wait_for_unit("prometheus-wireguard-exporter.service")

@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     libsndfile
   ]; # Both are needed for includes.
 
-  cmakeFlags = [ "-DLIB_SUFFIX=" # Install in $out/lib.
+  cmakeFlags = [
+      "-DLIB_SUFFIX=" # Install in $out/lib.
     ];
 
   meta = with lib; {

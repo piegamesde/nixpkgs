@@ -174,12 +174,14 @@ let
       config = mkIf (name == "normal" || name == "controller" || name == "fuzzy"
         || name == "rspamd_proxy") {
           type = mkDefault name;
-          includes = mkDefault [ "$CONFDIR/worker-${
-              if name == "rspamd_proxy" then
-                "proxy"
-              else
-                name
-            }.inc" ];
+          includes = mkDefault [
+              "$CONFDIR/worker-${
+                if name == "rspamd_proxy" then
+                  "proxy"
+                else
+                  name
+              }.inc"
+            ];
           bindSockets =
             let
               unixSocket =

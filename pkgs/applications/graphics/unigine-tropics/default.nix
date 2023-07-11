@@ -59,13 +59,15 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "Tropics";
-    exec = "Tropics";
-    genericName = "A GPU Stress test tool from the UNIGINE";
-    icon = "Tropics";
-    desktopName = "Tropics Benchmark";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "Tropics";
+        exec = "Tropics";
+        genericName = "A GPU Stress test tool from the UNIGINE";
+        icon = "Tropics";
+        desktopName = "Tropics Benchmark";
+      })
+    ];
 
   nativeBuildInputs = [
     autoPatchelfHook

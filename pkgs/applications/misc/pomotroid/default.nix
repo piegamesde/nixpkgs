@@ -32,14 +32,16 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    exec = "pomotroid";
-    icon = "pomotroid";
-    comment = meta.description;
-    desktopName = "Pomotroid";
-    genericName = "Pomodoro Application";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = "pomotroid";
+        icon = "pomotroid";
+        comment = meta.description;
+        desktopName = "Pomotroid";
+        genericName = "Pomodoro Application";
+      })
+    ];
 
   dontConfigure = true;
   dontBuild = true;

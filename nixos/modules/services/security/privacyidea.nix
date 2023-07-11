@@ -455,9 +455,9 @@ in {
           "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
       } ];
 
-      warnings = mkIf (cfg.ldap-proxy.configFile
-        != null) [ "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!" ]
-        ;
+      warnings = mkIf (cfg.ldap-proxy.configFile != null) [
+          "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!"
+        ];
 
       systemd.services.privacyidea-ldap-proxy =
         let
@@ -470,8 +470,9 @@ in {
             User = cfg.ldap-proxy.user;
             Group = cfg.ldap-proxy.group;
             StateDirectory = "privacyidea-ldap-proxy";
-            EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile
-              != null) [ cfg.ldap-proxy.environmentFile ];
+            EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile != null) [
+                cfg.ldap-proxy.environmentFile
+              ];
             ExecStartPre =
               "${pkgs.writeShellScript "substitute-secrets-ldap-proxy" ''
                 umask 0077

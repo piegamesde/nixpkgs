@@ -309,15 +309,17 @@ let
 
 in {
 
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "i2pd"
-    "extIp"
-  ] [
-    "services"
-    "i2pd"
-    "address"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "i2pd"
+        "extIp"
+      ] [
+        "services"
+        "i2pd"
+        "address"
+      ])
+    ];
 
     ###### interface
 

@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     vala
-  ] ++ lib.optionals enableGlade [ libxml2 # for xmllint
+  ] ++ lib.optionals enableGlade [
+      libxml2 # for xmllint
     ];
 
   buildInputs = [

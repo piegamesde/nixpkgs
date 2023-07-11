@@ -18,10 +18,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-UUWJENGn60YQdUSQ55uL+/3xt/JUsVuKnqm/ef7wPVM=";
   };
 
-  patches = [ (substituteAll {
-    src = ./unvendor-doctest.patch;
-    inherit doctest;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./unvendor-doctest.patch;
+        inherit doctest;
+      })
+    ];
 
   postPatch = ''
     rm -r 3rd-party

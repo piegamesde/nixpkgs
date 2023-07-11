@@ -27,13 +27,15 @@ stdenv.mkDerivation {
     ncurses
   ];
 
-  patches = [ (substituteAll {
-    src = ./paths.patch;
-    sed = "${gnused}/bin/sed";
-    xprop = "${xorg.xprop}/bin/xprop";
-    rlwrap = "${rlwrap}/bin/rlwrap";
-    tput = "${ncurses}/bin/tput";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./paths.patch;
+        sed = "${gnused}/bin/sed";
+        xprop = "${xorg.xprop}/bin/xprop";
+        rlwrap = "${rlwrap}/bin/rlwrap";
+        tput = "${ncurses}/bin/tput";
+      })
+    ];
 
   buildPhase = ''
     mkdir -p $out/bin

@@ -35,11 +35,13 @@ stdenv.mkDerivation rec {
     sha256 = "03xypffpbp4imrczbxmq69vgkr7mbp0ps9dk815br5wwlz6vgygl";
   };
 
-  patches = [ (fetchpatch {
-    url =
-      "https://github.com/stlink-org/stlink/commit/468b1d2daa853b975c33ab69876c486734f2c6a7.diff";
-    sha256 = "sha256-ueSi/zc7xbOATl0yBtCL4U64IQ/yqu6sMYDOiPl1JBI=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        url =
+          "https://github.com/stlink-org/stlink/commit/468b1d2daa853b975c33ab69876c486734f2c6a7.diff";
+        sha256 = "sha256-ueSi/zc7xbOATl0yBtCL4U64IQ/yqu6sMYDOiPl1JBI=";
+      })
+    ];
 
   buildInputs = [ libusb1' ] ++ lib.optionals withGUI [ gtk3 ];
   nativeBuildInputs = [ cmake ] ++ lib.optionals withGUI [

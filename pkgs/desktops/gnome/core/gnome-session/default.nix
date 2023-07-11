@@ -46,12 +46,14 @@ stdenv.mkDerivation rec {
     sha256 = "zPgpqWUmE16en5F1JlFdNqUJK9+jFvNzfdjFpSTb8sY=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    gsettings = "${glib.bin}/bin/gsettings";
-    dbusLaunch = "${dbus.lib}/bin/dbus-launch";
-    bash = "${bash}/bin/bash";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        gsettings = "${glib.bin}/bin/gsettings";
+        dbusLaunch = "${dbus.lib}/bin/dbus-launch";
+        bash = "${bash}/bin/bash";
+      })
+    ];
 
   nativeBuildInputs = [
     meson

@@ -252,8 +252,9 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       wants = with cfg.backend;
-        [ ] ++ optionals (service == "sql" && sql.driver
-          == "native_pgsql") [ "postgresql.service" ];
+        [ ] ++ optionals (service == "sql" && sql.driver == "native_pgsql") [
+          "postgresql.service"
+        ];
 
       preStart = with cfg.backend;
 

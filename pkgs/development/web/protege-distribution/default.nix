@@ -64,14 +64,16 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "Protege";
-    desktopName = "Protege Desktop";
-    icon = "protege";
-    comment = "OWL2 ontology editor";
-    categories = [ "Development" ];
-    exec = "run-protege";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "Protege";
+        desktopName = "Protege Desktop";
+        icon = "protege";
+        comment = "OWL2 ontology editor";
+        categories = [ "Development" ];
+        exec = "run-protege";
+      })
+    ];
 
   meta = with lib; {
     description =

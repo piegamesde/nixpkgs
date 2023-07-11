@@ -44,7 +44,8 @@ let
       cd src/libXNVCtrl
     '';
 
-    makeFlags = [ "OUTPUTDIR=." # src/libXNVCtrl
+    makeFlags = [
+        "OUTPUTDIR=." # src/libXNVCtrl
       ];
 
     installPhase = ''

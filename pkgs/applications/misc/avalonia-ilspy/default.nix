@@ -75,19 +75,21 @@ stdenv.mkDerivation rec {
   '';
   dontStrip = true;
 
-  desktopItems = [ (makeDesktopItem {
-    name = "ILSpy";
-    desktopName = "ILSpy";
-    exec = "ILSpy";
-    icon = "ILSpy";
-    comment = ".NET assembly browser and decompiler";
-    categories = [ "Development" ];
-    keywords = [
-      ".net"
-      "il"
-      "assembly"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "ILSpy";
+        desktopName = "ILSpy";
+        exec = "ILSpy";
+        icon = "ILSpy";
+        comment = ".NET assembly browser and decompiler";
+        categories = [ "Development" ];
+        keywords = [
+          ".net"
+          "il"
+          "assembly"
+        ];
+      })
     ];
-  }) ];
 
   meta = with lib; {
     description = ".NET assembly browser and decompiler";

@@ -81,7 +81,9 @@ in {
         peerCfg: {
           name = "pppd-${peerCfg.name}";
           value = {
-            restartTriggers = [ config.environment.etc."ppp/peers/${peerCfg.name}".source ];
+            restartTriggers = [
+                config.environment.etc."ppp/peers/${peerCfg.name}".source
+              ];
             before = [ "network.target" ];
             wants = [ "network.target" ];
             after = [ "network-pre.target" ];

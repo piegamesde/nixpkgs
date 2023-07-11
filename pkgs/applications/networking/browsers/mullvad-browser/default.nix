@@ -120,19 +120,21 @@ stdenv.mkDerivation rec {
   preferLocalBuild = true;
   allowSubstitutes = false;
 
-  desktopItems = [ (makeDesktopItem {
-    name = "mullvadbrowser";
-    exec = "mullvad-browser %U";
-    icon = "mullvad-browser";
-    desktopName = "Mullvad Browser";
-    genericName = "Web Browser";
-    comment = meta.description;
-    categories = [
-      "Network"
-      "WebBrowser"
-      "Security"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "mullvadbrowser";
+        exec = "mullvad-browser %U";
+        icon = "mullvad-browser";
+        desktopName = "Mullvad Browser";
+        genericName = "Web Browser";
+        comment = meta.description;
+        categories = [
+          "Network"
+          "WebBrowser"
+          "Security"
+        ];
+      })
     ];
-  }) ];
 
   buildPhase = ''
     runHook preBuild
@@ -243,7 +245,9 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/mullvad/mullvad-browser/releases/tag/${tag}";
     platforms = attrNames srcs;
-    maintainers = with maintainers; [ felschr ];
+    maintainers = with maintainers; [
+        felschr
+      ];
       # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
       # the compound is "libre" in a strict sense (some components place certain
       # restrictions on redistribution), it's free enough for our purposes.

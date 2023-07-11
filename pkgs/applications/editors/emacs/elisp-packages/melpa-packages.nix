@@ -528,7 +528,9 @@ let
         });
 
         shm = super.shm.overrideAttrs (attrs: {
-          propagatedUserEnvPkgs = [ pkgs.haskellPackages.structured-haskell-mode ];
+          propagatedUserEnvPkgs = [
+              pkgs.haskellPackages.structured-haskell-mode
+            ];
         });
 
           # Telega has a server portion for it's network protocol

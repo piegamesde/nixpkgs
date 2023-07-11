@@ -32,7 +32,9 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/dbohdan/jsonwatch";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [
+        fab
+      ];
       # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };

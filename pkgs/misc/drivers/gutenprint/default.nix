@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  configureFlags = lib.optionals
-    cupsSupport [ "--disable-static-genppd" # should be harmless on NixOS
+  configureFlags = lib.optionals cupsSupport [
+      "--disable-static-genppd" # should be harmless on NixOS
     ];
 
     # FIXME: hacky because we modify generated configure, but I haven't found a better way.

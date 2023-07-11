@@ -122,13 +122,15 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "Valley";
-    exec = "valley";
-    genericName = "A GPU Stress test tool from the UNIGINE";
-    icon = "Valley";
-    desktopName = "Valley Benchmark";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "Valley";
+        exec = "valley";
+        genericName = "A GPU Stress test tool from the UNIGINE";
+        icon = "Valley";
+        desktopName = "Valley Benchmark";
+      })
+    ];
 
   stripDebugList = [ "${instPath}/bin" ];
 

@@ -56,7 +56,8 @@ let
               primaryIPAddress = mkForce machine.ip;
 
               firewall = {
-                allowedTCPPorts = [ 10250 # kubelet
+                allowedTCPPorts = [
+                    10250 # kubelet
                   ];
                 trustedInterfaces = [ "mynet" ];
 
@@ -81,7 +82,8 @@ let
             };
           }
           (optionalAttrs (any (role: role == "master") machine.roles) {
-            networking.firewall.allowedTCPPorts = [ 443 # kubernetes apiserver
+            networking.firewall.allowedTCPPorts = [
+                443 # kubernetes apiserver
               ];
           })
           (optionalAttrs (machine ? extraConfiguration)

@@ -205,7 +205,9 @@ mkDerivation rec {
     description = "A graphical client for MPD";
     homepage = "https://github.com/cdrummond/cantata";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [
+        peterhoeg
+      ];
       # Technically, Cantata should run on Darwin/Windows so if someone wants to
       # bother figuring that one out, be my guest.
     platforms = platforms.linux;

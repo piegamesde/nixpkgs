@@ -156,7 +156,9 @@ stdenv.mkDerivation rec {
         licenses.mit
       ;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [
+        abbradar
+      ];
       # Newer cub is included with cudatoolkit now and it breaks the build.
       # https://github.com/Microsoft/CNTK/issues/3191
       # broken = cudaSupport;

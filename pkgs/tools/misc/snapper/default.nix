@@ -72,7 +72,8 @@ stdenv.mkDerivation rec {
       --replace '/`basename $(libdir)`' "$out/lib"
   '';
 
-  configureFlags = [ "--disable-ext4" # requires patched kernel & e2fsprogs
+  configureFlags = [
+      "--disable-ext4" # requires patched kernel & e2fsprogs
     ];
 
   enableParallelBuilding = true;

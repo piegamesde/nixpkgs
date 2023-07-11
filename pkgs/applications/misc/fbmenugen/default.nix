@@ -22,11 +22,13 @@ perlPackages.buildPerlPackage rec {
     sha256 = "A0yhoK/cPp3JlNZacgLaDhaU838PpFna7luQKNDvyOg=";
   };
 
-  patches = [ (substituteAll {
-    src = ./0001-Fix-paths.patch;
-    xmessage = xorg.xmessage;
-    inherit fluxbox gnused;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./0001-Fix-paths.patch;
+        xmessage = xorg.xmessage;
+        inherit fluxbox gnused;
+      })
+    ];
 
   outputs = [ "out" ];
 

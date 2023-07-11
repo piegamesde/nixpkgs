@@ -33,14 +33,16 @@ stdenvNoCC.mkDerivation rec {
     copyDesktopItems
   ];
 
-  desktopItems = [ (makeDesktopItem rec {
-    name = pname;
-    exec = pname;
-    icon = "rfb64";
-    desktopName = "Imposto de Renda Pessoa Física";
-    comment = "Programa Oficial da Receita para elaboração do IRPF";
-    categories = [ "Office" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem rec {
+        name = pname;
+        exec = pname;
+        icon = "rfb64";
+        desktopName = "Imposto de Renda Pessoa Física";
+        comment = "Programa Oficial da Receita para elaboração do IRPF";
+        categories = [ "Office" ];
+      })
+    ];
 
   installPhase = ''
     runHook preInstall

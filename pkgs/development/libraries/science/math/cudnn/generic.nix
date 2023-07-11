@@ -123,7 +123,9 @@ backendStdenv.mkDerivation {
       || strings.versionOlder maxCudaVersion cudaVersion;
     description = "NVIDIA CUDA Deep Neural Network library (cuDNN)";
     homepage = "https://developer.nvidia.com/cudnn";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+        binaryNativeCode
+      ];
       # TODO: consider marking unfreRedistributable when not using runfile
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];

@@ -44,15 +44,17 @@ let
 
 in {
 
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "searx"
-    "configFile"
-  ] [
-    "services"
-    "searx"
-    "settingsFile"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "searx"
+        "configFile"
+      ] [
+        "services"
+        "searx"
+        "settingsFile"
+      ])
+    ];
 
     ###### interface
 

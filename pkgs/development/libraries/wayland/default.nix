@@ -90,9 +90,10 @@ stdenv.mkDerivation rec {
   buildInputs = [
     expat
     libxml2
-  ] ++ lib.optionals withLibraries [ libffi ] ++ lib.optionals
-    (withLibraries && !stdenv.hostPlatform.isLinux) [ epoll-shim ]
-    ++ lib.optionals withDocumentation [
+  ] ++ lib.optionals withLibraries [ libffi ]
+    ++ lib.optionals (withLibraries && !stdenv.hostPlatform.isLinux) [
+      epoll-shim
+    ] ++ lib.optionals withDocumentation [
       docbook_xsl
       docbook_xml_dtd_45
       docbook_xml_dtd_42

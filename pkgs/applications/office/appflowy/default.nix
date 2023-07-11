@@ -59,13 +59,15 @@ stdenv.mkDerivation rec {
       --prefix PATH : "${lib.makeBinPath [ xdg-user-dirs ]}"
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    desktopName = "AppFlowy";
-    comment = meta.description;
-    exec = "appflowy";
-    categories = [ "Office" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        desktopName = "AppFlowy";
+        comment = meta.description;
+        exec = "appflowy";
+        categories = [ "Office" ];
+      })
+    ];
 
   meta = with lib; {
     description = "An open-source alternative to Notion";

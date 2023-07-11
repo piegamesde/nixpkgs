@@ -28,7 +28,9 @@ buildPythonPackage rec {
       "fasttext with wheels and no external dependency, but only the predict method (<1MB)";
     homepage = "https://github.com/searxng/fasttext-predict/";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [
+        SuperSandro2000
+      ];
       # ImportError: dynamic module does not define module export function (PyInit_fasttext_pybind)
     broken = stdenv.isDarwin;
   };

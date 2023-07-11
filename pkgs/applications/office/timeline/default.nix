@@ -36,17 +36,19 @@ python3.pkgs.buildPythonApplication rec {
     python3.pkgs.mock
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    desktopName = "Timeline";
-    name = "timeline";
-    comment = "Display and navigate information on a timeline";
-    icon = "timeline";
-    exec = "timeline";
-    categories = [
-      "Office"
-      "Calendar"
+  desktopItems = [
+      (makeDesktopItem {
+        desktopName = "Timeline";
+        name = "timeline";
+        comment = "Display and navigate information on a timeline";
+        icon = "timeline";
+        exec = "timeline";
+        categories = [
+          "Office"
+          "Calendar"
+        ];
+      })
     ];
-  }) ];
 
   dontBuild = true;
   doCheck = false;

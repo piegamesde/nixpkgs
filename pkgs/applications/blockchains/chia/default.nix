@@ -64,7 +64,9 @@ let
       zstd
     ];
 
-    nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+    nativeCheckInputs = with python3Packages; [
+        pytestCheckHook
+      ];
 
       # Testsuite is expensive and non-deterministic, so it is available in
       # passthru.tests instead.

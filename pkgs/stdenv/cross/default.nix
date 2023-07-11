@@ -62,9 +62,9 @@ lib.init bootStages ++ [
           # a different platform, and so are disabled.
         overrides = _: _: { };
         extraBuildInputs = [ ] # Old ones run on wrong platform
-          ++ lib.optionals
-          hostPlatform.isDarwin [ buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation ]
-          ;
+          ++ lib.optionals hostPlatform.isDarwin [
+            buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation
+          ];
         allowedRequisites = null;
 
         hasCC = !targetPlatform.isGhcjs;
@@ -90,10 +90,10 @@ lib.init bootStages ++ [
             buildPackages.gcc
           ;
 
-        extraNativeBuildInputs = old.extraNativeBuildInputs ++ lib.optionals
-          (hostPlatform.isLinux
-            && !buildPlatform.isLinux) [ buildPackages.patchelf ]
-          ++ lib.optional (let
+        extraNativeBuildInputs = old.extraNativeBuildInputs
+          ++ lib.optionals (hostPlatform.isLinux && !buildPlatform.isLinux) [
+            buildPackages.patchelf
+          ] ++ lib.optional (let
             f =
               p:
               !p.isx86 || builtins.elem p.libc [

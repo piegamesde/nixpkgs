@@ -53,18 +53,20 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "SonyHeadphonesClient";
-    exec = "SonyHeadphonesClient";
-    icon = "SonyHeadphonesClient";
-    desktopName = "Sony Headphones Client";
-    comment =
-      "A client recreating the functionality of the Sony Headphones app";
-    categories = [
-      "Audio"
-      "Mixer"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "SonyHeadphonesClient";
+        exec = "SonyHeadphonesClient";
+        icon = "SonyHeadphonesClient";
+        desktopName = "Sony Headphones Client";
+        comment =
+          "A client recreating the functionality of the Sony Headphones app";
+        categories = [
+          "Audio"
+          "Mixer"
+        ];
+      })
     ];
-  }) ];
 
   meta = with lib; {
     description =

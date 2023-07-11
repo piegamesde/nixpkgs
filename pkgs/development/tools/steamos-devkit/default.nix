@@ -117,11 +117,13 @@ python3.pkgs.buildPythonPackage rec {
   doCheck = false;
   pythonImportsCheck = [ "devkit_client" ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "SteamOS-Devkit";
-    exec = "steamos-devkit";
-    desktopName = "SteamOS Devkit Client";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "SteamOS-Devkit";
+        exec = "steamos-devkit";
+        desktopName = "SteamOS Devkit Client";
+      })
+    ];
 
   meta = with lib; {
     description = "SteamOS Devkit Client";

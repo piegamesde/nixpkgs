@@ -392,14 +392,16 @@ self: super:
     (markBroken (dontDistribute super.pandoc-cli));
 
   inline-c-cpp = overrideCabal (drv: {
-    patches = drv.patches or [ ] ++ [ (fetchpatch {
-      # awaiting release >0.5.0.0
-      url =
-        "https://github.com/fpco/inline-c/commit/e176b8e8c3c94e7d8289a8b7cc4ce8e737741730.patch";
-      name = "inline-c-cpp-pr-132-1.patch";
-      sha256 = "sha256-CdZXAT3Ar4KKDGyAUu8A7hzddKe5/AuMKoZSjt3o0UE=";
-      stripLen = 1;
-    }) ];
+    patches = drv.patches or [ ] ++ [
+        (fetchpatch {
+          # awaiting release >0.5.0.0
+          url =
+            "https://github.com/fpco/inline-c/commit/e176b8e8c3c94e7d8289a8b7cc4ce8e737741730.patch";
+          name = "inline-c-cpp-pr-132-1.patch";
+          sha256 = "sha256-CdZXAT3Ar4KKDGyAUu8A7hzddKe5/AuMKoZSjt3o0UE=";
+          stripLen = 1;
+        })
+      ];
     postPatch = (drv.postPatch or "") + ''
       substituteInPlace inline-c-cpp.cabal --replace "-optc-std=c++11" ""
     '';
@@ -1370,10 +1372,12 @@ self: super:
 
     # Fix for base >= 4.11
   scat = overrideCabal (drv: {
-    patches = [ (fetchpatch {
-      url = "https://github.com/redelmann/scat/pull/6.diff";
-      sha256 = "07nj2p0kg05livhgp1hkkdph0j0a6lb216f8x348qjasy0lzbfhl";
-    }) ];
+    patches = [
+        (fetchpatch {
+          url = "https://github.com/redelmann/scat/pull/6.diff";
+          sha256 = "07nj2p0kg05livhgp1hkkdph0j0a6lb216f8x348qjasy0lzbfhl";
+        })
+      ];
   }) super.scat;
 
     # Fix build with attr-2.4.48 (see #53716)
@@ -1494,12 +1498,14 @@ self: super:
     # 2022-03-12: Pick patches from master for compat with Stackage Nightly
     # 2022-12-07: Lift bounds to allow dependencies shipped with LTS-20
     #             https://github.com/jgm/gitit/pull/683
-  gitit = appendPatches [ (fetchpatch {
-    name = "gitit-fix-build-with-hoauth2-2.3.0.patch";
-    url =
-      "https://github.com/jgm/gitit/commit/fd534c0155eef1790500c834e612ab22cf9b67b6.patch";
-    sha256 = "0hmlqkavn8hr0b4y4hxs1yyg0r79ylkzhzwy1dzbb3a2q86ydd2f";
-  }) ] (doJailbreak super.gitit);
+  gitit = appendPatches [
+      (fetchpatch {
+        name = "gitit-fix-build-with-hoauth2-2.3.0.patch";
+        url =
+          "https://github.com/jgm/gitit/commit/fd534c0155eef1790500c834e612ab22cf9b67b6.patch";
+        sha256 = "0hmlqkavn8hr0b4y4hxs1yyg0r79ylkzhzwy1dzbb3a2q86ydd2f";
+      })
+    ] (doJailbreak super.gitit);
 
     # Test suite requires database
   persistent-mysql = dontCheck super.persistent-mysql;
@@ -1719,11 +1725,13 @@ self: super:
 
   hcoord = overrideCabal (drv: {
     # Remove when https://github.com/danfran/hcoord/pull/8 is merged.
-    patches = [ (fetchpatch {
-      url =
-        "https://github.com/danfran/hcoord/pull/8/commits/762738b9e4284139f5c21f553667a9975bad688e.patch";
-      sha256 = "03r4jg9a6xh7w3jz3g4bs7ff35wa4rrmjgcggq51y0jc1sjqvhyz";
-    }) ];
+    patches = [
+        (fetchpatch {
+          url =
+            "https://github.com/danfran/hcoord/pull/8/commits/762738b9e4284139f5c21f553667a9975bad688e.patch";
+          sha256 = "03r4jg9a6xh7w3jz3g4bs7ff35wa4rrmjgcggq51y0jc1sjqvhyz";
+        })
+      ];
       # Remove when https://github.com/danfran/hcoord/issues/9 is closed.
     doCheck = false;
   }) super.hcoord;
@@ -1767,11 +1775,13 @@ self: super:
     ;
 
     # Raise version bounds: https://github.com/idontgetoutmuch/binary-low-level/pull/16
-  binary-strict = appendPatches [ (fetchpatch {
-    url =
-      "https://github.com/idontgetoutmuch/binary-low-level/pull/16/commits/c16d06a1f274559be0dea0b1f7497753e1b1a8ae.patch";
-    sha256 = "sha256-deSbudy+2je1SWapirWZ1IVWtJ0sJVR5O/fnaAaib2g=";
-  }) ] super.binary-strict;
+  binary-strict = appendPatches [
+      (fetchpatch {
+        url =
+          "https://github.com/idontgetoutmuch/binary-low-level/pull/16/commits/c16d06a1f274559be0dea0b1f7497753e1b1a8ae.patch";
+        sha256 = "sha256-deSbudy+2je1SWapirWZ1IVWtJ0sJVR5O/fnaAaib2g=";
+      })
+    ] super.binary-strict;
 
     # 2020-11-15: nettle tests are pre MonadFail change
     # https://github.com/stbuehler/haskell-nettle/issues/10
@@ -1945,12 +1955,14 @@ self: super:
   vivid-supercollider = dontCheck super.vivid-supercollider;
 
     # while waiting for a new release: https://github.com/brendanhay/amazonka/pull/572
-  amazonka = appendPatches [ (fetchpatch {
-    relative = "amazonka";
-    url =
-      "https://github.com/brendanhay/amazonka/commit/43ddd87b1ebd6af755b166e16336259ec025b337.patch";
-    sha256 = "sha256-9Ed3qrLGRaNCdvqWMyg8ydAnqDkFqWKLLoObv/5jG54=";
-  }) ] (doJailbreak super.amazonka);
+  amazonka = appendPatches [
+      (fetchpatch {
+        relative = "amazonka";
+        url =
+          "https://github.com/brendanhay/amazonka/commit/43ddd87b1ebd6af755b166e16336259ec025b337.patch";
+        sha256 = "sha256-9Ed3qrLGRaNCdvqWMyg8ydAnqDkFqWKLLoObv/5jG54=";
+      })
+    ] (doJailbreak super.amazonka);
 
     # Test suite does not compile.
   feed = dontCheck super.feed;
@@ -2096,12 +2108,14 @@ self: super:
       "-f"
       "Native"
     ];
-    patches = [ (fetchpatch {
-      url =
-        "https://gitlab.haskell.org/ghc/ghc/-/commit/08d1588bf38d83140a86817a7a615db486357d4f.patch";
-      sha256 = "sha256-Y9WW0KDQ/qY2L9ObPvh1i/6lxXIlprbxzdSBDfiaMtE=";
-      relative = "libraries/ghc-bignum";
-    }) ];
+    patches = [
+        (fetchpatch {
+          url =
+            "https://gitlab.haskell.org/ghc/ghc/-/commit/08d1588bf38d83140a86817a7a615db486357d4f.patch";
+          sha256 = "sha256-Y9WW0KDQ/qY2L9ObPvh1i/6lxXIlprbxzdSBDfiaMtE=";
+          relative = "libraries/ghc-bignum";
+        })
+      ];
   };
 
     # 2021-04-09: outdated base and alex-tools
@@ -2190,19 +2204,21 @@ self: super:
 
     # Fix build with bytestring >= 0.11 (GHC 9.2)
     # https://github.com/llvm-hs/llvm-hs/pull/389
-  llvm-hs-pure = appendPatches [ (fetchpatch {
-    name = "llvm-hs-pure-bytestring-0.11.patch";
-    url =
-      "https://github.com/llvm-hs/llvm-hs/commit/fe8fd556e8d2cc028f61d4d7b4b6bf18c456d090.patch";
-    sha256 = "sha256-1d4wQg6JEJL3GwmXQpvbW7VOY5DwjUPmIsLEEur0Kps=";
-    relative = "llvm-hs-pure";
-    excludes = [ "**/Triple.hs" ]; # doesn't exist in 9.0.0
-  }) ] (overrideCabal {
-    # Hackage Revision prevents patch from applying. Revision 1 does not allow
-    # bytestring-0.11.4 which is bundled with 9.2.6.
-    editedCabalFile = null;
-    revision = null;
-  } super.llvm-hs-pure);
+  llvm-hs-pure = appendPatches [
+      (fetchpatch {
+        name = "llvm-hs-pure-bytestring-0.11.patch";
+        url =
+          "https://github.com/llvm-hs/llvm-hs/commit/fe8fd556e8d2cc028f61d4d7b4b6bf18c456d090.patch";
+        sha256 = "sha256-1d4wQg6JEJL3GwmXQpvbW7VOY5DwjUPmIsLEEur0Kps=";
+        relative = "llvm-hs-pure";
+        excludes = [ "**/Triple.hs" ]; # doesn't exist in 9.0.0
+      })
+    ] (overrideCabal {
+      # Hackage Revision prevents patch from applying. Revision 1 does not allow
+      # bytestring-0.11.4 which is bundled with 9.2.6.
+      editedCabalFile = null;
+      revision = null;
+    } super.llvm-hs-pure);
 
     # * Fix build failure by picking patch from 8.5, we need
     #   this version of sbv for petrinizer

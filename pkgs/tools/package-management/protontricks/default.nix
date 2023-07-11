@@ -38,14 +38,16 @@ buildPythonApplication rec {
     vdf
   ];
 
-  makeWrapperArgs = [ "--prefix PATH : ${
-      lib.makeBinPath [
-        bash
-        steam-run
-        winetricks
-        yad
-      ]
-    }" ];
+  makeWrapperArgs = [
+      "--prefix PATH : ${
+        lib.makeBinPath [
+          bash
+          steam-run
+          winetricks
+          yad
+        ]
+      }"
+    ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

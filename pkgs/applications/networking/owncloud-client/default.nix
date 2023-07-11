@@ -40,9 +40,9 @@ mkDerivation rec {
     libregraph
   ];
 
-  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [ libsecret ]
-    }" ];
+  qtWrapperArgs = [
+      "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}"
+    ];
 
   cmakeFlags = [
     "-UCMAKE_INSTALL_LIBDIR"

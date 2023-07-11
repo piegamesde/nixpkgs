@@ -66,11 +66,11 @@ mkDerivation rec {
     "BOOST_DIR=${boost.dev}"
   ];
 
-  qtWrapperArgs = lib.optionals stdenv.isLinux [ "--prefix LD_LIBRARY_PATH : ${
-      placeholder "out"
-    }/lib" ] ++ lib.optionals stdenv.isDarwin [ "--prefix DYLD_LIBRARY_PATH : ${
-      placeholder "out"
-    }/lib" ];
+  qtWrapperArgs = lib.optionals stdenv.isLinux [
+      "--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib"
+    ] ++ lib.optionals stdenv.isDarwin [
+      "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib"
+    ];
 
   installPhase = ''
     runHook preInstall

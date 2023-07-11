@@ -42,11 +42,13 @@ stdenv.mkDerivation rec {
     libpulseaudio
   ];
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    mencoder = "${mplayer}/bin/mencoder";
-    mplayer = "${mplayer}/bin/mplayer";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        mencoder = "${mplayer}/bin/mencoder";
+        mplayer = "${mplayer}/bin/mplayer";
+      })
+    ];
 
     # Workaround build failure on -fno-common toolchains:
     #   ld: mpris-interface.o:src/playlist.h:32: multiple definition of

@@ -164,7 +164,9 @@ stdenv.mkDerivation (finalAttrs: {
     makeFlagsArray+=( perllibdir=$out/$(perl -MConfig -wle 'print substr $Config{installsitelib}, 1 + length $Config{siteprefixexp}') )
   '';
 
-  makeFlags = [ "prefix=\${out}" ]
+  makeFlags = [
+      "prefix=\${out}"
+    ]
     # Git does not allow setting a shell separately for building and run-time.
     # Therefore lets leave it at the default /bin/sh when cross-compiling
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
@@ -195,8 +197,10 @@ stdenv.mkDerivation (finalAttrs: {
     # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
     ++ lib.optional stdenv.isDarwin "TKFRAMEWORK=/nonexistent";
 
-  disallowedReferences = lib.optionals
-    (stdenv.buildPlatform != stdenv.hostPlatform) [ stdenv.shellPackage ];
+  disallowedReferences =
+    lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      stdenv.shellPackage
+    ];
 
   postBuild = ''
     make -C contrib/subtree

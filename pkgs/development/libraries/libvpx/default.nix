@@ -255,7 +255,8 @@ stdenv.mkDerivation rec {
     curl
   ];
 
-  NIX_LDFLAGS = [ "-lpthread" # fixes linker errors
+  NIX_LDFLAGS = [
+      "-lpthread" # fixes linker errors
     ];
 
   enableParallelBuilding = true;

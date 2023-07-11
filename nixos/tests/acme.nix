@@ -88,7 +88,9 @@ let
               certs."example.test" = { domain = "*.example.test"; };
             };
 
-            users.users."${config.services."${server}".user}".extraGroups = [ "acme" ];
+            users.users."${config.services."${server}".user}".extraGroups = [
+                "acme"
+              ];
 
             services."${server}" = {
               enable = true;
@@ -385,7 +387,9 @@ in {
                 certs."example.test" = { domain = "*.example.test"; };
               };
 
-              users.users."${config.services.caddy.user}".extraGroups = [ "acme" ];
+              users.users."${config.services.caddy.user}".extraGroups = [
+                  "acme"
+                ];
 
               services.caddy = {
                 enable = true;

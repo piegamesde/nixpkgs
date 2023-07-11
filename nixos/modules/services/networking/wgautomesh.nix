@@ -151,9 +151,9 @@ in {
         ExecStart = "${getExe pkgs.wgautomesh} ${runtimeConfigFile}";
         Restart = "always";
         RestartSec = "30";
-        LoadCredential = mkIf
-          cfg.enableGossipEncryption [ "gossip_secret:${cfg.gossipSecretFile}" ]
-          ;
+        LoadCredential = mkIf cfg.enableGossipEncryption [
+            "gossip_secret:${cfg.gossipSecretFile}"
+          ];
 
         ExecStartPre = mkIf cfg.enableGossipEncryption [ ''
           ${pkgs.envsubst}/bin/envsubst \

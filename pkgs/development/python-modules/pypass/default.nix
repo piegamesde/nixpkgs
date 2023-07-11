@@ -31,14 +31,16 @@ buildPythonPackage rec {
   };
 
     # Set absolute nix store paths to the executables that pypass uses
-  patches = [ (substituteAll {
-    src = ./mark-executables.patch;
-    git_exec = "${git}/bin/git";
-    grep_exec = "${gnugrep}/bin/grep";
-    gpg_exec = "${gnupg}/bin/gpg2";
-    tree_exec = "${tree}/bin/tree";
-    xclip_exec = "${xclip}/bin/xclip";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./mark-executables.patch;
+        git_exec = "${git}/bin/git";
+        grep_exec = "${gnugrep}/bin/grep";
+        gpg_exec = "${gnupg}/bin/gpg2";
+        tree_exec = "${tree}/bin/tree";
+        xclip_exec = "${xclip}/bin/xclip";
+      })
+    ];
 
     # Remove enum34 requirement if Python >= 3.4
   postPatch = lib.optionalString (pythonAtLeast "3.4") ''

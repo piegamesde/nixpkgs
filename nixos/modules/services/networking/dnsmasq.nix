@@ -40,16 +40,18 @@ let
 
 in {
 
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "dnsmasq"
-    "servers"
-  ] [
-    "services"
-    "dnsmasq"
-    "settings"
-    "server"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "dnsmasq"
+        "servers"
+      ] [
+        "services"
+        "dnsmasq"
+        "settings"
+        "server"
+      ])
+    ];
 
     ###### interface
 

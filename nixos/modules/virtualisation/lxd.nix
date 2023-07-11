@@ -12,11 +12,13 @@ with lib;
 let
   cfg = config.virtualisation.lxd;
 in {
-  imports = [ (mkRemovedOptionModule [
-    "virtualisation"
-    "lxd"
-    "zfsPackage"
-  ] "Override zfs in an overlay instead to override it globally") ];
+  imports = [
+      (mkRemovedOptionModule [
+        "virtualisation"
+        "lxd"
+        "zfsPackage"
+      ] "Override zfs in an overlay instead to override it globally")
+    ];
 
     ###### interface
 

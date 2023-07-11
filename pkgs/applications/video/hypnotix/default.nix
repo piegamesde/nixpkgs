@@ -22,12 +22,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-R9bp1RQHHCrIE/3rIAHzWHXpXBUDUpJTkO53n+xZw3Q=";
   };
 
-  patches = [ (substituteAll {
-    src = ./libmpv-path.patch;
-    libmpv = "${
-        lib.getLib mpv
-      }/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./libmpv-path.patch;
+        libmpv = "${
+            lib.getLib mpv
+          }/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace usr/lib/hypnotix/hypnotix.py \

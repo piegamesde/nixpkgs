@@ -35,11 +35,13 @@ let
     (builtins.toJSON (recursiveUpdate confTree cfg.extraConfig));
 
 in {
-  imports = [ (mkRemovedOptionModule [
-    "services"
-    "parsoid"
-    "interwikis"
-  ] "Use services.parsoid.wikis instead") ];
+  imports = [
+      (mkRemovedOptionModule [
+        "services"
+        "parsoid"
+        "interwikis"
+      ] "Use services.parsoid.wikis instead")
+    ];
 
     ##### interface
 

@@ -29,10 +29,12 @@ buildPythonPackage rec {
     service-identity
   ];
 
-  patches = [ (substituteAll {
-    src = ./libgnutls-path.patch;
-    gnutlslib = "${lib.getLib gnutls}/lib";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./libgnutls-path.patch;
+        gnutlslib = "${lib.getLib gnutls}/lib";
+      })
+    ];
 
   pythonImportsCheck = [ "gnutls" ];
 

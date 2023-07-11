@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
     libxkbcommon
   ];
 
-  configureFlags = [ "--enable-introspection" # needed by muffin AFAIK
+  configureFlags = [
+      "--enable-introspection" # needed by muffin AFAIK
     ] ++ lib.optionals stdenv.isDarwin [
       "--without-x"
       "--enable-x11-backend=no"

@@ -241,10 +241,14 @@ let
 
         buildInputs =
           # PCRE extension
-          [ pcre2 ]
+          [
+            pcre2
+          ]
 
           # Enable sapis
-          ++ lib.optionals pearSupport [ libxml2.dev ]
+          ++ lib.optionals pearSupport [
+            libxml2.dev
+          ]
 
           # Misc deps
           ++ lib.optional apxs2Support apacheHttpd
@@ -257,10 +261,14 @@ let
 
         configureFlags =
           # Disable all extensions
-          [ "--disable-all" ]
+          [
+            "--disable-all"
+          ]
 
           # PCRE
-          ++ [ "--with-external-pcre=${pcre2.dev}" ]
+          ++ [
+            "--with-external-pcre=${pcre2.dev}"
+          ]
 
           # Enable sapis
           ++ lib.optional (!cgiSupport) "--disable-cgi"

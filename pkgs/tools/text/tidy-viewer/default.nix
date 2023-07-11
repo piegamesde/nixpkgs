@@ -19,7 +19,9 @@ rustPlatform.buildRustPackage rec {
 
     # this test parses command line arguments
     # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
-  checkFlags = [ "--skip=build_reader_can_create_reader_without_file_specified" ];
+  checkFlags = [
+      "--skip=build_reader_can_create_reader_without_file_specified"
+    ];
 
   meta = with lib; {
     description =

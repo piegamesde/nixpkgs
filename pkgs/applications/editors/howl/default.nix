@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
     description =
       "A general purpose, fast and lightweight editor with a keyboard-centric minimalistic user interface";
     license = licenses.mit;
-    maintainers = with maintainers; [ pacien ];
+    maintainers = with maintainers; [
+        pacien
+      ];
 
       # LuaJIT and Howl builds fail for x86_64-darwin and aarch64-linux respectively
     platforms = [

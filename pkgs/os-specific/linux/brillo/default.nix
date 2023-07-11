@@ -18,10 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dKGNioWGVAFuB4kySO+QGTnstyAD0bt4/6FBVwuRxJo=";
   };
 
-  patches = [ (substituteAll {
-    src = ./udev-rule.patch;
-    inherit coreutils;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./udev-rule.patch;
+        inherit coreutils;
+      })
+    ];
 
   nativeBuildInputs = [ go-md2man ];
 

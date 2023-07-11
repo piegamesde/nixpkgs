@@ -241,8 +241,8 @@ in
   env.NIX_CFLAGS_COMPILE = toString ([
     "-I${librdf_rasqal}/include/rasqal" # librdf_redland refers to rasqal.h instead of rasqal/rasqal.h
     "-fno-visibility-inlines-hidden" # https://bugs.documentfoundation.org/show_bug.cgi?id=78174#c10
-  ] ++ optionals (stdenv.isLinux && stdenv.isAarch64 && variant
-    == "still") [ "-O2" # https://bugs.gentoo.org/727188
+  ] ++ optionals (stdenv.isLinux && stdenv.isAarch64 && variant == "still") [
+      "-O2" # https://bugs.gentoo.org/727188
     ]);
 
   tarballPath = "external/tarballs";
@@ -655,8 +655,10 @@ in
       qtx11extras
       kcoreaddons
       kio
-    ] ++ optionals
-    (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [ libwebp ];
+    ]
+    ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [
+      libwebp
+    ];
 
   passthru = {
     inherit srcs;

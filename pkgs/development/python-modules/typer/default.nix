@@ -59,8 +59,9 @@ buildPythonPackage rec {
     # likely related to https://github.com/sarugaku/shellingham/issues/35
     "test_show_completion"
     "test_install_completion"
-  ] ++ lib.optionals
-    (stdenv.isLinux && stdenv.isAarch64) [ "test_install_completion" ];
+  ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
+      "test_install_completion"
+    ];
 
   pythonImportsCheck = [ "typer" ];
 

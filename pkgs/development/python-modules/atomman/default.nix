@@ -75,7 +75,8 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [ "test_unique_shifts_prototype" # needs network access to download database files
+  disabledTests = [
+      "test_unique_shifts_prototype" # needs network access to download database files
     ];
 
   pythonImportsCheck = [ "atomman" ];

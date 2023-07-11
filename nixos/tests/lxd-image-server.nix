@@ -40,8 +40,9 @@ import ./make-test-python.nix ({
           lxd.enable = true;
         };
 
-        security.pki.certificates = [ (builtins.readFile
-          ./common/acme/server/ca.cert.pem) ];
+        security.pki.certificates = [
+            (builtins.readFile ./common/acme/server/ca.cert.pem)
+          ];
 
         services.nginx = { enable = true; };
 

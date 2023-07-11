@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oTnBZt9/9EccXgczBRZC7lVWwcyKSnjxRVg8XIGrMvs=";
   };
 
-  hardeningDisable = [ "format" ]
+  hardeningDisable = [
+      "format"
+    ]
     # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
     # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
     # or you can check libc/include/sys/cdefs.h in bionic source code
@@ -76,11 +78,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags = [ (if interactive then
-    "--with-installed-readline"
-  else
-    "--disable-readline") ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+  configureFlags = [
+      (if interactive then
+        "--with-installed-readline"
+      else
+        "--disable-readline")
+    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "bash_cv_job_control_missing=nomissing"
       "bash_cv_sys_named_pipes=nomissing"
       "bash_cv_getcwd_malloc=yes"

@@ -61,7 +61,9 @@
   strictDeps ? true
 
   ,
-  outputs ? [ "out" ]
+  outputs ? [
+    "out"
+  ]
 
   # used to disable derivation, useful for specific python versions
   ,
@@ -250,9 +252,9 @@ let
         eggUnpackHook
         eggBuildHook
         eggInstallHook
-      ] ++ lib.optionals
-      (!(format == "other") || dontUsePipInstall) [ pipInstallHook ]
-      ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
+      ] ++ lib.optionals (!(format == "other") || dontUsePipInstall) [
+        pipInstallHook
+      ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
         # This is a test, however, it should be ran independent of the checkPhase and checkInputs
         pythonImportsCheckHook
       ] ++ lib.optionals (python.pythonAtLeast "3.3") [
@@ -297,8 +299,10 @@ let
     '' + attrs.postFixup or "";
 
       # Python packages built through cross-compilation are always for the host platform.
-    disallowedReferences = lib.optionals (python.stdenv.hostPlatform
-      != python.stdenv.buildPlatform) [ python.pythonForBuild ];
+    disallowedReferences = lib.optionals
+      (python.stdenv.hostPlatform != python.stdenv.buildPlatform) [
+        python.pythonForBuild
+      ];
 
     outputs = outputs ++ lib.optional withDistOutput "dist";
 

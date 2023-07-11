@@ -753,7 +753,9 @@ in {
           example = {
             "example.org/www" = {
               map = [ 80 ];
-              authorizedClients = [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ];
+              authorizedClients = [
+                  "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                ];
             };
           };
           type = types.attrsOf (types.submodule ({
@@ -826,7 +828,9 @@ in {
                 '';
                 type = with types; listOf str;
                 default = [ ];
-                example = [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ];
+                example = [
+                    "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                  ];
               };
               options.map = mkOption {
                 description =
@@ -1154,19 +1158,21 @@ in {
             description = lib.mdDoc (descriptionGeneric "HidServAuth");
             default = [ ];
             type = with types;
-              listOf (oneOf [ (submodule {
-                options = {
-                  onion = mkOption {
-                    type = strMatching "[a-z2-7]{16}\\.onion";
-                    description = lib.mdDoc "Onion address.";
-                    example = "xxxxxxxxxxxxxxxx.onion";
-                  };
-                  auth = mkOption {
-                    type = strMatching "[A-Za-z0-9+/]{22}";
-                    description = lib.mdDoc "Authentication cookie.";
-                  };
-                };
-              }) ]);
+              listOf (oneOf [
+                  (submodule {
+                    options = {
+                      onion = mkOption {
+                        type = strMatching "[a-z2-7]{16}\\.onion";
+                        description = lib.mdDoc "Onion address.";
+                        example = "xxxxxxxxxxxxxxxx.onion";
+                      };
+                      auth = mkOption {
+                        type = strMatching "[A-Za-z0-9+/]{22}";
+                        description = lib.mdDoc "Authentication cookie.";
+                      };
+                    };
+                  })
+                ]);
             example = [ {
               onion = "xxxxxxxxxxxxxxxx.onion";
               auth = "xxxxxxxxxxxxxxxxxxxxxx";
@@ -1335,20 +1341,21 @@ in {
         actually hide your hidden services. In either case, you can
         always create a container/VM with a separate Tor daemon instance.
       '' ++ flatten (mapAttrsToList (n: o:
-        optionals (o.settings.HiddenServiceVersion == 2) [ (optional
-          (o.settings.HiddenServiceExportCircuitID != null) ''
+        optionals (o.settings.HiddenServiceVersion == 2) [
+          (optional (o.settings.HiddenServiceExportCircuitID != null) ''
             HiddenServiceExportCircuitID is used in the HiddenService: ${n}
             but this option is only for v3 hidden services.
-          '') ] ++ optionals (o.settings.HiddenServiceVersion != 2) [
-            (optional (o.settings.HiddenServiceAuthorizeClient != null) ''
-              HiddenServiceAuthorizeClient is used in the HiddenService: ${n}
-              but this option is only for v2 hidden services.
-            '')
-            (optional (o.settings.RendPostPeriod != null) ''
-              RendPostPeriod is used in the HiddenService: ${n}
-              but this option is only for v2 hidden services.
-            '')
-          ]) cfg.relay.onionServices);
+          '')
+        ] ++ optionals (o.settings.HiddenServiceVersion != 2) [
+          (optional (o.settings.HiddenServiceAuthorizeClient != null) ''
+            HiddenServiceAuthorizeClient is used in the HiddenService: ${n}
+            but this option is only for v2 hidden services.
+          '')
+          (optional (o.settings.RendPostPeriod != null) ''
+            RendPostPeriod is used in the HiddenService: ${n}
+            but this option is only for v2 hidden services.
+          '')
+        ]) cfg.relay.onionServices);
 
     users.groups.tor.gid = config.ids.gids.tor;
     users.users.tor = {

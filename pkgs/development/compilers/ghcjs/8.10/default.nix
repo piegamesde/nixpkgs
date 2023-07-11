@@ -83,8 +83,8 @@ stdenv.mkDerivation {
     xorg.lndir
     gmp
     pkg-config
-  ] ++ lib.optionals
-    stdenv.isDarwin [ gcc # https://github.com/ghcjs/ghcjs/issues/663
+  ] ++ lib.optionals stdenv.isDarwin [
+      gcc # https://github.com/ghcjs/ghcjs/issues/663
     ];
   dontConfigure = true;
   dontInstall = true;

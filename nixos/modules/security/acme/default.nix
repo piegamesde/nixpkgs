@@ -153,8 +153,9 @@ let
       acmeServer = data.server;
       useDns = data.dnsProvider != null;
       destPath = "/var/lib/acme/${cert}";
-      selfsignedDeps = optionals
-        (cfg.preliminarySelfsigned) [ "acme-selfsigned-${cert}.service" ];
+      selfsignedDeps = optionals (cfg.preliminarySelfsigned) [
+          "acme-selfsigned-${cert}.service"
+        ];
 
         # Minica and lego have a "feature" which replaces * with _. We need
         # to make this substitution to reference the output files from both programs.
@@ -958,159 +959,162 @@ in {
     ] (config: config.security.acme.enableDebugLogs))
   ];
 
-  config = mkMerge [ (mkIf (cfg.certs != { }) {
+  config = mkMerge [
+      (mkIf (cfg.certs != { }) {
 
-    # FIXME Most of these custom warnings and filters for security.acme.certs.* are required
-    # because using mkRemovedOptionModule/mkChangedOptionModule with attrsets isn't possible.
-    warnings = filter (w: w != "") (mapAttrsToList (cert: data:
-      optionalString (data.extraDomains != "_mkMergedOptionModule") ''
-        The option definition `security.acme.certs.${cert}.extraDomains` has changed
-        to `security.acme.certs.${cert}.extraDomainNames` and is now a list of strings.
-        Setting a custom webroot for extra domains is not possible, instead use separate certs.
-      '') cfg.certs);
+        # FIXME Most of these custom warnings and filters for security.acme.certs.* are required
+        # because using mkRemovedOptionModule/mkChangedOptionModule with attrsets isn't possible.
+        warnings = filter (w: w != "") (mapAttrsToList (cert: data:
+          optionalString (data.extraDomains != "_mkMergedOptionModule") ''
+            The option definition `security.acme.certs.${cert}.extraDomains` has changed
+            to `security.acme.certs.${cert}.extraDomainNames` and is now a list of strings.
+            Setting a custom webroot for extra domains is not possible, instead use separate certs.
+          '') cfg.certs);
 
-    assertions =
-      let
-        certs = attrValues cfg.certs;
-      in
-      [
-        {
-          assertion =
-            cfg.email != null || all (certOpts: certOpts.email != null) certs;
-          message = ''
-            You must define `security.acme.certs.<name>.email` or
-            `security.acme.email` to register with the CA. Note that using
-            many different addresses for certs may trigger account rate limits.
-          '';
-        }
-        {
-          assertion = cfg.acceptTerms;
-          message = ''
-            You must accept the CA's terms of service before using
-            the ACME module by setting `security.acme.acceptTerms`
-            to `true`. For Let's Encrypt's ToS see https://letsencrypt.org/repository/
-          '';
-        }
-      ] ++ (builtins.concatLists (mapAttrsToList (cert: data: [
-        {
-          assertion = data.user == "_mkRemovedOptionModule";
-          message = ''
-            The option definition `security.acme.certs.${cert}.user' no longer has any effect; Please remove it.
-            Certificate user is now hard coded to the "acme" user. If you would
-            like another user to have access, consider adding them to the
-            "acme" group or changing security.acme.certs.${cert}.group.
-          '';
-        }
-        {
-          assertion = data.allowKeysForGroup == "_mkRemovedOptionModule";
-          message = ''
-            The option definition `security.acme.certs.${cert}.allowKeysForGroup' no longer has any effect; Please remove it.
-            All certs are readable by the configured group. If this is undesired,
-            consider changing security.acme.certs.${cert}.group to an unused group.
-          '';
-        }
-        # * in the cert value breaks building of systemd services, and makes
-        # referencing them as a user quite weird too. Best practice is to use
-        # the domain option.
-        {
-          assertion = !hasInfix "*" cert;
-          message = ''
-            The cert option path `security.acme.certs.${cert}.dnsProvider`
-            cannot contain a * character.
-            Instead, set `security.acme.certs.${cert}.domain = "${cert}";`
-            and remove the wildcard from the path.
-          '';
-        }
-        {
-          assertion = data.dnsProvider == null || data.webroot == null;
-          message = ''
-            Options `security.acme.certs.${cert}.dnsProvider` and
-            `security.acme.certs.${cert}.webroot` are mutually exclusive.
-          '';
-        }
-        {
-          assertion = data.webroot == null || data.listenHTTP == null;
-          message = ''
-            Options `security.acme.certs.${cert}.webroot` and
-            `security.acme.certs.${cert}.listenHTTP` are mutually exclusive.
-          '';
-        }
-        {
-          assertion = data.listenHTTP == null || data.dnsProvider == null;
-          message = ''
-            Options `security.acme.certs.${cert}.listenHTTP` and
-            `security.acme.certs.${cert}.dnsProvider` are mutually exclusive.
-          '';
-        }
-        {
-          assertion = data.dnsProvider != null || data.webroot != null
-            || data.listenHTTP != null;
-          message = ''
-            One of `security.acme.certs.${cert}.dnsProvider`,
-            `security.acme.certs.${cert}.webroot`, or
-            `security.acme.certs.${cert}.listenHTTP` must be provided.
-          '';
-        }
-      ]) cfg.certs))
-      ;
-
-    users.users.acme = {
-      home = "/var/lib/acme";
-      group = "acme";
-      isSystemUser = true;
-    };
-
-    users.groups.acme = { };
-
-    systemd.services = {
-      "acme-fixperms" = userMigrationService;
-    } // (mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewService)
-      certConfigs) // (optionalAttrs (cfg.preliminarySelfsigned) ({
-        "acme-selfsigned-ca" = selfsignCAService;
-      } // (mapAttrs' (cert: conf:
-        nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
-        certConfigs)));
-
-    systemd.timers =
-      mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer)
-      certConfigs;
-
-    systemd.targets =
-      let
-        # Create some targets which can be depended on to be "active" after cert renewals
-        finishedTargets = mapAttrs' (cert: conf:
-          nameValuePair "acme-finished-${cert}" {
-            wantedBy = [ "default.target" ];
-            requires = [ "acme-${cert}.service" ];
-            after = [ "acme-${cert}.service" ];
-          }) certConfigs;
-
-          # Create targets to limit the number of simultaneous account creations
-          # How it works:
-          # - Pick a "leader" cert service, which will be in charge of creating the account,
-          #   and run first (requires + after)
-          # - Make all other cert services sharing the same account wait for the leader to
-          #   finish before starting (requiredBy + before).
-          # Using a target here is fine - account creation is a one time event. Even if
-          # systemd clean --what=state is used to delete the account, so long as the user
-          # then runs one of the cert services, there won't be any issues.
-        accountTargets = mapAttrs' (hash: confs:
+        assertions =
           let
-            leader = "acme-${(builtins.head confs).cert}.service";
-            dependantServices =
-              map (conf: "acme-${conf.cert}.service") (builtins.tail confs);
+            certs = attrValues cfg.certs;
           in
-          nameValuePair "acme-account-${hash}" {
-            requiredBy = dependantServices;
-            before = dependantServices;
-            requires = [ leader ];
-            after = [ leader ];
-          }
-        ) (groupBy (conf: conf.accountHash) (attrValues certConfigs));
-      in
-      finishedTargets // accountTargets
-      ;
-  }) ];
+          [
+            {
+              assertion = cfg.email != null
+                || all (certOpts: certOpts.email != null) certs;
+              message = ''
+                You must define `security.acme.certs.<name>.email` or
+                `security.acme.email` to register with the CA. Note that using
+                many different addresses for certs may trigger account rate limits.
+              '';
+            }
+            {
+              assertion = cfg.acceptTerms;
+              message = ''
+                You must accept the CA's terms of service before using
+                the ACME module by setting `security.acme.acceptTerms`
+                to `true`. For Let's Encrypt's ToS see https://letsencrypt.org/repository/
+              '';
+            }
+          ] ++ (builtins.concatLists (mapAttrsToList (cert: data: [
+            {
+              assertion = data.user == "_mkRemovedOptionModule";
+              message = ''
+                The option definition `security.acme.certs.${cert}.user' no longer has any effect; Please remove it.
+                Certificate user is now hard coded to the "acme" user. If you would
+                like another user to have access, consider adding them to the
+                "acme" group or changing security.acme.certs.${cert}.group.
+              '';
+            }
+            {
+              assertion = data.allowKeysForGroup == "_mkRemovedOptionModule";
+              message = ''
+                The option definition `security.acme.certs.${cert}.allowKeysForGroup' no longer has any effect; Please remove it.
+                All certs are readable by the configured group. If this is undesired,
+                consider changing security.acme.certs.${cert}.group to an unused group.
+              '';
+            }
+            # * in the cert value breaks building of systemd services, and makes
+            # referencing them as a user quite weird too. Best practice is to use
+            # the domain option.
+            {
+              assertion = !hasInfix "*" cert;
+              message = ''
+                The cert option path `security.acme.certs.${cert}.dnsProvider`
+                cannot contain a * character.
+                Instead, set `security.acme.certs.${cert}.domain = "${cert}";`
+                and remove the wildcard from the path.
+              '';
+            }
+            {
+              assertion = data.dnsProvider == null || data.webroot == null;
+              message = ''
+                Options `security.acme.certs.${cert}.dnsProvider` and
+                `security.acme.certs.${cert}.webroot` are mutually exclusive.
+              '';
+            }
+            {
+              assertion = data.webroot == null || data.listenHTTP == null;
+              message = ''
+                Options `security.acme.certs.${cert}.webroot` and
+                `security.acme.certs.${cert}.listenHTTP` are mutually exclusive.
+              '';
+            }
+            {
+              assertion = data.listenHTTP == null || data.dnsProvider == null;
+              message = ''
+                Options `security.acme.certs.${cert}.listenHTTP` and
+                `security.acme.certs.${cert}.dnsProvider` are mutually exclusive.
+              '';
+            }
+            {
+              assertion = data.dnsProvider != null || data.webroot != null
+                || data.listenHTTP != null;
+              message = ''
+                One of `security.acme.certs.${cert}.dnsProvider`,
+                `security.acme.certs.${cert}.webroot`, or
+                `security.acme.certs.${cert}.listenHTTP` must be provided.
+              '';
+            }
+          ]) cfg.certs))
+          ;
+
+        users.users.acme = {
+          home = "/var/lib/acme";
+          group = "acme";
+          isSystemUser = true;
+        };
+
+        users.groups.acme = { };
+
+        systemd.services = {
+          "acme-fixperms" = userMigrationService;
+        } // (mapAttrs'
+          (cert: conf: nameValuePair "acme-${cert}" conf.renewService)
+          certConfigs) // (optionalAttrs (cfg.preliminarySelfsigned) ({
+            "acme-selfsigned-ca" = selfsignCAService;
+          } // (mapAttrs' (cert: conf:
+            nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
+            certConfigs)));
+
+        systemd.timers =
+          mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer)
+          certConfigs;
+
+        systemd.targets =
+          let
+            # Create some targets which can be depended on to be "active" after cert renewals
+            finishedTargets = mapAttrs' (cert: conf:
+              nameValuePair "acme-finished-${cert}" {
+                wantedBy = [ "default.target" ];
+                requires = [ "acme-${cert}.service" ];
+                after = [ "acme-${cert}.service" ];
+              }) certConfigs;
+
+              # Create targets to limit the number of simultaneous account creations
+              # How it works:
+              # - Pick a "leader" cert service, which will be in charge of creating the account,
+              #   and run first (requires + after)
+              # - Make all other cert services sharing the same account wait for the leader to
+              #   finish before starting (requiredBy + before).
+              # Using a target here is fine - account creation is a one time event. Even if
+              # systemd clean --what=state is used to delete the account, so long as the user
+              # then runs one of the cert services, there won't be any issues.
+            accountTargets = mapAttrs' (hash: confs:
+              let
+                leader = "acme-${(builtins.head confs).cert}.service";
+                dependantServices =
+                  map (conf: "acme-${conf.cert}.service") (builtins.tail confs);
+              in
+              nameValuePair "acme-account-${hash}" {
+                requiredBy = dependantServices;
+                before = dependantServices;
+                requires = [ leader ];
+                after = [ leader ];
+              }
+            ) (groupBy (conf: conf.accountHash) (attrValues certConfigs));
+          in
+          finishedTargets // accountTargets
+          ;
+      })
+    ];
 
   meta = {
     maintainers = lib.teams.acme.members;

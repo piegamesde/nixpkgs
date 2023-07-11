@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
     pkg-config
     gtk-doc
     docbook-xsl-nons
-  ] ++ lib.optionals
-    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
-    ;
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [ icu ];
 

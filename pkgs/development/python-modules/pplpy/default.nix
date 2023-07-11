@@ -28,7 +28,8 @@ buildPythonPackage rec {
     ppl
   ];
 
-  nativeBuildInputs = [ sphinx # docbuild, called by make
+  nativeBuildInputs = [
+      sphinx # docbuild, called by make
     ];
 
   propagatedBuildInputs = [

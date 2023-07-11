@@ -82,8 +82,9 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  makeFlags = lib.optionals (stdenv.buildPlatform
-    != stdenv.hostPlatform) [ "TARGET=${stdenv.hostPlatform.config}" ];
+  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "TARGET=${stdenv.hostPlatform.config}"
+    ];
 
   preBuild = ''
     export buildJobs=$NIX_BUILD_CORES

@@ -267,7 +267,9 @@ lib.makeScope pkgs.newScope (self:
         sourceRoot = "php-${version}/ext/pdo_oci";
 
         buildInputs = [ pkgs.oracle-instantclient ];
-        configureFlags = [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ];
+        configureFlags = [
+            "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib"
+          ];
 
         internalDeps = [ php.extensions.pdo ];
 
@@ -380,9 +382,9 @@ lib.makeScope pkgs.newScope (self:
         }
         {
           name = "iconv";
-          configureFlags = [ "--with-iconv${
-              lib.optionalString stdenv.isDarwin "=${libiconv}"
-            }" ];
+          configureFlags = [
+              "--with-iconv${lib.optionalString stdenv.isDarwin "=${libiconv}"}"
+            ];
           doCheck = false;
         }
         {
@@ -415,8 +417,9 @@ lib.makeScope pkgs.newScope (self:
             "LDAP_DIR=${openldap.dev}"
             "LDAP_INCDIR=${openldap.dev}/include"
             "LDAP_LIBDIR=${openldap.out}/lib"
-          ] ++ lib.optionals
-            stdenv.isLinux [ "--with-ldap-sasl=${cyrus_sasl.dev}" ];
+          ] ++ lib.optionals stdenv.isLinux [
+              "--with-ldap-sasl=${cyrus_sasl.dev}"
+            ];
           doCheck = false;
         }
         {
@@ -449,17 +452,19 @@ lib.makeScope pkgs.newScope (self:
             # The configure script builds a config.h which is never
             # included. Let's include it in the main header file
             # included by all .c-files.
-          patches = [ (pkgs.writeText "mysqlnd_config.patch" ''
-            --- a/ext/mysqlnd/mysqlnd.h
-            +++ b/ext/mysqlnd/mysqlnd.h
-            @@ -1,3 +1,6 @@
-            +#ifdef HAVE_CONFIG_H
-            +#include "config.h"
-            +#endif
-             /*
-               +----------------------------------------------------------------------+
-               | Copyright (c) The PHP Group                                          |
-          '') ];
+          patches = [
+              (pkgs.writeText "mysqlnd_config.patch" ''
+                --- a/ext/mysqlnd/mysqlnd.h
+                +++ b/ext/mysqlnd/mysqlnd.h
+                @@ -1,3 +1,6 @@
+                +#ifdef HAVE_CONFIG_H
+                +#include "config.h"
+                +#endif
+                 /*
+                   +----------------------------------------------------------------------+
+                   | Copyright (c) The PHP Group                                          |
+              '')
+            ];
         }
         {
           name = "opcache";

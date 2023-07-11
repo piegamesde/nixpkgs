@@ -10,14 +10,16 @@ let
   cfg = config.hardware.ksm;
 
 in {
-  imports = [ (mkRenamedOptionModule [
-    "hardware"
-    "enableKSM"
-  ] [
-    "hardware"
-    "ksm"
-    "enable"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "hardware"
+        "enableKSM"
+      ] [
+        "hardware"
+        "ksm"
+        "enable"
+      ])
+    ];
 
   options.hardware.ksm = {
     enable = mkEnableOption (lib.mdDoc "Kernel Same-Page Merging");

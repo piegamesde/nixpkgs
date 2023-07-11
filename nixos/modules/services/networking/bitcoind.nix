@@ -275,9 +275,9 @@ in {
         };
       } ))) eachBitcoind;
 
-    systemd.tmpfiles.rules = flatten (mapAttrsToList
-      (bitcoindName: cfg: [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ])
-      eachBitcoind);
+    systemd.tmpfiles.rules = flatten (mapAttrsToList (bitcoindName: cfg: [
+        "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
+      ]) eachBitcoind);
 
     users.users = mapAttrs' (bitcoindName: cfg:
       (nameValuePair "bitcoind-${bitcoindName}" {

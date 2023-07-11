@@ -83,9 +83,10 @@ stdenv.mkDerivation rec {
     Cocoa
     CoreServices
     ScreenSaver
-  ] ++ lib.optionals (stdenv.isDarwin && darwin.apple_sdk.frameworks
-    ? UserNotifications) [ darwin.apple_sdk.frameworks.UserNotifications ]
-    ++ lib.optionals stdenv.isLinux [
+  ] ++ lib.optionals
+    (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications) [
+      darwin.apple_sdk.frameworks.UserNotifications
+    ] ++ lib.optionals stdenv.isLinux [
       util-linux
       libselinux
       libsepol

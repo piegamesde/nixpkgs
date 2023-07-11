@@ -67,13 +67,15 @@ lib.trivial.pipe super [
   }))
 
   (patchExtension "freon@UshakovVasilii_Github.yahoo.com" (old: {
-    patches = [ (substituteAll {
-      src =
-        ./extensionOverridesPatches/freon_at_UshakovVasilii_Github.yahoo.com.patch;
-      inherit hddtemp liquidctl lm_sensors procps smartmontools;
-      netcat = netcat-gnu;
-      nvmecli = nvme-cli;
-    }) ];
+    patches = [
+        (substituteAll {
+          src =
+            ./extensionOverridesPatches/freon_at_UshakovVasilii_Github.yahoo.com.patch;
+          inherit hddtemp liquidctl lm_sensors procps smartmontools;
+          netcat = netcat-gnu;
+          nvmecli = nvme-cli;
+        })
+      ];
   }))
 
   (patchExtension "gnome-shell-screenshot@ttll.de" (old: {
@@ -87,24 +89,30 @@ lib.trivial.pipe super [
   }))
 
   (patchExtension "pano@elhan.io" (old: {
-    patches = [ (substituteAll {
-      src = ./extensionOverridesPatches/pano_at_elhan.io.patch;
-      inherit gsound libgda;
-    }) ];
+    patches = [
+        (substituteAll {
+          src = ./extensionOverridesPatches/pano_at_elhan.io.patch;
+          inherit gsound libgda;
+        })
+      ];
   }))
 
   (patchExtension "tophat@fflewddur.github.io" (old: {
-    patches = [ (substituteAll {
-      src = ./extensionOverridesPatches/tophat_at_fflewddur.github.io.patch;
-      gtop_path = "${libgtop}/lib/girepository-1.0";
-    }) ];
+    patches = [
+        (substituteAll {
+          src = ./extensionOverridesPatches/tophat_at_fflewddur.github.io.patch;
+          gtop_path = "${libgtop}/lib/girepository-1.0";
+        })
+      ];
   }))
 
   (patchExtension "Vitals@CoreCoding.com" (old: {
-    patches = [ (substituteAll {
-      src = ./extensionOverridesPatches/vitals_at_corecoding.com.patch;
-      gtop_path = "${libgtop}/lib/girepository-1.0";
-    }) ];
+    patches = [
+        (substituteAll {
+          src = ./extensionOverridesPatches/vitals_at_corecoding.com.patch;
+          gtop_path = "${libgtop}/lib/girepository-1.0";
+        })
+      ];
   }))
 
   (patchExtension "unite@hardpixel.eu" (old: {

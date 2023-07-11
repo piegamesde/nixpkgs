@@ -95,11 +95,13 @@ let
   };
 
 in {
-  imports = [ (mkRemovedOptionModule [
-    "services"
-    "openvpn"
-    "enable"
-  ] "") ];
+  imports = [
+      (mkRemovedOptionModule [
+        "services"
+        "openvpn"
+        "enable"
+      ] "")
+    ];
 
     ###### interface
 

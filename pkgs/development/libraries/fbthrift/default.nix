@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-  cmakeFlags = lib.optionals
-    stdenv.isDarwin [ "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
+  cmakeFlags = lib.optionals stdenv.isDarwin [
+      "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
     ];
 
   buildInputs = [

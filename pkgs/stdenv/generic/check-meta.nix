@@ -608,10 +608,12 @@ let
         let
           hasOutput = out: builtins.elem out outputs;
         in
-        [ (lib.findFirst hasOutput null ([
-          "bin"
-          "out"
-        ] ++ outputs)) ] ++ lib.optional (hasOutput "man") "man"
+        [
+          (lib.findFirst hasOutput null ([
+            "bin"
+            "out"
+          ] ++ outputs))
+        ] ++ lib.optional (hasOutput "man") "man"
         ;
     } // attrs.meta or { }
     # Fill `meta.position` to identify the source location of the package.

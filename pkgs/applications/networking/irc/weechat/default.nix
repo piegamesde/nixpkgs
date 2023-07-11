@@ -125,9 +125,9 @@ stdenv.mkDerivation rec {
         else
           "OFF"
       }"
-    ] ++ optionals
-    stdenv.isDarwin [ "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib" ] ++ map
-    (p:
+    ] ++ optionals stdenv.isDarwin [
+      "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib"
+    ] ++ map (p:
       "-D${p.cmakeFlag}=" + (if p.enabled then
         "ON"
       else

@@ -70,19 +70,21 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "lorien";
-    exec = "lorien";
-    icon = "lorien";
-    desktopName = "Lorien";
-    genericName = "Whiteboard";
-    comment = meta.description;
-    categories = [
-      "Graphics"
-      "Office"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "lorien";
+        exec = "lorien";
+        icon = "lorien";
+        desktopName = "Lorien";
+        genericName = "Whiteboard";
+        comment = meta.description;
+        categories = [
+          "Graphics"
+          "Office"
+        ];
+        keywords = [ "whiteboard" ];
+      })
     ];
-    keywords = [ "whiteboard" ];
-  }) ];
 
   buildPhase = ''
     runHook preBuild

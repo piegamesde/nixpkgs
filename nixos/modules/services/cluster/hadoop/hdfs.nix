@@ -215,7 +215,8 @@ in {
       environment.HTTPFS_TEMP = cfg.hdfs.httpfs.tempPath;
       preStart = "mkdir -p $HTTPFS_TEMP";
       User = "httpfs";
-      allowedTCPPorts = [ 14000 # httpfs.http.port
+      allowedTCPPorts = [
+          14000 # httpfs.http.port
         ];
     })
 

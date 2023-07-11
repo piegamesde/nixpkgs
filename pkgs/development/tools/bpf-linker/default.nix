@@ -43,7 +43,9 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [
+        nickcao
+      ];
       # llvm-sys crate locates llvm by calling llvm-config
       # which is not available when cross compiling
     broken = stdenv.buildPlatform != stdenv.hostPlatform;

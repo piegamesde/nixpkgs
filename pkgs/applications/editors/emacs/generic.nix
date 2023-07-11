@@ -129,9 +129,9 @@ let
   libGccJitLibraryPaths = [
     "${lib.getLib libgccjit}/lib/gcc"
     "${lib.getLib stdenv.cc.libc}/lib"
-  ] ++ lib.optionals (stdenv.cc ? cc.libgcc) [ "${
-      lib.getLib stdenv.cc.cc.libgcc
-    }/lib" ];
+  ] ++ lib.optionals (stdenv.cc ? cc.libgcc) [
+      "${lib.getLib stdenv.cc.cc.libgcc}/lib"
+    ];
 in
 (if withMacport then
   llvmPackages_6.stdenv
@@ -145,25 +145,26 @@ else
         (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox";
       inherit version;
 
-      patches = patches fetchpatch
-        ++ lib.optionals nativeComp [ (substituteAll {
-          src =
-            if lib.versionOlder finalAttrs.version "29" then
-              ./native-comp-driver-options-28.patch
-            else
-              ./native-comp-driver-options.patch
-            ;
-          backendPath = (lib.concatStringsSep " "
-            (builtins.map (x: ''"-B${x}"'') ([
-              # Paths necessary so the JIT compiler finds its libraries:
-              "${lib.getLib libgccjit}/lib"
-            ] ++ libGccJitLibraryPaths ++ [
-              # Executable paths necessary for compilation (ld, as):
-              "${lib.getBin stdenv.cc.cc}/bin"
-              "${lib.getBin stdenv.cc.bintools}/bin"
-              "${lib.getBin stdenv.cc.bintools.bintools}/bin"
-            ])));
-        }) ];
+      patches = patches fetchpatch ++ lib.optionals nativeComp [
+          (substituteAll {
+            src =
+              if lib.versionOlder finalAttrs.version "29" then
+                ./native-comp-driver-options-28.patch
+              else
+                ./native-comp-driver-options.patch
+              ;
+            backendPath = (lib.concatStringsSep " "
+              (builtins.map (x: ''"-B${x}"'') ([
+                # Paths necessary so the JIT compiler finds its libraries:
+                "${lib.getLib libgccjit}/lib"
+              ] ++ libGccJitLibraryPaths ++ [
+                # Executable paths necessary for compilation (ld, as):
+                "${lib.getBin stdenv.cc.cc}/bin"
+                "${lib.getBin stdenv.cc.bintools}/bin"
+                "${lib.getBin stdenv.cc.bintools.bintools}/bin"
+              ])));
+          })
+        ];
 
       src =
         if macportVersion != null then

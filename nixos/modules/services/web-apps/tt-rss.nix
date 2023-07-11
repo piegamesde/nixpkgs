@@ -585,16 +585,18 @@ in {
     };
   };
 
-  imports = [ (mkRemovedOptionModule [
-    "services"
-    "tt-rss"
-    "checkForUpdates"
-  ] ''
-    This option was removed because setting this to true will cause TT-RSS
-    to be unable to start if an automatic update of the code in
-    services.tt-rss.root leads to a database schema upgrade that is not
-    supported by the code active in the Nix store.
-  '') ];
+  imports = [
+      (mkRemovedOptionModule [
+        "services"
+        "tt-rss"
+        "checkForUpdates"
+      ] ''
+        This option was removed because setting this to true will cause TT-RSS
+        to be unable to start if an automatic update of the code in
+        services.tt-rss.root leads to a database schema upgrade that is not
+        supported by the code active in the Nix store.
+      '')
+    ];
 
     ###### implementation
 

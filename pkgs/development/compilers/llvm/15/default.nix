@@ -264,8 +264,9 @@ in let
         extraPackages = [
           libcxx.cxxabi
           targetLlvmLibraries.compiler-rt
-        ] ++ lib.optionals
-          (!stdenv.targetPlatform.isWasm) [ targetLlvmLibraries.libunwind ];
+        ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
+            targetLlvmLibraries.libunwind
+          ];
         extraBuildCommands = mkExtraBuildCommands cc;
         nixSupport.cc-cflags = [
           "-rtlib=compiler-rt"

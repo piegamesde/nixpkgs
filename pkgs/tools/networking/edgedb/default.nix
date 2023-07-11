@@ -61,11 +61,13 @@ rustPlatform.buildRustPackage rec {
 
   checkFeatures = [ ];
 
-  patches = [ (substituteAll {
-    src = ./0001-dynamically-patchelf-binaries.patch;
-    inherit patchelf;
-    dynamicLinker = stdenv.cc.bintools.dynamicLinker;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./0001-dynamically-patchelf-binaries.patch;
+        inherit patchelf;
+        dynamicLinker = stdenv.cc.bintools.dynamicLinker;
+      })
+    ];
 
   doCheck = false;
 

@@ -114,10 +114,11 @@ in {
     ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ (pkgs.runCommand
-      "captive-browser-desktop-item" { } ''
-        install -Dm444 -t $out/share/applications ${desktopItem}/share/applications/*.desktop
-      '') ];
+    environment.systemPackages = [
+        (pkgs.runCommand "captive-browser-desktop-item" { } ''
+          install -Dm444 -t $out/share/applications ${desktopItem}/share/applications/*.desktop
+        '')
+      ];
 
     programs.captive-browser.dhcp-dns =
       let

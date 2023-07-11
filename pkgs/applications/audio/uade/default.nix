@@ -55,12 +55,14 @@ stdenv.mkDerivation rec {
     lame
     flac
     vorbis-tools
-  ] ++ lib.optionals withWriteAudio [ (python3.withPackages (p:
-    with p; [
-      pillow
-      tqdm
-      more-itertools
-    ])) ];
+  ] ++ lib.optionals withWriteAudio [
+      (python3.withPackages (p:
+        with p; [
+          pillow
+          tqdm
+          more-itertools
+        ]))
+    ];
 
   configureFlags = [
     "--bencode-tools-prefix=${bencodetools}"

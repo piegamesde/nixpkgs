@@ -62,12 +62,14 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "JQuake";
-    desktopName = "JQuake";
-    exec = "JQuake";
-    comment = "Real-time earthquake map of Japan";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "JQuake";
+        desktopName = "JQuake";
+        exec = "JQuake";
+        comment = "Real-time earthquake map of Japan";
+      })
+    ];
 
   meta = with lib; {
     description = "Real-time earthquake map of Japan";

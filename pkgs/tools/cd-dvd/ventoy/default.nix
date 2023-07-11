@@ -104,17 +104,19 @@ stdenv.mkDerivation (finalAttrs: {
     ++ optional withGtk3 gtk3 ++ optional withNtfs ntfs3g
     ++ optional withXfs xfsprogs ++ optional withQt5 qtbase;
 
-  desktopItems = [ (makeDesktopItem {
-    name = "Ventoy";
-    desktopName = "Ventoy";
-    comment =
-      "Tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files";
-    icon = "VentoyLogo";
-    exec = "ventoy-gui";
-    terminal = false;
-    categories = [ "Utility" ];
-    startupNotify = true;
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "Ventoy";
+        desktopName = "Ventoy";
+        comment =
+          "Tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files";
+        icon = "VentoyLogo";
+        exec = "ventoy-gui";
+        terminal = false;
+        categories = [ "Utility" ];
+        startupNotify = true;
+      })
+    ];
 
   dontConfigure = true;
   dontBuild = true;

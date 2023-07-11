@@ -390,7 +390,9 @@ in {
 
       extraGrubInstallArgs = mkOption {
         default = [ ];
-        example = [ "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2" ];
+        example = [
+            "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2"
+          ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional arguments passed to `grub-install`.

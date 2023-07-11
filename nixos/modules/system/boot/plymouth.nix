@@ -153,8 +153,12 @@ in {
     systemd.services.plymouth-poweroff.wantedBy = [ "poweroff.target" ];
     systemd.services.plymouth-reboot.wantedBy = [ "reboot.target" ];
     systemd.services.plymouth-read-write.wantedBy = [ "sysinit.target" ];
-    systemd.services.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ];
-    systemd.paths.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ];
+    systemd.services.systemd-ask-password-plymouth.wantedBy = [
+        "multi-user.target"
+      ];
+    systemd.paths.systemd-ask-password-plymouth.wantedBy = [
+        "multi-user.target"
+      ];
 
       # Prevent Plymouth taking over the screen during system updates.
     systemd.services.plymouth-start.restartIfChanged = false;
@@ -254,12 +258,13 @@ in {
 
       # Insert required udev rules. We take stage 2 systemd because the udev
       # rules are only generated when building with logind.
-    boot.initrd.services.udev.packages = [ (pkgs.runCommand
-      "initrd-plymouth-udev-rules" { } ''
-        mkdir -p $out/etc/udev/rules.d
-        cp ${config.systemd.package.out}/lib/udev/rules.d/{70-uaccess,71-seat}.rules $out/etc/udev/rules.d
-        sed -i '/loginctl/d' $out/etc/udev/rules.d/71-seat.rules
-      '') ];
+    boot.initrd.services.udev.packages = [
+        (pkgs.runCommand "initrd-plymouth-udev-rules" { } ''
+          mkdir -p $out/etc/udev/rules.d
+          cp ${config.systemd.package.out}/lib/udev/rules.d/{70-uaccess,71-seat}.rules $out/etc/udev/rules.d
+          sed -i '/loginctl/d' $out/etc/udev/rules.d/71-seat.rules
+        '')
+      ];
 
     boot.initrd.extraUtilsCommands =
       lib.mkIf (!config.boot.initrd.systemd.enable) ''

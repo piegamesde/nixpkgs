@@ -1963,8 +1963,9 @@ in {
         RuntimeDirectory = "grafana";
         RuntimeDirectoryMode = "0755";
           # Hardening
-        AmbientCapabilities = lib.mkIf
-          (cfg.settings.server.http_port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024) [
+            "CAP_NET_BIND_SERVICE"
+          ];
         CapabilityBoundingSet =
           if (cfg.settings.server.http_port < 1024) then
             [ "CAP_NET_BIND_SERVICE" ]
@@ -2000,8 +2001,9 @@ in {
         SystemCallFilter = [
           "@system-service"
           "~@privileged"
-        ] ++ lib.optionals
-          (cfg.settings.server.protocol == "socket") [ "@chown" ];
+        ] ++ lib.optionals (cfg.settings.server.protocol == "socket") [
+            "@chown"
+          ];
         UMask = "0027";
       };
       preStart = ''

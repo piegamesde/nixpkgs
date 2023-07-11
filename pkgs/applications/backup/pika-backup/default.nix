@@ -36,10 +36,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-Va7qLC6WvsLmG9JVmdT1FdIlWP4W/EFmsy7JOagQ+X8=";
   };
 
-  patches = [ (substituteAll {
-    src = ./borg-path.patch;
-    borg = "${borgbackup}/bin/borg";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./borg-path.patch;
+        borg = "${borgbackup}/bin/borg";
+      })
+    ];
 
   postPatch = ''
     patchShebangs build-aux

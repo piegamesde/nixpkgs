@@ -29,12 +29,14 @@ stdenv.mkDerivation rec {
     ruby
   ];
 
-  patches = [ (fetchpatch {
-    name = "python3-managementgen";
-    url =
-      "https://github.com/apache/qpid-cpp/commit/0e558866e90ef3d5becbd2f6d5630a6a6dc43a5d.patch";
-    hash = "sha256-pV6xx8Nrys/ZxIO0Z/fARH0ELqcSdTXLPsVXYUd3f70=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "python3-managementgen";
+        url =
+          "https://github.com/apache/qpid-cpp/commit/0e558866e90ef3d5becbd2f6d5630a6a6dc43a5d.patch";
+        hash = "sha256-pV6xx8Nrys/ZxIO0Z/fARH0ELqcSdTXLPsVXYUd3f70=";
+      })
+    ];
 
     # the subdir managementgen wants to install python stuff in ${python} and
     # the installation tries to create some folders in /var

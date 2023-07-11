@@ -592,7 +592,8 @@ in {
       };
     };
 
-    boot.kernelParams = lib.mkIf
-      (config.boot.resumeDevice != "") [ "resume=${config.boot.resumeDevice}" ];
+    boot.kernelParams = lib.mkIf (config.boot.resumeDevice != "") [
+        "resume=${config.boot.resumeDevice}"
+      ];
   };
 }

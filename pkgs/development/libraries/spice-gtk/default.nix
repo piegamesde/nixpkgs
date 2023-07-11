@@ -92,9 +92,9 @@ stdenv.mkDerivation rec {
     python3.pkgs.pyparsing
     python3.pkgs.six
     vala
-  ] ++ lib.optionals
-    (stdenv.buildPlatform != stdenv.hostPlatform) [ mesonEmulatorHook ]
-    ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
+  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ] ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
 
   propagatedBuildInputs = [
     gst_all_1.gst-plugins-base
@@ -138,8 +138,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isLinux) [
       "-Dlibcap-ng=disabled"
       "-Degl=disabled"
-    ] ++ lib.optionals
-    stdenv.hostPlatform.isMusl [ "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
+    ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+      "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
     ];
 
   postPatch = ''

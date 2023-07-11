@@ -26,7 +26,8 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-HOyExVKOqZ4OeNM1/AiXQeiUV+EbSJLEjWEibm07ff8=";
   };
 
-  patches = [ ./fix-restart.patch # https://github.com/NixOS/nixpkgs/issues/139568
+  patches = [
+      ./fix-restart.patch # https://github.com/NixOS/nixpkgs/issues/139568
     ];
 
   postPatch = ''

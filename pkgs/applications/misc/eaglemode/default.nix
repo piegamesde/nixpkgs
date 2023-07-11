@@ -88,19 +88,21 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    exec = pname;
-    icon = pname;
-    desktopName = "Eagle Mode";
-    genericName = meta.description;
-    categories = [
-      "Game"
-      "Graphics"
-      "System"
-      "Utility"
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = pname;
+        icon = pname;
+        desktopName = "Eagle Mode";
+        genericName = meta.description;
+        categories = [
+          "Game"
+          "Graphics"
+          "System"
+          "Utility"
+        ];
+      })
     ];
-  }) ];
 
   meta = with lib; {
     homepage = "https://eaglemode.sourceforge.net";

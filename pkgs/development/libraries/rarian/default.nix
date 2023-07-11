@@ -31,7 +31,9 @@ stdenv.mkDerivation rec {
     perl
     XMLParser
   ]);
-  configureFlags = [ "--with-xml-catalog=${docbook_xml_dtd_42}/xml/dtd/docbook/docbook.cat" ];
+  configureFlags = [
+      "--with-xml-catalog=${docbook_xml_dtd_42}/xml/dtd/docbook/docbook.cat"
+    ];
 
   meta = with lib; {
     description =

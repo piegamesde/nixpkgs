@@ -652,13 +652,16 @@ in {
             "AF_INET6"
             "AF_NETLINK"
             "AF_UNIX"
-          ] ++ optionals
-            (any useComponent componentsUsingBluetooth) [ "AF_BLUETOOTH" ];
+          ] ++ optionals (any useComponent componentsUsingBluetooth) [
+              "AF_BLUETOOTH"
+            ];
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
-          SupplementaryGroups = optionals
-            (any useComponent componentsUsingSerialDevices) [ "dialout" ];
+          SupplementaryGroups =
+            optionals (any useComponent componentsUsingSerialDevices) [
+              "dialout"
+            ];
           SystemCallArchitectures = "native";
           SystemCallFilter = [
             "@system-service"
@@ -667,7 +670,8 @@ in {
           UMask = "0077";
         }
         ;
-      path = [ "/run/wrappers" # needed for ping
+      path = [
+          "/run/wrappers" # needed for ping
         ];
     };
 

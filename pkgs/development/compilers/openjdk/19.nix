@@ -143,8 +143,9 @@ let
           "https://github.com/openjdk/jdk/commit/9341d135b855cc208d48e47d30cd90aafa354c36.patch";
         hash = "sha256-Qcm3ZmGCOYLZcskNjj7DYR85R4v07vYvvavrVOYL8vg=";
       })
-    ] ++ lib.optionals
-      (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals (!headless && enableGnome2) [
+        ./swing-use-gtk-jdk13.patch
+      ];
 
     postPatch = ''
       chmod +x configure

@@ -57,30 +57,32 @@ stdenv.mkDerivation rec {
     "IPE_NO_SPELLCHECK=1" # qtSpell is not yet packaged
   ];
 
-  qtWrapperArgs = lib.optional withTeXLive [ "--prefix PATH : ${
-      lib.makeBinPath [ texlive ]
-    }" ];
+  qtWrapperArgs = lib.optional withTeXLive [
+      "--prefix PATH : ${lib.makeBinPath [ texlive ]}"
+    ];
 
   enableParallelBuilding = true;
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    desktopName = "Ipe";
-    genericName = "Drawing editor";
-    comment = "A drawing editor for creating figures in PDF format";
-    exec = "ipe";
-    icon = "ipe";
-    mimeTypes = [
-      "text/xml"
-      "application/pdf"
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        desktopName = "Ipe";
+        genericName = "Drawing editor";
+        comment = "A drawing editor for creating figures in PDF format";
+        exec = "ipe";
+        icon = "ipe";
+        mimeTypes = [
+          "text/xml"
+          "application/pdf"
+        ];
+        categories = [
+          "Graphics"
+          "Qt"
+        ];
+        startupNotify = true;
+        startupWMClass = "ipe";
+      })
     ];
-    categories = [
-      "Graphics"
-      "Qt"
-    ];
-    startupNotify = true;
-    startupWMClass = "ipe";
-  }) ];
 
   postInstall = ''
     mkdir -p $out/share/icons/hicolor/128x128/apps

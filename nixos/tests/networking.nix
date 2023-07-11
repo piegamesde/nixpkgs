@@ -522,7 +522,9 @@ let
           ...
         }:
         with pkgs.lib; {
-          environment.systemPackages = [ pkgs.iptables ]; # to debug firewall rules
+          environment.systemPackages = [
+              pkgs.iptables
+            ]; # to debug firewall rules
           virtualisation.vlans = [ 1 ];
           networking = {
             useNetworkd = networkd;

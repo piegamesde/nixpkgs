@@ -96,7 +96,9 @@
       ++ lib.optionals (!enableShared) [
         "no_dynamic_libs"
         "no_dynamic_ghc"
-      ] ++ lib.optionals (!enableProfiledLibs) [ "no_profiled_libs" ]
+      ] ++ lib.optionals (!enableProfiledLibs) [
+        "no_profiled_libs"
+      ]
       # While split sections are now enabled by default in ghc 8.8 for windows,
       # they seem to lead to `too many sections` errors when building base for
       # profiling.
@@ -184,10 +186,11 @@ let
     # documentation) makes the GHC RTS able to load static libraries, which may
     # be needed for TemplateHaskell. This solution was described in
     # https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
-    lib.optionals
-    enableRelocatedStaticLibs [ "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs" ]
-    ++ lib.optionals
-    targetPlatform.useAndroidPrebuilt [ "*.*.ghc.c.opts += -optc-std=gnu99" ];
+    lib.optionals enableRelocatedStaticLibs [
+      "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs"
+    ] ++ lib.optionals targetPlatform.useAndroidPrebuilt [
+      "*.*.ghc.c.opts += -optc-std=gnu99"
+    ];
 
     # GHC's build system hadrian built from the GHC-to-build's source tree
     # using our bootstrap GHC.
@@ -201,7 +204,9 @@ let
   libDeps =
     platform:
     lib.optional enableTerminfo ncurses
-    ++ lib.optionals (!targetPlatform.isGhcjs) [ libffi ]
+    ++ lib.optionals (!targetPlatform.isGhcjs) [
+      libffi
+    ]
     # Bindist configure script fails w/o elfutils in linker search path
     # https://gitlab.haskell.org/ghc/ghc/-/issues/22081
     ++ lib.optional enableDwarf elfutils
@@ -212,11 +217,12 @@ let
 
     # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
     # GHC doesn't seem to have {LLC,OPT}_HOST
-  toolsForTarget = [ (if targetPlatform.isGhcjs then
-    pkgsBuildTarget.emscripten
-  else
-    pkgsBuildTarget.targetPackages.stdenv.cc) ]
-    ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
+  toolsForTarget = [
+      (if targetPlatform.isGhcjs then
+        pkgsBuildTarget.emscripten
+      else
+        pkgsBuildTarget.targetPackages.stdenv.cc)
+    ] ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
 
   targetCC = builtins.head toolsForTarget;
 
@@ -399,15 +405,15 @@ stdenv.mkDerivation ({
     != "glibc" && !targetPlatform.isWindows) [
       "--with-iconv-includes=${libiconv}/include"
       "--with-iconv-libraries=${libiconv}/lib"
-    ] ++ lib.optionals (targetPlatform
-      != hostPlatform) [ "--enable-bootstrap-with-devel-snapshot" ]
-    ++ lib.optionals useLdGold [
+    ] ++ lib.optionals (targetPlatform != hostPlatform) [
+      "--enable-bootstrap-with-devel-snapshot"
+    ] ++ lib.optionals useLdGold [
       "CFLAGS=-fuse-ld=gold"
       "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
       "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
-    ] ++ lib.optionals
-    (disableLargeAddressSpace) [ "--disable-large-address-space" ]
-    ++ lib.optionals enableDwarf [
+    ] ++ lib.optionals (disableLargeAddressSpace) [
+      "--disable-large-address-space"
+    ] ++ lib.optionals enableDwarf [
       "--enable-dwarf-unwind"
       "--with-libdw-includes=${lib.getDev elfutils}/include"
       "--with-libdw-libraries=${lib.getLib elfutils}/lib"
@@ -432,9 +438,9 @@ stdenv.mkDerivation ({
     m4
     # Python is used in a few scripts invoked by hadrian to generate e.g. rts headers.
     python3
-  ] ++ lib.optionals
-    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
-    ++ lib.optionals enableDocs [ sphinx ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      autoSignDarwinBinariesHook
+    ] ++ lib.optionals enableDocs [ sphinx ];
 
     # For building runtime libs
   depsBuildTarget = toolsForTarget;
@@ -483,7 +489,9 @@ stdenv.mkDerivation ({
 
   checkTarget = "test";
 
-  hardeningDisable = [ "format" ]
+  hardeningDisable = [
+      "format"
+    ]
     # In nixpkgs, musl based builds currently enable `pie` hardening by default
     # (see `defaultHardeningFlags` in `make-derivation.nix`).
     # But GHC cannot currently produce outputs that are ready for `-pie` linking.

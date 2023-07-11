@@ -29,15 +29,19 @@ let
         (assertValueOneOf "ManageForeignRoutes" boolValues)
       ];
 
-      sectionDHCPv4 = checkUnitConfig "DHCPv4" [ (assertOnlyFields [
-        "DUIDType"
-        "DUIDRawData"
-      ]) ];
+      sectionDHCPv4 = checkUnitConfig "DHCPv4" [
+          (assertOnlyFields [
+            "DUIDType"
+            "DUIDRawData"
+          ])
+        ];
 
-      sectionDHCPv6 = checkUnitConfig "DHCPv6" [ (assertOnlyFields [
-        "DUIDType"
-        "DUIDRawData"
-      ]) ];
+      sectionDHCPv6 = checkUnitConfig "DHCPv6" [
+          (assertOnlyFields [
+            "DUIDType"
+            "DUIDRawData"
+          ])
+        ];
     };
 
     link = {
@@ -1281,18 +1285,19 @@ let
         (assertRange "PacketLimit" 0 4294967294)
       ];
 
-      sectionTokenBucketFilter =
-        checkUnitConfig "TokenBucketFilter" [ (assertOnlyFields [
-          "Parent"
-          "Handle"
-          "LatencySec"
-          "LimitBytes"
-          "BurstBytes"
-          "Rate"
-          "MPUBytes"
-          "PeakRate"
-          "MTUBytes"
-        ]) ];
+      sectionTokenBucketFilter = checkUnitConfig "TokenBucketFilter" [
+          (assertOnlyFields [
+            "Parent"
+            "Handle"
+            "LatencySec"
+            "LimitBytes"
+            "BurstBytes"
+            "Rate"
+            "MPUBytes"
+            "PeakRate"
+            "MTUBytes"
+          ])
+        ];
 
       sectionPIE = checkUnitConfig "PIE" [
         (assertOnlyFields [
@@ -1334,11 +1339,13 @@ let
           (assertInt "PerturbPeriodSec")
         ];
 
-      sectionBFIFO = checkUnitConfig "BFIFO" [ (assertOnlyFields [
-        "Parent"
-        "Handle"
-        "LimitBytes"
-      ]) ];
+      sectionBFIFO = checkUnitConfig "BFIFO" [
+          (assertOnlyFields [
+            "Parent"
+            "Handle"
+            "LimitBytes"
+          ])
+        ];
 
       sectionPFIFO = checkUnitConfig "PFIFO" [
         (assertOnlyFields [
@@ -1360,10 +1367,12 @@ let
         (assertRange "PacketLimit" 0 4294967294)
       ];
 
-      sectionPFIFOFast = checkUnitConfig "PFIFOFast" [ (assertOnlyFields [
-        "Parent"
-        "Handle"
-      ]) ];
+      sectionPFIFOFast = checkUnitConfig "PFIFOFast" [
+          (assertOnlyFields [
+            "Parent"
+            "Handle"
+          ])
+        ];
 
       sectionCAKE = checkUnitConfig "CAKE" [
         (assertOnlyFields [
@@ -1431,17 +1440,21 @@ let
       ];
 
       sectionDeficitRoundRobinScheduler =
-        checkUnitConfig "DeficitRoundRobinScheduler" [ (assertOnlyFields [
-          "Parent"
-          "Handle"
-        ]) ];
+        checkUnitConfig "DeficitRoundRobinScheduler" [
+          (assertOnlyFields [
+            "Parent"
+            "Handle"
+          ])
+        ];
 
       sectionDeficitRoundRobinSchedulerClass =
-        checkUnitConfig "DeficitRoundRobinSchedulerClass" [ (assertOnlyFields [
-          "Parent"
-          "Handle"
-          "QuantumBytes"
-        ]) ];
+        checkUnitConfig "DeficitRoundRobinSchedulerClass" [
+          (assertOnlyFields [
+            "Parent"
+            "Handle"
+            "QuantumBytes"
+          ])
+        ];
 
       sectionEnhancedTransmissionSelection =
         checkUnitConfig "EnhancedTransmissionSelection" [
@@ -1514,12 +1527,13 @@ let
         (assertValueOneOf "Pacing" boolValues)
       ];
 
-      sectionTrivialLinkEqualizer =
-        checkUnitConfig "TrivialLinkEqualizer" [ (assertOnlyFields [
-          "Parent"
-          "Handle"
-          "Id"
-        ]) ];
+      sectionTrivialLinkEqualizer = checkUnitConfig "TrivialLinkEqualizer" [
+          (assertOnlyFields [
+            "Parent"
+            "Handle"
+            "Id"
+          ])
+        ];
 
       sectionHierarchyTokenBucket = checkUnitConfig "HierarchyTokenBucket" [
         (assertOnlyFields [
@@ -1532,18 +1546,20 @@ let
       ];
 
       sectionHierarchyTokenBucketClass =
-        checkUnitConfig "HierarchyTokenBucketClass" [ (assertOnlyFields [
-          "Parent"
-          "ClassId"
-          "Priority"
-          "QuantumBytes"
-          "MTUBytes"
-          "OverheadBytes"
-          "Rate"
-          "CeilRate"
-          "BufferBytes"
-          "CeilBufferBytes"
-        ]) ];
+        checkUnitConfig "HierarchyTokenBucketClass" [
+          (assertOnlyFields [
+            "Parent"
+            "ClassId"
+            "Priority"
+            "QuantumBytes"
+            "MTUBytes"
+            "OverheadBytes"
+            "Rate"
+            "CeilRate"
+            "BufferBytes"
+            "CeilBufferBytes"
+          ])
+        ];
 
       sectionHeavyHitterFilter = checkUnitConfig "HeavyHitterFilter" [
         (assertOnlyFields [
@@ -1555,11 +1571,12 @@ let
         (assertRange "PacketLimit" 0 4294967294)
       ];
 
-      sectionQuickFairQueueing =
-        checkUnitConfig "QuickFairQueueing" [ (assertOnlyFields [
-          "Parent"
-          "Handle"
-        ]) ];
+      sectionQuickFairQueueing = checkUnitConfig "QuickFairQueueing" [
+          (assertOnlyFields [
+            "Parent"
+            "Handle"
+          ])
+        ];
 
       sectionQuickFairQueueingClass = checkUnitConfig "QuickFairQueueingClass" [
         (assertOnlyFields [
@@ -3493,7 +3510,9 @@ let
           # network daemons.
         systemd.network.units = lib.filterAttrs (n: _: hasSuffix ".link" n)
           config.systemd.network.units;
-        systemd.storePaths = [ "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link" ];
+        systemd.storePaths = [
+            "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"
+          ];
       }
 
       (mkIf cfg.enable {
@@ -3522,7 +3541,9 @@ let
         systemd.contents."/etc/systemd/networkd.conf" = renderConfig cfg.config;
 
         systemd.services.systemd-networkd.wantedBy = [ "initrd.target" ];
-        systemd.services.systemd-network-generator.wantedBy = [ "sysinit.target" ];
+        systemd.services.systemd-network-generator.wantedBy = [
+            "sysinit.target"
+          ];
 
         systemd.storePaths = [
           "${config.boot.initrd.systemd.package}/lib/systemd/systemd-networkd"

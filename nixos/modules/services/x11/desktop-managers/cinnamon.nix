@@ -71,7 +71,9 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.xserver.displayManager.sessionPackages = [ pkgs.cinnamon.cinnamon-common ];
+      services.xserver.displayManager.sessionPackages = [
+          pkgs.cinnamon.cinnamon-common
+        ];
 
       services.xserver.displayManager.lightdm.greeters.slick = {
         enable = mkDefault true;

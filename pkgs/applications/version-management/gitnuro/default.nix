@@ -38,14 +38,16 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "Gitnuro";
-    exec = "gitnuro";
-    icon = "com.jetpackduba.Gitnuro";
-    desktopName = "Gitnuro";
-    categories = [ "Development" ];
-    comment = meta.description;
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "Gitnuro";
+        exec = "gitnuro";
+        icon = "com.jetpackduba.Gitnuro";
+        desktopName = "Gitnuro";
+        categories = [ "Development" ];
+        comment = meta.description;
+      })
+    ];
 
   meta = with lib; {
     description = "A FOSS Git multiplatform client based on Compose and JGit";

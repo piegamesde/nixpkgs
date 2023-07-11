@@ -52,17 +52,19 @@ stdenv.mkDerivation rec {
     convert graphics/paraicon.bmp $out/share/icons/hicolor/32x32/apps/freedroid.png
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    exec = pname;
-    icon = pname;
-    desktopName = "Freedroid Classic";
-    comment = "A clone of the classic game 'Paradroid' on Commodore 64";
-    categories = [
-      "Game"
-      "ArcadeGame"
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = pname;
+        icon = pname;
+        desktopName = "Freedroid Classic";
+        comment = "A clone of the classic game 'Paradroid' on Commodore 64";
+        categories = [
+          "Game"
+          "ArcadeGame"
+        ];
+      })
     ];
-  }) ];
 
   meta = with lib; {
     description = "A clone of the classic game 'Paradroid' on Commodore 64";

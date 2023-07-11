@@ -51,12 +51,14 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-pOLug5MnVdKaw5wedABewomID9LU0hZPCf4kZKKU1yA=";
   };
 
-  patches = [ (fetchpatch {
-    name = "add-missing-comma-in-setup.py.patch";
-    url =
-      "https://github.com/etesync/etesync-dav/commit/040cb7b57205e70515019fb356e508a6414da11e.patch";
-    hash = "sha256-87IpIQ87rgpinvbRwUlWd0xeegn0zfVSiDFYNUqPerg=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "add-missing-comma-in-setup.py.patch";
+        url =
+          "https://github.com/etesync/etesync-dav/commit/040cb7b57205e70515019fb356e508a6414da11e.patch";
+        hash = "sha256-87IpIQ87rgpinvbRwUlWd0xeegn0zfVSiDFYNUqPerg=";
+      })
+    ];
 
   propagatedBuildInputs = with python.pkgs;
     [

@@ -83,18 +83,20 @@ buildPythonApplication rec {
   doCheck = false;
   pythonImportsCheck = [ "jellyfin_mpv_shim" ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    exec = pname;
-    icon = pname;
-    desktopName = "Jellyfin MPV Shim";
-    categories = [
-      "Video"
-      "AudioVideo"
-      "TV"
-      "Player"
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = pname;
+        icon = pname;
+        desktopName = "Jellyfin MPV Shim";
+        categories = [
+          "Video"
+          "AudioVideo"
+          "TV"
+          "Player"
+        ];
+      })
     ];
-  }) ];
 
   meta = with lib; {
     homepage = "https://github.com/jellyfin/jellyfin-mpv-shim";

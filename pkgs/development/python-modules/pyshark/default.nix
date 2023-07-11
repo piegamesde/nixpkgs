@@ -26,12 +26,14 @@ buildPythonPackage rec {
     hash = "sha256-byll2GWY2841AAf8Xh+KfaCOtMGVKabTsLCe3gCdZ1o=";
   };
 
-  patches = [ (fetchpatch {
-    name = "fix-mapping.patch";
-    url =
-      "https://github.com/KimiNewt/pyshark/pull/608/commits/c2feb17ef621390481d6acc29dbf807d6851ed4c.patch";
-    hash = "sha256-TY09HPxqJP3zI8+ugm518aMuBgog7wrXs5uoReHHaEI=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "fix-mapping.patch";
+        url =
+          "https://github.com/KimiNewt/pyshark/pull/608/commits/c2feb17ef621390481d6acc29dbf807d6851ed4c.patch";
+        hash = "sha256-TY09HPxqJP3zI8+ugm518aMuBgog7wrXs5uoReHHaEI=";
+      })
+    ];
 
     # `stripLen` does not seem to work here
   patchFlags = [ "-p2" ];

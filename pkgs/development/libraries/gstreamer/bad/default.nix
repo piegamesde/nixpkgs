@@ -140,7 +140,8 @@ stdenv.mkDerivation rec {
     gstreamer # for gst-tester-1.0
     gobject-introspection
   ] ++ lib.optionals enableDocumentation [ hotdoc ]
-    ++ lib.optionals stdenv.isLinux [ wayland # for wayland-scanner
+    ++ lib.optionals stdenv.isLinux [
+      wayland # for wayland-scanner
     ];
 
   buildInputs = [
@@ -322,8 +323,8 @@ stdenv.mkDerivation rec {
     "-Dladspa=disabled" # requires lrdf
     "-Dwebrtc=disabled" # requires libnice, which as of writing doesn't work on Darwin in nixpkgs
     "-Dwildmidi=disabled" # see dependencies above
-  ] ++ lib.optionals (!stdenv.isLinux
-    || !stdenv.isx86_64) [ "-Dqsv=disabled" # Linux (and Windows) x86 only
+  ] ++ lib.optionals (!stdenv.isLinux || !stdenv.isx86_64) [
+      "-Dqsv=disabled" # Linux (and Windows) x86 only
     ] ++ lib.optionals (!gst-plugins-base.glEnabled) [ "-Dgl=disabled" ]
     ++ lib.optionals (!gst-plugins-base.waylandEnabled) [
       "-Dgtk3=disabled" # Wayland-based GTK sink

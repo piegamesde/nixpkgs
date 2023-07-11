@@ -30,7 +30,8 @@ buildPythonPackage rec {
     gobject-introspection
   ];
 
-  disabledTests = [ "test_glib_events.TestBaseGLibEventLoop" # Somtimes fail due to imprecise timing
+  disabledTests = [
+      "test_glib_events.TestBaseGLibEventLoop" # Somtimes fail due to imprecise timing
     ];
 
   pythonImportsCheck = [ "gbulb" ];

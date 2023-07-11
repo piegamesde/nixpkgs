@@ -20,8 +20,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = lib.optionals stdenv.isDarwin [
     cctools
     fixDarwinDylibNames
-  ] ++ lib.optionals
-    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      autoSignDarwinBinariesHook
+    ];
 
   dontConfigure = true;
 

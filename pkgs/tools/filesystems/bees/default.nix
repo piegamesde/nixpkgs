@@ -29,7 +29,8 @@ let
       util-linux # for uuid.h
     ];
 
-    nativeBuildInputs = [ python3Packages.markdown # documentation build
+    nativeBuildInputs = [
+        python3Packages.markdown # documentation build
       ];
 
     preBuild = ''

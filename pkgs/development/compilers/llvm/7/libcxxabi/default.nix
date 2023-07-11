@@ -54,9 +54,9 @@ stdenv.mkDerivation {
   buildInputs = lib.optional withLibunwind libunwind;
 
   cmakeFlags = lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
-    ++ lib.optionals
-    (standalone && withLibunwind) [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
-    ++ lib.optional (!enableShared) "-DLIBCXXABI_ENABLE_SHARED=OFF";
+    ++ lib.optionals (standalone && withLibunwind) [
+      "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
+    ] ++ lib.optional (!enableShared) "-DLIBCXXABI_ENABLE_SHARED=OFF";
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

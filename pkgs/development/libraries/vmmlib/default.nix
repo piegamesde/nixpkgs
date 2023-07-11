@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
     sha256 = "0sn6jl1r5k6ka0vkjsdnn14hb95dqq8158dapby6jk72wqj9kdml";
   };
 
-  patches = [ ./disable-cpack.patch # disable the need of cpack/rpm
+  patches = [
+      ./disable-cpack.patch # disable the need of cpack/rpm
     ];
 
   nativeBuildInputs = [

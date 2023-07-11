@@ -9,11 +9,13 @@ let
   cfg = config.services.geoipupdate;
   inherit (builtins) isAttrs isString isInt isList typeOf hashString;
 in {
-  imports = [ (lib.mkRemovedOptionModule [
-    "services"
-    "geoip-updater"
-  ]
-    "services.geoip-updater has been removed, use services.geoipupdate instead.") ];
+  imports = [
+      (lib.mkRemovedOptionModule [
+        "services"
+        "geoip-updater"
+      ]
+        "services.geoip-updater has been removed, use services.geoipupdate instead.")
+    ];
 
   options = {
     services.geoipupdate = {

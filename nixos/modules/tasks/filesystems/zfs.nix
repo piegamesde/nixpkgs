@@ -248,11 +248,13 @@ let
 
 in {
 
-  imports = [ (mkRemovedOptionModule [
-    "boot"
-    "zfs"
-    "enableLegacyCrypto"
-  ] "The corresponding package was removed from nixpkgs.") ];
+  imports = [
+      (mkRemovedOptionModule [
+        "boot"
+        "zfs"
+        "enableLegacyCrypto"
+      ] "The corresponding package was removed from nixpkgs.")
+    ];
 
     ###### interface
 
@@ -608,10 +610,12 @@ in {
         kernelParams =
           lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
 
-        extraModulePackages = [ (if config.boot.zfs.enableUnstable then
-          config.boot.kernelPackages.zfsUnstable
-        else
-          config.boot.kernelPackages.zfs) ];
+        extraModulePackages = [
+            (if config.boot.zfs.enableUnstable then
+              config.boot.kernelPackages.zfsUnstable
+            else
+              config.boot.kernelPackages.zfs)
+          ];
       };
 
       boot.initrd = mkIf inInitrd {
@@ -627,36 +631,38 @@ in {
         '';
         postDeviceCommands = concatStringsSep "\n" ([ ''
           ZFS_FORCE="${optionalString cfgZfs.forceImportRoot "-f"}"
-        '' ] ++ [ (importLib {
-          # See comments at importLib definition.
-          zpoolCmd = "zpool";
-          awkCmd = "awk";
-          inherit cfgZfs;
-        }) ] ++ (map (pool: ''
-          echo -n "importing root ZFS pool \"${pool}\"..."
-          # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
-          if ! poolImported "${pool}"; then
-            for trial in `seq 1 60`; do
-              poolReady "${pool}" > /dev/null && msg="$(poolImport "${pool}" 2>&1)" && break
-              sleep 1
-              echo -n .
-            done
-            echo
-            if [[ -n "$msg" ]]; then
-              echo "$msg";
+        '' ] ++ [
+            (importLib {
+              # See comments at importLib definition.
+              zpoolCmd = "zpool";
+              awkCmd = "awk";
+              inherit cfgZfs;
+            })
+          ] ++ (map (pool: ''
+            echo -n "importing root ZFS pool \"${pool}\"..."
+            # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
+            if ! poolImported "${pool}"; then
+              for trial in `seq 1 60`; do
+                poolReady "${pool}" > /dev/null && msg="$(poolImport "${pool}" 2>&1)" && break
+                sleep 1
+                echo -n .
+              done
+              echo
+              if [[ -n "$msg" ]]; then
+                echo "$msg";
+              fi
+              poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
             fi
-            poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
-          fi
-          ${if isBool cfgZfs.requestEncryptionCredentials then
-            optionalString cfgZfs.requestEncryptionCredentials ''
-              zfs load-key -a
-            ''
-          else
-            concatMapStrings (fs: ''
-              zfs load-key -- ${escapeShellArg fs}
-            '') (filter (x: datasetToPool x == pool)
-              cfgZfs.requestEncryptionCredentials)}
-        '') rootPools));
+            ${if isBool cfgZfs.requestEncryptionCredentials then
+              optionalString cfgZfs.requestEncryptionCredentials ''
+                zfs load-key -a
+              ''
+            else
+              concatMapStrings (fs: ''
+                zfs load-key -- ${escapeShellArg fs}
+              '') (filter (x: datasetToPool x == pool)
+                cfgZfs.requestEncryptionCredentials)}
+          '') rootPools));
 
           # Systemd in stage 1
         systemd = {
@@ -716,7 +722,9 @@ in {
         "zfs/zpool.d".source = "${cfgZfs.package}/etc/zfs/zpool.d/";
       };
 
-      system.fsPackages = [ cfgZfs.package ]; # XXX: needed? zfs doesn't have (need) a fsck
+      system.fsPackages = [
+          cfgZfs.package
+        ]; # XXX: needed? zfs doesn't have (need) a fsck
       environment.systemPackages = [ cfgZfs.package ]
         ++ optional cfgSnapshots.enable autosnapPkg
         ; # so the user can run the command to see flags
@@ -915,7 +923,9 @@ in {
 
       systemd.timers.zfs-scrub = {
         wantedBy = [ "timers.target" ];
-        after = [ "multi-user.target" ]; # Apparently scrubbing before boot is complete hangs the system? #53583
+        after = [
+            "multi-user.target"
+          ]; # Apparently scrubbing before boot is complete hangs the system? #53583
         timerConfig = {
           OnCalendar = cfgScrub.interval;
           Persistent = "yes";

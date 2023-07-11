@@ -27,7 +27,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ setuptools # needs pkg_resources at runtime
+  propagatedBuildInputs = [
+      setuptools # needs pkg_resources at runtime
     ];
 
   nativeCheckInputs = [

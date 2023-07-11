@@ -195,7 +195,9 @@ in {
             description = lib.mdDoc ''
               Extra extended options to be passed to the restic --option flag.
             '';
-            example = [ "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'" ];
+            example = [
+                "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'"
+              ];
           };
 
           initialize = mkOption {
@@ -283,7 +285,9 @@ in {
         paths = [ "/home" ];
         repository = "sftp:backup@host:/backups/home";
         passwordFile = "/etc/nixos/secrets/restic-password";
-        extraOptions = [ "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'" ];
+        extraOptions = [
+            "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'"
+          ];
         timerConfig = {
           OnCalendar = "00:05";
           RandomizedDelaySec = "5h";
@@ -308,10 +312,12 @@ in {
         resticCmd = "${backup.package}/bin/restic${extraOptions}";
         excludeFlags =
           if (backup.exclude != [ ]) then
-            [ "--exclude-file=${
-              pkgs.writeText "exclude-patterns"
-              (concatStringsSep "\n" backup.exclude)
-            }" ]
+            [
+              "--exclude-file=${
+                pkgs.writeText "exclude-patterns"
+                (concatStringsSep "\n" backup.exclude)
+              }"
+            ]
           else
             [ ]
           ;
@@ -367,9 +373,11 @@ in {
         restartIfChanged = false;
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = (optionals (backupPaths != "") [ "${resticCmd} backup ${
-              concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
-            } ${backupPaths}" ]) ++ pruneCmd;
+          ExecStart = (optionals (backupPaths != "") [
+              "${resticCmd} backup ${
+                concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
+              } ${backupPaths}"
+            ]) ++ pruneCmd;
           User = backup.user;
           RuntimeDirectory = "restic-backups-${name}";
           CacheDirectory = "restic-backups-${name}";

@@ -132,7 +132,9 @@ stdenv.mkDerivation rec {
     ++ optionals (!enableEthernet) [ "--disable-ethernet" ]
     ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
     ++ optionals (!enableGadget) [ "--disable-gadget" ]
-    ++ optionals (!enableWifi) [ "--disable-wifi" ]
+    ++ optionals (!enableWifi) [
+      "--disable-wifi"
+    ]
     # enable IWD support for wifi as it doesn't require any new dependencies
     # and it's easier for the NixOS module to use only one connman package when
     # IWD is requested

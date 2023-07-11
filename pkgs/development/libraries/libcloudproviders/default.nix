@@ -42,9 +42,9 @@ stdenv.mkDerivation rec {
     vala
     gtk-doc
     docbook_xsl
-  ] ++ lib.optionals
-    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
-    ;
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [ glib ];
 

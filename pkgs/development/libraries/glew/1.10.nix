@@ -64,12 +64,14 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r README.txt LICENSE.txt doc $out/share/doc/glew
   '';
 
-  makeFlags = [ "SYSTEM=${
-      if stdenv.hostPlatform.isMinGW then
-        "mingw"
-      else
-        stdenv.hostPlatform.parsed.kernel.name
-    }" ];
+  makeFlags = [
+      "SYSTEM=${
+        if stdenv.hostPlatform.isMinGW then
+          "mingw"
+        else
+          stdenv.hostPlatform.parsed.kernel.name
+      }"
+    ];
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

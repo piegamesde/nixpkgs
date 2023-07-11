@@ -54,14 +54,16 @@ stdenv.mkDerivation rec {
     nss
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    desktopName = "Whalebird";
-    comment = meta.description;
-    categories = [ "Network" ];
-    exec = "whalebird";
-    icon = "whalebird";
-    name = "whalebird";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        desktopName = "Whalebird";
+        comment = meta.description;
+        categories = [ "Network" ];
+        exec = "whalebird";
+        icon = "whalebird";
+        name = "whalebird";
+      })
+    ];
 
   unpackPhase = ''
     mkdir -p opt

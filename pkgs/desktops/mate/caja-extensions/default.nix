@@ -39,11 +39,13 @@ stdenv.mkDerivation rec {
     imagemagick
   ];
 
-  patches = [ (substituteAll {
-    src = ./hardcode-gsettings.patch;
-    caja_gsetttings_path = glib.getSchemaPath mate.caja;
-    desktop_gsetttings_path = glib.getSchemaPath mate.mate-desktop;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./hardcode-gsettings.patch;
+        caja_gsetttings_path = glib.getSchemaPath mate.caja;
+        desktop_gsetttings_path = glib.getSchemaPath mate.mate-desktop;
+      })
+    ];
 
   postPatch = ''
     substituteInPlace open-terminal/caja-open-terminal.c --subst-var-by \

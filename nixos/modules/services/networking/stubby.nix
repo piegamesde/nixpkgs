@@ -12,24 +12,26 @@ let
   settingsFormat = pkgs.formats.yaml { };
   confFile = settingsFormat.generate "stubby.yml" cfg.settings;
 in {
-  imports = [ (mkRemovedOptionModule [
-    "stubby"
-    "debugLogging"
-  ] ''Use services.stubby.logLevel = "debug"; instead.'') ] ++ map (x:
-    (mkRemovedOptionModule [
-      "services"
-      "stubby"
-      x
-    ] "Stubby configuration moved to services.stubby.settings.")) [
-      "authenticationMode"
-      "fallbackProtocols"
-      "idleTimeout"
-      "listenAddresses"
-      "queryPaddingBlocksize"
-      "roundRobinUpstreams"
-      "subnetPrivate"
-      "upstreamServers"
-    ];
+  imports = [
+      (mkRemovedOptionModule [
+        "stubby"
+        "debugLogging"
+      ] ''Use services.stubby.logLevel = "debug"; instead.'')
+    ] ++ map (x:
+      (mkRemovedOptionModule [
+        "services"
+        "stubby"
+        x
+      ] "Stubby configuration moved to services.stubby.settings.")) [
+        "authenticationMode"
+        "fallbackProtocols"
+        "idleTimeout"
+        "listenAddresses"
+        "queryPaddingBlocksize"
+        "roundRobinUpstreams"
+        "subnetPrivate"
+        "upstreamServers"
+      ];
 
   options = {
     services.stubby = {

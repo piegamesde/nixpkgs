@@ -55,10 +55,12 @@ stdenv.mkDerivation rec {
     sha256 = "ncZVFRLPCibQPg159JSHCmkW1DwU2CGZxDoR2cwK1ao=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    inherit isocodes;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit isocodes;
+      })
+    ];
 
   nativeBuildInputs = [
     meson

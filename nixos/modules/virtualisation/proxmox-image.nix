@@ -237,17 +237,20 @@ with lib;
                 url = "https://download.qemu.org/qemu-${version}.tar.xz";
                 sha256 = "sha256-9rN1x5UfcoQCeYsLqrsthkeMpT1Eztvvq74cRr9G+Dk=";
               };
-              patches = [ (pkgs.fetchpatch {
-                url =
-                  let
-                    rev = "1976ca460796f28447b41e3618e5c1e234035dd5";
-                    path =
-                      "debian/patches/pve/0026-PVE-Backup-add-vma-backup-format-code.patch";
-                  in
-                  "https://git.proxmox.com/?p=pve-qemu.git;a=blob_plain;hb=${rev};f=${path}"
-                  ;
-                hash = "sha256-2Dz+ceTwrcyYYxi76RtyY3v15/2pwGcDhFuoZWlgbjc=";
-              }) ];
+              patches = [
+                  (pkgs.fetchpatch {
+                    url =
+                      let
+                        rev = "1976ca460796f28447b41e3618e5c1e234035dd5";
+                        path =
+                          "debian/patches/pve/0026-PVE-Backup-add-vma-backup-format-code.patch";
+                      in
+                      "https://git.proxmox.com/?p=pve-qemu.git;a=blob_plain;hb=${rev};f=${path}"
+                      ;
+                    hash =
+                      "sha256-2Dz+ceTwrcyYYxi76RtyY3v15/2pwGcDhFuoZWlgbjc=";
+                  })
+                ];
 
               buildInputs = super.buildInputs ++ [ pkgs.libuuid ];
 

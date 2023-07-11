@@ -142,15 +142,17 @@ let
       libxkbcommon
     ];
 
-    desktopItems = [ (makeDesktopItem {
-      name = pname;
-      exec = pname;
-      icon = pname;
-      desktopName = "GitKraken";
-      genericName = "Git Client";
-      categories = [ "Development" ];
-      comment = "Graphical Git client from Axosoft";
-    }) ];
+    desktopItems = [
+        (makeDesktopItem {
+          name = pname;
+          exec = pname;
+          icon = pname;
+          desktopName = "GitKraken";
+          genericName = "Git Client";
+          categories = [ "Development" ];
+          comment = "Graphical Git client from Axosoft";
+        })
+      ];
 
     nativeBuildInputs = [
       copyDesktopItems

@@ -62,8 +62,8 @@ let
     "-DENABLE_CLI=OFF"
     "-DENABLE_SHARED=OFF"
     "-DEXPORT_C_API=OFF"
-  ] ++ lib.optionals
-    stdenv.hostPlatform.isPower [ "-DENABLE_ALTIVEC=OFF" # https://bitbucket.org/multicoreware/x265_git/issues/320/fail-to-build-on-power8-le
+  ] ++ lib.optionals stdenv.hostPlatform.isPower [
+      "-DENABLE_ALTIVEC=OFF" # https://bitbucket.org/multicoreware/x265_git/issues/320/fail-to-build-on-power8-le
     ];
 
 in

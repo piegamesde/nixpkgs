@@ -25,7 +25,9 @@ pypkgs.buildPythonApplication rec {
 
   buildInputs = [ librsync ];
 
-  nativeBuildInputs = with pypkgs; [ setuptools-scm ];
+  nativeBuildInputs = with pypkgs; [
+      setuptools-scm
+    ];
 
     # no tests from pypi
   doCheck = false;

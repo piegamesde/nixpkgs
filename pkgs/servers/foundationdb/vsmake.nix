@@ -112,7 +112,9 @@ let
       ]
       # Don't compile FDBLibTLS if we don't need it in 6.0 or later;
       # it gets statically linked in
-        ++ lib.optionals (lib.versionOlder version "6.0") [ "fdb_c" ]
+        ++ lib.optionals (lib.versionOlder version "6.0") [
+          "fdb_c"
+        ]
         # Needed environment overrides
         ++ [
           "KVRELEASE=1"

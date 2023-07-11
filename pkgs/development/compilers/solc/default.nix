@@ -92,7 +92,8 @@ let
             --replace "${fmtlibUrl}" ${fmtlib}
         '';
 
-        cmakeFlags = [ "-DBoost_USE_STATIC_LIBS=OFF"
+        cmakeFlags = [
+            "-DBoost_USE_STATIC_LIBS=OFF"
 
           ] ++ (if z3Support then
             [ "-DSTRICT_Z3_VERSION=OFF" ]

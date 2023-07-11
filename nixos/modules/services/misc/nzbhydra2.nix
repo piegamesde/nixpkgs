@@ -39,7 +39,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 nzbhydra2 nzbhydra2 - -" ];
+    systemd.tmpfiles.rules = [
+        "d '${cfg.dataDir}' 0700 nzbhydra2 nzbhydra2 - -"
+      ];
 
     systemd.services.nzbhydra2 = {
       description = "NZBHydra2";

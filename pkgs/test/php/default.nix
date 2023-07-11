@@ -49,7 +49,9 @@ in {
         php.withExtensions ({
             all,
             ...
-          }: [ all.imagick ])
+          }: [
+            all.imagick
+          ])
       }"
       checking "that imagick extension is present when enabled"
       $phpWithImagick/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
@@ -60,7 +62,9 @@ in {
       customPhp = (php.withExtensions ({
           all,
           ...
-        }: [ all.imagick ])).overrideAttrs (attrs: {
+        }: [
+          all.imagick
+        ])).overrideAttrs (attrs: {
           postInstall = attrs.postInstall or "" + ''
             touch "$out/oApee-was-here"
           '';

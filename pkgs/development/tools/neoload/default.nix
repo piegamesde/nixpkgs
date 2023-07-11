@@ -125,7 +125,9 @@ else
 
       homepage = "https://www.neotys.com/product/overview-neoload.html";
 
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [
+          binaryNativeCode
+        ];
         # https://www.neotys.com/documents/legal/eula/neoload/eula_en.html
       license = lib.licenses.unfree;
 

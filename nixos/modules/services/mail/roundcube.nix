@@ -268,7 +268,9 @@ in {
     systemd.services.phpfpm-roundcube.after = [ "roundcube-setup.service" ];
 
       # Restart on config changes.
-    systemd.services.phpfpm-roundcube.restartTriggers = [ config.environment.etc."roundcube/config.inc.php".source ];
+    systemd.services.phpfpm-roundcube.restartTriggers = [
+        config.environment.etc."roundcube/config.inc.php".source
+      ];
 
     systemd.services.roundcube-setup = mkMerge [
       (mkIf (cfg.database.host == "localhost") {

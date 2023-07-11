@@ -191,10 +191,12 @@ in {
         systemPackages = [ cfg.package ];
       };
 
-      warnings = lib.flatten [ (lib.optional (cfg.forceIpv4 != null) ''
-        The option consul.forceIpv4 is deprecated, please use
-        consul.forceAddrFamily instead.
-      '') ];
+      warnings = lib.flatten [
+          (lib.optional (cfg.forceIpv4 != null) ''
+            The option consul.forceIpv4 is deprecated, please use
+            consul.forceAddrFamily instead.
+          '')
+        ];
 
       systemd.services.consul = {
         wantedBy = [ "multi-user.target" ];

@@ -64,13 +64,15 @@ python.pkgs.buildPythonApplication rec {
     # NOTE this is a CI test rather than a build-time test because we want to keep the
     # build closures small. mypy has an unreasonably large build closure for docs builds.
   passthru.tests.typing = runCommand "${pname}-mypy" {
-    nativeBuildInputs = [ (python3.withPackages (ps:
-      with ps; [
-        mypy
-        pytest
-        markdown-it-py
-        mdit-py-plugins
-      ])) ];
+    nativeBuildInputs = [
+        (python3.withPackages (ps:
+          with ps; [
+            mypy
+            pytest
+            markdown-it-py
+            mdit-py-plugins
+          ]))
+      ];
   } ''
     mypy --strict ${src}
     touch $out

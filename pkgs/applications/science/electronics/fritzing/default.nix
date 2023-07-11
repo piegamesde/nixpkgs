@@ -56,11 +56,13 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  patches = [ (fetchpatch {
-    url =
-      "https://aur.archlinux.org/cgit/aur.git/plain/0001-Quick-Dirty-patch-to-allow-finding-quazip-qt5-on-Arc.patch?h=fritzing&id=1ae0dc88464f375a54b156e6761315bcb04bcc1f";
-    sha256 = "sha256-iS18EWw920gyeXDoHBRGwXvwMJurJS21H77Erl+fqog=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        url =
+          "https://aur.archlinux.org/cgit/aur.git/plain/0001-Quick-Dirty-patch-to-allow-finding-quazip-qt5-on-Arc.patch?h=fritzing&id=1ae0dc88464f375a54b156e6761315bcb04bcc1f";
+        sha256 = "sha256-iS18EWw920gyeXDoHBRGwXvwMJurJS21H77Erl+fqog=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace phoenix.pro \

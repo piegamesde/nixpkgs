@@ -36,11 +36,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ (python3.withPackages (ps: [
-    ps.jinja2
-    ps.fonttools
-    ps.fontforge
-  ])) ];
+  nativeBuildInputs = [
+      (python3.withPackages (ps: [
+        ps.jinja2
+        ps.fonttools
+        ps.fontforge
+      ]))
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/hakatashi/RictyDiminished-with-FiraCode";

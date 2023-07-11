@@ -12,7 +12,9 @@
 }:
 
 let
-  excludedTests = [ "reimport_from_subinterpreter" ]
+  excludedTests = [
+      "reimport_from_subinterpreter"
+    ]
     # cython's testsuite is not working very well with libc++
     # We are however optimistic about things outside of testsuite still working
     ++ lib.optionals (stdenv.cc.isClang or false) [

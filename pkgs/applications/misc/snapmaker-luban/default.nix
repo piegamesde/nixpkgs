@@ -127,17 +127,19 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    exec = "snapmaker-luban";
-    icon = "snapmaker-luban";
-    desktopName = "Snapmaker Luban";
-    genericName = meta.description;
-    categories = [
-      "Office"
-      "Printing"
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = "snapmaker-luban";
+        icon = "snapmaker-luban";
+        desktopName = "Snapmaker Luban";
+        genericName = meta.description;
+        categories = [
+          "Office"
+          "Printing"
+        ];
+      })
     ];
-  }) ];
 
   meta = with lib; {
     description =

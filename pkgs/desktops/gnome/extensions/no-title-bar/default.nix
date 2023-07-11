@@ -24,11 +24,13 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    xprop = "${xorg.xprop}/bin/xprop";
-    xwininfo = "${xorg.xwininfo}/bin/xwininfo";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        xprop = "${xorg.xprop}/bin/xprop";
+        xwininfo = "${xorg.xwininfo}/bin/xwininfo";
+      })
+    ];
 
   makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
 

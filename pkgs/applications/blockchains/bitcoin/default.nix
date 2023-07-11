@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
   version = "24.0.1";
 
   src = fetchurl {
-    urls = [ "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz" ];
+    urls = [
+        "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
+      ];
       # hash retrieved from signed SHA256SUMS
     sha256 = "12d4ad6dfab4767d460d73307e56d13c72997e114fad4f274650f95560f5f2ff";
   };
@@ -51,9 +53,10 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ] ++ lib.optionals stdenv.isLinux [ util-linux ]
-    ++ lib.optionals stdenv.isDarwin [ hexdump ] ++ lib.optionals
-    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ];
+    ++ lib.optionals stdenv.isDarwin [ hexdump ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      autoSignDarwinBinariesHook
+    ] ++ lib.optionals withGui [ wrapQtAppsHook ];
 
   buildInputs = [
     boost
@@ -92,7 +95,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  checkFlags = [ "LC_ALL=en_US.UTF-8" ]
+  checkFlags = [
+      "LC_ALL=en_US.UTF-8"
+    ]
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Bitcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}";

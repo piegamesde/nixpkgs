@@ -75,10 +75,12 @@ stdenv.mkDerivation rec {
     gdk-pixbuf
   ];
 
-  patches = [ (substituteAll {
-    src = ./paths.patch;
-    pngquant = "${pngquant}/bin/pngquant";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./paths.patch;
+        pngquant = "${pngquant}/bin/pngquant";
+      })
+    ];
 
   mesonFlags = [
     "-Drpm=false"

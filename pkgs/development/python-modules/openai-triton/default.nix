@@ -215,7 +215,8 @@ buildPythonPackage {
     ''
     ;
 
-  checkInputs = [ cmake # ctest
+  checkInputs = [
+      cmake # ctest
     ];
   dontUseSetuptoolsCheck = true;
   preCheck =

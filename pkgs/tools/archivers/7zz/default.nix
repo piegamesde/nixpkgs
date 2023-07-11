@@ -87,11 +87,15 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "CXX=${stdenv.cc.targetPrefix}c++"
-  ] ++ lib.optionals useUasm [ "MY_ASM=uasm" ]
+  ] ++ lib.optionals useUasm [
+      "MY_ASM=uasm"
+    ]
     # We need at minimum 10.13 here because of utimensat, however since
     # we need a bump anyway, let's set the same minimum version as the one in
     # aarch64-darwin so we don't need additional changes for it
-    ++ lib.optionals stdenv.isDarwin [ "MACOSX_DEPLOYMENT_TARGET=10.16" ]
+    ++ lib.optionals stdenv.isDarwin [
+      "MACOSX_DEPLOYMENT_TARGET=10.16"
+    ]
     # it's the compression code with the restriction, see DOC/License.txt
     ++ lib.optionals (!enableUnfree) [ "DISABLE_RAR_COMPRESS=true" ]
     ++ lib.optionals (stdenv.hostPlatform.isMinGW) [

@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
     sha256 = "1jkjvvnjcyxpql97xjjx0kwvy70kxpiznr2zpjy2hhci5s10zmpq";
   };
 
-  patches = [ ./darwin.patch ]
+  patches = [
+      ./darwin.patch
+    ]
     # Patches from Gentoo
     ++ builtins.map ({
         pfile,

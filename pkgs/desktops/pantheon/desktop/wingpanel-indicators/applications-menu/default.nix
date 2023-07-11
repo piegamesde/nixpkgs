@@ -36,10 +36,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WlRrEkX0DGIHYWvUc9G4BbvofzWJwqkiJaJFwQ43GPE=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    bc = "${bc}/bin/bc";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        bc = "${bc}/bin/bc";
+      })
+    ];
 
   nativeBuildInputs = [
     gettext

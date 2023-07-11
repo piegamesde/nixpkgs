@@ -99,7 +99,9 @@ stdenv.mkDerivation rec {
     license = with licenses; [ bsd2 ];
     homepage = "https://github.com/kevinlawler/kerf1";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [
+        thoughtpolice
+      ];
 
       # aarch64-linux seems hopeless, with over 2,000 warnings
       # generated?

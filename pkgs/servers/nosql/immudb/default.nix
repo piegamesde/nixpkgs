@@ -37,7 +37,9 @@ buildGoModule rec {
 
   tags = [ "webconsole" ];
 
-  ldflags = [ "-X github.com/codenotary/immudb/cmd/version.Version=${version}" ];
+  ldflags = [
+      "-X github.com/codenotary/immudb/cmd/version.Version=${version}"
+    ];
 
   subPackages = [
     "cmd/immudb"

@@ -79,17 +79,19 @@ stdenv.mkDerivation rec {
     automake
     gfortran
     libtool_2
-  ] ++ lib.optionals enableDocs [ (texlive.combine {
-    inherit (texlive)
-      scheme-medium
-      koma-script
-      optional
-      framed
-      enumitem
-      multirow
-      preprint
-      ;
-  }) ];
+  ] ++ lib.optionals enableDocs [
+      (texlive.combine {
+        inherit (texlive)
+          scheme-medium
+          koma-script
+          optional
+          framed
+          enumitem
+          multirow
+          preprint
+          ;
+      })
+    ];
 
   buildInputs = [
     bison

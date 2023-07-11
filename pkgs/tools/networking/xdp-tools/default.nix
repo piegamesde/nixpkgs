@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  depsBuildBuild = [ emacs-nox # to generate man pages from .org
+  depsBuildBuild = [
+      emacs-nox # to generate man pages from .org
     ];
   nativeBuildInputs = [
     bpftools
@@ -57,7 +58,8 @@ stdenv.mkDerivation rec {
     m4
     nukeReferences
   ];
-  nativeCheckInputs = [ wireshark-cli # for tshark
+  nativeCheckInputs = [
+      wireshark-cli # for tshark
     ];
 
     # When building BPF, the default CC wrapper is interfering a bit too much.

@@ -150,16 +150,18 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  desktopItems = [ (makeDesktopItem {
-    name = "gtkradiant";
-    exec = "gtkradiant";
-    desktopName = "GtkRadiant";
-    comment = meta.description;
-    categories = [ "Development" ];
-    icon = "gtkradiant";
-      # includes its own splash screen
-    startupNotify = false;
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "gtkradiant";
+        exec = "gtkradiant";
+        desktopName = "GtkRadiant";
+        comment = meta.description;
+        categories = [ "Development" ];
+        icon = "gtkradiant";
+          # includes its own splash screen
+        startupNotify = false;
+      })
+    ];
 
   postInstall = ''
     mkdir -p $out/{bin,lib}

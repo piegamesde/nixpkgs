@@ -62,9 +62,9 @@ let
           else
             {
               nativeBuildInputs = (old.nativeBuildInputs or [ ])
-                ++ lib.optionals
-                (!(builtins.isNull buildSystem)) [ buildSystem ]
-                ++ map (a: self.${a}) extraAttrs;
+                ++ lib.optionals (!(builtins.isNull buildSystem)) [
+                  buildSystem
+                ] ++ map (a: self.${a}) extraAttrs;
             }))
     ;
 
@@ -389,23 +389,25 @@ lib.composeManyExtensions [
         in
         scrypto.overridePythonAttrs (old:
           {
-            nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ lib.optionals
-              (lib.versionAtLeast old.version "3.4") [ self.setuptools-rust ]
-              ++ lib.optional (!self.isPyPy) pyBuildPackages.cffi
+            nativeBuildInputs = (old.nativeBuildInputs or [ ])
+              ++ lib.optionals (lib.versionAtLeast old.version "3.4") [
+                self.setuptools-rust
+              ] ++ lib.optional (!self.isPyPy) pyBuildPackages.cffi
               ++ lib.optional (lib.versionAtLeast old.version "3.5" && !isWheel)
               (with pkgs.rustPlatform; [
                 cargoSetupHook
                 rust.cargo
                 rust.rustc
               ]) ++ [ pkg-config ];
-            buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libxcrypt ]
-              ++ [ (if lib.versionAtLeast old.version "37" then
-                pkgs.openssl_3
-              else
-                pkgs.openssl_1_1) ] ++ lib.optionals stdenv.isDarwin [
-                  pkgs.darwin.apple_sdk.frameworks.Security
-                  pkgs.libiconv
-                ];
+            buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libxcrypt ] ++ [
+                (if lib.versionAtLeast old.version "37" then
+                  pkgs.openssl_3
+                else
+                  pkgs.openssl_1_1)
+              ] ++ lib.optionals stdenv.isDarwin [
+                pkgs.darwin.apple_sdk.frameworks.Security
+                pkgs.libiconv
+              ];
             propagatedBuildInputs =
               old.propagatedBuildInputs or [ ] ++ [ self.cffi ];
           } // lib.optionalAttrs (lib.versionAtLeast old.version "3.4"
@@ -659,8 +661,9 @@ lib.composeManyExtensions [
         format = lib.optionalString (!(old.src.isWheel or false)) "setuptools";
         buildInputs = old.buildInputs or [ ] ++ [ pkgs.gdal ];
         nativeBuildInputs = old.nativeBuildInputs or [ ] ++ lib.optionals
-          ((old.src.isWheel or false)
-            && (!pkgs.stdenv.isDarwin)) [ pkgs.autoPatchelfHook ]
+          ((old.src.isWheel or false) && (!pkgs.stdenv.isDarwin)) [
+            pkgs.autoPatchelfHook
+          ]
           # for gdal-config
           ++ [ pkgs.gdal ];
       });
@@ -967,11 +970,13 @@ lib.composeManyExtensions [
 
       jq = super.jq.overridePythonAttrs (attrs: {
         buildInputs = [ pkgs.jq ];
-        patches = [ (pkgs.fetchpatch {
-          url =
-            "https://raw.githubusercontent.com/NixOS/nixpkgs/088da8735f6620b60d724aa7db742607ea216087/pkgs/development/python-modules/jq/jq-py-setup.patch";
-          sha256 = "sha256-MYvX3S1YGe0QsUtExtOtULvp++AdVrv+Fid4Jh1xewQ=";
-        }) ];
+        patches = [
+            (pkgs.fetchpatch {
+              url =
+                "https://raw.githubusercontent.com/NixOS/nixpkgs/088da8735f6620b60d724aa7db742607ea216087/pkgs/development/python-modules/jq/jq-py-setup.patch";
+              sha256 = "sha256-MYvX3S1YGe0QsUtExtOtULvp++AdVrv+Fid4Jh1xewQ=";
+            })
+          ];
       });
 
       jsondiff = super.jsondiff.overridePythonAttrs (old: {
@@ -1189,8 +1194,9 @@ lib.composeManyExtensions [
           buildInputs = old.buildInputs or [ ] ++ [ pkgs.which ]
             ++ lib.optionals enableGhostscript [ pkgs.ghostscript ]
             ++ lib.optionals stdenv.isDarwin [ Cocoa ] ++ lib.optionals
-            (lib.versionAtLeast super.matplotlib.version
-              "3.7.0") [ self.pybind11 ];
+            (lib.versionAtLeast super.matplotlib.version "3.7.0") [
+              self.pybind11
+            ];
 
           propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
             self.certifi
@@ -1348,27 +1354,27 @@ lib.composeManyExtensions [
           #        https://github.com/python/mypy/pull/11143
           patches = (old.patches or [ ]) ++ lib.optionals
             ((lib.strings.versionAtLeast old.version "0.900")
-              && lib.strings.versionOlder old.version
-              "0.940") [ (pkgs.fetchpatch {
+              && lib.strings.versionOlder old.version "0.940") [
+              (pkgs.fetchpatch {
                 url =
                   "https://github.com/python/mypy/commit/f1755259d54330cd087cae763cd5bbbff26e3e8a.patch";
                 sha256 = "sha256-5gPahX2X6+/qUaqDQIGJGvh9lQ2EDtks2cpQutgbOHk=";
-              }) ] ++ lib.optionals
-            ((lib.strings.versionAtLeast old.version "0.940")
-              && lib.strings.versionOlder old.version
-              "0.960") [ (pkgs.fetchpatch {
+              })
+            ] ++ lib.optionals ((lib.strings.versionAtLeast old.version "0.940")
+              && lib.strings.versionOlder old.version "0.960") [
+              (pkgs.fetchpatch {
                 url =
                   "https://github.com/python/mypy/commit/e7869f05751561958b946b562093397027f6d5fa.patch";
                 sha256 = "sha256-waIZ+m3tfvYE4HJ8kL6rN/C4fMjvLEe9UoPbt9mHWIM=";
-              }) ] ++ lib.optionals
-            ((lib.strings.versionAtLeast old.version "0.960")
-              && (lib.strings.versionOlder old.version
-                "0.971")) [ (pkgs.fetchpatch {
-                  url =
-                    "https://github.com/python/mypy/commit/2004ae023b9d3628d9f09886cbbc20868aee8554.patch";
-                  sha256 =
-                    "sha256-y+tXvgyiECO5+66YLvaje8Bz5iPvfWNIBJcsnZ2nOdI=";
-                }) ];
+              })
+            ] ++ lib.optionals ((lib.strings.versionAtLeast old.version "0.960")
+              && (lib.strings.versionOlder old.version "0.971")) [
+              (pkgs.fetchpatch {
+                url =
+                  "https://github.com/python/mypy/commit/2004ae023b9d3628d9f09886cbbc20868aee8554.patch";
+                sha256 = "sha256-y+tXvgyiECO5+66YLvaje8Bz5iPvfWNIBJcsnZ2nOdI=";
+              })
+            ];
         });
 
       mysqlclient = super.mysqlclient.overridePythonAttrs (old: {
@@ -1643,9 +1649,9 @@ lib.composeManyExtensions [
               libwebp
               tcl
               lcms2
-            ] ++ lib.optionals
-            (lib.versionAtLeast old.version "7.1.0") [ xorg.libxcb ]
-            ++ lib.optionals (self.isPyPy) [
+            ] ++ lib.optionals (lib.versionAtLeast old.version "7.1.0") [
+              xorg.libxcb
+            ] ++ lib.optionals (self.isPyPy) [
               tk
               xorg.libX11
             ];
@@ -1826,12 +1832,14 @@ lib.composeManyExtensions [
           propagatedBuildInputs =
             (old.propagatedBuildInputs or [ ]) ++ [ pkgs.cairo ];
 
-          mesonFlags = [ "-Dpython=${
-              if self.isPy3k then
-                "python3"
-              else
-                "python"
-            }" ];
+          mesonFlags = [
+              "-Dpython=${
+                if self.isPy3k then
+                  "python3"
+                else
+                  "python"
+              }"
+            ];
         })) super.pycairo;
 
       pycocotools = super.pycocotools.overridePythonAttrs
@@ -2887,8 +2895,10 @@ lib.composeManyExtensions [
         super.mkdocstrings.overridePythonAttrs (old:
           lib.optionalAttrs (lib.versionAtLeast old.version "0.17"
             && lib.versionOlder old.version "0.18") {
-              patches = old.patches or [ ] ++ lib.optionals
-                (!(old.src.isWheel or false)) [ patchJinja2Imports ];
+              patches = old.patches or [ ]
+                ++ lib.optionals (!(old.src.isWheel or false)) [
+                  patchJinja2Imports
+                ];
                 # strip the first two levels ("a/src/") when patching since we're in site-packages
                 # just above mkdocstrings
               postInstall = lib.optionalString (old.src.isWheel or false) ''

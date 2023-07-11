@@ -25,11 +25,13 @@ stdenv.mkDerivation rec {
     sha256 = "14l1f9hrp6m7z3cm5yl0njba6gfixzdirxjl8nihp9val0685vm0";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-lib-paths.patch;
-    antlr4RuntimeCpp = antlr4.runtime.cpp.dev;
-    inherit libargs catch2 yaml-cpp;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-lib-paths.patch;
+        antlr4RuntimeCpp = antlr4.runtime.cpp.dev;
+        inherit libargs catch2 yaml-cpp;
+      })
+    ];
 
   nativeBuildInputs = [ cmake ];
 

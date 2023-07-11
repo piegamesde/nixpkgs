@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
     sha256 = "Xe2qeF2C2OI53dCCv6xSUMaR6WRGS+GAe2gnJjYzzcw=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    inherit kmod openconnect;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit kmod openconnect;
+      })
+    ];
 
   buildInputs = [
     glib

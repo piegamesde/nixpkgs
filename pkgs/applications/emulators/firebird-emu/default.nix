@@ -31,7 +31,9 @@ mkDerivation rec {
     description =
       "Third-party multi-platform emulator of the ARM-based TI-Nspire™ calculators";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ pneumaticat ];
+    maintainers = with lib.maintainers; [
+        pneumaticat
+      ];
       # Only tested on Linux, but likely possible to build on, e.g. macOS
     platforms = lib.platforms.linux;
   };

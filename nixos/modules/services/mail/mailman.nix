@@ -533,23 +533,25 @@ in {
       });
     };
 
-    environment.systemPackages = [ (pkgs.buildEnv {
-      name = "mailman-tools";
-        # We don't want to pollute the system PATH with a python
-        # interpreter etc. so let's pick only the stuff we actually
-        # want from {web,mailman}Env
-      pathsToLink = [ "/bin" ];
-      paths = [
-        mailmanEnv
-        webEnv
+    environment.systemPackages = [
+        (pkgs.buildEnv {
+          name = "mailman-tools";
+            # We don't want to pollute the system PATH with a python
+            # interpreter etc. so let's pick only the stuff we actually
+            # want from {web,mailman}Env
+          pathsToLink = [ "/bin" ];
+          paths = [
+            mailmanEnv
+            webEnv
+          ];
+            # Only mailman-related stuff is installed, the rest is removed
+            # in `postBuild`.
+          ignoreCollisions = true;
+          postBuild = ''
+            find $out/bin/ -mindepth 1 -not -name "mailman*" -delete
+          '';
+        })
       ];
-        # Only mailman-related stuff is installed, the rest is removed
-        # in `postBuild`.
-      ignoreCollisions = true;
-      postBuild = ''
-        find $out/bin/ -mindepth 1 -not -name "mailman*" -delete
-      '';
-    }) ];
 
     services.postfix = lib.mkIf cfg.enablePostfix {
       recipientDelimiter =
@@ -650,7 +652,9 @@ in {
         description = "Prepare mailman-web files and database";
         before = [ "mailman-uwsgi.service" ];
         requiredBy = [ "mailman-uwsgi.service" ];
-        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+        restartTriggers = [
+            config.environment.etc."mailman3/settings.py".source
+          ];
         script = ''
           [[ -e "${webSettings.STATIC_ROOT}" ]] && find "${webSettings.STATIC_ROOT}/" -mindepth 1 -delete
           ${webEnv}/bin/mailman-web migrate
@@ -687,7 +691,9 @@ in {
           "mailman-uwsgi.socket"
           "mailman-web-setup.service"
         ] ++ optional withPostgresql "postgresql.service";
-        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+        restartTriggers = [
+            config.environment.etc."mailman3/settings.py".source
+          ];
         serviceConfig = {
           # Since the mailman-web settings.py obstinately creates a logs
           # dir in the cwd, change to the (writable) runtime directory before
@@ -715,7 +721,9 @@ in {
       hyperkitty = lib.mkIf cfg.hyperkitty.enable {
         description = "GNU Hyperkitty QCluster Process";
         after = [ "network.target" ];
-        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+        restartTriggers = [
+            config.environment.etc."mailman3/settings.py".source
+          ];
         wantedBy = [
           "mailman.service"
           "multi-user.target"
@@ -738,7 +746,9 @@ in {
       lib.nameValuePair "hyperkitty-${name}" (lib.mkIf cfg.hyperkitty.enable {
         description = "Trigger ${name} Hyperkitty events";
         inherit startAt;
-        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+        restartTriggers = [
+            config.environment.etc."mailman3/settings.py".source
+          ];
         serviceConfig = {
           ExecStart = "${webEnv}/bin/mailman-web runjobs ${name}";
           User = cfg.webUser;

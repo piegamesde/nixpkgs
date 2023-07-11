@@ -58,7 +58,9 @@ stdenv.mkDerivation rec {
     '';
 
   strictDeps = true;
-  nativeBuildInputs = [ pkg-config ]
+  nativeBuildInputs = [
+      pkg-config
+    ]
     # This is not the same as the libkrb5 from the inputs! pkgs.libkrb5 is
     # needed here to access krb5-config in order to cross compile. See:
     # https://github.com/NixOS/nixpkgs/pull/107606

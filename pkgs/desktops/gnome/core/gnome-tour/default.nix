@@ -71,8 +71,9 @@ stdenv.mkDerivation rec {
         }' ]
       '';
     in
-    lib.optionals (stdenv.hostPlatform
-      != stdenv.buildPlatform) [ "--cross-file=${crossFile}" ]
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "--cross-file=${crossFile}"
+    ]
     ;
 
   passthru = { updateScript = gnome.updateScript { packageName = pname; }; };

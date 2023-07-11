@@ -149,7 +149,8 @@ let # un-indented, over the whole file
       homepage = "https://knot-resolver.cz";
       license = licenses.gpl3Plus;
       platforms = platforms.unix;
-      maintainers = [ maintainers.vcunat # upstream developer
+      maintainers = [
+          maintainers.vcunat # upstream developer
         ];
       mainProgram = "kresd";
     };

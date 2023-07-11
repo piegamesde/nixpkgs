@@ -67,20 +67,22 @@ buildNpmPackage rec {
     XDG_CONFIG_HOME="$(mktemp -d)" $out/bin/open-stage-control --help
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "open-stage-control";
-    exec = "open-stage-control";
-    icon = "open-stage-control";
-    desktopName = "Open Stage Control";
-    comment = meta.description;
-    categories = [
-      "Network"
-      "Audio"
-      "AudioVideo"
-      "Midi"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "open-stage-control";
+        exec = "open-stage-control";
+        icon = "open-stage-control";
+        desktopName = "Open Stage Control";
+        comment = meta.description;
+        categories = [
+          "Network"
+          "Audio"
+          "AudioVideo"
+          "Midi"
+        ];
+        startupWMClass = "open-stage-control";
+      })
     ];
-    startupWMClass = "open-stage-control";
-  }) ];
 
   passthru.updateScript = nix-update-script { };
 

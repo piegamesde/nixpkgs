@@ -14,15 +14,17 @@ let
 
   format = pkgs.formats.json { };
 in {
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "yggdrasil"
-    "config"
-  ] [
-    "services"
-    "yggdrasil"
-    "settings"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "yggdrasil"
+        "config"
+      ] [
+        "services"
+        "yggdrasil"
+        "settings"
+      ])
+    ];
 
   options = with types; {
     services.yggdrasil = {

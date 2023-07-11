@@ -33,7 +33,9 @@ in rec {
           => [ "foo" ]
     */
   singleton =
-    x: [ x ]
+    x: [
+      x
+    ]
     ;
 
     /* Apply the function to each element in the list. Same as `map`, but arguments

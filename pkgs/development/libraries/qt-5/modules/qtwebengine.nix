@@ -338,7 +338,9 @@ qtModule {
 
   meta = with lib; {
     description = "A web engine based on the Chromium web browser";
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [
+        matthewbauer
+      ];
 
       # qtwebengine-5.15.8: "QtWebEngine can only be built for x86,
       # x86-64, ARM, Aarch64, and MIPSel architectures."

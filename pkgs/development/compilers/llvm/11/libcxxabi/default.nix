@@ -47,9 +47,9 @@ stdenv.mkDerivation {
   buildInputs = lib.optional withLibunwind libunwind;
 
   cmakeFlags = lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
-    ++ lib.optionals
-    (standalone && withLibunwind) [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
-    ++ lib.optionals stdenv.hostPlatform.isWasm [
+    ++ lib.optionals (standalone && withLibunwind) [
+      "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
+    ] ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];

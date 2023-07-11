@@ -25,14 +25,16 @@ in {
     };
   };
 
-  imports = [ (mkRemovedOptionModule [
-    "i18n"
-    "inputMethod"
-    "fcitx5"
-    "enableRimeData"
-  ] ''
-    RIME data is now included in `fcitx5-rime` by default, and can be customized using `fcitx5-rime.override { rimeDataPkgs = ...; }`
-  '') ];
+  imports = [
+      (mkRemovedOptionModule [
+        "i18n"
+        "inputMethod"
+        "fcitx5"
+        "enableRimeData"
+      ] ''
+        RIME data is now included in `fcitx5-rime` by default, and can be customized using `fcitx5-rime.override { rimeDataPkgs = ...; }`
+      '')
+    ];
 
   config = mkIf (im.enabled == "fcitx5") {
     i18n.inputMethod.package = fcitx5Package;

@@ -26,18 +26,20 @@ stdenv.mkDerivation rec {
     "--enable-debug"
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "abuse";
-    exec = "abuse";
-    icon = "abuse";
-    desktopName = "Abuse";
-    comment =
-      "Side-scroller action game that pits you against ruthless alien killers";
-    categories = [
-      "Game"
-      "ActionGame"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "abuse";
+        exec = "abuse";
+        icon = "abuse";
+        desktopName = "Abuse";
+        comment =
+          "Side-scroller action game that pits you against ruthless alien killers";
+        categories = [
+          "Game"
+          "ActionGame"
+        ];
+      })
     ];
-  }) ];
 
   postInstall = ''
     mkdir $out/etc
@@ -61,7 +63,9 @@ stdenv.mkDerivation rec {
     description =
       "Side-scroller action game that pits you against ruthless alien killers";
     homepage = "http://abuse.zoy.org/";
-    license = with licenses; [ unfree ];
+    license = with licenses; [
+        unfree
+      ];
       # Most of abuse is free (public domain, GPL2+, WTFPL), however the creator
       # of its sfx and music only gave Debian permission to redistribute the
       # files. Our friends from Debian thought about it some more:

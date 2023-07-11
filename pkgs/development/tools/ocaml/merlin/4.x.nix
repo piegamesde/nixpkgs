@@ -51,11 +51,13 @@ else
       sha256 = hashes."${version}";
     };
 
-    patches = [ (substituteAll {
-      src = ./fix-paths.patch;
-      dot_merlin_reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
-      dune = "${dune_3}/bin/dune";
-    }) ];
+    patches = [
+        (substituteAll {
+          src = ./fix-paths.patch;
+          dot_merlin_reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
+          dune = "${dune_3}/bin/dune";
+        })
+      ];
 
     strictDeps = true;
 

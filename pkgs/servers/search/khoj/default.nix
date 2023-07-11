@@ -102,7 +102,9 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/debanjum/khoj";
     changelog = "https://github.com/debanjum/khoj/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [
+        dit7ya
+      ];
       # src/tcmalloc.cc:333] Attempt to free invalid pointer
     broken = stdenv.isDarwin;
   };

@@ -45,11 +45,13 @@ buildPythonPackage rec {
     hash = "sha256-acGIhIWC1nUQiN0iwb1kLKxz+ytIqYIW4VXF45Tx50g=";
   };
 
-  patches = [ (substituteAll {
-    src = ./paths.patch;
-    jbig2dec = "${lib.getBin jbig2dec}/bin/jbig2dec";
-    mudraw = "${lib.getBin mupdf}/bin/mudraw";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./paths.patch;
+        jbig2dec = "${lib.getBin jbig2dec}/bin/jbig2dec";
+        mudraw = "${lib.getBin mupdf}/bin/mudraw";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace setup.py \

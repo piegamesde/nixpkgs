@@ -130,8 +130,9 @@ let
           "https://git.alpinelinux.org/aports/plain/testing/openjdk18/FixNullPtrCast.patch?id=b93d1fc37fcf106144958d957bb97c7db67bd41f";
         hash = "sha256-nvO8RcmKwMcPdzq28mZ4If1XJ6FQ76CYWqRIozPCk5U=";
       })
-    ] ++ lib.optionals
-      (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals (!headless && enableGnome2) [
+        ./swing-use-gtk-jdk13.patch
+      ];
 
     postPatch = ''
       chmod +x configure

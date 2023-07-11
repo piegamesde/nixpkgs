@@ -21,7 +21,8 @@ buildPythonPackage rec {
         --replace 'Unidecode>=0.04.14,<0.05' 'Unidecode>=0.04.14'
   '';
 
-  patches = [ ./slugify_filename_test.patch # fixes broken test by new unidecode
+  patches = [
+      ./slugify_filename_test.patch # fixes broken test by new unidecode
     ];
 
   propagatedBuildInputs = [

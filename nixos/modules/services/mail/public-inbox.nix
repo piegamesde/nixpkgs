@@ -66,7 +66,9 @@ let
     in {
       serviceConfig = {
         # Enable JIT-compiled C (via Inline::C)
-        Environment = [ "PERL_INLINE_DIRECTORY=/run/public-inbox-${srv}/perl-inline" ];
+        Environment = [
+            "PERL_INLINE_DIRECTORY=/run/public-inbox-${srv}/perl-inline"
+          ];
           # NonBlocking is REQUIRED to avoid a race condition
           # if running simultaneous services.
         NonBlocking = true;
@@ -441,8 +443,9 @@ in {
     };
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = mkMerge (map (proto:
-        (mkIf (cfg.${proto}.enable
-          && types.port.check cfg.${proto}.port) [ cfg.${proto}.port ])) [
+        (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [
+            cfg.${proto}.port
+          ])) [
             "imap"
             "http"
             "nntp"
@@ -538,33 +541,35 @@ in {
                 ([ "${cfg.package}/bin/public-inbox-httpd" ] ++ cfg.http.args ++
                   # See https://public-inbox.org/public-inbox.git/tree/examples/public-inbox.psgi
                   # for upstream's example.
-                  [ (pkgs.writeText "public-inbox.psgi" ''
-                    #!${cfg.package.fullperl} -w
-                    use strict;
-                    use warnings;
-                    use Plack::Builder;
-                    use PublicInbox::WWW;
+                  [
+                    (pkgs.writeText "public-inbox.psgi" ''
+                      #!${cfg.package.fullperl} -w
+                      use strict;
+                      use warnings;
+                      use Plack::Builder;
+                      use PublicInbox::WWW;
 
-                    my $www = PublicInbox::WWW->new;
-                    $www->preload;
+                      my $www = PublicInbox::WWW->new;
+                      $www->preload;
 
-                    builder {
-                      # If reached through a reverse proxy,
-                      # make it transparent by resetting some HTTP headers
-                      # used by public-inbox to generate URIs.
-                      enable 'ReverseProxy';
+                      builder {
+                        # If reached through a reverse proxy,
+                        # make it transparent by resetting some HTTP headers
+                        # used by public-inbox to generate URIs.
+                        enable 'ReverseProxy';
 
-                      # No need to send a response body if it's an HTTP HEAD requests.
-                      enable 'Head';
+                        # No need to send a response body if it's an HTTP HEAD requests.
+                        enable 'Head';
 
-                      # Route according to configured domains and root paths.
-                      ${
-                        concatMapStrings (path: ''
-                          mount q(${path}) => sub { $www->call(@_); };
-                        '') cfg.http.mounts
+                        # Route according to configured domains and root paths.
+                        ${
+                          concatMapStrings (path: ''
+                            mount q(${path}) => sub { $www->call(@_); };
+                          '') cfg.http.mounts
+                        }
                       }
-                    }
-                  '') ]);
+                    '')
+                  ]);
             };
           }
         ];

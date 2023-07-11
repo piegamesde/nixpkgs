@@ -81,12 +81,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildFlags = [ "qemu-system-i386" ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "xemu";
-    desktopName = "xemu";
-    exec = "xemu";
-    icon = "xemu";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "xemu";
+        desktopName = "xemu";
+        exec = "xemu";
+        icon = "xemu";
+      })
+    ];
 
   preConfigure = ''
     patchShebangs .

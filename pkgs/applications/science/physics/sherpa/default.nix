@@ -52,7 +52,9 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     homepage = "https://gitlab.com/sherpa-team/sherpa";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [
+        veprbl
+      ];
       # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };

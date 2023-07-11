@@ -101,8 +101,9 @@ stdenv.mkDerivation rec {
     (lib.mesonBool "demo-clients" buildDemo)
     "-Dsimple-clients="
     "-Dtest-junit-xml=false"
-  ] ++ lib.optionals
-    (xwayland != null) [ "-Dxwayland-path=${xwayland.out}/bin/Xwayland" ];
+  ] ++ lib.optionals (xwayland != null) [
+      "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
+    ];
 
   passthru.providedSessions = [ "weston" ];
 

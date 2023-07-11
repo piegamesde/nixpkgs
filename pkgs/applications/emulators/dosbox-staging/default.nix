@@ -92,18 +92,20 @@ stdenv.mkDerivation (finalAttrs: {
     speexdsp
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "dosbox-staging";
-    exec = "dosbox-staging";
-    icon = "dosbox-staging";
-    comment = "x86 dos emulator enhanced";
-    desktopName = "DosBox-Staging";
-    genericName = "DOS emulator";
-    categories = [
-      "Emulator"
-      "Game"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "dosbox-staging";
+        exec = "dosbox-staging";
+        icon = "dosbox-staging";
+        comment = "x86 dos emulator enhanced";
+        desktopName = "DosBox-Staging";
+        genericName = "DOS emulator";
+        categories = [
+          "Emulator"
+          "Game"
+        ];
+      })
     ];
-  }) ];
 
   postFixup = ''
     # Rename binary, add a wrapper, and copy manual to avoid conflict with

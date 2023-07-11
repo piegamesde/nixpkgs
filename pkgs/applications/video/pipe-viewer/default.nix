@@ -50,7 +50,9 @@ buildPerlModule rec {
   nativeBuildInputs =
     [ makeWrapper ] ++ lib.optionals withGtk3 [ wrapGAppsHook ];
 
-  buildInputs = [ perlEnv ]
+  buildInputs = [
+      perlEnv
+    ]
     # Can't be in perlEnv for wrapGAppsHook to work correctly
     ++ lib.optional withGtk3 Gtk3;
 

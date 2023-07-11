@@ -33,7 +33,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "zmq" ];
 
-  pytestFlagsArray = [ "$out/${python.sitePackages}/zmq/tests/" # Folder with tests
+  pytestFlagsArray = [
+      "$out/${python.sitePackages}/zmq/tests/" # Folder with tests
     ];
 
   disabledTests = [

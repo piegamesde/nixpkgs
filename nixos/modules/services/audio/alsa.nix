@@ -15,14 +15,16 @@ let
   pulseaudioEnabled = config.hardware.pulseaudio.enable;
 
 in {
-  imports = [ (mkRenamedOptionModule [
-    "sound"
-    "enableMediaKeys"
-  ] [
-    "sound"
-    "mediaKeys"
-    "enable"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "sound"
+        "enableMediaKeys"
+      ] [
+        "sound"
+        "mediaKeys"
+        "enable"
+      ])
+    ];
 
     ###### interface
 

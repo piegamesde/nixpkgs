@@ -117,7 +117,9 @@ stdenv.mkDerivation rec {
       hpnd # original license statements seems to match this (in files that are shared with pdisk)
       gpl1Plus # fdisk.c
     ];
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [
+        OPNA2608
+      ];
       # the toolchain that's being expected for Mac support (SCSI.h from Universal Headers 2.0, SIOUX.h from Metrowerks CoreWarrior) is ancient, unsure about BSDs
     platforms = platforms.linux;
     badPlatforms = platforms.aarch64; # missing some platform definitions

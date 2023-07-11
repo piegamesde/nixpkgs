@@ -26,11 +26,13 @@ mkDerivation rec {
   pname = "qpaeq";
   inherit (pulseaudio) version src;
 
-  buildInputs = [ ((python3.withPackages (ps:
-    with ps; [
-      pyqt5
-      dbus-python
-    ]))) ];
+  buildInputs = [
+      ((python3.withPackages (ps:
+        with ps; [
+          pyqt5
+          dbus-python
+        ])))
+    ];
 
   dontBuild = true;
   dontConfigure = true;

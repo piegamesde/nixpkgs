@@ -23,7 +23,8 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ git # required by unit tests
+  nativeBuildInputs = [
+      git # required by unit tests
     ];
 
   preCheck = ''

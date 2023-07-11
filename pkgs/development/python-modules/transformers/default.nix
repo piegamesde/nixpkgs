@@ -58,9 +58,10 @@ buildPythonPackage rec {
       # unidic
     ];
     sklearn = [ scikit-learn ];
-    tf = [ tensorflow
-      # onnxconverter-common
-      # tf2onnx
+    tf = [
+        tensorflow
+        # onnxconverter-common
+        # tf2onnx
       ];
     torch = [ torch ];
     tokenizers = [ tokenizers ];

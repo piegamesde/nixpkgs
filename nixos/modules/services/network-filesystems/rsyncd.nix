@@ -138,7 +138,9 @@ in {
 
   };
 
-  meta.maintainers = with lib.maintainers; [ ehmry ];
+  meta.maintainers = with lib.maintainers; [
+      ehmry
+    ];
 
     # TODO: socket activated rsyncd
 

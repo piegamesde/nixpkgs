@@ -394,16 +394,15 @@ stdenv.mkDerivation {
     "--with-system-expat"
     "--with-system-ffi"
   ] ++ optionals (!static && !enableFramework) [ "--enable-shared" ]
-    ++ optionals enableFramework [ "--enable-framework=${
-      placeholder "out"
-    }/Library/Frameworks" ]
-    ++ optionals enableOptimizations [ "--enable-optimizations" ]
+    ++ optionals enableFramework [
+      "--enable-framework=${placeholder "out"}/Library/Frameworks"
+    ] ++ optionals enableOptimizations [ "--enable-optimizations" ]
     ++ optionals enableLTO [ "--with-lto" ] ++ optionals (pythonOlder "3.7") [
       # This is unconditionally true starting in CPython 3.7.
       "--with-threads"
-    ] ++ optionals
-    (sqlite != null && isPy3k) [ "--enable-loadable-sqlite-extensions" ]
-    ++ optionals (openssl' != null) [ "--with-openssl=${openssl'.dev}" ]
+    ] ++ optionals (sqlite != null && isPy3k) [
+      "--enable-loadable-sqlite-extensions"
+    ] ++ optionals (openssl' != null) [ "--with-openssl=${openssl'.dev}" ]
     ++ optionals (libxcrypt != null) [
       "CFLAGS=-I${libxcrypt}/include"
       "LIBS=-L${libxcrypt}/lib"
@@ -428,9 +427,10 @@ stdenv.mkDerivation {
       "ac_cv_computed_gotos=yes"
       "ac_cv_file__dev_ptmx=yes"
       "ac_cv_file__dev_ptc=yes"
-    ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast
-      "3.11") [ "--with-build-python=${pythonForBuildInterpreter}" ]
-    ++ optionals stdenv.hostPlatform.isLinux [
+    ] ++ optionals
+    (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11") [
+      "--with-build-python=${pythonForBuildInterpreter}"
+    ] ++ optionals stdenv.hostPlatform.isLinux [
       # Never even try to use lchmod on linux,
       # don't rely on detecting glibc-isms.
       "ac_cv_func_lchmod=no"
@@ -579,9 +579,10 @@ stdenv.mkDerivation {
 
     # Enforce that we don't have references to the OpenSSL -dev package, which we
     # explicitly specify in our configure flags above.
-  disallowedReferences = lib.optionals
-    (openssl' != null && !static && !enableFramework) [ openssl'.dev ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+  disallowedReferences =
+    lib.optionals (openssl' != null && !static && !enableFramework) [
+      openssl'.dev
+    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # Ensure we don't have references to build-time packages.
       # These typically end up in shebangs.
       pythonForBuild

@@ -112,7 +112,9 @@ stdenv.mkDerivation rec {
     perlPackages.perl
     perlPackages.XMLParser
     m4
-  ] ++ lib.optionals stdenv.isLinux [ glib ]
+  ] ++ lib.optionals stdenv.isLinux [
+      glib
+    ]
     # gstreamer plugin discovery requires wrapping
     ++ lib.optional (bluetoothSupport && advancedBluetoothCodecs) wrapGAppsHook;
 

@@ -193,7 +193,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dgtk_doc=${lib.boolToString buildDocs}"
     "-Dnls=enabled"
     "-Ddevbindir=${placeholder "dev"}/bin"
-  ] ++ lib.optionals (!stdenv.isDarwin) [ "-Dman=true" # broken on Darwin
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+      "-Dman=true" # broken on Darwin
     ] ++ lib.optionals stdenv.isFreeBSD [
       "-Db_lundef=false"
       "-Dxattr=false"

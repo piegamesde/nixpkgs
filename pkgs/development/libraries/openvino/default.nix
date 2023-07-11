@@ -90,10 +90,12 @@ stdenv.mkDerivation rec {
     shellcheck
   ];
 
-  patches = [ (substituteAll {
-    src = ./cmake.patch;
-    inherit (lib) version;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./cmake.patch;
+        inherit (lib) version;
+      })
+    ];
 
   postPatch = ''
     mkdir -p temp/vpu/firmware/{pcie,usb}-ma2x8x

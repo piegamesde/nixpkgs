@@ -17,12 +17,14 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-4+0Virpsq4mwOIpostS87VYTX8hsumXEL1w8FiOrNtA=";
   };
 
-  makeWrapperArgs = [ "--prefix PATH : ${
-      lib.makeBinPath [
-        coccinelle
-        gnugrep
-      ]
-    }" ];
+  makeWrapperArgs = [
+      "--prefix PATH : ${
+        lib.makeBinPath [
+          coccinelle
+          gnugrep
+        ]
+      }"
+    ];
 
   propagatedBuildInputs = with python3.pkgs; [
     lxml

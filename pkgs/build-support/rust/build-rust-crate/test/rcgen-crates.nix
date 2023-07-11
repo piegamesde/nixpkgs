@@ -22,7 +22,9 @@
   defaultCrateOverrides ? pkgs.defaultCrateOverrides
     # The features to enable for the root_crate or the workspace_members.
   ,
-  rootFeatures ? [ "default" ]
+  rootFeatures ? [
+    "default"
+  ]
   # If true, throw errors instead of issueing deprecation warnings.
   ,
   strictDeprecation ? false
@@ -2351,7 +2353,9 @@ rec {
           "serde_json" = [ "dep:serde_json" ];
           "spans" = [ "wasm-bindgen-macro/spans" ];
           "strict-macro" = [ "wasm-bindgen-macro/strict-macro" ];
-          "xxx_debug_only_print_generated_code" = [ "wasm-bindgen-macro/xxx_debug_only_print_generated_code" ];
+          "xxx_debug_only_print_generated_code" = [
+              "wasm-bindgen-macro/xxx_debug_only_print_generated_code"
+            ];
         };
         resolvedDefaultFeatures = [
           "default"

@@ -55,8 +55,9 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    asdf = [ asdf
-      # asdf-astropy
+    asdf = [
+        asdf
+        # asdf-astropy
       ];
     database = [ sqlalchemy ];
     image = [

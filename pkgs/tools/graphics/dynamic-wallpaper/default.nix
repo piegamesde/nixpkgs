@@ -44,7 +44,9 @@ python3.pkgs.buildPythonApplication rec {
     librsvg
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [
+      pygobject3
+    ];
 
     # Prevent double wrapping
   dontWrapGApps = true;

@@ -6159,7 +6159,9 @@ with self; {
     (p:
       p.overrideAttrs (super: {
         meta = super.meta // {
-          outputsToInstall = [ "py" ]; # The package always builds python3 bindings
+          outputsToInstall = [
+              "py"
+            ]; # The package always builds python3 bindings
           broken = (super.meta.broken or false) || !isPy3k;
         };
       }))

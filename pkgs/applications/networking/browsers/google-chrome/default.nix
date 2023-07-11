@@ -278,7 +278,9 @@ stdenv.mkDerivation {
     homepage = "https://www.google.com/chrome/browser/";
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [
+        primeos
+      ];
       # Note from primeos: By updating Chromium I also update Google Chrome and
       # will try to merge PRs and respond to issues but I'm not actually using
       # Google Chrome.

@@ -42,15 +42,17 @@ let
     );
   '';
 in {
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "sslh"
-    "listenAddress"
-  ] [
-    "services"
-    "sslh"
-    "listenAddresses"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "sslh"
+        "listenAddress"
+      ] [
+        "services"
+        "sslh"
+        "listenAddresses"
+      ])
+    ];
 
   options = {
     services.sslh = {

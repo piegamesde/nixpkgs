@@ -28,8 +28,9 @@ stdenv.mkDerivation rec {
     "MANDIR=$(out)/share/man"
     "RUN_DIR=/dev/.mdadm"
     "STRIP="
-  ] ++ lib.optionals (stdenv.hostPlatform
-    != stdenv.buildPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+    ];
 
   installFlags = [ "install-systemd" ];
 

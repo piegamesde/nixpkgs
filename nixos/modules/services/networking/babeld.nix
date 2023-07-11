@@ -45,7 +45,9 @@ let
 
 in {
 
-  meta.maintainers = with maintainers; [ hexa ];
+  meta.maintainers = with maintainers; [
+      hexa
+    ];
 
     ###### interface
 

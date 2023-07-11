@@ -37,13 +37,15 @@ let
 
 in {
 
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "hbase"
-  ] [
-    "services"
-    "hbase-standalone"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "hbase"
+      ] [
+        "services"
+        "hbase-standalone"
+      ])
+    ];
 
     ###### interface
 

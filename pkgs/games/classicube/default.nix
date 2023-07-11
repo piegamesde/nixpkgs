@@ -31,15 +31,17 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    desktopName = pname;
-    genericName = "Sandbox Block Game";
-    exec = "ClassiCube";
-    icon = "CCicon";
-    comment = "Minecraft Classic inspired sandbox game";
-    categories = [ "Game" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        desktopName = pname;
+        genericName = "Sandbox Block Game";
+        exec = "ClassiCube";
+        icon = "CCicon";
+        comment = "Minecraft Classic inspired sandbox game";
+        categories = [ "Game" ];
+      })
+    ];
 
   prePatch = ''
     # The ClassiCube sources have DOS-style newlines

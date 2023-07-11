@@ -96,7 +96,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs = [ pari # used at runtime by the alnuth package
+  propagatedBuildInputs = [
+      pari # used at runtime by the alnuth package
     ];
 
     # "teststandard" is a superset of the tests run by "check". it takes ~20min

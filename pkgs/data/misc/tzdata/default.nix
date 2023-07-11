@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  patches = lib.optionals
-    stdenv.hostPlatform.isWindows [ ./0001-Add-exe-extension-for-MS-Windows-binaries.patch ]
-    ;
+  patches = lib.optionals stdenv.hostPlatform.isWindows [
+      ./0001-Add-exe-extension-for-MS-Windows-binaries.patch
+    ];
 
   outputs = [
     "out"
@@ -57,8 +57,9 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # needs more tools
 
-  installFlags = lib.optionals (stdenv.buildPlatform
-    != stdenv.hostPlatform) [ "zic=${buildPackages.tzdata.bin}/bin/zic" ];
+  installFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "zic=${buildPackages.tzdata.bin}/bin/zic"
+    ];
 
   postInstall = ''
     rm $out/share/zoneinfo-posix

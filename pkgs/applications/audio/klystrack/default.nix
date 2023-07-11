@@ -26,11 +26,13 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ pkg-config ];
 
-  patches = [ (fetchpatch {
-    url =
-      "https://github.com/kometbomb/klystrack/commit/bb537595d02140176831c4a1b8e9121978b32d22.patch";
-    sha256 = "06gl9q0jwg039kpxb13lg9x0k59s11968qn4lybgkadvzmhxkgmi";
-  }) ];
+  patches = [
+      (fetchpatch {
+        url =
+          "https://github.com/kometbomb/klystrack/commit/bb537595d02140176831c4a1b8e9121978b32d22.patch";
+        sha256 = "06gl9q0jwg039kpxb13lg9x0k59s11968qn4lybgkadvzmhxkgmi";
+      })
+    ];
 
     # Workaround build failure on -fno-common toolchains:
     #   ld: libengine_gui.a(gui_menu.o):(.bss+0x0): multiple definition of

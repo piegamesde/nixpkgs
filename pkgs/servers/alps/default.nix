@@ -28,11 +28,13 @@ buildGoModule rec {
     }/share/alps/plugins"
   ];
 
-  patches = [ (fetchpatch {
-    name = "Issue-160-Alps-theme-has-a-enormous-move-to-list-sel";
-    url = "https://lists.sr.ht/~migadu/alps-devel/patches/30096/mbox";
-    hash = "sha256-Sz/SCkrrXZWrmJzjfPXi+UfCcbwsy6QiA7m34iiEFX0=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "Issue-160-Alps-theme-has-a-enormous-move-to-list-sel";
+        url = "https://lists.sr.ht/~migadu/alps-devel/patches/30096/mbox";
+        hash = "sha256-Sz/SCkrrXZWrmJzjfPXi+UfCcbwsy6QiA7m34iiEFX0=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace plugin.go --replace "const PluginDir" "var PluginDir"

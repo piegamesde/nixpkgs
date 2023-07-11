@@ -42,10 +42,12 @@ mkDerivation rec {
 
   propagatedBuildInputs = [ povray ];
 
-  patches = [ (substituteAll {
-    src = ./povray.patch;
-    inherit povray;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./povray.patch;
+        inherit povray;
+      })
+    ];
 
   qmakeFlags = [
     "INSTALL_PREFIX=${placeholder "out"}"

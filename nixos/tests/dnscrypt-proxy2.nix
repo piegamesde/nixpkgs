@@ -21,7 +21,9 @@ import ./make-test-python.nix ({
           services.dnscrypt-proxy2.settings = {
             listen_addresses = [ "127.0.0.1:${toString localProxyPort}" ];
             sources.public-resolvers = {
-              urls = [ "https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md" ];
+              urls = [
+                  "https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md"
+                ];
               cache_file = "public-resolvers.md";
               minisign_key =
                 "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
@@ -30,9 +32,9 @@ import ./make-test-python.nix ({
           };
 
           services.dnsmasq.enable = true;
-          services.dnsmasq.settings.server = [ "127.0.0.1#${
-              toString localProxyPort
-            }" ];
+          services.dnsmasq.settings.server = [
+              "127.0.0.1#${toString localProxyPort}"
+            ];
         }
         ;
     };

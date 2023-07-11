@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/giltene/wrk2";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [
+        thoughtpolice
+      ];
       # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };

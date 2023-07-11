@@ -375,24 +375,30 @@ in {
       '';
     })) ++ config.services.prometheus.exporters.assertions;
     warnings = config.services.prometheus.exporters.warnings;
-  } ] ++ [ (mkIf config.services.minio.enable {
-    services.prometheus.exporters.minio.minioAddress =
-      mkDefault "http://localhost:9000";
-    services.prometheus.exporters.minio.minioAccessKey =
-      mkDefault config.services.minio.accessKey;
-    services.prometheus.exporters.minio.minioAccessSecret =
-      mkDefault config.services.minio.secretKey;
-  }) ] ++ [ (mkIf config.services.prometheus.exporters.rtl_433.enable {
-    hardware.rtl-sdr.enable = mkDefault true;
-  }) ] ++ [ (mkIf config.services.postfix.enable {
-    services.prometheus.exporters.postfix.group =
-      mkDefault config.services.postfix.setgidGroup;
-  }) ] ++ (mapAttrsToList (name: conf:
-    mkExporterConf {
-      inherit name;
-      inherit (conf) serviceOpts;
-      conf = cfg.${name};
-    }) exporterOpts));
+  } ] ++ [
+      (mkIf config.services.minio.enable {
+        services.prometheus.exporters.minio.minioAddress =
+          mkDefault "http://localhost:9000";
+        services.prometheus.exporters.minio.minioAccessKey =
+          mkDefault config.services.minio.accessKey;
+        services.prometheus.exporters.minio.minioAccessSecret =
+          mkDefault config.services.minio.secretKey;
+      })
+    ] ++ [
+      (mkIf config.services.prometheus.exporters.rtl_433.enable {
+        hardware.rtl-sdr.enable = mkDefault true;
+      })
+    ] ++ [
+      (mkIf config.services.postfix.enable {
+        services.prometheus.exporters.postfix.group =
+          mkDefault config.services.postfix.setgidGroup;
+      })
+    ] ++ (mapAttrsToList (name: conf:
+      mkExporterConf {
+        inherit name;
+        inherit (conf) serviceOpts;
+        conf = cfg.${name};
+      }) exporterOpts));
 
   meta = {
     doc = ./exporters.md;

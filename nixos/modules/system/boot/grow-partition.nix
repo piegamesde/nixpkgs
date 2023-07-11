@@ -12,13 +12,15 @@
 with lib;
 
 {
-  imports = [ (mkRenamedOptionModule [
-    "virtualisation"
-    "growPartition"
-  ] [
-    "boot"
-    "growPartition"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "virtualisation"
+        "growPartition"
+      ] [
+        "boot"
+        "growPartition"
+      ])
+    ];
 
   options = {
     boot.growPartition =

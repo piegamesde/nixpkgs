@@ -92,8 +92,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [
       "--enable-apparmor"
       "--enable-libaudit"
-    ] ++ lib.optionals
-    enableSystemd [ "SYSTEMCTL=${systemdMinimal}/bin/systemctl" ];
+    ] ++ lib.optionals enableSystemd [
+      "SYSTEMCTL=${systemdMinimal}/bin/systemctl"
+    ];
 
   NIX_CFLAGS_LINK = lib.optionalString (!stdenv.isDarwin) "-Wl,--as-needed";
 

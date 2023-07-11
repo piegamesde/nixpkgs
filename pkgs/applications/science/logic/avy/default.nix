@@ -24,7 +24,9 @@ stdenv.mkDerivation rec {
     boost.out
     boost.dev
   ];
-  env.NIX_CFLAGS_COMPILE = toString ([ "-Wno-narrowing" ]
+  env.NIX_CFLAGS_COMPILE = toString ([
+      "-Wno-narrowing"
+    ]
     # Squelch endless stream of warnings on same few things
     ++ lib.optionals stdenv.cc.isClang [
       "-Wno-empty-body"

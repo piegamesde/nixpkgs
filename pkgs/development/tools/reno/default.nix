@@ -42,7 +42,8 @@ buildPythonApplication rec {
     rm test-requirements.txt
   '';
 
-  disabledTests = [ "test_build_cache_db" # expects to be run from a git repository
+  disabledTests = [
+      "test_build_cache_db" # expects to be run from a git repository
     ];
 
     # verify executable

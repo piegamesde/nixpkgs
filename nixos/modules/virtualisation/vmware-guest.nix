@@ -17,14 +17,16 @@ let
     ;
   xf86inputvmmouse = pkgs.xorg.xf86inputvmmouse;
 in {
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "vmwareGuest"
-  ] [
-    "virtualisation"
-    "vmware"
-    "guest"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "vmwareGuest"
+      ] [
+        "virtualisation"
+        "vmware"
+        "guest"
+      ])
+    ];
 
   options.virtualisation.vmware.guest = {
     enable = mkEnableOption (lib.mdDoc "VMWare Guest Support");
@@ -59,7 +61,9 @@ in {
       # Mount the vmblock for drag-and-drop and copy-and-paste.
     systemd.mounts = mkIf (!cfg.headless) [ {
       description = "VMware vmblock fuse mount";
-      documentation = [ "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt" ];
+      documentation = [
+          "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt"
+        ];
       unitConfig.ConditionVirtualization = "vmware";
       what = "${open-vm-tools}/bin/vmware-vmblock-fuse";
       where = "/run/vmblock-fuse";

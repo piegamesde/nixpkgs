@@ -34311,8 +34311,9 @@ in {
       asd = "com.clearly-useful.generic-collection-interface.test";
     });
     systems = [ "com.clearly-useful.generic-collection-interface.test" ];
-    lispLibs = [ (getAttr
-      "com_dot_clearly-useful_dot_generic-collection-interface" pkgs) ];
+    lispLibs = [
+        (getAttr "com_dot_clearly-useful_dot_generic-collection-interface" pkgs)
+      ];
   };
   com_dot_clearly-useful_dot_iterate_plus = {
     pname = "com.clearly-useful.iterate+";

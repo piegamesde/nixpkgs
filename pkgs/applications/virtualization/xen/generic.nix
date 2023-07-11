@@ -354,9 +354,9 @@ stdenv.mkDerivation (rec {
       # Affects 4.15 - 4.17
       "CVE-2022-42331"
       # https://xenbits.xen.org/docs/unstable/support-matrix.html
-    ] ++ lib.optionals (lib.versionOlder version
-      "4.15") [ "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html" ]
-      ;
+    ] ++ lib.optionals (lib.versionOlder version "4.15") [
+        "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
+      ];
   } // (config.meta or { });
 } // removeAttrs config [
   "xenfiles"

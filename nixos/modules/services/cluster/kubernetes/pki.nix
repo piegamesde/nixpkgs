@@ -294,9 +294,8 @@ in {
     environment.etc.${cfg.etcClusterAdminKubeconfig}.source =
       mkIf (cfg.etcClusterAdminKubeconfig != null) clusterAdminKubeconfig;
 
-    environment.systemPackages =
-      mkIf (top.kubelet.enable || top.proxy.enable) [ (pkgs.writeScriptBin
-        "nixos-kubernetes-node-join" ''
+    environment.systemPackages = mkIf (top.kubelet.enable || top.proxy.enable) [
+        (pkgs.writeScriptBin "nixos-kubernetes-node-join" ''
           set -e
           exec 1>&2
 
@@ -346,7 +345,8 @@ in {
           ''}
 
           echo "Node joined successfully"
-        '') ];
+        '')
+      ];
 
       # isolate etcd on loopback at the master node
       # easyCerts doesn't support multimaster clusters anyway atm.

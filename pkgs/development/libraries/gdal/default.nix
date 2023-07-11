@@ -92,10 +92,11 @@ stdenv.mkDerivation rec {
     "-DMYSQL_LIBRARY=${lib.getLib libmysqlclient}/lib/${
       lib.optionalString (libmysqlclient.pname != "mysql") "mysql/"
     }libmysqlclient${stdenv.hostPlatform.extensions.sharedLibrary}"
-  ] ++ lib.optionals
-    (!stdenv.isDarwin) [ "-DCMAKE_SKIP_BUILD_RPATH=ON" # without, libgdal.so can't find libmariadb.so
-    ] ++ lib.optionals
-    stdenv.isDarwin [ "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON" ];
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+      "-DCMAKE_SKIP_BUILD_RPATH=ON" # without, libgdal.so can't find libmariadb.so
+    ] ++ lib.optionals stdenv.isDarwin [
+      "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
+    ];
 
   buildInputs = [
     armadillo
@@ -195,8 +196,9 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isDarwin [
     # flaky on macos
     "test_rda_download_queue"
-  ] ++ lib.optionals (lib.versionOlder proj.version
-    "8") [ "test_ogr_parquet_write_crs_without_id_in_datum_ensemble_members" ];
+  ] ++ lib.optionals (lib.versionOlder proj.version "8") [
+      "test_ogr_parquet_write_crs_without_id_in_datum_ensemble_members"
+    ];
   postCheck = ''
     popd # ../autotest
   '';

@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
 
     # propagate since gprbuild needs to find
     # referenced GPR project definitions
-  propagatedBuildInputs = [ gprbuild # libgpr
+  propagatedBuildInputs = [
+      gprbuild # libgpr
     ];
 
   makeFlags = [

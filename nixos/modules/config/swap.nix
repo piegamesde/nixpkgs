@@ -238,8 +238,9 @@ in {
       else
         [ ]) config.swapDevices;
 
-    system.requiredKernelConfig =
-      with config.lib.kernelConfig; [ (isYes "SWAP") ];
+    system.requiredKernelConfig = with config.lib.kernelConfig; [
+        (isYes "SWAP")
+      ];
 
       # Create missing swapfiles.
     systemd.services =

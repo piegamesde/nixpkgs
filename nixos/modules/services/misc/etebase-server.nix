@@ -190,18 +190,20 @@ in {
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = with pkgs; [ (runCommand "etebase-server" {
-      nativeBuildInputs = [ makeWrapper ];
-    } ''
-      makeWrapper ${pythonEnv}/bin/etebase-server \
-        $out/bin/etebase-server \
-        --chdir ${escapeShellArg cfg.dataDir} \
-        --prefix ETEBASE_EASY_CONFIG_PATH : "${configIni}"
-    '') ];
+    environment.systemPackages = with pkgs; [
+        (runCommand "etebase-server" { nativeBuildInputs = [ makeWrapper ]; } ''
+          makeWrapper ${pythonEnv}/bin/etebase-server \
+            $out/bin/etebase-server \
+            --chdir ${escapeShellArg cfg.dataDir} \
+            --prefix ETEBASE_EASY_CONFIG_PATH : "${configIni}"
+        '')
+      ];
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} ${
-        config.users.users.${cfg.user}.group
-      } - -" ];
+    systemd.tmpfiles.rules = [
+        "d '${cfg.dataDir}' - ${cfg.user} ${
+          config.users.users.${cfg.user}.group
+        } - -"
+      ];
 
     systemd.services.etebase-server = {
       description = "An Etebase (EteSync 2.0) server";

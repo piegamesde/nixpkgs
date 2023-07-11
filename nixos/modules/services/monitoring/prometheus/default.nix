@@ -56,9 +56,9 @@ let
     # This becomes the main config file for Prometheus
   promConfig = {
     global = filterValidPrometheus cfg.globalConfig;
-    rule_files = map (promtoolCheck "check rules" "rules") (cfg.ruleFiles
-      ++ [ (pkgs.writeText "prometheus.rules"
-        (concatStringsSep "\n" cfg.rules)) ]);
+    rule_files = map (promtoolCheck "check rules" "rules") (cfg.ruleFiles ++ [
+        (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules))
+      ]);
     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
     remote_write = filterValidPrometheus cfg.remoteWrite;
     remote_read = filterValidPrometheus cfg.remoteRead;
@@ -1838,19 +1838,22 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [ (let
-      # Match something with dots (an IPv4 address) or something ending in
-      # a square bracket (an IPv6 addresses) followed by a port number.
-      legacy = builtins.match "(.*\\..*|.*]):([[:digit:]]+)" cfg.listenAddress;
-    in {
-      assertion = legacy == null;
-      message = ''
-        Do not specify the port for Prometheus to listen on in the
-        listenAddress option; use the port option instead:
-          services.prometheus.listenAddress = ${builtins.elemAt legacy 0};
-          services.prometheus.port = ${builtins.elemAt legacy 1};
-      '';
-    } ) ];
+    assertions = [
+        (let
+          # Match something with dots (an IPv4 address) or something ending in
+          # a square bracket (an IPv6 addresses) followed by a port number.
+          legacy =
+            builtins.match "(.*\\..*|.*]):([[:digit:]]+)" cfg.listenAddress;
+        in {
+          assertion = legacy == null;
+          message = ''
+            Do not specify the port for Prometheus to listen on in the
+            listenAddress option; use the port option instead:
+              services.prometheus.listenAddress = ${builtins.elemAt legacy 0};
+              services.prometheus.port = ${builtins.elemAt legacy 1};
+          '';
+        } )
+      ];
 
     users.groups.prometheus.gid = config.ids.gids.prometheus;
     users.users.prometheus = {

@@ -279,9 +279,9 @@ in {
 
     security.apparmor.includes."nixos/security.wrappers" = ''
       include "${
-        pkgs.apparmorRulesFromClosure {
-          name = "security.wrappers";
-        } [ securityWrapper ]
+        pkgs.apparmorRulesFromClosure { name = "security.wrappers"; } [
+          securityWrapper
+        ]
       }"
     '';
 

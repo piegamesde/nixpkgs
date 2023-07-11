@@ -42,12 +42,14 @@ stdenv.mkDerivation rec {
 
   dontAddDisableDepTrack = stdenv.isDarwin;
 
-  patches = lib.optionals remove_getaddrinfo_checks [ (fetchpatch {
-    name = "0002-osdep-m4-Remove-getaddrinfo-too-low-checks.patch";
-    url =
-      "https://raw.githubusercontent.com/buildroot/buildroot/master/package/dante/0002-osdep-m4-Remove-getaddrinfo-too-low-checks.patch";
-    sha256 = "sha256-e+qF8lB5tkiA7RlJ+tX5O6KxQrQp33RSPdP1TxU961Y=";
-  }) ];
+  patches = lib.optionals remove_getaddrinfo_checks [
+      (fetchpatch {
+        name = "0002-osdep-m4-Remove-getaddrinfo-too-low-checks.patch";
+        url =
+          "https://raw.githubusercontent.com/buildroot/buildroot/master/package/dante/0002-osdep-m4-Remove-getaddrinfo-too-low-checks.patch";
+        sha256 = "sha256-e+qF8lB5tkiA7RlJ+tX5O6KxQrQp33RSPdP1TxU961Y=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace include/redefgen.sh --replace 'PATH=/bin:/usr/bin:/sbin:/usr/sbin' ""

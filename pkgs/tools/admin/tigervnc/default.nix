@@ -35,12 +35,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-77X+AvHFWfYYIio3c+EYf11jg/1IbYhNUweRIDHMOZw=";
   };
 
-  patches = [ (fetchpatch {
-    url =
-      "https://patch-diff.githubusercontent.com/raw/TigerVNC/tigervnc/pull/1383.patch";
-    sha256 = "sha256-r3QLtxVD0wIv2NWVN9r0LVxSlLurDHgkAZfkpIjmZyU=";
-    name = "Xvnc-support-Xorg-1.21-PR1383.patch";
-  }) ];
+  patches = [
+      (fetchpatch {
+        url =
+          "https://patch-diff.githubusercontent.com/raw/TigerVNC/tigervnc/pull/1383.patch";
+        sha256 = "sha256-r3QLtxVD0wIv2NWVN9r0LVxSlLurDHgkAZfkpIjmZyU=";
+        name = "Xvnc-support-Xorg-1.21-PR1383.patch";
+      })
+    ];
 
   postPatch = lib.optionalString stdenv.isLinux ''
     sed -i -e '/^\$cmd \.= " -pn";/a$cmd .= " -xkbdir ${xkeyboard_config}/etc/X11/xkb";' unix/vncserver/vncserver.in

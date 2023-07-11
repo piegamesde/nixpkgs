@@ -17302,9 +17302,11 @@ in {
       sources."define-properties-1.2.0"
       sources."define-property-2.0.2"
       (sources."del-4.1.1" // {
-        dependencies = [ (sources."globby-6.1.0" // {
-          dependencies = [ sources."pify-2.3.0" ];
-        }) ];
+        dependencies = [
+            (sources."globby-6.1.0" // {
+              dependencies = [ sources."pify-2.3.0" ];
+            })
+          ];
       })
       sources."delayed-stream-1.0.0"
       sources."depd-2.0.0"

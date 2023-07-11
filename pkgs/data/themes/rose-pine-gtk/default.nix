@@ -23,7 +23,8 @@ stdenvNoCC.mkDerivation rec {
     gtk_engines # pixmap engine for Gtk2
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine # murrine engine for Gtk2
+  propagatedUserEnvPkgs = [
+      gtk-engine-murrine # murrine engine for Gtk2
     ];
 
     # avoid the makefile which is only for theme maintainers

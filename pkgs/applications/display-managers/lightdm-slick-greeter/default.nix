@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
     libXext
   ];
 
-  pythonPath = [ python3.pkgs.pygobject3 # for slick-greeter-check-hidpi
+  pythonPath = [
+      python3.pkgs.pygobject3 # for slick-greeter-check-hidpi
     ];
 
   postPatch = ''

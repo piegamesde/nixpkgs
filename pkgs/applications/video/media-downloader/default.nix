@@ -29,14 +29,16 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ qtbase ];
 
-  qtWrapperArgs = [ "--prefix PATH : ${
-      lib.makeBinPath [
-        aria2
-        ffmpeg
-        python3
-        yt-dlp
-      ]
-    }" ];
+  qtWrapperArgs = [
+      "--prefix PATH : ${
+        lib.makeBinPath [
+          aria2
+          ffmpeg
+          python3
+          yt-dlp
+        ]
+      }"
+    ];
 
   meta = with lib; {
     description = "A Qt/C++ GUI front end to youtube-dl";

@@ -15,7 +15,9 @@ rec {
     "/System/Library/PrivateFrameworks/CorePDF.framework/Versions/A/CorePDF"
     "/usr/lib/libspindump.dylib"
   ];
-  ImageCaptureCore = [ "/System/Library/Frameworks/ImageCaptureCore.framework" ];
+  ImageCaptureCore = [
+      "/System/Library/Frameworks/ImageCaptureCore.framework"
+    ];
   VideoToolbox = [
     "/System/Library/Frameworks/VideoToolbox.framework"
     "/System/Library/PrivateFrameworks/AppleVA.framework/Versions/A/AppleVA"
@@ -172,7 +174,9 @@ rec {
   AudioUnit = [ "/System/Library/Frameworks/AudioUnit.framework" ];
   CoreMIDI = [ "/System/Library/Frameworks/CoreMIDI.framework" ];
   AudioToolbox = [ "/System/Library/Frameworks/AudioToolbox.framework" ];
-  SystemConfiguration = [ "/System/Library/Frameworks/SystemConfiguration.framework" ];
+  SystemConfiguration = [
+      "/System/Library/Frameworks/SystemConfiguration.framework"
+    ];
   NetFS = [
     "/System/Library/Frameworks/NetFS.framework"
     "/System/Library/PrivateFrameworks/NetAuth.framework/Versions/A/NetAuth"
@@ -180,12 +184,16 @@ rec {
   ];
   Accelerate = [ "/System/Library/Frameworks/Accelerate.framework" ];
   OpenDirectory = [ "/System/Library/Frameworks/OpenDirectory.framework" ];
-  ServiceManagement = [ "/System/Library/Frameworks/ServiceManagement.framework" ];
+  ServiceManagement = [
+      "/System/Library/Frameworks/ServiceManagement.framework"
+    ];
   OpenCL = [ "/System/Library/Frameworks/OpenCL.framework" ];
   CoreWLAN = [ "/System/Library/Frameworks/CoreWLAN.framework" ];
   IOBluetooth = [ "/System/Library/Frameworks/IOBluetooth.framework" ]
     ++ AudioUnit ++ CoreBluetooth;
   CoreBluetooth = [ "/System/Library/Frameworks/CoreBluetooth.framework" ];
-  SecurityFoundation = [ "/System/Library/Frameworks/SecurityFoundation.framework" ];
+  SecurityFoundation = [
+      "/System/Library/Frameworks/SecurityFoundation.framework"
+    ];
   Kernel = [ "/System/Library/Frameworks/Kernel.framework" ];
 }

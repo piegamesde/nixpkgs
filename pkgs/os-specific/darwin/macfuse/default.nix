@@ -62,12 +62,15 @@ stdenv.mkDerivation rec {
       project website</link>.
     '';
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [
+        midchildan
+      ];
 
       # macFUSE as a whole includes code with restrictions on commercial
       # redistribution. However, the build artifacts that we actually touch for
       # this derivation are distributed under a free license.
-    license = with licenses; [ lgpl2Plus # libfuse
+    license = with licenses; [
+        lgpl2Plus # libfuse
       ];
   };
 

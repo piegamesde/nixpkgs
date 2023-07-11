@@ -71,18 +71,20 @@ mkDerivation {
     wrapQtApp $out/bin/opentrack
   '';
 
-  desktopItems = [ (makeDesktopItem rec {
-    name = "opentrack";
-    exec = "opentrack";
-    icon = fetchurl {
-      url =
-        "https://github.com/opentrack/opentrack/raw/opentrack-${version}/gui/images/opentrack.png";
-      sha256 = "0d114zk78f7nnrk89mz4gqn7yk3k71riikdn29w6sx99h57f6kgn";
-    };
-    desktopName = name;
-    genericName = "Head tracking software";
-    categories = [ "Utility" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem rec {
+        name = "opentrack";
+        exec = "opentrack";
+        icon = fetchurl {
+          url =
+            "https://github.com/opentrack/opentrack/raw/opentrack-${version}/gui/images/opentrack.png";
+          sha256 = "0d114zk78f7nnrk89mz4gqn7yk3k71riikdn29w6sx99h57f6kgn";
+        };
+        desktopName = name;
+        genericName = "Head tracking software";
+        categories = [ "Utility" ];
+      })
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/opentrack/opentrack";

@@ -148,8 +148,8 @@ stdenv.mkDerivation ({
     ] ++ lib.optionals stdenv.hostPlatform.isx86 [
       # Enable Intel Control-flow Enforcement Technology (CET) support
       "--enable-cet"
-    ] ++ lib.optionals
-    withLinuxHeaders [ "--enable-kernel=3.10.0" # RHEL 7 and derivatives, seems oldest still supported kernel
+    ] ++ lib.optionals withLinuxHeaders [
+      "--enable-kernel=3.10.0" # RHEL 7 and derivatives, seems oldest still supported kernel
     ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       (lib.flip lib.withFeature "fp"
         (stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")

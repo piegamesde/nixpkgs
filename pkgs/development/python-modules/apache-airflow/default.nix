@@ -257,8 +257,8 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests/core/test_core.py" ];
 
-  disabledTests =
-    lib.optionals stdenv.isDarwin [ "bash_operator_kill" # psutil.AccessDenied
+  disabledTests = lib.optionals stdenv.isDarwin [
+      "bash_operator_kill" # psutil.AccessDenied
     ];
 
     # Updates yarn.lock and package.json

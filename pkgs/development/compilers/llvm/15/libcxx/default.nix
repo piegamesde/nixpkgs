@@ -58,8 +58,10 @@ stdenv.mkDerivation rec {
     chmod -R u+w .
   '';
 
-  patches = [ ./gnu-install-dirs.patch ] ++ lib.optionals
-    stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
+  patches = [ ./gnu-install-dirs.patch ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+      ../../libcxx-0001-musl-hacks.patch
+    ];
 
   postPatch = ''
     cd ../runtimes

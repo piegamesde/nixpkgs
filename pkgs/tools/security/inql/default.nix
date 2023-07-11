@@ -15,7 +15,9 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-DFGJHqdrCmOZn8GdY5SZ1PrOhuIsMLoK+2Fry9WkRiY=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ stickytape ];
+  propagatedBuildInputs = with python3.pkgs; [
+      stickytape
+    ];
 
     # Project has no tests
   doCheck = false;

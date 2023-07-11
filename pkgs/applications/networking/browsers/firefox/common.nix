@@ -256,14 +256,16 @@ buildStdenv.mkDerivation ({
     "profilingPhase"
   ];
 
-  patches = lib.optionals (lib.versionAtLeast version "112.0"
-    && lib.versionOlder version "113.0") [ (fetchpatch {
-      # Crash when desktop scaling does not divide window scale on Wayland
-      # https://bugzilla.mozilla.org/show_bug.cgi?id=1803016
-      name = "mozbz1803016.patch";
-      url = "https://hg.mozilla.org/mozilla-central/raw-rev/1068e0955cfb";
-      hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
-    }) ] ++ lib.optionals (lib.versionOlder version "114.0") [
+  patches = lib.optionals
+    (lib.versionAtLeast version "112.0" && lib.versionOlder version "113.0") [
+      (fetchpatch {
+        # Crash when desktop scaling does not divide window scale on Wayland
+        # https://bugzilla.mozilla.org/show_bug.cgi?id=1803016
+        name = "mozbz1803016.patch";
+        url = "https://hg.mozilla.org/mozilla-central/raw-rev/1068e0955cfb";
+        hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
+      })
+    ] ++ lib.optionals (lib.versionOlder version "114.0") [
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1830040
       # https://hg.mozilla.org/mozilla-central/rev/cddb250a28d8
       (fetchpatch {
@@ -502,11 +504,12 @@ buildStdenv.mkDerivation ({
     xorg.xorgproto
     zip
     zlib
-  ] ++ [ (if (lib.versionAtLeast version "103") then
-    nss_latest
-  else
-    nss_esr) ] ++ lib.optional alsaSupport alsa-lib
-    ++ lib.optional jackSupport libjack2
+  ] ++ [
+      (if (lib.versionAtLeast version "103") then
+        nss_latest
+      else
+        nss_esr)
+    ] ++ lib.optional alsaSupport alsa-lib ++ lib.optional jackSupport libjack2
     ++ lib.optional pulseaudioSupport libpulseaudio # only headers are needed
     ++ lib.optional sndioSupport sndio ++ lib.optional gssSupport libkrb5
     ++ lib.optionals waylandSupport [

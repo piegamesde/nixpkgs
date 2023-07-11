@@ -65,10 +65,12 @@ stdenv.mkDerivation rec {
     sha256 = "XOYsHmfyeJNCp/SgNbEC905i7YX2DoGlt/PgQWVATf8=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    inherit tzdata;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit tzdata;
+      })
+    ];
 
   prePatch = ''
     substitute ${./hardcode-gsettings.patch} hardcode-gsettings.patch \

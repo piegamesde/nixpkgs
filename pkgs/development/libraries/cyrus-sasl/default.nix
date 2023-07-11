@@ -71,8 +71,9 @@ stdenv.mkDerivation rec {
     "--enable-shared"
   ] ++ lib.optional enableLdap "--with-ldap=${openldap.dev}";
 
-  installFlags = lib.optionals
-    stdenv.isDarwin [ "framedir=$(out)/Library/Frameworks/SASL2.framework" ];
+  installFlags = lib.optionals stdenv.isDarwin [
+      "framedir=$(out)/Library/Frameworks/SASL2.framework"
+    ];
 
   passthru.tests = { inherit (nixosTests) parsedmarc postfix; };
 

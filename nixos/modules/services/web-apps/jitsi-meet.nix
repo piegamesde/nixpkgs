@@ -290,7 +290,9 @@ in {
     };
 
     users.groups.jitsi-meet = { };
-    systemd.tmpfiles.rules = [ "d '/var/lib/jitsi-meet' 0750 root jitsi-meet - -" ];
+    systemd.tmpfiles.rules = [
+        "d '/var/lib/jitsi-meet' 0750 root jitsi-meet - -"
+      ];
 
     systemd.services.jitsi-meet-init-secrets = {
       wantedBy = [ "multi-user.target" ];

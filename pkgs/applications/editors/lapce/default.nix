@@ -157,19 +157,21 @@ rustPlatform.buildRustPackage rec {
     install -Dm0644 $src/extra/images/logo.svg $out/share/icons/hicolor/scalable/apps/lapce.svg
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "lapce";
-    exec = "lapce %F";
-    icon = "lapce";
-    desktopName = "Lapce";
-    comment = meta.description;
-    genericName = "Code Editor";
-    categories = [
-      "Development"
-      "Utility"
-      "TextEditor"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "lapce";
+        exec = "lapce %F";
+        icon = "lapce";
+        desktopName = "Lapce";
+        comment = meta.description;
+        genericName = "Code Editor";
+        categories = [
+          "Development"
+          "Utility"
+          "TextEditor"
+        ];
+      })
     ];
-  }) ];
 
   passthru.updateScript = nix-update-script { };
 
