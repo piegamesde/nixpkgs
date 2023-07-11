@@ -128,7 +128,7 @@ in
     };
   };
 
-    ##### implementation
+  ##### implementation
   config = mkIf cfg.enable {
     services.nomad.settings = {
       # Agrees with `StateDirectory = "nomad"` set below.
@@ -209,7 +209,7 @@ in
           settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
     } ];
 
-      # Docker support requires the Docker daemon to be running.
+    # Docker support requires the Docker daemon to be running.
     virtualisation.docker.enable = mkIf cfg.enableDocker true;
   };
 }

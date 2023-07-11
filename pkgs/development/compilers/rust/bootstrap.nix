@@ -17,7 +17,6 @@ let
       hashes.${platform} or (throw
         "missing bootstrap url for platform ${platform}");
   };
-
 in
 callPackage ./binary.nix {
   inherit version src platform;

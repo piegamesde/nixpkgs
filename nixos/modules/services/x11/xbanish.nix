@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.xbanish;
-
 in
 {
   options.services.xbanish = {

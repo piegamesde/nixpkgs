@@ -41,7 +41,7 @@ let
       runHook postBuild
     '';
 
-      # tries to pull tests from network, and fails silently anyway
+    # tries to pull tests from network, and fails silently anyway
     doCheck = false;
 
     installPhase = ''
@@ -78,9 +78,9 @@ let
       runHook postInstall
     '';
 
-      # make toggle-able, so that overrided versions can disable this check if
-      # they want newer versions of the plugins without having to modify
-      # the output logic
+    # make toggle-able, so that overrided versions can disable this check if
+    # they want newer versions of the plugins without having to modify
+    # the output logic
     doInstallCheck = true;
     installCheckPhase = ''
       rmdir bin/plugins || {
@@ -115,7 +115,7 @@ let
     lib.genAttrs plugins (output: package.${output})
     ;
 
-    # Intended to be used as: (nomad-autoscaler.withPlugins (ps: [ ps.aws_asg ps.nomad_target ])
+  # Intended to be used as: (nomad-autoscaler.withPlugins (ps: [ ps.aws_asg ps.nomad_target ])
   withPlugins =
     f:
     buildEnv {

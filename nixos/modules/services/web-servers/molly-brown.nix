@@ -74,7 +74,6 @@ in
         for details on supported values.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -105,7 +104,5 @@ in
         Restart = "always";
       };
     };
-
   };
-
 }

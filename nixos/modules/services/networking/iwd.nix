@@ -19,7 +19,6 @@ let
       );
   };
   configFile = ini.generate "main.conf" (recursiveUpdate defaults cfg.settings);
-
 in
 {
   options.networking.wireless.iwd = {
@@ -64,7 +63,7 @@ in
 
     environment.etc."iwd/${configFile.name}".source = configFile;
 
-      # for iwctl
+    # for iwctl
     environment.systemPackages = [ cfg.package ];
 
     services.dbus.packages = [ cfg.package ];

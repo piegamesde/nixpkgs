@@ -29,10 +29,8 @@ buildPythonPackage rec {
     description = "A LAMMPS wrapper using pymatgen";
     homepage = "https://gitlab.com/costrouc/pymatgen-lammps";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-        costrouc
-      ];
-      # not compatible with recent versions of pymatgen
+    maintainers = with lib.maintainers; [ costrouc ];
+    # not compatible with recent versions of pymatgen
     broken = true;
   };
 }

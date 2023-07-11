@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.xserver.windowManager.dwm;
-
 in
+
 {
 
   ###### interface
@@ -40,7 +40,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -53,7 +53,5 @@ in
     };
 
     environment.systemPackages = [ cfg.package ];
-
   };
-
 }

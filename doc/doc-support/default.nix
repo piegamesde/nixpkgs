@@ -83,8 +83,8 @@ let
     </xsl:stylesheet>
   '';
 
-    # NB: This file describes the Nixpkgs manual, which happens to use module
-    #     docs infra originally developed for NixOS.
+  # NB: This file describes the Nixpkgs manual, which happens to use module
+  #     docs infra originally developed for NixOS.
   optionsDoc = pkgs.nixosOptionsDoc {
     inherit
       (pkgs.lib.evalModules { modules = [ ../../pkgs/top-level/config.nix ]; })
@@ -114,7 +114,6 @@ let
       }
       ;
   };
-
 in
 pkgs.runCommand "doc-support" { } ''
   mkdir result

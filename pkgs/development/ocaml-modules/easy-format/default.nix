@@ -18,8 +18,8 @@ let
         sha256 = "sha256:09hrikx310pac2sb6jzaa7k6fmiznnmhdsqij1gawdymhawc4h1l";
       }
     ;
-
 in
+
 buildDunePackage rec {
   pname = "easy-format";
   inherit (params) version;

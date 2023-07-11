@@ -145,7 +145,6 @@ let
         ${indent}}''))
     )
     ;
-
 in
 {
   options = {

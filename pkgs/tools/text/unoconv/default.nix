@@ -14,7 +14,8 @@
 # IMPORTANT: unoconv must use the same python version as libreoffice (unless it
 # will not be able to load the pyuno module from libreoffice).
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "unoconv";
   version = "0.9.0";
 

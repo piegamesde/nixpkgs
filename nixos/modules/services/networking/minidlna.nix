@@ -11,8 +11,8 @@ let
   cfg = config.services.minidlna;
   settingsFormat = pkgs.formats.keyValue { listsAsDuplicateKeys = true; };
   settingsFile = settingsFormat.generate "minidlna.conf" cfg.settings;
-
 in
+
 {
   ###### interface
   options.services.minidlna.enable = mkOption {
@@ -215,7 +215,7 @@ in
       ])
   ];
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts =
       mkIf cfg.openFirewall [ cfg.settings.port ];

@@ -142,7 +142,7 @@ let
       options = {
         password = mkOption {
           type = types.str;
-            # TODO: required?
+          # TODO: required?
           description = lib.mdDoc ''
             Specifies the password that must be supplied for the default Bacula
             Console to be authorized. The same password must appear in the
@@ -324,7 +324,6 @@ let
       };
     }
     ;
-
 in
 {
   options = {
@@ -466,7 +465,6 @@ in
           console = all
         '';
       };
-
     };
 
     services.bacula-dir = {

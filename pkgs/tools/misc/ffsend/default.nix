@@ -18,8 +18,8 @@
 
 let
   usesX11 = stdenv.isLinux || stdenv.isBSD;
-
 in
+
 assert (x11Support && usesX11) -> xclip != null || xsel != null;
 
 rustPlatform.buildRustPackage rec {
@@ -61,7 +61,7 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     installShellCompletion contrib/completions/ffsend.{bash,fish} --zsh contrib/completions/_ffsend
   '';
-    # There's also .elv and .ps1 completion files but I don't know where to install those
+  # There's also .elv and .ps1 completion files but I don't know where to install those
 
   meta = with lib; {
     description =

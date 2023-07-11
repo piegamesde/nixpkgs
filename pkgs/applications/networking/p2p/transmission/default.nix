@@ -36,7 +36,6 @@
 
 let
   version = "3.00";
-
 in
 stdenv.mkDerivation {
   pname = "transmission";
@@ -183,5 +182,4 @@ stdenv.mkDerivation {
     ];
     platforms = lib.platforms.unix;
   };
-
 }

@@ -1909,4 +1909,3 @@ composerEnv.buildPackage {
   symlinkDependencies = false;
   meta = { license = "AGPL-3.0-or-later"; };
 }
-

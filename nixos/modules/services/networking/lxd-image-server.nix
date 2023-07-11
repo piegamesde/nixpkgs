@@ -107,7 +107,7 @@ in
           locations = {
             "/streams/v1/" = { index = "index.json"; };
 
-              # Serve json files with content type header application/json
+            # Serve json files with content type header application/json
             "~ .json$" = {
               extraConfig = ''
                 add_header Content-Type application/json;
@@ -126,7 +126,7 @@ in
               '';
             };
 
-              # Deny access to document root and the images folder
+            # Deny access to document root and the images folder
             "~ ^/(images/)?$" = { return = "403"; };
           };
         };

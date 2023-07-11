@@ -79,8 +79,8 @@ buildPythonPackage rec {
     gcc
   ];
 
-    # I've had to disable the following tests since they fail while using nix-build, but they do pass
-    # outside the build. They mostly related to the usage of MPI in a sandboxed environment.
+  # I've had to disable the following tests since they fail while using nix-build, but they do pass
+  # outside the build. They mostly related to the usage of MPI in a sandboxed environment.
   disabledTests = [
     "test_assign_parallel"
     "test_gs_parallel"

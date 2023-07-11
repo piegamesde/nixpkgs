@@ -13,7 +13,7 @@ buildPythonPackage {
     sha256 = "1m53n8bxslq5zmvcf7i1xzsgq5bdsf1z529br5ypmj5bg0s86j4q";
   };
 
-    # No tests included
+  # No tests included
   doCheck = false;
 
   meta = with lib; {
@@ -21,5 +21,4 @@ buildPythonPackage {
     description = "Wrapper for the LEGO Mindstorms Fantom Driver";
     license = licenses.gpl2;
   };
-
 }

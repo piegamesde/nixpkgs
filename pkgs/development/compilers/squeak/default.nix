@@ -181,9 +181,9 @@ stdenv.mkDerivation {
       --replace '/bin/rm ' '${coreutils}/bin/rm '
   '';
 
-    # Workaround build failure on -fno-common toolchains:
-    #   ld: vm/vm.a(cogit.o):spur64src/vm/cogitX64SysV.c:2552: multiple definition of
-    #       `traceStores'; vm/vm.a(gcc3x-cointerp.o):spur64src/vm/cogit.h:140: first defined here
+  # Workaround build failure on -fno-common toolchains:
+  #   ld: vm/vm.a(cogit.o):spur64src/vm/cogitX64SysV.c:2552: multiple definition of
+  #       `traceStores'; vm/vm.a(gcc3x-cointerp.o):spur64src/vm/cogit.h:140: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preAutoreconf = ''

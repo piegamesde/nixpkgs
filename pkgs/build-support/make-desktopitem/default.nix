@@ -8,12 +8,13 @@
 # Please keep in spec order for easier maintenance.
 # When adding a new value, don't forget to update the Version field below!
 # See https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html
-lib.makeOverridable (
+lib.makeOverridable
+(
   {
     name # The name of the desktop file
     ,
     type ? "Application"
-      # version is hardcoded
+    # version is hardcoded
     ,
     desktopName # The name of the application
     ,
@@ -21,7 +22,7 @@ lib.makeOverridable (
     noDisplay ? null,
     comment ? null,
     icon ? null
-      # we don't support the Hidden key - if you don't need something, just don't install it
+    # we don't support the Hidden key - if you don't need something, just don't install it
     ,
     onlyShowIn ? [ ],
     notShowIn ? [ ],
@@ -42,8 +43,8 @@ lib.makeOverridable (
     startupWMClass ? null,
     url ? null,
     prefersNonDefaultGPU ? null
-      # not supported until version 1.5, which is not supported by our desktop-file-utils as of 2022-02-23
-      # , singleMainWindow ? null
+    # not supported until version 1.5, which is not supported by our desktop-file-utils as of 2022-02-23
+    # , singleMainWindow ? null
     ,
     extraConfig ?
       { } # Additional values to be added literally to the final item, e.g. vendor extensions
@@ -62,8 +63,8 @@ lib.makeOverridable (
         throw "makeDesktopItem: value must be a boolean or null!"
       ;
 
-      # Multiple values are represented as one string, joined by semicolons.
-      # Technically, it's possible to escape semicolons in values with \;, but this is currently not implemented.
+    # Multiple values are represented as one string, joined by semicolons.
+    # Technically, it's possible to escape semicolons in values with \;, but this is currently not implemented.
     renderList =
       key: value:
       if !builtins.isList value then
@@ -77,8 +78,8 @@ lib.makeOverridable (
         builtins.concatStringsSep ";" value
       ;
 
-      # The [Desktop Entry] section of the desktop file, as an attribute set.
-      # Please keep in spec order.
+    # The [Desktop Entry] section of the desktop file, as an attribute set.
+    # Please keep in spec order.
     mainSection = {
       "Type" = type;
       "Version" = "1.4";
@@ -103,12 +104,12 @@ lib.makeOverridable (
       "StartupWMClass" = startupWMClass;
       "URL" = url;
       "PrefersNonDefaultGPU" = boolOrNullToString prefersNonDefaultGPU;
-        # "SingleMainWindow" = boolOrNullToString singleMainWindow;
+      # "SingleMainWindow" = boolOrNullToString singleMainWindow;
     } // extraConfig;
 
-      # Render a single attribute pair to a Key=Value line.
-      # FIXME: this isn't entirely correct for arbitrary strings, as some characters
-      # need to be escaped. There are currently none in nixpkgs though, so this is OK.
+    # Render a single attribute pair to a Key=Value line.
+    # FIXME: this isn't entirely correct for arbitrary strings, as some characters
+    # need to be escaped. There are currently none in nixpkgs though, so this is OK.
     renderLine =
       name: value:
       if value != null then
@@ -117,8 +118,8 @@ lib.makeOverridable (
         null
       ;
 
-      # Render a full section of the file from an attrset.
-      # Null values are intentionally left out.
+    # Render a full section of the file from an attrset.
+    # Null values are intentionally left out.
     renderSection =
       sectionName: attrs:
       lib.pipe attrs [
@@ -134,7 +135,7 @@ lib.makeOverridable (
 
     mainSectionRendered = renderSection "Desktop Entry" mainSection;
 
-      # Convert from javaCase names as used in Nix to PascalCase as used in the spec.
+    # Convert from javaCase names as used in Nix to PascalCase as used in the spec.
     preprocessAction =
       {
         name,

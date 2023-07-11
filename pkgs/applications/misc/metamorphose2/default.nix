@@ -11,7 +11,7 @@ stdenv.mkDerivation {
   pname = "metamorphose2";
   version = "0.10.0beta";
 
-    # exif-py vendored via submodule
+  # exif-py vendored via submodule
   src = fetchFromGitHub {
     owner = "timinaust";
     repo = "metamorphose2";

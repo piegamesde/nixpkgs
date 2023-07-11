@@ -107,10 +107,10 @@ in
           a crash or desync.
         '';
       };
-        # TODO Add more individual settings as nixos-options?
-        # TODO XXX The server tries to copy a newly created config file over the old one
-        #   on shutdown, but fails, because it's in the nix store. When is this needed?
-        #   Can an admin set options in-game and expect to have them persisted?
+      # TODO Add more individual settings as nixos-options?
+      # TODO XXX The server tries to copy a newly created config file over the old one
+      #   on shutdown, but fails, because it's in the nix store. When is this needed?
+      #   Can an admin set options in-game and expect to have them persisted?
       configFile = mkOption {
         type = types.path;
         default = configFile;
@@ -290,7 +290,7 @@ in
             "--server-adminlist=${serverAdminsFile}")
         ];
 
-          # Sandboxing
+        # Sandboxing
         NoNewPrivileges = true;
         PrivateTmp = true;
         PrivateDevices = true;

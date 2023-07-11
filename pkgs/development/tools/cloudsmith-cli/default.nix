@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools # needs pkg_resources
   ];
 
-    # Wheels have no tests
+  # Wheels have no tests
   doCheck = false;
 
   pythonImportsCheck = [ "cloudsmith_cli" ];

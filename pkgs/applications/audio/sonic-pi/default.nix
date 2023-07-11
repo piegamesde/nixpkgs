@@ -197,7 +197,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # $out/bin/sonic-pi is a shell script, and wrapQtAppsHook doesn't wrap them.
+  # $out/bin/sonic-pi is a shell script, and wrapQtAppsHook doesn't wrap them.
   dontWrapQtApps = true;
   preFixup = ''
     # Wrap Qt GUI (distributed binary)

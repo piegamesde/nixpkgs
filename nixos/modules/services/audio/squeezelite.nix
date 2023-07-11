@@ -17,7 +17,6 @@ let
       pkgs.squeezelite
     ;
   bin = "${pkg}/bin/${pkg.pname}";
-
 in
 {
 
@@ -38,7 +37,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.squeezelite = {

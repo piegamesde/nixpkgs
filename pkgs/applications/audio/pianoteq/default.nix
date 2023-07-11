@@ -220,7 +220,6 @@ let
       '';
     }
     ;
-
 in
 {
   # TODO currently can't install more than one because `lame` clashes
@@ -262,5 +261,5 @@ in
       sha256 = "05w7sv9v38r6ljz9xai816w5z2qqwx88hcfjm241fvgbs54125hx";
     };
   };
-    # TODO other paid binaries, I don't own that so I don't know their hash.
+  # TODO other paid binaries, I don't own that so I don't know their hash.
 }

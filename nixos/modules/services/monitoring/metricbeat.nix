@@ -10,7 +10,6 @@ let
   cfg = config.services.metricbeat;
 
   settingsFormat = pkgs.formats.yaml { };
-
 in
 {
   options = {
@@ -129,7 +128,6 @@ in
           Configuration for metricbeat. See <https://www.elastic.co/guide/en/beats/metricbeat/current/configuring-howto-metricbeat.html> for supported values.
         '';
       };
-
     };
   };
 

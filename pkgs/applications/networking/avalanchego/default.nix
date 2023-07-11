@@ -19,7 +19,7 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-etvCtNCW6tuzKZEEx2RODzMx0W9hGoXNS2jWGJO+Pc0=";
-    # go mod vendor has a bug, see: https://github.com/golang/go/issues/57529
+  # go mod vendor has a bug, see: https://github.com/golang/go/issues/57529
   proxyVendor = true;
 
   buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];

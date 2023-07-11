@@ -21,8 +21,8 @@ let
       "pic16"
     ])
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "sdcc";
   version = "4.2.0";

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SC9zZbHN1p5BD6YHr+/ZNelmmZDozEO/vDwuCdJJCcs=";
   };
 
-    # Drop test that fails on musl (?)
+  # Drop test that fails on musl (?)
   postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace tests/Makefile.am \
       --replace "set-rpath-library.sh" ""

@@ -28,7 +28,7 @@ let
         )
       );
 
-    # default options in magneticod/main.go
+  # default options in magneticod/main.go
   dbURI = concatStrings [
     "sqlite3://${dataDir}/database.sqlite3"
     "?_journal_mode=WAL"
@@ -65,7 +65,6 @@ let
       ]
       ++ extraOptions
     );
-
 in
 {
 
@@ -190,10 +189,9 @@ in
         Extra command line arguments to pass to magneticow.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -239,9 +237,7 @@ in
         services.magnetico.web.credentials are mutually exclusives.
       '';
     } ];
-
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
 }

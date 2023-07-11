@@ -58,8 +58,8 @@ stdenv.mkDerivation rec {
     repo = "libvips";
     rev = "v${version}";
     hash = "sha256-QUWZ11t2JEJBdpNuIY2uRiSL/hffRbV0SV5HowxWaME=";
-      # Remove unicode file names which leads to different checksums on HFS+
-      # vs. other filesystems because of unicode normalisation.
+    # Remove unicode file names which leads to different checksums on HFS+
+    # vs. other filesystems because of unicode normalisation.
     postFetch = ''
       rm -r $out/test/test-suite/images/
     '';
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Required by .pc file
+  # Required by .pc file
   propagatedBuildInputs = [ glib ];
 
   mesonFlags =

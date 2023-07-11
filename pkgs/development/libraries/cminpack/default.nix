@@ -32,5 +32,4 @@ stdenv.mkDerivation rec {
       "Software for solving nonlinear equations and nonlinear least squares problems";
     platforms = lib.platforms.all;
   };
-
 }

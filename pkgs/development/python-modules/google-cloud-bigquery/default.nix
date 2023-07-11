@@ -84,7 +84,7 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.ipython
     ;
 
-    # prevent google directory from shadowing google imports
+  # prevent google directory from shadowing google imports
   preCheck = ''
     rm -r google
   '';

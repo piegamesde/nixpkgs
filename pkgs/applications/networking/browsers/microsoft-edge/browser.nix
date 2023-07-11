@@ -73,8 +73,8 @@ let
     else
       "-${channel}"
     ;
-
 in
+
 stdenv.mkDerivation rec {
   name = "${baseName}-${channel}-${version}";
 

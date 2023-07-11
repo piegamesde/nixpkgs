@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-3Lv1jwvFjeKxtBmY1ZwgPBjz8xjbqDH5EcwsIb9Vy7g=";
   };
 
-    # In the post patch phase we should first make sure to patch shebangs.
+  # In the post patch phase we should first make sure to patch shebangs.
   postPatch = ''
     patchShebangs install.sh
   '';

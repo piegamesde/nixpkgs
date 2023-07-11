@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # Because there's a test that requires terminal access
+  # Because there's a test that requires terminal access
   doCheck = false;
 
   cargoLock = {

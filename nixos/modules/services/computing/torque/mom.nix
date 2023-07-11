@@ -16,7 +16,6 @@ let
     $pbsserver ${cfg.serverNode}
     $logevent 225
   '';
-
 in
 {
   options = {
@@ -28,9 +27,7 @@ in
         type = types.str;
         description = lib.mdDoc "Hostname running pbs server.";
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -71,6 +68,5 @@ in
         PIDFile = "/var/spool/torque/mom_priv/mom.lock";
       };
     };
-
   };
 }

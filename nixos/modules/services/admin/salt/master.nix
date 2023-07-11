@@ -17,12 +17,12 @@ let
 
       # Default is equivalent to /etc/salt/master.d/*.conf
       default_include = "/var/lib/salt/master.d/*.conf";
-        # Default is in /etc/salt/pki/master
+      # Default is in /etc/salt/pki/master
       pki_dir = "/var/lib/salt/pki/master";
     }
     cfg.configuration;
-
 in
+
 {
   options = {
     services.salt.master = {

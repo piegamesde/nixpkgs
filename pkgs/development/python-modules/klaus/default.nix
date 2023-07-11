@@ -51,7 +51,7 @@ buildPythonPackage rec {
     ./runtests.sh
   '';
 
-    # Needs to set up some git repos
+  # Needs to set up some git repos
   doCheck = false;
 
   meta = with lib; {

@@ -42,8 +42,8 @@ mkDerivation rec {
 
   patches = [ ./ffmpeg-out-of-box.patch ];
 
-    # Workaround build failure on -fno-common toolchains:
-    #   ld: alsa_device.o:(.bss+0x8): multiple definition of `rc'; QvkAlsaDevice.o:(.bss+0x8): first defined here
+  # Workaround build failure on -fno-common toolchains:
+  #   ld: alsa_device.o:(.bss+0x8): multiple definition of `rc'; QvkAlsaDevice.o:(.bss+0x8): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preConfigure = ''

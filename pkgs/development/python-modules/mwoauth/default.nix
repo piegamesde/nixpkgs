@@ -30,8 +30,8 @@ buildPythonPackage rec {
     six
   ];
 
-    # PyPI source has no tests included
-    # https://github.com/mediawiki-utilities/python-mwoauth/issues/44
+  # PyPI source has no tests included
+  # https://github.com/mediawiki-utilities/python-mwoauth/issues/44
   doCheck = false;
 
   pythonImportsCheck = [ "mwoauth" ];

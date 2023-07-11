@@ -8,7 +8,6 @@ with lib;
 let
 
   cfg = config.services.gitDaemon;
-
 in
 {
 
@@ -106,11 +105,10 @@ in
         description =
           lib.mdDoc "Group under which Git daemon would be running.";
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -142,7 +140,5 @@ in
         + concatStringsSep " " cfg.repositories
         ;
     };
-
   };
-
 }

@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       libGL
     ]
     ;
-    # TODO: share libs between minimal and !minimal - perhaps just symlink them
+  # TODO: share libs between minimal and !minimal - perhaps just symlink them
 
   mesonFlags =
     [

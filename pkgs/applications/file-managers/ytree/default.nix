@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-    # don't save timestamp, in order to improve reproducibility
+  # don't save timestamp, in order to improve reproducibility
   postPatch = ''
     substituteInPlace Makefile --replace 'gzip' 'gzip -n'
   '';

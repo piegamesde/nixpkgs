@@ -44,7 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # Fixes hanging tests on Darwin
+  # Fixes hanging tests on Darwin
   __darwinAllowLocalNetworking = true;
 
   preCheck = lib.optionalString stdenv.isDarwin ''

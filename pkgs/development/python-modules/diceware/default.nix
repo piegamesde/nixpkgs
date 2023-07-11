@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-    # see https://github.com/ulif/diceware/commit/a7d844df76cd4b95a717f21ef5aa6167477b6733
+  # see https://github.com/ulif/diceware/commit/a7d844df76cd4b95a717f21ef5aa6167477b6733
   checkPhase = ''
     py.test -m 'not packaging'
   '';

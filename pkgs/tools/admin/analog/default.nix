@@ -38,5 +38,4 @@ stdenv.mkDerivation rec {
     description = "Powerful tool to generate web server statistics";
     platforms = lib.platforms.all;
   };
-
 }

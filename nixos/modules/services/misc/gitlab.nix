@@ -46,7 +46,7 @@ let
       { production = val; }
     ;
 
-    # We only want to create a database if we're actually going to connect to it.
+  # We only want to create a database if we're actually going to connect to it.
   databaseActuallyCreateLocally =
     cfg.databaseCreateLocally && cfg.databaseHost == "";
 
@@ -288,7 +288,6 @@ let
       }
     end
   '';
-
 in
 {
 
@@ -1268,7 +1267,7 @@ in
       wantedBy = [ "multi-user.target" ];
     };
 
-      # Redis is required for the sidekiq queue runner.
+    # Redis is required for the sidekiq queue runner.
     services.redis.servers.gitlab = {
       enable = mkDefault true;
       user = mkDefault cfg.user;
@@ -1276,13 +1275,13 @@ in
       unixSocketPerm = mkDefault 770;
     };
 
-      # We use postgres as the main data store.
+    # We use postgres as the main data store.
     services.postgresql = optionalAttrs databaseActuallyCreateLocally {
       enable = true;
       ensureUsers = singleton { name = cfg.databaseUsername; };
     };
 
-      # Enable rotation of log files
+    # Enable rotation of log files
     services.logrotate = {
       enable = cfg.logrotate.enable;
       settings = {
@@ -1297,9 +1296,9 @@ in
       };
     };
 
-      # The postgresql module doesn't currently support concepts like
-      # objects owners and extensions; for now we tack on what's needed
-      # here.
+    # The postgresql module doesn't currently support concepts like
+    # objects owners and extensions; for now we tack on what's needed
+    # here.
     systemd.services.gitlab-postgresql =
       let
         pgsql = config.services.postgresql;
@@ -1361,13 +1360,13 @@ in
       unitConfig = { ConditionPathExists = "!${cfg.registry.certFile}"; };
     };
 
-      # Ensure Docker Registry launches after the certificate generation job
+    # Ensure Docker Registry launches after the certificate generation job
     systemd.services.docker-registry = optionalAttrs cfg.registry.enable {
       wants = [ "gitlab-registry-cert.service" ];
       after = [ "gitlab-registry-cert.service" ];
     };
 
-      # Enable Docker Registry, if GitLab-Container Registry is enabled
+    # Enable Docker Registry, if GitLab-Container Registry is enabled
     services.dockerRegistry = optionalAttrs cfg.registry.enable {
       enable = true;
       enableDelete =
@@ -1385,7 +1384,7 @@ in
       };
     };
 
-      # Use postfix to send out mails.
+    # Use postfix to send out mails.
     services.postfix.enable =
       mkDefault (cfg.smtp.enable && cfg.smtp.address == "localhost");
 
@@ -1891,7 +1890,6 @@ in
           "-t ${cfg.puma.threadsMin}:${cfg.puma.threadsMax}"
         ];
       };
-
     };
 
     systemd.services.gitlab-backup = {
@@ -1910,9 +1908,7 @@ in
         ExecStart = "${gitlab-rake}/bin/gitlab-rake gitlab:backup:create";
       };
     };
-
   };
 
   meta.doc = ./gitlab.md;
-
 }

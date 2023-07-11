@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkTarget = "test";
 
-    # remove files for supporting dracut
+  # remove files for supporting dracut
   postInstall = ''
     rm -r "$out/lib/dracut"
     rm -r "$out/lib/systemd/system-generators"

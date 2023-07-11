@@ -60,7 +60,7 @@ buildPythonApplication rec {
     wtforms
   ];
 
-    # __init__.py attempts to mkdir in read-only file system
+  # __init__.py attempts to mkdir in read-only file system
   doCheck = false;
 
   meta = with lib; {

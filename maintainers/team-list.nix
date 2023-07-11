@@ -237,7 +237,7 @@ with lib.maintainers; {
     enableFeatureFreezePing = true;
   };
 
-    # Dummy group for the "everyone else" section
+  # Dummy group for the "everyone else" section
   feature-freeze-everyone-else = {
     members = [ ];
     githubTeams = [

@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyroapi" ];
 
-    # tests require pyro-ppl which depends on this package
+  # tests require pyro-ppl which depends on this package
   doCheck = false;
 
   meta = {

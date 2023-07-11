@@ -57,10 +57,10 @@ mkDerivation rec {
     rustc-demangle
   ];
 
-    # hotspot checks for the presence of third party libraries'
-    # git directory to give a nice warning when you forgot to clone
-    # submodules; but Nix clones them and removes .git (for reproducibility).
-    # So we need to fake their existence here.
+  # hotspot checks for the presence of third party libraries'
+  # git directory to give a nice warning when you forgot to clone
+  # submodules; but Nix clones them and removes .git (for reproducibility).
+  # So we need to fake their existence here.
   postPatch = ''
     mkdir -p 3rdparty/{perfparser,PrefixTickLabels}/.git
   '';

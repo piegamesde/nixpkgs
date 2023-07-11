@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-    # This is an FHS specific assert depending on glibc location
+  # This is an FHS specific assert depending on glibc location
   checkFlags = [ "--skip=dependencies::resolve_test" ];
 
   postInstall = ''

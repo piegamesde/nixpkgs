@@ -34,7 +34,7 @@ buildPythonPackage rec {
     lz4
   ];
 
-    # no tests
+  # no tests
   dontCheck = true;
 
   pythonImportsCheck = [

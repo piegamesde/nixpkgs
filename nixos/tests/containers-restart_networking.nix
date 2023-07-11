@@ -45,7 +45,6 @@ import ./make-test-python.nix (
               prefixLength = 24;
             } ];
           };
-
         }
         ;
       client_eth1 =
@@ -147,6 +146,5 @@ import ./make-test-python.nix (
             client.fail("grep eth1 /run/br0.interfaces >&2")
       ''
       ;
-
   }
 )

@@ -21,7 +21,7 @@ buildGoModule rec {
 
   ldflags = [ "-X github.com/flannel-io/flannel/version.Version=${rev}" ];
 
-    # TestRouteCache/TestV6RouteCache fail with "Failed to create newns: operation not permitted"
+  # TestRouteCache/TestV6RouteCache fail with "Failed to create newns: operation not permitted"
   doCheck = false;
 
   passthru.tests = { inherit (nixosTests) flannel; };

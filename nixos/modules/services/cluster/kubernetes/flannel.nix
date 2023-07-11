@@ -11,7 +11,7 @@ let
   top = config.services.kubernetes;
   cfg = top.flannel;
 
-    # we want flannel to use kubernetes itself as configuration backend, not direct etcd
+  # we want flannel to use kubernetes itself as configuration backend, not direct etcd
   storageBackend = "kubernetes";
 in
 {
@@ -20,7 +20,7 @@ in
     enable = mkEnableOption (lib.mdDoc "flannel networking");
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     services.flannel = {
 
@@ -61,7 +61,7 @@ in
       };
     };
 
-      # give flannel som kubernetes rbac permissions if applicable
+    # give flannel som kubernetes rbac permissions if applicable
     services.kubernetes.addonManager.bootstrapAddons = mkIf
       (
         (
@@ -111,7 +111,6 @@ in
             name = "flannel-client";
           } ];
         };
-
       };
   };
 

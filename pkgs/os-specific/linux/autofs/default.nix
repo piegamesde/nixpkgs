@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     unset STRIP # Makefile.rules defines a usable STRIP only without the env var.
   '';
 
-    # configure script is not finding the right path
+  # configure script is not finding the right path
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
 
   installPhase = ''

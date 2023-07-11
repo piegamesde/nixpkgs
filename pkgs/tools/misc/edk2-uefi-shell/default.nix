@@ -32,15 +32,15 @@ edk2.mkDerivation "ShellPkg/ShellPkg.dsc" (
       ]
     );
 
-      # Set explicitly to use Python 3 from nixpkgs. Otherwise, the build system will detect and try to
-      # use `/usr/bin/python3` on Darwin when sandboxing is disabled.
+    # Set explicitly to use Python 3 from nixpkgs. Otherwise, the build system will detect and try to
+    # use `/usr/bin/python3` on Darwin when sandboxing is disabled.
     PYTHON_COMMAND = "${lib.getBin python3}/bin/python3";
 
-      # We only have a .efi file in $out which shouldn't be patched or stripped
+    # We only have a .efi file in $out which shouldn't be patched or stripped
     dontPatchELF = true;
     dontStrip = true;
 
-      # GUID hardcoded to match ShellPkg.dsc
+    # GUID hardcoded to match ShellPkg.dsc
     installPhase = ''
       runHook preInstall
       install -D -m0644 Build/Shell/RELEASE*/*/Shell_EA4BB293-2D7F-4456-A681-1F22F42CD0BC.efi $out/shell.efi

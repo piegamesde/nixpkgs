@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-    # emulating build_all.sh configuration variables
+  # emulating build_all.sh configuration variables
   jplatform =
     if stdenv.isDarwin then
       "darwin"

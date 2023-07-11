@@ -91,7 +91,6 @@ with lib; {
         description = lib.mdDoc "Additional configuration lines";
       };
     };
-
   };
 
   config = mkIf cfg.enable {

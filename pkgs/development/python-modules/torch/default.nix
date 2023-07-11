@@ -47,7 +47,9 @@
 
   # Disable MKLDNN on aarch64-darwin, it negatively impacts performance,
   # this is also what official pytorch build does
-  mklDnnSupport ? !(stdenv.isDarwin && stdenv.isAarch64),
+  mklDnnSupport ? !(
+    stdenv.isDarwin && stdenv.isAarch64
+  ),
 
   # virtual pkg that consistently instantiates blas across nixpkgs
   # See https://github.com/NixOS/nixpkgs/pull/83888
@@ -102,8 +104,8 @@
 let
   inherit (lib) lists strings trivial;
   inherit (cudaPackages) cudatoolkit cudaFlags cudnn nccl;
-
 in
+
 assert cudaSupport -> (cudaPackages.cudaMajorVersion == "11");
 
 # confirm that cudatoolkits are sync'd across dependencies
@@ -119,7 +121,7 @@ let
       "0"
     ;
 
-    # https://github.com/pytorch/pytorch/blob/v1.13.1/torch/utils/cpp_extension.py#L1751
+  # https://github.com/pytorch/pytorch/blob/v1.13.1/torch/utils/cpp_extension.py#L1751
   supportedTorchCudaCapabilities =
     let
       real = [
@@ -142,18 +144,18 @@ let
     real ++ ptx
     ;
 
-    # NOTE: The lists.subtractLists function is perhaps a bit unintuitive. It subtracts the elements
-    #   of the first list *from* the second list. That means:
-    #   lists.subtractLists a b = b - a
+  # NOTE: The lists.subtractLists function is perhaps a bit unintuitive. It subtracts the elements
+  #   of the first list *from* the second list. That means:
+  #   lists.subtractLists a b = b - a
 
-    # For CUDA
+  # For CUDA
   supportedCudaCapabilities = lists.intersectLists
     cudaFlags.cudaCapabilities
     supportedTorchCudaCapabilities;
   unsupportedCudaCapabilities =
     lists.subtractLists supportedCudaCapabilities cudaFlags.cudaCapabilities;
 
-    # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
+  # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
     trivial.throwIf (supported == [ ])
@@ -164,12 +166,10 @@ let
     supported
     ;
 
-    # Create the gpuTargetString.
+  # Create the gpuTargetString.
   gpuTargetString = strings.concatStringsSep ";" (
-    if
-      gpuTargets != [ ]
-    then
-    # If gpuTargets is specified, it always takes priority.
+    if gpuTargets != [ ] then
+      # If gpuTargets is specified, it always takes priority.
       gpuTargets
     else if cudaSupport then
       gpuArchWarner supportedCudaCapabilities unsupportedCudaCapabilities
@@ -181,7 +181,7 @@ let
 
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-unsplit";
-      # nccl is here purely for semantic grouping it could be moved to nativeBuildInputs
+    # nccl is here purely for semantic grouping it could be moved to nativeBuildInputs
     paths = [
       cudatoolkit.out
       cudatoolkit.lib
@@ -190,10 +190,10 @@ let
     ];
   };
 
-    # Normally libcuda.so.1 is provided at runtime by nvidia-x11 via
-    # LD_LIBRARY_PATH=/run/opengl-driver/lib.  We only use the stub
-    # libcuda.so from cudatoolkit for running tests, so that we don’t have
-    # to recompile pytorch on every update to nvidia-x11 or the kernel.
+  # Normally libcuda.so.1 is provided at runtime by nvidia-x11 via
+  # LD_LIBRARY_PATH=/run/opengl-driver/lib.  We only use the stub
+  # libcuda.so from cudatoolkit for running tests, so that we don’t have
+  # to recompile pytorch on every update to nvidia-x11 or the kernel.
   cudaStub = linkFarm "cuda-stub" [ {
     name = "libcuda.so.1";
     path = "${cudatoolkit}/lib/stubs/libcuda.so";
@@ -237,7 +237,7 @@ let
 in
 buildPythonPackage rec {
   pname = "torch";
-    # Don't forget to update torch-bin to the same version.
+  # Don't forget to update torch-bin to the same version.
   version = "2.0.0";
   format = "setuptools";
 
@@ -294,8 +294,8 @@ buildPythonPackage rec {
         )
       })"
     ''
-      # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
-      # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
+    # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
+    # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
     + lib.optionalString
       (
         stdenv.isDarwin
@@ -325,23 +325,23 @@ buildPythonPackage rec {
     ''
     ;
 
-    # Use pytorch's custom configurations
+  # Use pytorch's custom configurations
   dontUseCmakeConfigure = true;
 
   BUILD_NAMEDTENSOR = setBool true;
   BUILD_DOCS = setBool buildDocs;
 
-    # We only do an imports check, so do not build tests either.
+  # We only do an imports check, so do not build tests either.
   BUILD_TEST = setBool false;
 
-    # Unlike MKL, oneDNN (née MKLDNN) is FOSS, so we enable support for
-    # it by default. PyTorch currently uses its own vendored version
-    # of oneDNN through Intel iDeep.
+  # Unlike MKL, oneDNN (née MKLDNN) is FOSS, so we enable support for
+  # it by default. PyTorch currently uses its own vendored version
+  # of oneDNN through Intel iDeep.
   USE_MKLDNN = setBool mklDnnSupport;
   USE_MKLDNN_CBLAS = setBool mklDnnSupport;
 
-    # Avoid using pybind11 from git submodule
-    # Also avoids pytorch exporting the headers of pybind11
+  # Avoid using pybind11 from git submodule
+  # Also avoids pytorch exporting the headers of pybind11
   USE_SYSTEM_BIND11 = true;
 
   preBuild = ''
@@ -365,39 +365,37 @@ buildPythonPackage rec {
     done
   '';
 
-    # Override the (weirdly) wrong version set by default. See
-    # https://github.com/NixOS/nixpkgs/pull/52437#issuecomment-449718038
-    # https://github.com/pytorch/pytorch/blob/v1.0.0/setup.py#L267
+  # Override the (weirdly) wrong version set by default. See
+  # https://github.com/NixOS/nixpkgs/pull/52437#issuecomment-449718038
+  # https://github.com/pytorch/pytorch/blob/v1.0.0/setup.py#L267
   PYTORCH_BUILD_VERSION = version;
   PYTORCH_BUILD_NUMBER = 0;
 
-  USE_SYSTEM_NCCL = setBool useSystemNccl
-    ; # don't build pytorch's third_party NCCL
+  USE_SYSTEM_NCCL =
+    setBool useSystemNccl; # don't build pytorch's third_party NCCL
 
-    # Suppress a weird warning in mkl-dnn, part of ideep in pytorch
-    # (upstream seems to have fixed this in the wrong place?)
-    # https://github.com/intel/mkl-dnn/commit/8134d346cdb7fe1695a2aa55771071d455fae0bc
-    # https://github.com/pytorch/pytorch/issues/22346
-    #
-    # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
-    # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
+  # Suppress a weird warning in mkl-dnn, part of ideep in pytorch
+  # (upstream seems to have fixed this in the wrong place?)
+  # https://github.com/intel/mkl-dnn/commit/8134d346cdb7fe1695a2aa55771071d455fae0bc
+  # https://github.com/pytorch/pytorch/issues/22346
+  #
+  # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
+  # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
   env.NIX_CFLAGS_COMPILE = toString (
     (
-      lib.optionals (blas.implementation == "mkl") [
-          "-Wno-error=array-bounds"
-        ]
-        # Suppress gcc regression: avx512 math function raises uninitialized variable warning
-        # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
-        # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
+      lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
+      # Suppress gcc regression: avx512 math function raises uninitialized variable warning
+      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
+      # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
       ++ lib.optionals
         (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0")
         [
           "-Wno-error=maybe-uninitialized"
           "-Wno-error=uninitialized"
         ]
-        # Since pytorch 2.0:
-        # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
-        # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
+      # Suppress gcc regression: avx512 math function raises uninitialized variable warning
+      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
+      # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
       ++ lib.optionals
         (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
         [
@@ -465,18 +463,11 @@ buildPythonPackage rec {
       protobuf
     ]
     ++ lib.optionals MPISupport [ mpi ]
-    ++ lib.optionals rocmSupport [
-        rocmtoolkit_joined
-      ]
-      # rocm build requires openai-triton;
-      # openai-triton currently requires cuda_nvcc,
-      # so not including it in the cpu-only build;
-      # torch.compile relies on openai-triton,
-      # so we include it for the cuda build as well
+    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
     ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ]
     ;
 
-    # Tests take a long time and may be flaky, so just sanity-check imports
+  # Tests take a long time and may be flaky, so just sanity-check imports
   doCheck = false;
 
   pythonImportsCheck = [ "torch" ];
@@ -557,15 +548,12 @@ buildPythonPackage rec {
     install_name_tool -change @rpath/libc10.dylib $lib/lib/libc10.dylib $lib/lib/libshm.dylib
   '';
 
-    # Builds in 2+h with 2 cores, and ~15m with a big-parallel builder.
+  # Builds in 2+h with 2 cores, and ~15m with a big-parallel builder.
   requiredSystemFeatures = [ "big-parallel" ];
 
   passthru = {
-    inherit
-      cudaSupport
-      cudaPackages
-      ;
-      # At least for 1.10.2 `torch.fft` is unavailable unless BLAS provider is MKL. This attribute allows for easy detection of its availability.
+    inherit cudaSupport cudaPackages;
+    # At least for 1.10.2 `torch.fft` is unavailable unless BLAS provider is MKL. This attribute allows for easy detection of its availability.
     blasProvider = blas.provider;
   } // lib.optionalAttrs cudaSupport {
     # NOTE: supportedCudaCapabilities isn't computed unless cudaSupport is true, so we can't use
@@ -576,7 +564,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog = "https://github.com/pytorch/pytorch/releases/tag/v${version}";
-      # keep PyTorch in the description so the package can be found under that name on search.nixos.org
+    # keep PyTorch in the description so the package can be found under that name on search.nixos.org
     description =
       "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
     homepage = "https://pytorch.org/";

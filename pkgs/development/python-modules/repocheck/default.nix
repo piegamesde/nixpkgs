@@ -21,5 +21,4 @@ buildPythonPackage rec {
       "Check the status of code repositories under a root directory";
     license = licenses.gpl3Plus;
   };
-
 }

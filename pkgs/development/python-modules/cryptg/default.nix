@@ -37,7 +37,7 @@ buildPythonPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "cryptg" ];

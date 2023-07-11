@@ -29,10 +29,9 @@ with lib;
         Where the tftp server files are stored.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.tftpd.enable {
 
@@ -44,7 +43,5 @@ with lib;
       server = "${pkgs.netkittftp}/sbin/in.tftpd";
       serverArgs = "${config.services.tftpd.path}";
     };
-
   };
-
 }

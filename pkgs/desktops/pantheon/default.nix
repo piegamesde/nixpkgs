@@ -48,7 +48,7 @@ lib.makeScope pkgs.newScope (
 
     mutter = pkgs.gnome.mutter43;
 
-      # Using 43 to match Mutter used in Pantheon
+    # Using 43 to match Mutter used in Pantheon
     gnome-settings-daemon = pkgs.gnome.gnome-settings-daemon43;
 
     elementary-gsettings-schemas =
@@ -56,7 +56,7 @@ lib.makeScope pkgs.newScope (
 
     touchegg = pkgs.touchegg.override { withPantheon = true; };
 
-      #### APPS
+    #### APPS
 
     appcenter = callPackage ./apps/appcenter { };
 
@@ -94,7 +94,7 @@ lib.makeScope pkgs.newScope (
 
     sideload = callPackage ./apps/sideload { };
 
-      #### DESKTOP
+    #### DESKTOP
 
     elementary-default-settings =
       callPackage ./desktop/elementary-default-settings { };
@@ -128,13 +128,13 @@ lib.makeScope pkgs.newScope (
     wingpanel-with-indicators =
       callPackage ./desktop/wingpanel/wrapper.nix { indicators = null; };
 
-      #### LIBRARIES
+    #### LIBRARIES
 
     granite = callPackage ./granite { };
 
     granite7 = callPackage ./granite/7 { };
 
-      #### SERVICES
+    #### SERVICES
 
     contractor = callPackage ./services/contractor { };
 
@@ -155,7 +155,7 @@ lib.makeScope pkgs.newScope (
     xdg-desktop-portal-pantheon =
       callPackage ./services/xdg-desktop-portal-pantheon { };
 
-      #### WINGPANEL INDICATORS
+    #### WINGPANEL INDICATORS
 
     wingpanel-applications-menu =
       callPackage ./desktop/wingpanel-indicators/applications-menu { };
@@ -192,7 +192,7 @@ lib.makeScope pkgs.newScope (
     wingpanel-indicator-sound =
       callPackage ./desktop/wingpanel-indicators/sound { };
 
-      #### SWITCHBOARD
+    #### SWITCHBOARD
 
     switchboard = callPackage ./apps/switchboard { };
 
@@ -245,7 +245,7 @@ lib.makeScope pkgs.newScope (
 
     switchboard-plug-wacom = callPackage ./apps/switchboard-plugs/wacom { };
 
-      ### ARTWORK
+    ### ARTWORK
 
     elementary-gtk-theme = callPackage ./artwork/elementary-gtk-theme { };
 
@@ -258,13 +258,12 @@ lib.makeScope pkgs.newScope (
 
     elementary-wallpapers = callPackage ./artwork/elementary-wallpapers { };
 
-      ### THIRD-PARTY
+    ### THIRD-PARTY
 
-      # Put packages that ONLY works with Pantheon in pkgs/desktops/pantheon/third-party,
-      # specifically third party switchboard plugins and wingpanel indicators.
-      # Please call these packages in pkgs/top-level/all-packages.nix instead of this file.
-      # https://github.com/NixOS/nixpkgs/issues/115222#issuecomment-906868654
-
+    # Put packages that ONLY works with Pantheon in pkgs/desktops/pantheon/third-party,
+    # specifically third party switchboard plugins and wingpanel indicators.
+    # Please call these packages in pkgs/top-level/all-packages.nix instead of this file.
+    # https://github.com/NixOS/nixpkgs/issues/115222#issuecomment-906868654
   }
 ) // lib.optionalAttrs config.allowAliases {
 
@@ -295,5 +294,4 @@ lib.makeScope pkgs.newScope (
   notes-up = throw
     "The ‘pantheon.notes-up’ alias was removed on 2022-02-02, please use ‘pkgs.notes-up’ directly."
     ; # added 2021-12-18
-
 }

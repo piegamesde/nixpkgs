@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ni/LJgOABC2wXDMsg1ZAuZWSQdFT9/Fa4lH4+V0gy8M=";
   };
 
-    # this is not a standard Autotools-like `configure` script
+  # this is not a standard Autotools-like `configure` script
   dontAddPrefix = true;
 
   preConfigure = ''
@@ -48,4 +48,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ mausch ];
   };
 }
-

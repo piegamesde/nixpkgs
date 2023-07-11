@@ -46,7 +46,7 @@ let
             # bit more room:
             virtualisation.memorySize = 3000;
 
-              # For querying JSON objects returned from elasticsearch and kibana.
+            # For querying JSON objects returned from elasticsearch and kibana.
             environment.systemPackages = [ pkgs.jq ];
 
             services = {

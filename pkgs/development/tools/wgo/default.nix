@@ -31,4 +31,3 @@ buildGoModule rec {
     maintainers = with maintainers; [ bokwoon95 ];
   };
 }
-

@@ -19,8 +19,8 @@ let
     (lib.optionalString (!doTest) "-Dmaven.test.skip.exec=true")
     "${extraMvnFlags}"
   ];
-
 in
+
 stdenv.mkDerivation (
   {
     inherit name src;

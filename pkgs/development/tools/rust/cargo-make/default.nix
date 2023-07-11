@@ -34,10 +34,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-AAZYY9CbLbbvWWMhkHOc8OhzmwSFXSL9jSga3qMbkDU=";
 
-    # Some tests fail because they need network access.
-    # However, Travis ensures a proper build.
-    # See also:
-    #   https://travis-ci.org/sagiegurari/cargo-make
+  # Some tests fail because they need network access.
+  # However, Travis ensures a proper build.
+  # See also:
+  #   https://travis-ci.org/sagiegurari/cargo-make
   doCheck = false;
 
   meta = with lib; {

@@ -72,8 +72,8 @@ let
       )
     )
   );
-
 in
+
 writeText "get-nix-license.rs" ''
   pub fn get_nix_license(license: &str) -> Option<&'static str> {
       match license {

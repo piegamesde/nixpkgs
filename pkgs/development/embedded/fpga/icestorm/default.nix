@@ -49,11 +49,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # fix icebox_vlog chipdb path. icestorm issue:
-    #   https://github.com/cliffordwolf/icestorm/issues/125
-    #
-    # also, fix up the path to the chosen Python interpreter. for pypy-compatible
-    # platforms, it offers significant performance improvements.
+  # fix icebox_vlog chipdb path. icestorm issue:
+  #   https://github.com/cliffordwolf/icestorm/issues/125
+  #
+  # also, fix up the path to the chosen Python interpreter. for pypy-compatible
+  # platforms, it offers significant performance improvements.
   patchPhase = ''
     substituteInPlace ./icebox/icebox_vlog.py \
       --replace /usr/local/share "$out/share"

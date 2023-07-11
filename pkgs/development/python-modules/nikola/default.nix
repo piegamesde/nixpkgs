@@ -116,10 +116,8 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/getnikola/nikola/blob/v${version}/CHANGES.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [
-        jluttine
-      ];
-      # All tests fail
+    maintainers = with maintainers; [ jluttine ];
+    # All tests fail
     broken = stdenv.isDarwin;
   };
 }

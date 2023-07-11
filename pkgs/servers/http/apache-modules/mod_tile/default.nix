@@ -50,17 +50,17 @@ stdenv.mkDerivation rec {
     mapnik
   ];
 
-    # the install script wants to install mod_tile.so into apache's modules dir
+  # the install script wants to install mod_tile.so into apache's modules dir
   postPatch = ''
     sed -i "s|\''${HTTPD_MODULES_DIR}|$out/modules|" CMakeLists.txt
   '';
 
   enableParallelBuilding = true;
 
-    # We need to either disable the `render_speedtest` and `download_tile` tests
-    # or fix the URLs they try to download from
-    #cmakeFlags = [ "-DENABLE_TESTS=1" ];
-    #doCheck = true;
+  # We need to either disable the `render_speedtest` and `download_tile` tests
+  # or fix the URLs they try to download from
+  #cmakeFlags = [ "-DENABLE_TESTS=1" ];
+  #doCheck = true;
 
   meta = with lib; {
     homepage = "https://github.com/openstreetmap/mod_tile";

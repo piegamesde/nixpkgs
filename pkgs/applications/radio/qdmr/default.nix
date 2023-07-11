@@ -18,8 +18,8 @@
 
 let
   inherit (stdenv) isLinux;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "qdmr";
   version = "0.11.2";

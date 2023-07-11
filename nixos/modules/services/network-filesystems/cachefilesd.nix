@@ -15,8 +15,8 @@ let
     dir ${cfg.cacheDir}
     ${cfg.extraConfig}
   '';
-
 in
+
 {
   options = {
     services.cachefilesd = {
@@ -42,11 +42,10 @@ in
           "Additional configuration file entries. See cachefilesd.conf(5) for more information."
           ;
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

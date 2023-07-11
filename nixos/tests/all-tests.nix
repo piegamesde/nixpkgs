@@ -25,14 +25,13 @@ let
         callTest val
       else
         mapAttrs (n: s: discoverTests s) val
-    else if
-      isFunction val
-    then
-    # Tests based on make-test-python.nix will return the second lambda
-    # in that file, which are then forwarded to the test definition
-    # following the `import make-test-python.nix` expression
-    # (if it is a function).
-      discoverTests (val { inherit system pkgs; })
+    else if isFunction val then
+      # Tests based on make-test-python.nix will return the second lambda
+      # in that file, which are then forwarded to the test definition
+      # following the `import make-test-python.nix` expression
+      # (if it is a function).
+      discoverTests
+      (val { inherit system pkgs; })
     else
       val
     ;
@@ -89,7 +88,6 @@ let
     runTest
     runTestOn
     ;
-
 in
 {
   _3proxy = runTest ./3proxy.nix;
@@ -453,9 +451,9 @@ in
     ./oci-containers.nix
     { };
   odoo = handleTest ./odoo.nix { };
-    # 9pnet_virtio used to mount /nix partition doesn't support
-    # hibernation. This test happens to work on x86_64-linux but
-    # not on other platforms.
+  # 9pnet_virtio used to mount /nix partition doesn't support
+  # hibernation. This test happens to work on x86_64-linux but
+  # not on other platforms.
   hibernate = handleTestOn [ "x86_64-linux" ] ./hibernate.nix { };
   hibernate-systemd-stage-1 =
     handleTestOn [ "x86_64-linux" ] ./hibernate.nix { systemdStage1 = true; };
@@ -551,7 +549,7 @@ in
   lxd = handleTest ./lxd.nix { };
   lxd-nftables = handleTest ./lxd-nftables.nix { };
   lxd-image-server = handleTest ./lxd-image-server.nix { };
-    #logstash = handleTest ./logstash.nix {};
+  #logstash = handleTest ./logstash.nix {};
   lorri = handleTest ./lorri/default.nix { };
   maddy = discoverTests (import ./maddy { inherit handleTest; });
   maestral = handleTest ./maestral.nix { };
@@ -599,8 +597,8 @@ in
   mtp = handleTest ./mtp.nix { };
   multipass = handleTest ./multipass.nix { };
   mumble = handleTest ./mumble.nix { };
-    # Fails on aarch64-linux at the PDF creation step - need to debug this on an
-    # aarch64 machine..
+  # Fails on aarch64-linux at the PDF creation step - need to debug this on an
+  # aarch64 machine..
   musescore = handleTestOn [ "x86_64-linux" ] ./musescore.nix { };
   munin = handleTest ./munin.nix { };
   mutableUsers = handleTest ./mutable-users.nix { };
@@ -635,11 +633,11 @@ in
   networking.scripted = handleTest ./networking.nix { networkd = false; };
   netbox = handleTest ./web-apps/netbox.nix { inherit (pkgs) netbox; };
   netbox_3_3 = handleTest ./web-apps/netbox.nix { netbox = pkgs.netbox_3_3; };
-    # TODO: put in networking.nix after the test becomes more complete
+  # TODO: put in networking.nix after the test becomes more complete
   networkingProxy = handleTest ./networking-proxy.nix { };
   nextcloud = handleTest ./nextcloud { };
   nexus = handleTest ./nexus.nix { };
-    # TODO: Test nfsv3 + Kerberos
+  # TODO: Test nfsv3 + Kerberos
   nfs3 = handleTest ./nfs { version = 3; };
   nfs4 = handleTest ./nfs { version = 4; };
   nghttpx = handleTest ./nghttpx.nix { };
@@ -950,7 +948,7 @@ in
     { };
   trafficserver = handleTest ./trafficserver.nix { };
   transmission = handleTest ./transmission.nix { };
-    # tracee requires bpf
+  # tracee requires bpf
   tracee = handleTestOn [ "x86_64-linux" ] ./tracee.nix { };
   trezord = handleTest ./trezord.nix { };
   trickster = handleTest ./trickster.nix { };

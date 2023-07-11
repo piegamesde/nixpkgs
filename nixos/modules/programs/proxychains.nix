@@ -52,7 +52,6 @@ let
       };
     };
   };
-
 in
 {
 
@@ -157,12 +156,10 @@ in
           }
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   meta.maintainers = with maintainers; [ sorki ];
 
@@ -188,5 +185,4 @@ in
     environment.etc."proxychains.conf".text = configFile;
     environment.systemPackages = [ cfg.package ];
   };
-
 }

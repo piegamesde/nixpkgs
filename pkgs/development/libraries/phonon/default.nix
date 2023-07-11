@@ -16,8 +16,8 @@
 let
   soname = "phonon4qt5";
   buildsystemdir = "share/cmake/${soname}";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "phonon";
   version = "4.11.1";

@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   pythonNamespaces = [ "azure" ];
 
-    # requires an active Azure Cosmos service
+  # requires an active Azure Cosmos service
   doCheck = false;
 
   meta = with lib; {

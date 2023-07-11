@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = 1;
 
-    # tries to use "/homeless-shelter" and fails
+  # tries to use "/homeless-shelter" and fails
   doCheck = false;
 
   meta = with lib; {

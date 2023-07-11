@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     sed -i -e '/^#include <malloc.h>$/d' *.c
   '';
 
-    # error: 'regparm' is not valid on this platform
+  # error: 'regparm' is not valid on this platform
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) "-D__STRICT_ANSI__"
     ;

@@ -27,8 +27,8 @@ buildPythonPackage rec {
     requests
   ];
 
-    # https://github.com/regebro/pyroma/blob/3.2/Makefile#L23
-    # PyPITest requires network access
+  # https://github.com/regebro/pyroma/blob/3.2/Makefile#L23
+  # PyPITest requires network access
   checkPhase = ''
     ${python.interpreter} -m unittest -k 'not PyPITest' pyroma.tests
   '';

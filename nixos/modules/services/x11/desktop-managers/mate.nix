@@ -12,8 +12,8 @@ let
 
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.mate;
-
 in
+
 {
   options = {
 
@@ -34,7 +34,6 @@ in
       description =
         lib.mdDoc "Which MATE packages to exclude from the default environment";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -43,18 +42,18 @@ in
         pkgs.mate.mate-session-manager
       ];
 
-      # Let caja find extensions
+    # Let caja find extensions
     environment.sessionVariables.CAJA_EXTENSION_DIRS = [
         "${config.system.path}/lib/caja/extensions-2.0"
       ];
 
-      # Let mate-panel find applets
+    # Let mate-panel find applets
     environment.sessionVariables."MATE_PANEL_APPLETS_DIR" =
       "${config.system.path}/share/mate-panel/applets";
     environment.sessionVariables."MATE_PANEL_EXTRA_MODULES" =
       "${config.system.path}/lib/mate-panel/applets";
 
-      # Debugging
+    # Debugging
     environment.sessionVariables.MATE_SESSION_DEBUG = mkIf cfg.debug "1";
 
     environment.systemPackages = utils.removePackagesByName
@@ -73,11 +72,11 @@ in
       config.environment.mate.excludePackages;
 
     programs.dconf.enable = true;
-      # Shell integration for VTE terminals
+    # Shell integration for VTE terminals
     programs.bash.vteIntegration = mkDefault true;
     programs.zsh.vteIntegration = mkDefault true;
 
-      # Mate uses this for printing
+    # Mate uses this for printing
     programs.system-config-printer.enable =
       (mkIf config.services.printing.enable (mkDefault true));
 
@@ -92,5 +91,4 @@ in
 
     environment.pathsToLink = [ "/share" ];
   };
-
 }

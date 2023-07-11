@@ -32,7 +32,7 @@ mkDerivation {
     poppler
   ];
 
-    # src/data/tikzlexer.l:29:10: fatal error: tikzparser.parser.hpp: No such file or directory
+  # src/data/tikzlexer.l:29:10: fatal error: tikzparser.parser.hpp: No such file or directory
   enableParallelBuilding = false;
 
   meta = with lib; {

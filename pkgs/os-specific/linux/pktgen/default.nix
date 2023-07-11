@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     "-Wno-error=use-after-free"
   ];
 
-    # requires symbols from this file
+  # requires symbols from this file
   NIX_LDFLAGS = "-lrte_net_bond";
 
   postPatch = ''

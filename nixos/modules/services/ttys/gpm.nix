@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.gpm;
-
 in
+
 {
 
   ###### interface
@@ -34,12 +34,10 @@ in
         default = "ps/2";
         description = lib.mdDoc "Mouse protocol to use.";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -55,7 +53,5 @@ in
       serviceConfig.Type = "forking";
       serviceConfig.PIDFile = "/run/gpm.pid";
     };
-
   };
-
 }

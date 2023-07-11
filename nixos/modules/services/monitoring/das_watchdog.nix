@@ -12,7 +12,6 @@ with lib;
 let
 
   inherit (pkgs) das_watchdog;
-
 in
 {
   ###### interface
@@ -22,7 +21,7 @@ in
       mkEnableOption (lib.mdDoc "realtime watchdog");
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.das_watchdog.enable {
     environment.systemPackages = [ das_watchdog ];

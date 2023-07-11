@@ -9,7 +9,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "gnum4";
   version = "1.4.19";
 
@@ -18,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-swapHA/ZO8QoDPwumMt6s5gf91oYe+oyk4EfRSyJqMg=";
   };
 
-    # https://gitweb.gentoo.org/repo/gentoo.git/tree/sys-devel/m4/m4-1.4.19-r1.ebuild
+  # https://gitweb.gentoo.org/repo/gentoo.git/tree/sys-devel/m4/m4-1.4.19-r1.ebuild
   patches =
     lib.optional stdenv.hostPlatform.isLoongArch64 ./loong-fix-build.patch;
   postPatch =
@@ -65,5 +66,4 @@ stdenv.mkDerivation rec {
     mainProgram = "m4";
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
-
 }

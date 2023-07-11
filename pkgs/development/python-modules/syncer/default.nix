@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "13y8jllix1ipkcg9lxa4nxk8kj24vivxfizf4d02cdrha9dw500v";
   };
 
-    # Tests require an not maintained package (xfail)
+  # Tests require an not maintained package (xfail)
   doCheck = false;
 
   pythonImportsCheck = [ "syncer" ];

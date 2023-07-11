@@ -30,7 +30,7 @@ let
         (lua.pkgs.lua-setup-hook lua.LuaPathSearchPaths lua.LuaCPathSearchPaths)
       ];
 
-        # we create wrapper for the binaries in the different packages
+      # we create wrapper for the binaries in the different packages
       postBuild =
         ''
           if [ -L "$out/bin" ]; then

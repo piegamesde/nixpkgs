@@ -44,13 +44,13 @@ let
       X-GNOME-Autostart-Phase=EarlyInitialization
     '';
   };
-
 in
+
 {
 
   meta = { maintainers = teams.gnome.members; };
 
-    # Added 2021-05-07
+  # Added 2021-05-07
   imports = [
       (mkRenamedOptionModule
         [
@@ -67,7 +67,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -77,12 +77,10 @@ in
         lib.mdDoc
         "GNOME Initial Setup, a Simple, easy, and safe way to prepare a new system"
       );
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.gnome.gnome-initial-setup.enable {
 
@@ -104,7 +102,5 @@ in
     systemd.user.targets."gnome-session@gnome-initial-setup".wants = [
         "gnome-initial-setup.service"
       ];
-
   };
-
 }

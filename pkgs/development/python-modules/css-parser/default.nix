@@ -14,8 +14,8 @@ buildPythonPackage rec {
     hash = "sha256-GW24Is7yJ0WvaljRgM+CBpSc7Vi0j18+6Y8d4WJ0lbs=";
   };
 
-    # Test suite not included in tarball yet
-    # See https://github.com/ebook-utils/css-parser/pull/2
+  # Test suite not included in tarball yet
+  # See https://github.com/ebook-utils/css-parser/pull/2
   doCheck = false;
 
   pythonImportsCheck = [ "css_parser" ];

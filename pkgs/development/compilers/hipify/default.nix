@@ -33,7 +33,7 @@ stdenv.mkDerivation (
       repo = finalAttrs.src.repo;
     };
 
-      # Fixup weird install paths
+    # Fixup weird install paths
     postInstall = ''
       mkdir -p $out/bin
       mv $out/{*.sh,hipify-*} $out/bin

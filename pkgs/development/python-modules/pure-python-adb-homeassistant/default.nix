@@ -12,8 +12,8 @@ buildPythonPackage rec {
     hash = "sha256-xXXEp8oYGcJLTfoBDUSZrIHSgDvB2EHbVMHoG4Hk+t8=";
   };
 
-    # Disable tests as they require docker, docker-compose and a dedicated
-    # android emulator
+  # Disable tests as they require docker, docker-compose and a dedicated
+  # android emulator
   doCheck = false;
 
   pythonImportsCheck = [ "adb_messenger" ];

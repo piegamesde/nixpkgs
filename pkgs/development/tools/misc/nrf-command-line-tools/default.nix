@@ -46,7 +46,6 @@ let
     }/nrf-command-line-tools-${lib.versions.major version}.${
       lib.versions.minor version
     }.${lib.versions.patch version}_${platform.name}.tar.gz";
-
 in
 stdenv.mkDerivation {
   pname = "nrf-command-line-tools";

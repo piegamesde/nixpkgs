@@ -7,14 +7,9 @@ let
   # The returned set should be immutable
   rubyVersion =
     major: minor: tiny: tail: rec {
-      inherit
-        major
-        minor
-        tiny
-        tail
-        ;
+      inherit major minor tiny tail;
 
-        # Contains the patch number "223" if tail is "p223" or null
+      # Contains the patch number "223" if tail is "p223" or null
       patchLevel =
         let
           p = lib.removePrefix "p" tail;
@@ -57,12 +52,12 @@ let
           null
         ;
 
-        # Shortcuts
+      # Shortcuts
       majMin = "${major}.${minor}";
       majMinTiny = "${major}.${minor}.${tiny}";
 
-        # Ruby separates lib and gem folders by ABI version which isn't very
-        # consistent.
+      # Ruby separates lib and gem folders by ABI version which isn't very
+      # consistent.
       libDir =
         if lib.versionAtLeast majMinTiny "2.1.0" then
           "${majMin}.0"
@@ -74,7 +69,7 @@ let
           throw "version ${majMinTiny} is not supported"
         ;
 
-        # How ruby releases are tagged on github.com/ruby/ruby
+      # How ruby releases are tagged on github.com/ruby/ruby
       gitTag =
         let
           base = "v${major}_${minor}_${tiny}";
@@ -87,7 +82,7 @@ let
           base
         ;
 
-        # Implements the builtins.toString interface.
+      # Implements the builtins.toString interface.
       __toString =
         self:
         self.majMinTiny

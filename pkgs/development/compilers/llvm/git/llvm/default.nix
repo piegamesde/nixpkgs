@@ -42,33 +42,29 @@
 }@args:
 
 let
-  inherit (lib)
-    optional
-    optionals
-    optionalString
-    ;
+  inherit (lib) optional optionals optionalString;
 
-    # Used when creating a version-suffixed symlink of libLLVM.dylib
-  shortVersion = with lib;
-    concatStringsSep "." (take 1 (splitString "." release_version));
+  # Used when creating a version-suffixed symlink of libLLVM.dylib
+  shortVersion =
+    with lib; concatStringsSep "." (take 1 (splitString "." release_version));
 
-    # Ordinarily we would just the `doCheck` and `checkDeps` functionality
-    # `mkDerivation` gives us to manage our test dependencies (instead of breaking
-    # out `doCheck` as a package level attribute).
-    #
-    # Unfortunately `lit` does not forward `$PYTHONPATH` to children processes, in
-    # particular the children it uses to do feature detection.
-    #
-    # This means that python deps we add to `checkDeps` (which the python
-    # interpreter is made aware of via `$PYTHONPATH` – populated by the python
-    # setup hook) are not picked up by `lit` which causes it to skip tests.
-    #
-    # Adding `python3.withPackages (ps: [ ... ])` to `checkDeps` also doesn't work
-    # because this package is shadowed in `$PATH` by the regular `python3`
-    # package.
-    #
-    # So, we "manually" assemble one python derivation for the package to depend
-    # on, taking into account whether checks are enabled or not:
+  # Ordinarily we would just the `doCheck` and `checkDeps` functionality
+  # `mkDerivation` gives us to manage our test dependencies (instead of breaking
+  # out `doCheck` as a package level attribute).
+  #
+  # Unfortunately `lit` does not forward `$PYTHONPATH` to children processes, in
+  # particular the children it uses to do feature detection.
+  #
+  # This means that python deps we add to `checkDeps` (which the python
+  # interpreter is made aware of via `$PYTHONPATH` – populated by the python
+  # setup hook) are not picked up by `lit` which causes it to skip tests.
+  #
+  # Adding `python3.withPackages (ps: [ ... ])` to `checkDeps` also doesn't work
+  # because this package is shadowed in `$PATH` by the regular `python3`
+  # package.
+  #
+  # So, we "manually" assemble one python derivation for the package to depend
+  # on, taking into account whether checks are enabled or not:
   python =
     if doCheck then
       let
@@ -78,7 +74,6 @@ let
     else
       python3
     ;
-
 in
 stdenv.mkDerivation (
   rec {
@@ -297,14 +292,14 @@ stdenv.mkDerivation (
       )
     '';
 
-      # Defensive check: some paths (that we make symlinks to) depend on the release
-      # version, for example:
-      #  - https://github.com/llvm/llvm-project/blob/406bde9a15136254f2b10d9ef3a42033b3cb1b16/clang/lib/Headers/CMakeLists.txt#L185
-      #
-      # So we want to sure that the version in the source matches the release
-      # version we were given.
-      #
-      # We do this check here, in the LLVM build, because it happens early.
+    # Defensive check: some paths (that we make symlinks to) depend on the release
+    # version, for example:
+    #  - https://github.com/llvm/llvm-project/blob/406bde9a15136254f2b10d9ef3a42033b3cb1b16/clang/lib/Headers/CMakeLists.txt#L185
+    #
+    # So we want to sure that the version in the source matches the release
+    # version we were given.
+    #
+    # We do this check here, in the LLVM build, because it happens early.
     postConfigure =
       let
         v = lib.versions;
@@ -332,7 +327,7 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # E.g. mesa.drivers use the build-id as a cache key (see #93946):
+    # E.g. mesa.drivers use the build-id as a cache key (see #93946):
     LDFLAGS = optionalString
       (enableSharedLibraries && !stdenv.isDarwin)
       "-Wl,--build-id=sha1";
@@ -412,8 +407,8 @@ stdenv.mkDerivation (
               "-DCMAKE_STRIP=${nativeBintools}/bin/${nativeBintools.targetPrefix}strip"
               "-DCMAKE_RANLIB=${nativeBintools}/bin/${nativeBintools.targetPrefix}ranlib"
             ];
-              # We need to repass the custom GNUInstallDirs values, otherwise CMake
-              # will choose them for us, leading to wrong results in llvm-config-native
+            # We need to repass the custom GNUInstallDirs values, otherwise CMake
+            # will choose them for us, leading to wrong results in llvm-config-native
             nativeInstallFlags = [
               "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
               "-DCMAKE_INSTALL_BINDIR=${placeholder "out"}/bin"
@@ -463,7 +458,7 @@ stdenv.mkDerivation (
 
     checkTarget = "check-all";
 
-      # For the update script:
+    # For the update script:
     passthru.monorepoSrc = monorepoSrc;
 
     requiredSystemFeatures = [ "big-parallel" ];

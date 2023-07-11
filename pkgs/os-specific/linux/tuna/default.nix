@@ -53,7 +53,7 @@ buildPythonApplication rec {
     cp tuna/tuna_gui.glade $out/share/tuna/
   '';
 
-    # contains no tests
+  # contains no tests
   doCheck = false;
   pythonImportsCheck = [ "tuna" ];
 

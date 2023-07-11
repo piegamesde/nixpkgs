@@ -19,8 +19,8 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
-    # Tests fail because they expect a test WASM plugin. Tests already run for
-    # every commit upstream on GitHub Actions
+  # Tests fail because they expect a test WASM plugin. Tests already run for
+  # every commit upstream on GitHub Actions
   doCheck = false;
 
   meta = with lib; {

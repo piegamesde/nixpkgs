@@ -24,5 +24,4 @@ buildPythonPackage rec {
       "A python implementation of the Pluggable Transports for Circumvention specification for Tor";
     license = licenses.bsd2;
   };
-
 }

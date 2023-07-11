@@ -18,8 +18,8 @@ let
     "medium_power"
     "med_power_with_dipm"
   ];
-
 in
+
 {
   ###### interface
 
@@ -36,10 +36,9 @@ in
         4.15 and newer.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg != null) {
 
@@ -54,5 +53,4 @@ in
       SUBSYSTEM=="scsi_host", ACTION=="add", KERNEL=="host*", ATTR{link_power_management_policy}="${cfg}"
     '';
   };
-
 }

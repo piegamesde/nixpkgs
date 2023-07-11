@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-    # no upstream test
+  # no upstream test
   doCheck = false;
 
   meta = with lib; {

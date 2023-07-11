@@ -106,13 +106,11 @@ let
       inherit (config.security) wrapperDir;
       inherit (config.services.mail.sendmailSetuidWrapper) program;
       mkIfDefault = cond: value: mkIf cond (mkDefault value);
-      noWrapper =
-        config.services.mail.sendmailSetuidWrapper == null
-        ;
-        # If a sendmail setuid wrapper exists,
-        # we add the path to the default configuration file.
-        # Otherwise, we use `false` to provoke
-        # an error if hylafax tries to use it.
+      noWrapper = config.services.mail.sendmailSetuidWrapper == null;
+      # If a sendmail setuid wrapper exists,
+      # we add the path to the default configuration file.
+      # Otherwise, we use `false` to provoke
+      # an error if hylafax tries to use it.
       c.sendmailPath = mkMerge [
         (mkIfDefault noWrapper "${pkgs.coreutils}/bin/false")
         (mkIfDefault (!noWrapper) "${wrapperDir}/${program}")
@@ -144,8 +142,8 @@ let
     in
     c
     ;
-
 in
+
 {
 
   options.services.hylafax = {
@@ -228,7 +226,7 @@ in
     sendmailPath = mkOption {
       type = path;
       example = literalExpression ''"''${pkgs.postfix}/bin/sendmail"'';
-        # '' ;  # fix vim
+      # '' ;  # fix vim
       description = lib.mdDoc ''
         Path to {file}`sendmail` program.
         The default uses the local sendmail wrapper
@@ -399,7 +397,6 @@ in
         unreferenced files may reside in the docq directory.
       '';
     };
-
   };
 
   config.services.hylafax = mkIf (config.services.hylafax.enable) (
@@ -408,5 +405,4 @@ in
       localConfig
     ]
   );
-
 }

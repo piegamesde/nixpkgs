@@ -34,6 +34,5 @@ with lib; {
       };
     };
     services.udev.packages = [ pkgs.sdrplay ];
-
   };
 }

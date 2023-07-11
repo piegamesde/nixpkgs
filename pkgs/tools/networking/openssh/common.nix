@@ -62,13 +62,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs =
-    [
-      pkg-config
-    ]
+    [ pkg-config ]
     # This is not the same as the libkrb5 from the inputs! pkgs.libkrb5 is
     # needed here to access krb5-config in order to cross compile. See:
     # https://github.com/NixOS/nixpkgs/pull/107606
     ++ lib.optional withKerberos pkgs.libkrb5
+    # This is not the same as the libkrb5 from the inputs! pkgs.libkrb5 is
+    # needed here to access krb5-config in order to cross compile. See:
+    # https://github.com/NixOS/nixpkgs/pull/107606
     ++ extraNativeBuildInputs
     ;
   buildInputs =
@@ -88,8 +89,8 @@ stdenv.mkDerivation rec {
     unset LD
   '';
 
-    # I set --disable-strip because later we strip anyway. And it fails to strip
-    # properly when cross building.
+  # I set --disable-strip because later we strip anyway. And it fails to strip
+  # properly when cross building.
   configureFlags =
     [
       "--sbindir=\${out}/bin"
@@ -176,12 +177,12 @@ stdenv.mkDerivation rec {
     # set up NIX_REDIRECTS for direct invocations
     set -a; source ~/.ssh/environment.base; set +a
   '';
-    # integration tests hard to get working on darwin with its shaky
-    # sandbox
-    # t-exec tests fail on musl
+  # integration tests hard to get working on darwin with its shaky
+  # sandbox
+  # t-exec tests fail on musl
   checkTarget =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl) "t-exec"
-      # other tests are less demanding of the environment
+    # other tests are less demanding of the environment
     ++ [
       "unit"
       "file-tests"

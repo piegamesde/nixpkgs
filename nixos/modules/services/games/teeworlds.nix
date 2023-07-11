@@ -27,7 +27,6 @@ let
     "sv_rcon_password ${cfg.rconPassword}"}
     ${concatStringsSep "\n" cfg.extraOptions}
   '';
-
 in
 {
   options = {
@@ -116,7 +115,7 @@ in
         DynamicUser = true;
         ExecStart = "${pkgs.teeworlds}/bin/teeworlds_srv -f ${teeworldsConf}";
 
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = false;
         PrivateDevices = true;
         PrivateUsers = true;

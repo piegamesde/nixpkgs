@@ -22,7 +22,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # Tests require internet connection
+  # Tests require internet connection
   doCheck = false;
   pythonImportsCheck = [ "stashy" ];
 

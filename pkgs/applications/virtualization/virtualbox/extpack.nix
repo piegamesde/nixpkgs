@@ -20,7 +20,8 @@ fetchurl rec {
       value =
         "292961aa8723b54f96f89f6d8abf7d8e29259d94b7de831dbffb9ae15d346434";
     in
-    assert (builtins.stringLength value) == 64; value
+    assert (builtins.stringLength value) == 64;
+    value
     ;
 
   meta = {

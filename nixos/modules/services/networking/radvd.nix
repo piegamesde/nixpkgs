@@ -14,8 +14,8 @@ let
   cfg = config.services.radvd;
 
   confFile = pkgs.writeText "radvd.conf" cfg.config;
-
 in
+
 {
 
   ###### interface
@@ -56,10 +56,9 @@ in
         The contents of the radvd configuration file.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -80,7 +79,5 @@ in
         Restart = "always";
       };
     };
-
   };
-
 }

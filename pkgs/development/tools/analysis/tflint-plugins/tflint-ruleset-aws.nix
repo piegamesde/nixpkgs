@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-mQzCqLJ3Y9l+BbfurtD/f/PRuXX+zYMeg8bPIjj05Nk=";
 
-    # upstream Makefile also does a  go test $(go list ./... | grep -v integration)
+  # upstream Makefile also does a  go test $(go list ./... | grep -v integration)
   preCheck = ''
     rm integration/integration_test.go
   '';

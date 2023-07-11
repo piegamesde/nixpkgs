@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = [ python3Packages.pyserial ];
 
-    # no usable tests
+  # no usable tests
   doCheck = false;
 
   meta = with lib; {

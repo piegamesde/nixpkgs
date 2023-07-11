@@ -43,7 +43,7 @@ buildPythonPackage rec {
     pandas
   ];
 
-    # tries to start a jupyter server
+  # tries to start a jupyter server
   disabledTests = [ "test_nbconvert" ];
 
   propagatedBuildInputs = [

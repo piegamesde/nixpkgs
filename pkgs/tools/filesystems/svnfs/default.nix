@@ -26,26 +26,26 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-    # autoconf's AC_CHECK_HEADERS and AC_CHECK_LIBS fail to detect libfuse on
-    # Darwin if FUSE_USE_VERSION isn't set at configure time.
-    #
-    # NOTE: Make sure the value of FUSE_USE_VERSION specified here matches the
-    # actual version used in the source code:
-    #
-    #     $ tar xf "$(nix-build -A svnfs.src)"
-    #     $ grep -R FUSE_USE_VERSION
+  # autoconf's AC_CHECK_HEADERS and AC_CHECK_LIBS fail to detect libfuse on
+  # Darwin if FUSE_USE_VERSION isn't set at configure time.
+  #
+  # NOTE: Make sure the value of FUSE_USE_VERSION specified here matches the
+  # actual version used in the source code:
+  #
+  #     $ tar xf "$(nix-build -A svnfs.src)"
+  #     $ grep -R FUSE_USE_VERSION
   configureFlags =
     lib.optionals stdenv.isDarwin [ "CFLAGS=-DFUSE_USE_VERSION=25" ];
 
-    # why is this required?
+  # why is this required?
   preConfigure = ''
     export LD_LIBRARY_PATH=${subversion.out}/lib
   '';
 
-    # -fcommon: workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: svnclient.o:/build/svnfs-0.4/src/svnfs.h:40: multiple definition of
-    #     `dirbuf'; svnfs.o:/build/svnfs-0.4/src/svnfs.h:40: first defined here
+  # -fcommon: workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: svnclient.o:/build/svnfs-0.4/src/svnfs.h:40: multiple definition of
+  #     `dirbuf'; svnfs.o:/build/svnfs-0.4/src/svnfs.h:40: first defined here
   env.NIX_CFLAGS_COMPILE = "-I ${subversion.dev}/include/subversion-1 -fcommon";
   NIX_LDFLAGS = "-lsvn_client-1 -lsvn_subr-1";
 

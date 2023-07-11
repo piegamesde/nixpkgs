@@ -32,12 +32,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-    # tests print “Fontconfig error: Cannot load default config file”
+  # tests print “Fontconfig error: Cannot load default config file”
   preCheck = lib.optionalString withGraphviz ''
     export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
   '';
 
-    # circular dependency anytree → graphviz → pango → glib → gtk-doc → anytree
+  # circular dependency anytree → graphviz → pango → glib → gtk-doc → anytree
   doCheck = withGraphviz;
 
   nativeCheckInputs = [

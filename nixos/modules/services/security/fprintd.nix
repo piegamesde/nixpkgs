@@ -16,8 +16,8 @@ let
     else
       pkgs.fprintd
     ;
-
 in
+
 {
 
   ###### interface
@@ -57,7 +57,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -70,7 +70,5 @@ in
     systemd.services.fprintd.environment = mkIf cfg.tod.enable {
       FP_TOD_DRIVERS_DIR = "${cfg.tod.driver}${cfg.tod.driver.driverPath}";
     };
-
   };
-
 }

@@ -12,9 +12,9 @@ let
   dnsmasq = pkgs.dnsmasq;
   stateDir = "/var/lib/dnsmasq";
 
-    # True values are just put as `name` instead of `name=true`, and false values
-    # are turned to comments (false values are expected to be overrides e.g.
-    # mkForce)
+  # True values are just put as `name` instead of `name=true`, and false values
+  # are turned to comments (false values are expected to be overrides e.g.
+  # mkForce)
   formatKeyValue =
     name: value:
     if value == true then
@@ -30,15 +30,15 @@ let
     listsAsDuplicateKeys = true;
   };
 
-    # Because formats.generate is outputting a file, we use of conf-file. Once
-    # `extraConfig` is deprecated we can just use
-    # `dnsmasqConf = format.generate "dnsmasq.conf" cfg.settings`
+  # Because formats.generate is outputting a file, we use of conf-file. Once
+  # `extraConfig` is deprecated we can just use
+  # `dnsmasqConf = format.generate "dnsmasq.conf" cfg.settings`
   dnsmasqConf = pkgs.writeText "dnsmasq.conf" ''
     conf-file=${settingsFormat.generate "dnsmasq.conf" cfg.settings}
     ${cfg.extraConfig}
   '';
-
 in
+
 {
 
   imports = [
@@ -56,7 +56,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -103,7 +103,6 @@ in
               The DNS servers which dnsmasq should query.
             '';
           };
-
         };
         default = { };
         description = lib.mdDoc ''
@@ -135,12 +134,10 @@ in
           This option is deprecated, please use {option}`settings` instead.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

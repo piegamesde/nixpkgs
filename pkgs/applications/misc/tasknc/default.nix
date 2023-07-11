@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
     sha256 = "0jrv2k1yizfdjndbl06lmy2bb62ky2rjdk308967j31c5kqqnw56";
   };
 
-    # Pull pending upstream inclusion for ncurses-6.3:
-    #  https://github.com/lharding/tasknc/pull/57
+  # Pull pending upstream inclusion for ncurses-6.3:
+  #  https://github.com/lharding/tasknc/pull/57
   patches = [
       (fetchpatch {
         name = "ncurses-6.3.patch";

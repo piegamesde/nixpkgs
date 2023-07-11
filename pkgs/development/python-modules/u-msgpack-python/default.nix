@@ -27,5 +27,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/vsergeev/u-msgpack-python";
     license = lib.licenses.mit;
   };
-
 }

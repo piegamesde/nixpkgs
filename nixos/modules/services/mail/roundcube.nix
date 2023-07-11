@@ -277,7 +277,7 @@ in
     };
     systemd.services.phpfpm-roundcube.after = [ "roundcube-setup.service" ];
 
-      # Restart on config changes.
+    # Restart on config changes.
     systemd.services.phpfpm-roundcube.restartTriggers = [
         config.environment.etc."roundcube/config.inc.php".source
       ];
@@ -329,7 +329,7 @@ in
             else
               "nginx"
             ;
-            # so that the des_key is not world readable
+          # so that the des_key is not world readable
           StateDirectoryMode = "0700";
         };
       }

@@ -601,7 +601,7 @@ with self;
     ];
   };
 
-    ### Packages at version 0.11, with dependencies at version 0.12
+  ### Packages at version 0.11, with dependencies at version 0.12
 
   configurator = janePackage {
     pname = "configurator";
@@ -634,5 +634,4 @@ with self;
     propagatedBuildInputs = [ ppxlib ];
     meta.description = "Deprecated (see ppxlib)";
   };
-
 }

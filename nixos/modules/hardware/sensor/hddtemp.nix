@@ -29,14 +29,11 @@ let
       --file=$file \
       ''${drives[@]}
   '';
-
 in
 {
-  meta.maintainers = with lib.maintainers; [
-      peterhoeg
-    ];
+  meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
-    ###### interface
+  ###### interface
 
   options = {
     hardware.sensor.hddtemp = {
@@ -78,7 +75,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.hddtemp = {

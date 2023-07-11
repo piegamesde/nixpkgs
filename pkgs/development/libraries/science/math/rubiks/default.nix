@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     export INSTALL="${coreutils}/bin/install"
   '';
 
-    # everything is done in `make install`
+  # everything is done in `make install`
   buildPhase = "true";
 
   installFlags = [ "PREFIX=$(out)" ];
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.sagemath.org/spkg/rubiks";
     description = "Several programs for working with Rubik's cubes";
-      # The individual websites are no longer available
+    # The individual websites are no longer available
     longDescription = ''
       There are several programs for working with Rubik's cubes, by three
       different people. Look inside the directories under /src to see

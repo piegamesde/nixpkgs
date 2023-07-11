@@ -58,7 +58,7 @@ in
           };
           datastore = {
             autoupgrade = true;
-              # this points to the StateDirectory of the systemd service
+            # this points to the StateDirectory of the systemd service
             path = "/var/lib/ergo/ircd.db";
           };
           accounts = {
@@ -120,14 +120,13 @@ in
           };
         };
       };
-
     };
   };
   config = lib.mkIf cfg.enable {
 
     environment.etc."ergo.yaml".source = cfg.configFile;
 
-      # merge configured values with default values
+    # merge configured values with default values
     services.ergochat.settings = lib.mapAttrsRecursive
       (_: lib.mkDefault)
       options.services.ergochat.settings.default;
@@ -135,10 +134,10 @@ in
     systemd.services.ergochat = {
       description = "Ergo IRC daemon";
       wantedBy = [ "multi-user.target" ];
-        # reload is not applying the changed config. further investigation is needed
-        # at some point this should be enabled, since we don't want to restart for
-        # every config change
-        # reloadIfChanged = true;
+      # reload is not applying the changed config. further investigation is needed
+      # at some point this should be enabled, since we don't want to restart for
+      # every config change
+      # reloadIfChanged = true;
       restartTriggers = [ cfg.configFile ];
       serviceConfig = {
         ExecStart = "${pkgs.ergochat}/bin/ergo run --conf /etc/ergo.yaml";
@@ -148,7 +147,6 @@ in
         LimitNOFILE = toString cfg.openFilesLimit;
       };
     };
-
   };
   meta.maintainers = with lib.maintainers; [
     lassulus

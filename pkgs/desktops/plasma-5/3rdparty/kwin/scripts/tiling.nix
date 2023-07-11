@@ -19,7 +19,7 @@ mkDerivation rec {
     sha256 = "095slpvipy0zcmbn0l7mdnl9g74jaafkr2gqi09b0by5fkvnbh37";
   };
 
-    # This is technically not needed, but we might as well clean up
+  # This is technically not needed, but we might as well clean up
   postPatch = ''
     rm release.sh
   '';
@@ -33,8 +33,8 @@ mkDerivation rec {
 
   dontBuild = true;
 
-    # 1. --global still installs to $HOME/.local/share so we use --packageroot
-    # 2. plasmapkg2 doesn't copy metadata.desktop into place, so we do that manually
+  # 1. --global still installs to $HOME/.local/share so we use --packageroot
+  # 2. plasmapkg2 doesn't copy metadata.desktop into place, so we do that manually
   installPhase = ''
     runHook preInstall
 

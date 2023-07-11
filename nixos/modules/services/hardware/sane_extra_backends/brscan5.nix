@@ -63,14 +63,13 @@ let
 
           example = "BRW0080927AFBCE";
         };
-
       };
 
       config = { name = mkDefault name; };
     }
     ;
-
 in
+
 {
   options = {
 
@@ -118,6 +117,5 @@ in
         attribute should be specified, not both!
       '';
     } ];
-
   };
 }

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "aioeagle" ];

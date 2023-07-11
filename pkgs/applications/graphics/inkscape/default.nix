@@ -71,17 +71,17 @@ stdenv.mkDerivation rec {
     sha256 = "oMf9DQPAohU15kjvMB3PgN18/B81ReUQZfvxuj7opcQ=";
   };
 
-    # Inkscape hits the ARGMAX when linking on macOS. It appears to be
-    # CMake’s ARGMAX check doesn’t offer enough padding for NIX_LDFLAGS.
-    # Setting strictDeps it avoids duplicating some dependencies so it
-    # will leave us under ARGMAX.
+  # Inkscape hits the ARGMAX when linking on macOS. It appears to be
+  # CMake’s ARGMAX check doesn’t offer enough padding for NIX_LDFLAGS.
+  # Setting strictDeps it avoids duplicating some dependencies so it
+  # will leave us under ARGMAX.
   strictDeps = true;
 
   patches = [
       (substituteAll {
         src = ./fix-python-paths.patch;
-          # Python is used at run-time to execute scripts,
-          # e.g., those from the "Effects" menu.
+        # Python is used at run-time to execute scripts,
+        # e.g., those from the "Effects" menu.
         python3 = "${python3Env}/bin/python";
       })
     ];
@@ -158,7 +158,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Make sure PyXML modules can be found at run-time.
+  # Make sure PyXML modules can be found at run-time.
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -change $out/lib/libinkscape_base.dylib $out/lib/inkscape/libinkscape_base.dylib $out/bin/inkscape
     install_name_tool -change $out/lib/libinkscape_base.dylib $out/lib/inkscape/libinkscape_base.dylib $out/bin/inkview

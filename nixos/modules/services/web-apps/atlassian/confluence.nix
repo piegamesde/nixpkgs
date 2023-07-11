@@ -35,8 +35,8 @@ let
     }
     session.lastvalidation                  session.lastvalidation
   '';
-
 in
+
 {
   options = {
     services.confluence = {

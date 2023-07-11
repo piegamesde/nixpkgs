@@ -17,7 +17,7 @@ let
     normalizePackageSet
     ;
 
-    # Map SPDX identifiers to license names
+  # Map SPDX identifiers to license names
   spdxLicenses = lib.listToAttrs (
     lib.filter (pair: pair.name != null) (
       builtins.map
@@ -33,16 +33,13 @@ let
       (lib.attrValues lib.licenses)
     )
   );
-    # Get license by id falling back to input string
-  getLicenseBySpdxId =
-    spdxId:
-    spdxLicenses.${spdxId} or spdxId
-    ;
+  # Get license by id falling back to input string
+  getLicenseBySpdxId = spdxId: spdxLicenses.${spdxId} or spdxId;
 
-    # Experimental withPlugins functionality
+  # Experimental withPlugins functionality
   toPluginAble = (import ./plugins.nix { inherit pkgs lib; }).toPluginAble;
 
-    # List of known build systems that are passed through from nixpkgs unmodified
+  # List of known build systems that are passed through from nixpkgs unmodified
   knownBuildSystems =
     builtins.fromJSON (builtins.readFile ./known-build-systems.json);
   nixpkgsBuildSystems = lib.subtractLists
@@ -65,12 +62,9 @@ let
       ] # * means all extras, otherwise include the dependencies for a given extra
     }:
     let
-      getInputs =
-        attr:
-        attrs.${attr} or [ ]
-        ;
+      getInputs = attr: attrs.${attr} or [ ];
 
-        # Get dependencies and filter out depending on interpreter version
+      # Get dependencies and filter out depending on interpreter version
       getDeps =
         depSet:
         let
@@ -138,7 +132,9 @@ let
         getDeps allRawDeps
         ++ (
           # >=poetry-1.2.0 dependency groups
-          if pyProject.tool.poetry.group or { } != { } then
+          if
+            pyProject.tool.poetry.group or { } != { }
+          then
             lib.flatten (
               map
               (g: getDeps pyProject.tool.poetry.group.${g}.dependencies)
@@ -153,27 +149,24 @@ let
       nativeCheckInputs = mkInput "nativeCheckInputs" checkInputs';
     }
     ;
-
 in
 lib.makeScope pkgs.newScope (
   self: {
 
-    inherit
-      version
-      ;
+    inherit version;
 
-      /* Returns a package of editable sources whose changes will be available without needing to restart the
-         nix-shell.
-         In editablePackageSources you can pass a mapping from package name to source directory to have
-         those packages available in the resulting environment, whose source changes are immediately available.
-      */
+    /* Returns a package of editable sources whose changes will be available without needing to restart the
+       nix-shell.
+       In editablePackageSources you can pass a mapping from package name to source directory to have
+       those packages available in the resulting environment, whose source changes are immediately available.
+    */
     mkPoetryEditablePackage =
       {
         projectDir ? null,
         pyproject ? projectDir + "/pyproject.toml",
         python ? pkgs.python3,
         pyProject ? readTOML pyproject
-          # Example: { my-app = ./src; }
+        # Example: { my-app = ./src; }
         ,
         editablePackageSources,
       }:
@@ -183,7 +176,7 @@ lib.makeScope pkgs.newScope (
       }
       ;
 
-      # Returns a package containing scripts defined in tool.poetry.scripts.
+    # Returns a package containing scripts defined in tool.poetry.scripts.
     mkPoetryScriptsPackage =
       {
         projectDir ? null,
@@ -196,7 +189,7 @@ lib.makeScope pkgs.newScope (
       import ./shell-scripts.nix { inherit lib python scripts; }
       ;
 
-      # Returns an attrset { python, poetryPackages, pyProject, poetryLock } for the given pyproject/lockfile.
+    # Returns an attrset { python, poetryPackages, pyProject, poetryLock } for the given pyproject/lockfile.
     mkPoetryPackages =
       {
         projectDir ? null,
@@ -211,7 +204,7 @@ lib.makeScope pkgs.newScope (
         python ? pkgs.python3,
         pwd ? projectDir,
         preferWheels ? false
-          # Example: { my-app = ./src; }
+        # Example: { my-app = ./src; }
         ,
         editablePackageSources ? { },
         pyProject ? readTOML pyproject,
@@ -253,7 +246,7 @@ lib.makeScope pkgs.newScope (
 
         poetryLock = readTOML poetrylock;
 
-          # Lock file version 1.1 files
+        # Lock file version 1.1 files
         lockFiles =
           let
             lockfiles = lib.getAttrFromPath
@@ -277,7 +270,7 @@ lib.makeScope pkgs.newScope (
 
         evalPep508 = mkEvalPep508 python;
 
-          # Filter packages by their PEP508 markers & pyproject interpreter version
+        # Filter packages by their PEP508 markers & pyproject interpreter version
         partitions =
           let
             supportsPythonVersion =
@@ -296,10 +289,10 @@ lib.makeScope pkgs.newScope (
         compatible = partitions.right;
         incompatible = partitions.wrong;
 
-          # Create an overridden version of pythonPackages
-          #
-          # We need to avoid mixing multiple versions of pythonPackages in the same
-          # closure as python can only ever have one version of a dependency
+        # Create an overridden version of pythonPackages
+        #
+        # We need to avoid mixing multiple versions of pythonPackages in the same
+        # closure as python can only ever have one version of a dependency
         baseOverlay =
           self: super:
           let
@@ -317,7 +310,7 @@ lib.makeScope pkgs.newScope (
                       inherit pwd preferWheels;
                       pos = poetrylockPos;
                       source = pkgMeta.source or null;
-                        # Default to files from lock file version 2.0 and fall back to 1.1
+                      # Default to files from lock file version 2.0 and fall back to 1.1
                       files = pkgMeta.files or lockFiles.${normalizedName};
                       pythonPackages = self;
 
@@ -387,7 +380,7 @@ lib.makeScope pkgs.newScope (
                   inherit lib python poetryLib evalPep508;
                 };
 
-                  # # Use poetry-core from the poetry build (pep517/518 build-system)
+                # # Use poetry-core from the poetry build (pep517/518 build-system)
                 poetry-core = poetryPkg.passthru.python.pkgs.poetry-core;
                 poetry = poetryPkg;
 
@@ -431,7 +424,6 @@ lib.makeScope pkgs.newScope (
             )
             # Create poetry2nix layer
             baseOverlay
-
           ]
           ++ # User provided overrides
           (
@@ -455,10 +447,10 @@ lib.makeScope pkgs.newScope (
         };
 
         requiredPythonModules = python.pkgs.requiredPythonModules;
-          /* Include all the nested dependencies which are required for each package.
-             This guarantees that using the "poetryPackages" attribute will return
-             complete list of dependencies for the poetry project to be portable.
-          */
+        /* Include all the nested dependencies which are required for each package.
+           This guarantees that using the "poetryPackages" attribute will return
+           complete list of dependencies for the poetry project to be portable.
+        */
         storePackages = requiredPythonModules (
           builtins.foldl' (acc: v: acc ++ v) [ ] (lib.attrValues inputAttrs)
         );
@@ -475,13 +467,13 @@ lib.makeScope pkgs.newScope (
       }
       ;
 
-      /* Returns a package with a python interpreter and all packages specified in the poetry.lock lock file.
-         In editablePackageSources you can pass a mapping from package name to source directory to have
-         those packages available in the resulting environment, whose source changes are immediately available.
+    /* Returns a package with a python interpreter and all packages specified in the poetry.lock lock file.
+       In editablePackageSources you can pass a mapping from package name to source directory to have
+       those packages available in the resulting environment, whose source changes are immediately available.
 
-         Example:
-         poetry2nix.mkPoetryEnv { poetrylock = ./poetry.lock; python = python3; }
-      */
+       Example:
+       poetry2nix.mkPoetryEnv { poetrylock = ./poetry.lock; python = python3; }
+    */
     mkPoetryEnv =
       {
         projectDir ? null,
@@ -501,7 +493,7 @@ lib.makeScope pkgs.newScope (
 
         pyProject = readTOML pyproject;
 
-          # Automatically add dependencies with develop = true as editable packages, but only if path dependencies
+        # Automatically add dependencies with develop = true as editable packages, but only if path dependencies
         getEditableDeps =
           set:
           lib.mapAttrs (name: value: projectDir + "/${value.path}") (
@@ -523,7 +515,9 @@ lib.makeScope pkgs.newScope (
               pyProject.tool.poetry."dev-dependencies" or { }
             )) // (
               # Poetry>=1.2.0
-              if pyProject.tool.poetry.group or { } != { } then
+              if
+                pyProject.tool.poetry.group or { } != { }
+              then
                 builtins.foldl'
                 (
                   acc: g:
@@ -556,33 +550,32 @@ lib.makeScope pkgs.newScope (
           editablePackageSources = editablePackageSources';
         };
 
-        inherit (poetryPython)
-          poetryPackages
-          ;
+        inherit (poetryPython) poetryPackages;
 
-          # Don't add editable sources to the environment since they will sometimes fail to build and are not useful in the development env
+        # Don't add editable sources to the environment since they will sometimes fail to build and are not useful in the development env
         editableAttrs = lib.attrNames editablePackageSources';
         envPkgs = builtins.filter
           (drv: !lib.elem (drv.pname or drv.name or "") editableAttrs)
           poetryPackages;
-
       in
       poetryPython.python.withPackages (ps: envPkgs ++ (extraPackages ps))
       ;
 
-      /* Creates a Python application from pyproject.toml and poetry.lock
+    /* Creates a Python application from pyproject.toml and poetry.lock
 
-         The result also contains a .dependencyEnv attribute which is a python
-         environment of all dependencies and this apps modules. This is useful if
-         you rely on dependencies to invoke your modules for deployment: e.g. this
-         allows `gunicorn my-module:app`.
-      */
+       The result also contains a .dependencyEnv attribute which is a python
+       environment of all dependencies and this apps modules. This is useful if
+       you rely on dependencies to invoke your modules for deployment: e.g. this
+       allows `gunicorn my-module:app`.
+    */
     mkPoetryApplication =
       {
         projectDir ? null,
         src ? (
           # Assume that a project which is the result of a derivation is already adequately filtered
-          if lib.isDerivation projectDir then
+          if
+            lib.isDerivation projectDir
+          then
             projectDir
           else
             self.cleanPythonSources { src = projectDir; }
@@ -648,9 +641,9 @@ lib.makeScope pkgs.newScope (
             inherit src;
 
             format = "pyproject";
-              # Like buildPythonApplication, but without the toPythonModule part
-              # Meaning this ends up looking like an application but it also
-              # provides python modules
+            # Like buildPythonApplication, but without the toPythonModule part
+            # Meaning this ends up looking like an application but it also
+            # provides python modules
             namePrefix = "";
 
             passthru = {
@@ -672,7 +665,7 @@ lib.makeScope pkgs.newScope (
                 };
             };
 
-              # Extract position from explicitly passed attrs so meta.position won't point to poetry2nix internals
+            # Extract position from explicitly passed attrs so meta.position won't point to poetry2nix internals
             pos = builtins.unsafeGetAttrPos
               (lib.elemAt (lib.attrNames attrs) 0)
               attrs;
@@ -691,26 +684,23 @@ lib.makeScope pkgs.newScope (
                   pyProject.tool.poetry.license or "unknown"
                 );
               } // meta;
-
           }
         );
       in
       app
       ;
 
-      # Poetry2nix CLI used to supplement SHA-256 hashes for git dependencies
+    # Poetry2nix CLI used to supplement SHA-256 hashes for git dependencies
     cli = import ./cli.nix {
       inherit pkgs lib;
       inherit (self) version;
     };
 
-      # inherit mkPoetryEnv mkPoetryApplication mkPoetryPackages;
+    # inherit mkPoetryEnv mkPoetryApplication mkPoetryPackages;
 
-    inherit (poetryLib)
-      cleanPythonSources
-      ;
+    inherit (poetryLib) cleanPythonSources;
 
-      # Create a new default set of overrides with the same structure as the built-in ones
+    # Create a new default set of overrides with the same structure as the built-in ones
     mkDefaultPoetryOverrides =
       defaults: {
         __functor = defaults;
@@ -740,25 +730,21 @@ lib.makeScope pkgs.newScope (
       }
       ;
 
-      /* The default list of poetry2nix override overlays
+    /* The default list of poetry2nix override overlays
 
-         Can be overriden by calling defaultPoetryOverrides.overrideOverlay which takes an overlay function
-      */
+       Can be overriden by calling defaultPoetryOverrides.overrideOverlay which takes an overlay function
+    */
     defaultPoetryOverrides =
       self.mkDefaultPoetryOverrides (import ./overrides { inherit pkgs lib; });
 
-      # Convenience functions for specifying overlays with or without the poerty2nix default overrides
+    # Convenience functions for specifying overlays with or without the poerty2nix default overrides
     overrides = {
       # Returns the specified overlay in a list
-      withoutDefaults =
-        overlay: [
-          overlay
-        ]
-        ;
+      withoutDefaults = overlay: [ overlay ];
 
-        /* Returns the specified overlay and returns a list
-           combining it with poetry2nix default overrides
-        */
+      /* Returns the specified overlay and returns a list
+         combining it with poetry2nix default overrides
+      */
       withDefaults =
         overlay: [
           overlay

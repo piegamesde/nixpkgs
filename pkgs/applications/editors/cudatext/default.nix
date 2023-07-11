@@ -24,7 +24,7 @@
 
   ,
   widgetset ? "qt5"
-    # See https://github.com/Alexey-T/CudaText-lexers
+  # See https://github.com/Alexey-T/CudaText-lexers
   ,
   additionalLexers ? [ "Nix" ]
 }:

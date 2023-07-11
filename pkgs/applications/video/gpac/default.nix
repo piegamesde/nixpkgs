@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # this is the bare minimum configuration, as I'm only interested in MP4Box
-    # For most other functionality, this should probably be extended
+  # this is the bare minimum configuration, as I'm only interested in MP4Box
+  # For most other functionality, this should probably be extended
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [ zlib ];

@@ -11,7 +11,8 @@
 # store path. The problem appears to be non-fatal, but there's probably
 # some loss of functionality because of it.
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication
+rec {
   pname = "tahoe-lafs";
   version = "unstable-2021-07-09";
 
@@ -46,7 +47,7 @@ python3Packages.buildPythonApplication rec {
     rm src/allmydata/test/web/test_logs.py
   '';
 
-    # Remove broken and expensive tests.
+  # Remove broken and expensive tests.
   preConfigure = ''
     (
       cd src/allmydata/test
@@ -70,7 +71,7 @@ python3Packages.buildPythonApplication rec {
     texinfo
   ];
 
-    # The `backup' command requires `sqlite3'.
+  # The `backup' command requires `sqlite3'.
   propagatedBuildInputs = with python3Packages;
     [
       appdirs
@@ -107,7 +108,7 @@ python3Packages.buildPythonApplication rec {
     twisted
   ];
 
-    # Install the documentation.
+  # Install the documentation.
   postInstall = ''
     (
       cd docs

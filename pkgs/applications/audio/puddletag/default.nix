@@ -19,7 +19,8 @@
 # ignoring the pinned versions, it's just something we will have to accept
 # unless we want to vendor those versions.
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication
+rec {
   pname = "puddletag";
   version = "2.2.0";
   format = "setuptools";
@@ -59,7 +60,7 @@ python3.pkgs.buildPythonApplication rec {
     rapidfuzz
   ];
 
-    # the file should be executable but it isn't so our wrapper doesn't run
+  # the file should be executable but it isn't so our wrapper doesn't run
   preFixup = ''
     chmod 555 $out/bin/puddletag
     wrapQtApp $out/bin/puddletag

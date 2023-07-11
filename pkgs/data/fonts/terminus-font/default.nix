@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
     "install-otb"
     "fontdir"
   ];
-    # fontdir depends on the previous two targets, but this is not known
-    # to make, so we need to disable parallelism:
+  # fontdir depends on the previous two targets, but this is not known
+  # to make, so we need to disable parallelism:
   enableParallelInstalling = false;
 
   meta = with lib; {

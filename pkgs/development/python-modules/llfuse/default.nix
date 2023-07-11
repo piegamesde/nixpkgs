@@ -41,7 +41,7 @@ buildPythonPackage rec {
     ${python.pythonForBuild.interpreter} setup.py build_cython
   '';
 
-    # On Darwin, the test requires macFUSE to be installed outside of Nix.
+  # On Darwin, the test requires macFUSE to be installed outside of Nix.
   doCheck = !stdenv.isDarwin;
   nativeCheckInputs = [
     pytestCheckHook

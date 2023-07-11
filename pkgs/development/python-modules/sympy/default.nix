@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ mpmath ];
 
-    # tests take ~1h
+  # tests take ~1h
   doCheck = false;
   pythonImportsCheck = [ "sympy" ];
 

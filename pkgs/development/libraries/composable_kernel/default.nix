@@ -28,7 +28,7 @@ let
         ++ lib.optionals buildExamples [ "example" ]
         ;
 
-        # ROCm 5.6 should release composable_kernel as stable with a tag in the future
+      # ROCm 5.6 should release composable_kernel as stable with a tag in the future
       src = fetchFromGitHub {
         owner = "ROCmSoftwarePlatform";
         repo = "composable_kernel";
@@ -59,7 +59,7 @@ let
           ]
         ;
 
-        # No flags to build selectively it seems...
+      # No flags to build selectively it seems...
       postPatch =
         lib.optionalString (!buildTests) ''
           substituteInPlace CMakeLists.txt \
@@ -126,7 +126,7 @@ stdenv.mkDerivation {
     ''
     ;
 
-    # Fix paths
+  # Fix paths
   preFixup = ''
     substituteInPlace $out/lib/cmake/composable_kernel/*.cmake \
       --replace "${ck}" "$out"

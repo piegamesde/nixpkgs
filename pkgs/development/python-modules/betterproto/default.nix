@@ -56,8 +56,8 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.compiler
     ;
 
-    # The tests require the generation of code before execution. This requires
-    # the protoc-gen-python_betterproto script from the packge to be on PATH.
+  # The tests require the generation of code before execution. This requires
+  # the protoc-gen-python_betterproto script from the packge to be on PATH.
   preCheck = ''
     export PATH=$PATH:$out/bin
     ${python.interpreter} -m tests.generate

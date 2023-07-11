@@ -39,12 +39,12 @@ stdenv.mkDerivation rec {
   pname = "deepin-kwin";
   version = "5.24.3-deepin.1.9";
 
-    /* There are no buildable tag in github:
-         - 5.15 tag in eagel branch is used for UOS, it's too old to compile.
-         - 5.25 tag in master branch only work on unreleased deepin v23.
-       Since deepin-kwin was not maintained on github before, we lost all
-       tags in master branch, this version is read from debian/changelog
-    */
+  /* There are no buildable tag in github:
+       - 5.15 tag in eagel branch is used for UOS, it's too old to compile.
+       - 5.25 tag in master branch only work on unreleased deepin v23.
+     Since deepin-kwin was not maintained on github before, we lost all
+     tags in master branch, this version is read from debian/changelog
+  */
 
   src = fetchFromGitHub {
     owner = "linuxdeepin";
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/hgDuaDrpwAQsMIoaS8pGBJwWfJSrq6Yjic3a60ITtM=";
   };
 
-    # Avoid using absolute path to distinguish applications
+  # Avoid using absolute path to distinguish applications
   postPatch = ''
     substituteInPlace src/effects/screenshot/screenshotdbusinterface1.cpp \
       --replace 'file.readAll().startsWith(DEFINE_DDE_DOCK_PATH"dde-dock")' 'file.readAll().contains("dde-dock")'

@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyserial ];
 
-    # Source is not tagged, only PyPI releases
+  # Source is not tagged, only PyPI releases
   doCheck = false;
 
   pythonImportsCheck = [ "ultraheat_api" ];

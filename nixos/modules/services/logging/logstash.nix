@@ -41,8 +41,8 @@ let
       ln -s $logstashSettingsYml $out/logstash.yml
       ln -s $logstashJvmOptionsFile $out/jvm.options
     '';
-
 in
+
 {
   imports = [
     (mkRenamedOptionModule
@@ -65,7 +65,7 @@ in
       "The web interface was removed from logstash")
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -195,11 +195,10 @@ in
           -Xmx2g
         '';
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.logstash = {

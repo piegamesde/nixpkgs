@@ -7,9 +7,9 @@
   latestVersion,
   versionToName,
   dfVersion ? latestVersion
-    # This package should, at any given time, provide an opinionated "optimal"
-    # DF experience. It's the equivalent of the Lazy Newbie Pack, that is, and
-    # should contain every utility available unless you disable them.
+  # This package should, at any given time, provide an opinionated "optimal"
+  # DF experience. It's the equivalent of the Lazy Newbie Pack, that is, and
+  # should contain every utility available unless you disable them.
   ,
   enableDFHack ? stdenvNoCC.isLinux,
   enableTWBT ? enableDFHack,
@@ -19,7 +19,7 @@
   enableLegendsBrowser ? true,
   legends-browser,
   theme ? themes.phoebus
-    # General config options:
+  # General config options:
   ,
   enableIntro ? true,
   enableTruetype ? null # defaults to 24, see init.txt

@@ -22,8 +22,8 @@ let
         propagatedBuildInputs = [ cpu ];
       }
     ;
-
 in
+
 buildDunePackage rec {
   pname = "parany";
   inherit (params) version;

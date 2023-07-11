@@ -55,10 +55,10 @@ stdenv.mkDerivation rec {
 
   doInstallCheck = true;
 
-    # We cannot run
-    #     ec2-metadata --help
-    # because it actually checks EC2 metadata even if --help is given
-    # so it won't work in the test sandbox.
+  # We cannot run
+  #     ec2-metadata --help
+  # because it actually checks EC2 metadata even if --help is given
+  # so it won't work in the test sandbox.
   installCheckPhase = ''
     $out/bin/ebsnvme-id --help
   '';

@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional sslSupport "--enable-ssl"
     ;
 
-    # Undefined symbols for architecture arm64: "_OBJC_CLASS_$_NSAutoreleasePool"
+  # Undefined symbols for architecture arm64: "_OBJC_CLASS_$_NSAutoreleasePool"
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework Foundation";
 
   meta = with lib; {

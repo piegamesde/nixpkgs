@@ -66,7 +66,7 @@
   mesa,
   xkeyboard_config,
   enableProprietaryCodecs ? true
-    # darwin
+  # darwin
   ,
   clang_14,
   bootstrap_cmds,
@@ -136,8 +136,8 @@ qtModule {
 
   dontUseGnConfigure = true;
 
-    # ninja builds some components with -Wno-format,
-    # which cannot be set at the same time as -Wformat-security
+  # ninja builds some components with -Wno-format,
+  # which cannot be set at the same time as -Wformat-security
   hardeningDisable = [ "format" ];
 
   patches = [
@@ -336,11 +336,9 @@ qtModule {
   meta = with lib; {
     description = "A web engine based on the Chromium web browser";
     platforms = platforms.unix;
-    broken =
-      stdenv.isDarwin && stdenv.isx86_64
-      ;
-      # This build takes a long time; particularly on slow architectures
-      # 1 hour on 32x3.6GHz -> maybe 12 hours on 4x2.4GHz
+    broken = stdenv.isDarwin && stdenv.isx86_64;
+    # This build takes a long time; particularly on slow architectures
+    # 1 hour on 32x3.6GHz -> maybe 12 hours on 4x2.4GHz
     timeout = 24 * 3600;
   };
 }

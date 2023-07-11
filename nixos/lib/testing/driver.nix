@@ -5,15 +5,10 @@
   ...
 }:
 let
-  inherit (lib)
-    mkOption
-    types
-    literalMD
-    mdDoc
-    ;
+  inherit (lib) mkOption types literalMD mdDoc;
 
-    # Reifies and correctly wraps the python test driver for
-    # the respective qemu version and with or without ocr support
+  # Reifies and correctly wraps the python test driver for
+  # the respective qemu version and with or without ocr support
   testDriver = hostPkgs.callPackage ../test-driver {
     inherit (config) enableOCR extraPythonPackages;
     qemu_pkg = config.qemu.package;
@@ -35,9 +30,9 @@ let
       "machine"
     ;
 
-    # TODO: This is an implementation error and needs fixing
-    # the testing famework cannot legitimately restrict hostnames further
-    # beyond RFC1035
+  # TODO: This is an implementation error and needs fixing
+  # the testing famework cannot legitimately restrict hostnames further
+  # beyond RFC1035
   invalidNodeNames = lib.filter
     (node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null)
     nodeHostNames;
@@ -128,7 +123,6 @@ let
           )
         }
     '';
-
 in
 {
   options = {
@@ -212,7 +206,7 @@ in
 
     driver = withChecks driver;
 
-      # make available on the test runner
+    # make available on the test runner
     passthru.driver = config.driver;
   };
 }

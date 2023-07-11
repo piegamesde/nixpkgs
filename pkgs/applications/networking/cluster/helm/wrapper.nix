@@ -25,8 +25,8 @@ let
     symlinkJoin {
       name = "helm-${lib.getVersion helm}";
 
-        # Remove the symlinks created by symlinkJoin which we need to perform
-        # extra actions upon
+      # Remove the symlinks created by symlinkJoin which we need to perform
+      # extra actions upon
       postBuild = ''
         wrapProgram "$out/bin/helm" \
           "--set" "HELM_PLUGINS" "${pluginsDir}" ${extraMakeWrapperArgs}
@@ -44,7 +44,7 @@ let
       meta = helm.meta // {
         # To prevent builds on hydra
         hydraPlatforms = [ ];
-          # prefer wrapper over the package
+        # prefer wrapper over the package
         priority = (helm.meta.priority or 0) - 1;
       };
     }

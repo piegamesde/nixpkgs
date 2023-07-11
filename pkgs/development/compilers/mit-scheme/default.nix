@@ -28,14 +28,12 @@ let
 in
 stdenv.mkDerivation {
   pname = "mit-scheme" + lib.optionalString enableX11 "-x11";
-  inherit
-    version
-    ;
+  inherit version;
 
-    # MIT/GNU Scheme is not bootstrappable, so it's recommended to compile from
-    # the platform-specific tarballs, which contain pre-built binaries.  It
-    # leads to more efficient code than when building the tarball that contains
-    # generated C code instead of those binaries.
+  # MIT/GNU Scheme is not bootstrappable, so it's recommended to compile from
+  # the platform-specific tarballs, which contain pre-built binaries.  It
+  # leads to more efficient code than when building the tarball that contains
+  # generated C code instead of those binaries.
   src =
     if stdenv.isLinux && stdenv.isAarch64 then
       fetchurl {
@@ -107,7 +105,7 @@ stdenv.mkDerivation {
     libtool
   ];
 
-    # XXX: The `check' target doesn't exist.
+  # XXX: The `check' target doesn't exist.
   doCheck = false;
 
   meta = with lib; {
@@ -127,8 +125,8 @@ stdenv.mkDerivation {
 
     maintainers = [ ];
 
-      # Build fails on Cygwin and Darwin:
-      # <http://article.gmane.org/gmane.lisp.scheme.mit-scheme.devel/489>.
+    # Build fails on Cygwin and Darwin:
+    # <http://article.gmane.org/gmane.lisp.scheme.mit-scheme.devel/489>.
     platforms = platforms.gnu ++ platforms.linux ++ platforms.freebsd;
   };
 }

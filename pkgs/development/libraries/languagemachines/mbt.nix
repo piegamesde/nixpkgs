@@ -15,8 +15,8 @@
 
 let
   release = lib.importJSON ./release-info/LanguageMachines-mbt.json;
-
 in
+
 stdenv.mkDerivation {
   pname = "mbt";
   version = release.version;
@@ -56,5 +56,4 @@ stdenv.mkDerivation {
       Mbt is used by Frog for Dutch tagging.
     '';
   };
-
 }

@@ -21,7 +21,6 @@ let
     optional
     optionalString
     ;
-
 in
 {
   options.services.earlyoom = {

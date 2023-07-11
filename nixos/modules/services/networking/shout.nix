@@ -30,7 +30,6 @@ let
         )
       ''
     ;
-
 in
 {
   options.services.shout = {

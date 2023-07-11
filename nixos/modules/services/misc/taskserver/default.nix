@@ -188,7 +188,6 @@ let
 
       propagatedBuildInputs = [ click ];
     };
-
 in
 {
   options = {
@@ -497,22 +496,22 @@ in
         daemon = false;
         log = "-";
 
-          # logging
+        # logging
         debug = cfg.debug;
         ip.log = cfg.ipLog;
 
-          # general
+        # general
         ciphers = cfg.ciphers;
         confirmation = cfg.confirmation;
         extensions = cfg.extensions;
         queue.size = cfg.queueSize;
         request.limit = cfg.requestLimit;
 
-          # client
+        # client
         client.allow = cfg.allowedClientIDs;
         client.deny = cfg.disallowedClientIDs;
 
-          # server
+        # server
         trust = cfg.trust;
         server = {
           listen = "${cfg.listenHost}:${toString cfg.listenPort}";

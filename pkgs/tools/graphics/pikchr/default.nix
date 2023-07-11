@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation {
   pname = "pikchr";
-    # To update, use the last check-in in https://pikchr.org/home/timeline?r=trunk
+  # To update, use the last check-in in https://pikchr.org/home/timeline?r=trunk
   version = "unstable-2022-12-07";
 
   src = fetchfossil {
@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-fp06GqpLa/szRCS54KJ+SkT602oWvK3KyDFFjTmpNfI=";
   };
 
-    # can't open generated html files
+  # can't open generated html files
   postPatch = ''
     substituteInPlace Makefile --replace open "test -f"
   '';

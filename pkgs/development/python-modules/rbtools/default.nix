@@ -32,7 +32,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-    # The kgb test dependency is not in nixpkgs
+  # The kgb test dependency is not in nixpkgs
   doCheck = false;
 
   meta = with lib; {
@@ -42,5 +42,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ domenkozar ];
   };
-
 }

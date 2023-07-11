@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 
-    # Disable until tests are fixed upstream https://gitlab.gnome.org/GNOME/calls/-/issues/258
+  # Disable until tests are fixed upstream https://gitlab.gnome.org/GNOME/calls/-/issues/258
   doCheck = false;
 
   checkPhase = ''

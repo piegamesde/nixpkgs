@@ -34,4 +34,6 @@ let
       )
     );
 in
-pkg // { meta = pkg.meta // { position = toString ./default.nix + ":1"; }; }
+pkg // {
+  meta = pkg.meta // { position = toString ./default.nix + ":1"; };
+}

@@ -20,12 +20,10 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ openssl ] ++ lib.optional stdenv.isDarwin Security
-    ;
+  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
-    # Disable tests since it requires network access and relies on the
-    # presence of certain AWS infrastructure
+  # Disable tests since it requires network access and relies on the
+  # presence of certain AWS infrastructure
   doCheck = false;
 
   cargoSha256 = "0qnfrwpdvjksc97iiwn1r6fyqaqn0q3ckbdzswf9flvwshqzb6ih";

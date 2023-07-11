@@ -61,18 +61,18 @@
   libs3 ? null,
   yasm ? null
 
-    # Mallocs
+  # Mallocs
   ,
   gperftools ? null,
   jemalloc ? null
 
-    # Crypto Dependencies
+  # Crypto Dependencies
   ,
   cryptopp ? null,
   nspr ? null,
   nss ? null
 
-    # Linux Only Dependencies
+  # Linux Only Dependencies
   ,
   linuxHeaders,
   util-linux,
@@ -119,7 +119,7 @@ let
   optLibxfs = shouldUsePkg libxfs;
   optZfs = shouldUsePkg zfs;
 
-    # Downgrade rocksdb, 7.10 breaks ceph
+  # Downgrade rocksdb, 7.10 breaks ceph
   rocksdb' = rocksdb.overrideAttrs (
     oldAttrs: {
       version = "7.9.2";
@@ -132,11 +132,9 @@ let
     }
   );
 
-  hasRadosgw =
-    optExpat != null && optCurl != null && optLibedit != null
-    ;
+  hasRadosgw = optExpat != null && optCurl != null && optLibedit != null;
 
-    # Malloc implementation (can be jemalloc, tcmalloc or null)
+  # Malloc implementation (can be jemalloc, tcmalloc or null)
   malloc =
     if optJemalloc != null then
       optJemalloc
@@ -144,7 +142,7 @@ let
       optGperftools
     ;
 
-    # We prefer nss over cryptopp
+  # We prefer nss over cryptopp
   cryptoStr =
     if optNss != null && optNspr != null then
       "nss"
@@ -208,7 +206,7 @@ let
       meta = getMeta "Ceph common module for code shared by manager modules";
     };
 
-    # Watch out for python <> boost compatibility
+  # Watch out for python <> boost compatibility
   python = python310.override {
     packageOverrides =
       self: super: {
@@ -242,7 +240,7 @@ let
     inherit python;
   };
 
-    # TODO: split this off in build and runtime environment
+  # TODO: split this off in build and runtime environment
   ceph-python-env = python.withPackages (
     ps:
     with ps; [
@@ -441,7 +439,7 @@ rec {
 
     doCheck = false; # uses pip to install things from the internet
 
-      # Takes 7+h to build with 2 cores.
+    # Takes 7+h to build with 2 cores.
     requiredSystemFeatures = [ "big-parallel" ];
 
     meta = getMeta "Distributed storage system";

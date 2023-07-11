@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-f2m/8KvnEX0lZkmQtFOLOMj5gMUIiBKKvC+yq7QY0B4=";
 
-    # dns-lookup is performed for the tests
+  # dns-lookup is performed for the tests
   doCheck = false;
 
   passthru.tests = { inherit (nixosTests.prometheus-exporters) blackbox; };

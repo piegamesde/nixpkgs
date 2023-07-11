@@ -24,7 +24,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # Requires internet access
+  # Requires internet access
   doCheck = false;
 
   meta = with lib; {

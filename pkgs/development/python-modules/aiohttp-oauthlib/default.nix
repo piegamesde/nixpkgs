@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-    # Package has no tests.
+  # Package has no tests.
   doCheck = false;
 
   meta = with lib; {

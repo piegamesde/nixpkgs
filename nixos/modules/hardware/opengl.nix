@@ -24,8 +24,8 @@ let
     name = "opengl-drivers-32bit";
     paths = [ cfg.package32 ] ++ cfg.extraPackages32;
   };
-
 in
+
 {
 
   imports = [
@@ -147,7 +147,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf cfg.enable {

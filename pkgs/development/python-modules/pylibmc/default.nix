@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   setupPyBuildFlags = [ "--with-sasl2" ];
 
-    # Requires an external memcached server running
+  # Requires an external memcached server running
   doCheck = false;
 
   pythonImportsCheck = [ "pylibmc" ];

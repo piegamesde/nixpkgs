@@ -38,4 +38,3 @@ buildGoModule rec {
     mainProgram = "agent";
   };
 }
-

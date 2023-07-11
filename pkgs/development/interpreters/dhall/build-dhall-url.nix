@@ -20,7 +20,7 @@
 # This function is primarily used by `dhall-to-nixpkgs directory --fixed-output-derivations`.
 
 { # URL of the input Dhall file.
-# example: "https://raw.githubusercontent.com/cdepillabout/example-dhall-repo/c1b0d0327146648dcf8de997b2aa32758f2ed735/example1.dhall"
+  # example: "https://raw.githubusercontent.com/cdepillabout/example-dhall-repo/c1b0d0327146648dcf8de997b2aa32758f2ed735/example1.dhall"
   url
 
   # Nix hash of the input Dhall file.
@@ -35,9 +35,7 @@
 
   # Name for this derivation.
   ,
-  name ? (
-    baseNameOf url + "-cache"
-  )
+  name ? (baseNameOf url + "-cache")
 
   # `buildDhallUrl` can include both a "source distribution" in
   # `source.dhall` and a "binary distribution" in `binary.dhall`:
@@ -61,9 +59,9 @@ let
   # using Nix instead of using Dhall's support for HTTP imports.
   dhallNoHTTP = haskell.lib.appendConfigureFlag dhall "-f-with-http";
 
-    # This uses Dhall's remote importing capabilities for downloading a Dhall file.
-    # The output Dhall file has all imports resolved, and then is
-    # alpha-normalized and binary-encoded.
+  # This uses Dhall's remote importing capabilities for downloading a Dhall file.
+  # The output Dhall file has all imports resolved, and then is
+  # alpha-normalized and binary-encoded.
   downloadedEncodedFile = runCommand (baseNameOf url)
     {
       outputHashAlgo = null;
@@ -86,7 +84,6 @@ let
   dataDhall = "${data}/dhall";
 
   sourceFile = "source.dhall";
-
 in
 runCommand name { } (
   ''

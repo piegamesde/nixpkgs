@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   pname = "rpm2targz";
   version = "2021.03.16";
 
-    # git repo: https://gitweb.gentoo.org/proj/rpm2targz.git/
+  # git repo: https://gitweb.gentoo.org/proj/rpm2targz.git/
   src = fetchurl {
     url = "https://dev.gentoo.org/~vapier/dist/${pname}-${version}.tar.xz";
     hash = "sha256-rcV+o9V2wWKznqSW2rA8xgnpQ02kpK4te6mYvLRC5vQ=";

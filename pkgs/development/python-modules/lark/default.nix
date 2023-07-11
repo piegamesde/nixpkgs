@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-drvF+0PSOdrha2rfpntrM8xIbeb0S7eNtfioxkdjEKw=";
   };
 
-    # Optional import, but fixes some re known bugs & allows advanced regex features
+  # Optional import, but fixes some re known bugs & allows advanced regex features
   propagatedBuildInputs = [ regex ];
 
   pythonImportsCheck = [

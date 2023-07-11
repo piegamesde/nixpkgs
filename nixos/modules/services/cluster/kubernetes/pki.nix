@@ -137,10 +137,9 @@ in
       default = null;
       type = nullOr str;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable (
     let
       cfsslCertPathPrefix = "${config.services.cfssl.dataDir}/cfssl";
@@ -271,11 +270,11 @@ in
           ;
       };
 
-        #TODO: Get rid of kube-addon-manager in the future for the following reasons
-        # - it is basically just a shell script wrapped around kubectl
-        # - it assumes that it is clusterAdmin or can gain clusterAdmin rights through serviceAccount
-        # - it is designed to be used with k8s system components only
-        # - it would be better with a more Nix-oriented way of managing addons
+      #TODO: Get rid of kube-addon-manager in the future for the following reasons
+      # - it is basically just a shell script wrapped around kubectl
+      # - it assumes that it is clusterAdmin or can gain clusterAdmin rights through serviceAccount
+      # - it is designed to be used with k8s system components only
+      # - it would be better with a more Nix-oriented way of managing addons
       systemd.services.kube-addon-manager = mkIf top.addonManager.enable (
         mkMerge [
           {
@@ -364,8 +363,8 @@ in
           '')
         ];
 
-        # isolate etcd on loopback at the master node
-        # easyCerts doesn't support multimaster clusters anyway atm.
+      # isolate etcd on loopback at the master node
+      # easyCerts doesn't support multimaster clusters anyway atm.
       services.etcd = with cfg.certs.etcd; {
         listenClientUrls = [ "https://127.0.0.1:2379" ];
         listenPeerUrls = [ "https://127.0.0.1:2380" ];

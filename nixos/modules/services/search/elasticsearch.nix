@@ -44,7 +44,6 @@ let
     paths = cfg.plugins;
     postBuild = "${pkgs.coreutils}/bin/mkdir -p $out/plugins";
   };
-
 in
 {
 
@@ -164,10 +163,9 @@ in
       '';
       default = true;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.elasticsearch = {

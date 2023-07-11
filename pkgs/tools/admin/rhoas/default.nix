@@ -28,7 +28,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # Networking tests fail.
+  # Networking tests fail.
   doCheck = false;
 
   postInstall = ''

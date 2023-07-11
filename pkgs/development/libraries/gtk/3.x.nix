@@ -60,8 +60,8 @@ let
     gtk_module_path = "gtk-3.0";
     gtk_binary_version = "3.0.0";
   };
-
 in
+
 stdenv.mkDerivation (
   finalAttrs: {
     pname = "gtk+3";
@@ -149,7 +149,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [ AppKit ]
       ++ lib.optionals trackerSupport [ tracker ]
       ;
-      #TODO: colord?
+    #TODO: colord?
 
     propagatedBuildInputs = with xorg;
       [
@@ -199,8 +199,8 @@ stdenv.mkDerivation (
 
     separateDebugInfo = stdenv.isLinux;
 
-      # These are the defines that'd you'd get with --enable-debug=minimum (default).
-      # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
+    # These are the defines that'd you'd get with --enable-debug=minimum (default).
+    # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
     env.NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
 
     postPatch = ''
@@ -242,7 +242,7 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # Wrap demos
+    # Wrap demos
     postFixup =
       lib.optionalString (!stdenv.isDarwin) ''
         demos=(gtk3-demo gtk3-demo-application gtk3-icon-browser gtk3-widget-factory)

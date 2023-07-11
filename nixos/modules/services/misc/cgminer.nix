@@ -150,7 +150,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.cgminer.enable {
 
@@ -190,7 +190,5 @@ in
         Restart = "always";
       };
     };
-
   };
-
 }

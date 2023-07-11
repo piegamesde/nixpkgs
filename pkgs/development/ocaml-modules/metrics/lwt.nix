@@ -20,5 +20,4 @@ buildDunePackage {
 
   meta =
     metrics.meta // { description = "Lwt backend for the Metrics library"; };
-
 }

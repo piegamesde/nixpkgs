@@ -88,7 +88,7 @@ in
 
     environment.systemPackages = [ ibusAutostart ];
 
-      # Without dconf enabled it is impossible to use IBus
+    # Without dconf enabled it is impossible to use IBus
     programs.dconf.enable = true;
 
     programs.dconf.packages = [ ibusPackage ];
@@ -104,6 +104,6 @@ in
     xdg.portal.extraPortals = mkIf config.xdg.portal.enable [ ibusPackage ];
   };
 
-    # uses attributes of the linked package
+  # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

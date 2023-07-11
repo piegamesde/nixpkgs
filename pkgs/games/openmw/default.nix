@@ -65,7 +65,6 @@ let
         ;
     }
   );
-
 in
 mkDerivation rec {
   pname = "openmw";
@@ -101,7 +100,7 @@ mkDerivation rec {
     wrapQtAppsHook
   ];
 
-    # If not set, OSG plugin .so files become shell scripts on Darwin.
+  # If not set, OSG plugin .so files become shell scripts on Darwin.
   dontWrapQtApps = true;
 
   buildInputs =

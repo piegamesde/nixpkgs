@@ -56,7 +56,6 @@ let
     preBuild = "cd vpnglean";
     hash = "sha256-5vazbCqzJG6iA0MFaTNha42jb1pgLhr0P9I8rQxSKtw=";
   };
-
 in
 stdenv.mkDerivation {
   inherit pname version src;

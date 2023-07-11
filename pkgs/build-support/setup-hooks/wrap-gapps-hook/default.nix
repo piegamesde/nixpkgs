@@ -29,8 +29,8 @@ makeSetupHook
     ]
     ;
 
-    # depsTargetTargetPropagated will essentially be buildInputs when wrapGAppsHook is placed into nativeBuildInputs
-    # the librsvg and gtk3 above should be removed but kept to not break anything that implicitly depended on its binaries
+  # depsTargetTargetPropagated will essentially be buildInputs when wrapGAppsHook is placed into nativeBuildInputs
+  # the librsvg and gtk3 above should be removed but kept to not break anything that implicitly depended on its binaries
   depsTargetTargetPropagated =
     assert (lib.assertMsg
       (!targetPackages ? raw)
@@ -80,7 +80,7 @@ makeSetupHook
           ];
         };
 
-          # The wrapper for executable files should add path to dconf GIO module.
+        # The wrapper for executable files should add path to dconf GIO module.
         basic-contains-dconf =
           let
             tested = basic;
@@ -115,7 +115,7 @@ makeSetupHook
           )
           ;
 
-          # Simple derivation containing a gobject-introspection typelib.
+        # Simple derivation containing a gobject-introspection typelib.
         typelib-Mahjong = stdenv.mkDerivation {
           name = "typelib-Mahjong";
 
@@ -126,7 +126,7 @@ makeSetupHook
           installFlags = [ "typelib-Mahjong" ];
         };
 
-          # Simple derivation using a typelib.
+        # Simple derivation using a typelib.
         typelib-user = stdenv.mkDerivation {
           name = "typelib-user";
 
@@ -146,10 +146,10 @@ makeSetupHook
           ];
         };
 
-          # Testing cooperation with gobject-introspection setup hook,
-          # which should populate GI_TYPELIB_PATH variable with paths
-          # to typelibs among the derivation’s dependencies.
-          # The resulting GI_TYPELIB_PATH should be picked up by the wrapper.
+        # Testing cooperation with gobject-introspection setup hook,
+        # which should populate GI_TYPELIB_PATH variable with paths
+        # to typelibs among the derivation’s dependencies.
+        # The resulting GI_TYPELIB_PATH should be picked up by the wrapper.
         typelib-user-has-gi-typelib-path =
           let
             tested = typelib-user;
@@ -164,7 +164,7 @@ makeSetupHook
           ''
           ;
 
-          # Simple derivation containing a gobject-introspection typelib in lib output.
+        # Simple derivation containing a gobject-introspection typelib in lib output.
         typelib-Bechamel = stdenv.mkDerivation {
           name = "typelib-Bechamel";
 
@@ -182,7 +182,7 @@ makeSetupHook
           installFlags = [ "typelib-Bechamel" ];
         };
 
-          # Simple derivation using a typelib from non-default output.
+        # Simple derivation using a typelib from non-default output.
         typelib-multiout-user = stdenv.mkDerivation {
           name = "typelib-multiout-user";
 
@@ -202,11 +202,11 @@ makeSetupHook
           ];
         };
 
-          # Testing cooperation with gobject-introspection setup hook,
-          # which should populate GI_TYPELIB_PATH variable with paths
-          # to typelibs among the derivation’s dependencies,
-          # even when they are not in default output.
-          # The resulting GI_TYPELIB_PATH should be picked up by the wrapper.
+        # Testing cooperation with gobject-introspection setup hook,
+        # which should populate GI_TYPELIB_PATH variable with paths
+        # to typelibs among the derivation’s dependencies,
+        # even when they are not in default output.
+        # The resulting GI_TYPELIB_PATH should be picked up by the wrapper.
         typelib-multiout-user-has-gi-typelib-path =
           let
             tested = typelib-multiout-user;
@@ -221,7 +221,7 @@ makeSetupHook
           ''
           ;
 
-          # Simple derivation that contains a typelib as well as a program using it.
+        # Simple derivation that contains a typelib as well as a program using it.
         typelib-self-user = stdenv.mkDerivation {
           name = "typelib-self-user";
 
@@ -240,11 +240,11 @@ makeSetupHook
           ];
         };
 
-          # Testing cooperation with gobject-introspection setup hook,
-          # which should add the path to derivation’s own typelibs
-          # to GI_TYPELIB_PATH variable.
-          # The resulting GI_TYPELIB_PATH should be picked up by the wrapper.
-          # https://github.com/NixOS/nixpkgs/issues/85515
+        # Testing cooperation with gobject-introspection setup hook,
+        # which should add the path to derivation’s own typelibs
+        # to GI_TYPELIB_PATH variable.
+        # The resulting GI_TYPELIB_PATH should be picked up by the wrapper.
+        # https://github.com/NixOS/nixpkgs/issues/85515
         typelib-self-user-has-gi-typelib-path =
           let
             tested = typelib-self-user;

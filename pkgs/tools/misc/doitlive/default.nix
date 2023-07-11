@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     click-didyoumean
   ];
 
-    # disable tests (too many failures)
+  # disable tests (too many failures)
   doCheck = false;
 
   meta = with lib; {

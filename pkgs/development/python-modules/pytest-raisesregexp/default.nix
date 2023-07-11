@@ -20,7 +20,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-    # https://github.com/kissgyorgy/pytest-raisesregexp/pull/3
+  # https://github.com/kissgyorgy/pytest-raisesregexp/pull/3
   prePatch = ''
     sed -i '3i\import io' setup.py
     substituteInPlace setup.py --replace "long_description=open('README.rst').read()," "long_description=io.open('README.rst', encoding='utf-8').read(),"

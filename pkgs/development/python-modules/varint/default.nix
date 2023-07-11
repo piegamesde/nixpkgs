@@ -12,7 +12,7 @@ buildPythonPackage rec {
     sha256 = "a6ecc02377ac5ee9d65a6a8ad45c9ff1dac8ccee19400a5950fb51d594214ca5";
   };
 
-    # No tests are available
+  # No tests are available
   doCheck = false;
 
   pythonImportsCheck = [ "varint" ];

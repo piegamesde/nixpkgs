@@ -21,23 +21,18 @@ let
 
   releaseLib = import ./release-lib.nix { inherit supportedSystems; };
 
-  inherit (releaseLib)
-    lib
-    mapTestOn
-    packagePlatforms
-    pkgs
-    ;
+  inherit (releaseLib) lib mapTestOn packagePlatforms pkgs;
 
-    # Helper function which traverses a (nested) set
-    # of derivations produced by mapTestOn and flattens
-    # it to a list of derivations suitable to be passed
-    # to `releaseTools.aggregate` as constituents.
-    # Removes all non derivations from the input jobList.
-    #
-    # accumulateDerivations :: [ Either Derivation AttrSet ] -> [ Derivation ]
-    #
-    # > accumulateDerivations [ drv1 "string" { foo = drv2; bar = { baz = drv3; }; } ]
-    # [ drv1 drv2 drv3 ]
+  # Helper function which traverses a (nested) set
+  # of derivations produced by mapTestOn and flattens
+  # it to a list of derivations suitable to be passed
+  # to `releaseTools.aggregate` as constituents.
+  # Removes all non derivations from the input jobList.
+  #
+  # accumulateDerivations :: [ Either Derivation AttrSet ] -> [ Derivation ]
+  #
+  # > accumulateDerivations [ drv1 "string" { foo = drv2; bar = { baz = drv3; }; } ]
+  # [ drv1 drv2 drv3 ]
   accumulateDerivations =
     jobList:
     lib.concatMap
@@ -53,23 +48,23 @@ let
     jobList
     ;
 
-    # names of all subsets of `pkgs.haskell.packages`
-    #
-    # compilerNames looks like the following:
-    #
-    # ```
-    # {
-    #   ghc810 = "ghc810";
-    #   ghc8102Binary = "ghc8102Binary";
-    #   ghc8102BinaryMinimal = "ghc8102BinaryMinimal";
-    #   ghc8107 = "ghc8107";
-    #   ghc924 = "ghc924";
-    #   ...
-    # }
-    # ```
+  # names of all subsets of `pkgs.haskell.packages`
+  #
+  # compilerNames looks like the following:
+  #
+  # ```
+  # {
+  #   ghc810 = "ghc810";
+  #   ghc8102Binary = "ghc8102Binary";
+  #   ghc8102BinaryMinimal = "ghc8102BinaryMinimal";
+  #   ghc8107 = "ghc8107";
+  #   ghc924 = "ghc924";
+  #   ...
+  # }
+  # ```
   compilerNames = lib.mapAttrs (name: _: name) pkgs.haskell.packages;
 
-    # list of all compilers to test specific packages on
+  # list of all compilers to test specific packages on
   released = with compilerNames; [
     ghc884
     ghc8107
@@ -82,60 +77,60 @@ let
     ghc961
   ];
 
-    # packagePlatforms applied to `haskell.packages.*`
-    #
-    # This returns an attr set that looks like the following, where each Haskell
-    # package in the compiler attr set has its list of supported platforms as its
-    # value.
-    #
-    # ```
-    # {
-    #   ghc810 = {
-    #     conduit = [ ... ];
-    #     lens = [ "i686-cygwin" "x86_64-cygwin" ... "x86_64-windows" "i686-windows" ]
-    #     ...
-    #   };
-    #   ghc902 = { ... };
-    #   ...
-    # }
-    # ```
+  # packagePlatforms applied to `haskell.packages.*`
+  #
+  # This returns an attr set that looks like the following, where each Haskell
+  # package in the compiler attr set has its list of supported platforms as its
+  # value.
+  #
+  # ```
+  # {
+  #   ghc810 = {
+  #     conduit = [ ... ];
+  #     lens = [ "i686-cygwin" "x86_64-cygwin" ... "x86_64-windows" "i686-windows" ]
+  #     ...
+  #   };
+  #   ghc902 = { ... };
+  #   ...
+  # }
+  # ```
   compilerPlatforms =
     lib.mapAttrs (_: v: packagePlatforms v) pkgs.haskell.packages;
 
-    # This function lets you specify specific packages
-    # which are to be tested on a list of specific GHC
-    # versions and returns a job set for all specified
-    # combinations.
-    #
-    # You can call versionedCompilerJobs like the following:
-    #
-    # ```
-    # versionedCompilerJobs {
-    #   ghc-tags = ["ghc902" "ghc924"];
-    # }
-    # ```
-    #
-    # This would produce an output like the following:
-    #
-    # ```
-    # {
-    #   haskell.packages = {
-    #     ghc884 = {};
-    #     ghc810 = {};
-    #     ghc902 = {
-    #       ghc-tags = {
-    #         aarch64-darwin = <derivation...>;
-    #         aarch64-linux = <derivation...>;
-    #         ...
-    #       };
-    #     };
-    #     ghc924 = {
-    #       ghc-tags = { ... };
-    #     };
-    #     ...
-    #   };
-    # }
-    # ```
+  # This function lets you specify specific packages
+  # which are to be tested on a list of specific GHC
+  # versions and returns a job set for all specified
+  # combinations.
+  #
+  # You can call versionedCompilerJobs like the following:
+  #
+  # ```
+  # versionedCompilerJobs {
+  #   ghc-tags = ["ghc902" "ghc924"];
+  # }
+  # ```
+  #
+  # This would produce an output like the following:
+  #
+  # ```
+  # {
+  #   haskell.packages = {
+  #     ghc884 = {};
+  #     ghc810 = {};
+  #     ghc902 = {
+  #       ghc-tags = {
+  #         aarch64-darwin = <derivation...>;
+  #         aarch64-linux = <derivation...>;
+  #         ...
+  #       };
+  #     };
+  #     ghc924 = {
+  #       ghc-tags = { ... };
+  #     };
+  #     ...
+  #   };
+  # }
+  # ```
   versionedCompilerJobs =
     config:
     mapTestOn {
@@ -176,9 +171,9 @@ let
                 (jobName: platforms: lib.elem ghc (config."${jobName}" or [ ]))
                 jobs;
 
-                # Remove platforms from each job that are not supported by GHC.
-                # This is important so that we don't build jobs for platforms
-                # where GHC can't be compiled.
+              # Remove platforms from each job that are not supported by GHC.
+              # This is important so that we don't build jobs for platforms
+              # where GHC can't be compiled.
               jobsetWithGHCPlatforms = lib.mapAttrs
                 (_: platforms: lib.intersectLists jobs.ghc platforms)
                 configFilteredJobset;
@@ -191,10 +186,10 @@ let
     }
     ;
 
-    # hydra jobs for `pkgs` of which we import a subset of
+  # hydra jobs for `pkgs` of which we import a subset of
   pkgsPlatforms = packagePlatforms pkgs;
 
-    # names of packages in an attribute set that are maintained
+  # names of packages in an attribute set that are maintained
   maintainedPkgNames =
     set:
     builtins.attrNames (
@@ -206,40 +201,37 @@ let
 
   recursiveUpdateMany = builtins.foldl' lib.recursiveUpdate { };
 
-    # Remove multiple elements from a list at once.
-    #
-    # removeMany
-    #   :: [a]  -- list of elements to remove
-    #   -> [a]  -- list of elements from which to remove
-    #   -> [a]
-    #
-    # > removeMany ["aarch64-linux" "x86_64-darwin"] ["aarch64-linux" "x86_64-darwin" "x86_64-linux"]
-    # ["x86_64-linux"]
-  removeMany =
-    itemsToRemove: list:
-    lib.foldr lib.remove list itemsToRemove
-    ;
+  # Remove multiple elements from a list at once.
+  #
+  # removeMany
+  #   :: [a]  -- list of elements to remove
+  #   -> [a]  -- list of elements from which to remove
+  #   -> [a]
+  #
+  # > removeMany ["aarch64-linux" "x86_64-darwin"] ["aarch64-linux" "x86_64-darwin" "x86_64-linux"]
+  # ["x86_64-linux"]
+  removeMany = itemsToRemove: list: lib.foldr lib.remove list itemsToRemove;
 
-    # Recursively remove platforms from the values in an attribute set.
-    #
-    # removePlatforms
-    #   :: [String]
-    #   -> AttrSet
-    #   -> AttrSet
-    #
-    # > attrSet = {
-    #     foo = ["aarch64-linux" "x86_64-darwin" "x86_64-linux"];
-    #     bar.baz = ["aarch64-linux" "x86_64-linux"];
-    #     bar.quux = ["aarch64-linux" "x86_64-darwin"];
-    #   }
-    # > removePlatforms ["aarch64-linux" "x86_64-darwin"] attrSet
-    # {
-    #   foo = ["x86_64-linux"];
-    #   bar = {
-    #     baz = ["x86_64-linux"];
-    #     quux = [];
-    #   };
-    # }
+  # Recursively remove platforms from the values in an attribute set.
+  #
+  # removePlatforms
+  #   :: [String]
+  #   -> AttrSet
+  #   -> AttrSet
+  #
+  # > attrSet = {
+  #     foo = ["aarch64-linux" "x86_64-darwin" "x86_64-linux"];
+  #     bar.baz = ["aarch64-linux" "x86_64-linux"];
+  #     bar.quux = ["aarch64-linux" "x86_64-darwin"];
+  #   }
+  # > removePlatforms ["aarch64-linux" "x86_64-darwin"] attrSet
+  # {
+  #   foo = ["x86_64-linux"];
+  #   bar = {
+  #     baz = ["x86_64-linux"];
+  #     quux = [];
+  #   };
+  # }
   removePlatforms =
     platformsToRemove: packageSet:
     lib.mapAttrsRecursive
@@ -287,7 +279,7 @@ let
 
       agdaPackages = packagePlatforms pkgs.agdaPackages;
 
-        # top-level packages that depend on haskellPackages
+      # top-level packages that depend on haskellPackages
       inherit (pkgsPlatforms)
         agda
         arion
@@ -395,7 +387,7 @@ let
         zsh-git-prompt
         ;
 
-        # Members of the elmPackages set that are Haskell derivations
+      # Members of the elmPackages set that are Haskell derivations
       elmPackages = {
         inherit (pkgsPlatforms.elmPackages)
           elm
@@ -405,7 +397,7 @@ let
           ;
       };
 
-        # GHCs linked to musl.
+      # GHCs linked to musl.
       pkgsMusl.haskell.compiler =
         lib.recursiveUpdate (packagePlatforms pkgs.pkgsMusl.haskell.compiler) {
           # remove musl ghc865Binary since it is known to be broken and
@@ -416,12 +408,12 @@ let
           ghcjs = { };
           ghcjs810 = { };
 
-            # Can't be built with musl, see meta.broken comment in the drv
+          # Can't be built with musl, see meta.broken comment in the drv
           integer-simple.ghc884 = { };
           integer-simple.ghc88 = { };
         };
 
-        # Get some cache going for MUSL-enabled GHC.
+      # Get some cache going for MUSL-enabled GHC.
       pkgsMusl.haskellPackages = removePlatforms
         [
           # pkgsMusl is compiled natively with musl.  It is not
@@ -442,9 +434,9 @@ let
             ;
         };
 
-        # Test some statically linked packages to catch regressions
-        # and get some cache going for static compilation with GHC.
-        # Use integer-simple to avoid GMP linking problems (LGPL)
+      # Test some statically linked packages to catch regressions
+      # and get some cache going for static compilation with GHC.
+      # Use integer-simple to avoid GMP linking problems (LGPL)
       pkgsStatic = removePlatforms
         [
           "aarch64-linux" # times out on Hydra
@@ -673,6 +665,5 @@ let
       };
     }
   ];
-
 in
 jobs

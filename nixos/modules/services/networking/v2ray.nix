@@ -63,7 +63,6 @@ with lib;
         '';
       };
     };
-
   };
 
   config =
@@ -81,7 +80,6 @@ with lib;
             '';
           }
         ;
-
     in
     mkIf cfg.enable {
       assertions = [ {
@@ -97,7 +95,7 @@ with lib;
       systemd.services.v2ray = {
         restartTriggers = [ config.environment.etc."v2ray/config.json".source ];
 
-          # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
+        # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
         wantedBy = [ "multi-user.target" ];
       };
     }

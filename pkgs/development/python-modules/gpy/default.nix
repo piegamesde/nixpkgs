@@ -31,16 +31,16 @@ buildPythonPackage rec {
   ];
   nativeCheckInputs = [ nose ];
 
-    # $ nosetests GPy/testing/*.py
-    # => Ran 483 tests in 112.146s (on 8 cores)
-    # So instead, run shorter set of tests
+  # $ nosetests GPy/testing/*.py
+  # => Ran 483 tests in 112.146s (on 8 cores)
+  # So instead, run shorter set of tests
   checkPhase = ''
     nosetests GPy/testing/linalg_test.py
   '';
 
-    # Rebuild cython-generated .c files since the included
-    # ones were built with an older version of cython that is
-    # incompatible with python3.9
+  # Rebuild cython-generated .c files since the included
+  # ones were built with an older version of cython that is
+  # incompatible with python3.9
   preBuild = ''
     for fn in $(find . -name '*.pyx'); do
       echo $fn | sed 's/\.\.pyx$/\.c/' | xargs ${cython}/bin/cython -3

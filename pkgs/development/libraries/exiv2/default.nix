@@ -102,8 +102,8 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # With CMake we have to enable samples or there won't be
-    # a tests target. This removes them.
+  # With CMake we have to enable samples or there won't be
+  # a tests target. This removes them.
   postInstall = ''
     ( cd "$out/bin"
       mv exiv2 .exiv2

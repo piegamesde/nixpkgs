@@ -32,7 +32,6 @@ let
   };
 
   wrapper = "eduke32-wrapper";
-
 in
 stdenv.mkDerivation rec {
   pname = "eduke32";

@@ -47,7 +47,7 @@ buildPythonPackage rec {
     loguru
   ];
 
-    # tests are not functional yet
+  # tests are not functional yet
   doCheck = false;
 
   postBuild = ''

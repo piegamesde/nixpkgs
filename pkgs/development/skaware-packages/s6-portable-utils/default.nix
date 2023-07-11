@@ -35,5 +35,4 @@ buildPackage {
 
     mv doc $doc/share/doc/s6-portable-utils/html
   '';
-
 }

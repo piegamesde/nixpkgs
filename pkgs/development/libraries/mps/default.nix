@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ sqlite ];
 
-    # needed for 1.116.0 to build with gcc7
+  # needed for 1.116.0 to build with gcc7
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-implicit-fallthrough"
     "-Wno-error=clobbered"

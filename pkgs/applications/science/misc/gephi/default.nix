@@ -17,7 +17,7 @@ let
     sha256 = "sha256-3+tOwcE7TUeexJCugFsx9SgsKeb7ApNqbMEIi9QaKPE=";
   };
 
-    # perform fake build to make a fixed-output derivation out of the files downloaded from maven central (120MB)
+  # perform fake build to make a fixed-output derivation out of the files downloaded from maven central (120MB)
   deps = stdenv.mkDerivation {
     name = "gephi-${version}-deps";
     inherit src;
@@ -30,7 +30,7 @@ let
         echo "timeout, restart maven to continue downloading"
       done
     '';
-      # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
+    # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
     installPhase =
       "find $out/.m2 -type f -regex '.+\\(\\.lastUpdated\\|resolver-status\\.properties\\|_remote\\.repositories\\)' -delete";
     outputHashAlgo = "sha256";

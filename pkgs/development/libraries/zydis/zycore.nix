@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # The absolute paths set by the Nix CMake build manager confuse
-    # Zycore's config generation (which appends them to the package path).
+  # The absolute paths set by the Nix CMake build manager confuse
+  # Zycore's config generation (which appends them to the package path).
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"

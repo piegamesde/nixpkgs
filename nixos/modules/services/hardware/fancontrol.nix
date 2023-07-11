@@ -10,7 +10,6 @@ with lib;
 let
   cfg = config.hardware.fancontrol;
   configFile = pkgs.writeText "fancontrol.conf" cfg.config;
-
 in
 {
   options.hardware.fancontrol = {
@@ -52,12 +51,11 @@ in
       };
     };
 
-      # On some systems, the fancontrol service does not resume properly after sleep because the pwm status of the fans
-      # is not reset properly. Restarting the service fixes this, in accordance with https://github.com/lm-sensors/lm-sensors/issues/172.
+    # On some systems, the fancontrol service does not resume properly after sleep because the pwm status of the fans
+    # is not reset properly. Restarting the service fixes this, in accordance with https://github.com/lm-sensors/lm-sensors/issues/172.
     powerManagement.resumeCommands = ''
       systemctl restart fancontrol.service
     '';
-
   };
 
   meta.maintainers = [ maintainers.evils ];

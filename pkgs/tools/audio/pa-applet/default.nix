@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     ./autogen.sh
   '';
 
-    # work around a problem related to gtk3 updates
+  # work around a problem related to gtk3 updates
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
   postInstall = "";

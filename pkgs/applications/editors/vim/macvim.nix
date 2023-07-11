@@ -24,8 +24,8 @@ let
     mkdir -p $out/bin
     ln -s /usr/bin/xcrun /usr/bin/xcodebuild /usr/bin/tiffutil /usr/bin/qlmanage $out/bin
   '';
-
 in
+
 stdenv.mkDerivation {
   pname = "macvim";
 
@@ -80,16 +80,16 @@ stdenv.mkDerivation {
     "--disable-sparkle"
   ];
 
-    # Remove references to Sparkle.framework from the project.
-    # It's unused (we disabled it with --disable-sparkle) and this avoids
-    # copying the unnecessary several-megabyte framework into the result.
+  # Remove references to Sparkle.framework from the project.
+  # It's unused (we disabled it with --disable-sparkle) and this avoids
+  # copying the unnecessary several-megabyte framework into the result.
   postPatch = ''
     echo "Patching file src/MacVim/MacVim.xcodeproj/project.pbxproj"
     sed -e '/Sparkle\.framework/d' -i src/MacVim/MacVim.xcodeproj/project.pbxproj
   '';
 
-    # This is unfortunate, but we need to use the same compiler as Xcode,
-    # but Xcode doesn't provide a way to configure the compiler.
+  # This is unfortunate, but we need to use the same compiler as Xcode,
+  # but Xcode doesn't provide a way to configure the compiler.
   preConfigure =
     ''
       CC=/usr/bin/clang
@@ -102,8 +102,13 @@ stdenv.mkDerivation {
         CFLAGS="-Wno-error=implicit-function-declaration"
       )
     ''
-    # For some reason having LD defined causes PSMTabBarControl to fail at link-time as it
-    # passes arguments to ld that it meant for clang.
+    # When building with nix-daemon, we need to pass -derivedDataPath or else it tries to use
+    # a folder rooted in /var/empty and fails. Unfortunately we can't just pass -derivedDataPath
+    # by itself as this flag requires the use of -scheme or -xctestrun (not sure why), but MacVim
+    # by default just runs `xcodebuild -project src/MacVim/MacVim.xcodeproj`, relying on the default
+    # behavior to build the first target in the project. Experimentally, there seems to be a scheme
+    # called MacVim, so we'll explicitly select that. We also need to specify the configuration too
+    # as the scheme seems to have the wrong default.
     + ''
       unset LD
     ''
@@ -122,17 +127,17 @@ stdenv.mkDerivation {
     ''
     ;
 
-    # Because we're building with system clang, this means we're building against Xcode's SDK and
-    # linking against system libraries. The configure script is picking up Nix Libsystem (via ruby)
-    # so we need to patch that out or we'll get linker issues. The MacVim binary built by Xcode links
-    # against the system anyway so it doesn't really matter that the Vim binary will too. If we
-    # decide that matters, we can always patch it back to the Nix libsystem post-build.
-    # It also picks up libiconv, libunwind, and objc4 from Nix. These seem relatively harmless but
-    # let's strip them out too.
-    #
-    # Note: If we do add a post-build install_name_tool patch, we need to add the
-    # "LDFLAGS=-headerpad_max_install_names" flag to configureFlags and either patch it into the
-    # Xcode project or pass it as a flag to xcodebuild as well.
+  # Because we're building with system clang, this means we're building against Xcode's SDK and
+  # linking against system libraries. The configure script is picking up Nix Libsystem (via ruby)
+  # so we need to patch that out or we'll get linker issues. The MacVim binary built by Xcode links
+  # against the system anyway so it doesn't really matter that the Vim binary will too. If we
+  # decide that matters, we can always patch it back to the Nix libsystem post-build.
+  # It also picks up libiconv, libunwind, and objc4 from Nix. These seem relatively harmless but
+  # let's strip them out too.
+  #
+  # Note: If we do add a post-build install_name_tool patch, we need to add the
+  # "LDFLAGS=-headerpad_max_install_names" flag to configureFlags and either patch it into the
+  # Xcode project or pass it as a flag to xcodebuild as well.
   postConfigure = ''
     substituteInPlace src/auto/config.mk \
       --replace "PERL_CFLAGS	=" "PERL_CFLAGS	= -I${darwin.libutil}/include" \
@@ -179,9 +184,9 @@ stdenv.mkDerivation {
     find $out/share/man \( -name eVim.1 -or -name xxd.1 \) -delete
   '';
 
-    # We rely on the user's Xcode install to build. It may be located in an arbitrary place, and
-    # it's not clear what system-level components it may require, so for now we'll just allow full
-    # filesystem access. This way the package still can't access the network.
+  # We rely on the user's Xcode install to build. It may be located in an arbitrary place, and
+  # it's not clear what system-level components it may require, so for now we'll just allow full
+  # filesystem access. This way the package still can't access the network.
   sandboxProfile = ''
     (allow file-read* file-write* process-exec mach-lookup)
     ; block homebrew dependencies

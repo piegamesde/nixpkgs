@@ -72,8 +72,8 @@ with lib; {
         hostName = mkDefault ""; # use Digital Ocean metadata server
       };
 
-        # Check for and wait for the metadata server to become reachable.
-        # This serves as a dependency for all the other metadata services.
+      # Check for and wait for the metadata server to become reachable.
+      # This serves as a dependency for all the other metadata services.
       systemd.services.digitalocean-metadata = {
         path = [ pkgs.curl ];
         description = "Get host metadata provided by Digitalocean";
@@ -109,9 +109,9 @@ with lib; {
         };
       };
 
-        # Fetch the root password from the digital ocean metadata.
-        # There is no specific route for this, so we use jq to get
-        # it from the One Big JSON metadata blob
+      # Fetch the root password from the digital ocean metadata.
+      # There is no specific route for this, so we use jq to get
+      # it from the One Big JSON metadata blob
       systemd.services.digitalocean-set-root-password =
         mkIf cfg.setRootPassword {
           path = [
@@ -135,9 +135,9 @@ with lib; {
           serviceConfig = { Type = "oneshot"; };
         };
 
-        # Set the hostname from Digital Ocean, unless the user configured it in
-        # the NixOS configuration. The cached metadata file isn't used here
-        # because the hostname is a mutable part of the droplet.
+      # Set the hostname from Digital Ocean, unless the user configured it in
+      # the NixOS configuration. The cached metadata file isn't used here
+      # because the hostname is a mutable part of the droplet.
       systemd.services.digitalocean-set-hostname = mkIf (hostName == "") {
         path = [
           pkgs.curl
@@ -161,7 +161,7 @@ with lib; {
         serviceConfig = { Type = "oneshot"; };
       };
 
-        # Fetch the ssh keys for root from Digital Ocean
+      # Fetch the ssh keys for root from Digital Ocean
       systemd.services.digitalocean-ssh-keys = mkIf cfg.setSshKeys {
         description = "Set root ssh keys provided by Digital Ocean";
         wantedBy = [ "multi-user.target" ];
@@ -184,8 +184,8 @@ with lib; {
         };
       };
 
-        # Initialize the RNG by running the entropy-seed script from the
-        # Digital Ocean metadata
+      # Initialize the RNG by running the entropy-seed script from the
+      # Digital Ocean metadata
       systemd.services.digitalocean-entropy-seed = mkIf cfg.seedEntropy {
         description =
           "Run the kernel RNG entropy seeding script from the Digital Ocean vendor data";
@@ -209,7 +209,6 @@ with lib; {
         };
         serviceConfig = { Type = "oneshot"; };
       };
-
     } ]
     ;
   meta.maintainers = with maintainers; [
@@ -217,4 +216,3 @@ with lib; {
     eamsden
   ];
 }
-

@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DSHADERC_SKIP_TESTS=ON" ];
 
-    # Fix the paths in .pc, even though it's unclear if all these .pc are really useful.
+  # Fix the paths in .pc, even though it's unclear if all these .pc are really useful.
   postFixup = ''
     substituteInPlace "$dev"/lib/pkgconfig/*.pc \
       --replace '=''${prefix}//' '=/' \

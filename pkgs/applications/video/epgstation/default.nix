@@ -33,13 +33,10 @@ let
   server = nodejs.pkgs.epgstation.override (
     drv: {
       # NOTE: updateScript relies on version matching the src.
-      inherit
-        version
-        src
-        ;
+      inherit version src;
 
-        # This is set to false to keep devDependencies at build time. Build time
-        # dependencies are pruned afterwards.
+      # This is set to false to keep devDependencies at build time. Build time
+      # dependencies are pruned afterwards.
       production = false;
 
       buildInputs = (drv.buildInputs or [ ]) ++ [ bash ];
@@ -112,16 +109,16 @@ let
         ''
         ;
 
-        # NOTE: this may take a while since it has to update all packages in
-        # nixpkgs.nodePackages
+      # NOTE: this may take a while since it has to update all packages in
+      # nixpkgs.nodePackages
       passthru.updateScript = callPackage ./update.nix { };
 
-        # nodePackages.epgstation is a stub package to fetch npm dependencies and
-        # its meta.platforms is made empty to prevent users from installing it
-        # directly. This technique ensures epgstation can share npm packages with
-        # the rest of nixpkgs while still allowing us to heavily customize the
-        # build. It also allows us to provide devDependencies for the epgstation
-        # build process without doing the same for all the other node packages.
+      # nodePackages.epgstation is a stub package to fetch npm dependencies and
+      # its meta.platforms is made empty to prevent users from installing it
+      # directly. This technique ensures epgstation can share npm packages with
+      # the rest of nixpkgs while still allowing us to heavily customize the
+      # build. It also allows us to provide devDependencies for the epgstation
+      # build process without doing the same for all the other node packages.
       meta = drv.meta // { inherit (nodejs.meta) platforms; };
     }
   );
@@ -131,11 +128,9 @@ server // {
 
   meta = with lib;
     server.meta // {
-      maintainers = with maintainers; [
-          midchildan
-        ];
+      maintainers = with maintainers; [ midchildan ];
 
-        # NOTE: updateScript relies on this being correct
+      # NOTE: updateScript relies on this being correct
       position = toString ./default.nix + ":1";
     };
 }

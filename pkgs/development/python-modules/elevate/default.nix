@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-    # No tests included
+  # No tests included
   doCheck = false;
 
   pythonImportsCheck = [ "elevate" ];

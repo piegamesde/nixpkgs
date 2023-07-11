@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   pname = "gnome-bluetooth";
   version = "3.34.5";
 
-    # TODO: split out "lib"
+  # TODO: split out "lib"
   outputs = [
     "out"
     "dev"

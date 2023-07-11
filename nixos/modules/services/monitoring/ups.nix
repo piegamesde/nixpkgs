@@ -11,8 +11,8 @@ with lib;
 
 let
   cfg = config.power.ups;
-
 in
+
 let
   upsOptions =
     {
@@ -85,7 +85,6 @@ let
             Lines which would be added inside ups.conf for handling this UPS.
           '';
         };
-
       };
 
       config = {
@@ -106,8 +105,8 @@ let
       };
     }
     ;
-
 in
+
 {
   options = {
     # powerManagement.powerDownCommands
@@ -122,7 +121,7 @@ in
         '';
       };
 
-        # This option is not used yet.
+      # This option is not used yet.
       mode = mkOption {
         default = "standalone";
         type = types.str;
@@ -172,7 +171,7 @@ in
 
       ups = mkOption {
         default = { };
-          # see nut/etc/ups.conf.sample
+        # see nut/etc/ups.conf.sample
         description = lib.mdDoc ''
           This is where you configure all the UPSes that this system will be
           monitoring directly.  These are usually attached to serial ports,
@@ -180,7 +179,6 @@ in
         '';
         type = with types; attrsOf (submodule upsOptions);
       };
-
     };
   };
 
@@ -206,7 +204,7 @@ in
       ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig.Type = "forking";
-        # TODO: replace 'root' by another username.
+      # TODO: replace 'root' by another username.
       script = "${pkgs.nut}/sbin/upsd -u root";
       environment.NUT_CONFPATH = "/etc/nut/";
       environment.NUT_STATEPATH = "/var/lib/nut/";
@@ -216,7 +214,7 @@ in
       description = "Uninterruptible Power Supplies (Register all UPS)";
       after = [ "upsd.service" ];
       wantedBy = [ "multi-user.target" ];
-        # TODO: replace 'root' by another username.
+      # TODO: replace 'root' by another username.
       script = "${pkgs.nut}/bin/upsdrvctl -u root start";
       serviceConfig = {
         Type = "oneshot";
@@ -238,12 +236,12 @@ in
         "\n\n          "}
       '';
       "nut/upssched.conf".source = cfg.schedulerRules;
-        # These file are containing private information and thus should not
-        # be stored inside the Nix store.
-        /* "nut/upsd.conf".source = "";
-           "nut/upsd.users".source = "";
-           "nut/upsmon.conf".source = "";
-        */
+      # These file are containing private information and thus should not
+      # be stored inside the Nix store.
+      /* "nut/upsd.conf".source = "";
+         "nut/upsd.users".source = "";
+         "nut/upsmon.conf".source = "";
+      */
     };
 
     power.ups.schedulerRules = mkDefault "${pkgs.nut}/etc/upssched.conf.sample";
@@ -258,17 +256,16 @@ in
         mkdir -p /var/state/ups
       '';
 
-      /* users.users.nut =
-            { uid = 84;
-              home = "/var/lib/nut";
-              createHome = true;
-              group = "nut";
-              description = "UPnP A/V Media Server user";
-            };
+    /* users.users.nut =
+          { uid = 84;
+            home = "/var/lib/nut";
+            createHome = true;
+            group = "nut";
+            description = "UPnP A/V Media Server user";
+          };
 
-          users.groups."nut" =
-            { gid = 84; };
-      */
-
+        users.groups."nut" =
+          { gid = 84; };
+    */
   };
 }

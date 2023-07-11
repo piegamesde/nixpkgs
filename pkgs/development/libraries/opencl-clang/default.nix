@@ -40,13 +40,9 @@ let
 
     patchesOut = stdenv.mkDerivation {
       pname = "opencl-clang-patches";
-      inherit (library)
-        version
-        src
-        patches
-        ;
-        # Clang patches assume the root is the llvm root dir
-        # but clang root in nixpkgs is the clang sub-directory
+      inherit (library) version src patches;
+      # Clang patches assume the root is the llvm root dir
+      # but clang root in nixpkgs is the clang sub-directory
       postPatch = ''
         for filename in patches/clang/*.patch; do
           substituteInPlace "$filename" \
@@ -94,7 +90,7 @@ let
           ./opencl-headers-dir.patch
         ];
 
-        # Uses linker flags that are not supported on Darwin.
+      # Uses linker flags that are not supported on Darwin.
       postPatch = lib.optionalString stdenv.isDarwin ''
         sed -i -e '/SET_LINUX_EXPORTS_FILE/d' CMakeLists.txt
         substituteInPlace CMakeLists.txt \

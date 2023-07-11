@@ -15,7 +15,6 @@ let
       "https://raw.githubusercontent.com/Splode/pomotroid/v${version}/static/icon.png";
     sha256 = "sha256-BEPoOBErw5ZCeK4rtdxdwZZLimbpglu1Cu++4xzuVUs=";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "pomotroid";

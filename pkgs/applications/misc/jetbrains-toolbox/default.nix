@@ -64,7 +64,7 @@ stdenv.mkDerivation {
 
   desktopItems = [ desktopItem ];
 
-    # Disabling the tests, this seems to be very difficult to test this app.
+  # Disabling the tests, this seems to be very difficult to test this app.
   doCheck = false;
 
   meta = with lib; {

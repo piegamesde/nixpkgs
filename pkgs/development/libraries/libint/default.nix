@@ -15,28 +15,25 @@
   cmake,
   enableFMA ? stdenv.hostPlatform.fmaSupport,
   enableFortran ? true,
-  enableSSE ? (
-    !enableFortran
-  )
-    && stdenv.hostPlatform.isx86_64
+  enableSSE ? (!enableFortran) && stdenv.hostPlatform.isx86_64
 
-      # Maximum angular momentum of basis functions
-      # 7 is required for def2/J auxiliary basis on 3d metals upwards
+  # Maximum angular momentum of basis functions
+  # 7 is required for def2/J auxiliary basis on 3d metals upwards
   ,
   maxAm ? 7
 
-    # ERI derivative order for 4-, 3- and 2-centre ERIs.
-    # 2nd derivatives are defaults and allow gradients Hessians with density fitting
-    # Setting them to zero disables derivatives.
+  # ERI derivative order for 4-, 3- and 2-centre ERIs.
+  # 2nd derivatives are defaults and allow gradients Hessians with density fitting
+  # Setting them to zero disables derivatives.
   ,
   eriDeriv ? 2,
   eri3Deriv ? 2,
   eri2Deriv ? 2
 
-    # Angular momentum for derivatives of ERIs. Takes a list of length $DERIV_ORD+1.
-    # Starting from index 0, each index i specifies the supported angular momentum
-    # for the derivative order i, e.g. [6,5,4] supports ERIs for l=6, their first
-    # derivatives for l=5 and their second derivatives for l=4.
+  # Angular momentum for derivatives of ERIs. Takes a list of length $DERIV_ORD+1.
+  # Starting from index 0, each index i specifies the supported angular momentum
+  # for the derivative order i, e.g. [6,5,4] supports ERIs for l=6, their first
+  # derivatives for l=5 and their second derivatives for l=4.
   ,
   eriAm ? (builtins.genList (i: maxAm - 1 - i) (eriDeriv + 1)),
   eri3Am ? (builtins.genList (i: maxAm - i) (eri2Deriv + 1)),
@@ -55,15 +52,15 @@
   oneBodyDerivOrd ? 2,
   multipoleOrd ? 4 # Maximum order of multipole integrals, 4=octopoles
 
-    # Whether to enable generic code if angular momentum is unsupported
+  # Whether to enable generic code if angular momentum is unsupported
   ,
   enableGeneric ? true
 
-    # Support integrals over contracted Gaussian
+  # Support integrals over contracted Gaussian
   ,
   enableContracted ? true
 
-    # Spherical harmonics/Cartesian orbital conventions
+  # Spherical harmonics/Cartesian orbital conventions
   ,
   cartGaussOrd ?
     "standard" # Ordering of Cartesian basis functions, "standard" is CCA
@@ -182,7 +179,7 @@ let
       hash = "sha256-lX+DVnhdOb8d7MX9umf33y88CNiGb3TYYlMZtQXfx+8=";
     };
 
-      # Replace hardcoded "/bin/rm" with normal "rm"
+    # Replace hardcoded "/bin/rm" with normal "rm"
     postPatch = ''
       for f in \
         bin/ltmain.sh \
@@ -289,9 +286,9 @@ let
       eigen
     ];
 
-      # Default is just "double", but SSE2 is available on all x86_64 CPUs.
-      # AVX support is advertised, but does not work in 2.6 (possibly in 2.7).
-      # Fortran interface is incompatible with changing the LIBINT2_REALTYPE.
+    # Default is just "double", but SSE2 is available on all x86_64 CPUs.
+    # AVX support is advertised, but does not work in 2.6 (possibly in 2.7).
+    # Fortran interface is incompatible with changing the LIBINT2_REALTYPE.
     cmakeFlags =
       [ "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}" ]
       ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON"
@@ -300,11 +297,10 @@ let
         "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble"
       ;
 
-      # Can only build in the source-tree. A lot of preprocessing magic fails otherwise.
+    # Can only build in the source-tree. A lot of preprocessing magic fails otherwise.
     dontUseCmakeBuildDir = true;
 
     inherit meta;
   };
-
 in
 codeComp

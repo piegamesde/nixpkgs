@@ -1,16 +1,15 @@
 {
   system ? builtins.currentSystem,
   config ? { },
-  pkgs ? import ../.. {
-    inherit system config;
-  }
+  pkgs ? import ../.. { inherit system config; }
   # bool: whether to use networkd in the tests
   ,
   networkd ? false
 }@args:
 
 # Test whether `avahi-daemon' and `libnss-mdns' work as expected.
-import ./make-test-python.nix
+import
+./make-test-python.nix
 {
   name = "avahi";
   meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };

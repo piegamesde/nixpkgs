@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     urls = [
         "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
       ];
-      # hash retrieved from signed SHA256SUMS
+    # hash retrieved from signed SHA256SUMS
     sha256 = "12d4ad6dfab4767d460d73307e56d13c72997e114fad4f274650f95560f5f2ff";
   };
 
@@ -108,9 +108,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   checkFlags =
-    [
-      "LC_ALL=en_US.UTF-8"
-    ]
+    [ "LC_ALL=en_US.UTF-8" ]
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Bitcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}"

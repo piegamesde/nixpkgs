@@ -11,18 +11,16 @@
 let
   pythonVersion =
     with lib.versions; "${major python.version}${minor python.version}";
-  withPython =
-    python != null
-    ;
-    # ensure that root is built with the same python interpreter, as it links against numpy
+  withPython = python != null;
+  # ensure that root is built with the same python interpreter, as it links against numpy
   root_py =
     if withPython then
       root.override { inherit python; }
     else
       root
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "hepmc3";
   version = "3.2.6";
@@ -35,11 +33,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ cmake ] ++ lib.optional withPython python.pkgs.pythonImportsCheckHook;
 
-  buildInputs =
-    [ root_py ] ++ lib.optional withPython python
-    ;
+  buildInputs = [ root_py ] ++ lib.optional withPython python;
 
-    # error: invalid version number in 'MACOSX_DEPLOYMENT_TARGET=11.0'
+  # error: invalid version number in 'MACOSX_DEPLOYMENT_TARGET=11.0'
   preConfigure = lib.optionalString
     (
       stdenv.isDarwin

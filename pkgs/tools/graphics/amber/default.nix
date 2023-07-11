@@ -44,7 +44,6 @@ let
     rev = "a73e724359a274d7cf4f4248eba5be1e7764fbfd";
     hash = "sha256-vooJHtgVRlBNkQG4hulYOxIgHH4GMhXw7N4OEbkKJvU=";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "amber";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ cctools ]
     ;
 
-    # Tests are disabled so we do not have to pull in googletest and more dependencies
+  # Tests are disabled so we do not have to pull in googletest and more dependencies
   cmakeFlags = [ "-DAMBER_SKIP_TESTS=ON" ];
 
   prePatch = ''

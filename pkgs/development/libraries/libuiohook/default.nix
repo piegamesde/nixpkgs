@@ -62,10 +62,10 @@ stdenv.mkDerivation rec {
     "test"
   ];
 
-    # We build the tests, but they're only installed when using the "test" output.
-    # This will produce a "uiohook_tests" binary which can be run to test the
-    # functionality of the library on the current system.
-    # Running the test binary requires a running X11 session.
+  # We build the tests, but they're only installed when using the "test" output.
+  # This will produce a "uiohook_tests" binary which can be run to test the
+  # functionality of the library on the current system.
+  # Running the test binary requires a running X11 session.
   cmakeFlags = [ "-DENABLE_TEST:BOOL=ON" ];
 
   postInstall = ''

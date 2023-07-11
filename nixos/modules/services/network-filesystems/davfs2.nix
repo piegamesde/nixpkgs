@@ -92,7 +92,5 @@ in
       setuid = true;
       permissions = "u+rx,g+x";
     };
-
   };
-
 }

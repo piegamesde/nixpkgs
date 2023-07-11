@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     export TEST_GIT=${git}/bin/git
     export TEST_GIT_EXEC_PATH=$(${git}/bin/git --exec-path)
   '';
-    # FIXME: these tests deadlock when run in the Nix sandbox
+  # FIXME: these tests deadlock when run in the Nix sandbox
   checkFlags = [
     "--skip=test_switch_pty"
     "--skip=test_next_ambiguous_interactive"

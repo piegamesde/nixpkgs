@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-    # don't use $T(E)MP which is set to the build directory
+  # don't use $T(E)MP which is set to the build directory
   configureFlags = [ "--enable-tmpdir=/tmp" ];
 
   patches =
@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
 
-      # So that Exuberant ctags is preferred over emacs's ctags
+    # So that Exuberant ctags is preferred over emacs's ctags
     priority = 1;
   };
-
 }

@@ -39,5 +39,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ eliandoran ];
     platforms = [ "x86_64-darwin" ];
   };
-
 }

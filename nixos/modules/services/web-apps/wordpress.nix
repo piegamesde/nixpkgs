@@ -81,8 +81,8 @@ let
         }";
       DB_USER = cfg.database.user;
       DB_CHARSET = "utf8";
-        # Always set DB_PASSWORD even when passwordFile is not set. This is the
-        # default Wordpress behaviour.
+      # Always set DB_PASSWORD even when passwordFile is not set. This is the
+      # default Wordpress behaviour.
       DB_PASSWORD =
         if (cfg.database.passwordFile != null) then
           { _file = cfg.database.passwordFile; }
@@ -130,7 +130,7 @@ let
     in
     if isString v then
       escapeShellArg v
-      # NOTE: If any value contains a , (comma) this will not get escaped
+    # NOTE: If any value contains a , (comma) this will not get escaped
     else if isList v && any lib.strings.isCoercibleToString v then
       escapeShellArg (concatMapStringsSep "," toString v)
     else if isInt v then
@@ -459,7 +459,6 @@ let
             @ini_set( 'display_errors', 'On' );
           '';
         };
-
       };
 
       config.virtualHost.hostName = mkDefault name;
@@ -495,11 +494,10 @@ in
           See [](#opt-services.httpd.virtualHosts) for further information.
         '';
       };
-
     };
   };
 
-    # implementation
+  # implementation
   config = mkIf (eachSite != { }) (
     mkMerge [
       {
@@ -562,7 +560,6 @@ in
             })
           )
           eachSite;
-
       }
 
       (mkIf (cfg.webserver == "httpd") {
@@ -751,7 +748,6 @@ in
             eachSite;
         };
       })
-
     ]
   );
 }

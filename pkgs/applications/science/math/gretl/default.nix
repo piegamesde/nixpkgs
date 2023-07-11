@@ -44,9 +44,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
 
   enableParallelBuilding = true;
-    # Missing install depends:
-    #  cp: cannot stat '...-gretl-2022c/share/gretl/data/plotbars': Not a directory
-    #  make[1]: *** [Makefile:73: install_datafiles] Error 1
+  # Missing install depends:
+  #  cp: cannot stat '...-gretl-2022c/share/gretl/data/plotbars': Not a directory
+  #  make[1]: *** [Makefile:73: install_datafiles] Error 1
   enableParallelInstalling = false;
 
   meta = with lib; {

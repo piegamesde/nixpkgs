@@ -93,11 +93,9 @@ stdenv.mkDerivation rec {
     # this on our patch for Flatpak 0.99.
     (substituteAll {
       src = ./fix-test-paths.patch;
-      inherit
-        glibcLocales
-        ;
-        # FIXME use python3 for tests that rely on python2
-        # inherit python2;
+      inherit glibcLocales;
+      # FIXME use python3 for tests that rely on python2
+      # inherit python2;
     })
   ];
 
@@ -138,12 +136,12 @@ stdenv.mkDerivation rec {
     "installed_test_metadir=${installed_test_metadir}"
   ];
 
-    # Some scripts used by tests  need to use shebangs that are available in Flatpak runtimes.
+  # Some scripts used by tests  need to use shebangs that are available in Flatpak runtimes.
   dontPatchShebangs = true;
 
   enableParallelBuilding = true;
 
-    # Installed tests
+  # Installed tests
   postFixup = ''
     for file in ${installed_testdir}/{test-builder.sh,test-builder-python.sh}; do
       patchShebangs $file

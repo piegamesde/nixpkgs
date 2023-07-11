@@ -55,9 +55,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-    # Ensure that "batch" can invoke the setuid "at" wrapper, if it exists, or
-    # else we get permission errors (on NixOS). "batch" is a shell script, so
-    # when the kernel executes it it drops setuid perms.
+  # Ensure that "batch" can invoke the setuid "at" wrapper, if it exists, or
+  # else we get permission errors (on NixOS). "batch" is a shell script, so
+  # when the kernel executes it it drops setuid perms.
   postInstall = ''
     sed -i "6i test -x ${atWrapperPath} && exec ${atWrapperPath} -qb now  # exec doesn't return" "$out/bin/batch"
   '';

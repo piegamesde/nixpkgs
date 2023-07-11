@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-G Ninja" ];
 
-    # tmp home for go
+  # tmp home for go
   preBuild = ''export HOME="$TMPDIR"'';
 
   buildInputs = [ protobuf ];

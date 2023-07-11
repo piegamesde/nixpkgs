@@ -95,7 +95,7 @@ let
         let
           actualPlugins = plugins terraform.plugins;
 
-            # Wrap PATH of plugins propagatedBuildInputs, plugins may have runtime dependencies on external binaries
+          # Wrap PATH of plugins propagatedBuildInputs, plugins may have runtime dependencies on external binaries
           wrapperInputs = lib.unique (
             lib.flatten (
               lib.catAttrs "propagatedBuildInputs" (
@@ -111,26 +111,26 @@ let
               p: lib.filter lib.isDerivation (lib.attrValues p.actualProviders)
             );
 
-              # Expose wrappers around the override* functions of the terraform
-              # derivation.
-              #
-              # Note that this does not behave as anyone would expect if plugins
-              # are specified. The overrides are not on the user-visible wrapper
-              # derivation but instead on the function application that eventually
-              # generates the wrapper. This means:
-              #
-              # 1. When using overrideAttrs, only `passthru` attributes will
-              #    become visible on the wrapper derivation. Other overrides that
-              #    modify the derivation *may* still have an effect, but it can be
-              #    difficult to follow.
-              #
-              # 2. Other overrides may work if they modify the terraform
-              #    derivation, or they may have no effect, depending on what
-              #    exactly is being changed.
-              #
-              # 3. Specifying overrides on the wrapper is unsupported.
-              #
-              # See nixpkgs#158620 for details.
+            # Expose wrappers around the override* functions of the terraform
+            # derivation.
+            #
+            # Note that this does not behave as anyone would expect if plugins
+            # are specified. The overrides are not on the user-visible wrapper
+            # derivation but instead on the function application that eventually
+            # generates the wrapper. This means:
+            #
+            # 1. When using overrideAttrs, only `passthru` attributes will
+            #    become visible on the wrapper derivation. Other overrides that
+            #    modify the derivation *may* still have an effect, but it can be
+            #    difficult to follow.
+            #
+            # 2. Other overrides may work if they modify the terraform
+            #    derivation, or they may have no effect, depending on what
+            #    exactly is being changed.
+            #
+            # 3. Specifying overrides on the wrapper is unsupported.
+            #
+            # See nixpkgs#158620 for details.
             overrideDerivation =
               f:
               (pluggable (terraform.overrideDerivation f)).withPlugins plugins
@@ -140,8 +140,8 @@ let
             override =
               x: (pluggable (terraform.override x)).withPlugins plugins;
           };
-            # Don't bother wrapping unless we actually have plugins, since the wrapper will stop automatic downloading
-            # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.
+          # Don't bother wrapping unless we actually have plugins, since the wrapper will stop automatic downloading
+          # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.
         in
         if actualPlugins == [ ] then
           terraform.overrideAttrs (
@@ -153,10 +153,10 @@ let
               inherit (terraform) meta pname version;
               nativeBuildInputs = [ makeWrapper ];
 
-                # Expose the passthru set with the override functions
-                # defined above, as well as any passthru values already
-                # set on `terraform` at this point (relevant in case a
-                # user overrides attributes).
+              # Expose the passthru set with the override functions
+              # defined above, as well as any passthru values already
+              # set on `terraform` at this point (relevant in case a
+              # user overrides attributes).
               passthru = terraform.passthru // passthru;
 
               buildCommand = ''
@@ -210,10 +210,10 @@ rec {
     };
   };
 
-    # Tests that the plugins are being used. Terraform looks at the specific
-    # file pattern and if the plugin is not found it will try to download it
-    # from the Internet. With sandboxing enable this test will fail if that is
-    # the case.
+  # Tests that the plugins are being used. Terraform looks at the specific
+  # file pattern and if the plugin is not found it will try to download it
+  # from the Internet. With sandboxing enable this test will fail if that is
+  # the case.
   terraform_plugins_test =
     let
       mainTf = writeText "main.tf" ''
@@ -232,5 +232,4 @@ rec {
     in
     test
     ;
-
 }

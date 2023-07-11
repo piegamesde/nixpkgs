@@ -83,8 +83,8 @@ let
     src = ./nixos-enter.sh;
     inherit (pkgs) runtimeShell;
   };
-
 in
+
 {
 
   options.system.nixos-generate-config = {
@@ -263,7 +263,5 @@ in
           nixos-enter
           ;
       };
-
     };
-
 }

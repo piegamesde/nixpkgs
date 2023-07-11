@@ -30,7 +30,7 @@ buildPythonPackage rec {
   ];
   propagatedBuildInputs = [ django ];
 
-    # Complicated. Requires Django setup.
+  # Complicated. Requires Django setup.
   doCheck = false;
 
   meta = with lib; {

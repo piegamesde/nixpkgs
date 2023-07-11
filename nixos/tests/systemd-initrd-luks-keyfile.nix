@@ -11,7 +11,6 @@ import ./make-test-python.nix (
       gV6EK3TmTbGc4tzC1v4SWx2m+2Bjdtn4Fs4wiBwn1lbRdC6i5ZYCqasTWIntWn+6
       FllUkMD5oqjOR/YcboxG8Z3B5sJuvTP9llsF+gnuveWih9dpbBr7AgEC
     '';
-
   in
   {
     name = "systemd-initrd-luks-keyfile";

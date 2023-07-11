@@ -19,10 +19,10 @@ assert withFlint -> flint != null;
 stdenv.mkDerivation rec {
   pname = "eclib";
   version = "20221012"; # upgrade might break the sage interface
-    # sage tests to run:
-    # src/sage/interfaces/mwrank.py
-    # src/sage/libs/eclib
-    # ping @timokau for more info
+  # sage tests to run:
+  # src/sage/interfaces/mwrank.py
+  # src/sage/libs/eclib
+  # ping @timokau for more info
   src = fetchurl {
     # all releases for this project appear on its GitHub releases page
     # by definition! other distros sometimes update whenever they see

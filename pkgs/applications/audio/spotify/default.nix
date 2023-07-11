@@ -18,7 +18,6 @@ let
       "aarch64-darwin"
     ];
   };
-
 in
 if stdenv.isDarwin then
   callPackage ./darwin.nix { inherit pname meta; }

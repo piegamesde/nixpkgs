@@ -25,5 +25,4 @@ buildPythonPackage {
     license = licenses.mit;
     maintainers = with maintainers; [ mic92 ];
   };
-
 }

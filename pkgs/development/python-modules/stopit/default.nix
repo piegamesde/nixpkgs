@@ -8,7 +8,7 @@ buildPythonPackage rec {
   pname = "stopit";
   version = "1.1.2";
 
-    # tests are missing from the PyPi tarball
+  # tests are missing from the PyPi tarball
   src = fetchFromGitHub {
     owner = "glenfant";
     repo = pname;

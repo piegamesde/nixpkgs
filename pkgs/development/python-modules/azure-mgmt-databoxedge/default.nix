@@ -23,7 +23,7 @@ buildPythonPackage rec {
     azure-mgmt-core
   ];
 
-    # no tests in pypi tarball
+  # no tests in pypi tarball
   doCheck = false;
 
   pythonImportsCheck = [ "azure.mgmt.databoxedge" ];

@@ -72,14 +72,14 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # NOTE: The upstream README indicates that flex is needed for some features,
-    # but it actually seems to be unnecessary as of this commit[1]. The detection
-    # logic for bison and flex is still present in the build script[2], but no
-    # other code seems to depend on it. This situation is susceptible to change
-    # though, so it's a good idea to inspect the build scripts periodically.
-    #
-    # [1]: https://github.com/apache/trafficserver/pull/5617
-    # [2]: https://github.com/apache/trafficserver/blob/3fd2c60/configure.ac#L742-L788
+  # NOTE: The upstream README indicates that flex is needed for some features,
+  # but it actually seems to be unnecessary as of this commit[1]. The detection
+  # logic for bison and flex is still present in the build script[2], but no
+  # other code seems to depend on it. This situation is susceptible to change
+  # though, so it's a good idea to inspect the build scripts periodically.
+  #
+  # [1]: https://github.com/apache/trafficserver/pull/5617
+  # [2]: https://github.com/apache/trafficserver/blob/3fd2c60/configure.ac#L742-L788
   nativeBuildInputs =
     [
       makeWrapper

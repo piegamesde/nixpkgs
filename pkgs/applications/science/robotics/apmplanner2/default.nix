@@ -49,7 +49,7 @@ mkDerivation rec {
 
   qmakeFlags = [ "apm_planner.pro" ];
 
-    # this ugly hack is necessary, as `bin/apmplanner2` needs the contents of `share/APMPlanner2` inside of `bin/`
+  # this ugly hack is necessary, as `bin/apmplanner2` needs the contents of `share/APMPlanner2` inside of `bin/`
   preFixup = ''
     ln --relative --symbolic $out/share/APMPlanner2/* $out/bin/
     substituteInPlace $out/share/applications/apmplanner2.desktop \

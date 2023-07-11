@@ -37,15 +37,15 @@ let
       passthru = (o.passthru or { }) // { inherit eval build; };
       src = arion-compose.src;
 
-        # PYTHONPATH
-        #
-        # We close off the python module search path!
-        #
-        # Accepting directories from the environment into the search path
-        # tends to break things. Docker Compose does not have a plugin
-        # system as far as I can tell, so I don't expect this to break a
-        # feature, but rather to make the program more robustly self-
-        # contained.
+      # PYTHONPATH
+      #
+      # We close off the python module search path!
+      #
+      # Accepting directories from the environment into the search path
+      # tends to break things. Docker Compose does not have a plugin
+      # system as far as I can tell, so I don't expect this to break a
+      # feature, but rather to make the program more robustly self-
+      # contained.
 
       postInstall = ''
         ${o.postInstall or ""}
@@ -59,17 +59,17 @@ let
     }
     ;
 
-    # Unpacked sources for evaluation by `eval`
+  # Unpacked sources for evaluation by `eval`
   srcUnpacked = runCommand "arion-src"
     { }
     "mkdir $out; tar -C $out --strip-components=1 -xf ${arion-compose.src}";
 
-    /* Function for evaluating a composition
+  /* Function for evaluating a composition
 
-       Re-uses this Nixpkgs evaluation instead of `arion-pkgs.nix`.
+     Re-uses this Nixpkgs evaluation instead of `arion-pkgs.nix`.
 
-       Returns the module system's `config` and `options` variables.
-    */
+     Returns the module system's `config` and `options` variables.
+  */
   eval =
     args@{
       ...
@@ -79,12 +79,12 @@ let
     )
     ;
 
-    /* Function to derivation of the docker compose yaml file
-        NOTE: The output will change: https://github.com/hercules-ci/arion/issues/82
+  /* Function to derivation of the docker compose yaml file
+      NOTE: The output will change: https://github.com/hercules-ci/arion/issues/82
 
-       This function is particularly useful on CI, although the references
-       to image tarballs may not always be desirable.
-    */
+     This function is particularly useful on CI, although the references
+     to image tarballs may not always be desirable.
+  */
   build =
     args@{
       ...
@@ -94,6 +94,5 @@ let
     in
     composition.config.out.dockerComposeYaml
     ;
-
 in
 arion

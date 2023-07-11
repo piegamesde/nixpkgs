@@ -14,7 +14,7 @@ in
 {
   meta = { maintainers = with maintainers; [ attila-lendvai ]; };
 
-    ### interface
+  ### interface
 
   options = {
     services.bee-clef = {
@@ -55,7 +55,7 @@ in
     };
   };
 
-    ### implementation
+  ### implementation
 
   config = mkIf cfg.enable {
     # if we ever want to have rules.js under /etc/bee-clef/

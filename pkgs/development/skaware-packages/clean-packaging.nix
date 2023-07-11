@@ -14,13 +14,11 @@ let
   globWith = lib.concatMapStringsSep "\n";
   rmNoise = noiseGlobs: globWith (f: "rm -rf ${f}") noiseGlobs;
   mvDoc =
-    docGlobs:
-    globWith (f: ''mv ${f} "$DOCDIR" 2>/dev/null || true'') docGlobs
-    ;
+    docGlobs: globWith (f: ''mv ${f} "$DOCDIR" 2>/dev/null || true'') docGlobs;
 
-    # Shell script that implements common move & remove actions
-    # $1 is the doc directory (will be created).
-    # Best used in conjunction with checkForRemainingFiles
+  # Shell script that implements common move & remove actions
+  # $1 is the doc directory (will be created).
+  # Best used in conjunction with checkForRemainingFiles
   commonFileActions =
     { # list of fileglobs that are removed from the source dir
       noiseFiles
@@ -41,9 +39,9 @@ let
     ''
     ;
 
-    # Shell script to check whether the build directory is empty.
-    # If there are still files remaining, exit 1 with a helpful
-    # listing of all remaining files and their types.
+  # Shell script to check whether the build directory is empty.
+  # If there are still files remaining, exit 1 with a helpful
+  # listing of all remaining files and their types.
   checkForRemainingFiles = writeScript "check-for-remaining-files.sh" ''
     #!${stdenv.shell}
     echo "Checking for remaining source files"
@@ -55,6 +53,7 @@ let
       exit 1
     fi
   '';
-
 in
-{ inherit commonFileActions checkForRemainingFiles; }
+{
+  inherit commonFileActions checkForRemainingFiles;
+}

@@ -53,7 +53,7 @@ stdenv.mkDerivation (
         "DESTDIR=${placeholder "out"}"
       ];
 
-      # No configure script.
+    # No configure script.
     dontConfigure = true;
 
     postPatch = ''

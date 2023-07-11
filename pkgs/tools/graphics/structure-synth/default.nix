@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-    # Thanks to https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=672000#15:
+  # Thanks to https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=672000#15:
   patches = [ ./gcc47.patch ];
 
   enableParallelBuilding = true;
@@ -46,9 +46,9 @@ stdenv.mkDerivation rec {
     cp -r Misc/* $out/share/Misc;
   '';
 
-    # Structure Synth expects to see 'Examples' and 'Misc' directory in
-    # either $HOME or $PWD - so help it along by moving $PWD to 'share',
-    # where we just copied those two directories:
+  # Structure Synth expects to see 'Examples' and 'Misc' directory in
+  # either $HOME or $PWD - so help it along by moving $PWD to 'share',
+  # where we just copied those two directories:
   preFixup = ''
     wrapProgram "$out/bin/structure-synth" --chdir "$out/share"
   '';

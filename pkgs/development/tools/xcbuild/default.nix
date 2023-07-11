@@ -30,9 +30,9 @@ in
 stdenv.mkDerivation {
   pname = "xcbuild";
 
-    # Once a version is released that includes
-    # https://github.com/facebook/xcbuild/commit/183c087a6484ceaae860c6f7300caf50aea0d710,
-    # we can stop doing this -pre thing.
+  # Once a version is released that includes
+  # https://github.com/facebook/xcbuild/commit/183c087a6484ceaae860c6f7300caf50aea0d710,
+  # we can stop doing this -pre thing.
   version = "0.1.2-pre";
 
   src = fetchFromGitHub {
@@ -64,7 +64,7 @@ stdenv.mkDerivation {
     ''
     ;
 
-    # TODO: instruct cmake not to put it in /usr, rather than cleaning up
+  # TODO: instruct cmake not to put it in /usr, rather than cleaning up
   postInstall = ''
     mv $out/usr/* $out
     rmdir $out/usr

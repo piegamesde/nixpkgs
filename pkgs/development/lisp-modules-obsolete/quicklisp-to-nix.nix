@@ -5427,7 +5427,6 @@ let
         import ./quicklisp-to-nix-output/_1am.nix { inherit fetchurl; }
       )
     );
-
   };
 in
 quicklisp-to-nix-packages

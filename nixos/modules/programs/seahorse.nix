@@ -27,7 +27,7 @@ with lib;
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -37,12 +37,10 @@ with lib;
         lib.mdDoc
         "Seahorse, a GNOME application for managing encryption keys and passwords in the GNOME Keyring"
       );
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.programs.seahorse.enable {
 
@@ -52,7 +50,5 @@ with lib;
     environment.systemPackages = [ pkgs.gnome.seahorse ];
 
     services.dbus.packages = [ pkgs.gnome.seahorse ];
-
   };
-
 }

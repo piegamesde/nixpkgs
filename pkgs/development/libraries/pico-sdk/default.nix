@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # SDK contains libraries and build-system to develop projects for RP2040 chip
-    # We only need to compile pioasm binary
+  # SDK contains libraries and build-system to develop projects for RP2040 chip
+  # We only need to compile pioasm binary
   sourceRoot = "source/tools/pioasm";
 
   installPhase = ''

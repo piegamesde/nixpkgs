@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.programs.thunar;
-
 in
 {
   meta = { maintainers = teams.xfce.members; };
@@ -25,14 +24,12 @@ in
         example = literalExpression
           "with pkgs.xfce; [ thunar-archive-plugin thunar-volman ]";
       };
-
     };
   };
 
   config = mkIf cfg.enable (
     let
       package = pkgs.xfce.thunar.override { thunarPlugins = cfg.plugins; };
-
     in
     {
       environment.systemPackages = [ package ];

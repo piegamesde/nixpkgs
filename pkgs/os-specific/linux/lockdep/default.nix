@@ -11,9 +11,9 @@
 stdenv.mkDerivation rec {
   pname = "lockdep";
 
-    # it would be nice to be able to pick a kernel version in sync with something
-    # else we already ship, but it seems userspace lockdep isn't very well maintained
-    # and appears broken in many kernel releases
+  # it would be nice to be able to pick a kernel version in sync with something
+  # else we already ship, but it seems userspace lockdep isn't very well maintained
+  # and appears broken in many kernel releases
   version = "5.0.21";
   fullver = "5.0.21";
   src = fetchurl {
@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
     sha256 = "1my2m9hvnvdrvzcg0fgqgaga59y2cd5zlpv7xrfj2nn98sjhglwq";
   };
 
-    # ensure *this* kernel's userspace-headers are picked up before we
-    # fall back to those in glibc, as they will be from a mismatched
-    # kernel version
+  # ensure *this* kernel's userspace-headers are picked up before we
+  # fall back to those in glibc, as they will be from a mismatched
+  # kernel version
   postPatch = ''
     substituteInPlace tools/lib/lockdep/Makefile \
       --replace 'CONFIG_INCLUDES =' $'CONFIG_INCLUDES = -I../../../usr/include\n#'
@@ -34,10 +34,10 @@ stdenv.mkDerivation rec {
     bison
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: lockdep.o:/build/linux-5.0.21/tools/lib/lockdep/../../include/linux/rcu.h:5: multiple definition of
-    #     `rcu_scheduler_active'; common.o:/build/linux-5.0.21/tools/lib/lockdep/../../include/linux/rcu.h:5: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: lockdep.o:/build/linux-5.0.21/tools/lib/lockdep/../../include/linux/rcu.h:5: multiple definition of
+  #     `rcu_scheduler_active'; common.o:/build/linux-5.0.21/tools/lib/lockdep/../../include/linux/rcu.h:5: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   buildPhase = ''

@@ -11,7 +11,7 @@ lib.makeScope pkgs.newScope (
       p:
       p // {
         buildPhase = "make png-country-320x240-fancy";
-          # installPhase = "mkdir -p $out/share && mv build/png-country-4x2-fancy/res-320x240 $out/share/iso-flags-png-320x420";
+        # installPhase = "mkdir -p $out/share && mv build/png-country-4x2-fancy/res-320x240 $out/share/iso-flags-png-320x420";
         installPhase =
           "mkdir -p $out/share && mv build/png-country-4x2-fancy/res-320x240 $out/share/iso-flags-png";
       }
@@ -25,14 +25,14 @@ lib.makeScope pkgs.newScope (
       }
     );
 
-      # Extensions added here will be shipped by default
+    # Extensions added here will be shipped by default
     nemoExtensions = [
       folder-color-switcher
       nemo-fileroller
       nemo-python
     ];
 
-      # blueberry -> pkgs/tools/bluetooth/blueberry/default.nix
+    # blueberry -> pkgs/tools/bluetooth/blueberry/default.nix
     bulky = callPackage ./bulky { };
     cinnamon-common = callPackage ./cinnamon-common { };
     cinnamon-control-center = callPackage ./cinnamon-control-center { };

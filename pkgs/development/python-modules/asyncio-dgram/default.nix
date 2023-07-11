@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   checkInputs = [ pytest-asyncio ];
 
-    # OSError: AF_UNIX path too long
+  # OSError: AF_UNIX path too long
   doCheck = !stdenv.isDarwin;
 
   disabledTests = [

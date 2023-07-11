@@ -17,19 +17,19 @@
   libcxxrt,
   enableShared ? !stdenv.hostPlatform.isStatic
 
-    # If headersOnly is true, the resulting package would only include the headers.
-    # Use this to break the circular dependency between libcxx and libcxxabi.
-    #
-    # Some context:
-    # https://reviews.llvm.org/rG1687f2bbe2e2aaa092f942d4a97d41fad43eedfb
+  # If headersOnly is true, the resulting package would only include the headers.
+  # Use this to break the circular dependency between libcxx and libcxxabi.
+  #
+  # Some context:
+  # https://reviews.llvm.org/rG1687f2bbe2e2aaa092f942d4a97d41fad43eedfb
   ,
   headersOnly ? false
 }:
 
 let
   basename = "libcxx";
-
 in
+
 assert stdenv.isDarwin -> cxxabi.libName == "c++abi";
 
 stdenv.mkDerivation rec {
@@ -119,8 +119,6 @@ stdenv.mkDerivation rec {
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
     ]
     ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
-      # If we're only building the headers we don't actually *need* a functioning
-      # C/C++ compiler:
     ++ lib.optionals (headersOnly) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
@@ -142,8 +140,8 @@ stdenv.mkDerivation rec {
       libc++ is an implementation of the C++ standard library, targeting C++11,
       C++14 and above.
     '';
-      # "All of the code in libc++ is dual licensed under the MIT license and the
-      # UIUC License (a BSD-like license)":
+    # "All of the code in libc++ is dual licensed under the MIT license and the
+    # UIUC License (a BSD-like license)":
     license = with lib.licenses; [
       mit
       ncsa

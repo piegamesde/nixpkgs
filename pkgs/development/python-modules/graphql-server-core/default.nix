@@ -34,7 +34,7 @@ buildPythonPackage rec {
     promise
   ];
 
-    # fail with: cannot import name 'format_error' from 'graphql'
+  # fail with: cannot import name 'format_error' from 'graphql'
   doCheck = false;
 
   nativeCheckInputs = [ pytestCheckHook ];

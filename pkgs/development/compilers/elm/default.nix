@@ -11,7 +11,7 @@ let
 
   fetchElmDeps = pkgs.callPackage ./fetchElmDeps.nix { };
 
-    # Haskell packages that require ghc 8.10
+  # Haskell packages that require ghc 8.10
   hs810Pkgs =
     self:
     pkgs.haskell.packages.ghc810.override {
@@ -72,7 +72,7 @@ let
                   sed "s/desc <-.*/let desc = \"${drv.version}\"/g" Setup.hs --in-place
                 '';
                 jailbreak = true;
-                  # Tests are failing because of missing instances for Eq and Show type classes
+                # Tests are failing because of missing instances for Eq and Show type classes
                 doCheck = false;
 
                 description =
@@ -89,27 +89,25 @@ let
           };
         in
         elmPkgs // {
-          inherit
-            elmPkgs
-            ;
+          inherit elmPkgs;
 
-            # We need attoparsec < 0.14 to build elm for now
+          # We need attoparsec < 0.14 to build elm for now
           attoparsec = self.attoparsec_0_13_2_5;
 
-            # aeson 2.0.3.0 does not build with attoparsec_0_13_2_5
+          # aeson 2.0.3.0 does not build with attoparsec_0_13_2_5
           aeson = self.aeson_1_5_6_0;
 
-            # elm-instrument needs this
+          # elm-instrument needs this
           indents = self.callPackage ./packages/indents.nix { };
 
-            # elm-instrument's tests depend on an old version of elm-format, but we set doCheck to false for other reasons above
+          # elm-instrument's tests depend on an old version of elm-format, but we set doCheck to false for other reasons above
           elm-format = null;
         }
         ;
     }
     ;
 
-    # Haskell packages that require ghc 9.2
+  # Haskell packages that require ghc 9.2
   hs92Pkgs =
     self:
     pkgs.haskell.packages.ghc92.override {
@@ -141,11 +139,9 @@ let
           };
         in
         elmPkgs // {
-          inherit
-            elmPkgs
-            ;
+          inherit elmPkgs;
 
-            # Needed for elm-format
+          # Needed for elm-format
           avh4-lib = doJailbreak (self.callPackage ./packages/avh4-lib.nix { });
           elm-format-lib =
             doJailbreak (self.callPackage ./packages/elm-format-lib.nix { });
@@ -154,13 +150,13 @@ let
           elm-format-markdown =
             self.callPackage ./packages/elm-format-markdown.nix { };
 
-            # elm-format requires text >= 2.0
+          # elm-format requires text >= 2.0
           text = self.text_2_0_2;
-            # unorderd-container's tests indirectly depend on text < 2.0
+          # unorderd-container's tests indirectly depend on text < 2.0
           unordered-containers =
             overrideCabal (drv: { doCheck = false; }) super.unordered-containers
             ;
-            # relude-1.1.0.0's tests depend on hedgehog < 1.2, which indirectly depends on text < 2.0
+          # relude-1.1.0.0's tests depend on hedgehog < 1.2, which indirectly depends on text < 2.0
           relude = overrideCabal (drv: { doCheck = false; }) super.relude;
         }
         ;
@@ -172,25 +168,21 @@ let
     nodejs = pkgs.nodejs_14;
     inherit (pkgs.stdenv.hostPlatform) system;
   };
-
 in
 lib.makeScope pkgs.newScope (
   self:
   with self;
   {
-    inherit
-      fetchElmDeps
-      nodejs
-      ;
+    inherit fetchElmDeps nodejs;
 
-      /* Node/NPM based dependecies can be upgraded using script `packages/generate-node-packages.sh`.
+    /* Node/NPM based dependecies can be upgraded using script `packages/generate-node-packages.sh`.
 
-          * Packages which rely on `bin-wrap` will fail by default
-            and can be patched using `patchBinwrap` function defined in `packages/lib.nix`.
+        * Packages which rely on `bin-wrap` will fail by default
+          and can be patched using `patchBinwrap` function defined in `packages/lib.nix`.
 
-          * Packages which depend on npm installation of elm can be patched using
-            `patchNpmElm` function also defined in `packages/lib.nix`.
-      */
+        * Packages which depend on npm installation of elm can be patched using
+          `patchNpmElm` function also defined in `packages/lib.nix`.
+    */
     elmLib =
       let
         hsElmPkgs = hs810Pkgs self;
@@ -349,9 +341,9 @@ lib.makeScope pkgs.newScope (
             ]
             ;
 
-            # can't use `patches = [ <patch_file> ]` with a nodePkgs derivation;
-            # need to patch in one of the build phases instead.
-            # see upstream issue https://github.com/dillonkearns/elm-pages/issues/305 for dealing with the read-only problem
+          # can't use `patches = [ <patch_file> ]` with a nodePkgs derivation;
+          # need to patch in one of the build phases instead.
+          # see upstream issue https://github.com/dillonkearns/elm-pages/issues/305 for dealing with the read-only problem
           preFixup = ''
             patch $out/lib/node_modules/elm-pages/generator/src/codegen.js ${
               ./packages/elm-pages-fix-read-only.patch

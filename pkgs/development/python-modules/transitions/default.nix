@@ -40,7 +40,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-    # upstream issue https://github.com/pygraphviz/pygraphviz/issues/441
+  # upstream issue https://github.com/pygraphviz/pygraphviz/issues/441
   pytestFlagsArray = lib.optionals stdenv.isDarwin [
     "--deselect=tests/test_pygraphviz.py::PygraphvizTest::test_binary_stream"
     "--deselect=tests/test_pygraphviz.py::PygraphvizTest::test_diagram"

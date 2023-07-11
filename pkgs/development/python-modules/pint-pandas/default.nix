@@ -12,7 +12,7 @@
 
 buildPythonPackage {
   pname = "pint-pandas";
-    # Latest release contains bugs and failing tests.
+  # Latest release contains bugs and failing tests.
   version = "unstable-2022-11-24";
   format = "pyproject";
 

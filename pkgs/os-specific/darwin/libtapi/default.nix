@@ -21,8 +21,8 @@ stdenv.mkDerivation {
 
   sourceRoot = "source/src/llvm";
 
-    # Backported from newer llvm, fixes configure error when cross compiling.
-    # Also means we don't have to manually fix the result with install_name_tool.
+  # Backported from newer llvm, fixes configure error when cross compiling.
+  # Also means we don't have to manually fix the result with install_name_tool.
   patches =
     [ ./disable-rpath.patch ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
@@ -37,8 +37,8 @@ stdenv.mkDerivation {
     python3
   ];
 
-    # ncurses is required here to avoid a reference to bootstrap-tools, which is
-    # not allowed for the stdenv.
+  # ncurses is required here to avoid a reference to bootstrap-tools, which is
+  # not allowed for the stdenv.
   buildInputs = [ ncurses ];
 
   cmakeFlags =
@@ -71,9 +71,9 @@ stdenv.mkDerivation {
     ]
     ;
 
-    # fixes: fatal error: 'clang/Basic/Diagnostic.h' file not found
-    # adapted from upstream
-    # https://github.com/tpoechtrager/apple-libtapi/blob/3cb307764cc5f1856c8a23bbdf3eb49dfc6bea48/build.sh#L58-L60
+  # fixes: fatal error: 'clang/Basic/Diagnostic.h' file not found
+  # adapted from upstream
+  # https://github.com/tpoechtrager/apple-libtapi/blob/3cb307764cc5f1856c8a23bbdf3eb49dfc6bea48/build.sh#L58-L60
   preConfigure = ''
     INCLUDE_FIX="-I $PWD/projects/clang/include"
     INCLUDE_FIX+=" -I $PWD/build/projects/clang/include"

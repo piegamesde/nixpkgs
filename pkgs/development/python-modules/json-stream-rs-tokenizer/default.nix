@@ -41,8 +41,8 @@ buildPythonPackage rec {
     )
     ;
 
-    # Tests depend on json-stream, which depends on this package.
-    # To avoid infinite recursion, we only enable tests when building passthru.tests.
+  # Tests depend on json-stream, which depends on this package.
+  # To avoid infinite recursion, we only enable tests when building passthru.tests.
   doCheck = false;
 
   checkInputs = [ json-stream ];

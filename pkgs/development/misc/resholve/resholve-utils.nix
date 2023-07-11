@@ -17,18 +17,12 @@ rec {
   # for brevity / line length
   spaces = l: builtins.concatStringsSep " " l;
   colons = l: builtins.concatStringsSep ":" l;
-  semicolons =
-    l:
-    builtins.concatStringsSep ";" l
-    ;
+  semicolons = l: builtins.concatStringsSep ";" l;
 
-    # Throw a fit with dotted attr path context
-  nope =
-    path: msg:
-    throw "${builtins.concatStringsSep "." path}: ${msg}"
-    ;
+  # Throw a fit with dotted attr path context
+  nope = path: msg: throw "${builtins.concatStringsSep "." path}: ${msg}";
 
-    # Special-case directive value representations by type
+  # Special-case directive value representations by type
   phraseDirective =
     solution: env: name: val:
     if builtins.isInt val then
@@ -53,13 +47,11 @@ rec {
       "unexpected type: ${builtins.typeOf val}"
     ;
 
-    # Build fake/fix/keep directives from Nix types
+  # Build fake/fix/keep directives from Nix types
   phraseDirectives =
-    solution: env: val:
-    lib.mapAttrsToList (phraseDirective solution env) val
-    ;
+    solution: env: val: lib.mapAttrsToList (phraseDirective solution env) val;
 
-    # Custom ~search-path routine to handle relative path strings
+  # Custom ~search-path routine to handle relative path strings
   relSafeBinPath =
     input:
     if lib.isDerivation input then
@@ -70,7 +62,7 @@ rec {
       throw "unexpected type for input: ${builtins.typeOf input}"
     ;
 
-    # Special-case value representation by type/name
+  # Special-case value representation by type/name
   phraseEnvVal =
     solution: env: val:
     if env == "inputs" then
@@ -90,22 +82,20 @@ rec {
       "unexpected type: ${builtins.typeOf val}"
     ;
 
-    # Shell-format each env value
+  # Shell-format each env value
   shellEnv =
-    solution: env: value:
-    lib.escapeShellArg (phraseEnvVal solution env value)
-    ;
+    solution: env: value: lib.escapeShellArg (phraseEnvVal solution env value);
 
-    # Build a single ENV=val pair
+  # Build a single ENV=val pair
   phraseEnv =
     solution: env: value:
     "RESHOLVE_${lib.toUpper env}=${shellEnv solution env value}"
     ;
 
-    /* Discard attrs:
-       - claimed by phraseArgs
-       - only needed for binlore.collect
-    */
+  /* Discard attrs:
+     - claimed by phraseArgs
+     - only needed for binlore.collect
+  */
   removeUnneededArgs =
     value:
     removeAttrs value [
@@ -115,7 +105,7 @@ rec {
     ]
     ;
 
-    # Verify required arguments are present
+  # Verify required arguments are present
   validateSolution =
     {
       scripts,
@@ -126,13 +116,13 @@ rec {
     true
     ;
 
-    # Pull out specific solution keys to build ENV=val pairs
+  # Pull out specific solution keys to build ENV=val pairs
   phraseEnvs =
     solution: value:
     spaces (lib.mapAttrsToList (phraseEnv solution) (removeUnneededArgs value))
     ;
 
-    # Pull out specific solution keys to build CLI argstring
+  # Pull out specific solution keys to build CLI argstring
   phraseArgs =
     {
       flags ? [ ],
@@ -158,13 +148,11 @@ rec {
     }
     ;
 
-    # Build a single resholve invocation
+  # Build a single resholve invocation
   phraseInvocation =
     solution: value:
-    if
-      validateSolution value
-    then
-    # we pass resholve a directory
+    if validateSolution value then
+      # we pass resholve a directory
       "RESHOLVE_LORE=${binlore.collect (phraseBinloreArgs value)} ${
         phraseEnvs solution value
       } ${resholve}/bin/resholve --overwrite ${phraseArgs value}"
@@ -179,7 +167,7 @@ rec {
       solutions)
     ;
 
-    # Build resholve invocation for each solution.
+  # Build resholve invocation for each solution.
   phraseCommands =
     solutions: unresholved:
     builtins.concatStringsSep "\n" (
@@ -189,10 +177,10 @@ rec {
     )
     ;
 
-    /* subshell/PS4/set -x and : command to output resholve envs
-       and invocation. Extra context makes it clearer what the
-       Nix API is doing, makes nix-shell debugging easier, etc.
-    */
+  /* subshell/PS4/set -x and : command to output resholve envs
+     and invocation. Extra context makes it clearer what the
+     Nix API is doing, makes nix-shell debugging easier, etc.
+  */
   phraseContext =
     {
       invokable,
@@ -272,15 +260,13 @@ rec {
       ...
     }@attrs:
     let
-      inherit
-        stdenv
-        ;
+      inherit stdenv;
 
-        /* Knock out our special solutions arg, but otherwise
-           just build what the caller is giving us. We'll
-           actually resholve it separately below (after we
-           generate binlore for it).
-        */
+      /* Knock out our special solutions arg, but otherwise
+         just build what the caller is giving us. We'll
+         actually resholve it separately below (after we
+         generate binlore for it).
+      */
       unresholved =
         (stdenv.mkDerivation (
           (removeAttrs attrs [ "solutions" ]) // {
@@ -288,27 +274,30 @@ rec {
             pname = "${pname}-unresholved";
           }
         ));
-      /* resholve in a separate derivation; some concerns:
-         - we aren't keeping many of the user's args, so they
-           can't readily set LOGLEVEL and such...
-         - not sure how this affects multiple outputs
-      */
     in
-    lib.extendDerivation true passthru (
+    /* resholve in a separate derivation; some concerns:
+       - we aren't keeping many of the user's args, so they
+         can't readily set LOGLEVEL and such...
+       - not sure how this affects multiple outputs
+    */
+    lib.extendDerivation
+    true
+    passthru
+    (
       stdenv.mkDerivation {
         src = unresholved;
         inherit version pname;
         buildInputs = [ resholve ];
         disallowedReferences = [ resholve ];
 
-          # retain a reference to the base
+        # retain a reference to the base
         passthru = unresholved.passthru // {
           unresholved = unresholved;
-            # fallback attr for update bot to query our src
+          # fallback attr for update bot to query our src
           originalSrc = unresholved.src;
         };
 
-          # do these imply that we should use NoCC or something?
+        # do these imply that we should use NoCC or something?
         dontConfigure = true;
         dontBuild = true;
 
@@ -316,12 +305,12 @@ rec {
           cp -R $src $out
         '';
 
-          # enable below for verbose debug info if needed
-          # supports default python.logging levels
-          # LOGLEVEL="INFO";
+        # enable below for verbose debug info if needed
+        # supports default python.logging levels
+        # LOGLEVEL="INFO";
         preFixup = phraseSolutions solutions unresholved;
 
-          # don't break the metadata...
+        # don't break the metadata...
         meta = unresholved.meta;
       }
     )

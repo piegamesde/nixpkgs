@@ -21,8 +21,8 @@
 
 let
   get-nix-license = import ./get-nix-license.nix { inherit lib writeText; };
-
 in
+
 rustPlatform.buildRustPackage rec {
   pname = "nix-init";
   version = "0.2.3";

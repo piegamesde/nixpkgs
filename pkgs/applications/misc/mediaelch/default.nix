@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     "-DMEDIAELCH_FORCE_QT${qtVersion}=ON"
   ];
 
-    # libmediainfo.so.0 is loaded dynamically
+  # libmediainfo.so.0 is loaded dynamically
   qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${libmediainfo}/lib" ];
 
   meta = with lib; {

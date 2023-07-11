@@ -73,25 +73,17 @@
       in
       (lib.makeOverridable mkMaui attrs)
       ;
-
   in
   (
     kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty
     // kdeGear // mauiPackages // qt5 // {
 
-      inherit
-        kdeFrameworks
-        plasmaMobileGear
-        plasma5
-        kdeGear
-        mauiPackages
-        qt5
-        ;
+      inherit kdeFrameworks plasmaMobileGear plasma5 kdeGear mauiPackages qt5;
 
-        # Alias for backwards compatibility. Added 2021-05-07.
+      # Alias for backwards compatibility. Added 2021-05-07.
       kdeApplications = kdeGear;
 
-        ### LIBRARIES
+      ### LIBRARIES
 
       accounts-qt = callPackage ../development/libraries/accounts-qt { };
 
@@ -282,8 +274,8 @@
       qtwebkit-plugins =
         callPackage ../development/libraries/qtwebkit-plugins { };
 
-        # Not a library, but we do want it to be built for every qt version there
-        # is, to allow users to choose the right build if needed.
+      # Not a library, but we do want it to be built for every qt version there
+      # is, to allow users to choose the right build if needed.
       sddm = callPackage ../applications/display-managers/sddm { };
 
       signond = callPackage ../development/libraries/signond { };

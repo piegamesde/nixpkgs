@@ -23,7 +23,7 @@ buildPythonPackage rec {
     cryptography
   ];
 
-    # Require network access
+  # Require network access
   doCheck = false;
 
   nativeCheckInputs = [ unittestCheckHook ];
@@ -34,5 +34,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };
-
 }

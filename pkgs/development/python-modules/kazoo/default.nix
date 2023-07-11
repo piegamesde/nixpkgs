@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pkgs.openjdk8
   ];
 
-    # not really needed
+  # not really needed
   preBuild = ''
     sed -i '/flake8/d' setup.py
   '';
@@ -39,14 +39,13 @@ buildPythonPackage rec {
     sed -i 's/test_unicode_auth/noop/' kazoo/tests/test_client.py
   '';
 
-    # tests take a long time to run and leave threads hanging
+  # tests take a long time to run and leave threads hanging
   doCheck = false;
-    #ZOOKEEPER_PATH = "${pkgs.zookeeper}";
+  #ZOOKEEPER_PATH = "${pkgs.zookeeper}";
 
   meta = with lib; {
     homepage = "https://kazoo.readthedocs.org";
     description = "Higher Level Zookeeper Client";
     license = licenses.asl20;
   };
-
 }

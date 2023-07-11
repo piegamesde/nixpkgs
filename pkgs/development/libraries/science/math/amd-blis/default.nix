@@ -9,13 +9,13 @@
   ,
   blas64 ? false
 
-    # Target architecture. "amd64" compiles kernels for all Zen
-    # generations. To build kernels for specific Zen generations,
-    # use "zen", "zen2", or "zen3".
+  # Target architecture. "amd64" compiles kernels for all Zen
+  # generations. To build kernels for specific Zen generations,
+  # use "zen", "zen2", or "zen3".
   ,
   withArchitecture ? "amd64"
 
-    # Enable OpenMP-based threading.
+  # Enable OpenMP-based threading.
   ,
   withOpenMP ? true
 }:
@@ -47,9 +47,9 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-    # Tests currently fail with non-Zen CPUs due to a floating point
-    # exception in one of the generic kernels. Try to re-enable the
-    # next release.
+  # Tests currently fail with non-Zen CPUs due to a floating point
+  # exception in one of the generic kernels. Try to re-enable the
+  # next release.
   doCheck = false;
 
   enableParallelBuilding = true;

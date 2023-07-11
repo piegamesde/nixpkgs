@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ backports_weakref ];
 
-    # requires https://pypi.org/project/backports.test.support
+  # requires https://pypi.org/project/backports.test.support
   doCheck = false;
 
   nativeCheckInputs = [ unittestCheckHook ];

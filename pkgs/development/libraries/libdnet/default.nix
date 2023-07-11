@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ libtool ];
 
-    # .so endings are missing (quick and dirty fix)
+  # .so endings are missing (quick and dirty fix)
   postInstall = ''
     for i in $out/lib/*; do
       ln -s $i $i.so

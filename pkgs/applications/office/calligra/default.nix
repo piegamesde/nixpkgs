@@ -67,9 +67,8 @@
   pstoedit,
   qca-qt5,
   vc,
-  fontconfig
-  # TODO: package Spnav, m2mml LibEtonyek, Libqgit2
-  ,
+  fontconfig,
+# TODO: package Spnav, m2mml LibEtonyek, Libqgit2
 }:
 
 mkDerivation rec {

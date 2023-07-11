@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-    # TODO:
-    # Sexpr support
+  # TODO:
+  # Sexpr support
 
   strictDeps = true;
 

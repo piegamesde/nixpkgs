@@ -14,8 +14,8 @@
 
 let
   pname = "ocaml-mysql";
-
 in
+
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   version = "1.2.1";

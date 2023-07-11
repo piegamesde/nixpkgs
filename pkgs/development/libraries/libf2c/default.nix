@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-    # Makefile is missing depepdencies on generated headers:
-    #   main.c:4:10: fatal error: signal1.h: No such file or directory
+  # Makefile is missing depepdencies on generated headers:
+  #   main.c:4:10: fatal error: signal1.h: No such file or directory
   enableParallelBuilding = false;
 
   meta = {

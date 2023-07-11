@@ -29,8 +29,8 @@ buildPythonPackage rec {
     ++ lib.optional withGUI kivy
     ;
 
-    # do not check, as nsz requires producation keys
-    # dumped from a Nintendo Switch.
+  # do not check, as nsz requires producation keys
+  # dumped from a Nintendo Switch.
   doCheck = false;
 
   meta = with lib; {

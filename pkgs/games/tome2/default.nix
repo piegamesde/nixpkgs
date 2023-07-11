@@ -27,7 +27,6 @@ let
     ];
     genericName = pname;
   };
-
 in
 stdenv.mkDerivation {
   inherit pname;

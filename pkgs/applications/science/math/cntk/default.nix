@@ -23,8 +23,8 @@
 
 let
   inherit (cudaPackages) cudatoolkit cudnn;
-
 in
+
 assert cudnnSupport -> cudaSupport;
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
 
@@ -36,7 +36,6 @@ let
     rev = "1.7.4";
     sha256 = "0ksd5n1lxqhm5l5cd2lps4cszhjkf6gmzahaycs7nxb06qci8c66";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "CNTK";
@@ -72,14 +71,12 @@ stdenv.mkDerivation rec {
                 'SetTotalBytesLimit(limit)'
   '';
 
-  nativeBuildInputs =
-    [ cmake ] ++ lib.optional cudaSupport addOpenGLRunpath
-    ;
+  nativeBuildInputs = [ cmake ] ++ lib.optional cudaSupport addOpenGLRunpath;
 
-    # Force OpenMPI to use g++ in PATH.
+  # Force OpenMPI to use g++ in PATH.
   OMPI_CXX = "g++";
 
-    # Uses some deprecated tensorflow functions
+  # Uses some deprecated tensorflow functions
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
   buildInputs =
@@ -167,12 +164,10 @@ stdenv.mkDerivation rec {
         licenses.mit
       ;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-        abbradar
-      ];
-      # Newer cub is included with cudatoolkit now and it breaks the build.
-      # https://github.com/Microsoft/CNTK/issues/3191
-      # broken = cudaSupport;
+    maintainers = with maintainers; [ abbradar ];
+    # Newer cub is included with cudatoolkit now and it breaks the build.
+    # https://github.com/Microsoft/CNTK/issues/3191
+    # broken = cudaSupport;
     broken = true; # at 2022-11-23
   };
 }

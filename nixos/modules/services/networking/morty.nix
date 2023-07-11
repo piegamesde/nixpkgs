@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.morty;
-
 in
+
 {
 
   ###### interface
@@ -65,12 +65,10 @@ in
         default = "127.0.0.1";
         description = lib.mdDoc "The address on which the service listens";
       };
-
     };
-
   };
 
-    ###### Service definition
+  ###### Service definition
 
   config = mkIf config.services.morty.enable {
 
@@ -98,6 +96,5 @@ in
       };
     };
     environment.systemPackages = [ cfg.package ];
-
   };
 }

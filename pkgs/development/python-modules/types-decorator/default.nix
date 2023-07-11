@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-Mt04D8iNDnofJ6hLoc5uKboK1CyqobiOe10n5h9uSWI=";
   };
 
-    # Modules doesn't have tests
+  # Modules doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "decorator-stubs" ];

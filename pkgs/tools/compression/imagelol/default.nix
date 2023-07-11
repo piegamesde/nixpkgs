@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-    # fix for case-sensitive filesystems
-    # https://github.com/MCredstoner2004/ImageLOL/issues/1
+  # fix for case-sensitive filesystems
+  # https://github.com/MCredstoner2004/ImageLOL/issues/1
   postPatch = ''
     mv imagelol src
     substituteInPlace CMakeLists.txt \

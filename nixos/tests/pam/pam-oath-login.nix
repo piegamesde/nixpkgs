@@ -6,21 +6,20 @@ import ../make-test-python.nix (
   let
     oathSnakeoilSecret = "cdd4083ef8ff1fa9178c6d46bfb1a3";
 
-      # With HOTP mode the password is calculated based on a counter of
-      # how many passwords have been made. In this env, we'll always be on
-      # the 0th counter, so the password is static.
-      #
-      # Generated in nix-shell -p oath-toolkit
-      # via: oathtool -v -d6 -w10 cdd4083ef8ff1fa9178c6d46bfb1a3
-      # and picking a the first 4:
+    # With HOTP mode the password is calculated based on a counter of
+    # how many passwords have been made. In this env, we'll always be on
+    # the 0th counter, so the password is static.
+    #
+    # Generated in nix-shell -p oath-toolkit
+    # via: oathtool -v -d6 -w10 cdd4083ef8ff1fa9178c6d46bfb1a3
+    # and picking a the first 4:
     oathSnakeOilPassword1 = "143349";
     oathSnakeOilPassword2 = "801753";
 
     alicePassword = "foobar";
-      # Generated via: mkpasswd -m sha-512 and passing in "foobar"
+    # Generated via: mkpasswd -m sha-512 and passing in "foobar"
     hashedAlicePassword =
       "$6$MsMrE1q.1HrCgTS$Vq2e/uILzYjSN836TobAyN9xh9oi7EmCmucnZID25qgPoibkw8qTCugiAPnn4eCGvn1A.7oEBFJaaGUaJsQQY.";
-
   in
   {
     name = "pam-oath-login";

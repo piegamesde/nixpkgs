@@ -21,8 +21,8 @@
   config = lib.mkIf config.gnu {
 
     environment.systemPackages = with pkgs;
-    # TODO: Adjust `requiredPackages' from `system-path.nix'.
-    # TODO: Add Inetutils once it has the new `ifconfig'.
+      # TODO: Adjust `requiredPackages' from `system-path.nix'.
+      # TODO: Add Inetutils once it has the new `ifconfig'.
       [
         parted
         #fdisk  # XXX: GNU fdisk currently fails to build and it's redundant
@@ -33,18 +33,18 @@
       ]
       ++ lib.optional (!stdenv.isAarch32) grub2;
 
-      # GNU GRUB, where available.
+    # GNU GRUB, where available.
     boot.loader.grub.enable = !pkgs.stdenv.isAarch32;
     boot.loader.grub.version = 2;
 
-      # GNU lsh.
+    # GNU lsh.
     services.openssh.enable = false;
     services.lshd.enable = true;
     programs.ssh.startAgent = false;
     services.xserver.startGnuPGAgent = true;
 
-      # TODO: GNU dico.
-      # TODO: GNU Inetutils' inetd.
-      # TODO: GNU Pies.
+    # TODO: GNU dico.
+    # TODO: GNU Inetutils' inetd.
+    # TODO: GNU Pies.
   };
 }

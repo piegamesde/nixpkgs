@@ -15,10 +15,10 @@ rec {
     sha256 = "sha256-x+AOt6nn2hN4MODFZCvlq0kZ3VLoS7rVcFGGCEssIu0=";
   };
 
-    # submodule dependencies
-    # these are fetched so we:
-    #   1. don't fetch the many submodules we don't need
-    #   2. avoid fetchSubmodules since it's prone to impurities
+  # submodule dependencies
+  # these are fetched so we:
+  #   1. don't fetch the many submodules we don't need
+  #   2. avoid fetchSubmodules since it's prone to impurities
   submodules = {
     "cli/src/semgrep/lang" = fetchFromGitHub {
       owner = "returntocorp";
@@ -34,8 +34,8 @@ rec {
     };
   };
 
-    # fetch pre-built semgrep-core since the ocaml build is complex and relies on
-    # the opam package manager at some point
+  # fetch pre-built semgrep-core since the ocaml build is complex and relies on
+  # the opam package manager at some point
   core = rec {
     data = {
       x86_64-linux = {
@@ -80,7 +80,7 @@ rec {
       jk
       ambroisie
     ];
-      # limited by semgrep-core
+    # limited by semgrep-core
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

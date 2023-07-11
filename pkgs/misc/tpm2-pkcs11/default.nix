@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
     }
   );
 
-    # The preConfigure phase doesn't seem to be working here
-    # ./bootstrap MUST be executed as the first step, before all
-    # of the autoreconfHook stuff
+  # The preConfigure phase doesn't seem to be working here
+  # ./bootstrap MUST be executed as the first step, before all
+  # of the autoreconfHook stuff
   postPatch = ''
     ./bootstrap
   '';
@@ -80,8 +80,8 @@ stdenv.mkDerivation rec {
   dontStrip = true;
   dontPatchELF = true;
 
-    # To be able to use the userspace resource manager, the RUNPATH must
-    # explicitly include the tpm2-abrmd shared libraries.
+  # To be able to use the userspace resource manager, the RUNPATH must
+  # explicitly include the tpm2-abrmd shared libraries.
   preFixup =
     let
       rpath = lib.makeLibraryPath (

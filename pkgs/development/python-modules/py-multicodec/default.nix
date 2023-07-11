@@ -22,8 +22,8 @@ buildPythonPackage rec {
     hash = "sha256-2aK+bfhqCMqSO+mtrHIfNQmQpQHpwd7yHseI/3O7Sp4=";
   };
 
-    # Error when not substituting:
-    # Failed: [pytest] section in setup.cfg files is no longer supported, change to [tool:pytest] instead.
+  # Error when not substituting:
+  # Failed: [pytest] section in setup.cfg files is no longer supported, change to [tool:pytest] instead.
   postPatch = ''
     substituteInPlace setup.cfg --replace "[pytest]" "[tool:pytest]"
   '';

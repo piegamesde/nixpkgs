@@ -22,8 +22,8 @@ buildPythonPackage rec {
     repo = "editorconfig-core-py";
     rev = "v${version}";
     hash = "sha256-ZwoTMgk18+BpPNtXKQUMXGcl2Lp+1RQVyPHgk6gHWh8=";
-      # workaround until https://github.com/editorconfig/editorconfig-core-py/pull/40 is merged
-      # fetchSubmodules = true;
+    # workaround until https://github.com/editorconfig/editorconfig-core-py/pull/40 is merged
+    # fetchSubmodules = true;
   };
 
   postUnpack = ''

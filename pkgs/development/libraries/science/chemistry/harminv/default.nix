@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EXEt7l69etcBdDdEDlD1ODOdhTBZCVjgY1jhRUDd/W0=";
   };
 
-    # File is missing in the git checkout but required by autotools
+  # File is missing in the git checkout but required by autotools
   postPatch = ''
     touch ChangeLog
   '';

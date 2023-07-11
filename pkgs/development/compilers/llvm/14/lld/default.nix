@@ -13,11 +13,9 @@
 
 stdenv.mkDerivation rec {
   pname = "lld";
-  inherit
-    version
-    ;
+  inherit version;
 
-    # Blank llvm dir just so relative path works
+  # Blank llvm dir just so relative path works
   src = runCommand "${pname}-src-${version}" { } ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
@@ -47,7 +45,7 @@ stdenv.mkDerivation rec {
       "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
     ];
 
-    # Musl's default stack size is too small for lld to be able to link Firefox.
+  # Musl's default stack size is too small for lld to be able to link Firefox.
   LDFLAGS =
     lib.optionalString stdenv.hostPlatform.isMusl "-Wl,-z,stack-size=2097152";
 

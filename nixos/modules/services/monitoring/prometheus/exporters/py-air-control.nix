@@ -11,7 +11,6 @@ let
   cfg = config.services.prometheus.exporters.py-air-control;
 
   workingDir = "/var/lib/${cfg.stateDir}";
-
 in
 {
   port = 9896;

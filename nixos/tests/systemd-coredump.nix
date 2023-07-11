@@ -16,8 +16,8 @@ import ./make-test-python.nix (
         Restart = "no";
       };
     };
-
   in
+
   {
     name = "systemd-coredump";
     meta = with pkgs.lib.maintainers; { maintainers = [ squalus ]; };

@@ -25,7 +25,6 @@ let
     autoPatchelfHook
     desktop-file-utils
   ];
-
 in
 appimageTools.wrapType2 rec {
   inherit name src;

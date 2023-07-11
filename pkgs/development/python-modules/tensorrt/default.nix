@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = cudaPackages.tensorrt.src;
 
   format = "wheel";
-    # We unpack the wheel ourselves because of the odd packaging.
+  # We unpack the wheel ourselves because of the odd packaging.
   dontUseWheelUnpack = true;
 
   nativeBuildInputs = [

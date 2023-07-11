@@ -59,11 +59,11 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-    # Prevent double wrapping.
+  # Prevent double wrapping.
   dontWrapGApps = true;
-    # Otherwise wrapGAppsHook do not pick up the dependencies correctly.
+  # Otherwise wrapGAppsHook do not pick up the dependencies correctly.
   strictDeps = false;
-    # There aren't any checks.
+  # There aren't any checks.
   doCheck = false;
 
   meta = with lib; {

@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
     patchShebangs .
   '';
 
-    # Complains about not being able to find the fontconfig config file otherwise
+  # Complains about not being able to find the fontconfig config file otherwise
   FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
 
   buildInputs = [

@@ -22,5 +22,4 @@ buildDunePackage rec {
       This package is specialised to the Lwt concurrency library for IO.
     '';
   };
-
 }

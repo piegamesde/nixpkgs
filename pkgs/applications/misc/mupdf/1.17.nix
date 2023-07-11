@@ -27,7 +27,6 @@ let
   # OpenJPEG version is hardcoded in package source
   openJpegVersion =
     with stdenv; lib.versions.majorMinor (lib.getVersion openjpeg);
-
 in
 stdenv.mkDerivation rec {
   version = "1.17.0";
@@ -41,7 +40,9 @@ stdenv.mkDerivation rec {
 
   patches =
     # Use shared libraries to decrease size
-    lib.optional (!stdenv.isDarwin) ./mupdf-1.14-shared_libs.patch
+      lib.optional
+      (!stdenv.isDarwin)
+      ./mupdf-1.14-shared_libs.patch
     ++ lib.optional stdenv.isDarwin ./darwin.patch
     ;
 

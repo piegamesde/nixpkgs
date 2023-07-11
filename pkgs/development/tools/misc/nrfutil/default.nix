@@ -38,7 +38,7 @@ buildPythonApplication rec {
     nose
   ];
 
-    # Workaround: pythonRelaxDepsHook doesn't work for this.
+  # Workaround: pythonRelaxDepsHook doesn't work for this.
   postPatch = ''
     mkdir test-reports
     substituteInPlace requirements.txt \

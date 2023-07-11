@@ -50,12 +50,12 @@ stdenv.mkDerivation rec {
     "-Dboost-shared=true"
   ];
 
-    # Meson is no longer able to pick up Boost automatically.
-    # https://github.com/NixOS/nixpkgs/issues/86131
+  # Meson is no longer able to pick up Boost automatically.
+  # https://github.com/NixOS/nixpkgs/issues/86131
   BOOST_INCLUDEDIR = "${lib.getDev boost}/include";
   BOOST_LIBRARYDIR = "${lib.getLib boost}/lib";
 
-    # Tests fail on Darwin, possibly because of sandboxing.
+  # Tests fail on Darwin, possibly because of sandboxing.
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

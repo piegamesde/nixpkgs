@@ -28,7 +28,7 @@ buildGoModule rec {
     gzip $wordlists/*.txt
   '';
 
-    # https://github.com/OWASP/Amass/issues/640
+  # https://github.com/OWASP/Amass/issues/640
   doCheck = false;
 
   meta = with lib; {

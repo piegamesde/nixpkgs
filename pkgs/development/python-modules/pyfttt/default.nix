@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # tests need a server to run against
+  # tests need a server to run against
   doCheck = false;
 
   meta = with lib; {

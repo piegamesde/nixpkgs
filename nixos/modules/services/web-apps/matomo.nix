@@ -17,7 +17,6 @@ let
   pool = user;
   phpExecutionUnit = "phpfpm-${pool}";
   databaseService = "mysql.service";
-
 in
 {
   imports = [
@@ -206,7 +205,7 @@ in
       # everything needs to set up and up to date before Matomo php files are executed
       requiredBy = [ "${phpExecutionUnit}.service" ];
       before = [ "${phpExecutionUnit}.service" ];
-        # the update part of the script can only work if the database is already up and running
+      # the update part of the script can only work if the database is already up and running
       requires = [ databaseService ];
       after = [ databaseService ];
       path = [ cfg.package ];
@@ -214,16 +213,16 @@ in
       serviceConfig = {
         Type = "oneshot";
         User = user;
-          # hide especially config.ini.php from other
+        # hide especially config.ini.php from other
         UMask = "0007";
-          # TODO: might get renamed to MATOMO_USER_PATH in future versions
-          # chown + chmod in preStart needs root
+        # TODO: might get renamed to MATOMO_USER_PATH in future versions
+        # chown + chmod in preStart needs root
         PermissionsStartOnly = true;
       };
 
-        # correct ownership and permissions in case they're not correct anymore,
-        # e.g. after restoring from backup or moving from another system.
-        # Note that ${dataDir}/config/config.ini.php might contain the MySQL password.
+      # correct ownership and permissions in case they're not correct anymore,
+      # e.g. after restoring from backup or moving from another system.
+      # Note that ${dataDir}/config/config.ini.php might contain the MySQL password.
       preStart = ''
         # migrate data from piwik to Matomo folder
         if [ -d ${deprecatedDataDir} ]; then
@@ -262,15 +261,15 @@ in
       '';
     };
 
-      # If this is run regularly via the timer,
-      # 'Browser trigger archiving' can be disabled in Matomo UI > Settings > General Settings.
+    # If this is run regularly via the timer,
+    # 'Browser trigger archiving' can be disabled in Matomo UI > Settings > General Settings.
     systemd.services.matomo-archive-processing = {
       description = "Archive Matomo reports";
-        # the archiving can only work if the database is already up and running
+      # the archiving can only work if the database is already up and running
       requires = [ databaseService ];
       after = [ databaseService ];
 
-        # TODO: might get renamed to MATOMO_USER_PATH in future versions
+      # TODO: might get renamed to MATOMO_USER_PATH in future versions
       environment.PIWIK_USER_PATH = dataDir;
       serviceConfig = {
         Type = "oneshot";
@@ -298,7 +297,7 @@ in
     systemd.services.${phpExecutionUnit} = {
       # stop phpfpm on package upgrade, do database upgrade via matomo-setup-update, and then restart
       restartTriggers = [ cfg.package ];
-        # stop config.ini.php from getting written with read permission for others
+      # stop config.ini.php from getting written with read permission for others
       serviceConfig.UMask = "0007";
     };
 
@@ -351,45 +350,45 @@ in
           # disadvantage: not shown as default in docs.
           root = mkForce "${cfg.package}/share";
 
-            # define locations here instead of as the submodule option's default
-            # so that they can easily be extended with additional locations if required
-            # without needing to redefine the Matomo ones.
-            # disadvantage: not shown as default in docs.
+          # define locations here instead of as the submodule option's default
+          # so that they can easily be extended with additional locations if required
+          # without needing to redefine the Matomo ones.
+          # disadvantage: not shown as default in docs.
           locations."/" = { index = "index.php"; };
-            # allow index.php for webinterface
+          # allow index.php for webinterface
           locations."= /index.php".extraConfig = ''
             fastcgi_pass unix:${fpm.socket};
           '';
-            # allow matomo.php for tracking
+          # allow matomo.php for tracking
           locations."= /matomo.php".extraConfig = ''
             fastcgi_pass unix:${fpm.socket};
           '';
-            # allow piwik.php for tracking (deprecated name)
+          # allow piwik.php for tracking (deprecated name)
           locations."= /piwik.php".extraConfig = ''
             fastcgi_pass unix:${fpm.socket};
           '';
-            # Any other attempt to access any php files is forbidden
+          # Any other attempt to access any php files is forbidden
           locations."~* ^.+\\.php$".extraConfig = ''
             return 403;
           '';
-            # Disallow access to unneeded directories
-            # config and tmp are already removed
+          # Disallow access to unneeded directories
+          # config and tmp are already removed
           locations."~ ^/(?:core|lang|misc)/".extraConfig = ''
             return 403;
           '';
-            # Disallow access to several helper files
+          # Disallow access to several helper files
           locations."~* \\.(?:bat|git|ini|sh|txt|tpl|xml|md)$".extraConfig = ''
             return 403;
           '';
-            # No crawling of this site for bots that obey robots.txt - no useful information here.
+          # No crawling of this site for bots that obey robots.txt - no useful information here.
           locations."= /robots.txt".extraConfig = ''
             return 200 "User-agent: *\nDisallow: /\n";
           '';
-            # let browsers cache matomo.js
+          # let browsers cache matomo.js
           locations."= /matomo.js".extraConfig = ''
             expires 1M;
           '';
-            # let browsers cache piwik.js (deprecated name)
+          # let browsers cache piwik.js (deprecated name)
           locations."= /piwik.js".extraConfig = ''
             expires 1M;
           '';

@@ -24,8 +24,8 @@ buildDunePackage rec {
     re
   ];
 
-    # get rid of check for curl at configure time
-    # opam-core does not call curl at run time
+  # get rid of check for curl at configure time
+  # opam-core does not call curl at run time
   configureFlags = [ "--disable-checks" ];
 
   meta = opam.meta // {

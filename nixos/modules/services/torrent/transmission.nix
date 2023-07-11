@@ -346,21 +346,21 @@ in
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         User = cfg.user;
         Group = cfg.group;
-          # Create rootDir in the host's mount namespace.
+        # Create rootDir in the host's mount namespace.
         RuntimeDirectory = [ (baseNameOf rootDir) ];
         RuntimeDirectoryMode = "755";
-          # This is for BindPaths= and BindReadOnlyPaths=
-          # to allow traversal of directories they create in RootDirectory=.
+        # This is for BindPaths= and BindReadOnlyPaths=
+        # to allow traversal of directories they create in RootDirectory=.
         UMask = "0066";
-          # Using RootDirectory= makes it possible
-          # to use the same paths download-dir/incomplete-dir
-          # (which appear in user's interfaces) without requiring cfg.user
-          # to have access to their parent directories,
-          # by using BindPaths=/BindReadOnlyPaths=.
-          # Note that TemporaryFileSystem= could have been used instead
-          # but not without adding some BindPaths=/BindReadOnlyPaths=
-          # that would only be needed for ExecStartPre=,
-          # because RootDirectoryStartOnly=true would not help.
+        # Using RootDirectory= makes it possible
+        # to use the same paths download-dir/incomplete-dir
+        # (which appear in user's interfaces) without requiring cfg.user
+        # to have access to their parent directories,
+        # by using BindPaths=/BindReadOnlyPaths=.
+        # Note that TemporaryFileSystem= could have been used instead
+        # but not without adding some BindPaths=/BindReadOnlyPaths=
+        # that would only be needed for ExecStartPre=,
+        # because RootDirectoryStartOnly=true would not help.
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
         MountAPIVFS = true;
@@ -408,11 +408,11 @@ in
           "transmission/watch-dir"
         ];
         StateDirectoryMode = mkDefault 750;
-          # The following options are only for optimizing:
-          # systemd-analyze security transmission
+        # The following options are only for optimizing:
+        # systemd-analyze security transmission
         AmbientCapabilities = "";
         CapabilityBoundingSet = "";
-          # ProtectClock= adds DeviceAllow=char-rtc r
+        # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -424,11 +424,11 @@ in
         PrivateUsers = true;
         ProtectClock = true;
         ProtectControlGroups = true;
-          # ProtectHome=true would not allow BindPaths= to work across /home,
-          # and ProtectHome=tmpfs would break statfs(),
-          # preventing transmission-daemon to report the available free space.
-          # However, RootDirectory= is used, so this is not a security concern
-          # since there would be nothing in /home but any BindPaths= wanted by the user.
+        # ProtectHome=true would not allow BindPaths= to work across /home,
+        # and ProtectHome=tmpfs would break statfs(),
+        # preventing transmission-daemon to report the available free space.
+        # However, RootDirectory= is used, so this is not a security concern
+        # since there would be nothing in /home but any BindPaths= wanted by the user.
         ProtectHome = "read-only";
         ProtectHostname = true;
         ProtectKernelLogs = true;
@@ -436,8 +436,8 @@ in
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         RemoveIPC = true;
-          # AF_UNIX may become usable one day:
-          # https://github.com/transmission/transmission/issues/441
+        # AF_UNIX may become usable one day:
+        # https://github.com/transmission/transmission/issues/441
         RestrictAddressFamilies = [
           "AF_UNIX"
           "AF_INET"
@@ -465,7 +465,7 @@ in
       };
     };
 
-      # It's useful to have transmission in path, e.g. for remote control
+    # It's useful to have transmission in path, e.g. for remote control
     environment.systemPackages = [ cfg.package ];
 
     users.users = optionalAttrs (cfg.user == "transmission") ({
@@ -517,19 +517,19 @@ in
         # Usual default is 32768 60999, ie. 28231 ports.
         # Find out your current usage with: ss -s
         "net.ipv4.ip_local_port_range" = mkDefault "16384 65535";
-          # Timeout faster generic TCP states.
-          # Usual default is 600.
-          # Find out your current usage with: watch -n 1 netstat -nptuo
+        # Timeout faster generic TCP states.
+        # Usual default is 600.
+        # Find out your current usage with: watch -n 1 netstat -nptuo
         "net.netfilter.nf_conntrack_generic_timeout" = mkDefault 60;
-          # Timeout faster established but inactive connections.
-          # Usual default is 432000.
+        # Timeout faster established but inactive connections.
+        # Usual default is 432000.
         "net.netfilter.nf_conntrack_tcp_timeout_established" = mkDefault 600;
-          # Clear immediately TCP states after timeout.
-          # Usual default is 120.
+        # Clear immediately TCP states after timeout.
+        # Usual default is 120.
         "net.netfilter.nf_conntrack_tcp_timeout_time_wait" = mkDefault 1;
-          # Increase the number of trackable connections.
-          # Usual default is 262144.
-          # Find out your current usage with: conntrack -C
+        # Increase the number of trackable connections.
+        # Usual default is 262144.
+        # Find out your current usage with: conntrack -C
         "net.netfilter.nf_conntrack_max" = mkDefault 1048576;
       })
     ];

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # Tests fail due to nix file timestamp normalization.
+  # Tests fail due to nix file timestamp normalization.
   doCheck = false;
 
   meta = with lib; {

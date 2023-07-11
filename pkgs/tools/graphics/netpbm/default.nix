@@ -58,7 +58,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-    # Environment variables
+  # Environment variables
   STRIPPROG =
     "${
       lib.getBin stdenv.cc.bintools.bintools

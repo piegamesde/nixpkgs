@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     gmp
   ];
 
-    # Avoid "-O5 -march=native"
+  # Avoid "-O5 -march=native"
   makeFlags = [ "OPTIM_FLAGS=" ];
 
   installPhase = ''

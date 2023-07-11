@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "a4885cd002d65fd2de96e2bb2563ef477c3fbe207009360c015fca5c3b5561b7";
   };
 
-    # vast dependency list
+  # vast dependency list
   doCheck = false;
 
   propagatedBuildInputs = [
@@ -28,5 +28,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/django-nose/django-nose";
     license = licenses.bsd3;
   };
-
 }

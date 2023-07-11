@@ -44,7 +44,7 @@ buildGoModule rec {
     ]
     ;
 
-    # several tests with networking and several that want chromium
+  # several tests with networking and several that want chromium
   doCheck = false;
 
   postInstall = ''

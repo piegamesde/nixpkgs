@@ -24,7 +24,7 @@ import ./make-test-python.nix (
           settings = {
             hostname = "http://${lemmyNodeName}";
             port = backendPort;
-              # Without setup, the /feeds/* and /nodeinfo/* API endpoints won't return 200
+            # Without setup, the /feeds/* and /nodeinfo/* API endpoints won't return 200
             setup = {
               admin_username = "mightyiam";
               admin_password = "ThisIsWhatIUseEverywhereTryIt";
@@ -37,7 +37,7 @@ import ./make-test-python.nix (
 
         networking.firewall.allowedTCPPorts = [ 80 ];
 
-          # pict-rs seems to need more than 1025114112 bytes
+        # pict-rs seems to need more than 1025114112 bytes
         virtualisation.memorySize = 2000;
       };
     };

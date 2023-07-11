@@ -104,10 +104,10 @@ stdenv.mkDerivation rec {
     ++ lib.optional cudaSupport "-DBUILD_WITH_CUDA:bool=true"
     ;
 
-    # ensure python package contains its __init__.py. for some reason the install
-    # script does not do this, and it's questionable if intel knows it should be
-    # done
-    # ( https://github.com/IntelRealSense/meta-intel-realsense/issues/20 )
+  # ensure python package contains its __init__.py. for some reason the install
+  # script does not do this, and it's questionable if intel knows it should be
+  # done
+  # ( https://github.com/IntelRealSense/meta-intel-realsense/issues/20 )
   postInstall = lib.optionalString enablePython ''
     cp ../wrappers/python/pyrealsense2/__init__.py $out/${pythonPackages.python.sitePackages}/pyrealsense2
   '';

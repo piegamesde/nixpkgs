@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.virtualbox;
-
 in
 {
 
@@ -297,6 +296,5 @@ in
     } ];
 
     virtualisation.virtualbox.guest.enable = true;
-
   };
 }

@@ -61,7 +61,6 @@ in
       '';
       default = { };
     };
-
   };
 
   config = mkIf programCfg.enable {

@@ -10,8 +10,8 @@ with lib;
 let
 
   inInitrd = any (fs: fs == "apfs") config.boot.initrd.supportedFilesystems;
-
 in
+
 {
   config = mkIf (any (fs: fs == "apfs") config.boot.supportedFilesystems) {
 
@@ -21,6 +21,6 @@ in
 
     boot.initrd.kernelModules = mkIf inInitrd [ "apfs" ];
 
-      # Don't copy apfsck into the initramfs since it does not support repairing the filesystem
+    # Don't copy apfsck into the initramfs since it does not support repairing the filesystem
   };
 }

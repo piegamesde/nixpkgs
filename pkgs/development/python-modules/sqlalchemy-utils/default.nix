@@ -36,9 +36,8 @@
   pytz,
   backports-zoneinfo,
   pymysql,
-  pyodbc
+  pyodbc,
 
-  ,
 }:
 
 buildPythonPackage rec {
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     babel = [ babel ];
     arrow = [ arrow ];
     pendulum = [ pendulum ];
-      #intervals = [ intervals ];
+    #intervals = [ intervals ];
     phone = [ phonenumbers ];
     password = [ passlib ];
     color = [ colour ];

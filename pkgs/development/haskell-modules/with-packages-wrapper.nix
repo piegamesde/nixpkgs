@@ -10,7 +10,7 @@
   ,
   useLLVM ? false,
   withHoogle ? false
-    # Whether to install `doc` outputs for GHC and all included libraries.
+  # Whether to install `doc` outputs for GHC and all included libraries.
   ,
   installDocumentation ? true,
   hoogleWithPackages,
@@ -90,14 +90,14 @@ let
     (lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages))
   );
   hasLibraries = lib.any (x: x.isHaskellLibrary) paths;
-    # CLang is needed on Darwin for -fllvm to work:
-    # https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
+  # CLang is needed on Darwin for -fllvm to work:
+  # https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
   llvm = lib.makeBinPath (
     [ llvmPackages.llvm ]
     ++ lib.optional stdenv.targetPlatform.isDarwin llvmPackages.clang
   );
-
 in
+
 assert ghcLibdir != null -> (ghc.isGhcjs or false);
 
 if paths == [ ] && !useLLVM then
@@ -204,8 +204,11 @@ else
 
           $out/bin/${ghcCommand}-pkg recache
         ''}
-        ${ # ghcjs will read the ghc_libdir file when resolving plugins.
-        lib.optionalString (isGhcjs && ghcLibdir != null) ''
+        ${
+        # ghcjs will read the ghc_libdir file when resolving plugins.
+        lib.optionalString
+        (isGhcjs && ghcLibdir != null)
+        ''
           mkdir -p "${libDir}"
           rm -f "${libDir}/ghc_libdir"
           printf '%s' '${ghcLibdir}' > "${libDir}/ghc_libdir"
@@ -216,12 +219,9 @@ else
       ;
     preferLocalBuild = true;
     passthru = {
-      inherit (ghc)
-        version
-        meta
-        ;
+      inherit (ghc) version meta;
 
-        # Inform users about backwards incompatibilities with <= 21.05
+      # Inform users about backwards incompatibilities with <= 21.05
       override =
         _:
         throw ''

@@ -75,10 +75,10 @@ buildPythonPackage {
     ]
   );
 
-    # don't try and fail to strip 48000+ non strippable files, it takes >5 minutes!
+  # don't try and fail to strip 48000+ non strippable files, it takes >5 minutes!
   dontStrip = true;
 
-    # difficult to test
+  # difficult to test
   doCheck = false;
 
   meta = with lib; {

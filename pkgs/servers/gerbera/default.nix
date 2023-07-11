@@ -116,7 +116,6 @@ let
   ];
 
   inherit (lib) flatten optionals;
-
 in
 stdenv.mkDerivation rec {
   pname = "gerbera";

@@ -12,9 +12,10 @@
 let
   jdk = jdk8;
   jre_headless = jre8_headless;
-  # TODO: This is quite a bit of duplicated logic with gephi. Factor it out?
 in
-stdenv.mkDerivation rec {
+# TODO: This is quite a bit of duplicated logic with gephi. Factor it out?
+stdenv.mkDerivation
+rec {
   pname = "global-platform-pro";
   version = "18.09.14";
   GPPRO_VERSION =

@@ -16,7 +16,6 @@ let
   wine_custom = wine-staging;
 
   mozillaPluginPath = "/lib/mozilla/plugins";
-
 in
 stdenv.mkDerivation rec {
 

@@ -29,7 +29,7 @@ let
       udisks2-qt5 = callPackage ./library/udisks2-qt5 { };
       util-dfm = callPackage ./library/util-dfm { };
 
-        #### CORE
+      #### CORE
       dde-kwin = callPackage ./core/dde-kwin { };
       deepin-kwin = callPackage ./core/deepin-kwin { };
       dde-app-services = callPackage ./core/dde-app-services { };
@@ -46,7 +46,7 @@ let
       dpa-ext-gnomekeyring = callPackage ./core/dpa-ext-gnomekeyring { };
       dde-gsettings-schemas = callPackage ./core/dde-gsettings-schemas { };
 
-        #### Dtk Application
+      #### Dtk Application
       deepin-album = callPackage ./apps/deepin-album { };
       deepin-calculator = callPackage ./apps/deepin-calculator { };
       deepin-camera = callPackage ./apps/deepin-camera { };
@@ -65,7 +65,7 @@ let
       deepin-reader = callPackage ./apps/deepin-reader { };
       deepin-voice-note = callPackage ./apps/deepin-voice-note { };
 
-        #### Go Packages
+      #### Go Packages
       go-lib = callPackage ./go-package/go-lib { };
       go-gir-generator = callPackage ./go-package/go-gir-generator { };
       go-dbus-factory = callPackage ./go-package/go-dbus-factory { };
@@ -76,18 +76,18 @@ let
         callPackage ./go-package/deepin-desktop-schemas { };
       startdde = callPackage ./go-package/startdde { };
 
-        #### TOOLS
+      #### TOOLS
       dde-device-formatter = callPackage ./tools/dde-device-formatter { };
       deepin-gettext-tools = callPackage ./tools/deepin-gettext-tools { };
 
-        #### ARTWORK
+      #### ARTWORK
       dde-account-faces = callPackage ./artwork/dde-account-faces { };
       deepin-icon-theme = callPackage ./artwork/deepin-icon-theme { };
       deepin-wallpapers = callPackage ./artwork/deepin-wallpapers { };
       deepin-gtk-theme = callPackage ./artwork/deepin-gtk-theme { };
       deepin-sound-theme = callPackage ./artwork/deepin-sound-theme { };
 
-        #### MISC
+      #### MISC
       deepin-desktop-base = callPackage ./misc/deepin-desktop-base { };
       deepin-turbo = callPackage ./misc/deepin-turbo { };
     }

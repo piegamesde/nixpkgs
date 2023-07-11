@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     "oxigraph_server"
   ];
 
-    # requires packaging of the associated python modules
+  # requires packaging of the associated python modules
   doCheck = false;
 
   meta = with lib; {

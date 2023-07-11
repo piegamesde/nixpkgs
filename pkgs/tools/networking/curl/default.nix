@@ -17,17 +17,16 @@
     (
       !isWindows
       &&
-      # the "mig" tool does not configure its compiler correctly. This could be
-      # fixed in mig, but losing gss support on cross compilation to darwin is
-      # not worth the effort.
-      !isStatic
+      # disable gss becuase of: undefined reference to `k5_bcmp'
+        # a very sad story re static: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439039
+        !isStatic
       &&
       # the "mig" tool does not configure its compiler correctly. This could be
-      # fixed in mig, but losing gss support on cross compilation to darwin is
-      # not worth the effort.
-      !(
-        isDarwin && (stdenv.buildPlatform != stdenv.hostPlatform)
-      )
+        # fixed in mig, but losing gss support on cross compilation to darwin is
+        # not worth the effort.
+        !(
+          isDarwin && (stdenv.buildPlatform != stdenv.hostPlatform)
+        )
     ),
   libkrb5,
   http2Support ? true,
@@ -117,9 +116,9 @@ stdenv.mkDerivation (
       perl
     ];
 
-      # Zlib and OpenSSL must be propagated because `libcurl.la' contains
-      # "-lz -lssl", which aren't necessary direct build inputs of
-      # applications that use Curl.
+    # Zlib and OpenSSL must be propagated because `libcurl.la' contains
+    # "-lz -lssl", which aren't necessary direct build inputs of
+    # applications that use Curl.
     propagatedBuildInputs = with lib;
       optional brotliSupport brotli
       ++ optional c-aresSupport c-aresMinimal
@@ -142,7 +141,7 @@ stdenv.mkDerivation (
       ++ optional zlibSupport zlib
       ++ optional zstdSupport zstd;
 
-      # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
+    # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
     preConfigure = ''
       sed -e 's|/usr/bin|/no-such-path|g' -i.bak configure
       rm src/tool_hugehelp.c
@@ -170,7 +169,6 @@ stdenv.mkDerivation (
         (lib.withFeatureAs wolfsslSupport "wolfssl" (lib.getDev wolfssl))
       ]
       ++ lib.optional gssSupport "--with-gssapi=${lib.getDev libkrb5}"
-        # For the 'urandom', maybe it should be a cross-system option
       ++ lib.optional
         (stdenv.hostPlatform != stdenv.buildPlatform)
         "--with-random=/dev/urandom"
@@ -194,9 +192,9 @@ stdenv.mkDerivation (
     CXX = "${stdenv.cc.targetPrefix}c++";
     CXXCPP = "${stdenv.cc.targetPrefix}c++ -E";
 
-      # takes 14 minutes on a 24 core and because many other packages depend on curl
-      # they cannot be run concurrently and are a bottleneck
-      # tests are available in passthru.tests.withCheck
+    # takes 14 minutes on a 24 core and because many other packages depend on curl
+    # they cannot be run concurrently and are a bottleneck
+    # tests are available in passthru.tests.withCheck
     doCheck = false;
     preCheck =
       ''
@@ -253,9 +251,9 @@ stdenv.mkDerivation (
           ocaml-curly = useThisCurl ocamlPackages.curly;
           pycurl = useThisCurl python3.pkgs.pycurl;
           php-curl = useThisCurl phpExtensions.curl;
-            # error: attribute 'override' missing
-            # Additional checking with support http3 protocol.
-            # nginx-http3 = useThisCurl nixosTests.nginx-http3;
+          # error: attribute 'override' missing
+          # Additional checking with support http3 protocol.
+          # nginx-http3 = useThisCurl nixosTests.nginx-http3;
           nginx-http3 = nixosTests.nginx-http3;
           pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
         };
@@ -273,7 +271,7 @@ stdenv.mkDerivation (
       license = licenses.curl;
       maintainers = with maintainers; [ lovek323 ];
       platforms = platforms.all;
-        # Fails to link against static brotli or gss
+      # Fails to link against static brotli or gss
       broken = stdenv.hostPlatform.isStatic && (brotliSupport || gssSupport);
       pkgConfigModules = [ "libcurl" ];
     };

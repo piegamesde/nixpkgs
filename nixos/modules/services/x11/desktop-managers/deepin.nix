@@ -41,14 +41,13 @@ in
       description =
         lib.mdDoc "List of default packages to exclude from the configuration";
     };
-
   };
 
   config = mkIf cfg.enable {
     services.xserver.displayManager.sessionPackages = [ pkgs.deepin.startdde ];
     services.xserver.displayManager.defaultSession = mkDefault "deepin";
 
-      # Update the DBus activation environment after launching the desktop manager.
+    # Update the DBus activation environment after launching the desktop manager.
     services.xserver.displayManager.sessionCommands = ''
       ${
         lib.getBin pkgs.dbus
@@ -219,4 +218,3 @@ in
     ];
   };
 }
-

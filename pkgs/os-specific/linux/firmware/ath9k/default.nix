@@ -53,8 +53,8 @@ stdenv.mkDerivation (
     dontUseCmakeConfigure = true;
     enableParallelBuilding = true;
 
-      # The firmware repository builds its own toolchain, with patches
-      # applied to the xtensa support in both gcc and binutils.
+    # The firmware repository builds its own toolchain, with patches
+    # applied to the xtensa support in both gcc and binutils.
     preBuild =
       let
         inherit (lib) toUpper splitString last listToAttrs pipe;
@@ -120,12 +120,6 @@ stdenv.mkDerivation (
               | tr \( \{ \
               | tr \) \}
           ''
-          # sha256 checksums were not added to upstream's Makefile until
-          # after the 1.4.0 release.  The following line is needed for
-          # the `enableUnstable==false` build but not for the
-          # `enableUnstable==true` build.  We can remove the lines below
-          # as soon as `enableUnstable==false` points to a version
-          # greater than 1.4.0.
           + lib.optionalString (finalAttrs.version == "1.4.0") ''
             echo 'GCC_SUM = "sha256-kuYcbcOgpEnmLXKjgYX9pVAWioZwLeoHEl69PsOZYoI=";'
             echo 'MPFR_SUM = "sha256-e2bD8T3IOF8IJkyAWFPz4aju2rgHHVgvPmYZccms1f0=";'
@@ -166,17 +160,17 @@ stdenv.mkDerivation (
         mit # **/xtos, **/xtensa
       ];
 
-        # release 1.4.0 vendors a GMP which uses an ancient version of
-        # autotools that does not work on aarch64 or powerpc.
-        # However, enableUnstable (unreleased upstream) works.
-        /* # disabled until #195294 is merged
-           badPlatforms =
-             with lib.systems.inspect.patterns;
-             lib.optionals (!enableUnstable && lib.versionOlder finalAttrs.version "1.4.1") [
-               isAarch64
-               isPower64
-             ];
-        */
+      # release 1.4.0 vendors a GMP which uses an ancient version of
+      # autotools that does not work on aarch64 or powerpc.
+      # However, enableUnstable (unreleased upstream) works.
+      /* # disabled until #195294 is merged
+         badPlatforms =
+           with lib.systems.inspect.patterns;
+           lib.optionals (!enableUnstable && lib.versionOlder finalAttrs.version "1.4.1") [
+             isAarch64
+             isPower64
+           ];
+      */
 
       sourceProvenance = [ lib.sourceTypes.fromSource ];
       homepage = "http://lists.infradead.org/mailman/listinfo/ath9k_htc_fw";

@@ -62,13 +62,15 @@ stdenv.mkDerivation rec {
         else
           "LD_LIBRARY_PATH"
         ;
-      # tests modelgen and modelgensmt2 spawn boolector in another processes and
-      # macOS strips DYLD_LIBRARY_PATH, hardcode it for testing
     in
-    lib.optionalString stdenv.isDarwin ''
-      cp -r bin bin.back
-      install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
-    ''
+    # tests modelgen and modelgensmt2 spawn boolector in another processes and
+      # macOS strips DYLD_LIBRARY_PATH, hardcode it for testing
+      lib.optionalString
+      stdenv.isDarwin
+      ''
+        cp -r bin bin.back
+        install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
+      ''
     + ''
       export ${var}=$(readlink -f lib)
       patchShebangs ..
@@ -80,7 +82,7 @@ stdenv.mkDerivation rec {
     mv bin.back bin
   '';
 
-    # this is what haskellPackages.boolector expects
+  # this is what haskellPackages.boolector expects
   postInstall = ''
     cp $out/include/boolector/boolector.h $out/include/boolector.h
     cp $out/include/boolector/btortypes.h $out/include/btortypes.h

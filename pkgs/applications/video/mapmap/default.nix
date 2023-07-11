@@ -66,10 +66,10 @@ mkDerivation rec {
     cp resources/images/logo/mapmap.* $out/share/icons/hicolor/scalable/apps/
   '';
 
-    # RPATH in /tmp hack
-    # preFixup = ''
-    #   rm -r $NIX_BUILD_TOP/__nix_qt5__
-    # '';
+  # RPATH in /tmp hack
+  # preFixup = ''
+  #   rm -r $NIX_BUILD_TOP/__nix_qt5__
+  # '';
 
   meta = with lib; {
     description = "Open source video mapping software";
@@ -78,5 +78,4 @@ mkDerivation rec {
     maintainers = [ maintainers.erictapen ];
     platforms = platforms.linux;
   };
-
 }

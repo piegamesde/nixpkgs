@@ -28,7 +28,7 @@
   ,
   openldap ? null,
   pam ? null
-    ## system-dependent settings that have to be hardcoded
+  ## system-dependent settings that have to be hardcoded
   ,
   maxgid ? 65534 # null -> try to auto-detect (bad on linux)
   ,
@@ -77,8 +77,8 @@ let
     src = ./post-install.sh;
     inherit fakeroot libfaketime;
   };
-
 in
+
 stdenv.mkDerivation {
   inherit pname version;
   src = fetchurl {
@@ -90,9 +90,9 @@ stdenv.mkDerivation {
       # adjust configure check to work with libtiff > 4.1
       ./libtiff-4.patch
     ];
-    # Note that `configure` (and maybe `faxsetup`) are looking
-    # for a couple of standard binaries in the `PATH` and
-    # hardcode their absolute paths in the new package.
+  # Note that `configure` (and maybe `faxsetup`) are looking
+  # for a couple of standard binaries in the `PATH` and
+  # hardcode their absolute paths in the new package.
   buildInputs = [
     file # for `file` command
     ghostscript
@@ -108,8 +108,8 @@ stdenv.mkDerivation {
     openldap # optional
     pam # optional
   ];
-    # Disable parallel build, errors:
-    #  *** No rule to make target '../util/libfaxutil.so.7.0.4', needed by 'faxmsg'.  Stop.
+  # Disable parallel build, errors:
+  #  *** No rule to make target '../util/libfaxutil.so.7.0.4', needed by 'faxmsg'.  Stop.
   enableParallelBuilding = false;
 
   postPatch = ". ${postPatch}";

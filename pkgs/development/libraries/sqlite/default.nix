@@ -16,21 +16,21 @@
   # uses readline & ncurses for a better interactive experience if set to true
   ,
   interactive ? false
-    # TODO: can be removed since 3.36 since it is the default now.
+  # TODO: can be removed since 3.36 since it is the default now.
   ,
   enableDeserialize ? false
 }:
 
 let
   archiveVersion = import ./archive-version.nix lib;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "sqlite${lib.optionalString interactive "-interactive"}";
   version = "3.41.2";
 
-    # nixpkgs-update: no auto update
-    # NB! Make sure to update ./tools.nix src (in the same directory).
+  # nixpkgs-update: no auto update
+  # NB! Make sure to update ./tools.nix src (in the same directory).
   src = fetchurl {
     url =
       "https://sqlite.org/2023/sqlite-autoconf-${
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # required for aarch64 but applied for all arches for simplicity
+  # required for aarch64 but applied for all arches for simplicity
   preConfigure = ''
     patchShebangs configure
   '';
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     ]
   );
 
-    # Test for features which may not be available at compile time
+  # Test for features which may not be available at compile time
   preBuild = ''
     # Use pread(), pread64(), pwrite(), pwrite64() functions for better performance if they are available.
     if cc -Werror=implicit-function-declaration -x c - -o "$TMPDIR/pread_pwrite_test" <<< \

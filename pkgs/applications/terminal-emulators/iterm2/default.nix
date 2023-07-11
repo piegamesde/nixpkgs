@@ -12,7 +12,8 @@
    SUEnableAutomaticChecks = 0;
 */
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   pname = "iterm2";
   version = "3.4.19";
 

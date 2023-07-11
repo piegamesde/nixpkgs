@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication rec {
 
   makeFlags = [ "prefix=$(out)" ];
 
-    # remove deprecation warnings
+  # remove deprecation warnings
   preFixup = ''
     sed -i "s/import collections/import collections.abc/g" $out/share/dstat/dstat.py $out/bin/dstat
     sed -i "s/collections.Sequence/collections.abc.Sequence/g" "$out"/bin/dstat

@@ -51,4 +51,3 @@ buildPythonApplication rec {
     maintainers = with maintainers; [ hexa ];
   };
 }
-

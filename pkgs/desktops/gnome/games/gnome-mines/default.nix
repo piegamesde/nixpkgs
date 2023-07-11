@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "NQLps/ccs7LnEcDmAZGH/rzCvKh349RW3KtwD3vjEnI=";
   };
 
-    # gobject-introspection for finding vapi files
+  # gobject-introspection for finding vapi files
   nativeBuildInputs = [
     meson
     ninja

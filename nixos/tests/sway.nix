@@ -12,10 +12,10 @@ import ./make-test-python.nix (
       ];
     };
 
-      # testScriptWithTypes:49: error: Cannot call function of unknown type
-      #           (machine.succeed if succeed else machine.execute)(
-      #           ^
-      # Found 1 error in 1 file (checked 1 source file)
+    # testScriptWithTypes:49: error: Cannot call function of unknown type
+    #           (machine.succeed if succeed else machine.execute)(
+    #           ^
+    # Found 1 error in 1 file (checked 1 source file)
     skipTypeCheck = true;
 
     nodes.machine =
@@ -34,17 +34,17 @@ import ./make-test-python.nix (
             wayland-utils
             alacritty
           ];
-            # Use a fixed SWAYSOCK path (for swaymsg):
+          # Use a fixed SWAYSOCK path (for swaymsg):
           variables = {
             "SWAYSOCK" = "/tmp/sway-ipc.sock";
-              # TODO: Investigate if we can get hardware acceleration to work (via
-              # virtio-gpu and Virgil). We currently have to use the Pixman software
-              # renderer since the GLES2 renderer doesn't work inside the VM (even
-              # with WLR_RENDERER_ALLOW_SOFTWARE):
-              # "WLR_RENDERER_ALLOW_SOFTWARE" = "1";
+            # TODO: Investigate if we can get hardware acceleration to work (via
+            # virtio-gpu and Virgil). We currently have to use the Pixman software
+            # renderer since the GLES2 renderer doesn't work inside the VM (even
+            # with WLR_RENDERER_ALLOW_SOFTWARE):
+            # "WLR_RENDERER_ALLOW_SOFTWARE" = "1";
             "WLR_RENDERER" = "pixman";
           };
-            # For convenience:
+          # For convenience:
           shellAliases = {
             test-x11 =
               "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
@@ -52,7 +52,7 @@ import ./make-test-python.nix (
               "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
           };
 
-            # To help with OCR:
+          # To help with OCR:
           etc."xdg/foot/foot.ini".text = lib.generators.toINI { } {
             main = { font = "inconsolata:size=14"; };
             colors = rec {
@@ -65,7 +65,7 @@ import ./make-test-python.nix (
 
         fonts.fonts = [ pkgs.inconsolata ];
 
-          # Automatically configure and start Sway when logging in on tty1:
+        # Automatically configure and start Sway when logging in on tty1:
         programs.bash.loginShellInit = ''
           if [ "$(tty)" = "/dev/tty1" ]; then
             set -e
@@ -80,10 +80,10 @@ import ./make-test-python.nix (
 
         programs.sway.enable = true;
 
-          # To test pinentry via gpg-agent:
+        # To test pinentry via gpg-agent:
         programs.gnupg.agent.enable = true;
 
-          # Need to switch to a different GPU driver than the default one (-vga std) so that Sway can launch:
+        # Need to switch to a different GPU driver than the default one (-vga std) so that Sway can launch:
         virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
       }
       ;

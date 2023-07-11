@@ -65,7 +65,7 @@ python.pkgs.buildPythonApplication rec {
 
   format = "setuptools";
 
-    # latest release is at https://github.com/odoo/docker/blob/master/15.0/Dockerfile
+  # latest release is at https://github.com/odoo/docker/blob/master/15.0/Dockerfile
   src = fetchurl {
     url =
       "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.tar.gz";
@@ -78,7 +78,7 @@ python.pkgs.buildPythonApplication rec {
     cd odoo*
   '';
 
-    # needs some investigation
+  # needs some investigation
   doCheck = false;
 
   makeWrapperArgs = [
@@ -134,7 +134,7 @@ python.pkgs.buildPythonApplication rec {
     zeep
   ];
 
-    # takes 5+ minutes and there are not files to strip
+  # takes 5+ minutes and there are not files to strip
   dontStrip = true;
 
   passthru = {

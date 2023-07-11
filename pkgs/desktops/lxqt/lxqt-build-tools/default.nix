@@ -52,8 +52,8 @@ mkDerivation rec {
 
   setupHook = ./setup-hook.sh;
 
-    # We're dependent on this macro doing add_definitions in most places
-    # But we have the setup-hook to set the values.
+  # We're dependent on this macro doing add_definitions in most places
+  # But we have the setup-hook to set the values.
   postInstall = ''
     rm $out/share/cmake/lxqt-build-tools/modules/LXQtConfigVars.cmake
     cp ${

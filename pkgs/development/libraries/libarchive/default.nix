@@ -103,7 +103,7 @@ assert xarSupport -> libxml2 != null;
       ++ lib.optional xarSupport libxml2
       ;
 
-      # Without this, pkg-config-based dependencies are unhappy
+    # Without this, pkg-config-based dependencies are unhappy
     propagatedBuildInputs = lib.optionals stdenv.isLinux [
       attr
       acl
@@ -115,7 +115,7 @@ assert xarSupport -> libxml2 != null;
       echo "#include <windows.h>" >> config.h
     '';
 
-      # https://github.com/libarchive/libarchive/issues/1475
+    # https://github.com/libarchive/libarchive/issues/1475
     doCheck = !stdenv.hostPlatform.isMusl;
 
     preFixup = ''

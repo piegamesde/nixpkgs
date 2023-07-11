@@ -74,7 +74,7 @@ buildPythonPackage rec {
     export PYTHONPATH="$out/${python.sitePackages}:$PYTHONPATH"
   '';
 
-    # Checked using pythonImportsCheck
+  # Checked using pythonImportsCheck
   doCheck = false;
 
   pythonImportsCheck = [ "PyQt5.Qsci" ];

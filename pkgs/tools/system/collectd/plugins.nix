@@ -203,4 +203,6 @@ let
       builtins.concatMap pluginBuildInputs enabledPlugins
     ;
 in
-{ inherit configureFlags buildInputs; }
+{
+  inherit configureFlags buildInputs;
+}

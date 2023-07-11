@@ -84,7 +84,7 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # tests try to access "~"
+    # tests try to access "~"
     postConfigure = ''
       export HOME=$(mktemp -d)
     '';
@@ -116,7 +116,7 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # tests are failing because they don't find Python
+    # tests are failing because they don't find Python
     doCheck = false;
 
     checkPhase = ''

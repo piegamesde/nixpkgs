@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     quesoglc
   ];
 
-    # Autodetection is somewhat buggy; this is to avoid SLD1 to be loaded
+  # Autodetection is somewhat buggy; this is to avoid SLD1 to be loaded
   configureFlags = [
     "--disable-sdlimage"
     "--disable-sdlmixer"

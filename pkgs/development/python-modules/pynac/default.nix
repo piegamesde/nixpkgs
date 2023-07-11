@@ -19,5 +19,4 @@ buildPythonPackage {
       "A Python wrapper around the Dynac charged particle simulator";
     license = licenses.gpl3;
   };
-
 }

@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     rm tests/ssl.test
   '';
 
-    # test posix-1.6 needs the "hostname" command
+  # test posix-1.6 needs the "hostname" command
   nativeCheckInputs = [ inetutils ];
 
   meta = {

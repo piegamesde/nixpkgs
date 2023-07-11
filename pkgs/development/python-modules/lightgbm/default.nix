@@ -57,9 +57,9 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-    # The pypi package doesn't distribute the tests from the GitHub
-    # repository. It contains c++ tests which don't seem to wired up to
-    # `make check`.
+  # The pypi package doesn't distribute the tests from the GitHub
+  # repository. It contains c++ tests which don't seem to wired up to
+  # `make check`.
   doCheck = false;
 
   pythonImportsCheck = [ "lightgbm" ];

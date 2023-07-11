@@ -81,8 +81,8 @@ lib.overrideDerivation
       sed -i $buildRoot/include/config/auto.conf -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'
     '';
 
-      # Make copies of the DTBs named after the upstream names so that U-Boot finds them.
-      # This is ugly as heck, but I don't know a better solution so far.
+    # Make copies of the DTBs named after the upstream names so that U-Boot finds them.
+    # This is ugly as heck, but I don't know a better solution so far.
     postFixup =
       ''
         dtbDir=${

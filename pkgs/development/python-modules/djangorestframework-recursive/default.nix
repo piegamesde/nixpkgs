@@ -22,7 +22,7 @@ buildPythonPackage rec {
     djangorestframework
   ];
 
-    # incompatible with newer django versions
+  # incompatible with newer django versions
   doCheck = false;
 
   pythonImportsCheck = [ "rest_framework_recursive" ];

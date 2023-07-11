@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # tests fail
+  # tests fail
   doCheck = false;
 
   outputs = [

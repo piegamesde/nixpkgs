@@ -115,7 +115,6 @@ let
             src = mkBinExtern "src/main.rs" libName;
           }
         ;
-
     in
     assert expectedTestOutputs != null -> hasTests;
     assert hasTests -> expectedTestOutputs != null;
@@ -170,20 +169,20 @@ let
     )
     ;
 
-    /* Returns a derivation that asserts that the crate specified by `crateArgs`
-       has the specified files as output.
+  /* Returns a derivation that asserts that the crate specified by `crateArgs`
+     has the specified files as output.
 
-       `name` is used as part of the derivation name that performs the checking.
+     `name` is used as part of the derivation name that performs the checking.
 
-       `crateArgs` is passed to `mkHostCrate` to build the crate with `buildRustCrate`.
+     `crateArgs` is passed to `mkHostCrate` to build the crate with `buildRustCrate`.
 
-       `expectedFiles` contains a list of expected file paths in the output. E.g.
-       `[ "./bin/my_binary" ]`.
+     `expectedFiles` contains a list of expected file paths in the output. E.g.
+     `[ "./bin/my_binary" ]`.
 
-       `output` specifies the name of the output to use. By default, the default
-       output is used but e.g. `output = "lib";` will cause the lib output
-       to be checked instead. You do not need to specify any directories.
-    */
+     `output` specifies the name of the output to use. By default, the default
+     output is used but e.g. `output = "lib";` will cause the lib output
+     to be checked instead. You do not need to specify any directories.
+  */
   assertOutputs =
     {
       name,
@@ -245,7 +244,6 @@ let
       ''
     )
     ;
-
 in
 rec {
 
@@ -258,15 +256,15 @@ rec {
         };
         srcLib = { src = mkLib "src/lib.rs"; };
 
-          # This used to be supported by cargo but as of 1.40.0 I can't make it work like that with just cargo anymore.
-          # This might be a regression or deprecated thing they finally removed…
-          # customLibName =  { libName = "test_lib"; src = mkLib "src/test_lib.rs"; };
-          # rustLibTestsCustomLibName = {
-          #   libName = "test_lib";
-          #   src = mkTestFile "src/test_lib.rs" "foo";
-          #   buildTests = true;
-          #   expectedTestOutputs = [ "test foo ... ok" ];
-          # };
+        # This used to be supported by cargo but as of 1.40.0 I can't make it work like that with just cargo anymore.
+        # This might be a regression or deprecated thing they finally removed…
+        # customLibName =  { libName = "test_lib"; src = mkLib "src/test_lib.rs"; };
+        # rustLibTestsCustomLibName = {
+        #   libName = "test_lib";
+        #   src = mkTestFile "src/test_lib.rs" "foo";
+        #   buildTests = true;
+        #   expectedTestOutputs = [ "test foo ... ok" ];
+        # };
 
         customLibNameAndLibPath = {
           libName = "test_lib";
@@ -521,8 +519,8 @@ rec {
           buildTests = true;
           expectedTestOutputs = [ "test feature_not_visible ... ok" ];
         };
-          # Regression test for https://github.com/NixOS/nixpkgs/pull/88054
-          # Build script output should be rewritten as valid env vars.
+        # Regression test for https://github.com/NixOS/nixpkgs/pull/88054
+        # Build script output should be rewritten as valid env vars.
         buildScriptIncludeDirDeps =
           let
             depCrate = mkHostCrate {
@@ -558,8 +556,8 @@ rec {
             dependencies = [ depCrate ];
           }
           ;
-          # Regression test for https://github.com/NixOS/nixpkgs/issues/74071
-          # Whenevever a build.rs file is generating files those should not be overlayed onto the actual source dir
+        # Regression test for https://github.com/NixOS/nixpkgs/issues/74071
+        # Whenevever a build.rs file is generating files those should not be overlayed onto the actual source dir
         buildRsOutDirOverlay = {
           src = symlinkJoin {
             name = "buildrs-out-dir-overlay";
@@ -579,8 +577,8 @@ rec {
             ];
           };
         };
-          # Regression test for https://github.com/NixOS/nixpkgs/pull/83379
-          # link flag order should be preserved
+        # Regression test for https://github.com/NixOS/nixpkgs/pull/83379
+        # link flag order should be preserved
         linkOrder = {
           src = symlinkJoin {
             name = "buildrs-out-dir-overlay";

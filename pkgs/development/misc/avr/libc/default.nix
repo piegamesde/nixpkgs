@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     autoconf
   ];
 
-    # Make sure we don't strip the libraries in lib/gcc/avr.
+  # Make sure we don't strip the libraries in lib/gcc/avr.
   stripDebugList = [ "bin" ];
   dontPatchELF = true;
 

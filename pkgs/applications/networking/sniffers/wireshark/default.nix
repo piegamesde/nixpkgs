@@ -97,7 +97,7 @@ stdenv.mkDerivation {
     ]
     ;
 
-    # Avoid referencing -dev paths because of debug assertions.
+  # Avoid referencing -dev paths because of debug assertions.
   env.NIX_CFLAGS_COMPILE = toString [ "-DQT_NO_DEBUG" ];
 
   nativeBuildInputs =
@@ -217,7 +217,7 @@ stdenv.mkDerivation {
 
   dontFixCmake = true;
 
-    # Prevent double-wrapping, inject wrapper args manually instead.
+  # Prevent double-wrapping, inject wrapper args manually instead.
   dontWrapGApps = true;
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")

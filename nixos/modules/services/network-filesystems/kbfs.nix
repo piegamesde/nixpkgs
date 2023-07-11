@@ -8,7 +8,6 @@ with lib;
 let
   inherit (config.security) wrapperDir;
   cfg = config.services.kbfs;
-
 in
 {
 
@@ -52,11 +51,10 @@ in
           Additional flags to pass to the Keybase filesystem on launch.
         '';
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable (
     mkMerge [
@@ -65,9 +63,9 @@ in
         systemd.user.services.kbfs = {
           description = "Keybase File System";
 
-            # Note that the "Requires" directive will cause a unit to be restarted whenever its dependency is restarted.
-            # Do not issue a hard dependency on keybase, because kbfs can reconnect to a restarted service.
-            # Do not issue a hard dependency on keybase-redirector, because it's ok if it fails (e.g., if it is disabled).
+          # Note that the "Requires" directive will cause a unit to be restarted whenever its dependency is restarted.
+          # Do not issue a hard dependency on keybase, because kbfs can reconnect to a restarted service.
+          # Do not issue a hard dependency on keybase-redirector, because it's ok if it fails (e.g., if it is disabled).
           wants =
             [ "keybase.service" ]
             ++ optional cfg.enableRedirector "keybase-redirector.service"
@@ -77,7 +75,7 @@ in
 
           serviceConfig = {
             Type = "notify";
-              # Keybase notifies from a forked process
+            # Keybase notifies from a forked process
             EnvironmentFile = [
               "-%E/keybase/keybase.autogen.env"
               "-%E/keybase/keybase.env"
@@ -109,7 +107,7 @@ in
 
         systemd.tmpfiles.rules = [ "d /keybase 0755 root root 0" ];
 
-          # Upstream: https://github.com/keybase/client/blob/master/packaging/linux/systemd/keybase-redirector.service
+        # Upstream: https://github.com/keybase/client/blob/master/packaging/linux/systemd/keybase-redirector.service
         systemd.user.services.keybase-redirector = {
           description = "Keybase Root Redirector for KBFS";
           wants = [ "keybase.service" ];
@@ -120,7 +118,7 @@ in
               "-%E/keybase/keybase.autogen.env"
               "-%E/keybase/keybase.env"
             ];
-              # Note: The /keybase mount point is not currently configurable upstream.
+            # Note: The /keybase mount point is not currently configurable upstream.
             ExecStart = "${wrapperDir}/keybase-redirector /keybase";
             Restart = "on-failure";
             PrivateTmp = true;

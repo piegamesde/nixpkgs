@@ -23,15 +23,15 @@ stdenv.mkDerivation rec {
   ];
   strictDeps = true;
 
-    # Process Requires.private properly, see
-    # http://bugs.freedesktop.org/show_bug.cgi?id=4738, migrated to
-    # https://gitlab.freedesktop.org/pkg-config/pkg-config/issues/28
+  # Process Requires.private properly, see
+  # http://bugs.freedesktop.org/show_bug.cgi?id=4738, migrated to
+  # https://gitlab.freedesktop.org/pkg-config/pkg-config/issues/28
   patches =
     lib.optional (!vanilla) ./requires-private.patch
     ++ lib.optional stdenv.isCygwin ./2.36.3-not-win32.patch
     ;
 
-    # These three tests fail due to a (desired) behavior change from our ./requires-private.patch
+  # These three tests fail due to a (desired) behavior change from our ./requires-private.patch
   postPatch =
     if vanilla then
       null
@@ -51,7 +51,6 @@ stdenv.mkDerivation rec {
       "--with-system-include-path"
       "CFLAGS=-DENABLE_NLS"
     ]
-    # Can't run these tests while cross-compiling
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "glib_cv_stack_grows=no"
       "glib_cv_uscore=no"

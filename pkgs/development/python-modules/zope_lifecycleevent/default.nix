@@ -21,10 +21,10 @@ buildPythonPackage rec {
     zope_component
   ];
 
-    # namespace colides with local directory
+  # namespace colides with local directory
   doCheck = false;
 
-    # zope uses pep 420 namespaces for python3, doesn't work with nix + python2
+  # zope uses pep 420 namespaces for python3, doesn't work with nix + python2
   pythonImportsCheck = lib.optionals isPy3k [
     "zope.lifecycleevent"
     "zope.interface"
@@ -36,5 +36,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
-
 }

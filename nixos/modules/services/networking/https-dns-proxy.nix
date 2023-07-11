@@ -50,14 +50,11 @@ let
     "-r"
     providers."${cfg.provider.kind}".url
   ];
-
 in
 {
-  meta.maintainers = with lib.maintainers; [
-      peterhoeg
-    ];
+  meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
-    ###### interface
+  ###### interface
 
   options.services.https-dns-proxy = {
     enable = mkEnableOption (lib.mdDoc "https-dns-proxy daemon");
@@ -122,7 +119,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = lib.mkIf cfg.enable {
     systemd.services.https-dns-proxy = {

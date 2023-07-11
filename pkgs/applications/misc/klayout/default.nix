@@ -58,8 +58,8 @@ mkDerivation rec {
 
   dontInstall = true; # Installation already happens as part of "build.sh"
 
-    # Fix: "gsiDeclQMessageLogger.cc:126:42: error: format not a string literal
-    # and no format arguments [-Werror=format-security]"
+  # Fix: "gsiDeclQMessageLogger.cc:126:42: error: format not a string literal
+  # and no format arguments [-Werror=format-security]"
   hardeningDisable = [ "format" ];
 
   meta = with lib; {
@@ -72,4 +72,3 @@ mkDerivation rec {
     maintainers = with maintainers; [ knedlsepp ];
   };
 }
-

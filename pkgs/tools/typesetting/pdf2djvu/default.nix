@@ -85,8 +85,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # Required by Poppler
-    # https://github.com/jwilk/pdf2djvu/commit/373e065faf2f0d868a3700788d20a96e9528bb12
+  # Required by Poppler
+  # https://github.com/jwilk/pdf2djvu/commit/373e065faf2f0d868a3700788d20a96e9528bb12
   CXXFLAGS = "-std=c++17";
 
   meta = with lib; {

@@ -13,11 +13,9 @@ let
     (lib.makeScope newScope (
       self:
       with self; {
-        inherit
-          ocaml
-          ;
+        inherit ocaml;
 
-          ### A ###
+        ### A ###
         aches = callPackage ../development/ocaml-modules/aches { };
         aches-lwt = callPackage ../development/ocaml-modules/aches/lwt.nix { };
 
@@ -77,10 +75,10 @@ let
 
         awa-lwt = callPackage ../development/ocaml-modules/awa/lwt.nix { };
 
-        awa-mirage = callPackage ../development/ocaml-modules/awa/mirage.nix { }
-          ;
+        awa-mirage =
+          callPackage ../development/ocaml-modules/awa/mirage.nix { };
 
-          ### B ###
+        ### B ###
 
         bap = callPackage ../development/ocaml-modules/bap {
           inherit (pkgs.llvmPackages) llvm;
@@ -144,7 +142,7 @@ let
 
         bz2 = callPackage ../development/ocaml-modules/bz2 { };
 
-          ### C ###
+        ### C ###
 
         ca-certs = callPackage ../development/ocaml-modules/ca-certs { };
 
@@ -175,7 +173,7 @@ let
 
         camlp5 = callPackage ../development/tools/ocaml/camlp5 { };
 
-          # Compatibility alias
+        # Compatibility alias
         camlp5_strict = camlp5;
 
         camlpdf = callPackage ../development/ocaml-modules/camlpdf { };
@@ -240,8 +238,8 @@ let
         class_group_vdf =
           callPackage ../development/ocaml-modules/class_group_vdf { };
 
-          # The 1.1.0 release broke a lot of packages and is not compatible with
-          # OCaml < 4.08.
+        # The 1.1.0 release broke a lot of packages and is not compatible with
+        # OCaml < 4.08.
         cmdliner =
           if lib.versionAtLeast ocaml.version "4.08" then
             cmdliner_1_1
@@ -358,7 +356,7 @@ let
 
         curses = callPackage ../development/ocaml-modules/curses { };
 
-          ### D ###
+        ### D ###
 
         dap = callPackage ../development/ocaml-modules/dap { };
 
@@ -488,7 +486,7 @@ let
 
         dypgen = callPackage ../development/ocaml-modules/dypgen { };
 
-          ### E ###
+        ### E ###
 
         earley = callPackage ../development/ocaml-modules/earley { };
 
@@ -542,7 +540,7 @@ let
 
         ezxmlm = callPackage ../development/ocaml-modules/ezxmlm { };
 
-          ### F ###
+        ### F ###
 
         faad = callPackage ../development/ocaml-modules/faad { };
 
@@ -663,7 +661,7 @@ let
 
         functory = callPackage ../development/ocaml-modules/functory { };
 
-          ### G ###
+        ### G ###
 
         gapi-ocaml = callPackage ../development/ocaml-modules/gapi-ocaml { };
 
@@ -738,7 +736,7 @@ let
           inherit (pkgs.darwin.apple_sdk.frameworks) AppKit Foundation;
         };
 
-          ### H ###
+        ### H ###
 
         h2 = callPackage ../development/ocaml-modules/h2 { };
 
@@ -785,7 +783,7 @@ let
 
         hxd = callPackage ../development/ocaml-modules/hxd { };
 
-          ### I ###
+        ### I ###
 
         imagelib = callPackage ../development/ocaml-modules/imagelib { };
 
@@ -855,9 +853,9 @@ let
 
         iter = callPackage ../development/ocaml-modules/iter { };
 
-          ### J ###
+        ### J ###
 
-          # Jane Street
+        # Jane Street
         janePackage =
           if lib.versionOlder "4.10.2" ocaml.version then
             callPackage
@@ -963,7 +961,7 @@ let
 
         jwto = callPackage ../development/ocaml-modules/jwto { };
 
-          ### K ###
+        ### K ###
 
         kafka = callPackage ../development/ocaml-modules/kafka { };
 
@@ -973,7 +971,7 @@ let
 
         kicadsch = callPackage ../development/ocaml-modules/kicadsch { };
 
-          ### L ###
+        ### L ###
 
         lablgl = callPackage ../development/ocaml-modules/lablgl { };
 
@@ -1090,7 +1088,7 @@ let
 
         lwt-watcher = callPackage ../development/ocaml-modules/lwt-watcher { };
 
-          ### M ###
+        ### M ###
 
         macaddr = callPackage ../development/ocaml-modules/macaddr { };
 
@@ -1312,7 +1310,7 @@ let
 
         mustache = callPackage ../development/ocaml-modules/mustache { };
 
-          ### N ###
+        ### N ###
 
         netchannel = callPackage ../development/ocaml-modules/netchannel { };
 
@@ -1341,7 +1339,7 @@ let
             null
           ;
 
-          ### O ###
+        ### O ###
 
         ocaml_cairo = callPackage ../development/ocaml-modules/ocaml-cairo { };
 
@@ -1549,7 +1547,7 @@ let
 
         owl-base = callPackage ../development/ocaml-modules/owl-base { };
 
-          ### P ###
+        ### P ###
 
         paf = callPackage ../development/ocaml-modules/paf { };
 
@@ -1715,7 +1713,7 @@ let
 
         pyml = callPackage ../development/ocaml-modules/pyml { };
 
-          ### Q ###
+        ### Q ###
 
         qcheck = callPackage ../development/ocaml-modules/qcheck { };
 
@@ -1730,7 +1728,7 @@ let
 
         qtest = callPackage ../development/ocaml-modules/qtest { };
 
-          ### R ###
+        ### R ###
 
         randomconv = callPackage ../development/ocaml-modules/randomconv { };
 
@@ -1797,7 +1795,7 @@ let
 
         rusage = callPackage ../development/ocaml-modules/rusage { };
 
-          ### S ###
+        ### S ###
 
         safepass = callPackage ../development/ocaml-modules/safepass { };
 
@@ -1880,7 +1878,7 @@ let
         syslog-message =
           callPackage ../development/ocaml-modules/syslog-message { };
 
-          ### T ###
+        ### T ###
 
         taglib = callPackage ../development/ocaml-modules/taglib {
           inherit (pkgs) taglib;
@@ -1968,7 +1966,7 @@ let
         tyxml-lwd =
           callPackage ../development/ocaml-modules/lwd/tyxml-lwd.nix { };
 
-          ### U ###
+        ### U ###
 
         uchar = callPackage ../development/ocaml-modules/uchar { };
 
@@ -2007,7 +2005,7 @@ let
 
         uuuu = callPackage ../development/ocaml-modules/uuuu { };
 
-          ### V ###
+        ### V ###
 
         vchan = callPackage ../development/ocaml-modules/vchan { };
 
@@ -2021,7 +2019,7 @@ let
 
         vorbis = callPackage ../development/ocaml-modules/vorbis { };
 
-          ### W ###
+        ### W ###
 
         wasm = callPackage ../development/ocaml-modules/wasm { };
 
@@ -2033,7 +2031,7 @@ let
 
         wtf8 = callPackage ../development/ocaml-modules/wtf8 { };
 
-          ### X ###
+        ### X ###
 
         x509 = callPackage ../development/ocaml-modules/x509 { };
 
@@ -2057,7 +2055,7 @@ let
 
         xtmpl_ppx = callPackage ../development/ocaml-modules/xtmpl/ppx.nix { };
 
-          ### Y ###
+        ### Y ###
 
         yaml = callPackage ../development/ocaml-modules/yaml { };
 
@@ -2070,7 +2068,7 @@ let
 
         yuujinchou = callPackage ../development/ocaml-modules/yuujinchou { };
 
-          ### Z ###
+        ### Z ###
 
         z3 = callPackage ../development/ocaml-modules/z3 { inherit (pkgs) z3; };
 
@@ -2082,15 +2080,15 @@ let
 
         zmq-lwt = callPackage ../development/ocaml-modules/zmq/lwt.nix { };
 
-          ### Exceptional packages kept out of order ###
+        ### Exceptional packages kept out of order ###
 
-          # Libs
+        # Libs
 
         buildDunePackage = callPackage ../build-support/ocaml/dune.nix { };
 
         buildOasisPackage = callPackage ../build-support/ocaml/oasis.nix { };
 
-          # Apps from all-packages, to be eventually removed
+        # Apps from all-packages, to be eventually removed
 
         google-drive-ocamlfuse =
           callPackage ../applications/networking/google-drive-ocamlfuse { };
@@ -2099,13 +2097,11 @@ let
 
         ocamlnat = callPackage ../development/ocaml-modules/ocamlnat { };
 
-          ### End ###
-
+        ### End ###
       }
     )).overrideScope'
     liftJaneStreet
     ;
-
 in
 let
   inherit (pkgs) callPackage;
@@ -2165,8 +2161,8 @@ rec {
 
   ocamlPackages = ocamlPackages_4_14;
 
-    # We still have packages that rely on unsafe-string, which is deprecated in OCaml 4.06.0.
-    # Below are aliases for porting them to the latest versions of the OCaml 4 series.
+  # We still have packages that rely on unsafe-string, which is deprecated in OCaml 4.06.0.
+  # Below are aliases for porting them to the latest versions of the OCaml 4 series.
   ocamlPackages_4_14_unsafe_string = mkOcamlPackages (
     callPackage ../development/compilers/ocaml/4.14.nix {
       unsafeStringSupport = true;

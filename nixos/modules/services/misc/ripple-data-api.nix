@@ -36,7 +36,6 @@ let
       protocol = "http";
     };
   };
-
 in
 {
   options = {

@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "localstack";
     repo = "localstack-python-client";
-      # Request for proper tags: https://github.com/localstack/localstack-python-client/issues/38
+    # Request for proper tags: https://github.com/localstack/localstack-python-client/issues/38
     rev = "f1e538ad23700e5b1afe98720404f4801475e470";
     hash = "sha256-MBXTiTzCwkduJPPRN7OKaWy2q9J8xCX/GGu09tyac3A=";
   };
@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "localstack_client" ];
 
-    # All commands test `localstack` which is a downstream dependency
+  # All commands test `localstack` which is a downstream dependency
   doCheck = false;
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -36,7 +36,7 @@ buildPythonPackage rec {
       "test_session"
     ];
 
-    # For tests
+  # For tests
   __darwinAllowLocalNetworking = true;
 
   passthru.tests = { inherit localstack; };

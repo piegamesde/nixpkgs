@@ -18,7 +18,6 @@
 
 let
   pname = "fluent-gtk-theme";
-
 in
 lib.checkListOfEnum "${pname}: theme variants"
 [

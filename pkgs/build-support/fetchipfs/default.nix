@@ -30,8 +30,8 @@ let
     || sha256 != ""
     || sha512 != ""
     ;
-
 in
+
 if (!hasHash) then
   throw "Specify sha for fetchipfs fixed-output derivation"
 else
@@ -40,7 +40,7 @@ else
     builder = ./builder.sh;
     nativeBuildInputs = [ curl ];
 
-      # New-style output content requirements.
+    # New-style output content requirements.
     outputHashAlgo =
       if outputHashAlgo != "" then
         outputHashAlgo
@@ -68,16 +68,9 @@ else
 
     outputHashMode = "recursive";
 
-    inherit
-      curlOpts
-      postFetch
-      ipfs
-      url
-      port
-      meta
-      ;
+    inherit curlOpts postFetch ipfs url port meta;
 
-      # Doing the download on a remote machine just duplicates network
-      # traffic, so don't do that.
+    # Doing the download on a remote machine just duplicates network
+    # traffic, so don't do that.
     inherit preferLocalBuild;
   }

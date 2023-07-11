@@ -10,8 +10,8 @@
 
 let
   inherit (lib) getDev;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "opendbx";
   version = "1.4.6";

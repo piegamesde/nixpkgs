@@ -32,9 +32,9 @@ let
     sha256 = "sha256-lt9+NNMIaZSkKNsGyHoqXUCTlKmZFGfNYYGjer6X0Xc=";
   };
 
-    # In order to pre-fix the plantuml.jar parameter with the argument
-    # -Dplantuml.include.path=..., we post-fix the java command using a wrapper.
-    # This way the plantuml derivation can remain unchanged.
+  # In order to pre-fix the plantuml.jar parameter with the argument
+  # -Dplantuml.include.path=..., we post-fix the java command using a wrapper.
+  # This way the plantuml derivation can remain unchanged.
   plantumlWithExtraPath =
     let
       plantumlIncludePath = lib.concatStringsSep ":" [
@@ -53,8 +53,8 @@ let
     in
     plantuml.override { jre = postFixedJre; }
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "plantuml-c4";
   version = "unstable-2022-08-21";

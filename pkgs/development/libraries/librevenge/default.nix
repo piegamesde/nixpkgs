@@ -25,13 +25,13 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-    # Clang and gcc-7 generate warnings, and
-    # -Werror causes these warnings to be interpreted as errors
-    # Simplest solution: disable -Werror
+  # Clang and gcc-7 generate warnings, and
+  # -Werror causes these warnings to be interpreted as errors
+  # Simplest solution: disable -Werror
   configureFlags = [ "--disable-werror" ];
 
-    # Fix an issue with boost 1.59
-    # This is fixed upstream so please remove this when updating
+  # Fix an issue with boost 1.59
+  # This is fixed upstream so please remove this when updating
   postPatch = ''
     sed -i 's,-DLIBREVENGE_BUILD,\0 -DBOOST_ERROR_CODE_HEADER_ONLY,g' src/lib/Makefile.in
   '';

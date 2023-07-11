@@ -65,8 +65,8 @@ stdenv.mkDerivation rec {
     }/${python3.sitePackages}/gi/overrides"
   ];
 
-    # Compilation fails after a change in glib where
-    # g_string_free now returns a value
+  # Compilation fails after a change in glib where
+  # g_string_free now returns a value
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-result";
 
   enableParallelBuilding = true;

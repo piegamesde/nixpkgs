@@ -24,7 +24,7 @@ buildPythonApplication rec {
     sha256 = "sha256-2qgWJ/bIravil/SuApA7pNXkxS5xUcdFpjVGO/ogDpw=";
   };
 
-    # We have not packaged tests.
+  # We have not packaged tests.
   doCheck = false;
 
   nativeBuildInputs = [ gobject-introspection ];

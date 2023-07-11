@@ -77,8 +77,8 @@ let
     "pname"
     "sha256"
   ];
-
 in
+
 stdenv.mkDerivation (
   recursiveUpdate template publicArgs // concatAttrLists [
     template

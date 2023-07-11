@@ -28,8 +28,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-    # pytestCheckHook doesn't work
-    # ImportError: cannot import name 'parse_sql' from 'pglast'
+  # pytestCheckHook doesn't work
+  # ImportError: cannot import name 'parse_sql' from 'pglast'
   checkPhase = ''
     pytest
   '';

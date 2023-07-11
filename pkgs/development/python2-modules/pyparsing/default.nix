@@ -22,7 +22,7 @@ let
       sha256 = "14pfy80q2flgzjcx8jkracvnxxnr59kjzp3kdm5nh232gk1v6g6h";
     };
 
-      # circular dependencies if enabled by default
+    # circular dependencies if enabled by default
     doCheck = false;
     nativeCheckInputs = [
       jinja2

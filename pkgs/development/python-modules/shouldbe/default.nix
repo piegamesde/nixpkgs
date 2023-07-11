@@ -10,7 +10,7 @@
 buildPythonPackage rec {
   version = "0.1.2";
   pname = "shouldbe";
-    # incompatible, https://github.com/DirectXMan12/should_be/issues/4
+  # incompatible, https://github.com/DirectXMan12/should_be/issues/4
   disabled = pythonAtLeast "3.8";
 
   src = fetchPypi {
@@ -26,5 +26,4 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/shouldbe/";
     license = licenses.mit;
   };
-
 }

@@ -109,7 +109,7 @@ stdenv.mkDerivation {
     $out/bin/io_static
   '';
 
-    # for gcc5; c11 inline semantics breaks the build
+  # for gcc5; c11 inline semantics breaks the build
   env.NIX_CFLAGS_COMPILE = "-fgnu89-inline";
 
   meta = with lib; {

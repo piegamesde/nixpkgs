@@ -21,7 +21,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-    # tests expect mingw and multiarch
+  # tests expect mingw and multiarch
   doCheck = false;
 
   pythonImportsCheck = [ "icoextract" ];

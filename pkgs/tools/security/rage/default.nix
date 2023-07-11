@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
 
-    # cargo test has an x86-only dependency
+  # cargo test has an x86-only dependency
   doCheck = stdenv.hostPlatform.isx86;
 
   postBuild = ''

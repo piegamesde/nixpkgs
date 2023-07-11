@@ -17,7 +17,7 @@ in
     services.blueman = { enable = mkEnableOption (lib.mdDoc "blueman"); };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
 
     environment.systemPackages = [ pkgs.blueman ];

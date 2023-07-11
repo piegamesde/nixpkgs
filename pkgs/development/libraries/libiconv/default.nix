@@ -8,7 +8,8 @@
 
 # assert !stdenv.hostPlatform.isLinux || stdenv.hostPlatform != stdenv.buildPlatform; # TODO: improve on cross
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "libiconv";
   version = "1.16";
 
@@ -68,7 +69,7 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     mainProgram = "iconv";
 
-      # This library is not needed on GNU platforms.
+    # This library is not needed on GNU platforms.
     hydraPlatforms = with lib.platforms; cygwin ++ darwin ++ freebsd;
   };
 }

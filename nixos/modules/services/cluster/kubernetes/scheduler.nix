@@ -63,10 +63,9 @@ in
       default = null;
       type = nullOr int;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     systemd.services.kube-scheduler = {
       description = "Kubernetes Scheduler Service";

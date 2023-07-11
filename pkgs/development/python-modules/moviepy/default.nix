@@ -37,7 +37,7 @@ buildPythonPackage rec {
       --replace "decorator>=4.0.2,<5.0" "decorator>=4.0.2,<6.0"
   '';
 
-    # No tests, require network connection
+  # No tests, require network connection
   doCheck = false;
 
   propagatedBuildInputs =

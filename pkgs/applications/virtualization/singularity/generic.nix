@@ -56,33 +56,33 @@ in
   # Overridable configurations
   ,
   enableNvidiaContainerCli ? true
-    # Compile with seccomp support
-    # SingularityCE 3.10.0 and above requires explicit --without-seccomp when libseccomp is not available.
+  # Compile with seccomp support
+  # SingularityCE 3.10.0 and above requires explicit --without-seccomp when libseccomp is not available.
   ,
   enableSeccomp ? true
-    # Whether the configure script treat SUID support as default
-    # When equal to enableSuid, it supress the --with-suid / --without-suid build flag
-    # It can be set to `null` to always pass either --with-suid or --without-suided
-    # Type: null or boolean
+  # Whether the configure script treat SUID support as default
+  # When equal to enableSuid, it supress the --with-suid / --without-suid build flag
+  # It can be set to `null` to always pass either --with-suid or --without-suided
+  # Type: null or boolean
   ,
   defaultToSuid ? true
-    # Whether to compile with SUID support
+  # Whether to compile with SUID support
   ,
   enableSuid ? false,
   starterSuidPath ? null
-    # newuidmapPath and newgidmapPath are to support --fakeroot
-    # where those SUID-ed executables are unavailable from the FHS system PATH.
-    # Path to SUID-ed newuidmap executable
+  # newuidmapPath and newgidmapPath are to support --fakeroot
+  # where those SUID-ed executables are unavailable from the FHS system PATH.
+  # Path to SUID-ed newuidmap executable
   ,
   newuidmapPath ? null
-    # Path to SUID-ed newgidmap executable
+  # Path to SUID-ed newgidmap executable
   ,
   newgidmapPath ? null
-    # Remove the symlinks to `singularity*` when projectName != "singularity"
+  # Remove the symlinks to `singularity*` when projectName != "singularity"
   ,
   removeCompat ? false
-    # Workaround #86349
-    # should be removed when the issue is resolved
+  # Workaround #86349
+  # should be removed when the issue is resolved
   ,
   vendorHash ? _defaultGoVendorArgs.vendorHash,
   deleteVendor ? _defaultGoVendorArgs.deleteVendor,
@@ -104,22 +104,14 @@ let
     ;
 in
 (buildGoModule {
-  inherit
-    pname
-    version
-    src
-    ;
+  inherit pname version src;
 
-    # Override vendorHash with the output got from
-    # nix-prefetch -E "{ sha256 }: ((import ./. { }).apptainer.override { vendorHash = sha256; }).go-modules"
-    # or with `null` when using vendored source tarball.
-  inherit
-    vendorHash
-    deleteVendor
-    proxyVendor
-    ;
+  # Override vendorHash with the output got from
+  # nix-prefetch -E "{ sha256 }: ((import ./. { }).apptainer.override { vendorHash = sha256; }).go-modules"
+  # or with `null` when using vendored source tarball.
+  inherit vendorHash deleteVendor proxyVendor;
 
-    # go is used to compile extensions when building container images
+  # go is used to compile extensions when building container images
   allowGoReference = true;
 
   strictDeps = true;
@@ -135,11 +127,11 @@ in
     which
   ];
 
-    # Search inside the project sources
-    # and see the `control` file of the Debian package from upstream repos
-    # for build-time dependencies and run-time utilities
-    # apptainer/apptainer: https://github.com/apptainer/apptainer/blob/main/dist/debian/control
-    # sylabs/singularity: https://github.com/sylabs/singularity/blob/main/debian/control
+  # Search inside the project sources
+  # and see the `control` file of the Debian package from upstream repos
+  # for build-time dependencies and run-time utilities
+  # apptainer/apptainer: https://github.com/apptainer/apptainer/blob/main/dist/debian/control
+  # sylabs/singularity: https://github.com/sylabs/singularity/blob/main/debian/control
 
   buildInputs =
     [
@@ -172,8 +164,8 @@ in
     ++ extraConfigureFlags
     ;
 
-    # Packages to prefix to the Apptainer/Singularity container runtime default PATH
-    # Use overrideAttrs to override
+  # Packages to prefix to the Apptainer/Singularity container runtime default PATH
+  # Use overrideAttrs to override
   defaultPathInputs =
     [
       bash

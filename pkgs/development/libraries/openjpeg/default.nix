@@ -31,8 +31,8 @@ let
         "OFF"
     }"
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "openjpeg";
   version = "2.5.0";

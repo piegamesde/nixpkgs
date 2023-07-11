@@ -53,16 +53,13 @@
 }:
 
 stdenv.mkDerivation rec {
-  inherit
-    pname
-    version
-    ; # Please backport all updates to the stable channel.
-    # All releases have a limited lifetime and "expire" 90 days after the release.
-    # When releases "expire" the application becomes unusable until an update is
-    # applied. The expiration date for the current release can be extracted with:
-    # $ grep -a "^{\"buildExpiration" "${signal-desktop}/lib/${dir}/resources/app.asar"
-    # (Alternatively we could try to patch the asar archive, but that requires a
-    # few additional steps and might not be the best idea.)
+  inherit pname version; # Please backport all updates to the stable channel.
+  # All releases have a limited lifetime and "expire" 90 days after the release.
+  # When releases "expire" the application becomes unusable until an update is
+  # applied. The expiration date for the current release can be extracted with:
+  # $ grep -a "^{\"buildExpiration" "${signal-desktop}/lib/${dir}/resources/app.asar"
+  # (Alternatively we could try to patch the asar archive, but that requires a
+  # few additional steps and might not be the best idea.)
 
   src = fetchurl {
     url =
@@ -127,8 +124,8 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   dontConfigure = true;
   dontPatchELF = true;
-    # We need to run autoPatchelf manually with the "no-recurse" option, see
-    # https://github.com/NixOS/nixpkgs/pull/78413 for the reasons.
+  # We need to run autoPatchelf manually with the "no-recurse" option, see
+  # https://github.com/NixOS/nixpkgs/pull/78413 for the reasons.
   dontAutoPatchelf = true;
 
   installPhase = ''
@@ -170,7 +167,7 @@ stdenv.mkDerivation rec {
     patchelf --add-needed ${libpulseaudio}/lib/libpulse.so "$out/lib/${dir}/resources/app.asar.unpacked/node_modules/@signalapp/ringrtc/build/linux/libringrtc-x64.node"
   '';
 
-    # Tests if the application launches and waits for "Link your phone to Signal Desktop":
+  # Tests if the application launches and waits for "Link your phone to Signal Desktop":
   passthru.tests.application-launch = nixosTests.signal-desktop;
 
   meta = {

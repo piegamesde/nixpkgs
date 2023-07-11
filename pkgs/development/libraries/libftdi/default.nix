@@ -29,12 +29,12 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ libusb-compat-0_1 ];
 
-    # Hack to avoid TMPDIR in RPATHs.
+  # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" '';
   configureFlags = lib.optional (!stdenv.isDarwin) "--with-async-mode";
 
-    # allow async mode. from ubuntu. see:
-    #   https://bazaar.launchpad.net/~ubuntu-branches/ubuntu/trusty/libftdi/trusty/view/head:/debian/patches/04_async_mode.diff
+  # allow async mode. from ubuntu. see:
+  #   https://bazaar.launchpad.net/~ubuntu-branches/ubuntu/trusty/libftdi/trusty/view/head:/debian/patches/04_async_mode.diff
   patchPhase = ''
     substituteInPlace ./src/ftdi.c \
       --replace "ifdef USB_CLASS_PTP" "if 0"

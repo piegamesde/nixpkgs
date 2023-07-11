@@ -21,8 +21,8 @@ let
       dbus-python
     ]
   );
-
 in
+
 stdenv.mkDerivation rec {
   pname = "ibus-typing-booster";
   version = "2.22.4";

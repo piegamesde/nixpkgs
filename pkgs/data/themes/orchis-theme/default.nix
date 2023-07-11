@@ -32,8 +32,8 @@ let
     lib.assertMsg (!(elem "nord" tweaks) || !(elem "dracula" tweaks)) ''
       ${pname}: dracula and nord cannot be mixed. Tweaks ${toString tweaks}
     '';
-
 in
+
 assert nordXorDracula;
 lib.checkListOfEnum "${pname}: theme tweaks" validTweaks tweaks
 

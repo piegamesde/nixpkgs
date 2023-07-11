@@ -7,7 +7,6 @@ import ./make-test-python.nix (
   let
 
     testId = "7CFNTQM-IMTJBHJ-3UWRDIU-ZGQJFR6-VCXZ3NB-XUH3KZO-N52ITXR-LAIYUAU";
-
   in
   {
     name = "syncthing-init";

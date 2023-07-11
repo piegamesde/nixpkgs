@@ -23,7 +23,6 @@ let
     ;
 
   pythonEnv = python3.withPackages runtimeDeps;
-
 in
 buildPythonApplication rec {
   pname = "pipenv";

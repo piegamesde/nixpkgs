@@ -23,7 +23,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "joaopalotti";
     repo = pname;
-      # https://github.com/joaopalotti/trectools/issues/41
+    # https://github.com/joaopalotti/trectools/issues/41
     rev = "5c1d56e9cf955f45b5a1780ee6a82744d31e7a79";
     hash = "sha256-Lh6sK2rxEdCsOUKHn1jgm+rsn8FK1f2po0UuZfZajBA=";
   };

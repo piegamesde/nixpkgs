@@ -42,12 +42,12 @@ stdenv.mkDerivation {
     readline
   ];
 
-    # lumetta published this a while ago but handrolled his configure
-    # jank in the original packaging makes this necessary:
+  # lumetta published this a while ago but handrolled his configure
+  # jank in the original packaging makes this necessary:
   LIBS = "${flex}/lib:${ncurses}/lib:${readline}/lib";
   INCLUDES = "${flex}/include:${ncurses}/include:${readline}/include";
 
-    # it doesn't take `--prefix`
+  # it doesn't take `--prefix`
   prefixKey = "--installdir ";
 
   postInstall = ''

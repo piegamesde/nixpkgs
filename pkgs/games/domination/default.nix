@@ -26,18 +26,17 @@ let
     exec = "domination-map-editor";
     icon = "domination";
   };
-
 in
 stdenv.mkDerivation {
   pname = "domination";
   version = "1.2.7";
 
-    # The .zip releases do not contain the build.xml file
+  # The .zip releases do not contain the build.xml file
   src = fetchsvn {
     url = "https://svn.code.sf.net/p/domination/code/Domination";
-      # There are no tags in the repository.
-      # Look for commits like "new version x.y.z info on website"
-      # or "website update for x.y.z".
+    # There are no tags in the repository.
+    # Look for commits like "new version x.y.z info on website"
+    # or "website update for x.y.z".
     rev = "2261";
     sha256 = "sha256-xvlPC7M6DaF3g2O3vQDmcdp7914qOaiikY02RTgAVkM=";
   };

@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # tests directory is set up, but has no tests
+  # tests directory is set up, but has no tests
   checkPhase = ''
     ${python.interpreter} -m unittest
   '';

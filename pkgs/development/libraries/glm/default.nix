@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-F//+3L5Ozrw6s7t4LrcUmO7sN30ZSESdrPAYX57zgr8=";
   };
 
-    # https://github.com/g-truc/glm/pull/1055
-    # Fix more implicit-int-float-conversion warnings
-    # (https://github.com/g-truc/glm/pull/986 wasn't enough, and -Werror is used)
+  # https://github.com/g-truc/glm/pull/1055
+  # Fix more implicit-int-float-conversion warnings
+  # (https://github.com/g-truc/glm/pull/986 wasn't enough, and -Werror is used)
   patches = [
       (fetchpatch {
         url =
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=102823
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=102823
   env.NIX_CFLAGS_COMPILE = lib.optionalString
     (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
     "-fno-ipa-modref";
@@ -93,4 +93,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ smancill ];
   };
 }
-

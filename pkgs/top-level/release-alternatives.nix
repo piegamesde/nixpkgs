@@ -160,8 +160,8 @@ let
       xs
     )
     ;
-
 in
+
 {
   blas = mapListToAttrs supportedSystems (
     system':

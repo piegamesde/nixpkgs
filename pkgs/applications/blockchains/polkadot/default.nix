@@ -18,13 +18,13 @@ rustPlatform.buildRustPackage rec {
     rev = "v${version}";
     hash = "sha256-wjV/+2n9B617S6MxC48vtpbBBKGCWBEjRj7K6m630Mo=";
 
-      # the build process of polkadot requires a .git folder in order to determine
-      # the git commit hash that is being built and add it to the version string.
-      # since having a .git folder introduces reproducibility issues to the nix
-      # build, we check the git commit hash after fetching the source and save it
-      # into a .git_commit file, and then delete the .git folder. we can then use
-      # this file to populate an environment variable with the commit hash, which
-      # is picked up by polkadot's build process.
+    # the build process of polkadot requires a .git folder in order to determine
+    # the git commit hash that is being built and add it to the version string.
+    # since having a .git folder introduces reproducibility issues to the nix
+    # build, we check the git commit hash after fetching the source and save it
+    # into a .git_commit file, and then delete the .git folder. we can then use
+    # this file to populate an environment variable with the commit hash, which
+    # is picked up by polkadot's build process.
     leaveDotGit = true;
     postFetch = ''
       ( cd $out; git rev-parse --short HEAD > .git_commit )
@@ -57,13 +57,13 @@ rustPlatform.buildRustPackage rec {
   PROTOC = "${protobuf}/bin/protoc";
   ROCKSDB_LIB_DIR = "${rocksdb}/lib";
 
-    # NOTE: We don't build the WASM runtimes since this would require a more
-    # complicated rust environment setup and this is only needed for developer
-    # environments. The resulting binary is useful for end-users of live networks
-    # since those just use the WASM blob from the network chainspec.
+  # NOTE: We don't build the WASM runtimes since this would require a more
+  # complicated rust environment setup and this is only needed for developer
+  # environments. The resulting binary is useful for end-users of live networks
+  # since those just use the WASM blob from the network chainspec.
   SKIP_WASM_BUILD = 1;
 
-    # We can't run the test suite since we didn't compile the WASM runtimes.
+  # We can't run the test suite since we didn't compile the WASM runtimes.
   doCheck = false;
 
   meta = with lib; {

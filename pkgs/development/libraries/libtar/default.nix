@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   version = "1.2.20";
   pname = "libtar";
 
-    # Maintenance repo for libtar (Arch Linux uses this)
+  # Maintenance repo for libtar (Arch Linux uses this)
   src = fetchgit {
     url = "git://repo.or.cz/libtar.git";
     rev = "refs/tags/v${version}";

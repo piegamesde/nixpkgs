@@ -68,8 +68,8 @@ with lib;
 
 let
   buildType = "release";
-    # Use maintainers/scripts/update.nix to update the version and all related hashes or
-    # change the hashes in extpack.nix and guest-additions/default.nix as well manually.
+  # Use maintainers/scripts/update.nix to update the version and all related hashes or
+  # change the hashes in extpack.nix and guest-additions/default.nix as well manually.
   version = "7.0.6";
 in
 stdenv.mkDerivation {
@@ -99,7 +99,7 @@ stdenv.mkDerivation {
     ++ optional (!headless) wrapQtAppsHook
     ;
 
-    # Wrap manually because we wrap just a small number of executables.
+  # Wrap manually because we wrap just a small number of executables.
   dontWrapQtApps = true;
 
   buildInputs =
@@ -188,16 +188,7 @@ stdenv.mkDerivation {
 
   patches =
     optional enableHardening ./hardened.patch
-    ++ [
-      ./extra_symbols.patch
-    ]
-    # When hardening is enabled, we cannot use wrapQtApp to ensure that VirtualBoxVM sees
-    # the correct environment variables needed for Qt to work, specifically QT_PLUGIN_PATH.
-    # This is because VirtualBoxVM would detect that it is wrapped that and refuse to run,
-    # and also because it would unset QT_PLUGIN_PATH for security reasons. We work around
-    # these issues by patching the code to set QT_PLUGIN_PATH to the necessary paths,
-    # after the code that unsets it. Note that qtsvg is included so that SVG icons from
-    # the user's icon theme can be loaded.
+    ++ [ ./extra_symbols.patch ]
     ++ optional (!headless && enableHardening) (
       substituteAll {
         src = ./qt-env-vars.patch;
@@ -224,7 +215,7 @@ stdenv.mkDerivation {
     ''
     ;
 
-    # first line: ugly hack, and it isn't yet clear why it's a problem
+  # first line: ugly hack, and it isn't yet clear why it's a problem
   configurePhase = ''
     NIX_CFLAGS_COMPILE=$(echo "$NIX_CFLAGS_COMPILE" | sed 's,\-isystem ${
       lib.getDev stdenv.cc.libc
@@ -344,8 +335,8 @@ stdenv.mkDerivation {
     optionalString (!headless) ''
       wrapQtApp $out/bin/VirtualBox
     ''
-      # If hardening is disabled, wrap the VirtualBoxVM binary instead of patching
-      # the source code (see postPatch).
+    # If hardening is disabled, wrap the VirtualBoxVM binary instead of patching
+    # the source code (see postPatch).
     + optionalString (!headless && !enableHardening) ''
       wrapQtApp $out/libexec/virtualbox/VirtualBoxVM
     ''

@@ -44,7 +44,7 @@ in
       users = [ (toString config.ids.uids.localtimed) ];
     };
 
-      # Install the polkit rules.
+    # Install the polkit rules.
     environment.systemPackages = [ pkgs.localtime ];
 
     systemd.services.localtimed = {

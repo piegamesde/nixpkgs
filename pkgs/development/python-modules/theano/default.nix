@@ -20,8 +20,8 @@
 
 let
   inherit (cudaPackages) cudatoolkit cudnn;
-
 in
+
 assert cudnnSupport -> cudaSupport;
 
 let
@@ -39,7 +39,7 @@ let
     ''
     ;
 
-    # Theano spews warnings and disabled flags if the compiler isn't named g++
+  # Theano spews warnings and disabled flags if the compiler isn't named g++
   cxx_compiler_name =
     if stdenv.cc.isGNU then
       "g++"
@@ -52,10 +52,9 @@ let
     lib.optional cudaSupport libgpuarray_ ++ lib.optional cudnnSupport cudnn
   );
 
-    # We need to be careful with overriding Python packages within the package set
-    # as this can lead to collisions!
+  # We need to be careful with overriding Python packages within the package set
+  # as this can lead to collisions!
   libgpuarray_ = libgpuarray.override { inherit cudaSupport cudaPackages; };
-
 in
 buildPythonPackage rec {
   pname = "theano";
@@ -84,20 +83,20 @@ buildPythonPackage rec {
     ''
     ;
 
-    # needs to be postFixup so it runs before pythonImportsCheck even when
-    # doCheck = false (meaning preCheck would be disabled)
+  # needs to be postFixup so it runs before pythonImportsCheck even when
+  # doCheck = false (meaning preCheck would be disabled)
   postFixup = ''
     mkdir -p check-phase
     export HOME=$(pwd)/check-phase
   '';
   doCheck = false;
-    # takes far too long, also throws "TypeError: sort() missing 1 required positional argument: 'a'"
-    # when run from the installer, and testing with Python 3.5 hits github.com/Theano/Theano/issues/4276,
-    # the fix for which hasn't been merged yet.
+  # takes far too long, also throws "TypeError: sort() missing 1 required positional argument: 'a'"
+  # when run from the installer, and testing with Python 3.5 hits github.com/Theano/Theano/issues/4276,
+  # the fix for which hasn't been merged yet.
 
-    # keep Nose around since running the tests by hand is possible from Python or bash
+  # keep Nose around since running the tests by hand is possible from Python or bash
   nativeCheckInputs = [ nose ];
-    # setuptools needed for cuda support
+  # setuptools needed for cuda support
   propagatedBuildInputs = [
     libgpuarray_
     numpy

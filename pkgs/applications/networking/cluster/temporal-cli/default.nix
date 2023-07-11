@@ -30,7 +30,7 @@ buildGoModule rec {
 
   passthru.tests.version = testers.testVersion {
     package = temporal-cli;
-      # the app writes a default config file at startup
+    # the app writes a default config file at startup
     command = "HOME=$(mktemp -d) ${meta.mainProgram} --version";
   };
 

@@ -65,8 +65,8 @@ buildPythonPackage rec {
       --prefix PYTHONPATH : "$PYTHONPATH"
   '';
 
-    # Checks cannot be run in the sandbox
-    # "Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory"
+  # Checks cannot be run in the sandbox
+  # "Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory"
   doCheck = false;
 
   pythonImportsCheck = [ "protonvpn_nm_lib" ];

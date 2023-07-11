@@ -19,5 +19,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/michael-lazar/mailcap_fix";
     license = licenses.unlicense;
   };
-
 }

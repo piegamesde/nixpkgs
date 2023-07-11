@@ -40,10 +40,10 @@ let
     }
     ;
 
-    # Attribute-set with all actively supported versions of the Citrix workspace app
-    # for Linux.
-    #
-    # The latest versions can be found at https://www.citrix.com/downloads/workspace-app/linux/
+  # Attribute-set with all actively supported versions of the Citrix workspace app
+  # for Linux.
+  #
+  # The latest versions can be found at https://www.citrix.com/downloads/workspace-app/linux/
   supportedVersions = lib.mapAttrs mkVersionInfo {
 
     "23.02.0" = {
@@ -61,11 +61,13 @@ let
     };
   };
 
-    # Retain attribute-names for abandoned versions of Citrix workspace to
-    # provide a meaningful error-message if it's attempted to use such an old one.
-    #
-    # The lifespans of Citrix products can be found here:
-    # https://www.citrix.com/support/product-lifecycle/milestones/receiver.html
+  # Retain attribute-names for abandoned versions of Citrix workspace to
+  # provide a meaningful error-message if it's attempted to use such an old one.
+  #
+  # The lifespans of Citrix products can be found here:
+  # https://www.citrix.com/support/product-lifecycle/milestones/receiver.html
   unsupportedVersions = [ ];
 in
-{ inherit supportedVersions unsupportedVersions; }
+{
+  inherit supportedVersions unsupportedVersions;
+}

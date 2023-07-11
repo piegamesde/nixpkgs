@@ -36,4 +36,3 @@ buildPythonPackage {
     maintainers = with maintainers; [ ];
   };
 }
-

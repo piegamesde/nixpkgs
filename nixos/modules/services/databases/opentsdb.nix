@@ -11,7 +11,6 @@ let
   cfg = config.services.opentsdb;
 
   configFile = pkgs.writeText "opentsdb.conf" cfg.config;
-
 in
 {
 
@@ -66,12 +65,10 @@ in
           The contents of OpenTSDB's configuration file
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.opentsdb.enable {
 
@@ -105,6 +102,5 @@ in
     };
 
     users.groups.opentsdb.gid = config.ids.gids.opentsdb;
-
   };
 }

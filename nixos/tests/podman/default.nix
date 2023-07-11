@@ -15,7 +15,7 @@ import ../make-test-python.nix (
         }: {
           virtualisation.podman.enable = true;
 
-            # hack to ensure that podman built with and without zfs in extraPackages is cached
+          # hack to ensure that podman built with and without zfs in extraPackages is cached
           boot.supportedFilesystems = [ "zfs" ];
           networking.hostId = "00000000";
         }

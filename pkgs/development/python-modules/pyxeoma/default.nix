@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-    # Project doesn't have any tests
+  # Project doesn't have any tests
   doCheck = false;
   pythonImportsCheck = [ "pyxeoma" ];
 

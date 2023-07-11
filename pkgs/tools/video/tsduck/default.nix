@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     jdk
   ];
 
-    # remove tests which call out to https://tsduck.io/download/test/...
+  # remove tests which call out to https://tsduck.io/download/test/...
   postPatch = ''
     sed -i"" \
       -e '/TSUNIT_TEST(testMasterPlaylist);/ d' \
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ siriobalmelli ];
     platforms = platforms.all;
-      # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
+    # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin;
   };
 }

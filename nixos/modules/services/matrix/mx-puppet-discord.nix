@@ -14,7 +14,6 @@ let
   settingsFormat = pkgs.formats.json { };
   settingsFile =
     settingsFormat.generate "mx-puppet-discord-config.json" cfg.settings;
-
 in
 {
   options = {
@@ -38,7 +37,7 @@ in
           provisioning.whitelist = [ ];
           relay.whitelist = [ ];
 
-            # variables are preceded by a colon.
+          # variables are preceded by a colon.
           namePatterns = {
             user = ":name";
             userOverride = ":displayname";
@@ -46,8 +45,8 @@ in
             group = ":name";
           };
 
-            #defaults to sqlite but can be configured to use postgresql with
-            #connstring
+          #defaults to sqlite but can be configured to use postgresql with
+          #connstring
           database.filename = "${dataDir}/database.db";
           logging = {
             console = "info";

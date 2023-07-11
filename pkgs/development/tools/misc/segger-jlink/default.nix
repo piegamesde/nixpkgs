@@ -41,7 +41,6 @@ let
 
   url =
     "https://www.segger.com/downloads/jlink/JLink_Linux_V${version}_${platform.name}.tgz";
-
 in
 stdenv.mkDerivation {
   pname = "segger-jlink";
@@ -78,9 +77,9 @@ stdenv.mkDerivation {
     }
     ;
 
-    # Currently blocked by patchelf bug
-    # https://github.com/NixOS/patchelf/pull/275
-    #runtimeDependencies = [ udev ];
+  # Currently blocked by patchelf bug
+  # https://github.com/NixOS/patchelf/pull/275
+  #runtimeDependencies = [ udev ];
 
   nativeBuildInputs = [ autoPatchelfHook ];
   buildInputs = [

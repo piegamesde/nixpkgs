@@ -14,8 +14,8 @@ let
 
   cfg = config.services.headphones;
   opt = options.services.headphones;
-
 in
+
 {
 
   ###### interface
@@ -62,7 +62,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

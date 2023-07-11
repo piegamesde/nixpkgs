@@ -55,6 +55,6 @@ let
       maintainers = with maintainers; [ tfc ];
     };
   };
-
 in
+
 pandoc-drawio-filter

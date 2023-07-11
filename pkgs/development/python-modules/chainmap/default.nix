@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "e42aaa4b3e2f66102a11bfd563069704bfbfd84fdcb517b564effd736bf53cd9";
   };
 
-    # Requires tox
+  # Requires tox
   doCheck = false;
 
   meta = with lib; {

@@ -66,7 +66,5 @@ with lib;
         udevadm settle
       fi
     '';
-
   };
-
 }

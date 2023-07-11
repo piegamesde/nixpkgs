@@ -29,7 +29,7 @@ buildPythonPackage rec {
     pyjwt
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "aioapns" ];

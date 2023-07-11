@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # Test are not available (not in PyPI tarball and there are no GitHub releases)
+  # Test are not available (not in PyPI tarball and there are no GitHub releases)
   doCheck = false;
 
   pythonImportsCheck = [ "pyvesync" ];

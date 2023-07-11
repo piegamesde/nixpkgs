@@ -22,12 +22,10 @@ let
     pythonOlder
     ;
 
-  namePrefix =
-    python.libPrefix + "-"
-    ;
+  namePrefix = python.libPrefix + "-";
 
-    # Derivations built with `buildPythonPackage` can already be overridden with `override`, `overrideAttrs`, and `overrideDerivation`.
-    # This function introduces `overridePythonAttrs` and it overrides the call to `buildPythonPackage`.
+  # Derivations built with `buildPythonPackage` can already be overridden with `override`, `overrideAttrs`, and `overrideDerivation`.
+  # This function introduces `overridePythonAttrs` and it overrides the call to `buildPythonPackage`.
   makeOverridablePythonPackage =
     f: origArgs:
     let
@@ -88,16 +86,13 @@ let
     )
   );
 
-    # See build-setupcfg/default.nix for documentation.
+  # See build-setupcfg/default.nix for documentation.
   buildSetupcfg = import ../../../build-support/build-setupcfg lib self;
 
-    # Check whether a derivation provides a Python module.
-  hasPythonModule =
-    drv:
-    drv ? pythonModule && drv.pythonModule == python
-    ;
+  # Check whether a derivation provides a Python module.
+  hasPythonModule = drv: drv ? pythonModule && drv.pythonModule == python;
 
-    # Get list of required Python modules given a list of derivations.
+  # Get list of required Python modules given a list of derivations.
   requiredPythonModules =
     drvs:
     let
@@ -110,14 +105,14 @@ let
     )
     ;
 
-    # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
-    # providing Python modules.
+  # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
+  # providing Python modules.
   makePythonPath =
     drvs: lib.makeSearchPath python.sitePackages (requiredPythonModules drvs);
 
   removePythonPrefix = lib.removePrefix namePrefix;
 
-    # Convert derivation to a Python module.
+  # Convert derivation to a Python module.
   toPythonModule =
     drv:
     drv.overrideAttrs (
@@ -135,7 +130,7 @@ let
     )
     ;
 
-    # Convert a Python library to an application.
+  # Convert a Python library to an application.
   toPythonApplication =
     drv:
     drv.overrideAttrs (
@@ -167,7 +162,6 @@ let
     else
       drv
     ;
-
 in
 {
 
@@ -197,12 +191,11 @@ in
   inherit buildSetupcfg;
 
   python = toPythonModule python;
-    # Dont take pythonPackages from "global" pkgs scope to avoid mixing python versions
+  # Dont take pythonPackages from "global" pkgs scope to avoid mixing python versions
   pythonPackages = self;
 
-    # Remove?
+  # Remove?
   recursivePthLoader = toPythonModule (
     callPackage ../../../development/python-modules/recursive-pth-loader { }
   );
-
 }

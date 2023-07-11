@@ -24,8 +24,8 @@ let
     gawk
     libnotify
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "i3-layout-manager";
   version = "unstable-2020-05-04";

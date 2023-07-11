@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # skip flaky tests
+  # skip flaky tests
   checkFlags = [ "--skip=tests::native_ext" ];
 
   postInstall = ''

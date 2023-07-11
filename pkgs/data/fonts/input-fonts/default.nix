@@ -29,8 +29,8 @@ let
   '';
 
   releaseDate = "2015-06-24";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "input-fonts";
   version = "1.2";
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     assert !acceptLicense -> throwLicense;
     fetchzip {
       name = "input-fonts-${version}";
-        # Add .zip parameter so that zip unpackCmd can match it.
+      # Add .zip parameter so that zip unpackCmd can match it.
       url =
         "https://input.djr.com/build/?fontSelection=whole&a=0&g=0&i=0&l=0&zero=0&asterisk=0&braces=0&preset=default&line-height=1.2&accept=I+do&email=&.zip";
       sha256 = "BESZ4Bjgm2hvQ7oPpMvYSlE8EqvQjqHZtXWIovqyIzA=";

@@ -300,7 +300,7 @@ in
               '';
               Restart = "on-failure";
 
-                # Hardening measures
+              # Hardening measures
               PrivateTmp = "true";
               ProtectSystem = "full";
               NoNewPrivileges = "true";
@@ -338,9 +338,7 @@ in
     users.groups = mapAttrs'
       (bitcoindName: cfg: (nameValuePair "${cfg.group}" { }))
       eachBitcoind;
-
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];
-
 }

@@ -18,7 +18,7 @@ buildPythonPackage rec {
   format = "pyproject";
   disabled = pythonOlder "3.7";
 
-    # PyPi lacks tests.
+  # PyPi lacks tests.
   src = fetchFromGitHub {
     owner = "eigenein";
     repo = "protobuf";

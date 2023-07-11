@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.programs.git;
-
 in
+
 {
   options = {
     programs.git = {

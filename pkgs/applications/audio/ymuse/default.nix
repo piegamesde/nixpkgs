@@ -61,7 +61,7 @@ buildGoModule rec {
     done
   '';
 
-    # IDK how to deal with tests that open up display.
+  # IDK how to deal with tests that open up display.
   doCheck = false;
 
   meta = with lib; {

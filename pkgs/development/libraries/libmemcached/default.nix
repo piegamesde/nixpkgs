@@ -19,11 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "10jzi14j32lpq0if0p9vygcl2c1352hwbywzvr9qzq7x6aq0nb72";
   };
 
-    # Fix linking against libpthread (patch from Fedora)
-    # https://bugzilla.redhat.com/show_bug.cgi?id=1037707
-    # https://bugs.launchpad.net/libmemcached/+bug/1281907
-    # Fix building on macOS (patch from Homebrew)
-    # https://bugs.launchpad.net/libmemcached/+bug/1245562
+  # Fix linking against libpthread (patch from Fedora)
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1037707
+  # https://bugs.launchpad.net/libmemcached/+bug/1281907
+  # Fix building on macOS (patch from Homebrew)
+  # https://bugs.launchpad.net/libmemcached/+bug/1245562
   patches =
     lib.optional stdenv.isLinux ./libmemcached-fix-linking-with-libpthread.patch
     ++ lib.optional stdenv.isDarwin (

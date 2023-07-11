@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     gettext
     jdk8
   ];
-    # I'm too lazy to build the documentation
+  # I'm too lazy to build the documentation
   preBuild = ''
     sed -i -e "s|all: bin doc man|all: bin|" \
            -e "s|install: install-bin install-man install-doc|install: install-bin|" Makefile

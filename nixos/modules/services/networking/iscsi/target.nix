@@ -27,7 +27,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     environment.etc."target/saveconfig.json" = {
       text = builtins.toJSON cfg.config;

@@ -66,12 +66,13 @@ let
       # to install it because it would create a cyclic dependency between
       # the outputs. We also need to enable the remote,
       # which should not be done by default.
-      if cfg.enableTestRemote then
+      if
+        cfg.enableTestRemote
+      then
         (enableRemote cfg.package.installedTests "fwupd-tests")
       else
         { }
     );
-
 in
 {
 
@@ -225,7 +226,7 @@ in
       ])
   ];
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     # Disable test related plug-ins implicitly so that users do not have to care about them.
     services.fwupd.daemonSettings = {
@@ -235,14 +236,14 @@ in
 
     environment.systemPackages = [ cfg.package ];
 
-      # customEtc overrides some files from the package
+    # customEtc overrides some files from the package
     environment.etc = originalEtc // customEtc // extraTrustedKeys // remotes;
 
     services.dbus.packages = [ cfg.package ];
 
     services.udev.packages = [ cfg.package ];
 
-      # required to update the firmware of disks
+    # required to update the firmware of disks
     services.udisks2.enable = true;
 
     systemd.packages = [ cfg.package ];

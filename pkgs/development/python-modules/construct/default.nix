@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.6";
 
-    # no tests in PyPI tarball
+  # no tests in PyPI tarball
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-bp/YyRFP0rrBHPyhiqnn6o1iC5l61oedShZ2phGeqaw=";
   };
 
-    # not an explicit dependency, but it's imported by an entrypoint
+  # not an explicit dependency, but it's imported by an entrypoint
   propagatedBuildInputs = [ lz4 ];
 
   nativeCheckInputs = [

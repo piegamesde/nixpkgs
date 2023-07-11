@@ -145,8 +145,8 @@ stdenv.mkDerivation rec {
     "PKG_CONFIG=${pkg-config}/bin/${pkg-config.targetPrefix}pkg-config"
   ];
 
-    # The .pc files does not declare an `includedir=`, so the multiple
-    # outputs setup hook misses this.
+  # The .pc files does not declare an `includedir=`, so the multiple
+  # outputs setup hook misses this.
   postFixup = ''
     for pc in $dev/lib/pkgconfig/*; do
       substituteInPlace $pc \

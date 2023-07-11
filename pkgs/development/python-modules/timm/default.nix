@@ -37,7 +37,7 @@ buildPythonPackage rec {
     pytest-timeout
   ];
   pytestFlagsArray = [ "tests" ];
-    # takes too long and also tries to download models:
+  # takes too long and also tries to download models:
   disabledTestPaths = [ "tests/test_models.py" ];
 
   pythonImportsCheck = [

@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cffi ];
 
-    # https://github.com/xattr/xattr/issues/43
+  # https://github.com/xattr/xattr/issues/43
   doCheck = false;
 
   postBuild = ''

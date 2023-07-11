@@ -10,8 +10,8 @@ with lib;
 let
   cfg = config.services.fakeroute;
   routeConf = pkgs.writeText "route.conf" (concatStringsSep "\n" cfg.route);
-
 in
+
 {
 
   ###### interface
@@ -42,12 +42,10 @@ in
           one to any host running a traceroute.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.fakeroute = {
@@ -60,9 +58,7 @@ in
         ExecStart = "${pkgs.fakeroute}/bin/fakeroute -f ${routeConf}";
       };
     };
-
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
 }

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "51a1a934e7ed0ff221bdd91bf9d3b604d875afbb3aa2367133503fee168f5bfa";
   };
 
-    # pip depend on $HOME setting
+  # pip depend on $HOME setting
   preConfigure = "export HOME=$TMPDIR";
 
   buildInputs = [
@@ -80,5 +80,4 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/virtualenvwrapper";
     license = licenses.mit;
   };
-
 }

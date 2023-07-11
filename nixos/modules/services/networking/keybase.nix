@@ -7,7 +7,6 @@
 with lib;
 let
   cfg = config.services.keybase;
-
 in
 {
 
@@ -22,11 +21,10 @@ in
         default = false;
         description = lib.mdDoc "Whether to start the Keybase service.";
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

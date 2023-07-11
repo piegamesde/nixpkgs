@@ -26,4 +26,3 @@ buildPythonPackage rec {
     homepage = "https://www.logilab.org/project/logilab-database";
   };
 }
-

@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-    # tests fail for unknown reasons on aarch64-darwin
+  # tests fail for unknown reasons on aarch64-darwin
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
 
   meta = with lib; {

@@ -41,8 +41,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "azure.identity" ];
 
-    # Requires checkout from mono-repo and a mock account:
-    # https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/identity/tests.yml
+  # Requires checkout from mono-repo and a mock account:
+  # https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/identity/tests.yml
   doCheck = false;
 
   meta = with lib; {

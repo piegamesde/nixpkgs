@@ -61,8 +61,8 @@ let
     gtk_module_path = "gtk-4.0";
     gtk_binary_version = "4.0.0";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "gtk4";
   version = "4.10.3";
@@ -153,7 +153,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ libexecinfo ]
     ;
-    #TODO: colord?
+  #TODO: colord?
 
   propagatedBuildInputs =
     [
@@ -198,8 +198,8 @@ stdenv.mkDerivation rec {
 
   separateDebugInfo = stdenv.isLinux;
 
-    # These are the defines that'd you'd get with --enable-debug=minimum (default).
-    # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
+  # These are the defines that'd you'd get with --enable-debug=minimum (default).
+  # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
   env = {
     NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
   } // lib.optionalAttrs stdenv.hostPlatform.isMusl {
@@ -247,7 +247,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Wrap demos
+  # Wrap demos
   postFixup =
     lib.optionalString (!stdenv.isDarwin) ''
       demos=(gtk4-demo gtk4-demo-application gtk4-icon-browser gtk4-widget-factory)

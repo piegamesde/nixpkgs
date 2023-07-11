@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-    # By no known reason libtirpc is not detected
+  # By no known reason libtirpc is not detected
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
   NIX_LDFLAGS = [ "-ltirpc" ];
 

@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
   '';
   pname = "tinycdb";
   version = "0.78";
-    # In general, static library (.a) goes to "dev", shared (.so) to
-    # "lib". In case of static build, there is no .so library, so "lib"
-    # output is useless and empty.
+  # In general, static library (.a) goes to "dev", shared (.so) to
+  # "lib". In case of static build, there is no .so library, so "lib"
+  # output is useless and empty.
   outputs =
     [
       "out"

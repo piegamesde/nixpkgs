@@ -47,7 +47,6 @@ let
     name = "cuda-redist-${cudaVersion}";
     paths = cuda-common-redist;
   };
-
 in
 buildPythonPackage rec {
   pname = "mmcv";
@@ -84,9 +83,9 @@ buildPythonPackage rec {
     rm -rf mmcv
   '';
 
-    # test_cnn test_ops really requires gpus to be useful.
-    # some of the tests take exceedingly long time.
-    # the rest of the tests are disabled due to sandbox env.
+  # test_cnn test_ops really requires gpus to be useful.
+  # some of the tests take exceedingly long time.
+  # the rest of the tests are disabled due to sandbox env.
   disabledTests = [
     "test_cnn"
     "test_ops"

@@ -34,7 +34,7 @@ buildPythonPackage rec {
     pygtrie
   ];
 
-    # nox is not available at the moment
+  # nox is not available at the moment
   doCheck = false;
 
   pythonImportsCheck = [ "sqltrie" ];

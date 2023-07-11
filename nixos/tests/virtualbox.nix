@@ -367,7 +367,7 @@ let
     "--hostonlyadapter2 vboxnet0"
   ];
 
-    # The VirtualBox Oracle Extension Pack lets you use USB 3.0 (xHCI).
+  # The VirtualBox Oracle Extension Pack lets you use USB 3.0 (xHCI).
   enableExtensionPackVMFlags = [ "--usbxhci on" ];
 
   dhcpScript =
@@ -498,7 +498,6 @@ let
       destroy_vm_testExtensionPack()
     '';
   };
-
 in
 mapAttrs (mkVBoxTest false vboxVMs) {
   simple-gui = ''

@@ -34,8 +34,8 @@ let
   hiName = lib.toUpper productShort;
   vmoptsName =
     loName + lib.optionalString stdenv.hostPlatform.is64bit "64" + ".vmoptions";
-
 in
+
 with stdenv;
 lib.makeOverridable mkDerivation (
   rec {
@@ -136,7 +136,6 @@ lib.makeOverridable mkDerivation (
 
       runHook postInstall
     '';
-
   } // lib.optionalAttrs (!(meta.license.free or true)) {
     preferLocalBuild = true;
   }

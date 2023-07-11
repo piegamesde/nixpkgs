@@ -26,8 +26,8 @@ let
     ;
 
   version = "4.20";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "svtplay-dl";
   inherit version;

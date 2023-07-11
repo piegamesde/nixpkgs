@@ -95,7 +95,7 @@ let
     dontPatchELF = true;
   };
 
-    # Lightworks expects some files in /usr/share/lightworks
+  # Lightworks expects some files in /usr/share/lightworks
 in
 buildFHSEnv {
   name = lightworks.name;

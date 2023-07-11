@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-    # scc has a scripts/ sub-package that's for testing.
+  # scc has a scripts/ sub-package that's for testing.
   excludedPackages = [ "scripts" ];
 
   meta = with lib; {

@@ -23,7 +23,7 @@ buildPythonPackage rec {
     tzlocal
   ];
 
-    # Test require network connection
+  # Test require network connection
   doCheck = false;
 
   pythonImportsCheck = [ "js2py" ];

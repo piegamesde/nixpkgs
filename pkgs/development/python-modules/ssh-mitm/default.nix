@@ -39,7 +39,7 @@ buildPythonPackage rec {
     sshpubkeys
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "sshmitm" ];

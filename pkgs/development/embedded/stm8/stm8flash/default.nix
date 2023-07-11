@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   enableParallelBuilding = true;
 
-    # NOTE: _FORTIFY_SOURCE requires compiling with optimization (-O)
+  # NOTE: _FORTIFY_SOURCE requires compiling with optimization (-O)
   env.NIX_CFLAGS_COMPILE = "-O";
 
   preBuild = ''

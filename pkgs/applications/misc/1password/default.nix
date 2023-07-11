@@ -45,8 +45,8 @@ let
   };
   platforms = builtins.attrNames sources;
   mainProgram = "op";
-
 in
+
 stdenv.mkDerivation {
   inherit pname version;
   src =

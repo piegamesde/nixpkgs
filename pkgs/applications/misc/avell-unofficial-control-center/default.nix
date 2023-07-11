@@ -11,12 +11,12 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "rodgomesc";
     repo = "avell-unofficial-control-center";
-      # https://github.com/rodgomesc/avell-unofficial-control-center/issues/58
+    # https://github.com/rodgomesc/avell-unofficial-control-center/issues/58
     rev = "e32e243e31223682a95a719bc58141990eef35e6";
     sha256 = "1qz1kv7p09nxffndzz9jlkzpfx26ppz66f8603zyamjq9dqdmdin";
   };
 
-    # No tests included
+  # No tests included
   doCheck = false;
 
   propagatedBuildInputs = with python3Packages; [

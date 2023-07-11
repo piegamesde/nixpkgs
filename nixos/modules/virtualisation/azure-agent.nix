@@ -14,8 +14,8 @@ let
     #!${pkgs.runtimeShell}
     /run/current-system/systemd/bin/systemctl start provisioned.target
   '';
-
 in
+
 {
 
   ###### interface
@@ -38,7 +38,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = lib.mkIf cfg.enable {
     assertions = [
@@ -279,6 +279,5 @@ in
         Type = "simple";
       };
     };
-
   };
 }

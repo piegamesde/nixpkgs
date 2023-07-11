@@ -23,8 +23,8 @@ let
     gnused
     glibcLocales
     ;
-
 in
+
 {
   pname
   # Note that ghc.isGhcjs != stdenv.hostPlatform.isGhcjs.
@@ -60,14 +60,14 @@ in
   doHoogle ? true,
   doHaddockQuickjump ? doHoogle && lib.versionAtLeast ghc.version "8.6",
   editedCabalFile ? null
-    # aarch64 outputs otherwise exceed 2GB limit
+  # aarch64 outputs otherwise exceed 2GB limit
   ,
   enableLibraryProfiling ? !(
     ghc.isGhcjs or stdenv.targetPlatform.isAarch64 or false
   ),
   enableExecutableProfiling ? false,
   profilingDetail ? "exported-functions"
-    # TODO enable shared libs for cross-compiling
+  # TODO enable shared libs for cross-compiling
   ,
   enableSharedExecutables ? false,
   enableSharedLibraries ?
@@ -84,9 +84,9 @@ in
   extraLibraries ? [ ],
   librarySystemDepends ? [ ],
   executableSystemDepends ? [ ]
-    # On macOS, statically linking against system frameworks is not supported;
-    # see https://developer.apple.com/library/content/qa/qa1118/_index.html
-    # They must be propagated to the environment of any executable linking with the library
+  # On macOS, statically linking against system frameworks is not supported;
+  # see https://developer.apple.com/library/content/qa/qa1118/_index.html
+  # They must be propagated to the environment of any executable linking with the library
   ,
   libraryFrameworkDepends ? [ ],
   executableFrameworkDepends ? [ ],
@@ -195,10 +195,10 @@ let
       "package-conf"
     ;
 
-    # GHC used for building Setup.hs
-    #
-    # Same as our GHC, unless we're cross, in which case it is native GHC with the
-    # same version, or ghcjs, in which case its the ghc used to build ghcjs.
+  # GHC used for building Setup.hs
+  #
+  # Same as our GHC, unless we're cross, in which case it is native GHC with the
+  # same version, or ghcjs, in which case its the ghc used to build ghcjs.
   nativeGhc = buildHaskellPackages.ghc;
   nativePackageDbFlag =
     if versionOlder "7.6" nativeGhc.version then
@@ -207,7 +207,7 @@ let
       "package-conf"
     ;
 
-    # the target dir for haddock documentation
+  # the target dir for haddock documentation
   docdir = docoutput: docoutput + "/share/doc/" + pname + "-" + version;
 
   binDir =
@@ -230,17 +230,17 @@ let
     main = defaultMain
   '';
 
-    # This awk expression transforms a package conf file like
-    #
-    #   author:               John Doe <john-doe@example.com>
-    #   description:
-    #       The purpose of this library is to do
-    #       foo and bar among other things
-    #
-    # into a more easily processeable form:
-    #
-    #   author: John Doe <john-doe@example.com>
-    #   description: The purpose of this library is to do foo and bar among other things
+  # This awk expression transforms a package conf file like
+  #
+  #   author:               John Doe <john-doe@example.com>
+  #   description:
+  #       The purpose of this library is to do
+  #       foo and bar among other things
+  #
+  # into a more easily processeable form:
+  #
+  #   author: John Doe <john-doe@example.com>
+  #   description: The purpose of this library is to do foo and bar among other things
   unprettyConf = builtins.toFile "unpretty-cabal-conf.awk" ''
     /^[^ ]+:/ {
       # When the line starts with a new field, terminate the previous one with a newline
@@ -408,9 +408,7 @@ let
     ;
 
   depsBuildBuild =
-    [
-      nativeGhc
-    ]
+    [ nativeGhc ]
     # CC_FOR_BUILD may be necessary if we have no C preprocessor for the host
     # platform. See crossCabalFlags above for more details.
     ++ lib.optionals (!stdenv.hasCC) [ buildPackages.stdenv.cc ]
@@ -452,7 +450,7 @@ let
       benchmarkSystemDepends ++ benchmarkFrameworkDepends
     )
     ;
-    # TODO next rebuild just define as `otherBuildInputsHaskell ++ otherBuildInputsSystem`
+  # TODO next rebuild just define as `otherBuildInputsHaskell ++ otherBuildInputsSystem`
   otherBuildInputs =
     extraLibraries
     ++ librarySystemDepends
@@ -544,7 +542,6 @@ lib.fix (
       buildInputs =
         otherBuildInputs
         ++ optionals (!isLibrary) propagatedBuildInputs
-          # For patchShebangsAuto in fixupPhase
         ++ optionals stdenv.hostPlatform.isGhcjs [ nodejs ]
         ;
       propagatedBuildInputs = optionals isLibrary propagatedBuildInputs;
@@ -591,17 +588,12 @@ lib.fix (
             concatStringsSep " " defaultConfigureFlags
           } $configureFlags"
         ''
-        # We build the Setup.hs on the *build* machine, and as such should only add
-        # dependencies for the build machine.
-        #
-        # pkgs* arrays defined in stdenv/setup.hs
         + ''
           for p in "''${pkgsBuildBuild[@]}" "''${pkgsBuildHost[@]}" "''${pkgsBuildTarget[@]}"; do
             ${buildPkgDb nativeGhc "$setupPackageConfDir"}
           done
           ${nativeGhcCommand}-pkg --${nativePackageDbFlag}="$setupPackageConfDir" recache
         ''
-        # For normal components
         + ''
           for p in "''${pkgsHostHost[@]}" "''${pkgsHostTarget[@]}"; do
             ${buildPkgDb ghc "$packageConfDir"}
@@ -612,7 +604,6 @@ lib.fix (
               configureFlags+=" --extra-lib-dirs=$p/lib"
             fi
         ''
-        # It is not clear why --extra-framework-dirs does work fine on Linux
         + optionalString
           (
             !stdenv.buildPlatform.isDarwin
@@ -626,9 +617,6 @@ lib.fix (
         + ''
           done
         ''
-        # only use the links hack if we're actually building dylibs. otherwise, the
-        # "dynamic-library-dirs" point to nonexistent paths, and the ln command becomes
-        # "ln -s $out/lib/links", which tries to recreate the links dir and fails
         + (optionalString
           (
             stdenv.isDarwin
@@ -683,22 +671,15 @@ lib.fix (
         runHook postCompileBuildDriver
       '';
 
-        # Cabal takes flags like `--configure-option=--host=...` instead
+      # Cabal takes flags like `--configure-option=--host=...` instead
       configurePlatforms = [ ];
-      inherit
-        configureFlags
-        ;
+      inherit configureFlags;
 
-        # Note: the options here must be always added, regardless of whether the
-        # package specifies `hardeningDisable`.
+      # Note: the options here must be always added, regardless of whether the
+      # package specifies `hardeningDisable`.
       hardeningDisable =
         lib.optionals (args ? hardeningDisable) hardeningDisable
         ++ lib.optional (ghc.isHaLVM or false) "all"
-          # Static libraries (ie. all of pkgsStatic.haskellPackages) fail to build
-          # because by default Nix adds `-pie` to the linker flags: this
-          # conflicts with the `-r` and `-no-pie` flags added by GHC (see
-          # https://gitlab.haskell.org/ghc/ghc/-/issues/19580). hardeningDisable
-          # changes the default Nix behavior regarding adding "hardening" flags.
         ++ lib.optional enableStaticLibraries "pie"
         ;
 
@@ -726,13 +707,11 @@ lib.fix (
         runHook postBuild
       '';
 
-      inherit
-        doCheck
-        ;
+      inherit doCheck;
 
-        # Run test suite(s) and pass `checkFlags` as well as `checkFlagsArray`.
-        # `testFlags` are added to `checkFlagsArray` each prefixed with
-        # `--test-option`, so Cabal passes it to the underlying test suite binary.
+      # Run test suite(s) and pass `checkFlags` as well as `checkFlagsArray`.
+      # `testFlags` are added to `checkFlagsArray` each prefixed with
+      # `--test-option`, so Cabal passes it to the underlying test suite binary.
       checkPhase = ''
         runHook preCheck
         checkFlagsArray+=(
@@ -766,11 +745,11 @@ lib.fix (
 
         ${if !isLibrary && buildTarget == "" then
           "${setupCommand} install"
-          # ^^ if the project is not a library, and no build target is specified, we can just use "install".
+        # ^^ if the project is not a library, and no build target is specified, we can just use "install".
         else if !isLibrary then
           "${setupCommand} copy ${buildTarget}"
-          # ^^ if the project is not a library, and we have a build target, then use "copy" to install
-          # just the target specified; "install" will error here, since not all targets have been built.
+        # ^^ if the project is not a library, and we have a build target, then use "copy" to install
+        # just the target specified; "install" will error here, since not all targets have been built.
         else
           ''
             ${setupCommand} copy ${buildTarget}
@@ -834,8 +813,8 @@ lib.fix (
 
         compiler = ghc;
 
-          # All this information is intended just for `shellFor`.  It should be
-          # considered unstable and indeed we knew how to keep it private we would.
+        # All this information is intended just for `shellFor`.  It should be
+        # considered unstable and indeed we knew how to keep it private we would.
         getCabalDeps = {
           inherit
             buildDepends
@@ -874,8 +853,8 @@ lib.fix (
             ;
         };
 
-          # Attributes for the old definition of `shellFor`. Should be removed but
-          # this predates the warning at the top of `getCabalDeps`.
+        # Attributes for the old definition of `shellFor`. Should be removed but
+        # this predates the warning at the top of `getCabalDeps`.
         getBuildInputs = rec {
           inherit propagatedBuildInputs otherBuildInputs allPkgconfigDepends;
           haskellBuildInputs = isHaskellPartition.right;
@@ -890,12 +869,12 @@ lib.fix (
 
         isHaskellLibrary = isLibrary;
 
-          # TODO: ask why the split outputs are configurable at all?
-          # TODO: include tests for split if possible
-          # Given the haskell package, returns
-          # the directory containing the haddock documentation.
-          # `null' if no haddock documentation was built.
-          # TODO: fetch the self from the fixpoint instead
+        # TODO: ask why the split outputs are configurable at all?
+        # TODO: include tests for split if possible
+        # Given the haskell package, returns
+        # the directory containing the haddock documentation.
+        # `null' if no haddock documentation was built.
+        # TODO: fetch the self from the fixpoint instead
         haddockDir =
           self:
           if doHaddock then
@@ -904,20 +883,20 @@ lib.fix (
             null
           ;
 
-          # Creates a derivation containing all of the necessary dependencies for building the
-          # parent derivation. The attribute set that it takes as input can be viewed as:
-          #
-          #    { withHoogle }
-          #
-          # The derivation that it builds contains no outpaths because it is meant for use
-          # as an environment
-          #
-          #   # Example use
-          #   # Creates a shell with all of the dependencies required to build the "hello" package,
-          #   # and with python:
-          #
-          #   > nix-shell -E 'with (import <nixpkgs> {}); \
-          #   >    haskell.packages.ghc865.hello.envFunc { buildInputs = [ python ]; }'
+        # Creates a derivation containing all of the necessary dependencies for building the
+        # parent derivation. The attribute set that it takes as input can be viewed as:
+        #
+        #    { withHoogle }
+        #
+        # The derivation that it builds contains no outpaths because it is meant for use
+        # as an environment
+        #
+        #   # Example use
+        #   # Creates a shell with all of the dependencies required to build the "hello" package,
+        #   # and with python:
+        #
+        #   > nix-shell -E 'with (import <nixpkgs> {}); \
+        #   >    haskell.packages.ghc865.hello.envFunc { buildInputs = [ python ]; }'
         envFunc =
           {
             withHoogle ? false
@@ -932,11 +911,11 @@ lib.fix (
                 ghcWithPackages
               ;
 
-              # We use the `ghcWithPackages` function from `buildHaskellPackages` if we
-              # want a shell for the sake of cross compiling a package. In the native case
-              # we don't use this at all, and instead put the setupDepends in the main
-              # `ghcWithPackages`. This way we don't have two wrapper scripts called `ghc`
-              # shadowing each other on the PATH.
+            # We use the `ghcWithPackages` function from `buildHaskellPackages` if we
+            # want a shell for the sake of cross compiling a package. In the native case
+            # we don't use this at all, and instead put the setupDepends in the main
+            # `ghcWithPackages`. This way we don't have two wrapper scripts called `ghc`
+            # shadowing each other on the PATH.
             ghcEnvForBuild =
               assert isCross;
               buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends)
@@ -969,7 +948,7 @@ lib.fix (
               "${buildPackages.glibcLocales}/lib/locale/locale-archive";
             "NIX_${ghcCommandCaps}" = "${ghcEnv}/bin/${ghcCommand}";
             "NIX_${ghcCommandCaps}PKG" = "${ghcEnv}/bin/${ghcCommand}-pkg";
-              # TODO: is this still valid?
+            # TODO: is this still valid?
             "NIX_${ghcCommandCaps}_DOCDIR" = "${ghcEnv}/share/doc/ghc/html";
             "NIX_${ghcCommandCaps}_LIBDIR" =
               if ghc.isHaLVM or false then
@@ -981,7 +960,6 @@ lib.fix (
           ;
 
         env = envFunc { };
-
       };
 
       meta = {
@@ -993,7 +971,6 @@ lib.fix (
         // optionalAttrs (args ? badPlatforms) { inherit badPlatforms; }
         // optionalAttrs (args ? changelog) { inherit changelog; }
         // optionalAttrs (args ? mainProgram) { inherit mainProgram; };
-
     } // optionalAttrs (args ? preCompileBuildDriver) {
       inherit preCompileBuildDriver;
     } // optionalAttrs (args ? postCompileBuildDriver) {

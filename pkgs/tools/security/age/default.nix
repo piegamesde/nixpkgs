@@ -18,11 +18,11 @@ buildGoModule rec {
     sha256 = "sha256-LRxxJQLQkzoCNYGS/XBixVmYXoZ1mPHKvFicPGXYLcw=";
   };
 
-    # Worked with the upstream to change the way test vectors were sourced from
-    # another repo at test run time, so we can run test without network access.
-    # https://github.com/FiloSottile/age/pull/476
-    #
-    # Changes landed after v1.1.1, so we'll patch this one until next release.
+  # Worked with the upstream to change the way test vectors were sourced from
+  # another repo at test run time, so we can run test without network access.
+  # https://github.com/FiloSottile/age/pull/476
+  #
+  # Changes landed after v1.1.1, so we'll patch this one until next release.
   patches = [
     # Revert "all: temporarily disable testscript tests"
     (fetchpatch {

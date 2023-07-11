@@ -18,7 +18,6 @@ let
     sha256 = manifestsSha256;
     stripRoot = false;
   };
-
 in
 buildGoModule rec {
   pname = "fluxcd";
@@ -48,8 +47,8 @@ buildGoModule rec {
 
   subPackages = [ "cmd/flux" ];
 
-    # Required to workaround test error:
-    #   panic: mkdir /homeless-shelter: permission denied
+  # Required to workaround test error:
+  #   panic: mkdir /homeless-shelter: permission denied
   HOME = "$TMPDIR";
 
   nativeBuildInputs = [ installShellFiles ];

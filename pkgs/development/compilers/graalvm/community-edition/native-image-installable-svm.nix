@@ -25,7 +25,7 @@ let
     ++ lib.optionals useMusl [ musl ]
     ++ extraCLibs
     ;
-    # GraalVM 21.3.0+ expects musl-gcc as <system>-musl-gcc
+  # GraalVM 21.3.0+ expects musl-gcc as <system>-musl-gcc
   musl-gcc =
     (writeShellScriptBin "${stdenv.hostPlatform.system}-musl-gcc" ''
       ${lib.getDev musl}/bin/musl-gcc "$@"'');
@@ -50,8 +50,11 @@ graalvmCEPackages.buildGraalvmProduct rec {
     $out/bin/native-image -H:-CheckToolchain -H:+ReportExceptionStackTraces HelloWorld
     ./helloworld | fgrep 'Hello World'
 
-    ${ # --static is only available in Linux
-    lib.optionalString (stdenv.isLinux && !useMusl) ''
+    ${
+    # --static is only available in Linux
+    lib.optionalString
+    (stdenv.isLinux && !useMusl)
+    ''
       echo "Ahead-Of-Time compilation with -H:+StaticExecutableWithDynamicLibC"
       $out/bin/native-image -H:+StaticExecutableWithDynamicLibC HelloWorld
       ./helloworld | fgrep 'Hello World'
@@ -61,8 +64,11 @@ graalvmCEPackages.buildGraalvmProduct rec {
       ./helloworld | fgrep 'Hello World'
     ''}
 
-    ${ # --static is only available in Linux
-    lib.optionalString (stdenv.isLinux && useMusl) ''
+    ${
+    # --static is only available in Linux
+    lib.optionalString
+    (stdenv.isLinux && useMusl)
+    ''
       echo "Ahead-Of-Time compilation with --static and --libc=musl"
       $out/bin/native-image --static HelloWorld --libc=musl
       ./helloworld | fgrep 'Hello World'

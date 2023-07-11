@@ -29,8 +29,8 @@ let
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${baseName} "$out"
   '';
-
 in
+
 stdenv.mkDerivation {
   pname = baseName + lib.optionalString (haveLibc) "-libc";
   inherit version;
@@ -117,11 +117,11 @@ stdenv.mkDerivation {
     ../../common/compiler-rt/armv7l-15.patch
   ];
 
-    # TSAN requires XPC on Darwin, which we have no public/free source files for. We can depend on the Apple frameworks
-    # to get it, but they're unfree. Since LLVM is rather central to the stdenv, we patch out TSAN support so that Hydra
-    # can build this. If we didn't do it, basically the entire nixpkgs on Darwin would have an unfree dependency and we'd
-    # get no binary cache for the entire platform. If you really find yourself wanting the TSAN, make this controllable by
-    # a flag and turn the flag off during the stdenv build.
+  # TSAN requires XPC on Darwin, which we have no public/free source files for. We can depend on the Apple frameworks
+  # to get it, but they're unfree. Since LLVM is rather central to the stdenv, we patch out TSAN support so that Hydra
+  # can build this. If we didn't do it, basically the entire nixpkgs on Darwin would have an unfree dependency and we'd
+  # get no binary cache for the entire platform. If you really find yourself wanting the TSAN, make this controllable by
+  # a flag and turn the flag off during the stdenv build.
   postPatch =
     lib.optionalString (!stdenv.isDarwin) ''
       substituteInPlace cmake/builtin-config-ix.cmake \
@@ -143,7 +143,7 @@ stdenv.mkDerivation {
     ''
     ;
 
-    # Hack around weird upsream RPATH bug
+  # Hack around weird upsream RPATH bug
   postInstall =
     lib.optionalString
       (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
@@ -172,8 +172,8 @@ stdenv.mkDerivation {
       implementations of run-time libraries for dynamic testing tools such as
       AddressSanitizer, ThreadSanitizer, MemorySanitizer, and DataFlowSanitizer.
     '';
-      # "All of the code in the compiler-rt project is dual licensed under the MIT
-      # license and the UIUC License (a BSD-like license)":
+    # "All of the code in the compiler-rt project is dual licensed under the MIT
+    # license and the UIUC License (a BSD-like license)":
     license = with lib.licenses; [
       mit
       ncsa

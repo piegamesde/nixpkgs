@@ -20,7 +20,6 @@ let
       builtins.concatStringsSep " " cfg.extraArgs
     } --host ${riemannHost}
   '';
-
 in
 {
 
@@ -75,7 +74,5 @@ in
         ExecStart = "${healthLauncher}/bin/riemann-health";
       };
     };
-
   };
-
 }

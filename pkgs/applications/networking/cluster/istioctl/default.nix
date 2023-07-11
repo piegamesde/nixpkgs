@@ -19,7 +19,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # Bundle release metadata
+  # Bundle release metadata
   ldflags =
     let
       attrs = [

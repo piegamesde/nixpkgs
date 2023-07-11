@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       make the game quite unique.
     '';
     homepage = "http://red.planetarena.org";
-      # Engine is under GPLv2, everything else is under
+    # Engine is under GPLv2, everything else is under
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ astsmtl ];
     platforms = platforms.linux;

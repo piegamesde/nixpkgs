@@ -1,6 +1,8 @@
 # This test runs rabbitmq and checks if rabbitmq is up and running.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -26,10 +28,10 @@ import ./make-test-python.nix (
         enable = true;
         managementPlugin.enable = true;
 
-          # To encrypt:
-          # rabbitmqctl --quiet encode --cipher blowfish_cfb64 --hash sha256 \
-          #   --iterations 10000 '<<"dJT8isYu6t0Xb6u56rPglSj1vK51SlNVlXfwsRxw">>' \
-          #   "hOjWzSEn2Z7cHzKOcf6i183O2NdjurSuoMDIIv01" ;
+        # To encrypt:
+        # rabbitmqctl --quiet encode --cipher blowfish_cfb64 --hash sha256 \
+        #   --iterations 10000 '<<"dJT8isYu6t0Xb6u56rPglSj1vK51SlNVlXfwsRxw">>' \
+        #   "hOjWzSEn2Z7cHzKOcf6i183O2NdjurSuoMDIIv01" ;
         config = ''
           [ { rabbit
             , [ {default_user, <<"alice">>}
@@ -49,7 +51,7 @@ import ./make-test-python.nix (
           ].
         '';
       };
-        # Ensure there is sufficient extra disk space for rabbitmq to be happy
+      # Ensure there is sufficient extra disk space for rabbitmq to be happy
       virtualisation.diskSize = 1024;
     };
 

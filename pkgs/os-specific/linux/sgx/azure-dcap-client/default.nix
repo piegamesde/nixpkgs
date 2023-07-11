@@ -82,8 +82,8 @@ stdenv.mkDerivation rec {
     "prefix=$(out)"
   ];
 
-    # Online test suite; run with
-    # $(nix-build -A sgx-azure-dcap-client.tests.suite)/bin/tests
+  # Online test suite; run with
+  # $(nix-build -A sgx-azure-dcap-client.tests.suite)/bin/tests
   passthru.tests.suite = callPackage ./test-suite.nix { };
 
   meta = with lib; {

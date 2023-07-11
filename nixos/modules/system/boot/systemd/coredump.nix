@@ -49,14 +49,15 @@ in
           ${cfg.extraConfig}
         '';
 
-          # install provided sysctl snippets
+        # install provided sysctl snippets
         "sysctl.d/50-coredump.conf".source =
           # Fix systemd-coredump error caused by truncation of `kernel.core_pattern`
           # when the `systemd` derivation name is too long. This works by substituting
           # the path to `systemd` with a symlink that has a constant-length path.
           #
           # See: https://github.com/NixOS/nixpkgs/issues/213408
-          pkgs.substitute {
+          pkgs.substitute
+          {
             src = "${systemd}/example/sysctl.d/50-coredump.conf";
             replacements = [
               "--replace"
@@ -82,7 +83,5 @@ in
     (mkIf (!cfg.enable) {
       boot.kernel.sysctl."kernel.core_pattern" = mkDefault "core";
     })
-
   ];
-
 }

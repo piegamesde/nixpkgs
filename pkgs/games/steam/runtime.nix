@@ -13,7 +13,7 @@
 stdenv.mkDerivation rec {
 
   pname = "steam-runtime";
-    # from https://repo.steampowered.com/steamrt-images-scout/snapshots/latest-steam-client-general-availability/VERSION.txt
+  # from https://repo.steampowered.com/steamrt-images-scout/snapshots/latest-steam-client-general-availability/VERSION.txt
   version = "0.20220601.1";
 
   src = fetchurl {

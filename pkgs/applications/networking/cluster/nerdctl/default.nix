@@ -39,7 +39,7 @@ buildGoModule rec {
     ]
     ;
 
-    # Many checks require a containerd socket and running nerdctl after it's built
+  # Many checks require a containerd socket and running nerdctl after it's built
   doCheck = false;
 
   postInstall = ''

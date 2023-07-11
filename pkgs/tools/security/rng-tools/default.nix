@@ -10,8 +10,8 @@
   openssl,
   jitterentropy,
   withJitterEntropy ? true
-    # WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC KEYS
-    # https://www.nist.gov/programs-projects/nist-randomness-beacon
+  # WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC KEYS
+  # https://www.nist.gov/programs-projects/nist-randomness-beacon
   ,
   curl,
   jansson,

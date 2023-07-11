@@ -13,7 +13,6 @@ let
   dbConfig = pkgs.writeText "DB_CONFIG" ''
     ${cfg.extraDbConfig}
   '';
-
 in
 {
   meta.maintainers = with maintainers; [
@@ -44,9 +43,9 @@ in
         type = types.path;
         default = "/var/db/sks";
         example = "/var/lib/sks";
-          # TODO: The default might change to "/var/lib/sks" as this is more
-          # common. There's also https://github.com/NixOS/nixpkgs/issues/26256
-          # and "/var/db" is not FHS compliant (seems to come from BSD).
+        # TODO: The default might change to "/var/lib/sks" as this is more
+        # common. There's also https://github.com/NixOS/nixpkgs/issues/26256
+        # and "/var/db" is not FHS compliant (seems to come from BSD).
         description = lib.mdDoc ''
           Data directory (-basedir) for SKS, where the database and all
           configuration files are located (e.g. KDB, PTree, membership and

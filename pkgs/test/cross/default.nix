@@ -87,9 +87,9 @@ let
 
         emulator = crossPkgs.hostPlatform.emulator pkgs;
 
-          # Apply some transformation on windows to get dlls in the right
-          # place. Unfortunately mingw doesn’t seem to be able to do linking
-          # properly.
+        # Apply some transformation on windows to get dlls in the right
+        # place. Unfortunately mingw doesn’t seem to be able to do linking
+        # properly.
         platformFun =
           pkg:
           if crossPkgs.hostPlatform.isWindows then
@@ -164,7 +164,6 @@ let
       ''
       ;
   };
-
 in
 {
   gcc =

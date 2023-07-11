@@ -36,5 +36,4 @@ rustPlatform.buildRustPackage rec {
       lewo
     ];
   };
-
 }

@@ -37,10 +37,9 @@ let
     '';
 
     meta.license = lib.licenses.unfree;
-
   };
-
 in
+
 gccStdenv.mkDerivation rec {
   inherit pname version;
 
@@ -78,7 +77,7 @@ gccStdenv.mkDerivation rec {
     cp ${music}/COPYING-Music.txt $out/share/doc/7kaa
   '';
 
-    # Multiplayer is auto-disabled for non-x86 system
+  # Multiplayer is auto-disabled for non-x86 system
 
   meta = with lib; {
     homepage = "https://www.7kfans.com";

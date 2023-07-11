@@ -10,8 +10,8 @@
 
 let
   cfg = import ./version.nix;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "alfred";
   inherit (cfg) version;

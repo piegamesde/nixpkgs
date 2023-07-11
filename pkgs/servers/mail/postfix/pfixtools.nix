@@ -31,8 +31,8 @@ let
     rev = "b07e6bdea3d24748e0d39783d7d817096d10cc67";
     sha256 = "14fxldp29j4vmfmhfgwwi37pj8cz0flm1aykkxlbgakz92d4pm35";
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "pfixtools";
   inherit version;

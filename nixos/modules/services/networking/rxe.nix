@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.networking.rxe;
-
 in
 {
   ###### interface
@@ -30,7 +29,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -61,4 +60,3 @@ in
     };
   };
 }
-

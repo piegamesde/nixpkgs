@@ -10,8 +10,8 @@
 
 let
   inherit (lib) getDev;
-
 in
+
 mkDerivation rec {
   pname = "qt5ct";
   version = "1.5";

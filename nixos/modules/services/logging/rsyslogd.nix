@@ -31,8 +31,8 @@ let
 
     *.*;mail.none;local1.none    -/var/log/messages
   '';
-
 in
+
 {
   ###### interface
 
@@ -77,12 +77,10 @@ in
           Additional parameters passed to {command}`rsyslogd`.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -101,11 +99,9 @@ in
             toString cfg.extraParams
           } -f ${syslogConf} -n";
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/spool/rsyslog";
-          # Prevent syslogd output looping back through journald.
+        # Prevent syslogd output looping back through journald.
         StandardOutput = "null";
       };
     };
-
   };
-
 }

@@ -79,13 +79,13 @@
   mklSupport ? false,
   mkl,
   tensorboardSupport ? true
-    # XLA without CUDA is broken
+  # XLA without CUDA is broken
   ,
   xlaSupport ? cudaSupport,
   sse42Support ? stdenv.hostPlatform.sse4_2Support,
   avx2Support ? stdenv.hostPlatform.avx2Support,
   fmaSupport ? stdenv.hostPlatform.fmaSupport
-    # Darwin deps
+  # Darwin deps
   ,
   Foundation,
   Security,
@@ -119,19 +119,17 @@ let
       originalStdenv
     ;
   inherit (cudaPackages) cudatoolkit cudnn nccl;
-
 in
+
 assert cudaSupport -> cudatoolkit != null && cudnn != null;
 
 # unsupported combination
 assert !(stdenv.isDarwin && cudaSupport);
 
 let
-  withTensorboard =
-    (pythonOlder "3.6") || tensorboardSupport
-    ;
+  withTensorboard = (pythonOlder "3.6") || tensorboardSupport;
 
-    # FIXME: migrate to redist cudaPackages
+  # FIXME: migrate to redist cudaPackages
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-merged";
     paths =
@@ -147,9 +145,9 @@ let
       ;
   };
 
-    # Tensorflow expects bintools at hard-coded paths, e.g. /usr/bin/ar
-    # The only way to overcome that is to set GCC_HOST_COMPILER_PREFIX,
-    # but that path must contain cc as well, so we merge them
+  # Tensorflow expects bintools at hard-coded paths, e.g. /usr/bin/ar
+  # The only way to overcome that is to set GCC_HOST_COMPILER_PREFIX,
+  # but that path must contain cc as well, so we merge them
   cudatoolkit_cc_joined = symlinkJoin {
     name = "${stdenv.cc.name}-merged";
     paths = [
@@ -158,7 +156,7 @@ let
     ];
   };
 
-    # Needed for _some_ system libraries, grep INCLUDEDIR.
+  # Needed for _some_ system libraries, grep INCLUDEDIR.
   includes_joined = symlinkJoin {
     name = "tensorflow-deps-merged";
     paths = [ jsoncpp ];
@@ -298,8 +296,8 @@ let
       hash = "sha256-q59cUW6613byHk4LGl+sefO5czLSWxOrSyLbJ1pkNEY=";
     };
 
-      # On update, it can be useful to steal the changes from gentoo
-      # https://gitweb.gentoo.org/repo/gentoo.git/tree/sci-libs/tensorflow
+    # On update, it can be useful to steal the changes from gentoo
+    # https://gitweb.gentoo.org/repo/gentoo.git/tree/sci-libs/tensorflow
 
     nativeBuildInputs =
       [
@@ -348,14 +346,14 @@ let
       ++ lib.optionals (!stdenv.isDarwin) [ nsync ]
       ;
 
-      # arbitrarily set to the current latest bazel version, overly careful
+    # arbitrarily set to the current latest bazel version, overly careful
     TF_IGNORE_MAX_BAZEL_VERSION = true;
 
     LIBTOOL = lib.optionalString stdenv.isDarwin "${cctools}/bin/libtool";
 
-      # Take as many libraries from the system as possible. Keep in sync with
-      # list of valid syslibs in
-      # https://github.com/tensorflow/tensorflow/blob/master/third_party/systemlibs/syslibs_configure.bzl
+    # Take as many libraries from the system as possible. Keep in sync with
+    # list of valid syslibs in
+    # https://github.com/tensorflow/tensorflow/blob/master/third_party/systemlibs/syslibs_configure.bzl
     TF_SYSTEM_LIBS = lib.concatStringsSep "," (
       [
         "absl_py"
@@ -403,9 +401,9 @@ let
 
     INCLUDEDIR = "${includes_joined}/include";
 
-      # This is needed for the Nix-provided protobuf dependency to work,
-      # as otherwise the rule `link_proto_files` tries to create the links
-      # to `/usr/include/...` which results in build failures.
+    # This is needed for the Nix-provided protobuf dependency to work,
+    # as otherwise the rule `link_proto_files` tries to create the links
+    # to `/usr/include/...` which results in build failures.
     PROTOBUF_INCLUDE_PATH = "${protobuf-core}/include";
 
     PYTHON_BIN_PATH = pythonEnv.interpreter;
@@ -416,7 +414,7 @@ let
 
     CC_OPT_FLAGS = " ";
 
-      # https://github.com/tensorflow/tensorflow/issues/14454
+    # https://github.com/tensorflow/tensorflow/issues/14454
     TF_NEED_MPI = tfFeature cudaSupport;
 
     TF_NEED_CUDA = tfFeature cudaSupport;
@@ -424,7 +422,7 @@ let
       lib.optionalString cudaSupport "${cudatoolkit_joined},${cudnn},${nccl}";
     TF_CUDA_COMPUTE_CAPABILITIES = lib.concatStringsSep "," cudaCapabilities;
 
-      # Needed even when we override stdenv: e.g. for ar
+    # Needed even when we override stdenv: e.g. for ar
     GCC_HOST_COMPILER_PREFIX =
       lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
     GCC_HOST_COMPILER_PATH =
@@ -449,7 +447,7 @@ let
       ''
       ;
 
-      # https://github.com/tensorflow/tensorflow/pull/39470
+    # https://github.com/tensorflow/tensorflow/pull/39470
     env.NIX_CFLAGS_COMPILE = toString [ "-Wno-stringop-truncation" ];
 
     preConfigure =
@@ -508,7 +506,7 @@ let
       ];
 
     removeRulesCC = false;
-      # Without this Bazel complaints about sandbox violations.
+    # Without this Bazel complaints about sandbox violations.
     dontAddBazelOpts = true;
 
     fetchAttrs = {
@@ -584,7 +582,6 @@ let
         maxSilent = 14400; # 4h, double the default of 7200s
       };
   };
-
 in
 buildPythonPackage {
   inherit version pname;
@@ -592,11 +589,11 @@ buildPythonPackage {
 
   src = bazel-build.python;
 
-    # Adjust dependency requirements:
-    # - Drop tensorflow-io dependency until we get it to build
-    # - Relax flatbuffers and gast version requirements
-    # - The purpose of python3Packages.libclang is not clear at the moment and we don't have it packaged yet
-    # - keras and tensorlow-io-gcs-filesystem will be considered as optional for now.
+  # Adjust dependency requirements:
+  # - Drop tensorflow-io dependency until we get it to build
+  # - Relax flatbuffers and gast version requirements
+  # - The purpose of python3Packages.libclang is not clear at the moment and we don't have it packaged yet
+  # - keras and tensorlow-io-gcs-filesystem will be considered as optional for now.
   postPatch = ''
     sed -i setup.py \
       -e '/tensorflow-io-gcs-filesystem/,+1d' \
@@ -608,17 +605,17 @@ buildPythonPackage {
       -e "s/'protobuf[^']*',/'protobuf',/" \
   '';
 
-    # Upstream has a pip hack that results in bin/tensorboard being in both tensorflow
-    # and the propagated input tensorboard, which causes environment collisions.
-    # Another possibility would be to have tensorboard only in the buildInputs
-    # https://github.com/tensorflow/tensorflow/blob/v1.7.1/tensorflow/tools/pip_package/setup.py#L79
+  # Upstream has a pip hack that results in bin/tensorboard being in both tensorflow
+  # and the propagated input tensorboard, which causes environment collisions.
+  # Another possibility would be to have tensorboard only in the buildInputs
+  # https://github.com/tensorflow/tensorflow/blob/v1.7.1/tensorflow/tools/pip_package/setup.py#L79
   postInstall = ''
     rm $out/bin/tensorboard
   '';
 
   setupPyGlobalFlags = [ "--project_name ${pname}" ];
 
-    # tensorflow/tools/pip_package/setup.py
+  # tensorflow/tools/pip_package/setup.py
   propagatedBuildInputs =
     [
       absl-py
@@ -652,10 +649,10 @@ buildPythonPackage {
     done
   '';
 
-    # Actual tests are slow and impure.
-    # TODO try to run them anyway
-    # TODO better test (files in tensorflow/tools/ci_build/builds/*test)
-    # TEST_PACKAGES in tensorflow/tools/pip_package/setup.py
+  # Actual tests are slow and impure.
+  # TODO try to run them anyway
+  # TODO better test (files in tensorflow/tools/ci_build/builds/*test)
+  # TEST_PACKAGES in tensorflow/tools/pip_package/setup.py
   nativeCheckInputs = [
     dill
     keras
@@ -683,7 +680,7 @@ buildPythonPackage {
     model.fit(x, y, epochs=1)
     EOF
   '';
-    # Regression test for #77626 removed because not more `tensorflow.contrib`.
+  # Regression test for #77626 removed because not more `tensorflow.contrib`.
 
   passthru = {
     inherit cudaPackages;

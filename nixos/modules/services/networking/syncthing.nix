@@ -194,7 +194,6 @@ in
                     See <https://docs.syncthing.net/users/config.html?highlight=autoaccept#config-file-format>.
                   '';
                 };
-
               };
             }
           )
@@ -626,7 +625,7 @@ in
       ]
     ;
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

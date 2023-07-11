@@ -9,8 +9,8 @@
 
 let
   targetClang = pkgsBuildTarget.targetPackages.clangStdenv.cc;
-
 in
+
 buildPythonApplication {
   pname = "minijail-tools";
   inherit (minijail) version src;

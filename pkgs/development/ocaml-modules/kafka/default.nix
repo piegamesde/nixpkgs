@@ -30,4 +30,3 @@ buildDunePackage rec {
     maintainers = [ maintainers.vbgl ];
   };
 }
-

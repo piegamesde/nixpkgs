@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   pname = "oniguruma";
   version = "6.9.8";
 
-    # Note: do not use fetchpatch or fetchFromGitHub to keep this package available in __bootPackages
+  # Note: do not use fetchpatch or fetchFromGitHub to keep this package available in __bootPackages
   src = fetchurl {
     url =
       "https://github.com/kkos/oniguruma/releases/download/v${version}/onig-${version}.tar.gz";

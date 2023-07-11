@@ -53,7 +53,7 @@ rustPlatform.buildRustPackage rec {
     scripts/regenerate_test_rustdocs.sh
   '';
 
-    # use system openssl
+  # use system openssl
   OPENSSL_NO_VENDOR = true;
 
   meta = with lib; {

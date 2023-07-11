@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
     sha256 = "0yhvfc5icam3i4mphlz0m9d9d2irjw8mbsxq203x59wjgh6nrpx0";
   };
 
-    # Not adding 'hostname' command, the build shouldn't depend on what the build
-    # host is called.
+  # Not adding 'hostname' command, the build shouldn't depend on what the build
+  # host is called.
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
     which
@@ -33,10 +33,10 @@ stdenv.mkDerivation rec {
     libsoup
   ];
 
-    # Fixes '#error You must compile this program without "-O"'
+  # Fixes '#error You must compile this program without "-O"'
   hardeningDisable = [ "all" ];
 
-    # Ignore undefined references to a bunch of libsoup symbols
+  # Ignore undefined references to a bunch of libsoup symbols
   NIX_LDFLAGS = "--unresolved-symbol=ignore-all";
 
   preConfigure = ''
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     substituteInPlace ./arch/linux/common/os.h --replace /lib/libc.so.6 ${stdenv.cc.libc}/lib/libc.so
   '';
 
-    # Makefile supports DESTDIR but not PREFIX (it hardcodes $DESTDIR/usr/).
+  # Makefile supports DESTDIR but not PREFIX (it hardcodes $DESTDIR/usr/).
   installFlags = [ "DESTDIR=$(out)" ];
   postInstall = ''
     mv "$out/usr/"* "$out"

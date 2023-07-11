@@ -16,7 +16,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "expat";
   version = "2.5.0";
 
@@ -48,8 +49,8 @@ stdenv.mkDerivation rec {
     patchShebangs ./configure ./run.sh ./test-driver-wrapper.sh
   '';
 
-    # CMake files incorrectly calculate library path from dev prefix
-    # https://github.com/libexpat/libexpat/issues/501
+  # CMake files incorrectly calculate library path from dev prefix
+  # https://github.com/libexpat/libexpat/issues/501
   postFixup = ''
     substituteInPlace $dev/lib/cmake/expat-${version}/expat-noconfig.cmake \
       --replace "$"'{_IMPORT_PREFIX}' $out

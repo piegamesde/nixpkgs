@@ -8,10 +8,10 @@
 ## User input
 {
   vscode ? vscodeDefault
-    # extensions to be symlinked into the project's extensions folder
+  # extensions to be symlinked into the project's extensions folder
   ,
   nixExtensions ? [ ]
-    # extensions to be copied into the project's extensions folder
+  # extensions to be copied into the project's extensions folder
   ,
   mutableExtensions ? [ ],
   vscodeExtsFolderName ? ".vscode-exts",
@@ -34,7 +34,7 @@ let
     }
   );
 
-    #removed not defined extensions
+  #removed not defined extensions
   rmExtensions =
     lib.optionalString (nixExtensions ++ mutableExtensions != [ ]) ''
       find ${vscodeExtsFolderName} -mindepth 1 -maxdepth 1 ${
@@ -46,7 +46,7 @@ let
           mutableExtensions
       } -exec rm -rf {} \;
     '';
-    #copy mutable extension out of the nix store
+  #copy mutable extension out of the nix store
   cpExtensions = ''
     ${lib.concatMapStringsSep "\n"
     (e: "ln -sfn ${e}/share/vscode/extensions/* ${vscodeExtsFolderName}/")

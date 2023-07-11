@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
 
     dontPatchELF = true;
     dontStrip = true;
-      # avoid /nix/store references in the source
+    # avoid /nix/store references in the source
     dontPatchShebangs = true;
 
     outputHashAlgo = "sha256";

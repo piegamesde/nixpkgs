@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.weechat;
-
 in
+
 {
   options.services.weechat = {
     enable = mkEnableOption (lib.mdDoc "weechat");

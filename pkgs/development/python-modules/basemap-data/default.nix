@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/packages/basemap_data";
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "mpl_toolkits.basemap_data" ];

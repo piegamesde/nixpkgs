@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "1f3snysjqqlpk2kgvm5p2icrj4lsdymccmn3igkc2f60smqckgq0";
   };
 
-    # Note: diff modified from Debian: Norbert Veber <nveber@debian.org>
-    # http://deb.debian.org/debian/pool/main/r/rig/rig_1.11-1.diff.gz
+  # Note: diff modified from Debian: Norbert Veber <nveber@debian.org>
+  # http://deb.debian.org/debian/pool/main/r/rig/rig_1.11-1.diff.gz
   patches = [ ./rig_1.11-1.diff ];
 
   makeFlags = [ "CXX=${stdenv.cc.targetPrefix}c++" ];

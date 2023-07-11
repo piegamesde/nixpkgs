@@ -15,13 +15,12 @@ let
     versionSuffix = "test";
     label = "test";
   };
-
 in
 lib.recurseIntoAttrs {
   hasPkgConfigModule = pkgs.callPackage ../hasPkgConfigModule/tests.nix { };
 
-    # Check that the wiring of nixosTest is correct.
-    # Correct operation of the NixOS test driver should be asserted elsewhere.
+  # Check that the wiring of nixosTest is correct.
+  # Correct operation of the NixOS test driver should be asserted elsewhere.
   nixosTest-example = pkgs-with-overlay.testers.nixosTest (
     {
       lib,
@@ -81,8 +80,8 @@ lib.recurseIntoAttrs {
       {
         failed = testers.testBuildFailure (testers.testBuildFailure hello);
 
-          # Add hello itself as a prerequisite, so we don't try to run this test if
-          # there's an actual failure in hello.
+        # Add hello itself as a prerequisite, so we don't try to run this test if
+        # there's an actual failure in hello.
         inherit hello;
       }
       ''

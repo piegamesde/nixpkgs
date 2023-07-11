@@ -21,8 +21,8 @@ buildPythonPackage rec {
     llvmPackages.libcxxStdenv
   ];
 
-    # running the suite is hard, needs to generate xml_generator.cfg
-    # but the format doesn't accept -isystem directives
+  # running the suite is hard, needs to generate xml_generator.cfg
+  # but the format doesn't accept -isystem directives
   doCheck = false;
 
   meta = with lib; {

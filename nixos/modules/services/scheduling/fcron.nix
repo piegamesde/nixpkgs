@@ -18,7 +18,7 @@ let
       "-q ${toString cfg.queuelen}"
     ;
 
-    # Duplicate code, also found in cron.nix. Needs deduplication.
+  # Duplicate code, also found in cron.nix. Needs deduplication.
   systemCronJobs = ''
     SHELL=${pkgs.bash}/bin/bash
     PATH=${config.system.path}/bin:${config.system.path}/sbin
@@ -39,8 +39,8 @@ let
       gid = config.ids.gids.fcron;
     }
     ;
-
 in
+
 {
 
   ###### interface
@@ -91,10 +91,9 @@ in
         description = lib.mdDoc ''The "system" crontab contents.'';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

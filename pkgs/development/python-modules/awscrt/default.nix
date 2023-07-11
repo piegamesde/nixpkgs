@@ -28,11 +28,11 @@ buildPythonPackage rec {
     Security
   ];
 
-    # Required to suppress -Werror
-    # https://github.com/NixOS/nixpkgs/issues/39687
+  # Required to suppress -Werror
+  # https://github.com/NixOS/nixpkgs/issues/39687
   hardeningDisable = lib.optionals stdenv.cc.isClang [ "strictoverflow" ];
 
-    # gcc <10 is not supported, LLVM on darwin is just fine
+  # gcc <10 is not supported, LLVM on darwin is just fine
   nativeBuildInputs =
     [ cmake ]
     ++ lib.optionals (!stdenv.isDarwin && stdenv.isAarch64) [
@@ -45,8 +45,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "awscrt" ];
 
-    # Unable to import test module
-    # https://github.com/awslabs/aws-crt-python/issues/281
+  # Unable to import test module
+  # https://github.com/awslabs/aws-crt-python/issues/281
   doCheck = false;
 
   meta = with lib; {

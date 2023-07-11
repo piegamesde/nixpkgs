@@ -124,10 +124,10 @@
     archName = "Ampere";
     computeCapability = "8.7";
     minCudaVersion = "11.5";
-      # NOTE: This is purposefully before 11.5 to ensure it is never a capability we target by
-      #   default. 8.7 is the Jetson Orin series of devices which are a very specific platform.
-      #   We keep this entry here in case we ever want to target it explicitly, but we don't
-      #   want to target it by default.
+    # NOTE: This is purposefully before 11.5 to ensure it is never a capability we target by
+    #   default. 8.7 is the Jetson Orin series of devices which are a very specific platform.
+    #   We keep this entry here in case we ever want to target it explicitly, but we don't
+    #   want to target it by default.
     dontDefaultAfter = "11.4";
     maxCudaVersion = null;
   }

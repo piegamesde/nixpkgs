@@ -30,7 +30,7 @@ python3Packages.buildPythonApplication rec {
     optipng
   ];
 
-    # tests require internet connection
+  # tests require internet connection
   doCheck = false;
 
   pythonImportsCheck = [ "sacad" ];

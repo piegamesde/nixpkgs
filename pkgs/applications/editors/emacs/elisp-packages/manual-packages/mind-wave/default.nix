@@ -46,7 +46,8 @@
 #     };
 #   })
 # ];
-melpaBuild rec {
+melpaBuild
+rec {
   pname = "mind-wave";
   version = "20230322.1348"; # 13:48 UTC
   src = pkgs.fetchFromGitHub {
@@ -56,7 +57,7 @@ melpaBuild rec {
     sha256 = "sha256-6tmcPYAEch5bX5hEHMiQGDNYEMUOvnxF1Vq0VVpBsYo=";
   };
   commit = "2d94f553a394ce73bcb91490b81e0fc042baa8d3";
-    # elisp dependencies
+  # elisp dependencies
   packageRequires = [ pkgs.emacsPackages.markdown-mode ];
   buildInputs = [
       (pkgs.python3.withPackages (

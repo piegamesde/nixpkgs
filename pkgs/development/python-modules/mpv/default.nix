@@ -28,7 +28,7 @@ buildPythonPackage rec {
                 'sofile = "${mpv}/lib/libmpv${stdenv.targetPlatform.extensions.sharedLibrary}"'
   '';
 
-    # tests impure, will error if it can't load libmpv.so
+  # tests impure, will error if it can't load libmpv.so
   doCheck = false;
   pythonImportsCheck = [ "mpv" ];
 

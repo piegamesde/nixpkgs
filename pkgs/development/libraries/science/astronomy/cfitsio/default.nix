@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-    # Shared-only build
+  # Shared-only build
   buildFlags = [ "shared" ];
   postPatch = ''
     sed -e '/^install:/s/libcfitsio.a //' -e 's@/bin/@@g' -i Makefile.in

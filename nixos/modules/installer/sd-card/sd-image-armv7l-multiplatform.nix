@@ -18,12 +18,12 @@
 
   boot.consoleLogLevel = lib.mkDefault 7;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-    # The serial ports listed here are:
-    # - ttyS0: for Tegra (Jetson TK1)
-    # - ttymxc0: for i.MX6 (Wandboard)
-    # - ttyAMA0: for Allwinner (pcDuino3 Nano) and QEMU's -machine virt
-    # - ttyO0: for OMAP (BeagleBone Black)
-    # - ttySAC2: for Exynos (ODROID-XU3)
+  # The serial ports listed here are:
+  # - ttyS0: for Tegra (Jetson TK1)
+  # - ttymxc0: for i.MX6 (Wandboard)
+  # - ttyAMA0: for Allwinner (pcDuino3 Nano) and QEMU's -machine virt
+  # - ttyO0: for OMAP (BeagleBone Black)
+  # - ttySAC2: for Exynos (ODROID-XU3)
   boot.kernelParams = [
     "console=ttyS0,115200n8"
     "console=ttymxc0,115200n8"

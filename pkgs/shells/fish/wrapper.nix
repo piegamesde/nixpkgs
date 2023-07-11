@@ -51,7 +51,6 @@ lib.makeOverridable (
         shellAliasesFishConfig
       ])
       ;
-
   in
   writeShellApplication {
     inherit runtimeInputs;

@@ -16,10 +16,8 @@ stdenv.mkDerivation rec {
     let
       env = bundlerEnv {
         name = "watson-ruby-gems-${version}";
-        inherit
-          ruby
-          ;
-          # expects Gemfile, Gemfile.lock and gemset.nix in the same directory
+        inherit ruby;
+        # expects Gemfile, Gemfile.lock and gemset.nix in the same directory
         gemdir = ./.;
       };
     in

@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pytest ];
 
-    # tests cause circular pytest-raisin already registered with pytest error
+  # tests cause circular pytest-raisin already registered with pytest error
   doCheck = false;
 
   meta = with lib; {

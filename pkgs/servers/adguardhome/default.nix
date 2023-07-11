@@ -9,8 +9,8 @@
 let
   inherit (stdenv.hostPlatform) system;
   sources = import ./bins.nix { inherit fetchurl fetchzip; };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "adguardhome";
   version = "0.107.29";

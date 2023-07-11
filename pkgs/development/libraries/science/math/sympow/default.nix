@@ -53,19 +53,19 @@ stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
-    # Usually, sympow has 3 levels of caching: statically distributed in /usr/,
-    # shared in /var and per-user in ~/.sympow. The shared cache assumes trust in
-    # other users and a shared /var is not compatible with nix's approach, so we
-    # set VARPREFIX to the read-only $out. This effectively disables shared
-    # caching. See https://trac.sagemath.org/ticket/3360#comment:36 and sympow's
-    # README for more details on caching.
-    # sympow will complain at runtime about the lack of write-permissions on the
-    # shared cache. We pass the `-quiet` flag by default to disable this.
+  # Usually, sympow has 3 levels of caching: statically distributed in /usr/,
+  # shared in /var and per-user in ~/.sympow. The shared cache assumes trust in
+  # other users and a shared /var is not compatible with nix's approach, so we
+  # set VARPREFIX to the read-only $out. This effectively disables shared
+  # caching. See https://trac.sagemath.org/ticket/3360#comment:36 and sympow's
+  # README for more details on caching.
+  # sympow will complain at runtime about the lack of write-permissions on the
+  # shared cache. We pass the `-quiet` flag by default to disable this.
   postInstall = ''
     wrapProgram "$out/bin/sympow" --add-flags '-quiet'
   '';
 
-    # Example from the README as a sanity check.
+  # Example from the README as a sanity check.
   doInstallCheck = true;
   installCheckPhase = ''
     export HOME="$TMP/home"

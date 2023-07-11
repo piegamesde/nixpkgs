@@ -29,7 +29,7 @@ let
     }
     ;
 
-    # lsquic requires a specific boringssl version (noted in its README)
+  # lsquic requires a specific boringssl version (noted in its README)
   boringssl' = boringssl.overrideAttrs (
     {
       preBuild,
@@ -122,8 +122,8 @@ stdenv.mkDerivation rec {
     "-DZLIB_LIB=${zlib}/lib/libz.so"
   ];
 
-    # adapted from lsquic.cr’s Dockerfile
-    # (https://github.com/iv-org/lsquic.cr/blob/master/docker/Dockerfile)
+  # adapted from lsquic.cr’s Dockerfile
+  # (https://github.com/iv-org/lsquic.cr/blob/master/docker/Dockerfile)
   installPhase = ''
     runHook preInstall
 

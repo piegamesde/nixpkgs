@@ -18,12 +18,12 @@ let
 
       # Default is equivalent to /etc/salt/minion.d/*.conf
       default_include = "/var/lib/salt/minion.d/*.conf";
-        # Default is in /etc/salt/pki/minion
+      # Default is in /etc/salt/pki/minion
       pki_dir = "/var/lib/salt/pki/minion";
     }
     cfg.configuration;
-
 in
+
 {
   options = {
     services.salt.minion = {
@@ -65,4 +65,3 @@ in
     };
   };
 }
-

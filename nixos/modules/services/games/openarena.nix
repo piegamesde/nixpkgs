@@ -52,7 +52,7 @@ in
           }";
         Restart = "on-failure";
 
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = "";
         NoNewPrivileges = true;
         PrivateDevices = true;

@@ -66,8 +66,8 @@ stdenv.mkDerivation rec {
     install_name_tool -id $out/lib/libfdt.dylib $out/lib/libfdt-${version}.dylib
   '';
 
-    # Checks are broken on aarch64 darwin
-    # https://github.com/NixOS/nixpkgs/pull/118700#issuecomment-885892436
+  # Checks are broken on aarch64 darwin
+  # https://github.com/NixOS/nixpkgs/pull/118700#issuecomment-885892436
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

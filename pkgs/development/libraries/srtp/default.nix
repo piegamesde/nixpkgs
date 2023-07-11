@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-    # rtpw tests hang
+  # rtpw tests hang
   preConfigure = ''
     rm test/rtpw_test.sh \
        test/rtpw_test_gcm.sh

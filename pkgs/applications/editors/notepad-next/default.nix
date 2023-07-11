@@ -17,7 +17,7 @@ mkDerivation rec {
     repo = "NotepadNext";
     rev = "v${version}";
     sha256 = "sha256-4OjthXAzcAVwDA7+oK7sKiOiB7i/cYIdxyrz+9wPvDg=";
-      # External dependencies - https://github.com/dail8859/NotepadNext/issues/135
+    # External dependencies - https://github.com/dail8859/NotepadNext/issues/135
     fetchSubmodules = true;
   };
 

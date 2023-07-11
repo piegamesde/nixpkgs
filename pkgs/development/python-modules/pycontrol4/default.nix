@@ -36,7 +36,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-    # tests access network
+  # tests access network
   doCheck = false;
 
   pythonImportsCheck = [

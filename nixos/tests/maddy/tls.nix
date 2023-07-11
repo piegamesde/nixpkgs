@@ -36,8 +36,8 @@ import ../make-test-python.nix (
                 keyPath = "${certs.${domain}.key}";
               } ];
             };
-              # Enable TLS listeners. Configuring this via the module is not yet
-              # implemented.
+            # Enable TLS listeners. Configuring this via the module is not yet
+            # implemented.
             config = builtins.replaceStrings
               [
                 "imap tcp://0.0.0.0:143"
@@ -49,7 +49,7 @@ import ../make-test-python.nix (
               ]
               options.services.maddy.config.default;
           };
-            # Not covered by openFirewall yet
+          # Not covered by openFirewall yet
           networking.firewall.allowedTCPPorts = [
             993
             465

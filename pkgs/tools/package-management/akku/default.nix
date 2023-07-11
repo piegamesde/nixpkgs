@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ guile ];
 
-    # Use a dummy package index to boostrap Akku
+  # Use a dummy package index to boostrap Akku
   preBuild = ''
     touch bootstrap.db
   '';

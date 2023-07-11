@@ -19,7 +19,7 @@ buildGoModule {
 
   vendorSha256 = "l2mziuisx0HzuP88rS5M+Wha6lu8P036wJYZlmzjWfs=";
 
-    # Depends on dcs binaries
+  # Depends on dcs binaries
   doCheck = false;
 
   nativeBuildInputs = [

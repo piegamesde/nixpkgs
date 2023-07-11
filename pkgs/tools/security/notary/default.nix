@@ -35,7 +35,7 @@ buildGoPackage rec {
     runHook postInstall
   '';
 
-    #doCheck = true; # broken by tzdata: 2018g -> 2019a
+  #doCheck = true; # broken by tzdata: 2018g -> 2019a
   checkPhase = ''
     make test PKGS=github.com/theupdateframework/notary/cmd/notary
   '';

@@ -36,8 +36,8 @@ buildPythonPackage rec {
     six
   ];
 
-    # Encountered a memory leak
-    # https://github.com/pytest-dev/pytest-xdist/issues/462
+  # Encountered a memory leak
+  # https://github.com/pytest-dev/pytest-xdist/issues/462
   doCheck = !isPy3k;
 
   checkPhase = ''

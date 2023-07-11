@@ -43,10 +43,10 @@ stdenv.mkDerivation rec {
               server.
     '';
 
-      # The old http://unfs3.sourceforge.net/ has a <meta>
-      # http-equiv="refresh" pointing here, so we can assume that
-      # whoever controls the old URL approves of the "unfs3" github
-      # account.
+    # The old http://unfs3.sourceforge.net/ has a <meta>
+    # http-equiv="refresh" pointing here, so we can assume that
+    # whoever controls the old URL approves of the "unfs3" github
+    # account.
     homepage = "https://unfs3.github.io/";
     changelog =
       "https://raw.githubusercontent.com/unfs3/unfs3/unfs3-${version}/NEWS";

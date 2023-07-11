@@ -57,8 +57,8 @@ let
     ;
 
   inherit (stdenv.hostPlatform) isDarwin;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "gnutls";
   version = "3.8.0";
@@ -78,18 +78,18 @@ stdenv.mkDerivation rec {
     "man"
     "devdoc"
   ];
-    # Not normally useful docs.
+  # Not normally useful docs.
   outputInfo = "devdoc";
   outputDoc = "devdoc";
 
   patches = [ ./nix-ssl-cert-file.patch ];
 
-    # Skip some tests:
-    #  - pkg-config: building against the result won't work before installing (3.5.11)
-    #  - fastopen: no idea; it broke between 3.6.2 and 3.6.3 (3437fdde6 in particular)
-    #  - trust-store: default trust store path (/etc/ssl/...) is missing in sandbox (3.5.11)
-    #  - psk-file: no idea; it broke between 3.6.3 and 3.6.4
-    # Change p11-kit test to use pkg-config to find p11-kit
+  # Skip some tests:
+  #  - pkg-config: building against the result won't work before installing (3.5.11)
+  #  - fastopen: no idea; it broke between 3.6.2 and 3.6.3 (3437fdde6 in particular)
+  #  - trust-store: default trust store path (/etc/ssl/...) is missing in sandbox (3.5.11)
+  #  - psk-file: no idea; it broke between 3.6.3 and 3.6.4
+  # Change p11-kit test to use pkg-config to find p11-kit
   postPatch =
     ''
       sed '2iexit 77' -i tests/{pkgconfig,fastopen}.sh
@@ -149,21 +149,17 @@ stdenv.mkDerivation rec {
     ;
 
   propagatedBuildInputs =
-    [
-      nettle
-    ]
+    [ nettle ]
     # Builds dynamically linking against gnutls seem to need the framework now.
     ++ lib.optional isDarwin Security
     ;
 
-  inherit
-    doCheck
-    ;
-    # stdenv's `NIX_SSL_CERT_FILE=/no-cert-file.crt` breaks tests.
-    # Also empty files won't work, and we want to avoid potentially impure /etc/
+  inherit doCheck;
+  # stdenv's `NIX_SSL_CERT_FILE=/no-cert-file.crt` breaks tests.
+  # Also empty files won't work, and we want to avoid potentially impure /etc/
   preCheck = "NIX_SSL_CERT_FILE=${./dummy.crt}";
 
-    # Fixup broken libtool and pkg-config files
+  # Fixup broken libtool and pkg-config files
   preFixup =
     lib.optionalString (!isDarwin) ''
       sed ${

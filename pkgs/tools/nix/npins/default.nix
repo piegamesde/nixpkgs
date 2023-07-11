@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
   );
   nativeBuildInputs = [ makeWrapper ];
 
-    # (Almost) all tests require internet
+  # (Almost) all tests require internet
   doCheck = false;
 
   postFixup = ''

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # Pypi's tarball doesn't contain tests. Source not available.
+  # Pypi's tarball doesn't contain tests. Source not available.
   doCheck = false;
   pythonImportsCheck = [ "docloud" ];
 

@@ -21,8 +21,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pytest-runner ];
 
-    # Tests require pkgs.neovim,
-    # which we cannot add because of circular dependency.
+  # Tests require pkgs.neovim,
+  # which we cannot add because of circular dependency.
   doCheck = false;
 
   propagatedBuildInputs = [ msgpack ] ++ lib.optional (!isPyPy) greenlet;

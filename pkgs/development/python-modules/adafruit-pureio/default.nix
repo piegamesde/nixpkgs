@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-    # Physical SMBus is not present
+  # Physical SMBus is not present
   doCheck = false;
 
   pythonImportsCheck = [ "Adafruit_PureIO" ];

@@ -26,9 +26,9 @@ import ./make-test-python.nix {
       };
       services.schleuder = {
         enable = true;
-          # Don't do it like this in production! The point of this setting
-          # is to allow loading secrets from _outside_ the world-readable
-          # Nix store.
+        # Don't do it like this in production! The point of this setting
+        # is to allow loading secrets from _outside_ the world-readable
+        # Nix store.
         extraSettingsFile = pkgs.writeText "schleuder-api-keys.yml" ''
           api:
             valid_api_keys:
@@ -87,7 +87,7 @@ import ./make-test-python.nix {
 
       security.pki.certificateFiles = [ certs.ca.cert ];
 
-        # Since we don't have internet here, use dnsmasq to provide MX records from /etc/hosts
+      # Since we don't have internet here, use dnsmasq to provide MX records from /etc/hosts
       services.dnsmasq = {
         enable = true;
         settings.selfmx = true;
@@ -97,18 +97,18 @@ import ./make-test-python.nix {
         127.0.0.1 ${domain}
       '';
 
-        # schleuder-cli's config is not quite optimal in several ways:
-        # - A fingerprint _must_ be pinned, it doesn't even have an option
-        #   to trust the PKI
-        # - It compares certificate fingerprints rather than key
-        #   fingerprints, so renewals break the pin (though that's not
-        #   relevant for this test)
-        # - It compares them as strings, which means we need to match the
-        #   expected format exactly. This means removing the :s and
-        #   lowercasing it.
-        # Refs:
-        # https://0xacab.org/schleuder/schleuder-cli/-/issues/16
-        # https://0xacab.org/schleuder/schleuder-cli/-/blob/f8895b9f47083d8c7b99a2797c93f170f3c6a3c0/lib/schleuder-cli/helper.rb#L230-238
+      # schleuder-cli's config is not quite optimal in several ways:
+      # - A fingerprint _must_ be pinned, it doesn't even have an option
+      #   to trust the PKI
+      # - It compares certificate fingerprints rather than key
+      #   fingerprints, so renewals break the pin (though that's not
+      #   relevant for this test)
+      # - It compares them as strings, which means we need to match the
+      #   expected format exactly. This means removing the :s and
+      #   lowercasing it.
+      # Refs:
+      # https://0xacab.org/schleuder/schleuder-cli/-/issues/16
+      # https://0xacab.org/schleuder/schleuder-cli/-/blob/f8895b9f47083d8c7b99a2797c93f170f3c6a3c0/lib/schleuder-cli/helper.rb#L230-238
       systemd.tmpfiles.rules =
         let
           cliconfig = pkgs.runCommand "schleuder-cli.yml"

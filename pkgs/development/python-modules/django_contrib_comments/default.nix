@@ -21,5 +21,4 @@ buildPythonPackage rec {
     description = "The code formerly known as django.contrib.comments";
     license = licenses.bsd0;
   };
-
 }

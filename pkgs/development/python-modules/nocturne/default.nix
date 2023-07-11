@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-pFVbl4m7qX1mJgleNabRboS9klDDsbzUa4PYL5+Jupc=";
   };
 
-    # Simulate the git submodules but with nixpkgs dependencies
+  # Simulate the git submodules but with nixpkgs dependencies
   postUnpack = ''
     rm -rf $sourceRoot/third_party/*
     ln -s ${nlohmann_json.src} $sourceRoot/third_party/json
@@ -43,13 +43,13 @@ buildPythonPackage rec {
 
   buildInputs = [ sfml ];
 
-    # hydra-core and pyvirtualdisplay are not declared as dependences but they are requirements
+  # hydra-core and pyvirtualdisplay are not declared as dependences but they are requirements
   propagatedBuildInputs = [
     hydra-core
     pyvirtualdisplay
   ];
 
-    # Test suite requires hydra-submitit-launcher which is not packaged as of 2022-01-02
+  # Test suite requires hydra-submitit-launcher which is not packaged as of 2022-01-02
   doCheck = false;
 
   pythonImportsCheck = [ "nocturne" ];

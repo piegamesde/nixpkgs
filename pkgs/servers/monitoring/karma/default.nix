@@ -13,14 +13,12 @@ let
   uiNodeDependencies =
     (import ./node-composition.nix {
       inherit pkgs;
-      inherit (stdenv.hostPlatform)
-        system
-        ;
-        # pin nodejs version
+      inherit (stdenv.hostPlatform) system;
+      # pin nodejs version
       nodejs = nodejs_18;
     }).nodeDependencies;
-
 in
+
 buildGoModule rec {
   pname = "karma";
   version = "0.114";

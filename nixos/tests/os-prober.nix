@@ -30,7 +30,7 @@ import ./make-test-python.nix (
         "grub2"
         "linux-image-686"
       ];
-        # install grub
+      # install grub
       postInstall = ''
         ln -sf /proc/self/mounts > /etc/mtab
         PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
@@ -40,13 +40,13 @@ import ./make-test-python.nix (
       '';
     };
 
-      # a part of the configuration of the test vm
+    # a part of the configuration of the test vm
     simpleConfig = {
       boot.loader.grub = {
         enable = true;
         useOSProber = true;
         device = "/dev/vda";
-          # vda is a filesystem without partition table
+        # vda is a filesystem without partition table
         forceInstall = true;
       };
       nix.settings = {
@@ -54,10 +54,10 @@ import ./make-test-python.nix (
         hashed-mirrors = null;
         connect-timeout = 1;
       };
-        # save some memory
+      # save some memory
       documentation.enable = false;
     };
-      # /etc/nixos/configuration.nix for the vm
+    # /etc/nixos/configuration.nix for the vm
     configFile = pkgs.writeText "configuration.nix" ''
       {config, pkgs, lib, ...}: ({
       imports =
@@ -85,13 +85,13 @@ import ./make-test-python.nix (
             ../modules/profiles/base.nix
           ];
           virtualisation.memorySize = 1300;
-            # To add the secondary disk:
+          # To add the secondary disk:
           virtualisation.qemu.options = [
               "-drive index=2,file=${debianImage}/disk-image.qcow2,read-only,if=virtio"
             ];
 
-            # The test cannot access the network, so any packages
-            # nixos-rebuild needs must be included in the VM.
+          # The test cannot access the network, so any packages
+          # nixos-rebuild needs must be included in the VM.
           system.extraDependencies = with pkgs; [
             brotli
             brotli.dev

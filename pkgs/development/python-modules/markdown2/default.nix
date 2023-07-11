@@ -10,7 +10,7 @@ buildPythonPackage rec {
   pname = "markdown2";
   version = "2.4.8";
 
-    # PyPI does not contain tests, so using GitHub instead.
+  # PyPI does not contain tests, so using GitHub instead.
   src = fetchFromGitHub {
     owner = "trentm";
     repo = "python-markdown2";

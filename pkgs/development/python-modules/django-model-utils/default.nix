@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-    # requires postgres database
+  # requires postgres database
   doCheck = false;
 
   nativeCheckInputs = [

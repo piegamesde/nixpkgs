@@ -20,12 +20,10 @@ buildPythonPackage rec {
     pygments
   ];
 
-  doCheck =
-    !isPyPy
-    ; # https://github.com/pytest-dev/pytest/issues/3460
+  doCheck = !isPyPy; # https://github.com/pytest-dev/pytest/issues/3460
 
-    # Ignored file https://github.com/pytest-dev/pytest/pull/5605#issuecomment-522243929
-    # test_missing_required_plugins will emit deprecation warning which is treated as error
+  # Ignored file https://github.com/pytest-dev/pytest/pull/5605#issuecomment-522243929
+  # test_missing_required_plugins will emit deprecation warning which is treated as error
   checkPhase = ''
     runHook preCheck
     ${pytest.out}/bin/py.test -x testing/ \

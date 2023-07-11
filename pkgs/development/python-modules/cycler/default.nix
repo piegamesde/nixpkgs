@@ -27,8 +27,8 @@ buildPythonPackage rec {
     ${python.interpreter} run_tests.py
   '';
 
-    # Tests were not included in release.
-    # https://github.com/matplotlib/cycler/issues/31
+  # Tests were not included in release.
+  # https://github.com/matplotlib/cycler/issues/31
   doCheck = false;
 
   meta = {

@@ -76,7 +76,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = mkMerge [

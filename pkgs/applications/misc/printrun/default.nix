@@ -45,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     lxml
   ];
 
-    # pyglet.canvas.xlib.NoSuchDisplayException: Cannot connect to "None"
+  # pyglet.canvas.xlib.NoSuchDisplayException: Cannot connect to "None"
   doCheck = false;
 
   setupPyBuildFlags = [ "-i" ];

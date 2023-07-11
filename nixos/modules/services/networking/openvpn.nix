@@ -67,7 +67,6 @@ let
           ''
         }"}
       '';
-
     in
     {
       description = "OpenVPN instance ‘${name}’";
@@ -93,13 +92,13 @@ let
       wantedBy = [ "sleep.target" ];
       path = [ pkgs.procps ];
       script = "pkill --signal SIGHUP --exact openvpn";
-        #SIGHUP makes openvpn process to self-exit and then it got restarted by systemd because of Restart=always
+      #SIGHUP makes openvpn process to self-exit and then it got restarted by systemd because of Restart=always
       description =
         "Sends a signal to OpenVPN process to trigger a restart after return from sleep";
     };
   };
-
 in
+
 {
   imports = [
       (mkRemovedOptionModule
@@ -111,7 +110,7 @@ in
         "")
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -238,10 +237,8 @@ in
                 );
               };
             };
-
           }
         );
-
     };
 
     services.openvpn.restartAfterSleep = mkOption {
@@ -250,10 +247,9 @@ in
       description =
         lib.mdDoc "Whether OpenVPN client should be restarted after sleep.";
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg.servers != { }) {
 
@@ -266,7 +262,5 @@ in
     environment.systemPackages = [ openvpn ];
 
     boot.kernelModules = [ "tun" ];
-
   };
-
 }

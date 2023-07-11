@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   buildInputs = [ unixODBC ];
 
-    # Tests require a database server
+  # Tests require a database server
   doCheck = false;
 
   pythonImportsCheck = [ "pyodbc" ];

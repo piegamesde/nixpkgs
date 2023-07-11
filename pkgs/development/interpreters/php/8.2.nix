@@ -13,7 +13,6 @@ let
       hash = "sha256-5agGY8yk9gRK2GpIl5gUfHrwN+ypb2zTV6s20oy2N1c=";
     }
   );
-
 in
 base.withExtensions (
   {

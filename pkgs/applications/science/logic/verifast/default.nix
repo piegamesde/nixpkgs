@@ -46,7 +46,6 @@ let
       patchelf --set-rpath ${libPath} ${x}
     ''
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "verifast";

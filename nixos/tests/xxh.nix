@@ -13,7 +13,7 @@ import ./make-test-python.nix (
       src = pkgs.fetchFromGitHub {
         owner = "xxh";
         repo = "xxh-shell-zsh";
-          # gets rarely updated, we can then just replace the hash
+        # gets rarely updated, we can then just replace the hash
         rev = "91e1f84f8d6e0852c3235d4813f341230cac439f";
         sha256 = "sha256-Y1FrIRxTd0yooK+ZzKcCd6bLSy5E2fRXYAzrIsm7rIc=";
       };

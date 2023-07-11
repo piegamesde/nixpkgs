@@ -13,11 +13,9 @@ buildPythonPackage rec {
   pname = "quamash";
   version = "0.6.1";
 
-  disabled =
-    !isPy3k
-    ;
+  disabled = !isPy3k;
 
-    # No tests in PyPi tarball
+  # No tests in PyPi tarball
   src = fetchFromGitHub {
     owner = "harvimt";
     repo = "quamash";

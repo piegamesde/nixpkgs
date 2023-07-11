@@ -18,8 +18,8 @@
   voms,
   zlib,
   enableTests ? stdenv.isLinux
-    # If not null, the builder will
-    # move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
+  # If not null, the builder will
+  # move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
   ,
   externalEtc ? "/etc"
 }:
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     patchShebangs genversion.sh
   '';
 
-    # https://github.com/xrootd/xrootd/blob/master/packaging/rhel/xrootd.spec.in#L665-L675=
+  # https://github.com/xrootd/xrootd/blob/master/packaging/rhel/xrootd.spec.in#L665-L675=
   postInstall =
     ''
       mkdir -p "$out/lib/tmpfiles.d"

@@ -24,5 +24,4 @@ buildPythonPackage rec {
     description = "Unpadded Base64";
     license = licenses.asl20;
   };
-
 }

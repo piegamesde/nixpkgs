@@ -120,13 +120,13 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Silences many warnings
+  # Silences many warnings
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-Wno-inconsistent-missing-override";
 
   cmakeFlags =
     lib.optional (!withGUI) "-DSYNERGY_BUILD_LEGACY_GUI=OFF"
-      # NSFilenamesPboardType is deprecated in 10.14+
+    # NSFilenamesPboardType is deprecated in 10.14+
     ++ lib.optional stdenv.isDarwin "-DCMAKE_OSX_DEPLOYMENT_TARGET=${
         if stdenv.isAarch64 then
           "10.13"

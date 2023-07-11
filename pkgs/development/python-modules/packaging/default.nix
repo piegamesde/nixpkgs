@@ -28,7 +28,7 @@ let
       pretend
     ];
 
-      # Prevent circular dependency with pytest
+    # Prevent circular dependency with pytest
     doCheck = false;
 
     pythonImportsCheck = [ "packaging" ];

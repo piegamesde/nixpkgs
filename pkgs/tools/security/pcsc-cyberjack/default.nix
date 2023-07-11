@@ -12,7 +12,6 @@ let
   version = "3.99.5";
   suffix = "SP13";
   tarBall = "${version}final.${suffix}";
-
 in
 stdenv.mkDerivation rec {
   pname = "pcsc-cyberjack";

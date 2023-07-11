@@ -1,6 +1,8 @@
 # This test start mongodb, runs a query using mongo shell
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -29,7 +31,6 @@ import ./make-test-python.nix (
         node.wait_for_closed_port(27017)
       ''
       ;
-
   in
   {
     name = "mongodb";

@@ -18,7 +18,6 @@ let
     sha512 =
       "sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==";
   };
-
 in
 {
   prefetch-yarn-deps = stdenv.mkDerivation {
@@ -122,7 +121,6 @@ in
           ])
         )
         ;
-
     in
     lib.setFunctionArgs f (lib.functionArgs f) // {
       tests = callPackage ./tests { };

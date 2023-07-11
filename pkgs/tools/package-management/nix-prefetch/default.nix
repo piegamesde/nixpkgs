@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     repo = "nix-prefetch";
     rev = version;
     sha256 = "0bwv6x651gyq703pywrhb7lfby6xwnd1iwnrzzjihipn7x3v2hz9";
-      # the stat call has to be in a subshell or we get the current date
+    # the stat call has to be in a subshell or we get the current date
     postFetch = ''
       echo $(stat -c %Y $out) > $out/.timestamp
     '';

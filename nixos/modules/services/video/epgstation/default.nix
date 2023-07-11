@@ -73,7 +73,7 @@ let
     };
   };
 
-    # Deprecate top level options that are redundant.
+  # Deprecate top level options that are redundant.
   deprecateTopLevelOption =
     config:
     lib.mkRenamedOptionModule
@@ -173,16 +173,16 @@ in
       };
     };
 
-      # The defaults for some options come from the upstream template
-      # configuration, which is the one that users would get if they follow the
-      # upstream instructions. This is, in some cases, different from the
-      # application defaults. Some options like encodeProcessNum and
-      # concurrentEncodeNum doesn't have an optimal default value that works for
-      # all hardware setups and/or performance requirements. For those kind of
-      # options, the application default wouldn't always result in the expected
-      # out-of-the-box behavior because it's the responsibility of the user to
-      # configure them according to their needs. In these cases, the value in the
-      # upstream template configuration should serve as a "good enough" default.
+    # The defaults for some options come from the upstream template
+    # configuration, which is the one that users would get if they follow the
+    # upstream instructions. This is, in some cases, different from the
+    # application defaults. Some options like encodeProcessNum and
+    # concurrentEncodeNum doesn't have an optimal default value that works for
+    # all hardware setups and/or performance requirements. For those kind of
+    # options, the application default wouldn't always result in the expected
+    # out-of-the-box behavior because it's the responsibility of the user to
+    # configure them according to their needs. In these cases, the value in the
+    # upstream template configuration should serve as a "good enough" default.
     settings = lib.mkOption {
       description = lib.mdDoc ''
         Options to add to config.yml.
@@ -318,11 +318,11 @@ in
       enable = lib.mkDefault true;
       package = lib.mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-        # FIXME: enable once mysqljs supports auth_socket
-        # ensureUsers = [ {
-        #   name = username;
-        #   ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-        # } ];
+      # FIXME: enable once mysqljs supports auth_socket
+      # ensureUsers = [ {
+      #   name = username;
+      #   ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+      # } ];
     };
 
     services.epgstation.settings =
@@ -339,7 +339,7 @@ in
           ffmpeg = lib.mkDefault "${pkgs.ffmpeg-full}/bin/ffmpeg";
           ffprobe = lib.mkDefault "${pkgs.ffmpeg-full}/bin/ffprobe";
 
-            # for disambiguation with TypeScript files
+          # for disambiguation with TypeScript files
           recordedFileExtension = lib.mkDefault ".m2ts";
         };
       in

@@ -24,13 +24,12 @@ let
         chmod u-w $PURS
       ''
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "purescript";
   version = "0.15.9";
 
-    # These hashes can be updated automatically by running the ./update.sh script.
+  # These hashes can be updated automatically by running the ./update.sh script.
   src =
     if stdenv.isDarwin then
       fetchurl {

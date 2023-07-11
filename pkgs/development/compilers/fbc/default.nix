@@ -127,8 +127,8 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "prefix=${placeholder "out"}" ];
 
-    # Tests do not work when cross-compiling even if build platform can execute
-    # host binaries, compiler struggles to find the cross compiler's libgcc_s
+  # Tests do not work when cross-compiling even if build platform can execute
+  # host binaries, compiler struggles to find the cross compiler's libgcc_s
   doCheck = stdenv.buildPlatform == stdenv.hostPlatform;
 
   checkTarget = "unit-tests warning-tests log-tests";

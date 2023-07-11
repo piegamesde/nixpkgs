@@ -9,16 +9,16 @@
 
   ,
   systemdDir ? "${svcName}/${cfg.name}"
-    # %t: Runtime directory root (usually /run); see systemd.unit(5)
+  # %t: Runtime directory root (usually /run); see systemd.unit(5)
   ,
   runtimeDir ? "%t/${systemdDir}"
-    # %S: State directory root (usually /var/lib); see systemd.unit(5)
+  # %S: State directory root (usually /var/lib); see systemd.unit(5)
   ,
   stateDir ? "%S/${systemdDir}"
-    # %L: Log directory root (usually /var/log); see systemd.unit(5)
+  # %L: Log directory root (usually /var/log); see systemd.unit(5)
   ,
   logsDir ? "%L/${systemdDir}"
-    # Name of file stored in service state directory
+  # Name of file stored in service state directory
   ,
   currentConfigTokenFilename ? ".current-token"
 
@@ -70,13 +70,13 @@ in
       ExecStart =
         "${cfg.package}/bin/Runner.Listener run --startuptype service";
 
-        # Does the following, sequentially:
-        # - If the module configuration or the token has changed, purge the state directory,
-        #   and create the current and the new token file with the contents of the configured
-        #   token. While both files have the same content, only the later is accessible by
-        #   the service user.
-        # - Configure the runner using the new token file. When finished, delete it.
-        # - Set up the directory structure by creating the necessary symlinks.
+      # Does the following, sequentially:
+      # - If the module configuration or the token has changed, purge the state directory,
+      #   and create the current and the new token file with the contents of the configured
+      #   token. While both files have the same content, only the later is accessible by
+      #   the service user.
+      # - Configure the runner using the new token file. When finished, delete it.
+      # - Set up the directory structure by creating the necessary symlinks.
       ExecStartPre =
         let
           # Wrapper script which expects the full path of the state, working and logs
@@ -237,23 +237,23 @@ in
         ]
         ;
 
-        # If running in ephemeral mode, restart the service on-exit (i.e., successful de-registration of the runner)
-        # to trigger a fresh registration.
+      # If running in ephemeral mode, restart the service on-exit (i.e., successful de-registration of the runner)
+      # to trigger a fresh registration.
       Restart =
         if cfg.ephemeral then
           "on-success"
         else
           "no"
         ;
-        # If the runner exits with `ReturnCode.RetryableError = 2`, always restart the service:
-        # https://github.com/actions/runner/blob/40ed7f8/src/Runner.Common/Constants.cs#L146
+      # If the runner exits with `ReturnCode.RetryableError = 2`, always restart the service:
+      # https://github.com/actions/runner/blob/40ed7f8/src/Runner.Common/Constants.cs#L146
       RestartForceExitStatus = [ 2 ];
 
-        # Contains _diag
+      # Contains _diag
       LogsDirectory = [ systemdDir ];
-        # Default RUNNER_ROOT which contains ephemeral Runner data
+      # Default RUNNER_ROOT which contains ephemeral Runner data
       RuntimeDirectory = [ systemdDir ];
-        # Home of persistent runner data, e.g., credentials
+      # Home of persistent runner data, e.g., credentials
       StateDirectory = [ systemdDir ];
       StateDirectoryMode = "0700";
       WorkingDirectory = workDir;
@@ -267,12 +267,12 @@ in
 
       KillSignal = "SIGINT";
 
-        # Hardening (may overlap with DynamicUser=)
-        # The following options are only for optimizing:
-        # systemd-analyze security github-runner
+      # Hardening (may overlap with DynamicUser=)
+      # The following options are only for optimizing:
+      # systemd-analyze security github-runner
       AmbientCapabilities = mkBefore [ "" ];
       CapabilityBoundingSet = mkBefore [ "" ];
-        # ProtectClock= adds DeviceAllow=char-rtc r
+      # ProtectClock= adds DeviceAllow=char-rtc r
       DeviceAllow = mkBefore [ "" ];
       NoNewPrivileges = mkDefault true;
       PrivateDevices = mkDefault true;
@@ -314,24 +314,24 @@ in
 
       BindPaths = lib.optionals (cfg.workDir != null) [ cfg.workDir ];
 
-        # Needs network access
+      # Needs network access
       PrivateNetwork = mkDefault false;
-        # Cannot be true due to Node
+      # Cannot be true due to Node
       MemoryDenyWriteExecute = mkDefault false;
 
-        # The more restrictive "pid" option makes `nix` commands in CI emit
-        # "GC Warning: Couldn't read /proc/stat"
-        # You may want to set this to "pid" if not using `nix` commands
+      # The more restrictive "pid" option makes `nix` commands in CI emit
+      # "GC Warning: Couldn't read /proc/stat"
+      # You may want to set this to "pid" if not using `nix` commands
       ProcSubset = mkDefault "all";
-        # Coverage programs for compiled code such as `cargo-tarpaulin` disable
-        # ASLR (address space layout randomization) which requires the
-        # `personality` syscall
-        # You may want to set this to `true` if not using coverage tooling on
-        # compiled code
+      # Coverage programs for compiled code such as `cargo-tarpaulin` disable
+      # ASLR (address space layout randomization) which requires the
+      # `personality` syscall
+      # You may want to set this to `true` if not using coverage tooling on
+      # compiled code
       LockPersonality = mkDefault false;
 
-        # Note that this has some interactions with the User setting; so you may
-        # want to consult the systemd docs if using both.
+      # Note that this has some interactions with the User setting; so you may
+      # want to consult the systemd docs if using both.
       DynamicUser = mkDefault true;
     }
     (mkIf (cfg.user != null) { User = cfg.user; })

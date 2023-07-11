@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     num
   ];
 
-    # https://github.com/cubicle-model-checker/cubicle/issues/1
+  # https://github.com/cubicle-model-checker/cubicle/issues/1
   env = {
     OCAMLC = "ocamlfind ocamlc -package num";
     OCAMLOPT = "ocamlfind ocamlopt -package num";

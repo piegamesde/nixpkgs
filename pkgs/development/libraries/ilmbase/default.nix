@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
   pname = "ilmbase";
   version = lib.getVersion openexr;
 
-    # the project no longer provides separate tarballs. We may even want to merge
-    # the ilmbase package into openexr in the future.
+  # the project no longer provides separate tarballs. We may even want to merge
+  # the ilmbase package into openexr in the future.
   inherit (openexr) src patches;
 
   outputs = [
@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-    # fails 1 out of 1 tests with
-    # "lt-ImathTest: testBoxAlgo.cpp:892: void {anonymous}::boxMatrixTransform(): Assertion `b21 == b2' failed"
-    # at least on i686. spooky!
+  # fails 1 out of 1 tests with
+  # "lt-ImathTest: testBoxAlgo.cpp:892: void {anonymous}::boxMatrixTransform(): Assertion `b21 == b2' failed"
+  # at least on i686. spooky!
   doCheck = stdenv.isx86_64;
 
   preConfigure = ''

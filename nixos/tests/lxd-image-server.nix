@@ -15,7 +15,6 @@ import ./make-test-python.nix (
 
     lxd-image-metadata = lxd-image.lxdMeta.${pkgs.stdenv.hostPlatform.system};
     lxd-image-rootfs = lxd-image.lxdImage.${pkgs.stdenv.hostPlatform.system};
-
   in
   {
     name = "lxd-image-server";

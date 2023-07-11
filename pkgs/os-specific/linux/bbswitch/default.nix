@@ -11,15 +11,15 @@ let
   baseName = "bbswitch";
   version = "unstable-2021-11-29";
   name = "${baseName}-${version}-${kernel.version}";
-
 in
+
 stdenv.mkDerivation {
   inherit name;
 
   src = fetchFromGitHub {
     owner = "Bumblebee-Project";
     repo = "bbswitch";
-      # https://github.com/Bumblebee-Project/bbswitch/tree/develop
+    # https://github.com/Bumblebee-Project/bbswitch/tree/develop
     rev = "23891174a80ea79c7720bcc7048a5c2bfcde5cd9";
     hash = "sha256-50v1Jxem5kaI1dHOKmgBbPLxI82QeYxiaRHhrHpWRzU=";
   };

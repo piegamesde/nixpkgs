@@ -38,8 +38,8 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-    # ciel has plugins which is actually bash scripts.
-    # Therefore, bash is required for plugins to work.
+  # ciel has plugins which is actually bash scripts.
+  # Therefore, bash is required for plugins to work.
   buildInputs = [
     bash
     systemd

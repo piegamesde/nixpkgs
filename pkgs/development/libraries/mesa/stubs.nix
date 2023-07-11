@@ -23,10 +23,10 @@ stdenv.mkDerivation (
       "dev"
     ];
 
-      # On macOS, libglvnd is not supported, so we just use what mesa
-      # build. We need to also include OpenGL.framework, and some
-      # extra tricks to go along with. We add mesa’s libGLX to support
-      # the X extensions to OpenGL.
+    # On macOS, libglvnd is not supported, so we just use what mesa
+    # build. We need to also include OpenGL.framework, and some
+    # extra tricks to go along with. We add mesa’s libGLX to support
+    # the X extensions to OpenGL.
     buildCommand =
       if stdenv.hostPlatform.isDarwin then
         ''
@@ -63,7 +63,7 @@ stdenv.mkDerivation (
           EOF
         ''
 
-        # Otherwise, setup gl stubs to use libglvnd.
+      # Otherwise, setup gl stubs to use libglvnd.
       else
         ''
           mkdir -p $out/nix-support

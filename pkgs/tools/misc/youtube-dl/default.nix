@@ -26,9 +26,9 @@
 buildPythonPackage rec {
 
   pname = "youtube-dl";
-    # The websites youtube-dl deals with are a very moving target. That means that
-    # downloads break constantly. Because of that, updates should always be backported
-    # to the latest stable release.
+  # The websites youtube-dl deals with are a very moving target. That means that
+  # downloads break constantly. Because of that, updates should always be backported
+  # to the latest stable release.
   version = "2021.12.17";
 
   src = fetchurl {
@@ -75,10 +75,10 @@ buildPythonPackage rec {
   buildInputs = [ zip ] ++ lib.optional generateManPage pandoc;
   propagatedBuildInputs = lib.optional hlsEncryptedSupport pycryptodome;
 
-    # Ensure these utilities are available in $PATH:
-    # - ffmpeg: post-processing & transcoding support
-    # - rtmpdump: download files over RTMP
-    # - atomicparsley: embedding thumbnails
+  # Ensure these utilities are available in $PATH:
+  # - ffmpeg: post-processing & transcoding support
+  # - rtmpdump: download files over RTMP
+  # - atomicparsley: embedding thumbnails
   makeWrapperArgs =
     let
       packagesToBinPath =
@@ -96,7 +96,7 @@ buildPythonPackage rec {
     installShellCompletion youtube-dl.zsh
   '';
 
-    # Requires network
+  # Requires network
   doCheck = false;
 
   meta = with lib; {

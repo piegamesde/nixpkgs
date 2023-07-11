@@ -24,7 +24,7 @@ buildPythonPackage rec {
     glibcLocales
   ];
 
-    # Default tox.ini parameters not needed
+  # Default tox.ini parameters not needed
   checkPhase = ''
     rm tox.ini
     pytest

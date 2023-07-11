@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     export HOME="$TMPDIR"
   '';
 
-    # Fontconfig error: Cannot load default config file: No such file: (null)
+  # Fontconfig error: Cannot load default config file: No such file: (null)
   FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
 
   mesonFlags = [

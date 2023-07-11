@@ -41,7 +41,7 @@ buildPythonPackage rec {
     libfdt
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "dtschema" ];
@@ -58,4 +58,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ sorki ];
   };
 }
-

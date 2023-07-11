@@ -18,10 +18,10 @@ buildGoModule rec {
     repo = "cli";
     rev = "refs/tags/v${version}";
     hash = "sha256-cR0XtTzdz400p/9b8NmFxWqsSMqLf3KJRekfkWbx/Zs=";
-      # The git commit is part of the `fastly version` original output;
-      # leave that output the same in nixpkgs. Use the `.git` directory
-      # to retrieve the commit SHA, and remove the directory afterwards,
-      # since it is not needed after that.
+    # The git commit is part of the `fastly version` original output;
+    # leave that output the same in nixpkgs. Use the `.git` directory
+    # to retrieve the commit SHA, and remove the directory afterwards,
+    # since it is not needed after that.
     leaveDotGit = true;
     postFetch = ''
       cd "$out"
@@ -39,8 +39,8 @@ buildGoModule rec {
     makeWrapper
   ];
 
-    # Flags as provided by the build automation of the project:
-    #   https://github.com/fastly/cli/blob/7844f9f54d56f8326962112b5534e5c40e91bf09/.goreleaser.yml#L14-L18
+  # Flags as provided by the build automation of the project:
+  #   https://github.com/fastly/cli/blob/7844f9f54d56f8326962112b5534e5c40e91bf09/.goreleaser.yml#L14-L18
   ldflags = [
     "-s"
     "-w"

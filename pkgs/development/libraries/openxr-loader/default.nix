@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     "layers"
   ];
 
-    # https://github.com/KhronosGroup/OpenXR-SDK-Source/issues/305
+  # https://github.com/KhronosGroup/OpenXR-SDK-Source/issues/305
   postPatch = ''
     substituteInPlace src/loader/openxr.pc.in \
       --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@

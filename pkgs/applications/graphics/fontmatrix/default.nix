@@ -19,7 +19,7 @@ mkDerivation rec {
     sha256 = "0yx1gbsjj9ddq1kiqplif1w5x5saw250zbmhmd4phqmaqzr60w0h";
   };
 
-    # Add missing QAction include
+  # Add missing QAction include
   patches = [
       (fetchpatch {
         url =

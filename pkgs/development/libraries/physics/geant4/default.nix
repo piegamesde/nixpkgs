@@ -9,7 +9,7 @@
   enablePython ? false,
   enableRaytracerX11 ? false
 
-    # Standard build environment with cmake.
+  # Standard build environment with cmake.
   ,
   lib,
   stdenv,
@@ -60,8 +60,8 @@ let
     enablePython = true;
     python = python3;
   };
-
 in
+
 lib.warnIf (enableQT != false)
 "geant4: enableQT is deprecated, please use enableQt"
 
@@ -194,7 +194,7 @@ rec {
     inherit enableQt;
   };
 
-    # Set the myriad of envars required by Geant4 if we use a nix-shell.
+  # Set the myriad of envars required by Geant4 if we use a nix-shell.
   shellHook = ''
     source $out/nix-support/setup-hook
   '';

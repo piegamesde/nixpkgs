@@ -47,8 +47,8 @@ buildPythonPackage rec {
     pytest-cov
   ];
 
-    # Checks require test data downloaded separately
-    # See project source Makefile:test-data rule for reference
+  # Checks require test data downloaded separately
+  # See project source Makefile:test-data rule for reference
   checkPhase = ''
     PATH=$PATH:$out/bin
     mkdir data
@@ -64,5 +64,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ NikolaMandic ];
   };
-
 }

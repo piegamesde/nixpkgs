@@ -27,7 +27,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # Taken from .travis.yml
+  # Taken from .travis.yml
   checkPhase = ''
     ${python.interpreter} tests/test_main.py
     ${python.interpreter} -m mailparser -v

@@ -61,8 +61,8 @@ in
     boot.binfmt.registrations.rosetta = {
       interpreter = "${cfg.mountPoint}/rosetta";
 
-        # The required flags for binfmt are documented by Apple:
-        # https://developer.apple.com/documentation/virtualization/running_intel_binaries_in_linux_vms_with_rosetta
+      # The required flags for binfmt are documented by Apple:
+      # https://developer.apple.com/documentation/virtualization/running_intel_binaries_in_linux_vms_with_rosetta
       magicOrExtension =
         "\\x7fELF\\x02\\x01\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02\\x00\\x3e\\x00";
       mask =
@@ -71,7 +71,7 @@ in
       matchCredentials = true;
       preserveArgvZero = false;
 
-        # Remove the shell wrapper and call the runtime directly
+      # Remove the shell wrapper and call the runtime directly
       wrapInterpreterInShell = false;
     };
   };

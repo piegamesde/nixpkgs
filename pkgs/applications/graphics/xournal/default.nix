@@ -23,8 +23,8 @@
 
 let
   isGdkQuartzBackend = (gtk2.gdktarget == "quartz");
-
 in
+
 stdenv.mkDerivation rec {
   version = "0.4.8.2016";
   pname = "xournal";

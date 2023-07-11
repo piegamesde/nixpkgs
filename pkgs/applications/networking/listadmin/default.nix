@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
     installShellFiles
   ];
 
-    # There is a Makefile, but we don’t need it, and it prints errors
+  # There is a Makefile, but we don’t need it, and it prints errors
   dontBuild = true;
 
   installPhase = ''

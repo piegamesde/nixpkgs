@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.hqplayerd;
   pkg = pkgs.hqplayerd;
-    # XXX: This is hard-coded in the distributed binary, don't try to change it.
+  # XXX: This is hard-coded in the distributed binary, don't try to change it.
   stateDir = "/var/lib/hqplayer";
   configDir = "/etc/hqplayer";
 in

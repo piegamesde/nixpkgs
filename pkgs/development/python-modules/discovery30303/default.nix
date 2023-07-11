@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "bdraco";
     repo = pname;
-      # Commit points to 0.2.1, https://github.com/bdraco/discovery30303/issues/1
+    # Commit points to 0.2.1, https://github.com/bdraco/discovery30303/issues/1
     rev = "0d0b0fdca1a98662dd2e6174d25853703bd6bf07";
     hash = "sha256-WSVMhiJxASxAkxs6RGuAVvEFS8TPxDKE9M99Rp8HKGM=";
   };

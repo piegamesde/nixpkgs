@@ -37,7 +37,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "aiosteamist" ];
 
-    # Modules doesn't have test suite
+  # Modules doesn't have test suite
   doCheck = false;
 
   meta = with lib; {

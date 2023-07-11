@@ -27,8 +27,8 @@ let
     fi
     ${jre}/bin/java -jar ${jar}
   '';
-
 in
+
 buildEnv {
   inherit name;
   paths = [ script ];

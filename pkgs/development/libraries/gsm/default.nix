@@ -8,8 +8,8 @@
 let
   inherit (stdenv) isDarwin;
   inherit (lib) optional optionalString;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "gsm";
   version = "1.0.22";

@@ -40,7 +40,7 @@ let
     hash = "sha256-QYck5UT7fPLqtLDb1iOSX4Hnnns48Jj23Ae/LCfLSKY=";
   };
 
-    # expected.wrap
+  # expected.wrap
   expected-wrap = fetchgit {
     name = "expected";
     url = "https://gitlab.com/cardboardwm/expected";
@@ -48,7 +48,7 @@ let
     sha256 = "sha256-gYr4/pjuLlr3k6Jcrg2/SzJLtbgyA+ZN2oMHkHXANDo=";
   };
 
-    # wlroots.wrap
+  # wlroots.wrap
   wlroots-wrap = fetchgit {
     name = "wlroots";
     url = "https://github.com/swaywm/wlroots";
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
     sed '1i#include <functional>' -i cardboard/ViewAnimation.h # gcc12
   '';
 
-    # "Inherited" from Nixpkgs expression for wlroots
+  # "Inherited" from Nixpkgs expression for wlroots
   mesonFlags = [
     "-Dman=true"
     "-Dwlroots:logind-provider=systemd"

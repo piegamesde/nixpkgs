@@ -59,7 +59,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace gtk-update-icon-cache gtk4-update-icon-cache
   '';
 
-    # prevent double wrapping
+  # prevent double wrapping
   dontWrapGApps = true;
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")

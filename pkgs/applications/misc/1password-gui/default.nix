@@ -81,7 +81,6 @@ let
     ];
     platforms = builtins.attrNames sources.${channel};
   };
-
 in
 if stdenv.isDarwin then
   callPackage ./darwin.nix { inherit pname version src meta; }

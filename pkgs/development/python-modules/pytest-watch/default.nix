@@ -25,7 +25,7 @@ buildPythonPackage rec {
     watchdog
   ];
 
-    # No Tests
+  # No Tests
   doCheck = false;
   pythonImportsCheck = [ "pytest_watch" ];
 

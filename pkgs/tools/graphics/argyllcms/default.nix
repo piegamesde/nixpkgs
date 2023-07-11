@@ -142,8 +142,8 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-    # Install udev rules, but remove lines that set up the udev-acl
-    # stuff, since that is handled by udev's own rules (70-udev-acl.rules)
+  # Install udev rules, but remove lines that set up the udev-acl
+  # stuff, since that is handled by udev's own rules (70-udev-acl.rules)
   postInstall = ''
     rm -v $out/bin/License.txt
     mkdir -p $out/etc/udev/rules.d

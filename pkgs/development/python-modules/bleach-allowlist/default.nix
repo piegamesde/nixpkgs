@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ bleach ];
 
-    # No tests
+  # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "bleach_allowlist" ];

@@ -81,14 +81,14 @@ buildPythonPackage rec {
     notebook
     numba
   ];
-    # Select some lightweight tests
+  # Select some lightweight tests
   pytestFlagsArray = [ "-m 'not long'" ];
   disabledTests = [
     # ModuleNotFoundError: No module named 'pymoo.cython.non_dominated_sorting'
     "test_fast_non_dominated_sorting"
     "test_efficient_non_dominated_sort"
   ];
-    # Avoid crashing sandboxed build on macOS
+  # Avoid crashing sandboxed build on macOS
   MATPLOTLIBRC = writeText "" ''
     backend: Agg
   '';

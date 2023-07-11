@@ -13,7 +13,6 @@ import ./make-test-python.nix (
           }
         )
       ];
-
   in
   {
     name = "containers-custom-pkgs";
@@ -57,7 +56,7 @@ import ./make-test-python.nix (
       }
       ;
 
-      # This test only consists of evaluating the test machine
+    # This test only consists of evaluating the test machine
     testScript = "pass";
   }
 )

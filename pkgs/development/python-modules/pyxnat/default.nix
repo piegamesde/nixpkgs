@@ -25,8 +25,8 @@ buildPythonPackage rec {
     six
   ];
 
-    # future is not used, and pathlib is installed part of python38+
-    # w/o an external package
+  # future is not used, and pathlib is installed part of python38+
+  # w/o an external package
   prePatch = ''
     substituteInPlace setup.py \
       --replace "pathlib>=1.0" "" \

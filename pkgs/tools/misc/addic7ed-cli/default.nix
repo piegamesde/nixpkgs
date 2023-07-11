@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     pyquery
   ];
 
-    # Tests require network access
+  # Tests require network access
   doCheck = false;
   pythonImportsCheck = [ "addic7ed_cli" ];
 

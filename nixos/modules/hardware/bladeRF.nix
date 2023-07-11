@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.hardware.bladeRF;
-
 in
+
 {
   options.hardware.bladeRF = {
     enable = mkOption {
@@ -22,7 +22,6 @@ in
         libbladeRF package.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {

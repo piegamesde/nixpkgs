@@ -32,5 +32,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = jdk11_headless.meta.platforms;
     maintainers = with maintainers; [ govanify ];
   };
-
 }

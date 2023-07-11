@@ -42,5 +42,4 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     broken = isPy3k; # doesn't build on python 3, 2018-04-11
   };
-
 }

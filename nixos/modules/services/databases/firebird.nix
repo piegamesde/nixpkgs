@@ -34,8 +34,8 @@ let
 
   dataDir = "${cfg.baseDir}/data";
   systemDir = "${cfg.baseDir}/system";
-
 in
+
 {
 
   ###### interface
@@ -81,12 +81,10 @@ in
           data/ stores the databases, system/ stores the password database security2.fdb.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.firebird.enable {
 
@@ -102,8 +100,8 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
-        # TODO: moving security2.fdb into the data directory works, maybe there
-        # is a better way
+      # TODO: moving security2.fdb into the data directory works, maybe there
+      # is a better way
       preStart = ''
         if ! test -e "${systemDir}/security2.fdb"; then
             cp ${firebird}/security2.fdb "${systemDir}"
@@ -125,12 +123,12 @@ in
       serviceConfig.LogsDirectoryMode = "0700";
       serviceConfig.ExecStart = "${firebird}/bin/fbserver -d";
 
-        # TODO think about shutdown
+      # TODO think about shutdown
     };
 
     environment.etc."firebird/firebird.msg".source = "${firebird}/firebird.msg";
 
-      # think about this again - and eventually make it an option
+    # think about this again - and eventually make it an option
     environment.etc."firebird/firebird.conf".text = ''
       # RootDirectory = Restrict ${dataDir}
       DatabaseAccess = Restrict ${dataDir}
@@ -165,6 +163,5 @@ in
     };
 
     users.groups.firebird.gid = config.ids.gids.firebird;
-
   };
 }

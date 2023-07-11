@@ -27,9 +27,9 @@ let
       apm_config = { enabled = true; };
     } // cfg.extraConfig;
 
-    # Generate Datadog configuration files for each configured checks.
-    # This works because check configurations have predictable paths,
-    # and because JSON is a valid subset of YAML.
+  # Generate Datadog configuration files for each configured checks.
+  # This works because check configurations have predictable paths,
+  # and because JSON is a valid subset of YAML.
   makeCheckConfigs =
     entries:
     mapAttrs'
@@ -48,8 +48,8 @@ let
     network = cfg.networkCheck;
   };
 
-    # Assemble all check configurations and the top-level agent
-    # configuration.
+  # Assemble all check configurations and the top-level agent
+  # configuration.
   etcfiles = with pkgs;
     with builtins;
     {
@@ -58,9 +58,9 @@ let
       };
     } // makeCheckConfigs (cfg.checks // defaultChecks);
 
-    # Apply the configured extraIntegrations to the provided agent
-    # package. See the documentation of `dd-agent/integrations-core.nix`
-    # for detailed information on this.
+  # Apply the configured extraIntegrations to the provided agent
+  # package. See the documentation of `dd-agent/integrations-core.nix`
+  # for detailed information on this.
   datadogPkg = cfg.package.override {
     pythonPackages = pkgs.datadog-integrations-core cfg.extraIntegrations;
   };
@@ -222,8 +222,8 @@ in
 
       default = { };
 
-        # sic! The structure of the values is up to the check, so we can
-        # not usefully constrain the type further.
+      # sic! The structure of the values is up to the check, so we can
+      # not usefully constrain the type further.
       type = with types; attrsOf attrs;
     };
 
@@ -241,7 +241,7 @@ in
       type = types.attrs;
       default = {
         init_config = { };
-          # Network check only supports one configured instance
+        # Network check only supports one configured instance
         instances = [ {
           collect_connection_state = false;
           excluded_interfaces = [
@@ -344,7 +344,6 @@ in
             '';
           }
         );
-
       }
       ;
 

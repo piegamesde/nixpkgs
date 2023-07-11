@@ -122,8 +122,8 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-    # aiohttp in current folder shadows installed version
-    # Probably because we run `python -m pytest` instead of `pytest` in the hook.
+  # aiohttp in current folder shadows installed version
+  # Probably because we run `python -m pytest` instead of `pytest` in the hook.
   preCheck =
     ''
       cd tests

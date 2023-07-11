@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-TfQIvvLLsYubLbai2RNJkCu96nYFEWbdZU8WaJbpUwU=";
   };
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "esphome_dashboard" ];

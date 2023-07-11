@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (libpaper != null) "--enable-libpaper"
     ;
 
-    # AR has to be an absolute path
+  # AR has to be an absolute path
   preConfigure = ''
     export AR="${
       lib.getBin stdenv.cc.bintools.bintools

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     mpi4py
   ];
 
-    # Hardcoded mpirun path in tests
+  # Hardcoded mpirun path in tests
   doCheck = false;
 
   pythonImportsCheck = [ "dask_mpi" ];

@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 
-    # libfm-extra is pulled in by menu-cache and thus leads to a collision for libfm
+  # libfm-extra is pulled in by menu-cache and thus leads to a collision for libfm
   postInstall = optionalString (!extraOnly) ''
     rm $out/lib/libfm-extra.so $out/lib/libfm-extra.so.* $out/lib/libfm-extra.la $out/lib/pkgconfig/libfm-extra.pc
   '';

@@ -36,14 +36,14 @@ let
     sha256 = "1qgia6vqb6fhyfj8w925xl6k6zidrp2gj5f32bpi94lwwhi6p9pd";
   };
 
-    # DJV's build system tries to automatically pull in FSeq, another
-    # library by the DJV author.
-    #
-    # When updating, check the following file in the DJV source:
-    # etc/SuperBuild/cmake/Modules/BuildFSeq.cmake
-    #
-    # If there is revision or tag specified, DJV wants to use the most
-    # recent master version
+  # DJV's build system tries to automatically pull in FSeq, another
+  # library by the DJV author.
+  #
+  # When updating, check the following file in the DJV source:
+  # etc/SuperBuild/cmake/Modules/BuildFSeq.cmake
+  #
+  # If there is revision or tag specified, DJV wants to use the most
+  # recent master version
   fseqSrc = fetchFromGitHub {
     owner = "darbyjohnston";
     repo = "fseq";
@@ -100,7 +100,6 @@ let
     dontInstall = true;
     doCheck = true;
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "djv";
@@ -161,7 +160,7 @@ stdenv.mkDerivation rec {
         -e '/OpenColorIO_STATIC/d'
   '';
 
-    # GLFW requires a working X11 session.
+  # GLFW requires a working X11 session.
   doCheck = false;
 
   meta = with lib; {

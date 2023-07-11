@@ -28,7 +28,6 @@
 let
   pname = "whitesur-gtk-theme";
   single = x: lib.optional (x != null) x;
-
 in
 lib.checkListOfEnum "${pname}: alt variants"
 [

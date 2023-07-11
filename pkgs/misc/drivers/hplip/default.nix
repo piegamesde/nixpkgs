@@ -70,8 +70,8 @@ let
     "arm32"
     "arm64"
   ];
-
 in
+
 assert withPlugin
   -> builtins.elem hplipArch pluginArches
     || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
@@ -196,10 +196,10 @@ python3Packages.buildPythonApplication {
     ++ lib.optional withQt5 "--enable-qt5"
     ;
 
-    # Prevent 'ppdc: Unable to find include file "<font.defs>"' which prevent
-    # generation of '*.ppd' files.
-    # This seems to be a 'ppdc' issue when the tool is run in a hermetic sandbox.
-    # Could not find how to fix the problem in 'ppdc' so this is a workaround.
+  # Prevent 'ppdc: Unable to find include file "<font.defs>"' which prevent
+  # generation of '*.ppd' files.
+  # This seems to be a 'ppdc' issue when the tool is run in a hermetic sandbox.
+  # Could not find how to fix the problem in 'ppdc' so this is a workaround.
   CUPS_DATADIR = "${cups}/share/cups";
 
   makeFlags =
@@ -226,10 +226,10 @@ python3Packages.buildPythonApplication {
   enableParallelBuilding = true;
   enableParallelInstalling = false;
 
-    #
-    # Running `hp-diagnose_plugin -g` can be used to diagnose
-    # issues with plugins.
-    #
+  #
+  # Running `hp-diagnose_plugin -g` can be used to diagnose
+  # issues with plugins.
+  #
   postInstall =
     ''
       for resolution in 16x16 32x32 64x64 128x128 256x256; do
@@ -279,12 +279,12 @@ python3Packages.buildPythonApplication {
     ''
     ;
 
-    # The installed executables are just symlinks into $out/share/hplip,
-    # but wrapPythonPrograms ignores symlinks. We cannot replace the Python
-    # modules in $out/share/hplip with wrapper scripts because they import
-    # each other as libraries. Instead, we emulate wrapPythonPrograms by
-    # 1. Calling patchPythonProgram on the original script in $out/share/hplip
-    # 2. Making our own wrapper pointing directly to the original script.
+  # The installed executables are just symlinks into $out/share/hplip,
+  # but wrapPythonPrograms ignores symlinks. We cannot replace the Python
+  # modules in $out/share/hplip with wrapper scripts because they import
+  # each other as libraries. Instead, we emulate wrapPythonPrograms by
+  # 1. Calling patchPythonProgram on the original script in $out/share/hplip
+  # 2. Making our own wrapper pointing directly to the original script.
   dontWrapPythonPrograms = true;
   preFixup = ''
     buildPythonPath "$out $pythonPath"
@@ -322,7 +322,7 @@ python3Packages.buildPythonApplication {
     ''
     ;
 
-    # There are some binaries there, which reference gcc-unwrapped otherwise.
+  # There are some binaries there, which reference gcc-unwrapped otherwise.
   stripDebugList = [
     "share/hplip"
     "lib/cups/backend"

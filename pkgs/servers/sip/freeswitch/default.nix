@@ -37,7 +37,7 @@ let
 
   availableModules = callPackage ./modules.nix { };
 
-    # the default list from v1.8.7, except with applications/mod_signalwire also disabled
+  # the default list from v1.8.7, except with applications/mod_signalwire also disabled
   defaultModules =
     mods:
     with mods;
@@ -119,8 +119,8 @@ let
     in
     builtins.toFile "modules.conf" str
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "freeswitch";
   version = "1.10.9";
@@ -178,8 +178,8 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-    # Using c++14 because of build error
-    # gsm_at.h:94:32: error: ISO C++17 does not allow dynamic exception specifications
+  # Using c++14 because of build error
+  # gsm_at.h:94:32: error: ISO C++17 does not allow dynamic exception specifications
   CXXFLAGS = "-std=c++14";
 
   CFLAGS = "-D_ANSI_SOURCE";

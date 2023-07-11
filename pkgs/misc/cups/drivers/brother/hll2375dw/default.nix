@@ -29,8 +29,8 @@ let
     coreutils
     which
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "cups-brother-hll2375dw";
   version = "4.0.0-1";

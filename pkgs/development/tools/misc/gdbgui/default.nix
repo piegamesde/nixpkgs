@@ -40,7 +40,7 @@ buildPythonApplication rec {
       --prefix PATH : ${lib.makeBinPath [ gdb ]}
   '';
 
-    # tests do not work without stdout/stdin
+  # tests do not work without stdout/stdin
   doCheck = false;
 
   meta = with lib; {

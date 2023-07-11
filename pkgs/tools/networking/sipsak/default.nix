@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
     c-ares
   ];
 
-    # -fcommon: workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: transport.o:/build/source/sipsak.h:323: multiple definition of
-    #     `address'; auth.o:/build/source/sipsak.h:323: first defined here
+  # -fcommon: workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: transport.o:/build/source/sipsak.h:323: multiple definition of
+  #     `address'; auth.o:/build/source/sipsak.h:323: first defined here
   env.NIX_CFLAGS_COMPILE = "-std=gnu89 -fcommon";
 
   src = fetchFromGitHub {
@@ -37,6 +37,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ sheenobu ];
     platforms = with platforms; unix;
   };
-
 }
-

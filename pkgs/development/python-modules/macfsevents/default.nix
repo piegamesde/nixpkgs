@@ -20,7 +20,7 @@ buildPythonPackage rec {
     CoreServices
   ];
 
-    # Some tests fail under nix build directory
+  # Some tests fail under nix build directory
   doCheck = false;
 
   meta = with lib; {

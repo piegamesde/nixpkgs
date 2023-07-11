@@ -123,7 +123,7 @@ in
       "")
   ];
 
-    ###### interface
+  ###### interface
   options.services.kubernetes.kubelet = with lib.types; {
 
     address = mkOption {
@@ -312,10 +312,9 @@ in
       default = null;
       type = nullOr int;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
   config = mkMerge [
     (mkIf cfg.enable {
 
@@ -455,7 +454,7 @@ in
         unitConfig = { StartLimitIntervalSec = 0; };
       };
 
-        # Allways include cni plugins
+      # Allways include cni plugins
       services.kubernetes.kubelet.cni.packages = [
         pkgs.cni-plugins
         pkgs.cni-plugin-flannel
@@ -474,7 +473,6 @@ in
           name = "kubelet";
           CN = top.kubelet.hostname;
           action = "systemctl restart kubelet.service";
-
         };
         kubeletClient = mkCert {
           name = "kubelet-client";
@@ -506,7 +504,6 @@ in
         effect = "NoSchedule";
       };
     })
-
   ];
 
   meta.buildDocsInSandbox = false;

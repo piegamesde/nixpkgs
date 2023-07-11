@@ -30,8 +30,8 @@ buildPythonPackage rec {
     psutil
   ];
 
-    # Impure filesystem-related tests cause timeouts
-    # on Hydra: https://hydra.nixos.org/build/84374861
+  # Impure filesystem-related tests cause timeouts
+  # on Hydra: https://hydra.nixos.org/build/84374861
   doCheck = false;
 
   pythonImportsCheck = [ "pyftpdlib" ];

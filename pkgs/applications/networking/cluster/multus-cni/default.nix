@@ -27,7 +27,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-    # Some of the tests require accessing a k8s cluster
+  # Some of the tests require accessing a k8s cluster
   doCheck = false;
 
   meta = with lib; {

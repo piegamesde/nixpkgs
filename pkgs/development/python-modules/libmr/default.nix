@@ -21,7 +21,7 @@ buildPythonPackage rec {
     cython
   ];
 
-    # No tests in the pypi tarball
+  # No tests in the pypi tarball
   doCheck = false;
 
   meta = with lib; {
@@ -32,4 +32,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ psyanticy ];
   };
 }
-

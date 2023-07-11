@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
     "UNAME_S=${stdenv.hostPlatform.uname.system}"
   ];
 
-    # make install target is broken (DESTDIR usage is insane)
-    # it's easier to just skip make and install manually
+  # make install target is broken (DESTDIR usage is insane)
+  # it's easier to just skip make and install manually
   installPhase = ''
     runHook preInstall
     install -D -m 755 ./src/fatsort   $out/bin/fatsort

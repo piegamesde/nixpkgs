@@ -9,7 +9,6 @@
 let
   version = "1.3.0";
   sha256 = "sha256-CFv9gZQHeEiZctJFyB6PJ1dVNkrQ7PlVtgZuteQQTJ0=";
-
 in
 stdenv.mkDerivation {
   pname = "git-vendor";
@@ -76,5 +75,4 @@ stdenv.mkDerivation {
     maintainers = [ lib.maintainers.Profpatsch ];
     platforms = lib.platforms.all;
   };
-
 }

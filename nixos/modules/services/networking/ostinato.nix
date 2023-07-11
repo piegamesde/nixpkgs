@@ -21,7 +21,6 @@ let
     Include=${concatStringsSep "," cfg.portList.include}
     Exclude=${concatStringsSep "," cfg.portList.exclude}
   '';
-
 in
 {
 
@@ -94,12 +93,10 @@ in
           '';
         };
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -112,7 +109,5 @@ in
         ${pkg}/bin/drone ${toString cfg.port} ${configFile}
       '';
     };
-
   };
-
 }

@@ -19,5 +19,4 @@ buildPythonPackage rec {
     homepage = "https://bitbucket.org/jezdez/sphinx-pypi-upload/";
     license = licenses.bsd0;
   };
-
 }

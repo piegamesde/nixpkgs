@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-0wHXULDKyXYBTGxfSQXT/5NidPtSnx7ujb8vyczmE38=";
 
-    # Not a go module required by the project, contains development utilities
+  # Not a go module required by the project, contains development utilities
   excludedPackages = [ "scripts" ];
 
   ldflags = [

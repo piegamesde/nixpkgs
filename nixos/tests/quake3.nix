@@ -18,7 +18,7 @@ import ./make-test-python.nix (
       }
       ;
 
-      # Only allow the demo data to be used (only if it's unfreeRedistributable).
+    # Only allow the demo data to be used (only if it's unfreeRedistributable).
     unfreePredicate =
       pkg:
       with lib;
@@ -47,8 +47,8 @@ import ./make-test-python.nix (
         nixpkgs.config.allowUnfreePredicate = unfreePredicate;
       }
       ;
-
   in
+
   rec {
     name = "quake3";
     meta = with lib.maintainers; {
@@ -58,8 +58,8 @@ import ./make-test-python.nix (
       ];
     };
 
-      # TODO: lcov doesn't work atm
-      #makeCoverageReport = true;
+    # TODO: lcov doesn't work atm
+    #makeCoverageReport = true;
 
     nodes = {
       server =
@@ -119,6 +119,5 @@ import ./make-test-python.nix (
       client2.shutdown()
       server.stop_job("quake3-server")
     '';
-
   }
 )

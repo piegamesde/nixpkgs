@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       }"
     ];
 
-    # Bail out! ERROR:../tests/test-bugs.c:168:test_on_timeout: code should not be reached
+  # Bail out! ERROR:../tests/test-bugs.c:168:test_on_timeout: code should not be reached
   doCheck = !stdenv.isDarwin;
 
   passthru = {

@@ -33,5 +33,4 @@ buildDunePackage rec {
       "Path-based dispatching for client- and server-side applications";
     maintainers = [ lib.maintainers.vbgl ];
   };
-
 }

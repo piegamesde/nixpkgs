@@ -75,7 +75,7 @@ let
     exec ${gnome-session}/bin/gnome-session --builtin --session=pantheon "$@"
   '';
 
-    # Absolute path patched version of the upstream xsession
+  # Absolute path patched version of the upstream xsession
   xsession = writeText "pantheon.desktop" ''
     [Desktop Entry]
     Name=Pantheon
@@ -86,8 +86,8 @@ let
     DesktopNames=Pantheon
     Type=Application
   '';
-
 in
+
 stdenv.mkDerivation rec {
   pname = "elementary-session-settings";
   version = "6.0.0";

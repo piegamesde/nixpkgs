@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pygments ];
 
-    # Tests only execute pygments with these styles
+  # Tests only execute pygments with these styles
   doCheck = false;
 
   pythonImportsCheck = [

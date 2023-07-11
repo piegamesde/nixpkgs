@@ -19,5 +19,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/pediapress/timelib/";
     license = licenses.zlib;
   };
-
 }

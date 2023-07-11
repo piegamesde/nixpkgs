@@ -59,7 +59,6 @@ let
       xmlRev = "f5019a5c6f19ef05a28bd974c3e8668b78e6e2a4";
       prerelease = false;
     };
-
   };
 
   release =
@@ -73,7 +72,7 @@ let
 
   version = release.dfHackRelease;
 
-    # revision of library/xml submodule
+  # revision of library/xml submodule
   xmlRev = release.xmlRev;
 
   arch =
@@ -108,11 +107,9 @@ let
 in
 stdenv.mkDerivation {
   pname = "dfhack";
-  inherit
-    version
-    ;
+  inherit version;
 
-    # Beware of submodules
+  # Beware of submodules
   src = fetchFromGitHub {
     owner = "DFHack";
     repo = "dfhack";
@@ -142,18 +139,18 @@ stdenv.mkDerivation {
     )
     ;
 
-    # gcc 11 fix
+  # gcc 11 fix
   CXXFLAGS =
     lib.optionalString (lib.versionOlder version "0.47.05-r3") "-fpermissive";
 
-    # As of
-    # https://github.com/DFHack/dfhack/commit/56e43a0dde023c5a4595a22b29d800153b31e3c4,
-    # dfhack gets its goodies from the directory above the Dwarf_Fortress
-    # executable, which leads to stock Dwarf Fortress and not the built
-    # environment where all the dfhack resources are symlinked to (typically
-    # ~/.local/share/df_linux). This causes errors like `tweak is not a
-    # recognized command` to be reported and dfhack to lose some of its
-    # functionality.
+  # As of
+  # https://github.com/DFHack/dfhack/commit/56e43a0dde023c5a4595a22b29d800153b31e3c4,
+  # dfhack gets its goodies from the directory above the Dwarf_Fortress
+  # executable, which leads to stock Dwarf Fortress and not the built
+  # environment where all the dfhack resources are symlinked to (typically
+  # ~/.local/share/df_linux). This causes errors like `tweak is not a
+  # recognized command` to be reported and dfhack to lose some of its
+  # functionality.
   postPatch = ''
     sed -i 's@cached_path = path_string.*@cached_path = getenv("DF_DIR");@' library/Process-linux.cpp
   '';
@@ -165,7 +162,7 @@ stdenv.mkDerivation {
     XMLLibXSLT
     fakegit
   ];
-    # We don't use system libraries because dfhack needs old C++ ABI.
+  # We don't use system libraries because dfhack needs old C++ ABI.
   buildInputs =
     [
       zlib
@@ -195,8 +192,8 @@ stdenv.mkDerivation {
     ]
     ;
 
-    # dfhack expects an unversioned libruby.so to be present in the hack
-    # subdirectory for ruby plugins to function.
+  # dfhack expects an unversioned libruby.so to be present in the hack
+  # subdirectory for ruby plugins to function.
   postInstall = ''
     ln -s ${ruby}/lib/libruby-*.so $out/hack/libruby.so
   '';

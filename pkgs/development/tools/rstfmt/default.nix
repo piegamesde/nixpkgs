@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     sphinx
   ];
 
-    # Project has no unittest just sample files
+  # Project has no unittest just sample files
   doCheck = false;
 
   pythonImportsCheck = [ "rstfmt" ];

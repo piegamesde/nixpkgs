@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XMwQ7UaPC8YYu4yxsE4bbR3leYPfBHu5iixSLz05r3g=";
   };
 
-    # replace faulty macos detection
+  # replace faulty macos detection
   postPatch = lib.optionalString stdenv.isDarwin ''
     sed -i 's/^IS_APPLE := .*$/IS_APPLE := 1/' Makefile
   '';

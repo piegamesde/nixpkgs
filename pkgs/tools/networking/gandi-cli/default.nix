@@ -26,7 +26,7 @@ buildPythonApplication rec {
     requests
   ];
 
-    # Tests try to contact the actual remote API
+  # Tests try to contact the actual remote API
   doCheck = false;
   pythonImportsCheck = [ "gandi" ];
 

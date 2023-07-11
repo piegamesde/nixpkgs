@@ -24,8 +24,8 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
-    # Mouseinfo requires a X server running to import successfully
-    # pythonImportsCheck = [ "mouseinfo" ];
+  # Mouseinfo requires a X server running to import successfully
+  # pythonImportsCheck = [ "mouseinfo" ];
 
   propagatedBuildInputs = [
     pyperclip

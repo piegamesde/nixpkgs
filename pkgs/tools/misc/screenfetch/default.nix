@@ -43,7 +43,6 @@ let
       ]
     )
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "screenfetch";

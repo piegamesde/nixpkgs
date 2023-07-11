@@ -37,7 +37,6 @@ let
     gnugrep
     which
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "cups-filters";
@@ -97,7 +96,7 @@ stdenv.mkDerivation rec {
     "CUPS_SERVERROOT=$(out)/etc/cups"
   ];
 
-    # https://github.com/OpenPrinting/cups-filters/issues/512
+  # https://github.com/OpenPrinting/cups-filters/issues/512
   env.NIX_CFLAGS_COMPILE = "-std=c++17";
 
   postConfigure = ''

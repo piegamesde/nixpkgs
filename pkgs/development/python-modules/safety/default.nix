@@ -53,7 +53,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Disable tests depending on online services
+  # Disable tests depending on online services
   disabledTests = [
     "test_announcements_if_is_not_tty"
     "test_check_live"

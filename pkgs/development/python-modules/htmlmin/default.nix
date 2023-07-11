@@ -12,7 +12,7 @@ buildPythonPackage rec {
     sha256 = "50c1ef4630374a5d723900096a961cff426dff46b48f34d194a81bbe14eca178";
   };
 
-    # Tests run fine in a normal source checkout, but not when being built by nix.
+  # Tests run fine in a normal source checkout, but not when being built by nix.
   doCheck = false;
 
   meta = with lib; {

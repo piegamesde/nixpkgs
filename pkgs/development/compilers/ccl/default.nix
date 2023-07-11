@@ -44,8 +44,8 @@ let
     options.${stdenv.hostPlatform.system} or (throw
       "missing source url for platform ${stdenv.hostPlatform.system}");
 
-    # The 1.12 github release of CCL seems to be missing the usual
-    # ccl-1.12-linuxarm.tar.gz tarball, so we build it ourselves here
+  # The 1.12 github release of CCL seems to be missing the usual
+  # ccl-1.12-linuxarm.tar.gz tarball, so we build it ourselves here
   linuxarm-src = runCommand "ccl-1.12-linuxarm.tar.gz"
     {
       outer = fetchurl {
@@ -63,8 +63,8 @@ let
       tar xf $inner -C ccl
       tar czf $out ccl
     '';
-
 in
+
 stdenv.mkDerivation rec {
   pname = "ccl";
   version = "1.12";
@@ -160,7 +160,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ccl.clozure.com/";
     maintainers = lib.teams.lisp.members;
     platforms = attrNames options;
-      # assembler failures during build, x86_64-darwin broken since 2020-10-14
+    # assembler failures during build, x86_64-darwin broken since 2020-10-14
     broken = (stdenv.isDarwin && stdenv.isx86_64);
     license = licenses.asl20;
   };

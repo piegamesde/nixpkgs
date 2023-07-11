@@ -69,7 +69,7 @@ with lib;
         '';
       };
 
-        # optional configs
+      # optional configs
       name = mkOption {
         type = types.str;
         default = "nixos-${config.system.nixos.label}";
@@ -270,7 +270,6 @@ with lib;
                     ];
 
                   buildInputs = super.buildInputs ++ [ pkgs.libuuid ];
-
                 }
               );
           in
@@ -296,14 +295,10 @@ with lib;
         kernelParams = [ "console=ttyS0" ];
         loader.grub = {
           device = lib.mkDefault (
-            if
-              (
-                hasNoFsPartition || supportBios
-              )
-            then
-            # Even if there is a separate no-fs partition ("/dev/disk/by-partlabel/no-fs" i.e. "/dev/vda2"),
-            # which will be used the bootloader, do not set it as loader.grub.device.
-            # GRUB installation fails, unless the whole disk is selected.
+            if (hasNoFsPartition || supportBios) then
+              # Even if there is a separate no-fs partition ("/dev/disk/by-partlabel/no-fs" i.e. "/dev/vda2"),
+              # which will be used the bootloader, do not set it as loader.grub.device.
+              # GRUB installation fails, unless the whole disk is selected.
               "/dev/vda"
             else
               "nodev"

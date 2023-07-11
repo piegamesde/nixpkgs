@@ -34,7 +34,7 @@ buildGoModule rec {
     "-X=main.Revision=${version}"
   ];
 
-    # tests use docker
+  # tests use docker
   doCheck = false;
 
   meta = with lib; {

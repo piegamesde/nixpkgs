@@ -12,7 +12,7 @@ buildPythonPackage rec {
   pname = "gentools";
   version = "1.1.0";
 
-    # Pypi doesn't ship the tests, so we fetch directly from GitHub
+  # Pypi doesn't ship the tests, so we fetch directly from GitHub
   src = fetchFromGitHub {
     owner = "ariebovenberg";
     repo = pname;
@@ -35,5 +35,4 @@ buildPythonPackage rec {
     homepage = "https://gentools.readthedocs.io/";
     maintainers = with maintainers; [ mredaelli ];
   };
-
 }

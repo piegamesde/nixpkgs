@@ -17,19 +17,16 @@ let
   src = fetchFromGitHub {
     owner = "JustArchiNET";
     repo = "ASF-ui";
-      # updated by the update script
-      # this is always the commit that should be used with asf-ui from the latest asf version
+    # updated by the update script
+    # this is always the commit that should be used with asf-ui from the latest asf version
     rev = "bc84d62e4f60f24cca6e9f8e820c30c750bcb0de";
     sha256 = "10z3jv551f41f2k9p6y0yhrqk6jr8pmpkrd479s1zfj40ywh48bc";
   };
-
 in
 nodePackages.package.override {
-  inherit
-    src
-    ;
+  inherit src;
 
-    # upstream isn't tagged, but we are using the latest official commit for that specific asf version (assuming both get updated at the same time)
+  # upstream isn't tagged, but we are using the latest official commit for that specific asf version (assuming both get updated at the same time)
   version = ArchiSteamFarm.version;
 
   nativeBuildInputs = [ pkgs.nodePackages.node-gyp-build ];

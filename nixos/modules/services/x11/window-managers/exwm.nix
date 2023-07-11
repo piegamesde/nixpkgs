@@ -18,8 +18,8 @@ let
   '';
   packages = epkgs: cfg.extraPackages epkgs ++ [ epkgs.exwm ];
   exwm-emacs = pkgs.emacsWithPackages packages;
-
 in
+
 {
   options = {
     services.xserver.windowManager.exwm = {

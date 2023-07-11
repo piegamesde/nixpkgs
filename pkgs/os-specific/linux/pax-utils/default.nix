@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     xmlto
   ];
   buildInputs = [ libcap ];
-    # Needed for lddtree
+  # Needed for lddtree
   propagatedBuildInputs = [
       (python3.withPackages (p: with p; [ pyelftools ]))
     ];

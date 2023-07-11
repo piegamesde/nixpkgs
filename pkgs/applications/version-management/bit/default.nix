@@ -20,7 +20,7 @@ buildGoModule rec {
 
   propagatedBuildInputs = [ git ];
 
-    # Tests require a repository
+  # Tests require a repository
   doCheck = false;
 
   meta = with lib; {

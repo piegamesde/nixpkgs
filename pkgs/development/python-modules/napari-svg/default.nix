@@ -33,7 +33,7 @@ buildPythonPackage rec {
     imageio
   ];
 
-    # Circular dependency: napari
+  # Circular dependency: napari
   doCheck = false;
 
   meta = with lib; {

@@ -34,5 +34,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.dochang ];
     platforms = platforms.unix;
   };
-
 }

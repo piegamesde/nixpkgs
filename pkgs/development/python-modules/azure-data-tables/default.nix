@@ -21,7 +21,7 @@ buildPythonPackage rec {
     msrest
   ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "azure.data.tables" ];

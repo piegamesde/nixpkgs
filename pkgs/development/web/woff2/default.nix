@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     "lib"
   ];
 
-    # Need to explicitly link to brotlicommon
+  # Need to explicitly link to brotlicommon
   patches = lib.optional static ./brotli-static.patch;
 
   nativeBuildInputs = [

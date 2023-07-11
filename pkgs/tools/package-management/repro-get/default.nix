@@ -23,8 +23,8 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # The pkg/version test requires internet access, so disable it here and run it
-    # in passthru.pkg-version
+  # The pkg/version test requires internet access, so disable it here and run it
+  # in passthru.pkg-version
   preCheck = ''
     rm -rf pkg/version
   '';

@@ -50,8 +50,8 @@ let
   version = "2.37";
   patchSuffix = "-8";
   sha256 = "sha256-Ilfv8RGhgV109GhW2q9AsBnB5VMVbGnUi6DL/Bu5GkM=";
-
 in
+
 assert withLinuxHeaders -> linuxHeaders != null;
 assert withGd -> gd != null && libpng != null;
 
@@ -193,7 +193,7 @@ stdenv.mkDerivation (
 
     installFlags = [ "sysconfdir=$(out)/etc" ];
 
-      # out as the first output is an exception exclusive to glibc
+    # out as the first output is an exception exclusive to glibc
     outputs = [
       "out"
       "bin"
@@ -221,16 +221,14 @@ stdenv.mkDerivation (
 
     env = {
       linuxHeaders = lib.optionalString withLinuxHeaders linuxHeaders;
-      inherit (stdenv)
-        is64bit
-        ;
-        # Needed to install share/zoneinfo/zone.tab.  Set to impure /bin/sh to
-        # prevent a retained dependency on the bootstrap tools in the stdenv-linux
-        # bootstrap.
+      inherit (stdenv) is64bit;
+      # Needed to install share/zoneinfo/zone.tab.  Set to impure /bin/sh to
+      # prevent a retained dependency on the bootstrap tools in the stdenv-linux
+      # bootstrap.
       BASH_SHELL = "/bin/sh";
     };
 
-      # Used by libgcc, elf-header, and others to determine ABI
+    # Used by libgcc, elf-header, and others to determine ABI
     passthru = {
       inherit version;
       minorRelease = version;
@@ -248,7 +246,7 @@ stdenv.mkDerivation (
       inherit sha256;
     };
 
-      # Remove absolute paths from `configure' & co.; build out-of-tree.
+    # Remove absolute paths from `configure' & co.; build out-of-tree.
     preConfigure =
       ''
         export PWD_P=$(type -tP pwd)

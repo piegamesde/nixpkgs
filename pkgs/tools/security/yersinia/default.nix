@@ -77,15 +77,12 @@ stdenv.mkDerivation rec {
     description = "A framework for layer 2 attacks";
     homepage = "https://github.com/tomac/yersinia";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-        vdot0x23
-      ];
-      # INSTALL and FAQ in this package seem a little outdated
-      # so not sure, but it could work on openbsd, illumos, and freebsd
-      # if you have a machine to test with, feel free to add these
-    platforms = with platforms;
-      linux;
-      # never built on aarch64-linux since first introduction in nixpkgs
+    maintainers = with maintainers; [ vdot0x23 ];
+    # INSTALL and FAQ in this package seem a little outdated
+    # so not sure, but it could work on openbsd, illumos, and freebsd
+    # if you have a machine to test with, feel free to add these
+    platforms = with platforms; linux;
+    # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

@@ -14,7 +14,6 @@ let
     rev = "v${version}";
     sha256 = "sha256-hRv7f2NeURsgLQ1zNgAhZvTjS0ei4+5lqokIu0iN+aI=";
   };
-
 in
 buildGoModule {
   pname = "influx-cli";

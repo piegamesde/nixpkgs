@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # majority of tests just try to ping Google's Translate API endpoint
+  # majority of tests just try to ping Google's Translate API endpoint
   doCheck = false;
 
   pythonImportsCheck = [ "googletrans" ];

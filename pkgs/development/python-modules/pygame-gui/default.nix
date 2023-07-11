@@ -11,7 +11,7 @@
 buildPythonPackage rec {
   pname = "pygame-gui";
   version = "068";
-    # nixpkgs-update: no auto update
+  # nixpkgs-update: no auto update
 
   src = fetchFromGitHub {
     owner = "MyreMylar";

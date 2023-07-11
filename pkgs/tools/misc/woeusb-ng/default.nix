@@ -42,7 +42,7 @@ buildPythonApplication rec {
     mkdir -p $out/bin $out/share/applications $out/share/polkit-1/actions
   '';
 
-    # Unable to access the X Display, is $DISPLAY set properly?
+  # Unable to access the X Display, is $DISPLAY set properly?
   doCheck = false;
 
   meta = with lib; {

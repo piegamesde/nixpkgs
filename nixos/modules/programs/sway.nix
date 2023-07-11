@@ -136,7 +136,6 @@ in
         for a list of useful software.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -149,9 +148,8 @@ in
     } ];
     environment = {
       systemPackages =
-        optional (cfg.package != null) cfg.package ++ cfg.extraPackages
-        ;
-        # Needed for the default wallpaper:
+        optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
+      # Needed for the default wallpaper:
       pathsToLink =
         optionals (cfg.package != null) [ "/share/backgrounds/sway" ];
       etc = {
@@ -169,11 +167,11 @@ in
     hardware.opengl.enable = mkDefault true;
     fonts.enableDefaultFonts = mkDefault true;
     programs.dconf.enable = mkDefault true;
-      # To make a Sway session available if a display manager like SDDM is enabled:
+    # To make a Sway session available if a display manager like SDDM is enabled:
     services.xserver.displayManager.sessionPackages =
       optionals (cfg.package != null) [ cfg.package ];
     programs.xwayland.enable = mkDefault true;
-      # For screen sharing (this option only has an effect with xdg.portal.enable):
+    # For screen sharing (this option only has an effect with xdg.portal.enable):
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
   };
 

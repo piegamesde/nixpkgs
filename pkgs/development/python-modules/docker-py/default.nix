@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "05f49f6hnl7npmi7kigg0ibqk8s3fhzx1ivvz1kqvlv4ay3paajc";
   };
 
-    # The tests access the network.
+  # The tests access the network.
   doCheck = false;
 
   propagatedBuildInputs = [

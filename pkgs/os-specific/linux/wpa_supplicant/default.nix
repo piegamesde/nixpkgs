@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # TODO: Patch epoll so that the dbus actually responds
-    # TODO: Figure out how to get privsep working, currently getting SIGBUS
+  # TODO: Patch epoll so that the dbus actually responds
+  # TODO: Figure out how to get privsep working, currently getting SIGBUS
   extraConfig =
     ''
       #CONFIG_ELOOP_EPOLL=y
@@ -90,10 +90,6 @@ stdenv.mkDerivation rec {
       CONFIG_CTRL_IFACE_DBUS_NEW=y
       CONFIG_CTRL_IFACE_DBUS_INTRO=y
     ''
-      # Upstream uses conditionals based on ifdef, so opposite of =y is
-      # not =n, as one may expect, but undefine.
-      #
-      # This config is sourced into makefile.
     + optionalString (!dbusSupport) ''
       undefine CONFIG_CTRL_IFACE_DBUS
       undefine CONFIG_CTRL_IFACE_DBUS_NEW

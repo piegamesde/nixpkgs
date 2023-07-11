@@ -33,7 +33,7 @@ python3Packages.buildPythonApplication rec {
     rm $out/bin/streaming_extractor_music
   '';
 
-    # Tests seem to be broken, but the tool works
+  # Tests seem to be broken, but the tool works
   doCheck = false;
 
   pythonImportsCheck = [ "abz" ];
@@ -42,7 +42,7 @@ python3Packages.buildPythonApplication rec {
     description = "A client to upload data to an AcousticBrainz server";
     license = licenses.gpl3Plus;
     homepage = "https://github.com/MTG/acousticbrainz-client";
-      # essentia-extractor is only available for those platforms
+    # essentia-extractor is only available for those platforms
     platforms = [
       "x86_64-linux"
       "i686-linux"

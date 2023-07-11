@@ -12,7 +12,6 @@ let
 
   format = pkgs.formats.yaml { };
   configFile = format.generate "zigbee2mqtt.yaml" cfg.settings;
-
 in
 {
   meta.maintainers = with maintainers; [
@@ -85,8 +84,8 @@ in
         server = mkDefault "mqtt://localhost:1883";
       };
       serial.port = mkDefault "/dev/ttyACM0";
-        # reference device configuration, that is kept in a separate file
-        # to prevent it being overwritten in the units ExecStartPre script
+      # reference device configuration, that is kept in a separate file
+      # to prevent it being overwritten in the units ExecStartPre script
       devices = mkDefault "devices.yaml";
     };
 
@@ -102,7 +101,7 @@ in
         WorkingDirectory = cfg.dataDir;
         Restart = "on-failure";
 
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = "";
         DeviceAllow = [ config.services.zigbee2mqtt.settings.serial.port ];
         DevicePolicy = "closed";

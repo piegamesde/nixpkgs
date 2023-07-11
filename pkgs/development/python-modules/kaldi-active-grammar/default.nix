@@ -48,7 +48,7 @@ buildPythonPackage rec {
     })
   ];
 
-    # scikit-build puts us in the wrong folder. That is bad.
+  # scikit-build puts us in the wrong folder. That is bad.
   preBuild = ''
     cd ..
   '';
@@ -75,10 +75,8 @@ buildPythonPackage rec {
     description = "Python Kaldi speech recognition";
     homepage = "https://github.com/daanzu/kaldi-active-grammar";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [
-        ckie
-      ];
-      # Other platforms are supported upstream.
+    maintainers = with maintainers; [ ckie ];
+    # Other platforms are supported upstream.
     platforms = platforms.linux;
   };
 }

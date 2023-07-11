@@ -189,11 +189,11 @@ in
         );
       };
 
-        # TODO: Add support for redudp and dnstc
+      # TODO: Add support for redudp and dnstc
     };
   };
 
-    ##### implementation
+  ##### implementation
   config =
     let
       redsocks_blocks = concatMapStrings

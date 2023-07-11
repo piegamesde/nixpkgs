@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.services.canto-daemon;
-
 in
 {
 
@@ -25,10 +24,9 @@ in
         description = lib.mdDoc "Whether to enable the canto RSS daemon.";
       };
     };
-
   };
 
-    ##### implementation
+  ##### implementation
 
   config = mkIf cfg.enable {
 
@@ -39,5 +37,4 @@ in
       serviceConfig.ExecStart = "${pkgs.canto-daemon}/bin/canto-daemon";
     };
   };
-
 }

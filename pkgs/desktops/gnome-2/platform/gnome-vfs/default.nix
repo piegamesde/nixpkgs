@@ -63,10 +63,10 @@ stdenv.mkDerivation (
       glib
     ];
 
-      # struct SSL is opaque in openssl-1.1; and the SSL_free() man page
-      # says that one should not free members of it manually (in both
-      # the openssl-1.0 and openssl-1.1 man pages).
-      # https://bugs.gentoo.org/592540
+    # struct SSL is opaque in openssl-1.1; and the SSL_free() man page
+    # says that one should not free members of it manually (in both
+    # the openssl-1.0 and openssl-1.1 man pages).
+    # https://bugs.gentoo.org/592540
     patches = [
         (fetchpatch {
           name = "gnome-vfs-2.24.4-openssl-1.1.patch";

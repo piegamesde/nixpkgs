@@ -28,5 +28,4 @@ buildDunePackage rec {
       lib.maintainers.dandellion
     ];
   };
-
 }

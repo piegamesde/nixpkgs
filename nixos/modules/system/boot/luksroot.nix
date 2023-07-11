@@ -664,7 +664,6 @@ let
       luks.devices
     )
   );
-
 in
 {
   imports = [
@@ -847,7 +846,7 @@ in
                   '';
                 };
 
-                  # FIXME: get rid of this option.
+                # FIXME: get rid of this option.
                 preLVM = mkOption {
                   default = true;
                   type = types.bool;
@@ -1019,10 +1018,10 @@ in
                               "Time in seconds to wait for the YubiKey.";
                           };
 
-                            /* TODO: Add to the documentation of the current module:
+                          /* TODO: Add to the documentation of the current module:
 
-                               Options related to the storing the salt.
-                            */
+                             Options related to the storing the salt.
+                          */
                           storage = {
                             device = mkOption {
                               default = "/dev/sda1";
@@ -1120,7 +1119,6 @@ in
         Enables support for authenticating with FIDO2 devices.
       '';
     };
-
   };
 
   config = mkIf (luks.devices != { } || luks.forceLuksSupportInInitrd) {
@@ -1213,14 +1211,14 @@ in
       }
     ];
 
-      # actually, sbp2 driver is the one enabling the DMA attack, but this needs to be tested
+    # actually, sbp2 driver is the one enabling the DMA attack, but this needs to be tested
     boot.blacklistedKernelModules = optionals luks.mitigateDMAAttacks [
       "firewire_ohci"
       "firewire_core"
       "firewire_sbp2"
     ];
 
-      # Some modules that may be needed for mounting anything ciphered
+    # Some modules that may be needed for mounting anything ciphered
     boot.initrd.availableKernelModules =
       [
         "dm_mod"
@@ -1229,8 +1227,6 @@ in
         "input_leds"
       ]
       ++ luks.cryptoModules
-        # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
-        # remove once 'modprobe --show-depends xts' shows ecb as a dependency
       ++ (
         if builtins.elem "xts" luks.cryptoModules then
           [ "ecb" ]
@@ -1239,7 +1235,7 @@ in
       )
       ;
 
-      # copy the cryptsetup binary and it's dependencies
+    # copy the cryptsetup binary and it's dependencies
     boot.initrd.extraUtilsCommands =
       let
         pbkdf2-sha512 = pkgs.runCommandCC "pbkdf2-sha512"
@@ -1330,9 +1326,8 @@ in
         "${config.boot.initrd.systemd.package}/lib/systemd/systemd-cryptsetup"
         "${config.boot.initrd.systemd.package}/lib/systemd/system-generators/systemd-cryptsetup-generator"
       ];
-
     };
-      # We do this because we need the udev rules from the package
+    # We do this because we need the udev rules from the package
     boot.initrd.services.lvm.enable = true;
 
     boot.initrd.preFailCommands =

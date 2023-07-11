@@ -10,8 +10,8 @@ with lib;
 let
   cfg = config.services.beanstalkd;
   pkg = pkgs.beanstalkd;
-
 in
+
 {
   # interface
 
@@ -45,7 +45,7 @@ in
     };
   };
 
-    # implementation
+  # implementation
 
   config = mkIf cfg.enable {
 
@@ -68,6 +68,5 @@ in
         StateDirectory = "beanstalkd";
       };
     };
-
   };
 }

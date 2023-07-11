@@ -5,7 +5,8 @@
 
 # Reverse engineered CoreSymbolication to make dtrace buildable
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   name = "CoreSymbolication";
 
   src = fetchFromGitHub {

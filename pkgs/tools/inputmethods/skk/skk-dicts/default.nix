@@ -25,20 +25,20 @@ let
     sha256 = "0ps0a7sbkryd6hxvphq14i7g5wci4gvr0vraac8ia2ww67a2xbyc";
   };
 
-    # english to japanese
+  # english to japanese
   edict = fetchurl {
     url =
       "https://raw.githubusercontent.com/skk-dev/dict/8b35d07a7d2044d48b063d2774d9f9d00bb7cb48/SKK-JISYO.edict";
     sha256 = "1vrwnq0vvjn61nijbln6wfinqg93802d2a8d4ad82n692v83b1li";
   };
-    # misc
+  # misc
   assoc = fetchurl {
     url =
       "https://raw.githubusercontent.com/skk-dev/dict/8b35d07a7d2044d48b063d2774d9f9d00bb7cb48/SKK-JISYO.assoc";
     sha256 = "1smcbyv6srrhnpl7ic9nqds9nz3g2dgqngmhzkrdlwmvcpvakp1v";
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "skk-dicts-unstable";
   version = "2020-03-24";

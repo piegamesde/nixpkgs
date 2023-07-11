@@ -52,7 +52,6 @@ in
           See {manpage}`extmap.conf(5)`. for more information.
         '';
       };
-
     };
   };
 
@@ -104,11 +103,8 @@ in
         RestartSec = 1;
         StateDirectory = [ "netatalk/CNID" ];
       };
-
     };
 
     security.pam.services.netatalk.unixAuth = true;
-
   };
-
 }

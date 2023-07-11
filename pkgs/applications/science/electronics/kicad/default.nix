@@ -72,8 +72,8 @@ let
     ;
   versionsImport = import ./versions.nix;
 
-    # versions.nix does not provide us with version, src and rev. We
-    # need to turn this into approprate fetcher calls.
+  # versions.nix does not provide us with version, src and rev. We
+  # need to turn this into approprate fetcher calls.
   kicadSrcFetch = fetchFromGitLab {
     group = "kicad";
     owner = "code";
@@ -93,18 +93,13 @@ let
     }
     ;
 
-    # only override `src` or `version` if building `kicad-unstable` with
-    # the appropriate attribute defined in `srcs`.
-  srcOverridep =
-    attr:
-    (
-      !stable && builtins.hasAttr attr srcs
-    )
-    ;
+  # only override `src` or `version` if building `kicad-unstable` with
+  # the appropriate attribute defined in `srcs`.
+  srcOverridep = attr: (!stable && builtins.hasAttr attr srcs);
 
-    # use default source and version (as defined in versions.nix) by
-    # default, or use the appropriate attribute from `srcs` if building
-    # unstable with `srcs` properly defined.
+  # use default source and version (as defined in versions.nix) by
+  # default, or use the appropriate attribute from `srcs` if building
+  # unstable with `srcs` properly defined.
   kicadSrc =
     if srcOverridep "kicad" then
       srcs.kicad
@@ -125,7 +120,7 @@ let
     else
       libSrcFetch name
     ;
-    # TODO does it make sense to only have one version for all libs?
+  # TODO does it make sense to only have one version for all libs?
   libVersion =
     if srcOverridep "libVersion" then
       srcs.libVersion
@@ -172,10 +167,9 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs =
-    [ makeWrapper ] ++ optionals (withScripting) [ python.pkgs.wrapPython ]
-    ;
+    [ makeWrapper ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
 
-    # We are emulating wrapGAppsHook, along with other variables to the wrapper
+  # We are emulating wrapGAppsHook, along with other variables to the wrapper
   makeWrapperArgs = with passthru.libraries;
     [
       "--prefix XDG_DATA_DIRS : ${base}/share"
@@ -200,14 +194,12 @@ stdenv.mkDerivation rec {
     ++ optionals (withNgspice) [
         "--prefix LD_LIBRARY_PATH : ${libngspice}/lib"
       ]
-
-      # infinisil's workaround for #39493
     ++ [
       "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
     ];
 
-    # why does $makeWrapperArgs have to be added explicitly?
-    # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?
+  # why does $makeWrapperArgs have to be added explicitly?
+  # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?
   installPhase =
     let
       bin =
@@ -268,11 +260,11 @@ stdenv.mkDerivation rec {
     ln -s ${base}/share/metainfo $out/share/metainfo
   '';
 
-    # can't run this for each pname
-    # stable and unstable are in the same versions.nix
-    # and kicad-small reuses stable
-    # with "all" it updates both, run it manually if you don't want that
-    # and can't git commit if this could be running in parallel with other scripts
+  # can't run this for each pname
+  # stable and unstable are in the same versions.nix
+  # and kicad-small reuses stable
+  # with "all" it updates both, run it manually if you don't want that
+  # and can't git commit if this could be running in parallel with other scripts
   passthru.updateScript = [
     ./update.sh
     "all"
@@ -298,7 +290,7 @@ stdenv.mkDerivation rec {
       evils
       kiwi
     ];
-      # kicad is cross platform
+    # kicad is cross platform
     platforms = lib.platforms.all;
     broken = stdenv.isDarwin;
 
@@ -308,11 +300,11 @@ stdenv.mkDerivation rec {
       else
         platforms
       ;
-      # We can't download the 3d models on Hydra,
-      # they are a ~1 GiB download and they occupy ~5 GiB in store.
-      # as long as the base and libraries (minus 3d) are build,
-      # this wrapper does not need to get built
-      # the kicad-*small "packages" cause this to happen
+    # We can't download the 3d models on Hydra,
+    # they are a ~1 GiB download and they occupy ~5 GiB in store.
+    # as long as the base and libraries (minus 3d) are build,
+    # this wrapper does not need to get built
+    # the kicad-*small "packages" cause this to happen
 
     mainProgram = "kicad";
   };

@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-xsfmtBtvfruHr9VlDfNgdR0Ois8NJ2t6xk0A9Bm+uSI=";
   };
 
-    # Module doesn't have tests
+  # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "psutil-stubs" ];

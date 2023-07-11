@@ -88,7 +88,6 @@ let
       maintainers = with maintainers; [ tadfisher ];
     };
   };
-
 in
 {
   inherit yquake2;

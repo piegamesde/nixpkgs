@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "05zb1ly9x2bbscqv0jgc45g48xx77mfs7qdbqhn4ihmihn57iwnq";
   };
 
-    # Script that creates the "database" (nested python array) and pickles it
+  # Script that creates the "database" (nested python array) and pickles it
   spkg-install = fetchurl {
     url =
       "https://git.sagemath.org/sage.git/plain/build/pkgs/conway_polynomials/spkg-install.py?id=9.2";

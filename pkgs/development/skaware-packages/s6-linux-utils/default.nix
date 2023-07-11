@@ -20,7 +20,7 @@ buildPackage {
     "out"
   ];
 
-    # TODO: nsss support
+  # TODO: nsss support
   configureFlags = [
     "--bindir=\${bin}/bin"
     "--includedir=\${dev}/include"
@@ -37,5 +37,4 @@ buildPackage {
 
     mv doc $doc/share/doc/s6-linux-utils/html
   '';
-
 }

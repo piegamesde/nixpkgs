@@ -18,8 +18,8 @@ let
     rev = "refs/tags/${version}";
     hash = "sha256-8pJ/1UAbheQaLFs5Uubmmf5D0oFJiPxF6e2WTZgRyAc=";
   };
-
 in
+
 let
   alt-ergo-lib = ocamlPackages.buildDunePackage rec {
     pname = "alt-ergo-lib";
@@ -38,8 +38,8 @@ let
       substituteInPlace src/lib/util/version.ml --replace 'version="dev"' 'version="${version}"'
     '';
   };
-
 in
+
 let
   alt-ergo-parsers = ocamlPackages.buildDunePackage rec {
     pname = "alt-ergo-parsers";
@@ -59,8 +59,8 @@ let
       )
       ;
   };
-
 in
+
 ocamlPackages.buildDunePackage {
 
   inherit pname version src configureScript;

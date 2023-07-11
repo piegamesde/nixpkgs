@@ -33,7 +33,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-    # Tests require a token and network access
+  # Tests require a token and network access
   doCheck = false;
 
   pythonImportsCheck = [ "geocachingapi" ];

@@ -4,7 +4,7 @@ import ./generic.nix {
   patch_version = "0";
   sha256 = "1y9fw1ci9pwnbbrr9nwr8cq8vypcxwdf4akvxard3mxl2jx2g984";
 
-    # If the executable is stipped it does not work
+  # If the executable is stipped it does not work
   dontStrip = true;
 
   patches = [
@@ -22,9 +22,9 @@ import ./generic.nix {
     }
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: libcamlrun.a(startup.o):(.bss+0x800): multiple definition of
-    #     `caml_code_fragments_table'; libcamlrun.a(backtrace.o):(.bss+0x20): first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: libcamlrun.a(startup.o):(.bss+0x800): multiple definition of
+  #     `caml_code_fragments_table'; libcamlrun.a(backtrace.o):(.bss+0x20): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 }

@@ -59,7 +59,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "bids" ];
-    # looks for missing data:
+  # looks for missing data:
   disabledTests = [ "test_config_filename" ];
 
   meta = with lib; {

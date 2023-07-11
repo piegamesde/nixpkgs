@@ -12,7 +12,7 @@
 let
   withCommas = lib.replaceStrings [ "." ] [ "," ];
 
-    # simulate "haxelib dev $libname ."
+  # simulate "haxelib dev $libname ."
   simulateHaxelibDev =
     libname: ''
       devrepo=$(mktemp -d)

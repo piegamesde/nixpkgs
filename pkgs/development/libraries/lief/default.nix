@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # Not a propagatedBuildInput because only the $py output needs it; $out is
-    # just the library itself (e.g. C/C++ headers).
+  # Not a propagatedBuildInput because only the $py output needs it; $out is
+  # just the library itself (e.g. C/C++ headers).
   buildInputs = [ python ];
 
   dontUseCmakeConfigure = true;
@@ -43,12 +43,12 @@ stdenv.mkDerivation rec {
     runHook postBuild
   '';
 
-    # I was unable to find a way to build the library itself and have it install
-    # to $out, while also installing the Python bindings to $py without building
-    # the project twice (using cmake), so this is the best we've got. It uses
-    # something called CPack to create the tarball, but it's not obvious to me
-    # *how* that happens, or how to intercept it to just get the structured
-    # library output.
+  # I was unable to find a way to build the library itself and have it install
+  # to $out, while also installing the Python bindings to $py without building
+  # the project twice (using cmake), so this is the best we've got. It uses
+  # something called CPack to create the tarball, but it's not obvious to me
+  # *how* that happens, or how to intercept it to just get the structured
+  # library output.
   installPhase = ''
     runHook preInstall
 

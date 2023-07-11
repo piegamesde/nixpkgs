@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-    # tcmalloc uses libunwind in a way that works correctly only on non-ARM dynamically linked linux
+  # tcmalloc uses libunwind in a way that works correctly only on non-ARM dynamically linked linux
   buildInputs = lib.optional
     (
       stdenv.isLinux
@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
     )
     libunwind;
 
-    # Disable general dynamic TLS on AArch to support dlopen()'ing the library:
-    # https://bugzilla.redhat.com/show_bug.cgi?id=1483558
+  # Disable general dynamic TLS on AArch to support dlopen()'ing the library:
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1483558
   configureFlags =
     lib.optional stdenv.hostPlatform.isAarch "--disable-general-dynamic-tls";
 
@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-D_XOPEN_SOURCE";
 
-    # some packages want to link to the static tcmalloc_minimal
-    # to drop the runtime dependency on gperftools
+  # some packages want to link to the static tcmalloc_minimal
+  # to drop the runtime dependency on gperftools
   dontDisableStatic = true;
 
   enableParallelBuilding = true;

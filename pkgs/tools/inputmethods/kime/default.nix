@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/o9b7YvrpV+IujkllFWAz6Mg4CbS9BInF8antfZ0Vsw=";
   };
 
-    # Replace autostart path
+  # Replace autostart path
   postPatch = ''
     substituteInPlace res/kime.desktop --replace "/usr/bin/kime" "$out/bin/kime"
   '';

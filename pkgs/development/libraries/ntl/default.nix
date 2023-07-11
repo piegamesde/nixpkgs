@@ -5,8 +5,8 @@
   perl,
   gmp,
   gf2x ? null
-    # I asked the ntl maintainer weather or not to include gf2x by default:
-    # > If I remember correctly, gf2x is now thread safe, so there's no reason not to use it.
+  # I asked the ntl maintainer weather or not to include gf2x by default:
+  # > If I remember correctly, gf2x is now thread safe, so there's no reason not to use it.
   ,
   withGf2x ? true,
   tune ? false # tune for current system; non reproducible and time consuming
@@ -35,12 +35,12 @@ stdenv.mkDerivation rec {
 
   dontAddPrefix = true; # DEF_PREFIX instead
 
-    # Written in perl, does not support autoconf-style
-    # --build=/--host= options:
-    #   Error: unrecognized option: --build=x86_64-unknown-linux-gnu
+  # Written in perl, does not support autoconf-style
+  # --build=/--host= options:
+  #   Error: unrecognized option: --build=x86_64-unknown-linux-gnu
   configurePlatforms = [ ];
 
-    # reference: http://shoup.net/ntl/doc/tour-unix.html
+  # reference: http://shoup.net/ntl/doc/tour-unix.html
   configureFlags =
     [
       "DEF_PREFIX=$(out)"
@@ -72,10 +72,10 @@ stdenv.mkDerivation rec {
       length integers, and for vectors, matrices, and polynomials over
       the integers and over finite fields.
     '';
-      # Upstream contact: maintainer is victorshoup on GitHub. Alternatively the
-      # email listed on the homepage.
+    # Upstream contact: maintainer is victorshoup on GitHub. Alternatively the
+    # email listed on the homepage.
     homepage = "http://www.shoup.net/ntl/";
-      # also locally at "${src}/doc/tour-changes.html";
+    # also locally at "${src}/doc/tour-changes.html";
     changelog = "https://www.shoup.net/ntl/doc/tour-changes.html";
     maintainers = teams.sage.members;
     license = licenses.gpl2Plus;

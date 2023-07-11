@@ -22,10 +22,9 @@ in
     previousAttrs:
     lib.optionalAttrs ((!langC) || langJit || enableLibGccOutput) {
       outputs =
-        previousAttrs.outputs ++ lib.optionals enableLibGccOutput [ "libgcc" ]
-        ;
-        # This is a separate phase because gcc assembles its phase scripts
-        # in bash instead of nix (we should fix that).
+        previousAttrs.outputs ++ lib.optionals enableLibGccOutput [ "libgcc" ];
+      # This is a separate phase because gcc assembles its phase scripts
+      # in bash instead of nix (we should fix that).
       preFixupPhases =
         (
           previousAttrs.preFixupPhases or [ ]
@@ -36,19 +35,21 @@ in
         ;
       preFixupLibGccPhase =
         # delete extra/unused builds of libgcc_s in non-langC builds
-        # (i.e. libgccjit, gnat, etc) to avoid potential confusion
-        lib.optionalString (!langC) ''
-          rm -f $out/lib/libgcc_s.so*
-        ''
+          # (i.e. libgccjit, gnat, etc) to avoid potential confusion
+          lib.optionalString
+          (!langC)
+          ''
+            rm -f $out/lib/libgcc_s.so*
+          ''
 
-          # TODO(amjoseph): remove the `libgcc_s.so` symlinks below and replace them
-          # with a `-L${gccForLibs.libgcc}/lib` in cc-wrapper's
-          # `$out/nix-support/cc-flags`.  See also:
-          # - https://github.com/NixOS/nixpkgs/pull/209870#discussion_r1130614895
-          # - https://github.com/NixOS/nixpkgs/pull/209870#discussion_r1130635982
-          # - https://github.com/NixOS/nixpkgs/commit/404155c6acfa59456aebe6156b22fe385e7dec6f
-          #
-          # move `libgcc_s.so` into its own output, `$libgcc`
+        # TODO(amjoseph): remove the `libgcc_s.so` symlinks below and replace them
+        # with a `-L${gccForLibs.libgcc}/lib` in cc-wrapper's
+        # `$out/nix-support/cc-flags`.  See also:
+        # - https://github.com/NixOS/nixpkgs/pull/209870#discussion_r1130614895
+        # - https://github.com/NixOS/nixpkgs/pull/209870#discussion_r1130635982
+        # - https://github.com/NixOS/nixpkgs/commit/404155c6acfa59456aebe6156b22fe385e7dec6f
+        #
+        # move `libgcc_s.so` into its own output, `$libgcc`
         + lib.optionalString enableLibGccOutput (
           ''
             # move libgcc from lib to its own output (libgcc)

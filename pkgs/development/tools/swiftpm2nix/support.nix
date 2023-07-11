@@ -25,7 +25,7 @@ rec {
     }
     ;
 
-    # Make packaging helpers from swiftpm2nix generated output.
+  # Make packaging helpers from swiftpm2nix generated output.
   helpers =
     generated:
     let
@@ -51,7 +51,7 @@ rec {
         workspaceState.object.dependencies
       );
 
-        # Configure phase snippet for use in packaging.
+      # Configure phase snippet for use in packaging.
       configure =
         ''
           mkdir -p .build/checkouts
@@ -77,8 +77,6 @@ rec {
           }
         ''
         ;
-
     }
     ;
-
 }

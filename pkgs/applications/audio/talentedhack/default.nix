@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     fftwFloat
   ];
 
-    # To avoid name clashes, plugins should be compiled with symbols hidden, except for `lv2_descriptor`:
+  # To avoid name clashes, plugins should be compiled with symbols hidden, except for `lv2_descriptor`:
   preConfigure = ''
     sed -r 's/^CFLAGS.*$/\0 -fvisibility=hidden/' -i Makefile
   '';

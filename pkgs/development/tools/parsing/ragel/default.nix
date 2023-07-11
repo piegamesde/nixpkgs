@@ -52,8 +52,8 @@ let
       };
     }
     ;
-
 in
+
 {
   ragelStable = generic {
     version = "6.10";

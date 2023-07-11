@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!multimediaSupport) "-DUSE_MULTIMEDIA=none"
     ;
 
-    # https://github.com/dankamongmen/notcurses/issues/2661
+  # https://github.com/dankamongmen/notcurses/issues/2661
   postPatch = ''
     substituteInPlace tools/notcurses-core.pc.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \

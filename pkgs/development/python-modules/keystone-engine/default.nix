@@ -25,7 +25,7 @@ buildPythonPackage rec {
       "libkeystone" "${keystone}/lib/libkeystone"
   '';
 
-    # No tests
+  # No tests
   doCheck = false;
 
   pythonImportsCheck = [ "keystone" ];

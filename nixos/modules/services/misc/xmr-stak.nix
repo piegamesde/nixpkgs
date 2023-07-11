@@ -12,8 +12,8 @@ let
   cfg = config.services.xmr-stak;
 
   pkg = pkgs.xmr-stak.override { inherit (cfg) openclSupport cudaSupport; };
-
 in
+
 {
   options = {
     services.xmr-stak = {
@@ -91,7 +91,7 @@ in
         {
           ExecStart =
             "${pkg}/bin/xmr-stak ${concatStringsSep " " cfg.extraArgs}";
-            # xmr-stak generates cpu and/or gpu configuration files
+          # xmr-stak generates cpu and/or gpu configuration files
           WorkingDirectory = "/tmp";
           PrivateTmp = true;
           DynamicUser = !rootRequired;

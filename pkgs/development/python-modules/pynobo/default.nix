@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-T86d3HGu6hsc54+ocCbINsInH/qHL9+HhOXDQ0I8QGA=";
   };
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pynobo" ];

@@ -10,7 +10,7 @@ buildPythonPackage rec {
   pname = "piexif";
   version = "1.1.3";
 
-    # patch does not apply to PyPI sdist due to different line endings
+  # patch does not apply to PyPI sdist due to different line endings
   src = fetchFromGitHub {
     owner = "hMatoba";
     repo = "Piexif";
@@ -28,7 +28,7 @@ buildPythonPackage rec {
       })
     ];
 
-    # Pillow needed for unit tests
+  # Pillow needed for unit tests
   nativeCheckInputs = [ pillow ];
 
   meta = with lib; {

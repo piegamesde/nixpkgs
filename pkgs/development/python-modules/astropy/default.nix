@@ -52,7 +52,7 @@ buildPythonPackage {
     pyyaml
   ];
 
-    # infinite recursion with pytest-astropy (pytest-astropy-header depends on astropy itself)
+  # infinite recursion with pytest-astropy (pytest-astropy-header depends on astropy itself)
   doCheck = false;
 
   meta = with lib; {

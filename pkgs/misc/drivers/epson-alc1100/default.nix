@@ -98,5 +98,4 @@ stdenv.mkDerivation {
     maintainers = [ maintainers.eperuffo ];
     platforms = platforms.linux;
   };
-
 }

@@ -23,7 +23,7 @@ let
 
     nativeBuildInputs = [ setuptools-scm ];
 
-      # Prevent infinite recursion with pytest
+    # Prevent infinite recursion with pytest
     doCheck = false;
 
     nativeCheckInputs = [

@@ -79,7 +79,7 @@ stdenv.mkDerivation (
     dontBuild = true;
     doCheck = true;
 
-      # Certain libs aren't being generated, try enabling tests next update
+    # Certain libs aren't being generated, try enabling tests next update
     checkTarget =
       if buildRockCompiler then
         "librockCompiler"

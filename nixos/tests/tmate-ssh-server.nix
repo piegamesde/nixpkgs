@@ -21,7 +21,6 @@ import ./make-test-python.nix (
 
     sshOpts =
       "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=/root/.ssh/id_snakeoil";
-
   in
   {
     name = "tmate-ssh-server";

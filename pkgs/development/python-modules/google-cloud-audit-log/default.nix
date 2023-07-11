@@ -24,7 +24,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-    # tests are a bit wonky to setup and are not very deep either
+  # tests are a bit wonky to setup and are not very deep either
   doCheck = false;
 
   pythonImportsCheck = [ "google.cloud.audit" ];

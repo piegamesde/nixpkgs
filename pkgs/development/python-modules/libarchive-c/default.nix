@@ -41,5 +41,4 @@ buildPythonPackage rec {
     description = "Python interface to libarchive";
     license = licenses.cc0;
   };
-
 }

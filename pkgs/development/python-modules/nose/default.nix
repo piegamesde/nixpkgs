@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "f1bffef9cbc82628f6e7d7b40d7e255aefaa1adb6a1b1d26c69a8b79e6208a98";
   };
 
-    # 2to3 was removed in setuptools 58
+  # 2to3 was removed in setuptools 58
   postPatch = ''
     substituteInPlace setup.py \
       --replace "'use_2to3': True," ""

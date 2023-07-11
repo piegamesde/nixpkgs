@@ -8,7 +8,6 @@
 let
   version = "0.3.4";
   sha256 = "00xbkp99x9v07r34w7m2p8gak5hdsdbka36n7a733rdrrkgf5z7r";
-
 in
 stdenv.mkDerivation {
   pname = "nettee";
@@ -78,5 +77,4 @@ stdenv.mkDerivation {
   postFixup = ''
     ${cleanPackaging.checkForRemainingFiles}
   '';
-
 }

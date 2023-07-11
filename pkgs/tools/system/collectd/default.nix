@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-    # do not create directories in /var during installPhase
+  # do not create directories in /var during installPhase
   postConfigure = ''
     substituteInPlace Makefile --replace '$(mkinstalldirs) $(DESTDIR)$(localstatedir)/' '#'
   '';

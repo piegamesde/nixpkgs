@@ -77,7 +77,6 @@ let
   };
   initrdRelease =
     pkgs.writeText "initrd-release" (attrsToText initrdReleaseContents);
-
 in
 {
   imports = [
@@ -193,8 +192,8 @@ in
 
     stateVersion = mkOption {
       type = types.str;
-        # TODO Remove this and drop the default of the option so people are forced to set it.
-        # Doing this also means fixing the comment in nixos/modules/testing/test-instrumentation.nix
+      # TODO Remove this and drop the default of the option so people are forced to set it.
+      # Doing this also means fixing the comment in nixos/modules/testing/test-instrumentation.nix
       apply =
         v:
         lib.warnIf
@@ -242,7 +241,6 @@ in
         "The Git revision of the top-level flake from which this configuration was built."
         ;
     };
-
   };
 
   config = {
@@ -253,9 +251,9 @@ in
       version = mkDefault (cfg.release + cfg.versionSuffix);
     };
 
-      # Generate /etc/os-release.  See
-      # https://www.freedesktop.org/software/systemd/man/os-release.html for the
-      # format.
+    # Generate /etc/os-release.  See
+    # https://www.freedesktop.org/software/systemd/man/os-release.html for the
+    # format.
     environment.etc = {
       "lsb-release".text = attrsToText {
         LSB_VERSION = "${cfg.release} (${cfg.codeName})";
@@ -268,9 +266,8 @@ in
 
       "os-release".text = attrsToText osReleaseContents;
     };
-
   };
 
-    # uses version info nixpkgs, which requires a full nixpkgs path
+  # uses version info nixpkgs, which requires a full nixpkgs path
   meta.buildDocsInSandbox = false;
 }

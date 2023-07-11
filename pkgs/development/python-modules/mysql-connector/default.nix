@@ -47,7 +47,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "mysql" ];
 
-    # Tests require a running MySQL instance
+  # Tests require a running MySQL instance
   doCheck = false;
 
   meta = with lib; {

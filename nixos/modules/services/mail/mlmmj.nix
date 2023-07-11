@@ -62,8 +62,8 @@ let
           echo ${subjectPrefix l} > '${ctlDir}/prefix'
     ''
     ;
-
 in
+
 {
 
   ###### interface
@@ -110,12 +110,10 @@ in
           {manpage}`systemd.time(7)` for format information.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -184,5 +182,4 @@ in
       wantedBy = [ "timers.target" ];
     };
   };
-
 }

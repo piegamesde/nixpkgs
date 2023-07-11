@@ -40,13 +40,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ libuuid ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #     ld: extract.o:/build/jfsutils-1.1.15/fscklog/extract.c:67: multiple definition of
-    #       `xchklog_buffer'; display.o:/build/jfsutils-1.1.15/fscklog/display.c:57: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #     ld: extract.o:/build/jfsutils-1.1.15/fscklog/extract.c:67: multiple definition of
+  #       `xchklog_buffer'; display.o:/build/jfsutils-1.1.15/fscklog/display.c:57: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-    # this required for wipefreespace
+  # this required for wipefreespace
   postInstall = ''
     mkdir -p $out/include
     cp include/*.h $out/include

@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ asn1crypto ];
 
-    # Upstream hasn't release the tests yet
+  # Upstream hasn't release the tests yet
   doCheck = false;
 
   pythonImportsCheck = [ "asysocks" ];

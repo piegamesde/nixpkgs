@@ -7,8 +7,7 @@
 
 let
   allVersions = with lib;
-    flip
-    map
+    flip map
     # N.B. Versions in this list should be ordered from newest to oldest.
     [
       {

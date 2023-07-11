@@ -62,7 +62,6 @@ let
             description = lib.mdDoc "Registry where to login to.";
             example = "https://docker.pkg.github.com";
           };
-
         };
 
         cmd = mkOption {
@@ -262,6 +261,7 @@ let
         ++ lib.optionals (container.imageFile == null) [
             "network-online.target"
           ]
+        # if imageFile is not set, the service needs the network to download the image from the registry
         ++ dependsOn
         ;
       requires = dependsOn;
@@ -367,7 +367,6 @@ let
       };
     }
     ;
-
 in
 {
   imports = [
@@ -415,7 +414,6 @@ in
       description =
         lib.mdDoc "OCI (Docker) containers to run as systemd services.";
     };
-
   };
 
   config = lib.mkIf (cfg.containers != { }) (
@@ -433,5 +431,4 @@ in
       })
     ]
   );
-
 }

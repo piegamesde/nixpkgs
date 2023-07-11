@@ -40,4 +40,3 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ jansol ];
   };
 }
-

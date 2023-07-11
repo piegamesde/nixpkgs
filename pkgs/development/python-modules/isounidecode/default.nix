@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "isounidecode" ];
 
-    # no real tests included, fails to run
+  # no real tests included, fails to run
   doCheck = false;
 
   meta = with lib; {

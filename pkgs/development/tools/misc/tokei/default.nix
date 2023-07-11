@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     Security
   ];
 
-    # enable all output formats
+  # enable all output formats
   buildFeatures = [ "all" ];
 
   meta = with lib; {

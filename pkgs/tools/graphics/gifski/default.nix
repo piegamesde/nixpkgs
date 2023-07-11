@@ -27,12 +27,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 
-    # error: the crate `gifski` is compiled with the panic strategy `abort` which is incompatible with this crate's strategy of `unwind`
-  doCheck =
-    !stdenv.isDarwin
-    ;
+  # error: the crate `gifski` is compiled with the panic strategy `abort` which is incompatible with this crate's strategy of `unwind`
+  doCheck = !stdenv.isDarwin;
 
-    # error: linker `/usr/bin/x86_64-linux-gnu-gcc` not found
+  # error: linker `/usr/bin/x86_64-linux-gnu-gcc` not found
   postPatch = ''
     rm .cargo/config.toml;
   '';

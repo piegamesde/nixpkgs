@@ -6,7 +6,8 @@
 
 # cannot be built as pythonApplication because the library functions are
 # required for home-assistant
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "speedtest-cli";
   version = "2.1.3";
 
@@ -15,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "1w4h7m0isbvfy4zx6m5j4594p5y4pjbpzsr0h4yzmdgd7hip69sy";
   };
 
-    # tests require working internet connection
+  # tests require working internet connection
   doCheck = false;
 
   meta = with lib; {

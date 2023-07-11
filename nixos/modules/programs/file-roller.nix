@@ -11,7 +11,6 @@ with lib;
 
 let
   cfg = config.programs.file-roller;
-
 in
 {
 
@@ -31,7 +30,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -46,19 +45,15 @@ in
         defaultText = literalExpression "pkgs.gnome.file-roller";
         description = lib.mdDoc "File Roller derivation to use.";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
     environment.systemPackages = [ cfg.package ];
 
     services.dbus.packages = [ cfg.package ];
-
   };
-
 }

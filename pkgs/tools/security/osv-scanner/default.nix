@@ -28,7 +28,7 @@ buildGoModule rec {
     "-X main.date=1970-01-01T00:00:00Z"
   ];
 
-    # Tests require network connectivity to query https://api.osv.dev.
+  # Tests require network connectivity to query https://api.osv.dev.
   doCheck = false;
 
   passthru.tests.version = testers.testVersion { package = osv-scanner; };

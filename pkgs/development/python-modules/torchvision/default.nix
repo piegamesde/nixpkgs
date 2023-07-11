@@ -16,13 +16,10 @@
 
 let
   inherit (torch) cudaCapabilities cudaPackages cudaSupport;
-  inherit (cudaPackages)
-    backendStdenv
-    cudaVersion
-    ;
+  inherit (cudaPackages) backendStdenv cudaVersion;
 
-    # NOTE: torchvision doesn't use cudnn; torch does!
-    #   For this reason it is not included.
+  # NOTE: torchvision doesn't use cudnn; torch does!
+  #   For this reason it is not included.
   cuda-common-redist = with cudaPackages; [
     cuda_cccl # <thrust/*>
     libcublas # cublas_v2.h
@@ -97,7 +94,7 @@ buildPythonPackage {
     ''
     ;
 
-    # tries to download many datasets for tests
+  # tries to download many datasets for tests
   doCheck = false;
 
   pythonImportsCheck = [ "torchvision" ];

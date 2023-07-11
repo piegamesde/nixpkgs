@@ -10,8 +10,8 @@ with lib;
 let
   cfg = config.services.power-profiles-daemon;
   package = pkgs.power-profiles-daemon;
-
 in
+
 {
 
   ###### interface
@@ -28,12 +28,10 @@ in
           changing system behavior based upon user-selected power profiles.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -52,7 +50,5 @@ in
     services.udev.packages = [ package ];
 
     systemd.packages = [ package ];
-
   };
-
 }

@@ -58,7 +58,7 @@
   qtwebchannel,
   withWebengine ? true
 
-    # for pjsip
+  # for pjsip
   ,
   fetchFromGitHub,
   pjsip

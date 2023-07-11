@@ -25,5 +25,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ swflint ];
     platforms = platforms.unix;
   };
-
 }

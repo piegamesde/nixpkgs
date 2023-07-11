@@ -33,8 +33,8 @@ let
 
     *.*;mail.none;local1.none    -/var/log/messages
   '';
-
 in
+
 {
   ###### interface
 
@@ -96,12 +96,10 @@ in
           Additional parameters passed to {command}`syslogd`.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -114,7 +112,7 @@ in
 
     services.syslogd.extraParams = optional cfg.enableNetworkInput "-r";
 
-      # FIXME: restarting syslog seems to break journal logging.
+    # FIXME: restarting syslog seems to break journal logging.
     systemd.services.syslog = {
       description = "Syslog Daemon";
 
@@ -127,11 +125,9 @@ in
           "${pkgs.sysklogd}/sbin/syslogd ${
             toString cfg.extraParams
           } -f ${syslogConf} -n";
-          # Prevent syslogd output looping back through journald.
+        # Prevent syslogd output looping back through journald.
         StandardOutput = "null";
       };
     };
-
   };
-
 }

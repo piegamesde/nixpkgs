@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     proj
   ];
 
-    #hardeningDisable = [ "format" ];
+  #hardeningDisable = [ "format" ];
 
   meta = {
     description =

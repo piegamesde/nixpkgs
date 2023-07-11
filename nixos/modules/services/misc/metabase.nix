@@ -12,7 +12,6 @@ let
   inherit (lib) optional optionalAttrs types;
 
   dataDir = "/var/lib/metabase";
-
 in
 {
 
@@ -64,7 +63,6 @@ in
             [Java KeyStore](https://www.digitalocean.com/community/tutorials/java-keytool-essentials-working-with-java-keystores) file containing the certificates.
           '';
         };
-
       };
 
       openFirewall = mkOption {
@@ -75,7 +73,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -105,6 +102,5 @@ in
       allowedTCPPorts =
         [ cfg.listen.port ] ++ optional cfg.ssl.enable cfg.ssl.port;
     };
-
   };
 }

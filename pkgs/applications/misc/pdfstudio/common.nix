@@ -69,10 +69,10 @@ let
       runHook postInstall
     '';
   };
-
-  # Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.
 in
-buildFHSEnv {
+# Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.
+buildFHSEnv
+{
   name = pname;
   targetPkgs =
     pkgs: [
@@ -82,7 +82,7 @@ buildFHSEnv {
     ;
   runScript = "${program}${year}";
 
-    # link desktop item and icon into FHS user environment
+  # link desktop item and icon into FHS user environment
   extraInstallCommands = ''
     mkdir -p "$out/share/applications"
     mkdir -p "$out/share/pixmaps"

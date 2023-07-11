@@ -25,16 +25,16 @@
         };
       };
 
-        # Should have access to the AESM socket
+      # Should have access to the AESM socket
       users.users."sgxtest" = {
         isNormalUser = true;
         extraGroups = [ "sgx" ];
       };
 
-        # Should NOT have access to the AESM socket
+      # Should NOT have access to the AESM socket
       users.users."nosgxtest".isNormalUser = true;
 
-        # We don't have a real SGX machine in NixOS tests
+      # We don't have a real SGX machine in NixOS tests
       systemd.services.aesmd.unitConfig.AssertPathExists = lib.mkForce [ ];
 
       specialisation = {

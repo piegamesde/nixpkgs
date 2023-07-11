@@ -12,7 +12,7 @@
   vid ? "234b",
   pid ? "0000"
 
-    # Version specific options
+  # Version specific options
   ,
   version,
   src,

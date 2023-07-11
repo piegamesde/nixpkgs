@@ -16,7 +16,6 @@ let
 
     ${cfg.extraConfig}
   '';
-
 in
 {
   options = {
@@ -66,7 +65,6 @@ in
         description =
           lib.mdDoc "Any other configuration options you want to add";
       };
-
     };
   };
 

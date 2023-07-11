@@ -23,32 +23,32 @@
     lib.id # function for additional transformations of the options
   ,
   documentType ? "appendix" # TODO deprecate "appendix" in favor of "none"
-    #      and/or rename function to moduleOptionDoc for clean slate
+  #      and/or rename function to moduleOptionDoc for clean slate
 
-    # If you include more than one option list into a document, you need to
-    # provide different ids.
+  # If you include more than one option list into a document, you need to
+  # provide different ids.
   ,
   variablelistId ? "configuration-variable-list"
-    # String to prefix to the option XML/HTML id attributes.
+  # String to prefix to the option XML/HTML id attributes.
   ,
   optionIdPrefix ? "opt-",
   revision ? "" # Specify revision for the options
-    # a set of options the docs we are generating will be merged into, as if by recursiveUpdate.
-    # used to split the options doc build into a static part (nixos/modules) and a dynamic part
-    # (non-nixos modules imported via configuration.nix, other module sources).
+  # a set of options the docs we are generating will be merged into, as if by recursiveUpdate.
+  # used to split the options doc build into a static part (nixos/modules) and a dynamic part
+  # (non-nixos modules imported via configuration.nix, other module sources).
   ,
   baseOptionsJSON ? null
-    # instead of printing warnings for eg options with missing descriptions (which may be lost
-    # by nix build unless -L is given), emit errors instead and fail the build
+  # instead of printing warnings for eg options with missing descriptions (which may be lost
+  # by nix build unless -L is given), emit errors instead and fail the build
   ,
   warningsAreErrors ? true
-    # allow docbook option docs if `true`. only markdown documentation is allowed when set to
-    # `false`, and a different renderer may be used with different bugs and performance
-    # characteristics but (hopefully) indistinguishable output.
+  # allow docbook option docs if `true`. only markdown documentation is allowed when set to
+  # `false`, and a different renderer may be used with different bugs and performance
+  # characteristics but (hopefully) indistinguishable output.
   ,
   allowDocBook ? true
-    # whether lib.mdDoc is required for descriptions to be read as markdown.
-    # !!! when this is eventually flipped to true, `lib.doRename` should also default to emitting Markdown
+  # whether lib.mdDoc is required for descriptions to be read as markdown.
+  # !!! when this is eventually flipped to true, `lib.doRename` should also default to emitting Markdown
   ,
   markdownByDefault ? false
 }:
@@ -65,20 +65,20 @@ let
     }
   );
 
-    # Generate DocBook documentation for a list of packages. This is
-    # what `relatedPackages` option of `mkOption` from
-    # ../../../lib/options.nix influences.
-    #
-    # Each element of `relatedPackages` can be either
-    # - a string:  that will be interpreted as an attribute name from `pkgs` and turned into a link
-    #              to search.nixos.org,
-    # - a list:    that will be interpreted as an attribute path from `pkgs` and turned into a link
-    #              to search.nixos.org,
-    # - an attrset: that can specify `name`, `path`, `comment`
-    #   (either of `name`, `path` is required, the rest are optional).
-    #
-    # NOTE: No checks against `pkgs` are made to ensure that the referenced package actually exists.
-    # Such checks are not compatible with option docs caching.
+  # Generate DocBook documentation for a list of packages. This is
+  # what `relatedPackages` option of `mkOption` from
+  # ../../../lib/options.nix influences.
+  #
+  # Each element of `relatedPackages` can be either
+  # - a string:  that will be interpreted as an attribute name from `pkgs` and turned into a link
+  #              to search.nixos.org,
+  # - a list:    that will be interpreted as an attribute path from `pkgs` and turned into a link
+  #              to search.nixos.org,
+  # - an attrset: that can specify `name`, `path`, `comment`
+  #   (either of `name`, `path` is required, the rest are optional).
+  #
+  # NOTE: No checks against `pkgs` are made to ensure that the referenced package actually exists.
+  # Such checks are not compatible with option docs caching.
   genRelatedPackages =
     packages: optName:
     let
@@ -121,7 +121,6 @@ let
     })
     optionsList
   );
-
 in
 rec {
   inherit optionsNix;
@@ -156,8 +155,8 @@ rec {
       options = builtins.toFile "options.json" (
         builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix)
       );
-        # merge with an empty set if baseOptionsJSON is null to run markdown
-        # processing on the input options
+      # merge with an empty set if baseOptionsJSON is null to run markdown
+      # processing on the input options
       baseJSON =
         if baseOptionsJSON == null then
           builtins.toFile "base.json" "{}"

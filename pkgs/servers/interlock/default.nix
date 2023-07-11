@@ -45,7 +45,7 @@ buildGoModule rec {
     cp -R $src/static $out/share
   '';
 
-    # Tests are broken due to an error during key generation.
+  # Tests are broken due to an error during key generation.
   doCheck = false;
 
   meta = with lib; {

@@ -22,8 +22,8 @@ stdenv.mkDerivation {
     patchShebangs scripts/*
   '';
 
-    # we need to use fetchFromGitHub to fetch sub-packages before we 'make',
-    # since nix won't allow networking during 'make'
+  # we need to use fetchFromGitHub to fetch sub-packages before we 'make',
+  # since nix won't allow networking during 'make'
   preBuild = import ./fetchPackages.nix fetchFromGitHub;
 
   makeFlags = [
@@ -41,8 +41,8 @@ stdenv.mkDerivation {
       modern dialects or historical diasystems of the Chinese language.
     '';
     homepage = "https://rime.im";
-      # Note that individual packages in this collection
-      # may be released under different licenses
+    # Note that individual packages in this collection
+    # may be released under different licenses
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.sifmelcara ];

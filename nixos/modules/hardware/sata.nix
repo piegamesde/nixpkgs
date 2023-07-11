@@ -35,7 +35,6 @@ let
       --quietmode errorsonly \
       "$device"
   '';
-
 in
 {
   meta.maintainers = with lib.maintainers; [ peterhoeg ];

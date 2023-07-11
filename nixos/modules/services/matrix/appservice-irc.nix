@@ -250,7 +250,7 @@ in
         SystemCallFilter =
           "~@aio @clock @cpu-emulation @debug @keyring @memlock @module @mount @obsolete @raw-io @setuid @swap";
         SystemCallArchitectures = "native";
-          # AF_UNIX is required to connect to a postgres socket.
+        # AF_UNIX is required to connect to a postgres socket.
         RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
       };
     };
@@ -263,6 +263,6 @@ in
     };
   };
 
-    # uses attributes of the linked package
+  # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

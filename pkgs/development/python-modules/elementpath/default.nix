@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-tu0WH/RwLVjGRX7vFlx7yLhmsE4Svg+qoWIoMbJSZjo=";
   };
 
-    # avoid circular dependency with xmlschema which directly depends on this
+  # avoid circular dependency with xmlschema which directly depends on this
   doCheck = false;
 
   pythonImportsCheck = [ "elementpath" ];

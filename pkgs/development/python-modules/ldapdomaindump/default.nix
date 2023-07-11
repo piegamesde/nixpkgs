@@ -26,7 +26,7 @@ buildPythonPackage rec {
     ldap3
   ];
 
-    # requires ldap server
+  # requires ldap server
   doCheck = false;
 
   pythonImportsCheck = [ "ldapdomaindump" ];

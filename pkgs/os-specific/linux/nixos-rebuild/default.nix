@@ -27,7 +27,7 @@ substituteAll {
     gnugrep
   ];
 
-    # run some a simple installer tests to make sure nixos-rebuild still works for them
+  # run some a simple installer tests to make sure nixos-rebuild still works for them
   passthru.tests = {
     simple-installer = nixosTests.installer.simple;
     specialisations = nixosTests.nixos-rebuild-specialisations;

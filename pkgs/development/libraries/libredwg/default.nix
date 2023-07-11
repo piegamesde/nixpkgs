@@ -56,19 +56,16 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ pcre2 ]
-    ++ lib.optionals enablePython [
-        python
-      ]
-      # configurePhase fails with python 3 when ncurses is missing
+    ++ lib.optionals enablePython [ python ]
     ++ lib.optional isPython3 ncurses
     ;
 
-    # prevent python tests from running when not building with python
+  # prevent python tests from running when not building with python
   configureFlags = lib.optional (!enablePython) "--disable-python";
 
   doCheck = true;
 
-    # the "xmlsuite" test requires the libxml2 c library as well as the python module
+  # the "xmlsuite" test requires the libxml2 c library as well as the python module
   nativeCheckInputs = lib.optionals enablePython [
     libxml2
     libxml2.dev

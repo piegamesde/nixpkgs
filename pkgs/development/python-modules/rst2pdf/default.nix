@@ -55,7 +55,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-    # Test suite fails: https://github.com/rst2pdf/rst2pdf/issues/1067
+  # Test suite fails: https://github.com/rst2pdf/rst2pdf/issues/1067
   doCheck = false;
 
   postInstall = ''

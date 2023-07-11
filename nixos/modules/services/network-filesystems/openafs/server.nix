@@ -119,7 +119,6 @@ let
       } // cfg.roles.backup.fabsExtraConfig
     )
   );
-
 in
 {
 
@@ -332,9 +331,7 @@ in
           sysctl.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {

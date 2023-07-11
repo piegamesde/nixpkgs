@@ -51,10 +51,10 @@ stdenv.mkDerivation rec {
     )
     ;
 
-    # build-utils/docgen/gen.lua:2: module 'lib.lousy.util' not found
-    # TODO: why is not this the default? The test runner adds
-    # ';./lib/?.lua;./lib/?/init.lua' to package.path, but the build-utils
-    # scripts don't add an equivalent
+  # build-utils/docgen/gen.lua:2: module 'lib.lousy.util' not found
+  # TODO: why is not this the default? The test runner adds
+  # ';./lib/?.lua;./lib/?/init.lua' to package.path, but the build-utils
+  # scripts don't add an equivalent
   preBuild = ''
     export LUA_PATH="$LUA_PATH;./?.lua;./?/init.lua"
   '';

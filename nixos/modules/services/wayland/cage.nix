@@ -75,20 +75,20 @@ in
 
         IgnoreSIGPIPE = "no";
 
-          # Log this user with utmp, letting it show up with commands 'w' and
-          # 'who'. This is needed since we replace (a)getty.
+        # Log this user with utmp, letting it show up with commands 'w' and
+        # 'who'. This is needed since we replace (a)getty.
         UtmpIdentifier = "%n";
         UtmpMode = "user";
-          # A virtual terminal is needed.
+        # A virtual terminal is needed.
         TTYPath = "/dev/tty1";
         TTYReset = "yes";
         TTYVHangup = "yes";
         TTYVTDisallocate = "yes";
-          # Fail to start if not controlling the virtual terminal.
+        # Fail to start if not controlling the virtual terminal.
         StandardInput = "tty-fail";
         StandardOutput = "journal";
         StandardError = "journal";
-          # Set up a full (custom) user session for the user, required by Cage.
+        # Set up a full (custom) user session for the user, required by Cage.
         PAMName = "cage";
       };
     };
@@ -111,5 +111,4 @@ in
   };
 
   meta.maintainers = with lib.maintainers; [ matthewbauer ];
-
 }

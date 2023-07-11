@@ -7,8 +7,8 @@ let
   ircPort = 6667;
   channel = "nixos-cat";
   iiDir = "/tmp/irc";
-
 in
+
 import ./make-test-python.nix (
   {
     pkgs,
@@ -97,7 +97,7 @@ import ./make-test-python.nix (
             clients
           ;
 
-          # foldl', but requires a non-empty list instead of a start value
+        # foldl', but requires a non-empty list instead of a start value
         reduce =
           f: list: builtins.foldl' f (builtins.head list) (builtins.tail list);
       in

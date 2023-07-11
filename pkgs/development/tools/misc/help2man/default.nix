@@ -12,7 +12,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "help2man";
   version = "1.49.3";
 
@@ -41,8 +42,8 @@ stdenv.mkDerivation rec {
 
   patches = lib.optional stdenv.hostPlatform.isCygwin ./1.40.4-cygwin-nls.patch;
 
-    # We don't use makeWrapper here because it uses substitutions our
-    # bootstrap shell can't handle.
+  # We don't use makeWrapper here because it uses substitutions our
+  # bootstrap shell can't handle.
   postInstall = ''
     mv $out/bin/help2man $out/bin/.help2man-wrapped
     cat > $out/bin/help2man <<EOF

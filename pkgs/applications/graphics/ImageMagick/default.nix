@@ -79,8 +79,8 @@ let
     else
       null
     ;
-
 in
+
 stdenv.mkDerivation (
   finalAttrs: {
     pname = "imagemagick";

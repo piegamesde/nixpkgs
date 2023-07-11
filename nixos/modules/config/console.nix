@@ -24,7 +24,7 @@ let
       loadkeys -b ${optionalString isUnicode "-u"} "${cfg.keyMap}" > $out
     '';
 
-    # Sadly, systemd-vconsole-setup doesn't support binary keymaps.
+  # Sadly, systemd-vconsole-setup doesn't support binary keymaps.
   vconsoleConf = pkgs.writeText "vconsole.conf" ''
     KEYMAP=${cfg.keyMap}
     ${optionalString (cfg.font != null) "FONT=${cfg.font}"}
@@ -43,8 +43,8 @@ let
       ];
     }
     ;
-
 in
+
 {
   ###### interface
 
@@ -105,7 +105,6 @@ in
         Colors must be in hexadecimal format and listed in
         order from color 0 to color 15.
       '';
-
     };
 
     packages = mkOption {
@@ -133,10 +132,9 @@ in
         Enable setting virtual console options as early as possible (in initrd).
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
     {
@@ -170,10 +168,10 @@ in
         {
           environment.systemPackages = [ pkgs.kbd ];
 
-            # Let systemd-vconsole-setup.service do the work of setting up the
-            # virtual consoles.
+          # Let systemd-vconsole-setup.service do the work of setting up the
+          # virtual consoles.
           environment.etc."vconsole.conf".source = vconsoleConf;
-            # Provide kbd with additional packages.
+          # Provide kbd with additional packages.
           environment.etc.kbd.source = "${consoleEnv pkgs.kbd}/share";
 
           boot.initrd.preLVMCommands =
@@ -201,12 +199,12 @@ in
 
           boot.initrd.systemd.contents = {
             "/etc/vconsole.conf".source = vconsoleConf;
-              # Add everything if we want full console setup...
+            # Add everything if we want full console setup...
             "/etc/kbd" = lib.mkIf cfg.earlySetup {
               source =
                 "${consoleEnv config.boot.initrd.systemd.package.kbd}/share";
             };
-              # ...but only the keymaps if we don't
+            # ...but only the keymaps if we don't
             "/etc/kbd/keymaps" = lib.mkIf (!cfg.earlySetup) {
               source =
                 "${

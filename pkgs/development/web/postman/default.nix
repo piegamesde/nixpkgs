@@ -25,8 +25,8 @@ let
       Crafter
     ];
   };
-
 in
+
 if stdenvNoCC.isDarwin then
   callPackage ./darwin.nix { inherit pname version meta; }
 else

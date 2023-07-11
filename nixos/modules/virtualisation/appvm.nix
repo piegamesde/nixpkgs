@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.virtualisation.appvm;
-
 in
 {
 
@@ -30,7 +29,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -48,8 +46,5 @@ in
       packages = [ pkgs.appvm ];
       extraGroups = [ "libvirtd" ];
     };
-
   };
-
 }
-

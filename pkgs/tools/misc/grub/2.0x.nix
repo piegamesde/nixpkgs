@@ -47,8 +47,8 @@ let
     riscv64-linux.target = "riscv64";
   };
 
-    # For aarch64, we need to use '--target=aarch64-efi' when building,
-    # but '--target=arm64-efi' when installing. Insanity!
+  # For aarch64, we need to use '--target=aarch64-efi' when building,
+  # but '--target=arm64-efi' when installing. Insanity!
   efiSystemsInstall = {
     i686-linux.target = "i386";
     x86_64-linux.target = "x86_64";
@@ -66,7 +66,6 @@ let
   );
 
   version = "2.06";
-
 in
 (
 
@@ -87,7 +86,7 @@ in
       ./fix-bash-completion.patch
       (fetchpatch {
         name = "Add-hidden-menu-entries.patch";
-          # https://lists.gnu.org/archive/html/grub-devel/2016-04/msg00089.html
+        # https://lists.gnu.org/archive/html/grub-devel/2016-04/msg00089.html
         url = "https://marc.info/?l=grub-devel&m=146193404929072&q=mbox";
         sha256 = "00wa1q5adiass6i0x7p98vynj9vsz1w0gn1g4dgz89v35mpyw2bi";
       })
@@ -489,11 +488,9 @@ in
 
     hardeningDisable = [ "all" ];
 
-    separateDebugInfo =
-      !xenSupport
-      ;
+    separateDebugInfo = !xenSupport;
 
-      # Work around a bug in the generated flex lexer (upstream flex bug?)
+    # Work around a bug in the generated flex lexer (upstream flex bug?)
     env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
     preConfigure = ''
@@ -549,7 +546,7 @@ in
       ]
       ;
 
-      # save target that grub is compiled for
+    # save target that grub is compiled for
     grubTarget =
       if efiSupport then
         "${efiSystemsInstall.${stdenv.hostPlatform.system}.target}-efi"

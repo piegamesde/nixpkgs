@@ -17,19 +17,19 @@
   preFixup ? "",
   shellHook ? ""
 
-    # Go linker flags, passed to go via -ldflags
+  # Go linker flags, passed to go via -ldflags
   ,
   ldflags ? [ ]
 
-    # Go tags, passed to go via -tag
+  # Go tags, passed to go via -tag
   ,
   tags ? [ ]
 
-    # We want parallel builds by default
+  # We want parallel builds by default
   ,
   enableParallelBuilding ? true
 
-    # Go import path of the package
+  # Go import path of the package
   ,
   goPackagePath
 
@@ -37,35 +37,35 @@
   ,
   goPackageAliases ? [ ]
 
-    # Extra sources to include in the gopath
+  # Extra sources to include in the gopath
   ,
   extraSrcs ? [ ]
 
-    # Extra gopaths containing src subfolder
-    # with sources to include in the gopath
+  # Extra gopaths containing src subfolder
+  # with sources to include in the gopath
   ,
   extraSrcPaths ? [ ]
 
-    # go2nix dependency file
+  # go2nix dependency file
   ,
   goDeps ? null
 
-    # Whether to delete the vendor folder supplied with the source.
+  # Whether to delete the vendor folder supplied with the source.
   ,
   deleteVendor ? false
 
   ,
   dontRenameImports ? false
 
-    # Do not enable this without good reason
-    # IE: programs coupled with the compiler
+  # Do not enable this without good reason
+  # IE: programs coupled with the compiler
   ,
   allowGoReference ? false
 
   ,
   CGO_ENABLED ? go.CGO_ENABLED
 
-    # needed for buildFlags{,Array} warning
+  # needed for buildFlags{,Array} warning
   ,
   buildFlags ? "",
   buildFlagsArray ? ""

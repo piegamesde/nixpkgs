@@ -46,6 +46,5 @@ let
       echo "Testing content" && [ "$(cat $out | wc -l)" == "2" ] && echo "OK"
     '';
   };
-
 in
 testBazel

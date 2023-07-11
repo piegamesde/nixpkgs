@@ -32,8 +32,8 @@ let
     src
     sample_documents
     ;
-
 in
+
 python3Packages.buildPythonApplication rec {
   inherit src version;
   pname = "paperwork";
@@ -46,7 +46,7 @@ python3Packages.buildPythonApplication rec {
 
   sourceRoot = "source/paperwork-gtk";
 
-    # Patch out a few paths that assume that we're using the FHS:
+  # Patch out a few paths that assume that we're using the FHS:
   postPatch = ''
     substituteInPlace setup.py \
       --replace python-Levenshtein Levenshtein

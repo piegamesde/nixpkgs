@@ -15,8 +15,8 @@ let
         lib.toHexString n
     )
     ;
-
 in
+
 rec {
   qemuNicMac = net: machine: "52:54:00:12:${zeroPad net}:${zeroPad machine}";
 
@@ -96,6 +96,8 @@ rec {
             otherHostGuestMatrix.${hostSystem} or throwUnsupportedHostSystem
           );
       in
-      (guestMap.${guestSystem} or (throwUnsupportedGuestSystem guestMap))
+      (
+        guestMap.${guestSystem} or (throwUnsupportedGuestSystem guestMap)
+      )
     ;
 }

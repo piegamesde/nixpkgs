@@ -33,83 +33,79 @@
 {
   name ? "${attrs.pname}-${attrs.version}"
 
-    # Build-time dependencies for the package
+  # Build-time dependencies for the package
   ,
   nativeBuildInputs ? [ ]
 
-    # Run-time dependencies for the package
+  # Run-time dependencies for the package
   ,
   buildInputs ? [ ]
 
-    # Dependencies needed for running the checkPhase.
-    # These are added to buildInputs when doCheck = true.
+  # Dependencies needed for running the checkPhase.
+  # These are added to buildInputs when doCheck = true.
   ,
   checkInputs ? [ ],
   nativeCheckInputs ? [ ]
 
-    # propagate build dependencies so in case we have A -> B -> C,
-    # C can import package A propagated by B
+  # propagate build dependencies so in case we have A -> B -> C,
+  # C can import package A propagated by B
   ,
   propagatedBuildInputs ? [ ]
 
-    # DEPRECATED: use propagatedBuildInputs
+  # DEPRECATED: use propagatedBuildInputs
   ,
   pythonPath ? [ ]
 
-    # Enabled to detect some (native)BuildInputs mistakes
+  # Enabled to detect some (native)BuildInputs mistakes
   ,
   strictDeps ? true
 
   ,
-  outputs ? [
-    "out"
-  ]
+  outputs ? [ "out" ]
 
   # used to disable derivation, useful for specific python versions
   ,
   disabled ? false
 
-    # Raise an error if two packages are installed with the same name
-    # TODO: For cross we probably need a different PYTHONPATH, or not
-    # add the runtime deps until after buildPhase.
+  # Raise an error if two packages are installed with the same name
+  # TODO: For cross we probably need a different PYTHONPATH, or not
+  # add the runtime deps until after buildPhase.
   ,
-  catchConflicts ? (
-    python.stdenv.hostPlatform == python.stdenv.buildPlatform
-  )
+  catchConflicts ? (python.stdenv.hostPlatform == python.stdenv.buildPlatform)
 
   # Additional arguments to pass to the makeWrapper function, which wraps
   # generated binaries.
   ,
   makeWrapperArgs ? [ ]
 
-    # Skip wrapping of python programs altogether
+  # Skip wrapping of python programs altogether
   ,
   dontWrapPythonPrograms ? false
 
-    # Don't use Pip to install a wheel
-    # Note this is actually a variable for the pipInstallPhase in pip's setupHook.
-    # It's included here to prevent an infinite recursion.
+  # Don't use Pip to install a wheel
+  # Note this is actually a variable for the pipInstallPhase in pip's setupHook.
+  # It's included here to prevent an infinite recursion.
   ,
   dontUsePipInstall ? false
 
-    # Skip setting the PYTHONNOUSERSITE environment variable in wrapped programs
+  # Skip setting the PYTHONNOUSERSITE environment variable in wrapped programs
   ,
   permitUserSite ? false
 
-    # Remove bytecode from bin folder.
-    # When a Python script has the extension `.py`, bytecode is generated
-    # Typically, executables in bin have no extension, so no bytecode is generated.
-    # However, some packages do provide executables with extensions, and thus bytecode is generated.
+  # Remove bytecode from bin folder.
+  # When a Python script has the extension `.py`, bytecode is generated
+  # Typically, executables in bin have no extension, so no bytecode is generated.
+  # However, some packages do provide executables with extensions, and thus bytecode is generated.
   ,
   removeBinBytecode ? true
 
-    # Several package formats are supported.
-    # "setuptools" : Install a common setuptools/distutils based package. This builds a wheel.
-    # "wheel" : Install from a pre-compiled wheel.
-    # "flit" : Install a flit package. This builds a wheel.
-    # "pyproject": Install a package using a ``pyproject.toml`` file (PEP517). This builds a wheel.
-    # "egg": Install a package from an egg.
-    # "other" : Provide your own buildPhase and installPhase.
+  # Several package formats are supported.
+  # "setuptools" : Install a common setuptools/distutils based package. This builds a wheel.
+  # "wheel" : Install from a pre-compiled wheel.
+  # "flit" : Install a flit package. This builds a wheel.
+  # "pyproject": Install a package using a ``pyproject.toml`` file (PEP517). This builds a wheel.
+  # "egg": Install a package from an egg.
+  # "other" : Provide your own buildPhase and installPhase.
   ,
   format ? "setuptools"
 
@@ -225,12 +221,12 @@ let
         else
           drv
         ;
-
     in
-    inputs: builtins.map (checkDrv) inputs
+    inputs:
+    builtins.map (checkDrv) inputs
     ;
 
-    # Keep extra attributes from `attrs`, e.g., `patchPhase', etc.
+  # Keep extra attributes from `attrs`, e.g., `patchPhase', etc.
   self = toPythonModule (
     stdenv.mkDerivation (
       (builtins.removeAttrs attrs [
@@ -308,7 +304,7 @@ let
               "C"
           }.UTF-8";
 
-          # Python packages don't have a checkPhase, only an installCheckPhase
+        # Python packages don't have a checkPhase, only an installCheckPhase
         doCheck = false;
         doInstallCheck = attrs.doCheck or true;
         nativeInstallCheckInputs =
@@ -330,7 +326,7 @@ let
           + attrs.postFixup or ""
           ;
 
-          # Python packages built through cross-compilation are always for the host platform.
+        # Python packages built through cross-compilation are always for the host platform.
         disallowedReferences = lib.optionals
           (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
           [

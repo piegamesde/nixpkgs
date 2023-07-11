@@ -21,7 +21,7 @@
   libnftnl ? null # for nftables
   ,
   dnsType ? "internal" # or "systemd-resolved"
-    # optional features which are turned *on* by default
+  # optional features which are turned *on* by default
   ,
   enableOpenconnect ? true,
   openconnect ? null,
@@ -49,7 +49,7 @@
   enableStats ? true,
   enableClient ? true,
   enableDatafiles ? true
-    # optional features which are turned *off* by default
+  # optional features which are turned *off* by default
   ,
   enableNetworkManager ? false,
   enableHh2serialGps ? false,
@@ -69,8 +69,8 @@ assert lib.asserts.assertOneOf "dnsType" dnsType [
 
 let
   inherit (lib) optionals;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "connman";
   version = "1.41";
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     file
   ];
 
-    # fix invalid path to 'file'
+  # fix invalid path to 'file'
   postPatch = ''
     sed -i "s/\/usr\/bin\/file/file/g" ./configure
   '';
@@ -138,12 +138,7 @@ stdenv.mkDerivation rec {
     ++ optionals (!enableEthernet) [ "--disable-ethernet" ]
     ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
     ++ optionals (!enableGadget) [ "--disable-gadget" ]
-    ++ optionals (!enableWifi) [
-        "--disable-wifi"
-      ]
-      # enable IWD support for wifi as it doesn't require any new dependencies
-      # and it's easier for the NixOS module to use only one connman package when
-      # IWD is requested
+    ++ optionals (!enableWifi) [ "--disable-wifi" ]
     ++ optionals (enableWifi) [ "--enable-iwd" ]
     ++ optionals (!enableBluetooth) [ "--disable-bluetooth" ]
     ++ optionals (!enableOfono) [ "--disable-ofono" ]

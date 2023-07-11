@@ -315,19 +315,19 @@ in
     environment.systemPackages = [ pkgs.trafficserver ];
     systemd.packages = [ pkgs.trafficserver ];
 
-      # Traffic Server does privilege handling independently of systemd, and
-      # therefore should be started as root
+    # Traffic Server does privilege handling independently of systemd, and
+    # therefore should be started as root
     systemd.services.trafficserver = {
       enable = true;
       wantedBy = [ "multi-user.target" ];
     };
 
-      # These directories can't be created by systemd because:
-      #
-      #   1. Traffic Servers starts as root and switches to an unprivileged user
-      #      afterwards. The runtime directories defined below are assumed to be
-      #      owned by that user.
-      #   2. The bin/trafficserver script assumes these directories exist.
+    # These directories can't be created by systemd because:
+    #
+    #   1. Traffic Servers starts as root and switches to an unprivileged user
+    #      afterwards. The runtime directories defined below are assumed to be
+    #      owned by that user.
+    #   2. The bin/trafficserver script assumes these directories exist.
     systemd.tmpfiles.rules = [
       "d '/run/trafficserver' - ${user} ${group} - -"
       "d '/var/cache/trafficserver' - ${user} ${group} - -"

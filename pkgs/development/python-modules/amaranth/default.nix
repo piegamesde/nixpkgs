@@ -23,7 +23,7 @@
 buildPythonPackage rec {
   pname = "amaranth";
   version = "0.3";
-    # python setup.py --version
+  # python setup.py --version
   realVersion = "0.3";
   disabled = pythonOlder "3.6";
 
@@ -40,9 +40,9 @@ buildPythonPackage rec {
       url =
         "https://github.com/amaranth-lang/amaranth/commit/64771a065a280fa683c1e6692383bec4f59f20fa.patch";
       hash = "sha256-Rsh9vVvUQj9nIcrsRirmR6XwFrfZ2VMaYJ4RCQ8sBE0=";
-        # This commit removes support for Python 3.6, which is unnecessary to fix
-        # the build when using new setuptools. Include only one file, which has a
-        # harmless comment change so that the subsequent patch applies cleanly.
+      # This commit removes support for Python 3.6, which is unnecessary to fix
+      # the build when using new setuptools. Include only one file, which has a
+      # harmless comment change so that the subsequent patch applies cleanly.
       includes = [ "amaranth/_toolchain/cxx.py" ];
     })
     (fetchpatch {

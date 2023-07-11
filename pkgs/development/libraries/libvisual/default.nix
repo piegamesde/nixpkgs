@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
       url =
         "https://github.com/Libvisual/libvisual/commit/7902d24aa1a552619a5738339b3823e90dd3b865.patch";
       hash = "sha256-84u8klHDAw/q4d+9L4ROAr7XsbXItHrhaEKkTEMSPcc=";
-        # remove extra libvisual prefix
+      # remove extra libvisual prefix
       stripLen = 1;
-        # pull in only useful configure.ac changes.
+      # pull in only useful configure.ac changes.
       excludes = [ "Makefile.am" ];
     })
     (fetchpatch {
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       url =
         "https://github.com/Libvisual/libvisual/commit/f79a2e8d21ad1d7fe26e2aa83cea4c9f48f9e392.patch";
       hash = "sha256-8c7SdLxXC8K9BAwj7DzozsZAcbs5l1xuBqky9LJ1MfM=";
-        # remove extra libvisual prefix
+      # remove extra libvisual prefix
       stripLen = 1;
     })
   ];

@@ -49,8 +49,8 @@ let
         ${./bar.c}
     '';
   };
-
 in
+
 stdenv.mkDerivation {
   name = "stdenv-inputs-test";
   phases = [ "buildPhase" ];

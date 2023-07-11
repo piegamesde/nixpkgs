@@ -39,19 +39,19 @@ stdenv.mkDerivation rec {
       --replace "_gitstatus_install_main ." "_gitstatus_install_main $out"
   '';
 
-    # Don't install the "install" and "build.info" files, which the end user
-    # should not need to worry about.
+  # Don't install the "install" and "build.info" files, which the end user
+  # should not need to worry about.
   pathsToLink = [
     "/bin/gitstatusd"
     "/share/gitstatus/gitstatus.plugin.sh"
     "/share/gitstatus/gitstatus.plugin.zsh"
   ];
 
-    # The install check sets up an empty Git repository and a minimal zshrc that
-    # invokes gitstatus.plugin.zsh. It runs zsh against this zshrc and verifies
-    # that the script was sourced successfully and that the "gitstatus_query"
-    # command ran successfully. This tests the binary itself and the zsh
-    # integration.
+  # The install check sets up an empty Git repository and a minimal zshrc that
+  # invokes gitstatus.plugin.zsh. It runs zsh against this zshrc and verifies
+  # that the script was sourced successfully and that the "gitstatus_query"
+  # command ran successfully. This tests the binary itself and the zsh
+  # integration.
   nativeInstallCheckInputs = [
     git
     zsh

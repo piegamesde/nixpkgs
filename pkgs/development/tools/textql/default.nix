@@ -33,7 +33,7 @@ buildGoModule rec {
     install -Dm644 -t $out/share/man/man1 ${src}/man/textql.1
   '';
 
-    # needed for tests
+  # needed for tests
   nativeBuildInputs = [ sqlite ];
 
   doCheck = true;

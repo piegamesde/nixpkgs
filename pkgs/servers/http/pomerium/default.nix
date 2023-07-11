@@ -52,7 +52,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/pomerium" ];
 
-    # patch pomerium to allow use of external envoy
+  # patch pomerium to allow use of external envoy
   patches = [ ./external-envoy.diff ];
 
   ldflags =

@@ -31,5 +31,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.bzizou ];
     license = lib.licenses.lgpl21;
   };
-
 }

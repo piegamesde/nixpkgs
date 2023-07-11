@@ -12,8 +12,8 @@
 let
   pname = "sphinx-autodoc-typehints";
   version = "1.22";
-
 in
+
 buildPythonPackage {
   inherit pname version;
   format = "pyproject";
@@ -35,7 +35,7 @@ buildPythonPackage {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # requires spobjinv, nbtyping
+  # requires spobjinv, nbtyping
   doCheck = false;
 
   pythonImportsCheck = [ "sphinx_autodoc_typehints" ];

@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-    # Tests access a DB via network
+  # Tests access a DB via network
   doCheck = false;
 
   pythonImportsCheck = [ "dj_database_url" ];

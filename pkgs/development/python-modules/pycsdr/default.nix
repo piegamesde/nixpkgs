@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ csdr ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
   pythonImportsCheck = [ "pycsdr" ];
 

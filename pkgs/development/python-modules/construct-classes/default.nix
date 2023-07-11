@@ -13,7 +13,7 @@ buildPythonPackage rec {
   version = "0.1.2";
   format = "pyproject";
 
-    # no tests in PyPI tarball
+  # no tests in PyPI tarball
   src = fetchFromGitHub {
     owner = "matejcik";
     repo = "construct-classes";

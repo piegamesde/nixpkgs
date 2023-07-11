@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ typing-extensions ];
 
-    # Circular dependency on aiohttp
+  # Circular dependency on aiohttp
   doCheck = false;
 
   meta = {

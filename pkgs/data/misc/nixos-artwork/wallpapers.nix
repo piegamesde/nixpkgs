@@ -69,8 +69,8 @@ let
     in
     pkg
     ;
-
 in
+
 rec {
 
   dracula = mkNixBackground {
@@ -196,5 +196,4 @@ rec {
       sha256 = "116337wv81xfg0g0bsylzzq2b7nbj6hjyh795jfc9mvzarnalwd3";
     };
   };
-
 }

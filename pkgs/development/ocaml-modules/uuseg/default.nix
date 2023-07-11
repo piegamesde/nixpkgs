@@ -15,8 +15,8 @@
 let
   pname = "uuseg";
   webpage = "https://erratique.ch/software/${pname}";
-
 in
+
 stdenv.mkDerivation rec {
 
   name = "ocaml${ocaml.version}-${pname}-${version}";

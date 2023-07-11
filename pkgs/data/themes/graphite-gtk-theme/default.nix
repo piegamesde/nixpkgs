@@ -21,7 +21,6 @@
 
 let
   pname = "graphite-gtk-theme";
-
 in
 lib.checkListOfEnum "${pname}: theme variants"
 [

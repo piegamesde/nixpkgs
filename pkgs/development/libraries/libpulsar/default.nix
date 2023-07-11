@@ -43,9 +43,9 @@ let
       "ON"
     ;
 
-    # Not really sure why I need to do this.. If I call clang-tools without the override it defaults to a different version and fails
+  # Not really sure why I need to do this.. If I call clang-tools without the override it defaults to a different version and fails
   clangTools = clang-tools.override { inherit stdenv llvmPackages; };
-    # If boost has python enabled, then boost-python package will be installed which is used by libpulsars python wrapper
+  # If boost has python enabled, then boost-python package will be installed which is used by libpulsars python wrapper
   boost =
     if python3Support then
       boost17x.override {
@@ -67,7 +67,6 @@ let
     ++ lib.optional zstdSupport zstd
     ++ lib.optional log4cxxSupport log4cxx
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "libpulsar";
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "apache-pulsar-${version}-src/pulsar-client-cpp";
 
-    # clang-tools needed for clang-format
+  # clang-tools needed for clang-format
   nativeBuildInputs =
     [
       cmake
@@ -101,7 +100,7 @@ stdenv.mkDerivation rec {
     ++ defaultOptionals
     ;
 
-    # Needed for GCC on Linux
+  # Needed for GCC on Linux
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=return-type" ];
 
   cmakeFlags = [

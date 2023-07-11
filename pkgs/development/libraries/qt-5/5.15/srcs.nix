@@ -37,8 +37,8 @@ lib.mapAttrs mk (lib.importJSON ./srcs-generated.json) // {
     };
   };
 
-    # qtwebkit does not have an official release tarball on the qt mirror and is
-    # mostly maintained by the community.
+  # qtwebkit does not have an official release tarball on the qt mirror and is
+  # mostly maintained by the community.
   qtwebkit = rec {
     src = fetchFromGitHub {
       owner = "qt";
@@ -49,7 +49,7 @@ lib.mapAttrs mk (lib.importJSON ./srcs-generated.json) // {
     version = "5.212.0-alpha4";
   };
 
-    # qtsystems has no official releases
+  # qtsystems has no official releases
   qtsystems = {
     version = "unstable-2019-01-03";
     src = fetchFromGitHub {

@@ -29,7 +29,7 @@ buildGoModule rec {
     makeFlagsArray+=(BUILD_TAGS="${BUILDTAGS}")
   '';
 
-    # For some reasons the tests fail, but the program itself seems to work.
+  # For some reasons the tests fail, but the program itself seems to work.
   doCheck = false;
 
   postInstall = ''

@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # Tests require network connection
+  # Tests require network connection
   doCheck = false;
 
   pythonImportsCheck = [ "youtube_search" ];

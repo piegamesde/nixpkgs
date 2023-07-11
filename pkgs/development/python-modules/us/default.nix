@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "cb11ad0d43deff3a1c3690c74f0c731cff5b862c73339df2edd91133e1496fbc";
   };
 
-    # Upstream requires jellyfish==0.5.6 but we have 0.6.1
+  # Upstream requires jellyfish==0.5.6 but we have 0.6.1
   postPatch = ''
     substituteInPlace setup.py --replace "jellyfish==" "jellyfish>="
   '';

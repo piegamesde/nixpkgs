@@ -7,8 +7,8 @@
 
 let
   inherit (buildPackages.buildPackages) gcc;
-
 in
+
 stdenv.mkDerivation {
   pname = "libiberty";
   version = "${gcc.cc.version}";

@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pytestqt" ];
 
-    # Tests require X server
+  # Tests require X server
   doCheck = false;
 
   meta = with lib; {

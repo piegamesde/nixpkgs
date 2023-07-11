@@ -72,12 +72,10 @@ let
     inherit version src;
     format = "pyproject";
 
-      # apply patches to base repo
-    inherit
-      patches
-      ;
+    # apply patches to base repo
+    inherit patches;
 
-      # move into source root after patching
+    # move into source root after patching
     postPatch = ''
       cd psycopg_c
     '';
@@ -89,7 +87,7 @@ let
       tomli
     ];
 
-      # tested in psycopg
+    # tested in psycopg
     doCheck = false;
 
     meta =
@@ -101,25 +99,23 @@ let
     inherit version src;
     format = "setuptools";
 
-      # apply patches to base repo
-    inherit
-      patches
-      ;
+    # apply patches to base repo
+    inherit patches;
 
-      # move into source root after patching
+    # move into source root after patching
     postPatch = ''
       cd psycopg_pool
     '';
 
     propagatedBuildInputs = [ typing-extensions ];
 
-      # tested in psycopg
+    # tested in psycopg
     doCheck = false;
 
     meta = baseMeta // { description = "Connection Pool for Psycopg"; };
   };
-
 in
+
 buildPythonPackage rec {
   inherit pname version src;
   format = "pyproject";
@@ -133,18 +129,16 @@ buildPythonPackage rec {
 
   sphinxRoot = "../docs";
 
-    # Introduce this file necessary for the docs build via environment var
+  # Introduce this file necessary for the docs build via environment var
   LIBPQ_DOCS_FILE = fetchurl {
     url =
       "https://raw.githubusercontent.com/postgres/postgres/REL_14_STABLE/doc/src/sgml/libpq.sgml";
     hash = "sha256-yn09fR9+7zQni8SvTG7BUmYRD7MK7u2arVAznWz2oAw=";
   };
 
-  inherit
-    patches
-    ;
+  inherit patches;
 
-    # only move to sourceRoot after patching, makes patching easier
+  # only move to sourceRoot after patching, makes patching easier
   postPatch = ''
     cd psycopg
   '';

@@ -21,7 +21,8 @@
 
 # XXX: when changing this package, please test the package onlykey-agent.
 
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "libagent";
   version = "0.14.5";
 
@@ -32,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-RISAy0efdatr9u4CWNRGnlffkC8ksw1NyRpJWKwqz+s=";
   };
 
-    # hardcode the path to gpgconf in the libagent library
+  # hardcode the path to gpgconf in the libagent library
   postPatch = ''
     substituteInPlace libagent/gpg/keyring.py \
       --replace "util.which('gpgconf')" "'${gnupg}/bin/gpgconf'" \

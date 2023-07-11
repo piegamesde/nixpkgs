@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = "sndpeek-${version}/src/sndpeek";
 
-    # this patch adds -lpthread to the list of libraries, without it a
-    # symbol-not-found-error is thrown
+  # this patch adds -lpthread to the list of libraries, without it a
+  # symbol-not-found-error is thrown
   patches = [ ./pthread.patch ];
 
   buildInputs = [

@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Tests have import issues with 3.0.8
+  # Tests have import issues with 3.0.8
   doCheck = false;
 
   pythonImportsCheck = [ "preshed" ];

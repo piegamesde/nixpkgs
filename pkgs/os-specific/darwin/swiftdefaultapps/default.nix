@@ -8,8 +8,8 @@ stdenvNoCC.mkDerivation rec {
   pname = "swiftdefaultapps";
   version = "2.0.1";
 
-    # Fetch the release which includes the prebuild binary since this is a Swift project and nixpkgs
-    # doesn't currently have the ability to build Swift projects.
+  # Fetch the release which includes the prebuild binary since this is a Swift project and nixpkgs
+  # doesn't currently have the ability to build Swift projects.
   src = fetchzip {
     url =
       "https://github.com/Lord-Kamina/SwiftDefaultApps/releases/download/v${version}/SwiftDefaultApps-v${version}.zip";

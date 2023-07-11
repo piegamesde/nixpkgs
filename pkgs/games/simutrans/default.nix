@@ -39,7 +39,7 @@ let
     sha256 = "1f463r6kr5ig0zd3mncc74k93xbjywsq3d06j5r17831jyc9bzb9";
   };
 
-    # As of 2021/07, many of these paksets have not been updated for years, so are on old versions.
+  # As of 2021/07, many of these paksets have not been updated for years, so are on old versions.
   pakSpec =
     lib.mapAttrs (pakName: attrs: mkPak (attrs // { inherit pakName; })) {
       pak64 = {
@@ -73,12 +73,12 @@ let
         sha256 = "1cv1rzl1a3i5dvk476zq094wawk9hhdh2f0y4xrdny5gn17mb2xi";
       };
 
-        /* This release contains accented filenames that prevent unzipping.
-           "pak192.comic" = {
-             srcPath = "pak192comic%20for%20${ver2_dash}/pak192comic-0.4-${ver2_dash}up";
-             sha256 = throw "";
-           };
-        */
+      /* This release contains accented filenames that prevent unzipping.
+         "pak192.comic" = {
+           srcPath = "pak192comic%20for%20${ver2_dash}/pak192comic-0.4-${ver2_dash}up";
+           sha256 = throw "";
+         };
+      */
     };
 
   mkPak =
@@ -113,9 +113,9 @@ let
     }
     ;
 
-    /* The binaries need all data in one directory; the default is directory
-        of the executable, and another option is the current directory :-/
-    */
+  /* The binaries need all data in one directory; the default is directory
+      of the executable, and another option is the current directory :-/
+  */
   withPaks =
     paks:
     buildEnv {
@@ -173,8 +173,8 @@ let
           OSTYPE = ${platform}
           VERBOSE = 1
         '';
-          #TODO: MULTI_THREAD = 1 is "highly recommended",
-          # but it's roughly doubling CPU usage for me
+        #TODO: MULTI_THREAD = 1 is "highly recommended",
+        # but it's roughly doubling CPU usage for me
       in
       ''
         echo "${config}" > config.default
@@ -217,6 +217,5 @@ let
       platforms = with platforms; linux; # TODO: ++ darwin;
     };
   };
-
 in
 result

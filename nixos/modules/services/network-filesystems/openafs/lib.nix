@@ -6,7 +6,6 @@
 
 let
   inherit (lib) concatStringsSep mkOption types optionalString;
-
 in
 {
 
@@ -28,7 +27,7 @@ in
     + "\n"
     ;
 
-    # CellServDB configuration type
+  # CellServDB configuration type
   cellServDBConfig = {
     ip = mkOption {
       type = types.str;

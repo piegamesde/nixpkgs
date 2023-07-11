@@ -25,8 +25,8 @@ let
     slurp
     (placeholder "out")
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "wl-mirror";
   version = "0.13.1";

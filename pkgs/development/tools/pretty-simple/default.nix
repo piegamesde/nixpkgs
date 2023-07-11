@@ -18,4 +18,3 @@ haskell.lib.compose.justStaticExecutables (
   })
   haskellPackages.pretty-simple
 )
-

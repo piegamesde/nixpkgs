@@ -19,7 +19,7 @@
   #     Install all available packages. This takes a lot of space.
   ,
   packageSet ? "standard"
-    # Kept for backwards compatibility. Overrides packageSet to "full".
+  # Kept for backwards compatibility. Overrides packageSet to "full".
   ,
   keepAllPackages ? false
 }:
@@ -32,7 +32,7 @@ let
     "smallgrp"
     "transgrp"
   ];
-    # packages autoloaded by default if available, and their dependencies
+  # packages autoloaded by default if available, and their dependencies
   autoloadedPackages = [
     "atlasrep"
     "autpgrp"
@@ -59,9 +59,9 @@ let
     ++ lib.optionals (packageSet == "standard") autoloadedPackages
     ;
 
-    # Generate bash script that removes all packages from the `pkg` subdirectory
-    # that are not on the whitelist. The whitelist consists of strings expected by
-    # `find`'s `-name`.
+  # Generate bash script that removes all packages from the `pkg` subdirectory
+  # that are not on the whitelist. The whitelist consists of strings expected by
+  # `find`'s `-name`.
   removeNonWhitelistedPkgs =
     whitelist:
     ''
@@ -78,7 +78,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "gap";
-    # https://www.gap-system.org/Releases/
+  # https://www.gap-system.org/Releases/
   version = "4.12.2";
 
   src = fetchurl {
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZyMIdF63iiIklO6N1nhu3VvDMUVvzGRWrAZL2yjVh6g=";
   };
 
-    # remove all non-essential packages (which take up a lot of space)
+  # remove all non-essential packages (which take up a lot of space)
   preConfigure =
     lib.optionalString (!keepAll) (removeNonWhitelistedPkgs packagesToKeep)
     + ''
@@ -107,10 +107,10 @@ stdenv.mkDerivation rec {
       pari # used at runtime by the alnuth package
     ];
 
-    # "teststandard" is a superset of the tests run by "check". it takes ~20min
-    # instead of ~1min. tests are run twice, once with all packages loaded and
-    # once without.
-    # installCheckTarget = "teststandard";
+  # "teststandard" is a superset of the tests run by "check". it takes ~20min
+  # instead of ~1min. tests are run twice, once with all packages loaded and
+  # once without.
+  # installCheckTarget = "teststandard";
 
   doInstallCheck = true;
   installCheckTarget = "check";
@@ -158,14 +158,14 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Computational discrete algebra system";
-      # We are also grateful to ChrisJefferson for previous work on the package,
-      # and to ChrisJefferson and fingolfin for help with GAP-related questions
-      # from the upstream point of view.
+    # We are also grateful to ChrisJefferson for previous work on the package,
+    # and to ChrisJefferson and fingolfin for help with GAP-related questions
+    # from the upstream point of view.
     maintainers = teams.sage.members;
     platforms = platforms.all;
-      # keeping all packages increases the package size considerably, which is
-      # why a local build is preferable in that situation. The timeframe is
-      # reasonable and that way the binary cache doesn't get overloaded.
+    # keeping all packages increases the package size considerably, which is
+    # why a local build is preferable in that situation. The timeframe is
+    # reasonable and that way the binary cache doesn't get overloaded.
     hydraPlatforms = lib.optionals (!keepAllPackages) meta.platforms;
     license = licenses.gpl2;
     homepage = "https://www.gap-system.org";

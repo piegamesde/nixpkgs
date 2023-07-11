@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       binaryNativeCode
     ];
     license = licenses.asl20;
-      # Upstream supports macOS and Windows too.
+    # Upstream supports macOS and Windows too.
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];
   };

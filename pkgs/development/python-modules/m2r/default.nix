@@ -47,7 +47,7 @@ buildPythonPackage rec {
       AndersonTorres
       SuperSandro2000
     ];
-      # https://github.com/miyakogi/m2r/issues/66
+    # https://github.com/miyakogi/m2r/issues/66
     broken = versionAtLeast mistune.version "2";
   };
 }

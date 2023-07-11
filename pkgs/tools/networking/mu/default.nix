@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       --replace "/bin/rm" "${coreutils}/bin/rm"
   '';
 
-    # AOT native-comp, mostly copied from pkgs/build-support/emacs/generic.nix
+  # AOT native-comp, mostly copied from pkgs/build-support/emacs/generic.nix
   postInstall = lib.optionalString (emacs.nativeComp or false) ''
     mkdir -p $out/share/emacs/native-lisp
     export EMACSLOADPATH=$out/share/emacs/site-lisp/mu4e:

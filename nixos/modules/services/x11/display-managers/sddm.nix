@@ -47,7 +47,7 @@ let
           "none"
         ; # on, off none
 
-        # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
+      # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
       DefaultSession = optionalString
         (dmcfg.defaultSession != null)
         "${dmcfg.defaultSession}.desktop";
@@ -99,7 +99,6 @@ let
     ;
 
   autoLoginSessionName = "${dmcfg.sessionData.autologinSession}.desktop";
-
 in
 {
   imports = [
@@ -226,7 +225,7 @@ in
         '';
       };
 
-        # Configuration for automatic login specific to SDDM
+      # Configuration for automatic login specific to SDDM
       autoLogin = {
         relogin = mkOption {
           type = types.bool;
@@ -331,7 +330,7 @@ in
     environment.systemPackages = [ sddm ];
     services.dbus.packages = [ sddm ];
 
-      # To enable user switching, allow sddm to allocate TTYs/displays dynamically.
+    # To enable user switching, allow sddm to allocate TTYs/displays dynamically.
     services.xserver.tty = null;
     services.xserver.display = null;
   };

@@ -23,5 +23,4 @@ buildPythonPackage rec {
     homepage = "https://sourceforge.net/projects/mmpython/";
     license = licenses.gpl2;
   };
-
 }

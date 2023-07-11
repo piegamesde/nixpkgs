@@ -29,8 +29,8 @@ let
       wirelesstools
     ]
     ;
-
 in
+
 rustPlatform.buildRustPackage rec {
   pname = "dwm-status";
   version = "1.8.1";

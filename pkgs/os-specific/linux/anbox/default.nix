@@ -52,8 +52,8 @@ let
 
     @out@/bin/anbox launch --package=org.anbox.appmgr --component=org.anbox.appmgr.AppViewActivity
   '';
-
 in
+
 stdenv.mkDerivation rec {
   pname = "anbox";
   version = "unstable-2021-10-20";
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-    # Flag needed by GCC 12 but unrecognized by GCC 9 (aarch64-linux default now)
+  # Flag needed by GCC 12 but unrecognized by GCC 9 (aarch64-linux default now)
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals
     (with stdenv; cc.isGNU && lib.versionAtLeast cc.version "12")
@@ -185,5 +185,4 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
     ];
   };
-
 }

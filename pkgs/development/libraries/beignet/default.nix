@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
       zimbatm
     ];
     platforms = platforms.linux;
-      # Requires libdrm_intel
+    # Requires libdrm_intel
     badPlatforms = [ "aarch64-linux" ];
   };
 }

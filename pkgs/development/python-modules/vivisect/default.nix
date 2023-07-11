@@ -62,7 +62,7 @@ buildPythonPackage rec {
     wrapQtApp $out/bin/vivbin
   '';
 
-    # requires another repo for test files
+  # requires another repo for test files
   doCheck = false;
 
   pythonImportsCheck = [ "vivisect" ];

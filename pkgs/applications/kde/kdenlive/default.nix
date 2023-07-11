@@ -75,9 +75,9 @@ mkDerivation {
     kdeclarative
     wrapGAppsHook
   ];
-    # Both MLT and FFMpeg paths must be set or Kdenlive will complain that it
-    # doesn't find them. See:
-    # https://github.com/NixOS/nixpkgs/issues/83885
+  # Both MLT and FFMpeg paths must be set or Kdenlive will complain that it
+  # doesn't find them. See:
+  # https://github.com/NixOS/nixpkgs/issues/83885
   patches = [
     ./mlt-path.patch
     ./ffmpeg-path.patch
@@ -93,9 +93,9 @@ mkDerivation {
 
   dontWrapGApps = true;
 
-    # Frei0r path needs to be set too or Kdenlive will complain. See:
-    # https://github.com/NixOS/nixpkgs/issues/83885
-    # https://github.com/NixOS/nixpkgs/issues/29614#issuecomment-488849325
+  # Frei0r path needs to be set too or Kdenlive will complain. See:
+  # https://github.com/NixOS/nixpkgs/issues/83885
+  # https://github.com/NixOS/nixpkgs/issues/29614#issuecomment-488849325
   qtWrapperArgs = [ "--set FREI0R_PATH ${frei0r}/lib/frei0r-1" ];
 
   preFixup = ''

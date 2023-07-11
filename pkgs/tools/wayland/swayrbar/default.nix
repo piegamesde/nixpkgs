@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-PdPaUqJUycUhleaND6XwKkRvwO0MHbvw5lzz95bdfCQ=";
 
-    # don't build swayr
+  # don't build swayr
   buildAndTestSubdir = pname;
 
   preCheck = ''

@@ -21,7 +21,7 @@
 {
   name ? "${args.pname}-${args.version}"
 
-    # Name for the vendored dependencies tarball
+  # Name for the vendored dependencies tarball
   ,
   cargoDepsName ? name
 
@@ -54,14 +54,14 @@
   ,
   depsExtraArgs ? { }
 
-    # Toggles whether a custom sysroot is created when the target is a .json file.
+  # Toggles whether a custom sysroot is created when the target is a .json file.
   ,
   __internal_dontAddSysroot ? false
 
-    # Needed to `pushd`/`popd` into a subdir of a tarball if this subdir
-    # contains a Cargo.toml, but isn't part of a workspace (which is e.g. the
-    # case for `rustfmt`/etc from the `rust-sources).
-    # Otherwise, everything from the tarball would've been built/tested.
+  # Needed to `pushd`/`popd` into a subdir of a tarball if this subdir
+  # contains a Cargo.toml, but isn't part of a workspace (which is e.g. the
+  # case for `rustfmt`/etc from the `rust-sources).
+  # Otherwise, everything from the tarball would've been built/tested.
   ,
   buildAndTestSubdir ? null,
   ...
@@ -106,12 +106,10 @@ let
 
   target = rust.toRustTargetSpec stdenv.hostPlatform;
   targetIsJSON = lib.hasSuffix ".json" target;
-  useSysroot =
-    targetIsJSON && !__internal_dontAddSysroot
-    ;
+  useSysroot = targetIsJSON && !__internal_dontAddSysroot;
 
-    # see https://github.com/rust-lang/cargo/blob/964a16a28e234a3d397b2a7031d4ab4a428b1391/src/cargo/core/compiler/compile_kind.rs#L151-L168
-    # the "${}" is needed to transform the path into a /nix/store path before baseNameOf
+  # see https://github.com/rust-lang/cargo/blob/964a16a28e234a3d397b2a7031d4ab4a428b1391/src/cargo/core/compiler/compile_kind.rs#L151-L168
+  # the "${}" is needed to transform the path into a /nix/store path before baseNameOf
   shortTarget =
     if targetIsJSON then
       (lib.removeSuffix ".json" (builtins.baseNameOf "${target}"))
@@ -124,10 +122,10 @@ let
     RUSTFLAGS = args.RUSTFLAGS or "";
     originalCargoToml = src + /Cargo.toml; # profile info is later extracted
   };
-
-  # Tests don't currently work for `no_std`, and all custom sysroots are currently built without `std`.
-  # See https://os.phil-opp.com/testing/ for more information.
 in
+
+# Tests don't currently work for `no_std`, and all custom sysroots are currently built without `std`.
+# See https://os.phil-opp.com/testing/ for more information.
 assert useSysroot -> !(args.doCheck or true);
 
 stdenv.mkDerivation (

@@ -28,7 +28,7 @@ buildPythonPackage rec {
     ${python.pythonForBuild.interpreter} pywayland/ffi_build.py
   '';
 
-    # Tests need this to create sockets
+  # Tests need this to create sockets
   preCheck = ''
     export XDG_RUNTIME_DIR="$PWD"
   '';

@@ -47,7 +47,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
   doCheck = false;
-    # requires running mysql and postgres instances; see docker-compose.yml
+  # requires running mysql and postgres instances; see docker-compose.yml
 
   pythonImportsCheck = [
     "siuba"

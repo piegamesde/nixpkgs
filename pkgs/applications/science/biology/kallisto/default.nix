@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DUSE_HDF5=ON" ];
 
-    # Parallel build fails in some cases: https://github.com/pachterlab/kallisto/issues/160
+  # Parallel build fails in some cases: https://github.com/pachterlab/kallisto/issues/160
   enableParallelBuilding = false;
 
   meta = with lib; {

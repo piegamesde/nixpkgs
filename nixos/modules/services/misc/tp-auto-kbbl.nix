@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.tp-auto-kbbl;
-
 in
 {
   meta.maintainers = with maintainers; [ sebtm ];
@@ -41,7 +40,6 @@ in
         default = "/dev/input/event0";
         description = lib.mdDoc "Device watched for activities.";
       };
-
     };
   };
 

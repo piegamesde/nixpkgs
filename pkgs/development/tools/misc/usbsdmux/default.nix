@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-gCxwR5jxzkH22B6nxBwAd0HpwWMIj/zp5VROJ0IWq7c=";
   };
 
-    # usbsdmux is not meant to be used as an importable module and has no tests
+  # usbsdmux is not meant to be used as an importable module and has no tests
   doCheck = false;
 
   meta = with lib; {

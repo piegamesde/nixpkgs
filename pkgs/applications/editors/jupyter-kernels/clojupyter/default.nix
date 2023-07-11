@@ -56,8 +56,8 @@ let
       inherit meta;
     }
     ;
-
 in
+
 rec {
   launcher =
     runCommand "clojupyter" { inherit pname version meta shellScript; } ''

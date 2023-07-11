@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       --replace '"linux-gnu"' '"linux-"'
   '';
 
-    # Almost same as Debian but for now using --enable-all --enable-reproducible-build instead of --enable-distro to ensure options.h gets installed
+  # Almost same as Debian but for now using --enable-all --enable-reproducible-build instead of --enable-distro to ensure options.h gets installed
   configureFlags = [
     "--enable-all"
     "--enable-base64encode"

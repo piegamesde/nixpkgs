@@ -98,7 +98,7 @@ in
 
       systemd.packages = [ cfg.package ];
 
-        # configuration file indirection is needed to support reloading
+      # configuration file indirection is needed to support reloading
       environment.etc."smallstep/ca.json".source = configFile;
 
       systemd.services."step-ca" = {
@@ -115,7 +115,7 @@ in
           WorkingDirectory = ""; # override upstream
           ReadWriteDirectories = ""; # override upstream
 
-            # LocalCredential handles file permission problems arising from the use of DynamicUser.
+          # LocalCredential handles file permission problems arising from the use of DynamicUser.
           LoadCredential =
             "intermediate_password:${cfg.intermediatePasswordFile}";
 
@@ -124,9 +124,9 @@ in
             "${cfg.package}/bin/step-ca /etc/smallstep/ca.json --password-file \${CREDENTIALS_DIRECTORY}/intermediate_password"
           ];
 
-            # ProtectProc = "invisible"; # not supported by upstream yet
-            # ProcSubset = "pid"; # not supported by upstream yet
-            # PrivateUsers = true; # doesn't work with privileged ports therefore not supported by upstream
+          # ProtectProc = "invisible"; # not supported by upstream yet
+          # ProcSubset = "pid"; # not supported by upstream yet
+          # PrivateUsers = true; # doesn't work with privileged ports therefore not supported by upstream
 
           DynamicUser = true;
           StateDirectory = "step-ca";

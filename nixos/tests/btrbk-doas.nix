@@ -34,11 +34,9 @@ import ./make-test-python.nix (
         }: {
           security.sudo.enable = false;
           security.doas.enable = true;
-          environment.systemPackages = with pkgs; [
-              btrfs-progs
-            ];
-            # note: this makes the privateKey world readable.
-            # don't do it with real ssh keys.
+          environment.systemPackages = with pkgs; [ btrfs-progs ];
+          # note: this makes the privateKey world readable.
+          # don't do it with real ssh keys.
           environment.etc."btrbk_key".text = privateKey;
           services.btrbk = {
             extraPackages = [ pkgs.lz4 ];

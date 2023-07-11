@@ -16,7 +16,6 @@
 
 let
   pinData = lib.importJSON ./pin.json;
-
 in
 rustPlatform.buildRustPackage rec {
   pname = "seshat-node";

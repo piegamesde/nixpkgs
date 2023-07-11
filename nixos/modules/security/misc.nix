@@ -140,7 +140,7 @@ with lib;
     (mkIf config.security.protectKernelImage {
       # Disable hibernation (allows replacing the running kernel)
       boot.kernelParams = [ "nohibernate" ];
-        # Prevent replacing the running kernel image w/o reboot
+      # Prevent replacing the running kernel image w/o reboot
       boot.kernel.sysctl."kernel.kexec_load_disabled" = mkDefault true;
     })
 

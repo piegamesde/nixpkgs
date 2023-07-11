@@ -109,13 +109,13 @@ let
     lib.mapAttrs build (grammars)
     ;
 
-    # Usage:
-    # pkgs.tree-sitter.withPlugins (p: [ p.tree-sitter-c p.tree-sitter-java ... ])
-    #
-    # or for all grammars:
-    # pkgs.tree-sitter.withPlugins (_: allGrammars)
-    # which is equivalent to
-    # pkgs.tree-sitter.withPlugins (p: builtins.attrValues p)
+  # Usage:
+  # pkgs.tree-sitter.withPlugins (p: [ p.tree-sitter-c p.tree-sitter-java ... ])
+  #
+  # or for all grammars:
+  # pkgs.tree-sitter.withPlugins (_: allGrammars)
+  # which is equivalent to
+  # pkgs.tree-sitter.withPlugins (p: builtins.attrValues p)
   withPlugins =
     grammarFn:
     let
@@ -145,7 +145,6 @@ let
     ;
 
   allGrammars = builtins.attrValues builtGrammars;
-
 in
 rustPlatform.buildRustPackage {
   pname = "tree-sitter";
@@ -166,9 +165,9 @@ rustPlatform.buildRustPackage {
         -i cli/src/main.rs
   '';
 
-    # Compile web assembly with emscripten. The --debug flag prevents us from
-    # minifying the JavaScript; passing it allows us to side-step more Node
-    # JS dependencies for installation.
+  # Compile web assembly with emscripten. The --debug flag prevents us from
+  # minifying the JavaScript; passing it allows us to side-step more Node
+  # JS dependencies for installation.
   preBuild = lib.optionalString webUISupport ''
     bash ./script/build-wasm --debug
   '';
@@ -179,7 +178,7 @@ rustPlatform.buildRustPackage {
     ${lib.optionalString (!enableStatic) "rm $out/lib/*.a"}
   '';
 
-    # test result: FAILED. 120 passed; 13 failed; 0 ignored; 0 measured; 0 filtered out
+  # test result: FAILED. 120 passed; 13 failed; 0 ignored; 0 measured; 0 filtered out
   doCheck = false;
 
   passthru = {

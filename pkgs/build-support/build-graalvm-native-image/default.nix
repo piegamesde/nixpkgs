@@ -7,12 +7,10 @@
   graalvmDrv,
   name ? "${args.pname}-${args.version}",
   executable ? args.pname
-    # JAR used as input for GraalVM derivation, defaults to src
+  # JAR used as input for GraalVM derivation, defaults to src
   ,
   jar ? args.src,
-  dontUnpack ? (
-    jar == args.src
-  )
+  dontUnpack ? (jar == args.src)
   # Default native-image arguments. You probably don't want to set this,
   # except in special cases. In most cases, use extraNativeBuildArgs instead
   ,
@@ -24,10 +22,10 @@
   # Extra arguments to be passed to the native-image
   ,
   extraNativeImageBuildArgs ? [ ]
-    # XMX size of GraalVM during build
+  # XMX size of GraalVM during build
   ,
   graalvmXmx ? "-J-Xmx6g"
-    # Locale to be used by GraalVM compiler
+  # Locale to be used by GraalVM compiler
   ,
   LC_ALL ? "en_US.UTF-8",
   meta ? { },
@@ -90,9 +88,9 @@ stdenv.mkDerivation (
     meta = {
       # default to graalvm's platforms
       platforms = graalvmDrv.meta.platforms;
-        # default to executable name
+      # default to executable name
       mainProgram = executable;
-        # need to have native-image-installable-svm available
+      # need to have native-image-installable-svm available
       broken =
         !(builtins.any
           (p: (p.product or "") == "native-image-installable-svm")

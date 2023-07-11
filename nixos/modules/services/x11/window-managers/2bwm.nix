@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.xserver.windowManager."2bwm";
-
 in
+
 {
 
   ###### interface
@@ -21,7 +21,7 @@ in
       mkEnableOption (lib.mdDoc "2bwm");
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -34,7 +34,5 @@ in
     };
 
     environment.systemPackages = [ pkgs._2bwm ];
-
   };
-
 }

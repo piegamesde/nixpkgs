@@ -50,8 +50,8 @@ let
       "Unsupported system: ${platform.parsed.cpu.name}")
     ;
 
-    # We need a target compiler which is still runnable at build time,
-    # to handle the cross-building case where build != host == target
+  # We need a target compiler which is still runnable at build time,
+  # to handle the cross-building case where build != host == target
   targetCC = pkgsBuildTarget.targetPackages.stdenv.cc;
 
   isCross = stdenv.buildPlatform != stdenv.targetPlatform;
@@ -112,14 +112,14 @@ stdenv.mkDerivation rec {
 
   GOOS = stdenv.targetPlatform.parsed.kernel.name;
   GOARCH = goarch stdenv.targetPlatform;
-    # GOHOSTOS/GOHOSTARCH must match the building system, not the host system.
-    # Go will nevertheless build a for host system that we will copy over in
-    # the install phase.
+  # GOHOSTOS/GOHOSTARCH must match the building system, not the host system.
+  # Go will nevertheless build a for host system that we will copy over in
+  # the install phase.
   GOHOSTOS = stdenv.buildPlatform.parsed.kernel.name;
   GOHOSTARCH = goarch stdenv.buildPlatform;
 
-    # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
-    # to be different from CC/CXX
+  # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
+  # to be different from CC/CXX
   CC_FOR_TARGET =
     if isCross then
       "${targetCC}/bin/${targetCC.targetPrefix}cc"

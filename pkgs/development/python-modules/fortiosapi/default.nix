@@ -34,7 +34,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # Tests require a local VM
+  # Tests require a local VM
   doCheck = false;
 
   pythonImportsCheck = [ "fortiosapi" ];

@@ -17,12 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-8UzuUokDw7AdO48SCc1JhCL3Hj0NLZLFuTPt07l3ICI=";
   };
 
-    # By default it attempts to build Windows-only functionality
+  # By default it attempts to build Windows-only functionality
   prePatch = ''
     rm mss/windows.py
   '';
 
-    # Skipping tests due to most relying on DISPLAY being set
+  # Skipping tests due to most relying on DISPLAY being set
   pythonImportsCheck = [ "mss" ];
 
   meta = with lib; {

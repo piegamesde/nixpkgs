@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7w/Wc9ncLinbnM2q3yv5DBtFoJFAM2e9xAUTsqvE9mg=";
   };
 
-    # in main post 2.2.6, see https://github.com/mixxxdj/libkeyfinder/issues/21
+  # in main post 2.2.6, see https://github.com/mixxxdj/libkeyfinder/issues/21
   patches = [
       (fetchpatch {
         name = "fix-pkg-config";

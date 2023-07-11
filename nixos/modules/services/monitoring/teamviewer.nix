@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.teamviewer;
-
 in
+
 {
 
   ###### interface
@@ -19,10 +19,9 @@ in
   options = {
 
     services.teamviewer.enable = mkEnableOption (lib.mdDoc "TeamViewer daemon");
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg.enable) {
 
@@ -53,5 +52,4 @@ in
       };
     };
   };
-
 }

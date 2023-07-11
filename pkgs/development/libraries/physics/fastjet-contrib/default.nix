@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     patchShebangs ./configure ./utils/check.sh ./utils/install-sh
   '';
 
-    # Written in shell manually, does not support autoconf-style
-    # --build=/--host= options:
-    #   Error: --build=x86_64-unknown-linux-gnu: unrecognised argument
+  # Written in shell manually, does not support autoconf-style
+  # --build=/--host= options:
+  #   Error: --build=x86_64-unknown-linux-gnu: unrecognised argument
   configurePlatforms = [ ];
 
   enableParallelBuilding = true;

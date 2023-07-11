@@ -9,10 +9,10 @@
 
 stdenv.mkDerivation rec {
   pname = "picocom";
-    # last tagged release is 3.1 but 3.2 is still considered a release
+  # last tagged release is 3.1 but 3.2 is still considered a release
   version = "3.2a";
 
-    # upstream is quiet as the original author is no longer active since March 2018
+  # upstream is quiet as the original author is no longer active since March 2018
   src = fetchFromGitHub {
     owner = "npat-efault";
     repo = "picocom";

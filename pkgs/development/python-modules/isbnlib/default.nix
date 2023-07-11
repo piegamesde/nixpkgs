@@ -24,7 +24,7 @@ buildPythonPackage rec {
     coverage
   ];
 
-    # requires network connection
+  # requires network connection
   doCheck = false;
 
   pythonImportsCheck = [

@@ -32,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-b+rYLwxAAM841T+cAweA2Bv6AiAhiu4TuQt3Ack32V8=";
   };
 
-    # avoid strict pinning of numpy
+  # avoid strict pinning of numpy
   postPatch = ''
     substituteInPlace setup.py \
       --replace "numpy ==" "numpy >=" \
@@ -74,7 +74,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [ cached-property ]
     ;
 
-    # tests now require pytest-mpi, which isn't available and difficult to package
+  # tests now require pytest-mpi, which isn't available and difficult to package
   doCheck = false;
   nativeCheckInputs = [
     pytestCheckHook

@@ -41,7 +41,6 @@ let
   cuda = cudaPackages.cudatoolkit_11;
 
   clangVersion = llvmPackages.clang-unwrapped.version;
-
 in
 stdenv.mkDerivation rec {
   pname = "terra";
@@ -125,7 +124,7 @@ stdenv.mkDerivation rec {
       elliottslaughter
     ];
     license = licenses.mit;
-      # never built on aarch64-darwin since first introduction in nixpkgs
+    # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

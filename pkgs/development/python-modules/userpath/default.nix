@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-    # Test suite is difficult to emulate in sandbox due to shell manipulation
+  # Test suite is difficult to emulate in sandbox due to shell manipulation
   doCheck = false;
 
   pythonImportsCheck = [ "userpath" ];

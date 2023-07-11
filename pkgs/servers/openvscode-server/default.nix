@@ -60,7 +60,7 @@ let
       ;
   };
 
-    # replaces esbuild's download script with a binary from nixpkgs
+  # replaces esbuild's download script with a binary from nixpkgs
   patchEsbuild =
     path: version: ''
       mkdir -p ${path}/node_modules/esbuild/bin
@@ -69,7 +69,6 @@ let
       ln -s -f ${esbuild'}/bin/esbuild ${path}/node_modules/esbuild/bin/esbuild
     ''
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "openvscode-server";

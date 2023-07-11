@@ -9,8 +9,8 @@
 
 let
   inherit (lib) optional;
-
 in
+
 let
   self = stdenv.mkDerivation rec {
     pname = "gmp";
@@ -24,9 +24,9 @@ let
       sha256 = "0q5i39pxrasgn9qdxzpfbwhh11ph80p57x6hf48m74261d97j83m";
     };
 
-      #outputs TODO: split $cxx due to libstdc++ dependency
-      # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
-      # - see #5855 for related discussion
+    #outputs TODO: split $cxx due to libstdc++ dependency
+    # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
+    # - see #5855 for related discussion
     outputs = [
       "out"
       "dev"
@@ -95,7 +95,7 @@ let
 
       platforms = platforms.all;
       badPlatforms = [ "x86_64-darwin" ];
-        # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
       broken = stdenv.isDarwin && stdenv.isAarch64;
     };
   };

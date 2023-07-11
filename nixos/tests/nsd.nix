@@ -6,7 +6,7 @@ let
     }: {
       networking.firewall.enable = false;
       networking.useDHCP = false;
-        # for a host utility with IPv6 support
+      # for a host utility with IPv6 support
       environment.systemPackages = [ pkgs.bind ];
     }
     ;

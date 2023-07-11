@@ -140,9 +140,9 @@ pythonPackages.buildPythonApplication rec {
     ''
     ;
 
-    # TODO: Fix test failures on macOS 10.13:
-    #
-    # > OSError: out of pty devices
+  # TODO: Fix test failures on macOS 10.13:
+  #
+  # > OSError: out of pty devices
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

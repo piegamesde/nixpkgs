@@ -26,7 +26,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "garminconnect" ];

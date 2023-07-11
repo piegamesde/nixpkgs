@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-rIcwZUOi6bdfiWZEsRF4kl1reNPPQNuBPHDOo7RQgYo=";
 
-    # package does not contain any tests as of v0.2.3
+  # package does not contain any tests as of v0.2.3
   doCheck = false;
 
   nativeBuildInputs = [ installShellFiles ];

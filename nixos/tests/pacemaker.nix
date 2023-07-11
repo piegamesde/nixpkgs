@@ -44,7 +44,7 @@ import ./make-test-python.nix (
 
             services.pacemaker.enable = true;
 
-              # used for pacemaker resource
+            # used for pacemaker resource
             systemd.services.ha-cat = {
               description = "Highly available netcat";
               serviceConfig.ExecStart = "${pkgs.netcat}/bin/nc -l discard";
@@ -59,8 +59,8 @@ import ./make-test-python.nix (
       }
       ;
 
-      # sets up pacemaker with resources configuration, then crashes a
-      # node and waits for service restart on another node
+    # sets up pacemaker with resources configuration, then crashes a
+    # node and waits for service restart on another node
     testScript =
       let
         resources = builtins.toFile "cib-resources.xml" ''

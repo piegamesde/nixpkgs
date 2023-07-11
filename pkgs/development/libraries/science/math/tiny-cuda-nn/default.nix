@@ -80,10 +80,10 @@ stdenv.mkDerivation (
     propagatedBuildInputs =
       lib.optionals pythonSupport (with python3Packages; [ torch ]);
 
-      # NOTE: We cannot use pythonImportsCheck for this module because it uses torch to immediately
-      #   initailize CUDA and GPU access is not allowed in the nix build environment.
-      # NOTE: There are no tests for the C++ library or the python bindings, so we just skip the check
-      #   phase -- we're not missing anything.
+    # NOTE: We cannot use pythonImportsCheck for this module because it uses torch to immediately
+    #   initailize CUDA and GPU access is not allowed in the nix build environment.
+    # NOTE: There are no tests for the C++ library or the python bindings, so we just skip the check
+    #   phase -- we're not missing anything.
     doCheck = false;
 
     preConfigure = ''
@@ -98,12 +98,12 @@ stdenv.mkDerivation (
       export CXX=${backendStdenv.cc}/bin/c++
     '';
 
-      # When building the python bindings, we cannot re-use the artifacts from the C++ build so we
-      # skip the CMake confurePhase and the buildPhase.
+    # When building the python bindings, we cannot re-use the artifacts from the C++ build so we
+    # skip the CMake confurePhase and the buildPhase.
     dontUseCmakeConfigure = pythonSupport;
 
-      # The configurePhase usually puts you in the build directory, so for the python bindings we
-      # need to change directories to the source directory.
+    # The configurePhase usually puts you in the build directory, so for the python bindings we
+    # need to change directories to the source directory.
     configurePhase = strings.optionalString pythonSupport ''
       runHook preConfigure
       mkdir -p $NIX_BUILD_TOP/build
@@ -129,11 +129,9 @@ stdenv.mkDerivation (
         runHook preInstall
         mkdir -p $out/lib
       ''
-      # Installing the C++ library just requires copying the static library to the output directory
       + strings.optionalString (!pythonSupport) ''
         cp libtiny-cuda-nn.a $out/lib/
       ''
-        # Installing the python bindings requires building the wheel and installing it
       + strings.optionalString pythonSupport ''
         python -m pip install \
           --no-build-isolation \

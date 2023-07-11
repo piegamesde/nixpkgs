@@ -6,7 +6,7 @@
   compat185 ? true,
   dbmSupport ? false
 
-    # Options from inherited versions
+  # Options from inherited versions
   ,
   version,
   sha256,

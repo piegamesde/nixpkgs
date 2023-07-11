@@ -26,7 +26,7 @@ buildPythonPackage rec {
     tzlocal
   ];
 
-    # tests require credentials
+  # tests require credentials
   doCheck = false;
 
   pythonImportsCheck = [ "micloud" ];

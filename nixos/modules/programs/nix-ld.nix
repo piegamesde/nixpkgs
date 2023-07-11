@@ -7,7 +7,7 @@
 let
   cfg = config.programs.nix-ld;
 
-    # TODO make glibc here configureable?
+  # TODO make glibc here configureable?
   nix-ld-so = pkgs.runCommand "ld.so" { } ''
     ln -s "$(cat '${pkgs.stdenv.cc}/nix-support/dynamic-linker')" $out
   '';
@@ -20,8 +20,8 @@ let
     ignoreCollisions = true;
   };
 
-    # We currently take all libraries from systemd and nix as the default.
-    # Is there a better list?
+  # We currently take all libraries from systemd and nix as the default.
+  # Is there a better list?
   baseLibraries = with pkgs; [
     zlib
     zstd

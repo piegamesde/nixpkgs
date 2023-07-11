@@ -40,7 +40,8 @@
 
 # for dependencies see https://wiki.gnome.org/Apps/Shotwell/BuildingAndInstalling
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "shotwell";
   version = "0.32.0";
 

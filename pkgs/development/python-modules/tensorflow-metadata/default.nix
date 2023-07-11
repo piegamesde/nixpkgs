@@ -25,8 +25,8 @@ buildPythonPackage rec {
       --replace 'protobuf>=3.13,<4' 'protobuf>=3.13'
   '';
 
-    # Default build pulls in Bazel + extra deps, given the actual build
-    # is literally three lines (see below) - replace it with custom build.
+  # Default build pulls in Bazel + extra deps, given the actual build
+  # is literally three lines (see below) - replace it with custom build.
   preBuild = ''
     for proto in tensorflow_metadata/proto/v0/*.proto; do
       protoc --python_out=. $proto
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "tensorflow_metadata" ];

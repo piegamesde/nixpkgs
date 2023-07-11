@@ -37,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     polib
   ];
 
-    # Add the music
+  # Add the music
   postInstall = lib.optionalString enableDefaultMusicPack ''
     cp -R "../endgame-singularity-music-007" \
           "$(echo $out/lib/python*/site-packages/singularity)/music"
@@ -51,7 +51,7 @@ python3.pkgs.buildPythonApplication rec {
       A simulation of a true AI. Go from computer to computer, pursued by the
       entire world. Keep hidden, and you might have a chance
     '';
-      # License details are in LICENSE.txt
+    # License details are in LICENSE.txt
     license = with lib.licenses; [
       gpl2Plus # most of the code, some translations
       mit # recursive_fix_pickle, polib

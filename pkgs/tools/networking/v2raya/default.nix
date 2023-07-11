@@ -43,7 +43,6 @@ let
       v2ray-domain-list-community
     ];
   };
-
 in
 buildGoModule {
   inherit pname version;

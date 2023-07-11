@@ -55,8 +55,8 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;
 
-      # tdlib-purple is not actively maintained and currently not
-      # compatible with recent versions of tdlib
+    # tdlib-purple is not actively maintained and currently not
+    # compatible with recent versions of tdlib
     broken = true;
   };
 }

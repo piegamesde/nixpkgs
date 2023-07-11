@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+heIPSkg3d22xsU48UOTJ9FPLXC7zLivcnabQOM9aEk=";
   };
 
-    # remove the following superfluous checks
+  # remove the following superfluous checks
   preConfigure = ''
     substituteInPlace "autogen.sh" \
       --replace '`which intltoolize`' '"x"' \
@@ -61,8 +61,8 @@ stdenv.mkDerivation rec {
     clutter-gtk
   ];
 
-    # patch to resolve GL errors
-    # source : https://github.com/clutter-project/mx/pull/62
+  # patch to resolve GL errors
+  # source : https://github.com/clutter-project/mx/pull/62
   preBuild = ''
     sed -i 's/GLushort/gushort/g' mx/mx-deform-texture.c
     sed -i 's/GLfloat/gfloat/g' mx/mx-texture-frame.c

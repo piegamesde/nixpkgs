@@ -31,7 +31,7 @@ buildPythonPackage rec {
     cryptography
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "py_dormakaba_dkey" ];

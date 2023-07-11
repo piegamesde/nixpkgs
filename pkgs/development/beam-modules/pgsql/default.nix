@@ -37,7 +37,6 @@ let
       };
 
       passthru = { env = shell self; };
-
     }
     ;
 in

@@ -25,10 +25,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyvex ];
 
-    # Tests depend on angr (possibly a circular dependency)
+  # Tests depend on angr (possibly a circular dependency)
   doCheck = false;
 
-    #pythonImportsCheck = [ "ailment" ];
+  #pythonImportsCheck = [ "ailment" ];
 
   meta = with lib; {
     description = "The angr Intermediate Language";

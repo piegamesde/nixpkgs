@@ -208,7 +208,7 @@ in
       (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
       cfg.timers;
 
-      # Generate timer units for all services that have a ‘startAt’ value.
+    # Generate timer units for all services that have a ‘startAt’ value.
     systemd.user.timers = mapAttrs
       (
         name: service: {
@@ -218,23 +218,23 @@ in
       )
       (filterAttrs (name: service: service.startAt != [ ]) cfg.services);
 
-      # Provide the systemd-user PAM service, required to run systemd
-      # user instances.
+    # Provide the systemd-user PAM service, required to run systemd
+    # user instances.
     security.pam.services.systemd-user = { # Ensure that pam_systemd gets included. This is special-cased
       # in systemd to provide XDG_RUNTIME_DIR.
       startSession = true;
-        # Disable pam_mount in systemd-user to prevent it from being called
-        # multiple times during login, because it will prevent pam_mount from
-        # unmounting the previously mounted volumes.
+      # Disable pam_mount in systemd-user to prevent it from being called
+      # multiple times during login, because it will prevent pam_mount from
+      # unmounting the previously mounted volumes.
       pamMount = false;
     };
 
-      # Some overrides to upstream units.
+    # Some overrides to upstream units.
     systemd.services."user@".restartIfChanged = false;
     systemd.services.systemd-user-sessions.restartIfChanged =
       false; # Restart kills all active sessions.
 
-      # enable systemd user tmpfiles
+    # enable systemd user tmpfiles
     systemd.user.services.systemd-tmpfiles-setup.wantedBy = optional
       (
         cfg.tmpfiles.rules != [ ]
@@ -242,14 +242,14 @@ in
       )
       "basic.target";
 
-      # /run/current-system/sw/etc/xdg is in systemd's $XDG_CONFIG_DIRS so we can
-      # write the tmpfiles.d rules for everyone there
+    # /run/current-system/sw/etc/xdg is in systemd's $XDG_CONFIG_DIRS so we can
+    # write the tmpfiles.d rules for everyone there
     environment.systemPackages = optional (cfg.tmpfiles.rules != [ ]) (
       writeTmpfiles { inherit (cfg.tmpfiles) rules; }
     );
 
-      # /etc/profiles/per-user/$USER/etc/xdg is in systemd's $XDG_CONFIG_DIRS so
-      # we can write a single user's tmpfiles.d rules there
+    # /etc/profiles/per-user/$USER/etc/xdg is in systemd's $XDG_CONFIG_DIRS so
+    # we can write a single user's tmpfiles.d rules there
     users.users = mapAttrs
       (
         user: cfg': {

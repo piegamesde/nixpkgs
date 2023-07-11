@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-    # https://github.com/RaitaroH/adl#requirements
+  # https://github.com/RaitaroH/adl#requirements
   buildInputs = with pkgs; [
     anime-downloader
     frece

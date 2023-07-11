@@ -11,7 +11,7 @@ let
 
   kernel = config.boot.kernelPackages;
 
-    # interface options
+  # interface options
 
   interfaceOpts =
     {
@@ -162,7 +162,7 @@ let
     }
     ;
 
-    # peer options
+  # peer options
 
   peerOpts = {
     options = {
@@ -368,10 +368,8 @@ let
           ;
       };
       configPath =
-        if
-          values.configFile != null
-        then
-        # This uses bind-mounted private tmp folder (/tmp/systemd-private-***)
+        if values.configFile != null then
+          # This uses bind-mounted private tmp folder (/tmp/systemd-private-***)
           "/tmp/${name}.conf"
         else
           "${configDir}/${name}.conf"
@@ -443,7 +441,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg.interfaces != { }) {
     boot.extraModulePackages =
@@ -451,11 +449,11 @@ in
     environment.systemPackages = [ pkgs.wireguard-tools ];
     systemd.services = mapAttrs' generateUnit cfg.interfaces;
 
-      # Prevent networkd from clearing the rules set by wg-quick when restarted (e.g. when waking up from suspend).
+    # Prevent networkd from clearing the rules set by wg-quick when restarted (e.g. when waking up from suspend).
     systemd.network.config.networkConfig.ManageForeignRoutingPolicyRules =
       mkDefault false;
 
-      # WireGuard interfaces should be ignored in determining whether the network is online.
+    # WireGuard interfaces should be ignored in determining whether the network is online.
     systemd.network.wait-online.ignoredInterfaces =
       builtins.attrNames cfg.interfaces;
   };

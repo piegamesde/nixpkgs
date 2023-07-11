@@ -26,7 +26,6 @@ let
   fmod = callPackage ./fmod.nix { };
   sqlite = callPackage ./sqlite.nix { };
   clientLibPath = lib.makeLibraryPath [ fluidsynth ];
-
 in
 stdenv.mkDerivation rec {
   pname = "zandronum${suffix}";
@@ -38,11 +37,11 @@ stdenv.mkDerivation rec {
     sha256 = "16v5b6wfrmabs3ky6isbfhlrqdjrr1pvfxlxwk0im02kcpxxw9qw";
   };
 
-    # zandronum tries to download sqlite now when running cmake, don't let it
+  # zandronum tries to download sqlite now when running cmake, don't let it
 
-    # it also needs the current mercurial revision info embedded in gitinfo.h
-    # otherwise, the client will fail to connect to servers because the
-    # protocol version doesn't match.
+  # it also needs the current mercurial revision info embedded in gitinfo.h
+  # otherwise, the client will fail to connect to servers because the
+  # protocol version doesn't match.
 
   patches = [
     ./zan_configure_impurity.patch
@@ -50,8 +49,8 @@ stdenv.mkDerivation rec {
     ./dont_update_gitinfo.patch
   ];
 
-    # I have no idea why would SDL and libjpeg be needed for the server part!
-    # But they are.
+  # I have no idea why would SDL and libjpeg be needed for the server part!
+  # But they are.
   buildInputs =
     [
       openssl

@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-    # the test_project tests require internet access
+  # the test_project tests require internet access
   checkFlags = [ "--skip=test_project" ];
 
   meta = with lib; {

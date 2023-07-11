@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # Project has no tests, only two test file for manual interaction
+  # Project has no tests, only two test file for manual interaction
   doCheck = false;
 
   pythonImportsCheck = [ "pythonegardia" ];

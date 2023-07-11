@@ -52,8 +52,8 @@ let
     url = "https://registry.npmjs.org/requirejs/-/requirejs-2.3.6.tgz";
     sha256 = "165hkli3qcd59cjqvli9r5f92i0h7czkmhcg1cgwamw2d0b7xibz";
   };
-
 in
+
 buildPythonPackage rec {
   pname = "jupyterhub";
   version = "1.5.0";
@@ -64,18 +64,18 @@ buildPythonPackage rec {
     hash = "sha256-3GGPZXwjukYoDjYlflCTGAZnS6Dp5kmK+wke/GIm1p0=";
   };
 
-    # Most of this only applies when building from source (e.g. js/css assets are
-    # pre-built and bundled in the official release tarball on pypi).
-    #
-    # Stuff that's always needed:
-    #   * At runtime, we need configurable-http-proxy, so we substitute the store
-    #     path.
-    #
-    # Other stuff that's only needed when building from source:
-    #   * js/css assets are fetched from npm.
-    #   * substitute store path for `lessc` commmand.
-    #   * set up NODE_PATH so `lessc` can find `less-plugin-clean-css`.
-    #   * don't run `npm install`.
+  # Most of this only applies when building from source (e.g. js/css assets are
+  # pre-built and bundled in the official release tarball on pypi).
+  #
+  # Stuff that's always needed:
+  #   * At runtime, we need configurable-http-proxy, so we substitute the store
+  #     path.
+  #
+  # Other stuff that's only needed when building from source:
+  #   * js/css assets are fetched from npm.
+  #   * substitute store path for `lessc` commmand.
+  #   * set up NODE_PATH so `lessc` can find `less-plugin-clean-css`.
+  #   * don't run `npm install`.
   preBuild = ''
     export NODE_PATH=${nodePackages.less-plugin-clean-css}/lib/node_modules
 

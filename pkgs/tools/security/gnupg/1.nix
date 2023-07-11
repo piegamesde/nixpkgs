@@ -20,10 +20,10 @@ stdenv.mkDerivation rec {
     bzip2
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: ../util/libutil.a(estream-printf.o):/build/gnupg-1.4.23/util/../include/memory.h:100: multiple definition of
-    #     `memory_debug_mode'; gpgsplit.o:/build/gnupg-1.4.23/tools/../include/memory.h:100: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: ../util/libutil.a(estream-printf.o):/build/gnupg-1.4.23/util/../include/memory.h:100: multiple definition of
+  #     `memory_debug_mode'; gpgsplit.o:/build/gnupg-1.4.23/tools/../include/memory.h:100: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   doCheck = true;

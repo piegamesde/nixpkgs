@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.programs.mosh;
-
 in
 {
   options.programs.mosh = {

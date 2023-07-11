@@ -39,8 +39,8 @@ let
         ];
       }
     ;
-
 in
+
 buildDunePackage rec {
   pname = "zed";
 

@@ -53,7 +53,7 @@ buildPythonPackage rec {
     installManPage goobook.1
   '';
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "goobook" ];

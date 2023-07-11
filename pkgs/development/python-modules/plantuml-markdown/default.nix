@@ -33,7 +33,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # The package uses a custom script that downloads a certain version of plantuml for testing.
+  # The package uses a custom script that downloads a certain version of plantuml for testing.
   doCheck = false;
 
   pythonImportsCheck = [ "plantuml_markdown" ];

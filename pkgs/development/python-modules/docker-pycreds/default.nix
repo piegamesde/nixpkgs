@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "6ce3270bcaf404cc4c3e27e4b6c70d3521deae82fb508767870fdbf772d584d4";
   };
 
-    # require docker-credential-helpers binaries
+  # require docker-credential-helpers binaries
   doCheck = false;
 
   propagatedBuildInputs = [ six ];

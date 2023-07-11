@@ -13,7 +13,6 @@ let
   vendor = "046d";
 
   daemon = "g15daemon";
-
 in
 {
   imports = [
@@ -123,8 +122,8 @@ in
       serviceConfig = {
         Type = "forking";
         ExecStart = "${pkgs.g15daemon}/bin/g15daemon";
-          # we patch it to write to /run/g15daemon/g15daemon.pid instead of
-          # /run/g15daemon.pid so systemd will do the cleanup for us.
+        # we patch it to write to /run/g15daemon/g15daemon.pid instead of
+        # /run/g15daemon.pid so systemd will do the cleanup for us.
         PIDFile = "/run/${daemon}/g15daemon.pid";
         PrivateTmp = true;
         PrivateNetwork = true;

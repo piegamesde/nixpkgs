@@ -13,13 +13,13 @@ lib.makeScope pkgs.newScope (
     ffmpeg = pkgs.ffmpeg-full;
     harfbuzz = pkgs.harfbuzzFull;
 
-      # Arcan
+    # Arcan
 
     arcan = callPackage ./arcan { };
     arcan-wrapped = callPackage ./wrapper.nix { };
     xarcan = callPackage ./xarcan { };
 
-      # Appls
+    # Appls
 
     cat9 = callPackage ./cat9 { };
     cat9-wrapped = callPackage ./wrapper.nix {
@@ -39,14 +39,14 @@ lib.makeScope pkgs.newScope (
       appls = [ pipeworld ];
     };
 
-      # Warning: prio is deprecated; however it works and is useful for testing
+    # Warning: prio is deprecated; however it works and is useful for testing
     prio = callPackage ./prio { };
     prio-wrapped = callPackage ./wrapper.nix {
       name = "prio-wrapped";
       appls = [ prio ];
     };
 
-      # One Expression to SymlinkJoin Them All
+    # One Expression to SymlinkJoin Them All
 
     all-wrapped = callPackage ./wrapper.nix {
       name = "all-wrapped";

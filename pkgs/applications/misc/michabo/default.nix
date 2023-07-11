@@ -16,7 +16,6 @@ let
     desktopName = "Michabo";
     exec = "Michabo";
   };
-
 in
 mkDerivation rec {
   pname = "michabo";
@@ -53,4 +52,3 @@ mkDerivation rec {
     platforms = platforms.all;
   };
 }
-

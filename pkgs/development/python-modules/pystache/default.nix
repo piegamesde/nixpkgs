@@ -20,8 +20,8 @@ buildPythonPackage rec {
 
   buildInputs = [ glibcLocales ];
 
-    # SyntaxError Python 3
-    # https://github.com/defunkt/pystache/issues/181
+  # SyntaxError Python 3
+  # https://github.com/defunkt/pystache/issues/181
   doCheck = !isPy3k;
 
   nativeCheckInputs = [ unittestCheckHook ];

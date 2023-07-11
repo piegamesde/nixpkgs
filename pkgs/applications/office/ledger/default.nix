@@ -80,8 +80,8 @@ stdenv.mkDerivation rec {
     }"
   ];
 
-    # by default, it will query the python interpreter for it's sitepackages location
-    # however, that would write to a different nixstore path, pass our own sitePackages location
+  # by default, it will query the python interpreter for it's sitepackages location
+  # however, that would write to a different nixstore path, pass our own sitePackages location
   prePatch = lib.optionalString usePython ''
     substituteInPlace src/CMakeLists.txt \
       --replace 'DESTINATION ''${Python_SITEARCH}' 'DESTINATION "${

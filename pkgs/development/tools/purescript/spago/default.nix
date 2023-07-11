@@ -25,8 +25,8 @@ let
     haskell.lib.compose.unmarkBroken
     haskell.lib.compose.doDistribute
   ];
-
 in
+
 spago.overrideAttrs (
   oldAttrs: {
     passthru = (
@@ -34,12 +34,12 @@ spago.overrideAttrs (
     ) // {
       updateScript = ./update.sh;
 
-        # These tests can be run with the following command.  The tests access the
-        # network, so they cannot be run in the nix sandbox.  sudo is needed in
-        # order to change the sandbox option.
-        #
-        # $ sudo nix-build -A spago.passthru.tests --option sandbox relaxed
-        #
+      # These tests can be run with the following command.  The tests access the
+      # network, so they cannot be run in the nix sandbox.  sudo is needed in
+      # order to change the sandbox option.
+      #
+      # $ sudo nix-build -A spago.passthru.tests --option sandbox relaxed
+      #
       tests = runCommand "spago-tests"
         {
           __noChroot = true;

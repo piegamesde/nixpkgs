@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sphinx ];
 
-    # no tests, see https://github.com/pradyunsg/sphinx-inline-tabs/issues/6
+  # no tests, see https://github.com/pradyunsg/sphinx-inline-tabs/issues/6
   doCheck = false;
 
   pythonImportsCheck = [ "sphinx_inline_tabs" ];

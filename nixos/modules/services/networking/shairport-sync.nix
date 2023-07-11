@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.shairport-sync;
-
 in
+
 {
 
   ###### interface
@@ -65,12 +65,10 @@ in
           will be created.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.shairport-sync.enable {
 
@@ -116,7 +114,5 @@ in
     };
 
     environment.systemPackages = [ pkgs.shairport-sync ];
-
   };
-
 }

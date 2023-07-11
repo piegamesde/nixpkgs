@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./cvc3-2.4.1-gccv6-fix.patch ];
 
-    # fails to configure on darwin due to gmp not found
+  # fails to configure on darwin due to gmp not found
   configureFlags = [
     "LIBS=-L${gmp}/lib"
     "CXXFLAGS=-I${gmp.dev}/include"

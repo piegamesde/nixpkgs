@@ -107,8 +107,8 @@ let
       runHook postInstall
     '';
   };
-
 in
+
 symlinkJoin rec {
   name = "cctools-${version}";
   version = "${cctools.version}-${ld64.version}";
@@ -118,7 +118,7 @@ symlinkJoin rec {
     ld64
   ];
 
-    # workaround for the fetch-tarballs script
+  # workaround for the fetch-tarballs script
   passthru = {
     inherit (cctools) src;
     ld64_src = ld64.src;

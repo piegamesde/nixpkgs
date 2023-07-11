@@ -104,7 +104,7 @@ mkDerivation rec {
   '';
   shellHook = "hpack";
   doHaddock = false;
-    # tests depend on a specific version of solc
+  # tests depend on a specific version of solc
   doCheck = false;
 
   description = "Ethereum smart contract fuzzer";

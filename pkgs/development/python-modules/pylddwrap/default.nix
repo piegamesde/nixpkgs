@@ -27,8 +27,8 @@ buildPythonPackage rec {
       --replace '/usr/bin/env' '${coreutils}/bin/env'
   '';
 
-    # Upstream adds some plain text files direct to the package's root directory
-    # https://github.com/Parquery/pylddwrap/blob/master/setup.py#L71
+  # Upstream adds some plain text files direct to the package's root directory
+  # https://github.com/Parquery/pylddwrap/blob/master/setup.py#L71
   postInstall = ''
     rm -f $out/{LICENSE,README.rst,requirements.txt}
   '';

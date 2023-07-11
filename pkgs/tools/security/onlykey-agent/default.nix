@@ -16,7 +16,7 @@ let
       };
     };
 
-    # onlykey requires a patched version of libagent
+  # onlykey requires a patched version of libagent
   lib-agent = with python3Packages;
     libagent.overridePythonAttrs (
       oa: rec {
@@ -38,7 +38,7 @@ let
           ]
           ;
 
-          # turn off testing because I can't get it to work
+        # turn off testing because I can't get it to work
         doCheck = false;
         pythonImportsCheck = [ "libagent" ];
 
@@ -64,14 +64,14 @@ python3Packages.buildPythonApplication rec {
     onlykey-cli
   ];
 
-    # move the python library into the sitePackages.
+  # move the python library into the sitePackages.
   postInstall = ''
     mkdir $out/${python3Packages.python.sitePackages}/onlykey_agent
     mv $out/bin/onlykey_agent.py $out/${python3Packages.python.sitePackages}/onlykey_agent/__init__.py
     chmod a-x $out/${python3Packages.python.sitePackages}/onlykey_agent/__init__.py
   '';
 
-    # no tests
+  # no tests
   doCheck = false;
   pythonImportsCheck = [ "onlykey_agent" ];
 

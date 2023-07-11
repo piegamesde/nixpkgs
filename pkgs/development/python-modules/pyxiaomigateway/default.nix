@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cryptography ];
 
-    # Tests are not mocking the gateway completely
+  # Tests are not mocking the gateway completely
   doCheck = false;
   pythonImportsCheck = [ "xiaomi_gateway" ];
 

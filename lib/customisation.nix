@@ -65,35 +65,32 @@ rec {
     )
     ;
 
-    /* `makeOverridable` takes a function from attribute set to attribute set and
-       injects `override` attribute which can be used to override arguments of
-       the function.
+  /* `makeOverridable` takes a function from attribute set to attribute set and
+     injects `override` attribute which can be used to override arguments of
+     the function.
 
-         nix-repl> x = {a, b}: { result = a + b; }
+       nix-repl> x = {a, b}: { result = a + b; }
 
-         nix-repl> y = lib.makeOverridable x { a = 1; b = 2; }
+       nix-repl> y = lib.makeOverridable x { a = 1; b = 2; }
 
-         nix-repl> y
-         { override = «lambda»; overrideDerivation = «lambda»; result = 3; }
+       nix-repl> y
+       { override = «lambda»; overrideDerivation = «lambda»; result = 3; }
 
-         nix-repl> y.override { a = 10; }
-         { override = «lambda»; overrideDerivation = «lambda»; result = 12; }
+       nix-repl> y.override { a = 10; }
+       { override = «lambda»; overrideDerivation = «lambda»; result = 12; }
 
-       Please refer to "Nixpkgs Contributors Guide" section
-       "<pkg>.overrideDerivation" to learn about `overrideDerivation` and caveats
-       related to its use.
-    */
+     Please refer to "Nixpkgs Contributors Guide" section
+     "<pkg>.overrideDerivation" to learn about `overrideDerivation` and caveats
+     related to its use.
+  */
   makeOverridable =
     f: origArgs:
     let
       result = f origArgs;
 
-        # Creates a functor with the same arguments as f
-      copyArgs =
-        g:
-        lib.setFunctionArgs g (lib.functionArgs f)
-        ;
-        # Changes the original arguments with (potentially a function that returns) a set of new attributes
+      # Creates a functor with the same arguments as f
+      copyArgs = g: lib.setFunctionArgs g (lib.functionArgs f);
+      # Changes the original arguments with (potentially a function that returns) a set of new attributes
       overrideWith =
         newArgs:
         origArgs // (
@@ -104,10 +101,10 @@ rec {
         )
         ;
 
-        # Re-call the function but with different arguments
+      # Re-call the function but with different arguments
       overrideArgs =
         copyArgs (newArgs: makeOverridable f (overrideWith newArgs));
-        # Change the result of the function call by applying g to it
+      # Change the result of the function call by applying g to it
       overrideResult =
         g: makeOverridable (copyArgs (args: g (f args))) origArgs;
     in
@@ -124,38 +121,38 @@ rec {
         } =
           fdrv: overrideResult (x: x.overrideAttrs fdrv);
       }
-    else if
-      lib.isFunction result
-    then
-    # Transform the result into a functor while propagating its arguments
-      lib.setFunctionArgs result (lib.functionArgs result) // {
+    else if lib.isFunction result then
+      # Transform the result into a functor while propagating its arguments
+      lib.setFunctionArgs
+      result
+      (lib.functionArgs result) // {
         override = overrideArgs;
       }
     else
       result
     ;
 
-    /* Call the package function in the file `fn` with the required
-       arguments automatically.  The function is called with the
-       arguments `args`, but any missing arguments are obtained from
-       `autoArgs`.  This function is intended to be partially
-       parameterised, e.g.,
+  /* Call the package function in the file `fn` with the required
+     arguments automatically.  The function is called with the
+     arguments `args`, but any missing arguments are obtained from
+     `autoArgs`.  This function is intended to be partially
+     parameterised, e.g.,
 
-         callPackage = callPackageWith pkgs;
-         pkgs = {
-           libfoo = callPackage ./foo.nix { };
-           libbar = callPackage ./bar.nix { };
-         };
+       callPackage = callPackageWith pkgs;
+       pkgs = {
+         libfoo = callPackage ./foo.nix { };
+         libbar = callPackage ./bar.nix { };
+       };
 
-       If the `libbar` function expects an argument named `libfoo`, it is
-       automatically passed as an argument.  Overrides or missing
-       arguments can be supplied in `args`, e.g.
+     If the `libbar` function expects an argument named `libfoo`, it is
+     automatically passed as an argument.  Overrides or missing
+     arguments can be supplied in `args`, e.g.
 
-         libbar = callPackage ./bar.nix {
-           libfoo = null;
-           enableX11 = true;
-         };
-    */
+       libbar = callPackage ./bar.nix {
+         libfoo = null;
+         enableX11 = true;
+       };
+  */
   callPackageWith =
     autoArgs: fn: args:
     let
@@ -167,24 +164,24 @@ rec {
         ;
       fargs = lib.functionArgs f;
 
-        # All arguments that will be passed to the function
-        # This includes automatic ones and ones passed explicitly
+      # All arguments that will be passed to the function
+      # This includes automatic ones and ones passed explicitly
       allArgs = builtins.intersectAttrs fargs autoArgs // args;
 
-        # A list of argument names that the function requires, but
-        # wouldn't be passed to it
+      # A list of argument names that the function requires, but
+      # wouldn't be passed to it
       missingArgs = lib.attrNames
         # Filter out arguments that have a default value
         (
           lib.filterAttrs
-          (
-            name: value: !value
-          )
+          (name: value: !value)
           # Filter out arguments that would be passed
-          (removeAttrs fargs (lib.attrNames allArgs))
+          (
+            removeAttrs fargs (lib.attrNames allArgs)
+          )
         );
 
-        # Get a list of suggested argument names for a given missing one
+      # Get a list of suggested argument names for a given missing one
       getSuggestions =
         arg:
         lib.pipe (autoArgs // args) [
@@ -219,8 +216,8 @@ rec {
         arg:
         let
           loc = builtins.unsafeGetAttrPos arg fargs;
-            # loc' can be removed once lib/minver.nix is >2.3.4, since that includes
-            # https://github.com/NixOS/nix/pull/3468 which makes loc be non-null
+          # loc' can be removed once lib/minver.nix is >2.3.4, since that includes
+          # https://github.com/NixOS/nix/pull/3468 which makes loc be non-null
           loc' =
             if loc != null then
               loc.file + ":" + toString loc.line
@@ -237,9 +234,8 @@ rec {
         + "${loc'}${prettySuggestions (getSuggestions arg)}"
         ;
 
-        # Only show the error for the first missing argument
+      # Only show the error for the first missing argument
       error = errorForArg (lib.head missingArgs);
-
     in
     if missingArgs == [ ] then
       makeOverridable f allArgs
@@ -247,10 +243,10 @@ rec {
       abort error
     ;
 
-    /* Like callPackage, but for a function that returns an attribute
-       set of derivations. The override function is added to the
-       individual attributes.
-    */
+  /* Like callPackage, but for a function that returns an attribute
+     set of derivations. The override function is added to the
+     individual attributes.
+  */
   callPackagesWith =
     autoArgs: fn: args:
     let
@@ -276,9 +272,9 @@ rec {
       lib.mapAttrs mkAttrOverridable pkgs
     ;
 
-    /* Add attributes to each output of a derivation without changing
-       the derivation itself and check a given condition when evaluating.
-    */
+  /* Add attributes to each output of a derivation without changing
+     the derivation itself and check a given condition when evaluating.
+  */
   extendDerivation =
     condition: passthru: drv:
     let
@@ -299,7 +295,9 @@ rec {
             # TODO: give the derivation control over the outputs.
             #       `overrideAttrs` may not be the only attribute that needs
             #       updating when switching outputs.
-            lib.optionalAttrs (passthru ? overrideAttrs) {
+            lib.optionalAttrs
+            (passthru ? overrideAttrs)
+            {
               # TODO: also add overrideAttrs when overrideAttrs is not custom, e.g. when not splicing.
               overrideAttrs = f: (passthru.overrideAttrs f).${outputName};
             };
@@ -314,11 +312,11 @@ rec {
     }
     ;
 
-    /* Strip a derivation of all non-essential attributes, returning
-       only those needed by hydra-eval-jobs. Also strictly evaluate the
-       result to ensure that there are no thunks kept alive to prevent
-       garbage collection.
-    */
+  /* Strip a derivation of all non-essential attributes, returning
+     only those needed by hydra-eval-jobs. Also strictly evaluate the
+     result to ensure that there are no thunks kept alive to prevent
+     garbage collection.
+  */
   hydraJob =
     drv:
     let
@@ -358,16 +356,16 @@ rec {
       lib.deepSeq drv' drv'
     ;
 
-    /* Make a set of packages with a common scope. All packages called
-       with the provided `callPackage` will be evaluated with the same
-       arguments. Any package in the set may depend on any other. The
-       `overrideScope'` function allows subsequent modification of the package
-       set in a consistent way, i.e. all packages in the set will be
-       called with the overridden packages. The package sets may be
-       hierarchical: the packages in the set are called with the scope
-       provided by `newScope` and the set provides a `newScope` attribute
-       which can form the parent scope for later package sets.
-    */
+  /* Make a set of packages with a common scope. All packages called
+     with the provided `callPackage` will be evaluated with the same
+     arguments. Any package in the set may depend on any other. The
+     `overrideScope'` function allows subsequent modification of the package
+     set in a consistent way, i.e. all packages in the set will be
+     called with the overridden packages. The package sets may be
+     hierarchical: the packages in the set are called with the scope
+     provided by `newScope` and the set provides a `newScope` attribute
+     which can form the parent scope for later package sets.
+  */
   makeScope =
     newScope: f:
     let
@@ -387,9 +385,9 @@ rec {
     self
     ;
 
-    /* Like the above, but aims to support cross compilation. It's still ugly, but
-       hopefully it helps a little bit.
-    */
+  /* Like the above, but aims to support cross compilation. It's still ugly, but
+     hopefully it helps a little bit.
+  */
   makeScopeWithSplicing =
     splicePackages: newScope: otherSplices: keep: extra: f:
     let
@@ -405,8 +403,8 @@ rec {
       self = f self // {
         newScope = scope: newScope (spliced // scope);
         callPackage = newScope spliced; # == self.newScope {};
-          # N.B. the other stages of the package set spliced in are *not*
-          # overridden.
+        # N.B. the other stages of the package set spliced in are *not*
+        # overridden.
         overrideScope =
           g:
           makeScopeWithSplicing splicePackages newScope otherSplices keep
@@ -418,5 +416,4 @@ rec {
     in
     self
     ;
-
 }

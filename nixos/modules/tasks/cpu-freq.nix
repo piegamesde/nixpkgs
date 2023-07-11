@@ -10,8 +10,8 @@ with lib;
 let
   cpupower = config.boot.kernelPackages.cpupower;
   cfg = config.powerManagement;
-
 in
+
 {
   ###### interface
 
@@ -53,10 +53,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config =
     let
@@ -94,7 +93,6 @@ in
           SuccessExitStatus = "0 237";
         };
       };
-
     }
     ;
 }

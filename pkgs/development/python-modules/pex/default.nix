@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-    # A few more dependencies I don't want to handle right now...
+  # A few more dependencies I don't want to handle right now...
   doCheck = false;
 
   pythonImportsCheck = [ "pex" ];

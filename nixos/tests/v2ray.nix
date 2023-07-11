@@ -12,7 +12,7 @@ import ./make-test-python.nix (
       alterId = 0; # Non-zero support will be disabled in the future.
     };
 
-      # 1080 [http proxy] -> 1081 [vmess] -> direct
+    # 1080 [http proxy] -> 1081 [vmess] -> direct
     v2rayConfig = {
       inbounds = [
         {
@@ -65,7 +65,6 @@ import ./make-test-python.nix (
         }
       ];
     };
-
   in
   {
     name = "v2ray";

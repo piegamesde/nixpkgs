@@ -48,6 +48,6 @@ stdenv.mkDerivation {
       "x86_64-linux"
       "aarch64-linux"
     ];
-      # failed on Darwin: linker couldn't find the FFI lib
+    # failed on Darwin: linker couldn't find the FFI lib
   };
 }

@@ -20,8 +20,8 @@ let
     )
     (builtins.removeAttrs defaultPkgConfigPackages [ "recurseForDerivations" ]);
 
-    # nix-build rejects attribute names with periods
-    # This will build those regardless.
+  # nix-build rejects attribute names with periods
+  # This will build those regardless.
   tests-combined =
     runCommand "pkg-config-checks" { allTests = lib.attrValues allTests; } ''
       touch $out
@@ -43,14 +43,12 @@ let
         escapeNixIdentifier moduleName
       }` in `pkgs/top-level/pkg-config-packages.nix` in Nixpkgs."
 
-    else if
-      pkg.meta.unsupported
-    then
-    # We return `null` instead of doing a `filterAttrs`, because with
-    # `filterAttrs` the evaluator would not be able to return the attribute
-    # set without first evaluating all of the attribute _values_. This would
-    # be rather expensive, and severly slow down the use case of getting a
-    # single test, which we want to do in `passthru.tests`, or interactively.
+    else if pkg.meta.unsupported then
+      # We return `null` instead of doing a `filterAttrs`, because with
+      # `filterAttrs` the evaluator would not be able to return the attribute
+      # set without first evaluating all of the attribute _values_. This would
+      # be rather expensive, and severly slow down the use case of getting a
+      # single test, which we want to do in `passthru.tests`, or interactively.
       null
 
     else if !pkg ? meta.broken then
@@ -69,6 +67,7 @@ let
         package = pkg;
       }
     ;
-
 in
-lib.recurseIntoAttrs allTests // { inherit tests-combined; }
+lib.recurseIntoAttrs allTests // {
+  inherit tests-combined;
+}

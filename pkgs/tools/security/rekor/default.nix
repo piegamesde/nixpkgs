@@ -21,8 +21,8 @@ let
         repo = "rekor";
         rev = "v${version}";
         hash = "sha256-/zNDruJsnLlqHud67S8/QpNEPLfFcboA+2SWLB1jzbM=";
-          # populate values that require us to use git. By doing this in postFetch we
-          # can delete .git afterwards and maintain better reproducibility of the src.
+        # populate values that require us to use git. By doing this in postFetch we
+        # can delete .git afterwards and maintain better reproducibility of the src.
         leaveDotGit = true;
         postFetch = ''
           cd "$out"
@@ -46,7 +46,7 @@ let
         "-X sigs.k8s.io/release-utils/version.gitTreeState=clean"
       ];
 
-        # ldflags based on metadata from git and source
+      # ldflags based on metadata from git and source
       preBuild = ''
         ldflags+=" -X sigs.k8s.io/release-utils/version.gitCommit=$(cat COMMIT)"
         ldflags+=" -X sigs.k8s.io/release-utils/version.buildDate=$(cat SOURCE_DATE_EPOCH)"

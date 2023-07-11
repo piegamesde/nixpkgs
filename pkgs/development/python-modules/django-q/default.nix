@@ -39,8 +39,8 @@ buildPythonPackage rec {
     future
   ];
 
-    # fixes empty version string
-    # analog to https://github.com/NixOS/nixpkgs/pull/171200
+  # fixes empty version string
+  # analog to https://github.com/NixOS/nixpkgs/pull/171200
   patches = [ ./pep-621.patch ];
 
   pythonImportsCheck = [ "django_q" ];
@@ -62,7 +62,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # don't bother with two more servers to test
+  # don't bother with two more servers to test
   disabledTests = [
     "test_disque"
     "test_mongo"

@@ -30,7 +30,9 @@ lib.makeOverridable (
     , # The paths (relative to each element of `paths') that we want to
     # symlink (e.g., ["/bin"]).  Any file not inside any of the
     # directories in the list is not symlinked.
-    pathsToLink ? [ "/" ]
+    pathsToLink ? [
+      "/"
+    ]
 
     , # The package outputs to include. By default, only the default
     # output is included.
@@ -42,7 +44,7 @@ lib.makeOverridable (
     , # Shell commands to run after building the symlink tree.
     postBuild ? ""
 
-      # Additional inputs
+    # Additional inputs
     ,
     nativeBuildInputs ? [ ] # Handy e.g. if using makeWrapper in `postBuild`.
     ,
@@ -58,8 +60,8 @@ lib.makeOverridable (
       src = ./builder.pl;
       inherit (builtins) storeDir;
     };
-
   in
+
   runCommand name
   rec {
     inherit
@@ -104,7 +106,7 @@ lib.makeOverridable (
     );
     preferLocalBuild = true;
     allowSubstitutes = false;
-      # XXX: The size is somewhat arbitrary
+    # XXX: The size is somewhat arbitrary
     passAsFile =
       if builtins.stringLength pkgs >= 128 * 1024 then
         [ "pkgs" ]

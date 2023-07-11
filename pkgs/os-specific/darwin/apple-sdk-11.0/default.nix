@@ -40,7 +40,7 @@ let
     pname = "MacOSX-SDK";
     version = "11.0.0";
 
-      # https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog
+    # https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog
     src = fetchurl {
       url =
         "http://swcdn.apple.com/content/downloads/46/21/001-89745-A_56FM390IW5/v1um2qppgfdnam2e9cdqcqu2r6k8aa3lis/CLTools_macOSNMOS_SDK.pkg";
@@ -56,7 +56,7 @@ let
     pname = "CLTools_Executables";
     version = "11.0.0";
 
-      # https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog
+    # https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog
     src = fetchurl {
       url =
         "http://swcdn.apple.com/content/downloads/46/21/001-89745-A_56FM390IW5/v1um2qppgfdnam2e9cdqcqu2r6k8aa3lis/CLTools_Executables.pkg";
@@ -106,13 +106,10 @@ let
   callPackage = newScope (packages // pkgs.darwin // { inherit MacOSX-SDK; });
 
   packages = stdenvs // {
-    inherit (callPackage ./apple_sdk.nix { })
-      frameworks
-      libs
-      ;
+    inherit (callPackage ./apple_sdk.nix { }) frameworks libs;
 
-      # TODO: this is nice to be private. is it worth the callPackage above?
-      # Probably, I don't think that callPackage costs much at all.
+    # TODO: this is nice to be private. is it worth the callPackage above?
+    # Probably, I don't think that callPackage costs much at all.
     inherit MacOSX-SDK CLTools_Executables;
 
     Libsystem = callPackage ./libSystem.nix { };
@@ -121,11 +118,11 @@ let
     libunwind = callPackage ./libunwind.nix { };
     libnetwork = callPackage ./libnetwork.nix { };
     libpm = callPackage ./libpm.nix { };
-      # Avoid introducing a new objc4 if stdenv already has one, to prevent
-      # conflicting LLVM modules.
+    # Avoid introducing a new objc4 if stdenv already has one, to prevent
+    # conflicting LLVM modules.
     objc4 = stdenv.objc4 or (callPackage ./libobjc.nix { });
 
-      # questionable aliases
+    # questionable aliases
     configd = pkgs.darwin.apple_sdk.frameworks.SystemConfiguration;
     inherit (pkgs.darwin.apple_sdk.frameworks) IOKit;
 

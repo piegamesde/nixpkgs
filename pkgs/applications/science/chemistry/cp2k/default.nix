@@ -28,7 +28,6 @@
 let
   cp2kVersion = "psmp";
   arch = "Linux-x86-64-gfortran";
-
 in
 stdenv.mkDerivation rec {
   pname = "cp2k";

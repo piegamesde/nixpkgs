@@ -54,11 +54,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.privoxy.org/";
     description = "Non-caching web proxy with advanced filtering capabilities";
-      # When linked with mbedtls, the license becomes GPLv3 (or later), otherwise
-      # GPLv2 (or later). See https://www.privoxy.org/user-manual/copyright.html
+    # When linked with mbedtls, the license becomes GPLv3 (or later), otherwise
+    # GPLv2 (or later). See https://www.privoxy.org/user-manual/copyright.html
     license = licenses.gpl2Plus;
     platforms = platforms.all;
     maintainers = [ ];
   };
-
 }

@@ -69,8 +69,8 @@ let
     "lib/${architecture}/xawt"
     "lib/${architecture}"
   ];
-
 in
+
 let
   result = stdenv.mkDerivation rec {
     pname =
@@ -109,7 +109,7 @@ let
       ++ lib.optional installjce unzip
       ;
 
-      # See: https://github.com/NixOS/patchelf/issues/10
+    # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
 
     installPhase = ''
@@ -187,13 +187,10 @@ let
       fi
     '';
 
-    inherit
-      installjdk
-      pluginSupport
-      ;
+    inherit installjdk pluginSupport;
 
-      #
-      # libXt is only needed on amd64
+    #
+    # libXt is only needed on amd64
     libraries =
       [
         stdenv.cc.libc
@@ -250,7 +247,6 @@ let
       ]; # some inherit jre.meta.platforms
       mainProgram = "java";
     };
-
   };
 in
 result

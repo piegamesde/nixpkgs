@@ -6,7 +6,6 @@
 
 let
   bName = "check_esxi_hardware";
-
 in
 python3Packages.buildPythonApplication rec {
   pname = lib.replaceStrings [ "_" ] [ "-" ] bName;

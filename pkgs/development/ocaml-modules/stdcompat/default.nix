@@ -14,7 +14,7 @@ buildDunePackage rec {
     sha256 = "sha256-DKQGd4nnIN6SPls6hcA/2Jvc7ivYNpeMU6rYsVc1ClU=";
   };
 
-    # Otherwise ./configure script will run and create files conflicting with dune.
+  # Otherwise ./configure script will run and create files conflicting with dune.
   dontConfigure = true;
 
   meta = {

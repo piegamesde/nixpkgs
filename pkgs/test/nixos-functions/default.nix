@@ -30,6 +30,5 @@ lib.optionalAttrs stdenv.hostPlatform.isLinux (
         fileSystems."/".device = "/dev/null";
         system.stateVersion = lib.trivial.release;
       }).toplevel;
-
   }
 )

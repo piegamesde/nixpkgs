@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/p-e-w/plotinus";
     maintainers = with maintainers; [ samdroid-apps ];
     platforms = platforms.linux;
-      # No COPYING file, but headers in the source code
+    # No COPYING file, but headers in the source code
     license = licenses.gpl3;
   };
 }

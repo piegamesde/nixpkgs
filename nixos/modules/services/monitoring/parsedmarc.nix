@@ -400,10 +400,8 @@ in
             };
           };
         };
-
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -537,9 +535,9 @@ in
           ))
           cfg.settings;
 
-          # Extract secrets (attributes set to an attrset with a
-          # "_secret" key) from the settings and generate the commands
-          # to run to perform the secret replacements.
+        # Extract secrets (attributes set to an attrset with a
+        # "_secret" key) from the settings and generate the commands
+        # to run to perform the secret replacements.
         secretPaths =
           lib.catAttrs "_secret" (lib.collect isSecret filteredConfig);
         parsedmarcConfig = ini.generate "parsedmarc.ini" filteredConfig;

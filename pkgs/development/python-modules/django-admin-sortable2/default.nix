@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "adminsortable2" ];
 
-    # Tests are very slow (end-to-end with playwright)
+  # Tests are very slow (end-to-end with playwright)
   doCheck = false;
 
   meta = with lib; {

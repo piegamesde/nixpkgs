@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pandocxnos" ];
 
-    # tests need some patching
+  # tests need some patching
   doCheck = false;
 
   meta = with lib; {

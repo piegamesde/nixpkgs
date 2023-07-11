@@ -95,7 +95,7 @@
         mv document*.png "$out"/
       '';
 
-      # test dvipng's limited capability to render postscript specials via GS
+    # test dvipng's limited capability to render postscript specials via GS
     ghostscript = runCommand "texlive-test-ghostscript"
       {
         nativeBuildInputs = [
@@ -141,7 +141,7 @@
       '';
   };
 
-    # https://github.com/NixOS/nixpkgs/issues/75070
+  # https://github.com/NixOS/nixpkgs/issues/75070
   dvisvgm = runCommand "texlive-test-dvisvgm"
     {
       nativeBuildInputs = [
@@ -198,7 +198,7 @@
       grep texdoc.pdf "$out"
     '';
 
-    # test that language files are generated as expected
+  # test that language files are generated as expected
   hyphen-base = runCommand "texlive-test-hyphen-base"
     {
       hyphenBase = lib.head texlive.hyphen-base.pkgs;
@@ -233,7 +233,7 @@
       done
     '';
 
-    # test that fmtutil.cnf is fully regenerated on scheme-full
+  # test that fmtutil.cnf is fully regenerated on scheme-full
   fmtutilCnf = runCommand "texlive-test-fmtutil.cnf"
     {
       kpathsea = lib.head texlive.kpathsea.pkgs;

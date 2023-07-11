@@ -48,5 +48,4 @@ buildDunePackage {
   ];
 
   meta = irmin.meta // { description = "Irmin test suite"; };
-
 }

@@ -49,7 +49,6 @@ let
 
     ${cfg.extraConfig}
   '';
-
 in
 {
   options = {
@@ -84,9 +83,7 @@ in
           configuration file.
         '';
       };
-
     };
-
   };
 
   config = mkIf (ldmcfg.enable && cfg.enable) {
@@ -100,6 +97,5 @@ in
 
     environment.etc."lightdm/lightdm-mini-greeter.conf".source =
       miniGreeterConf;
-
   };
 }

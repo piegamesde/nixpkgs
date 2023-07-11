@@ -60,8 +60,8 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "trilinos";
-    # Xyce 7.4 requires version 12.12.1
-    # nixpkgs-update: no auto update
+  # Xyce 7.4 requires version 12.12.1
+  # nixpkgs-update: no auto update
   version = "12.12.1";
 
   src = fetchFromGitHub {

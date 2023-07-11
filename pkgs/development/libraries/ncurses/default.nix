@@ -66,7 +66,7 @@ stdenv.mkDerivation (
         ]
       ;
 
-      # Only the C compiler, and explicitly not C++ compiler needs this flag on solaris:
+    # Only the C compiler, and explicitly not C++ compiler needs this flag on solaris:
     CFLAGS = lib.optionalString stdenv.isSunOS "-D_XOPEN_SOURCE_EXTENDED";
 
     strictDeps = true;
@@ -105,9 +105,9 @@ stdenv.mkDerivation (
 
     doCheck = false;
 
-      # When building a wide-character (Unicode) build, create backward
-      # compatibility links from the the "normal" libraries to the
-      # wide-character libraries (e.g. libncurses.so to libncursesw.so).
+    # When building a wide-character (Unicode) build, create backward
+    # compatibility links from the the "normal" libraries to the
+    # wide-character libraries (e.g. libncurses.so to libncursesw.so).
     postFixup =
       let
         abiVersion-extension =

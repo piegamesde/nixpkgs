@@ -54,8 +54,8 @@ let
       }
     ''
     ;
-
 in
+
 {
 
   ###### interface
@@ -148,17 +148,13 @@ in
                   "Extra configuration-lines added to the section of the service."
                   ;
               };
-
             };
-
           })
         );
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.xinetd = {

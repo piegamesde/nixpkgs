@@ -16,8 +16,8 @@ let
   settingsFormat = pkgs.formats.json { };
   daemonSettingsFile =
     settingsFormat.generate "daemon.json" cfg.daemon.settings;
-
 in
+
 {
   ###### interface
 
@@ -171,7 +171,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable (
     mkMerge [ {
@@ -282,5 +282,4 @@ in
         ]
         "This option was removed and socket activation is now always active")
     ];
-
 }

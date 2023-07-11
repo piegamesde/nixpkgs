@@ -6,7 +6,7 @@
 appleDerivation {
   dontBuild = true;
 
-    # install headers only
+  # install headers only
   installPhase = ''
     mkdir -p $out/lib
     cp -R include $out/include

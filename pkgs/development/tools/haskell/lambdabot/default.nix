@@ -32,7 +32,6 @@ let
   );
   modulesStr = lib.replaceStrings [ "\n" ] [ " " ] modules;
   configStr = lib.replaceStrings [ "\n" ] [ " " ] configuration;
-
 in
 haskellLib.overrideCabal
 (self: {

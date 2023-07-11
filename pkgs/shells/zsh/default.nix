@@ -16,8 +16,8 @@
 
 let
   version = "5.9";
-
 in
+
 stdenv.mkDerivation {
   pname = "zsh";
   inherit version;
@@ -86,11 +86,11 @@ stdenv.mkDerivation {
       ]
     ;
 
-    # the zsh/zpty module is not available on hydra
-    # so skip groups Y Z
+  # the zsh/zpty module is not available on hydra
+  # so skip groups Y Z
   checkFlags = map (T: "TESTNUM=${T}") (lib.stringToCharacters "ABCDEVW");
 
-    # XXX: think/discuss about this, also with respect to nixos vs nix-on-X
+  # XXX: think/discuss about this, also with respect to nixos vs nix-on-X
   postInstall = ''
         make install.info install.html
         mkdir -p $out/etc/
@@ -136,7 +136,7 @@ stdenv.mkDerivation {
         mkdir -p $out/share/doc/
         mv $out/share/zsh/htmldoc $out/share/doc/zsh-$version
   '';
-    # XXX: patch zsh to take zwc if newer _or equal_
+  # XXX: patch zsh to take zwc if newer _or equal_
 
   meta = {
     description = "The Z shell";

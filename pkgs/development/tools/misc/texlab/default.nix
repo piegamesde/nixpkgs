@@ -37,8 +37,8 @@ rustPlatform.buildRustPackage rec {
     CoreServices
   ];
 
-    # When we cross compile we cannot run the output executable to
-    # generate the man page
+  # When we cross compile we cannot run the output executable to
+  # generate the man page
   postInstall = lib.optionalString (!isCross) ''
     # TexLab builds man page separately in CI:
     # https://github.com/latex-lsp/texlab/blob/v5.5.0/.github/workflows/publish.yml#L127-L131

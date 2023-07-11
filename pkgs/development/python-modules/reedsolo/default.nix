@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "reedsolo";
   version = "1.5.4";
 
-    # Pypi does not have the tests
+  # Pypi does not have the tests
   src = fetchFromGitHub {
     owner = "tomerfiliba";
     repo = "reedsolomon";

@@ -45,8 +45,8 @@ lib.warnIf (extraPostFetch != "")
             builtins.head urls
         )
       ;
-
   in
+
   fetchurl (
     (
       if (pname != "" && version != "") then
@@ -61,9 +61,9 @@ lib.warnIf (extraPostFetch != "")
 
       downloadToTemp = true;
 
-        # Have to pull in glibcLocalesUtf8 for unzip in setup-hook.sh to handle
-        # UTF-8 aware locale:
-        #   https://github.com/NixOS/nixpkgs/issues/176225#issuecomment-1146617263
+      # Have to pull in glibcLocalesUtf8 for unzip in setup-hook.sh to handle
+      # UTF-8 aware locale:
+      #   https://github.com/NixOS/nixpkgs/issues/176225#issuecomment-1146617263
       nativeBuildInputs =
         [
           unzip
@@ -83,6 +83,9 @@ lib.warnIf (extraPostFetch != "")
           unpackFile "$renamed"
           chmod -R +w "$unpackDir"
         ''
+
+        # Remove non-owner write permissions
+        # Fixes https://github.com/NixOS/nixpkgs/issues/38649
         + (
           if stripRoot then
             ''
@@ -102,9 +105,15 @@ lib.warnIf (extraPostFetch != "")
               mv "$unpackDir" "$out"
             ''
         )
+
+        # Remove non-owner write permissions
+        # Fixes https://github.com/NixOS/nixpkgs/issues/38649
         + ''
           ${postFetch}
         ''
+
+        # Remove non-owner write permissions
+        # Fixes https://github.com/NixOS/nixpkgs/issues/38649
         + ''
           ${extraPostFetch}
         ''

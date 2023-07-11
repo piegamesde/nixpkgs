@@ -14,7 +14,8 @@
 # geoip.dataDir to a directory containing the data files This would typically be
 # /var/lib/geoip-databases pointing to geoip-legacy/share/GeoIP
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "ipcalc";
   version = "1.0.2";
 
@@ -31,9 +32,9 @@ stdenv.mkDerivation rec {
       ./sandbox_tests.patch
     ];
 
-    # technically not needed as we do not support the paid maxmind databases, but
-    # keep it around if someone wants to add support and /usr/share/GeoIP is
-    # broken anyway
+  # technically not needed as we do not support the paid maxmind databases, but
+  # keep it around if someone wants to add support and /usr/share/GeoIP is
+  # broken anyway
   postPatch = ''
     substituteInPlace ipcalc-maxmind.c \
       --replace /usr/share/GeoIP /var/lib/GeoIP

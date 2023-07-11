@@ -48,12 +48,12 @@ let
 
     configureFlags = [ "--with-custom-thunarx-dirs-enabled" ];
 
-      # the desktop file … is in an insecure location»
-      # which pops up when invoking desktop files that are
-      # symlinks to the /nix/store
-      #
-      # this error was added by this commit:
-      # https://github.com/xfce-mirror/thunar/commit/1ec8ff89ec5a3314fcd6a57f1475654ddecc9875
+    # the desktop file … is in an insecure location»
+    # which pops up when invoking desktop files that are
+    # symlinks to the /nix/store
+    #
+    # this error was added by this commit:
+    # https://github.com/xfce-mirror/thunar/commit/1ec8ff89ec5a3314fcd6a57f1475654ddecc9875
     postPatch = ''
       sed -i -e 's|thunar_dialogs_show_insecure_program (parent, _(".*"), file, exec)|1|' thunar/thunar-file.c
     '';
@@ -63,7 +63,6 @@ let
       maintainers = with maintainers; [ ] ++ teams.xfce.members;
     };
   };
-
 in
 if thunarPlugins == [ ] then
   unwrapped

@@ -40,8 +40,8 @@
   withRecommendedPackages ? true,
   enableStrictBarrier ? false,
   enableMemoryProfiling ? false
-    # R as of writing does not support outputting both .so and .a files; it outputs:
-    #     --enable-R-static-lib conflicts with --enable-R-shlib and will be ignored
+  # R as of writing does not support outputting both .so and .a files; it outputs:
+  #     --enable-R-static-lib conflicts with --enable-R-shlib and will be ignored
   ,
   static ? false,
   testers,
@@ -113,8 +113,8 @@ stdenv.mkDerivation (
 
     patches = [ ./no-usr-local-search-paths.patch ];
 
-      # Test of the examples for package 'tcltk' fails in Darwin sandbox. See:
-      # https://github.com/NixOS/nixpkgs/issues/146131
+    # Test of the examples for package 'tcltk' fails in Darwin sandbox. See:
+    # https://github.com/NixOS/nixpkgs/issues/146131
     postPatch = lib.optionalString stdenv.isDarwin ''
       substituteInPlace configure \
         --replace "-install_name libRblas.dylib" "-install_name $out/lib/R/lib/libRblas.dylib" \
@@ -182,9 +182,9 @@ stdenv.mkDerivation (
       "install-pdf"
     ];
 
-      # The store path to "which" is baked into src/library/base/R/unix/system.unix.R,
-      # but Nix cannot detect it as a run-time dependency because the installed file
-      # is compiled and compressed, which hides the store path.
+    # The store path to "which" is baked into src/library/base/R/unix/system.unix.R,
+    # but Nix cannot detect it as a run-time dependency because the installed file
+    # is compiled and compressed, which hides the store path.
     postFixup =
       "echo ${which} > $out/nix-support/undetected-runtime-dependencies";
 

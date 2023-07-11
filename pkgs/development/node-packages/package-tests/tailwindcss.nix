@@ -26,8 +26,8 @@ let
       ],
     }
   '';
-
 in
+
 runCommand "${packageName}-tests" { meta.timeout = 60; } ''
   mkdir $out
 

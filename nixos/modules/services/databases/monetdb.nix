@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.monetdb;
-
 in
 {
   meta.maintainers = with maintainers; [
@@ -17,7 +16,7 @@ in
     primeos
   ];
 
-    ###### interface
+  ###### interface
   options = {
     services.monetdb = {
 
@@ -63,7 +62,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
 
     users.users.monetdb = mkIf (cfg.user == "monetdb") {
@@ -104,6 +103,5 @@ in
         ${cfg.package}/bin/monetdbd set listenaddr=${cfg.listenAddress} ${cfg.dataDir}
       '';
     };
-
   };
 }

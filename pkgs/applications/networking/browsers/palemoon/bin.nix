@@ -195,7 +195,7 @@ stdenv.mkDerivation rec {
       {
         fullName = "Pale Moon Redistribution License";
         url = "https://www.palemoon.org/redist.shtml";
-          # TODO free, redistributable? Has strict limitations on what modifications may be done & shipped by packagers
+        # TODO free, redistributable? Has strict limitations on what modifications may be done & shipped by packagers
       }
     ];
     maintainers = with maintainers; [

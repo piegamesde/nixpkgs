@@ -49,7 +49,7 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-    # https://git.skewed.de/count0/graph-tool/-/wikis/installation-instructions#manual-compilation
+  # https://git.skewed.de/count0/graph-tool/-/wikis/installation-instructions#manual-compilation
   propagatedBuildInputs = [
     boost
     cairomm

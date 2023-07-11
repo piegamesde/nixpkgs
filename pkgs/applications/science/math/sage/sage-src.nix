@@ -29,38 +29,34 @@ let
     }@args:
     (fetchpatch (
       {
-        inherit
-          name
-          sha256
-          excludes
-          ;
+        inherit name sha256 excludes;
 
-          # There are three places to get changes from:
-          #
-          # 1) From Sage's Trac. Contains all release tags (like "9.4") and all developer
-          # branches (wip patches from tickets), but exports each commit as a separate
-          # patch, so merge commits can lead to conflicts. Used if squashed == false.
-          #
-          # The above is the preferred option. To use it, find a Trac ticket and pass the
-          # "Commit" field from the ticket as "rev", choosing "base" as an appropriate
-          # release tag, i.e. a tag that doesn't cause the patch to include a lot of
-          # unrelated changes. If there is no such tag (due to nonlinear history, for
-          # example), there are two other options, listed below.
-          #
-          # 2) From GitHub's sagemath/sage repo. This lets us use a GH feature that allows
-          # us to choose between a .patch file, with one patch per commit, or a .diff file,
-          # which squashes all commits into a single diff. This is used if squashed ==
-          # true. This repo has all release tags. However, it has no developer branches, so
-          # this option can't be used if a change wasn't yet shipped in a (possibly beta)
-          # release.
-          #
-          # 3) From GitHub's sagemath/sagetrac-mirror repo. Mirrors all developer branches,
-          # but has no release tags. The only use case not covered by 1 or 2 is when we need
-          # to apply a patch from an open ticket that contains merge commits.
-          #
-          # Item 3 could cover all use cases if the sagemath/sagetrack-mirror repo had
-          # release tags, but it requires a sha instead of a release number in "base", which
-          # is inconvenient.
+        # There are three places to get changes from:
+        #
+        # 1) From Sage's Trac. Contains all release tags (like "9.4") and all developer
+        # branches (wip patches from tickets), but exports each commit as a separate
+        # patch, so merge commits can lead to conflicts. Used if squashed == false.
+        #
+        # The above is the preferred option. To use it, find a Trac ticket and pass the
+        # "Commit" field from the ticket as "rev", choosing "base" as an appropriate
+        # release tag, i.e. a tag that doesn't cause the patch to include a lot of
+        # unrelated changes. If there is no such tag (due to nonlinear history, for
+        # example), there are two other options, listed below.
+        #
+        # 2) From GitHub's sagemath/sage repo. This lets us use a GH feature that allows
+        # us to choose between a .patch file, with one patch per commit, or a .diff file,
+        # which squashes all commits into a single diff. This is used if squashed ==
+        # true. This repo has all release tags. However, it has no developer branches, so
+        # this option can't be used if a change wasn't yet shipped in a (possibly beta)
+        # release.
+        #
+        # 3) From GitHub's sagemath/sagetrac-mirror repo. Mirrors all developer branches,
+        # but has no release tags. The only use case not covered by 1 or 2 is when we need
+        # to apply a patch from an open ticket that contains merge commits.
+        #
+        # Item 3 could cover all use cases if the sagemath/sagetrack-mirror repo had
+        # release tags, but it requires a sha instead of a release number in "base", which
+        # is inconvenient.
         urls =
           if squashed then
             [
@@ -91,8 +87,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dDbrzJXsOBARYfJz0r7n3LbaoXHnx7Acz6HBa95NV9o=";
   };
 
-    # Patches needed because of particularities of nix or the way this is packaged.
-    # The goal is to upstream all of them and get rid of this list.
+  # Patches needed because of particularities of nix or the way this is packaged.
+  # The goal is to upstream all of them and get rid of this list.
   nixPatches = [
     # Fixes a potential race condition which can lead to transient doctest failures.
     ./patches/fix-ecl-race.patch
@@ -106,9 +102,9 @@ stdenv.mkDerivation rec {
     ./patches/sphinx-docbuild-subprocesses.patch
   ];
 
-    # Since sage unfortunately does not release bugfix releases, packagers must
-    # fix those bugs themselves. This is for critical bugfixes, where "critical"
-    # == "causes (transient) doctest failures / somebody complained".
+  # Since sage unfortunately does not release bugfix releases, packagers must
+  # fix those bugs themselves. This is for critical bugfixes, where "critical"
+  # == "causes (transient) doctest failures / somebody complained".
   bugfixPatches =
     [
       # To help debug the transient error in
@@ -116,12 +112,12 @@ stdenv.mkDerivation rec {
       ./patches/configurationpy-error-verbose.patch
     ];
 
-    # Patches needed because of package updates. We could just pin the versions of
-    # dependencies, but that would lead to rebuilds, confusion and the burdons of
-    # maintaining multiple versions of dependencies. Instead we try to make sage
-    # compatible with never dependency versions when possible. All these changes
-    # should come from or be proposed to upstream. This list will probably never
-    # be empty since dependencies update all the time.
+  # Patches needed because of package updates. We could just pin the versions of
+  # dependencies, but that would lead to rebuilds, confusion and the burdons of
+  # maintaining multiple versions of dependencies. Instead we try to make sage
+  # compatible with never dependency versions when possible. All these changes
+  # should come from or be proposed to upstream. This list will probably never
+  # be empty since dependencies update all the time.
   packageUpgradePatches = [
     # After updating smypow to (https://trac.sagemath.org/ticket/3360) we can
     # now set the cache dir to be within the .sage directory. This is not
@@ -195,11 +191,9 @@ stdenv.mkDerivation rec {
     ./patches/disable-slow-glpk-test.patch
   ];
 
-  patches =
-    nixPatches ++ bugfixPatches ++ packageUpgradePatches
-    ;
+  patches = nixPatches ++ bugfixPatches ++ packageUpgradePatches;
 
-    # do not create .orig backup files if patch applies with fuzz
+  # do not create .orig backup files if patch applies with fuzz
   patchFlags = [
     "--no-backup-if-mismatch"
     "-p1"

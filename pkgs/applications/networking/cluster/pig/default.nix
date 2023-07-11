@@ -15,7 +15,6 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url = "mirror://apache/pig/${pname}-${version}/${pname}-${version}.tar.gz";
     sha256 = "1wwpg0w47f49rnivn2d26vrxgyfl9gpqx3vmzbl5lhx6x5l3fqbd";
-
   };
 
   nativeBuildInputs = [ makeWrapper ];

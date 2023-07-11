@@ -7,13 +7,11 @@ import ./make-test-python.nix (
     name = "miriway";
 
     meta = {
-      maintainers = with lib.maintainers; [
-          OPNA2608
-        ];
-        # Natively running Mir has problems with capturing the first registered libinput device.
-        # In our VM  runners on ARM and on some hardware configs (my RPi4, distro-independent), this misses the keyboard.
-        # It can be worked around by dis- and reconnecting the affected hardware, but we can't do this in these tests.
-        # https://github.com/MirServer/mir/issues/2837
+      maintainers = with lib.maintainers; [ OPNA2608 ];
+      # Natively running Mir has problems with capturing the first registered libinput device.
+      # In our VM  runners on ARM and on some hardware configs (my RPi4, distro-independent), this misses the keyboard.
+      # It can be worked around by dis- and reconnecting the affected hardware, but we can't do this in these tests.
+      # https://github.com/MirServer/mir/issues/2837
       broken = pkgs.stdenv.hostPlatform.isAarch;
     };
 
@@ -27,7 +25,7 @@ import ./make-test-python.nix (
           ./common/user-account.nix
         ];
 
-          # Seems to very rarely get interrupted by oom-killer
+        # Seems to very rarely get interrupted by oom-killer
         virtualisation.memorySize = 2047;
 
         test-support.displayManager.auto = {
@@ -70,7 +68,7 @@ import ./make-test-python.nix (
             alacritty
           ];
 
-            # To help with OCR
+          # To help with OCR
           etc."xdg/foot/foot.ini".text = lib.generators.toINI { } {
             main = { font = "inconsolata:size=16"; };
             colors = rec {

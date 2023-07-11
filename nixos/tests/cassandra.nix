@@ -21,9 +21,9 @@ import ./make-test-python.nix (
     jmxPort = 7200; # Non-standard port so it doesn't accidentally work
     jmxPortStr = toString jmxPort;
 
-      # Would usually be assigned to 512M.
-      # Set it to a different value, so that we can check whether our config
-      # actually changes it.
+    # Would usually be assigned to 512M.
+    # Set it to a different value, so that we can check whether our config
+    # actually changes it.
     numMaxHeapSize = "400";
     getHeapLimitCommand = ''
       nodetool info -p ${jmxPortStr} | grep "^Heap Memory" | awk '{print $NF}'

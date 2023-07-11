@@ -46,7 +46,7 @@
             }
           ];
         };
-          # test that binding to [::] is working when ipv6 is disabled
+        # test that binding to [::] is working when ipv6 is disabled
         networking.enableIPv6 = false;
         services._3proxy = {
           enable = true;

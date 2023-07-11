@@ -22,7 +22,7 @@ buildPythonPackage rec {
     pyqt5
   ];
 
-    # no tests executed
+  # no tests executed
   doCheck = false;
 
   meta = {

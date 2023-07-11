@@ -45,7 +45,7 @@ let
   ];
   newLibpath = "${atomEnv.libPath}:${additionalLibs}";
 
-    # Hunspell
+  # Hunspell
   hunspellDirs =
     builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell") languages;
   hunspellTargetDirs =

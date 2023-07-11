@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-plugins-good
   ];
 
-    # tests require network
+  # tests require network
   doCheck = false;
 
   postPatch = ''

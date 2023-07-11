@@ -18,8 +18,8 @@ let
       "https://github.com/RestyaPlatform/board-apps/releases/download/v2/r_togetherjs-v0.1.2.zip";
     sha256 = "1kms7z0ci15plwbs6nxvz15w0ym3in39msbncaj3cn0p72kvx5cm";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "rstya-board";
   version = "0.6";
@@ -54,4 +54,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 }
-

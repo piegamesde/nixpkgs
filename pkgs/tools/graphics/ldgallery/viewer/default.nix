@@ -28,9 +28,9 @@ let
     postInstall = "npm run build";
     buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
   };
-
-  # making sure that the source and the node package are in sync
 in
+
+# making sure that the source and the node package are in sync
 assert lib.versions.majorMinor nodePkg.version
   == lib.removePrefix "v" sourcePkg.rev;
 

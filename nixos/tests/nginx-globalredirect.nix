@@ -16,7 +16,7 @@ import ./make-test-python.nix (
             enable = true;
             virtualHosts.localhost = {
               globalRedirect = "other.example.com";
-                # Add an exception
+              # Add an exception
               locations."/noredirect".return = "200 'foo'";
             };
           };

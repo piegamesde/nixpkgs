@@ -25,8 +25,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ bootstrapped-pip ];
 
-    # pip detects that we already have bootstrapped_pip "installed", so we need
-    # to force it a little.
+  # pip detects that we already have bootstrapped_pip "installed", so we need
+  # to force it a little.
   pipInstallFlags = [ "--ignore-installed" ];
 
   nativeCheckInputs = [
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     pretend
     pytest
   ];
-    # Pip wants pytest, but tests are not distributed
+  # Pip wants pytest, but tests are not distributed
   doCheck = false;
 
   meta = {

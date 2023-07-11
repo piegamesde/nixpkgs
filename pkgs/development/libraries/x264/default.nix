@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     sha256 = "0swyrkz6nvajivxvrr08py0jrfcsjvpxw78xm1k5gd9xbdrxvknh";
   };
 
-    # Upstream ./configure greps for (-mcpu|-march|-mfpu) in CFLAGS, which in nix
-    # is put in the cc wrapper anyway.
+  # Upstream ./configure greps for (-mcpu|-march|-mfpu) in CFLAGS, which in nix
+  # is put in the cc wrapper anyway.
   patches = [
     ./disable-arm-neon-default.patch
     (fetchpatch {

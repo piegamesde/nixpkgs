@@ -30,7 +30,6 @@ let
     };
     meta = with lib; { license = licenses.gpl3Plus; };
   };
-
 in
 mkDerivation rec {
   pname = "dfasma";

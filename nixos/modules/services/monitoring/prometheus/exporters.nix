@@ -29,18 +29,18 @@ let
 
   cfg = config.services.prometheus.exporters;
 
-    # each attribute in `exporterOpts` is expected to have specified:
-    #   - port        (types.int):   port on which the exporter listens
-    #   - serviceOpts (types.attrs): config that is merged with the
-    #                                default definition of the exporter's
-    #                                systemd service
-    #   - extraOpts   (types.attrs): extra configuration options to
-    #                                configure the exporter with, which
-    #                                are appended to the default options
-    #
-    #  Note that `extraOpts` is optional, but a script for the exporter's
-    #  systemd service must be provided by specifying either
-    #  `serviceOpts.script` or `serviceOpts.serviceConfig.ExecStart`
+  # each attribute in `exporterOpts` is expected to have specified:
+  #   - port        (types.int):   port on which the exporter listens
+  #   - serviceOpts (types.attrs): config that is merged with the
+  #                                default definition of the exporter's
+  #                                systemd service
+  #   - extraOpts   (types.attrs): extra configuration options to
+  #                                configure the exporter with, which
+  #                                are appended to the default options
+  #
+  #  Note that `extraOpts` is optional, but a script for the exporter's
+  #  systemd service must be provided by specifying either
+  #  `serviceOpts.script` or `serviceOpts.serviceConfig.ExecStart`
 
   exporterOpts = genAttrs
     [
@@ -258,7 +258,7 @@ let
           serviceConfig.DynamicUser = mkDefault enableDynamicUser;
           serviceConfig.User = mkDefault conf.user;
           serviceConfig.Group = conf.group;
-            # Hardening
+          # Hardening
           serviceConfig.CapabilityBoundingSet = mkDefault [ "" ];
           serviceConfig.DeviceAllow = [ "" ];
           serviceConfig.LockPersonality = true;

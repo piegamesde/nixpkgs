@@ -66,7 +66,7 @@ let
     after = [ "network.target" ];
     serviceConfig = {
       Type = "oneshot";
-        # Sandboxing
+      # Sandboxing
       PrivateTmp = true;
       NoNewPrivileges = true;
       ProtectSystem = "strict";
@@ -82,7 +82,6 @@ let
       LockPersonality = true;
     };
   };
-
 in
 {
   options = {

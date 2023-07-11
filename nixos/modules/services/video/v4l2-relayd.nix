@@ -119,11 +119,9 @@ let
             '';
           };
         };
-
       };
     }
     ;
-
 in
 {
 
@@ -144,7 +142,6 @@ in
         v4l2-relayd instances to be created.
       '';
     };
-
   };
 
   config =
@@ -232,7 +229,6 @@ in
 
       enabledInstances =
         attrValues (filterAttrs (n: v: v.enable) cfg.instances);
-
     in
     {
 
@@ -242,7 +238,6 @@ in
       };
 
       systemd.services = mkInstanceServices enabledInstances;
-
     }
     ;
 

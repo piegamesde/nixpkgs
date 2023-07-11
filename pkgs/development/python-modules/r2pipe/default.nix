@@ -38,9 +38,9 @@ buildPythonPackage rec {
     hash = "sha256-T1w4QG0KBPBekETd+nMNbvPF2mgBZgQ/jhWcP9694mg=";
   };
 
-    # Tiny sanity check to make sure r2pipe finds radare2 (since r2pipe doesn't
-    # provide its own tests):
-    # Analyze ls with the fastest analysis and do nothing with the result.
+  # Tiny sanity check to make sure r2pipe finds radare2 (since r2pipe doesn't
+  # provide its own tests):
+  # Analyze ls with the fastest analysis and do nothing with the result.
   postCheck = ''
     ${python.interpreter} <<EOF
     import r2pipe

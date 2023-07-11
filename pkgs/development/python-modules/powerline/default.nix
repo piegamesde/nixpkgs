@@ -13,7 +13,8 @@
 
 # TODO: bzr support is missing because nixpkgs switched to `breezy`
 
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   version = "2.8.3";
   pname = "powerline";
 
@@ -35,7 +36,7 @@ buildPythonPackage rec {
     ++ lib.optionals (!stdenv.isDarwin) [ i3ipc ]
     ;
 
-    # tests are travis-specific
+  # tests are travis-specific
   doCheck = false;
 
   postInstall = ''

@@ -21,7 +21,7 @@ let
           description = lib.mdDoc "Path to the key file.";
         };
 
-          # TODO: rename to certificate to match the prosody config
+        # TODO: rename to certificate to match the prosody config
         cert = mkOption {
           type = types.path;
           description = lib.mdDoc "Path to the certificate file.";
@@ -32,7 +32,6 @@ let
           default = { };
           description = lib.mdDoc "Extra SSL configuration options.";
         };
-
       };
     }
     ;
@@ -87,7 +86,7 @@ let
       description = lib.mdDoc "Service discovery";
     };
 
-      # Not essential, but recommended
+    # Not essential, but recommended
     carbons = mkOption {
       type = types.bool;
       default = true;
@@ -151,7 +150,7 @@ let
         ;
     };
 
-      # Nice to have
+    # Nice to have
     version = mkOption {
       type = types.bool;
       default = true;
@@ -199,7 +198,7 @@ let
         ;
     };
 
-      # Admin interfaces
+    # Admin interfaces
     admin_adhoc = mkOption {
       type = types.bool;
       default = true;
@@ -229,7 +228,7 @@ let
         lib.mdDoc "Opens telnet console interface on localhost port 5582";
     };
 
-      # HTTP modules
+    # HTTP modules
     bosh = mkOption {
       type = types.bool;
       default = false;
@@ -242,7 +241,7 @@ let
       description = lib.mdDoc "Enable WebSocket support";
     };
 
-      # Other specific functionality
+    # Other specific functionality
     limits = mkOption {
       type = types.bool;
       default = false;
@@ -403,11 +402,11 @@ let
             lib.mdDoc "Adds the ability to set vCard for Multi User Chat rooms";
         };
 
-          # Extra parameters. Defaulting to prosody default values.
-          # Adding them explicitly to make them visible from the options
-          # documentation.
-          #
-          # See https://prosody.im/doc/modules/mod_muc for more details.
+        # Extra parameters. Defaulting to prosody default values.
+        # Adding them explicitly to make them visible from the options
+        # documentation.
+        #
+        # See https://prosody.im/doc/modules/mod_muc for more details.
         roomDefaultPublic = mkOption {
           type = types.bool;
           default = true;
@@ -533,13 +532,11 @@ let
           description =
             lib.mdDoc "Additional virtual host specific configuration";
         };
-
       };
-
     }
     ;
-
 in
+
 {
 
   ###### interface
@@ -640,7 +637,7 @@ in
         description = lib.mdDoc "Allow account creation";
       };
 
-        # HTTP server-related options
+      # HTTP server-related options
       httpPorts = mkOption {
         type = types.listOf types.int;
         description = lib.mdDoc "Listening HTTP ports list for this service.";
@@ -775,7 +772,6 @@ in
             enabled = true;
           };
         };
-
       };
 
       ssl = mkOption {
@@ -811,11 +807,10 @@ in
         default = "";
         description = lib.mdDoc "Additional prosody configuration";
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -1055,7 +1050,6 @@ in
         })
       ];
     };
-
   };
 
   meta.doc = ./prosody.md;

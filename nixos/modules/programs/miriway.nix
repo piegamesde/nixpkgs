@@ -58,7 +58,7 @@ in
     programs.dconf.enable = lib.mkDefault true;
     programs.xwayland.enable = lib.mkDefault true;
 
-      # To make the Miriway session available if a display manager like SDDM is enabled:
+    # To make the Miriway session available if a display manager like SDDM is enabled:
     services.xserver.displayManager.sessionPackages = [ pkgs.miriway ];
   };
 

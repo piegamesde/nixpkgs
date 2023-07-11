@@ -12,7 +12,7 @@ with lib;
 let
   cfg = config.services.yubikey-agent;
 
-    # reuse the pinentryFlavor option from the gnupg module
+  # reuse the pinentryFlavor option from the gnupg module
   pinentryFlavor = config.programs.gnupg.agent.pinentryFlavor;
 in
 {
@@ -54,8 +54,8 @@ in
     environment.systemPackages = [ cfg.package ];
     systemd.packages = [ cfg.package ];
 
-      # This overrides the systemd user unit shipped with the
-      # yubikey-agent package
+    # This overrides the systemd user unit shipped with the
+    # yubikey-agent package
     systemd.user.services.yubikey-agent = mkIf (pinentryFlavor != null) {
       path = [ pkgs.pinentry.${pinentryFlavor} ];
       wantedBy = [
@@ -68,7 +68,7 @@ in
         ];
     };
 
-      # Yubikey-agent expects pcsd to be running in order to function.
+    # Yubikey-agent expects pcsd to be running in order to function.
     services.pcscd.enable = true;
 
     environment.extraInit = ''

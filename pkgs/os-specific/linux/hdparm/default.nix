@@ -24,5 +24,4 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     maintainers = [ ];
   };
-
 }

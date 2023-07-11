@@ -63,7 +63,7 @@ buildPythonPackage rec {
     ln -s $out/${python.sitePackages}/clevercsv/ clevercsv
   '';
 
-    # their ci only runs unit tests, there are also integration and fuzzing tests
+  # their ci only runs unit tests, there are also integration and fuzzing tests
   pytestFlagsArray = [ "./tests/test_unit" ];
 
   disabledTestPaths =

@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-    # Should be true for anything built with build2,
-    # but especially important when bootstrapping
+  # Should be true for anything built with build2,
+  # but especially important when bootstrapping
   disallowedReferences = [ build2 ];
 
   postPatch = lib.optionalString stdenv.isLinux ''

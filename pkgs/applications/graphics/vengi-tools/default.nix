@@ -89,11 +89,11 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin "-DCORESERVICES_LIB=${CoreServices}"
     ;
 
-    # Set the data directory for each executable. We cannot set it at build time
-    # with the PKGDATADIR cmake variable because each executable needs a specific
-    # one.
-    # This is not needed on darwin, since on that platform data files are saved
-    # in *.app/Contents/Resources/ too, and are picked up automatically.
+  # Set the data directory for each executable. We cannot set it at build time
+  # with the PKGDATADIR cmake variable because each executable needs a specific
+  # one.
+  # This is not needed on darwin, since on that platform data files are saved
+  # in *.app/Contents/Resources/ too, and are picked up automatically.
   postInstall = lib.optionalString (!stdenv.isDarwin) ''
     for prog in $out/bin/*; do
       wrapProgram "$prog" \

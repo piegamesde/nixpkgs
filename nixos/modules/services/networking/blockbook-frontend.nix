@@ -232,7 +232,7 @@ in
     };
   };
 
-    # implementation
+  # implementation
 
   config = mkIf (eachBlockbook != { }) {
 
@@ -346,5 +346,4 @@ in
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];
-
 }

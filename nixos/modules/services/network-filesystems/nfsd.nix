@@ -12,8 +12,8 @@ let
   cfg = config.services.nfs.server;
 
   exports = pkgs.writeText "exports" cfg.exports;
-
 in
+
 {
   imports = [
     (mkRenamedOptionModule
@@ -42,7 +42,7 @@ in
       ])
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -129,14 +129,11 @@ in
             useful if the NFS server is behind a firewall.
           '';
         };
-
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -192,7 +189,5 @@ in
         ''}
       '';
     };
-
   };
-
 }

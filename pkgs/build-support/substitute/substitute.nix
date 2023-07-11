@@ -7,7 +7,8 @@ args:
 # This is a wrapper around `substitute` in the stdenv.
 # The `replacements` attribute should be a list of list of arguments
 # to `substitute`, such as `[ "--replace" "sourcetext" "replacementtext" ]`
-stdenvNoCC.mkDerivation (
+stdenvNoCC.mkDerivation
+(
   {
     name =
       if args ? name then

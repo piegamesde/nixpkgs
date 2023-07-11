@@ -49,13 +49,13 @@ buildPythonPackage rec {
     trio
   ];
 
-    # test server needs to be available
+  # test server needs to be available
   preCheck = ''
     export PYTHONPATH=tests/testserver_tests/coretestserver:$PYTHONPATH
   '';
 
   pytestFlagsArray = [ "tests/" ];
-    # disable tests which touch network
+  # disable tests which touch network
   disabledTests =
     [
       "aiohttp"

@@ -27,7 +27,6 @@ let
     rev = "bf8d898efaa10dce3f7972ff765b58c353b4b4ab";
     sha256 = "0773s5iz8aw9npgyasb0r2ybp6gvy2s9sq51az8w7h52bzn5blnn";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "nano";

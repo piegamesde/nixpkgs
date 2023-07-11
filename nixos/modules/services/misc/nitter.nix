@@ -36,10 +36,10 @@ let
       cfg.settings
     )}
   '';
-    # `hmac` is a secret used for cryptographic signing of video URLs.
-    # Generate it on first launch, then copy configuration and replace
-    # `@hmac@` with this value.
-    # We are not using sed as it would leak the value in the command line.
+  # `hmac` is a secret used for cryptographic signing of video URLs.
+  # Generate it on first launch, then copy configuration and replace
+  # `@hmac@` with this value.
+  # We are not using sed as it would leak the value in the command line.
   preStart = pkgs.writers.writePython3 "nitter-prestart" { } ''
     import os
     import secrets
@@ -358,8 +358,8 @@ in
         DynamicUser = true;
         StateDirectory = "nitter";
         Environment = [ "NITTER_CONF_FILE=/var/lib/nitter/nitter.conf" ];
-          # Some parts of Nitter expect `public` folder in working directory,
-          # see https://github.com/zedeus/nitter/issues/414
+        # Some parts of Nitter expect `public` folder in working directory,
+        # see https://github.com/zedeus/nitter/issues/414
         WorkingDirectory = "${cfg.package}/share/nitter";
         ExecStart = "${cfg.package}/bin/nitter";
         ExecStartPre = "${preStart}";
@@ -367,7 +367,7 @@ in
           lib.mkIf (cfg.server.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         Restart = "on-failure";
         RestartSec = "5s";
-          # Hardening
+        # Hardening
         CapabilityBoundingSet =
           if (cfg.server.port < 1024) then
             [ "CAP_NET_BIND_SERVICE" ]
@@ -378,8 +378,8 @@ in
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         PrivateDevices = true;
-          # A private user cannot have process capabilities on the host's user
-          # namespace and thus CAP_NET_BIND_SERVICE has no effect.
+        # A private user cannot have process capabilities on the host's user
+        # namespace and thus CAP_NET_BIND_SERVICE has no effect.
         PrivateUsers = (cfg.server.port >= 1024);
         ProcSubset = "pid";
         ProtectClock = true;

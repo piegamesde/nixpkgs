@@ -84,8 +84,8 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # 1.9.0-5's tarball contains a binary (src/mkjs) which is executed
-    # at build time. we will delete and rebuild it.
+  # 1.9.0-5's tarball contains a binary (src/mkjs) which is executed
+  # at build time. we will delete and rebuild it.
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   postPatch = ''
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-    # perl is only needed for patchShebangs fixup.
+  # perl is only needed for patchShebangs fixup.
   buildInputs =
     [
       gmp
@@ -140,8 +140,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableMicroPy python3
     ;
 
-    # xcas Phys and Turtle menus are broken with split outputs
-    # and interactive use is likely to need docs
+  # xcas Phys and Turtle menus are broken with split outputs
+  # and interactive use is likely to need docs
   outputs = [ "out" ] ++ lib.optional (!enableGUI) "doc";
 
   doCheck = true;

@@ -13,7 +13,7 @@ with lib;
 
   meta = { maintainers = teams.gnome.members; };
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -27,12 +27,10 @@ with lib;
           that enables real-time communication via pluggable protocol backends.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.telepathy.enable {
 
@@ -40,11 +38,10 @@ with lib;
 
     services.dbus.packages = [ pkgs.telepathy-mission-control ];
 
-      # Enable runtime optional telepathy in gnome-shell
+    # Enable runtime optional telepathy in gnome-shell
     services.xserver.desktopManager.gnome.sessionPath = with pkgs; [
       telepathy-glib
       telepathy-logger
     ];
   };
-
 }

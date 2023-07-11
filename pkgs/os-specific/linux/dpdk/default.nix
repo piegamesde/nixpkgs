@@ -94,11 +94,15 @@ stdenv.mkDerivation rec {
     ]
     # kni kernel driver is currently not compatble with 5.11
     ++ lib.optional (mod && kernel.kernelOlder "5.11") "-Ddisable_drivers=kni"
+    # kni kernel driver is currently not compatble with 5.11
     ++ lib.optional (!shared) "-Ddefault_library=static"
+    # kni kernel driver is currently not compatble with 5.11
     ++ lib.optional (machine != null) "-Dmachine=${machine}"
+    # kni kernel driver is currently not compatble with 5.11
     ++ lib.optional
       mod
       "-Dkernel_dir=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    # kni kernel driver is currently not compatble with 5.11
     ++ lib.optional (withExamples != [ ]) "-Dexamples=${
         builtins.concatStringsSep "," withExamples
       }"

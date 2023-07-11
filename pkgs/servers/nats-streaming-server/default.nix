@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Ah7F4+l1Bmr5j15x7fsEOzFIvxDR4OuJFTY95ZYyOYc=";
 
-    # tests fail and ask to `go install`
+  # tests fail and ask to `go install`
   doCheck = false;
 
   meta = {

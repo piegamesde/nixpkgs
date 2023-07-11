@@ -50,7 +50,7 @@ with lib;
       let
         cfg = config.services.xl2tpd;
 
-          # Config files from https://help.ubuntu.com/community/L2TPServer
+        # Config files from https://help.ubuntu.com/community/L2TPServer
         xl2tpd-conf = pkgs.writeText "xl2tpd.conf" ''
           [global]
           ipsec saref = no

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ;
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "azure.mgmt.search" ];

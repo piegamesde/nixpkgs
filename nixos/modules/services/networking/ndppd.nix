@@ -127,7 +127,6 @@ let
       };
     };
   };
-
 in
 {
   options.services.ndppd = {
@@ -203,7 +202,7 @@ in
       serviceConfig = {
         ExecStart = "${pkgs.ndppd}/bin/ndppd -c ${ndppdConf}";
 
-          # Sandboxing
+        # Sandboxing
         CapabilityBoundingSet = "CAP_NET_RAW CAP_NET_ADMIN";
         ProtectSystem = "strict";
         ProtectHome = true;

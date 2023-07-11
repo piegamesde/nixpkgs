@@ -20,8 +20,8 @@ let
       ++ map (x: "${toString x.from}-${toString x.to}") portRanges
     )
     ;
-
 in
+
 {
 
   options = {
@@ -51,7 +51,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf (cfg.enable && config.networking.nftables.enable) {
@@ -223,7 +222,5 @@ in
       }
 
     '';
-
   };
-
 }

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4+H0IXjAwbL5mAWfsIVhW0BSJhcWjkQx4j2TrzZ3aIo=";
   };
 
-    # Fix linkage issues on X11 (https://github.com/NixOS/nixpkgs/issues/142583)
+  # Fix linkage issues on X11 (https://github.com/NixOS/nixpkgs/issues/142583)
   patches = lib.optional (!waylandSupport) ./x11.patch;
 
   propagatedBuildInputs = [ libGL ];

@@ -24,8 +24,8 @@ let
     }
     ${cfg.extraConfig}
   '';
-
 in
+
 {
   options = {
     services.pdnsd = {

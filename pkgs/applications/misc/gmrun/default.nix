@@ -10,8 +10,8 @@
 
 let
   version = "0.9.2";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "gmrun";
   inherit version;

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   configurePhase = "cd src";
   buildPhase = "make all";
 
-    # no binaries, so out = library, dev = headers
+  # no binaries, so out = library, dev = headers
   outputs = [
     "out"
     "dev"

@@ -26,7 +26,7 @@ let
         inherit sha256;
       };
 
-        # This patch is only necessary for NC version <26.
+      # This patch is only necessary for NC version <26.
       patches = lib.optional (lib.versionOlder major "26") (
         ./patches
         + "/v${major}/0001-Setup-remove-custom-dbuser-creation-behavior.patch"
@@ -88,6 +88,6 @@ in
     sha256 = "sha256-b5xqEkjXyK9K1HPXOkJWX2rautRTHFz6V7w0l7K2T0g=";
   };
 
-    # tip: get the sha with:
-    # curl 'https://download.nextcloud.com/server/releases/nextcloud-${version}.tar.bz2.sha256'
+  # tip: get the sha with:
+  # curl 'https://download.nextcloud.com/server/releases/nextcloud-${version}.tar.bz2.sha256'
 }

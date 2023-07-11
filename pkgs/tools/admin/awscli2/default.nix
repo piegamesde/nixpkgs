@@ -12,13 +12,11 @@
 let
   py = python3 // {
     pkgs = python3.pkgs.overrideScope (
-      self: super:
-      {
+      self: super: {
         # nothing right now
       }
     );
   };
-
 in
 with py.pkgs;
 buildPythonApplication rec {

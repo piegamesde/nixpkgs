@@ -39,9 +39,9 @@ python3Packages.buildPythonApplication rec {
     )
     ;
 
-    # Tests rely on some of the databases being available, which is not bundled
-    # with this package as (1) in total, they represent >100GB of data, and (2)
-    # the user can download only those that interest them.
+  # Tests rely on some of the databases being available, which is not bundled
+  # with this package as (1) in total, they represent >100GB of data, and (2)
+  # the user can download only those that interest them.
   doCheck = false;
 
   meta = with lib; {

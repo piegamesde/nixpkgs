@@ -37,7 +37,7 @@ buildPythonPackage rec {
     owner = "py-pdf";
     repo = "pypdf";
     rev = "refs/tags/${version}";
-      # fetch sample files used in tests
+    # fetch sample files used in tests
     fetchSubmodules = true;
     hash = "sha256-f+M4sfUzDy8hxHUiWG9hyu0EYvnjNA46OtHzBSJdID0=";
   };

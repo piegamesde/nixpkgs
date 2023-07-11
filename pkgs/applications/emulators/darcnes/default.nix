@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       "https://web.archive.org/web/20130502171725/http://www.dridus.com/~nyef/darcnes/";
     description =
       "Sega Master System, Game Gear, SG-1000, NES, ColecoVision and Apple II emulator";
-      # Prohibited commercial use, credit required.
+    # Prohibited commercial use, credit required.
     license = lib.licenses.free;
     platforms = [ "i686-linux" ];
   };

@@ -26,5 +26,4 @@ buildPythonPackage {
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];
   };
-
 }

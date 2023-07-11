@@ -22,8 +22,8 @@ let
 
   withPostgresql = config.services.postgresql.enable;
 
-    # This deliberately doesn't use recursiveUpdate so users can
-    # override the defaults.
+  # This deliberately doesn't use recursiveUpdate so users can
+  # override the defaults.
   webSettings = {
     DEFAULT_FROM_EMAIL = cfg.siteOwner;
     SERVER_EMAIL = cfg.siteOwner;
@@ -52,10 +52,10 @@ let
     };
   } // cfg.webSettings;
 
-  webSettingsJSON = pkgs.writeText "settings.json" (builtins.toJSON webSettings)
-    ;
+  webSettingsJSON =
+    pkgs.writeText "settings.json" (builtins.toJSON webSettings);
 
-    # TODO: Should this be RFC42-ised so that users can set additional options without modifying the module?
+  # TODO: Should this be RFC42-ised so that users can set additional options without modifying the module?
   postfixMtaConfig = pkgs.writeText "mailman-postfix.cfg" ''
     [postfix]
     postmap_command: ${pkgs.postfix}/bin/postmap
@@ -84,7 +84,6 @@ let
     # settings.
     api_key: @API_KEY@
   '';
-
 in
 {
 
@@ -362,11 +361,10 @@ in
           '';
         };
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -565,16 +563,16 @@ in
     environment.systemPackages = [
         (pkgs.buildEnv {
           name = "mailman-tools";
-            # We don't want to pollute the system PATH with a python
-            # interpreter etc. so let's pick only the stuff we actually
-            # want from {web,mailman}Env
+          # We don't want to pollute the system PATH with a python
+          # interpreter etc. so let's pick only the stuff we actually
+          # want from {web,mailman}Env
           pathsToLink = [ "/bin" ];
           paths = [
             mailmanEnv
             webEnv
           ];
-            # Only mailman-related stuff is installed, the rest is removed
-            # in `postBuild`.
+          # Only mailman-related stuff is installed, the rest is removed
+          # in `postBuild`.
           ignoreCollisions = true;
           postBuild = ''
             find $out/bin/ -mindepth 1 -not -name "mailman*" -delete
@@ -812,5 +810,4 @@ in
     ];
     doc = ./mailman.md;
   };
-
 }

@@ -14,9 +14,9 @@
 with lib;
 
 {
-/* pname: Nix package name without special symbols and without version or
-   "emacs-" prefix.
-*/
+  /* pname: Nix package name without special symbols and without version or
+     "emacs-" prefix.
+  */
   pname
   # ename: Original Emacs package name, possibly containing special symbols.
   ,
@@ -32,8 +32,8 @@ let
   defaultMeta = {
     homepage = args.src.meta.homepage or "https://melpa.org/#/${pname}";
   };
-
 in
+
 import ./generic.nix { inherit lib stdenv emacs texinfo writeText gcc; } (
   {
 

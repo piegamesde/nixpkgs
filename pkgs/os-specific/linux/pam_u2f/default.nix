@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     configureFlagsArray+=("--with-pam-dir=$out/lib/security")
   '';
 
-    # a no-op makefile to prevent building the fuzz targets
+  # a no-op makefile to prevent building the fuzz targets
   postConfigure = ''
     cat > fuzz/Makefile <<EOF
     all:

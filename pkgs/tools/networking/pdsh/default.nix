@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-    # Do not use git to derive a version.
+  # Do not use git to derive a version.
   postPatch = ''
     sed -i 's/m4_esyscmd(\[git describe.*/[${version}])/' configure.ac
   '';

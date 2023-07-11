@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     lib.optionals stdenv.isDarwin [ "CPPFLAGS=-UHAVE_STRUCT_STAT_ST_BIRTHTIME" ]
     ;
 
-    # Fix the build on macOS with macFUSE installed
+  # Fix the build on macOS with macFUSE installed
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace configure --replace \
       "/usr/local/lib/pkgconfig" "/nonexistent"

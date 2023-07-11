@@ -63,7 +63,7 @@ python3.pkgs.buildPythonApplication rec {
     ]
     ++ requests.optional-dependencies.socks;
 
-    # tests can currently not be run in one pytest invocation and without docker
+  # tests can currently not be run in one pytest invocation and without docker
   doCheck = false;
 
   nativeCheckInputs = with python3.pkgs; [

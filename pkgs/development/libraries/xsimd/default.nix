@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     "-${builtins.concatStringsSep ":" filteredTests}"
     ;
 
-    # https://github.com/xtensor-stack/xsimd/issues/748
+  # https://github.com/xtensor-stack/xsimd/issues/748
   postPatch = ''
     substituteInPlace xsimd.pc.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@

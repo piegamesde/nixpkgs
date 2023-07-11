@@ -7,8 +7,8 @@
   age,
   git ? null,
   xclip ? null
-    # Used to pretty-print list of all stored passwords, but is not needed to fetch
-    # or store password by its name. Most users would want this dependency.
+  # Used to pretty-print list of all stored passwords, but is not needed to fetch
+  # or store password by its name. Most users would want this dependency.
   ,
   tree ? null
 }:
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     tree
   ];
 
-    # Using $0 is bad, it causes --help to mention ".passage-wrapped".
+  # Using $0 is bad, it causes --help to mention ".passage-wrapped".
   postInstall = ''
     substituteInPlace $out/bin/passage --replace 'PROGRAM="''${0##*/}"' 'PROGRAM=passage'
     wrapProgram $out/bin/passage --prefix PATH : $extraPath --argv0 $pname

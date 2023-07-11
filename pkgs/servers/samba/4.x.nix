@@ -206,9 +206,9 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # python-config from build Python gives incorrect values when cross-compiling.
-    # If python-config is not found, the build falls back to using the sysconfig
-    # module, which works correctly in all cases.
+  # python-config from build Python gives incorrect values when cross-compiling.
+  # If python-config is not found, the build falls back to using the sysconfig
+  # module, which works correctly in all cases.
   PYTHON_CONFIG = "/invalid";
 
   pythonPath = [
@@ -220,16 +220,16 @@ stdenv.mkDerivation rec {
     export MAKEFLAGS="-j $NIX_BUILD_CORES"
   '';
 
-    # Save asn1_compile and compile_et so they are available to run on the build
-    # platform when cross-compiling
+  # Save asn1_compile and compile_et so they are available to run on the build
+  # platform when cross-compiling
   postInstall = optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
     mkdir -p "$dev/bin"
     cp bin/asn1_compile bin/compile_et "$dev/bin"
   '';
 
-    # Some libraries don't have /lib/samba in RPATH but need it.
-    # Use find -type f -executable -exec echo {} \; -exec sh -c 'ldd {} | grep "not found"' \;
-    # Looks like a bug in installer scripts.
+  # Some libraries don't have /lib/samba in RPATH but need it.
+  # Use find -type f -executable -exec echo {} \; -exec sh -c 'ldd {} | grep "not found"' \;
+  # Looks like a bug in installer scripts.
   postFixup =
     ''
       export SAMBA_LIBS="$(find $out -type f -regex '.*\${stdenv.hostPlatform.extensions.sharedLibrary}\(\..*\)?' -exec dirname {} \; | sort | uniq)"

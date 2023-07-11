@@ -193,8 +193,8 @@ let
   ];
 
   proxy_env = config.networking.proxy.envVars;
-
 in
+
 {
   ###### interface
 
@@ -455,7 +455,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = {
 
@@ -549,7 +549,6 @@ in
           filter (n: !elem n cfg.suppressedSystemUnits) upstreamSystemUnits;
         enabledUnits =
           filterAttrs (n: v: !elem n cfg.suppressedSystemUnits) cfg.units;
-
       in
       ({
         "systemd/system".source = generateUnits {
@@ -616,7 +615,7 @@ in
     };
     users.groups.systemd-resolve.gid = config.ids.gids.systemd-resolve;
 
-      # Target for ‘charon send-keys’ to hook into.
+    # Target for ‘charon send-keys’ to hook into.
     users.groups.keys.gid = config.ids.gids.keys;
 
     systemd.targets.keys = {
@@ -658,7 +657,7 @@ in
         cfg.automounts
       );
 
-      # Environment of PID 1
+    # Environment of PID 1
     systemd.managerEnvironment = {
       # Doesn't contain systemd itself - everything works so it seems to use the compiled-in value for its tools
       # util-linux is needed for the main fsck utility wrapping the fs-specific ones
@@ -667,7 +666,7 @@ in
         ;
       LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
       TZDIR = "/etc/zoneinfo";
-        # If SYSTEMD_UNIT_PATH ends with an empty component (":"), the usual unit load path will be appended to the contents of the variable
+      # If SYSTEMD_UNIT_PATH ends with an empty component (":"), the usual unit load path will be appended to the contents of the variable
       SYSTEMD_UNIT_PATH =
         lib.mkIf (config.boot.extraSystemdUnitPaths != [ ]) "${
           builtins.concatStringsSep ":" config.boot.extraSystemdUnitPaths
@@ -695,7 +694,7 @@ in
       "SECCOMP"
     ];
 
-      # Generate timer units for all services that have a ‘startAt’ value.
+    # Generate timer units for all services that have a ‘startAt’ value.
     systemd.timers = mapAttrs
       (
         name: service: {
@@ -709,7 +708,7 @@ in
         cfg.services
       );
 
-      # Some overrides to upstream units.
+    # Some overrides to upstream units.
     systemd.services."systemd-backlight@".restartIfChanged = false;
     systemd.services."systemd-fsck@".restartIfChanged = false;
     systemd.services."systemd-fsck@".path = [ config.system.path ];
@@ -726,20 +725,20 @@ in
         "sysinit.target"
       ]; # see #81138
 
-      # NixOS has kernel modules in a different location, so override that here.
+    # NixOS has kernel modules in a different location, so override that here.
     systemd.services.kmod-static-nodes.unitConfig.ConditionFileNotEmpty = [
       "" # required to unset the previous value!
       "/run/booted-system/kernel-modules/lib/modules/%v/modules.devname"
     ];
 
-      # Don't bother with certain units in containers.
+    # Don't bother with certain units in containers.
     systemd.services.systemd-remount-fs.unitConfig.ConditionVirtualization =
       "!container";
     systemd.services.systemd-random-seed.unitConfig.ConditionVirtualization =
       "!container";
 
-      # Increase numeric PID range (set directly instead of copying a one-line file from systemd)
-      # https://github.com/systemd/systemd/pull/12226
+    # Increase numeric PID range (set directly instead of copying a one-line file from systemd)
+    # https://github.com/systemd/systemd/pull/12226
     boot.kernel.sysctl."kernel.pid_max" =
       mkIf pkgs.stdenv.is64bit (lib.mkDefault 4194304);
 
@@ -747,8 +746,8 @@ in
       (!cfg.enableUnifiedCgroupHierarchy)
       "systemd.unified_cgroup_hierarchy=0";
 
-      # Avoid potentially degraded system state due to
-      # "Userspace Out-Of-Memory (OOM) Killer was skipped because of a failed condition check (ConditionControlGroupController=v2)."
+    # Avoid potentially degraded system state due to
+    # "Userspace Out-Of-Memory (OOM) Killer was skipped because of a failed condition check (ConditionControlGroupController=v2)."
     systemd.oomd.enable = mkIf (!cfg.enableUnifiedCgroupHierarchy) false;
 
     services.logrotate.settings = {
@@ -767,7 +766,7 @@ in
     };
   };
 
-    # FIXME: Remove these eventually.
+  # FIXME: Remove these eventually.
   imports = [
     (mkRenamedOptionModule
       [

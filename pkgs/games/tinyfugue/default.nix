@@ -33,10 +33,10 @@ stdenv.mkDerivation rec {
     ++ optional sslSupport openssl
     ;
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: world.o:/build/tf-50b8/src/socket.h:24: multiple definition of
-    #     `world_decl'; command.o:/build/tf-50b8/src/socket.h:24: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: world.o:/build/tf-50b8/src/socket.h:24: multiple definition of
+  #     `world_decl'; command.o:/build/tf-50b8/src/socket.h:24: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = {

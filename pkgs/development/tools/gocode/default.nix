@@ -11,9 +11,9 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/mdempsky/gocode";
 
-    # we must allow references to the original `go` package,
-    # because `gocode` needs to dig into $GOROOT to provide completions for the
-    # standard packages.
+  # we must allow references to the original `go` package,
+  # because `gocode` needs to dig into $GOROOT to provide completions for the
+  # standard packages.
   allowGoReference = true;
 
   src = fetchFromGitHub {

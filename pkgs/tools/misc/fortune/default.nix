@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
   pname = "fortune-mod";
   version = "3.18.0";
 
-    # We use fetchurl instead of fetchFromGitHub because the release pack has some
-    # special files.
+  # We use fetchurl instead of fetchFromGitHub because the release pack has some
+  # special files.
   src = fetchurl {
     url =
       "https://github.com/shlomif/fortune-mod/releases/download/${pname}-${version}/${pname}-${version}.tar.xz";

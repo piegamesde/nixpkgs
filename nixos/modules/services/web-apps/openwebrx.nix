@@ -38,7 +38,7 @@ in
         ExecStart = "${cfg.package}/bin/openwebrx";
         Restart = "always";
         DynamicUser = true;
-          # openwebrx uses /var/lib/openwebrx by default
+        # openwebrx uses /var/lib/openwebrx by default
         StateDirectory = [ "openwebrx" ];
       };
     };

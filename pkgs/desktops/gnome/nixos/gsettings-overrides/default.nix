@@ -39,8 +39,8 @@ let
 
     ${extraGSettingsOverrides}
   '';
-
 in
+
 runCommand "gnome-gsettings-overrides" { preferLocalBuild = true; } ''
   data_dir="$out/share/gsettings-schemas/nixos-gsettings-overrides"
   schema_dir="$data_dir/glib-2.0/schemas"

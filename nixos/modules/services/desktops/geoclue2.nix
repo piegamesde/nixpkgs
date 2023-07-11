@@ -78,7 +78,6 @@ let
       };
     }
     ;
-
 in
 {
 
@@ -197,12 +196,10 @@ in
           Specify extra settings per application.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
 
     environment.systemPackages = [ package ];
@@ -211,8 +208,8 @@ in
 
     systemd.packages = [ package ];
 
-      # we cannot use DynamicUser as we need the the geoclue user to exist for the
-      # dbus policy to work
+    # we cannot use DynamicUser as we need the the geoclue user to exist for the
+    # dbus policy to work
     users = {
       users.geoclue = {
         isSystemUser = true;
@@ -226,21 +223,21 @@ in
 
     systemd.services.geoclue = {
       after = lib.optionals cfg.enableWifi [ "network-online.target" ];
-        # restart geoclue service when the configuration changes
+      # restart geoclue service when the configuration changes
       restartTriggers = [
           config.environment.etc."geoclue/geoclue.conf".source
         ];
       serviceConfig.StateDirectory = "geoclue";
     };
 
-      # this needs to run as a user service, since it's associated with the
-      # user who is making the requests
+    # this needs to run as a user service, since it's associated with the
+    # user who is making the requests
     systemd.user.services = mkIf cfg.enableDemoAgent {
       geoclue-agent = {
         description = "Geoclue agent";
-          # this should really be `partOf = [ "geoclue.service" ]`, but
-          # we can't be part of a system service, and the agent should
-          # be okay with the main service coming and going
+        # this should really be `partOf = [ "geoclue.service" ]`, but
+        # we can't be part of a system service, and the agent should
+        # be okay with the main service coming and going
         wantedBy = [ "default.target" ];
         after = lib.optionals cfg.enableWifi [ "network-online.target" ];
         unitConfig.ConditionUser = "!@system";

@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
     SDL
   ];
 
-    # the installPhase wants to put files into $HOME. I let it put the files
-    # to $TMPDIR, so they don't get into the $out
+  # the installPhase wants to put files into $HOME. I let it put the files
+  # to $TMPDIR, so they don't get into the $out
   postPatch = ''
     cd unix
                     ./prebuild.sh

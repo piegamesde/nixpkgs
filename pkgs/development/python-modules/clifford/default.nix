@@ -36,7 +36,7 @@ buildPythonPackage rec {
     ipython
   ];
 
-    # avoid collecting local files
+  # avoid collecting local files
   preCheck = ''
     cd clifford/test
   '';

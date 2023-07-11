@@ -28,7 +28,7 @@ buildPythonPackage rec {
     csrmesh
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "halohome" ];

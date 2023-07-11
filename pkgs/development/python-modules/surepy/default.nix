@@ -54,7 +54,7 @@ buildPythonPackage rec {
     rich
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "surepy" ];

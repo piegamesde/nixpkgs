@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     gmp
   ];
 
-    # build fails otherwise
+  # build fails otherwise
   enableParallelBuilding = false;
 
   preBuild = ''

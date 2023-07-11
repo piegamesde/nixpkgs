@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ ken-matsui ];
     platforms = platforms.unix;
-      # https://github.com/NixOS/nixpkgs/pull/189712#issuecomment-1237791234
+    # https://github.com/NixOS/nixpkgs/pull/189712#issuecomment-1237791234
     broken =
       (
         stdenv.isLinux && stdenv.isAarch64

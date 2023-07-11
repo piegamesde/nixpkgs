@@ -58,7 +58,7 @@ let
   soloud = fetchFromGitHub {
     owner = "Anuken";
     repo = "soloud";
-      # This is pinned in Arc's arc-core/build.gradle
+    # This is pinned in Arc's arc-core/build.gradle
     rev = "v0.9";
     hash = "sha256-6KlqOtA19MxeqZttNyNrMU7pKqzlNiA4rBZKp9ekanc=";
   };
@@ -109,7 +109,7 @@ let
     rm Mindustry/ios/build.gradle
   '';
 
-    # fake build to pre-download deps into fixed-output derivation
+  # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit version unpackPhase patches;
@@ -119,16 +119,16 @@ let
       gradle
       perl
     ];
-      # Here we download dependencies for both the server and the client so
-      # we only have to specify one hash for 'deps'. Deps can be garbage
-      # collected after the build, so this is not really an issue.
+    # Here we download dependencies for both the server and the client so
+    # we only have to specify one hash for 'deps'. Deps can be garbage
+    # collected after the build, so this is not really an issue.
     buildPhase = ''
       pushd Mindustry
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon resolveDependencies
       popd
     '';
-      # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+    # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
@@ -137,7 +137,6 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-uxnW5AqX6PazqHJYLuF/By5qpev8Se+992jCyacogSY=";
   };
-
 in
 assert lib.assertMsg
   (enableClient || enableServer)
@@ -259,8 +258,8 @@ stdenv.mkDerivation rec {
       thekostins
     ];
     platforms = platforms.x86_64;
-      # Hash mismatch on darwin:
-      # https://github.com/NixOS/nixpkgs/pull/105590#issuecomment-737120293
+    # Hash mismatch on darwin:
+    # https://github.com/NixOS/nixpkgs/pull/105590#issuecomment-737120293
     broken = stdenv.isDarwin;
   };
 }

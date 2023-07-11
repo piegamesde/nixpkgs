@@ -12,15 +12,15 @@ buildPythonPackage rec {
   pname = "psycopg2cffi";
   version = "2.8.1";
 
-    # NB: This is a fork.
-    # The original repo exists at https://github.com/chtd/psycopg2cffi, however
-    # this is mostly unmaintained and does not build for PyPy. Given that the
-    # whole point of this cffi alternative to psycopg2 is to use it with PyPy, I
-    # chose to use a working fork instead, which was linked in the relevant issue:
-    # https://github.com/chtd/psycopg2cffi/issues/113#issuecomment-730548574
-    #
-    # If/when these changes get merged back upstream we should revert to using the
-    # original source as opposed to the fork.
+  # NB: This is a fork.
+  # The original repo exists at https://github.com/chtd/psycopg2cffi, however
+  # this is mostly unmaintained and does not build for PyPy. Given that the
+  # whole point of this cffi alternative to psycopg2 is to use it with PyPy, I
+  # chose to use a working fork instead, which was linked in the relevant issue:
+  # https://github.com/chtd/psycopg2cffi/issues/113#issuecomment-730548574
+  #
+  # If/when these changes get merged back upstream we should revert to using the
+  # original source as opposed to the fork.
   src = fetchFromGitHub {
     owner = "Omegapol";
     repo = pname;
@@ -35,8 +35,8 @@ buildPythonPackage rec {
   ];
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # NB: The tests need a postgres instance running to test against, and so we
-    # disable them.
+  # NB: The tests need a postgres instance running to test against, and so we
+  # disable them.
   doCheck = false;
 
   pythonImportsCheck = [ "psycopg2cffi" ];

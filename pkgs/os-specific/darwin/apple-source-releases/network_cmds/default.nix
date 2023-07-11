@@ -18,15 +18,15 @@ appleDerivation {
     developer_cmds
   ];
 
-    # Work around error from <stdio.h> on aarch64-darwin:
-    #     error: 'TARGET_OS_IPHONE' is not defined, evaluates to 0 [-Werror,-Wundef-prefix=TARGET_OS_]
+  # Work around error from <stdio.h> on aarch64-darwin:
+  #     error: 'TARGET_OS_IPHONE' is not defined, evaluates to 0 [-Werror,-Wundef-prefix=TARGET_OS_]
   env.NIX_CFLAGS_COMPILE =
     "-Wno-error=undef-prefix -I./unbound -I${xnu}/Library/Frameworks/System.framework/Headers/";
 
-    # "spray" requires some files that aren't compiling correctly in xcbuild.
-    # "rtadvd" seems to fail with some missing constants.
-    # "traceroute6" and "ping6" require ipsec which doesn't build correctly
-    # "unbound" doesn’t build against supported versions of OpenSSL or LibreSSL
+  # "spray" requires some files that aren't compiling correctly in xcbuild.
+  # "rtadvd" seems to fail with some missing constants.
+  # "traceroute6" and "ping6" require ipsec which doesn't build correctly
+  # "unbound" doesn’t build against supported versions of OpenSSL or LibreSSL
   patchPhase = ''
     substituteInPlace network_cmds.xcodeproj/project.pbxproj \
       --replace "7294F0EA0EE8BAC80052EC88 /* PBXTargetDependency */," "" \
@@ -36,7 +36,7 @@ appleDerivation {
       --replace "71D958C51A9455A000C9B286 /* PBXTargetDependency */," ""
   '';
 
-    # temporary install phase until xcodebuild has "install" support
+  # temporary install phase until xcodebuild has "install" support
   installPhase = ''
     for f in Products/Release/*; do
       if [ -f $f ]; then

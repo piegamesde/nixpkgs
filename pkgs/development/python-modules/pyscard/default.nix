@@ -12,8 +12,8 @@
 let
   # Package does not support configuring the pcsc library.
   withApplePCSC = stdenv.isDarwin;
-
 in
+
 buildPythonPackage rec {
   version = "2.0.2";
   pname = "pyscard";

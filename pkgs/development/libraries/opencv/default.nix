@@ -40,8 +40,8 @@ let
         "OFF"
     }"
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "opencv";
   version = "2.4.13.7";
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       ./no-build-info.patch
     ];
 
-    # This prevents cmake from using libraries in impure paths (which causes build failure on non NixOS)
+  # This prevents cmake from using libraries in impure paths (which causes build failure on non NixOS)
   postPatch = ''
     sed -i '/Add these standard paths to the search paths for FIND_LIBRARY/,/^\s*$/{d}' CMakeLists.txt
   '';
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
     "relro"
   ];
 
-    # Fix pkg-config file that gets broken with multiple outputs
+  # Fix pkg-config file that gets broken with multiple outputs
   postFixup = ''
     sed -i $dev/lib/pkgconfig/opencv.pc -e "s|includedir_old=.*|includedir_old=$dev/include/opencv|"
     sed -i $dev/lib/pkgconfig/opencv.pc -e "s|includedir_new=.*|includedir_new=$dev/include|"

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     portaudio
   ];
 
-    # No tests included nor upstream available.
+  # No tests included nor upstream available.
   doCheck = false;
 
   pythonImportsCheck = [ "sounddevice" ];

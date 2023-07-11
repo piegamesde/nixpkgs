@@ -40,9 +40,9 @@ buildPythonPackage rec {
     pyserial
   ];
 
-    # primary location for the .xml files is in /etc/openzwave so we override the
-    # /usr/local/etc lookup instead as that allows us to dump new .xml files into
-    # /etc/openzwave if needed
+  # primary location for the .xml files is in /etc/openzwave so we override the
+  # /usr/local/etc lookup instead as that allows us to dump new .xml files into
+  # /etc/openzwave if needed
   postPatch = ''
     substituteInPlace src-lib/libopenzwave/libopenzwave.pyx \
       --replace /usr/local/etc/openzwave ${openzwave}/etc/openzwave
@@ -50,7 +50,7 @@ buildPythonPackage rec {
 
   patches = [ ./cython.patch ];
 
-    # no tests available
+  # no tests available
   doCheck = false;
 
   meta = with lib; {

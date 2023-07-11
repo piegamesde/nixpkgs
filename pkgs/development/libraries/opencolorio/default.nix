@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!buildApps) "-DOCIO_BUILD_APPS=OFF"
     ;
 
-    # precision issues on non-x86
+  # precision issues on non-x86
   doCheck = stdenv.isx86_64;
 
   meta = with lib; {

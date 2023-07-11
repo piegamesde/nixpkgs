@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X main.BuildDate=unknown"
   ];
 
-    # TestCreateHammerMultipartPayload error occurred - Get "https://upload.wikimedia.org/wikipedia/commons/b/bd/Test.svg"
+  # TestCreateHammerMultipartPayload error occurred - Get "https://upload.wikimedia.org/wikipedia/commons/b/bd/Test.svg"
   doCheck = false;
 
   doInstallCheck = true;

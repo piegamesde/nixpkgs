@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     ]
   );
 
-    # To avoid problems finding SDL_types.h.
+  # To avoid problems finding SDL_types.h.
   configureFlags = [ "CFLAGS=-I${lib.getDev SDL}/include/SDL" ];
 
   meta = with lib; {

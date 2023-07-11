@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-12sASyFAnSuP2xQzr1KL/Am52ez6hiOUH/0zFH2bxhc=";
   };
 
-    # configure don't accept argument --prefix
+  # configure don't accept argument --prefix
   dontAddPrefix = true;
 
   makeFlags = [

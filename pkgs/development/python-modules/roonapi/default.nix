@@ -33,7 +33,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-    # Tests require access to the Roon API
+  # Tests require access to the Roon API
   doCheck = false;
 
   pythonImportsCheck = [ "roonapi" ];

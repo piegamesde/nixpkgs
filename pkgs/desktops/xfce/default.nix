@@ -9,7 +9,6 @@
 let
   keep = _self: { };
   extra = _spliced0: { };
-
 in
 makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
   self:
@@ -27,7 +26,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
       { name = "xfce-automake-add-flags-hook"; }
       ./automakeAddFlags.sh;
 
-      #### CORE
+    #### CORE
 
     exo = callPackage ./core/exo { };
 
@@ -70,7 +69,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
         self.mkXfceDerivation.override { xfce4-dev-tools = null; };
     };
 
-      #### APPLICATIONS
+    #### APPLICATIONS
 
     catfish = callPackage ./applications/catfish { };
 
@@ -104,13 +103,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-panel-profiles = callPackage ./applications/xfce4-panel-profiles { };
 
-      #### ART
+    #### ART
 
     xfce4-icon-theme = callPackage ./art/xfce4-icon-theme { };
 
     xfwm4-themes = callPackage ./art/xfwm4-themes { };
 
-      #### PANEL PLUGINS
+    #### PANEL PLUGINS
 
     xfce4-battery-plugin = callPackage ./panel-plugins/xfce4-battery-plugin { };
 
@@ -173,7 +172,6 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-pulseaudio-plugin =
       callPackage ./panel-plugins/xfce4-pulseaudio-plugin { };
-
   } // lib.optionalAttrs config.allowAliases {
     #### ALIASES
 

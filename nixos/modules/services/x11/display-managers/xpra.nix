@@ -10,8 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.displayManager.xpra;
   dmcfg = config.services.xserver.displayManager;
-
 in
+
 {
   ###### interface
 
@@ -55,7 +55,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     services.xserver.videoDrivers = [ "dummy" ];
@@ -335,5 +335,4 @@ in
     hardware.pulseaudio.enable = mkDefault cfg.pulseaudio;
     hardware.pulseaudio.systemWide = mkDefault cfg.pulseaudio;
   };
-
 }

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-KEmWnobpT/5TdgT2HGPCpG1duz9Q6Z6PFSEBs2Ce+7g=";
   };
 
-    # for dlopen-ing
+  # for dlopen-ing
   postPatch = ''
     substituteInPlace lib/libstuff/x11/xft.c --replace "libXft.so" "$(pkg-config --variable=libdir xft)/libXft.so.2"
     substituteInPlace cmd/wmii.sh.sh --replace "\$(which which)" "${which}/bin/which"
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-    # Remove optional python2 functionality
+  # Remove optional python2 functionality
   postInstall = ''
     rm -rf $out/lib/python* $out/etc/wmii-hg/python
   '';

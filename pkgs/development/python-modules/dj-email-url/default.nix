@@ -22,7 +22,7 @@ buildPythonPackage rec {
     ${python.interpreter} test_dj_email_url.py
   '';
 
-    # tests not included with pypi release
+  # tests not included with pypi release
   doCheck = false;
 
   meta = with lib; {

@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-SMV47PjqC9Q1GxdSRw4wGpCjdhx8IfAPlT3PbW+m7lo=";
   };
 
-    # IOError: [Errno 95] Operation not supported (expected)
+  # IOError: [Errno 95] Operation not supported (expected)
   doCheck = false;
 
   buildInputs = with pkgs; [ attr ];

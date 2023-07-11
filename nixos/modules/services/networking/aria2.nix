@@ -25,7 +25,6 @@ let
     rpc-listen-port=${toString cfg.rpcListenPort}
     rpc-secret=${cfg.rpcSecret}
   '';
-
 in
 {
   options = {

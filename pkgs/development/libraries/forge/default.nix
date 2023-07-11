@@ -64,5 +64,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ chessai ];
   };
-
 }

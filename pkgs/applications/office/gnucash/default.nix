@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   pname = "gnucash";
   version = "5.1";
 
-    # raw source code doesn't work out of box; fetchFromGitHub not usable
+  # raw source code doesn't work out of box; fetchFromGitHub not usable
   src = fetchurl {
     url =
       "https://github.com/Gnucash/gnucash/releases/download/${version}/${pname}-${version}.tar.bz2";
@@ -84,8 +84,8 @@ stdenv.mkDerivation rec {
     ./0005-remove-gncquotes-online-wiggle.patch
   ];
 
-    # this needs to be an environment variable and not a cmake flag to suppress
-    # guile warning
+  # this needs to be an environment variable and not a cmake flag to suppress
+  # guile warning
   env.GUILE_AUTO_COMPILE = "0";
 
   env.NIX_CFLAGS_COMPILE = toString (
@@ -112,12 +112,12 @@ stdenv.mkDerivation rec {
     )
   '';
 
-    # wrapGAppsHook would wrap all binaries including the cli utils which need
-    # Perl wrapping
+  # wrapGAppsHook would wrap all binaries including the cli utils which need
+  # Perl wrapping
   dontWrapGApps = true;
 
-    # gnucash is wrapped using the args constructed for wrapGAppsHook.
-    # gnc-fq-* are cli utils written in Perl hence the extra wrapping
+  # gnucash is wrapped using the args constructed for wrapGAppsHook.
+  # gnc-fq-* are cli utils written in Perl hence the extra wrapping
   postFixup = ''
     wrapProgram $out/bin/gnucash "''${gappsWrapperArgs[@]}"
 

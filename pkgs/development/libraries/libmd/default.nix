@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.hadrons.org/software/${pname}/";
     changelog =
       "https://archive.hadrons.org/software/libmd/libmd-${version}.announce";
-      # Git: https://git.hadrons.org/cgit/libmd.git
+    # Git: https://git.hadrons.org/cgit/libmd.git
     description = "Message Digest functions from BSD systems";
     license = with licenses; [
       bsd3

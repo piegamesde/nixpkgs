@@ -18,12 +18,9 @@ let
 
   vendor = stdenvNoCC.mkDerivation rec {
     pname = "phpactor-vendor";
-    inherit
-      src
-      version
-      ;
+    inherit src version;
 
-      # See https://github.com/NixOS/nix/issues/6660
+    # See https://github.com/NixOS/nix/issues/6660
     dontPatchShebangs = true;
 
     nativeBuildInputs = [
@@ -81,5 +78,4 @@ stdenvNoCC.mkDerivation {
     license = lib.licenses.mit;
     maintainers = lib.teams.php.members ++ [ lib.maintainers.ryantm ];
   };
-
 }

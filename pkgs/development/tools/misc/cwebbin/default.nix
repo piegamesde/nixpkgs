@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "1hdzxfzaibnjxjzgp6d2zay8nsarnfy9hfq55hz1bxzzl23n35aj";
   };
 
-    # Remove references to __DATE__ and __TIME__
+  # Remove references to __DATE__ and __TIME__
   postPatch = ''
     substituteInPlace wmerg-patch.ch --replace ' ("__DATE__", "__TIME__")' ""
     substituteInPlace ctang-patch.ch --replace ' ("__DATE__", "__TIME__")' ""

@@ -21,8 +21,8 @@ let
 
   notExcluded =
     pkg: (!(lib.elem pkg config.environment.cinnamon.excludePackages));
-
 in
+
 {
   options = {
     services.cinnamon = {
@@ -65,7 +65,6 @@ in
       description = lib.mdDoc
         "Which packages cinnamon should exclude from the default environment";
     };
-
   };
 
   config = mkMerge [
@@ -77,7 +76,7 @@ in
       services.xserver.displayManager.lightdm.greeters.slick = {
         enable = mkDefault true;
 
-          # Taken from mint-artwork.gschema.override
+        # Taken from mint-artwork.gschema.override
         theme = mkIf (notExcluded pkgs.cinnamon.mint-themes) {
           name = mkDefault "Mint-Y-Aqua";
           package = mkDefault pkgs.cinnamon.mint-themes;
@@ -111,7 +110,7 @@ in
         fi
       '';
 
-        # Default services
+      # Default services
       services.blueman.enable = mkDefault true;
       hardware.bluetooth.enable = mkDefault true;
       hardware.pulseaudio.enable = mkDefault true;
@@ -136,16 +135,16 @@ in
       services.xserver.updateDbusEnvironment = true;
       networking.networkmanager.enable = mkDefault true;
 
-        # Enable colord server
+      # Enable colord server
       services.colord.enable = true;
 
-        # Enable dconf
+      # Enable dconf
       programs.dconf.enable = true;
 
-        # Enable org.a11y.Bus
+      # Enable org.a11y.Bus
       services.gnome.at-spi2-core.enable = true;
 
-        # Fix lockscreen
+      # Fix lockscreen
       security.pam.services = { cinnamon-screensaver = { }; };
 
       environment.systemPackages = with pkgs.cinnamon // pkgs;
@@ -208,7 +207,7 @@ in
       xdg.mime.enable = true;
       xdg.icons.enable = true;
 
-        # Override GSettings schemas
+      # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
         "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
@@ -218,16 +217,16 @@ in
           "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
         ];
 
-        # Shell integration for VTE terminals
+      # Shell integration for VTE terminals
       programs.bash.vteIntegration = mkDefault true;
       programs.zsh.vteIntegration = mkDefault true;
 
-        # Harmonize Qt applications under Cinnamon
+      # Harmonize Qt applications under Cinnamon
       qt.enable = true;
       qt.platformTheme = "gnome";
       qt.style = "adwaita";
 
-        # Default Fonts
+      # Default Fonts
       fonts.fonts = with pkgs; [
         source-code-pro # Default monospace font in 3.32
         ubuntu_font_family # required for default theme

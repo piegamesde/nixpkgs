@@ -50,22 +50,22 @@ stdenv.mkDerivation rec {
 
   __darwinAllowLocalNetworking = true;
 
-    # rustc complains about modified source files otherwise
+  # rustc complains about modified source files otherwise
   dontUpdateAutotoolsGnuConfigScripts = true;
 
-    # Running the default `strip -S` command on Darwin corrupts the
-    # .rlib files in "lib/".
-    #
-    # See https://github.com/NixOS/nixpkgs/pull/34227
-    #
-    # Running `strip -S` when cross compiling can harm the cross rlibs.
-    # See: https://github.com/NixOS/nixpkgs/pull/56540#issuecomment-471624656
+  # Running the default `strip -S` command on Darwin corrupts the
+  # .rlib files in "lib/".
+  #
+  # See https://github.com/NixOS/nixpkgs/pull/34227
+  #
+  # Running `strip -S` when cross compiling can harm the cross rlibs.
+  # See: https://github.com/NixOS/nixpkgs/pull/56540#issuecomment-471624656
   stripDebugList = [ "bin" ];
 
-    # The Rust pkg-config crate does not support prefixed pkg-config executables[1],
-    # but it does support checking these idiosyncratic PKG_CONFIG_${TRIPLE}
-    # environment variables.
-    # [1]: https://github.com/rust-lang/pkg-config-rs/issues/53
+  # The Rust pkg-config crate does not support prefixed pkg-config executables[1],
+  # but it does support checking these idiosyncratic PKG_CONFIG_${TRIPLE}
+  # environment variables.
+  # [1]: https://github.com/rust-lang/pkg-config-rs/issues/53
   "PKG_CONFIG_${
     builtins.replaceStrings [ "-" ] [ "_" ] (
       rust.toRustTarget stdenv.buildPlatform
@@ -73,19 +73,19 @@ stdenv.mkDerivation rec {
   }" = "${pkgsBuildHost.stdenv.cc.targetPrefix}pkg-config";
 
   NIX_LDFLAGS = toString (
-  # when linking stage1 libstd: cc: undefined reference to `__cxa_begin_catch'
-    optional
+    # when linking stage1 libstd: cc: undefined reference to `__cxa_begin_catch'
+      optional
       (stdenv.isLinux && !withBundledLLVM)
       "--push-state --as-needed -lstdc++ --pop-state"
     ++ optional (stdenv.isDarwin && !withBundledLLVM) "-lc++"
     ++ optional stdenv.isDarwin "-rpath ${llvmSharedForHost}/lib"
   );
 
-    # Increase codegen units to introduce parallelism within the compiler.
+  # Increase codegen units to introduce parallelism within the compiler.
   RUSTFLAGS = "-Ccodegen-units=10";
 
-    # We need rust to build rust. If we don't provide it, configure will try to download it.
-    # Reference: https://github.com/rust-lang/rust/blob/master/src/bootstrap/configure.py
+  # We need rust to build rust. If we don't provide it, configure will try to download it.
+  # Reference: https://github.com/rust-lang/rust/blob/master/src/bootstrap/configure.py
   configureFlags =
     let
       setBuild = "--set=target.${rust.toRustTarget stdenv.buildPlatform}";
@@ -123,12 +123,12 @@ stdenv.mkDerivation rec {
             # scripts.
           ]
           ++ optionals (stdenv.buildPlatform != stdenv.targetPlatform) [
-              (rust.toRustTargetSpec stdenv.buildPlatform)
+            (rust.toRustTargetSpec stdenv.buildPlatform)
 
-              # (host!=target): When building a cross-targeting compiler we
-              # need to add the host platform as well so rustc can compile
-              # build.rs scripts.
-            ]
+            # (host!=target): When building a cross-targeting compiler we
+            # need to add the host platform as well so rustc can compile
+            # build.rs scripts.
+          ]
           ++ optionals (stdenv.hostPlatform != stdenv.targetPlatform) [
               (rust.toRustTargetSpec stdenv.hostPlatform)
             ]
@@ -178,15 +178,15 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # The bootstrap.py will generated a Makefile that then executes the build.
-    # The BOOTSTRAP_ARGS used by this Makefile must include all flags to pass
-    # to the bootstrap builder.
+  # The bootstrap.py will generated a Makefile that then executes the build.
+  # The BOOTSTRAP_ARGS used by this Makefile must include all flags to pass
+  # to the bootstrap builder.
   postConfigure = ''
     substituteInPlace Makefile \
       --replace 'BOOTSTRAP_ARGS :=' 'BOOTSTRAP_ARGS := --jobs $(NIX_BUILD_CORES)'
   '';
 
-    # the rust build system complains that nix alters the checksums
+  # the rust build system complains that nix alters the checksums
   dontFixLibtool = true;
 
   inherit patches;
@@ -226,8 +226,8 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # rustc unfortunately needs cmake to compile llvm-rt but doesn't
-    # use it for the normal build. This disables cmake in Nix.
+  # rustc unfortunately needs cmake to compile llvm-rt but doesn't
+  # use it for the normal build. This disables cmake in Nix.
   dontUseCmakeConfigure = true;
 
   depsBuildBuild = [

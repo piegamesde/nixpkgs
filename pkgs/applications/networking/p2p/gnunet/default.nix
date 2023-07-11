@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       src/fs/Makefile.in
   '';
 
-    # unfortunately, there's still a few failures with impure tests
+  # unfortunately, there's still a few failures with impure tests
   doCheck = false;
   checkPhase = ''
     export GNUNET_PREFIX="$out"

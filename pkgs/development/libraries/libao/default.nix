@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   version = "1.2.2";
   pname = "libao";
 
-    # the github mirror is more up to date than downloads.xiph.org
+  # the github mirror is more up to date than downloads.xiph.org
   src = fetchFromGitHub {
     owner = "xiph";
     repo = "libao";

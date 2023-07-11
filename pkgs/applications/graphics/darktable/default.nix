@@ -139,10 +139,10 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # darktable changed its rpath handling in commit
-    # 83c70b876af6484506901e6b381304ae0d073d3c and as a result the
-    # binaries can't find libdarktable.so, so change LD_LIBRARY_PATH in
-    # the wrappers:
+  # darktable changed its rpath handling in commit
+  # 83c70b876af6484506901e6b381304ae0d073d3c and as a result the
+  # binaries can't find libdarktable.so, so change LD_LIBRARY_PATH in
+  # the wrappers:
   preFixup =
     let
       libPathEnvVar =

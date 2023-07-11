@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "1kwbinbg0i4fca1bpx6jwa1fiw71vg0xa89jhq4pmnl5cn9c8kqx";
   };
 
-    # Remove vendorized zeroconf, https://github.com/etheralm/libpurecool/issues/33
+  # Remove vendorized zeroconf, https://github.com/etheralm/libpurecool/issues/33
   postPatch = ''
     rm libpurecool/zeroconf.py
     substituteInPlace libpurecool/dyson_pure_cool_link.py \
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     zeroconf
   ];
 
-    # Tests are only present in repo, https://github.com/etheralm/libpurecool/issues/36
+  # Tests are only present in repo, https://github.com/etheralm/libpurecool/issues/36
   doCheck = false;
   pythonImportsCheck = [ "libpurecool" ];
 

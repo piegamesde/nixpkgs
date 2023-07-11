@@ -29,10 +29,10 @@ buildGoModule rec {
 
   checkFlags = [ "-short" ];
 
-    # Integration tests rely on Ginkgo but fail.
-    # Related: https://github.com/onsi/ginkgo/issues/602
-    #
-    # Disable integration tests.
+  # Integration tests rely on Ginkgo but fail.
+  # Related: https://github.com/onsi/ginkgo/issues/602
+  #
+  # Disable integration tests.
   preCheck = ''
     buildFlagsArray+=("-run" "[^(TestIntegration)]")
   '';

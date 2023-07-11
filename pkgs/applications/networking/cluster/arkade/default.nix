@@ -23,7 +23,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-/NJ5Y0uN9gAeYvuPWFSFuL83vOS9S8WJeCSZUkOLFMU=";
 
-    # Exclude pkg/get: tests downloading of binaries which fail when sandbox=true
+  # Exclude pkg/get: tests downloading of binaries which fail when sandbox=true
   subPackages = [
     "."
     "cmd"

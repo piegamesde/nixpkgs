@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     ln -s ${gtest.src} googletest
   '';
 
-    # One test is failing, see PR #101947
+  # One test is failing, see PR #101947
   doCheck = false;
 
   meta = with lib; {

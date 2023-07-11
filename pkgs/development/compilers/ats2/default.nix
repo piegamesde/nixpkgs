@@ -27,8 +27,8 @@ let
     mkdir -p $siteLispDir ;
     install -m 0644 -v ./utils/emacs/*.el $siteLispDir ;
   '';
-
 in
+
 stdenv.mkDerivation rec {
   pname = "ats2";
   version = versionPkg;
@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gmp ];
 
-    # Disable parallel build, errors:
-    #  *** No rule to make target 'patscc.dats', needed by 'patscc_dats.c'.  Stop.
+  # Disable parallel build, errors:
+  #  *** No rule to make target 'patscc.dats', needed by 'patscc_dats.c'.  Stop.
   enableParallelBuilding = false;
 
   makeFlags = [

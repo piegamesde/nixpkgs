@@ -37,8 +37,8 @@ let
       XMLParser
       X11Protocol
     ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "xdg-utils";
   version = "unstable-2020-10-21";
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # just needed when built from git
+  # just needed when built from git
   nativeBuildInputs = [
     libxslt
     docbook_xml_dtd_412

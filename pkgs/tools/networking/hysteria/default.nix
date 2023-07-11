@@ -27,7 +27,7 @@ buildGoModule rec {
     mv $out/bin/cmd $out/bin/hysteria
   '';
 
-    # Network required
+  # Network required
   doCheck = false;
 
   meta = with lib; {

@@ -58,7 +58,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg.profiles != { } || cfg.enable) {
     environment.etc.dconf =
@@ -68,12 +68,11 @@ in
 
     systemd.packages = [ pkgs.dconf ];
 
-      # For dconf executable
+    # For dconf executable
     environment.systemPackages = [ pkgs.dconf ];
 
-      # Needed for unwrapped applications
+    # Needed for unwrapped applications
     environment.sessionVariables.GIO_EXTRA_MODULES =
       mkIf cfg.enable [ "${pkgs.dconf.lib}/lib/gio/modules" ];
   };
-
 }

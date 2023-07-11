@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-HKMVwrPnk9/mukH3mJ2LEAvA9LBF4PcgBZjbbLhO9qU=";
   };
 
-    # (bundled) blosc headers have a warning on some archs that it will be using
-    # unaccelerated routines.
+  # (bundled) blosc headers have a warning on some archs that it will be using
+  # unaccelerated routines.
   cmakeFlags = [ "-DTILEDB_WERROR=0" ];
 
   nativeBuildInputs =
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     libpqxx
   ];
 
-    # emulate the process of pulling catch down
+  # emulate the process of pulling catch down
   postPatch = ''
     mkdir -p build/externals/src/ep_catch
     ln -sf ${catch2}/include/catch2 build/externals/src/ep_catch/single_include
@@ -85,5 +85,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     maintainers = with maintainers; [ rakesh4g ];
   };
-
 }

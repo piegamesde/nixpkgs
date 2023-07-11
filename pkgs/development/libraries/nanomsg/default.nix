@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # https://github.com/nanomsg/nanomsg/issues/1082
+  # https://github.com/nanomsg/nanomsg/issues/1082
   postPatch = ''
     substituteInPlace src/pkgconfig.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@

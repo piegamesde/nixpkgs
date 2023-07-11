@@ -71,10 +71,10 @@ builder rec {
     libunistring
   ];
 
-    # According to
-    # https://git.savannah.gnu.org/cgit/guix.git/tree/gnu/packages/guile.scm?h=a39207f7afd977e4e4299c6f0bb34bcb6d153818#n405
-    # starting with Guile 3.0.8, parallel builds can be done
-    # bit-reproducibly as long as we're not cross-compiling
+  # According to
+  # https://git.savannah.gnu.org/cgit/guix.git/tree/gnu/packages/guile.scm?h=a39207f7afd977e4e4299c6f0bb34bcb6d153818#n405
+  # starting with Guile 3.0.8, parallel builds can be done
+  # bit-reproducibly as long as we're not cross-compiling
   enableParallelBuilding = stdenv.buildPlatform == stdenv.hostPlatform;
 
   patches =
@@ -89,10 +89,10 @@ builder rec {
     )
     ;
 
-    # Explicitly link against libgcc_s, to work around the infamous
-    # "libgcc_s.so.1 must be installed for pthread_cancel to work".
+  # Explicitly link against libgcc_s, to work around the infamous
+  # "libgcc_s.so.1 must be installed for pthread_cancel to work".
 
-    # don't have "libgcc_s.so.1" on clang
+  # don't have "libgcc_s.so.1" on clang
   LDFLAGS = lib.optionalString
     (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
     "-lgcc_s";
@@ -112,11 +112,7 @@ builder rec {
       # See below.
       "--without-threads"
     ]
-    # Disable JIT on Apple Silicon, as it is not yet supported
-    # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=44505";
     ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64) "--enable-jit=no"
-      # At least on x86_64-darwin '-flto' autodetection is not correct:
-      #  https://github.com/NixOS/nixpkgs/pull/160051#issuecomment-1046193028
     ++ lib.optional (stdenv.isDarwin) "--disable-lto"
     ;
 
@@ -137,8 +133,8 @@ builder rec {
     ''
     ;
 
-    # make check doesn't work on darwin
-    # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.
+  # make check doesn't work on darwin
+  # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.
   doCheck = false;
   doInstallCheck = doCheck;
 

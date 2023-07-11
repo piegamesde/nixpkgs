@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X=main.Version=${version}"
   ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   meta = with lib; {

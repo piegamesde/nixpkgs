@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       "1"
     ;
 
-    # Doesn't hurt Linux but lets clang-based platforms like Darwin work fine too
+  # Doesn't hurt Linux but lets clang-based platforms like Darwin work fine too
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "all"

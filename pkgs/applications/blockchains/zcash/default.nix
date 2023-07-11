@@ -68,8 +68,8 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
     ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
 
-    # Use the stdenv default phases (./configure; make) instead of the
-    # ones from buildRustPackage.
+  # Use the stdenv default phases (./configure; make) instead of the
+  # ones from buildRustPackage.
   configurePhase = "configurePhase";
   buildPhase = "buildPhase";
   checkPhase = "checkPhase";
@@ -94,7 +94,7 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
 
   enableParallelBuilding = true;
 
-    # Requires hundreds of megabytes of zkSNARK parameters.
+  # Requires hundreds of megabytes of zkSNARK parameters.
   doCheck = false;
 
   passthru.tests.version = testers.testVersion {
@@ -124,7 +124,7 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
     ];
     license = licenses.mit;
 
-      # https://github.com/zcash/zcash/issues/4405
+    # https://github.com/zcash/zcash/issues/4405
     broken = stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isDarwin;
   };
 }

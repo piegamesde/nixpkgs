@@ -6,4 +6,3 @@
 lib.recurseIntoAttrs {
   overrideCoqDerivation = callPackage ./overrideCoqDerivation { };
 }
-

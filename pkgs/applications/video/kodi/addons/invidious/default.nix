@@ -13,9 +13,9 @@ buildKodiAddon rec {
   namespace = "plugin.video.invidious";
   version = "unstable-2022-11-28";
 
-    # video search doesn't work for the version on kodi.tv
-    # if the result contains channels
-    # https://github.com/TheAssassin/kodi-invidious-plugin/issues/17
+  # video search doesn't work for the version on kodi.tv
+  # if the result contains channels
+  # https://github.com/TheAssassin/kodi-invidious-plugin/issues/17
   src = fetchFromGitHub {
     owner = "TheAssassin";
     repo = "kodi-invidious-plugin";

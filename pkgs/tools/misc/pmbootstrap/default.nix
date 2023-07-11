@@ -31,7 +31,7 @@ buildPythonApplication rec {
 
   pmb_test = "${repo}/test";
 
-    # Tests depend on sudo
+  # Tests depend on sudo
   doCheck = stdenv.isLinux;
 
   nativeCheckInputs = [
@@ -42,10 +42,10 @@ buildPythonApplication rec {
     sudo
   ];
 
-    # Add test dependency in PATH
+  # Add test dependency in PATH
   preCheck = "export PYTHONPATH=$PYTHONPATH:${pmb_test}";
 
-    # skip impure tests
+  # skip impure tests
   disabledTests = [
     "test_apk_static"
     "test_aportgen"

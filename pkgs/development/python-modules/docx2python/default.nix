@@ -9,7 +9,7 @@ buildPythonPackage rec {
   pname = "docx2python";
   version = "unstable-2020-11-15";
 
-    # Pypi does not contain tests
+  # Pypi does not contain tests
   src = fetchFromGitHub {
     owner = "ShayHill";
     repo = pname;

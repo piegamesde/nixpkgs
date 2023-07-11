@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-    # https://github.com/Aetf/libtsm/issues/20
+  # https://github.com/Aetf/libtsm/issues/20
   postPatch = ''
     substituteInPlace etc/libtsm.pc.in \
       --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \

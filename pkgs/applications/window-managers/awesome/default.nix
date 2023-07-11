@@ -46,8 +46,8 @@ let
       ps.ldoc
     ]
   );
-
 in
+
 stdenv.mkDerivation rec {
   pname = "awesome";
   version = "4.3";
@@ -139,8 +139,8 @@ stdenv.mkDerivation rec {
     ;
 
   GI_TYPELIB_PATH = "${pango.out}/lib/girepository-1.0";
-    # LUA_CPATH and LUA_PATH are used only for *building*, see the --search flags
-    # below for how awesome finds the libraries it needs at runtime.
+  # LUA_CPATH and LUA_PATH are used only for *building*, see the --search flags
+  # below for how awesome finds the libraries it needs at runtime.
   LUA_CPATH = "${luaEnv}/lib/lua/${lua.luaversion}/?.so";
   LUA_PATH = "${luaEnv}/share/lua/${lua.luaversion}/?.lua;;";
 

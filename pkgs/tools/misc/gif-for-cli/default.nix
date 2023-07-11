@@ -38,5 +38,4 @@ python3Packages.buildPythonApplication {
     license = licenses.asl20;
     maintainers = with maintainers; [ Scriptkiddi ];
   };
-
 }

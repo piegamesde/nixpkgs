@@ -55,12 +55,12 @@ stdenv.mkDerivation rec {
     cp README.txt "$doc/share/${name}"
   '';
 
-    # Patch required run-time libraries as load-time libraries
-    #
-    # Libraries found with:
-    # > strings clonehero | grep '\.so'
-    # and
-    # > strace clonehero 2>&1 | grep '\.so'
+  # Patch required run-time libraries as load-time libraries
+  #
+  # Libraries found with:
+  # > strings clonehero | grep '\.so'
+  # and
+  # > strace clonehero 2>&1 | grep '\.so'
   postFixup = ''
     patchelf \
       --add-needed libasound.so.2 \

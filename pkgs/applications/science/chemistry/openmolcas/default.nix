@@ -36,7 +36,6 @@ let
       h5py
     ]
   );
-
 in
 stdenv.mkDerivation {
   pname = "openmolcas";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
   src = fetchFromGitLab {
     owner = "Molcas";
     repo = "OpenMolcas";
-      # The tag keeps moving, fix a hash instead
+    # The tag keeps moving, fix a hash instead
     rev = "03265f62cd98b985712b063aea88313f984a8857"; # 2023-02-11
     sha256 = "sha256-Kj2RDJq8PEvKclLrSYIOdl6g6lcRsTNZCjwxGOs3joY=";
   };
@@ -142,4 +141,3 @@ stdenv.mkDerivation {
     mainProgram = "pymolcas";
   };
 }
-

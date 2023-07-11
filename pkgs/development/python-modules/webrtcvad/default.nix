@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "f1bed2fb25b63fb7b1a55d64090c993c9c9167b28485ae0bcdd81cf6ede96aea";
   };
 
-    # required WAV files for testing are not included in the tarball
+  # required WAV files for testing are not included in the tarball
   doCheck = false;
 
   meta = {

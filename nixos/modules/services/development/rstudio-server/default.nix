@@ -20,7 +20,6 @@ let
   rsession-conf = builtins.toFile "rsession.conf" ''
     ${cfg.rsessionExtraConfig}
   '';
-
 in
 {
   meta.maintainers = with maintainers; [
@@ -74,7 +73,6 @@ in
         Extra contents for resssion.conf.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -112,6 +110,5 @@ in
       };
       groups.rstudio-server = { gid = config.ids.gids.rstudio-server; };
     };
-
   };
 }

@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.meilisearch;
-
 in
 {
 
@@ -19,7 +18,7 @@ in
   ];
   meta.doc = ./meilisearch.md;
 
-    ###### interface
+  ###### interface
 
   options.services.meilisearch = {
     enable = mkEnableOption (lib.mdDoc "MeiliSearch - a RESTful search API");
@@ -54,7 +53,7 @@ in
       ];
     };
 
-      # TODO change this to LoadCredentials once possible
+    # TODO change this to LoadCredentials once possible
     masterKeyEnvironmentFile = mkOption {
       description = lib.mdDoc ''
         Path to file which contains the master key.
@@ -113,10 +112,9 @@ in
       default = "104857600";
       type = types.str;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.meilisearch = {

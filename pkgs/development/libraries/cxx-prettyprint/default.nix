@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.boost;
     platforms = platforms.all;
 
-      # This is a header-only library, no point in hydra building it:
+    # This is a header-only library, no point in hydra building it:
     hydraPlatforms = [ ];
   };
 }

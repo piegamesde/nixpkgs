@@ -61,8 +61,8 @@ let
     ++ optional (!withGifsicle) "--no-gifsicle"
     ++ optional (!withSvgo) "--no-svgo"
     ;
-
 in
+
 bundlerApp {
   pname = "image_optim";
   gemdir = ./.;

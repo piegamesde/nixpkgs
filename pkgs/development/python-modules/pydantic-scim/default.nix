@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pydanticscim" ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   meta = with lib; {

@@ -20,5 +20,4 @@ buildPythonPackage rec {
     homepage = "http://semanchuk.com/philip/sysv_ipc/";
     maintainers = with maintainers; [ ris ];
   };
-
 }

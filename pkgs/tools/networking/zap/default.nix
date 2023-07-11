@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ jre ];
 
-    # From https://github.com/zaproxy/zaproxy/blob/master/zap/src/main/java/org/parosproxy/paros/Constant.java
+  # From https://github.com/zaproxy/zaproxy/blob/master/zap/src/main/java/org/parosproxy/paros/Constant.java
   version_tag = "20012000";
 
-    # Copying config and adding version tag before first use to avoid permission
-    # issues if zap tries to copy config on it's own.
+  # Copying config and adding version tag before first use to avoid permission
+  # issues if zap tries to copy config on it's own.
   installPhase = ''
     mkdir -p "$out/bin" "$out/share"
     cp -pR . "$out/share/${pname}/"

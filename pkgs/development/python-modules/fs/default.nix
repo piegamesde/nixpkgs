@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   buildInputs = [ glibcLocales ];
 
-    # strong cycle with paramaterized
+  # strong cycle with paramaterized
   doCheck = false;
   nativeCheckInputs = [
     pyftpdlib
@@ -83,5 +83,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ lovek323 ];
     platforms = platforms.unix;
   };
-
 }

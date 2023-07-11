@@ -58,8 +58,8 @@ let
       };
     }
     ;
-
 in
+
 {
   options = {
     services.cockroachdb = {
@@ -240,8 +240,8 @@ in
 
         Restart = "always";
 
-          # A conservative-ish timeout is alright here, because for Type=notify
-          # cockroach will send systemd pings during startup to keep it alive
+        # A conservative-ish timeout is alright here, because for Type=notify
+        # cockroach will send systemd pings during startup to keep it alive
         TimeoutStopSec = 60;
         RestartSec = 10;
       };

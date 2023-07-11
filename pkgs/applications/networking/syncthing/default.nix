@@ -83,7 +83,6 @@ let
       };
     }
     ;
-
 in
 {
   syncthing = common {

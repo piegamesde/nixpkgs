@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optional (!xenSupport) "--disable-xen";
 
-    # libvmi uses dlopen() for the xen libraries, however autoPatchelfHook doesn't work here
+  # libvmi uses dlopen() for the xen libraries, however autoPatchelfHook doesn't work here
   postFixup = lib.optionalString xenSupport ''
     libvmi="$out/lib/libvmi.so.${libVersion}"
     oldrpath=$(patchelf --print-rpath "$libvmi")

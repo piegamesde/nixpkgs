@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     speexdsp
   ];
 
-    # TODO: Remove this will help with immediate backward compatability
+  # TODO: Remove this will help with immediate backward compatability
   propagatedBuildInputs = [ speexdsp ];
 
   configureFlags = [ "--with-fft=gpl-fftw3" ];

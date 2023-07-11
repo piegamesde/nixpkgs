@@ -16,8 +16,8 @@ buildPythonPackage rec {
     hash = "sha256-FcEb13XY+YCVt0W05lihfCXIbjtzJ1yuiWrByNUzyxg=";
   };
 
-    # FIXME: watchdog dependency is disabled on Darwin because of #31865, which causes very silent
-    # segfaults in the testsuite that end up failing the tests in a background thread (in myapp)
+  # FIXME: watchdog dependency is disabled on Darwin because of #31865, which causes very silent
+  # segfaults in the testsuite that end up failing the tests in a background thread (in myapp)
   nativeCheckInputs =
     [ pytestCheckHook ] ++ lib.optionals (!stdenv.isDarwin) [ watchdog ];
 

@@ -4,11 +4,9 @@ import ./make-test-python.nix (
     ...
   }: {
     name = "nginx-sandbox";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [ izorkin ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ izorkin ]; };
 
-      # This test checks the creation and reading of a file in sandbox mode. Used simple lua script.
+    # This test checks the creation and reading of a file in sandbox mode. Used simple lua script.
 
     nodes.machine =
       {

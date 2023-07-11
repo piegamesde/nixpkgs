@@ -32,16 +32,14 @@ let
         "The simple and easy way to embed static files into Go binaries";
       homepage = "https://github.com/gobuffalo/packr";
       license = licenses.mit;
-      maintainers = with maintainers; [
-          mmahut
-        ];
+      maintainers = with maintainers; [ mmahut ];
 
-        # golang.org/x/sys needs to be updated due to:
-        #
-        #   https://github.com/golang/go/issues/49219
-        #
-        # but this package is no longer maintained.
-        #
+      # golang.org/x/sys needs to be updated due to:
+      #
+      #   https://github.com/golang/go/issues/49219
+      #
+      # but this package is no longer maintained.
+      #
       broken = stdenv.isDarwin;
     };
   };
@@ -67,16 +65,14 @@ let
         "The simple and easy way to embed static files into Go binaries";
       homepage = "https://github.com/gobuffalo/packr";
       license = licenses.mit;
-      maintainers = with maintainers; [
-          mmahut
-        ];
+      maintainers = with maintainers; [ mmahut ];
 
-        # golang.org/x/sys needs to be updated due to:
-        #
-        #   https://github.com/golang/go/issues/49219
-        #
-        # but this package is no longer maintained.
-        #
+      # golang.org/x/sys needs to be updated due to:
+      #
+      #   https://github.com/golang/go/issues/49219
+      #
+      # but this package is no longer maintained.
+      #
       broken = stdenv.isDarwin;
     };
   };

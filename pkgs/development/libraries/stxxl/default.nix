@@ -14,8 +14,8 @@ let
     else
       "-D${flag}=OFF"
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "stxxl";
   version = "1.4.1";

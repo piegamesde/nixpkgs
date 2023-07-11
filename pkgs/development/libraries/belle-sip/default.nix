@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ];
 
-    # Do not build static libraries
+  # Do not build static libraries
   cmakeFlags = [ "-DENABLE_STATIC=NO" ];
 
   env.NIX_CFLAGS_COMPILE = toString (

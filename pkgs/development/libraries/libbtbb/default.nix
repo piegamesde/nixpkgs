@@ -18,10 +18,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals stdenv.isDarwin [ CoreServices ]
-    ;
+    [ cmake ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
-    # https://github.com/greatscottgadgets/libbtbb/issues/63
+  # https://github.com/greatscottgadgets/libbtbb/issues/63
   postPatch = ''
     substituteInPlace lib/libbtbb.pc.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \

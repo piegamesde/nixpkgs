@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     jansson
   ];
 
-    # do not build docs, it is slow and it fails on Hydra
+  # do not build docs, it is slow and it fails on Hydra
   prePatch = ''
     rm -rf doc
     substituteInPlace configure.ac --replace "doc/Makefile" ""

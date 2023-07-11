@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals freedvSupport [ lpcnetfreedv ];
 
-    # Install a binary that is used by openwebrx
+  # Install a binary that is used by openwebrx
   postInstall = ''
     install -Dm0755 src/freedv_rx -t $out/bin/
   '';
 
-    # Swap keyword order to satisfy SWIG parser
+  # Swap keyword order to satisfy SWIG parser
   postFixup = ''
     sed -r -i 's/(\<_Complex)(\s+)(float|double)/\3\2\1/' $out/include/$pname/freedv_api.h
   '';

@@ -10,7 +10,7 @@
 mkDerivation rec {
   pname = "jack_autoconnect";
 
-    # It does not have any versions (yet?)
+  # It does not have any versions (yet?)
   version = "unstable-2021-02-01";
 
   src = fetchFromGitHub {

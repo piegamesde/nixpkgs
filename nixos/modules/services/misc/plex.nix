@@ -128,8 +128,8 @@ in
         User = cfg.user;
         Group = cfg.group;
 
-          # Run the pre-start script with full permissions (the "!" prefix) so it
-          # can create the data directory if necessary.
+        # Run the pre-start script with full permissions (the "!" prefix) so it
+        # can create the data directory if necessary.
         ExecStartPre =
           let
             preStartScript = pkgs.writeScript "plex-run-prestart" ''
@@ -159,12 +159,12 @@ in
         PLEX_SCANNERS =
           concatMapStringsSep ":" builtins.toString cfg.extraScanners;
 
-          # The following variables should be set by the FHS userenv script:
-          #   PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
-          #   PLEX_MEDIA_SERVER_HOME
+        # The following variables should be set by the FHS userenv script:
+        #   PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
+        #   PLEX_MEDIA_SERVER_HOME
 
-          # Allow access to GPU acceleration; the Plex LD_LIBRARY_PATH is added
-          # by the FHS userenv script.
+        # Allow access to GPU acceleration; the Plex LD_LIBRARY_PATH is added
+        # by the FHS userenv script.
         LD_LIBRARY_PATH = "/run/opengl-driver/lib";
 
         PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS = "6";

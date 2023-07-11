@@ -43,8 +43,8 @@ buildPythonPackage rec {
       --replace ', "pytest-cov"' ""
   '';
 
-    # The test suite is computationally intensive and test failures are not
-    # indicative for package usability hence tests are disabled by default.
+  # The test suite is computationally intensive and test failures are not
+  # indicative for package usability hence tests are disabled by default.
   doCheck = false;
 
   pythonImportsCheck = [ "pymc" ];

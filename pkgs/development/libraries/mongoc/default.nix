@@ -25,12 +25,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wxcBnJENL3hMzf7GKLucjw7K08tK35+0sMNWZb2mWIo=";
   };
 
-    # https://github.com/NixOS/nixpkgs/issues/25585
+  # https://github.com/NixOS/nixpkgs/issues/25585
   preFixup = ''rm -rf "$(pwd)" '';
-    # https://github.com/mongodb/mongo-c-driver/pull/1157
-    # related:
-    # https://github.com/NixOS/nixpkgs/issues/144170
-    # mongoc's cmake incorrectly injects a prefix to library paths, breaking Nix. This removes the prefix from paths.
+  # https://github.com/mongodb/mongo-c-driver/pull/1157
+  # related:
+  # https://github.com/NixOS/nixpkgs/issues/144170
+  # mongoc's cmake incorrectly injects a prefix to library paths, breaking Nix. This removes the prefix from paths.
   postPatch = ''
     substituteInPlace src/libmongoc/CMakeLists.txt \
       --replace "\\\''${prefix}/" ""
@@ -56,9 +56,9 @@ stdenv.mkDerivation rec {
     snappy
   ];
 
-    # -DMONGOC_TEST_USE_CRYPT_SHARED=OFF
-    # The `mongodl.py` script is causing issues, and you also need to disabled sandboxing for it. However, it is used only to run some tests.
-    # https://www.mongodb.com/community/forums/t/problem-downloading-crypt-shared-when-installing-the-mongodb-c-driver/189370
+  # -DMONGOC_TEST_USE_CRYPT_SHARED=OFF
+  # The `mongodl.py` script is causing issues, and you also need to disabled sandboxing for it. However, it is used only to run some tests.
+  # https://www.mongodb.com/community/forums/t/problem-downloading-crypt-shared-when-installing-the-mongodb-c-driver/189370
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
     "-DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF"

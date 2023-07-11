@@ -61,7 +61,6 @@ let
   '';
 
   rootTrustAnchorFile = "${cfg.stateDir}/root.key";
-
 in
 {
 
@@ -116,10 +115,10 @@ in
 
       localControlSocketPath = mkOption {
         default = null;
-          # FIXME: What is the proper type here so users can specify strings,
-          # paths and null?
-          # My guess would be `types.nullOr (types.either types.str types.path)`
-          # but I haven't verified yet.
+        # FIXME: What is the proper type here so users can specify strings,
+        # paths and null?
+        # My guess would be `types.nullOr (types.either types.str types.path)`
+        # but I haven't verified yet.
         type = types.nullOr types.str;
         example = "/run/unbound/unbound.ctl";
         description = lib.mdDoc ''
@@ -211,7 +210,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -221,7 +220,7 @@ in
         username = cfg.user;
         chroot = ''""'';
         pidfile = ''""'';
-          # when running under systemd there is no need to daemonize
+        # when running under systemd there is no need to daemonize
         do-daemonize = false;
         interface = mkDefault (
           [ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1")
@@ -233,8 +232,8 @@ in
         auto-trust-anchor-file =
           mkIf cfg.enableRootTrustAnchor rootTrustAnchorFile;
         tls-cert-bundle = mkDefault "/etc/ssl/certs/ca-certificates.crt";
-          # prevent race conditions on system startup when interfaces are not yet
-          # configured
+        # prevent race conditions on system startup when interfaces are not yet
+        # configured
         ip-freebind = mkDefault true;
         define-tag = mkDefault "";
       };
@@ -303,7 +302,7 @@ in
         NotifyAccess = "main";
         Type = "notify";
 
-          # FIXME: Which of these do we actually need, can we drop the chroot flag?
+        # FIXME: Which of these do we actually need, can we drop the chroot flag?
         AmbientCapabilities = [
           "CAP_NET_BIND_SERVICE"
           "CAP_NET_RAW"

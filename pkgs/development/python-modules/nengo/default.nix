@@ -26,10 +26,10 @@ buildPythonPackage rec {
     ++ lib.optionals scikitSupport [ scikit-learn ]
     ;
 
-    # checks req missing:
-    #   pytest-allclose
-    #   pytest-plt
-    #   pytest-rng
+  # checks req missing:
+  #   pytest-allclose
+  #   pytest-plt
+  #   pytest-rng
   doCheck = false;
 
   pythonImportsCheck = [ "nengo" ];

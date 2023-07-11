@@ -93,7 +93,7 @@ in
         Restart = "always";
         RestartSec = "10";
 
-          # "limits" defined below are adopted from upstream: https://github.com/containerd/containerd/blob/master/containerd.service
+        # "limits" defined below are adopted from upstream: https://github.com/containerd/containerd/blob/master/containerd.service
         LimitNPROC = "infinity";
         LimitCORE = "infinity";
         LimitNOFILE = "infinity";

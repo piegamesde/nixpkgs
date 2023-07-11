@@ -36,7 +36,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "dremel3dpy" ];

@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "approval_utilities" ];
 
-    # upstream has no tests
+  # upstream has no tests
   doCheck = false;
 
   meta = {

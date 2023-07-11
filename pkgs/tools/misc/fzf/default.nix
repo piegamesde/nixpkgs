@@ -55,7 +55,7 @@ buildGoModule rec {
     "-X main.version=${version} -X main.revision=${src.rev}"
   ];
 
-    # The vim plugin expects a relative path to the binary; patch it to abspath.
+  # The vim plugin expects a relative path to the binary; patch it to abspath.
   postPatch = ''
     sed -i -e "s|expand('<sfile>:h:h')|'$out'|" plugin/fzf.vim
 

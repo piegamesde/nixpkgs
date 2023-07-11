@@ -26,8 +26,8 @@ buildGoModule rec {
     "-X github.com/cilium/cilium-cli/internal/cli/cmd.Version=${version}"
   ];
 
-    # Required to workaround install check error:
-    # 2022/06/25 10:36:22 Unable to start gops: mkdir /homeless-shelter: permission denied
+  # Required to workaround install check error:
+  # 2022/06/25 10:36:22 Unable to start gops: mkdir /homeless-shelter: permission denied
   HOME = "$TMPDIR";
 
   doInstallCheck = true;

@@ -22,7 +22,7 @@ in
     };
   };
 
-    # implementation
+  # implementation
   config = mkIf cfg.enable {
     assertions = [ {
       assertion = config.services.corosync.enable;
@@ -33,7 +33,7 @@ in
 
     environment.systemPackages = [ cfg.package ];
 
-      # required by pacemaker
+    # required by pacemaker
     users.users.hacluster = {
       isSystemUser = true;
       group = "pacemaker";

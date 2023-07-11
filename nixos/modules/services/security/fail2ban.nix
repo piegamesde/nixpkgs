@@ -42,8 +42,8 @@ let
 
     [DEFAULT]
   '';
-
 in
+
 {
 
   ###### interface
@@ -305,12 +305,10 @@ in
           more verbose.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     assertions = [ {
@@ -375,16 +373,16 @@ in
           "CAP_NET_ADMIN"
           "CAP_NET_RAW"
         ];
-          # Security
+        # Security
         NoNewPrivileges = true;
-          # Directory
+        # Directory
         RuntimeDirectory = "fail2ban";
         RuntimeDirectoryMode = "0750";
         StateDirectory = "fail2ban";
         StateDirectoryMode = "0750";
         LogsDirectory = "fail2ban";
         LogsDirectoryMode = "0750";
-          # Sandboxing
+        # Sandboxing
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
@@ -396,8 +394,8 @@ in
       };
     };
 
-      # Add some reasonable default jails.  The special "DEFAULT" jail
-      # sets default values for all other jails.
+    # Add some reasonable default jails.  The special "DEFAULT" jail
+    # sets default values for all other jails.
     services.fail2ban.jails.DEFAULT = ''
       # Bantime increment options
       bantime.increment = ${boolToString cfg.bantime-increment.enable}
@@ -438,9 +436,9 @@ in
         ${generators.toKeyValue { } cfg.extraSettings}
       ''}
     '';
-      # Block SSH if there are too many failing connection attempts.
-      # Benefits from verbose sshd logging to observe failed login attempts,
-      # so we set that here unless the user overrode it.
+    # Block SSH if there are too many failing connection attempts.
+    # Benefits from verbose sshd logging to observe failed login attempts,
+    # so we set that here unless the user overrode it.
     services.openssh.settings.LogLevel = lib.mkDefault "VERBOSE";
     services.fail2ban.jails.sshd = mkDefault ''
       enabled = true

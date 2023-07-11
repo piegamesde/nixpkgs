@@ -11,8 +11,8 @@ let
   cfg = config.hardware.mwProCapture;
 
   kernelPackages = config.boot.kernelPackages;
-
 in
+
 {
 
   options.hardware.mwProCapture.enable =
@@ -54,7 +54,5 @@ in
       # Parameters for internal usage
       #options ProCapture internal_params=""
     '';
-
   };
-
 }

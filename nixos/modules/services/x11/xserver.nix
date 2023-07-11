@@ -14,7 +14,7 @@ let
   cfg = config.services.xserver;
   xorg = pkgs.xorg;
 
-    # Map video driver names to driver packages. FIXME: move into card-specific modules.
+  # Map video driver names to driver packages. FIXME: move into card-specific modules.
   knownVideoDrivers = {
     # Alias so people can keep using "virtualbox" instead of "vboxvideo".
     virtualbox = {
@@ -22,13 +22,13 @@ let
       driverName = "vboxvideo";
     };
 
-      # Alias so that "radeon" uses the xf86-video-ati driver.
+    # Alias so that "radeon" uses the xf86-video-ati driver.
     radeon = {
       modules = [ xorg.xf86videoati ];
       driverName = "ati";
     };
 
-      # modesetting does not have a xf86videomodesetting package as it is included in xorgserver
+    # modesetting does not have a xf86videomodesetting package as it is included in xorgserver
     modesetting = { };
   };
 
@@ -41,10 +41,7 @@ let
     # Sans) than that horror.  But we do need the Adobe fonts for some
     # old non-fontconfig applications.  (Possibly this could be done
     # better using a fontconfig rule.)
-    [
-      pkgs.xorg.fontadobe100dpi
-      pkgs.xorg.fontadobe75dpi
-    ]
+    [ pkgs.xorg.fontadobe100dpi pkgs.xorg.fontadobe75dpi ]
     ;
 
   xrandrOptions = {
@@ -80,7 +77,7 @@ let
     };
   };
 
-    # Just enumerate all heads without discarding XRandR output information.
+  # Just enumerate all heads without discarding XRandR output information.
   xrandrHeads =
     let
       mkHead =
@@ -104,10 +101,10 @@ let
     concatStrings monitors
     ;
 
-    # Here we chain every monitor from the left to right, so we have:
-    # m4 right of m3 right of m2 right of m1   .----.----.----.----.
-    # Which will end up in reverse ----------> | m1 | m2 | m3 | m4 |
-    #                                          `----^----^----^----'
+  # Here we chain every monitor from the left to right, so we have:
+  # m4 right of m3 right of m2 right of m1   .----.----.----.----.
+  # Which will end up in reverse ----------> | m1 | m2 | m3 | m4 |
+  #                                          `----^----^----^----'
   xrandrMonitorSections =
     let
       mkMonitor =
@@ -177,11 +174,11 @@ let
 
   indent = prefixStringLines "  ";
 
-    # A scalable variant of the X11 "core" cursor
-    #
-    # If not running a fancy desktop environment, the cursor is likely set to
-    # the default `cursor.pcf` bitmap font. This is 17px wide, so it's very
-    # small and almost invisible on 4K displays.
+  # A scalable variant of the X11 "core" cursor
+  #
+  # If not running a fancy desktop environment, the cursor is likely set to
+  # the default `cursor.pcf` bitmap font. This is 17px wide, so it's very
+  # small and almost invisible on 4K displays.
   fontcursormisc_hidpi = pkgs.xorg.fontxfree86type1.overrideAttrs (
     old:
     let
@@ -198,8 +195,8 @@ let
       '';
     }
   );
-
 in
+
 {
 
   imports = [
@@ -236,7 +233,7 @@ in
       "Option services.xserver.useGlamor was removed because it is unnecessary. Drivers that uses Glamor will use it automatically.")
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -359,7 +356,7 @@ in
           "nvidiaLegacy304"
           "amdgpu-pro"
         ];
-          # TODO(@oxij): think how to easily add the rest, like those nvidia things
+        # TODO(@oxij): think how to easily add the rest, like those nvidia things
         relatedPackages = concatLists (
           mapAttrsToList
           (
@@ -550,8 +547,8 @@ in
               submodule { options = xrandrOptions; }
             )
           );
-          # Set primary to true for the first head if no other has been set
-          # primary already.
+        # Set primary to true for the first head if no other has been set
+        # primary already.
         apply =
           heads:
           let
@@ -726,10 +723,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -750,7 +746,7 @@ in
       mkIf (default) (mkDefault true)
       ;
 
-      # so that the service won't be enabled when only startx is used
+    # so that the service won't be enabled when only startx is used
     systemd.services.display-manager.enable =
       let
         dmConf = cfg.displayManager;
@@ -771,7 +767,7 @@ in
     services.xserver.videoDrivers =
       mkIf (cfg.videoDriver != null) [ cfg.videoDriver ];
 
-      # FIXME: somehow check for unknown driver names.
+    # FIXME: somehow check for unknown driver names.
     services.xserver.drivers = flip concatMap cfg.videoDrivers (
       name:
       let
@@ -818,10 +814,10 @@ in
 
     environment.etc = (optionalAttrs cfg.exportConfiguration {
       "X11/xorg.conf".source = "${configFile}";
-        # -xkbdir command line option does not seems to be passed to xkbcomp.
+      # -xkbdir command line option does not seems to be passed to xkbcomp.
       "X11/xkb".source = "${cfg.xkbDir}";
     })
-    # localectl looks into 00-keyboard.conf
+      # localectl looks into 00-keyboard.conf
       // {
         "X11/xorg.conf.d/00-keyboard.conf".text = ''
           Section "InputClass"
@@ -839,7 +835,9 @@ in
         let
           cfgPath = "/X11/xorg.conf.d/10-evdev.conf";
         in
-        { ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath; }
+        {
+          ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath;
+        }
       );
 
     environment.systemPackages =
@@ -874,9 +872,9 @@ in
       icons.enable = true;
     };
 
-      # The default max inotify watches is 8192.
-      # Nowadays most apps require a good number of inotify watches,
-      # the value below is used by default on several other distros.
+    # The default max inotify watches is 8192.
+    # Nowadays most apps require a good number of inotify watches,
+    # the value below is used by default on several other distros.
     boot.kernel.sysctl."fs.inotify.max_user_instances" = mkDefault 524288;
     boot.kernel.sysctl."fs.inotify.max_user_watches" = mkDefault 524288;
 
@@ -904,13 +902,13 @@ in
         rm -f /tmp/.X0-lock
       '';
 
-        # TODO: move declaring the systemd service to its own mkIf
+      # TODO: move declaring the systemd service to its own mkIf
       script = mkIf
         (config.systemd.services.display-manager.enable == true)
         "${cfg.displayManager.job.execCmd}";
 
-        # Stop restarting if the display manager stops (crashes) 2 times
-        # in one minute. Starting X typically takes 3-4s.
+      # Stop restarting if the display manager stops (crashes) 2 times
+      # in one minute. Starting X typically takes 3-4s.
       startLimitIntervalSec = 30;
       startLimitBurst = 3;
       serviceConfig = {
@@ -1105,9 +1103,8 @@ in
       )
       pkgs.xorg.fontmiscmisc
     ];
-
   };
 
-    # uses relatedPackages
+  # uses relatedPackages
   meta.buildDocsInSandbox = false;
 }

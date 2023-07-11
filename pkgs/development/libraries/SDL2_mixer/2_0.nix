@@ -15,7 +15,7 @@ SDL2_mixer.overrideAttrs (
       sha256 = "0694vsz5bjkcdgfdra6x9fq8vpzrl8m6q96gh58df7065hw5mkxl";
     };
 
-      # fix default path to timidity.cfg so MIDI files could be played
+    # fix default path to timidity.cfg so MIDI files could be played
     postPatch = ''
       substituteInPlace timidity/options.h \
         --replace "/usr/share/timidity" "${timidity}/share/timidity"

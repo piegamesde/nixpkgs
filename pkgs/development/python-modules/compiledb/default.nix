@@ -21,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "0qricdgqzry7j3rmgwyd43av3c2kxpzkh6f9zcqbzrjkn78qbpd4";
   };
 
-    # fix the tests
+  # fix the tests
   patchPhase = ''
     substituteInPlace tests/data/multiple_commands_oneline.txt \
                       --replace /bin/echo ${coreutils}/bin/echo

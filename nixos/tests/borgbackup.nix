@@ -37,7 +37,6 @@ import ./make-test-python.nix (
     publicKeyAppendOnly = ''
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFpxm7PUQsZB2Ejs8Xp0YVp8IOW+HylIRzhweORbRCMv root@client
     '';
-
   in
   {
     name = "borgbackup";
@@ -111,7 +110,7 @@ import ./make-test-python.nix (
 
             sleepInhibited = {
               inhibitsSleep = true;
-                # Blocks indefinitely while "backing up" so that we can try to suspend the local system while it's hung
+              # Blocks indefinitely while "backing up" so that we can try to suspend the local system while it's hung
               dumpCommand = pkgs.writeScript "sleepInhibited" ''
                 cat /dev/zero
               '';
@@ -121,7 +120,6 @@ import ./make-test-python.nix (
               environment.BORG_RSH =
                 "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
             };
-
           };
         }
         ;
@@ -143,7 +141,7 @@ import ./make-test-python.nix (
             path = "/data/borgbackup";
           };
 
-            # Second repo to make sure the authorizedKeys options are merged correctly
+          # Second repo to make sure the authorizedKeys options are merged correctly
           services.borgbackup.repos.repo2 = {
             authorizedKeysAppendOnly = [ publicKeyAppendOnly ];
             path = "/data/borgbackup";

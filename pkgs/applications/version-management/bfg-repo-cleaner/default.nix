@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://rtyley.github.io/bfg-repo-cleaner/";
-      # Descriptions taken with minor modification from the homepage of bfg-repo-cleaner
+    # Descriptions taken with minor modification from the homepage of bfg-repo-cleaner
     description =
       "Removes large or troublesome blobs in a git repository like git-filter-branch does, but faster";
     longDescription = ''
@@ -52,5 +52,4 @@ stdenv.mkDerivation rec {
     downloadPage =
       "https://mvnrepository.com/artifact/com.madgag/bfg/${version}";
   };
-
 }

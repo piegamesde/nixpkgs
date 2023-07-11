@@ -43,7 +43,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
     ;
 
-    # tests are failing on Darwin
+  # tests are failing on Darwin
   doCheck = !stdenv.isDarwin;
 
   nativeCheckInputs = [
@@ -60,7 +60,7 @@ buildPythonPackage rec {
       --replace "/bin/sleep" "${coreutils}/bin/sleep"
   '';
 
-    # It appears that the build sandbox doesn't include /etc/services, and these tests try to use it.
+  # It appears that the build sandbox doesn't include /etc/services, and these tests try to use it.
   disabledTests = [
     "getnameinfo"
     "SocketType_resolve"

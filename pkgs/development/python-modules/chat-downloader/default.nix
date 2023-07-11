@@ -28,7 +28,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-    # Tests try to access the network.
+  # Tests try to access the network.
   doCheck = false;
 
   nativeCheckInputs = [ pytestCheckHook ];

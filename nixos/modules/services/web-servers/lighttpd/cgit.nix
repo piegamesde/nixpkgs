@@ -65,7 +65,6 @@ in
         http://git.zx2c4.com/cgit/tree/cgitrc.5.txt
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -73,7 +72,7 @@ in
     # make the cgitrc manpage available
     environment.systemPackages = [ pkgs.cgit ];
 
-      # declare module dependencies
+    # declare module dependencies
     services.lighttpd.enableModules = [
       "mod_cgi"
       "mod_alias"
@@ -100,7 +99,5 @@ in
       mkdir -p /var/cache/cgit
       chown lighttpd:lighttpd /var/cache/cgit
     '';
-
   };
-
 }

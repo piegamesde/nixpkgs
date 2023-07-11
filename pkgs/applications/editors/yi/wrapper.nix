@@ -23,19 +23,17 @@ stdenv.mkDerivation {
       --set NIX_GHC ${yiEnv}/bin/ghc
   '';
 
-    # For hacking purposes
+  # For hacking purposes
   passthru.env = yiEnv;
 
   meta = with lib; {
     description = "Allows Yi to find libraries and the compiler easily";
-      # This wrapper and wrapper only is under PD
+    # This wrapper and wrapper only is under PD
     license = licenses.publicDomain;
-    maintainers = with maintainers;
-      [ ];
+    maintainers = with maintainers; [ ];
 
-      # dependency yi-language no longer builds
+    # dependency yi-language no longer builds
     hydraPlatforms = lib.platforms.none;
     broken = true;
   };
-
 }

@@ -31,7 +31,6 @@ let
 
     ${cfg.extraConfig}
   '';
-
 in
 {
 
@@ -86,12 +85,10 @@ in
           "If set, maintenance script will be run at specified (in systemd.timer format) interval"
           ;
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable (
     mkMerge [
@@ -129,7 +126,7 @@ in
             StateDirectoryMode = "0750";
             LogsDirectory = "dspam";
             LogsDirectoryMode = "0750";
-              # DSPAM segfaults on just about every error
+            # DSPAM segfaults on just about every error
             Restart = "on-abort";
             RestartSec = "1s";
           };

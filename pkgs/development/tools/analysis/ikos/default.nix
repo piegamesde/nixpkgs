@@ -19,8 +19,8 @@
 
 let
   python = python3.withPackages (ps: with ps; [ pygments ]);
-
 in
+
 stdenv.mkDerivation rec {
   pname = "ikos";
   version = "3.0";

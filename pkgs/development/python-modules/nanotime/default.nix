@@ -20,7 +20,7 @@ buildPythonPackage rec {
     nosetests
   '';
 
-    # tests currently fail
+  # tests currently fail
   doCheck = false;
 
   meta = with lib; {

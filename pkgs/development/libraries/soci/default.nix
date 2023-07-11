@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # Do not build static libraries
+  # Do not build static libraries
   cmakeFlags = [
     "-DSOCI_STATIC=OFF"
     "-DCMAKE_CXX_STANDARD=11"

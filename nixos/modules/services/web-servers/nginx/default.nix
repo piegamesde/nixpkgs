@@ -50,13 +50,11 @@ let
         })
     )
     cfg.virtualHosts;
-  inherit (config.networking)
-    enableIPv6
-    ;
+  inherit (config.networking) enableIPv6;
 
-    # Mime.types values are taken from brotli sample configuration - https://github.com/google/ngx_brotli
-    # and Nginx Server Configs - https://github.com/h5bp/server-configs-nginx
-    # "text/html" is implicitly included in {brotli,gzip,zstd}_types
+  # Mime.types values are taken from brotli sample configuration - https://github.com/google/ngx_brotli
+  # and Nginx Server Configs - https://github.com/h5bp/server-configs-nginx
+  # "text/html" is implicitly included in {brotli,gzip,zstd}_types
   compressMimeTypes = [
     "application/atom+xml"
     "application/geo+json"
@@ -513,7 +511,6 @@ let
               }
             ''}
           '';
-
       in
       ''
         ${optionalString vhost.forceSSL ''
@@ -586,9 +583,7 @@ let
 
           ${
             optionalString
-            (
-              hasSSL && vhost.quic && vhost.http3
-            )
+            (hasSSL && vhost.quic && vhost.http3)
             # Advertise that HTTP/3 is available
             ''
               add_header Alt-Svc 'h3=":$server_port"; ma=86400';
@@ -696,8 +691,8 @@ let
 
   mkCertOwnershipAssertion =
     import ../../../security/acme/mk-cert-ownership-assertion.nix;
-
 in
+
 {
   options = {
     services.nginx = {
@@ -997,7 +992,7 @@ in
 
       sslCiphers = mkOption {
         type = types.nullOr types.str;
-          # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
+        # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
         default =
           "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
         description =
@@ -1356,7 +1351,6 @@ in
             use config.services.nginx.virtualHosts.<name>.onlySSL instead.
           ''
           ;
-
       in
       flatten (mapAttrsToList deprecatedSSL virtualHosts)
       ;
@@ -1472,9 +1466,9 @@ in
           (certName: "acme-selfsigned-${certName}.service")
           dependentCertNames
         ;
-        # Nginx needs to be started in order to be able to request certificates
-        # (it's hosting the acme challenge after all)
-        # This fixes https://github.com/NixOS/nixpkgs/issues/81842
+      # Nginx needs to be started in order to be able to request certificates
+      # (it's hosting the acme challenge after all)
+      # This fixes https://github.com/NixOS/nixpkgs/issues/81842
       before = map (certName: "acme-${certName}.service") dependentCertNames;
       stopIfChanged = false;
       preStart = ''
@@ -1491,24 +1485,24 @@ in
         ];
         Restart = "always";
         RestartSec = "10s";
-          # User and group
+        # User and group
         User = cfg.user;
         Group = cfg.group;
-          # Runtime directory and mode
+        # Runtime directory and mode
         RuntimeDirectory = "nginx";
         RuntimeDirectoryMode = "0750";
-          # Cache directory and mode
+        # Cache directory and mode
         CacheDirectory = "nginx";
         CacheDirectoryMode = "0750";
-          # Logs directory and mode
+        # Logs directory and mode
         LogsDirectory = "nginx";
         LogsDirectoryMode = "0750";
-          # Proc filesystem
+        # Proc filesystem
         ProcSubset = "pid";
         ProtectProc = "invisible";
-          # New file permissions
+        # New file permissions
         UMask = "0027"; # 0640 / 0750
-          # Capabilities
+        # Capabilities
         AmbientCapabilities = [
           "CAP_NET_BIND_SERVICE"
           "CAP_SYS_RESOURCE"
@@ -1517,9 +1511,9 @@ in
           "CAP_NET_BIND_SERVICE"
           "CAP_SYS_RESOURCE"
         ];
-          # Security
+        # Security
         NoNewPrivileges = true;
-          # Sandboxing (sorted by occurrence in https://www.freedesktop.org/software/systemd/man/systemd.exec.html)
+        # Sandboxing (sorted by occurrence in https://www.freedesktop.org/software/systemd/man/systemd.exec.html)
         ProtectSystem = "strict";
         ProtectHome = mkDefault true;
         PrivateTmp = true;
@@ -1551,7 +1545,7 @@ in
         RestrictSUIDSGID = true;
         RemoveIPC = true;
         PrivateMounts = true;
-          # System Call Filtering
+        # System Call Filtering
         SystemCallArchitectures = "native";
         SystemCallFilter =
           [
@@ -1579,11 +1573,11 @@ in
     environment.etc."nginx/nginx.conf" =
       mkIf cfg.enableReload { source = configFile; };
 
-      # This service waits for all certificates to be available
-      # before reloading nginx configuration.
-      # sslTargets are added to wantedBy + before
-      # which allows the acme-finished-$cert.target to signify the successful updating
-      # of certs end-to-end.
+    # This service waits for all certificates to be available
+    # before reloading nginx configuration.
+    # sslTargets are added to wantedBy + before
+    # which allows the acme-finished-$cert.target to signify the successful updating
+    # of certs end-to-end.
     systemd.services.nginx-config-reload =
       let
         sslServices =
@@ -1593,17 +1587,15 @@ in
       in
       mkIf (cfg.enableReload || sslServices != [ ]) {
         wants = optionals cfg.enableReload [ "nginx.service" ];
-        wantedBy =
-          sslServices ++ [ "multi-user.target" ]
-          ;
-          # Before the finished targets, after the renew services.
-          # This service might be needed for HTTP-01 challenges, but we only want to confirm
-          # certs are updated _after_ config has been reloaded.
+        wantedBy = sslServices ++ [ "multi-user.target" ];
+        # Before the finished targets, after the renew services.
+        # This service might be needed for HTTP-01 challenges, but we only want to confirm
+        # certs are updated _after_ config has been reloaded.
         before = sslTargets;
         after = sslServices;
         restartTriggers = optionals cfg.enableReload [ configFile ];
-          # Block reloading if not all certs exist yet.
-          # Happens when config changes add new vhosts/certs.
+        # Block reloading if not all certs exist yet.
+        # Happens when config changes add new vhosts/certs.
         unitConfig.ConditionPathExists = optionals (sslServices != [ ]) (
           map
           (certName: certs.${certName}.directory + "/fullchain.pem")
@@ -1630,9 +1622,9 @@ in
             in
             nameValuePair vhostConfig.serverName {
               group = mkDefault cfg.group;
-                # if acmeRoot is null inherit config.security.acme
-                # Since config.security.acme.certs.<cert>.webroot's own default value
-                # should take precedence set priority higher than mkOptionDefault
+              # if acmeRoot is null inherit config.security.acme
+              # Since config.security.acme.certs.<cert>.webroot's own default value
+              # should take precedence set priority higher than mkOptionDefault
               webroot = mkOverride
                 (
                   if hasRoot then
@@ -1641,7 +1633,7 @@ in
                     2000
                 )
                 vhostConfig.acmeRoot;
-                # Also nudge dnsProvider to null in case it is inherited
+              # Also nudge dnsProvider to null in case it is inherited
               dnsProvider = mkOverride
                 (
                   if hasRoot then
@@ -1651,7 +1643,7 @@ in
                 )
                 null;
               extraDomainNames = vhostConfig.serverAliases;
-                # Filter for enableACME-only vhosts. Don't want to create dud certs
+              # Filter for enableACME-only vhosts. Don't want to create dud certs
             }
           )
           (

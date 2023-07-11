@@ -7,16 +7,13 @@ stdenv:
 
 let
   checkMeta = import ./check-meta.nix {
-    inherit
-      lib
-      config
-      ;
-      # Nix itself uses the `system` field of a derivation to decide where
-      # to build it. This is a bit confusing for cross compilation.
+    inherit lib config;
+    # Nix itself uses the `system` field of a derivation to decide where
+    # to build it. This is a bit confusing for cross compilation.
     inherit (stdenv) hostPlatform;
   };
 
-    # Based off lib.makeExtensible, with modifications:
+  # Based off lib.makeExtensible, with modifications:
   makeDerivationExtensible =
     rattrs:
     let
@@ -26,7 +23,7 @@ let
 
       # An infinite recursion here can be caused by having the attribute names of expression `e` in `.overrideAttrs(finalAttrs: previousAttrs: e)` depend on `finalAttrs`. Only the attribute values of `e` can depend on `finalAttrs`.
       args = rattrs (args // { inherit finalPackage overrideAttrs; });
-        #              ^^^^
+      #              ^^^^
 
       overrideAttrs =
         f0:
@@ -43,12 +40,12 @@ let
             let
               x = f0 super;
             in
-            if
-              builtins.isFunction x
-            then
-            # Can't reuse `x`, because `self` comes first.
-            # Looks inefficient, but `f0 super` was a cheap thunk.
-              f0 self super
+            if builtins.isFunction x then
+              # Can't reuse `x`, because `self` comes first.
+              # Looks inefficient, but `f0 super` was a cheap thunk.
+              f0
+              self
+              super
             else
               x
             ;
@@ -63,13 +60,12 @@ let
         ;
 
       finalPackage = mkDerivationSimple overrideAttrs args;
-
     in
     finalPackage
     ;
 
-    # makeDerivationExtensibleConst == makeDerivationExtensible (_: attrs),
-    # but pre-evaluated for a slight improvement in performance.
+  # makeDerivationExtensibleConst == makeDerivationExtensible (_: attrs),
+  # but pre-evaluated for a slight improvement in performance.
   makeDerivationExtensibleConst =
     attrs:
     mkDerivationSimple
@@ -107,13 +103,13 @@ let
     #   Explanation about derivations in general
     {
 
-    # These types of dependencies are all exhaustively documented in
-    # the "Specifying Dependencies" section of the "Standard
-    # Environment" chapter of the Nixpkgs manual.
+      # These types of dependencies are all exhaustively documented in
+      # the "Specifying Dependencies" section of the "Standard
+      # Environment" chapter of the Nixpkgs manual.
 
-    # TODO(@Ericson2314): Stop using legacy dep attribute names
+      # TODO(@Ericson2314): Stop using legacy dep attribute names
 
-    #                                 host offset -> target offset
+      #                                 host offset -> target offset
       depsBuildBuild ? [ ] # -1 -> -1
       ,
       depsBuildBuildPropagated ? [ ] # -1 -> -1
@@ -146,7 +142,7 @@ let
       nativeCheckInputs ? [ ],
       nativeInstallCheckInputs ? [ ]
 
-        # Configure Phase
+      # Configure Phase
       ,
       configureFlags ? [ ],
       cmakeFlags ? [ ],
@@ -165,13 +161,13 @@ let
           "host"
         ]
 
-        # TODO(@Ericson2314): Make unconditional / resolve #33599
-        # Check phase
+      # TODO(@Ericson2314): Make unconditional / resolve #33599
+      # Check phase
       ,
       doCheck ? config.doCheckByDefault or false
 
-        # TODO(@Ericson2314): Make unconditional / resolve #33599
-        # InstallCheck phase
+      # TODO(@Ericson2314): Make unconditional / resolve #33599
+      # InstallCheck phase
       ,
       doInstallCheck ? config.doCheckByDefault or false
 
@@ -217,8 +213,8 @@ let
       ) # Fixed-output drvs can't be content addressed too
         && config.contentAddressedByDefault
 
-          # Experimental.  For simple packages mostly just works,
-          # but for anything complex, be prepared to debug if enabling.
+      # Experimental.  For simple packages mostly just works,
+      # but for anything complex, be prepared to debug if enabling.
       ,
       __structuredAttrs ? config.structuredAttrsByDefault or false
 
@@ -237,12 +233,10 @@ let
         doInstallCheck && stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
       separateDebugInfo' = separateDebugInfo && stdenv.hostPlatform.isLinux;
-      outputs' =
-        outputs ++ lib.optional separateDebugInfo' "debug"
-        ;
+      outputs' = outputs ++ lib.optional separateDebugInfo' "debug";
 
-        # Turn a derivation into its outPath without a string context attached.
-        # See the comment at the usage site.
+      # Turn a derivation into its outPath without a string context attached.
+      # See the comment at the usage site.
       unsafeDerivationToUntrackedOutpath =
         drv:
         if lib.isDerivation drv then
@@ -270,7 +264,7 @@ let
       hardeningDisable' =
         if
           lib.any (x: x == "fortify") hardeningDisable
-          # disabling fortify implies fortify3 should also be disabled
+        # disabling fortify implies fortify3 should also be disabled
         then
           lib.unique (hardeningDisable ++ [ "fortify3" ])
         else
@@ -287,9 +281,9 @@ let
         "relro"
         "bindnow"
       ];
-        # Musl-based platforms will keep "pie", other platforms will not.
-        # If you change this, make sure to update section `{#sec-hardening-in-nixpkgs}`
-        # in the nixpkgs manual to inform users about the defaults.
+      # Musl-based platforms will keep "pie", other platforms will not.
+      # If you change this, make sure to update section `{#sec-hardening-in-nixpkgs}`
+      # in the nixpkgs manual to inform users about the defaults.
       defaultHardeningFlags =
         let
           # not ready for this by default
@@ -300,11 +294,11 @@ let
           stdenv.hostPlatform.isMusl
           &&
           # Except when:
-          #    - static aarch64, where compilation works, but produces segfaulting dynamically linked binaries.
-          #    - static armv7l, where compilation fails.
-          !(
-            stdenv.hostPlatform.isAarch && stdenv.hostPlatform.isStatic
-          )
+            #    - static aarch64, where compilation works, but produces segfaulting dynamically linked binaries.
+            #    - static armv7l, where compilation fails.
+            !(
+              stdenv.hostPlatform.isAarch && stdenv.hostPlatform.isStatic
+            )
         then
           supportedHardeningFlags'
         else
@@ -318,7 +312,7 @@ let
             defaultHardeningFlags ++ hardeningEnable
           )
         ;
-        # hardeningDisable additionally supports "all".
+      # hardeningDisable additionally supports "all".
       erroneousHardeningFlags = lib.subtractLists supportedHardeningFlags (
         hardeningEnable ++ lib.remove "all" hardeningDisable
       );
@@ -513,11 +507,11 @@ let
                   )
                   "-${stdenv.hostPlatform.config}";
 
-                  # Disambiguate statically built packages. This was originally
-                  # introduce as a means to prevent nix-env to get confused between
-                  # nix and nixStatic. This should be also achieved by moving the
-                  # hostSuffix before the version, so we could contemplate removing
-                  # it again.
+                # Disambiguate statically built packages. This was originally
+                # introduce as a means to prevent nix-env to get confused between
+                # nix and nixStatic. This should be also achieved by moving the
+                # hostSuffix before the version, so we could contemplate removing
+                # it again.
                 staticMarker =
                   lib.optionalString stdenv.hostPlatform.isStatic "-static";
               in
@@ -525,7 +519,7 @@ let
                 if attrs ? name then
                   attrs.name + hostSuffix
                 else
-                # we cannot coerce null to a string below
+                  # we cannot coerce null to a string below
                   assert lib.assertMsg
                     (attrs ? version && attrs.version != null)
                     "The ‘version’ attribute cannot be null.";
@@ -539,16 +533,14 @@ let
                 "-e"
                 (attrs.builder or ./default-builder.sh)
               ];
-            inherit
-              stdenv
-              ;
+            inherit stdenv;
 
-              # The `system` attribute of a derivation has special meaning to Nix.
-              # Derivations set it to choose what sort of machine could be used to
-              # execute the build, The build platform entirely determines this,
-              # indeed more finely than Nix knows or cares about. The `system`
-              # attribute of `buildPlatfom` matches Nix's degree of specificity.
-              # exactly.
+            # The `system` attribute of a derivation has special meaning to Nix.
+            # Derivations set it to choose what sort of machine could be used to
+            # execute the build, The build platform entirely determines this,
+            # indeed more finely than Nix knows or cares about. The `system`
+            # attribute of `buildPlatfom` matches Nix's degree of specificity.
+            # exactly.
             inherit (stdenv.buildPlatform) system;
 
             userHook = config.stdenv.userHook or null;
@@ -575,7 +567,7 @@ let
             depsTargetTargetPropagated =
               lib.elemAt (lib.elemAt propagatedDependencies 2) 0;
 
-              # This parameter is sometimes a string, sometimes null, and sometimes a list, yuck
+            # This parameter is sometimes a string, sometimes null, and sometimes a list, yuck
             configureFlags =
               let
                 inherit (lib) optional elem;
@@ -693,7 +685,7 @@ let
                     mesonFlags
                   ;
 
-                  # See https://mesonbuild.com/Reference-tables.html#cpu-families
+                # See https://mesonbuild.com/Reference-tables.html#cpu-families
                 cpuFamily =
                   platform:
                   with platform;
@@ -741,11 +733,9 @@ let
 
             inherit outputs;
           } // lib.optionalAttrs (__contentAddressed) {
-            inherit
-              __contentAddressed
-              ;
-              # Provide default values for outputHashMode and outputHashAlgo because
-              # most people won't care about these anyways
+            inherit __contentAddressed;
+            # Provide default values for outputHashMode and outputHashAlgo because
+            # most people won't care about these anyways
             outputHashAlgo = attrs.outputHashAlgo or "sha256";
             outputHashMode = attrs.outputHashMode or "recursive";
           } // lib.optionalAttrs (enableParallelBuilding) {
@@ -768,10 +758,8 @@ let
               ++ [ "gccarch-${stdenv.hostPlatform.gcc.arch}" ]
               ;
           } // lib.optionalAttrs (stdenv.buildPlatform.isDarwin) {
-            inherit
-              __darwinAllowLocalNetworking
-              ;
-              # TODO: remove lib.unique once nix has a list canonicalization primitive
+            inherit __darwinAllowLocalNetworking;
+            # TODO: remove lib.unique once nix has a list canonicalization primitive
             __sandboxProfile =
               let
                 profiles =
@@ -826,7 +814,9 @@ let
           # to be built eventually, we would still like to get the error early and without
           # having to wait while nix builds a derivation that might not be used.
           # See also https://github.com/NixOS/nix/issues/4629
-          lib.optionalAttrs (attrs ? disallowedReferences) {
+          lib.optionalAttrs
+          (attrs ? disallowedReferences)
+          {
             disallowedReferences =
               map unsafeDerivationToUntrackedOutpath attrs.disallowedReferences;
           } // lib.optionalAttrs (attrs ? disallowedRequisites) {
@@ -875,8 +865,8 @@ let
           )
           env
           ;
-
       in
+
       lib.extendDerivation validity.handled
       (
         {
@@ -889,28 +879,28 @@ let
             derivationArg // {
               # Add a name in case the original drv didn't have one
               name = derivationArg.name or "inputDerivation";
-                # This always only has one output
+              # This always only has one output
               outputs = [ "out" ];
 
-                # Propagate the original builder and arguments, since we override
-                # them and they might contain references to build inputs
+              # Propagate the original builder and arguments, since we override
+              # them and they might contain references to build inputs
               _derivation_original_builder = derivationArg.builder;
               _derivation_original_args = derivationArg.args;
 
               builder = stdenv.shell;
-                # The bash builtin `export` dumps all current environment variables,
-                # which is where all build input references end up (e.g. $PATH for
-                # binaries). By writing this to $out, Nix can find and register
-                # them as runtime dependencies (since Nix greps for store paths
-                # through $out to find them)
+              # The bash builtin `export` dumps all current environment variables,
+              # which is where all build input references end up (e.g. $PATH for
+              # binaries). By writing this to $out, Nix can find and register
+              # them as runtime dependencies (since Nix greps for store paths
+              # through $out to find them)
               args = [
                 "-c"
                 "export > $out"
               ];
 
-                # inputDerivation produces the inputs; not the outputs, so any
-                # restrictions on what used to be the outputs don't serve a purpose
-                # anymore.
+              # inputDerivation produces the inputs; not the outputs, so any
+              # restrictions on what used to be the outputs don't serve a purpose
+              # anymore.
               disallowedReferences = [ ];
               disallowedRequisites = [ ];
             }
@@ -930,7 +920,6 @@ let
         )
       )
     ;
-
 in
 fnOrAttrs:
 if builtins.isFunction fnOrAttrs then

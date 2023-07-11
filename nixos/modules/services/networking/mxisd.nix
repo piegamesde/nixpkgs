@@ -32,7 +32,7 @@ let
     };
   } // optionalAttrs (server != { }) { inherit server; };
 
-    # merges baseConfig and extraConfig into a single file
+  # merges baseConfig and extraConfig into a single file
   fullConfig = recursiveUpdate baseConfig cfg.extraConfig;
 
   configFile =
@@ -41,7 +41,6 @@ let
     else
       pkgs.writeText "mxisd-config.yaml" (builtins.toJSON fullConfig)
     ;
-
 in
 {
   options = {
@@ -85,7 +84,6 @@ in
             the domain of the matrix homeserver
           '';
         };
-
       };
 
       server = {
@@ -105,9 +103,7 @@ in
             HTTP port to listen on (unencrypted)
           '';
         };
-
       };
-
     };
   };
 

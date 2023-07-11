@@ -113,9 +113,7 @@ let
         mozo
         pluma
       ];
-
     }
     ;
-
 in
 lib.makeScope pkgs.newScope packages

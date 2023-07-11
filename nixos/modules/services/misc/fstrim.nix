@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.services.fstrim;
-
 in
 {
 
@@ -33,7 +32,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -49,7 +47,6 @@ in
       };
       wantedBy = [ "timers.target" ];
     };
-
   };
 
   meta.maintainers = with maintainers; [ ];

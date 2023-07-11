@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--localstatedir=/var/lib/nagios" ];
   buildFlags = [ "all" ];
 
-    # Do not create /var directories
+  # Do not create /var directories
   preInstall = ''
     substituteInPlace Makefile --replace '$(MAKE) install-basic' ""
   '';

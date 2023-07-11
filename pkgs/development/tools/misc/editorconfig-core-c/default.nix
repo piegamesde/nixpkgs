@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ pcre2 ];
 
-    # Multiple doxygen can not generate man pages in the same base directory in
-    # parallel: https://github.com/doxygen/doxygen/issues/6293
+  # Multiple doxygen can not generate man pages in the same base directory in
+  # parallel: https://github.com/doxygen/doxygen/issues/6293
   enableParallelBuilding = false;
 
   meta = with lib; {

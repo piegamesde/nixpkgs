@@ -144,8 +144,8 @@ backendStdenv.mkDerivation rec {
     ]
     ;
 
-    # Prepended to runpaths by autoPatchelf.
-    # The order inherited from older rpath preFixup code
+  # Prepended to runpaths by autoPatchelf.
+  # The order inherited from older rpath preFixup code
   runtimeDependencies = [
     (placeholder "lib")
     (placeholder "out")
@@ -274,7 +274,17 @@ backendStdenv.mkDerivation rec {
       # Fix builds with newer glibc version
       sed -i "1 i#define _BITS_FLOATN_H" "$out/include/host_defines.h"
     ''
-    + ''
+    +
+    # Point NVCC at a compatible compiler
+    # FIXME: redist cuda_nvcc copy-pastes this code
+    # Refer to comments in the overrides for cuda_nvcc for explanation
+    # CUDA_TOOLKIT_ROOT_DIR is legacy,
+    # Cf. https://cmake.org/cmake/help/latest/module/FindCUDA.html#input-variables
+    # NOTE: We unconditionally set -Xfatbin=-compress-all, which reduces the size of the compiled
+    #   binaries. If binaries grow over 2GB, they will fail to link. This is a problem for us, as
+    #   the default set of CUDA capabilities we build can regularly cause this to occur (for
+    #   example, with Magma).
+    ''
       mkdir -p $out/nix-support
       cat <<EOF >> $out/nix-support/setup-hook
       cmakeFlags+=' -DCUDA_TOOLKIT_ROOT_DIR=$out'
@@ -322,10 +332,10 @@ backendStdenv.mkDerivation rec {
     done
   '';
 
-    # cuda-gdb doesn't run correctly when not using sandboxing, so
-    # temporarily disabling the install check.  This should be set to true
-    # when we figure out how to get `cuda-gdb --version` to run correctly
-    # when not using sandboxing.
+  # cuda-gdb doesn't run correctly when not using sandboxing, so
+  # temporarily disabling the install check.  This should be set to true
+  # when we figure out how to get `cuda-gdb --version` to run correctly
+  # when not using sandboxing.
   doInstallCheck = false;
   postInstallCheck =
     let
@@ -359,4 +369,3 @@ backendStdenv.mkDerivation rec {
     license = licenses.unfree;
   };
 }
-

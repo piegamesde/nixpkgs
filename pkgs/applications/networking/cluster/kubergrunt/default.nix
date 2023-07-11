@@ -17,8 +17,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-AUw1wJNWjpNVsjw/Hr1ZCePYWQkf1SqRVnQgi8tOFG0=";
 
-    # Disable tests since it requires network access and relies on the
-    # presence of certain AWS infrastructure
+  # Disable tests since it requires network access and relies on the
+  # presence of certain AWS infrastructure
   doCheck = false;
 
   postInstall = ''

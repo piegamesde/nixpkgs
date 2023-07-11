@@ -19,7 +19,7 @@ let
     sha256 = "sha256-tNPG90mw8HZjp37YJ9JQlOBiVNPRo6xuNur651Adva8=";
   };
 
-    # launch4j downloads and runs a native binary during the package phase.
+  # launch4j downloads and runs a native binary during the package phase.
   patches = [ ./no-launch4j.patch ];
 
   mavenRepository = stdenv.mkDerivation {
@@ -49,7 +49,6 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-6FTbYXaF3rBIZov2WJxjG/ovmvimjXFPaFchAduVzI8=";
   };
-
 in
 stdenv.mkDerivation {
   pname = "forge-mtg";

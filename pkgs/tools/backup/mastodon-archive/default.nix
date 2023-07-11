@@ -21,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     progress
   ];
 
-    # There is no test
+  # There is no test
   doCheck = false;
 
   meta = with lib; {

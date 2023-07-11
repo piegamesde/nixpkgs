@@ -75,8 +75,8 @@ let
       '';
     }
     ;
-
 in
+
 {
   ###### interface
   options = {
@@ -236,10 +236,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -248,7 +247,7 @@ in
     users.users.hydra = {
       description = "Hydra";
       group = "hydra";
-        # We don't enable `createHome` here because the creation of the home directory is handled by the hydra-init service below.
+      # We don't enable `createHome` here because the creation of the home directory is handled by the hydra-init service below.
       home = baseDir;
       useDefaultShell = true;
       uid = config.ids.uids.hydra;
@@ -412,7 +411,7 @@ in
         User = "hydra-queue-runner";
         Restart = "always";
 
-          # Ensure we can get core dumps.
+        # Ensure we can get core dumps.
         LimitCORE = "infinity";
         WorkingDirectory = "${baseDir}/queue-runner";
       };
@@ -480,15 +479,15 @@ in
       };
       serviceConfig = {
         ExecStart = "@${hydra-package}/bin/hydra-notify hydra-notify";
-          # FIXME: run this under a less privileged user?
+        # FIXME: run this under a less privileged user?
         User = "hydra-queue-runner";
         Restart = "always";
         RestartSec = 5;
       };
     };
 
-      # If there is less than a certain amount of free disk space, stop
-      # the queue/evaluator to prevent builds from failing or aborting.
+    # If there is less than a certain amount of free disk space, stop
+    # the queue/evaluator to prevent builds from failing or aborting.
     systemd.services.hydra-check-space = {
       script = ''
         if [ $(($(stat -f -c '%a' /nix/store) * $(stat -f -c '%S' /nix/store))) -lt $((${
@@ -507,9 +506,9 @@ in
       startAt = "*:0/5";
     };
 
-      # Periodically compress build logs. The queue runner compresses
-      # logs automatically after a step finishes, but this doesn't work
-      # if the queue runner is stopped prematurely.
+    # Periodically compress build logs. The queue runner compresses
+    # logs automatically after a step finishes, but this doesn't work
+    # if the queue runner is stopped prematurely.
     systemd.services.hydra-compress-logs = {
       path = [ pkgs.bzip2 ];
       script = ''
@@ -532,7 +531,5 @@ in
     services.postgresql.authentication = optionalString haveLocalDB ''
       local hydra all ident map=hydra-users
     '';
-
   };
-
 }

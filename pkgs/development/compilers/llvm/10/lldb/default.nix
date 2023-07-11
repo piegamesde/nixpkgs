@@ -130,7 +130,7 @@ stdenv.mkDerivation (
         larger LLVM Project, such as the Clang expression parser and LLVM
         disassembler.
       '';
-        # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
       broken = stdenv.isDarwin && stdenv.isAarch64;
     };
   } // lib.optionalAttrs enableManpages {
@@ -142,7 +142,7 @@ stdenv.mkDerivation (
 
     propagatedBuildInputs = [ ];
 
-      # manually install lldb man page
+    # manually install lldb man page
     installPhase = ''
       mkdir -p $out/share/man/man1
       install docs/man/lldb.1 -t $out/share/man/man1/

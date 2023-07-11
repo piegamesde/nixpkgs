@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./configurable-usb-modeswitch.patch ];
 
-    # Remove attempts to write to /etc and /var/lib.
+  # Remove attempts to write to /etc and /var/lib.
   postPatch = ''
     sed -i \
       -e '/^\tinstall .* usb_modeswitch.conf/s,$(ETCDIR),$(out)/etc,' \

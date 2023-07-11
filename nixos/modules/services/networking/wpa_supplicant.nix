@@ -33,7 +33,7 @@ let
     hasWPA3 && others != [ ]
     ;
 
-    # Gives a WPA3 network higher priority
+  # Gives a WPA3 network higher priority
   increaseWPA3Priority =
     opts:
     opts // optionalAttrs (hasMixedWPA opts) {
@@ -46,7 +46,7 @@ let
     }
     ;
 
-    # Creates a WPA2 fallback network
+  # Creates a WPA2 fallback network
   mkWPA2Fallback =
     opts:
     opts // {
@@ -54,11 +54,11 @@ let
     }
     ;
 
-    # Networks attrset as a list
+  # Networks attrset as a list
   networkList =
     mapAttrsToList (ssid: opts: opts // { inherit ssid; }) cfg.networks;
 
-    # List of all networks (normal + generated fallbacks)
+  # List of all networks (normal + generated fallbacks)
   allNetworks =
     if cfg.fallbackToWPA2 then
       map increaseWPA3Priority networkList
@@ -67,7 +67,7 @@ let
       networkList
     ;
 
-    # Content of wpa_supplicant.conf
+  # Content of wpa_supplicant.conf
   generatedConfig = concatStringsSep "\n" (
     (map mkNetwork allNetworks)
     ++ optional cfg.userControlled.enable (
@@ -82,20 +82,20 @@ let
     ++ optional (cfg.extraConfig != "") cfg.extraConfig
   );
 
-  configIsGenerated = with cfg;
-    networks != { } || extraConfig != "" || userControlled.enable;
+  configIsGenerated =
+    with cfg; networks != { } || extraConfig != "" || userControlled.enable;
 
-    # the original configuration file
+  # the original configuration file
   configFile =
     if configIsGenerated then
       pkgs.writeText "wpa_supplicant.conf" generatedConfig
     else
       "/etc/wpa_supplicant.conf"
     ;
-    # the config file with environment variables replaced
+  # the config file with environment variables replaced
   finalConfig = ''"$RUNTIME_DIRECTORY"/wpa_supplicant.conf'';
 
-    # Creates a network block for wpa_supplicant.conf
+  # Creates a network block for wpa_supplicant.conf
   mkNetwork =
     opts:
     let
@@ -135,7 +135,7 @@ let
     ''
     ;
 
-    # Creates a systemd unit for wpa_supplicant bound to a given (or any) interface
+  # Creates a systemd unit for wpa_supplicant bound to a given (or any) interface
   mkUnit =
     iface:
     let
@@ -228,7 +228,6 @@ let
     ;
 
   systemctl = "/run/current-system/systemd/bin/systemctl";
-
 in
 {
   options = {
@@ -379,12 +378,12 @@ in
                   "FT-EAP"
                   "FT-SAE"
                 ];
-                  # The list can be obtained by running this command
-                  # awk '
-                  #   /^# key_mgmt: /{ run=1 }
-                  #   /^#$/{ run=0 }
-                  #   /^# [A-Z0-9-]{2,}/{ if(run){printf("\"%s\"\n", $2)} }
-                  # ' /run/current-system/sw/share/doc/wpa_supplicant/wpa_supplicant.conf.example
+                # The list can be obtained by running this command
+                # awk '
+                #   /^# key_mgmt: /{ run=1 }
+                #   /^#$/{ run=0 }
+                #   /^# [A-Z0-9-]{2,}/{ if(run){printf("\"%s\"\n", $2)} }
+                # ' /run/current-system/sw/share/doc/wpa_supplicant/wpa_supplicant.conf.example
                 type = types.listOf (
                   types.enum [
                     "WPA-PSK"
@@ -484,7 +483,6 @@ in
                   for available options.
                 '';
               };
-
             };
           }
         );
@@ -620,14 +618,14 @@ in
         )
       ;
 
-      # Restart wpa_supplicant after resuming from sleep
+    # Restart wpa_supplicant after resuming from sleep
     powerManagement.resumeCommands = concatStringsSep "\n" (
       optional (cfg.interfaces == [ ]) "${systemctl} try-restart wpa_supplicant"
       ++ map (i: "${systemctl} try-restart wpa_supplicant-${i}") cfg.interfaces
     );
 
-      # Restart wpa_supplicant when a wlan device appears or disappears. This is
-      # only needed when an interface hasn't been specified by the user.
+    # Restart wpa_supplicant when a wlan device appears or disappears. This is
+    # only needed when an interface hasn't been specified by the user.
     services.udev.extraRules = optionalString (cfg.interfaces == [ ]) ''
       ACTION=="add|remove", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", \
       RUN+="${systemctl} try-restart wpa_supplicant.service"

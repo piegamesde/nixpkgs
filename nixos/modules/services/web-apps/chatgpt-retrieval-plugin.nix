@@ -103,8 +103,8 @@ in
         StateDirectoryMode = "0755";
       };
 
-        # it doesn't make sense to pass secrets as env vars, this is a hack until
-        # upstream has proper secret management.
+      # it doesn't make sense to pass secrets as env vars, this is a hack until
+      # upstream has proper secret management.
       script = ''
         export BEARER_TOKEN=$(${pkgs.systemd}/bin/systemd-creds cat BEARER_TOKEN)
         export OPENAI_API_KEY=$(${pkgs.systemd}/bin/systemd-creds cat OPENAI_API_KEY)

@@ -222,20 +222,20 @@ in
             '';
           }
         );
-          # Actually require Tahoe, so that we will have it installed.
+        # Actually require Tahoe, so that we will have it installed.
         systemPackages =
           flip mapAttrsToList cfg.introducers (node: settings: settings.package)
           ;
       };
-        # Open up the firewall.
-        # networking.firewall.allowedTCPPorts = flip mapAttrsToList cfg.introducers
-        #   (node: settings: settings.tub.port);
+      # Open up the firewall.
+      # networking.firewall.allowedTCPPorts = flip mapAttrsToList cfg.introducers
+      #   (node: settings: settings.tub.port);
       systemd.services = flip mapAttrs' cfg.introducers (
         node: settings:
         let
           pidfile = "/run/tahoe.introducer-${node}.pid";
-            # This is a directory, but it has no trailing slash. Tahoe commands
-            # get antsy when there's a trailing slash.
+          # This is a directory, but it has no trailing slash. Tahoe commands
+          # get antsy when there's a trailing slash.
           nodedir = "/var/db/tahoe-lafs/introducer-${node}";
         in
         nameValuePair "tahoe.introducer-${node}" {
@@ -248,9 +248,9 @@ in
           serviceConfig = {
             Type = "simple";
             PIDFile = pidfile;
-              # Believe it or not, Tahoe is very brittle about the order of
-              # arguments to $(tahoe run). The node directory must come first,
-              # and arguments which alter Twisted's behavior come afterwards.
+            # Believe it or not, Tahoe is very brittle about the order of
+            # arguments to $(tahoe run). The node directory must come first,
+            # and arguments which alter Twisted's behavior come afterwards.
             ExecStart = ''
               ${settings.package}/bin/tahoe run ${
                 lib.escapeShellArg nodedir
@@ -345,19 +345,19 @@ in
             '';
           }
         );
-          # Actually require Tahoe, so that we will have it installed.
+        # Actually require Tahoe, so that we will have it installed.
         systemPackages =
           flip mapAttrsToList cfg.nodes (node: settings: settings.package);
       };
-        # Open up the firewall.
-        # networking.firewall.allowedTCPPorts = flip mapAttrsToList cfg.nodes
-        #   (node: settings: settings.tub.port);
+      # Open up the firewall.
+      # networking.firewall.allowedTCPPorts = flip mapAttrsToList cfg.nodes
+      #   (node: settings: settings.tub.port);
       systemd.services = flip mapAttrs' cfg.nodes (
         node: settings:
         let
           pidfile = "/run/tahoe.${node}.pid";
-            # This is a directory, but it has no trailing slash. Tahoe commands
-            # get antsy when there's a trailing slash.
+          # This is a directory, but it has no trailing slash. Tahoe commands
+          # get antsy when there's a trailing slash.
           nodedir = "/var/db/tahoe-lafs/${node}";
         in
         nameValuePair "tahoe.${node}" {
@@ -370,9 +370,9 @@ in
           serviceConfig = {
             Type = "simple";
             PIDFile = pidfile;
-              # Believe it or not, Tahoe is very brittle about the order of
-              # arguments to $(tahoe run). The node directory must come first,
-              # and arguments which alter Twisted's behavior come afterwards.
+            # Believe it or not, Tahoe is very brittle about the order of
+            # arguments to $(tahoe run). The node directory must come first,
+            # and arguments which alter Twisted's behavior come afterwards.
             ExecStart = ''
               ${settings.package}/bin/tahoe run ${
                 lib.escapeShellArg nodedir

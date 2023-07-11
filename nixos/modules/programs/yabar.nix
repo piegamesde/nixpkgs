@@ -78,7 +78,7 @@ in
       example = literalExpression "pkgs.yabar";
       type = types.package;
 
-        # `yabar-stable` segfaults under certain conditions.
+      # `yabar-stable` segfaults under certain conditions.
       apply =
         x:
         if x == pkgs.yabar-unstable then

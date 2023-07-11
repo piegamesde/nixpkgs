@@ -63,8 +63,8 @@ let
     defaultPackageNames;
   defaultPackagesText =
     "[ ${concatMapStringsSep " " (n: "pkgs.${n}") defaultPackageNames} ]";
-
 in
+
 {
   options = {
 
@@ -116,8 +116,8 @@ in
 
       pathsToLink = mkOption {
         type = types.listOf types.str;
-          # Note: We need `/lib' to be among `pathsToLink' for NSS modules
-          # to work.
+        # Note: We need `/lib' to be among `pathsToLink' for NSS modules
+        # to work.
         default = [ ];
         example = [ "/" ];
         description = lib.mdDoc
@@ -145,7 +145,6 @@ in
           "Shell fragments to be run after the system environment has been created. This should only be used for things that need to modify the internals of the environment, e.g. generating MIME caches. The environment being built can be accessed at $out."
           ;
       };
-
     };
 
     system = {
@@ -156,9 +155,7 @@ in
           The packages you want in the boot environment.
         '';
       };
-
     };
-
   };
 
   config = {
@@ -192,8 +189,8 @@ in
       paths = config.environment.systemPackages;
       inherit (config.environment) pathsToLink extraOutputsToInstall;
       ignoreCollisions = true;
-        # !!! Hacky, should modularise.
-        # outputs TODO: note that the tools will often not be linked by default
+      # !!! Hacky, should modularise.
+      # outputs TODO: note that the tools will often not be linked by default
       postBuild = ''
         # Remove wrapped binaries, they shouldn't be accessible via PATH.
         find $out/bin -maxdepth 1 -name ".*-wrapped" -type l -delete
@@ -205,6 +202,5 @@ in
         ${config.environment.extraSetup}
       '';
     };
-
   };
 }

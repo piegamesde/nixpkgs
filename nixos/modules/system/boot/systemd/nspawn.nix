@@ -137,7 +137,6 @@ let
         '';
       };
     };
-
   };
 
   instanceToUnit =
@@ -156,9 +155,10 @@ let
         '';
       } // def;
     in
-    base // { unit = makeUnit name base; }
+    base // {
+      unit = makeUnit name base;
+    }
     ;
-
 in
 {
 
@@ -169,7 +169,6 @@ in
       type = with types; attrsOf (submodule instanceOptions);
       description = lib.mdDoc "Definition of systemd-nspawn configurations.";
     };
-
   };
 
   config =

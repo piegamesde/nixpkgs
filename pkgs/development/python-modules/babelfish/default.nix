@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-    # no tests executed
+  # no tests executed
   doCheck = false;
 
   pythonImportsCheck = [ "babelfish" ];

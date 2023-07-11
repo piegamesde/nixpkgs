@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     json-glib
   ];
 
-    # Necessary because project uses default build dir for flatpaks/snaps
+  # Necessary because project uses default build dir for flatpaks/snaps
   dontUseMesonConfigure = true;
 
   configureScript = ''

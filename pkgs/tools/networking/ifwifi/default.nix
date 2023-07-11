@@ -30,13 +30,13 @@ rustPlatform.buildRustPackage rec {
     wrapProgram "$out/bin/ifwifi" \
       --prefix PATH : "${
         lib.makeBinPath (
-        # `ifwifi` runtime dep
-          [
-            networkmanager
-          ]
+          # `ifwifi` runtime dep
+            [
+              networkmanager
+            ]
           # `wifiscanner` crate's runtime deps
           ++ (lib.optional stdenv.isLinux iw)
-          # ++ (lib.optional stdenv.isDarwin airport) # airport isn't packaged
+        # ++ (lib.optional stdenv.isDarwin airport) # airport isn't packaged
         )
       }"
   '';
@@ -55,11 +55,9 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/araujobsd/ifwifi";
     license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [
-        blaggacao
-      ];
-      # networkmanager doesn't work on darwin
-      # even though the `wifiscanner` crate would work
+    maintainers = with maintainers; [ blaggacao ];
+    # networkmanager doesn't work on darwin
+    # even though the `wifiscanner` crate would work
     platforms = with platforms; linux; # ++ darwin;
   };
 }

@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ zlib ];
 
-    # test/zziptests.py requires network access
-    # (https://github.com/gdraheim/zziplib/issues/24)
+  # test/zziptests.py requires network access
+  # (https://github.com/gdraheim/zziplib/issues/24)
   cmakeFlags = [
     "-DZZIP_TESTCVE=OFF"
     "-DBUILD_SHARED_LIBS=True"

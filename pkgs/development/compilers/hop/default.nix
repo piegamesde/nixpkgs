@@ -13,8 +13,8 @@ let
     in
     head (splitString "-" (builtins.parseDrvName bigloo.name).version)
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "hop";
   version = "3.4.4";

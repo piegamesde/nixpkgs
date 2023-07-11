@@ -23,7 +23,6 @@ let
       } --ctl-config "${ctlcfg}" --spool "${cfg.spoolDir}" --logs "${cfg.logsDir}"'';
 
   dumps = lib.escapeShellArgs cfg.loadDumps;
-
 in
 {
 
@@ -98,10 +97,9 @@ in
           "Add ImageMagick to server's path; allows for image thumbnailing";
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
@@ -169,7 +167,5 @@ in
     ];
 
     security.pam.services.ejabberd = { };
-
   };
-
 }

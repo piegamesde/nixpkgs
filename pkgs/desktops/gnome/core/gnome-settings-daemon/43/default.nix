@@ -112,8 +112,8 @@ stdenv.mkDerivation rec {
     "-Dgnome_session_ctl_path=${gnome-session-ctl}/libexec/gnome-session-ctl"
   ];
 
-    # Default for release buildtype but passed manually because
-    # we're using plain
+  # Default for release buildtype but passed manually because
+  # we're using plain
   env.NIX_CFLAGS_COMPILE = "-DG_DISABLE_CAST_CHECKS";
 
   postPatch = ''

@@ -19,12 +19,10 @@ buildPythonPackage rec {
   pname = "arelle${lib.optionalString (!gui) "-headless"}";
   version = "18.3";
 
-  disabled =
-    !isPy3k
-    ;
+  disabled = !isPy3k;
 
-    # Releases are published at http://arelle.org/download/ but sadly no
-    # tags are published on github.
+  # Releases are published at http://arelle.org/download/ but sadly no
+  # tags are published on github.
   src = fetchFromGitHub {
     owner = "Arelle";
     repo = "Arelle";
@@ -51,21 +49,23 @@ buildPythonPackage rec {
     ++ lib.optionals gui [ tkinter ]
     ;
 
-    # arelle-gui is useless without gui dependencies, so delete it when !gui.
+  # arelle-gui is useless without gui dependencies, so delete it when !gui.
   postInstall =
     lib.optionalString (!gui) ''
       find $out/bin -name "*arelle-gui*" -delete
     ''
     +
     # By default, not the entirety of the src dir is copied. This means we don't
-    # copy the `images` dir, which is needed for the gui version.
-    lib.optionalString (gui) ''
-      targetDir=$out/${python.sitePackages}
-      cp -vr $src/arelle $targetDir
-    ''
+      # copy the `images` dir, which is needed for the gui version.
+      lib.optionalString
+      (gui)
+      ''
+        targetDir=$out/${python.sitePackages}
+        cp -vr $src/arelle $targetDir
+      ''
     ;
 
-    # Documentation
+  # Documentation
   postBuild = ''
     (cd apidocs && make html && cp -r _build $doc)
   '';

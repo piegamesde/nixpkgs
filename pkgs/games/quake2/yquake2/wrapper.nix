@@ -17,7 +17,6 @@ let
     name = "${name}-env";
     paths = [ yquake2 ] ++ games;
   };
-
 in
 stdenv.mkDerivation {
   name = "${name}-${lib.getVersion yquake2}";

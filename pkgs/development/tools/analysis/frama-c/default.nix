@@ -28,8 +28,8 @@ let
 in
 let
   why3 = why3_1_5;
-
 in
+
 let
   mkocamlpath = p: "${p}/lib/ocaml/${ocamlPackages.ocaml.version}/site-lib";
   runtimeDeps = with ocamlPackages; [
@@ -58,8 +58,8 @@ let
     zarith
   ];
   ocamlpath = lib.concatMapStringsSep ":" mkocamlpath runtimeDeps;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "frama-c";
   version = "26.1";
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=(--prefix OCAMLPATH ':' ${ocamlpath}:$out/lib/)
   '';
 
-    # Allow loading of external Frama-C plugins
+  # Allow loading of external Frama-C plugins
   setupHook = writeText "setupHook.sh" ''
     addFramaCPath () {
       if test -d "$1/lib/frama-c/plugins"; then

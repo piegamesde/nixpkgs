@@ -72,16 +72,16 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-    # The build system won't let us build with docs or introspection
-    # unless we're building natively, but will still do a mandatory
-    # check for the dependencies for those things unless we explicitly
-    # disable the options.
+  # The build system won't let us build with docs or introspection
+  # unless we're building natively, but will still do a mandatory
+  # check for the dependencies for those things unless we explicitly
+  # disable the options.
   mesonFlags = [
     (lib.mesonEnable "docs" withDocs)
     (lib.mesonEnable "introspection" withIntrospection)
   ];
 
-    # https://gitlab.com/libvirt/libvirt-glib/-/issues/4
+  # https://gitlab.com/libvirt/libvirt-glib/-/issues/4
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=pointer-sign" ];
 
   meta = with lib; {

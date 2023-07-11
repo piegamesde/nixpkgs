@@ -63,14 +63,14 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-    # Tries to use /homeless-shelter to mimic container usage, etc
+  # Tries to use /homeless-shelter to mimic container usage, etc
   doCheck = false;
 
-    # marshmallow.exceptions.StringNotCollectionError: "only" should be a collection of strings.
-    # Support for marshmallow > 3
-    # pythonImportsCheck = [
-    #   "gradient"
-    # ];
+  # marshmallow.exceptions.StringNotCollectionError: "only" should be a collection of strings.
+  # Support for marshmallow > 3
+  # pythonImportsCheck = [
+  #   "gradient"
+  # ];
 
   meta = with lib; {
     description = "The command line interface for Gradient";

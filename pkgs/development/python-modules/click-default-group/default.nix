@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "click-default-group";
   version = "1.2.2";
 
-    # No tests in Pypi tarball
+  # No tests in Pypi tarball
   src = fetchFromGitHub {
     owner = "click-contrib";
     repo = "click-default-group";

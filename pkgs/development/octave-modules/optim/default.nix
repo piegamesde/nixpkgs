@@ -33,7 +33,7 @@ buildOctavePackage rec {
       gpl3Plus
       publicDomain
     ];
-      # Modified BSD code seems removed
+    # Modified BSD code seems removed
     maintainers = with maintainers; [ KarlJoad ];
     description = "Non-linear optimization toolkit";
   };

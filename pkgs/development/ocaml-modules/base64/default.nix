@@ -24,7 +24,7 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ findlib ];
 
-    # otherwise fmt breaks evaluation
+  # otherwise fmt breaks evaluation
   doCheck = lib.versionAtLeast ocaml.version "4.08";
   checkInputs = [
     alcotest

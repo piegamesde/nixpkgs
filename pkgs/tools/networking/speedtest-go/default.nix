@@ -19,7 +19,7 @@ buildGoModule rec {
 
   excludedPackages = [ "example" ];
 
-    # test suite requires network
+  # test suite requires network
   doCheck = false;
 
   meta = with lib; {

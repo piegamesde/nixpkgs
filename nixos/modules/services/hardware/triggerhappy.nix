@@ -62,12 +62,11 @@ let
           type = types.str;
           description = lib.mdDoc "What to run.";
         };
-
       };
     }
     ;
-
 in
+
 {
 
   ###### interface
@@ -111,12 +110,10 @@ in
           Literal contents to append to the end of {command}`triggerhappy` configuration file.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -147,7 +144,5 @@ in
         '';
       }
     );
-
   };
-
 }

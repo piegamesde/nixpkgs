@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   name = "asus-wmi-sensors-${version}-${kernel.version}";
   version = "unstable-2019-11-07";
 
-    # The original was deleted from github, but this seems to be an active fork
+  # The original was deleted from github, but this seems to be an active fork
   src = fetchFromGitHub {
     owner = "electrified";
     repo = "asus-wmi-sensors";

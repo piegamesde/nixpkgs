@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ unzip ];
 
-    # We only need the header files. The library files are
-    # in the nvidia_x11 driver.
+  # We only need the header files. The library files are
+  # in the nvidia_x11 driver.
   installPhase = ''
     mkdir -p $out/include
     cp -R Samples/common/inc/* $out/include
@@ -30,4 +30,3 @@ stdenv.mkDerivation rec {
     license = licenses.unfree;
   };
 }
-

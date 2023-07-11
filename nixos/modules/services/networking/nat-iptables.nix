@@ -24,7 +24,7 @@ let
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
-    # Whether given IP (plus optional port) is an IPv6.
+  # Whether given IP (plus optional port) is an IPv6.
   isIPv6 = ip: builtins.length (lib.splitString ":" ip) > 2;
 
   helpers = import ./helpers.nix { inherit config lib; };
@@ -179,8 +179,8 @@ let
     ip46tables -w -t nat -A POSTROUTING -j nixos-nat-post
     ip46tables -w -t nat -A OUTPUT -j nixos-nat-out
   '';
-
 in
+
 {
 
   options = {
@@ -208,7 +208,6 @@ in
         This option is incompatible with the nftables based nat module.
       '';
     };
-
   };
 
   config = mkIf (!config.networking.nftables.enable) (

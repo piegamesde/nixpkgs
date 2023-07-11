@@ -56,8 +56,8 @@
   static ? stdenv.hostPlatform.isStatic,
   enableFramework ? false,
   enableOptimizations ? false
-    # enableNoSemanticInterposition is a subset of the enableOptimizations flag that doesn't harm reproducibility.
-    # clang starts supporting `-fno-sematic-interposition` with version 10
+  # enableNoSemanticInterposition is a subset of the enableOptimizations flag that doesn't harm reproducibility.
+  # clang starts supporting `-fno-sematic-interposition` with version 10
   ,
   enableNoSemanticInterposition ? (
     !stdenv.cc.isClang
@@ -206,6 +206,7 @@ let
     )
 
     ++ optionals enableFramework [ Cocoa ]
+
     ++ optionals tzdataSupport [ tzdata ]
     ; # `zoneinfo` module
 
@@ -218,18 +219,18 @@ let
       pythonForBuild.interpreter
     ;
 
-    # The CPython interpreter contains a _sysconfigdata_<platform specific suffix>
-    # module that is imported by the sysconfig and distutils.sysconfig modules.
-    # The sysconfigdata module is generated at build time and contains settings
-    # required for building Python extension modules, such as include paths and
-    # other compiler flags. By default, the sysconfigdata module is loaded from
-    # the currently running interpreter (ie. the build platform interpreter), but
-    # when cross-compiling we want to load it from the host platform interpreter.
-    # This can be done using the _PYTHON_SYSCONFIGDATA_NAME environment variable.
-    # The _PYTHON_HOST_PLATFORM variable also needs to be set to get the correct
-    # platform suffix on extension modules. The correct values for these variables
-    # are not documented, and must be derived from the configure script (see links
-    # below).
+  # The CPython interpreter contains a _sysconfigdata_<platform specific suffix>
+  # module that is imported by the sysconfig and distutils.sysconfig modules.
+  # The sysconfigdata module is generated at build time and contains settings
+  # required for building Python extension modules, such as include paths and
+  # other compiler flags. By default, the sysconfigdata module is loaded from
+  # the currently running interpreter (ie. the build platform interpreter), but
+  # when cross-compiling we want to load it from the host platform interpreter.
+  # This can be done using the _PYTHON_SYSCONFIGDATA_NAME environment variable.
+  # The _PYTHON_HOST_PLATFORM variable also needs to be set to get the correct
+  # platform suffix on extension modules. The correct values for these variables
+  # are not documented, and must be derived from the configure script (see links
+  # below).
   sysconfigdataHook = with stdenv.hostPlatform;
     with passthru;
     let
@@ -256,7 +257,7 @@ let
         "${parsed.kernel.name}-${cpu}"
         ;
 
-        # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L724
+      # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L724
       multiarchCpu =
         if isAarch32 then
           if parsed.cpu.significantByte.name == "littleEndian" then
@@ -298,7 +299,7 @@ let
 
       abiFlags = optionalString isPy37 "m";
 
-        # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L78
+      # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L78
       pythonSysconfigdataName =
         "_sysconfigdata_${abiFlags}_${parsed.kernel.name}_${multiarch}";
     in
@@ -313,7 +314,6 @@ let
       addEnvHooks "$hostOffset" sysconfigdataHook
     ''
     ;
-
 in
 with passthru;
 stdenv.mkDerivation {
@@ -362,9 +362,7 @@ stdenv.mkDerivation {
       # ctypes.util.find_library during the loading of the uuid module
       # (since it will do a futile invocation of gcc (!) to find
       # libuuid, slowing down program startup a lot).
-      (
-        ./. + "/${sourceVersion.major}.${sourceVersion.minor}/no-ldconfig.patch"
-      )
+      (./. + "/${sourceVersion.major}.${sourceVersion.minor}/no-ldconfig.patch")
       # Make sure that the virtualenv activation scripts are
       # owner-writable, so venvs can be recreated without permission
       # errors.
@@ -442,7 +440,7 @@ stdenv.mkDerivation {
         }
         ."${stdenv.hostPlatform.libc}" or ""
       );
-      # Determinism: We fix the hashes of str, bytes and datetime objects.
+    # Determinism: We fix the hashes of str, bytes and datetime objects.
     PYTHONHASHSEED = 0;
   };
 
@@ -512,16 +510,7 @@ stdenv.mkDerivation {
         substituteInPlace ./setup.py --replace $i /no-such-path
       done
     ''
-    +
-
-    # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
-    # which changes how symbols are looked up. This essentially means we can't override
-    # libpython symbols via LD_PRELOAD anymore. This is common enough as every build
-    # that uses --enable-optimizations has the same "issue".
-    #
-    # The Fedora wiki has a good article about their journey towards enabling this flag:
-    # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
-    optionalString stdenv.isDarwin ''
+    + optionalString stdenv.isDarwin ''
       # Override the auto-detection in setup.py, which assumes a universal build
       export PYTHON_DECIMAL_WITH_MACHINE=${
         if stdenv.isAarch64 then
@@ -530,44 +519,28 @@ stdenv.mkDerivation {
           "x64"
       }
     ''
-    +
-
-    # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
-    # which changes how symbols are looked up. This essentially means we can't override
-    # libpython symbols via LD_PRELOAD anymore. This is common enough as every build
-    # that uses --enable-optimizations has the same "issue".
-    #
-    # The Fedora wiki has a good article about their journey towards enabling this flag:
-    # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
-    optionalString (isPy3k && pythonOlder "3.7") ''
+    + optionalString (isPy3k && pythonOlder "3.7") ''
       # Determinism: The interpreter is patched to write null timestamps when compiling Python files
       #   so Python doesn't try to update the bytecode when seeing frozen timestamps in Nix's store.
       export DETERMINISTIC_BUILD=1;
     ''
-    +
-
-    # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
-    # which changes how symbols are looked up. This essentially means we can't override
-    # libpython symbols via LD_PRELOAD anymore. This is common enough as every build
-    # that uses --enable-optimizations has the same "issue".
-    #
-    # The Fedora wiki has a good article about their journey towards enabling this flag:
-    # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
-    optionalString stdenv.hostPlatform.isMusl ''
+    + optionalString stdenv.hostPlatform.isMusl ''
       export NIX_CFLAGS_COMPILE+=" -DTHREAD_STACK_SIZE=0x100000"
     ''
     +
 
     # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
-    # which changes how symbols are looked up. This essentially means we can't override
-    # libpython symbols via LD_PRELOAD anymore. This is common enough as every build
-    # that uses --enable-optimizations has the same "issue".
-    #
-    # The Fedora wiki has a good article about their journey towards enabling this flag:
-    # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
-    optionalString enableNoSemanticInterposition ''
-      export CFLAGS_NODIST="-fno-semantic-interposition"
-    ''
+      # which changes how symbols are looked up. This essentially means we can't override
+      # libpython symbols via LD_PRELOAD anymore. This is common enough as every build
+      # that uses --enable-optimizations has the same "issue".
+      #
+      # The Fedora wiki has a good article about their journey towards enabling this flag:
+      # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
+      optionalString
+      enableNoSemanticInterposition
+      ''
+        export CFLAGS_NODIST="-fno-semantic-interposition"
+      ''
     ;
 
   setupHook = python-setup-hook sitePackages;
@@ -683,16 +656,16 @@ stdenv.mkDerivation {
     export PATH=${lib.makeBinPath [ "$out" ]}:$PATH
   '';
 
-    # Add CPython specific setup-hook that configures distutils.sysconfig to
-    # always load sysconfigdata from host Python.
+  # Add CPython specific setup-hook that configures distutils.sysconfig to
+  # always load sysconfigdata from host Python.
   postFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     cat << "EOF" >> "$out/nix-support/setup-hook"
     ${sysconfigdataHook}
     EOF
   '';
 
-    # Enforce that we don't have references to the OpenSSL -dev package, which we
-    # explicitly specify in our configure flags above.
+  # Enforce that we don't have references to the OpenSSL -dev package, which we
+  # explicitly specify in our configure flags above.
   disallowedReferences =
     lib.optionals (openssl' != null && !static && !enableFramework) [
         openssl'.dev

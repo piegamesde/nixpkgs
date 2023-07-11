@@ -41,7 +41,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     services.dbus.packages = [ cfg.package ];
 

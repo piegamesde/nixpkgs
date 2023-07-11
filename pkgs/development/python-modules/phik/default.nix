@@ -49,7 +49,7 @@ buildPythonPackage rec {
     pybind11
   ];
 
-    # uses setuptools to drive build process
+  # uses setuptools to drive build process
   dontUseCmakeConfigure = true;
 
   nativeBuildInputs = [

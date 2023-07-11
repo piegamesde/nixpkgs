@@ -34,7 +34,7 @@ buildPythonPackage rec {
     ++ lib.optionals (!isPy3k) [ futures ]
     ;
 
-    # Some of the tests use localhost networking.
+  # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
   pythonImportsCheck = [ "trustme" ];

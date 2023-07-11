@@ -26,8 +26,8 @@ let
 
     ${optionalString (cfg.extraConfig != null) cfg.extraConfig}
   '';
-
 in
+
 {
   imports = [
     (mkRenamedOptionModule
@@ -711,7 +711,6 @@ in
         # If we have a folder or symlink with gitea locales, remove it
         # And symlink the current gitea locales in place
         "L+ '${cfg.stateDir}/conf/locale' - - - - ${cfg.package.out}/locale"
-
       ]
       ++ lib.optionals cfg.lfs.enable [
         "d '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
@@ -734,13 +733,13 @@ in
         pkgs.gnupg
       ];
 
-        # In older versions the secret naming for JWT was kind of confusing.
-        # The file jwt_secret hold the value for LFS_JWT_SECRET and JWT_SECRET
-        # wasn't persistent at all.
-        # To fix that, there is now the file oauth2_jwt_secret containing the
-        # values for JWT_SECRET and the file jwt_secret gets renamed to
-        # lfs_jwt_secret.
-        # We have to consider this to stay compatible with older installations.
+      # In older versions the secret naming for JWT was kind of confusing.
+      # The file jwt_secret hold the value for LFS_JWT_SECRET and JWT_SECRET
+      # wasn't persistent at all.
+      # To fix that, there is now the file oauth2_jwt_secret containing the
+      # values for JWT_SECRET and the file jwt_secret gets renamed to
+      # lfs_jwt_secret.
+      # We have to consider this to stay compatible with older installations.
       preStart =
         let
           runConfig = "${cfg.customDir}/conf/app.ini";
@@ -827,10 +826,10 @@ in
         WorkingDirectory = cfg.stateDir;
         ExecStart = "${exe} web --pid /run/gitea/gitea.pid";
         Restart = "always";
-          # Runtime directory and mode
+        # Runtime directory and mode
         RuntimeDirectory = "gitea";
         RuntimeDirectoryMode = "0755";
-          # Access write directories
+        # Access write directories
         ReadWritePaths = [
           cfg.customDir
           cfg.dump.backupDir
@@ -839,11 +838,11 @@ in
           cfg.lfs.contentDir
         ];
         UMask = "0027";
-          # Capabilities
+        # Capabilities
         CapabilityBoundingSet = "";
-          # Security
+        # Security
         NoNewPrivileges = true;
-          # Sandboxing
+        # Sandboxing
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
@@ -861,7 +860,7 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         PrivateMounts = true;
-          # System Call Filtering
+        # System Call Filtering
         SystemCallArchitectures = "native";
         SystemCallFilter =
           "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
@@ -896,7 +895,7 @@ in
       ''
       ;
 
-      # Create database passwordFile default when password is configured.
+    # Create database passwordFile default when password is configured.
     services.gitea.database.passwordFile = mkDefault (
       toString (
         pkgs.writeTextFile {

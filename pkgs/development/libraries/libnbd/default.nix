@@ -67,4 +67,3 @@ stdenv.mkDerivation rec {
 # TODO: package the 1.6-stable version too
 # TODO: git version needs ocaml
 # TODO: bindings for go, ocaml and python
-

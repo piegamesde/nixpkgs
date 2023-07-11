@@ -50,7 +50,7 @@ in
       serviceConfig = {
         DynamicUser = true;
 
-          # upstream overrides for better nixos compatibility
+        # upstream overrides for better nixos compatibility
         ExecStartPre = [
           ""
           "${pkgs.dnsdist}/bin/dnsdist --check-config --config ${configFile}"

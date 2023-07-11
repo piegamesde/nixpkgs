@@ -58,13 +58,18 @@
 ]
 ++
 
-# reason for failure: tests try to reach network
-[
-  "test_Text2Color"
-  "test_PointCloudDot"
-  "test_Torus"
-]
+# failing with:
+# E           AssertionError:
+# E           Not equal to tolerance rtol=1e-07, atol=1.01
+# E           Frame no -1. You can use --show_diff to visually show the difference.
+# E           Mismatched elements: 18525 / 1639680 (1.13%)
+# E           Max absolute difference: 255
+# E           Max relative difference: 255.
+[ "test_Text2Color" "test_PointCloudDot" "test_Torus" ]
 ++
 
-# reason for failure: tests try to reach network
-[ "test_force_window_opengl_render_with_movies" ]
+# failing with:
+  # TypeError: __init__() got an unexpected keyword argument 'msg' - maybe you meant pytest.mark.skipif?
+  [
+    "test_force_window_opengl_render_with_movies"
+  ]

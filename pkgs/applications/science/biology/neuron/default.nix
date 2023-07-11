@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   pname = "neuron";
   version = "8.2.2";
 
-    # format is for pythonModule conversion
+  # format is for pythonModule conversion
   format = "other";
 
   nativeBuildInputs =
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./neuron_darwin_rpath.patch ];
 
-    # Patch build shells for cmake (bin, src, cmake) and submodules (external)
+  # Patch build shells for cmake (bin, src, cmake) and submodules (external)
   postPatch = ''
     patchShebangs ./bin ./src ./external ./cmake
     sed -e 's#DESTDIR =#DESTDIR = '"$out"'#' -i external/coreneuron/extra/nrnivmodl_core_makefile.in

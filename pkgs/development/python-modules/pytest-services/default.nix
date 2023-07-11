@@ -33,7 +33,7 @@ buildPythonPackage rec {
     zc_lockfile
   ];
 
-    # no tests in PyPI tarball
+  # no tests in PyPI tarball
   doCheck = false;
 
   pythonImportsCheck = [ "pytest_services" ];

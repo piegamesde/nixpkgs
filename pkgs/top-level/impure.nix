@@ -6,7 +6,7 @@ let
 
   homeDir = builtins.getEnv "HOME";
 
-    # Return ‘x’ if it evaluates, or ‘def’ if it throws an exception.
+  # Return ‘x’ if it evaluates, or ‘def’ if it throws an exception.
   try =
     x: def:
     let
@@ -17,11 +17,11 @@ let
     else
       def
     ;
-
 in
+
 { # We put legacy `system` into `localSystem`, if `localSystem` was not passed.
-# If neither is passed, assume we are building packages on the current
-# (build, in GNU Autotools parlance) platform.
+  # If neither is passed, assume we are building packages on the current
+  # (build, in GNU Autotools parlance) platform.
   localSystem ? {
     system = args.system or builtins.currentSystem;
   }
@@ -62,7 +62,7 @@ in
       if
         isDir path
       then
-      # it's a directory, so the set of overlays from the directory, ordered lexicographically
+        # it's a directory, so the set of overlays from the directory, ordered lexicographically
         let
           content = builtins.readDir path;
         in
@@ -73,16 +73,20 @@ in
             (
               builtins.match ".*\\.nix" n != null
               &&
-              # ignore Emacs lock files (.#foo.nix)
-                builtins.match "\\.#.*" n == null
+                # ignore Emacs lock files (.#foo.nix)
+                  builtins.match
+                  "\\.#.*"
+                  n
+                == null
             )
             || builtins.pathExists (path + ("/" + n + "/default.nix"))
           )
           (builtins.attrNames content)
         )
       else
-      # it's a file, so the result is the contents of the file itself
-        import path
+        # it's a file, so the result is the contents of the file itself
+        import
+        path
       ;
   in
   if pathOverlays != "" && builtins.pathExists pathOverlays then

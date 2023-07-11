@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
     tk
   ]; # perl and wish are not run but written as shebangs.
 
-    # Workaround build failure on -fno-common toolchains:
-    #   ld: libvars.a(vars-freeze-lex.o):src/libvars/vars-freeze-lex.l:23:
-    #     multiple definition of `line_number'; ifm-main.o:src/ifm-main.c:46: first defined here
+  # Workaround build failure on -fno-common toolchains:
+  #   ld: libvars.a(vars-freeze-lex.o):src/libvars/vars-freeze-lex.l:23:
+  #     multiple definition of `line_number'; ifm-main.o:src/ifm-main.c:46: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   enableParallelBuilding =

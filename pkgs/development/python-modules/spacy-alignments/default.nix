@@ -40,7 +40,7 @@ buildPythonPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-    # Fails because spacy_alignments module cannot be loaded correctly.
+  # Fails because spacy_alignments module cannot be loaded correctly.
   doCheck = false;
 
   pythonImportsCheck = [ "spacy_alignments" ];

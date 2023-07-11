@@ -102,7 +102,6 @@ in
           description = lib.mdDoc "Log verbosity (syslog keyword or level).";
         }
         ;
-
     };
   };
 

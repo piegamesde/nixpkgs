@@ -232,7 +232,7 @@ self: super:
       propagatedBuildInputs =
         attrs.propagatedBuildInputs or [ ] ++ [ freetype ]
         ; # propagate link reqs. like bzip2
-        # prevents "misaligned_stack_error_entering_dyld_stub_binder"
+      # prevents "misaligned_stack_error_entering_dyld_stub_binder"
       configureFlags = lib.optional isDarwin "CFLAGS=-O0";
     }
   );
@@ -283,7 +283,7 @@ self: super:
         attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
       preConfigure =
         attrs.preConfigure or ""
-          # missing transitive dependencies
+        # missing transitive dependencies
         + lib.optionalString stdenv.hostPlatform.isStatic ''
           export NIX_CFLAGS_LINK="$NIX_CFLAGS_LINK -lXau -lXdmcp"
         ''
@@ -299,21 +299,16 @@ self: super:
         attrs.configureFlags or [ ]
         ++ [ "ac_cv_path_RAWCPP=${stdenv.cc.targetPrefix}cpp" ]
         ++ lib.optionals
-          (
-            stdenv.buildPlatform != stdenv.hostPlatform
-          )
+          (stdenv.buildPlatform != stdenv.hostPlatform)
           # checking for /dev/urandom... configure: error: cannot check for file existence when cross compiling
-          [
-            "ac_cv_file__dev_urandom=true"
-            "ac_cv_file__dev_random=true"
-          ]
+          [ "ac_cv_file__dev_urandom=true" "ac_cv_file__dev_random=true" ]
         ;
     }
   );
 
-    # Propagate some build inputs because of header file dependencies.
-    # Note: most of these are in Requires.private, so maybe builder.sh
-    # should propagate them automatically.
+  # Propagate some build inputs because of header file dependencies.
+  # Note: most of these are in Requires.private, so maybe builder.sh
+  # should propagate them automatically.
   libXt = super.libXt.overrideAttrs (
     attrs: {
       preConfigure = ''
@@ -415,10 +410,9 @@ self: super:
         ]
         ;
       configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag
-        ;
+        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
 
-        # the include files need ft2build.h, and Requires.private isn't enough for us
+      # the include files need ft2build.h, and Requires.private isn't enough for us
       postInstall = ''
         sed "/^Requires:/s/$/, freetype2/" -i "$dev/lib/pkgconfig/xft.pc"
       '';
@@ -839,7 +833,7 @@ self: super:
   xf86videodummy = brokenOnDarwin super.xf86videodummy
     ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videodummy.x86_64-darwin
 
-    # Obsolete drivers that don't compile anymore.
+  # Obsolete drivers that don't compile anymore.
   xf86videoark = super.xf86videoark.overrideAttrs (
     attrs: { meta = attrs.meta // { broken = true; }; }
   );
@@ -910,10 +904,8 @@ self: super:
   xf86videoglint = super.xf86videoglint.overrideAttrs (
     attrs: {
       nativeBuildInputs = attrs.nativeBuildInputs ++ [ autoreconfHook ];
-      buildInputs =
-        attrs.buildInputs ++ [ xorg.utilmacros ]
-        ;
-        # https://gitlab.freedesktop.org/xorg/driver/xf86-video-glint/-/issues/1
+      buildInputs = attrs.buildInputs ++ [ xorg.utilmacros ];
+      # https://gitlab.freedesktop.org/xorg/driver/xf86-video-glint/-/issues/1
       meta = attrs.meta // { broken = true; };
     }
   );
@@ -1008,8 +1000,8 @@ self: super:
         ;
       configureFlags = [ "--with-xkb-rules-symlink=xorg" ];
 
-        # 1: compatibility for X11/xkb location
-        # 2: I think pkg-config/ is supposed to be in /lib/
+      # 1: compatibility for X11/xkb location
+      # 2: I think pkg-config/ is supposed to be in /lib/
       postInstall = ''
         ln -s share "$out/etc"
         mkdir -p "$out/lib" && ln -s ../share/pkgconfig "$out/lib/"
@@ -1017,8 +1009,8 @@ self: super:
     }
   );
 
-    # xkeyboardconfig variant extensible with custom layouts.
-    # See nixos/modules/services/x11/extra-layouts.nix
+  # xkeyboardconfig variant extensible with custom layouts.
+  # See nixos/modules/services/x11/extra-layouts.nix
   xkeyboardconfig_custom =
     {
       layouts ? { }
@@ -1134,7 +1126,7 @@ self: super:
           ninja
         ]
         ;
-        # adds support for printproto needed for libXp
+      # adds support for printproto needed for libXp
       mesonFlags = [ "-Dlegacy=true" ];
     }
   );
@@ -1163,7 +1155,6 @@ self: super:
             throw
             "unsupported xorg abiCompat ${abiCompat} for ${attrs_passed.name}"
           ;
-
       in
       attrs // (
         let
@@ -1189,8 +1180,8 @@ self: super:
             xorgproto
             zlib
           ];
-            # XQuartz requires two compilations: the first to get X / XQuartz,
-            # and the second to get Xvfb, Xnest, etc.
+          # XQuartz requires two compilations: the first to get X / XQuartz,
+          # and the second to get Xvfb, Xnest, etc.
           darwinOtherX = xorgserver.overrideAttrs (
             oldAttrs: {
               configureFlags =
@@ -1415,7 +1406,7 @@ self: super:
       doCheck = false; # fails
       preConfigure =
         attrs.preConfigure or ""
-          # missing transitive dependencies
+        # missing transitive dependencies
         + lib.optionalString stdenv.hostPlatform.isStatic ''
           export NIX_CFLAGS_LINK="$NIX_CFLAGS_LINK -lxcb -lXau -lXdmcp"
         ''
@@ -1601,7 +1592,7 @@ self: super:
     }
   );
 
-    # convert Type1 vector fonts to OpenType fonts
+  # convert Type1 vector fonts to OpenType fonts
   fontbitstreamtype1 = super.fontbitstreamtype1.overrideAttrs (
     attrs: {
       nativeBuildInputs = attrs.nativeBuildInputs ++ [ fontforge ];
@@ -1622,7 +1613,6 @@ self: super:
       '';
     }
   );
-
 }
 
 # mark some packages as unfree
@@ -1645,7 +1635,7 @@ self: super:
       "fontbhlucidatypewriter75dpi"
     ];
 
-      # unfree, possibly not redistributable
+    # unfree, possibly not redistributable
     unfree = [
       # no license, just a copyright notice
       "fontdaewoomisc"
@@ -1665,7 +1655,6 @@ self: super:
       with lib;
       listToAttrs (zipListsWith nameValuePair names (map f names))
       ;
-
   in
   mapNamesToAttrs (setLicense lib.licenses.unfreeRedistributable) redist
   // mapNamesToAttrs (setLicense lib.licenses.unfree) unfree

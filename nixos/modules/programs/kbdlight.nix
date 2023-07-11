@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.programs.kbdlight;
-
 in
 {
   options.programs.kbdlight.enable = mkEnableOption (lib.mdDoc "kbdlight");

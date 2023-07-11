@@ -21,7 +21,7 @@ buildGoModule rec {
     mv $out/bin/cmd $out/bin/$pname
   '';
 
-    # Tests require a running Kubernetes instance
+  # Tests require a running Kubernetes instance
   doCheck = false;
 
   meta = with lib; {

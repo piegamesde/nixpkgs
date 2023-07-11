@@ -26,8 +26,8 @@ let
     url = "https://ftp.gnu.org/gnu/aspell/dict/mr/aspell6-mr-0.10-0.tar.bz2";
     sha256 = "1v8cdl8x2j1d4vbvsq1xrqys69bbccd6mi03fywrhkrrljviyri1";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "aspell";
   version = "0.60.8";
@@ -69,9 +69,9 @@ stdenv.mkDerivation rec {
     );
   '';
 
-    # Include u-deva.cmap and u-deva.cset in the aspell package
-    # to avoid conflict between 'mr' and 'hi' dictionaries as they
-    # both include those files.
+  # Include u-deva.cmap and u-deva.cset in the aspell package
+  # to avoid conflict between 'mr' and 'hi' dictionaries as they
+  # both include those files.
   postInstall = ''
     cp ${devaMapsSource}/u-deva.{cmap,cset} $out/lib/aspell/
   '';

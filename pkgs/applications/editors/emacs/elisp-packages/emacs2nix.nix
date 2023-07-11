@@ -18,5 +18,4 @@ pkgs.mkShell {
   shellHook = ''
     export PATH=$PATH:${src}
   '';
-
 }

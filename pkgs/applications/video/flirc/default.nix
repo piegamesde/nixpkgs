@@ -30,8 +30,8 @@ mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-    # udev rules don't appear in the official package
-    # https://flirc.gitbooks.io/flirc-instructions/content/linux.html
+  # udev rules don't appear in the official package
+  # https://flirc.gitbooks.io/flirc-instructions/content/linux.html
   installPhase = ''
     install -D -t $out/bin/ Flirc flirc_util
     install -D ${./99-flirc.rules} $out/lib/udev/rules.d/99-flirc.rules

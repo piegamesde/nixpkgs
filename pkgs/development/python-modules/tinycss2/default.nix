@@ -19,7 +19,7 @@ buildPythonPackage rec {
     owner = "kozea";
     repo = "tinycss2";
     rev = "v${version}";
-      # for tests
+    # for tests
     fetchSubmodules = true;
     hash = "sha256-RUF/3cjNgDFofoxl9iKY3u5ZAVVQmXu2Qbb5U4brdcQ=";
   };

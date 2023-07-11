@@ -25,8 +25,8 @@ buildPythonPackage rec {
     pytestCheckHook
     requests
   ];
-    # Test attempts to connect to a port on localhost which fails in nix build
-    # environment.
+  # Test attempts to connect to a port on localhost which fails in nix build
+  # environment.
   disabledTests = [
     "test_abort_download"
     "test_big_download"

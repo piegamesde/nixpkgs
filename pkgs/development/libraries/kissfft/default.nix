@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./0001-pkgconfig-darwin.patch ];
 
-    # https://bugs.llvm.org/show_bug.cgi?id=45034
+  # https://bugs.llvm.org/show_bug.cgi?id=45034
   postPatch =
     lib.optionalString
       (
@@ -65,10 +65,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optionals (withTools && datatype != "simd") [
-        libpng
-      ]
-      # TODO: This may mismatch the LLVM version in the stdenv, see #79818.
+    lib.optionals (withTools && datatype != "simd") [ libpng ]
+    # TODO: This may mismatch the LLVM version in the stdenv, see #79818.
     ++ lib.optional (enableOpenmp && stdenv.cc.isClang) llvmPackages.openmp
     ;
 
@@ -90,7 +88,7 @@ stdenv.mkDerivation rec {
     ln -s ${pname}.pc $out/lib/pkgconfig/kissfft.pc
   '';
 
-    # Tools can't find kissfft libs on Darwin
+  # Tools can't find kissfft libs on Darwin
   postFixup = lib.optionalString (withTools && stdenv.hostPlatform.isDarwin) ''
     for bin in $out/bin/*; do
       install_name_tool -change lib${pname}.dylib $out/lib/lib${pname}.dylib $bin

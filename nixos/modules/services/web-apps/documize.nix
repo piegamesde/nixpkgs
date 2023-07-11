@@ -21,7 +21,6 @@ let
       optionalString predicate template
     )
     ;
-
 in
 {
   options.services.documize = {

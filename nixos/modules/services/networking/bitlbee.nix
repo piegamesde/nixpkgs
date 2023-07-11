@@ -37,8 +37,8 @@ let
   purple_plugin_path = lib.concatMapStringsSep ":"
     (plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/")
     cfg.libpurple_plugins;
-
 in
+
 {
 
   ###### interface
@@ -164,12 +164,10 @@ in
           Will be inserted in the Default section of the config file.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
     (mkIf config.services.bitlbee.enable {
@@ -188,11 +186,9 @@ in
       };
 
       environment.systemPackages = [ bitlbeePkg ];
-
     })
     (mkIf (config.services.bitlbee.authBackend == "pam") {
       security.pam.services.bitlbee = { };
     })
   ];
-
 }

@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A RELAX NG validator in Java";
-      # The homepage is www.thaiopensource.com, but it links to googlecode.com
-      # for downloads and call it the "project site".
+    # The homepage is www.thaiopensource.com, but it links to googlecode.com
+    # for downloads and call it the "project site".
     homepage = "https://www.thaiopensource.com/relaxng/trang.html";
     platforms = platforms.unix;
     sourceProvenance = with sourceTypes; [

@@ -22,7 +22,9 @@
 #        |         Route:   192.0.2.0/24 via 100.64.0.1
 #        +------
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     lib,
@@ -65,16 +67,16 @@ import ./make-test-python.nix (
         };
       };
 
-        # The router is configured with static IPv4 addresses towards the server
-        # and IPv6 addresses towards the client. For NAT64, the Well-Known prefix
-        # 64:ff9b::/96 is used. NAT64 is done with TAYGA which provides the
-        # tun-interface nat64 and does the translation over it. The IPv6 packets
-        # are sent to this interfaces and received as IPv4 packets and vice versa.
-        # As TAYGA only translates IPv6 addresses to dedicated IPv4 addresses, it
-        # needs a pool of IPv4 addresses which must be at least as big as the
-        # expected amount of clients. In this test, the packets from the pool are
-        # directly routed towards the client. In normal cases, there would be a
-        # second source NAT44 to map all clients behind one IPv4 address.
+      # The router is configured with static IPv4 addresses towards the server
+      # and IPv6 addresses towards the client. For NAT64, the Well-Known prefix
+      # 64:ff9b::/96 is used. NAT64 is done with TAYGA which provides the
+      # tun-interface nat64 and does the translation over it. The IPv6 packets
+      # are sent to this interfaces and received as IPv4 packets and vice versa.
+      # As TAYGA only translates IPv6 addresses to dedicated IPv4 addresses, it
+      # needs a pool of IPv4 addresses which must be at least as big as the
+      # expected amount of clients. In this test, the packets from the pool are
+      # directly routed towards the client. In normal cases, there would be a
+      # second source NAT44 to map all clients behind one IPv4 address.
       router_systemd = {
         boot.kernel.sysctl = {
           "net.ipv4.ip_forward" = 1;
@@ -182,9 +184,9 @@ import ./make-test-python.nix (
         };
       };
 
-        # The client is configured with static IPv6 addresses. It has also a static
-        # route for the NAT64 IP space where the IPv4 addresses are mapped in. In
-        # normal cases, there would be only a default route.
+      # The client is configured with static IPv6 addresses. It has also a static
+      # route for the NAT64 IP space where the IPv4 addresses are mapped in. In
+      # normal cases, there would be only a default route.
       client = {
         virtualisation.vlans = [
             3 # towards router

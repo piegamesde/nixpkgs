@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.system.autoUpgrade;
-
 in
 {
 
@@ -166,9 +165,7 @@ in
           system was powered down.
         '';
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -286,6 +283,4 @@ in
       };
     };
   };
-
 }
-

@@ -76,7 +76,6 @@ let
     GRAPHITE_CONF_DIR = configDir;
     GRAPHITE_STORAGE_DIR = dataDir;
   };
-
 in
 {
 
@@ -104,7 +103,7 @@ in
       "")
   ];
 
-    ###### interface
+  ###### interface
 
   options.services.graphite = {
     dataDir = mkOption {
@@ -318,7 +317,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
     (mkIf cfg.carbon.enableCache {

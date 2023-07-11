@@ -6,7 +6,7 @@
   which,
   enableShared ? !(stdenv.hostPlatform.isStatic),
   enableStatic ? stdenv.hostPlatform.isStatic
-    # for passthru.tests
+  # for passthru.tests
   ,
   nix,
 }:
@@ -54,13 +54,13 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableStatic [ "install_static" ]
     ;
 
-    # Fix lib extension so that fixDarwinDylibNames detects it, see
-    # <https://github.com/kristapsdz/lowdown/issues/87#issuecomment-1532243650>.
+  # Fix lib extension so that fixDarwinDylibNames detects it, see
+  # <https://github.com/kristapsdz/lowdown/issues/87#issuecomment-1532243650>.
   postInstall =
     let
       inherit (stdenv.hostPlatform.extensions) sharedLibrary;
-
     in
+
     lib.optionalString (enableShared && stdenv.isDarwin) ''
       darwinDylib="$lib/lib/liblowdown.2.dylib"
       mv "$lib/lib/liblowdown.so.2" "$darwinDylib"

@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
   };
   cargoSha256 = "sha256-ztPbI+ncMNMKnIxUksxgz8GHQpLZ7SVWdC4QJWh18Wk=";
 
-    # TODO re-add theses tests once they get fixed in upstream
+  # TODO re-add theses tests once they get fixed in upstream
   checkFlags = [
     "--skip cli::converts_error_from_pipe"
     "--skip cli::converts_warnings_from_pipe"

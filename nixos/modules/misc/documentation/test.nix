@@ -20,7 +20,7 @@ let
           # Make sure imports from specialArgs are respected
           imports = [ someArg.myModule ];
 
-            # TODO test this
+          # TODO test this
           meta.doc = ./test-dummy.chapter.xml;
         }
       )
@@ -50,7 +50,6 @@ let
       }
       ;
   };
-
 in
 runCommand "documentation-check"
 { inherit (sys.config.system.build.manual) optionsJSON; }

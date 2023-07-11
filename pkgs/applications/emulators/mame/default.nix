@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-    # https://docs.mamedev.org/initialsetup/compilingmame.html
+  # https://docs.mamedev.org/initialsetup/compilingmame.html
   buildInputs =
     [
       expat
@@ -127,8 +127,8 @@ stdenv.mkDerivation rec {
       ./001-use-absolute-paths.diff
     ];
 
-    # Since the bug described in https://github.com/NixOS/nixpkgs/issues/135438,
-    # it is not possible to use substituteAll
+  # Since the bug described in https://github.com/NixOS/nixpkgs/issues/135438,
+  # it is not possible to use substituteAll
   postPatch = ''
     substituteInPlace src/emu/emuopts.cpp \
       --subst-var-by mamePath "$out/opt/mame"
@@ -157,8 +157,8 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # TODO: copy shaders from src/osd/modules/opengl/shader/glsl*.*h
-    # to the final package after we figure out how they work
+  # TODO: copy shaders from src/osd/modules/opengl/shader/glsl*.*h
+  # to the final package after we figure out how they work
   installPhase =
     let
       icon = "${papirus-icon-theme}/share/icons/Papirus/32x32/apps/mame.svg";
@@ -186,8 +186,8 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # man1 is the tools documentation, man6 is the emulator documentation
-    # Need to be done in postFixup otherwise multi-output hook will move it back to $out
+  # man1 is the tools documentation, man6 is the emulator documentation
+  # Need to be done in postFixup otherwise multi-output hook will move it back to $out
   postFixup = ''
     moveToOutput share/man/man1 $tools
   '';

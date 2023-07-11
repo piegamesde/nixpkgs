@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
 
   disabled = python3Packages.pythonOlder "3.6";
 
-    # No tests
+  # No tests
   doCheck = false;
 
   src = fetchFromGitHub {

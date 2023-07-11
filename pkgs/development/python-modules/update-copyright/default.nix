@@ -9,11 +9,9 @@ buildPythonPackage rec {
   pname = "update-copyright";
   version = "0.6.2";
 
-  disabled =
-    !isPy3k
-    ;
+  disabled = !isPy3k;
 
-    # Has no tests
+  # Has no tests
   doCheck = false;
 
   src = fetchPypi {

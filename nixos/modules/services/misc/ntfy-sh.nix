@@ -11,8 +11,8 @@ let
   cfg = config.services.ntfy-sh;
 
   settingsFormat = pkgs.formats.yaml { };
-
 in
+
 {
   options.services.ntfy-sh = {
     enable = mkEnableOption (

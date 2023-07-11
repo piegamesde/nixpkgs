@@ -31,7 +31,7 @@ buildPythonPackage rec {
       --replace "malduck==4.1.0" "malduck"
   '';
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "karton.config_extractor" ];

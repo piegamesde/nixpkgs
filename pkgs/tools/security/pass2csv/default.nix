@@ -20,7 +20,7 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [ python-gnupg ];
 
-    # Project has no tests.
+  # Project has no tests.
   doCheck = false;
 
   meta = with lib; {

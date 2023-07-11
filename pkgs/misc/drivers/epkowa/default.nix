@@ -25,14 +25,14 @@ let
     license = with lib.licenses; epson;
     platforms = with lib.platforms; linux;
   };
-  ############################
-  #
-  #  PLUGINS
-  #
-  ############################
-
-  # adding a plugin for another printer shouldn't be too difficult, but you need the firmware to test...
 in
+############################
+#
+#  PLUGINS
+#
+############################
+
+# adding a plugin for another printer shouldn't be too difficult, but you need the firmware to test...
 let
   plugins = {
     v330 = stdenv.mkDerivation rec {
@@ -328,7 +328,7 @@ let
     };
     network = stdenv.mkDerivation rec {
       pname = "iscan-nt-bundle";
-        # for the version, look for the driver of XP-750 in the search page
+      # for the version, look for the driver of XP-750 in the search page
       version = "2.30.4";
 
       buildInputs = [ stdenv.cc.cc.lib ];

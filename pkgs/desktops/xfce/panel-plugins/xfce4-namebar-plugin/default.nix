@@ -51,14 +51,13 @@ stdenv.mkDerivation rec {
       "Plugin which integrates titlebar and window controls into the xfce4-panel";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers;
-      [ ] ++ teams.xfce.members;
-      # Does not build with vala 0.48 or later
-      # libxfce4panel-2.0.vapi:92.3-92.41: error: overriding method `Xfce.PanelPlugin.remote_event' is incompatible
-      # with base method `bool Xfce.PanelPluginProvider.remote_event (string, GLib.Value, uint)': too few parameters.
-      #               public virtual signal bool remote_event (string name, GLib.Value value);
-      #               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-      # Upstream has no activity since 20 May 2020
+    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    # Does not build with vala 0.48 or later
+    # libxfce4panel-2.0.vapi:92.3-92.41: error: overriding method `Xfce.PanelPlugin.remote_event' is incompatible
+    # with base method `bool Xfce.PanelPluginProvider.remote_event (string, GLib.Value, uint)': too few parameters.
+    #               public virtual signal bool remote_event (string name, GLib.Value value);
+    #               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    # Upstream has no activity since 20 May 2020
     broken = true;
   };
 }

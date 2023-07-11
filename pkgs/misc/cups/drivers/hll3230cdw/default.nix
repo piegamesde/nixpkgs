@@ -51,16 +51,16 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # Fix global references and replace auto discovery mechanism
-    # with hardcoded values.
-    #
-    # The configuration binary 'brprintconf_hll3230cdw' and lpd filter
-    # 'brhll3230cdwfilter' has hardcoded /opt format strings.  There isn't
-    # sufficient space in the binaries to substitute a path in the store, so use
-    # libredirect to get it to see the correct path.  The configuration binary
-    # also uses this format string to print configuration locations.  Here the
-    # wrapper output is processed to point into the correct location in the
-    # store.
+  # Fix global references and replace auto discovery mechanism
+  # with hardcoded values.
+  #
+  # The configuration binary 'brprintconf_hll3230cdw' and lpd filter
+  # 'brhll3230cdwfilter' has hardcoded /opt format strings.  There isn't
+  # sufficient space in the binaries to substitute a path in the store, so use
+  # libredirect to get it to see the correct path.  The configuration binary
+  # also uses this format string to print configuration locations.  Here the
+  # wrapper output is processed to point into the correct location in the
+  # store.
 
   postFixup = ''
     substituteInPlace $out/opt/brother/Printers/hll3230cdw/lpd/filter_hll3230cdw \

@@ -40,9 +40,9 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableFlight ? true,
   enableJemalloc ? !stdenv.isDarwin
-    # boost/process is broken in 1.69 on darwin, but fixed in 1.70 and
-    # non-existent in older versions
-    # see https://github.com/boostorg/process/issues/55
+  # boost/process is broken in 1.69 on darwin, but fixed in 1.70 and
+  # non-existent in older versions
+  # see https://github.com/boostorg/process/issues/55
   ,
   enableS3 ? (
     !stdenv.isDarwin
@@ -98,7 +98,6 @@ let
       "transfer"
     ];
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "arrow-cpp";
@@ -112,11 +111,11 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "apache-arrow-${version}/cpp";
 
-    # versions are all taken from
-    # https://github.com/apache/arrow/blob/apache-arrow-${version}/cpp/thirdparty/versions.txt
+  # versions are all taken from
+  # https://github.com/apache/arrow/blob/apache-arrow-${version}/cpp/thirdparty/versions.txt
 
-    # jemalloc: arrow uses a custom prefix to prevent default allocator symbol
-    # collisions as well as custom build flags
+  # jemalloc: arrow uses a custom prefix to prevent default allocator symbol
+  # collisions as well as custom build flags
   ${
     if enableJemalloc then
       "ARROW_JEMALLOC_URL"
@@ -128,7 +127,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-LbgtHnEZ3z5xt2QCGbbf6EeJvAU3mDw7esT3GJrs/qo=";
   };
 
-    # mimalloc: arrow uses custom build flags for mimalloc
+  # mimalloc: arrow uses custom build flags for mimalloc
   ARROW_MIMALLOC_URL = fetchFromGitHub {
     owner = "microsoft";
     repo = "mimalloc";

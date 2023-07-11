@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # IP_DONTFRAG is defined on macOS from Big Sur
+  # IP_DONTFRAG is defined on macOS from Big Sur
   postPatch = lib.optionalString
     (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
     ''

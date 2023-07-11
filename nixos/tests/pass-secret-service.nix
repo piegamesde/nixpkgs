@@ -40,8 +40,8 @@ import ./make-test-python.nix (
       }
       ;
 
-      # Some of the commands are run via a virtual console because they need to be
-      # run under a real login session, with D-Bus running in the environment.
+    # Some of the commands are run via a virtual console because they need to be
+    # run under a real login session, with D-Bus running in the environment.
     testScript =
       {
         nodes,

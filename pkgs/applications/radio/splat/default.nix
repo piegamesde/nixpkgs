@@ -19,10 +19,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     # configure script needs `clear`
-    [
-      groff
-      ncurses
-    ];
+    [ groff ncurses ];
 
   buildInputs = [
     bzip2
@@ -66,5 +63,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ ehmry ];
     platforms = platforms.x86_64;
   };
-
 }

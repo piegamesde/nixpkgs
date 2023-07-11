@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation rec {
   pname = "litemdview";
-    # litemdview -v
+  # litemdview -v
   version = "0.0.32";
 
   src = fetchFromGitea {

@@ -35,7 +35,7 @@ buildPythonPackage rec {
     py.test
   '';
 
-    # Missing test files
+  # Missing test files
   doCheck = false;
 
   meta = {

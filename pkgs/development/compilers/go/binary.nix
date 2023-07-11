@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-    # We must preserve the signature on Darwin
+  # We must preserve the signature on Darwin
   dontStrip = stdenv.hostPlatform.isDarwin;
 
   installPhase = ''

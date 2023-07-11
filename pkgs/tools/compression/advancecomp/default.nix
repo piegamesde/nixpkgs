@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ zlib ];
 
-    # autover.sh relies on 'git describe', which obviously doesn't work as we're not cloning
-    # the full git repo. so we have to put the version number in `.version`, otherwise
-    # the binaries get built reporting "none" as their version number.
+  # autover.sh relies on 'git describe', which obviously doesn't work as we're not cloning
+  # the full git repo. so we have to put the version number in `.version`, otherwise
+  # the binaries get built reporting "none" as their version number.
   postPatch = ''
     echo "${version}" >.version
   '';
@@ -33,6 +33,5 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.raskin ];
     platforms = platforms.linux ++ platforms.darwin;
     homepage = "https://github.com/amadvance/advancecomp";
-
   };
 }

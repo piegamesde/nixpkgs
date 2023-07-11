@@ -34,8 +34,8 @@ let
     url = "https://tests.stockfishchess.org/api/nn/${nnueFile}";
     sha256 = "sha256-aHfNJEAOAbGf8SrjBoriQhUoAr3TMOZve2cDhlJR1uM=";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "stockfish";
   version = "15";
@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sK4Jw9BPGRvlm9oIcgGcmHe8G4GR4cEuD8MtDrHZKew=";
   };
 
-    # This addresses a linker issue with Darwin
-    # https://github.com/NixOS/nixpkgs/issues/19098
+  # This addresses a linker issue with Darwin
+  # https://github.com/NixOS/nixpkgs/issues/19098
   preBuild = lib.optionalString stdenv.isDarwin ''
     sed -i.orig '/^\#\#\# 3.*Link Time Optimization/,/^\#\#\# 3/d' Makefile
   '';
@@ -87,5 +87,4 @@ stdenv.mkDerivation rec {
     ];
     license = licenses.gpl3Only;
   };
-
 }

@@ -9,9 +9,9 @@
   openssl,
   features ? {
     urls = false;
-      # Upstream enables regex by default
+    # Upstream enables regex by default
     regex = true;
-      # Signature support is broken with openssl 1.1.1: https://github.com/vstakhov/libucl/issues/203
+    # Signature support is broken with openssl 1.1.1: https://github.com/vstakhov/libucl/issues/203
     signatures = false;
     lua = false;
     utils = false;

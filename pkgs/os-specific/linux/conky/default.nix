@@ -17,9 +17,9 @@
   mpdSupport ? true,
   ibmSupport ? true # IBM/Lenovo notebooks
 
-    # optional features with extra dependencies
+  # optional features with extra dependencies
 
-    # ouch, this is ugly, but this gives the man page
+  # ouch, this is ugly, but this gives the man page
   ,
   docsSupport ? true,
   docbook2x,
@@ -193,8 +193,8 @@ stdenv.mkDerivation rec {
     ++ optional journalSupport "-DBUILD_JOURNAL=ON"
     ;
 
-    # `make -f src/CMakeFiles/conky.dir/build.make src/CMakeFiles/conky.dir/conky.cc.o`:
-    # src/conky.cc:137:23: fatal error: defconfig.h: No such file or directory
+  # `make -f src/CMakeFiles/conky.dir/build.make src/CMakeFiles/conky.dir/conky.cc.o`:
+  # src/conky.cc:137:23: fatal error: defconfig.h: No such file or directory
   enableParallelBuilding = false;
 
   doCheck = true;

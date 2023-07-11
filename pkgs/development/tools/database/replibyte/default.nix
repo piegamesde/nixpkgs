@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "02bdz0464d6gbkgbvn67sgn6cc6p6pjqacblh8nimy0r8b13x2ki";
   };
 
-    # Lockfile was updated in a commit after the release
+  # Lockfile was updated in a commit after the release
   cargoPatches = [
       (fetchpatch {
         url =

@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     python3
     gtest
   ];
-    # two tests fail on darwin and 3 on aarch64-linux
+  # two tests fail on darwin and 3 on aarch64-linux
   doCheck = stdenv.hostPlatform.isLinux && (!stdenv.hostPlatform.isAarch64);
   preCheck =
     let

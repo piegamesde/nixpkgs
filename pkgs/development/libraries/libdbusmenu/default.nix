@@ -67,7 +67,7 @@ stdenv.mkDerivation (
       done
     '';
 
-      # https://projects.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/libdbusmenu
+    # https://projects.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/libdbusmenu
     preConfigure = ''
       export HAVE_VALGRIND_TRUE="#"
       export HAVE_VALGRIND_FALSE=""

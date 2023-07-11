@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals useMpi [ mpi ];
 
-    # TODO darwin, AVX and AVX2 makefile targets
+  # TODO darwin, AVX and AVX2 makefile targets
   buildPhase =
     if useMpi then
       ''

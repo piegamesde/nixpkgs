@@ -99,7 +99,6 @@ let
     }
   ];
   enabledPlugins = builtins.filter (p: p.enabled) plugins;
-
 in
 assert lib.all (p: p.enabled -> !(builtins.elem null p.buildInputs)) plugins;
 stdenv.mkDerivation rec {
@@ -176,7 +175,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     "-I${python}/include/${python.libPrefix}"
-      # Fix '_res_9_init: undefined symbol' error
+    # Fix '_res_9_init: undefined symbol' error
     + (lib.optionalString stdenv.isDarwin "-DBIND_8_COMPAT=1 -lresolv")
     ;
 

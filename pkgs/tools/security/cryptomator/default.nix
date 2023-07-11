@@ -24,7 +24,7 @@ let
     sha256 = "sha256-ArOYL3xj2HiXXu1Bymd5mciMsmikCDvxr5M3LMqZgYA=";
   };
 
-    # perform fake build to make a fixed-output derivation out of the files downloaded from maven central (120MB)
+  # perform fake build to make a fixed-output derivation out of the files downloaded from maven central (120MB)
   deps = stdenv.mkDerivation {
     name = "cryptomator-${version}-deps";
     inherit src;
@@ -41,7 +41,7 @@ let
       done
     '';
 
-      # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
+    # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
     installPhase = ''
       find $out/.m2 -type f -regex '.+\(\.lastUpdated\|resolver-status\.properties\|_remote\.repositories\)' -delete
       find $out/.m2 -type f -iname '*.pom' -exec sed -i -e 's/\r\+$//' {} \;
@@ -53,7 +53,6 @@ let
 
     doCheck = false;
   };
-
 in
 stdenv.mkDerivation rec {
   inherit pname version src;
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
     mvn -Plinux package --offline -Dmaven.test.skip=true -Dmaven.repo.local=$(cp -dpR ${deps}/.m2 ./ && chmod +w -R .m2 && pwd)/.m2
   '';
 
-    # This is based on the instructins in https://github.com/cryptomator/cryptomator/blob/develop/dist/linux/appimage/build.sh
+  # This is based on the instructins in https://github.com/cryptomator/cryptomator/blob/develop/dist/linux/appimage/build.sh
   installPhase = ''
     mkdir -p $out/bin/ $out/share/cryptomator/libs/ $out/share/cryptomator/mods/
 

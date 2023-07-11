@@ -15,8 +15,8 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "1ndycja2jzhcfbqbm0p6ka2zl1i1pdbkf0crw2lp3pi4k89wlm29";
   };
 
-    # TODO: it would be nice to build this from scratch, but lots of
-    # Python dependencies to package (fontmake, gftools)
+  # TODO: it would be nice to build this from scratch, but lots of
+  # Python dependencies to package (fontmake, gftools)
 
   installPhase = ''
     install -m444 -Dt $out/share/fonts/opentype/${pname} fonts/otf/*.otf

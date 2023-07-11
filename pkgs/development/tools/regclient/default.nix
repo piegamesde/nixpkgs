@@ -11,8 +11,8 @@ let
     "regctl"
     "regsync"
   ];
-
 in
+
 buildGoModule rec {
   pname = "regclient";
   version = "0.4.8";

@@ -22,7 +22,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # follow LINKER_FLAGS in Makefile
+  # follow LINKER_FLAGS in Makefile
   ldflags = [
     "-s"
     "-w"

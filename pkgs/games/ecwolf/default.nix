@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AppKit";
 
-    # ECWolf installs its binary to the games/ directory, but Nix only adds bin/
-    # directories to the PATH.
+  # ECWolf installs its binary to the games/ directory, but Nix only adds bin/
+  # directories to the PATH.
   postInstall =
     lib.optionalString stdenv.isLinux ''
       mv "$out/games" "$out/bin"

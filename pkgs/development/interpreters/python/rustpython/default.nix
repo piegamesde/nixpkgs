@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
       })
     ];
 
-    # freeze the stdlib into the rustpython binary
+  # freeze the stdlib into the rustpython binary
   cargoBuildFlags = [ "--features=freeze-stdlib" ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ SystemConfiguration ];

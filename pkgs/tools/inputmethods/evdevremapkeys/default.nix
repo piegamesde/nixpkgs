@@ -23,7 +23,7 @@ python3Packages.buildPythonPackage rec {
     pyudev
   ];
 
-    # hase no tests
+  # hase no tests
   doCheck = false;
 
   pythonImportsCheck = [ "evdevremapkeys" ];

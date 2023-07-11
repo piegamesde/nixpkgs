@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.ocserv;
-
 in
+
 {
   options.services.ocserv = {
     enable = mkEnableOption (lib.mdDoc "ocserv");

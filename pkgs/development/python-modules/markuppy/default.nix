@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-Gt7iwKVCrzeP6EVI/29rAWjzy39Ca0aWEDiivPqtDV8=";
   };
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "MarkupPy" ];

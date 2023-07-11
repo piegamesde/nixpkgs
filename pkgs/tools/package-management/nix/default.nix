@@ -29,7 +29,7 @@ let
     }
   );
 
-    # old nix fails to build with newer aws-sdk-cpp and the patch doesn't apply
+  # old nix fails to build with newer aws-sdk-cpp and the patch doesn't apply
   aws-sdk-cpp-old-nix = (aws-sdk-cpp.override {
     apis = [
       "s3"
@@ -90,7 +90,7 @@ let
           ++ [ ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch ]
           ;
 
-          # only a stripped down version is build which takes a lot less resources to build
+        # only a stripped down version is build which takes a lot less resources to build
         requiredSystemFeatures = [ ];
       }
     );
@@ -125,7 +125,7 @@ let
     }
     ;
 
-    # https://github.com/NixOS/nix/pull/7585
+  # https://github.com/NixOS/nix/pull/7585
   patch-monitorfdhup = fetchpatch2 {
     name = "nix-7585-monitor-fd-hup.patch";
     url =
@@ -133,7 +133,7 @@ let
     sha256 = "sha256-f+F0fUO+bqyPXjt+IXJtISVr589hdc3y+Cdrxznb+Nk=";
   };
 
-    # https://github.com/NixOS/nix/pull/7473
+  # https://github.com/NixOS/nix/pull/7473
   patch-sqlite-exception = fetchpatch2 {
     name = "nix-7473-sqlite-exception-add-message.patch";
     url =
@@ -148,7 +148,6 @@ let
       "https://github.com/NixOS/nix/commit/3ade5f5d6026b825a80bdcc221058c4f14e10a27.patch";
     sha256 = "sha256-s1ybRFCjQaSGj7LKu0Z5g7UiHqdJGeD+iPoQL0vaiS0=";
   };
-
 in
 lib.makeExtensible (
   self: {

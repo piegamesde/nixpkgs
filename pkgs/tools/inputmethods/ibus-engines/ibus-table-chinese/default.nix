@@ -44,21 +44,21 @@ stdenv.mkDerivation {
     ln -s cmake-fedora/Modules ./
   '';
 
-    # Fails when writing to /prj_info.cmake in https://pagure.io/cmake-fedora/blob/master/f/Modules/ManageVersion.cmake
+  # Fails when writing to /prj_info.cmake in https://pagure.io/cmake-fedora/blob/master/f/Modules/ManageVersion.cmake
   cmakeFlags = [
     "-DPRJ_INFO_CMAKE_FILE=/dev/null"
     "-DPRJ_DOC_DIR=REPLACE"
     "-DDATA_DIR=share"
   ];
-    # Must replace PRJ_DOC_DIR with actual share/ folder for ibus-table-chinese
-    # Otherwise it tries to write to /ibus-table-chinese if not defined (!)
+  # Must replace PRJ_DOC_DIR with actual share/ folder for ibus-table-chinese
+  # Otherwise it tries to write to /ibus-table-chinese if not defined (!)
   postConfigure = ''
     substituteInPlace cmake_install.cmake --replace '/build/source/REPLACE' $out/share/ibus-table-chinese
   '';
-    # Fails otherwise with "no such file or directory: <table>.txt"
+  # Fails otherwise with "no such file or directory: <table>.txt"
   dontUseCmakeBuildDir = true;
-    # Fails otherwise sometimes with
-    # FileExistsError: [Errno 17] File exists: '/build/tmp.BfVAUM4llr/ibus-table-chinese/.local/share/ibus-table'
+  # Fails otherwise sometimes with
+  # FileExistsError: [Errno 17] File exists: '/build/tmp.BfVAUM4llr/ibus-table-chinese/.local/share/ibus-table'
   enableParallelBuilding = false;
 
   preBuild = ''

@@ -25,12 +25,10 @@ with lib; {
           ClickHouse package to use.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -74,9 +72,7 @@ with lib; {
 
     environment.systemPackages = [ cfg.package ];
 
-      # startup requires a `/etc/localtime` which only if exists if `time.timeZone != null`
+    # startup requires a `/etc/localtime` which only if exists if `time.timeZone != null`
     time.timeZone = mkDefault "UTC";
-
   };
-
 }

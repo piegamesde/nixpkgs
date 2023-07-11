@@ -25,8 +25,8 @@ let
   };
 
   ui = callPackage ./ui { inherit src version; };
-
 in
+
 buildGoModule {
 
   pname = "navidrome";
@@ -78,7 +78,7 @@ buildGoModule {
       aciceri
       squalus
     ];
-      # Broken on Darwin: sandbox-exec: pattern serialization length exceeds maximum (NixOS/nix#4119)
+    # Broken on Darwin: sandbox-exec: pattern serialization length exceeds maximum (NixOS/nix#4119)
     broken = stdenv.isDarwin;
   };
 }

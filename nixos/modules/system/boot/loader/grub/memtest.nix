@@ -13,8 +13,8 @@ let
   memtest86 = pkgs.memtest86plus;
   efiSupport = config.boot.loader.grub.efiSupport;
   cfg = config.boot.loader.grub.memtest86;
-
 in
+
 {
   options = {
 
@@ -64,7 +64,6 @@ in
           Memtest86+ source code.
         '';
       };
-
     };
   };
 

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     colorama
   ];
 
-    # No tests on PyPI
+  # No tests on PyPI
   doCheck = false;
 
   meta = with lib; {

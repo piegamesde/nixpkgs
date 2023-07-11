@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-    # requires network access
+  # requires network access
   doCheck = false;
 
   meta = with lib; {

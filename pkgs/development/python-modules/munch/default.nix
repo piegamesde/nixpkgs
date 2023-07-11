@@ -20,7 +20,7 @@ buildPythonPackage rec {
     pbr
   ];
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
 
   meta = with lib; {
@@ -28,5 +28,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     homepage = "https://github.com/Infinidat/munch";
   };
-
 }

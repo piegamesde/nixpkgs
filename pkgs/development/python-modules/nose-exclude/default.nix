@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ nose ];
 
-    # "OSError: AF_UNIX path too long" for darwin
+  # "OSError: AF_UNIX path too long" for darwin
   doCheck = !stdenv.isDarwin;
 
   meta = {

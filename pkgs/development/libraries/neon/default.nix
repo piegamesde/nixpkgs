@@ -19,8 +19,8 @@ assert static || shared;
 
 let
   inherit (lib) optionals;
-
 in
+
 stdenv.mkDerivation rec {
   version = "0.32.5";
   pname = "neon";

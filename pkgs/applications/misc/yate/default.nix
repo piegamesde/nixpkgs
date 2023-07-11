@@ -19,14 +19,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-jCPca/+/jUeNs6hZZLUBl3HI9sms9SIPNGVRanSKA7A=";
   };
 
-    # TODO zaptel ? postgres ?
+  # TODO zaptel ? postgres ?
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
     qt4
     openssl
   ];
 
-    # /dev/null is used when linking which is a impure path for the wrapper
+  # /dev/null is used when linking which is a impure path for the wrapper
   postPatch = ''
     patchShebangs configure
     substituteInPlace configure --replace ",/dev/null" ""
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = false; # fails to build if true
 
-    # --unresolved-symbols=ignore-in-shared-libs makes ld no longer find --library=yate? Why?
+  # --unresolved-symbols=ignore-in-shared-libs makes ld no longer find --library=yate? Why?
   preBuild = ''
     export NIX_LDFLAGS="-L$TMP/yate $NIX_LDFLAGS"
     find . -type f -iname Makefile | xargs sed -i \
@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Yet another telephony engine";
     homepage = "http://yate.null.ro/";
-      # Yate's license is GPL with an exception for linking with
-      # OpenH323 and PWlib (licensed under MPL).
+    # Yate's license is GPL with an exception for linking with
+    # OpenH323 and PWlib (licensed under MPL).
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.marcweber ];
     platforms = [
@@ -54,5 +54,4 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
     ];
   };
-
 }

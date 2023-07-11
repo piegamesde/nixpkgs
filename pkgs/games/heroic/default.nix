@@ -40,11 +40,11 @@ mkYarnPackage rec {
     ''
     ;
 
-    # Disable bundling into a tar archive.
+  # Disable bundling into a tar archive.
   doDist = false;
 
-    # --disable-gpu-compositing is to work around upstream bug
-    # https://github.com/electron/electron/issues/32317
+  # --disable-gpu-compositing is to work around upstream bug
+  # https://github.com/electron/electron/issues/32317
   postInstall =
     let
       deps = "$out/libexec/heroic/deps/heroic";

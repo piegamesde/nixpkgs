@@ -12,16 +12,16 @@ let
 
   makePluginPath = lib.makeLibraryPath;
   makePluginXMLPath = lib.concatMapStringsSep ":" xmlPath;
-
 in
+
 application:
 
 choosePlugins:
 
 let
   plugins = choosePlugins wayfirePlugins;
-
 in
+
 runCommand "${application.name}-wrapped"
 {
   nativeBuildInputs = [ makeWrapper ];

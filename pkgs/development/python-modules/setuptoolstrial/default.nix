@@ -34,7 +34,7 @@ buildPythonPackage rec {
     sed -i '12,$d' tests/test_main.py
   '';
 
-    # Couldn't get tests working
+  # Couldn't get tests working
   doCheck = false;
 
   meta = with lib; {
@@ -44,5 +44,4 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ ryansydnor ];
   };
-
 }

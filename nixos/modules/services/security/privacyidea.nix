@@ -85,8 +85,8 @@ let
         env PRIVACYIDEA_CONFIGFILE=${cfg.stateDir}/privacyidea.cfg \
         ${penv}/bin/privacyidea-token-janitor $@
     '';
-
 in
+
 {
   options = {
     services.privacyidea = {
@@ -534,5 +534,4 @@ in
         mkIf (cfg.ldap-proxy.group == "pi-ldap-proxy") { };
     })
   ];
-
 }

@@ -41,9 +41,9 @@ let
       lib.escapeShellArg arg
   );
 
-    /* processArg : { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] } → (String|FilePath) → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
-       Helper reducer function for building a command arguments where file paths are replaced with argv[x] reference.
-    */
+  /* processArg : { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] } → (String|FilePath) → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
+     Helper reducer function for building a command arguments where file paths are replaced with argv[x] reference.
+  */
   processArg =
     {
       maxArgIndex,
@@ -66,9 +66,9 @@ let
         inherit maxArgIndex paths;
       }
     ;
-    /* extractPaths : Int → [ (String|FilePath) ] → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
-       Helper function that extracts file paths from command arguments and replaces them with argv[x] references.
-    */
+  /* extractPaths : Int → [ (String|FilePath) ] → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
+     Helper function that extracts file paths from command arguments and replaces them with argv[x] references.
+  */
   extractPaths =
     maxArgIndex: command:
     builtins.foldl' processArg
@@ -79,9 +79,9 @@ let
     }
     command
     ;
-    /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
-       Helper reducer function for extracting file paths from individual commands.
-    */
+  /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
+     Helper reducer function for extracting file paths from individual commands.
+  */
   processCommand =
     {
       maxArgIndex,
@@ -98,9 +98,9 @@ let
       maxArgIndex = new.maxArgIndex;
     }
     ;
-    /* extractCommands : Int → [[ (String|FilePath) ]] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
-       Helper function for extracting file paths from a list of commands and replacing them with argv[x] references.
-    */
+  /* extractCommands : Int → [[ (String|FilePath) ]] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
+     Helper function for extracting file paths from a list of commands and replacing them with argv[x] references.
+  */
   extractCommands =
     maxArgIndex: commands:
     builtins.foldl' processCommand
@@ -112,9 +112,9 @@ let
     commands
     ;
 
-    /* commandsToShellInvocation : [[ (String|FilePath) ]] → [ (String|FilePath) ]
-       Converts a list of commands into a single command by turning them into a shell script and passing them to `sh -c`.
-    */
+  /* commandsToShellInvocation : [[ (String|FilePath) ]] → [ (String|FilePath) ]
+     Converts a list of commands into a single command by turning them into a shell script and passing them to `sh -c`.
+  */
   commandsToShellInvocation =
     commands:
     let
@@ -144,9 +144,9 @@ rec {
     }
     ;
 
-    /* sequence : [UpdateScript] → UpdateScript
-       EXPERIMENTAL! Combines multiple update scripts to run in sequence.
-    */
+  /* sequence : [UpdateScript] → UpdateScript
+     EXPERIMENTAL! Combines multiple update scripts to run in sequence.
+  */
   sequence =
     scripts:
 
@@ -188,8 +188,8 @@ rec {
             supportedFeatures == [ ]
           )
         ;
-
     in
+
     assert lib.assertMsg
       (lib.all validateFeatures scripts)
       "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
@@ -228,9 +228,9 @@ rec {
     }
     ;
 
-    /* copyAttrOutputToFile : String → FilePath → UpdateScript
-       EXPERIMENTAL! Simple update script that copies the output of Nix derivation built by `attr` to `path`.
-    */
+  /* copyAttrOutputToFile : String → FilePath → UpdateScript
+     EXPERIMENTAL! Simple update script that copies the output of Nix derivation built by `attr` to `path`.
+  */
   copyAttrOutputToFile =
     attr: path:
 
@@ -244,5 +244,4 @@ rec {
       supportedFeatures = [ "silent" ];
     }
     ;
-
 }

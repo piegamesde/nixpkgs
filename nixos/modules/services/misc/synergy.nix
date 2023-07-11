@@ -11,8 +11,8 @@ let
 
   cfgC = config.services.synergy.client;
   cfgS = config.services.synergy.server;
-
 in
+
 {
   ###### interface
 
@@ -104,10 +104,9 @@ in
         };
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
     (mkIf cfgC.enable {
@@ -149,7 +148,6 @@ in
       };
     })
   ];
-
 }
 
 /* SYNERGY SERVER example configuration file

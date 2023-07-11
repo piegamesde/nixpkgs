@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-    # many tests seem to require a running kafka instance
+  # many tests seem to require a running kafka instance
   doCheck = false;
 
   meta = with lib; {

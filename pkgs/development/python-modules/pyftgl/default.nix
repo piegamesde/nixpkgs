@@ -14,8 +14,8 @@ let
 
   pythonVersion =
     with lib.versions; "${major python.version}${minor python.version}";
-
 in
+
 buildPythonPackage rec {
   pname = "pyftgl";
   version = "0.4b";

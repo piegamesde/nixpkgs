@@ -35,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     validators
   ];
 
-    # Tests requires credentials
+  # Tests requires credentials
   doCheck = false;
 
   pythonImportsCheck = [ "faraday_cli" ];

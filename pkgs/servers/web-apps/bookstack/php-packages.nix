@@ -1194,4 +1194,3 @@ composerEnv.buildPackage {
   symlinkDependencies = false;
   meta = { license = "MIT"; };
 }
-

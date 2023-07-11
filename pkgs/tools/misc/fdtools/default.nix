@@ -7,11 +7,10 @@
 
 let
   pname = "fdtools";
-    # When you update, check whether we can drop the skalibs pin.
+  # When you update, check whether we can drop the skalibs pin.
   version = "2020.05.04";
   sha256 = "0lnafcp4yipi0dl8gh33zjs8wlpz0mim8mwmiz9s49id0b0fmlla";
   skalibs = skawarePackages.skalibs_2_10;
-
 in
 stdenv.mkDerivation {
   inherit pname version;

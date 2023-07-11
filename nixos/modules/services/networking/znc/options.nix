@@ -90,8 +90,8 @@ let
       };
     };
   };
-
 in
+
 {
 
   options = {
@@ -240,7 +240,6 @@ in
           '';
         };
       };
-
     };
   };
 
@@ -249,7 +248,7 @@ in
     services.znc.config =
       let
         c = cfg.confOptions;
-          # defaults here should override defaults set in the non-legacy part
+        # defaults here should override defaults set in the non-legacy part
         mkDefault = mkOverride 900;
       in
       {

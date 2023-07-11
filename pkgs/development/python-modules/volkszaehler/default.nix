@@ -26,7 +26,7 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-    # no tests are present
+  # no tests are present
   doCheck = false;
 
   pythonImportsCheck = [ "volkszaehler" ];

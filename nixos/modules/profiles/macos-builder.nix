@@ -13,8 +13,8 @@ let
   keyType = "ed25519";
 
   cfg = config.virtualisation.darwin-builder;
-
 in
+
 {
   imports = [
     ../virtualisation/qemu-vm.nix
@@ -101,12 +101,12 @@ in
       };
     };
 
-      # DNS fails for QEMU user networking (SLiRP) on macOS.  See:
-      #
-      # https://github.com/utmapp/UTM/issues/2353
-      #
-      # This works around that by using a public DNS server other than the DNS
-      # server that QEMU provides (normally 10.0.2.3)
+    # DNS fails for QEMU user networking (SLiRP) on macOS.  See:
+    #
+    # https://github.com/utmapp/UTM/issues/2353
+    #
+    # This works around that by using a public DNS server other than the DNS
+    # server that QEMU provides (normally 10.0.2.3)
     networking.nameservers = [ "8.8.8.8" ];
 
     nix.settings = {
@@ -138,8 +138,8 @@ in
 
         publicKey = "${privateKey}.pub";
 
-          # This installCredentials script is written so that it's as easy as
-          # possible for a user to audit before confirming the `sudo`
+        # This installCredentials script is written so that it's as easy as
+        # possible for a user to audit before confirming the `sudo`
         installCredentials = hostPkgs.writeShellScript "install-credentials" ''
           KEYS="''${1}"
           INSTALL=${hostPkgs.coreutils}/bin/install
@@ -150,8 +150,8 @@ in
         hostPkgs = config.virtualisation.host.pkgs;
 
         script = hostPkgs.writeShellScriptBin "create-builder" (
-        # When running as non-interactively as part of a DarwinConfiguration the working directory
-        # must be set to a writeable directory.
+          # When running as non-interactively as part of a DarwinConfiguration the working directory
+          # must be set to a writeable directory.
           (
             if cfg.workingDirectory != "." then
               ''
@@ -176,7 +176,6 @@ in
             KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
           ''
         );
-
       in
       script.overrideAttrs (
         old: {
@@ -226,8 +225,8 @@ in
         host.port = cfg.hostPort;
       } ];
 
-        # Disable graphics for the builder since users will likely want to run it
-        # non-interactively in the background.
+      # Disable graphics for the builder since users will likely want to run it
+      # non-interactively in the background.
       graphics = false;
 
       sharedDirectories.keys = {
@@ -235,24 +234,24 @@ in
         target = keysDirectory;
       };
 
-        # If we don't enable this option then the host will fail to delegate builds
-        # to the guest, because:
-        #
-        # - The host will lock the path to build
-        # - The host will delegate the build to the guest
-        # - The guest will attempt to lock the same path and fail because
-        #   the lockfile on the host is visible on the guest
-        #
-        # Snapshotting the host's /nix/store as an image isolates the guest VM's
-        # /nix/store from the host's /nix/store, preventing this problem.
+      # If we don't enable this option then the host will fail to delegate builds
+      # to the guest, because:
+      #
+      # - The host will lock the path to build
+      # - The host will delegate the build to the guest
+      # - The guest will attempt to lock the same path and fail because
+      #   the lockfile on the host is visible on the guest
+      #
+      # Snapshotting the host's /nix/store as an image isolates the guest VM's
+      # /nix/store from the host's /nix/store, preventing this problem.
       useNixStoreImage = true;
 
-        # Obviously the /nix/store needs to be writable on the guest in order for it
-        # to perform builds.
+      # Obviously the /nix/store needs to be writable on the guest in order for it
+      # to perform builds.
       writableStore = true;
 
-        # This ensures that anything built on the guest isn't lost when the guest is
-        # restarted.
+      # This ensures that anything built on the guest isn't lost when the guest is
+      # restarted.
       writableStoreUseTmpfs = false;
     };
   };

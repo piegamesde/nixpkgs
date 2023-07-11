@@ -24,7 +24,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # Some tests violates sandbox constraints.
+  # Some tests violates sandbox constraints.
   doCheck = false;
 
   ldflags = [

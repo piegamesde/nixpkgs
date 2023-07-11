@@ -36,8 +36,8 @@ let
       };
     }
     .${version};
-
 in
+
 buildGoModule {
   inherit (versionSpec) pname version vendorSha256;
 
@@ -49,15 +49,15 @@ buildGoModule {
 
   subPackages = [ "cmd/bee" ];
 
-    # no symbol table, no debug info, and pass the commit for the version string
+  # no symbol table, no debug info, and pass the commit for the version string
   ldflags = lib.optionals (lib.hasAttr "goVersionString" versionSpec) [
     "-s"
     "-w"
     "-X=github.com/ethersphere/bee.commit=${versionSpec.goVersionString}"
   ];
 
-    # Mimic the bee Makefile: without disabling CGO, two (transitive and
-    # unused) dependencies would fail to compile.
+  # Mimic the bee Makefile: without disabling CGO, two (transitive and
+  # unused) dependencies would fail to compile.
   preBuild = ''
     export CGO_ENABLED=0
   '';

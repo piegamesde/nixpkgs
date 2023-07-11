@@ -33,12 +33,12 @@
     )
     ;
 
-    # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualDerivation
-    # or doc/builders/testers.chapter.md
+  # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualDerivation
+  # or doc/builders/testers.chapter.md
   testEqualDerivation = callPackage ./test-equal-derivation.nix { };
 
-    # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualContents
-    # or doc/builders/testers.chapter.md
+  # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualContents
+  # or doc/builders/testers.chapter.md
   testEqualContents =
     {
       assertion,
@@ -78,8 +78,8 @@
     ''
     ;
 
-    # See https://nixos.org/manual/nixpkgs/unstable/#tester-testVersion
-    # or doc/builders/testers.chapter.md
+  # See https://nixos.org/manual/nixpkgs/unstable/#tester-testVersion
+  # or doc/builders/testers.chapter.md
   testVersion =
     {
       package,
@@ -112,21 +112,21 @@
     ''
     ;
 
-    # See doc/builders/testers.chapter.md or
-    # https://nixos.org/manual/nixpkgs/unstable/#tester-invalidateFetcherByDrvHash
+  # See doc/builders/testers.chapter.md or
+  # https://nixos.org/manual/nixpkgs/unstable/#tester-invalidateFetcherByDrvHash
   invalidateFetcherByDrvHash =
     f: args:
     let
       drvPath = (f args).drvPath;
-        # It's safe to discard the context, because we don't access the path.
+      # It's safe to discard the context, because we don't access the path.
       salt = builtins.unsafeDiscardStringContext (
         lib.substring 0 12 (baseNameOf drvPath)
       );
-        # New derivation incorporating the original drv hash in the name
-      salted = f (args // { name = "${args.name or "source"}-salted-${salt}"; })
-        ;
-        # Make sure we did change the derivation. If the fetcher ignores `name`,
-        # `invalidateFetcherByDrvHash` doesn't work.
+      # New derivation incorporating the original drv hash in the name
+      salted =
+        f (args // { name = "${args.name or "source"}-salted-${salt}"; });
+      # Make sure we did change the derivation. If the fetcher ignores `name`,
+      # `invalidateFetcherByDrvHash` doesn't work.
       checked =
         if salted.drvPath == drvPath then
           throw
@@ -138,8 +138,8 @@
     checked
     ;
 
-    # See doc/builders/testers.chapter.md or
-    # https://nixos.org/manual/nixpkgs/unstable/#tester-invalidateFetcherByDrvHash
+  # See doc/builders/testers.chapter.md or
+  # https://nixos.org/manual/nixpkgs/unstable/#tester-invalidateFetcherByDrvHash
   nixosTest =
     let
       # The nixos/lib/testing-python.nix module, preapplied with arguments that

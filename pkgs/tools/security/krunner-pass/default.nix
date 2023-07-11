@@ -12,7 +12,7 @@
 
 mkDerivation rec {
   pname = "krunner-pass";
-    # when upgrading the version, check if cmakeFlags is still needed
+  # when upgrading the version, check if cmakeFlags is still needed
   version = "1.3.0";
 
   src = fetchFromGitHub {

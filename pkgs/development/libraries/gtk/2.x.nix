@@ -35,8 +35,8 @@ let
     gtk_module_path = "gtk-2.0";
     gtk_binary_version = "2.10.0";
   };
-
 in
+
 stdenv.mkDerivation (
   finalAttrs: {
     pname = "gtk+";

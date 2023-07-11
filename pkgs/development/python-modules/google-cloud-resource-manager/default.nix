@@ -40,7 +40,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # prevent google directory from shadowing google imports
+  # prevent google directory from shadowing google imports
   preCheck = ''
     rm -r google
   '';

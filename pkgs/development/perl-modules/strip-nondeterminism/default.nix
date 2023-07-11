@@ -62,7 +62,7 @@ buildPerlPackage rec {
     runHook postInstallCheck
   '';
 
-    # running shortenPerlShebang in postBuild results in non-functioning binary 'exec format error'
+  # running shortenPerlShebang in postBuild results in non-functioning binary 'exec format error'
   doCheck = !stdenv.isDarwin;
   doInstallCheck = true;
 

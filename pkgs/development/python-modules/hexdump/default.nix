@@ -14,7 +14,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-    # the source zip has no prefix, so everything gets unpacked to /build otherwise
+  # the source zip has no prefix, so everything gets unpacked to /build otherwise
   sourceRoot = "source";
   unpackPhase = ''
     runHook preUnpack

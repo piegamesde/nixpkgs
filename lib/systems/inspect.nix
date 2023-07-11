@@ -10,8 +10,8 @@ let
 in
 let
   abis = lib.mapAttrs (_: abi: builtins.removeAttrs abi [ "assertions" ]) abis_;
-
 in
+
 rec {
   # these patterns are to be matched against {host,build,target}Platform.parsed
   patterns = rec {
@@ -43,9 +43,9 @@ rec {
         bits = 64;
       };
     };
-      # This ABI is the default in NixOS PowerPC64 BE, but not on mainline GCC,
-      # so it sometimes causes issues in certain packages that makes the wrong
-      # assumption on the used ABI.
+    # This ABI is the default in NixOS PowerPC64 BE, but not on mainline GCC,
+    # so it sometimes causes issues in certain packages that makes the wrong
+    # assumption on the used ABI.
     isAbiElfv2 = [
       { abi = { abi = "elfv2"; }; }
       {
@@ -259,10 +259,10 @@ rec {
 
   predicates = mapAttrs (_: matchAnyAttrs) patterns;
 
-    # these patterns are to be matched against the entire
-    # {host,build,target}Platform structure; they include a `parsed={}` marker so
-    # that `lib.meta.availableOn` can distinguish them from the patterns which
-    # apply only to the `parsed` field.
+  # these patterns are to be matched against the entire
+  # {host,build,target}Platform structure; they include a `parsed={}` marker so
+  # that `lib.meta.availableOn` can distinguish them from the patterns which
+  # apply only to the `parsed` field.
 
   platformPatterns =
     mapAttrs (_: p: { parsed = { }; } // p) { isStatic = { isStatic = true; }; }

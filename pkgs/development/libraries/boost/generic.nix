@@ -49,7 +49,7 @@
   mpi,
   extraB2Args ? [ ]
 
-    # Attributes inherit from specific versions
+  # Attributes inherit from specific versions
   ,
   version,
   src,
@@ -92,7 +92,7 @@ let
       "static"
     ;
 
-    # To avoid library name collisions
+  # To avoid library name collisions
   layout =
     if taggedLayout then
       "tagged"
@@ -100,12 +100,12 @@ let
       "system"
     ;
 
-    # Versions of b2 before 1.65 have job limits; specifically:
-    #   - Versions before 1.58 support up to 64 jobs[0]
-    #   - Versions before 1.65 support up to 256 jobs[1]
-    #
-    # [0]: https://github.com/boostorg/build/commit/0ef40cb86728f1cd804830fef89a6d39153ff632
-    # [1]: https://github.com/boostorg/build/commit/316e26ca718afc65d6170029284521392524e4f8
+  # Versions of b2 before 1.65 have job limits; specifically:
+  #   - Versions before 1.58 support up to 64 jobs[0]
+  #   - Versions before 1.65 support up to 256 jobs[1]
+  #
+  # [0]: https://github.com/boostorg/build/commit/0ef40cb86728f1cd804830fef89a6d39153ff632
+  # [1]: https://github.com/boostorg/build/commit/316e26ca718afc65d6170029284521392524e4f8
   jobs =
     if lib.versionOlder version "1.58" then
       "$(($NIX_BUILD_CORES<=64 ? $NIX_BUILD_CORES : 64))"
@@ -192,8 +192,8 @@ let
       ]
     ++ extraB2Args
   );
-
 in
+
 stdenv.mkDerivation {
   pname = "boost";
 
@@ -204,7 +204,6 @@ stdenv.mkDerivation {
   patches =
     patches
     ++ lib.optional stdenv.isDarwin ./darwin-no-system-python.patch
-      # Fix boost-context segmentation faults on ppc64 due to ABI violation
     ++ lib.optional
       (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
       (
@@ -216,7 +215,6 @@ stdenv.mkDerivation {
           extraPrefix = "libs/context/";
         }
       )
-      # Fix compiler warning with GCC >= 8; TODO: patch may apply to older versions
     ++ lib.optional
       (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
       (
@@ -269,9 +267,9 @@ stdenv.mkDerivation {
 
     broken =
       # boost-context lacks support for the N32 ABI on mips64.  The build
-      # will succeed, but packages depending on boost-context will fail with
-      # a very cryptic error message.
-      stdenv.hostPlatform.isMips64n32
+        # will succeed, but packages depending on boost-context will fail with
+        # a very cryptic error message.
+        stdenv.hostPlatform.isMips64n32
       ||
       # the patch above does not apply cleanly to pre-1.65 boost
       (
@@ -288,9 +286,7 @@ stdenv.mkDerivation {
       using mpi : ${mpi}/bin/mpiCC ;
       EOF
     ''
-      # On darwin we need to add the `$out/lib` to the libraries' rpath explicitly,
-      # otherwise the dynamic linker is unable to resolve the reference to @rpath
-      # when the boost libraries want to load each other at runtime.
+    # b2 needs to be explicitly told how to find Python when cross-compiling
     + lib.optionalString (stdenv.isDarwin && enableShared) ''
       cat << EOF >> user-config.jam
       using clang-darwin : : ${stdenv.cc.targetPrefix}c++
@@ -298,12 +294,7 @@ stdenv.mkDerivation {
         ;
       EOF
     ''
-      # b2 has trouble finding the correct compiler and tools for cross compilation
-      # since it apparently ignores $CC, $AR etc. Thus we need to set everything
-      # in user-config.jam. To keep things simple we just set everything in an
-      # uniform way for clang and gcc (which works thanks to our cc-wrapper).
-      # We pass toolset later which will make b2 invoke everything in the right
-      # way -- the other toolset in user-config.jam will be ignored.
+    # b2 needs to be explicitly told how to find Python when cross-compiling
     + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       cat << EOF >> user-config.jam
       using gcc : cross : ${stdenv.cc.targetPrefix}c++
@@ -317,7 +308,7 @@ stdenv.mkDerivation {
         ;
       EOF
     ''
-      # b2 needs to be explicitly told how to find Python when cross-compiling
+    # b2 needs to be explicitly told how to find Python when cross-compiling
     + lib.optionalString enablePython ''
       cat << EOF >> user-config.jam
       using python : : ${python.interpreter}

@@ -17,8 +17,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-QZzDFVAmmjkm7n/KpMxDMAjShKiVVGZbZB1W3/TeVjs=";
 
-    # The code repository includes other tools which are not useful. Only build
-    # hclfmt.
+  # The code repository includes other tools which are not useful. Only build
+  # hclfmt.
   subPackages = [ "cmd/hclfmt" ];
 
   meta = with lib; {

@@ -76,7 +76,7 @@ buildPerlPackage rec {
       YAMLTiny
     ]
     ;
-    # TODO: TermReadKey was temporarily removed from propagatedBuildInputs to unfreeze the build
+  # TODO: TermReadKey was temporarily removed from propagatedBuildInputs to unfreeze the build
   buildInputs = [ bash ];
   LC_ALL = "en_US.UTF-8";
   SGML_CATALOG_FILES = "${docbook_xml_dtd_412}/xml/dtd/docbook/catalog.xml";
@@ -88,11 +88,11 @@ buildPerlPackage rec {
     ''
       perl Build.PL --install_base=$out --install_path="lib=$out/${perl.libPrefix}"; ./Build build'';
 
-    # Disabling tests on musl
-    # Void linux package have investigated the failure and tracked it down to differences in gettext behavior. They decided to disable tests.
-    # https://github.com/void-linux/void-packages/pull/34029#issuecomment-973267880
-    # Alpine packagers have not worried about running the tests until now:
-    # https://git.alpinelinux.org/aports/tree/main/po4a/APKBUILD#n11
+  # Disabling tests on musl
+  # Void linux package have investigated the failure and tracked it down to differences in gettext behavior. They decided to disable tests.
+  # https://github.com/void-linux/void-packages/pull/34029#issuecomment-973267880
+  # Alpine packagers have not worried about running the tests until now:
+  # https://git.alpinelinux.org/aports/tree/main/po4a/APKBUILD#n11
   doCheck = !stdenv.hostPlatform.isMusl;
 
   checkPhase = ''

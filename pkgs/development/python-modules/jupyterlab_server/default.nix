@@ -57,7 +57,7 @@ buildPythonPackage rec {
     rm -r tests/translations/
   '';
 
-    # https://github.com/jupyterlab/jupyterlab_server/blob/v2.15.2/pyproject.toml#L61
+  # https://github.com/jupyterlab/jupyterlab_server/blob/v2.15.2/pyproject.toml#L61
   doCheck = false;
 
   preCheck = ''

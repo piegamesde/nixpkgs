@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     pyyaml
   ];
 
-    # skip tests due to network access
+  # skip tests due to network access
   doCheck = false;
 
   pythonImportsCheck = [ "shot_scraper" ];

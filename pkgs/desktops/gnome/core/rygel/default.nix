@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   pname = "rygel";
   version = "0.42.3";
 
-    # TODO: split out lib
+  # TODO: split out lib
   outputs = [
     "out"
     "dev"

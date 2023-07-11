@@ -37,14 +37,14 @@ stdenv.mkDerivation rec {
       --replace "\''${PACKAGE_PREFIX_DIR}/" ""
   '';
 
-    # Needed for case-insensitive filesystems (i.e. MacOS) because a file named
-    # BUILD already exists.
+  # Needed for case-insensitive filesystems (i.e. MacOS) because a file named
+  # BUILD already exists.
   cmakeBuildDir = "build_dir";
 
   cmakeFlags =
     lib.optional (!stdenv.hostPlatform.isStatic) "-DBUILD_SHARED_LIBS:BOOL=ON";
 
-    # This installs a pkg-config definition.
+  # This installs a pkg-config definition.
   postInstall = ''
     pushd "$src"
     make common-install prefix="$dev" SED_INPLACE="sed -i"

@@ -30,11 +30,11 @@ let
     hash = "sha256-57XwqlsbDq3GOhxiTAyn9a8TOqhX1qQnGw7z0L22ho4=";
   };
 
-    # The build system expects all these dependencies inside the external folder and
-    # does not search for system-wide installations.
-    # It also expects the version specified in the repository, which can be incompatible
-    # with the version in nixpkgs (e.g. for SPIRV-Headers), so we don't want to patch in our packages.
-    # The revisions are extracted from https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/fetch_sources.py#L290
+  # The build system expects all these dependencies inside the external folder and
+  # does not search for system-wide installations.
+  # It also expects the version specified in the repository, which can be incompatible
+  # with the version in nixpkgs (e.g. for SPIRV-Headers), so we don't want to patch in our packages.
+  # The revisions are extracted from https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/fetch_sources.py#L290
   amber = fetchFromGitHub {
     owner = "google";
     repo = "amber";

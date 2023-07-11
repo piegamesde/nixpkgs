@@ -495,8 +495,8 @@ in
         ${pkgs.jre}/bin/keytool -importcert -trustcacerts -alias MySQLCACert -file ${cfg.database.caCert} -keystore $out -storepass notsosecretpassword -noprompt
       '';
 
-        # Both theme and theme type directories need to be actual
-        # directories in one hierarchy to pass Keycloak checks.
+      # Both theme and theme type directories need to be actual
+      # directories in one hierarchy to pass Keycloak checks.
       themesBundle = pkgs.runCommand "keycloak-themes" { } ''
         linkTheme() {
           theme="$1"

@@ -12,7 +12,6 @@ let
     PASTE_FILES_ROOT = "${cfg.dataDir}"
     ${cfg.extraConfig}
   '';
-
 in
 {
   options = {
@@ -110,4 +109,3 @@ in
     };
   };
 }
-

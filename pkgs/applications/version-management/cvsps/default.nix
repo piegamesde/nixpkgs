@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0nh7q7zcmagx0i63h6fqqkkq9i55k77myvb8h6jn2f266f5iklwi";
   };
 
-    # Patches from https://sources.debian.net/src/cvsps/2.1-7/debian/patches
+  # Patches from https://sources.debian.net/src/cvsps/2.1-7/debian/patches
   patches = [
     (fetchpatch {
       url =

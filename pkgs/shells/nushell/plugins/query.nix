@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage {
 
   cargoBuildFlags = [ "--package nu_plugin_query" ];
 
-    # compilation fails with a missing symbol
+  # compilation fails with a missing symbol
   doCheck = false;
 
   meta = with lib; {

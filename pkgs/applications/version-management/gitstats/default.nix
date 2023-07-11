@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   pname = "gitstats";
   version = "2016-01-08";
 
-    # upstream does not make releases
+  # upstream does not make releases
   src = fetchFromGitHub {
     owner = "hoxu";
     repo = "gitstats";

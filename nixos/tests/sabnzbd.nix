@@ -14,7 +14,7 @@ import ./make-test-python.nix (
       }: {
         services.sabnzbd = { enable = true; };
 
-          # unrar is unfree
+        # unrar is unfree
         nixpkgs.config.allowUnfreePredicate =
           pkg: builtins.elem (lib.getName pkg) [ "unrar" ];
       }

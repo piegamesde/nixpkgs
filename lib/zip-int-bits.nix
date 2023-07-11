@@ -27,8 +27,8 @@ let
       [ headbit ] ++ (intToBits tailbits)
     ;
 
-    # (bitsToInt [ 0 1 1 ] 0) -> 6
-    # (bitsToInt [ 0 1 0 ] 1) -> -6
+  # (bitsToInt [ 0 1 1 ] 0) -> 6
+  # (bitsToInt [ 0 1 0 ] 1) -> -6
   bitsToInt =
     l: signum:
     if l == [ ] then

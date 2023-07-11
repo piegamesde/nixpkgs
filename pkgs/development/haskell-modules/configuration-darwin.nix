@@ -7,8 +7,8 @@
 
 let
   inherit (pkgs) lib darwin;
-
 in
+
 with haskellLib;
 
 self: super:
@@ -29,7 +29,7 @@ self: super:
 
     halive = addBuildDepend darwin.apple_sdk.frameworks.AppKit super.halive;
 
-      # Hakyll's tests are broken on Darwin (3 failures); and they require util-linux
+    # Hakyll's tests are broken on Darwin (3 failures); and they require util-linux
     hakyll = overrideCabal
       {
         testToolDepends = [ ];
@@ -47,7 +47,7 @@ self: super:
       [ darwin.apple_sdk.frameworks.ApplicationServices ]
       super.apecs-physics;
 
-      # Framework deps are hidden behind a flag
+    # Framework deps are hidden behind a flag
     hmidi = addExtraLibraries
       [
         darwin.apple_sdk.frameworks.CoreFoundation
@@ -56,12 +56,12 @@ self: super:
       ]
       super.hmidi;
 
-      # "erf table" test fails on Darwin
-      # https://github.com/bos/math-functions/issues/63
+    # "erf table" test fails on Darwin
+    # https://github.com/bos/math-functions/issues/63
     math-functions = dontCheck super.math-functions;
 
-      # darwin doesn't have sub-second resolution
-      # https://github.com/hspec/mockery/issues/11
+    # darwin doesn't have sub-second resolution
+    # https://github.com/hspec/mockery/issues/11
     mockery = overrideCabal
       (drv: {
         preCheck =
@@ -75,13 +75,13 @@ self: super:
       })
       super.mockery;
 
-      # https://github.com/ndmitchell/shake/issues/206
+    # https://github.com/ndmitchell/shake/issues/206
     shake = dontCheck super.shake;
 
     filecache = dontCheck super.filecache;
 
-      # gtk/gtk3 needs to be told on Darwin to use the Quartz
-      # rather than X11 backend (see eg https://github.com/gtk2hs/gtk2hs/issues/249).
+    # gtk/gtk3 needs to be told on Darwin to use the Quartz
+    # rather than X11 backend (see eg https://github.com/gtk2hs/gtk2hs/issues/249).
     gtk3 = appendConfigureFlag "-f have-quartz-gtk" super.gtk3;
     gtk = appendConfigureFlag "-f have-quartz-gtk" super.gtk;
 
@@ -102,20 +102,20 @@ self: super:
       addExtraLibrary darwin.apple_sdk.frameworks.AudioToolbox super.proteaaudio
       ;
 
-      # the system-fileio tests use canonicalizePath, which fails in the sandbox
+    # the system-fileio tests use canonicalizePath, which fails in the sandbox
     system-fileio = dontCheck super.system-fileio;
 
-      # Prevents needing to add `security_tool` as a run-time dependency for
-      # everything using x509-system to give access to the `security` executable.
-      #
-      # darwin.security_tool is broken in Mojave (#45042)
-      #
-      # We will use the system provided security for now.
-      # Beware this WILL break in sandboxes!
-      #
-      # TODO(matthewbauer): If someone really needs this to work in sandboxes,
-      # I think we can add a propagatedImpureHost dep here, but I’m hoping to
-      # get a proper fix available soonish.
+    # Prevents needing to add `security_tool` as a run-time dependency for
+    # everything using x509-system to give access to the `security` executable.
+    #
+    # darwin.security_tool is broken in Mojave (#45042)
+    #
+    # We will use the system provided security for now.
+    # Beware this WILL break in sandboxes!
+    #
+    # TODO(matthewbauer): If someone really needs this to work in sandboxes,
+    # I think we can add a propagatedImpureHost dep here, but I’m hoping to
+    # get a proper fix available soonish.
     x509-system = overrideCabal
       (
         drv:
@@ -132,17 +132,17 @@ self: super:
       )
       super.x509-system;
 
-      # https://github.com/haskell-foundation/foundation/pull/412
+    # https://github.com/haskell-foundation/foundation/pull/412
     foundation = dontCheck super.foundation;
 
     llvm-hs = overrideCabal
       (oldAttrs: {
         # One test fails on darwin.
         doCheck = false;
-          # llvm-hs's Setup.hs file tries to add the lib/ directory from LLVM8 to
-          # the DYLD_LIBRARY_PATH environment variable.  This messes up clang
-          # when called from GHC, probably because clang is version 7, but we are
-          # using LLVM8.
+        # llvm-hs's Setup.hs file tries to add the lib/ directory from LLVM8 to
+        # the DYLD_LIBRARY_PATH environment variable.  This messes up clang
+        # when called from GHC, probably because clang is version 7, but we are
+        # using LLVM8.
         preCompileBuildDriver =
           ''
             substituteInPlace Setup.hs --replace "addToLdLibraryPath libDir" "pure ()"
@@ -171,7 +171,7 @@ self: super:
       })
       super.blas-hs;
 
-      # Ensure the necessary frameworks are propagatedBuildInputs on darwin
+    # Ensure the necessary frameworks are propagatedBuildInputs on darwin
     OpenGLRaw = overrideCabal
       (drv: {
         librarySystemDepends = [ ];
@@ -221,12 +221,12 @@ self: super:
       })
       super.OpenCL;
 
-      # cabal2nix likes to generate dependencies on hinotify when hfsevents is
-      # really required on darwin: https://github.com/NixOS/cabal2nix/issues/146.
+    # cabal2nix likes to generate dependencies on hinotify when hfsevents is
+    # really required on darwin: https://github.com/NixOS/cabal2nix/issues/146.
     hinotify = self.hfsevents;
 
-      # FSEvents API is very buggy and tests are unreliable. See
-      # http://openradar.appspot.com/10207999 and similar issues.
+    # FSEvents API is very buggy and tests are unreliable. See
+    # http://openradar.appspot.com/10207999 and similar issues.
     fsnotify = addBuildDepend darwin.apple_sdk.frameworks.Cocoa (
       dontCheck super.fsnotify
     );
@@ -274,7 +274,7 @@ self: super:
       })
       super.HTF;
 
-      # conditional dependency via a cabal flag
+    # conditional dependency via a cabal flag
     cas-store = overrideCabal
       (drv: {
         libraryHaskellDepends =
@@ -282,7 +282,7 @@ self: super:
       })
       super.cas-store;
 
-      # 2021-05-25: Tests fail and I have no way to debug them.
+    # 2021-05-25: Tests fail and I have no way to debug them.
     hls-class-plugin = dontCheck super.hls-class-plugin;
     hls-brittany-plugin = dontCheck super.hls-brittany-plugin;
     hls-fourmolu-plugin = dontCheck super.hls-fourmolu-plugin;
@@ -293,14 +293,14 @@ self: super:
     hls-haddock-comments-plugin = dontCheck super.hls-haddock-comments-plugin;
     hls-floskell-plugin = dontCheck super.hls-floskell-plugin;
     hls-call-hierarchy-plugin = dontCheck super.hls-call-hierarchy-plugin;
-      # 2022-05-05: Tests fail and I have no way to debug them.
+    # 2022-05-05: Tests fail and I have no way to debug them.
     hls-rename-plugin = dontCheck super.hls-rename-plugin;
 
-      # We are lacking pure pgrep at the moment for tests to work
+    # We are lacking pure pgrep at the moment for tests to work
     tmp-postgres = dontCheck super.tmp-postgres;
 
-      # On darwin librt doesn't exist and will fail to link against,
-      # however linking against it is also not necessary there
+    # On darwin librt doesn't exist and will fail to link against,
+    # however linking against it is also not necessary there
     GLHUI = overrideCabal
       (drv: {
         postPatch =
@@ -334,8 +334,8 @@ self: super:
       })
       super.SDL-image;
 
-      # Prevent darwin-specific configuration code path being taken which
-      # doesn't work with nixpkgs' SDL libraries
+    # Prevent darwin-specific configuration code path being taken which
+    # doesn't work with nixpkgs' SDL libraries
     SDL-mixer = overrideCabal
       (drv: {
         postPatch =
@@ -349,24 +349,24 @@ self: super:
       })
       super.SDL-mixer;
 
-      # Work around SDL_main.h redefining main to SDL_main
+    # Work around SDL_main.h redefining main to SDL_main
     SDL-ttf = appendPatch ./patches/SDL-ttf-darwin-hsc.patch super.SDL-ttf;
 
-      # Disable a bunch of test suites that fail because of darwin's case insensitive
-      # file system: When a test suite has a test suite file that has the same name
-      # as a module in scope, but in different case (e. g. hedgehog.hs and Hedgehog
-      # in scope), GHC will complain that the file name and module name differ (in
-      # the example hedgehog.hs would be Main).
-      # These failures can easily be fixed by upstream by renaming files, so we
-      # should create issues for them.
-      # https://github.com/typeclasses/aws-cloudfront-signed-cookies/issues/2
+    # Disable a bunch of test suites that fail because of darwin's case insensitive
+    # file system: When a test suite has a test suite file that has the same name
+    # as a module in scope, but in different case (e. g. hedgehog.hs and Hedgehog
+    # in scope), GHC will complain that the file name and module name differ (in
+    # the example hedgehog.hs would be Main).
+    # These failures can easily be fixed by upstream by renaming files, so we
+    # should create issues for them.
+    # https://github.com/typeclasses/aws-cloudfront-signed-cookies/issues/2
     aws-cloudfront-signed-cookies =
       dontCheck super.aws-cloudfront-signed-cookies;
 
-      # https://github.com/acid-state/acid-state/issues/133
+    # https://github.com/acid-state/acid-state/issues/133
     acid-state = dontCheck super.acid-state;
 
-      # Otherwise impure gcc is used, which is Apple's weird wrapper
+    # Otherwise impure gcc is used, which is Apple's weird wrapper
     c2hsc = addTestToolDepends [ pkgs.gcc ] super.c2hsc;
 
     http-client-tls = overrideCabal
@@ -402,16 +402,15 @@ self: super:
           ;
       })
       super.foldl;
-
   } // lib.optionalAttrs pkgs.stdenv.isAarch64 { # aarch64-darwin
 
     # https://github.com/fpco/unliftio/issues/87
     unliftio = dontCheck super.unliftio;
-      # This is the same issue as above; the rio tests call functions in unliftio
-      # that have issues as tracked in the GitHub issue above. Once the unliftio
-      # tests are fixed, we can remove this as well.
-      #
-      # We skip just the problematic tests by replacing 'it' with 'xit'.
+    # This is the same issue as above; the rio tests call functions in unliftio
+    # that have issues as tracked in the GitHub issue above. Once the unliftio
+    # tests are fixed, we can remove this as well.
+    #
+    # We skip just the problematic tests by replacing 'it' with 'xit'.
     rio = overrideCabal
       (drv: {
         preConfigure = ''
@@ -420,12 +419,12 @@ self: super:
       })
       super.rio;
 
-      # https://github.com/haskell-crypto/cryptonite/issues/360
+    # https://github.com/haskell-crypto/cryptonite/issues/360
     cryptonite =
       appendPatch ./patches/cryptonite-remove-argon2.patch super.cryptonite;
 
-      # Build segfaults unless `fixity-th` is disabled.
-      # https://github.com/tweag/ormolu/issues/927
+    # Build segfaults unless `fixity-th` is disabled.
+    # https://github.com/tweag/ormolu/issues/927
     ormolu = overrideCabal
       (drv: {
         libraryHaskellDepends =
@@ -439,16 +438,15 @@ self: super:
       })
       (disableCabalFlag "fixity-th" super.fourmolu);
 
-      # https://github.com/NixOS/nixpkgs/issues/149692
+    # https://github.com/NixOS/nixpkgs/issues/149692
     Agda = removeConfigureFlag "-foptimise-heavily" super.Agda;
-
   } // lib.optionalAttrs pkgs.stdenv.isx86_64 { # x86_64-darwin
 
     # tests appear to be failing to link or something:
     # https://hydra.nixos.org/build/174540882/nixlog/9
     regex-rure = dontCheck super.regex-rure;
-      # same
-      # https://hydra.nixos.org/build/174540882/nixlog/9
+    # same
+    # https://hydra.nixos.org/build/174540882/nixlog/9
     jacinda = dontCheck super.jacinda;
   }
 )

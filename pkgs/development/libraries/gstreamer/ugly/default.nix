@@ -21,7 +21,7 @@
   CoreFoundation,
   DiskArbitration,
   enableGplPlugins ? true
-    # Checks meson.is_cross_build(), so even canExecute isn't enough.
+  # Checks meson.is_cross_build(), so even canExecute isn't enough.
   ,
   enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
   hotdoc,

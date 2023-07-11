@@ -138,8 +138,8 @@ let
         privateSshKeyPath = mkOption {
           type = types.nullOr types.path;
           default = null;
-            ## maximum care is taken so that secrets (ssh keys and the CI token)
-            ## don't end up in the Nix store.
+          ## maximum care is taken so that secrets (ssh keys and the CI token)
+          ## don't end up in the Nix store.
           apply =
             final:
             if final == null then
@@ -305,8 +305,8 @@ in
           NIX_REMOTE = "daemon";
         };
 
-          ## NB: maximum care is taken so that secrets (ssh keys and the CI token)
-          ##     don't end up in the Nix store.
+        ## NB: maximum care is taken so that secrets (ssh keys and the CI token)
+        ##     don't end up in the Nix store.
         preStart =
           let
             sshDir = "${cfg.dataDir}/.ssh";
@@ -346,7 +346,7 @@ in
           RestartSec = 5;
           Restart = "on-failure";
           TimeoutSec = 10;
-            # set a long timeout to give buildkite-agent a chance to finish current builds
+          # set a long timeout to give buildkite-agent a chance to finish current builds
           TimeoutStopSec = "2 min";
           KillMode = "mixed";
         };

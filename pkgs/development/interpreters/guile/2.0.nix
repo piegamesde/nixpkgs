@@ -101,10 +101,10 @@ builder rec {
     ]
     ;
 
-    # Explicitly link against libgcc_s, to work around the infamous
-    # "libgcc_s.so.1 must be installed for pthread_cancel to work".
+  # Explicitly link against libgcc_s, to work around the infamous
+  # "libgcc_s.so.1 must be installed for pthread_cancel to work".
 
-    # don't have "libgcc_s.so.1" on darwin
+  # don't have "libgcc_s.so.1" on darwin
   LDFLAGS = lib.optionalString
     (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl)
     "-lgcc_s";
@@ -144,8 +144,8 @@ builder rec {
     ''
     ;
 
-    # make check doesn't work on darwin
-    # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.
+  # make check doesn't work on darwin
+  # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.
   doCheck = false;
   doInstallCheck = doCheck;
 

@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.ceph;
 
-    # function that translates "camelCaseOptions" to "camel case options", credits to tilpner in #nixos@freenode
+  # function that translates "camelCaseOptions" to "camel case options", credits to tilpner in #nixos@freenode
   expandCamelCase = replaceStrings upperChars (map (s: " ${s}") lowerChars);
   expandCamelCaseAttrs =
     mapAttrs' (name: value: nameValuePair (expandCamelCase name) value);
@@ -62,7 +62,7 @@ let
 
         path = [ pkgs.getopt ];
 
-          # Don't start services that are not yet initialized
+        # Don't start services that are not yet initialized
         unitConfig.ConditionPathExists = "/var/lib/${stateDirectory}/keyring";
         startLimitBurst =
           if daemonType == "osd" then
@@ -444,7 +444,7 @@ in
           cfg.global // cfg.extraConfig
           // optionalAttrs cfg.mgr.enable cfg.mgr.extraConfig
         );
-          # Remove all name-value pairs with null values from the attribute set to avoid making empty sections in the ceph.conf
+        # Remove all name-value pairs with null values from the attribute set to avoid making empty sections in the ceph.conf
         globalSection' = filterAttrs (name: value: value != null) globalSection;
         totalConfig = {
           global = globalSection';

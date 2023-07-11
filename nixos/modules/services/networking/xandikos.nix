@@ -87,9 +87,7 @@ in
           };
         };
       };
-
     };
-
   };
 
   config = mkIf cfg.enable (
@@ -110,7 +108,7 @@ in
             StateDirectory = "xandikos";
             StateDirectoryMode = "0700";
             PrivateDevices = true;
-              # Sandboxing
+            # Sandboxing
             CapabilityBoundingSet = "CAP_NET_RAW CAP_NET_ADMIN";
             ProtectSystem = "strict";
             ProtectHome = true;

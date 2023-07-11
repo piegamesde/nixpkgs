@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libv4l ];
 
-    # These build instructions come from build.sh
+  # These build instructions come from build.sh
   buildPhase = ''
     pushd hardware/core-video-capture/src-native/linux
     g++ -fPIC -g -c OpenIMAJGrabber.cpp

@@ -61,7 +61,7 @@ buildPythonPackage rec {
     uncertainties
   ];
 
-    # Tests are not detected by pytest
+  # Tests are not detected by pytest
   doCheck = false;
 
   pythonImportsCheck = [ "pymatgen" ];

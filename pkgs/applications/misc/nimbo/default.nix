@@ -34,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     pydantic
   ];
 
-    # nimbo tests require an AWS instance
+  # nimbo tests require an AWS instance
   doCheck = false;
   pythonImportsCheck = [ "nimbo" ];
 

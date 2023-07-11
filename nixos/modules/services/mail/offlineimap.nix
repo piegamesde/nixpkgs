@@ -79,7 +79,7 @@ in
       timerConfig = {
         Unit = "offlineimap.service";
         OnCalendar = cfg.onCalendar;
-          # start immediately after computer is started:
+        # start immediately after computer is started:
         Persistent = "true";
       };
     } // optionalAttrs cfg.enable { wantedBy = [ "default.target" ]; };

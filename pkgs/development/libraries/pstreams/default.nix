@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   preInstall = "rm INSTALL";
-    # `make install` fails on case-insensitive file systems (e.g. APFS by
-    # default) because this target exists
+  # `make install` fails on case-insensitive file systems (e.g. APFS by
+  # default) because this target exists
 
   meta = with lib; {
     description = "POSIX Process Control in C++";

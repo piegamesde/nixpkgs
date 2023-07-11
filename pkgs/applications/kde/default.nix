@@ -70,11 +70,9 @@ let
     with self;
     let
       callPackage = self.newScope {
-        inherit
-          mkDerivation
-          ;
+        inherit mkDerivation;
 
-          # Team of maintainers assigned to the KDE PIM suite
+        # Team of maintainers assigned to the KDE PIM suite
         kdepimTeam = with lib.maintainers; [
           ttuegel
           vandenoever
@@ -258,7 +256,7 @@ let
       yakuake = callPackage ./yakuake.nix { };
       zanshin = callPackage ./zanshin.nix { };
 
-        # Plasma Mobile Gear
+      # Plasma Mobile Gear
       alligator = callPackage ./alligator.nix { };
       angelfish = callPackage ./angelfish.nix { inherit srcs; };
       audiotube = callPackage ./audiotube.nix { };
@@ -279,6 +277,5 @@ let
       tokodon = callPackage ./tokodon.nix { };
     }
     ;
-
 in
 lib.makeScope libsForQt5.newScope packages

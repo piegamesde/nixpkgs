@@ -20,8 +20,8 @@ let
       };
     }
     ;
-
 in
+
 {
   options = {
     attrsOfSub = lib.mkOption {

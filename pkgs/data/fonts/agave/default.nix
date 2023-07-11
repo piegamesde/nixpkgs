@@ -17,12 +17,11 @@ let
       name = "Agave-${name}.ttf";
     }
     ;
-    # There are slashed variants, but with same name so only bundle the default versions for now:
+  # There are slashed variants, but with same name so only bundle the default versions for now:
   fonts = [
     (mkAg "Regular" "sha256-vX1VhEgqy9rQ7hPmAgBGxKyIs2QSAYqZC/mL/2BIOrA=")
     (mkAg "Bold" "sha256-Ax/l/RKyc03law0ThiLac/7HHV4+YxibKzcZnjZs6VI=")
   ];
-
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -43,4 +42,3 @@ stdenv.mkDerivation {
     platforms = platforms.all;
   };
 }
-

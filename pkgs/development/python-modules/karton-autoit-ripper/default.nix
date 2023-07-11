@@ -37,7 +37,7 @@ buildPythonPackage rec {
       --replace "regex==" "regex>="
   '';
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "karton.autoit_ripper" ];

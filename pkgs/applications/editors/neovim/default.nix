@@ -22,8 +22,8 @@
   glibcLocales ? null,
   procps ? null
 
-    # now defaults to false because some tests can be flaky (clipboard etc), see
-    # also: https://github.com/neovim/neovim/issues/16233
+  # now defaults to false because some tests can be flaky (clipboard etc), see
+  # also: https://github.com/neovim/neovim/issues/16233
   ,
   doCheck ? false,
   nodejs ? null,
@@ -128,12 +128,10 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-  inherit
-    doCheck
-    ;
+  inherit doCheck;
 
-    # to be exhaustive, one could run
-    # make oldtests too
+  # to be exhaustive, one could run
+  # make oldtests too
   checkPhase = ''
     make functionaltest
   '';
@@ -144,18 +142,18 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-    # extra programs test via `make functionaltest`
+  # extra programs test via `make functionaltest`
   nativeCheckInputs = [
     fish
     nodejs
     pyEnv # for src/clint.py
   ];
 
-    # nvim --version output retains compilation flags and references to build tools
+  # nvim --version output retains compilation flags and references to build tools
   postPatch = ''
     substituteInPlace src/nvim/version.c --replace NVIM_VERSION_CFLAGS "";
   '';
-    # check that the above patching actually works
+  # check that the above patching actually works
   disallowedReferences =
     [ stdenv.cc ] ++ lib.optional (lua != codegenLua) codegenLua;
 
@@ -219,11 +217,11 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.neovim.io";
     mainProgram = "nvim";
-      # "Contributions committed before b17d96 by authors who did not sign the
-      # Contributor License Agreement (CLA) remain under the Vim license.
-      # Contributions committed after b17d96 are licensed under Apache 2.0 unless
-      # those contributions were copied from Vim (identified in the commit logs
-      # by the vim-patch token). See LICENSE for details."
+    # "Contributions committed before b17d96 by authors who did not sign the
+    # Contributor License Agreement (CLA) remain under the Vim license.
+    # Contributions committed after b17d96 are licensed under Apache 2.0 unless
+    # those contributions were copied from Vim (identified in the commit logs
+    # by the vim-patch token). See LICENSE for details."
     license = with licenses; [
       asl20
       vim

@@ -46,8 +46,8 @@ let
 
     ${cfg.extraConfig}
   '';
-
 in
+
 {
   options = {
     services.gogs = {
@@ -283,7 +283,7 @@ in
       config.services.gogs.database.password will be stored as plaintext
               in the Nix store. Use database.passwordFile instead.'';
 
-      # Create database passwordFile default when password is configured.
+    # Create database passwordFile default when password is configured.
     services.gogs.database.passwordFile =
       (mkDefault (
         toString (

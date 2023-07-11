@@ -19,7 +19,7 @@
   # This option allows it to be disabled. See http://www.freetype.org/patents.html.
   useEncumberedCode ? true
 
-    # for passthru.tests
+  # for passthru.tests
   ,
   cairo,
   fontforge,
@@ -59,7 +59,7 @@ stdenv.mkDerivation (
       libpng
     ]; # needed when linking against freetype
 
-      # dependence on harfbuzz is looser than the reverse dependence
+    # dependence on harfbuzz is looser than the reverse dependence
     nativeBuildInputs =
       [
         pkg-config
@@ -85,10 +85,10 @@ stdenv.mkDerivation (
       "--enable-freetype-config"
     ];
 
-      # native compiler to generate building tool
+    # native compiler to generate building tool
     CC_BUILD = "${buildPackages.stdenv.cc}/bin/cc";
 
-      # The asm for armel is written with the 'asm' keyword.
+    # The asm for armel is written with the 'asm' keyword.
     CFLAGS = lib.optionalString stdenv.isAarch32 "-std=gnu99";
 
     enableParallelBuilding = true;

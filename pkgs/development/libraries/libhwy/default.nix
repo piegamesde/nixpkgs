@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-    # Required for case-insensitive filesystems ("BUILD" exists)
+  # Required for case-insensitive filesystems ("BUILD" exists)
   dontUseCmakeBuildDir = true;
 
   cmakeFlags =
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isAarch32 [ "-DHWY_CMAKE_ARM7=ON" ]
     ;
 
-    # hydra's darwin machines run into https://github.com/libjxl/libjxl/issues/408
+  # hydra's darwin machines run into https://github.com/libjxl/libjxl/issues/408
   doCheck = !stdenv.hostPlatform.isDarwin;
 
   meta = with lib; {

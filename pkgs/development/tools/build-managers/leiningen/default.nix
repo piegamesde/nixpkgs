@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-sXV86UHky/Fcv2Sbe09BM2XmEtqJLSKEHsFyg5G7Zq8=";
   };
 
-    # Check https://codeberg.org/leiningen/leiningen/releases to get the URL for the new version
+  # Check https://codeberg.org/leiningen/leiningen/releases to get the URL for the new version
   jarsrc = fetchurl {
     url =
       "https://codeberg.org/attachments/43cebda5-a7c2-405b-b641-5143a00051b5";
@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   propagatedBuildInputs = [ jdk ];
 
-    # the jar is not in share/java, because it's a standalone jar and should
-    # never be picked up by set-java-classpath.sh
+  # the jar is not in share/java, because it's a standalone jar and should
+  # never be picked up by set-java-classpath.sh
 
   installPhase = ''
     runHook preInstall

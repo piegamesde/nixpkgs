@@ -65,8 +65,8 @@ buildPythonPackage rec {
     setuptools # needs pkg_resources at runtime
   ];
 
-    # Too many tests fail because of the unusual environment or
-    # because of the missing dependencies for some of the engines.
+  # Too many tests fail because of the unusual environment or
+  # because of the missing dependencies for some of the engines.
   doCheck = false;
 
   pythonImportsCheck = [ "dragonfly" ];

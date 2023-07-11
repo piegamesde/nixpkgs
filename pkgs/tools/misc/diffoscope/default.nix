@@ -72,13 +72,14 @@
   zip,
   zstd,
   enableBloat ? false
-    # updater only
+  # updater only
   ,
   writeScript,
 }:
 
 # Note: when upgrading this package, please run the list-missing-tools.sh script as described below!
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication
+rec {
   pname = "diffoscope";
   version = "233";
 
@@ -116,10 +117,10 @@ python3Packages.buildPythonApplication rec {
     installShellFiles
   ];
 
-    # Most of the non-Python dependencies here are optional command-line tools for various file-format parsers.
-    # To help figuring out what's missing from the list, run: ./pkgs/tools/misc/diffoscope/list-missing-tools.sh
-    #
-    # Still missing these tools: docx2txt lipo otool r2pipe
+  # Most of the non-Python dependencies here are optional command-line tools for various file-format parsers.
+  # To help figuring out what's missing from the list, run: ./pkgs/tools/misc/diffoscope/list-missing-tools.sh
+  #
+  # Still missing these tools: docx2txt lipo otool r2pipe
   pythonPath =
     [
       binutils-unwrapped-all-targets
@@ -251,7 +252,7 @@ python3Packages.buildPythonApplication rec {
     ]
     ;
 
-    # flaky tests on Darwin
+  # flaky tests on Darwin
   disabledTestPaths = lib.optionals stdenv.isDarwin [
     "tests/comparators/test_git.py"
     "tests/comparators/test_java.py"

@@ -17,8 +17,8 @@ let
     tk
     swarm
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "spin";
   version = "6.5.2";

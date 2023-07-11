@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "951a4c52d6791ccec55bc739811169eed69917d3874f5fe722866623a697f39d";
   };
 
-    # Tests are not included in PyPI tarball
+  # Tests are not included in PyPI tarball
   doCheck = false;
 
   meta = with lib; {

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-    # Tests and pythonImportsCheck require network access
+  # Tests and pythonImportsCheck require network access
   doCheck = false;
 
   meta = with lib; {

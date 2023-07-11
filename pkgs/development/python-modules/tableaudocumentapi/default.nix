@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "tableaudocumentapi" ];
 
-    # ModuleNotFoundError: No module named 'test.assets'
+  # ModuleNotFoundError: No module named 'test.assets'
   doCheck = false;
 
   meta = with lib; {

@@ -38,5 +38,4 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/manuel";
     license = licenses.zpl20;
   };
-
 }

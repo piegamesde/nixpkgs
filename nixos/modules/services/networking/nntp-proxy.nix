@@ -71,8 +71,8 @@ let
       });
     };
   '';
-
 in
+
 {
 
   ###### interface
@@ -231,10 +231,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -261,7 +260,5 @@ in
         fi
       '';
     };
-
   };
-
 }

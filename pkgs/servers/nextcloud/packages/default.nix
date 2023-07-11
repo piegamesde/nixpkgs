@@ -14,7 +14,6 @@ let
     self:
     let
       generatedJson = { inherit apps; };
-
     in
     {
       # Create a derivation from the official Nextcloud apps.
@@ -28,7 +27,6 @@ let
           pkgs.fetchNextcloudApp { inherit (data) url sha256; }
         )
         { };
-
     } // lib.mapAttrs
     (
       type: pkgs:
@@ -41,7 +39,6 @@ let
     )
     generatedJson
     ;
-
 in
 (lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (
   selfNC: superNC: { }

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     ipywidgets
   ];
 
-    # currently, recommonmark is broken on python3
+  # currently, recommonmark is broken on python3
   doCheck = false;
   pythonImportsCheck = [ "vega" ];
 

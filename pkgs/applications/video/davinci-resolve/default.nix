@@ -34,7 +34,7 @@ let
         addOpenGLRunpath
       ];
 
-        # Pretty sure, there are missing dependencies ...
+      # Pretty sure, there are missing dependencies ...
       buildInputs = [
         libGLU
         xorg.libXxf86vm
@@ -50,7 +50,7 @@ let
 
           nativeBuildInputs = [ curl ];
 
-            # ENV VARS
+          # ENV VARS
           SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
           DOWNLOADID = "5efad1a052e8471989f662338d5247f1";
@@ -75,7 +75,6 @@ let
             "city" = "Utrecht";
             "product" = "DaVinci Resolve";
           };
-
         }
         ''
           RESOLVEURL=$(curl \
@@ -106,7 +105,7 @@ let
             > $out
         '';
 
-        # The unpack phase won't generate a directory
+      # The unpack phase won't generate a directory
       setSourceRoot = ''
         sourceRoot=$PWD
       '';

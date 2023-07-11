@@ -40,7 +40,7 @@ buildPythonPackage rec {
       })
     ];
 
-    # Fix for recent Keras
+  # Fix for recent Keras
   postPatch = ''
     substituteInPlace mrcnn/model.py \
       --replace "KE." "KL."

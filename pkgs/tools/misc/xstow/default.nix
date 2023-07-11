@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-    # Upstream seems to try to support building both static and dynamic version
-    # of executable on dynamic systems, but fails with link error when attempting
-    # to cross-build "xstow-static" to the system where "xstow" proper is static.
+  # Upstream seems to try to support building both static and dynamic version
+  # of executable on dynamic systems, but fails with link error when attempting
+  # to cross-build "xstow-static" to the system where "xstow" proper is static.
   postPatch = lib.optionalString stdenv.hostPlatform.isStatic ''
     substituteInPlace src/Makefile.am --replace xstow-static ""
     substituteInPlace src/Makefile.am --replace xstow-stow ""

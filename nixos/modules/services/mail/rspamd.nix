@@ -393,8 +393,8 @@ let
       else
         { "extra-config.inc".text = cfg.extraConfig; }
     );
-
 in
+
 {
   ###### interface
 
@@ -528,7 +528,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     services.rspamd.overrides = configOverrides;
@@ -555,7 +555,7 @@ in
       serviceConfig.SupplementaryGroups = [ postfixCfg.group ];
     };
 
-      # Allow users to run 'rspamc' and 'rspamadm'.
+    # Allow users to run 'rspamc' and 'rspamadm'.
     environment.systemPackages = [ pkgs.rspamd ];
 
     users.users.${cfg.user} = {
@@ -599,7 +599,7 @@ in
         PrivateDevices = true;
         PrivateMounts = true;
         PrivateTmp = true;
-          # we need to chown socket to rspamd-milter
+        # we need to chown socket to rspamd-milter
         PrivateUsers = !cfg.postfix.enable;
         ProtectClock = true;
         ProtectControlGroups = true;

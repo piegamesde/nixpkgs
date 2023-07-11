@@ -186,7 +186,6 @@ let
       };
     }
     ;
-
 in
 {
   imports = [
@@ -342,7 +341,7 @@ in
               PrivateTmp = true;
               ProtectSystem = "full";
               ProtectHome = true;
-                # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
+              # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
               RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
               Type = "notify";
               ExecStart =

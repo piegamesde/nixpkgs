@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-    # gcc bug with -O1 on ARM with gcc 4.8
-    # This should be fine on all platforms so apply universally
+  # gcc bug with -O1 on ARM with gcc 4.8
+  # This should be fine on all platforms so apply universally
   postPatch = "sed -i s/-O1/-O2/ configure";
 
   postInstall = ''

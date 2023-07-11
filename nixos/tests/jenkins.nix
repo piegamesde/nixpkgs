@@ -4,7 +4,9 @@
 #   3. jenkins service not started on slave node
 #   4. declarative jobs can be added and removed
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -66,7 +68,7 @@ import ./make-test-python.nix (
             services.jenkins.jobBuilder.nixJobs = pkgs.lib.mkForce [ ];
           };
 
-            # should have no effect
+          # should have no effect
           services.jenkinsSlave.enable = true;
 
           users.users.jenkins.extraGroups = [ "users" ];
@@ -84,7 +86,6 @@ import ./make-test-python.nix (
           users.users.jenkins.extraGroups = [ "users" ];
         }
         ;
-
     };
 
     testScript =

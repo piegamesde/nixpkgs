@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isLinux libcap
     ;
 
-    # rpm/rpmlib.h includes popt.h, and then the pkg-config file mentions these as linkage requirements
+  # rpm/rpmlib.h includes popt.h, and then the pkg-config file mentions these as linkage requirements
   propagatedBuildInputs =
     [
       popt

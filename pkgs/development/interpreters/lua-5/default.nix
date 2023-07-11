@@ -105,8 +105,8 @@ let
       inherit luaAttr;
     }
     ;
-
 in
+
 rec {
   lua5_4 = callPackage ./interpreter.nix {
     self = lua5_4;

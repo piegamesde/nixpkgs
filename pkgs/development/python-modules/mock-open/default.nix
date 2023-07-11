@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "mock-open";
   version = "1.4.0";
 
-    # no tests in PyPI tarball
+  # no tests in PyPI tarball
   src = fetchFromGitHub {
     owner = "nivbend";
     repo = pname;

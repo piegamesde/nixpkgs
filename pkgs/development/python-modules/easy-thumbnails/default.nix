@@ -29,7 +29,7 @@ buildPythonPackage rec {
     reportlab
   ];
 
-    # Tests require a Django instance which is setup
+  # Tests require a Django instance which is setup
   doCheck = false;
 
   pythonImportsCheck = [ "easy_thumbnails" ];

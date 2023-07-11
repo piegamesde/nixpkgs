@@ -26,7 +26,7 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-    # checks attempt to import nonexistent module 'test.test' and fail
+  # checks attempt to import nonexistent module 'test.test' and fail
   doCheck = false;
 
   pythonImportsCheck = [ "dataset" ];

@@ -19,8 +19,8 @@ let
     mock
     six
     ;
-
 in
+
 buildPythonApplication rec {
   pname = "circus";
   version = "0.16.1";

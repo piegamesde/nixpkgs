@@ -47,8 +47,8 @@ let
   nativeComp = emacs.nativeComp or false;
 
   treeSitter = emacs.treeSitter or false;
-
 in
+
 packagesFun: # packages explicitly requested by the user
 
 let
@@ -58,8 +58,8 @@ let
     else
       packagesFun
     ;
-
 in
+
 runCommand (appendToName "with-packages" emacs).name
 {
   nativeBuildInputs = [
@@ -72,8 +72,8 @@ runCommand (appendToName "with-packages" emacs).name
   preferLocalBuild = true;
   allowSubstitutes = false;
 
-    # Store all paths we want to add to emacs here, so that we only need to add
-    # one path to the load lists
+  # Store all paths we want to add to emacs here, so that we only need to add
+  # one path to the load lists
   deps = runCommand "emacs-packages-deps"
     (
       {

@@ -18,13 +18,10 @@ let
   version = "0.38.0";
 
   inherit (torch) cudaCapabilities cudaPackages cudaSupport;
-  inherit (cudaPackages)
-    backendStdenv
-    cudaVersion
-    ;
+  inherit (cudaPackages) backendStdenv cudaVersion;
 
-    # NOTE: torchvision doesn't use cudnn; torch does!
-    #   For this reason it is not included.
+  # NOTE: torchvision doesn't use cudnn; torch does!
+  #   For this reason it is not included.
   cuda-common-redist = with cudaPackages; [
     cuda_cccl # <thrust/*>
     libcublas # cublas_v2.h
@@ -47,7 +44,6 @@ let
     name = "cuda-redist-${cudaVersion}";
     paths = cuda-common-redist;
   };
-
 in
 buildPythonPackage {
   inherit pname version;

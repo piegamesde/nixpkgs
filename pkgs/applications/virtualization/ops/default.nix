@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-65VvUy4vGTfZgsXGJVSc/yU5R5MhSKJyMMsvPOCThks=";
 
-    # Some tests fail
+  # Some tests fail
   doCheck = false;
   doInstallCheck = true;
 

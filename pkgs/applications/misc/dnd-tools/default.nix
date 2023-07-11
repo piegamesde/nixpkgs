@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "1rils3gzbfmwvgy51ah77qihwwbvx50q82lkc1kwcb55b3yinnmj";
   };
 
-    # gives warning every time unless patched, see https://github.com/savagezen/dnd-tools/pull/20
+  # gives warning every time unless patched, see https://github.com/savagezen/dnd-tools/pull/20
   patches = [
       (fetchpatch {
         url =

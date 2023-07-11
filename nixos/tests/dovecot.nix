@@ -74,7 +74,6 @@ import ./make-test-python.nix {
             finally:
               pop.quit()
           '';
-
         in
         [
           sendTestMail

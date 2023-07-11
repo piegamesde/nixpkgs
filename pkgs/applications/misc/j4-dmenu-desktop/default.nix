@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # tests are fetching an external git repository
+  # tests are fetching an external git repository
   cmakeFlags = [
     "-DWITH_TESTS=OFF"
     "-DWITH_GIT_CATCH=OFF"

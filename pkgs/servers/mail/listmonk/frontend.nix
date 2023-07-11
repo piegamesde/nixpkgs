@@ -19,7 +19,7 @@ yarn2nix-moretea.mkYarnPackage rec {
   yarnLock = ./yarn.lock;
   yarnNix = ./yarn.nix;
 
-    # For Node.js v17+, this is necessary.
+  # For Node.js v17+, this is necessary.
   NODE_OPTIONS = "--openssl-legacy-provider";
 
   installPhase = ''

@@ -68,7 +68,7 @@ python3Packages.buildPythonPackage rec {
     libxkbcommon
   ];
 
-    # for `qtile check`, needs `stubtest` and `mypy` commands
+  # for `qtile check`, needs `stubtest` and `mypy` commands
   makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ mypy ]}" ];
 
   doCheck =

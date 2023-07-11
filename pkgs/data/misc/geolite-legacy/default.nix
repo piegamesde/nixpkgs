@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   pname = "geolite-legacy";
   version = "20220621";
 
-    # We use Arch Linux package as a snapshot, because upstream database is updated in-place.
+  # We use Arch Linux package as a snapshot, because upstream database is updated in-place.
   geoip = fetchurl {
     url =
       "https://archive.archlinux.org/packages/g/geoip-database/geoip-database-${version}-1-any.pkg.tar.zst";

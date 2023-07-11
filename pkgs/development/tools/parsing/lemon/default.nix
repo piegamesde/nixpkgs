@@ -20,7 +20,6 @@ let
       name = "lempar.c";
     };
   };
-
 in
 stdenv.mkDerivation {
   pname = "lemon";

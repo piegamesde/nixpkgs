@@ -73,5 +73,4 @@ stdenv.mkDerivation rec {
       It lets you write high-performance applications that requires fulltext search.
     '';
   };
-
 }

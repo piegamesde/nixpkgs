@@ -26,20 +26,20 @@ rec {
     pred || builtins.throw msg
     ;
 
-    /* Specialized `assertMsg` for checking if `val` is one of the elements
-       of the list `xs`. Useful for checking enums.
+  /* Specialized `assertMsg` for checking if `val` is one of the elements
+     of the list `xs`. Useful for checking enums.
 
-       Example:
-         let sslLibrary = "libressl";
-         in assertOneOf "sslLibrary" sslLibrary [ "openssl" "bearssl" ]
-         stderr> error: sslLibrary must be one of [
-         stderr>   "openssl"
-         stderr>   "bearssl"
-         stderr> ], but is: "libressl"
+     Example:
+       let sslLibrary = "libressl";
+       in assertOneOf "sslLibrary" sslLibrary [ "openssl" "bearssl" ]
+       stderr> error: sslLibrary must be one of [
+       stderr>   "openssl"
+       stderr>   "bearssl"
+       stderr> ], but is: "libressl"
 
-       Type:
-         assertOneOf :: String -> ComparableVal -> List ComparableVal -> Bool
-    */
+     Type:
+       assertOneOf :: String -> ComparableVal -> List ComparableVal -> Bool
+  */
   assertOneOf =
     # The name of the variable the user entered `val` into, for inclusion in the error message
     name:
@@ -51,5 +51,4 @@ rec {
       lib.generators.toPretty { } xs
     }, but is: ${lib.generators.toPretty { } val}"
     ;
-
 }

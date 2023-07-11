@@ -22,7 +22,7 @@ let
     sha256 = "08v0vp6950bz7galvc92zdss89y9vcwbinmbfcdldy8x72w6rqr3";
   };
 
-    # per debian's udev deb hook (https://man7.org/linux/man-pages/man1/dh_installudev.1.html)
+  # per debian's udev deb hook (https://man7.org/linux/man-pages/man1/dh_installudev.1.html)
   destination = "60-scdaemon.rules";
 
   scdaemonUdevRulesPkg = pkgs.runCommand "scdaemon-udev-rules" { } ''

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     "--enable-flexible-member"
   ];
 
-    # error: use of undeclared identifier 'finite'; did you mean 'isfinite'?
+  # error: use of undeclared identifier 'finite'; did you mean 'isfinite'?
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) "-Dfinite=isfinite"
     ;

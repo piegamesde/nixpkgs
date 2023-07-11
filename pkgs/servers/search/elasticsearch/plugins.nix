@@ -26,8 +26,8 @@ let
         inherit installPhase;
         pname = "elasticsearch-${pluginName}";
         dontUnpack = true;
-          # Work around the "unpacker appears to have produced no directories"
-          # case that happens when the archive doesn't have a subdirectory.
+        # Work around the "unpacker appears to have produced no directories"
+        # case that happens when the archive doesn't have a subdirectory.
         setSourceRoot = "sourceRoot=$(pwd)";
         nativeBuildInputs = [ unzip ];
         meta = a.meta // {
@@ -225,7 +225,9 @@ in
       pluginName = "search-guard";
       version =
         # https://docs.search-guard.com/latest/search-guard-versions
-        if esVersion == "7.17.4" then
+        if
+          esVersion == "7.17.4"
+        then
           "${esVersion}-53.4.0"
         else
           throw "unsupported version ${esVersion} for plugin ${pluginName}"

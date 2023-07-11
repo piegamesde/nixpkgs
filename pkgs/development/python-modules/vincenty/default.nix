@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "1li8gv0zb1pdbxdybgaykm38lqbkb5dr7rph6zs1k4k3sh15ldw3";
   };
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "vincenty" ];

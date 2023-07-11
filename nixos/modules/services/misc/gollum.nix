@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.services.gollum;
-
 in
+
 {
   options.services.gollum = {
     enable = mkEnableOption (lib.mdDoc "Gollum service");

@@ -52,8 +52,8 @@ buildPythonApplication rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # From 1.6.0 release notes (https://github.com/Matoking/protontricks/releases/tag/1.6.0):
-    # In most cases the script is unnecessary and should be removed as part of the packaging process.
+  # From 1.6.0 release notes (https://github.com/Matoking/protontricks/releases/tag/1.6.0):
+  # In most cases the script is unnecessary and should be removed as part of the packaging process.
   postInstall = ''
     rm "$out/bin/protontricks-desktop-install"
   '';

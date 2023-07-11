@@ -23,7 +23,7 @@
   enablePluginRavatar ? true,
   enableSpellcheck ? true
 
-    # Arguments to include external libraries
+  # Arguments to include external libraries
   ,
   enableLibSM ? true,
   xorg,

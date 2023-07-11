@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-    # Tests assume the availability of a mysql/postgresql database
+  # Tests assume the availability of a mysql/postgresql database
   doCheck = false;
 
   pythonImportsCheck = [ "reversion" ];

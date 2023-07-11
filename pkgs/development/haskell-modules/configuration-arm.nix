@@ -26,8 +26,8 @@
 
 let
   inherit (pkgs) lib;
-
 in
+
 with haskellLib;
 
 self: super:
@@ -38,11 +38,11 @@ self: super:
   servant-docs = dontCheck super.servant-docs;
   swagger2 = dontHaddock (dontCheck super.swagger2);
 
-    # Similar to https://ghc.haskell.org/trac/ghc/ticket/13062
+  # Similar to https://ghc.haskell.org/trac/ghc/ticket/13062
   happy = dontCheck super.happy;
   happy_1_19_12 = doDistribute (dontCheck super.happy_1_19_12);
 
-    # add arm specific library
+  # add arm specific library
   wiringPi = overrideCabal
     (
       {
@@ -53,7 +53,6 @@ self: super:
       }
     )
     super.wiringPi;
-
 } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
   # AARCH64-SPECIFIC OVERRIDES
 
@@ -116,15 +115,15 @@ self: super:
   hls-class-plugin = dontCheck super.hls-class-plugin;
   hls-selection-range-plugin = dontCheck super.hls-selection-range-plugin;
 
-    # https://github.com/ekmett/half/issues/35
+  # https://github.com/ekmett/half/issues/35
   half = dontCheck super.half;
 
-    # We disable profiling on aarch64, so tests naturally fail
+  # We disable profiling on aarch64, so tests naturally fail
   ghc-prof = dontCheck super.ghc-prof;
 
-    # Similar RTS issue in test suite:
-    # rts/linker/elf_reloc_aarch64.c:98: encodeAddendAarch64: Assertion `isInt64(21+12, addend)' failed.
-    # These still fail sporadically on ghc 9.2
+  # Similar RTS issue in test suite:
+  # rts/linker/elf_reloc_aarch64.c:98: encodeAddendAarch64: Assertion `isInt64(21+12, addend)' failed.
+  # These still fail sporadically on ghc 9.2
   hls-ormolu-plugin = dontCheck super.hls-ormolu-plugin;
   hls-haddock-comments-plugin = dontCheck super.hls-haddock-comments-plugin;
   hls-rename-plugin = dontCheck super.hls-rename-plugin;

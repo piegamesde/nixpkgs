@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     substituteInPlace scripts/yodl2whatever.in --replace getopt ${util-linux}/bin/getopt
   '';
 
-    # Set TERM because icmbuild calls tput.
+  # Set TERM because icmbuild calls tput.
   TERM = "xterm";
 
   buildPhase = ''

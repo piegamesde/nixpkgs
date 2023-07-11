@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-    # Don't use git to determine version
+  # Don't use git to determine version
   prePatch = ''
     substituteInPlace Makefile \
       --replace 'shell git describe --abbrev=6 --dirty --always --tags' "$version"
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.lnl7 ];
     license = licenses.bsd2;
     platforms = platforms.darwin;
-      # never built on aarch64-darwin since first introduction in nixpkgs
+    # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

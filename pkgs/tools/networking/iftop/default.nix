@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "15sgkdyijb7vbxpxjavh5qm5nvyii3fqcg9mzvw7fx8s6zmfwczp";
   };
 
-    # Explicitly link against libgcc_s, to work around the infamous
-    # "libgcc_s.so.1 must be installed for pthread_cancel to work".
+  # Explicitly link against libgcc_s, to work around the infamous
+  # "libgcc_s.so.1 must be installed for pthread_cancel to work".
   LDFLAGS = lib.optionalString stdenv.isLinux "-lgcc_s";
 
   preConfigure = ''
@@ -30,10 +30,10 @@ stdenv.mkDerivation rec {
     libpcap
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: tui.o:/build/iftop-1.0pre4/ui_common.h:41: multiple definition of `service_hash';
-    #     iftop.o:/build/iftop-1.0pre4/ui_common.h:41: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: tui.o:/build/iftop-1.0pre4/ui_common.h:41: multiple definition of `service_hash';
+  #     iftop.o:/build/iftop-1.0pre4/ui_common.h:41: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   passthru.tests = { inherit (nixosTests) iftop; };

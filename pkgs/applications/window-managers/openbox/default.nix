@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
   postBuild =
     "gcc -O2 -o setlayout $(pkg-config --cflags --libs x11) $setlayoutSrc";
 
-    # Openbox needs XDG_DATA_DIRS set or it can't find its default theme
+  # Openbox needs XDG_DATA_DIRS set or it can't find its default theme
   postInstall = ''
     cp -a setlayout "$out"/bin
     wrapProgram "$out/bin/openbox" --prefix XDG_DATA_DIRS : "$out/share"

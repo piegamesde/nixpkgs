@@ -20,8 +20,8 @@ buildPythonPackage rec {
     pandas
   ];
 
-    # tests are only included on GitHub where this version misses a tag
-    # and half of them fail
+  # tests are only included on GitHub where this version misses a tag
+  # and half of them fail
   doCheck = false;
 
   pythonImportsCheck = [ "mplfinance" ];

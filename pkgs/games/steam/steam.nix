@@ -10,7 +10,6 @@
 let
   traceLog = "/tmp/steam-trace-dependencies.log";
   version = "1.0.0.74";
-
 in
 stdenv.mkDerivation {
   pname = "steam-original";

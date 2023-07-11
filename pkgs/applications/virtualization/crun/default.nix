@@ -35,7 +35,6 @@ let
     "test_update.py"
     "tests_libcrun_utils"
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "crun";
@@ -69,8 +68,8 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = "-lcriu";
 
-    # we need this before autoreconfHook does its thing in order to initialize
-    # config.h with the correct values
+  # we need this before autoreconfHook does its thing in order to initialize
+  # config.h with the correct values
   postPatch = ''
     echo ${version} > .tarball-version
     echo '#define GIT_VERSION "${src.rev}"' > git-version.h

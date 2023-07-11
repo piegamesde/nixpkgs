@@ -108,8 +108,8 @@ let
     after = [ "network.target" ] ++ optionalDir;
     wantedBy = [ "multi-user.target" ] ++ optionalDir;
   };
-
 in
+
 {
 
   ###### interface
@@ -484,10 +484,9 @@ in
         };
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = lib.mkIf cfg.enable {
 
@@ -531,7 +530,5 @@ in
         };
       } // systemdOptionalDependencies
     );
-
   };
-
 }

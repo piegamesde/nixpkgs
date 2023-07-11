@@ -24,9 +24,9 @@ let
     auto-manage-instances=${toString cfg.autoManageInstances}
     ${cfg.extraConf}
   '';
-    # NB: toString rather than lib.boolToString on cfg.autoManageInstances is intended.
-    # Exhibitor tests if it's an integer not equal to 0, so the empty string (toString false)
-    # will operate in the same fashion as a 0.
+  # NB: toString rather than lib.boolToString on cfg.autoManageInstances is intended.
+  # Exhibitor tests if it's an integer not equal to 0, so the empty string (toString false)
+  # will operate in the same fashion as a 0.
   configDir = pkgs.writeTextDir "exhibitor.properties" exhibitorConfig;
   cliOptionsCommon = {
     configtype = cfg.configType;
@@ -89,8 +89,8 @@ in
     services.exhibitor = {
       enable = mkEnableOption (lib.mdDoc "exhibitor server");
 
-        # See https://github.com/soabase/exhibitor/wiki/Running-Exhibitor for what these mean
-        # General options for any type of config
+      # See https://github.com/soabase/exhibitor/wiki/Running-Exhibitor for what these mean
+      # General options for any type of config
       port = mkOption {
         type = types.port;
         default = 8080;
@@ -258,7 +258,7 @@ in
         ];
       };
 
-        # Backup options
+      # Backup options
       s3Backup = mkOption {
         type = types.bool;
         default = false;
@@ -274,7 +274,7 @@ in
         '';
       };
 
-        # Options for using zookeeper configType
+      # Options for using zookeeper configType
       zkConfigConnect = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc ''
@@ -331,7 +331,7 @@ in
         example = "/exhibitor/config";
       };
 
-        # Config options for s3 configType
+      # Config options for s3 configType
       s3Config = {
         bucketName = mkOption {
           type = types.str;
@@ -354,7 +354,7 @@ in
         };
       };
 
-        # The next two are used for either s3backup or s3 configType
+      # The next two are used for either s3backup or s3 configType
       s3Credentials = mkOption {
         type = types.nullOr types.path;
         description = lib.mdDoc ''
@@ -372,7 +372,7 @@ in
         default = null;
       };
 
-        # Config options for file config type
+      # Config options for file config type
       fsConfigDir = mkOption {
         type = types.path;
         description = lib.mdDoc ''
@@ -419,18 +419,18 @@ in
         User = "zookeeper";
         PermissionsStartOnly = true;
       };
-        # This is a bit wonky, but the reason for this is that Exhibitor tries to write to
-        # ${cfg.baseDir}/zookeeper/bin/../conf/zoo.cfg
-        # I want everything but the conf directory to be in the immutable nix store, and I want defaults
-        # from the nix store
-        # If I symlink the bin directory in, then bin/../ will resolve to the parent of the symlink in the
-        # immutable nix store. Bind mounting a writable conf over the existing conf might work, but it gets very
-        # messy with trying to copy the existing out into a mutable store.
-        # Another option is to try to patch upstream exhibitor, but the current package just pulls down the
-        # prebuild JARs off of Maven, rather than building them ourselves, as Maven support in Nix isn't
-        # very mature. So, it seems like a reasonable compromise is to just copy out of the immutable store
-        # just before starting the service, so we're running binaries from the immutable store, but we work around
-        # Exhibitor's desire to mutate its current installation.
+      # This is a bit wonky, but the reason for this is that Exhibitor tries to write to
+      # ${cfg.baseDir}/zookeeper/bin/../conf/zoo.cfg
+      # I want everything but the conf directory to be in the immutable nix store, and I want defaults
+      # from the nix store
+      # If I symlink the bin directory in, then bin/../ will resolve to the parent of the symlink in the
+      # immutable nix store. Bind mounting a writable conf over the existing conf might work, but it gets very
+      # messy with trying to copy the existing out into a mutable store.
+      # Another option is to try to patch upstream exhibitor, but the current package just pulls down the
+      # prebuild JARs off of Maven, rather than building them ourselves, as Maven support in Nix isn't
+      # very mature. So, it seems like a reasonable compromise is to just copy out of the immutable store
+      # just before starting the service, so we're running binaries from the immutable store, but we work around
+      # Exhibitor's desire to mutate its current installation.
       preStart = ''
         mkdir -m 0700 -p ${cfg.baseDir}/zookeeper
         # Not doing a chown -R to keep the base ZK files owned by root

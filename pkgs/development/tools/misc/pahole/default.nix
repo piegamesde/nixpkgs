@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Put libraries in "lib" subdirectory, not top level of $out
+  # Put libraries in "lib" subdirectory, not top level of $out
   cmakeFlags = [
     "-D__LIB=lib"
     "-DLIBBPF_EMBEDDED=OFF"

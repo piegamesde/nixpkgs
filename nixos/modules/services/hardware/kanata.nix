@@ -121,7 +121,7 @@ let
           uinput.name
         ];
 
-          # hardening
+        # hardening
         DeviceAllow = [
           "/dev/uinput rw"
           "char-input r"

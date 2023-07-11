@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-V+72l2TvhEWgDg7kvn5OOjYcyEgWGLgTGnt58Bu+AEQ=";
 
-    # Disabled for now as there are some failures ("undefined:")
+  # Disabled for now as there are some failures ("undefined:")
   doCheck = false;
 
   meta = with lib; {

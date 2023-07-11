@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     install -vD namelist.txt subdomains-*.txt snoop.txt -t $out/share/wordlists
   '';
 
-    # Tests require access to /etc/resolv.conf
+  # Tests require access to /etc/resolv.conf
   doCheck = false;
 
   pythonImportsCheck = [ "dnsrecon" ];

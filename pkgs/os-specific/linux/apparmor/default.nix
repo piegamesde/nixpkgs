@@ -91,11 +91,11 @@ let
 
   python = python3.withPackages (ps: with ps; [ setuptools ]);
 
-    # Set to `true` after the next FIXME gets fixed or this gets some
-    # common derivation infra. Too much copy-paste to fix one by one.
+  # Set to `true` after the next FIXME gets fixed or this gets some
+  # common derivation infra. Too much copy-paste to fix one by one.
   doCheck = false;
 
-    # FIXME: convert these to a single multiple-outputs package?
+  # FIXME: convert these to a single multiple-outputs package?
 
   libapparmor = stdenv.mkDerivation {
     pname = "libapparmor";
@@ -103,9 +103,9 @@ let
 
     src = apparmor-sources;
 
-      # checking whether python bindings are enabled... yes
-      # checking for python3... no
-      # configure: error: python is required when enabling python bindings
+    # checking whether python bindings are enabled... yes
+    # checking for python3... no
+    # configure: error: python is required when enabling python bindings
     strictDeps = false;
 
     nativeBuildInputs =
@@ -128,7 +128,7 @@ let
       ++ lib.optional withPython python
       ;
 
-      # required to build apparmor-parser
+    # required to build apparmor-parser
     dontDisableStatic = true;
 
     prePatch =
@@ -143,7 +143,7 @@ let
       cd ./libraries/libapparmor
     '';
 
-      # https://gitlab.com/apparmor/apparmor/issues/1
+    # https://gitlab.com/apparmor/apparmor/issues/1
     configureFlags = [
       (lib.withFeature withPerl "perl")
       (lib.withFeature withPython "python")
@@ -185,9 +185,13 @@ let
 
     prePatch =
       prePatchCommon
-      + lib.optionalString stdenv.hostPlatform.isMusl ''
-        sed -i ./utils/Makefile -e "/\<vim\>/d"
-      ''
+      +
+      # Do not build vim file
+        lib.optionalString
+        stdenv.hostPlatform.isMusl
+        ''
+          sed -i ./utils/Makefile -e "/\<vim\>/d"
+        ''
       + ''
         for file in utils/apparmor/easyprof.py utils/apparmor/aa.py utils/logprof.conf; do
           substituteInPlace $file --replace "/sbin/apparmor_parser" "${apparmor-parser}/bin/apparmor_parser"
@@ -379,15 +383,15 @@ let
     meta = apparmor-meta "kernel patches";
   };
 
-    # Generate generic AppArmor rules in a file, from the closure of given
-    # rootPaths. To be included in an AppArmor profile like so:
-    #
-    #   include "${apparmorRulesFromClosure { } [ pkgs.hello ]}"
+  # Generate generic AppArmor rules in a file, from the closure of given
+  # rootPaths. To be included in an AppArmor profile like so:
+  #
+  #   include "${apparmorRulesFromClosure { } [ pkgs.hello ]}"
   apparmorRulesFromClosure =
     { # The store path of the derivation is given in $path
       additionalRules ? [ ]
-        # TODO: factorize here some other common paths
-        # that may emerge from use cases.
+      # TODO: factorize here some other common paths
+      # that may emerge from use cases.
       ,
       baseRules ? [
         "r $path"

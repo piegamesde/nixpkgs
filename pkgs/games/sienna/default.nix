@@ -60,5 +60,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     license = licenses.free;
   };
-
 }

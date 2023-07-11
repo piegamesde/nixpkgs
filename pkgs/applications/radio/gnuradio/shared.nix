@@ -37,8 +37,8 @@ rec {
         sha256 = sourceSha256;
       }
     ;
-    # Check if a feature is enabled, while defaulting to true if feat is not
-    # specified.
+  # Check if a feature is enabled, while defaulting to true if feat is not
+  # specified.
   hasFeature =
     feat:
     (
@@ -78,12 +78,10 @@ rec {
     (
       feat: info:
       (
-        if
-          feat == "basic"
-        then
-        # Abuse this unavoidable "iteration" to set this flag which we want as
-        # well - it means: Don't turn on features just because their deps are
-        # satisfied, let only our cmakeFlags decide.
+        if feat == "basic" then
+          # Abuse this unavoidable "iteration" to set this flag which we want as
+          # well - it means: Don't turn on features just because their deps are
+          # satisfied, let only our cmakeFlags decide.
           "-DENABLE_DEFAULT=OFF"
         else if hasFeature feat then
           "-DENABLE_${info.cmakeEnableFlag}=ON"
@@ -101,7 +99,7 @@ rec {
     # If python-support is disabled, we probably don't want it referenced
     ++ lib.optionals (!hasFeature "python-support") [ python ]
     ;
-    # Gcc references from examples
+  # Gcc references from examples
   stripDebugList =
     [
       "lib"
@@ -115,28 +113,28 @@ rec {
     ;
   postInstall =
     ""
-      # Gcc references
+    # Clang references in InstalledDir
     + lib.optionalString (hasFeature "gnuradio-runtime") ''
       ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
     ''
-      # Clang references in InstalledDir
+    # Clang references in InstalledDir
     + lib.optionalString (hasFeature "gnuradio-runtime" && stdenv.isDarwin) ''
       ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
     ''
     ;
-    # NOTE: Outputs are disabled due to upstream not using GNU InstallDIrs cmake
-    # module. It's not that bad since it's a development package for most
-    # purposes. If closure size needs to be reduced, features should be disabled
-    # via an override.
+  # NOTE: Outputs are disabled due to upstream not using GNU InstallDIrs cmake
+  # module. It's not that bad since it's a development package for most
+  # purposes. If closure size needs to be reduced, features should be disabled
+  # via an override.
   passthru = {
     inherit hasFeature versionAttr features featuresInfo python;
   } // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit qt; }
     // lib.optionalAttrs (hasFeature "gnuradio-companion") { inherit gtk; };
-    # Wrapping is done with an external wrapper
+  # Wrapping is done with an external wrapper
   dontWrapPythonPrograms = true;
   dontWrapQtApps = true;
-    # Tests should succeed, but it's hard to get LD_LIBRARY_PATH right in order
-    # for it to happen.
+  # Tests should succeed, but it's hard to get LD_LIBRARY_PATH right in order
+  # for it to happen.
   doCheck = false;
 
   meta = with lib; {

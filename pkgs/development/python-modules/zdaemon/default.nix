@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ zconfig ];
 
-    # too many deps..
+  # too many deps..
   doCheck = false;
 
   pythonImportsCheck = [ "zdaemon" ];

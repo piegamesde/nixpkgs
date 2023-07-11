@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "51c75c4126074b472f746a24399ad32f6053d1b34b68d2fa41e558e6f4a98719";
   };
 
-    # Circular dependency on pytest
+  # Circular dependency on pytest
   doCheck = false;
 
   nativeBuildInputs = [ setuptools-scm ];

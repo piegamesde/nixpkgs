@@ -41,9 +41,9 @@ python3.pkgs.buildPythonApplication rec {
     toml
   ];
 
-    # Upstream expects a old pytest-bdd version
-    # Once it changes we should update here too
-    # https://github.com/jrnl-org/jrnl/blob/develop/poetry.lock#L732
+  # Upstream expects a old pytest-bdd version
+  # Once it changes we should update here too
+  # https://github.com/jrnl-org/jrnl/blob/develop/poetry.lock#L732
   disabledTests = [ "bdd" ];
 
   postPatch = ''

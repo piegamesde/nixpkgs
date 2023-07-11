@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "jc" ];
 
-    # tests require timezone to set America/Los_Angeles
+  # tests require timezone to set America/Los_Angeles
   doCheck = false;
 
   meta = with lib; {

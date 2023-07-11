@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ xmltodict ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "DataModelDict" ];

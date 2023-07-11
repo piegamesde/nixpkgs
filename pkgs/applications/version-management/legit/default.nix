@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     six
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   meta = with lib; {

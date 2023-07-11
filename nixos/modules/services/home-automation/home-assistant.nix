@@ -11,11 +11,11 @@ let
   cfg = config.services.home-assistant;
   format = pkgs.formats.yaml { };
 
-    # Render config attribute sets to YAML
-    # Values that are null will be filtered from the output, so this is one way to have optional
-    # options shown in settings.
-    # We post-process the result to add support for YAML functions, like secrets or includes, see e.g.
-    # https://www.home-assistant.io/docs/configuration/secrets/
+  # Render config attribute sets to YAML
+  # Values that are null will be filtered from the output, so this is one way to have optional
+  # options shown in settings.
+  # We post-process the result to add support for YAML functions, like secrets or includes, see e.g.
+  # https://www.home-assistant.io/docs/configuration/secrets/
   filteredConfig = lib.converge
     (lib.filterAttrsRecursive (_: v: !elem v [ null ]))
     cfg.config or { };
@@ -27,28 +27,27 @@ let
   lovelaceConfig = cfg.lovelaceConfig or { };
   lovelaceConfigFile = format.generate "ui-lovelace.yaml" lovelaceConfig;
 
-    # Components advertised by the home-assistant package
+  # Components advertised by the home-assistant package
   availableComponents = cfg.package.availableComponents;
 
-    # Components that were added by overriding the package
+  # Components that were added by overriding the package
   explicitComponents = cfg.package.extraComponents;
-  useExplicitComponent =
-    component:
-    elem component explicitComponents
-    ;
+  useExplicitComponent = component: elem component explicitComponents;
 
-    # Given a component "platform", looks up whether it is used in the config
-    # as `platform = "platform";`.
-    #
-    # For example, the component mqtt.sensor is used as follows:
-    # config.sensor = [ {
-    #   platform = "mqtt";
-    #   ...
-    # } ];
+  # Given a component "platform", looks up whether it is used in the config
+  # as `platform = "platform";`.
+  #
+  # For example, the component mqtt.sensor is used as follows:
+  # config.sensor = [ {
+  #   platform = "mqtt";
+  #   ...
+  # } ];
   usedPlatforms =
     config:
     # don't recurse into derivations possibly creating an infinite recursion
-    if isDerivation config then
+    if
+      isDerivation config
+    then
       [ ]
     else if isAttrs config then
       optional (config ? platform) config.platform
@@ -59,13 +58,10 @@ let
       [ ]
     ;
 
-  useComponentPlatform =
-    component:
-    elem component (usedPlatforms cfg.config)
-    ;
+  useComponentPlatform = component: elem component (usedPlatforms cfg.config);
 
-    # Returns whether component is used in config, explicitly passed into package or
-    # configured in the module.
+  # Returns whether component is used in config, explicitly passed into package or
+  # configured in the module.
   useComponent =
     component:
     hasAttrByPath (splitString "." component) cfg.config
@@ -74,7 +70,7 @@ let
     || builtins.elem component cfg.extraComponents
     ;
 
-    # Final list of components passed into the package to include required dependencies
+  # Final list of components passed into the package to include required dependencies
   extraComponents = filter useComponent availableComponents;
 
   package =
@@ -367,7 +363,7 @@ in
     lovelaceConfig = mkOption {
       default = null;
       type = types.nullOr format.type;
-        # from https://www.home-assistant.io/lovelace/dashboards/
+      # from https://www.home-assistant.io/lovelace/dashboards/
       example = literalExpression ''
         {
           title = "My Awesome Home";
@@ -446,7 +442,7 @@ in
     networking.firewall.allowedTCPPorts =
       mkIf cfg.openFirewall [ cfg.config.http.server_port ];
 
-      # symlink the configuration to /etc/home-assistant
+    # symlink the configuration to /etc/home-assistant
     environment.etc = lib.mkMerge [
       (lib.mkIf (cfg.config != null && !cfg.configWritable) {
         "home-assistant/configuration.yaml".source = configFile;
@@ -630,7 +626,7 @@ in
           SuccessExitStatus = "100";
           KillSignal = "SIGINT";
 
-            # Hardening
+          # Hardening
           AmbientCapabilities = capabilities;
           CapabilityBoundingSet = capabilities;
           DeviceAllow =

@@ -76,8 +76,8 @@ stdenv.mkDerivation {
       --replace 'rst2html.py' '${docutils}/bin/rst2html.py'
   '';
 
-    # Give cgit a git source tree and pass configuration parameters (as make
-    # variables).
+  # Give cgit a git source tree and pass configuration parameters (as make
+  # variables).
   preBuild = ''
     mkdir -p git
     tar --strip-components=1 -xf "$gitSrc" -C git
@@ -90,7 +90,7 @@ stdenv.mkDerivation {
     "AR=${stdenv.cc.targetPrefix}ar"
   ];
 
-    # Install manpage.
+  # Install manpage.
   postInstall = ''
     # xmllint fails:
     #make install-man

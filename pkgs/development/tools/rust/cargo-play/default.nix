@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-I+keVi0fxUVttMHOGJQWVfIpHEQu/9aTbERa3qiHmnQ=";
 
-    # these tests require internet access
+  # these tests require internet access
   checkFlags = [
     "--skip=dtoa_test"
     "--skip=infer_override"

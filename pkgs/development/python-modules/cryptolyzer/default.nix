@@ -33,7 +33,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # Tests require networking
+  # Tests require networking
   doCheck = false;
 
   pythonImportsCheck = [ "cryptolyzer" ];

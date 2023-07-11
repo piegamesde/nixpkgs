@@ -15,8 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-0mfMH/eUQD999pKWTR0qP6lBj/6io/aFmkOf9IL+8pA=";
   };
 
-    # tests not packaged with source dist as of 1.3.2/1.3.2, and
-    # can't check tests out of GitHub easily without specific commit IDs (no tagged releases)
+  # tests not packaged with source dist as of 1.3.2/1.3.2, and
+  # can't check tests out of GitHub easily without specific commit IDs (no tagged releases)
   doCheck = false;
   pythonImportsCheck = [ "nest_asyncio" ];
 

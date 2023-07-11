@@ -19,7 +19,7 @@ crossLibcStdenv.mkDerivation {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-    # newlib expects CC to build for build platform, not host platform
+  # newlib expects CC to build for build platform, not host platform
   preConfigure = ''
     export CC=cc
   '';

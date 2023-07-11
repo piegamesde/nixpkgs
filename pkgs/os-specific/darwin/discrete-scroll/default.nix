@@ -9,7 +9,8 @@
 ## from 'system preferences >> security & privacy >> accessibility'
 ## and then launch again
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "discrete-scroll";
   version = "0.1.1";
 

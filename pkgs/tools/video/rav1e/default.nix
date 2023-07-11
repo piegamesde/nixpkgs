@@ -17,9 +17,9 @@
 let
   rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
 
-    # TODO: if another package starts using cargo-c (seems likely),
-    # factor this out into a makeCargoChook expression in
-    # pkgs/build-support/rust/hooks/default.nix
+  # TODO: if another package starts using cargo-c (seems likely),
+  # factor this out into a makeCargoChook expression in
+  # pkgs/build-support/rust/hooks/default.nix
   ccForBuild =
     "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
   cxxForBuild =
@@ -35,7 +35,6 @@ let
       "CC_${rustTargetPlatform}"="${ccForHost}" \
       "CXX_${rustTargetPlatform}"="${cxxForHost}" \
   '';
-
 in
 rustPlatform.buildRustPackage rec {
   pname = "rav1e";

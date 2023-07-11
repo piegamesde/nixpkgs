@@ -15,7 +15,7 @@ in
   ###### interface
   options.services.i2p.enable = mkEnableOption (lib.mdDoc "I2P router");
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     users.users.i2p = {
       group = "i2p";

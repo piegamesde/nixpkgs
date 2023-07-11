@@ -18,8 +18,8 @@ let
     else
       "OFF"
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "openhmd";
   version = "0.3.0";

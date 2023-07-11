@@ -85,11 +85,11 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-    # This changes `ir/opt` to `ir/var/empty` in `externals/dynarmic/src/dynarmic/CMakeLists.txt`
-    # making the build fail, as that path does not exist
+  # This changes `ir/opt` to `ir/var/empty` in `externals/dynarmic/src/dynarmic/CMakeLists.txt`
+  # making the build fail, as that path does not exist
   dontFixCmake = true;
 
-    # -Werror causes build failures for deprecation warnings introduced by transitive dependency updates
+  # -Werror causes build failures for deprecation warnings introduced by transitive dependency updates
   postPatch = ''
     sed -i '/-Werror/d' src/common/CMakeLists.txt
   '';
@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-    # This must be done after cmake finishes as it overwrites the file
+  # This must be done after cmake finishes as it overwrites the file
   postConfigure = ''
     ln -sf ${compat-list} ./dist/compatibility_list/compatibility_list.json
   '';

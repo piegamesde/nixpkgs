@@ -15,12 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-P+0+vMd2F6SnTSZEuG/Yjg8y5/cAOseyszTAJiAXMfE=";
   };
 
-    # break circular dependency loop
+  # break circular dependency loop
   patchPhase = ''
     sed -i '/rdflib/d' setup.cfg
   '';
 
-    # Doesn't actually run tests
+  # Doesn't actually run tests
   doCheck = false;
 
   propagatedBuildInputs = [ keepalive ];

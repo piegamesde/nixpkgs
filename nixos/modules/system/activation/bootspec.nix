@@ -65,9 +65,9 @@ let
             + " < ${json}"
             ;
 
-            # We slurp all specialisations and inject them as values, such that
-            # `.specialisations.${name}` embeds the specialisation's bootspec
-            # document.
+          # We slurp all specialisations and inject them as values, such that
+          # `.specialisations.${name}` embeds the specialisation's bootspec
+          # document.
           specialisationInjector =
             let
               specialisationLoader =
@@ -132,10 +132,10 @@ in
       '';
     };
 
-      # This will be run as a part of the `systemBuilder` in ./top-level.nix. This
-      # means `$out` points to the output of `config.system.build.toplevel` and can
-      # be used for a variety of things (though, for now, it's only used to report
-      # the path of the `toplevel` itself and the `init` executable).
+    # This will be run as a part of the `systemBuilder` in ./top-level.nix. This
+    # means `$out` points to the output of `config.system.build.toplevel` and can
+    # be used for a variety of things (though, for now, it's only used to report
+    # the path of the `toplevel` itself and the `init` executable).
     writer = lib.mkOption {
       internal = true;
       default = schemas.v1.generator;

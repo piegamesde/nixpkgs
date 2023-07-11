@@ -12,8 +12,8 @@ let
     libXinerama
     libX11
   ];
-
 in
+
 rustPlatform.buildRustPackage rec {
   pname = "leftwm";
   version = "0.4.1";

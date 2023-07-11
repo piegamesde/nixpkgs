@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-    # requires tests files that are not present
+  # requires tests files that are not present
   doCheck = false;
   checkPhase = ''
     py.test

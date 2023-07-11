@@ -36,8 +36,8 @@ let
   ];
 
   installScript = ./install.sh;
-
 in
+
 lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}"
 validAccents
 accents

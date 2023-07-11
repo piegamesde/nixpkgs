@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "PyLyrics" ];
 
-    # tries to connect to lyrics.wikia.com
+  # tries to connect to lyrics.wikia.com
   doCheck = false;
 
   meta = with lib; {

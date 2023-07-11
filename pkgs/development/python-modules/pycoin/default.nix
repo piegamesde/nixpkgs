@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   dontUseSetuptoolsCheck = true;
 
-    # Disable tests depending on online services
+  # Disable tests depending on online services
   disabledTests = [
     "ServicesTest"
     "test_tx_pay_to_opcode_list_txt"

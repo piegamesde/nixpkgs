@@ -32,8 +32,8 @@ let
     )
     ""
     (builtins.attrNames skipTests);
-
 in
+
 buildGoModule rec {
   pname = "berglas";
   version = "1.0.2";

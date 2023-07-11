@@ -70,8 +70,8 @@ let
       ln -sf $out/lib/libssl.so $out/lib/libssl.so.1.0.0
     '';
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "citrix-workspace";
   inherit version;
@@ -294,8 +294,8 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Make sure that `autoPatchelfHook` is executed before
-    # running `ctx_rehash`.
+  # Make sure that `autoPatchelfHook` is executed before
+  # running `ctx_rehash`.
   dontAutoPatchelf = true;
   postFixup = ''
     autoPatchelf -- "$out"

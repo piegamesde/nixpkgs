@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     "CC=${stdenv.cc.targetPrefix}cc"
   ];
 
-    # tests are run as part of the compilation process
+  # tests are run as part of the compilation process
   doCheck = false;
 
   meta = with lib; {

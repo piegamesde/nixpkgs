@@ -30,10 +30,10 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-    # find_library doesn't reliably work with nix (https://github.com/NixOS/nixpkgs/issues/7307).
-    # Even naively searching `LD_LIBRARY_PATH` won't work since `libc.so` is a linker script and
-    # ctypes.cdll.LoadLibrary cannot deal with those. Therefore, just hardcode the paths to the
-    # necessary libraries.
+  # find_library doesn't reliably work with nix (https://github.com/NixOS/nixpkgs/issues/7307).
+  # Even naively searching `LD_LIBRARY_PATH` won't work since `libc.so` is a linker script and
+  # ctypes.cdll.LoadLibrary cannot deal with those. Therefore, just hardcode the paths to the
+  # necessary libraries.
   postPatch =
     let
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
@@ -85,8 +85,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ unzip ];
 
-    # needs GL set up which isn't really possible in a build environment even in headless mode.
-    # tests do run and pass in nix-shell, however.
+  # needs GL set up which isn't really possible in a build environment even in headless mode.
+  # tests do run and pass in nix-shell, however.
   doCheck = false;
 
   nativeCheckInputs = [ pytestCheckHook ];
@@ -95,7 +95,7 @@ buildPythonPackage rec {
     export PYGLET_HEADLESS=True
   '';
 
-    # test list taken from .travis.yml
+  # test list taken from .travis.yml
   disabledTestPaths = [
     "tests/base"
     "tests/interactive"

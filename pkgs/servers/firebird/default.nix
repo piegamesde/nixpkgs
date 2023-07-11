@@ -50,7 +50,6 @@ let
       cp -r gen/Release/firebird/* $out
       runHook postInstall
     '';
-
   };
 in
 rec {

@@ -24,7 +24,7 @@ buildPythonPackage rec {
     coapthon3
   ];
 
-    # tests sometimes hang forever on tear-down
+  # tests sometimes hang forever on tear-down
   doCheck = false;
   pythonImportsCheck = [ "pyairctrl" ];
 

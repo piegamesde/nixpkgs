@@ -39,7 +39,6 @@ let
     else
       "linux32"
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "${basename}-bin";

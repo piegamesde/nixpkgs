@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = [ perlPackages.LWP ];
 
-    # Fixes a build failure on aarch64-darwin. Define for all Darwin targets for when x86_64-darwin
-    # upgrades to a newer SDK.
+  # Fixes a build failure on aarch64-darwin. Define for all Darwin targets for when x86_64-darwin
+  # upgrades to a newer SDK.
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-DTARGET_OS_IPHONE=0";
 

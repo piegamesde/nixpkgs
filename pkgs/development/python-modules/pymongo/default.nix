@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ dnspython ];
 
-    # Tests call a running mongodb instance
+  # Tests call a running mongodb instance
   doCheck = false;
 
   pythonImportsCheck = [ "pymongo" ];

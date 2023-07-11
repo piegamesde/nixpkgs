@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-    # Don't compile the documentation stuff
+  # Don't compile the documentation stuff
   subPackages = [ "cmd/kubectl-dba" ];
 
   meta = with lib; {

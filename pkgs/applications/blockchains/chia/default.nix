@@ -27,7 +27,7 @@ let
 
     nativeBuildInputs = [ python3Packages.setuptools-scm ];
 
-      # give a hint to setuptools-scm on package version
+    # give a hint to setuptools-scm on package version
     SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
     propagatedBuildInputs = with python3Packages; [
@@ -64,12 +64,10 @@ let
       zstd
     ];
 
-    nativeCheckInputs = with python3Packages; [
-        pytestCheckHook
-      ];
+    nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-      # Testsuite is expensive and non-deterministic, so it is available in
-      # passthru.tests instead.
+    # Testsuite is expensive and non-deterministic, so it is available in
+    # passthru.tests instead.
     doCheck = false;
 
     disabledTests = [

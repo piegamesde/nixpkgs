@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.saslauthd;
-
 in
+
 {
 
   ###### interface
@@ -44,12 +44,10 @@ in
           lib.mdDoc "Configuration to use for Cyrus SASL authentication daemon."
           ;
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

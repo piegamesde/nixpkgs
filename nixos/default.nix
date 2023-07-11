@@ -9,8 +9,8 @@ let
     inherit system;
     modules = [ configuration ];
   };
-
 in
+
 {
   inherit (eval) pkgs config options;
 

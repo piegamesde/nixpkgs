@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation rec {
 
   installFlags = [ "DESTDIR=$(out)" ];
 
-    # Firmware blobs do not need fixing and should not be modified
+  # Firmware blobs do not need fixing and should not be modified
   dontFixup = true;
 
   outputHashMode = "recursive";

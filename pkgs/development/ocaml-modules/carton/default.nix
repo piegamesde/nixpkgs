@@ -50,7 +50,7 @@ buildDunePackage rec {
       })
     ];
 
-    # remove changelogs for mimic and the git* packages
+  # remove changelogs for mimic and the git* packages
   postPatch = ''
     rm CHANGES.md
   '';

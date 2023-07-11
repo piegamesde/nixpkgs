@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ packaging ];
 
-    # circular dependency on test tool uranium https://pypi.org/project/uranium/
+  # circular dependency on test tool uranium https://pypi.org/project/uranium/
   doCheck = false;
 
   pythonImportsCheck = [ "vcver" ];

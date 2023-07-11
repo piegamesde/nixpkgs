@@ -38,7 +38,6 @@ let
     source "${envFile}"
     eval -- "\$@"
   '';
-
 in
 {
   options = {
@@ -332,29 +331,29 @@ in
         '';
         ExecStart = "${cfg.package}/bin/nifi.sh start";
         ExecStop = "${cfg.package}/bin/nifi.sh stop";
-          # User and group
+        # User and group
         User = cfg.user;
         Group = cfg.group;
-          # Runtime directory and mode
+        # Runtime directory and mode
         RuntimeDirectory = "nifi";
         RuntimeDirectoryMode = "0750";
-          # State directory and mode
+        # State directory and mode
         StateDirectory = "nifi";
         StateDirectoryMode = "0750";
-          # Logs directory and mode
+        # Logs directory and mode
         LogsDirectory = "nifi";
         LogsDirectoryMode = "0750";
-          # Proc filesystem
+        # Proc filesystem
         ProcSubset = "pid";
         ProtectProc = "invisible";
-          # Access write directories
+        # Access write directories
         ReadWritePaths = [ cfg.initPasswordFile ];
         UMask = "0027";
-          # Capabilities
+        # Capabilities
         CapabilityBoundingSet = "";
-          # Security
+        # Security
         NoNewPrivileges = true;
-          # Sandboxing
+        # Sandboxing
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
@@ -375,7 +374,7 @@ in
         RestrictSUIDSGID = true;
         RemoveIPC = true;
         PrivateMounts = true;
-          # System Call Filtering
+        # System Call Filtering
         SystemCallArchitectures = "native";
         SystemCallFilter = [
           "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @resources @privileged @setuid"

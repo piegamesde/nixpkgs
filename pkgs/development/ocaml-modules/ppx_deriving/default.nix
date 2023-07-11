@@ -35,8 +35,8 @@ let
         useOMP2 = false;
       }
     ;
-
 in
+
 buildDunePackage rec {
   pname = "ppx_deriving";
   inherit (params) version;

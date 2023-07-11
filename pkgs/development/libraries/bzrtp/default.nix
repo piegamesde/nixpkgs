@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ cmake ];
 
-    # Do not build static libraries
+  # Do not build static libraries
   cmakeFlags = [
     "-DENABLE_STATIC=NO"
     "-DCMAKE_C_FLAGS=-Wno-error=cast-function-type"

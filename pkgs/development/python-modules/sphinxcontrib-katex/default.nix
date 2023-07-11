@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sphinx ];
 
-    # There are no unit tests
+  # There are no unit tests
   doCheck = false;
 
   pythonImportsCheck = [ "sphinxcontrib.katex" ];

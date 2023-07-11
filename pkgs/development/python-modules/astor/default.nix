@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "0ppscdzzvxpznclkmhhj53iz314x3pfv4yc7c6gwxqgljgdgyvka";
   };
 
-    # disable tests broken with python3.6: https://github.com/berkerpeksag/astor/issues/89
+  # disable tests broken with python3.6: https://github.com/berkerpeksag/astor/issues/89
   nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [

@@ -168,8 +168,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   doInstallCheck = true;
-    # preCheck rather than preInstallCheck because this is what pytestCheckHook
-    # calls (coming from the python world)
+  # preCheck rather than preInstallCheck because this is what pytestCheckHook
+  # calls (coming from the python world)
   preCheck = ''
     pushd ../autotest
 

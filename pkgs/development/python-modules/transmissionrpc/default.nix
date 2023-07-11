@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-    # no tests
+  # no tests
   doCheck = false;
   pythonImportsCheck = [ "transmissionrpc" ];
 

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     libsecret
   ];
 
-    # Fix hardcoded paths to /bin/mkdir
+  # Fix hardcoded paths to /bin/mkdir
   patches = [ ./makefile-mkdir.patch ];
 
   preConfigure = ''

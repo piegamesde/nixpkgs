@@ -24,7 +24,6 @@ let
     "perkeep.org/cmd/pk-put"
     "perkeep.org/cmd/pk-mount"
   ];
-
 in
 buildGoModule rec {
   pname = "perkeep";
@@ -50,9 +49,9 @@ buildGoModule rec {
     go run make.go -offline=true -targets=${lib.concatStringsSep "," packages}
   '';
 
-    # genfileembed gets built regardless of -targets, to embed static
-    # content into the Perkeep binaries. Remove it in post-install to
-    # avoid polluting paths.
+  # genfileembed gets built regardless of -targets, to embed static
+  # content into the Perkeep binaries. Remove it in post-install to
+  # avoid polluting paths.
   postInstall = ''
     rm -f $out/bin/genfileembed
   '';

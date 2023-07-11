@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "1rvf5jw9hknqz02rp1vg8abgb1lpa0bc65l7ylmlillqx7bswq3r";
   };
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
 
   meta = with lib; {
@@ -23,5 +23,4 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ domenkozar ];
   };
-
 }

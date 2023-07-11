@@ -40,7 +40,6 @@ let
         else
           toString val
         ;
-
     in
     {
       type = with types;
@@ -73,18 +72,18 @@ let
     fi
   '';
 
-    # master config file
+  # master config file
   masterCfg = settingsFormat.generate "mfsmaster.cfg" cfg.master.settings;
 
-    # metalogger config file
+  # metalogger config file
   metaloggerCfg =
     settingsFormat.generate "mfsmetalogger.cfg" cfg.metalogger.settings;
 
-    # chunkserver config file
+  # chunkserver config file
   chunkserverCfg =
     settingsFormat.generate "mfschunkserver.cfg" cfg.chunkserver.settings;
 
-    # generic template for all daemons
+  # generic template for all daemons
   systemdService =
     name: extraConfig: configFile: {
       wantedBy = [ "multi-user.target" ];
@@ -103,7 +102,6 @@ let
       } // extraConfig;
     }
     ;
-
 in
 {
   ###### interface
@@ -227,7 +225,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf
     (
@@ -244,7 +242,7 @@ in
             "Running moosefs services as root is not recommended.")
         ];
 
-        # Service settings
+      # Service settings
       services.moosefs = {
         master.settings = mkIf cfg.master.enable {
           WORKING_USER = mfsUser;
@@ -271,7 +269,7 @@ in
         };
       };
 
-        # Create system user account for daemons
+      # Create system user account for daemons
       users = mkIf
         (
           cfg.runAsUser
@@ -302,7 +300,7 @@ in
         ++ (lib.optional cfg.chunkserver.openFirewall 9422)
         ;
 
-        # Ensure storage directories exist
+      # Ensure storage directories exist
       systemd.tmpfiles.rules =
         optional
           cfg.master.enable
@@ -315,7 +313,7 @@ in
           "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
         ;
 
-        # Service definitions
+      # Service definitions
       systemd.services.mfs-master = mkIf cfg.master.enable (
         systemdService "master"
         {

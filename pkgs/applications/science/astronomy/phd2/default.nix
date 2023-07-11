@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DOPENSOURCE_ONLY=1" ];
 
-    # Fix broken wrapped name scheme by moving wrapped binary to where wrapper expects it
+  # Fix broken wrapped name scheme by moving wrapped binary to where wrapper expects it
   postFixup = ''
     mv $out/bin/.phd2.bin-wrapped $out/bin/.phd2-wrapped.bin
   '';

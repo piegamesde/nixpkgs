@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.hardware.ledger;
-
 in
 {
   options.hardware.ledger.enable =

@@ -113,7 +113,7 @@ let
 
     sourceRoot = "Xonotic/source/darkplaces";
 
-      # "debug", "release", "profile"
+    # "debug", "release", "profile"
     target = "release";
 
     dontStrip = target != "release";
@@ -170,7 +170,7 @@ let
       ''
       ;
 
-      # Xonotic needs to find libcurl.so at runtime for map downloads
+    # Xonotic needs to find libcurl.so at runtime for map downloads
     dontPatchELF = true;
     postFixup =
       lib.optionalString withDedicated ''
@@ -201,7 +201,6 @@ let
       ''
       ;
   };
-
 in
 rec {
   xonotic-data = fetchzip {

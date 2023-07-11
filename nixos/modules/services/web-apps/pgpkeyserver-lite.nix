@@ -15,8 +15,8 @@ let
   sksOpt = options.services.sks;
 
   webPkg = cfg.package;
-
 in
+
 {
 
   options = {

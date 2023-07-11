@@ -28,7 +28,7 @@ buildPythonPackage rec {
     sha256 = "093kkxwj75nb508vz7px4x7lxrwpaff10pl15m4h74hjwyvbsg3d";
   };
 
-    # TODO: remove when updating to 0.12.3
+  # TODO: remove when updating to 0.12.3
   patches = [
       (fetchpatch {
         url =
@@ -74,5 +74,4 @@ buildPythonPackage rec {
     platforms = platforms.unix;
     maintainers = with maintainers; [ koral ];
   };
-
 }

@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "azure.mgmt.servicelinker" ];
 
-    # no tests with sdist
+  # no tests with sdist
   doCheck = false;
 
   meta = with lib; {

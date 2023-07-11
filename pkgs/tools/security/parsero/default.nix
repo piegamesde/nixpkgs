@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     urllib3
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   meta = with lib; {

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-1RcE5QF4QwwGzz2KoXTaZrrfVZdHpH2SC7VLLUqkCZE=";
   };
 
-    # TODO: separate "out" and "bin"
+  # TODO: separate "out" and "bin"
   outputs = [
     "out"
     "dev"
@@ -110,7 +110,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-    # The directory is empty and serve no purpose.
+  # The directory is empty and serve no purpose.
   preFixup = ''
     rm -r $out/var
   '';

@@ -22,7 +22,8 @@
 }:
 # refer to the gentoo package
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "motif";
   version = "2.3.8";
 

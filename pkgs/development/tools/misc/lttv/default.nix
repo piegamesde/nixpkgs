@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Graphical trace viewer for LTTng trace files";
     homepage = "https://lttng.org/";
-      # liblttvtraceread (ltt/ directory) is distributed under the GNU LGPL v2.1.
-      # The rest of the LTTV package is distributed under the GNU GPL v2.
+    # liblttvtraceread (ltt/ directory) is distributed under the GNU LGPL v2.1.
+    # The rest of the LTTV package is distributed under the GNU GPL v2.
     license = with licenses; [
       gpl2
       lgpl21
@@ -38,5 +38,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];
   };
-
 }

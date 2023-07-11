@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       --add-flags "exec ${ruby}/bin/ruby $out/share/msf/tools/exploit/pattern_offset.rb"
   '';
 
-    # run with: nix-shell maintainers/scripts/update.nix --argstr path metasploit
+  # run with: nix-shell maintainers/scripts/update.nix --argstr path metasploit
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {

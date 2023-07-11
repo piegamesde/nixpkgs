@@ -164,14 +164,14 @@ stdenv.mkDerivation (
       ]
       ;
 
-      # mkDerivation by default appends --build/--host to configureFlags when cross compiling
-      # These defaults are bogus for Spidermonkey - avoid passing them by providing an empty list
+    # mkDerivation by default appends --build/--host to configureFlags when cross compiling
+    # These defaults are bogus for Spidermonkey - avoid passing them by providing an empty list
     configurePlatforms = [ ];
 
     enableParallelBuilding = true;
 
-      # cc-rs insists on using -mabi=lp64 (soft-float) for riscv64,
-      # while we have a double-float toolchain
+    # cc-rs insists on using -mabi=lp64 (soft-float) for riscv64,
+    # while we have a double-float toolchain
     env.NIX_CFLAGS_COMPILE = lib.optionalString
       (
         with stdenv.hostPlatform;
@@ -216,7 +216,7 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # Remove unnecessary static lib
+    # Remove unnecessary static lib
     preFixup = ''
       moveToOutput bin/js${lib.versions.major version}-config "$dev"
       rm $out/lib/libjs_static.ajs

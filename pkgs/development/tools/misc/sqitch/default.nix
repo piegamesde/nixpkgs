@@ -16,8 +16,8 @@ let
     ++ lib.optional mysqlSupport DBDmysql
     ++ lib.optional postgresqlSupport DBDPg
     ++ lib.optional templateToolkitSupport TemplateToolkit;
-
 in
+
 stdenv.mkDerivation {
   pname = "sqitch";
   version = sqitch.version;

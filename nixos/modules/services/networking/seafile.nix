@@ -36,7 +36,6 @@ let
   ccnetDir = "${seafRoot}/ccnet";
   dataDir = "${seafRoot}/data";
   seahubDir = "${seafRoot}/seahub";
-
 in
 {
 
@@ -145,7 +144,7 @@ in
     };
   };
 
-    ###### Implementation
+  ###### Implementation
 
   config = mkIf cfg.enable {
 

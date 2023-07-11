@@ -27,7 +27,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-    # too complicated to set up
+  # too complicated to set up
   doCheck = false;
 
   pythonImportsCheck = [

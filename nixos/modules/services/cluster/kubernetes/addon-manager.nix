@@ -73,7 +73,7 @@ in
     enable = mkEnableOption (lib.mdDoc "Kubernetes addon manager");
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     environment.etc."kubernetes/addons".source = "${addons}/";
 

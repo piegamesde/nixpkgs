@@ -20,12 +20,10 @@ with lib;
       enable = mkEnableOption (
         lib.mdDoc "Malcontent, parental control support for applications"
       );
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.malcontent.enable {
 
@@ -41,7 +39,5 @@ with lib;
       ];
 
     services.accounts-daemon.enable = true;
-
   };
-
 }

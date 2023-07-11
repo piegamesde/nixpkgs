@@ -28,12 +28,9 @@ import ./make-test-python.nix (
         ...
       }:
       let
-        inherit (config.services)
-          gitolite
-          public-inbox
-          ;
-          # Git repositories paths in Gitolite.
-          # Only their baseNameOf is used for configuring public-inbox.
+        inherit (config.services) gitolite public-inbox;
+        # Git repositories paths in Gitolite.
+        # Only their baseNameOf is used for configuring public-inbox.
         repositories = [
           "user/repo1"
           "user/repo2"
@@ -45,10 +42,10 @@ import ./make-test-python.nix (
         networking.domain = domain;
 
         security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
-          # If using security.acme:
-          #security.acme.certs."${domain}".postRun = ''
-          #  systemctl try-restart public-inbox-nntpd public-inbox-imapd
-          #'';
+        # If using security.acme:
+        #security.acme.certs."${domain}".postRun = ''
+        #  systemctl try-restart public-inbox-nntpd public-inbox-imapd
+        #'';
 
         services.public-inbox = {
           enable = true;
@@ -66,20 +63,20 @@ import ./make-test-python.nix (
           http = {
             enable = true;
             port = "/run/public-inbox-http.sock";
-              #port = 8080;
+            #port = 8080;
             args = [ "-W0" ];
             mounts = [ "https://machine.${domain}/inbox" ];
           };
           nntp = {
             enable = true;
-              #port = 563;
+            #port = 563;
             args = [ "-W0" ];
             cert = "${tls-cert}/cert.pem";
             key = "${tls-cert}/key.pem";
           };
           imap = {
             enable = true;
-              #port = 993;
+            #port = 993;
             args = [ "-W0" ];
             cert = "${tls-cert}/cert.pem";
             key = "${tls-cert}/key.pem";
@@ -123,7 +120,7 @@ import ./make-test-python.nix (
           );
         };
 
-          # Use gitolite to store Git repositories listed in coderepo entries
+        # Use gitolite to store Git repositories listed in coderepo entries
         services.gitolite = {
           enable = true;
           adminPubkey =
@@ -133,7 +130,7 @@ import ./make-test-python.nix (
           serviceConfig.SupplementaryGroups = [ gitolite.group ];
         };
 
-          # Use nginx as a reverse proxy for public-inbox-httpd
+        # Use nginx as a reverse proxy for public-inbox-httpd
         services.nginx = {
           enable = true;
           recommendedGzipSettings = true;
@@ -148,10 +145,10 @@ import ./make-test-python.nix (
             locations."= /inbox".return = "302 /inbox/";
             locations."/inbox".proxyPass =
               "http://unix:${public-inbox.http.port}:/inbox";
-              # If using TCP instead of a Unix socket:
-              #locations."/inbox".proxyPass = "http://127.0.0.1:${toString public-inbox.http.port}/inbox";
-              # Referred to by settings.publicinbox.css
-              # See http://public-inbox.org/meta/_/text/color/
+            # If using TCP instead of a Unix socket:
+            #locations."/inbox".proxyPass = "http://127.0.0.1:${toString public-inbox.http.port}/inbox";
+            # Referred to by settings.publicinbox.css
+            # See http://public-inbox.org/meta/_/text/color/
             locations."= /style/light.css".alias = pkgs.writeText "light.css" ''
               * { background:#fff; color:#000 }
 
@@ -187,8 +184,8 @@ import ./make-test-python.nix (
         services.postfix = {
           enable = true;
           setSendmail = true;
-            #sslCert = "${tls-cert}/cert.pem";
-            #sslKey = "${tls-cert}/key.pem";
+          #sslCert = "${tls-cert}/cert.pem";
+          #sslKey = "${tls-cert}/key.pem";
           recipientDelimiter = "+";
         };
 
@@ -196,7 +193,6 @@ import ./make-test-python.nix (
           pkgs.mailutils
           pkgs.openssl
         ];
-
       }
       ;
 

@@ -34,7 +34,7 @@ let
   pname = "gnome-flashback";
   version = "3.46.0";
 
-    # From data/sessions/Makefile.am
+  # From data/sessions/Makefile.am
   requiredComponentsCommon =
     enableGnomePanel:
     [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel"
@@ -79,7 +79,7 @@ let
       sha256 = "sha256-eo1cAzEOTfrdGKZeAKN3QQMq/upUGN1oBKl1xLCYAEU=";
     };
 
-      # make .desktop Execs absolute
+    # make .desktop Execs absolute
     postPatch = ''
       patch -p0 <<END_PATCH
       +++ data/applications/gnome-flashback.desktop.in.in
@@ -182,10 +182,10 @@ let
             '';
           };
 
-            # gnome-panel will only look for applets in a single directory so symlink them into here.
+          # gnome-panel will only look for applets in a single directory so symlink them into here.
           panelModulesEnv = buildEnv {
             name = "gnome-panel-modules-env";
-              # We always want to find the built-in panel applets.
+            # We always want to find the built-in panel applets.
             paths =
               [
                 gnome-panel
@@ -209,19 +209,19 @@ let
               )
               ;
 
-              # We want to use the wrapGAppsHook mechanism to wrap gnome-session
-              # with the environment that gnome-flashback and gnome-panel need to
-              # run, including the configured applet packages. This is only possible
-              # in the fixup phase, so turn everything else off.
+            # We want to use the wrapGAppsHook mechanism to wrap gnome-session
+            # with the environment that gnome-flashback and gnome-panel need to
+            # run, including the configured applet packages. This is only possible
+            # in the fixup phase, so turn everything else off.
             dontUnpack = true;
             dontConfigure = true;
             dontBuild = true;
             dontInstall = true;
             dontWrapGApps = true; # We want to do the wrapping ourselves.
 
-              # gnome-flashback and gnome-panel need to be added to XDG_DATA_DIRS so that their .desktop files can be found by gnome-session.
-              # We need to pass the --builtin flag so that gnome-session invokes gnome-session-binary instead of systemd.
-              # If systemd is used, it doesn't use the environment we set up here and so it can't find the .desktop files.
+            # gnome-flashback and gnome-panel need to be added to XDG_DATA_DIRS so that their .desktop files can be found by gnome-session.
+            # We need to pass the --builtin flag so that gnome-session invokes gnome-session-binary instead of systemd.
+            # If systemd is used, it doesn't use the environment we set up here and so it can't find the .desktop files.
             preFixup = ''
               makeWrapper ${gnome-session}/bin/gnome-session $out \
                 --add-flags "--session=gnome-flashback-${wmName} --builtin" \
@@ -244,7 +244,6 @@ let
                 }
             '';
           };
-
         in
         writeTextFile {
           name = "gnome-flashback-${wmName}-xsession";

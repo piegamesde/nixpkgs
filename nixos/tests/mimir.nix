@@ -28,7 +28,7 @@ import ./make-test-python.nix (
                 # test remote write
                 url = "http://localhost:8080/api/v1/push";
 
-                  # Data format to output.
+                # Data format to output.
                 data_format = "prometheusremotewrite";
 
                 headers = {

@@ -33,25 +33,22 @@ import ./make-test-python.nix (
         display = "DISPLAY=:0.0";
         env = "${bus} ${display}";
         gdbus = "${env} gdbus";
-        su =
-          command:
-          "su - ${user.name} -c '${env} ${command}'"
-          ;
+        su = command: "su - ${user.name} -c '${env} ${command}'";
 
-          # Call javascript in cinnamon (the shell), returns a tuple (success, output),
-          # where `success` is true if the dbus call was successful and `output` is what
-          # the javascript evaluates to.
+        # Call javascript in cinnamon (the shell), returns a tuple (success, output),
+        # where `success` is true if the dbus call was successful and `output` is what
+        # the javascript evaluates to.
         eval =
           "call --session -d org.Cinnamon -o /org/Cinnamon -m org.Cinnamon.Eval";
 
-          # Should be 2 (RunState.RUNNING) when startup is done.
-          # https://github.com/linuxmint/cinnamon/blob/5.4.0/js/ui/main.js#L183-L187
+        # Should be 2 (RunState.RUNNING) when startup is done.
+        # https://github.com/linuxmint/cinnamon/blob/5.4.0/js/ui/main.js#L183-L187
         getRunState = su "${gdbus} ${eval} Main.runState";
 
-          # Start gnome-terminal.
+        # Start gnome-terminal.
         gnomeTerminalCommand = su "gnome-terminal";
 
-          # Hopefully gnome-terminal's wm class.
+        # Hopefully gnome-terminal's wm class.
         wmClass = su "${gdbus} ${eval} global.display.focus_window.wm_class";
       in
       ''

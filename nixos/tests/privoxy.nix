@@ -29,8 +29,8 @@ import ./make-test-python.nix (
         -CAkey $out/ca.key -CAcreateserial -out $out/server.crt \
         -days 500 -sha256
       '';
-
   in
+
   {
     name = "privoxy";
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };

@@ -21,7 +21,6 @@ let
     ]
     ++ extraBackends
     ;
-
 in
 stdenv.mkDerivation {
   pname = "unp";

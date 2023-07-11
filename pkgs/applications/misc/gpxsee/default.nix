@@ -22,7 +22,6 @@
 
 let
   isQt6 = lib.versions.major qtbase.version == "6";
-
 in
 stdenv.mkDerivation rec {
   pname = "gpxsee";

@@ -36,17 +36,19 @@ let
       ) # ~ drop final slash if any
         (reverseList (splitString "/" url));
       path = [ (removeSuffix "/" (head path_)) ] ++ (tail path_);
-      # ../repo/trunk -> repo
     in
-    if fst path == "trunk" then
+    # ../repo/trunk -> repo
+    if
+      fst path == "trunk"
+    then
       snd path
-      # ../repo/branches/branch -> repo-branch
+    # ../repo/branches/branch -> repo-branch
     else if snd path == "branches" then
       "${trd path}-${fst path}"
-      # ../repo/tags/tag -> repo-tag
+    # ../repo/tags/tag -> repo-tag
     else if snd path == "tags" then
       "${trd path}-${fst path}"
-      # ../repo (no trunk) -> repo
+    # ../repo (no trunk) -> repo
     else
       fst path
     ;
@@ -57,8 +59,8 @@ let
     else
       name
     ;
-
 in
+
 if md5 != "" then
   throw "fetchsvn does not support md5 anymore, please use sha256"
 else

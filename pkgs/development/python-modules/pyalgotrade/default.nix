@@ -39,7 +39,7 @@ buildPythonPackage rec {
     ws4py
   ];
 
-    # no tests in PyPI tarball
+  # no tests in PyPI tarball
   doCheck = false;
 
   meta = with lib; {
@@ -47,5 +47,4 @@ buildPythonPackage rec {
     homepage = "http://gbeced.github.io/pyalgotrade/";
     license = licenses.asl20;
   };
-
 }

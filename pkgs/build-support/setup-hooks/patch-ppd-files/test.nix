@@ -21,8 +21,8 @@ let
     pathkeep = "/bin/cmp";
     pathpatch = "${diffutils}/bin/cmp";
   };
-
 in
+
 stdenv.mkDerivation {
   name = "${patchPpdFilesHook.name}-test";
   buildInputs = [ diffutils ];

@@ -25,5 +25,4 @@ buildPythonPackage rec {
     homepage = "http://www.repoze.org";
     license = licenses.bsd0;
   };
-
 }

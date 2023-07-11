@@ -6,7 +6,9 @@
 # - Creating Merge Requests and merging them
 # - Opening and closing issues.
 # - Downloading repository archives as tar.gz and tar.bz2
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     lib,
@@ -213,7 +215,7 @@ import ./make-test-python.nix (
           }
         );
 
-          # Wait for all GitLab services to be fully started.
+        # Wait for all GitLab services to be fully started.
         waitForServices = ''
           gitlab.wait_for_unit("gitaly.service")
           gitlab.wait_for_unit("gitlab-workhorse.service")
@@ -225,8 +227,8 @@ import ./make-test-python.nix (
           gitlab.wait_until_succeeds("curl -sSf http://gitlab/users/sign_in")
         '';
 
-          # The actual test of GitLab. Only push data to GitLab if
-          # `doSetup` is is true.
+        # The actual test of GitLab. Only push data to GitLab if
+        # `doSetup` is is true.
         test =
           doSetup:
           ''
@@ -462,7 +464,6 @@ import ./make-test-python.nix (
                 gitlab.succeed("test -s /tmp/archive.tar.bz2")
           ''
           ;
-
       in
       ''
         gitlab.start()

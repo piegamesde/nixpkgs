@@ -49,7 +49,7 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.linkify
     ;
 
-    # disable and remove benchmark tests
+  # disable and remove benchmark tests
   preCheck = ''
     rm -r benchmarking
   '';

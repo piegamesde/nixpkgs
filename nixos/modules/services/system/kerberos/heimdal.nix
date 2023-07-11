@@ -57,8 +57,8 @@ let
     [kdc]
     ${concatStringsSep "\n" kdcConfigs}
   '';
-
 in
+
 {
   # No documentation about correct triggers, so guessing at them.
 

@@ -460,7 +460,6 @@ in
         "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %."
         ;
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -531,9 +530,9 @@ in
         RuntimeDirectory = [ "dovecot2" ];
       };
 
-        # When copying sieve scripts preserve the original time stamp
-        # (should be 0) so that the compiled sieve script is newer than
-        # the source file and Dovecot won't try to compile it.
+      # When copying sieve scripts preserve the original time stamp
+      # (should be 0) so that the compiled sieve script is newer than
+      # the source file and Dovecot won't try to compile it.
       preStart =
         ''
           rm -rf ${stateDir}/sieve
@@ -597,7 +596,5 @@ in
           "dovecot requires mailUser and mailGroup to be set when sieveScripts is set";
       }
     ];
-
   };
-
 }

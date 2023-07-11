@@ -16,4 +16,3 @@ qtModule {
     "bin"
   ];
 }
-

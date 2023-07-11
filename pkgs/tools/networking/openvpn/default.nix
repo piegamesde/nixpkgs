@@ -58,10 +58,10 @@ let
         ++ optional stdenv.isDarwin "--disable-plugin-auth-pam"
         ;
 
-        # We used to vendor the update-systemd-resolved script inside libexec,
-        # but a separate package was made, that uses libexec/openvpn. Copy it
-        # into libexec in case any consumers expect it to be there even though
-        # they should use the update-systemd-resolved package instead.
+      # We used to vendor the update-systemd-resolved script inside libexec,
+      # but a separate package was made, that uses libexec/openvpn. Copy it
+      # into libexec in case any consumers expect it to be there even though
+      # they should use the update-systemd-resolved package instead.
       postInstall =
         ''
           mkdir -p $out/share/doc/openvpn/examples
@@ -87,7 +87,6 @@ let
       };
     }
     ;
-
 in
 {
   openvpn = generic {

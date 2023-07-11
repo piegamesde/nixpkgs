@@ -37,8 +37,8 @@ let
       assert lib.or (types.path.check content) (types.str.check content);
       let
         name = last (builtins.split "/" nameOrPath);
-
       in
+
       pkgs.runCommandLocal name
       (
         if (types.str.check content) then
@@ -92,11 +92,11 @@ let
       ''
       ;
 
-      # Base implementation for compiled executables.
-      # Takes a compile script, which in turn takes the name as an argument.
-      #
-      # Examples:
-      #   writeSimpleC = makeBinWriter { compileScript = name: "gcc -o $out $contentPath"; }
+    # Base implementation for compiled executables.
+    # Takes a compile script, which in turn takes the name as an argument.
+    #
+    # Examples:
+    #   writeSimpleC = makeBinWriter { compileScript = name: "gcc -o $out $contentPath"; }
     makeBinWriter =
       {
         compileScript,
@@ -146,61 +146,52 @@ let
       ''
       ;
 
-      # Like writeScript but the first line is a shebang to bash
-      #
-      # Example:
-      #   writeBash "example" ''
-      #     echo hello world
-      #   ''
+    # Like writeScript but the first line is a shebang to bash
+    #
+    # Example:
+    #   writeBash "example" ''
+    #     echo hello world
+    #   ''
     writeBash = makeScriptWriter { interpreter = "${pkgs.bash}/bin/bash"; };
 
-      # Like writeScriptBin but the first line is a shebang to bash
-    writeBashBin =
-      name:
-      writeBash "/bin/${name}"
-      ;
+    # Like writeScriptBin but the first line is a shebang to bash
+    writeBashBin = name: writeBash "/bin/${name}";
 
-      # Like writeScript but the first line is a shebang to dash
-      #
-      # Example:
-      #   writeDash "example" ''
-      #     echo hello world
-      #   ''
+    # Like writeScript but the first line is a shebang to dash
+    #
+    # Example:
+    #   writeDash "example" ''
+    #     echo hello world
+    #   ''
     writeDash = makeScriptWriter { interpreter = "${pkgs.dash}/bin/dash"; };
 
-      # Like writeScriptBin but the first line is a shebang to dash
-    writeDashBin =
-      name:
-      writeDash "/bin/${name}"
-      ;
+    # Like writeScriptBin but the first line is a shebang to dash
+    writeDashBin = name: writeDash "/bin/${name}";
 
-      # Like writeScript but the first line is a shebang to fish
-      #
-      # Example:
-      #   writeFish "example" ''
-      #     echo hello world
-      #   ''
+    # Like writeScript but the first line is a shebang to fish
+    #
+    # Example:
+    #   writeFish "example" ''
+    #     echo hello world
+    #   ''
     writeFish = makeScriptWriter {
       interpreter = "${pkgs.fish}/bin/fish --no-config";
       check =
         "${pkgs.fish}/bin/fish --no-config --no-execute"; # syntax check only
     };
 
-      # Like writeScriptBin but the first line is a shebang to fish
-    writeFishBin =
-      name:
-      writeFish "/bin/${name}"
-      ;
+    # Like writeScriptBin but the first line is a shebang to fish
+    writeFishBin = name: writeFish "/bin/${name}";
 
-      # writeHaskell takes a name, an attrset with libraries and haskell version (both optional)
-      # and some haskell source code and returns an executable.
-      #
-      # Example:
-      #   writeHaskell "missiles" { libraries = [ pkgs.haskellPackages.acme-missiles ]; } ''
-      #     import Acme.Missiles
-      #
-      #     main = launchMissiles
-      #   '';
+    # writeHaskell takes a name, an attrset with libraries and haskell version (both optional)
+    # and some haskell source code and returns an executable.
+    #
+    # Example:
+    #   writeHaskell "missiles" { libraries = [ pkgs.haskellPackages.acme-missiles ]; } ''
+    #     import Acme.Missiles
+    #
+    #     main = launchMissiles
+    #   '';
     writeHaskell =
       name:
       {
@@ -224,7 +215,6 @@ let
           else
             ghcArgs
           ;
-
       in
       makeBinWriter
       {
@@ -240,7 +230,7 @@ let
       name
       ;
 
-      # writeHaskellBin takes the same arguments as writeHaskell but outputs a directory (like writeScriptBin)
+    # writeHaskellBin takes the same arguments as writeHaskell but outputs a directory (like writeScriptBin)
     writeHaskellBin = name: writeHaskell "/bin/${name}";
 
     writeRust =
@@ -267,21 +257,18 @@ let
       name
       ;
 
-    writeRustBin =
-      name:
-      writeRust "/bin/${name}"
-      ;
+    writeRustBin = name: writeRust "/bin/${name}";
 
-      # writeJS takes a name an attributeset with libraries and some JavaScript sourcecode and
-      # returns an executable
-      #
-      # Example:
-      #   writeJS "example" { libraries = [ pkgs.nodePackages.uglify-js ]; } ''
-      #     var UglifyJS = require("uglify-js");
-      #     var code = "function add(first, second) { return first + second; }";
-      #     var result = UglifyJS.minify(code);
-      #     console.log(result.code);
-      #   ''
+    # writeJS takes a name an attributeset with libraries and some JavaScript sourcecode and
+    # returns an executable
+    #
+    # Example:
+    #   writeJS "example" { libraries = [ pkgs.nodePackages.uglify-js ]; } ''
+    #     var UglifyJS = require("uglify-js");
+    #     var code = "function add(first, second) { return first + second; }";
+    #     var result = UglifyJS.minify(code);
+    #     console.log(result.code);
+    #   ''
     writeJS =
       name:
       {
@@ -301,7 +288,7 @@ let
       ''
       ;
 
-      # writeJSBin takes the same arguments as writeJS but outputs a directory (like writeScriptBin)
+    # writeJSBin takes the same arguments as writeJS but outputs a directory (like writeScriptBin)
     writeJSBin = name: writeJS "/bin/${name}";
 
     awkFormatNginx = builtins.toFile "awkFormat-nginx.awk" ''
@@ -327,14 +314,14 @@ let
       ''
       ;
 
-      # writePerl takes a name an attributeset with libraries and some perl sourcecode and
-      # returns an executable
-      #
-      # Example:
-      #   writePerl "example" { libraries = [ pkgs.perlPackages.boolean ]; } ''
-      #     use boolean;
-      #     print "Howdy!\n" if true;
-      #   ''
+    # writePerl takes a name an attributeset with libraries and some perl sourcecode and
+    # returns an executable
+    #
+    # Example:
+    #   writePerl "example" { libraries = [ pkgs.perlPackages.boolean ]; } ''
+    #     use boolean;
+    #     print "Howdy!\n" if true;
+    #   ''
     writePerl =
       name:
       {
@@ -345,15 +332,12 @@ let
       name
       ;
 
-      # writePerlBin takes the same arguments as writePerl but outputs a directory (like writeScriptBin)
-    writePerlBin =
-      name:
-      writePerl "/bin/${name}"
-      ;
+    # writePerlBin takes the same arguments as writePerl but outputs a directory (like writeScriptBin)
+    writePerlBin = name: writePerl "/bin/${name}";
 
-      # makePythonWriter takes python and compatible pythonPackages and produces python script writer,
-      # which validates the script with flake8 at build time. If any libraries are specified,
-      # python.withPackages is used as interpreter, otherwise the "bare" python is used.
+    # makePythonWriter takes python and compatible pythonPackages and produces python script writer,
+    # which validates the script with flake8 at build time. If any libraries are specified,
+    # python.withPackages is used as interpreter, otherwise the "bare" python is used.
     makePythonWriter =
       python: pythonPackages: buildPythonPackages: name:
       {
@@ -382,67 +366,61 @@ let
       name
       ;
 
-      # writePyPy2 takes a name an attributeset with libraries and some pypy2 sourcecode and
-      # returns an executable
-      #
-      # Example:
-      # writePyPy2 "test_pypy2" { libraries = [ pkgs.pypy2Packages.enum ]; } ''
-      #   from enum import Enum
-      #
-      #   class Test(Enum):
-      #       a = "success"
-      #
-      #   print Test.a
-      # ''
+    # writePyPy2 takes a name an attributeset with libraries and some pypy2 sourcecode and
+    # returns an executable
+    #
+    # Example:
+    # writePyPy2 "test_pypy2" { libraries = [ pkgs.pypy2Packages.enum ]; } ''
+    #   from enum import Enum
+    #
+    #   class Test(Enum):
+    #       a = "success"
+    #
+    #   print Test.a
+    # ''
     writePyPy2 =
       makePythonWriter pkgs.pypy2 pkgs.pypy2Packages buildPackages.pypy2Packages
       ;
 
-      # writePyPy2Bin takes the same arguments as writePyPy2 but outputs a directory (like writeScriptBin)
-    writePyPy2Bin =
-      name:
-      writePyPy2 "/bin/${name}"
-      ;
+    # writePyPy2Bin takes the same arguments as writePyPy2 but outputs a directory (like writeScriptBin)
+    writePyPy2Bin = name: writePyPy2 "/bin/${name}";
 
-      # writePython3 takes a name an attributeset with libraries and some python3 sourcecode and
-      # returns an executable
-      #
-      # Example:
-      # writePython3 "test_python3" { libraries = [ pkgs.python3Packages.pyyaml ]; } ''
-      #   import yaml
-      #
-      #   y = yaml.load("""
-      #     - test: success
-      #   """)
-      #   print(y[0]['test'])
-      # ''
+    # writePython3 takes a name an attributeset with libraries and some python3 sourcecode and
+    # returns an executable
+    #
+    # Example:
+    # writePython3 "test_python3" { libraries = [ pkgs.python3Packages.pyyaml ]; } ''
+    #   import yaml
+    #
+    #   y = yaml.load("""
+    #     - test: success
+    #   """)
+    #   print(y[0]['test'])
+    # ''
     writePython3 = makePythonWriter pkgs.python3
       pkgs.python3Packages
       buildPackages.python3Packages;
 
-      # writePython3Bin takes the same arguments as writePython3 but outputs a directory (like writeScriptBin)
-    writePython3Bin =
-      name:
-      writePython3 "/bin/${name}"
-      ;
+    # writePython3Bin takes the same arguments as writePython3 but outputs a directory (like writeScriptBin)
+    writePython3Bin = name: writePython3 "/bin/${name}";
 
-      # writePyPy3 takes a name an attributeset with libraries and some pypy3 sourcecode and
-      # returns an executable
-      #
-      # Example:
-      # writePyPy3 "test_pypy3" { libraries = [ pkgs.pypy3Packages.pyyaml ]; } ''
-      #   import yaml
-      #
-      #   y = yaml.load("""
-      #     - test: success
-      #   """)
-      #   print(y[0]['test'])
-      # ''
+    # writePyPy3 takes a name an attributeset with libraries and some pypy3 sourcecode and
+    # returns an executable
+    #
+    # Example:
+    # writePyPy3 "test_pypy3" { libraries = [ pkgs.pypy3Packages.pyyaml ]; } ''
+    #   import yaml
+    #
+    #   y = yaml.load("""
+    #     - test: success
+    #   """)
+    #   print(y[0]['test'])
+    # ''
     writePyPy3 =
       makePythonWriter pkgs.pypy3 pkgs.pypy3Packages buildPackages.pypy3Packages
       ;
 
-      # writePyPy3Bin takes the same arguments as writePyPy3 but outputs a directory (like writeScriptBin)
+    # writePyPy3Bin takes the same arguments as writePyPy3 but outputs a directory (like writeScriptBin)
     writePyPy3Bin = name: writePyPy3 "/bin/${name}";
 
     makeFSharpWriter =
@@ -478,7 +456,6 @@ let
           script="$1"; shift
           ${dotnet-sdk}/bin/dotnet fsi --quiet --nologo --readline- ${fsi-flags} "$@" < "$script"
         '';
-
       in
       content:
       writers.makeScriptWriter { interpreter = fsi; } path ''
@@ -491,7 +468,6 @@ let
     writeFSharp = makeFSharpWriter { };
 
     writeFSharpBin = name: writeFSharp "/bin/${name}";
-
   };
 in
 writers // (aliases writers)

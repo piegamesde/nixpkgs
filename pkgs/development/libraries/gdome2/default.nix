@@ -11,8 +11,8 @@
 let
   pname = "gdome2";
   version = "0.8.1";
-
 in
+
 stdenv.mkDerivation {
   name = "${pname}-${version}";
 

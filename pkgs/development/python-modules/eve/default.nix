@@ -40,7 +40,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "eve" ];
 
-    # tests call a running mongodb instance
+  # tests call a running mongodb instance
   doCheck = false;
 
   meta = with lib; {

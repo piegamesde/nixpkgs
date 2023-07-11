@@ -14,8 +14,8 @@ buildPythonPackage rec {
     hash = "sha256-tHEP2FtX7e9xbMVfrkW/1b+sb8e6kQNvHcw/Mxyg6zk=";
   };
 
-    # There is no test code and the check phase fails with:
-    # > error: could not create 'PyQt5/sip.cpython-38-x86_64-linux-gnu.so': No such file or directory
+  # There is no test code and the check phase fails with:
+  # > error: could not create 'PyQt5/sip.cpython-38-x86_64-linux-gnu.so': No such file or directory
   doCheck = false;
   pythonImportsCheck = [ "PyQt5.sip" ];
 

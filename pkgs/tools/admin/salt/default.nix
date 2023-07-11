@@ -54,12 +54,12 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'pyzmq==25.0.2 ; sys_platform == "win32"' ""
   '';
 
-    # Don't use fixed dependencies on Darwin
+  # Don't use fixed dependencies on Darwin
   USE_STATIC_REQUIREMENTS = "0";
 
-    # The tests fail due to socket path length limits at the very least;
-    # possibly there are more issues but I didn't leave the test suite running
-    # as is it rather long.
+  # The tests fail due to socket path length limits at the very least;
+  # possibly there are more issues but I didn't leave the test suite running
+  # as is it rather long.
   doCheck = false;
 
   meta = with lib; {

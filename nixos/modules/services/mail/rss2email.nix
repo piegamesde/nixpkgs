@@ -88,10 +88,9 @@ in
         );
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     users.groups = { rss2email.gid = config.ids.gids.rss2email; };

@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ nose ];
 
-    # dunno what's wrong but the module works regardless
+  # dunno what's wrong but the module works regardless
   doCheck = false;
 
   meta = with lib; {

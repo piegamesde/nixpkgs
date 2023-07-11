@@ -21,10 +21,10 @@ let
       value = {
         description = "Nix build user ${toString nr}";
 
-          /* For consistency with the setgid(2), setuid(2), and setgroups(2)
-             calls in `libstore/build.cc', don't add any supplementary group
-             here except "nixbld".
-          */
+        /* For consistency with the setgid(2), setuid(2), and setgroups(2)
+           calls in `libstore/build.cc', don't add any supplementary group
+           here except "nixbld".
+        */
         uid = builtins.add config.ids.uids.nixbld nr;
         isSystemUser = true;
         group = "nixbld";
@@ -67,7 +67,6 @@ let
 
       mkKeyValuePairs =
         attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
-
     in
     pkgs.writeTextFile {
       name = "nix.conf";
@@ -144,8 +143,8 @@ let
     in
     attrsOf (either confAtom (listOf confAtom))
     ;
-
 in
+
 {
   imports =
     [
@@ -219,7 +218,7 @@ in
       legacyConfMappings
     ;
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -468,7 +467,7 @@ in
         '';
       };
 
-        # Environment variables for running Nix.
+      # Environment variables for running Nix.
       envVars = mkOption {
         type = types.attrs;
         internal = true;
@@ -821,7 +820,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages =
@@ -842,8 +841,8 @@ in
         mapAttrsToList (n: v: { inherit (v) from to exact; }) cfg.registry;
     };
 
-      # List of machines for distributed Nix builds in the format
-      # expected by build-remote.pl.
+    # List of machines for distributed Nix builds in the format
+    # expected by build-remote.pl.
     environment.etc."nix/machines" = mkIf (cfg.buildMachines != [ ]) {
       text = concatMapStrings
         (
@@ -929,10 +928,10 @@ in
 
     systemd.packages = [ nixPackage ];
 
-      # Will only work once https://github.com/NixOS/nix/pull/6285 is merged
-      # systemd.tmpfiles.packages = [ nixPackage ];
+    # Will only work once https://github.com/NixOS/nix/pull/6285 is merged
+    # systemd.tmpfiles.packages = [ nixPackage ];
 
-      # Can be dropped for Nix > https://github.com/NixOS/nix/pull/6285
+    # Can be dropped for Nix > https://github.com/NixOS/nix/pull/6285
     systemd.tmpfiles.rules = [
         "d /nix/var/nix/daemon-socket 0755 root root - -"
       ];
@@ -964,42 +963,41 @@ in
 
       restartTriggers = [ nixConf ];
 
-        # `stopIfChanged = false` changes to switch behavior
-        # from   stop -> update units -> start
-        #   to   update units -> restart
-        #
-        # The `stopIfChanged` setting therefore controls a trade-off between a
-        # more predictable lifecycle, which runs the correct "version" of
-        # the `ExecStop` line, and on the other hand the availability of
-        # sockets during the switch, as the effectiveness of the stop operation
-        # depends on the socket being stopped as well.
-        #
-        # As `nix-daemon.service` does not make use of `ExecStop`, we prefer
-        # to keep the socket up and available. This is important for machines
-        # that run Nix-based services, such as automated build, test, and deploy
-        # services, that expect the daemon socket to be available at all times.
-        #
-        # Notably, the Nix client does not retry on failure to connect to the
-        # daemon socket, and the in-process RemoteStore instance will disable
-        # itself. This makes retries infeasible even for services that are
-        # aware of the issue. Failure to connect can affect not only new client
-        # processes, but also new RemoteStore instances in existing processes,
-        # as well as existing RemoteStore instances that have not saturated
-        # their connection pool.
-        #
-        # Also note that `stopIfChanged = true` does not kill existing
-        # connection handling daemons, as one might wish to happen before a
-        # breaking Nix upgrade (which is rare). The daemon forks that handle
-        # the individual connections split off into their own sessions, causing
-        # them not to be stopped by systemd.
-        # If a Nix upgrade does require all existing daemon processes to stop,
-        # nix-daemon must do so on its own accord, and only when the new version
-        # starts and detects that Nix's persistent state needs an upgrade.
+      # `stopIfChanged = false` changes to switch behavior
+      # from   stop -> update units -> start
+      #   to   update units -> restart
+      #
+      # The `stopIfChanged` setting therefore controls a trade-off between a
+      # more predictable lifecycle, which runs the correct "version" of
+      # the `ExecStop` line, and on the other hand the availability of
+      # sockets during the switch, as the effectiveness of the stop operation
+      # depends on the socket being stopped as well.
+      #
+      # As `nix-daemon.service` does not make use of `ExecStop`, we prefer
+      # to keep the socket up and available. This is important for machines
+      # that run Nix-based services, such as automated build, test, and deploy
+      # services, that expect the daemon socket to be available at all times.
+      #
+      # Notably, the Nix client does not retry on failure to connect to the
+      # daemon socket, and the in-process RemoteStore instance will disable
+      # itself. This makes retries infeasible even for services that are
+      # aware of the issue. Failure to connect can affect not only new client
+      # processes, but also new RemoteStore instances in existing processes,
+      # as well as existing RemoteStore instances that have not saturated
+      # their connection pool.
+      #
+      # Also note that `stopIfChanged = true` does not kill existing
+      # connection handling daemons, as one might wish to happen before a
+      # breaking Nix upgrade (which is rare). The daemon forks that handle
+      # the individual connections split off into their own sessions, causing
+      # them not to be stopped by systemd.
+      # If a Nix upgrade does require all existing daemon processes to stop,
+      # nix-daemon must do so on its own accord, and only when the new version
+      # starts and detects that Nix's persistent state needs an upgrade.
       stopIfChanged = false;
-
     };
 
-      # Set up the environment variables for running Nix.
+    # Set up the environment variables for running Nix.
     environment.sessionVariables = cfg.envVars // { NIX_PATH = cfg.nixPath; };
 
     environment.extraInit = ''
@@ -1038,7 +1036,7 @@ in
         fi
       '';
 
-      # Legacy configuration conversion.
+    # Legacy configuration conversion.
     nix.settings = mkMerge [
       {
         trusted-public-keys = [
@@ -1054,8 +1052,10 @@ in
             "kvm"
           ]
           ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
-          # a builder can run code for `gcc.arch` and inferior architectures
-            [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
+            # a builder can run code for `gcc.arch` and inferior architectures
+              [
+                "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}"
+              ]
             ++ map (x: "gccarch-${x}") (
               systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ]
             )
@@ -1067,7 +1067,5 @@ in
 
       (mkIf (isNixAtLeast "2.3pre") { sandbox-fallback = false; })
     ];
-
   };
-
 }

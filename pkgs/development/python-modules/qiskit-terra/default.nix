@@ -23,7 +23,7 @@
   sympy,
   tweedledum,
   withVisualization ? false
-    # Python visualization requirements, optional
+  # Python visualization requirements, optional
   ,
   ipywidgets,
   matplotlib,
@@ -57,8 +57,8 @@ let
     seaborn
   ];
   crosstalkPackages = [ z3 ];
-
 in
+
 buildPythonPackage rec {
   pname = "qiskit-terra";
   version = "0.21.0";
@@ -110,7 +110,7 @@ buildPythonPackage rec {
     ++ lib.optionals withCrosstalkPass crosstalkPackages
     ;
 
-    # *** Tests ***
+  # *** Tests ***
   nativeCheckInputs =
     [
       pytestCheckHook
@@ -153,7 +153,6 @@ buildPythonPackage rec {
     ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [
         "test_plot_circuit_layout"
       ]
-      # Disabling slow tests for build constraints
     ++ [
       "test_all_examples"
       "test_controlled_random_unitary"
@@ -197,8 +196,8 @@ buildPythonPackage rec {
     ]
     ;
 
-    # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
-    # cythonized modules and expecting to find some resource files in the test directory.
+  # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
+  # cythonized modules and expecting to find some resource files in the test directory.
   preCheck = ''
     export PACKAGEDIR=$out/${python.sitePackages}
     echo "Moving Qiskit test files to package directory"

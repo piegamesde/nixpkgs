@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-hwDi59Yp92eMDqA8OD56nxsKSX2ngxs0lYdmEMLX+Oc=";
 
-    # Change the default location of the management socket on Linux
-    # systems so that the yggdrasil system service unit does not have to
-    # be granted write permission to /run.
+  # Change the default location of the management socket on Linux
+  # systems so that the yggdrasil system service unit does not have to
+  # be granted write permission to /run.
   patches = [ ./change-runtime-dir.patch ];
 
   subPackages = [

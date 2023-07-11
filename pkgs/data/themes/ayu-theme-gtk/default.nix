@@ -66,4 +66,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ lovesegfault ];
   };
 }
-

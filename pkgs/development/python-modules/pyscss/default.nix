@@ -30,8 +30,8 @@ buildPythonPackage rec {
     ]
     ;
 
-    # Test suite is broken.
-    # See https://github.com/Kronuz/pyScss/issues/415
+  # Test suite is broken.
+  # See https://github.com/Kronuz/pyScss/issues/415
   doCheck = false;
 
   meta = with lib; {

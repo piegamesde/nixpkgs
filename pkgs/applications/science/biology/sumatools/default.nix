@@ -13,7 +13,6 @@ let
     maintainers = [ maintainers.bzizou ];
     platforms = platforms.unix;
   };
-
 in
 rec {
 
@@ -32,7 +31,7 @@ rec {
     inherit meta;
   };
 
-    # Sumatra
+  # Sumatra
   sumatra = stdenv.mkDerivation rec {
     version = "1.0.34";
     pname = "sumatra";
@@ -55,7 +54,7 @@ rec {
     inherit meta;
   };
 
-    # Sumaclust
+  # Sumaclust
   sumaclust = stdenv.mkDerivation rec {
     version = "1.0.34";
     pname = "sumaclust";

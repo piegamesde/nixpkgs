@@ -57,7 +57,7 @@ python3Packages.buildPythonApplication rec {
     zxcvbn
   ];
 
-    # Prevent double wrapping, let the Python wrapper use the args in preFixup.
+  # Prevent double wrapping, let the Python wrapper use the args in preFixup.
   dontWrapGApps = true;
 
   preFixup = ''

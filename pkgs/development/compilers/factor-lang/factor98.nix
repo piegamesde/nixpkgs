@@ -95,7 +95,7 @@ let
     )
     ;
 
-    # Development helper for use in nix shell
+  # Development helper for use in nix shell
   wrapLocalFactor = writeScriptBin "wrapFactor" ''
     #!${runtimeShell}
     ${wrapFactorScript {
@@ -106,7 +106,6 @@ let
   '';
   rev = "7999e72aecc3c5bc4019d43dc4697f49678cc3b4";
   version = "0.98";
-
 in
 stdenv.mkDerivation {
   pname = "factor-lang";
@@ -184,9 +183,9 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
-    # For now, the check phase runs, but should always return 0. This way the logs
-    # contain the test failures until all unit tests are fixed. Then, it should
-    # return 1 if any test failures have occured.
+  # For now, the check phase runs, but should always return 0. This way the logs
+  # contain the test failures until all unit tests are fixed. Then, it should
+  # return 1 if any test failures have occured.
   doCheck = false;
   checkPhase = ''
     runHook preCheck

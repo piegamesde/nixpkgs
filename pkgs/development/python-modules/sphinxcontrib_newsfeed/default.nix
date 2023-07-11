@@ -22,5 +22,4 @@ buildPythonPackage rec {
     homepage = "https://bitbucket.org/prometheus/sphinxcontrib-newsfeed";
     license = licenses.bsd2;
   };
-
 }

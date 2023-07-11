@@ -1,4 +1,4 @@
-# ###########################################################################
+############################################################################
 # This file mainly provides the `mathcomp` derivation, which is            #
 # essentially a meta-package containing all core mathcomp libraries        #
 # (ssreflect fingroup algebra solvable field character). They can be       #
@@ -92,12 +92,9 @@ let
     "1.6.4".sha256 = "09ww48qbjsvpjmy1g9yhm0rrkq800ffq21p6fjkbwd34qvd82raz";
     "1.6.1".sha256 = "1ilw6vm4dlsdv9cd7kmf0vfrh2kkzr45wrqr8m37miy0byzr4p9i";
   };
-  releaseRev =
-    v:
-    "mathcomp-${v}"
-    ;
+  releaseRev = v: "mathcomp-${v}";
 
-    # list of core mathcomp packages sorted by dependency order
+  # list of core mathcomp packages sorted by dependency order
   packages = [
     "ssreflect"
     "fingroup"

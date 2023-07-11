@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-c46JEQFg4KRwerqpMSgh6+tYRpKTOX02Lzsq4/meS3o=";
   };
 
-    # make setuptools happy on case-sensitive filesystems
+  # make setuptools happy on case-sensitive filesystems
   postPatch = "if [[ ! -f README.md ]]; then mv README.MD README.md; fi";
 
   nativeCheckInputs = [ pytestCheckHook ];

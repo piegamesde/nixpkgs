@@ -17,7 +17,8 @@
 
 # TODO: install Noto Sans and Oxygen Mono fonts with plasma-integration
 
-mkDerivation {
+mkDerivation
+{
   pname = "plasma-integration";
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [

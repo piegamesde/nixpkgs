@@ -14,9 +14,8 @@
   ,
   bluez,
   boost,
-  glib
+  glib,
 
-  ,
 }:
 
 let
@@ -58,7 +57,7 @@ buildPythonPackage {
     glib
   ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "gattlib" ];

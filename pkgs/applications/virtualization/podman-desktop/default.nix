@@ -97,7 +97,7 @@ stdenv.mkDerivation (
       runHook postInstall
     '';
 
-      # see: https://github.com/containers/podman-desktop/blob/main/.flatpak.desktop
+    # see: https://github.com/containers/podman-desktop/blob/main/.flatpak.desktop
     desktopItems = [
         (makeDesktopItem {
           name = "podman-desktop";

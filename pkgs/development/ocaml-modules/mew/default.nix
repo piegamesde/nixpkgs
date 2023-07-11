@@ -30,5 +30,4 @@ buildDunePackage rec {
     description = "Modal Editing Witch";
     maintainers = [ lib.maintainers.vbgl ];
   };
-
 }

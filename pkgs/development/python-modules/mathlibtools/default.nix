@@ -38,7 +38,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-    # Requires internet access
+  # Requires internet access
   doCheck = false;
 
   pythonImportsCheck = [ "mathlibtools" ];

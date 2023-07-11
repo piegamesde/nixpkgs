@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     sha256 = "0l6hpfgy5r4yardilmdrggsnn1fbfww516sk5a90g1740cd435x5";
   };
 
-    # Workaround build failure on -fno-common toolchains:
-    #   ld: subtitles.o:src/coriander.h:110: multiple definition of
-    #     `main_window'; main.o:src/coriander.h:110: first defined here
+  # Workaround build failure on -fno-common toolchains:
+  #   ld: subtitles.o:src/coriander.h:110: multiple definition of
+  #     `main_window'; main.o:src/coriander.h:110: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preConfigure = ''

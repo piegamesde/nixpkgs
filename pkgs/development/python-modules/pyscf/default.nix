@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-3ylFz5j176hBQLklLmVKltE8whynzojsoBEWjEL2M14=";
   };
 
-    # setup.py calls Cmake and passes the arguments in CMAKE_CONFIGURE_ARGS to cmake.
+  # setup.py calls Cmake and passes the arguments in CMAKE_CONFIGURE_ARGS to cmake.
   nativeBuildInputs = [ cmake ];
   dontUseCmakeConfigure = true;
   preConfigure = ''
@@ -61,8 +61,8 @@ buildPythonPackage rec {
     ulimit -s 20000
     export PYSCF_CONFIG_FILE=$(pwd)/pyscf/pyscf_config.py
   '';
-    # As defined for the PySCF CI at https://github.com/pyscf/pyscf/blob/master/.github/workflows/run_tests.sh
-    # minus some additionally numerically instable tests, that are sensitive to BLAS, FFTW, etc.
+  # As defined for the PySCF CI at https://github.com/pyscf/pyscf/blob/master/.github/workflows/run_tests.sh
+  # minus some additionally numerically instable tests, that are sensitive to BLAS, FFTW, etc.
   checkPhase = ''
     runHook preCheck
 

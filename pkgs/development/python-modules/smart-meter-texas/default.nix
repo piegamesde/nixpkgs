@@ -34,7 +34,7 @@ buildPythonPackage rec {
     tenacity
   ];
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   meta = with lib; {

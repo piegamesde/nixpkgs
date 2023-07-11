@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/rsync" "${rsync}/bin/rsync"
   '';
 
-    # Special flags needed on Darwin:
-    # https://github.com/axkibe/lsyncd/blob/42413cabbedca429d55a5378f6e830f191f3cc86/INSTALL#L51
+  # Special flags needed on Darwin:
+  # https://github.com/axkibe/lsyncd/blob/42413cabbedca429d55a5378f6e830f191f3cc86/INSTALL#L51
   cmakeFlags = lib.optionals stdenv.isDarwin [
     "-DWITH_INOTIFY=OFF"
     "-DWITH_FSEVENTS=ON"

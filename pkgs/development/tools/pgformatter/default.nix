@@ -22,7 +22,7 @@ perlPackages.buildPerlPackage rec {
 
   makeMakerFlags = [ "INSTALLDIRS=vendor" ];
 
-    # Avoid creating perllocal.pod, which contains a timestamp
+  # Avoid creating perllocal.pod, which contains a timestamp
   installTargets = [ "pure_install" ];
 
   patches =
@@ -35,7 +35,7 @@ perlPackages.buildPerlPackage rec {
       })
     ];
 
-    # Makefile.PL only accepts DESTDIR and INSTALLDIRS, but we need to set more to make this work for NixOS.
+  # Makefile.PL only accepts DESTDIR and INSTALLDIRS, but we need to set more to make this work for NixOS.
   patchPhase = ''
     substituteInPlace pg_format \
       --replace "#!/usr/bin/env perl" "#!/usr/bin/perl"

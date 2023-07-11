@@ -32,10 +32,10 @@ let
     sha256 = "1nhkzzy9pklgjcq2yg89d3l18jif331srd3z3vhy5qwxl1spv6i9";
   };
 
-    # iconv tool, implemented by musl author.
-    # Original: http://git.etalabs.net/cgit/noxcuse/plain/src/iconv.c?id=02d288d89683e99fd18fe9f54d4e731a6c474a4f
-    # We use copy from Alpine which fixes error messages, see:
-    # https://git.alpinelinux.org/aports/commit/main/musl/iconv.c?id=a3d97e95f766c9c378194ee49361b375f093b26f
+  # iconv tool, implemented by musl author.
+  # Original: http://git.etalabs.net/cgit/noxcuse/plain/src/iconv.c?id=02d288d89683e99fd18fe9f54d4e731a6c474a4f
+  # We use copy from Alpine which fixes error messages, see:
+  # https://git.alpinelinux.org/aports/commit/main/musl/iconv.c?id=a3d97e95f766c9c378194ee49361b375f093b26f
   iconv_c = fetchurl {
     name = "iconv.c";
     url =
@@ -51,7 +51,6 @@ let
     else
       null
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "musl";
@@ -64,12 +63,12 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # Disable auto-adding stack protector flags,
-    # so musl can selectively disable as needed
+  # Disable auto-adding stack protector flags,
+  # so musl can selectively disable as needed
   hardeningDisable = [ "stackprotector" ];
 
-    # Leave these, be friendlier to debuggers/perf tools
-    # Don't force them on, but don't force off either
+  # Leave these, be friendlier to debuggers/perf tools
+  # Don't force them on, but don't force off either
   postPatch = ''
     substituteInPlace configure \
       --replace -fno-unwind-tables "" \

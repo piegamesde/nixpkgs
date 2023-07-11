@@ -27,8 +27,8 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "maxima";
-    # old version temporarily kept for sage due to
-    # https://github.com/sagemath/sage/issues/33718
+  # old version temporarily kept for sage due to
+  # https://github.com/sagemath/sage/issues/33718
   version = "5.45.1";
 
   src = fetchurl {
@@ -102,18 +102,18 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # The test suite is disabled since 5.42.2 because of the following issues:
-    #
-    #   Error(s) found:
-    #   /build/maxima-5.44.0/share/linearalgebra/rtest_matrixexp.mac problems:
-    #   (20 21 22)
-    #   Tests that were expected to fail but passed:
-    #   /build/maxima-5.44.0/share/vector/rtest_vect.mac problem:
-    #   (19)
-    #   3 tests failed out of 16,184 total tests.
-    #
-    # These failures don't look serious. It would be nice to fix them, but I
-    # don't know how and probably won't have the time to find out.
+  # The test suite is disabled since 5.42.2 because of the following issues:
+  #
+  #   Error(s) found:
+  #   /build/maxima-5.44.0/share/linearalgebra/rtest_matrixexp.mac problems:
+  #   (20 21 22)
+  #   Tests that were expected to fail but passed:
+  #   /build/maxima-5.44.0/share/vector/rtest_vect.mac problem:
+  #   (19)
+  #   3 tests failed out of 16,184 total tests.
+  #
+  # These failures don't look serious. It would be nice to fix them, but I
+  # don't know how and probably won't have the time to find out.
   doCheck = false; # try to re-enable after next version update
 
   enableParallelBuilding = true;

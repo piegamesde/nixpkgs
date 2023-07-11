@@ -49,9 +49,9 @@ let
         default = null;
       };
 
-        # Note: It does not make sense to provide a way to declaratively
-        # set an authentication cookie, because they have to be requested
-        # for every new connection and would only work once.
+      # Note: It does not make sense to provide a way to declaratively
+      # set an authentication cookie, because they have to be requested
+      # for every new connection and would only work once.
       passwordFile = mkOption {
         description = lib.mdDoc ''
           File containing the password to authenticate with. This

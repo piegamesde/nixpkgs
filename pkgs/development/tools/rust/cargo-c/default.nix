@@ -16,10 +16,8 @@ rustPlatform.buildRustPackage rec {
   version = "0.9.13";
 
   src = fetchCrate {
-    inherit
-      pname
-      ;
-      # this version may need to be updated along with package version
+    inherit pname;
+    # this version may need to be updated along with package version
     version = "${version}+cargo-0.65";
     sha256 = "sha256-f/p+ZIvDe9JQ8GM82SEud7sRTlimNs/ADPevfdkhsfg=";
   };
@@ -42,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     ]
     ;
 
-    # Ensure that we are avoiding build of the curl vendored in curl-sys
+  # Ensure that we are avoiding build of the curl vendored in curl-sys
   doInstallCheck = stdenv.hostPlatform.libc == "glibc";
   installCheckPhase = ''
     runHook preInstallCheck

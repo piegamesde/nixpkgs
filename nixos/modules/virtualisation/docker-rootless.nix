@@ -14,8 +14,8 @@ let
   settingsFormat = pkgs.formats.json { };
   daemonSettingsFile =
     settingsFormat.generate "daemon.json" cfg.daemon.settings;
-
 in
+
 {
   ###### interface
 
@@ -62,7 +62,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
@@ -73,11 +73,11 @@ in
       fi
     '';
 
-      # Taken from https://github.com/moby/moby/blob/master/contrib/dockerd-rootless-setuptool.sh
+    # Taken from https://github.com/moby/moby/blob/master/contrib/dockerd-rootless-setuptool.sh
     systemd.user.services.docker = {
       wantedBy = [ "default.target" ];
       description = "Docker Application Container Engine (Rootless)";
-        # needs newuidmap from pkgs.shadow
+      # needs newuidmap from pkgs.shadow
       path = [ "/run/wrappers" ];
       environment = proxy_env;
       unitConfig = {
@@ -103,5 +103,4 @@ in
       };
     };
   };
-
 }

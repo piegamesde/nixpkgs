@@ -56,7 +56,7 @@ buildPythonPackage rec {
     webtest
   ];
 
-    # from tox.ini, tests don't work with pytest
+  # from tox.ini, tests don't work with pytest
   checkPhase = ''
     nosetests wsme/tests tests/pecantest tests/test_sphinxext.py tests/test_flask.py --verbose
   '';

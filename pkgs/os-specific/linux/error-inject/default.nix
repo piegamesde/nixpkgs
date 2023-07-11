@@ -59,7 +59,7 @@
       flex
     ];
 
-      # how is this necessary?
+    # how is this necessary?
     makeFlags = [ "DESTDIR=${placeholder "out"}" ];
 
     postInstall = ''

@@ -40,7 +40,6 @@ let
       };
     }
     ;
-
 in
 {
   pretendard = mkPretendard {

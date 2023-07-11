@@ -13,7 +13,7 @@
   glib,
   gtk3,
   extraOptions ? [ ] # E.g.: [ "--verbose" ]
-    # Used by the NixOS module:
+  # Used by the NixOS module:
   ,
   isNixOS ? false
 
@@ -63,7 +63,7 @@ symlinkJoin {
     gtk3
   ];
 
-    # We want to run wrapProgram manually
+  # We want to run wrapProgram manually
   dontWrapGApps = true;
 
   postBuild = ''

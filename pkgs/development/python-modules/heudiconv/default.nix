@@ -21,11 +21,8 @@ buildPythonPackage rec {
   disabled = isPy27;
 
   src = fetchPypi {
-    inherit
-      pname
-      version
-      ;
-      #sha256 = "0gzqqa4pzhywdbvks2qjniwhr89sgipl5k7h9hcjs7cagmy9gb05";
+    inherit pname version;
+    #sha256 = "0gzqqa4pzhywdbvks2qjniwhr89sgipl5k7h9hcjs7cagmy9gb05";
     sha256 = "sha256-cYr74mw7tXRJRr8rXlu1UMZuU3YXXfDzhuc+vaa+7PQ=";
   };
 
@@ -50,8 +47,8 @@ buildPythonPackage rec {
     mock
   ];
 
-    # test_monitor and test_dlad require 'inotify' and 'datalad' respectively,
-    # and these aren't in Nixpkgs
+  # test_monitor and test_dlad require 'inotify' and 'datalad' respectively,
+  # and these aren't in Nixpkgs
   checkPhase = "pytest -k 'not test_dlad and not test_monitor' heudiconv/tests";
 
   meta = with lib; {

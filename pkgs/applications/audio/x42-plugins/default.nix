@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     zita-convolver
   ];
 
-    # Don't remove this. The default fails with 'do not know how to unpack source archive'
-    # every now and then on Hydra. No idea why.
+  # Don't remove this. The default fails with 'do not know how to unpack source archive'
+  # every now and then on Hydra. No idea why.
   unpackPhase = ''
     tar xf $src
     sourceRoot=$(echo x42-plugins-*)

@@ -141,15 +141,15 @@ buildPythonPackage rec {
       --replace "intbitset >= 2.3.0,  < 3.0" "intbitset"
   '';
 
-    # Importing scancode needs a writeable home, and preCheck happens in between
-    # pythonImportsCheckPhase and pytestCheckPhase.
+  # Importing scancode needs a writeable home, and preCheck happens in between
+  # pythonImportsCheckPhase and pytestCheckPhase.
   postInstall = ''
     export HOME=$(mktemp -d)
   '';
 
   pythonImportsCheck = [ "scancode" ];
 
-    # takes a long time and doesn't appear to do anything
+  # takes a long time and doesn't appear to do anything
   dontStrip = true;
 
   meta = with lib; {

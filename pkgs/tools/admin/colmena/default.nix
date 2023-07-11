@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
         --fish <($out/bin/colmena gen-completions fish)
     '';
 
-    # Recursive Nix is not stable yet
+  # Recursive Nix is not stable yet
   doCheck = false;
 
   passthru = {

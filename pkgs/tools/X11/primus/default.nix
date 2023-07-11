@@ -43,7 +43,6 @@ let
       ]
     )
   );
-
 in
 writeScriptBin "primusrun" ''
   #!${runtimeShell}

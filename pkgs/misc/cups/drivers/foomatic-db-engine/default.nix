@@ -42,18 +42,21 @@ perlPackages.buildPerlPackage rec {
 
   buildInputs =
     # provide some "cups-*" commands to `foomatic-{configure,printjob}`
-    # so that they can manage a local cups server (add queues, add jobs...)
-    lib.optionals withCupsAccess [
-      cups
-      cups-filters
-      curl
-    ]
+      # so that they can manage a local cups server (add queues, add jobs...)
+      lib.optionals
+      withCupsAccess
+      [
+        cups
+        cups-filters
+        curl
+      ]
     # the commands `foomatic-{configure,getpjloptions}` need
     # netcat if they are used to query or alter a network
     # printer via AppSocket/HP JetDirect protocol
     ++ lib.optional withSocketAccess netcat-gnu
-      # `foomatic-configure` can be used to access printers that are
-      # shared via the SMB protocol, but it needs the `smbclient` binary
+    # the commands `foomatic-{configure,getpjloptions}` need
+    # netcat if they are used to query or alter a network
+    # printer via AppSocket/HP JetDirect protocol
     ++ lib.optional withSMBAccess samba
     ;
 
@@ -64,8 +67,8 @@ perlPackages.buildPerlPackage rec {
     makeWrapper
   ];
 
-    # sed-substitute indirection is more robust against
-    # characters in paths that might need escaping
+  # sed-substitute indirection is more robust against
+  # characters in paths that might need escaping
   prePatch = ''
     sed -Ei 's|^(S?BINSEARCHPATH=).+$|\1"@PATH@"|g' configure.ac
     substituteInPlace configure.ac --subst-var PATH

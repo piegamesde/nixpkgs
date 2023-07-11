@@ -14,12 +14,10 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "ldm";
-  inherit
-    version
-    ;
+  inherit version;
 
-    # There is a stable release, but we'll use the lvm branch, which
-    # contains important fixes for LVM setups.
+  # There is a stable release, but we'll use the lvm branch, which
+  # contains important fixes for LVM setups.
   src = fetchgit {
     url = "https://github.com/LemonBoy/ldm";
     rev = "refs/tags/v${version}";

@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-    # The -Xmx1000M comes suggested from their download page:
-    # https://www.cs.waikato.ac.nz/ml/weka/downloading.html
+  # The -Xmx1000M comes suggested from their download page:
+  # https://www.cs.waikato.ac.nz/ml/weka/downloading.html
   installPhase = ''
     mkdir -pv $out/share/weka
     cp -Rv * $out/share/weka

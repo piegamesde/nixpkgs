@@ -135,11 +135,11 @@ let
           ''
         ;
 
-        # As documented at https://github.com/NixOS/nixpkgs/issues/172752,
-        # we need to set LC_ALL to an UTF-8-supporting locale. However, on
-        # darwin, it seems that there is no standard such locale; luckily,
-        # the referenced issue doesn't seem to surface on darwin. Hence let's
-        # set this only on non-darwin.
+      # As documented at https://github.com/NixOS/nixpkgs/issues/172752,
+      # we need to set LC_ALL to an UTF-8-supporting locale. However, on
+      # darwin, it seems that there is no standard such locale; luckily,
+      # the referenced issue doesn't seem to surface on darwin. Hence let's
+      # set this only on non-darwin.
       LC_ALL = lib.optionalString (!stdenv.isDarwin) "C.UTF-8";
 
       meta =
@@ -149,7 +149,7 @@ let
           meta
         ;
 
-        # Retrieve all packages from the finished package set that have the current package as a dependency and build them
+      # Retrieve all packages from the finished package set that have the current package as a dependency and build them
       passthru.tests = with builtins;
         lib.filterAttrs
         (

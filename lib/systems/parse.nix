@@ -34,8 +34,8 @@ let
       setType type.name ({ inherit name; } // value)
     )
     ;
-
 in
+
 rec {
 
   ################################################################################
@@ -53,9 +53,9 @@ rec {
     littleEndian = { };
   };
 
-    ################################################################################
+  ################################################################################
 
-    # Reasonable power of 2
+  # Reasonable power of 2
   types.bitWidth = enum [
     8
     16
@@ -64,7 +64,7 @@ rec {
     128
   ];
 
-    ################################################################################
+  ################################################################################
 
   types.openCpuType = mkOptionType {
     name = "cpu-type";
@@ -382,7 +382,7 @@ rec {
       };
     };
 
-    # GNU build systems assume that older NetBSD architectures are using a.out.
+  # GNU build systems assume that older NetBSD architectures are using a.out.
   gnuNetBSDDefaultExecFormat =
     cpu:
     if
@@ -404,22 +404,22 @@ rec {
       execFormats.elf
     ;
 
-    # Determine when two CPUs are compatible with each other. That is,
-    # can code built for system B run on system A? For that to happen,
-    # the programs that system B accepts must be a subset of the
-    # programs that system A accepts.
-    #
-    # We have the following properties of the compatibility relation,
-    # which must be preserved when adding compatibility information for
-    # additional CPUs.
-    # - (reflexivity)
-    #   Every CPU is compatible with itself.
-    # - (transitivity)
-    #   If A is compatible with B and B is compatible with C then A is compatible with C.
-    #
-    # Note: Since 22.11 the archs of a mode switching CPU are no longer considered
-    # pairwise compatible. Mode switching implies that binaries built for A
-    # and B respectively can't be executed at the same time.
+  # Determine when two CPUs are compatible with each other. That is,
+  # can code built for system B run on system A? For that to happen,
+  # the programs that system B accepts must be a subset of the
+  # programs that system A accepts.
+  #
+  # We have the following properties of the compatibility relation,
+  # which must be preserved when adding compatibility information for
+  # additional CPUs.
+  # - (reflexivity)
+  #   Every CPU is compatible with itself.
+  # - (transitivity)
+  #   If A is compatible with B and B is compatible with C then A is compatible with C.
+  #
+  # Note: Since 22.11 the archs of a mode switching CPU are no longer considered
+  # pairwise compatible. Mode switching implies that binaries built for A
+  # and B respectively can't be executed at the same time.
   isCompatible =
     a: b:
     with cpuTypes;
@@ -427,79 +427,55 @@ rec {
       # x86
       (b == i386 && isCompatible a i486)
       (b == i486 && isCompatible a i586)
-      (
-        b == i586 && isCompatible a i686
-      )
+      (b == i586 && isCompatible a i686)
 
       # XXX: Not true in some cases. Like in WSL mode.
-      (
-        b == i686 && isCompatible a x86_64
-      )
+      (b == i686 && isCompatible a x86_64)
 
       # ARMv4
-      (
-        b == arm && isCompatible a armv5tel
-      )
+      (b == arm && isCompatible a armv5tel)
 
       # ARMv5
-      (
-        b == armv5tel && isCompatible a armv6l
-      )
+      (b == armv5tel && isCompatible a armv6l)
 
       # ARMv6
       (b == armv6l && isCompatible a armv6m)
-      (
-        b == armv6m && isCompatible a armv7l
-      )
+      (b == armv6m && isCompatible a armv7l)
 
       # ARMv7
       (b == armv7l && isCompatible a armv7a)
       (b == armv7l && isCompatible a armv7r)
-      (
-        b == armv7l && isCompatible a armv7m
-      )
+      (b == armv7l && isCompatible a armv7m)
 
       # ARMv8
       (b == aarch64 && a == armv8a)
       (b == armv8a && isCompatible a aarch64)
       (b == armv8r && isCompatible a armv8a)
-      (
-        b == armv8m && isCompatible a armv8a
-      )
+      (b == armv8m && isCompatible a armv8a)
 
       # PowerPC
       (b == powerpc && isCompatible a powerpc64)
-      (
-        b == powerpcle && isCompatible a powerpc64le
-      )
+      (b == powerpcle && isCompatible a powerpc64le)
 
       # MIPS
       (b == mips && isCompatible a mips64)
-      (
-        b == mipsel && isCompatible a mips64el
-      )
+      (b == mipsel && isCompatible a mips64el)
 
       # RISCV
-      (
-        b == riscv32 && isCompatible a riscv64
-      )
+      (b == riscv32 && isCompatible a riscv64)
 
       # SPARC
-      (
-        b == sparc && isCompatible a sparc64
-      )
+      (b == sparc && isCompatible a sparc64)
 
       # WASM
-      (
-        b == wasm32 && isCompatible a wasm64
-      )
+      (b == wasm32 && isCompatible a wasm64)
 
       # identity
       (b == a)
     ]
     ;
 
-    ################################################################################
+  ################################################################################
 
   types.openVendor = mkOptionType {
     name = "vendor";
@@ -512,15 +488,15 @@ rec {
   vendors = setTypes types.openVendor {
     apple = { };
     pc = { };
-      # Actually matters, unlocking some MinGW-w64-specific options in GCC. See
-      # bottom of https://sourceforge.net/p/mingw-w64/wiki2/Unicode%20apps/
+    # Actually matters, unlocking some MinGW-w64-specific options in GCC. See
+    # bottom of https://sourceforge.net/p/mingw-w64/wiki2/Unicode%20apps/
     w64 = { };
 
     none = { };
     unknown = { };
   };
 
-    ################################################################################
+  ################################################################################
 
   types.openExecFormat = mkOptionType {
     name = "exec-format";
@@ -540,7 +516,7 @@ rec {
     unknown = { };
   };
 
-    ################################################################################
+  ################################################################################
 
   types.openKernelFamily = mkOptionType {
     name = "exec-format";
@@ -555,7 +531,7 @@ rec {
     darwin = { };
   };
 
-    ################################################################################
+  ################################################################################
 
   types.openKernel = mkOptionType {
     name = "kernel";
@@ -584,9 +560,9 @@ rec {
         execFormat = macho;
         families = { inherit darwin; };
       };
-        # A tricky thing about FreeBSD is that there is no stable ABI across
-        # versions. That means that putting in the version as part of the
-        # config string is paramount.
+      # A tricky thing about FreeBSD is that there is no stable ABI across
+      # versions. That means that putting in the version as part of the
+      # config string is paramount.
       freebsd12 = {
         execFormat = elf;
         families = { inherit bsd; };
@@ -651,7 +627,7 @@ rec {
       win32 = kernels.windows;
     };
 
-    ################################################################################
+  ################################################################################
 
   types.openAbi = mkOptionType {
     name = "abi";
@@ -665,13 +641,13 @@ rec {
     cygnus = { };
     msvc = { };
 
-      # Note: eabi is specific to ARM and PowerPC.
-      # On PowerPC, this corresponds to PPCEABI.
-      # On ARM, this corresponds to ARMEABI.
+    # Note: eabi is specific to ARM and PowerPC.
+    # On PowerPC, this corresponds to PPCEABI.
+    # On ARM, this corresponds to ARMEABI.
     eabi = { float = "soft"; };
     eabihf = { float = "hard"; };
 
-      # Other architectures should use ELF in embedded situations.
+    # Other architectures should use ELF in embedded situations.
     elf = { };
 
     androideabi = { };
@@ -705,9 +681,9 @@ rec {
     gnuabi64 = { abi = "64"; };
     muslabi64 = { abi = "64"; };
 
-      # NOTE: abi=n32 requires a 64-bit MIPS chip!  That is not a typo.
-      # It is basically the 64-bit abi with 32-bit pointers.  Details:
-      # https://www.linux-mips.org/pub/linux/mips/doc/ABI/MIPS-N32-ABI-Handbook.pdf
+    # NOTE: abi=n32 requires a 64-bit MIPS chip!  That is not a typo.
+    # It is basically the 64-bit abi with 32-bit pointers.  Details:
+    # https://www.linux-mips.org/pub/linux/mips/doc/ABI/MIPS-N32-ABI-Handbook.pdf
     gnuabin32 = { abi = "n32"; };
     muslabin32 = { abi = "n32"; };
 
@@ -725,7 +701,7 @@ rec {
     unknown = { };
   };
 
-    ################################################################################
+  ################################################################################
 
   types.parsedPlatform = mkOptionType {
     name = "system";
@@ -774,10 +750,10 @@ rec {
             kernel = "windows";
             abi = "cygnus";
           }
-          # MSVC ought to be the default ABI so this case isn't needed. But then it
-          # becomes difficult to handle the gnu* variants for Aarch32 correctly for
-          # minGW. So it's easier to make gnu* the default for the MinGW, but
-          # hack-in MSVC for the non-MinGW case right here.
+        # MSVC ought to be the default ABI so this case isn't needed. But then it
+        # becomes difficult to handle the gnu* variants for Aarch32 correctly for
+        # minGW. So it's easier to make gnu* the default for the MinGW, but
+        # hack-in MSVC for the non-MinGW case right here.
         else if elemAt l 1 == "windows" then
           {
             cpu = elemAt l 0;
@@ -814,7 +790,7 @@ rec {
             abi = elemAt l 2;
             vendor = "unknown";
           }
-          # cpu-vendor-os
+        # cpu-vendor-os
         else if
           elemAt l 1 == "apple"
           || elem (elemAt l 2) [
@@ -852,12 +828,13 @@ rec {
       "system string has invalid number of hyphen-separated components")
     ;
 
-    # This should revert the job done by config.guess from the gcc compiler.
+  # This should revert the job done by config.guess from the gcc compiler.
   mkSystemFromSkeleton =
     {
       cpu, # Optional, but fallback too complex for here.
       # Inferred below instead.
-      vendor ? assert false; null,
+      vendor ? assert false;
+        null,
       kernel, # Also inferred below
       abi ? assert false; null
     }@args:
@@ -896,7 +873,7 @@ rec {
                 abis.gnueabihf
               else
                 abis.gnueabi
-                # Default ppc64 BE to ELFv2
+            # Default ppc64 BE to ELFv2
             else if isPower64 parsed && isBigEndian parsed then
               abis.gnuabielfv2
             else
@@ -905,7 +882,6 @@ rec {
             abis.unknown
           ;
       };
-
     in
     mkSystem parsed
     ;
@@ -951,6 +927,5 @@ rec {
     "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}"
     ;
 
-    ################################################################################
-
+  ################################################################################
 }

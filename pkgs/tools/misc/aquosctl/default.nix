@@ -32,4 +32,3 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
   };
 }
-

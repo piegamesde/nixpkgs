@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-    # no tests via pypi sdist
+  # no tests via pypi sdist
   src = fetchFromGitHub {
     owner = "p1c2u";
     repo = pname;

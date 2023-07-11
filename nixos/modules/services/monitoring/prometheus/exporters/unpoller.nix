@@ -24,7 +24,6 @@ let
       inherit (cfg) loki;
     }
   );
-
 in
 {
   port = 9130;

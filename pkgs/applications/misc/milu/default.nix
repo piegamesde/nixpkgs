@@ -47,4 +47,3 @@ stdenv.mkDerivation {
     maintainers = [ lib.maintainers.vrthra ];
   };
 }
-

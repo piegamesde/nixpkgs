@@ -9,7 +9,7 @@ mkDerivation rec {
   pname = "nota";
   version = "1.0";
 
-    # Can't use fetchFromGitLab since codes.kary.us doesn't support https
+  # Can't use fetchFromGitLab since codes.kary.us doesn't support https
   src = fetchurl {
     url =
       "http://codes.kary.us/nota/nota/-/archive/V${version}/nota-V${version}.tar.bz2";

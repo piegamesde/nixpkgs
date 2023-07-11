@@ -14,7 +14,8 @@
 #  -  Included plugins depenencies: dot, ditaa, dia, any other?
 #  -  pyxdg: Need to make it work first (see setupPyInstallFlags).
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication
+rec {
   pname = "zim";
   version = "0.75.1";
 
@@ -45,7 +46,7 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-    # RuntimeError: could not create GtkClipboard object
+  # RuntimeError: could not create GtkClipboard object
   doCheck = false;
 
   checkPhase = ''

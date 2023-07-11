@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GQQFwlJNfdsi0GvDRMIorUnlbXrgbYl9H9aBedOm+ZQ=";
   };
 
-    # QLibrary and dlopen work with LD_LIBRARY_PATH
+  # QLibrary and dlopen work with LD_LIBRARY_PATH
   patches = [ ./dont_use_libPath.diff ];
 
   postPatch = ''

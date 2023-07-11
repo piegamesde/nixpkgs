@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-lgKYVgJlmUJ/msdIqG7EKAZuISie1lG7+VeCF/rcSlE=";
 
-    # Would need files to scan which are not shipped by the project
+  # Would need files to scan which are not shipped by the project
   doCheck = false;
 
   meta = with lib; {

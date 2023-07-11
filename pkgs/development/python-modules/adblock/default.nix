@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-    # Pypi only has binary releases
+  # Pypi only has binary releases
   src = fetchFromGitHub {
     owner = "ArniDagur";
     repo = "python-adblock";

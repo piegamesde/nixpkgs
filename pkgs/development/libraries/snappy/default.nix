@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # See https://github.com/NixOS/nixpkgs/pull/219778#issuecomment-1464884412
-    # and https://github.com/NixOS/nixpkgs/pull/221215#issuecomment-1482564003.
+  # See https://github.com/NixOS/nixpkgs/pull/219778#issuecomment-1464884412
+  # and https://github.com/NixOS/nixpkgs/pull/221215#issuecomment-1482564003.
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-Wno-sign-compare";
 
@@ -68,9 +68,9 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-    #checkTarget = "test";
+  #checkTarget = "test";
 
-    # requires gbenchmark and gtest but it also installs them out $dev
+  # requires gbenchmark and gtest but it also installs them out $dev
   doCheck = false;
 
   meta = with lib; {

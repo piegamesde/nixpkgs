@@ -14,7 +14,7 @@ let
     sha256 = "1m3jvgvqycig8ls4dgqglz8f0hphc0dmvi0v98xdcxqclkhz87nj"; # zen
     isLqx = false;
   };
-    # ./update-zen.py lqx
+  # ./update-zen.py lqx
   lqxVariant = {
     version = "6.2.14"; # lqx
     suffix = "lqx1"; # lqx
@@ -61,7 +61,6 @@ let
               " (Same as linux_zen but less aggressive release schedule)"
             ;
         };
-
       } // (
         args.argsOverride or { }
       )

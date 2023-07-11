@@ -24,8 +24,8 @@ buildGoModule rec {
   buildInputs = [ curl ];
 
   subPackages = [ "cmd/cameradar" ];
-    # At least one test is outdated
-    #doCheck = false;
+  # At least one test is outdated
+  #doCheck = false;
 
   meta = with lib; {
     description = "RTSP stream access tool";

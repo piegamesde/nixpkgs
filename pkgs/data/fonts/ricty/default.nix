@@ -48,4 +48,3 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.mikoim ];
   };
 }
-

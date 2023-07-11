@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-    # The tests requires astropy, which itself requires pytest-arraydiff
+  # The tests requires astropy, which itself requires pytest-arraydiff
   doCheck = false;
 
   pythonImportsCheck = [ "pytest_arraydiff" ];

@@ -74,11 +74,10 @@ let
         homepage = "https://www.un4seen.com/";
         license = licenses.unfreeRedistributable;
         platforms = builtins.attrNames bass.so;
-          # until upstream has stable URLs, this package is prone to always being broken
+        # until upstream has stable URLs, this package is prone to always being broken
         broken = true;
       };
     }
     ;
-
 in
 lib.mapAttrs dropBass allBass

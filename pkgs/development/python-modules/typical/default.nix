@@ -23,7 +23,7 @@ buildPythonPackage rec {
   version = "2.8.0";
   format = "pyproject";
 
-    # Support for typing-extensions >= 4.0.0 on Python < 3.10 is missing
+  # Support for typing-extensions >= 4.0.0 on Python < 3.10 is missing
   disabled = pythonOlder "3.10";
 
   src = fetchFromGitHub {

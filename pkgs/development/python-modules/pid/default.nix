@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ nose ];
 
-    # No tests included
+  # No tests included
   doCheck = false;
 
   meta = with lib; {
@@ -24,5 +24,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/trbs/pid/";
     license = licenses.asl20;
   };
-
 }

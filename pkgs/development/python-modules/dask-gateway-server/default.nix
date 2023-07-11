@@ -52,7 +52,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-    # Tests requires cluster for testing
+  # Tests requires cluster for testing
   doCheck = false;
 
   pythonImportsCheck = [ "dask_gateway_server" ];

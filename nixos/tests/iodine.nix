@@ -32,7 +32,7 @@ import ./make-test-python.nix (
             inherit domain;
           };
 
-            # test resource: accessible only via tunnel
+          # test resource: accessible only via tunnel
           services.openssh = {
             enable = true;
             openFirewall = false;
@@ -56,7 +56,6 @@ import ./make-test-python.nix (
           environment.systemPackages = [ pkgs.nagiosPluginsOfficial ];
         }
         ;
-
     };
 
     testScript = ''

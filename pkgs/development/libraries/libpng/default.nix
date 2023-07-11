@@ -16,7 +16,6 @@ let
     hash = "sha256-SsS26roAzeISxI22XLlCkQc/68oixcef2ocJFQLoDP0=";
   };
   whenPatched = lib.optionalString apngSupport;
-
 in
 stdenv.mkDerivation rec {
   pname = "libpng" + whenPatched "-apng";

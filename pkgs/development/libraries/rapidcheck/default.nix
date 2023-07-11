@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # Install the extras headers
+  # Install the extras headers
   postInstall = ''
     cp -r $src/extras $out
     chmod -R +w $out/extras

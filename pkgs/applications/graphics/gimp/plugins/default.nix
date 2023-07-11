@@ -18,8 +18,8 @@ let
     glib
     fetchFromGitHub
     ;
-
 in
+
 lib.makeScope pkgs.newScope (
   self:
 
@@ -71,7 +71,7 @@ lib.makeScope pkgs.newScope (
             )
             ;
 
-            # Override installation paths.
+          # Override installation paths.
           env = {
             PKG_CONFIG_GIMP_2_0_GIMPLIBDIR =
               "${placeholder "out"}/${gimp.targetLibDir}";
@@ -165,8 +165,8 @@ lib.makeScope pkgs.newScope (
       meta = with lib; {
         description = "The GIMP Animation Package";
         homepage = "https://www.gimp.org";
-          # The main code is given in GPLv3, but it has ffmpeg in it, and I think ffmpeg license
-          # falls inside "free".
+        # The main code is given in GPLv3, but it has ffmpeg in it, and I think ffmpeg license
+        # falls inside "free".
         license = with licenses; [
           gpl3
           free
@@ -360,9 +360,9 @@ lib.makeScope pkgs.newScope (
       };
     };
 
-      # =============== simple script files ====================
+    # =============== simple script files ====================
 
-      # also have a look at enblend-enfuse in all-packages.nix
+    # also have a look at enblend-enfuse in all-packages.nix
     exposureBlend = scriptDerivation {
       name = "exposure-blend";
       src = fetchurl {

@@ -33,6 +33,4 @@ buildPythonPackage rec {
     license = licenses.lgpl3;
     maintainers = with maintainers; [ psyanticy ];
   };
-
 }
-

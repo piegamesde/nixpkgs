@@ -103,12 +103,12 @@ in
           Restart = "always";
           RuntimeDirectory = "gmediarender";
 
-            # Security options:
+          # Security options:
           CapabilityBoundingSet = "";
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
           NoNewPrivileges = true;
-            # PrivateDevices = true;
+          # PrivateDevices = true;
           PrivateTmp = true;
           PrivateUsers = true;
           ProcSubset = "pid";

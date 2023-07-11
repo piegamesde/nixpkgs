@@ -63,10 +63,9 @@ stdenv.mkDerivation (
     inherit version src;
 
     pname =
-      prevName + lib.optionalString supportFlags.waylandSupport "-wayland"
-      ;
+      prevName + lib.optionalString supportFlags.waylandSupport "-wayland";
 
-      # Fixes "Compiler cannot create executables" building wineWow with mingwSupport
+    # Fixes "Compiler cannot create executables" building wineWow with mingwSupport
     strictDeps = true;
 
     nativeBuildInputs =
@@ -215,20 +214,19 @@ stdenv.mkDerivation (
         ]
       ;
 
-      # Wine locates a lot of libraries dynamically through dlopen().  Add
-      # them to the RPATH so that the user doesn't have to set them in
-      # LD_LIBRARY_PATH.
+    # Wine locates a lot of libraries dynamically through dlopen().  Add
+    # them to the RPATH so that the user doesn't have to set them in
+    # LD_LIBRARY_PATH.
     NIX_LDFLAGS = toString (
       map (path: "-rpath " + path) (
-        map (x: "${lib.getLib x}/lib") (
-          [ stdenv.cc.cc ] ++ buildInputs
-        )
+        map (x: "${lib.getLib x}/lib") ([ stdenv.cc.cc ] ++ buildInputs)
         # libpulsecommon.so is linked but not found otherwise
         ++ lib.optionals supportFlags.pulseaudioSupport (
           map (x: "${lib.getLib x}/lib/pulseaudio") (
             toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])
           )
         )
+        # libpulsecommon.so is linked but not found otherwise
         ++ lib.optionals supportFlags.waylandSupport (
           map (x: "${lib.getLib x}/share/wayland-protocols") (
             toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])
@@ -237,13 +235,13 @@ stdenv.mkDerivation (
       )
     );
 
-      # Don't shrink the ELF RPATHs in order to keep the extra RPATH
-      # elements specified above.
+    # Don't shrink the ELF RPATHs in order to keep the extra RPATH
+    # elements specified above.
     dontPatchELF = true;
 
-      ## FIXME
-      # Add capability to ignore known failing tests
-      # and enable doCheck
+    ## FIXME
+    # Add capability to ignore known failing tests
+    # and enable doCheck
     doCheck = false;
 
     postInstall =
@@ -285,8 +283,8 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
 
-      # https://bugs.winehq.org/show_bug.cgi?id=43530
-      # https://github.com/NixOS/nixpkgs/issues/31989
+    # https://bugs.winehq.org/show_bug.cgi?id=43530
+    # https://github.com/NixOS/nixpkgs/issues/31989
     hardeningDisable =
       [ "bindnow" ]
       ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify"

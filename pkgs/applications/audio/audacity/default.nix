@@ -61,7 +61,8 @@
 # TODO
 # 1. detach sbsms
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "audacity";
   version = "3.3.1";
 
@@ -175,18 +176,18 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR=lib"
   ];
 
-    # [ 57%] Generating LightThemeAsCeeCode.h...
-    # ../../utils/image-compiler: error while loading shared libraries:
-    # lib-theme.so: cannot open shared object file: No such file or directory
+  # [ 57%] Generating LightThemeAsCeeCode.h...
+  # ../../utils/image-compiler: error while loading shared libraries:
+  # lib-theme.so: cannot open shared object file: No such file or directory
   preBuild = ''
     export LD_LIBRARY_PATH=$PWD/Release/lib/audacity
   '';
 
   doCheck = false; # Test fails
 
-    # Replace audacity's wrapper, to:
-    # - put it in the right place, it shouldn't be in "$out/audacity"
-    # - Add the ffmpeg dynamic dependency
+  # Replace audacity's wrapper, to:
+  # - put it in the right place, it shouldn't be in "$out/audacity"
+  # - Add the ffmpeg dynamic dependency
   postInstall =
     lib.optionalString stdenv.isLinux ''
       wrapProgram "$out/bin/audacity" \

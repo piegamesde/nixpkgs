@@ -10,7 +10,7 @@ python3.pkgs.buildPythonApplication rec {
   pname = "zulip-term";
   version = "0.7.0";
 
-    # no tests on PyPI
+  # no tests on PyPI
   src = fetchFromGitHub {
     owner = "zulip";
     repo = "zulip-terminal";

@@ -31,7 +31,7 @@ lib.makeScope pkgs.newScope (
 
     libgnomecanvas = callPackage ./platform/libgnomecanvas { };
 
-      # for git-head builds
+    # for git-head builds
     gnome-common = callPackage platform/gnome-common { };
 
     gnome_mime_data = callPackage ./platform/gnome-mime-data { };
@@ -48,17 +48,13 @@ lib.makeScope pkgs.newScope (
 
     gtkglext = callPackage ./platform/gtkglext { };
 
-      #### DESKTOP
+    #### DESKTOP
 
     gtksourceview = callPackage ./desktop/gtksourceview {
       autoreconfHook = pkgs.autoreconfHook269;
     };
-
   } // lib.optionalAttrs config.allowAliases {
-    inherit
-      (
-        pkgs
-      )
+    inherit (pkgs)
       # GTK Libs
       glib
       glibmm

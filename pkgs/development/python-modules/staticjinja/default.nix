@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.6";
 
-    # No tests in pypi
+  # No tests in pypi
   src = fetchFromGitHub {
     owner = "staticjinja";
     repo = pname;
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     tomlkit
   ];
 
-    # The tests need to find and call the installed staticjinja executable
+  # The tests need to find and call the installed staticjinja executable
   preCheck = ''
     export PATH="$PATH:$out/bin";
   '';

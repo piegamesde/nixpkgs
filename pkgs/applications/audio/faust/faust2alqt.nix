@@ -12,5 +12,4 @@ faust.wrapWithBuildEnv {
     alsa-lib
     qt4
   ];
-
 }

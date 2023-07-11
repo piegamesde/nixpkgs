@@ -23,7 +23,7 @@ buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Rafficer";
     repo = "linux-cli-community";
-      # There is a tag and branch with the same name
+    # There is a tag and branch with the same name
     rev = "refs/tags/v${version}";
     sha256 = "sha256-CWQpisJPBXbf+d5tCGuxfSQQZBeF36WFF4b6OSUn3GY=";
   };
@@ -39,7 +39,7 @@ buildPythonApplication rec {
     iptables
   ];
 
-    # No tests
+  # No tests
   doCheck = false;
 
   meta = with lib; {

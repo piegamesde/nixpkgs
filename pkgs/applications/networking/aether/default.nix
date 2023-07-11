@@ -65,11 +65,11 @@ stdenv.mkDerivation rec {
     url =
       "https://static.getaether.net/Releases/Aether-${version}/2011262249.19338c93/linux/Aether-${version}%2B2011262249.19338c93.tar.gz";
     sha256 = "1hi8w83zal3ciyzg2m62shkbyh6hj7gwsidg3dn88mhfy68himf7";
-      # % in the url / canonical filename causes an error
+    # % in the url / canonical filename causes an error
     name = "aether-tarball.tar.gz";
   };
 
-    # there is no logo in the tarball so we grab it from github and convert it in the build phase
+  # there is no logo in the tarball so we grab it from github and convert it in the build phase
   buildPhase = ''
     convert ${aether-app-git}/aether-core/aether/client/src/app/ext_dep/images/Linux-Windows-App-Icon.png -resize 512x512 aether.png
   '';
@@ -181,10 +181,8 @@ stdenv.mkDerivation rec {
     downloadPage = "https://getaether.net/download/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [
-        maxhille
-      ];
-      # other platforms could be supported by building from source
+    maintainers = with maintainers; [ maxhille ];
+    # other platforms could be supported by building from source
     platforms = [ "x86_64-linux" ];
   };
 }

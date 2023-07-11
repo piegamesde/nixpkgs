@@ -23,8 +23,8 @@ let
       path = core + "/bin/retroarch-" + name;
     })
     cores;
-
 in
+
 stdenv.mkDerivation {
   pname = "kodi-retroarch-advanced-launchers";
   version = "0.2";

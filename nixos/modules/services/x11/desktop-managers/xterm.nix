@@ -11,8 +11,8 @@ let
 
   cfg = config.services.xserver.desktopManager.xterm;
   xSessionEnabled = config.services.xserver.enable;
-
 in
+
 {
   options = {
 
@@ -25,7 +25,6 @@ in
         ;
       description = lib.mdDoc "Enable a xterm terminal as a desktop manager.";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -39,7 +38,5 @@ in
     };
 
     environment.systemPackages = [ pkgs.xterm ];
-
   };
-
 }

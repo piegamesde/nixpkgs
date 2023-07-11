@@ -85,17 +85,14 @@ let
       license = licenses.gpl3Only;
       maintainers = with maintainers; [ ryantm ];
     };
-
   };
-
 in
-if
-  stdenv.isLinux
-then
-# buildFHSEnv is needed because the arduino-cli downloads compiler
-# toolchains from the internet that have their interpreters pointed at
-# /lib64/ld-linux-x86-64.so.2
-  buildFHSEnv {
+if stdenv.isLinux then
+  # buildFHSEnv is needed because the arduino-cli downloads compiler
+  # toolchains from the internet that have their interpreters pointed at
+  # /lib64/ld-linux-x86-64.so.2
+  buildFHSEnv
+  {
     inherit (pkg) name meta;
 
     runScript = "${pkg.outPath}/bin/arduino-cli";

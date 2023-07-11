@@ -7,17 +7,15 @@
   file,
   docbook_xsl,
   gtk-doc ? null,
-  buildDevDoc ? gtk-doc
-    != null
+  buildDevDoc ? gtk-doc != null
 
-      # for passthru.tests
+  # for passthru.tests
   ,
   gnuradio,
   gst_all_1,
   qt6,
-  vips
+  vips,
 
-  ,
 }:
 let
   inherit (lib) optional optionals;
@@ -66,7 +64,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/41
+  # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/41
   doCheck =
     !(
       stdenv.isLinux
@@ -85,8 +83,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The Oil Runtime Compiler";
     homepage = "https://gstreamer.freedesktop.org/projects/orc.html";
-      # The source code implementing the Marsenne Twister algorithm is licensed
-      # under the 3-clause BSD license. The rest is 2-clause BSD license.
+    # The source code implementing the Marsenne Twister algorithm is licensed
+    # under the 3-clause BSD license. The rest is 2-clause BSD license.
     license = with licenses; [
       bsd3
       bsd2

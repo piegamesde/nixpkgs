@@ -30,7 +30,7 @@ buildPythonPackage rec {
       --replace "--cov=pyweatherflowrest --cov-append" ""
   '';
 
-    # Module has no tests. test.py is a demo script
+  # Module has no tests. test.py is a demo script
   doCheck = false;
 
   pythonImportsCheck = [ "pyweatherflowrest" ];

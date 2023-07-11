@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ re2 ];
 
-    # no tests in PyPI tarball
+  # no tests in PyPI tarball
   doCheck = false;
 
   meta = {

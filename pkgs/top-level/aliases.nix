@@ -31,8 +31,8 @@ let
       alias
     ;
 
-    # Disabling distribution prevents top-level aliases for non-recursed package
-    # sets from building on Hydra.
+  # Disabling distribution prevents top-level aliases for non-recursed package
+  # sets from building on Hydra.
   removeDistribute =
     alias:
     with lib;
@@ -42,7 +42,7 @@ let
       alias
     ;
 
-    # Make sure that we are not shadowing something from all-packages.nix.
+  # Make sure that we are not shadowing something from all-packages.nix.
   checkInPkgs =
     n: alias:
     if builtins.hasAttr n super then
@@ -60,8 +60,8 @@ let
     )
     aliases
     ;
-
 in
+
 mapAliases ({
   # Added 2018-07-16 preserve, reason: forceSystem should not be used directly in Nixpkgs.
   forceSystem =
@@ -71,7 +71,7 @@ mapAliases ({
     "0x0 upstream is abandoned and no longer exists: https://gitlab.com/somasis/scripts/"
     ;
 
-    ### A ###
+  ### A ###
 
   accounts-qt = throw
     "'accounts-qt' has been renamed to/replaced by 'libsForQt5.accounts-qt'"
@@ -209,7 +209,7 @@ mapAliases ({
     "azureus is now known as vuze and the version in nixpkgs was really outdated"
     ; # Added 2021-08-02
 
-    ### B ###
+  ### B ###
 
   badtouch = authoscope; # Project was renamed, added 20210626
   baget = throw "'baget' has been removed due to being unmaintained";
@@ -309,12 +309,12 @@ mapAliases ({
   inherit (libsForQt5.mauiPackages) buho; # added 2022-05-17
   buttersink = throw "buttersink has been removed: abandoned by upstream"
     ; # Added 2022-04-05
-    # Shorter names; keep the longer name for back-compat. Added 2023-04-11
+  # Shorter names; keep the longer name for back-compat. Added 2023-04-11
   buildFHSUserEnv = buildFHSEnv;
   buildFHSUserEnvChroot = buildFHSEnvChroot;
   buildFHSUserEnvBubblewrap = buildFHSEnvBubblewrap;
 
-    # bitwarden_rs renamed to vaultwarden with release 1.21.0 (2021-04-30)
+  # bitwarden_rs renamed to vaultwarden with release 1.21.0 (2021-04-30)
   bitwarden_rs = vaultwarden;
   bitwarden_rs-mysql = vaultwarden-mysql;
   bitwarden_rs-postgresql = vaultwarden-postgresql;
@@ -341,10 +341,10 @@ mapAliases ({
     ; # Converted to throw 2022-02-22
   bunny =
     throw "bunny has been removed: deleted by upstream"; # Added 2022-01-07
-  bypass403 = throw "bypass403 has been removed: deleted by upstream"
-    ; # Added 2022-01-07
+  bypass403 =
+    throw "bypass403 has been removed: deleted by upstream"; # Added 2022-01-07
 
-    ### C ###
+  ### C ###
 
   c14 = throw "c14 is deprecated and archived by upstream"; # Added 2022-04-10
   caddy1 = throw
@@ -425,7 +425,7 @@ mapAliases ({
     ; # Added 2022-01-01
   crispyDoom = crispy-doom; # Added 2023-05-01
 
-    # these are for convenience, not for backward compat and shouldn't expire
+  # these are for convenience, not for backward compat and shouldn't expire
   clang5Stdenv = lowPrio llvmPackages_5.stdenv;
   clang6Stdenv = lowPrio llvmPackages_6.stdenv;
   clang7Stdenv = lowPrio llvmPackages_7.stdenv;
@@ -504,7 +504,7 @@ mapAliases ({
     ; # Added 2022-07-04
   ctl = throw "ctl has been removed: abandoned by upstream"; # Added 2022-05-13
 
-    # CUDA Toolkit
+  # CUDA Toolkit
   cudatoolkit_6 =
     throw "cudatoolkit_6 has been removed in favor of newer versions"
     ; # Added 2021-02-14
@@ -679,7 +679,7 @@ mapAliases ({
     ; # Converted to throw 2022-02-22
   cvs_fast_export = cvs-fast-export; # Added 2021-06-10
 
-    ### D ###
+  ### D ###
 
   d1x_rebirth =
     throw "'d1x_rebirth' has been renamed to/replaced by 'dxx-rebirth'"
@@ -812,7 +812,7 @@ mapAliases ({
     ; # Added 2021-02-07
   dylibbundler = macdylibbundler; # Added 2021-04-24
 
-    ### E ###
+  ### E ###
 
   eagle7 = throw
     "eagle7 has been removed because it did not support a supported openssl version"
@@ -841,7 +841,7 @@ mapAliases ({
     ; # Added 2022-10-04
   elasticsearch7Plugins = elasticsearchPlugins;
 
-    # Electron
+  # Electron
   electron_3 = throw "electron_3 has been removed in favor of newer versions"
     ; # added 2022-01-06
   electron_4 = throw "electron_4 has been removed in favor of newer versions"
@@ -861,7 +861,7 @@ mapAliases ({
 
   elixir_ls = elixir-ls; # Added 2023-03-20
 
-    # Emacs
+  # Emacs
   emacs28NativeComp = emacs28; # Added 2022-06-08
   emacs28Packages = emacs28.pkgs; # Added 2021-10-04
   emacs28WithPackages = emacs28.pkgs.withPackages; # Added 2021-10-04
@@ -924,7 +924,7 @@ mapAliases ({
   exfat-utils = throw "'exfat-utils' has been renamed to/replaced by 'exfat'"
     ; # Converted to throw 2022-02-22
 
-    ### F ###
+  ### F ###
 
   facette = throw "facette has been removed"; # Added 2020-01-06
   fast-neural-doodle = throw
@@ -1054,7 +1054,7 @@ mapAliases ({
     throw "fcitx-configtool is deprecated, please use fcitx5 instead."
     ; # Added 2023-03-13
 
-    ### G ###
+  ### G ###
 
   g4py = python3Packages.geant4; # Added 2020-06-06
   gaia = throw
@@ -1323,7 +1323,7 @@ mapAliases ({
     throw "gwtdragdrop was removed: abandoned by upstream"; # Added 2022-02-06
   gwtwidgets = throw "gwtwidgets was removed: unmaintained"; # Added 2022-02-06
 
-    ### H ###
+  ### H ###
 
   hal-flash =
     throw "hal-flash has been removed as Adobe Flash Player is now deprecated"
@@ -1372,7 +1372,7 @@ mapAliases ({
     "hyperspace-cli is out of date, and has been deprecated upstream in favour of using the individual repos instead"
     ; # Added 2022-08-29
 
-    ### I ###
+  ### I ###
 
   i3-gaps = i3; # Added 2023-01-03
   i3cat = throw
@@ -1447,10 +1447,10 @@ mapAliases ({
   ipsecTools = throw
     "ipsecTools has benn removed, because it was no longer maintained upstream"
     ; # Added 2021-12-15
-  itch-setup = throw "itch-setup has benn removed, use itch instead"
-    ; # Added 2022-06-02
+  itch-setup =
+    throw "itch-setup has benn removed, use itch instead"; # Added 2022-06-02
 
-    ### J ###
+  ### J ###
 
   jack2Full = jack2; # moved from top-level 2021-03-14
   jami-client-gnome =
@@ -1487,7 +1487,7 @@ mapAliases ({
     "journalbeat7 has been removed upstream. Use filebeat with the journald input instead"
     ; # Added 2022-10-04
 
-    # Julia
+  # Julia
   julia_07 =
     throw "julia_07 has been deprecated in favor of the latest LTS version"
     ; # Added 2020-09-15
@@ -1519,7 +1519,7 @@ mapAliases ({
     throw "graalvm8 and its tools were deprecated in favor of graalvm8-ce"
     ; # Added 2021-10-15
 
-    ### K ###
+  ### K ###
 
   k3d = throw
     "k3d has been removed because it was broken and has seen no release since 2016"
@@ -1605,7 +1605,7 @@ mapAliases ({
   kvm = throw "'kvm' has been renamed to/replaced by 'qemu_kvm'"
     ; # Converted to throw 2022-02-22
 
-    ### L ###
+  ### L ###
 
   lastfmsubmitd =
     throw "lastfmsubmitd was removed from nixpkgs as the project is abandoned"
@@ -1794,7 +1794,7 @@ mapAliases ({
     throw "linuxband has been removed from nixpkgs, as it's abandoned upstream"
     ; # Added 2021-12-09
 
-    # Linux kernels
+  # Linux kernels
   linux-rt_5_10 = linuxKernel.kernels.linux_rt_5_10;
   linux-rt_5_15 = linuxKernel.kernels.linux_rt_5_15;
   linux-rt_5_4 = linuxKernel.kernels.linux_rt_5_4;
@@ -1856,20 +1856,20 @@ mapAliases ({
     "linuxPackages_xanmod_tt was removed because upstream no longer offers this option"
     ; # Added 2022-11-01
 
-    # Added 2020-04-04
+  # Added 2020-04-04
   linuxPackages_testing_hardened = throw
     "linuxPackages_testing_hardened has been removed, please use linuxPackages_latest_hardened"
     ;
   linux_testing_hardened = throw
     "linux_testing_hardened has been removed, please use linux_latest_hardened";
 
-    # Added 2021-04-04
+  # Added 2021-04-04
   linuxPackages_xen_dom0 = linuxPackages;
   linuxPackages_latest_xen_dom0 = linuxPackages_latest;
   linuxPackages_xen_dom0_hardened = linuxPackages_hardened;
   linuxPackages_latest_xen_dom0_hardened = linuxPackages_latest_hardened;
 
-    # Added 2021-08-16
+  # Added 2021-08-16
   linuxPackages_latest_hardened = throw ''
     The attribute `linuxPackages_hardened_latest' was dropped because the hardened patches
     frequently lag behind the upstream kernel. In some cases this meant that this attribute
@@ -1931,7 +1931,7 @@ mapAliases ({
     ; # Added 2020-06-03
   lzma = xz; # moved from top-level 2021-03-14
 
-    ### M ###
+  ### M ###
 
   m3d-linux = throw "'m3d-linux' has been renamed to/replaced by 'm33-linux'"
     ; # Converted to throw 2022-02-22
@@ -2081,8 +2081,8 @@ mapAliases ({
   mysql57 =
     throw "'mysql57' has been removed. Please use 'mysql80' or 'mariadb'";
 
-    # floating point textures patents are expired,
-    # so package reduced to alias
+  # floating point textures patents are expired,
+  # so package reduced to alias
   mesa_drivers = mesa.drivers;
   mesa_noglu = throw "'mesa_noglu' has been renamed to/replaced by 'mesa'"
     ; # Converted to throw 2022-02-22
@@ -2113,7 +2113,7 @@ mapAliases ({
     "Myxer has been removed from nixpkgs, as it has been unmaintained since Jul 31, 2021"
     ; # Added 2022-06-08
 
-    ### N ###
+  ### N ###
 
   ncdu_2 = ncdu; # Added 2022-07-22
   nccl = throw "nccl has been renamed to cudaPackages.nccl"; # Added 2022-04-04
@@ -2229,7 +2229,7 @@ mapAliases ({
   nxproxy = throw "'nxproxy' has been renamed to/replaced by 'nx-libs'"
     ; # Converted to throw 2022-02-22
 
-    ### O ###
+  ### O ###
 
   o = orbiton; # Added 2023-04-09
   oathToolkit = oath-toolkit; # Added 2022-04-04
@@ -2311,7 +2311,7 @@ mapAliases ({
     throw "'owncloudclient' has been renamed to/replaced by 'owncloud-client'"
     ; # Converted to throw 2022-02-22
 
-    ### P ###
+  ### P ###
 
   PPSSPP = throw "'PPSSPP' has been renamed to/replaced by 'ppsspp'"
     ; # Converted to throw 2022-02-22
@@ -2391,10 +2391,10 @@ mapAliases ({
   phraseapp-client =
     throw "phraseapp-client is archived by upstream. Use phrase-cli instead"
     ; # Added 2022-05-15
-  phwmon = throw "phwmon has been removed: abandoned by upstream"
-    ; # Added 2022-04-24
+  phwmon =
+    throw "phwmon has been removed: abandoned by upstream"; # Added 2022-04-24
 
-    # Obsolete PHP version aliases
+  # Obsolete PHP version aliases
   php74 = throw
     "php74 has been dropped due to the lack of maintanence from upstream for future releases"
     ; # Added 2022-05-24
@@ -2523,7 +2523,7 @@ mapAliases ({
   powerdns = pdns; # Added 2022-03-28
   portaudio2014 = throw "'portaudio2014' has been removed"; # Added 2022-05-10
 
-    # postgresql
+  # postgresql
   postgresql96 = postgresql_9_6;
   postgresql_9_6 = throw
     "postgresql_9_6 has been removed from nixpkgs, as this version is no longer supported by upstream"
@@ -2532,7 +2532,7 @@ mapAliases ({
     "postgresql_10 has been removed from nixpkgs, as this version went EOL on 2022-11-10"
     ; # Added 2022-08-01
 
-    # postgresql plugins
+  # postgresql plugins
   cstore_fdw = postgresqlPackages.cstore_fdw;
   pg_cron = postgresqlPackages.pg_cron;
   pg_hll = postgresqlPackages.pg_hll;
@@ -2659,7 +2659,7 @@ mapAliases ({
   pythonFull = python2Full; # Added 2022-01-11
   pythonPackages = python.pkgs; # Added 2022-01-11
 
-    ### Q ###
+  ### Q ###
 
   QmidiNet = throw "'QmidiNet' has been renamed to/replaced by 'qmidinet'"
     ; # Converted to throw 2022-02-22
@@ -2713,7 +2713,7 @@ mapAliases ({
   qwt6 = throw "'qwt6' has been renamed to/replaced by 'libsForQt5.qwt'"
     ; # Converted to throw 2022-02-22
 
-    ### R ###
+  ### R ###
 
   radare2-cutter = cutter; # Added 2021-03-30
   railcar = throw
@@ -2803,14 +2803,14 @@ mapAliases ({
   rxvt_unicode = rxvt-unicode-unwrapped; # Added 2020-02-02
   rxvt_unicode-with-plugins = rxvt-unicode; # Added 2020-02-02
 
-    # The alias for linuxPackages*.rtlwifi_new is defined in ./all-packages.nix,
-    # due to it being inside the linuxPackagesFor function.
+  # The alias for linuxPackages*.rtlwifi_new is defined in ./all-packages.nix,
+  # due to it being inside the linuxPackagesFor function.
   rtlwifi_new-firmware = rtw88-firmware; # Added 2021-03-14
   rtw89-firmware = throw
     "rtw89-firmware has been removed because linux-firmware now contains it."
     ; # Added 2023-02-19
 
-    ### S ###
+  ### S ###
 
   s2n = s2n-tls; # Added 2021-03-03
   s3gof3r = throw
@@ -2922,7 +2922,7 @@ mapAliases ({
     "'solr' has been removed from nixpkgs, as it was broken and unmaintained"
     ; # Added 2023-03-16
 
-    # Added 2020-02-10
+  # Added 2020-02-10
   sourceHanSansPackages = {
     japanese = source-han-sans;
     korean = source-han-sans;
@@ -2981,7 +2981,7 @@ mapAliases ({
   spidermonkey_68 =
     throw "spidermonkey_68 has been removed. Please use spidermonkey_91 instead"
     ; # added 2022-01-04
-    # spidermonkey is not ABI upwards-compatible, so only allow this for nix-shell
+  # spidermonkey is not ABI upwards-compatible, so only allow this for nix-shell
   spidermonkey = spidermonkey_78; # Added 2020-10-09
   split2flac = throw
     "split2flac has been removed. Consider using the shnsplit command from shntool package or help packaging unflac."
@@ -3055,7 +3055,7 @@ mapAliases ({
   systool = throw "'systool' has been renamed to/replaced by 'sysfsutils'"
     ; # Converted to throw 2022-02-22
 
-    ### T ###
+  ### T ###
 
   tahoelafs = throw "'tahoelafs' has been renamed to/replaced by 'tahoe-lafs'"
     ; # Converted to throw 2022-02-22
@@ -3219,7 +3219,7 @@ mapAliases ({
     "Newer versions of typora use anti-user encryption and refuse to start. As such it has been removed"
     ; # Added 2021-09-11
 
-    ### U ###
+  ### U ###
 
   uade123 = uade; # Added 2022-07-30
   uberwriter = apostrophe; # Added 2020-04-23
@@ -3257,7 +3257,7 @@ mapAliases ({
   util-linuxCurses = util-linux; # Added 2022-04-12
   utillinux = util-linux; # Added 2020-11-24
 
-    ### V ###
+  ### V ###
 
   v4l_utils = v4l-utils; # Added 2019-08-07
   vamp = { vampSDK = vamp-plugin-sdk; }; # Added 2020-03-26
@@ -3316,11 +3316,9 @@ mapAliases ({
     throw "'vte_290' has been renamed to/replaced by 'vte'"; # Added 2023-01-05
   vtun = throw "vtune has been removed as it's unmaintained upstream"
     ; # Added 2021-10-29
-  inherit (libsForQt5.mauiPackages)
-    vvave
-    ; # added 2022-05-17
+  inherit (libsForQt5.mauiPackages) vvave; # added 2022-05-17
 
-    ### W ###
+  ### W ###
 
   wavesurfer = throw
     "wavesurfer has been removed: depended on snack which has been removed"
@@ -3407,7 +3405,7 @@ mapAliases ({
     "'wxcam' has seen no updates in ten years, crashes (SIGABRT) on startup and depends on deprecated wxGTK28/GNOME2/GTK2, use 'gnome.cheese'"
     ; # Added 2022-06-15
 
-    ### X ###
+  ### X ###
 
   x11 = throw "'x11' has been renamed to/replaced by 'xlibsWrapper'"
     ; # Converted to throw 2022-02-22
@@ -3466,7 +3464,7 @@ mapAliases ({
     ; # Added 2022-11-08
   xvfb_run = xvfb-run; # Added 2021-05-07
 
-    ### Y ###
+  ### Y ###
 
   yacc = bison; # moved from top-level 2021-03-14
   yafaray-core = libyafaray; # Added 2022-09-23
@@ -3487,7 +3485,7 @@ mapAliases ({
   yuzu-ea = yuzu-early-access; # Added 2022-08-18
   yuzu = yuzu-mainline; # Added 2021-01-25
 
-    ### Z ###
+  ### Z ###
 
   zabbix30 = throw
     "Zabbix 3.0.x is end of life, see https://www.zabbix.com/documentation/5.0/manual/installation/upgrade/sources for a direct upgrade path to 5.0.x"
@@ -3503,8 +3501,8 @@ mapAliases ({
   zq = zed.overrideAttrs (old: { meta = old.meta // { mainProgram = "zq"; }; })
     ; # Added 2023-02-06
 
-    # TODO(ekleog): add ‘wasm’ alias to ‘ocamlPackages.wasm’ after 19.03
-    # branch-off
+  # TODO(ekleog): add ‘wasm’ alias to ‘ocamlPackages.wasm’ after 19.03
+  # branch-off
 
   ocamlPackages_latest = throw
     "'ocamlPackages_latest' has been renamed to/replaced by 'ocaml-ng.ocamlPackages_latest'"
@@ -3552,10 +3550,10 @@ mapAliases ({
     https://www.zabbix.com/documentation/current/manual/installation/upgrade_notes_500
   ''; # Added 2020-08-17
 
-    # Added 2019-09-06
+  # Added 2019-09-06
   zeroc_ice = pkgs.zeroc-ice;
 
-    # Added 2020-06-22
+  # Added 2020-06-22
   zeromq3 = throw "zeromq3 has been deprecated by zeromq4";
   jzmq = throw "jzmq has been removed from nixpkgs, as it was unmaintained";
 
@@ -3618,13 +3616,9 @@ mapAliases ({
   zyn-fusion = zynaddsubfx; # Added 2022-08-05
 
   inherit (stdenv.hostPlatform) system; # Added 2021-10-22
-  inherit (stdenv)
-    buildPlatform
-    hostPlatform
-    targetPlatform
-    ; # Added 2023-01-09
+  inherit (stdenv) buildPlatform hostPlatform targetPlatform; # Added 2023-01-09
 
-    # LLVM packages for (integration) testing that should not be used inside Nixpkgs:
+  # LLVM packages for (integration) testing that should not be used inside Nixpkgs:
   llvmPackages_git = recurseIntoAttrs (
     callPackage ../development/compilers/llvm/git {
       inherit (stdenvAdapters) overrideCC;
@@ -3636,13 +3630,13 @@ mapAliases ({
     }
   );
 
-    # Added 2022-01-28
+  # Added 2022-01-28
   zeroc-ice-36 = throw "Unmaintained, doesn't build w/glibc-2.34";
 
-    /* If these are in the scope of all-packages.nix, they cause collisions
-       between mixed versions of qt. See:
-       https://github.com/NixOS/nixpkgs/pull/101369
-    */
+  /* If these are in the scope of all-packages.nix, they cause collisions
+     between mixed versions of qt. See:
+     https://github.com/NixOS/nixpkgs/pull/101369
+  */
 
   inherit (plasma5Packages)
     akonadi
@@ -3789,5 +3783,4 @@ mapAliases ({
     ;
 
   inherit (libsForQt5) sddm;
-
 })

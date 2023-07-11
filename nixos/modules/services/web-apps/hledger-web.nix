@@ -94,7 +94,6 @@ in
         Extra command line arguments to pass to hledger-web.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -151,7 +150,6 @@ in
         ];
       }
       ;
-
   };
 
   meta.maintainers = with lib.maintainers; [

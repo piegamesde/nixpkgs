@@ -21,8 +21,8 @@ buildGoModule rec {
 
   deleteVendor = true;
 
-    # The certstore directory isn't recognized as a subpackage, but is when moved
-    # into the vendor directory.
+  # The certstore directory isn't recognized as a subpackage, but is when moved
+  # into the vendor directory.
   postUnpack = ''
     mkdir -p $sourceRoot/vendor/ghostunnel
     mv $sourceRoot/certstore $sourceRoot/vendor/ghostunnel/

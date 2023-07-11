@@ -18,7 +18,6 @@ let
       ModulePath "${xorg.xf86videodummy}/lib/xorg/modules/drivers
     EndSection
   '';
-
 in
 stdenv.mkDerivation rec {
   pname = "jibri";

@@ -1,4 +1,4 @@
-# #
+##
 ## Caveat: a copy of configuration-ghc-8.6.x.nix with minor changes:
 ##
 ##  1. "8.7" strings
@@ -14,13 +14,13 @@ with haskellLib;
 
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-
 in
+
 self: super: {
 
   llvmPackages = pkgs.lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
-    # Disable GHC core libraries.
+  # Disable GHC core libraries.
   array = null;
   base = null;
   binary = null;
@@ -50,7 +50,7 @@ self: super: {
   rts = null;
   stm = null;
   template-haskell = null;
-    # GHC only builds terminfo if it is a native compiler
+  # GHC only builds terminfo if it is a native compiler
   terminfo =
     if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
       null
@@ -63,10 +63,10 @@ self: super: {
   unix = null;
   xhtml = null;
 
-    # https://github.com/tibbe/unordered-containers/issues/214
+  # https://github.com/tibbe/unordered-containers/issues/214
   unordered-containers = dontCheck super.unordered-containers;
 
-    # Test suite does not compile.
+  # Test suite does not compile.
   data-clist = doJailbreak super.data-clist; # won't cope with QuickCheck 2.12.x
   dates = doJailbreak super.dates; # base >=4.9 && <4.12
   Diff = dontCheck super.Diff;
@@ -89,14 +89,14 @@ self: super: {
   binary-orphans = dontCheck super.binary-orphans
     ; # tasty upper bound exceeded; https://github.com/phadej/binary-orphans/commit/8ce857226595dd520236ff4c51fa1a45d8387b33
 
-    # https://github.com/jgm/skylighting/issues/55
+  # https://github.com/jgm/skylighting/issues/55
   skylighting-core = dontCheck super.skylighting-core;
 
-    # Break out of "yaml >=0.10.4.0 && <0.11": https://github.com/commercialhaskell/stack/issues/4485
+  # Break out of "yaml >=0.10.4.0 && <0.11": https://github.com/commercialhaskell/stack/issues/4485
   stack = doJailbreak super.stack;
 
-    # https://github.com/fpco/inline-c/pull/131
-    # and/or https://gitlab.haskell.org/ghc/ghc/-/merge_requests/7739
+  # https://github.com/fpco/inline-c/pull/131
+  # and/or https://gitlab.haskell.org/ghc/ghc/-/merge_requests/7739
   inline-c-cpp = (
     if isDarwin then
       appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]

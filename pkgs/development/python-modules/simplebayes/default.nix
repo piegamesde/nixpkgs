@@ -11,11 +11,11 @@ buildPythonPackage {
   pname = "simplebayes";
   version = "1.5.8";
 
-    # Use GitHub instead of pypi, because it contains tests.
+  # Use GitHub instead of pypi, because it contains tests.
   src = fetchFromGitHub {
     repo = "simplebayes";
     owner = "hickeroar";
-      # NOTE: This is actually 1.5.8 but the tag is wrong!
+    # NOTE: This is actually 1.5.8 but the tag is wrong!
     rev = "1.5.7";
     sha256 = "0mp7rvfdmpfxnka4czw3lv5kkh6gdxh6dm4r6hcln1zzfg9lxp4h";
   };
@@ -36,5 +36,4 @@ buildPythonPackage {
     homepage = "https://github.com/hickeroar/simplebayes";
     license = licenses.mit;
   };
-
 }

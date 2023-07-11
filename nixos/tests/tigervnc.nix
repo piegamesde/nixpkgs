@@ -30,7 +30,7 @@ makeTest {
         ...
       }: {
         imports = [ ./common/x11.nix ];
-          # for vncviewer
+        # for vncviewer
         environment.systemPackages = [ pkgs.tigervnc ];
       }
       ;

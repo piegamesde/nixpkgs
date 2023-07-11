@@ -62,12 +62,12 @@ in
           )
           ;
 
-          # Security Hardening
-          # Refer to systemd.exec(5) for option descriptions.
+        # Security Hardening
+        # Refer to systemd.exec(5) for option descriptions.
         CapabilityBoundingSet = "";
 
-          # implies RemoveIPC=, PrivateTmp=, NoNewPrivileges=, RestrictSUIDSGID=,
-          # ProtectSystem=strict, ProtectHome=read-only
+        # implies RemoveIPC=, PrivateTmp=, NoNewPrivileges=, RestrictSUIDSGID=,
+        # ProtectSystem=strict, ProtectHome=read-only
         DynamicUser = true;
         LockPersonality = true;
         PrivateDevices = true;

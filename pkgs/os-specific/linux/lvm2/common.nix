@@ -17,7 +17,7 @@
   udevSupport ? !stdenv.hostPlatform.isStatic,
   udev,
   onlyLib ? stdenv.hostPlatform.isStatic
-    # Otherwise we have a infinity recursion during static compilation
+  # Otherwise we have a infinity recursion during static compilation
   ,
   enableUtilLinux ? !stdenv.hostPlatform.isStatic,
   util-linux,
@@ -144,14 +144,14 @@ stdenv.mkDerivation rec {
     ++ lib.optionals onlyLib [ "libdm.device-mapper" ]
     ;
 
-    # To prevent make install from failing.
+  # To prevent make install from failing.
   installFlags = [
     "OWNER="
     "GROUP="
     "confdir=$(out)/etc"
   ];
 
-    # Install systemd stuff.
+  # Install systemd stuff.
   installTargets =
     [ "install" ]
     ++ lib.optionals udevSupport [
@@ -172,7 +172,7 @@ stdenv.mkDerivation rec {
     make -C libdm install_pkgconfig
   '';
 
-    # only split bin and lib out from out if cmdlib isn't enabled
+  # only split bin and lib out from out if cmdlib isn't enabled
   outputs =
     [ "out" ]
     ++ lib.optionals (!onlyLib) [

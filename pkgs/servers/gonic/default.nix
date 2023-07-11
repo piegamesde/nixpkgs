@@ -36,8 +36,8 @@ buildGoModule rec {
   ];
   vendorSha256 = "sha256-+PUKPqW+ER7mmZXrDIc0cE4opoTxA3po3WXSeZO+Xwo=";
 
-    # TODO(Profpatsch): write a test for transcoding support,
-    # since it is prone to break
+  # TODO(Profpatsch): write a test for transcoding support,
+  # since it is prone to break
   postPatch =
     lib.optionalString transcodingSupport ''
       substituteInPlace \

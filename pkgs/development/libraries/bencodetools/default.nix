@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ python3 ];
 
-    # installCheck instead of check due to -install_name'd library on Darwin
+  # installCheck instead of check due to -install_name'd library on Darwin
   doInstallCheck = stdenv.buildPlatform == stdenv.hostPlatform;
   installCheckTarget = "check";
 

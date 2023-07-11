@@ -55,8 +55,8 @@ stdenv.mkDerivation rec {
       }"
     ];
 
-    # The Basel BUILD file conflicts with the cmake build directory on
-    # case-insensitive filesystems, eg. darwin.
+  # The Basel BUILD file conflicts with the cmake build directory on
+  # case-insensitive filesystems, eg. darwin.
   preConfigure = ''
     rm BUILD
   '';

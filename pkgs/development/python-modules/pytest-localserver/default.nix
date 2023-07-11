@@ -24,7 +24,7 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-    # all tests access network: does not work in sandbox
+  # all tests access network: does not work in sandbox
   doCheck = false;
 
   pythonImportsCheck = [ "pytest_localserver" ];

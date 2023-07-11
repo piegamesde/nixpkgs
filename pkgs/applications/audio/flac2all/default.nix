@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "OBjlr7cbSx2WOIfZUNwHy5Hpb2Fmh3vmZdc70JiWsiI=";
   };
 
-    # Not sure why this is needed, but setup.py expects this to be set
+  # Not sure why this is needed, but setup.py expects this to be set
   postPatch = ''
     echo ${version} > ./flac2all_pkg/version
   '';
@@ -39,7 +39,7 @@ python3Packages.buildPythonApplication rec {
       }
   '';
 
-    # Has no standard tests, so we verify a few imports instead.
+  # Has no standard tests, so we verify a few imports instead.
   doCheck = false;
   pythonImportsCheck = [
     "flac2all_pkg.vorbis"
@@ -51,7 +51,7 @@ python3Packages.buildPythonApplication rec {
       "Multi process, clustered, FLAC to multi codec audio converter with tagging support";
     homepage = "https://github.com/ZivaVatra/flac2all";
     license = licenses.gpl3;
-      # TODO: This has only been tested on Linux, but may work on Mac too.
+    # TODO: This has only been tested on Linux, but may work on Mac too.
     platforms = platforms.linux;
   };
 }

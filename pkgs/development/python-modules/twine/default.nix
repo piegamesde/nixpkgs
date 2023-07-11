@@ -40,7 +40,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-    # Requires network
+  # Requires network
   doCheck = false;
 
   pythonImportsCheck = [ "twine" ];

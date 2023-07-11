@@ -18,8 +18,8 @@ let
 
   since = version: lib.versionAtLeast nodejs.version version;
   before = version: lib.versionOlder nodejs.version version;
-
 in
+
 final: prev: {
   "@angular/cli" = prev."@angular/cli".override {
     prePatch = ''
@@ -164,8 +164,8 @@ final: prev: {
 
   eask = prev."@emacs-eask/cli".override { name = "eask"; };
 
-    # NOTE: this is a stub package to fetch npm dependencies for
-    # ../../applications/video/epgstation
+  # NOTE: this is a stub package to fetch npm dependencies for
+  # ../../applications/video/epgstation
   epgstation = prev."epgstation-../../applications/video/epgstation".override (
     oldAttrs: {
       buildInputs = [ pkgs.postgresql ];
@@ -178,8 +178,8 @@ final: prev: {
     }
   );
 
-    # NOTE: this is a stub package to fetch npm dependencies for
-    # ../../applications/video/epgstation/client
+  # NOTE: this is a stub package to fetch npm dependencies for
+  # ../../applications/video/epgstation/client
   epgstation-client =
     prev."epgstation-client-../../applications/video/epgstation/client".override
     (oldAttrs: { meta = oldAttrs.meta // { platforms = lib.platforms.none; }; })
@@ -237,8 +237,8 @@ final: prev: {
   graphite-cli = prev."@withgraphite/graphite-cli".override {
     name = "graphite-cli";
     nativeBuildInputs = [ pkgs.installShellFiles ];
-      # 'gt completion' auto-detects zshell from environment variables:
-      # https://github.com/yargs/yargs/blob/2b6ba3139396b2e623aed404293f467f16590039/lib/completion.ts#L45
+    # 'gt completion' auto-detects zshell from environment variables:
+    # https://github.com/yargs/yargs/blob/2b6ba3139396b2e623aed404293f467f16590039/lib/completion.ts#L45
     postInstall = ''
       installShellCompletion --cmd gt \
         --bash <($out/bin/gt completion) \
@@ -394,8 +394,8 @@ final: prev: {
 
   node-gyp = prev.node-gyp.override {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
-      # Teach node-gyp to use nodejs headers locally rather that download them form https://nodejs.org.
-      # This is important when build nodejs packages in sandbox.
+    # Teach node-gyp to use nodejs headers locally rather that download them form https://nodejs.org.
+    # This is important when build nodejs packages in sandbox.
     postInstall = ''
       wrapProgram "$out/bin/node-gyp" \
         --set npm_config_nodedir ${nodejs}
@@ -499,9 +499,9 @@ final: prev: {
     }
   );
 
-    # To update prisma, please first update prisma-engines to the latest
-    # version. Then change the correct hash to this package. The PR should hold
-    # two commits: one for the engines and the other one for the node package.
+  # To update prisma, please first update prisma-engines to the latest
+  # version. Then change the correct hash to this package. The PR should hold
+  # two commits: one for the engines and the other one for the node package.
   prisma = prev.prisma.override rec {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
 
@@ -657,7 +657,7 @@ final: prev: {
 
   thelounge-theme-flat-blue = prev.thelounge-theme-flat-blue.override {
     nativeBuildInputs = [ final.node-pre-gyp ];
-      # TODO: needed until upstream pins thelounge version 4.3.1+ (which fixes dependency on old sqlite3 and transitively very old node-gyp 3.x)
+    # TODO: needed until upstream pins thelounge version 4.3.1+ (which fixes dependency on old sqlite3 and transitively very old node-gyp 3.x)
     preRebuild = ''
       rm -r node_modules/node-gyp
     '';
@@ -665,7 +665,7 @@ final: prev: {
 
   thelounge-theme-flat-dark = prev.thelounge-theme-flat-dark.override {
     nativeBuildInputs = [ final.node-pre-gyp ];
-      # TODO: needed until upstream pins thelounge version 4.3.1+ (which fixes dependency on old sqlite3 and transitively very old node-gyp 3.x)
+    # TODO: needed until upstream pins thelounge version 4.3.1+ (which fixes dependency on old sqlite3 and transitively very old node-gyp 3.x)
     preRebuild = ''
       rm -r node_modules/node-gyp
     '';
@@ -743,8 +743,8 @@ final: prev: {
       pkgs.pkg-config
       final.node-pre-gyp
     ];
-      # These dependencies are required by
-      # https://github.com/Automattic/node-canvas.
+    # These dependencies are required by
+    # https://github.com/Automattic/node-canvas.
     buildInputs = with pkgs;
       [
         giflib

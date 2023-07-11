@@ -12,7 +12,7 @@ let
   user = config.users.users.vaultwarden.name;
   group = config.users.groups.vaultwarden.name;
 
-    # Convert name from camel case (e.g. disable2FARemember) to upper case snake case (e.g. DISABLE_2FA_REMEMBER).
+  # Convert name from camel case (e.g. disable2FARemember) to upper case snake case (e.g. DISABLE_2FA_REMEMBER).
   nameToEnvVar =
     name:
     let
@@ -49,8 +49,8 @@ let
       partsToEnvVar parts
     ;
 
-    # Due to the different naming schemes allowed for config keys,
-    # we can only check for values consistently after converting them to their corresponding environment variable name.
+  # Due to the different naming schemes allowed for config keys,
+  # we can only check for values consistently after converting them to their corresponding environment variable name.
   configEnv =
     let
       configEnv = concatMapAttrs
@@ -89,7 +89,6 @@ let
   );
 
   vaultwarden = cfg.package.override { inherit (cfg) dbBackend; };
-
 in
 {
   imports = [
@@ -291,10 +290,8 @@ in
         DATA_FOLDER = "/var/lib/bitwarden_rs";
         BACKUP_FOLDER = cfg.backupDir;
       };
-      path = with pkgs; [
-          sqlite
-        ];
-        # if both services are started at the same time, vaultwarden fails with "database is locked"
+      path = with pkgs; [ sqlite ];
+      # if both services are started at the same time, vaultwarden fails with "database is locked"
       before = [ "vaultwarden.service" ];
       serviceConfig = {
         SyslogIdentifier = "backup-vaultwarden";
@@ -318,6 +315,6 @@ in
     };
   };
 
-    # uses attributes of the linked package
+  # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

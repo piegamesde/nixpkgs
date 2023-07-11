@@ -40,7 +40,7 @@ buildPythonPackage rec {
 
   checkInputs = [ aiomisc-pytest ];
 
-    # Tests attempt to connect to a RabbitMQ server
+  # Tests attempt to connect to a RabbitMQ server
   disabledTestPaths = [
     "tests/test_channel.py"
     "tests/test_connection.py"

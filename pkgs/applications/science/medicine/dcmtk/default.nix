@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     libiconv
   ];
 
-    # This is only needed until https://github.com/DCMTK/dcmtk/pull/75/files is merged
+  # This is only needed until https://github.com/DCMTK/dcmtk/pull/75/files is merged
   patches = [ ./0001-Fix-cmake.patch ];
 
   doCheck = true;

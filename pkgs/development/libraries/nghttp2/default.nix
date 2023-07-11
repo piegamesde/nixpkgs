@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Unit tests require CUnit and setting TZDIR environment variable
+  # Unit tests require CUnit and setting TZDIR environment variable
   doCheck = enableTests;
   nativeCheckInputs = lib.optionals (enableTests) [
     cunit
@@ -150,7 +150,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://nghttp2.org/";
     changelog = "https://github.com/nghttp2/nghttp2/releases/tag/v${version}";
-      # News articles with changes summary can be found here: https://nghttp2.org/blog/archives/
+    # News articles with changes summary can be found here: https://nghttp2.org/blog/archives/
     license = licenses.mit;
     maintainers = with maintainers; [ c0bw3b ];
     platforms = platforms.all;

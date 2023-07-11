@@ -15,17 +15,17 @@ let
 
   ToolchainInfo = { Identifier = toolchainName; };
 
-    # We could pull this out of developer_cmds but it adds an annoying
-    # loop if we want to bootstrap and this is just a tiny script so I'm
-    # not going to bother.
+  # We could pull this out of developer_cmds but it adds an annoying
+  # loop if we want to bootstrap and this is just a tiny script so I'm
+  # not going to bother.
   mkdep-darwin-src = fetchurl {
     url =
       "https://opensource.apple.com/source/developer_cmds/developer_cmds-63/mkdep/mkdep.sh";
     sha256 = "0n4wpqfslfjs5zbys5yri8pfi2awyhlmknsf6laa5jzqbzq9x541";
     executable = true;
   };
-
 in
+
 runCommand "Toolchains" { } (
   ''
     toolchain=$out/XcodeDefault.xctoolchain

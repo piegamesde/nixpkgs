@@ -12,7 +12,7 @@ let
   cfg = config.services.matrix-synapse;
   format = pkgs.formats.yaml { };
 
-    # remove null values from the final configuration
+  # remove null values from the final configuration
   finalSettings = lib.filterAttrsRecursive (_: v: v != null) cfg.settings;
   configFile = format.generate "homeserver.yaml" finalSettings;
   logConfigFile = format.generate "log_config.yaml" cfg.logConfig;
@@ -50,10 +50,10 @@ let
         )
         (lib.last cfg.settings.listeners)
         cfg.settings.listeners;
-        # FIXME: Handle cases with missing client listener properly,
-        # don't rely on lib.last, this will not work.
+      # FIXME: Handle cases with missing client listener properly,
+      # don't rely on lib.last, this will not work.
 
-        # add a tail, so that without any bind_addresses we still have a useable address
+      # add a tail, so that without any bind_addresses we still have a useable address
       bindAddress = head (listener.bind_addresses ++ [ "127.0.0.1" ]);
       listenerProtocol =
         if listener.tls then
@@ -527,7 +527,6 @@ in
         "registration_shared_secret"
       ]
       "Pass this value via extraConfigFiles instead")
-
   ];
 
   options = {
@@ -1097,7 +1096,6 @@ in
                   A list of application service config file to use
                 '';
               };
-
             };
           };
       };
@@ -1195,8 +1193,8 @@ in
         Restart = "on-failure";
         UMask = "0077";
 
-          # Security Hardening
-          # Refer to systemd.exec(5) for option descriptions.
+        # Security Hardening
+        # Refer to systemd.exec(5) for option descriptions.
         CapabilityBoundingSet = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -1240,5 +1238,4 @@ in
     doc = ./synapse.md;
     maintainers = teams.matrix.members;
   };
-
 }

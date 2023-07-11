@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation {
   pname = "bgnet";
-    # to be found in the Makefile
+  # to be found in the Makefile
   version = "3.1.2";
 
   src = fetchFromGitHub {

@@ -20,15 +20,15 @@ with frameworks;
   PassKitCore = { };
   SkyLight = { };
 
-    # Also expose CoreSymbolication; used by `root` package.
+  # Also expose CoreSymbolication; used by `root` package.
   CoreSymbolication = { };
 
-    # Also expose DebugSymbols; used by `llvmPackages_8.lldb` package.
+  # Also expose DebugSymbols; used by `llvmPackages_8.lldb` package.
   DebugSymbols = { };
 
-    # Also expose DisplayServices; used by `sketchybar` package.
+  # Also expose DisplayServices; used by `sketchybar` package.
   DisplayServices = { inherit libobjc; };
 
-    # Also expose MultitouchSupport; used by `chuck` package.
+  # Also expose MultitouchSupport; used by `chuck` package.
   MultitouchSupport = { };
 }

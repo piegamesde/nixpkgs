@@ -9,9 +9,9 @@ stdenvNoCC.mkDerivation {
   pname = "google-fonts";
   version = "unstable-2022-11-14";
 
-    # Adobe Blank is split out in a separate output,
-    # because it causes crashes with `libfontconfig`.
-    # It has an absurd number of symbols
+  # Adobe Blank is split out in a separate output,
+  # because it causes crashes with `libfontconfig`.
+  # It has an absurd number of symbols
   outputs = [
     "out"
     "adobeBlank"
@@ -43,12 +43,12 @@ stdenvNoCC.mkDerivation {
 
   dontBuild = true;
 
-    # The font files are in the fonts directory and use two naming schemes:
-    # FamilyName-StyleName.ttf and FamilyName[param1,param2,...].ttf
-    # This installs all fonts if fonts is empty and otherwise only
-    # the specified fonts by FamilyName. To do this, it invokes
-    # `find` 2 times for every font, anyone is free to do this
-    # in a more efficient way.
+  # The font files are in the fonts directory and use two naming schemes:
+  # FamilyName-StyleName.ttf and FamilyName[param1,param2,...].ttf
+  # This installs all fonts if fonts is empty and otherwise only
+  # the specified fonts by FamilyName. To do this, it invokes
+  # `find` 2 times for every font, anyone is free to do this
+  # in a more efficient way.
   fonts = map (font: builtins.replaceStrings [ " " ] [ "" ] font) fonts;
   installPhase =
     ''

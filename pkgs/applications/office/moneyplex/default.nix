@@ -42,8 +42,8 @@ let
       "http://www.matrica.com/download/distribution/moneyplex_16_install64_22424.tar.gz";
     sha256 = "03vxbg1yp8qyvcn6bw2a5s134nxzq9cn0vqbmlld7hh4knbsfqzw";
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "moneyplex";
   version = "16.0.22424";
@@ -155,5 +155,4 @@ stdenv.mkDerivation {
     license = licenses.unfree;
     downloadPage = "http://matrica.de/download/download.html";
   };
-
 }

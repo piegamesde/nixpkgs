@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # autoreconfHook fails hard if these two files do not exist
+  # autoreconfHook fails hard if these two files do not exist
   postPatch = ''
     touch AUTHORS ChangeLog
   '';

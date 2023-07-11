@@ -109,9 +109,9 @@ in
     boot.initrd = {
       network.enable = true;
 
-        # By default, the stage-1 disables the network and resets the interfaces
-        # on startup. Since our startup disks are on the network, we can't let
-        # the network not work.
+      # By default, the stage-1 disables the network and resets the interfaces
+      # on startup. Since our startup disks are on the network, we can't let
+      # the network not work.
       network.flushBeforeStage2 = false;
 
       kernelModules = [ "iscsi_tcp" ];

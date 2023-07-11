@@ -12,7 +12,6 @@ let
 
   requiredXinePlugins =
     lib.flatten (map (p: p.passthru.requiredXinePlugins or [ ]) plugins);
-
 in
 symlinkJoin {
 

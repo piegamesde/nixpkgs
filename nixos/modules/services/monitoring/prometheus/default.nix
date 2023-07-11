@@ -42,7 +42,7 @@ let
       | grep -m 1 "Completed loading of configuration file" > /dev/null
   '';
 
-    # a wrapper that verifies that the configuration is valid
+  # a wrapper that verifies that the configuration is valid
   promtoolCheck =
     what: name: file:
     if checkConfigEnabled then
@@ -59,7 +59,7 @@ let
 
   generatedPrometheusYml = yaml.generate "prometheus.yml" promConfig;
 
-    # This becomes the main config file for Prometheus
+  # This becomes the main config file for Prometheus
   promConfig = {
     global = filterValidPrometheus cfg.globalConfig;
     rule_files = map (promtoolCheck "check rules" "rules") (
@@ -142,9 +142,9 @@ let
       x
     ;
 
-    #
-    # Config types: helper functions
-    #
+  #
+  # Config types: helper functions
+  #
 
   mkDefOpt =
     type: defaultStr: description:
@@ -216,9 +216,9 @@ let
     }
     ;
 
-    #
-    # Config types: general
-    #
+  #
+  # Config types: general
+  #
 
   promTypes.globalConfig = types.submodule {
     options = {
@@ -566,13 +566,13 @@ let
     };
   };
 
-    #
-    # Config types: service discovery
-    #
+  #
+  # Config types: service discovery
+  #
 
-    # For this one, the docs actually define all types needed to use mkSdConfigModule, but a bunch
-    # of them are marked with 'currently not support by Azure' so we don't bother adding them in
-    # here.
+  # For this one, the docs actually define all types needed to use mkSdConfigModule, but a bunch
+  # of them are marked with 'currently not support by Azure' so we don't bother adding them in
+  # here.
   promTypes.azure_sd_config = types.submodule {
     options = {
       environment = mkDefOpt types.str "AzurePublicCloud" ''
@@ -1385,7 +1385,7 @@ let
     };
   };
 
-    # These are exactly the same.
+  # These are exactly the same.
   promTypes.serverset_sd_config = promTypes.nerve_sd_config;
 
   promTypes.triton_sd_config = types.submodule {
@@ -1500,9 +1500,9 @@ let
     };
   };
 
-    #
-    # Config types: relabling
-    #
+  #
+  # Config types: relabling
+  #
 
   promTypes.relabel_config = types.submodule {
     options = {
@@ -1553,9 +1553,9 @@ let
     };
   };
 
-    #
-    # Config types : remote read / write
-    #
+  #
+  # Config types : remote read / write
+  #
 
   promTypes.remote_write = types.submodule {
     options = {
@@ -1689,7 +1689,6 @@ let
       proxy_url = mkOpt types.str "Optional Proxy URL.";
     };
   };
-
 in
 {
 
@@ -1960,7 +1959,7 @@ in
         WorkingDirectory = workingDir;
         StateDirectory = cfg.stateDir;
         StateDirectoryMode = "0700";
-          # Hardening
+        # Hardening
         AmbientCapabilities =
           lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet =
@@ -2002,17 +2001,17 @@ in
         ];
       };
     };
-      # prometheus-config-reload will activate after prometheus. However, what we
-      # don't want is that on startup it immediately reloads prometheus because
-      # prometheus itself might have just started.
-      #
-      # Instead we only want to reload prometheus when the config file has
-      # changed. So on startup prometheus-config-reload will just output a
-      # harmless message and then stay active (RemainAfterExit).
-      #
-      # Then, when the config file has changed, switch-to-configuration notices
-      # that this service has changed (restartTriggers) and needs to be reloaded
-      # (reloadIfChanged). The reload command then reloads prometheus.
+    # prometheus-config-reload will activate after prometheus. However, what we
+    # don't want is that on startup it immediately reloads prometheus because
+    # prometheus itself might have just started.
+    #
+    # Instead we only want to reload prometheus when the config file has
+    # changed. So on startup prometheus-config-reload will just output a
+    # harmless message and then stay active (RemainAfterExit).
+    #
+    # Then, when the config file has changed, switch-to-configuration notices
+    # that this service has changed (restartTriggers) and needs to be reloaded
+    # (reloadIfChanged). The reload command then reloads prometheus.
     systemd.services.prometheus-config-reload = mkIf cfg.enableReload {
       wantedBy = [ "prometheus.service" ];
       after = [ "prometheus.service" ];

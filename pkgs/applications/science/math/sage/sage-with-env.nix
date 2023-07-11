@@ -48,13 +48,13 @@ let
     ecm
   ];
 
-    # remove python prefix, replace "-" in the name by "_", apply patch_names
-    # python3.8-some-pkg-1.0 -> some_pkg-1.0
+  # remove python prefix, replace "-" in the name by "_", apply patch_names
+  # python3.8-some-pkg-1.0 -> some_pkg-1.0
   pkg_to_spkg_name =
     pkg: patch_names:
     let
       parts = lib.splitString "-" pkg.name;
-        # remove python3.8-
+      # remove python3.8-
       stripped_parts =
         if (builtins.head parts) == python3.libPrefix then
           builtins.tail parts
@@ -68,14 +68,12 @@ let
     pkgname + "-" + version
     ;
 
-    # return the names of all dependencies in the transitive closure
+  # return the names of all dependencies in the transitive closure
   transitiveClosure =
     dep:
-    if
-      dep == null
-    then
-    # propagatedBuildInputs might contain null
-    # (although that might be considered a programming error in the derivation)
+    if dep == null then
+      # propagatedBuildInputs might contain null
+      # (although that might be considered a programming error in the derivation)
       [ ]
     else
       [ dep ]
@@ -96,8 +94,8 @@ let
   );
   transitiveDeps =
     lib.unique (builtins.concatLists (map transitiveClosure allInputs));
-    # fix differences between spkg and sage names
-    # (could patch sage instead, but this is more lightweight and also works for packages depending on sage)
+  # fix differences between spkg and sage names
+  # (could patch sage instead, but this is more lightweight and also works for packages depending on sage)
   patch_names = builtins.replaceStrings
     [
       "zope.interface"
@@ -107,7 +105,7 @@ let
       "zope_interface"
       "threejs"
     ];
-    # spkg names (this_is_a_package-version) of all transitive deps
+  # spkg names (this_is_a_package-version) of all transitive deps
   input_names = map (dep: pkg_to_spkg_name dep patch_names) transitiveDeps;
 in
 stdenv.mkDerivation rec {

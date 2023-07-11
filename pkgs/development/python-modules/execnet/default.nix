@@ -29,7 +29,7 @@ buildPythonPackage rec {
       })
     ];
 
-    # remove vbox tests
+  # remove vbox tests
   postPatch = ''
     rm -v testing/test_termination.py
     rm -v testing/test_channel.py
@@ -59,5 +59,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
-
 }

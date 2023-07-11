@@ -42,4 +42,3 @@ rec {
     inherit extraPrefsFiles extraPoliciesFiles;
   };
 }
-

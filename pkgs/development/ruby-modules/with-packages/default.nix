@@ -77,7 +77,6 @@ let
           done
         '';
       };
-
     in
     stdenv.mkDerivation {
       name = "${ruby.name}-with-packages";
@@ -104,6 +103,7 @@ let
       };
     }
     ;
-
 in
-{ inherit withPackages gems buildGems; }
+{
+  inherit withPackages gems buildGems;
+}

@@ -28,7 +28,7 @@ let
     callPackage ../os-specific/linux/kernel/linux-libre.nix { linux = kernel; }
     ;
 
-    # Hardened Linux
+  # Hardened Linux
   hardenedKernelFor =
     kernel': overrides:
     let
@@ -265,8 +265,8 @@ in
             ];
           };
 
-          # Using zenKernels like this due lqx&zen came from one source, but may have different base kernel version
-          # https://github.com/NixOS/nixpkgs/pull/161773#discussion_r820134708
+        # Using zenKernels like this due lqx&zen came from one source, but may have different base kernel version
+        # https://github.com/NixOS/nixpkgs/pull/161773#discussion_r820134708
         zenKernels = callPackage ../os-specific/linux/kernel/zen-kernels.nix;
 
         linux_zen =
@@ -285,7 +285,7 @@ in
             ];
           }).lqx;
 
-          # This contains the variants of the XanMod kernel
+        # This contains the variants of the XanMod kernel
         xanmodKernels =
           callPackage ../os-specific/linux/kernel/xanmod-kernels.nix {
             kernelPatches = [
@@ -311,7 +311,6 @@ in
         linux_5_10_hardened = hardenedKernelFor kernels.linux_5_10 { };
         linux_5_15_hardened = hardenedKernelFor kernels.linux_5_15 { };
         linux_6_1_hardened = hardenedKernelFor kernels.linux_6_1 { };
-
       } // lib.optionalAttrs config.allowAliases {
         linux_4_9 = throw
           "linux 4.9 was removed because it will reach its end of life within 22.11"
@@ -342,12 +341,12 @@ in
       }
     )
   );
-    /* Linux kernel modules are inherently tied to a specific kernel.  So
-       rather than provide specific instances of those packages for a
-       specific kernel, we have a function that builds those packages
-       for a specific kernel.  This function can then be called for
-       whatever kernel you're using.
-    */
+  /* Linux kernel modules are inherently tied to a specific kernel.  So
+     rather than provide specific instances of those packages for a
+     specific kernel, we have a function that builds those packages
+     for a specific kernel.  This function can then be called for
+     whatever kernel you're using.
+  */
 
   packagesFor =
     kernel_:
@@ -364,13 +363,10 @@ in
           stdenv
           ; # in particular, use the same compiler by default
 
-          # to help determine module compatibility
+        # to help determine module compatibility
         inherit (kernel) isZen isHardened isLibre;
-        inherit (kernel)
-          kernelOlder
-          kernelAtLeast
-          ;
-          # Obsolete aliases (these packages do not depend on the kernel).
+        inherit (kernel) kernelOlder kernelAtLeast;
+        # Obsolete aliases (these packages do not depend on the kernel).
         inherit (pkgs) odp-dpdk pktgen; # added 2018-05
         inherit (pkgs) bcc bpftrace; # added 2021-12
         inherit (pkgs) oci-seccomp-bpf-hook; # added 2022-11
@@ -502,8 +498,8 @@ in
         nvidia_x11_production = nvidiaPackages.production;
         nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
 
-          # this is not a replacement for nvidia_x11*
-          # only the opensource kernel driver exposed for hydra to build
+        # this is not a replacement for nvidia_x11*
+        # only the opensource kernel driver exposed for hydra to build
         nvidia_x11_beta_open = nvidiaPackages.beta.open;
         nvidia_x11_production_open = nvidiaPackages.production.open;
         nvidia_x11_stable_open = nvidiaPackages.stable.open;
@@ -556,7 +552,7 @@ in
           ;
 
         openafs_1_8 = callPackage ../servers/openafs/1.8/module.nix { };
-          # Current stable release; don't backport release updates!
+        # Current stable release; don't backport release updates!
         openafs = openafs_1_8;
 
         facetimehd = callPackage ../os-specific/linux/facetimehd { };
@@ -578,8 +574,8 @@ in
 
         mxu11x0 = callPackage ../os-specific/linux/mxu11x0 { };
 
-          # compiles but has to be integrated into the kernel somehow
-          # Let's have it uncommented and finish it..
+        # compiles but has to be integrated into the kernel somehow
+        # Let's have it uncommented and finish it..
         ndiswrapper = callPackage ../os-specific/linux/ndiswrapper { };
 
         netatop = callPackage ../os-specific/linux/netatop { };
@@ -689,7 +685,6 @@ in
         qc71_laptop = callPackage ../os-specific/linux/qc71_laptop { };
 
         hid-ite8291r3 = callPackage ../os-specific/linux/hid-ite8291r3 { };
-
       } // lib.optionalAttrs config.allowAliases {
         ati_drivers_x11 =
           throw "ati drivers are no longer supported by any kernel >=4.1"
@@ -816,7 +811,7 @@ in
 
   packageAliases = {
     linux_default = packages.linux_6_1;
-      # Update this when adding the newest kernel major version!
+    # Update this when adding the newest kernel major version!
     linux_latest = packages.linux_6_3;
     linux_mptcp = throw
       "'linux_mptcp' has been moved to https://github.com/teto/mptcp-flake";
@@ -850,7 +845,7 @@ in
     )
     ;
 
-    # Derive one of the default .config files
+  # Derive one of the default .config files
   linuxConfig =
     {
       src,
@@ -887,5 +882,4 @@ in
     ;
 
   buildLinux = attrs: callPackage ../os-specific/linux/kernel/generic.nix attrs;
-
 }

@@ -48,7 +48,6 @@ in
       default = { };
       visible = "shallow";
     };
-
   };
 
   config = {
@@ -58,9 +57,8 @@ in
       vmWithBootLoader = lib.mkDefault
         config.virtualisation.vmVariantWithBootLoader.system.build.vm;
     };
-
   };
 
-    # uses extendModules
+  # uses extendModules
   meta.buildDocsInSandbox = false;
 }

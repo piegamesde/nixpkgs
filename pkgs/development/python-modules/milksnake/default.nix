@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cffi ];
 
-    # tests rely on pip/venv
+  # tests rely on pip/venv
   doCheck = false;
 
   meta = with lib; {

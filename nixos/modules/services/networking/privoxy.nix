@@ -56,13 +56,13 @@ let
 
   configFile = pkgs.writeText "privoxy.conf" (
     concatStrings (
-    # Relative paths in some options are relative to confdir. Privoxy seems
-    # to parse the options in order of appearance, so this must come first.
-    # Nix however doesn't preserve the order in attrsets, so we have to
-    # hardcode confdir here.
-      [ ''
-        confdir ${pkgs.privoxy}/etc
-      '' ]
+      # Relative paths in some options are relative to confdir. Privoxy seems
+        # to parse the options in order of appearance, so this must come first.
+        # Nix however doesn't preserve the order in attrsets, so we have to
+        # hardcode confdir here.
+        [ ''
+          confdir ${pkgs.privoxy}/etc
+        '' ]
       ++ mapAttrsToList serialise cfg.settings
     )
   );
@@ -72,8 +72,8 @@ let
     {+https-inspection}
     /
   '';
-
 in
+
 {
 
   ###### interface
@@ -172,8 +172,8 @@ in
 
         options.actionsfile = mkOption {
           type = types.listOf types.str;
-            # This must come after all other entries, in order to override the
-            # other actions/filters installed by Privoxy or the user.
+          # This must come after all other entries, in order to override the
+          # other actions/filters installed by Privoxy or the user.
           apply =
             x:
             x
@@ -234,10 +234,9 @@ in
         :::
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -289,7 +288,7 @@ in
 
     services.privoxy.settings = {
       user-manual = "${pkgs.privoxy}/share/doc/privoxy/user-manual";
-        # This is needed for external filters
+      # This is needed for external filters
       temporary-directory = "/tmp";
       filterfile = [ "default.filter" ];
       actionsfile =
@@ -311,7 +310,6 @@ in
       certificate-directory = "/run/privoxy/certs";
       trusted-cas-file = "/etc/ssl/certs/ca-certificates.crt";
     });
-
   };
 
   imports =
@@ -349,5 +347,4 @@ in
     ;
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
 }

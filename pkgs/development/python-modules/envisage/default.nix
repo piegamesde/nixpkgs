@@ -35,8 +35,8 @@ buildPythonPackage rec {
       })
     ];
 
-    # for the optional dependency ipykernel, only versions < 6 are
-    # supported, so it's not included in the tests, and not propagated
+  # for the optional dependency ipykernel, only versions < 6 are
+  # supported, so it's not included in the tests, and not propagated
   propagatedBuildInputs = [
     traits
     apptools

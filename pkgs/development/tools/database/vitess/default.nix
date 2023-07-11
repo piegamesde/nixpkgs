@@ -22,7 +22,7 @@ buildGoModule rec {
 
   subPackages = [ "go/cmd/..." ];
 
-    # integration tests require access to syslog and root
+  # integration tests require access to syslog and root
   doCheck = false;
 
   meta = with lib; {

@@ -14,8 +14,8 @@ buildGoModule rec {
     repo = pname;
     rev = "v${version}";
     sha256 = "sha256-gmBcN1lxzkkRpiUUWv87ji/G4Uy3DA8a6+6Qs+p/2mg=";
-      # populate values that require us to use git. By doing this in postFetch we
-      # can delete .git afterwards and maintain better reproducibility of the src.
+    # populate values that require us to use git. By doing this in postFetch we
+    # can delete .git afterwards and maintain better reproducibility of the src.
     leaveDotGit = true;
     postFetch = ''
       cd "$out"
@@ -36,7 +36,7 @@ buildGoModule rec {
     "-X sigs.k8s.io/release-utils/version.gitTreeState=clean"
   ];
 
-    # ldflags based on metadata from git and source
+  # ldflags based on metadata from git and source
   preBuild = ''
     ldflags+=" -X sigs.k8s.io/release-utils/version.gitCommit=$(cat COMMIT)"
     ldflags+=" -X sigs.k8s.io/release-utils/version.buildDate=$(cat SOURCE_DATE_EPOCH)"

@@ -42,11 +42,11 @@ buildPythonPackage rec {
   format = "pyproject";
   disabled = pythonOlder "3.7";
 
-    # Pypi version has no tests
+  # Pypi version has no tests
   src = fetchFromGitHub {
     owner = "pydicom";
     repo = pname;
-      # the github repo does not contain Pypi version tags:
+    # the github repo does not contain Pypi version tags:
     rev = "38717b8cbfd69566ba489dd0c9858bb93101e26d";
     hash = "sha256-QqofxNjshbNfu8vZ37rB6pxj5R8q0wlUhJRhrpkKySk=";
   };

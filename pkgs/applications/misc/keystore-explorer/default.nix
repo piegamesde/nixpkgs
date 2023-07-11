@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mDi/TSYumCg2hAnMOI2QpdAOSlDMpdJPqzatFotAqUk=";
   };
 
-    # glib is necessary so file dialogs don't hang.
+  # glib is necessary so file dialogs don't hang.
   buildInputs = [ glib ];
   nativeBuildInputs = [ wrapGAppsHook ];
 

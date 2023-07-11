@@ -9,8 +9,8 @@ with lib;
 
 let
   cfg = config.programs.xwayland;
-
 in
+
 {
   options.programs.xwayland = {
 
@@ -43,7 +43,6 @@ in
       '';
       description = lib.mdDoc "The Xwayland package to use.";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -52,6 +51,5 @@ in
     environment.pathsToLink = [ "/share/X11" ];
 
     environment.systemPackages = [ cfg.package ];
-
   };
 }

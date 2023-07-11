@@ -47,7 +47,6 @@ let
       };
     }
   );
-
 in
 stdenv.mkDerivation rec {
   version = "1.21.1";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makerules --replace "(shell pkg-config" "(shell $PKG_CONFIG"
   '';
 
-    # Use shared libraries to decrease size
+  # Use shared libraries to decrease size
   buildFlags = [ "shared" ];
 
   makeFlags =

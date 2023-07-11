@@ -207,9 +207,7 @@ in
           Additional options for synaptics touchpad driver.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -297,7 +295,5 @@ in
       message =
         "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver).";
     } ];
-
   };
-
 }

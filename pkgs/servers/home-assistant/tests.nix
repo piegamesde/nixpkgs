@@ -136,7 +136,7 @@ lib.listToAttrs (
             ++ extraDisabledTestPaths.${component} or [ ]
             ;
 
-            # components are more often racy than the core
+          # components are more often racy than the core
           dontUsePytestXdist = true;
 
           pytestFlagsArray =
@@ -161,7 +161,7 @@ lib.listToAttrs (
 
           meta = old.meta // {
             broken = lib.elem component [ ];
-              # upstream only tests on Linux, so do we.
+            # upstream only tests on Linux, so do we.
             platforms = lib.platforms.linux;
           };
         }

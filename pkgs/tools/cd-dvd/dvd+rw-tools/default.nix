@@ -22,9 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    [
-      ./darwin.patch
-    ]
+    [ ./darwin.patch ]
     # Patches from Gentoo
     ++ builtins.map
       (

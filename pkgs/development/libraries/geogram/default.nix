@@ -128,8 +128,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BrunoLevy/geogram";
     license = licenses.bsd3;
 
-      # Broken on aarch64-linux as of version 1.8.3
-      # See https://github.com/BrunoLevy/geogram/issues/74
+    # Broken on aarch64-linux as of version 1.8.3
+    # See https://github.com/BrunoLevy/geogram/issues/74
     broken = stdenv.isLinux && stdenv.isAarch64;
 
     platforms = [

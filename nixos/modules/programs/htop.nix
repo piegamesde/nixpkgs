@@ -22,8 +22,8 @@ let
     else
       throw "Unrecognized type ${typeOf value} in htop settings"
     ;
-
 in
+
 {
 
   options.programs.htop = {
@@ -81,5 +81,4 @@ in
       )
       ;
   };
-
 }

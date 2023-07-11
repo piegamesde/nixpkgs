@@ -16,8 +16,8 @@ let
       alias
     ;
 
-    # Disabling distribution prevents top-level aliases for non-recursed package
-    # sets from building on Hydra.
+  # Disabling distribution prevents top-level aliases for non-recursed package
+  # sets from building on Hydra.
   removeDistribute =
     alias:
     with lib;
@@ -27,8 +27,8 @@ let
       alias
     ;
 
-    # Make sure that we are not shadowing something from
-    # all-packages.nix.
+  # Make sure that we are not shadowing something from
+  # all-packages.nix.
   checkInPkgs =
     n: alias:
     if builtins.hasAttr n overridden then
@@ -54,7 +54,6 @@ let
       "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
     )
     (lib.importJSON ./deprecated.json);
-
 in
 mapAliases (
   {

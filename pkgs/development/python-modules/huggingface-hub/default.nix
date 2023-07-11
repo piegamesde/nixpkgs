@@ -40,7 +40,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 
-    # Tests require network access.
+  # Tests require network access.
   doCheck = false;
 
   pythonImportsCheck = [ "huggingface_hub" ];

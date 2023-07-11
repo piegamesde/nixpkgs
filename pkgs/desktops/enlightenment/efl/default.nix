@@ -171,7 +171,7 @@ stdenv.mkDerivation rec {
     substituteInPlace dbus-services/meson.build --replace "dep.get_pkgconfig_variable('session_bus_services_dir')" "'$out/share/dbus-1/services'"
   '';
 
-    # bin/edje_cc creates $HOME/.run, which would break build of reverse dependencies.
+  # bin/edje_cc creates $HOME/.run, which would break build of reverse dependencies.
   setupHook = writeText "setupHook.sh" ''
     export HOME="$TEMPDIR"
   '';

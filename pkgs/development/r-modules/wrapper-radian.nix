@@ -30,7 +30,7 @@ runCommand (radian.name + "-wrapper")
   meta = radian.meta // {
     # To prevent builds on hydra
     hydraPlatforms = [ ];
-      # prefer wrapper over the package
+    # prefer wrapper over the package
     priority = (radian.meta.priority or 0) - 1;
   };
 }

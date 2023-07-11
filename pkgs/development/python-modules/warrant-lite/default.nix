@@ -34,7 +34,7 @@ buildPythonPackage rec {
       --replace "parse_requirements('requirements.txt')," "[],"
   '';
 
-    # Tests require credentials
+  # Tests require credentials
   doCheck = false;
 
   pythonImportsCheck = [ "warrant_lite" ];

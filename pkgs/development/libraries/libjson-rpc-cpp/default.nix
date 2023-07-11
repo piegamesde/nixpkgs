@@ -66,8 +66,8 @@ stdenv.mkDerivation rec {
     pushd Build
   '';
 
-    # this hack is needed because the cmake scripts
-    # require write permission to absolute paths
+  # this hack is needed because the cmake scripts
+  # require write permission to absolute paths
   configurePhase = ''
     runHook preConfigure
     cmake .. -DCMAKE_INSTALL_PREFIX=$(pwd)/Install \

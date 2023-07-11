@@ -35,7 +35,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-    # no tests in the package
+  # no tests in the package
   doCheck = false;
 
   pythonImportsCheck = [ "grpc_tools" ];

@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ opencv3 ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [

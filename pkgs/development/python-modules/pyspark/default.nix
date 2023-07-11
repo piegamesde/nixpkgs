@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-Fnoj4RhUrbN/hgLeb8w6T5b9Xx4yO5u4MyXzhAjFqv0=";
   };
 
-    # pypandoc is broken with pandoc2, so we just lose docs.
+  # pypandoc is broken with pandoc2, so we just lose docs.
   postPatch = ''
     sed -i "s/'pypandoc'//" setup.py
 
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     ];
   };
 
-    # Tests assume running spark instance
+  # Tests assume running spark instance
   doCheck = false;
 
   pythonImportsCheck = [ "pyspark" ];

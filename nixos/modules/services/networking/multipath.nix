@@ -30,7 +30,6 @@ let
   hexChars = stringToCharacters "0123456789abcdef";
   isHexString = s: all (c: elem c hexChars) (stringToCharacters (toLower s));
   hexStr = addCheckDesc "hexadecimal string" types.str isHexString;
-
 in
 {
 
@@ -127,7 +126,7 @@ in
                 lib.mdDoc "The hardware handler to use for this device type";
             };
 
-              # Optional arguments
+            # Optional arguments
             path_grouping_policy = mkOption {
               type = nullOr (
                 enum [
@@ -507,7 +506,6 @@ in
                 "Set the 'all targets ports' flag when registering keys with mpathpersist"
                 ;
             };
-
           };
         }
       );
@@ -616,12 +614,10 @@ in
               example = "ro";
               description = lib.mdDoc "Options used to mount the file system";
             };
-
           };
         }
       );
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -655,7 +651,6 @@ in
           ;
         multipaths =
           lib.concatMapStringsSep "\n" mkMultipathBlock cfg.pathGroups;
-
       in
       ''
         devices {
@@ -696,9 +691,9 @@ in
       "dm-service-time"
     ];
 
-      # We do not have systemd in stage-1 boot so must invoke `multipathd`
-      # with the `-1` argument which disables systemd calls. Invoke `multipath`
-      # to display the multipath mappings in the output of `journalctl -b`.
+    # We do not have systemd in stage-1 boot so must invoke `multipathd`
+    # with the `-1` argument which disables systemd calls. Invoke `multipath`
+    # to display the multipath mappings in the output of `journalctl -b`.
     boot.initrd.kernelModules = [
       "dm-multipath"
       "dm-service-time"

@@ -30,7 +30,7 @@ buildPythonPackage rec {
     rich
   ];
 
-    # Tests require an active domain controller
+  # Tests require an active domain controller
   doCheck = false;
 
   pythonImportsCheck = [ "lsassy" ];

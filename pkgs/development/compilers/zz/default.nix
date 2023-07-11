@@ -12,13 +12,13 @@ let
     z3
     pkgsHostTarget.targetPackages.stdenv.cc
   ];
-
 in
+
 rustPlatform.buildRustPackage rec {
   pname = "zz";
   version = "unstable-2021-05-04";
 
-    # when updating, choose commit of the latest build on http://bin.zetz.it/
+  # when updating, choose commit of the latest build on http://bin.zetz.it/
   src = fetchFromGitHub {
     owner = "zetzit";
     repo = "zz";

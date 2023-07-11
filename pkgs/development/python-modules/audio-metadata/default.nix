@@ -58,7 +58,7 @@ buildPythonPackage rec {
     tbm-utils
   ];
 
-    # Tests require ward which is not ready to be used
+  # Tests require ward which is not ready to be used
   doCheck = false;
 
   pythonImportsCheck = [ "audio_metadata" ];

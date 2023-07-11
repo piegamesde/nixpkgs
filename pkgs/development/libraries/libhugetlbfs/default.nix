@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     "MANDIR=$(man)/share/man"
   ];
 
-    # Default target builds tests as well, and the tests want a static
-    # libc.
+  # Default target builds tests as well, and the tests want a static
+  # libc.
   buildFlags = [
     "libs"
     "tools"

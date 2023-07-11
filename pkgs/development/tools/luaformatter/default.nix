@@ -12,8 +12,8 @@
 
 let
   antlr4 = antlr4_9;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "luaformatter";
   version = "1.3.6";

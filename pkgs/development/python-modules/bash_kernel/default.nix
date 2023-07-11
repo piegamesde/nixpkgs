@@ -40,7 +40,7 @@ buildPythonPackage rec {
     pexpect
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   preBuild = ''

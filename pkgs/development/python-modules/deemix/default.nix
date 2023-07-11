@@ -32,7 +32,7 @@ buildPythonPackage rec {
     deezer-py
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "deezer" ];

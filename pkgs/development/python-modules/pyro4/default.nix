@@ -15,8 +15,8 @@ buildPythonPackage rec {
   version = "4.82";
   format = "setuptools";
 
-    # No support Python >= 3.11
-    # https://github.com/irmen/Pyro4/issues/246
+  # No support Python >= 3.11
+  # https://github.com/irmen/Pyro4/issues/246
   disabled = pythonAtLeast "3.11";
 
   src = fetchPypi {
@@ -35,7 +35,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # add testsupport.py to PATH
+  # add testsupport.py to PATH
   preCheck = ''
     PYTHONPATH=tests/PyroTests:$PYTHONPATH
   '';
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     "GetIP"
   ];
 
-    # otherwise the tests hang the build
+  # otherwise the tests hang the build
   __darwinAllowLocalNetworking = true;
 
   pythonImportsCheck = [ "Pyro4" ];

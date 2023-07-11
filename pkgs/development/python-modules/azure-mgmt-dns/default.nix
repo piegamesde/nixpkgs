@@ -25,10 +25,10 @@ buildPythonPackage rec {
     azure-mgmt-core
   ];
 
-    # this is still needed for when the version is overrided
+  # this is still needed for when the version is overrided
   pythonNamespaces = [ "azure.mgmt" ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   meta = with lib; {

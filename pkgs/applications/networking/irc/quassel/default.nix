@@ -41,8 +41,8 @@
 let
   buildClient = monolithic || client;
   buildCore = monolithic || enableDaemon;
-
 in
+
 assert monolithic -> !client && !enableDaemon;
 assert client || enableDaemon -> !monolithic;
 assert !buildClient -> !withKDE; # KDE is used by the client only
@@ -62,7 +62,6 @@ let
       )
     ]
     ;
-
 in
 (
   if !buildClient then
@@ -81,7 +80,7 @@ rec {
     sha256 = "sha256-eulhNcyCmy9ryietOhT2yVJeJH+MMZRbTUo2XuTy9qU=";
   };
 
-    # Prevent ``undefined reference to `qt_version_tag''' in SSL check
+  # Prevent ``undefined reference to `qt_version_tag''' in SSL check
   env.NIX_CFLAGS_COMPILE = "-DQT_NO_VERSION_TAGGING=1";
 
   nativeBuildInputs = [

@@ -45,7 +45,7 @@ buildPythonPackage rec {
     hash = "sha256-qgyAaUpyuWVYMxUA4Gg8inlUMlSLo++16+nVvmDMhTQ=";
   };
 
-    # Module has no tests, only a test client
+  # Module has no tests, only a test client
   doCheck = false;
 
   pythonImportsCheck = [ "mitmproxy_wireguard" ];

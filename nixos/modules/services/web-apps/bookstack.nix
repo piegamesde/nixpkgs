@@ -16,7 +16,7 @@ let
   user = cfg.user;
   group = cfg.group;
 
-    # shell script for local administration
+  # shell script for local administration
   artisan = pkgs.writeScriptBin "bookstack" ''
     #! ${pkgs.runtimeShell}
     cd ${bookstack}
@@ -33,7 +33,6 @@ let
     || cfg.nginx.onlySSL
     || cfg.nginx.enableACME
     ;
-
 in
 {
   imports = [
@@ -308,7 +307,6 @@ in
         file.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -516,7 +514,6 @@ in
       };
       groups = mkIf (group == "bookstack") { bookstack = { }; };
     };
-
   };
 
   meta.maintainers = with maintainers; [ ymarkus ];

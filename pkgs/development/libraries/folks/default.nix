@@ -26,7 +26,8 @@
 
 # TODO: enable more folks backends
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "folks";
   version = "0.15.6";
 
@@ -100,7 +101,7 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-    # Prevents e-d-s add-contacts-stress-test from timing out
+  # Prevents e-d-s add-contacts-stress-test from timing out
   checkPhase = ''
     runHook preCheck
     meson test --timeout-multiplier 4

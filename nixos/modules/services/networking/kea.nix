@@ -345,7 +345,7 @@ in
                 "${package}/bin/kea-dhcp4 -c /etc/kea/dhcp4-server.conf ${
                   lib.escapeShellArgs cfg.dhcp4.extraArgs
                 }";
-                # Kea does not request capabilities by itself
+              # Kea does not request capabilities by itself
               AmbientCapabilities = [
                 "CAP_NET_BIND_SERVICE"
                 "CAP_NET_RAW"
@@ -393,7 +393,7 @@ in
                 "${package}/bin/kea-dhcp6 -c /etc/kea/dhcp6-server.conf ${
                   lib.escapeShellArgs cfg.dhcp6.extraArgs
                 }";
-                # Kea does not request capabilities by itself
+              # Kea does not request capabilities by itself
               AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
               CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
             } // commonServiceConfig;
@@ -441,14 +441,11 @@ in
             } // commonServiceConfig;
           };
         })
-
       ]
     )
     ;
 
-  meta.maintainers = with maintainers; [
-      hexa
-    ];
-    # uses attributes of the linked package
+  meta.maintainers = with maintainers; [ hexa ];
+  # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

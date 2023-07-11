@@ -92,13 +92,13 @@ let
     )
     ;
 
-    # Fake build to pre-download deps into fixed-output derivation.
-    # We run nearly full build because I see no other way to download everything that's needed.
-    # Anyone who knows a better way?
+  # Fake build to pre-download deps into fixed-output derivation.
+  # We run nearly full build because I see no other way to download everything that's needed.
+  # Anyone who knows a better way?
   deps = makePackage {
     pname = "openjfx-deps";
 
-      # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+    # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
     installPhase = ''
       find $GRADLE_USER_HOME -type f -regex '.*/modules.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
@@ -110,7 +110,6 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-syceJMUEknBDCHK8eGs6rUU3IQn+HnQfURfCrDxYPa9=";
   };
-
 in
 makePackage {
   pname = "openjfx-modular-sdk";
@@ -148,7 +147,7 @@ makePackage {
 
   passthru.deps = deps;
 
-    # Uses a lot of RAM, OOMs otherwise
+  # Uses a lot of RAM, OOMs otherwise
   requiredSystemFeatures = [ "big-parallel" ];
 
   meta = with lib; {

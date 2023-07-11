@@ -42,7 +42,7 @@
   useMacosReexportHack ? false,
   wrapGas ? false
 
-    # Darwin code signing support utilities
+  # Darwin code signing support utilities
   ,
   postLinkSignHook ? null,
   signingUtils ? null
@@ -57,15 +57,12 @@ assert (noLibc || nativeLibc) == (libc == null);
 
 let
   stdenv = stdenvNoCC;
-  inherit (stdenv)
-    hostPlatform
-    targetPlatform
-    ;
+  inherit (stdenv) hostPlatform targetPlatform;
 
-    # Prefix for binaries. Customarily ends with a dash separator.
-    #
-    # TODO(@Ericson2314) Make unconditional, or optional but always true by
-    # default.
+  # Prefix for binaries. Customarily ends with a dash separator.
+  #
+  # TODO(@Ericson2314) Make unconditional, or optional but always true by
+  # default.
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (
     targetPlatform.config + "-"
   );
@@ -97,7 +94,7 @@ let
     else
       getBin bintools
     ;
-    # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
+  # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
   coreutils_bin =
     if nativeTools then
       ""
@@ -105,7 +102,7 @@ let
       getBin coreutils
     ;
 
-    # See description in cc-wrapper.
+  # See description in cc-wrapper.
   suffixSalt = replaceStrings
     [
       "-"
@@ -117,8 +114,8 @@ let
     ]
     targetPlatform.config;
 
-    # The dynamic linker has different names on different platforms. This is a
-    # shell glob that ought to match it.
+  # The dynamic linker has different names on different platforms. This is a
+  # shell glob that ought to match it.
   dynamicLinker =
     if sharedLibraryLoader == null then
       ""
@@ -138,7 +135,7 @@ let
       "${sharedLibraryLoader}/lib/ld-linux-x86-64.so.2"
     else if targetPlatform.system == "powerpc64le-linux" then
       "${sharedLibraryLoader}/lib/ld64.so.2"
-      # ARM with a wildcard, which can be "" or "-armhf".
+    # ARM with a wildcard, which can be "" or "-armhf".
     else if (with targetPlatform; isAarch32 && isLinux) then
       "${sharedLibraryLoader}/lib/ld-linux*.so.3"
     else if targetPlatform.system == "aarch64-linux" then
@@ -147,7 +144,7 @@ let
       "${sharedLibraryLoader}/lib/ld.so.1"
     else if targetPlatform.isMips then
       "${sharedLibraryLoader}/lib/ld.so.1"
-      # `ld-linux-riscv{32,64}-<abi>.so.1`
+    # `ld-linux-riscv{32,64}-<abi>.so.1`
     else if targetPlatform.isRiscV then
       "${sharedLibraryLoader}/lib/ld-linux-riscv*.so.1"
     else if targetPlatform.isLoongArch64 then
@@ -169,8 +166,8 @@ let
       && buildPackages.stdenv.cc != "/dev/null"
     )
     (import ../expand-response-params { inherit (buildPackages) stdenv; });
-
 in
+
 stdenv.mkDerivation {
   pname =
     targetPrefix
@@ -240,7 +237,6 @@ stdenv.mkDerivation {
         chmod +x "$out/bin/$dst"
       }
     ''
-
     + (
       if nativeTools then
         ''
@@ -262,20 +258,11 @@ stdenv.mkDerivation {
           wrap ld-solaris ${./ld-solaris-wrapper.sh}
         ''
     )
-
-    # If we are asked to wrap `gas` and this bintools has it,
-    # then symlink it (`as` will be symlinked next).
-    # This is mainly for the wrapped gnat-bootstrap on x86-64 Darwin,
-    # as it must have both the GNU assembler from cctools (installed as `gas`)
-    # and the Clang integrated assembler (installed as `as`).
-    # See pkgs/os-specific/darwin/binutils/default.nix for details.
     + lib.optionalString wrapGas ''
       if [ -e $ldPath/${targetPrefix}gas ]; then
         ln -s $ldPath/${targetPrefix}gas $out/bin/${targetPrefix}gas
       fi
     ''
-
-      # Create symlinks for rest of the binaries.
     + ''
       for binary in objdump objcopy size strings as ar nm gprof dwp c++filt addr2line \
           ranlib readelf elfedit dlltool dllwrap windmc windres; do
@@ -323,66 +310,62 @@ stdenv.mkDerivation {
 
   postFixup =
     ##
-    ## General libc support
-    ##
-    optionalString (libc != null) (
-      ''
-        touch "$out/nix-support/libc-ldflags"
-        echo "-L${libc_lib}${
-          libc.libdir or "/lib"
-        }" >> $out/nix-support/libc-ldflags
-
-        echo "${libc_lib}" > $out/nix-support/orig-libc
-        echo "${libc_dev}" > $out/nix-support/orig-libc-dev
-      ''
-
+      ## General libc support
       ##
-      ## Dynamic linker support
-      ##
-      + optionalString (sharedLibraryLoader != null) ''
-        if [[ -z ''${dynamicLinker+x} ]]; then
-          echo "Don't know the name of the dynamic linker for platform '${targetPlatform.config}', so guessing instead." >&2
-          local dynamicLinker="${sharedLibraryLoader}/lib/ld*.so.?"
-        fi
-      ''
+      optionalString
+      (libc != null)
+      (
+        ''
+          touch "$out/nix-support/libc-ldflags"
+          echo "-L${libc_lib}${
+            libc.libdir or "/lib"
+          }" >> $out/nix-support/libc-ldflags
+
+          echo "${libc_lib}" > $out/nix-support/orig-libc
+          echo "${libc_dev}" > $out/nix-support/orig-libc-dev
+        ''
 
         # Expand globs to fill array of options
-      + ''
-        dynamicLinker=($dynamicLinker)
+        + optionalString (sharedLibraryLoader != null) ''
+          if [[ -z ''${dynamicLinker+x} ]]; then
+            echo "Don't know the name of the dynamic linker for platform '${targetPlatform.config}', so guessing instead." >&2
+            local dynamicLinker="${sharedLibraryLoader}/lib/ld*.so.?"
+          fi
+        ''
 
-        case ''${#dynamicLinker[@]} in
-          0) echo "No dynamic linker found for platform '${targetPlatform.config}'." >&2;;
-          1) echo "Using dynamic linker: '$dynamicLinker'" >&2;;
-          *) echo "Multiple dynamic linkers found for platform '${targetPlatform.config}'." >&2;;
-        esac
+        # Expand globs to fill array of options
+        + ''
+          dynamicLinker=($dynamicLinker)
 
-        if [ -n "''${dynamicLinker-}" ]; then
-          echo $dynamicLinker > $out/nix-support/dynamic-linker
+          case ''${#dynamicLinker[@]} in
+            0) echo "No dynamic linker found for platform '${targetPlatform.config}'." >&2;;
+            1) echo "Using dynamic linker: '$dynamicLinker'" >&2;;
+            *) echo "Multiple dynamic linkers found for platform '${targetPlatform.config}'." >&2;;
+          esac
 
-          ${
-            if targetPlatform.isDarwin then
-              ''
-                printf "export LD_DYLD_PATH=%q\n" "$dynamicLinker" >> $out/nix-support/setup-hook
-              ''
-            else
-              lib.optionalString (sharedLibraryLoader != null) ''
-                if [ -e ${sharedLibraryLoader}/lib/32/ld-linux.so.2 ]; then
-                  echo ${sharedLibraryLoader}/lib/32/ld-linux.so.2 > $out/nix-support/dynamic-linker-m32
-                fi
-                touch $out/nix-support/ld-set-dynamic-linker
-              ''
-          }
-        fi
-      ''
-    )
+          if [ -n "''${dynamicLinker-}" ]; then
+            echo $dynamicLinker > $out/nix-support/dynamic-linker
+
+            ${
+              if targetPlatform.isDarwin then
+                ''
+                  printf "export LD_DYLD_PATH=%q\n" "$dynamicLinker" >> $out/nix-support/setup-hook
+                ''
+              else
+                lib.optionalString (sharedLibraryLoader != null) ''
+                  if [ -e ${sharedLibraryLoader}/lib/32/ld-linux.so.2 ]; then
+                    echo ${sharedLibraryLoader}/lib/32/ld-linux.so.2 > $out/nix-support/dynamic-linker-m32
+                  fi
+                  touch $out/nix-support/ld-set-dynamic-linker
+                ''
+            }
+          fi
+        ''
+      )
 
     ##
-    ## User env support
+    ## Extra custom steps
     ##
-
-    # Propagate the underling unwrapped bintools so that if you
-    # install the wrapper, you get tools like objdump (same for any
-    # binaries of libc).
     + optionalString (!nativeTools) ''
       printWords ${bintools_bin} ${
         if libc == null then
@@ -392,9 +375,9 @@ stdenv.mkDerivation {
       } > $out/nix-support/propagated-user-env-packages
     ''
 
-      ##
-      ## Man page and info support
-      ##
+    ##
+    ## Extra custom steps
+    ##
     + optionalString propagateDoc (
       ''
         ln -s ${bintools.man} $man
@@ -405,10 +388,8 @@ stdenv.mkDerivation {
     )
 
     ##
-    ## Hardening support
+    ## Extra custom steps
     ##
-
-    # some linkers on some platforms don't support specific -z flags
     + ''
       export hardening_unsupported_flags=""
       if [[ "$($ldPath/${targetPrefix}ld -z now 2>&1 || true)" =~ un(recognized|known)\ option ]]; then
@@ -419,43 +400,56 @@ stdenv.mkDerivation {
       fi
     ''
 
+    ##
+    ## Extra custom steps
+    ##
     + optionalString hostPlatform.isCygwin ''
       hardening_unsupported_flags+=" pic"
     ''
 
+    ##
+    ## Extra custom steps
+    ##
     + optionalString targetPlatform.isAvr ''
       hardening_unsupported_flags+=" relro bindnow"
     ''
 
+    ##
+    ## Extra custom steps
+    ##
     + optionalString (libc != null && targetPlatform.isAvr) ''
       for isa in avr5 avr3 avr4 avr6 avr25 avr31 avr35 avr51 avrxmega2 avrxmega4 avrxmega5 avrxmega6 avrxmega7 tiny-stack; do
         echo "-L${getLib libc}/avr/lib/$isa" >> $out/nix-support/libc-cflags
       done
     ''
 
+    ##
+    ## Extra custom steps
+    ##
     + optionalString stdenv.targetPlatform.isDarwin ''
       echo "-arch ${targetPlatform.darwinArch}" >> $out/nix-support/libc-ldflags
     ''
 
-      ##
-      ## GNU specific extra strip flags
-      ##
-
-      # TODO(@sternenseemann): make a generic strip wrapper?
+    ##
+    ## Extra custom steps
+    ##
     + optionalString (bintools.isGNU or false) ''
       wrap ${targetPrefix}strip ${./gnu-binutils-strip-wrapper.sh} \
         "${bintools_bin}/bin/${targetPrefix}strip"
     ''
 
-      ###
-      ### Remove LC_UUID
-      ###
+    ##
+    ## Extra custom steps
+    ##
     + optionalString
       (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false))
       ''
         echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
       ''
 
+    ##
+    ## Extra custom steps
+    ##
     + ''
       for flags in "$out/nix-support"/*flags*; do
         substituteInPlace "$flags" --replace $'\n' ' '
@@ -466,9 +460,9 @@ stdenv.mkDerivation {
       substituteAll ${../wrapper-common/utils.bash} $out/nix-support/utils.bash
     ''
 
-    ###
-    ### Ensure consistent LC_VERSION_MIN_MACOSX
-    ###
+    ##
+    ## Extra custom steps
+    ##
     + optionalString stdenv.targetPlatform.isDarwin (
       let
         inherit (stdenv.targetPlatform)
@@ -490,7 +484,7 @@ stdenv.mkDerivation {
     )
 
     ##
-    ## Code signing on Apple Silicon
+    ## Extra custom steps
     ##
     + optionalString (targetPlatform.isDarwin && targetPlatform.isAarch64) ''
       echo 'source ${postLinkSignHook}' >> $out/nix-support/post-link-hook
@@ -507,9 +501,9 @@ stdenv.mkDerivation {
         "${bintools_bin}/bin/${targetPrefix}strip"
     ''
 
-      ##
-      ## Extra custom steps
-      ##
+    ##
+    ## Extra custom steps
+    ##
     + extraBuildCommands
     ;
 

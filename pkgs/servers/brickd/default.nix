@@ -16,8 +16,8 @@ let
     rev = "brickd-${version}";
     sha256 = "sha256-0HhuC4r1S4NJa2FSJa7+fNCfcoRTBckikYbGSE+2FbE=";
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "brickd";
   inherit version;
@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     udev
   ];
 
-    # shell thing didn't work so i replaced it using nix
+  # shell thing didn't work so i replaced it using nix
   prePatch = ''
     substituteInPlace src/brickd/Makefile --replace 'PKG_CONFIG := $(shell which pkg-config 2> /dev/null)' "PKG_CONFIG := $pkgconfig/bin/pkg_config";
   '';

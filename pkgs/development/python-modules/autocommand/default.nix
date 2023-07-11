@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-bjoVGfP57qhvPuHHcMP8JQddAaW4/fEyatElk1UEPZo=";
   };
 
-    # fails with: SyntaxError: invalid syntax
+  # fails with: SyntaxError: invalid syntax
   doCheck = false;
 
   nativeCheckInputs = [ pytestCheckHook ];

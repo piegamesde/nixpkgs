@@ -30,7 +30,7 @@ buildPythonPackage rec {
     xlsxwriter
   ];
 
-    # The tests require a shodan api key, so skip them.
+  # The tests require a shodan api key, so skip them.
   doCheck = false;
 
   pythonImportsCheck = [ "shodan" ];

@@ -12,11 +12,9 @@ let
 
   inherit (lib.asserts) assertMsg;
 
-  inherit (lib.path.subpath)
-    isValid
-    ;
+  inherit (lib.path.subpath) isValid;
 
-    # Return the reason why a subpath is invalid, or `null` if it's valid
+  # Return the reason why a subpath is invalid, or `null` if it's valid
   subpathInvalidReason =
     value:
     if !isString value then
@@ -28,7 +26,7 @@ let
     else if substring 0 1 value == "/" then
       ''
         The given string "${value}" starts with a `/`, representing an absolute path''
-      # We don't support ".." components, see ./path.md#parent-directory
+    # We don't support ".." components, see ./path.md#parent-directory
     else if match "(.*/)?\\.\\.(/.*)?" value != null then
       ''
         The given string "${value}" contains a `..` component, which is not allowed in subpaths''
@@ -36,8 +34,8 @@ let
       null
     ;
 
-    # Split and normalise a relative path string into its components.
-    # Error for ".." components and doesn't include "." components
+  # Split and normalise a relative path string into its components.
+  # Error for ".." components and doesn't include "." components
   splitRelPath =
     path:
     let
@@ -51,19 +49,17 @@ let
       # These are the only cases where "." and "" parts can occur
       parts = split "/+(\\./+)*" path;
 
-        # `split` creates a list of 2 * k + 1 elements, containing the k +
-        # 1 parts, interleaved with k matches where k is the number of
-        # (non-overlapping) matches. This calculation here gets the number of parts
-        # back from the list length
-        # floor( (2 * k + 1) / 2 ) + 1 == floor( k + 1/2 ) + 1 == k + 1
-      partCount =
-        length parts / 2 + 1
-        ;
+      # `split` creates a list of 2 * k + 1 elements, containing the k +
+      # 1 parts, interleaved with k matches where k is the number of
+      # (non-overlapping) matches. This calculation here gets the number of parts
+      # back from the list length
+      # floor( (2 * k + 1) / 2 ) + 1 == floor( k + 1/2 ) + 1 == k + 1
+      partCount = length parts / 2 + 1;
 
-        # To assemble the final list of components we want to:
-        # - Skip a potential leading ".", normalising "./foo" to "foo"
-        # - Skip a potential trailing "." or "", normalising "foo/" and "foo/." to
-        #   "foo". See ./path.md#trailing-slashes
+      # To assemble the final list of components we want to:
+      # - Skip a potential leading ".", normalising "./foo" to "foo"
+      # - Skip a potential trailing "." or "", normalising "foo/" and "foo/." to
+      #   "foo". See ./path.md#trailing-slashes
       skipStart =
         if head parts == "." then
           1
@@ -77,36 +73,39 @@ let
           0
         ;
 
-        # We can now know the length of the result by removing the number of
-        # skipped parts from the total number
+      # We can now know the length of the result by removing the number of
+      # skipped parts from the total number
       componentCount = partCount - skipEnd - skipStart;
-
-      # Special case of a single "." path component. Such a case leaves a
-      # componentCount of -1 due to the skipStart/skipEnd not verifying that
-      # they don't refer to the same character
     in
-    if path == "." then
+    # Special case of a single "." path component. Such a case leaves a
+    # componentCount of -1 due to the skipStart/skipEnd not verifying that
+    # they don't refer to the same character
+    if
+      path == "."
+    then
       [ ]
 
-      # Generate the result list directly. This is more efficient than a
-      # combination of `filter`, `init` and `tail`, because here we don't
-      # allocate any intermediate lists
+    # Generate the result list directly. This is more efficient than a
+    # combination of `filter`, `init` and `tail`, because here we don't
+    # allocate any intermediate lists
     else
       genList
       (
         index:
         # To get to the element we need to add the number of parts we skip and
         # multiply by two due to the interleaved layout of `parts`
-        elemAt parts ((skipStart + index) * 2)
+        elemAt
+        parts
+        ((skipStart + index) * 2)
       )
       componentCount
     ;
 
-    # Join relative path components together
+  # Join relative path components together
   joinRelPath =
     components:
     # Always return relative paths with `./` as a prefix (./path.md#leading-dots-for-relative-paths)
-    "./"
+      "./"
     +
     # An empty string is not a valid relative path, so we need to return a `.` when we have no components
     (
@@ -116,9 +115,7 @@ let
         concatStringsSep "/" components
     )
     ;
-
-  # No rec! Add dependencies on this file at the top.
-in
+in # No rec! Add dependencies on this file at the top.
 {
 
   /* Append a subpath string to a path.
@@ -172,116 +169,118 @@ in
     path + ("/" + subpath)
     ;
 
-    /* Whether a value is a valid subpath string.
+  /* Whether a value is a valid subpath string.
 
-       - The value is a string
+     - The value is a string
 
-       - The string is not empty
+     - The string is not empty
 
-       - The string doesn't start with a `/`
+     - The string doesn't start with a `/`
 
-       - The string doesn't contain any `..` path components
+     - The string doesn't contain any `..` path components
 
-       Type:
-         subpath.isValid :: String -> Bool
+     Type:
+       subpath.isValid :: String -> Bool
 
-       Example:
-         # Not a string
-         subpath.isValid null
-         => false
+     Example:
+       # Not a string
+       subpath.isValid null
+       => false
 
-         # Empty string
-         subpath.isValid ""
-         => false
+       # Empty string
+       subpath.isValid ""
+       => false
 
-         # Absolute path
-         subpath.isValid "/foo"
-         => false
+       # Absolute path
+       subpath.isValid "/foo"
+       => false
 
-         # Contains a `..` path component
-         subpath.isValid "../foo"
-         => false
+       # Contains a `..` path component
+       subpath.isValid "../foo"
+       => false
 
-         # Valid subpath
-         subpath.isValid "foo/bar"
-         => true
+       # Valid subpath
+       subpath.isValid "foo/bar"
+       => true
 
-         # Doesn't need to be normalised
-         subpath.isValid "./foo//bar/"
-         => true
-    */
+       # Doesn't need to be normalised
+       subpath.isValid "./foo//bar/"
+       => true
+  */
   subpath.isValid =
     # The value to check
     value:
     subpathInvalidReason value == null
     ;
 
-    /* Join subpath strings together using `/`, returning a normalised subpath string.
+  /* Join subpath strings together using `/`, returning a normalised subpath string.
 
-       Like `concatStringsSep "/"` but safer, specifically:
+     Like `concatStringsSep "/"` but safer, specifically:
 
-       - All elements must be valid subpath strings, see `lib.path.subpath.isValid`
+     - All elements must be valid subpath strings, see `lib.path.subpath.isValid`
 
-       - The result gets normalised, see `lib.path.subpath.normalise`
+     - The result gets normalised, see `lib.path.subpath.normalise`
 
-       - The edge case of an empty list gets properly handled by returning the neutral subpath `"./."`
+     - The edge case of an empty list gets properly handled by returning the neutral subpath `"./."`
 
-       Laws:
+     Laws:
 
-       - Associativity:
+     - Associativity:
 
-             subpath.join [ x (subpath.join [ y z ]) ] == subpath.join [ (subpath.join [ x y ]) z ]
+           subpath.join [ x (subpath.join [ y z ]) ] == subpath.join [ (subpath.join [ x y ]) z ]
 
-       - Identity - `"./."` is the neutral element for normalised paths:
+     - Identity - `"./."` is the neutral element for normalised paths:
 
-             subpath.join [ ] == "./."
-             subpath.join [ (subpath.normalise p) "./." ] == subpath.normalise p
-             subpath.join [ "./." (subpath.normalise p) ] == subpath.normalise p
+           subpath.join [ ] == "./."
+           subpath.join [ (subpath.normalise p) "./." ] == subpath.normalise p
+           subpath.join [ "./." (subpath.normalise p) ] == subpath.normalise p
 
-       - Normalisation - the result is normalised according to `lib.path.subpath.normalise`:
+     - Normalisation - the result is normalised according to `lib.path.subpath.normalise`:
 
-             subpath.join ps == subpath.normalise (subpath.join ps)
+           subpath.join ps == subpath.normalise (subpath.join ps)
 
-       - For non-empty lists, the implementation is equivalent to normalising the result of `concatStringsSep "/"`.
-         Note that the above laws can be derived from this one.
+     - For non-empty lists, the implementation is equivalent to normalising the result of `concatStringsSep "/"`.
+       Note that the above laws can be derived from this one.
 
-             ps != [] -> subpath.join ps == subpath.normalise (concatStringsSep "/" ps)
+           ps != [] -> subpath.join ps == subpath.normalise (concatStringsSep "/" ps)
 
-       Type:
-         subpath.join :: [ String ] -> String
+     Type:
+       subpath.join :: [ String ] -> String
 
-       Example:
-         subpath.join [ "foo" "bar/baz" ]
-         => "./foo/bar/baz"
+     Example:
+       subpath.join [ "foo" "bar/baz" ]
+       => "./foo/bar/baz"
 
-         # normalise the result
-         subpath.join [ "./foo" "." "bar//./baz/" ]
-         => "./foo/bar/baz"
+       # normalise the result
+       subpath.join [ "./foo" "." "bar//./baz/" ]
+       => "./foo/bar/baz"
 
-         # passing an empty list results in the current directory
-         subpath.join [ ]
-         => "./."
+       # passing an empty list results in the current directory
+       subpath.join [ ]
+       => "./."
 
-         # elements must be valid subpath strings
-         subpath.join [ /foo ]
-         => <error>
-         subpath.join [ "" ]
-         => <error>
-         subpath.join [ "/foo" ]
-         => <error>
-         subpath.join [ "../foo" ]
-         => <error>
-    */
+       # elements must be valid subpath strings
+       subpath.join [ /foo ]
+       => <error>
+       subpath.join [ "" ]
+       => <error>
+       subpath.join [ "/foo" ]
+       => <error>
+       subpath.join [ "../foo" ]
+       => <error>
+  */
   subpath.join =
     # The list of subpaths to join together
     subpaths:
     # Fast in case all paths are valid
-    if all isValid subpaths then
+    if
+      all isValid subpaths
+    then
       joinRelPath (concatMap splitRelPath subpaths)
     else
-    # Otherwise we take our time to gather more info for a better error message
-    # Strictly go through each path, throwing on the first invalid one
-    # Tracks the list index in the fold accumulator
+      # Otherwise we take our time to gather more info for a better error message
+      # Strictly go through each path, throwing on the first invalid one
+      # Tracks the list index in the fold accumulator
       foldl'
       (
         i: path:
@@ -298,79 +297,79 @@ in
       subpaths
     ;
 
-    /* Normalise a subpath. Throw an error if the subpath isn't valid, see
-       `lib.path.subpath.isValid`
+  /* Normalise a subpath. Throw an error if the subpath isn't valid, see
+     `lib.path.subpath.isValid`
 
-       - Limit repeating `/` to a single one
+     - Limit repeating `/` to a single one
 
-       - Remove redundant `.` components
+     - Remove redundant `.` components
 
-       - Remove trailing `/` and `/.`
+     - Remove trailing `/` and `/.`
 
-       - Add leading `./`
+     - Add leading `./`
 
-       Laws:
+     Laws:
 
-       - Idempotency - normalising multiple times gives the same result:
+     - Idempotency - normalising multiple times gives the same result:
 
-             subpath.normalise (subpath.normalise p) == subpath.normalise p
+           subpath.normalise (subpath.normalise p) == subpath.normalise p
 
-       - Uniqueness - there's only a single normalisation for the paths that lead to the same file system node:
+     - Uniqueness - there's only a single normalisation for the paths that lead to the same file system node:
 
-             subpath.normalise p != subpath.normalise q -> $(realpath ${p}) != $(realpath ${q})
+           subpath.normalise p != subpath.normalise q -> $(realpath ${p}) != $(realpath ${q})
 
-       - Don't change the result when appended to a Nix path value:
+     - Don't change the result when appended to a Nix path value:
 
-             base + ("/" + p) == base + ("/" + subpath.normalise p)
+           base + ("/" + p) == base + ("/" + subpath.normalise p)
 
-       - Don't change the path according to `realpath`:
+     - Don't change the path according to `realpath`:
 
-             $(realpath ${p}) == $(realpath ${subpath.normalise p})
+           $(realpath ${p}) == $(realpath ${subpath.normalise p})
 
-       - Only error on invalid subpaths:
+     - Only error on invalid subpaths:
 
-             builtins.tryEval (subpath.normalise p)).success == subpath.isValid p
+           builtins.tryEval (subpath.normalise p)).success == subpath.isValid p
 
-       Type:
-         subpath.normalise :: String -> String
+     Type:
+       subpath.normalise :: String -> String
 
-       Example:
-         # limit repeating `/` to a single one
-         subpath.normalise "foo//bar"
-         => "./foo/bar"
+     Example:
+       # limit repeating `/` to a single one
+       subpath.normalise "foo//bar"
+       => "./foo/bar"
 
-         # remove redundant `.` components
-         subpath.normalise "foo/./bar"
-         => "./foo/bar"
+       # remove redundant `.` components
+       subpath.normalise "foo/./bar"
+       => "./foo/bar"
 
-         # add leading `./`
-         subpath.normalise "foo/bar"
-         => "./foo/bar"
+       # add leading `./`
+       subpath.normalise "foo/bar"
+       => "./foo/bar"
 
-         # remove trailing `/`
-         subpath.normalise "foo/bar/"
-         => "./foo/bar"
+       # remove trailing `/`
+       subpath.normalise "foo/bar/"
+       => "./foo/bar"
 
-         # remove trailing `/.`
-         subpath.normalise "foo/bar/."
-         => "./foo/bar"
+       # remove trailing `/.`
+       subpath.normalise "foo/bar/."
+       => "./foo/bar"
 
-         # Return the current directory as `./.`
-         subpath.normalise "."
-         => "./."
+       # Return the current directory as `./.`
+       subpath.normalise "."
+       => "./."
 
-         # error on `..` path components
-         subpath.normalise "foo/../bar"
-         => <error>
+       # error on `..` path components
+       subpath.normalise "foo/../bar"
+       => <error>
 
-         # error on empty string
-         subpath.normalise ""
-         => <error>
+       # error on empty string
+       subpath.normalise ""
+       => <error>
 
-         # error on absolute path
-         subpath.normalise "/foo"
-         => <error>
-    */
+       # error on absolute path
+       subpath.normalise "/foo"
+       => <error>
+  */
   subpath.normalise =
     # The subpath string to normalise
     subpath:
@@ -379,5 +378,4 @@ in
           ${subpathInvalidReason subpath}'';
     joinRelPath (splitRelPath subpath)
     ;
-
 }

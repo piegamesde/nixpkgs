@@ -69,7 +69,7 @@ buildPythonApplication rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Wrapping this manually for SVG recognition
+  # Wrapping this manually for SVG recognition
   dontWrapGApps = true;
 
   postInstall = ''

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     python-pam
   ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pam_auth_provider" ];

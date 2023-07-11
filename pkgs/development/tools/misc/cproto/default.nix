@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-897D9hAncBlpdkWcS0SsJzVfYSDaduUjHsEyPjedFRE=";
   };
 
-    # patch made by Joe Khoobyar copied from gentoo bugs
+  # patch made by Joe Khoobyar copied from gentoo bugs
   patches = [ ./cproto.patch ];
 
   nativeBuildInputs = [

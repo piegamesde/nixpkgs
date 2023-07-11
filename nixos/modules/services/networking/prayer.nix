@@ -35,8 +35,8 @@ let
     cat ${prayer}/etc/prayer.cf | grep -v http_port > $out
     cat ${prayerExtraCfg} >> $out
   '';
-
 in
+
 {
 
   ###### interface
@@ -63,10 +63,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.prayer.enable {
     environment.systemPackages = [ prayer ];

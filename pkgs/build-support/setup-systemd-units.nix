@@ -22,10 +22,10 @@
   # (e.g. ".service")
   ,
   namespace # : String
-  # The namespace for the unit files, to allow for
-  # multiple independent unit sets managed by
-  # `setupSystemdUnits`.
   ,
+# The namespace for the unit files, to allow for
+# multiple independent unit sets managed by
+# `setupSystemdUnits`.
 }:
 let
   static = runCommand "systemd-static" { } ''

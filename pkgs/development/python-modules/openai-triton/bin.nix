@@ -55,7 +55,7 @@ buildPythonPackage rec {
 
   dontStrip = true;
 
-    # If this breaks, consider replacing with "${cuda_nvcc}/bin/ptxas"
+  # If this breaks, consider replacing with "${cuda_nvcc}/bin/ptxas"
   postFixup =
     ''
       chmod +x "$out/${python.sitePackages}/triton/third_party/cuda/bin/ptxas"
@@ -87,10 +87,10 @@ buildPythonPackage rec {
     description = "A language and compiler for custom Deep Learning operations";
     homepage = "https://github.com/openai/triton/";
     changelog = "https://github.com/openai/triton/releases/tag/v${version}";
-      # Includes NVIDIA's ptxas, but redistributions of the binary are not limited.
-      # https://docs.nvidia.com/cuda/eula/index.html
-      # triton's license is MIT.
-      # openai-triton-bin includes ptxas binary, therefore unfreeRedistributable is set.
+    # Includes NVIDIA's ptxas, but redistributions of the binary are not limited.
+    # https://docs.nvidia.com/cuda/eula/index.html
+    # triton's license is MIT.
+    # openai-triton-bin includes ptxas binary, therefore unfreeRedistributable is set.
     license = with licenses; [
       unfreeRedistributable
       mit

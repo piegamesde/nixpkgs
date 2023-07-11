@@ -32,7 +32,7 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [

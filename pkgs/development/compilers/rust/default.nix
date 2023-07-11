@@ -35,7 +35,7 @@ in
 {
   lib = lib';
 
-    # Backwards compat before `lib` was factored out.
+  # Backwards compat before `lib` was factored out.
   inherit (lib')
     toTargetArch
     toTargetOs
@@ -44,17 +44,17 @@ in
     IsNoStdTarget
     ;
 
-    # This just contains tools for now. But it would conceivably contain
-    # libraries too, say if we picked some default/recommended versions to build
-    # by Hydra.
-    #
-    # In the end game, rustc, the rust standard library (`core`, `std`, etc.),
-    # and cargo would themselves be built with `buildRustCreate` like
-    # everything else. Tools and `build.rs` and procedural macro dependencies
-    # would be taken from `buildRustPackages` (and `bootstrapRustPackages` for
-    # anything provided prebuilt or their build-time dependencies to break
-    # cycles / purify builds). In this way, nixpkgs would be in control of all
-    # bootstrapping.
+  # This just contains tools for now. But it would conceivably contain
+  # libraries too, say if we picked some default/recommended versions to build
+  # by Hydra.
+  #
+  # In the end game, rustc, the rust standard library (`core`, `std`, etc.),
+  # and cargo would themselves be built with `buildRustCreate` like
+  # everything else. Tools and `build.rs` and procedural macro dependencies
+  # would be taken from `buildRustPackages` (and `bootstrapRustPackages` for
+  # anything provided prebuilt or their build-time dependencies to break
+  # cycles / purify builds). In this way, nixpkgs would be in control of all
+  # bootstrapping.
   packages = {
     prebuilt = callPackage ./bootstrap.nix {
       version = bootstrapVersion;
@@ -77,7 +77,7 @@ in
       {
         # Packages suitable for build-time, e.g. `build.rs`-type stuff.
         buildRustPackages = (selectRustPackage buildPackages).packages.stable;
-          # Analogous to stdenv
+        # Analogous to stdenv
         rustPlatform = makeRustPlatform self.buildRustPackages;
         rustc = self.callPackage ./rustc.nix (
           {
@@ -94,7 +94,7 @@ in
 
             patches = rustcPatches;
 
-              # Use boot package set to break cycle
+            # Use boot package set to break cycle
             rustPlatform = bootRustPlatform;
           } // lib.optionalAttrs
           (stdenv.cc.isClang && stdenv.hostPlatform == stdenv.buildPlatform)

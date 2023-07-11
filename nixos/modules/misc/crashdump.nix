@@ -11,9 +11,8 @@ let
   crashdump = config.boot.crashDump;
 
   kernelParams = concatStringsSep " " crashdump.kernelParams;
-
-  ###### interface
 in
+###### interface
 {
   options = {
     boot = {
@@ -52,7 +51,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf crashdump.enable {
     boot = {

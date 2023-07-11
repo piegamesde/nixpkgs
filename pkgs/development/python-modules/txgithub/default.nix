@@ -22,7 +22,7 @@ buildPythonPackage rec {
     service-identity
   ];
 
-    # fix python3 issues
+  # fix python3 issues
   patchPhase = ''
     sed -i 's/except usage.UsageError, errortext/except usage.UsageError as errortext/' txgithub/scripts/create_token.py
     sed -i 's/except usage.UsageError, errortext/except usage.UsageError as errortext/' txgithub/scripts/gist.py
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     sed -i '41d' txgithub/scripts/gist.py
   '';
 
-    # No tests distributed
+  # No tests distributed
   doCheck = false;
 
   meta = with lib; {
@@ -40,5 +40,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
-
 }

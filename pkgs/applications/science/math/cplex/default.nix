@@ -16,7 +16,8 @@
 # somewhat with the use of functions like requireFile as the hash will be
 # different for every user.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "cplex";
   version = "128";
 

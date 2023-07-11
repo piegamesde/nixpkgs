@@ -47,7 +47,7 @@ let
       "{connection_file}"
     ];
     language = "sagemath";
-      # just one 16x16 logo is available
+    # just one 16x16 logo is available
     logo32 = "${sage-src}/src/doc/common/themes/sage/static/sageicon.png";
     logo64 = "${sage-src}/src/doc/common/themes/sage/static/sageicon.png";
   };
@@ -59,8 +59,8 @@ let
 
   three = callPackage ./threejs-sage.nix { };
 
-    # A bash script setting various environment variables to tell sage where
-    # the files its looking fore are located. Also see `sage-env`.
+  # A bash script setting various environment variables to tell sage where
+  # the files its looking fore are located. Also see `sage-env`.
   env-locations = callPackage ./env-locations.nix {
     inherit pari_data;
     inherit singular maxima;
@@ -69,8 +69,8 @@ let
     mathjax = nodePackages.mathjax;
   };
 
-    # The shell file that gets sourced on every sage start. Will also source
-    # the env-locations file.
+  # The shell file that gets sourced on every sage start. Will also source
+  # the env-locations file.
   sage-env = callPackage ./sage-env.nix {
     sagelib = python3.pkgs.sagelib;
     sage-docbuild = python3.pkgs.sage-docbuild;
@@ -80,11 +80,11 @@ let
       pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
   };
 
-    # The documentation for sage, building it takes a lot of ram.
+  # The documentation for sage, building it takes a lot of ram.
   sagedoc =
     callPackage ./sagedoc.nix { inherit sage-with-env jupyter-kernel-specs; };
 
-    # sagelib with added wrappers and a dependency on sage-tests to make sure thet tests were run.
+  # sagelib with added wrappers and a dependency on sage-tests to make sure thet tests were run.
   sage-with-env = callPackage ./sage-with-env.nix {
     inherit python3 pythonEnv;
     inherit sage-env;
@@ -94,10 +94,10 @@ let
       pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
   };
 
-    # Doesn't actually build anything, just runs sages testsuite. This is a
-    # separate derivation to make it possible to re-run the tests without
-    # rebuilding sagelib (which takes ~30 minutes).
-    # Running the tests should take something in the order of 1h.
+  # Doesn't actually build anything, just runs sages testsuite. This is a
+  # separate derivation to make it possible to re-run the tests without
+  # rebuilding sagelib (which takes ~30 minutes).
+  # Running the tests should take something in the order of 1h.
   sage-tests = callPackage ./sage-tests.nix { inherit sage-with-env; };
 
   sage-src = callPackage ./sage-src.nix { };
@@ -143,21 +143,21 @@ let
       # https://gitlab.com/embeddable-common-lisp/ecl/-/merge_requests/1#note_1657275
       threadSupport = false;
 
-        # if we don't use the system boehmgc, sending a SIGINT to ecl
-        # can segfault if we it happens during memory allocation.
-        # src/sage/libs/ecl.pyx would intermittently fail in this case.
+      # if we don't use the system boehmgc, sending a SIGINT to ecl
+      # can segfault if we it happens during memory allocation.
+      # src/sage/libs/ecl.pyx would intermittently fail in this case.
       useBoehmgc = true;
     };
   };
 
-    # With openblas (64 bit), the tests fail the same way as when sage is build with
-    # openblas instead of openblasCompat. Apparently other packages somehow use flints
-    # blas when it is available. Alternative would be to override flint to use
-    # openblasCompat.
+  # With openblas (64 bit), the tests fail the same way as when sage is build with
+  # openblas instead of openblasCompat. Apparently other packages somehow use flints
+  # blas when it is available. Alternative would be to override flint to use
+  # openblasCompat.
   flint = pkgs.flint.override { withBlas = false; };
 
-    # Multiple palp dimensions need to be available and sage expects them all to be
-    # in the same folder.
+  # Multiple palp dimensions need to be available and sage expects them all to be
+  # in the same folder.
   palp = symlinkJoin {
     name = "palp-${pkgs.palp.version}";
     paths = [
@@ -180,7 +180,7 @@ let
     ];
   };
 
-    # Sage expects those in the same directory.
+  # Sage expects those in the same directory.
   pari_data = symlinkJoin {
     name = "pari_data";
     paths = with pkgs; [
@@ -188,9 +188,11 @@ let
       pari-seadata-small
     ];
   };
-  # A wrapper around sage that makes sure sage finds its docs (if they were build).
 in
-callPackage ./sage.nix {
+# A wrapper around sage that makes sure sage finds its docs (if they were build).
+callPackage
+./sage.nix
+{
   inherit
     sage-tests
     sage-with-env

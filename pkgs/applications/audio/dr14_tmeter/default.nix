@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
     lame
   ];
 
-    # There are no tests
+  # There are no tests
   doCheck = false;
 
   meta = with lib; {

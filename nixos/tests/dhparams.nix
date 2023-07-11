@@ -18,8 +18,8 @@ import ./make-test-python.nix {
             security.dhparams.params = {
               # Use low values here because we don't want the test to run for ages.
               foo.bits = 1024;
-                # Also use the old format to make sure the type is coerced in the right
-                # way.
+              # Also use the old format to make sure the type is coerced in the right
+              # way.
               bar = 1025;
             };
 
@@ -32,16 +32,16 @@ import ./make-test-python.nix {
                 # possible to provoke a race condition.
                 DefaultDependencies = false;
 
-                  # We check later whether the service has been started or not.
+                # We check later whether the service has been started or not.
                 ConditionPathExists = config.security.dhparams.params.foo.path;
               };
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
-                # The reason we only provide an ExecStop here is to ensure that we don't
-                # accidentally trigger an error because a file system is not yet ready
-                # during very early startup (we might not even have the Nix store
-                # available, for example if future changes in NixOS use systemd mount
-                # units to do early file system initialisation).
+              # The reason we only provide an ExecStop here is to ensure that we don't
+              # accidentally trigger an error because a file system is not yet ready
+              # during very early startup (we might not even have the Nix store
+              # available, for example if future changes in NixOS use systemd mount
+              # units to do early file system initialisation).
               serviceConfig.ExecStop = "${pkgs.coreutils}/bin/true";
             };
           }
@@ -89,7 +89,6 @@ import ./make-test-python.nix {
             machine.succeed("${switchCmd}")
         ''
         ;
-
     in
     ''
       import re

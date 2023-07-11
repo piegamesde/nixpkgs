@@ -24,5 +24,4 @@ buildGoModule rec {
     maintainers = [ maintainers.womfoo ];
     mainProgram = "cloudstack-cloudmonkey";
   };
-
 }

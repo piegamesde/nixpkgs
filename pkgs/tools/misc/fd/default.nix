@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # skip flaky test
+  # skip flaky test
   checkFlags = [ "--skip=test_owner_current_group" ];
 
   postInstall = ''

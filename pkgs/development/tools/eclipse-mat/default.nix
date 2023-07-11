@@ -131,5 +131,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.ktor ];
     platforms = [ "x86_64-linux" ];
   };
-
 }

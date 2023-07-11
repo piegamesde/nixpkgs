@@ -87,14 +87,12 @@ stdenv.mkDerivation rec {
     ./autogen.sh --prefix $out $configureFlags
   '';
 
-    # We want pkg-config to take priority over the dlls in the Mono framework and the GAC
-    # because we control pkg-config
-  patches =
-    [ ./pkgconfig-before-gac.patch ] ++ extraPatches
-    ;
+  # We want pkg-config to take priority over the dlls in the Mono framework and the GAC
+  # because we control pkg-config
+  patches = [ ./pkgconfig-before-gac.patch ] ++ extraPatches;
 
-    # Patch all the necessary scripts. Also, if we're using LLVM, we fix the default
-    # LLVM path to point into the Mono LLVM build, since it's private anyway.
+  # Patch all the necessary scripts. Also, if we're using LLVM, we fix the default
+  # LLVM path to point into the Mono LLVM build, since it's private anyway.
   preBuild =
     ''
       makeFlagsArray=(INSTALL=`type -tp install`)
@@ -105,18 +103,18 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Fix mono DLLMap so it can find libX11 to run winforms apps
-    # libgdiplus is correctly handled by the --with-libgdiplus configure flag
-    # Other items in the DLLMap may need to be pointed to their store locations, I don't think this is exhaustive
-    # https://www.mono-project.com/Config_DllMap
+  # Fix mono DLLMap so it can find libX11 to run winforms apps
+  # libgdiplus is correctly handled by the --with-libgdiplus configure flag
+  # Other items in the DLLMap may need to be pointed to their store locations, I don't think this is exhaustive
+  # https://www.mono-project.com/Config_DllMap
   postBuild = ''
     find . -name 'config' -type f | xargs \
     sed -i -e "s@libX11.so.6@${libX11.out}/lib/libX11.so.6@g"
   '';
 
-    # Without this, any Mono application attempting to open an SSL connection will throw with
-    # The authentication or decryption has failed.
-    # ---> Mono.Security.Protocol.Tls.TlsException: Invalid certificate received from server.
+  # Without this, any Mono application attempting to open an SSL connection will throw with
+  # The authentication or decryption has failed.
+  # ---> Mono.Security.Protocol.Tls.TlsException: Invalid certificate received from server.
   postInstall =
     ''
       echo "Updating Mono key store"

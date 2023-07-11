@@ -37,7 +37,6 @@ import ./make-test-python.nix (
         extraConfig
       ]
       ;
-
   in
   {
     name = "nebula";
@@ -198,7 +197,6 @@ import ./make-test-python.nix (
           };
         }
         ;
-
     };
 
     testScript =
@@ -217,7 +215,7 @@ import ./make-test-python.nix (
           ''
           ;
 
-          # From what I can tell, StrictHostKeyChecking=no is necessary for ssh to work between machines.
+        # From what I can tell, StrictHostKeyChecking=no is necessary for ssh to work between machines.
         sshOpts =
           "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=/root/.ssh/id_snakeoil";
 
@@ -228,7 +226,7 @@ import ./make-test-python.nix (
           ''
           ;
 
-          # Create a keypair on the client node, then use the public key to sign a cert on the lighthouse.
+        # Create a keypair on the client node, then use the public key to sign a cert on the lighthouse.
         signKeysFor =
           name: ip: ''
             lighthouse.wait_for_unit("sshd.service")
@@ -255,8 +253,8 @@ import ./make-test-python.nix (
           ''
           ;
 
-          # Never do this for anything security critical! (Thankfully it's just a test.)
-          # Restart Nebula right after the mutual block and/or restore so the state is fresh.
+        # Never do this for anything security critical! (Thankfully it's just a test.)
+        # Restart Nebula right after the mutual block and/or restore so the state is fresh.
         blockTrafficBetween =
           nodeA: nodeB: ''
             node_a = ${getPublicIp nodeA}

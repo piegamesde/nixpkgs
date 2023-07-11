@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     ln -s $out/share/vim-plugins/rosie $out/share/nvim/site
   '';
 
-    # librosie.so is dlopen'ed , so we disable ELF patching to preserve RUNPATH .
+  # librosie.so is dlopen'ed , so we disable ELF patching to preserve RUNPATH .
   dontPatchELF = true;
 
   makeFlags = [ "DESTDIR=${placeholder "out"}" ];

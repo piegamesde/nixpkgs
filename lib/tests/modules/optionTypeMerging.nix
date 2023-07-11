@@ -21,5 +21,4 @@
   ];
 
   config.theOption.str = "hello";
-
 }

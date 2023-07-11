@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     patchShebangs tests/test.sh
   '';
 
-    # copying files so that we dont need to patch the test.sh
+  # copying files so that we dont need to patch the test.sh
   checkPhase = ''
     (
     cp AtomicParsley ../tests

@@ -22,11 +22,9 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "0y94dywligcsqs01d228w454ssrzg31p4j8mni9flcr4v29z3rwp";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ openssl ] ++ lib.optional stdenv.isDarwin Security
-    ;
+  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
-    # package does not contain tests as of v0.3.3
+  # package does not contain tests as of v0.3.3
   docCheck = false;
 
   meta = with lib; {
@@ -38,5 +36,4 @@ rustPlatform.buildRustPackage rec {
     ];
     maintainers = [ maintainers.manojkarthick ];
   };
-
 }

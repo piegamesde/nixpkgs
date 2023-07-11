@@ -68,5 +68,4 @@ buildPythonPackage rec {
     homepage = "https://www.subdownloader.net";
     license = licenses.gpl3;
   };
-
 }

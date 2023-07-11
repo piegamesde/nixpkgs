@@ -25,7 +25,7 @@ in
       }
       ;
 
-      # gemstash responds to http requests
+    # gemstash responds to http requests
     testScript = ''
       machine.wait_for_unit("gemstash.service")
       machine.wait_for_file("/var/lib/gemstash")
@@ -52,7 +52,7 @@ in
       }
       ;
 
-      # gemstash responds to http requests
+    # gemstash responds to http requests
     testScript = ''
       machine.wait_for_unit("gemstash.service")
       machine.wait_for_file("/var/lib/gemstash")

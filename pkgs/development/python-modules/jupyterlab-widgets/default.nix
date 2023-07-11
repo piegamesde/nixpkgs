@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ jupyter-packaging ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "jupyterlab_widgets" ];

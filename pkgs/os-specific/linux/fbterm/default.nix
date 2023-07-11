@@ -36,13 +36,13 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-    # preConfigure = ''
-    #   sed -e '/ifdef SYS_signalfd/atypedef long long loff_t;' -i src/fbterm.cpp
-    #   sed -e '/install-exec-hook:/,/^[^\t]/{d}; /.NOEXPORT/iinstall-exec-hook:\
-    #   ' -i src/Makefile.in
-    #   export HOME=$PWD;
-    #   export NIX_LDFLAGS="$NIX_LDFLAGS -lfreetype"
-    # '';
+  # preConfigure = ''
+  #   sed -e '/ifdef SYS_signalfd/atypedef long long loff_t;' -i src/fbterm.cpp
+  #   sed -e '/install-exec-hook:/,/^[^\t]/{d}; /.NOEXPORT/iinstall-exec-hook:\
+  #   ' -i src/Makefile.in
+  #   export HOME=$PWD;
+  #   export NIX_LDFLAGS="$NIX_LDFLAGS -lfreetype"
+  # '';
 
   preInstall = ''
     export HOME=$PWD
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Patches from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=fbterm
+  # Patches from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=fbterm
   patches = [
     (fetchpatch {
       url =

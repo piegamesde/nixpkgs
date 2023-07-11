@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-    # fix the libtheft.pc file to use the right installation
-    # directory. should be fixed upstream, too
+  # fix the libtheft.pc file to use the right installation
+  # directory. should be fixed upstream, too
   postInstall = ''
     install -m644 vendor/greatest.h $out/include/
 

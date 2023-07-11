@@ -42,7 +42,7 @@ let
 in
 lib.makeOverridable (
   {
-  # The kernel version
+    # The kernel version
     version,
     # Position of the Linux build expression
     pos ? null,
@@ -82,8 +82,8 @@ lib.makeOverridable (
 
   let
     config_ = config;
-
   in
+
   let
     inherit (lib)
       hasAttr
@@ -96,7 +96,7 @@ lib.makeOverridable (
       platforms
       ;
 
-      # Dependencies that are required to build kernel modules
+    # Dependencies that are required to build kernel modules
     moduleBuildDependencies =
       [
         pahole
@@ -140,8 +140,8 @@ lib.makeOverridable (
     kernelConf = stdenv.hostPlatform.linux-kernel;
 
     buildDTBs = kernelConf.DTB or false;
-
   in
+
   assert lib.versionOlder version "5.8" -> libelf != null;
   assert lib.versionAtLeast version "5.8" -> elfutils != null;
 
@@ -180,16 +180,15 @@ lib.makeOverridable (
 
       patches =
         map (p: p.patch) kernelPatches
-          # Required for deterministic builds along with some postPatch magic.
+        # Required for deterministic builds along with some postPatch magic.
         ++ optional
           (lib.versionOlder version "5.19")
           ./randstruct-provide-seed.patch
+        # Required for deterministic builds along with some postPatch magic.
         ++ optional
           (lib.versionAtLeast version "5.19")
           ./randstruct-provide-seed-5.19.patch
-          # Linux 5.12 marked certain PowerPC-only symbols as GPL, which breaks
-          # OpenZFS; this was fixed in Linux 5.19 so we backport the fix
-          # https://github.com/openzfs/zfs/pull/13367
+        # Required for deterministic builds along with some postPatch magic.
         ++ optional
           (
             lib.versionAtLeast version "5.12"
@@ -298,7 +297,7 @@ lib.makeOverridable (
         "pie"
       ];
 
-        # Absolute paths for compilers avoid any PATH-clobbering issues.
+      # Absolute paths for compilers avoid any PATH-clobbering issues.
       makeFlags =
         [
           "O=$(buildRoot)"
@@ -399,7 +398,7 @@ lib.makeOverridable (
         ''
         ;
 
-        # Some image types need special install targets (e.g. uImage is installed with make uinstall)
+      # Some image types need special install targets (e.g. uImage is installed with make uinstall)
       installTargets = [
           (
             kernelConf.installTarget or (

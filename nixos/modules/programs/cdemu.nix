@@ -69,5 +69,4 @@ in
       ++ optional cfg.image-analyzer pkgs.image-analyzer
       ;
   };
-
 }

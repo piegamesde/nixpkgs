@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: src/shallot.o:(.bss+0x8): multiple definition of `lucky_thread'; src/error.o:(.bss+0x8): first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: src/shallot.o:(.bss+0x8): multiple definition of `lucky_thread'; src/error.o:(.bss+0x8): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   installPhase = ''

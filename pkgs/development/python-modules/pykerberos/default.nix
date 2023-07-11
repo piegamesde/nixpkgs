@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   buildInputs = [ krb5 ];
 
-    # there are no tests
+  # there are no tests
   doCheck = false;
   pythonImportsCheck = [ "kerberos" ];
 

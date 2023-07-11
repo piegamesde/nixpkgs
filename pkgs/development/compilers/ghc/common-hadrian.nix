@@ -66,10 +66,9 @@
   gmp
 
   , # If enabled, use -fPIC when compiling static libs.
-  enableRelocatedStaticLibs ? stdenv.targetPlatform
-    != stdenv.hostPlatform
+  enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform
 
-      # aarch64 outputs otherwise exceed 2GB limit
+  # aarch64 outputs otherwise exceed 2GB limit
   ,
   enableProfiledLibs ? !stdenv.targetPlatform.isAarch64
 
@@ -92,7 +91,10 @@
   )
     && lib.meta.availableOn stdenv.hostPlatform elfutils
     && lib.meta.availableOn stdenv.targetPlatform elfutils
-    && !stdenv.targetPlatform.isStatic
+    &&
+    # HACK: elfutils is marked as broken on static platforms
+      # which availableOn can't tell.
+      !stdenv.targetPlatform.isStatic
     && !stdenv.hostPlatform.isStatic,
   elfutils
 
@@ -101,21 +103,16 @@
   ghcFlavour ? let
     # TODO(@sternenseemann): does using the static flavour make sense?
     baseFlavour = "release";
-      # Note: in case hadrian's flavour transformers cease being expressive
-      # enough for us, we'll need to resort to defining a "nixpkgs" flavour
-      # in hadrianUserSettings and using that instead.
+    # Note: in case hadrian's flavour transformers cease being expressive
+    # enough for us, we'll need to resort to defining a "nixpkgs" flavour
+    # in hadrianUserSettings and using that instead.
     transformers =
       lib.optionals useLLVM [ "llvm" ]
       ++ lib.optionals (!enableShared) [
         "no_dynamic_libs"
         "no_dynamic_ghc"
       ]
-      ++ lib.optionals (!enableProfiledLibs) [
-          "no_profiled_libs"
-        ]
-        # While split sections are now enabled by default in ghc 8.8 for windows,
-        # they seem to lead to `too many sections` errors when building base for
-        # profiling.
+      ++ lib.optionals (!enableProfiledLibs) [ "no_profiled_libs" ]
       ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ]
       ;
   in
@@ -196,21 +193,21 @@ let
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  inherit (bootPkgs)
-    ghc
-    ;
+  inherit (bootPkgs) ghc;
 
-    # TODO(@Ericson2314) Make unconditional
+  # TODO(@Ericson2314) Make unconditional
   targetPrefix = lib.optionalString
     (targetPlatform != hostPlatform)
     "${targetPlatform.config}-";
 
   hadrianSettings =
     # -fexternal-dynamic-refs apparently (because it's not clear from the
-    # documentation) makes the GHC RTS able to load static libraries, which may
-    # be needed for TemplateHaskell. This solution was described in
-    # https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
-    lib.optionals enableRelocatedStaticLibs [
+      # documentation) makes the GHC RTS able to load static libraries, which may
+      # be needed for TemplateHaskell. This solution was described in
+      # https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
+      lib.optionals
+      enableRelocatedStaticLibs
+      [
         "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs"
       ]
     ++ lib.optionals targetPlatform.useAndroidPrebuilt [
@@ -218,23 +215,19 @@ let
       ]
     ;
 
-    # GHC's build system hadrian built from the GHC-to-build's source tree
-    # using our bootstrap GHC.
+  # GHC's build system hadrian built from the GHC-to-build's source tree
+  # using our bootstrap GHC.
   hadrian = bootPkgs.callPackage ../../tools/haskell/hadrian {
     ghcSrc = src;
     ghcVersion = version;
     userSettings = hadrianUserSettings;
   };
 
-    # Splicer will pull out correct variations
+  # Splicer will pull out correct variations
   libDeps =
     platform:
     lib.optional enableTerminfo ncurses
-    ++ lib.optionals (!targetPlatform.isGhcjs) [
-        libffi
-      ]
-      # Bindist configure script fails w/o elfutils in linker search path
-      # https://gitlab.haskell.org/ghc/ghc/-/issues/22081
+    ++ lib.optionals (!targetPlatform.isGhcjs) [ libffi ]
     ++ lib.optional enableDwarf elfutils
     ++ lib.optional (!enableNativeBignum) gmp
     ++ lib.optional
@@ -246,8 +239,8 @@ let
       libiconv
     ;
 
-    # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
-    # GHC doesn't seem to have {LLC,OPT}_HOST
+  # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
+  # GHC doesn't seem to have {LLC,OPT}_HOST
   toolsForTarget =
     [
       (
@@ -262,8 +255,8 @@ let
 
   targetCC = builtins.head toolsForTarget;
 
-    # Sometimes we have to dispatch between the bintools wrapper and the unwrapped
-    # derivation for certain tools depending on the platform.
+  # Sometimes we have to dispatch between the bintools wrapper and the unwrapped
+  # derivation for certain tools depending on the platform.
   bintoolsFor = {
     # GHC needs install_name_tool on all darwin platforms. On aarch64-darwin it is
     # part of the bintools wrapper (due to codesigning requirements), but not on
@@ -274,19 +267,21 @@ let
       else
         targetCC.bintools.bintools
       ;
-      # Same goes for strip.
+    # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
+      if
+        stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin
+      then
         targetCC.bintools
       else
         targetCC.bintools.bintools
       ;
   };
 
-    # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
-    # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
-    # see #84670 and #49071 for more background.
+  # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
+  # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
+  # see #84670 and #49071 for more background.
   useLdGold =
     targetPlatform.linker == "gold"
     || (
@@ -298,16 +293,16 @@ let
     )
     ;
 
-    # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
+  # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
     (lib.optionalString stdenv.hostPlatform.isMusl "-musl")
     (lib.optionalString enableNativeBignum "-native-bignum")
   ];
-
-  # C compiler, bintools and LLVM are used at build time, but will also leak into
-  # the resulting GHC's settings file and used at runtime. This means that we are
-  # currently only able to build GHC if hostPlatform == buildPlatform.
 in
+
+# C compiler, bintools and LLVM are used at build time, but will also leak into
+# the resulting GHC's settings file and used at runtime. This means that we are
+# currently only able to build GHC if hostPlatform == buildPlatform.
 assert !targetPlatform.isGhcjs
   -> targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
@@ -327,11 +322,11 @@ stdenv.mkDerivation (
       patchShebangs --build .
     '';
 
-      # GHC needs the locale configured during the Haddock phase.
+    # GHC needs the locale configured during the Haddock phase.
     LANG = "en_US.UTF-8";
 
-      # GHC is a bit confused on its cross terminology.
-      # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
+    # GHC is a bit confused on its cross terminology.
+    # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
     preConfigure =
       ''
         for env in $(env | grep '^TARGET_' | sed -E 's|\+?=.*||'); do
@@ -352,40 +347,74 @@ stdenv.mkDerivation (
         export READELF="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}readelf"
         export STRIP="${bintoolsFor.strip}/bin/${bintoolsFor.strip.targetPrefix}strip"
       ''
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + lib.optionalString (stdenv.targetPlatform.linker == "cctools") ''
         export OTOOL="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}otool"
         export INSTALL_NAME_TOOL="${bintoolsFor.install_name_tool}/bin/${bintoolsFor.install_name_tool.targetPrefix}install_name_tool"
       ''
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + lib.optionalString useLLVM ''
         export LLC="${lib.getBin buildTargetLlvmPackages.llvm}/bin/llc"
         export OPT="${lib.getBin buildTargetLlvmPackages.llvm}/bin/opt"
       ''
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + lib.optionalString (useLLVM && stdenv.targetPlatform.isDarwin) ''
         # LLVM backend on Darwin needs clang: https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
         export CLANG="${buildTargetLlvmPackages.clang}/bin/${buildTargetLlvmPackages.clang.targetPrefix}clang"
       ''
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + lib.optionalString (stdenv.isLinux && hostPlatform.libc == "glibc") ''
         export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
       ''
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + lib.optionalString (!stdenv.isDarwin) ''
         export NIX_LDFLAGS+=" -rpath $out/lib/ghc-${version}"
       ''
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + lib.optionalString stdenv.isDarwin ''
         export NIX_LDFLAGS+=" -no_dtrace_dof"
 
         # GHC tries the host xattr /usr/bin/xattr by default which fails since it expects python to be 2.7
         export XATTR=${lib.getBin xattr}/bin/xattr
       ''
-        # If we are not using release tarballs, some files need to be generated using
-        # the boot script.
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + lib.optionalString (rev != null) ''
         echo ${version} > VERSION
         echo ${rev} > GIT_COMMIT_ID
         ./boot
       ''
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + lib.optionalString targetPlatform.useAndroidPrebuilt ''
         sed -i -e '5i ,("armv7a-unknown-linux-androideabi", ("e-m:e-p:32:32-i64:64-v128:64:128-a:0:32-n32-S64", "cortex-a8", ""))' llvm-targets
       ''
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + lib.optionalString targetPlatform.isMusl ''
         echo "patching llvm-targets for musl targets..."
         echo "Cloning these existing '*-linux-gnu*' targets:"
@@ -403,8 +432,10 @@ stdenv.mkDerivation (
                       '*-android*|*-gnueabi*|*-musleabi*)'
         done
       ''
-        # Need to make writable EM_CACHE for emscripten
-        # https://gitlab.haskell.org/ghc/ghc/-/wikis/javascript-backend#configure-fails-with-sub-word-sized-atomic-operations-not-available
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + lib.optionalString targetPlatform.isGhcjs ''
         export EM_CACHE="$(mktemp -d emcache.XXXXXXXXXX)"
         cp -Lr ${
@@ -412,10 +443,10 @@ stdenv.mkDerivation (
         }/share/emscripten/cache/* "$EM_CACHE/"
         chmod u+rwX -R "$EM_CACHE"
       ''
-        # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-        # preConfigure, so overrideAttrs can be used to modify it effectively.
-        # hadrianSettings are passed via the command line so they are more visible
-        # in the build log.
+      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
+      # preConfigure, so overrideAttrs can be used to modify it effectively.
+      # hadrianSettings are passed via the command line so they are more visible
+      # in the build log.
       + ''
         hadrianFlagsArray=(
           "-j$NIX_BUILD_CORES"
@@ -430,7 +461,7 @@ stdenv.mkDerivation (
       else
         null
     } = "emconfigure ./configure";
-      # GHC currently ships an edited config.sub so ghcjs is accepted which we can not rollback
+    # GHC currently ships an edited config.sub so ghcjs is accepted which we can not rollback
     ${
       if targetPlatform.isGhcjs then
         "dontUpdateAutotoolsGnuConfigScripts"
@@ -438,7 +469,7 @@ stdenv.mkDerivation (
         null
     } = true;
 
-      # TODO(@Ericson2314): Always pass "--target" and always prefix.
+    # TODO(@Ericson2314): Always pass "--target" and always prefix.
     configurePlatforms =
       [
         "build"
@@ -447,7 +478,7 @@ stdenv.mkDerivation (
       ++ lib.optional (targetPlatform != hostPlatform) "target"
       ;
 
-      # `--with` flags for libraries needed for RTS linker
+    # `--with` flags for libraries needed for RTS linker
     configureFlags =
       [
         "--datadir=$doc/share/doc/ghc"
@@ -491,10 +522,10 @@ stdenv.mkDerivation (
       ]
       ;
 
-      # Make sure we never relax`$PATH` and hooks support for compatibility.
+    # Make sure we never relax`$PATH` and hooks support for compatibility.
     strictDeps = true;
 
-      # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
+    # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
     dontAddExtraLibs = true;
 
     nativeBuildInputs =
@@ -518,7 +549,7 @@ stdenv.mkDerivation (
       ++ lib.optionals enableDocs [ sphinx ]
       ;
 
-      # For building runtime libs
+    # For building runtime libs
     depsBuildTarget = toolsForTarget;
 
     buildInputs =
@@ -561,17 +592,15 @@ stdenv.mkDerivation (
       runHook postBuild
     '';
 
-      # required, because otherwise all symbols from HSffi.o are stripped, and
-      # that in turn causes GHCi to abort
+    # required, because otherwise all symbols from HSffi.o are stripped, and
+    # that in turn causes GHCi to abort
     stripDebugFlags =
       [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 
     hardeningDisable =
-      [
-        "format"
-      ]
+      [ "format" ]
       # In nixpkgs, musl based builds currently enable `pie` hardening by default
       # (see `defaultHardeningFlags` in `make-derivation.nix`).
       # But GHC cannot currently produce outputs that are ready for `-pie` linking.
@@ -582,8 +611,8 @@ stdenv.mkDerivation (
       ++ lib.optional stdenv.targetPlatform.isMusl "pie"
       ;
 
-      # big-parallel allows us to build with more than 2 cores on
-      # Hydra which already warrants a significant speedup
+    # big-parallel allows us to build with more than 2 cores on
+    # Hydra which already warrants a significant speedup
     requiredSystemFeatures = [ "big-parallel" ];
 
     outputs = [
@@ -591,10 +620,10 @@ stdenv.mkDerivation (
       "doc"
     ];
 
-      # We need to configure the bindist *again* before installing
-      # https://gitlab.haskell.org/ghc/ghc/-/issues/22058
-      # TODO(@sternenseemann): it would be nice if the bindist could be an intermediate
-      # derivation, but since it is > 2GB even on x86_64-linux, not a good idea?
+    # We need to configure the bindist *again* before installing
+    # https://gitlab.haskell.org/ghc/ghc/-/issues/22058
+    # TODO(@sternenseemann): it would be nice if the bindist could be an intermediate
+    # derivation, but since it is > 2GB even on x86_64-linux, not a good idea?
     preInstall = ''
       pushd _build/bindist/*
 
@@ -613,14 +642,12 @@ stdenv.mkDerivation (
       inherit bootPkgs targetPrefix;
 
       inherit llvmPackages;
-      inherit
-        enableShared
-        ;
+      inherit enableShared;
 
-        # Our Cabal compiler name
+      # Our Cabal compiler name
       haskellCompilerName = "ghc-${version}";
 
-        # Expose hadrian used for bootstrapping, for debugging purposes
+      # Expose hadrian used for bootstrapping, for debugging purposes
       inherit hadrian;
     };
 

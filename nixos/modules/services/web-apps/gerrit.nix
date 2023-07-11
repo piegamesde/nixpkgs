@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.services.gerrit;
 
-    # NixOS option type for git-like configs
+  # NixOS option type for git-like configs
   gitIniType = with types;
     let
       primitiveType = either str (either bool int);
@@ -27,8 +27,8 @@ let
     lib.generators.toGitINI cfg.replicationSettings
   );
 
-    # Wrap the gerrit java with all the java options so it can be called
-    # like a normal CLI app
+  # Wrap the gerrit java with all the java options so it can be called
+  # like a normal CLI app
   gerrit-cli = pkgs.writeShellScriptBin "gerrit" ''
     set -euo pipefail
     jvmOpts=(
@@ -171,7 +171,7 @@ in
       index.type = lib.mkDefault "lucene";
     };
 
-      # Add the gerrit CLI to the system to run `gerrit init` and friends.
+    # Add the gerrit CLI to the system to run `gerrit init` and friends.
     environment.systemPackages = [ gerrit-cli ];
 
     systemd.sockets.gerrit = {
@@ -244,6 +244,6 @@ in
     edef
     zimbatm
   ];
-    # uses attributes of the linked package
+  # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

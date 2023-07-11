@@ -55,7 +55,7 @@ stdenvNoCC.mkDerivation rec {
       dtzWill
       AdsonCicilioti
     ];
-      # unmaintained as of Nov 9, 2022. unable to be build with clickgen version 2.x
+    # unmaintained as of Nov 9, 2022. unable to be build with clickgen version 2.x
     broken = true;
   };
 }

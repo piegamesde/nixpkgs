@@ -39,8 +39,8 @@ let
     ;
 
   lessKey = pkgs.writeText "lessconfig" configText;
-
 in
+
 {
   options = {
 
@@ -139,5 +139,4 @@ in
   };
 
   meta.maintainers = with maintainers; [ johnazoidberg ];
-
 }

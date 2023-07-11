@@ -22,7 +22,7 @@ buildPythonPackage rec {
     livereload
   ];
 
-    # No tests included.
+  # No tests included.
   doCheck = false;
 
   pythonImportsCheck = [ "sphinx_autobuild" ];

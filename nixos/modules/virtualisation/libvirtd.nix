@@ -40,7 +40,7 @@ let
         '';
       };
 
-        # mkRemovedOptionModule does not work in submodules, do it manually
+      # mkRemovedOptionModule does not work in submodules, do it manually
       package = mkOption {
         type = types.nullOr types.package;
         default = null;
@@ -217,7 +217,7 @@ in
       ])
   ];
 
-    ###### interface
+  ###### interface
 
   options.virtualisation.libvirtd = {
 
@@ -316,7 +316,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -352,7 +352,7 @@ in
 
     users.groups.libvirtd.gid = config.ids.gids.libvirtd;
 
-      # libvirtd runs qemu as this user and group by default
+    # libvirtd runs qemu as this user and group by default
     users.extraGroups.qemu-libvirtd.gid = config.ids.gids.qemu-libvirtd;
     users.extraUsers.qemu-libvirtd = {
       uid = config.ids.uids.qemu-libvirtd;
@@ -495,7 +495,7 @@ in
       restartIfChanged = false;
     };
 
-      # https://libvirt.org/daemons.html#monolithic-systemd-integration
+    # https://libvirt.org/daemons.html#monolithic-systemd-integration
     systemd.sockets.libvirtd.wantedBy = [ "sockets.target" ];
 
     security.polkit.extraConfig = ''

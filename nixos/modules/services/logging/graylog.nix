@@ -28,8 +28,8 @@ let
     name = "graylog-plugins";
     paths = cfg.plugins;
   };
-
 in
+
 {
   ###### interface
 
@@ -131,11 +131,10 @@ in
         default = [ ];
         type = types.listOf types.package;
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

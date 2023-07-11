@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
   buildFlags = [ "all" ];
 
-    # NOTE: disabling tests due to gtest issue
+  # NOTE: disabling tests due to gtest issue
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=${
       if static then

@@ -1,7 +1,7 @@
 {
-# gcc 11.2 suggested on 3.10.3.
-# gcc 11.3.0 unsupported yet, investigate gcc support when upgrading
-# See https://github.com/arangodb/arangodb/issues/17454
+  # gcc 11.2 suggested on 3.10.3.
+  # gcc 11.3.0 unsupported yet, investigate gcc support when upgrading
+  # See https://github.com/arangodb/arangodb/issues/17454
   gcc10Stdenv,
   git,
   lib,
@@ -32,8 +32,8 @@ let
     else
       targetArchitecture
     ;
-
 in
+
 gcc10Stdenv.mkDerivation rec {
   pname = "arangodb";
   version = "3.10.3";
@@ -61,7 +61,7 @@ gcc10Stdenv.mkDerivation rec {
     lzo
   ];
 
-    # prevent failing with "cmake-3.13.4/nix-support/setup-hook: line 10: ./3rdParty/rocksdb/RocksDBConfig.cmake.in: No such file or directory"
+  # prevent failing with "cmake-3.13.4/nix-support/setup-hook: line 10: ./3rdParty/rocksdb/RocksDBConfig.cmake.in: No such file or directory"
   dontFixCmake = true;
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 

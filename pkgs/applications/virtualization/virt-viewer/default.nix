@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     )
     ;
 
-    # Required for USB redirection PolicyKit rules file
+  # Required for USB redirection PolicyKit rules file
   propagatedUserEnvPkgs = optional spiceSupport spice-gtk;
 
   mesonFlags = [ (lib.mesonEnable "ovirt" ovirtSupport) ];

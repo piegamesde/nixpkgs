@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-    # needed so the build doesn't need to run git to find out the version.
+  # needed so the build doesn't need to run git to find out the version.
   prePatch = ''
     substituteInPlace configure.ac --replace UNKNOWN ${version}
     echo "${version}" > configure-version

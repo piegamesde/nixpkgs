@@ -11,8 +11,8 @@ let
 
   cfg = config.services.sabnzbd;
   inherit (pkgs) sabnzbd;
-
 in
+
 {
 
   ###### interface
@@ -49,7 +49,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

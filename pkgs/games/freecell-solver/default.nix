@@ -50,8 +50,8 @@ stdenv.mkDerivation rec {
     python3.pkgs.random2
   ];
 
-    # "ninja t/CMakeFiles/delta-states-test.t.exe.dir/__/delta_states.c.o" fails
-    # to depend on the generated "is_king.h".
+  # "ninja t/CMakeFiles/delta-states-test.t.exe.dir/__/delta_states.c.o" fails
+  # to depend on the generated "is_king.h".
   enableParallelBuilding = false;
 
   meta = {

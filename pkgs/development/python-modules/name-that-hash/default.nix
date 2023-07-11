@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-zOb4BS3zG1x8GLXAooqqvMOw0fNbw35JuRWOdGP26/8=";
   };
 
-    # TODO remove on next update which bumps rich
+  # TODO remove on next update which bumps rich
   postPatch = ''
     substituteInPlace pyproject.toml --replace 'rich = ">=9.9,<11.0"' 'rich = ">=9.9"'
   '';

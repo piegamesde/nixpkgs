@@ -54,7 +54,7 @@ let
         ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
       ];
 
-      ## NOTE: MySQL upstream frequently twiddles the invocations of libtool. When updating, you might proactively grep for libtool references.
+    ## NOTE: MySQL upstream frequently twiddles the invocations of libtool. When updating, you might proactively grep for libtool references.
     postPatch = ''
       substituteInPlace cmake/libutils.cmake --replace /usr/bin/libtool libtool
       substituteInPlace cmake/os/Darwin.cmake --replace /usr/bin/libtool libtool

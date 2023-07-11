@@ -23,5 +23,4 @@ buildPythonPackage rec {
     description = "Robust enumerated type support in Python";
     license = licenses.gpl2;
   };
-
 }

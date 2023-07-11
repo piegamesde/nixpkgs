@@ -26,7 +26,7 @@ buildPythonPackage rec {
     cp -R ../tests $testsout/tests
   '';
 
-    # check in passthru.tests.pytest to escape infinite recursion with setuptools-scm
+  # check in passthru.tests.pytest to escape infinite recursion with setuptools-scm
   doCheck = false;
 
   passthru.tests = {

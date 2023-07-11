@@ -55,7 +55,6 @@ let
       git init
       popd
     '';
-
   };
 in
 rustPlatform.buildRustPackage rec {
@@ -88,7 +87,7 @@ rustPlatform.buildRustPackage rec {
     ln -s ${go-turbo}/bin/turbo $out/bin/go-turbo
   '';
 
-    # Browser tests time out with chromium and google-chrome
+  # Browser tests time out with chromium and google-chrome
   doCheck = false;
 
   passthru.tests.version = testers.testVersion { package = turbo; };

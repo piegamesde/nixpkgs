@@ -28,10 +28,10 @@ let
     '';
   };
 
-    # wrapped cups-pdf package that uses the suid wrapper
+  # wrapped cups-pdf package that uses the suid wrapper
   cups-pdf-wrapped = pkgs.buildEnv {
     name = "${pkgs.cups-pdf-to-pdf.name}-wrapped";
-      # using the wrapper as first path ensures it is used
+    # using the wrapper as first path ensures it is used
     paths = [
       cups-pdf-wrapper
       pkgs.cups-pdf-to-pdf
@@ -50,9 +50,9 @@ let
             package
           ]
         );
-        # override defaults:
-        # inject instance name into paths,
-        # also avoid conflicts between user names and special dirs
+      # override defaults:
+      # inject instance name into paths,
+      # also avoid conflicts between user names and special dirs
       options.Out = lib.mkOption {
         type = with lib.types; nullOr singleLineStr;
         default = "/var/spool/cups-pdf-${name}/users/\${USER}";
@@ -177,8 +177,8 @@ let
       })
     ))
   ];
-
 in
+
 {
 
   options.services.printing.cups-pdf = {
@@ -207,8 +207,8 @@ in
     services.printing.enable = true;
     services.printing.drivers = [ cups-pdf-wrapped ];
     hardware.printers.ensurePrinters = printerSettings;
-      # the cups module will install the default config file,
-      # but we don't need it and it would confuse cups-pdf
+    # the cups module will install the default config file,
+    # but we don't need it and it would confuse cups-pdf
     systemd.services.cups.preStart = lib.mkAfter ''
       rm -f /var/lib/cups/cups-pdf.conf
       ${copyConfigFileCmds}
@@ -223,5 +223,4 @@ in
   };
 
   meta.maintainers = [ lib.maintainers.yarny ];
-
 }

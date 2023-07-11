@@ -24,8 +24,8 @@ let
       name = "network";
       testScript = "start_all(); join_all();";
     }).test.driverInteractive;
-
 in
+
 pkgs.runCommand "nixos-build-vms"
 { nativeBuildInputs = [ pkgs.makeWrapper ]; }
 ''

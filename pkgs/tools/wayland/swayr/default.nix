@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   patches = [ ./icon-paths.patch ];
 
-    # don't build swayrbar
+  # don't build swayrbar
   buildAndTestSubdir = pname;
 
   preCheck = ''

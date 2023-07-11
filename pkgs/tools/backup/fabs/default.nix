@@ -45,7 +45,7 @@ python3.pkgs.buildPythonApplication rec {
     cp -t "$out/etc" -r etc/fabs
   '';
 
-    # remove once sqlalchemy backend no longer uses deprecated methods
+  # remove once sqlalchemy backend no longer uses deprecated methods
   SQLALCHEMY_SILENCE_UBER_WARNING = 1;
 
   nativeCheckInputs = [

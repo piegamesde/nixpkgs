@@ -21,9 +21,11 @@ rec {
     let
       tex = pkgs.texlive.combine
         # always include basic stuff you need for LaTeX
-        ({ inherit (pkgs.texlive) scheme-basic; } // texPackages);
-
+        (
+          { inherit (pkgs.texlive) scheme-basic; } // texPackages
+        );
     in
+
     pkgs.stdenv.mkDerivation {
       name = "doc";
 
@@ -56,10 +58,10 @@ rec {
     }
     ;
 
-    # Returns the closure of the "dependencies" of a LaTeX source file.
-    # Dependencies are other LaTeX source files (e.g. included using
-    # \input{}), images (e.g. \includegraphics{}), bibliographies, and
-    # so on.
+  # Returns the closure of the "dependencies" of a LaTeX source file.
+  # Dependencies are other LaTeX source files (e.g. included using
+  # \input{}), images (e.g. \includegraphics{}), bibliographies, and
+  # so on.
   findLaTeXIncludes =
     {
       rootFile,
@@ -90,9 +92,9 @@ rec {
             "${pkgs.perl}/bin/perl ${./find-includes.pl}"
           );
 
-            # Look for the dependencies of `key', trying various
-            # extensions determined by the type of each dependency.
-            # TODO: support a search path.
+          # Look for the dependencies of `key', trying various
+          # extensions determined by the type of each dependency.
+          # TODO: support a search path.
           foundDeps =
             dep: xs:
             let
@@ -121,7 +123,6 @@ rec {
             else
               xs
             ;
-
         in
         pkgs.lib.foldr foundDeps [ ] deps
         ;
@@ -150,7 +151,6 @@ rec {
             { src = key; }
             "${pkgs.stdenv.bash}/bin/bash ${./find-lhs2tex-includes.sh}"
           );
-
         in
         pkgs.lib.concatMap
         (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
@@ -224,8 +224,8 @@ rec {
     }
     ;
 
-    # Wrap a piece of TeX code in a document.  Useful when generating
-    # inline images from TeX code.
+  # Wrap a piece of TeX code in a document.  Useful when generating
+  # inline images from TeX code.
   wrapSimpleTeX =
     {
       preamble ? null,
@@ -247,8 +247,8 @@ rec {
     }
     ;
 
-    # Convert a Postscript file to a PNG image, trimming it so that
-    # there is no unnecessary surrounding whitespace.
+  # Convert a Postscript file to a PNG image, trimming it so that
+  # there is no unnecessary surrounding whitespace.
   postscriptToPNG =
     {
       postscript,
@@ -285,7 +285,7 @@ rec {
     }
     ;
 
-    # Convert a piece of TeX code to a PNG image.
+  # Convert a piece of TeX code to a PNG image.
   simpleTeXToPNG =
     {
       preamble ? null,
@@ -303,7 +303,7 @@ rec {
     }
     ;
 
-    # Convert a piece of TeX code to a PDF.
+  # Convert a piece of TeX code to a PDF.
   simpleTeXToPDF =
     {
       preamble ? null,
@@ -317,11 +317,10 @@ rec {
     }
     ;
 
-    # Some tools (like dot) need a fontconfig configuration file.
-    # This should be extended to allow the called to add additional
-    # fonts.
+  # Some tools (like dot) need a fontconfig configuration file.
+  # This should be extended to allow the called to add additional
+  # fonts.
   fontsConf = pkgs.makeFontsConf {
     fontDirectories = [ "${pkgs.ghostscript}/share/ghostscript/fonts" ];
   };
-
 }

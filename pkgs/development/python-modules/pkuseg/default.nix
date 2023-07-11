@@ -19,8 +19,8 @@ buildPythonPackage rec {
     sha256 = "148yp0l7h8cflxag62pc1iwj5b5liyljnaxwfjaiqwl96vwjn0fx";
   };
 
-    # Does not seem to have actual tests, but unittest discover
-    # recognizes some non-tests as tests and fails.
+  # Does not seem to have actual tests, but unittest discover
+  # recognizes some non-tests as tests and fails.
   doCheck = false;
 
   nativeBuildInputs = [ cython ];

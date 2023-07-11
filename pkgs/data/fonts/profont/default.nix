@@ -9,8 +9,8 @@ stdenv.mkDerivation {
   pname = "profont";
   version = "2019-11";
 
-    # Note: stripRoot doesn't work because the archive
-    # contains the metadata directory `__MACOSX`.
+  # Note: stripRoot doesn't work because the archive
+  # contains the metadata directory `__MACOSX`.
   src =
     fetchzip {
       url = "https://tobiasjung.name/downloadfile.php?file=profont-x11.zip";
@@ -51,5 +51,4 @@ stdenv.mkDerivation {
     license = licenses.mit;
     platforms = platforms.all;
   };
-
 }

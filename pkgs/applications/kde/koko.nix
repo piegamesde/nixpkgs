@@ -80,7 +80,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Image gallery mobile application";
     homepage = "https://apps.kde.org/koko/";
-      # LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
+    # LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
     license = [
       licenses.lgpl3Only
       licenses.lgpl21Only

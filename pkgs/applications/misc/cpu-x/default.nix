@@ -36,7 +36,8 @@
 #   registered in /etc/shells. The nix's bash is not in there when running
 #   cpu-x from nixpkgs.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "cpu-x";
   version = "4.5.3";
 

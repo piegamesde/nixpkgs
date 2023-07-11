@@ -19,11 +19,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-1OsHs0W3ji9Kgpv7nGY9XyGxJ4c0faN2VuFLsdwkgKY=";
 
-    # Package requires a non reproducible submodule
-    # https://github.com/kamadorueda/nixel/blob/2873bd84bf4fc540d0ae8af062e109cc9ad40454/.gitmodules#L7
+  # Package requires a non reproducible submodule
+  # https://github.com/kamadorueda/nixel/blob/2873bd84bf4fc540d0ae8af062e109cc9ad40454/.gitmodules#L7
   doCheck = false;
-    #
-    # Let's test it runs
+  #
+  # Let's test it runs
   passthru.tests = { version = testers.testVersion { package = nixel; }; };
 
   meta = with lib; {

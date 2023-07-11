@@ -22,7 +22,7 @@ let
 
     cargoSha256 = "sha256-6/f7pNaTL+U6bI6jMakU/lfwYYxN/EM3WkKZcydsyLk=";
 
-      # Cargo.lock is outdated
+    # Cargo.lock is outdated
     preConfigure = ''
       cargo update --offline
     '';
@@ -47,8 +47,8 @@ let
   };
 
   bootstrap = rustPlatform.buildRustPackage (args // { auditable = false; });
-
 in
+
 rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (
   args // {
     nativeBuildInputs = [ installShellFiles ];

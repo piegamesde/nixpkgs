@@ -36,8 +36,8 @@ buildPythonPackage rec {
     pyopencl
   ];
 
-    # Note: the 1.0.5 release should be compatible with pytest6, so this can
-    # be set back to 'pytest' at that point
+  # Note: the 1.0.5 release should be compatible with pytest6, so this can
+  # be set back to 'pytest' at that point
   nativeCheckInputs = [ pytest ];
 
   checkPhase = ''

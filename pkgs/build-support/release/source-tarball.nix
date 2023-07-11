@@ -26,7 +26,7 @@
 
 stdenv.mkDerivation (
 
-# First, attributes that can be overridden by the caller (via args):
+  # First, attributes that can be overridden by the caller (via args):
   {
     # By default, only configure and build a source distribution.
     # Some packages can only build a distribution after a general
@@ -35,7 +35,7 @@ stdenv.mkDerivation (
     dontInstall = true;
     doDist = true;
 
-      # If we do install, install to a dummy location.
+    # If we do install, install to a dummy location.
     useTempPrefix = true;
 
     showBuildStats = true;
@@ -43,7 +43,7 @@ stdenv.mkDerivation (
     preConfigurePhases = "autoconfPhase";
     postPhases = "finalPhase";
 
-      # Autoconfiscate the sources.
+    # Autoconfiscate the sources.
     autoconfPhase = ''
       export VERSION=${version}
       export VERSION_SUFFIX=${versionSuffix}
@@ -113,7 +113,7 @@ stdenv.mkDerivation (
         ""
       ;
 
-      # Cause distPhase to copy tar.bz2 in addition to tar.gz.
+    # Cause distPhase to copy tar.bz2 in addition to tar.gz.
     tarballs = "*.tar.gz *.tar.bz2 *.tar.xz";
 
     finalPhase = ''
@@ -139,8 +139,8 @@ stdenv.mkDerivation (
     ) // {
       description = "Source distribution";
 
-        # Tarball builds are generally important, so give them a high
-        # default priority.
+      # Tarball builds are generally important, so give them a high
+      # default priority.
       schedulingPriority = 200;
     };
   }

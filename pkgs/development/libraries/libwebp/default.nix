@@ -36,7 +36,7 @@
   ,
   libwebpdecoderSupport ? true # Build libwebpdecoder
 
-    # for passthru.tests
+  # for passthru.tests
   ,
   freeimage,
   gd,

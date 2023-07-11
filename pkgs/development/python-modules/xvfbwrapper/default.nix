@@ -16,7 +16,7 @@ buildPythonPackage rec {
   };
   propagatedBuildInputs = [ xorgserver ];
 
-    # See: https://github.com/cgoldberg/xvfbwrapper/issues/30
+  # See: https://github.com/cgoldberg/xvfbwrapper/issues/30
   doCheck = false;
 
   nativeCheckInputs = [ mock ];

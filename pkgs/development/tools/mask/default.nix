@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-h58MA3F4UA4gp64UPnK6Tvlvr4PFvrVKmjp48lZjH68=";
 
-    # tests require mask to be installed
+  # tests require mask to be installed
   doCheck = false;
 
   meta = with lib; {

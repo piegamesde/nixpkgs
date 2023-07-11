@@ -31,7 +31,7 @@ buildPythonPackage rec {
     limiter
   ];
 
-    # Tests requires an API token
+  # Tests requires an API token
   doCheck = false;
 
   patches =

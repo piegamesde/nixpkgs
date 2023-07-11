@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     "LUALIB=-llua"
     "bindir=$(prefix)/bin/"
   ];
-    # some include hardcodes the lua libraries path. This is a patch for that
+  # some include hardcodes the lua libraries path. This is a patch for that
   patches = [ ./lua-header.patch ];
   preBuild = "cd dozenal";
   buildInputs = [
@@ -33,14 +33,14 @@ stdenv.mkDerivation rec {
     lua5_2
   ];
 
-    # Parallel builds fail due to no dependencies between subdirs.
-    # As a result some subdirs are atempted to build twice:
-    #   ../dec/dec.c:39:10: fatal error: conv.h: No such file or directory
-    # Let's disable parallelism until it's fixed upstream:
-    #  https://gitlab.com/dgoodmaniii/dozenal/-/issues/8
+  # Parallel builds fail due to no dependencies between subdirs.
+  # As a result some subdirs are atempted to build twice:
+  #   ../dec/dec.c:39:10: fatal error: conv.h: No such file or directory
+  # Let's disable parallelism until it's fixed upstream:
+  #  https://gitlab.com/dgoodmaniii/dozenal/-/issues/8
   enableParallelBuilding = false;
 
-    # I remove gdozdc, as I didn't figure all it's dependency yet.
+  # I remove gdozdc, as I didn't figure all it's dependency yet.
   postInstall = "rm $out/bin/gdozdc";
 
   meta = {

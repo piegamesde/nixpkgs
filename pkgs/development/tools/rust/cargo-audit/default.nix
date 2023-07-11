@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = [ "fix" ];
 
-    # The tests require network access which is not available in sandboxed Nix builds.
+  # The tests require network access which is not available in sandboxed Nix builds.
   doCheck = false;
 
   meta = with lib; {

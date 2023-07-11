@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-    # CMake has hardcoded install paths
+  # CMake has hardcoded install paths
   installPhase = ''
     mkdir -p $out/{bin,etc/{systemd/system,udev/rules.d},lib/modules-load.d}
 

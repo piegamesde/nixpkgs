@@ -11,8 +11,8 @@ let
 
   nssModulesPath = config.system.nssModules.path;
   cfg = config.services.nscd;
-
 in
+
 {
 
   ###### interface
@@ -84,12 +84,10 @@ in
           Ignored when enableNsncd is set to true.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.etc."nscd.conf".text = cfg.config;
@@ -135,13 +133,13 @@ in
         ]
       );
 
-        # In some configurations, nscd needs to be started as root; it will
-        # drop privileges after all the NSS modules have read their
-        # configuration files. So prefix the ExecStart command with "!" to
-        # prevent systemd from dropping privileges early. See ExecStart in
-        # systemd.service(5). We use a static user, because some NSS modules
-        # sill want to read their configuration files after the privilege drop
-        # and so users can set the owner of those files to the nscd user.
+      # In some configurations, nscd needs to be started as root; it will
+      # drop privileges after all the NSS modules have read their
+      # configuration files. So prefix the ExecStart command with "!" to
+      # prevent systemd from dropping privileges early. See ExecStart in
+      # systemd.service(5). We use a static user, because some NSS modules
+      # sill want to read their configuration files after the privilege drop
+      # and so users can set the owner of those files to the nscd user.
       serviceConfig = {
         ExecStart =
           if cfg.enableNsncd then

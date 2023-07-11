@@ -16,8 +16,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pypemicro" ];
 
-    # tests are neither pytest nor unittest compatible and require a device
-    # connected via USB
+  # tests are neither pytest nor unittest compatible and require a device
+  # connected via USB
   doCheck = false;
 
   meta = with lib; {

@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "134sgc9d0j57swknl9sgil6212rws2hhp92s3cg1yzz5ygx21c76";
 
-    # Currently no tests are implemented, so we avoid building the package twice
+  # Currently no tests are implemented, so we avoid building the package twice
   doCheck = false;
 
   meta = with lib; {

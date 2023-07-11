@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     gtk3
   ];
 
-    # default installPhase don't install assets
+  # default installPhase don't install assets
   installPhase = ''
     runHook preInstall
     make install PREFIX="$out" TARGET="target/${

@@ -56,7 +56,7 @@ let
     license = lib.licenses.ncsa;
     maintainers = lib.teams.llvm.members;
 
-      # See llvm/cmake/config-ix.cmake.
+    # See llvm/cmake/config-ix.cmake.
     platforms =
       lib.platforms.aarch64
       ++ lib.platforms.arm
@@ -116,14 +116,13 @@ let
         else
           bootBintools
         ;
-
     in
     {
 
       libllvm = callPackage ./llvm { inherit llvm_meta; };
 
-        # `llvm` historically had the binaries.  When choosing an output explicitly,
-        # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
+      # `llvm` historically had the binaries.  When choosing an output explicitly,
+      # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
       llvm = tools.libllvm;
 
       libclang =
@@ -131,11 +130,11 @@ let
 
       clang-unwrapped = tools.libclang;
 
-        # disabled until recommonmark supports sphinx 3
-        #Llvm-manpages = lowPrio (tools.libllvm.override {
-        #  enableManpages = true;
-        #  python3 = pkgs.python3;  # don't use python-boot
-        #});
+      # disabled until recommonmark supports sphinx 3
+      #Llvm-manpages = lowPrio (tools.libllvm.override {
+      #  enableManpages = true;
+      #  python3 = pkgs.python3;  # don't use python-boot
+      #});
 
       clang-manpages = lowPrio (
         tools.libclang.override {
@@ -144,13 +143,13 @@ let
         }
       );
 
-        # disabled until recommonmark supports sphinx 3
-        # lldb-manpages = lowPrio (tools.lldb.override {
-        #   enableManpages = true;
-        #   python3 = pkgs.python3;  # don't use python-boot
-        # });
+      # disabled until recommonmark supports sphinx 3
+      # lldb-manpages = lowPrio (tools.lldb.override {
+      #   enableManpages = true;
+      #   python3 = pkgs.python3;  # don't use python-boot
+      # });
 
-        # pick clang appropriate for package set we are targeting
+      # pick clang appropriate for package set we are targeting
       clang =
         if stdenv.targetPlatform.useLLVM or false then
           tools.clangUseLLVM
@@ -162,7 +161,7 @@ let
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
-          # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
+        # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
         libcxx = null;
         extraPackages = [ targetLlvmLibraries.compiler-rt ];
         extraBuildCommands = mkExtraBuildCommands cc;
@@ -182,12 +181,12 @@ let
 
       lldb = callPackage ./lldb { inherit llvm_meta; };
 
-        # Below, is the LLVM bootstrapping logic. It handles building a
-        # fully LLVM toolchain from scratch. No GCC toolchain should be
-        # pulled in. As a consequence, it is very quick to build different
-        # targets provided by LLVM and we can also build for what GCC
-        # doesn’t support like LLVM. Probably we should move to some other
-        # file.
+      # Below, is the LLVM bootstrapping logic. It handles building a
+      # fully LLVM toolchain from scratch. No GCC toolchain should be
+      # pulled in. As a consequence, it is very quick to build different
+      # targets provided by LLVM and we can also build for what GCC
+      # doesn’t support like LLVM. Probably we should move to some other
+      # file.
 
       bintools-unwrapped = callPackage ./bintools { };
 
@@ -283,7 +282,6 @@ let
         extraPackages = [ ];
         extraBuildCommands = mkExtraBuildCommands0 cc;
       };
-
     }
   );
 
@@ -327,7 +325,7 @@ let
           ;
       };
 
-        # N.B. condition is safe because without useLLVM both are the same.
+      # N.B. condition is safe because without useLLVM both are the same.
       compiler-rt =
         if stdenv.hostPlatform.isAndroid then
           libraries.compiler-rt-libc
@@ -372,6 +370,7 @@ let
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
     }
   );
-
 in
-{ inherit tools libraries release_version; } // libraries // tools
+{
+  inherit tools libraries release_version;
+} // libraries // tools

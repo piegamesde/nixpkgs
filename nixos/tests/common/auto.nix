@@ -10,8 +10,8 @@ let
 
   dmcfg = config.services.xserver.displayManager;
   cfg = config.test-support.displayManager.auto;
-
 in
+
 {
 
   ###### interface
@@ -34,12 +34,10 @@ in
         default = "root";
         description = lib.mdDoc "The user account to login automatically.";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -51,8 +49,8 @@ in
       };
     };
 
-      # lightdm by default doesn't allow auto login for root, which is
-      # required by some nixos tests. Override it here.
+    # lightdm by default doesn't allow auto login for root, which is
+    # required by some nixos tests. Override it here.
     security.pam.services.lightdm-autologin.text = lib.mkForce ''
       auth     requisite pam_nologin.so
       auth     required  pam_succeed_if.so quiet
@@ -64,7 +62,5 @@ in
 
       session  include   lightdm
     '';
-
   };
-
 }

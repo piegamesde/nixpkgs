@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X github.com/databus23/helm-diff/v3/cmd.Version=${version}"
   ];
 
-    # NOTE: Remove the install and upgrade hooks.
+  # NOTE: Remove the install and upgrade hooks.
   postPatch = ''
     sed -i '/^hooks:/,+2 d' plugin.yaml
   '';

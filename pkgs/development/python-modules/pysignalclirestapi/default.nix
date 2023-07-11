@@ -24,7 +24,7 @@ buildPythonPackage rec {
     future
   ];
 
-    # upstream has no tests
+  # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pysignalclirestapi" ];

@@ -59,8 +59,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withPAMSupport [ pam ]
     ;
 
-    # testing requires some networking
-    # doCheck = true;
+  # testing requires some networking
+  # doCheck = true;
 
   doInstallCheck = true;
   installCheckPhase = ''

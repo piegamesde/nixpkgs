@@ -9,8 +9,8 @@
 # expressions are ever made modular at the top level) can just use
 # types.submodule instead of using eval-config.nix
 evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
-#     however, removing or changing this default is too much
-#     of a breaking change. To set it modularly, pass `null`.
+  #     however, removing or changing this default is too much
+  #     of a breaking change. To set it modularly, pass `null`.
   system ?
     builtins.currentSystem, # !!! is this argument needed any more? The pkgs argument can
   # be set modularly anyway.
@@ -38,15 +38,13 @@ evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
 
 let
   pkgs_ = pkgs;
-
 in
+
 let
   evalModulesMinimal =
     (import ./default.nix {
-      inherit
-        lib
-        ;
-        # Implicit use of feature is noted in implementation.
+      inherit lib;
+      # Implicit use of feature is noted in implementation.
       featureFlags.minimalModules = { };
     }).evalModules;
 
@@ -109,7 +107,7 @@ let
       ;
   });
 
-    # Extra arguments that are useful for constructing a similar configuration.
+  # Extra arguments that are useful for constructing a similar configuration.
   modulesModule = {
     config = {
       _module.args = {
@@ -120,7 +118,6 @@ let
 
   nixosWithUserModules =
     noUserModules.extendModules { modules = allUserModules; };
-
 in
 withWarnings nixosWithUserModules // {
   inherit extraArgs;

@@ -71,13 +71,13 @@ in
         '';
       };
 
-        # TODO: allow signature for other schemes than dkim(c=relaxed/relaxed)?
-        # This being the scheme used by gmail, maybe nothing more is needed for
-        # reasonable use.
+      # TODO: allow signature for other schemes than dkim(c=relaxed/relaxed)?
+      # This being the scheme used by gmail, maybe nothing more is needed for
+      # reasonable use.
     };
   };
 
-    ##### implementation
+  ##### implementation
   config =
     let
       configfile = pkgs.writeText "dkimproxy_out.conf" ''

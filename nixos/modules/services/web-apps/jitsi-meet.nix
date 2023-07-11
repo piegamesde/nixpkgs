@@ -10,9 +10,9 @@ with lib;
 let
   cfg = config.services.jitsi-meet;
 
-    # The configuration files are JS of format "var <<string>> = <<JSON>>;". In order to
-    # override only some settings, we need to extract the JSON, use jq to merge it with
-    # the config provided by user, and then reconstruct the file.
+  # The configuration files are JS of format "var <<string>> = <<JSON>>;". In order to
+  # override only some settings, we need to extract the JSON, use jq to merge it with
+  # the config provided by user, and then reconstruct the file.
   overrideJs =
     source: varName: userCfg: appendExtra:
     let
@@ -34,9 +34,9 @@ let
     '')
     ;
 
-    # Essential config - it's probably not good to have these as option default because
-    # types.attrs doesn't do merging. Let's merge explicitly, can still be overridden if
-    # user desires.
+  # Essential config - it's probably not good to have these as option default because
+  # types.attrs doesn't do merging. Let's merge explicitly, can still be overridden if
+  # user desires.
   defaultCfg = {
     hosts = {
       domain = cfg.hostName;
@@ -213,7 +213,7 @@ in
             storage = "memory"
             admins = { "focus@auth.${cfg.hostName}", "jvb@auth.${cfg.hostName}" }
           '';
-            #-- muc_room_cache_size = 1000
+          #-- muc_room_cache_size = 1000
         }
       ];
       extraModules = [
@@ -470,7 +470,7 @@ in
         {
           jicofo.xmpp.service.disable-certificate-verification = true;
           jicofo.xmpp.client.disable-certificate-verification = true;
-            #} (lib.mkIf cfg.jibri.enable {
+          #} (lib.mkIf cfg.jibri.enable {
         }
         (lib.mkIf (config.services.jibri.enable || cfg.jibri.enable) {
           jicofo.jibri = {

@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     repo = "libjxl";
     rev = "v${version}";
     hash = "sha256-WWuvUTMrlR6ePbEs01ulLnuMiUqGrh4qELWFh0QMaGU=";
-      # There are various submodules in `third_party/`.
+    # There are various submodules in `third_party/`.
     fetchSubmodules = true;
   };
 
@@ -66,22 +66,22 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = lib.optionals buildDocs [ graphviz ];
 
-    # Functionality not currently provided by this package
-    # that the cmake build can apparently use:
-    #     OpenGL/GLUT (for Examples -> comparison with sjpeg)
-    #     viewer (see `cmakeFlags`)
-    #     plugins like for GDK and GIMP (see `cmakeFlags`)
+  # Functionality not currently provided by this package
+  # that the cmake build can apparently use:
+  #     OpenGL/GLUT (for Examples -> comparison with sjpeg)
+  #     viewer (see `cmakeFlags`)
+  #     plugins like for GDK and GIMP (see `cmakeFlags`)
 
-    # Vendored libraries:
-    # `libjxl` currently vendors many libraries as git submodules that they
-    # might patch often (e.g. test/gmock, see
-    # https://github.com/NixOS/nixpkgs/pull/103160#discussion_r519487734).
-    # When it has stabilised in the future, we may want to tell the build
-    # to use use nixpkgs system libraries.
+  # Vendored libraries:
+  # `libjxl` currently vendors many libraries as git submodules that they
+  # might patch often (e.g. test/gmock, see
+  # https://github.com/NixOS/nixpkgs/pull/103160#discussion_r519487734).
+  # When it has stabilised in the future, we may want to tell the build
+  # to use use nixpkgs system libraries.
 
-    # As of writing, libjxl does not point out all its dependencies
-    # conclusively in its README or otherwise; they can best be determined
-    # by checking the CMake output for "Could NOT find".
+  # As of writing, libjxl does not point out all its dependencies
+  # conclusively in its README or otherwise; they can best be determined
+  # by checking the CMake output for "Could NOT find".
   buildInputs = [
     giflib
     gperftools # provides `libtcmalloc`
@@ -130,8 +130,8 @@ stdenv.mkDerivation rec {
   CXXFLAGS =
     lib.optionalString stdenv.hostPlatform.isAarch32 "-mfp16-format=ieee";
 
-    # FIXME x86_64-darwin:
-    # https://github.com/NixOS/nixpkgs/pull/204030#issuecomment-1352768690
+  # FIXME x86_64-darwin:
+  # https://github.com/NixOS/nixpkgs/pull/204030#issuecomment-1352768690
   doCheck = with stdenv; !(hostPlatform.isi686 || isDarwin && isx86_64);
 
   meta = with lib; {

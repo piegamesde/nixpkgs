@@ -163,7 +163,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/mailutils/";
     changelog = "https://git.savannah.gnu.org/cgit/mailutils.git/tree/NEWS";
 
-      # Some of the dependencies fail to build on {cyg,dar}win.
+    # Some of the dependencies fail to build on {cyg,dar}win.
     platforms = platforms.gnu ++ platforms.unix;
   };
 }

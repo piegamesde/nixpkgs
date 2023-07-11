@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     pangomm
   ];
 
-    # https://bugzilla.gnome.org/show_bug.cgi?id=764521
+  # https://bugzilla.gnome.org/show_bug.cgi?id=764521
   doCheck = false;
 
   passthru = {

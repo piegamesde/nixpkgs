@@ -28,8 +28,8 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description = "Parallel execution package";
-      # Although upstream has added an identical patch to that of ../database, it
-      # still won't build with octave>8.1
+    # Although upstream has added an identical patch to that of ../database, it
+    # still won't build with octave>8.1
     broken = true;
   };
 }

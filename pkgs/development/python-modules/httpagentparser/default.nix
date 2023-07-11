@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-U879nWWZD2/lnAN4ytjqG53493DS6L2dh2LtrgM76Ao=";
   };
 
-    # PyPi version does not include test directory
+  # PyPi version does not include test directory
   doCheck = false;
 
   pythonImportsCheck = [ "httpagentparser" ];

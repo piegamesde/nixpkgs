@@ -36,7 +36,6 @@ let
   redisName = name: "redis" + optionalString (name != "") ("-" + name);
   enabledServers =
     filterAttrs (name: conf: conf.enable) config.services.redis.servers;
-
 in
 {
   imports = [
@@ -357,7 +356,7 @@ in
       ])
   ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -705,10 +704,9 @@ in
         default = { };
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (enabledServers != { }) {
 
@@ -791,24 +789,24 @@ in
               )
               ;
             Type = "notify";
-              # User and group
+            # User and group
             User = conf.user;
             Group = conf.user;
-              # Runtime directory and mode
+            # Runtime directory and mode
             RuntimeDirectory = redisName name;
             RuntimeDirectoryMode = "0750";
-              # State directory and mode
+            # State directory and mode
             StateDirectory = redisName name;
             StateDirectoryMode = "0700";
-              # Access write directories
+            # Access write directories
             UMask = "0077";
-              # Capabilities
+            # Capabilities
             CapabilityBoundingSet = "";
-              # Security
+            # Security
             NoNewPrivileges = true;
-              # Process Properties
+            # Process Properties
             LimitNOFILE = mkDefault "${toString (conf.maxclients + 32)}";
-              # Sandboxing
+            # Sandboxing
             ProtectSystem = "strict";
             ProtectHome = true;
             PrivateTmp = true;
@@ -833,7 +831,7 @@ in
             RestrictRealtime = true;
             RestrictSUIDSGID = true;
             PrivateMounts = true;
-              # System Call Filtering
+            # System Call Filtering
             SystemCallArchitectures = "native";
             SystemCallFilter =
               "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @privileged @resources @setuid";
@@ -841,6 +839,5 @@ in
         }
       )
       enabledServers;
-
   };
 }

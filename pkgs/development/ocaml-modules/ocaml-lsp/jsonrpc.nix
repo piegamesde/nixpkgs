@@ -37,8 +37,8 @@ let
         sha256 = "1ssyazc0yrdng98cypwa9m3nzfisdzpp7hqnx684rqj8f0g3gs6f";
       }
     ;
-
 in
+
 buildDunePackage rec {
   pname = "jsonrpc";
   inherit (params) version;

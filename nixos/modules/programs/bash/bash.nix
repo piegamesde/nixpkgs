@@ -21,8 +21,8 @@ let
       filterAttrs (k: v: v != null) cfg.shellAliases
     )
   );
-
 in
+
 {
   imports = [
       (mkRemovedOptionModule
@@ -116,9 +116,7 @@ in
         type = types.lines;
         internal = true;
       };
-
     };
-
   };
 
   config = # mkIf cfg.enable
@@ -151,7 +149,6 @@ in
 
           ${cfge.interactiveShellInit}
         '';
-
       };
 
       environment.etc.profile.text = ''
@@ -203,8 +200,8 @@ in
         fi
       '';
 
-        # Configuration for readline in bash. We use "option default"
-        # priority to allow user override using both .text and .source.
+      # Configuration for readline in bash. We use "option default"
+      # priority to allow user override using both .text and .source.
       environment.etc.inputrc.source = mkOptionDefault ./inputrc;
 
       users.defaultUserShell = mkDefault pkgs.bashInteractive;
@@ -220,7 +217,5 @@ in
         "${pkgs.bashInteractive}/bin/bash"
         "${pkgs.bashInteractive}/bin/sh"
       ];
-
     };
-
 }

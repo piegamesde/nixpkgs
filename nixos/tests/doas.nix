@@ -1,5 +1,7 @@
 # Some tests to ensure doas is working properly.
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     lib,
     ...

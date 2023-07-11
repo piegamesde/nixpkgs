@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   pname = "uriparser";
   version = "0.9.7";
 
-    # Release tarball differs from source tarball
+  # Release tarball differs from source tarball
   src = fetchurl {
     url =
       "https://github.com/uriparser/uriparser/releases/download/${pname}-${version}/${pname}-${version}.tar.bz2";

@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
     sha256 = "17xj7xmdbcwdbzalhfs6yyiwa64978mk3li39l949qfjjgrxjias";
   };
 
-    # Amazon EC2 requires that disk images are writable.  If they're
-    # not, the VM immediately terminates with a mysterious
-    # "Server.InternalError" message.  Since disk images generated in
-    # the Nix store are read-only, they must be made writable in the
-    # tarball uploaded to Amazon S3.  So add a `--mode=0755' flag to the
-    # tar invocation.
+  # Amazon EC2 requires that disk images are writable.  If they're
+  # not, the VM immediately terminates with a mysterious
+  # "Server.InternalError" message.  Since disk images generated in
+  # the Nix store are read-only, they must be made writable in the
+  # tarball uploaded to Amazon S3.  So add a `--mode=0755' flag to the
+  # tar invocation.
   patches = [ ./writable.patch ];
 
   installPhase = ''
@@ -56,5 +56,4 @@ stdenv.mkDerivation rec {
       "Command-line tools to create and manage Amazon EC2 virtual machine images";
     license = lib.licenses.amazonsl;
   };
-
 }

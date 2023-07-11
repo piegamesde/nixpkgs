@@ -74,7 +74,6 @@ let
       '';
     }
     ;
-
 in
 pkgs.lib.mapAttrs mkKeyboardTest {
   swap-ab_and_ctrl-as-shift = {

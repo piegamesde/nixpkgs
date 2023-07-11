@@ -38,7 +38,7 @@ buildPythonPackage rec {
     python-ldap
   ];
 
-    # ValueError: SCHEMADIR is None, ldap schemas are missing.
+  # ValueError: SCHEMADIR is None, ldap schemas are missing.
   doCheck = false;
 
   checkPhase = ''

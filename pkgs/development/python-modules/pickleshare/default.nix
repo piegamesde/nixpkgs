@@ -16,11 +16,9 @@ buildPythonPackage rec {
     sha256 = "87683d47965c1da65cdacaf31c8441d12b8044cdec9aca500cd78fc2c683afca";
   };
 
-  propagatedBuildInputs =
-    [ path ] ++ lib.optional (pythonOlder "3.4") pathlib2
-    ;
+  propagatedBuildInputs = [ path ] ++ lib.optional (pythonOlder "3.4") pathlib2;
 
-    # No proper test suite
+  # No proper test suite
   doCheck = false;
 
   meta = with lib; {
@@ -28,5 +26,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/vivainio/pickleshare";
     license = licenses.mit;
   };
-
 }

@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pbr ];
 
-    # Check is disabled due to circular dependency of sphinx
+  # Check is disabled due to circular dependency of sphinx
   doCheck = false;
 
   meta = with lib; {

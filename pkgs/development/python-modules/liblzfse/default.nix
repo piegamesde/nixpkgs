@@ -18,7 +18,7 @@ buildPythonPackage rec {
     ln -s ${lzfse.src} lzfse
   '';
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "liblzfse" ];

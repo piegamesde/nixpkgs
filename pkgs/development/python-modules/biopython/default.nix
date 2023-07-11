@@ -18,7 +18,7 @@ buildPythonPackage rec {
   disabled = !isPy3k;
 
   propagatedBuildInputs = [ numpy ];
-    # Checks try to write to $HOME, which does not work with nix
+  # Checks try to write to $HOME, which does not work with nix
   doCheck = false;
   meta = {
     description = "Python library for bioinformatics";

@@ -1,6 +1,8 @@
 # Miscellaneous small tests that don't warrant their own VM run.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -21,7 +23,7 @@ import ./make-test-python.nix (
           adminPasswordFile = pkgs.writeText "admin-password" "testing";
           adminEmail = "root@localhost";
 
-            # Don't try this at home!
+          # Don't try this at home!
           environmentFile = pkgs.writeText "pi-secrets.env" ''
             SECRET_KEY=testing
             PEPPER=testing

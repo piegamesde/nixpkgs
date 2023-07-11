@@ -83,25 +83,20 @@ let
     '';
   };
 
-    # Copy one Munin plugin into the Nix store with a specific name.
-    # This is suitable for use with plugins going directly into /etc/munin/plugins,
-    # i.e. munin.extraPlugins.
-  internOnePlugin =
-    name: path:
-    "cp -a '${path}' '${name}'"
-    ;
+  # Copy one Munin plugin into the Nix store with a specific name.
+  # This is suitable for use with plugins going directly into /etc/munin/plugins,
+  # i.e. munin.extraPlugins.
+  internOnePlugin = name: path: "cp -a '${path}' '${name}'";
 
-    # Copy an entire tree of Munin plugins into a single directory in the Nix
-    # store, with no renaming.
-    # This is suitable for use with munin-node-configure --suggest, i.e.
-    # munin.extraAutoPlugins.
+  # Copy an entire tree of Munin plugins into a single directory in the Nix
+  # store, with no renaming.
+  # This is suitable for use with munin-node-configure --suggest, i.e.
+  # munin.extraAutoPlugins.
   internManyPlugins =
-    name: path:
-    "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'"
-    ;
+    name: path: "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'";
 
-    # Use the appropriate intern-fn to copy the plugins into the store and patch
-    # them afterwards in an attempt to get them to run on NixOS.
+  # Use the appropriate intern-fn to copy the plugins into the store and patch
+  # them afterwards in an attempt to get them to run on NixOS.
   internAndFixPlugins =
     name: intern-fn: paths:
     pkgs.runCommand name { } ''
@@ -115,9 +110,9 @@ let
     ''
     ;
 
-    # TODO: write a derivation for munin-contrib, so that for contrib plugins
-    # you can just refer to them by name rather than needing to include a copy
-    # of munin-contrib in your nixos configuration.
+  # TODO: write a derivation for munin-contrib, so that for contrib plugins
+  # you can just refer to them by name rather than needing to include a copy
+  # of munin-contrib in your nixos configuration.
   extraPluginDir = internAndFixPlugins "munin-extra-plugins.d"
     internOnePlugin
     nodeCfg.extraPlugins;
@@ -141,8 +136,8 @@ let
     echo "${cronCfg.extraCSS}" >> style.css
     echo "${cronCfg.extraCSS}" >> style-new.css
   '';
-
 in
+
 {
 
   options = {
@@ -327,9 +322,7 @@ in
           }
         '';
       };
-
     };
-
   };
 
   config = mkMerge [
@@ -345,7 +338,6 @@ in
       };
 
       users.groups.munin = { gid = config.ids.gids.munin; };
-
     })
     (mkIf nodeCfg.enable {
 
@@ -391,9 +383,8 @@ in
         };
       };
 
-        # munin_stats plugin breaks as of 2.0.33 when this doesn't exist
+      # munin_stats plugin breaks as of 2.0.33 when this doesn't exist
       systemd.tmpfiles.rules = [ "d /run/munin 0755 munin munin -" ];
-
     })
     (mkIf cronCfg.enable {
 

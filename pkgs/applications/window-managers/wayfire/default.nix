@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     doctest
   ];
 
-    # CMake is just used for finding doctest.
+  # CMake is just used for finding doctest.
   dontUseCmakeConfigure = true;
 
   doCheck = true;

@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.hardware.nitrokey;
-
 in
+
 {
   options.hardware.nitrokey = {
     enable = mkOption {

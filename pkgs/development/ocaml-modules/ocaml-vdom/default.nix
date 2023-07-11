@@ -35,4 +35,3 @@ buildDunePackage rec {
     maintainers = with lib.maintainers; [ jayesh-bhoot ];
   };
 }
-

@@ -18,7 +18,6 @@ let
 
     ${cfg.extraConfig}
   '';
-
 in
 {
 
@@ -47,7 +46,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

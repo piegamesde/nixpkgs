@@ -14,7 +14,7 @@ let
 
   cfg = config.services.snapserver;
 
-    # Using types.nullOr to inherit upstream defaults.
+  # Using types.nullOr to inherit upstream defaults.
   sampleFormat = mkOption {
     type = with types; nullOr str;
     default = null;
@@ -52,32 +52,40 @@ let
 
   optionString = concatStringsSep " " (
     mapAttrsToList streamToOption cfg.streams
-      # global options
+    # global options
     ++ [ "--stream.bind_to_address=${cfg.listenAddress}" ]
+    # global options
     ++ [ "--stream.port=${toString cfg.port}" ]
+    # global options
     ++ optionalNull cfg.sampleFormat "--stream.sampleformat=${cfg.sampleFormat}"
+    # global options
     ++ optionalNull cfg.codec "--stream.codec=${cfg.codec}"
+    # global options
     ++ optionalNull cfg.streamBuffer "--stream.stream_buffer=${
         toString cfg.streamBuffer
       }"
+    # global options
     ++ optionalNull cfg.buffer "--stream.buffer=${toString cfg.buffer}"
+    # global options
     ++ optional cfg.sendToMuted "--stream.send_to_muted"
-      # tcp json rpc
+    # global options
     ++ [ "--tcp.enabled=${toString cfg.tcp.enable}" ]
+    # global options
     ++ optionals cfg.tcp.enable [
       "--tcp.bind_to_address=${cfg.tcp.listenAddress}"
       "--tcp.port=${toString cfg.tcp.port}"
     ]
-    # http json rpc
+    # global options
     ++ [ "--http.enabled=${toString cfg.http.enable}" ]
+    # global options
     ++ optionals cfg.http.enable [
       "--http.bind_to_address=${cfg.http.listenAddress}"
       "--http.port=${toString cfg.http.port}"
     ]
+    # global options
     ++ optional (cfg.http.docRoot != null) ''
       --http.doc_root="${toString cfg.http.docRoot}"''
   );
-
 in
 {
   imports = [
@@ -95,7 +103,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -311,13 +319,15 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
     warnings =
       # https://github.com/badaix/snapcast/blob/98ac8b2fb7305084376607b59173ce4097c620d8/server/streamreader/stream_manager.cpp#L85
-      filter (w: w != "") (
+      filter
+      (w: w != "")
+      (
         mapAttrsToList
         (
           k: v:
@@ -363,5 +373,4 @@ in
   };
 
   meta = { maintainers = with maintainers; [ tobim ]; };
-
 }

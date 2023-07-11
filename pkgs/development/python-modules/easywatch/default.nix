@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ watchdog ];
 
-    # There are no tests
+  # There are no tests
   doCheck = false;
   pythonImportsCheck = [ "easywatch" ];
 
@@ -27,4 +27,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ fgaz ];
   };
 }
-

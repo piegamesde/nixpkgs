@@ -40,8 +40,8 @@ let
     categories = [ "Development" ];
   };
 
-    # postPatch scripts.
-    # Tells ghidra to use our own protoc binary instead of the prebuilt one.
+  # postPatch scripts.
+  # Tells ghidra to use our own protoc binary instead of the prebuilt one.
   fixProtoc = ''
         cat >>Ghidra/Debug/Debugger-gadp/build.gradle <<HERE
     protobuf {
@@ -52,7 +52,7 @@ let
     HERE
   '';
 
-    # Adds a gradle step that downloads all the dependencies to the gradle cache.
+  # Adds a gradle step that downloads all the dependencies to the gradle cache.
   addResolveStep = ''
         cat >>build.gradle <<HERE
     task resolveDependencies {
@@ -76,8 +76,8 @@ let
     HERE
   '';
 
-    # fake build to pre-download deps into fixed-output derivation
-    # Taken from mindustry derivation.
+  # fake build to pre-download deps into fixed-output derivation
+  # Taken from mindustry derivation.
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit version src;
@@ -104,7 +104,7 @@ let
       # Then, fetch the maven dependencies.
       gradle --no-daemon --info -Dorg.gradle.java.home=${openjdk17} resolveDependencies
     '';
-      # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+    # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/maven/$x/$3/$4/$5" #e' \
@@ -115,7 +115,6 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-Z4RS3IzDP8V3SrrwOuX/hTlX7fs3woIhR8GPK/tFAzs=";
   };
-
 in
 stdenv.mkDerivation rec {
   inherit pname version src;
@@ -191,5 +190,4 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ roblabla ];
   };
-
 }

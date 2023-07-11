@@ -28,7 +28,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-    # Tests require a running Plex instance
+  # Tests require a running Plex instance
   doCheck = false;
 
   pythonImportsCheck = [ "plexapi" ];

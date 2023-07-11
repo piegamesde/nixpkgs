@@ -26,7 +26,7 @@ buildPythonPackage rec {
     mwdblib
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "karton.mwdb_reporter" ];

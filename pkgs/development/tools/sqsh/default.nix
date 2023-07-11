@@ -10,7 +10,6 @@
 
 let
   mainVersion = "2.5";
-
 in
 stdenv.mkDerivation rec {
   pname = "sqsh";

@@ -33,7 +33,7 @@ buildGoModule rec {
     "-w"
   ];
 
-    # set HOME, otherwise bundler will insert stuff in the manpages
+  # set HOME, otherwise bundler will insert stuff in the manpages
   postBuild = ''
     HOME=$PWD make man SHELL=$SHELL
   '';

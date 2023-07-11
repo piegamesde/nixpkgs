@@ -18,8 +18,8 @@ let
     else
       inkscapeExtensions
     ;
-
 in
+
 symlinkJoin {
   name = "inkscape-with-extensions-${lib.getVersion inkscape}";
 

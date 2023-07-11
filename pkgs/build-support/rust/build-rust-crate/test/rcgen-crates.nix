@@ -12,29 +12,26 @@
     "crate2nix: Passing `buildRustCrate` as argument to Cargo.nix is deprecated. If you don't customize `buildRustCrate`, replace `callPackage ./Cargo.nix {}` by `import ./Cargo.nix { inherit pkgs; }`, and if you need to customize `buildRustCrate`, use `buildRustCrateForPkgs` instead."
     (_: buildRustCrate)
   else
-    pkgs:
-    pkgs.buildRustCrate
-    # Deprecated
+    pkgs: pkgs.buildRustCrate
+  # Deprecated
   ,
   buildRustCrate ? null
-    # This is used as the `crateOverrides` argument for `buildRustCrate`.
+  # This is used as the `crateOverrides` argument for `buildRustCrate`.
   ,
   defaultCrateOverrides ? pkgs.defaultCrateOverrides
-    # The features to enable for the root_crate or the workspace_members.
+  # The features to enable for the root_crate or the workspace_members.
   ,
-  rootFeatures ? [
-    "default"
-  ]
+  rootFeatures ? [ "default" ]
   # If true, throw errors instead of issueing deprecation warnings.
   ,
   strictDeprecation ? false
-    # Used for conditional compilation based on CPU feature detection.
+  # Used for conditional compilation based on CPU feature detection.
   ,
   targetFeatures ? [ ]
-    # Whether to perform release builds: longer compile times, faster binaries.
+  # Whether to perform release builds: longer compile times, faster binaries.
   ,
   release ? true
-    # Additional crate2nix configuration if it exists.
+  # Additional crate2nix configuration if it exists.
   ,
   crateConfig ? if builtins.pathExists ./crate-config.nix then
     pkgs.callPackage ./crate-config.nix { }
@@ -50,29 +47,29 @@ rec {
   rootCrate = rec {
     packageId = "rcgen";
 
-      # Use this attribute to refer to the derivation building your root crate package.
-      # You can override the features with rootCrate.build.override { features = [ "default" "feature1" ... ]; }.
+    # Use this attribute to refer to the derivation building your root crate package.
+    # You can override the features with rootCrate.build.override { features = [ "default" "feature1" ... ]; }.
     build = internal.buildRustCrateWithFeatures { inherit packageId; };
 
-      # Debug support which might change between releases.
-      # File a bug if you depend on any for non-debug work!
+    # Debug support which might change between releases.
+    # File a bug if you depend on any for non-debug work!
     debug = internal.debugCrate { inherit packageId; };
   };
-    # Refer your crate build derivation by name here.
-    # You can override the features with
-    # workspaceMembers."${crateName}".build.override { features = [ "default" "feature1" ... ]; }.
+  # Refer your crate build derivation by name here.
+  # You can override the features with
+  # workspaceMembers."${crateName}".build.override { features = [ "default" "feature1" ... ]; }.
   workspaceMembers = {
     "rcgen" = rec {
       packageId = "rcgen";
       build = internal.buildRustCrateWithFeatures { packageId = "rcgen"; };
 
-        # Debug support which might change between releases.
-        # File a bug if you depend on any for non-debug work!
+      # Debug support which might change between releases.
+      # File a bug if you depend on any for non-debug work!
       debug = internal.debugCrate { inherit packageId; };
     };
   };
 
-    # A derivation that joins the outputs of all workspace members together.
+  # A derivation that joins the outputs of all workspace members together.
   allWorkspaceMembers = pkgs.symlinkJoin {
     name = "all-workspace-members";
     paths =
@@ -83,9 +80,9 @@ rec {
       ;
   };
 
-    #
-    # "internal" ("private") attributes that may change in every new version of crate2nix.
-    #
+  #
+  # "internal" ("private") attributes that may change in every new version of crate2nix.
+  #
 
   internal = rec {
     # Build and dependency information for crates.
@@ -190,7 +187,6 @@ rec {
             packageId = "synstructure";
           }
         ];
-
       };
       "asn1-rs-impl" = rec {
         crateName = "asn1-rs-impl";
@@ -213,7 +209,6 @@ rec {
             packageId = "syn";
           }
         ];
-
       };
       "autocfg 0.1.7" = rec {
         crateName = "autocfg";
@@ -221,7 +216,6 @@ rec {
         edition = "2015";
         sha256 = "1chwgimpx5z7xbag7krr9d8asxfqbh683qhgl9kn3hxk2l0djj8x";
         authors = [ "Josh Stone <cuviper@gmail.com>" ];
-
       };
       "autocfg 1.0.1" = rec {
         crateName = "autocfg";
@@ -229,7 +223,6 @@ rec {
         edition = "2015";
         sha256 = "0jj6i9zn4gjl03kjvziqdji6rwx8ykz8zk2ngpc331z2g3fk3c6d";
         authors = [ "Josh Stone <cuviper@gmail.com>" ];
-
       };
       "base64" = rec {
         crateName = "base64";
@@ -305,7 +298,6 @@ rec {
           "Rodolphe Breard <rodolphe@what.tf>"
           "Jack Lloyd <jack@randombit.net>"
         ];
-
       };
       "botan-sys" = rec {
         crateName = "botan-sys";
@@ -428,7 +420,6 @@ rec {
         edition = "2015";
         sha256 = "0d8z0pbr87wgzqqb2jk5pvj0afzc6d3rb772ach6fijhg6yglrdk";
         authors = [ "Jorge Aparicio <jorge@japaric.io>" ];
-
       };
       "data-encoding" = rec {
         crateName = "data-encoding";
@@ -591,7 +582,6 @@ rec {
           name = "foreign-types-shared";
           packageId = "foreign-types-shared";
         } ];
-
       };
       "foreign-types-shared" = rec {
         crateName = "foreign-types-shared";
@@ -599,7 +589,6 @@ rec {
         edition = "2015";
         sha256 = "0jxgzd04ra4imjv8jgkmdq59kj8fsz6w4zxsbmlai34h26225c00";
         authors = [ "Steven Fackler <sfackler@gmail.com>" ];
-
       };
       "generic-array" = rec {
         crateName = "generic-array";
@@ -684,7 +673,6 @@ rec {
         edition = "2018";
         sha256 = "0d8wr2qf5b25a04xf10rz9r0pdbjdgb0zaw3xvf8k2sqcz1qzaqs";
         authors = [ "David Tolnay <dtolnay@gmail.com>" ];
-
       };
       "js-sys" = rec {
         crateName = "js-sys";
@@ -696,7 +684,6 @@ rec {
           name = "wasm-bindgen";
           packageId = "wasm-bindgen";
         } ];
-
       };
       "lazy_static" = rec {
         crateName = "lazy_static";
@@ -1091,7 +1078,6 @@ rec {
             )
             ;
         } ];
-
       };
       "oid-registry" = rec {
         crateName = "oid-registry";
@@ -1240,7 +1226,6 @@ rec {
           name = "base64";
           packageId = "base64";
         } ];
-
       };
       "pem-rfc7468" = rec {
         crateName = "pem-rfc7468";
@@ -1390,7 +1375,6 @@ rec {
         edition = "2015";
         sha256 = "1ghcyjp5537r7qigmgl3dj62j01arlpddaq93a3i414v3iskz2aq";
         authors = [ "Alex Crichton <alex@alexcrichton.com>" ];
-
       };
       "ppv-lite86" = rec {
         crateName = "ppv-lite86";
@@ -1617,7 +1601,6 @@ rec {
           name = "rand_core";
           packageId = "rand_core";
         } ];
-
       };
       "rcgen" = rec {
         crateName = "rcgen";
@@ -2033,7 +2016,6 @@ rec {
           usesDefaultFeatures = false;
           features = [ "std" ];
         } ];
-
       };
       "smallvec" = rec {
         crateName = "smallvec";
@@ -2056,7 +2038,6 @@ rec {
           "Mathijs van de Nes <git@mathijs.vd-nes.nl>"
           "John Ericson <git@JohnEricson.me>"
         ];
-
       };
       "spki" = rec {
         crateName = "spki";
@@ -2197,7 +2178,6 @@ rec {
           name = "thiserror-impl";
           packageId = "thiserror-impl";
         } ];
-
       };
       "thiserror-impl" = rec {
         crateName = "thiserror-impl";
@@ -2220,7 +2200,6 @@ rec {
             packageId = "syn";
           }
         ];
-
       };
       "time" = rec {
         crateName = "time";
@@ -2357,7 +2336,6 @@ rec {
         sha256 = "0jkbqaj9d3v5a91pp3wp9mffvng1nhycx6sh4qkdd9qyr62ccmm1";
         libPath = "src/untrusted.rs";
         authors = [ "Brian Smith <brian@briansmith.org>" ];
-
       };
       "vcpkg" = rec {
         crateName = "vcpkg";
@@ -2365,7 +2343,6 @@ rec {
         edition = "2015";
         sha256 = "09i4nf5y8lig6xgj3f7fyrvzd3nlaw4znrihw8psidvv5yk4xkdc";
         authors = [ "Jim McGrath <jimmc2@gmail.com>" ];
-
       };
       "version_check" = rec {
         crateName = "version_check";
@@ -2373,7 +2350,6 @@ rec {
         edition = "2015";
         sha256 = "0gs8grwdlgh0xq660d7wr80x14vxbizmd8dbp29p2pdncx8lp1s9";
         authors = [ "Sergio Benitez <sb@sergio.bz>" ];
-
       };
       "wasi" = rec {
         crateName = "wasi";
@@ -2545,7 +2521,6 @@ rec {
         edition = "2018";
         sha256 = "18h67l9b9jn06iw9r2p7bh9i0brh24lilcp4f26f4f24bh1qv59x";
         authors = [ "The wasm-bindgen Developers" ];
-
       };
       "web-sys" = rec {
         crateName = "web-sys";
@@ -4084,7 +4059,6 @@ rec {
         edition = "2015";
         sha256 = "1dmpa6mvcvzz16zg6d5vrfy4bxgg541wxrcip7cnshi06v38ffxc";
         authors = [ "Peter Atashian <retep998@gmail.com>" ];
-
       };
       "winapi-x86_64-pc-windows-gnu" = rec {
         crateName = "winapi-x86_64-pc-windows-gnu";
@@ -4092,7 +4066,6 @@ rec {
         edition = "2015";
         sha256 = "0gqq64czqb64kskjryj8isp62m2sgvx25yyj3kpc2myh85w24bki";
         authors = [ "Peter Atashian <retep998@gmail.com>" ];
-
       };
       "x509-parser" = rec {
         crateName = "x509-parser";
@@ -4234,25 +4207,24 @@ rec {
             packageId = "synstructure";
           }
         ];
-
       };
     };
 
-      #
-      # crate2nix/default.nix (excerpt start)
-      #
+    #
+    # crate2nix/default.nix (excerpt start)
+    #
 
-      /* Target (platform) data for conditional dependencies.
-         This corresponds roughly to what buildRustCrate is setting.
-      */
+    /* Target (platform) data for conditional dependencies.
+       This corresponds roughly to what buildRustCrate is setting.
+    */
     defaultTarget = {
       unix = true;
       windows = false;
       fuchsia = true;
       test = false;
 
-        # This doesn't appear to be officially documented anywhere yet.
-        # See https://github.com/rust-lang-nursery/rust-forge/issues/101.
+      # This doesn't appear to be officially documented anywhere yet.
+      # See https://github.com/rust-lang-nursery/rust-forge/issues/101.
       os =
         if stdenv.hostPlatform.isDarwin then
           "macos"
@@ -4275,8 +4247,8 @@ rec {
       debug_assertions = false;
     };
 
-      # Filters common temp files and build files.
-      # TODO(pkolloch): Substitute with gitignore filter
+    # Filters common temp files and build files.
+    # TODO(pkolloch): Substitute with gitignore filter
     sourceFilter =
       name: type:
       let
@@ -4284,12 +4256,11 @@ rec {
       in
       !(
         # Filter out git
-        baseName == ".gitignore"
+          baseName
+          == ".gitignore"
         || (
           type == "directory" && baseName == ".git"
         )
-
-        # Filter out build results
         || (
           type == "directory"
           && (
@@ -4300,23 +4271,14 @@ rec {
             || baseName == "build-artifacts"
           )
         )
-
-        # Filter out nix-build result symlinks
         || (
           type == "symlink" && lib.hasPrefix "result" baseName
         )
-
-        # Filter out IDE config
         || (
           type == "directory" && (baseName == ".idea" || baseName == ".vscode")
         )
         || lib.hasSuffix ".iml" baseName
-
-          # Filter out nix build files
-        || baseName
-          == "Cargo.nix"
-
-            # Filter out editor backup / swap files.
+        || baseName == "Cargo.nix"
         || lib.hasSuffix "~" baseName
         || builtins.match "^\\.sw[a-z]$$" baseName != null
         || builtins.match "^\\..*\\.sw[a-z]$$" baseName != null
@@ -4326,12 +4288,12 @@ rec {
       )
       ;
 
-      /* Returns a crate which depends on successful test execution
-         of crate given as the second argument.
+    /* Returns a crate which depends on successful test execution
+       of crate given as the second argument.
 
-         testCrateFlags: list of flags to pass to the test executable
-         testInputs: list of packages that should be available during test execution
-      */
+       testCrateFlags: list of flags to pass to the test executable
+       testInputs: list of packages that should be available during test execution
+    */
     crateWithTest =
       {
         crate,
@@ -4353,9 +4315,9 @@ rec {
         test =
           let
             drv = testCrate.override (_: { buildTests = true; });
-              # If the user hasn't set any pre/post commands, we don't want to
-              # insert empty lines. This means that any existing users of crate2nix
-              # don't get a spurious rebuild unless they set these explicitly.
+            # If the user hasn't set any pre/post commands, we don't want to
+            # insert empty lines. This means that any existing users of crate2nix
+            # don't get a spurious rebuild unless they set these explicitly.
             testCommand = pkgs.lib.concatStringsSep "\n" (
               pkgs.lib.filter (s: s != "") [
                 testPreRun
@@ -4415,7 +4377,7 @@ rec {
       ''
       ;
 
-      # A restricted overridable version of builtRustCratesWithFeatures.
+    # A restricted overridable version of builtRustCratesWithFeatures.
     buildRustCrateWithFeatures =
       {
         packageId,
@@ -4425,10 +4387,10 @@ rec {
         runTests ? false,
         testCrateFlags ? [ ],
         testInputs ? [ ]
-          # Any command to run immediatelly before a test is executed.
+        # Any command to run immediatelly before a test is executed.
         ,
         testPreRun ? ""
-          # Any command run immediatelly after a test is executed.
+        # Any command run immediatelly after a test is executed.
         ,
         testPostRun ? ""
       }:
@@ -4496,9 +4458,9 @@ rec {
       }
       ;
 
-      /* Returns an attr set with packageId mapped to the result of buildRustCrateForPkgsFunc
-         for the corresponding crate.
-      */
+    /* Returns an attr set with packageId mapped to the result of buildRustCrateForPkgsFunc
+       for the corresponding crate.
+    */
     builtRustCratesWithFeatures =
       {
         packageId,
@@ -4521,7 +4483,7 @@ rec {
             target = target // { test = runTests; };
           }
         );
-          # Memoize built packages so that reappearing packages are only built once.
+        # Memoize built packages so that reappearing packages are only built once.
         builtByPackageIdByPkgs = mkBuiltByPackageIdByPkgs pkgs;
         mkBuiltByPackageIdByPkgs =
           pkgs:
@@ -4556,7 +4518,9 @@ rec {
               buildByPackageId =
                 depPackageId:
                 # proc_macro crates must be compiled for the build architecture
-                if crateConfigs.${depPackageId}.procMacro or false then
+                if
+                  crateConfigs.${depPackageId}.procMacro or false
+                then
                   self.build.crates.${depPackageId}
                 else
                   self.crates.${depPackageId}
@@ -4587,14 +4551,14 @@ rec {
                 ++ devDependencies
               )
             );
-              # Crate renames have the form:
-              #
-              # {
-              #    crate_name = [
-              #       { version = "1.2.3"; rename = "crate_name01"; }
-              #    ];
-              #    # ...
-              # }
+            # Crate renames have the form:
+            #
+            # {
+            #    crate_name = [
+            #       { version = "1.2.3"; rename = "crate_name01"; }
+            #    ];
+            #    # ...
+            # }
             crateRenames =
               let
                 grouped = lib.groupBy
@@ -4622,8 +4586,8 @@ rec {
                 crateConfig.src or (pkgs.fetchurl rec {
                   name =
                     "${crateConfig.crateName}-${crateConfig.version}.tar.gz";
-                    # https://www.pietroalbini.org/blog/downloading-crates-io/
-                    # Not rate-limited, CDN URL.
+                  # https://www.pietroalbini.org/blog/downloading-crates-io/
+                  # Not rate-limited, CDN URL.
                   url =
                     "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
                   sha256 =
@@ -4651,7 +4615,7 @@ rec {
       builtByPackageIdByPkgs
       ;
 
-      # Returns the actual derivations for the given dependencies.
+    # Returns the actual derivations for the given dependencies.
     dependencyDerivations =
       {
         buildByPackageId,
@@ -4670,9 +4634,9 @@ rec {
       map depDerivation enabledDependencies
       ;
 
-      /* Returns a sanitized version of val with all values substituted that cannot
-         be serialized as JSON.
-      */
+    /* Returns a sanitized version of val with all values substituted that cannot
+       be serialized as JSON.
+    */
     sanitizeForJson =
       val:
       if builtins.isAttrs val then
@@ -4685,7 +4649,7 @@ rec {
         val
       ;
 
-      # Returns various tools to debug a crate.
+    # Returns various tools to debug a crate.
     debugCrate =
       {
         packageId,
@@ -4720,14 +4684,16 @@ rec {
             diffDefaultPackageFeatures { inherit packageId target; };
         };
       in
-      { internal = debug; }
+      {
+        internal = debug;
+      }
       ;
 
-      /* Returns differences between cargo default features and crate2nix default
-         features.
+    /* Returns differences between cargo default features and crate2nix default
+       features.
 
-         This is useful for verifying the feature resolution in crate2nix.
-      */
+       This is useful for verifying the feature resolution in crate2nix.
+    */
     diffDefaultPackageFeatures =
       {
         crateConfigs ? crates,
@@ -4775,11 +4741,11 @@ rec {
       builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; }
       ;
 
-      /* Returns an attrset mapping packageId to the list of enabled features.
+    /* Returns an attrset mapping packageId to the list of enabled features.
 
-         If multiple paths to a dependency enable different features, the
-         corresponding feature sets are merged. Features in rust are additive.
-      */
+       If multiple paths to a dependency enable different features, the
+       corresponding feature sets are merged. Features in rust are additive.
+    */
     mergePackageFeatures =
       {
         crateConfigs ? crates,
@@ -4816,7 +4782,9 @@ rec {
             packageId = dependency.packageId;
             features = dependencyFeatures enabledFeatures dependency;
           in
-          { inherit packageId features; }
+          {
+            inherit packageId features;
+          }
           ;
         resolveDependencies =
           cache: path: dependencies:
@@ -4858,7 +4826,9 @@ rec {
             cacheFeatures = featuresByPackageId.${packageId} or [ ];
             combinedFeatures = sortedUnique (cacheFeatures ++ enabledFeatures);
           in
-          featuresByPackageId // { "${packageId}" = combinedFeatures; }
+          featuresByPackageId // {
+            "${packageId}" = combinedFeatures;
+          }
           ;
         cacheWithDependencies = resolveDependencies cacheWithSelf "dep" (
           crateConfig.dependencies or [ ]
@@ -4873,7 +4843,7 @@ rec {
       cacheWithAll
       ;
 
-      # Returns the enabled dependencies given the enabled features.
+    # Returns the enabled dependencies given the enabled features.
     filterEnabledDependencies =
       {
         dependencies,
@@ -4901,7 +4871,7 @@ rec {
       dependencies
       ;
 
-      # Returns whether the given feature should enable the given dependency.
+    # Returns whether the given feature should enable the given dependency.
     doesFeatureEnableDependency =
       dependency: feature:
       let
@@ -4913,12 +4883,12 @@ rec {
       feature == name || startsWithPrefix
       ;
 
-      /* Returns the expanded features for the given inputFeatures by applying the
-         rules in featureMap.
+    /* Returns the expanded features for the given inputFeatures by applying the
+       rules in featureMap.
 
-         featureMap is an attribute set which maps feature names to lists of further
-         feature names to enable in case this feature is selected.
-      */
+       featureMap is an attribute set which maps feature names to lists of further
+       feature names to enable in case this feature is selected.
+    */
     expandFeatures =
       featureMap: inputFeatures:
       assert (builtins.isAttrs featureMap);
@@ -4935,11 +4905,11 @@ rec {
       sortedUnique outFeatures
       ;
 
-      /* This function adds optional dependencies as features if they are enabled
-         indirectly by dependency features. This function mimics Cargo's behavior
-         described in a note at:
-         https://doc.rust-lang.org/nightly/cargo/reference/features.html#dependency-features
-      */
+    /* This function adds optional dependencies as features if they are enabled
+       indirectly by dependency features. This function mimics Cargo's behavior
+       described in a note at:
+       https://doc.rust-lang.org/nightly/cargo/reference/features.html#dependency-features
+    */
     enableFeatures =
       dependencies: features:
       assert (builtins.isList features);
@@ -4963,10 +4933,10 @@ rec {
       sortedUnique (features ++ additionalFeatures)
       ;
 
-      /* Returns the actual features for the given dependency.
+    /* Returns the actual features for the given dependency.
 
-         features: The features of the crate that refers this dependency.
-      */
+       features: The features of the crate that refers this dependency.
+    */
     dependencyFeatures =
       features: dependency:
       assert (builtins.isList features);
@@ -4991,7 +4961,7 @@ rec {
       defaultOrNil ++ explicitFeatures ++ additionalDependencyFeatures
       ;
 
-      # Sorts and removes duplicates from a list of strings.
+    # Sorts and removes duplicates from a list of strings.
     sortedUnique =
       features:
       assert (builtins.isList features);
@@ -5012,9 +4982,8 @@ rec {
         builtins.trace message value
       ;
 
-      #
-      # crate2nix/default.nix (excerpt end)
-      #
+    #
+    # crate2nix/default.nix (excerpt end)
+    #
   };
 }
-

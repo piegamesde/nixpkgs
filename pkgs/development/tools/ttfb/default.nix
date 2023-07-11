@@ -19,8 +19,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-ayyYrrFDVOYVjVo5TLaRn2mvmywe5BjQ7kRVV2r0iK8=";
 
-    # The bin feature activates all dependencies of the binary. Otherwise,
-    # only the library is build.
+  # The bin feature activates all dependencies of the binary. Otherwise,
+  # only the library is build.
   buildFeatures = [ "bin" ];
 
   nativeBuildInputs = [ pkg-config ];
@@ -44,4 +44,3 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ phip1611 ];
   };
 }
-

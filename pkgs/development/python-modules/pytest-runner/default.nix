@@ -29,7 +29,7 @@ buildPythonPackage rec {
     py.test tests
   '';
 
-    # Fixture not found
+  # Fixture not found
   doCheck = false;
 
   meta = with lib; {

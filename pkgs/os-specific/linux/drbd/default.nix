@@ -40,9 +40,9 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-      perl
-      # perlPackages.Po4a used by ja documentation
-    ];
+    perl
+    # perlPackages.Po4a used by ja documentation
+  ];
 
   configureFlags = [
     "--libdir=${placeholder "out"}/lib"

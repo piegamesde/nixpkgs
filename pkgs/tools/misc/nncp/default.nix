@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     redo-apenwarr
   ];
 
-    # Build parameters
+  # Build parameters
   CFGPATH = cfgPath;
   SENDMAIL = "sendmail";
 

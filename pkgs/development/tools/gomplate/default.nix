@@ -27,7 +27,7 @@ buildGoModule rec {
       internal/tests/integration/datasources_vault*_test.go
   '';
 
-    # TestInputDir_RespectsUlimit
+  # TestInputDir_RespectsUlimit
   preCheck = ''
     ulimit -n 1024
   '';

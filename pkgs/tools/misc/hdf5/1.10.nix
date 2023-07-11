@@ -12,8 +12,8 @@
 
 let
   inherit (lib) optional optionals;
-
 in
+
 stdenv.mkDerivation rec {
   version = "1.10.9";
   pname = "hdf5";

@@ -8,7 +8,8 @@
 # This was originally called mkl-dnn, then it was renamed to dnnl, and it has
 # just recently been renamed again to oneDNN. See here for details:
 # https://github.com/oneapi-src/oneDNN#oneapi-deep-neural-network-library-onednn
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "oneDNN";
   version = "2.7.1";
 
@@ -27,10 +28,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # Tests fail on some Hydra builders, because they do not support SSE4.2.
+  # Tests fail on some Hydra builders, because they do not support SSE4.2.
   doCheck = false;
 
-    # Fixup bad cmake paths
+  # Fixup bad cmake paths
   postInstall = ''
     substituteInPlace $out/lib/cmake/dnnl/dnnl-config.cmake \
       --replace "\''${PACKAGE_PREFIX_DIR}/" ""

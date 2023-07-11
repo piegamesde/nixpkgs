@@ -61,7 +61,8 @@
 
 # TODO (ttuegel): investigate qmlplugindump failure
 
-mkDerivation {
+mkDerivation
+{
   pname = "kwin";
   nativeBuildInputs = [
     extra-cmake-modules
@@ -122,7 +123,6 @@ mkDerivation {
     kxmlgui
     plasma-framework
     libqaccessibilityclient
-
   ];
   outputs = [
     "out"

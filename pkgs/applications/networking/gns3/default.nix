@@ -22,7 +22,9 @@ let
           "preview"
         ;
     in
-    args // { inherit version branch; }
+    args // {
+      inherit version branch;
+    }
     ;
   extraArgs = rec {
     mkOverride =
@@ -44,7 +46,6 @@ let
     args: callPackage (import ./server.nix (addVersion args // extraArgs)) { };
   guiSrcHash = "sha256-iVvADwIp01HeZoDayvH1dilYRHRkRBTBR3Fh395JBq0=";
   serverSrcHash = "sha256-41dbiSjvmsDNYr9/rRkeQVOnPSVND34xx1SNknCgHfc=";
-
 in
 {
   guiStable = mkGui {

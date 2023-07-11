@@ -8,7 +8,7 @@ python3.override {
       # does not find tests
       alembic =
         super.alembic.overridePythonAttrs (oldAttrs: { doCheck = false; });
-        # Fixes `AssertionError: database connection isn't set to UTC`
+      # Fixes `AssertionError: database connection isn't set to UTC`
       psycopg2 = super.psycopg2.overridePythonAttrs (
         a: (rec {
           version = "2.8.6";

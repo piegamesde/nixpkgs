@@ -56,7 +56,7 @@ let
       '';
     }
     ;
-    #version 15 is not supported yet
+  #version 15 is not supported yet
   applicablePostgresqlVersions = filterAttrs
     (
       _: value:

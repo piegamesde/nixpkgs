@@ -10,7 +10,8 @@
 
 # ?TODO: there's also python lib in there
 
-stdenv.mkDerivation (
+stdenv.mkDerivation
+(
   finalAttrs: {
     pname = "brotli";
     version = "1.0.9";
@@ -46,8 +47,8 @@ stdenv.mkDerivation (
 
     checkTarget = "test";
 
-      # This breaks on Darwin because our cmake hook tries to make a build folder
-      # and the wonderful bazel BUILD file is already there (yay case-insensitivity?)
+    # This breaks on Darwin because our cmake hook tries to make a build folder
+    # and the wonderful bazel BUILD file is already there (yay case-insensitivity?)
     prePatch = ''
       rm BUILD
 
@@ -57,8 +58,8 @@ stdenv.mkDerivation (
       cat scripts/libbrotli*.pc.in
     '';
 
-      # Don't bother with "man" output for now,
-      # it currently only makes the manpages hard to use.
+    # Don't bother with "man" output for now,
+    # it currently only makes the manpages hard to use.
     postInstall = ''
       mkdir -p $out/share/man/man{1,3}
       cp ../docs/*.1 $out/share/man/man1/

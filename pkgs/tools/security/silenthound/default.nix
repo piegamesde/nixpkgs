@@ -31,13 +31,13 @@ python3.pkgs.buildPythonApplication rec {
     runHook postInstall
   '';
 
-    # Only script available
+  # Only script available
   doCheck = false;
 
   meta = with lib; {
     description = "Tool to enumerate an Active Directory Domain";
     homepage = "https://github.com/layer8secure/SilentHound";
-      # Unknown license, https://github.com/layer8secure/SilentHound/issues/1
+    # Unknown license, https://github.com/layer8secure/SilentHound/issues/1
     license = licenses.unfree;
     maintainers = with maintainers; [ fab ];
   };

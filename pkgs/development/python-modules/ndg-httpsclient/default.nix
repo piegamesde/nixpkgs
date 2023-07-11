@@ -22,7 +22,7 @@ buildPythonPackage rec {
     pyopenssl
   ];
 
-    # uses networking
+  # uses networking
   doCheck = false;
 
   meta = with lib; {
@@ -32,5 +32,4 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };
-
 }

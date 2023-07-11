@@ -26,4 +26,3 @@ stdenv.mkDerivation {
     ]; # x86-specific
   };
 }
-

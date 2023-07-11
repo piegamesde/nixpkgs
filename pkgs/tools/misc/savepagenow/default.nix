@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     requests
   ];
 
-    # requires network access
+  # requires network access
   doCheck = false;
 
   meta = with lib; {

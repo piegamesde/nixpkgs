@@ -34,5 +34,4 @@ stdenv.mkDerivation {
     maintainers = [ ];
     platforms = platforms.linux ++ platforms.darwin;
   };
-
 }

@@ -15,7 +15,6 @@ let
     else
       "i386"
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "samsung-unified-linux-driver";
@@ -96,10 +95,10 @@ stdenv.mkDerivation rec {
     ln -s ${stdenv.cc.cc.lib}/lib/libstdc++.so.6 $out/lib/
   '';
 
-    # all binaries are already stripped
+  # all binaries are already stripped
   dontStrip = true;
 
-    # we did this in prefixup already
+  # we did this in prefixup already
   dontPatchELF = true;
 
   meta = with lib; {
@@ -109,8 +108,8 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
 
-      # Tested on linux-x86_64. Might work on linux-i386.
-      # Probably won't work on anything else.
+    # Tested on linux-x86_64. Might work on linux-i386.
+    # Probably won't work on anything else.
     platforms = platforms.linux;
   };
 }

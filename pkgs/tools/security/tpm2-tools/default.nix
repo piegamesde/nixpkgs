@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # Unit tests disabled, as they rely on a dbus session
-    #configureFlags = [ "--enable-unit" ];
+  # Unit tests disabled, as they rely on a dbus session
+  #configureFlags = [ "--enable-unit" ];
   doCheck = false;
 
   meta = with lib; {

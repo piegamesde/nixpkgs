@@ -48,20 +48,20 @@ buildPythonPackage rec {
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
-    # Disabling OpenMP support on Darwin.
+  # Disabling OpenMP support on Darwin.
   setupPyGlobalFlags = lib.optionals (!stdenv.isDarwin) [ "--with-openmp" ];
 
-    # QuTiP tries to access the home directory to create an rc file for us.
-    # We need to go to another directory to run the tests from there.
-    # This is due to the Cython-compiled modules not being in the correct location
-    # of the source tree.
+  # QuTiP tries to access the home directory to create an rc file for us.
+  # We need to go to another directory to run the tests from there.
+  # This is due to the Cython-compiled modules not being in the correct location
+  # of the source tree.
   preCheck = ''
     export HOME=$(mktemp -d);
     export OMP_NUM_THREADS=$NIX_BUILD_CORES
     mkdir -p test && cd test
   '';
 
-    # For running tests, see https://qutip.org/docs/latest/installation.html#verifying-the-installation
+  # For running tests, see https://qutip.org/docs/latest/installation.html#verifying-the-installation
   checkPhase = ''
     runHook preCheck
     ${python.interpreter} -c "import qutip.testing; qutip.testing.run()"

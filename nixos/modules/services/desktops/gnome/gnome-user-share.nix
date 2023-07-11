@@ -31,7 +31,7 @@ with lib;
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -41,19 +41,15 @@ with lib;
         lib.mdDoc
         "GNOME User Share, a user-level file sharing service for GNOME"
       );
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.gnome.gnome-user-share.enable {
 
     environment.systemPackages = [ pkgs.gnome.gnome-user-share ];
 
     systemd.packages = [ pkgs.gnome.gnome-user-share ];
-
   };
-
 }

@@ -13,7 +13,7 @@ buildPythonPackage rec {
   pname = "pyjet";
   version = "1.9.0";
 
-    # tests not included in pypi tarball
+  # tests not included in pypi tarball
   src = fetchFromGitHub {
     owner = "scikit-hep";
     repo = pname;

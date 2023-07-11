@@ -74,9 +74,9 @@ in
           Restart = "on-failure";
           RestartSec = 15;
           CapabilityBoundingSet = "";
-            # Security
+          # Security
           NoNewPrivileges = true;
-            # Sandboxing
+          # Sandboxing
           ProtectSystem = "strict";
           ProtectHome = true;
           PrivateTmp = true;
@@ -94,7 +94,7 @@ in
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           PrivateMounts = true;
-            # System Call Filtering
+          # System Call Filtering
           SystemCallArchitectures = "native";
           SystemCallFilter =
             "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
@@ -104,4 +104,3 @@ in
     };
   };
 }
-

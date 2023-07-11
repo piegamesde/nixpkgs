@@ -75,7 +75,7 @@ let
       ./autogen.sh
     '';
 
-      # The test suite fails because it uses hard-coded paths, i.e. /usr/bin/gcc.
+    # The test suite fails because it uses hard-coded paths, i.e. /usr/bin/gcc.
     doCheck = false;
 
     passthru = {

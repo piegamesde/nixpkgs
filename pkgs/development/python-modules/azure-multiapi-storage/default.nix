@@ -28,10 +28,10 @@ buildPythonPackage rec {
     requests
   ];
 
-    # fix namespace
+  # fix namespace
   pythonNamespaces = [ "azure.multiapi" ];
 
-    # no tests included
+  # no tests included
   doCheck = false;
 
   pythonImportsCheck = [

@@ -27,8 +27,8 @@ buildPythonPackage rec {
     hash = "sha256-IHVplle73JVLbz9R9uPyleL9Occ723EE9Ogl059TcPg=";
   };
 
-    # Relax version constraints: aiobotocore works with newer botocore versions
-    # the pinning used to match some `extras_require` we're not using.
+  # Relax version constraints: aiobotocore works with newer botocore versions
+  # the pinning used to match some `extras_require` we're not using.
   postPatch = ''
     sed -i "s/'botocore>=.*'/'botocore'/" setup.py
   '';

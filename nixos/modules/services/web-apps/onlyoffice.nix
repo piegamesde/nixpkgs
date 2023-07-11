@@ -98,7 +98,7 @@ in
     services = {
       nginx = {
         enable = mkDefault true;
-          # misses text/csv, font/ttf, application/x-font-ttf, application/rtf, application/wasm
+        # misses text/csv, font/ttf, application/x-font-ttf, application/rtf, application/wasm
         recommendedGzipSettings = mkDefault true;
         recommendedProxySettings = mkDefault true;
 
@@ -173,7 +173,7 @@ in
               expires 365d;
               alias ${cfg.package}/var/www/onlyoffice/documentserver/$2$3;
             '';
-              # /etc/nginx/includes/ds-example.conf
+            # /etc/nginx/includes/ds-example.conf
             "~ ^(/welcome/.*)$".extraConfig = ''
               expires 365d;
               alias ${cfg.package}/var/www/onlyoffice/documentserver-example$1;

@@ -24,8 +24,8 @@ let
   ];
 
   sbinPath = lib.makeSearchPathOutput "bin" "sbin" [ procps ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "pm-utils";
   version = "1.4.1";

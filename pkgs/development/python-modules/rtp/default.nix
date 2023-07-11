@@ -7,9 +7,8 @@
   # nativeCheckInputs
   ,
   hypothesis,
-  unittestCheckHook
+  unittestCheckHook,
 
-  ,
 }:
 
 buildPythonPackage rec {

@@ -21,7 +21,7 @@ let
   sdkName = "${xcodePlatform}${sdkVer}";
   xcrunSdkName = lib.toLower xcodePlatform;
 
-    # TODO: expose MACOSX_DEPLOYMENT_TARGET in nix so we can use it here.
+  # TODO: expose MACOSX_DEPLOYMENT_TARGET in nix so we can use it here.
   sdkBuildVersion = "17E189";
   xcodeSelectVersion = "2349";
 
@@ -110,16 +110,14 @@ let
       ${stdenv.shellDryRun} "$target"
     '';
   };
-
 in
+
 runCommand "xcodebuild-${xcbuild.version}"
 {
   nativeBuildInputs = [ makeWrapper ];
-  inherit (xcbuild)
-    meta
-    ;
+  inherit (xcbuild) meta;
 
-    # ensure that the toolchain goes in PATH
+  # ensure that the toolchain goes in PATH
   propagatedBuildInputs = [ "${toolchains}/XcodeDefault.xctoolchain" ];
 
   passthru = {

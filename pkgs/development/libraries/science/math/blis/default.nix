@@ -9,11 +9,11 @@
   ,
   blas64 ? false
 
-    # Target architecture. x86_64 builds Intel and AMD kernels.
+  # Target architecture. x86_64 builds Intel and AMD kernels.
   ,
   withArchitecture ? "x86_64"
 
-    # Enable OpenMP-based threading.
+  # Enable OpenMP-based threading.
   ,
   withOpenMP ? true
 }:

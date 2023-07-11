@@ -11,7 +11,6 @@ let
   cfg = config.services.code-server;
   defaultUser = "code-server";
   defaultGroup = defaultUser;
-
 in
 {
   ###### interface
@@ -107,11 +106,10 @@ in
         example = [ "docker" ];
         type = types.listOf types.str;
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     systemd.services.code-server = {
       description = "VSCode server";
@@ -133,7 +131,6 @@ in
         Group = cfg.group;
         Restart = "on-failure";
       };
-
     };
 
     users.users."${cfg.user}" = mkMerge [
@@ -149,7 +146,6 @@ in
     ];
 
     users.groups."${defaultGroup}" = mkIf (cfg.group == defaultGroup) { };
-
   };
 
   meta.maintainers = with maintainers; [ stackshadow ];

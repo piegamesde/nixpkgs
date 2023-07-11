@@ -89,7 +89,6 @@ let
   '';
 
   localMpd = (cfg.host == "localhost" || cfg.host == "127.0.0.1");
-
 in
 {
   ###### interface
@@ -220,10 +219,9 @@ in
         }" the url is set automatically.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.mpdscribble = {
@@ -235,12 +233,11 @@ in
         StateDirectory = "mpdscribble";
         RuntimeDirectory = "mpdscribble";
         RuntimeDirectoryMode = "700";
-          # TODO use LoadCredential= instead of running preStart with full privileges?
+        # TODO use LoadCredential= instead of running preStart with full privileges?
         ExecStartPre = "+${preStart}";
         ExecStart =
           "${pkgs.mpdscribble}/bin/mpdscribble --no-daemon --conf ${cfgFile}";
       };
     };
   };
-
 }

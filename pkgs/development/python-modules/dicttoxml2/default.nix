@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-Z8tynzN911KAjAIbcMjfijT4S54RGl26o34ADur01GI=";
   };
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "dicttoxml2" ];

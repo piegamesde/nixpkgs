@@ -26,7 +26,7 @@
   enablePython ? false,
   python ?
     throw "vtk: Python support requested, but no python interpreter was given."
-    # Darwin support
+  # Darwin support
   ,
   AGL,
   Cocoa,
@@ -49,7 +49,6 @@ let
   inherit (lib) optionalString optionals optional;
 
   pythonMajor = lib.substring 0 1 python.pythonVersion;
-
 in
 stdenv.mkDerivation rec {
   pname = "vtk${optionalString enableQt "-qvtk"}";
@@ -114,17 +113,17 @@ stdenv.mkDerivation rec {
       libGL
     ]
     ;
-    # see https://github.com/NixOS/nixpkgs/pull/178367#issuecomment-1238827254
+  # see https://github.com/NixOS/nixpkgs/pull/178367#issuecomment-1238827254
 
   patches = map fetchpatch patchesToFetch;
 
   dontWrapQtApps = true;
 
-    # Shared libraries don't work, because of rpath troubles with the current
-    # nixpkgs cmake approach. It wants to call a binary at build time, just
-    # built and requiring one of the shared objects.
-    # At least, we use -fPIC for other packages to be able to use this in shared
-    # objects.
+  # Shared libraries don't work, because of rpath troubles with the current
+  # nixpkgs cmake approach. It wants to call a binary at build time, just
+  # built and requiring one of the shared objects.
+  # At least, we use -fPIC for other packages to be able to use this in shared
+  # objects.
   cmakeFlags =
     [
       "-DCMAKE_C_FLAGS=-fPIC"
@@ -190,9 +189,8 @@ stdenv.mkDerivation rec {
       tfmoraes
       lheckemann
     ];
-    platforms = with platforms;
-      unix;
-      # /nix/store/xxxxxxx-apple-framework-Security/Library/Frameworks/Security.framework/Headers/Authorization.h:192:7: error: variably modified 'bytes' at file scope
+    platforms = with platforms; unix;
+    # /nix/store/xxxxxxx-apple-framework-Security/Library/Frameworks/Security.framework/Headers/Authorization.h:192:7: error: variably modified 'bytes' at file scope
     broken = stdenv.isDarwin && (lib.versions.major majorVersion == "8");
   };
 }

@@ -39,8 +39,8 @@ buildPythonPackage rec {
     numexpr
   ];
 
-    # pytestCheckHook does not work
-    # Reusing their CI setup which involves 'rm -rf recordlinkage' in preCheck phase do not work too.
+  # pytestCheckHook does not work
+  # Reusing their CI setup which involves 'rm -rf recordlinkage' in preCheck phase do not work too.
   nativeCheckInputs = [ pytest ];
 
   pythonImportsCheck = [ "recordlinkage" ];

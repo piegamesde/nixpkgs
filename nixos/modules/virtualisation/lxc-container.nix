@@ -73,7 +73,6 @@ let
         properties = { };
       }
     ;
-
 in
 {
   imports = [
@@ -164,7 +163,7 @@ in
         ;
     };
 
-      # TODO: build rootfs as squashfs for faster unpack
+    # TODO: build rootfs as squashfs for faster unpack
     system.build.tarball = pkgs.callPackage ../../lib/make-system-tarball.nix {
       extraArgs = "--owner=0";
 
@@ -189,8 +188,8 @@ in
       extraCommands = "mkdir -p proc sys dev";
     };
 
-      # Add the overrides from lxd distrobuilder
-      # https://github.com/lxc/distrobuilder/blob/05978d0d5a72718154f1525c7d043e090ba7c3e0/distrobuilder/main.go#L630
+    # Add the overrides from lxd distrobuilder
+    # https://github.com/lxc/distrobuilder/blob/05978d0d5a72718154f1525c7d043e090ba7c3e0/distrobuilder/main.go#L630
     systemd.packages = [
         (pkgs.writeTextFile {
           name = "systemd-lxc-service-overrides";
@@ -219,24 +218,24 @@ in
         })
       ];
 
-      # Allow the user to login as root without password.
+    # Allow the user to login as root without password.
     users.users.root.initialHashedPassword = mkOverride 150 "";
 
     system.activationScripts.installInitScript = mkForce ''
       ln -fs $systemConfig/init /sbin/init
     '';
 
-      # Some more help text.
+    # Some more help text.
     services.getty.helpLine = ''
 
       Log in as "root" with an empty password.
     '';
 
-      # Containers should be light-weight, so start sshd on demand.
+    # Containers should be light-weight, so start sshd on demand.
     services.openssh.enable = mkDefault true;
     services.openssh.startWhenNeeded = mkDefault true;
 
-      # As this is intended as a standalone image, undo some of the minimal profile stuff
+    # As this is intended as a standalone image, undo some of the minimal profile stuff
     environment.noXlibs = false;
     documentation.enable = true;
     documentation.nixos.enable = true;

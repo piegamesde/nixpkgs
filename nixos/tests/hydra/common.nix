@@ -44,7 +44,7 @@
       ];
       services.hydra = {
         enable = true;
-          # Hydra needs those settings to start up, so we add something not harmfull.
+        # Hydra needs those settings to start up, so we add something not harmfull.
         hydraURL = "example.com";
         notificationSender = "example@example.com";
         extraConfig = ''

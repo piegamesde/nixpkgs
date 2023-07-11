@@ -97,7 +97,6 @@ let
       platforms = platforms.linux;
     };
   };
-
 in
 self // {
   makeWrapper =

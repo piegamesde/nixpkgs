@@ -6,7 +6,9 @@
 # order-sensitive config format.
 #
 # Issue: https://github.com/NixOS/nixpkgs/issues/195660
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     lib,
     pkgs,

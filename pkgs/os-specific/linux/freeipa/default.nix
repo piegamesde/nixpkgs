@@ -135,9 +135,9 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = "-I${_389-ds-base}/include/dirsrv";
   pythonPath = pythonInputs;
 
-    # Building and installing the server fails with silent Rhino errors, skipping
-    # for now. Need a newer Rhino version.
-    #buildFlags = [ "client" "server" ]
+  # Building and installing the server fails with silent Rhino errors, skipping
+  # for now. Need a newer Rhino version.
+  #buildFlags = [ "client" "server" ]
 
   configureFlags = [
     "--with-systemdsystemunitdir=$out/lib/systemd/system"

@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     dune_3
   ];
 
-    # Skip testing phases because they need to download and install node modules
+  # Skip testing phases because they need to download and install node modules
   postPatch = ''
     cd analysis
     substituteInPlace Makefile \

@@ -96,7 +96,6 @@ in
         If null it will be determined automatically
       '';
     };
-
   };
 
   config = mkIf cfg.enable {

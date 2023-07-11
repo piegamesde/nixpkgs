@@ -89,11 +89,11 @@ stdenv.mkDerivation rec {
     NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
   };
 
-    # Hack to get xterm built with the feature of releasing a possible setgid of 'utmp',
-    # decided by the sysadmin to allow the xterm reporting to /var/run/utmp
-    # If we used the configure option, that would have affected the xterm installation,
-    # (setgid with the given group set), and at build time the environment even doesn't have
-    # groups, and the builder will end up removing any setgid.
+  # Hack to get xterm built with the feature of releasing a possible setgid of 'utmp',
+  # decided by the sysadmin to allow the xterm reporting to /var/run/utmp
+  # If we used the configure option, that would have affected the xterm installation,
+  # (setgid with the given group set), and at build time the environment even doesn't have
+  # groups, and the builder will end up removing any setgid.
   postConfigure = ''
     echo '#define USE_UTMP_SETGID 1'
   '';
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
       # No nicer place to find latest release.
       url = "https://github.com/ThomasDickey/xterm-snapshots.git";
       rev-prefix = "xterm-";
-        # Tags that end in letters are unstable
+      # Tags that end in letters are unstable
       ignoredVersions = "[a-z]$";
     };
   };

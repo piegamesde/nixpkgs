@@ -42,7 +42,7 @@ buildPythonPackage rec {
     (!stdenv.hostPlatform.isDarwin)
     "test_interpolate_bilinear_skycoord";
 
-    # tests must be run in the build directory
+  # tests must be run in the build directory
   preCheck = ''
     cd build/lib*
   '';

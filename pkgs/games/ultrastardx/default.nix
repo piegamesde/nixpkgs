@@ -44,7 +44,6 @@ let
     libGL
     ffmpeg_4
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "ultrastardx";
@@ -102,7 +101,7 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-    # dlopened libgcc requires the rpath not to be shrinked
+  # dlopened libgcc requires the rpath not to be shrinked
   dontPatchELF = true;
 
   meta = with lib; {

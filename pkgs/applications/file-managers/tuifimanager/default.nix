@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
   ];
   pythonImportsCheck = [ "TUIFIManager" ];
 
-    # Tests currently cause build to fail
+  # Tests currently cause build to fail
   doCheck = false;
 
   meta = with lib; {

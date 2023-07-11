@@ -15,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-0IvJl2JU/k1WbGPWRoucVGbVsEFNPHZT1ozEQAKQnPk=";
   };
 
-    # upstream has no tests
+  # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "rapidfuzz_capi" ];

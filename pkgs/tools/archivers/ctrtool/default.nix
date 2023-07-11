@@ -32,5 +32,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = [ maintainers.marius851000 ];
   };
-
 }

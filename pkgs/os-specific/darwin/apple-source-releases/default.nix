@@ -56,14 +56,14 @@ let
       removefile = "41";
       libresolv = "60";
 
-        # Their release page is a bit of a mess here, so I'm going to lie a bit and say this version
-        # is the right one, even though it isn't. The version I have here doesn't appear to be linked
-        # to any OS releases, but Apple also doesn't mention mDNSResponder from 10.11 to 10.11.6, and
-        # neither of those versions are publicly available.
+      # Their release page is a bit of a mess here, so I'm going to lie a bit and say this version
+      # is the right one, even though it isn't. The version I have here doesn't appear to be linked
+      # to any OS releases, but Apple also doesn't mention mDNSResponder from 10.11 to 10.11.6, and
+      # neither of those versions are publicly available.
       libplatform = "125";
       mDNSResponder = "625.41.2";
 
-        # IOKit contains a set of packages with different versions, so we don't have a general version
+      # IOKit contains a set of packages with different versions, so we don't have a general version
       IOKit = "";
 
       libutil = "43";
@@ -173,7 +173,7 @@ let
 
         enableParallelBuilding = true;
 
-          # In rare cases, APPLE may drop some headers quietly on new release.
+        # In rare cases, APPLE may drop some headers quietly on new release.
         doInstallCheck = attrs ? appleHeaders;
         passAsFile = [ "appleHeaders" ];
         installCheckPhase = ''
@@ -191,7 +191,6 @@ let
             exit 1
           fi
         '';
-
       } // attrs // {
         meta = (
           with lib; {
@@ -248,7 +247,7 @@ let
     IODVDStorageFamily = fetchApple
       "osx-10.10.5"
       "sha256-Jy3UuRzdd0bBdhJgI/f8vLXh2GdGs1RVN3G2iEs86kQ=";
-      # There should be an IOStreamFamily project here, but they haven't released it :(
+    # There should be an IOStreamFamily project here, but they haven't released it :(
     IOUSBFamily = fetchApple
       "osx-10.8.5"
       "sha256-FwgGoP97Sj47VGXMxbY0oUugKf7jtxAL1RzL6+315cU="
@@ -259,7 +258,7 @@ let
     IOKitUser = fetchApple
       "osx-10.10.5"
       "sha256-3UHM3g91v4RugmONbM+SAPr1SfoUPY3QPcTwTpt+zuY=";
-      # There should be an IOVideo here, but they haven't released it :(
+    # There should be an IOVideo here, but they haven't released it :(
   };
 
   IOKitSrcs = lib.mapAttrs
@@ -271,9 +270,9 @@ let
         value
     )
     IOKitSpecs;
-
-  # darwin package set
 in
+
+# darwin package set
 self:
 
 let
@@ -302,12 +301,12 @@ let
     applePackage' namePath version sdkName sha256
     ;
 
-    # Only used for bootstrapping. It’s convenient because it was the last version to come with a real makefile.
+  # Only used for bootstrapping. It’s convenient because it was the last version to come with a real makefile.
   adv_cmds-boot = applePackage "adv_cmds/boot.nix" "osx-10.5.8"
     "sha256-/OJLNpATyS31W5nWfJgSVO5itp8j55TRwG57/QLT5Fg="
     { };
-
 in
+
 developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
   # TODO: shorten this list, we should cut down to a minimum set of bootstrap or necessary packages here.
 
@@ -472,8 +471,8 @@ developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
     "sha256-bYGtYnBOcE5W03AZzfVTJXPZ6GgryGAMt/LgLPxFkVk="
     { };
 
-    # `configdHeaders` can’t use an override because `pkgs.darwin.configd` on aarch64-darwin will
-    # be replaced by SystemConfiguration.framework from the macOS SDK.
+  # `configdHeaders` can’t use an override because `pkgs.darwin.configd` on aarch64-darwin will
+  # be replaced by SystemConfiguration.framework from the macOS SDK.
   configdHeaders = applePackage "configd" "osx-10.8.5"
     "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI="
     {
@@ -484,8 +483,8 @@ developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
   hfsHeaders = pkgs.darwin.hfs.override { headersOnly = true; };
   libresolvHeaders = pkgs.darwin.libresolv.override { headersOnly = true; };
 
-    # TODO(matthewbauer):
-    # To be removed, once I figure out how to build a newer Security version.
+  # TODO(matthewbauer):
+  # To be removed, once I figure out how to build a newer Security version.
   Security = applePackage "Security/boot.nix" "osx-10.9.5"
     "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI="
     { };

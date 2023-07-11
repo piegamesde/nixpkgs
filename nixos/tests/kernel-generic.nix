@@ -51,7 +51,6 @@ let
       linux_testing
       ;
   };
-
 in
 mapAttrs (_: lP: testsForLinuxPackages lP) kernels // {
   inherit testsForLinuxPackages;

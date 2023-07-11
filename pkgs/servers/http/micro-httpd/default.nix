@@ -28,4 +28,3 @@ stdenv.mkDerivation {
     mainProgram = "micro_httpd";
   };
 }
-

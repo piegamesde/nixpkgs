@@ -65,7 +65,7 @@ buildPythonApplication rec {
     zeroconf
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "expliot" ];

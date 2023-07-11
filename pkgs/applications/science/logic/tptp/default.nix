@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
       raskin
       gebner
     ];
-      # 6.3 GiB of data. Installation is unpacking and editing a few files.
-      # No sense in letting Hydra build it.
-      # Also, it is unclear what is covered by "verbatim" - we will edit configs
+    # 6.3 GiB of data. Installation is unpacking and editing a few files.
+    # No sense in letting Hydra build it.
+    # Also, it is unclear what is covered by "verbatim" - we will edit configs
     hydraPlatforms = [ ];
     platforms = platforms.all;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

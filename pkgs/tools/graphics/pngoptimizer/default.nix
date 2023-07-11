@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://psydk.org/pngoptimizer";
     description = "PNG optimizer and converter";
-      # https://github.com/hadrien-psydk/pngoptimizer#license-information
+    # https://github.com/hadrien-psydk/pngoptimizer#license-information
     license = with licenses; [
       gpl2Only
       lgpl21Only

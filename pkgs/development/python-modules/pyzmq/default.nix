@@ -51,7 +51,7 @@ buildPythonPackage rec {
     "TestPubLog"
   ];
 
-    # Some of the tests use localhost networking.
+  # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {

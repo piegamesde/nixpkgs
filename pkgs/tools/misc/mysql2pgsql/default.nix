@@ -6,7 +6,8 @@
 }:
 
 # The homepage says this script is mature..
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "mysql2pgsql";
   version = "0.0.1a";
 

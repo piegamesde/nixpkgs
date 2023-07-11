@@ -14,7 +14,7 @@ buildPythonPackage (rec {
     sha256 = "fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c";
   };
 
-    # Wants to run pythonin a subprocess
+  # Wants to run pythonin a subprocess
   doCheck = false;
 
   propagatedBuildInputs = [ ptyprocess ];

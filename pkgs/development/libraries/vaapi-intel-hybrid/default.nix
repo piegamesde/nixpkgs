@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # Workaround build failure on -fno-common toolchains like upstream gcc-10.
+  # Workaround build failure on -fno-common toolchains like upstream gcc-10.
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   configureFlags = [

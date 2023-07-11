@@ -61,7 +61,6 @@ in
           "If enabled Rsync will be socket-activated rather than run persistently."
           ;
       };
-
     };
   };
 
@@ -144,13 +143,9 @@ in
         };
       }
       ;
-
   };
 
-  meta.maintainers = with lib.maintainers; [
-      ehmry
-    ];
+  meta.maintainers = with lib.maintainers; [ ehmry ];
 
-    # TODO: socket activated rsyncd
-
+  # TODO: socket activated rsyncd
 }

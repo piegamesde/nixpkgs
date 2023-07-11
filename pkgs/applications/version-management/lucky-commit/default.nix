@@ -28,11 +28,9 @@ rustPlatform.buildRustPackage rec {
       ocl-icd
   );
 
-  buildNoDefaultFeatures =
-    !withOpenCL
-    ;
+  buildNoDefaultFeatures = !withOpenCL;
 
-    # disable tests that require gpu
+  # disable tests that require gpu
   checkNoDefaultFeatures = true;
 
   meta = with lib; {

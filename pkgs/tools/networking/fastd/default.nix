@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.isLinux) [ libmnl ]
     ;
 
-    # some options are only available on x86
+  # some options are only available on x86
   mesonFlags = lib.optionals (!stdenv.hostPlatform.isx86) [
     "-Dcipher_salsa20_xmm=disabled"
     "-Dcipher_salsa2012_xmm=disabled"

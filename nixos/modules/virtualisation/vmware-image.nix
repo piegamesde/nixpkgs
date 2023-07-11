@@ -24,7 +24,6 @@ let
     "twoGbMaxExtentFlat"
     "streamOptimized"
   ];
-
 in
 {
   options = {

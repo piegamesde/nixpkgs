@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.roudoudou.com/rasm/";
     description = "Z80 assembler";
-      # use -n option to display all licenses
+    # use -n option to display all licenses
     license = licenses.mit; # expat version
     maintainers = [ ];
     platforms = platforms.all;

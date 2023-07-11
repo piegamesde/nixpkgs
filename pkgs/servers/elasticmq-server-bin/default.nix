@@ -21,7 +21,7 @@ let
       sha256 = "sha256-diTfRYV51d9QYx1E6ZbSSaM6qDIaqVPum9qsBagIcec=";
     };
 
-      # don't do anything?
+    # don't do anything?
     unpackPhase = "${jdk}/bin/jar xf $src favicon.png";
 
     nativeBuildInputs = [ makeWrapper ];

@@ -24,8 +24,8 @@ let
     ${pkgs.xorg.mkfontdir}/bin/mkfontdir
     cat $(find ${pkgs.xorg.fontalias}/ -name fonts.alias) >fonts.alias
   '';
-
 in
+
 {
 
   options = {
@@ -49,7 +49,6 @@ in
           {file}`/run/current-system/sw/share/X11/fonts`.
         '';
       };
-
     };
   };
 
@@ -61,7 +60,6 @@ in
     services.xserver.filesSection = ''
       FontPath "${x11Fonts}/share/X11/fonts"
     '';
-
   };
 
   imports = [
@@ -76,5 +74,4 @@ in
           "enable"
         ])
     ];
-
 }

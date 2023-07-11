@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     "--enable-netloc"
   ];
 
-    # XXX: libX11 is not directly needed, but needed as a propagated dep of Cairo.
+  # XXX: libX11 is not directly needed, but needed as a propagated dep of Cairo.
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs =
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableCuda cudaPackages.cudatoolkit
     ;
 
-    # Since `libpci' appears in `hwloc.pc', it must be propagated.
+  # Since `libpci' appears in `hwloc.pc', it must be propagated.
   propagatedBuildInputs = lib.optional stdenv.isLinux pciutils;
 
   enableParallelBuilding = true;
@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
       -e "s|-lnuma|-L$numalibdir -lnuma|g"
   '';
 
-    # Checks disabled because they're impure (hardware dependent) and
-    # fail on some build machines.
+  # Checks disabled because they're impure (hardware dependent) and
+  # fail on some build machines.
   doCheck = false;
 
   outputs = [
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
       gather information about the hardware, bind processes, and much
       more.
     '';
-      # https://www.open-mpi.org/projects/hwloc/license.php
+    # https://www.open-mpi.org/projects/hwloc/license.php
     license = licenses.bsd3;
     homepage = "https://www.open-mpi.org/projects/hwloc/";
     maintainers = with maintainers; [

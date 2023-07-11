@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "GradienceTeam";
     repo = "Gradience";
-      # See https://github.com/GradienceTeam/Gradience/releases/tag/0.4.1-patch1
+    # See https://github.com/GradienceTeam/Gradience/releases/tag/0.4.1-patch1
     rev = "0.4.1-patch1";
     sha256 = "sha256-5jloFbimJC4jP1C1uS8a9VlqyR5qqDuqcKvUXwr9SjY=";
   };

@@ -19,7 +19,7 @@
   themes ? { },
   theme ? null,
   extraPackages ? [ ]
-    # General config options:
+  # General config options:
   ,
   enableIntro ? true,
   enableTruetype ? null # defaults to 24, see init.txt
@@ -27,11 +27,11 @@
   enableFPS ? false,
   enableTextMode ? false,
   enableSound ? true
-    # An attribute set of settings to override in data/init/*.txt.
-    # For example, `init.FOO = true;` is translated to `[FOO:YES]` in init.txt
+  # An attribute set of settings to override in data/init/*.txt.
+  # For example, `init.FOO = true;` is translated to `[FOO:YES]` in init.txt
   ,
   settings ? { }
-    # TODO world-gen.txt, interface.txt require special logic
+# TODO world-gen.txt, interface.txt require special logic
 }:
 
 let
@@ -47,7 +47,7 @@ let
   baseEnv = buildEnv {
     name = "dwarf-fortress-base-env-${dwarf-fortress.dfVersion}";
 
-      # These are in inverse order for first packages to override the next ones.
+    # These are in inverse order for first packages to override the next ones.
     paths =
       extraPackages
       ++ lib.optional (theme != null) ptheme
@@ -150,8 +150,8 @@ let
       ''
     );
 
-    # This is a separate environment because the config files to modify may come
-    # from any of the paths in baseEnv.
+  # This is a separate environment because the config files to modify may come
+  # from any of the paths in baseEnv.
   env = buildEnv {
     name = "dwarf-fortress-env-${dwarf-fortress.dfVersion}";
     paths = [
@@ -160,8 +160,8 @@ let
     ];
     ignoreCollisions = true;
   };
-
 in
+
 lib.throwIf (enableTWBT && !enableDFHack)
 "dwarf-fortress: TWBT requires DFHack to be enabled"
 lib.throwIf

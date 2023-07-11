@@ -11,7 +11,6 @@ with lib;
 let
   cfg = config.services.etcd;
   opt = options.services.etcd;
-
 in
 {
 

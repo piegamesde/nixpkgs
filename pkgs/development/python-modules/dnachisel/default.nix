@@ -41,7 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # Disable tests which requires network access
+  # Disable tests which requires network access
   disabledTests = [
     "test_circular_sequence_optimize_with_report"
     "test_constraints_reports"

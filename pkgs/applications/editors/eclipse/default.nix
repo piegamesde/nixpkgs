@@ -75,7 +75,7 @@ rec {
     )
     ;
 
-    ### Eclipse CPP
+  ### Eclipse CPP
 
   eclipse-cpp = buildEclipse {
     name = "eclipse-cpp-${platform_major}.${platform_minor}";
@@ -92,7 +92,7 @@ rec {
     };
   };
 
-    ### Eclipse Modeling
+  ### Eclipse Modeling
 
   eclipse-modeling = buildEclipse {
     name = "eclipse-modeling-${platform_major}.${platform_minor}";
@@ -109,7 +109,7 @@ rec {
     };
   };
 
-    ### Eclipse Platform
+  ### Eclipse Platform
 
   eclipse-platform = buildEclipse {
     name = "eclipse-platform-${platform_major}.${platform_minor}";
@@ -126,7 +126,7 @@ rec {
     };
   };
 
-    ### Eclipse Scala SDK
+  ### Eclipse Scala SDK
 
   eclipse-scala-sdk = (buildEclipseUnversioned.override
     {
@@ -150,7 +150,7 @@ rec {
       }
     );
 
-    ### Eclipse SDK
+  ### Eclipse SDK
 
   eclipse-sdk = buildEclipse {
     name = "eclipse-sdk-${platform_major}.${platform_minor}";
@@ -167,7 +167,7 @@ rec {
     };
   };
 
-    ### Eclipse Java
+  ### Eclipse Java
 
   eclipse-java = buildEclipse {
     name = "eclipse-java-${platform_major}.${platform_minor}";
@@ -184,7 +184,7 @@ rec {
     };
   };
 
-    ### Eclipse Java EE
+  ### Eclipse Java EE
 
   eclipse-jee = buildEclipse {
     name = "eclipse-jee-${platform_major}.${platform_minor}";
@@ -201,7 +201,7 @@ rec {
     };
   };
 
-    ### Eclipse Committers
+  ### Eclipse Committers
 
   eclipse-committers = buildEclipse {
     name = "eclipse-committers-${platform_major}.${platform_minor}";
@@ -219,7 +219,7 @@ rec {
     };
   };
 
-    ### Eclipse IDE for RCP and RAP Developers
+  ### Eclipse IDE for RCP and RAP Developers
 
   eclipse-rcp = buildEclipse {
     name = "eclipse-rcp-${platform_major}.${platform_minor}";
@@ -236,10 +236,10 @@ rec {
     };
   };
 
-    ### Environments
+  ### Environments
 
-    # Function that assembles a complete Eclipse environment from an
-    # Eclipse package and list of Eclipse plugins.
+  # Function that assembles a complete Eclipse environment from an
+  # Eclipse package and list of Eclipse plugins.
   eclipseWithPlugins =
     {
       eclipse,
@@ -254,14 +254,14 @@ rec {
           with lib; filter (x: x ? isEclipsePlugin) (closePropagation plugins);
       };
 
-        # Prepare the JVM arguments to add to the ini file. We here also
-        # add the property indicating the plugin directory.
+      # Prepare the JVM arguments to add to the ini file. We here also
+      # add the property indicating the plugin directory.
       dropinPropName = "org.eclipse.equinox.p2.reconciler.dropins.directory";
       dropinProp = "-D${dropinPropName}=${pluginEnv}/eclipse/dropins";
       jvmArgsText = lib.concatStringsSep "\n" (jvmArgs ++ [ dropinProp ]);
 
-        # Base the derivation name on the name of the underlying
-        # Eclipse.
+      # Base the derivation name on the name of the underlying
+      # Eclipse.
       name = (lib.meta.appendToName "with-plugins" eclipse).name;
     in
     runCommand name { nativeBuildInputs = [ makeWrapper ]; } ''
@@ -279,8 +279,7 @@ rec {
     ''
     ;
 
-    ### Plugins
+  ### Plugins
 
   plugins = callPackage ./plugins.nix { };
-
 }

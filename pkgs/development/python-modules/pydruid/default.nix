@@ -32,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-9+xomjSwWDVHkret/mqAZKWOPFRMvVB3CWtFPzrT81k=";
   };
 
-    # patch out the CLI because it doesn't work with newer versions of pygments
+  # patch out the CLI because it doesn't work with newer versions of pygments
   postPatch = ''
     substituteInPlace setup.py --replace '"console_scripts": ["pydruid = pydruid.console:main"],' ""
   '';
@@ -56,7 +56,7 @@ buildPythonPackage rec {
       pandas = [ pandas ];
       async = [ tornado ];
       sqlalchemy = [ sqlalchemy ];
-        # druid has a `cli` extra, but it doesn't work with nixpkgs pygments
+      # druid has a `cli` extra, but it doesn't work with nixpkgs pygments
     };
   };
 

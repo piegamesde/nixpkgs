@@ -25,7 +25,7 @@ buildPythonPackage rec {
     onetimepad
   ];
 
-    # upstream has no tests
+  # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pysqlitecipher" ];

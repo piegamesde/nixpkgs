@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-    # NOTE: helm-git is comprised of shell scripts.
+  # NOTE: helm-git is comprised of shell scripts.
   dontBuild = true;
 
   installPhase = ''

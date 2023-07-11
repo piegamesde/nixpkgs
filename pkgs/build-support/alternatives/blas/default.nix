@@ -177,8 +177,8 @@ let
     else
       blasProvider.override { blas64 = isILP64; }
     ;
-
 in
+
 assert isILP64 -> blasImplementation == "mkl" || blasProvider'.blas64;
 
 stdenv.mkDerivation {

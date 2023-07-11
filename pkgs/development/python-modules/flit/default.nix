@@ -16,7 +16,8 @@
 # python-packages.nix. When it will be used to build wheels,
 # care should be taken that there is no mingling of PYTHONPATH.
 
-buildPythonPackage rec {
+buildPythonPackage
+rec {
   pname = "flit";
   version = "3.8.0";
   format = "pyproject";

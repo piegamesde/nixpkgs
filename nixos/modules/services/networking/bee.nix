@@ -17,7 +17,7 @@ in
     maintainers = with maintainers; [ attila-lendvai ];
   };
 
-    ### interface
+  ### interface
 
   options = {
     services.bee = {
@@ -68,7 +68,7 @@ in
     };
   };
 
-    ### implementation
+  ### implementation
 
   config = mkIf cfg.enable {
     assertions = [

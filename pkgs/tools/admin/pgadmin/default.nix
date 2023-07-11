@@ -24,24 +24,20 @@ let
     hash = "sha256-m2mO37qNjrznpdKeFHq6yE8cZx4sHBvPB2RHUtS1Uis=";
   };
 
-    # keep the scope, as it is used throughout the derivation and tests
-    # this also makes potential future overrides easier
+  # keep the scope, as it is used throughout the derivation and tests
+  # this also makes potential future overrides easier
   pythonPackages = python3.pkgs.overrideScope (final: prev: rec { });
 
   offlineCache = fetchYarnDeps {
     yarnLock = src + "/web/yarn.lock";
     hash = "sha256-cnn7CJcnT+TUeeZoeJVX3bO85vuJmVrO7CPR/CYTCS0=";
   };
-
 in
-pythonPackages.buildPythonApplication rec {
-  inherit
-    pname
-    version
-    src
-    ;
 
-    # from Dockerfile
+pythonPackages.buildPythonApplication rec {
+  inherit pname version src;
+
+  # from Dockerfile
   CPPFLAGS = "-DPNG_ARM_NEON_OPT=0";
 
   format = "setuptools";

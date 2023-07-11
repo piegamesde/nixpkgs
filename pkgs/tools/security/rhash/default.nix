@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ which ];
 
-    # configure script is not autotools-based, doesn't support these options
+  # configure script is not autotools-based, doesn't support these options
   dontAddStaticConfigureFlags = true;
 
   configurePlatforms = [ ];

@@ -19,10 +19,10 @@ let
   # `self.outPath` directly instead.
   nixpkgs = lib.cleanSource pkgs.path;
 
-    # We need a copy of the Nix expressions for Nixpkgs and NixOS on the
-    # CD.  These are installed into the "nixos" channel of the root
-    # user, as expected by nixos-rebuild/nixos-install. FIXME: merge
-    # with make-channel.nix.
+  # We need a copy of the Nix expressions for Nixpkgs and NixOS on the
+  # CD.  These are installed into the "nixos" channel of the root
+  # user, as expected by nixos-rebuild/nixos-install. FIXME: merge
+  # with make-channel.nix.
   channelSources = pkgs.runCommand "nixos-${config.system.nixos.version}"
     { preferLocalBuild = true; }
     ''
@@ -38,8 +38,8 @@ let
       echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
       echo ${config.system.nixos.versionSuffix} | sed -e s/pre// > $out/nixos/svn-revision
     '';
-
 in
+
 {
   # Pin the nixpkgs flake in the installer to our cleaned up nixpkgs source.
   # FIXME: this might be surprising and is really only needed for offline installations,
@@ -49,8 +49,8 @@ in
     path = "${channelSources}/nixos";
   };
 
-    # Provide the NixOS/Nixpkgs sources in /etc/nixos.  This is required
-    # for nixos-install.
+  # Provide the NixOS/Nixpkgs sources in /etc/nixos.  This is required
+  # for nixos-install.
   boot.postBootCommands = mkAfter ''
     if ! [ -e /var/lib/nixos/did-channel-init ]; then
       echo "unpacking the NixOS/Nixpkgs sources..."

@@ -74,7 +74,7 @@ buildPythonPackage rec {
     respx
   ];
 
-    # Tests are failing on Python 3.11, Fatal Python error: Aborted
+  # Tests are failing on Python 3.11, Fatal Python error: Aborted
   doCheck = !(pythonAtLeast "3.11");
 
   pythonImportsCheck = [ "qcs_api_client" ];

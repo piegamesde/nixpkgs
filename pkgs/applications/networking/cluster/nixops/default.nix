@@ -42,7 +42,6 @@ let
                   platforms = lib.platforms.unix;
                   license = lib.licenses.lgpl3;
                 };
-
               }
             );
           }
@@ -62,7 +61,6 @@ let
                 ln -s $f $out/bin/$(basename $f)
               done
             '';
-
           in
           {
             nixops = super.__toPluginAble {
@@ -78,7 +76,6 @@ let
                 html=$(mktemp -d)
                 sphinx-build -b html -d $doc_cache doc/ $out/share/nixops/doc
               '';
-
             };
           }
         )
@@ -106,7 +103,6 @@ let
             );
           }
         )
-
       ];
     }).python;
 
@@ -126,7 +122,7 @@ let
     # Workaround for https://github.com/NixOS/nixpkgs/issues/119407
     # TODO after #1199407: Use .overrideAttrs(pkg: old: { passthru.tests = .....; })
     tests = nixosTests.nixops.unstable.override { nixopsPkg = pkg; };
-      # Not strictly necessary, but probably expected somewhere; part of the workaround:
+    # Not strictly necessary, but probably expected somewhere; part of the workaround:
     passthru.tests = tests;
   };
 in

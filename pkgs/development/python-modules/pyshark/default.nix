@@ -35,12 +35,12 @@ buildPythonPackage rec {
       })
     ];
 
-    # `stripLen` does not seem to work here
+  # `stripLen` does not seem to work here
   patchFlags = [ "-p2" ];
 
   sourceRoot = "${src.name}/src";
 
-    # propagate wireshark, so pyshark can find it when used
+  # propagate wireshark, so pyshark can find it when used
   propagatedBuildInputs = [
     appdirs
     py

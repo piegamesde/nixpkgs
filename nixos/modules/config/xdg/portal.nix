@@ -7,8 +7,8 @@
 
 let
   inherit (lib) mkEnableOption mkIf mkOption mkRenamedOptionModule teams types;
-
 in
+
 {
   imports = [
     (mkRenamedOptionModule
@@ -107,7 +107,6 @@ in
           "/share/applications"
         ];
       };
-
     in
     mkIf cfg.enable {
 

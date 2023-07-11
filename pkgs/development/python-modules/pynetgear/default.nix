@@ -24,8 +24,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pynetgear" ];
 
-    # Tests don't pass
-    # https://github.com/MatMaul/pynetgear/issues/109
+  # Tests don't pass
+  # https://github.com/MatMaul/pynetgear/issues/109
   doCheck = false;
 
   meta = with lib; {

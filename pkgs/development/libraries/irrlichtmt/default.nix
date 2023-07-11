@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # https://github.com/minetest/minetest/pull/10729
+  # https://github.com/minetest/minetest/pull/10729
   postPatch = lib.optionalString (!withTouchSupport) ''
     sed -i '1i #define NO_IRR_LINUX_X11_XINPUT2_' include/IrrCompileConfig.h
 

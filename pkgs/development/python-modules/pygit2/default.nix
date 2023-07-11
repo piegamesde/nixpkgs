@@ -50,16 +50,16 @@ buildPythonPackage rec {
     "test/test_submodule.py"
   ];
 
-    # Tests require certificates
-    # https://github.com/NixOS/nixpkgs/pull/72544#issuecomment-582674047
+  # Tests require certificates
+  # https://github.com/NixOS/nixpkgs/pull/72544#issuecomment-582674047
   SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-    # setup.py check is broken
-    # https://github.com/libgit2/pygit2/issues/868
+  # setup.py check is broken
+  # https://github.com/libgit2/pygit2/issues/868
   dontUseSetuptoolsCheck = true;
 
-    # TODO: Test collection is failing
-    # https://github.com/NixOS/nixpkgs/pull/72544#issuecomment-582681068
+  # TODO: Test collection is failing
+  # https://github.com/NixOS/nixpkgs/pull/72544#issuecomment-582681068
   doCheck = false;
 
   pythonImportsCheck = [ "pygit2" ];

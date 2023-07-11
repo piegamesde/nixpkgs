@@ -8,8 +8,8 @@ with lib;
 
 let
   cfg = config.services.kthxbye;
-
 in
+
 {
   options.services.kthxbye = {
     enable =

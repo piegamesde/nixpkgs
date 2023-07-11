@@ -12,8 +12,8 @@ let
 
   cfg = config.users.ldap;
 
-    # Careful: OpenLDAP seems to be very picky about the indentation of
-    # this file.  Directives HAVE to start in the first column!
+  # Careful: OpenLDAP seems to be very picky about the indentation of
+  # this file.  Directives HAVE to start in the first column!
   ldapConfig = {
     target = "ldap.conf";
     source = writeText "ldap.conf" ''
@@ -46,9 +46,9 @@ let
     ${optionalString (cfg.daemon.extraConfig != "") cfg.daemon.extraConfig}
   '';
 
-    # nslcd normally reads configuration from /etc/nslcd.conf.
-    # this file might contain secrets. We append those at runtime,
-    # so redirect its location to something more temporary.
+  # nslcd normally reads configuration from /etc/nslcd.conf.
+  # this file might contain secrets. We append those at runtime,
+  # so redirect its location to something more temporary.
   nslcdWrapped =
     runCommand "nslcd-wrapped" { nativeBuildInputs = [ makeWrapper ]; } ''
       mkdir -p $out/bin
@@ -56,8 +56,8 @@ let
         --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
         --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
     '';
-
 in
+
 {
 
   ###### interface
@@ -227,12 +227,10 @@ in
           {option}`users.ldap.daemon.extraConfig` instead.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -314,9 +312,7 @@ in
           AmbientCapabilities = "CAP_SYS_RESOURCE";
         };
       };
-
     };
-
   };
 
   imports = [

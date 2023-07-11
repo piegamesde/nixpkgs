@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "0gvi8phabszqksj2by5jrjmshm7bpirhgavz0dqyz1xaimxdjz2l";
   };
 
-    # glib-2.62 deprecations
+  # glib-2.62 deprecations
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
   preConfigure =

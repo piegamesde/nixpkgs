@@ -11,7 +11,6 @@
 
 let
   rev = "22796663dcad81684ab24308d9db570f6781ba2c";
-
 in
 stdenv.mkDerivation rec {
   name = "mpw-${version}-${builtins.substring 0 8 rev}";
@@ -57,8 +56,8 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # Some tests are expected to fail on ARM64
-    # See: https://gitlab.com/spectre.app/cli/-/issues/27#note_962950844 (mpw is a predecessor to spectre-cli and this issue is relevant to mpw as well)
+  # Some tests are expected to fail on ARM64
+  # See: https://gitlab.com/spectre.app/cli/-/issues/27#note_962950844 (mpw is a predecessor to spectre-cli and this issue is relevant to mpw as well)
   doCheck = !(stdenv.isLinux && stdenv.isAarch64);
 
   checkPhase = ''

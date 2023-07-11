@@ -21,9 +21,8 @@
   #, musepackSupport ? false, TODO: mpcenc
   ,
   monkeysAudioSupport ? false,
-  monkeysAudio
-  #, aacSupport ? false, TODO: neroAacEnc
-  ,
+  monkeysAudio,
+#, aacSupport ? false, TODO: neroAacEnc
 }:
 
 stdenv.mkDerivation rec {

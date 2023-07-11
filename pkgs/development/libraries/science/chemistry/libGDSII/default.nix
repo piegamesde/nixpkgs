@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EXEt7l69etcBdDdEDlD1ODOdhTBZCVjgY1jhRUDd/W0=";
   };
 
-    # File is missing in the repo but automake requires it
+  # File is missing in the repo but automake requires it
   postPatch = ''
     touch ChangeLog
   '';

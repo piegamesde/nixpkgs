@@ -49,8 +49,8 @@ let
     #   { file = "module location"; value = <path/to/doc.xml>; }
     merge = loc: defs: defs;
   };
-
 in
+
 {
   options = {
     meta = {
@@ -88,7 +88,6 @@ in
           This option should be defined at most once per module.
         '';
       };
-
     };
   };
 

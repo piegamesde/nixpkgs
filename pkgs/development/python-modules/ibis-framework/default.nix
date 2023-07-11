@@ -75,8 +75,8 @@ let
     rev = "8a59df99c01fa217259554929543e71c3bbb1761";
     hash = "sha256-NbgEe0w/qf9hCr9rRfIpyaH9pv25I8x0ykY7EJxDOuk=";
   };
-
 in
+
 buildPythonPackage rec {
   pname = "ibis-framework";
   version = "5.1.0";
@@ -153,7 +153,7 @@ buildPythonPackage rec {
     "--deselect=ibis/backends/duckdb/tests/test_register.py::test_read_sqlite"
   ];
 
-    # patch out tests that check formatting with black
+  # patch out tests that check formatting with black
   postPatch = ''
     find ibis/tests -type f -name '*.py' -exec sed -i \
       -e '/^ *assert_decompile_roundtrip/d' \

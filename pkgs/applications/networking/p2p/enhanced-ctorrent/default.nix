@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     sha256 = "0qs8waqwllk56i3yy3zhncy7nsnhmf09a494p5siz4vm2k4ncwy8";
   };
 
-    # These patches come from Debian and fix CVE-2009-1759.
+  # These patches come from Debian and fix CVE-2009-1759.
   patches = [
     (fetchpatch {
       url =

@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.services.slimserver;
-
 in
 {
   options = {
@@ -43,7 +42,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -58,7 +57,7 @@ in
 
       serviceConfig = {
         User = "slimserver";
-          # Issue 40589: Disable broken image/video support (audio still works!)
+        # Issue 40589: Disable broken image/video support (audio still works!)
         ExecStart =
           "${cfg.package}/slimserver.pl --logdir ${cfg.dataDir}/logs --prefsdir ${cfg.dataDir}/prefs --cachedir ${cfg.dataDir}/cache --noimage --novideo";
       };
@@ -74,6 +73,4 @@ in
       groups.slimserver = { };
     };
   };
-
 }
-

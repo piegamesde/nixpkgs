@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
 
     tests.version = testers.testVersion {
       package = vapoursynth;
-        # Check Core version to prevent false positive with API version
+      # Check Core version to prevent false positive with API version
       version = "Core R${version}";
     };
   };

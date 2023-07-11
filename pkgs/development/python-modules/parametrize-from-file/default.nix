@@ -34,7 +34,7 @@ buildPythonPackage rec {
       })
     ];
 
-    # patch out coveralls since it doesn't provide us value
+  # patch out coveralls since it doesn't provide us value
   preBuild = ''
     sed -i '/coveralls/d' ./pyproject.toml
 

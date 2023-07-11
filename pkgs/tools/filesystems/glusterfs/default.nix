@@ -80,10 +80,10 @@ let
     #       shell function used in `postFixup` is also still available.
     python3
   ];
-    # Some of the headers reference acl
+  # Some of the headers reference acl
   propagatedBuildInputs = [ acl ];
-    # Packages from which GlusterFS calls binaries at run-time from PATH,
-    # with comments on which commands are known to be called by it.
+  # Packages from which GlusterFS calls binaries at run-time from PATH,
+  # with comments on which commands are known to be called by it.
   runtimePATHdeps = [
     attr # getfattr setfattr
     btrfs-progs # btrfs
@@ -138,15 +138,15 @@ stdenv.mkDerivation rec {
       --replace '/bin/mount' '${util-linux}/bin/mount'
   '';
 
-    # Note that the VERSION file is something that is present in release tarballs
-    # but not in git tags (at least not as of writing in v3.10.1).
-    # That's why we have to create it.
-    # Without this, gluster (at least 3.10.1) will fail very late and cryptically,
-    # for example when setting up geo-replication, with a message like
-    #   Staging of operation 'Volume Geo-replication Create' failed on localhost : Unable to fetch master volume details. Please check the master cluster and master volume.
-    # What happens here is that the gverify.sh script tries to compare the versions,
-    # but fails when the version is empty.
-    # See upstream GlusterFS bug https://bugzilla.redhat.com/show_bug.cgi?id=1452705
+  # Note that the VERSION file is something that is present in release tarballs
+  # but not in git tags (at least not as of writing in v3.10.1).
+  # That's why we have to create it.
+  # Without this, gluster (at least 3.10.1) will fail very late and cryptically,
+  # for example when setting up geo-replication, with a message like
+  #   Staging of operation 'Volume Geo-replication Create' failed on localhost : Unable to fetch master volume details. Please check the master cluster and master volume.
+  # What happens here is that the gverify.sh script tries to compare the versions,
+  # but fails when the version is empty.
+  # See upstream GlusterFS bug https://bugzilla.redhat.com/show_bug.cgi?id=1452705
   preConfigure = ''
     patchShebangs build-aux/pkg-version
     echo "v${version}" > VERSION
@@ -222,13 +222,13 @@ stdenv.mkDerivation rec {
 
   doInstallCheck = true;
 
-    # Below we run Python programs. That generates .pyc/.pyo files.
-    # By default they are indeterministic because such files contain time stamps
-    # (see https://nedbatchelder.com/blog/200804/the_structure_of_pyc_files.html).
-    # So we use the same environment variables as in
-    #   https://github.com/NixOS/nixpkgs/blob/249b34aadca7038207492f29142a3456d0cecec3/pkgs/development/interpreters/python/mk-python-derivation.nix#L61
-    # to make these files deterministic.
-    # A general solution to this problem might be brought by #25707.
+  # Below we run Python programs. That generates .pyc/.pyo files.
+  # By default they are indeterministic because such files contain time stamps
+  # (see https://nedbatchelder.com/blog/200804/the_structure_of_pyc_files.html).
+  # So we use the same environment variables as in
+  #   https://github.com/NixOS/nixpkgs/blob/249b34aadca7038207492f29142a3456d0cecec3/pkgs/development/interpreters/python/mk-python-derivation.nix#L61
+  # to make these files deterministic.
+  # A general solution to this problem might be brought by #25707.
   DETERMINISTIC_BUILD = 1;
   PYTHONHASHSEED = 0;
 

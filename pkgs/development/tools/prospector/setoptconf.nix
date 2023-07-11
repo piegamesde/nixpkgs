@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "0y2pgpraa36wzlzkxigvmz80mqd3mzcc9wv2yx9bliqks7fhlj70";
   };
 
-    # Base tests provided via PyPi are broken
+  # Base tests provided via PyPi are broken
   doCheck = false;
 
   meta = with lib; {

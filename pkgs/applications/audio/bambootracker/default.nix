@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
 
   postConfigure = "make qmake_all";
 
-    # Wrapping the inside of the app bundles, avoiding double-wrapping
+  # Wrapping the inside of the app bundles, avoiding double-wrapping
   dontWrapQtApps = stdenv.hostPlatform.isDarwin;
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''

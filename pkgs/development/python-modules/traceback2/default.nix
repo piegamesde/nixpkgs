@@ -20,7 +20,7 @@ buildPythonPackage rec {
     linecache2
   ];
 
-    # circular dependencies for tests
+  # circular dependencies for tests
   doCheck = false;
 
   meta = with lib; {
@@ -28,5 +28,4 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/traceback2/";
     license = licenses.psfl;
   };
-
 }

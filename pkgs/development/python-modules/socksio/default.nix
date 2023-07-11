@@ -22,7 +22,7 @@ buildPythonPackage {
 
   nativeBuildInputs = [ flit-core ];
 
-    # remove coverage configuration
+  # remove coverage configuration
   preCheck = ''
     rm pytest.ini
   '';

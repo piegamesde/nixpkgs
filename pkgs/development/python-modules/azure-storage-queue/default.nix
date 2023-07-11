@@ -23,7 +23,7 @@ buildPythonPackage rec {
     msrest
   ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   meta = with lib; {

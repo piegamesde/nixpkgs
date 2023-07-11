@@ -6,7 +6,7 @@
 
 let
   version = "1.3.1";
-    # nixpkgs-update: no auto update
+  # nixpkgs-update: no auto update
 
   suffix =
     {
@@ -26,7 +26,6 @@ let
       sha256 = sha256."${stdenv.hostPlatform.system}";
     }
     ;
-
 in
 stdenv.mkDerivation {
   pname = "firecracker";

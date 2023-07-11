@@ -28,14 +28,11 @@ let
       }
       ;
   };
-
 in
 {
-  inherit
-    default
-    ;
+  inherit default;
 
-    # Definitions is an attribute set.
+  # Definitions is an attribute set.
 
   create =
     {

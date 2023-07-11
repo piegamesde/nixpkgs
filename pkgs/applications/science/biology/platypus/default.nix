@@ -10,7 +10,6 @@
 
 let
   python = python27.withPackages (ps: with ps; [ cython ]);
-
 in
 stdenv.mkDerivation {
   pname = "platypus-unstable";

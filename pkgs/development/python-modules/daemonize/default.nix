@@ -19,5 +19,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/thesharp/daemonize";
     license = licenses.mit;
   };
-
 }

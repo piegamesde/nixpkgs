@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # CMake needs to be run by setuptools rather than by its hook
+  # CMake needs to be run by setuptools rather than by its hook
   dontConfigure = true;
 
   meta = with lib; {

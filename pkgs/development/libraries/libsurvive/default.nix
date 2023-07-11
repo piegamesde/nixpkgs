@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     owner = "cntools";
     repo = pname;
     rev = "v${version}";
-      # Fixes 'Unknown CMake command "cnkalman_generate_code"'
+    # Fixes 'Unknown CMake command "cnkalman_generate_code"'
     fetchSubmodules = true;
     sha256 = "sha256-NcxdTKra+YkLt/iu9+1QCeQZLV3/qlhma2Ns/+ZYVsk=";
   };
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     eigen
   ];
 
-    # https://github.com/cntools/libsurvive/issues/272
+  # https://github.com/cntools/libsurvive/issues/272
   postPatch = ''
     substituteInPlace survive.pc.in \
       libs/cnkalman/cnkalman.pc.in libs/cnkalman/libs/cnmatrix/cnmatrix.pc.in \

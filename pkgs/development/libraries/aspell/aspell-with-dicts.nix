@@ -17,7 +17,6 @@ f:
 let
   # Dictionaries we want
   dicts = f aspellDicts;
-
 in
 buildEnv {
   name = "aspell-env";

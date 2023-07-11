@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ urllib3 ];
 
-    # Disable checks due to networking (Errno 101)
+  # Disable checks due to networking (Errno 101)
   doCheck = false;
 
   pythonImportsCheck = [ "downloader_cli" ];

@@ -14,8 +14,8 @@ buildGoModule rec {
     repo = pname;
     rev = "v${version}";
     sha256 = "sha256-q4TucVRsRH8XRiudU6lRT5R9jAXg6AjEKezUElCCTbQ=";
-      # populate values that require us to use git. By doing this in postFetch we
-      # can delete .git afterwards and maintain better reproducibility of the src.
+    # populate values that require us to use git. By doing this in postFetch we
+    # can delete .git afterwards and maintain better reproducibility of the src.
     leaveDotGit = true;
     postFetch = ''
       cd "$out"
@@ -37,7 +37,7 @@ buildGoModule rec {
     "-X main.version=v${version}"
   ];
 
-    # ldflags based on metadata from git and source
+  # ldflags based on metadata from git and source
   preBuild = ''
     ldflags+=" -X main.gitCommit=$(cat COMMIT)"
     ldflags+=" -X main.buildDate=$(cat SOURCE_DATE_EPOCH)"

@@ -54,7 +54,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Settings application for Plasma Mobile";
     homepage = "https://invent.kde.org/plasma-mobile/plasma-settings";
-      # https://invent.kde.org/plasma-mobile/plasma-settings/-/commit/a59007f383308503e59498b3036e1483bca26e35
+    # https://invent.kde.org/plasma-mobile/plasma-settings/-/commit/a59007f383308503e59498b3036e1483bca26e35
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ samueldr ];
   };

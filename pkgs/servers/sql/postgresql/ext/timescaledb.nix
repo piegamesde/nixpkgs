@@ -20,7 +20,8 @@
 #   settings.shared_preload_libraries = "timescaledb";
 # }
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "timescaledb${lib.optionalString (!enableUnfree) "-apache"}";
   version = "2.10.3";
 
@@ -48,8 +49,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ "-DLINTER=OFF" ]
     ;
 
-    # Fix the install phase which tries to install into the pgsql extension dir,
-    # and cannot be manually overridden. This is rather fragile but works OK.
+  # Fix the install phase which tries to install into the pgsql extension dir,
+  # and cannot be manually overridden. This is rather fragile but works OK.
   postPatch = ''
     for x in CMakeLists.txt sql/CMakeLists.txt; do
       substituteInPlace "$x" \

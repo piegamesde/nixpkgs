@@ -8,8 +8,8 @@ let
   platforms = import ./platforms.nix { inherit lib; };
 
   riscv = bits: { config = "riscv${bits}-unknown-linux-gnu"; };
-
 in
+
 rec {
   #
   # Linux
@@ -70,11 +70,10 @@ rec {
   ben-nanonote =
     { config = "mipsel-unknown-linux-uclibc"; } // platforms.ben_nanonote;
 
-  fuloongminipc = {
-    config = "mipsel-unknown-linux-gnu";
-  } // platforms.fuloong2f_n32;
+  fuloongminipc =
+    { config = "mipsel-unknown-linux-gnu"; } // platforms.fuloong2f_n32;
 
-    # can execute on 32bit chip
+  # can execute on 32bit chip
   mips-linux-gnu =
     { config = "mips-unknown-linux-gnu"; } // platforms.gcc_mips32r2_o32;
   mipsel-linux-gnu =
@@ -85,7 +84,7 @@ rec {
     config = "mipsisa32r6el-unknown-linux-gnu";
   } // platforms.gcc_mips32r6_o32;
 
-    # require 64bit chip (for more registers, 64-bit floating point, 64-bit "long long") but use 32bit pointers
+  # require 64bit chip (for more registers, 64-bit floating point, 64-bit "long long") but use 32bit pointers
   mips64-linux-gnuabin32 = {
     config = "mips64-unknown-linux-gnuabin32";
   } // platforms.gcc_mips64r2_n32;
@@ -99,7 +98,7 @@ rec {
     config = "mipsisa64r6el-unknown-linux-gnuabin32";
   } // platforms.gcc_mips64r6_n32;
 
-    # 64bit pointers
+  # 64bit pointers
   mips64-linux-gnuabi64 =
     { config = "mips64-unknown-linux-gnuabi64"; } // platforms.gcc_mips64r2_64;
   mips64el-linux-gnuabi64 = {
@@ -177,8 +176,8 @@ rec {
   armhf-embedded = {
     config = "arm-none-eabihf";
     libc = "newlib";
-      # GCC8+ does not build without this
-      # (https://www.mail-archive.com/gcc-bugs@gcc.gnu.org/msg552339.html):
+    # GCC8+ does not build without this
+    # (https://www.mail-archive.com/gcc-bugs@gcc.gnu.org/msg552339.html):
     gcc = {
       arch = "armv5t";
       fpu = "vfp";
@@ -215,22 +214,22 @@ rec {
     libc = "newlib";
   };
 
-    #
-    # Redox
-    #
+  #
+  # Redox
+  #
 
   x86_64-unknown-redox = {
     config = "x86_64-unknown-redox";
     libc = "relibc";
   };
 
-    #
-    # Darwin
-    #
+  #
+  # Darwin
+  #
 
   iphone64 = {
     config = "aarch64-apple-ios";
-      # config = "aarch64-apple-darwin14";
+    # config = "aarch64-apple-darwin14";
     sdkVer = "14.3";
     xcodeVer = "12.3";
     xcodePlatform = "iPhoneOS";
@@ -239,7 +238,7 @@ rec {
 
   iphone32 = {
     config = "armv7a-apple-ios";
-      # config = "arm-apple-darwin10";
+    # config = "arm-apple-darwin10";
     sdkVer = "14.3";
     xcodeVer = "12.3";
     xcodePlatform = "iPhoneOS";
@@ -248,7 +247,7 @@ rec {
 
   iphone64-simulator = {
     config = "x86_64-apple-ios";
-      # config = "x86_64-apple-darwin14";
+    # config = "x86_64-apple-darwin14";
     sdkVer = "14.3";
     xcodeVer = "12.3";
     xcodePlatform = "iPhoneSimulator";
@@ -258,7 +257,7 @@ rec {
 
   iphone32-simulator = {
     config = "i686-apple-ios";
-      # config = "i386-apple-darwin11";
+    # config = "i386-apple-darwin11";
     sdkVer = "14.3";
     xcodeVer = "12.3";
     xcodePlatform = "iPhoneSimulator";
@@ -278,24 +277,24 @@ rec {
     platform = { };
   };
 
-    #
-    # Windows
-    #
+  #
+  # Windows
+  #
 
-    # 32 bit mingw-w64
+  # 32 bit mingw-w64
   mingw32 = {
     config = "i686-w64-mingw32";
     libc = "msvcrt"; # This distinguishes the mingw (non posix) toolchain
   };
 
-    # 64 bit mingw-w64
+  # 64 bit mingw-w64
   mingwW64 = {
     # That's the triplet they use in the mingw-w64 docs.
     config = "x86_64-w64-mingw32";
     libc = "msvcrt"; # This distinguishes the mingw (non posix) toolchain
   };
 
-    # BSDs
+  # BSDs
 
   x86_64-freebsd = {
     config = "x86_64-unknown-freebsd13";
@@ -304,22 +303,22 @@ rec {
 
   x86_64-netbsd = { config = "x86_64-unknown-netbsd"; };
 
-    # this is broken and never worked fully
+  # this is broken and never worked fully
   x86_64-netbsd-llvm = {
     config = "x86_64-unknown-netbsd";
     useLLVM = true;
   };
 
-    #
-    # WASM
-    #
+  #
+  # WASM
+  #
 
   wasi32 = {
     config = "wasm32-unknown-wasi";
     useLLVM = true;
   };
 
-    # Ghcjs
+  # Ghcjs
   ghcjs = {
     # This triple is special to GHC/Cabal/GHCJS and not recognized by autotools
     # See: https://gitlab.haskell.org/ghc/ghc/-/commit/6636b670233522f01d002c9b97827d00289dbf5c

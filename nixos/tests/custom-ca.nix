@@ -147,10 +147,10 @@ let
             webserverConfig
           ];
 
-            # chromium-based browsers refuse to run as root
+          # chromium-based browsers refuse to run as root
           test-support.displayManager.auto.user = "alice";
 
-            # browsers may hang with the default memory
+          # browsers may hang with the default memory
           virtualisation.memorySize = 600;
 
           environment.systemPackages = [
@@ -206,8 +206,8 @@ let
       '';
     }
     ;
-
 in
+
 {
   curl = curlTest;
 } // pkgs.lib.mapAttrs mkBrowserTest {

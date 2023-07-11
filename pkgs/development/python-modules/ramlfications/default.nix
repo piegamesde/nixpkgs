@@ -35,7 +35,7 @@ buildPythonPackage rec {
   };
 
   doCheck = false;
-    # [darwin]  AssertionError: Expected 'update_mime_types' to have been called once. Called 0 times.
+  # [darwin]  AssertionError: Expected 'update_mime_types' to have been called once. Called 0 times.
 
   buildInputs = [
     mock

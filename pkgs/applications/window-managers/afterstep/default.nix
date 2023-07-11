@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     dbus
   ];
 
-    # A strange type of bug: dbus is not immediately found by pkg-config
+  # A strange type of bug: dbus is not immediately found by pkg-config
   preConfigure = ''
     # binutils 2.37 fix
     # https://github.com/afterstep/afterstep/issues/2
@@ -75,10 +75,10 @@ stdenv.mkDerivation rec {
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config dbus-1 --cflags)"
   '';
 
-    # Parallel build fails due to missing dependencies between private libaries:
-    #   ld: cannot find ../libAfterConf/libAfterConf.a: No such file or directory
-    # Let's disable parallel builds until it's fixed upstream:
-    #   https://github.com/afterstep/afterstep/issues/8
+  # Parallel build fails due to missing dependencies between private libaries:
+  #   ld: cannot find ../libAfterConf/libAfterConf.a: No such file or directory
+  # Let's disable parallel builds until it's fixed upstream:
+  #   https://github.com/afterstep/afterstep/issues/8
   enableParallelBuilding = false;
 
   meta = with lib; {
@@ -96,5 +96,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;
   };
-
 }

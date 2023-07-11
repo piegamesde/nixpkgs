@@ -24,7 +24,7 @@ buildPythonPackage rec {
     venusian
   ];
 
-    # tests not packaged with pypi release
+  # tests not packaged with pypi release
   doCheck = false;
   pythonImportsCheck = [ "cornice" ];
 

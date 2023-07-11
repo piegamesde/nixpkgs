@@ -19,10 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-Iz7GviL5qRjEE+I15NpquJ3seHFJPnoMasChIti4mYY=";
   };
 
-    # there is nothing to strip in this package
+  # there is nothing to strip in this package
   dontStrip = true;
 
-    # no Python tests implemented
+  # no Python tests implemented
   doCheck = false;
 
   meta = with lib; {

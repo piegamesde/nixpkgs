@@ -8,7 +8,7 @@
   # wrapProgram..
   ,
   doWrap ? true
-    # For the wrapper
+  # For the wrapper
   ,
   makeWrapper
   # For lndir
@@ -34,10 +34,10 @@
   # For Adding additional GRC blocks
   ,
   extraPackages ? [ ]
-    # For Adding additional python packaages
+  # For Adding additional python packaages
   ,
   extraPythonPackages ? [ ]
-    # Allow to add whatever you want to the wrapper
+  # Allow to add whatever you want to the wrapper
   ,
   extraMakeWrapperArgs ? [ ]
 }:
@@ -47,10 +47,7 @@ let
   # may wish to wrap GR without python support.
   pythonPkgs =
     extraPythonPackages
-    ++ [
-      (unwrapped.python.pkgs.toPythonModule unwrapped)
-    ]
-    # Add the extraPackages as python modules as well
+    ++ [ (unwrapped.python.pkgs.toPythonModule unwrapped) ]
     ++ (builtins.map unwrapped.python.pkgs.toPythonModule extraPackages)
     ++ lib.flatten (
       lib.mapAttrsToList
@@ -72,7 +69,7 @@ let
   inherit (unwrapped) version;
   makeWrapperArgs = builtins.concatStringsSep " " (
     [ ]
-      # Emulating wrapGAppsHook & wrapQtAppsHook working together
+    # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ lib.optionals
       (
         (unwrapped.hasFeature "gnuradio-companion")
@@ -102,6 +99,7 @@ let
         ":"
         "${lib.getBin glib}/bin"
       ]
+    # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ lib.optionals (unwrapped.hasFeature "gnuradio-companion") [
       "--set"
       "GDK_PIXBUF_MODULE_FILE"
@@ -136,12 +134,14 @@ let
         at-spi2-core
       ]}"
     ]
+    # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ lib.optionals (extraPackages != [ ]) [
       "--prefix"
       "GRC_BLOCKS_PATH"
       ":"
       "${lib.makeSearchPath "share/gnuradio/grc/blocks" extraPackages}"
     ]
+    # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ lib.optionals
       (unwrapped.hasFeature "gr-qtgui")
       # 3.7 builds with qt4
@@ -168,11 +168,10 @@ let
             )}"
           ]
         else
-        # Add here qt4 related environment for 3.7?
-          [
-
-          ]
+          # Add here qt4 related environment for 3.7?
+          [ ]
       )
+    # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ extraMakeWrapperArgs
   );
 

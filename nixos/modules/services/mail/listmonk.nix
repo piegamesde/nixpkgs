@@ -10,7 +10,7 @@ let
   cfg = config.services.listmonk;
   tomlFormat = pkgs.formats.toml { };
   cfgFile = tomlFormat.generate "listmonk.toml" cfg.settings;
-    # Escaping is done according to https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
+  # Escaping is done according to https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
   setDatabaseOption =
     key: value:
     "UPDATE settings SET value = '${
@@ -122,7 +122,7 @@ let
         description = lib.mdDoc "List of outgoing SMTP servers";
       };
 
-        # TODO: refine this type based on the smtp one.
+      # TODO: refine this type based on the smtp one.
       "bounce.mailboxes" = mkOption {
         type = listOf (
           submodule {
@@ -197,7 +197,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     # Default parameters from https://github.com/knadh/listmonk/blob/master/config.toml.sample
     services.listmonk.settings."app".address = mkDefault "localhost:9000";

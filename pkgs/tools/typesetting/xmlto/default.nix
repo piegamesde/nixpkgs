@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
       --replace "mktemp" "$(type -P mktemp)"
   '';
 
-    # `libxml2' provides `xmllint', needed at build-time and run-time.
-    # `libxslt' provides `xsltproc', used by `xmlto' at run-time.
+  # `libxml2' provides `xmllint', needed at build-time and run-time.
+  # `libxslt' provides `xsltproc', used by `xmlto' at run-time.
   nativeBuildInputs = [
     makeWrapper
     getopt

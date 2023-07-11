@@ -16,7 +16,6 @@ import ./make-test-python.nix (
         environment.systemPackages = [ pkgs.teeworlds ];
       }
       ;
-
   in
   {
     name = "teeworlds";
@@ -58,6 +57,5 @@ import ./make-test-python.nix (
       client1.screenshot("screen_client1")
       client2.screenshot("screen_client2")
     '';
-
   }
 )

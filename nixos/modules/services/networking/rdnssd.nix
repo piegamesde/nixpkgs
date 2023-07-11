@@ -24,7 +24,7 @@ in
     services.rdnssd.enable = mkOption {
       type = types.bool;
       default = false;
-        #default = config.networking.enableIPv6;
+      #default = config.networking.enableIPv6;
       description = lib.mdDoc ''
         Whether to enable the RDNSS daemon
         ({command}`rdnssd`), which configures DNS servers in
@@ -32,10 +32,9 @@ in
         advertisements sent by IPv6 routers.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.rdnssd.enable {
 
@@ -81,7 +80,5 @@ in
       group = "rdnssd";
     };
     users.groups.rdnssd = { };
-
   };
-
 }

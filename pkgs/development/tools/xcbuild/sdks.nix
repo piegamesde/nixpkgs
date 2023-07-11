@@ -27,8 +27,8 @@ let
     ProductName = "Mac OS X";
     ProductVersion = sdkVer;
   };
-
 in
+
 runCommand "SDKs" { } ''
   sdk=$out/${sdkName}.sdk
   install -D ${

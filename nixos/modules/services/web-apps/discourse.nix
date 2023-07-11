@@ -13,7 +13,7 @@ let
   cfg = config.services.discourse;
   opt = options.services.discourse;
 
-    # Keep in sync with https://github.com/discourse/discourse_docker/blob/main/image/base/slim.Dockerfile#L5
+  # Keep in sync with https://github.com/discourse/discourse_docker/blob/main/image/base/slim.Dockerfile#L5
   upstreamPostgresqlVersion = lib.getVersion pkgs.postgresql_13;
 
   postgresqlPackage =
@@ -25,7 +25,7 @@ let
 
   postgresqlVersion = lib.getVersion postgresqlPackage;
 
-    # We only want to create a database if we're actually going to connect to it.
+  # We only want to create a database if we're actually going to connect to it.
   databaseActuallyCreateLocally =
     cfg.database.createLocally && cfg.database.host == null;
 
@@ -585,8 +585,8 @@ in
       }
     ];
 
-      # Default config values are from `config/discourse_defaults.conf`
-      # upstream.
+    # Default config values are from `config/discourse_defaults.conf`
+    # upstream.
     services.discourse.backendSettings = lib.mapAttrs (_: lib.mkDefault) {
       db_pool = cfg.database.pool;
       db_timeout = 5000;
@@ -727,9 +727,9 @@ in
       ensureUsers = [ { name = "discourse"; } ];
     };
 
-      # The postgresql module doesn't currently support concepts like
-      # objects owners and extensions; for now we tack on what's needed
-      # here.
+    # The postgresql module doesn't currently support concepts like
+    # objects owners and extensions; for now we tack on what's needed
+    # here.
     systemd.services.discourse-postgresql =
       let
         pgsql = config.services.postgresql;
@@ -831,7 +831,6 @@ in
             export ADMIN_PASSWORD
             discourse-rake admin:create_noninteractively
           '';
-
         in
         ''
           set -o errexit -o pipefail -o nounset -o errtrace

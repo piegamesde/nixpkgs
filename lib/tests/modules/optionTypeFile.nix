@@ -22,5 +22,4 @@
       options.nested = lib.mkOption { type = lib.types.str; };
     })
   ];
-
 }

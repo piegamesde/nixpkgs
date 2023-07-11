@@ -50,8 +50,8 @@ buildPythonPackage rec {
       --replace 'AR=ar' 'AR=${stdenv.cc.targetPrefix}ar'
   '';
 
-    # No tests are available on PyPI, GitHub release has tests
-    # Switch to GitHub release after all angr parts are present
+  # No tests are available on PyPI, GitHub release has tests
+  # Switch to GitHub release after all angr parts are present
   doCheck = false;
 
   pythonImportsCheck = [ "pyvex" ];

@@ -15,7 +15,6 @@ let
   openjfx19 = callPackage ../development/compilers/openjdk/openjfx/19.nix { };
 
   mavenfod = callPackage ../development/java-modules/maven-fod.nix { };
-
 in
 {
   inherit
@@ -67,8 +66,10 @@ in
         if
           !stdenv.hostPlatform.isi686
         then
-        # only linux has the gtkSupport option
-          if stdenv.isLinux then
+          # only linux has the gtkSupport option
+          if
+            stdenv.isLinux
+          then
             adoptopenjdk.jdk-hotspot.override { gtkSupport = false; }
           else
             adoptopenjdk.jdk-hotspot
@@ -84,7 +85,9 @@ in
           let
             openjdk = callPackage path-darwin { };
           in
-          openjdk // { headless = openjdk; }
+          openjdk // {
+            headless = openjdk;
+          }
         ;
 
       mkOpenjdkLinuxOnly =
@@ -92,9 +95,10 @@ in
         let
           openjdk = callPackage path-linux (gnomeArgs // args);
         in
-        openjdk // { headless = openjdk.override { headless = true; }; }
+        openjdk // {
+          headless = openjdk.override { headless = true; };
+        }
         ;
-
     in
     rec {
       adoptopenjdk-8 = mkAdoptopenjdk
@@ -140,10 +144,8 @@ in
       openjdk13-bootstrap =
         mkBootstrap adoptopenjdk-13 ../development/compilers/openjdk/12.nix (
           bootstrapArgs // {
-            inherit
-              openjdk11-bootstrap
-              ;
-              # build segfaults with gcc9 or newer, so use gcc8 like Debian does
+            inherit openjdk11-bootstrap;
+            # build segfaults with gcc9 or newer, so use gcc8 like Debian does
             stdenv = gcc8Stdenv;
           }
         );

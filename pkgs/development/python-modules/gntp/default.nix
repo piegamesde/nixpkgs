@@ -18,7 +18,7 @@ buildPythonPackage rec {
     "gntp.notifier"
   ];
 
-    # requires a growler service to be running
+  # requires a growler service to be running
   doCheck = false;
 
   meta = with lib; {

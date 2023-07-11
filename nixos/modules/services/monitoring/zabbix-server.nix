@@ -42,8 +42,8 @@ let
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
-
 in
+
 {
   imports = [
     (lib.mkRenamedOptionModule
@@ -74,7 +74,7 @@ in
       "Use services.zabbixServer.settings instead.")
   ];
 
-    # interface
+  # interface
 
   options = {
 
@@ -246,12 +246,10 @@ in
           StartPingers = 32;
         };
       };
-
     };
-
   };
 
-    # implementation
+  # implementation
 
   config = mkIf cfg.enable {
 
@@ -274,7 +272,7 @@ in
         LogType = "console";
         ListenIP = cfg.listen.ip;
         ListenPort = cfg.listen.port;
-          # TODO: set to cfg.database.socket if database type is pgsql?
+        # TODO: set to cfg.database.socket if database type is pgsql?
         DBHost =
           optionalString (cfg.database.createLocally != true) cfg.database.host;
         DBName = cfg.database.name;
@@ -412,7 +410,5 @@ in
         (config.services.zabbixWeb.enable && pgsqlLocal)
         "postgresql.service"
       ;
-
   };
-
 }

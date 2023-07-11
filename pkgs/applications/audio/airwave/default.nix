@@ -47,8 +47,8 @@ let
       patches = [ "${airwave-src}/fix-xembed-wine-windows.patch" ];
     }
   );
-
 in
+
 multiStdenv.mkDerivation {
   pname = "airwave";
   inherit version;
@@ -78,11 +78,11 @@ multiStdenv.mkDerivation {
       '-m32 -L${wine-xembed}/lib -L${wine-xembed}/lib/wine -L${multiStdenv.cc.libc.out}/lib/32'
   '';
 
-    # libstdc++.so link gets lost in 64-bit executables during
-    # shrinking.
+  # libstdc++.so link gets lost in 64-bit executables during
+  # shrinking.
   dontPatchELF = true;
 
-    # Cf. https://github.com/phantom-code/airwave/issues/57
+  # Cf. https://github.com/phantom-code/airwave/issues/57
   hardeningDisable = [ "format" ];
 
   cmakeFlags = [ "-DVSTSDK_PATH=${vst-sdk}/VST2_SDK" ];

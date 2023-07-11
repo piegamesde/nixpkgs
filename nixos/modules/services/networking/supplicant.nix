@@ -12,7 +12,7 @@ let
 
   cfg = config.networking.supplicant;
 
-    # We must escape interfaces due to the systemd interpretation
+  # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
     interface:
     "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device"
@@ -38,7 +38,7 @@ let
     }"
     ;
 
-    # TODO: Use proper privilege separation for wpa_supplicant
+  # TODO: Use proper privilege separation for wpa_supplicant
   supplicantService =
     iface: suppl:
     let
@@ -110,11 +110,10 @@ let
                 ifaceArg
             )
         }";
-
     }
     ;
-
 in
+
 {
 
   ###### interface
@@ -148,7 +147,6 @@ in
                     `wpa_supplicant`.
                   '';
                 };
-
               };
 
               extraConf = mkOption {
@@ -228,7 +226,6 @@ in
                   description = lib.mdDoc
                     "Members of this group can control wpa_supplicant.";
                 };
-
               };
             };
           }
@@ -266,12 +263,10 @@ in
         `DBUS` defines a device-unrelated {command}`wpa_supplicant`
         service that can be accessed through `D-Bus`.
       '';
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg != { }) {
 
@@ -312,8 +307,5 @@ in
           '';
         })
       ];
-
   };
-
 }
-

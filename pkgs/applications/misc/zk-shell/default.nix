@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     twitter
   ];
 
-    # requires a running zookeeper, don't know how to fix that for the moment
+  # requires a running zookeeper, don't know how to fix that for the moment
   doCheck = false;
 
   meta = with lib; {

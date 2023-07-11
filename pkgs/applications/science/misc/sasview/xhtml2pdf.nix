@@ -22,8 +22,8 @@ let
       };
     }
   );
-
 in
+
 buildPythonPackage rec {
   pname = "xhtml2pdf";
   version = "0.2.1";

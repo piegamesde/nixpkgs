@@ -5,7 +5,7 @@
 }:
 
 {
-# : string
+  # : string
   pname
   # : string
   ,
@@ -22,10 +22,10 @@
   # : license
   ,
   license ? lib.licenses.isc
-    # : string
+  # : string
   ,
   owner ? "flexibeast"
-    # : string
+  # : string
   ,
   rev ? "v${version}"
 }:
@@ -37,8 +37,8 @@ let
     inherit owner rev sha256;
     repo = pname;
   };
-
 in
+
 stdenv.mkDerivation {
   inherit pname version src;
 

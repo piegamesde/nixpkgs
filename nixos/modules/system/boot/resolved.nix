@@ -13,7 +13,6 @@ let
     config.services.dnsmasq.enable
     && config.services.dnsmasq.resolveLocalQueries
     ;
-
 in
 {
 
@@ -113,7 +112,6 @@ in
         Extra config to append to resolved.conf.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -125,9 +123,9 @@ in
 
     users.users.systemd-resolve.group = "systemd-resolve";
 
-      # add resolve to nss hosts database if enabled and nscd enabled
-      # system.nssModules is configured in nixos/modules/system/boot/systemd.nix
-      # added with order 501 to allow modules to go before with mkBefore
+    # add resolve to nss hosts database if enabled and nscd enabled
+    # system.nssModules is configured in nixos/modules/system/boot/systemd.nix
+    # added with order 501 to allow modules to go before with mkBefore
     system.nssDatabases.hosts = (mkOrder 501 [ "resolve [!UNAVAIL=return]" ]);
 
     systemd.additionalUpstreamSystemUnits = [ "systemd-resolved.service" ];
@@ -157,18 +155,16 @@ in
         ${config.services.resolved.extraConfig}
       '';
 
-        # symlink the dynamic stub resolver of resolv.conf as recommended by upstream:
-        # https://www.freedesktop.org/software/systemd/man/systemd-resolved.html#/etc/resolv.conf
+      # symlink the dynamic stub resolver of resolv.conf as recommended by upstream:
+      # https://www.freedesktop.org/software/systemd/man/systemd-resolved.html#/etc/resolv.conf
       "resolv.conf".source = "/run/systemd/resolve/stub-resolv.conf";
     } // optionalAttrs dnsmasqResolve {
       "dnsmasq-resolv.conf".source = "/run/systemd/resolve/resolv.conf";
     };
 
-      # If networkmanager is enabled, ask it to interface with resolved.
+    # If networkmanager is enabled, ask it to interface with resolved.
     networking.networkmanager.dns = "systemd-resolved";
 
     networking.resolvconf.package = pkgs.systemd;
-
   };
-
 }

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-    # Project has no test
+  # Project has no test
   doCheck = false;
 
   pythonImportsCheck = [ "pyevilgenius" ];

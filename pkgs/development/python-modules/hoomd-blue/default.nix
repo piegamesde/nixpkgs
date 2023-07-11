@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     cmakeFlags="$cmakeFlags -DCMAKE_INSTALL_PREFIX=$out/${python.sitePackages}"
   '';
 
-    # tests fail but have tested that package runs properly
+  # tests fail but have tested that package runs properly
   doCheck = false;
   checkTarget = "test";
 
@@ -71,5 +71,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     maintainers = [ maintainers.costrouc ];
   };
-
 }

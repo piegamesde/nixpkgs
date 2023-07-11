@@ -15,8 +15,8 @@ let
   plugin_path = lib.concatMapStringsSep ":"
     (plugin: "${plugin}/lib/ofono/plugins")
     cfg.plugins;
-
 in
+
 {
   ###### interface
   options = {
@@ -34,7 +34,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     services.dbus.packages = [ pkgs.ofono ];
 
@@ -42,6 +42,5 @@ in
 
     systemd.services.ofono.environment.OFONO_PLUGIN_PATH =
       mkIf (cfg.plugins != [ ]) plugin_path;
-
   };
 }

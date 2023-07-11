@@ -60,17 +60,16 @@ let
         sensitive data such as passwords in the logs.
       '';
     };
-
   };
-
 in
+
 {
 
   ###### interface
 
   options = { services.freeradius = freeradiusConfig; };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (cfg.enable) {
 
@@ -87,7 +86,5 @@ in
       cfg.debug
       "Freeradius debug logging is enabled. This will log passwords in plaintext to the journal!"
       ;
-
   };
-
 }

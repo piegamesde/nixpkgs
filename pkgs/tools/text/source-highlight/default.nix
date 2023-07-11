@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # source-highlight uses it's own binary to generate documentation.
-    # During cross-compilation, that binary was built for the target
-    # platform architecture, so it can't run on the build host.
+  # source-highlight uses it's own binary to generate documentation.
+  # During cross-compilation, that binary was built for the target
+  # platform architecture, so it can't run on the build host.
   postPatch =
     lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       substituteInPlace Makefile.in --replace "src doc tests" "src tests"
@@ -60,8 +60,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   enableParallelBuilding = true;
-    # Upstream uses the same intermediate files in multiple tests, running
-    # them in parallel by make will eventually break one or more tests.
+  # Upstream uses the same intermediate files in multiple tests, running
+  # them in parallel by make will eventually break one or more tests.
   enableParallelChecking = false;
 
   meta = with lib; {

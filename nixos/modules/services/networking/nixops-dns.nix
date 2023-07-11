@@ -9,8 +9,8 @@ with lib;
 let
   pkg = pkgs.nixops-dns;
   cfg = config.services.nixops-dns;
-
 in
+
 {
   options = {
     services.nixops-dns = {
@@ -51,7 +51,6 @@ in
           while forwarding the rest of the queries to original resolvers.
         '';
       };
-
     };
   };
 
@@ -76,6 +75,5 @@ in
         listen-address=127.0.0.1
       '';
     };
-
   };
 }

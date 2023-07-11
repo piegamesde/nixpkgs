@@ -34,7 +34,7 @@ buildGoModule rec {
     }"
   '';
 
-    # The tests requires an additional setup (unpacking images, etc.)
+  # The tests requires an additional setup (unpacking images, etc.)
   doCheck = false;
 
   meta = with lib; {

@@ -12,8 +12,8 @@ let
   cfg = config.services.atd;
 
   inherit (pkgs) at;
-
 in
+
 {
 
   ###### interface
@@ -38,10 +38,9 @@ in
         setuid/setgid `atd`.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

@@ -23,5 +23,4 @@ with lib; {
     else
       teams.gcc.members
     ;
-
 }

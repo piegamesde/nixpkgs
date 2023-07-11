@@ -23,7 +23,7 @@ buildPythonPackage rec {
     allpairspy
   ];
 
-    # Remove Windows .bat files
+  # Remove Windows .bat files
   postInstall = ''
     rm "$out/bin/"*.bat
   '';

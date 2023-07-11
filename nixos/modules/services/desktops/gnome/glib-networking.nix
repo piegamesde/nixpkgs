@@ -13,7 +13,7 @@ with lib;
 
   meta = { maintainers = teams.gnome.members; };
 
-    # Added 2021-05-07
+  # Added 2021-05-07
   imports = [
       (mkRenamedOptionModule
         [
@@ -30,19 +30,17 @@ with lib;
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
     services.gnome.glib-networking = {
 
       enable = mkEnableOption (lib.mdDoc "network extensions for GLib");
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.gnome.glib-networking.enable {
 
@@ -53,7 +51,5 @@ with lib;
     environment.sessionVariables.GIO_EXTRA_MODULES = [
         "${pkgs.glib-networking.out}/lib/gio/modules"
       ];
-
   };
-
 }

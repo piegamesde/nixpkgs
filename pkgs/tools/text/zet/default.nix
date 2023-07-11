@@ -17,8 +17,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-kHIOsSR7ZxBzp4dtm2hbi8ddtlQ86x5EASk5HFmnhFo=";
 
-    # tests fail with `--release`
-    # https://github.com/yarrow/zet/pull/7
+  # tests fail with `--release`
+  # https://github.com/yarrow/zet/pull/7
   checkType = "debug";
 
   meta = with lib; {

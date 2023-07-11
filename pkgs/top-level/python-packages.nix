@@ -1639,8 +1639,8 @@ with self; {
 
   boolean-py = callPackage ../development/python-modules/boolean-py { };
 
-    # Build boost for this specific Python version
-    # TODO: use separate output for libboost_python.so
+  # Build boost for this specific Python version
+  # TODO: use separate output for libboost_python.so
   boost = toPythonModule (
     pkgs.boost.override {
       inherit (self) python numpy;
@@ -2881,10 +2881,10 @@ with self; {
 
   django = self.django_3;
 
-    # Current LTS
+  # Current LTS
   django_3 = callPackage ../development/python-modules/django/3.nix { };
 
-    # Current latest
+  # Current latest
   django_4 = callPackage ../development/python-modules/django/4.nix { };
 
   django-admin-sortable2 =
@@ -3009,7 +3009,7 @@ with self; {
     callPackage ../development/python-modules/django-hijack-admin { };
 
   django_hijack = callPackage ../development/python-modules/django-hijack { };
-    # This package may need an older version of Django. Override the package set and set e.g. `django = super.django_1_9`. See the Nixpkgs manual for examples on how to override the package set.
+  # This package may need an older version of Django. Override the package set and set e.g. `django = super.django_1_9`. See the Nixpkgs manual for examples on how to override the package set.
 
   django-import-export =
     callPackage ../development/python-modules/django-import-export { };
@@ -4825,7 +4825,7 @@ with self; {
   greeneye-monitor =
     callPackage ../development/python-modules/greeneye-monitor { };
 
-    # built-in for pypi
+  # built-in for pypi
   greenlet =
     if isPyPy then
       null
@@ -5621,10 +5621,8 @@ with self; {
   };
 
   jaxlib-build = callPackage ../development/python-modules/jaxlib rec {
-    inherit (pkgs.darwin)
-      cctools
-      ;
-      # Some platforms don't have `cudaSupport` defined, hence the need for 'or false'.
+    inherit (pkgs.darwin) cctools;
+    # Some platforms don't have `cudaSupport` defined, hence the need for 'or false'.
     cudaSupport = pkgs.config.cudaSupport or false;
     IOKit = pkgs.darwin.apple_sdk_11_0.IOKit;
     protobuf =
@@ -8731,13 +8729,13 @@ with self; {
 
   proto-plus = callPackage ../development/python-modules/proto-plus { };
 
-    # Protobuf 4.x
+  # Protobuf 4.x
   protobuf = callPackage ../development/python-modules/protobuf {
     # If a protobuf upgrade causes many Python packages to fail, please pin it here to the previous version.
     inherit (pkgs) protobuf;
   };
 
-    # Protobuf 3.x
+  # Protobuf 3.x
   protobuf3 = callPackage ../development/python-modules/protobuf {
     protobuf = pkgs.protobuf3_20;
   };
@@ -9839,10 +9837,10 @@ with self; {
 
   pyqt5_with_qtmultimedia = self.pyqt5.override { withMultimedia = true; };
 
-    /* `pyqt5_with_qtwebkit` should not be used by python libraries in
-       pkgs/development/python-modules/*. Putting this attribute in
-       `propagatedBuildInputs` may cause collisions.
-    */
+  /* `pyqt5_with_qtwebkit` should not be used by python libraries in
+     pkgs/development/python-modules/*. Putting this attribute in
+     `propagatedBuildInputs` may cause collisions.
+  */
   pyqt5_with_qtwebkit = self.pyqt5.override { withWebKit = true; };
 
   pyqt6 = callPackage ../development/python-modules/pyqt/6.x.nix { };
@@ -13278,10 +13276,10 @@ with self; {
 
   tornado = callPackage ../development/python-modules/tornado { };
 
-    # Used by circus and grab-site, 2020-08-29
+  # Used by circus and grab-site, 2020-08-29
   tornado_4 = callPackage ../development/python-modules/tornado/4.nix { };
 
-    # Used by streamlit, 2021-01-29
+  # Used by streamlit, 2021-01-29
   tornado_5 = callPackage ../development/python-modules/tornado/5.nix { };
 
   torpy = callPackage ../development/python-modules/torpy { };

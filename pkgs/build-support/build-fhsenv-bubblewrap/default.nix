@@ -116,9 +116,9 @@ let
     map (path: "/etc/${path}") files
     ;
 
-    # Create this on the fly instead of linking from /nix
-    # The container might have to modify it and re-run ldconfig if there are
-    # issues running some binary with LD_LIBRARY_PATH
+  # Create this on the fly instead of linking from /nix
+  # The container might have to modify it and re-run ldconfig if there are
+  # issues running some binary with LD_LIBRARY_PATH
   createLdConfCache = ''
     cat > /etc/ld.so.conf <<EOF
     /lib

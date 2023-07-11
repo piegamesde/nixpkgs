@@ -38,13 +38,13 @@ let
     # Proc filesystem
     ProcSubset = "pid";
     ProtectProc = "invisible";
-      # Access write directories
+    # Access write directories
     UMask = "0027";
-      # Capabilities
+    # Capabilities
     CapabilityBoundingSet = "";
-      # Security
+    # Security
     NoNewPrivileges = true;
-      # Sandboxing
+    # Sandboxing
     ProtectSystem = "strict";
     ProtectHome = true;
     PrivateTmp = true;
@@ -62,7 +62,7 @@ let
     RestrictSUIDSGID = true;
     RemoveIPC = true;
     PrivateMounts = true;
-      # System Call Filtering
+    # System Call Filtering
     SystemCallArchitectures = "native";
   };
 
@@ -107,7 +107,6 @@ let
       add_header Access-Control-Allow-Headers   'Range,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
     ''
     ;
-
 in
 {
   options.services.peertube = {
@@ -511,13 +510,13 @@ in
       serviceConfig = {
         Type = "oneshot";
         WorkingDirectory = cfg.package;
-          # User and group
+        # User and group
         User = "postgres";
         Group = "postgres";
-          # Sandboxing
+        # Sandboxing
         RestrictAddressFamilies = [ "AF_UNIX" ];
         MemoryDenyWriteExecute = true;
-          # System Call Filtering
+        # System Call Filtering
         SystemCallFilter =
           "~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]);
       } // cfgService;
@@ -590,20 +589,20 @@ in
         TimeoutSec = 60;
         WorkingDirectory = cfg.package;
         SyslogIdentifier = "peertube";
-          # User and group
+        # User and group
         User = cfg.user;
         Group = cfg.group;
-          # State directory and mode
+        # State directory and mode
         StateDirectory = "peertube";
         StateDirectoryMode = "0750";
-          # Cache directory and mode
+        # Cache directory and mode
         CacheDirectory = "peertube";
         CacheDirectoryMode = "0750";
-          # Access write directories
+        # Access write directories
         ReadWritePaths = cfg.dataDirs;
-          # Environment
+        # Environment
         EnvironmentFile = cfg.serviceEnvironmentFile;
-          # Sandboxing
+        # Sandboxing
         RestrictAddressFamilies = [
           "AF_UNIX"
           "AF_INET"
@@ -611,7 +610,7 @@ in
           "AF_NETLINK"
         ];
         MemoryDenyWriteExecute = false;
-          # System Call Filtering
+        # System Call Filtering
         SystemCallFilter = [
           ("~" + lib.concatStringsSep " " systemCallsList)
           "pipe"
@@ -625,7 +624,7 @@ in
       virtualHosts."${cfg.localDomain}" = {
         root = "/var/lib/peertube";
 
-          # Application
+        # Application
         locations."/" = {
           tryFiles = "/dev/null @api";
           priority = 1110;
@@ -701,7 +700,7 @@ in
           '';
         };
 
-          # Websocket
+        # Websocket
         locations."/socket.io" = {
           tryFiles = "/dev/null @api_websocket";
           priority = 1210;
@@ -736,7 +735,7 @@ in
           '';
         };
 
-          # Bypass PeerTube for performance reasons.
+        # Bypass PeerTube for performance reasons.
         locations."~ ^/client/(assets/images/(icons/icon-36x36.png|icons/icon-48x48.png|icons/icon-72x72.png|icons/icon-96x96.png|icons/icon-144x144.png|icons/icon-192x192.png|icons/icon-512x512.png|logo.svg|favicon.png|default-playlist.jpg|default-avatar-account.png|default-avatar-account-48x48.png|default-avatar-video-channel.png|default-avatar-video-channel-48x48.png))$" = {
           tryFiles = "/www/client-overrides/$1 /www/client/$1 $1";
           priority = 1310;

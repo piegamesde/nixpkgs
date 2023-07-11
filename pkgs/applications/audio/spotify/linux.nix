@@ -51,12 +51,12 @@ let
   # https://aur.archlinux.org/packages/spotify/
   # https://community.spotify.com/t5/Desktop-Linux
   version = "1.2.9.743.g85d9593d";
-    # To get the latest stable revision:
-    # curl -H 'X-Ubuntu-Series: 16' 'https://api.snapcraft.io/api/v1/snaps/details/spotify?channel=stable' | jq '.download_url,.version,.last_updated'
-    # To get general information:
-    # curl -H 'Snap-Device-Series: 16' 'https://api.snapcraft.io/v2/snaps/info/spotify' | jq '.'
-    # More examples of api usage:
-    # https://github.com/canonical-websites/snapcraft.io/blob/master/webapp/publisher/snaps/views.py
+  # To get the latest stable revision:
+  # curl -H 'X-Ubuntu-Series: 16' 'https://api.snapcraft.io/api/v1/snaps/details/spotify?channel=stable' | jq '.download_url,.version,.last_updated'
+  # To get general information:
+  # curl -H 'Snap-Device-Series: 16' 'https://api.snapcraft.io/v2/snaps/info/spotify' | jq '.'
+  # More examples of api usage:
+  # https://github.com/canonical-websites/snapcraft.io/blob/master/webapp/publisher/snaps/views.py
   rev = "64";
 
   deps = [
@@ -104,22 +104,19 @@ let
     xorg.libXtst
     zlib
   ];
-
 in
+
 stdenv.mkDerivation {
-  inherit
-    pname
-    version
-    ;
+  inherit pname version;
 
-    # fetch from snapcraft instead of the debian repository most repos fetch from.
-    # That is a bit more cumbersome. But the debian repository only keeps the last
-    # two versions, while snapcraft should provide versions indefinitely:
-    # https://forum.snapcraft.io/t/how-can-a-developer-remove-her-his-app-from-snap-store/512
+  # fetch from snapcraft instead of the debian repository most repos fetch from.
+  # That is a bit more cumbersome. But the debian repository only keeps the last
+  # two versions, while snapcraft should provide versions indefinitely:
+  # https://forum.snapcraft.io/t/how-can-a-developer-remove-her-his-app-from-snap-store/512
 
-    # This is the next-best thing, since we're not allowed to re-distribute
-    # spotify ourselves:
-    # https://community.spotify.com/t5/Desktop-Linux/Redistribute-Spotify-on-Linux-Distributions/td-p/1695334
+  # This is the next-best thing, since we're not allowed to re-distribute
+  # spotify ourselves:
+  # https://community.spotify.com/t5/Desktop-Linux/Redistribute-Spotify-on-Linux-Distributions/td-p/1695334
   src = fetchurl {
     url =
       "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_${rev}.snap";
@@ -158,7 +155,7 @@ stdenv.mkDerivation {
     runHook postUnpack
   '';
 
-    # Prevent double wrapping
+  # Prevent double wrapping
   dontWrapGApps = true;
 
   installPhase = ''

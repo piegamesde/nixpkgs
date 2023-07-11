@@ -36,13 +36,13 @@
   # LLVM release information; specify one of these but not both:
   ,
   gitRelease ? null
-    # i.e.:
-    # {
-    #   version = /* i.e. "15.0.0" */;
-    #   rev = /* commit SHA */;
-    #   rev-version = /* human readable version; i.e. "unstable-2022-26-07" */;
-    #   sha256 = /* checksum for this release, can omit if specifying your own `monorepoSrc` */;
-    # }
+  # i.e.:
+  # {
+  #   version = /* i.e. "15.0.0" */;
+  #   rev = /* commit SHA */;
+  #   rev-version = /* human readable version; i.e. "unstable-2022-26-07" */;
+  #   sha256 = /* checksum for this release, can omit if specifying your own `monorepoSrc` */;
+  # }
   ,
   officialRelease ? {
     version = "16.0.1";
@@ -129,7 +129,7 @@ let
     license = lib.licenses.ncsa;
     maintainers = lib.teams.llvm.members;
 
-      # See llvm/cmake/config-ix.cmake.
+    # See llvm/cmake/config-ix.cmake.
     platforms =
       lib.platforms.aarch64
       ++ lib.platforms.arm
@@ -191,14 +191,13 @@ let
         else
           bootBintools
         ;
-
     in
     {
 
       libllvm = callPackage ./llvm { inherit llvm_meta; };
 
-        # `llvm` historically had the binaries.  When choosing an output explicitly,
-        # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
+      # `llvm` historically had the binaries.  When choosing an output explicitly,
+      # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
       llvm = tools.libllvm;
 
       libclang = callPackage ./clang { inherit llvm_meta; };
@@ -226,7 +225,7 @@ let
         }
       );
 
-        # pick clang appropriate for package set we are targeting
+      # pick clang appropriate for package set we are targeting
       clang =
         if stdenv.targetPlatform.useLLVM or false then
           tools.clangUseLLVM
@@ -238,7 +237,7 @@ let
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
-          # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
+        # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
         libcxx = null;
         extraPackages = [ targetLlvmLibraries.compiler-rt ];
         extraBuildCommands = mkExtraBuildCommands cc;
@@ -263,12 +262,12 @@ let
         inherit (darwin.apple_sdk.frameworks) Foundation Carbon Cocoa;
       };
 
-        # Below, is the LLVM bootstrapping logic. It handles building a
-        # fully LLVM toolchain from scratch. No GCC toolchain should be
-        # pulled in. As a consequence, it is very quick to build different
-        # targets provided by LLVM and we can also build for what GCC
-        # doesn’t support like LLVM. Probably we should move to some other
-        # file.
+      # Below, is the LLVM bootstrapping logic. It handles building a
+      # fully LLVM toolchain from scratch. No GCC toolchain should be
+      # pulled in. As a consequence, it is very quick to build different
+      # targets provided by LLVM and we can also build for what GCC
+      # doesn’t support like LLVM. Probably we should move to some other
+      # file.
 
       bintools-unwrapped = callPackage ./bintools { };
 
@@ -353,7 +352,6 @@ let
         extraPackages = [ ];
         extraBuildCommands = mkExtraBuildCommands0 cc;
       };
-
     }
   );
 
@@ -397,7 +395,7 @@ let
           ;
       };
 
-        # N.B. condition is safe because without useLLVM both are the same.
+      # N.B. condition is safe because without useLLVM both are the same.
       compiler-rt =
         if stdenv.hostPlatform.isAndroid then
           libraries.compiler-rt-libc
@@ -415,35 +413,33 @@ let
           # cxx-header's build does not actually use one so it doesn't really matter
           # what stdenv we use here, as long as CMake is happy.
           cxx-headers = callPackage ./libcxx {
-            inherit
-              llvm_meta
-              ;
-              # Note that if we use the regular stdenv here we'll get cycle errors
-              # when attempting to use this compiler in the stdenv.
-              #
-              # The final stdenv pulls `cxx-headers` from the package set where
-              # hostPlatform *is* the target platform which means that `stdenv` at
-              # that point attempts to use this toolchain.
-              #
-              # So, we use `stdenv_` (the stdenv containing `clang` from this package
-              # set, defined below) to sidestep this issue.
-              #
-              # Because we only use `cxx-headers` in `libcxxabi` (which depends on the
-              # clang stdenv _anyways_), this is okay.
+            inherit llvm_meta;
+            # Note that if we use the regular stdenv here we'll get cycle errors
+            # when attempting to use this compiler in the stdenv.
+            #
+            # The final stdenv pulls `cxx-headers` from the package set where
+            # hostPlatform *is* the target platform which means that `stdenv` at
+            # that point attempts to use this toolchain.
+            #
+            # So, we use `stdenv_` (the stdenv containing `clang` from this package
+            # set, defined below) to sidestep this issue.
+            #
+            # Because we only use `cxx-headers` in `libcxxabi` (which depends on the
+            # clang stdenv _anyways_), this is okay.
             stdenv = stdenv_;
             headersOnly = true;
           };
 
-            # `libcxxabi` *doesn't* need a compiler with a working C++ stdlib but it
-            # *does* need a relatively modern C++ compiler (see:
-            # https://releases.llvm.org/15.0.0/projects/libcxx/docs/index.html#platform-and-compiler-support).
-            #
-            # So, we use the clang from this LLVM package set, like libc++
-            # "boostrapping builds" do:
-            # https://releases.llvm.org/15.0.0/projects/libcxx/docs/BuildingLibcxx.html#bootstrapping-build
-            #
-            # We cannot use `clangNoLibcxx` because that contains `compiler-rt` which,
-            # on macOS, depends on `libcxxabi`, thus forming a cycle.
+          # `libcxxabi` *doesn't* need a compiler with a working C++ stdlib but it
+          # *does* need a relatively modern C++ compiler (see:
+          # https://releases.llvm.org/15.0.0/projects/libcxx/docs/index.html#platform-and-compiler-support).
+          #
+          # So, we use the clang from this LLVM package set, like libc++
+          # "boostrapping builds" do:
+          # https://releases.llvm.org/15.0.0/projects/libcxx/docs/BuildingLibcxx.html#bootstrapping-build
+          #
+          # We cannot use `clangNoLibcxx` because that contains `compiler-rt` which,
+          # on macOS, depends on `libcxxabi`, thus forming a cycle.
           stdenv_ = overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc;
         in
         callPackage ./libcxxabi {
@@ -452,9 +448,9 @@ let
         }
         ;
 
-        # Like `libcxxabi` above, `libcxx` requires a fairly modern C++ compiler,
-        # so: we use the clang from this LLVM package set instead of the regular
-        # stdenv's compiler.
+      # Like `libcxxabi` above, `libcxx` requires a fairly modern C++ compiler,
+      # so: we use the clang from this LLVM package set instead of the regular
+      # stdenv's compiler.
       libcxx = callPackage ./libcxx {
         inherit llvm_meta;
         stdenv = overrideCC stdenv buildLlvmTools.clangNoLibcxx;
@@ -468,6 +464,7 @@ let
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
     }
   );
-
 in
-{ inherit tools libraries release_version; } // libraries // tools
+{
+  inherit tools libraries release_version;
+} // libraries // tools

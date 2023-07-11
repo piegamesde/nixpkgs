@@ -110,17 +110,15 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description =
       "68K and PowerPC Mac disk partitioning utility, Adélie Linux version";
-      # http://ftp.mklinux.apple.com:/pub/Other_Tools/ but that one's looong dead, link goes to the patch compilation we're using
+    # http://ftp.mklinux.apple.com:/pub/Other_Tools/ but that one's looong dead, link goes to the patch compilation we're using
     homepage =
       "https://git.adelielinux.org/adelie/packages/-/tree/master/user/mac-fdisk";
     license = with licenses; [
       hpnd # original license statements seems to match this (in files that are shared with pdisk)
       gpl1Plus # fdisk.c
     ];
-    maintainers = with maintainers; [
-        OPNA2608
-      ];
-      # the toolchain that's being expected for Mac support (SCSI.h from Universal Headers 2.0, SIOUX.h from Metrowerks CoreWarrior) is ancient, unsure about BSDs
+    maintainers = with maintainers; [ OPNA2608 ];
+    # the toolchain that's being expected for Mac support (SCSI.h from Universal Headers 2.0, SIOUX.h from Metrowerks CoreWarrior) is ancient, unsure about BSDs
     platforms = platforms.linux;
     badPlatforms = platforms.aarch64; # missing some platform definitions
   };

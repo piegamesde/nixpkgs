@@ -20,7 +20,6 @@ let
     name = "v2ray-assets";
     paths = assets;
   };
-
 in
 buildGoModule rec {
   pname = "xray";

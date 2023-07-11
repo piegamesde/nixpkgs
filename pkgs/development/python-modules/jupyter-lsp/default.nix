@@ -16,7 +16,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ jupyter-server ];
-    # tests require network
+  # tests require network
   doCheck = false;
   pythonImportsCheck = [ "jupyter_lsp" ];
 
@@ -29,4 +29,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ ];
   };
 }
-

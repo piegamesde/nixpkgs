@@ -12,7 +12,6 @@
 let
   pname = "libbitcoin-network";
   version = "3.5.0";
-
 in
 stdenv.mkDerivation {
   name = "${pname}-${version}";
@@ -45,11 +44,9 @@ stdenv.mkDerivation {
     description = "Bitcoin P2P Network Library";
     homepage = "https://libbitcoin.info/";
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [
-        asymmetric
-      ];
+    maintainers = with maintainers; [ asymmetric ];
 
-      # AGPL with a lesser clause
+    # AGPL with a lesser clause
     license = licenses.agpl3;
   };
 }

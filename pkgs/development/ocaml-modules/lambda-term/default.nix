@@ -24,8 +24,8 @@ let
         sha256 = "1k0ykiz0vhpyyj9fkss29ajas4fh1xh449j702xkvayqipzj1mkg";
       }
     ;
-
 in
+
 buildDunePackage rec {
   pname = "lambda-term";
   inherit (params) version;

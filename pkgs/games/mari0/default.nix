@@ -52,5 +52,4 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     downloadPage = "https://stabyourself.net/mari0/";
   };
-
 }

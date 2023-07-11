@@ -47,7 +47,7 @@
   docs ? false,
   examples ? false,
   demos ? false
-    # darwin support
+  # darwin support
   ,
   libobjc,
   ApplicationServices,
@@ -61,7 +61,8 @@
 #  * move some plugins (e.g., SQL plugins) to dedicated derivations to avoid
 #    false build-time dependencies
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname =
     "qt"
     + lib.optionalString (docs && demos && examples && developerBuild) "-full"
@@ -158,7 +159,7 @@ stdenv.mkDerivation rec {
         url =
           "https://github.com/qt/qttools/commit/7138c963f9d1258bc1b49cb4d63c3e2b7d0ccfda.patch";
         sha256 = "1a9g05r267c94qpw3ssb6k4lci200vla3vm5hri1nna6xwdsmrhc";
-          # "src/" -> "tools/"
+        # "src/" -> "tools/"
         stripLen = 2;
         extraPrefix = "tools/";
       })
@@ -167,7 +168,7 @@ stdenv.mkDerivation rec {
       substituteAll (
         {
           src = ./dlopen-gtkstyle.diff;
-            # substituteAll ignores env vars starting with capital letter
+          # substituteAll ignores env vars starting with capital letter
           gtk = gtk2.out;
         } // lib.optionalAttrs gnomeStyle {
           gconf = GConf.out;
@@ -356,7 +357,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional libGLSupported libGLU
     ;
 
-    # The following libraries are only used in plugins
+  # The following libraries are only used in plugins
   buildInputs =
     [
       cups # Qt dlopen's libcups instead of linking to it
@@ -391,11 +392,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   env.NIX_CFLAGS_COMPILE = toString (
-  # with gcc7 the warnings blow the log over Hydra's limit
-    [
-      "-Wno-expansion-to-defined"
-      "-Wno-unused-local-typedefs"
-    ]
+    # with gcc7 the warnings blow the log over Hydra's limit
+    [ "-Wno-expansion-to-defined" "-Wno-unused-local-typedefs" ]
     ++ lib.optional
       stdenv.isLinux
       "-std=gnu++98" # gnu++ in (Obj)C flags is no good on Darwin

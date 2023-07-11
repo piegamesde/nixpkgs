@@ -16,8 +16,8 @@ import ./make-test-python.nix (
       }:
       let
         user = nodes.machine.config.users.users.alice;
-
       in
+
       {
         imports = [ ./common/user-account.nix ];
 

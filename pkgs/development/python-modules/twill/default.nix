@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "twill" ];
 
-    # pypi package comes without tests, other homepage does not provide all verisons
+  # pypi package comes without tests, other homepage does not provide all verisons
   doCheck = false;
 
   meta = with lib; {

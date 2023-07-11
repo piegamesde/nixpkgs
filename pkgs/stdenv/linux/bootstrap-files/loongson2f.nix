@@ -11,7 +11,6 @@ let
       executable = true;
     }
     ;
-
 in
 {
   sh = fetch {

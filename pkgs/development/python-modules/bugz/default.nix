@@ -23,5 +23,4 @@ buildPythonPackage {
     license = licenses.gpl2;
     maintainers = [ maintainers.costrouc ];
   };
-
 }

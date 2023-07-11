@@ -51,7 +51,6 @@ let
   );
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
-
 in
 {
   options.services.pdns-recursor = {
@@ -256,7 +255,6 @@ in
     };
 
     users.groups.pdns-recursor = { };
-
   };
 
   imports = [
@@ -270,5 +268,4 @@ in
     ];
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
 }

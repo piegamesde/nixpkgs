@@ -26,7 +26,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-    # PyPI tarball doesn't contains tests and source has additional requirements
+  # PyPI tarball doesn't contains tests and source has additional requirements
   doCheck = false;
 
   pythonImportsCheck = [ "tree_sitter" ];

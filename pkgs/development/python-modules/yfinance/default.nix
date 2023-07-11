@@ -40,7 +40,7 @@ buildPythonPackage rec {
     lxml
   ];
 
-    # Tests require internet access
+  # Tests require internet access
   doCheck = false;
 
   pythonImportsCheck = [ "yfinance" ];

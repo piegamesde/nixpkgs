@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ cirno-999 ];
     mainProgram = "t7z";
-      # RAR code is under non-free UnRAR license, but we remove it
+    # RAR code is under non-free UnRAR license, but we remove it
     license = licenses.gpl3Only;
   };
 }

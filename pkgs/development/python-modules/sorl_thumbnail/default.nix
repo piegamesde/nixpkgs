@@ -17,7 +17,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ setuptools-scm ];
-    # Disabled due to an improper configuration error when tested against django. This looks like something broken in the test cases for sorl.
+  # Disabled due to an improper configuration error when tested against django. This looks like something broken in the test cases for sorl.
   doCheck = false;
 
   meta = with lib; {
@@ -25,5 +25,4 @@ buildPythonPackage rec {
     description = "Thumbnails for Django";
     license = licenses.bsd3;
   };
-
 }

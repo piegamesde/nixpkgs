@@ -27,7 +27,7 @@ buildPythonPackage rec {
     jmespath
   ];
 
-    # All components are stored in a mono repo
+  # All components are stored in a mono repo
   doCheck = false;
 
   pythonRelaxDeps = true;

@@ -24,7 +24,6 @@ let
     def __init__(foo: address):
         self.count = 1
   '';
-
 in
 buildPythonPackage rec {
   pname = "vyper";

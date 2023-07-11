@@ -17,10 +17,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-    # Weird import error, only happens in testing:
-    #   File "/build/jplephem-2.17/jplephem/daf.py", line 10, in <module>
-    #     from numpy import array as numpy_array, ndarray
-    # ImportError: cannot import name 'array' from 'sys' (unknown location)
+  # Weird import error, only happens in testing:
+  #   File "/build/jplephem-2.17/jplephem/daf.py", line 10, in <module>
+  #     from numpy import array as numpy_array, ndarray
+  # ImportError: cannot import name 'array' from 'sys' (unknown location)
   doCheck = false;
 
   pythonImportsCheck = [ "jplephem" ];

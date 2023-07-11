@@ -29,7 +29,7 @@ let
   oifExpr = optionalString (cfg.externalInterface != null) ''
     oifname "${cfg.externalInterface}"'';
 
-    # Whether given IP (plus optional port) is an IPv6.
+  # Whether given IP (plus optional port) is an IPv6.
   isIPv6 = ip: length (lib.splitString ":" ip) > 2;
 
   splitIPPorts =
@@ -76,8 +76,8 @@ let
       fwdPortsRange =
         filter (x: length (splitString "-" x.destination) > 1) forwardPorts;
 
-        # nftables maps for port forward
-        # l4proto . dport : addr . port
+      # nftables maps for port forward
+      # l4proto . dport : addr . port
       toFwdMap =
         forwardPorts:
         toNftSet (
@@ -93,8 +93,8 @@ let
       fwdMap = toFwdMap fwdPorts;
       fwdRangeMap = toFwdMap fwdPortsRange;
 
-        # nftables maps for port forward loopback dnat
-        # daddr . l4proto . dport : addr . port
+      # nftables maps for port forward loopback dnat
+      # daddr . l4proto . dport : addr . port
       toFwdLoopDnatMap =
         forwardPorts:
         toNftSet (
@@ -117,8 +117,8 @@ let
       fwdLoopDnatMap = toFwdLoopDnatMap fwdPorts;
       fwdLoopDnatRangeMap = toFwdLoopDnatMap fwdPortsRange;
 
-        # nftables set for port forward loopback snat
-        # daddr . l4proto . dport
+      # nftables set for port forward loopback snat
+      # daddr . l4proto . dport
       fwdLoopSnatSet = toNftSet (
         map
         (
@@ -199,8 +199,8 @@ let
       }
     ''
     ;
-
 in
+
 {
 
   config = mkIf (config.networking.nftables.enable && cfg.enable) {
@@ -262,6 +262,5 @@ in
           ip6 saddr { ${ipv6Set} } ${oifExpr} accept comment "from internal IPv6s"
         ''}
       '';
-
   };
 }

@@ -25,17 +25,17 @@ stdenv.mkDerivation (
           else
             "free"
         };
-        # remove the unRAR related code from the src drv
-        # > the license requires that you agree to these use restrictions,
-        # > or you must remove the software (source and binary) from your hard disks
-        # https://fedoraproject.org/wiki/Licensing:Unrar
+      # remove the unRAR related code from the src drv
+      # > the license requires that you agree to these use restrictions,
+      # > or you must remove the software (source and binary) from your hard disks
+      # https://fedoraproject.org/wiki/Licensing:Unrar
       postFetch = lib.optionalString (!enableUnfree) ''
         rm -r $out/CPP/7zip/Compress/Rar*
         find $out -name makefile'*' -exec sed -i '/Rar/d' {} +
       '';
     };
 
-      # Default makefile is full of impurities on Darwin. The patch doesn't hurt Linux so I'm leaving it unconditional
+    # Default makefile is full of impurities on Darwin. The patch doesn't hurt Linux so I'm leaving it unconditional
     postPatch =
       ''
         sed -i '/CC=\/usr/d' makefile.macosx_llvm_64bits
@@ -89,16 +89,20 @@ stdenv.mkDerivation (
       description =
         "A new p7zip fork with additional codecs and improvements (forked from https://sourceforge.net/projects/p7zip/)";
       license = with licenses;
-      # p7zip code is largely lgpl2Plus
-      # CPP/7zip/Compress/LzfseDecoder.cpp is bsd3
+        # p7zip code is largely lgpl2Plus
+        # CPP/7zip/Compress/LzfseDecoder.cpp is bsd3
         [
           lgpl2Plus # and
           bsd3
         ]
         ++
         # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
-        # the unRAR compression code is disabled by default
-        lib.optionals enableUnfree [ unfree ];
+          # the unRAR compression code is disabled by default
+          lib.optionals
+          enableUnfree
+          [
+            unfree
+          ];
       maintainers = with maintainers; [
         raskin
         jk

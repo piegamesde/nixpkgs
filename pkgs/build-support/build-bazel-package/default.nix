@@ -31,18 +31,18 @@ args@{
   removeLocalConfigCc ? true,
   removeLocal ? true
 
-    # Use build --nobuild instead of fetch. This allows fetching the dependencies
-    # required for the build as configured, rather than fetching all the dependencies
-    # which may not work in some situations (e.g. Java code which ends up relying on
-    # Debian-specific /usr/share/java paths, but doesn't in the configured build).
+  # Use build --nobuild instead of fetch. This allows fetching the dependencies
+  # required for the build as configured, rather than fetching all the dependencies
+  # which may not work in some situations (e.g. Java code which ends up relying on
+  # Debian-specific /usr/share/java paths, but doesn't in the configured build).
   ,
   fetchConfigured ? true
 
-    # Don’t add Bazel --copt and --linkopt from NIX_CFLAGS_COMPILE /
-    # NIX_LDFLAGS. This is necessary when using a custom toolchain which
-    # Bazel wants all headers / libraries to come from, like when using
-    # CROSSTOOL. Weirdly, we can still get the flags through the wrapped
-    # compiler.
+  # Don’t add Bazel --copt and --linkopt from NIX_CFLAGS_COMPILE /
+  # NIX_LDFLAGS. This is necessary when using a custom toolchain which
+  # Bazel wants all headers / libraries to come from, like when using
+  # CROSSTOOL. Weirdly, we can still get the flags through the wrapped
+  # compiler.
   ,
   dontAddBazelOpts ? false,
   ...
@@ -90,8 +90,8 @@ let
         ${lib.strings.concatStringsSep " " targets}
     ''
     ;
-    # we need this to chmod dangling symlinks on darwin, gnu coreutils refuses to do so:
-    # chmod: cannot operate on dangling symlink '$symlink'
+  # we need this to chmod dangling symlinks on darwin, gnu coreutils refuses to do so:
+  # chmod: cannot operate on dangling symlink '$symlink'
   chmodder = writeCBin "chmodder" ''
     #include <stdio.h>
     #include <stdlib.h>

@@ -28,7 +28,7 @@ buildPythonPackage rec {
     py-vapid
   ];
 
-    # no tests, just a script
+  # no tests, just a script
   doCheck = false;
 
   meta = with lib; {

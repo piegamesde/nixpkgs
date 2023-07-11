@@ -34,7 +34,7 @@ buildPythonPackage rec {
     zeroconf
   ];
 
-    # no tests available
+  # no tests available
   doCheck = false;
 
   pythonImportsCheck = [ "pychromecast" ];

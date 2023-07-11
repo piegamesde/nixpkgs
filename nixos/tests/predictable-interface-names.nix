@@ -63,11 +63,9 @@ pkgs.lib.listToAttrs (
             networking.usePredictableInterfaceNames = lib.mkForce predictable;
             networking.useNetworkd = withNetworkd;
             networking.dhcpcd.enable = !withNetworkd;
-            networking.useDHCP =
-              !withNetworkd
-              ;
+            networking.useDHCP = !withNetworkd;
 
-              # Check if predictable interface names are working in stage-1
+            # Check if predictable interface names are working in stage-1
             boot.initrd.postDeviceCommands = script;
 
             boot.initrd.systemd = lib.mkIf systemdStage1 {

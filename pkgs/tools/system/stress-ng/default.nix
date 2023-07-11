@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     sed -i '/\#include <bsd\/string.h>/i #undef HAVE_STRLCAT\n#undef HAVE_STRLCPY' stress-ng.h
   ''; # needed because of Darwin patch on libbsd
 
-    # All platforms inputs then Linux-only ones
+  # All platforms inputs then Linux-only ones
   buildInputs =
     [
       judy
@@ -57,10 +57,10 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isMusl "-D_LINUX_SYSINFO_H=1";
 
-    # Won't build on i686 because the binary will be linked again in the
-    # install phase without checking the dependencies. This will prevent
-    # triggering the rebuild. Why this only happens on i686 remains a
-    # mystery, though. :-(
+  # Won't build on i686 because the binary will be linked again in the
+  # install phase without checking the dependencies. This will prevent
+  # triggering the rebuild. Why this only happens on i686 remains a
+  # mystery, though. :-(
   enableParallelBuilding = (!stdenv.isi686);
 
   meta = with lib; {

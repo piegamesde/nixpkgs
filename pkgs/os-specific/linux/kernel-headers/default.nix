@@ -54,10 +54,10 @@ let
       strictDeps = true;
       enableParallelBuilding = true;
 
-        # It may look odd that we use `stdenvNoCC`, and yet explicit depend on a cc.
-        # We do this so we have a build->build, not build->host, C compiler.
+      # It may look odd that we use `stdenvNoCC`, and yet explicit depend on a cc.
+      # We do this so we have a build->build, not build->host, C compiler.
       depsBuildBuild = [ buildPackages.stdenv.cc ];
-        # `elf-header` is null when libc provides `elf.h`.
+      # `elf-header` is null when libc provides `elf.h`.
       nativeBuildInputs =
         [
           perl
@@ -99,7 +99,7 @@ let
         "HOSTCXX:=$(CXX_FOR_BUILD)"
       ];
 
-        # Skip clean on darwin, case-sensitivity issues.
+      # Skip clean on darwin, case-sensitivity issues.
       buildPhase =
         lib.optionalString (!stdenvNoCC.buildPlatform.isDarwin) ''
           make mrproper $makeFlags
@@ -121,11 +121,11 @@ let
         make headers_check $makeFlags
       '';
 
-        # The following command requires rsync:
-        #   make headers_install INSTALL_HDR_PATH=$out $makeFlags
-        # but rsync depends on popt which does not compile on aarch64 without
-        # updateAutotoolsGnuConfigScriptsHook which is not enabled in stage2,
-        # so we replicate it with cp. This also reduces bootstrap closure size.
+      # The following command requires rsync:
+      #   make headers_install INSTALL_HDR_PATH=$out $makeFlags
+      # but rsync depends on popt which does not compile on aarch64 without
+      # updateAutotoolsGnuConfigScriptsHook which is not enabled in stage2,
+      # so we replicate it with cp. This also reduces bootstrap closure size.
       installPhase =
         ''
           mkdir -p $out

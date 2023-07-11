@@ -25,7 +25,7 @@ buildDunePackage rec {
     fmt
   ];
 
-    # Testr are not compatible with menhir 20211128
+  # Testr are not compatible with menhir 20211128
   doCheck = false;
 
   meta = {

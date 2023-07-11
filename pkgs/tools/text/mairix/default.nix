@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-    # https://github.com/rc0/mairix/pull/19
+  # https://github.com/rc0/mairix/pull/19
   patches = [ ./mmap.patch ];
 
   enableParallelBuilding = true;

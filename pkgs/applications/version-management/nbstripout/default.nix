@@ -15,8 +15,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-kGW83RSIs4bk88CB/8HUj0UTovjYv00NmiggjF2v6dM=";
   };
 
-    # for some reason, darwin uses /bin/sh echo native instead of echo binary, so
-    # force using the echo binary
+  # for some reason, darwin uses /bin/sh echo native instead of echo binary, so
+  # force using the echo binary
   postPatch = ''
     substituteInPlace tests/test-git.t --replace "echo" "${coreutils}/bin/echo"
   '';

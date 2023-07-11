@@ -20,7 +20,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-    # does not contain tests
+  # does not contain tests
   doCheck = false;
 
   pythonImportsCheck = [

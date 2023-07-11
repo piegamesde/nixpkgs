@@ -3,7 +3,8 @@
 }:
 
 # Minimal shell for use as basic /bin/sh in sandbox builds
-busybox.override {
+busybox.override
+{
   enableStatic = true;
   enableMinimal = true;
   extraConfig = ''

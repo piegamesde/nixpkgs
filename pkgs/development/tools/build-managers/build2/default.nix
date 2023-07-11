@@ -61,11 +61,11 @@ stdenv.mkDerivation rec {
     libpkgconf
   ];
 
-    # Build2 uses @rpath on darwin
-    # https://github.com/build2/build2/issues/166
-    # N.B. this only adjusts the install_name after all libraries are installed;
-    # packages containing multiple interdependent libraries may have
-    # LC_LOAD_DYLIB entries containing @rpath, requiring manual fixup
+  # Build2 uses @rpath on darwin
+  # https://github.com/build2/build2/issues/166
+  # N.B. this only adjusts the install_name after all libraries are installed;
+  # packages containing multiple interdependent libraries may have
+  # LC_LOAD_DYLIB entries containing @rpath, requiring manual fixup
   propagatedBuildInputs =
     lib.optionals stdenv.targetPlatform.isDarwin [ fixDarwinDylibNames ];
 

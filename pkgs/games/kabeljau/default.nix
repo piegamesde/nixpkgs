@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-RedVItgfr6vgqXHA3bOiHXDpfGuHI+sX4jCHL9G5jYk=";
   };
 
-    # Inkscape is needed in a just recipe where it is used to export the SVG icon to several different sized PNGs.
+  # Inkscape is needed in a just recipe where it is used to export the SVG icon to several different sized PNGs.
   nativeBuildInputs = [
     just
     inkscape

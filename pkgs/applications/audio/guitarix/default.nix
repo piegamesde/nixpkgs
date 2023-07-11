@@ -41,8 +41,8 @@
 
 let
   inherit (lib) optional;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "guitarix";
   version = "0.44.1";

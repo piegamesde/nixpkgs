@@ -47,8 +47,8 @@ let
   ];
 
   pname = "catppuccin-gtk";
-
 in
+
 lib.checkListOfEnum "${pname}: theme accent" validAccents accents
 lib.checkListOfEnum
 "${pname}: color variant"

@@ -36,7 +36,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-    # Tests require a running NATS server
+  # Tests require a running NATS server
   doCheck = false;
 
   pythonImportsCheck = [ "pynats" ];

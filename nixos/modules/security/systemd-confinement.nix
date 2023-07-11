@@ -131,17 +131,17 @@ in
                 TemporaryFileSystem = "/";
                 PrivateMounts = lib.mkDefault true;
 
-                  # https://github.com/NixOS/nixpkgs/issues/14645 is a future attempt
-                  # to change some of these to default to true.
-                  #
-                  # If we run in chroot-only mode, having something like PrivateDevices
-                  # set to true by default will mount /dev within the chroot, whereas
-                  # with "chroot-only" it's expected that there are no /dev, /proc and
-                  # /sys file systems available.
-                  #
-                  # However, if this suddenly becomes true, the attack surface will
-                  # increase, so let's explicitly set these options to true/false
-                  # depending on the mode.
+                # https://github.com/NixOS/nixpkgs/issues/14645 is a future attempt
+                # to change some of these to default to true.
+                #
+                # If we run in chroot-only mode, having something like PrivateDevices
+                # set to true by default will mount /dev within the chroot, whereas
+                # with "chroot-only" it's expected that there are no /dev, /proc and
+                # /sys file systems available.
+                #
+                # However, if this suddenly becomes true, the attack surface will
+                # increase, so let's explicitly set these options to true/false
+                # depending on the mode.
                 MountAPIVFS = wantsAPIVFS;
                 PrivateDevices = wantsAPIVFS;
                 PrivateTmp = wantsAPIVFS;

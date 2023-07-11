@@ -31,11 +31,11 @@ stdenv.mkDerivation rec {
     obs-studio
   ];
 
-    # - We need "getLib" instead of default derivation, otherwise it brings gstreamer-bin;
-    # - without gst-plugins-base it won't even show proper errors in logs;
-    # - Without gst-plugins-bad it won't find element "h264parse";
-    # - gst-plugins-ugly adds "x264" to "Encoder type";
-    # Tip: "could not link appsrc to videoconvert1" can mean a lot of things, enable GST_DEBUG=2 for help.
+  # - We need "getLib" instead of default derivation, otherwise it brings gstreamer-bin;
+  # - without gst-plugins-base it won't even show proper errors in logs;
+  # - Without gst-plugins-bad it won't find element "h264parse";
+  # - gst-plugins-ugly adds "x264" to "Encoder type";
+  # Tip: "could not link appsrc to videoconvert1" can mean a lot of things, enable GST_DEBUG=2 for help.
   passthru.obsWrapperArguments =
     let
       gstreamerHook =
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Fix output directory
+  # Fix output directory
   postInstall = ''
     mkdir $out/lib/obs-plugins
     mv $out/lib/obs-gstreamer.so $out/lib/obs-plugins/

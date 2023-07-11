@@ -35,5 +35,4 @@
     # swraid
     zfsroot
     ;
-
 }

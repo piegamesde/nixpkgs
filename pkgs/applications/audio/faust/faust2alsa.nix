@@ -26,5 +26,4 @@ faust.wrapWithBuildEnv {
     gtk2
     pango
   ];
-
 }

@@ -19,8 +19,8 @@ let
     + " --search "
     + (getLuaPath path "lib")
   );
-
 in
+
 {
 
   ###### interface
@@ -61,10 +61,9 @@ in
           ;
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -79,6 +78,5 @@ in
     };
 
     environment.systemPackages = [ awesome ];
-
   };
 }

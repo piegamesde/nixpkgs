@@ -46,7 +46,7 @@ python3Packages.buildPythonPackage rec {
       $out/share/icons/hicolor/64x64/apps/qnotero.png
   '';
 
-    # no tests executed
+  # no tests executed
   doCheck = false;
 
   meta = {

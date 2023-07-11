@@ -118,10 +118,9 @@ let
     # Sufficient for cassandra 2.x, 3.x
     CASSANDRA_CONF = "${cassandraEtc}";
 
-      # Required since cassandra 4
+    # Required since cassandra 4
     CASSANDRA_LOGBACK_CONF = "${cassandraEtc}/logback.xml";
   };
-
 in
 {
   options.services.cassandra = {

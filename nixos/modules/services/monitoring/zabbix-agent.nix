@@ -29,8 +29,8 @@ let
   configFile = pkgs.writeText "zabbix_agent.conf" (
     toKeyValue { listsAsDuplicateKeys = true; } cfg.settings
   );
-
 in
+
 {
   imports = [
       (lib.mkRemovedOptionModule
@@ -42,7 +42,7 @@ in
         "Use services.zabbixAgent.settings instead.")
     ];
 
-    # interface
+  # interface
 
   options = {
 
@@ -140,12 +140,10 @@ in
           DebugLevel = 4;
         };
       };
-
     };
-
   };
 
-    # implementation
+  # implementation
 
   config = mkIf cfg.enable {
 
@@ -181,9 +179,9 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
-        # https://www.zabbix.com/documentation/current/manual/config/items/userparameters
-        # > User parameters are commands executed by Zabbix agent.
-        # > /bin/sh is used as a command line interpreter under UNIX operating systems.
+      # https://www.zabbix.com/documentation/current/manual/config/items/userparameters
+      # > User parameters are commands executed by Zabbix agent.
+      # > /bin/sh is used as a command line interpreter under UNIX operating systems.
       path = with pkgs;
         [
           bash
@@ -202,7 +200,5 @@ in
         PrivateTmp = true;
       };
     };
-
   };
-
 }

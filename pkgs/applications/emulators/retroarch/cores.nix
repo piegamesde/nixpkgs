@@ -551,7 +551,7 @@ in
     core = "hatari";
     extraNativeBuildInputs = [ which ];
     dontConfigure = true;
-      # zlib is already included in mkLibretroCore as buildInputs
+    # zlib is already included in mkLibretroCore as buildInputs
     makeFlags = [ "EXTERNAL_ZLIB=1" ];
     meta = {
       description = "Port of Hatari to libretro";
@@ -961,10 +961,10 @@ in
   scummvm = mkLibretroCore rec {
     core = "scummvm";
     version = "unstable-2022-04-06";
-      # Commit below introduces libretro platform, that uses libretro-{deps,common} as
-      # submodules. We will probably need to introduce this as separate derivations,
-      # but for now let's just use the last known version that does not use it.
-      # https://github.com/libretro/scummvm/commit/36446fa6eb33e67cc798f56ce1a31070260e2ada
+    # Commit below introduces libretro platform, that uses libretro-{deps,common} as
+    # submodules. We will probably need to introduce this as separate derivations,
+    # but for now let's just use the last known version that does not use it.
+    # https://github.com/libretro/scummvm/commit/36446fa6eb33e67cc798f56ce1a31070260e2ada
     src = fetchFromGitHub {
       owner = "libretro";
       repo = core;
@@ -1160,7 +1160,7 @@ in
   yabause = mkLibretroCore {
     core = "yabause";
     makefile = "Makefile";
-      # Disable SSE for non-x86. DYNAREC doesn't build on aarch64.
+    # Disable SSE for non-x86. DYNAREC doesn't build on aarch64.
     makeFlags = lib.optional (!stdenv.hostPlatform.isx86) "HAVE_SSE=0";
     preBuild = "cd yabause/src/libretro";
     meta = {

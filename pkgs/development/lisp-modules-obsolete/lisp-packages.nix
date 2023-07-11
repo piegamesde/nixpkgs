@@ -158,7 +158,7 @@ let
         repo = "cluffer";
         rev = "4aad29c276a58a593064e79972ee4d77cae0af4a";
         sha256 = "1bcg13g7qb3dr8z50aihdjqa6miz5ivlc9wsj2csgv1km1mak2kj";
-          # date = 2018-09-24T04:45:36+02:00;
+        # date = 2018-09-24T04:45:36+02:00;
       };
 
       packageName = "cluffer";
@@ -198,7 +198,7 @@ let
             cp "$out/lib/common-lisp/nyxt/nyxt" "$out/bin/"
           '';
 
-            # Prevent nyxt from trying to obtain dependencies as submodules
+          # Prevent nyxt from trying to obtain dependencies as submodules
           makeFlags = [ "NYXT_SUBMODULES=false" ] ++ x.buildFlags or [ ];
 
           patches =
@@ -302,7 +302,7 @@ let
         repo = "mgl";
         rev = "e697791a9bcad3b6e7b3845246a2aa55238cfef7";
         sha256 = "sha256:09sf7nq7nmf9q7bh3a5ygl2i2n0nhrx5fk2kv5ili0ckv7g9x72s";
-          # date = 2021-10-18T14:15+02:00
+        # date = 2021-10-18T14:15+02:00
       };
       buildSystems = [
         "mgl"
@@ -341,7 +341,7 @@ let
         repo = "mgl-mat";
         rev = "3710858bc876b1b86e50f1db2abe719e92d810e7";
         sha256 = "sha256:1aa2382mi55rp8pd31dz4d94yhfzh30vkggcvmvdfrr4ngffj0dx";
-          # date = 2021-10-18T14:15+02:00
+        # date = 2021-10-18T14:15+02:00
       };
       packageName = "mgl-mat";
       buildSystems = [
@@ -351,7 +351,6 @@ let
       parasites = [ "mgl-mat/test" ];
       asdFilesToKeep = [ "mgl-mat.asd" ];
     };
-
   };
 in
 lispPackages

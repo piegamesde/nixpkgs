@@ -49,8 +49,8 @@ let
   configFile = pkgs.writeText "davmail.properties" (
     concatStringsSep "\n" (linesForAttrs cfg.config)
   );
-
 in
+
 {
   options.services.davmail = {
     enable = mkEnableOption (lib.mdDoc "davmail, an MS Exchange gateway");

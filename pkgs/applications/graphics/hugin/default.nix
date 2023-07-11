@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-    # disable installation of the python scripting interface
+  # disable installation of the python scripting interface
   cmakeFlags = [ "-DBUILD_HSI:BOOl=OFF" ];
 
   env.NIX_CFLAGS_COMPILE = "-I${ilmbase.dev}/include/OpenEXR";

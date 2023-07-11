@@ -88,7 +88,6 @@ import ./make-test-python.nix (
           users.users.bob = { isNormalUser = true; };
         }
         ;
-
     };
 
     testScript = ''

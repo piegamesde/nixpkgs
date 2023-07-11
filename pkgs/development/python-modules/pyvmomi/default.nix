@@ -26,7 +26,7 @@ buildPythonPackage rec {
     six
   ];
 
-    # Requires old version of vcrpy
+  # Requires old version of vcrpy
   doCheck = false;
 
   pythonImportsCheck = [

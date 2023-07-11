@@ -18,27 +18,23 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ expect ];
 
-    # dejagnu-1.6.3 can't successfully run tests in source tree:
-    #   https://wiki.linuxfromscratch.org/lfs/ticket/4871
+  # dejagnu-1.6.3 can't successfully run tests in source tree:
+  #   https://wiki.linuxfromscratch.org/lfs/ticket/4871
   preConfigure = ''
     mkdir build
     cd build
   '';
   configureScript = "../configure";
 
-  doCheck =
-    !(
-      with stdenv; isDarwin && isAarch64
-    )
-    ;
+  doCheck = !(with stdenv; isDarwin && isAarch64);
 
-    # Note: The test-suite *requires* /dev/pts among the `build-chroot-dirs' of
-    # the build daemon when building in a chroot.  See
-    # <https://www.mail-archive.com/nix-dev@cs.uu.nl/msg01056.html> for
-    # details.
+  # Note: The test-suite *requires* /dev/pts among the `build-chroot-dirs' of
+  # the build daemon when building in a chroot.  See
+  # <https://www.mail-archive.com/nix-dev@cs.uu.nl/msg01056.html> for
+  # details.
 
-    # The test-suite needs to have a non-empty stdin:
-    #   https://lists.gnu.org/archive/html/bug-dejagnu/2003-06/msg00002.html
+  # The test-suite needs to have a non-empty stdin:
+  #   https://lists.gnu.org/archive/html/bug-dejagnu/2003-06/msg00002.html
   checkPhase = ''
     # Provide `runtest' with a log name, otherwise it tries to run
     # `whoami', which fails when in a chroot.

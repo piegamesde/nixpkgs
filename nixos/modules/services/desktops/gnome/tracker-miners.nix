@@ -31,7 +31,7 @@ with lib;
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -45,12 +45,10 @@ with lib;
           search engine and metadata storage system.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.gnome.tracker-miners.enable {
 
@@ -61,7 +59,5 @@ with lib;
     systemd.packages = [ pkgs.tracker-miners ];
 
     services.gnome.tracker.subcommandPackages = [ pkgs.tracker-miners ];
-
   };
-
 }

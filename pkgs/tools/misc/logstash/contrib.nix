@@ -6,7 +6,8 @@
 
 # Note that plugins are supposed to be installed as:
 #   $path/logstash/{inputs,codecs,filters,outputs}/*.rb
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   version = "1.4.2";
   pname = "logstash-contrib";
 

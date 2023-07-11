@@ -82,7 +82,6 @@ let
       platforms = platforms.linux;
     };
   };
-
 in
 if plugins == [ ] then
   unwrapped
@@ -91,4 +90,3 @@ else
     inherit makeWrapper symlinkJoin plugins;
     gsignond = unwrapped;
   }
-

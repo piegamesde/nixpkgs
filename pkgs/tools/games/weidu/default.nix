@@ -14,7 +14,6 @@ let
   # 2. ocaml 4.10 defaults to safe (immutable) strings so we need a version with
   #    that disabled as weidu is strongly dependent on mutable strings
   ocaml' = ocaml-ng.ocamlPackages_4_14_unsafe_string.ocaml;
-
 in
 stdenv.mkDerivation rec {
   pname = "weidu";
@@ -68,10 +67,8 @@ stdenv.mkDerivation rec {
     description = "InfinityEngine Modding Engine";
     homepage = "https://weidu.org";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [
-        peterhoeg
-      ];
-      # should work fine on both Darwin and Windows
+    maintainers = with maintainers; [ peterhoeg ];
+    # should work fine on both Darwin and Windows
     platforms = platforms.linux;
   };
 }

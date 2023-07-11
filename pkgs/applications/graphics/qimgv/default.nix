@@ -46,8 +46,8 @@ mkDerivation rec {
       qimgv/settings.cpp
   '';
 
-    # Wrap the library path so it can see `libqimgv_player_mpv.so`, which is used
-    # to play video files within qimgv itself.
+  # Wrap the library path so it can see `libqimgv_player_mpv.so`, which is used
+  # to play video files within qimgv itself.
   qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib" ];
 
   meta = with lib; {

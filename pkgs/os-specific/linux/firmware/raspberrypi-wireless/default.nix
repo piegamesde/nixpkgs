@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation {
   sourceRoot = ".";
 
   dontBuild = true;
-    # Firmware blobs do not need fixing and should not be modified
+  # Firmware blobs do not need fixing and should not be modified
   dontFixup = true;
 
   installPhase = ''

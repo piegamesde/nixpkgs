@@ -46,9 +46,9 @@ rec {
 
   toGNUCommandLine =
     {
-    # how to string-format the option name;
-    # by default one character is a short option (`-`),
-    # more than one characters a long option (`--`).
+      # how to string-format the option name;
+      # by default one character is a short option (`-`),
+      # more than one characters a long option (`--`).
       mkOptionName ? k:
         if builtins.stringLength k == 1 then
           "-${k}"
@@ -58,12 +58,14 @@ rec {
       # how to format a boolean value to a command list;
       # by default it’s a flag option
       # (only the option name if true, left out completely if false).
-      mkBool ? k: v: lib.optional v (mkOptionName k),
+      mkBool ? k: v:
+        lib.optional v (mkOptionName k),
 
       # how to format a list value to a command list;
       # by default the option name is repeated for each value
       # and `mkOption` is applied to the values themselves.
-      mkList ? k: v: lib.concatMap (mkOption k) v,
+      mkList ? k: v:
+        lib.concatMap (mkOption k) v,
 
       # how to format any remaining value to a command list;
       # on the toplevel, booleans and lists are handled by `mkBool` and `mkList`,
@@ -90,7 +92,6 @@ rec {
         else
           mkOption k v
         ;
-
     in
     builtins.concatLists (lib.mapAttrsToList render options)
     ;

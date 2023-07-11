@@ -16,15 +16,14 @@ let
   version = "0.3.3";
   pname = "lensfun";
 
-    # Fetch a more recent version of the repo containing a more recent lens
-    # database
+  # Fetch a more recent version of the repo containing a more recent lens
+  # database
   lensfunDatabase = fetchFromGitHub {
     owner = "lensfun";
     repo = "lensfun";
     rev = "ec9412d27d5fa8f377848a59c768b12c243cb80d";
     sha256 = "sha256-/u/3oQzac/dQrgFaiYvzT5uQ108XarkXnA2DByA5sic=";
   };
-
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -45,10 +44,10 @@ stdenv.mkDerivation {
       })
     ];
 
-    # replace database with a more recent snapshot
-    # the mastr branch uses version 2 profiles, while 0.3.3 requires version 1 profiles,
-    # so we run the conversion tool the project provides,
-    # then untar the verson 1 profiles into the source dir before we build
+  # replace database with a more recent snapshot
+  # the mastr branch uses version 2 profiles, while 0.3.3 requires version 1 profiles,
+  # so we run the conversion tool the project provides,
+  # then untar the verson 1 profiles into the source dir before we build
   prePatch = ''
     rm -R data/db
     python3 ${lensfunDatabase}/tools/lensfun_convert_db_v2_to_v1.py $TMPDIR ${lensfunDatabase}/data/db

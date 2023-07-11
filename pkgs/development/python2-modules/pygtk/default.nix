@@ -82,9 +82,9 @@ buildPythonPackage rec {
       make check
     ''
     ;
-    # XXX: TypeError: Unsupported type: <class 'gtk._gtk.WindowType'>
-    # The check phase was not executed in the previous
-    # non-buildPythonPackage setup - not sure why not.
+  # XXX: TypeError: Unsupported type: <class 'gtk._gtk.WindowType'>
+  # The check phase was not executed in the previous
+  # non-buildPythonPackage setup - not sure why not.
   doCheck = false;
 
   postInstall = ''

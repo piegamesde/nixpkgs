@@ -21,7 +21,7 @@ buildGoModule rec {
     rev = "v${version}";
     sha256 = "sha256-e+IdEGrJzDRUaAViUSyXdkYv9Hfub0ytmh3pl1f/nGM=";
   };
-    # there is a nested go.mod
+  # there is a nested go.mod
   sourceRoot = "source/cmd/otelcorecol";
   vendorHash = "sha256-8OkKPrK0xLWK5hIPaI7hgCGY0g7sWbaS/1HHqoTuqxk=";
 

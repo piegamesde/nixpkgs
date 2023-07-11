@@ -24,7 +24,6 @@ let
     rev = version;
     sha256 = "sha256-mapFKeF+8jMGkxSuHaw5oUdTdSQgAdxEwF/S6iyVLbY=";
   };
-
 in
 stdenv.mkDerivation {
   inherit pname version src;

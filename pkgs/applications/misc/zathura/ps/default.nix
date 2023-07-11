@@ -47,4 +47,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ cstrahan ];
   };
 }
-

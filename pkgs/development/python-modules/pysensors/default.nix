@@ -9,7 +9,7 @@ buildPythonPackage {
   version = "2017-07-13";
   pname = "pysensors";
 
-    # note that https://pypi.org/project/PySensors/ is a different project
+  # note that https://pypi.org/project/PySensors/ is a different project
   src = fetchFromGitHub {
     owner = "bastienleonard";
     repo = "pysensors";
@@ -19,8 +19,8 @@ buildPythonPackage {
 
   buildInputs = [ lm_sensors ];
 
-    # Tests are disable because they fail on `aarch64-linux`, probably
-    # due to sandboxing
+  # Tests are disable because they fail on `aarch64-linux`, probably
+  # due to sandboxing
   doCheck = false;
 
   nativeCheckInputs = [ unittestCheckHook ];

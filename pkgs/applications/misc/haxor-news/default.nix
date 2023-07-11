@@ -10,7 +10,7 @@ let
       self: super: {
         self = py;
 
-          # not compatible with prompt_toolkit >=2.0
+        # not compatible with prompt_toolkit >=2.0
         prompt-toolkit = super.prompt-toolkit.overridePythonAttrs (
           oldAttrs: rec {
             name = "${oldAttrs.pname}-${version}";
@@ -21,7 +21,7 @@ let
             };
           }
         );
-          # Use click 7
+        # Use click 7
         click = super.click.overridePythonAttrs (
           old: rec {
             version = "7.1.2";
@@ -41,7 +41,7 @@ buildPythonApplication rec {
   pname = "haxor-news";
   version = "unstable-2020-10-20";
 
-    # haven't done a stable release in 3+ years, but actively developed
+  # haven't done a stable release in 3+ years, but actively developed
   src = fetchFromGitHub {
     owner = "donnemartin";
     repo = pname;
@@ -58,7 +58,7 @@ buildPythonApplication rec {
     six
   ];
 
-    # will fail without pre-seeded config files
+  # will fail without pre-seeded config files
   doCheck = false;
 
   nativeCheckInputs = [
@@ -78,5 +78,4 @@ buildPythonApplication rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ matthiasbeyer ];
   };
-
 }

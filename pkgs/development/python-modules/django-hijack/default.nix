@@ -12,8 +12,8 @@ buildPythonPackage rec {
   pname = "django-hijack";
   version = "3.2.6";
 
-    # the wheel comes with pre-built assets, allowing us to avoid fighting
-    # with npm/webpack/gettext to build them ourselves.
+  # the wheel comes with pre-built assets, allowing us to avoid fighting
+  # with npm/webpack/gettext to build them ourselves.
   format = "wheel";
 
   src = fetchPypi {

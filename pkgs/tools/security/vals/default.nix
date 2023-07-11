@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-    # Tests require connectivity to various backends.
+  # Tests require connectivity to various backends.
   doCheck = false;
 
   passthru.tests.version = testers.testVersion {

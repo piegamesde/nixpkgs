@@ -30,7 +30,7 @@ let
       let
         normalizeName = lib.replaceStrings [ "-" ] [ "_" ];
         extern = normalizeName dep.libName;
-          # Find a choice that matches in name and optionally version.
+        # Find a choice that matches in name and optionally version.
         findMatchOrUseExtern =
           choices:
           lib.findFirst
@@ -65,16 +65,16 @@ let
     dependencies
     ;
 
-    # Create feature arguments for rustc.
+  # Create feature arguments for rustc.
   mkRustcFeatureArgs =
     lib.concatMapStringsSep " " (f: ''--cfg feature=\"${f}\"'');
 
-    # Whether we need to use unstable command line flags
-    #
-    # Currently just needed for standard library dependencies, which have a
-    # special "noprelude:" modifier. If in later versions of Rust this is
-    # stabilized we can account for that here, too, so we don't opt into
-    # instability unnecessarily.
+  # Whether we need to use unstable command line flags
+  #
+  # Currently just needed for standard library dependencies, which have a
+  # special "noprelude:" modifier. If in later versions of Rust this is
+  # stabilized we can account for that here, too, so we don't opt into
+  # instability unnecessarily.
   needUnstableCLI =
     dependencies: lib.any (dep: dep.stdlib or false) dependencies;
 
@@ -98,15 +98,15 @@ let
 
   installCrate = import ./install-crate.nix { inherit stdenv; };
 
-    # Allow access to the rust attribute set from inside buildRustCrate, which
-    # has a parameter that shadows the name.
+  # Allow access to the rust attribute set from inside buildRustCrate, which
+  # has a parameter that shadows the name.
   rustAttrs = rust;
-
-  # The overridable pkgs.buildRustCrate function.
-  #
-  # Any unrecognized parameters will be passed as to
-  # the underlying stdenv.mkDerivation.
 in
+
+# The overridable pkgs.buildRustCrate function.
+#
+# Any unrecognized parameters will be passed as to
+# the underlying stdenv.mkDerivation.
 crate_:
 lib.makeOverridable
 (
@@ -292,9 +292,9 @@ lib.makeOverridable
     extraRustcOptsForBuildRs_ = extraRustcOptsForBuildRs;
     buildTests_ = buildTests;
 
-      # crate2nix has a hack for the old bash based build script that did split
-      # entries at `,`. No we have to work around that hack.
-      # https://github.com/kolloch/crate2nix/blame/5b19c1b14e1b0e5522c3e44e300d0b332dc939e7/crate2nix/templates/build.nix.tera#L89
+    # crate2nix has a hack for the old bash based build script that did split
+    # entries at `,`. No we have to work around that hack.
+    # https://github.com/kolloch/crate2nix/blame/5b19c1b14e1b0e5522c3e44e300d0b332dc939e7/crate2nix/templates/build.nix.tera#L89
     crateBin =
       lib.filter (bin: !(bin ? name && bin.name == ",")) (crate.crateBin or [ ])
       ;
@@ -360,11 +360,11 @@ lib.makeOverridable
           buildDependencies
       );
 
-        # Create a list of features that are enabled by the crate itself and
-        # through the features argument of buildRustCrate. Exclude features
-        # with a forward slash, since they are passed through to dependencies,
-        # and dep: features, since they're internal-only and do nothing except
-        # enable optional dependencies.
+      # Create a list of features that are enabled by the crate itself and
+      # through the features argument of buildRustCrate. Exclude features
+      # with a forward slash, since they are passed through to dependencies,
+      # and dep: features, since they're internal-only and do nothing except
+      # enable optional dependencies.
       crateFeatures = lib.optionals (crate ? features) (
         builtins.filter (f: !(lib.hasInfix "/" f || lib.hasPrefix "dep:" f)) (
           crate.features ++ features
@@ -379,8 +379,8 @@ lib.makeOverridable
         ;
       libPath = lib.optionalString (crate ? libPath) crate.libPath;
 
-        # Seed the symbol hashes with something unique every time.
-        # https://doc.rust-lang.org/1.0.0/rustc/metadata/loader/index.html#frobbing-symbols
+      # Seed the symbol hashes with something unique every time.
+      # https://doc.rust-lang.org/1.0.0/rustc/metadata/loader/index.html#frobbing-symbols
       metadata =
         let
           depsMetadata = lib.foldl' (str: dep: str + dep.metadata) "" (
@@ -402,8 +402,8 @@ lib.makeOverridable
         ;
 
       build = crate.build or "";
-        # Either set to a concrete sub path to the crate root
-        # or use `null` for auto-detect.
+      # Either set to a concrete sub path to the crate root
+      # or use `null` for auto-detect.
       workspace_member = crate.workspace_member or ".";
       crateVersion = crate.version;
       crateDescription = crate.description or "";
@@ -491,8 +491,8 @@ lib.makeOverridable
       dontStrip = !release;
       installPhase = installCrate crateName metadata buildTests;
 
-        # depending on the test setting we are either producing something with bins
-        # and libs or just test binaries
+      # depending on the test setting we are either producing something with bins
+      # and libs or just test binaries
       outputs =
         if buildTests then
           [ "out" ]

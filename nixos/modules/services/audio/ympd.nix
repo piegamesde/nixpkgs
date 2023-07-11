@@ -43,12 +43,10 @@ in
           example = 6600;
         };
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -98,7 +96,5 @@ in
         ];
       };
     };
-
   };
-
 }

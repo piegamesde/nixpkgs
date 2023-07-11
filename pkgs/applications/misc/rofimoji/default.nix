@@ -35,8 +35,8 @@ buildPythonApplication rec {
     installShellFiles
   ];
 
-    # `rofi` and the `waylandSupport` and `x11Support` dependencies
-    # contain binaries needed at runtime.
+  # `rofi` and the `waylandSupport` and `x11Support` dependencies
+  # contain binaries needed at runtime.
   propagatedBuildInputs = with lib;
     [
       configargparse
@@ -51,8 +51,8 @@ buildPythonApplication rec {
       xsel
     ];
 
-    # The 'extractors' sub-module is used for development
-    # and has additional dependencies.
+  # The 'extractors' sub-module is used for development
+  # and has additional dependencies.
   postPatch = ''
     rm -rf extractors
   '';

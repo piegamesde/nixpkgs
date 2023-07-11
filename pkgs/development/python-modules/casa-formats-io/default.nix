@@ -26,7 +26,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-    # Tests require a large (800 Mb) dataset
+  # Tests require a large (800 Mb) dataset
   doCheck = false;
 
   pythonImportsCheck = [ "casa_formats_io" ];

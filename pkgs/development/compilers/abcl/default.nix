@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ jre ];
 
-    # note for the future:
-    # if you use makeBinaryWrapper, you will trade bash for glibc, the closure will be slightly larger
+  # note for the future:
+  # if you use makeBinaryWrapper, you will trade bash for glibc, the closure will be slightly larger
   nativeBuildInputs = [
     makeWrapper
     ant

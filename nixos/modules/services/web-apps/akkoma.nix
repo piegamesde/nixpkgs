@@ -120,7 +120,7 @@ let
     replaceSec' { }
     ;
 
-    # Erlang/Elixir uses a somewhat special format for IP addresses
+  # Erlang/Elixir uses a somewhat special format for IP addresses
   erlAddr =
     addr:
     fileContents (
@@ -1105,9 +1105,9 @@ in
       groups."${cfg.group}" = { };
     };
 
-      # Confinement of the main service unit requires separation of the
-      # configuration generation into a separate unit to permit access to secrets
-      # residing outside of the chroot.
+    # Confinement of the main service unit requires separation of the
+    # configuration generation into a separate unit to permit access to secrets
+    # residing outside of the chroot.
     systemd.services.akkoma-config = {
       description = "Akkoma social network configuration";
       reloadTriggers = [ configFile ] ++ secretPaths;
@@ -1168,8 +1168,8 @@ in
         description = "Akkoma social network";
         documentation = [ "https://docs.akkoma.dev/stable/" ];
 
-          # This service depends on network-online.target and is sequenced after
-          # it because it requires access to the Internet to function properly.
+        # This service depends on network-online.target and is sequenced after
+        # it because it requires access to the Internet to function properly.
         bindsTo = [ "akkoma-config.service" ];
         wants = [ "network-online.service" ];
         wantedBy = [ "multi-user.target" ];
@@ -1189,7 +1189,7 @@ in
           Group = cfg.group;
           UMask = "0077";
 
-            # The run‐time directory is preserved as it is managed by the akkoma-config.service unit.
+          # The run‐time directory is preserved as it is managed by the akkoma-config.service unit.
           RuntimeDirectory = "akkoma";
           RuntimeDirectoryPreserve = true;
 
@@ -1278,7 +1278,7 @@ in
           DeviceAllow = null;
           DevicePolicy = "closed";
 
-            # SMTP adapter uses dynamic port 0 binding, which is incompatible with bind address filtering
+          # SMTP adapter uses dynamic port 0 binding, which is incompatible with bind address filtering
           SocketBindAllow = mkIf (!hasSmtp) (
             mkMerge [
               [

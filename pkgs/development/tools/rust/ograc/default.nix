@@ -22,4 +22,3 @@ rustPlatform.buildRustPackage {
     maintainers = with maintainers; [ sciencentistguy ];
   };
 }
-

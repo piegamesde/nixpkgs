@@ -28,10 +28,9 @@ stdenv.mkDerivation {
     homepage = "https://github.com/simon-v/bean-add/";
     description = "beancount transaction entry assistant";
 
-      # The (only) source file states:
-      #   License: "Do what you feel is right, but don't be a jerk" public license.
+    # The (only) source file states:
+    #   License: "Do what you feel is right, but don't be a jerk" public license.
 
     maintainers = with lib.maintainers; [ matthiasbeyer ];
   };
 }
-

@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ httpx ];
 
-    # disable coverage options as they don't provide us value, and they break the defalt pytestCheckHook
+  # disable coverage options as they don't provide us value, and they break the defalt pytestCheckHook
   preCheck = ''
     sed -i '/addopts/d' ./setup.cfg
   '';

@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     install -vD src/txt/* $out/${python3.sitePackages}/src/txt/
   '';
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   meta = with lib; {

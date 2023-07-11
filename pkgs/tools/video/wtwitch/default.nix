@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-CHIAxUF0kvt8iV5xRbX5zuOCIecH7NoviQOYiOK0CgY=";
   };
 
-    # hardcode SCRIPT_NAME because #150841
+  # hardcode SCRIPT_NAME because #150841
   postPatch = ''
     substituteInPlace src/wtwitch --replace 'readonly SCRIPT_NAME="''${0##*/}"' 'readonly SCRIPT_NAME="wtwitch"'
   '';

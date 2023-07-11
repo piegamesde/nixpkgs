@@ -28,7 +28,6 @@ let
   withVLC = stdenv.isDarwin;
 
   inherit (lib) optional optionalString;
-
 in
 stdenv.mkDerivation rec {
   pname = "gemrb";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # libvlc isn't being detected properly as of 0.9.0, so set it
+  # libvlc isn't being detected properly as of 0.9.0, so set it
   LIBVLC_INCLUDE_PATH = optionalString withVLC "${lib.getDev libvlc}/include";
   LIBVLC_LIBRARY_PATH = optionalString withVLC "${lib.getLib libvlc}/lib";
 

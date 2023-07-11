@@ -30,7 +30,7 @@ buildPythonPackage rec {
     click
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pyprosegur" ];

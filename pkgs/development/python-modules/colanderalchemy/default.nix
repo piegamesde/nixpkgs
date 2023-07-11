@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-    # Tests are not included in Pypi
+  # Tests are not included in Pypi
   doCheck = false;
 
   meta = with lib; {

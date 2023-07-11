@@ -11,7 +11,7 @@ with lib;
 {
   meta = { maintainers = teams.gnome.members; };
 
-    # Added 2021-05-07
+  # Added 2021-05-07
   imports = [
       (mkRenamedOptionModule
         [
@@ -28,7 +28,7 @@ with lib;
         ])
     ];
 
-    ###### interface
+  ###### interface
   options = {
     services.gnome.gnome-remote-desktop = {
       enable =
@@ -36,7 +36,7 @@ with lib;
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf config.services.gnome.gnome-remote-desktop.enable {
     services.pipewire.enable = true;
 

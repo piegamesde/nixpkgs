@@ -64,7 +64,7 @@ let
     )
     ;
 
-    # generateSection includes a final newline hence weird closing brace
+  # generateSection includes a final newline hence weird closing brace
   mkConf =
     settings:
     if settings.global or false then
@@ -272,7 +272,6 @@ in
                   '';
                 };
               };
-
             }
           )
         );

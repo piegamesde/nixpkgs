@@ -15,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-vIl50yDVt5AW5lteWYqhAPlu8ErroOOJ1N/sfE2fbBU=";
   };
 
-    # Tests are out-dated as the last upstream release is from 2016
+  # Tests are out-dated as the last upstream release is from 2016
   doCheck = false;
 
   pythonImportsCheck = [ "DistUtilsExtra" ];

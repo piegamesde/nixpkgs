@@ -34,8 +34,8 @@ let
     }
     ${cfg.extraConfig}
   '';
-
 in
+
 {
 
   ###### interface
@@ -101,10 +101,9 @@ in
         description = lib.mdDoc "Extra configuration";
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.aerospike.enable {
 
@@ -154,7 +153,5 @@ in
         install -d -m0700 -o ${serviceConfig.User} -g ${serviceConfig.Group} "${cfg.workDir}/udf/lua"
       '';
     };
-
   };
-
 }

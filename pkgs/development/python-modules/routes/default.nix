@@ -25,7 +25,7 @@ buildPythonPackage rec {
     webob
   ];
 
-    # incompatible with latest soupsieve
+  # incompatible with latest soupsieve
   doCheck = false;
 
   pythonImportsCheck = [ "routes" ];

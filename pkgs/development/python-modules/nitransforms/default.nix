@@ -31,8 +31,8 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
-    # relies on data repo (https://github.com/nipreps-data/nitransforms-tests);
-    # probably too heavy
+  # relies on data repo (https://github.com/nipreps-data/nitransforms-tests);
+  # probably too heavy
   pythonImportsCheck = [
     "nitransforms"
     "nitransforms.base"

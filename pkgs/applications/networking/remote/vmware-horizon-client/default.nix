@@ -19,10 +19,10 @@ let
     else
       throw "Unsupported system: ${stdenv.hostPlatform.system}"
     ;
-    # The downloaded archive also contains ARM binaries, but these have not been tested.
+  # The downloaded archive also contains ARM binaries, but these have not been tested.
 
-    # For USB support, ensure that /var/run/vmware/<YOUR-UID>
-    # exists and is owned by you. Then run vmware-usbarbitrator as root.
+  # For USB support, ensure that /var/run/vmware/<YOUR-UID>
+  # exists and is owned by you. Then run vmware-usbarbitrator as root.
   bins = [
     "vmware-view"
     "vmware-usbarbitrator"
@@ -30,8 +30,8 @@ let
 
   mainProgram = "vmware-view";
 
-    # This forces the default GTK theme (Adwaita) because Horizon is prone to
-    # UI usability issues when using non-default themes, such as Adwaita-dark.
+  # This forces the default GTK theme (Adwaita) because Horizon is prone to
+  # UI usability issues when using non-default themes, such as Adwaita-dark.
   wrapBinCommands =
     name: ''
       makeWrapper "$out/bin/${name}" "$out/bin/${name}_wrapper" \
@@ -137,7 +137,6 @@ let
   binLinkCommands = lib.concatMapStringsSep "\n"
     (bin: "ln -s ${vmwareFHSUserEnv bin}/bin/${bin} $out/bin/")
     bins;
-
 in
 stdenv.mkDerivation {
   pname = "vmware-horizon-client";

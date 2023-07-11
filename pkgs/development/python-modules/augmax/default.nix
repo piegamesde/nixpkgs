@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "khdlr";
     repo = pname;
-      # augmax does not have releases tagged. See https://github.com/khdlr/augmax/issues/5.
+    # augmax does not have releases tagged. See https://github.com/khdlr/augmax/issues/5.
     rev = "3e5d85d6921a1e519987d33f226bc13f61e04d04";
     sha256 = "046n43v7161w7najzlbi0443q60436xv24nh1mv23yw6psqqhx5i";
   };
@@ -25,8 +25,8 @@ buildPythonPackage rec {
     jax
   ];
 
-    # augmax does not have any tests at the time of writing (2022-02-19), but
-    # jaxlib is necessary for the pythonImportsCheckPhase.
+  # augmax does not have any tests at the time of writing (2022-02-19), but
+  # jaxlib is necessary for the pythonImportsCheckPhase.
   nativeCheckInputs = [ jaxlib ];
 
   pythonImportsCheck = [ "augmax" ];

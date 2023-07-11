@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.services.orangefs.client;
-
 in
 {
   ###### interface
@@ -69,7 +68,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.orangefs ];
@@ -107,4 +106,3 @@ in
       cfg.fileSystems;
   };
 }
-

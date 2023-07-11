@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation rec {
   pname = "tds_fdw";
-    # Move to stable version when it's released.
+  # Move to stable version when it's released.
   version = "unstable-2021-12-14";
 
   buildInputs = [

@@ -41,14 +41,14 @@ rec {
       hash = "sha256-H3GKN0Pq1VFD5+SWxm8CXUVO7zAyj/ngKVmDaG/aRT4=";
       fetchSubmodules = true;
     };
-      # just for submodule IIRC
+    # just for submodule IIRC
     nativeBuildInputs = [ git ];
   };
 
-    /* Upstream isn't interested in packaging this as a library
-       (or accepting all of the patches we need to do so).
-       This creates one without disturbing upstream too much.
-    */
+  /* Upstream isn't interested in packaging this as a library
+     (or accepting all of the patches we need to do so).
+     This creates one without disturbing upstream too much.
+  */
   oildev = python27.pkgs.buildPythonPackage rec {
     pname = "oildev-unstable";
     version = "2021-07-14";
@@ -56,23 +56,23 @@ rec {
     src = fetchFromGitHub {
       owner = "oilshell";
       repo = "oil";
-        # rev == present HEAD of release/0.14.0
+      # rev == present HEAD of release/0.14.0
       rev = "3d0427e222f7e42ae7be90c706d7fde555efca2e";
       hash = "sha256-XMoNkBEEmD6AwNSu1uSh3OcWLfy4/ADtRckn/Pj2cP4=";
 
-        /* It's not critical to drop most of these; the primary target is
-           the vendored fork of Python-2.7.13, which is ~ 55M and over 3200
-           files, dozens of which get interpreter script patches in fixup.
+      /* It's not critical to drop most of these; the primary target is
+         the vendored fork of Python-2.7.13, which is ~ 55M and over 3200
+         files, dozens of which get interpreter script patches in fixup.
 
-           Note: -f is necessary to keep it from being a pain to update
-           hash on rev updates. Command will fail w/o and not print hash.
-        */
+         Note: -f is necessary to keep it from being a pain to update
+         hash on rev updates. Command will fail w/o and not print hash.
+      */
       postFetch = ''
         rm -rf $out/{Python-2.7.13,metrics,py-yajl,rfc,gold,web,testdata,services,demo,devtools}
       '';
     };
 
-      # patch to support a python package, pass tests on macOS, drop deps, etc.
+    # patch to support a python package, pass tests on macOS, drop deps, etc.
     patchSrc = fetchFromGitHub {
       owner = "abathur";
       repo = "nix-py-dev-oil";
@@ -120,20 +120,20 @@ rec {
       substituteInPlace osh/cmd_parse.py --replace 'elif self.c_id == Id.Op_LParen' 'elif False'
     '';
 
-      /* We did convince oil to upstream an env for specifying
-         this to support a shell.nix. Would need a patch if they
-         later drop this support. See:
-         https://github.com/oilshell/oil/blob/46900310c7e4a07a6223eb6c08e4f26460aad285/doctools/cmark.py#L30-L34
-      */
+    /* We did convince oil to upstream an env for specifying
+       this to support a shell.nix. Would need a patch if they
+       later drop this support. See:
+       https://github.com/oilshell/oil/blob/46900310c7e4a07a6223eb6c08e4f26460aad285/doctools/cmark.py#L30-L34
+    */
     _NIX_SHELL_LIBCMARK =
       "${cmark}/lib/libcmark${stdenv.hostPlatform.extensions.sharedLibrary}";
 
-      # See earlier note on glibcLocales TODO: verify needed?
+    # See earlier note on glibcLocales TODO: verify needed?
     LOCALE_ARCHIVE = lib.optionalString
       (stdenv.buildPlatform.libc == "glibc")
       "${glibcLocales}/lib/locale/locale-archive";
 
-      # not exhaustive; sample what resholve uses as a sanity check
+    # not exhaustive; sample what resholve uses as a sanity check
     pythonImportsCheck = [
       "oil"
       "oil.asdl"

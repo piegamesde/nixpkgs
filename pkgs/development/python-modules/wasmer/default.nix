@@ -67,7 +67,7 @@ let
         cp -R tests $testsout/tests
       '';
 
-        # check in passthru.tests.pytest because all packages are required to run the tests
+      # check in passthru.tests.pytest because all packages are required to run the tests
       doCheck = false;
 
       passthru.tests = lib.optionalAttrs (pname == "wasmer") {

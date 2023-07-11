@@ -12,7 +12,6 @@ let
     inherit ruby;
     gemdir = ./.;
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "whatweb";

@@ -11,7 +11,7 @@ let
   cfg = config.services.foundationdb;
   pkg = cfg.package;
 
-    # used for initial cluster configuration
+  # used for initial cluster configuration
   initialIpAddr =
     if (cfg.publicAddress != "auto") then
       cfg.publicAddress
@@ -444,7 +444,7 @@ in
           PermissionsStartOnly = true; # setup needs root perms
           TimeoutSec = 120; # give reasonable time to shut down
 
-            # Security options
+          # Security options
           NoNewPrivileges = true;
           ProtectHome = true;
           ProtectSystem = "strict";

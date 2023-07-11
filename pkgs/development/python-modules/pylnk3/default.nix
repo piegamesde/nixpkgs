@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pytest
     invoke
   ];
-    # There are no tests in pylnk3.
+  # There are no tests in pylnk3.
   doCheck = false;
 
   pythonImportsCheck = [ "pylnk3" ];

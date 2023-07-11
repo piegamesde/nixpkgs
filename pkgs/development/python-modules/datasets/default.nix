@@ -58,10 +58,10 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 
-    # Tests require pervasive internet access.
+  # Tests require pervasive internet access.
   doCheck = false;
 
-    # Module import will attempt to create a cache directory.
+  # Module import will attempt to create a cache directory.
   postFixup = "export HF_MODULES_CACHE=$TMPDIR";
 
   pythonImportsCheck = [ "datasets" ];

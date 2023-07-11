@@ -66,8 +66,8 @@ let
     lib.lists.any (dep: lib.getName dep == "rustfmt") (
       args.nativeBuildInputs or [ ]
     );
-
 in
+
 assert lib.asserts.assertMsg
   ((args.installPhase or "") == "")
   "buildPgxExtensions overwrites the installPhase, so providing one does nothing";
@@ -113,8 +113,8 @@ let
     "useFakeRustfmt"
   ];
 
-    # so we don't accidentally `(rustPlatform.buildRustPackage argsForBuildRustPackage) // { ... }` because
-    # we forgot parentheses
+  # so we don't accidentally `(rustPlatform.buildRustPackage argsForBuildRustPackage) // { ... }` because
+  # we forgot parentheses
   finalArgs = argsForBuildRustPackage // {
     buildInputs =
       (args.buildInputs or [ ]) ++ lib.optionals stdenv.isDarwin [ Security ];

@@ -18,7 +18,6 @@ let
           sha256 = "1szhr3k1kq6ixgnp74wnzgfvgxm6r4zpc3ny2x2wzy6lh2czc07s";
         })
       ];
-
   } // attrs;
 in
 callPackage ./build.nix overrides

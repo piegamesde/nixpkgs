@@ -150,9 +150,7 @@ let
         '';
 
         patches =
-          [
-            ./patch/cmake-includedir.patch
-          ]
+          [ ./patch/cmake-includedir.patch ]
           # Fixes a build issue as documented on
           # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
           ++ lib.optional
@@ -223,7 +221,7 @@ let
           rm -r $out/lib/pkgconfig
         '';
 
-          # perlPackages.DBDmysql is broken on darwin
+        # perlPackages.DBDmysql is broken on darwin
         postFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
           wrapProgram $out/bin/mytop --set PATH ${
             lib.makeBinPath [
@@ -413,7 +411,9 @@ let
         }
       );
     in
-    server // { inherit client server; }
+    server // {
+      inherit client server;
+    }
     ;
 in
 self: {

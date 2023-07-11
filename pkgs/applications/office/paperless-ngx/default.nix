@@ -27,7 +27,7 @@ let
     hash = "sha256-9+8XqENpSdsND6g59oJkVoCe5tJ1Pwo8HD7Cszv/t7o=";
   };
 
-    # Use specific package versions required by paperless-ngx
+  # Use specific package versions required by paperless-ngx
   python = python3.override {
     packageOverrides =
       self: super: {
@@ -71,7 +71,6 @@ let
             };
           }
         );
-
       }
       ;
   };
@@ -285,10 +284,10 @@ python.pkgs.buildPythonApplication rec {
 
   pytestFlagsArray = [ "src" ];
 
-    # The tests require:
-    # - PATH with runtime binaries
-    # - A temporary HOME directory for gnupg
-    # - XDG_DATA_DIRS with test-specific fonts
+  # The tests require:
+  # - PATH with runtime binaries
+  # - A temporary HOME directory for gnupg
+  # - XDG_DATA_DIRS with test-specific fonts
   preCheck = ''
     export PATH="${path}:$PATH"
     export HOME=$(mktemp -d)

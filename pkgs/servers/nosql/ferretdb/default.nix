@@ -28,10 +28,10 @@ buildGoModule rec {
 
   tags = [ "ferretdb_tigris" ];
 
-    # tests in cmd/ferretdb are not production relevant
+  # tests in cmd/ferretdb are not production relevant
   doCheck = false;
 
-    # the binary panics if something required wasn't set during compilation
+  # the binary panics if something required wasn't set during compilation
   doInstallCheck = true;
   installCheckPhase = ''
     $out/bin/ferretdb --version | grep ${version}

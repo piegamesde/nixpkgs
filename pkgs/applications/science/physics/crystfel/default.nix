@@ -55,9 +55,9 @@ let
 
     configureFlags = [ "FFLAGS=-fallow-argument-mismatch" ];
 
-      # libccp4 tries to read syminfo.lib by looking at an environment variable, which hinders reproducibility.
-      # We hard-code this by providing a little patch and then passing the absolute path to syminfo.lib as a
-      # preprocessor flag.
+    # libccp4 tries to read syminfo.lib by looking at an environment variable, which hinders reproducibility.
+    # We hard-code this by providing a little patch and then passing the absolute path to syminfo.lib as a
+    # preprocessor flag.
     env.NIX_CFLAGS_COMPILE =
       ''
         -DNIX_PROVIDED_SYMOP_FILE="${
@@ -79,8 +79,8 @@ let
       ''
       ;
   };
-    # This is the statically-linked, pre-built binary of mosflm. Compiling it ourselves turns out to be very difficult
-    # since the build process is very hard-coded for a specific machine, architecture, and libraries.
+  # This is the statically-linked, pre-built binary of mosflm. Compiling it ourselves turns out to be very difficult
+  # since the build process is very hard-coded for a specific machine, architecture, and libraries.
   mosflm =
     let
       version = "7.4.0";
@@ -123,8 +123,8 @@ let
 
       sourceRoot = ".";
 
-        # mosflm statically links against its own libccp4, which as the syminfo.lib environment variable problem.
-        # Here, we circumvent it by creating a little wrapper script that calls mosflm after setting the SYMINFO variable.
+      # mosflm statically links against its own libccp4, which as the syminfo.lib environment variable problem.
+      # Here, we circumvent it by creating a little wrapper script that calls mosflm after setting the SYMINFO variable.
       installPhase = ''
         mkdir -p $out/bin
         cp ${mosflmBinary} $out/bin/mosflm-raw
@@ -272,9 +272,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # CrystFEL calls mosflm by searching PATH for it. We could've create a wrapper script that sets the PATH, but
-    # we'd have to do that for every CrystFEL executable (indexamajig, crystfel, partialator). Better to just
-    # hard-code mosflm's path once.
+  # CrystFEL calls mosflm by searching PATH for it. We could've create a wrapper script that sets the PATH, but
+  # we'd have to do that for every CrystFEL executable (indexamajig, crystfel, partialator). Better to just
+  # hard-code mosflm's path once.
   postPatch = ''
     sed -i -e 's#execlp("mosflm"#execl("${mosflm}/bin/mosflm"#' libcrystfel/src/indexers/mosflm.c;
   '';
@@ -301,5 +301,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ pmiddend ];
     platforms = platforms.unix;
   };
-
 }

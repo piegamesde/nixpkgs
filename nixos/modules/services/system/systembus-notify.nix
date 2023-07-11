@@ -9,7 +9,6 @@ let
   cfg = config.services.systembus-notify;
 
   inherit (lib) mkEnableOption mkIf;
-
 in
 {
   options.services.systembus-notify = {

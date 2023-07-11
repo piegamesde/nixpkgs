@@ -10,7 +10,7 @@ let
   cfg = config.services.mastodon;
   opt = options.services.mastodon;
 
-    # We only want to create a database if we're actually going to connect to it.
+  # We only want to create a database if we're actually going to connect to it.
   databaseActuallyCreateLocally =
     cfg.database.createLocally && cfg.database.host == "/run/postgresql";
 
@@ -20,11 +20,11 @@ let
 
     LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";
 
-      # mastodon-web concurrency.
+    # mastodon-web concurrency.
     WEB_CONCURRENCY = toString cfg.webProcesses;
     MAX_THREADS = toString cfg.webThreads;
 
-      # mastodon-streaming concurrency.
+    # mastodon-streaming concurrency.
     STREAMING_CLUSTER_NUM = toString cfg.streamingProcesses;
 
     DB_USER = cfg.database.user;
@@ -71,24 +71,24 @@ let
     # User and group
     User = cfg.user;
     Group = cfg.group;
-      # Working directory
+    # Working directory
     WorkingDirectory = cfg.package;
-      # State directory and mode
+    # State directory and mode
     StateDirectory = "mastodon";
     StateDirectoryMode = "0750";
-      # Logs directory and mode
+    # Logs directory and mode
     LogsDirectory = "mastodon";
     LogsDirectoryMode = "0750";
-      # Proc filesystem
+    # Proc filesystem
     ProcSubset = "pid";
     ProtectProc = "invisible";
-      # Access write directories
+    # Access write directories
     UMask = "0027";
-      # Capabilities
+    # Capabilities
     CapabilityBoundingSet = "";
-      # Security
+    # Security
     NoNewPrivileges = true;
-      # Sandboxing
+    # Sandboxing
     ProtectSystem = "strict";
     ProtectHome = true;
     PrivateTmp = true;
@@ -113,7 +113,7 @@ let
     RestrictSUIDSGID = true;
     RemoveIPC = true;
     PrivateMounts = true;
-      # System Call Filtering
+    # System Call Filtering
     SystemCallArchitectures = "native";
   };
 
@@ -199,7 +199,7 @@ let
             EnvironmentFile =
               [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
             WorkingDirectory = cfg.package;
-              # System Call Filtering
+            # System Call Filtering
             SystemCallFilter = [
               ("~" + lib.concatStringsSep " " systemCallsList)
               "@chown"
@@ -216,7 +216,6 @@ let
       )
     )
     cfg.sidekiqProcesses;
-
 in
 {
 
@@ -777,7 +776,7 @@ in
           serviceConfig = {
             Type = "oneshot";
             SyslogIdentifier = "mastodon-init-dirs";
-              # System Call Filtering
+            # System Call Filtering
             SystemCallFilter = [
               (
                 "~"
@@ -837,7 +836,7 @@ in
             EnvironmentFile =
               [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
             WorkingDirectory = cfg.package;
-              # System Call Filtering
+            # System Call Filtering
             SystemCallFilter = [
               (
                 "~"
@@ -890,10 +889,10 @@ in
             EnvironmentFile =
               [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
             WorkingDirectory = cfg.package;
-              # Runtime directory and mode
+            # Runtime directory and mode
             RuntimeDirectory = "mastodon-streaming";
             RuntimeDirectoryMode = "0750";
-              # System Call Filtering
+            # System Call Filtering
             SystemCallFilter = [
               (
                 "~"
@@ -940,10 +939,10 @@ in
             EnvironmentFile =
               [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
             WorkingDirectory = cfg.package;
-              # Runtime directory and mode
+            # Runtime directory and mode
             RuntimeDirectory = "mastodon-web";
             RuntimeDirectoryMode = "0750";
-              # System Call Filtering
+            # System Call Filtering
             SystemCallFilter = [
               ("~" + lib.concatStringsSep " " systemCallsList)
               "@chown"
@@ -984,7 +983,7 @@ in
           recommendedProxySettings = true; # required for redirections to work
           virtualHosts."${cfg.localDomain}" = {
             root = "${cfg.package}/public/";
-              # mastodon only supports https, but you can override this if you offload tls elsewhere.
+            # mastodon only supports https, but you can override this if you offload tls elsewhere.
             forceSSL = lib.mkDefault true;
             enableACME = lib.mkDefault true;
 
@@ -1067,5 +1066,4 @@ in
     happy-river
     erictapen
   ];
-
 }

@@ -45,4 +45,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ gp2112 ];
   };
 }
-

@@ -64,7 +64,7 @@ stdenv.mkDerivation (
       "man"
     ];
 
-      # Allow users to set an alternative config.def.h
+    # Allow users to set an alternative config.def.h
     postPatch =
       let
         configFile =

@@ -74,8 +74,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals gstreamerSupport [ "--enable-cogl-gst" ]
     ;
 
-    # TODO: this shouldn't propagate so many things
-    # especially not gobject-introspection
+  # TODO: this shouldn't propagate so many things
+  # especially not gobject-introspection
   propagatedBuildInputs =
     [
       glib
@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
     ]
   );
 
-    #doCheck = true; # all tests fail (no idea why)
+  #doCheck = true; # all tests fail (no idea why)
 
   passthru = {
     updateScript = gnome.updateScript {

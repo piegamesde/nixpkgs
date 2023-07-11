@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     requests
   ];
 
-    # No tests in repository
+  # No tests in repository
   doCheck = false;
 
   pythonImportsCheck = [ "mloader" ];

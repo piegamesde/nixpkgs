@@ -27,7 +27,7 @@ buildPythonPackage rec {
     rich
   ];
 
-    # Module has no test
+  # Module has no test
   doCheck = false;
 
   pythonImportsCheck = [ "rich_click" ];

@@ -8,8 +8,8 @@ with pkgs;
 let
 
   primary-src = callPackage (./. + "/src-${variant}/primary.nix") { };
-
 in
+
 stdenv.mkDerivation {
   name = "generate-libreoffice-srcs-shell";
 

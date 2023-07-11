@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
     dontBuild = true;
 
-      # Copy node_modules directly.
+    # Copy node_modules directly.
     installPhase = ''
       cp -r node_modules $out/
     '';

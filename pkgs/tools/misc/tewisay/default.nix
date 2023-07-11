@@ -9,7 +9,7 @@ buildGoModule rec {
   pname = "tewisay";
   version = "unstable-2022-11-04";
 
-    # lucy deleted the old repo, this is a fork/mirror
+  # lucy deleted the old repo, this is a fork/mirror
   src = fetchFromGitHub {
     owner = "raymond-w-ko";
     repo = "tewisay";
@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-WcpRJ31kqWA255zfjuWDj0honJgSGdm4ONx2yOKk7/g=";
 
-    # Currently hard-coded, will be fixed by developer
+  # Currently hard-coded, will be fixed by developer
   postPatch = ''
     substituteInPlace main.go \
       --replace "/usr" "$out"

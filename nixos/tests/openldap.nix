@@ -52,7 +52,6 @@ import ./make-test-python.nix (
       server = "ldap://";
       base = "dc=example";
     };
-
   in
   {
     name = "openldap";

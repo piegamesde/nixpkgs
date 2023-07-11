@@ -63,12 +63,11 @@ let
           default = "";
           description = lib.mdDoc "What to run.";
         };
-
       };
     }
     ;
-
 in
+
 {
 
   ###### interface
@@ -117,12 +116,10 @@ in
           Literal contents to append to the end of actkbd configuration file.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -149,9 +146,7 @@ in
       };
     };
 
-      # For testing
+    # For testing
     environment.systemPackages = [ pkgs.actkbd ];
-
   };
-
 }

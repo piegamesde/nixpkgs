@@ -50,11 +50,11 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
       repo = fetchFromGitHub {
         owner = "rust-skia";
         repo = "skia";
-          # see rust-skia:skia-bindings/Cargo.toml#package.metadata skia
+        # see rust-skia:skia-bindings/Cargo.toml#package.metadata skia
         rev = "m103-0.51.1";
         sha256 = "sha256-w5dw/lGm40gKkHPR1ji/L82Oa808Kuh8qaCeiqBLkLw=";
       };
-        # The externals for skia are taken from skia/DEPS
+      # The externals for skia are taken from skia/DEPS
       externals = linkFarm "skia-externals" (
         lib.mapAttrsToList
         (
@@ -86,10 +86,10 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
     ++ lib.optionals stdenv.isDarwin [ xcbuild ]
     ;
 
-    # All tests passes but at the end cargo prints for unknown reason:
-    #   error: test failed, to rerun pass '--bin neovide'
-    # Increasing the loglevel did not help. In a nix-shell environment
-    # the failure do not occure.
+  # All tests passes but at the end cargo prints for unknown reason:
+  #   error: test failed, to rerun pass '--bin neovide'
+  # Increasing the loglevel did not help. In a nix-shell environment
+  # the failure do not occure.
   doCheck = false;
 
   buildInputs =

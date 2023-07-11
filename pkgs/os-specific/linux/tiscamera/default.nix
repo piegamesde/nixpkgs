@@ -134,11 +134,11 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-    # gstreamer tests requires, besides gst-plugins-bad, plugins installed by this expression.
+  # gstreamer tests requires, besides gst-plugins-bad, plugins installed by this expression.
   checkPhase = "ctest --force-new-ctest-process -E gstreamer";
 
-    # wrapGAppsHook: make sure we add ourselves to the introspection
-    # and gstreamer paths.
+  # wrapGAppsHook: make sure we add ourselves to the introspection
+  # and gstreamer paths.
   GI_TYPELIB_PATH = "${placeholder "out"}/lib/girepository-1.0";
   GST_PLUGIN_SYSTEM_PATH_1_0 = "${placeholder "out"}/lib/gstreamer-1.0";
 

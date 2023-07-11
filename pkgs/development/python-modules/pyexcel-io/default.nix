@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ lml ];
 
-    # Tests depend on stuff that depends on this.
+  # Tests depend on stuff that depends on this.
   doCheck = false;
 
   pythonImportsCheck = [ "pyexcel_io" ];

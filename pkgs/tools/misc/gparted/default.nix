@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PJXqJqlECD/x2bF2ObHirZdY3yJdx1H/QHsqaqCSqN4=";
   };
 
-    # Tries to run `pkexec --version` to get version.
-    # however the binary won't be suid so it returns
-    # an error preventing the program from detection
+  # Tries to run `pkexec --version` to get version.
+  # however the binary won't be suid so it returns
+  # an error preventing the program from detection
   patches = [
       (substituteAll {
         src = ./polkit.patch;
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-    # Doesn't get installed automaticallly if PREFIX != /usr
+  # Doesn't get installed automaticallly if PREFIX != /usr
   postInstall = ''
     install -D -m0644 org.gnome.gparted.policy \
       $out/share/polkit-1/actions/org.gnome.gparted.policy

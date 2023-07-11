@@ -11,7 +11,7 @@ with lib;
 
   meta = { maintainers = teams.deepin.members; };
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -23,12 +23,10 @@ with lib;
           thumbnail generating, and sound playing in Deepin Desktop Enviroment.
         ''
       );
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.deepin.dde-api.enable {
 
@@ -48,7 +46,5 @@ with lib;
       group = "deepin-sound-player";
       isSystemUser = true;
     };
-
   };
-
 }

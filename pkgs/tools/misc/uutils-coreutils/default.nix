@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals buildMulticallBinary [ "MULTICALL=y" ]
     ;
 
-    # too many impure/platform-dependent tests
+  # too many impure/platform-dependent tests
   doCheck = false;
 
   meta = with lib; {

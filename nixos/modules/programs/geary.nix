@@ -9,7 +9,6 @@ with lib;
 
 let
   cfg = config.programs.geary;
-
 in
 {
   meta = { maintainers = teams.gnome.members; };
@@ -26,4 +25,3 @@ in
     services.gnome.gnome-online-accounts.enable = true;
   };
 }
-

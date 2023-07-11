@@ -28,7 +28,7 @@ buildPythonPackage rec {
   ];
 
   nativeCheckInputs = [ pytest ];
-    # ignore tests which call to remote host
+  # ignore tests which call to remote host
   checkPhase = ''
     pytest -k 'not truecase'
   '';

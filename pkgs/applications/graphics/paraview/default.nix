@@ -54,7 +54,6 @@ let
       sha256 = "133vcfrbg2nh15igl51ns6gnfn1is20vq6j0rg37wha697pmcr4a";
     })
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "paraview";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-    # Find the Qt platform plugin "minimal"
+  # Find the Qt platform plugin "minimal"
   preConfigure = ''
     export QT_PLUGIN_PATH=${qtbase.bin}/${qtbase.qtPluginPrefix}
   '';

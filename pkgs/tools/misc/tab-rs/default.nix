@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
 
-    # many tests are failing
+  # many tests are failing
   doCheck = false;
 
   meta = with lib; {

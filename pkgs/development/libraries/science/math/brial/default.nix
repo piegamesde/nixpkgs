@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-y6nlqRBJRWohGDAKe/F37qBP1SgtFHR1HD+erFJReOM=";
   };
 
-    # FIXME package boost-test and enable checks
+  # FIXME package boost-test and enable checks
   doCheck = false;
 
   configureFlags = [ "--with-boost-unit-test-framework=no" ];

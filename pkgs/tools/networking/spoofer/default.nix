@@ -13,8 +13,8 @@
 
 let
   inherit (lib) optional;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "spoofer";
   version = "1.4.11";

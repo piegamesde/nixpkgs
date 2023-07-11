@@ -8,13 +8,13 @@ stdenvNoCC.mkDerivation rec {
   pname = "victor-mono";
   version = "1.5.4";
 
-    # Upstream prefers we download from the website,
-    # but we really insist on a more versioned resource.
-    # Happily, tagged releases on github contain the same
-    # file `VictorMonoAll.zip` as from the website,
-    # so we extract it from the tagged release.
-    # Both methods produce the same file, but this way
-    # we can safely reason about what version it is.
+  # Upstream prefers we download from the website,
+  # but we really insist on a more versioned resource.
+  # Happily, tagged releases on github contain the same
+  # file `VictorMonoAll.zip` as from the website,
+  # so we extract it from the tagged release.
+  # Both methods produce the same file, but this way
+  # we can safely reason about what version it is.
   src = fetchzip {
     url =
       "https://github.com/rubjo/victor-mono/raw/v${version}/public/VictorMonoAll.zip";

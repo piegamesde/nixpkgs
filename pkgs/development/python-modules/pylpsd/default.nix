@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-evPL9vF75S8ATkFwzQjh4pLI/aXGXWwoypCb24nXAN8=";
   };
 
-    # Tests fail and there are none
+  # Tests fail and there are none
   doCheck = false;
   pythonImportsCheck = [ "pylpsd" ];
 

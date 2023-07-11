@@ -45,11 +45,8 @@ let
       "<" = dropWildcardPrecision (mkComparison (-1));
       "!=" = v: c: !operators."==" v c;
       ">=" = v: c: operators."==" v c || operators.">" v c;
-      "<=" =
-        v: c:
-        operators."==" v c || operators."<" v c
-        ;
-        # Semver specific operators
+      "<=" = v: c: operators."==" v c || operators."<" v c;
+      # Semver specific operators
       "~" = mkIdxComparison 1;
       "^" = mkIdxComparison 0;
       "~=" =
@@ -68,17 +65,12 @@ let
         in
         operators.">=" v c && operators."<" v upperConstraint
         ;
-        # Infix operators
+      # Infix operators
       "-" =
-        version: v:
-        operators.">=" version v.vl && operators."<=" version v.vu
-        ;
-        # Arbitrary equality clause, just run simple comparison
-      "===" =
-        v: c:
-        v == c
-        ;
-        #
+        version: v: operators.">=" version v.vl && operators."<=" version v.vu;
+      # Arbitrary equality clause, just run simple comparison
+      "===" = v: c: v == c;
+      #
     }
     ;
   re = {
@@ -89,9 +81,9 @@ let
     constraint:
     let
       constraintStr = builtins.replaceStrings [ " " ] [ "" ] constraint;
-        # The common prefix operators
+      # The common prefix operators
       mPre = match "${re.operators} *${re.version}" constraintStr;
-        # There is also an infix operator to match ranges
+      # There is also an infix operator to match ranges
       mIn = match "${re.version} *(-) *${re.version}" constraintStr;
     in
     (
@@ -100,7 +92,7 @@ let
           op = elemAt mPre 0;
           v = elemAt mPre 1;
         }
-        # Infix operators are range matches
+      # Infix operators are range matches
       else if mIn != null then
         {
           op = elemAt mIn 1;
@@ -124,4 +116,6 @@ let
       operators."${op}" version v
     ;
 in
-{ inherit satisfiesSemver; }
+{
+  inherit satisfiesSemver;
+}

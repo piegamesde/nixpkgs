@@ -82,6 +82,5 @@ stdenv.mkDerivation (
     ) // {
       description = "Build of a generic binary distribution";
     };
-
   }
 )

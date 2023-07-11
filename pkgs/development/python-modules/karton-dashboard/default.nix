@@ -54,7 +54,7 @@ buildPythonPackage rec {
     prometheus-client
   ];
 
-    # Project has no tests. pythonImportsCheck requires MinIO configuration
+  # Project has no tests. pythonImportsCheck requires MinIO configuration
   doCheck = false;
 
   meta = with lib; {

@@ -29,10 +29,10 @@ stdenv.mkDerivation rec {
     sops
   ];
 
-    # NOTE: helm-secrets is comprised of shell scripts.
+  # NOTE: helm-secrets is comprised of shell scripts.
   dontBuild = true;
 
-    # NOTE: Fix version string
+  # NOTE: Fix version string
   postPatch = ''
     sed -i 's/^version:.*/version: "${version}"/' plugin.yaml
   '';

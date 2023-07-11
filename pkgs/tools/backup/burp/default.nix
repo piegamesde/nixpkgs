@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-    # use openssl_legacy due to burp-2.4.0 not supporting file encryption with openssl 3.0
-    # replace with 'openssl' once burp-3.x has been declared stable and this package upgraded
+  # use openssl_legacy due to burp-2.4.0 not supporting file encryption with openssl 3.0
+  # replace with 'openssl' once burp-3.x has been declared stable and this package upgraded
   buildInputs =
     [
       librsync

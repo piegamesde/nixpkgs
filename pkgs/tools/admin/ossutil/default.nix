@@ -16,7 +16,7 @@ buildGoModule rec {
     sha256 = "1hkdk0hidnm7vz320i7s4z7jngx2j70acc93agii2b3r2bb91l3d";
   };
 
-    # this patch is required to add go mods to fetch dependencies
+  # this patch is required to add go mods to fetch dependencies
   patches = [
       (fetchpatch {
         url =
@@ -27,7 +27,7 @@ buildGoModule rec {
 
   vendorSha256 = "lem9Jg4Ywv3qcIwhiZHNi1VH5HxxNr6mnefOLCzPL70=";
 
-    # don't run tests as they require secret access keys that only travis has
+  # don't run tests as they require secret access keys that only travis has
   doCheck = false;
 
   meta = with lib; {

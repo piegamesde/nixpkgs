@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1x4xfm3lyz2piqcw1h01vbs1iq89zq7wrsfjgh3fxnlm1slj2jcw";
   };
 
-    # Make more reproducible by removing build user and date.
+  # Make more reproducible by removing build user and date.
   postPatch = ''
     substituteInPlace build/build-usual-image --replace '"(made by $USER on $date)"' '""'
   '';

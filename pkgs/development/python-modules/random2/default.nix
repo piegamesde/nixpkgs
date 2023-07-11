@@ -32,5 +32,4 @@ buildPythonPackage rec {
     description = "Python 3 compatible Python 2 `random` Module";
     license = licenses.psfl;
   };
-
 }

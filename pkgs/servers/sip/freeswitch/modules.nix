@@ -18,9 +18,9 @@
 let
 
   mk = path: inputs: { inherit path inputs; };
-
-  # TODO: many of these are untested and missing required inputs
 in
+
+# TODO: many of these are untested and missing required inputs
 {
   applications = {
     abstraction = mk "applications/mod_abstraction" [ ];
@@ -239,7 +239,7 @@ in
     rpc = mk "xml_int/mod_xml_rpc" [ ];
     scgi = mk "xml_int/mod_xml_scgi" [ ];
 
-      # experimental
+    # experimental
     odbc = mk "../../contrib/mod/xml_int/mod_xml_odbc" [ ];
   };
 

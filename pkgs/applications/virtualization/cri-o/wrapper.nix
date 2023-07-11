@@ -28,7 +28,6 @@ let
     ]
     ++ extraPackages
   );
-
 in
 runCommand cri-o-unwrapped.name
 {
@@ -45,7 +44,6 @@ runCommand cri-o-unwrapped.name
   ];
 
   nativeBuildInputs = [ makeWrapper ];
-
 }
 ''
   ln -s ${cri-o-unwrapped.man} $man

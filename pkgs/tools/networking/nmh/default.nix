@@ -83,6 +83,5 @@ stdenv.mkDerivation (
         maildir.
       '';
     };
-
   }
 )

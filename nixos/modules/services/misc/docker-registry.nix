@@ -57,7 +57,6 @@ let
   configFile = pkgs.writeText "docker-registry-config.yml" (
     builtins.toJSON (recursiveUpdate registryConfig cfg.extraConfig)
   );
-
 in
 {
   options.services.dockerRegistry = {

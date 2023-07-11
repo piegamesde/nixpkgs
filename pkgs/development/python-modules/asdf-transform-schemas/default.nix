@@ -28,7 +28,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ;
 
-    # Circular dependency on asdf
+  # Circular dependency on asdf
   doCheck = false;
 
   pythonImportsCheck = [ "asdf_transform_schemas" ];

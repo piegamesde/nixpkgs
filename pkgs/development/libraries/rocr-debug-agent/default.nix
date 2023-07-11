@@ -41,7 +41,7 @@ stdenv.mkDerivation (
       "-DHIP_PATH=${hip}"
     ];
 
-      # Weird install target
+    # Weird install target
     postInstall = ''
       rm -rf $out/src
     '';

@@ -39,7 +39,7 @@ vmTools.runInLinuxImage (
         + (lib.optionalString (src ? version) "-${src.version}")
         ;
 
-        # !!! cut&paste from rpm-build.nix
+      # !!! cut&paste from rpm-build.nix
       postHook = ''
         . ${./functions.sh}
         propagateImageName

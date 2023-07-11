@@ -15,7 +15,7 @@ in
 {
   meta.maintainers = [ maintainers.mic92 ];
 
-    ###### interface
+  ###### interface
   options.virtualisation.lxc.lxcfs = {
     enable = mkOption {
       type = types.bool;
@@ -31,7 +31,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     systemd.services.lxcfs = {
       description = "FUSE filesystem for LXC";

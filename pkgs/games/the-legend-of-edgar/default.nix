@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     "BIN_DIR=${placeholder "out"}/bin/"
   ];
 
-    # TODO: remove the setting below when the next version arrives
-    # https://github.com/riksweeney/edgar/pull/57
+  # TODO: remove the setting below when the next version arrives
+  # https://github.com/riksweeney/edgar/pull/57
   preBuild = ''
     export CFLAGS=$(sdl2-config --cflags)
   '';

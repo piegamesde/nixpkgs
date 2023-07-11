@@ -8,7 +8,8 @@
 
 # This package comes with its own copy of zlib, libpng and pngxtern
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "optipng";
   version = "0.7.7";
 
@@ -20,8 +21,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libpng ];
 
   LDFLAGS = lib.optional static "-static";
-    # Workaround for crash in cexcept.h. See
-    # https://github.com/NixOS/nixpkgs/issues/28106
+  # Workaround for crash in cexcept.h. See
+  # https://github.com/NixOS/nixpkgs/issues/28106
   preConfigure = ''
     export LD=$CC
   '';

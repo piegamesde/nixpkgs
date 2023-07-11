@@ -46,7 +46,6 @@ let
     "bin"
     "usr/bin"
   ];
-
 in
 stdenv.mkDerivation {
   name = "steam-runtime-wrapped";

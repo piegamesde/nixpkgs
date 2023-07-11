@@ -18,8 +18,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pidfile" ];
 
-    # no tests on the github mirror of the source code
-    # see this: https://github.com/mosquito/python-pidfile/issues/7
+  # no tests on the github mirror of the source code
+  # see this: https://github.com/mosquito/python-pidfile/issues/7
   doCheck = false;
 
   meta = with lib; {

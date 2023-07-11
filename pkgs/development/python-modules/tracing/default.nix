@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   buildInputs = [ sphinx ];
 
-    # error: invalid command 'test'
+  # error: invalid command 'test'
   doCheck = false;
 
   meta = with lib; {
@@ -26,5 +26,4 @@ buildPythonPackage rec {
     license = licenses.gpl3;
     maintainers = [ ];
   };
-
 }

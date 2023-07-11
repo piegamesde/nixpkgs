@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-pqwJPo3ZhsXU1RF4BKPOWQS71+9EitSSTE1+sKlc9+s=";
 
-    # Tests require a Github API token, and networking
+  # Tests require a Github API token, and networking
   doCheck = false;
   doInstallCheck = true;
 

@@ -15,7 +15,9 @@ let
 
   grubPkgs =
     # Package set of targeted architecture
-    if cfg.forcei686 then
+    if
+      cfg.forcei686
+    then
       pkgs.pkgsi686Linux
     else
       pkgs
@@ -38,7 +40,9 @@ let
   grub =
     # Don't include GRUB if we're only generating a GRUB menu (e.g.,
     # in EC2 instances).
-    if cfg.devices == [ "nodev" ] then
+    if
+      cfg.devices == [ "nodev" ]
+    then
       null
     else
       realGrub
@@ -46,7 +50,9 @@ let
 
   grubEfi =
     # EFI version of Grub v2
-    if cfg.efiSupport && (cfg.version == 2) then
+    if
+      cfg.efiSupport && (cfg.version == 2)
+    then
       realGrub.override { efiSupport = cfg.efiSupport; }
     else
       null
@@ -179,8 +185,8 @@ let
 
   defaultSplash =
     pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
-
 in
+
 {
 
   ###### interface
@@ -360,7 +366,6 @@ in
                     Note these are typically device paths and not paths to partitions.
                   '';
                 };
-
               };
             }
           );
@@ -826,14 +831,11 @@ in
             and works only for the HP laptops.
           '';
         };
-
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkMerge [
 
@@ -845,7 +847,7 @@ in
               "http://www.gnome-look.org/CONTENT/content-files/36909-soft-tux.xpm.gz";
             sha256 = "14kqdx2lfqvh40h6fjjzqgff1mwk74dmbjvmqphi6azzra7z8d59";
           }
-          # GRUB 1.97 doesn't support gzipped XPMs.
+        # GRUB 1.97 doesn't support gzipped XPMs.
         else
           defaultSplash
       );
@@ -913,8 +915,8 @@ in
 
       system.build.grub = grub;
 
-        # Common attribute for boot loaders so only one of them can be
-        # set at once.
+      # Common attribute for boot loaders so only one of them can be
+      # set at once.
       system.boot.loader.id = "grub";
 
       environment.systemPackages = optional (grub != null) grub;
@@ -1026,7 +1028,6 @@ in
         )
         ;
     })
-
   ];
 
   imports = [
@@ -1130,5 +1131,4 @@ in
         See the boot.initrd.secrets option documentation for more information.
       '')
   ];
-
 }

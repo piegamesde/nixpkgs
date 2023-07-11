@@ -23,7 +23,7 @@ buildPythonPackage rec {
     fastcore
   ];
 
-    # no real tests
+  # no real tests
   doCheck = false;
   pythonImportsCheck = [ "fastdownload" ];
 

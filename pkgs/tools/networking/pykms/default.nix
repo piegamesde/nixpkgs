@@ -31,7 +31,6 @@ let
       ${lib.getBin sqlite}/bin/sqlite3 $db < ${dbSql}
     fi
   '';
-
 in
 pypkgs.buildPythonApplication rec {
   pname = "pykms";
@@ -62,7 +61,7 @@ pypkgs.buildPythonApplication rec {
 
   format = "other";
 
-    # there are no tests
+  # there are no tests
   doCheck = false;
 
   installPhase = ''

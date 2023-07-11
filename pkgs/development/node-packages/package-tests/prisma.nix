@@ -9,8 +9,8 @@ let
   inherit (prisma) packageName;
   prismaMajorVersion = lib.versions.majorMinor prisma.version;
   enginesMajorVersion = lib.versions.majorMinor pkgs.prisma-engines.version;
-
 in
+
 runCommand "${packageName}-tests"
 {
   nativeBuildInputs = with pkgs; [

@@ -22,22 +22,22 @@ with lib;
         # chromium
         "chromium/native-messaging-hosts/${appId}".source =
           source "hosts/chromium";
-        "chromium/policies/managed/${appId}".source = source "policies/chromium"
-          ;
+        "chromium/policies/managed/${appId}".source =
+          source "policies/chromium";
 
-          # chrome
+        # chrome
         "opt/chrome/native-messaging-hosts/${appId}".source =
           source "hosts/chromium";
         "opt/chrome/policies/managed/${appId}".source =
           source "policies/chromium";
 
-          # vivaldi
+        # vivaldi
         "opt/vivaldi/native-messaging-hosts/${appId}".source =
           source "hosts/chromium";
         "opt/vivaldi/policies/managed/${appId}".source =
           source "policies/chromium";
 
-          # brave
+        # brave
         "opt/brave/native-messaging-hosts/${appId}".source =
           source "hosts/chromium";
         "opt/brave/policies/managed/${appId}".source =

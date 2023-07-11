@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-    # tradcpp only comes with BSD-make Makefile; the patch adds configure support
+  # tradcpp only comes with BSD-make Makefile; the patch adds configure support
   nativeBuildInputs = [ autoconf ];
   preConfigure = "autoconf";
   patches = [
@@ -29,5 +29,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     license = licenses.bsd2;
   };
-
 }

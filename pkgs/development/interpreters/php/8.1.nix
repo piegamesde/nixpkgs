@@ -12,7 +12,6 @@ let
       hash = "sha256-0qww1rV0/KWU/gzAHAaT4jWFsnRD40KwqrBydM3kQW4=";
     }
   );
-
 in
 base.withExtensions (
   {

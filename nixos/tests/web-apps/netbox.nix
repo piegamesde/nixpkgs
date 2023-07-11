@@ -78,7 +78,7 @@ import ../make-test-python.nix (
           };
         };
 
-          # Adapted from the sssd-ldap NixOS test
+        # Adapted from the sssd-ldap NixOS test
         services.openldap = {
           enable = true;
           settings = {

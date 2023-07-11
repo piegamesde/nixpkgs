@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
 
   passthru = { updateScript = nix-update-script { }; };
 
-    # Integration tests fail
+  # Integration tests fail
   doCheck = false;
 
   buildInputs =
@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
   ];
 
-    # Depends at run-time on having rustup in PATH
+  # Depends at run-time on having rustup in PATH
   postInstall = ''
     wrapProgram $out/bin/cargo-msrv --prefix PATH : ${
       lib.makeBinPath [ rustup ]

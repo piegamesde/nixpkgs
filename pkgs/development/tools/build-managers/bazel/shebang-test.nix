@@ -45,6 +45,5 @@ let
     '';
     buildInputs = [ unzip ];
   };
-
 in
 testBazel

@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   pname = "monkeysphere";
   version = "0.44";
 
-    # The patched OpenSSH binary MUST NOT be used (except in the check phase):
+  # The patched OpenSSH binary MUST NOT be used (except in the check phase):
   disallowedRequisites = [ opensshUnsafe ];
 
   src = fetchurl {
@@ -82,9 +82,9 @@ stdenv.mkDerivation rec {
     "DESTDIR=$(out)"
   ];
 
-    # The tests should be run (and succeed) when making changes to this package
-    # but they aren't enabled by default because they "drain" entropy (GnuPG
-    # still uses /dev/random).
+  # The tests should be run (and succeed) when making changes to this package
+  # but they aren't enabled by default because they "drain" entropy (GnuPG
+  # still uses /dev/random).
   doCheck = false;
   preCheck = lib.optionalString doCheck ''
     patchShebangs tests/

@@ -10,7 +10,8 @@
 # gcc and valgrind are not strict dependencies, they could be made
 # optional. They are here because plm can only help you learn C if you
 # have them installed.
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "plm";
   version = "2.9.3";
 

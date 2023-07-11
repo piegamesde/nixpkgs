@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-    # Note you'll want to prefix any commands with LOG_DIR, PID_DIR, and RUN_DIR
-    # environment variables set to a writable director(y/ies).
+  # Note you'll want to prefix any commands with LOG_DIR, PID_DIR, and RUN_DIR
+  # environment variables set to a writable director(y/ies).
 
   installPhase = ''
     runHook preInstall

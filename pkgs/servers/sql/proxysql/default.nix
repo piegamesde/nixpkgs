@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-    # replace and fix some vendored dependencies
+  # replace and fix some vendored dependencies
   preBuild = # sh
     ''
       pushd deps

@@ -92,7 +92,7 @@ rec {
       install libexec.sh $out/libexec/invokeme
       install profile $out/profile
     '';
-      # LOGLEVEL="DEBUG";
+    # LOGLEVEL="DEBUG";
     solutions = {
       openssl = {
         fix = { aliases = true; };
@@ -124,7 +124,7 @@ rec {
       };
     };
   };
-    # demonstrate that we could use resholve in larger build
+  # demonstrate that we could use resholve in larger build
   module3 = stdenv.mkDerivation {
     pname = "testmod3";
     version = "unreleased";
@@ -163,11 +163,11 @@ rec {
       bats
       python27
     ];
-      # LOGLEVEL="DEBUG";
+    # LOGLEVEL="DEBUG";
 
-      # default path
+    # default path
     RESHOLVE_PATH = "${lib.makeBinPath default_packages}";
-      # but separate packages for combining as needed
+    # but separate packages for combining as needed
     PKG_FILE = "${lib.makeBinPath [ file ]}";
     PKG_FINDUTILS = "${lib.makeBinPath [ findutils ]}";
     PKG_GETTEXT = "${lib.makeBinPath [ gettext ]}";
@@ -178,7 +178,7 @@ rec {
       }}";
     PKG_PARSED = "${lib.makeBinPath parsed_packages}";
 
-      # explicit interpreter for demo suite; maybe some better way...
+    # explicit interpreter for demo suite; maybe some better way...
     INTERP = "${bash}/bin/bash";
 
     checkPhase =
@@ -205,7 +205,7 @@ rec {
       ;
   };
 
-    # Caution: ci.nix asserts the equality of both of these w/ diff
+  # Caution: ci.nix asserts the equality of both of these w/ diff
   resholvedScript = resholve.writeScript "resholved-script"
     {
       inputs = [ file ];

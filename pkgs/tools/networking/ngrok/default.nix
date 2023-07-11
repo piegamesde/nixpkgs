@@ -28,15 +28,12 @@ let
     ;
   versionInfo = versions."${os}-${arch}";
   inherit (versionInfo) version sha256 url;
-
 in
 stdenv.mkDerivation {
   pname = "ngrok";
-  inherit
-    version
-    ;
+  inherit version;
 
-    # run ./update
+  # run ./update
   src = fetchurl { inherit sha256 url; };
 
   sourceRoot = ".";
@@ -51,7 +48,7 @@ stdenv.mkDerivation {
 
   passthru.updateScript = ./update.sh;
 
-    # Stripping causes SEGFAULT on x86_64-darwin
+  # Stripping causes SEGFAULT on x86_64-darwin
   dontStrip = true;
 
   meta = with lib; {

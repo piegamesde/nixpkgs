@@ -13,7 +13,6 @@ let
     getAttrs
     intersectLists
     ;
-
 in
 rec {
   bundlerFiles =

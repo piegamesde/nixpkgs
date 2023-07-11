@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     sord
   ];
 
-    # comment out the tests
+  # comment out the tests
   preConfigure = ''
     sed -i 's/sub_test_svcore_/#sub_test_svcore_/' tony.pro
   '';

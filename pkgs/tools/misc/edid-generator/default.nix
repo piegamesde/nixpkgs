@@ -22,7 +22,8 @@
 #     ];
 #   })
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "edid-generator";
   version = "unstable-2018-03-15";
 

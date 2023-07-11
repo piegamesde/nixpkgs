@@ -32,8 +32,8 @@ let
       ];
     }
   );
-
 in
+
 stdenv.mkDerivation rec {
   pname = "janus-gateway";
   version = "1.1.3";

@@ -45,10 +45,10 @@ buildPythonPackage rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ glib ];
 
-    # in a "normal" setup, pygobject and pygtk are installed into the
-    # same site-packages: we need a pth file for both. pygtk.py would be
-    # used to select a specific version, in our setup it should have no
-    # effect, but we leave it in case somebody expects and calls it.
+  # in a "normal" setup, pygobject and pygtk are installed into the
+  # same site-packages: we need a pth file for both. pygtk.py would be
+  # used to select a specific version, in our setup it should have no
+  # effect, but we leave it in case somebody expects and calls it.
   postInstall = lib.optionalString (!isPy3k) ''
     mv $out/${python.sitePackages}/{pygtk.pth,${pname}-${version}.pth}
 

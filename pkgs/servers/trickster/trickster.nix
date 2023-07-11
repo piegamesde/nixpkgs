@@ -42,7 +42,7 @@ buildGoModule rec {
     ''
     ;
 
-    # Tests are broken.
+  # Tests are broken.
   doCheck = false;
 
   meta = with lib; {

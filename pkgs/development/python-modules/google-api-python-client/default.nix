@@ -34,7 +34,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-    # No tests included in archive
+  # No tests included in archive
   doCheck = false;
 
   pythonImportsCheck = [ "googleapiclient" ];

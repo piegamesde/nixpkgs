@@ -11,8 +11,8 @@
 
 let
   version = lib.getVersion libllvm;
-
 in
+
 stdenv.mkDerivation {
   pname = "ocaml-llvm";
   inherit version;
@@ -63,5 +63,4 @@ stdenv.mkDerivation {
     description = "OCaml bindings distributed with LLVM";
     maintainers = with lib.maintainers; [ vbgl ];
   };
-
 }

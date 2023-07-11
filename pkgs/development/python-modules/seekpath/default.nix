@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.utf-8";
 
-    # scipy isn't listed in install_requires, but used in package
+  # scipy isn't listed in install_requires, but used in package
   propagatedBuildInputs = [
     numpy
     spglib
@@ -37,7 +37,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-    # I don't know enough about crystal structures to fix
+  # I don't know enough about crystal structures to fix
   checkPhase = ''
     pytest . -k 'not oI2Y'
   '';
@@ -50,4 +50,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ psyanticy ];
   };
 }
-

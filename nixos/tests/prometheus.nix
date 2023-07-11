@@ -27,7 +27,6 @@ let
       trace = { enable = false; };
     };
   };
-
 in
 import ./make-test-python.nix {
   name = "prometheus";
@@ -91,40 +90,40 @@ import ./make-test-python.nix {
             inherit objstore;
           };
 
-            # TODO: Add some tests for these services:
-            #rule = {
-            #  enable = true;
-            #  http-address = "0.0.0.0:19194";
-            #  grpc-address = "0.0.0.0:19193";
-            #  query.addresses = [
-            #    "localhost:19191"
-            #  ];
-            #  labels = {
-            #    just = "some";
-            #    nice = "labels";
-            #  };
-            #};
-            #
-            #receive = {
-            #  http-address = "0.0.0.0:19195";
-            #  enable = true;
-            #  labels = {
-            #    just = "some";
-            #    nice = "labels";
-            #  };
-            #};
+          # TODO: Add some tests for these services:
+          #rule = {
+          #  enable = true;
+          #  http-address = "0.0.0.0:19194";
+          #  grpc-address = "0.0.0.0:19193";
+          #  query.addresses = [
+          #    "localhost:19191"
+          #  ];
+          #  labels = {
+          #    just = "some";
+          #    nice = "labels";
+          #  };
+          #};
+          #
+          #receive = {
+          #  http-address = "0.0.0.0:19195";
+          #  enable = true;
+          #  labels = {
+          #    just = "some";
+          #    nice = "labels";
+          #  };
+          #};
         };
-          # Adds a "specialisation" of the above config which allows us to
-          # "switch" to it and see if the services.prometheus.enableReload
-          # functionality actually reloads the prometheus service instead of
-          # restarting it.
+        # Adds a "specialisation" of the above config which allows us to
+        # "switch" to it and see if the services.prometheus.enableReload
+        # functionality actually reloads the prometheus service instead of
+        # restarting it.
         specialisation = {
           "prometheus-config-change" = {
             configuration = {
               environment.systemPackages = [ pkgs.yq ];
 
-                # This configuration just adds a new prometheus job
-                # to scrape the node_exporter metrics of the s3 machine.
+              # This configuration just adds a new prometheus job
+              # to scrape the node_exporter metrics of the s3 machine.
               services.prometheus = {
                 scrapeConfigs = [ {
                   job_name = "s3-node_exporter";

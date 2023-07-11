@@ -53,18 +53,16 @@ let
               == srv # Include sections for the service being configured
           then
             v
-            # Enable Web links and integrations between services.
+          # Enable Web links and integrations between services.
           else if
             tail srvMatch == [ null ] && elem (head srvMatch) cfg.services
           then
             {
-              inherit (v)
-                origin
-                ;
-                # mansrht crashes without it
+              inherit (v) origin;
+              # mansrht crashes without it
               oauth-client-id = v.oauth-client-id or null;
             }
-            # Drop sub-sections of other services
+          # Drop sub-sections of other services
           else
             null
         )
@@ -78,8 +76,8 @@ let
             "git.sr.ht".repos = "/var/lib/sourcehut/gitsrht/repos";
             "hg.sr.ht".changegroup-script = "/usr/bin/hgsrht-hook-changegroup";
             "hg.sr.ht".repos = "/var/lib/sourcehut/hgsrht/repos";
-              # Making this a per service option despite being in a global section,
-              # so that it uses the redis-server used by the service.
+            # Making this a per service option despite being in a global section,
+            # so that it uses the redis-server used by the service.
             "sr.ht".redis-host = cfg.${srv}.redis.host;
           }
         )
@@ -131,7 +129,7 @@ let
     }
     ;
 
-    # Specialized python containing all the modules
+  # Specialized python containing all the modules
   python = pkgs.sourcehut.python.withPackages (
     ps:
     with ps; [
@@ -890,7 +888,7 @@ in
           assertion = postfix.enable;
           message = "postfix must be enabled and configured";
         } ];
-          # Needed for sharing the LMTP sockets with JoinsNamespaceOf=
+        # Needed for sharing the LMTP sockets with JoinsNamespaceOf=
         systemd.services.postfix.serviceConfig.PrivateTmp = true;
       })
       (mkIf cfg.redis.enable { services.redis.vmOverCommit = mkDefault true; })
@@ -899,7 +897,7 @@ in
           assertion = nginx.enable;
           message = "nginx must be enabled and configured";
         } ];
-          # For proxyPass= in virtual-hosts for Sourcehut services.
+        # For proxyPass= in virtual-hosts for Sourcehut services.
         services.nginx.recommendedProxySettings = mkDefault true;
       })
       (mkIf (cfg.builds.enable || cfg.git.enable || cfg.hg.enable) {
@@ -913,7 +911,7 @@ in
           # - /var/log/gitsrht-update-hook
           authorizedKeysCommand =
             ''/etc/ssh/sourcehut/subdir/srht-dispatch "%u" "%h" "%t" "%k"'';
-            # srht-dispatch will setuid/setgid according to [git.sr.ht::dispatch]
+          # srht-dispatch will setuid/setgid according to [git.sr.ht::dispatch]
           authorizedKeysCommandUser = "root";
           extraConfig = ''
             PermitUserEnvironment SRHT_*
@@ -937,24 +935,26 @@ in
           serviceConfig = {
             BindReadOnlyPaths =
               # Note that those /usr/bin/* paths are hardcoded in multiple places in *.sr.ht,
-              # for instance to get the user from the [git.sr.ht::dispatch] settings.
-              # *srht-keys needs to:
-              # - access a redis-server in [sr.ht] redis-host,
-              # - access the PostgreSQL server in [*.sr.ht] connection-string,
-              # - query metasrht-api (through the HTTP API).
-              # Using this has the side effect of creating empty files in /usr/bin/
-              optionals cfg.builds.enable [
-                "${
-                  pkgs.writeShellScript "buildsrht-keys-wrapper" ''
-                    set -e
-                    cd /run/sourcehut/buildsrht/subdir
-                    set -x
-                    exec -a "$0" ${pkgs.sourcehut.buildsrht}/bin/buildsrht-keys "$@"
-                  ''
-                }:/usr/bin/buildsrht-keys"
-                "${pkgs.sourcehut.buildsrht}/bin/master-shell:/usr/bin/master-shell"
-                "${pkgs.sourcehut.buildsrht}/bin/runner-shell:/usr/bin/runner-shell"
-              ]
+                # for instance to get the user from the [git.sr.ht::dispatch] settings.
+                # *srht-keys needs to:
+                # - access a redis-server in [sr.ht] redis-host,
+                # - access the PostgreSQL server in [*.sr.ht] connection-string,
+                # - query metasrht-api (through the HTTP API).
+                # Using this has the side effect of creating empty files in /usr/bin/
+                optionals
+                cfg.builds.enable
+                [
+                  "${
+                    pkgs.writeShellScript "buildsrht-keys-wrapper" ''
+                      set -e
+                      cd /run/sourcehut/buildsrht/subdir
+                      set -x
+                      exec -a "$0" ${pkgs.sourcehut.buildsrht}/bin/buildsrht-keys "$@"
+                    ''
+                  }:/usr/bin/buildsrht-keys"
+                  "${pkgs.sourcehut.buildsrht}/bin/master-shell:/usr/bin/master-shell"
+                  "${pkgs.sourcehut.buildsrht}/bin/runner-shell:/usr/bin/runner-shell"
+                ]
               ++ optionals cfg.git.enable [
                 # /path/to/gitsrht-keys calls /path/to/gitsrht-shell,
                 # or [git.sr.ht] shell= if set.
@@ -1048,7 +1048,7 @@ in
             toString (cfg.builds.port + 100)
           }";
       };
-        # TODO: a celery worker on the master and worker are apparently needed
+      # TODO: a celery worker on the master and worker are apparently needed
       extraServices.buildsrht-worker =
         let
           qemuPackage = pkgs.qemu_kvm;
@@ -1084,7 +1084,7 @@ in
             RuntimeDirectory = [ "sourcehut/${serviceName}/subdir" ];
             StateDirectory = [ "sourcehut/${serviceName}" ];
             TimeoutStartSec = "1800s";
-              # buildsrht-worker looks up ../config.ini
+            # buildsrht-worker looks up ../config.ini
             WorkingDirectory = "-" + "/run/sourcehut/${serviceName}/subdir";
           };
         }
@@ -1115,8 +1115,8 @@ in
           image_dir_pre = pkgs.symlinkJoin {
             name = "buildsrht-worker-images-pre";
             paths = image_dirs;
-              # FIXME: not working, apparently because ubuntu/latest is a broken link
-              # ++ [ "${pkgs.sourcehut.buildsrht}/lib/images" ];
+            # FIXME: not working, apparently because ubuntu/latest is a broken link
+            # ++ [ "${pkgs.sourcehut.buildsrht}/lib/images" ];
           };
           image_dir = pkgs.runCommand "buildsrht-worker-images" { } ''
             mkdir -p $out/images
@@ -1255,7 +1255,7 @@ in
                 "sockets.target"
                 "gitsrht.service"
               ];
-                # This path remains accessible to nginx.service, which has no RootDirectory=
+              # This path remains accessible to nginx.service, which has no RootDirectory=
               socketConfig.ListenStream = "/run/gitsrht-fcgiwrap.sock";
               socketConfig.SocketUser = nginx.user;
               socketConfig.SocketMode = "600";
@@ -1277,7 +1277,7 @@ in
               "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
                 toString cfg.git.fcgiwrap.preforkProcess
               }";
-              # No need for config.ini
+            # No need for config.ini
             ExecStartPre = mkForce [ ];
             User = null;
             DynamicUser = true;
@@ -1371,10 +1371,10 @@ in
                   proxy_set_header X-Original-URI $request_uri;
                 '';
               };
-                # Let clients reach pull bundles. We don't really need to lock this down even for
-                # private repos because the bundles are named after the revision hashes...
-                # so someone would need to know or guess a SHA value to download anything.
-                # TODO: proxyPass to an hg serve service?
+              # Let clients reach pull bundles. We don't really need to lock this down even for
+              # private repos because the bundles are named after the revision hashes...
+              # so someone would need to know or guess a SHA value to download anything.
+              # TODO: proxyPass to an hg serve service?
               locations."~ ^/[~^][a-z0-9_]+/[a-zA-Z0-9_.-]+/\\.hg/bundles/.*$" = {
                 root = "/var/lib/nginx/hgsrht/repos";
                 extraConfig = ''
@@ -1422,16 +1422,16 @@ in
               toString (cfg.lists.port + 100)
             }";
         };
-          # Receive the mail from Postfix and enqueue them into Redis and PostgreSQL
+        # Receive the mail from Postfix and enqueue them into Redis and PostgreSQL
         extraServices.listssrht-lmtp = {
           wants = [ "postfix.service" ];
           unitConfig.JoinsNamespaceOf =
             optional cfg.postfix.enable "postfix.service";
           serviceConfig.ExecStart = "${cfg.python}/bin/listssrht-lmtp";
-            # Avoid crashing: os.chown(sock, os.getuid(), sock_gid)
+          # Avoid crashing: os.chown(sock, os.getuid(), sock_gid)
           serviceConfig.PrivateUsers = mkForce false;
         };
-          # Dequeue the mails from Redis and dispatch them
+        # Dequeue the mails from Redis and dispatch them
         extraServices.listssrht-process = {
           serviceConfig = {
             preStart = ''
@@ -1446,7 +1446,7 @@ in
               "${cfg.python}/bin/celery --app listssrht.process worker --hostname listssrht-process@%%h "
               + concatStringsSep " " cfg.lists.process.extraArgs
               ;
-              # Avoid crashing: os.getloadavg()
+            # Avoid crashing: os.getloadavg()
             ProcSubset = mkForce "all";
           };
         };
@@ -1456,12 +1456,12 @@ in
             postfix.group;
           services.postfix = {
             destination = [ "lists.${domain}" ];
-              # FIXME: an accurate recipient list should be queried
-              # from the lists.sr.ht PostgreSQL database to avoid backscattering.
-              # But usernames are unfortunately not in that database but in meta.sr.ht.
-              # Note that two syntaxes are allowed:
-              # - ~username/list-name@lists.${domain}
-              # - u.username.list-name@lists.${domain}
+            # FIXME: an accurate recipient list should be queried
+            # from the lists.sr.ht PostgreSQL database to avoid backscattering.
+            # But usernames are unfortunately not in that database but in meta.sr.ht.
+            # Note that two syntaxes are allowed:
+            # - ~username/list-name@lists.${domain}
+            # - u.username.list-name@lists.${domain}
             localRecipients = [ "@lists.${domain}" ];
             transport = ''
               lists.${domain} lmtp:unix:${
@@ -1501,8 +1501,8 @@ in
                 let
                   srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht$" k;
                   srv = head srvMatch;
-                  # Configure client(s) as "preauthorized"
                 in
+                # Configure client(s) as "preauthorized"
                 optionalString
                 (
                   srvMatch != null
@@ -1655,7 +1655,7 @@ in
         unitConfig.JoinsNamespaceOf =
           optional cfg.postfix.enable "postfix.service";
         serviceConfig.ExecStart = "${cfg.python}/bin/todosrht-lmtp";
-          # Avoid crashing: os.chown(sock, os.getuid(), sock_gid)
+        # Avoid crashing: os.chown(sock, os.getuid(), sock_gid)
         serviceConfig.PrivateUsers = mkForce false;
       };
       extraConfig = mkIf cfg.postfix.enable {
@@ -1664,12 +1664,12 @@ in
           postfix.group;
         services.postfix = {
           destination = [ "todo.${domain}" ];
-            # FIXME: an accurate recipient list should be queried
-            # from the todo.sr.ht PostgreSQL database to avoid backscattering.
-            # But usernames are unfortunately not in that database but in meta.sr.ht.
-            # Note that two syntaxes are allowed:
-            # - ~username/tracker-name@todo.${domain}
-            # - u.username.tracker-name@todo.${domain}
+          # FIXME: an accurate recipient list should be queried
+          # from the todo.sr.ht PostgreSQL database to avoid backscattering.
+          # But usernames are unfortunately not in that database but in meta.sr.ht.
+          # Note that two syntaxes are allowed:
+          # - ~username/tracker-name@todo.${domain}
+          # - u.username.tracker-name@todo.${domain}
           localRecipients = [ "@todo.${domain}" ];
           transport = ''
             todo.${domain} lmtp:unix:${cfg.settings."todo.sr.ht::mail".sock}

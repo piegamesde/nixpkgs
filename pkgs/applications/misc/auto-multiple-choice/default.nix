@@ -34,7 +34,7 @@ stdenv.mkDerivation (
       sha256 = "sha256-AjonJOooSe53Fww3QU6Dft95ojNqWrTuPul3nkIbctM=";
     };
 
-      # There's only the Makefile
+    # There's only the Makefile
     dontConfigure = true;
 
     makeFlags = [

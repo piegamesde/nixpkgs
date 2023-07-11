@@ -35,15 +35,15 @@ python3.pkgs.buildPythonApplication rec {
     tabulate
   ];
 
-    # TODO: Completion needs to be adapted after support for latest click was added
-    # $ source <(_HASS_CLI_COMPLETE=bash_source hass-cli) # for bash
-    # $ source <(_HASS_CLI_COMPLETE=zsh_source hass-cli)  # for zsh
-    # $ eval (_HASS_CLI_COMPLETE=fish_source hass-cli)    # for fish
-    #postInstall = ''
-    #  mkdir -p "$out/share/bash-completion/completions" "$out/share/zsh/site-functions"
-    #  $out/bin/hass-cli completion bash > "$out/share/bash-completion/completions/hass-cli"
-    #  $out/bin/hass-cli completion zsh > "$out/share/zsh/site-functions/_hass-cli"
-    #'';
+  # TODO: Completion needs to be adapted after support for latest click was added
+  # $ source <(_HASS_CLI_COMPLETE=bash_source hass-cli) # for bash
+  # $ source <(_HASS_CLI_COMPLETE=zsh_source hass-cli)  # for zsh
+  # $ eval (_HASS_CLI_COMPLETE=fish_source hass-cli)    # for fish
+  #postInstall = ''
+  #  mkdir -p "$out/share/bash-completion/completions" "$out/share/zsh/site-functions"
+  #  $out/bin/hass-cli completion bash > "$out/share/bash-completion/completions/hass-cli"
+  #  $out/bin/hass-cli completion zsh > "$out/share/zsh/site-functions/_hass-cli"
+  #'';
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook

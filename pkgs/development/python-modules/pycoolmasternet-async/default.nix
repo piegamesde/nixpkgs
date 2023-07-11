@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-7RYKZWs8SCXCBgjbiTLSRUPujeraxiOE6MHENPmhimg=";
   };
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "pycoolmasternet_async" ];

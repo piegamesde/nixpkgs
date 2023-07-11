@@ -22,7 +22,7 @@ buildOctavePackage rec {
     maintainers = with maintainers; [ KarlJoad ];
     description =
       "Interface to the librsb package implementing the RSB sparse matrix format for fast shared-memory sparse matrix computations";
-      # Broken since octave>8.x
+    # Broken since octave>8.x
     broken = true;
   };
 }

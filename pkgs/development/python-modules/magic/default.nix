@@ -18,7 +18,7 @@ buildPythonPackage {
 
   preConfigure = "cd python";
 
-    # No test suite
+  # No test suite
   doCheck = false;
 
   meta = with lib; {
@@ -26,5 +26,4 @@ buildPythonPackage {
     homepage = "http://www.darwinsys.com/file/";
     license = licenses.lgpl2;
   };
-
 }

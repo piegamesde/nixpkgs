@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     "devdoc"
   ];
 
-    # NOTE: Only URL tarball has "Have pre-generated man pages: true", which works-around upstream usage of some rare ancient `c2man` fossil application.
+  # NOTE: Only URL tarball has "Have pre-generated man pages: true", which works-around upstream usage of some rare ancient `c2man` fossil application.
   src = fetchurl {
     url =
       "https://github.com/fribidi/fribidi/releases/download/v${version}/${pname}-${version}.tar.xz";

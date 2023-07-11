@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ spidev ];
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   meta = with lib; {

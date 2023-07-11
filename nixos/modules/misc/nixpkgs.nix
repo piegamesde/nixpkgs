@@ -76,19 +76,17 @@ let
     check = builtins.isAttrs;
   };
 
-    # Whether `pkgs` was constructed by this module - not if nixpkgs.pkgs or
-    # _module.args.pkgs is set. However, determining whether _module.args.pkgs
-    # is defined elsewhere does not seem feasible.
+  # Whether `pkgs` was constructed by this module - not if nixpkgs.pkgs or
+  # _module.args.pkgs is set. However, determining whether _module.args.pkgs
+  # is defined elsewhere does not seem feasible.
   constructedByMe = !opt.pkgs.isDefined;
 
   hasBuildPlatform =
     opt.buildPlatform.highestPrio < (mkOptionDefault { }).priority;
   hasHostPlatform = opt.hostPlatform.isDefined;
-  hasPlatform =
-    hasHostPlatform || hasBuildPlatform
-    ;
+  hasPlatform = hasHostPlatform || hasBuildPlatform;
 
-    # Context for messages
+  # Context for messages
   hostPlatformLine =
     optionalString hasHostPlatform "${showOptionWithDefLocs opt.hostPlatform}";
   buildPlatformLine =
@@ -130,8 +128,8 @@ let
     else
       defaultPkgs
     ;
-
 in
+
 {
   imports = [
     ./assertions.nix
@@ -236,8 +234,8 @@ in
         system = "aarch64-linux";
         config = "aarch64-unknown-linux-gnu";
       };
-        # Make sure that the final value has all fields for sake of other modules
-        # referring to this. TODO make `lib.systems` itself use the module system.
+      # Make sure that the final value has all fields for sake of other modules
+      # referring to this. TODO make `lib.systems` itself use the module system.
       apply = lib.systems.elaborate;
       defaultText = literalExpression ''
         (import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
@@ -259,8 +257,8 @@ in
         system = "x86_64-linux";
         config = "x86_64-unknown-linux-gnu";
       };
-        # Make sure that the final value has all fields for sake of other modules
-        # referring to this.
+      # Make sure that the final value has all fields for sake of other modules
+      # referring to this.
       apply = lib.systems.elaborate;
       defaultText = literalExpression "config.nixpkgs.hostPlatform";
       description = lib.mdDoc ''
@@ -284,8 +282,8 @@ in
         system = "aarch64-linux";
         config = "aarch64-unknown-linux-gnu";
       };
-        # Make sure that the final value has all fields for sake of other modules
-        # referring to this. TODO make `lib.systems` itself use the module system.
+      # Make sure that the final value has all fields for sake of other modules
+      # referring to this. TODO make `lib.systems` itself use the module system.
       apply = lib.systems.elaborate;
       defaultText = literalExpression ''
         (import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
@@ -312,9 +310,9 @@ in
       '';
     };
 
-      # TODO deprecate. "crossSystem" is a nonsense identifier, because "cross"
-      #      is a relation between at least 2 systems in the context of a
-      #      specific build step, not a single system.
+    # TODO deprecate. "crossSystem" is a nonsense identifier, because "cross"
+    #      is a relation between at least 2 systems in the context of a
+    #      specific build step, not a single system.
     crossSystem = mkOption {
       type = types.nullOr types.attrs; # TODO utilize lib.systems.parsedPlatform
       default = null;
@@ -438,6 +436,6 @@ in
     ];
   };
 
-    # needs a full nixpkgs path to import nixpkgs
+  # needs a full nixpkgs path to import nixpkgs
   meta.buildDocsInSandbox = false;
 }

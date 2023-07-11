@@ -22,7 +22,8 @@
 #   $package/share/applications/$name.desktop
 # exists as file.
 
-stdenv.mkDerivation {
+stdenv.mkDerivation
+{
   name = "autostart-${name}";
   priority = 5;
 
@@ -37,7 +38,7 @@ stdenv.mkDerivation {
     cp $target $out/etc/xdg/autostart
   '';
 
-    # this will automatically put 'package' in the environment when you
-    # put its startup item in there.
+  # this will automatically put 'package' in the environment when you
+  # put its startup item in there.
   propagatedBuildInputs = [ package ];
 }

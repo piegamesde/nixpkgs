@@ -27,11 +27,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
-    # TODO: Re-enable Darwin tests once we're on a release that has https://github.com/google/glog/issues/709#issuecomment-960381653 fixed
-  doCheck =
-    !stdenv.isDarwin
-    ;
-    # There are some non-thread safe tests that can fail
+  # TODO: Re-enable Darwin tests once we're on a release that has https://github.com/google/glog/issues/709#issuecomment-960381653 fixed
+  doCheck = !stdenv.isDarwin;
+  # There are some non-thread safe tests that can fail
   enableParallelChecking = false;
   nativeCheckInputs = [ perl ];
 

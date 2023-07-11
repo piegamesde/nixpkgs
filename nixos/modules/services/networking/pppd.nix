@@ -129,7 +129,7 @@ in
                 ProtectHome = true;
                 ProtectHostname = true;
                 ProtectKernelModules = true;
-                  # pppd can be configured to tweak kernel settings.
+                # pppd can be configured to tweak kernel settings.
                 ProtectKernelTunables = false;
                 ProtectSystem = "strict";
                 RemoveIPC = true;
@@ -151,14 +151,14 @@ in
                 SystemCallFilter = "@system-service";
                 SystemCallArchitectures = "native";
 
-                  # All pppd instances on a system must share a runtime
-                  # directory in order for PPP multilink to work correctly. So
-                  # we give all instances the same /run/pppd directory to store
-                  # things in.
-                  #
-                  # For the same reason, we can't set PrivateUsers=true, because
-                  # all instances need to run as the same user to access the
-                  # multilink database.
+                # All pppd instances on a system must share a runtime
+                # directory in order for PPP multilink to work correctly. So
+                # we give all instances the same /run/pppd directory to store
+                # things in.
+                #
+                # For the same reason, we can't set PrivateUsers=true, because
+                # all instances need to run as the same user to access the
+                # multilink database.
                 RuntimeDirectory = "pppd";
                 RuntimeDirectoryPreserve = true;
               }
@@ -170,7 +170,6 @@ in
 
       etcFiles = listToAttrs (map mkEtc enabledConfigs);
       systemdConfigs = listToAttrs (map mkSystemd enabledConfigs);
-
     in
     mkIf cfg.enable {
       environment.etc = etcFiles;

@@ -85,7 +85,7 @@ in
     '';
   };
 
-    # Check that initrd create corresponding entries in bootspec.
+  # Check that initrd create corresponding entries in bootspec.
   initrd = makeTest {
     name = "bootspec-with-initrd";
     meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
@@ -93,7 +93,7 @@ in
     nodes.machine = {
       imports = [ standard ];
       environment.systemPackages = [ pkgs.jq ];
-        # It's probably the case, but we want to make it explicit here.
+      # It's probably the case, but we want to make it explicit here.
       boot.initrd.enable = true;
     };
 
@@ -111,7 +111,7 @@ in
     '';
   };
 
-    # Check that specialisations create corresponding entries in bootspec.
+  # Check that specialisations create corresponding entries in bootspec.
   specialisation = makeTest {
     name = "bootspec-with-specialisation";
     meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
@@ -138,7 +138,7 @@ in
     '';
   };
 
-    # Check that extensions are propagated.
+  # Check that extensions are propagated.
   extensions = makeTest {
     name = "bootspec-with-extensions";
     meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
@@ -168,5 +168,4 @@ in
       assert current_os_release == bootspec_os_release, "Filename referenced by extension has unexpected contents"
     '';
   };
-
 }

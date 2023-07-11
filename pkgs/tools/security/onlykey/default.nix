@@ -23,11 +23,11 @@ let
     elem
     ;
 
-    # this must be updated anytime this package is updated.
+  # this must be updated anytime this package is updated.
   onlykeyPkg =
     "onlykey-git+https://github.com/trustcrypto/OnlyKey-App.git#v${version}";
 
-    # define a shortcut to get to onlykey.
+  # define a shortcut to get to onlykey.
   onlykey = self."${onlykeyPkg}";
 
   super =
@@ -42,11 +42,9 @@ let
         # when installing packages, nw tries to download nwjs in its postInstall
         # script. There are currently no other postInstall scripts, so this
         # should not break other things.
-        npmFlags =
-          attrs.npmFlags or "" + " --ignore-scripts"
-          ;
+        npmFlags = attrs.npmFlags or "" + " --ignore-scripts";
 
-          # this package requires to be built in order to become runnable.
+        # this package requires to be built in order to become runnable.
         postInstall = ''
           cd $out/lib/node_modules/${attrs.packageName}
           npm run build

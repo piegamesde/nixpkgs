@@ -26,7 +26,6 @@ let
     libpulseaudio
     sndio
   ];
-
 in
 stdenv.mkDerivation {
   pname = "cubeb";

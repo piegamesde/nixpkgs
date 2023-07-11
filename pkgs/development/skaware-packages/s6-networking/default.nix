@@ -17,7 +17,6 @@ let
     libressl = libressl;
     bearssl = bearssl;
   };
-
 in
 assert sslSupportEnabled -> sslLibs ? ${sslSupport};
 
@@ -36,7 +35,7 @@ buildPackage {
     "out"
   ];
 
-    # TODO: nsss support
+  # TODO: nsss support
   configureFlags =
     [
       "--libdir=\${lib}/lib"
@@ -73,5 +72,4 @@ buildPackage {
 
     mv doc $doc/share/doc/s6-networking/html
   '';
-
 }

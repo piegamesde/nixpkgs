@@ -24,7 +24,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-    # no tests implemented
+  # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "pyfireservicerota" ];

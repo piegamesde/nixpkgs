@@ -42,7 +42,6 @@ let
 
     sha256 = "sha256-GChYQhhb0z772pfRNKXLWgiEOE2zYRn+4OPPpIhWjLs=";
   };
-
 in
 assert (assertMsg (versionAtLeast maximumOTPVersion mainVersion)) ''
   LFE ${version} is supported on OTP <=${maximumOTPVersion}, not ${mainVersion}.
@@ -74,8 +73,8 @@ buildRebar3 {
     "PREFIX=$$out"
   ];
 
-    # These installPhase tricks are based on Elixir's Makefile.
-    # TODO: Make, upload, and apply a patch.
+  # These installPhase tricks are based on Elixir's Makefile.
+  # TODO: Make, upload, and apply a patch.
   installPhase = optionalString (versionOlder version "1.3") ''
     local libdir=$out/lib/lfe
     local ebindir=$libdir/ebin
@@ -93,7 +92,7 @@ buildRebar3 {
     for file in $bindir/*; do ln -sf $file $out/bin/; done
   '';
 
-    # Thanks again, Elixir.
+  # Thanks again, Elixir.
   postFixup = ''
     # LFE binaries are shell scripts which run erl and lfe.
     # Add some stuff to PATH so the scripts can run without problems.

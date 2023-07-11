@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.jicofo;
 
-    # HOCON is a JSON superset that some jitsi-meet components use for configuration
+  # HOCON is a JSON superset that some jitsi-meet components use for configuration
   toHOCON =
     x:
     if isAttrs x && x ? __hocon_envvar then

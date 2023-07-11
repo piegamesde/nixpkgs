@@ -21,8 +21,8 @@ let
     rev = "aceeaf224b64d6880189d795bd99c3ffadb5d79e";
     sha256 = "125q5rllfm8vg9mz8hn7bhvhv2vqpd86kx2kxlk84smh33l8kbyl";
   };
-
 in
+
 buildPythonPackage rec {
   pname = "pyld";
   version = "1.0.5";
@@ -36,9 +36,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # Unfortunately PyLD does not pass all testcases in the JSON-LD corpus. We
-    # check for at least a minimum amount of successful tests so we know it's not
-    # getting worse, at least.
+  # Unfortunately PyLD does not pass all testcases in the JSON-LD corpus. We
+  # check for at least a minimum amount of successful tests so we know it's not
+  # getting worse, at least.
   checkPhase = ''
     ok_min=401
 

@@ -28,8 +28,8 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
 
-    # FIXME: checkPhase on darwin will leave some zombie spawn processes
-    # see https://github.com/NixOS/nixpkgs/issues/205620
+  # FIXME: checkPhase on darwin will leave some zombie spawn processes
+  # see https://github.com/NixOS/nixpkgs/issues/205620
   doCheck = !stdenv.isDarwin;
   checkFlags =
     [

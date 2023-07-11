@@ -53,16 +53,16 @@ python3Packages.buildPythonApplication rec {
     xfconf
   ];
 
-    # Explicitly set the prefix dir in "setup.py" because setuptools is
-    # not using "$out" as the prefix when installing catfish data. In
-    # particular the variable "__catfish_data_directory__" in
-    # "catfishconfig.py" is being set to a subdirectory in the python
-    # path in the store.
+  # Explicitly set the prefix dir in "setup.py" because setuptools is
+  # not using "$out" as the prefix when installing catfish data. In
+  # particular the variable "__catfish_data_directory__" in
+  # "catfishconfig.py" is being set to a subdirectory in the python
+  # path in the store.
   postPatch = ''
     sed -i "/^        if self.root/i\\        self.prefix = \"$out\"" setup.py
   '';
 
-    # Disable check because there is no test in the source distribution
+  # Disable check because there is no test in the source distribution
   doCheck = false;
 
   passthru.updateScript = gitUpdater { rev-prefix = "${pname}-"; };

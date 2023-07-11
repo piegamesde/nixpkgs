@@ -69,7 +69,6 @@ let
       export PYTHONPATH=${pkg.pythonPath}
       sudo -u peering-manager ${pkg}/bin/peering-manager "$@"
     '');
-
 in
 {
   options.services.peering-manager = {

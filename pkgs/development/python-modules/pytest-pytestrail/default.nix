@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ testrail-api ];
 
-    # all tests require network accesss
+  # all tests require network accesss
   doCheck = false;
 
   pythonImportsCheck = [ "pytest_pytestrail" ];

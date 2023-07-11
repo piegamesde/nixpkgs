@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-XTjZhynIiFtFjJSW6rRAnpErZvf6QHkuK4e2L6l3naM=";
   };
 
-    # Ninja is not detected by setuptools for some reason even though it's present:
+  # Ninja is not detected by setuptools for some reason even though it's present:
   postPatch = ''
     substituteInPlace "setup.cfg" --replace "    ninja" ""
   '';

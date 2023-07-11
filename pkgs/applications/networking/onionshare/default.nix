@@ -59,9 +59,8 @@ let
     maintainers = with maintainers; [ lourkeur ];
   };
 
-    # TODO: package meek https://support.torproject.org/glossary/meek/
+  # TODO: package meek https://support.torproject.org/glossary/meek/
   meek = "/meek-not-available";
-
 in
 rec {
   onionshare = buildPythonApplication {

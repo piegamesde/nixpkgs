@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "eliqonline" ];

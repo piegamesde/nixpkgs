@@ -16,7 +16,6 @@ let
       echo '${builtins.toJSON conf}' | ${pkgs.jq}/bin/jq 'del(._module)' > $out
     ''
     ;
-
 in
 {
   options.services.loki = {

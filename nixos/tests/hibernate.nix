@@ -80,10 +80,10 @@ makeTest {
       ;
   };
 
-    # 9P doesn't support reconnection to virtio transport after a hibernation.
-    # Therefore, machine just hangs on any Nix store access.
-    # To avoid this, we install NixOS onto a temporary disk with everything we need
-    # included into the store.
+  # 9P doesn't support reconnection to virtio transport after a hibernation.
+  # Therefore, machine just hangs on any Nix store access.
+  # To avoid this, we install NixOS onto a temporary disk with everything we need
+  # included into the store.
 
   testScript = ''
     def create_named_machine(name):
@@ -147,5 +147,4 @@ makeTest {
     resume.wait_for_unit("default.target")
     resume.fail("grep 'not persisted to disk' /run/test/suspended")
   '';
-
 }

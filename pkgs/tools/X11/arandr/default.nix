@@ -26,7 +26,7 @@ buildPythonApplication rec {
     rm -rf data/po/*
   '';
 
-    # no tests
+  # no tests
   doCheck = false;
 
   buildInputs = [

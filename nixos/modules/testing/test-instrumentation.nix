@@ -13,8 +13,8 @@ with lib;
 
 let
   qemu-common = import ../../lib/qemu-common.nix { inherit lib pkgs; };
-
 in
+
 {
 
   config = {
@@ -53,17 +53,17 @@ in
       serviceConfig.KillSignal = "SIGHUP";
     };
 
-      # Prevent agetty from being instantiated on the serial device, since it
-      # interferes with the backdoor (writes to it will randomly fail
-      # with EIO).  Likewise for hvc0.
+    # Prevent agetty from being instantiated on the serial device, since it
+    # interferes with the backdoor (writes to it will randomly fail
+    # with EIO).  Likewise for hvc0.
     systemd.services."serial-getty@${qemu-common.qemuSerialDevice}".enable =
       false;
     systemd.services."serial-getty@hvc0".enable = false;
 
-      # Only set these settings when the options exist. Some tests (e.g. those
-      # that do not specify any nodes, or an empty attr set as nodes) will not
-      # have the QEMU module loaded and thuse these options can't and should not
-      # be set.
+    # Only set these settings when the options exist. Some tests (e.g. those
+    # that do not specify any nodes, or an empty attr set as nodes) will not
+    # have the QEMU module loaded and thuse these options can't and should not
+    # be set.
     virtualisation = lib.optionalAttrs (options ? virtualisation.qemu) {
       qemu = {
         # Only use a serial console, no TTY.
@@ -79,9 +79,9 @@ in
 
     boot.kernel.sysctl = {
       "kernel.hung_task_timeout_secs" = 600;
-        # Panic on out-of-memory conditions rather than letting the
-        # OOM killer randomly get rid of processes, since this leads
-        # to failures that are hard to diagnose.
+      # Panic on out-of-memory conditions rather than letting the
+      # OOM killer randomly get rid of processes, since this leads
+      # to failures that are hard to diagnose.
       "vm.panic_on_oom" = lib.mkDefault 2;
     };
 
@@ -99,10 +99,10 @@ in
       "clock=acpi_pm"
     ];
 
-      # `xwininfo' is used by the test driver to query open windows.
+    # `xwininfo' is used by the test driver to query open windows.
     environment.systemPackages = [ pkgs.xorg.xwininfo ];
 
-      # Log everything to the serial console.
+    # Log everything to the serial console.
     services.journald.extraConfig = ''
       ForwardToConsole=yes
       MaxLevelConsole=debug
@@ -129,7 +129,7 @@ in
 
     boot.consoleLogLevel = 7;
 
-      # Prevent tests from accessing the Internet.
+    # Prevent tests from accessing the Internet.
     networking.defaultGateway = mkOverride 150 "";
     networking.nameservers = mkOverride 150 [ ];
 
@@ -141,17 +141,16 @@ in
 
     networking.usePredictableInterfaceNames = false;
 
-      # Make it easy to log in as root when running the test interactively.
+    # Make it easy to log in as root when running the test interactively.
     users.users.root.initialHashedPassword = mkOverride 150 "";
 
     services.xserver.displayManager.job.logToJournal = true;
 
-      # Make sure we use the Guest Agent from the QEMU package for testing
-      # to reduce the closure size required for the tests.
+    # Make sure we use the Guest Agent from the QEMU package for testing
+    # to reduce the closure size required for the tests.
     services.qemuGuest.package = pkgs.qemu_test.ga;
 
-      # Squelch warning about unset system.stateVersion
+    # Squelch warning about unset system.stateVersion
     system.stateVersion = lib.mkDefault lib.trivial.release;
   };
-
 }

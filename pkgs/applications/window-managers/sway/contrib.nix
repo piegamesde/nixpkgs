@@ -102,5 +102,4 @@
         "https://github.com/swaywm/sway/tree/${sway-unwrapped.version}/contrib";
     };
   };
-
 }

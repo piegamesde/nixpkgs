@@ -39,7 +39,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-    # set the version. see: aws-vault's Makefile
+  # set the version. see: aws-vault's Makefile
   ldflags = [ "-X main.Version=v${version}" ];
 
   doInstallCheck = true;

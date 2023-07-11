@@ -43,8 +43,8 @@ let
         ${cfg.extraConfig}
       ''
     ;
-
 in
+
 {
 
   options.services.cntlm = {
@@ -123,10 +123,9 @@ in
       default = "";
       description = lib.mdDoc "Verbatim contents of {file}`cntlm.conf`.";
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.cntlm = {

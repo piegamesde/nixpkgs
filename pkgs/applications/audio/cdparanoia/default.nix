@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
         url =
           "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/osx_interface.patch";
         sha256 = "0hq3lvfr0h1m3p0r33jij0s1aspiqlpy533rwv19zrfllb39qvr8";
-          # Our configure patch will subsume it, but we want our configure
-          # patch to be used on all platforms so we cannot just start where
-          # this leaves off.
+        # Our configure patch will subsume it, but we want our configure
+        # patch to be used on all platforms so we cannot just start where
+        # this leaves off.
         excludes = [ "configure.in" ];
       })
       (fetchurl {
@@ -57,13 +57,13 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-    # Build system reuses the same object file names for shared and static
-    # library. Occasionally fails in the middle:
-    #    gcc -O2 -fsigned-char -g -O2 -c scan_devices.c
-    #    rm  -f *.o core *~ *.out
-    #    gcc -O2 -fsigned-char -g -O2 -fpic -c scan_devices.c
-    #    gcc -fpic -shared -o libcdda_interface.so.0.10.2 ... scan_devices.o ...
-    #    scan_devices.o: file not recognized: file format not recognized
+  # Build system reuses the same object file names for shared and static
+  # library. Occasionally fails in the middle:
+  #    gcc -O2 -fsigned-char -g -O2 -c scan_devices.c
+  #    rm  -f *.o core *~ *.out
+  #    gcc -O2 -fsigned-char -g -O2 -fpic -c scan_devices.c
+  #    gcc -fpic -shared -o libcdda_interface.so.0.10.2 ... scan_devices.o ...
+  #    scan_devices.o: file not recognized: file format not recognized
   enableParallelBuilding = false;
 
   meta = with lib; {

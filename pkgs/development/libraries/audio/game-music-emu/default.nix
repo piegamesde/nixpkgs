@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
     removeReferencesTo
   ];
 
-    # It used to reference it, in the past, but thanks to the postFixup hook, now
-    # it doesn't.
+  # It used to reference it, in the past, but thanks to the postFixup hook, now
+  # it doesn't.
   disallowedReferences = [ stdenv.cc.cc ];
 
   postFixup = lib.optionalString stdenv.isLinux ''

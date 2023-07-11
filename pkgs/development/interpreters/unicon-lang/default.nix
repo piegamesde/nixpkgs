@@ -28,11 +28,11 @@ stdenv.mkDerivation {
 
   sourceRoot = ".";
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: ../common/ipp.o:(.bss+0x0): multiple definition of `lpath'; tglobals.o:(.bss+0x30): first defined here
-    # TODO: remove the workaround once upstream releases version past:
-    #   https://sourceforge.net/p/unicon/unicon/ci/b1a65230233f3825d055aee913b4fdcf178a0eaf/
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: ../common/ipp.o:(.bss+0x0): multiple definition of `lpath'; tglobals.o:(.bss+0x30): first defined here
+  # TODO: remove the workaround once upstream releases version past:
+  #   https://sourceforge.net/p/unicon/unicon/ci/b1a65230233f3825d055aee913b4fdcf178a0eaf/
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   configurePhase = ''

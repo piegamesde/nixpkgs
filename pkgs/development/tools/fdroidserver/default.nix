@@ -58,7 +58,7 @@ python.pkgs.buildPythonApplication rec {
     "${lib.makeBinPath [ apksigner ]}"
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "fdroidserver" ];
@@ -70,5 +70,4 @@ python.pkgs.buildPythonApplication rec {
     license = licenses.agpl3;
     maintainers = with maintainers; [ obfusk ];
   };
-
 }

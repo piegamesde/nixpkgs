@@ -50,8 +50,8 @@ let
     else
       throw "[TWBT] Unsupported Dwarf Fortress version: ${dfVersion}"
     ;
-
 in
+
 stdenvNoCC.mkDerivation rec {
   pname = "twbt";
   version = release.twbtRelease;

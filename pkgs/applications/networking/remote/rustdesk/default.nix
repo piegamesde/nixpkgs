@@ -66,12 +66,12 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-    # Change magnus-opus version to upstream so that it does not use
-    # vcpkg for libopus since it does not work.
+  # Change magnus-opus version to upstream so that it does not use
+  # vcpkg for libopus since it does not work.
   cargoPatches = [ ./cargo.patch ];
 
-    # Manually simulate a vcpkg installation so that it can link the libaries
-    # properly.
+  # Manually simulate a vcpkg installation so that it can link the libaries
+  # properly.
   postUnpack =
     let
       vcpkg_target = "x64-linux";
@@ -127,7 +127,7 @@ rustPlatform.buildRustPackage rec {
     libyuv
   ];
 
-    # Checks require an active X display.
+  # Checks require an active X display.
   doCheck = false;
 
   desktopItems = [
@@ -147,8 +147,8 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-    # Add static ui resources and libsciter to same folder as binary so that it
-    # can find them.
+  # Add static ui resources and libsciter to same folder as binary so that it
+  # can find them.
   postInstall = ''
     mkdir -p $out/{share/src,lib/rustdesk}
 

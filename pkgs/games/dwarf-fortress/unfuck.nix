@@ -72,8 +72,8 @@ let
     else
       throw "[unfuck] Unknown Dwarf Fortress version: ${dfVersion}"
     ;
-
 in
+
 stdenv.mkDerivation {
   pname = "dwarf_fortress_unfuck";
   version = release.unfuckRelease;
@@ -121,14 +121,14 @@ stdenv.mkDerivation {
     )
     ;
 
-    # Don't strip unused symbols; dfhack hooks into some of them.
+  # Don't strip unused symbols; dfhack hooks into some of them.
   dontStrip = true;
 
   installPhase = ''
     install -D -m755 ../build/libgraphics.so $out/lib/libgraphics.so
   '';
 
-    # Breaks dfhack because of inlining.
+  # Breaks dfhack because of inlining.
   hardeningDisable = [ "fortify" ];
 
   passthru = { inherit dfVersion; };

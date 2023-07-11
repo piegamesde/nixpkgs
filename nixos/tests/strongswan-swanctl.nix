@@ -16,7 +16,9 @@
 # See the NixOS manual for how to run this test:
 # https://nixos.org/nixos/manual/index.html#sec-running-nixos-tests-interactively
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -25,7 +27,7 @@ import ./make-test-python.nix (
   let
     allowESP = "iptables --insert INPUT --protocol ESP --jump ACCEPT";
 
-      # Shared VPN settings:
+    # Shared VPN settings:
     vlan0 = "192.168.0.0/24";
     carolIp = "192.168.1.2";
     moonIp = "192.168.1.3";
@@ -164,7 +166,6 @@ import ./make-test-python.nix (
           };
         }
         ;
-
     };
     testScript = ''
       start_all()

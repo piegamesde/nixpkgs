@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage rec {
     ]
     ;
 
-    # requires internet access
+  # requires internet access
   checkFlags = [
       "--skip=secondary_threads::check_updates::tests::fetch_latest_release_from_github"
     ];

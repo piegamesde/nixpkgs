@@ -46,10 +46,10 @@ buildPythonPackage rec {
     ''
     ;
 
-    # Need to fix test runner
-    # Tests have many dependencies
-    # Extension types could not be found.
-    # Should run test suite from $out/${python.sitePackages}
+  # Need to fix test runner
+  # Tests have many dependencies
+  # Extension types could not be found.
+  # Should run test suite from $out/${python.sitePackages}
   doCheck = false;
 
   meta = with lib; {
@@ -64,5 +64,4 @@ buildPythonPackage rec {
     license = "BSD-style";
     platforms = platforms.mesaPlatforms;
   };
-
 }

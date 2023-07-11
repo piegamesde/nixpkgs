@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = true;
 
-    # Integration tests require root.
+  # Integration tests require root.
   cargoTestFlags = [ "--bins" ];
 
   meta = with lib; {

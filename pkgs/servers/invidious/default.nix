@@ -49,8 +49,8 @@ crystal.buildCrystalPackage rec {
       versionTemplate =
         ''
           {{ "#{`git log -1 --format=%ci | awk '{print $1}' | sed s/-/./g`.strip}" }}'';
-        # This always uses the latest commit which invalidates the cache even if
-        # the assets were not changed
+      # This always uses the latest commit which invalidates the cache even if
+      # the assets were not changed
       assetCommitTemplate =
         ''
           {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit -- assets`.strip}" }}'';
@@ -137,10 +137,10 @@ crystal.buildCrystalPackage rec {
     cp -r config/sql $out/share/invidious/config
   '';
 
-    # Invidious tries to open config/config.yml and connect to the database, even
-    # when running --help. This specifies a minimal configuration in an
-    # environment variable. Even though the database is bogus, --help still
-    # works.
+  # Invidious tries to open config/config.yml and connect to the database, even
+  # when running --help. This specifies a minimal configuration in an
+  # environment variable. Even though the database is bogus, --help still
+  # works.
   installCheckPhase = ''
     INVIDIOUS_CONFIG="database_url: sqlite3:///dev/null" $out/bin/invidious --help
   '';

@@ -10,9 +10,9 @@ stdenv.mkDerivation rec {
   pname = "cups-dymo";
   version = "1.4.0.5";
 
-    # exposed version and 'real' version may differ
-    # in this case the download states '1.4.0' but the real version is '1.4.0.5'
-    # this has the potential to break future builds
+  # exposed version and 'real' version may differ
+  # in this case the download states '1.4.0' but the real version is '1.4.0.5'
+  # this has the potential to break future builds
   dl-name = "dymo-cups-drivers-1.4.0";
 
   src = fetchurl {

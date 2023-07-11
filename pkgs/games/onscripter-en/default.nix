@@ -40,7 +40,7 @@ stdenv.mkDerivation {
 
   configureFlags = [ "--no-werror" ];
 
-    # Without this libvorbisfile.so is not getting linked properly for some reason.
+  # Without this libvorbisfile.so is not getting linked properly for some reason.
   NIX_CFLAGS_LINK = "-lvorbisfile";
 
   preBuild = ''

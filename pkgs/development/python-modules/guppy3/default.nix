@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ tkinter ];
 
-    # Tests are starting a Tkinter GUI
+  # Tests are starting a Tkinter GUI
   doCheck = false;
   pythonImportsCheck = [ "guppy" ];
 

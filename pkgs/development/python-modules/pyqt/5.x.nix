@@ -47,9 +47,6 @@ buildPythonPackage rec {
       [tool.sip.project]
       verbose = true
     ''
-    # Due to bug in SIP .whl name generation we have to bump minimal macos sdk upto 11.0 for
-    # aarch64-darwin. This patch can be removed once SIP will fix it in upstream,
-    # see https://github.com/NixOS/nixpkgs/pull/186612#issuecomment-1214635456.
     + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       minimum-macos-version = "11.0"
     ''
@@ -59,12 +56,12 @@ buildPythonPackage rec {
     ;
 
   enableParallelBuilding = true;
-    # HACK: paralellize compilation of make calls within pyqt's setup.py
-    # pkgs/stdenv/generic/setup.sh doesn't set this for us because
-    # make gets called by python code and not its build phase
-    # format=pyproject means the pip-build-hook hook gets used to build this project
-    # pkgs/development/interpreters/python/hooks/pip-build-hook.sh
-    # does not use the enableParallelBuilding flag
+  # HACK: paralellize compilation of make calls within pyqt's setup.py
+  # pkgs/stdenv/generic/setup.sh doesn't set this for us because
+  # make gets called by python code and not its build phase
+  # format=pyproject means the pip-build-hook hook gets used to build this project
+  # pkgs/development/interpreters/python/hooks/pip-build-hook.sh
+  # does not use the enableParallelBuilding flag
   postUnpack = ''
     export MAKEFLAGS+="''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
   '';
@@ -121,7 +118,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-    # Checked using pythonImportsCheck
+  # Checked using pythonImportsCheck
   doCheck = false;
 
   pythonImportsCheck =

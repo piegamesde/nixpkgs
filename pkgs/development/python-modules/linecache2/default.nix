@@ -15,7 +15,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ pbr ];
-    # circular dependencies for tests
+  # circular dependencies for tests
   doCheck = false;
 
   meta = with lib; {

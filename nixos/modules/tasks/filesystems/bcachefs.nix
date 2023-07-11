@@ -46,8 +46,8 @@ let
       tryUnlock ${name} ${firstDevice}
     ''
     ;
-
 in
+
 {
   config = mkIf (elem "bcachefs" config.boot.supportedFilesystems) (
     mkMerge [
@@ -60,7 +60,7 @@ in
         environment.systemPackages =
           lib.optional (config.boot.initrd.systemd.enable) pkgs.bcachefs-tools;
 
-          # use kernel package with bcachefs support until it's in mainline
+        # use kernel package with bcachefs support until it's in mainline
         boot.kernelPackages = pkgs.linuxPackages_testing_bcachefs;
       }
 

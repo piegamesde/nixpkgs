@@ -24,7 +24,7 @@ buildPythonPackage rec {
     keyring
   ];
 
-    # Requires internet access and an API key
+  # Requires internet access and an API key
   doCheck = false;
 
   pythonImportsCheck = [ "deepl" ];

@@ -24,11 +24,11 @@ ocamlPackages.buildDunePackage rec {
     fetchSubmodules = true;
   };
 
-    # The build picks this up for ligo --version
+  # The build picks this up for ligo --version
   LIGO_VERSION = version;
   CHANGELOG_PATH = "./changelog.txt";
 
-    # This is a hack to work around the hack used in the dune files
+  # This is a hack to work around the hack used in the dune files
   OPAM_SWITCH_PREFIX = "${tezos-rust-libs}";
 
   duneVersion = "3";

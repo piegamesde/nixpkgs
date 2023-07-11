@@ -23,8 +23,8 @@
   gdk-pixbuf,
   gtk3,
   gtk ? gtk3
-    # List of gui libraries to use. According to `./configure --help` ran on
-    # release 3.9.3, options are: (xlib|win32|fb|quartz|console|wayland|sdl2|beos)
+  # List of gui libraries to use. According to `./configure --help` ran on
+  # release 3.9.3, options are: (xlib|win32|fb|quartz|console|wayland|sdl2|beos)
   ,
   enableGuis ? {
     xlib = enableX11;
@@ -56,9 +56,9 @@
     mlconfig = true;
     mlcc = true;
     mlterm-menu = true;
-      # Note that according to upstream's ./configure script, to disable
-      # mlimgloader you have to disable _all_ tools. See:
-      # https://github.com/arakiken/mlterm/issues/69
+    # Note that according to upstream's ./configure script, to disable
+    # mlimgloader you have to disable _all_ tools. See:
+    # https://github.com/arakiken/mlterm/issues/69
     mlimgloader = true;
     registobmp = true;
     mlfc = true;
@@ -66,10 +66,10 @@
   # Whether to enable the X window system
   ,
   enableX11 ? stdenv.isLinux
-    # Most of the input methods and other build features are enabled by default,
-    # the following attribute set can be used to disable some of them. It's parsed
-    # when we set `configureFlags`. If you find other configure Flags that require
-    # dependencies, it'd be nice to make that contribution here.
+  # Most of the input methods and other build features are enabled by default,
+  # the following attribute set can be used to disable some of them. It's parsed
+  # when we set `configureFlags`. If you find other configure Flags that require
+  # dependencies, it'd be nice to make that contribution here.
   ,
   enableFeatures ? {
     uim = !stdenv.isDarwin;
@@ -78,7 +78,7 @@
     m17n = !stdenv.isDarwin;
     ssh2 = true;
     bidi = true;
-      # Open Type layout support, (substituting glyphs with opentype fonts)
+    # Open Type layout support, (substituting glyphs with opentype fonts)
     otl = true;
   }
   # Configure the Exec directive in the generated .desktop file
@@ -153,7 +153,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableFeatures.uim [ uim ]
     ;
 
-    #bad configure.ac and Makefile.in everywhere
+  #bad configure.ac and Makefile.in everywhere
   preConfigure = ''
     sed -ie 's;-L/usr/local/lib -R/usr/local/lib;;g' \
       main/Makefile.in \

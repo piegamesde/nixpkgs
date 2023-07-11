@@ -60,7 +60,6 @@ import ./make-test-python.nix (
                     --load-ca-certificate "$out/ca.crt" \
                     --outfile "$out/client1.crt"
       '';
-
   in
   {
     name = "mosquitto";

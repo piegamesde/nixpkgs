@@ -23,8 +23,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # cirq's importlib hook doesn't work here
-    #pythonImportsCheck = [ "cirq_pasqal" ];
+  # cirq's importlib hook doesn't work here
+  #pythonImportsCheck = [ "cirq_pasqal" ];
 
   disabledTestPaths =
     [

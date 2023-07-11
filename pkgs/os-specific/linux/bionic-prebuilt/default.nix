@@ -78,7 +78,6 @@ let
       stripRoot = false;
     };
   };
-
 in
 stdenvNoCC.mkDerivation rec {
   pname = "bionic-prebuilt";

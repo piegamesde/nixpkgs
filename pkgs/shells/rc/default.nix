@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     byacc
   ];
 
-    # acinclude.m4 wants headers for tgetent().
+  # acinclude.m4 wants headers for tgetent().
   buildInputs = [ ncurses ] ++ lib.optionals readlineSupport [ readline ];
 
   CPPFLAGS = [ "-DSIGCLD=SIGCHLD" ];
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals readlineSupport [ "--with-edit=readline" ]
     ;
 
-    #reproducible-build
+  #reproducible-build
   postPatch = ''
     substituteInPlace configure.ac \
       --replace "$(git describe || echo '(git description unavailable)')" "${

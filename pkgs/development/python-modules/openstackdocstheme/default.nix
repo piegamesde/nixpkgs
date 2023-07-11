@@ -28,7 +28,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "openstackdocstheme" ];

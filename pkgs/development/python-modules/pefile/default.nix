@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ future ];
 
-    # Test data encrypted
+  # Test data encrypted
   doCheck = false;
 
   pythonImportsCheck = [ "pefile" ];

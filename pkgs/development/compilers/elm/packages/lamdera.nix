@@ -27,8 +27,8 @@ let
     "aarch64-darwin" =
       "bb105e7aebae3c637b761017c6fb49d9696eba1022f27ec594aac9c2dbffd907";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "lamdera";
   version = "1.1.0";

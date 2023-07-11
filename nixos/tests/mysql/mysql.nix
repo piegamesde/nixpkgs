@@ -13,7 +13,7 @@ let
     ;
 
   makeTest = import ./../make-test-python.nix;
-    # Setup common users
+  # Setup common users
   makeMySQLTest =
     {
       package,
@@ -58,8 +58,8 @@ let
                 name = "testdb3";
                 schema = ./testdb.sql;
               } ];
-                # note that using pkgs.writeText here is generally not a good idea,
-                # as it will store the password in world-readable /nix/store ;)
+              # note that using pkgs.writeText here is generally not a good idea,
+              # as it will store the password in world-readable /nix/store ;)
               initialScript = pkgs.writeText "mysql-init.sql" (
                 if (!useSocketAuth) then
                   ''

@@ -147,7 +147,6 @@ let
               inherit svcManager;
               inherit specs;
             };
-
           }
           ;
       };
@@ -206,5 +205,4 @@ in
       machine.wait_until_succeeds("stat /tmp/command.executed")
     '';
   };
-
 }

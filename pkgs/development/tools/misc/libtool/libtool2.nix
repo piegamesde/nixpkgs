@@ -13,7 +13,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "libtool";
   version = "2.4.7";
 
@@ -27,8 +28,8 @@ stdenv.mkDerivation rec {
     "lib"
   ];
 
-    # FILECMD was added in libtool 2.4.7; previous versions hardwired `/usr/bin/file`
-    #   https://lists.gnu.org/archive/html/autotools-announce/2022-03/msg00000.html
+  # FILECMD was added in libtool 2.4.7; previous versions hardwired `/usr/bin/file`
+  #   https://lists.gnu.org/archive/html/autotools-announce/2022-03/msg00000.html
   FILECMD = "${file}/bin/file";
 
   postPatch =
@@ -43,9 +44,9 @@ stdenv.mkDerivation rec {
     '';
 
   strictDeps = true;
-    # As libtool is an early bootstrap dependency try hard not to
-    # add autoconf and automake or help2man dependencies here. That way we can
-    # avoid pulling in perl and get away with just an `m4` depend.
+  # As libtool is an early bootstrap dependency try hard not to
+  # add autoconf and automake or help2man dependencies here. That way we can
+  # avoid pulling in perl and get away with just an `m4` depend.
   nativeBuildInputs = [
     m4
     file
@@ -55,13 +56,13 @@ stdenv.mkDerivation rec {
     file
   ];
 
-    # Don't fixup "#! /bin/sh" in Libtool, otherwise it will use the
-    # "fixed" path in generated files!
+  # Don't fixup "#! /bin/sh" in Libtool, otherwise it will use the
+  # "fixed" path in generated files!
   dontPatchShebangs = true;
   dontFixLibtool = true;
 
-    # XXX: The GNU ld wrapper does all sorts of nasty things wrt. RPATH, which
-    # leads to the failure of a number of tests.
+  # XXX: The GNU ld wrapper does all sorts of nasty things wrt. RPATH, which
+  # leads to the failure of a number of tests.
   doCheck = false;
   doInstallCheck = false;
 

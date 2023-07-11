@@ -8,8 +8,8 @@ with lib;
 
 let
   cfg = config.nix.gc;
-
 in
+
 {
 
   ###### interface
@@ -75,12 +75,10 @@ in
           garbage collector is run automatically.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = {
     assertions = [ {
@@ -101,7 +99,5 @@ in
         Persistent = cfg.persistent;
       };
     };
-
   };
-
 }

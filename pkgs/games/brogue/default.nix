@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     cp -r bin/fonts $out/share/brogue/
   '';
 
-    # fix crash; shouldn’t be a security risk because it’s an offline game
+  # fix crash; shouldn’t be a security risk because it’s an offline game
   hardeningDisable = [
     "stackprotector"
     "fortify"

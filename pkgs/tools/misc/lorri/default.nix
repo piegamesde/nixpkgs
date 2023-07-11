@@ -19,7 +19,6 @@ let
   gitRev = "1.6.0";
   sha256 = "sha256-peelMKv9GOTPdyb1iifzlFikeayTchqaYCgeXyR5EgM=";
   cargoSha256 = "sha256-UFAmTYnCqsQxBnCm1zMu+BcWIZMuuxvpF7poLlzC6Kg=";
-
 in
 (rustPlatform.buildRustPackage rec {
   pname = "lorri";
@@ -50,7 +49,7 @@ in
     Security
   ];
 
-    # copy the docs to the $man and $doc outputs
+  # copy the docs to the $man and $doc outputs
   postInstall = ''
     install -Dm644 lorri.1 $man/share/man/man1/lorri.1
     install -Dm644 -t $doc/share/doc/lorri/ \

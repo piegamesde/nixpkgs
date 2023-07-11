@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ unittest-cpp ];
 
-    # libtool puts these to .la files
+  # libtool puts these to .la files
   propagatedBuildInputs = [
     hspell
     aspell

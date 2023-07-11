@@ -164,9 +164,9 @@ rec {
     }
     ;
 
-    # NOTE: Default JDKs that are hardcoded below must be LTS versions
-    # and respect the compatibility matrix at
-    # https://docs.gradle.org/current/userguide/compatibility.html
+  # NOTE: Default JDKs that are hardcoded below must be LTS versions
+  # and respect the compatibility matrix at
+  # https://docs.gradle.org/current/userguide/compatibility.html
 
   gradle_8 = gen {
     version = "8.0.1";

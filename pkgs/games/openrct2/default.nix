@@ -32,8 +32,8 @@
 let
   openrct2-version = "0.4.4";
 
-    # Those versions MUST match the pinned versions within the CMakeLists.txt
-    # file. The REPLAYS repository from the CMakeLists.txt is not necessary.
+  # Those versions MUST match the pinned versions within the CMakeLists.txt
+  # file. The REPLAYS repository from the CMakeLists.txt is not necessary.
   objects-version = "1.3.8";
   openmsx-version = "1.1.0";
   opensfx-version = "1.0.2";

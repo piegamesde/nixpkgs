@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-d4nwyuynFS/vB61rlN7HMQoF0Ljat395eeGdsAN7USc=";
   };
 
-    # setup.cfg tries to pull in nonexistent LICENSE.txt file
+  # setup.cfg tries to pull in nonexistent LICENSE.txt file
   postPatch = "rm setup.cfg";
 
   propagatedBuildInputs = [

@@ -10,7 +10,6 @@
 
 let
   inherit (lib) optional optionalString;
-
 in
 stdenv.mkDerivation rec {
   pname = "libmikmod";

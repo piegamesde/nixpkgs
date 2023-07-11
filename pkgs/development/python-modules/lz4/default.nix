@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.5";
 
-    # get full repository in order to run tests
+  # get full repository in order to run tests
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
@@ -48,10 +48,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # for lz4.steam
+  # for lz4.steam
   PYLZ4_EXPERIMENTAL = true;
 
-    # prevent local lz4 directory from getting imported as it lacks native extensions
+  # prevent local lz4 directory from getting imported as it lacks native extensions
   preCheck = ''
     rm -r lz4
     export PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH

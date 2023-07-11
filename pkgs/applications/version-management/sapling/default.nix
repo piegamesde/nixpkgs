@@ -24,23 +24,19 @@
 }:
 
 let
-  inherit (lib.importJSON ./deps.json)
-    links
-    version
-    versionHash
-    ;
-    # Sapling sets a Cargo config containing lines like so:
-    # [target.aarch64-apple-darwin]
-    # rustflags = ["-C", "link-args=-Wl,-undefined,dynamic_lookup"]
-    #
-    # The default cargo config that's set by the build hook will set
-    # unstable.host-config and unstable.target-applies-to-host which seems to
-    # result in the link arguments above being ignored and thus link failures.
-    # All it is there to do anyway is just to do stuff with musl and cross
-    # compilation, which doesn't work on macOS anyway so we can just stub it
-    # on macOS.
-    #
-    # See https://github.com/NixOS/nixpkgs/pull/198311#issuecomment-1326894295
+  inherit (lib.importJSON ./deps.json) links version versionHash;
+  # Sapling sets a Cargo config containing lines like so:
+  # [target.aarch64-apple-darwin]
+  # rustflags = ["-C", "link-args=-Wl,-undefined,dynamic_lookup"]
+  #
+  # The default cargo config that's set by the build hook will set
+  # unstable.host-config and unstable.target-applies-to-host which seems to
+  # result in the link arguments above being ignored and thus link failures.
+  # All it is there to do anyway is just to do stuff with musl and cross
+  # compilation, which doesn't work on macOS anyway so we can just stub it
+  # on macOS.
+  #
+  # See https://github.com/NixOS/nixpkgs/pull/198311#issuecomment-1326894295
   myCargoSetupHook = rustPlatform.cargoSetupHook.overrideAttrs (
     old: {
       cargoConfig =
@@ -61,13 +57,13 @@ let
 
   addonsSrc = "${src}/addons";
 
-    # Fetches the Yarn modules in Nix to to be used as an offline cache
+  # Fetches the Yarn modules in Nix to to be used as an offline cache
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${addonsSrc}/yarn.lock";
     sha256 = "sha256-cEIij7hocCSPw1Q1ESI/t9IFmLM0Nbr/IjSz3HzBdzU=";
   };
 
-    # Builds the NodeJS server that runs with `sl web`
+  # Builds the NodeJS server that runs with `sl web`
   isl = stdenv.mkDerivation {
     pname = "sapling-isl";
     src = addonsSrc;
@@ -101,15 +97,16 @@ let
       runHook postInstall
     '';
   };
-  # Builds the main `sl` binary and its Python extensions
 in
-python3Packages.buildPythonApplication {
+# Builds the main `sl` binary and its Python extensions
+python3Packages.buildPythonApplication
+{
   pname = "sapling";
   inherit src version;
 
   sourceRoot = "source/eden/scm";
 
-    # Upstream does not commit Cargo.lock
+  # Upstream does not commit Cargo.lock
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
@@ -128,9 +125,9 @@ python3Packages.buildPythonApplication {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-    # Since the derivation builder doesn't have network access to remain pure,
-    # fetch the artifacts manually and link them. Then replace the hardcoded URLs
-    # with filesystem paths for the curl calls.
+  # Since the derivation builder doesn't have network access to remain pure,
+  # fetch the artifacts manually and link them. Then replace the hardcoded URLs
+  # with filesystem paths for the curl calls.
   postUnpack = ''
     mkdir $sourceRoot/hack_pydeps
     ${lib.concatStrings (
@@ -143,15 +140,15 @@ python3Packages.buildPythonApplication {
     sed -i "s|https://files.pythonhosted.org/packages/[[:alnum:]]*/[[:alnum:]]*/[[:alnum:]]*/|file://$NIX_BUILD_TOP/$sourceRoot/hack_pydeps/|g" $sourceRoot/setup.py
   '';
 
-    # Now, copy the "sl web" (aka edenscm-isl) results into the output of this
-    # package, so that the command can actually work. NOTES:
-    #
-    # 1) This applies on all systems (so no conditional a la postFixup)
-    # 2) This doesn't require any kind of fixup itself, so we leave it out
-    #    of postFixup for that reason, too
-    # 3) If asked, we optionally patch in a hardcoded path to the 'nodejs' package,
-    #    so that 'sl web' always works
-    # 4) 'sl web' will still work if 'nodejs' is in $PATH, just not OOTB
+  # Now, copy the "sl web" (aka edenscm-isl) results into the output of this
+  # package, so that the command can actually work. NOTES:
+  #
+  # 1) This applies on all systems (so no conditional a la postFixup)
+  # 2) This doesn't require any kind of fixup itself, so we leave it out
+  #    of postFixup for that reason, too
+  # 3) If asked, we optionally patch in a hardcoded path to the 'nodejs' package,
+  #    so that 'sl web' always works
+  # 4) 'sl web' will still work if 'nodejs' is in $PATH, just not OOTB
   preFixup =
     ''
       sitepackages=$out/lib/${python3Packages.python.libPrefix}/site-packages
@@ -199,14 +196,14 @@ python3Packages.buildPythonApplication {
   SAPLING_OSS_BUILD = "true";
   SAPLING_VERSION_HASH = versionHash;
 
-    # Python setuptools version 66 and newer does not support upstream Sapling's
-    # version numbers (e.g. "0.2.20230124-180750-hf8cd450a"). Change the version
-    # number to something supported by setuptools (e.g. "0.2.20230124").
-    # https://github.com/facebook/sapling/issues/571
+  # Python setuptools version 66 and newer does not support upstream Sapling's
+  # version numbers (e.g. "0.2.20230124-180750-hf8cd450a"). Change the version
+  # number to something supported by setuptools (e.g. "0.2.20230124").
+  # https://github.com/facebook/sapling/issues/571
   SAPLING_VERSION = builtins.elemAt (builtins.split "-" version) 0;
 
-    # just a simple check phase, until we have a running test suite. this should
-    # help catch issues like lack of a LOCALE_ARCHIVE setting (see GH PR #202760)
+  # just a simple check phase, until we have a running test suite. this should
+  # help catch issues like lack of a LOCALE_ARCHIVE setting (see GH PR #202760)
   doCheck = true;
   installCheckPhase = ''
     echo -n "testing sapling version; should be \"$SAPLING_VERSION\"... "

@@ -9,8 +9,8 @@ let
   inherit (lib) literalExpression mkIf mkOption singleton types;
   inherit (pkgs) coreutils;
   cfg = config.services.exim;
-
 in
+
 {
 
   ###### interface
@@ -81,10 +81,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -131,7 +130,5 @@ in
         fi
       '';
     };
-
   };
-
 }

@@ -13,8 +13,8 @@ buildPythonPackage rec {
     sha256 = "d4d2b68eb0ef8073200154247cc9bd91ed7fb2671ac966ef3d2853281c15d7a8";
   };
 
-    # tests not shipped on `pypi` and
-    # seem to be broken ATM: https://github.com/wbsoft/python-ly/issues/70
+  # tests not shipped on `pypi` and
+  # seem to be broken ATM: https://github.com/wbsoft/python-ly/issues/70
   doCheck = false;
 
   meta = with lib; {

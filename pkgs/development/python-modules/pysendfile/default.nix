@@ -27,5 +27,4 @@ buildPythonPackage rec {
     description = "A Python interface to sendfile(2)";
     license = licenses.mit;
   };
-
 }

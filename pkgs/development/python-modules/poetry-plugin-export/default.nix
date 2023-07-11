@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-    # infinite recursion with poetry
+  # infinite recursion with poetry
   doCheck = false;
   pythonImportsCheck = [ ];
 

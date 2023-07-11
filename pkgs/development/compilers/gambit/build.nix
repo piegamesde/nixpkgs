@@ -35,7 +35,8 @@
 # Overall, -Os seems like the best choice, but I care more about compile-time,
 # so I stick with -O1 (in the defaults above), which is also the default for Gambit.
 
-gccStdenv.mkDerivation rec {
+gccStdenv.mkDerivation
+rec {
 
   pname = "gambit";
   inherit src version git-version;
@@ -45,14 +46,14 @@ gccStdenv.mkDerivation rec {
     git
     autoconf
   ];
-    # TODO: if/when we can get all the library packages we depend on to have static versions,
-    # we could use something like (makeStaticLibraries openssl) to enable creation
-    # of statically linked binaries by gsc.
+  # TODO: if/when we can get all the library packages we depend on to have static versions,
+  # we could use something like (makeStaticLibraries openssl) to enable creation
+  # of statically linked binaries by gsc.
   buildInputs = [ openssl ];
 
-    # TODO: patch gambit's source so it has the full path to sed, grep, fgrep? Is there more?
-    # Or wrap relevant programs to add a suitable PATH ?
-    #runtimeDeps = [ gnused gnugrep ];
+  # TODO: patch gambit's source so it has the full path to sed, grep, fgrep? Is there more?
+  # Or wrap relevant programs to add a suitable PATH ?
+  #runtimeDeps = [ gnused gnugrep ];
 
   configureFlags =
     [
@@ -81,7 +82,9 @@ gccStdenv.mkDerivation rec {
     ]
     ++
     # due not enable poll on darwin due to https://github.com/gambit/gambit/issues/498
-    lib.optional (!gccStdenv.isDarwin) "--enable-poll"
+      lib.optional
+      (!gccStdenv.isDarwin)
+      "--enable-poll"
     ;
 
   configurePhase = ''

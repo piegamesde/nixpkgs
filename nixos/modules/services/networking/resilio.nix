@@ -90,7 +90,6 @@ let
         cp ${configFile} ${runConfigPath};
       ''
   );
-
 in
 {
   options = {

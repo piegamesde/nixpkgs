@@ -31,6 +31,4 @@ stdenvNoCC.mkDerivation {
   inherit branch cacheDB name selector;
 
   impureEnvVars = lib.fetchers.proxyImpureEnvVars;
-
 }
-

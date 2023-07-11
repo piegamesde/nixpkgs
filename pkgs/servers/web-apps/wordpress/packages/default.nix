@@ -16,7 +16,6 @@ let
     self:
     let
       generatedJson = { inherit plugins themes languages; };
-
     in
     {
       # Create a generic WordPress package. Most arguments are just passed
@@ -83,8 +82,8 @@ let
         )
         { };
 
-        # Create a derivation from the official wordpress.org packages.
-        # This takes the type, the pname and the data generated from the go tool.
+      # Create a derivation from the official wordpress.org packages.
+      # This takes the type, the pname and the data generated from the go tool.
       mkOfficialWordpressDerivation = self.callPackage
         (
           {
@@ -105,8 +104,8 @@ let
         )
         { };
 
-        # Filter out all characters that might occur in a version string but that that are not allowed
-        # in store paths.
+      # Filter out all characters that might occur in a version string but that that are not allowed
+      # in store paths.
       filterWPString = builtins.replaceStrings
         [
           " "
@@ -149,8 +148,8 @@ let
           ""
         ];
 
-        # Fetch a package from the official wordpress.org SVN.
-        # The data supplied is the data straight from the go tool.
+      # Fetch a package from the official wordpress.org SVN.
+      # The data supplied is the data straight from the go tool.
       fetchWordpress = self.callPackage
         (
           {
@@ -177,7 +176,6 @@ let
           }
         )
         { };
-
     } // lib.mapAttrs
     (
       type: pkgs:
@@ -197,7 +195,7 @@ let
     generatedJson
     ;
 
-    # This creates an extensible scope.
+  # This creates an extensible scope.
 in
 lib.recursiveUpdate
 ((lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     export sourceRoot=$(echo */${pname})
   '';
 
-    # There is a bug on --with-font
+  # There is a bug on --with-font
   configureFlags = [
     "--with-examples=no"
     "--with-font=no"

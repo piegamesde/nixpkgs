@@ -6,7 +6,7 @@
   overlays,
   crossOverlays ? [ ],
   bootstrapLlvmVersion ? "11.1.0"
-    # Allow passing in bootstrap files directly so we can test the stdenv bootstrap process when changing the bootstrap tools
+  # Allow passing in bootstrap files directly so we can test the stdenv bootstrap process when changing the bootstrap tools
   ,
   bootstrapFiles ? if localSystem.isAarch64 then
     let
@@ -96,7 +96,7 @@ let
   useAppleSDKLibs = localSystem.isAarch64;
   haveKRB5 = localSystem.isx86_64;
 
-    # final toolchain is injected into llvmPackages_${finalLlvmVersion}
+  # final toolchain is injected into llvmPackages_${finalLlvmVersion}
   finalLlvmVersion = lib.versions.major bootstrapLlvmVersion;
   finalLlvmPackages = "llvmPackages_${finalLlvmVersion}";
 
@@ -105,7 +105,6 @@ let
     "/usr/lib/libSystem.B.dylib"
     "/usr/lib/system/libunc.dylib" # This dependency is "hidden", so our scanning code doesn't pick it up
   ];
-
 in
 rec {
   commonPreHook = ''
@@ -297,7 +296,7 @@ rec {
           curl = bootstrapTools;
         };
 
-          # The stdenvs themselves don't use mkDerivation, so I need to specify this here
+        # The stdenvs themselves don't use mkDerivation, so I need to specify this here
         __stdenvImpureHostDeps = commonImpureHostDeps;
         __extraImpureHostDeps = commonImpureHostDeps;
 
@@ -309,7 +308,6 @@ rec {
           }
           ;
       };
-
     in
     {
       inherit config overlays;
@@ -521,7 +519,9 @@ rec {
                 }
               );
             in
-            { inherit tools libraries; } // tools // libraries
+            {
+              inherit tools libraries;
+            } // tools // libraries
           );
 
           darwin = super.darwin.overrideScope (
@@ -667,7 +667,9 @@ rec {
                 }
               );
             in
-            { inherit tools libraries; } // tools // libraries
+            {
+              inherit tools libraries;
+            } // tools // libraries
           );
 
           darwin = super.darwin.overrideScope (
@@ -799,7 +801,7 @@ rec {
             ninja
             ;
 
-            # Avoid pulling in a full python and its extra dependencies for the llvm/clang builds.
+          # Avoid pulling in a full python and its extra dependencies for the llvm/clang builds.
           libxml2 = super.libxml2.override { pythonSupport = false; };
 
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
@@ -810,7 +812,9 @@ rec {
                 }
               );
             in
-            { inherit libraries; } // libraries
+            {
+              inherit libraries;
+            } // libraries
           );
 
           darwin = super.darwin.overrideScope (
@@ -837,10 +841,10 @@ rec {
     stageFun 3 prevStage {
       shell = "${pkgs.bash}/bin/bash";
 
-        # We have a valid shell here (this one has no bootstrap-tools runtime deps) so stageFun
-        # enables patchShebangs above. Unfortunately, patchShebangs ignores our $SHELL setting
-        # and instead goes by $PATH, which happens to contain bootstrapTools. So it goes and
-        # patches our shebangs back to point at bootstrapTools. This makes sure bash comes first.
+      # We have a valid shell here (this one has no bootstrap-tools runtime deps) so stageFun
+      # enables patchShebangs above. Unfortunately, patchShebangs ignores our $SHELL setting
+      # and instead goes by $PATH, which happens to contain bootstrapTools. So it goes and
+      # patches our shebangs back to point at bootstrapTools. This makes sure bash comes first.
       extraNativeBuildInputs = with pkgs; [ xz ];
       extraBuildInputs = [
         pkgs.darwin.CF
@@ -934,9 +938,9 @@ rec {
             libxml2
             ;
 
-            # Hack to make sure we don't link ncurses in bootstrap tools. The proper
-            # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
-            # quite a sledgehammer just to get the C runtime.
+          # Hack to make sure we don't link ncurses in bootstrap tools. The proper
+          # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
+          # quite a sledgehammer just to get the C runtime.
           gettext = super.gettext.overrideAttrs (
             drv: {
               configureFlags = drv.configureFlags ++ [ "--disable-curses" ];
@@ -967,20 +971,16 @@ rec {
                 }
               );
             in
-            { inherit tools libraries; } // tools // libraries
+            {
+              inherit tools libraries;
+            } // tools // libraries
           );
 
           darwin = super.darwin.overrideScope (
             _: superDarwin: {
-              inherit (darwin)
-                dyld
-                Libsystem
-                libiconv
-                locale
-                darwin-stubs
-                ;
+              inherit (darwin) dyld Libsystem libiconv locale darwin-stubs;
 
-                # See useAppleSDKLibs in darwin-packages.nix
+              # See useAppleSDKLibs in darwin-packages.nix
               CF =
                 if useAppleSDKLibs then
                   super.darwin.CF
@@ -1054,11 +1054,9 @@ rec {
             }
           );
         } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
-          inherit
-            llvm
-            ;
+          inherit llvm;
 
-            # Need to get rid of these when cross-compiling.
+          # Need to get rid of these when cross-compiling.
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
             let
               tools = super."${finalLlvmPackages}".tools.extend (
@@ -1076,7 +1074,9 @@ rec {
                 }
               );
             in
-            { inherit tools libraries; } // tools // libraries
+            {
+              inherit tools libraries;
+            } // tools // libraries
           );
 
           inherit binutils binutils-unwrapped;

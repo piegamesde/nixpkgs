@@ -83,15 +83,15 @@ python3Packages.buildPythonApplication rec {
       --replace wmctrl ${wmctrl}/bin/wmctrl
   '';
 
-    # https://github.com/Ulauncher/Ulauncher/issues/390
+  # https://github.com/Ulauncher/Ulauncher/issues/390
   doCheck = false;
 
   preCheck = ''
     export PYTHONPATH=$PYTHONPATH:$out/${python3Packages.python.sitePackages}
   '';
 
-    # Simple translation of
-    # - https://github.com/Ulauncher/Ulauncher/blob/f5a601bdca75198a6a31b9d84433496b63530e74/test
+  # Simple translation of
+  # - https://github.com/Ulauncher/Ulauncher/blob/f5a601bdca75198a6a31b9d84433496b63530e74/test
   checkPhase = ''
     runHook preCheck
 
@@ -103,7 +103,7 @@ python3Packages.buildPythonApplication rec {
     runHook postCheck
   '';
 
-    # do not double wrap
+  # do not double wrap
   dontWrapGApps = true;
   preFixup = ''
     makeWrapperArgs+=(

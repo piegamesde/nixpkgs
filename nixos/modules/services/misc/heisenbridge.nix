@@ -16,12 +16,12 @@ let
   jsonType = (pkgs.formats.json { }).type;
 
   registrationFile = "/var/lib/heisenbridge/registration.yml";
-    # JSON is a proper subset of YAML
+  # JSON is a proper subset of YAML
   bridgeConfig = builtins.toFile "heisenbridge-registration.yml" (
     builtins.toJSON {
       id = "heisenbridge";
       url = cfg.registrationUrl;
-        # Don't specify as_token and hs_token
+      # Don't specify as_token and hs_token
       rate_limited = false;
       sender_localpart = "heisenbridge";
       namespaces = cfg.namespaces;
@@ -93,7 +93,7 @@ in
       description = lib.mdDoc
         "Configure the 'namespaces' section of the registration.yml for the bridge and the server"
         ;
-        # TODO link to Matrix documentation of the format
+      # TODO link to Matrix documentation of the format
       type = types.submodule { freeformType = jsonType; };
 
       default = {
@@ -188,7 +188,7 @@ in
           ++ (map (lib.escapeShellArg) cfg.extraArgs)
         );
 
-          # Hardening options
+        # Hardening options
 
         User = "heisenbridge";
         Group = "heisenbridge";

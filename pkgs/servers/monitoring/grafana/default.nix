@@ -76,12 +76,12 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-    # Tests start http servers which need to bind to local addresses:
-    # panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: bind: operation not permitted
+  # Tests start http servers which need to bind to local addresses:
+  # panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: bind: operation not permitted
   __darwinAllowLocalNetworking = true;
 
-    # On Darwin, files under /usr/share/zoneinfo exist, but fail to open in sandbox:
-    # TestValueAsTimezone: date_formats_test.go:33: Invalid has err for input "Europe/Amsterdam": operation not permitted
+  # On Darwin, files under /usr/share/zoneinfo exist, but fail to open in sandbox:
+  # TestValueAsTimezone: date_formats_test.go:33: Invalid has err for input "Europe/Amsterdam": operation not permitted
   preCheck = ''
     export ZONEINFO=${tzdata}/share/zoneinfo
   '';

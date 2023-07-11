@@ -46,7 +46,6 @@ let
       cfg.vendorSettings
     ))
   ];
-
 in
 {
   imports = [

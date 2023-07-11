@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-hIhdZo0RfvUOAccDSkXYND10fOxiEuQOjQgVG8GOE/o=";
   };
 
-    # outputs = [ "out" "man" ];
+  # outputs = [ "out" "man" ];
 
   env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
 

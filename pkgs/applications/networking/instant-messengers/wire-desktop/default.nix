@@ -182,7 +182,6 @@ let
       runHook postInstall
     '';
   };
-
 in
 if stdenv.isDarwin then
   darwin

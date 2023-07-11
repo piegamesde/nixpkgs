@@ -36,8 +36,8 @@ let
       outputFiles = [ "*" ];
     })
   ];
-
 in
+
 buildPythonPackage rec {
   pname = "pythonnet";
   version = "2.5.2";
@@ -65,7 +65,6 @@ buildPythonPackage rec {
       clang
 
       mono
-
     ]
     ++ dotnetPkgs
     ;
@@ -99,7 +98,7 @@ buildPythonPackage rec {
     description = ".Net and Mono integration for Python";
     homepage = "https://pythonnet.github.io";
     license = licenses.mit;
-      # <https://github.com/pythonnet/pythonnet/issues/898>
+    # <https://github.com/pythonnet/pythonnet/issues/898>
     badPlatforms = [ "aarch64-linux" ];
     maintainers = with maintainers; [ jraygauthier ];
   };

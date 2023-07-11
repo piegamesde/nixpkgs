@@ -12,8 +12,8 @@
 
 let
   version = "1.0.18";
-
 in
+
 stdenv.mkDerivation {
   pname = "redshift-plasma-applet";
   inherit version;

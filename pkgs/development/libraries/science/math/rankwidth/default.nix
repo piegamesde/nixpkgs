@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
       "--enable-executable=no" # no igraph dependency
     ];
 
-    # check phase is empty for now (as of version 0.9)
+  # check phase is empty for now (as of version 0.9)
   doCheck = true;
 
   meta = with lib; {

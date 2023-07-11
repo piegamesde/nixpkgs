@@ -18,8 +18,8 @@ let
     pkgs.gst_all_1.gst-plugins-bad
     pkgs.gst_all_1.gst-libav
   ];
-
 in
+
 {
   meta = { maintainers = teams.enlightenment.members; };
 
@@ -48,7 +48,6 @@ in
       default = false;
       description = lib.mdDoc "Enable the Enlightenment desktop environment.";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -87,7 +86,7 @@ in
       fi
     '';
 
-      # Wrappers for programs installed by enlightenment that should be setuid
+    # Wrappers for programs installed by enlightenment that should be setuid
     security.wrappers = {
       enlightenment_ckpasswd = {
         setuid = true;
@@ -142,7 +141,5 @@ in
         StandardOutput = "null";
       };
     };
-
   };
-
 }

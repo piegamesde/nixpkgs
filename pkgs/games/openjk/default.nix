@@ -72,7 +72,7 @@ stdenv.mkDerivation {
     "openja"
   ];
 
-    # move from $out/JediAcademy to $out/opt/JediAcademy
+  # move from $out/JediAcademy to $out/opt/JediAcademy
   preConfigure = ''
     cmakeFlagsArray=("-DCMAKE_INSTALL_PREFIX=$out/opt")
   '';

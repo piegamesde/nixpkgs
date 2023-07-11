@@ -32,7 +32,8 @@
 # the submodule chain and update the corresponding derivations here, in nixpkgs,
 # with the corresponding version number (or commit hash)
 
-mkDerivation rec {
+mkDerivation
+rec {
   pname = "linphone-desktop";
   version = "5.0.8";
 
@@ -51,16 +52,16 @@ mkDerivation rec {
     ./no-store-path-in-autostart.patch
   ];
 
-    # See: https://gitlab.linphone.org/BC/public/linphone-desktop/issues/21
+  # See: https://gitlab.linphone.org/BC/public/linphone-desktop/issues/21
   postPatch = ''
     echo "project(linphoneqt VERSION ${version})" >linphone-app/linphoneqt_version.cmake
     substituteInPlace linphone-app/src/app/AppController.cpp \
       --replace "APPLICATION_SEMVER" "\"${version}\""
   '';
 
-    # TODO: After linphone-desktop and liblinphone split into separate packages,
-    # there might be some build inputs here that aren't needed for
-    # linphone-desktop.
+  # TODO: After linphone-desktop and liblinphone split into separate packages,
+  # there might be some build inputs here that aren't needed for
+  # linphone-desktop.
   buildInputs = [
     # Made by BC
     bctoolbox
@@ -87,34 +88,34 @@ mkDerivation rec {
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
   ];
 
-    # The default install phase fails because the paths are somehow messed up in
-    # the makefiles. The errors were like:
-    #
-    #   CMake Error at cmake_builder/linphone_package/cmake_install.cmake:49 (file):
-    #     file INSTALL cannot find
-    #     "/build/linphone-desktop-.../build/linphone-sdk/desktop//nix/store/.../bin":
-    #     No such file or directory.
-    #
-    # If someone is able to figure out how to fix that, great. For now, just
-    # trying to pick all the relevant files to the output.
-    #
-    # Also, the exec path in linphone.desktop file remains invalid, pointing to
-    # the build directory, after the whole nix build process. So, let's use sed to
-    # manually fix that path.
-    #
-    # In order to find mediastreamer plugins, mediastreamer package was patched to
-    # support an environment variable pointing to the plugin directory. Set that
-    # environment variable by wrapping the Linphone executable.
-    #
-    # Also, some grammar files needed to be copied too from some dependencies. I
-    # suppose if one define a dependency in such a way that its share directory is
-    # found, then this copying would be unnecessary. These missing grammar files
-    # were discovered when linphone crashed at startup and it was run with
-    # --verbose flag. Instead of actually copying these files, create symlinks.
-    #
-    # It is quite likely that there are some other files still missing and
-    # Linphone will randomly crash when it tries to access those files. Then,
-    # those just need to be copied manually below.
+  # The default install phase fails because the paths are somehow messed up in
+  # the makefiles. The errors were like:
+  #
+  #   CMake Error at cmake_builder/linphone_package/cmake_install.cmake:49 (file):
+  #     file INSTALL cannot find
+  #     "/build/linphone-desktop-.../build/linphone-sdk/desktop//nix/store/.../bin":
+  #     No such file or directory.
+  #
+  # If someone is able to figure out how to fix that, great. For now, just
+  # trying to pick all the relevant files to the output.
+  #
+  # Also, the exec path in linphone.desktop file remains invalid, pointing to
+  # the build directory, after the whole nix build process. So, let's use sed to
+  # manually fix that path.
+  #
+  # In order to find mediastreamer plugins, mediastreamer package was patched to
+  # support an environment variable pointing to the plugin directory. Set that
+  # environment variable by wrapping the Linphone executable.
+  #
+  # Also, some grammar files needed to be copied too from some dependencies. I
+  # suppose if one define a dependency in such a way that its share directory is
+  # found, then this copying would be unnecessary. These missing grammar files
+  # were discovered when linphone crashed at startup and it was run with
+  # --verbose flag. Instead of actually copying these files, create symlinks.
+  #
+  # It is quite likely that there are some other files still missing and
+  # Linphone will randomly crash when it tries to access those files. Then,
+  # those just need to be copied manually below.
   installPhase = ''
     mkdir -p $out/bin $out/lib
     cp linphone-app/linphone $out/bin/

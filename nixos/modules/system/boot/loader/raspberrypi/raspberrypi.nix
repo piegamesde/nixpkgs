@@ -63,8 +63,8 @@ let
     )
     + optional (cfg.firmwareConfig != null) cfg.firmwareConfig
   );
-
 in
+
 {
   options = {
 
@@ -108,7 +108,6 @@ in
             Maximum number of configurations in the boot menu.
           '';
         };
-
       };
 
       firmwareConfig = mkOption {

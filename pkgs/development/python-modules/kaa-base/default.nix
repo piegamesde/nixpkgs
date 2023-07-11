@@ -18,11 +18,9 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  disabled =
-    isPyPy || isPy3k
-    ;
+  disabled = isPyPy || isPy3k;
 
-    # Same as in buildPythonPackage except that it does not pass --old-and-unmanageable
+  # Same as in buildPythonPackage except that it does not pass --old-and-unmanageable
   installPhase = ''
     runHook preInstall
 
@@ -51,5 +49,4 @@ buildPythonPackage rec {
     license = licenses.lgpl21;
     maintainers = with maintainers; [ ];
   };
-
 }

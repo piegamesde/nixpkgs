@@ -355,10 +355,10 @@ in
             util-linux
           ];
 
-            # In order for the persistent tarsnap timer to work reliably, we have to
-            # make sure that the tarsnap server is reachable after systemd starts up
-            # the service - therefore we sleep in a loop until we can ping the
-            # endpoint.
+          # In order for the persistent tarsnap timer to work reliably, we have to
+          # make sure that the tarsnap server is reachable after systemd starts up
+          # the service - therefore we sleep in a loop until we can ping the
+          # endpoint.
           preStart = ''
             while ! ping -4 -q -c 1 v1-0-0-server.tarsnap.com &> /dev/null; do sleep 3; done
           '';
@@ -437,7 +437,6 @@ in
                       optionalString cfg.verbose "-v"
                     }'';
                 cachedir = escapeShellArg cfg.cachedir;
-
               in
               if (cfg.cachedir != null) then
                 ''
@@ -471,8 +470,8 @@ in
         )
         gcfg.archives);
 
-      # Note: the timer must be Persistent=true, so that systemd will start it even
-      # if e.g. your laptop was asleep while the latest interval occurred.
+    # Note: the timer must be Persistent=true, so that systemd will start it even
+    # if e.g. your laptop was asleep while the latest interval occurred.
     systemd.timers = mapAttrs'
       (
         name: cfg:

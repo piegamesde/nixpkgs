@@ -27,8 +27,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-    # Tests use nix(1), which tries (and fails) to set up /nix/var inside the
-    # sandbox
+  # Tests use nix(1), which tries (and fails) to set up /nix/var inside the
+  # sandbox
   doCheck = false;
 
   postFixup = ''

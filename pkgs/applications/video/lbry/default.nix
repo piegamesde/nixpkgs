@@ -11,27 +11,22 @@ in
 appimageTools.wrapAppImage rec {
   name = "${pname}-${version}";
 
-    # Fetch from GitHub Releases and extract
+  # Fetch from GitHub Releases and extract
   src = appimageTools.extract {
     inherit name;
     src = fetchurl {
       url =
         "https://github.com/lbryio/lbry-desktop/releases/download/v${version}/LBRY_${version}.AppImage";
-        # Gotten from latest-linux.yml
+      # Gotten from latest-linux.yml
       sha512 =
         "WZB2pMzSuWGPj6uad+rIECOhuWEOxi0hVUQifOrhUrKj4SnBDws+oy7V2+NpDGkzbG+Kf3IO8rcWBD4wfFoo2Q==";
     };
   };
 
-    # At runtime, Lbry likes to have access to Ffmpeg
-  extraPkgs =
-    pkgs:
-    with pkgs; [
-      ffmpeg
-    ]
-    ;
+  # At runtime, Lbry likes to have access to Ffmpeg
+  extraPkgs = pkgs: with pkgs; [ ffmpeg ];
 
-    # General fixup
+  # General fixup
   extraInstallCommands = ''
     # Firstly, rename the executable to lbry for convinence
     mv $out/bin/${name} $out/bin/lbry

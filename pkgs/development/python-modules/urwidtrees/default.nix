@@ -36,5 +36,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/pazz/urwidtrees";
     license = licenses.gpl3;
   };
-
 }

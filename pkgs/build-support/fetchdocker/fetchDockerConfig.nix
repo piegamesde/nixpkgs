@@ -7,8 +7,8 @@ pkgargs@{
 }:
 let
   generic-fetcher = import ./generic-fetcher.nix pkgargs;
-
 in
+
 args@{
   repository ? "library",
   imageName,

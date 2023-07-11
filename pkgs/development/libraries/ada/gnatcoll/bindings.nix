@@ -33,8 +33,8 @@ let
     syslog = [ ];
     zlib = [ zlib ];
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "gnatcoll-${component}";
   version = "23.0.0";
@@ -52,16 +52,14 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-    # propagate since gprbuild needs to find referenced .gpr files
-    # and all dependency C libraries when statically linking a
-    # downstream executable.
-  propagatedBuildInputs =
-    [ gnatcoll-core ] ++ libsFor."${component}" or [ ]
-    ;
+  # propagate since gprbuild needs to find referenced .gpr files
+  # and all dependency C libraries when statically linking a
+  # downstream executable.
+  propagatedBuildInputs = [ gnatcoll-core ] ++ libsFor."${component}" or [ ];
 
-    # explicit flag for GPL acceptance because upstreams
-    # allows a gcc runtime exception for all bindings
-    # except for readline (since it is GPL w/o exceptions)
+  # explicit flag for GPL acceptance because upstreams
+  # allows a gcc runtime exception for all bindings
+  # except for readline (since it is GPL w/o exceptions)
   buildFlags = lib.optionals (component == "readline") [ "--accept-gpl" ];
 
   buildPhase = ''

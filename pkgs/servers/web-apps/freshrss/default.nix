@@ -22,10 +22,10 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [ php ];
 
-    # There's nothing to build.
+  # There's nothing to build.
   dontBuild = true;
 
-    # the data folder is no in this package and thereby declared by an env-var
+  # the data folder is no in this package and thereby declared by an env-var
   overrideConfig = pkgs.writeText "constants.local.php" ''
     <?php
       define('DATA_PATH', getenv('FRESHRSS_DATA_PATH'));

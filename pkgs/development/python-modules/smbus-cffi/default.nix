@@ -38,7 +38,7 @@ buildPythonPackage rec {
     runHook pytestCheckPhase
   '';
 
-    # requires hardware access
+  # requires hardware access
   pytestFlagsArray = [ "--ignore=test/test_smbus_integration.py" ];
 
   nativeCheckInputs = [

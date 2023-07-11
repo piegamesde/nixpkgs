@@ -61,7 +61,9 @@ let
         drv.overridePythonAttrs (
           old:
           # We do not need the build system for wheels.
-          if old ? format && old.format == "wheel" then
+          if
+            old ? format && old.format == "wheel"
+          then
             { }
           else
             {
@@ -78,7 +80,6 @@ let
         )
     )
     ;
-
 in
 lib.composeManyExtensions [
   # NixOps
@@ -136,8 +137,8 @@ lib.composeManyExtensions [
         in
         pkgs."qt${selector}" or pkgs.qt5
         ;
-
     in
+
     {
       automat = super.automat.overridePythonAttrs (
         old:
@@ -382,7 +383,9 @@ lib.composeManyExtensions [
 
       cffi =
         # cffi is bundled with pypy
-        if self.python.implementation == "pypy" then
+        if
+          self.python.implementation == "pypy"
+        then
           null
         else
           (super.cffi.overridePythonAttrs (
@@ -405,7 +408,6 @@ lib.composeManyExtensions [
                     }/include'
                   ''
                 ;
-
             }
           ))
         ;
@@ -444,7 +446,7 @@ lib.composeManyExtensions [
           # package setup logic
           LIB_DIR = "${lib.getLib pkgs.secp256k1}/lib";
 
-            # for actual C toolchain build
+          # for actual C toolchain build
           NIX_CFLAGS_COMPILE = "-I ${lib.getDev pkgs.secp256k1}/include";
           NIX_LDFLAGS = "-L ${lib.getLib pkgs.secp256k1}/lib";
         }
@@ -661,8 +663,6 @@ lib.composeManyExtensions [
               pkgs.dbus
               pkgs.dbus-glib
             ]
-            # My guess why it's sometimes trying to -lncurses.
-            # It seems not to retain the dependency anyway.
             ++ lib.optional (!self.python ? modules) pkgs.ncurses
             ;
         }
@@ -770,7 +770,7 @@ lib.composeManyExtensions [
         }
       );
 
-        # Setuptools >= 60 broke build_py_2to3
+      # Setuptools >= 60 broke build_py_2to3
       docutils =
         if
           lib.versionOlder super.docutils.version "0.16"
@@ -793,7 +793,7 @@ lib.composeManyExtensions [
         }
       );
 
-        # Environment markers are not always included (depending on how a dep was defined)
+      # Environment markers are not always included (depending on how a dep was defined)
       enum34 =
         if self.pythonAtLeast "3.4" then
           null
@@ -819,7 +819,7 @@ lib.composeManyExtensions [
         '';
       };
 
-        # remove eth-hash dependency because eth-hash also depends on eth-utils causing a cycle.
+      # remove eth-hash dependency because eth-hash also depends on eth-utils causing a cycle.
       eth-utils = super.eth-utils.overridePythonAttrs (
         old: {
           propagatedBuildInputs =
@@ -887,7 +887,6 @@ lib.composeManyExtensions [
               [
                 pkgs.autoPatchelfHook
               ]
-              # for gdal-config
             ++ [ pkgs.gdal ]
             ;
         }
@@ -1082,7 +1081,7 @@ lib.composeManyExtensions [
                 else
                   "OFF"
                 ;
-                # avoid strict pinning of numpy
+              # avoid strict pinning of numpy
               postPatch = ''
                 substituteInPlace setup.py \
                   --replace "numpy ==" "numpy >="
@@ -1210,7 +1209,7 @@ lib.composeManyExtensions [
         }
       );
 
-        # importlib-metadata has an incomplete dependency specification
+      # importlib-metadata has an incomplete dependency specification
       importlib-metadata = super.importlib-metadata.overridePythonAttrs (
         old: {
           propagatedBuildInputs =
@@ -1502,19 +1501,17 @@ lib.composeManyExtensions [
             ; # Likely to fail.
         in
         {
-          nativeBuildInputs =
-            (old.nativeBuildInputs or [ ]) ++ [ pkgs.llvm ]
-            ;
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.llvm ];
 
-            # Disable static linking
-            # https://github.com/numba/llvmlite/issues/93
+          # Disable static linking
+          # https://github.com/numba/llvmlite/issues/93
           postPatch = ''
             substituteInPlace ffi/Makefile.linux --replace "-static-libstdc++" ""
 
             substituteInPlace llvmlite/tests/test_binding.py --replace "test_linux" "nope"
           '';
 
-            # Set directory containing llvm-config binary
+          # Set directory containing llvm-config binary
           preConfigure = ''
             export LLVM_CONFIG=${llvm.dev}/bin/llvm-config
           '';
@@ -1660,7 +1657,7 @@ lib.composeManyExtensions [
               ]
             ;
 
-            # Clang doesn't understand -fno-strict-overflow, and matplotlib builds with -Werror
+          # Clang doesn't understand -fno-strict-overflow, and matplotlib builds with -Werror
           hardeningDisable =
             if stdenv.isDarwin then
               [ "strictoverflow" ]
@@ -1674,12 +1671,12 @@ lib.composeManyExtensions [
             lib.generators.toINI { } passthru.config
           );
 
-            # Matplotlib tries to find Tcl/Tk by opening a Tk window and asking the
-            # corresponding interpreter object for its library paths. This fails if
-            # `$DISPLAY` is not set. The fallback option assumes that Tcl/Tk are both
-            # installed under the same path which is not true in Nix.
-            # With the following patch we just hard-code these paths into the install
-            # script.
+          # Matplotlib tries to find Tcl/Tk by opening a Tk window and asking the
+          # corresponding interpreter object for its library paths. This fails if
+          # `$DISPLAY` is not set. The fallback option assumes that Tcl/Tk are both
+          # installed under the same path which is not true in Nix.
+          # With the following patch we just hard-code these paths into the install
+          # script.
           postPatch =
             let
               tcl_tk_cache =
@@ -1691,9 +1688,7 @@ lib.composeManyExtensions [
             lib.optionalString enableTk ''
               sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py
             ''
-            +
-            # avoid matplotlib trying to download dependencies
-            lib.optionalString (stdenv.isLinux && interactive) ''
+            + lib.optionalString (stdenv.isLinux && interactive) ''
               # fix paths to libraries in dlopen calls (headless detection)
               substituteInPlace src/_c_internal_utils.c \
                 --replace libX11.so.6 ${libX11}/lib/libX11.so.6 \
@@ -1707,7 +1702,6 @@ lib.composeManyExtensions [
               system_qhull=true" > mplsetup.cfg
             ''
             ;
-
         }
       );
 
@@ -1829,14 +1823,14 @@ lib.composeManyExtensions [
               (lib.strings.versionAtLeast old.version "0.990")
               self.types-psutil
             ;
-            # Compile mypy with mypyc, which makes mypy about 4 times faster. The compiled
-            # version is also the default in the wheels on Pypi that include binaries.
-            # is64bit: unfortunately the build would exhaust all possible memory on i686-linux.
+          # Compile mypy with mypyc, which makes mypy about 4 times faster. The compiled
+          # version is also the default in the wheels on Pypi that include binaries.
+          # is64bit: unfortunately the build would exhaust all possible memory on i686-linux.
           MYPY_USE_MYPYC = stdenv.buildPlatform.is64bit;
 
-            # when testing reduce optimisation level to drastically reduce build time
-            # (default is 3)
-            # MYPYC_OPT_LEVEL = 1;
+          # when testing reduce optimisation level to drastically reduce build time
+          # (default is 3)
+          # MYPYC_OPT_LEVEL = 1;
         } // lib.optionalAttrs (old.format != "wheel") {
           # FIXME: Remove patch after upstream has decided the proper solution.
           #        https://github.com/python/mypy/pull/11143
@@ -1910,7 +1904,7 @@ lib.composeManyExtensions [
             ]
             ;
 
-            # Variables used to configure the build process
+          # Variables used to configure the build process
           USE_NCCONFIG = "0";
           HDF5_DIR = lib.getDev pkgs.hdf5;
           NETCDF4_DIR = pkgs.netcdf;
@@ -1996,7 +1990,7 @@ lib.composeManyExtensions [
               ]
             ;
 
-            # Patch the dylib in the binary distribution to point to the nix build of libomp
+          # Patch the dylib in the binary distribution to point to the nix build of libomp
           preFixup = lib.optionalString
             (
               stdenv.isDarwin
@@ -2006,15 +2000,15 @@ lib.composeManyExtensions [
               install_name_tool -change /opt/homebrew/opt/libomp/lib/libomp.dylib ${pkgs.llvmPackages.openmp}/lib/libomp.dylib $out/lib/python*/site-packages/open3d/cpu/pybind.cpython-*-darwin.so
             '';
 
-            # TODO(Sem Mulder): Add overridable flags for CUDA/PyTorch/Tensorflow support.
+          # TODO(Sem Mulder): Add overridable flags for CUDA/PyTorch/Tensorflow support.
           autoPatchelfIgnoreMissingDeps = true;
         }
       );
 
       openbabel-wheel = super.openbabel-wheel.override { preferWheel = true; };
 
-        # Overrides for building packages based on OpenCV
-        # These flags are inspired by the opencv 4.x package in nixpkgs
+      # Overrides for building packages based on OpenCV
+      # These flags are inspired by the opencv 4.x package in nixpkgs
       _opencv-python-override =
         old: {
           # Disable OpenCL on macOS
@@ -2145,15 +2139,14 @@ lib.composeManyExtensions [
         old: {
 
           buildInputs =
-            old.buildInputs or [ ] ++ lib.optional stdenv.isDarwin pkgs.libcxx
-            ;
+            old.buildInputs or [ ] ++ lib.optional stdenv.isDarwin pkgs.libcxx;
 
-            # Doesn't work with -Werror,-Wunused-command-line-argument
-            # https://github.com/NixOS/nixpkgs/issues/39687
+          # Doesn't work with -Werror,-Wunused-command-line-argument
+          # https://github.com/NixOS/nixpkgs/issues/39687
           hardeningDisable = lib.optional stdenv.cc.isClang "strictoverflow";
 
-            # For OSX, we need to add a dependency on libcxx, which provides
-            # `complex.h` and other libraries that pandas depends on to build.
+          # For OSX, we need to add a dependency on libcxx, which provides
+          # `complex.h` and other libraries that pandas depends on to build.
           postPatch = lib.optionalString
             (!(old.src.isWheel or false) && stdenv.isDarwin)
             ''
@@ -2308,15 +2301,15 @@ lib.composeManyExtensions [
             done
           '';
 
-            # Propagating dependencies leads to issues downstream
-            # We've already patched poetry to prefer "vendored" dependencies
+          # Propagating dependencies leads to issues downstream
+          # We've already patched poetry to prefer "vendored" dependencies
           postFixup = ''
             rm $out/nix-support/propagated-build-inputs
           '';
         }
       );
 
-        # Requires poetry which isn't available during bootstrap
+      # Requires poetry which isn't available during bootstrap
       poetry-plugin-export = super.poetry-plugin-export.overridePythonAttrs (
         old: {
           dontUsePythonImportsCheck = true;
@@ -2427,8 +2420,8 @@ lib.composeManyExtensions [
                 )
                 ;
 
-                # Starting with nixpkgs revision f149c7030a7, pyarrow takes "python3" as an argument
-                # instead of "python". Below we inspect function arguments to maintain compatibilitiy.
+              # Starting with nixpkgs revision f149c7030a7, pyarrow takes "python3" as an argument
+              # instead of "python". Below we inspect function arguments to maintain compatibilitiy.
               _arrow-cpp = pkgs.arrow-cpp.override (
                 builtins.intersectAttrs
                 (lib.functionArgs pkgs.arrow-cpp.override)
@@ -2568,7 +2561,7 @@ lib.composeManyExtensions [
             pkgs.freetype
           ];
 
-            # Tests fail because of no audio device and display.
+          # Tests fail because of no audio device and display.
           doCheck = false;
           preConfigure = ''
             sed \
@@ -2896,21 +2889,21 @@ lib.composeManyExtensions [
         old: { buildInputs = [ self.pytest-runner ]; }
       );
 
-        # pytest-splinter seems to put a .marker file in an empty directory
-        # presumably so it's tracked by and can be installed with MANIFEST.in, see
-        # https://github.com/pytest-dev/pytest-splinter/commit/a48eeef662f66ff9d3772af618748e73211a186b
-        #
-        # This directory then gets used as an empty initial profile directory and is
-        # zipped up. But if the .marker file is in the Nix store, it has the
-        # creation date of 1970, and Zip doesn't work with such old files, so it
-        # fails at runtime!
-        #
-        # We fix this here by just removing the file after the installation
-        #
-        # The error you get without this is:
-        #
-        # E           ValueError: ZIP does not support timestamps before 1980
-        # /nix/store/55b9ip7xkpimaccw9pa0vacy5q94f5xa-python3-3.7.6/lib/python3.7/zipfile.py:357: ValueError
+      # pytest-splinter seems to put a .marker file in an empty directory
+      # presumably so it's tracked by and can be installed with MANIFEST.in, see
+      # https://github.com/pytest-dev/pytest-splinter/commit/a48eeef662f66ff9d3772af618748e73211a186b
+      #
+      # This directory then gets used as an empty initial profile directory and is
+      # zipped up. But if the .marker file is in the Nix store, it has the
+      # creation date of 1970, and Zip doesn't work with such old files, so it
+      # fails at runtime!
+      #
+      # We fix this here by just removing the file after the installation
+      #
+      # The error you get without this is:
+      #
+      # E           ValueError: ZIP does not support timestamps before 1980
+      # /nix/store/55b9ip7xkpimaccw9pa0vacy5q94f5xa-python3-3.7.6/lib/python3.7/zipfile.py:357: ValueError
       pytest-splinter = super.pytest-splinter.overrideAttrs (
         old: {
           postInstall =
@@ -3035,14 +3028,14 @@ lib.composeManyExtensions [
         }
       );
 
-        # Pybind11 is an undeclared dependency of scipy that we need to pick from nixpkgs
-        # Make it not fail with infinite recursion
+      # Pybind11 is an undeclared dependency of scipy that we need to pick from nixpkgs
+      # Make it not fail with infinite recursion
       pybind11 = super.pybind11.overridePythonAttrs (
         old: {
           cmakeFlags = (old.cmakeFlags or [ ]) ++ [ "-DPYBIND11_TEST=off" ];
           doCheck = false; # Circular test dependency
 
-            # Link include and share so it can be used by packages that use pybind11 through cmake
+          # Link include and share so it can be used by packages that use pybind11 through cmake
           postInstall = ''
             ln -s $out/${self.python.sitePackages}/pybind11/{include,share} $out/
           '';
@@ -3181,7 +3174,7 @@ lib.composeManyExtensions [
             ;
           buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ];
           doCheck = false;
-            # Local setuptools versions like "x.y.post0" confuse an internal check
+          # Local setuptools versions like "x.y.post0" confuse an internal check
           postPatch = ''
             substituteInPlace setup.py \
               --replace 'setuptools_version.' '"${self.setuptools.version}".' \
@@ -3220,7 +3213,7 @@ lib.composeManyExtensions [
               lib.getLib stdenv.cc.libc
             }/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
 
-            # Fix library paths
+          # Fix library paths
           postPatch = lib.optionalString (!(old.src.isWheel or false)) (
             old.postPatch or ""
             + ''
@@ -3250,7 +3243,6 @@ lib.composeManyExtensions [
 
           propagatedUserEnvPkgs =
             (old.propagatedUserEnvPkgs or [ ]) ++ [ pkgs.shellcheck ];
-
         }
       );
 
@@ -3360,10 +3352,10 @@ lib.composeManyExtensions [
         }
       );
 
-        # The tokenizers build requires a complex rust setup (cf. nixpkgs override)
-        #
-        # Instead of providing a full source build, we use a wheel to keep
-        # the complexity manageable for now.
+      # The tokenizers build requires a complex rust setup (cf. nixpkgs override)
+      #
+      # Instead of providing a full source build, we use a wheel to keep
+      # the complexity manageable for now.
       tokenizers = super.tokenizers.override { preferWheel = true; };
 
       torch = lib.makeOverridable
@@ -3498,7 +3490,7 @@ lib.composeManyExtensions [
         }
       );
 
-        # Stop infinite recursion by using bootstrapped pkg from nixpkgs
+      # Stop infinite recursion by using bootstrapped pkg from nixpkgs
       bootstrapped-pip = super.bootstrapped-pip.override {
         wheel =
           ((
@@ -3618,9 +3610,9 @@ lib.composeManyExtensions [
       packaging =
         let
           old = super.packaging;
-          # From 20.5 until 20.7, packaging used flit for packaging (heh)
-          # See https://github.com/pypa/packaging/pull/352 and https://github.com/pypa/packaging/pull/367
         in
+        # From 20.5 until 20.7, packaging used flit for packaging (heh)
+        # See https://github.com/pypa/packaging/pull/352 and https://github.com/pypa/packaging/pull/367
         if
           (
             lib.versionAtLeast old.version "20.5"
@@ -3693,9 +3685,9 @@ lib.composeManyExtensions [
         }
       );
 
-        # For some reason the toml dependency of tqdm declared here:
-        # https://github.com/tqdm/tqdm/blob/67130a23646ae672836b971e1086b6ae4c77d930/pyproject.toml#L2
-        # is not translated correctly to a nix dependency.
+      # For some reason the toml dependency of tqdm declared here:
+      # https://github.com/tqdm/tqdm/blob/67130a23646ae672836b971e1086b6ae4c77d930/pyproject.toml#L2
+      # is not translated correctly to a nix dependency.
       tqdm = super.tqdm.overridePythonAttrs (
         old: { buildInputs = [ super.toml ] ++ (old.buildInputs or [ ]); }
       );
@@ -3713,10 +3705,10 @@ lib.composeManyExtensions [
         }
       );
 
-        # pyee cannot find `vcversioner` and other "setup requirements", so it tries to
-        # download them from the internet, which only works when nix sandboxing is disabled.
-        # Additionally, since pyee uses vcversioner to specify its version, we need to do this
-        # manually specify its version.
+      # pyee cannot find `vcversioner` and other "setup requirements", so it tries to
+      # download them from the internet, which only works when nix sandboxing is disabled.
+      # Additionally, since pyee uses vcversioner to specify its version, we need to do this
+      # manually specify its version.
       pyee = super.pyee.overrideAttrs (
         old: {
           postPatch =
@@ -3738,9 +3730,9 @@ lib.composeManyExtensions [
           }
         );
 
-        # nixpkgs has setuptools_scm 4.1.2
-        # but newrelic has a seemingly unnecessary version constraint for <4
-        # So we patch that out
+      # nixpkgs has setuptools_scm 4.1.2
+      # but newrelic has a seemingly unnecessary version constraint for <4
+      # So we patch that out
       newrelic = super.newrelic.overridePythonAttrs (
         old: {
           postPatch =
@@ -3944,7 +3936,7 @@ lib.composeManyExtensions [
         }
       );
 
-        # patch mkdocstrings to fix jinja2 imports
+      # patch mkdocstrings to fix jinja2 imports
       mkdocstrings =
         let
           patchJinja2Imports = self.pkgs.fetchpatch {
@@ -3968,8 +3960,8 @@ lib.composeManyExtensions [
                   patchJinja2Imports
                 ]
               ;
-              # strip the first two levels ("a/src/") when patching since we're in site-packages
-              # just above mkdocstrings
+            # strip the first two levels ("a/src/") when patching since we're in site-packages
+            # just above mkdocstrings
             postInstall = lib.optionalString (old.src.isWheel or false) ''
               pushd "$out/${self.python.sitePackages}"
               patch -p2 < "${patchJinja2Imports}"

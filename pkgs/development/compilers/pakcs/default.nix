@@ -21,8 +21,8 @@ let
   pname = "pakcs";
   version = "2.2.1";
 
-    # Don't switch to "Current release" without a reason, because its
-    # source updates without version bump. Prefer last from "Older releases" instead.
+  # Don't switch to "Current release" without a reason, because its
+  # source updates without version bump. Prefer last from "Older releases" instead.
   src = fetchurl {
     url =
       "https://www.informatik.uni-kiel.de/~pakcs/download/pakcs-${version}-src.tar.gz";
@@ -79,9 +79,9 @@ stdenv.mkDerivation {
     done
   '';
 
-    # cypm new: EXISTENCE ERROR: source_sink
-    # "/tmp/nix-build-pakcs-2.0.2.drv-0/pakcs-2.0.2/currytools/cpm/templates/LICENSE"
-    # does not exist
+  # cypm new: EXISTENCE ERROR: source_sink
+  # "/tmp/nix-build-pakcs-2.0.2.drv-0/pakcs-2.0.2/currytools/cpm/templates/LICENSE"
+  # does not exist
   buildPhase = ''
     mkdir -p $out/pakcs
     cp -r * $out/pakcs

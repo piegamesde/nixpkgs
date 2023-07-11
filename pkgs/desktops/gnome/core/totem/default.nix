@@ -111,8 +111,8 @@ stdenv.mkDerivation rec {
       "-Dc_args=-I${glib.dev}/include/gio-unix-2.0"
     ];
 
-    # Tests do not work with GStreamer 1.18.
-    # https://gitlab.gnome.org/GNOME/totem/-/issues/450
+  # Tests do not work with GStreamer 1.18.
+  # https://gitlab.gnome.org/GNOME/totem/-/issues/450
   doCheck = false;
 
   postPatch = ''

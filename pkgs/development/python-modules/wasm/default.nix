@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "179xcinfc35xgk0bf9y58kwxzymzk7c1p58w6khmqfiqvb91j3r8";
   };
 
-    # there are no tests
+  # there are no tests
   doCheck = false;
 
   pythonImportsCheck = [ "wasm" ];

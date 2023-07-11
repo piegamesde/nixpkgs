@@ -58,11 +58,11 @@ stdenv.mkDerivation rec {
     "--enable-bflsc"
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: cgminer-driver-modminer.o:/build/source/miner.h:285:
-    #     multiple definition of `bitforce_drv'; cgminer-cgminer.o:/build/source/miner.h:285:
-    #     first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: cgminer-driver-modminer.o:/build/source/miner.h:285:
+  #     multiple definition of `bitforce_drv'; cgminer-cgminer.o:/build/source/miner.h:285:
+  #     first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = with lib; {

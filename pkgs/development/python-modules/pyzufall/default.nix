@@ -17,8 +17,8 @@ buildPythonPackage rec {
     sha256 = "1jffhi20m82fdf78bjhncbdxkfzcskrlipxlrqq9741xdvrn14b5";
   };
 
-    # disable tests due to problem with nose
-    # https://github.com/nose-devs/nose/issues/1037
+  # disable tests due to problem with nose
+  # https://github.com/nose-devs/nose/issues/1037
   doCheck = false;
 
   nativeCheckInputs = [

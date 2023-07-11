@@ -34,7 +34,7 @@ in
         ])
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -108,12 +108,10 @@ in
         defaultText = literalExpression "pkgs.connman";
         example = literalExpression "pkgs.connmanFull";
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

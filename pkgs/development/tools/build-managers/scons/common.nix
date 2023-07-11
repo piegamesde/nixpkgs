@@ -38,7 +38,7 @@ python.pkgs.buildPythonApplication rec {
     ''
     ;
 
-    # The release tarballs don't contain any tests (runtest.py and test/*):
+  # The release tarballs don't contain any tests (runtest.py and test/*):
   doCheck = lib.versionOlder version "4.0.0";
 
   postInstall = lib.optionalString (lib.versionAtLeast version "4.1.0") ''

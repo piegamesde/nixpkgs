@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "17rqcmmwsl0m4722b1cr74f80kqwq7cgxsy7lq9c88zf6srcgjsf";
   };
 
-    # Project has not published tests yet
+  # Project has not published tests yet
   doCheck = false;
   pythonImportsCheck = [ "upnpy" ];
 

@@ -9,7 +9,7 @@ buildGoModule rec {
   pname = "traefik";
   version = "2.10.1";
 
-    # Archive with static assets for webui
+  # Archive with static assets for webui
   src = fetchzip {
     url =
       "https://github.com/traefik/traefik/releases/download/v${version}/traefik-v${version}.src.tar.gz";

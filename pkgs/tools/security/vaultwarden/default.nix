@@ -18,8 +18,8 @@
 
 let
   webvault = callPackage ./webvault.nix { };
-
 in
+
 rustPlatform.buildRustPackage rec {
   pname = "vaultwarden";
   version = "1.28.1";

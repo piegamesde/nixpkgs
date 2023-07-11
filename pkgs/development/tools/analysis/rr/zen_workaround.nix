@@ -9,7 +9,8 @@
    https://github.com/rr-debugger/rr/blob/master/scripts/zen_workaround.py
    The module itself is called "zen_workaround" (a bit generic unfortunately).
 */
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "rr-zen_workaround";
   version = "2020-09-22";
 

@@ -25,8 +25,8 @@ let
         hash = "sha256:1nhz44cyipy922anzml856532m73nn0g7iwkg79yzhq6yb87109w";
       }
     ;
-
 in
+
 buildDunePackage rec {
   pname = "yuujinchou";
   inherit (params) version;
@@ -53,4 +53,3 @@ buildDunePackage rec {
     maintainers = [ lib.maintainers.vbgl ];
   };
 }
-

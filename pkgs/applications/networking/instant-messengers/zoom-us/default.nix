@@ -47,10 +47,10 @@ let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
-    # Zoom versions are released at different times for each platform
-    # and often with different versions.  We write them on three lines
-    # like this (rather than using {}) so that the updater script can
-    # find where to edit them.
+  # Zoom versions are released at different times for each platform
+  # and often with different versions.  We write them on three lines
+  # like this (rather than using {}) so that the updater script can
+  # find where to edit them.
   versions.aarch64-darwin = "5.14.5.17687";
   versions.x86_64-darwin = "5.14.5.17687";
   versions.x86_64-linux = "5.14.5.2430";
@@ -120,7 +120,6 @@ let
     ]
     ++ lib.optional (pulseaudioSupport) libpulseaudio
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "zoom";
@@ -149,7 +148,7 @@ stdenv.mkDerivation rec {
         mkdir -p $out/Applications
         cp -R zoom.us.app $out/Applications/
       '';
-        # darwin steps same on both architectures
+      # darwin steps same on both architectures
       x86_64-darwin = aarch64-darwin;
       x86_64-linux = ''
         mkdir $out
@@ -201,7 +200,7 @@ stdenv.mkDerivation rec {
     ln -s $out/bin/{zoom,zoom-us}
   '';
 
-    # already done
+  # already done
   dontPatchELF = true;
 
   passthru.updateScript = ./update.sh;

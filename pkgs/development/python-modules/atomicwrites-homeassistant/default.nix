@@ -8,8 +8,8 @@
 let
   pname = "atomicwrites-homeassistant";
   version = "1.4.1";
-
 in
+
 buildPythonPackage {
   inherit pname version;
   format = "setuptools";

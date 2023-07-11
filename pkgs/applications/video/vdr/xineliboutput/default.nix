@@ -37,7 +37,7 @@ let
         --replace "X11  opengl" "X11  gl"
     '';
 
-      # configure don't accept argument --prefix
+    # configure don't accept argument --prefix
     dontAddPrefix = true;
 
     postConfigure = ''

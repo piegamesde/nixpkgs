@@ -32,10 +32,10 @@ stdenv.mkDerivation rec {
     libXp
   ];
 
-    # These patches fix a number of later issues - in particular the
-    # render_table_crash shows up in 'arb'. The same patches appear
-    # in Debian, so we assume they have been sent upstream.
-    #
+  # These patches fix a number of later issues - in particular the
+  # render_table_crash shows up in 'arb'. The same patches appear
+  # in Debian, so we assume they have been sent upstream.
+  #
   patches = [
     ./c-missing_xm_h.patch
     ./c-render_table_crash.patch

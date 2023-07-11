@@ -41,18 +41,18 @@ buildPackage {
     "--with-dynlib=${s6.out}/lib"
   ];
 
-    # s6-rc-compile generates built-in service definitions containing
-    # absolute paths to execline, s6, and s6-rc programs.  If we're
-    # running s6-rc-compile as part of a Nix derivation, and we want to
-    # cross-compile that derivation, those paths will be wrong --
-    # they'll be for execline, s6, and s6-rc on the platform we're
-    # running s6-rc-compile on, not the platform we're targeting.
-    #
-    # We can detect this special case of s6-rc being used at build time
-    # in a derivation that's being cross-compiled, because that's the
-    # only time hostPlatform != targetPlatform.  When that happens we
-    # modify s6-rc-compile to use the configuration headers for the
-    # system we're cross-compiling for.
+  # s6-rc-compile generates built-in service definitions containing
+  # absolute paths to execline, s6, and s6-rc programs.  If we're
+  # running s6-rc-compile as part of a Nix derivation, and we want to
+  # cross-compile that derivation, those paths will be wrong --
+  # they'll be for execline, s6, and s6-rc on the platform we're
+  # running s6-rc-compile on, not the platform we're targeting.
+  #
+  # We can detect this special case of s6-rc being used at build time
+  # in a derivation that's being cross-compiled, because that's the
+  # only time hostPlatform != targetPlatform.  When that happens we
+  # modify s6-rc-compile to use the configuration headers for the
+  # system we're cross-compiling for.
   postConfigure =
     lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform) ''
       substituteInPlace src/s6-rc/s6-rc-compile.c \
@@ -69,5 +69,4 @@ buildPackage {
     mv doc $doc/share/doc/s6-rc/html
     mv examples $doc/share/doc/s6-rc/examples
   '';
-
 }

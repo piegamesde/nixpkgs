@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-meR2V7T4hrJFXFPLENHoAgmOILxxynDBk0BLqzsAZvQ=";
   };
 
-    # Only copies udevs rules
+  # Only copies udevs rules
   dontConfigure = true;
   dontBuild = true;
   dontFixup = true;

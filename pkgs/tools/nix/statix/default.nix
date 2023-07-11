@@ -8,9 +8,9 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "statix";
-    # also update version of the vim plugin in
-    # pkgs/applications/editors/vim/plugins/overrides.nix
-    # the version can be found in flake.nix of the source code
+  # also update version of the vim plugin in
+  # pkgs/applications/editors/vim/plugins/overrides.nix
+  # the version can be found in flake.nix of the source code
   version = "0.5.6";
 
   src = fetchFromGitHub {
@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = lib.optional withJson "json";
 
-    # tests are failing on darwin
+  # tests are failing on darwin
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

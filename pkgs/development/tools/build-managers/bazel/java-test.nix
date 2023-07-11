@@ -72,7 +72,5 @@ let
       ''
       ;
   };
-
 in
 testBazel
-

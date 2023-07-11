@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.plantuml-server;
-
 in
+
 {
   options = {
     services.plantuml-server = {

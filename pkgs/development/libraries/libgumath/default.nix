@@ -22,8 +22,8 @@ stdenv.mkDerivation {
     libxnd
   ];
 
-    # Override linker with cc (symlink to either gcc or clang)
-    # Library expects to use cc for linking
+  # Override linker with cc (symlink to either gcc or clang)
+  # Library expects to use cc for linking
   configureFlags = [ "LD=${stdenv.cc.targetPrefix}cc" ];
 
   doCheck = true;

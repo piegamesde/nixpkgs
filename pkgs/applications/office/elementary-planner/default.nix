@@ -105,4 +105,3 @@ stdenv.mkDerivation rec {
     broken = true; # https://github.com/alainm23/planner/issues/928
   };
 }
-

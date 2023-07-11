@@ -24,10 +24,10 @@ let
     ]
     variant;
 
-    # With newer fontforge the build hangs, see
-    # https://github.com/NixOS/nixpkgs/issues/167869
-    # Patches etc taken from
-    # https://github.com/NixOS/nixpkgs/commit/69da642a5a9bb433138ba1b13c8d56fb5bb6ec05
+  # With newer fontforge the build hangs, see
+  # https://github.com/NixOS/nixpkgs/issues/167869
+  # Patches etc taken from
+  # https://github.com/NixOS/nixpkgs/commit/69da642a5a9bb433138ba1b13c8d56fb5bb6ec05
   fontforge-20201107 = fontforge.overrideAttrs (
     old: rec {
       version = "20201107";
@@ -54,7 +54,6 @@ let
   );
   scfbuild-with-fontforge-20201107 =
     scfbuild.override (old: { fontforge = fontforge-20201107; });
-
 in
 stdenv.mkDerivation rec {
   pname = "openmoji";

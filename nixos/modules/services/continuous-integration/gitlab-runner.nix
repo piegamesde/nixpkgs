@@ -10,10 +10,10 @@ let
   cfg = config.services.gitlab-runner;
   hasDocker = config.virtualisation.docker.enable;
 
-    /* The whole logic of this module is to diff the hashes of the desired vs existing runners
-       The hash is recorded in the runner's name because we can't do better yet
-       See https://gitlab.com/gitlab-org/gitlab-runner/-/issues/29350 for more details
-    */
+  /* The whole logic of this module is to diff the hashes of the desired vs existing runners
+     The hash is recorded in the runner's name because we can't do better yet
+     See https://gitlab.com/gitlab-org/gitlab-runner/-/issues/29350 for more details
+  */
   genRunnerName =
     name: service:
     let
@@ -647,7 +647,7 @@ in
         KillMode = "process";
       };
     };
-      # Enable periodic clear-docker-cache script
+    # Enable periodic clear-docker-cache script
     systemd.services.gitlab-runner-clear-docker-cache = mkIf
       (
         cfg.clear-docker-cache.enable
@@ -673,7 +673,7 @@ in
 
         startAt = cfg.clear-docker-cache.dates;
       };
-      # Enable docker if `docker` executor is used in any service
+    # Enable docker if `docker` executor is used in any service
     virtualisation.docker.enable =
       mkIf (any (s: s.executor == "docker") (attrValues cfg.services)) (
         mkDefault true

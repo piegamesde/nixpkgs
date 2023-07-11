@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "98e5854d805f50a5b58ac2333411b0482516a8210f23f43308baeb58d77c157d";
   };
 
-    # 4 failing tests, 2to3
+  # 4 failing tests, 2to3
   doCheck = false;
 
   propagatedBuildInputs = [ six ];
@@ -32,5 +32,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ domenkozar ];
   };
-
 }

@@ -34,7 +34,7 @@ buildPythonPackage rec {
     yamllint
   ];
 
-    # https://github.com/networktocode/ntc-templates/issues/743
+  # https://github.com/networktocode/ntc-templates/issues/743
   disabledTests = [
     "test_raw_data_against_mock"
     "test_verify_parsed_and_reference_data_exists"

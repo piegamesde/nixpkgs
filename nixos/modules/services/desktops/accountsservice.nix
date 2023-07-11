@@ -13,7 +13,7 @@ with lib;
 
   meta = { maintainers = teams.freedesktop.members; };
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -27,18 +27,16 @@ with lib;
           the list of user accounts and information attached to those accounts.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.accounts-daemon.enable {
 
     environment.systemPackages = [ pkgs.accountsservice ];
 
-      # Accounts daemon looks for dbus interfaces in $XDG_DATA_DIRS/accountsservice
+    # Accounts daemon looks for dbus interfaces in $XDG_DATA_DIRS/accountsservice
     environment.pathsToLink = [ "/share/accountsservice" ];
 
     services.dbus.packages = [ pkgs.accountsservice ];
@@ -50,9 +48,8 @@ with lib;
 
         wantedBy = [ "graphical.target" ];
 
-          # Accounts daemon looks for dbus interfaces in $XDG_DATA_DIRS/accountsservice
+        # Accounts daemon looks for dbus interfaces in $XDG_DATA_DIRS/accountsservice
         environment.XDG_DATA_DIRS = "${config.system.path}/share";
-
       }
       (
         optionalAttrs (!config.users.mutableUsers) {
@@ -60,5 +57,4 @@ with lib;
         }
       );
   };
-
 }

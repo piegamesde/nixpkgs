@@ -55,7 +55,6 @@ let
       cp -r . $out
     '';
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "bespokesynth";

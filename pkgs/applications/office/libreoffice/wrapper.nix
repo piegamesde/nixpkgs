@@ -119,10 +119,8 @@ runCommand "${unwrapped.name}-wrapped"
     xorg.lndir
   ];
   passthru = {
-    inherit
-      unwrapped
-      ;
-      # For backwards compatibility:
+    inherit unwrapped;
+    # For backwards compatibility:
     libreoffice = lib.warn
       "libreoffice: Use the unwrapped attributed, using libreoffice.libreoffice is deprecated."
       unwrapped;

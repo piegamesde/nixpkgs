@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-EhmVvSB+sf2j1Wa+uFHTU0J1klvDWk+22gyxHeD3JRo=";
   };
 
-    # No tests, need to disable or py3k breaks
+  # No tests, need to disable or py3k breaks
   doCheck = false;
 
   meta = {

@@ -42,7 +42,6 @@ let
     python
     ;
   pythonPackages = python.pkgs;
-
 in
 pythonPackages.buildPythonApplication rec {
   pname = "nixops";

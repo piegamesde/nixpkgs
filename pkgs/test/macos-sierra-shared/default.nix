@@ -80,14 +80,12 @@ let
         '';
         meta.platforms = lib.platforms.darwin;
       };
-
     }
     ;
 
   good = makeBigExe clang-sierraHack-stdenv "good";
 
   bad = makeBigExe clangStdenv "bad";
-
 in
 stdenvNoCC.mkDerivation {
   name = "macos-sierra-shared-test";
@@ -95,7 +93,7 @@ stdenvNoCC.mkDerivation {
     good.finalExe
     bad.finalExe
   ];
-    # TODO(@Ericson2314): Be impure or require exact MacOS version of builder?
+  # TODO(@Ericson2314): Be impure or require exact MacOS version of builder?
   buildCommand = ''
     if bad-asdf &> /dev/null
     then echo "WARNING: bad-asdf did not fail, not running on sierra?" >&2

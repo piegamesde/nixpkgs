@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   debName =
     "Installation/Standard/Ubuntu-2004/safenetauthenticationclient_${version}_amd64.deb";
 
-    # extract debian package from larger zip file
+  # extract debian package from larger zip file
   src =
     let
       versionWithUnderscores = builtins.replaceStrings [ "." ] [ "_" ] version;
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
 
   dontAutoPatchelf = true;
 
-    # Patch DYN shared libraries (autoPatchElfHook only patches EXEC | INTERP).
+  # Patch DYN shared libraries (autoPatchElfHook only patches EXEC | INTERP).
   postFixup = ''
     autoPatchelf "$out"
 

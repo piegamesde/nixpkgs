@@ -16,7 +16,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ requests ];
-    # Modules has no tests
+  # Modules has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "CO2Signal" ];

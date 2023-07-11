@@ -26,6 +26,6 @@ let
     else
       false
     ;
-
 in
+
 lib.makeExtensible (_: pkgs')

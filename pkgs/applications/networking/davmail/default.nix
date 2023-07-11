@@ -30,7 +30,6 @@ let
     ;
 
   inherit (lib) makeLibraryPath versions;
-
 in
 stdenv.mkDerivation rec {
   pname = "davmail";

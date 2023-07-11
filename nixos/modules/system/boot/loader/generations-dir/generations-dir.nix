@@ -20,8 +20,8 @@ let
     ];
     inherit (config.boot.loader.generationsDir) copyKernels;
   };
-
 in
+
 {
   options = {
 
@@ -54,9 +54,7 @@ in
           /nix/store is not needed by the boot loader.
         '';
       };
-
     };
-
   };
 
   config = mkIf config.boot.loader.generationsDir.enable {
@@ -65,6 +63,5 @@ in
     system.boot.loader.id = "generationsDir";
     system.boot.loader.kernelFile =
       pkgs.stdenv.hostPlatform.linux-kernel.target;
-
   };
 }

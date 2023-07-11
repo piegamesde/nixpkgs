@@ -56,7 +56,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf config.services.telegraf.enable {
     systemd.services.telegraf =
       let
@@ -86,7 +86,7 @@ in
           User = "telegraf";
           Group = "telegraf";
           Restart = "on-failure";
-            # for ping probes
+          # for ping probes
           AmbientCapabilities = [ "CAP_NET_RAW" ];
         };
       }

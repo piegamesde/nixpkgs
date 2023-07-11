@@ -10,7 +10,7 @@ buildPythonPackage rec {
   version = "1.5.1";
   format = "setuptools";
 
-    # Pulling from Github to run tests
+  # Pulling from Github to run tests
   src = fetchFromGitHub {
     owner = "wbond";
     repo = "asn1crypto";

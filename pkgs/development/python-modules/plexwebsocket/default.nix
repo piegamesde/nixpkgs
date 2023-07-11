@@ -20,10 +20,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-    # package does not include tests
+  # package does not include tests
   doCheck = false;
 
-    # at least guarantee the module can be imported
+  # at least guarantee the module can be imported
   pythonImportsCheck = [ "plexwebsocket" ];
 
   meta = with lib; {

@@ -72,7 +72,7 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies.matplotlib = [ matplotlib ];
 
-    # check that import works, this allows to capture errors like https://github.com/librosa/librosa/issues/1160
+  # check that import works, this allows to capture errors like https://github.com/librosa/librosa/issues/1160
   pythonImportsCheck = [ "librosa" ];
 
   nativeCheckInputs =
@@ -105,5 +105,4 @@ buildPythonPackage rec {
     license = licenses.isc;
     maintainers = with maintainers; [ GuillaumeDesforges ];
   };
-
 }

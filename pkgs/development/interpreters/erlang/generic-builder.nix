@@ -26,7 +26,7 @@
   wxSupport ? true,
   systemdSupport ?
     lib.meta.availableOn stdenv.hostPlatform systemd # systemd support in epmd
-    # updateScript deps
+  # updateScript deps
   ,
   writeScript,
   common-updater-scripts,
@@ -107,7 +107,6 @@ let
     else
       wxPackages
     ;
-
 in
 stdenv.mkDerivation (
   {
@@ -153,7 +152,7 @@ stdenv.mkDerivation (
 
     debugInfo = enableDebugInfo;
 
-      # On some machines, parallel build reliably crashes on `GEN    asn1ct_eval_ext.erl` step
+    # On some machines, parallel build reliably crashes on `GEN    asn1ct_eval_ext.erl` step
     enableParallelBuilding = parallelBuild;
 
     postPatch = ''
@@ -180,13 +179,12 @@ stdenv.mkDerivation (
       ++ optional wxSupport "--enable-wx"
       ++ optional systemdSupport "--enable-systemd"
       ++ optional stdenv.isDarwin "--enable-darwin-64bit"
-        # make[3]: *** [yecc.beam] Segmentation fault: 11
       ++ optional (stdenv.isDarwin && stdenv.isx86_64) "--disable-jit"
       ++ configureFlags
       ;
 
-      # install-docs will generate and install manpages and html docs
-      # (PDFs are generated only when fop is available).
+    # install-docs will generate and install manpages and html docs
+    # (PDFs are generated only when fop is available).
 
     postInstall = ''
       ln -s $out/lib/erlang/lib/erl_interface*/bin/erl_call $out/bin/erl_call
@@ -194,7 +192,7 @@ stdenv.mkDerivation (
       ${postInstall}
     '';
 
-      # Some erlang bin/ scripts run sed and awk
+    # Some erlang bin/ scripts run sed and awk
     postFixup = ''
       wrapProgram $out/lib/erlang/bin/erl --prefix PATH ":" "${gnused}/bin/"
       wrapProgram $out/lib/erlang/bin/start_erl --prefix PATH ":" "${

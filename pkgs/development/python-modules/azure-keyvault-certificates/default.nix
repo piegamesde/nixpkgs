@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   pythonNamespaces = [ "azure.keyvault" ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "azure.keyvault.certificates" ];

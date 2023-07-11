@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # requires internet access
+  # requires internet access
   disabledTests = [ "test_real" ];
 
   meta = with lib; {
@@ -32,4 +32,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ makefu ];
   };
 }
-

@@ -22,7 +22,6 @@ let
   genesisFile = pkgs.writeText "genesis.json" (builtins.toJSON cfg.genesis);
   staticNodesFile =
     pkgs.writeText "static-nodes.json" (builtins.toJSON cfg.staticNodes);
-
 in
 {
   options = {
@@ -251,7 +250,7 @@ in
                       --port ${toString cfg.port}'';
         Restart = "on-failure";
 
-          # Hardening measures
+        # Hardening measures
         PrivateTmp = "true";
         ProtectSystem = "full";
         NoNewPrivileges = "true";

@@ -8,7 +8,7 @@ python3.pkgs.buildPythonApplication rec {
   pname = "Radicale";
   version = "2.1.12";
 
-    # No tests in PyPI tarball
+  # No tests in PyPI tarball
   src = fetchFromGitHub {
     owner = "Kozea";
     repo = "Radicale";
@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "14f9ql0fiwapaa4xaslwgk1ah9fzxxan2p1p2rxb4a5iqph1z0cl";
   };
 
-    # We only want functional tests
+  # We only want functional tests
   postPatch = ''
     sed -i "s/pytest-cov\|pytest-flake8\|pytest-isort//g" setup.py
     sed -i "/^addopts/d" setup.cfg

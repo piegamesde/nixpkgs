@@ -56,8 +56,8 @@ let
     EOF
     chmod 555 $launcher
   '';
-
 in
+
 stdenv.mkDerivation {
   pname = "cataclysm-dda";
 

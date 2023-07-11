@@ -8,8 +8,8 @@
 
 let
   hasWarning = lib.versionAtLeast coq.ocamlPackages.ocaml.version "4.08";
-
 in
+
 mkCoqDerivation {
   pname = "dpdgraph";
   owner = "Karmaki";
@@ -102,8 +102,8 @@ mkCoqDerivation {
   mlPlugin = true;
   buildInputs = [ coq.ocamlPackages.ocamlgraph ];
 
-    # dpd_compute.ml uses deprecated Pervasives.compare
-    # Versions prior to 0.6.5 do not have the WARN_ERR build flag
+  # dpd_compute.ml uses deprecated Pervasives.compare
+  # Versions prior to 0.6.5 do not have the WARN_ERR build flag
   preConfigure = lib.optionalString hasWarning ''
     substituteInPlace Makefile.in --replace "-warn-error +a " ""
   '';

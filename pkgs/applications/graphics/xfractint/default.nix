@@ -8,7 +8,7 @@
 stdenv.mkDerivation rec {
   pname = "xfractint";
   version = "20.04p16";
-    # or fetchFromGitHub(owner,repo,rev) or fetchgit(rev)
+  # or fetchFromGitHub(owner,repo,rev) or fetchgit(rev)
   src = fetchurl {
     url =
       "https://www.fractint.net/ftp/current/linux/xfractint-${version}.tar.gz";
@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "";
-      # Code cannot be used in commercial programs
-      # Looks like the definition hinges on the price, not license
+    # Code cannot be used in commercial programs
+    # Looks like the definition hinges on the price, not license
     license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.raskin ];
     platforms = lib.platforms.linux;

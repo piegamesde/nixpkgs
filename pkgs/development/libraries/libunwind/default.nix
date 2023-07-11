@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
     "devman"
   ];
 
-    # Without latex2man, no man pages are installed despite being
-    # prebuilt in the source tarball.
+  # Without latex2man, no man pages are installed despite being
+  # prebuilt in the source tarball.
   configureFlags = [ "LATEX2MAN=${buildPackages.coreutils}/bin/true" ];
 
   propagatedBuildInputs = [ xz ];
@@ -64,10 +64,8 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nongnu.org/libunwind";
     description =
       "A portable and efficient API to determine the call-chain of a program";
-    maintainers = with maintainers; [
-        orivej
-      ];
-      # https://github.com/libunwind/libunwind#libunwind
+    maintainers = with maintainers; [ orivej ];
+    # https://github.com/libunwind/libunwind#libunwind
     platforms = [
       "aarch64-linux"
       "armv5tel-linux"

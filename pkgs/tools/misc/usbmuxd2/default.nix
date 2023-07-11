@@ -35,7 +35,6 @@ let
       platforms = platforms.all;
     };
   };
-
 in
 clangStdenv.mkDerivation rec {
   pname = "usbmuxd2";

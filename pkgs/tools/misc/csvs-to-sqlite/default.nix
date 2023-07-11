@@ -57,5 +57,4 @@ buildPythonApplication rec {
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };
-
 }

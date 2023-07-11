@@ -15,7 +15,7 @@
   enableSSL3 ? false,
   enableKTLS ? stdenv.isLinux,
   static ? stdenv.hostPlatform.isStatic
-    # path to openssl.cnf file. will be placed in $etc/etc/ssl/openssl.cnf to replace the default
+  # path to openssl.cnf file. will be placed in $etc/etc/ssl/openssl.cnf to replace the default
   ,
   conf ? null,
   removeReferencesTo,
@@ -53,6 +53,8 @@ let
           ''
             patchShebangs Configure
           ''
+          # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
+          # it to the separate etc output.
           + lib.optionalString (lib.versionOlder version "1.1.1") ''
             patchShebangs test/*
             for a in test/t* ; do
@@ -60,10 +62,13 @@ let
                 --replace /bin/rm rm
             done
           ''
-            # config is a configure script which is not installed.
+          # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
+          # it to the separate etc output.
           + lib.optionalString (lib.versionAtLeast version "1.1.1") ''
             substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
           ''
+          # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
+          # it to the separate etc output.
           + lib.optionalString
             (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl)
             ''
@@ -71,8 +76,8 @@ let
                 --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
                           '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
             ''
-            # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
-            # it to the separate etc output.
+          # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
+          # it to the separate etc output.
           + lib.optionalString static ''
             substituteInPlace Configurations/unix-Makefile.tmpl \
               --replace 'ENGINESDIR=$(libdir)/engines-{- $sover_dirname -}' \
@@ -88,11 +93,6 @@ let
             "man"
           ]
           ++ lib.optional withDocs "doc"
-            # Separate output for the runtime dependencies of the static build.
-            # Specifically, move OPENSSLDIR into this output, as its path will be
-            # compiled into 'libcrypto.a'. This makes it a runtime dependency of
-            # any package that statically links openssl, so we want to keep that
-            # output minimal.
           ++ lib.optional static "etc"
           ;
         setOutputFlags = false;
@@ -110,10 +110,9 @@ let
           ++ lib.optionals static [ removeReferencesTo ]
           ;
         buildInputs =
-          lib.optional withCryptodev cryptodev ++ lib.optional withZlib zlib
-          ;
+          lib.optional withCryptodev cryptodev ++ lib.optional withZlib zlib;
 
-          # TODO(@Ericson2314): Improve with mass rebuild
+        # TODO(@Ericson2314): Improve with mass rebuild
         configurePlatforms = [ ];
         configureScript =
           {
@@ -169,7 +168,7 @@ let
               "Not sure what configuration to use for ${stdenv.hostPlatform.config}"
           );
 
-          # OpenSSL doesn't like the `--enable-static` / `--disable-shared` flags.
+        # OpenSSL doesn't like the `--enable-static` / `--disable-shared` flags.
         dontAddStaticConfigureFlags = true;
         configureFlags =
           [
@@ -179,9 +178,9 @@ let
               if !static then
                 "--openssldir=etc/ssl"
               else
-              # Move OPENSSLDIR to the 'etc' output for static builds. Prepend '/.'
-              # to the path to make it appear absolute before variable expansion,
-              # else the 'prefix' would be prepended to it.
+                # Move OPENSSLDIR to the 'etc' output for static builds. Prepend '/.'
+                # to the path to make it appear absolute before variable expansion,
+                # else the 'prefix' would be prepended to it.
                 "--openssldir=/.$(etc)/etc/ssl"
             )
           ]
@@ -191,8 +190,6 @@ let
           ]
           ++ lib.optional enableSSL2 "enable-ssl2"
           ++ lib.optional enableSSL3 "enable-ssl3"
-            # We select KTLS here instead of the configure-time detection (which we patch out).
-            # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
           ++ lib.optional
             (lib.versionAtLeast version "3.0.0" && enableKTLS)
             "enable-ktls"
@@ -202,17 +199,12 @@ let
               && stdenv.hostPlatform.isAarch64
             )
             "no-afalgeng"
-            # OpenSSL needs a specific `no-shared` configure flag.
-            # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
-            # for a comprehensive list of configuration options.
           ++ lib.optional
             (lib.versionAtLeast version "1.1.1" && static)
             "no-shared"
           ++ lib.optional
             (lib.versionAtLeast version "3.0.0" && static)
             "no-module"
-            # This introduces a reference to the CTLOG_FILE which is undesired when
-            # trying to build binaries statically.
           ++ lib.optional static "no-ct"
           ++ lib.optional withZlib "zlib"
           ;
@@ -253,9 +245,7 @@ let
 
           ''
           + lib.optionalString
-            (
-              !stdenv.hostPlatform.isWindows
-            )
+            (!stdenv.hostPlatform.isWindows)
             # makeWrapper is broken for windows cross (https://github.com/NixOS/nixpkgs/issues/120726)
             ''
               # c_rehash is a legacy perl script with the same functionality
@@ -309,7 +299,6 @@ let
       }
     )
     ;
-
 in
 {
 

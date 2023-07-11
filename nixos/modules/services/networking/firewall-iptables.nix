@@ -308,8 +308,8 @@ let
       exit 1
     fi
   '';
-
 in
+
 {
 
   options = {
@@ -343,11 +343,10 @@ in
         '';
       };
     };
-
   };
 
-    # FIXME: Maybe if `enable' is false, the firewall should still be
-    # built but not started by default?
+  # FIXME: Maybe if `enable' is false, the firewall should still be
+  # built but not started by default?
   config = mkIf (cfg.enable && config.networking.nftables.enable == false) {
 
     assertions =
@@ -371,13 +370,11 @@ in
       before = [ "network-pre.target" ];
       after = [ "systemd-modules-load.service" ];
 
-      path =
-        [ cfg.package ] ++ cfg.extraPackages
-        ;
+      path = [ cfg.package ] ++ cfg.extraPackages;
 
-        # FIXME: this module may also try to load kernel modules, but
-        # containers don't have CAP_SYS_MODULE.  So the host system had
-        # better have all necessary modules already loaded.
+      # FIXME: this module may also try to load kernel modules, but
+      # containers don't have CAP_SYS_MODULE.  So the host system had
+      # better have all necessary modules already loaded.
       unitConfig.ConditionCapability = "CAP_NET_ADMIN";
       unitConfig.DefaultDependencies = false;
 
@@ -391,7 +388,5 @@ in
         ExecStop = "@${stopScript} firewall-stop";
       };
     };
-
   };
-
 }

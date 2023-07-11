@@ -22,9 +22,9 @@ crystal.buildCrystalPackage rec {
 
   format = "shards";
 
-    # Update with
-    #   nix-shell -p crystal2nix --run crystal2nix
-    # with mint's shard.lock file in the current directory
+  # Update with
+  #   nix-shell -p crystal2nix --run crystal2nix
+  # with mint's shard.lock file in the current directory
   shardsFile = ./shards.nix;
 
   buildInputs = [ openssl ];

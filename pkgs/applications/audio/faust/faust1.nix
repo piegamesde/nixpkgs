@@ -48,9 +48,9 @@ let
       unset system
     '';
 
-      # Remove most faust2appl scripts since they won't run properly
-      # without additional paths setup. See faust.wrap,
-      # faust.wrapWithBuildEnv.
+    # Remove most faust2appl scripts since they won't run properly
+    # without additional paths setup. See faust.wrap,
+    # faust.wrapWithBuildEnv.
     postInstall = ''
       # syntax error when eval'd directly
       pattern="faust2!(*@(atomsnippets|graph|graphviewer|md|plot|sig|sigviewer|svg))"
@@ -95,10 +95,9 @@ let
         Install faust2* for specific faust2appl scripts.
       '';
     };
-
   };
 
-    # Default values for faust2appl.
+  # Default values for faust2appl.
   faust2ApplBase =
     {
       baseName,
@@ -142,22 +141,22 @@ let
     }
     ;
 
-    # Some 'faust2appl' scripts, such as faust2alsa, run faust to
-    # generate cpp code, then invoke the c++ compiler to build the code.
-    # This builder wraps these scripts in parts of the stdenv such that
-    # when the scripts are called outside any nix build, they behave as
-    # if they were running inside a nix build in terms of compilers and
-    # paths being configured (e.g. rpath is set so that compiled
-    # binaries link to the libs inside the nix store)
-    #
-    # The function takes two main args: the appl name (e.g.
-    # 'faust2alsa') and an optional list of propagatedBuildInputs. It
-    # returns a derivation that contains only the bin/${appl} script,
-    # wrapped up so that it will run as if it was inside a nix build
-    # with those build inputs.
-    #
-    # The build input 'faust' is automatically added to the
-    # propagatedBuildInputs.
+  # Some 'faust2appl' scripts, such as faust2alsa, run faust to
+  # generate cpp code, then invoke the c++ compiler to build the code.
+  # This builder wraps these scripts in parts of the stdenv such that
+  # when the scripts are called outside any nix build, they behave as
+  # if they were running inside a nix build in terms of compilers and
+  # paths being configured (e.g. rpath is set so that compiled
+  # binaries link to the libs inside the nix store)
+  #
+  # The function takes two main args: the appl name (e.g.
+  # 'faust2alsa') and an optional list of propagatedBuildInputs. It
+  # returns a derivation that contains only the bin/${appl} script,
+  # wrapped up so that it will run as if it was inside a nix build
+  # with those build inputs.
+  #
+  # The build input 'faust' is automatically added to the
+  # propagatedBuildInputs.
   wrapWithBuildEnv =
     {
       baseName,
@@ -192,10 +191,10 @@ let
     )
     ;
 
-    # Builder for 'faust2appl' scripts, such as faust2firefox that
-    # simply need to be wrapped with some dependencies on PATH.
-    #
-    # The build input 'faust' is automatically added to the PATH.
+  # Builder for 'faust2appl' scripts, such as faust2firefox that
+  # simply need to be wrapped with some dependencies on PATH.
+  #
+  # The build input 'faust' is automatically added to the PATH.
   wrap =
     {
       baseName,
@@ -207,7 +206,6 @@ let
 
       runtimePath =
         concatStringsSep ":" (map (p: "${p}/bin") ([ faust ] ++ runtimeInputs));
-
     in
     stdenv.mkDerivation (
       (faust2ApplBase args) // {
@@ -219,10 +217,8 @@ let
             wrapProgram "$script" --prefix PATH : "${runtimePath}"
           done
         '';
-
       }
     )
     ;
-
 in
 faust

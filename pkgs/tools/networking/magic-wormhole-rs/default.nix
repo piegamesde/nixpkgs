@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # all tests involve networking and are bound fail
+  # all tests involve networking and are bound fail
   doCheck = false;
 
   postInstall = ''

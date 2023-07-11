@@ -27,7 +27,7 @@ buildPythonPackage rec {
     ''
     ;
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "cxxfilt" ];

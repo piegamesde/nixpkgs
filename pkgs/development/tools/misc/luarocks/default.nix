@@ -47,8 +47,8 @@ stdenv.mkDerivation (
       substituteInPlace src/luarocks/core/cfg.lua --subst-var-by 'darwinMinVersion' '${stdenv.targetPlatform.darwinMinVersion}'
     '';
 
-      # Manually written ./configure does not support --build= or --host=:
-      #   Error: Unknown flag: --build=x86_64-unknown-linux-gnu
+    # Manually written ./configure does not support --build= or --host=:
+    #   Error: Unknown flag: --build=x86_64-unknown-linux-gnu
     configurePlatforms = [ ];
 
     preConfigure = ''
@@ -117,10 +117,10 @@ stdenv.mkDerivation (
       cmake
     ];
 
-      # unpack hook for src.rock and rockspec files
+    # unpack hook for src.rock and rockspec files
     setupHook = ./setup-hook.sh;
 
-      # cmake is just to compile packages with "cmake" buildType, not luarocks itself
+    # cmake is just to compile packages with "cmake" buildType, not luarocks itself
     dontUseCmakeConfigure = true;
 
     shellHook = ''

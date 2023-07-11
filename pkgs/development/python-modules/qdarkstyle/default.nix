@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-YAWE1iU0Pg3dEo3gg5PTw1Y3eGpJgn8XTSmqfKqCecE=";
   };
 
-    # No tests available
+  # No tests available
   doCheck = false;
 
   propagatedBuildInputs = [

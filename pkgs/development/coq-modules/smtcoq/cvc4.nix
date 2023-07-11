@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "1iw793zsi48q91lxpf8xl8lnvv0jsj4whdad79rakywkm1gbs62w";
   };
 
-    # Build fails with GNUmake 4.4
+  # Build fails with GNUmake 4.4
   nativeBuildInputs = [
     autoreconfHook
     gnumake42

@@ -31,7 +31,7 @@ let
   libsRev = "0.10.5";
   libsSha256 = "sha256-5a5ePcMHAlniJ8sU/5kKdRp5YkJ6tcr4h5Ru4Oc2kQY=";
 
-    # Compare with https://github.com/falcosecurity/libs/blob/master/cmake/modules/valijson.cmake#L17
+  # Compare with https://github.com/falcosecurity/libs/blob/master/cmake/modules/valijson.cmake#L17
   valijson = fetchFromGitHub {
     owner = "tristanpenman";
     repo = "valijson";
@@ -45,7 +45,6 @@ let
     rev = libsRev;
     sha256 = libsSha256;
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "sysdig";
@@ -120,7 +119,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (kernel == null) "-DBUILD_DRIVER=OFF"
     ;
 
-    # needed since luajit-2.1.0-beta3
+  # needed since luajit-2.1.0-beta3
   env.NIX_CFLAGS_COMPILE =
     "-DluaL_reg=luaL_Reg -DluaL_getn(L,i)=((int)lua_objlen(L,i))";
 

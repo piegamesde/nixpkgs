@@ -32,7 +32,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # non-traditional python tests (e.g. nodejs based tests)
+  # non-traditional python tests (e.g. nodejs based tests)
   doCheck = false;
 
   pythonImportsCheck = [ "mermaid2" ];

@@ -38,12 +38,12 @@ let
         )
         set;
       withHeadlines = addAttributeName set';
-        # When building a dry activation script, this replaces all activation scripts
-        # that do not support dry mode with a comment that does nothing. Filtering these
-        # activation scripts out so they don't get generated into the dry activation script
-        # does not work because when an activation script that supports dry mode depends on
-        # an activation script that does not, the dependency cannot be resolved and the eval
-        # fails.
+      # When building a dry activation script, this replaces all activation scripts
+      # that do not support dry mode with a comment that does nothing. Filtering these
+      # activation scripts out so they don't get generated into the dry activation script
+      # does not work because when an activation script that supports dry mode depends on
+      # an activation script that does not, the dependency cannot be resolved and the eval
+      # fails.
       withDrySnippets = mapAttrs
         (
           a: v:
@@ -135,8 +135,8 @@ let
     in
     either str (submodule { options = scriptOptions; })
     ;
-
 in
+
 {
 
   ###### interface
@@ -236,7 +236,6 @@ in
           '';
         }
         ;
-
     };
 
     environment.usrbinenv = mkOption {
@@ -252,7 +251,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = {
 
@@ -314,5 +313,4 @@ in
       };
     };
   };
-
 }

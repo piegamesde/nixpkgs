@@ -44,7 +44,6 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-LPtxpUd7LAYZHJL7elgcZOTaTgHqeqquiB9hiuajA6c=";
   };
-
 in
 stdenvNoCC.mkDerivation rec {
   inherit pname version src;

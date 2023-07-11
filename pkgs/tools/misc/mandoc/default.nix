@@ -17,8 +17,8 @@ let
     else
       "C.UTF-8"
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "mandoc";
   version = "1.14.6";

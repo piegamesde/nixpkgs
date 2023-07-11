@@ -57,8 +57,8 @@
       repo = "mariadb-connector-odbc";
       rev = version;
       sha256 = "0wvy6m9qfvjii3kanf2d1rhfaww32kg0d7m57643f79qb05gd6vg";
-        # this driver only seems to build correctly when built against the mariadb-connect-c subrepo
-        # (see https://github.com/NixOS/nixpkgs/issues/73258)
+      # this driver only seems to build correctly when built against the mariadb-connect-c subrepo
+      # (see https://github.com/NixOS/nixpkgs/issues/73258)
       fetchSubmodules = true;
     };
 
@@ -151,7 +151,7 @@
 
     installTargets = [ "install-3" ];
 
-      # move libraries to $out/lib where they're expected to be
+    # move libraries to $out/lib where they're expected to be
     postInstall = ''
       mkdir -p "$out/lib"
       mv "$out"/*.* "$out/lib"
@@ -247,9 +247,9 @@
       cd src
     '';
 
-      # `unixODBC` is loaded with `dlopen`, so `autoPatchElfHook` cannot see it, and `patchELF` phase would strip the manual patchelf. Thus:
-      # - Manually patchelf with `unixODCB` libraries
-      # - Disable automatic `patchELF` phase
+    # `unixODBC` is loaded with `dlopen`, so `autoPatchElfHook` cannot see it, and `patchELF` phase would strip the manual patchelf. Thus:
+    # - Manually patchelf with `unixODCB` libraries
+    # - Disable automatic `patchELF` phase
     installPhase = ''
       mkdir -p $out/lib
       cp opt/amazon/redshiftodbc/lib/64/* $out/lib

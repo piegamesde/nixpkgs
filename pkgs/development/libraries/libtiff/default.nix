@@ -101,15 +101,15 @@ stdenv.mkDerivation rec {
     moveToOutput include/tiffiop.h $dev_private
   '';
 
-    # If you want to change to a different build system, please make
-    # sure cross-compilation works first!
+  # If you want to change to a different build system, please make
+  # sure cross-compilation works first!
   nativeBuildInputs = [
     autoreconfHook
     pkg-config
     sphinx
   ];
 
-    # TODO: opengl support (bogus configure detection)
+  # TODO: opengl support (bogus configure detection)
   propagatedBuildInputs = [
     libdeflate
     libjpeg

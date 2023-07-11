@@ -147,11 +147,9 @@ let
       qtModule = import ../qtModule.nix
         {
           inherit perl;
-          inherit
-            lib
-            ;
-            # Use a variant of mkDerivation that does not include wrapQtApplications
-            # to avoid cyclic dependencies between Qt modules.
+          inherit lib;
+          # Use a variant of mkDerivation that does not include wrapQtApplications
+          # to avoid cyclic dependencies between Qt modules.
           mkDerivation = import ../mkDerivation.nix
             {
               inherit lib;
@@ -353,7 +351,6 @@ let
         self.overrideScope;
     }
     ;
-
 in
 makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { })
 (_: { })

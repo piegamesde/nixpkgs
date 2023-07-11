@@ -71,9 +71,9 @@ let
         "-D${b}=disabled"
     )
     (builtins.attrNames backends);
-
-  # check that given window system is valid
 in
+
+# check that given window system is valid
 assert lib.assertOneOf "withWindowSystem" withWindowSystem' (
   builtins.attrNames windowSystems
 );

@@ -43,7 +43,7 @@ buildPythonApplication rec {
     croniter
   ];
 
-    # Prevent double wrapping, let the Python wrapper use the args in preFixup.
+  # Prevent double wrapping, let the Python wrapper use the args in preFixup.
   dontWrapGApps = true;
 
   postInstall = ''

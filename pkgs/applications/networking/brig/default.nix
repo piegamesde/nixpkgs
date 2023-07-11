@@ -48,7 +48,7 @@ buildGoModule rec {
       --zsh $src/autocomplete/zsh_autocomplete
   '';
 
-    # There are no tests for the brig executable.
+  # There are no tests for the brig executable.
   doCheck = false;
 
   meta = with lib; {

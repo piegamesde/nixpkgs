@@ -87,7 +87,6 @@ let
 
         machine.shutdown()
       '';
-
     }
     ;
   applicablePostgresqlVersions = filterAttrs

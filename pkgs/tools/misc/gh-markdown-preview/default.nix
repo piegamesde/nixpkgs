@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X github.com/yusukebe/gh-markdown-preview/cmd.Version=${version}"
   ];
 
-    # Tests need network
+  # Tests need network
   doCheck = false;
 
   passthru.tests = {

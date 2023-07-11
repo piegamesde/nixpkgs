@@ -48,7 +48,6 @@ let
       destination = "/bin/${name}";
     }
     ;
-
 in
 {
   options = {
@@ -127,7 +126,6 @@ in
           allowed to be used with non localhost address.
         '';
       };
-
     };
   };
 

@@ -14,9 +14,9 @@ let
     src = fetchFromGitHub {
       owner = "pfn";
       repo = "keepasshttp";
-        # rev = version;
-        # for 1.8.4.2 the tag is at the wrong commit (they fixed stuff
-        # afterwards and didn't move the tag), hence reference by commitid
+      # rev = version;
+      # for 1.8.4.2 the tag is at the wrong commit (they fixed stuff
+      # afterwards and didn't move the tag), hence reference by commitid
       rev = "c2c4eb5388a02169400cba7a67be325caabdcc37";
       sha256 = "0bkzxggbqx7sql3sp46bqham6r457in0vrgh3ai3lw2jrw79pwmh";
     };
@@ -36,9 +36,10 @@ let
       cp $pluginFilename $out/lib/dotnet/keepass/$pluginFilename
     '';
   };
-  # Mono is required to compile plugin at runtime, after loading.
 in
-buildEnv {
+# Mono is required to compile plugin at runtime, after loading.
+buildEnv
+{
   name = drv.name;
   paths = [
     mono

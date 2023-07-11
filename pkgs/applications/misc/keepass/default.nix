@@ -56,12 +56,12 @@ buildDotnetPackage rec {
       })
     ];
 
-    # KeePass looks for plugins in under directory in which KeePass.exe is
-    # located. It follows symlinks where looking for that directory, so
-    # buildEnv is not enough to bring KeePass and plugins together.
-    #
-    # This derivation patches KeePass to search for plugins in specified
-    # plugin derivations in the Nix store and nowhere else.
+  # KeePass looks for plugins in under directory in which KeePass.exe is
+  # located. It follows symlinks where looking for that directory, so
+  # buildEnv is not enough to bring KeePass and plugins together.
+  #
+  # This derivation patches KeePass to search for plugins in specified
+  # plugin derivations in the Nix store and nowhere else.
   pluginLoadPathsPatch =
     let
       outputLc = toString (add 7 (length plugins));
@@ -127,10 +127,10 @@ buildDotnetPackage rec {
   dllFiles = [ "KeePassLib.dll" ];
   exeFiles = [ "KeePass.exe" ];
 
-    # plgx plugin like keefox requires mono to compile at runtime
-    # after loading. It is brought into plugins bin/ directory using
-    # buildEnv in the plugin derivation. Wrapper below makes sure it
-    # is found and does not pollute output path.
+  # plgx plugin like keefox requires mono to compile at runtime
+  # after loading. It is brought into plugins bin/ directory using
+  # buildEnv in the plugin derivation. Wrapper below makes sure it
+  # is found and does not pollute output path.
   binPaths = lib.concatStringsSep ":" (map (x: x + "/bin") plugins);
 
   dynlibPath = lib.makeLibraryPath [ gtk2 ];

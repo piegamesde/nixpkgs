@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     ''
     ;
 
-    # The cmake setup-hook uses $out/lib by default, this is not the case here.
+  # The cmake setup-hook uses $out/lib by default, this is not the case here.
   preConfigure = optionalString stdenv.isDarwin ''
     cmakeFlagsArray+=("-DCMAKE_INSTALL_NAME_DIR=$out/lib/mariadb")
   '';

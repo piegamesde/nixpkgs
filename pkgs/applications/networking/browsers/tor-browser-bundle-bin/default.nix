@@ -58,11 +58,11 @@
   ,
   useHardenedMalloc ? true
 
-    # Whether to disable multiprocess support
+  # Whether to disable multiprocess support
   ,
   disableContentSandbox ? false
 
-    # Extra preferences
+  # Extra preferences
   ,
   extraPrefs ? ""
 }:
@@ -96,13 +96,13 @@ let
     ++ lib.optionals mediaSupport [ ffmpeg ]
     ;
 
-    # Library search path for the fte transport
+  # Library search path for the fte transport
   fteLibPath = lib.makeLibraryPath [
     stdenv.cc.cc
     gmp
   ];
 
-    # Upstream source
+  # Upstream source
   version = "12.0.5";
 
   lang = "ALL";
@@ -511,9 +511,9 @@ stdenv.mkDerivation rec {
       KarlJoad
     ];
     mainProgram = "tor-browser";
-      # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
-      # the compound is "libre" in a strict sense (some components place certain
-      # restrictions on redistribution), it's free enough for our purposes.
+    # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
+    # the compound is "libre" in a strict sense (some components place certain
+    # restrictions on redistribution), it's free enough for our purposes.
     license = licenses.free;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };

@@ -38,7 +38,7 @@ buildPythonPackage rec {
       --replace 'git_exec_name = "git"' 'git_exec_name = "${pkgs.gitMinimal}/bin/git"'
   '';
 
-    # Tests require a git repo
+  # Tests require a git repo
   doCheck = false;
 
   pythonImportsCheck = [ "git" ];

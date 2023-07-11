@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     ./disableUnitTests.patch
   ];
 
-    # autoreconfHook does not work
+  # autoreconfHook does not work
   nativeBuildInputs = [
     autoconf
     automake
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ./bootstrap
   '';
 
-    # More hacking out of the unittests
+  # More hacking out of the unittests
   preBuild = ''
     substituteInPlace Makefile --replace 'UnitTest++' ' '
   '';

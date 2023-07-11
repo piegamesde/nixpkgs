@@ -75,7 +75,7 @@ python.pkgs.buildPythonPackage rec {
       ]
     );
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   meta = with lib; {

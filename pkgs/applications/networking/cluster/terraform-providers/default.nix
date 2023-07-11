@@ -32,10 +32,10 @@ let
       proxyVendor ? false,
       mkProviderFetcher ? fetchFromGitHub,
       mkProviderGoModule ? buildGoModule
-        # "https://registry.terraform.io/providers/vancluever/acme"
+      # "https://registry.terraform.io/providers/vancluever/acme"
       ,
       homepage ? ""
-        # "registry.terraform.io/vancluever/acme"
+      # "registry.terraform.io/vancluever/acme"
       ,
       provider-source-address ? lib.replaceStrings
         [
@@ -55,8 +55,8 @@ let
       inherit vendorHash version deleteVendor proxyVendor;
       subPackages = [ "." ];
       doCheck = false;
-        # https://github.com/hashicorp/terraform-provider-scaffolding/blob/a8ac8375a7082befe55b71c8cbb048493dd220c2/.goreleaser.yml
-        # goreleaser (used for builds distributed via terraform registry) requires that CGO is disabled
+      # https://github.com/hashicorp/terraform-provider-scaffolding/blob/a8ac8375a7082befe55b71c8cbb048493dd220c2/.goreleaser.yml
+      # goreleaser (used for builds distributed via terraform registry) requires that CGO is disabled
       CGO_ENABLED = 0;
       ldflags = [
         "-s"
@@ -74,7 +74,7 @@ let
         license = lib.getLicenseFromSpdxId spdx;
       };
 
-        # Move the provider to libexec
+      # Move the provider to libexec
       postInstall = ''
         dir=$out/libexec/terraform-providers/${provider-source-address}/${version}/''${GOOS}_''${GOARCH}
         mkdir -p "$dir"
@@ -82,7 +82,7 @@ let
         rmdir $out/bin
       '';
 
-        # Keep the attributes around for later consumption
+      # Keep the attributes around for later consumption
       passthru = attrs // {
         inherit provider-source-address;
         updateScript = writeShellScript "update" ''
@@ -95,10 +95,10 @@ let
 
   list = lib.importJSON ./providers.json;
 
-    # These providers are managed with the ./update-all script
+  # These providers are managed with the ./update-all script
   automated-providers = lib.mapAttrs (_: attrs: mkProvider attrs) list;
 
-    # These are the providers that don't fall in line with the default model
+  # These are the providers that don't fall in line with the default model
   special-providers = {
     # github api seems to be broken, doesn't just fail to recognize the license, it's ignored entirely.
     checkly = automated-providers.checkly.override { spdx = "MIT"; };
@@ -106,13 +106,13 @@ let
       mkProviderFetcher = fetchFromGitLab;
       owner = "gitlab-org";
     };
-      # mkisofs needed to create ISOs holding cloud-init data and wrapped to terraform via deecb4c1aab780047d79978c636eeb879dd68630
+    # mkisofs needed to create ISOs holding cloud-init data and wrapped to terraform via deecb4c1aab780047d79978c636eeb879dd68630
     libvirt = automated-providers.libvirt.overrideAttrs (
       _: { propagatedBuildInputs = [ cdrtools ]; }
     );
   };
 
-    # Put all the providers we not longer support in this list.
+  # Put all the providers we not longer support in this list.
   removed-providers =
     let
       archived =
@@ -146,7 +146,9 @@ let
     }
     ;
 
-    # excluding aliases, used by terraform-full
+  # excluding aliases, used by terraform-full
   actualProviders = automated-providers // special-providers;
 in
-actualProviders // removed-providers // { inherit actualProviders mkProvider; }
+actualProviders // removed-providers // {
+  inherit actualProviders mkProvider;
+}

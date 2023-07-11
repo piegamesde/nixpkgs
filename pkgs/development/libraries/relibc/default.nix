@@ -42,7 +42,6 @@ let
     rustc = bootstrapCrossRust;
     cargo = bootstrapCrossRust;
   };
-
 in
 redoxRustPlatform.buildRustPackage rec {
   pname = "relibc";
@@ -68,7 +67,7 @@ redoxRustPlatform.buildRustPackage rec {
     DESTDIR=$out make install
   '';
 
-    # TODO: should be hostPlatform
+  # TODO: should be hostPlatform
   TARGET = buildPackages.rust.toRustTargetSpec stdenvNoCC.targetPlatform;
 
   cargoLock = {
@@ -79,7 +78,7 @@ redoxRustPlatform.buildRustPackage rec {
     };
   };
 
-    # error: Usage of `RUSTC_WORKSPACE_WRAPPER` requires `-Z unstable-options`
+  # error: Usage of `RUSTC_WORKSPACE_WRAPPER` requires `-Z unstable-options`
   auditable = false;
 
   meta = with lib; {

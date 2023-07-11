@@ -20,7 +20,7 @@ buildEnv {
 
   nativeBuildInputs = [ makeWrapper ];
 
-    # so we can launch sp from mp game and vice versa
+  # so we can launch sp from mp game and vice versa
   postBuild = ''
     for i in `find -L $out/opt/iortcw -maxdepth 1 -type f -executable`; do
       makeWrapper $i $out/bin/`basename $i` --chdir "$out/opt/iortcw"

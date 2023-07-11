@@ -6,7 +6,6 @@ import ./make-test-python.nix (
   let
 
     perlEnv = pkgs.perl.withPackages (p: [ p.NetZooKeeper ]);
-
   in
   {
     name = "zookeeper";

@@ -79,8 +79,8 @@ let
 
   testConditions = with lib;
     concatMapStringsSep " " (n: "! -name ${escapeShellArg n}.t") skippedTests;
-
 in
+
 buildPerlPackage rec {
   pname = "public-inbox";
   version = "1.8.0";

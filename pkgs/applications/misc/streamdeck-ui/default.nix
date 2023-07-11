@@ -93,9 +93,9 @@ python3Packages.buildPythonApplication rec {
     python3Packages.hypothesis-auto
   ];
 
-    # Ignored tests are not in a running or passing state.
-    # Fixes have been merged upstream but not yet released.
-    # Revisit these ignored tests on each update.
+  # Ignored tests are not in a running or passing state.
+  # Fixes have been merged upstream but not yet released.
+  # Revisit these ignored tests on each update.
   checkPhase = ''
     xvfb-run pytest tests \
       --ignore=tests/test_api.py \

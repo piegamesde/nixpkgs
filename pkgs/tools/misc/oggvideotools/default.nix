@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       url =
         "https://sourceforge.net/p/oggvideotools/bugs/13/attachment/fix-gcc-12.patch";
       sha256 = "sha256-zuDXe86djWkR8SgYZHkuAJJ7Lf2VYsVRBrlEaODtMKE=";
-        # svn patch, rely on prefix added by fetchpatch:
+      # svn patch, rely on prefix added by fetchpatch:
       extraPrefix = "";
     })
   ];

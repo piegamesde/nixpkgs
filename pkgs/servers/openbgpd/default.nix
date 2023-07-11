@@ -51,10 +51,10 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: bgpd-rde_peer.o:/build/source/src/bgpd/bgpd.h:133: multiple definition of `bgpd_process';
-    #     bgpd-bgpd.o:/build/source/src/bgpd/bgpd.h:133: first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: bgpd-rde_peer.o:/build/source/src/bgpd/bgpd.h:133: multiple definition of `bgpd_process';
+  #     bgpd-bgpd.o:/build/source/src/bgpd/bgpd.h:133: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = with lib; {

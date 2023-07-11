@@ -160,7 +160,7 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # Unfortunately, it seems like we have to call make on these manually
+    # Unfortunately, it seems like we have to call make on these manually
     postBuild =
       lib.optionalString buildDocs ''
         export HOME=$(mktemp -d)

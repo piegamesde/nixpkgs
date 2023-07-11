@@ -20,8 +20,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ httpx ];
 
-    # Project doesn't tag releases or ship the tests with PyPI
-    # https://github.com/gtdiehl/iotawattpy/issues/14
+  # Project doesn't tag releases or ship the tests with PyPI
+  # https://github.com/gtdiehl/iotawattpy/issues/14
   doCheck = false;
 
   pythonImportsCheck = [ "iotawattpy" ];

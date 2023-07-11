@@ -9,8 +9,8 @@
 
 let
   useNcurses = !stdenv.hostPlatform.isWindows;
-
 in
+
 assert useNcurses -> ncurses != null;
 
 rustPlatform.buildRustPackage rec {
@@ -33,8 +33,8 @@ rustPlatform.buildRustPackage rec {
     )
     ;
 
-    # I'm picking pancurses for Windows simply because that's the example given in Cursive's
-    # documentation for picking an alternative backend. We could just as easily pick crossterm.
+  # I'm picking pancurses for Windows simply because that's the example given in Cursive's
+  # documentation for picking an alternative backend. We could just as easily pick crossterm.
   buildNoDefaultFeatures = !useNcurses;
   buildFeatures = lib.optional (!useNcurses) "pancurses-backend";
 

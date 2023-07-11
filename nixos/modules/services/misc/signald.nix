@@ -71,26 +71,26 @@ in
           "-/etc/localtime"
         ];
         CapabilityBoundingSet = "";
-          # ProtectClock= adds DeviceAllow=char-rtc r
+        # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
-          # Use a static user so other applications can access the files
-          #DynamicUser = true;
+        # Use a static user so other applications can access the files
+        #DynamicUser = true;
         LockPersonality = true;
-          # Needed for java
-          #MemoryDenyWriteExecute = true;
+        # Needed for java
+        #MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
         PrivateDevices = true;
         PrivateMounts = true;
-          # Needs network access
-          #PrivateNetwork = true;
+        # Needs network access
+        #PrivateNetwork = true;
         PrivateTmp = true;
         PrivateUsers = true;
         ProcSubset = "pid";
         ProtectClock = true;
         ProtectHome = true;
         ProtectHostname = true;
-          # Would re-mount paths ignored by temporary root
-          #ProtectSystem = "strict";
+        # Would re-mount paths ignored by temporary root
+        #ProtectSystem = "strict";
         ProtectControlGroups = true;
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
@@ -110,8 +110,8 @@ in
           "~@privileged @resources @setuid @keyring"
         ];
         TemporaryFileSystem = "/:ro";
-          # Does not work well with the temporary root
-          #UMask = "0066";
+        # Does not work well with the temporary root
+        #UMask = "0066";
       };
     };
   };

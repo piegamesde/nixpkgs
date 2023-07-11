@@ -10,7 +10,7 @@
   ,
   enableLanguages ? null
 
-    # A list of files or a directory containing files
+  # A list of files or a directory containing files
   ,
   tessdata ? (
     if enableLanguages == null then
@@ -59,13 +59,12 @@ let
            exit 1
         fi
       '';
-
     }
   );
 
   passthru = { inherit tesseractBase languages tessdata; };
 
-    # Only run test when all languages are available
+  # Only run test when all languages are available
   test = lib.optionalAttrs (enableLanguages == null) {
     tests.default = runCommand "tesseract-test-ocr"
       {

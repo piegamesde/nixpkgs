@@ -48,7 +48,7 @@ buildPythonPackage {
     torch-bin
   ];
 
-    # only one test and that requires training data from the internet
+  # only one test and that requires training data from the internet
   doCheck = false;
 
   nativeCheckInputs = [

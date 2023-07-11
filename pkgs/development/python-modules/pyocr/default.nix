@@ -13,11 +13,9 @@
 buildPythonPackage rec {
   pname = "pyocr";
   version = "0.8.3";
-  disabled =
-    !isPy3k
-    ;
+  disabled = !isPy3k;
 
-    # Don't fetch from PYPI because it doesn't contain tests.
+  # Don't fetch from PYPI because it doesn't contain tests.
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     group = "World";
@@ -34,7 +32,7 @@ buildPythonPackage rec {
       })
     ];
 
-    # see the logic in setup.py
+  # see the logic in setup.py
   ENABLE_SETUPTOOLS_SCM = "0";
   preConfigure = ''
     echo 'version = "${version}"' > src/pyocr/_version.py

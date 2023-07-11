@@ -17,10 +17,10 @@
 stdenv.mkDerivation rec {
   pname = "lkl";
 
-    # NOTE: pinned to the last known version that doesn't have a hang in cptofs.
-    # Please verify `nix build -f nixos/release-combined.nix nixos.ova` works
-    # before attempting to update again.
-    # ref: https://github.com/NixOS/nixpkgs/pull/219434
+  # NOTE: pinned to the last known version that doesn't have a hang in cptofs.
+  # Please verify `nix build -f nixos/release-combined.nix nixos.ova` works
+  # before attempting to update again.
+  # ref: https://github.com/NixOS/nixpkgs/pull/219434
   version = "2022-08-08";
 
   outputs = [
@@ -78,16 +78,16 @@ stdenv.mkDerivation rec {
        tools/lkl/lib/hijack/liblkl-hijack.so $lib/lib
   '';
 
-    # We turn off format and fortify because of these errors (fortify implies -O2, which breaks the jitter entropy code):
-    #   fs/xfs/xfs_log_recover.c:2575:3: error: format not a string literal and no format arguments [-Werror=format-security]
-    #   crypto/jitterentropy.c:54:3: error: #error "The CPU Jitter random number generator must not be compiled with optimizations. See documentation. Use the compiler switch -O0 for compiling jitterentropy.c."
+  # We turn off format and fortify because of these errors (fortify implies -O2, which breaks the jitter entropy code):
+  #   fs/xfs/xfs_log_recover.c:2575:3: error: format not a string literal and no format arguments [-Werror=format-security]
+  #   crypto/jitterentropy.c:54:3: error: #error "The CPU Jitter random number generator must not be compiled with optimizations. See documentation. Use the compiler switch -O0 for compiling jitterentropy.c."
   hardeningDisable = [
     "format"
     "fortify"
   ];
 
-    # Fixes the following error when using liblkl-hijack.so on aarch64-linux:
-    # symbol lookup error: liblkl-hijack.so: undefined symbol: __aarch64_ldadd4_sync
+  # Fixes the following error when using liblkl-hijack.so on aarch64-linux:
+  # symbol lookup error: liblkl-hijack.so: undefined symbol: __aarch64_ldadd4_sync
   env.NIX_CFLAGS_LINK = "-lgcc_s";
 
   makeFlags = [

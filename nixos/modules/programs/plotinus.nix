@@ -16,7 +16,7 @@ in
     doc = ./plotinus.md;
   };
 
-    ###### interface
+  ###### interface
 
   options = {
     programs.plotinus = {
@@ -32,7 +32,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.sessionVariables.XDG_DATA_DIRS = [

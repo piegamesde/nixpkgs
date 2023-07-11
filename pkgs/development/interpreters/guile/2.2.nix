@@ -70,12 +70,12 @@ builder rec {
     libunistring
   ];
 
-    # According to Bernhard M. Wiedemann <bwiedemann suse de> on
-    # #reproducible-builds on irc.oftc.net, (2020-01-29): they had to
-    # build Guile without parallel builds to make it reproducible.
-    #
-    # re: https://issues.guix.gnu.org/issue/20272
-    # re: https://build.opensuse.org/request/show/732638
+  # According to Bernhard M. Wiedemann <bwiedemann suse de> on
+  # #reproducible-builds on irc.oftc.net, (2020-01-29): they had to
+  # build Guile without parallel builds to make it reproducible.
+  #
+  # re: https://issues.guix.gnu.org/issue/20272
+  # re: https://build.opensuse.org/request/show/732638
   enableParallelBuilding = false;
 
   patches =
@@ -93,10 +93,10 @@ builder rec {
     )
     ;
 
-    # Explicitly link against libgcc_s, to work around the infamous
-    # "libgcc_s.so.1 must be installed for pthread_cancel to work".
+  # Explicitly link against libgcc_s, to work around the infamous
+  # "libgcc_s.so.1 must be installed for pthread_cancel to work".
 
-    # don't have "libgcc_s.so.1" on clang
+  # don't have "libgcc_s.so.1" on clang
   LDFLAGS = lib.optionalString
     (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
     "-lgcc_s";
@@ -135,8 +135,8 @@ builder rec {
     ''
     ;
 
-    # make check doesn't work on darwin
-    # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.
+  # make check doesn't work on darwin
+  # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.
   doCheck = false;
   doInstallCheck = doCheck;
 

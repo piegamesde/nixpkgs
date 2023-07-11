@@ -26,8 +26,8 @@ let
     featureFlags.minimalModules = { };
   };
   evalMinimalConfig = module: nixosLib.evalModules { modules = [ module ]; };
-
 in
+
 rec {
   # 1. basic example
   bash = buildImage {
@@ -40,14 +40,14 @@ rec {
     };
   };
 
-    # 2. service example, layered on another image
+  # 2. service example, layered on another image
   redis = buildImage {
     name = "redis";
     tag = "latest";
 
-      # for example's sake, we can layer redis on top of bash or debian
+    # for example's sake, we can layer redis on top of bash or debian
     fromImage = bash;
-      # fromImage = debian;
+    # fromImage = debian;
 
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
@@ -66,7 +66,7 @@ rec {
     };
   };
 
-    # 3. another service example
+  # 3. another service example
   nginx =
     let
       nginxPort = "80";
@@ -118,7 +118,7 @@ rec {
     }
     ;
 
-    # 4. example of pulling an image. could be used as a base for other images
+  # 4. example of pulling an image. could be used as a base for other images
   nixFromDockerHub = pullImage {
     imageName = "nixos/nix";
     imageDigest =
@@ -127,8 +127,8 @@ rec {
     finalImageTag = "2.2.1";
     finalImageName = "nix";
   };
-    # Same example, but re-fetches every time the fetcher implementation changes.
-    # NOTE: Only use this for testing, or you'd be wasting a lot of time, network and space.
+  # Same example, but re-fetches every time the fetcher implementation changes.
+  # NOTE: Only use this for testing, or you'd be wasting a lot of time, network and space.
   testNixFromDockerHub = pkgs.testers.invalidateFetcherByDrvHash pullImage {
     imageName = "nixos/nix";
     imageDigest =
@@ -138,7 +138,7 @@ rec {
     finalImageName = "nix";
   };
 
-    # 5. example of multiple contents, emacs and vi happily coexisting
+  # 5. example of multiple contents, emacs and vi happily coexisting
   editors = buildImage {
     name = "editors";
     copyToRoot = pkgs.buildEnv {
@@ -154,8 +154,8 @@ rec {
     };
   };
 
-    # 6. nix example to play with the container nix store
-    # docker run -it --rm nix nix-store -qR $(nix-build '<nixpkgs>' -A nix)
+  # 6. nix example to play with the container nix store
+  # docker run -it --rm nix nix-store -qR $(nix-build '<nixpkgs>' -A nix)
   nix = buildImageWithNixDb {
     name = "nix";
     tag = "latest";
@@ -180,8 +180,8 @@ rec {
     };
   };
 
-    # 7. example of adding something on top of an image pull by our
-    # dockerTools chain.
+  # 7. example of adding something on top of an image pull by our
+  # dockerTools chain.
   onTopOfPulledImage = buildImage {
     name = "onTopOfPulledImage";
     tag = "latest";
@@ -193,8 +193,8 @@ rec {
     };
   };
 
-    # 8. regression test for erroneous use of eval and string expansion.
-    # See issue #34779 and PR #40947 for details.
+  # 8. regression test for erroneous use of eval and string expansion.
+  # See issue #34779 and PR #40947 for details.
   runAsRootExtraCommands = pkgs.dockerTools.buildImage {
     name = "runAsRootExtraCommands";
     tag = "latest";
@@ -203,15 +203,15 @@ rec {
       pathsToLink = [ "/bin" ];
       paths = [ pkgs.coreutils ];
     };
-      # The parens here are to create problematic bash to embed and eval. In case
-      # this is *embedded* into the script (with nix expansion) the initial quotes
-      # will close the string and the following parens are unexpected
+    # The parens here are to create problematic bash to embed and eval. In case
+    # this is *embedded* into the script (with nix expansion) the initial quotes
+    # will close the string and the following parens are unexpected
     runAsRoot = ''echo "(runAsRoot)" > runAsRoot'';
     extraCommands = ''echo "(extraCommand)" > extraCommands'';
   };
 
-    # 9. Ensure that setting created to now results in a date which
-    # isn't the epoch + 1
+  # 9. Ensure that setting created to now results in a date which
+  # isn't the epoch + 1
   unstableDate = pkgs.dockerTools.buildImage {
     name = "unstable-date";
     tag = "latest";
@@ -223,7 +223,7 @@ rec {
     created = "now";
   };
 
-    # 10. Create a layered image
+  # 10. Create a layered image
   layered-image = pkgs.dockerTools.buildLayeredImage {
     name = "layered-image";
     tag = "latest";
@@ -236,7 +236,7 @@ rec {
     ];
   };
 
-    # 11. Create an image on top of a layered image
+  # 11. Create an image on top of a layered image
   layered-on-top = pkgs.dockerTools.buildImage {
     name = "layered-on-top";
     tag = "latest";
@@ -256,7 +256,7 @@ rec {
     };
   };
 
-    # 12 Create a layered image on top of a layered image
+  # 12 Create a layered image on top of a layered image
   layered-on-top-layered = pkgs.dockerTools.buildLayeredImage {
     name = "layered-on-top-layered";
     tag = "latest";
@@ -276,8 +276,8 @@ rec {
     };
   };
 
-    # 13. example of running something as root on top of a parent image
-    # Regression test related to PR #52109
+  # 13. example of running something as root on top of a parent image
+  # Regression test related to PR #52109
   runAsRootParentImage = buildImage {
     name = "runAsRootParentImage";
     tag = "latest";
@@ -285,12 +285,12 @@ rec {
     fromImage = bash;
   };
 
-    # 14. example of 3 layers images This image is used to verify the
-    # order of layers is correct.
-    # It allows to validate
-    # - the layer of parent are below
-    # - the order of parent layer is preserved at image build time
-    #   (this is why there are 3 images)
+  # 14. example of 3 layers images This image is used to verify the
+  # order of layers is correct.
+  # It allows to validate
+  # - the layer of parent are below
+  # - the order of parent layer is preserved at image build time
+  #   (this is why there are 3 images)
   layersOrder =
     let
       l1 = pkgs.dockerTools.buildImage {
@@ -330,9 +330,9 @@ rec {
     }
     ;
 
-    # 15. Environment variable inheritance.
-    # Child image should inherit parents environment variables,
-    # optionally overriding them.
+  # 15. Environment variable inheritance.
+  # Child image should inherit parents environment variables,
+  # optionally overriding them.
   environmentVariablesParent = pkgs.dockerTools.buildImage {
     name = "parent";
     tag = "latest";
@@ -374,14 +374,14 @@ rec {
     };
   };
 
-    # 16. Create another layered image, for comparing layers with image 10.
+  # 16. Create another layered image, for comparing layers with image 10.
   another-layered-image = pkgs.dockerTools.buildLayeredImage {
     name = "another-layered-image";
     tag = "latest";
     config.Cmd = [ "${pkgs.hello}/bin/hello" ];
   };
 
-    # 17. Create a layered image with only 2 layers
+  # 17. Create a layered image with only 2 layers
   two-layered-image = pkgs.dockerTools.buildLayeredImage {
     name = "two-layered-image";
     tag = "latest";
@@ -393,8 +393,8 @@ rec {
     maxLayers = 2;
   };
 
-    # 18. Create a layered image with more packages than max layers.
-    # coreutils and hello are part of the same layer
+  # 18. Create a layered image with more packages than max layers.
+  # coreutils and hello are part of the same layer
   bulk-layer = pkgs.dockerTools.buildLayeredImage {
     name = "bulk-layer";
     tag = "latest";
@@ -405,8 +405,8 @@ rec {
     maxLayers = 2;
   };
 
-    # 19. Create a layered image with a base image and more packages than max
-    # layers. coreutils and hello are part of the same layer
+  # 19. Create a layered image with a base image and more packages than max
+  # layers. coreutils and hello are part of the same layer
   layered-bulk-layer = pkgs.dockerTools.buildLayeredImage {
     name = "layered-bulk-layer";
     tag = "latest";
@@ -418,8 +418,8 @@ rec {
     maxLayers = 4;
   };
 
-    # 20. Create a "layered" image without nix store layers. This is not
-    # recommended, but can be useful for base images in rare cases.
+  # 20. Create a "layered" image without nix store layers. This is not
+  # recommended, but can be useful for base images in rare cases.
   no-store-paths = pkgs.dockerTools.buildLayeredImage {
     name = "no-store-paths";
     tag = "latest";
@@ -453,8 +453,8 @@ rec {
     };
   };
 
-    # 21. Support files in the store on buildLayeredImage
-    # See: https://github.com/NixOS/nixpkgs/pull/91084#issuecomment-653496223
+  # 21. Support files in the store on buildLayeredImage
+  # See: https://github.com/NixOS/nixpkgs/pull/91084#issuecomment-653496223
   filesInStore = pkgs.dockerTools.buildLayeredImageWithNixDb {
     name = "file-in-store";
     tag = "latest";
@@ -468,13 +468,13 @@ rec {
     ];
     config = {
       Cmd = [ "myscript" ];
-        # For some reason 'nix-store --verify' requires this environment variable
+      # For some reason 'nix-store --verify' requires this environment variable
       Env = [ "USER=root" ];
     };
   };
 
-    # 22. Ensure that setting created to now results in a date which
-    # isn't the epoch + 1 for layered images.
+  # 22. Ensure that setting created to now results in a date which
+  # isn't the epoch + 1 for layered images.
   unstableDateLayered = pkgs.dockerTools.buildLayeredImage {
     name = "unstable-date-layered";
     tag = "latest";
@@ -482,8 +482,8 @@ rec {
     created = "now";
   };
 
-    # 23. Ensure that layers are unpacked in the correct order before the
-    # runAsRoot script is executed.
+  # 23. Ensure that layers are unpacked in the correct order before the
+  # runAsRoot script is executed.
   layersUnpackOrder =
     let
       layerOnTopOf =
@@ -503,9 +503,9 @@ rec {
           '';
         }
         ;
-        # When executing the runAsRoot script when building layer C, if layer B is
-        # not unpacked on top of layer A, the contents of /layer-order will not be
-        # "ABC".
+      # When executing the runAsRoot script when building layer C, if layer B is
+      # not unpacked on top of layer A, the contents of /layer-order will not be
+      # "ABC".
       layerA = layerOnTopOf null "a";
       layerB = layerOnTopOf layerA "b";
       layerC = layerOnTopOf layerB "c";
@@ -513,26 +513,26 @@ rec {
     layerC
     ;
 
-    # buildImage without explicit tag
+  # buildImage without explicit tag
   bashNoTag = pkgs.dockerTools.buildImage {
     name = "bash-no-tag";
-      # Not recommended. Use `buildEnv` between copy and packages to avoid file duplication.
+    # Not recommended. Use `buildEnv` between copy and packages to avoid file duplication.
     copyToRoot = pkgs.bashInteractive;
   };
 
-    # buildLayeredImage without explicit tag
+  # buildLayeredImage without explicit tag
   bashNoTagLayered = pkgs.dockerTools.buildLayeredImage {
     name = "bash-no-tag-layered";
     contents = pkgs.bashInteractive;
   };
 
-    # buildImage without explicit tag
+  # buildImage without explicit tag
   bashNoTagStreamLayered = pkgs.dockerTools.streamLayeredImage {
     name = "bash-no-tag-stream-layered";
     contents = pkgs.bashInteractive;
   };
 
-    # buildLayeredImage with non-root user
+  # buildLayeredImage with non-root user
   bashLayeredWithUser =
     let
       nonRootShadowSetup =
@@ -577,7 +577,7 @@ rec {
     }
     ;
 
-    # basic example, with cross compilation
+  # basic example, with cross compilation
   cross =
     let
       # Cross compile for x86_64 if on aarch64
@@ -599,7 +599,7 @@ rec {
     }
     ;
 
-    # layered image where a store path is itself a symlink
+  # layered image where a store path is itself a symlink
   layeredStoreSymlink =
     let
       target = pkgs.writeTextDir "dir/target" "Content doesn't matter.";
@@ -617,21 +617,21 @@ rec {
     }
     ;
 
-    # image with registry/ prefix
+  # image with registry/ prefix
   prefixedImage = pkgs.dockerTools.buildImage {
     name = "registry-1.docker.io/image";
     tag = "latest";
     config.Cmd = [ "${pkgs.hello}/bin/hello" ];
   };
 
-    # layered image with registry/ prefix
+  # layered image with registry/ prefix
   prefixedLayeredImage = pkgs.dockerTools.buildLayeredImage {
     name = "registry-1.docker.io/layered-image";
     tag = "latest";
     config.Cmd = [ "${pkgs.hello}/bin/hello" ];
   };
 
-    # layered image with files owned by a user other than root
+  # layered image with files owned by a user other than root
   layeredImageWithFakeRootCommands = pkgs.dockerTools.buildLayeredImage {
     name = "layered-image-with-fake-root-commands";
     tag = "latest";
@@ -654,20 +654,20 @@ rec {
     '';
   };
 
-    # tarball consisting of both bash and redis images
+  # tarball consisting of both bash and redis images
   mergedBashAndRedis = pkgs.dockerTools.mergeImages [
     bash
     redis
   ];
 
-    # tarball consisting of bash (without tag) and redis images
+  # tarball consisting of bash (without tag) and redis images
   mergedBashNoTagAndRedis = pkgs.dockerTools.mergeImages [
     bashNoTag
     redis
   ];
 
-    # tarball consisting of bash and layered image with different owner of the
-    # /home/alice directory
+  # tarball consisting of bash and layered image with different owner of the
+  # /home/alice directory
   mergedBashFakeRoot = pkgs.dockerTools.mergeImages [
     bash
     layeredImageWithFakeRootCommands
@@ -716,8 +716,8 @@ rec {
                 127.0.0.1 localhost
                 ::1 localhost
               '';
-                # For executables:
-                # mode = "0755";
+              # For executables:
+              # mode = "0755";
             };
           }
         ));
@@ -737,7 +737,7 @@ rec {
     }
     ;
 
-    # Example export of the bash image
+  # Example export of the bash image
   exportBash = pkgs.dockerTools.exportImage { fromImage = bash; };
 
   imageViaFakeChroot = pkgs.dockerTools.streamLayeredImage {
@@ -745,9 +745,9 @@ rec {
     tag = "latest";
     config.Cmd = [ "hello" ];
     enableFakechroot = true;
-      # Crucially, instead of a relative path, this creates /bin, which is
-      # intercepted by fakechroot.
-      # This functionality is not available on darwin as of 2021.
+    # Crucially, instead of a relative path, this creates /bin, which is
+    # intercepted by fakechroot.
+    # This functionality is not available on darwin as of 2021.
     fakeRootCommands = ''
       mkdir /bin
       ln -s ${pkgs.hello}/bin/hello /bin/hello
@@ -757,7 +757,7 @@ rec {
   build-image-with-path = buildImage {
     name = "build-image-with-path";
     tag = "latest";
-      # Not recommended. Use `buildEnv` between copy and packages to avoid file duplication.
+    # Not recommended. Use `buildEnv` between copy and packages to avoid file duplication.
     copyToRoot = [
       pkgs.bashInteractive
       ./test-dummy
@@ -777,7 +777,7 @@ rec {
     name = "build-image-with-architecture";
     tag = "latest";
     architecture = "arm64";
-      # Not recommended. Use `buildEnv` between copy and packages to avoid file duplication.
+    # Not recommended. Use `buildEnv` between copy and packages to avoid file duplication.
     copyToRoot = [
       pkgs.bashInteractive
       ./test-dummy
@@ -794,7 +794,7 @@ rec {
     ];
   };
 
-    # ensure that caCertificates builds
+  # ensure that caCertificates builds
   image-with-certs = buildImage {
     name = "image-with-certs";
     tag = "latest";
@@ -918,5 +918,4 @@ rec {
       $out/bin/hello
     '';
   };
-
 }

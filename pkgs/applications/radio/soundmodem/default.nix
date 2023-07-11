@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
         - Usermode solution allows the use of MMX, VIS, Floating point and other media instruction sets to speed up computation.
         - Cross platform builds from a single source code provides ubiquitous availability.
     '';
-      #homepage = "http://gna.org/projects/soundmodem"; # official, but "Connection refused"
+    #homepage = "http://gna.org/projects/soundmodem"; # official, but "Connection refused"
     homepage = "http://soundmodem.vk4msl.id.au/";
     downloadPage =
       "https://archive.org/download/${pname}-${version}/${pname}-${version}.tar.gz";

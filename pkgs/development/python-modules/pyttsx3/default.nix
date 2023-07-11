@@ -18,7 +18,7 @@ buildPythonPackage rec {
     python = "py3";
   };
 
-    # This package has no tests
+  # This package has no tests
   doCheck = false;
 
   meta = with lib; {

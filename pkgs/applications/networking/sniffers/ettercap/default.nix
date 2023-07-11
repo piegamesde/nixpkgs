@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     "-DGTK3_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-2.0/include"
   ];
 
-    # TODO: Remove after the next release (0.8.4 should work without this):
+  # TODO: Remove after the next release (0.8.4 should work without this):
   env.NIX_CFLAGS_COMPILE = toString [ "-I${harfbuzz.dev}/include/harfbuzz" ];
 
   meta = with lib; {

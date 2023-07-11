@@ -74,16 +74,16 @@ let
         Environment = [
             "PERL_INLINE_DIRECTORY=/run/public-inbox-${srv}/perl-inline"
           ];
-          # NonBlocking is REQUIRED to avoid a race condition
-          # if running simultaneous services.
+        # NonBlocking is REQUIRED to avoid a race condition
+        # if running simultaneous services.
         NonBlocking = true;
-          #LimitNOFILE = 30000;
+        #LimitNOFILE = 30000;
         User = config.users.users."public-inbox".name;
         Group = config.users.groups."public-inbox".name;
         RuntimeDirectory = [ "public-inbox-${srv}/perl-inline" ];
         RuntimeDirectoryMode = "700";
-          # This is for BindPaths= and BindReadOnlyPaths=
-          # to allow traversal of directories they create inside RootDirectory=
+        # This is for BindPaths= and BindReadOnlyPaths=
+        # to allow traversal of directories they create inside RootDirectory=
         UMask = "0066";
         StateDirectory = [ "public-inbox" ];
         StateDirectoryMode = "0750";
@@ -95,18 +95,21 @@ let
             "${config.i18n.glibcLocales}"
           ]
           ++ mapAttrsToList (name: inbox: inbox.description) cfg.inboxes
-          ++ optionals
+          ++
+          # Without confinement the whole Nix store
+            # is made available to the service
+            optionals
             (!config.systemd.services."public-inbox-${srv}".confinement.enable)
             [
               "${pkgs.dash}/bin/dash:/bin/sh"
               builtins.storeDir
             ]
           ;
-          # The following options are only for optimizing:
-          # systemd-analyze security public-inbox-'*'
+        # The following options are only for optimizing:
+        # systemd-analyze security public-inbox-'*'
         AmbientCapabilities = "";
         CapabilityBoundingSet = "";
-          # ProtectClock= adds DeviceAllow=char-rtc r
+        # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -118,7 +121,7 @@ let
         ProtectHostname = true;
         ProtectKernelLogs = true;
         ProtectProc = "invisible";
-          #ProtectSystem = "strict";
+        #ProtectSystem = "strict";
         RemoveIPC = true;
         RestrictAddressFamilies =
           [ "AF_UNIX" ]
@@ -142,7 +145,7 @@ let
         ];
         SystemCallArchitectures = "native";
 
-          # The following options are redundant when confinement is enabled
+        # The following options are redundant when confinement is enabled
         RootDirectory = "/var/empty";
         TemporaryFileSystem = "/";
         PrivateMounts = true;
@@ -164,7 +167,7 @@ let
         # systemd.services.public-inbox-nntpd.confinement.enable = true;
         #enable = true;
         mode = "full-apivfs";
-          # Inline::C needs a /bin/sh, and dash is enough
+        # Inline::C needs a /bin/sh, and dash is enough
         binSh = "${pkgs.dash}/bin/dash";
         packages = [
           pkgs.iana-etc
@@ -174,8 +177,8 @@ let
       };
     }
     ;
-
 in
+
 {
   options.services.public-inbox = {
     enable = mkEnableOption (lib.mdDoc "the public-inbox mail archiver");
@@ -482,7 +485,7 @@ in
       # Not sure limiting to 1 is necessary, but better safe than sorry.
       config.public-inbox_destination_recipient_limit = "1";
 
-        # Register the addresses as existing
+      # Register the addresses as existing
       virtual = concatStringsSep "\n" (
         mapAttrsToList
         (
@@ -494,7 +497,7 @@ in
         cfg.inboxes
       );
 
-        # Deliver the addresses with the public-inbox transport
+      # Deliver the addresses with the public-inbox transport
       transport = concatStringsSep "\n" (
         mapAttrsToList
         (
@@ -506,7 +509,7 @@ in
         cfg.inboxes
       );
 
-        # The public-inbox transport
+      # The public-inbox transport
       masterConfig.public-inbox = {
         type = "unix";
         privileged = true; # Required for user=
@@ -590,37 +593,40 @@ in
               ExecStart = escapeShellArgs (
                 [ "${cfg.package}/bin/public-inbox-httpd" ]
                 ++ cfg.http.args
-                ++ [
-                  (pkgs.writeText "public-inbox.psgi" ''
-                    #!${cfg.package.fullperl} -w
-                    use strict;
-                    use warnings;
-                    use Plack::Builder;
-                    use PublicInbox::WWW;
+                ++
+                # See https://public-inbox.org/public-inbox.git/tree/examples/public-inbox.psgi
+                  # for upstream's example.
+                  [
+                    (pkgs.writeText "public-inbox.psgi" ''
+                      #!${cfg.package.fullperl} -w
+                      use strict;
+                      use warnings;
+                      use Plack::Builder;
+                      use PublicInbox::WWW;
 
-                    my $www = PublicInbox::WWW->new;
-                    $www->preload;
+                      my $www = PublicInbox::WWW->new;
+                      $www->preload;
 
-                    builder {
-                      # If reached through a reverse proxy,
-                      # make it transparent by resetting some HTTP headers
-                      # used by public-inbox to generate URIs.
-                      enable 'ReverseProxy';
+                      builder {
+                        # If reached through a reverse proxy,
+                        # make it transparent by resetting some HTTP headers
+                        # used by public-inbox to generate URIs.
+                        enable 'ReverseProxy';
 
-                      # No need to send a response body if it's an HTTP HEAD requests.
-                      enable 'Head';
+                        # No need to send a response body if it's an HTTP HEAD requests.
+                        enable 'Head';
 
-                      # Route according to configured domains and root paths.
-                      ${
-                        concatMapStrings
-                        (path: ''
-                          mount q(${path}) => sub { $www->call(@_); };
-                        '')
-                        cfg.http.mounts
+                        # Route according to configured domains and root paths.
+                        ${
+                          concatMapStrings
+                          (path: ''
+                            mount q(${path}) => sub { $www->call(@_); };
+                          '')
+                          cfg.http.mounts
+                        }
                       }
-                    }
-                  '')
-                ]
+                    '')
+                  ]
               );
             };
           }

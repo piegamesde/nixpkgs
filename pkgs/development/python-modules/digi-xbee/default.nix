@@ -22,7 +22,7 @@ buildPythonPackage rec {
     srp
   ];
 
-    # Upstream doesn't contain unit tests, only functional tests which require specific hardware
+  # Upstream doesn't contain unit tests, only functional tests which require specific hardware
   doCheck = false;
 
   pythonImportsCheck = [

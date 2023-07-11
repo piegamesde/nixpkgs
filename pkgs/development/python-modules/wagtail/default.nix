@@ -51,8 +51,8 @@ buildPythonPackage rec {
     l18n
   ];
 
-    # Tests are in separate derivation because they require a package that depends
-    # on wagtail (wagtail-factories)
+  # Tests are in separate derivation because they require a package that depends
+  # on wagtail (wagtail-factories)
   doCheck = false;
 
   passthru.tests.wagtail = callPackage ./tests.nix { };

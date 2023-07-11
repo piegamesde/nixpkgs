@@ -15,6 +15,6 @@ in
     default = { };
   };
 
-    # config-dependent options: won't recommend, but useful for making this test parameterized
+  # config-dependent options: won't recommend, but useful for making this test parameterized
   options.shorthandOnlyDefinesConfig = mkOption { default = false; };
 }

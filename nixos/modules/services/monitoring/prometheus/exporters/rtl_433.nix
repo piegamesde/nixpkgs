@@ -77,7 +77,7 @@ in
     serviceConfig = {
       # rtl-sdr udev rules make supported USB devices +rw by plugdev.
       SupplementaryGroups = "plugdev";
-        # rtl_433 needs rw access to the USB radio.
+      # rtl_433 needs rw access to the USB radio.
       PrivateDevices = lib.mkForce false;
       DeviceAllow = lib.mkForce "char-usb_device rw";
       RestrictAddressFamilies = [ "AF_NETLINK" ];

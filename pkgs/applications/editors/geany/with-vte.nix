@@ -8,7 +8,7 @@
 symlinkJoin {
   name = "geany-with-vte-${geany.version}";
 
-    # TODO: add geany-plugins
+  # TODO: add geany-plugins
   paths = with geany; [
     out
     doc

@@ -87,8 +87,8 @@ stdenv.mkDerivation rec {
     "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
   ];
 
-    # Tests are flaky
-    # see https://github.com/NixOS/nixpkgs/pull/53293#issuecomment-453739295
+  # Tests are flaky
+  # see https://github.com/NixOS/nixpkgs/pull/53293#issuecomment-453739295
   doCheck = false;
 
   meta = with lib; {

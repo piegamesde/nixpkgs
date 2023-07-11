@@ -40,7 +40,7 @@ buildPythonPackage rec {
   pname = "patool";
   version = "1.12";
 
-    #pypi doesn't have test data
+  #pypi doesn't have test data
   src = fetchFromGitHub {
     owner = "wummel";
     repo = pname;

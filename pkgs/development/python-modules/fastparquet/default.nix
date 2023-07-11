@@ -64,7 +64,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Workaround https://github.com/NixOS/nixpkgs/issues/123561
+  # Workaround https://github.com/NixOS/nixpkgs/issues/123561
   preCheck = ''
     mv fastparquet/test .
     rm -r fastparquet

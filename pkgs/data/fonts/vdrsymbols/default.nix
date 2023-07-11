@@ -26,14 +26,12 @@ stdenvNoCC.mkDerivation rec {
     description = "DejaVu fonts with additional symbols used by VDR";
     homepage = "http://andreas.vdr-developer.org/fonts/";
     platforms = platforms.all;
-    maintainers = with maintainers; [
-        ck3d
-      ];
+    maintainers = with maintainers; [ ck3d ];
 
-      # Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.
-      # Copyright (c) 2006 by Tavmjong Bah. All Rights Reserved.
-      # DejaVu changes are in public domain
-      # See https://dejavu-fonts.github.io/License.html for details
+    # Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.
+    # Copyright (c) 2006 by Tavmjong Bah. All Rights Reserved.
+    # DejaVu changes are in public domain
+    # See https://dejavu-fonts.github.io/License.html for details
     license = licenses.free;
   };
 }

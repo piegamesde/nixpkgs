@@ -101,7 +101,7 @@
   MediaToolbox,
   enableGplPlugins ? true,
   bluezSupport ? stdenv.isLinux
-    # Checks meson.is_cross_build(), so even canExecute isn't enough.
+  # Checks meson.is_cross_build(), so even canExecute isn't enough.
   ,
   enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
   hotdoc,
@@ -368,7 +368,7 @@ stdenv.mkDerivation rec {
     )
     ;
 
-    # Argument list too long
+  # Argument list too long
   strictDeps = true;
 
   postPatch = ''
@@ -376,8 +376,8 @@ stdenv.mkDerivation rec {
       scripts/extract-release-date-from-doap-file.py
   '';
 
-    # This package has some `_("string literal")` string formats
-    # that trip up clang with format security enabled.
+  # This package has some `_("string literal")` string formats
+  # that trip up clang with format security enabled.
   hardeningDisable = [ "format" ];
 
   doCheck = false; # fails 20 out of 58 tests, expensive

@@ -17,7 +17,7 @@
 
 let
   version = "1.17.3";
-    # Using two URLs as the first one will break as soon as a new version is released
+  # Using two URLs as the first one will break as soon as a new version is released
   src_bin = fetchurl {
     urls = [
       "http://www.makemkv.com/download/makemkv-bin-${version}.tar.gz"
@@ -32,7 +32,6 @@ let
     ];
     sha256 = "16be3ee29c1dd3d5292f793e9f5efbcd30a59bf035de79586e9afbfa98a6a4cb";
   };
-
 in
 mkDerivation {
   pname = "makemkv";

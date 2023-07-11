@@ -18,8 +18,8 @@ let
   ];
 
   inidir = "\\\${XDG_CONFIG_HOME:-\\$HOME/.config}/kisslicer";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "kisslicer";
   version = "1.6.3";

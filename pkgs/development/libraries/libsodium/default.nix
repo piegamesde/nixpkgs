@@ -35,8 +35,8 @@ stdenv.mkDerivation (
       (stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32)
       "stackprotector";
 
-      # FIXME: the hardeingDisable attr above does not seems effective, so
-      # the need to disable stackprotector via configureFlags
+    # FIXME: the hardeingDisable attr above does not seems effective, so
+    # the need to disable stackprotector via configureFlags
     configureFlags = lib.optional
       (stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32)
       "--disable-ssp";

@@ -23,7 +23,7 @@ buildPythonPackage rec {
     jsonrpc-websocket
   ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pykodi" ];

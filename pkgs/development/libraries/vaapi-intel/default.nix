@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "1cidki3av9wnkgwi7fklxbg3bh6kysf8w3fk2qadjr05a92mx3zp";
   };
 
-    # Set the correct install path:
+  # Set the correct install path:
   LIBVA_DRIVERS_PATH = "${placeholder "out"}/lib/dri";
 
   postInstall = lib.optionalString enableHybridCodec ''

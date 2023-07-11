@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
       MACOSX_DEPLOYMENT_TARGET=10.16
     '';
 
-    # libevent_openssl is moved into its own output, so that openssl isn't present
-    # in the default closure.
+  # libevent_openssl is moved into its own output, so that openssl isn't present
+  # in the default closure.
   outputs =
     [
       "out"

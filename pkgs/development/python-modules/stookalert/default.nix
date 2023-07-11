@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # upstream has no tests
+  # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "stookalert" ];

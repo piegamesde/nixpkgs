@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-introspection" ];
 
-    # Desktop file from Debian
+  # Desktop file from Debian
   postInstall = ''
     mkdir -p $out/etc/xdg/autostart
     substituteAll ${

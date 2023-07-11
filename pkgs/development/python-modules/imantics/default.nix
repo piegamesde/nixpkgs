@@ -33,7 +33,7 @@ buildPythonPackage rec {
       --replace "'opencv-python>=3'," ""
   '';
 
-    # failing on NixOS
+  # failing on NixOS
   doCheck = false;
 
   pythonImportsCheck = [ "imantics" ];

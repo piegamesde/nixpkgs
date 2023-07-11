@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    ## ugly, X should be made an option
+  ## ugly, X should be made an option
   configureFlags =
     [
       "--sysconfdir=/etc"
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
       "--includedir=$dev/include")
   '';
 
-    # We need to build hcrypt for applications like samba
+  # We need to build hcrypt for applications like samba
   postBuild = ''
     (cd include/hcrypto; make -j $NIX_BUILD_CORES)
     (cd lib/hcrypto; make -j $NIX_BUILD_CORES)
@@ -134,10 +134,10 @@ stdenv.mkDerivation rec {
     mv lib/com_err/.libs/compile_et $dev/bin
   '';
 
-    # Issues with hydra
-    #  In file included from hxtool.c:34:0:
-    #  hx_locl.h:67:25: fatal error: pkcs10_asn1.h: No such file or directory
-    #enableParallelBuilding = true;
+  # Issues with hydra
+  #  In file included from hxtool.c:34:0:
+  #  hx_locl.h:67:25: fatal error: pkcs10_asn1.h: No such file or directory
+  #enableParallelBuilding = true;
 
   meta = with lib; {
     description = "An implementation of Kerberos 5 (and some more stuff)";

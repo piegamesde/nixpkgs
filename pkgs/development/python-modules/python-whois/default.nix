@@ -25,7 +25,7 @@ buildPythonPackage rec {
     simplejson
   ];
 
-    # Exclude tests that require network access
+  # Exclude tests that require network access
   disabledTests = [
     "test_dk_parse"
     "test_ipv4"

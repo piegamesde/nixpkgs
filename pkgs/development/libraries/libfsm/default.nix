@@ -20,19 +20,19 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ bmake ];
   enableParallelBuilding = true;
 
-    # note: build checks value of '$CC' to add some extra cflags, but we don't
-    # necessarily know which 'stdenv' someone chose, so we leave it alone (e.g.
-    # if we use stdenv vs clangStdenv, we don't know which, and CC=cc in all
-    # cases.) it's unclear exactly what should be done if we want those flags,
-    # but the defaults work fine.
+  # note: build checks value of '$CC' to add some extra cflags, but we don't
+  # necessarily know which 'stdenv' someone chose, so we leave it alone (e.g.
+  # if we use stdenv vs clangStdenv, we don't know which, and CC=cc in all
+  # cases.) it's unclear exactly what should be done if we want those flags,
+  # but the defaults work fine.
   makeFlags = [
     "-r"
     "PREFIX=$(out)"
   ];
 
-    # fix up multi-output install. we also have to fix the pkg-config libdir
-    # file; it uses prefix=$out; libdir=${prefix}/lib, which is wrong in
-    # our case; libdir should really be set to the $lib output.
+  # fix up multi-output install. we also have to fix the pkg-config libdir
+  # file; it uses prefix=$out; libdir=${prefix}/lib, which is wrong in
+  # our case; libdir should really be set to the $lib output.
   postInstall = ''
     mkdir -p $lib $dev/lib
 

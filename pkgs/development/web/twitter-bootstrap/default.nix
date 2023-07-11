@@ -28,5 +28,4 @@ stdenv.mkDerivation rec {
     homepage = "https://getbootstrap.com/";
     license = lib.licenses.mit;
   };
-
 }

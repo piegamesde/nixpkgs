@@ -35,4 +35,3 @@ buildPythonPackage {
     maintainers = with maintainers; [ SomeoneSerge ];
   };
 }
-

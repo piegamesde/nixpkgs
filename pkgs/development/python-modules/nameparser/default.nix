@@ -23,5 +23,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/derek73/python-nameparser";
     license = licenses.lgpl21Plus;
   };
-
 }

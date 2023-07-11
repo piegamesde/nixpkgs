@@ -77,8 +77,8 @@ buildPythonPackage rec {
     ''
     ;
 
-    # uvloop usage is buggy
-    #SANIC_NO_UVLOOP = true;
+  # uvloop usage is buggy
+  #SANIC_NO_UVLOOP = true;
 
   pytestFlagsArray = [
     "--asyncio-mode=auto"
@@ -122,8 +122,8 @@ buildPythonPackage rec {
     "test_multiprocessing.py"
   ];
 
-    # avoid usage of nixpkgs-review in darwin since tests will compete usage
-    # for the same local port
+  # avoid usage of nixpkgs-review in darwin since tests will compete usage
+  # for the same local port
   __darwinAllowLocalNetworking = true;
 
   pythonImportsCheck = [ "sanic" ];

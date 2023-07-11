@@ -24,7 +24,7 @@ buildPythonPackage {
     six
   ];
 
-    # Project does not contain a test suite
+  # Project does not contain a test suite
   doCheck = false;
 
   pythonImportsCheck = [ "plantuml" ];

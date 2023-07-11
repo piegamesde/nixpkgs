@@ -9,7 +9,7 @@
   # Sets the default paper format: use "EU" for A4, or "Global" for Letter
   ,
   region ? "EU"
-    # optional GUI, quite redundant to CUPS admin web GUI
+  # optional GUI, quite redundant to CUPS admin web GUI
   ,
   withQtGui ? false,
   qt5,
@@ -74,12 +74,10 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ]
     ;
 
-  buildInputs =
-    [ cups ] ++ lib.optionals withQtGui [ qt5.qtbase ]
-    ;
+  buildInputs = [ cups ] ++ lib.optionals withQtGui [ qt5.qtbase ];
 
-    # For lib/cups/filter/kyofilter_pre_H.
-    # The source already contains a copy of pypdf3, but we use the Nix package
+  # For lib/cups/filter/kyofilter_pre_H.
+  # The source already contains a copy of pypdf3, but we use the Nix package
   propagatedBuildInputs = with python3Packages; [
     reportlab
     pypdf3

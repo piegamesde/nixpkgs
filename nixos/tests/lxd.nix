@@ -11,14 +11,13 @@ import ./make-test-python.nix (
         # Building documentation makes the test unnecessarily take a longer time:
         documentation.enable = lib.mkForce false;
 
-          # Our tests require `grep` & friends:
+        # Our tests require `grep` & friends:
         environment.systemPackages = with pkgs; [ busybox ];
       };
     };
 
     lxd-image-metadata = lxd-image.lxdMeta.${pkgs.stdenv.hostPlatform.system};
     lxd-image-rootfs = lxd-image.lxdImage.${pkgs.stdenv.hostPlatform.system};
-
   in
   {
     name = "lxd";
@@ -33,11 +32,11 @@ import ./make-test-python.nix (
         virtualisation = {
           diskSize = 4096;
 
-            # Since we're testing `limits.cpu`, we've gotta have a known number of
-            # cores to lean on
+          # Since we're testing `limits.cpu`, we've gotta have a known number of
+          # cores to lean on
           cores = 2;
 
-            # Ditto, for `limits.memory`
+          # Ditto, for `limits.memory`
           memorySize = 512;
 
           lxc.lxcfs.enable = true;

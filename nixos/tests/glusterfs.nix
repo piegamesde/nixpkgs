@@ -29,7 +29,7 @@ import ./make-test-python.nix (
         networking.firewall.enable = false;
         services.glusterfs.enable = true;
 
-          # create a mount point for the volume
+        # create a mount point for the volume
         boot.initrd.postDeviceCommands = ''
           ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
         '';

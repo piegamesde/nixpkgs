@@ -30,11 +30,11 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = [
-      python3
-      # Needed for proxy support I believe, which I haven't tested.
-      # Probably needs to be propagated and some wrapPython magic
-      # python.pkgs.pysocks
-    ];
+    python3
+    # Needed for proxy support I believe, which I haven't tested.
+    # Probably needs to be propagated and some wrapPython magic
+    # python.pkgs.pysocks
+  ];
 
   strictDeps = true;
 

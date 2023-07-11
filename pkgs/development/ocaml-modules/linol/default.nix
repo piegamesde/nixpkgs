@@ -18,7 +18,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "c-cube";
     repo = "linol";
-      # Brings support for newer LSP
+    # Brings support for newer LSP
     rev = "439534e0c5b7a3fbf93ba05fae7d171426153763";
     sha256 = "sha256-EW35T7KUc/L1Zy4+oaJOC6mlVpbvhTfnU3NNFGoZAJg=";
   };

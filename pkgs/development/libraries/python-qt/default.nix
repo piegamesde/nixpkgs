@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # https://github.com/CsoundQt/CsoundQt/blob/develop/BUILDING.md#pythonqt
+  # https://github.com/CsoundQt/CsoundQt/blob/develop/BUILDING.md#pythonqt
   postPatch = ''
     substituteInPlace build/python.prf \
       --replace "unix:PYTHON_VERSION=2.7" "unix:PYTHON_VERSION=${python.pythonVersion}"

@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # On Darwin sysctl is used to read CPU information.
+  # On Darwin sysctl is used to read CPU information.
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace cpuinfo/cpuinfo.py \
       --replace "len(_program_paths('sysctl')) > 0" "True" \

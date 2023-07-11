@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "jieba";
   version = "0.42.1";
 
-    # no tests in PyPI tarball
+  # no tests in PyPI tarball
   src = fetchFromGitHub {
     owner = "fxsjy";
     repo = pname;
@@ -21,11 +21,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ glibcLocales ];
 
-    # UnicodeEncodeError
+  # UnicodeEncodeError
   doCheck = isPy3k;
 
-    # Citing https://github.com/fxsjy/jieba/issues/384: "testcases is in a mess"
-    # So just picking random ones that currently work
+  # Citing https://github.com/fxsjy/jieba/issues/384: "testcases is in a mess"
+  # So just picking random ones that currently work
   checkPhase = ''
     export LC_ALL=en_US.UTF-8
     ${python.interpreter} test/test.py

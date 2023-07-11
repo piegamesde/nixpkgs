@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "django-compat";
   version = "1.0.15";
 
-    # the pypi packages don't include everything required for the tests
+  # the pypi packages don't include everything required for the tests
   src = fetchFromGitHub {
     owner = "arteria";
     repo = "django-compat";

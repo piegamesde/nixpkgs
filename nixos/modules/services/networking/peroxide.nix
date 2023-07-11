@@ -102,8 +102,8 @@ in
         User = "peroxide";
         LogsDirectory = "peroxide";
         LogsDirectoryMode = "0750";
-          # Specify just "peroxide" so that the user has write permission, because
-          # peroxide deletes and recreates the cache directory on startup.
+        # Specify just "peroxide" so that the user has write permission, because
+        # peroxide deletes and recreates the cache directory on startup.
         CacheDirectory = [
           "peroxide"
           "peroxide/cache"
@@ -128,7 +128,7 @@ in
       '';
     };
 
-      # https://github.com/ljanyst/peroxide/blob/master/peroxide.logrotate
+    # https://github.com/ljanyst/peroxide/blob/master/peroxide.logrotate
     services.logrotate.settings.peroxide = {
       files = "/var/log/peroxide/peroxide.log";
       rotate = 31;

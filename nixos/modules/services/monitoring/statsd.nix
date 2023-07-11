@@ -78,8 +78,8 @@ let
 
     paths = backendsToPackages cfg.backends;
   };
-
 in
+
 {
 
   ###### interface
@@ -145,10 +145,9 @@ in
       default = "";
       type = types.nullOr types.str;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -179,7 +178,5 @@ in
     };
 
     environment.systemPackages = [ pkgs.statsd ];
-
   };
-
 }

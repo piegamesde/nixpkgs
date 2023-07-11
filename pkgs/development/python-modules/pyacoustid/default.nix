@@ -27,7 +27,7 @@ buildPythonPackage rec {
         acoustid.py
   '';
 
-    # package has no tests
+  # package has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "acoustid" ];

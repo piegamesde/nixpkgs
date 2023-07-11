@@ -27,9 +27,9 @@ buildGoModule rec {
     go-bindata-assetfs
   ];
 
-    # This is really weird, but they've managed to screw up
-    # their folder structure enough, you can only build by
-    # literally cding into this folder.
+  # This is really weird, but they've managed to screw up
+  # their folder structure enough, you can only build by
+  # literally cding into this folder.
   preBuild = "cd edition";
 
   subPackages = [ "." ];

@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "1njdj6nvmwf7j2fwqbyvd1cf5l52797vk2wnsliylqdzqcjmfpij";
   };
 
-    # Avoid guessing where files end up. Just use current directory.
+  # Avoid guessing where files end up. Just use current directory.
   postPatch = ''
     substituteInPlace projects/premake4.lua \
       --replace 'location ( os.get() .. "/" .. _ACTION )' 'location ( ".." )'
@@ -36,12 +36,10 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Garry Newman's personal utility library";
     homepage = "https://github.com/garrynewman/bootil";
-      # License unsure - see https://github.com/garrynewman/bootil/issues/21
+    # License unsure - see https://github.com/garrynewman/bootil/issues/21
     license = licenses.free;
-    maintainers = with maintainers; [
-        abigailbuccaneer
-      ];
-      # Build uses `-msse` and `-mfpmath=sse`
+    maintainers = with maintainers; [ abigailbuccaneer ];
+    # Build uses `-msse` and `-mfpmath=sse`
     platforms = platforms.all;
     badPlatforms = [ "aarch64-linux" ];
   };

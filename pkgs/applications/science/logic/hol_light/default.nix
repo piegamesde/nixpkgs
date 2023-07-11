@@ -29,8 +29,8 @@ let
       ${load_num} \
       -init make.ml
   '';
-
 in
+
 stdenv.mkDerivation {
   pname = "hol_light";
   version = "unstable-2019-10-06";

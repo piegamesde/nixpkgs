@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     libpulseaudio
   ];
 
-    # https://github.com/xou816/spot/issues/313
+  # https://github.com/xou816/spot/issues/313
   mesonBuildType = "release";
 
   postPatch = ''

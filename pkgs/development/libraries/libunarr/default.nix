@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # https://github.com/selmf/unarr/issues/23
+  # https://github.com/selmf/unarr/issues/23
   postPatch =
     ''
       substituteInPlace pkg-config.pc.cmake \

@@ -20,7 +20,7 @@
   liblo ? null,
   ladspa-sdk ? null,
   fluidsynth ? null
-    # , gmm ? null  # opcodes don't build with gmm 5.1
+  # , gmm ? null  # opcodes don't build with gmm 5.1
   ,
   eigen ? null,
   curl ? null,

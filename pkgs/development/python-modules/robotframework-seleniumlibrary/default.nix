@@ -17,7 +17,7 @@ buildPythonPackage rec {
   version = "6.0.0";
   pname = "robotframework-seleniumlibrary";
 
-    # no tests included in PyPI tarball
+  # no tests included in PyPI tarball
   src = fetchFromGitHub {
     owner = "robotframework";
     repo = "SeleniumLibrary";

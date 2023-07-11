@@ -32,7 +32,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-    # Tests are not included in archive
+  # Tests are not included in archive
   doCheck = false;
 
   preConfigure = ''

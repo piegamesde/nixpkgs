@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-    # https://github.com/Taywee/args/issues/108
+  # https://github.com/Taywee/args/issues/108
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace '$'{CMAKE_INSTALL_LIBDIR_ARCHIND} '$'{CMAKE_INSTALL_LIBDIR}

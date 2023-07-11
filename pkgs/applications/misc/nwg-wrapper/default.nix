@@ -35,7 +35,7 @@ python3Packages.buildPythonPackage rec {
     pygobject3
   ];
 
-    # No tests
+  # No tests
   doCheck = false;
 
   preFixup = ''

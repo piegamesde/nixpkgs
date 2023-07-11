@@ -10,8 +10,8 @@ with lib;
 let
   cfg = config.services.rethinkdb;
   rethinkdb = cfg.package;
-
 in
+
 {
 
   ###### interface
@@ -22,10 +22,10 @@ in
 
       enable = mkEnableOption (lib.mdDoc "RethinkDB server");
 
-        #package = mkOption {
-        #  default = pkgs.rethinkdb;
-        #  description = "Which RethinkDB derivation to use.";
-        #};
+      #package = mkOption {
+      #  default = pkgs.rethinkdb;
+      #  description = "Which RethinkDB derivation to use.";
+      #};
 
       user = mkOption {
         default = "rethinkdb";
@@ -50,23 +50,21 @@ in
           lib.mdDoc "Location where each instance's pid file is located.";
       };
 
-        #cfgpath = mkOption {
-        #  default = "/etc/rethinkdb/instances.d";
-        #  description = "Location where RethinkDB stores it config files, 1 config file per instance.";
-        #};
+      #cfgpath = mkOption {
+      #  default = "/etc/rethinkdb/instances.d";
+      #  description = "Location where RethinkDB stores it config files, 1 config file per instance.";
+      #};
 
-        # TODO: currently not used by our implementation.
-        #instances = mkOption {
-        #  type = types.attrsOf types.str;
-        #  default = {};
-        #  description = "List of named RethinkDB instances in our cluster.";
-        #};
-
+      # TODO: currently not used by our implementation.
+      #instances = mkOption {
+      #  type = types.attrsOf types.str;
+      #  default = {};
+      #  description = "List of named RethinkDB instances in our cluster.";
+      #};
     };
-
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf config.services.rethinkdb.enable {
 
     environment.systemPackages = [ rethinkdb ];
@@ -110,7 +108,5 @@ in
     users.groups = optionalAttrs (cfg.group == "rethinkdb") (
       singleton { name = "rethinkdb"; }
     );
-
   };
-
 }

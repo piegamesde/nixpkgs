@@ -35,7 +35,8 @@
 # Result:
 # The user can run brprintconf_mfcj6510dw in the shell.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "mfcj6510dwlpr";
   version = "3.0.0-1";
 

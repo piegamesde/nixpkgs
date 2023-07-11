@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fHGBwf79Q0DSLs/b+Lhg9kdIQzDn5rJYEB9yLkLbxlE=";
   };
 
-    # when building on darwin we need dawin.cctools to provide the correct libtool
-    # as libwally-core detects the host as darwin and tries to add the -static
-    # option to libtool, also we have to add the modified gsed package.
+  # when building on darwin we need dawin.cctools to provide the correct libtool
+  # as libwally-core detects the host as darwin and tries to add the -static
+  # option to libtool, also we have to add the modified gsed package.
   nativeBuildInputs =
     [
       autoconf
@@ -60,8 +60,8 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-    # this causes some python trouble on a darwin host so we skip this step.
-    # also we have to tell libwally-core to use sed instead of gsed.
+  # this causes some python trouble on a darwin host so we skip this step.
+  # also we have to tell libwally-core to use sed instead of gsed.
   postPatch =
     if !stdenv.isDarwin then
       ''

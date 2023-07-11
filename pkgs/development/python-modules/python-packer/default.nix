@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sh ];
 
-    # Tests requires network connections
+  # Tests requires network connections
   doCheck = false;
 
   meta = with lib; {

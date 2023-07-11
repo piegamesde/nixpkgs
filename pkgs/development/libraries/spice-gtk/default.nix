@@ -61,7 +61,8 @@
 #    KERNEL=="*", SUBSYSTEMS=="usb", MODE="0664", GROUP="usb"
 #  '';
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "spice-gtk";
   version = "0.42";
 

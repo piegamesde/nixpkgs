@@ -19,22 +19,26 @@ let
   mkExcludeFile =
     cfg:
     # Write each exclude pattern to a new line
-    pkgs.writeText "excludefile" (concatMapStrings (s: s + "\n") cfg.exclude)
+    pkgs.writeText
+    "excludefile"
+    (concatMapStrings (s: s + "\n") cfg.exclude)
     ;
 
   mkPatternsFile =
     cfg:
     # Write each pattern to a new line
-    pkgs.writeText "patternsfile" (concatMapStrings (s: s + "\n") cfg.patterns)
+    pkgs.writeText
+    "patternsfile"
+    (concatMapStrings (s: s + "\n") cfg.patterns)
     ;
 
   mkKeepArgs =
     cfg:
     # If cfg.prune.keep e.g. has a yearly attribute,
     # its content is passed on as --keep-yearly
-    concatStringsSep " " (
-      mapAttrsToList (x: y: "--keep-${x}=${toString y}") cfg.prune.keep
-    )
+    concatStringsSep
+    " "
+    (mapAttrsToList (x: y: "--keep-${x}=${toString y}") cfg.prune.keep)
     ;
 
   mkBackupScript =
@@ -150,7 +154,7 @@ let
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-          # Only run when no other process is using CPU or disk
+        # Only run when no other process is using CPU or disk
         CPUSchedulingPolicy = "idle";
         IOSchedulingClass = "idle";
         ProtectSystem = "strict";
@@ -160,7 +164,6 @@ let
             "${userHome}/.cache/borg"
           ]
           ++ cfg.readWritePaths
-            # Borg needs write access to repo if it is not remote
           ++ optional (isLocalPath cfg.repo) cfg.repo
           ;
         PrivateTmp = cfg.privateTmp;
@@ -181,14 +184,14 @@ let
         Persistent = cfg.persistentTimer;
         OnCalendar = cfg.startAt;
       };
-        # if remote-backup wait for network
+      # if remote-backup wait for network
       after = optional
         (cfg.persistentTimer && !isLocalPath cfg.repo)
         "network-online.target";
     }
     ;
 
-    # utility function around makeWrapper
+  # utility function around makeWrapper
   mkWrapperDrv =
     {
       original,
@@ -218,7 +221,7 @@ let
     }
     ;
 
-    # Paths listed in ReadWritePaths must exist before service is started
+  # Paths listed in ReadWritePaths must exist before service is started
   mkActivationScript =
     name: cfg:
     let
@@ -339,13 +342,12 @@ let
       '';
     }
     ;
-
 in
 {
   meta.maintainers = with maintainers; [ dotlambda ];
   meta.doc = ./borgbackup.md;
 
-    ###### interface
+  ###### interface
 
   options.services.borgbackup.jobs = mkOption {
     description = lib.mdDoc ''
@@ -874,14 +876,13 @@ in
               default = null;
               example = "100G";
             };
-
           };
         }
       )
     );
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (with config.services.borgbackup; jobs != { } || repos != { }) (
     with config.services.borgbackup; {
@@ -896,12 +897,14 @@ in
 
       systemd.services =
         # A job named "foo" is mapped to systemd.services.borgbackup-job-foo
-        mapAttrs' mkBackupService jobs
+        mapAttrs'
+        mkBackupService
+        jobs
         # A repo named "foo" is mapped to systemd.services.borgbackup-repo-foo
         // mapAttrs' mkRepoService repos;
 
-        # A job named "foo" is mapped to systemd.timers.borgbackup-job-foo
-        # only generate the timer if interval (startAt) is set
+      # A job named "foo" is mapped to systemd.timers.borgbackup-job-foo
+      # only generate the timer if interval (startAt) is set
       systemd.timers =
         mapAttrs' mkBackupTimers (filterAttrs (_: cfg: cfg.startAt != [ ]) jobs)
         ;

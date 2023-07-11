@@ -30,7 +30,7 @@ buildPythonPackage rec {
     toml
   ];
 
-    # tests not included with release
+  # tests not included with release
   doCheck = false;
 
   meta = with lib; {

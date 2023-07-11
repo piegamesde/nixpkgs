@@ -183,7 +183,6 @@ in
               ''
                 sed \
               ''
-              # set up mail stats
               + optionalString (opts.type == "mail") ''
                 -e 's|^\(LogType\)=.*$|\1=M|' \
                 -e 's|^\(LevelForBrowsersDetection\)=.*$|\1=0|' \
@@ -218,7 +217,9 @@ in
                 -e 's|^\(ShowHTTPErrorsStats\)=.*$|\1=0|' \
                 -e 's|^\(ShowSMTPErrorsStats\)=.*$|\1=1|' \
               ''
-              + ''
+              +
+              # common options
+              ''
                 -e 's|^\(DirData\)=.*$|\1="${cfg.dataDir}/${name}"|' \
                 -e 's|^\(DirIcons\)=.*$|\1="icons"|' \
                 -e 's|^\(CreateDirDataIfNotExists\)=.*$|\1=1|' \
@@ -226,15 +227,19 @@ in
                 -e 's|^\(LogFile\)=.*$|\1="${opts.logFile}"|' \
                 -e 's|^\(LogFormat\)=.*$|\1="${opts.logFormat}"|' \
               ''
-              + concatStringsSep "\n" (
-                mapAttrsToList
+              +
+              # extra config
+                concatStringsSep
+                "\n"
                 (
-                  n: v: ''
-                    -e 's|^\(${n}\)=.*$|\1="${v}"|' \
-                  ''
+                  mapAttrsToList
+                  (
+                    n: v: ''
+                      -e 's|^\(${n}\)=.*$|\1="${v}"|' \
+                    ''
+                  )
+                  opts.extraConfig
                 )
-                opts.extraConfig
-              )
               + ''
                 < '${package.out}/wwwroot/cgi-bin/awstats.model.conf' > "$out"
               ''
@@ -243,7 +248,7 @@ in
       )
       cfg.configs;
 
-      # create data directory with the correct permissions
+    # create data directory with the correct permissions
     systemd.tmpfiles.rules =
       [ "d '${cfg.dataDir}' 755 root root - -" ]
       ++ mapAttrsToList
@@ -252,7 +257,7 @@ in
       ++ [ "Z '${cfg.dataDir}' 755 root root - -" ]
       ;
 
-      # nginx options
+    # nginx options
     services.nginx.virtualHosts = mapAttrs'
       (
         name: opts: {
@@ -277,7 +282,7 @@ in
       )
       webServices;
 
-      # update awstats
+    # update awstats
     systemd.services = mkIf (cfg.updateAt != null) (
       mapAttrs'
       (
@@ -312,6 +317,4 @@ in
       cfg.configs
     );
   };
-
 }
-

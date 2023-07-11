@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin Carbon
     ;
 
-    # Remove carriage returns that cause /bin/sh to abort
+  # Remove carriage returns that cause /bin/sh to abort
   preConfigure = ''
     dos2unix configure
     sed -i "s|lrelease-qt4|lrelease|" src/src.pro

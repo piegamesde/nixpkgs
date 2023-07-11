@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-35g7tnKez4tnTdZzavfU+X8f3btFG6EbLkU+cqL6Qek=";
   };
 
-    # the upstream build process determines the version tag from git; since we
-    # are not using a git checkout, we patch it manually
+  # the upstream build process determines the version tag from git; since we
+  # are not using a git checkout, we patch it manually
   postPatch = ''
     sed -i '/#define NAME "OpenLoco"/a#define OPENLOCO_VERSION_TAG "${version}"' src/OpenLoco/src/Version.cpp
   '';

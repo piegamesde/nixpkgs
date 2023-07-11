@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication rec {
     requests
   ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   meta = with lib; {

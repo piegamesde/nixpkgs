@@ -19,7 +19,7 @@ let
       liblxqt = callPackage ./liblxqt { };
       qtxdg-tools = callPackage ./qtxdg-tools { };
 
-        ### CORE 1
+      ### CORE 1
       libfm-qt = callPackage ./libfm-qt { };
       lxqt-about = callPackage ./lxqt-about { };
       lxqt-admin = callPackage ./lxqt-admin { };
@@ -36,12 +36,12 @@ let
       pavucontrol-qt = libsForQt5.callPackage ./pavucontrol-qt { };
       qtermwidget = callPackage ./qtermwidget { };
 
-        ### CORE 2
+      ### CORE 2
       lxqt-panel = callPackage ./lxqt-panel { };
       lxqt-runner = callPackage ./lxqt-runner { };
       pcmanfm-qt = callPackage ./pcmanfm-qt { };
 
-        ### OPTIONAL
+      ### OPTIONAL
       qterminal = callPackage ./qterminal { };
       compton-conf = qt5.callPackage ./compton-conf { };
       obconf-qt = callPackage ./obconf-qt { };
@@ -108,7 +108,6 @@ let
         ### Screen saver
         pkgs.xscreensaver
       ];
-
     }
     ;
 in

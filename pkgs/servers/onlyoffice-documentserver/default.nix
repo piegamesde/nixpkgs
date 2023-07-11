@@ -55,7 +55,7 @@ let
       mv * $out/
     '';
 
-      # stripping self extracting javascript binaries likely breaks them
+    # stripping self extracting javascript binaries likely breaks them
     dontStrip = true;
 
     passthru = {

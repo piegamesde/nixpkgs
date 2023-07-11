@@ -9,8 +9,8 @@
 let
   secret1InStore = pkgs.writeText "topsecret" "iamasecret1";
   secret2InStore = pkgs.writeText "topsecret" "iamasecret2";
-
 in
+
 testing.makeTest {
   name = "initrd-secrets-changing";
 

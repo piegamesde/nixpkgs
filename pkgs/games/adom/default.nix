@@ -33,7 +33,6 @@ let
       libpulseaudio
     ]
     ;
-
 in
 stdenv.mkDerivation rec {
   name = "adom-${version}-noteye";
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
     license = licenses.unfreeRedistributable;
     maintainers = [ maintainers.smironov ];
 
-      # Please, notify me (smironov) if you need the x86 version
+    # Please, notify me (smironov) if you need the x86 version
     platforms = [ "x86_64-linux" ];
     broken = true; # at 2022-09-30, failed download.
   };

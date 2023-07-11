@@ -38,16 +38,19 @@ let
           sphinx-rtd-theme
         ]
       );
-      # Expose only the sphinx-build binary to avoid contaminating
-      # everything with Sphinx’s Python environment.
     in
-    runCommand "sphinx-build" { } ''
+    # Expose only the sphinx-build binary to avoid contaminating
+    # everything with Sphinx’s Python environment.
+    runCommand
+    "sphinx-build"
+    { }
+    ''
       mkdir -p "$out/bin"
       ln -s "${env}/bin/sphinx-build" "$out/bin"
     ''
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "libinput";
   version = "1.23.0";

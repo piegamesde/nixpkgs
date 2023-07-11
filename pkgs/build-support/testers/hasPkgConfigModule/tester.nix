@@ -20,9 +20,9 @@ runCommand testName
     description =
       "Test whether ${package.name} exposes pkg-config module ${moduleName}";
   }
-  # Make sure licensing info etc is preserved, as this is a concern for e.g. cache.nixos.org,
-  # as hydra can't check this meta info in dependencies.
-  # The test itself is just Nixpkgs, with MIT license.
+    # Make sure licensing info etc is preserved, as this is a concern for e.g. cache.nixos.org,
+    # as hydra can't check this meta info in dependencies.
+    # The test itself is just Nixpkgs, with MIT license.
     // builtins.intersectAttrs
     {
       available = throw "unused";

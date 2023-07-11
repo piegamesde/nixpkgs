@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     "pie"
   ];
 
-    # Prevent kexec-tools from using uname to detect target, which is wrong in
-    # cases like compiling for aarch32 on aarch64
+  # Prevent kexec-tools from using uname to detect target, which is wrong in
+  # cases like compiling for aarch32 on aarch64
   configurePlatforms = [
     "build"
     "host"

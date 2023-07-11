@@ -19,7 +19,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/litefs" ];
 
-    # following https://github.com/superfly/litefs/blob/main/Dockerfile
+  # following https://github.com/superfly/litefs/blob/main/Dockerfile
   ldflags = [
     "-s"
     "-w"

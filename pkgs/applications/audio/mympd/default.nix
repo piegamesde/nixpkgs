@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     # similarly here
     "-DCMAKE_INSTALL_LOCALSTATEDIR=/var/lib/mympd"
   ];
-    # See https://github.com/jcorporation/myMPD/issues/315
+  # See https://github.com/jcorporation/myMPD/issues/315
   hardeningDisable = [ "strictoverflow" ];
 
   meta = {

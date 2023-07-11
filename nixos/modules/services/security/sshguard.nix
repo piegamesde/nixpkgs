@@ -33,7 +33,6 @@ let
       LOGREADER="LANG=C ${config.systemd.package}/bin/journalctl ${args}"
     ''
     ;
-
 in
 {
 
@@ -117,7 +116,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -147,12 +146,12 @@ in
             systemd
           ];
 
-        # The sshguard ipsets must exist before we invoke
-        # iptables. sshguard creates the ipsets after startup if
-        # necessary, but if we let sshguard do it, we can't reliably add
-        # the iptables rules because postStart races with the creation
-        # of the ipsets. So instead, we create both the ipsets and
-        # firewall rules before sshguard starts.
+      # The sshguard ipsets must exist before we invoke
+      # iptables. sshguard creates the ipsets after startup if
+      # necessary, but if we let sshguard do it, we can't reliably add
+      # the iptables rules because postStart races with the creation
+      # of the ipsets. So instead, we create both the ipsets and
+      # firewall rules before sshguard starts.
       preStart =
         optionalString config.networking.firewall.enable ''
           ${pkgs.ipset}/bin/ipset -quiet create -exist sshguard4 hash:net family inet

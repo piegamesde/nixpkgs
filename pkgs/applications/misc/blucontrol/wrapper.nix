@@ -19,7 +19,7 @@ stdenv.mkDerivation {
       --prefix PATH : ${lib.makeBinPath [ blucontrolEnv ]}
   '';
 
-    # trivial derivation
+  # trivial derivation
   preferLocalBuild = true;
   allowSubstitues = false;
 

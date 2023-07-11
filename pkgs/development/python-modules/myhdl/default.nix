@@ -10,9 +10,9 @@
 
 buildPythonPackage rec {
   pname = "myhdl";
-    # The stable version is from 2019 and it doesn't pass tests
+  # The stable version is from 2019 and it doesn't pass tests
   version = "unstable-2022-04-26";
-    # The pypi src doesn't contain the ci script used in checkPhase
+  # The pypi src doesn't contain the ci script used in checkPhase
   src = fetchFromGitHub {
     owner = "myhdl";
     repo = "myhdl";

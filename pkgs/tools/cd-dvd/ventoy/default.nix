@@ -178,8 +178,6 @@ stdenv.mkDerivation (
                         --chdir "$VENTOY_PATH"
         done
       ''
-      # VentoGUI uses the `ventoy_gui_type` file to determine the type of GUI.
-      # See: https://github.com/ventoy/Ventoy/blob/v1.0.78/LinuxGUI/Ventoy2Disk/ventoy_gui.c#L1096
       + optionalString (withGtk3 || withQt5) ''
         echo "${defaultGuiType}" > "$VENTOY_PATH/ventoy_gui_type"
         makeWrapper "$VENTOY_PATH/VentoyGUI.$ARCH" "$out/bin/ventoy-gui" \

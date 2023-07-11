@@ -17,8 +17,8 @@ let
       "http://apt.univention.de/download/addons/gplpv-drivers/gplpv_Vista2008x64_signed_0.11.0.373.msi";
     sha256 = "00k628mg9b039p8lmg2l9n81dr15svy70p3m6xmq6f0frmci38ph";
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "gplpv";
   version = "0.11.0.373";

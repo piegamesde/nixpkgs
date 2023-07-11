@@ -20,5 +20,4 @@ buildPythonPackage rec {
     license = licenses.lgpl3;
     broken = stdenv.isLinux;
   };
-
 }

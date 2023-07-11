@@ -8,7 +8,7 @@ python3Packages.buildPythonApplication rec {
   pname = "nerd-font-patcher";
   version = "2.2.2";
 
-    # This uses a sparse checkout because the repo is >2GB without it
+  # This uses a sparse checkout because the repo is >2GB without it
   src = fetchFromGitHub {
     owner = "ryanoasis";
     repo = "nerd-fonts";

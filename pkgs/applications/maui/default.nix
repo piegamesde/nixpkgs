@@ -77,7 +77,7 @@ let
       mauikit-texteditor = callPackage ./mauikit-texteditor.nix { };
       mauiman = callPackage ./mauiman.nix { };
 
-        # applications
+      # applications
       booth = callPackage ./booth.nix { };
       buho = callPackage ./buho.nix { };
       clip = callPackage ./clip.nix { };
@@ -90,6 +90,5 @@ let
       vvave = callPackage ./vvave.nix { };
     }
     ;
-
 in
 lib.makeScope libsForQt5.newScope packages

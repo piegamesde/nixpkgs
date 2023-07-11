@@ -40,8 +40,7 @@ rec {
     src = fetchurl {
       url =
         "https://getdnsapi.net/releases/${pname}-${
-          with builtins;
-          concatStringsSep "-" (splitVersion version)
+          with builtins; concatStringsSep "-" (splitVersion version)
         }/${pname}-${version}.tar.gz";
       sha256 =
         # upstream publishes hashes in hex format
@@ -59,7 +58,7 @@ rec {
       unbound
     ];
 
-      # https://github.com/getdnsapi/getdns/issues/517
+    # https://github.com/getdnsapi/getdns/issues/517
     postPatch = ''
       substituteInPlace getdns.pc.in \
         --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \
@@ -139,5 +138,4 @@ rec {
         homepage = "https://dnsprivacy.org/wiki/x/JYAT";
       };
   };
-
 }

@@ -14,8 +14,8 @@ let
       alias
     ;
 
-    # Disabling distribution prevents top-level aliases for non-recursed package
-    # sets from building on Hydra.
+  # Disabling distribution prevents top-level aliases for non-recursed package
+  # sets from building on Hydra.
   removeDistribute =
     alias:
     with lib;
@@ -25,8 +25,8 @@ let
       alias
     ;
 
-    # Make sure that we are not shadowing something from
-    # python-packages.nix.
+  # Make sure that we are not shadowing something from
+  # python-packages.nix.
   checkInPkgs =
     n: alias:
     if builtins.hasAttr n super then
@@ -44,11 +44,12 @@ let
     )
     aliases
     ;
-
-  ### Deprecated aliases - for backward compatibility
-
 in
-mapAliases ({
+
+### Deprecated aliases - for backward compatibility
+
+mapAliases
+({
   abodepy = jaraco-abode; # added 2023-02-01
   aioh2 = throw "aioh2 has been removed because it is abandoned and broken."
     ; # Added 2022-03-30

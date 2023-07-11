@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "08i6l5lr14mh4n3qbmx6kyx7vjqvzdnh3j9yfvgjppqik2dnq270";
   };
 
-    # for pod2man in order to get a manpage
+  # for pod2man in order to get a manpage
   nativeBuildInputs = [ perl ];
 
   enableParallelBuilding = true;

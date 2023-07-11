@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-    # Tests are not included. See https://github.com/pypa/scripttest/issues/11
+  # Tests are not included. See https://github.com/pypa/scripttest/issues/11
   doCheck = false;
 
   meta = with lib; {

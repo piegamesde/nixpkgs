@@ -37,7 +37,7 @@ buildPythonPackage rec {
     pyspnego
   ];
 
-    # https://github.com/ulodciv/httpx-ntlm/issues/5
+  # https://github.com/ulodciv/httpx-ntlm/issues/5
   doCheck = false;
 
   pythonImportsCheck = [ "httpx_ntlm" ];

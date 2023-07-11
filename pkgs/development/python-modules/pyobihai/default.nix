@@ -14,7 +14,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-    # GitHub release, https://github.com/dshokouhi/pyobihai/issues/10
+  # GitHub release, https://github.com/dshokouhi/pyobihai/issues/10
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-L/AQy9IxsBDeSlu+45j+/86jjMFzTjAkPGwZoa1QYho=";
@@ -25,7 +25,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pyobihai" ];

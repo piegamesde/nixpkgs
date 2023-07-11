@@ -27,7 +27,7 @@ buildPythonPackage rec {
     py.test tests
   '';
 
-    # Some of the tests use localhost networking.
+  # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
   meta = {

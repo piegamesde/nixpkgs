@@ -20,8 +20,8 @@ let
       pkgs.gnugrep
     ];
   };
-
 in
+
 {
 
   ###### interface
@@ -45,15 +45,12 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.boot.loader.initScript.enable {
 
     system.build.installBootLoader = initScriptBuilder;
-
   };
-
 }

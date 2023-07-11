@@ -2,8 +2,8 @@ let
   # containers IP on VLAN 1
   containerIp1 = "192.168.1.253";
   containerIp2 = "192.168.1.254";
-
 in
+
 import ./make-test-python.nix (
   {
     pkgs,
@@ -22,8 +22,8 @@ import ./make-test-python.nix (
         }: {
           virtualisation.vlans = [ 1 ];
 
-            # To be able to ping containers from the host, it is necessary
-            # to create a macvlan on the host on the VLAN 1 network.
+          # To be able to ping containers from the host, it is necessary
+          # to create a macvlan on the host on the VLAN 1 network.
           networking.macvlans.mv-eth1-host = {
             interface = "eth1";
             mode = "bridge";
@@ -73,7 +73,6 @@ import ./make-test-python.nix (
           virtualisation.vlans = [ 1 ];
         }
         ;
-
     };
 
     testScript = ''

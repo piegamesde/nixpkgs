@@ -76,7 +76,6 @@ let
       };
     }
     ;
-
 in
 rec {
   # Maint version
@@ -87,7 +86,7 @@ rec {
     inherit passthruFun;
   };
 
-    # Maint version
+  # Maint version
   perl536 = callPackage ./intepreter.nix {
     self = perl536;
     version = "5.36.0";
@@ -95,7 +94,7 @@ rec {
     inherit passthruFun;
   };
 
-    # the latest Devel version
+  # the latest Devel version
   perldevel = callPackage ./intepreter.nix {
     self = perldevel;
     perlAttr = "perldevel";

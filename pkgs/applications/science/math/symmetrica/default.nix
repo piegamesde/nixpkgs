@@ -8,11 +8,11 @@ stdenv.mkDerivation rec {
   pname = "symmetrica";
   version = "3.0.1";
 
-    # Fork of the original symmetrica, which can be found here
-    # http://www.algorithm.uni-bayreuth.de/en/research/SYMMETRICA/index.html
-    # "This fork was created to modernize the codebase, and to resume making
-    # releases with the fixes that have accrued over the years."
-    # Also see https://trac.sagemath.org/ticket/29061#comment:3.
+  # Fork of the original symmetrica, which can be found here
+  # http://www.algorithm.uni-bayreuth.de/en/research/SYMMETRICA/index.html
+  # "This fork was created to modernize the codebase, and to resume making
+  # releases with the fixes that have accrued over the years."
+  # Also see https://trac.sagemath.org/ticket/29061#comment:3.
   src = fetchFromGitLab {
     owner = "sagemath";
     repo = "symmetrica";

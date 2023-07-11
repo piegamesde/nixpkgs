@@ -33,8 +33,8 @@ buildDunePackage {
     magic-mime
   ];
 
-    # TODO(@sternenseemann): fail for unknown reason
-    # https://github.com/mirage/ocaml-cohttp/issues/675#issuecomment-830692742
+  # TODO(@sternenseemann): fail for unknown reason
+  # https://github.com/mirage/ocaml-cohttp/issues/675#issuecomment-830692742
   doCheck = false;
   checkInputs = [
     ounit

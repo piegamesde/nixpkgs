@@ -70,7 +70,7 @@ buildPythonPackage rec {
     ];
   };
 
-    # trustme uses pyopenssl
+  # trustme uses pyopenssl
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
 
   nativeCheckInputs =
@@ -93,7 +93,7 @@ buildPythonPackage rec {
       --replace "rfc3986[idna2008]>=1.3,<2" "rfc3986>=1.3"
   '';
 
-    # testsuite wants to find installed packages for testing entrypoint
+  # testsuite wants to find installed packages for testing entrypoint
   preCheck = ''
     export PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH
   '';

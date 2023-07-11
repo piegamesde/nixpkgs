@@ -1,6 +1,8 @@
 # Miscellaneous small tests that don't warrant their own VM run.
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...
@@ -33,7 +35,7 @@ import ./make-test-python.nix (
               "noauto"
             ];
           };
-            # Tests https://discourse.nixos.org/t/how-to-make-a-derivations-executables-have-the-s-permission/8555
+          # Tests https://discourse.nixos.org/t/how-to-make-a-derivations-executables-have-the-s-permission/8555
           "/user-mount/point" = {
             device = "/user-mount/source";
             fsType = "none";

@@ -54,12 +54,9 @@ let
     "1.1-8.15".sha256 = "sha256-qCD3wFW4E+8vSVk4XoZ0EU4PVya0al+JorzS9nzmR/0=";
     "1.1-8.16".sha256 = "sha256-cTK4ptxpPPlqxAhasZFX3RpSlsoTZwhTqs2A3BZy9sA=";
   };
-  releaseRev =
-    v:
-    "v${v}"
-    ;
+  releaseRev = v: "v${v}";
 
-    # list of core metacoq packages sorted by dependency order
+  # list of core metacoq packages sorted by dependency order
   packages = [
     "template-coq"
     "pcuic"

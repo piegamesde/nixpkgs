@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-vvKz2Czkvka3dbG7VjBcEAPuAbU1pTqC+f6JJJchU60=";
   };
 
-    # Python 2.x is not supported.
+  # Python 2.x is not supported.
   disabled = !isPy3k;
 
   depsBuildBuild = [ pkg-config ];
@@ -58,8 +58,8 @@ buildPythonPackage rec {
 
   doCheck = true;
 
-    # TODO: Meson setup hook does not like buildPythonPackage
-    # https://github.com/NixOS/nixpkgs/issues/47390
+  # TODO: Meson setup hook does not like buildPythonPackage
+  # https://github.com/NixOS/nixpkgs/issues/47390
   installCheckPhase = "meson test --print-errorlogs";
 
   meta = with lib; {

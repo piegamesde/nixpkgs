@@ -42,7 +42,7 @@ stdenv.mkDerivation (
       hash = "sha256-HKSruKXYUMH1lj43CA3Rp3lXNlONXE1P9gFLaH16No4=";
     };
 
-      # https://sources.debian.org/patches/calibre/${finalAttrs.version}+dfsg-1
+    # https://sources.debian.org/patches/calibre/${finalAttrs.version}+dfsg-1
     patches =
       [
         #  allow for plugin update check, but no calibre version check
@@ -186,13 +186,13 @@ stdenv.mkDerivation (
       runHook postInstall
     '';
 
-      # Wrap manually
+    # Wrap manually
     dontWrapQtApps = true;
     dontWrapGApps = true;
 
-      # Remove some references to shrink the closure size. This reference (as of
-      # 2018-11-06) was a single string like the following:
-      #   /nix/store/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-podofo-0.9.6-dev/include/podofo/base/PdfVariant.h
+    # Remove some references to shrink the closure size. This reference (as of
+    # 2018-11-06) was a single string like the following:
+    #   /nix/store/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-podofo-0.9.6-dev/include/podofo/base/PdfVariant.h
     preFixup = ''
       remove-references-to -t ${podofo.dev} \
         $out/lib/calibre/calibre/plugins/podofo.so

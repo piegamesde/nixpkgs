@@ -24,12 +24,12 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ perl ];
 
-    # Cargo.lock is outdated
+  # Cargo.lock is outdated
   preConfigure = ''
     cargo update --offline
   '';
 
-    # tests are locale sensitive
+  # tests are locale sensitive
   preCheck = ''
     export LANG=${
       if stdenv.isDarwin then

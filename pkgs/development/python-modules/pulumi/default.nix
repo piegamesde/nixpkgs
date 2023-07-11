@@ -37,8 +37,8 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/python/lib";
 
-    # we apply the modifications done in the pulumi/sdk/python/Makefile
-    # but without the venv code
+  # we apply the modifications done in the pulumi/sdk/python/Makefile
+  # but without the venv code
   postPatch = ''
     cp ../../README.md .
     substituteInPlace setup.py \
@@ -47,10 +47,10 @@ buildPythonPackage rec {
       --replace "semver~=2.13" "semver"
   '';
 
-    # Allow local networking in tests on Darwin
+  # Allow local networking in tests on Darwin
   __darwinAllowLocalNetworking = true;
 
-    # Verify that the version substitution works
+  # Verify that the version substitution works
   preCheck = ''
     pip show "${pname}" | grep "Version: ${version}" > /dev/null \
       || (echo "ERROR: Version substitution seems to be broken"; exit 1)

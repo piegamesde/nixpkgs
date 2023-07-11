@@ -30,7 +30,7 @@ buildPythonPackage rec {
       --replace "ecdsa==0.17.0" "ecdsa>=0.17.0"
   '';
 
-    # Project doesn't ship tests
+  # Project doesn't ship tests
   doCheck = false;
 
   pythonImportsCheck = [ "bitcoinutils" ];

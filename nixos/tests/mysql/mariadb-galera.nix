@@ -13,7 +13,7 @@ let
 
   makeTest = import ./../make-test-python.nix;
 
-    # Common user configuration
+  # Common user configuration
   makeGaleraTest =
     {
       mariadbPackage,
@@ -30,8 +30,8 @@ let
         ];
       };
 
-        # The test creates a Galera cluster with 3 nodes and is checking if mariabackup-based SST works. The cluster is tested by creating a DB and an empty table on one node,
-        # and checking the table's presence on the other node.
+      # The test creates a Galera cluster with 3 nodes and is checking if mariabackup-based SST works. The cluster is tested by creating a DB and an empty table on one node,
+      # and checking the table's presence on the other node.
       nodes =
         let
           mkGaleraNode =
@@ -162,7 +162,6 @@ let
             id = 6;
             method = "rsync";
           };
-
         }
         ;
 

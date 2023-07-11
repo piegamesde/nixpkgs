@@ -237,7 +237,6 @@ let
         };
         meta.homepage = "https://github.com/adrusi/zig.kak/";
       };
-
     });
 in
 lib.fix' (lib.extends overrides packages)

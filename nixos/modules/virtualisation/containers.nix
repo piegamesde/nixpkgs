@@ -113,7 +113,6 @@ in
         `skopeo` will be used.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -148,5 +147,4 @@ in
         "${pkgs.skopeo.policy}/default-policy.json"
       ;
   };
-
 }

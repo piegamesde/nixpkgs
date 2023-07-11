@@ -26,7 +26,7 @@ buildPythonPackage rec {
     redis
   ];
 
-    # Tests require a running Redis rerver
+  # Tests require a running Redis rerver
   doCheck = false;
 
   pythonImportsCheck = [ "rq" ];
@@ -39,4 +39,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ mrmebelman ];
   };
 }
-

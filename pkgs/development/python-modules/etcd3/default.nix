@@ -32,7 +32,7 @@ buildPythonPackage rec {
     tenacity
   ];
 
-    # various failures and incompatible with newer hypothesis versions
+  # various failures and incompatible with newer hypothesis versions
   doCheck = false;
 
   nativeCheckInputs = [

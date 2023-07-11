@@ -9,8 +9,8 @@
 
 let
   buildFHSEnv = callPackage ./env.nix { };
-
 in
+
 args@{
   name,
   version ? null,
@@ -54,7 +54,6 @@ let
   versionStr = lib.optionalString (version != null) ("-" + version);
 
   nameAndVersion = name + versionStr;
-
 in
 runCommandLocal nameAndVersion
 {

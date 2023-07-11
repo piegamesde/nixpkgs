@@ -51,8 +51,8 @@ let
     libXfixes
     libXScrnSaver
   ];
-
 in
+
 stdenv.mkDerivation {
   pname = "hubstaff";
   inherit version;

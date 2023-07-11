@@ -26,9 +26,9 @@ buildPythonPackage rec {
     pygments
   ];
 
-    # There are no unit tests in the pypi tarball. Most of the unit tests on the
-    # github repository currently only work with gcc5, so we just disable them.
-    # See also: https://github.com/gcovr/gcovr/issues/206
+  # There are no unit tests in the pypi tarball. Most of the unit tests on the
+  # github repository currently only work with gcc5, so we just disable them.
+  # See also: https://github.com/gcovr/gcovr/issues/206
   doCheck = false;
 
   pythonImportsCheck = [

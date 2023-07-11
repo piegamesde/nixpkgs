@@ -35,7 +35,7 @@ buildPythonPackage rec {
     repo = "python-mapnik";
     rev = "a2c2a86eec954b42d7f00093da03807d0834b1b4";
     hash = "sha256-GwDdrutJOHtW7pIWiUAiu1xucmRvp7YFYB3YSCrDsrY=";
-      # Only needed for test data
+    # Only needed for test data
     fetchSubmodules = true;
   };
 
@@ -105,7 +105,7 @@ buildPythonPackage rec {
     rm -r mapnik
   '';
 
-    # https://github.com/mapnik/python-mapnik/issues/255
+  # https://github.com/mapnik/python-mapnik/issues/255
   disabledTests = [
     "test_adding_datasource_to_layer"
     "test_compare_map"

@@ -29,8 +29,8 @@ let
       }
   );
 
-    # This is from the winbox AUR package:
-    # https://aur.archlinux.org/cgit/aur.git/tree/winbox64?h=winbox64&id=8edd93792af84e87592e8645ca09e9795931e60e
+  # This is from the winbox AUR package:
+  # https://aur.archlinux.org/cgit/aur.git/tree/winbox64?h=winbox64&id=8edd93792af84e87592e8645ca09e9795931e60e
   wrapper = writeShellScriptBin pname ''
     export WINEPREFIX="''${WINBOX_HOME:-"''${XDG_DATA_HOME:-"''${HOME}/.local/share"}/winbox"}/wine"
     export WINEDLLOVERRIDES="mscoree=" # disable mono
@@ -53,7 +53,7 @@ let
     startupWMClass = last (splitString "/" executable);
   };
 
-    # The icon is also from the winbox AUR package (see above).
+  # The icon is also from the winbox AUR package (see above).
   icon = fetchurl {
     name = "winbox.png";
     url = "https://aur.archlinux.org/cgit/aur.git/plain/winbox.png?h=winbox";

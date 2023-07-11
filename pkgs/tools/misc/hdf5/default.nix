@@ -26,8 +26,8 @@ assert !cppSupport || !mpiSupport;
 
 let
   inherit (lib) optional optionals;
-
 in
+
 stdenv.mkDerivation rec {
   version = "1.14.0";
   pname =
@@ -86,7 +86,6 @@ stdenv.mkDerivation rec {
     ++ optional enableShared "--enable-shared"
     ++ optional javaSupport "--enable-java"
     ++ optional usev110Api "--with-default-api-version=v110"
-      # hdf5 hl (High Level) library is not considered stable with thread safety and should be disabled.
     ++ optionals threadsafe [
       "--enable-threadsafe"
       "--disable-hl"
@@ -111,9 +110,9 @@ stdenv.mkDerivation rec {
     moveToOutput 'bin/h5pcc' "''${!outputDev}"
   '';
 
-    # Remove reference to /build, which get introduced
-    # into AM_CPPFLAGS since hdf5-1.14.0. Cmake of various
-    # packages using HDF5 gets confused trying access the non-existent path.
+  # Remove reference to /build, which get introduced
+  # into AM_CPPFLAGS since hdf5-1.14.0. Cmake of various
+  # packages using HDF5 gets confused trying access the non-existent path.
   postFixup = ''
     for i in h5cc h5pcc h5c++; do
       if [ -f $dev/bin/$i ]; then

@@ -1,5 +1,5 @@
 {
-# Derivation stuff
+  # Derivation stuff
   fetchFromGitHub,
   lib,
   makeWrapper,
@@ -66,4 +66,3 @@ stdenv.mkDerivation {
     maintainers = with lib.maintainers; [ loveisgrief ];
   };
 }
-

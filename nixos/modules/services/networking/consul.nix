@@ -172,9 +172,7 @@ in
           type = types.bool;
         };
       };
-
     };
-
   };
 
   config = mkIf cfg.enable (
@@ -185,14 +183,14 @@ in
           description = "Consul agent daemon user";
           isSystemUser = true;
           group = "consul";
-            # The shell is needed for health checks
+          # The shell is needed for health checks
           shell = "/run/current-system/sw/bin/bash";
         };
         users.groups.consul = { };
 
         environment = {
           etc."consul.json".text = builtins.toJSON configOptions;
-            # We need consul.d to exist for consul to start
+          # We need consul.d to exist for consul to start
           etc."consul.d/dummy.json".text = "{ }";
           systemPackages = [ cfg.package ];
         };
@@ -324,7 +322,6 @@ in
           };
         };
       })
-
     ]
   );
 }

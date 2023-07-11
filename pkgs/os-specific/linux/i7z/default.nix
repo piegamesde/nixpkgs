@@ -60,10 +60,8 @@ stdenv.mkDerivation rec {
     description = "A better i7 (and now i3, i5) reporting tool for Linux";
     homepage = "https://github.com/DimitryAndric/i7z";
     license = licenses.gpl2;
-    maintainers = with maintainers; [
-        bluescreen303
-      ];
-      # broken on ARM
+    maintainers = with maintainers; [ bluescreen303 ];
+    # broken on ARM
     platforms = [ "x86_64-linux" ];
   };
 }

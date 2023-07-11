@@ -9,7 +9,8 @@
 }:
 # TODO: withTex
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "latex2html";
   version = "2023";
 

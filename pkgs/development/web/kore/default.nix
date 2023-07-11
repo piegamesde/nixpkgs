@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     make platform.h
   '';
 
-    # added to fix build w/gcc7 and clang5
+  # added to fix build w/gcc7 and clang5
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isGNU "-Wno-error=pointer-compare"
     + lib.optionalString stdenv.cc.isClang " -Wno-error=unknown-warning-option"

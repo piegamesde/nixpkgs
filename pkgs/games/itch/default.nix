@@ -73,7 +73,7 @@ stdenvNoCC.mkDerivation rec {
       })
     ];
 
-    # As taken from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=itch-bin
+  # As taken from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=itch-bin
   installPhase = ''
     runHook preInstall
 

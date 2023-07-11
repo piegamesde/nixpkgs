@@ -23,7 +23,7 @@ buildPythonPackage rec {
     urwid
   ];
 
-    # Projec thas no tests
+  # Projec thas no tests
   doCheck = false;
 
   postInstall = ''

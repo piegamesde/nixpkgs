@@ -44,7 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # Disable tests which require credentials and network access
+  # Disable tests which require credentials and network access
   disabledTests = [
     "create"
     "download"

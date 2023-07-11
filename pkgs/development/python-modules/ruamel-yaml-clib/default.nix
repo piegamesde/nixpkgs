@@ -15,11 +15,11 @@ buildPythonPackage rec {
     sha256 = "sha256-QNJyJWfCT8zEvrqI65zPlWIMSRZSoDwIAbFU48TfO4U=";
   };
 
-    # no tests
+  # no tests
   doCheck = false;
 
-    # circular dependency with ruamel-yaml
-    # pythonImportsCheck = [ "_ruamel_yaml" ];
+  # circular dependency with ruamel-yaml
+  # pythonImportsCheck = [ "_ruamel_yaml" ];
 
   meta = with lib; {
     description =

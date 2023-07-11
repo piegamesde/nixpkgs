@@ -30,16 +30,16 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-    # allow for writable directory for darwin
+  # allow for writable directory for darwin
   preBuild = ''
     export HOME=$TMPDIR
     export PYTHONASYNCIODEBUG=1
   '';
 
-    # tests fail ATM.
+  # tests fail ATM.
   doCheck = false;
 
-    # check at least that import works, as tests fail
+  # check at least that import works, as tests fail
   pythonImportsCheck = [ "pyuavcan" ];
 
   meta = with lib; {

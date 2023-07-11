@@ -45,7 +45,6 @@ let
         cp ${pkgs.djbdns}/etc/dnsroots.global $out/servers/@;
       fi
     '';
-
 in
 {
 
@@ -103,11 +102,10 @@ in
           needed if you want to use e.g. Google DNS as your upstream DNS.
         '';
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.dnscache.enable {
     environment.systemPackages = [ pkgs.djbdns ];

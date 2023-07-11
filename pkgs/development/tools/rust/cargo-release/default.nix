@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ git ];
 
-    # disable vendored-libgit2 and vendored-openssl
+  # disable vendored-libgit2 and vendored-openssl
   buildNoDefaultFeatures = true;
 
   meta = with lib; {

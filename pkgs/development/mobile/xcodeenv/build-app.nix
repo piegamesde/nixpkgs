@@ -66,7 +66,7 @@ let
       sdk
     ;
 
-    # The following is to prevent repetition
+  # The following is to prevent repetition
   deleteKeychain = ''
     security default-keychain -s login.keychain
     security delete-keychain $keychainName

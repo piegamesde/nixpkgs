@@ -59,8 +59,8 @@ stdenv.mkDerivation rec {
     libwnck
   ];
 
-    # Fix hard-coded path
-    # https://bugs.launchpad.net/bamf/+bug/1780557
+  # Fix hard-coded path
+  # https://bugs.launchpad.net/bamf/+bug/1780557
   postPatch = ''
     substituteInPlace data/Makefile.am \
       --replace '/usr/lib/systemd/user' '@prefix@/lib/systemd/user'
@@ -71,16 +71,16 @@ stdenv.mkDerivation rec {
     "--enable-headless-tests"
   ];
 
-    # Fix paths
+  # Fix paths
   makeFlags = [
     "INTROSPECTION_GIRDIR=${placeholder "dev"}/share/gir-1.0/"
     "INTROSPECTION_TYPELIBDIR=${placeholder "out"}/lib/girepository-1.0"
   ];
 
-    # TODO: Requires /etc/machine-id
+  # TODO: Requires /etc/machine-id
   doCheck = false;
 
-    # Ignore deprecation errors
+  # Ignore deprecation errors
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
   passthru.updateScript = gitUpdater { ignoredVersions = ".ubuntu.*"; };

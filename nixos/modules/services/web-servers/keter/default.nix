@@ -41,9 +41,9 @@ in
           port = 6981;
         } ];
       };
-        # You want that ip-from-header in the nginx setup case
-        # so it's not set to 127.0.0.1.
-        # using a port above 1024 allows you to avoid needing CAP_NET_BIND_SERVICE
+      # You want that ip-from-header in the nginx setup case
+      # so it's not set to 127.0.0.1.
+      # using a port above 1024 allows you to avoid needing CAP_NET_BIND_SERVICE
       defaultText = lib.literalExpression ''
         {
           ip-from-header = true;
@@ -92,7 +92,6 @@ in
         example = "MY_AWS_KEY=$(cat /run/keys/AWS_ACCESS_KEY_ID)";
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable (
@@ -107,7 +106,7 @@ in
           ));
       };
 
-        # If things are expected to change often, put it in the bundle!
+      # If things are expected to change often, put it in the bundle!
       bundle = pkgs.callPackage ./bundle.nix (
         cfg.bundle // {
           keterExecutable = executable;
@@ -115,11 +114,11 @@ in
         }
       );
 
-        # This indirection is required to ensure the nix path
-        # gets copied over to the target machine in remote deployments.
-        # Furthermore, it's important that we use exec to
-        # run the binary otherwise we get process leakage due to this
-        # being executed on every change.
+      # This indirection is required to ensure the nix path
+      # gets copied over to the target machine in remote deployments.
+      # Furthermore, it's important that we use exec to
+      # run the binary otherwise we get process leakage due to this
+      # being executed on every change.
       executable = pkgs.writeShellScript "bundle-wrapper" ''
         set -e
         ${cfg.bundle.secretScript}
@@ -127,7 +126,6 @@ in
         ${cfg.bundle.publicScript}
         exec ${cfg.bundle.executable}
       '';
-
     in
     {
       systemd.services.keter = {
@@ -154,16 +152,16 @@ in
         ];
       };
 
-        # On deploy this will load our app, by moving it into the incoming dir
-        # If the bundle content changes, this will run again.
-        # Because the bundle content contains the nix path to the executable,
-        # we inherit nix based cache busting.
+      # On deploy this will load our app, by moving it into the incoming dir
+      # If the bundle content changes, this will run again.
+      # Because the bundle content contains the nix path to the executable,
+      # we inherit nix based cache busting.
       systemd.services.load-keter-bundle = {
         description = "load keter bundle into incoming folder";
         after = [ "keter.service" ];
         wantedBy = [ "multi-user.target" ];
-          # we can't override keter bundles because it'll stop the previous app
-          # https://github.com/snoyberg/keter#deploying
+        # we can't override keter bundles because it'll stop the previous app
+        # https://github.com/snoyberg/keter#deploying
         script = ''
           set -xe
           cp ${bundle}/bundle.tar.gz.keter ${incoming}/${cfg.bundle.appName}.keter

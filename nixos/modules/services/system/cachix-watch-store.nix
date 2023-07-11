@@ -63,7 +63,6 @@ in
       defaultText = literalExpression "pkgs.cachix";
       description = lib.mdDoc "Cachix Client package to use.";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -79,7 +78,7 @@ in
       serviceConfig = {
         # don't put too much stress on the machine when restarting
         RestartSec = 1;
-          # we don't want to kill children processes as those are deployments
+        # we don't want to kill children processes as those are deployments
         KillMode = "process";
         Restart = "on-failure";
         DynamicUser = true;

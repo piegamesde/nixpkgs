@@ -23,7 +23,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "usnistgov";
     repo = "pycdcs";
-      # https://github.com/usnistgov/pycdcs/issues/1
+    # https://github.com/usnistgov/pycdcs/issues/1
     rev = "3aeaeb4782054a220e916c189ffe440d113b571d";
     hash = "sha256-OsabgO2B2PRhU3DVvkK+f9VLOMqctl4nyCETxLtzwNs=";
   };

@@ -110,7 +110,7 @@ let
           "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy"
         ;
       stripRoot = false;
-        # Removing PE signatures reduces this from 3.8GB -> 642MB (uncompressed)
+      # Removing PE signatures reduces this from 3.8GB -> 642MB (uncompressed)
       postFetch = lib.optionalString (!withPEPatterns) ''
         rm -r "$out/generic/yara_patterns/static-code/pe"
       '';
@@ -121,8 +121,8 @@ let
     }
     ;
 
-    # patch CMakeLists.txt for a dependency and compare the versions to the ones expected by upstream
-    # this has to be applied for every dependency (which it is in postPatch)
+  # patch CMakeLists.txt for a dependency and compare the versions to the ones expected by upstream
+  # this has to be applied for every dependency (which it is in postPatch)
   patchDep =
     dep: ''
       # check if our version of dep is the same version that upstream expects
@@ -137,16 +137,15 @@ let
       sed -i -e 's|URL .*|URL ${dep}|' "deps/${dep.dep_name}/CMakeLists.txt"
     ''
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "retdec";
 
-    # If you update this you will also need to adjust the versions of the updated dependencies. You can do this by first just updating retdec
-    # itself and trying to build it. The build should fail and tell you which dependencies you have to upgrade to which versions.
-    # I've notified upstream about this problem here:
-    # https://github.com/avast-tl/retdec/issues/412
-    # gcc is pinned to gcc8 in all-packages.nix. That should probably be re-evaluated on update.
+  # If you update this you will also need to adjust the versions of the updated dependencies. You can do this by first just updating retdec
+  # itself and trying to build it. The build should fail and tell you which dependencies you have to upgrade to which versions.
+  # I've notified upstream about this problem here:
+  # https://github.com/avast-tl/retdec/issues/412
+  # gcc is pinned to gcc8 in all-packages.nix. That should probably be re-evaluated on update.
   version = "3.2";
 
   src = fetchFromGitHub {
@@ -181,8 +180,8 @@ stdenv.mkDerivation rec {
       "-DRETDEC_TESTS=ON" # build tests
     ];
 
-    # all dependencies that are normally fetched during build time (the subdirectories of `deps`)
-    # all of these need to be fetched through nix and the CMakeLists files need to be patched not to fetch them themselves
+  # all dependencies that are normally fetched during build time (the subdirectories of `deps`)
+  # all of these need to be fetched through nix and the CMakeLists files need to be patched not to fetch them themselves
   external_deps = [
     (capstone // { dep_name = "capstone"; })
     (elfio // { dep_name = "elfio"; })
@@ -198,7 +197,7 @@ stdenv.mkDerivation rec {
     (yaramod // { dep_name = "yaramod"; })
   ];
 
-    # Use newer yaramod to fix w/bison 3.2+
+  # Use newer yaramod to fix w/bison 3.2+
   patches = [
     # 2.1.2 -> 2.2.1
     (fetchpatch {

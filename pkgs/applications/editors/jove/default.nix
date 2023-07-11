@@ -46,7 +46,7 @@ stdenv.mkDerivation (
       license = licenses.bsd2;
       maintainers = with maintainers; [ AndersonTorres ];
       platforms = platforms.unix;
-        # never built on Hydra: https://hydra.nixos.org/job/nixpkgs/trunk/jove.x86_64-darwin
+      # never built on Hydra: https://hydra.nixos.org/job/nixpkgs/trunk/jove.x86_64-darwin
       broken = stdenv.isDarwin;
     };
   }

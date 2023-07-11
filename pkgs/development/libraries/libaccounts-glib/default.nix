@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     sha256 = "0y8smg1rd279lrr9ad8b499i8pbkajmwd4xn41rdh9h93hs9apn7";
   };
 
-    # See: https://gitlab.com/accounts-sso/libaccounts-glib/merge_requests/22
+  # See: https://gitlab.com/accounts-sso/libaccounts-glib/merge_requests/22
   patches = [ ./py-override.patch ];
 
   nativeBuildInputs =
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     sqlite
   ];
 
-    # TODO: send patch upstream to make running tests optional
+  # TODO: send patch upstream to make running tests optional
   postPatch =
     lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
       substituteInPlace meson.build \

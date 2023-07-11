@@ -20,7 +20,7 @@ assert cudaSupport -> cudaPackages != { };
 let
   boost_static = boost17x.override { enableStatic = true; };
 
-    # TODO: migrate to redist packages
+  # TODO: migrate to redist packages
   inherit (cudaPackages) cudatoolkit;
 in
 mkDerivation rec {
@@ -33,7 +33,7 @@ mkDerivation rec {
     hash = "sha256-uVAw6qwhpgIpHkXgxttKupU9zU+vD0Za0maw2Iv4x+I=";
   };
 
-    # TODO: rm once the gcc11 issue is closed, https://github.com/colmap/colmap/issues/1418#issuecomment-1049305256
+  # TODO: rm once the gcc11 issue is closed, https://github.com/colmap/colmap/issues/1418#issuecomment-1049305256
   cmakeFlags = lib.optionals cudaSupport [
     "-DCUDA_ENABLED=ON"
     "-DCUDA_NVCC_FLAGS=--std=c++14"

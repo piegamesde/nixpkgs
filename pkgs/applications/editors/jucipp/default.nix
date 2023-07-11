@@ -39,11 +39,9 @@ stdenv.mkDerivation rec {
       "A lightweight, platform independent C++-IDE with support for C++11, C++14, and experimental C++17 features depending on libclang version";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-        xnwdd
-      ];
-      # error: token ""1.1"" is not valid in preprocessor expression
-      # TODO: fix pname being different from the attribute name
+    maintainers = with maintainers; [ xnwdd ];
+    # error: token ""1.1"" is not valid in preprocessor expression
+    # TODO: fix pname being different from the attribute name
     broken = true;
   };
 
@@ -128,5 +126,4 @@ stdenv.mkDerivation rec {
       --set NO_AT_BRIDGE 1 \
       --set ASPELL_CONF "dict-dir ${aspellDicts.en}/lib/aspell"
   '';
-
 }

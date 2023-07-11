@@ -31,7 +31,7 @@ buildGoModule rec {
       --fish <($out/bin/cirrus completion fish)
   '';
 
-    # tests fail on read-only filesystem
+  # tests fail on read-only filesystem
   doCheck = false;
 
   meta = with lib; {

@@ -23,7 +23,7 @@ let
 
   aruco = callPackage ./aruco.nix { };
 
-    # license.txt inside the zip file is MIT
+  # license.txt inside the zip file is MIT
   xplaneSdk = fetchzip {
     url =
       "https://developer.x-plane.com/wp-content/plugins/code-sample-generation/sample_templates/XPSDK303.zip";

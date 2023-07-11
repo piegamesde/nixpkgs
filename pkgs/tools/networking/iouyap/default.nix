@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: netmap.o:(.bss+0x20): multiple definition of `sizecheck'; iouyap.o:(.bss+0x20): first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: netmap.o:(.bss+0x20): multiple definition of `sizecheck'; iouyap.o:(.bss+0x20): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   installPhase = ''

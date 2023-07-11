@@ -79,8 +79,8 @@ let
       }
     )
     cfg.policies;
-
 in
+
 {
 
   ###### interface
@@ -156,12 +156,10 @@ in
           FAQ](https://libreswan.org/wiki/FAQ#Why_is_it_recommended_to_disable_send_redirects_in_.2Fproc.2Fsys.2Fnet_.3F) page for why this is recommended.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -173,14 +171,14 @@ in
     systemd.packages = [ pkgs.libreswan ];
     systemd.tmpfiles.packages = [ pkgs.libreswan ];
 
-      # Install configuration files
+    # Install configuration files
     environment.etc = {
       "ipsec.secrets".source = "${pkgs.libreswan}/etc/ipsec.secrets";
       "ipsec.conf".source = "${pkgs.libreswan}/etc/ipsec.conf";
       "ipsec.d/01-nixos.conf".source = configFile;
     } // policyFiles;
 
-      # Create NSS database directory
+    # Create NSS database directory
     systemd.tmpfiles.rules = [ "d /var/lib/ipsec/nss 755 root root -" ];
 
     systemd.services.ipsec = {
@@ -202,7 +200,5 @@ in
         echo 0 | tee /proc/sys/net/ipv{4,6}/conf/*/accept_redirects
       '';
     };
-
   };
-
 }

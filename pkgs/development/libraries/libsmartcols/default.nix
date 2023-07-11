@@ -49,4 +49,3 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ rb2k ];
   };
 }
-

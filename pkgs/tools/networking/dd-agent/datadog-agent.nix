@@ -38,7 +38,6 @@ let
       "-DDISABLE_PYTHON2=ON"
     ];
   };
-
 in
 buildGo118Module rec {
   pname = "datadog-agent";
@@ -89,7 +88,7 @@ buildGo118Module rec {
     go generate ./pkg/status ./cmd/agent/gui
   '';
 
-    # DataDog use paths relative to the agent binary, so fix these.
+  # DataDog use paths relative to the agent binary, so fix these.
   postPatch = ''
     sed -e "s|PyChecksPath =.*|PyChecksPath = \"$out/${python.sitePackages}\"|" \
         -e "s|distPath =.*|distPath = \"$out/share/datadog-agent\"|" \
@@ -98,8 +97,8 @@ buildGo118Module rec {
         -i pkg/util/hostname_nix.go
   '';
 
-    # Install the config files and python modules from the "dist" dir
-    # into standard paths.
+  # Install the config files and python modules from the "dist" dir
+  # into standard paths.
   postInstall =
     ''
       mkdir -p $out/${python.sitePackages} $out/share/datadog-agent
@@ -132,7 +131,7 @@ buildGo118Module rec {
       rvl
       viraptor
     ];
-      # never built on aarch64-darwin since first introduction in nixpkgs
+    # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

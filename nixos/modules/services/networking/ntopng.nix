@@ -36,8 +36,8 @@ let
         ${cfg.extraConfig}
       ''
     ;
-
 in
+
 {
 
   imports = [
@@ -140,9 +140,7 @@ in
           manual {option}`configText` option is used.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -159,7 +157,7 @@ in
       };
     };
 
-      # nice to have manual page and ntopng command in PATH
+    # nice to have manual page and ntopng command in PATH
     environment.systemPackages = [ pkgs.ntopng ];
 
     systemd.tmpfiles.rules = [ "d /var/lib/ntopng 0700 ntopng ntopng -" ];
@@ -180,5 +178,4 @@ in
 
     users.extraGroups.ntopng = { };
   };
-
 }

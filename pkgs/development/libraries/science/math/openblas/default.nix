@@ -10,13 +10,13 @@
   # (for compatibility with reference BLAS).
   ,
   blas64 ? null
-    # Multi-threaded applications must not call a threaded OpenBLAS
-    # (the only exception is when an application uses OpenMP as its
-    # *only* form of multi-threading). See
-    #     https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
-    #     https://github.com/xianyi/OpenBLAS/issues/2543
-    # This flag builds a single-threaded OpenBLAS using the flags
-    # stated in thre.
+  # Multi-threaded applications must not call a threaded OpenBLAS
+  # (the only exception is when an application uses OpenMP as its
+  # *only* form of multi-threading). See
+  #     https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
+  #     https://github.com/xianyi/OpenBLAS/issues/2543
+  # This flag builds a single-threaded OpenBLAS using the flags
+  # stated in thre.
   ,
   singleThreaded ? false,
   buildPackages
@@ -24,18 +24,18 @@
   # See https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt
   ,
   target ? null
-    # Select whether DYNAMIC_ARCH is enabled or not.
+  # Select whether DYNAMIC_ARCH is enabled or not.
   ,
   dynamicArch ? null
-    # enable AVX512 optimized kernels.
-    # These kernels have been a source of trouble in the past.
-    # Use with caution.
+  # enable AVX512 optimized kernels.
+  # These kernels have been a source of trouble in the past.
+  # Use with caution.
   ,
   enableAVX512 ? false,
   enableStatic ? stdenv.hostPlatform.isStatic,
   enableShared ? !stdenv.hostPlatform.isStatic
 
-    # for passthru.tests
+  # for passthru.tests
   ,
   ceres-solver,
   giac,
@@ -46,8 +46,8 @@
 
 let
   blas64_ = blas64;
-
 in
+
 let
   setTarget =
     x:
@@ -64,7 +64,7 @@ let
       dynamicArch
     ;
 
-    # To add support for a new platform, add an element to this set.
+  # To add support for a new platform, add an element to this set.
   configs = {
     armv6l-linux = {
       BINARY = 32;
@@ -140,14 +140,14 @@ let
       USE_OPENMP = true;
     };
   };
-
 in
+
 let
   config =
     configs.${stdenv.hostPlatform.system} or (throw
       "unsupported system: ${stdenv.hostPlatform.system}");
-
 in
+
 let
   blas64 =
     if blas64_ != null then
@@ -155,10 +155,10 @@ let
     else
       lib.hasPrefix "x86_64" stdenv.hostPlatform.system
     ;
-    # Convert flag values to format OpenBLAS's build expects.
-    # `toString` is almost what we need other than bools,
-    # which we need to map {true -> 1, false -> 0}
-    # (`toString` produces empty string `""` for false instead of `0`)
+  # Convert flag values to format OpenBLAS's build expects.
+  # `toString` is almost what we need other than bools,
+  # which we need to map {true -> 1, false -> 0}
+  # (`toString` produces empty string `""` for false instead of `0`)
   mkMakeFlagValue =
     val:
     if !builtins.isBool val then
@@ -172,7 +172,6 @@ let
     lib.mapAttrsToList (var: val: "${var}=${mkMakeFlagValue val}");
 
   shlibExt = stdenv.hostPlatform.extensions.sharedLibrary;
-
 in
 stdenv.mkDerivation rec {
   pname = "openblas";
@@ -205,16 +204,14 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile.arm64 --replace "+sve2+bf16" ""
   '';
 
-  inherit
-    blas64
-    ;
+  inherit blas64;
 
-    # Some hardening features are disabled due to sporadic failures in
-    # OpenBLAS-based programs. The problem may not be with OpenBLAS itself, but
-    # with how these flags interact with hardening measures used downstream.
-    # In either case, OpenBLAS must only be used by trusted code--it is
-    # inherently unsuitable for security-conscious applications--so there should
-    # be no objection to disabling these hardening measures.
+  # Some hardening features are disabled due to sporadic failures in
+  # OpenBLAS-based programs. The problem may not be with OpenBLAS itself, but
+  # with how these flags interact with hardening measures used downstream.
+  # In either case, OpenBLAS must only be used by trusted code--it is
+  # inherently unsuitable for security-conscious applications--so there should
+  # be no objection to disabling these hardening measures.
   hardeningDisable = [
     # don't modify or move the stack
     "stackprotector"
@@ -256,19 +253,19 @@ stdenv.mkDerivation rec {
       NO_SHARED = !enableShared;
       CROSS = stdenv.hostPlatform != stdenv.buildPlatform;
       HOSTCC = "cc";
-        # Makefile.system only checks defined status
-        # This seems to be a bug in the openblas Makefile:
-        # on x86_64 it expects NO_BINARY_MODE=
-        # but on aarch64 it expects NO_BINARY_MODE=0
+      # Makefile.system only checks defined status
+      # This seems to be a bug in the openblas Makefile:
+      # on x86_64 it expects NO_BINARY_MODE=
+      # but on aarch64 it expects NO_BINARY_MODE=0
       NO_BINARY_MODE =
         if stdenv.isx86_64 then
           toString (stdenv.hostPlatform != stdenv.buildPlatform)
         else
           stdenv.hostPlatform != stdenv.buildPlatform
         ;
-        # This disables automatic build job count detection (which honours neither enableParallelBuilding nor NIX_BUILD_CORES)
-        # and uses the main make invocation's job count, falling back to 1 if no parallelism is used.
-        # https://github.com/xianyi/OpenBLAS/blob/v0.3.20/getarch.c#L1781-L1792
+      # This disables automatic build job count detection (which honours neither enableParallelBuilding nor NIX_BUILD_CORES)
+      # and uses the main make invocation's job count, falling back to 1 if no parallelism is used.
+      # https://github.com/xianyi/OpenBLAS/blob/v0.3.20/getarch.c#L1781-L1792
       MAKE_NB_JOBS = 0;
     } // (lib.optionalAttrs singleThreaded {
       # As described on https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded

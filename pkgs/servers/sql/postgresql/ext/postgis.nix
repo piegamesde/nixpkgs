@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     ;
   dontDisableStatic = true;
 
-    # postgis config directory assumes /include /lib from the same root for json-c library
+  # postgis config directory assumes /include /lib from the same root for json-c library
   NIX_LDFLAGS = "-L${lib.getLib json_c}/lib";
 
   preConfigure = ''
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     ln -s ${postgresql}/bin/postgres $out/bin/postgres
   '';
 
-    # create aliases for all commands adding version information
+  # create aliases for all commands adding version information
   postInstall = ''
     # Teardown the illusory postgres used for building; see postConfigure.
     rm $out/bin/postgres

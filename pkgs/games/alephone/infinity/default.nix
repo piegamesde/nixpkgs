@@ -24,5 +24,4 @@ alephone.makeWrapper rec {
     '';
     homepage = "https://alephone.lhowon.org/games/infinity.html";
   };
-
 }

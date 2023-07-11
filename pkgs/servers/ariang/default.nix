@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
           old: {
             # access to path '/nix/store/...-source' is forbidden in restricted mode
             src = src;
-              # Error: Cannot find module '/nix/store/...-node-dependencies
+            # Error: Cannot find module '/nix/store/...-node-dependencies
             dontNpmInstall = true;
           }
         )).nodeDependencies;
@@ -62,4 +62,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 }
-

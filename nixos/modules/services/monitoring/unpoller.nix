@@ -15,7 +15,6 @@ let
       inherit (cfg) poller influxdb loki prometheus unifi;
     }
   );
-
 in
 {
   imports = [
@@ -295,7 +294,6 @@ in
             '';
           };
         };
-
       in
       {
         dynamic = mkOption {

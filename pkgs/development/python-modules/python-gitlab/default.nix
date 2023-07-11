@@ -31,7 +31,7 @@ buildPythonPackage rec {
     yaml = [ pyyaml ];
   };
 
-    # Tests rely on a gitlab instance on a local docker setup
+  # Tests rely on a gitlab instance on a local docker setup
   doCheck = false;
 
   pythonImportsCheck = [ "gitlab" ];

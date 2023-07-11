@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./ignore-complex-float128.patch ];
 
-    # https://github.com/samee/obliv-c/issues/76#issuecomment-438958209
+  # https://github.com/samee/obliv-c/issues/76#issuecomment-438958209
   env.OCAMLBUILD =
     "ocamlbuild -package num -ocamlopt 'ocamlopt -dontlink num' -ocamlc 'ocamlc -dontlink num'";
 

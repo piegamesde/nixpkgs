@@ -29,9 +29,9 @@
 }:
 stdenv.mkDerivation rec {
   pname = "sgx-sdk";
-    # Version as given in se_version.h
+  # Version as given in se_version.h
   version = "2.16.100.4";
-    # Version as used in the Git tag
+  # Version as used in the Git tag
   versionTag = "2.16";
 
   src = fetchFromGitHub {
@@ -64,11 +64,11 @@ stdenv.mkDerivation rec {
       linux/installer/common/sdk/install.sh
   '';
 
-    # We need `cmake` as a build input but don't use it to kick off the build phase
+  # We need `cmake` as a build input but don't use it to kick off the build phase
   dontUseCmakeConfigure = true;
 
-    # SDK built with stackprotector produces broken enclaves which crash at runtime.
-    # Disable all to be safe, SDK build configures compiler mitigations manually.
+  # SDK built with stackprotector produces broken enclaves which crash at runtime.
+  # Disable all to be safe, SDK build configures compiler mitigations manually.
   hardeningDisable = [ "all" ];
 
   nativeBuildInputs = [
@@ -92,9 +92,9 @@ stdenv.mkDerivation rec {
 
   BINUTILS_DIR = "${binutils}/bin";
 
-    # Build external/ippcp_internal first. The Makefile is rewritten to make the
-    # build faster by splitting different versions of ipp-crypto builds and to
-    # avoid patching the Makefile for reproducibility issues.
+  # Build external/ippcp_internal first. The Makefile is rewritten to make the
+  # build faster by splitting different versions of ipp-crypto builds and to
+  # avoid patching the Makefile for reproducibility issues.
   preBuild =
     let
       ipp-crypto-no_mitigation = callPackage ./ipp-crypto.nix { };
@@ -260,8 +260,8 @@ stdenv.mkDerivation rec {
 
   passthru.tests = callPackage ../samples { sgxMode = "SIM"; };
 
-    # Run tests in SGX hardware mode on an SGX-enabled machine
-    # $(nix-build -A sgx-sdk.runTestsHW)/bin/run-tests-hw
+  # Run tests in SGX hardware mode on an SGX-enabled machine
+  # $(nix-build -A sgx-sdk.runTestsHW)/bin/run-tests-hw
   passthru.runTestsHW =
     let
       testsHW = lib.filterAttrs (_: v: v ? "name") (

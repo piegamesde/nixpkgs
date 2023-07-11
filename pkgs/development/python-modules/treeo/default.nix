@@ -10,9 +10,9 @@
 
 buildPythonPackage rec {
   pname = "treeo";
-    # Note that there is a version 0.4.0, but it was released in error. At the
-    # time of writing (2022-03-29), v0.0.11 is the latest as reported on GitHub
-    # and PyPI.
+  # Note that there is a version 0.4.0, but it was released in error. At the
+  # time of writing (2022-03-29), v0.0.11 is the latest as reported on GitHub
+  # and PyPI.
   version = "0.0.11";
   format = "pyproject";
 
@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-zs3F8i+G5OX/A9wOO60xVuvnm2QqrL+dHIrC0qwH37o=";
   };
 
-    # See https://github.com/cgarciae/treex/issues/68.
+  # See https://github.com/cgarciae/treex/issues/68.
   patches = [
     (fetchpatch {
       url =
@@ -39,7 +39,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-    # jax is not declared in the dependencies, but is necessary.
+  # jax is not declared in the dependencies, but is necessary.
   propagatedBuildInputs = [ jax ];
 
   nativeCheckInputs = [ jaxlib ];

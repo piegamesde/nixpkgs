@@ -7,9 +7,8 @@
   coloredlogs,
   numpy,
   packaging,
-  oneDNN
+  oneDNN,
 
-  ,
 }:
 
 # onnxruntime requires an older protobuf.
@@ -25,7 +24,8 @@
 # protobuf, you can add it to your Python env, but be aware
 # the version likely mismatches with what is used here.
 
-buildPythonPackage {
+buildPythonPackage
+{
   inherit (onnxruntime) pname version;
   format = "wheel";
   src = onnxruntime.dist;
@@ -40,14 +40,14 @@ buildPythonPackage {
     pythonRelaxDepsHook
   ];
 
-    # This project requires fairly large dependencies such as sympy which we really don't always need.
+  # This project requires fairly large dependencies such as sympy which we really don't always need.
   pythonRemoveDeps = [
     "flatbuffers"
     "protobuf"
     "sympy"
   ];
 
-    # Libraries are not linked correctly.
+  # Libraries are not linked correctly.
   buildInputs = [
     oneDNN
     onnxruntime.protobuf

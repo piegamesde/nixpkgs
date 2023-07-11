@@ -28,7 +28,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-    # Module has no tests
+  # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pyfamilyhublocal" ];

@@ -48,8 +48,8 @@ rustPlatform.buildRustPackage rec {
     )
     ;
 
-    # Tectonic runs biber when it detects it needs to run it, see:
-    # https://github.com/tectonic-typesetting/tectonic/releases/tag/tectonic%400.7.0
+  # Tectonic runs biber when it detects it needs to run it, see:
+  # https://github.com/tectonic-typesetting/tectonic/releases/tag/tectonic%400.7.0
   postInstall =
     ''
       wrapProgram $out/bin/tectonic \

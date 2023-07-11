@@ -7,13 +7,13 @@ with haskellLib;
 
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-
 in
+
 self: super: {
 
   llvmPackages = pkgs.lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
-    # Disable GHC 8.6.x core libraries.
+  # Disable GHC 8.6.x core libraries.
   array = null;
   base = null;
   binary = null;
@@ -40,7 +40,7 @@ self: super: {
   rts = null;
   stm = null;
   template-haskell = null;
-    # GHC only builds terminfo if it is a native compiler
+  # GHC only builds terminfo if it is a native compiler
   terminfo =
     if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
       null
@@ -51,8 +51,8 @@ self: super: {
   time = null;
   transformers = null;
   unix = null;
-    # GHC only bundles the xhtml library if haddock is enabled, check if this is
-    # still the case when updating: https://gitlab.haskell.org/ghc/ghc/-/blob/0198841877f6f04269d6050892b98b5c3807ce4c/ghc.mk#L463
+  # GHC only bundles the xhtml library if haddock is enabled, check if this is
+  # still the case when updating: https://gitlab.haskell.org/ghc/ghc/-/blob/0198841877f6f04269d6050892b98b5c3807ce4c/ghc.mk#L463
   xhtml =
     if self.ghc.hasHaddock or true then
       null
@@ -60,14 +60,14 @@ self: super: {
       self.xhtml_3000_2_2_1
     ;
 
-    # Needs Cabal 3.0.x.
+  # Needs Cabal 3.0.x.
   jailbreak-cabal =
     super.jailbreak-cabal.override { Cabal = self.Cabal_3_2_1_0; };
 
-    # https://github.com/tibbe/unordered-containers/issues/214
+  # https://github.com/tibbe/unordered-containers/issues/214
   unordered-containers = dontCheck super.unordered-containers;
 
-    # Test suite does not compile.
+  # Test suite does not compile.
   data-clist = doJailbreak super.data-clist; # won't cope with QuickCheck 2.12.x
   dates = doJailbreak super.dates; # base >=4.9 && <4.12
   Diff = dontCheck super.Diff;
@@ -93,27 +93,27 @@ self: super: {
     ; # tasty upper bound exceeded; https://github.com/phadej/binary-orphans/commit/8ce857226595dd520236ff4c51fa1a45d8387b33
   rebase = doJailbreak super.rebase; # time ==1.9.* is too low
 
-    # https://github.com/jgm/skylighting/issues/55
+  # https://github.com/jgm/skylighting/issues/55
   skylighting-core = dontCheck super.skylighting-core;
 
-    # Break out of "yaml >=0.10.4.0 && <0.11": https://github.com/commercialhaskell/stack/issues/4485
+  # Break out of "yaml >=0.10.4.0 && <0.11": https://github.com/commercialhaskell/stack/issues/4485
   stack = doJailbreak super.stack;
 
-    # Newer versions don't compile.
+  # Newer versions don't compile.
   resolv = self.resolv_0_1_1_2;
 
-    # cabal2nix needs the latest version of Cabal, and the one
-    # hackage-db uses must match, so take the latest
+  # cabal2nix needs the latest version of Cabal, and the one
+  # hackage-db uses must match, so take the latest
   cabal2nix =
     super.cabal2nix.overrideScope (self: super: { Cabal = self.Cabal_3_2_1_0; })
     ;
 
-    # cabal2spec needs a recent version of Cabal
+  # cabal2spec needs a recent version of Cabal
   cabal2spec = super.cabal2spec.overrideScope (
     self: super: { Cabal = self.Cabal_3_2_1_0; }
   );
 
-    # https://github.com/pikajude/stylish-cabal/issues/12
+  # https://github.com/pikajude/stylish-cabal/issues/12
   stylish-cabal = doDistribute (
     markUnbroken (
       super.stylish-cabal.override {
@@ -123,27 +123,27 @@ self: super: {
   );
   haddock-library_1_7_0 = dontCheck super.haddock-library_1_7_0;
 
-    # ghc versions prior to 8.8.x needs additional dependency to compile successfully.
-  ghc-lib-parser-ex = addBuildDepend self.ghc-lib-parser super.ghc-lib-parser-ex
-    ;
+  # ghc versions prior to 8.8.x needs additional dependency to compile successfully.
+  ghc-lib-parser-ex =
+    addBuildDepend self.ghc-lib-parser super.ghc-lib-parser-ex;
 
-    # This became a core library in ghc 8.10., so we don’t have an "exception" attribute anymore.
+  # This became a core library in ghc 8.10., so we don’t have an "exception" attribute anymore.
   exceptions = super.exceptions_0_10_4;
 
-    # Older compilers need the latest ghc-lib to build this package.
+  # Older compilers need the latest ghc-lib to build this package.
   hls-hlint-plugin = addBuildDepend self.ghc-lib super.hls-hlint-plugin;
 
-    # vector 0.12.2 indroduced doctest checks that don’t work on older compilers
+  # vector 0.12.2 indroduced doctest checks that don’t work on older compilers
   vector = dontCheck super.vector;
 
   mmorph = super.mmorph_1_1_3;
 
-    # https://github.com/haskellari/time-compat/issues/23
+  # https://github.com/haskellari/time-compat/issues/23
   time-compat = dontCheck super.time-compat;
 
   mime-string = disableOptimization super.mime-string;
 
-    # https://github.com/fpco/inline-c/issues/127 (recommend to upgrade to Nixpkgs GHC >=9.0)
+  # https://github.com/fpco/inline-c/issues/127 (recommend to upgrade to Nixpkgs GHC >=9.0)
   inline-c-cpp = (
     if isDarwin then
       dontCheck

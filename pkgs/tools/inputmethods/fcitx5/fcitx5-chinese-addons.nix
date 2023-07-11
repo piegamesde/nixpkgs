@@ -28,8 +28,8 @@ let
     url = "http://download.fcitx-im.org/data/py_table-${pyTableVer}.tar.gz";
     sha256 = "011cg7wssssm6hm564cwkrrnck2zj5rxi7p9z5akvhg6gp4nl522";
   };
-
 in
+
 mkDerivation rec {
   pname = "fcitx5-chinese-addons";
   version = "5.0.17";

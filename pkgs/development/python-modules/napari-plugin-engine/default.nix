@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-    # Circular dependency: napari
+  # Circular dependency: napari
   doCheck = false;
 
   pythonImportsCheck = [ "napari_plugin_engine" ];

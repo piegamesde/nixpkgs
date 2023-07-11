@@ -48,7 +48,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-    # doCheck tries to write to the global python directory to install things
+  # doCheck tries to write to the global python directory to install things
   doCheck = false;
 
   pythonImportsCheck = [ "pc_ble_driver_py" ];

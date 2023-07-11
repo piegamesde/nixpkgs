@@ -16,8 +16,8 @@ buildPythonPackage rec {
   version = "2.9.5";
   format = "setuptools";
 
-    # Extension modules don't work well with PyPy. Use psycopg2cffi instead.
-    # c.f. https://github.com/NixOS/nixpkgs/pull/104151#issuecomment-729750892
+  # Extension modules don't work well with PyPy. Use psycopg2cffi instead.
+  # c.f. https://github.com/NixOS/nixpkgs/pull/104151#issuecomment-729750892
   disabled = pythonOlder "3.6" || isPyPy;
 
   src = fetchPypi {
@@ -40,7 +40,7 @@ buildPythonPackage rec {
 
   sphinxRoot = "doc/src";
 
-    # Requires setting up a PostgreSQL database
+  # Requires setting up a PostgreSQL database
   doCheck = false;
 
   pythonImportsCheck = [ "psycopg2" ];

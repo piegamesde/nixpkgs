@@ -53,8 +53,8 @@ let
     # alert/file module option
     #file = "/dev/null"
   '';
-
 in
+
 {
 
   ###### interface
@@ -132,7 +132,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 

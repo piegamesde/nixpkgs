@@ -64,7 +64,7 @@ let
       fetchSubmodules = true;
     };
 
-      # The CMake external projects expect the packed archives
+    # The CMake external projects expect the packed archives
     rxcpp = fetchurl {
       url =
         "https://github.com/Reactive-Extensions/RxCpp/archive/v${rxcppVersion}.tar.gz";
@@ -76,8 +76,8 @@ let
       sha256 = "1n5p1m2m3fjrjdj752lf92f9wq3pl5cbsfrb49jqbg52ghkz99jq";
     };
   };
-
 in
+
 stdenv.mkDerivation rec {
   inherit pname version;
 
@@ -114,7 +114,6 @@ stdenv.mkDerivation rec {
 
       # Fix compile errors with Eigen 3.4
       ./eigen-3.4.patch
-
     ]
     ++ lib.optional (!withSvmLight) ./svmlight-scrubber.patch
     ;

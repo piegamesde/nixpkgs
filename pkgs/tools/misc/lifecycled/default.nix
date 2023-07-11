@@ -32,4 +32,3 @@ buildGoModule rec {
     ];
   };
 }
-

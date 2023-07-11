@@ -23,8 +23,8 @@ import ./make-test-python.nix (
           # as UID 0 in User-0.service
           services.getty.autologinUser = "root";
 
-            # XDG_RUNTIME_DIR is needed for running systemd-user services such as
-            # gvfs-daemon as root.
+          # XDG_RUNTIME_DIR is needed for running systemd-user services such as
+          # gvfs-daemon as root.
           environment.variables.XDG_RUNTIME_DIR = "/run/user/0";
 
           environment.systemPackages = with pkgs; [
@@ -35,9 +35,9 @@ import ./make-test-python.nix (
           ];
           services.gvfs.enable = true;
 
-            # Creates a usb-mtp device inside the VM, which is mapped to the host's
-            # /tmp folder, it is able to write files to this location, but only has
-            # permissions to read its own creations.
+          # Creates a usb-mtp device inside the VM, which is mapped to the host's
+          # /tmp folder, it is able to write files to this location, but only has
+          # permissions to read its own creations.
           virtualisation.qemu.options = [
             "-usb"
             "-device usb-mtp,rootdir=/tmp,readonly=false"
@@ -59,10 +59,10 @@ import ./make-test-python.nix (
         mtpDevices = pkgs.writeScript "mtpDevices.sh" ''
           export mtpDevices=$(lsusb -d 46f4:0004 | awk {'print $2","$4'} | sed 's/[:-]/ /g')
         '';
-          # Qemu is only capable of creating an MTP device with Picture Transfer
-          # Protocol. This means that gvfs must use gphoto2:// rather than mtp://
-          # when mounting.
-          # https://github.com/qemu/qemu/blob/970bc16f60937bcfd334f14c614bd4407c247961/hw/usb/dev-mtp.c#L278
+        # Qemu is only capable of creating an MTP device with Picture Transfer
+        # Protocol. This means that gvfs must use gphoto2:// rather than mtp://
+        # when mounting.
+        # https://github.com/qemu/qemu/blob/970bc16f60937bcfd334f14c614bd4407c247961/hw/usb/dev-mtp.c#L278
         gvfs = rec {
           mountAllMtpDevices = pkgs.writeScript "mountAllMtpDevices.sh" ''
             set -e
@@ -80,11 +80,11 @@ import ./make-test-python.nix (
               gio mount -u "gphoto2://[usb:$i]/"
             done
           '';
-            # gvfsTest:
-            # 1. Creates a 10M test file
-            # 2. Copies it to the device using GIO tools
-            # 3. Checks for corruption with `diff`
-            # 4. Removes the file, then unmounts the disks.
+          # gvfsTest:
+          # 1. Creates a 10M test file
+          # 2. Copies it to the device using GIO tools
+          # 3. Checks for corruption with `diff`
+          # 4. Removes the file, then unmounts the disks.
           gvfsTest = pkgs.writeScript "gvfsTest.sh" ''
             set -e
             source ${mtpDevices}
@@ -115,10 +115,10 @@ import ./make-test-python.nix (
             tree phone
           '';
         };
-        # Using >&2 allows the results of the scripts to be printed to the terminal
-        # when building this test with Nix. Scripts would otherwise complete
-        # silently.
       in
+      # Using >&2 allows the results of the scripts to be printed to the terminal
+      # when building this test with Nix. Scripts would otherwise complete
+      # silently.
       ''
         start_all()
         client.wait_for_unit("multi-user.target")

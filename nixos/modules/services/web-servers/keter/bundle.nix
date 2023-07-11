@@ -15,10 +15,10 @@ let
   str.stanzas = [ {
     # we just use nix as an absolute path so we're not bundling any binaries
     type = "webapp";
-      /* Note that we're not actually putting the executable in the bundle,
-         we already can use the nix store for copying, so we just
-         symlink to the app.
-      */
+    /* Note that we're not actually putting the executable in the bundle,
+       we already can use the nix store for copying, so we just
+       symlink to the app.
+    */
     exec = keterExecutable;
     host = keterDomain;
   } ];
@@ -26,7 +26,6 @@ let
     name = "keter.yml";
     text = (lib.generators.toYAML { } str);
   };
-
 in
 stdenv.mkDerivation {
   name = "keter-bundle";

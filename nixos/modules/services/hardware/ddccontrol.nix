@@ -7,8 +7,8 @@
 
 let
   cfg = config.services.ddccontrol;
-
 in
+
 {
   ###### interface
 
@@ -19,13 +19,13 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = lib.mkIf cfg.enable {
     # Load the i2c-dev module
     boot.kernelModules = [ "i2c_dev" ];
 
-      # Give users access to the "gddccontrol" tool
+    # Give users access to the "gddccontrol" tool
     environment.systemPackages = [ pkgs.ddccontrol ];
 
     services.dbus.packages = [ pkgs.ddccontrol ];

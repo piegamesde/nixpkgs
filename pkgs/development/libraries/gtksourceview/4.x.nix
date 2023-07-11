@@ -92,8 +92,8 @@ stdenv.mkDerivation (
         --replace "if generate_vapi" "if false"
     '';
 
-      # Broken by PCRE 2 bump in GLib.
-      # https://gitlab.gnome.org/GNOME/gtksourceview/-/issues/283
+    # Broken by PCRE 2 bump in GLib.
+    # https://gitlab.gnome.org/GNOME/gtksourceview/-/issues/283
     doCheck = false;
 
     checkPhase = ''

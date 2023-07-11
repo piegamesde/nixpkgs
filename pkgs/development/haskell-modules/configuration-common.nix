@@ -17,8 +17,8 @@
 let
   inherit (pkgs) fetchpatch fetchpatch2 lib;
   inherit (lib) throwIfNot versionOlder versions;
-
 in
+
 with haskellLib;
 
 self: super:
@@ -36,7 +36,7 @@ self: super:
     )
   );
 
-    # Make sure that Cabal 3.10.* can be built as-is
+  # Make sure that Cabal 3.10.* can be built as-is
   Cabal_3_10_1_0 = doDistribute (
     super.Cabal_3_10_1_0.override (
       {
@@ -48,8 +48,8 @@ self: super:
     )
   );
 
-    # cabal-install needs most recent versions of Cabal and Cabal-syntax,
-    # so we need to put some extra work for non-latest GHCs
+  # cabal-install needs most recent versions of Cabal and Cabal-syntax,
+  # so we need to put some extra work for non-latest GHCs
   inherit
     (
       let
@@ -64,29 +64,29 @@ self: super:
             # 1.3.8.* is not an option since it causes very annoying dependencies
             # on newer versions of unix and filepath than GHC 9.2 ships
             directory = cself.directory_1_3_7_1;
-              # GHC 9.2.5 starts shipping 1.6.16.0 which is required by
-              # cabal-install, but we need to recompile process even if the correct
-              # version is available to prevent inconsistent dependencies:
-              # process depends on directory.
+            # GHC 9.2.5 starts shipping 1.6.16.0 which is required by
+            # cabal-install, but we need to recompile process even if the correct
+            # version is available to prevent inconsistent dependencies:
+            # process depends on directory.
             process = cself.process_1_6_17_0;
 
-              # hspec < 2.10 depends on ghc (the library) directly which in turn
-              # depends on directory, causing a dependency conflict which is practically
-              # not solvable short of recompiling GHC. Instead of adding
-              # allowInconsistentDependencies for all reverse dependencies of hspec-core,
-              # just upgrade to an hspec version without the offending dependency.
+            # hspec < 2.10 depends on ghc (the library) directly which in turn
+            # depends on directory, causing a dependency conflict which is practically
+            # not solvable short of recompiling GHC. Instead of adding
+            # allowInconsistentDependencies for all reverse dependencies of hspec-core,
+            # just upgrade to an hspec version without the offending dependency.
             hspec-core = cself.hspec-core_2_11_0;
             hspec-discover = cself.hspec-discover_2_11_0;
             hspec = cself.hspec_2_11_0;
 
-              # hspec-discover and hspec-core depend on hspec-meta for testing which
-              # we need to avoid since it depends on ghc as well. Since hspec*_2_10*
-              # are overridden to take the versioned attributes as inputs, we need
-              # to make sure to override the versioned attribute with this fix.
+            # hspec-discover and hspec-core depend on hspec-meta for testing which
+            # we need to avoid since it depends on ghc as well. Since hspec*_2_10*
+            # are overridden to take the versioned attributes as inputs, we need
+            # to make sure to override the versioned attribute with this fix.
             hspec-discover_2_11_0 = dontCheck csuper.hspec-discover_2_11_0;
 
-              # Prevent dependency on doctest which causes an inconsistent dependency
-              # due to depending on ghc which depends on directory etc.
+            # Prevent dependency on doctest which causes an inconsistent dependency
+            # due to depending on ghc which depends on directory etc.
             vector = dontCheck csuper.vector;
           }
           ;
@@ -118,9 +118,9 @@ self: super:
     guardian
     ;
 
-    #######################################
-    ### HASKELL-LANGUAGE-SERVER SECTION ###
-    #######################################
+  #######################################
+  ### HASKELL-LANGUAGE-SERVER SECTION ###
+  #######################################
 
   haskell-language-server = (lib.pipe super.haskell-language-server [
     dontCheck
@@ -142,8 +142,8 @@ self: super:
       }
     );
 
-    # 2023-04-03: https://github.com/haskell/haskell-language-server/issues/3546#issuecomment-1494139751
-    # There will probably be a new revision soon.
+  # 2023-04-03: https://github.com/haskell/haskell-language-server/issues/3546#issuecomment-1494139751
+  # There will probably be a new revision soon.
   hls-tactics-plugin =
     assert super.hls-tactics-plugin.version == "1.8.0.0";
     doJailbreak super.hls-tactics-plugin
@@ -273,12 +273,12 @@ self: super:
       super.hie-compat
     ;
 
-    # For -f-auto see cabal.project in haskell-language-server.
+  # For -f-auto see cabal.project in haskell-language-server.
   ghc-lib-parser-ex = addBuildDepend self.ghc-lib-parser (
     disableCabalFlag "auto" super.ghc-lib-parser-ex
   );
 
-    # For -fghc-lib see cabal.project in haskell-language-server.
+  # For -fghc-lib see cabal.project in haskell-language-server.
   stylish-haskell =
     if lib.versionAtLeast super.ghc.version "9.2" then
       enableCabalFlag "ghc-lib" (
@@ -291,15 +291,15 @@ self: super:
       super.stylish-haskell
     ;
 
-    ###########################################
-    ### END HASKELL-LANGUAGE-SERVER SECTION ###
-    ###########################################
+  ###########################################
+  ### END HASKELL-LANGUAGE-SERVER SECTION ###
+  ###########################################
 
   vector = overrideCabal
     (old: {
       # Too strict bounds on doctest which isn't used, but is part of the configuration
       jailbreak = true;
-        # vector-doctest seems to be broken when executed via ./Setup test
+      # vector-doctest seems to be broken when executed via ./Setup test
       testTarget = lib.concatStringsSep " " [
         "vector-tests-O0"
         "vector-tests-O2"
@@ -307,10 +307,10 @@ self: super:
     })
     super.vector;
 
-    # There are numerical tests on random data, that may fail occasionally
+  # There are numerical tests on random data, that may fail occasionally
   lapack = dontCheck super.lapack;
 
-    # fix tests failure for base≥4.15 (https://github.com/kim/leveldb-haskell/pull/41)
+  # fix tests failure for base≥4.15 (https://github.com/kim/leveldb-haskell/pull/41)
   leveldb-haskell = appendPatch
     (fetchpatch {
       url =
@@ -319,18 +319,18 @@ self: super:
     })
     super.leveldb-haskell;
 
-    # Arion's test suite needs a Nixpkgs, which is cumbersome to do from Nixpkgs
-    # itself. For instance, pkgs.path has dirty sources and puts a huge .git in the
-    # store. Testing is done upstream.
+  # Arion's test suite needs a Nixpkgs, which is cumbersome to do from Nixpkgs
+  # itself. For instance, pkgs.path has dirty sources and puts a huge .git in the
+  # store. Testing is done upstream.
   arion-compose = dontCheck super.arion-compose;
 
-    # This used to be a core package provided by GHC, but then the compiler
-    # dropped it. We define the name here to make sure that old packages which
-    # depend on this library still evaluate (even though they won't compile
-    # successfully with recent versions of the compiler).
+  # This used to be a core package provided by GHC, but then the compiler
+  # dropped it. We define the name here to make sure that old packages which
+  # depend on this library still evaluate (even though they won't compile
+  # successfully with recent versions of the compiler).
   bin-package-db = null;
 
-    # waiting for release: https://github.com/jwiegley/c2hsc/issues/41
+  # waiting for release: https://github.com/jwiegley/c2hsc/issues/41
   c2hsc = appendPatch
     (fetchpatch {
       url =
@@ -339,26 +339,26 @@ self: super:
     })
     super.c2hsc;
 
-    # Some Hackage packages reference this attribute, which exists only in the
-    # GHCJS package set. We provide a dummy version here to fix potential
-    # evaluation errors.
+  # Some Hackage packages reference this attribute, which exists only in the
+  # GHCJS package set. We provide a dummy version here to fix potential
+  # evaluation errors.
   ghcjs-base = null;
   ghcjs-prim = null;
 
-    # 2023-04-17: https://gitlab.haskell.org/ghc/ghc-debug/-/issues/20
+  # 2023-04-17: https://gitlab.haskell.org/ghc/ghc-debug/-/issues/20
   ghc-debug-brick = doJailbreak super.ghc-debug-brick;
 
-    # Needs older QuickCheck version
+  # Needs older QuickCheck version
   attoparsec-varword = dontCheck super.attoparsec-varword;
 
-    # These packages (and their reverse deps) cannot be built with profiling enabled.
+  # These packages (and their reverse deps) cannot be built with profiling enabled.
   ghc-heap-view = disableLibraryProfiling super.ghc-heap-view;
   ghc-datasize = disableLibraryProfiling super.ghc-datasize;
   ghc-vis = disableLibraryProfiling super.ghc-vis;
 
-    # patat main branch has an unreleased commit that fixes the build by
-    # relaxing restrictive upper boundaries. This can be removed once there's a
-    # new release following version 0.8.8.0.
+  # patat main branch has an unreleased commit that fixes the build by
+  # relaxing restrictive upper boundaries. This can be removed once there's a
+  # new release following version 0.8.8.0.
   patat = appendPatch
     (fetchpatch {
       url =
@@ -371,13 +371,13 @@ self: super:
     })
     super.patat;
 
-    # The latest release on hackage has an upper bound on containers which
-    # breaks the build, though it works with the version of containers present
-    # and the upper bound doesn't exist in code anymore:
-    # > https://github.com/roelvandijk/numerals
+  # The latest release on hackage has an upper bound on containers which
+  # breaks the build, though it works with the version of containers present
+  # and the upper bound doesn't exist in code anymore:
+  # > https://github.com/roelvandijk/numerals
   numerals = doJailbreak (dontCheck super.numerals);
 
-    # This test keeps being aborted because it runs too quietly for too long
+  # This test keeps being aborted because it runs too quietly for too long
   Lazy-Pbkdf2 =
     if pkgs.stdenv.isi686 then
       dontCheck super.Lazy-Pbkdf2
@@ -385,12 +385,12 @@ self: super:
       super.Lazy-Pbkdf2
     ;
 
-    # check requires mysql server
+  # check requires mysql server
   mysql-simple = dontCheck super.mysql-simple;
   mysql-haskell = dontCheck super.mysql-haskell;
 
-    # The Hackage tarball is purposefully broken, because it's not intended to be, like, useful.
-    # https://git-annex.branchable.com/bugs/bash_completion_file_is_missing_in_the_6.20160527_tarball_on_hackage/
+  # The Hackage tarball is purposefully broken, because it's not intended to be, like, useful.
+  # https://git-annex.branchable.com/bugs/bash_completion_file_is_missing_in_the_6.20160527_tarball_on_hackage/
   git-annex = overrideCabal
     (drv: {
       src = pkgs.fetchgit {
@@ -398,60 +398,60 @@ self: super:
         url = "git://git-annex.branchable.com/";
         rev = "refs/tags/" + super.git-annex.version;
         sha256 = "0mz1b3vnschsndv42787mm6kybpb2yskkdss3rcm7xc6jjh815ik";
-          # delete android and Android directories which cause issues on
-          # darwin (case insensitive directory). Since we don't need them
-          # during the build process, we can delete it to prevent a hash
-          # mismatch on darwin.
+        # delete android and Android directories which cause issues on
+        # darwin (case insensitive directory). Since we don't need them
+        # during the build process, we can delete it to prevent a hash
+        # mismatch on darwin.
         postFetch = ''
           rm -r $out/doc/?ndroid*
         '';
       };
 
-        # Git annex provides a restricted login shell. Setting
-        # passthru.shellPath here allows a user's login shell to be set to
-        # `git-annex-shell` by making `shell = haskellPackages.git-annex`.
-        # https://git-annex.branchable.com/git-annex-shell/
+      # Git annex provides a restricted login shell. Setting
+      # passthru.shellPath here allows a user's login shell to be set to
+      # `git-annex-shell` by making `shell = haskellPackages.git-annex`.
+      # https://git-annex.branchable.com/git-annex-shell/
       passthru.shellPath = "/bin/git-annex-shell";
     })
     super.git-annex;
 
-    # Too strict bounds on servant
-    # Pending a hackage revision: https://github.com/berberman/arch-web/commit/5d08afee5b25e644f9e2e2b95380a5d4f4aa81ea#commitcomment-89230555
+  # Too strict bounds on servant
+  # Pending a hackage revision: https://github.com/berberman/arch-web/commit/5d08afee5b25e644f9e2e2b95380a5d4f4aa81ea#commitcomment-89230555
   arch-web = doJailbreak super.arch-web;
 
-    # Fix test trying to access /home directory
+  # Fix test trying to access /home directory
   shell-conduit = overrideCabal
     (drv: { postPatch = "sed -i s/home/tmp/ test/Spec.hs"; })
     super.shell-conduit;
 
-  cachix = self.generateOptparseApplicativeCompletions [ "cachix" ] super.cachix
-    ;
+  cachix =
+    self.generateOptparseApplicativeCompletions [ "cachix" ] super.cachix;
 
-    # https://github.com/froozen/kademlia/issues/2
+  # https://github.com/froozen/kademlia/issues/2
   kademlia = dontCheck super.kademlia;
 
-    # Tests require older versions of tasty.
+  # Tests require older versions of tasty.
   hzk = dontCheck super.hzk;
   resolv = doJailbreak super.resolv;
 
-    # Tests require a Kafka broker running locally
+  # Tests require a Kafka broker running locally
   haskakafka = dontCheck super.haskakafka;
 
   bindings-levmar = addExtraLibrary pkgs.blas super.bindings-levmar;
 
-    # Requires wrapQtAppsHook
+  # Requires wrapQtAppsHook
   qtah-cpp-qt5 = overrideCabal
     (drv: { buildDepends = [ pkgs.qt5.wrapQtAppsHook ]; })
     super.qtah-cpp-qt5;
 
-    # The Haddock phase fails for one reason or another.
+  # The Haddock phase fails for one reason or another.
   deepseq-magic = dontHaddock super.deepseq-magic;
   feldspar-signal = dontHaddock super.feldspar-signal
     ; # https://github.com/markus-git/feldspar-signal/issues/1
   hoodle-core = dontHaddock super.hoodle-core;
   hsc3-db = dontHaddock super.hsc3-db;
 
-    # Fix build with time >= 1.10 while retaining compat with time < 1.9
+  # Fix build with time >= 1.10 while retaining compat with time < 1.9
   mbox = appendPatch ./patches/mbox-time-1.10.patch (
     overrideCabal
     {
@@ -461,7 +461,7 @@ self: super:
     super.mbox
   );
 
-    # https://github.com/techtangents/ablist/issues/1
+  # https://github.com/techtangents/ablist/issues/1
   ABList = dontCheck super.ABList;
 
   pandoc-cli = throwIfNot (versionOlder super.pandoc.version "3.0.0")
@@ -496,24 +496,24 @@ self: super:
 
   inline-java = addBuildDepend pkgs.jdk super.inline-java;
 
-    # Upstream notified by e-mail.
+  # Upstream notified by e-mail.
   permutation = dontCheck super.permutation;
 
-    # https://github.com/jputcu/serialport/issues/25
+  # https://github.com/jputcu/serialport/issues/25
   serialport = dontCheck super.serialport;
 
-    # Test suite depends on source code being available
+  # Test suite depends on source code being available
   simple-affine-space = dontCheck super.simple-affine-space;
 
-    # Fails no apparent reason. Upstream has been notified by e-mail.
+  # Fails no apparent reason. Upstream has been notified by e-mail.
   assertions = dontCheck super.assertions;
 
-    # 2023-01-29: Restrictive base bound already loosened on master but not released: https://github.com/sebastiaanvisser/clay/commit/4483bdf7a452903f177220958f1610030ab7f28a
+  # 2023-01-29: Restrictive base bound already loosened on master but not released: https://github.com/sebastiaanvisser/clay/commit/4483bdf7a452903f177220958f1610030ab7f28a
   clay = throwIfNot (super.clay.version == "0.14.0")
     "Remove clay jailbreak in configuration-common.nix when you see this eval error."
     (doJailbreak super.clay);
 
-    # These packages try to execute non-existent external programs.
+  # These packages try to execute non-existent external programs.
   cmaes = dontCheck super.cmaes; # http://hydra.cryp.to/build/498725/log/raw
   dbmigrations = dontCheck super.dbmigrations;
   filestore = dontCheck super.filestore;
@@ -540,53 +540,53 @@ self: super:
   HerbiePlugin = dontCheck super.HerbiePlugin;
   wai-cors = dontCheck super.wai-cors;
 
-    # 2022-01-29: Tests fail: https://github.com/psibi/streamly-bytestring/issues/27
-    # 2022-02-14: Strict upper bound: https://github.com/psibi/streamly-bytestring/issues/30
+  # 2022-01-29: Tests fail: https://github.com/psibi/streamly-bytestring/issues/27
+  # 2022-02-14: Strict upper bound: https://github.com/psibi/streamly-bytestring/issues/30
   streamly-bytestring = dontCheck (doJailbreak super.streamly-bytestring);
 
-    # base bound
+  # base bound
   digit = doJailbreak super.digit;
 
-    # 2022-01-29: Tests require package to be in ghc-db.
+  # 2022-01-29: Tests require package to be in ghc-db.
   aeson-schemas = dontCheck super.aeson-schemas;
 
-    # 2023-04-20: Restrictive bytestring bound in tests.
+  # 2023-04-20: Restrictive bytestring bound in tests.
   storablevector = doJailbreak super.storablevector;
 
-    # 2023-04-20: Pretends to need brick 1.6 but the commit history here
-    # https://github.com/matterhorn-chat/matterhorn/commits/master/matterhorn.cabal
-    # makes very clear that 1.4 is equally fine.
-    # Generally a slightly packaging hostile bound practice.
+  # 2023-04-20: Pretends to need brick 1.6 but the commit history here
+  # https://github.com/matterhorn-chat/matterhorn/commits/master/matterhorn.cabal
+  # makes very clear that 1.4 is equally fine.
+  # Generally a slightly packaging hostile bound practice.
   matterhorn = doJailbreak super.matterhorn;
 
-    # 2020-06-05: HACK: does not pass own build suite - `dontCheck`
-    # 2022-11-24: jailbreak as it has too strict bounds on a bunch of things
+  # 2020-06-05: HACK: does not pass own build suite - `dontCheck`
+  # 2022-11-24: jailbreak as it has too strict bounds on a bunch of things
   hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (
     dontCheck (doJailbreak super.hnix)
   );
-    # Too strict bounds on algebraic-graphs and bytestring
-    # https://github.com/haskell-nix/hnix-store/issues/180
+  # Too strict bounds on algebraic-graphs and bytestring
+  # https://github.com/haskell-nix/hnix-store/issues/180
   hnix-store-core = doJailbreak super.hnix-store-core;
 
-    # Fails for non-obvious reasons while attempting to use doctest.
+  # Fails for non-obvious reasons while attempting to use doctest.
   focuslist = dontCheck super.focuslist;
   search = dontCheck super.search;
 
-    # see https://github.com/LumiGuide/haskell-opencv/commit/cd613e200aa20887ded83256cf67d6903c207a60
+  # see https://github.com/LumiGuide/haskell-opencv/commit/cd613e200aa20887ded83256cf67d6903c207a60
   opencv = dontCheck (appendPatch ./patches/opencv-fix-116.patch super.opencv);
   opencv-extra =
     dontCheck (appendPatch ./patches/opencv-fix-116.patch super.opencv-extra);
 
-    # Too strict lower bound on hspec
+  # Too strict lower bound on hspec
   graphql =
     assert lib.versionOlder self.hspec.version "2.10";
     doJailbreak super.graphql
     ;
 
-    # https://github.com/ekmett/structures/issues/3
+  # https://github.com/ekmett/structures/issues/3
   structures = dontCheck super.structures;
 
-    # Disable test suites to fix the build.
+  # Disable test suites to fix the build.
   acme-year =
     dontCheck super.acme-year; # http://hydra.cryp.to/build/497858/log/raw
   aeson-lens =
@@ -677,8 +677,8 @@ self: super:
     (orig: {
       # The scripts in scripts/ are needed to build the test suite.
       preBuild = "patchShebangs --build scripts";
-        # test suite doesn't compile with aeson >= 2.0
-        # https://github.com/skogsbaer/HTF/issues/114
+      # test suite doesn't compile with aeson >= 2.0
+      # https://github.com/skogsbaer/HTF/issues/114
       doCheck = false;
     })
     super.HTF;
@@ -693,8 +693,8 @@ self: super:
   katt = dontCheck super.katt;
   language-slice = dontCheck super.language-slice;
 
-    # Group of libraries by same upstream maintainer for interacting with
-    # Telegram messenger. Bit-rotted a bit since 2020.
+  # Group of libraries by same upstream maintainer for interacting with
+  # Telegram messenger. Bit-rotted a bit since 2020.
   tdlib = appendPatch
     (fetchpatch {
       # https://github.com/poscat0x04/tdlib/pull/3
@@ -705,7 +705,7 @@ self: super:
     (doJailbreak super.tdlib);
   tdlib-types = doJailbreak super.tdlib-types;
   tdlib-gen = doJailbreak super.tdlib-gen;
-    # https://github.com/poscat0x04/language-tl/pull/1
+  # https://github.com/poscat0x04/language-tl/pull/1
   language-tl = doJailbreak super.language-tl;
 
   ldap-client = dontCheck super.ldap-client;
@@ -783,18 +783,18 @@ self: super:
   webdriver = dontCheck super.webdriver;
   webdriver-angular = dontCheck super.webdriver-angular;
   xsd = dontCheck super.xsd;
-  zip-archive = dontCheck super.zip-archive
-    ; # https://github.com/jgm/zip-archive/issues/57
+  zip-archive =
+    dontCheck super.zip-archive; # https://github.com/jgm/zip-archive/issues/57
 
-    # These test suites run for ages, even on a fast machine. This is nuts.
+  # These test suites run for ages, even on a fast machine. This is nuts.
   Random123 = dontCheck super.Random123;
   systemd = dontCheck super.systemd;
 
-    # https://github.com/eli-frey/cmdtheline/issues/28
+  # https://github.com/eli-frey/cmdtheline/issues/28
   cmdtheline = dontCheck super.cmdtheline;
 
-    # https://github.com/bos/snappy/issues/1
-    # https://github.com/bos/snappy/pull/10
+  # https://github.com/bos/snappy/issues/1
+  # https://github.com/bos/snappy/pull/10
   snappy = appendPatches
     [
       (pkgs.fetchpatch {
@@ -810,49 +810,49 @@ self: super:
     ]
     (dontCheck super.snappy);
 
-    # 2023-04-22: omfort-fftw 0.0.0.1 contains fixes to the tests. We can drop
-    # this override as soon as stackage advances.
+  # 2023-04-22: omfort-fftw 0.0.0.1 contains fixes to the tests. We can drop
+  # this override as soon as stackage advances.
   comfort-fftw = doDistribute super.comfort-fftw_0_0_0_1;
 
-    # https://github.com/vincenthz/hs-crypto-pubkey/issues/20
+  # https://github.com/vincenthz/hs-crypto-pubkey/issues/20
   crypto-pubkey = dontCheck super.crypto-pubkey;
 
-    # https://github.com/Philonous/xml-picklers/issues/5
+  # https://github.com/Philonous/xml-picklers/issues/5
   xml-picklers = dontCheck super.xml-picklers;
 
-    # https://github.com/joeyadams/haskell-stm-delay/issues/3
+  # https://github.com/joeyadams/haskell-stm-delay/issues/3
   stm-delay = dontCheck super.stm-delay;
 
-    # https://github.com/pixbi/duplo/issues/25
+  # https://github.com/pixbi/duplo/issues/25
   duplo = doJailbreak super.duplo;
 
-    # https://github.com/evanrinehart/mikmod/issues/1
+  # https://github.com/evanrinehart/mikmod/issues/1
   mikmod = addExtraLibrary pkgs.libmikmod super.mikmod;
 
-    # Missing module.
+  # Missing module.
   rematch =
     dontCheck super.rematch; # https://github.com/tcrayford/rematch/issues/5
   rematch-text = dontCheck super.rematch-text
     ; # https://github.com/tcrayford/rematch/issues/6
 
-    # Package exists only to be example of documentation, yet it has restrictive
-    # "base" dependency.
+  # Package exists only to be example of documentation, yet it has restrictive
+  # "base" dependency.
   haddock-cheatsheet = doJailbreak super.haddock-cheatsheet;
 
-    # no haddock since this is an umbrella package.
+  # no haddock since this is an umbrella package.
   cloud-haskell = dontHaddock super.cloud-haskell;
 
-    # This packages compiles 4+ hours on a fast machine. That's just unreasonable.
+  # This packages compiles 4+ hours on a fast machine. That's just unreasonable.
   CHXHtml = dontDistribute super.CHXHtml;
 
-    # https://github.com/NixOS/nixpkgs/issues/6350
+  # https://github.com/NixOS/nixpkgs/issues/6350
   paypal-adaptive-hoops =
     overrideCabal (drv: { testTarget = "local"; }) super.paypal-adaptive-hoops;
 
-    # Avoid "QuickCheck >=2.3 && <2.10" dependency we cannot fulfill in lts-11.x.
+  # Avoid "QuickCheck >=2.3 && <2.10" dependency we cannot fulfill in lts-11.x.
   test-framework = dontCheck super.test-framework;
 
-    # Depends on broken test-framework-quickcheck.
+  # Depends on broken test-framework-quickcheck.
   apiary = dontCheck super.apiary;
   apiary-authenticate = dontCheck super.apiary-authenticate;
   apiary-clientsession = dontCheck super.apiary-clientsession;
@@ -866,92 +866,92 @@ self: super:
   apiary-session = dontCheck super.apiary-session;
   apiary-websockets = dontCheck super.apiary-websockets;
 
-    # https://github.com/junjihashimoto/test-sandbox-compose/issues/2
+  # https://github.com/junjihashimoto/test-sandbox-compose/issues/2
   test-sandbox-compose = dontCheck super.test-sandbox-compose;
 
-    # Test suite won't compile against tasty-hunit 0.10.x.
+  # Test suite won't compile against tasty-hunit 0.10.x.
   binary-parsers = dontCheck super.binary-parsers;
 
-    # https://github.com/ndmitchell/shake/issues/804
+  # https://github.com/ndmitchell/shake/issues/804
   shake = dontCheck super.shake;
 
-    # https://github.com/nushio3/doctest-prop/issues/1
+  # https://github.com/nushio3/doctest-prop/issues/1
   doctest-prop = dontCheck super.doctest-prop;
 
-    # Missing file in source distribution:
-    # - https://github.com/karun012/doctest-discover/issues/22
-    # - https://github.com/karun012/doctest-discover/issues/23
-    #
-    # When these are fixed the following needs to be enabled again:
-    #
-    # # Depends on itself for testing
-    # doctest-discover = addBuildTool super.doctest-discover
-    #   (if pkgs.stdenv.buildPlatform != pkgs.stdenv.hostPlatform
-    #    then self.buildHaskellPackages.doctest-discover
-    #    else dontCheck super.doctest-discover);
+  # Missing file in source distribution:
+  # - https://github.com/karun012/doctest-discover/issues/22
+  # - https://github.com/karun012/doctest-discover/issues/23
+  #
+  # When these are fixed the following needs to be enabled again:
+  #
+  # # Depends on itself for testing
+  # doctest-discover = addBuildTool super.doctest-discover
+  #   (if pkgs.stdenv.buildPlatform != pkgs.stdenv.hostPlatform
+  #    then self.buildHaskellPackages.doctest-discover
+  #    else dontCheck super.doctest-discover);
   doctest-discover = dontCheck super.doctest-discover;
 
-    # Test suite is missing an import from hspec
-    # https://github.com/haskell-works/tasty-discover/issues/9
-    # https://github.com/commercialhaskell/stackage/issues/6584#issuecomment-1326522815
+  # Test suite is missing an import from hspec
+  # https://github.com/haskell-works/tasty-discover/issues/9
+  # https://github.com/commercialhaskell/stackage/issues/6584#issuecomment-1326522815
   tasty-discover =
     assert super.tasty-discover.version == "4.2.2";
     dontCheck super.tasty-discover
     ;
 
-    # Known issue with nondeterministic test suite failure
-    # https://github.com/nomeata/tasty-expected-failure/issues/21
+  # Known issue with nondeterministic test suite failure
+  # https://github.com/nomeata/tasty-expected-failure/issues/21
   tasty-expected-failure = dontCheck super.tasty-expected-failure;
 
-    # Waiting on https://github.com/RaphaelJ/friday/pull/36
+  # Waiting on https://github.com/RaphaelJ/friday/pull/36
   friday = doJailbreak super.friday;
 
-    # Won't compile with recent versions of QuickCheck.
+  # Won't compile with recent versions of QuickCheck.
   inilist = dontCheck super.inilist;
 
-    # https://github.com/yaccz/saturnin/issues/3
+  # https://github.com/yaccz/saturnin/issues/3
   Saturnin = dontCheck super.Saturnin;
 
-    # https://github.com/kkardzis/curlhs/issues/6
+  # https://github.com/kkardzis/curlhs/issues/6
   curlhs = dontCheck super.curlhs;
 
-    # curl 7.87.0 introduces a preprocessor typechecker of sorts which fails on
-    # incorrect usages of curl_easy_getopt and similar functions. Presumably
-    # because the wrappers in curlc.c don't use static values for the different
-    # arguments to curl_easy_getinfo, it complains and needs to be disabled.
-    # https://github.com/GaloisInc/curl/issues/28
+  # curl 7.87.0 introduces a preprocessor typechecker of sorts which fails on
+  # incorrect usages of curl_easy_getopt and similar functions. Presumably
+  # because the wrappers in curlc.c don't use static values for the different
+  # arguments to curl_easy_getinfo, it complains and needs to be disabled.
+  # https://github.com/GaloisInc/curl/issues/28
   curl =
     appendConfigureFlags [ "--ghc-option=-DCURL_DISABLE_TYPECHECK" ] super.curl;
 
-    # https://github.com/hvr/token-bucket/issues/3
+  # https://github.com/hvr/token-bucket/issues/3
   token-bucket = dontCheck super.token-bucket;
 
-    # https://github.com/alphaHeavy/lzma-enumerator/issues/3
+  # https://github.com/alphaHeavy/lzma-enumerator/issues/3
   lzma-enumerator = dontCheck super.lzma-enumerator;
 
-    # FPCO's fork of Cabal won't succeed its test suite.
+  # FPCO's fork of Cabal won't succeed its test suite.
   Cabal-ide-backend = dontCheck super.Cabal-ide-backend;
 
-    # This package can't be built on non-Windows systems.
+  # This package can't be built on non-Windows systems.
   Win32 = overrideCabal (drv: { broken = !pkgs.stdenv.isCygwin; }) super.Win32;
   inline-c-win32 = dontDistribute super.inline-c-win32;
   Southpaw = dontDistribute super.Southpaw;
 
-    # https://ghc.haskell.org/trac/ghc/ticket/9825
+  # https://ghc.haskell.org/trac/ghc/ticket/9825
   vimus = overrideCabal
     (drv: { broken = pkgs.stdenv.isLinux && pkgs.stdenv.isi686; })
     super.vimus;
 
-    # https://github.com/kazu-yamamoto/logger/issues/42
+  # https://github.com/kazu-yamamoto/logger/issues/42
   logger = dontCheck super.logger;
 
-    # vector dependency < 0.12
+  # vector dependency < 0.12
   imagemagick = doJailbreak super.imagemagick;
 
-    # https://github.com/liyang/thyme/issues/36
+  # https://github.com/liyang/thyme/issues/36
   thyme = dontCheck super.thyme;
 
-    # Elm is no longer actively maintained on Hackage: https://github.com/NixOS/nixpkgs/pull/9233.
+  # Elm is no longer actively maintained on Hackage: https://github.com/NixOS/nixpkgs/pull/9233.
   Elm = markBroken super.Elm;
   elm-build-lib = markBroken super.elm-build-lib;
   elm-compiler = markBroken super.elm-compiler;
@@ -963,10 +963,10 @@ self: super:
   elm-server = markBroken super.elm-server;
   elm-yesod = markBroken super.elm-yesod;
 
-    # https://github.com/Euterpea/Euterpea2/issues/40
+  # https://github.com/Euterpea/Euterpea2/issues/40
   Euterpea = doJailbreak super.Euterpea;
 
-    # Install icons, metadata and cli program.
+  # Install icons, metadata and cli program.
   bustle = appendPatches
     [
       # Fix build with libpcap 1.10.2
@@ -993,7 +993,7 @@ self: super:
       super.bustle
     );
 
-    # Byte-compile elisp code for Emacs.
+  # Byte-compile elisp code for Emacs.
   ghc-mod = overrideCabal
     (drv: {
       preCheck = "export HOME=$TMPDIR";
@@ -1010,15 +1010,15 @@ self: super:
     })
     super.ghc-mod;
 
-    # 2022-03-20: descriptive is unmaintained since 2018 and archived on github.com
-    # It does not support aeson 2.0
+  # 2022-03-20: descriptive is unmaintained since 2018 and archived on github.com
+  # It does not support aeson 2.0
   descriptive = super.descriptive.override { aeson = self.aeson_1_5_6_0; };
 
-    # 2022-03-19: Testsuite is failing: https://github.com/puffnfresh/haskell-jwt/issues/2
+  # 2022-03-19: Testsuite is failing: https://github.com/puffnfresh/haskell-jwt/issues/2
   jwt = dontCheck super.jwt;
 
-    # Build the latest git version instead of the official release. This isn't
-    # ideal, but Chris doesn't seem to make official releases any more.
+  # Build the latest git version instead of the official release. This isn't
+  # ideal, but Chris doesn't seem to make official releases any more.
   structured-haskell-mode = overrideCabal
     (drv: {
       src = pkgs.fetchFromGitHub {
@@ -1029,9 +1029,9 @@ self: super:
       };
       version = "20170205-git";
       editedCabalFile = null;
-        # Make elisp files available at a location where people expect it. We
-        # cannot easily byte-compile these files, unfortunately, because they
-        # depend on a new version of haskell-mode that we don't have yet.
+      # Make elisp files available at a location where people expect it. We
+      # cannot easily byte-compile these files, unfortunately, because they
+      # depend on a new version of haskell-mode that we don't have yet.
       postInstall = ''
         local lispdir=( "$data/share/${self.ghc.targetPrefix}${self.ghc.haskellCompilerName}/"*"/${drv.pname}-"*"/elisp" )
         mkdir -p $data/share/emacs
@@ -1040,7 +1040,7 @@ self: super:
     })
     super.structured-haskell-mode;
 
-    # Make elisp files available at a location where people expect it.
+  # Make elisp files available at a location where people expect it.
   hindent =
     (overrideCabal
       (drv: {
@@ -1055,7 +1055,7 @@ self: super:
       })
       super.hindent);
 
-    # https://github.com/basvandijk/concurrent-extra/issues/12
+  # https://github.com/basvandijk/concurrent-extra/issues/12
   concurrent-extra = dontCheck super.concurrent-extra;
 
   bloomfilter = appendPatches
@@ -1087,11 +1087,11 @@ self: super:
       super.bloomfilter
     );
 
-    # https://github.com/pxqr/base32-bytestring/issues/4
+  # https://github.com/pxqr/base32-bytestring/issues/4
   base32-bytestring = dontCheck super.base32-bytestring;
 
-    # Djinn's last release was 2014, incompatible with Semigroup-Monoid Proposal
-    # https://github.com/augustss/djinn/pull/8
+  # Djinn's last release was 2014, incompatible with Semigroup-Monoid Proposal
+  # https://github.com/augustss/djinn/pull/8
   djinn = appendPatch
     (fetchpatch {
       url =
@@ -1100,11 +1100,11 @@ self: super:
     })
     super.djinn;
 
-    # We cannot build this package w/o the C library from <http://www.phash.org/>.
+  # We cannot build this package w/o the C library from <http://www.phash.org/>.
   phash = markBroken super.phash;
 
-    # https://github.com/Philonous/hs-stun/pull/1
-    # Remove if a version > 0.1.0.1 ever gets released.
+  # https://github.com/Philonous/hs-stun/pull/1
+  # Remove if a version > 0.1.0.1 ever gets released.
   stunclient = overrideCabal
     (drv: {
       postPatch =
@@ -1133,8 +1133,8 @@ self: super:
           };
         }
         super.d-bus;
-        # Add now required extension on recent compilers.
-        # https://github.com/Philonous/d-bus/pull/23
+      # Add now required extension on recent compilers.
+      # https://github.com/Philonous/d-bus/pull/23
     in
     appendPatch
     (fetchpatch {
@@ -1145,10 +1145,10 @@ self: super:
     newer
     ;
 
-    # * The standard libraries are compiled separately.
-    # * We need a patch from master to fix compilation with
-    #   updated dependencies (haskeline and megaparsec) which can be
-    #   removed when the next idris release comes around.
+  # * The standard libraries are compiled separately.
+  # * We need a patch from master to fix compilation with
+  #   updated dependencies (haskeline and megaparsec) which can be
+  #   removed when the next idris release comes around.
   idris = self.generateOptparseApplicativeCompletions [ "idris" ] (
     appendPatch
     (fetchpatch {
@@ -1160,54 +1160,54 @@ self: super:
     (doJailbreak (dontCheck super.idris))
   );
 
-    # Too strict bound on hspec
-    # https://github.com/lspitzner/multistate/issues/9#issuecomment-1367853016
+  # Too strict bound on hspec
+  # https://github.com/lspitzner/multistate/issues/9#issuecomment-1367853016
   multistate = doJailbreak super.multistate;
 
-    # https://github.com/pontarius/pontarius-xmpp/issues/105
+  # https://github.com/pontarius/pontarius-xmpp/issues/105
   pontarius-xmpp = dontCheck super.pontarius-xmpp;
 
-    # fails with sandbox
+  # fails with sandbox
   yi-keymap-vim = dontCheck super.yi-keymap-vim;
 
-    # https://github.com/bmillwood/applicative-quoters/issues/6
+  # https://github.com/bmillwood/applicative-quoters/issues/6
   applicative-quoters = doJailbreak super.applicative-quoters;
 
-    # https://hydra.nixos.org/build/42769611/nixlog/1/raw
-    # note: the library is unmaintained, no upstream issue
+  # https://hydra.nixos.org/build/42769611/nixlog/1/raw
+  # note: the library is unmaintained, no upstream issue
   dataenc = doJailbreak super.dataenc;
 
-    # horribly outdated (X11 interface changed a lot)
+  # horribly outdated (X11 interface changed a lot)
   sindre = markBroken super.sindre;
 
-    # Test suite occasionally runs for 1+ days on Hydra.
+  # Test suite occasionally runs for 1+ days on Hydra.
   distributed-process-tests = dontCheck super.distributed-process-tests;
 
-    # https://github.com/mulby/diff-parse/issues/9
+  # https://github.com/mulby/diff-parse/issues/9
   diff-parse = doJailbreak super.diff-parse;
 
-    # No upstream issue tracker
+  # No upstream issue tracker
   hspec-expectations-pretty-diff =
     dontCheck super.hspec-expectations-pretty-diff;
 
-    # Don't depend on chell-quickcheck, which doesn't compile due to restricting
-    # QuickCheck to versions ">=2.3 && <2.9".
+  # Don't depend on chell-quickcheck, which doesn't compile due to restricting
+  # QuickCheck to versions ">=2.3 && <2.9".
   system-filepath = dontCheck super.system-filepath;
 
-    # The tests spuriously fail
+  # The tests spuriously fail
   libmpd = dontCheck super.libmpd;
 
-    # https://github.com/xu-hao/namespace/issues/1
+  # https://github.com/xu-hao/namespace/issues/1
   namespace = doJailbreak super.namespace;
 
-    # https://github.com/danidiaz/streaming-eversion/issues/1
+  # https://github.com/danidiaz/streaming-eversion/issues/1
   streaming-eversion = dontCheck super.streaming-eversion;
 
-    # https://github.com/danidiaz/tailfile-hinotify/issues/2
+  # https://github.com/danidiaz/tailfile-hinotify/issues/2
   tailfile-hinotify = doJailbreak (dontCheck super.tailfile-hinotify);
 
-    # Test suite fails: https://github.com/lymar/hastache/issues/46.
-    # Don't install internal mkReadme tool.
+  # Test suite fails: https://github.com/lymar/hastache/issues/46.
+  # Don't install internal mkReadme tool.
   hastache = overrideCabal
     (drv: {
       doCheck = false;
@@ -1215,16 +1215,16 @@ self: super:
     })
     super.hastache;
 
-    # Has a dependency on outdated versions of directory.
+  # Has a dependency on outdated versions of directory.
   cautious-file = doJailbreak (dontCheck super.cautious-file);
 
-    # missing dependencies: blaze-html >=0.5 && <0.9, blaze-markup >=0.5 && <0.8
+  # missing dependencies: blaze-html >=0.5 && <0.9, blaze-markup >=0.5 && <0.8
   digestive-functors-blaze = doJailbreak super.digestive-functors-blaze;
   digestive-functors = doJailbreak super.digestive-functors;
 
-    # Wrap the generated binaries to include their run-time dependencies in
-    # $PATH. Also, cryptol needs a version of sbl that's newer than what we have
-    # in LTS-13.x.
+  # Wrap the generated binaries to include their run-time dependencies in
+  # $PATH. Also, cryptol needs a version of sbl that's newer than what we have
+  # in LTS-13.x.
   cryptol = overrideCabal
     (drv: {
       buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
@@ -1239,14 +1239,14 @@ self: super:
     })
     super.cryptol;
 
-    # Tests try to invoke external process and process == 1.4
+  # Tests try to invoke external process and process == 1.4
   grakn = dontCheck (doJailbreak super.grakn);
 
-    # test suite requires git and does a bunch of git operations
+  # test suite requires git and does a bunch of git operations
   restless-git = dontCheck super.restless-git;
 
-    # requires git at test-time *and* runtime, but we'll just rely on users to
-    # bring their own git at runtime
+  # requires git at test-time *and* runtime, but we'll just rely on users to
+  # bring their own git at runtime
   sensei = overrideCabal
     (drv: {
       testHaskellDepends =
@@ -1263,14 +1263,14 @@ self: super:
       }
     );
 
-    # Depends on broken fluid.
+  # Depends on broken fluid.
   fluid-idl-http-client = markBroken super.fluid-idl-http-client;
   fluid-idl-scotty = markBroken super.fluid-idl-scotty;
 
-    # Work around https://github.com/haskell/c2hs/issues/192.
+  # Work around https://github.com/haskell/c2hs/issues/192.
   c2hs = dontCheck super.c2hs;
 
-    # Needs pginit to function and pgrep to verify.
+  # Needs pginit to function and pgrep to verify.
   tmp-postgres = overrideCabal
     (drv: {
       # Flaky tests: https://github.com/jfischoff/tmp-postgres/issues/274
@@ -1290,36 +1290,36 @@ self: super:
     })
     super.tmp-postgres;
 
-    # Needs QuickCheck <2.10, which we don't have.
+  # Needs QuickCheck <2.10, which we don't have.
   edit-distance = doJailbreak super.edit-distance;
   int-cast = doJailbreak super.int-cast;
 
-    # Needs QuickCheck <2.10, HUnit <1.6 and base <4.10
+  # Needs QuickCheck <2.10, HUnit <1.6 and base <4.10
   pointfree = doJailbreak super.pointfree;
 
-    # Needs tasty-quickcheck ==0.8.*, which we don't have.
+  # Needs tasty-quickcheck ==0.8.*, which we don't have.
   gitHUD = dontCheck super.gitHUD;
   githud = dontCheck super.githud;
 
-    # Test suite fails due to trying to create directories
+  # Test suite fails due to trying to create directories
   path-io = dontCheck super.path-io;
 
-    # Duplicate instance with smallcheck.
+  # Duplicate instance with smallcheck.
   store = dontCheck super.store;
 
-    # With ghc-8.2.x haddock would time out for unknown reason
-    # See https://github.com/haskell/haddock/issues/679
+  # With ghc-8.2.x haddock would time out for unknown reason
+  # See https://github.com/haskell/haddock/issues/679
   language-puppet = dontHaddock super.language-puppet;
 
-    # https://github.com/alphaHeavy/protobuf/issues/34
+  # https://github.com/alphaHeavy/protobuf/issues/34
   protobuf = dontCheck super.protobuf;
 
-    # jailbreak tasty < 1.2 until servant-docs > 0.11.3 is on hackage.
+  # jailbreak tasty < 1.2 until servant-docs > 0.11.3 is on hackage.
   snap-templates = doJailbreak super.snap-templates
     ; # https://github.com/snapframework/snap-templates/issues/22
 
-    # Copy hledger man pages from data directory into the proper place. This code
-    # should be moved into the cabal2nix generator.
+  # Copy hledger man pages from data directory into the proper place. This code
+  # should be moved into the cabal2nix generator.
   hledger = overrideCabal
     (drv: {
       postInstall = ''
@@ -1367,10 +1367,10 @@ self: super:
     })
     super.hledger-web;
 
-    # https://github.com/haskell-hvr/resolv/pull/6
+  # https://github.com/haskell-hvr/resolv/pull/6
   resolv_0_1_1_2 = dontCheck super.resolv_0_1_1_2;
 
-    # The test suite does not know how to find the 'alex' binary.
+  # The test suite does not know how to find the 'alex' binary.
   alex = overrideCabal
     (drv: {
       testSystemDepends = (drv.testSystemDepends or [ ]) ++ [ pkgs.which ];
@@ -1378,33 +1378,33 @@ self: super:
     })
     super.alex;
 
-    # This package refers to the wrong library (itself in fact!)
+  # This package refers to the wrong library (itself in fact!)
   vulkan = super.vulkan.override { vulkan = pkgs.vulkan-loader; };
 
-    # Compiles some C or C++ source which requires these headers
+  # Compiles some C or C++ source which requires these headers
   VulkanMemoryAllocator =
     addExtraLibrary pkgs.vulkan-headers super.VulkanMemoryAllocator;
-    # dontCheck can be removed on the next package set bump
+  # dontCheck can be removed on the next package set bump
   vulkan-utils =
     dontCheck (addExtraLibrary pkgs.vulkan-headers super.vulkan-utils);
 
-    # https://github.com/dmwit/encoding/pull/3
+  # https://github.com/dmwit/encoding/pull/3
   encoding =
     doJailbreak (appendPatch ./patches/encoding-Cabal-2.0.patch super.encoding);
 
-    # Work around overspecified constraint on github ==0.18.
+  # Work around overspecified constraint on github ==0.18.
   github-backup = doJailbreak super.github-backup;
 
-    # dontCheck: https://github.com/haskell-servant/servant-auth/issues/113
-    # doJailbreak: waiting on revision 1 to hit hackage
+  # dontCheck: https://github.com/haskell-servant/servant-auth/issues/113
+  # doJailbreak: waiting on revision 1 to hit hackage
   servant-auth-client = doJailbreak (dontCheck super.servant-auth-client);
   servant-auth-server = doJailbreak super.servant-auth-server;
 
-    # Generate cli completions for dhall.
+  # Generate cli completions for dhall.
   dhall = self.generateOptparseApplicativeCompletions [ "dhall" ] super.dhall;
-    # For reasons that are not quire clear 'dhall-json' won't compile without 'tasty 1.4' due to its tests
-    # https://github.com/commercialhaskell/stackage/issues/5795
-    # This issue can be mitigated with 'dontCheck' which skips the tests and their compilation.
+  # For reasons that are not quire clear 'dhall-json' won't compile without 'tasty 1.4' due to its tests
+  # https://github.com/commercialhaskell/stackage/issues/5795
+  # This issue can be mitigated with 'dontCheck' which skips the tests and their compilation.
   dhall-json = self.generateOptparseApplicativeCompletions
     [
       "dhall-to-json"
@@ -1470,12 +1470,12 @@ self: super:
     }
   );
 
-    # Too strict version bound on hashable-time.
-    # Tests require newer package version.
+  # Too strict version bound on hashable-time.
+  # Tests require newer package version.
   aeson_1_5_6_0 = dontCheck (doJailbreak super.aeson_1_5_6_0);
 
-    # musl fixes
-    # dontCheck: use of non-standard strptime "%s" which musl doesn't support; only used in test
+  # musl fixes
+  # dontCheck: use of non-standard strptime "%s" which musl doesn't support; only used in test
   unix-time =
     if pkgs.stdenv.hostPlatform.isMusl then
       dontCheck super.unix-time
@@ -1483,8 +1483,8 @@ self: super:
       super.unix-time
     ;
 
-    # Workaround for https://github.com/sol/hpack/issues/528
-    # The hpack test suite can't deal with the CRLF line endings hackage revisions insert
+  # Workaround for https://github.com/sol/hpack/issues/528
+  # The hpack test suite can't deal with the CRLF line endings hackage revisions insert
   hpack = overrideCabal
     (drv: {
       postPatch =
@@ -1496,8 +1496,8 @@ self: super:
     })
     super.hpack;
 
-    # hslua has tests that break when using musl.
-    # https://github.com/hslua/hslua/issues/106
+  # hslua has tests that break when using musl.
+  # https://github.com/hslua/hslua/issues/106
   hslua-core =
     if pkgs.stdenv.hostPlatform.isMusl then
       dontCheck super.hslua-core
@@ -1505,14 +1505,14 @@ self: super:
       super.hslua-core
     ;
 
-    # Missing files required by the test suite.
-    # https://github.com/deemp/flakes/issues/4
+  # Missing files required by the test suite.
+  # https://github.com/deemp/flakes/issues/4
   lima = dontCheck super.lima;
 
-    # The test suite runs for 20+ minutes on a very fast machine, which feels kinda disproportionate.
+  # The test suite runs for 20+ minutes on a very fast machine, which feels kinda disproportionate.
   prettyprinter = dontCheck super.prettyprinter;
 
-    # Fix with Cabal 2.2, https://github.com/guillaume-nargeot/hpc-coveralls/pull/73
+  # Fix with Cabal 2.2, https://github.com/guillaume-nargeot/hpc-coveralls/pull/73
   hpc-coveralls = appendPatch
     (fetchpatch {
       url =
@@ -1521,7 +1521,7 @@ self: super:
     })
     super.hpc-coveralls;
 
-    # sexpr is old, broken and has no issue-tracker. Let's fix it the best we can.
+  # sexpr is old, broken and has no issue-tracker. Let's fix it the best we can.
   sexpr = appendPatch ./patches/sexpr-0.2.1.patch (
     overrideCabal
     (drv: {
@@ -1531,29 +1531,29 @@ self: super:
     super.sexpr
   );
 
-    # https://github.com/haskell/hoopl/issues/50
+  # https://github.com/haskell/hoopl/issues/50
   hoopl = dontCheck super.hoopl;
 
-    # Generate shell completion for spago
+  # Generate shell completion for spago
   spago = self.generateOptparseApplicativeCompletions [ "spago" ] super.spago;
 
-    # https://github.com/DanielG/cabal-helper/pull/123
+  # https://github.com/DanielG/cabal-helper/pull/123
   cabal-helper = doJailbreak super.cabal-helper;
 
-    # TODO(Profpatsch): factor out local nix store setup from
-    # lib/tests/release.nix and use that for the tests of libnix
-    # libnix = overrideCabal (old: {
-    #   testToolDepends = old.testToolDepends or [] ++ [ pkgs.nix ];
-    # }) super.libnix;
+  # TODO(Profpatsch): factor out local nix store setup from
+  # lib/tests/release.nix and use that for the tests of libnix
+  # libnix = overrideCabal (old: {
+  #   testToolDepends = old.testToolDepends or [] ++ [ pkgs.nix ];
+  # }) super.libnix;
   libnix = dontCheck super.libnix;
 
-    # dontCheck: The test suite tries to mess with ALSA, which doesn't work in the build sandbox.
+  # dontCheck: The test suite tries to mess with ALSA, which doesn't work in the build sandbox.
   xmobar = dontCheck super.xmobar;
 
-    # https://github.com/mgajda/json-autotype/issues/25
+  # https://github.com/mgajda/json-autotype/issues/25
   json-autotype = dontCheck super.json-autotype;
 
-    # Requires pg_ctl command during tests
+  # Requires pg_ctl command during tests
   beam-postgres = overrideCabal
     (drv: {
       # https://github.com/NixOS/nixpkgs/issues/198495
@@ -1562,7 +1562,7 @@ self: super:
     })
     super.beam-postgres;
 
-    # Fix for base >= 4.11
+  # Fix for base >= 4.11
   scat = overrideCabal
     (drv: {
       patches = [
@@ -1574,7 +1574,7 @@ self: super:
     })
     super.scat;
 
-    # Fix build with attr-2.4.48 (see #53716)
+  # Fix build with attr-2.4.48 (see #53716)
   xattr = appendPatch ./patches/xattr-fix-build.patch super.xattr;
 
   patch = dontCheck super.patch;
@@ -1589,9 +1589,9 @@ self: super:
             -e s^host=localhost^^
         ''
         ;
-        # https://github.com/NixOS/nixpkgs/issues/198495
+      # https://github.com/NixOS/nixpkgs/issues/198495
       doCheck = pkgs.postgresql.doCheck;
-        # Match the test suite defaults (or hardcoded values?)
+      # Match the test suite defaults (or hardcoded values?)
       preCheck =
         drv.preCheck or ""
         + ''
@@ -1616,31 +1616,31 @@ self: super:
     })
     super.esqueleto;
 
-    # Requires API keys to run tests
+  # Requires API keys to run tests
   algolia = dontCheck super.algolia;
   openai-hs = dontCheck super.openai-hs;
 
-    # antiope-s3's latest stackage version has a hspec < 2.6 requirement, but
-    # hspec which isn't in stackage is already past that
+  # antiope-s3's latest stackage version has a hspec < 2.6 requirement, but
+  # hspec which isn't in stackage is already past that
   antiope-s3 = doJailbreak super.antiope-s3;
 
-    # Has tasty < 1.2 requirement, but works just fine with 1.2
+  # Has tasty < 1.2 requirement, but works just fine with 1.2
   temporary-resourcet = doJailbreak super.temporary-resourcet;
 
-    # Test suite doesn't work with current QuickCheck
-    # https://github.com/pruvisto/heap/issues/11
+  # Test suite doesn't work with current QuickCheck
+  # https://github.com/pruvisto/heap/issues/11
   heap = dontCheck super.heap;
 
-    # Test suite won't link for no apparent reason.
+  # Test suite won't link for no apparent reason.
   constraints-deriving = dontCheck super.constraints-deriving;
 
-    # https://github.com/elliottt/hsopenid/issues/15
+  # https://github.com/elliottt/hsopenid/issues/15
   openid = markBroken super.openid;
 
-    # https://github.com/erikd/hjsmin/issues/32
+  # https://github.com/erikd/hjsmin/issues/32
   hjsmin = dontCheck super.hjsmin;
 
-    # Remove for hail > 0.2.0.0
+  # Remove for hail > 0.2.0.0
   hail = overrideCabal
     (drv: {
       patches = [
@@ -1662,17 +1662,17 @@ self: super:
     })
     super.hail;
 
-    # https://github.com/kazu-yamamoto/dns/issues/150
+  # https://github.com/kazu-yamamoto/dns/issues/150
   dns = dontCheck super.dns;
 
-    # https://github.com/haskell-servant/servant-ekg/issues/15
+  # https://github.com/haskell-servant/servant-ekg/issues/15
   servant-ekg = doJailbreak super.servant-ekg;
 
-    # the test suite has an overly tight restriction on doctest
-    # See https://github.com/ekmett/perhaps/pull/5
+  # the test suite has an overly tight restriction on doctest
+  # See https://github.com/ekmett/perhaps/pull/5
   perhaps = doJailbreak super.perhaps;
 
-    # it wants to build a statically linked binary by default
+  # it wants to build a statically linked binary by default
   hledger-flow = overrideCabal
     (drv: {
       postPatch =
@@ -1686,7 +1686,7 @@ self: super:
     })
     super.hledger-flow;
 
-    # Chart-tests needs and compiles some modules from Chart itself
+  # Chart-tests needs and compiles some modules from Chart itself
   Chart-tests = overrideCabal
     (old: {
       # https://github.com/timbod7/haskell-chart/issues/233
@@ -1700,18 +1700,18 @@ self: super:
     })
     (addExtraLibrary self.QuickCheck super.Chart-tests);
 
-    # This breaks because of version bounds, but compiles and runs fine.
-    # Last commit is 5 years ago, so we likely won't get upstream fixed soon.
-    # https://bitbucket.org/rvlm/hakyll-contrib-hyphenation/src/master/
-    # Therefore we jailbreak it.
+  # This breaks because of version bounds, but compiles and runs fine.
+  # Last commit is 5 years ago, so we likely won't get upstream fixed soon.
+  # https://bitbucket.org/rvlm/hakyll-contrib-hyphenation/src/master/
+  # Therefore we jailbreak it.
   hakyll-contrib-hyphenation = doJailbreak super.hakyll-contrib-hyphenation;
-    # 2021-10-04: too strict upper bound on Hakyll
+  # 2021-10-04: too strict upper bound on Hakyll
   hakyll-filestore = doJailbreak super.hakyll-filestore;
 
-    # The test suite depends on an impure cabal-install installation in
-    # $HOME, which we don't have in our build sandbox.
-    # 2022-08-31: Jailbreak is done to allow aeson 2.0.*:
-    # https://github.com/haskell-CI/haskell-ci/commit/6ad0d5d701cbe101013335d597acaf5feadd3ab9#r82681900
+  # The test suite depends on an impure cabal-install installation in
+  # $HOME, which we don't have in our build sandbox.
+  # 2022-08-31: Jailbreak is done to allow aeson 2.0.*:
+  # https://github.com/haskell-CI/haskell-ci/commit/6ad0d5d701cbe101013335d597acaf5feadd3ab9#r82681900
   cabal-install-parsers = doJailbreak (
     dontCheck (
       super.cabal-install-parsers.override {
@@ -1720,9 +1720,9 @@ self: super:
     )
   );
 
-    # 2022-03-12: Pick patches from master for compat with Stackage Nightly
-    # 2022-12-07: Lift bounds to allow dependencies shipped with LTS-20
-    #             https://github.com/jgm/gitit/pull/683
+  # 2022-03-12: Pick patches from master for compat with Stackage Nightly
+  # 2022-12-07: Lift bounds to allow dependencies shipped with LTS-20
+  #             https://github.com/jgm/gitit/pull/683
   gitit = appendPatches
     [
       (fetchpatch {
@@ -1734,7 +1734,7 @@ self: super:
     ]
     (doJailbreak super.gitit);
 
-    # Test suite requires database
+  # Test suite requires database
   persistent-mysql = dontCheck super.persistent-mysql;
   persistent-postgresql =
     # TODO: move this override to configuration-nix.nix
@@ -1751,11 +1751,11 @@ self: super:
         ;
       doCheck =
         # https://github.com/commercialhaskell/stackage/issues/6884
-        # persistent-postgresql-2.13.5.1 needs persistent-test >= 2.13.1.3 which
-        # is incompatible with the stackage version of persistent, so the tests
-        # are disabled temporarily.
-        false
-          # https://github.com/NixOS/nixpkgs/issues/198495
+          # persistent-postgresql-2.13.5.1 needs persistent-test >= 2.13.1.3 which
+          # is incompatible with the stackage version of persistent, so the tests
+          # are disabled temporarily.
+          false
+        # https://github.com/NixOS/nixpkgs/issues/198495
         && pkgs.postgresql.doCheck
         ;
       preCheck =
@@ -1775,26 +1775,26 @@ self: super:
     })
     super.persistent-postgresql;
 
-    # Test suite requires a later version of persistent-test which depends on persistent 2.14
-    # https://github.com/commercialhaskell/stackage/issues/6884
+  # Test suite requires a later version of persistent-test which depends on persistent 2.14
+  # https://github.com/commercialhaskell/stackage/issues/6884
   persistent-sqlite = dontCheck super.persistent-sqlite;
 
-    # 2021-12-26: Too strict bounds on doctest
+  # 2021-12-26: Too strict bounds on doctest
   polysemy-plugin = doJailbreak super.polysemy-plugin;
 
-    # hasn’t bumped upper bounds
-    # upstream: https://github.com/obsidiansystems/which/pull/6
+  # hasn’t bumped upper bounds
+  # upstream: https://github.com/obsidiansystems/which/pull/6
   which = doJailbreak super.which;
 
-    # 2022-09-20: We have overridden lsp to not be the stackage version.
-    # dhall-lsp-server needs the older 1.4.0.0 lsp
+  # 2022-09-20: We have overridden lsp to not be the stackage version.
+  # dhall-lsp-server needs the older 1.4.0.0 lsp
   dhall-lsp-server = super.dhall-lsp-server.override {
     lsp = dontCheck (
       super.lsp_1_4_0_0.override { lsp-types = super.lsp-types_1_4_0_1; }
     );
   };
 
-    # 2023-04-16: https://github.com/ghcjs/jsaddle/pull/137
+  # 2023-04-16: https://github.com/ghcjs/jsaddle/pull/137
   jsaddle-webkit2gtk = lib.pipe super.jsaddle-webkit2gtk [
     (appendPatch (
       fetchpatch {
@@ -1816,7 +1816,7 @@ self: super:
     ))
   ];
 
-    # 2022-03-16: lens bound can be loosened https://github.com/ghcjs/jsaddle-dom/issues/19
+  # 2022-03-16: lens bound can be loosened https://github.com/ghcjs/jsaddle-dom/issues/19
   jsaddle-dom = overrideCabal
     (old: {
       postPatch =
@@ -1828,8 +1828,8 @@ self: super:
     })
     (doJailbreak super.jsaddle-dom);
 
-    # Tests disabled and broken override needed because of missing lib chrome-test-utils: https://github.com/reflex-frp/reflex-dom/issues/392
-    # 2022-03-16: Pullrequest for ghc 9 compat https://github.com/reflex-frp/reflex-dom/pull/433
+  # Tests disabled and broken override needed because of missing lib chrome-test-utils: https://github.com/reflex-frp/reflex-dom/issues/392
+  # 2022-03-16: Pullrequest for ghc 9 compat https://github.com/reflex-frp/reflex-dom/pull/433
   reflex-dom-core = overrideCabal
     (old: {
       postPatch =
@@ -1862,29 +1862,29 @@ self: super:
         ))
     );
 
-    # Tests disabled because they assume to run in the whole jsaddle repo and not the hackage tarbal of jsaddle-warp.
+  # Tests disabled because they assume to run in the whole jsaddle repo and not the hackage tarbal of jsaddle-warp.
   jsaddle-warp = dontCheck super.jsaddle-warp;
 
-    # 2020-06-24: Jailbreaking because of restrictive test dep bounds
-    # Upstream issue: https://github.com/kowainik/trial/issues/62
+  # 2020-06-24: Jailbreaking because of restrictive test dep bounds
+  # Upstream issue: https://github.com/kowainik/trial/issues/62
   trial = doJailbreak super.trial;
 
-    # 2020-06-24: Tests are broken in hackage distribution.
-    # See: https://github.com/robstewart57/rdf4h/issues/39
+  # 2020-06-24: Tests are broken in hackage distribution.
+  # See: https://github.com/robstewart57/rdf4h/issues/39
   rdf4h = dontCheck super.rdf4h;
 
-    # hasn't bumped upper bounds
-    # test fails: "floskell-test: styles/base.md: openBinaryFile: does not exist (No such file or directory)"
-    # https://github.com/ennocramer/floskell/issues/48
+  # hasn't bumped upper bounds
+  # test fails: "floskell-test: styles/base.md: openBinaryFile: does not exist (No such file or directory)"
+  # https://github.com/ennocramer/floskell/issues/48
   floskell = dontCheck (doJailbreak super.floskell);
 
-    # hasn't bumped upper bounds
-    # test fails because of a "Warning: Unused LANGUAGE pragma"
-    # https://github.com/ennocramer/monad-dijkstra/issues/4
+  # hasn't bumped upper bounds
+  # test fails because of a "Warning: Unused LANGUAGE pragma"
+  # https://github.com/ennocramer/monad-dijkstra/issues/4
   monad-dijkstra = dontCheck super.monad-dijkstra;
 
-    # Fixed upstream but not released to Hackage yet:
-    # https://github.com/k0001/hs-libsodium/issues/2
+  # Fixed upstream but not released to Hackage yet:
+  # https://github.com/k0001/hs-libsodium/issues/2
   libsodium = overrideCabal
     (drv: {
       libraryToolDepends =
@@ -1909,7 +1909,7 @@ self: super:
     ]
     super.svgcairo;
 
-    # Upstream PR: https://github.com/jkff/splot/pull/9
+  # Upstream PR: https://github.com/jkff/splot/pull/9
   splot = appendPatch
     (fetchpatch {
       url =
@@ -1918,22 +1918,22 @@ self: super:
     })
     super.splot;
 
-    # Fails with encoding problems, likely needs locale data.
-    # Test can be executed by adding which to testToolDepends and
-    # $PWD/dist/build/haskeline-examples-Test to $PATH.
+  # Fails with encoding problems, likely needs locale data.
+  # Test can be executed by adding which to testToolDepends and
+  # $PWD/dist/build/haskeline-examples-Test to $PATH.
   haskeline_0_8_2_1 = doDistribute (dontCheck super.haskeline_0_8_2_1);
 
-    # Too strict upper bound on HTF
-    # https://github.com/nikita-volkov/stm-containers/issues/29
+  # Too strict upper bound on HTF
+  # https://github.com/nikita-volkov/stm-containers/issues/29
   stm-containers = doJailbreak super.stm-containers;
 
-    # Test suite fails to compile https://github.com/agrafix/Spock/issues/177
+  # Test suite fails to compile https://github.com/agrafix/Spock/issues/177
   Spock = dontCheck super.Spock;
 
-    # https://github.com/strake/filtrable.hs/issues/6
+  # https://github.com/strake/filtrable.hs/issues/6
   filtrable = doJailbreak super.filtrable;
 
-    # hasura packages need some extra care
+  # hasura packages need some extra care
   graphql-engine = overrideCabal
     (drv: {
       patches = [
@@ -1990,7 +1990,7 @@ self: super:
           pkgs.postgresqlTestHook
         ]
         ;
-        # https://github.com/NixOS/nixpkgs/issues/198495
+      # https://github.com/NixOS/nixpkgs/issues/198495
       doCheck = pkgs.postgresql.doCheck;
       preCheck =
         drv.preCheck or ""
@@ -2017,30 +2017,30 @@ self: super:
             sha256 = "03r4jg9a6xh7w3jz3g4bs7ff35wa4rrmjgcggq51y0jc1sjqvhyz";
           })
         ];
-        # Remove when https://github.com/danfran/hcoord/issues/9 is closed.
+      # Remove when https://github.com/danfran/hcoord/issues/9 is closed.
       doCheck = false;
     })
     super.hcoord;
 
-    # Tests rely on `Int` being 64-bit: https://github.com/hspec/hspec/issues/431.
-    # Also, we need QuickCheck-2.14.x to build the test suite, which isn't easy in LTS-16.x.
-    # So let's not go there and just disable the tests altogether.
+  # Tests rely on `Int` being 64-bit: https://github.com/hspec/hspec/issues/431.
+  # Also, we need QuickCheck-2.14.x to build the test suite, which isn't easy in LTS-16.x.
+  # So let's not go there and just disable the tests altogether.
   hspec-core = dontCheck super.hspec-core;
 
-    # tests seem to require a different version of hspec-core
+  # tests seem to require a different version of hspec-core
   hspec-contrib = dontCheck super.hspec-contrib;
 
-    # github.com/ucsd-progsys/liquidhaskell/issues/1729
+  # github.com/ucsd-progsys/liquidhaskell/issues/1729
   liquidhaskell = super.liquidhaskell.override { Diff = self.Diff_0_3_4; };
   Diff_0_3_4 = dontCheck super.Diff_0_3_4;
 
-    # The test suite attempts to read `/etc/resolv.conf`, which doesn't work in the sandbox.
+  # The test suite attempts to read `/etc/resolv.conf`, which doesn't work in the sandbox.
   domain-auth = dontCheck super.domain-auth;
 
-    # - Deps are required during the build for testing and also during execution,
-    #   so add them to build input and also wrap the resulting binary so they're in
-    #   PATH.
-    # - Patch can be removed on next package set bump (for v0.2.11)
+  # - Deps are required during the build for testing and also during execution,
+  #   so add them to build input and also wrap the resulting binary so they're in
+  #   PATH.
+  # - Patch can be removed on next package set bump (for v0.2.11)
   update-nix-fetchgit =
     let
       deps = [
@@ -2067,7 +2067,7 @@ self: super:
     )
     ;
 
-    # Raise version bounds: https://github.com/idontgetoutmuch/binary-low-level/pull/16
+  # Raise version bounds: https://github.com/idontgetoutmuch/binary-low-level/pull/16
   binary-strict = appendPatches
     [
       (fetchpatch {
@@ -2078,44 +2078,44 @@ self: super:
     ]
     super.binary-strict;
 
-    # 2020-11-15: nettle tests are pre MonadFail change
-    # https://github.com/stbuehler/haskell-nettle/issues/10
+  # 2020-11-15: nettle tests are pre MonadFail change
+  # https://github.com/stbuehler/haskell-nettle/issues/10
   nettle = dontCheck super.nettle;
 
-    # The tests for semver-range need to be updated for the MonadFail change in
-    # ghc-8.8:
-    # https://github.com/adnelson/semver-range/issues/15
+  # The tests for semver-range need to be updated for the MonadFail change in
+  # ghc-8.8:
+  # https://github.com/adnelson/semver-range/issues/15
   semver-range = dontCheck super.semver-range;
 
-    # https://github.com/obsidiansystems/dependent-sum/issues/55
+  # https://github.com/obsidiansystems/dependent-sum/issues/55
   dependent-sum = doJailbreak super.dependent-sum;
 
-    # 2022-06-19: Disable checks because of https://github.com/reflex-frp/reflex/issues/475
+  # 2022-06-19: Disable checks because of https://github.com/reflex-frp/reflex/issues/475
   reflex = doJailbreak (dontCheck super.reflex);
 
-    # 2020-11-19: jailbreaking because of pretty-simple bound out of date
-    # https://github.com/kowainik/stan/issues/408
-    # Tests disabled because of: https://github.com/kowainik/stan/issues/409
+  # 2020-11-19: jailbreaking because of pretty-simple bound out of date
+  # https://github.com/kowainik/stan/issues/408
+  # Tests disabled because of: https://github.com/kowainik/stan/issues/409
   stan = doJailbreak (dontCheck super.stan);
 
-    # Due to tests restricting base in 0.8.0.0 release
+  # Due to tests restricting base in 0.8.0.0 release
   http-media = doJailbreak super.http-media;
 
-    # 2022-03-19: strict upper bounds https://github.com/poscat0x04/hinit/issues/2
+  # 2022-03-19: strict upper bounds https://github.com/poscat0x04/hinit/issues/2
   hinit = doJailbreak (
     self.generateOptparseApplicativeCompletions [ "hi" ] (
       super.hinit.override { haskeline = self.haskeline_0_8_2_1; }
     )
   );
 
-    # 2020-11-23: https://github.com/Rufflewind/blas-hs/issues/8
+  # 2020-11-23: https://github.com/Rufflewind/blas-hs/issues/8
   blas-hs = dontCheck super.blas-hs;
 
-    # Strange doctest problems
-    # https://github.com/biocad/servant-openapi3/issues/30
+  # Strange doctest problems
+  # https://github.com/biocad/servant-openapi3/issues/30
   servant-openapi3 = dontCheck super.servant-openapi3;
 
-    # Give hspec 2.10.* correct dependency versions without overrideScope
+  # Give hspec 2.10.* correct dependency versions without overrideScope
   hspec_2_11_0 = doDistribute (
     super.hspec_2_11_0.override {
       hspec-discover = self.hspec-discover_2_11_0;
@@ -2127,21 +2127,21 @@ self: super:
       hspec-meta = self.hspec-meta_2_10_5;
     }
   );
-    # Need to disable tests to prevent an infinite recursion if hspec-core_2_11_0
-    # is overlayed to hspec-core.
+  # Need to disable tests to prevent an infinite recursion if hspec-core_2_11_0
+  # is overlayed to hspec-core.
   hspec-core_2_11_0 = doDistribute (
     dontCheck (
       super.hspec-core_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; }
     )
   );
 
-    # Point hspec 2.7.10 to correct dependencies
+  # Point hspec 2.7.10 to correct dependencies
   hspec_2_7_10 = super.hspec_2_7_10.override {
     hspec-discover = self.hspec-discover_2_7_10;
     hspec-core = self.hspec-core_2_7_10;
   };
 
-    # waiting for aeson bump
+  # waiting for aeson bump
   servant-swagger-ui-core = doJailbreak super.servant-swagger-ui-core;
 
   hercules-ci-agent = lib.pipe super.hercules-ci-agent [
@@ -2149,8 +2149,8 @@ self: super:
     (self.generateOptparseApplicativeCompletions [ "hercules-ci-agent" ])
   ];
 
-    # Test suite doesn't compile with aeson 2.0
-    # https://github.com/hercules-ci/hercules-ci-agent/pull/387
+  # Test suite doesn't compile with aeson 2.0
+  # https://github.com/hercules-ci/hercules-ci-agent/pull/387
   hercules-ci-api-agent = dontCheck super.hercules-ci-api-agent;
 
   hercules-ci-cli = lib.pipe super.hercules-ci-cli [
@@ -2192,8 +2192,8 @@ self: super:
     ]
     super.pipes-aeson;
 
-    # Needs bytestring 0.11
-    # https://github.com/Gabriella439/Haskell-Pipes-HTTP-Library/pull/17
+  # Needs bytestring 0.11
+  # https://github.com/Gabriella439/Haskell-Pipes-HTTP-Library/pull/17
   pipes-http = doJailbreak super.pipes-http;
 
   moto-postgresql = appendPatches
@@ -2222,21 +2222,21 @@ self: super:
     ]
     super.moto;
 
-    # Readline uses Distribution.Simple from Cabal 2, in a way that is not
-    # compatible with Cabal 3. No upstream repository found so far
-  readline = appendPatch ./patches/readline-fix-for-cabal-3.patch super.readline
-    ;
+  # Readline uses Distribution.Simple from Cabal 2, in a way that is not
+  # compatible with Cabal 3. No upstream repository found so far
+  readline =
+    appendPatch ./patches/readline-fix-for-cabal-3.patch super.readline;
 
-    # 2020-12-05: this package requires a newer version of http-client,
-    # but it still compiles with older version:
-    # https://github.com/turion/essence-of-live-coding/pull/86
+  # 2020-12-05: this package requires a newer version of http-client,
+  # but it still compiles with older version:
+  # https://github.com/turion/essence-of-live-coding/pull/86
   essence-of-live-coding-warp = doJailbreak super.essence-of-live-coding-warp;
 
-    # 2020-12-06: Restrictive upper bounds w.r.t. pandoc-types (https://github.com/owickstrom/pandoc-include-code/issues/27)
+  # 2020-12-06: Restrictive upper bounds w.r.t. pandoc-types (https://github.com/owickstrom/pandoc-include-code/issues/27)
   pandoc-include-code = doJailbreak super.pandoc-include-code;
 
-    # DerivingVia is not allowed in safe Haskell
-    # https://github.com/strake/util.hs/issues/1
+  # DerivingVia is not allowed in safe Haskell
+  # https://github.com/strake/util.hs/issues/1
   util = appendConfigureFlags
     [
       "--ghc-option=-fno-safe-haskell"
@@ -2256,22 +2256,22 @@ self: super:
     ]
     super.alg;
 
-    # Break out of overspecified constraint on QuickCheck.
+  # Break out of overspecified constraint on QuickCheck.
   filepath-bytestring = doJailbreak super.filepath-bytestring;
   haddock-library = doJailbreak super.haddock-library;
 
-    # Test suite has overly strict bounds on tasty, jailbreaking fails.
-    # https://github.com/input-output-hk/nothunks/issues/9
+  # Test suite has overly strict bounds on tasty, jailbreaking fails.
+  # https://github.com/input-output-hk/nothunks/issues/9
   nothunks = dontCheck super.nothunks;
 
-    # Allow building with older versions of http-client.
+  # Allow building with older versions of http-client.
   http-client-restricted = doJailbreak super.http-client-restricted;
 
-    # Test suite fails, upstream not reachable for simple fix (not responsive on github)
+  # Test suite fails, upstream not reachable for simple fix (not responsive on github)
   vivid-osc = dontCheck super.vivid-osc;
   vivid-supercollider = dontCheck super.vivid-supercollider;
 
-    # while waiting for a new release: https://github.com/brendanhay/amazonka/pull/572
+  # while waiting for a new release: https://github.com/brendanhay/amazonka/pull/572
   amazonka = appendPatches
     [
       (fetchpatch {
@@ -2283,15 +2283,14 @@ self: super:
     ]
     (doJailbreak super.amazonka);
 
-    # Test suite does not compile.
+  # Test suite does not compile.
   feed = dontCheck super.feed;
 
   spacecookie = overrideCabal
     (old: {
       buildTools =
-        (old.buildTools or [ ]) ++ [ pkgs.buildPackages.installShellFiles ]
-        ;
-        # let testsuite discover the resulting binary
+        (old.buildTools or [ ]) ++ [ pkgs.buildPackages.installShellFiles ];
+      # let testsuite discover the resulting binary
       preCheck =
         ''
           export SPACECOOKIE_TEST_BIN=./dist/build/spacecookie/spacecookie
@@ -2300,7 +2299,7 @@ self: super:
           old.preCheck or ""
         )
         ;
-        # install man pages shipped in the sdist
+      # install man pages shipped in the sdist
       postInstall =
         ''
           installManPage docs/man/*
@@ -2312,11 +2311,11 @@ self: super:
     })
     super.spacecookie;
 
-    # Patch and jailbreak can be removed at next release, chatter > 0.9.1.0
-    # * Remove dependency on regex-tdfa-text
-    # * Jailbreak as bounds on cereal are too strict
-    # * Disable test suite which doesn't compile
-    #   https://github.com/creswick/chatter/issues/38
+  # Patch and jailbreak can be removed at next release, chatter > 0.9.1.0
+  # * Remove dependency on regex-tdfa-text
+  # * Jailbreak as bounds on cereal are too strict
+  # * Disable test suite which doesn't compile
+  #   https://github.com/creswick/chatter/issues/38
   chatter = appendPatch
     (fetchpatch {
       url =
@@ -2329,42 +2328,42 @@ self: super:
       )
     );
 
-    # test suite doesn't compile anymore due to changed hunit/tasty APIs
+  # test suite doesn't compile anymore due to changed hunit/tasty APIs
   fullstop = dontCheck super.fullstop;
 
-    # https://github.com/jgm/pandoc/issues/7163
+  # https://github.com/jgm/pandoc/issues/7163
   pandoc = dontCheck super.pandoc;
 
-    # * doctests don't work without cabal
-    #   https://github.com/noinia/hgeometry/issues/132
-    # * Too strict version bound on vector-builder
-    #   https://github.com/noinia/hgeometry/commit/a6abecb1ce4a7fd96b25cc1a5c65cd4257ecde7a#commitcomment-49282301
+  # * doctests don't work without cabal
+  #   https://github.com/noinia/hgeometry/issues/132
+  # * Too strict version bound on vector-builder
+  #   https://github.com/noinia/hgeometry/commit/a6abecb1ce4a7fd96b25cc1a5c65cd4257ecde7a#commitcomment-49282301
   hgeometry-combinatorial =
     dontCheck (doJailbreak super.hgeometry-combinatorial);
 
-    # Too strict version bounds on ansi-terminal
-    # https://github.com/kowainik/co-log/pull/218
+  # Too strict version bounds on ansi-terminal
+  # https://github.com/kowainik/co-log/pull/218
   co-log = doJailbreak super.co-log;
 
-    # Test suite has a too strict bound on base
-    # https://github.com/jswebtools/language-ecmascript/pull/88
-    # Test suite doesn't compile anymore
+  # Test suite has a too strict bound on base
+  # https://github.com/jswebtools/language-ecmascript/pull/88
+  # Test suite doesn't compile anymore
   language-ecmascript = dontCheck (doJailbreak super.language-ecmascript);
 
-    # Too strict bounds on containers
-    # https://github.com/jswebtools/language-ecmascript-analysis/issues/1
+  # Too strict bounds on containers
+  # https://github.com/jswebtools/language-ecmascript-analysis/issues/1
   language-ecmascript-analysis = doJailbreak super.language-ecmascript-analysis;
 
-    # Too strict bounds on optparse-applicative
-    # https://github.com/faylang/fay/pull/474
+  # Too strict bounds on optparse-applicative
+  # https://github.com/faylang/fay/pull/474
   fay = doJailbreak super.fay;
 
-    # Too strict version bounds on cryptonite.
-    # Issue reported upstream, no bug tracker url yet.
+  # Too strict version bounds on cryptonite.
+  # Issue reported upstream, no bug tracker url yet.
   darcs = doJailbreak super.darcs;
 
-    # Too strict verion bounds on cryptonite and github.
-    # PRs are merged, will be fixed next release or Hackage revision.
+  # Too strict verion bounds on cryptonite and github.
+  # PRs are merged, will be fixed next release or Hackage revision.
   nix-thunk = appendPatches
     [
       (fetchpatch {
@@ -2380,20 +2379,20 @@ self: super:
     ]
     super.nix-thunk;
 
-    # list `modbus` in librarySystemDepends, correct to `libmodbus`
+  # list `modbus` in librarySystemDepends, correct to `libmodbus`
   libmodbus = doJailbreak (addExtraLibrary pkgs.libmodbus super.libmodbus);
 
-    # 2021-04-02: Outdated optparse-applicative bound is fixed but not realeased on upstream.
+  # 2021-04-02: Outdated optparse-applicative bound is fixed but not realeased on upstream.
   trial-optparse-applicative =
     assert super.trial-optparse-applicative.version == "0.0.0.0";
     doJailbreak super.trial-optparse-applicative
     ;
 
-    # 2022-12-28: Too strict version bounds on bytestring
+  # 2022-12-28: Too strict version bounds on bytestring
   iconv = doJailbreak super.iconv;
 
-    # 2021-04-02: iCalendar is basically unmaintained.
-    # There is a PR for fixing the build: https://github.com/chrra/iCalendar/pull/50
+  # 2021-04-02: iCalendar is basically unmaintained.
+  # There is a PR for fixing the build: https://github.com/chrra/iCalendar/pull/50
   iCalendar = appendPatches
     [
       (fetchpatch {
@@ -2411,20 +2410,20 @@ self: super:
 
   ginger = doJailbreak super.ginger;
 
-    # Too strict version bounds on cryptonite
-    # https://github.com/obsidiansystems/haveibeenpwned/issues/7
+  # Too strict version bounds on cryptonite
+  # https://github.com/obsidiansystems/haveibeenpwned/issues/7
   haveibeenpwned = doJailbreak super.haveibeenpwned;
 
-    # Too strict version bounds on ghc-events
-    # https://github.com/mpickering/hs-speedscope/issues/16
+  # Too strict version bounds on ghc-events
+  # https://github.com/mpickering/hs-speedscope/issues/16
   hs-speedscope = doJailbreak super.hs-speedscope;
 
-    # Test suite doesn't support base16-bytestring >= 1.0
-    # https://github.com/centromere/blake2/issues/6
+  # Test suite doesn't support base16-bytestring >= 1.0
+  # https://github.com/centromere/blake2/issues/6
   blake2 = dontCheck super.blake2;
 
-    # Test suite doesn't support base16-bytestring >= 1.0
-    # https://github.com/serokell/haskell-crypto/issues/25
+  # Test suite doesn't support base16-bytestring >= 1.0
+  # https://github.com/serokell/haskell-crypto/issues/25
   crypto-sodium = dontCheck super.crypto-sodium;
 
   taskell = super.taskell.override {
@@ -2433,19 +2432,19 @@ self: super:
     brick = self.brick_0_70_1;
   };
 
-    # Polyfill for GHCs from the integer-simple days that don't bundle ghc-bignum
+  # Polyfill for GHCs from the integer-simple days that don't bundle ghc-bignum
   ghc-bignum = super.ghc-bignum or self.mkDerivation {
     pname = "ghc-bignum";
     version = "1.0";
     sha256 = "0xl848q8z6qx2bi6xil0d35lra7wshwvysyfblki659d7272b1im";
     description = "GHC BigNum library";
     license = lib.licenses.bsd3;
-      # ghc-bignum is not buildable if none of the three backends
-      # is explicitly enabled. We enable Native for now as it doesn't
-      # depend on anything else as oppossed to GMP and FFI.
-      # Apply patch which fixes a compilation failure we encountered.
-      # Will need to be kept until we can drop ghc-bignum entirely,
-      # i. e. if GHC 8.10.* and 8.8.* have been removed.
+    # ghc-bignum is not buildable if none of the three backends
+    # is explicitly enabled. We enable Native for now as it doesn't
+    # depend on anything else as oppossed to GMP and FFI.
+    # Apply patch which fixes a compilation failure we encountered.
+    # Will need to be kept until we can drop ghc-bignum entirely,
+    # i. e. if GHC 8.10.* and 8.8.* have been removed.
     configureFlags = [
       "-f"
       "Native"
@@ -2460,20 +2459,20 @@ self: super:
       ];
   };
 
-    # 2021-04-09: outdated base and alex-tools
-    # PR pending https://github.com/glguy/language-lua/pull/6
+  # 2021-04-09: outdated base and alex-tools
+  # PR pending https://github.com/glguy/language-lua/pull/6
   language-lua = doJailbreak super.language-lua;
 
-    # 2021-04-09: too strict time bound
-    # PR pending https://github.com/zohl/cereal-time/pull/2
+  # 2021-04-09: too strict time bound
+  # PR pending https://github.com/zohl/cereal-time/pull/2
   cereal-time = doJailbreak super.cereal-time;
 
-    # 2021-04-16: too strict bounds on QuickCheck and tasty
-    # https://github.com/hasufell/lzma-static/issues/1
+  # 2021-04-16: too strict bounds on QuickCheck and tasty
+  # https://github.com/hasufell/lzma-static/issues/1
   lzma-static = doJailbreak super.lzma-static;
 
-    # Too strict version bounds on base:
-    # https://github.com/obsidiansystems/database-id/issues/1
+  # Too strict version bounds on base:
+  # https://github.com/obsidiansystems/database-id/issues/1
   database-id-class = doJailbreak super.database-id-class;
 
   cabal2nix-unstable = overrideCabal
@@ -2482,8 +2481,8 @@ self: super:
         updateScript =
           ../../../maintainers/scripts/haskell/update-cabal2nix-unstable.sh;
 
-          # This is used by regenerate-hackage-packages.nix to supply the configuration
-          # values we can easily generate automatically without checking them in.
+        # This is used by regenerate-hackage-packages.nix to supply the configuration
+        # values we can easily generate automatically without checking them in.
         compilerConfig = pkgs.runCommand
           "hackage2nix-${self.ghc.haskellCompilerName}-config.yaml"
           { nativeBuildInputs = [ self.ghc ]; }
@@ -2509,15 +2508,15 @@ self: super:
     }
     super.cabal2nix-unstable;
 
-    # Too strict version bounds on base
-    # https://github.com/gibiansky/IHaskell/issues/1217
+  # Too strict version bounds on base
+  # https://github.com/gibiansky/IHaskell/issues/1217
   ihaskell-display = doJailbreak super.ihaskell-display;
   ihaskell-basic = doJailbreak super.ihaskell-basic;
 
-    # Fixes too strict version bounds on regex libraries
-    # Presumably to be removed at the next release
-    # Test suite doesn't support hspec 2.8
-    # https://github.com/yi-editor/yi/issues/1124
+  # Fixes too strict version bounds on regex libraries
+  # Presumably to be removed at the next release
+  # Test suite doesn't support hspec 2.8
+  # https://github.com/yi-editor/yi/issues/1124
   yi-language = appendPatch
     (fetchpatch {
       url =
@@ -2527,7 +2526,7 @@ self: super:
     })
     (dontCheck super.yi-language);
 
-    # 2022-03-16: Upstream is not bumping bounds https://github.com/ghcjs/jsaddle/issues/123
+  # 2022-03-16: Upstream is not bumping bounds https://github.com/ghcjs/jsaddle/issues/123
   jsaddle = overrideCabal
     (drv: {
       # lift conditional version constraint on ref-tf
@@ -2545,20 +2544,18 @@ self: super:
     })
     (doJailbreak super.jsaddle);
 
-    # 2022-03-22: Jailbreak for base bound: https://github.com/reflex-frp/reflex-dom/pull/433
+  # 2022-03-22: Jailbreak for base bound: https://github.com/reflex-frp/reflex-dom/pull/433
   reflex-dom =
-    assert super.reflex-dom.version == "0.6.1.1";
-    doJailbreak super.reflex-dom
-    ;
+    assert super.reflex-dom.version == "0.6.1.1"; doJailbreak super.reflex-dom;
 
-    # Tests need to lookup target triple x86_64-unknown-linux
-    # https://github.com/llvm-hs/llvm-hs/issues/334
+  # Tests need to lookup target triple x86_64-unknown-linux
+  # https://github.com/llvm-hs/llvm-hs/issues/334
   llvm-hs = overrideCabal
     { doCheck = pkgs.stdenv.targetPlatform.system == "x86_64-linux"; }
     super.llvm-hs;
 
-    # Fix build with bytestring >= 0.11 (GHC 9.2)
-    # https://github.com/llvm-hs/llvm-hs/pull/389
+  # Fix build with bytestring >= 0.11 (GHC 9.2)
+  # https://github.com/llvm-hs/llvm-hs/pull/389
   llvm-hs-pure = appendPatches
     [
       (fetchpatch {
@@ -2581,9 +2578,9 @@ self: super:
       super.llvm-hs-pure
     );
 
-    # * Fix build failure by picking patch from 8.5, we need
-    #   this version of sbv for petrinizer
-    # * Pin version of crackNum that still exposes its library
+  # * Fix build failure by picking patch from 8.5, we need
+  #   this version of sbv for petrinizer
+  # * Pin version of crackNum that still exposes its library
   sbv_7_13 = appendPatch
     (fetchpatch {
       url =
@@ -2592,22 +2589,22 @@ self: super:
     })
     (super.sbv_7_13.override { crackNum = self.crackNum_2_4; });
 
-    # Too strict bounds on dimensional
-    # https://github.com/enomsg/science-constants-dimensional/pull/1
+  # Too strict bounds on dimensional
+  # https://github.com/enomsg/science-constants-dimensional/pull/1
   science-constants-dimensional =
     doJailbreak super.science-constants-dimensional;
 
-    # Tests are flaky on busy machines, upstream doesn't intend to fix
-    # https://github.com/merijn/paramtree/issues/4
+  # Tests are flaky on busy machines, upstream doesn't intend to fix
+  # https://github.com/merijn/paramtree/issues/4
   paramtree = dontCheck super.paramtree;
 
-    # Too strict version bounds on haskell-gi
-    # https://github.com/owickstrom/gi-gtk-declarative/issues/100
+  # Too strict version bounds on haskell-gi
+  # https://github.com/owickstrom/gi-gtk-declarative/issues/100
   gi-gtk-declarative = doJailbreak super.gi-gtk-declarative;
   gi-gtk-declarative-app-simple =
     doJailbreak super.gi-gtk-declarative-app-simple;
 
-    # 2023-04-09: haskell-ci needs Cabal-syntax 3.10
+  # 2023-04-09: haskell-ci needs Cabal-syntax 3.10
   haskell-ci = super.haskell-ci.overrideScope (
     self: super: { Cabal-syntax = self.Cabal-syntax_3_10_1_0; }
   );
@@ -2659,14 +2656,14 @@ self: super:
       ))
     ];
 
-    # BSON defaults to requiring network instead of network-bsd which is
-    # required nowadays: https://github.com/mongodb-haskell/bson/issues/26
+  # BSON defaults to requiring network instead of network-bsd which is
+  # required nowadays: https://github.com/mongodb-haskell/bson/issues/26
   bson = appendConfigureFlag "-f-_old_network" (
     super.bson.override { network = self.network-bsd; }
   );
 
-    # Disable flaky tests
-    # https://github.com/DavidEichmann/alpaca-netcode/issues/2
+  # Disable flaky tests
+  # https://github.com/DavidEichmann/alpaca-netcode/issues/2
   alpaca-netcode = overrideCabal
     {
       testFlags = [
@@ -2676,28 +2673,28 @@ self: super:
     }
     super.alpaca-netcode;
 
-    # 2021-05-22: Tests fail sometimes (even consistently on hydra)
-    # when running a fs-related test with >= 12 jobs. To work around
-    # this, run tests with only a single job.
-    # https://github.com/vmchale/libarchive/issues/20
+  # 2021-05-22: Tests fail sometimes (even consistently on hydra)
+  # when running a fs-related test with >= 12 jobs. To work around
+  # this, run tests with only a single job.
+  # https://github.com/vmchale/libarchive/issues/20
   libarchive = overrideCabal { testFlags = [ "-j1" ]; } super.libarchive;
 
-    # Too strict bounds on QuickCheck
-    # https://github.com/muesli4/table-layout/issues/16
+  # Too strict bounds on QuickCheck
+  # https://github.com/muesli4/table-layout/issues/16
   table-layout = doJailbreak super.table-layout;
 
-    # 2021-06-20: Outdated upper bounds
-    # https://github.com/Porges/email-validate-hs/issues/58
+  # 2021-06-20: Outdated upper bounds
+  # https://github.com/Porges/email-validate-hs/issues/58
   email-validate = doJailbreak super.email-validate;
 
-    # https://github.com/plow-technologies/hspec-golden-aeson/issues/17
+  # https://github.com/plow-technologies/hspec-golden-aeson/issues/17
   hspec-golden-aeson = dontCheck super.hspec-golden-aeson;
 
-    # To strict bound on hspec
-    # https://github.com/dagit/zenc/issues/5
+  # To strict bound on hspec
+  # https://github.com/dagit/zenc/issues/5
   zenc = doJailbreak super.zenc;
 
-    # https://github.com/ajscholl/basic-cpuid/pull/1
+  # https://github.com/ajscholl/basic-cpuid/pull/1
   basic-cpuid = appendPatch
     (fetchpatch {
       url =
@@ -2706,38 +2703,38 @@ self: super:
     })
     super.basic-cpuid;
 
-    # Needs Cabal >= 3.4
+  # Needs Cabal >= 3.4
   chs-cabal = super.chs-cabal.override { Cabal = self.Cabal_3_6_3_0; };
 
-    # 2021-08-18: streamly-posix was released with hspec 2.8.2, but it works with older versions too.
+  # 2021-08-18: streamly-posix was released with hspec 2.8.2, but it works with older versions too.
   streamly-posix = doJailbreak super.streamly-posix;
 
-    # 2022-12-30: Restrictive upper bound on optparse-applicative
+  # 2022-12-30: Restrictive upper bound on optparse-applicative
   retrie = doJailbreak super.retrie;
 
-    # 2022-08-30 Too strict bounds on finite-typelits
-    # https://github.com/jumper149/blucontrol/issues/1
+  # 2022-08-30 Too strict bounds on finite-typelits
+  # https://github.com/jumper149/blucontrol/issues/1
   blucontrol = doJailbreak super.blucontrol;
 
-    # Fix from https://github.com/brendanhay/gogol/pull/144 which has seen no release
-    # Can't use fetchpatch as it required tweaking the line endings as the .cabal
-    # file revision on hackage was gifted CRLF line endings
+  # Fix from https://github.com/brendanhay/gogol/pull/144 which has seen no release
+  # Can't use fetchpatch as it required tweaking the line endings as the .cabal
+  # file revision on hackage was gifted CRLF line endings
   gogol-core = appendPatch ./patches/gogol-core-144.patch super.gogol-core;
 
-    # Stackage LTS 19 still has 10.*
+  # Stackage LTS 19 still has 10.*
   hadolint =
     super.hadolint.override { language-docker = self.language-docker_11_0_0; };
 
   nix-tree = super.nix-tree;
 
-    # test suite requires stack to run, https://github.com/dino-/photoname/issues/24
+  # test suite requires stack to run, https://github.com/dino-/photoname/issues/24
   photoname = dontCheck super.photoname;
 
-    # Upgrade of unordered-containers in Stackage causes ordering-sensitive test to fail
-    # https://github.com/commercialhaskell/stackage/issues/6366
-    # https://github.com/kapralVV/Unique/issues/9
-    # Too strict bounds on hashable
-    # https://github.com/kapralVV/Unique/pull/10
+  # Upgrade of unordered-containers in Stackage causes ordering-sensitive test to fail
+  # https://github.com/commercialhaskell/stackage/issues/6366
+  # https://github.com/kapralVV/Unique/issues/9
+  # Too strict bounds on hashable
+  # https://github.com/kapralVV/Unique/pull/10
   Unique =
     assert super.Unique.version == "0.4.7.9";
     overrideCabal
@@ -2757,7 +2754,7 @@ self: super:
     (doJailbreak super.Unique)
     ;
 
-    # https://github.com/AndrewRademacher/aeson-casing/issues/8
+  # https://github.com/AndrewRademacher/aeson-casing/issues/8
   aeson-casing =
     assert super.aeson-casing.version == "0.2.0.0";
     overrideCabal
@@ -2773,9 +2770,9 @@ self: super:
     super.aeson-casing
     ;
 
-    # https://github.com/emc2/HUnit-Plus/issues/26
+  # https://github.com/emc2/HUnit-Plus/issues/26
   HUnit-Plus = dontCheck super.HUnit-Plus;
-    # https://github.com/ewestern/haskell-postgis/issues/7
+  # https://github.com/ewestern/haskell-postgis/issues/7
   haskell-postgis = overrideCabal
     (drv: {
       testFlags =
@@ -2787,7 +2784,7 @@ self: super:
         ;
     })
     super.haskell-postgis;
-    # https://github.com/ChrisPenner/json-to-haskell/issues/5
+  # https://github.com/ChrisPenner/json-to-haskell/issues/5
   json-to-haskell = overrideCabal
     (drv: {
       testFlags =
@@ -2799,9 +2796,9 @@ self: super:
         ;
     })
     super.json-to-haskell;
-    # https://github.com/fieldstrength/aeson-deriving/issues/5
+  # https://github.com/fieldstrength/aeson-deriving/issues/5
   aeson-deriving = dontCheck super.aeson-deriving;
-    # https://github.com/morpheusgraphql/morpheus-graphql/issues/660
+  # https://github.com/morpheusgraphql/morpheus-graphql/issues/660
   morpheus-graphql-core = overrideCabal
     (drv: {
       testFlags =
@@ -2825,7 +2822,7 @@ self: super:
     })
     super.morpheus-graphql;
   drunken-bishop = doJailbreak super.drunken-bishop;
-    # https://github.com/SupercedeTech/dropbox-client/issues/1
+  # https://github.com/SupercedeTech/dropbox-client/issues/1
   dropbox = overrideCabal
     (drv: {
       testFlags =
@@ -2837,7 +2834,7 @@ self: super:
         ;
     })
     super.dropbox;
-    # https://github.com/alonsodomin/haskell-schema/issues/11
+  # https://github.com/alonsodomin/haskell-schema/issues/11
   hschema-aeson = overrideCabal
     (drv: {
       testFlags =
@@ -2849,7 +2846,7 @@ self: super:
         ;
     })
     super.hschema-aeson;
-    # https://github.com/minio/minio-hs/issues/165
+  # https://github.com/minio/minio-hs/issues/165
   minio-hs = overrideCabal
     (drv: {
       testFlags =
@@ -2862,22 +2859,22 @@ self: super:
     })
     super.minio-hs;
 
-    # Invalid CPP in test suite: https://github.com/cdornan/memory-cd/issues/1
+  # Invalid CPP in test suite: https://github.com/cdornan/memory-cd/issues/1
   memory-cd = dontCheck super.memory-cd;
 
-    # https://github.com/haskell/fgl/pull/99
+  # https://github.com/haskell/fgl/pull/99
   fgl = doJailbreak super.fgl;
   fgl-arbitrary = doJailbreak super.fgl-arbitrary;
 
-    # raaz-0.3 onwards uses backpack and it does not play nicely with
-    # parallel builds using -j
-    #
-    # See: https://gitlab.haskell.org/ghc/ghc/-/issues/17188
-    #
-    # Overwrite the build cores
+  # raaz-0.3 onwards uses backpack and it does not play nicely with
+  # parallel builds using -j
+  #
+  # See: https://gitlab.haskell.org/ghc/ghc/-/issues/17188
+  #
+  # Overwrite the build cores
   raaz = overrideCabal (drv: { enableParallelBuilding = false; }) super.raaz;
 
-    # https://github.com/andreymulik/sdp/issues/3
+  # https://github.com/andreymulik/sdp/issues/3
   sdp = disableLibraryProfiling super.sdp;
   sdp-binary = disableLibraryProfiling super.sdp-binary;
   sdp-deepseq = disableLibraryProfiling super.sdp-deepseq;
@@ -2889,20 +2886,20 @@ self: super:
   sdp4unordered = disableLibraryProfiling super.sdp4unordered;
   sdp4vector = disableLibraryProfiling super.sdp4vector;
 
-    # Unnecessarily strict bound on template-haskell
-    # https://github.com/tree-sitter/haskell-tree-sitter/issues/298
+  # Unnecessarily strict bound on template-haskell
+  # https://github.com/tree-sitter/haskell-tree-sitter/issues/298
   tree-sitter = doJailbreak super.tree-sitter;
 
-    # 2022-08-07: Bounds are too restrictive: https://github.com/marcin-rzeznicki/libjwt-typed/issues/2
-    # Also, the tests fail.
+  # 2022-08-07: Bounds are too restrictive: https://github.com/marcin-rzeznicki/libjwt-typed/issues/2
+  # Also, the tests fail.
   libjwt-typed = dontCheck (doJailbreak super.libjwt-typed);
 
-    # Test suite fails to compile
-    # https://github.com/kuribas/mfsolve/issues/8
+  # Test suite fails to compile
+  # https://github.com/kuribas/mfsolve/issues/8
   mfsolve = dontCheck super.mfsolve;
 
-    # Fixes compilation with GHC 9.0 and above
-    # https://hub.darcs.net/shelarcy/regex-compat-tdfa/issue/3
+  # Fixes compilation with GHC 9.0 and above
+  # https://hub.darcs.net/shelarcy/regex-compat-tdfa/issue/3
   regex-compat-tdfa =
     appendPatches [ ./patches/regex-compat-tdfa-ghc-9.0.patch ] (
       overrideCabal
@@ -2914,22 +2911,22 @@ self: super:
       super.regex-compat-tdfa
     );
 
-    # https://github.com/kowainik/validation-selective/issues/64
+  # https://github.com/kowainik/validation-selective/issues/64
   validation-selective = doJailbreak super.validation-selective;
-    # https://github.com/system-f/validation/issues/57
+  # https://github.com/system-f/validation/issues/57
   validation = doJailbreak super.validation;
 
-    # 2022-03-16: strict upper bounds https://github.com/monadfix/shower/issues/18
+  # 2022-03-16: strict upper bounds https://github.com/monadfix/shower/issues/18
   shower = doJailbreak (dontCheck super.shower);
 
-    # Test suite isn't supposed to succeed yet, apparently…
-    # https://github.com/andrewufrank/uniform-error/blob/f40629ad119e90f8dae85e65e93d7eb149bddd53/test/Uniform/Error_test.hs#L124
-    # https://github.com/andrewufrank/uniform-error/issues/2
+  # Test suite isn't supposed to succeed yet, apparently…
+  # https://github.com/andrewufrank/uniform-error/blob/f40629ad119e90f8dae85e65e93d7eb149bddd53/test/Uniform/Error_test.hs#L124
+  # https://github.com/andrewufrank/uniform-error/issues/2
   uniform-error = dontCheck super.uniform-error;
-    # https://github.com/andrewufrank/uniform-fileio/issues/2
+  # https://github.com/andrewufrank/uniform-fileio/issues/2
   uniform-fileio = dontCheck super.uniform-fileio;
 
-    # The shipped Setup.hs file is broken.
+  # The shipped Setup.hs file is broken.
   csv =
     overrideCabal (drv: { preCompileBuildDriver = "rm Setup.hs"; }) super.csv;
 
@@ -2940,24 +2937,24 @@ self: super:
     }
   );
 
-    # Tests require ghc-9.2.
+  # Tests require ghc-9.2.
   ema = dontCheck super.ema;
 
   glirc = doJailbreak (super.glirc.override { vty = self.vty_5_35_1; });
 
-    # 2022-02-25: Unmaintained and to strict upper bounds
+  # 2022-02-25: Unmaintained and to strict upper bounds
   paths = doJailbreak super.paths;
 
-    # 2022-02-26: https://github.com/emilypi/base64/issues/39
+  # 2022-02-26: https://github.com/emilypi/base64/issues/39
   base64 = dontCheck super.base64;
 
-    # 2022-03-16: Upstream stopped updating bounds https://github.com/haskell-hvr/base-noprelude/pull/15
+  # 2022-03-16: Upstream stopped updating bounds https://github.com/haskell-hvr/base-noprelude/pull/15
   base-noprelude = doJailbreak super.base-noprelude;
 
-    # 2022-03-16: Bounds need to be loosened https://github.com/obsidiansystems/dependent-sum-aeson-orphans/issues/10
+  # 2022-03-16: Bounds need to be loosened https://github.com/obsidiansystems/dependent-sum-aeson-orphans/issues/10
   dependent-sum-aeson-orphans = doJailbreak super.dependent-sum-aeson-orphans;
 
-    # 2022-03-16: package qualified import issue: https://github.com/ghcjs/ghcjs-dom/issues/101
+  # 2022-03-16: package qualified import issue: https://github.com/ghcjs/ghcjs-dom/issues/101
   ghcjs-dom =
     assert super.ghcjs-dom.version == "0.9.5.0";
     overrideCabal
@@ -2974,28 +2971,28 @@ self: super:
     super.ghcjs-dom
     ;
 
-    # Too strict bounds on chell: https://github.com/fpco/haskell-filesystem/issues/24
+  # Too strict bounds on chell: https://github.com/fpco/haskell-filesystem/issues/24
   system-fileio = doJailbreak super.system-fileio;
 
-    # Bounds too strict on base and ghc-prim: https://github.com/tibbe/ekg-core/pull/43 (merged); waiting on hackage release
+  # Bounds too strict on base and ghc-prim: https://github.com/tibbe/ekg-core/pull/43 (merged); waiting on hackage release
   ekg-core =
     assert super.ekg-core.version == "0.1.1.7"; doJailbreak super.ekg-core;
   hasura-ekg-core = doJailbreak super.hasura-ekg-core;
 
-    # https://github.com/Synthetica9/nix-linter/issues/65
+  # https://github.com/Synthetica9/nix-linter/issues/65
   nix-linter = super.nix-linter.overrideScope (
     self: super: { aeson = self.aeson_1_5_6_0; }
   );
 
-    # Test suite doesn't support hspec 2.8
-    # https://github.com/zellige/hs-geojson/issues/29
+  # Test suite doesn't support hspec 2.8
+  # https://github.com/zellige/hs-geojson/issues/29
   geojson = dontCheck super.geojson;
 
-    # Test data missing from sdist
-    # https://github.com/ngless-toolkit/ngless/issues/152
+  # Test data missing from sdist
+  # https://github.com/ngless-toolkit/ngless/issues/152
   NGLess = dontCheck super.NGLess;
 
-    # Raise version bounds for hspec
+  # Raise version bounds for hspec
   records-sop = appendPatch
     (fetchpatch {
       url =
@@ -3004,7 +3001,7 @@ self: super:
     })
     super.records-sop;
 
-    # Fix build failures for ghc 9 (https://github.com/mokus0/polynomial/pull/20)
+  # Fix build failures for ghc 9 (https://github.com/mokus0/polynomial/pull/20)
   polynomial = appendPatch
     (fetchpatch {
       name = "haskell-polynomial.20.patch";
@@ -3021,7 +3018,7 @@ self: super:
       super.polynomial
     );
 
-    # Unreleased bound relaxing patch allowing scotty 0.12
+  # Unreleased bound relaxing patch allowing scotty 0.12
   taffybar = appendPatch
     (pkgs.fetchpatch {
       name = "taffybar-allow-scotty-0.12.patch";
@@ -3031,62 +3028,62 @@ self: super:
     })
     ((p: assert p.version == "4.0.0"; p) super.taffybar);
 
-    # lucid-htmx has restrictive upper bounds on lucid and servant:
-    #
-    #   Setup: Encountered missing or private dependencies:
-    #   lucid >=2.9.12.1 && <=2.11, servant >=0.18.3 && <0.19
-    #
-    # Can be removed once
-    #
-    # > https://github.com/MonadicSystems/lucid-htmx/issues/6
-    #
-    # has been resolved.
+  # lucid-htmx has restrictive upper bounds on lucid and servant:
+  #
+  #   Setup: Encountered missing or private dependencies:
+  #   lucid >=2.9.12.1 && <=2.11, servant >=0.18.3 && <0.19
+  #
+  # Can be removed once
+  #
+  # > https://github.com/MonadicSystems/lucid-htmx/issues/6
+  #
+  # has been resolved.
   lucid-htmx = doJailbreak super.lucid-htmx;
 
-    # 2022-09-20: Restrictive upper bound on lsp
+  # 2022-09-20: Restrictive upper bound on lsp
   futhark = doJailbreak super.futhark;
 
-    # Too strict bounds on hspec
-    # https://github.com/klapaucius/vector-hashtables/issues/11
+  # Too strict bounds on hspec
+  # https://github.com/klapaucius/vector-hashtables/issues/11
   vector-hashtables = doJailbreak super.vector-hashtables;
 
-    # doctest-parallel is broken with v1-style cabal-install / Setup.hs
-    # https://github.com/martijnbastiaan/doctest-parallel/issues/22
+  # doctest-parallel is broken with v1-style cabal-install / Setup.hs
+  # https://github.com/martijnbastiaan/doctest-parallel/issues/22
   doctest-parallel = dontCheck super.doctest-parallel;
   clash-prelude = dontCheck super.clash-prelude;
 
-    # Too strict upper bound on th-desugar, fixed in 3.1.1
+  # Too strict upper bound on th-desugar, fixed in 3.1.1
   singletons-th =
     assert super.singletons-th.version == "3.1";
     doJailbreak super.singletons-th
     ;
   singletons-base = doJailbreak super.singletons-base;
 
-    # Ships a broken Setup.hs
-    # https://github.com/lehins/conduit-aeson/issues/1
+  # Ships a broken Setup.hs
+  # https://github.com/lehins/conduit-aeson/issues/1
   conduit-aeson = overrideCabal
     (drv: {
       postPatch = ''
         ${drv.postPatch or ""}
         rm Setup.hs
       '';
-        # doctest suite uses doctest-parallel which still doesn't work in nixpkgs
+      # doctest suite uses doctest-parallel which still doesn't work in nixpkgs
       testTarget = "tests";
     })
     super.conduit-aeson;
 
-    # Disabling doctests.
+  # Disabling doctests.
   regex-tdfa =
     overrideCabal { testTarget = "regex-tdfa-unittest"; } super.regex-tdfa;
 
-    # Missing test files https://github.com/kephas/xdg-basedir-compliant/issues/1
+  # Missing test files https://github.com/kephas/xdg-basedir-compliant/issues/1
   xdg-basedir-compliant = dontCheck super.xdg-basedir-compliant;
 
-    # Test failure after libxcrypt migration, reported upstrem at
-    # https://github.com/phadej/crypt-sha512/issues/13
+  # Test failure after libxcrypt migration, reported upstrem at
+  # https://github.com/phadej/crypt-sha512/issues/13
   crypt-sha512 = dontCheck super.crypt-sha512;
 
-    # Too strict upper bound on HTTP
+  # Too strict upper bound on HTTP
   oeis = doJailbreak super.oeis;
 
   inherit
@@ -3127,71 +3124,71 @@ self: super:
     purenix
     ;
 
-    # 2022-11-05: https://github.com/ysangkok/haskell-tzdata/issues/3
+  # 2022-11-05: https://github.com/ysangkok/haskell-tzdata/issues/3
   tzdata = dontCheck super.tzdata;
 
-    # 2022-11-15: Needs newer witch package and brick 1.3 which in turn works with text-zipper 0.12
-    # Other dependencies are resolved with doJailbreak for both swarm and brick_1_3
+  # 2022-11-15: Needs newer witch package and brick 1.3 which in turn works with text-zipper 0.12
+  # Other dependencies are resolved with doJailbreak for both swarm and brick_1_3
   swarm = doJailbreak (
     super.swarm.override { brick = doJailbreak (dontCheck super.brick_1_7); }
   );
 
-    # Too strict upper bound on bytestring
-    # https://github.com/TravisWhitaker/rdf/issues/8
+  # Too strict upper bound on bytestring
+  # https://github.com/TravisWhitaker/rdf/issues/8
   rdf = doJailbreak super.rdf;
 
-    # random <1.2
+  # random <1.2
   unfoldable = doJailbreak super.unfoldable;
 
-    # containers <0.6, semigroupoids <5.3
+  # containers <0.6, semigroupoids <5.3
   data-lens = doJailbreak super.data-lens;
 
-    # transformers <0.3
+  # transformers <0.3
   monads-fd = doJailbreak super.monads-fd;
 
-    # HTF <0.15
+  # HTF <0.15
   cases = doJailbreak super.cases;
 
-    # exceptions <0.9
+  # exceptions <0.9
   eprocess = doJailbreak super.eprocess;
 
-    # hashable <1.4, mmorph <1.2
+  # hashable <1.4, mmorph <1.2
   composite-aeson = doJailbreak super.composite-aeson;
 
-    # composite-aeson <0.8, composite-base <0.8
+  # composite-aeson <0.8, composite-base <0.8
   compdoc = doJailbreak super.compdoc;
 
-    # composite-aeson <0.8, composite-base <0.8
+  # composite-aeson <0.8, composite-base <0.8
   haskell-coffee = doJailbreak super.haskell-coffee;
 
-    # Test suite doesn't compile anymore
+  # Test suite doesn't compile anymore
   twitter-types = dontCheck super.twitter-types;
 
-    # base <4.14
+  # base <4.14
   numbered-semigroups = doJailbreak super.numbered-semigroups;
 
-    # Tests open file "data/test_vectors_aserti3-2d_run01.txt" but it doesn't exist
+  # Tests open file "data/test_vectors_aserti3-2d_run01.txt" but it doesn't exist
   haskoin-core = dontCheck super.haskoin-core;
 
-    # base <4.9, transformers <0.5
+  # base <4.9, transformers <0.5
   MonadCatchIO-transformers = doJailbreak super.MonadCatchIO-transformers;
 
-    # unix-compat <0.5
+  # unix-compat <0.5
   hxt-cache = doJailbreak super.hxt-cache;
 
-    # base <4.16
+  # base <4.16
   fast-builder = doJailbreak super.fast-builder;
 
-    # QuickCheck <2.14
+  # QuickCheck <2.14
   term-rewriting = doJailbreak super.term-rewriting;
 
-    # tests can't find the test binary anymore - parseargs-example
+  # tests can't find the test binary anymore - parseargs-example
   parseargs = dontCheck super.parseargs;
 
-    # base <4.14
+  # base <4.14
   decimal-literals = doJailbreak super.decimal-literals;
 
-    # multiple bounds too strict
+  # multiple bounds too strict
   snaplet-sqlite-simple = doJailbreak super.snaplet-sqlite-simple;
 
   emanote = super.emanote.overrideScope (
@@ -3200,27 +3197,27 @@ self: super:
     }
   );
 
-    # Test files missing from sdist
-    # https://github.com/tweag/webauthn/issues/166
+  # Test files missing from sdist
+  # https://github.com/tweag/webauthn/issues/166
   webauthn = dontCheck super.webauthn;
 
-    # Too strict lower bound on hspec
+  # Too strict lower bound on hspec
   wai-token-bucket-ratelimiter =
     assert lib.versionOlder self.hspec.version "2.10";
     doJailbreak super.wai-token-bucket-ratelimiter
     ;
 
-    # doctest <0.19
+  # doctest <0.19
   polysemy = doJailbreak super.polysemy;
 
-    # multiple bounds too strict
+  # multiple bounds too strict
   co-log-polysemy = doJailbreak super.co-log-polysemy;
   co-log-polysemy-formatting = doJailbreak super.co-log-polysemy-formatting;
 
-    # 2022-12-02: Needs newer postgrest package
-    # 2022-12-02: Hackage release lags behind actual releases: https://github.com/PostgREST/postgrest/issues/2275
-    # 2022-12-02: Too strict bounds: https://github.com/PostgREST/postgrest/issues/2580
-    # 2022-12-02: Tests require running postresql server
+  # 2022-12-02: Needs newer postgrest package
+  # 2022-12-02: Hackage release lags behind actual releases: https://github.com/PostgREST/postgrest/issues/2275
+  # 2022-12-02: Too strict bounds: https://github.com/PostgREST/postgrest/issues/2580
+  # 2022-12-02: Tests require running postresql server
   postgrest = dontCheck (
     doJailbreak (
       overrideSrc
@@ -3239,10 +3236,10 @@ self: super:
 
   html-charset = dontCheck super.html-charset;
 
-    # true-name-0.1.0.4 has been tagged, but has not been released to Hackage.
-    # Also, beyond 0.1.0.4 an additional patch is required to make true-name
-    # compatible with current versions of template-haskell
-    # https://github.com/liyang/true-name/pull/4
+  # true-name-0.1.0.4 has been tagged, but has not been released to Hackage.
+  # Also, beyond 0.1.0.4 an additional patch is required to make true-name
+  # compatible with current versions of template-haskell
+  # https://github.com/liyang/true-name/pull/4
   true-name = appendPatch
     (fetchpatch {
       url =
@@ -3258,34 +3255,34 @@ self: super:
       super.true-name
     );
 
-    # ffmpeg-light works against the ffmpeg-4 API, but the default ffmpeg in nixpkgs is ffmpeg-5.
-    # https://github.com/NixOS/nixpkgs/pull/220972#issuecomment-1484017192
+  # ffmpeg-light works against the ffmpeg-4 API, but the default ffmpeg in nixpkgs is ffmpeg-5.
+  # https://github.com/NixOS/nixpkgs/pull/220972#issuecomment-1484017192
   ffmpeg-light = super.ffmpeg-light.override { ffmpeg = pkgs.ffmpeg_4; };
 
-    # posix-api has had broken tests since 2020 (until at least 2023-01-11)
-    # raehik has a fix pending: https://github.com/andrewthad/posix-api/pull/14
+  # posix-api has had broken tests since 2020 (until at least 2023-01-11)
+  # raehik has a fix pending: https://github.com/andrewthad/posix-api/pull/14
   posix-api = dontCheck super.posix-api;
 
-    # bytestring <0.11.0, optparse-applicative <0.13.0
-    # https://github.com/kseo/sfnt2woff/issues/1
+  # bytestring <0.11.0, optparse-applicative <0.13.0
+  # https://github.com/kseo/sfnt2woff/issues/1
   sfnt2woff = doJailbreak super.sfnt2woff;
 
-    # 2023-03-05: restrictive bounds on base https://github.com/diagrams/diagrams-gtk/issues/11
+  # 2023-03-05: restrictive bounds on base https://github.com/diagrams/diagrams-gtk/issues/11
   diagrams-gtk = doJailbreak super.diagrams-gtk;
 
-    # 2023-03-13: restrictive bounds on validation-selective (>=0.1.0 && <0.2).
-    # Get rid of this in the next release: https://github.com/kowainik/tomland/commit/37f16460a6dfe4606d48b8b86c13635d409442cd
+  # 2023-03-13: restrictive bounds on validation-selective (>=0.1.0 && <0.2).
+  # Get rid of this in the next release: https://github.com/kowainik/tomland/commit/37f16460a6dfe4606d48b8b86c13635d409442cd
   tomland = doJailbreak super.tomland;
 
-    # 2023-04-05: The last version to support libsoup-2.4, required for
-    # compatability with other gi- packages.
-    # Take another look when gi-webkit2 updates as it may have become compatible with libsoup-3
+  # 2023-04-05: The last version to support libsoup-2.4, required for
+  # compatability with other gi- packages.
+  # Take another look when gi-webkit2 updates as it may have become compatible with libsoup-3
   gi-soup =
     assert versions.major self.gi-webkit2.version == "4"; self.gi-soup_2_4_28;
 
   llvm-ffi = super.llvm-ffi.override { LLVM = pkgs.llvmPackages_13.libllvm; };
 
-    # libfuse3 fails to mount fuse file systems within the build environment
+  # libfuse3 fails to mount fuse file systems within the build environment
   libfuse3 = dontCheck super.libfuse3;
 }
 // import ./configuration-tensorflow.nix { inherit pkgs haskellLib; } self super

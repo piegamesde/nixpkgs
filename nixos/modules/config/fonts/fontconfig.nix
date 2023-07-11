@@ -34,14 +34,14 @@ let
   fcBool = x: "<bool>" + (boolToString x) + "</bool>";
   pkg = pkgs.fontconfig;
 
-    # configuration file to read fontconfig cache
-    # priority 0
+  # configuration file to read fontconfig cache
+  # priority 0
   cacheConf = makeCacheConf { };
 
-    # generate the font cache setting file
-    # When cross-compiling, we can’t generate the cache, so we skip the
-    # <cachedir> part. fontconfig still works but is a little slower in
-    # looking things up.
+  # generate the font cache setting file
+  # When cross-compiling, we can’t generate the cache, so we skip the
+  # <cachedir> part. fontconfig still works but is a little slower in
+  # looking things up.
   makeCacheConf =
     { }:
     let
@@ -80,8 +80,8 @@ let
     ''
     ;
 
-    # rendering settings configuration file
-    # priority 10
+  # rendering settings configuration file
+  # priority 10
   renderConf = pkgs.writeText "fc-10-nixos-rendering.conf" ''
     <?xml version='1.0'?>
     <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
@@ -112,11 +112,11 @@ let
     </fontconfig>
   '';
 
-    # local configuration file
+  # local configuration file
   localConf = pkgs.writeText "fc-local.conf" cfg.localConf;
 
-    # default fonts configuration file
-    # priority 52
+  # default fonts configuration file
+  # priority 52
   defaultFontsConf =
     let
       genDefault =
@@ -157,8 +157,8 @@ let
     ''
     ;
 
-    # bitmap font options
-    # priority 53
+  # bitmap font options
+  # priority 53
   rejectBitmaps = pkgs.writeText "fc-53-no-bitmaps.conf" ''
     <?xml version="1.0"?>
     <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
@@ -185,8 +185,8 @@ let
     </fontconfig>
   '';
 
-    # reject Type 1 fonts
-    # priority 53
+  # reject Type 1 fonts
+  # priority 53
   rejectType1 = pkgs.writeText "fc-53-nixos-reject-type1.conf" ''
     <?xml version="1.0"?>
     <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
@@ -204,7 +204,7 @@ let
     </fontconfig>
   '';
 
-    # fontconfig configuration package
+  # fontconfig configuration package
   confPkg = pkgs.runCommand "fontconfig-conf" { preferLocalBuild = true; } ''
     dst=$out/etc/fonts/conf.d
     mkdir -p $dst
@@ -249,8 +249,8 @@ let
     ''}
   '';
 
-    # Package with configuration files
-    # this merge all the packages in the fonts.fontconfig.confPackages list
+  # Package with configuration files
+  # this merge all the packages in the fonts.fontconfig.confPackages list
   fontconfigEtc = pkgs.buildEnv {
     name = "fontconfig-etc";
     paths = cfg.confPackages;
@@ -563,7 +563,6 @@ in
               `none`.
             '';
           };
-
         };
 
         cache32Bit = mkOption {
@@ -597,11 +596,8 @@ in
           default = false;
           description = lib.mdDoc "Use embedded bitmaps in fonts like Calibri.";
         };
-
       };
-
     };
-
   };
   config = mkMerge [
     (mkIf cfg.enable {
@@ -644,5 +640,4 @@ in
     })
     (mkIf cfg.enable { fonts.fontconfig.confPackages = [ confPkg ]; })
   ];
-
 }

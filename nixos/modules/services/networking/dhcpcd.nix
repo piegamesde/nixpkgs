@@ -27,8 +27,8 @@ let
     )
     ;
 
-    # Don't start dhcpcd on explicitly configured interfaces or on
-    # interfaces that are part of a bridge, bond or sit device.
+  # Don't start dhcpcd on explicitly configured interfaces or on
+  # interfaces that are part of a bridge, bond or sit device.
   ignoredInterfaces =
     map (i: i.name) (
       filter
@@ -73,8 +73,8 @@ let
       a1 ++ a2
     ;
 
-    # If dhcp is disabled but explicit interfaces are enabled,
-    # we need to provide dhcp just for those interfaces.
+  # If dhcp is disabled but explicit interfaces are enabled,
+  # we need to provide dhcp just for those interfaces.
   allowInterfaces = arrayAppendOrNull cfg.allowInterfaces (
     if !config.networking.useDHCP && enableDHCP then
       map (i: i.name) (filter (i: i.useDHCP == true) interfaces)
@@ -94,7 +94,7 @@ let
     staticIPv6Addresses
   );
 
-    # Config file adapted from the one that ships with dhcpcd.
+  # Config file adapted from the one that ships with dhcpcd.
   dhcpcdConf = pkgs.writeText "dhcpcd.conf" ''
     # Inform the DHCP server of our hostname for DDNS.
     hostname
@@ -168,8 +168,8 @@ let
 
     ${cfg.runHook}
   '';
-
 in
+
 {
 
   ###### interface
@@ -269,10 +269,9 @@ in
         is plugged nor WiFi is powered, and to "background" otherwise.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf enableDHCP {
 
@@ -321,9 +320,9 @@ in
 
         restartTriggers = [ exitHook ];
 
-          # Stopping dhcpcd during a reconfiguration is undesirable
-          # because it brings down the network interfaces configured by
-          # dhcpcd.  So do a "systemctl restart" instead.
+        # Stopping dhcpcd during a reconfiguration is undesirable
+        # because it brings down the network interfaces configured by
+        # dhcpcd.  So do a "systemctl restart" instead.
         stopIfChanged = false;
 
         path = [
@@ -363,7 +362,5 @@ in
         # Tell dhcpcd to rebind its interfaces if it's running.
         /run/current-system/systemd/bin/systemctl reload dhcpcd.service
       '';
-
   };
-
 }

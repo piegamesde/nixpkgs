@@ -14,7 +14,7 @@
 let
   libflux_version = "0.170.1";
 
-    # This is copied from influxdb2 with flux version matching the needed by thi
+  # This is copied from influxdb2 with flux version matching the needed by thi
   flux = rustPlatform.buildRustPackage {
     pname = "libflux";
     version = "v${libflux_version}";
@@ -79,7 +79,7 @@ buildGoModule rec {
 
   PKG_CONFIG_PATH = "${flux}/pkgconfig";
 
-    # Check that libflux is at the right version
+  # Check that libflux is at the right version
   preBuild = ''
     flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
     if [ "$flux_ver" != "v${libflux_version}" ]; then

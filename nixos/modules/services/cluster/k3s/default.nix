@@ -26,7 +26,7 @@ in
       (removeOption [ "docker" ] "k3s docker option is no longer supported.")
     ];
 
-    # interface
+  # interface
   options.services.k3s = {
     enable = mkEnableOption (lib.mdDoc "k3s");
 
@@ -143,7 +143,7 @@ in
     };
   };
 
-    # implementation
+  # implementation
 
   config = mkIf cfg.enable {
     assertions = [

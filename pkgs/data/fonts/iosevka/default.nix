@@ -37,19 +37,19 @@
   # }
   ,
   privateBuildPlan ? null
-    # Extra parameters. Can be used for ligature mapping.
-    # It must be a raw TOML string.
+  # Extra parameters. Can be used for ligature mapping.
+  # It must be a raw TOML string.
 
-    # Ex:
-    # extraParameters = ''
-    #   [[iosevka.compLig]]
-    #   unicode = 57808 # 0xe1d0
-    #   featureTag = 'XHS0'
-    #   sequence = "+>"
-    # '';
+  # Ex:
+  # extraParameters = ''
+  #   [[iosevka.compLig]]
+  #   unicode = 57808 # 0xe1d0
+  #   featureTag = 'XHS0'
+  #   sequence = "+>"
+  # '';
   ,
   extraParameters ? null
-    # Custom font set name. Required if any custom settings above.
+  # Custom font set name. Required if any custom settings above.
   ,
   set ? null
 }:

@@ -33,6 +33,5 @@ in
         StateDirectory = baseNameOf dataDir;
       };
     };
-
   };
 }

@@ -24,7 +24,7 @@
   # Compile with slurm as a process manager
   ,
   useSlurm ? false
-    # Network type for MVAPICH2
+  # Network type for MVAPICH2
   ,
   network ? "ethernet"
 }:

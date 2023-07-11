@@ -8,7 +8,7 @@ buildGoModule rec {
   pname = "protoc-gen-twirp_php";
   version = "0.9.1";
 
-    # fetchFromGitHub currently not possible, because go.mod and go.sum are export-ignored
+  # fetchFromGitHub currently not possible, because go.mod and go.sum are export-ignored
   src = fetchgit {
     url = "https://github.com/twirphp/twirp.git";
     rev = "v${version}";

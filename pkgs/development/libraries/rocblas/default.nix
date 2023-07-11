@@ -113,7 +113,7 @@ stdenv.mkDerivation (
         ]
       ;
 
-      # Tensile REALLY wants to write to the nix directory if we include it normally
+    # Tensile REALLY wants to write to the nix directory if we include it normally
     postPatch = lib.optionalString buildTensile ''
       cp -a ${tensile} tensile
       chmod +w -R tensile

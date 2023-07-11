@@ -34,7 +34,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-    # Tests require network access
+  # Tests require network access
   doCheck = false;
 
   meta = with lib; {

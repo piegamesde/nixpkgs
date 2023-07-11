@@ -36,7 +36,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "meshcat" ];
 
-    # requires a running MeshCat viewer
+  # requires a running MeshCat viewer
   doCheck = false;
 
   meta = with lib; {

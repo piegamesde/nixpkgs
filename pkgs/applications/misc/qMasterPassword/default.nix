@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-    # Upstream install is mostly defunct. It hardcodes target.path and doesn't
-    # install anything but the binary.
+  # Upstream install is mostly defunct. It hardcodes target.path and doesn't
+  # install anything but the binary.
   installPhase =
     if stdenv.isDarwin then
       ''

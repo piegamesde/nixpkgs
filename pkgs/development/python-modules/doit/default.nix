@@ -48,7 +48,7 @@ let
       pytestCheckHook
     ];
 
-      # escape infinite recursion with doit-py
+    # escape infinite recursion with doit-py
     doCheck = false;
 
     passthru.tests = {
@@ -71,7 +71,6 @@ let
       '';
       maintainers = with maintainers; [ pSub ];
     };
-
   };
 in
 doit

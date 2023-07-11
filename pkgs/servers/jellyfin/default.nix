@@ -58,7 +58,7 @@ buildDotnetModule rec {
   meta = with lib; {
     description = "The Free Software Media System";
     homepage = "https://jellyfin.org/";
-      # https://github.com/jellyfin/jellyfin/issues/610#issuecomment-537625510
+    # https://github.com/jellyfin/jellyfin/issues/610#issuecomment-537625510
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [
       nyanloutre

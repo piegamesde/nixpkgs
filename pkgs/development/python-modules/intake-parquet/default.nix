@@ -34,7 +34,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-    #pythonImportsCheck = [ "intake_parquet" ];
+  #pythonImportsCheck = [ "intake_parquet" ];
 
   meta = with lib; {
     description = "Parquet plugin for Intake";

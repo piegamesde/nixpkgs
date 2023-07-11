@@ -33,7 +33,7 @@
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
   systemd ? null
 
-    # options
+  # options
   ,
   buildClient ? true,
   buildServer ? true,
@@ -78,7 +78,6 @@ let
     else
       "OFF"
     ;
-
 in
 mkDerivation rec {
   pname = "drawpile";
@@ -121,4 +120,3 @@ mkDerivation rec {
     broken = stdenv.isDarwin;
   };
 }
-

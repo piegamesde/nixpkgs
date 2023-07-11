@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sqlalchemy ];
 
-    # No tests available
+  # No tests available
   doCheck = false;
 
   meta = with lib; {

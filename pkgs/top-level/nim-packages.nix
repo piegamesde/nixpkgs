@@ -146,6 +146,5 @@ lib.makeScope newScope (
     x11 = callPackage ../development/nim-packages/x11 { };
 
     zippy = callPackage ../development/nim-packages/zippy { };
-
   }
 )

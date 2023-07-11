@@ -8,39 +8,39 @@
   ,
   castxml ? null
 
-    # can take a long time, generates > 30000 images/graphs
+  # can take a long time, generates > 30000 images/graphs
   ,
   enableDoxygen ? false
 
-    # e.g. "optimized" or "debug". If not set, use default one
+  # e.g. "optimized" or "debug". If not set, use default one
   ,
   build_profile ? null
 
-    # --enable-examples
+  # --enable-examples
   ,
   withExamples ? false
 
-    # very long
+  # very long
   ,
   withManual ? false,
   doxygen ? null,
   graphviz ? null,
   imagemagick ? null
-    # for manual, tetex is used to get the eps2pdf binary
-    # texlive to get latexmk. building manual still fails though
+  # for manual, tetex is used to get the eps2pdf binary
+  # texlive to get latexmk. building manual still fails though
   ,
   dia,
   tetex ? null,
   ghostscript ? null,
   texlive ? null
 
-    # generates python bindings
+  # generates python bindings
   ,
   pythonSupport ? false,
   ncurses ? null
 
-    # All modules can be enabled by choosing 'all_modules'.
-    # we include here the DCE mandatory ones
+  # All modules can be enabled by choosing 'all_modules'.
+  # we include here the DCE mandatory ones
   ,
   modules ? [
     "core"
@@ -82,11 +82,9 @@ stdenv.mkDerivation rec {
     python
   ];
 
-  outputs =
-    [ "out" ] ++ lib.optional pythonSupport "py"
-    ;
+  outputs = [ "out" ] ++ lib.optional pythonSupport "py";
 
-    # ncurses is a hidden dependency of waf when checking python
+  # ncurses is a hidden dependency of waf when checking python
   buildInputs =
     lib.optionals pythonSupport [
       castxml
@@ -128,7 +126,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString withManual "sphinx"
     ;
 
-    # to prevent fatal error: 'backward_warning.h' file not found
+  # to prevent fatal error: 'backward_warning.h' file not found
   CXXFLAGS = "-D_GLIBCXX_PERMIT_BACKWARD_HASH";
 
   postBuild = with lib;
@@ -145,13 +143,13 @@ stdenv.mkDerivation rec {
     moveToOutput "${pythonEnv.libPrefix}" "$py"
   '';
 
-    # we need to specify the proper interpreter else ns3 can check against a
-    # different version
+  # we need to specify the proper interpreter else ns3 can check against a
+  # different version
   checkPhase = ''
     ${pythonEnv.interpreter} ./test.py --nowaf
   '';
 
-    # strictoverflow prevents clang from discovering pyembed when bindings
+  # strictoverflow prevents clang from discovering pyembed when bindings
   hardeningDisable = [
     "fortify"
     "strictoverflow"
@@ -166,7 +164,7 @@ stdenv.mkDerivation rec {
       teto
       rgrunbla
     ];
-      # never built on aarch64-darwin since first introduction in nixpkgs
+    # never built on aarch64-darwin since first introduction in nixpkgs
     broken =
       (
         stdenv.isDarwin && stdenv.isAarch64

@@ -18,7 +18,7 @@ buildDunePackage rec {
 
   propagatedBuildInputs = [ uri ];
 
-    # resto has infinite recursion in their tests
+  # resto has infinite recursion in their tests
   doCheck = false;
 
   meta = {

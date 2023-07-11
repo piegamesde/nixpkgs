@@ -16,11 +16,11 @@ stdenv.mkDerivation {
     sha256 = "0q4bizlb1ykzdp4ca0kld6xm5ml9q866xrj3ijffcnyiyqr51qr8";
   };
 
-    # The capnproto *source* is required to build ekam.
-    # https://github.com/capnproto/ekam/issues/5
-    #
-    # Specifically, the git version of the source is required, as
-    # capnproto release tarballs do not include ekam rule files.
+  # The capnproto *source* is required to build ekam.
+  # https://github.com/capnproto/ekam/issues/5
+  #
+  # Specifically, the git version of the source is required, as
+  # capnproto release tarballs do not include ekam rule files.
   postUnpack = ''
     mkdir -p $sourceRoot/deps
     cp -r ${capnproto.src} $sourceRoot/deps/capnproto
@@ -34,11 +34,11 @@ stdenv.mkDerivation {
       --replace "/var/tmp" "/tmp"
   '';
 
-    # NIX_ENFORCE_PURITY prevents ld from linking against anything outside
-    # of the nix store -- but ekam builds capnp locally and links against it,
-    # so that causes the build to fail. So, we turn this off.
-    #
-    # See: https://nixos.wiki/wiki/Development_environment_with_nix-shell#Troubleshooting
+  # NIX_ENFORCE_PURITY prevents ld from linking against anything outside
+  # of the nix store -- but ekam builds capnp locally and links against it,
+  # so that causes the build to fail. So, we turn this off.
+  #
+  # See: https://nixos.wiki/wiki/Development_environment_with_nix-shell#Troubleshooting
   preBuild = ''
     unset NIX_ENFORCE_PURITY
   '';

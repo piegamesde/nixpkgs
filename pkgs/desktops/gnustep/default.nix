@@ -20,6 +20,5 @@ let
     gui = callPackage ./gui { };
     gworkspace = callPackage ./gworkspace { };
   };
-
 in
 self

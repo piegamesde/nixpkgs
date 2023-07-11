@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-h3d0h+WCrrNlfPOlUx6Rj0aG6untD6MiunqvPj4yT+0=";
   };
 
-    # revert update of vendored dependencies to unbreak e.g. zeroconf on x86_64-darwin
+  # revert update of vendored dependencies to unbreak e.g. zeroconf on x86_64-darwin
   patches = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
     (fetchpatch {
       url =
@@ -60,7 +60,7 @@ buildPythonPackage rec {
     virtualenv
   ];
 
-    # Requires git history to work correctly
+  # Requires git history to work correctly
   disabledTests = [
     "default_with_excluded_data"
     "default_src_with_excluded_data"
@@ -68,7 +68,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "poetry.core" ];
 
-    # Allow for package to use pep420's native namespaces
+  # Allow for package to use pep420's native namespaces
   pythonNamespaces = [ "poetry" ];
 
   meta = with lib; {

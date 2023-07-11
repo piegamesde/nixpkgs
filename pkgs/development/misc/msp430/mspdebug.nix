@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace brew true
   '';
 
-    # TODO: wrap with MSPDEBUG_TILIB_PATH env var instead of these rpath fixups in 0.26+
+  # TODO: wrap with MSPDEBUG_TILIB_PATH env var instead of these rpath fixups in 0.26+
   runtimeDependencies = lib.optional enableMspds mspds;
   postFixup = lib.optionalString (enableMspds && stdenv.isDarwin) ''
     # autoPatchelfHook only works on linux so...

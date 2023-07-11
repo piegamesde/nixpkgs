@@ -86,4 +86,6 @@ let
       ]
     ;
 in
-{ inherit run passed failed; }
+{
+  inherit run passed failed;
+}

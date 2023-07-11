@@ -18,14 +18,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-    # Fix the USB backend library lookup
+  # Fix the USB backend library lookup
   postPatch = ''
     libusb=${libusb1.out}/lib/libusb-1.0${stdenv.hostPlatform.extensions.sharedLibrary}
     test -f $libusb || { echo "ERROR: $libusb doesn't exist, please update/fix this build expression."; exit 1; }
     sed -i -e "s|find_library=None|find_library=lambda _:\"$libusb\"|" usb/backend/libusb1.py
   '';
 
-    # No tests included
+  # No tests included
   doCheck = false;
 
   pythonImportsCheck = [ "usb" ];

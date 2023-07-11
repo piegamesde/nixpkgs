@@ -39,17 +39,17 @@ rec {
     args: {
       # We want coreutils without ACL support.
       aclSupport = false;
-        # Cannot use a single binary build, or it gets dynamically linked against gmp.
+      # Cannot use a single binary build, or it gets dynamically linked against gmp.
       singleBinary = false;
     }
   );
 
   cctools_ = darwin.cctools;
 
-    # Avoid debugging larger changes for now.
+  # Avoid debugging larger changes for now.
   bzip2_ = bzip2.override (args: { linkStatic = true; });
 
-    # Avoid messing with libkrb5 and libnghttp2.
+  # Avoid messing with libkrb5 and libnghttp2.
   curl_ = curlMinimal.override (
     args: {
       gssSupport = false;
@@ -246,9 +246,9 @@ rec {
     name = "bootstrap-tools";
     builder = "${bootstrapFiles.tools}/bin/bash";
 
-      # This is by necessity a near-duplicate of patch-bootstrap-tools.sh. If we refer to it directly,
-      # we can't make any changes to it due to our testing stdenv depending on it. Think of this as the
-      # patch-bootstrap-tools.sh for the next round of bootstrap tools.
+    # This is by necessity a near-duplicate of patch-bootstrap-tools.sh. If we refer to it directly,
+    # we can't make any changes to it due to our testing stdenv depending on it. Think of this as the
+    # patch-bootstrap-tools.sh for the next round of bootstrap tools.
     args = [ ./patch-bootstrap-tools-next.sh ];
 
     inherit (bootstrapFiles) tools;
@@ -339,7 +339,7 @@ rec {
     '';
   };
 
-    # The ultimate test: bootstrap a whole stdenv from the tools specified above and get a package set out of it
+  # The ultimate test: bootstrap a whole stdenv from the tools specified above and get a package set out of it
   test-pkgs = import test-pkgspath {
     # if the bootstrap tools are for another platform, we should be testing
     # that platform.

@@ -28,7 +28,7 @@ buildGoModule rec {
     "-X github.com/werf/kubedog.Version=${src.rev}"
   ];
 
-    # There are no tests.
+  # There are no tests.
   doCheck = false;
 
   passthru.tests.version = testers.testVersion {

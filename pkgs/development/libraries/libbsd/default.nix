@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-    # darwin changes configure.ac which means we need to regenerate
-    # the configure scripts
+  # darwin changes configure.ac which means we need to regenerate
+  # the configure scripts
   nativeBuildInputs = [ autoreconfHook ];
   propagatedBuildInputs = [ libmd ];
 

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
   strictDeps = true;
 
-    # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
+  # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
   hardeningDisable = lib.optional stdenv.hostPlatform.isStatic "pie";
 
   configurePhase = ''

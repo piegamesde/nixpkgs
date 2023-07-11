@@ -17,7 +17,7 @@ in
       mkEnableOption (lib.mdDoc "afterstep");
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {
       name = "afterstep";

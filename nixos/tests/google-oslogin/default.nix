@@ -9,7 +9,7 @@ import ../make-test-python.nix (
       snakeOilPublicKey
       ;
 
-      # don't check host keys or known hosts, use the snakeoil ssh key
+    # don't check host keys or known hosts, use the snakeoil ssh key
     ssh-config = builtins.toFile "ssh.conf" ''
       UserKnownHostsFile=/dev/null
       StrictHostKeyChecking=no
@@ -87,4 +87,3 @@ import ../make-test-python.nix (
     '';
   }
 )
-

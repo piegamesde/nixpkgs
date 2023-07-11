@@ -59,7 +59,7 @@
   systemd ? null,
   util-linux ? null
 
-    # Darwin
+  # Darwin
   ,
   gmp,
   libiconv,
@@ -106,19 +106,20 @@ let
     ]
     ++ lib.optionals enableZfs [ zfs ]
   );
-
 in
+
 assert enableXen -> isLinux && isx86_64;
 assert enableCeph -> isLinux;
 assert enableGlusterfs -> isLinux;
 assert enableZfs -> isLinux;
 
 # if you update, also bump <nixpkgs/pkgs/development/python-modules/libvirt/default.nix> and SysVirt in <nixpkgs/pkgs/top-level/perl-packages.nix>
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "libvirt";
-    # NOTE: You must also bump:
-    # <nixpkgs/pkgs/development/python-modules/libvirt/default.nix>
-    # SysVirt in <nixpkgs/pkgs/top-level/perl-packages.nix>
+  # NOTE: You must also bump:
+  # <nixpkgs/pkgs/development/python-modules/libvirt/default.nix>
+  # SysVirt in <nixpkgs/pkgs/top-level/perl-packages.nix>
   version = "9.2.0";
 
   src = fetchFromGitLab {
@@ -140,7 +141,7 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-    # remove some broken tests
+  # remove some broken tests
   postPatch =
     ''
       sed -i '/commandtest/d' tests/meson.build
@@ -194,7 +195,6 @@ stdenv.mkDerivation rec {
       perlPackages.XMLXPath
     ]
     ++ lib.optional (!isDarwin) rpcsvc-proto
-      # NOTE: needed for rpcgen
     ++ lib.optional isDarwin darwin.developer_cmds
     ;
 

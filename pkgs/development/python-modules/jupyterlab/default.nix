@@ -62,7 +62,7 @@ buildPythonPackage rec {
     "$out/share/jupyter/lab"
   ];
 
-    # Depends on npm
+  # Depends on npm
   doCheck = false;
 
   pythonImportsCheck = [ "jupyterlab" ];

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "MacPaw";
-      # the unar repo contains a shallow clone of both XADMaster and universal-detector
+    # the unar repo contains a shallow clone of both XADMaster and universal-detector
     repo = "unar";
     rev = "v${version}";
     sha256 = "0p846q1l66k3rnd512sncp26zpv411b8ahi145sghfcsz9w8abc4";

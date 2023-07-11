@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.services.mjpg-streamer;
-
 in
 {
 
@@ -48,9 +47,7 @@ in
         default = "video";
         description = lib.mdDoc "mjpg-streamer group name.";
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -80,7 +77,5 @@ in
         exec ${pkgs.mjpg-streamer}/bin/mjpg_streamer -i "$IPLUGIN" -o "$OPLUGIN"
       '';
     };
-
   };
-
 }

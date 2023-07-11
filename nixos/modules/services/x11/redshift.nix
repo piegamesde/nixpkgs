@@ -11,7 +11,6 @@ let
 
   cfg = config.services.redshift;
   lcfg = config.location;
-
 in
 {
 
@@ -201,5 +200,4 @@ in
       }
       ;
   };
-
 }

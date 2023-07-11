@@ -29,7 +29,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-    # Tests fail because of infinite recursion error
+  # Tests fail because of infinite recursion error
   doCheck = false;
 
   pythonImportsCheck = [ "skmisc" ];

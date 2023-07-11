@@ -57,6 +57,4 @@ pkgs.recurseIntoAttrs ({
     grep -- 'LUA_PATH=' ${wrappedHello}/bin/hello
     touch $out
   '');
-
 })
-

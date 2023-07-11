@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-    # See CMake/folly-deps.cmake in the Folly source tree.
+  # See CMake/folly-deps.cmake in the Folly source tree.
   buildInputs =
     [
       boost
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isLinux jemalloc
     ;
 
-    # jemalloc headers are required in include/folly/portability/Malloc.h
+  # jemalloc headers are required in include/folly/portability/Malloc.h
   propagatedBuildInputs = lib.optional stdenv.isLinux jemalloc;
 
   env.NIX_CFLAGS_COMPILE = toString [
@@ -89,8 +89,8 @@ stdenv.mkDerivation rec {
       --replace '=''${exec_prefix}//' '=/'
   '';
 
-    # folly-config.cmake, will `find_package` these, thus there should be
-    # a way to ensure abi compatibility.
+  # folly-config.cmake, will `find_package` these, thus there should be
+  # a way to ensure abi compatibility.
   passthru = {
     inherit boost;
     fmt = fmt_8;
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     description = "An open-source C++ library developed and used at Facebook";
     homepage = "https://github.com/facebook/folly";
     license = licenses.asl20;
-      # 32bit is not supported: https://github.com/facebook/folly/issues/103
+    # 32bit is not supported: https://github.com/facebook/folly/issues/103
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

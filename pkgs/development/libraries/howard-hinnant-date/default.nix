@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # Tweaks to fix undefined variable substitutions
-    # https://github.com/HowardHinnant/date/pull/538#pullrequestreview-1373268697
+  # Tweaks to fix undefined variable substitutions
+  # https://github.com/HowardHinnant/date/pull/538#pullrequestreview-1373268697
   postPatch = ''
     substituteInPlace date.pc.in \
       --replace '@CMAKE_INSTALL_LIB@' '@CMAKE_INSTALL_FULL_LIBDIR@' \

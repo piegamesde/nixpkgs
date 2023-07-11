@@ -72,7 +72,6 @@ let
       };
     }
     ;
-
 in
 {
   check-mssql-health = generic {

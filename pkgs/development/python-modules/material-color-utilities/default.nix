@@ -21,7 +21,7 @@ buildPythonPackage rec {
     regex
   ];
 
-    # No tests implemented.
+  # No tests implemented.
   doCheck = false;
 
   pythonImportsCheck = [ "material_color_utilities_python" ];

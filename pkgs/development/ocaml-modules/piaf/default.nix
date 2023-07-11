@@ -49,7 +49,7 @@ rec {
     alcotest-lwt
     dune-site
   ];
-    # Check fails with OpenSSL 3
+  # Check fails with OpenSSL 3
   doCheck = false;
 
   meta = {

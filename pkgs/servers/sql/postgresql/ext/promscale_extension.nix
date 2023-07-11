@@ -44,7 +44,7 @@ buildPgxExtension rec {
   '';
   passthru.tests = { promscale = nixosTests.promscale; };
 
-    # tests take really long
+  # tests take really long
   doCheck = false;
 
   meta = with lib; {
@@ -55,7 +55,7 @@ buildPgxExtension rec {
     platforms = postgresql.meta.platforms;
     license = licenses.unfree;
 
-      # as it needs to be used with timescaledb, simply use the condition from there
+    # as it needs to be used with timescaledb, simply use the condition from there
     broken =
       versionOlder postgresql.version "12"
       || versionAtLeast postgresql.version "15"

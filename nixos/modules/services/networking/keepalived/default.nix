@@ -185,7 +185,6 @@ let
     ;
 
   pidFile = "/run/keepalived.pid";
-
 in
 {
 
@@ -276,7 +275,6 @@ in
             Enable SNMP traps.
           '';
         };
-
       };
 
       vrrpScripts = mkOption {
@@ -324,7 +322,6 @@ in
           This is useful to avoid putting secrets into the nix store.
         '';
       };
-
     };
   };
 

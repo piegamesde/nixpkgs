@@ -53,7 +53,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf config.services.toxBootstrapd.enable {
@@ -71,6 +70,5 @@ in
         StateDirectory = "tox-bootstrapd";
       };
     };
-
   };
 }

@@ -30,17 +30,17 @@ let
     ]
     ;
 
-    # compatible if libc is compatible
+  # compatible if libc is compatible
   libcModules = [
     "regex_posix"
     "sslrehashsignal"
   ];
 
-    # compatible if libc++ is compatible
-    # TODO(sternenseemann):
-    # we could enable "regex_stdlib" automatically, but only if
-    # we are using libcxxStdenv which is compatible with GPLv2,
-    # since the gcc libstdc++ license is GPLv2-incompatible
+  # compatible if libc++ is compatible
+  # TODO(sternenseemann):
+  # we could enable "regex_stdlib" automatically, but only if
+  # we are using libcxxStdenv which is compatible with GPLv2,
+  # since the gcc libstdc++ license is GPLv2-incompatible
   libcxxModules = [ "regex_stdlib" ];
 
   compatibleModules =
@@ -60,8 +60,8 @@ let
     ]
     ++ lib.optionals (compatible lib stdenv.cc.libc) libcModules
     ;
-
 in
+
 {
   lib,
   stdenv,
@@ -111,24 +111,24 @@ let
     regex_tre = [ tre ];
     sqlite3 = [ sqlite ];
     ssl_gnutls = [ gnutls ];
-      # depends on stdenv.cc.libc
+    # depends on stdenv.cc.libc
     regex_posix = [ ];
     sslrehashsignal = [ ];
-      # depends on used libc++
+    # depends on used libc++
     regex_stdlib = [ ];
-      # GPLv2 incompatible
+    # GPLv2 incompatible
     geo_maxmind = [ libmaxminddb ];
     ssl_mbedtls = [ mbedtls ];
     ssl_openssl = [ openssl ];
   };
 
-    # buildInputs necessary for the enabled extraModules
+  # buildInputs necessary for the enabled extraModules
   extraInputs = lib.concatMap
     (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
     extraModules;
 
-    # if true, we can't provide a binary version of this
-    # package without violating the GPL 2
+  # if true, we can't provide a binary version of this
+  # package without violating the GPL 2
   gpl2Conflict =
     let
       allowed = compatibleModules lib stdenv;
@@ -136,7 +136,7 @@ let
     !lib.all (lib.flip lib.elem allowed) extraModules
     ;
 
-    # return list of the license(s) of the given derivation
+  # return list of the license(s) of the given derivation
   getLicenses =
     drv:
     let
@@ -148,10 +148,10 @@ let
       lics
     ;
 
-    # Whether any member of list1 is also member of list2, i. e. set intersection.
+  # Whether any member of list1 is also member of list2, i. e. set intersection.
   anyMembers = list1: list2: lib.any (m1: lib.elem m1 list2) list1;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "inspircd";
   version = "3.16.0";
@@ -224,17 +224,13 @@ stdenv.mkDerivation rec {
       ++ lib.optionals (anyMembers extraModules libcModules) (
         getLicenses stdenv.cc.libc
       )
-      # FIXME(sternenseemann): get license of used lib(std)c++ somehow
       ++ lib.optional (anyMembers extraModules libcxxModules) "Unknown"
-        # Hack: Definitely prevent a hydra from building this package on
-        # a GPL 2 incompatibility even if it is not in a top-level attribute,
-        # but pulled in indirectly somehow.
       ++ lib.optional gpl2Conflict lib.licenses.unfree
       ;
     maintainers = [ lib.maintainers.sternenseemann ];
-      # windows is theoretically possible, but requires extra work
-      # which I am not willing to do and can't test.
-      # https://github.com/inspircd/inspircd/blob/master/win/README.txt
+    # windows is theoretically possible, but requires extra work
+    # which I am not willing to do and can't test.
+    # https://github.com/inspircd/inspircd/blob/master/win/README.txt
     platforms = lib.platforms.unix;
     homepage = "https://www.inspircd.org/";
   } // lib.optionalAttrs gpl2Conflict {

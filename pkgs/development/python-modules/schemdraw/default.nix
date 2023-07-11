@@ -46,7 +46,7 @@ buildPythonPackage rec {
     ziamath
   ];
 
-    # Strip out references to unfree fonts from the test suite
+  # Strip out references to unfree fonts from the test suite
   postPatch = ''
     substituteInPlace test/test_styles.ipynb --replace "font='Times', " ""
   '';

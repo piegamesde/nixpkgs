@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "aedf8a02bcb7344404cf8575d0ada25d6c7dc2fcb65de2113c4e07c63d2446c2";
   };
 
-    # unit tests are impure
+  # unit tests are impure
   doCheck = false;
 
   propagatedBuildInputs = [
@@ -31,5 +31,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/robotframework/SSHLibrary";
     license = licenses.asl20;
   };
-
 }

@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-YXQohmDmkClziaLkL2N4cGURZ0tewyt7BuNY4hS+a4w=";
 
-    # tests assume the authors macbook, and thus fail
+  # tests assume the authors macbook, and thus fail
   doCheck = false;
 
   meta = with lib; {

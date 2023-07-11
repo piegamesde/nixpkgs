@@ -124,11 +124,11 @@ qtModule {
 
   enableParallelBuilding = true;
 
-    # Don’t use the gn setup hook
+  # Don’t use the gn setup hook
   dontUseGnConfigure = true;
 
-    # ninja builds some components with -Wno-format,
-    # which cannot be set at the same time as -Wformat-security
+  # ninja builds some components with -Wno-format,
+  # which cannot be set at the same time as -Wformat-security
   hardeningDisable = [ "format" ];
 
   postPatch =
@@ -145,14 +145,10 @@ qtModule {
         patchShebangs .
       )
     ''
-    # Prevent Chromium build script from making the path to `clang` relative to
-    # the build directory.  `clang_base_path` is the value of `QMAKE_CLANG_DIR`
-    # from `src/core/config/mac_osx.pri`.
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace ./src/3rdparty/chromium/build/toolchain/mac/BUILD.gn \
         --replace 'prefix = rebase_path("$clang_base_path/bin/", root_build_dir)' 'prefix = "$clang_base_path/bin/"'
     ''
-      # Patch library paths in Qt sources
     + ''
       sed -i \
         -e "s,QLibraryInfo::location(QLibraryInfo::DataPath),QLatin1String(\"$out\"),g" \
@@ -160,7 +156,6 @@ qtModule {
         -e "s,QLibraryInfo::location(QLibraryInfo::LibraryExecutablesPath),QLatin1String(\"$out/libexec\"),g" \
         src/core/web_engine_library_info.cpp
     ''
-    # Patch library paths in Chromium sources
     + lib.optionalString (!stdenv.isDarwin) ''
       sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
         lib.getLib systemd
@@ -275,15 +270,11 @@ qtModule {
       xorg.libXdamage
       libdrm
       xorg.libxkbfile
-
     ]
     ++ lib.optionals pipewireSupport [
       # Pipewire
       pipewire_0_2
     ]
-
-    # FIXME These dependencies shouldn't be needed but can't find a way
-    # around it. Chromium pulls this in while bootstrapping GN.
     ++ lib.optionals stdenv.isDarwin [
       libobjc
       cctools
@@ -359,12 +350,10 @@ qtModule {
 
   meta = with lib; {
     description = "A web engine based on the Chromium web browser";
-    maintainers = with maintainers; [
-        matthewbauer
-      ];
+    maintainers = with maintainers; [ matthewbauer ];
 
-      # qtwebengine-5.15.8: "QtWebEngine can only be built for x86,
-      # x86-64, ARM, Aarch64, and MIPSel architectures."
+    # qtwebengine-5.15.8: "QtWebEngine can only be built for x86,
+    # x86-64, ARM, Aarch64, and MIPSel architectures."
     platforms = lib.trivial.pipe lib.systems.doubles.all [
       (map (double: lib.systems.elaborate { system = double; }))
       (lib.lists.filter (
@@ -383,11 +372,9 @@ qtModule {
       ))
       (map (plat: plat.system))
     ];
-    broken =
-      stdenv.isDarwin && stdenv.isx86_64
-      ;
+    broken = stdenv.isDarwin && stdenv.isx86_64;
 
-      # This build takes a long time; particularly on slow architectures
+    # This build takes a long time; particularly on slow architectures
     timeout = 24 * 3600;
   };
 }

@@ -57,7 +57,7 @@ buildPythonPackage rec {
     "tests/test_nbdime_reporter.py"
   ];
 
-    # Some of the tests use localhost networking.
+  # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
   pythonImportsCheck = [ "nbval" ];

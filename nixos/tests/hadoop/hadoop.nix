@@ -1,7 +1,9 @@
 # This test is very comprehensive. It tests whether all hadoop services work well with each other.
 # Run this when updating the Hadoop package or making significant changes to the hadoop module.
 # For a more basic test, see hdfs.nix and yarn.nix
-import ../make-test-python.nix (
+import
+../make-test-python.nix
+(
   {
     package,
     ...
@@ -24,7 +26,7 @@ import ../make-test-python.nix (
           "dfs.namenode.http-address.ns1.nn1" = "nn1:9870";
           "dfs.namenode.http-address.ns1.nn2" = "nn2:9870";
 
-            # Automatic failover configuration
+          # Automatic failover configuration
           "dfs.client.failover.proxy.provider.ns1" =
             "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider";
           "dfs.ha.automatic-failover.enabled.ns1" = "true";
@@ -39,9 +41,9 @@ import ../make-test-python.nix (
           "yarn.resourcemanager.hostname.rm2" = "rm2";
           "yarn.resourcemanager.ha.automatic-failover.enabled" = "true";
           "yarn.resourcemanager.cluster-id" = "cluster1";
-            # yarn.resourcemanager.webapp.address needs to be defined even though yarn.resourcemanager.hostname is set. This shouldn't be necessary, but there's a bug in
-            # hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-web-proxy/src/main/java/org/apache/hadoop/yarn/server/webproxy/amfilter/AmFilterInitializer.java:70
-            # that causes AM containers to fail otherwise.
+          # yarn.resourcemanager.webapp.address needs to be defined even though yarn.resourcemanager.hostname is set. This shouldn't be necessary, but there's a bug in
+          # hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-web-proxy/src/main/java/org/apache/hadoop/yarn/server/webproxy/amfilter/AmFilterInitializer.java:70
+          # that causes AM containers to fail otherwise.
           "yarn.resourcemanager.webapp.address.rm1" = "rm1:8088";
           "yarn.resourcemanager.webapp.address.rm2" = "rm2:8088";
         };
@@ -56,7 +58,7 @@ import ../make-test-python.nix (
           }
           ;
 
-          # HDFS cluster
+        # HDFS cluster
         nn1 =
           {
             ...
@@ -140,7 +142,7 @@ import ../make-test-python.nix (
           }
           ;
 
-          # YARN cluster
+        # YARN cluster
         rm1 =
           {
             options,

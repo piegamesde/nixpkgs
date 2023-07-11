@@ -26,7 +26,7 @@ buildPythonPackage rec {
     graphviz
   ];
 
-    # Checks require availability of the kicad symbol libraries.
+  # Checks require availability of the kicad symbol libraries.
   doCheck = false;
   pythonImportsCheck = [ "skidl" ];
 

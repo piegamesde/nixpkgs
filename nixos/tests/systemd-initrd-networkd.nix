@@ -46,7 +46,7 @@ import ./make-test-python.nix (
 
             boot.initrd.systemd = {
               enable = true;
-                # Enable network-online to fail the test in case of timeout
+              # Enable network-online to fail the test in case of timeout
               network.wait-online.timeout = 10;
               network.wait-online.anyInterface = true;
               targets.network-online.requiredBy = [ "initrd.target" ];

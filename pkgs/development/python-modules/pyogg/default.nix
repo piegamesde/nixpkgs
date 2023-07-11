@@ -33,7 +33,7 @@ buildPythonPackage rec {
     libopus
     opusfile
   ];
-    # There are no tests in this package.
+  # There are no tests in this package.
   doCheck = false;
   patchFlags = [
     "-p1"

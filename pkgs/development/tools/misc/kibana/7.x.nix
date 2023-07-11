@@ -24,7 +24,6 @@ let
     aarch64-linux =
       "a1f7ab9e874799bf380b94394e5bb1ce28f38019896293dde8797d74ad273e67";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "kibana";

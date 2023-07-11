@@ -47,11 +47,11 @@ stdenv.mkDerivation rec {
     which
   ];
 
-    # Some uClibc sources depend on Linux headers.
+  # Some uClibc sources depend on Linux headers.
   UCLIBC_KERNEL_HEADERS = "${linuxHeaders}/include";
 
-    # HACK: needed for cross-compile.
-    # See https://www.mail-archive.com/klee-dev@imperial.ac.uk/msg03141.html
+  # HACK: needed for cross-compile.
+  # See https://www.mail-archive.com/klee-dev@imperial.ac.uk/msg03141.html
   KLEE_CFLAGS = "-idirafter ${clang}/resource-root/include";
 
   prePatch = ''
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     patchShebangs ./extra
   '';
 
-    # klee-uclibc configure does not support --prefix, so we override configurePhase entirely
+  # klee-uclibc configure does not support --prefix, so we override configurePhase entirely
   configurePhase = ''
     ./configure ${
       lib.escapeShellArgs (
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-    # Link the locale source into the correct place
+  # Link the locale source into the correct place
   preBuild = ''
     ln -sf ${localeSrc} extra/locale/${localeSrcBase}
   '';

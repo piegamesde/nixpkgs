@@ -59,7 +59,7 @@ in
     };
   };
 
-    # implementation
+  # implementation
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 

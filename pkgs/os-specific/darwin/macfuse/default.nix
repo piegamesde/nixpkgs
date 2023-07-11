@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-    # NOTE: Keep in mind that different parts of macFUSE are distributed under a
-    # different license
+  # NOTE: Keep in mind that different parts of macFUSE are distributed under a
+  # different license
   installPhase = ''
     mkdir -p $out/include $out/lib/pkgconfig
     cp usr/local/lib/*.tbd $out/lib
@@ -62,13 +62,11 @@ stdenv.mkDerivation rec {
       project website</link>.
     '';
     platforms = platforms.darwin;
-    maintainers = with maintainers; [
-        midchildan
-      ];
+    maintainers = with maintainers; [ midchildan ];
 
-      # macFUSE as a whole includes code with restrictions on commercial
-      # redistribution. However, the build artifacts that we actually touch for
-      # this derivation are distributed under a free license.
+    # macFUSE as a whole includes code with restrictions on commercial
+    # redistribution. However, the build artifacts that we actually touch for
+    # this derivation are distributed under a free license.
     license = with licenses; [
         lgpl2Plus # libfuse
       ];

@@ -38,7 +38,7 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-    # create scikit-learn dep version consistent
+  # create scikit-learn dep version consistent
   preBuild = ''
     toml-adapt -path pyproject.toml -a change -dep scikit-learn -ver X
   '';
@@ -55,4 +55,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ firefly-cpp ];
   };
 }
-

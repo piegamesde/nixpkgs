@@ -33,10 +33,10 @@ let
     submodule
     ;
 
-    # Checks if given list of strings contains unique
-    # elements when compared without considering case.
-    # Type: checkIUnique :: [string] -> bool
-    # Example: checkIUnique ["foo" "Foo"] => false
+  # Checks if given list of strings contains unique
+  # elements when compared without considering case.
+  # Type: checkIUnique :: [string] -> bool
+  # Example: checkIUnique ["foo" "Foo"] => false
   checkIUnique =
     lst:
     let
@@ -45,7 +45,7 @@ let
     lenUniq lst == lenUniq (map toLower lst)
     ;
 
-    # TSM rejects servername strings longer than 64 chars.
+  # TSM rejects servername strings longer than 64 chars.
   servernameType = strMatching ".{1,64}";
 
   serverOptions =
@@ -176,8 +176,8 @@ let
           lib.mdDoc "Server stanza text generated from the options.";
       };
       config.name = mkDefault name;
-        # Client system-options file directives are explained here:
-        # https://www.ibm.com/docs/en/spectrum-protect/8.1.13?topic=commands-processing-options
+      # Client system-options file directives are explained here:
+      # https://www.ibm.com/docs/en/spectrum-protect/8.1.13?topic=commands-processing-options
       config.extraConfig = mapAttrs (lib.trivial.const mkDefault) (
         {
           commmethod = "v6tcpip"; # uses v4 or v6, based on dns lookup result
@@ -314,8 +314,8 @@ let
 
     ${concatLines (mapAttrsToList (k: v: v.stanza) cfg.servers)}
   '';
-
 in
+
 {
 
   inherit options;
@@ -331,5 +331,4 @@ in
   };
 
   meta.maintainers = [ lib.maintainers.yarny ];
-
 }

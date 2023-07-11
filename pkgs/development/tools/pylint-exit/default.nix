@@ -16,16 +16,16 @@ buildPythonApplication rec {
     sha256 = "0hwfny48g394visa3xd15425fsw596r3lhkfhswpjrdk2mnk3cny";
   };
 
-    # Converting the shebang manually as it is not picked up by patchShebangs
+  # Converting the shebang manually as it is not picked up by patchShebangs
   postPatch = ''
     substituteInPlace pylint_exit.py \
       --replace "#!/usr/local/bin/python" "#!${python.interpreter}"
   '';
 
-    # See https://github.com/jongracecox/pylint-exit/pull/7
+  # See https://github.com/jongracecox/pylint-exit/pull/7
   buildInputs = [ m2r ];
 
-    # setup.py reads its version from the TRAVIS_TAG environment variable
+  # setup.py reads its version from the TRAVIS_TAG environment variable
   TRAVIS_TAG = version;
 
   checkPhase = ''

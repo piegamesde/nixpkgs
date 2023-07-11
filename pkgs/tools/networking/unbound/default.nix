@@ -29,7 +29,7 @@
   ,
   withSystemd ? false,
   systemd ? null
-    # optionally support DNS-over-HTTPS as a server
+  # optionally support DNS-over-HTTPS as a server
   ,
   withDoH ? false,
   withECS ? false,
@@ -37,14 +37,12 @@
   withDNSTAP ? false,
   withTFO ? false,
   withRedis ? false
-    # Avoid .lib depending on lib.getLib openssl
-    # The build gets a little hacky, so in some cases we disable this approach.
+  # Avoid .lib depending on lib.getLib openssl
+  # The build gets a little hacky, so in some cases we disable this approach.
   ,
-  withSlimLib ? stdenv.isLinux
-    && !stdenv.hostPlatform.isMusl
-    && !withDNSTAP
-      # enable support for python plugins in unbound: note this is distinct from pyunbound
-      # see https://unbound.docs.nlnetlabs.nl/en/latest/developer/python-modules.html
+  withSlimLib ? stdenv.isLinux && !stdenv.hostPlatform.isMusl && !withDNSTAP
+  # enable support for python plugins in unbound: note this is distinct from pyunbound
+  # see https://unbound.docs.nlnetlabs.nl/en/latest/developer/python-modules.html
   ,
   withPythonModule ? false,
   libnghttp2
@@ -136,7 +134,7 @@ stdenv.mkDerivation rec {
 
   PROTOC_C = lib.optionalString withDNSTAP "${protobufc}/bin/protoc-c";
 
-    # Remove references to compile-time dependencies that are included in the configure flags
+  # Remove references to compile-time dependencies that are included in the configure flags
   postConfigure =
     let
       inherit (builtins) storeDir;
@@ -184,7 +182,6 @@ stdenv.mkDerivation rec {
         fi
         installPhase
       ''
-      # get rid of runtime dependencies on $dev outputs
     + ''substituteInPlace "$lib/lib/libunbound.la" ''
     + lib.concatMapStrings
       (

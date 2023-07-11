@@ -9,7 +9,8 @@
 
 # Don't use this for anything important yet!
 
-buildGoModule rec {
+buildGoModule
+rec {
   pname = "fscrypt";
   version = "0.3.4";
 

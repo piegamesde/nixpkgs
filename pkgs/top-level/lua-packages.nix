@@ -27,21 +27,20 @@ let
 
   luaLib = callPackage ../development/lua-modules/lib.nix { };
 
-    #define build lua package function
+  #define build lua package function
   buildLuaPackage = callPackage ../development/lua-modules/generic { };
 
   getPath =
     drv: pathListForVersion:
     lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion
     ;
-
 in
 rec {
 
   # Dont take luaPackages from "global" pkgs scope to avoid mixing lua versions
   luaPackages = self;
 
-    # helper functions for dealing with LUA_PATH and LUA_CPATH
+  # helper functions for dealing with LUA_PATH and LUA_CPATH
   inherit luaLib;
 
   getLuaPath = drv: getPath drv luaLib.luaPathList;
@@ -67,14 +66,14 @@ rec {
     hasLuaModule
     ;
 
-    # wraps programs in $out/bin with valid LUA_PATH/LUA_CPATH
+  # wraps programs in $out/bin with valid LUA_PATH/LUA_CPATH
   wrapLua = callPackage ../development/interpreters/lua-5/wrap-lua.nix {
     inherit (pkgs.buildPackages) makeSetupHook makeWrapper;
   };
 
   luarocks = callPackage ../development/tools/misc/luarocks/default.nix { };
 
-    # a fork of luarocks used to generate nix lua derivations from rockspecs
+  # a fork of luarocks used to generate nix lua derivations from rockspecs
   luarocks-nix =
     callPackage ../development/tools/misc/luarocks/luarocks-nix.nix { };
 

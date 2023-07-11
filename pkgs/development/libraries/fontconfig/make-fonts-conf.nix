@@ -10,7 +10,7 @@ runCommand "fonts.conf"
 {
   nativeBuildInputs = [ libxslt ];
   buildInputs = [ fontconfig ];
-    # Add a default font for non-nixos systems, <1MB and in nixos defaults.
+  # Add a default font for non-nixos systems, <1MB and in nixos defaults.
   fontDirectories = fontDirectories ++ [ dejavu_fonts.minimal ];
 }
 ''

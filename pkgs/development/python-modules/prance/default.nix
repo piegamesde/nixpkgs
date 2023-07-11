@@ -62,7 +62,7 @@ buildPythonPackage rec {
     ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
     ;
 
-    # Disable tests that require network
+  # Disable tests that require network
   disabledTestPaths = [ "tests/test_convert.py" ];
   disabledTests = [
     "test_convert_defaults"

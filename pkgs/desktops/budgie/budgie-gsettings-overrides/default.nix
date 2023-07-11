@@ -63,7 +63,6 @@ let
     ]
     ++ extraGSettingsOverridePackages
     ;
-
 in
 runCommand "budgie-gsettings-overrides" { preferLocalBuild = true; } ''
   data_dir="$out/share/gsettings-schemas/nixos-gsettings-overrides"

@@ -36,7 +36,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 
-    # Tests require network access and pythonImportsCheck requires configuration file
+  # Tests require network access and pythonImportsCheck requires configuration file
   doCheck = false;
 
   meta = with lib; {

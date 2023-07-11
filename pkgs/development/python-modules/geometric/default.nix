@@ -42,4 +42,3 @@ buildPythonPackage rec {
     maintainers = [ maintainers.markuskowa ];
   };
 }
-

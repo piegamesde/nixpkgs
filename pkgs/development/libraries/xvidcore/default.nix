@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ ]
-      # Undocumented darwin hack (assembly is probably disabled due to an
-      # issue with nasm, however yasm is now used)
+    # Undocumented darwin hack (assembly is probably disabled due to an
+    # issue with nasm, however yasm is now used)
     ++ lib.optional stdenv.isDarwin "--enable-macosx_module --disable-assembly"
     ;
 
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ ]
-      # Undocumented darwin hack
+    # Undocumented darwin hack
     ++ lib.optionals stdenv.isDarwin [
       autoconf
       automake
@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Don't remove static libraries (e.g. 'libs/*.a') on darwin.  They're needed to
-    # compile ffmpeg (and perhaps other things).
+  # Don't remove static libraries (e.g. 'libs/*.a') on darwin.  They're needed to
+  # compile ffmpeg (and perhaps other things).
   postInstall = lib.optionalString (!stdenv.isDarwin) ''
     rm $out/lib/*.a
   '';
@@ -64,4 +64,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
   };
 }
-

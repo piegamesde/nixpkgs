@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X ktbs.dev/teler/common.Version=${version}"
   ];
 
-    # test require internet access
+  # test require internet access
   doCheck = false;
 
   meta = with lib; {

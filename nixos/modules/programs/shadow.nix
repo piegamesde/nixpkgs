@@ -55,8 +55,8 @@ let
       inherit source;
     }
     ;
-
 in
+
 {
 
   ###### interface
@@ -74,10 +74,9 @@ in
       example = literalExpression "pkgs.zsh";
       type = types.either types.path types.shellPackage;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = {
 
@@ -92,7 +91,7 @@ in
       # cannot login without it!
       "login.defs".source = pkgs.writeText "login.defs" loginDefs;
 
-        # /etc/default/useradd: configuration for useradd.
+      # /etc/default/useradd: configuration for useradd.
       "default/useradd".source = pkgs.writeText "useradd" ''
         GROUP=100
         HOME=/home
@@ -109,9 +108,9 @@ in
         logFailures = true;
       };
       passwd = { };
-        # Note: useradd, groupadd etc. aren't setuid root, so it
-        # doesn't really matter what the PAM config says as long as it
-        # lets root in.
+      # Note: useradd, groupadd etc. aren't setuid root, so it
+      # doesn't really matter what the PAM config says as long as it
+      # lets root in.
       useradd = { rootOK = true; };
       usermod = { rootOK = true; };
       userdel = { rootOK = true; };

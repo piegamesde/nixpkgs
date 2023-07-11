@@ -21,8 +21,8 @@ let
     qtsvg
     qttools
   ];
-
 in
+
 stdenv.mkDerivation rec {
   pname = "tiled";
   version = "1.10.1";

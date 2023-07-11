@@ -24,10 +24,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mojgHMT0gni0Po0hiZqQ8eMzqfwUipXue1uqpionihw=";
   };
 
-    # This commit corresponds to the following open PR:
-    # https://github.com/keyleds/keyleds/pull/74
-    # According to the author of the PR, the maintainer of keyleds is unreachable.
-    # This patch fixes the build process which is broken on the current master branch of keyleds.
+  # This commit corresponds to the following open PR:
+  # https://github.com/keyleds/keyleds/pull/74
+  # According to the author of the PR, the maintainer of keyleds is unreachable.
+  # This patch fixes the build process which is broken on the current master branch of keyleds.
   patches = [
       (fetchpatch {
         url =

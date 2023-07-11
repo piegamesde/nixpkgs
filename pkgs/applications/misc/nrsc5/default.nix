@@ -19,7 +19,6 @@ let
   };
 
   version = "1.0";
-
 in
 stdenv.mkDerivation {
   pname = "nrsc5";
@@ -71,4 +70,3 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ markuskowa ];
   };
 }
-

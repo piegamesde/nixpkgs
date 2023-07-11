@@ -44,4 +44,3 @@ stdenv.mkDerivation {
 
   inherit (gnvim-unwrapped) meta;
 }
-

@@ -133,8 +133,8 @@ let
       };
     }
     ;
-
 in
+
 {
 
   ###### interface
@@ -158,7 +158,7 @@ in
     { options.services.frr = (genAttrs services serviceOptions); }
   ];
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf (any isEnabled allServices) {
 
@@ -174,7 +174,7 @@ in
 
     users.groups = {
       frr = { };
-        # Members of the frrvty group can use vtysh to inspect the FRR daemons
+      # Members of the frrvty group can use vtysh to inspect the FRR daemons
       frrvty = { members = [ "frr" ]; };
     };
 
@@ -255,9 +255,7 @@ in
       in
       listToAttrs (map frrService (filter isEnabled allServices))
       ;
-
   };
 
   meta.maintainers = with lib.maintainers; [ woffs ];
-
 }

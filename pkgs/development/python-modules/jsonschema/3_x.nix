@@ -39,7 +39,7 @@ buildPythonPackage rec {
     vcversioner
   ];
 
-    # zope namespace collides on py27
+  # zope namespace collides on py27
   doCheck = !isPy27;
   checkPhase = ''
     nosetests

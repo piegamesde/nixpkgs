@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     categories = [ "Development" ];
   };
 
-    # because upstream tarball has no top-level directory.
+  # because upstream tarball has no top-level directory.
   sourceRoot = ".";
 
   nativeBuildInputs = [ unzip ];

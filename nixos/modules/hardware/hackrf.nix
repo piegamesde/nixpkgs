@@ -7,7 +7,6 @@
 
 let
   cfg = config.hardware.hackrf;
-
 in
 {
   options.hardware.hackrf = {

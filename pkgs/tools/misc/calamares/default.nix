@@ -32,7 +32,7 @@ mkDerivation rec {
   pname = "calamares";
   version = "3.2.62";
 
-    # release including submodule
+  # release including submodule
   src = fetchurl {
     url =
       "https://github.com/calamares/calamares/releases/download/v${version}/${pname}-${version}.tar.gz";

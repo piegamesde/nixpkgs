@@ -42,11 +42,9 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  doCheck =
-    !stdenv.isDarwin
-    ; # tests hang
+  doCheck = !stdenv.isDarwin; # tests hang
 
-    # Failing test
+  # Failing test
   postPatch = ''
     rm tests/rep-create.testscript
   '';
@@ -63,7 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "build2 package dependency manager";
-      # https://build2.org/bpkg/doc/bpkg.xhtml
+    # https://build2.org/bpkg/doc/bpkg.xhtml
     longDescription = ''
       The build2 package dependency manager is used to manipulate build
       configurations, packages, and repositories.

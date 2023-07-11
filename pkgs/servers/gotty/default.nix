@@ -17,8 +17,8 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-XtqIiREtKg0LRnwOg8UyYrWUWJNQbCJUw+nVvaiN3GQ=";
 
-    # upstream did not update the tests, so they are broken now
-    # https://github.com/sorenisanerd/gotty/issues/13
+  # upstream did not update the tests, so they are broken now
+  # https://github.com/sorenisanerd/gotty/issues/13
   doCheck = false;
 
   meta = with lib; {

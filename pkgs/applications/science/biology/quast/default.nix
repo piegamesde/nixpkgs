@@ -10,8 +10,8 @@
 let
   pythonPackages = python3Packages;
   inherit (pythonPackages) python;
-
 in
+
 pythonPackages.buildPythonApplication rec {
   pname = "quast";
   version = "5.0.2";
@@ -56,7 +56,7 @@ pythonPackages.buildPythonApplication rec {
 
   dontPatchELF = true;
 
-    # Tests need to download data files, so manual run after packaging is needed
+  # Tests need to download data files, so manual run after packaging is needed
   doCheck = false;
 
   meta = with lib; {

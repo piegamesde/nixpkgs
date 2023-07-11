@@ -10,7 +10,6 @@
 
 let
   version = "0.15";
-
 in
 stdenv.mkDerivation {
   pname = "hsc3-mode";

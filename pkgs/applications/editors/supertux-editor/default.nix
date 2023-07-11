@@ -45,7 +45,7 @@ stdenv.mkDerivation {
       --suffix LD_LIBRARY_PATH : $(echo $NIX_LDFLAGS | sed 's/ -L/:/g;s/ -rpath /:/g;s/-rpath //')
   '';
 
-    # Always needed on Mono, otherwise nothing runs
+  # Always needed on Mono, otherwise nothing runs
   dontStrip = true;
 
   meta = with lib; {

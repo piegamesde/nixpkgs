@@ -12,8 +12,8 @@ with lib;
 let
 
   cfg = config.services.upower;
-
 in
+
 {
 
   ###### interface
@@ -207,12 +207,10 @@ in
           (UPS or laptop batteries) supplying the computer
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -240,5 +238,4 @@ in
       };
     };
   };
-
 }

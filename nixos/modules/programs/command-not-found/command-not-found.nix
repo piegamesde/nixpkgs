@@ -27,8 +27,8 @@ let
       ]
     );
   };
-
 in
+
 {
   options.programs.command-not-found = {
 
@@ -99,5 +99,4 @@ in
 
     environment.systemPackages = [ commandNotFound ];
   };
-
 }

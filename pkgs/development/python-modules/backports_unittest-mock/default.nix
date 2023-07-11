@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools-scm ];
 
-    # does not contain tests
+  # does not contain tests
   doCheck = false;
   pythonImportsCheck = [ "backports.unittest_mock" ];
 

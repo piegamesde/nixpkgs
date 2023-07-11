@@ -25,7 +25,7 @@ let
 
       nativeBuildInputs = [ makeWrapper ];
 
-        # we create wrapper for the binaries in the different packages
+      # we create wrapper for the binaries in the different packages
       postBuild =
         ''
           if [ -L "$out/bin" ]; then

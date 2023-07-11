@@ -26,7 +26,7 @@
 
   passthru.tests = { timescaledb_toolkit = nixosTests.timescaledb; };
 
-    # tests take really long
+  # tests take really long
   doCheck = false;
 
   meta = with lib; {
@@ -37,7 +37,7 @@
     platforms = postgresql.meta.platforms;
     license = licenses.asl20;
 
-      # as it needs to be used with timescaledb, simply use the condition from there
+    # as it needs to be used with timescaledb, simply use the condition from there
     broken = versionOlder postgresql.version "12";
   };
 }

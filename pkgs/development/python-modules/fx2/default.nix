@@ -37,7 +37,7 @@ buildPythonPackage rec {
       $out/share/libfx2
   '';
 
-    # installCheckPhase tries to run build_ext again and there are no tests
+  # installCheckPhase tries to run build_ext again and there are no tests
   doCheck = false;
 
   meta = with lib; {

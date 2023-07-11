@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   buildAndTestSubdir = "worker-build";
 
-    # missing some module upstream to run the tests
+  # missing some module upstream to run the tests
   doCheck = false;
 
   meta = with lib; {

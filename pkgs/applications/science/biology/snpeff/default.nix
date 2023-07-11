@@ -44,5 +44,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ jbedo ];
     platforms = platforms.all;
   };
-
 }

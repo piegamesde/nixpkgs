@@ -49,10 +49,9 @@ in
         description = lib.mdDoc "The port address of the smtp server.";
       };
     };
-
   };
 
-    # implementation
+  # implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.mailcatcher ];

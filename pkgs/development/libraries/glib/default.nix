@@ -72,8 +72,8 @@ let
   buildDocs =
     stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.hostPlatform.isStatic
     ;
-
 in
+
 stdenv.mkDerivation (
   finalAttrs: {
     pname = "glib";
@@ -282,9 +282,9 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # Move man pages to the same output as their binaries (needs to be
-      # done after preFixupHooks which moves man pages too - in
-      # _multioutDocs)
+    # Move man pages to the same output as their binaries (needs to be
+    # done after preFixupHooks which moves man pages too - in
+    # _multioutDocs)
     postFixup = ''
       for i in $dev/bin/*; do
         moveToOutput "share/man/man1/''${i##*/}.1.*" "$dev"

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     ]
     ;
 
-    # Cyclic dependencies
+  # Cyclic dependencies
   doCheck = false;
 
   pythonImportsCheck = [ "importlib_metadata" ];

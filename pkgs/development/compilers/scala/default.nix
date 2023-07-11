@@ -8,8 +8,8 @@
 
 let
   bare = callPackage ./bare.nix { inherit stdenv fetchurl makeWrapper jre; };
-
 in
+
 stdenv.mkDerivation {
   pname = "scala";
   inherit (bare) version;

@@ -34,8 +34,8 @@ let
     else
       [ "jfbpdf" ]
     ; # does not
-
 in
+
 stdenv.mkDerivation rec {
   pname = package;
   version = "0.5.7";

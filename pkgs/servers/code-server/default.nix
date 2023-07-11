@@ -53,7 +53,7 @@ let
       ;
   };
 
-    # replaces esbuild's download script with a binary from nixpkgs
+  # replaces esbuild's download script with a binary from nixpkgs
   patchEsbuild =
     path: version: ''
       mkdir -p ${path}/node_modules/esbuild/bin
@@ -62,7 +62,6 @@ let
       ln -s -f ${esbuild'}/bin/esbuild ${path}/node_modules/esbuild/bin/esbuild
     ''
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "code-server";
@@ -123,7 +122,7 @@ stdenv.mkDerivation rec {
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
 
-      # to get hash values use nix-build -A code-server.prefetchYarnCache
+    # to get hash values use nix-build -A code-server.prefetchYarnCache
     outputHash = "sha256-4Vr9u3+W/IhbbTc39jyDyDNQODlmdF+M/N8oJn0Z4+w=";
   };
 

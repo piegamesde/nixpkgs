@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "teletype" ];

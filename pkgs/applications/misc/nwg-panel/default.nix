@@ -39,10 +39,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-HGbPBHf5PIjbuMSd/2fFSCLQ/7s1Xbys+KoGXctQOvM=";
   };
 
-    # No tests
+  # No tests
   doCheck = false;
 
-    # Because of wrapGAppsHook
+  # Because of wrapGAppsHook
   strictDeps = false;
   dontWrapGApps = true;
 

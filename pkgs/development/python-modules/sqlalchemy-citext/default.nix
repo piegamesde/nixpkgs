@@ -22,7 +22,7 @@ buildPythonPackage rec {
     psycopg2
   ];
 
-    # tests are not packaged in pypi tarball
+  # tests are not packaged in pypi tarball
   doCheck = false;
 
   pythonImportsCheck = [ "citext" ];

@@ -94,7 +94,7 @@ in
     environment.etc."vmware-installer".source =
       "${cfg.package}/etc/vmware-installer";
 
-      # SUID wrappers
+    # SUID wrappers
 
     security.wrappers = {
       vmware-vmx = {
@@ -105,7 +105,7 @@ in
       };
     };
 
-      ###### wrappers activation script
+    ###### wrappers activation script
 
     system.activationScripts.vmwareWrappers = lib.stringAfter
       [
@@ -135,7 +135,7 @@ in
         fi
       '';
 
-      # Services
+    # Services
 
     systemd.services."vmware-authdlauncher" = {
       description = "VMware Authentication Daemon";

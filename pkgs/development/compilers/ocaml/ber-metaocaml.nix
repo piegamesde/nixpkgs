@@ -20,8 +20,8 @@ let
   baseOcamlBranch = "4.11";
   baseOcamlVersion = "${baseOcamlBranch}.1";
   metaocamlPatch = "111";
-
 in
+
 stdenv.mkDerivation rec {
   pname = "ber-metaocaml";
   version = metaocamlPatch;

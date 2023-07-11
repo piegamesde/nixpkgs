@@ -23,5 +23,4 @@ buildPythonPackage rec {
       "Signal-registration and routing infrastructure for use in multiple contexts";
     license = licenses.bsd3;
   };
-
 }

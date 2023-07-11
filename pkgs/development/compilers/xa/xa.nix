@@ -36,7 +36,7 @@ stdenv.mkDerivation (
 
     doCheck = true;
 
-      # Running tests in parallel does not work
+    # Running tests in parallel does not work
     enableParallelChecking = false;
 
     preCheck = ''

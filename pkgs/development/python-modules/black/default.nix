@@ -65,8 +65,8 @@ buildPythonPackage rec {
     ];
   };
 
-    # Necessary for the tests to pass on Darwin with sandbox enabled.
-    # Black starts a local server and needs to bind a local address.
+  # Necessary for the tests to pass on Darwin with sandbox enabled.
+  # Black starts a local server and needs to bind a local address.
   __darwinAllowLocalNetworking = true;
 
   nativeCheckInputs =
@@ -104,7 +104,7 @@ buildPythonPackage rec {
       "test_skip_magic_trailing_comma"
     ]
     ;
-    # multiple tests exceed max open files on hydra builders
+  # multiple tests exceed max open files on hydra builders
   doCheck = !(stdenv.isLinux && stdenv.isAarch64);
 
   meta = with lib; {

@@ -64,25 +64,22 @@ let
   outer_types = rec {
     isType = type: x: (x._type or "") == type;
 
-    setType =
-      typeName: value:
-      value // {
-        _type = typeName;
-      }
-      ;
+    setType = typeName: value: value // { _type = typeName; };
 
-      # Default type merging function
-      # takes two type functors and return the merged type
+    # Default type merging function
+    # takes two type functors and return the merged type
     defaultTypeMerge =
       f: f':
       let
         wrapped = f.wrapped.typeMerge f'.wrapped.functor;
         payload = f.binOp f.payload f'.payload;
-        # cannot merge different types
       in
-      if f.name != f'.name then
+      # cannot merge different types
+      if
+        f.name != f'.name
+      then
         null
-        # simple types
+      # simple types
       else if
         (
           f.wrapped == null && f'.wrapped == null
@@ -92,12 +89,12 @@ let
         )
       then
         f.type
-        # composed types
+      # composed types
       else if
         (f.wrapped != null && f'.wrapped != null) && (wrapped != null)
       then
         f.type wrapped
-        # value types
+      # value types
       else if
         (f.payload != null && f'.payload != null) && (payload != null)
       then
@@ -106,7 +103,7 @@ let
         null
       ;
 
-      # Default type functor
+    # Default type functor
     defaultFunctor =
       name: {
         inherit name;
@@ -120,14 +117,14 @@ let
     isOptionType = isType "option-type";
     mkOptionType =
       { # Human-readable representation of the type, should be equivalent to
-      # the type function name.
+        # the type function name.
         name, # Description of the type, defined recursively by embedding the wrapped type if any.
         description ? null
-          # A hint for whether or not this description needs parentheses. Possible values:
-          #  - "noun": a simple noun phrase such as "positive integer"
-          #  - "conjunction": a phrase with a potentially ambiguous "or" connective.
-          #  - "composite": a phrase with an "of" connective
-          # See the `optionDescriptionPhrase` function.
+        # A hint for whether or not this description needs parentheses. Possible values:
+        #  - "noun": a simple noun phrase such as "positive integer"
+        #  - "conjunction": a phrase with a potentially ambiguous "or" connective.
+        #  - "composite": a phrase with an "of" connective
+        # See the `optionDescriptionPhrase` function.
         ,
         descriptionClass ?
           null, # DO NOT USE WITHOUT KNOWING WHAT YOU ARE DOING!
@@ -161,11 +158,13 @@ let
         # This may be used when a value is required for `mkIf false`. This allows the extra laziness in e.g. `lazyAttrsOf`.
         emptyValue ? { }, # Return a flat list of sub-options.  Used to generate
         # documentation.
-        getSubOptions ? prefix: { }, # List of modules if any, or null if none.
+        getSubOptions ? prefix:
+          { }, # List of modules if any, or null if none.
         getSubModules ?
           null, # Function for building the same option type with a different list of
         # modules.
-        substSubModules ? m: null, # Function that merge type declarations.
+        substSubModules ? m:
+          null, # Function that merge type declarations.
         # internal, takes a functor as argument and returns the merged type.
         # returning null means the type is not mergeable
         typeMerge ? defaultTypeMerge functor, # The type functor.
@@ -209,26 +208,26 @@ let
       }
       ;
 
-      # optionDescriptionPhrase :: (str -> bool) -> optionType -> str
-      #
-      # Helper function for producing unambiguous but readable natural language
-      # descriptions of types.
-      #
-      # Parameters
-      #
-      #     optionDescriptionPhase unparenthesize optionType
-      #
-      # `unparenthesize`: A function from descriptionClass string to boolean.
-      #   It must return true when the class of phrase will fit unambiguously into
-      #   the description of the caller.
-      #
-      # `optionType`: The option type to parenthesize or not.
-      #   The option whose description we're returning.
-      #
-      # Return value
-      #
-      # The description of the `optionType`, with parentheses if there may be an
-      # ambiguity.
+    # optionDescriptionPhrase :: (str -> bool) -> optionType -> str
+    #
+    # Helper function for producing unambiguous but readable natural language
+    # descriptions of types.
+    #
+    # Parameters
+    #
+    #     optionDescriptionPhase unparenthesize optionType
+    #
+    # `unparenthesize`: A function from descriptionClass string to boolean.
+    #   It must return true when the class of phrase will fit unambiguously into
+    #   the description of the caller.
+    #
+    # `optionType`: The option type to parenthesize or not.
+    #   The option whose description we're returning.
+    #
+    # Return value
+    #
+    # The description of the `optionType`, with parentheses if there may be an
+    # ambiguity.
     optionDescriptionPhrase =
       unparenthesize: t:
       if unparenthesize (t.descriptionClass or null) then
@@ -237,8 +236,8 @@ let
         "(${t.description})"
       ;
 
-      # When adding new types don't forget to document them in
-      # nixos/doc/manual/development/option-types.xml!
+    # When adding new types don't forget to document them in
+    # nixos/doc/manual/development/option-types.xml!
     types = rec {
 
       raw = mkOptionType rec {
@@ -265,8 +264,8 @@ let
                 builtins.typeOf value
               ;
 
-              # Returns the common type of all definitions, throws an error if they
-              # don't have the same type
+            # Returns the common type of all definitions, throws an error if they
+            # don't have the same type
             commonType = foldl'
               (
                 type: def:
@@ -286,8 +285,8 @@ let
               {
                 # Recursively merge attribute sets
                 set = (attrsOf anything).merge;
-                  # Safe and deterministic behavior for lists is to only accept one definition
-                  # listOf only used to apply mkIf and co.
+                # Safe and deterministic behavior for lists is to only accept one definition
+                # listOf only used to apply mkIf and co.
                 list =
                   if length defs > 1 then
                     throw "The option `${
@@ -298,7 +297,7 @@ let
                   else
                     (listOf anything).merge
                   ;
-                  # This is the type of packages, only accept a single definition
+                # This is the type of packages, only accept a single definition
                 stringCoercibleSet = mergeOneOption;
                 lambda =
                   loc: defs: arg:
@@ -311,7 +310,7 @@ let
                     defs
                   )
                   ;
-                  # Otherwise fall back to only allowing all equal definitions
+                # Otherwise fall back to only allowing all equal definitions
               }
               .${commonType} or mergeEqualOption;
           in
@@ -341,7 +340,7 @@ let
         merge = mergeEqualOption;
       };
 
-        # Specialized subdomains of int
+      # Specialized subdomains of int
       ints =
         let
           betweenDesc =
@@ -378,7 +377,6 @@ let
               toString bit
             } bit signed integer"
             ;
-
         in
         {
           # An int with a fixed range.
@@ -402,10 +400,10 @@ let
           };
           u8 = unsign 8 256;
           u16 = unsign 16 65536;
-            # the biggest int Nix accepts is 2^63 - 1 (9223372036854775808)
-            # the smallest int Nix accepts is -2^63 (-9223372036854775807)
+          # the biggest int Nix accepts is 2^63 - 1 (9223372036854775808)
+          # the smallest int Nix accepts is -2^63 (-9223372036854775807)
           u32 = unsign 32 4294967296;
-            # u64 = unsign 64 18446744073709551616;
+          # u64 = unsign 64 18446744073709551616;
 
           s8 = sign 8 256;
           s16 = sign 16 65536;
@@ -413,7 +411,7 @@ let
         }
         ;
 
-        # Alias of u16 for a port number
+      # Alias of u16 for a port number
       port = ints.u16;
 
       float = mkOptionType {
@@ -488,7 +486,7 @@ let
         inherit (str) merge;
       };
 
-        # Allow a newline character at the end and trim it in the merge function.
+      # Allow a newline character at the end and trim it in the merge function.
       singleLineStr =
         let
           inherit
@@ -520,8 +518,8 @@ let
         }
         ;
 
-        # Merge multiple definitions by concatenating them (with the given
-        # separator between the values).
+      # Merge multiple definitions by concatenating them (with the given
+      # separator between the values).
       separatedString =
         sep:
         mkOptionType rec {
@@ -552,8 +550,8 @@ let
       commas = separatedString ",";
       envVar = separatedString ":";
 
-        # Deprecated; should not be used because it quietly concatenates
-        # strings, which is usually not what you want.
+      # Deprecated; should not be used because it quietly concatenates
+      # strings, which is usually not what you want.
       string = separatedString "" // {
         name = "string";
         deprecationMessage =
@@ -579,13 +577,13 @@ let
         emptyValue = { value = { }; };
       };
 
-        # A package is a top-level store path (/nix/store/hash-name). This includes:
-        # - derivations
-        # - more generally, attribute sets with an `outPath` or `__toString` attribute
-        #   pointing to a store path, e.g. flake inputs
-        # - strings with context, e.g. "${pkgs.foo}" or (toString pkgs.foo)
-        # - hardcoded store path literals (/nix/store/hash-foo) or strings without context
-        #   ("/nix/store/hash-foo"). These get a context added to them using builtins.storePath.
+      # A package is a top-level store path (/nix/store/hash-name). This includes:
+      # - derivations
+      # - more generally, attribute sets with an `outPath` or `__toString` attribute
+      #   pointing to a store path, e.g. flake inputs
+      # - strings with context, e.g. "${pkgs.foo}" or (toString pkgs.foo)
+      # - hardcoded store path literals (/nix/store/hash-foo) or strings without context
+      #   ("/nix/store/hash-foo"). These get a context added to them using builtins.storePath.
       package = mkOptionType {
         name = "package";
         descriptionClass = "noun";
@@ -734,11 +732,11 @@ let
         }
         ;
 
-        # A version of attrsOf that's lazy in its values at the expense of
-        # conditional definitions not working properly. E.g. defining a value with
-        # `foo.attr = mkIf false 10`, then `foo ? attr == true`, whereas with
-        # attrsOf it would correctly be `false`. Accessing `foo.attr` would throw an
-        # error that it's not defined. Use only if conditional definitions don't make sense.
+      # A version of attrsOf that's lazy in its values at the expense of
+      # conditional definitions not working properly. E.g. defining a value with
+      # `foo.attr = mkIf false 10`, then `foo ? attr == true`, whereas with
+      # attrsOf it would correctly be `false`. Accessing `foo.attr` would throw an
+      # error that it's not defined. Use only if conditional definitions don't make sense.
       lazyAttrsOf =
         elemType:
         mkOptionType rec {
@@ -758,7 +756,7 @@ let
               name: defs:
               let
                 merged = mergeDefinitions (loc ++ [ name ]) elemType defs;
-                  # mergedValue will trigger an appropriate error when accessed
+                # mergedValue will trigger an appropriate error when accessed
               in
               merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue
             )
@@ -789,7 +787,7 @@ let
         }
         ;
 
-        # TODO: deprecate this in the future:
+      # TODO: deprecate this in the future:
       loaOf =
         elemType:
         types.attrsOf elemType // {
@@ -803,7 +801,7 @@ let
         }
         ;
 
-        # Value of given type but with no merging (i.e. `uniq list`s are not concatenated).
+      # Value of given type but with no merging (i.e. `uniq list`s are not concatenated).
       uniq =
         elemType:
         mkOptionType rec {
@@ -837,7 +835,7 @@ let
         }
         ;
 
-        # Null or value of ...
+      # Null or value of ...
       nullOr =
         elemType:
         mkOptionType rec {
@@ -907,7 +905,7 @@ let
         }
         ;
 
-        # A submodule (like typed attribute set). See NixOS manual.
+      # A submodule (like typed attribute set). See NixOS manual.
       submodule =
         modules:
         submoduleWith {
@@ -916,12 +914,12 @@ let
         }
         ;
 
-        # A module to be imported in some other part of the configuration.
+      # A module to be imported in some other part of the configuration.
       deferredModule = deferredModuleWith { };
 
-        # A module to be imported in some other part of the configuration.
-        # `staticModules`' options will be added to the documentation, unlike
-        # options declared via `config`.
+      # A module to be imported in some other part of the configuration.
+      # `staticModules`' options will be added to the documentation, unlike
+      # options declared via `config`.
       deferredModuleWith =
         attrs@{
           staticModules ? [ ]
@@ -964,7 +962,7 @@ let
         }
         ;
 
-        # The type of a type!
+      # The type of a type!
       optionType = mkOptionType {
         name = "optionType";
         description = "optionType";
@@ -985,14 +983,14 @@ let
                     file,
                   }: {
                     _file = file;
-                      # There's no way to merge types directly from the module system,
-                      # but we can cheat a bit by just declaring an option with the type
+                    # There's no way to merge types directly from the module system,
+                    # but we can cheat a bit by just declaring an option with the type
                     options = lib.mkOption { type = value; };
                   }
                 )
                 defs;
-                # Merges all the types into a single one, including submodule merging.
-                # This also propagates file information to all submodules
+              # Merges all the types into a single one, including submodule merging.
+              # This also propagates file information to all submodules
               mergedOption =
                 fixupOptionType loc (mergeOptionDecls loc optionModules);
             in
@@ -1060,7 +1058,6 @@ let
           freeformType = base._module.freeformType;
 
           name = "submodule";
-
         in
         mkOptionType {
           inherit name;
@@ -1152,7 +1149,7 @@ let
         }
         ;
 
-        # A value from a set of allowed ones.
+      # A value from a set of allowed ones.
       enum =
         values:
         let
@@ -1176,7 +1173,9 @@ let
             # where an "interface" module declares an empty enum and other modules
             # provide implementations, each extending the enum with their own
             # identifier.
-            if values == [ ] then
+            if
+              values == [ ]
+            then
               "impossible (empty enum)"
             else if builtins.length values == 1 then
               "value ${show (builtins.head values)} (singular enum)"
@@ -1198,7 +1197,7 @@ let
         }
         ;
 
-        # Either value of type `t1` or `t2`.
+      # Either value of type `t1` or `t2`.
       either =
         t1: t2:
         mkOptionType rec {
@@ -1254,7 +1253,7 @@ let
         }
         ;
 
-        # Any of the types in the given list
+      # Any of the types in the given list
       oneOf =
         ts:
         let
@@ -1269,8 +1268,8 @@ let
         foldl' either head' tail'
         ;
 
-        # Either value of type `coercedType` or `finalType`, the former is
-        # converted to `finalType` using `coerceFunc`.
+      # Either value of type `coercedType` or `finalType`, the former is
+      # converted to `finalType` using `coerceFunc`.
       coercedTo =
         coercedType: coerceFunc: finalType:
         assert lib.assertMsg
@@ -1316,16 +1315,14 @@ let
         }
         ;
 
-        # Augment the given type with an additional type check function.
+      # Augment the given type with an additional type check function.
       addCheck =
         elemType: check:
         elemType // {
           check = x: elemType.check x && check x;
         }
         ;
-
     };
   };
-
 in
 outer_types // outer_types.types

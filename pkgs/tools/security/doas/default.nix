@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "9uOQ2Ta5HzEpbCz2vbqZEEksPuIjL8lvmfmynfqxMeM=";
   };
 
-    # otherwise confuses ./configure
+  # otherwise confuses ./configure
   dontDisableStatic = true;
 
   configureFlags = [

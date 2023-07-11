@@ -17,8 +17,8 @@ buildPythonPackage (rec {
     sha256 = "8adf8bc351ed55df7296be1009d38a1c999c0abc7d8700fa88533f1ad6087c5e";
   };
 
-    # Check is disabled because running them destroy the content of the local cluster!
-    # https://github.com/elasticsearch/elasticsearch-py/tree/master/test_elasticsearch
+  # Check is disabled because running them destroy the content of the local cluster!
+  # https://github.com/elasticsearch/elasticsearch-py/tree/master/test_elasticsearch
   doCheck = false;
   propagatedBuildInputs = [
     urllib3

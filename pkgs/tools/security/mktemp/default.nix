@@ -9,10 +9,10 @@ stdenv.mkDerivation rec {
   pname = "mktemp";
   version = "1.7";
 
-    # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
+  # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
   NROFF = "${groff}/bin/nroff";
 
-    # Don't use "install -s"
+  # Don't use "install -s"
   postPatch = ''
     substituteInPlace Makefile.in --replace " 0555 -s " " 0555 "
   '';

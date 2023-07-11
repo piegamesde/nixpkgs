@@ -655,9 +655,9 @@ self: super:
     old: { dependencies = with self; [ fzfWrapper ]; }
   );
 
-    # Mainly used as a dependency for fzf-vim. Wraps the fzf program as a vim
-    # plugin, since part of the fzf vim plugin is included in the main fzf
-    # program.
+  # Mainly used as a dependency for fzf-vim. Wraps the fzf program as a vim
+  # plugin, since part of the fzf vim plugin is included in the main fzf
+  # program.
   fzfWrapper = buildVimPluginFrom2Nix {
     inherit (fzf) src version;
     pname = "fzf";
@@ -725,8 +725,8 @@ self: super:
         cargoSha256 = "H34UqJ6JOwuSABdOup5yKeIwFrGc83TUnw1ggJEx9o4=";
         buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
 
-          # FIXME: Use impure version of CoreFoundation because of missing symbols.
-          #   Undefined symbols for architecture x86_64: "_CFURLResourceIsReachable"
+        # FIXME: Use impure version of CoreFoundation because of missing symbols.
+        #   Undefined symbols for architecture x86_64: "_CFURLResourceIsReachable"
         preConfigure = lib.optionalString stdenv.isDarwin ''
           export NIX_LDFLAGS="-F${CoreFoundation}/Library/Frameworks -framework CoreFoundation $NIX_LDFLAGS"
         '';
@@ -974,8 +974,8 @@ self: super:
 
   onehalf = super.onehalf.overrideAttrs (old: { configurePhase = "cd vim"; });
 
-    # The plugin depends on either skim-vim or fzf-vim, but we don't want to force the user so we
-    # avoid choosing one of them and leave it to the user
+  # The plugin depends on either skim-vim or fzf-vim, but we don't want to force the user so we
+  # avoid choosing one of them and leave it to the user
   openscad-nvim = super.openscad-nvim.overrideAttrs (
     old: {
       buildInputs = [
@@ -1048,7 +1048,7 @@ self: super:
     }
   );
 
-    # needs  "http" and "json" treesitter grammars too
+  # needs  "http" and "json" treesitter grammars too
   rest-nvim = super.rest-nvim.overrideAttrs (
     old: {
       dependencies = with self; [
@@ -1083,7 +1083,7 @@ self: super:
 
         cargoBuildFlags = [ "--workspace" ];
 
-          # tests are broken
+        # tests are broken
         doCheck = false;
       };
     in
@@ -1152,7 +1152,7 @@ self: super:
     }
     ;
 
-    # The GitHub repository returns 404, which breaks the update script
+  # The GitHub repository returns 404, which breaks the update script
   Spacegray-vim = buildVimPluginFrom2Nix {
     pname = "Spacegray.vim";
     version = "2021-07-06";
@@ -1292,7 +1292,7 @@ self: super:
           fzy-lua-native = stdenv.mkDerivation {
             name = "fzy-lua-native";
             src = "${old.src}/${fzy-lua-native-path}";
-              # remove pre-compiled binaries
+            # remove pre-compiled binaries
             preBuild = "rm -rf static/*";
             installPhase = ''
               install -Dm 444 -t $out/static static/*
@@ -1511,8 +1511,8 @@ self: super:
     old: { dependencies = with self; [ vim-maktaba ]; }
   );
 
-    # Due to case-sensitivety issues, the hash differs on Darwin systems, see:
-    # https://github.com/NixOS/nixpkgs/issues/157609
+  # Due to case-sensitivety issues, the hash differs on Darwin systems, see:
+  # https://github.com/NixOS/nixpkgs/issues/157609
   vim-colorschemes = super.vim-colorschemes.overrideAttrs (
     old: {
       src = old.src.overrideAttrs (
@@ -1561,9 +1561,9 @@ self: super:
     old: { dependencies = with self; [ fzf-vim ]; }
   );
 
-    # change the go_bin_path to point to a path in the nix store. See the code in
-    # fatih/vim-go here
-    # https://github.com/fatih/vim-go/blob/155836d47052ea9c9bac81ba3e937f6f22c8e384/autoload/go/path.vim#L154-L159
+  # change the go_bin_path to point to a path in the nix store. See the code in
+  # fatih/vim-go here
+  # https://github.com/fatih/vim-go/blob/155836d47052ea9c9bac81ba3e937f6f22c8e384/autoload/go/path.vim#L154-L159
   vim-go = super.vim-go.overrideAttrs (
     old:
     let
@@ -1655,7 +1655,7 @@ self: super:
         pname = "vim-markdown-composer-bin";
         inherit (super.vim-markdown-composer) src version;
         cargoSha256 = "sha256-Vie8vLTplhaVU4E9IohvxERfz3eBpd62m8/1Ukzk8e4=";
-          # tests require network access
+        # tests require network access
         doCheck = false;
       };
     in
@@ -1773,7 +1773,7 @@ self: super:
     }
   );
 
-    # The GitHub repository returns 404, which breaks the update script
+  # The GitHub repository returns 404, which breaks the update script
   VimCompletesMe = buildVimPluginFrom2Nix {
     pname = "VimCompletesMe";
     version = "2022-02-18";
@@ -1859,7 +1859,6 @@ self: super:
       '';
     }
   );
-
 } // (
   let
     nodePackageNames = [

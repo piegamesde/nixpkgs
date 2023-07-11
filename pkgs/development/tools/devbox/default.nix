@@ -21,7 +21,7 @@ buildGoModule rec {
     "-X go.jetpack.io/devbox/internal/build.Version=${version}"
   ];
 
-    # integration tests want file system access
+  # integration tests want file system access
   doCheck = false;
 
   vendorHash = "sha256-Ct1hftgMYAF8DPdnYTB1QQYD0HGC4wifIbMX+TrgDdk=";

@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
     "apparmor"
   ];
 
-    # We don't have the required permissions inside the build sandbox:
-    # /build/source/build/ping/ping: socket: Operation not permitted
+  # We don't have the required permissions inside the build sandbox:
+  # /build/source/build/ping/ping: socket: Operation not permitted
   doCheck = false;
 
   mesonFlags =

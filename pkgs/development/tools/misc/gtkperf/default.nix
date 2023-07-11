@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     libintl
   ];
 
-    # https://openbenchmarking.org/innhold/7e9780c11550d09aa67bdba71248facbe2d781db
+  # https://openbenchmarking.org/innhold/7e9780c11550d09aa67bdba71248facbe2d781db
   patches = [ ./bench.patch ];
 
   meta = with lib; {

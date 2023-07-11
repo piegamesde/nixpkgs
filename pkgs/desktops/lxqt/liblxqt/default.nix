@@ -40,7 +40,7 @@ mkDerivation rec {
     xorg.libXScrnSaver
   ];
 
-    # convert name of wrapped binary, e.g. .lxqt-whatever-wrapped to the original name, e.g. lxqt-whatever so binaries can find their resources
+  # convert name of wrapped binary, e.g. .lxqt-whatever-wrapped to the original name, e.g. lxqt-whatever so binaries can find their resources
   patches = [ ./fix-application-path.patch ];
 
   postPatch = ''

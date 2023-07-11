@@ -44,7 +44,7 @@ let
       toString value
     ;
 
-    # The main PostgreSQL configuration file.
+  # The main PostgreSQL configuration file.
   configFile = pkgs.writeTextDir "postgresql.conf" (
     concatStringsSep "\n" (
       mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings
@@ -57,8 +57,8 @@ let
   '';
 
   groupAccessAvailable = versionAtLeast postgresql.version "11.0";
-
 in
+
 {
   imports = [
       (mkRemovedOptionModule
@@ -70,7 +70,7 @@ in
         "Use services.postgresql.settings instead.")
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -478,10 +478,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -524,11 +523,12 @@ in
           else
             mkThrow "9_5"
           ;
-        # Note: when changing the default, make it conditional on
-        # ‘system.stateVersion’ to maintain compatibility with existing
-        # systems!
       in
-      mkDefault (
+      # Note: when changing the default, make it conditional on
+      # ‘system.stateVersion’ to maintain compatibility with existing
+      # systems!
+      mkDefault
+      (
         if cfg.enableJIT then
           base.withJIT
         else
@@ -594,7 +594,7 @@ in
         ''}
       '';
 
-        # Wait for PostgreSQL to be ready to accept connections.
+      # Wait for PostgreSQL to be ready to accept connections.
       postStart =
         ''
           PSQL="psql --port=${toString cfg.port}"
@@ -679,13 +679,13 @@ in
               "simple"
             ;
 
-            # Shut down Postgres using SIGINT ("Fast Shutdown mode").  See
-            # http://www.postgresql.org/docs/current/static/server-shutdown.html
+          # Shut down Postgres using SIGINT ("Fast Shutdown mode").  See
+          # http://www.postgresql.org/docs/current/static/server-shutdown.html
           KillSignal = "SIGINT";
           KillMode = "mixed";
 
-            # Give Postgres a decent amount of time to clean up after
-            # receiving systemd's SIGINT.
+          # Give Postgres a decent amount of time to clean up after
+          # receiving systemd's SIGINT.
           TimeoutSec = 120;
 
           ExecStart = "${postgresql}/bin/postgres";
@@ -703,7 +703,6 @@ in
 
       unitConfig.RequiresMountsFor = "${cfg.dataDir}";
     };
-
   };
 
   meta.doc = ./postgresql.md;

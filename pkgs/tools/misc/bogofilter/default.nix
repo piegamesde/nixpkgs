@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "1d56n2m9inm8gnzm88aa27xl2a7sp7aff3484vmflpqkinjqf0p1";
   };
 
-    # FIXME: We would need `pax' as a "propagated build input" (for use
-    # by the `bf_tar' script) but we don't have it currently.
+  # FIXME: We would need `pax' as a "propagated build input" (for use
+  # by the `bf_tar' script) but we don't have it currently.
 
   buildInputs = [
     flex

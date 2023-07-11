@@ -26,12 +26,12 @@ buildPythonPackage rec {
         sha256 = "dlybrpfLK+PqwWWhH9iXgXHYysZGmcZAFGWNOwsG0xA=";
       })
     ];
-    # The install phase puts an executable and a copy of the library it imports in
-    # bin/credstash and bin/credstash.py, despite the fact that the library is also
-    # installed to lib/python<version>/site-packages/credstash.py.
-    # If we apply wrapPythonPrograms to bin/credstash.py then the executable will try
-    # to import the credstash module from the resulting shell script. Removing this
-    # file ensures that Python imports the module from site-packages library.
+  # The install phase puts an executable and a copy of the library it imports in
+  # bin/credstash and bin/credstash.py, despite the fact that the library is also
+  # installed to lib/python<version>/site-packages/credstash.py.
+  # If we apply wrapPythonPrograms to bin/credstash.py then the executable will try
+  # to import the credstash module from the resulting shell script. Removing this
+  # file ensures that Python imports the module from site-packages library.
   postInstall = "rm $out/bin/credstash.py";
 
   nativeBuildInputs = [ pytest ];
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     docutils
   ];
 
-    # No tests in archive
+  # No tests in archive
   doCheck = false;
 
   meta = with lib; {

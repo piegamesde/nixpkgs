@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   passthru = { inherit (blas) isILP64; };
 
-    # upstream patch, remove with next release
+  # upstream patch, remove with next release
   patches = [
       (fetchpatch {
         name = "gcc-10";
@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # Required to activate ILP64.
-    # See https://github.com/Reference-ScaLAPACK/scalapack/pull/19
+  # Required to activate ILP64.
+  # See https://github.com/Reference-ScaLAPACK/scalapack/pull/19
   postPatch = lib.optionalString passthru.isILP64 ''
     sed -i 's/INTSZ = 4/INTSZ = 8/g'   TESTING/EIG/* TESTING/LIN/*
     sed -i 's/INTGSZ = 4/INTGSZ = 8/g' TESTING/EIG/* TESTING/LIN/*
@@ -55,8 +55,8 @@ stdenv.mkDerivation rec {
   hardeningDisable =
     lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
 
-    # xslu and xsllt tests seem to time out on x86_64-darwin.
-    # this line is left so those who force installation on x86_64-darwin can still build
+  # xslu and xsllt tests seem to time out on x86_64-darwin.
+  # this line is left so those who force installation on x86_64-darwin can still build
   doCheck = !(stdenv.isx86_64 && stdenv.isDarwin);
 
   preConfigure = ''
@@ -74,8 +74,8 @@ stdenv.mkDerivation rec {
       )
   '';
 
-    # Increase individual test timeout from 1500s to 10000s because hydra's builds
-    # sometimes fail due to this
+  # Increase individual test timeout from 1500s to 10000s because hydra's builds
+  # sometimes fail due to this
   checkFlagsArray = [ "ARGS=--timeout 10000" ];
 
   preCheck = ''
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
       markuskowa
       gdinh
     ];
-      # xslu and xsllt tests fail on x86 darwin
+    # xslu and xsllt tests fail on x86 darwin
     broken = stdenv.isDarwin && stdenv.isx86_64;
   };
 }

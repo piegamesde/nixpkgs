@@ -8,16 +8,16 @@
 let
   version = "1.8.0";
 
-    # TODO: must build the extension instead of downloading it. But since it's
-    # literally an asset that is indifferent regardless of the platform, this
-    # might be just enough.
+  # TODO: must build the extension instead of downloading it. But since it's
+  # literally an asset that is indifferent regardless of the platform, this
+  # might be just enough.
   webext = fetchurl {
     url =
       "https://github.com/browsh-org/browsh/releases/download/v${version}/browsh-${version}.xpi";
     sha256 = "sha256-12xWbf4ngYHWLKV9yyxyi0Ny/zHSj2o7Icats+Ef+pA=";
   };
-
 in
+
 buildGoModule rec {
   inherit version;
 
@@ -38,7 +38,7 @@ buildGoModule rec {
     cp "${webext}" src/browsh/browsh.xpi
   '';
 
-    # Tests require network access
+  # Tests require network access
   doCheck = false;
 
   meta = with lib; {

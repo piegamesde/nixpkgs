@@ -26,7 +26,7 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "jefferson" ];
 
-    # upstream has no tests
+  # upstream has no tests
   doCheck = false;
 
   meta = with lib; {

@@ -29,7 +29,7 @@ let
 
     patches = [ ./package-json-npm-build-frontend.patch ];
 
-      # override npmInstallHook
+    # override npmInstallHook
     installPhase = ''
       mkdir $out
       cp -R ./public $out/
@@ -101,7 +101,7 @@ buildGoModule rec {
       }
   '';
 
-    # $data is not available in go-modules.drv and preBuild isn't needed
+  # $data is not available in go-modules.drv and preBuild isn't needed
   overrideModAttrs =
     (_: {
       postPatch = null;

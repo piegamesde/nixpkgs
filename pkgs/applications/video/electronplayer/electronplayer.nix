@@ -8,7 +8,7 @@ let
   version = "2.0.8";
   name = "${pname}-${version}";
 
-    #TODO: remove the -rc4 from the tag in the url when possible
+  #TODO: remove the -rc4 from the tag in the url when possible
   src = fetchurl {
     url =
       "https://github.com/oscartbeaumont/ElectronPlayer/releases/download/v${version}-rc4/${name}.AppImage";

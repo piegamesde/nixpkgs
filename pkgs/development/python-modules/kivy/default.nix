@@ -78,9 +78,9 @@ buildPythonPackage rec {
   KIVY_NO_CONFIG = 1;
   KIVY_NO_ARGS = 1;
   KIVY_NO_FILELOG = 1;
-    # prefer pkg-config over hardcoded framework paths
+  # prefer pkg-config over hardcoded framework paths
   USE_OSX_FRAMEWORKS = 0;
-    # work around python distutils compiling C++ with $CC (see issue #26709)
+  # work around python distutils compiling C++ with $CC (see issue #26709)
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
 
@@ -89,9 +89,9 @@ buildPythonPackage rec {
       --replace "LoadLibrary('libmtdev.so.1')" "LoadLibrary('${mtdev}/lib/libmtdev.so.1')"
   '';
 
-    /* We cannot run tests as Kivy tries to import itself before being fully
-       installed.
-    */
+  /* We cannot run tests as Kivy tries to import itself before being fully
+     installed.
+  */
   doCheck = false;
   pythonImportsCheck = [ "kivy" ];
 

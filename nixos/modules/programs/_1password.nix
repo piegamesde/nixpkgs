@@ -10,7 +10,6 @@ with lib;
 let
 
   cfg = config.programs._1password;
-
 in
 {
   imports = [

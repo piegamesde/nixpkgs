@@ -38,18 +38,18 @@ let
       stdenvSandboxProfile ? "",
       extraSandboxProfile ? ""
 
-        ## Platform parameters
-        ##
-        ## The "build" "host" "target" terminology below comes from GNU Autotools. See
-        ## its documentation for more information on what those words mean. Note that
-        ## each should always be defined, even when not cross compiling.
-        ##
-        ## For purposes of bootstrapping, think of each stage as a "sliding window"
-        ## over a list of platforms. Specifically, the host platform of the previous
-        ## stage becomes the build platform of the current one, and likewise the
-        ## target platform of the previous stage becomes the host platform of the
-        ## current one.
-        ##
+      ## Platform parameters
+      ##
+      ## The "build" "host" "target" terminology below comes from GNU Autotools. See
+      ## its documentation for more information on what those words mean. Note that
+      ## each should always be defined, even when not cross compiling.
+      ##
+      ## For purposes of bootstrapping, think of each stage as a "sliding window"
+      ## over a list of platforms. Specifically, the host platform of the previous
+      ## stage becomes the build platform of the current one, and likewise the
+      ## target platform of the previous stage becomes the host platform of the
+      ## current one.
+      ##
 
       , # The platform on which packages are built. Consists of `system`, a
       # string (e.g.,`i686-linux') identifying the most import attributes of the
@@ -93,7 +93,7 @@ let
 
       stdenv = (stdenv-overridable argsStdenv);
 
-        # The stdenv that we are producing.
+      # The stdenv that we are producing.
     in
     derivation (
       lib.optionalAttrs (allowedRequisites != null) {
@@ -105,12 +105,10 @@ let
         outputHashMode = "recursive";
       } // {
         inherit name;
-        inherit
-          disallowedRequisites
-          ;
+        inherit disallowedRequisites;
 
-          # Nix itself uses the `system` field of a derivation to decide where to
-          # build it. This is a bit confusing for cross compilation.
+        # Nix itself uses the `system` field of a derivation to decide where to
+        # build it. This is a bit confusing for cross compilation.
         inherit (buildPlatform) system;
 
         builder = shell;
@@ -122,10 +120,10 @@ let
 
         setup = setupScript;
 
-          # We pretty much never need rpaths on Darwin, since all library path references
-          # are absolute unless we go out of our way to make them relative (like with CF)
-          # TODO: This really wants to be in stdenv/darwin but we don't have hostPlatform
-          # there (yet?) so it goes here until then.
+        # We pretty much never need rpaths on Darwin, since all library path references
+        # are absolute unless we go out of our way to make them relative (like with CF)
+        # TODO: This really wants to be in stdenv/darwin but we don't have hostPlatform
+        # there (yet?) so it goes here until then.
         preHook =
           preHook
           + lib.optionalString buildPlatform.isDarwin ''
@@ -150,12 +148,12 @@ let
             ''
               export MACOSX_DEPLOYMENT_TARGET=${hostPlatform.darwinMinVersion}
             ''
-            # TODO this should be uncommented, but it causes stupid mass rebuilds. I
-            # think the best solution would just be to fixup linux RPATHs so we don't
-            # need to set `-rpath` anywhere.
-            # + lib.optionalString targetPlatform.isDarwin ''
-            #   export NIX_DONT_SET_RPATH_FOR_TARGET=1
-            # ''
+          # TODO this should be uncommented, but it causes stupid mass rebuilds. I
+          # think the best solution would just be to fixup linux RPATHs so we don't
+          # need to set `-rpath` anywhere.
+          # + lib.optionalString targetPlatform.isDarwin ''
+          #   export NIX_DONT_SET_RPATH_FOR_TARGET=1
+          # ''
           ;
 
         inherit initialPath shell defaultNativeBuildInputs defaultBuildInputs;
@@ -182,7 +180,7 @@ let
         extraSandboxProfile
         ;
 
-        # Utility flags to test the type of platform.
+      # Utility flags to test the type of platform.
       inherit (hostPlatform)
         isDarwin
         isLinux
@@ -202,10 +200,10 @@ let
         isBigEndian
         ;
 
-        # Override `system` so that packages can get the system of the host
-        # platform through `stdenv.system`. `system` is originally set to the
-        # build platform within the derivation above so that Nix directs the build
-        # to correct type of machine.
+      # Override `system` so that packages can get the system of the host
+      # platform through `stdenv.system`. `system` is originally set to the
+      # build platform within the derivation above so that Nix directs the build
+      # to correct type of machine.
       inherit (hostPlatform) system;
 
       mkDerivation = mkDerivationFromStdenv stdenv;
@@ -214,14 +212,11 @@ let
 
       inherit overrides;
 
-      inherit
-        cc
-        hasCC
-        ;
+      inherit cc hasCC;
 
-        # Convenience for doing some very basic shell syntax checking by parsing a script
-        # without running any commands. Because this will also skip `shopt -s extglob`
-        # commands and extglob affects the Bash parser, we enable extglob always.
+      # Convenience for doing some very basic shell syntax checking by parsing a script
+      # without running any commands. Because this will also skip `shopt -s extglob`
+      # commands and extglob affects the Bash parser, we enable extglob always.
       shellDryRun = "${stdenv.shell} -n -O extglob";
 
       tests = {

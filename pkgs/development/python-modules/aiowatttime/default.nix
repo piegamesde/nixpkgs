@@ -36,7 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # Ignore the examples directory as the files are prefixed with test_
+  # Ignore the examples directory as the files are prefixed with test_
   disabledTestPaths = [ "examples/" ];
 
   pythonImportsCheck = [ "aiowatttime" ];

@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "1iwm11v0ghv2pq2cyvly7gdwrhxsx6iwi581fz46l0snhgcd4sqq";
   };
 
-    # tests not included in the distribution
+  # tests not included in the distribution
   doCheck = false;
 
   propagatedBuildInputs = [ pyparsing ];

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "1lspciddkd1w5lfyz35i0qwgpbn5jq9cbqkwjbsvi4kliz229vkh";
   };
 
-    # dependency installation in setup.py doesn't work
+  # dependency installation in setup.py doesn't work
   patchPhase = ''
     echo -n > requirements.txt
   '';
@@ -30,7 +30,7 @@ buildPythonPackage rec {
   ];
   propagatedBuildInputs = [ netmiko ];
 
-    # setup.cfg seems to contain invalid pytest parameters
+  # setup.cfg seems to contain invalid pytest parameters
   preCheck = ''
     rm setup.cfg
   '';

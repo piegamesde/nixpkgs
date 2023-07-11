@@ -56,8 +56,8 @@ let
     }
     (removeNulls c)
     ;
-
 in
+
 {
 
   ###### interface
@@ -202,7 +202,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -268,5 +268,4 @@ in
       das_j
     ];
   };
-
 }

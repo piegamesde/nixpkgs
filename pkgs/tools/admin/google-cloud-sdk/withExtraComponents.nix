@@ -26,13 +26,13 @@ let
     builtins.filter (drv: !(builtins.elem drv preInstalledComponents))
     ;
 
-    # Recursively build a list of components with their dependencies
-    # TODO this could be made faster, it checks the dependencies too many times
+  # Recursively build a list of components with their dependencies
+  # TODO this could be made faster, it checks the dependencies too many times
   findDepsRecursive = lib.converge (
     drvs: lib.unique (drvs ++ (builtins.concatMap (drv: drv.dependencies) drvs))
   );
 
-    # Components to install by default
+  # Components to install by default
   defaultComponents = with components; [
     alpha
     beta
@@ -42,13 +42,14 @@ let
     [ google-cloud-sdk ]
     ++ filterPreInstalled (findDepsRecursive (defaultComponents ++ comps_))
     ;
-  # Components are installed by copying the `google-cloud-sdk` package, along
-  # with each component, over to a new location, and then patching that location
-  # with `sed` to ensure the proper paths are used.
-  # For some reason, this does not work properly with a `symlinkJoin`: the
-  # `gcloud` binary doesn't seem able to find the installed components.
 in
-runCommand "google-cloud-sdk-${google-cloud-sdk.version}"
+# Components are installed by copying the `google-cloud-sdk` package, along
+# with each component, over to a new location, and then patching that location
+# with `sed` to ensure the proper paths are used.
+# For some reason, this does not work properly with a `symlinkJoin`: the
+# `gcloud` binary doesn't seem able to find the installed components.
+runCommand
+"google-cloud-sdk-${google-cloud-sdk.version}"
 {
   inherit (google-cloud-sdk) meta;
   inherit comps;

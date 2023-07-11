@@ -14,8 +14,8 @@ let
       stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic
     )
     ;
-
 in
+
 {
   lib,
   stdenv,
@@ -50,8 +50,8 @@ let
         args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
       inherit (args) sha256;
     });
-
 in
+
 let
   useNativeCompilers = !stdenv.isMips;
   inherit (lib) optional optionals optionalString strings concatStrings;
@@ -62,8 +62,8 @@ let
     (optionalString flambdaSupport "+flambda")
     (optionalString framePointerSupport "+fp")
   ];
-
 in
+
 let
   x11env = buildEnv {
     name = "x11env";
@@ -82,8 +82,8 @@ let
     else
       x
     ;
-
 in
+
 stdenv.mkDerivation (
   args // {
 
@@ -142,10 +142,10 @@ stdenv.mkDerivation (
       ;
     dontAddStaticConfigureFlags = lib.versionOlder version "4.08";
 
-      # on aarch64-darwin using --host and --target causes the build to invoke
-      # `aarch64-apple-darwin-clang` while using assembler. However, such binary
-      # does not exist. So, disable these configure flags on `aarch64-darwin`.
-      # See #144785 for details.
+    # on aarch64-darwin using --host and --target causes the build to invoke
+    # `aarch64-apple-darwin-clang` while using assembler. However, such binary
+    # does not exist. So, disable these configure flags on `aarch64-darwin`.
+    # See #144785 for details.
     configurePlatforms = lib.optionals
       (
         lib.versionAtLeast version "4.08"
@@ -157,7 +157,7 @@ stdenv.mkDerivation (
         "host"
         "target"
       ];
-      # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
+    # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
     hardeningDisable =
       lib.optional
         (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl)
@@ -168,19 +168,19 @@ stdenv.mkDerivation (
       ++ lib.optionals (args ? hardeningDisable) args.hardeningDisable
       ;
 
-      # Older versions have some race:
-      #  cp: cannot stat 'boot/ocamlrun': No such file or directory
-      #  make[2]: *** [Makefile:199: backup] Error 1
+    # Older versions have some race:
+    #  cp: cannot stat 'boot/ocamlrun': No such file or directory
+    #  make[2]: *** [Makefile:199: backup] Error 1
     enableParallelBuilding = lib.versionAtLeast version "4.08";
 
-      # Workaround missing dependencies for install parallelism:
-      #  install: target '...-ocaml-4.14.0/lib/ocaml/threads': No such file or directory
-      #  make[1]: *** [Makefile:140: installopt] Error 1
+    # Workaround missing dependencies for install parallelism:
+    #  install: target '...-ocaml-4.14.0/lib/ocaml/threads': No such file or directory
+    #  make[1]: *** [Makefile:140: installopt] Error 1
     enableParallelInstalling = false;
 
-      # Workaround lack of parallelism support among top-level targets:
-      # we place nixpkgs-specific targets to a separate file and set
-      # sequential order among them as a single rule.
+    # Workaround lack of parallelism support among top-level targets:
+    # we place nixpkgs-specific targets to a separate file and set
+    # sequential order among them as a single rule.
     makefile = ./Makefile.nixpkgs;
     buildFlags =
       if useNativeCompilers then
@@ -258,6 +258,5 @@ stdenv.mkDerivation (
         )
         ;
     };
-
   }
 )

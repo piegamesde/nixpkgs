@@ -37,7 +37,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "dvc_studio_client" ];
 
-    # Tests try to access network
+  # Tests try to access network
   doCheck = false;
 
   meta = with lib; {

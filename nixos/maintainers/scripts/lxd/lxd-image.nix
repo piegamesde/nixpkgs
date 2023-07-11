@@ -20,7 +20,7 @@ with lib;
     ];
   };
 
-    # copy the config for nixos-rebuild
+  # copy the config for nixos-rebuild
   system.activationScripts.config = ''
     if [ ! -e /etc/nixos/configuration.nix ]; then
       mkdir -p /etc/nixos
@@ -29,7 +29,7 @@ with lib;
     fi
   '';
 
-    # Network
+  # Network
   networking.useDHCP = false;
   networking.interfaces.eth0.useDHCP = true;
 }

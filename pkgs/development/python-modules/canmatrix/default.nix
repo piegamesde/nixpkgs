@@ -21,7 +21,7 @@ buildPythonPackage rec {
   pname = "canmatrix";
   version = "0.9.5";
 
-    # uses fetchFromGitHub as PyPi release misses test/ dir
+  # uses fetchFromGitHub as PyPi release misses test/ dir
   src = fetchFromGitHub {
     owner = "ebroecker";
     repo = pname;
@@ -53,7 +53,7 @@ buildPythonPackage rec {
   '';
 
   nativeCheckInputs = [ pytestCheckHook ];
-    # long_envvar_name_imports requires stable key value pair ordering
+  # long_envvar_name_imports requires stable key value pair ordering
   pytestFlagsArray = [ "-s src/canmatrix" ];
   disabledTests = [ "long_envvar_name_imports" ];
   pythonImportsCheck = [ "canmatrix" ];
@@ -66,4 +66,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ sorki ];
   };
 }
-

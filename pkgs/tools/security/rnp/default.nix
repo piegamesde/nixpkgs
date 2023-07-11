@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-    # NOTE: check-only inputs should ideally be moved to nativeCheckInputs, but it
-    # would fail during buildPhase.
-    # nativeCheckInputs = [ gtest python3 ];
+  # NOTE: check-only inputs should ideally be moved to nativeCheckInputs, but it
+  # would fail during buildPhase.
+  # nativeCheckInputs = [ gtest python3 ];
 
   outputs = [
     "out"

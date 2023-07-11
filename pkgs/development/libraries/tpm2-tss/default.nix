@@ -31,8 +31,8 @@ let
     else
       procps
     ;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "tpm2-tss";
   version = "3.2.0";
@@ -59,8 +59,8 @@ stdenv.mkDerivation rec {
     shadow
   ];
 
-    # cmocka is checked / used(?) in the configure script
-    # when unit and/or integration testing is enabled
+  # cmocka is checked / used(?) in the configure script
+  # when unit and/or integration testing is enabled
   buildInputs =
     [
       openssl

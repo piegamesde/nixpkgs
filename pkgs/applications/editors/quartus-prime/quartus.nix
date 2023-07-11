@@ -60,11 +60,8 @@ let
       sha256,
     }:
     fetchurl {
-      inherit
-        name
-        sha256
-        ;
-        # e.g. "20.1.1.720" -> "20.1std.1/720"
+      inherit name sha256;
+      # e.g. "20.1.1.720" -> "20.1std.1/720"
       url =
         "https://downloads.intel.com/akdlm/software/acdsinst/${
           lib.versions.majorMinor version
@@ -73,7 +70,6 @@ let
         }/ib_installers/${name}";
     }
     ;
-
 in
 stdenv.mkDerivation rec {
   inherit version;
@@ -112,11 +108,8 @@ stdenv.mkDerivation rec {
           patchelf --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $TEMP/${installer.name}
         ''
         ;
-      copyComponent =
-        component:
-        "cp ${component} $TEMP/${component.name}"
-        ;
-        # leaves enabled: quartus, modelsim_ase, devinfo
+      copyComponent = component: "cp ${component} $TEMP/${component.name}";
+      # leaves enabled: quartus, modelsim_ase, devinfo
       disabledComponents =
         [
           "quartus_help"

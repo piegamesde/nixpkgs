@@ -36,8 +36,8 @@ let
     x86_64 = "FV/OVMF";
     aarch64 = "FV/AAVMF";
   };
-
 in
+
 edk2.mkDerivation projectDscPath (
   finalAttrs: {
     pname = "OVMF";
@@ -130,7 +130,7 @@ edk2.mkDerivation projectDscPath (
       {
         firmware = "${prefix}_CODE.fd";
         variables = "${prefix}_VARS.fd";
-          # This will test the EFI firmware for the host platform as part of the NixOS Tests setup.
+        # This will test the EFI firmware for the host platform as part of the NixOS Tests setup.
         tests.basic-systemd-boot = nixosTests.systemd-boot.basic;
       }
       ;

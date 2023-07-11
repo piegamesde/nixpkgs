@@ -16,11 +16,9 @@ let
     buildProtobuf: stdenv:
     stdenv.mkDerivation {
       pname = "protobuf";
-      inherit
-        version
-        ;
+      inherit version;
 
-        # make sure you test also -A pythonPackages.protobuf
+      # make sure you test also -A pythonPackages.protobuf
       src = fetchFromGitHub {
         owner = "protocolbuffers";
         repo = "protobuf";

@@ -16,7 +16,6 @@ let
   config_file = pkgs.writeText "rabbitmq.conf" config_file_content;
 
   advanced_config_file = pkgs.writeText "advanced.config" cfg.config;
-
 in
 {
   ###### interface
@@ -154,7 +153,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
 
     # This is needed so we will have 'rabbitmqctl' in our PATH
@@ -236,7 +235,5 @@ in
         ''}
       '';
     };
-
   };
-
 }

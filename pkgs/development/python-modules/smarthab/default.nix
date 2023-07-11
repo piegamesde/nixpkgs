@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-    # no tests on PyPI, no tags on GitLab
+  # no tests on PyPI, no tags on GitLab
   doCheck = false;
 
   pythonImportsCheck = [ "pysmarthab" ];

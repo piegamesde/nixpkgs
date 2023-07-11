@@ -28,11 +28,9 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/pytest-quickcheck";
     description =
       "pytest plugin to generate random data inspired by QuickCheck";
-    maintainers = with maintainers; [
-        onny
-      ];
-      # Pytest support > 6.0 missing
-      # https://github.com/t2y/pytest-quickcheck/issues/17
+    maintainers = with maintainers; [ onny ];
+    # Pytest support > 6.0 missing
+    # https://github.com/t2y/pytest-quickcheck/issues/17
     broken = true;
   };
 }

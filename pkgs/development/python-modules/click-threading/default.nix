@@ -24,7 +24,7 @@ buildPythonPackage rec {
     py.test
   '';
 
-    # Tests are broken on 3.x
+  # Tests are broken on 3.x
   doCheck = !isPy3k;
 
   meta = {

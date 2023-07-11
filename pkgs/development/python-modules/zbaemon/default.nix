@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ zconfig ];
 
-    # too many deps..
+  # too many deps..
   doCheck = false;
 
   meta = with lib; {
@@ -26,5 +26,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
-
 }

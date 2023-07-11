@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-    # uses lots of absolute paths outside of the sandbox
+  # uses lots of absolute paths outside of the sandbox
   doCheck = false;
 
   postInstall = ''

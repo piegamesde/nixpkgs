@@ -11,7 +11,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "gnutar";
   version = "1.34";
 
@@ -20,16 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Y769JoecXh7qQ1Lw0DyZH5Zq6z3es8dEXJAlaNVBHSg=";
   };
 
-    # avoid retaining reference to CF during stdenv bootstrap
+  # avoid retaining reference to CF during stdenv bootstrap
   configureFlags = lib.optionals stdenv.isDarwin [
     "gt_cv_func_CFPreferencesCopyAppValue=no"
     "gt_cv_func_CFLocaleCopyCurrent=no"
     "gt_cv_func_CFLocaleCopyPreferredLanguages=no"
   ];
 
-    # gnutar tries to call into gettext between `fork` and `exec`,
-    # which is not safe on darwin.
-    # see http://article.gmane.org/gmane.os.macosx.fink.devel/21882
+  # gnutar tries to call into gettext between `fork` and `exec`,
+  # which is not safe on darwin.
+  # see http://article.gmane.org/gmane.os.macosx.fink.devel/21882
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace src/system.c --replace '_(' 'N_('
   '';
@@ -42,8 +43,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = lib.optional stdenv.isDarwin autoreconfHook;
   buildInputs = lib.optional stdenv.isLinux acl;
 
-    # May have some issues with root compilation because the bootstrap tool
-    # cannot be used as a login shell for now.
+  # May have some issues with root compilation because the bootstrap tool
+  # cannot be used as a login shell for now.
   FORCE_UNSAFE_CONFIGURE = lib.optionalString
     (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.isSunOS)
     "1";

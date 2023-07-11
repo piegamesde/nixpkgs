@@ -60,5 +60,4 @@ yarn2nix-moretea.mkYarnPackage rec {
     ln -sf $node_modules node_modules
     cd ../..
   '';
-
 }

@@ -29,7 +29,7 @@ mkDerivation rec {
     ./0001-NixOS-Skip-tests-they-re-shock-full-of-hardcoded-FHS.patch
   ];
 
-    # Replaces paths from the Qt store path to this library's store path.
+  # Replaces paths from the Qt store path to this library's store path.
   postPatch = ''
     substituteInPlace src/src.pro \
       --replace /usr $out \

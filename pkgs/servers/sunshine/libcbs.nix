@@ -11,7 +11,7 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "LizardByte";
     repo = "build-deps";
-      # repo is not versioned -- used latest commit combined with sunshine release
+    # repo is not versioned -- used latest commit combined with sunshine release
     rev = "d6e889188ca10118d769ee1ee3cddf9cf485642b";
     fetchSubmodules = true;
     sha256 = "sha256-6xQDJey5JrZXyZxS/yhUBvFi6UD5MsQ3uVtUFrG09Vc=";
@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     nasm
   ];
 
-    # modify paths to allow patches to be applied directly by derivation
+  # modify paths to allow patches to be applied directly by derivation
   prePatch = ''
     substituteInPlace ffmpeg_patches/cbs/* \
       --replace 'a/libavcodec' 'a/ffmpeg_sources/ffmpeg/libavcodec' \

@@ -52,14 +52,14 @@ import ../make-test-python.nix (
           gzip
         ];
 
-          # k3s uses enough resources the default vm fails.
+        # k3s uses enough resources the default vm fails.
         virtualisation.memorySize = 1536;
         virtualisation.diskSize = 4096;
 
         services.k3s.enable = true;
         services.k3s.role = "server";
         services.k3s.package = k3s;
-          # Slightly reduce resource usage
+        # Slightly reduce resource usage
         services.k3s.extraFlags = builtins.toString [
           "--disable"
           "coredns"

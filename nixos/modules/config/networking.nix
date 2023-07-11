@@ -23,8 +23,8 @@ let
       ]
     )
   );
-
 in
+
 {
   imports = [
       (mkRemovedOptionModule
@@ -179,8 +179,8 @@ in
       '';
     } ];
 
-      # These entries are required for "hostname -f" and to resolve both the
-      # hostname and FQDN correctly:
+    # These entries are required for "hostname -f" and to resolve both the
+    # hostname and FQDN correctly:
     networking.hosts =
       let
         hostnames = # Note: The FQDN (canonical hostname) has to come first:
@@ -226,26 +226,21 @@ in
       ;
 
     environment.etc = { # /etc/services: TCP/UDP port assignments.
-      services.source =
-        pkgs.iana-etc + "/etc/services"
-        ;
+      services.source = pkgs.iana-etc + "/etc/services";
 
-        # /etc/protocols: IP protocol numbers.
-      protocols.source =
-        pkgs.iana-etc + "/etc/protocols"
-        ;
+      # /etc/protocols: IP protocol numbers.
+      protocols.source = pkgs.iana-etc + "/etc/protocols";
 
-        # /etc/hosts: Hostname-to-IP mappings.
+      # /etc/hosts: Hostname-to-IP mappings.
       hosts.source = pkgs.concatText "hosts" cfg.hostFiles;
 
-        # /etc/netgroup: Network-wide groups.
+      # /etc/netgroup: Network-wide groups.
       netgroup.text = mkDefault "";
 
-        # /etc/host.conf: resolver configuration file
+      # /etc/host.conf: resolver configuration file
       "host.conf".text = ''
         multi on
       '';
-
     } // optionalAttrs (pkgs.stdenv.hostPlatform.libc == "glibc") {
       # /etc/rpc: RPC program numbers.
       rpc.source = pkgs.stdenv.cc.libc.out + "/etc/rpc";
@@ -268,9 +263,7 @@ in
       no_proxy = cfg.proxy.noProxy;
     };
 
-      # Install the proxy environment variables
+    # Install the proxy environment variables
     environment.sessionVariables = cfg.proxy.envVars;
-
   };
-
 }

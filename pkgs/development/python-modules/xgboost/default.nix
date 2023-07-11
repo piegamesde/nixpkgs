@@ -22,7 +22,7 @@ buildPythonPackage {
     scipy
   ];
 
-    # Override existing logic for locating libxgboost.so which is not appropriate for Nix
+  # Override existing logic for locating libxgboost.so which is not appropriate for Nix
   prePatch =
     let
       libPath =
@@ -39,9 +39,9 @@ buildPythonPackage {
     cd python-package
   '';
 
-    # test setup tries to download test data with no option to disable
-    # (removing sklearn from nativeCheckInputs causes all previously enabled tests to be skipped)
-    # and are extremely cpu intensive anyway
+  # test setup tries to download test data with no option to disable
+  # (removing sklearn from nativeCheckInputs causes all previously enabled tests to be skipped)
+  # and are extremely cpu intensive anyway
   doCheck = false;
 
   pythonImportsCheck = [ "xgboost" ];

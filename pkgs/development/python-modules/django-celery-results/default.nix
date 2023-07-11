@@ -29,7 +29,7 @@ buildPythonPackage rec {
     django
   ];
 
-    # Tests need access to a database.
+  # Tests need access to a database.
   doCheck = false;
 
   meta = with lib; {

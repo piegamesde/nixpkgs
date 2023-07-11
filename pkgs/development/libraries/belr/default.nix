@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ bctoolbox ];
   nativeBuildInputs = [ cmake ];
 
-    # Do not build static libraries
+  # Do not build static libraries
   cmakeFlags = [ "-DENABLE_STATIC=NO" ];
 
   meta = with lib; {

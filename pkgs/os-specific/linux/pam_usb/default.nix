@@ -46,8 +46,8 @@ let
   pmountBin = useSetUID pmount "/bin/pmount";
   pumountBin = useSetUID pmount "/bin/pumount";
   inherit (python2Packages) python dbus-python;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "pam_usb";
   version = "0.5.0";
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       --replace 'pumount' '${pumountBin}'
   '';
 
-    # pmount is append to the PATH because pmounts binaries should have a set uid bit.
+  # pmount is append to the PATH because pmounts binaries should have a set uid bit.
   postInstall = ''
     mv $out/usr/* $out/. # fix color */
     rm -rf $out/usr

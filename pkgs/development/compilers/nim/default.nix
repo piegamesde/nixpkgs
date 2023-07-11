@@ -25,7 +25,9 @@ let
     platform:
     with platform;
     # Derive a Nim CPU identifier
-    if isAarch32 then
+    if
+      isAarch32
+    then
       "arm"
     else if isAarch64 then
       "arm64"
@@ -59,7 +61,9 @@ let
     platform:
     with platform;
     # Derive a Nim OS identifier
-    if isAndroid then
+    if
+      isAndroid
+    then
       "Android"
     else if isDarwin then
       "MacOSX"
@@ -243,14 +247,14 @@ in
 
         nativeBuildInputs = [ makeWrapper ];
 
-          # Needed for any nim package that uses the standard library's
-          # 'std/sysrand' module.
+        # Needed for any nim package that uses the standard library's
+        # 'std/sysrand' module.
         depsTargetTargetPropagated = lib.optional stdenv.isDarwin Security;
 
         patches = [
-            ./nim.cfg.patch
-            # Remove configurations that clash with ours
-          ];
+          ./nim.cfg.patch
+          # Remove configurations that clash with ours
+        ];
 
         unpackPhase = ''
           runHook preUnpack
@@ -382,5 +386,4 @@ in
       pkgs = callPackage ../../../top-level/nim-packages.nix { nim = self; };
     }
     ;
-
 }

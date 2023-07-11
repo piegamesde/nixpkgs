@@ -23,7 +23,6 @@ in
 
     package =
       mkPackageOptionMD pkgs "streamdeck-ui" { default = [ "streamdeck-ui" ]; };
-
   };
 
   config = mkIf cfg.enable {

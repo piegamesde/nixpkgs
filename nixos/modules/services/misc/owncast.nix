@@ -65,7 +65,6 @@ in
         TCP port where owncast rtmp service listens.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -105,7 +104,6 @@ in
       allowedTCPPorts =
         [ cfg.rtmp-port ] ++ optional (cfg.listen != "127.0.0.1") cfg.port;
     };
-
   };
   meta = { maintainers = with lib.maintainers; [ MayNiklas ]; };
 }

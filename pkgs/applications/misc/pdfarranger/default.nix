@@ -45,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     python-dateutil
   ];
 
-    # incompatible with wrapGAppsHook
+  # incompatible with wrapGAppsHook
   strictDeps = false;
   dontWrapGApps = true;
   preFixup = ''

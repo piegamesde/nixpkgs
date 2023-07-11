@@ -14,8 +14,8 @@ with lib;
 let
 
   cfg = config.networking.nat;
-
 in
+
 {
 
   options = {
@@ -172,7 +172,6 @@ in
         forwarding rule is forwarded.
       '';
     };
-
   };
 
   config = mkIf config.networking.nat.enable {
@@ -195,9 +194,9 @@ in
       }
     ];
 
-      # Use the same iptables package as in config.networking.firewall.
-      # When the firewall is enabled, this should be deduplicated without any
-      # error.
+    # Use the same iptables package as in config.networking.firewall.
+    # When the firewall is enabled, this should be deduplicated without any
+    # error.
     environment.systemPackages = [ config.networking.firewall.package ];
 
     boot = {
@@ -211,11 +210,10 @@ in
         "net.ipv6.conf.all.accept_ra" = mkOverride 99 2;
         "net.ipv6.conf.default.accept_ra" = mkOverride 99 2;
 
-          # Forward IPv6 packets.
+        # Forward IPv6 packets.
         "net.ipv6.conf.all.forwarding" = mkOverride 99 true;
         "net.ipv6.conf.default.forwarding" = mkOverride 99 true;
       };
     };
-
   };
 }

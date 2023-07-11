@@ -47,7 +47,7 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-    # cython package not included for tests
+  # cython package not included for tests
   doCheck = false;
 
   checkPhase = ''

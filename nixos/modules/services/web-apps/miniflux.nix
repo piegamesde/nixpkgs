@@ -19,8 +19,8 @@ let
     #!${pkgs.runtimeShell}
     ${pgbin}/psql "${dbName}" -c "CREATE EXTENSION IF NOT EXISTS hstore"
   '';
-
 in
+
 {
   options = {
     services.miniflux = {
@@ -114,7 +114,7 @@ in
         RuntimeDirectory = "miniflux";
         RuntimeDirectoryMode = "0700";
         EnvironmentFile = cfg.adminCredentialsFile;
-          # Hardening
+        # Hardening
         CapabilityBoundingSet = [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;

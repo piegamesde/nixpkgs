@@ -27,17 +27,13 @@ let
     .${product}.${javaPlatformVersion javaVersion} or (throw
       "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}")
     ;
-
 in
 rec {
-  inherit
-    buildGraalvm
-    buildGraalvmProduct
-    ;
+  inherit buildGraalvm buildGraalvmProduct;
 
-    ### Java 11 ###
+  ### Java 11 ###
 
-    # Mostly available for build purposes, not to be exposed at the top level
+  # Mostly available for build purposes, not to be exposed at the top level
   graalvm11-ce-bare = buildGraalvm rec {
     version = "22.3.1";
     javaVersion = "11";
@@ -50,7 +46,7 @@ rec {
     products = [ native-image-installable-svm-java11 ];
   };
 
-    # Mostly available for testing, not to be exposed at the top level
+  # Mostly available for testing, not to be exposed at the top level
   graalvm11-ce-full = graalvm11-ce-bare.override {
     products = [
       js-installable-svm-java11
@@ -108,9 +104,9 @@ rec {
     src = fetchurl (source "wasm-installable-svm" javaVersion);
   };
 
-    ### Java 17 ###
+  ### Java 17 ###
 
-    # Mostly available for build purposes, not to be exposed at the top level
+  # Mostly available for build purposes, not to be exposed at the top level
   graalvm17-ce-bare = buildGraalvm rec {
     version = "22.3.1";
     javaVersion = "17";
@@ -123,7 +119,7 @@ rec {
     products = [ native-image-installable-svm-java17 ];
   };
 
-    # Mostly available for testing, not to be exposed at the top level
+  # Mostly available for testing, not to be exposed at the top level
   graalvm17-ce-full = graalvm17-ce-bare.override {
     products = [
       js-installable-svm-java17
@@ -181,9 +177,9 @@ rec {
     src = fetchurl (source "wasm-installable-svm" javaVersion);
   };
 
-    ### Java 19 ###
+  ### Java 19 ###
 
-    # Mostly available for build purposes, not to be exposed at the top level
+  # Mostly available for build purposes, not to be exposed at the top level
   graalvm19-ce-bare = buildGraalvm rec {
     version = "22.3.1";
     javaVersion = "19";
@@ -196,7 +192,7 @@ rec {
     products = [ native-image-installable-svm-java19 ];
   };
 
-    # Mostly available for testing, not to be exposed at the top level
+  # Mostly available for testing, not to be exposed at the top level
   graalvm19-ce-full = graalvm19-ce-bare.override {
     products = [
       js-installable-svm-java19

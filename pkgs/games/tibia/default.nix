@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
 
   shell = stdenv.shell;
 
-    # These binaries come stripped already and trying to strip after the
-    # files are in $out/res and after patchelf just breaks them.
-    # Strangely it works if the files are in $out but then nix doesn't
-    # put them in our PATH. We set all the files to $out/res because
-    # we'll be using a wrapper to start the program which will go into
-    # $out/bin.
+  # These binaries come stripped already and trying to strip after the
+  # files are in $out/res and after patchelf just breaks them.
+  # Strangely it works if the files are in $out but then nix doesn't
+  # put them in our PATH. We set all the files to $out/res because
+  # we'll be using a wrapper to start the program which will go into
+  # $out/bin.
   dontStrip = true;
 
   installPhase = ''

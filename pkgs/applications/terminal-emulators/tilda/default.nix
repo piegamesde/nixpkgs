@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
   LD_LIBRARY_PATH =
     "${expat.out}/lib"; # ugly hack for xgettext to work during build
 
-    # The config locking scheme relies on the binary being called "tilda",
-    # (`pgrep -C tilda`), so a simple `wrapProgram` won't suffice:
+  # The config locking scheme relies on the binary being called "tilda",
+  # (`pgrep -C tilda`), so a simple `wrapProgram` won't suffice:
   postInstall = ''
     mkdir $out/bin/wrapped
     mv "$out/bin/tilda" "$out/bin/wrapped/tilda"
@@ -60,4 +60,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-

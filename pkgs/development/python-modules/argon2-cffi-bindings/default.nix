@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cffi ];
 
-    # tarball doesn't include tests, but the upstream tests are minimal
+  # tarball doesn't include tests, but the upstream tests are minimal
   doCheck = false;
   pythonImportsCheck = [ "_argon2_cffi_bindings" ];
 

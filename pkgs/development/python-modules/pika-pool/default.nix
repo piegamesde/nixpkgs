@@ -18,7 +18,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "pika >=0.9,<0.11" "pika"
   '';
 
-    # Tests require database connections
+  # Tests require database connections
   doCheck = false;
 
   propagatedBuildInputs = [ pika ];

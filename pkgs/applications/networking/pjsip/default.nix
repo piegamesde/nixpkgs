@@ -124,7 +124,7 @@ stdenv.mkDerivation (
       ''
       ;
 
-      # We need the libgcc_s.so.1 loadable (for pthread_cancel to work)
+    # We need the libgcc_s.so.1 loadable (for pthread_cancel to work)
     dontPatchELF = true;
 
     passthru.tests.version = testers.testVersion {

@@ -54,8 +54,8 @@ let
       install -D -m 0755 -t $out/share/d3-flame-graph/ ./dist/templates/*
     '';
   };
-
 in
+
 stdenv.mkDerivation {
   pname = "perf-linux";
   version = kernel.version;
@@ -105,7 +105,7 @@ stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
-    # perf refers both to newt and slang
+  # perf refers both to newt and slang
   nativeBuildInputs = [
     asciidoc
     xmlto
@@ -172,7 +172,7 @@ stdenv.mkDerivation {
     "install-man"
   ];
 
-    # TODO: Add completions based on perf-completion.sh
+  # TODO: Add completions based on perf-completion.sh
   postInstall = ''
     # Same as perf. Remove.
     rm -f $out/bin/trace

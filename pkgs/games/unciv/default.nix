@@ -22,7 +22,6 @@ let
     libpulseaudio
     libXxf86vm
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "unciv";

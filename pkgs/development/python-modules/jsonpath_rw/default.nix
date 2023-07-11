@@ -24,7 +24,7 @@ buildPythonPackage rec {
     decorator
   ];
 
-    # ImportError: No module named tests
+  # ImportError: No module named tests
   doCheck = false;
 
   meta = with lib; {
@@ -33,5 +33,4 @@ buildPythonPackage rec {
       "A robust and significantly extended implementation of JSONPath for Python, with a clear AST for metaprogramming";
     license = licenses.asl20;
   };
-
 }

@@ -60,7 +60,6 @@ let
       ${dest}.succeed("echo %s > ${filename}" % quote(server_cert))
     ''
     ;
-
 in
 {
   basicServer = makeTest {

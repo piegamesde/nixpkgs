@@ -31,8 +31,8 @@ let
           ]
           ;
 
-          # Manually install targets
-          # by symlinking binaries into `node_modules`
+        # Manually install targets
+        # by symlinking binaries into `node_modules`
         postInstall =
           let
             binFile =
@@ -84,4 +84,6 @@ let
     )
     ;
 in
-{ inherit patchBinwrap patchNpmElm; }
+{
+  inherit patchBinwrap patchNpmElm;
+}

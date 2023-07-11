@@ -29,5 +29,4 @@ in
     boot.kernel.features.criu = true;
     environment.systemPackages = [ pkgs.criu ];
   };
-
 }

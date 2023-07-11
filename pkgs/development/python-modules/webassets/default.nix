@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-    # Needs Babel CLI tool
+  # Needs Babel CLI tool
   doCheck = false;
   checkPhase = "py.test";
 

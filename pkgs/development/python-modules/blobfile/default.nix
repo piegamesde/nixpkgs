@@ -30,7 +30,7 @@ buildPythonPackage rec {
     lxml
   ];
 
-    # Tests require a running Docker instance
+  # Tests require a running Docker instance
   doCheck = false;
 
   pythonImportsCheck = [ "blobfile" ];

@@ -44,6 +44,6 @@ callPackage pkg {
         --set GI_TYPELIB_PATH "$GI_TYPELIB_PATH" \
         --prefix XDG_DATA_DIRS : "$out/share:$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH"
     '';
-      # TODO AppIndicator
+    # TODO AppIndicator
   };
 }

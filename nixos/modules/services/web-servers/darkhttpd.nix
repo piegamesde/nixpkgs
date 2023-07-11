@@ -20,7 +20,6 @@ let
     ++ optional cfg.hideServerId "--no-server-id"
     ++ optional config.networking.enableIPv6 "--ipv6"
   );
-
 in
 {
   options.services.darkhttpd = with types; {

@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   pname = "polar-bookshelf";
   version = "2.0.103";
 
-    # fetching a .deb because there's no easy way to package this Electron app
+  # fetching a .deb because there's no easy way to package this Electron app
   src = fetchurl {
     url =
       "https://github.com/burtonator/polar-bookshelf/releases/download/v${version}/polar-desktop-app-${version}-amd64.deb";
@@ -135,5 +135,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.noneucat ];
   };
-
 }

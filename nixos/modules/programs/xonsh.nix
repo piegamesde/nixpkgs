@@ -12,8 +12,8 @@ with lib;
 let
 
   cfg = config.programs.xonsh;
-
 in
+
 {
 
   options = {
@@ -45,9 +45,7 @@ in
           lib.mdDoc "Control file to customize your shell behavior.";
         type = types.lines;
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -85,8 +83,5 @@ in
       "/run/current-system/sw/bin/xonsh"
       "${cfg.package}/bin/xonsh"
     ];
-
   };
-
 }
-

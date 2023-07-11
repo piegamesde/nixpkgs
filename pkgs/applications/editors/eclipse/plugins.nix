@@ -28,8 +28,8 @@ rec {
     )
     ;
 
-    # Helper for the common case where we have separate feature and
-    # plugin JARs.
+  # Helper for the common case where we have separate feature and
+  # plugin JARs.
   buildEclipsePlugin =
     {
       name,
@@ -49,8 +49,8 @@ rec {
         else
           srcPlugins
         ;
-
     in
+
     buildEclipsePluginBase (
       attrs // {
         srcs = [ srcFeature ] ++ pSrcs;
@@ -70,10 +70,10 @@ rec {
     )
     ;
 
-    # Helper for the case where the build directory has the layout of an
-    # Eclipse update site, that is, it contains the directories
-    # `features` and `plugins`. All features and plugins inside these
-    # directories will be installed.
+  # Helper for the case where the build directory has the layout of an
+  # Eclipse update site, that is, it contains the directories
+  # `features` and `plugins`. All features and plugins inside these
+  # directories will be installed.
   buildEclipseUpdateSite =
     {
       name,
@@ -299,7 +299,7 @@ rec {
 
   cdt = buildEclipseUpdateSite rec {
     name = "cdt-${version}";
-      # find current version at https://github.com/eclipse-cdt/cdt/releases
+    # find current version at https://github.com/eclipse-cdt/cdt/releases
     version = "11.1.1";
 
     src = fetchzip {
@@ -339,7 +339,6 @@ rec {
       license = licenses.lgpl21;
       platforms = platforms.all;
     };
-
   };
 
   color-theme = buildEclipsePlugin rec {

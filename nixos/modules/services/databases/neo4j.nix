@@ -109,7 +109,6 @@ let
     # Extra Configuration
     ${cfg.extraServerConfig}
   '';
-
 in
 {
 
@@ -223,7 +222,7 @@ in
       "udc.enabled was removed upstream")
   ];
 
-    ###### interface
+  ###### interface
 
   options.services.neo4j = {
 
@@ -676,7 +675,6 @@ in
                     default value.
                   '';
                 };
-
               };
 
               config.directoriesToCreate = optionals
@@ -689,7 +687,6 @@ in
                     filter isDefaultPathOption (attrValues options)
                   )
                 );
-
             }
           )
         );
@@ -703,10 +700,9 @@ in
         for further details.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config =
     let
@@ -715,7 +711,7 @@ in
       validPolicyNameList = [ "legacy" ] ++ policyNameList;
       validPolicyNameString = concatStringsSep ", " validPolicyNameList;
 
-        # Capture various directories left at their default so they can be created.
+      # Capture various directories left at their default so they can be created.
       defaultDirectoriesToCreate = map (opt: opt.value) (
         filter isDefaultPathOption (
           attrValues options.services.neo4j.directories
@@ -723,8 +719,8 @@ in
       );
       policyDirectoriesToCreate =
         concatMap (pol: pol.directoriesToCreate) (attrValues cfg.ssl.policies);
-
     in
+
     mkIf cfg.enable {
       assertions = [
         {

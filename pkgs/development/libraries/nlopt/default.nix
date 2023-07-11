@@ -48,5 +48,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl21Plus;
     hydraPlatforms = lib.platforms.linux;
   };
-
 }

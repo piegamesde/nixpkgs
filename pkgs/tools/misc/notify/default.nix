@@ -21,7 +21,7 @@ buildGoModule rec {
   modRoot = ".";
   subPackages = [ "cmd/notify/" ];
 
-    # Test files are not part of the release tarball
+  # Test files are not part of the release tarball
   doCheck = false;
 
   passthru = { updateScript = nix-update-script { }; };

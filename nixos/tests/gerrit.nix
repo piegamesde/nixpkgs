@@ -10,7 +10,6 @@ import ./make-test-python.nix (
         "https://gerrit-ci.gerritforge.com/job/plugin-lfs-bazel-master/90/artifact/bazel-bin/plugins/lfs/lfs.jar";
       sha256 = "023b0kd8djm3cn1lf1xl67yv3j12yl8bxccn42lkfmwxjwjfqw6h";
     };
-
   in
   {
     name = "gerrit";

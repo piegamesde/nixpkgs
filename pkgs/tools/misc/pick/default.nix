@@ -27,5 +27,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.womfoo ];
     platforms = platforms.linux ++ platforms.darwin;
   };
-
 }

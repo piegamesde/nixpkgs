@@ -38,7 +38,7 @@ in
       "")
   ];
 
-    ###### interface
+  ###### interface
   options.services.kubernetes.controllerManager = with lib.types; {
 
     allocateNodeCIDRs = mkOption {
@@ -134,10 +134,9 @@ in
       default = null;
       type = nullOr int;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     systemd.services.kube-controller-manager = {
       description = "Kubernetes Controller Manager Service";

@@ -1,6 +1,8 @@
 # This test runs docker-registry and check if it works
 
-import ./make-test-python.nix (
+import
+./make-test-python.nix
+(
   {
     pkgs,
     ...

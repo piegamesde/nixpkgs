@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "843d69b681a60afd21fbf50f310404ec67fcdf9d13dfcf6e9d41f3b456217e5b";
   };
 
-    # testing assumes network connection
+  # testing assumes network connection
   doCheck = false;
 
   checkPhase = ''

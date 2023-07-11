@@ -66,7 +66,7 @@ rec {
     url = "https://dl.winehq.org/wine/source/8.0/wine-${version}.tar.xz";
     hash = "sha256-AnLCCTj4chrkUQr6qLNgN0V91XZh5NZkIxB5uekceS4=";
 
-      ## see http://wiki.winehq.org/Gecko
+    ## see http://wiki.winehq.org/Gecko
     gecko32 = fetchurl rec {
       version = "2.47.3";
       url =
@@ -80,7 +80,7 @@ rec {
       hash = "sha256-pT7pVDkrbR/j1oVF9uTiqXr7yNyLA6i0QzSVRc4TlnU=";
     };
 
-      ## see http://wiki.winehq.org/Mono
+    ## see http://wiki.winehq.org/Mono
     mono = fetchurl rec {
       version = "7.4.0";
       url =

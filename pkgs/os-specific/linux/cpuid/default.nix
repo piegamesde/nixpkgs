@@ -14,15 +14,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9ARd5TXzDjTowBKwVM5m9ArDmRRNbjw4lr2AwN7u8bA=";
   };
 
-    # For pod2man during the build process.
+  # For pod2man during the build process.
   nativeBuildInputs = [ perl ];
 
-    # As runtime dependency for cpuinfo2cpuid.
+  # As runtime dependency for cpuinfo2cpuid.
   buildInputs = [ perl ];
 
-    # The Makefile hardcodes $(BUILDROOT)/usr as installation
-    # destination. Just nuke all mentions of /usr to get the right
-    # installation location.
+  # The Makefile hardcodes $(BUILDROOT)/usr as installation
+  # destination. Just nuke all mentions of /usr to get the right
+  # installation location.
   patchPhase = ''
     sed -i -e 's,/usr/,/,' Makefile
   '';

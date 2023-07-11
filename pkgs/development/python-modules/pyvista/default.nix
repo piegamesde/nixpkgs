@@ -31,7 +31,7 @@ buildPythonPackage rec {
     vtk
   ];
 
-    # Fatal Python error: Aborted
+  # Fatal Python error: Aborted
   doCheck = false;
 
   pythonImportsCheck = [ "pyvista" ];

@@ -57,4 +57,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ Scriptkiddi ];
   };
 }
-

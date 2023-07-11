@@ -30,4 +30,3 @@ buildGoModule rec {
     maintainers = with maintainers; [ helium ];
   };
 }
-

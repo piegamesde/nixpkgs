@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pamqp ];
 
-    # Tests assume rabbitmq server running
+  # Tests assume rabbitmq server running
   doCheck = false;
 
   pythonImportsCheck = [ "aioamqp" ];

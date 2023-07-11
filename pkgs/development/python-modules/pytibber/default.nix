@@ -45,7 +45,7 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "test/test.py" ];
 
-    # Tests access network
+  # Tests access network
   doCheck = false;
 
   pythonImportsCheck = [ "tibber" ];

@@ -71,9 +71,9 @@ python3Packages.buildPythonApplication rec {
     pyzbar
   ];
 
-    # This is to prevent double-wrapping the package. We'll let
-    # Python do it by adding certain arguments inside of the
-    # wrapper instead.
+  # This is to prevent double-wrapping the package. We'll let
+  # Python do it by adding certain arguments inside of the
+  # wrapper instead.
   dontWrapGApps = true;
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")

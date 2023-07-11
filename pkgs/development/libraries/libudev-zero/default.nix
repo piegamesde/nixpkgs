@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-    # Just let the installPhase build stuff, because there's no
-    # non-install target that builds everything anyway.
+  # Just let the installPhase build stuff, because there's no
+  # non-install target that builds everything anyway.
   dontBuild = true;
 
   installTargets = lib.optionals stdenv.hostPlatform.isStatic "install-static";

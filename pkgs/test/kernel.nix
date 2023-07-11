@@ -14,7 +14,7 @@ with kernel;
 let
   lts_kernel = pkgs.linuxPackages.kernel;
 
-    # to see the result once the module transformed the lose structured config
+  # to see the result once the module transformed the lose structured config
   getConfig =
     structuredConfig:
     (lts_kernel.override { structuredExtraConfig = structuredConfig; })
@@ -44,7 +44,6 @@ let
     { NIXOS_FAKE_USB_DEBUG = option yes; }
     { NIXOS_FAKE_USB_DEBUG = option yes; }
   ];
-
 in
 runTests {
   testEasy = {
@@ -56,7 +55,7 @@ runTests {
     };
   };
 
-    # mandatory flag should win over optional
+  # mandatory flag should win over optional
   testMandatoryCheck = {
     expr = (getConfig mandatoryVsOptionalConfig).NIXOS_FAKE_USB_DEBUG.optional;
     expected = false;
@@ -73,9 +72,9 @@ runTests {
     expected = true;
   };
 
-    # check that freeform options are unique
-    # Should trigger
-    # > The option `settings.NIXOS_FAKE_MMC_BLOCK_MINORS.freeform' has conflicting definitions, in `<unknown-file>' and `<unknown-file>'
+  # check that freeform options are unique
+  # Should trigger
+  # > The option `settings.NIXOS_FAKE_MMC_BLOCK_MINORS.freeform' has conflicting definitions, in `<unknown-file>' and `<unknown-file>'
   testTreeform =
     let
       res = builtins.tryEval (
@@ -87,5 +86,4 @@ runTests {
       expected = false;
     }
     ;
-
 }

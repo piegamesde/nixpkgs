@@ -7,8 +7,8 @@
 let
   inherit (python3Packages) python;
   pname = "honcho";
-
 in
+
 python3Packages.buildPythonApplication rec {
   name = "${pname}-${version}";
   version = "1.1.0";
@@ -29,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     coverage
   ];
 
-    # missing plugins
+  # missing plugins
   doCheck = false;
 
   checkPhase = ''

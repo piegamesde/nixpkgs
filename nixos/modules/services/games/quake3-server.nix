@@ -113,7 +113,7 @@ in
           DynamicUser = true;
           WorkingDirectory = home;
 
-            # It is possible to alter configuration files via RCON. To ensure reproducibility we have to prevent this
+          # It is possible to alter configuration files via RCON. To ensure reproducibility we have to prevent this
           ReadOnlyPaths =
             if baseq3InStore then
               home

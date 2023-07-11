@@ -40,8 +40,8 @@ let
     genericName = "ComputerCraft Emulator";
     categories = [ "Emulator" ];
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "ccemux";
   inherit version;

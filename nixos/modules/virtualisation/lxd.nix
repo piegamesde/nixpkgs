@@ -23,7 +23,7 @@ in
         "Override zfs in an overlay instead to override it globally")
     ];
 
-    ###### interface
+  ###### interface
 
   options = {
     virtualisation.lxd = {
@@ -100,13 +100,13 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-      # Note: the following options are also declared in virtualisation.lxc, but
-      # the latter can't be simply enabled to reuse the formers, because it
-      # does a bunch of unrelated things.
+    # Note: the following options are also declared in virtualisation.lxc, but
+    # the latter can't be simply enabled to reuse the formers, because it
+    # does a bunch of unrelated things.
     systemd.tmpfiles.rules = [ "d /var/lib/lxc/rootfs 0755 root root -" ];
 
     security.apparmor = {
@@ -121,8 +121,8 @@ in
       };
     };
 
-      # TODO: remove once LXD gets proper support for cgroupsv2
-      # (currently most of the e.g. CPU accounting stuff doesn't work)
+    # TODO: remove once LXD gets proper support for cgroupsv2
+    # (currently most of the e.g. CPU accounting stuff doesn't work)
     systemd.enableUnifiedCgroupHierarchy = false;
 
     systemd.sockets.lxd = {
@@ -171,9 +171,9 @@ in
         TimeoutStartSec = "${cfg.startTimeout}s";
         TimeoutStopSec = "30s";
 
-          # By default, `lxd` loads configuration files from hard-coded
-          # `/usr/share/lxc/config` - since this is a no-go for us, we have to
-          # explicitly tell it where the actual configuration files are
+        # By default, `lxd` loads configuration files from hard-coded
+        # `/usr/share/lxc/config` - since this is a no-go for us, we have to
+        # explicitly tell it where the actual configuration files are
         Environment = mkIf
           (config.virtualisation.lxc.lxcfs.enable)
           "LXD_LXC_TEMPLATE_CONFIG=${pkgs.lxcfs}/share/lxc/config";

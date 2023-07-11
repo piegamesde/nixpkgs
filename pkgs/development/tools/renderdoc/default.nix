@@ -94,7 +94,7 @@ mkDerivation rec {
     "-DENABLE_WAYLAND=${cmakeBool waylandSupport}"
   ];
 
-    # TODO: define these in the above array via placeholders, once those are widely supported
+  # TODO: define these in the above array via placeholders, once those are widely supported
   preConfigure = ''
     cmakeFlags+=" -DVULKAN_LAYER_FOLDER=$out/share/vulkan/implicit_layer.d/"
     cmakeFlags+=" -DRENDERDOC_SWIG_PACKAGE=$PWD/../swig"
@@ -106,7 +106,7 @@ mkDerivation rec {
     wrapProgram $out/bin/renderdoccmd --suffix LD_LIBRARY_PATH : "$out/lib:${vulkan-loader}/lib:${libglvnd}/lib"
   '';
 
-    # The only documentation for this so far is in pkgs/build-support/add-opengl-runpath/setup-hook.sh
+  # The only documentation for this so far is in pkgs/build-support/add-opengl-runpath/setup-hook.sh
   postFixup = ''
     addOpenGLRunpath $out/lib/librenderdoc.so
   '';

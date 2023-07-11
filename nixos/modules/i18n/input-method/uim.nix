@@ -29,7 +29,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf (config.i18n.inputMethod.enabled == "uim") {

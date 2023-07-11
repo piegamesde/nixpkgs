@@ -21,14 +21,11 @@ appimageTools.wrapAppImage rec {
   };
 
   multiPkgs = null;
-  extraPkgs =
-    p:
-    (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [ p.glib ]
-    ;
+  extraPkgs = p: (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [ p.glib ];
 
-    # Also expose the udev rules here, so it can be used as:
-    #   services.udev.packages = [ pkgs.chrysalis ];
-    # to allow non-root modifications to the keyboards.
+  # Also expose the udev rules here, so it can be used as:
+  #   services.udev.packages = [ pkgs.chrysalis ];
+  # to allow non-root modifications to the keyboards.
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}

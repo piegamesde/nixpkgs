@@ -13,7 +13,8 @@ assert odbcSupport -> unixODBC != null;
 
 # Work is in progress to move to cmake so revisit that later
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "freetds";
   version = "1.3.18";
 

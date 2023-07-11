@@ -34,7 +34,7 @@ buildPythonPackage rec {
 
   pythonNamespaces = [ "azure.mgmt" ];
 
-    # has no tests
+  # has no tests
   doCheck = false;
   pythonImportsCheck = [ "azure.mgmt.commerce" ];
 

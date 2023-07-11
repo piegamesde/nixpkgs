@@ -67,7 +67,7 @@ perlPackages.buildPerlPackage rec {
     XMLTreePP
   ];
 
-    # Test fails due to "Argument list too long"
+  # Test fails due to "Argument list too long"
   doCheck = false;
 
   installPhase = ''

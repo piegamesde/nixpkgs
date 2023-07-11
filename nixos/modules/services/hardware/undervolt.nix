@@ -20,15 +20,12 @@ let
       "${toString limit} ${toString window}"
     ;
   cliArgs = lib.cli.toGNUCommandLine { } {
-    inherit (cfg)
-      verbose
-      temp
-      ;
-      # `core` and `cache` are both intentionally set to `cfg.coreOffset` as according to the undervolt docs:
-      #
-      #     Core or Cache offsets have no effect. It is not possible to set different offsets for
-      #     CPU Core and Cache. The CPU will take the smaller of the two offsets, and apply that to
-      #     both CPU and Cache. A warning message will be displayed if you attempt to set different offsets.
+    inherit (cfg) verbose temp;
+    # `core` and `cache` are both intentionally set to `cfg.coreOffset` as according to the undervolt docs:
+    #
+    #     Core or Cache offsets have no effect. It is not possible to set different offsets for
+    #     CPU Core and Cache. The CPU will take the smaller of the two offsets, and apply that to
+    #     both CPU and Cache. A warning message will be displayed if you attempt to set different offsets.
     core = cfg.coreOffset;
     cache = cfg.coreOffset;
     gpu = cfg.gpuOffset;
@@ -191,7 +188,7 @@ in
     systemd.services.undervolt = {
       description = "Intel Undervolting Service";
 
-        # Apply undervolt on boot, nixos generation switch and resume
+      # Apply undervolt on boot, nixos generation switch and resume
       wantedBy = [
         "multi-user.target"
         "post-resume.target"

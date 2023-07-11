@@ -31,7 +31,6 @@ let
     "temperature"
   ];
   contains_any = l1: l2: 0 < length (intersectLists l1 l2);
-
 in
 stdenv.mkDerivation rec {
   pname = "i3blocks-gaps";

@@ -83,9 +83,9 @@ let
     cur
     ;
 
-    # Take the list and disallow custom overrides in all but the final stage,
-    # and allow it in the final flag. Only defaults this boolean field if it
-    # isn't already set.
+  # Take the list and disallow custom overrides in all but the final stage,
+  # and allow it in the final flag. Only defaults this boolean field if it
+  # isn't already set.
   withAllowCustomOverrides = lib.lists.imap1
     (
       index: stageFun: prevStage:
@@ -98,8 +98,8 @@ let
     )
     (lib.lists.reverseList stageFuns);
 
-    # Adds the stdenv to the arguments, and sticks in it the previous stage for
-    # debugging purposes.
+  # Adds the stdenv to the arguments, and sticks in it the previous stage for
+  # debugging purposes.
   folder =
     nextStage: stageFun: prevStage:
     let
@@ -154,9 +154,9 @@ let
     thisStage
     ;
 
-    # This is a hack for resolving cross-compiled compilers' run-time
-    # deps. (That is, compilers that are themselves cross-compiled, as
-    # opposed to used to cross-compile packages.)
+  # This is a hack for resolving cross-compiled compilers' run-time
+  # deps. (That is, compilers that are themselves cross-compiled, as
+  # opposed to used to cross-compile packages.)
   postStage =
     buildPackages: {
       __raw = true;
@@ -164,24 +164,23 @@ let
         if buildPackages.stdenv.hasCC then
           if
             buildPackages.stdenv.cc.isClang or false
-            # buildPackages.clang checks targetPackages.stdenv.cc (i. e. this
-            # attribute) to get a sense of the its set's default compiler and
-            # chooses between libc++ and libstdc++ based on that. If we hit this
-            # code here, we'll cause an infinite recursion. Since a set with
-            # clang as its default compiler always means libc++, we can infer this
-            # decision statically.
+          # buildPackages.clang checks targetPackages.stdenv.cc (i. e. this
+          # attribute) to get a sense of the its set's default compiler and
+          # chooses between libc++ and libstdc++ based on that. If we hit this
+          # code here, we'll cause an infinite recursion. Since a set with
+          # clang as its default compiler always means libc++, we can infer this
+          # decision statically.
           then
             buildPackages.llvmPackages.libcxxClang
           else
             buildPackages.gcc
         else
-        # This will blow up if anything uses it, but that's OK. The `if
-        # buildPackages.stdenv.cc.isClang then ... else ...` would blow up
-        # everything, so we make sure to avoid that.
+          # This will blow up if anything uses it, but that's OK. The `if
+          # buildPackages.stdenv.cc.isClang then ... else ...` would blow up
+          # everything, so we make sure to avoid that.
           buildPackages.stdenv.cc
         ;
     }
     ;
-
 in
 dfold folder postStage (_: { }) withAllowCustomOverrides

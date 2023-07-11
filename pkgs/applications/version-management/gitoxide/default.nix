@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     )
     ;
 
-    # Needed to get openssl-sys to use pkg-config.
+  # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
 
   meta = with lib; {

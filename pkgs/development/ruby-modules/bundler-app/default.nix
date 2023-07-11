@@ -16,16 +16,16 @@
 # rubyTool { pname = "gemifiedTool"; gemdir = ./.; exes = ["gemified-tool"]; }
 # The 'exes' parameter ensures that a copy of e.g. rake doesn't polute the system.
 {
-# use the name of the name in question; its version will be picked up from the gemset
+  # use the name of the name in question; its version will be picked up from the gemset
   pname
   # Gemdir is the location of the Gemfile{,.lock} and gemset.nix; usually ./.
   # This is required unless gemfile, lockfile, and gemset are all provided
   ,
   gemdir ? null
-    # Exes is the list of executables provided by the gems in the Gemfile
+  # Exes is the list of executables provided by the gems in the Gemfile
   ,
   exes ? [ ]
-    # Scripts are ruby programs depend on gems in the Gemfile (e.g. scripts/rails)
+  # Scripts are ruby programs depend on gems in the Gemfile (e.g. scripts/rails)
   ,
   scripts ? [ ],
   ruby ? defs.ruby,

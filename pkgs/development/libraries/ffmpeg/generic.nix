@@ -19,25 +19,23 @@
   ,
   ffmpegVariant ? "small" # Decides which dependencies are enabled by default
 
-    # Build with headless deps; excludes dependencies that are only necessary for
-    # GUI applications. To be used for purposes that don't generally need such
-    # components and i.e. only depend on libav
+  # Build with headless deps; excludes dependencies that are only necessary for
+  # GUI applications. To be used for purposes that don't generally need such
+  # components and i.e. only depend on libav
   ,
-  withHeadlessDeps ? ffmpegVariant == "headless"
-    || withSmallDeps
+  withHeadlessDeps ? ffmpegVariant == "headless" || withSmallDeps
 
-      # Dependencies a user might customarily expect from a regular ffmpeg build.
-      # /All/ packages that depend on ffmpeg and some of its feaures should depend
-      # on the small variant. Small means the minimal set of features that satisfies
-      # all dependants in Nixpkgs
+  # Dependencies a user might customarily expect from a regular ffmpeg build.
+  # /All/ packages that depend on ffmpeg and some of its feaures should depend
+  # on the small variant. Small means the minimal set of features that satisfies
+  # all dependants in Nixpkgs
   ,
-  withSmallDeps ? ffmpegVariant == "small"
-    || withFullDeps
+  withSmallDeps ? ffmpegVariant == "small" || withFullDeps
 
-      # Everything enabled; only guarded behind platform exclusivity or brokeness.
-      # If you need to depend on ffmpeg-full because ffmpeg is missing some feature
-      # your package needs, you should enable that feature in regular ffmpeg
-      # instead.
+  # Everything enabled; only guarded behind platform exclusivity or brokeness.
+  # If you need to depend on ffmpeg-full because ffmpeg is missing some feature
+  # your package needs, you should enable that feature in regular ffmpeg
+  # instead.
   ,
   withFullDeps ? ffmpegVariant == "full"
 
@@ -212,13 +210,13 @@
   withZlib ? withHeadlessDeps,
   withZmq ? withFullDeps # Message passing
 
-    # *  Licensing options (yes some are listed twice, filters and such are not listed)
+  # *  Licensing options (yes some are listed twice, filters and such are not listed)
   ,
   withGPL ? true,
   withGPLv3 ? true,
   withUnfree ? false
 
-    # *  Build options
+  # *  Build options
   ,
   withSmallBuild ? false # Optimize for size instead of speed
   ,
@@ -243,7 +241,7 @@
   withPixelutils ? withHeadlessDeps # Pixel utils in libavutil
   ,
   withLTO ? false # build with link-time optimization
-    # *  Program options
+  # *  Program options
   ,
   buildFfmpeg ? withHeadlessDeps # Build ffmpeg executable
   ,
@@ -253,11 +251,8 @@
   ,
   buildQtFaststart ? withFullDeps # Build qt-faststart executable
   ,
-  withBin ? buildFfmpeg
-    || buildFfplay
-    || buildFfprobe
-    || buildQtFaststart
-      # *  Library options
+  withBin ? buildFfmpeg || buildFfplay || buildFfprobe || buildQtFaststart
+  # *  Library options
   ,
   buildAvcodec ? withHeadlessDeps # Build avcodec library
   ,
@@ -266,8 +261,8 @@
   buildAvfilter ? withHeadlessDeps # Build avfilter library
   ,
   buildAvformat ? withHeadlessDeps # Build avformat library
-    # Deprecated but depended upon by some packages.
-    # https://github.com/NixOS/nixpkgs/pull/211834#issuecomment-1417435991)
+  # Deprecated but depended upon by some packages.
+  # https://github.com/NixOS/nixpkgs/pull/211834#issuecomment-1417435991)
   ,
   buildAvresample ?
     withHeadlessDeps && lib.versionOlder version "5" # Build avresample library
@@ -288,7 +283,7 @@
     || buildPostproc
     || buildSwresample
     || buildSwscale
-      # *  Documentation options
+  # *  Documentation options
   ,
   withDocumentation ? withHtmlDoc || withManPages || withPodDoc || withTxtDoc,
   withHtmlDoc ? withHeadlessDeps # HTML documentation pages
@@ -298,22 +293,19 @@
   withPodDoc ? withHeadlessDeps # POD documentation pages
   ,
   withTxtDoc ? withHeadlessDeps # Text documentation pages
-    # Whether a "doc" output will be produced. Note that withManPages does not produce
-    # a "doc" output because its files go to "man".
+  # Whether a "doc" output will be produced. Note that withManPages does not produce
+  # a "doc" output because its files go to "man".
   ,
-  withDoc ? withDocumentation
-    && (
-      withHtmlDoc || withPodDoc || withTxtDoc
-    )
+  withDoc ? withDocumentation && (withHtmlDoc || withPodDoc || withTxtDoc)
 
-    # *  Developer options
+  # *  Developer options
   ,
   withDebug ? false,
   withOptimisations ? true,
   withExtraWarnings ? false,
   withStripping ? false
 
-    # *  External libraries options
+  # *  External libraries options
   ,
   alsa-lib,
   bzip2,
@@ -426,8 +418,8 @@
 
 let
   inherit (lib) optional optionals optionalString enableFeature versionAtLeast;
-
 in
+
 assert lib.elem ffmpegVariant [
   "headless"
   "small"
@@ -692,10 +684,10 @@ stdenv.mkDerivation (
       ]
       ;
 
-      # ffmpeg embeds the configureFlags verbatim in its binaries and because we
-      # configure binary, include, library dir etc., this causes references in
-      # outputs where we don't want them. Patch the generated config.h to remove all
-      # such references except for data.
+    # ffmpeg embeds the configureFlags verbatim in its binaries and because we
+    # configure binary, include, library dir etc., this causes references in
+    # outputs where we don't want them. Patch the generated config.h to remove all
+    # such references except for data.
     postConfigure =
       let
         toStrip = lib.remove "data" finalAttrs.outputs
@@ -715,7 +707,7 @@ stdenv.mkDerivation (
       yasm
     ];
 
-      # TODO This was always in buildInputs before, why?
+    # TODO This was always in buildInputs before, why?
     buildInputs =
       optionals withFullDeps [ libdc1394 ]
       ++ optionals (withFullDeps && !stdenv.isDarwin) [
@@ -841,11 +833,9 @@ stdenv.mkDerivation (
       [ "all" ] ++ optional buildQtFaststart "tools/qt-faststart"
       ; # Build qt-faststart executable
 
-    doCheck =
-      stdenv.hostPlatform == stdenv.buildPlatform
-      ;
+    doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 
-      # Fails with SIGABRT otherwise FIXME: Why?
+    # Fails with SIGABRT otherwise FIXME: Why?
     checkPhase =
       let
         ldLibraryPathEnv =
@@ -894,8 +884,8 @@ stdenv.mkDerivation (
       install -D tools/qt-faststart -t $bin/bin
     '';
 
-      # Set RUNPATH so that libnvcuvid and libcuda in /run/opengl-driver(-32)/lib can be found.
-      # See the explanation in addOpenGLRunpath.
+    # Set RUNPATH so that libnvcuvid and libcuda in /run/opengl-driver(-32)/lib can be found.
+    # See the explanation in addOpenGLRunpath.
     postFixup = optionalString (stdenv.isLinux && withLib) ''
       addOpenGLRunpath ${placeholder "lib"}/lib/libavcodec.so
       addOpenGLRunpath ${placeholder "lib"}/lib/libavutil.so

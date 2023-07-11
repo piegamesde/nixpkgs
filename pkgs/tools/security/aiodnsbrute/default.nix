@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     uvloop
   ];
 
-    # Project no tests
+  # Project no tests
   doCheck = false;
 
   pythonImportsCheck = [ "aiodnsbrute.cli" ];

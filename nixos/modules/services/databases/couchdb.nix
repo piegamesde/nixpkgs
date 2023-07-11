@@ -36,7 +36,6 @@ let
     ''
   );
   executable = "${cfg.package}/bin/couchdb";
-
 in
 {
 
@@ -91,7 +90,7 @@ in
         '';
       };
 
-        # couchdb options: http://docs.couchdb.org/en/latest/config/index.html
+      # couchdb options: http://docs.couchdb.org/en/latest/config/index.html
 
       databaseDir = mkOption {
         type = types.path;
@@ -173,12 +172,10 @@ in
           needs to be readable and writable from couchdb user/group.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.couchdb.enable {
 
@@ -216,7 +213,7 @@ in
           "-couch_ini ${cfg.package}/etc/default.ini ${configFile} ${
             pkgs.writeText "couchdb-extra.ini" cfg.extraConfig
           } ${cfg.configFile}";
-          # 5. the vm.args file
+        # 5. the vm.args file
         COUCHDB_ARGS_FILE = "${cfg.argsFile}";
         HOME = "${cfg.databaseDir}";
       };
@@ -235,6 +232,5 @@ in
     };
 
     users.groups.couchdb.gid = config.ids.gids.couchdb;
-
   };
 }

@@ -26,8 +26,8 @@ let
     genericName = "mrrescue";
     categories = [ "Game" ];
   };
-
 in
+
 stdenv.mkDerivation {
   name = "${pname}-${version}";
 
@@ -65,5 +65,4 @@ stdenv.mkDerivation {
     license = licenses.zlib;
     downloadPage = "http://tangramgames.dk/games/mrrescue";
   };
-
 }

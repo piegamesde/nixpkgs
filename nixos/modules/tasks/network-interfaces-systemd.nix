@@ -32,11 +32,7 @@ let
     ++ concatLists (map (bridge: bridge.interfaces) (attrValues cfg.bridges))
     ++ map (sit: sit.dev) (attrValues cfg.sits)
     ++ map (gre: gre.dev) (attrValues cfg.greTunnels)
-    ++ map (vlan: vlan.interface) (
-      attrValues cfg.vlans
-    )
-    # add dependency to physical or independently created vswitch member interface
-    # TODO: warn the user that any address configured on those interfaces will be useless
+    ++ map (vlan: vlan.interface) (attrValues cfg.vlans)
     ++ concatMap
       (
         i:
@@ -119,9 +115,9 @@ let
         linkConfig.RequiredForOnline =
           lib.mkDefault config.systemd.network.wait-online.anyInterface;
         networkConfig.IPv6PrivacyExtensions = "kernel";
-          # We also set the route metric to one more than the default
-          # of 1024, so that Ethernet is preferred if both are
-          # available.
+        # We also set the route metric to one more than the default
+        # of 1024, so that Ethernet is preferred if both are
+        # available.
         dhcpV4Config.RouteMetric = 1025;
         ipv6AcceptRAConfig.RouteMetric = 1025;
       };
@@ -210,8 +206,8 @@ let
       }
     )
   );
-
 in
+
 {
   config = mkMerge [
 
@@ -342,7 +338,7 @@ in
                         AdSelect = simp "ad_select";
                         FailOverMACPolicy = simp "fail_over_mac";
                         ARPValidate = simp "arp_validate";
-                          # apparently in ms for this value?! Upstream bug?
+                        # apparently in ms for this value?! Upstream bug?
                         ARPIntervalSec = simp "arp_interval";
                         ARPIPTargets = simp "arp_ip_target";
                         ARPAllTargets = simp "arp_all_targets";
@@ -369,7 +365,7 @@ in
                           (_: kOpts: kOpts.optNames)
                           driverOptionMapping
                         );
-                          # options that apparently don’t exist in the networkd config
+                        # options that apparently don’t exist in the networkd config
                         unknownOptions = [ "primary" ];
                         assertTrace =
                           bool: msg:
@@ -389,23 +385,24 @@ in
                         (mapAttrsToList (k: _: k) do);
                       ""
                       ;
-                      # get those driverOptions that have been set
+                    # get those driverOptions that have been set
                     filterSystemdOptions = filterAttrs (
                       sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames
                     );
-                      # build final set of systemd options to bond values
+                    # build final set of systemd options to bond values
                     buildOptionSet = mapAttrs (
                       _: kOpts:
                       with kOpts;
                       # we simply take the first set kernel bond option
                       # (one option has multiple names, which is silly)
-                      head (
+                      head
+                      (
                         map
-                        (
-                          optN: valTransform (do.${optN})
-                        )
+                        (optN: valTransform (do.${optN}))
                         # only map those that exist
-                        (filter (o: do ? ${o}) optNames)
+                        (
+                          filter (o: do ? ${o}) optNames
+                        )
                       )
                     );
                   in
@@ -413,7 +410,6 @@ in
                     buildOptionSet (filterSystemdOptions driverOptionMapping)
                   )
                   ;
-
               };
 
               networks = listToAttrs (
@@ -460,9 +456,9 @@ in
                   Name = name;
                   Kind = "fou";
                 };
-                  # unfortunately networkd cannot encode dependencies of netdevs on addresses/routes,
-                  # so we cannot specify Local=, Peer=, PeerPort=. this looks like a missing feature
-                  # in networkd.
+                # unfortunately networkd cannot encode dependencies of netdevs on addresses/routes,
+                # so we cannot specify Local=, Peer=, PeerPort=. this looks like a missing feature
+                # in networkd.
                 fooOverUDPConfig = {
                   Port = fou.port;
                   Encapsulation =
@@ -558,8 +554,8 @@ in
         ))
       ];
 
-        # We need to prefill the slaved devices with networking options
-        # This forces the network interface creator to initialize slaves.
+      # We need to prefill the slaved devices with networking options
+      # This forces the network interface creator to initialize slaves.
       networking.interfaces = listToAttrs (map (i: nameValuePair i { }) slaves);
 
       systemd.services =
@@ -569,7 +565,7 @@ in
             interface:
             "sys-subsystem-net-devices-${escapeSystemdPath interface}.device"
             ;
-            # support for creating openvswitch switches
+          # support for creating openvswitch switches
           createVswitchDevice =
             n: v:
             nameValuePair "${n}-netdev" (
@@ -590,13 +586,13 @@ in
                   "network.target"
                   (subsystemDevice n)
                 ];
-                  # and create bridge before systemd-networkd starts because it might create internal interfaces
+                # and create bridge before systemd-networkd starts because it might create internal interfaces
                 before = [ "systemd-networkd.service" ];
-                  # shutdown the bridge when network is shutdown
+                # shutdown the bridge when network is shutdown
                 partOf = [ "network.target" ];
-                  # requires ovs-vswitchd to be alive at all times
+                # requires ovs-vswitchd to be alive at all times
                 bindsTo = [ "ovs-vswitchd.service" ];
-                  # start switch after physical interfaces and vswitch daemon
+                # start switch after physical interfaces and vswitch daemon
                 after =
                   [
                     "network-pre.target"
@@ -682,6 +678,5 @@ in
         }
         ;
     })
-
   ];
 }

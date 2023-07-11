@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = false;
-    # Test step from https://github.com/decompals/wibo/blob/main/.github/workflows/ci.yml
+  # Test step from https://github.com/decompals/wibo/blob/main/.github/workflows/ci.yml
   checkPhase =
     let
       gc = srcOnly {

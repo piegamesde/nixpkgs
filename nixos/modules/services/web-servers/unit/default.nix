@@ -11,7 +11,6 @@ let
   cfg = config.services.unit;
 
   configFile = pkgs.writeText "unit.json" cfg.config;
-
 in
 {
   options = {
@@ -118,17 +117,17 @@ in
         ExecStop = ''
           ${pkgs.curl}/bin/curl -X DELETE --unix-socket '/run/unit/control.unit.sock' 'http://localhost/config'
         '';
-          # Runtime directory and mode
+        # Runtime directory and mode
         RuntimeDirectory = "unit";
         RuntimeDirectoryMode = "0750";
-          # Access write directories
+        # Access write directories
         ReadWritePaths = [
           cfg.stateDir
           cfg.logDir
         ];
-          # Security
+        # Security
         NoNewPrivileges = true;
-          # Sandboxing
+        # Sandboxing
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
@@ -150,7 +149,7 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         PrivateMounts = true;
-          # System Call Filtering
+        # System Call Filtering
         SystemCallArchitectures = "native";
       };
     };
@@ -163,6 +162,5 @@ in
     };
 
     users.groups = optionalAttrs (cfg.group == "unit") { unit = { }; };
-
   };
 }

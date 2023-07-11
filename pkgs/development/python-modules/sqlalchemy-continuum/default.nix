@@ -50,7 +50,7 @@ buildPythonPackage rec {
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
-    # Indicate tests that we don't have a database server at hand
+  # Indicate tests that we don't have a database server at hand
   DB = "sqlite";
 
   disabledTestPaths =

@@ -14,7 +14,6 @@
 
 let
   pname = "matcha-gtk-theme";
-
 in
 lib.checkListOfEnum "${pname}: color variants"
 [

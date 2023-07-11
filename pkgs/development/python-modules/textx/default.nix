@@ -63,7 +63,7 @@ let
 
     pythonImportsCheck = [ "textx" ];
 
-      # Circular dependencies, do tests in passthru.tests instead.
+    # Circular dependencies, do tests in passthru.tests instead.
     doCheck = false;
 
     passthru.tests = {
@@ -89,11 +89,9 @@ let
   textx-data-dsl = buildPythonPackage rec {
     pname = "textx-data-dsl";
     version = "1.0.0";
-    inherit (textx)
-      src
-      ;
-      # `format` isn't included in the output of `mk-python-derivation`.
-      # So can't inherit format: `error: attribute 'format' missing`.
+    inherit (textx) src;
+    # `format` isn't included in the output of `mk-python-derivation`.
+    # So can't inherit format: `error: attribute 'format' missing`.
     format = "setuptools";
     pathToSourceRoot = "tests/functional/registration/projects/data_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;

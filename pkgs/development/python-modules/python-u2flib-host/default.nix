@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hidapi
   ];
 
-    # Tests fail: "ValueError: underlying buffer has been detached"
+  # Tests fail: "ValueError: underlying buffer has been detached"
   doCheck = false;
 
   meta = with lib; {

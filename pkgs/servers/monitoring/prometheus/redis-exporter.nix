@@ -24,7 +24,7 @@ buildGoModule rec {
     "-X main.BuildDate=unknown"
   ];
 
-    # needs a redis server
+  # needs a redis server
   doCheck = false;
 
   passthru.tests = { inherit (nixosTests.prometheus-exporters) redis; };

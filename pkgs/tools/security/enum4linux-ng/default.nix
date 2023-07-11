@@ -26,7 +26,7 @@ buildPythonApplication rec {
     samba
   ];
 
-    # It's only a script and not a Python module. Project has no tests
+  # It's only a script and not a Python module. Project has no tests
   doCheck = false;
 
   meta = with lib; {

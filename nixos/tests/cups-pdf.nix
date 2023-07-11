@@ -27,9 +27,9 @@ import ./make-test-python.nix (
       }
       ;
 
-      # we cannot check the files with pdftotext, due to
-      # https://github.com/alexivkin/CUPS-PDF-to-PDF/issues/7
-      # we need `imagemagickBig` as it has ghostscript support
+    # we cannot check the files with pdftotext, due to
+    # https://github.com/alexivkin/CUPS-PDF-to-PDF/issues/7
+    # we need `imagemagickBig` as it has ghostscript support
 
     testScript = ''
       from subprocess import run

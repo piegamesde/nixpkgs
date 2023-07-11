@@ -22,7 +22,7 @@ buildPythonPackage rec {
     requests
   ];
 
-    # tests require network
+  # tests require network
   doCheck = false;
 
   pythonImportsCheck = [ "soundcloud" ];

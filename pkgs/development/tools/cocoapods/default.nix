@@ -28,7 +28,7 @@ bundlerApp {
     ;
   exes = [ "pod" ];
 
-    # toString prevents the update script from being copied into the nix store
+  # toString prevents the update script from being copied into the nix store
   passthru.updateScript = toString ./update;
 
   meta = with lib; {

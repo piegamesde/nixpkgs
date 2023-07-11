@@ -9,14 +9,14 @@
 let
   name = poetryLib.normalizePackageName pyProject.tool.poetry.name;
 
-    # Just enough standard PKG-INFO fields for an editable installation
+  # Just enough standard PKG-INFO fields for an editable installation
   pkgInfoFields = {
     Metadata-Version = "2.1";
     Name = name;
-      # While the pyproject.toml could contain arbitrary version strings, for
-      # simplicity we just use the same one for PKG-INFO, even though that
-      # should follow follow PEP 440: https://www.python.org/dev/peps/pep-0345/#version
-      # This is how poetry transforms it: https://github.com/python-poetry/poetry/blob/6cd3645d889f47c10425961661b8193b23f0ed79/poetry/version/version.py
+    # While the pyproject.toml could contain arbitrary version strings, for
+    # simplicity we just use the same one for PKG-INFO, even though that
+    # should follow follow PEP 440: https://www.python.org/dev/peps/pep-0345/#version
+    # This is how poetry transforms it: https://github.com/python-poetry/poetry/blob/6cd3645d889f47c10425961661b8193b23f0ed79/poetry/version/version.py
     Version = pyProject.tool.poetry.version;
     Summary = pyProject.tool.poetry.description;
   };
@@ -31,7 +31,7 @@ let
     lib.generators.toINI { } pyProject.tool.poetry.plugins
   );
 
-    # A python package that contains simple .egg-info and .pth files for an editable installation
+  # A python package that contains simple .egg-info and .pth files for an editable installation
   editablePackage = python.pkgs.toPythonModule (
     pkgs.runCommand "${name}-editable" { } ''
       mkdir -p "$out/${python.sitePackages}"

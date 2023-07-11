@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     unzip
     wrapGAppsHook
   ];
-    # For wrapGAppsHook setup hook
+  # For wrapGAppsHook setup hook
   buildInputs = [ (jre.gtk3 or null) ];
 
   dontConfigure = true;

@@ -11,8 +11,8 @@ let
   # If we're in hydra, we can dispense with the more verbose error
   # messages and make problems easier to spot.
   inHydra = config.inHydra or false;
-    # Allow the user to opt-into additional warnings, e.g.
-    # import <nixpkgs> { config = { showDerivationWarnings = [ "maintainerless" ]; }; }
+  # Allow the user to opt-into additional warnings, e.g.
+  # import <nixpkgs> { config = { showDerivationWarnings = [ "maintainerless" ]; }; }
   showWarnings = config.showDerivationWarnings;
 
   getName =
@@ -88,23 +88,20 @@ let
 
   hasUnsupportedPlatform = pkg: !(lib.meta.availableOn hostPlatform pkg);
 
-  isMarkedInsecure =
-    attrs:
-    (attrs.meta.knownVulnerabilities or [ ]) != [ ]
-    ;
+  isMarkedInsecure = attrs: (attrs.meta.knownVulnerabilities or [ ]) != [ ];
 
-    # Alow granular checks to allow only some unfree packages
-    # Example:
-    # {pkgs, ...}:
-    # {
-    #   allowUnfree = false;
-    #   allowUnfreePredicate = (x: pkgs.lib.hasPrefix "vscode" x.name);
-    # }
+  # Alow granular checks to allow only some unfree packages
+  # Example:
+  # {pkgs, ...}:
+  # {
+  #   allowUnfree = false;
+  #   allowUnfreePredicate = (x: pkgs.lib.hasPrefix "vscode" x.name);
+  # }
   allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
 
-    # Check whether unfree packages are allowed and if not, whether the
-    # package has an unfree license and is not explicitly allowed by the
-    # `allowUnfreePredicate` function.
+  # Check whether unfree packages are allowed and if not, whether the
+  # package has an unfree license and is not explicitly allowed by the
+  # `allowUnfreePredicate` function.
   hasDeniedUnfreeLicense =
     attrs:
     hasUnfreeLicense attrs && !allowUnfree && !allowUnfreePredicate attrs
@@ -129,18 +126,18 @@ let
     (attrs ? meta.sourceProvenance) && isNonSource attrs.meta.sourceProvenance
     ;
 
-    # Allow granular checks to allow only some non-source-built packages
-    # Example:
-    # { pkgs, ... }:
-    # {
-    #   allowNonSource = false;
-    #   allowNonSourcePredicate = with pkgs.lib.lists; pkg: !(any (p: !p.isSource && p != lib.sourceTypes.binaryFirmware) pkg.meta.sourceProvenance);
-    # }
+  # Allow granular checks to allow only some non-source-built packages
+  # Example:
+  # { pkgs, ... }:
+  # {
+  #   allowNonSource = false;
+  #   allowNonSourcePredicate = with pkgs.lib.lists; pkg: !(any (p: !p.isSource && p != lib.sourceTypes.binaryFirmware) pkg.meta.sourceProvenance);
+  # }
   allowNonSourcePredicate = config.allowNonSourcePredicate or (x: false);
 
-    # Check whether non-source packages are allowed and if not, whether the
-    # package has non-source provenance and is not explicitly allowed by the
-    # `allowNonSourcePredicate` function.
+  # Check whether non-source packages are allowed and if not, whether the
+  # package has non-source provenance and is not explicitly allowed by the
+  # `allowNonSourcePredicate` function.
   hasDeniedNonSourceProvenance =
     attrs:
     hasNonSourceProvenance attrs
@@ -202,7 +199,7 @@ let
     ''
     ;
 
-    # flakeNote will be printed in the remediation messages below.
+  # flakeNote will be printed in the remediation messages below.
   flakeNote =
     "\n Note: For `nix shell`, `nix build`, `nix develop` or any other Nix 2.4+\n (Flake) command, `--impure` must be passed in order to read this\n environment variable.\n    ";
 
@@ -356,8 +353,8 @@ let
       true
     ;
 
-    # Deep type-checking. Note that calling `type.check` is not enough: see `lib.mkOptionType`'s documentation.
-    # We don't include this in lib for now because this function is flawed: it accepts things like `mkIf true 42`.
+  # Deep type-checking. Note that calling `type.check` is not enough: see `lib.mkOptionType`'s documentation.
+  # We don't include this in lib for now because this function is flawed: it accepts things like `mkIf true 42`.
   typeCheck =
     type: value:
     let
@@ -370,7 +367,7 @@ let
     eval.success
     ;
 
-    # TODO make this into a proper module and use the generic option documentation generation?
+  # TODO make this into a proper module and use the generic option documentation generation?
   metaTypes = with lib.types; rec {
     # These keys are documented
     description = str;
@@ -399,8 +396,8 @@ let
     unfree = bool;
     unsupported = bool;
     insecure = bool;
-      # TODO: refactor once something like Profpatsch's types-simple will land
-      # This is currently dead code due to https://github.com/NixOS/nix/issues/2532
+    # TODO: refactor once something like Profpatsch's types-simple will land
+    # This is currently dead code due to https://github.com/NixOS/nix/issues/2532
     tests = attrsOf (
       mkOptionType {
         name = "test";
@@ -416,11 +413,11 @@ let
     );
     timeout = int;
 
-      # Needed for Hydra to expose channel tarballs:
-      # https://github.com/NixOS/hydra/blob/53335323ae79ca1a42643f58e520b376898ce641/doc/manual/src/jobs.md#meta-fields
+    # Needed for Hydra to expose channel tarballs:
+    # https://github.com/NixOS/hydra/blob/53335323ae79ca1a42643f58e520b376898ce641/doc/manual/src/jobs.md#meta-fields
     isHydraChannel = bool;
 
-      # Weirder stuff that doesn't appear in the documentation?
+    # Weirder stuff that doesn't appear in the documentation?
     maxSilent = int;
     knownVulnerabilities = listOf str;
     name = str;
@@ -478,14 +475,14 @@ let
       false
     ;
 
-    # Check if a derivation is valid, that is whether it passes checks for
-    # e.g brokenness or license.
-    #
-    # Return { valid: "yes", "warn" or "no" } and additionally
-    # { reason: String; errormsg: String } if it is not valid, where
-    # reason is one of "unfree", "blocklisted", "broken", "insecure", ...
-    # !!! reason strings are hardcoded into OfBorg, make sure to keep them in sync
-    # Along with a boolean flag for each reason
+  # Check if a derivation is valid, that is whether it passes checks for
+  # e.g brokenness or license.
+  #
+  # Return { valid: "yes", "warn" or "no" } and additionally
+  # { reason: String; errormsg: String } if it is not valid, where
+  # reason is one of "unfree", "blocklisted", "broken", "insecure", ...
+  # !!! reason strings are hardcoded into OfBorg, make sure to keep them in sync
+  # Along with a boolean flag for each reason
   checkValidity =
     attrs:
     # Check meta attribute types first, to make sure it is always called even when there are other issues
@@ -517,14 +514,16 @@ let
         insecure = isMarkedInsecure attrs;
       } // (
         # --- Put checks that cannot be ignored here ---
-        if checkOutputsToInstall attrs then
+        if
+          checkOutputsToInstall attrs
+        then
           {
             valid = "no";
             reason = "broken-outputs";
             errormsg = "has invalid meta.outputsToInstall";
           }
 
-          # --- Put checks that can be ignored here ---
+        # --- Put checks that can be ignored here ---
         else if
           hasDeniedUnfreeLicense attrs && !(hasAllowlistedLicense attrs)
         then
@@ -584,27 +583,27 @@ let
             errormsg = "is marked as insecure";
           }
 
-          # --- warnings ---
-          # Please also update the type in /pkgs/top-level/config.nix alongside this.
+        # --- warnings ---
+        # Please also update the type in /pkgs/top-level/config.nix alongside this.
         else if hasNoMaintainers attrs then
           {
             valid = "warn";
             reason = "maintainerless";
             errormsg = "has no maintainers";
           }
-          # -----
+        # -----
         else
           { valid = "yes"; }
       )
     ;
 
-    # The meta attribute is passed in the resulting attribute set,
-    # but it's not part of the actual derivation, i.e., it's not
-    # passed to the builder and is not a dependency.  But since we
-    # include it in the result, it *is* available to nix-env for queries.
-    # Example:
-    #   meta = checkMeta.commonMeta { inherit validity attrs pos references; };
-    #   validity = checkMeta.assertValidity { inherit meta attrs; };
+  # The meta attribute is passed in the resulting attribute set,
+  # but it's not part of the actual derivation, i.e., it's not
+  # passed to the builder and is not a dependency.  But since we
+  # include it in the result, it *is* available to nix-env for queries.
+  # Example:
+  #   meta = checkMeta.commonMeta { inherit validity attrs pos references; };
+  #   validity = checkMeta.assertValidity { inherit meta attrs; };
   commonMeta =
     {
       validity,
@@ -621,16 +620,16 @@ let
       # Let's have a clean always accessible version here.
       name = attrs.name or "${attrs.pname}-${attrs.version}";
 
-        # If the packager hasn't specified `outputsToInstall`, choose a default,
-        # which is the name of `p.bin or p.out or p` along with `p.man` when
-        # present.
-        #
-        # If the packager has specified it, it will be overridden below in
-        # `// meta`.
-        #
-        #   Note: This default probably shouldn't be globally configurable.
-        #   Services and users should specify outputs explicitly,
-        #   unless they are comfortable with this default.
+      # If the packager hasn't specified `outputsToInstall`, choose a default,
+      # which is the name of `p.bin or p.out or p` along with `p.man` when
+      # present.
+      #
+      # If the packager has specified it, it will be overridden below in
+      # `// meta`.
+      #
+      #   Note: This default probably shouldn't be globally configurable.
+      #   Services and users should specify outputs explicitly,
+      #   unless they are comfortable with this default.
       outputsToInstall =
         let
           hasOutput = out: builtins.elem out outputs;
@@ -688,9 +687,9 @@ let
           yes = true;
         }
         .${validity.valid};
-
     }
     ;
-
 in
-{ inherit assertValidity commonMeta; }
+{
+  inherit assertValidity commonMeta;
+}

@@ -22,9 +22,9 @@ buildPythonPackage rec {
     msgpack
   ];
 
-    # The Pypi tarball doesn't include tests, and the GitHub source isn't
-    # buildable until we bootstrap poetry, see
-    # https://github.com/NixOS/nixpkgs/pull/53599#discussion_r245855665
+  # The Pypi tarball doesn't include tests, and the GitHub source isn't
+  # buildable until we bootstrap poetry, see
+  # https://github.com/NixOS/nixpkgs/pull/53599#discussion_r245855665
   doCheck = false;
 
   meta = with lib; {

@@ -27,16 +27,16 @@
   clang-tools ? null,
   withRustFmt ? rustfmt != null,
   rustfmt ? null
-    # batwatch
+  # batwatch
   ,
   withEntr ? entr != null,
   entr ? null
-    # batdiff
+  # batdiff
   ,
   gitMinimal,
   withDelta ? delta != null,
   delta ? null
-    # batman
+  # batman
   ,
   util-linux,
 }:
@@ -56,7 +56,7 @@ let
       fetchSubmodules = true;
     };
 
-      # bat needs to be in the PATH during building so EXECUTABLE_BAT picks it up
+    # bat needs to be in the PATH during building so EXECUTABLE_BAT picks it up
     nativeBuildInputs = [ bat ];
 
     dontConfigure = true;
@@ -71,7 +71,7 @@ let
       runHook postBuild
     '';
 
-      # Run the library tests as they don't have external dependencies
+    # Run the library tests as they don't have external dependencies
     doCheck = true;
     nativeCheckInputs =
       [
@@ -103,8 +103,8 @@ let
       runHook postInstall
     '';
 
-      # A few random files have shebangs. Don't patch them, they don't make it into the final output.
-      # The per-script derivations will go ahead and patch the files they actually install.
+    # A few random files have shebangs. Don't patch them, they don't make it into the final output.
+    # The per-script derivations will go ahead and patch the files they actually install.
     dontPatchShebangs = true;
 
     meta = with lib; {
@@ -129,10 +129,10 @@ let
       src = core;
 
       nativeBuildInputs = [ makeWrapper ];
-        # Make the dependencies available to the tests.
+      # Make the dependencies available to the tests.
       buildInputs = dependencies;
 
-        # Patch shebangs now because our tests rely on them
+      # Patch shebangs now because our tests rely on them
       postPatch = ''
         patchShebangs --host bin/${name}
       '';
@@ -170,7 +170,7 @@ let
         ''
         ;
 
-        # We already patched
+      # We already patched
       dontPatchShebangs = true;
 
       inherit (core) meta;

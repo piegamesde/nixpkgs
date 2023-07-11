@@ -11,7 +11,8 @@
 
 # NOTE: for subunit python library see pkgs/top-level/python-packages.nix
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "subunit";
   version = "1.4.2";
 

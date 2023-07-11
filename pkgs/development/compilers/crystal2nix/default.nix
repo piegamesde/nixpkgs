@@ -28,7 +28,7 @@ crystal.buildCrystalPackage rec {
       --prefix PATH : ${lib.makeBinPath [ nix-prefetch-git ]}
   '';
 
-    # temporarily off. We need the checks to execute the wrapped binary
+  # temporarily off. We need the checks to execute the wrapped binary
   doCheck = false;
 
   doInstallCheck = true;

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     ./ventura.patch
   ];
 
-    # TODO: remove on next upgrade
+  # TODO: remove on next upgrade
   prePatch = ''
     cp -R ${zig_0_10_0}/lib/libc/include/any-macos.13-any lib/libc/include/any-macos.13-any
     cp -R ${zig_0_10_0}/lib/libc/include/aarch64-macos.13-none lib/libc/include/aarch64-macos.13-gnu

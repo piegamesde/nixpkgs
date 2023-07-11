@@ -16,11 +16,11 @@
   pythonOlder,
   withMultimedia ? true,
   withWebSockets ? true
-    # FIXME: Once QtLocation is available for Qt6 enable this
-    # https://bugreports.qt.io/browse/QTBUG-96795
-    #, withLocation ? true
-    # Not currently part of PyQt6
-    #, withConnectivity ? true
+  # FIXME: Once QtLocation is available for Qt6 enable this
+  # https://bugreports.qt.io/browse/QTBUG-96795
+  #, withLocation ? true
+  # Not currently part of PyQt6
+  #, withConnectivity ? true
   ,
   withPrintSupport ? true,
   cups,
@@ -48,7 +48,7 @@ buildPythonPackage rec {
       ./pyqt5-confirm-license.patch
     ];
 
-    # be more verbose
+  # be more verbose
   postPatch = ''
     cat >> pyproject.toml <<EOF
     [tool.sip.project]
@@ -57,12 +57,12 @@ buildPythonPackage rec {
   '';
 
   enableParallelBuilding = true;
-    # HACK: paralellize compilation of make calls within pyqt's setup.py
-    # pkgs/stdenv/generic/setup.sh doesn't set this for us because
-    # make gets called by python code and not its build phase
-    # format=pyproject means the pip-build-hook hook gets used to build this project
-    # pkgs/development/interpreters/python/hooks/pip-build-hook.sh
-    # does not use the enableParallelBuilding flag
+  # HACK: paralellize compilation of make calls within pyqt's setup.py
+  # pkgs/stdenv/generic/setup.sh doesn't set this for us because
+  # make gets called by python code and not its build phase
+  # format=pyproject means the pip-build-hook hook gets used to build this project
+  # pkgs/development/interpreters/python/hooks/pip-build-hook.sh
+  # does not use the enableParallelBuilding flag
   postUnpack = ''
     export MAKEFLAGS+="''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
   '';
@@ -89,8 +89,9 @@ buildPythonPackage rec {
     ]
     # ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withMultimedia qtmultimedia
+    # ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebSockets qtwebsockets
-      # ++ lib.optional withLocation qtlocation
+    # ++ lib.optional withLocation qtlocation
     ;
 
   buildInputs = with qt6Packages;
@@ -105,7 +106,7 @@ buildPythonPackage rec {
     ]
     # ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebSockets qtwebsockets
-      # ++ lib.optional withLocation qtlocation
+    # ++ lib.optional withLocation qtlocation
     ;
 
   propagatedBuildInputs =
@@ -126,7 +127,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-    # Checked using pythonImportsCheck, has no tests
+  # Checked using pythonImportsCheck, has no tests
   doCheck = true;
 
   pythonImportsCheck =
@@ -140,8 +141,8 @@ buildPythonPackage rec {
     ]
     ++ lib.optional withWebSockets "PyQt6.QtWebSockets"
     ++ lib.optional withMultimedia "PyQt6.QtMultimedia"
-      # ++ lib.optional withConnectivity "PyQt6.QtConnectivity"
-      # ++ lib.optional withLocation "PyQt6.QtPositioning"
+    # ++ lib.optional withConnectivity "PyQt6.QtConnectivity"
+    # ++ lib.optional withLocation "PyQt6.QtPositioning"
     ;
 
   meta = with lib; {

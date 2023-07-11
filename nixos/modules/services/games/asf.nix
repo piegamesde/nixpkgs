@@ -37,7 +37,7 @@ let
             c.username
           ;
         SteamPassword = c.passwordFile;
-          # sets the password format to file (https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Security#file)
+        # sets the password format to file (https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Security#file)
         PasswordFormat = 4;
         Enabled = c.enabled;
       }
@@ -206,7 +206,7 @@ in
               "${cfg.package}/bin/ArchiSteamFarm --path ${cfg.dataDir} --process-required --no-restart --service --no-config-migrate";
             Restart = "always";
 
-              # mostly copied from the default systemd service
+            # mostly copied from the default systemd service
             PrivateTmp = true;
             LockPersonality = true;
             PrivateDevices = true;

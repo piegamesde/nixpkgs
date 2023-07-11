@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-FNvDdZSkqu+FQDq2F5hdPD70ZNYrybdp71UttTcBEVs=";
   };
 
-    # package does not include tests
+  # package does not include tests
   doCheck = false;
 
   pythonImportsCheck = [ "spidev" ];
@@ -25,5 +25,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ hexa ];
     platforms = platforms.linux;
   };
-
 }

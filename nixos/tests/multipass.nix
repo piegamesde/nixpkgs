@@ -12,7 +12,6 @@ import ./make-test-python.nix (
         documentation.enable = lib.mkForce false;
       };
     };
-
   in
   {
     name = "multipass";

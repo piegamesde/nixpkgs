@@ -24,7 +24,7 @@ buildGoModule rec {
     "-X github.com/acorn-io/acorn/pkg/config.AcornDNSEndpointDefault=https://alpha-dns.acrn.io/v1"
   ];
 
-    # integration tests require network and kubernetes master
+  # integration tests require network and kubernetes master
   doCheck = false;
 
   meta = with lib; {

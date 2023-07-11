@@ -46,7 +46,7 @@ buildPythonPackage rec {
     ++ dask.optional-dependencies.dataframe
     ;
 
-    # has non-standard build from source, and pypi doesn't include tests
+  # has non-standard build from source, and pypi doesn't include tests
   doCheck = false;
 
   pythonImportsCheck = [

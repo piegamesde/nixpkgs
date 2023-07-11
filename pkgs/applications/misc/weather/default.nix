@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-    # Upstream doesn't provide a setup.py or alike, so we follow:
-    # http://fungi.yuggoth.org/weather/doc/install.rst#id3
+  # Upstream doesn't provide a setup.py or alike, so we follow:
+  # http://fungi.yuggoth.org/weather/doc/install.rst#id3
   installPhase = ''
     site_packages=$out/${python3.sitePackages}
     install -Dt $out/bin -m 755 weather

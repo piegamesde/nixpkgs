@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-    # Required for static linking, the only supported install path
+  # Required for static linking, the only supported install path
   lbzmqsrc = fetchurl {
     url =
       "https://github.com/zeromq/libzmq/releases/download/v4.3.3/zeromq-4.3.3.tar.gz";

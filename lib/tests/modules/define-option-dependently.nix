@@ -17,7 +17,6 @@
         7
       ;
   }
-  # Only define if possible.
+    # Only define if possible.
     // lib.optionalAttrs (options ? enable) { enable = true; };
-
 }

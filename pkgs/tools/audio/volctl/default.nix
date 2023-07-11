@@ -53,10 +53,10 @@ python3Packages.buildPythonApplication rec {
     )
     ;
 
-    # with strictDeps importing "gi.repository.Gtk" fails with "gi.RepositoryError: Typelib file for namespace 'Pango', version '1.0' not found"
+  # with strictDeps importing "gi.repository.Gtk" fails with "gi.RepositoryError: Typelib file for namespace 'Pango', version '1.0' not found"
   strictDeps = false;
 
-    # no tests included
+  # no tests included
   doCheck = false;
 
   pythonImportsCheck = [ "volctl" ];

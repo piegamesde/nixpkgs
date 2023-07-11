@@ -72,7 +72,7 @@ mkDerivation {
       --replace @CMAKE_INSTALL_FULL_LIBEXECDIR@ "${plasma-workspace}/libexec"
   '';
 
-    # Ensures dependencies like libqofono (at the very least) are present for the shell.
+  # Ensures dependencies like libqofono (at the very least) are present for the shell.
   preFixup = ''
     wrapQtApp "$out/bin/startplasmamobile"
   '';

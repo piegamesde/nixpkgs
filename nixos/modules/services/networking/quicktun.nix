@@ -8,8 +8,8 @@
 let
 
   cfg = config.services.quicktun;
-
 in
+
 with lib;
 
 {
@@ -89,7 +89,6 @@ with lib;
         }
       );
     };
-
   };
 
   config = mkIf (cfg != [ ]) {
@@ -125,5 +124,4 @@ with lib;
       cfg
     );
   };
-
 }

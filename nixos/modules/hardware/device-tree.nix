@@ -85,8 +85,8 @@ let
 
   filteredDTBs = filterDTBs cfg.kernelPackage;
 
-    # Compile single Device Tree overlay source
-    # file (.dts) into its compiled variant (.dtbo)
+  # Compile single Device Tree overlay source
+  # file (.dts) into its compiled variant (.dtbo)
   compileDTS =
     name: f:
     pkgs.callPackage
@@ -111,8 +111,8 @@ let
     { }
     ;
 
-    # Fill in `dtboFile` for each overlay if not set already.
-    # Existence of one of these is guarded by assertion below
+  # Fill in `dtboFile` for each overlay if not set already.
+  # Existence of one of these is guarded by assertion below
   withDTBOs =
     xs:
     flip map xs (
@@ -130,7 +130,6 @@ let
       }
     )
     ;
-
 in
 {
   imports = [

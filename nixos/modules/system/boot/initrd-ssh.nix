@@ -24,8 +24,8 @@ let
     in
     (initrd.network.enable || initrd.systemd.network.enable) && cfg.enable
     ;
-
 in
+
 {
 
   options.boot.initrd.network.ssh = {
@@ -292,7 +292,7 @@ in
         map (path: nameValuePair (initrdKeyPath path) path) cfg.hostKeys
       );
 
-        # Systemd initrd stuff
+      # Systemd initrd stuff
       boot.initrd.systemd = mkIf config.boot.initrd.systemd.enable {
         users.sshd = {
           uid = 1;
@@ -313,9 +313,9 @@ in
             "initrd-nixos-copy-secrets.service"
           ];
 
-            # Keys from Nix store are world-readable, which sshd doesn't
-            # like. If this were a real nix store and not the initrd, we
-            # neither would nor could do this
+          # Keys from Nix store are world-readable, which sshd doesn't
+          # like. If this were a real nix store and not the initrd, we
+          # neither would nor could do this
           preStart = flip concatMapStrings cfg.hostKeys (
             path: ''
               /bin/chmod 0600 "${initrdKeyPath path}"
@@ -330,8 +330,6 @@ in
           };
         };
       };
-
     }
     ;
-
 }

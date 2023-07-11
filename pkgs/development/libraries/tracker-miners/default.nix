@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     wrapGAppsNoGuiHook
   ];
 
-    # TODO: add libenca, libosinfo
+  # TODO: add libenca, libosinfo
   buildInputs =
     [
       bzip2

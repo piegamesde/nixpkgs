@@ -28,7 +28,7 @@
   sndio,
   systemd,
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
-    # Darwin Dependencies
+  # Darwin Dependencies
   ,
   Cocoa,
   SystemConfiguration,

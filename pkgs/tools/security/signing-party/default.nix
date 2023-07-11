@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     sha256 = "1aig5ssabzbk4mih7xd04vgr931bw0flbi8dz902wlr610gyv5s5";
   };
 
-    # TODO: Get this patch upstream...
+  # TODO: Get this patch upstream...
   patches = [ ./gpgwrap_makefile.patch ];
 
   postPatch = ''
@@ -59,8 +59,8 @@ stdenv.mkDerivation rec {
       "/usr/sbin/sendmail" "${sendmailPath}"
   '';
 
-    # One can use the following command to find all relevant Makefiles:
-    # grep -R '$(DESTDIR)/usr' | cut -d: -f1 | sort -u | grep -v 'debian/rules'
+  # One can use the following command to find all relevant Makefiles:
+  # grep -R '$(DESTDIR)/usr' | cut -d: -f1 | sort -u | grep -v 'debian/rules'
   preBuild = ''
     substituteInPlace gpgsigs/Makefile --replace '$(DESTDIR)/usr' "$out"
     substituteInPlace keyanalyze/Makefile --replace '$(DESTDIR)/usr' "$out"
@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
     substituteInPlace springgraph/Makefile --replace '$(DESTDIR)/usr' "$out"
   '';
 
-    # Perl is required for it's pod2man.
-    # Python and Perl are required for patching the script interpreter paths.
+  # Perl is required for it's pod2man.
+  # Python and Perl are required for patching the script interpreter paths.
   nativeBuildInputs = [
     autoconf
     automake

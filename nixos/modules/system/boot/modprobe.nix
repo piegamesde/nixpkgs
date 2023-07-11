@@ -45,10 +45,9 @@ with lib;
       '';
       type = types.lines;
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.boot.modprobeConfig.enable {
 
@@ -77,7 +76,5 @@ with lib;
       # module.
       echo ${pkgs.kmod}/bin/modprobe > /proc/sys/kernel/modprobe
     '';
-
   };
-
 }

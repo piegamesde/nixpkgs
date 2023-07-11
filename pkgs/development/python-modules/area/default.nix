@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "18k5hwmlxhajlq306zxndsglb11vv8vd4vpmwx8dpvfxd1kbksya";
   };
 
-    # tests not working on the package from pypi
+  # tests not working on the package from pypi
   doCheck = false;
 
   meta = with lib; {

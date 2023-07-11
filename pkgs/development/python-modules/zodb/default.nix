@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-KNugDvYm3hBYnt7auFrQ8O33KSXnXTahXJnGOsBf52Q=";
   };
 
-    # remove broken test
+  # remove broken test
   postPatch = ''
     rm -vf src/ZODB/tests/testdocumentation.py
   '';

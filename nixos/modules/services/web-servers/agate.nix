@@ -130,11 +130,11 @@ in
         DynamicUser = true;
         StateDirectory = "agate";
 
-          # Security options:
+        # Security options:
         AmbientCapabilities = "";
         CapabilityBoundingSet = "";
 
-          # ProtectClock= adds DeviceAllow=char-rtc r
+        # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
 
         LockPersonality = true;

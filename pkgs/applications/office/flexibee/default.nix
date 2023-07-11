@@ -9,8 +9,8 @@
 let
   version = "2021.2.1";
   majorVersion = builtins.substring 0 6 version;
-
 in
+
 stdenv.mkDerivation rec {
   pname = "flexibee";
   inherit version;

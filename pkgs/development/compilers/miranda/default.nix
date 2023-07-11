@@ -9,15 +9,15 @@ stdenv.mkDerivation rec {
   pname = "miranda";
   version = "2.066";
 
-    # The build generates object files (`.x`) from module files (`.m`).
-    # To be able to invalidate object file, it contains the `mtime`
-    # of the corresponding module file at the time of the build.
-    # When a file is installed to Nix store its `mtime` is set to `1`,
-    # so the `mtime` field in the object file would no longer match
-    # and Miranda would try to regenerate it at the runtime,
-    # even though it is up to date.
-    # Using `fetchzip` will make all the source files have `mtime=1`
-    # from the start so this mismatch cannot occur.
+  # The build generates object files (`.x`) from module files (`.m`).
+  # To be able to invalidate object file, it contains the `mtime`
+  # of the corresponding module file at the time of the build.
+  # When a file is installed to Nix store its `mtime` is set to `1`,
+  # so the `mtime` field in the object file would no longer match
+  # and Miranda would try to regenerate it at the runtime,
+  # even though it is up to date.
+  # Using `fetchzip` will make all the source files have `mtime=1`
+  # from the start so this mismatch cannot occur.
   src = fetchzip {
     url =
       "https://www.cs.kent.ac.uk/people/staff/dat/miranda/src/mira-${
@@ -64,9 +64,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-    # Workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: types.o:(.bss+0x11b0): multiple definition of `current_file'; y.tab.o:(.bss+0x70): first defined here
+  # Workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: types.o:(.bss+0x11b0): multiple definition of `current_file'; y.tab.o:(.bss+0x70): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   makeFlags = [

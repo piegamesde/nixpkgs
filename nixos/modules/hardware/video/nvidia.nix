@@ -40,8 +40,8 @@ let
     types.strMatching "([[:print:]]+[:@][0-9]{1,3}:[0-9]{1,2}:[0-9])?";
 
   ibtSupport = cfg.open || (nvidia_x11.ibtSupport or false);
-
 in
+
 {
   imports = [
     (mkRenamedOptionModule
@@ -423,21 +423,21 @@ in
         }
       ];
 
-        # If Optimus/PRIME is enabled, we:
-        # - Specify the configured NVIDIA GPU bus ID in the Device section for the
-        #   "nvidia" driver.
-        # - Add the AllowEmptyInitialConfiguration option to the Screen section for the
-        #   "nvidia" driver, in order to allow the X server to start without any outputs.
-        # - Add a separate Device section for the Intel GPU, using the "modesetting"
-        #   driver and with the configured BusID.
-        # - OR add a separate Device section for the AMD APU, using the "amdgpu"
-        #   driver and with the configures BusID.
-        # - Reference that Device section from the ServerLayout section as an inactive
-        #   device.
-        # - Configure the display manager to run specific `xrandr` commands which will
-        #   configure/enable displays connected to the Intel iGPU / AMD APU.
+      # If Optimus/PRIME is enabled, we:
+      # - Specify the configured NVIDIA GPU bus ID in the Device section for the
+      #   "nvidia" driver.
+      # - Add the AllowEmptyInitialConfiguration option to the Screen section for the
+      #   "nvidia" driver, in order to allow the X server to start without any outputs.
+      # - Add a separate Device section for the Intel GPU, using the "modesetting"
+      #   driver and with the configured BusID.
+      # - OR add a separate Device section for the AMD APU, using the "amdgpu"
+      #   driver and with the configures BusID.
+      # - Reference that Device section from the ServerLayout section as an inactive
+      #   device.
+      # - Configure the display manager to run specific `xrandr` commands which will
+      #   configure/enable displays connected to the Intel iGPU / AMD APU.
 
-        # reverse sync implies offloading
+      # reverse sync implies offloading
       hardware.nvidia.prime.offload.enable = mkDefault reverseSyncCfg.enable;
 
       services.xserver.drivers =
@@ -492,10 +492,8 @@ in
       services.xserver.displayManager.setupCommands =
         let
           gpuProviderName =
-            if
-              igpuDriver == "amdgpu"
-            then
-            # find the name of the provider if amdgpu
+            if igpuDriver == "amdgpu" then
+              # find the name of the provider if amdgpu
               "`${pkgs.xorg.xrandr}/bin/xrandr --listproviders | ${pkgs.gnugrep}/bin/grep -i AMD | ${pkgs.gnused}/bin/sed -n 's/^.*name://p'`"
             else
               igpuDriver
@@ -520,7 +518,7 @@ in
             "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
         };
 
-        # 'nvidia_x11' installs it's files to /run/opengl-driver/...
+      # 'nvidia_x11' installs it's files to /run/opengl-driver/...
       environment.etc."egl/egl_external_platform.d".source =
         "/run/opengl-driver/share/egl/egl_external_platform.d/";
 
@@ -628,7 +626,7 @@ in
         ;
       hardware.firmware = lib.optional cfg.open nvidia_x11.firmware;
 
-        # nvidia-uvm is required by CUDA applications.
+      # nvidia-uvm is required by CUDA applications.
       boot.kernelModules =
         [ "nvidia-uvm" ]
         ++ optionals config.services.xserver.enable [
@@ -638,7 +636,7 @@ in
         ]
         ;
 
-        # If requested enable modesetting via kernel parameter.
+      # If requested enable modesetting via kernel parameter.
       boot.kernelParams =
         optional
           (offloadCfg.enable || cfg.modesetting.enable)
@@ -696,8 +694,6 @@ in
       ];
 
       services.acpid.enable = true;
-
     }
     ;
-
 }

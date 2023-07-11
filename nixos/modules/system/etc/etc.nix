@@ -73,13 +73,13 @@ let
       )
       etc'}
     '';
-
 in
+
 {
 
   imports = [ ../build.nix ];
 
-    ###### interface
+  ###### interface
 
   options = {
 
@@ -185,7 +185,6 @@ in
                     Changing this option takes precedence over `gid`.
                   '';
                 };
-
               };
 
               config = {
@@ -197,16 +196,13 @@ in
                   mkDerivedConfig options.text (pkgs.writeText name')
                 );
               };
-
             }
           )
         );
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = {
 
@@ -219,5 +215,4 @@ in
       } ${etc}/etc
     '';
   };
-
 }

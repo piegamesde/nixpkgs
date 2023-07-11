@@ -12,8 +12,8 @@ let
   pcmciaUtils = pkgs.pcmciaUtils.passthru.function {
     inherit (config.hardware.pcmcia) firmware config;
   };
-
 in
+
 {
   ###### interface
 
@@ -45,10 +45,9 @@ in
         '';
       };
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.hardware.pcmcia.enable {
 
@@ -57,7 +56,5 @@ in
     services.udev.packages = [ pcmciaUtils ];
 
     environment.systemPackages = [ pcmciaUtils ];
-
   };
-
 }

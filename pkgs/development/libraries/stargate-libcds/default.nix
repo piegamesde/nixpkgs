@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-THThEzS8gGdwn3h0EBttaX5ljZH9Ma2Rcg143+GIdU8=";
   };
 
-    # Fix 'error: unrecognized command line option' in platforms other than x86
+  # Fix 'error: unrecognized command line option' in platforms other than x86
   PLAT_FLAGS = lib.optionalString stdenv.isx86_64 "-mfpmath=sse -mssse3";
 
   patches = [

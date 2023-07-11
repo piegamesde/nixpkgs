@@ -28,7 +28,7 @@ buildGoModule rec {
     "-w"
   ];
 
-    # There too many integration tests.
+  # There too many integration tests.
   doCheck = false;
 
   installPhase = ''

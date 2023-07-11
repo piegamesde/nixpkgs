@@ -16,7 +16,7 @@ stdenv.mkDerivation (
     pname = "rocm-core";
     version = stdenv.cc.version;
 
-      # Based on https://github.com/rocm-arch/rocm-arch/tree/ad0b15690d403e5822db062ffff4db3912de6669/rocm-core
+    # Based on https://github.com/rocm-arch/rocm-arch/tree/ad0b15690d403e5822db062ffff4db3912de6669/rocm-core
     src =
       let
         rocm_major = lib.versions.major finalAttrs.version;

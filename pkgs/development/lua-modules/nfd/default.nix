@@ -22,7 +22,7 @@ buildLuarocksPackage {
     fetchSubmodules = true;
   };
 
-    # use zenity because default gtk impl just crashes
+  # use zenity because default gtk impl just crashes
   patches = [
       (substituteAll {
         src = ./zenity.patch;

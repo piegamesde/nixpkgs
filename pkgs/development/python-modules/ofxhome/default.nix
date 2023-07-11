@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ nose ];
 
-    # ImportError: No module named tests
+  # ImportError: No module named tests
   doCheck = false;
 
   meta = with lib; {

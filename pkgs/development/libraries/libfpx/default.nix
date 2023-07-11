@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1s28mwb06w6dj0zl6ashpj8m1qiyadawzl7cvbw7dmj1w39ipghh";
   };
 
-    # Darwin gets misdetected as Windows without this
+  # Darwin gets misdetected as Windows without this
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-D__unix";
 
   patches = [

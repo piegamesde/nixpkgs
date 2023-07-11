@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     zchunk
   ];
 
-    # librepo/fastestmirror.h includes curl/curl.h, and pkg-config specfile refers to others in here
+  # librepo/fastestmirror.h includes curl/curl.h, and pkg-config specfile refers to others in here
   propagatedBuildInputs = [
     curl
     gpgme

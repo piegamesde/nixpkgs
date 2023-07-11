@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   version = "1.4_rev_${rev}";
   rev = "a73c1d8783f7b6526fd9b2cc44a669ffa5518d3d";
 
-    # fetchFromGitLab isn't working for some reason
+  # fetchFromGitLab isn't working for some reason
   src = fetchurl {
     url =
       "https://gitlab.freedesktop.org/cangjie/libcangjie/-/archive/a73c1d8783f7b6526fd9b2cc44a669ffa5518d3d/libcangjie-a73c1d8783f7b6526fd9b2cc44a669ffa5518d3d.tar.gz";

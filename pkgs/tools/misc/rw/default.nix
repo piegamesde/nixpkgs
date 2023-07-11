@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://sortix.org/rw/release/rw-portable-${version}.tar.gz";
-      # Use hash provided by upstream
+    # Use hash provided by upstream
     sha256 = "50009730e36991dfe579716f91f4f616f5ba05ffb7bf69c03d41bf305ed93b6d";
   };
 

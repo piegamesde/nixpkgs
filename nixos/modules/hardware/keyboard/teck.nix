@@ -8,7 +8,6 @@
 let
   cfg = config.hardware.keyboard.teck;
   inherit (lib) mdDoc mkEnableOption mkIf;
-
 in
 {
   options.hardware.keyboard.teck = {

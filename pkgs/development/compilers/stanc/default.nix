@@ -18,7 +18,7 @@ ocamlPackages.buildDunePackage rec {
     hash = "sha256-dngmZXVb59uV7EugYIZAqE1gk66em7iuzllbbPWK2xk=";
   };
 
-    # Error: This expression has type [ `Use_Sys_unix ]
+  # Error: This expression has type [ `Use_Sys_unix ]
   postPatch = ''
     substituteInPlace test/integration/run_bin_on_args.ml \
       --replace "if Sys.file_exists (to_windows path) then to_windows cmd else cmd" "cmd"

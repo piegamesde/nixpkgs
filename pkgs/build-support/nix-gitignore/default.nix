@@ -44,17 +44,14 @@ rec {
     )
     ;
 
-    # string -> [[regex bool]]
+  # string -> [[regex bool]]
   gitignoreToPatterns =
     gitignore:
     let
       # ignore -> bool
-      isComment =
-        i:
-        (match "^(#.*|$)" i) != null
-        ;
+      isComment = i: (match "^(#.*|$)" i) != null;
 
-        # ignore -> [ignore bool]
+      # ignore -> [ignore bool]
       computeNegation =
         l:
         let
@@ -66,7 +63,7 @@ rec {
         ]
         ;
 
-        # regex -> regex
+      # regex -> regex
       handleHashesBangs = replaceStrings
         [
           "\\#"
@@ -77,7 +74,7 @@ rec {
           "!"
         ];
 
-        # ignore -> regex
+      # ignore -> regex
       substWildcards =
         let
           special = "^$.+{}()";
@@ -95,7 +92,8 @@ rec {
                 )
                 ;
             in
-            str: recurse str
+            str:
+            recurse str
             ;
           chars = s: filter (c: c != "" && !isList c) (splitString s);
           escape = s: map (c: "\\" + c) (chars s);
@@ -123,7 +121,7 @@ rec {
         )
         ;
 
-        # (regex -> regex) -> regex -> regex
+      # (regex -> regex) -> regex -> regex
       mapAroundCharclass =
         f: r: # rl = regex or list
         let
@@ -142,7 +140,7 @@ rec {
         )
         ;
 
-        # regex -> regex
+      # regex -> regex
       handleSlashPrefix =
         l:
         let
@@ -165,7 +163,7 @@ rec {
         + (elemAt split 1)
         ;
 
-        # regex -> regex
+      # regex -> regex
       handleSlashSuffix =
         l:
         let
@@ -177,7 +175,7 @@ rec {
           l
         ;
 
-        # (regex -> regex) -> [regex, bool] -> [regex, bool]
+      # (regex -> regex) -> [regex, bool] -> [regex, bool]
       mapPat =
         f: l: [
           (f (head l))
@@ -202,12 +200,9 @@ rec {
     (filter (l: !isList l && !isComment l) (split "\n" gitignore))
     ;
 
-  gitignoreFilter =
-    ign: root:
-    filterPattern (gitignoreToPatterns ign) root
-    ;
+  gitignoreFilter = ign: root: filterPattern (gitignoreToPatterns ign) root;
 
-    # string|[string|file] (→ [string|file] → [string]) -> string
+  # string|[string|file] (→ [string|file] → [string]) -> string
   gitignoreCompileIgnore =
     file_str_patterns: root:
     let
@@ -229,11 +224,11 @@ rec {
     && filter name type
     ;
 
-    # This is a very hacky way of programming this!
-    # A better way would be to reuse existing filtering by making multiple gitignore functions per each root.
-    # Then for each file find the set of roots with gitignores (and functions).
-    # This would make gitignoreFilterSource very different from gitignoreFilterPure.
-    # rootPath → gitignoresConcatenated
+  # This is a very hacky way of programming this!
+  # A better way would be to reuse existing filtering by making multiple gitignore functions per each root.
+  # Then for each file find the set of roots with gitignores (and functions).
+  # This would make gitignoreFilterSource very different from gitignoreFilterPure.
+  # rootPath → gitignoresConcatenated
   compileRecursiveGitignore =
     root:
     let
@@ -287,7 +282,7 @@ rec {
     lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ]
     ;
 
-    # filterSource derivatives
+  # filterSource derivatives
 
   gitignoreFilterSourcePure =
     filter: patterns: root:
@@ -306,7 +301,7 @@ rec {
     root
     ;
 
-    # "Filter"-less alternatives
+  # "Filter"-less alternatives
 
   gitignoreSourcePure = gitignoreFilterSourcePure (_: _: true);
   gitignoreSource =

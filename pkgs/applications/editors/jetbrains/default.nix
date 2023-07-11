@@ -56,7 +56,7 @@ let
     ;
   mkJetBrainsProduct = callPackage package { inherit vmopts; };
 
-    # Sorted alphabetically
+  # Sorted alphabetically
 
   buildClion =
     {
@@ -382,7 +382,7 @@ let
               ${python3.interpreter} plugins/python/helpers/pydev/setup_cython.py build_ext --inplace
           fi
         '';
-          # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
+        # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
       }
     )
     ;
@@ -400,7 +400,7 @@ let
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk;
       product = "Rider";
-        # icu is required by Rider.Backend
+      # icu is required by Rider.Backend
       extraLdPath = [ icu ];
       meta = with lib; {
         homepage = "https://www.jetbrains.com/rider/";
@@ -481,8 +481,8 @@ let
       };
     })
     ;
-
 in
+
 {
   # Sorted alphabetically
 
@@ -664,5 +664,4 @@ in
     wmClass = "jetbrains-webstorm";
     update-channel = products.webstorm.update-channel;
   };
-
 }

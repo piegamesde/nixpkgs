@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     sha256 = "029rljhi5r483x8rzdpl8625z0wx8r7k2m0364nbw66h5pig9lbx";
   };
 
-    # remove with next release
+  # remove with next release
   patches = [
     ./2.3.2.patch
     ./0001-all-remove-deprecated-sys_errlist-and-replace-with-A.patch
@@ -98,12 +98,12 @@ stdenv.mkDerivation rec {
     fakeroot
     rpcsvc-proto
   ];
-    # build fails otherwise
+  # build fails otherwise
   enableParallelBuilding = false;
 
-    # Workaround build failure on -fno-common toolchains:
-    #   ld: raima/startup.o:/build/cde-2.3.2/lib/DtSearch/raima/dbtype.h:408: multiple definition of
-    #     `__SK__'; raima/alloc.o:/build/cde-2.3.2/lib/DtSearch/raima/dbtype.h:408: first defined here
+  # Workaround build failure on -fno-common toolchains:
+  #   ld: raima/startup.o:/build/cde-2.3.2/lib/DtSearch/raima/dbtype.h:408: multiple definition of
+  #     `__SK__'; raima/alloc.o:/build/cde-2.3.2/lib/DtSearch/raima/dbtype.h:408: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   makeFlags = [

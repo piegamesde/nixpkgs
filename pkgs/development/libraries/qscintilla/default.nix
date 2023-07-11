@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
     ;
 
-    # Make sure that libqscintilla2.so is available in $out/lib since it is expected
-    # by some packages such as sqlitebrowser
+  # Make sure that libqscintilla2.so is available in $out/lib since it is expected
+  # by some packages such as sqlitebrowser
   postFixup = ''
     ln -s $out/lib/libqscintilla2_qt5.so $out/lib/libqscintilla2.so
   '';

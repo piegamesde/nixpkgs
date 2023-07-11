@@ -1,4 +1,4 @@
-# # FIXME: see ../../../servers/code-server/ for a proper yarn packaging
+## FIXME: see ../../../servers/code-server/ for a proper yarn packaging
 ##  - export ELECTRON_SKIP_BINARY_DOWNLOAD=1
 ##  - jq "del(.scripts.preinstall)" node_modules/shellcheck/package.json | sponge node_modules/shellcheck/package.json
 {
@@ -33,11 +33,11 @@ rec {
   fhs = buildFHSEnv rec {
     name = "fhsEnterWebTorrent";
     runScript = "${src}/WebTorrent";
-      ## use the trampoline, if you need to shell into the fhsenv
-      # runScript = writeScript "trampoline" ''
-      #   #!/bin/sh
-      #   exec "$@"
-      # '';
+    ## use the trampoline, if you need to shell into the fhsenv
+    # runScript = writeScript "trampoline" ''
+    #   #!/bin/sh
+    #   exec "$@"
+    # '';
     targetPkgs =
       pkgs:
       with pkgs;
@@ -75,9 +75,9 @@ rec {
         udev
       ]
       ;
-      # extraBwrapArgs = [
-      #   "--ro-bind /run/user/$(id -u)/pulse /run/user/$(id -u)/pulse"
-      # ];
+    # extraBwrapArgs = [
+    #   "--ro-bind /run/user/$(id -u)/pulse /run/user/$(id -u)/pulse"
+    # ];
   };
 
   desktopFile = fetchurl {
@@ -106,7 +106,6 @@ rec {
     ];
     platforms = [ "x86_64-linux" ];
   };
-
 }
 ''
   mkdir -p $out/{bin,share/{applications,icons/hicolor/{48x48,256x256}/apps}}

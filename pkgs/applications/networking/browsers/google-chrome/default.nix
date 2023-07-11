@@ -53,7 +53,7 @@
   ,
   commandLineArgs ? ""
 
-    # Will crash without.
+  # Will crash without.
   ,
   systemd
 
@@ -88,7 +88,7 @@
   ,
   channel ? "stable"
 
-    # Necessary for USB audio devices.
+  # Necessary for USB audio devices.
   ,
   pulseSupport ? true,
   libpulseaudio
@@ -188,7 +188,6 @@ let
     else
       "crashpad_handler"
     ;
-
 in
 stdenv.mkDerivation {
   inherit version;
@@ -283,12 +282,10 @@ stdenv.mkDerivation {
     homepage = "https://www.google.com/chrome/browser/";
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [
-        primeos
-      ];
-      # Note from primeos: By updating Chromium I also update Google Chrome and
-      # will try to merge PRs and respond to issues but I'm not actually using
-      # Google Chrome.
+    maintainers = with maintainers; [ primeos ];
+    # Note from primeos: By updating Chromium I also update Google Chrome and
+    # will try to merge PRs and respond to issues but I'm not actually using
+    # Google Chrome.
     platforms = [ "x86_64-linux" ];
     mainProgram =
       if (channel == "dev") then

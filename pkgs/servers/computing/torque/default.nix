@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "adaptivecomputing";
     repo = pname;
-      # branch 6.1.3h2, as they aren't pushing tags
-      # https://github.com/adaptivecomputing/torque/issues/467
+    # branch 6.1.3h2, as they aren't pushing tags
+    # https://github.com/adaptivecomputing/torque/issues/467
     rev = "458883319157cfc5c509046d09f9eb8e68e8d398";
     sha256 = "1b56bc5j9wg87kcywzmhf7234byyrwax9v1pqsr9xmv2x7saakrr";
   };
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # added to fix build with gcc7
+  # added to fix build with gcc7
   env.NIX_CFLAGS_COMPILE = "-Wno-error -fpermissive";
 
   postPatch = ''

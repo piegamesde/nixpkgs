@@ -12,18 +12,10 @@
 with args;
 
 buildPythonPackage rec {
-  inherit
-    pname
-    version
-    format
-    src
-    meta
-    passthru
-    patches
-    ;
+  inherit pname version format src meta passthru patches;
 
-    # Disable imagefont tests, because they don't work well with infinality:
-    # https://github.com/python-pillow/Pillow/issues/1259
+  # Disable imagefont tests, because they don't work well with infinality:
+  # https://github.com/python-pillow/Pillow/issues/1259
   postPatch = ''
     rm Tests/test_imagefont.py
   '';
@@ -77,15 +69,15 @@ buildPythonPackage rec {
     ]
     ;
 
-    # NOTE: we use LCMS_ROOT as WEBP root since there is not other setting for webp.
-    # NOTE: The Pillow install script will, by default, add paths like /usr/lib
-    # and /usr/include to the search paths. This can break things when building
-    # on a non-NixOS system that has some libraries installed that are not
-    # installed in Nix (for example, Arch Linux has jpeg2000 but Nix doesn't
-    # build Pillow with this support). We patch the `disable_platform_guessing`
-    # setting here, instead of passing the `--disable-platform-guessing`
-    # command-line option, since the command-line option doesn't work when we run
-    # tests.
+  # NOTE: we use LCMS_ROOT as WEBP root since there is not other setting for webp.
+  # NOTE: The Pillow install script will, by default, add paths like /usr/lib
+  # and /usr/include to the search paths. This can break things when building
+  # on a non-NixOS system that has some libraries installed that are not
+  # installed in Nix (for example, Arch Linux has jpeg2000 but Nix doesn't
+  # build Pillow with this support). We patch the `disable_platform_guessing`
+  # setting here, instead of passing the `--disable-platform-guessing`
+  # command-line option, since the command-line option doesn't work when we run
+  # tests.
   preConfigure =
     let
       libinclude' = pkg: ''"${pkg.out}/lib", "${pkg.out}/include"'';

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     slixmpp
   ];
 
-    # aioharmony does not seem to include tests
+  # aioharmony does not seem to include tests
   doCheck = false;
 
   pythonImportsCheck = [

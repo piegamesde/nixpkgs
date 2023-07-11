@@ -20,7 +20,7 @@ callPackage ./generic.nix {
       "bashup_ev"
       "n"
     ];
-      # allow vars executed as commands
+    # allow vars executed as commands
     "$f" = true;
     "$n" = true;
   };

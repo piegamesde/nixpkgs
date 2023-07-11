@@ -26,7 +26,7 @@ buildPythonPackage rec {
     packaging
   ];
 
-    # does not contain tests
+  # does not contain tests
   doCheck = false;
 
   pythonImportsCheck = [ "test_utils" ];

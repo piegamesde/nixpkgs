@@ -24,8 +24,8 @@ buildPythonPackage rec {
     requests
   ];
 
-    # Project doesn't ship tests with PyPI releases
-    # https://github.com/Cebeerre/pysecuritas/issues/13
+  # Project doesn't ship tests with PyPI releases
+  # https://github.com/Cebeerre/pysecuritas/issues/13
   doCheck = false;
 
   pythonImportsCheck = [ "pysecuritas" ];

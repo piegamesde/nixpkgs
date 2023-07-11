@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pexpect ];
 
-    # tries to build and install test packages which fails
+  # tries to build and install test packages which fails
   doCheck = false;
 
   pythonImportsCheck = [ "argcomplete" ];

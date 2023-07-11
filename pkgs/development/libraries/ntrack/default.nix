@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-    # error: ISO C does not support '__FUNCTION__' predefined identifier [-Werror=pedantic]
+  # error: ISO C does not support '__FUNCTION__' predefined identifier [-Werror=pedantic]
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
   configureFlags = [
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     "CFLAGS=--std=gnu99"
   ];
 
-    # Remove this patch after version 016
+  # Remove this patch after version 016
   patches = [ ./libnl-fix.patch ];
 
   postPatch = ''

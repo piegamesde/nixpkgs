@@ -111,11 +111,11 @@ let
     ''
     ;
 
-    # Putting it all together.  This builds a store path containing
-    # symlinks to the various parts of the built configuration (the
-    # kernel, systemd units, init scripts, etc.) as well as a script
-    # `switch-to-configuration' that activates the configuration and
-    # makes it bootable.
+  # Putting it all together.  This builds a store path containing
+  # symlinks to the various parts of the built configuration (the
+  # kernel, systemd units, init scripts, etc.) as well as a script
+  # `switch-to-configuration' that activates the configuration and
+  # makes it bootable.
   baseSystem = pkgs.stdenvNoCC.mkDerivation (
     {
       name = "nixos-system-${config.system.name}-${config.system.nixos.label}";
@@ -135,11 +135,9 @@ let
       dryActivationScript = config.system.dryActivationScript;
       nixosLabel = config.system.nixos.label;
 
-      inherit (config.system)
-        extraDependencies
-        ;
+      inherit (config.system) extraDependencies;
 
-        # Needed by switch-to-configuration.
+      # Needed by switch-to-configuration.
       perl = pkgs.perl.withPackages (
         p:
         with p; [
@@ -150,7 +148,7 @@ let
     } // config.system.systemBuilderArgs
   );
 
-    # Handle assertions and warnings
+  # Handle assertions and warnings
 
   failedAssertions =
     map (x: x.message) (filter (x: !x.assertion) config.assertions);
@@ -165,7 +163,7 @@ let
       showWarnings config.warnings baseSystem
     ;
 
-    # Replace runtime dependencies
+  # Replace runtime dependencies
   system = foldr
     (
       {
@@ -189,8 +187,8 @@ let
         ;
     }
   );
-
 in
+
 {
   imports = [
     ../build.nix
@@ -241,9 +239,9 @@ in
     system.build = {
       installBootLoader = mkOption {
         internal = true;
-          # "; true" => make the `$out` argument from switch-to-configuration.pl
-          #             go to `true` instead of `echo`, hiding the useless path
-          #             from the log.
+        # "; true" => make the `$out` argument from switch-to-configuration.pl
+        #             go to `true` instead of `echo`, hiding the useless path
+        #             from the log.
         default =
           "echo 'Warning: do not know how to make this configuration bootable; please enable a boot loader.' 1>&2; true";
         description = lib.mdDoc ''
@@ -412,7 +410,6 @@ in
         longer to download.
       '';
     };
-
   };
 
   config = {
@@ -461,7 +458,5 @@ in
       else
         system
       ;
-
   };
-
 }

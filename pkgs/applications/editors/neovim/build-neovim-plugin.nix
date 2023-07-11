@@ -7,13 +7,13 @@
 let
   # sanitizeDerivationName
   normalizeName = lib.replaceStrings [ "." ] [ "-" ];
-
-  # function to create vim plugin from lua packages that are already packaged in
-  # luaPackages
 in
+
+# function to create vim plugin from lua packages that are already packaged in
+# luaPackages
 {
-# the lua attribute name that matches this vim plugin. Both should be equal
-# in the majority of cases but we make it possible to have different attribute names
+  # the lua attribute name that matches this vim plugin. Both should be equal
+  # in the majority of cases but we make it possible to have different attribute names
   luaAttr ? (normalizeName attrs.pname),
   ...
 }@attrs:

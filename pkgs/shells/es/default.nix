@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ySZIK0IITpA+uHHuHrDO/Ana5vGt64QI3Z6TMDXE9d0=";
   };
 
-    # The distribution tarball does not have a single top-level directory.
+  # The distribution tarball does not have a single top-level directory.
   preUnpack = ''
     mkdir $name
     cd $name

@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-    # Project thas no tests
+  # Project thas no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pyecowitt" ];

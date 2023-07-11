@@ -11,7 +11,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "gzip";
   version = "1.12";
 
@@ -42,10 +43,10 @@ stdenv.mkDerivation rec {
     "ZLESS_PROG=zless"
   ];
 
-    # Many gzip executables are shell scripts that depend upon other gzip
-    # executables being in $PATH.  Rather than try to re-write all the
-    # internal cross-references, just add $out/bin to PATH at the top of
-    # all the executables that are shell scripts.
+  # Many gzip executables are shell scripts that depend upon other gzip
+  # executables being in $PATH.  Rather than try to re-write all the
+  # internal cross-references, just add $out/bin to PATH at the top of
+  # all the executables that are shell scripts.
   preFixup =
     ''
       sed -i '1{;/#!\/bin\/sh/aPATH="'$out'/bin:$PATH"

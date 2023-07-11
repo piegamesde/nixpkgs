@@ -12,8 +12,8 @@ with lib;
 let
 
   cfg = config.services.atftpd;
-
 in
+
 {
 
   options = {
@@ -49,9 +49,7 @@ in
           Document root directory for the atftpd.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -60,13 +58,11 @@ in
       description = "TFTP Server";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-        # runs as nobody
+      # runs as nobody
       serviceConfig.ExecStart =
         "${pkgs.atftp}/sbin/atftpd --daemon --no-fork ${
           lib.concatStringsSep " " cfg.extraOptions
         } ${cfg.root}";
     };
-
   };
-
 }

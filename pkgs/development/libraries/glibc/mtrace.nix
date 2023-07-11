@@ -11,7 +11,8 @@
 # `glibc` needs to be overridden here because it's still needed to `./configure` the source in order
 # to have a build environment where we can call the needed make target.
 
-glibc.overrideAttrs (
+glibc.overrideAttrs
+(
   oldAttrs: {
     pname = "glibc-mtrace";
 
@@ -29,16 +30,12 @@ glibc.overrideAttrs (
       mv malloc/mtrace $out/bin/
     '';
 
-      # Perl checked during configure
-    nativeBuildInputs =
-      oldAttrs.nativeBuildInputs ++ [ perl ]
-      ;
-      # Perl shebang used for `mtrace`.
-    buildInputs =
-      oldAttrs.buildInputs ++ [ perl ]
-      ;
+    # Perl checked during configure
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ perl ];
+    # Perl shebang used for `mtrace`.
+    buildInputs = oldAttrs.buildInputs ++ [ perl ];
 
-      # Reset a few things declared by `pkgs.glibc`.
+    # Reset a few things declared by `pkgs.glibc`.
     outputs = [ "out" ];
     separateDebugInfo = false;
 

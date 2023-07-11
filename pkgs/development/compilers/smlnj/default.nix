@@ -177,7 +177,7 @@ stdenv.mkDerivation {
     ];
     maintainers = with maintainers; [ thoughtpolice ];
     mainProgram = "sml";
-      # never built on x86_64-darwin since first introduction in nixpkgs
+    # never built on x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isx86_64;
   };
 }

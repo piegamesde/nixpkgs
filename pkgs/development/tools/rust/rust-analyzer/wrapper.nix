@@ -6,7 +6,7 @@
   rust-analyzer-unwrapped,
   pname ? "rust-analyzer",
   version ? rust-analyzer-unwrapped.version
-    # Use name from `RUST_SRC_PATH`
+  # Use name from `RUST_SRC_PATH`
   ,
   rustSrc ? rustPlatform.rustLibSrc
 }:

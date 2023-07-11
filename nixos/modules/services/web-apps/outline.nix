@@ -65,9 +65,9 @@ in
       '';
     };
 
-      #
-      # Required options
-      #
+    #
+    # Required options
+    #
 
     secretKeyFile = lib.mkOption {
       type = lib.types.str;
@@ -191,9 +191,9 @@ in
       };
     };
 
-      #
-      # Authentication
-      #
+    #
+    # Authentication
+    #
 
     slackAuthentication = lib.mkOption {
       description = lib.mdDoc ''
@@ -335,9 +335,9 @@ in
       );
     };
 
-      #
-      # Optional configuration
-      #
+    #
+    # Optional configuration
+    #
 
     sslKeyFile = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -617,9 +617,9 @@ in
         localPostgresqlUrl =
           "postgres://localhost/outline?host=/run/postgresql";
 
-          # Create an outline-sequalize wrapper (a wrapper around the wrapper) that
-          # has the config file's path baked in. This is necessary because there is
-          # at least one occurrence of outline calling this from its own code.
+        # Create an outline-sequalize wrapper (a wrapper around the wrapper) that
+        # has the config file's path baked in. This is necessary because there is
+        # at least one occurrence of outline calling this from its own code.
         sequelize = pkgs.writeShellScriptBin "outline-sequelize" ''
           exec ${cfg.package}/bin/outline-sequelize \
             --config $RUNTIME_DIRECTORY/database.json \
@@ -854,8 +854,8 @@ in
           StateDirectoryMode = "0750";
           RuntimeDirectory = "outline";
           RuntimeDirectoryMode = "0750";
-            # This working directory is required to find stuff like the set of
-            # onboarding files:
+          # This working directory is required to find stuff like the set of
+          # onboarding files:
           WorkingDirectory = "${cfg.package}/share/outline/build";
         };
       }

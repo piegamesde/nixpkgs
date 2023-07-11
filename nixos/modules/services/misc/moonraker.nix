@@ -178,13 +178,15 @@ in
         ++ optional config.services.klipper.enable "klipper.service"
         ;
 
-        # Moonraker really wants its own config to be writable...
+      # Moonraker really wants its own config to be writable...
       script = ''
         config_path=${
-        # Deprecated separate config dir
-          if cfg.configDir != null then
+          # Deprecated separate config dir
+          if
+            cfg.configDir != null
+          then
             "${cfg.configDir}/moonraker-temp.cfg"
-            # Config in unified data path
+          # Config in unified data path
           else
             "${unifiedConfigDir}/moonraker-temp.cfg"
         }
@@ -194,7 +196,7 @@ in
         exec ${pkg}/bin/moonraker -d ${cfg.stateDir} -c "$config_path"
       '';
 
-        # Needs `ip` command
+      # Needs `ip` command
       path = [ pkgs.iproute2 ];
 
       serviceConfig = {

@@ -8,11 +8,11 @@
 
 buildPythonPackage rec {
   pname = "resolvelib";
-    # Currently this package is only used by Ansible and breaking changes
-    # are frequently introduced, so when upgrading ensure the new version
-    # is compatible with Ansible
-    # https://github.com/NixOS/nixpkgs/pull/128636
-    # https://github.com/ansible/ansible/blob/devel/requirements.txt
+  # Currently this package is only used by Ansible and breaking changes
+  # are frequently introduced, so when upgrading ensure the new version
+  # is compatible with Ansible
+  # https://github.com/NixOS/nixpkgs/pull/128636
+  # https://github.com/ansible/ansible/blob/devel/requirements.txt
   version = "0.5.5";
 
   src = fetchFromGitHub {
@@ -26,8 +26,8 @@ buildPythonPackage rec {
     commentjson
     pytestCheckHook
   ];
-    # TODO: reenable after updating to >= 1.0.0
-    # https://github.com/sarugaku/resolvelib/issues/114
+  # TODO: reenable after updating to >= 1.0.0
+  # https://github.com/sarugaku/resolvelib/issues/114
   disabledTests = [
     "shared_parent_dependency"
     "deep_complex_conflict"

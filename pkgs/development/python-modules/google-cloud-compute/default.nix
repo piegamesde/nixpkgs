@@ -43,7 +43,7 @@ buildPythonPackage rec {
     "google.cloud.compute_v1"
   ];
 
-    # disable tests that require credentials
+  # disable tests that require credentials
   disabledTestPaths = [
     "tests/system/test_addresses.py"
     "tests/system/test_instance_group.py"

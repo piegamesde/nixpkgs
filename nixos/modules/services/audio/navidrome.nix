@@ -31,7 +31,6 @@ in
           Configuration for Navidrome, see <https://www.navidrome.org/docs/usage/configuration-options/> for supported values.
         '';
       };
-
     };
   };
 

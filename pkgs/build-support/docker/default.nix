@@ -73,13 +73,12 @@ let
     ''
     ;
 
-    # The OCI Image specification recommends that configurations use values listed
-    # in the Go Language document for GOARCH.
-    # Reference: https://github.com/opencontainers/image-spec/blob/master/config.md#properties
-    # For the mapping from Nixpkgs system parameters to GOARCH, we can reuse the
-    # mapping from the go package.
+  # The OCI Image specification recommends that configurations use values listed
+  # in the Go Language document for GOARCH.
+  # Reference: https://github.com/opencontainers/image-spec/blob/master/config.md#properties
+  # For the mapping from Nixpkgs system parameters to GOARCH, we can reuse the
+  # mapping from the go package.
   defaultArchitecture = go.GOARCH;
-
 in
 rec {
   examples = callPackage ./examples.nix {
@@ -129,13 +128,13 @@ rec {
       os ?
         "linux", # Image architecture, defaults to the architecture of the `hostPlatform` when unset
       arch ? defaultArchitecture
-        # This is used to set name to the pulled image
+      # This is used to set name to the pulled image
       ,
       finalImageName ? imageName
-        # This used to set a tag to the pulled image
+      # This used to set a tag to the pulled image
       ,
       finalImageTag ? "latest"
-        # This is used to disable TLS certificate verification, allowing access to http registries on (hopefully) trusted networks
+      # This is used to disable TLS certificate verification, allowing access to http registries on (hopefully) trusted networks
       ,
       tlsVerify ? true
 
@@ -172,13 +171,11 @@ rec {
     ''
     ;
 
-    # We need to sum layer.tar, not a directory, hence tarsum instead of nix-hash.
-    # And we cannot untar it, because then we cannot preserve permissions etc.
-  inherit
-    tarsum
-    ; # pkgs.dockerTools.tarsum
+  # We need to sum layer.tar, not a directory, hence tarsum instead of nix-hash.
+  # And we cannot untar it, because then we cannot preserve permissions etc.
+  inherit tarsum; # pkgs.dockerTools.tarsum
 
-    # buildEnv creates symlinks to dirs, which is hard to edit inside the overlay VM
+  # buildEnv creates symlinks to dirs, which is hard to edit inside the overlay VM
   mergeDrvs =
     {
       derivations,
@@ -205,9 +202,9 @@ rec {
     ''
     ;
 
-    # Helper for setting up the base files for managing users and
-    # groups, only if such files don't exist already. It is suitable for
-    # being used in a runAsRoot script.
+  # Helper for setting up the base files for managing users and
+  # groups, only if such files don't exist already. It is suitable for
+  # being used in a runAsRoot script.
   shadowSetup = ''
     export PATH=${shadow}/bin:$PATH
     mkdir -p /etc/pam.d
@@ -232,7 +229,7 @@ rec {
     fi
   '';
 
-    # Run commands in a virtual machine.
+  # Run commands in a virtual machine.
   runWithOverlay =
     {
       name,
@@ -378,9 +375,9 @@ rec {
     }
     ;
 
-    # Create an executable shell script which has the coreutils in its
-    # PATH. Since root scripts are executed in a blank environment, even
-    # things like `ls` or `echo` will be missing.
+  # Create an executable shell script which has the coreutils in its
+  # PATH. Since root scripts are executed in a blank environment, even
+  # things like `ls` or `echo` will be missing.
   shellScript =
     name: text:
     writeScript name ''
@@ -391,10 +388,10 @@ rec {
     ''
     ;
 
-    # Create a "layer" (set of files).
+  # Create a "layer" (set of files).
   mkPureLayer =
     {
-    # Name of the layer
+      # Name of the layer
       name, # JSON containing configuration and metadata for this layer.
       baseJson, # Files to add to the layer.
       copyToRoot ?
@@ -458,12 +455,12 @@ rec {
     ''
     ;
 
-    # Make a "root" layer; required if we need to execute commands as a
-    # privileged user on the image. The commands themselves will be
-    # performed in a virtual machine sandbox.
+  # Make a "root" layer; required if we need to execute commands as a
+  # privileged user on the image. The commands themselves will be
+  # performed in a virtual machine sandbox.
   mkRootLayer =
     {
-    # Name of the image.
+      # Name of the image.
       name, # Script to run as root. Bash.
       runAsRoot, # Files to add to the layer. If null, an empty layer will be created.
       # To add packages to /bin, use `buildEnv` or similar.
@@ -569,15 +566,15 @@ rec {
     "${stream} | pigz -nTR > $out"
     ;
 
-    # 1. extract the base image
-    # 2. create the layer
-    # 3. add layer deps to the layer itself, diffing with the base image
-    # 4. compute the layer id
-    # 5. put the layer in the image
-    # 6. repack the image
+  # 1. extract the base image
+  # 2. create the layer
+  # 3. add layer deps to the layer itself, diffing with the base image
+  # 4. compute the layer id
+  # 5. put the layer in the image
+  # 6. repack the image
   buildImage =
     args@{
-    # Image name.
+      # Image name.
       name, # Image tag, when null then the nix output hash will be used.
       tag ? null, # Parent image, to append to.
       fromImage ?
@@ -626,7 +623,7 @@ rec {
 
       baseName = baseNameOf name;
 
-        # Create a JSON blob of the configuration. Set the date to unix zero.
+      # Create a JSON blob of the configuration. Set the date to unix zero.
       baseJson =
         let
           pure = writeText "${baseName}-config.json" (
@@ -683,7 +680,7 @@ rec {
             jq
             moreutils
           ];
-            # Image name must be lowercase
+          # Image name must be lowercase
           imageName = lib.toLower name;
           imageTag =
             if tag == null then
@@ -847,14 +844,13 @@ rec {
 
           echo "Finished."
         '';
-
     in
     checked result
     ;
 
-    # Merge the tarballs of images built with buildImage into a single
-    # tarball that contains all images. Running `docker load` on the resulting
-    # tarball will load the images into the docker daemon.
+  # Merge the tarballs of images built with buildImage into a single
+  # tarball that contains all images. Running `docker load` on the resulting
+  # tarball will load the images into the docker daemon.
   mergeImages =
     images:
     runCommand "merge-docker-images"
@@ -894,28 +890,26 @@ rec {
     ''
     ;
 
-    # Provide a /etc/passwd and /etc/group that contain root and nobody.
-    # Useful when packaging binaries that insist on using nss to look up
-    # username/groups (like nginx).
-    # /bin/sh is fine to not exist, and provided by another shim.
-  inherit
-    fakeNss
-    ; # alias
+  # Provide a /etc/passwd and /etc/group that contain root and nobody.
+  # Useful when packaging binaries that insist on using nss to look up
+  # username/groups (like nginx).
+  # /bin/sh is fine to not exist, and provided by another shim.
+  inherit fakeNss; # alias
 
-    # This provides a /usr/bin/env, for shell scripts using the
-    # "#!/usr/bin/env executable" shebang.
+  # This provides a /usr/bin/env, for shell scripts using the
+  # "#!/usr/bin/env executable" shebang.
   usrBinEnv = runCommand "usr-bin-env" { } ''
     mkdir -p $out/usr/bin
     ln -s ${coreutils}/bin/env $out/usr/bin
   '';
 
-    # This provides /bin/sh, pointing to bashInteractive.
+  # This provides /bin/sh, pointing to bashInteractive.
   binSh = runCommand "bin-sh" { } ''
     mkdir -p $out/bin
     ln -s ${bashInteractive}/bin/bash $out/bin/sh
   '';
 
-    # This provides the ca bundle in common locations
+  # This provides the ca bundle in common locations
   caCertificates = runCommand "ca-certificates" { } ''
     mkdir -p $out/etc/ssl/certs $out/etc/pki/tls/certs
     # Old NixOS compatibility.
@@ -926,11 +920,11 @@ rec {
     ln -s ${cacert}/etc/ssl/certs/ca-bundle.crt $out/etc/pki/tls/certs/ca-bundle.crt
   '';
 
-    # Build an image and populate its nix database with the provided
-    # contents. The main purpose is to be able to use nix commands in
-    # the container.
-    # Be careful since this doesn't work well with multilayer.
-    # TODO: add the dependencies of the config json.
+  # Build an image and populate its nix database with the provided
+  # contents. The main purpose is to be able to use nix commands in
+  # the container.
+  # Be careful since this doesn't work well with multilayer.
+  # TODO: add the dependencies of the config json.
   buildImageWithNixDb =
     args@{
       copyToRoot ? contents,
@@ -943,7 +937,7 @@ rec {
     ))
     ;
 
-    # TODO: add the dependencies of the config json.
+  # TODO: add the dependencies of the config json.
   buildLayeredImageWithNixDb =
     args@{
       contents ? null,
@@ -957,7 +951,7 @@ rec {
 
   streamLayeredImage =
     {
-    # Image Name
+      # Image Name
       name, # Image tag, the Nix's output hash will be used if null
       tag ? null, # Parent image, to append to.
       fromImage ?
@@ -1012,9 +1006,9 @@ rec {
           [ contents ]
         ;
 
-        # We store the customisation layer as a tarball, to make sure that
-        # things like permissions set on 'extraCommands' are not overridden
-        # by Nix. Then we precompute the sha256 for performance.
+      # We store the customisation layer as a tarball, to make sure that
+      # things like permissions set on 'extraCommands' are not overridden
+      # by Nix. Then we precompute the sha256 for performance.
       customisationLayer = symlinkJoin {
         name = "${baseName}-customisation-layer";
         paths = contentsList;
@@ -1065,8 +1059,8 @@ rec {
       overallClosure =
         writeText "closure" (lib.concatStringsSep " " closureRoots);
 
-        # These derivations are only created as implementation details of docker-tools,
-        # so they'll be excluded from the created images.
+      # These derivations are only created as implementation details of docker-tools,
+      # so they'll be excluded from the created images.
       unnecessaryDrvs = [
         baseJson
         overallClosure
@@ -1182,12 +1176,10 @@ rec {
           inherit (conf) imageName;
           preferLocalBuild = true;
           passthru = passthru // {
-            inherit (conf)
-              imageTag
-              ;
+            inherit (conf) imageTag;
 
-              # Distinguish tarballs and exes at the Nix level so functions that
-              # take images can know in advance how the image is supposed to be used.
+            # Distinguish tarballs and exes at the Nix level so functions that
+            # take images can know in advance how the image is supposed to be used.
             isExe = true;
           };
           nativeBuildInputs = [ makeWrapper ];
@@ -1199,7 +1191,7 @@ rec {
     result
     ;
 
-    # This function streams a docker image that behaves like a nix-shell for a derivation
+  # This function streams a docker image that behaves like a nix-shell for a derivation
   streamNixShellImage =
     { # The derivation whose environment this docker image should be based on
       drv, # Image Name
@@ -1235,7 +1227,7 @@ rec {
 
       staticPath = "${dirOf shell}:${lib.makeBinPath [ builder ]}";
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L493-L526
+      # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L493-L526
       rcfile = writeText "nix-shell-rc" ''
         unset PATH
         dontAddDisableDepTrack=1
@@ -1259,18 +1251,20 @@ rec {
         ''}
       '';
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/globals.hh#L464-L465
+      # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/globals.hh#L464-L465
       sandboxBuildDir = "/build";
 
-        # This function closely mirrors what this Nix code does:
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1102
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/eval.cc#L1981-L2036
+      # This function closely mirrors what this Nix code does:
+      # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1102
+      # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/eval.cc#L1981-L2036
       stringValue =
         value:
         # We can't just use `toString` on all derivation attributes because that
         # would not put path literals in the closure. So we explicitly copy
         # those into the store here
-        if builtins.typeOf value == "path" then
+        if
+          builtins.typeOf value == "path"
+        then
           "${value}"
         else if builtins.typeOf value == "list" then
           toString (map stringValue value)
@@ -1278,7 +1272,7 @@ rec {
           toString value
         ;
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L992-L1004
+      # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L992-L1004
       drvEnv = lib.mapAttrs'
         (
           name: value:
@@ -1295,53 +1289,51 @@ rec {
         drv.drvAttrs //
         # A mapping from output name to the nix store path where they should end up
         # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1253
-        lib.genAttrs drv.outputs (
-          output: builtins.unsafeDiscardStringContext drv.${output}.outPath
-        );
+        lib.genAttrs
+        drv.outputs
+        (output: builtins.unsafeDiscardStringContext drv.${output}.outPath);
 
-        # Environment variables set in the image
+      # Environment variables set in the image
       envVars = {
 
         # Root certificates for internet access
         SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1027-L1030
-          # PATH = "/path-not-set";
-          # Allows calling bash and `buildDerivation` as the Cmd
+        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1027-L1030
+        # PATH = "/path-not-set";
+        # Allows calling bash and `buildDerivation` as the Cmd
         PATH = staticPath;
 
-          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1032-L1038
+        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1032-L1038
         HOME = homeDirectory;
 
-          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1040-L1044
+        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1040-L1044
         NIX_STORE = storeDir;
 
-          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1046-L1047
-          # TODO: Make configurable?
+        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1046-L1047
+        # TODO: Make configurable?
         NIX_BUILD_CORES = "1";
-
       } // drvEnv // {
 
         # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1008-L1010
         NIX_BUILD_TOP = sandboxBuildDir;
 
-          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1012-L1013
+        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1012-L1013
         TMPDIR = sandboxBuildDir;
         TEMPDIR = sandboxBuildDir;
         TMP = sandboxBuildDir;
         TEMP = sandboxBuildDir;
 
-          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1015-L1019
+        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1015-L1019
         PWD = sandboxBuildDir;
 
-          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1071-L1074
-          # We don't set it here because the output here isn't handled in any special way
-          # NIX_LOG_FD = "2";
+        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1071-L1074
+        # We don't set it here because the output here isn't handled in any special way
+        # NIX_LOG_FD = "2";
 
-          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1076-L1077
+        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1076-L1077
         TERM = "xterm-256color";
       };
-
     in
     streamLayeredImage {
       inherit name tag;
@@ -1375,12 +1367,14 @@ rec {
         chown -R ${toString uid}:${toString gid} .${sandboxBuildDir}
       '';
 
-        # Run this image as the given uid/gid
+      # Run this image as the given uid/gid
       config.User = "${toString uid}:${toString gid}";
       config.Cmd =
         # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L185-L186
         # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L534-L536
-        if run == null then
+        if
+          run == null
+        then
           [
             shell
             "--rcfile"
@@ -1397,7 +1391,7 @@ rec {
     }
     ;
 
-    # Wrapper around streamNixShellImage to build an image from the result
+  # Wrapper around streamNixShellImage to build an image from the result
   buildNixShellImage =
     {
       drv,

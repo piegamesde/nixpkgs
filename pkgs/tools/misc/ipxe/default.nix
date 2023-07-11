@@ -36,8 +36,8 @@ let
     "bin-arm64-efi/ipxe.efirom" = null;
     "bin-arm64-efi/ipxe.usb" = "ipxe-efi.usb";
   };
-
 in
+
 stdenv.mkDerivation rec {
   pname = "ipxe";
   version = "unstable-2023-03-30";
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     substituteInPlace src/util/genfsimg --replace "	syslinux " "	true "
   ''; # calling syslinux on a FAT image isn't going to work
 
-    # not possible due to assembler code
+  # not possible due to assembler code
   hardeningDisable = [
     "pic"
     "stackprotector"

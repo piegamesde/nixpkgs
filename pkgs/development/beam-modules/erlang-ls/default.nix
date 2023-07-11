@@ -43,21 +43,21 @@ rebar3Relx {
   releaseType = "escript";
   beamDeps = builtins.attrValues deps;
 
-    # https://github.com/erlang-ls/erlang_ls/issues/1429
+  # https://github.com/erlang-ls/erlang_ls/issues/1429
   postPatch = ''
     rm apps/els_lsp/test/els_diagnostics_SUITE.erl
   '';
 
   buildPlugins = [ rebar3-proper ];
   buildPhase = "HOME=. make";
-    # based on https://github.com/erlang-ls/erlang_ls/blob/main/.github/workflows/build.yml
-    # these tests are excessively long and we should probably skip them
+  # based on https://github.com/erlang-ls/erlang_ls/blob/main/.github/workflows/build.yml
+  # these tests are excessively long and we should probably skip them
   checkPhase = ''
     HOME=. epmd -daemon
     HOME=. rebar3 ct
     HOME=. rebar3 proper --constraint_tries 100
   '';
-    # tests seem to be a bit flaky on darwin, skip them for now
+  # tests seem to be a bit flaky on darwin, skip them for now
   doCheck = !stdenv.isDarwin;
   installPhase = ''
     mkdir -p $out/bin

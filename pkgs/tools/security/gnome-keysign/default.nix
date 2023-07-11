@@ -77,7 +77,7 @@ python3.pkgs.buildPythonApplication rec {
     twisted
   ];
 
-    # bunch of linting
+  # bunch of linting
   doCheck = false;
 
   meta = with lib; {

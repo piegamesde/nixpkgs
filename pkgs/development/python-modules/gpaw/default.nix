@@ -74,7 +74,6 @@ let
       "https://wiki.fysik.dtu.dk/gpaw-files/gpaw-setups-${setupVersion}.tar.gz";
     sha256 = "07yldxnn38gky39fxyv3rfzag9p4lb0xfpzn15wy2h9aw4mnhwbc";
   };
-
 in
 buildPythonPackage rec {
   pname = "gpaw";

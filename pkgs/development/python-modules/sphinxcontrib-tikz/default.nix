@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sphinx ];
 
-    # no tests in package
+  # no tests in package
   doCheck = false;
 
   pythonImportsCheck = [ "sphinxcontrib.tikz" ];
@@ -35,5 +35,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ costrouc ];
     license = licenses.bsd3;
   };
-
 }

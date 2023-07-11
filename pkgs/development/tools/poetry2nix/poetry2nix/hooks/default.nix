@@ -108,10 +108,10 @@ in
     )
     { };
 
-    # As of 2023-03 a newer version of packaging introduced a new behaviour where python-requires
-    # cannot contain version wildcards. This behaviour is complaint with PEP440
-    #
-    # The wildcards are a no-op anyway so we can work around this issue by just dropping the precision down to the last known number.
+  # As of 2023-03 a newer version of packaging introduced a new behaviour where python-requires
+  # cannot contain version wildcards. This behaviour is complaint with PEP440
+  #
+  # The wildcards are a no-op anyway so we can work around this issue by just dropping the precision down to the last known number.
   poetry2nixPythonRequiresPatchHook = callPackage
     (
       _:
@@ -132,7 +132,6 @@ in
 
         pythonPath =
           [ ] ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
-
       in
       makeSetupHook
       {
@@ -146,8 +145,8 @@ in
     )
     { };
 
-    # When the "wheel" package itself is a wheel the nixpkgs hook (which pulls in "wheel") leads to infinite recursion
-    # It doesn't _really_ depend on wheel though, it just copies the wheel.
+  # When the "wheel" package itself is a wheel the nixpkgs hook (which pulls in "wheel") leads to infinite recursion
+  # It doesn't _really_ depend on wheel though, it just copies the wheel.
   wheelUnpackHook = callPackage
     (_: makeSetupHook { name = "wheel-unpack-hook.sh"; } ./wheel-unpack-hook.sh)
     { };

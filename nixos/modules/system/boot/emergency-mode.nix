@@ -24,10 +24,9 @@ with lib;
         as possible.
       '';
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = {
 
@@ -36,7 +35,5 @@ with lib;
         "emergency.target"
         "emergency.service"
       ];
-
   };
-
 }

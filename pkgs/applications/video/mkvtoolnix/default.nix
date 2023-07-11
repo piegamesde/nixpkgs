@@ -45,7 +45,6 @@ let
       runHook post${name}
     ''
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "mkvtoolnix";
@@ -71,8 +70,8 @@ stdenv.mkDerivation rec {
     ++ optional withGUI wrapQtAppsHook
     ;
 
-    # 1. qtbase and qtmultimedia are needed without the GUI
-    # 2. we have utf8cpp in nixpkgs but it doesn't find it
+  # 1. qtbase and qtmultimedia are needed without the GUI
+  # 2. we have utf8cpp in nixpkgs but it doesn't find it
   buildInputs =
     [
       boost
@@ -97,7 +96,7 @@ stdenv.mkDerivation rec {
     ++ optional stdenv.isDarwin libiconv
     ;
 
-    # autoupdate is not needed but it silences a ton of pointless warnings
+  # autoupdate is not needed but it silences a ton of pointless warnings
   postPatch = ''
     patchShebangs . > /dev/null
     autoupdate configure.ac ac/*.m4

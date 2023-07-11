@@ -25,13 +25,13 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-    #preConfigure = ''
-    #  sed -i 's/GTest::main//' test/unittests/CMakeLists.txt
-    #  cat test/unittests/CMakeLists.txt
-    #  ln -sfv ${gtest.src}/googletest gtest
-    #'';
+  #preConfigure = ''
+  #  sed -i 's/GTest::main//' test/unittests/CMakeLists.txt
+  #  cat test/unittests/CMakeLists.txt
+  #  ln -sfv ${gtest.src}/googletest gtest
+  #'';
 
-    # NOTE: disabling tests due to gtest issue
+  # NOTE: disabling tests due to gtest issue
   cmakeFlags = [
     "-DHUNTER_ENABLED=OFF"
     "-DETHASH_BUILD_TESTS=OFF"

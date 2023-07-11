@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   ];
   makefile = "Makefile.lnx";
 
-    # Inspired by PKGBUILD of https://www.archlinux.org/packages/community/x86_64/hfsprogs/
+  # Inspired by PKGBUILD of https://www.archlinux.org/packages/community/x86_64/hfsprogs/
   installPhase = ''
     # Create required package directories
     install -m 755 -d "$out/bin"

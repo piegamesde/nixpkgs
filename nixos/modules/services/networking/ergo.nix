@@ -44,7 +44,6 @@ let
       }
     ''
   );
-
 in
 {
 
@@ -167,6 +166,5 @@ in
     };
 
     users.groups.${cfg.group} = { };
-
   };
 }

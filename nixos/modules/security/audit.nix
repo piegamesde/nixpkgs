@@ -24,9 +24,9 @@ let
     auditctl -e 0 -a task,never
   '';
 
-    # TODO: it seems like people like their rules to be somewhat secret, yet they will not be if
-    # put in the store like this. At the same time, it doesn't feel like a huge deal and working
-    # around that is a pain so I'm leaving it like this for now.
+  # TODO: it seems like people like their rules to be somewhat secret, yet they will not be if
+  # put in the store like this. At the same time, it doesn't feel like a huge deal and working
+  # around that is a pain so I'm leaving it like this for now.
   startScript = pkgs.writeScript "audit-start" ''
     #!${pkgs.runtimeShell} -eu
     # Clear out any rules we may start with

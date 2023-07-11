@@ -5,7 +5,7 @@
   # can either be "EU" or "Global"; it's unclear what the difference is
   ,
   region ? "Global"
-    # can be either "English", "French", "German", "Italian", "Portguese" or "Spanish"
+  # can be either "English", "French", "German", "Italian", "Portguese" or "Spanish"
   ,
   language ? "English"
 }:

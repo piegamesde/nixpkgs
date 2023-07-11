@@ -82,9 +82,9 @@ stdenv.mkDerivation rec {
       ./writable.patch
     ];
 
-    # tagged releases don't have "unknown"
-    # kicad nightlies use git describe --dirty
-    # nix removes .git, so its approximated here
+  # tagged releases don't have "unknown"
+  # kicad nightlies use git describe --dirty
+  # nix removes .git, so its approximated here
   postPatch = lib.optionalString (!stable) ''
     substituteInPlace cmake/KiCadVersion.cmake \
       --replace "unknown" "${builtins.substring 0 10 src.rev}"
@@ -95,9 +95,9 @@ stdenv.mkDerivation rec {
     "CFLAGS+=-ggdb"
   ];
 
-    # some ngspice tests attempt to write to $HOME/.cache/
+  # some ngspice tests attempt to write to $HOME/.cache/
   XDG_CACHE_HOME = "$TMP";
-    # failing tests still attempt to create $HOME though
+  # failing tests still attempt to create $HOME though
 
   cmakeFlags =
     [
@@ -175,7 +175,7 @@ stdenv.mkDerivation rec {
     ++ optional (debug) valgrind
     ;
 
-    # debug builds fail all but the python test
+  # debug builds fail all but the python test
   doInstallCheck = !(debug);
   installCheckTarget = "test";
 

@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-Xbvg/FcuX/AL2reWsaM2oaFyLby3+HDCfYtRyswE7DA=";
   };
 
-    # Extension point for when thg's mercurial is lagging behind mainline.
+  # Extension point for when thg's mercurial is lagging behind mainline.
   tortoiseMercurial = mercurial;
 
   propagatedBuildInputs = with python3Packages; [

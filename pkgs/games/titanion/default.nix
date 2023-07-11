@@ -20,7 +20,6 @@ let
       sha256 = hash;
     }
     ;
-
 in
 stdenv.mkDerivation rec {
   pname = "titanion";

@@ -17,7 +17,7 @@ buildPythonPackage rec {
   pname = "ludios_wpull";
   version = "3.0.9";
 
-    # https://github.com/ArchiveTeam/ludios_wpull/issues/20
+  # https://github.com/ArchiveTeam/ludios_wpull/issues/20
   disabled = pythonAtLeast "3.9";
 
   src = fetchFromGitHub {
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     yapsy
   ];
 
-    # Test suite has tests that fail on all platforms
+  # Test suite has tests that fail on all platforms
   doCheck = false;
 
   meta = {

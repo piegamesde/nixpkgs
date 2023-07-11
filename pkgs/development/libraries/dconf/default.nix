@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (!isCross) vala
     ;
-    # Vala cross compilation is broken. For now, build dconf without vapi when cross-compiling.
+  # Vala cross compilation is broken. For now, build dconf without vapi when cross-compiling.
 
   mesonFlags =
     [

@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     )
     ;
 
-    # some bundled libs are found through LD_LIBRARY_PATH
+  # some bundled libs are found through LD_LIBRARY_PATH
   autoPatchelfIgnoreMissingDeps = true;
 
   ldpath =
@@ -145,10 +145,10 @@ stdenv.mkDerivation rec {
     installManPage $out/libexec/${dirName}/SystemFiles/SystemDocumentation/Unix/*
   '';
 
-    # This is primarily an IO bound build; there's little benefit to building remotely.
+  # This is primarily an IO bound build; there's little benefit to building remotely.
   preferLocalBuild = true;
 
-    # Stripping causes the program to core dump.
+  # Stripping causes the program to core dump.
   dontStrip = true;
 
   meta = with lib; {

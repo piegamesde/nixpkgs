@@ -29,8 +29,8 @@ let
     else
       "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}"
     ;
-
 in
+
 python3.pkgs.buildPythonApplication {
   pname = "electrum-grs";
   inherit version;
@@ -109,7 +109,7 @@ python3.pkgs.buildPythonApplication {
     wrapQtApp $out/bin/electrum-grs
   '';
 
-    # the tests are currently broken
+  # the tests are currently broken
   doCheck = false;
 
   postCheck = ''

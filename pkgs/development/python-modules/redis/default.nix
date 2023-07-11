@@ -64,7 +64,7 @@ buildPythonPackage rec {
     "redis.utils"
   ];
 
-    # Tests require a running redis
+  # Tests require a running redis
   doCheck = false;
 
   meta = with lib; {

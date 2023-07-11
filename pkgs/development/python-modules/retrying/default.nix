@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-    # doesn't ship tests in tarball
+  # doesn't ship tests in tarball
   doCheck = false;
 
   pythonImportsCheck = [ "retrying" ];

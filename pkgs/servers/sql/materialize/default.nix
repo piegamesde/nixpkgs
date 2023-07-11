@@ -119,7 +119,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optional stdenv.isDarwin bootstrap_cmds
     ;
 
-    # Needed to get openssl-sys to use pkg-config.
+  # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
 
   buildInputs =
@@ -131,7 +131,7 @@ rustPlatform.buildRustPackage rec {
     ]
     ;
 
-    # Skip tests that use the network
+  # Skip tests that use the network
   checkFlags = [
     "--exact"
     "--skip test_client"

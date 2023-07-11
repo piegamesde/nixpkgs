@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     }/lib/libgmsh.so
   '';
 
-    # N.B. the shared object is used by bindings
+  # N.B. the shared object is used by bindings
   cmakeFlags = [
     "-DENABLE_BUILD_SHARED=ON"
     "-DENABLE_BUILD_DYNAMIC=ON"

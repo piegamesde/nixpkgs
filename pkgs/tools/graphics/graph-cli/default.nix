@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     matplotlib
   ];
 
-    # does not contain tests despite reference in Makefile
+  # does not contain tests despite reference in Makefile
   doCheck = false;
   pythonImportsCheck = [ "graph_cli" ];
 

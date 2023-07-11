@@ -20,7 +20,7 @@ let
     pname = "juce-lv2";
     version = "unstable-2022-03-30";
 
-      # lv2 branch
+    # lv2 branch
     src = fetchFromGitHub {
       owner = "lv2-porting-project";
       repo = "JUCE";
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     "-DSURGE_JUCE_PATH=${juce-lv2}"
   ];
 
-    # JUCE dlopen's these at runtime, crashes without them
+  # JUCE dlopen's these at runtime, crashes without them
   NIX_LDFLAGS =
     (toString [
       "-lX11"
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       "-lXrandr"
     ]);
 
-    # see https://github.com/NixOS/nixpkgs/pull/149487#issuecomment-991747333
+  # see https://github.com/NixOS/nixpkgs/pull/149487#issuecomment-991747333
   postPatch = ''
     export XDG_DOCUMENTS_DIR=$(mktemp -d)
   '';

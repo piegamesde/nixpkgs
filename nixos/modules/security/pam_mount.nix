@@ -21,8 +21,8 @@ let
   anyPamMount = any (attrByPath [ "pamMount" ] false) (
     attrValues config.security.pam.services
   );
-
 in
+
 {
   options = {
 
@@ -129,7 +129,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf (cfg.enable || anyPamMount) {
@@ -212,6 +211,5 @@ in
         ''
         ;
     };
-
   };
 }

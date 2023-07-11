@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.munge;
-
 in
+
 {
 
   ###### interface
@@ -28,12 +28,10 @@ in
           The path to a daemon's secret key.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -68,9 +66,6 @@ in
         StateDirectoryMode = "0711";
         RuntimeDirectory = "munge";
       };
-
     };
-
   };
-
 }

@@ -10,8 +10,8 @@
 
 let
   dialect = with lib; last (splitString "-" stdenv.hostPlatform.system);
-
 in
+
 stdenv.mkDerivation rec {
   pname = "lsof";
   version = "4.98.0";
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ ncurses ];
 
-    # Stop build scripts from searching global include paths
+  # Stop build scripts from searching global include paths
   LSOF_INCLUDE = "${lib.getDev stdenv.cc.libc}/include";
   configurePhase =
     ''

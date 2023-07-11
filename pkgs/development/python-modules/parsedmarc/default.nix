@@ -88,7 +88,7 @@ buildPythonPackage rec {
     google-auth-oauthlib
   ];
 
-    # no tests on PyPI, no tags on GitHub
+  # no tests on PyPI, no tags on GitHub
   doCheck = false;
 
   pythonImportsCheck = [ "parsedmarc" ];

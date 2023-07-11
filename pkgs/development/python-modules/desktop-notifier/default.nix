@@ -32,7 +32,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isLinux [ dbus-next ]
     ;
 
-    # no tests available, do the imports check instead
+  # no tests available, do the imports check instead
   doCheck = false;
 
   pythonImportsCheck = [ "desktop_notifier" ];

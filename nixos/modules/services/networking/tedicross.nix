@@ -16,7 +16,6 @@ let
     pkgs.runCommand "tedicross-settings.yaml" { preferLocalBuild = true; } ''
       ${pkgs.remarshal}/bin/json2yaml -i ${configJSON} -o $out
     '';
-
 in
 {
   options = {
@@ -27,7 +26,7 @@ in
 
       config = mkOption {
         type = types.attrs;
-          # from https://github.com/TediCross/TediCross/blob/master/example.settings.yaml
+        # from https://github.com/TediCross/TediCross/blob/master/example.settings.yaml
         example = literalExpression ''
           {
             telegram = {
@@ -108,4 +107,3 @@ in
 
   meta.maintainers = with maintainers; [ pacien ];
 }
-

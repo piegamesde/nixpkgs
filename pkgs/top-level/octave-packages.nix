@@ -34,8 +34,8 @@ makeScope newScope (
         inherit computeRequiredOctavePackages;
       };
 
-      # Given a list of required Octave package derivations, get a list of
-      # ALL required Octave packages needed for the ones specified to run.
+    # Given a list of required Octave package derivations, get a list of
+    # ALL required Octave packages needed for the ones specified to run.
     computeRequiredOctavePackages =
       drvs:
       let
@@ -47,7 +47,6 @@ makeScope newScope (
         packages ++ concatLists (catAttrs "requiredOctavePackages" packages)
       )
       ;
-
   in
   {
 
@@ -209,8 +208,8 @@ makeScope newScope (
 
     vibes = callPackage ../development/octave-modules/vibes {
       vibes = null;
-        # TODO: Need to package vibes:
-        # https://github.com/ENSTABretagneRobotics/VIBES
+      # TODO: Need to package vibes:
+      # https://github.com/ENSTABretagneRobotics/VIBES
     };
 
     video = callPackage ../development/octave-modules/video { };
@@ -222,6 +221,5 @@ makeScope newScope (
     zeromq = callPackage ../development/octave-modules/zeromq {
       inherit (pkgs) zeromq autoreconfHook;
     };
-
   }
 )

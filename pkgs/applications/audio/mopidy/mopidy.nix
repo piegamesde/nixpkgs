@@ -48,7 +48,7 @@ pythonPackages.buildPythonApplication rec {
 
   propagatedNativeBuildInputs = [ gobject-introspection ];
 
-    # There are no tests
+  # There are no tests
   doCheck = false;
 
   meta = with lib; {

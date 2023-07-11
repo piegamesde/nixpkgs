@@ -80,7 +80,6 @@ let
       maintainers = teams.c3d2.members;
     };
   };
-
 in
 buildPythonApplication rec {
   pname = "openwebrx";

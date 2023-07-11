@@ -5,7 +5,7 @@
   fetchurl,
 }:
 {
-# : string
+  # : string
   pname
   # : string
   ,
@@ -19,7 +19,7 @@
   # : list Platform
   ,
   platforms ? lib.platforms.all
-    # : list string
+  # : list string
   ,
   outputs ? [
     "bin"
@@ -35,14 +35,14 @@
   # : string
   ,
   postConfigure ? null
-    # mostly for moving and deleting files from the build directory
-    # : lines
+  # mostly for moving and deleting files from the build directory
+  # : lines
   ,
   postInstall
   # : list Maintainer
   ,
   maintainers ? [ ]
-    # : passthru arguments (e.g. tests)
+  # : passthru arguments (e.g. tests)
   ,
   passthru ? { }
 
@@ -63,7 +63,7 @@ let
     "config.mak"
   ];
 
-    # File globs that should be moved to $doc
+  # File globs that should be moved to $doc
   commonMetaFiles = [
     "COPYING"
     "AUTHORS"
@@ -74,7 +74,6 @@ let
     "DCO"
     "CONTRIBUTING"
   ];
-
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -103,11 +102,6 @@ stdenv.mkDerivation {
           "--enable-shared"
       )
     ]
-    # On darwin, the target triplet from -dumpmachine includes version number,
-    # but skarnet.org software uses the triplet to test binary compatibility.
-    # Explicitly setting target ensures code can be compiled against a skalibs
-    # binary built on a different version of darwin.
-    # http://www.skarnet.org/cgi-bin/archive.cgi?1:mss:623:heiodchokfjdkonfhdph
     ++ (lib.optional stdenv.isDarwin "--build=${stdenv.hostPlatform.system}")
     ;
 
@@ -118,7 +112,7 @@ stdenv.mkDerivation {
     "RANLIB=${stdenv.cc.targetPrefix}ranlib"
   ];
 
-    # TODO(Profpatsch): ensure that there is always a $doc output!
+  # TODO(Profpatsch): ensure that there is always a $doc output!
   postInstall = ''
     echo "Cleaning & moving common files"
     ${
@@ -149,5 +143,4 @@ stdenv.mkDerivation {
   };
 
   inherit passthru;
-
 }

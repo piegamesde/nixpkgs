@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-    # pynanoleaf does not contain tests
+  # pynanoleaf does not contain tests
   doCheck = false;
 
   pythonImportsCheck = [ "pynanoleaf" ];

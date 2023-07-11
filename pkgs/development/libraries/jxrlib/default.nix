@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
   pname = "jxrlib";
   version = "1.1";
 
-    # Use the source from a fork on github because CodePlex does not
-    # deliver an easily downloadable tarball.
+  # Use the source from a fork on github because CodePlex does not
+  # deliver an easily downloadable tarball.
   src = fetchFromGitHub {
     owner = "4creators";
     repo = pname;

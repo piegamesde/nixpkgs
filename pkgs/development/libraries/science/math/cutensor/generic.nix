@@ -18,8 +18,8 @@ let
   );
   platform =
     "${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}";
-
 in
+
 stdenv.mkDerivation {
   pname = "cudatoolkit-${cudatoolkit.majorVersion}-cutensor";
   inherit version;
@@ -48,8 +48,8 @@ stdenv.mkDerivation {
 
   propagatedBuildInputs = [ cudatoolkit ];
 
-    # Set RUNPATH so that libcuda in /run/opengl-driver(-32)/lib can be found.
-    # See the explanation in addOpenGLRunpath.
+  # Set RUNPATH so that libcuda in /run/opengl-driver(-32)/lib can be found.
+  # See the explanation in addOpenGLRunpath.
   installPhase = ''
     mkdir -p "$out" "$dev"
     mv include "$dev"

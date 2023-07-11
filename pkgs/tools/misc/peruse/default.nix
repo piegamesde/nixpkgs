@@ -20,7 +20,7 @@ mkDerivation rec {
   pname = "peruse";
   version = "1.2.20200208";
 
-    # The last formal release from 2016 uses kirigami1 which is deprecated
+  # The last formal release from 2016 uses kirigami1 which is deprecated
   src = fetchFromGitHub {
     owner = "KDE";
     repo = pname;
@@ -54,5 +54,4 @@ mkDerivation rec {
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];
   };
-
 }

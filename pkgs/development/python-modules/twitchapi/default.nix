@@ -28,7 +28,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-    # upstream has no tests
+  # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [

@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     ./non-x86.patch
   ];
 
-    # using BACKEND=x86emu on 64bit systems fixes:
-    #  http://www.mail-archive.com/suspend-devel@lists.sourceforge.net/msg02355.html
+  # using BACKEND=x86emu on 64bit systems fixes:
+  #  http://www.mail-archive.com/suspend-devel@lists.sourceforge.net/msg02355.html
   makeFlags =
     [ "DESTDIR=$(out)" ] ++ lib.optional (!stdenv.isi686) "BACKEND=x86emu";
 

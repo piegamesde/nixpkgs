@@ -42,9 +42,9 @@ python3.pkgs.buildPythonApplication rec {
     reedsolo
   ];
 
-    # wrapPythonPrograms will overwrite esptool.py with a bash script,
-    # but espefuse.py tries to import it. Since we don't add any binary paths,
-    # use patchPythonScript directly.
+  # wrapPythonPrograms will overwrite esptool.py with a bash script,
+  # but espefuse.py tries to import it. Since we don't add any binary paths,
+  # use patchPythonScript directly.
   dontWrapPythonPrograms = true;
   postFixup = ''
     buildPythonPath "$out $pythonPath"
@@ -54,11 +54,9 @@ python3.pkgs.buildPythonApplication rec {
     done
   '';
 
-  nativeCheckInputs = with python3.pkgs; [
-      pyelftools
-    ];
+  nativeCheckInputs = with python3.pkgs; [ pyelftools ];
 
-    # tests mentioned in `.github/workflows/test_esptool.yml`
+  # tests mentioned in `.github/workflows/test_esptool.yml`
   checkPhase = ''
     runHook preCheck
 

@@ -38,7 +38,7 @@
   withFFI ? true,
   libffi ? null
 
-    # Things that are clearly an overkill to be enabled by default
+  # Things that are clearly an overkill to be enabled by default
   ,
   withMisc ? false,
   libeb ? null
@@ -134,8 +134,8 @@ stdenv.mkDerivation rec {
       url =
         "https://github.com/uim/libgcroots/commit/7e39241344ad0663409e836560ae6b5eb231e1fc.patch";
       sha256 = "0iifcl5lk8bvl0cflm47gkymg88aiwzj0gxh2aj3mqlyhvyx78nz";
-        # Patch comes from git submodule. Relocate as:
-        # a/include/private/gc_priv.h -> a/sigscheme/libgcroots/include/private/gc_priv.h
+      # Patch comes from git submodule. Relocate as:
+      # a/include/private/gc_priv.h -> a/sigscheme/libgcroots/include/private/gc_priv.h
       stripLen = 1;
       extraPrefix = "sigscheme/libgcroots/";
     })
@@ -174,16 +174,16 @@ stdenv.mkDerivation rec {
     ++ lib.optional withMisc "--with-eb"
     ;
 
-    # TODO: things in `./configure --help`, but not in nixpkgs
-    #--with-canna            Use Canna [default=no]
-    #--with-wnn              Build with libwnn [default=no]
-    #--with-mana             Build a plugin for Mana [default=yes]
-    #--with-prime            Build a plugin for PRIME [default=yes]
-    #--with-sj3              Use SJ3 [default=no]
-    #--with-osx-dcs          Build with OS X Dictionary Services [default=no]
+  # TODO: things in `./configure --help`, but not in nixpkgs
+  #--with-canna            Use Canna [default=no]
+  #--with-wnn              Build with libwnn [default=no]
+  #--with-mana             Build a plugin for Mana [default=yes]
+  #--with-prime            Build a plugin for PRIME [default=yes]
+  #--with-sj3              Use SJ3 [default=no]
+  #--with-osx-dcs          Build with OS X Dictionary Services [default=no]
 
-    # TODO: fix this in librsvg/glib later
-    # https://github.com/NixOS/nixpkgs/pull/57027#issuecomment-475461733
+  # TODO: fix this in librsvg/glib later
+  # https://github.com/NixOS/nixpkgs/pull/57027#issuecomment-475461733
   preBuild = ''
     export XDG_DATA_DIRS="${shared-mime-info}/share"
   '';

@@ -16,7 +16,7 @@
   enableCairo ? true,
   svgSupport ? true,
   pngSupport ? true
-    # Optional dependencies
+  # Optional dependencies
   ,
   cairo,
   libpng,

@@ -27,15 +27,13 @@
       in
       (lib.makeOverridable mkFrameworks attrs)
       ;
-
   in
+
   (
     qt6 // {
-      inherit
-        stdenv
-        ;
+      inherit stdenv;
 
-        # LIBRARIES
+      # LIBRARIES
 
       inherit (kdeFrameworks) kcoreaddons;
 

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-    # need to cd into $out in order for classpath to pick up correct jar files
+  # need to cd into $out in order for classpath to pick up correct jar files
   installPhase = ''
     runHook preInstall
 
@@ -67,9 +67,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-    # it tries to run everything with relative paths, which makes it CWD dependent
-    # also point mod, screenshot, and save directory to $XDG_DATA_HOME
-    # additionally, add some GC options to improve performance of the game
+  # it tries to run everything with relative paths, which makes it CWD dependent
+  # also point mod, screenshot, and save directory to $XDG_DATA_HOME
+  # additionally, add some GC options to improve performance of the game
   postPatch = ''
     substituteInPlace starsector.sh \
       --replace "./jre_linux/bin/java" "${openjdk}/bin/java" \

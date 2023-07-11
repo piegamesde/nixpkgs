@@ -305,7 +305,7 @@ let
           default = true;
         };
 
-          # The original argument name `websocketPingFrequency` is a misnomer, as the frequency is the inverse of the interval.
+        # The original argument name `websocketPingFrequency` is a misnomer, as the frequency is the inverse of the interval.
         websocketPingInterval = mkOption {
           description = mdDoc
             "Do a heartbeat ping every N seconds to keep up the websocket connection."
@@ -423,7 +423,6 @@ let
             ProtectControlGroups = true;
             PrivateDevices = true;
             RestrictSUIDSGID = true;
-
           }
           ;
       };

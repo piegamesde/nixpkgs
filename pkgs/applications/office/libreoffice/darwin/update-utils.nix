@@ -19,18 +19,15 @@ let
       lib.last (builtins.sort builtins.lessThan stableVersions)
     ;
 
-    # getHtml :: String -> String
-  getHtml =
-    url:
-    builtins.readFile (builtins.fetchurl url)
-    ;
+  # getHtml :: String -> String
+  getHtml = url: builtins.readFile (builtins.fetchurl url);
 
-    # getLatestStableVersion :: String
+  # getLatestStableVersion :: String
   getLatestStableVersion = extractLatestVersionFromHtml (
     getHtml "https://download.documentfoundation.org/libreoffice/stable/"
   );
 
-    # extractSha256FromHtml :: String -> String
+  # extractSha256FromHtml :: String -> String
   extractSha256FromHtml =
     htmlString:
     let
@@ -42,18 +39,17 @@ let
       builtins.head sha256
     ;
 
-    # getSha256 :: String -> String
+  # getSha256 :: String -> String
   getSha256 =
     dmgUrl: oldVersion: newVersion:
     extractSha256FromHtml (getHtml (getSha256Url dmgUrl oldVersion newVersion))
     ;
 
-    # getSha256Url :: String -> String -> String -> String
+  # getSha256Url :: String -> String -> String -> String
   getSha256Url =
     dmgUrl: oldVersion: newVersion:
     (builtins.replaceStrings [ oldVersion ] [ newVersion ] dmgUrl) + ".sha256"
     ;
-
 in
 {
   inherit

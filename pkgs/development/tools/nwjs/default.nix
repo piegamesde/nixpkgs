@@ -92,7 +92,6 @@ let
       "out"
     ];
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "nwjs";
@@ -123,7 +122,7 @@ stdenv.mkDerivation rec {
       }
     ;
 
-    # we have runtime deps like sqlite3 that should remain
+  # we have runtime deps like sqlite3 that should remain
   dontPatchELF = true;
 
   installPhase =

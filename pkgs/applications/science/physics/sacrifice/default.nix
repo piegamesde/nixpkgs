@@ -64,10 +64,8 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl2;
     homepage = "https://agile.hepforge.org/trac/wiki/Sacrifice";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [
-        veprbl
-      ];
-      # never built on aarch64-darwin since first introduction in nixpkgs
+    maintainers = with lib.maintainers; [ veprbl ];
+    # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

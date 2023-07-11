@@ -11,7 +11,6 @@ with lib;
 
 let
   cfg = config.programs.spacefm;
-
 in
 {
   ###### interface
@@ -46,11 +45,10 @@ in
           Refer to the [relevant entry](https://ignorantguru.github.io/spacefm/spacefm-manual-en.html#programfiles-etc) in the SpaceFM manual.
         '';
       };
-
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.spaceFM ];

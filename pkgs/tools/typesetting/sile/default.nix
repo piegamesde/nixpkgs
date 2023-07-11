@@ -45,8 +45,8 @@ let
     ++ lib.optionals (lib.versionOlder lua.luaversion "5.2") [ bit32 ]
     ++ lib.optionals (lib.versionOlder lua.luaversion "5.3") [ compat53 ]
   );
-
 in
+
 stdenv.mkDerivation rec {
   pname = "sile";
   version = "0.14.9";
@@ -79,10 +79,8 @@ stdenv.mkDerivation rec {
     ;
   passthru = {
     # So it will be easier to inspect this environment, in comparison to others
-    inherit
-      luaEnv
-      ;
-      # Copied from Makefile.am
+    inherit luaEnv;
+    # Copied from Makefile.am
     tests.test = lib.optionalAttrs (!(stdenv.isDarwin && stdenv.isAarch64)) (
       runCommand "${pname}-test"
       {
@@ -120,7 +118,7 @@ stdenv.mkDerivation rec {
       --replace "ASSERT(ht && ht->table && iter);" "ASSERT(ht && iter);"
   '';
 
-    # Hack to avoid TMPDIR in RPATHs.
+  # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" && mkdir "$(pwd)" '';
 
   outputs = [

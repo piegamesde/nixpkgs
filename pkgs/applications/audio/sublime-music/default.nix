@@ -61,7 +61,7 @@ python.pkgs.buildPythonApplication rec {
     )
     ;
 
-    # Can be removed in later versions (probably > 0.11.16)
+  # Can be removed in later versions (probably > 0.11.16)
   pythonRelaxDeps = [
     "deepdiff"
     "python-mpv"

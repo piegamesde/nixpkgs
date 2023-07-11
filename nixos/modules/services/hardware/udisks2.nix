@@ -17,8 +17,8 @@ let
     (name: value: nameValuePair name value)
     config.services.udisks2.settings
   );
-
 in
+
 {
 
   ###### interface
@@ -69,12 +69,10 @@ in
           drive configuration in [here](http://manpages.ubuntu.com/manpages/latest/en/man8/udisks.8.html) for supported options.
         '';
       };
-
     };
-
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf config.services.udisks2.enable {
 
@@ -108,5 +106,4 @@ in
 
     systemd.packages = [ pkgs.udisks2 ];
   };
-
 }

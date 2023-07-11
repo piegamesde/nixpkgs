@@ -161,7 +161,7 @@ let
     }
     ;
 
-    # TODO (roberth, >=2022) remove
+  # TODO (roberth, >=2022) remove
   checkNix =
     if !cfg.checkNix then
       ""
@@ -187,7 +187,6 @@ let
         installPhase = "touch $out";
       }
     ;
-
 in
 {
   imports = [
@@ -276,11 +275,11 @@ in
       type = types.submoduleWith { modules = [ settingsModule ]; };
     };
 
-      /* Internal and/or computed values.
+    /* Internal and/or computed values.
 
-         These are written as options instead of let binding to allow sharing with
-         default.nix on both NixOS and nix-darwin.
-      */
+       These are written as options instead of let binding to allow sharing with
+       default.nix on both NixOS and nix-darwin.
+    */
     tomlFile = mkOption {
       type = types.path;
       internal = true;

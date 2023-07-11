@@ -58,10 +58,8 @@ rustPlatform.buildRustPackage rec {
       control flow graphs.
     '';
     license = with licenses; [ gpl3 ];
-    maintainers = with maintainers; [
-        leenaars
-      ];
-      # never built on aarch64-linux since first introduction in nixpkgs
+    maintainers = with maintainers; [ leenaars ];
+    # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isDarwin || (stdenv.isLinux && stdenv.isAarch64);
   };
 }

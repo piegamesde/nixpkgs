@@ -48,7 +48,7 @@ let
     Xft.hintstyle: ${fontconfig.hinting.style}
   '';
 
-    # file provided by services.xserver.displayManager.sessionData.wrapper
+  # file provided by services.xserver.displayManager.sessionData.wrapper
   xsessionWrapper = pkgs.writeScript "xsession-wrapper" ''
     #! ${pkgs.bash}/bin/bash
 
@@ -158,7 +158,7 @@ let
     '';
 
   dmDefault = cfg.desktopManager.default;
-    # fallback default for cases when only default wm is set
+  # fallback default for cases when only default wm is set
   dmFallbackDefault =
     if dmDefault != null then
       dmDefault
@@ -171,8 +171,8 @@ let
     dmFallbackDefault
     + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}"
     ;
-
 in
+
 {
   options = {
 
@@ -307,7 +307,7 @@ in
             sessionNames = concatMap
               (p: p.providedSessions)
               cfg.displayManager.sessionPackages;
-              # We do not want to force users to set defaultSession when they have only single DE.
+            # We do not want to force users to set defaultSession when they have only single DE.
             autologinSession =
               if cfg.displayManager.defaultSession != null then
                 cfg.displayManager.defaultSession
@@ -410,10 +410,9 @@ in
             session script to the systemd journal.
           '';
         };
-
       };
 
-        # Configuration for automatic login. Common for all DM.
+      # Configuration for automatic login. Common for all DM.
       autoLogin = mkOption {
         type = types.submodule (
           {
@@ -448,9 +447,7 @@ in
           Auto login configuration attrset.
         '';
       };
-
     };
-
   };
 
   config = {
@@ -534,14 +531,14 @@ in
       };
     };
 
-      # Create desktop files and scripts for starting sessions for WMs/DMs
-      # that do not have upstream session files (those defined using services.{display,desktop,window}Manager.session options).
+    # Create desktop files and scripts for starting sessions for WMs/DMs
+    # that do not have upstream session files (those defined using services.{display,desktop,window}Manager.session options).
     services.xserver.displayManager.sessionPackages =
       let
         dms = filter (s: s.manage == "desktop") cfg.displayManager.session;
         wms = filter (s: s.manage == "window") cfg.displayManager.session;
 
-          # Script responsible for starting the window manager and the desktop manager.
+        # Script responsible for starting the window manager and the desktop manager.
         xsession =
           dm: wm:
           pkgs.writeScript "xsession" ''
@@ -570,9 +567,10 @@ in
             exit 0
           ''
           ;
-        # We will generate every possible pair of WM and DM.
       in
-      concatLists (
+      # We will generate every possible pair of WM and DM.
+      concatLists
+      (
         builtins.map
         (
           {
@@ -594,9 +592,9 @@ in
             pkgs.writeTextFile {
               name = "${sessionName}-xsession";
               destination = "/share/xsessions/${sessionName}.desktop";
-                # Desktop Entry Specification:
-                # - https://standards.freedesktop.org/desktop-entry-spec/latest/
-                # - https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
+              # Desktop Entry Specification:
+              # - https://standards.freedesktop.org/desktop-entry-spec/latest/
+              # - https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
               text = ''
                 [Desktop Entry]
                 Version=1.0
@@ -620,8 +618,8 @@ in
       )
       ;
 
-      # Make xsessions and wayland sessions available in XDG_DATA_DIRS
-      # as some programs have behavior that depends on them being present
+    # Make xsessions and wayland sessions available in XDG_DATA_DIRS
+    # as some programs have behavior that depends on them being present
     environment.sessionVariables.XDG_DATA_DIRS = [
         "${cfg.displayManager.sessionData.desktops}/share"
       ];
@@ -679,5 +677,4 @@ in
         "sessionPackages"
       ])
   ];
-
 }

@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
       --zsh completions/{cnc/_cnc,conceal/_conceal}
   '';
 
-    # There are no any tests in source project.
+  # There are no any tests in source project.
   doCheck = false;
 
   meta = with lib; {

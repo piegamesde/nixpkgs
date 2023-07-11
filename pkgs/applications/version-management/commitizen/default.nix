@@ -74,8 +74,8 @@ buildPythonApplication rec {
     git
   ];
 
-    # the tests require a functional git installation
-    # which requires a valid HOME directory.
+  # the tests require a functional git installation
+  # which requires a valid HOME directory.
   preCheck = ''
     export HOME="$(mktemp -d)"
 
@@ -84,7 +84,7 @@ buildPythonApplication rec {
     git init .
   '';
 
-    # NB: These tests require complex GnuPG setup
+  # NB: These tests require complex GnuPG setup
   disabledTests = [
     "test_bump_minor_increment_signed"
     "test_bump_minor_increment_signed_config_file"

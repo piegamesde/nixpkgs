@@ -19,7 +19,6 @@ let
     log-level = "${cfg.logLevel}"
     watch = ${boolToString cfg.watch}
   '';
-
 in
 {
   options.services.confd = {

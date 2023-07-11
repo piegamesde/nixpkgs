@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
   extraContent = fetchFromGitHub {
     owner = "surge-synthesizer";
     repo = "surge-extra-content";
-      # rev from: https://github.com/surge-synthesizer/surge/blob/release_1.8.1/cmake/stage-extra-content.cmake#L6
-      # or: https://github.com/surge-synthesizer/surge/blob/main/cmake/stage-extra-content.cmake
-      # SURGE_EXTRA_CONTENT_HASH
+    # rev from: https://github.com/surge-synthesizer/surge/blob/release_1.8.1/cmake/stage-extra-content.cmake#L6
+    # or: https://github.com/surge-synthesizer/surge/blob/main/cmake/stage-extra-content.cmake
+    # SURGE_EXTRA_CONTENT_HASH
     rev = "afc591cc06d9adc3dc8dc515a55c66873fa10296";
     sha256 = "1wqv86l70nwlrb10n47rib80f47a96j9qqg8w5dv46ys1sq2nz7z";
   };

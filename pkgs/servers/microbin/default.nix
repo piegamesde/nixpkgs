@@ -8,7 +8,7 @@ rustPlatform.buildRustPackage rec {
   pname = "microbin";
   version = "1.2.1";
 
-    # The GitHub source is outdated
+  # The GitHub source is outdated
   src = fetchCrate {
     inherit pname version;
     hash = "sha256-OLg0ejs9nanMNlY0lcnJ/RoRwefrXEaaROwx5aPx4u8=";

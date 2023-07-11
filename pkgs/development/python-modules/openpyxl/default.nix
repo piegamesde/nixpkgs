@@ -32,8 +32,8 @@ buildPythonPackage rec {
     rm setup.cfg
   '';
 
-    # Tests are not included in archive.
-    # https://bitbucket.org/openpyxl/openpyxl/issues/610
+  # Tests are not included in archive.
+  # https://bitbucket.org/openpyxl/openpyxl/issues/610
   doCheck = false;
 
   meta = {

@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "click_datetime" ];

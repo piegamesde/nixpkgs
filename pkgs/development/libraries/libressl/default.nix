@@ -48,10 +48,10 @@ let
         ++ lib.optional buildShared "-DBUILD_SHARED_LIBS=ON"
         ;
 
-        # The autoconf build is broken as of 2.9.1, resulting in the following error:
-        # libressl-2.9.1/tls/.libs/libtls.a', needed by 'handshake_table'.
-        # Fortunately LibreSSL provides a CMake build as well, so opt for CMake by
-        # removing ./configure pre-config.
+      # The autoconf build is broken as of 2.9.1, resulting in the following error:
+      # libressl-2.9.1/tls/.libs/libtls.a', needed by 'handshake_table'.
+      # Fortunately LibreSSL provides a CMake build as well, so opt for CMake by
+      # removing ./configure pre-config.
       preConfigure = ''
         rm configure
         substituteInPlace CMakeLists.txt \
@@ -61,12 +61,10 @@ let
           --replace 'libdir      \''${exec_prefix}' 'libdir \''${prefix}'
       '';
 
-      inherit
-        patches
-        ;
+      inherit patches;
 
-        # Since 2.9.x the default location can't be configured from the build using
-        # DEFAULT_CA_FILE anymore, instead we have to patch the default value.
+      # Since 2.9.x the default location can't be configured from the build using
+      # DEFAULT_CA_FILE anymore, instead we have to patch the default value.
       postPatch = ''
         patchShebangs tests/
         ${lib.optionalString (lib.versionAtLeast version "2.9.2") ''
@@ -119,7 +117,6 @@ let
       };
     }
     ;
-
 in
 {
   libressl_3_4 = generic {

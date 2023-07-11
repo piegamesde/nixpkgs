@@ -20,7 +20,6 @@ with lib;
         Nix store in the generated netboot image.
       '';
     };
-
   };
 
   config = {
@@ -28,7 +27,7 @@ with lib;
     # here and it causes a cyclic dependency.
     boot.loader.grub.enable = false;
 
-      # !!! Hack - attributes expected by other modules.
+    # !!! Hack - attributes expected by other modules.
     environment.systemPackages =
       [ pkgs.grub2_efi ]
       ++ (
@@ -47,8 +46,8 @@ with lib;
       options = [ "mode=0755" ];
     };
 
-      # In stage 1, mount a tmpfs on top of /nix/store (the squashfs
-      # image) to make this a live CD.
+    # In stage 1, mount a tmpfs on top of /nix/store (the squashfs
+    # image) to make this a live CD.
     fileSystems."/nix/.ro-store" = mkImageMediaOverride {
       fsType = "squashfs";
       device = "../nix-store.squashfs";
@@ -88,17 +87,17 @@ with lib;
       "overlay"
     ];
 
-      # Closures to be copied to the Nix store, namely the init
-      # script and the top-level system configuration directory.
+    # Closures to be copied to the Nix store, namely the init
+    # script and the top-level system configuration directory.
     netboot.storeContents = [ config.system.build.toplevel ];
 
-      # Create the squashfs image that contains the Nix store.
+    # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore =
       pkgs.callPackage ../../../lib/make-squashfs.nix {
         storeContents = config.netboot.storeContents;
       };
 
-      # Create the initrd
+    # Create the initrd
     system.build.netbootRamdisk = pkgs.makeInitrdNG {
       inherit (config.boot.initrd) compressor;
       prepend = [ "${config.system.build.initialRamdisk}/initrd" ];
@@ -120,8 +119,8 @@ with lib;
       boot
     '';
 
-      # A script invoking kexec on ./bzImage and ./initrd.gz.
-      # Usually used through system.build.kexecTree, but exposed here for composability.
+    # A script invoking kexec on ./bzImage and ./initrd.gz.
+    # Usually used through system.build.kexecTree, but exposed here for composability.
     system.build.kexecScript = pkgs.writeScript "kexec-boot" ''
       #!/usr/bin/env bash
       if ! kexec -v >/dev/null 2>&1; then
@@ -137,7 +136,7 @@ with lib;
       kexec -e
     '';
 
-      # A tree containing initrd.gz, bzImage and a kexec-boot script.
+    # A tree containing initrd.gz, bzImage and a kexec-boot script.
     system.build.kexecTree = pkgs.linkFarm "kexec-tree" [
       {
         name = "initrd.gz";
@@ -166,7 +165,5 @@ with lib;
       touch /etc/NIXOS
       ${config.nix.package}/bin/nix-env -p /nix/var/nix/profiles/system --set /run/current-system
     '';
-
   };
-
 }

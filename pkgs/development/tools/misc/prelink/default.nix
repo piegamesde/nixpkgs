@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     libiberty
   ];
 
-    # most tests fail
+  # most tests fail
   doCheck = false;
 
   enableParallelBuilding = true;

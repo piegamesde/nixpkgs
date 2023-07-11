@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-    # Complains about not being able to find the fontconfig config file otherwise
+  # Complains about not being able to find the fontconfig config file otherwise
   FONTCONFIG_FILE =
     lib.optional docSupport (makeFontsConf { fontDirectories = [ ]; });
 
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-    # Resolves the warning "Fontconfig error: No writable cache directories"
+  # Resolves the warning "Fontconfig error: No writable cache directories"
   preBuild = ''
     export XDG_CACHE_HOME="$(mktemp -d)"
   '';

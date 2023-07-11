@@ -30,8 +30,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "decopatch" ];
 
-    # Tests would introduce multiple cirucular dependencies
-    # Affected: makefun, pytest-cases
+  # Tests would introduce multiple cirucular dependencies
+  # Affected: makefun, pytest-cases
   doCheck = false;
 
   meta = with lib; {

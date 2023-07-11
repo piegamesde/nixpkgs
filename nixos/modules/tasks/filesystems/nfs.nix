@@ -24,8 +24,8 @@ let
   '';
 
   cfg = config.services.nfs;
-
 in
+
 {
   ###### interface
 
@@ -60,7 +60,7 @@ in
     };
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf
     (any (fs: fs == "nfs" || fs == "nfs4") config.boot.supportedFilesystems)
@@ -139,6 +139,5 @@ in
           mkdir -p /var/lib/nfs/{sm,sm.bak}
         '';
       };
-
     };
 }

@@ -40,9 +40,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # Still supporting unittest2
-    # https://github.com/rollbar/pyrollbar/pull/346
-    # https://github.com/rollbar/pyrollbar/pull/340
+  # Still supporting unittest2
+  # https://github.com/rollbar/pyrollbar/pull/346
+  # https://github.com/rollbar/pyrollbar/pull/340
   doCheck = false;
 
   pythonImportsCheck = [ "rollbar" ];

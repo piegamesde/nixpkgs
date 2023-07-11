@@ -10,8 +10,8 @@ with lib;
 let
 
   cfg = config.services.xserver.windowManager.twm;
-
 in
+
 {
 
   ###### interface
@@ -21,7 +21,7 @@ in
       mkEnableOption (lib.mdDoc "twm");
   };
 
-    ###### implementation
+  ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -34,7 +34,5 @@ in
     };
 
     environment.systemPackages = [ pkgs.xorg.twm ];
-
   };
-
 }

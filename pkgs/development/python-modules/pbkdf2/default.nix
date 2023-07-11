@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "0yb99rl2mbsaamj571s1mf6vgniqh23v98k4632150hjkwv9fqxc";
   };
 
-    # ImportError: No module named test
+  # ImportError: No module named test
   doCheck = false;
 
   meta = with lib; { maintainers = with maintainers; [ domenkozar ]; };

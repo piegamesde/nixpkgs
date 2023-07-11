@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-HkNCZpdGi2hJc2+/8XwLrrJcibpyA7fQN1vNuZ9jyhw=";
   };
 
-    # error: use of undeclared identifier '__sincos'
+  # error: use of undeclared identifier '__sincos'
   postPatch = lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
     substituteInPlace src/math/sincos.hpp \
       --replace "__APPLE__" "0"

@@ -23,7 +23,6 @@ let
     ''
     ;
   system = stdenv.hostPlatform.system;
-
 in
 stdenv.mkDerivation rec {
   pname = "brscan5";

@@ -31,16 +31,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-sQ3D4JUK9epRkDZ7DC+IH+iMaLN+uKM2hZkhqji+0Zc=";
 
-    # TODO investigate why some config tests are failing
-  doCheck =
-    !(
-      stdenv.isDarwin && stdenv.isAarch64
-    )
-    ;
-    # Required to workaround test check error:
+  # TODO investigate why some config tests are failing
+  doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
+  # Required to workaround test check error:
   preCheck = "export HOME=$(mktemp -d)";
-    # For arch != x86
-    # {"level":"fatal","error":"could not create any of the following paths: /homeless-shelter/.config, /etc/xdg","time":"2022-06-28T15:52:36Z","message":"Unable to create configuration directory for k9s"}
+  # For arch != x86
+  # {"level":"fatal","error":"could not create any of the following paths: /homeless-shelter/.config, /etc/xdg","time":"2022-06-28T15:52:36Z","message":"Unable to create configuration directory for k9s"}
   passthru.tests.version = testers.testVersion {
     package = k9s;
     command = "HOME=$(mktemp -d) k9s version -s";

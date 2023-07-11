@@ -13,7 +13,8 @@
 
 # TODO: add libopenraw
 
-mkXfceDerivation {
+mkXfceDerivation
+{
   category = "xfce";
   pname = "tumbler";
   version = "4.18.1";
@@ -31,7 +32,7 @@ mkXfceDerivation {
     poppler # technically the glib binding
   ];
 
-    # WrapGAppsHook won't touch this binary automatically, so we wrap manually.
+  # WrapGAppsHook won't touch this binary automatically, so we wrap manually.
   postFixup = ''
     wrapProgram $out/lib/tumbler-1/tumblerd "''${gappsWrapperArgs[@]}"
   '';

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # tests sporadically fail on musl
+  # tests sporadically fail on musl
   doCheck = !stdenv.hostPlatform.isMusl;
 
   meta = with lib; {

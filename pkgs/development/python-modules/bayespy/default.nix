@@ -18,8 +18,8 @@ buildPythonPackage rec {
   pname = "bayespy";
   version = "0.5.22";
 
-    # Python 2 not supported and not some old Python 3 because MPL doesn't support
-    # them properly.
+  # Python 2 not supported and not some old Python 3 because MPL doesn't support
+  # them properly.
   disabled = pythonOlder "3.4";
 
   src = fetchPypi {

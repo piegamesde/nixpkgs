@@ -9,7 +9,7 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 let
   lib = pkgs.lib;
 
-    # Makes a test for a PostgreSQL package, given by name and looked up from `pkgs`.
+  # Makes a test for a PostgreSQL package, given by name and looked up from `pkgs`.
   makePostgresqlWalReceiverTest =
     postgresqlPackage: {
       name = postgresqlPackage;
@@ -32,7 +32,6 @@ let
               "recovery.conf"
               "restore_command = 'cp ${walBackupDir}/%f %p'"
             ;
-
         in
         makeTest {
           name = "postgresql-wal-receiver-${postgresqlPackage}";
@@ -71,8 +70,8 @@ let
                 slot = replicationSlot;
                 directory = walBackupDir;
               };
-                # This is only to speedup test, it isn't time racing. Service is set to autorestart always,
-                # default 60sec is fine for real system, but is too much for a test
+              # This is only to speedup test, it isn't time racing. Service is set to autorestart always,
+              # default 60sec is fine for real system, but is too much for a test
               systemd.services.postgresql-wal-receiver-main.serviceConfig.RestartSec =
                 lib.mkForce 5;
             }
@@ -129,7 +128,7 @@ let
     }
     ;
 
-    # Maps the generic function over all attributes of PostgreSQL packages
+  # Maps the generic function over all attributes of PostgreSQL packages
 in
 builtins.listToAttrs (
   map makePostgresqlWalReceiverTest (

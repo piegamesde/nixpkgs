@@ -41,7 +41,7 @@ stdenv.mkDerivation {
   dontStrip = true;
   dontPatchELF = true;
 
-    # make[2]: *** No rule to make target 'pre_stage2_fullsize', needed by 'all-am'.  Stop.
+  # make[2]: *** No rule to make target 'pre_stage2_fullsize', needed by 'all-am'.  Stop.
   enableParallelBuilding = false;
 
   meta = with lib; {

@@ -27,7 +27,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-    # Tests requires algopy and other modules which are optional and/or not available
+  # Tests requires algopy and other modules which are optional and/or not available
   doCheck = false;
 
   postPatch = ''

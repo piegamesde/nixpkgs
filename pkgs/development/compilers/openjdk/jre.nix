@@ -15,8 +15,8 @@ let
 
     dontUnpack = true;
 
-      # Strip more heavily than the default '-S', since if you're
-      # using this derivation you probably care about this.
+    # Strip more heavily than the default '-S', since if you're
+    # using this derivation you probably care about this.
     stripDebugFlags = [ "--strip-unneeded" ];
 
     buildPhase = ''

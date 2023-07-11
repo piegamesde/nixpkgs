@@ -35,10 +35,10 @@ rec {
       id
     ;
 
-    /* !!! Hack: poor man's memoisation function.  Necessary to prevent
-       Nixpkgs from being evaluated again and again for every
-       job/platform pair.
-    */
+  /* !!! Hack: poor man's memoisation function.  Necessary to prevent
+     Nixpkgs from being evaluated again and again for every
+     job/platform pair.
+  */
   mkPkgsFor =
     crossSystem:
     let
@@ -57,7 +57,6 @@ rec {
       pkgs_i686_freebsd = packageSet' { system = "i686-freebsd"; };
       pkgs_i686_cygwin = packageSet' { system = "i686-cygwin"; };
       pkgs_x86_64_cygwin = packageSet' { system = "x86_64-cygwin"; };
-
     in
     system:
     if system == "x86_64-linux" then
@@ -90,7 +89,7 @@ rec {
 
   pkgsFor = pkgsForCross null;
 
-    # More poor man's memoisation
+  # More poor man's memoisation
   pkgsForCross =
     let
       examplesByConfig = lib.flip lib.mapAttrs' lib.systems.examples (
@@ -116,11 +115,11 @@ rec {
       mkPkgsFor crossSystem
     ; # uncached fallback
 
-    # Given a list of 'meta.platforms'-style patterns, return the sublist of
-    # `supportedSystems` containing systems that matches at least one of the given
-    # patterns.
-    #
-    # This is written in a funny way so that we only elaborate the systems once.
+  # Given a list of 'meta.platforms'-style patterns, return the sublist of
+  # `supportedSystems` containing systems that matches at least one of the given
+  # patterns.
+  #
+  # This is written in a funny way so that we only elaborate the systems once.
   supportedMatches =
     let
       supportedPlatforms =
@@ -152,34 +151,31 @@ rec {
       pkgs.runCommand "evaluated-to-false" { } "false"
     ;
 
-    /* The working or failing mails for cross builds will be sent only to
-       the following maintainers, as most package maintainers will not be
-       interested in the result of cross building a package.
-    */
+  /* The working or failing mails for cross builds will be sent only to
+     the following maintainers, as most package maintainers will not be
+     interested in the result of cross building a package.
+  */
   crossMaintainers = [ maintainers.viric ];
 
-    # Generate attributes for all supported systems.
+  # Generate attributes for all supported systems.
   forAllSystems = genAttrs supportedSystems;
 
-    # Generate attributes for all systems matching at least one of the given
-    # patterns
-  forMatchingSystems =
-    metaPatterns:
-    genAttrs (supportedMatches metaPatterns)
-    ;
+  # Generate attributes for all systems matching at least one of the given
+  # patterns
+  forMatchingSystems = metaPatterns: genAttrs (supportedMatches metaPatterns);
 
-    /* Build a package on the given set of platforms.  The function `f'
-       is called for each supported platform with Nixpkgs for that
-       platform as an argument .  We return an attribute set containing
-       a derivation for each supported platform, i.e. ‘{ x86_64-linux =
-       f pkgs_x86_64_linux; i686-linux = f pkgs_i686_linux; ... }’.
-    */
+  /* Build a package on the given set of platforms.  The function `f'
+     is called for each supported platform with Nixpkgs for that
+     platform as an argument .  We return an attribute set containing
+     a derivation for each supported platform, i.e. ‘{ x86_64-linux =
+     f pkgs_x86_64_linux; i686-linux = f pkgs_i686_linux; ... }’.
+  */
   testOn = testOnCross null;
 
-    /* Similar to the testOn function, but with an additional
-       'crossSystem' parameter for packageSet', defining the target
-       platform for cross builds.
-    */
+  /* Similar to the testOn function, but with an additional
+     'crossSystem' parameter for packageSet', defining the target
+     platform for cross builds.
+  */
   testOnCross =
     crossSystem: metaPatterns: f:
     forMatchingSystems metaPatterns (
@@ -187,10 +183,10 @@ rec {
     )
     ;
 
-    /* Given a nested set where the leaf nodes are lists of platforms,
-       map each leaf node to `testOn [platforms...] (pkgs:
-       pkgs.<attrPath>)'.
-    */
+  /* Given a nested set where the leaf nodes are lists of platforms,
+     map each leaf node to `testOn [platforms...] (pkgs:
+     pkgs.<attrPath>)'.
+  */
   mapTestOn = _mapTestOnHelper id null;
 
   _mapTestOnHelper =
@@ -201,15 +197,15 @@ rec {
     )
     ;
 
-    # Similar to the testOn function, but with an additional 'crossSystem'
-    # parameter for packageSet', defining the target platform for cross builds,
-    # and triggering the build of the host derivation.
+  # Similar to the testOn function, but with an additional 'crossSystem'
+  # parameter for packageSet', defining the target platform for cross builds,
+  # and triggering the build of the host derivation.
   mapTestOnCross =
     _mapTestOnHelper (addMetaAttrs { maintainers = crossMaintainers; });
 
-    /* Recursively map a (nested) set of derivations to an isomorphic
-       set of meta.platforms values.
-    */
+  /* Recursively map a (nested) set of derivations to an isomorphic
+     set of meta.platforms values.
+  */
   packagePlatforms = mapAttrs (
     name: value:
     if isDerivation value then
@@ -224,7 +220,6 @@ rec {
       [ ]
   );
 
-    # Common platform groups on which to test packages.
+  # Common platform groups on which to test packages.
   inherit (platforms) unix linux darwin cygwin all mesaPlatforms;
-
 }

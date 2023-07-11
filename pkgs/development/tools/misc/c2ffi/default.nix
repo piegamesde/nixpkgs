@@ -9,8 +9,8 @@
 let
   c2ffiBranch = "llvm-11.0.0";
   llvmPackages = llvmPackages_11;
-
 in
+
 llvmPackages.stdenv.mkDerivation {
   pname = "c2ffi-${c2ffiBranch}";
   version = "unstable-2021-06-15";
@@ -35,15 +35,15 @@ llvmPackages.stdenv.mkDerivation {
     llvmPackages.libclang
   ];
 
-    # This isn't much, but...
+  # This isn't much, but...
   doInstallCheck = true;
   installCheckPhase = ''
     $out/bin/c2ffi --help 2>&1 >/dev/null
   '';
 
-    # LLVM may be compiled with -fno-rtti, so let's just turn it off.
-    # A mismatch between lib{clang,LLVM}* and us can lead to the link time error:
-    # undefined reference to `typeinfo for clang::ASTConsumer'
+  # LLVM may be compiled with -fno-rtti, so let's just turn it off.
+  # A mismatch between lib{clang,LLVM}* and us can lead to the link time error:
+  # undefined reference to `typeinfo for clang::ASTConsumer'
   CXXFLAGS = "-fno-rtti";
 
   meta = with lib; {

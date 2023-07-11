@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-djd5KIxA8HZG7HrZi5bDeMc5Fx0WKtmDmIaHg7chg58";
   };
 
-    # perl is only used during the check phase.
+  # perl is only used during the check phase.
   nativeBuildInputs = [ perl ];
 
   buildInputs = [
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       ]
     ;
 
-    # In the case of static builds, we need to replace the build and install phases
+  # In the case of static builds, we need to replace the build and install phases
   buildPhase = lib.optional stdenv.hostPlatform.isStatic ''
     make AR=$AR lib-static
     make LDFLAGS=-static bgzip htsfile tabix

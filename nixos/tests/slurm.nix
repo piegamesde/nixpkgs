@@ -70,8 +70,8 @@ import ./make-test-python.nix (
             ...
           }: {
             imports = [ slurmconfig ];
-              # TODO slurmd port and slurmctld port should be configurations and
-              # automatically allowed by the  firewall.
+            # TODO slurmd port and slurmctld port should be configurations and
+            # automatically allowed by the  firewall.
             services.slurm = { client.enable = true; };
           }
           ;

@@ -402,8 +402,8 @@ in
       };
     };
 
-      # currently not included in upstream package, addition requested at
-      # https://github.com/mumble-voip/mumble/issues/6078
+    # currently not included in upstream package, addition requested at
+    # https://github.com/mumble-voip/mumble/issues/6078
     services.dbus.packages = mkIf (cfg.dbus == "system") [
         (pkgs.writeTextFile {
           name = "murmur-dbus-policy";

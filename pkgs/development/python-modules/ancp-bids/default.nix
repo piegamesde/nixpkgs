@@ -15,7 +15,7 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.7";
   format = "pyproject";
 
-    # `tests/data` dir missing from PyPI dist
+  # `tests/data` dir missing from PyPI dist
   src = fetchFromGitHub {
     owner = "ANCPLabOldenburg";
     repo = pname;

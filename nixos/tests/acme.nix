@@ -58,14 +58,14 @@ let
     networking.firewall.allowedTCPPorts = [ 80 ];
   };
 
-    # Base specialisation config for testing general ACME features
+  # Base specialisation config for testing general ACME features
   webserverBasicConfig = {
     services.nginx.enable = true;
     services.nginx.virtualHosts."a.example.test" =
       vhostBase // { enableACME = true; };
   };
 
-    # Generate specialisations for testing a web server
+  # Generate specialisations for testing a web server
   mkServerConfigs =
     {
       server,
@@ -84,7 +84,7 @@ let
           {
             security.acme = {
               defaults = (dnsConfig nodes);
-                # One manual wildcard cert
+              # One manual wildcard cert
               certs."example.test" = { domain = "*.example.test"; };
             };
 
@@ -101,16 +101,16 @@ let
                   enableACME = true;
                 };
 
-                  # Another which inherits the DNS-01 config
+                # Another which inherits the DNS-01 config
                 "${server}-dns.example.test" = vhostBaseData // {
                   serverAliases = [ "${server}-dns-alias.example.test" ];
                   enableACME = true;
-                    # Set acmeRoot to null instead of using the default of "/var/lib/acme/acme-challenge"
-                    # webroot + dnsProvider are mutually exclusive.
+                  # Set acmeRoot to null instead of using the default of "/var/lib/acme/acme-challenge"
+                  # webroot + dnsProvider are mutually exclusive.
                   acmeRoot = null;
                 };
 
-                  # One using the wildcard certificate
+                # One using the wildcard certificate
                 "${server}-wildcard.example.test" = vhostBaseData // {
                   serverAliases = [ "${server}-wildcard-alias.example.test" ];
                   useACMEHost = "example.test";
@@ -118,7 +118,7 @@ let
               };
             };
 
-              # Used to determine if service reload was triggered
+            # Used to determine if service reload was triggered
             systemd.targets."test-renew-${server}" = {
               wants = [ "acme-${server}-http.example.test.service" ];
               after = [
@@ -142,7 +142,7 @@ let
         baseConfig { inherit nodes config; }
         ;
 
-        # Test that server reloads when an alias is removed (and subsequently test removal works in acme)
+      # Test that server reloads when an alias is removed (and subsequently test removal works in acme)
       "${server}-remove-alias".configuration =
         {
           nodes,
@@ -167,7 +167,7 @@ let
         }
         ;
 
-        # Test that the server reloads when only the acme configuration is changed.
+      # Test that the server reloads when only the acme configuration is changed.
       "${server}-change-acme-conf".configuration =
         {
           nodes,
@@ -179,7 +179,7 @@ let
           specialConfig = {
             security.acme.certs."${server}-http.example.test" = {
               keyType = "ec384";
-                # Also test that postRun is exec'd as root
+              # Also test that postRun is exec'd as root
               postRun = "id | grep root";
             };
           };
@@ -187,13 +187,12 @@ let
         ;
     }
     ;
-
 in
 {
   name = "acme";
   meta = {
     maintainers = lib.teams.acme.members;
-      # Hard timeout in seconds. Average run time is about 7 minutes.
+    # Hard timeout in seconds. Average run time is about 7 minutes.
     timeout = 1800;
   };
 
@@ -209,8 +208,8 @@ in
       }
       ;
 
-      # A fake DNS server which can be configured with records as desired
-      # Used to test DNS-01 challenge
+    # A fake DNS server which can be configured with records as desired
+    # Used to test DNS-01 challenge
     dnsserver =
       {
         nodes,
@@ -228,14 +227,14 @@ in
           serviceConfig = {
             ExecStart =
               "${pkgs.pebble}/bin/pebble-challtestsrv -dns01 ':53' -defaultIPv6 '' -defaultIPv4 '${nodes.webserver.networking.primaryIPAddress}'";
-              # Required to bind on privileged ports.
+            # Required to bind on privileged ports.
             AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           };
         };
       }
       ;
 
-      # A web server which will be the node requesting certs
+    # A web server which will be the node requesting certs
     webserver =
       {
         nodes,
@@ -249,10 +248,10 @@ in
           443
         ];
 
-          # OpenSSL will be used for more thorough certificate validation
+        # OpenSSL will be used for more thorough certificate validation
         environment.systemPackages = [ pkgs.openssl ];
 
-          # Set log level to info so that we can see when the service is reloaded
+        # Set log level to info so that we can see when the service is reloaded
         services.nginx.logError = "stderr info";
 
         specialisation = {
@@ -268,7 +267,7 @@ in
             }
           ];
 
-            # Tests that account creds can be safely changed.
+          # Tests that account creds can be safely changed.
           accountchange.configuration = lib.mkMerge [
             simpleConfig
             {
@@ -277,7 +276,7 @@ in
             }
           ];
 
-            # First derivation used to test general ACME features
+          # First derivation used to test general ACME features
           general.configuration =
             {
               ...
@@ -285,7 +284,7 @@ in
             let
               caDomain = nodes.acme.test-support.acme.caDomain;
               email = config.security.acme.defaults.email;
-                # Exit 99 to make it easier to track if this is the reason a renew failed
+              # Exit 99 to make it easier to track if this is the reason a renew failed
               accountCreateTester = ''
                 test -e accounts/${caDomain}/${email}/account.json || exit 99
               '';
@@ -308,7 +307,7 @@ in
             ]
             ;
 
-            # Test OCSP Stapling
+          # Test OCSP Stapling
           ocsp-stapling.configuration =
             {
               ...
@@ -327,8 +326,8 @@ in
             ]
             ;
 
-            # Validate service relationships by adding a slow start service to nginx' wants.
-            # Reproducer for https://github.com/NixOS/nixpkgs/issues/81842
+          # Validate service relationships by adding a slow start service to nginx' wants.
+          # Reproducer for https://github.com/NixOS/nixpkgs/issues/81842
           slow-startup.configuration =
             {
               ...
@@ -355,8 +354,8 @@ in
             ]
             ;
 
-            # Test lego internal server (listenHTTP option)
-            # Also tests useRoot option
+          # Test lego internal server (listenHTTP option)
+          # Also tests useRoot option
           lego-server.configuration =
             {
               ...
@@ -374,8 +373,8 @@ in
             }
             ;
 
-            # Test compatibility with Caddy
-            # It only supports useACMEHost, hence not using mkServerConfigs
+          # Test compatibility with Caddy
+          # It only supports useACMEHost, hence not using mkServerConfigs
         } // (
           let
             baseCaddyConfig =
@@ -386,7 +385,7 @@ in
               }: {
                 security.acme = {
                   defaults = (dnsConfig nodes);
-                    # One manual wildcard cert
+                  # One manual wildcard cert
                   certs."example.test" = { domain = "*.example.test"; };
                 };
 
@@ -409,7 +408,7 @@ in
           {
             caddy.configuration = baseCaddyConfig;
 
-              # Test that the server reloads when only the acme configuration is changed.
+            # Test that the server reloads when only the acme configuration is changed.
             "caddy-change-acme-conf".configuration =
               {
                 nodes,
@@ -422,7 +421,7 @@ in
               ]
               ;
 
-              # Test compatibility with Nginx
+            # Test compatibility with Nginx
           }
         ) // (mkServerConfigs {
           server = "nginx";
@@ -430,7 +429,7 @@ in
           vhostBaseData = vhostBase;
         })
 
-        # Test compatibility with Apache HTTPD
+          # Test compatibility with Apache HTTPD
           // (mkServerConfigs {
             server = "httpd";
             group = "wwwrun";
@@ -442,7 +441,7 @@ in
       }
       ;
 
-      # The client will be used to curl the webserver to validate configuration
+    # The client will be used to curl the webserver to validate configuration
     client =
       {
         nodes,
@@ -451,7 +450,7 @@ in
         imports = [ commonConfig ];
         networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
 
-          # OpenSSL will be used for more thorough certificate validation
+        # OpenSSL will be used for more thorough certificate validation
         environment.systemPackages = [ pkgs.openssl ];
       }
       ;
@@ -466,10 +465,10 @@ in
       caDomain = nodes.acme.test-support.acme.caDomain;
       newServerSystem = nodes.webserver.config.system.build.toplevel;
       switchToNewServer = "${newServerSystem}/bin/switch-to-configuration test";
-      # Note, wait_for_unit does not work for oneshot services that do not have RemainAfterExit=true,
-      # this is because a oneshot goes from inactive => activating => inactive, and never
-      # reaches the active state. Targets do not have this issue.
     in
+    # Note, wait_for_unit does not work for oneshot services that do not have RemainAfterExit=true,
+    # this is because a oneshot goes from inactive => activating => inactive, and never
+    # reaches the active state. Targets do not have this issue.
     ''
       import time
 

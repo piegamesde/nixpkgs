@@ -27,7 +27,6 @@ let
       mesonFlags = old.mesonFlags ++ [ "-Denable_docs=false" ];
     }
   );
-
 in
 stdenv.mkDerivation rec {
   pname = "odp-dpdk";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     "-Wno-error=uninitialized"
   ];
 
-    # binaries will segfault otherwise
+  # binaries will segfault otherwise
   dontStrip = true;
 
   enableParallelBuilding = true;

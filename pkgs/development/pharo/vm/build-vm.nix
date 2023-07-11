@@ -30,14 +30,12 @@
 }:
 
 # Build the Pharo VM
-stdenv.mkDerivation rec {
-  inherit
-    name
-    src
-    ;
+stdenv.mkDerivation
+rec {
+  inherit name src;
 
-    # Command line invocation name.
-    # Distinct name for 64-bit builds because they only work with 64-bit images.
+  # Command line invocation name.
+  # Distinct name for 64-bit builds because they only work with 64-bit images.
   cmd =
     if stdenv.is64bit then
       "pharo-spur64"
@@ -45,8 +43,8 @@ stdenv.mkDerivation rec {
       "pharo-spur"
     ;
 
-    # Choose desired VM sources. Separate for 32-bit and 64-bit VM.
-    # (Could extent to building more VM variants e.g. SpurV3, Sista, etc.)
+  # Choose desired VM sources. Separate for 32-bit and 64-bit VM.
+  # (Could extent to building more VM variants e.g. SpurV3, Sista, etc.)
   vm =
     if stdenv.is64bit then
       "spur64src"
@@ -54,7 +52,7 @@ stdenv.mkDerivation rec {
       "spursrc"
     ;
 
-    # Choose target platform name in the format used by the vm.
+  # Choose target platform name in the format used by the vm.
   flavor =
     if stdenv.isLinux && stdenv.isi686 then
       "linux32x86"
@@ -68,10 +66,10 @@ stdenv.mkDerivation rec {
       throw "Unsupported platform: only Linux/Darwin x86/x64 are supported."
     ;
 
-    # Shared data (for the sources file)
+  # Shared data (for the sources file)
   pharo-share = import ./share.nix { inherit lib stdenv fetchurl unzip; };
 
-    # Note: -fPIC causes the VM to segfault.
+  # Note: -fPIC causes the VM to segfault.
   hardeningDisable = [
     "format"
     "pic"
@@ -79,13 +77,13 @@ stdenv.mkDerivation rec {
     "stackprotector"
   ];
 
-    # gcc 4.8 used for the build:
-    #
-    # gcc5 crashes during compilation; gcc >= 4.9 produces a
-    # binary that crashes when forking a child process. See:
-    # http://forum.world.st/OSProcess-fork-issue-with-Debian-built-VM-td4947326.html
-    #
-    # (stack protection is disabled above for gcc 4.8 compatibility.)
+  # gcc 4.8 used for the build:
+  #
+  # gcc5 crashes during compilation; gcc >= 4.9 produces a
+  # binary that crashes when forking a child process. See:
+  # http://forum.world.st/OSProcess-fork-issue-with-Debian-built-VM-td4947326.html
+  #
+  # (stack protection is disabled above for gcc 4.8 compatibility.)
   nativeBuildInputs = [
     autoreconfHook
     unzip
@@ -109,15 +107,15 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-    # Regenerate the configure script.
-    # Unnecessary? But the build breaks without this.
+  # Regenerate the configure script.
+  # Unnecessary? But the build breaks without this.
   autoreconfPhase = ''
     pushd platforms/unix/config
     make
     popd
   '';
 
-    # Configure with options modeled on the 'mvm' build script from the vm.
+  # Configure with options modeled on the 'mvm' build script from the vm.
   configureScript = "platforms/unix/config/configure";
   configureFlags = [
     "--without-npsqueak"
@@ -125,17 +123,17 @@ stdenv.mkDerivation rec {
     "--with-src=${vm}"
   ];
 
-    # -fcommon is a workaround build failure on -fno-common toolchains like upstream
-    # gcc-10. Otherwise build fails as:
-    #   ld: vm/vm.a(cogit.o):/build/source/spur64src/vm/cointerp.h:358: multiple definition of `checkAllocFiller';
-    #     vm/vm.a(gcc3x-cointerp.o):/build/source/spur64src/vm/cointerp.h:358: first defined here
+  # -fcommon is a workaround build failure on -fno-common toolchains like upstream
+  # gcc-10. Otherwise build fails as:
+  #   ld: vm/vm.a(cogit.o):/build/source/spur64src/vm/cointerp.h:358: multiple definition of `checkAllocFiller';
+  #     vm/vm.a(gcc3x-cointerp.o):/build/source/spur64src/vm/cointerp.h:358: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   CFLAGS =
     "-DPharoVM -DIMMUTABILITY=1 -msse2 -D_GNU_SOURCE -DCOGMTVM=0 -g -O2 -DNDEBUG -DDEBUGVM=0";
   LDFLAGS = "-Wl,-z,now";
 
-    # VM sources require some patching before build.
+  # VM sources require some patching before build.
   prePatch = ''
     patchShebangs build.${flavor}
     # Fix hard-coded path to /bin/rm in a script
@@ -147,12 +145,12 @@ stdenv.mkDerivation rec {
            platforms/Cross/vm/sqSCCSVersion.h
   '';
 
-    # Note: --with-vmcfg configure option is broken so copy plugin specs to ./
+  # Note: --with-vmcfg configure option is broken so copy plugin specs to ./
   preConfigure = ''
     cp build."${flavor}"/pharo.cog.spur/plugins.{ext,int} .
   '';
 
-    # (No special build phase.)
+  # (No special build phase.)
 
   installPhase =
     let

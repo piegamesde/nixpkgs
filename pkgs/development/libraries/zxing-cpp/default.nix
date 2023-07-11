@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_BLACKBOX_TESTS=OFF"
   ];
 
-    # https://github.com/nu-book/zxing-cpp/issues/335
+  # https://github.com/nu-book/zxing-cpp/issues/335
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace 'configure_file(zxing.pc.in' \

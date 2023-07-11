@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   patches = [ ./0001-locate-libnvidia-ml.so.1-on-NixOS.patch ];
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pynvml" ];

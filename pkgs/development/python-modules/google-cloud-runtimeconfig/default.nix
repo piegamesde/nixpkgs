@@ -31,10 +31,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-    # Client tests require credentials
+  # Client tests require credentials
   disabledTests = [ "client_options" ];
 
-    # prevent google directory from shadowing google imports
+  # prevent google directory from shadowing google imports
   preCheck = ''
     rm -r google
   '';

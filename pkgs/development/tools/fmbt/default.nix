@@ -84,4 +84,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ raskin ];
   };
 }
-

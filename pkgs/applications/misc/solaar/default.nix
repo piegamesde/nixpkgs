@@ -13,7 +13,8 @@
 # Although we copy in the udev rules here, you probably just want to use
 # `logitech-udev-rules`, which is an alias to `udev` output of this derivation,
 # instead of adding this to `services.udev.packages` on NixOS,
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication
+rec {
   pname = "solaar";
   version = "1.1.8";
 
@@ -50,8 +51,8 @@ python3Packages.buildPythonApplication rec {
     xlib
   ];
 
-    # the -cli symlink is just to maintain compabilility with older versions where
-    # there was a difference between the GUI and CLI versions.
+  # the -cli symlink is just to maintain compabilility with older versions where
+  # there was a difference between the GUI and CLI versions.
   postInstall = ''
     ln -s $out/bin/solaar $out/bin/solaar-cli
 
@@ -64,7 +65,7 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-    # no tests
+  # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "solaar" ];

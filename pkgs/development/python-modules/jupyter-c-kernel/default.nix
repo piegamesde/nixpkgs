@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ ipykernel ];
 
-    # no tests in repository
+  # no tests in repository
   doCheck = false;
 
   meta = with lib; {

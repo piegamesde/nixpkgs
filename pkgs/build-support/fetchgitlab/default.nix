@@ -87,8 +87,8 @@ let
   ) // passthruAttrs // {
     inherit name;
   };
-
 in
+
 fetcher fetcherArgs // {
   meta.homepage = "${protocol}://${domain}/${slug}/";
   inherit rev;

@@ -26,7 +26,7 @@ import ./make-test-python.nix (
       }
       ;
 
-      # This configuration cannot be valid for the test VM, so it's expected to get an 'outdated' error.
+    # This configuration cannot be valid for the test VM, so it's expected to get an 'outdated' error.
     testScript = ''
       start_all()
       # can't wait for unit fancontrol.service because it doesn't become active due to invalid config

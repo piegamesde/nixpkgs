@@ -32,9 +32,9 @@ buildPythonPackage rec {
     owner = pname;
     repo = pname;
     rev = version;
-      # Unicode file names lead to different checksums on HFS+ vs. other
-      # filesystems because of unicode normalisation. The documentation
-      # has such files and will be removed.
+    # Unicode file names lead to different checksums on HFS+ vs. other
+    # filesystems because of unicode normalisation. The documentation
+    # has such files and will be removed.
     hash = "sha256-SMkY3uN3kAlb/pbm047W0G8MJ7G8mCsfGVSPhzd5aEo=";
     postFetch = "rm -rf $out/docs/reST";
   };

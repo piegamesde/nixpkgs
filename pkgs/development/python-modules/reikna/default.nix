@@ -43,7 +43,7 @@ buildPythonPackage rec {
     py.test
   '';
 
-    # Requires device
+  # Requires device
   doCheck = false;
 
   meta = with lib; {
@@ -51,7 +51,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/fjarri/reikna";
     license = licenses.mit;
     maintainers = [ maintainers.fridh ];
-
   };
-
 }

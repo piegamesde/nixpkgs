@@ -10,7 +10,7 @@
 buildPythonPackage rec {
   pname = "amaranth-soc";
   version = "unstable-2021-12-10";
-    # python setup.py --version
+  # python setup.py --version
   realVersion = "0.1.dev49+g${lib.substring 0 7 src.rev}";
 
   src = fetchFromGitHub {

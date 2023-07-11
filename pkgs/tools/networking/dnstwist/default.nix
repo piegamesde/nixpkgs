@@ -25,7 +25,7 @@ python3.pkgs.buildPythonApplication rec {
     whois
   ];
 
-    # Project has no tests
+  # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "dnstwist" ];

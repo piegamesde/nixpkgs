@@ -28,13 +28,10 @@ python.pkgs.buildPythonApplication rec {
   pname = "gixy";
   version = "0.1.20";
 
-    # package is only compatible with python 2.7 and 3.5+
-  disabled = with python.pkgs;
-    !(
-      pythonAtLeast "3.5" || isPy27
-    );
+  # package is only compatible with python 2.7 and 3.5+
+  disabled = with python.pkgs; !(pythonAtLeast "3.5" || isPy27);
 
-    # fetching from GitHub because the PyPi source is missing the tests
+  # fetching from GitHub because the PyPi source is missing the tests
   src = fetchFromGitHub {
     owner = "yandex";
     repo = "gixy";

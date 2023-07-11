@@ -26,7 +26,7 @@ buildGoModule rec {
     "-X main.builtBy=nixpkgs"
   ];
 
-    # tests expect the source files to be a build repo
+  # tests expect the source files to be a build repo
   doCheck = false;
 
   nativeBuildInputs = [ installShellFiles ];

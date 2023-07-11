@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     ++ optional nvidia cudatoolkit
     ++ optional amd libdrm;
 
-    # ordering of fixups is important
+  # ordering of fixups is important
   postFixup =
     (lib.optionalString amd amd-postFixup)
     + (lib.optionalString nvidia nvidia-postFixup)

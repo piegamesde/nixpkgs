@@ -29,8 +29,8 @@ let
         sha256 = "sha256:062a5dvrzvb81l3a9phljrhxfw9nlb61q341q0a6xn65hll3z2wy";
       }
     ;
-
 in
+
 let
   unicodeVersion = "15.0.0";
   baseUrl = "https://www.unicode.org/Public/${unicodeVersion}";

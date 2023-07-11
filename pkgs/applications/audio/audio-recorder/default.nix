@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "160pnmnmc9zwzyclsci3w1qwlgxkfx1y3x5ck6i587w78570an1r";
   };
 
-    # https://bugs.launchpad.net/audio-recorder/+bug/1784622
+  # https://bugs.launchpad.net/audio-recorder/+bug/1784622
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
   nativeBuildInputs = [

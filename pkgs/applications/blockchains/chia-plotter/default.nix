@@ -46,8 +46,8 @@ stdenv.mkDerivation {
 
   buildInputs = [ libsodium ];
 
-    # These flags come from the upstream build script:
-    # https://github.com/madMAx43v3r/chia-plotter/blob/974d6e5f1440f68c48492122ca33828a98864dfc/make_devel.sh#L7
+  # These flags come from the upstream build script:
+  # https://github.com/madMAx43v3r/chia-plotter/blob/974d6e5f1440f68c48492122ca33828a98864dfc/make_devel.sh#L7
   CXXFLAGS = "-O3 -fmax-errors=1";
   cmakeFlags = [
     "-DARITH=easy"

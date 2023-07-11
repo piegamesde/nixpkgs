@@ -23,9 +23,9 @@ let
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
-    # Basically a tinkered lib.generators.mkKeyValueDefault
-    # It either serializes a top-level definition "key: { values };"
-    # or an expression "key = { values };"
+  # Basically a tinkered lib.generators.mkKeyValueDefault
+  # It either serializes a top-level definition "key: { values };"
+  # or an expression "key = { values };"
   mkAttrsString =
     top:
     mapAttrsToList (
@@ -42,7 +42,7 @@ let
     )
     ;
 
-    # This serializes a Nix expression to the libconfig format.
+  # This serializes a Nix expression to the libconfig format.
   mkValueString =
     v:
     if types.bool.check v then
@@ -67,7 +67,6 @@ let
   toConf = attrs: concatStringsSep "\n" (mkAttrsString true cfg.settings);
 
   configFile = pkgs.writeText "picom.conf" (toConf cfg.settings);
-
 in
 {
 
@@ -336,7 +335,6 @@ in
             scalars or a group itself
           '';
         };
-
       in
       mkOption {
         type = topLevel;
@@ -366,14 +364,14 @@ in
       fade-out-step = elemAt cfg.fadeSteps 1;
       fade-exclude = cfg.fadeExclude;
 
-        # shadows
+      # shadows
       shadow = cfg.shadow;
       shadow-offset-x = elemAt cfg.shadowOffsets 0;
       shadow-offset-y = elemAt cfg.shadowOffsets 1;
       shadow-opacity = cfg.shadowOpacity;
       shadow-exclude = cfg.shadowExclude;
 
-        # opacity
+      # opacity
       active-opacity = cfg.activeOpacity;
       inactive-opacity = cfg.inactiveOpacity;
 
@@ -381,7 +379,7 @@ in
 
       opacity-rule = cfg.opacityRules;
 
-        # other options
+      # other options
       backend = cfg.backend;
       vsync = cfg.vSync;
     };
@@ -391,7 +389,7 @@ in
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
 
-        # Temporarily fixes corrupt colours with Mesa 18
+      # Temporarily fixes corrupt colours with Mesa 18
       environment =
         mkIf (cfg.backend == "glx") { allow_rgb10_configs = "false"; };
 
@@ -406,5 +404,4 @@ in
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
 }

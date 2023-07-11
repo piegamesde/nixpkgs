@@ -61,7 +61,7 @@ buildPythonPackage rec {
       --replace "--cov" ""
   '';
 
-    # The tests want to write a configuration file
+  # The tests want to write a configuration file
   preCheck = ''
     export HOME=$(mktemp -d)
     mkdir -p $HOME

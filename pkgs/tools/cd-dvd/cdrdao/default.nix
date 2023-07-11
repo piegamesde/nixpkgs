@@ -32,13 +32,13 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-    # we have glibc/include/linux as a symlink to the kernel headers,
-    # and the magic '..' points to kernelheaders, and not back to the glibc/include
+  # we have glibc/include/linux as a symlink to the kernel headers,
+  # and the magic '..' points to kernelheaders, and not back to the glibc/include
   postPatch = ''
     sed -i 's,linux/../,,g' dao/sg_err.h
   '';
 
-    # Needed on gcc >= 6.
+  # Needed on gcc >= 6.
   env.NIX_CFLAGS_COMPILE = "-Wno-narrowing";
 
   meta = with lib; {

@@ -36,7 +36,7 @@ buildPythonPackage rec {
     xdg
   ];
 
-    # upstream has no tests
+  # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "rmrl" ];
