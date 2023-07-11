@@ -8,7 +8,8 @@
 
   # NUMA support enabled by default on NUMA platforms:
   numaSupport ? (stdenv.hostPlatform.isLinux
-    && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)),
+    && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
+  ),
   numactl,
 
   # Multi bit-depth support (8bit+10bit+12bit):
@@ -24,9 +25,8 @@
   ,
   ppaSupport ? false # PPA profiling instrumentation
   ,
-  unittestsSupport ? (stdenv.is64bit
-    && !(stdenv.isDarwin
-      && stdenv.isAarch64)) # Unit tests - only testing x64 assembly
+  unittestsSupport ? (stdenv.is64bit && !(stdenv.isDarwin && stdenv.isAarch64)
+  ) # Unit tests - only testing x64 assembly
   ,
   vtuneSupport ? false # Vtune profiling instrumentation
   ,

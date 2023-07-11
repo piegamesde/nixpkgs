@@ -37,7 +37,8 @@ buildGoModule rec {
     builtins.trace
     ("Warning: enableWasmEval breaks reproducability, "
       + "ensure you need wasm evaluation. "
-      + "`opa build` does not need this feature.")
+      + "`opa build` does not need this feature."
+    )
     "opa_wasm"
   );
 

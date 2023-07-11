@@ -348,9 +348,7 @@ in
             assertion =
               cfg.ipmi.enable
               -> (cfg.ipmi.configFile != null)
-              -> (
-                !(lib.hasPrefix "/tmp/" cfg.ipmi.configFile)
-              )
+              -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile))
               ;
             message = ''
               Config file specified in `services.prometheus.exporters.ipmi.configFile' must
@@ -361,9 +359,7 @@ in
             assertion =
               cfg.ipmi.enable
               -> (cfg.ipmi.webConfigFile != null)
-              -> (
-                !(lib.hasPrefix "/tmp/" cfg.ipmi.webConfigFile)
-              )
+              -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.webConfigFile))
               ;
             message = ''
               Config file specified in `services.prometheus.exporters.ipmi.webConfigFile' must
@@ -374,7 +370,8 @@ in
             assertion =
               cfg.snmp.enable
               -> ((cfg.snmp.configurationPath == null)
-                != (cfg.snmp.configuration == null))
+                != (cfg.snmp.configuration == null)
+              )
               ;
             message = ''
               Please ensure you have either `services.prometheus.exporters.snmp.configuration'
@@ -385,7 +382,8 @@ in
             assertion =
               cfg.mikrotik.enable
               -> ((cfg.mikrotik.configFile == null)
-                != (cfg.mikrotik.configuration == null))
+                != (cfg.mikrotik.configuration == null)
+              )
               ;
             message = ''
               Please specify either `services.prometheus.exporters.mikrotik.configuration'
@@ -396,7 +394,8 @@ in
             assertion =
               cfg.mail.enable
               -> ((cfg.mail.configFile == null)
-                != (cfg.mail.configuration == null))
+                != (cfg.mail.configuration == null)
+              )
               ;
             message = ''
               Please specify either 'services.prometheus.exporters.mail.configuration'
@@ -407,7 +406,8 @@ in
             assertion =
               cfg.sql.enable
               -> ((cfg.sql.configFile == null)
-                != (cfg.sql.configuration == null))
+                != (cfg.sql.configuration == null)
+              )
               ;
             message = ''
               Please specify either 'services.prometheus.exporters.sql.configuration' or

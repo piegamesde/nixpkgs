@@ -295,9 +295,8 @@ in
       (mkIf
         (cfg.declarative
           && cfg.openFirewall
-          && !(
-            cfg.config.random_port or true
-          ))
+          && !(cfg.config.random_port or true)
+        )
         {
           allowedTCPPortRanges = singleton (
             listToRange (cfg.config.listen_ports or listenPortsDefault)

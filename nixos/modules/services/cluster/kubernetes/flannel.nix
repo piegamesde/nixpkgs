@@ -64,7 +64,8 @@ in
     # give flannel som kubernetes rbac permissions if applicable
     services.kubernetes.addonManager.bootstrapAddons = mkIf
       ((storageBackend == "kubernetes")
-        && (elem "RBAC" top.apiserver.authorizationMode))
+        && (elem "RBAC" top.apiserver.authorizationMode)
+      )
       {
 
         flannel-cr = {

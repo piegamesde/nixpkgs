@@ -38,9 +38,11 @@ in
 
 if
   (args ? minimumOCamlVersion
-    && lib.versionOlder ocaml.version args.minimumOCamlVersion)
+    && lib.versionOlder ocaml.version args.minimumOCamlVersion
+  )
   || (args ? minimalOCamlVersion
-    && lib.versionOlder ocaml.version args.minimalOCamlVersion)
+    && lib.versionOlder ocaml.version args.minimalOCamlVersion
+  )
 then
   throw "${pname}-${version} is not available for OCaml ${ocaml.version}"
 else
@@ -91,9 +93,7 @@ else
         ++ nativeBuildInputs
         ;
 
-      meta = (
-        args.meta or { }
-      ) // {
+      meta = (args.meta or { }) // {
         platforms = args.meta.platforms or ocaml.meta.platforms;
       };
     }

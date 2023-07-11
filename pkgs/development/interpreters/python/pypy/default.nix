@@ -25,9 +25,7 @@
   xz,
   python-setup-hook,
   # For the Python package set
-  packageOverrides ? (
-    self: super: { }
-  ),
+  packageOverrides ? (self: super: { }),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,

@@ -814,7 +814,8 @@ in
         {
           assertion =
             !(config.services.prometheus.globalConfig.external_labels == null
-              || config.services.prometheus.globalConfig.external_labels == { })
+              || config.services.prometheus.globalConfig.external_labels == { }
+            )
             ;
           message =
             "services.thanos.sidecar requires uniquely identifying external labels "

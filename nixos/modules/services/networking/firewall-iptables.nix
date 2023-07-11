@@ -46,9 +46,7 @@ let
 
   kernelHasRPFilter =
     ((kernel.config.isEnabled or (x: false)) "IP_NF_MATCH_RPFILTER")
-    || (
-      kernel.features.netfilterRPFilter or false
-    )
+    || (kernel.features.netfilterRPFilter or false)
     ;
 
   helpers = import ./helpers.nix { inherit config lib; };

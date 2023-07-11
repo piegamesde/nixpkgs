@@ -812,7 +812,8 @@ in
           '')
           ++ (optional
             (cfg.enableBrokenCiphersForSSE
-              && versionAtLeast cfg.package.version "26")
+              && versionAtLeast cfg.package.version "26"
+            )
             ''
               Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
               `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.

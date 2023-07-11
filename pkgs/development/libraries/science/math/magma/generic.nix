@@ -61,7 +61,8 @@ let
     supported: unsupported:
     trivial.throwIf (supported == [ ])
     ("No supported GPU targets specified. Requested GPU targets: "
-      + strings.concatStringsSep ", " unsupported)
+      + strings.concatStringsSep ", " unsupported
+    )
     supported
     ;
 

@@ -101,9 +101,7 @@ rec {
               (!(finalAttrs.dontAddStaticConfigureFlags or false))
               {
                 configureFlags =
-                  (
-                    finalAttrs.configureFlags or [ ]
-                  )
+                  (finalAttrs.configureFlags or [ ])
                   ++ [
                     "--disable-shared" # brrr...
                   ]
@@ -131,9 +129,7 @@ rec {
           }
           // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
             configureFlags =
-              (
-                args.configureFlags or [ ]
-              )
+              (args.configureFlags or [ ])
               ++ [
                 "--enable-static"
                 "--disable-shared"
@@ -164,9 +160,7 @@ rec {
               + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc"
               ;
             nativeBuildInputs =
-              (
-                args.nativeBuildInputs or [ ]
-              )
+              (args.nativeBuildInputs or [ ])
               ++ [
                 (pkgs.buildPackages.makeSetupHook
                   {
@@ -281,9 +275,7 @@ rec {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
             dontStrip = true;
-            env = (
-              args.env or { }
-            ) // {
+            env = (args.env or { }) // {
               NIX_CFLAGS_COMPILE =
                 toString (args.env.NIX_CFLAGS_COMPILE or "") + " -ggdb -Og";
             };
@@ -343,7 +335,8 @@ rec {
         # https://github.com/rui314/mold#how-to-use
       } // lib.optionalAttrs
       (stdenv.cc.isClang
-        || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12"))
+        || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
+      )
       {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
@@ -366,9 +359,7 @@ rec {
       old: {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
-            env = (
-              args.env or { }
-            ) // {
+            env = (args.env or { }) // {
               NIX_CFLAGS_COMPILE =
                 toString (args.env.NIX_CFLAGS_COMPILE or "") + " -march=native";
             };
@@ -402,9 +393,7 @@ rec {
       old: {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
-            env = (
-              args.env or { }
-            ) // {
+            env = (args.env or { }) // {
               NIX_CFLAGS_COMPILE =
                 toString (args.env.NIX_CFLAGS_COMPILE or "")
                 + " ${toString compilerFlags}"

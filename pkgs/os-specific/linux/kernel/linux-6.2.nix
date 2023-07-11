@@ -24,7 +24,5 @@ buildLinux (
       url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
       sha256 = "0ab756x6baza5wmi0r836g7z0hkvby65g0k6n1sd95nl16irzg0f";
     };
-  } // (
-    args.argsOverride or { }
-  )
+  } // (args.argsOverride or { })
 )

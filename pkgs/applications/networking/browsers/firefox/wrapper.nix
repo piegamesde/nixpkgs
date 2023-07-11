@@ -53,7 +53,8 @@ let
       version ? lib.getVersion browser,
       desktopName ? # applicationName with first letter capitalized
         (lib.toUpper (lib.substring 0 1 applicationName)
-          + lib.substring 1 (-1) applicationName),
+          + lib.substring 1 (-1) applicationName
+        ),
       nameSuffix ? "",
       icon ? applicationName,
       wmClass ? applicationName,
@@ -71,8 +72,8 @@ let
       # https://github.com/mozilla/policy-templates#enterprisepoliciesenabled
       extraPolicies ? { },
       extraPoliciesFiles ? [ ],
-      libName ?
-        browser.libName or "firefox" # Important for tor package or the like
+      libName ? browser.libName
+        or "firefox" # Important for tor package or the like
       ,
       nixExtensions ? null,
     }:

@@ -56,9 +56,7 @@ with self;
     drv.overrideAttrs (
       oldAttrs: {
         # Use passthru in order to prevent rebuilds when possible.
-        passthru = (
-          oldAttrs.passthru or { }
-        ) // {
+        passthru = (oldAttrs.passthru or { }) // {
           perlModule = perl;
           requiredPerlModules = requiredPerlModules drv.propagatedBuildInputs;
         };

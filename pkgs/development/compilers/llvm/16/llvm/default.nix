@@ -28,9 +28,7 @@
   doCheck ? (
     !stdenv.isx86_32 # TODO: why
   )
-    && (
-      !stdenv.hostPlatform.isMusl
-    )
+    && (!stdenv.hostPlatform.isMusl)
     && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,

@@ -17,10 +17,9 @@ let
         type = args.type or (types.uniq types.bool);
         default = args.default or false;
         description = lib.mdDoc (
-          (
-            args.description or ''
-              Whether to ${args.feature} while building nixpkgs packages.
-            ''
+          (args.description or ''
+            Whether to ${args.feature} while building nixpkgs packages.
+          ''
           )
           + ''
             Changing the default may cause a mass rebuild.

@@ -1465,7 +1465,8 @@ mapAttrs
             line:
             if
               (builtins.substring 0 1 line == " "
-                || builtins.substring 0 1 line == ")")
+                || builtins.substring 0 1 line == ")"
+              )
             then
               line
             else

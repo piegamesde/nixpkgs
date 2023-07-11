@@ -13,8 +13,10 @@ let
     && !stdenv.isDarwin
     && !stdenv.hostPlatform.isMusl
     && ((stdenv.cc.isClang
-      && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0")
-      || (stdenv.cc.isGNU && stdenv.isLinux))
+      && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0"
+    )
+      || (stdenv.cc.isGNU && stdenv.isLinux)
+    )
     ;
   staticLibc = lib.optionalString
     (stdenv.hostPlatform.libc == "glibc")
@@ -52,7 +54,8 @@ stdenv.mkDerivation {
       ${emulator} ./cc-static
       ${lib.optionalString
       (stdenv.cc.isGNU
-        && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0")
+        && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0"
+      )
       ''
         printf "checking whether compiler builds valid static pie C binaries... " >&2
         $CC ${staticLibc} -static-pie -o cc-static-pie ${./cc-main.c}

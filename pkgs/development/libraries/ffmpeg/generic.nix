@@ -159,9 +159,7 @@
   ,
   withV4l2M2m ? withV4l2,
   withVaapi ? withHeadlessDeps
-    && (
-      with stdenv; isLinux || isFreeBSD
-    ) # Vaapi hardware acceleration
+    && (with stdenv; isLinux || isFreeBSD) # Vaapi hardware acceleration
   ,
   withVdpau ? withSmallDeps # Vdpau hardware acceleration
   ,

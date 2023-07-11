@@ -119,7 +119,8 @@ let
     ++ optional
       (!crossStageStatic
         && targetPlatform.isMinGW
-        && threadsCross.model == "mcf")
+        && threadsCross.model == "mcf"
+      )
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     # openjdk build fails without this on -march=opteron; is upstream in gcc12
@@ -336,7 +337,8 @@ lib.pipe
           + lib.optionalString
             (targetPlatform == hostPlatform
               && hostPlatform == buildPlatform
-              && !disableBootstrap)
+              && !disableBootstrap
+            )
             "bootstrap"
           ;
       in
@@ -413,7 +415,8 @@ lib.pipe
   // optionalAttrs
   (targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
-    && crossStageStatic)
+    && crossStageStatic
+  )
   {
     makeFlags = [
       "all-gcc"

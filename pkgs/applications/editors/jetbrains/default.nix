@@ -87,18 +87,14 @@ let
     (
       attrs: {
         nativeBuildInputs =
-          (
-            attrs.nativeBuildInputs or [ ]
-          )
+          (attrs.nativeBuildInputs or [ ])
           ++ lib.optionals (stdenv.isLinux) [
             autoPatchelfHook
             patchelf
           ]
           ;
         buildInputs =
-          (
-            attrs.buildInputs or [ ]
-          )
+          (attrs.buildInputs or [ ])
           ++ lib.optionals (stdenv.isLinux) [
             python3
             stdenv.cc.cc
@@ -110,9 +106,7 @@ let
           ;
         dontAutoPatchelf = true;
         postFixup =
-          (
-            attrs.postFixup or ""
-          )
+          (attrs.postFixup or "")
           + lib.optionalString (stdenv.isLinux) ''
             (
               cd $out/clion
@@ -220,9 +214,7 @@ let
     (
       attrs: {
         postFixup =
-          (
-            attrs.postFixup or ""
-          )
+          (attrs.postFixup or "")
           + lib.optionalString stdenv.isLinux ''
             interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
             patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv

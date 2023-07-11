@@ -106,7 +106,8 @@ rec {
             "**"
             "*"
             "?"
-          ])
+          ]
+        )
         (
           (escape special)
           ++ (escape escs)

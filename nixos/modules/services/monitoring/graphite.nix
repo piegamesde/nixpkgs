@@ -395,7 +395,8 @@ in
     (mkIf
       (cfg.carbon.enableCache
         || cfg.carbon.enableAggregator
-        || cfg.carbon.enableRelay)
+        || cfg.carbon.enableRelay
+      )
       {
         environment.systemPackages = [ pkgs.python3Packages.carbon ];
       })
@@ -493,7 +494,8 @@ in
         || cfg.carbon.enableAggregator
         || cfg.carbon.enableRelay
         || cfg.web.enable
-        || cfg.seyren.enable)
+        || cfg.seyren.enable
+      )
       {
         users.users.graphite = {
           uid = config.ids.uids.graphite;

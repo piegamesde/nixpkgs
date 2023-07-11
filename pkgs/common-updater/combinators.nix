@@ -207,7 +207,8 @@ rec {
           scripts
         )
       )
-        == 1)
+        == 1
+      )
       "Combining update scripts with different attr paths is currently unsupported.";
 
     {

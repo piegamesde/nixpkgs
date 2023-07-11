@@ -61,9 +61,7 @@ let
               " (Same as linux_zen but less aggressive release schedule)"
             ;
         };
-      } // (
-        args.argsOverride or { }
-      )
+      } // (args.argsOverride or { })
     )
     ;
 in

@@ -140,7 +140,8 @@ let
           # The CPython stable ABI is abi3 as in the shared library suffix.
           python.passthru.implementation == "cpython"
           && builtins.elemAt (lib.splitString "." python.version) 0 == "3"
-          && x == "abi3")
+          && x == "abi3"
+        )
         ;
       withPython =
         ver: abi: x:
@@ -170,7 +171,8 @@ let
                 && lib.lists.any (e: hasSuffix e p) [
                   "arm64"
                   "aarch64"
-                ])
+                ]
+              )
             )
           else
             (p: p == "any" || (hasInfix "macosx" p && hasSuffix "x86_64" p))

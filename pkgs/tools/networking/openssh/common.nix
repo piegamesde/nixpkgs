@@ -206,9 +206,7 @@ stdenv.mkDerivation rec {
       license = licenses.bsd2;
       platforms = platforms.unix ++ platforms.windows;
       maintainers =
-        (
-          extraMeta.maintainers or [ ]
-        )
+        (extraMeta.maintainers or [ ])
         ++ (
           with maintainers; [
             eelco

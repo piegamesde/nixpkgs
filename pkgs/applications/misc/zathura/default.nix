@@ -2,9 +2,7 @@
   config,
   pkgs,
   # zathura_pdf_mupdf fails to load _opj_create_decompress at runtime on Darwin (https://github.com/NixOS/nixpkgs/pull/61295#issue-277982980)
-  useMupdf ? config.zathura.useMupdf or (
-    !pkgs.stdenv.isDarwin
-  ),
+  useMupdf ? config.zathura.useMupdf or (!pkgs.stdenv.isDarwin),
 }:
 
 let

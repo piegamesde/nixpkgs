@@ -66,7 +66,8 @@ in
 
       (mkIf
         ((elem "bcachefs" config.boot.initrd.supportedFilesystems)
-          || (bootFs != { }))
+          || (bootFs != { })
+        )
         {
           # chacha20 and poly1305 are required only for decryption attempts
           boot.initrd.availableKernelModules = [

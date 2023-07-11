@@ -887,7 +887,8 @@ in
       ++ optionals
         (config.boot.loader.grub.memtest86.enable
           && config.isoImage.makeBiosBootable
-          && canx86BiosBoot)
+          && canx86BiosBoot
+        )
         [ {
           source = "${pkgs.memtest86plus}/memtest.bin";
           target = "/boot/memtest.bin";
@@ -916,7 +917,8 @@ in
         } // optionalAttrs
         (config.isoImage.makeUsbBootable
           && config.isoImage.makeBiosBootable
-          && canx86BiosBoot)
+          && canx86BiosBoot
+        )
         {
           usbBootable = true;
           isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";

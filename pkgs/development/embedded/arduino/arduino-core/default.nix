@@ -127,8 +127,8 @@ stdenv.mkDerivation rec {
         linuxarm = "sha256-d+DbpER/4lFPcPDFeMG5f3WaUGn8pFchdIDo7Hm0XWs=";
         linuxaarch64 = "sha256-8keQzhWq7QlAGIbfHEe3lfxpJleMMvBORuPaNrLmM6Y=";
       }
-      .${teensy_architecture} or (throw
-        "No arduino binaries for ${teensy_architecture}");
+      .${teensy_architecture}
+        or (throw "No arduino binaries for ${teensy_architecture}");
   };
   # Used because teensyduino requires jars be a specific size
   arduino_dist_src = fetchurl {
@@ -141,8 +141,8 @@ stdenv.mkDerivation rec {
         linuxarm = "sha256-lJ/R1ePq7YtDk3bvloFcn8jswrJH+L63tvH5QpTqfXs=";
         linuxaarch64 = "sha256-gm8cDjLKNfpcaeO7fw6Kyv1TnWV/ZmH4u++nun9X6jo=";
       }
-      .${teensy_architecture} or (throw
-        "No arduino binaries for ${teensy_architecture}");
+      .${teensy_architecture}
+        or (throw "No arduino binaries for ${teensy_architecture}");
   };
 
   # the glib setup hook will populate GSETTINGS_SCHEMAS_PATH,

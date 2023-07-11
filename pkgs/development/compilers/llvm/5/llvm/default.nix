@@ -302,9 +302,7 @@ stdenv.mkDerivation (
 
     doCheck =
       stdenv.isLinux
-      && (
-        !stdenv.isi686
-      )
+      && (!stdenv.isi686)
       && (stdenv.hostPlatform == stdenv.buildPlatform)
       ;
 

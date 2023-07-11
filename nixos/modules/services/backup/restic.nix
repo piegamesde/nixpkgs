@@ -359,7 +359,8 @@ in
           pruneCmd = optionals (builtins.length backup.pruneOpts > 0) [
             (resticCmd
               + " forget --prune "
-              + (concatStringsSep " " backup.pruneOpts))
+              + (concatStringsSep " " backup.pruneOpts)
+            )
             (resticCmd + " check " + (concatStringsSep " " backup.checkOpts))
           ];
           # Helper functions for rclone remotes
@@ -426,7 +427,8 @@ in
           } // optionalAttrs
           (backup.initialize
             || backup.dynamicFilesFrom != null
-            || backup.backupPrepareCommand != null)
+            || backup.backupPrepareCommand != null
+          )
           {
             preStart = ''
               ${optionalString (backup.backupPrepareCommand != null) ''
@@ -447,7 +449,8 @@ in
             '';
           } // optionalAttrs
           (backup.dynamicFilesFrom != null
-            || backup.backupCleanupCommand != null)
+            || backup.backupCleanupCommand != null
+          )
           {
             postStop = ''
               ${optionalString (backup.backupCleanupCommand != null) ''

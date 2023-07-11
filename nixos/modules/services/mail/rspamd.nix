@@ -185,7 +185,8 @@ let
         (name == "normal"
           || name == "controller"
           || name == "fuzzy"
-          || name == "rspamd_proxy")
+          || name == "rspamd_proxy"
+        )
         {
           type = mkDefault name;
           includes = mkDefault [

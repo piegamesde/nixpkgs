@@ -335,7 +335,8 @@ in
         || cfg.controllerManager.enable
         || cfg.kubelet.enable
         || cfg.proxy.enable
-        || cfg.addonManager.enable)
+        || cfg.addonManager.enable
+      )
       {
         systemd.targets.kubernetes = {
           description = "Kubernetes";

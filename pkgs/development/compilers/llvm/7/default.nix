@@ -225,7 +225,8 @@ let
           ''
           + lib.optionalString
             (!stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false)
+              && stdenv.targetPlatform.useLLVM or false
+            )
             ''
               echo "-lunwind" >> $out/nix-support/cc-ldflags
             ''
@@ -333,7 +334,8 @@ let
         if
           stdenv.hostPlatform.isAndroid
           || (stdenv.hostPlatform != stdenv.buildPlatform
-            && stdenv.hostPlatform.isDarwin)
+            && stdenv.hostPlatform.isDarwin
+          )
         then
           libraries.compiler-rt-libc
         else

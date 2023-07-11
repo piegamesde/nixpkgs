@@ -17,9 +17,7 @@
   tk-8_6,
   zlib,
   # For the Python package set
-  packageOverrides ? (
-    self: super: { }
-  ),
+  packageOverrides ? (self: super: { }),
   sourceVersion,
   pythonVersion,
   hash,
@@ -70,8 +68,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      downloadUrls.${stdenv.system} or (throw
-        "Unsupported system: ${stdenv.system}");
+      downloadUrls.${stdenv.system}
+        or (throw "Unsupported system: ${stdenv.system}");
     inherit hash;
   };
 

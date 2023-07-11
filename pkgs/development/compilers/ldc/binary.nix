@@ -35,8 +35,8 @@ stdenv.mkDerivation {
     url =
       "https://github.com/ldc-developers/ldc/releases/download/v${version}/${name}";
     sha256 =
-      hashes."${OS}-${ARCH}" or (throw
-        "missing bootstrap sha256 for ${OS}-${ARCH}");
+      hashes."${OS}-${ARCH}"
+        or (throw "missing bootstrap sha256 for ${OS}-${ARCH}");
   };
 
   dontConfigure = true;

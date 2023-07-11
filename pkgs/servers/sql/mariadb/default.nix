@@ -391,7 +391,8 @@ let
             ''
             + lib.optionalString
               (!stdenv.hostPlatform.isDarwin
-                && lib.versionAtLeast common.version "10.4")
+                && lib.versionAtLeast common.version "10.4"
+              )
               ''
                 mv "$out"/OFF/suite/plugins/pam/pam_mariadb_mtr.so "$out"/share/pam/lib/security
                 mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security

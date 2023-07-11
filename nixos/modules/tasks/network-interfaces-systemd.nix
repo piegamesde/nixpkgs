@@ -55,7 +55,8 @@ let
         cfg.defaultGateway.address
         ++ optional
           (cfg.defaultGateway6 != null
-            && (cfg.defaultGateway6.address or "") != "")
+            && (cfg.defaultGateway6.address or "") != ""
+          )
           cfg.defaultGateway6.address
         ;
       makeGateway =

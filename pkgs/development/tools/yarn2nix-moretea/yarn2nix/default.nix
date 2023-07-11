@@ -517,9 +517,7 @@ rec {
         passthru = {
           inherit pname package packageJSON deps;
           workspaceDependencies = workspaceDependenciesTransitive;
-        } // (
-          attrs.passthru or { }
-        );
+        } // (attrs.passthru or { });
 
         meta = {
           inherit (nodejs.meta) platforms;
@@ -529,9 +527,7 @@ rec {
           inherit (package) homepage;
         } // lib.optionalAttrs (package ? license) {
           license = getLicenseFromSpdxId package.license;
-        } // (
-          attrs.meta or { }
-        );
+        } // (attrs.meta or { });
       }
     )
     ;

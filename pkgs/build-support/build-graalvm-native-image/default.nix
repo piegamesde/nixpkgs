@@ -45,9 +45,7 @@ stdenv.mkDerivation (
     inherit dontUnpack LC_ALL jar;
 
     nativeBuildInputs =
-      (
-        args.nativeBuildInputs or [ ]
-      )
+      (args.nativeBuildInputs or [ ])
       ++ [
         graalvmDrv
         glibcLocales

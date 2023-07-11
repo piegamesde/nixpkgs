@@ -777,9 +777,8 @@ in
             # System Call Filtering
             SystemCallFilter = [
               ("~"
-                + lib.concatStringsSep " " (
-                  systemCallsList ++ [ "@resources" ]
-                ))
+                + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])
+              )
               "@chown"
               "pipe"
               "pipe2"
@@ -837,9 +836,8 @@ in
             # System Call Filtering
             SystemCallFilter = [
               ("~"
-                + lib.concatStringsSep " " (
-                  systemCallsList ++ [ "@resources" ]
-                ))
+                + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])
+              )
               "@chown"
               "pipe"
               "pipe2"
@@ -899,7 +897,8 @@ in
                     "@memlock"
                     "@resources"
                   ]
-                ))
+                )
+              )
               "pipe"
               "pipe2"
             ];

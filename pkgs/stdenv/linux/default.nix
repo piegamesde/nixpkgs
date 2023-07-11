@@ -106,8 +106,8 @@
       (lib.attrNames archLookupTable);
 
     archLookupTable =
-      table.${localSystem.libc} or (abort
-        "unsupported libc for the pure Linux stdenv");
+      table.${localSystem.libc}
+        or (abort "unsupported libc for the pure Linux stdenv");
     files =
       archLookupTable.${localSystem.system} or (
         if getCompatibleTools != null then
@@ -237,9 +237,7 @@ let
               {
                 # This affects only `xgcc` (the compiler which compiles the final compiler).
                 postFixup =
-                  (
-                    a.postFixup or ""
-                  )
+                  (a.postFixup or "")
                   + ''
                     echo "--sysroot=${
                       lib.getDev (getLibc prevStage)
@@ -465,9 +463,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                 # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
                 #
                 configureFlags =
-                  (
-                    a.configureFlags or [ ]
-                  )
+                  (a.configureFlags or [ ])
                   ++ [
                     "--with-native-system-header-dir=/include"
                     "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"

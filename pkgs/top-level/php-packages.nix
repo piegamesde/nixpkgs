@@ -68,14 +68,10 @@ lib.makeScope pkgs.newScope (
           (
             _: previousAttrs: {
               pname = "php-${previousAttrs.pname}";
-              passthru = (
-                previousAttrs.passthru or { }
-              ) // {
+              passthru = (previousAttrs.passthru or { }) // {
                 updateScript = nix-update-script { };
               };
-              meta = (
-                previousAttrs.meta or { }
-              ) // {
+              meta = (previousAttrs.meta or { }) // {
                 mainProgram =
                   previousAttrs.meta.mainProgram or previousAttrs.pname;
               };

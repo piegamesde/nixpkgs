@@ -38,9 +38,8 @@ let
   defaultMakeFlags = [
       "MKSOFTFLOAT=${
         if
-          stdenv.hostPlatform.gcc.float or (
-            stdenv.hostPlatform.parsed.abi.float or "hard"
-          )
+          stdenv.hostPlatform.gcc.float
+            or (stdenv.hostPlatform.parsed.abi.float or "hard")
           == "soft"
         then
           "yes"
@@ -114,7 +113,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
               i586 = "i386";
               i686 = "i386";
             }
-            .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
+            .${stdenv'.hostPlatform.parsed.cpu.name}
+              or stdenv'.hostPlatform.parsed.cpu.name;
 
           MACHINE =
             {
@@ -124,7 +124,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
               i586 = "i386";
               i686 = "i386";
             }
-            .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
+            .${stdenv'.hostPlatform.parsed.cpu.name}
+              or stdenv'.hostPlatform.parsed.cpu.name;
 
           COMPONENT_PATH = attrs.path;
 

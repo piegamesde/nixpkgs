@@ -97,9 +97,7 @@ let
         setOutputFlags = false;
         separateDebugInfo =
           !stdenv.hostPlatform.isDarwin
-          && !(
-            stdenv.hostPlatform.useLLVM or false
-          )
+          && !(stdenv.hostPlatform.useLLVM or false)
           && stdenv.cc.isGNU
           ;
 
@@ -195,8 +193,8 @@ let
             (lib.versionAtLeast version "3.0.0" && enableKTLS)
             "enable-ktls"
           ++ lib.optional
-            (lib.versionAtLeast version "1.1.1"
-              && stdenv.hostPlatform.isAarch64)
+            (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isAarch64
+            )
             "no-afalgeng"
           # OpenSSL needs a specific `no-shared` configure flag.
           # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options

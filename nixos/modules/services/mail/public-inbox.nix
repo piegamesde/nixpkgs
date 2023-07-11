@@ -660,7 +660,8 @@ in
       })
       (mkIf
         (any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes)
-          || cfg.settings.publicinboxwatch.watchspam != null)
+          || cfg.settings.publicinboxwatch.watchspam != null
+        )
         {
           public-inbox-watch = mkMerge [
             (serviceConfig "watch")

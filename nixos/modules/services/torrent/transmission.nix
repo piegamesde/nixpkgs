@@ -335,7 +335,8 @@ in
                 ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
                 install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
                  '${cfg.home}/${settingsDir}/settings.json'
-              '')
+              ''
+            )
           ];
         ExecStart =
           "${cfg.package}/bin/transmission-daemon -f -g ${cfg.home}/${settingsDir} ${
@@ -372,7 +373,8 @@ in
             cfg.settings.incomplete-dir
           ++ optional
             (cfg.settings.watch-dir-enabled
-              && cfg.settings.trash-original-torrent-files)
+              && cfg.settings.trash-original-torrent-files
+            )
             cfg.settings.watch-dir
           ;
         BindReadOnlyPaths =
@@ -385,11 +387,13 @@ in
           ]
           ++ optional
             (cfg.settings.script-torrent-done-enabled
-              && cfg.settings.script-torrent-done-filename != null)
+              && cfg.settings.script-torrent-done-filename != null
+            )
             cfg.settings.script-torrent-done-filename
           ++ optional
             (cfg.settings.watch-dir-enabled
-              && !cfg.settings.trash-original-torrent-files)
+              && !cfg.settings.trash-original-torrent-files
+            )
             cfg.settings.watch-dir
           ;
         StateDirectory = [
@@ -560,7 +564,8 @@ in
 
       ${optionalString
       (cfg.settings.script-torrent-done-enabled
-        && cfg.settings.script-torrent-done-filename != null)
+        && cfg.settings.script-torrent-done-filename != null
+      )
       ''
         # Stack transmission_directories profile on top of
         # any existing profile for script-torrent-done-filename

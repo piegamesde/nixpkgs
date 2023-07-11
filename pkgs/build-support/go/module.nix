@@ -21,9 +21,7 @@
   tags ? [ ],
 
   # A function to override the go-modules derivation
-  overrideModAttrs ? (
-    _oldAttrs: { }
-  ),
+  overrideModAttrs ? (_oldAttrs: { }),
 
   # path to go.mod and go.sum directory
   modRoot ? "./",
@@ -105,9 +103,7 @@ let
             name = "${name}-go-modules";
 
             nativeBuildInputs =
-              (
-                args.nativeBuildInputs or [ ]
-              )
+              (args.nativeBuildInputs or [ ])
               ++ [
                 go
                 git

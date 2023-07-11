@@ -1505,9 +1505,7 @@ self: super:
       src = old.src.overrideAttrs (
         srcOld: {
           postFetch =
-            (
-              srcOld.postFetch or ""
-            )
+            (srcOld.postFetch or "")
             + lib.optionalString (!stdenv.isDarwin) ''
               rm $out/colors/darkBlue.vim
             ''

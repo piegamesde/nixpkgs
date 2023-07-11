@@ -405,7 +405,8 @@ in
             (cfg.nginx.addSSL
               || cfg.nginx.forceSSL
               || cfg.nginx.onlySSL
-              || cfg.nginx.enableACME)
+              || cfg.nginx.enableACME
+            )
             "fastcgi_param HTTPS on;";
           locations = {
             "/" = {
@@ -425,7 +426,8 @@ in
                 (cfg.nginx.addSSL
                   || cfg.nginx.forceSSL
                   || cfg.nginx.onlySSL
-                  || cfg.nginx.enableACME)
+                  || cfg.nginx.enableACME
+                )
                 "fastcgi_param HTTPS on;"}
               '';
             };

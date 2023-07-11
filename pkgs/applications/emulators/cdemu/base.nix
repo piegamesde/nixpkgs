@@ -21,9 +21,7 @@ stdenv.mkDerivation (
       sha256 = pkgSha256;
     };
     nativeBuildInputs =
-      (
-        attrs.nativeBuildInputs or [ ]
-      )
+      (attrs.nativeBuildInputs or [ ])
       ++ [
         pkg-config
         cmake

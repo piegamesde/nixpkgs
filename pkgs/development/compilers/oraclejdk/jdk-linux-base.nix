@@ -48,8 +48,8 @@ let
       armv7l-linux = "arm";
       aarch64-linux = "aarch64";
     }
-    .${stdenv.hostPlatform.system} or (throw
-      "unsupported system ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "unsupported system ${stdenv.hostPlatform.system}");
 
   jce =
     if installjce then
@@ -90,8 +90,8 @@ let
             armv7l-linux = "linux-arm32-vfp-hflt";
             aarch64-linux = "linux-aarch64";
           }
-          .${stdenv.hostPlatform.system} or (throw
-            "unsupported system ${stdenv.hostPlatform.system}");
+          .${stdenv.hostPlatform.system}
+            or (throw "unsupported system ${stdenv.hostPlatform.system}");
       in
       requireFile {
         name = "jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";

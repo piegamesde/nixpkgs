@@ -46,8 +46,8 @@ let
         triple = "aarch64-linux-android";
       };
     }
-    .${config} or (throw
-      "Android NDK doesn't support ${config}, as far as we know")
+    .${config}
+      or (throw "Android NDK doesn't support ${config}, as far as we know")
     ;
 
   buildInfo = ndkInfoFun stdenv.buildPlatform;

@@ -20,9 +20,7 @@ let
     drv: {
       # Part of the GC solution in https://github.com/NixOS/nix/pull/4944
       patches =
-        (
-          drv.patches or [ ]
-        )
+        (drv.patches or [ ])
         ++ [ ./patches/boehmgc-coroutine-sp-fallback.patch ]
         ;
     }
@@ -83,9 +81,7 @@ let
           ;
 
         patches =
-          (
-            args.patches or [ ]
-          )
+          (args.patches or [ ])
           ++ [ ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch ]
           ;
 

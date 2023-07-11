@@ -68,7 +68,8 @@ stdenv.mkDerivation rec {
     !(stdenv.isLinux
       && stdenv.isAarch64
       && stdenv.cc.isGNU
-      && lib.versionAtLeast stdenv.cc.version "12")
+      && lib.versionAtLeast stdenv.cc.version "12"
+    )
     ;
 
   passthru.tests = {

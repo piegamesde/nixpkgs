@@ -52,9 +52,7 @@ let
             qt5.wrapQtAppsHook
             qt5.qttools
           ]
-          ++ (
-            overrides.nativeBuildInputs or [ ]
-          )
+          ++ (overrides.nativeBuildInputs or [ ])
           ;
 
         buildInputs =
@@ -64,9 +62,7 @@ let
             poco
             protobuf
           ]
-          ++ (
-            overrides.buildInputs or [ ]
-          )
+          ++ (overrides.buildInputs or [ ])
           ;
 
         cmakeFlags = [ "-D g15=OFF" ] ++ (overrides.configureFlags or [ ]);

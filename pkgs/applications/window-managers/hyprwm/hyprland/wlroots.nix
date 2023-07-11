@@ -74,9 +74,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
       ;
 
     patches =
-      (
-        old.patches or [ ]
-      )
+      (old.patches or [ ])
       ++ (lib.optionals (enableXWayland && hidpiXWayland) [
         "${hyprland.src}/nix/wlroots-hidpi.patch"
         (fetchpatch {
@@ -96,9 +94,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
       ;
 
     postPatch =
-      (
-        old.postPatch or ""
-      )
+      (old.postPatch or "")
       + (
         if nvidiaPatches then
           ''
@@ -123,9 +119,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
   xwayland = xwayland.overrideAttrs (
     old: {
       patches =
-        (
-          old.patches or [ ]
-        )
+        (old.patches or [ ])
         ++ (lib.optionals hidpiXWayland [
           "${hyprland.src}/nix/xwayland-vsync.patch"
           "${hyprland.src}/nix/xwayland-hidpi.patch"

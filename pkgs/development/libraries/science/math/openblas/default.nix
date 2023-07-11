@@ -138,8 +138,8 @@ in
 
 let
   config =
-    configs.${stdenv.hostPlatform.system} or (throw
-      "unsupported system: ${stdenv.hostPlatform.system}");
+    configs.${stdenv.hostPlatform.system}
+      or (throw "unsupported system: ${stdenv.hostPlatform.system}");
 in
 
 let

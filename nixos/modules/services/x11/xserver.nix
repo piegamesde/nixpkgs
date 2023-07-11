@@ -738,7 +738,8 @@ in
             || dmConf.xpra.enable
             || dmConf.sx.enable
             || dmConf.startx.enable
-            || config.services.greetd.enable)
+            || config.services.greetd.enable
+          )
           ;
       in
       mkIf (default) (mkDefault true)
@@ -752,7 +753,8 @@ in
           !(dmConf.gdm.enable
             || dmConf.sddm.enable
             || dmConf.xpra.enable
-            || dmConf.lightdm.enable)
+            || dmConf.lightdm.enable
+          )
           ;
       in
       mkIf (noDmUsed) (mkDefault false)
@@ -1041,7 +1043,9 @@ in
                 (driver.name != "virtualbox"
                   && (cfg.resolutions != [ ]
                     || cfg.extraDisplaySettings != ""
-                    || cfg.virtualScreen != null))
+                    || cfg.virtualScreen != null
+                  )
+                )
                 (
                   let
                     f =

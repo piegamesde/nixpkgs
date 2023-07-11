@@ -32,8 +32,8 @@
   useLLVM ? !(stdenv.targetPlatform.isx86
     || stdenv.targetPlatform.isPower
     || stdenv.targetPlatform.isSparc
-    || (stdenv.targetPlatform.isAarch64
-      && stdenv.targetPlatform.isDarwin)), # LLVM is conceptually a run-time-only depedendency, but for
+    || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
+  ), # LLVM is conceptually a run-time-only depedendency, but for
   # non-x86, we need LLVM to bootstrap later stages, so it becomes a
   # build-time dependency too.
   buildTargetLlvmPackages,
@@ -42,7 +42,8 @@
   , # If enabled, GHC will be built with the GPL-free but slightly slower native
   # bignum backend instead of the faster but GPLed gmp backend.
   enableNativeBignum ? !(lib.meta.availableOn stdenv.hostPlatform gmp
-    && lib.meta.availableOn stdenv.targetPlatform gmp),
+    && lib.meta.availableOn stdenv.targetPlatform gmp
+  ),
   gmp
 
   , # If enabled, use -fPIC when compiling static libs.
@@ -76,7 +77,8 @@
     # `sphinx` pulls in among others:
     # Ruby, Python, Perl, Rust, OpenGL, Xorg, gtk, LLVM.
     (stdenv.targetPlatform == stdenv.hostPlatform)
-    && !stdenv.hostPlatform.isMusl),
+    && !stdenv.hostPlatform.isMusl
+  ),
 
   enableHaddockProgram ?
     # Disabled for cross; see note [HADDOCK_DOCS].
@@ -224,10 +226,9 @@ let
   useLdGold =
     targetPlatform.linker == "gold"
     || (targetPlatform.linker == "bfd"
-      && (
-        targetCC.bintools.bintools.hasGold or false
-      )
-      && !targetPlatform.isMusl)
+      && (targetCC.bintools.bintools.hasGold or false)
+      && !targetPlatform.isMusl
+    )
     ;
 
   # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
@@ -399,7 +400,8 @@ stdenv.mkDerivation (
       ++ lib.optionals
         (targetPlatform == hostPlatform
           && hostPlatform.libc != "glibc"
-          && !targetPlatform.isWindows)
+          && !targetPlatform.isWindows
+        )
         [
           "--with-iconv-includes=${libiconv}/include"
           "--with-iconv-libraries=${libiconv}/lib"

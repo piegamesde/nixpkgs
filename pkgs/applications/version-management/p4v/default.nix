@@ -35,8 +35,8 @@ mkDerivation {
   version = "2022.2.2336701";
 
   src =
-    srcs.${stdenv.hostPlatform.system} or (throw
-      "Unsupported system: ${stdenv.hostPlatform.system}");
+    srcs.${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   meta = {
     description = "Perforce Helix Visual Client";

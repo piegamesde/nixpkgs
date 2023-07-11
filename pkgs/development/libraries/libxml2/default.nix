@@ -18,7 +18,8 @@
     && (stdenv.hostPlatform == stdenv.buildPlatform
       || stdenv.hostPlatform.isCygwin
       || stdenv.hostPlatform.isLinux
-      || stdenv.hostPlatform.isWasi),
+      || stdenv.hostPlatform.isWasi
+    ),
   icuSupport ? false,
   icu,
   enableShared ?

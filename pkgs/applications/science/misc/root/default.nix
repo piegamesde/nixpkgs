@@ -61,9 +61,7 @@ let
   _llvm_9 = llvm_9.overrideAttrs (
     prev: {
       patches =
-        (
-          prev.patches or [ ]
-        )
+        (prev.patches or [ ])
         ++ [
           (fetchpatch {
             url =
@@ -176,7 +174,8 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString
       (stdenv.isDarwin
-        && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+        && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
+      )
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       ''

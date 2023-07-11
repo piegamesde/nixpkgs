@@ -83,9 +83,8 @@ let
       ++ [
         "-o"
         bin
-        (
-          attrs.src or (throw
-            "No source file for crystal binary ${bin} provided")
+        (attrs.src
+          or (throw "No source file for crystal binary ${bin} provided")
         )
         (lib.concatStringsSep " " (attrs.options or defaultOptions))
       ]

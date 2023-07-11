@@ -60,7 +60,8 @@ stdenv.mkDerivation (
             darwin = "osx";
             windows = "win";
           }
-          .${stdenv.hostPlatform.parsed.kernel.name} or stdenv.hostPlatform.parsed.kernel.name
+          .${stdenv.hostPlatform.parsed.kernel.name}
+            or stdenv.hostPlatform.parsed.kernel.name
         }"
         "ARCH=${
           {
@@ -69,12 +70,11 @@ stdenv.mkDerivation (
             aarch64 = "arm64";
             i686 = "x86";
           }
-          .${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name
+          .${stdenv.hostPlatform.parsed.cpu.name}
+            or stdenv.hostPlatform.parsed.cpu.name
         }"
       ]
-      ++ (
-        args.makeFlags or [ ]
-      )
+      ++ (args.makeFlags or [ ])
       ;
 
     installPhase = ''
@@ -97,8 +97,6 @@ stdenv.mkDerivation (
         inherit (retroarch.meta) platforms;
         homepage = "https://www.libretro.com/";
         maintainers = with maintainers; teams.libretro.members ++ [ hrdinka ];
-      } // (
-        args.meta or { }
-      );
+      } // (args.meta or { });
   } // extraArgs
 )

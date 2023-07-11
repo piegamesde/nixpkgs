@@ -126,7 +126,8 @@ let
     pkg: downloadUrl:
     let
       checksum =
-        pkg.checksum or parsedLockFile.metadata."checksum ${pkg.name} ${pkg.version} (${pkg.source})";
+        pkg.checksum
+          or parsedLockFile.metadata."checksum ${pkg.name} ${pkg.version} (${pkg.source})";
     in
     assert lib.assertMsg (checksum != null) ''
       Package ${pkg.name} does not have a checksum.

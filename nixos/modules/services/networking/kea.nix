@@ -257,7 +257,8 @@ in
     (cfg.ctrl-agent.enable
       || cfg.dhcp4.enable
       || cfg.dhcp6.enable
-      || cfg.dhcp-ddns.enable)
+      || cfg.dhcp-ddns.enable
+    )
     (
       mkMerge [
         { environment.systemPackages = [ package ]; }

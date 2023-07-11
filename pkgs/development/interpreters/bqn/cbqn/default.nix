@@ -11,7 +11,8 @@
   enableReplxx ? false,
   enableSingeli ? stdenv.hostPlatform.avx2Support,
   enableLibcbqn ? ((stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin)
-    && !enableReplxx),
+    && !enableReplxx
+  ),
   libffi,
   pkg-config,
 }:

@@ -129,9 +129,7 @@ builtins.intersectAttrs super {
               ''
                 export HOME=$TMPDIR/home
               ''
-              + (
-                drv.preCheck or ""
-              )
+              + (drv.preCheck or "")
               ;
           }
         )
@@ -240,9 +238,7 @@ builtins.intersectAttrs super {
       extraLibraries =
         (drv.extraLibraries or [ ]) ++ [ pkgs.linuxPackages.nvidia_x11 ];
       configureFlags =
-        (
-          drv.configureFlags or [ ]
-        )
+        (drv.configureFlags or [ ])
         ++ [
           "--extra-lib-dirs=${pkgs.cudatoolkit.lib}/lib"
           "--extra-include-dirs=${pkgs.cudatoolkit}/include"
@@ -557,9 +553,7 @@ builtins.intersectAttrs super {
     overrideCabal
     (drv: {
       executableSystemDepends =
-        (
-          drv.executableSystemDepends or [ ]
-        )
+        (drv.executableSystemDepends or [ ])
         ++ (
           with pkgs; [
             gnome.adwaita-icon-theme # Fix error: Icon 'window-close' not present in theme ...
@@ -569,9 +563,7 @@ builtins.intersectAttrs super {
         )
         ;
       postPatch =
-        (
-          drv.postPatch or ""
-        )
+        (drv.postPatch or "")
         + ''
           for f in src/IDE/Leksah.hs src/IDE/Utils/ServerConnection.hs
           do
@@ -634,9 +626,7 @@ builtins.intersectAttrs super {
   hcwiid = overrideCabal
     (drv: {
       configureFlags =
-        (
-          drv.configureFlags or [ ]
-        )
+        (drv.configureFlags or [ ])
         ++ [
           "--extra-lib-dirs=${pkgs.bluez.out}/lib"
           "--extra-lib-dirs=${pkgs.cwiid}/lib"
@@ -673,9 +663,7 @@ builtins.intersectAttrs super {
       libraryToolDepends =
         (drv.libraryToolDepends or [ ]) ++ [ pkgs.buildPackages.autoconf ];
       librarySystemDepends =
-        (
-          drv.librarySystemDepends or [ ]
-        )
+        (drv.librarySystemDepends or [ ])
         ++ [
           pkgs.fltk13
           pkgs.libGL
@@ -710,13 +698,12 @@ builtins.intersectAttrs super {
   tasty = overrideCabal
     (drv: {
       libraryHaskellDepends =
-        (
-          drv.libraryHaskellDepends or [ ]
-        )
+        (drv.libraryHaskellDepends or [ ])
         ++ lib.optionals
           (
             !(pkgs.stdenv.hostPlatform.isAarch64
-              || pkgs.stdenv.hostPlatform.isx86_64)
+              || pkgs.stdenv.hostPlatform.isx86_64
+            )
           )
           [
             self.unbounded-delays
@@ -732,9 +719,7 @@ builtins.intersectAttrs super {
         ''
           export PATH="$PWD/dist/build/tasty-discover:$PATH"
         ''
-        + (
-          drv.preBuild or ""
-        )
+        + (drv.preBuild or "")
         ;
     })
     super.tasty-discover;
@@ -766,9 +751,7 @@ builtins.intersectAttrs super {
   either-unwrap = overrideCabal
     (drv: {
       testHaskellDepends =
-        (
-          drv.testHaskellDepends or [ ]
-        )
+        (drv.testHaskellDepends or [ ])
         ++ [
           self.test-framework
           self.test-framework-hunit
@@ -933,18 +916,14 @@ builtins.intersectAttrs super {
   futhark = overrideCabal
     (_drv: {
       postBuild =
-        (
-          _drv.postBuild or ""
-        )
+        (_drv.postBuild or "")
         + ''
           make -C docs man
         ''
         ;
 
       postInstall =
-        (
-          _drv.postInstall or ""
-        )
+        (_drv.postInstall or "")
         + ''
           mkdir -p $out/share/man/man1
           mv docs/_build/man/*.1 $out/share/man/man1/
@@ -972,9 +951,7 @@ builtins.intersectAttrs super {
           substituteInPlace Test.hs \
             --replace ', testCase "crypto" test_crypto' ""
         ''
-        + (
-          drv.postPatch or ""
-        )
+        + (drv.postPatch or "")
         ;
       # Ensure git-annex uses the exact same coreutils it saw at build-time.
       # This is especially important on Darwin but also in Linux environments
@@ -991,9 +968,7 @@ builtins.intersectAttrs super {
               )
             }"
         ''
-        + (
-          drv.postFixup or ""
-        )
+        + (drv.postFixup or "")
         ;
       buildTools =
         [ pkgs.buildPackages.makeWrapper ] ++ (drv.buildTools or [ ]);
@@ -1080,9 +1055,7 @@ builtins.intersectAttrs super {
       spagoDocs = overrideCabal
         (drv: {
           postUnpack =
-            (
-              drv.postUnpack or ""
-            )
+            (drv.postUnpack or "")
             + ''
               # Spago includes the following two files directly into the binary
               # with Template Haskell.  They are fetched at build-time from the
@@ -1253,9 +1226,7 @@ builtins.intersectAttrs super {
         ''
           export PATH=dist/build/stutter:$PATH
         ''
-        + (
-          drv.preCheck or ""
-        )
+        + (drv.preCheck or "")
         ;
     })
     super.stutter;
@@ -1267,9 +1238,7 @@ builtins.intersectAttrs super {
         ''
           install -D man/pnbackup.1 $out/share/man/man1/pnbackup.1
         ''
-        + (
-          drv.postInstall or ""
-        )
+        + (drv.postInstall or "")
         ;
     })
     (
@@ -1348,9 +1317,7 @@ builtins.intersectAttrs super {
         ''
           sed -i 's|"tophat"|"./dist/build/tophat/tophat"|' app-test-bin/*.hs
         ''
-        + (
-          drv.postPatch or ""
-        )
+        + (drv.postPatch or "")
         ;
     })
     super.tophat;
@@ -1477,9 +1444,7 @@ builtins.intersectAttrs super {
             main = defaultMain
             EOF
           ''
-          + (
-            drv.preCompileBuildDriver or ""
-          )
+          + (drv.preCompileBuildDriver or "")
           ;
         # install man page
         buildTools =
@@ -1488,9 +1453,7 @@ builtins.intersectAttrs super {
           ''
             installManPage man/atsfmt.1
           ''
-          + (
-            drv.postInstall or ""
-          )
+          + (drv.postInstall or "")
           ;
       })
       super.ats-format
@@ -1533,9 +1496,7 @@ builtins.intersectAttrs super {
             unset doCheck
           fi
         ''
-        + (
-          drv.postConfigure or ""
-        )
+        + (drv.postConfigure or "")
         ;
     })
     super.procex;
@@ -1597,9 +1558,7 @@ builtins.intersectAttrs super {
             inherit (pkgs) graphviz;
           })
         ]
-        ++ (
-          drv.patches or [ ]
-        )
+        ++ (drv.patches or [ ])
         ;
     })
     super.graphviz;

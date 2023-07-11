@@ -149,7 +149,8 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString
       (lib.versionAtLeast version "2.089.0"
-        && lib.versionOlder version "2.092.2")
+        && lib.versionOlder version "2.092.2"
+      )
       ''
         rm dmd/test/dshell/test6952.d
       ''

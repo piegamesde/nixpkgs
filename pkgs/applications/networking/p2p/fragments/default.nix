@@ -24,9 +24,7 @@ let
   patchedTransmission = transmission.overrideAttrs (
     oldAttrs: {
       patches =
-        (
-          oldAttrs.patches or [ ]
-        )
+        (oldAttrs.patches or [ ])
         ++ [
           (fetchpatch {
             url =

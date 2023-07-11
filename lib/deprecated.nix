@@ -136,7 +136,8 @@ rec {
               (val != null) && (val != false)
             )
             (tail x)
-          )))
+          ))
+        )
       )
       condList
     ))
@@ -307,12 +308,8 @@ rec {
                 [ ]
             )
             (
-              (
-                item.val.propagatedBuildInputs or [ ]
-              )
-              ++ (
-                item.val.propagatedNativeBuildInputs or [ ]
-              )
+              (item.val.propagatedBuildInputs or [ ])
+              ++ (item.val.propagatedNativeBuildInputs or [ ])
             )
           ;
       }

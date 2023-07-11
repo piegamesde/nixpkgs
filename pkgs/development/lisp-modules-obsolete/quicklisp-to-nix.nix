@@ -37,10 +37,7 @@ let
 
     "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" = buildLispPackage (
       (f: x: (x // (f x)))
-      (
-        qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" or (
-          x: { }
-        )
+      (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" or (x: { })
       )
       (
         import
@@ -525,10 +522,8 @@ let
     "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" =
       buildLispPackage (
         (f: x: (x // (f x)))
-        (
-          qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" or (
-            x: { }
-          )
+        (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+          or (x: { })
         )
         (
           import

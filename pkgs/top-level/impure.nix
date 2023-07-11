@@ -70,7 +70,8 @@ in
             (builtins.match ".*\\.nix" n != null
               &&
                 # ignore Emacs lock files (.#foo.nix)
-                builtins.match "\\.#.*" n == null)
+                builtins.match "\\.#.*" n == null
+            )
             || builtins.pathExists (path + ("/" + n + "/default.nix"))
           )
           (builtins.attrNames content)

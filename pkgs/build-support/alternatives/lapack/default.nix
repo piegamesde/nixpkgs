@@ -37,9 +37,7 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  meta = (
-    lapackProvider'.meta or { }
-  ) // {
+  meta = (lapackProvider'.meta or { }) // {
     description =
       "${lib.getName lapackProvider'} with just the LAPACK C and FORTRAN ABI";
   };

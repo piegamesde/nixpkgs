@@ -850,9 +850,8 @@ rec {
        zipAttrsWith :: (String -> [ Any ] -> Any) -> [ AttrSet ] -> AttrSet
   */
   zipAttrsWith =
-    builtins.zipAttrsWith or (
-      f: sets: zipAttrsWithNames (concatMap attrNames sets) f sets
-    );
+    builtins.zipAttrsWith
+      or (f: sets: zipAttrsWithNames (concatMap attrNames sets) f sets);
 
   /* Merge sets of attributes and combine each attribute value in to a list.
 

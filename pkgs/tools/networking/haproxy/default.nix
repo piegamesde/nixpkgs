@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
           "osx"
         else
           "generic"
-      ))
+      )
+    )
   ];
 
   buildFlags =

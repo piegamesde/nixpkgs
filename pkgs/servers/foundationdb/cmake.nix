@@ -121,7 +121,8 @@ let
           ]
         ++ lib.optionals
           (lib.versionAtLeast version "7.1.0"
-            && lib.versionOlder version "7.2.0")
+            && lib.versionOlder version "7.2.0"
+          )
           [ # FIXME: why can't openssl be found automatically?
             "-DOPENSSL_USE_STATIC_LIBS=FALSE"
             "-DOPENSSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"

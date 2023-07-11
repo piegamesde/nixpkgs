@@ -95,7 +95,8 @@ let
       (stdenv.isDarwin
         && stdenv.isAarch64
         && buildPlatform == hostPlatform
-        && hostPlatform == targetPlatform)
+        && hostPlatform == targetPlatform
+      )
       (
         fetchpatch {
           name = "gcc-12-darwin-aarch64-support.patch";
@@ -165,7 +166,8 @@ let
     ++ optional
       (!crossStageStatic
         && targetPlatform.isMinGW
-        && threadsCross.model == "mcf")
+        && threadsCross.model == "mcf"
+      )
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ;
 
@@ -383,7 +385,8 @@ lib.pipe
           + lib.optionalString
             (targetPlatform == hostPlatform
               && hostPlatform == buildPlatform
-              && !disableBootstrap)
+              && !disableBootstrap
+            )
             "bootstrap"
           ;
       in
@@ -459,7 +462,8 @@ lib.pipe
   // optionalAttrs
   (targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
-    && crossStageStatic)
+    && crossStageStatic
+  )
   {
     makeFlags = [
       "all-gcc"

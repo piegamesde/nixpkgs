@@ -17,7 +17,8 @@ let
 
   apiserverServiceIP =
     (concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange))
-      + ".1");
+      + ".1"
+    );
 in
 {
 

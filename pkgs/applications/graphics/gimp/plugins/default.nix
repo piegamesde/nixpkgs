@@ -56,9 +56,7 @@ lib.makeScope pkgs.newScope (
               gimp.gtk
               glib
             ]
-            ++ (
-              attrs.buildInputs or [ ]
-            )
+            ++ (attrs.buildInputs or [ ])
             ;
 
           nativeBuildInputs =
@@ -66,9 +64,7 @@ lib.makeScope pkgs.newScope (
               pkg-config
               intltool
             ]
-            ++ (
-              attrs.nativeBuildInputs or [ ]
-            )
+            ++ (attrs.nativeBuildInputs or [ ])
             ;
 
           # Override installation paths.

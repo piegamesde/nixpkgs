@@ -48,7 +48,8 @@ with pkgs;
 
     // lib.optionalAttrs
     (stdenv.hostPlatform.isDarwin
-      && (stdenv.hostPlatform != stdenv.buildPlatform))
+      && (stdenv.hostPlatform != stdenv.buildPlatform)
+    )
     {
       # TODO: This is a hack to use stdenvNoCC to produce a CF when cross
       # compiling. It's not very sound. The cross stdenv has:
@@ -84,7 +85,8 @@ with pkgs;
     if
       stdenv.hostPlatform != stdenv.buildPlatform
       && (stdenv.hostPlatform.isDarwin
-        || stdenv.hostPlatform.isDarwin.useLLVM or false)
+        || stdenv.hostPlatform.isDarwin.useLLVM or false
+      )
     then
       # We cannot touch binutils or cc themselves, because that will cause
       # infinite recursion. So instead, we just choose a libc based on the
@@ -2729,9 +2731,7 @@ with pkgs;
   retroarchFull = retroarch.override {
     cores = builtins.filter
       # Remove cores not supported on platform
-      (
-        c: c ? libretroCore && (lib.meta.availableOn stdenv.hostPlatform c)
-      )
+      (c: c ? libretroCore && (lib.meta.availableOn stdenv.hostPlatform c))
       (builtins.attrValues libretro);
   };
 
@@ -8786,9 +8786,7 @@ with pkgs;
   grub = pkgsi686Linux.callPackage ../tools/misc/grub (
     {
       stdenv = overrideCC stdenv buildPackages.pkgsi686Linux.gcc6;
-    } // (
-      config.grub or { }
-    )
+    } // (config.grub or { })
   );
 
   trustedGrub = pkgsi686Linux.callPackage ../tools/misc/grub/trusted.nix { };
@@ -16483,13 +16481,13 @@ with pkgs;
   # plain, cross-compiled compiler (which is only theoretical at the moment).
   ghc =
     targetPackages.haskellPackages.ghc or
-    # Prefer native-bignum to avoid linking issues with gmp
-    (
-      if stdenv.targetPlatform.isStatic then
-        haskell.compiler.native-bignum.ghc92
-      else
-        haskell.compiler.ghc92
-    );
+      # Prefer native-bignum to avoid linking issues with gmp
+      (
+        if stdenv.targetPlatform.isStatic then
+          haskell.compiler.native-bignum.ghc92
+        else
+          haskell.compiler.ghc92
+      );
 
   alex = haskell.lib.compose.justStaticExecutables haskellPackages.alex;
 
@@ -22333,7 +22331,8 @@ with pkgs;
       targetPackages.windows.mingw_w64 or windows.mingw_w64
     else if name == "libSystem" then
       if stdenv.targetPlatform.useiOSPrebuilt then
-        targetPackages.darwin.iosSdkPkgs.libraries or darwin.iosSdkPkgs.libraries
+        targetPackages.darwin.iosSdkPkgs.libraries
+          or darwin.iosSdkPkgs.libraries
       else
         targetPackages.darwin.LibsystemCross or (throw
           "don't yet have a `targetPackages.darwin.LibsystemCross for ${stdenv.targetPlatform.config}`")
@@ -28798,7 +28797,8 @@ with pkgs;
               null
             ;
           abiCompat =
-            config.xorg.abiCompat or null; # `config` because we have no `xorg.override`
+            config.xorg.abiCompat
+              or null; # `config` because we have no `xorg.override`
         };
 
       generatedPackages = lib.callPackageWith __splicedPackages
@@ -33639,15 +33639,17 @@ with pkgs;
   };
 
   jetbrains =
-    (recurseIntoAttrs (
-      callPackages ../applications/editors/jetbrains {
-        vmopts = config.jetbrains.vmopts or null;
-        jdk = jetbrains.jdk;
+    (
+      recurseIntoAttrs (
+        callPackages ../applications/editors/jetbrains {
+          vmopts = config.jetbrains.vmopts or null;
+          jdk = jetbrains.jdk;
+        }
+      ) // {
+        jdk = callPackage ../development/compilers/jetbrains-jdk { };
+        jcef = callPackage ../development/compilers/jetbrains-jdk/jcef.nix { };
       }
-    ) // {
-      jdk = callPackage ../development/compilers/jetbrains-jdk { };
-      jcef = callPackage ../development/compilers/jetbrains-jdk/jcef.nix { };
-    });
+    );
 
   jmusicbot = callPackage ../applications/audio/jmusicbot { };
 
@@ -37873,9 +37875,7 @@ with pkgs;
 
   ungoogled-chromium =
     callPackage ../applications/networking/browsers/chromium (
-      (
-        config.chromium or { }
-      ) // {
+      (config.chromium or { }) // {
         ungoogled = true;
         channel = "ungoogled-chromium";
       }
@@ -41724,9 +41724,7 @@ with pkgs;
       opencv3 = opencv3WithoutCuda; # Used only for image loading.
       blas = openblas;
       inherit (darwin.apple_sdk.frameworks) Accelerate CoreGraphics CoreVideo;
-    } // (
-      config.caffe or { }
-    )
+    } // (config.caffe or { })
   );
 
   caffeWithCuda = caffe.override { cudaSupport = true; };

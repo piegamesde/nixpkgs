@@ -1353,9 +1353,7 @@ let
 
       data_table = old.data_table.overrideAttrs (
         attrs: {
-          env = (
-            attrs.env or { }
-          ) // {
+          env = (attrs.env or { }) // {
             NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE + " -fopenmp";
           };
           patchPhase = "patchShebangs configure";
@@ -1364,9 +1362,7 @@ let
 
       ModelMetrics = old.ModelMetrics.overrideAttrs (
         attrs: {
-          env = (
-            attrs.env or { }
-          ) // {
+          env = (attrs.env or { }) // {
             NIX_CFLAGS_COMPILE =
               attrs.env.NIX_CFLAGS_COMPILE
               + lib.optionalString stdenv.isDarwin " -fopenmp"
@@ -1640,9 +1636,7 @@ let
 
       rstan = old.rstan.overrideAttrs (
         attrs: {
-          env = (
-            attrs.env or { }
-          ) // {
+          env = (attrs.env or { }) // {
             NIX_CFLAGS_COMPILE =
               attrs.env.NIX_CFLAGS_COMPILE
               + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION"

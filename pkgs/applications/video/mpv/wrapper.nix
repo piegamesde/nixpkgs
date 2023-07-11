@@ -70,9 +70,7 @@ let
               "--script=${script}/share/mpv/scripts/${script.scriptName}"
             ]
             # scripts can also set the `extraWrapperArgs` passthru
-            ++ (
-              script.extraWrapperArgs or [ ]
-            )
+            ++ (script.extraWrapperArgs or [ ])
           )
           scripts
         ))

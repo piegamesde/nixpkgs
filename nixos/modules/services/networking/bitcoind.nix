@@ -215,7 +215,8 @@ in
                 0
                 1
               ]
-                || (builtins.isInt cfg.prune && cfg.prune >= 550))
+                || (builtins.isInt cfg.prune && cfg.prune >= 550)
+              )
               ;
             message = ''
               If set, services.bitcoind.${bitcoindName}.prune has to be "disable", "manual", 0 , 1 or >= 550.

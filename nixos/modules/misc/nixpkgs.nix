@@ -391,14 +391,14 @@ in
         let
           nixosExpectedSystem =
             if config.nixpkgs.crossSystem != null then
-              config.nixpkgs.crossSystem.system or (lib.systems.parse.doubleFromSystem
-                (
+              config.nixpkgs.crossSystem.system
+                or (lib.systems.parse.doubleFromSystem (
                   lib.systems.parse.mkSystemFromString
                   config.nixpkgs.crossSystem.config
                 ))
             else
-              config.nixpkgs.localSystem.system or (lib.systems.parse.doubleFromSystem
-                (
+              config.nixpkgs.localSystem.system
+                or (lib.systems.parse.doubleFromSystem (
                   lib.systems.parse.mkSystemFromString
                   config.nixpkgs.localSystem.config
                 ))

@@ -28,9 +28,7 @@ build {
   inherit src meta doCheck;
 
   nativeBuildInputs = map (p: pythonPackages.${p}) (
-    (
-      info.setup_requires or [ ]
-    )
+    (info.setup_requires or [ ])
     ++ (lib.optionals doCheck (info.tests_require or [ ]))
   );
 

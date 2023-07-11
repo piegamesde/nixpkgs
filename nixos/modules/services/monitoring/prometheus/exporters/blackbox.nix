@@ -24,7 +24,8 @@ let
           If you would like to avoid that, please set enableConfigCheck to false.
         ''
         /.
-        + file)
+        + file
+      )
     ;
   checkConfigLocation =
     file:

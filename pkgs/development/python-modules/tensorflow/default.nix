@@ -516,8 +516,8 @@ let
           aarch64-darwin =
             "sha256-US7uunEBDo2NKI9UHvgThbQ7rA05HjQlUthw0gIINaI=";
         }
-        .${stdenv.hostPlatform.system} or (throw
-          "unsupported system ${stdenv.hostPlatform.system}");
+        .${stdenv.hostPlatform.system}
+          or (throw "unsupported system ${stdenv.hostPlatform.system}");
     };
 
     buildAttrs = {

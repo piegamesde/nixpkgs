@@ -183,7 +183,8 @@ let
         ${
           optionalString
           (cfg.additionalCapabilities != null
-            && cfg.additionalCapabilities != [ ])
+            && cfg.additionalCapabilities != [ ]
+          )
           ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
         } \
         ${
@@ -583,7 +584,8 @@ in
                                       (builtins.compareVersions
                                         kernelVersion
                                         "5.8"
-                                        <= 0)
+                                        <= 0
+                                      )
                                       -> config.privateNetwork
                                       -> stringLength name <= 11
                                       ;
@@ -899,7 +901,8 @@ in
       warnings =
         (optional
           (config.virtualisation.containers.enable
-            && versionOlder config.system.stateVersion "22.05")
+            && versionOlder config.system.stateVersion "22.05"
+          )
           ''
             Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
           '');

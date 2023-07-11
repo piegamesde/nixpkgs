@@ -625,9 +625,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                target."unix" or false
-              )
+              (target."unix" or false)
               ;
           }
           {
@@ -1436,9 +1434,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                target."unix" or false
-              )
+              (target."unix" or false)
               ;
           }
           {
@@ -1451,9 +1447,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                !(target."os" == "emscripten")
-              )
+              (!(target."os" == "emscripten"))
               ;
           }
           {
@@ -1723,7 +1717,8 @@ rec {
                 || (target."os" == "illumos")
                 || (target."os" == "netbsd")
                 || (target."os" == "openbsd")
-                || (target."os" == "solaris"))
+                || (target."os" == "solaris")
+              )
               ;
             features = [ "std" ];
           }
@@ -1741,7 +1736,10 @@ rec {
                 || (((target."arch" == "aarch64") || (target."arch" == "arm"))
                   && ((target."os" == "android")
                     || (target."os" == "fuchsia")
-                    || (target."os" == "linux"))))
+                    || (target."os" == "linux")
+                  )
+                )
+              )
               ;
           }
           {
@@ -1760,7 +1758,8 @@ rec {
               ((target."arch" == "wasm32")
                 && (target."vendor" == "unknown")
                 && (target."os" == "unknown")
-                && (target."env" == ""))
+                && (target."env" == "")
+              )
               ;
             features = [
               "Crypto"
@@ -4194,14 +4193,17 @@ rec {
             || baseName == "_site"
             || baseName == ".sass-cache"
             || baseName == ".jekyll-metadata"
-            || baseName == "build-artifacts"))
+            || baseName == "build-artifacts"
+          )
+        )
 
         # Filter out nix-build result symlinks
         || (type == "symlink" && lib.hasPrefix "result" baseName)
 
         # Filter out IDE config
         || (type == "directory"
-          && (baseName == ".idea" || baseName == ".vscode"))
+          && (baseName == ".idea" || baseName == ".vscode")
+        )
         || lib.hasSuffix ".iml" baseName
 
         # Filter out nix build files
@@ -4213,7 +4215,8 @@ rec {
         || builtins.match "^\\..*\\.sw[a-z]$$" baseName != null
         || lib.hasSuffix ".tmp" baseName
         || lib.hasSuffix ".bak" baseName
-        || baseName == "tests.nix")
+        || baseName == "tests.nix"
+      )
       ;
 
     /* Returns a crate which depends on successful test execution
@@ -4466,12 +4469,8 @@ rec {
               ;
             dependenciesWithRenames = lib.filter (d: d ? "rename") (
               filterEnabledDependenciesForThis (
-                (
-                  crateConfig.buildDependencies or [ ]
-                )
-                ++ (
-                  crateConfig.dependencies or [ ]
-                )
+                (crateConfig.buildDependencies or [ ])
+                ++ (crateConfig.dependencies or [ ])
                 ++ devDependencies
               )
             );
@@ -4647,18 +4646,10 @@ rec {
         differentFeatures = lib.filterAttrs
           (
             n: v:
-            (
-              v ? "crate2nix"
-            )
-            && (
-              v ? "cargo"
-            )
-            && (
-              v.crate2nix.features or [ ]
-            )
-              != (
-                v."cargo".resolved_default_features or [ ]
-              )
+            (v ? "crate2nix")
+            && (v ? "cargo")
+            && (v.crate2nix.features or [ ])
+              != (v."cargo".resolved_default_features or [ ])
           )
           combined;
       in
@@ -4693,8 +4684,8 @@ rec {
       assert (builtins.isBool runTests);
       let
         crateConfig =
-          crateConfigs."${packageId}" or (builtins.throw
-            "Package not found: ${packageId}");
+          crateConfigs."${packageId}"
+            or (builtins.throw "Package not found: ${packageId}");
         expandedFeatures =
           expandFeatures (crateConfig.features or { }) features;
         enabledFeatures =
@@ -4784,10 +4775,9 @@ rec {
           targetFunc = dep.target or (features: true);
         in
         targetFunc { inherit features target; }
-        && (!(
-          dep.optional or false
+        && (!(dep.optional or false)
+          || builtins.any (doesFeatureEnableDependency dep) features
         )
-          || builtins.any (doesFeatureEnableDependency dep) features)
       )
       dependencies
       ;

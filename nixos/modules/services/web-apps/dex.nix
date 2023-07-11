@@ -12,9 +12,11 @@ let
   fixClient =
     client:
     if client ? secretFile then
-      ((builtins.removeAttrs client [ "secretFile" ]) // {
-        secret = client.secretFile;
-      })
+      (
+        (builtins.removeAttrs client [ "secretFile" ]) // {
+          secret = client.secretFile;
+        }
+      )
     else
       client
     ;

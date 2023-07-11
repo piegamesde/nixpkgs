@@ -46,14 +46,16 @@ stdenv.mkDerivation rec {
             "y"
           else
             "n"
-        ))
+        )
+      )
       ("CONFIG_PLATFORM_ARM_RPI="
         + (
           if stdenv.hostPlatform.isAarch then
             "y"
           else
             "n"
-        ))
+        )
+      )
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "CROSS_COMPILE=${stdenv.cc.targetPrefix}"

@@ -202,7 +202,8 @@ let
           && o.pname == "mathcomp-all"
           && o.version != null
           && o.version != "dev"
-          && versions.isLt "1.7" o.version)
+          && versions.isLt "1.7" o.version
+        )
         {
           preBuild = "";
           buildPhase = "";
@@ -213,7 +214,8 @@ let
         o:
         optionalAttrs
         (versions.isLe "8.7" coq.coq-version
-          || (o.version != "dev" && versions.isLe "1.7" o.version))
+          || (o.version != "dev" && versions.isLe "1.7" o.version)
+        )
         {
           installFlags = o.installFlags ++ [ "-f Makefile.coq" ];
         }

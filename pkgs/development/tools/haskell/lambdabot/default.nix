@@ -37,9 +37,7 @@ haskellLib.overrideCabal
 (self: {
   patches = (self.patches or [ ]) ++ [ ./custom-config.patch ];
   postPatch =
-    (
-      self.postPatch or ""
-    )
+    (self.postPatch or "")
     + ''
       substituteInPlace src/Main.hs \
         --replace '@config@' '${configStr}'
@@ -51,9 +49,7 @@ haskellLib.overrideCabal
   buildTools = (self.buildTools or [ ]) ++ [ makeWrapper ];
 
   postInstall =
-    (
-      self.postInstall or ""
-    )
+    (self.postInstall or "")
     + ''
       wrapProgram $out/bin/lambdabot \
         --prefix PATH ":" '${bins}'

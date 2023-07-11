@@ -80,9 +80,7 @@ rec {
     drv.overrideAttrs (
       oldAttrs: {
         # Use passthru in order to prevent rebuilds when possible.
-        passthru = (
-          oldAttrs.passthru or { }
-        ) // {
+        passthru = (oldAttrs.passthru or { }) // {
           luaModule = lua;
           requiredLuaModules = requiredLuaModules drv.propagatedBuildInputs;
         };

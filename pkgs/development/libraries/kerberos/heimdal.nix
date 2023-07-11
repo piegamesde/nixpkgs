@@ -52,9 +52,7 @@ stdenv.mkDerivation rec {
       flex
       texinfo
     ]
-    ++ (
-      with perlPackages; [ JSON ]
-    )
+    ++ (with perlPackages; [ JSON ])
     ;
   buildInputs =
     lib.optionals (stdenv.isLinux) [ libcap_ng ]

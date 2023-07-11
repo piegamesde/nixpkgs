@@ -62,13 +62,9 @@ in
       "stackprotector"
     ];
 
-    env = (
-      previousAttrs.env or { }
-    ) // {
+    env = (previousAttrs.env or { }) // {
       NIX_CFLAGS_COMPILE =
-        (
-          previousAttrs.env.NIX_CFLAGS_COMPILE or ""
-        )
+        (previousAttrs.env.NIX_CFLAGS_COMPILE or "")
         + lib.concatStringsSep " " (
           builtins.concatLists [
             (lib.optionals withGd gdCflags)
@@ -79,7 +75,8 @@ in
               "-Wno-error=attribute-alias")
             (lib.optionals
               ((stdenv.hostPlatform != stdenv.buildPlatform)
-                || stdenv.hostPlatform.isMusl)
+                || stdenv.hostPlatform.isMusl
+              )
               [
                 # Ignore "error: '__EI___errno_location' specifies less restrictive attributes than its target '__errno_location'"
                 # New warning as of GCC 9
@@ -114,9 +111,7 @@ in
     # gcc.libgcc, since the path will be embedded in the resulting binary.
     #
     makeFlags =
-      (
-        previousAttrs.makeFlags or [ ]
-      )
+      (previousAttrs.makeFlags or [ ])
       ++ lib.optionals (stdenv.cc.cc ? libgcc) [
           "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib"
         ]
@@ -205,11 +200,10 @@ in
 
     separateDebugInfo = true;
 
-    passthru = (
-      previousAttrs.passthru or { }
-    ) // lib.optionalAttrs (stdenv.cc.cc ? libgcc) {
-      inherit (stdenv.cc.cc) libgcc;
-    };
+    passthru = (previousAttrs.passthru or { })
+      // lib.optionalAttrs (stdenv.cc.cc ? libgcc) {
+        inherit (stdenv.cc.cc) libgcc;
+      };
 
     meta =
       (previousAttrs.meta or { }) // { description = "The GNU C Library"; };

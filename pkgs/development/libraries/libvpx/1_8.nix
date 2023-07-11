@@ -211,7 +211,8 @@ stdenv.mkDerivation rec {
       (enableFeature
         (experimentalSpatialSvcSupport
           || experimentalFpMbStatsSupport
-          || experimentalEmulateHardwareSupport)
+          || experimentalEmulateHardwareSupport
+        )
         "experimental")
     ]
     ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

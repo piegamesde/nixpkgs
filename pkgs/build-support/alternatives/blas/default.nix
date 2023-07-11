@@ -190,9 +190,7 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  meta = (
-    blasProvider'.meta or { }
-  ) // {
+  meta = (blasProvider'.meta or { }) // {
     description =
       "${lib.getName blasProvider} with just the BLAS C and FORTRAN ABI";
   };

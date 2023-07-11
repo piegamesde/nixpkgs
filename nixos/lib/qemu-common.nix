@@ -92,12 +92,8 @@ rec {
     else
       let
         guestMap =
-          (
-            otherHostGuestMatrix.${hostSystem} or throwUnsupportedHostSystem
-          );
+          (otherHostGuestMatrix.${hostSystem} or throwUnsupportedHostSystem);
       in
-      (
-        guestMap.${guestSystem} or (throwUnsupportedGuestSystem guestMap)
-      )
+      (guestMap.${guestSystem} or (throwUnsupportedGuestSystem guestMap))
     ;
 }

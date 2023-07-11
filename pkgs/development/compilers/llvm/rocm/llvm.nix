@@ -135,7 +135,8 @@ stdenv.mkDerivation (
         ]
       ++ lib.optionals
         ((finalAttrs.passthru.isLLVM || targetDir == "runtimes")
-          && targetRuntimes != [ ])
+          && targetRuntimes != [ ]
+        )
         [
           "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}"
         ]

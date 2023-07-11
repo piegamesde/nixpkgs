@@ -484,9 +484,7 @@ self: super:
         ]
         ;
       postPatch =
-        (
-          drv.postPatch or ""
-        )
+        (drv.postPatch or "")
         + ''
           substituteInPlace inline-c-cpp.cabal --replace "-optc-std=c++11" ""
         ''
@@ -1108,9 +1106,7 @@ self: super:
   stunclient = overrideCabal
     (drv: {
       postPatch =
-        (
-          drv.postPatch or ""
-        )
+        (drv.postPatch or "")
         + ''
           substituteInPlace source/Network/Stun/MappedAddress.hs --replace "import Network.Endian" ""
         ''
@@ -1280,9 +1276,7 @@ self: super:
         ''
           export HOME="$TMPDIR"
         ''
-        + (
-          drv.preCheck or ""
-        )
+        + (drv.preCheck or "")
         ;
       libraryToolDepends =
         drv.libraryToolDepends or [ ] ++ [ pkgs.buildPackages.postgresql ];
@@ -1676,9 +1670,7 @@ self: super:
   hledger-flow = overrideCabal
     (drv: {
       postPatch =
-        (
-          drv.postPatch or ""
-        )
+        (drv.postPatch or "")
         + ''
           substituteInPlace hledger-flow.cabal --replace "-static" ""
         ''
@@ -2295,18 +2287,14 @@ self: super:
         ''
           export SPACECOOKIE_TEST_BIN=./dist/build/spacecookie/spacecookie
         ''
-        + (
-          old.preCheck or ""
-        )
+        + (old.preCheck or "")
         ;
       # install man pages shipped in the sdist
       postInstall =
         ''
           installManPage docs/man/*
         ''
-        + (
-          old.postInstall or ""
-        )
+        + (old.postInstall or "")
         ;
     })
     super.spacecookie;
@@ -2537,9 +2525,7 @@ self: super:
           sed -i 's/time.*,/time,/' jsaddle.cabal
           sed -i 's/(!name)/(! name)/' src/Language/Javascript/JSaddle/Object.hs
         ''
-        + (
-          drv.postPatch or ""
-        )
+        + (drv.postPatch or "")
         ;
     })
     (doJailbreak super.jsaddle);
@@ -2963,9 +2949,7 @@ self: super:
         ''
           sed -i 's/import "jsaddle-dom" GHCJS.DOM.Document/import "ghcjs-dom-jsaddle" GHCJS.DOM.Document/' src/GHCJS/DOM/Document.hs
         ''
-        + (
-          old.postPatch or ""
-        )
+        + (old.postPatch or "")
         ;
     })
     super.ghcjs-dom

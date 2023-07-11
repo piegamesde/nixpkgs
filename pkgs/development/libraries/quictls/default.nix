@@ -66,9 +66,7 @@ stdenv.mkDerivation rec {
   setOutputFlags = false;
   separateDebugInfo =
     !stdenv.hostPlatform.isDarwin
-    && !(
-      stdenv.hostPlatform.useLLVM or false
-    )
+    && !(stdenv.hostPlatform.useLLVM or false)
     && stdenv.cc.isGNU
     ;
 

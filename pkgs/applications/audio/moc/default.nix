@@ -10,9 +10,7 @@
   libiconv,
   CoreServices,
   # Sound sub-systems
-  alsaSupport ? (
-    !stdenv.isDarwin
-  ),
+  alsaSupport ? (!stdenv.isDarwin),
   alsa-lib,
   pulseSupport ? true,
   libpulseaudio,
@@ -137,7 +135,8 @@ stdenv.mkDerivation rec {
           "yes"
         else
           "no"
-      ))
+      )
+    )
     "--disable-cache"
     "--without-rcc"
   ];

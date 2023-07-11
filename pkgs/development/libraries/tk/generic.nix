@@ -38,7 +38,8 @@ tcl.mkTclDerivation {
     ''
     + lib.optionalString
       (stdenv.isDarwin
-        && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11")
+        && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11"
+      )
       ''
         substituteInPlace unix/configure* \
           --replace " -framework UniformTypeIdentifiers" ""

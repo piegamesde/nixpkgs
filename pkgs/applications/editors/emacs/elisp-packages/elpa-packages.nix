@@ -115,9 +115,7 @@ let
             '';
 
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + "\n"
               + ''
                 ./install.sh --prefix=$out
@@ -148,9 +146,7 @@ let
             '';
 
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + "\n"
               + ''
                 outd=$out/share/emacs/site-lisp/elpa/jinx-*

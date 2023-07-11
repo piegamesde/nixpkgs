@@ -8,9 +8,7 @@
 
 let
   enableLibGccOutput =
-    (
-      with stdenv; targetPlatform == hostPlatform
-    )
+    (with stdenv; targetPlatform == hostPlatform)
     && !langJit
     && !stdenv.hostPlatform.isDarwin
     && !stdenv.hostPlatform.isStatic
@@ -26,9 +24,7 @@ in
       # This is a separate phase because gcc assembles its phase scripts
       # in bash instead of nix (we should fix that).
       preFixupPhases =
-        (
-          previousAttrs.preFixupPhases or [ ]
-        )
+        (previousAttrs.preFixupPhases or [ ])
         ++ lib.optionals ((!langC) || enableLibGccOutput) [
             "preFixupLibGccPhase"
           ]

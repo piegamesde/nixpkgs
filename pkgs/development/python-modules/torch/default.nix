@@ -158,7 +158,8 @@ let
     supported: unsupported:
     trivial.throwIf (supported == [ ])
     ("No supported GPU targets specified. Requested GPU targets: "
-      + strings.concatStringsSep ", " unsupported)
+      + strings.concatStringsSep ", " unsupported
+    )
     supported
     ;
 
@@ -294,7 +295,8 @@ buildPythonPackage rec {
     # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
     + lib.optionalString
       (stdenv.isDarwin
-        && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0")
+        && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0"
+      )
       ''
         substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
         inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
@@ -393,7 +395,8 @@ buildPythonPackage rec {
         (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
         [
           "-Wno-error=free-nonheap-object"
-        ])
+        ]
+    )
   );
 
   nativeBuildInputs =

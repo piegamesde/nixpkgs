@@ -39,7 +39,8 @@ stdenv.mkDerivation {
     ("WITHBIGARRAY="
       + lib.optionalString
         (lib.versionOlder ocaml.version "4.08.0")
-        "bigarray.cma")
+        "bigarray.cma"
+    )
     "all"
     "opt"
   ];

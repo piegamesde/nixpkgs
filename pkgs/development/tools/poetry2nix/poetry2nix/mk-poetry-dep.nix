@@ -59,7 +59,8 @@ pythonPackages.callPackage
                 "\\+"
               ]
               version
-            + ".*$")
+            + ".*$"
+          )
           fname
           != null
           ;
@@ -210,7 +211,8 @@ pythonPackages.callPackage
         ++ lib.optional isDirectory buildSystemPkgs
         ++ lib.optional
           (stdenv.buildPlatform != stdenv.hostPlatform)
-          pythonPackages.setuptools);
+          pythonPackages.setuptools
+      );
 
     propagatedBuildInputs =
       let
@@ -264,10 +266,9 @@ pythonPackages.callPackage
                   "HEAD"
               );
           } // (lib.optionalAttrs
-            ((
-              sourceSpec ? rev
+            ((sourceSpec ? rev)
+              && (lib.versionAtLeast builtins.nixVersion "2.4")
             )
-              && (lib.versionAtLeast builtins.nixVersion "2.4"))
             {
               allRefs = true;
             })

@@ -224,7 +224,8 @@ let
           ''
           + lib.optionalString
             (!stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false)
+              && stdenv.targetPlatform.useLLVM or false
+            )
             ''
               echo "-lunwind" >> $out/nix-support/cc-ldflags
             ''

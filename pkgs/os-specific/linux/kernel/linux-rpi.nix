@@ -69,9 +69,7 @@ lib.overrideDerivation
           hydraPlatforms = [ "aarch64-linux" ];
         }
       ;
-  } // (
-    args.argsOverride or { }
-  )
+  } // (args.argsOverride or { })
 ))
 (
   oldAttrs: {

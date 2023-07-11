@@ -33,9 +33,7 @@ let
         lib.extends
         (
           _: previousAttrs: {
-            passthru = (
-              previousAttrs.passthru or { }
-            ) // {
+            passthru = (previousAttrs.passthru or { }) // {
               overridePythonAttrs =
                 newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
             };
@@ -118,9 +116,7 @@ let
     drv.overrideAttrs (
       oldAttrs: {
         # Use passthru in order to prevent rebuilds when possible.
-        passthru = (
-          oldAttrs.passthru or { }
-        ) // {
+        passthru = (oldAttrs.passthru or { }) // {
           pythonModule = python;
           pythonPath = [ ]; # Deprecated, for compatibility.
           requiredPythonModules =
@@ -135,9 +131,7 @@ let
     drv:
     drv.overrideAttrs (
       oldAttrs: {
-        passthru = (
-          oldAttrs.passthru or { }
-        ) // {
+        passthru = (oldAttrs.passthru or { }) // {
           # Remove Python prefix from name so we have a "normal" name.
           # While the prefix shows up in the store path, it won't be
           # used by `nix-env`.

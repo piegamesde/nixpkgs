@@ -24,7 +24,8 @@ let
     ''
       + ''
         [chttpd]
-      '')
+      ''
+    )
     + ''
       port = ${toString cfg.port}
       bind_address = ${cfg.bindAddress}

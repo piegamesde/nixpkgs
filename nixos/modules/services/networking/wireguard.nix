@@ -554,7 +554,8 @@ let
         ${ipPreMove} link add dev "${name}" type wireguard
         ${optionalString
         (values.interfaceNamespace != null
-          && values.interfaceNamespace != values.socketNamespace)
+          && values.interfaceNamespace != values.socketNamespace
+        )
         ''${ipPreMove} link set "${name}" netns "${ns}"''}
         ${optionalString (values.mtu != null) ''
           ${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}

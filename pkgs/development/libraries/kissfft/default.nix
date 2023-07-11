@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     lib.optionalString
     (stdenv.hostPlatform.isLinux
       && stdenv.cc.isClang
-      && lib.versionOlder stdenv.cc.version "10")
+      && lib.versionOlder stdenv.cc.version "10"
+    )
     ''
       substituteInPlace test/Makefile \
         --replace "-ffast-math" ""

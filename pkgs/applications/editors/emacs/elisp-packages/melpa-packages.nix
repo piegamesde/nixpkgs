@@ -238,9 +238,7 @@ let
             '';
 
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + "\n"
               + ''
                 install -m=755 -D source/sqlite/emacsql-sqlite \
@@ -263,9 +261,7 @@ let
             '';
 
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + "\n"
               + ''
                 install -m=755 -D source/sqlite/emacsql-sqlite \
@@ -427,9 +423,7 @@ let
             '';
 
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + "\n"
               + ''
                 pushd source
@@ -456,9 +450,7 @@ let
             '';
 
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + "\n"
               + ''
                 pushd source
@@ -489,9 +481,7 @@ let
               popd
             '';
             postInstall =
-              (
-                attrs.postInstall or ""
-              )
+              (attrs.postInstall or "")
               + "\n"
               + ''
                 outd=$(echo $out/share/emacs/site-lisp/elpa/libgit-**)
@@ -598,9 +588,7 @@ let
           old: {
             buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.librime ];
             preBuild =
-              (
-                old.preBuild or ""
-              )
+              (old.preBuild or "")
               + ''
                 make lib
                 mkdir -p /build/rime-lib
@@ -608,9 +596,7 @@ let
               ''
               ;
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + ''
                 install -m444 -t $out/share/emacs/site-lisp/elpa/rime-* /build/rime-lib/*.so
               ''
@@ -650,9 +636,7 @@ let
             '';
 
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + "\n"
               + ''
                 mkdir -p $out/bin
@@ -692,9 +676,7 @@ let
               (pkgs.zeromq.override { enableDrafts = true; })
             ];
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + "\n"
               + ''
                 mv $EZMQ_LIBDIR/emacs-zmq.* $out/share/emacs/site-lisp/elpa/zmq-*
@@ -806,9 +788,7 @@ let
             # we need the proper out directory to exist, so we do this in the
             # postInstall instead of postBuild
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + "\n"
               + ''
                 pushd source/build >/dev/null

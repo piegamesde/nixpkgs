@@ -155,7 +155,9 @@ let
               versionAtLeast o.version "1.0-8.16"
               || (o.version == "dev"
                 && (versionAtLeast coq.coq-version "8.16"
-                  || coq.coq-version == "dev"))
+                  || coq.coq-version == "dev"
+                )
+              )
               ;
           in
           {

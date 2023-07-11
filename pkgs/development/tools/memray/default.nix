@@ -26,9 +26,7 @@ python3.pkgs.buildPythonApplication rec {
       libunwind
       lz4
     ]
-    ++ (
-      with python3.pkgs; [ cython ]
-    )
+    ++ (with python3.pkgs; [ cython ])
     ;
 
   propagatedBuildInputs = with python3.pkgs; [

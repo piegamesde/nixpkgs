@@ -237,7 +237,8 @@ in
     # enable systemd user tmpfiles
     systemd.user.services.systemd-tmpfiles-setup.wantedBy = optional
       (cfg.tmpfiles.rules != [ ]
-        || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users))
+        || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users)
+      )
       "basic.target";
 
     # /run/current-system/sw/etc/xdg is in systemd's $XDG_CONFIG_DIRS so we can

@@ -429,7 +429,8 @@ in
             assertion =
               instance.secrets.manual
               || (instance.secrets.jwtSecretFile != null
-                && instance.secrets.storageEncryptionKeyFile != null)
+                && instance.secrets.storageEncryptionKeyFile != null
+              )
               ;
             message = ''
               Authelia requires a JWT Secret and a Storage Encryption Key to work.

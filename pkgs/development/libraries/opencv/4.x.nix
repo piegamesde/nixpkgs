@@ -464,7 +464,8 @@ stdenv.mkDerivation {
           stdenv.cc.isClang
           ||
             # or through the backend stdenv.
-            (enableCuda && backendStdenv.cc.isClang))
+            (enableCuda && backendStdenv.cc.isClang)
+        )
       ))
     ]
     ++ lib.optionals enableCuda [
